@@ -7,7 +7,7 @@ namespace UniversalEditor.Accessors
 {
 	public class StringAccessor : Accessor
 	{
-		private char[] _data = new byte[0];
+		private char[] _data = new char[0];
 
 		private long ptr = 0;
 		public override long Length

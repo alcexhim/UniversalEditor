@@ -137,11 +137,11 @@ namespace UniversalEditor
 		private System.Collections.Specialized.StringCollection mvarSources = new System.Collections.Specialized.StringCollection();
 		public System.Collections.Specialized.StringCollection Sources { get { return mvarSources; } }
 
-		private CustomOption.ExportOptionCollection mvarImportOptions = new CustomOption.ExportOptionCollection();
-		public CustomOption.ExportOptionCollection ImportOptions { get { return mvarImportOptions; } }
+		private CustomOption.CustomOptionCollection mvarImportOptions = new CustomOption.CustomOptionCollection();
+		public CustomOption.CustomOptionCollection ImportOptions { get { return mvarImportOptions; } }
 
-		private CustomOption.ExportOptionCollection mvarExportOptions = new CustomOption.ExportOptionCollection();
-		public CustomOption.ExportOptionCollection ExportOptions { get { return mvarExportOptions; } }
+		private CustomOption.CustomOptionCollection mvarExportOptions = new CustomOption.CustomOptionCollection();
+		public CustomOption.CustomOptionCollection ExportOptions { get { return mvarExportOptions; } }
 
 		public virtual DataFormat Create()
 		{

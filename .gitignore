@@ -152,3 +152,5 @@ $RECYCLE.BIN/
 
 # Do not pull in UniversalEditor WinForms until we're ready
 CSharp/Applications/UniversalEditor.DesktopApplication.WindowsForms
+# Do not pull in output files (if you're gonna get the source, build it yourself)
+CSharp/Output
