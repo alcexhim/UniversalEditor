@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{15D19291-4200-4C30-A68A-0191B6F83BE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Core", "Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj", "{2D4737E6-6D95-408A-90DB-8DFF38147E85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{A935623A-E98E-43FF-BBE2-DAA61A587345}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.ConsoleApplication", "Applications\UniversalEditor.ConsoleApplication\UniversalEditor.ConsoleApplication.csproj", "{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85} = {15D19291-4200-4C30-A68A-0191B6F83BE1}
+		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10} = {A935623A-E98E-43FF-BBE2-DAA61A587345}
+	EndGlobalSection
+EndGlobal
