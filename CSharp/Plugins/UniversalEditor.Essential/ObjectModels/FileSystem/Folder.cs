@@ -7,7 +7,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
     public class Folder
     {
         public class FolderCollection
-            : NetFX.Collections.ObjectModel.Collection<Folder>
+            : System.Collections.ObjectModel.Collection<Folder>
         {
             public Folder Add(string Name)
             {
@@ -23,7 +23,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
                 {
                     for (int i = 0; i < Count; i++)
                     {
-                        if (this[i].Name.SafeEquals(Name)) return this[i];
+                        if (this[i].Name.Equals(Name)) return this[i];
                     }
                     return null;
                 }
@@ -33,7 +33,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
             {
                 for (int i = 0; i < Count; i++)
                 {
-                    if (this[i].Name.SafeEquals(Name)) return true;
+                    if (this[i].Name.Equals(Name)) return true;
                 }
                 return false;
 			}
@@ -42,7 +42,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
             {
                 for (int i = 0; i < Count; i++)
                 {
-                    if (this[i].Name.SafeEquals(Name))
+                    if (this[i].Name.Equals(Name))
                     {
                         Remove(this[i]);
                         return true;
