@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1C24F4F8-9D94-4783-B5C0-11564D70B76A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor</RootNamespace>
+    <AssemblyName>UniversalEditor.Plugins.Lighting</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Output\Release\Plugins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataFormats\Lighting\Fixture\Concertroid\FXT\FXTDataFormat.cs" />
+    <Compile Include="DataFormats\Lighting\Fixture\QLC\QLCFixtureXMLDataFormat.cs" />
+    <Compile Include="ObjectModels\Lighting\DMXConnectorType.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\Capability.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\Channel.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\FixtureObjectModel.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\FixtureTask.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\FixtureTaskChannel.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\Mode.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\ModeChannel.cs" />
+    <Compile Include="ObjectModels\Lighting\Script\Fixture.cs" />
+    <Compile Include="ObjectModels\Lighting\Script\ScriptObjectModel.cs" />
+    <Compile Include="ObjectModels\Lighting\Script\Track.cs" />
+    <Compile Include="ObjectModels\Lighting\Script\TrackEntry.cs" />
+    <Compile Include="ObjectModels\Lighting\Script\TrackEntryCommand.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{be4d0ba3-0888-42a5-9c09-fc308a4509d2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

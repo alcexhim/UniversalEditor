@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>UniversalEditor.Plugins.Multimedia</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace>UniversalEditor.Plugins.Multimedia</RootNamespace>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>UniversalEditor</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+    <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+    <OutputPath>..\..\Output\Release\Plugins\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Color.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\PSF\PSFDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\PSF\PSFPlatform.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Emulator.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700ExtendedID666Tag.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700ID666Tag.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Memory.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Registers.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryXMLDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACODataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\Adobe\ASEDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\GIMP\GPLDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\PaintShop\PaintShopPaletteDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\ARGB\ARGBDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Bitmap\BitmapBitsPerPixel.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Bitmap\BitmapCompression.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Bitmap\BitmapInfoHeader.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\ChaosWorks\CWESpriteDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\CompressedBG\CompressedBGDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\CompressedBG\Internal\NodeCBG.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GIM\GIMDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GIM\GIMImageFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GIM\GIMPaletteFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GIM\GIMPartType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GIM\GIMPixelOrder.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GIM\GIMSwizzleEncoder.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GraphicsInterchange\GraphicsInterchangeExtensionBlock.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\I16\I16DataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Icon\Microsoft\GroupICODataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\JPEG\JPEGMarker.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\LEAD\CMPDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\MicrosoftDDSDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\DirectDrawSurfaceDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfaceCaps1.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfaceCaps2.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfaceFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfaceHeaderFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfaceLoadInfo.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfacePixelFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfacePixelFormatFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DXTDecompression.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Paint\MSPDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGChunk.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\PortablePixelmap\PPMDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaExtensionArea.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaFirstPixelDestination.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaHorizontalTransferOrder.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaImageType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaRLEPacketType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaVerticalTransferOrder.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TrueVisionTGADataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Bitmap\BitmapDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\TMH\TMHDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\WaveletScalarQuantization\Internal\Constants.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\WaveletScalarQuantization\Internal\WsqHelper.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\WaveletScalarQuantization\WSQDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\WebP\WebPDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Subtitle\QuickSub\QuickSubTextDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Subtitle\SubRip\SubRipDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Subtitle\SubStationAlpha\SubStationAlphaDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\UVS\UVSColorspace.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\UVS\UVSDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\UVS\UVSFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\UVS\UVSLayoutID.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\AudioObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\AudioObjectModelDocumentProperties.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\AudioObjectModelInformation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Project\AudioProjectObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Soundfont\SoundfontObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioCommandNote.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioCommandRest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioCommandTempo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioCommandText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioCommandTimeSignature.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioPredefinedNote.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioStylePlugin.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioTrack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioVibratoType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\Phoneme.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeList.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\Voicebank\VoicebankObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Voicebank\VoicebankSample.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Voicebank\VoicebankSynthesisParameters.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioExtendedHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioKnownFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Palette\PaletteEntry.cs" />
+    <Compile Include="ObjectModels\Multimedia\Palette\PaletteObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\Picture\Collection\PictureCollectionObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\Picture\PictureObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Playlist\PlaylistAlbumInformation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Playlist\PlaylistEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Playlist\PlaylistObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Subtitle\Actor.cs" />
+    <Compile Include="ObjectModels\Multimedia\Subtitle\Event.cs" />
+    <Compile Include="ObjectModels\Multimedia\Subtitle\Style.cs" />
+    <Compile Include="ObjectModels\Multimedia\Subtitle\SubtitleObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\Video\AudioTrack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Video\VideoFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Video\VideoObjectModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\Multimedia\Video\VideoTrack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PositionVector2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Project\LMMS\LMMSCompressedDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Project\LMMS\LMMSProjectDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDICommand.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDICommandType.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDIDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MusicXML\MusicXMLDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\NIFF\NIFFDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700DataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\UTAU\USTDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\Vocaloid\VSQDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\Vocaloid\VSQXDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Voicebank\DirectWave\DirectWavePatchDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\AdvancedAudioCodec\AACDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\BRSTM\BRSTMDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\FLAC\Internal\FLACMetadataBlock.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\FLAC\Internal\FLACMetadataBlockHeader.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\FLAC\Internal\FLACMetadataBlockStreamInfo.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\FLAC\Internal\FLACMetadataBlockType.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\FLAC\FLACDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\MonkeyAudio\APEDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\MonkeyAudio\APLDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\MP3\MP3DataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\MP4\MP4DataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\OGG\OGGDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\RealAudio\RealAudioDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\REX2\REX2DataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\Shorten\ShortenDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\SunAu\SunAuDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\SunAu\SunAuEncoding.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\MicrosoftWave\MicrosoftWaveDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\WavPack\WavPackDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\BluRay\HDMVDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\BluRay\INDXDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\BluRay\MOBJDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\CURDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\GraphicsInterchange\GraphicsInterchangeDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Icon\Microsoft\ICODataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\JPEG\JPEGDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\CDDA\CDDADataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\ASXDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\HTMLPlaylistDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\M3UDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\NotepadPlusPlaylistDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\PLSDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\SMILDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Playlist\XSPFDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\AVI\AVIDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\RAD\Bink\BinkDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\RAD\Smacker\SmackerDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\ROQ\ROQChunk.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\ROQ\ROQDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Video\THP\THPDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\BluRay\MPLSDataFormat.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{A92D520B-FFA3-4464-8CF6-474D18959E03}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataFormats\Multimedia\Audio\Synthesized\ExtendedMIDI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
