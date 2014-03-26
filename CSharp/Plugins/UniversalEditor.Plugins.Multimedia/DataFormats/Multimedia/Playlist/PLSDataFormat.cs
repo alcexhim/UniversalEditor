@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using UniversalEditor.DataFormats.PropertyList.Microsoft;
+using UniversalEditor.DataFormats.PropertyList;
 using UniversalEditor.ObjectModels.Multimedia.Playlist;
 using UniversalEditor.ObjectModels.PropertyList;
 
@@ -23,8 +23,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		
 		public PLSDataFormat()
 		{
-			base.Settings.PropertyValuePrefix = String.Empty;
-			base.Settings.PropertyValueSuffix = String.Empty;
+			PropertyValuePrefix = String.Empty;
+			PropertyValueSuffix = String.Empty;
 		}
 
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)

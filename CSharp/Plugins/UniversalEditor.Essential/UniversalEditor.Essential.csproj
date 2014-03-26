@@ -35,11 +35,39 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Generic\AutoDictionary.cs" />
+    <Compile Include="Collections\Generic\BidirectionalDictionary.cs" />
+    <Compile Include="Collections\Generic\KeyValuePairList.cs" />
+    <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
+    <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
+    <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />
+    <Compile Include="DataFormats\Markup\XML\XMLDataFormatSettings.cs" />
+    <Compile Include="DataFormats\PropertyList\WindowsConfigurationDataFormat.cs" />
+    <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFDataChunk.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFGroupChunk.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ObjectModels\FileSystem\CompressedFile.cs" />
     <Compile Include="ObjectModels\FileSystem\DataRequestEvent.cs" />
     <Compile Include="ObjectModels\FileSystem\File.cs" />
     <Compile Include="ObjectModels\FileSystem\FileSystemObjectModel.cs" />
     <Compile Include="ObjectModels\FileSystem\Folder.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupAttribute.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupCommentElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupContainerElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupLiteralElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupObjectModel.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupPreprocessorElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupStringElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupTagElement.cs" />
+    <Compile Include="ObjectModels\PropertyList\Group.cs" />
+    <Compile Include="ObjectModels\PropertyList\Property.cs" />
+    <Compile Include="ObjectModels\PropertyList\PropertyListObjectModel.cs" />
+    <Compile Include="ObjectModels\PropertyList\PropertyValueType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

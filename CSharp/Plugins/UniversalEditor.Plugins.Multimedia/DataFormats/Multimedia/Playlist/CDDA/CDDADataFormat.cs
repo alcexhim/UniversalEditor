@@ -28,8 +28,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 			PlaylistObjectModel pom = objectModels.Pop() as PlaylistObjectModel;
 			RIFFDataChunk fmtChunk = new RIFFDataChunk();
 			fmtChunk.ID = "fmt ";
-			MemoryStream ms = new MemoryStream();
-			UniversalEditor.IO.BinaryWriter bw = new UniversalEditor.IO.BinaryWriter(ms);
+            Accessors.MemoryAccessor ms = new Accessors.MemoryAccessor();
+			IO.Writer bw = new IO.Writer(ms);
 			ushort CDAFileVersion = 1;
 			ushort CDATrackNumber = 1;
 			uint CDADiscSerialNumber = 0u;
@@ -47,26 +47,27 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 			{
 				PlaylistEntry entry = pom.Entries[0];
 			}
-			bw.Write(CDAFileVersion);
-			bw.Write(CDATrackNumber);
-			bw.Write(CDADiscSerialNumber);
-			bw.Write(CDATrackStartHSG);
-			bw.Write(CDATrackLengthHSG);
-			bw.Write(new byte[]
+			bw.WriteUInt16(CDAFileVersion);
+			bw.WriteUInt16(CDATrackNumber);
+			bw.WriteUInt32(CDADiscSerialNumber);
+			bw.WriteUInt32(CDATrackStartHSG);
+			bw.WriteUInt32(CDATrackLengthHSG);
+			bw.WriteBytes(new byte[]
 			{
 				CDATrackStartRBFFrame, 
 				CDATrackStartRBFSecond, 
 				CDATrackStartRBFMinute, 
 				CDATrackStartRBFUnused
 			});
-			bw.Write(new byte[]
+			bw.WriteBytes(new byte[]
 			{
 				CDATrackLengthRBFFrame, 
 				CDATrackLengthRBFSecond, 
 				CDATrackLengthRBFMinute, 
 				CDATrackLengthRBFUnused
 			});
-			ms.Flush();
+            ms.Close();
+
 			fmtChunk.Data = ms.ToArray();
 			rom.Chunks.Add(fmtChunk);
 			objectModels.Push(rom);
@@ -80,7 +81,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 			ChunkedObjectModel rom = objectModels.Pop() as ChunkedObjectModel;
 			PlaylistObjectModel pom = objectModels.Pop() as PlaylistObjectModel;
 			RIFFDataChunk fmtChunk = (rom.Chunks["fmt "] as RIFFDataChunk);
-			UniversalEditor.IO.BinaryReader br = new UniversalEditor.IO.BinaryReader(fmtChunk.Data);
+			IO.Reader br = new IO.Reader(new Accessors.MemoryAccessor(fmtChunk.Data));
 			ushort CDAFileVersion = br.ReadUInt16();
 			ushort CDATrackNumber = br.ReadUInt16();
 			uint CDADiscSerialNumber = br.ReadUInt32();

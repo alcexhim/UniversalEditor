@@ -299,6 +299,10 @@
       <Project>{A92D520B-FFA3-4464-8CF6-474D18959E03}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

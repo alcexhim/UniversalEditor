@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using UniversalEditor.ObjectModels.PropertyList;
-using UniversalEditor.DataFormats.PropertyList.Microsoft;
+using UniversalEditor.DataFormats.PropertyList;
 
 using UniversalEditor.ObjectModels.Multimedia.Subtitle;
 
@@ -14,9 +14,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
     {
         public SubStationAlphaDataFormat()
         {
-            Settings.PropertyNameValueSeparator = ": ";
-            Settings.PropertyValuePrefix = String.Empty;
-            Settings.PropertyValueSuffix = String.Empty;
+            PropertyNameValueSeparator = ": ";
+            PropertyValuePrefix = String.Empty;
+            PropertyValueSuffix = String.Empty;
         }
 
         private static DataFormatReference _dfr = null;

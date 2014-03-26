@@ -32,6 +32,32 @@ namespace UniversalEditor.IO
 			set { mvarEndianness = value; }
 		}
 
+        private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
+        public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
+        public string GetNewLineSequence()
+        {
+            string newline = System.Environment.NewLine;
+            switch (mvarNewLineSequence)
+            {
+                case IO.NewLineSequence.CarriageReturn:
+                {
+                    newline = "\r";
+                    break;
+                }
+                case IO.NewLineSequence.LineFeed:
+                {
+                    newline = "\n";
+                    break;
+                }
+                case IO.NewLineSequence.CarriageReturnLineFeed:
+                {
+                    newline = "\r\n";
+                    break;
+                }
+            }
+            return newline;
+        }
+
         public void SwapEndianness()
         {
             if (mvarEndianness == IO.Endianness.LittleEndian)
@@ -74,6 +100,27 @@ namespace UniversalEditor.IO
         {
             byte[] data = encoding.GetBytes(new char[] { value });
             WriteBytes(data);
+        }
+
+        public void Write(char value)
+        {
+            Write(value.ToString());
+        }
+        public void Write(string value)
+        {
+            WriteFixedLengthString(value);
+        }
+        public void WriteLine()
+        {
+            WriteLine(String.Empty);
+        }
+        public void WriteLine(char value)
+        {
+            WriteLine(value.ToString());
+        }
+        public void WriteLine(string value)
+        {
+            WriteFixedLengthString(value + GetNewLineSequence());
         }
 
         public void WriteGuid(Guid guid)
@@ -619,6 +666,11 @@ namespace UniversalEditor.IO
         {
             WriteInt64(value.Length);
             WriteFixedLengthString(value);
+        }
+
+        public void Flush()
+        {
+            mvarAccessor.FlushInternal();
         }
     }
 }

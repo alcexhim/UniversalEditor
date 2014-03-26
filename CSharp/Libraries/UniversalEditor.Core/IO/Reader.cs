@@ -26,16 +26,44 @@ namespace UniversalEditor.IO
 	public class Reader
 	{
         private Accessor mvarAccessor = null;
-		private Endianness mvarEndianness = Endianness.LittleEndian;
-		private int mvarPosition = 0;
-		private bool mvarReverse = false;
+
+        private Endianness mvarEndianness = Endianness.LittleEndian;
+        public Endianness Endianness { get { return mvarEndianness; } set { mvarEndianness = value; } }
+
+        private bool mvarReverse = false;
+        public bool Reverse { get { return mvarReverse; } }
+
+        private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
+        public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
+        public string GetNewLineSequence()
+        {
+            string newline = System.Environment.NewLine;
+            switch (mvarNewLineSequence)
+            {
+                case IO.NewLineSequence.CarriageReturn:
+                {
+                    newline = "\r";
+                    break;
+                }
+                case IO.NewLineSequence.LineFeed:
+                {
+                    newline = "\n";
+                    break;
+                }
+                case IO.NewLineSequence.CarriageReturnLineFeed:
+                {
+                    newline = "\r\n";
+                    break;
+                }
+            }
+            return newline;
+        }
 
 		public Reader(Accessor input)
 		{
             this.mvarAccessor = input;
 			this.mvarEndianness = Endianness.LittleEndian;
 			this.mvarReverse = false;
-			this.mvarPosition = 0;
 		}
 
         public void Read(byte[] buffer, int start, int length)
@@ -657,7 +685,7 @@ namespace UniversalEditor.IO
 			}
 			return w;
 		}
-		public byte[] ReadUntil(string sequence)
+		public string ReadUntil(string sequence)
 		{
 			return ReadUntil(sequence, mvarAccessor.DefaultEncoding);
 		}
@@ -665,9 +693,9 @@ namespace UniversalEditor.IO
 		{
 			return ReadUntil(sequence, mvarAccessor.DefaultEncoding, includeSequence);
 		}
-		public byte[] ReadUntil(string sequence, Encoding encoding)
+		public string ReadUntil(string sequence, Encoding encoding)
 		{
-			return ReadUntil(sequence.ToCharArray(), encoding);
+			return encoding.GetString(ReadUntil(sequence.ToCharArray(), encoding));
 		}
 		public byte[] ReadUntil(string sequence, Encoding encoding, bool includeSequence)
 		{
@@ -727,26 +755,6 @@ namespace UniversalEditor.IO
 			while (PeekByte() == 0)
 			{
 				ReadChar();
-			}
-		}
-
-		public Endianness Endianness
-		{
-			get
-			{
-				return this.mvarEndianness;
-			}
-			set
-			{
-				this.mvarEndianness = value;
-			}
-		}
-
-		public bool Reverse
-		{
-			get
-			{
-				return this.mvarReverse;
 			}
 		}
 
@@ -1228,6 +1236,90 @@ namespace UniversalEditor.IO
             long length = ReadInt64();
             string value = ReadFixedLengthString(length);
             return value;
+        }
+
+        public string ReadUntil(string[] until)
+        {
+            return ReadUntil(until, null, null);
+        }
+        public string ReadUntil(string until, string ignoreBegin, string ignoreEnd)
+        {
+            return ReadUntil(new string[] { until }, ignoreBegin, ignoreEnd);
+        }
+        public string ReadUntil(string[] until, string ignoreBegin, string ignoreEnd)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            while (!EndOfStream)
+            {
+                sb.Append(ReadChar());
+
+                foreach (string s in until)
+                {
+                    if (sb.ToString().EndsWith(s))
+                    {
+                        string w = sb.ToString();
+                        return w.Substring(0, w.Length - 1);
+                    }
+                }
+
+                /*
+				char[] buffer = new char[until.Length * 2];
+				ReadBlock(buffer, 0, until.Length * 2);
+
+				string w = new string(buffer);
+                if (w.Contains(until))
+                {
+					string ww = w.Substring(0, w.IndexOf(until));
+					sb.Append(ww);
+
+                    // back up the stream reader
+                    int indexOfUntil = (w.IndexOf(until) + until.Length);
+                    int lengthToBackUp = w.Length - indexOfUntil;
+                    BaseStream.Seek(-1 * lengthToBackUp, System.IO.SeekOrigin.Current);
+                    break;
+                }
+				sb.Append(w);
+                */
+            }
+            return sb.ToString();
+        }
+
+        public string ReadBetween(string start, string end, bool discard)
+        {
+            string nextstr = String.Empty;
+            bool inside = false;
+            // 0000000-3842-17774-}ehaomfd
+            while (!EndOfStream)
+            {
+                nextstr += ReadChar();
+                if (!inside)
+                {
+                    if (nextstr.EndsWith(start))
+                    {
+                        inside = true;
+                        nextstr = String.Empty;
+                        if (!discard) nextstr += start;
+                    }
+                }
+                else
+                {
+                    if (nextstr.EndsWith(end))
+                    {
+                        if (discard)
+                        {
+                            nextstr = nextstr.Substring(0, nextstr.Length - end.Length);
+                        }
+                        return nextstr;
+                    }
+                }
+            }
+            return String.Empty;
+        }
+
+        public string ReadLine()
+        {
+            return ReadUntil(GetNewLineSequence());
         }
     }
 }

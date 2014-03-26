@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 
 using UniversalEditor;
-using UniversalEditor.DataFormats.PropertyList.Microsoft;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
+
 using UniversalEditor.ObjectModels.PropertyList;
+using UniversalEditor.DataFormats.PropertyList;
 
 using UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankPhonemeDictionary;
 using UniversalEditor.DataFormats.Multimedia.Audio.VoicebankPhonemeDictionary;
-using UniversalEditor.Accessors.File;
+
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 {
@@ -55,7 +57,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal(objectModels);
-			base.Stream.Encoding = System.Text.Encoding.GetEncoding("shift-jis");
+            
+            // base.Accessor.DefaultEncoding = IO.Encoding.GetRuntimeEncoding(System.Text.Encoding.GetEncoding("shift-jis"));
+            throw new NotImplementedException();
+
 			objectModels.Push(new PropertyListObjectModel());
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)

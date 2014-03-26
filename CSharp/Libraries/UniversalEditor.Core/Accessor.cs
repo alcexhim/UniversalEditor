@@ -31,6 +31,10 @@ namespace UniversalEditor
         internal abstract int ReadInternal(byte[] buffer, int start, int count);
         internal abstract int WriteInternal(byte[] buffer, int start, int count);
 
+        internal virtual void FlushInternal()
+        {
+        }
+
         private bool mvarIsOpen = false;
         public bool IsOpen { get { return mvarIsOpen; } protected set { mvarIsOpen = value; } }
 

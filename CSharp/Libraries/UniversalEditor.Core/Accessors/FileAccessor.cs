@@ -47,6 +47,11 @@ namespace UniversalEditor.Accessors
             return count;
         }
 
+        internal override void FlushInternal()
+        {
+            mvarFileStream.Flush();
+        }
+
         private System.IO.FileStream mvarFileStream = null;
 
         private bool mvarAllowWrite = false;

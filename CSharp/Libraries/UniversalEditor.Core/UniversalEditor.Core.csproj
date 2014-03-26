@@ -55,6 +55,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="InvalidDataFormatException.cs" />
     <Compile Include="IO\Encoding.cs" />
+    <Compile Include="IO\NewLineSequence.cs" />
     <Compile Include="IO\Reader.cs" />
     <Compile Include="IO\Writer.cs" />
     <Compile Include="IO\Endianness.cs" />
