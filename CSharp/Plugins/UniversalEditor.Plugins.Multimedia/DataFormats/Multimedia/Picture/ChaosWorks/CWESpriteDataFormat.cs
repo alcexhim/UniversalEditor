@@ -24,8 +24,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ChaosWorks
         {
             PictureObjectModel pic = (objectModel as PictureObjectModel);
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
-            br.BaseStream.Position = 0;
+            IO.Reader br = base.Accessor.Reader;
+            br.Accessor.Position = 0;
 
             string CWE_sprite = br.ReadNullTerminatedString();
             if (CWE_sprite != "CWE sprite") throw new InvalidDataFormatException();
@@ -37,7 +37,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ChaosWorks
             pic.Width = br.ReadByte();
             pic.Height = br.ReadByte();
 
-            br.BaseStream.Position = 512;
+            br.Accessor.Position = 512;
             for (int x = 0; x < pic.Width; x++)
             {
                 for (int y = 0; y <  pic.Height; y++)

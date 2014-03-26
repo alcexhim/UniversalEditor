@@ -62,7 +62,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			return num;
 		}
 
-		private HuffmanTable getCHuffmanTable(IO.BinaryReader br, int maxHuffcounts, int bytesLeft, bool readTableLen)
+		private HuffmanTable getCHuffmanTable(IO.Reader br, int maxHuffcounts, int bytesLeft, bool readTableLen)
 		{
 
 			HuffmanTable huffmanTable = new HuffmanTable();
@@ -902,7 +902,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 		
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 			if (pic == null) return;
 
@@ -1022,7 +1022,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			}
 		}
 
-		private void ProcessTable(IO.BinaryReader br, int marker)
+		private void ProcessTable(IO.Reader br, int marker)
 		{
 			switch (marker)
 			{
@@ -1052,12 +1052,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 				}
 			}
 		}
-		private void ProcessComment(IO.BinaryReader br)
+		private void ProcessComment(IO.Reader br)
 		{
 			int size = br.ReadInt16() - 2;
 			string commentValue = br.ReadFixedLengthString(size);
 		}
-		private void ProcessHuffmanTable(IO.BinaryReader br)
+		private void ProcessHuffmanTable(IO.Reader br)
 		{
 			// First time, read table length
 			HuffmanTable firstHuffmanTable = getCHuffmanTable(br, Internal.Constants.MAX_HUFFCOUNTS_WSQ, 0, true);
@@ -1088,7 +1088,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 				bytesLeft = huffmantable.bytesLeft;
 			}
 		}
-		private void ProcessQuantizationTable(IO.BinaryReader br)
+		private void ProcessQuantizationTable(IO.Reader br)
 		{
 			br.ReadInt16(); /* header size */
 			int scale = br.ReadByte(); /* scaling parameter */
@@ -1124,7 +1124,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 
 			WSQData.tableDQT.dqtDef = 1;
 		}
-		private void ProcessTransformTable(IO.BinaryReader br)
+		private void ProcessTransformTable(IO.Reader br)
 		{
 			short temp = br.ReadInt16();
 
@@ -1321,7 +1321,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			qtree16(35, WSQData.wtree[5].lenx, WSQData.wtree[5].leny, WSQData.wtree[5].x, WSQData.wtree[5].y, 1, 0);
 			qtree4(0, WSQData.wtree[19].lenx, WSQData.wtree[19].leny, WSQData.wtree[19].x, WSQData.wtree[19].y);
 		}
-		private int AssertNextMarker(IO.BinaryReader br, ushort ExpectedMarker)
+		private int AssertNextMarker(IO.Reader br, ushort ExpectedMarker)
 		{
 			ushort nextMarker = br.ReadUInt16();
 			switch (ExpectedMarker)
@@ -1375,7 +1375,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			throw new SystemException("ERROR : AssertNextMarker : Invalid marker : " + nextMarker);
 		}
 
-		private int getCNextbitsWSQ(IO.BinaryReader br, ref int marker, ref int bitCount, int bitsReq, ref int nextByte)
+		private int getCNextbitsWSQ(IO.Reader br, ref int marker, ref int bitCount, int bitsReq, ref int nextByte)
 		{
 			if (bitCount == 0)
 			{
@@ -1527,7 +1527,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			}
 		}
 
-		private int DecodeHuffmanDataMemory(IO.BinaryReader br, int[] mincode, int[] maxcode, int[] valptr, int[] huffvalues, ref int bitCount, ref int marker, ref int nextByte)
+		private int DecodeHuffmanDataMemory(IO.Reader br, int[] mincode, int[] maxcode, int[] valptr, int[] huffvalues, ref int bitCount, ref int marker, ref int nextByte)
 		{
 			short code = (short)getCNextbitsWSQ(br, ref marker, ref bitCount, 1, ref nextByte); // becomes a huffman code word  (one bit at a time)
 			if (marker != 0) return -1;
@@ -1570,7 +1570,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 
 			return huffcodeTable;
 		}
-		private int[] DecodeHuffmanTable(IO.BinaryReader br, int size)
+		private int[] DecodeHuffmanTable(IO.Reader br, int size)
 		{
 			int[] qdata = new int[size];
 

@@ -16,7 +16,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Text-based property list", new byte?[][] { new byte?[] { (byte)'#', (byte)'T', (byte)'P', (byte)'L', (byte)'-', (byte)'1', (byte)'.', (byte)'0' } }, new string[] { "*.tpl" });
-				_dfr.ExportOptions.Add(new ExportOptionText("Title", "&Title: ", "Text Property List"));
+				_dfr.ExportOptions.Add(new CustomOptionText("Title", "&Title: ", "Text Property List"));
 			}
 			return _dfr;
 		}
@@ -29,7 +29,8 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 			PropertyListObjectModel plom = (objectModel as PropertyListObjectModel);
 			if (plom == null) throw new ObjectModelNotSupportedException();
 
-			IO.TextReader tr = new IO.TextReader(base.Stream.BaseStream, Encoding.UTF8);
+			base.Accessor.DefaultEncoding = IO.Encoding.UTF8;
+			IO.Reader tr = new IO.Reader(base.Accessor);
 			string signature = tr.ReadLine();
 			if (!signature.StartsWith("#TPL-1.0")) throw new InvalidDataFormatException();
 
@@ -114,7 +115,8 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 			PropertyListObjectModel plom = (objectModel as PropertyListObjectModel);
 			if (plom == null) throw new ObjectModelNotSupportedException();
 
-			IO.TextWriter tw = new IO.TextWriter(base.Stream.BaseStream, Encoding.UTF8);
+			base.Accessor.DefaultEncoding = UniversalEditor.IO.Encoding.UTF8;
+			IO.Writer tw = new IO.Writer(base.Accessor);
 			tw.WriteLine("#TPL-1.0 " + plom.Title);
 
 			foreach (Group group in plom.Groups)
@@ -129,7 +131,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 			tw.Flush();
 		}
 
-		private void WriteGroup(IO.TextWriter tw, Group group, int indent = 0)
+		private void WriteGroup(IO.Writer tw, Group group, int indent = 0)
 		{
 			string indentStr = new string('\t', indent);
 			tw.WriteLine(indentStr + "Begin " + group.Name);
@@ -144,7 +146,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 			tw.WriteLine(indentStr + "End " + group.Name);
 		}
 
-		private void WriteProperty(IO.TextWriter tw, Property property, int indent = 0)
+		private void WriteProperty(IO.Writer tw, Property property, int indent = 0)
 		{
 			string indentStr = new string('\t', indent);
 			tw.WriteLine(indentStr + property.Name + "\t" + property.Value);

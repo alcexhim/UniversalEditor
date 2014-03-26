@@ -14,7 +14,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			TextReader tr = base.Stream.TextReader;
+			Reader tr = base.Accessor.Reader;
 			if (tr.EndOfStream || tr.ReadLine() != "#EXTM3U")
 			{
 				throw new InvalidDataFormatException("File does not begin with \"#EXTM3U\"");
@@ -88,7 +88,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			TextWriter tw = base.Stream.TextWriter;
+			Writer tw = base.Accessor.Writer;
 			tw.WriteLine("#EXTM3U");
 			PlaylistObjectModel objm = (objectModel as PlaylistObjectModel);
 			foreach (PlaylistEntry entry in objm.Entries)

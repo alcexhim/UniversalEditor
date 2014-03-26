@@ -62,7 +62,7 @@ namespace UniversalEditor.Accessors
 
         private string mvarFileName = String.Empty;
 
-        public FileAccessor(string FileName, bool AllowWrite, bool ForceOverwrite, bool AutoOpen = true)
+        public FileAccessor(string FileName, bool AllowWrite = false, bool ForceOverwrite = false, bool AutoOpen = true)
         {
             mvarFileName = FileName;
             mvarAllowWrite = AllowWrite;

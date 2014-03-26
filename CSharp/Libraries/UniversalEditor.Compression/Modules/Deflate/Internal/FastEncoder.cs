@@ -5,7 +5,7 @@ using System.IO;
 
 using UniversalEditor.Compression.Common;
 
-namespace UniversalEditor.Compression.Deflate.Internal
+namespace UniversalEditor.Compression.Modules.Deflate.Internal
 {
 	internal class FastEncoder
 	{

@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.PSF
 			SynthesizedAudioObjectModel audio = (objectModel as SynthesizedAudioObjectModel);
 			if (audio == null) throw new ObjectModelNotSupportedException();
 
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(3);
 			if (signature != "PSF") throw new InvalidDataFormatException("File does not begin with \"PSF\"");
 			mvarPlatform = (PSFPlatform)br.ReadByte();
@@ -67,9 +67,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.PSF
 			SynthesizedAudioObjectModel audio = (objectModel as SynthesizedAudioObjectModel);
 			if (audio == null) throw new ObjectModelNotSupportedException();
 
-			IO.BinaryWriter bw = base.Stream.BinaryWriter;
+			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("PSF");
-			bw.Write((byte)mvarPlatform);
+			bw.WriteByte((byte)mvarPlatform);
 		}
 	}
 }

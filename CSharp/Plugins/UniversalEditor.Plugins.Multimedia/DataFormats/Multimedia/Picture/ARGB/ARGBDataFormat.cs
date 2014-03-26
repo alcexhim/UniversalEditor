@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 			if (pic == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             string signature = br.ReadFixedLengthString(4);
             if (signature != "BGRA") throw new InvalidDataFormatException("File does not begin with \"BGRA\"");
 
@@ -56,23 +56,23 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 			if (pic == null) return;
 
-			IO.BinaryWriter bw = base.Stream.BinaryWriter;
+			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("BGRA");
 
 			int unknown = 0;
-			bw.Write(unknown);
-			bw.Write(pic.Width);
-			bw.Write(pic.Height);
+			bw.WriteInt32(unknown);
+			bw.WriteInt32(pic.Width);
+			bw.WriteInt32(pic.Height);
 
 			for (int x = 0; x < pic.Width; x++)
 			{
 				for (int y = 0; y < pic.Height; y++)
 				{
 					Color color = pic.GetPixel(x, y);
-					bw.Write((byte)(color.Alpha * 255));
-					bw.Write((byte)(color.Red * 255));
-					bw.Write((byte)(color.Green * 255));
-					bw.Write((byte)(color.Blue * 255));
+					bw.WriteByte((byte)(color.Alpha * 255));
+					bw.WriteByte((byte)(color.Red * 255));
+					bw.WriteByte((byte)(color.Green * 255));
+					bw.WriteByte((byte)(color.Blue * 255));
 				}
 			}
         }

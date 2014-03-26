@@ -14,7 +14,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.THP
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(4);
 			uint version = br.ReadUInt32();
 			uint maxBufferSize = br.ReadUInt32();
@@ -27,7 +27,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.THP
 			uint offsetsDataOffset = br.ReadUInt32();
 			uint firstFrameOffset = br.ReadUInt32();
 			uint lastFrameOffset = br.ReadUInt32();
-			br.BaseStream.Seek((long)((ulong)componentDataOffset), System.IO.SeekOrigin.Begin);
+			br.Accessor.Seek((long)((ulong)componentDataOffset), SeekOrigin.Begin);
 			uint numComponents = br.ReadUInt32();
 			byte[] componentTypes = new byte[(int)((UIntPtr)numComponents)];
 			for (uint i = 0u; i < numComponents; i += 1u)
@@ -55,7 +55,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.THP
 					}
 				}
 			}
-			br.BaseStream.Seek((long)((ulong)firstFrameOffset), System.IO.SeekOrigin.Begin);
+			br.Accessor.Seek((long)((ulong)firstFrameOffset), SeekOrigin.Begin);
 			uint nextTotalSize = br.ReadUInt32();
 			uint prevTotalSize = br.ReadUInt32();
 			uint imageSize = br.ReadUInt32();

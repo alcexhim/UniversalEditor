@@ -12,10 +12,10 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
             get { return "XMEMLZX"; }
         }
 
-        public override void Compress(System.IO.Stream inputStream, System.IO.Stream outputStream)
+		protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
         {
         }
-        public override void Decompress(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
+		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
         {
 
         }

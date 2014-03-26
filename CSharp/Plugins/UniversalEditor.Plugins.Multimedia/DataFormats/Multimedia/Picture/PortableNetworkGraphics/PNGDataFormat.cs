@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using UniversalEditor.Accessors;
+using UniversalEditor.Compression;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
@@ -19,7 +20,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             PictureObjectModel pic = (objectModel as PictureObjectModel);
 
             byte[] signature = br.ReadBytes(8);
@@ -36,7 +37,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
                 chunks.Add(chunkType, chunkData);
             }
 
-            IO.BinaryReader brIHDR = new IO.BinaryReader(chunks["IHDR"].Data);
+            IO.Reader brIHDR = new IO.Reader(new MemoryAccessor(chunks["IHDR"].Data));
             brIHDR.Endianness = IO.Endianness.BigEndian;
             pic.Width = brIHDR.ReadInt32();
             pic.Height = brIHDR.ReadInt32();
@@ -52,7 +53,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
             {
                 case 0: // DEFLATE compression
                 {
-                    byte[] uncompressedImageData = Compression.CompressionStream.Decompress(Compression.CompressionMethod.Zlib, imageData);
+                    byte[] uncompressedImageData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib).Decompress(imageData);
 
                     for (int x = 0; x < pic.Width; x++)
                     {
@@ -74,11 +75,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 
         protected override void SaveInternal(ObjectModel objectModel)
         {
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
+            IO.Writer bw = base.Accessor.Writer;
             PictureObjectModel pic = (objectModel as PictureObjectModel);
 
             byte[] signature = new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
-            bw.Write(signature);
+            bw.WriteBytes(signature);
 
             bw.Flush();
         }

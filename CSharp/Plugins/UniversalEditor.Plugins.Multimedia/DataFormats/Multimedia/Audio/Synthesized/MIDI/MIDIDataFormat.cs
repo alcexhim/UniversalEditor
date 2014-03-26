@@ -15,7 +15,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			br.Endianness = Endianness.BigEndian;
 			SynthesizedAudioObjectModel syn = objectModel as SynthesizedAudioObjectModel;
 			string MThd = br.ReadFixedLengthString(4);
@@ -28,8 +28,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 				string MTrk = br.ReadFixedLengthString(4);
 				int trackLength = br.ReadInt32();
 				SynthesizedAudioTrack track = new SynthesizedAudioTrack();
-				long position = br.BaseStream.Position;
-                while (br.BaseStream.Position - position < (long)trackLength)
+				long position = br.Accessor.Position;
+				while (br.Accessor.Position - position < (long)trackLength)
                 {
                     try
                     {
@@ -44,32 +44,32 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
                                 switch (b)
                                 {
                                     case 1:
-                                        {
-                                            byte length = br.ReadByte();
-                                            string text = br.ReadFixedLengthString(length);
-                                            track.Commands.Add(new SynthesizedAudioCommandText(text));
-                                            break;
-                                        }
+                                    {
+                                        byte length = br.ReadByte();
+                                        string text = br.ReadFixedLengthString(length);
+                                        track.Commands.Add(new SynthesizedAudioCommandText(text));
+                                        break;
+                                    }
                                     case 2:
-                                        {
-                                            break;
-                                        }
+                                    {
+                                        break;
+                                    }
                                     case 3:
-                                        {
-                                            byte length = br.ReadByte();
-                                            string text = br.ReadFixedLengthString(length);
-                                            track.Name = text;
-                                            break;
-                                        }
+                                    {
+                                        byte length = br.ReadByte();
+                                        string text = br.ReadFixedLengthString(length);
+                                        track.Name = text;
+                                        break;
+                                    }
                                     default:
+                                    {
+                                        if (b == 47)
                                         {
-                                            if (b == 47)
-                                            {
-                                                byte endOfTrackMarker = br.ReadByte();
-                                                syn.Tracks.Add(track);
-                                            }
-                                            break;
+                                            byte endOfTrackMarker = br.ReadByte();
+                                            syn.Tracks.Add(track);
                                         }
+                                        break;
+                                    }
                                 }
                             }
                             else
@@ -149,9 +149,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 		}
         */
 
-		[ImplementationStatus(ImplementationStatus.NotImplemented)]
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
+			throw new NotImplementedException();
 		}
 	}
 }

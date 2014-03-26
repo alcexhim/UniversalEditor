@@ -16,7 +16,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MP3
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			WaveformAudioObjectModel wave = objectModel as WaveformAudioObjectModel;
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			string ID3 = br.ReadFixedLengthString(3);
 			if (ID3 == "ID3")
 			{
@@ -24,13 +24,13 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MP3
 			}
 			else
 			{
-				br.BaseStream.Seek(-3L, System.IO.SeekOrigin.Current);
+				br.Accessor.Seek(-3L, SeekOrigin.Current);
 			}
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			WaveformAudioObjectModel wave = objectModel as WaveformAudioObjectModel;
-			BinaryWriter bw = base.Stream.BinaryWriter;
+			Writer bw = base.Accessor.Writer;
 			if (wave.Information.CustomProperties.Count > 0)
 			{
 				bw.WriteFixedLengthString("ID3");

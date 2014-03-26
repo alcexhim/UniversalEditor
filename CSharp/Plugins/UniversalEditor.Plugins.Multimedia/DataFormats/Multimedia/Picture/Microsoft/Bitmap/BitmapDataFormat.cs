@@ -49,7 +49,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 			if (pic == null) throw new ObjectModelNotSupportedException();
 
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			
 			string signature = br.ReadFixedLengthString(2);
 			switch (signature)
@@ -102,7 +102,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			if (mvarPixelDepth == BitmapBitsPerPixel.TrueColor)
 			{
 			}
-			br.BaseStream.Position = offset;
+			br.Accessor.Position = offset;
 
 			// starts from bottom-left corner, goes BGR
 			for (int y = header.Height - 1; y >= 0; y--)
@@ -190,21 +190,21 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			IO.BinaryWriter bw = base.Stream.BinaryWriter;
+			IO.Writer bw = base.Accessor.Writer;
 
 			string signature = "BM";
 			bw.WriteFixedLengthString(signature);
 
 			int fileSize = 54 + (pic.Width * pic.Height * 4);
-			bw.Write(fileSize);
+			bw.WriteInt32(fileSize);
 
 			short reserved1 = 0;
 			short reserved2 = 0;
-			bw.Write(reserved1);
-			bw.Write(reserved2);
+			bw.WriteInt16(reserved1);
+			bw.WriteInt16(reserved2);
 
 			int offset = 54;
-			bw.Write(offset);
+			bw.WriteInt32(offset);
 
 			BitmapInfoHeader header = new BitmapInfoHeader();
 			header.Width = pic.Width;
@@ -248,9 +248,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 					{
 						case BitmapBitsPerPixel.TrueColor:
 						{
-							bw.Write(b);
-							bw.Write(g);
-							bw.Write(r);
+							bw.WriteByte(b);
+							bw.WriteByte(g);
+							bw.WriteByte(r);
 							break;
 						}
 					}

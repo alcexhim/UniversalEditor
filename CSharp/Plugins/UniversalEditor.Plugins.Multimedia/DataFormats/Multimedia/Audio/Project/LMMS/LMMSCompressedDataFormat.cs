@@ -1,8 +1,9 @@
 using System;
-using UniversalEditor.Accessors.Stream;
+using UniversalEditor.Accessors;
 using UniversalEditor.Compression;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Project;
+
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Project.LMMS
 {
 	public class LMMSCompressedDataFormat : DataFormat
@@ -16,15 +17,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Project.LMMS
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			byte[] input = br.ReadToEnd();
-			byte[] output = CompressionStream.Decompress(CompressionMethod.Gzip, input);
+			byte[] output = CompressionModules.Gzip.Decompress(input);
 			LMMSProjectDataFormat mmp = new LMMSProjectDataFormat();
-            StreamAccessor file = new StreamAccessor(objectModel, mmp);
-            System.IO.MemoryStream ms = new System.IO.MemoryStream(output);
+            MemoryAccessor file = new MemoryAccessor(output);
+			Document doc = new Document(objectModel, mmp, file);
 
-			file.Open(ms);
-			file.Load();
+			file.Open();
+			doc.Load();
 			file.Close();
 		}
 		protected override void SaveInternal(ObjectModel objectModel)

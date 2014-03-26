@@ -21,7 +21,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 
 			uint magic = br.ReadUInt32();

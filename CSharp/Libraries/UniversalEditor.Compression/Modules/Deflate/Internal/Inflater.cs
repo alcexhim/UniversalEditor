@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 using UniversalEditor.Compression.Common;
-using UniversalEditor.Compression.Gzip.Internal;
+using UniversalEditor.Compression.Modules.Gzip.Internal;
 
-namespace UniversalEditor.Compression.Deflate.Internal
+namespace UniversalEditor.Compression.Modules.Deflate.Internal
 {
 	internal class Inflater
 	{

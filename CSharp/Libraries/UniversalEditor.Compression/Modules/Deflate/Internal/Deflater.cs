@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UniversalEditor.Compression.Deflate.Internal
+namespace UniversalEditor.Compression.Modules.Deflate.Internal
 {
 	internal class Deflater
 	{

@@ -261,31 +261,31 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.SunAu
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			br.Endianness = Endianness.BigEndian;
 			string magicNumber = br.ReadFixedLengthString(4);
 			int dataOffset = br.ReadInt32();
 			uint dataSize = br.ReadUInt32();
 			int encoding = br.ReadInt32();
-			this.mvarEncoding = this.Int32ToSunAuEncoding(encoding);
+			mvarEncoding = Int32ToSunAuEncoding(encoding);
 			int sampleRate = br.ReadInt32();
 			int channels = br.ReadInt32();
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			BinaryWriter bw = base.Stream.BinaryWriter;
+			Writer bw = base.Accessor.Writer;
 			bw.Endianness = Endianness.BigEndian;
 			bw.WriteFixedLengthString(".snd");
 			int dataOffset = 24;
-			bw.Write(dataOffset);
+			bw.WriteInt32(dataOffset);
 			uint dataSize = 4294967295u;
-			bw.Write(dataSize);
-			int encoding = this.SunAuEncodingToInt32(this.mvarEncoding);
-			bw.Write(encoding);
+			bw.WriteUInt32(dataSize);
+			int encoding = SunAuEncodingToInt32(mvarEncoding);
+			bw.WriteInt32(encoding);
 			int sampleRate = 0;
-			bw.Write(sampleRate);
+			bw.WriteInt32(sampleRate);
 			int channels = 2;
-			bw.Write(channels);
+			bw.WriteInt32(channels);
 			bw.Flush();
 		}
 	}

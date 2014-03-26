@@ -1,4 +1,5 @@
 using System;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.JPEG
@@ -17,7 +18,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.JPEG
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             br.Endianness = IO.Endianness.BigEndian;
 
             while (!br.EndOfStream)
@@ -123,7 +124,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.JPEG
 
                         length -= (ushort)(chunkID.Length + 1);
                         byte[] chunkData = br.ReadBytes(length);
-                        IO.BinaryReader appbr = new IO.BinaryReader(chunkData);
+                        IO.Reader appbr = new IO.Reader(new MemoryAccessor(chunkData));
                         // System.IO.File.WriteAllBytes(@"C:\Applications\MikuMikuDance\UserFile\Model\kio\Luka110320\pony01s_exifchunk.dat", chunkData);
                         switch (marker)
                         {

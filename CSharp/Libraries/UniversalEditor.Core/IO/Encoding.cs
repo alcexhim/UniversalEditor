@@ -23,7 +23,44 @@ namespace UniversalEditor.IO
         public static Encoding Default
         {
             get { return _Default; }
-        }
+		}
+		private static Encoding _ASCII = new ASCIIEncoding();
+		public static Encoding ASCII
+		{
+			get { return _ASCII; }
+		}
+
+		private static Encoding _UTF7 = new UTF7Encoding();
+		public static Encoding UTF7
+		{
+			get { return _UTF7; }
+		}
+		private static Encoding _UTF8 = new UTF8Encoding();
+		public static Encoding UTF8
+		{
+			get { return _UTF8; }
+		}
+		private static Encoding _UTF16LittleEndian = new UTF16LittleEndianEncoding();
+		public static Encoding UTF16LittleEndian
+		{
+			get { return _UTF16LittleEndian; }
+		}
+		private static Encoding _UTF16BigEndian = new UTF16BigEndianEncoding();
+		public static Encoding UTF16BigEndian
+		{
+			get { return _UTF16BigEndian; }
+		}
+		private static Encoding _UTF32 = new UTF32Encoding();
+		public static Encoding UTF32
+		{
+			get { return _UTF32; }
+		}
+
+		private static Encoding _ShiftJIS = new ShiftJISEncoding();
+		public static Encoding ShiftJIS
+		{
+			get { return _ShiftJIS; }
+		}
 
         public byte[] GetBytes(string value)
         {
@@ -77,4 +114,95 @@ namespace UniversalEditor.IO
             return retval;
         }
     }
+	public class ASCIIEncoding : Encoding
+	{
+		private System.Text.Encoding _encoding = System.Text.Encoding.ASCII;
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+	}
+	public class UTF16BigEndianEncoding : Encoding
+	{
+		private System.Text.Encoding _encoding = System.Text.Encoding.BigEndianUnicode;
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+	}
+	public class UTF16LittleEndianEncoding : Encoding
+	{
+		private System.Text.Encoding _encoding = System.Text.Encoding.Unicode;
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+	}
+	public class UTF32Encoding : Encoding
+	{
+		private System.Text.Encoding _encoding = System.Text.Encoding.UTF32;
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+	}
+	public class UTF7Encoding : Encoding
+	{
+		private System.Text.Encoding _encoding = System.Text.Encoding.UTF7;
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+	}
+	public class UTF8Encoding : Encoding
+	{
+		private System.Text.Encoding _encoding = System.Text.Encoding.UTF8;
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+	}
+	public class ShiftJISEncoding : Encoding
+	{
+		private System.Text.Encoding _encoding = System.Text.Encoding.GetEncoding("shift_jis");
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+	}
 }

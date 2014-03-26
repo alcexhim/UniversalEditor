@@ -15,7 +15,7 @@ namespace UniversalEditor.Compression.LZRW1
         private const byte FLAG_COMPRESS = 0x00;
         private const byte FLAG_COPY = 0x01;
 
-        public unsafe static byte[] Decompress(byte[] input)
+        public static byte[] Decompress(byte[] input)
         {
             byte[] output = null;
 
@@ -29,8 +29,8 @@ namespace UniversalEditor.Compression.LZRW1
                 ushort controlbits = 0, control = 0;
                 int p_src = FLAG_BYTES;
 
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                IO.BinaryWriter bw = new IO.BinaryWriter(ms);
+				Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor();
+                IO.Writer bw = new IO.Writer(ma);
 
                 while (p_src != input.Length)
                 {
@@ -49,24 +49,24 @@ namespace UniversalEditor.Compression.LZRW1
                         offset += (ushort)(input[p_src++] & 0xFF);
 
                         bw.Flush();
-                        byte[] out1 = ms.ToArray();
+                        byte[] out1 = ma.ToArray();
 
                         p = out1.Length - offset;
                         while (len-- != 0)
                         {
-                            bw.Write(out1[p++]);
+                            bw.WriteByte(out1[p++]);
                         }
                     }
                     else
                     {
-                        bw.Write(input[p_src++]);
+						bw.WriteByte(input[p_src++]);
                     }
                     control >>= 1;
                     controlbits--;
                 }
                 bw.Flush();
                 bw.Close();
-                output = ms.ToArray();
+                output = ma.ToArray();
             }
             return output;
         }

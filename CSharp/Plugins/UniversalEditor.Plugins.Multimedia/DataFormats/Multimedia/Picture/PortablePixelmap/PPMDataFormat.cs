@@ -25,7 +25,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 			if (pic == null) return;
 
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(2);
 
 			switch (signature)
@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 				case "P2":
 				case "P3":
 				{
-					IO.TextReader tr = base.Stream.TextReader;
+					IO.Reader tr = base.Accessor.Reader;
 					while (!tr.EndOfStream)
 					{
 						string line = tr.ReadLine();
@@ -49,7 +49,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 				case "P5":
 				case "P6":
 				{
-					IO.TextReader tr = base.Stream.TextReader;
+					IO.Reader tr = base.Accessor.Reader;
 
 					bool dimensionsRead = false;
 					bool divisorRead = false;
@@ -87,9 +87,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 								case "P4":
 								{
 									// pixelmap
-									byte r = (byte)tr.Read();
-									byte g = (byte)tr.Read();
-									byte b = (byte)tr.Read();
+									byte r = (byte)tr.ReadChar();
+									byte g = (byte)tr.ReadChar();
+									byte b = (byte)tr.ReadChar();
 
 									r = (byte)(255 - r);
 									g = (byte)(255 - g);
@@ -102,7 +102,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 								case "P5":
 								{
 									// graymap
-									byte level = (byte)tr.Read();
+									byte level = (byte)tr.ReadChar();
 									level = (byte)((double)level / (256 - divisor));
 
 									Color color = Color.FromRGBA(level, level, level);
@@ -112,9 +112,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 								case "P6":
 								{
 									// colormap
-									byte r = (byte)tr.Read();
-									byte g = (byte)tr.Read();
-									byte b = (byte)tr.Read();
+									byte r = (byte)tr.ReadChar();
+									byte g = (byte)tr.ReadChar();
+									byte b = (byte)tr.ReadChar();
 
 									Color color = Color.FromRGBA(r, g, b);
 									pic.SetPixel(color, x, y);

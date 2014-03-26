@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TMH
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(8);
 			if (signature != ".TMH0.14") throw new InvalidDataFormatException("File does not begin with \".TMH0.14\"");
 			

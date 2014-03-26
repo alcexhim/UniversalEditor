@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.PaintShop
             PaletteObjectModel palette = (objectModel as PaletteObjectModel);
             if (palette == null) return;
 
-            IO.TextReader tr = base.Stream.TextReader;
+            IO.Reader tr = base.Accessor.Reader;
             string signature = tr.ReadLine();
             if (signature != "JASC-PAL") throw new InvalidDataFormatException("File does not begin with \"JASC-PAL\"");
 

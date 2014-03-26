@@ -18,7 +18,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.RAD.Bink
 			VideoObjectModel video = (objectModel as VideoObjectModel);
 			if (video != null)
 			{
-				BinaryReader br = base.Stream.BinaryReader;
+				Reader br = base.Accessor.Reader;
 				string BIK = br.ReadFixedLengthString(3);
 				byte videoCodecRevision = br.ReadByte();
 				int fileSize = br.ReadInt32();
@@ -52,47 +52,47 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.RAD.Bink
 			VideoObjectModel video = objectModel as VideoObjectModel;
 			if (video != null)
 			{
-				BinaryWriter bw = base.Stream.BinaryWriter;
+				Writer bw = base.Accessor.Writer;
 				bw.WriteFixedLengthString("BIK");
 				byte videoCodecRevision = 98;
-				bw.Write(videoCodecRevision);
+				bw.WriteByte(videoCodecRevision);
 				int fileSize = 0;
-				bw.Write(fileSize);
+				bw.WriteInt32(fileSize);
 				int frameCount = 0;
-				bw.Write(frameCount);
+				bw.WriteInt32(frameCount);
 				int largestFrameSize = 0;
-				bw.Write(largestFrameSize);
-				bw.Write(frameCount);
+				bw.WriteInt32(largestFrameSize);
+				bw.WriteInt32(frameCount);
 				int videoWidth = 320;
-				bw.Write(videoWidth);
+				bw.WriteInt32(videoWidth);
 				int videoHeight = 240;
-				bw.Write(videoHeight);
+				bw.WriteInt32(videoHeight);
 				int videoFramesPerSecondDividend = 24;
-				bw.Write(videoFramesPerSecondDividend);
+				bw.WriteInt32(videoFramesPerSecondDividend);
 				int videoFramesPerSecondDivisor = 1;
-				bw.Write(videoFramesPerSecondDivisor);
+				bw.WriteInt32(videoFramesPerSecondDivisor);
 				int videoFlags = 0;
-				bw.Write(videoFlags);
+				bw.WriteInt32(videoFlags);
 				int audioTrackCount = 0;
-				bw.Write(audioTrackCount);
+				bw.WriteInt32(audioTrackCount);
 				for (int i = 0; i < audioTrackCount; i++)
 				{
 					byte[] unknown = new byte[2];
-					bw.Write(unknown);
+					bw.WriteBytes(unknown);
 					short audioChannels = 1;
-					bw.Write(audioChannels);
+					bw.WriteInt16(audioChannels);
 				}
 				for (int i = 0; i < audioTrackCount; i++)
 				{
 					ushort audioSampleRate = 44100;
-					bw.Write(audioSampleRate);
+					bw.WriteUInt16(audioSampleRate);
 					short flags = 0;
-					bw.Write(flags);
+					bw.WriteInt16(flags);
 				}
 				for (int i = 0; i < audioTrackCount; i++)
 				{
 					int audioTrackID = 0;
-					bw.Write(audioTrackID);
+					bw.WriteInt32(audioTrackID);
 				}
 				bw.Flush();
 			}

@@ -38,10 +38,14 @@
     <Compile Include="Collections\Generic\AutoDictionary.cs" />
     <Compile Include="Collections\Generic\BidirectionalDictionary.cs" />
     <Compile Include="Collections\Generic\KeyValuePairList.cs" />
+    <Compile Include="Common\Reflection.cs" />
+    <Compile Include="Converter.cs" />
     <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormatSettings.cs" />
+    <Compile Include="DataFormats\PropertyList\Text\TextPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\Text\TextPropertyListSettings.cs" />
     <Compile Include="DataFormats\PropertyList\WindowsConfigurationDataFormat.cs" />
     <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
@@ -68,7 +72,15 @@
     <Compile Include="ObjectModels\PropertyList\Property.cs" />
     <Compile Include="ObjectModels\PropertyList\PropertyListObjectModel.cs" />
     <Compile Include="ObjectModels\PropertyList\PropertyValueType.cs" />
+    <Compile Include="ObjectModels\Solution\Project.cs" />
+    <Compile Include="ObjectModels\Solution\ProjectFile.cs" />
+    <Compile Include="ObjectModels\Solution\ProjectFileSystem.cs" />
+    <Compile Include="ObjectModels\Solution\ProjectFolder.cs" />
+    <Compile Include="ObjectModels\Solution\Reference.cs" />
+    <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
+    <Compile Include="ProjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Template.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

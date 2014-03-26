@@ -1,4 +1,5 @@
 using System;
+using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
 using UniversalEditor.ObjectModels.Multimedia.Video;
@@ -17,7 +18,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.ROQ
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			byte[] signature = br.ReadBytes(8u);
 			VideoObjectModel vom = objectModel as VideoObjectModel;
 			WaveformAudioObjectModel wave = new WaveformAudioObjectModel();
@@ -38,11 +39,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.ROQ
 				{
 					case 4097:
 					{
-						BinaryReader brch = new BinaryReader(chunk.Data);
+						Reader brch = new Reader(new MemoryAccessor(chunk.Data));
 						video.Width = (int)brch.ReadInt16();
 						video.Height = (int)brch.ReadInt16();
 						video.BlockDimension = (int)brch.ReadInt16();
 						video.SubBlockDimension = (int)brch.ReadInt16();
+						brch.Close();
 						break;
 					}
 					case 4098:

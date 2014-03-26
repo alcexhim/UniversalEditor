@@ -18,8 +18,8 @@ namespace UniversalEditor.DataFormats.Lighting.Fixture.QLC
 				_dfr = new DataFormatReference(this.GetType());
 				_dfr.Capabilities.Add(typeof(FixtureObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Q Light Controller fixture", new string[] { "*.xml" });
-				_dfr.ExportOptions.Add(new ExportOptionText("CreatorApplication", "&Software:", "Q Light Controller Plus"));
-				_dfr.ExportOptions.Add(new ExportOptionText("Author", "&Author:"));
+				_dfr.ExportOptions.Add(new CustomOptionText("CreatorApplication", "&Software:", "Q Light Controller Plus"));
+				_dfr.ExportOptions.Add(new CustomOptionText("Author", "&Author:"));
 			}
 			return _dfr;
 		}

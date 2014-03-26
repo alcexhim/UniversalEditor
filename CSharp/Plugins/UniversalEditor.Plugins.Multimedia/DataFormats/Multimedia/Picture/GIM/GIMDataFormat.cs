@@ -8,10 +8,10 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
+using UniversalEditor.IO;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 {
@@ -30,31 +30,35 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 				_dfr.Filters.Add("GIM image", new byte?[][] { new byte?[] { (byte)'M', (byte)'I', (byte)'G', (byte)'.' }, new byte?[] { (byte)'.', (byte)'G', (byte)'I', (byte)'M' } }, new string[] { "*.gim" });
                 _dfr.Sources.Add("http://pspdum.my.land.to/psp/gim.html");
 
-                _dfr.ExportOptions.Add(new ExportOptionChoice("Endianness", "&Endianness:", true, new ExportOptionFieldChoice("Big-Endian", IO.Endianness.BigEndian), new ExportOptionFieldChoice("Little-Endian", IO.Endianness.LittleEndian, true)));
-                _dfr.ExportOptions.Add(new ExportOptionChoice("ImageFormat", "&Image format:", true,
-                    new ExportOptionFieldChoice("Indexed (4-bit)", GIMImageFormat.Index4),
-                    new ExportOptionFieldChoice("Indexed (8-bit)", GIMImageFormat.Index8),
-                    new ExportOptionFieldChoice("Indexed (16-bit)", GIMImageFormat.Index16),
-                    new ExportOptionFieldChoice("Indexed (32-bit)", GIMImageFormat.Index32),
-                    new ExportOptionFieldChoice("Bitmap (R4-G4-B4-A4)", GIMImageFormat.RGBA4444),
-                    new ExportOptionFieldChoice("Bitmap (R5-G5-B5-A1)", GIMImageFormat.RGBA5551),
-                    new ExportOptionFieldChoice("Bitmap (R5-G6-B5-A0)", GIMImageFormat.RGBA5650),
-                    new ExportOptionFieldChoice("Bitmap (R8-G8-B8-A8)", GIMImageFormat.RGBA8888, true)
+                _dfr.ExportOptions.Add(new CustomOptionChoice("Endianness", "&Endianness:", true,
+					new CustomOptionFieldChoice("Big-Endian", IO.Endianness.BigEndian),
+					new CustomOptionFieldChoice("Little-Endian", IO.Endianness.LittleEndian, true)
+				));
+
+                _dfr.ExportOptions.Add(new CustomOptionChoice("ImageFormat", "&Image format:", true,
+                    new CustomOptionFieldChoice("Indexed (4-bit)", GIMImageFormat.Index4),
+                    new CustomOptionFieldChoice("Indexed (8-bit)", GIMImageFormat.Index8),
+                    new CustomOptionFieldChoice("Indexed (16-bit)", GIMImageFormat.Index16),
+                    new CustomOptionFieldChoice("Indexed (32-bit)", GIMImageFormat.Index32),
+                    new CustomOptionFieldChoice("Bitmap (R4-G4-B4-A4)", GIMImageFormat.RGBA4444),
+                    new CustomOptionFieldChoice("Bitmap (R5-G5-B5-A1)", GIMImageFormat.RGBA5551),
+                    new CustomOptionFieldChoice("Bitmap (R5-G6-B5-A0)", GIMImageFormat.RGBA5650),
+                    new CustomOptionFieldChoice("Bitmap (R8-G8-B8-A8)", GIMImageFormat.RGBA8888, true)
                 ));
-                _dfr.ExportOptions.Add(new ExportOptionChoice("PaletteFormat", "&Palette format:", true,
-                    new ExportOptionFieldChoice("Bitmap (R4-G4-B4-A4)", GIMPaletteFormat.RGBA4444),
-                    new ExportOptionFieldChoice("Bitmap (R5-G5-B5-A1)", GIMPaletteFormat.RGBA5551),
-                    new ExportOptionFieldChoice("Bitmap (R5-G6-B5-A0)", GIMPaletteFormat.RGBA5650),
-                    new ExportOptionFieldChoice("Bitmap (R8-G8-B8-A8)", GIMPaletteFormat.RGBA8888, true)
+                _dfr.ExportOptions.Add(new CustomOptionChoice("PaletteFormat", "&Palette format:", true,
+                    new CustomOptionFieldChoice("Bitmap (R4-G4-B4-A4)", GIMPaletteFormat.RGBA4444),
+                    new CustomOptionFieldChoice("Bitmap (R5-G5-B5-A1)", GIMPaletteFormat.RGBA5551),
+                    new CustomOptionFieldChoice("Bitmap (R5-G6-B5-A0)", GIMPaletteFormat.RGBA5650),
+                    new CustomOptionFieldChoice("Bitmap (R8-G8-B8-A8)", GIMPaletteFormat.RGBA8888, true)
                 ));
-                _dfr.ExportOptions.Add(new ExportOptionChoice("PixelOrder", "Pixel &order:", true,
-                    new ExportOptionFieldChoice("Normal", GIMPixelOrder.Normal, true),
-                    new ExportOptionFieldChoice("Faster", GIMPixelOrder.Faster)
+				_dfr.ExportOptions.Add(new CustomOptionChoice("PixelOrder", "Pixel &order:", true,
+                    new CustomOptionFieldChoice("Normal", GIMPixelOrder.Normal, true),
+                    new CustomOptionFieldChoice("Faster", GIMPixelOrder.Faster)
                 ));
 
-				_dfr.ExportOptions.Add(new ExportOptionText("OriginalFileName", "Original &filename:"));
-				_dfr.ExportOptions.Add(new ExportOptionText("CreationUserName", "Creation &user:"));
-				_dfr.ExportOptions.Add(new ExportOptionText("CreationApplication", "&Application name:", "Universal Editor"));
+				_dfr.ExportOptions.Add(new CustomOptionText("OriginalFileName", "Original &filename:"));
+				_dfr.ExportOptions.Add(new CustomOptionText("CreationUserName", "Creation &user:"));
+				_dfr.ExportOptions.Add(new CustomOptionText("CreationApplication", "&Application name:", "Universal Editor"));
 			}
 			return _dfr;
 		}
@@ -83,8 +87,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			IO.BinaryReader br = base.Stream.BinaryReader;
-            br.BaseStream.Position = 0;
+			IO.Reader br = base.Accessor.Reader;
+            br.Accessor.Position = 0;
 
 			string signature = br.ReadFixedLengthString(4);
 			if (signature == ".GIM")
@@ -107,7 +111,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
             if (!(format.EndsWith("\0") && nul == 0))
             {
                 // back up?
-                br.BaseStream.Position += 42; // (45) -  4 bytes for UInt32 and 1 byte for the end of Format
+                br.Accessor.Position += 42; // (45) -  4 bytes for UInt32 and 1 byte for the end of Format
             }
 			
 			List<int> pixelColorIndices = new List<int>();
@@ -121,7 +125,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 				uint partUnknown2 = br.ReadUInt32(); // 16?
 				
 				uint realPartSize = partSize - 16;
-				long pos = br.BaseStream.Position;
+				long pos = br.Accessor.Position;
 				
 				switch (partType)
 				{
@@ -322,9 +326,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 					}
 				}
 				
-				long bytesReadSoFar = br.BaseStream.Position - pos;
+				long bytesReadSoFar = br.Accessor.Position - pos;
 				long bytesRemaining = realPartSize - bytesReadSoFar;
-				br.BaseStream.Seek(bytesRemaining, System.IO.SeekOrigin.Current);
+				br.Accessor.Seek(bytesRemaining, SeekOrigin.Current);
 			}
 			
 			foreach (int index in pixelColorIndices)
@@ -335,7 +339,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
+            IO.Writer bw = base.Accessor.Writer;
             bw.Endianness = mvarEndianness;
             switch (mvarEndianness)
             {

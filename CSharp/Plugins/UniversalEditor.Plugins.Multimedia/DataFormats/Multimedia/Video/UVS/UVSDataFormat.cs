@@ -20,7 +20,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.UVS
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             #region Main Header Packet
             string codecIdentifierWord1 = br.ReadFixedLengthString(4);
             string codecIdentifierWord2 = br.ReadFixedLengthString(4);

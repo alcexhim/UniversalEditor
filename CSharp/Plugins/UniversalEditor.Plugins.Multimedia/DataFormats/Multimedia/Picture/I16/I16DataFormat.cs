@@ -25,7 +25,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.I16
             PictureObjectModel pic = (objectModel as PictureObjectModel);
             if (pic == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             ushort u1 = br.ReadUInt16();
             ushort u2 = br.ReadUInt16();
             ushort u3 = br.ReadUInt16();
@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.I16
 
             byte u = br.ReadByte();
 
-            int size = (int)((double)br.BaseStream.Length / 8);
+            int size = (int)((double)br.Accessor.Length / 8);
             pic.Width = size;
             pic.Height = size;
 

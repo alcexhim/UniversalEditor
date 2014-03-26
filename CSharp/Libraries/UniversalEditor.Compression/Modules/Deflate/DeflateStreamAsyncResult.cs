@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace UniversalEditor.Compression.Deflate
+namespace UniversalEditor.Compression.Modules.Deflate
 {
 	public class DeflateStreamAsyncResult : IAsyncResult
 	{

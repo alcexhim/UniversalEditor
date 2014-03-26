@@ -17,7 +17,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			br.Endianness = Endianness.BigEndian;
 			byte[] signature = br.ReadBytes(4u);
 			this.mvarVersion = br.ReadInt16();
@@ -92,7 +92,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
 			if (wave != null)
 			{
-				BinaryWriter bw = base.Stream.BinaryWriter;
+				Writer bw = base.Accessor.Writer;
 				bw.Endianness = Endianness.BigEndian;
 				byte[] signature = new byte[]
 				{
@@ -101,9 +101,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 					97, 
 					253
 				};
-				bw.Write(signature);
-				bw.Write(this.mvarVersion);
-				switch (this.mvarVersion)
+				bw.WriteBytes(signature);
+				bw.WriteInt16(mvarVersion);
+				switch (mvarVersion)
 				{
 					case 3:
 					{
@@ -118,30 +118,30 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 						string commentString = wave.Information.Comments;
 						byte commentStringLength = (byte)commentString.Length;
 						short headerSize = (short)(15 + titleStringLength + 1 + authorStringLength + 1 + copyrightStringLength + 1 + commentStringLength + 6);
-						bw.Write(headerSize);
-						bw.Write(unknown);
-						bw.Write(dataSize);
-						bw.Write(titleStringLength);
+						bw.WriteInt16(headerSize);
+						bw.WriteBytes(unknown);
+						bw.WriteInt32(dataSize);
+						bw.WriteByte(titleStringLength);
 						bw.WriteNullTerminatedString(titleString, (int)titleStringLength);
-						bw.Write(authorStringLength);
+						bw.WriteByte(authorStringLength);
 						bw.WriteNullTerminatedString(authorString, (int)authorStringLength);
-						bw.Write(copyrightStringLength);
+						bw.WriteByte(copyrightStringLength);
 						bw.WriteNullTerminatedString(copyrightString, (int)copyrightStringLength);
-						bw.Write(commentStringLength);
+						bw.WriteByte(commentStringLength);
 						bw.WriteNullTerminatedString(commentString, (int)commentStringLength);
-						bw.Write(0);
-						bw.Write(4);
+						bw.WriteInt32(0);
+						bw.WriteInt32(4);
 						bw.WriteFixedLengthString("lpcJ");
 						break;
 					}
 					case 4:
 					{
 						short unused = 0;
-						bw.Write(unused);
+						bw.WriteInt16(unused);
 						string ra4signature = ".ra4";
 						bw.WriteFixedLengthString(ra4signature);
 						int dataSize = 39;
-						bw.Write(dataSize);
+						bw.WriteInt32(dataSize);
 						string titleString = wave.Information.SongTitle;
 						byte titleStringLength = (byte)titleString.Length;
 						string authorString = wave.Information.SongArtist;
@@ -150,49 +150,49 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 						byte copyrightStringLength = (byte)copyrightString.Length;
 						string commentString = wave.Information.Comments;
 						byte commentStringLength = (byte)commentString.Length;
-						bw.Write(this.mvarVersion);
+						bw.WriteInt16(mvarVersion);
 						int headerSize2 = 16;
-						bw.Write(headerSize2);
+						bw.WriteInt32(headerSize2);
 						short codecFlavor = 0;
-						bw.Write(codecFlavor);
+						bw.WriteInt16(codecFlavor);
 						int codedFrameSize = 0;
-						bw.Write(codedFrameSize);
+						bw.WriteInt32(codedFrameSize);
 						byte[] unknown2 = new byte[12];
-						bw.Write(unknown2);
+						bw.WriteBytes(unknown2);
 						short subPacketH = 0;
-						bw.Write(subPacketH);
+						bw.WriteInt16(subPacketH);
 						short frameSize = 0;
-						bw.Write(frameSize);
+						bw.WriteInt16(frameSize);
 						short subPacketSize = 0;
-						bw.Write(subPacketSize);
+						bw.WriteInt16(subPacketSize);
 						short unknown3 = 0;
-						bw.Write(unknown3);
+						bw.WriteInt16(unknown3);
 						short sampleRate = 0;
-						bw.Write(sampleRate);
+						bw.WriteInt16(sampleRate);
 						short unknown4 = 0;
-						bw.Write(unknown4);
+						bw.WriteInt16(unknown4);
 						short sampleSize = 0;
-						bw.Write(sampleSize);
+						bw.WriteInt16(sampleSize);
 						short channels = 0;
-						bw.Write(channels);
+						bw.WriteInt16(channels);
 						byte interleaverIDStringLength = 4;
-						bw.Write(interleaverIDStringLength);
+						bw.WriteByte(interleaverIDStringLength);
 						string interleaverIDString = "\0\0\0\0";
-						bw.Write(interleaverIDString);
+						bw.WriteFixedLengthString(interleaverIDString);
 						byte fourccStringLength = 4;
-						bw.Write(fourccStringLength);
+						bw.WriteByte(fourccStringLength);
 						string fourccString = "lpcJ";
-						bw.Write(fourccString);
+						bw.WriteFixedLengthString(fourccString);
 						byte[] unknown5 = new byte[3];
-						bw.Write(unknown5);
-						bw.Write(titleStringLength);
-						bw.Write(titleString);
-						bw.Write(authorStringLength);
-						bw.Write(authorString);
-						bw.Write(copyrightStringLength);
-						bw.Write(copyrightString);
-						bw.Write(commentStringLength);
-						bw.Write(commentString);
+						bw.WriteBytes(unknown5);
+						bw.WriteByte(titleStringLength);
+						bw.WriteFixedLengthString(titleString);
+						bw.WriteByte(authorStringLength);
+						bw.WriteFixedLengthString(authorString);
+						bw.WriteByte(copyrightStringLength);
+						bw.WriteFixedLengthString(copyrightString);
+						bw.WriteByte(commentStringLength);
+						bw.WriteFixedLengthString(commentString);
 						break;
 					}
 				}

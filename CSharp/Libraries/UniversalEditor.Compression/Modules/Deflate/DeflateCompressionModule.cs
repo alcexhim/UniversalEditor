@@ -16,7 +16,7 @@ namespace UniversalEditor.Compression.Modules.Deflate
 
         public const int BUFFERSIZE = 4096;
 
-        public override void Compress(Stream inputStream, Stream outputStream)
+		protected override void CompressInternal(Stream inputStream, Stream outputStream)
         {
             System.IO.Compression.DeflateStream dst = new System.IO.Compression.DeflateStream(inputStream, System.IO.Compression.CompressionMode.Compress);
             int read = 0;
@@ -29,7 +29,7 @@ namespace UniversalEditor.Compression.Modules.Deflate
             }
             while (read == BUFFERSIZE);
         }
-        public override void Decompress(Stream inputStream, Stream outputStream, int inputLength, int outputLength)
+		protected override void DecompressInternal(Stream inputStream, Stream outputStream, int inputLength, int outputLength)
         {
             System.IO.Compression.DeflateStream dst = new System.IO.Compression.DeflateStream(inputStream, System.IO.Compression.CompressionMode.Decompress);
             int read = 0;

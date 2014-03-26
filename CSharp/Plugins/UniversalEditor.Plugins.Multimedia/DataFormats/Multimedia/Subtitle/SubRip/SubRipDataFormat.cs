@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubRip
             SubtitleObjectModel subtitle = (objectModel as SubtitleObjectModel);
             if (subtitle == null) throw new ObjectModelNotSupportedException();
 
-            IO.TextReader tr = base.Stream.TextReader;
+            IO.Reader tr = base.Accessor.Reader;
             while (!tr.EndOfStream)
             {
                 string index = tr.ReadLine();
@@ -64,7 +64,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubRip
             SubtitleObjectModel subtitle = (objectModel as SubtitleObjectModel);
             if (subtitle == null) throw new ObjectModelNotSupportedException();
 
-            IO.TextWriter tw = base.Stream.TextWriter;
+            IO.Writer tw = base.Accessor.Writer;
 
             int index = 1;
             foreach (Event evt in subtitle.Events)

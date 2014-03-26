@@ -15,7 +15,7 @@ namespace UniversalEditor.DataFormats.Multimedia.BluRay
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PlaylistObjectModel pom = objectModel as PlaylistObjectModel;
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			br.Endianness = Endianness.BigEndian;
 
 			string signature = br.ReadFixedLengthString(4);

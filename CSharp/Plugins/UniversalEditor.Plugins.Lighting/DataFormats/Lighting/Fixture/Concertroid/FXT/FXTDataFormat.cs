@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.Lighting.Fixture.Concertroid.FXT
             FixtureObjectModel fixture = (objectModel as FixtureObjectModel);
             if (fixture == null) throw new ObjectModelNotSupportedException();
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             string FIXT = br.ReadFixedLengthString(4);
             if (FIXT != "FIXT") throw new InvalidDataFormatException("File does not begin with \"FIXT\"");
 

@@ -15,7 +15,7 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
         private string mvarOriginalFileNameExtension = String.Empty;
         public string OriginalFileNameExtension { get { return mvarOriginalFileNameExtension; } set { mvarOriginalFileNameExtension = value; } }
 
-        public override void Decompress(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
+		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
         {
             uint num = inputStream.ReadUInt(8L).SwapEndian() + 16u;
             uint num2 = inputStream.ReadUInt(12L).SwapEndian();
@@ -76,7 +76,7 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 				}
 			}
 		}
-		public override void Compress(System.IO.Stream inputStream, System.IO.Stream outputStream)
+		protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
 		{
 			uint num = (uint)inputStream.Length;
 			uint num2 = 2048u;
@@ -160,7 +160,7 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 			}
 		}
 
-		public override string DecompressFilename(ref Stream data, string filename)
+		public string DecompressFilename(ref Stream data, string filename)
 		{
 			string text = data.ReadString(4L, 3);
 			string result;
@@ -174,7 +174,7 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 			}
 			return result;
 		}
-		public override string CompressFilename(ref Stream data, string filename)
+		public string CompressFilename(ref Stream data, string filename)
 		{
 			return Path.GetFileNameWithoutExtension(filename) + (Path.GetExtension(filename).IsAllUpperCase() ? ".CNX" : ".cnx");
 		}

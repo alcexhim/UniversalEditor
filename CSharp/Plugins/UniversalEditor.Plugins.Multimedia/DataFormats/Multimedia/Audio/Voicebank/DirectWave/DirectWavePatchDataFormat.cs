@@ -15,11 +15,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.DirectWave
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			VoicebankObjectModel vom = (objectModel as VoicebankObjectModel);
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			string DwPr = br.ReadFixedLengthString(4);
 			int n0 = br.ReadInt32();
 			int n = br.ReadInt32();
-			vom.DocumentProperties.Title = br.ReadNullTerminatedString(32);
+			vom.Title = br.ReadNullTerminatedString(32);
 			vom.InstallationPath = br.ReadNullTerminatedString(260);
 			int n2 = br.ReadInt32();
 			int n3 = br.ReadInt32();
@@ -38,13 +38,13 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.DirectWave
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			VoicebankObjectModel vom = objectModel as VoicebankObjectModel;
-			BinaryWriter bw = base.Stream.BinaryWriter;
+			Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("DwPr");
 			int n0 = 0;
-			bw.Write(n0);
+			bw.WriteInt32(n0);
 			int n = 0;
-			bw.Write(n);
-			bw.WriteNullTerminatedString(vom.DocumentProperties.Title, 32);
+			bw.WriteInt32(n);
+			bw.WriteNullTerminatedString(vom.Title, 32);
 			bw.WriteNullTerminatedString(vom.InstallationPath, 264);
 			bw.Flush();
 		}

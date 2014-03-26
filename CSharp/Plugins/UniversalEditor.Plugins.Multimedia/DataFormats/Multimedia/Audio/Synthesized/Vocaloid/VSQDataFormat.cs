@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UniversalEditor.DataFormats.PropertyList.Microsoft;
+using UniversalEditor.DataFormats.PropertyList;
 using UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.PropertyList;
-using UniversalEditor.Accessors.Text;
+using UniversalEditor.Accessors;
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 {
 	public class VSQDataFormat : MIDIDataFormat
@@ -40,80 +40,77 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 				ObjectModel om = plom;
                 
                 WindowsConfigurationDataFormat ini = new WindowsConfigurationDataFormat();
-                ini.Settings.CommentSignals = new string[0];
+                ini.CommentSignals = new string[0];
 
-                TextAccessor textacc = new TextAccessor(om, ini);
-                textacc.Open(text);
-				textacc.Load();
-				textacc.Close();
+				Document doc = new Document(om, ini, new StringAccessor(text));
+                doc.Accessor.Open();
+				doc.Load();
+				doc.Accessor.Close();
 
 				foreach (Group grp in plom.Groups)
 				{
 					string text2 = grp.Name;
-					if (text2 != null)
+					switch (text2)
 					{
-						if (!(text2 == "Common"))
+						case "Common":
+						case "Master":
+						case "Mixer":
 						{
-							if (!(text2 == "Master"))
+							break;
+						}
+						case "EventList":
+						{
+							foreach (Property prop in grp.Properties)
 							{
-								if (!(text2 == "Mixer"))
+								string eventName = prop.Name;
+								string eventValue = prop.Value.ToString();
+								int thisNotePosition = int.Parse(eventName);
+								if (eventValue.StartsWith("ID#"))
 								{
-									if (text2 == "EventList")
+									Group eventGroup = plom.Groups[eventValue];
+									text2 = eventGroup.Properties["Type"].Value.ToString();
+									switch (text2)
 									{
-										foreach (Property prop in grp.Properties)
+										case "Anote":
 										{
-											string eventName = prop.Name;
-											string eventValue = prop.Value.ToString();
-											int thisNotePosition = int.Parse(eventName);
-											if (eventValue.StartsWith("ID#"))
+											SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
+											Group lyricInfo = plom.Groups[eventGroup.Properties["LyricHandle"].Value.ToString()];
+											string phonemeInfo = lyricInfo.Properties["L0"].Value.ToString();
+											int length = int.Parse(eventGroup.Properties["Length"].Value.ToString());
+											int noteNumber = int.Parse(eventGroup.Properties["Note#"].Value.ToString());
+											string[] phonemeInfos = phonemeInfo.Split(new char[]
 											{
-												Group eventGroup = plom.Groups[eventValue];
-												text2 = eventGroup.Properties["Type"].Value.ToString();
-												if (text2 != null)
+												','
+											}, "\"");
+											note.Lyric = phonemeInfos[0];
+											note.Phoneme = phonemeInfos[1];
+											note.Length = length;
+											note.Frequency = 128 - noteNumber;
+											track.Commands.Add(note);
+											if (grp.Properties.IndexOf(prop) < grp.Properties.Count - 1)
+											{
+												int nextNotePosition = int.Parse(grp.Properties[grp.Properties.IndexOf(prop) + 1].Name);
+												if (thisNotePosition + note.Length < nextNotePosition)
 												{
-													if (!(text2 == "Singer"))
-													{
-														if (text2 == "Anote")
-														{
-															SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
-															Group lyricInfo = plom.Groups[eventGroup.Properties["LyricHandle"].Value.ToString()];
-															string phonemeInfo = lyricInfo.Properties["L0"].Value.ToString();
-															int length = int.Parse(eventGroup.Properties["Length"].Value.ToString());
-															int noteNumber = int.Parse(eventGroup.Properties["Note#"].Value.ToString());
-															string[] phonemeInfos = phonemeInfo.Split(new char[]
-															{
-																','
-															}, "\"");
-															note.Lyric = phonemeInfos[0];
-															note.Phoneme = phonemeInfos[1];
-															note.Length = length;
-															note.Frequency = 128 - noteNumber;
-															track.Commands.Add(note);
-															if (grp.Properties.IndexOf(prop) < grp.Properties.Count - 1)
-															{
-																int nextNotePosition = int.Parse(grp.Properties[grp.Properties.IndexOf(prop) + 1].Name);
-																if (thisNotePosition + note.Length < nextNotePosition)
-																{
-																	int restLength = nextNotePosition - thisNotePosition;
-																	SynthesizedAudioCommandRest rest = new SynthesizedAudioCommandRest();
-																	rest.Length = restLength;
-																	track.Commands.Add(rest);
-																}
-															}
-														}
-													}
-													else
-													{
-														Group singerInfo = plom.Groups[eventGroup.Properties["IconHandle"].Value.ToString()];
-														string singerName = singerInfo.Properties["IDS"].Value.ToString();
-														int programChange = int.Parse(singerInfo.Properties["Program"].Value.ToString());
-													}
+													int restLength = nextNotePosition - thisNotePosition;
+													SynthesizedAudioCommandRest rest = new SynthesizedAudioCommandRest();
+													rest.Length = restLength;
+													track.Commands.Add(rest);
 												}
 											}
+											break;
+										}
+										case "Singer":
+										{
+											Group singerInfo = plom.Groups[eventGroup.Properties["IconHandle"].Value.ToString()];
+											string singerName = singerInfo.Properties["IDS"].Value.ToString();
+											int programChange = int.Parse(singerInfo.Properties["Program"].Value.ToString());
+											break;
 										}
 									}
 								}
 							}
+							break;
 						}
 					}
 				}

@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.LEAD
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 			if (pic == null) return;
 			
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			string LEAD = br.ReadFixedLengthString(4);
 			if (LEAD != "LEAD") throw new InvalidDataFormatException("File does not begin with \"LEAD\"");
 			

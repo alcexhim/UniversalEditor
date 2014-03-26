@@ -21,7 +21,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			
 			uint dwMagic = br.ReadUInt32(); // 0x20534444
 			uint dwSize = br.ReadUInt32();
@@ -30,8 +30,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			IO.BinaryWriter bw = base.Stream.BinaryWriter;
-			bw.Write(DDS_MAGIC);
+			IO.Writer bw = base.Accessor.Writer;
+			bw.WriteUInt32(DDS_MAGIC);
 
 			bw.Flush();
 		}

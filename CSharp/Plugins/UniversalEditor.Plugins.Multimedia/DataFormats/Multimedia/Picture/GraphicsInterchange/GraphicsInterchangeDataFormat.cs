@@ -22,7 +22,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 			string magic = br.ReadFixedLengthString(6);
 			if (!(magic == "GIF87a" || magic == "GIF89a")) throw new InvalidDataFormatException("File does not begin with \"GIF87a\" or \"GIF89a\"");
 

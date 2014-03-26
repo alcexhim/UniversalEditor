@@ -7,6 +7,7 @@ using UniversalEditor.ObjectModels.Chunked;
 using UniversalEditor.DataFormats.Chunked.RIFF;
 
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 {
@@ -58,7 +59,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
             if (waveChunk == null) throw new InvalidDataFormatException("File does not contain a \"WAVE\" chunk");
 
 			RIFFDataChunk fmtChunk = (waveChunk.Chunks["fmt "] as RIFFDataChunk);
-			UniversalEditor.IO.BinaryReader br = new UniversalEditor.IO.BinaryReader(fmtChunk.Data);
+			IO.Reader br = new IO.Reader(new MemoryAccessor(fmtChunk.Data));
 			if (fmtChunk.Size >= 16)
 			{
 				wave.Header.FormatTag = br.ReadUInt16();
@@ -89,7 +90,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
                     dataChunk = (infoChunk.Chunks["data"] as RIFFDataChunk);
                 }
             }
-			br = new UniversalEditor.IO.BinaryReader(dataChunk.Data);
+			br = new IO.Reader(new MemoryAccessor(dataChunk.Data));
 			short[] dataa = new short[dataChunk.Data.Length / 2];
 			for (int i = 0; i < dataa.Length; i++)
 			{
@@ -111,19 +112,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 			RIFFDataChunk fmtChunk = new RIFFDataChunk();
 			fmtChunk.ID = "fmt ";
 			MemoryStream ms = new MemoryStream();
-			UniversalEditor.IO.BinaryWriter bw = new UniversalEditor.IO.BinaryWriter(ms);
-			bw.Write(wave.Header.FormatTag);
-			bw.Write(wave.Header.ChannelCount);
-			bw.Write(wave.Header.SampleRate);
-			bw.Write(wave.Header.DataRate);
-			bw.Write(wave.Header.BlockAlignment);
-			bw.Write(wave.Header.BitsPerSample);
+			IO.Writer bw = new IO.Writer(new StreamAccessor(ms));
+			bw.WriteUInt16(wave.Header.FormatTag);
+			bw.WriteInt16(wave.Header.ChannelCount);
+			bw.WriteInt32(wave.Header.SampleRate);
+			bw.WriteInt32(wave.Header.DataRate);
+			bw.WriteInt16(wave.Header.BlockAlignment);
+			bw.WriteInt16(wave.Header.BitsPerSample);
 			if (wave.ExtendedHeader.Enabled)
 			{
-				bw.Write(22);
-				bw.Write(wave.ExtendedHeader.ValidBitsPerSample);
-				bw.Write(wave.ExtendedHeader.ChannelMask);
-				bw.Write(wave.ExtendedHeader.SubFormatGUID);
+				bw.WriteInt32(22);
+				bw.WriteInt16(wave.ExtendedHeader.ValidBitsPerSample);
+				bw.WriteInt32(wave.ExtendedHeader.ChannelMask);
+				bw.WriteGuid(wave.ExtendedHeader.SubFormatGUID);
 			}
 			bw.Flush();
 			bw.Close();
@@ -134,12 +135,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 			if (wave.RawData == null)
 			{
 				MemoryStream ms2 = new MemoryStream();
-				UniversalEditor.IO.BinaryWriter bw2 = new UniversalEditor.IO.BinaryWriter(ms2);
+				IO.Writer bw2 = new IO.Writer(new StreamAccessor(ms2));
 				short[] rawSamples = wave.RawSamples;
 				for (int i = 0; i < rawSamples.Length; i++)
 				{
 					short s = rawSamples[i];
-					bw2.Write(s);
+					bw2.WriteInt16(s);
 				}
 				bw2.Flush();
 				bw2.Close();

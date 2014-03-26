@@ -47,7 +47,17 @@
     <Compile Include="Accessor.cs" />
     <Compile Include="Accessors\FileAccessor.cs" />
     <Compile Include="Accessors\MemoryAccessor.cs" />
+    <Compile Include="Accessors\StreamAccessor.cs" />
     <Compile Include="Accessors\StringAccessor.cs" />
+    <Compile Include="Checksum\ChecksumModule.cs" />
+    <Compile Include="Checksum\Modules\Adler32\Adler32ChecksumModule.cs" />
+    <Compile Include="Checksum\Modules\CRC32\CRC32ChecksumModule.cs" />
+    <Compile Include="Checksum\Modules\StrangeCRC\StrangeCRCChecksumModule.cs" />
+    <Compile Include="Common\Path.cs" />
+    <Compile Include="Common\Strings.cs" />
+    <Compile Include="CustomDataFormat.cs" />
+    <Compile Include="CustomDataFormatItem.cs" />
+    <Compile Include="DataCorruptedException.cs" />
     <Compile Include="DataFormatException.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DataFormat.cs" />
@@ -61,10 +71,13 @@
     <Compile Include="IO\Endianness.cs" />
     <Compile Include="IO\EndOfStreamException.cs" />
     <Compile Include="IO\SeekOrigin.cs" />
+    <Compile Include="Localization\StringTable.cs" />
     <Compile Include="ObjectModel.cs" />
     <Compile Include="ObjectModelNotSupportedException.cs" />
+    <Compile Include="ProgressEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

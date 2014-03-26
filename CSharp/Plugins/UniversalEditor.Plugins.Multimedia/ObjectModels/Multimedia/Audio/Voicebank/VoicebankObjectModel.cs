@@ -22,7 +22,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
         {
             mvarBankSelect = 0;
             mvarCreatorVersion = new Version(1, 0);
-            mvarDocumentProperties = new DocumentProperties();
             mvarID = String.Empty;
             mvarInstallationPath = String.Empty;
             mvarProgramChange = 0;
@@ -42,14 +41,14 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 		private VoicebankSynthesisParameters mvarSynthesisParameters = new VoicebankSynthesisParameters();
 		public VoicebankSynthesisParameters SynthesisParameters { get { return mvarSynthesisParameters; } }
 
-        private DocumentProperties mvarDocumentProperties = new DocumentProperties();
-        public DocumentProperties DocumentProperties { get { return mvarDocumentProperties; } }
-
 		private VoicebankSample.VoicebankSampleCollection mvarSamples = new VoicebankSample.VoicebankSampleCollection();
 		public VoicebankSample.VoicebankSampleCollection Samples { get { return mvarSamples; } }
 
 		private Version mvarCreatorVersion = new Version(1, 0);
 		public Version CreatorVersion { get { return mvarCreatorVersion; } set { mvarCreatorVersion = value; } }
+
+		private string mvarTitle = String.Empty;
+		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
 		private string mvarInstallationPath = string.Empty;
 		public string InstallationPath { get { return mvarInstallationPath; } set { mvarInstallationPath = value; } }
@@ -59,17 +58,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 			VoicebankObjectModel clone = (destination as VoicebankObjectModel);
             if (clone == null) return;
 
-			foreach (KeyValuePair<string, string> kvp in mvarDocumentProperties.CustomProperties)
-			{
-				if (clone.DocumentProperties.CustomProperties.ContainsKey(kvp.Key))
-				{
-					clone.DocumentProperties.CustomProperties[kvp.Key] = kvp.Value;
-				}
-				else
-				{
-					clone.DocumentProperties.CustomProperties.Add(kvp.Key, kvp.Value);
-				}
-			}
 			foreach (VoicebankSample phoneme in this.mvarSamples)
 			{
 				if (!clone.Samples.Contains(phoneme.Name)) clone.Samples.Add(phoneme.Clone() as VoicebankSample);

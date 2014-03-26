@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.CompressedBG
@@ -172,7 +173,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.CompressedBG
 
         private static uint extract(byte[] src, uint bpp)
         {
-            IO.BinaryReader br = new IO.BinaryReader(src);
+            IO.Reader br = new IO.Reader(new MemoryAccessor(src));
             if (bpp == 32)
             {
                 return br.ReadUInt32();
@@ -198,7 +199,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.CompressedBG
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             PictureObjectModel pic = (objectModel as PictureObjectModel);
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             string magic = br.ReadFixedLengthString(16);
             if (magic != "CompressedBG___\0") throw new InvalidDataFormatException();
 

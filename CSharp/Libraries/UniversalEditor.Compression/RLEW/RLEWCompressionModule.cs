@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.Compression.RLEW
 {
@@ -15,10 +16,10 @@ namespace UniversalEditor.Compression.RLEW
         private short mvarRLEWTag = 0;
         public short RLEWTag { get { return mvarRLEWTag; } set { mvarRLEWTag = value; } }
 
-        public override void Compress(System.IO.Stream inputStream, System.IO.Stream outputStream)
+		protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
         {
-            IO.BinaryReader br = new IO.BinaryReader(inputStream);
-            IO.BinaryWriter bw = new IO.BinaryWriter(outputStream);
+            IO.Reader br = new IO.Reader(new StreamAccessor(inputStream));
+            IO.Writer bw = new IO.Writer(new StreamAccessor(outputStream));
             
             short lastWord = 0;
             short wordCount = 0;
@@ -60,7 +61,7 @@ namespace UniversalEditor.Compression.RLEW
                     if (wordCount == 4)
                     {
                         // we have at least four equal words, so push out an RLEWtag...
-                        bw.Write(mvarRLEWTag);
+                        bw.WriteInt16(mvarRLEWTag);
                     }
                 }
                 else
@@ -72,18 +73,18 @@ namespace UniversalEditor.Compression.RLEW
                         // just store the values as-is, so flush the remaining words
                         for (ushort i = 0; i < wordCount; i++)
                         {
-                            bw.Write(word);
+                            bw.WriteInt16(word);
                         }
 
-                        bw.Write(lastWord);
+                        bw.WriteInt16(lastWord);
 
                         lastWord = 0;
                         wordCount = 0;
                     }
                     else
                     {
-                        bw.Write(wordCount);
-                        bw.Write(lastWord);
+                        bw.WriteInt16(wordCount);
+                        bw.WriteInt16(lastWord);
                     }
 
                     // ... and clear the word count
@@ -103,7 +104,7 @@ namespace UniversalEditor.Compression.RLEW
                 // just store the values as-is, so flush the remaining words
                 for (ushort i = 0; i < wordCount; i++)
                 {
-                    bw.Write(lastWord);
+                    bw.WriteInt16(lastWord);
                 }
 
                 lastWord = 0;
@@ -111,16 +112,16 @@ namespace UniversalEditor.Compression.RLEW
             }
             else
             {
-                bw.Write(wordCount);
-                bw.Write(lastWord);
+                bw.WriteInt16(wordCount);
+                bw.WriteInt16(lastWord);
             }
 
             bw.Flush();
         }
-        public override void Decompress(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
+		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
         {
-            IO.BinaryReader br = new IO.BinaryReader(inputStream);
-            IO.BinaryWriter bw = new IO.BinaryWriter(outputStream);
+            IO.Reader br = new IO.Reader(new StreamAccessor(inputStream));
+            IO.Writer bw = new IO.Writer(new StreamAccessor(outputStream));
             
             while (!br.EndOfStream)
             {
@@ -134,13 +135,13 @@ namespace UniversalEditor.Compression.RLEW
                     short value = br.ReadInt16();
                     for (short i = 0; i < count; i++)
                     {
-                        bw.Write(value);
+                        bw.WriteInt16(value);
                     }
                 }
                 else
                 {
                     // if word is not equal to RLEWtag, then simply write that word out
-                    bw.Write(word);
+                    bw.WriteInt16(word);
                 }
             }
 

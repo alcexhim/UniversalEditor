@@ -22,7 +22,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Icon.Microsoft
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 
 			// An Icon file, which usually has the ICO extension, contains one icon resource. Given that
 			// an icon resource can contain multiple images, it is no surprise that the file begins with

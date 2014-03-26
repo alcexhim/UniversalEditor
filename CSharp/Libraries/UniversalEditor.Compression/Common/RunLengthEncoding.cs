@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.Compression.Common
 {
@@ -16,8 +17,7 @@ namespace UniversalEditor.Compression.Common
 			}
 			else
 			{
-				MemoryStream ms = new MemoryStream();
-				UniversalEditor.IO.BinaryWriter bw = new UniversalEditor.IO.BinaryWriter(ms);
+				UniversalEditor.IO.Writer bw = new UniversalEditor.IO.Writer(new MemoryAccessor());
 				byte last = input[0];
 				byte lastCount = 0;
 				for (int i = 0; i < input.Length; i++)
@@ -28,29 +28,28 @@ namespace UniversalEditor.Compression.Common
 					}
 					else
 					{
-						bw.Write(lastCount);
-						bw.Write(last);
+						bw.WriteByte(lastCount);
+						bw.WriteByte(last);
 						last = input[i];
 						lastCount = 1;
 					}
 				}
 				if (input[input.Length - 1] == last)
 				{
-					bw.Write(lastCount);
-					bw.Write(last);
+					bw.WriteByte(lastCount);
+					bw.WriteByte(last);
 				}
 				bw.Flush();
 				bw.Close();
-				result = ms.ToArray();
+				result = (bw.Accessor as MemoryAccessor).ToArray();
 			}
 			return result;
 		}
 		public static byte[] Decode(byte[] input)
 		{
-			MemoryStream ms = new MemoryStream(input);
-			UniversalEditor.IO.BinaryReader br = new UniversalEditor.IO.BinaryReader(ms);
+			IO.Reader br = new IO.Reader(new MemoryAccessor(input));
 			MemoryStream msOutput = new MemoryStream();
-			while (ms.Position != ms.Length)
+			while (!br.EndOfStream)
 			{
 				byte ct = br.ReadByte();
 				byte val = br.ReadByte();

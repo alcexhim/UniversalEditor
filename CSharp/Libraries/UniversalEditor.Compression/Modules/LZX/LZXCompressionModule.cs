@@ -6,6 +6,22 @@ using System.Text;
 
 using UniversalEditor.Compression.Modules.LZX.Internal;
 
+/* This file was derived from libmspack
+ * (C) 2003-2004 Stuart Caie.
+ * (C) 2011 Ali Scissons.
+ *
+ * The LZX method was created by Jonathan Forbes and Tomi Poutanen, adapted
+ * by Microsoft Corporation.
+ *
+ * This source file is Dual licensed; meaning the end-user of this source file
+ * may redistribute/modify it under the LGPL 2.1 or MS-PL licenses.
+ * 
+ * Adapted into a Universal Editor Compression Module by Michael Becker.
+ * 
+ * Original source code:
+ * https://code.google.com/p/monoxna/source/browse/trunk/src/Microsoft.Xna.Framework/HelperCode/LzxDecoder.cs
+*/
+
 namespace UniversalEditor.Compression.Modules.LZX
 {
     public class LZXCompressionModule : CompressionModule
@@ -20,76 +36,98 @@ namespace UniversalEditor.Compression.Modules.LZX
 
         private LzxState m_state;
 
-        public LZXCompressionModule(int window)
-        {
-            uint wndsize = (uint)(1 << window);
-            int posn_slots;
+		public LZXCompressionModule()
+		{
 
-            // setup proper exception
-            if (window < 15 || window > 21) throw new UnsupportedWindowSizeRangeException();
+		}
+		public LZXCompressionModule(int window)
+		{
+			mvarWindowSize = window;
+		}
 
-            // let's initialise our state
-            m_state = new LzxState();
-            m_state.actual_size = 0;
-            m_state.window = new byte[wndsize];
-            for (int i = 0; i < wndsize; i++) m_state.window[i] = 0xDC;
-            m_state.actual_size = wndsize;
-            m_state.window_size = wndsize;
-            m_state.window_posn = 0;
+		private int mvarWindowSize = 18;
+		public int WindowSize
+		{
+			get { return mvarWindowSize; }
+			set
+			{
+				// setup proper exception
+				if (value < 15 || value > 21) throw new UnsupportedWindowSizeRangeException();
 
-            /* initialize static tables */
-            if (extra_bits == null)
-            {
-                extra_bits = new byte[52];
-                for (int i = 0, j = 0; i <= 50; i += 2)
-                {
-                    extra_bits[i] = extra_bits[i + 1] = (byte)j;
-                    if ((i != 0) && (j < 17)) j++;
-                }
-            }
-            if (position_base == null)
-            {
-                position_base = new uint[51];
-                for (int i = 0, j = 0; i <= 50; i++)
-                {
-                    position_base[i] = (uint)j;
-                    j += 1 << extra_bits[i];
-                }
-            }
+				mvarWindowSize = value;
+			}
+		}
 
-            /* calculate required position slots */
-            if (window == 20) posn_slots = 42;
-            else if (window == 21) posn_slots = 50;
-            else posn_slots = window << 1;
+		protected override void InitializeInternal()
+		{
+			// setup proper exception
+			if (mvarWindowSize < 15 || mvarWindowSize > 21) throw new UnsupportedWindowSizeRangeException();
 
-            m_state.R0 = m_state.R1 = m_state.R2 = 1;
-            m_state.main_elements = (ushort)(Constants.NUM_CHARS + (posn_slots << 3));
-            m_state.header_read = 0;
-            m_state.frames_read = 0;
-            m_state.block_remaining = 0;
-            m_state.block_type = Constants.BLOCKTYPE.INVALID;
-            m_state.intel_curpos = 0;
-            m_state.intel_started = 0;
+			uint wndsize = (uint)(1 << mvarWindowSize);
+			int posn_slots;
 
-            // yo dawg i herd u liek arrays so we put arrays in ur arrays so u can array while u array
-            m_state.PRETREE_table = new ushort[(1 << Constants.PRETREE_TABLEBITS) + (Constants.PRETREE_MAXSYMBOLS << 1)];
-            m_state.PRETREE_len = new byte[Constants.PRETREE_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
-            m_state.MAINTREE_table = new ushort[(1 << Constants.MAINTREE_TABLEBITS) + (Constants.MAINTREE_MAXSYMBOLS << 1)];
-            m_state.MAINTREE_len = new byte[Constants.MAINTREE_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
-            m_state.LENGTH_table = new ushort[(1 << Constants.LENGTH_TABLEBITS) + (Constants.LENGTH_MAXSYMBOLS << 1)];
-            m_state.LENGTH_len = new byte[Constants.LENGTH_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
-            m_state.ALIGNED_table = new ushort[(1 << Constants.ALIGNED_TABLEBITS) + (Constants.ALIGNED_MAXSYMBOLS << 1)];
-            m_state.ALIGNED_len = new byte[Constants.ALIGNED_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
-            /* initialise tables to 0 (because deltas will be applied to them) */
-            for (int i = 0; i < Constants.MAINTREE_MAXSYMBOLS; i++) m_state.MAINTREE_len[i] = 0;
-            for (int i = 0; i < Constants.LENGTH_MAXSYMBOLS; i++) m_state.LENGTH_len[i] = 0;
-        }
+			// let's initialise our state
+			m_state = new LzxState();
+			m_state.actual_size = 0;
+			m_state.window = new byte[wndsize];
+			for (int i = 0; i < wndsize; i++) m_state.window[i] = 0xDC;
+			m_state.actual_size = wndsize;
+			m_state.window_size = wndsize;
+			m_state.window_posn = 0;
 
-        public override void Compress(Stream inputStream, Stream outputStream)
+			/* initialize static tables */
+			if (extra_bits == null)
+			{
+				extra_bits = new byte[52];
+				for (int i = 0, j = 0; i <= 50; i += 2)
+				{
+					extra_bits[i] = extra_bits[i + 1] = (byte)j;
+					if ((i != 0) && (j < 17)) j++;
+				}
+			}
+			if (position_base == null)
+			{
+				position_base = new uint[51];
+				for (int i = 0, j = 0; i <= 50; i++)
+				{
+					position_base[i] = (uint)j;
+					j += 1 << extra_bits[i];
+				}
+			}
+
+			// calculate required position slots
+			if (mvarWindowSize == 20) posn_slots = 42;
+			else if (mvarWindowSize == 21) posn_slots = 50;
+			else posn_slots = mvarWindowSize << 1;
+
+			m_state.R0 = m_state.R1 = m_state.R2 = 1;
+			m_state.main_elements = (ushort)(Constants.NUM_CHARS + (posn_slots << 3));
+			m_state.header_read = 0;
+			m_state.frames_read = 0;
+			m_state.block_remaining = 0;
+			m_state.block_type = Constants.BLOCKTYPE.INVALID;
+			m_state.intel_curpos = 0;
+			m_state.intel_started = 0;
+
+			// yo dawg i herd u liek arrays so we put arrays in ur arrays so u can array while u array
+			m_state.PRETREE_table = new ushort[(1 << Constants.PRETREE_TABLEBITS) + (Constants.PRETREE_MAXSYMBOLS << 1)];
+			m_state.PRETREE_len = new byte[Constants.PRETREE_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
+			m_state.MAINTREE_table = new ushort[(1 << Constants.MAINTREE_TABLEBITS) + (Constants.MAINTREE_MAXSYMBOLS << 1)];
+			m_state.MAINTREE_len = new byte[Constants.MAINTREE_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
+			m_state.LENGTH_table = new ushort[(1 << Constants.LENGTH_TABLEBITS) + (Constants.LENGTH_MAXSYMBOLS << 1)];
+			m_state.LENGTH_len = new byte[Constants.LENGTH_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
+			m_state.ALIGNED_table = new ushort[(1 << Constants.ALIGNED_TABLEBITS) + (Constants.ALIGNED_MAXSYMBOLS << 1)];
+			m_state.ALIGNED_len = new byte[Constants.ALIGNED_MAXSYMBOLS + Constants.LENTABLE_SAFETY];
+			/* initialise tables to 0 (because deltas will be applied to them) */
+			for (int i = 0; i < Constants.MAINTREE_MAXSYMBOLS; i++) m_state.MAINTREE_len[i] = 0;
+			for (int i = 0; i < Constants.LENGTH_MAXSYMBOLS; i++) m_state.LENGTH_len[i] = 0;
+		}
+
+		protected override void CompressInternal(Stream inputStream, Stream outputStream)
         {
             throw new NotImplementedException();
         }
-        public override void Decompress(Stream inputStream, Stream outputStream, int inputLength, int outputLength)
+		protected override void DecompressInternal(Stream inputStream, Stream outputStream, int inputLength, int outputLength)
         {
             BitBuffer bitbuf = new BitBuffer(inputStream);
             

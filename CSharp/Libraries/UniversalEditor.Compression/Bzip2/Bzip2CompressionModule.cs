@@ -23,11 +23,11 @@ namespace UniversalEditor.Compression.Bzip2
             ICSharpCode.SharpZipLib.BZip2.BZip2.Compress(inputStream, outputStream, false, level);
         }
 
-        public override void Compress(System.IO.Stream inputStream, System.IO.Stream outputStream)
+        protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
         {
             Compress(inputStream, outputStream, 5);
         }
-        public override void Decompress(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
+		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
         {
             ICSharpCode.SharpZipLib.BZip2.BZip2.Decompress(inputStream, outputStream, false);
         }

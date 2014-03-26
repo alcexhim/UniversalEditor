@@ -25,7 +25,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
             PaletteObjectModel palette = (objectModel as PaletteObjectModel);
             if (palette == null) return;
 
-            IO.TextReader tr = base.Stream.TextReader;
+            IO.Reader tr = base.Accessor.Reader;
             bool headerRead = false;
             while (!tr.EndOfStream)
             {

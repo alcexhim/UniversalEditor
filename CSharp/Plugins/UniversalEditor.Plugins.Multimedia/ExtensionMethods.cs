@@ -15,14 +15,14 @@ namespace UniversalEditor
 	/// </summary>
 	public static class ExtensionMethods
     {
-        #region BinaryReader
+        #region Reader
         /// <summary>
 		/// Reads a series of 3 32-bit Single values as a <see cref="Color" />
 		/// in RGB order.
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static Color ReadColorRGBSingle(this IO.BinaryReader br)
+		public static Color ReadColorRGBSingle(this IO.Reader br)
 		{
             float specularR = br.ReadSingle();
             float specularG = br.ReadSingle();
@@ -39,7 +39,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static Color ReadColorRGBASingle(this IO.BinaryReader br)
+		public static Color ReadColorRGBASingle(this IO.Reader br)
 		{
             float diffuseR = br.ReadSingle();
             float diffuseG = br.ReadSingle();
@@ -58,7 +58,7 @@ namespace UniversalEditor
         /// </summary>
         /// <param name="br"></param>
         /// <returns></returns>
-        public static Color ReadColorARGBSingle(this IO.BinaryReader br)
+        public static Color ReadColorARGBSingle(this IO.Reader br)
         {
             float diffuseA = br.ReadSingle();
             float diffuseR = br.ReadSingle();
@@ -77,7 +77,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static Color ReadColorRGBA4444(this IO.BinaryReader br)
+		public static Color ReadColorRGBA4444(this IO.Reader br)
 		{
 			// 4 bits R, 4 bits G, 4 bits B, 4 bits alpha
 			ushort rgba = br.ReadUInt16();
@@ -95,7 +95,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static Color ReadColorRGBA5650(this IO.BinaryReader br)
+		public static Color ReadColorRGBA5650(this IO.Reader br)
 		{
 			// 5 bits R, 6 bits G, 5 bits B, 0 bits alpha
 			ushort rgb = br.ReadUInt16();
@@ -112,7 +112,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static Color ReadColorRGBA8888(this IO.BinaryReader br)
+		public static Color ReadColorRGBA8888(this IO.Reader br)
 		{
 			// 1 byte each R, G, B, A
 			byte r = br.ReadByte();
@@ -129,7 +129,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static Color ReadColorRGBA5551(this IO.BinaryReader br)
+		public static Color ReadColorRGBA5551(this IO.Reader br)
 		{
 			ushort rgba = br.ReadUInt16();
 			byte r = (byte)(rgba.GetBits(0, 5));
@@ -141,18 +141,18 @@ namespace UniversalEditor
 			return color;
         }
         #endregion
-        #region BinaryWriter
+        #region Writer
         /// <summary>
         /// Writes a series of 3 32-bit Single values as a <see cref="Color" />
 		/// in RGB order.
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static void WriteColorRGBSingle(this IO.BinaryWriter bw, Color color)
+		public static void WriteColorRGBSingle(this IO.Writer bw, Color color)
         {
-            bw.Write((float)color.Red);
-            bw.Write((float)color.Green);
-            bw.Write((float)color.Blue);
+            bw.WriteSingle((float)color.Red);
+            bw.WriteSingle((float)color.Green);
+            bw.WriteSingle((float)color.Blue);
 		}
 		/// <summary>
 		/// Writes a series of 4 32-bit Single values as a <see cref="Color" />
@@ -160,12 +160,12 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-        public static void WriteColorRGBASingle(this IO.BinaryWriter bw, Color color)
+        public static void WriteColorRGBASingle(this IO.Writer bw, Color color)
         {
-            bw.Write((float)color.Red);
-            bw.Write((float)color.Green);
-            bw.Write((float)color.Blue);
-            bw.Write((float)color.Alpha);
+            bw.WriteSingle((float)color.Red);
+            bw.WriteSingle((float)color.Green);
+            bw.WriteSingle((float)color.Blue);
+            bw.WriteSingle((float)color.Alpha);
 		}
         /// <summary>
         /// Writes a series of 4 32-bit Single values as a <see cref="Color" />
@@ -173,12 +173,12 @@ namespace UniversalEditor
         /// </summary>
         /// <param name="br"></param>
         /// <returns></returns>
-        public static void WriteColorARGBSingle(this IO.BinaryWriter bw, Color color)
+        public static void WriteColorARGBSingle(this IO.Writer bw, Color color)
         {
-            bw.Write((float)color.Alpha);
-            bw.Write((float)color.Red);
-            bw.Write((float)color.Green);
-            bw.Write((float)color.Blue);
+            bw.WriteSingle((float)color.Alpha);
+            bw.WriteSingle((float)color.Red);
+            bw.WriteSingle((float)color.Green);
+            bw.WriteSingle((float)color.Blue);
         }
 		
 		/// <summary>
@@ -186,7 +186,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static void WriteColorRGBA4444(this IO.BinaryWriter bw, Color color)
+		public static void WriteColorRGBA4444(this IO.Writer bw, Color color)
 		{
             throw new NotImplementedException();
             /*
@@ -206,7 +206,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static void WriteColorRGBA5650(this IO.BinaryWriter bw, Color color)
+		public static void WriteColorRGBA5650(this IO.Writer bw, Color color)
 		{
             throw new NotImplementedException();
 		}
@@ -216,12 +216,12 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static void WriteColorRGBA8888(this IO.BinaryWriter bw, Color color)
+		public static void WriteColorRGBA8888(this IO.Writer bw, Color color)
 		{
-            bw.Write((byte)(color.Red * 255));
-            bw.Write((byte)(color.Green * 255));
-            bw.Write((byte)(color.Blue * 255));
-            bw.Write((byte)(color.Alpha * 255));
+            bw.WriteByte((byte)(color.Red * 255));
+            bw.WriteByte((byte)(color.Green * 255));
+            bw.WriteByte((byte)(color.Blue * 255));
+            bw.WriteByte((byte)(color.Alpha * 255));
 		}
 		
 		/// <summary>
@@ -229,7 +229,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-		public static Color ReadColorRGBA5551(this IO.BinaryWriter bw, Color color)
+		public static Color ReadColorRGBA5551(this IO.Writer bw, Color color)
 		{
             throw new NotImplementedException();
         }

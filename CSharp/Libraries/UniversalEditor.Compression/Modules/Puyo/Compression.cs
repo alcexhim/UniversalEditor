@@ -119,8 +119,8 @@ namespace UniversalEditor.Compression.Puyo
 		static Compression()
 		{
 			Compression.Dictionary = new Dictionary<CompressionFormat, PuyoCompressionModule>();
-			Compression.Dictionary.Add(CompressionFormat.CNX, new Internal.Compressors.CNX());
-			Compression.Dictionary.Add(CompressionFormat.CXLZ, new Internal.Compressors.CXLZ());
+			// Compression.Dictionary.Add(CompressionFormat.CNX, new Internal.Compressors.CNX());
+			// Compression.Dictionary.Add(CompressionFormat.CXLZ, new Internal.Compressors.CXLZ());
 			Compression.Dictionary.Add(CompressionFormat.LZ00, new Internal.Compressors.LZ00());
 			Compression.Dictionary.Add(CompressionFormat.LZ01, new Internal.Compressors.LZ01());
 			Compression.Dictionary.Add(CompressionFormat.LZSS, new Internal.Compressors.LZSS());

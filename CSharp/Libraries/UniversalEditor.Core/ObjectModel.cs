@@ -12,8 +12,8 @@ namespace UniversalEditor
 			return omr;
 		}
 
-        private Document mvarAccessor = null;
-        public Document Accessor { get { return mvarAccessor; } internal set { mvarAccessor = value; } }
+        private Accessor mvarAccessor = null;
+        public Accessor Accessor { get { return mvarAccessor; } internal set { mvarAccessor = value; } }
 
 		public abstract void Clear();
 		public abstract void CopyTo(ObjectModel where);

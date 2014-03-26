@@ -59,5 +59,14 @@ namespace UniversalEditor
             mvarDataFormat = dataFormat;
             mvarAccessor = accessor;
         }
-    }
+
+		public static Document Load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = false)
+		{
+			Document document = new Document(objectModel, dataFormat, accessor);
+			document.Accessor.Open();
+			document.Load();
+			if (autoClose) document.Accessor.Close();
+			return document;
+		}
+	}
 }

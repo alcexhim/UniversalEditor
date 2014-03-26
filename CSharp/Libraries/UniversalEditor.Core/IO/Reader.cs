@@ -25,13 +25,14 @@ namespace UniversalEditor.IO
 	// [DebuggerNonUserCode()]
 	public class Reader
 	{
-        private Accessor mvarAccessor = null;
-
         private Endianness mvarEndianness = Endianness.LittleEndian;
         public Endianness Endianness { get { return mvarEndianness; } set { mvarEndianness = value; } }
 
         private bool mvarReverse = false;
         public bool Reverse { get { return mvarReverse; } }
+
+		private Accessor mvarAccessor = null;
+		public Accessor Accessor { get { return mvarAccessor; } }
 
         private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
         public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
@@ -70,6 +71,11 @@ namespace UniversalEditor.IO
         {
             mvarAccessor.ReadInternal(buffer, start, length);
         }
+
+		public bool ReadBoolean()
+		{
+			return (ReadBytes(1)[0] != 0);
+		}
 
         public byte ReadByte()
         {
@@ -348,37 +354,14 @@ namespace UniversalEditor.IO
 			}
 			return new Guid(a, b, c, d, e, f, g, h, i, j, k);
 		}
-
-
-
-		
-		public int[] ReadInt32Array (int size)
+		public Guid[] ReadGuidArray(int count)
 		{
-			List<int> list = new List<int> ();
-			for (int i = 0; i < size; i++)
+			Guid[] retval = new Guid[count];
+			for (int i = 0; i < count; i++)
 			{
-				list.Add (ReadInt32 ());
+				retval[i] = ReadGuid();
 			}
-			return list.ToArray();
-		}
-
-		public float[] ReadSingleArray(int size)
-		{
-			List<float> list = new List<float>();
-			for (int i = 0; i < size; i++)
-			{
-				list.Add(ReadSingle());
-			}
-			return list.ToArray();
-		}
-		public double[] ReadDoubleArray(int size)
-		{
-			List<double> list = new List<double>();
-			for (int i = 0; i < size; i++)
-			{
-				list.Add(ReadDouble());
-			}
-			return list.ToArray();
+			return retval;
 		}
 
 		public short ReadInt16()
@@ -397,6 +380,16 @@ namespace UniversalEditor.IO
             }
             return BitConverter.ToInt16(_buffer, 0);
 		}
+		public short[] ReadInt16Array(int count)
+		{
+			short[] retval = new short[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadInt16();
+			}
+			return retval;
+		}
+
 		public int ReadInt24()
 		{
             byte[] buffer = ReadBytes((uint)3);
@@ -417,6 +410,16 @@ namespace UniversalEditor.IO
             }
             return BitConverter.ToInt32(_buffer, 0);
 		}
+		public int[] ReadInt24Array(int count)
+		{
+			int[] retval = new int[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadInt24();
+			}
+			return retval;
+		}
+
 		public int ReadInt32()
         {
             byte[] buffer = ReadBytes((uint)4);
@@ -437,6 +440,16 @@ namespace UniversalEditor.IO
             }
             return BitConverter.ToInt32(_buffer, 0);
 		}
+		public int[] ReadInt32Array(int count)
+		{
+			int[] retval = new int[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadInt32();
+			}
+			return retval;
+		}
+
 		public long ReadInt64()
         {
             byte[] buffer = ReadBytes((uint)8);
@@ -465,6 +478,15 @@ namespace UniversalEditor.IO
             }
             return BitConverter.ToInt64(_buffer, 0);
 		}
+		public long[] ReadInt64Array(int count)
+		{
+			long[] retval = new long[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadInt64();
+			}
+			return retval;
+		}
 
 		public float ReadSingle()
         {
@@ -486,6 +508,16 @@ namespace UniversalEditor.IO
             }
 			return BitConverter.ToSingle(_buffer, 0);
 		}
+		public float[] ReadSingleArray(int count)
+		{
+			float[] retval = new float[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadSingle();
+			}
+			return retval;
+		}
+
 		public double ReadDouble()
 		{
 			byte[] buffer = ReadBytes((uint)8);
@@ -514,6 +546,15 @@ namespace UniversalEditor.IO
             }
 			return BitConverter.ToDouble(_buffer, 0);
 		}
+		public double[] ReadDoubleArray(int count)
+		{
+			double[] retval = new double[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadDouble();
+			}
+			return retval;
+		}
 
 		public ushort ReadUInt16 ()
         {
@@ -524,6 +565,16 @@ namespace UniversalEditor.IO
             }
             return (ushort)(buffer[1] | (buffer[0] << 8));
 		}
+		public ushort[] ReadUInt16Array(int count)
+		{
+			ushort[] retval = new ushort[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt16();
+			}
+			return retval;
+		}
+
 		public uint ReadUInt24()
 		{
             // TODO: Test this out!
@@ -534,6 +585,15 @@ namespace UniversalEditor.IO
 			}
             return (uint)((buffer[2]) | (buffer[1] << 8) | (buffer[0] << 16));
 		}
+		public uint[] ReadUInt24Array(int count)
+		{
+			uint[] retval = new uint[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt24();
+			}
+			return retval;
+		}
 
 		public uint ReadUInt32()
         {
@@ -543,6 +603,15 @@ namespace UniversalEditor.IO
                 return (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
 			}
 			return (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
+		}
+		public uint[] ReadUInt32Array(int count)
+		{
+			uint[] retval = new uint[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt32();
+			}
+			return retval;
 		}
 		
 		public int ReadVariableLengthInt32()
@@ -562,6 +631,41 @@ namespace UniversalEditor.IO
 			
 			return value;
 		}
+		public int[] ReadVariableLengthInt32Array(int count)
+		{
+			int[] retval = new int[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadVariableLengthInt32();
+			}
+			return retval;
+		}
+
+		public ulong ReadUInt48()
+		{
+			byte[] buffer = ReadBytes((uint)6);
+			if (this.mvarEndianness == Endianness.LittleEndian)
+			{
+				uint num = (uint)(((buffer[0] << 0x10)) | (buffer[1] << 0x18));
+				uint num2 = (uint)(((buffer[2] | (buffer[3] << 8)) | (buffer[4] << 0x10)) | (buffer[5] << 0x18));
+				return (ulong)(num | num2 << 0x20);
+			}
+			else
+			{
+				uint num = (uint)(((buffer[5] << 0x10)) | (buffer[4] << 0x18));
+				uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
+				return (ulong)(num << 0x20 | num2);
+			}
+		}
+		public ulong[] ReadUInt48Array(int count)
+		{
+			ulong[] retval = new ulong[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt48();
+			}
+			return retval;
+		}
 
 		public ulong ReadUInt64()
         {
@@ -580,21 +684,14 @@ namespace UniversalEditor.IO
             }
             throw new InvalidOperationException();
 		}
-		public virtual ulong ReadUInt48()
+		public ulong[] ReadUInt64Array(int count)
 		{
-			byte[] buffer = ReadBytes((uint)6);
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			ulong[] retval = new ulong[count];
+			for (int i = 0; i < count; i++)
 			{
-				uint num = (uint)(((buffer[0] << 0x10)) | (buffer[1] << 0x18));
-				uint num2 = (uint)(((buffer[2] | (buffer[3] << 8)) | (buffer[4] << 0x10)) | (buffer[5] << 0x18));
-				return (ulong)(num | num2 << 0x20);
+				retval[i] = ReadUInt64();
 			}
-			else
-			{
-				uint num = (uint)(((buffer[5] << 0x10)) | (buffer[4] << 0x18));
-				uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
-				return (ulong)(num << 0x20 | num2);
-			}
+			return retval;
 		}
 
 		public string ReadNullTerminatedString()
@@ -781,6 +878,25 @@ namespace UniversalEditor.IO
 		{
 			int l = ReadInt32();
 			return DateTime.FromBinary(l);
+		}
+
+		// TODO: TEST THIS!!
+		public decimal ReadDecimal()
+		{
+			byte[] buffer = ReadBytes(16);
+			int num = (int)buffer[0] | (int)buffer[1] << 8 | (int)buffer[2] << 16 | (int)buffer[3] << 24;
+			int num2 = (int)buffer[4] | (int)buffer[5] << 8 | (int)buffer[6] << 16 | (int)buffer[7] << 24;
+			int num3 = (int)buffer[8] | (int)buffer[9] << 8 | (int)buffer[10] << 16 | (int)buffer[11] << 24;
+			int flags = (int)buffer[12] | (int)buffer[13] << 8 | (int)buffer[14] << 16 | (int)buffer[15] << 24;
+
+			bool isNegative = ((flags & -2147483648) == -2147483648);
+			byte scale = (byte)(flags >> 16);
+
+			if ((flags & 2130771967) == 0 && (flags & 16711680) <= 1835008)
+			{
+				return new Decimal(num, num2, num3, isNegative, scale);
+			}
+			throw new ArgumentOutOfRangeException("Invalid decimal");
 		}
 
 		public string ReadByteSizedString()
@@ -1114,7 +1230,7 @@ namespace UniversalEditor.IO
 			}
 		}
 
-		public short[] ReadInt16Array(int count)
+		private short[] ReadInt16ArrayWTF(int count)
 		{
 			byte[] buffer = new byte[count * 2];
 			Read(buffer, 0, buffer.Length);
@@ -1321,6 +1437,22 @@ namespace UniversalEditor.IO
         {
             return ReadUntil(GetNewLineSequence());
         }
-    }
+
+		public void Seek(int length, SeekOrigin origin)
+		{
+			mvarAccessor.Seek(length, origin);
+		}
+		public void Seek(long length, SeekOrigin origin)
+		{
+			mvarAccessor.Seek(length, origin);
+		}
+
+		public void Close()
+		{
+			mvarAccessor.Close();
+		}
+
+		public long Remaining { get { return mvarAccessor.Remaining; } }
+	}
 }
 

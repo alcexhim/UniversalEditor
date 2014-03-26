@@ -21,7 +21,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.FLAC
 		{
 			throw new NotImplementedException();
 		}
-		private void SaveMetadataBlockHeader(BinaryWriter bw, FLACMetadataBlockHeader header)
+		private void SaveMetadataBlockHeader(Writer bw, FLACMetadataBlockHeader header)
 		{
 			byte flagAndType = 0;
 			if (header.IsLastMetadataBlock)
@@ -29,10 +29,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.FLAC
 				flagAndType |= 1;
 			}
 			flagAndType |= (byte)header.BlockType;
-			bw.Write(flagAndType);
+			bw.WriteByte(flagAndType);
 			bw.WriteInt24(header.ContentLength);
 		}
-		private void SaveMetadataBlockStreamInfo(BinaryWriter bw, FLACMetadataBlockStreamInfo block)
+		private void SaveMetadataBlockStreamInfo(Writer bw, FLACMetadataBlockStreamInfo block)
 		{
 			this.SaveMetadataBlockHeader(bw, new FLACMetadataBlockHeader
 			{
@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.FLAC
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			BinaryWriter bw = base.Stream.BinaryWriter;
+			Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("fLaC");
 			FLACMetadataBlockStreamInfo streamInfo = new FLACMetadataBlockStreamInfo();
 			this.SaveMetadataBlockStreamInfo(bw, streamInfo);

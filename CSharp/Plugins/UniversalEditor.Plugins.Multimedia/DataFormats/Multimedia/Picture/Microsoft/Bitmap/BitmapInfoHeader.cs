@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.IO;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 {
@@ -85,7 +86,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		private BitmapBitsPerPixel mvarPixelDepth;
 		public BitmapBitsPerPixel PixelDepth { get { return mvarPixelDepth; } set { mvarPixelDepth = value; } }
 
-		public static BitmapInfoHeader Load(IO.BinaryReader br)
+		public static BitmapInfoHeader Load(IO.Reader br)
 		{
 			BitmapInfoHeader header = new BitmapInfoHeader();
 			header.HeaderSize = br.ReadInt32();                            // 40       vs. 56
@@ -102,23 +103,23 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 
             if (header.HeaderSize < 56)
             {
-                br.BaseStream.Position += (56 - header.HeaderSize);
+                br.Seek(56 - header.HeaderSize, SeekOrigin.Current);
             }
 			return header;
 		}
-		public static void Save(IO.BinaryWriter bw, BitmapInfoHeader header)
+		public static void Save(IO.Writer bw, BitmapInfoHeader header)
 		{
-			bw.Write((int)40); // header size
-			bw.Write(header.Width);
-			bw.Write(header.Height);
-			bw.Write(header.Planes);
-			bw.Write((short)header.PixelDepth);
-			bw.Write((int)header.Compression);
-			bw.Write(header.ImageSize);
-			bw.Write(header.PelsPerMeterX);
-			bw.Write(header.PelsPerMeterY);
-			bw.Write(header.UsedColorIndexCount);
-			bw.Write(header.RequiredColorIndexCount);
+			bw.WriteInt32((int)40); // header size
+			bw.WriteInt32(header.Width);
+			bw.WriteInt32(header.Height);
+			bw.WriteInt16(header.Planes);
+			bw.WriteInt16((short)header.PixelDepth);
+			bw.WriteInt32((int)header.Compression);
+			bw.WriteInt32(header.ImageSize);
+			bw.WriteInt32(header.PelsPerMeterX);
+			bw.WriteInt32(header.PelsPerMeterY);
+			bw.WriteInt32(header.UsedColorIndexCount);
+			bw.WriteInt32(header.RequiredColorIndexCount);
 		}
 	}
 }

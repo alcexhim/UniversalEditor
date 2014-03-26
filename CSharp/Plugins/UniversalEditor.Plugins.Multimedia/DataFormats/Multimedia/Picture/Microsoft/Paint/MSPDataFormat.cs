@@ -26,11 +26,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Paint
 			PictureObjectModel picture = (objectModel as PictureObjectModel);
 			if (picture == null) throw new ObjectModelNotSupportedException();
 
-			IO.BinaryReader br = base.Stream.BinaryReader;
-			if (br.BaseStream.Length < 32) throw new InvalidDataFormatException("File must be at least 32 bytes");
+			IO.Reader br = base.Accessor.Reader;
+			if (br.Accessor.Length < 32) throw new InvalidDataFormatException("File must be at least 32 bytes");
 
 			string signature = br.ReadFixedLengthString(4);
-			if (!(signature == "DanM" || signature == "LinS")) throw new InvalidDataFormatException("File does not begin with \"DanM\" or \"LinS\"");
+			if (signature != "DanM" && signature != "LinS") throw new InvalidDataFormatException("File does not begin with \"DanM\" or \"LinS\"");
 
 			short bitmapWidth = br.ReadInt16();
 			short bitmapHeight = br.ReadInt16();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using UniversalEditor.Compression.Deflate.Internal;
+using UniversalEditor.Compression.Modules.Deflate.Internal;
 
 namespace UniversalEditor.Compression.Common
 {

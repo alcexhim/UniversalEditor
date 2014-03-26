@@ -24,6 +24,7 @@ namespace UniversalEditor.IO
     public class Writer
 	{
         private Accessor mvarAccessor = null;
+		public Accessor Accessor { get { return mvarAccessor; } }
 
 		private Endianness mvarEndianness = Endianness.LittleEndian;
 		public Endianness Endianness
@@ -92,6 +93,14 @@ namespace UniversalEditor.IO
         {
             Write(data, 0, data.Length);
         }
+
+		public void WriteFixedLengthBytes(byte[] data, int count)
+		{
+			byte[] realdata = new byte[count];
+			Array.Copy(data, 0, realdata, 0, Math.Min(realdata.Length, count));
+			WriteBytes(realdata);
+		}
+
         public void WriteChar(char value)
         {
             WriteChar(value, mvarAccessor.DefaultEncoding);
@@ -672,6 +681,10 @@ namespace UniversalEditor.IO
         {
             mvarAccessor.FlushInternal();
         }
+		public void Close()
+		{
+			mvarAccessor.Close();
+		}
     }
 }
 

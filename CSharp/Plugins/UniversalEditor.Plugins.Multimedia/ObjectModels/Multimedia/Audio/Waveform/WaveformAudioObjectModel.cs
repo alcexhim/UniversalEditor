@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.PropertyList;
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 {
@@ -38,7 +39,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 			{
 				this.mvarRawData = value;
 
-                IO.BinaryReader br = new IO.BinaryReader(value);
+                IO.Reader br = new IO.Reader(new MemoryAccessor(value));
                 List<short> samples = new List<short>();
                 while (!br.EndOfStream)
                 {

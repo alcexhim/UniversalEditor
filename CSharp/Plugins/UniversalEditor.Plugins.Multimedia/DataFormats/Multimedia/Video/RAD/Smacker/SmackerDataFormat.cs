@@ -15,7 +15,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.RAD.Smacker
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(4);
 			int width = br.ReadInt32();
 			int height = br.ReadInt32();

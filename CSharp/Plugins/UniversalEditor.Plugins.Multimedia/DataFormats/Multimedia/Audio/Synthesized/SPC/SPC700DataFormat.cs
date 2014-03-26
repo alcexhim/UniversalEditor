@@ -11,10 +11,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 			dfr.Filters.Add("SNES-SPC700 sound file", new byte?[][] { new byte?[] { (byte)'S', (byte)'N', (byte)'E', (byte)'S', (byte)'-', (byte)'S', (byte)'P', (byte)'C', (byte)'7', (byte)'0', (byte)'0', (byte)' ', (byte)'S', (byte)'o', (byte)'u', (byte)'n', (byte)'d', (byte)' ', (byte)'F', (byte)'i', (byte)'l', (byte)'e', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a' } }, new string[] { "*.spc" });
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
             
-            dfr.ExportOptions.Add(new ExportOptionChoice("Generator", "&Generator:", true,
-                new ExportOptionFieldChoice("Unknown", SPC700Emulator.Unknown, true),
-                new ExportOptionFieldChoice("ZSNES", SPC700Emulator.ZSNES),
-                new ExportOptionFieldChoice("Snes9x", SPC700Emulator.Snes9x)
+            dfr.ExportOptions.Add(new CustomOptionChoice("Generator", "&Generator:", true,
+                new CustomOptionFieldChoice("Unknown", SPC700Emulator.Unknown, true),
+                new CustomOptionFieldChoice("ZSNES", SPC700Emulator.ZSNES),
+                new CustomOptionFieldChoice("Snes9x", SPC700Emulator.Snes9x)
             ));
 
 			return dfr;
@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 		{
 			SynthesizedAudioObjectModel au = (objectModel as SynthesizedAudioObjectModel);
 			
-            BinaryReader br = base.Stream.BinaryReader;
+            Reader br = base.Accessor.Reader;
 			string fileHeader = br.ReadFixedLengthString(33);
             if (!fileHeader.StartsWith("SNES-SPC700 Sound File Data")) throw new InvalidDataFormatException("File does not begin with \"SNES-SPC700 Sound File Data\"");
 
@@ -74,39 +74,34 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			SynthesizedAudioObjectModel au = objectModel as SynthesizedAudioObjectModel;
-			BinaryWriter bw = base.Stream.BinaryWriter;
+			Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("SNES-SPC700 Sound File Data v0.30");
-			byte[] flags = new byte[]
-			{
-				26, 
-				26
-			};
-			bw.Write(flags);
+			bw.WriteBytes(new byte[] { 26, 26 });
 			bool hasID666 = true;
 			if (hasID666)
 			{
-				bw.Write(26);
+				bw.WriteByte(26);
 			}
 			else
 			{
-				bw.Write(27);
+				bw.WriteByte(27);
 			}
 			byte versionMinor = 30;
-			bw.Write(versionMinor);
+			bw.WriteByte(versionMinor);
 			short regPC = 0;
-			bw.Write(regPC);
+			bw.WriteInt16(regPC);
 			byte regA = 0;
-			bw.Write(regA);
+			bw.WriteByte(regA);
 			byte regX = 0;
-			bw.Write(regX);
+			bw.WriteByte(regX);
 			byte regY = 0;
-			bw.Write(regY);
+			bw.WriteByte(regY);
 			byte regPSW = 0;
-			bw.Write(regPSW);
+			bw.WriteByte(regPSW);
 			byte regSP = 0;
-			bw.Write(regSP);
+			bw.WriteByte(regSP);
 			short regReserved = 0;
-			bw.Write(regReserved);
+			bw.WriteInt16(regReserved);
 			if (hasID666)
 			{
 				bw.WriteFixedLengthString(au.Information.SongTitle, 32);
@@ -115,26 +110,26 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 				bw.WriteFixedLengthString(au.Information.Comments, 32);
 				string id666DumpDate = au.Information.DateCreated.ToString("YYYYMMDD");
 				bw.WriteFixedLengthString(id666DumpDate, 11);
-				BinaryWriter arg_15E_0 = bw;
+				Writer arg_15E_0 = bw;
 				int num = au.Information.FadeOutDelay;
 				arg_15E_0.WriteFixedLengthString(num.ToString(), 3);
-				BinaryWriter arg_17A_0 = bw;
+				Writer arg_17A_0 = bw;
 				num = au.Information.FadeOutLength;
 				arg_17A_0.WriteFixedLengthString(num.ToString(), 5);
 				bw.WriteFixedLengthString(au.Information.SongArtist, 32);
-				bw.Write(this.mvarID666DefaultChannelDisables);
-                bw.Write((byte)mvarGenerator);
+				bw.WriteByte(mvarID666DefaultChannelDisables);
+                bw.WriteByte((byte)mvarGenerator);
 
 				bw.WriteFixedLengthBytes(this.mvarID666Reserved, 45);
 			}
 			byte[] regRAM = new byte[65536];
-			bw.Write(regRAM);
+			bw.WriteBytes(regRAM);
 			byte[] regDSP = new byte[128];
-			bw.Write(regDSP);
+			bw.WriteBytes(regDSP);
 			byte[] regUnused2 = new byte[64];
-			bw.Write(regUnused2);
+			bw.WriteBytes(regUnused2);
 			byte[] regExtra = new byte[64];
-			bw.Write(regExtra);
+			bw.WriteBytes(regExtra);
 			bw.Flush();
 		}
 	}

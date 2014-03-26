@@ -21,6 +21,7 @@ namespace UniversalEditor.Compression
 		LZX,
 		PPPMd,
 		Quantum,
+		XMemLZX,
 		Zlib,
 		ZlibSolid
 	}

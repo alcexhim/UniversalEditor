@@ -17,7 +17,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
                 _dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Adobe color palette", new string[] { "*.aco" });
                 _dfr.Sources.Add("http://www.nomodes.com/aco.html");
-                _dfr.ExportOptions.Add(new ExportOptionNumber("Version", "&Version:", 1, 1, ushort.MaxValue));
+                _dfr.ExportOptions.Add(new CustomOptionNumber("Version", "&Version:", 1, 1, ushort.MaxValue));
             }
             return _dfr;
         }
@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             PaletteObjectModel palette = (objectModel as PaletteObjectModel);
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             br.Endianness = IO.Endianness.BigEndian;
 
             // The palette begins with a two-word header:
@@ -73,20 +73,20 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
         protected override void SaveInternal(ObjectModel objectModel)
         {
             PaletteObjectModel palette = (objectModel as PaletteObjectModel);
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
+            IO.Writer bw = base.Accessor.Writer;
             bw.Endianness = IO.Endianness.BigEndian;
 
             // The palette begins with a two-word header:
-            bw.Write(mvarVersion);
+            bw.WriteUInt16(mvarVersion);
             ushort colorCount = (ushort)palette.Entries.Count;
-            bw.Write(colorCount);
+            bw.WriteUInt16(colorCount);
 
             // The header is followed by nc color specs. In a version 1 ACO file, each color spec
             // occupies five words:
             foreach (PaletteEntry color in palette.Entries)
             {
                 ushort colorSpace = 0; // RGB
-                bw.Write(colorSpace);
+                bw.WriteUInt16(colorSpace);
 
                 switch (colorSpace)
                 {
@@ -97,17 +97,17 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
                         ushort y = (ushort)((color.Color.Blue * 255) * 256);
                         ushort z = 0;
 
-                        bw.Write(w);
-                        bw.Write(x);
-                        bw.Write(y);
-                        bw.Write(z);
+                        bw.WriteUInt16(w);
+                        bw.WriteUInt16(x);
+                        bw.WriteUInt16(y);
+                        bw.WriteUInt16(z);
                         break;
                     }
                 }
 
                 if (mvarVersion >= 2)
                 {
-                    bw.Write((ushort)color.Name.Length);
+                    bw.WriteUInt16((ushort)color.Name.Length);
                     bw.WriteNullTerminatedString(color.Name);
                 }
             }
