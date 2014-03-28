@@ -24,7 +24,7 @@ namespace UniversalEditor.DataFormats.AniMiku.AnimatedTexture
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             int unknown = br.ReadInt32();
             int count = br.ReadInt32();
             for (int i = 0; i < count; i++)
@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.AniMiku.AnimatedTexture
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
+            IO.Writer bw = base.Accessor.Writer;
             int unknown = 150;
             bw.Write(unknown);
 

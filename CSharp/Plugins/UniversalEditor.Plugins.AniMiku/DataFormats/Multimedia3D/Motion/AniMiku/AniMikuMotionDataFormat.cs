@@ -22,8 +22,8 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.AniMiku
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
-            IO.BinaryReader br = new IO.BinaryReader(base.Stream.BaseStream, System.Text.Encoding.UTF8);
-            br.BaseStream.Position = 0;
+            IO.Reader br = new IO.Reader(base.Accessor, System.Text.Encoding.UTF8);
+            br.Accessor.Position = 0;
 
             MotionObjectModel motion = (objectModel as MotionObjectModel);
             string amd = br.ReadFixedLengthString(3);

@@ -42,10 +42,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
                 WindowsConfigurationDataFormat ini = new WindowsConfigurationDataFormat();
                 ini.CommentSignals = new string[0];
 
-				Document doc = new Document(om, ini, new StringAccessor(text));
-                doc.Accessor.Open();
-				doc.Load();
-				doc.Accessor.Close();
+				Document.Load(om, ini, new StringAccessor(text), true);
 
 				foreach (Group grp in plom.Groups)
 				{

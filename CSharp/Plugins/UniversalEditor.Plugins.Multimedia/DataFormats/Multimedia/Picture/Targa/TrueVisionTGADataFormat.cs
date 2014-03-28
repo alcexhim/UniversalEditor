@@ -704,7 +704,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			#region Targa Header
 			{
 				// set the cursor at the beginning of the file.
-				br.BaseStream.Seek(0, System.IO.SeekOrigin.Begin);
+				br.Accessor.Seek(0, SeekOrigin.Begin);
 
 				// read the header properties from the file
 				byte imageIDLength = br.ReadByte();
@@ -1134,7 +1134,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					// load Scan Line Table from file if any
 					if (extensionAreaScanLineOffset > 0)
 					{
-						br.BaseStream.Seek(extensionAreaScanLineOffset, System.IO.SeekOrigin.Begin);
+						br.Accessor.Seek(extensionAreaScanLineOffset, SeekOrigin.Begin);
 						for (int i = 0; i < imageHeight; i++)
 						{
 							mvarExtensionArea.ScanLineTable.Add(br.ReadInt32());
@@ -1145,7 +1145,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					// load Color Correction Table from file if any
 					if (extensionAreaColorCorrectionOffset > 0)
 					{
-						br.BaseStream.Seek(extensionAreaColorCorrectionOffset, System.IO.SeekOrigin.Begin);
+						br.Accessor.Seek(extensionAreaColorCorrectionOffset, SeekOrigin.Begin);
 						for (int i = 0; i < EXTENSION_AREA_COLOR_CORRECTION_TABLE_VALUE_LENGTH; i++)
 						{
 							a = (int)br.ReadInt16();

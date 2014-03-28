@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.AniMiku.PMDExtension
             PMDExtensionObjectModel pmdo = (objectModel as PMDExtensionObjectModel);
             if (pmdo == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             foreach (ModelMaterial mat in mvarModel.Materials)
             {
                 mat.AlwaysLight = br.ReadBoolean();
@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.AniMiku.PMDExtension
         protected override void SaveInternal(ObjectModel objectModel)
         {
 #if READYTOSAVE
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
+            IO.Writer bw = base.Accessor.Writer;
             foreach (ModelMaterial mat in mvarModel.Materials)
             {
                 bw.Write(mat.AlwaysLight);

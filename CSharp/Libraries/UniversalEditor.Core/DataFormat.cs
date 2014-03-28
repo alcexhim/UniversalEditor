@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using UniversalEditor.IO;
+
 namespace UniversalEditor
 {
 	public abstract class DataFormat

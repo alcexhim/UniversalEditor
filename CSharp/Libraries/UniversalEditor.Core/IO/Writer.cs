@@ -81,6 +81,10 @@ namespace UniversalEditor.IO
             mvarAccessor.WriteInternal(buffer, start, count);
         }
 
+		public void WriteBoolean(bool value)
+		{
+			WriteByte(value ? (byte)1 : (byte)0);
+		}
         public void WriteByte(byte value)
         {
             WriteBytes(new byte[] { value });

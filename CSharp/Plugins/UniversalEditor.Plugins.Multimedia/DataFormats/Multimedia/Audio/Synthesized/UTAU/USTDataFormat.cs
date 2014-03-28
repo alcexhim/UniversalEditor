@@ -32,10 +32,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 			ObjectModel om = mvarPhonemeDictionary;
 
 			PhonemeDictionaryXMLDataFormat xdf = new PhonemeDictionaryXMLDataFormat();
-			Document doc = new Document(om, xdf, new FileAccessor(FileName, false, false, false));
-			doc.Accessor.Open();
-			doc.Load();
-			doc.Accessor.Close();
+			Document.Load(om, xdf, new FileAccessor(FileName, false, false, false), true);
 		}
 		#endregion
 

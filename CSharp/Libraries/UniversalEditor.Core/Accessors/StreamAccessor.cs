@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using UniversalEditor.IO;
+
 namespace UniversalEditor.Accessors
 {
 	public class StreamAccessor : Accessor
@@ -25,22 +27,22 @@ namespace UniversalEditor.Accessors
 			set { throw new InvalidOperationException(); }
 		}
 
-		public override void Seek(long offset, IO.SeekOrigin position)
+		public override void Seek(long offset, SeekOrigin position)
 		{
 			System.IO.SeekOrigin origin = System.IO.SeekOrigin.Begin;
 			switch (position)
 			{
-				case IO.SeekOrigin.Begin:
+				case SeekOrigin.Begin:
 				{
 					origin = System.IO.SeekOrigin.Begin;
 					break;
 				}
-				case IO.SeekOrigin.Current:
+				case SeekOrigin.Current:
 				{
 					origin = System.IO.SeekOrigin.Current;
 					break;
 				}
-				case IO.SeekOrigin.End:
+				case SeekOrigin.End:
 				{
 					origin = System.IO.SeekOrigin.End;
 					break;

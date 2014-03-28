@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 
 			objectModels.Push(new PropertyListObjectModel());
 			
-			string magic = base.Stream.TextReader.ReadLine();
+			string magic = base.Accessor.Reader.ReadLine();
 			if (magic != "AMPV2") throw new DataFormatException(UniversalEditor.Localization.StringTable.ErrorDataFormatInvalid);
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)

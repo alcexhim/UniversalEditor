@@ -1392,7 +1392,7 @@ namespace UniversalEditor.IO
                     // back up the stream reader
                     int indexOfUntil = (w.IndexOf(until) + until.Length);
                     int lengthToBackUp = w.Length - indexOfUntil;
-                    BaseStream.Seek(-1 * lengthToBackUp, System.IO.SeekOrigin.Current);
+                    BaseStream.Seek(-1 * lengthToBackUp, SeekOrigin.Current);
                     break;
                 }
 				sb.Append(w);

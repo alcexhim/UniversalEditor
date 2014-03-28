@@ -38,6 +38,7 @@
     <Compile Include="Collections\Generic\AutoDictionary.cs" />
     <Compile Include="Collections\Generic\BidirectionalDictionary.cs" />
     <Compile Include="Collections\Generic\KeyValuePairList.cs" />
+    <Compile Include="Common\Dialog.cs" />
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
@@ -84,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
+      <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
   </ItemGroup>

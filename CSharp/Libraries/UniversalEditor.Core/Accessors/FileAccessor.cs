@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using UniversalEditor.IO;
+
 namespace UniversalEditor.Accessors
 {
     public class FileAccessor : Accessor
@@ -13,26 +15,28 @@ namespace UniversalEditor.Accessors
             set { mvarFileStream.SetLength(value); }
         }
 
-        public override void Seek(long length, IO.SeekOrigin position)
+        public override void Seek(long length, SeekOrigin position)
         {
+			System.IO.SeekOrigin origin = System.IO.SeekOrigin.Begin;
             switch (position)
             {
-                case IO.SeekOrigin.Begin:
+                case SeekOrigin.Begin:
                 {
-                    mvarFileStream.Seek(length, System.IO.SeekOrigin.Begin);
+					origin = System.IO.SeekOrigin.Begin;
                     break;
                 }
-                case IO.SeekOrigin.Current:
+                case SeekOrigin.Current:
                 {
-                    mvarFileStream.Seek(length, System.IO.SeekOrigin.Current);
+					origin = System.IO.SeekOrigin.Current;
                     break;
                 }
-                case IO.SeekOrigin.End:
+                case SeekOrigin.End:
                 {
-                    mvarFileStream.Seek(length, System.IO.SeekOrigin.End);
+					origin = System.IO.SeekOrigin.End;
                     break;
                 }
             }
+			mvarFileStream.Seek(length, origin);
         }
 
         internal override int ReadInternal(byte[] buffer, int offset, int count)

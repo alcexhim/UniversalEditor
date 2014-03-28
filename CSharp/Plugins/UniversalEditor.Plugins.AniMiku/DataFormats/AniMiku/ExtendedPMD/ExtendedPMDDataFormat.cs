@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using UniversalEditor.Accessors.Stream;
+using UniversalEditor.Accessors;
 
 using UniversalEditor.ObjectModels.AniMiku.PMDExtension;
 using UniversalEditor.DataFormats.AniMiku.PMDExtension;
@@ -35,21 +35,16 @@ namespace UniversalEditor.DataFormats.AniMiku.ExtendedPMD
             ModelObjectModel model = (objectModels.Pop() as ModelObjectModel);
 
             // attempt to load more
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             if (br.EndOfStream) return;
             byte[] datas = br.ReadUntil("END", false);
 
             PMDExtensionObjectModel pmdo = new PMDExtensionObjectModel();
             PMDExtensionDataFormat pmdf = new PMDExtensionDataFormat();
-            StreamAccessor accessor = new StreamAccessor(pmdo, pmdf);
-
             pmdf.Model = model;
             
-            System.IO.MemoryStream ms = new System.IO.MemoryStream(datas);
-            accessor.Open(ms);
-            accessor.Load();
-            accessor.Close();
-
+            Document.Load(pmdo, pmdf, new MemoryAccessor(datas), true);
+            
             foreach (PMDExtensionTextureGroup file in pmdo.ArchiveFiles)
             {
                 foreach (string fileName in file.TextureImageFileNames)

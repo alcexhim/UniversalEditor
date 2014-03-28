@@ -164,11 +164,8 @@ namespace UniversalEditor.Common
 						XMLDataFormat xdf = new XMLDataFormat();
 						ObjectModel om = mom;
 						
-						Document doc = new Document(om, xdf, new FileAccessor(fileName, false, false, false));
-						doc.Accessor.Open();
-						doc.Load();
-						doc.Accessor.Close();
-
+						Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
+						
 						MarkupTagElement tagUniversalEditor = (mom.Elements["UniversalEditor"] as MarkupTagElement);
 						if (tagUniversalEditor == null) continue;
 
@@ -514,10 +511,7 @@ namespace UniversalEditor.Common
 						XMLDataFormat xdf = new XMLDataFormat();
 						ObjectModel om = mom;
 
-						Document doc = new Document(om, xdf, new FileAccessor(fileName, false, false, false));
-						doc.Accessor.Open();
-						doc.Load();
-						doc.Accessor.Close();
+						Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
 
 						MarkupTagElement tagUniversalEditor = (mom.Elements["UniversalEditor"] as MarkupTagElement);
 						if (tagUniversalEditor == null) continue;
@@ -866,9 +860,9 @@ namespace UniversalEditor.Common
 						Document doc = new Document(om, df, new FileAccessor(FileName, false, false, false));
 						try
 						{
-							doc.Accessor.Open();
+							doc.InputAccessor.Open();
 							doc.Load();
-							doc.Accessor.Close();
+							doc.InputAccessor.Close();
 							break;
 						}
 						catch (InvalidDataFormatException ex)
@@ -877,7 +871,7 @@ namespace UniversalEditor.Common
 							{
 								throw ex;
 							}
-							doc.Accessor.Close();
+							doc.InputAccessor.Close();
 						}
 					}
 					return (T)om;
@@ -900,19 +894,19 @@ namespace UniversalEditor.Common
 				Document doc = new Document(om, df, new FileAccessor(FileName, false, false, false));
 				try
 				{
-					doc.Accessor.Open();
+					doc.InputAccessor.Open();
 					doc.Load();
-					doc.Accessor.Close();
+					doc.InputAccessor.Close();
 
 					return true;
 				}
 				catch (DataFormatException)
 				{
-					doc.Accessor.Close();
+					doc.InputAccessor.Close();
 				}
 				catch (NotSupportedException)
 				{
-					doc.Accessor.Close();
+					doc.InputAccessor.Close();
 				}
 			}
 			return true;
@@ -1218,10 +1212,7 @@ namespace UniversalEditor.Common
 						DataFormat df = dfr.Create();
 						try
 						{
-							Document doc = new Document(om, df, new StreamAccessor(stream));
-							doc.Accessor.Open();
-							doc.Load();
-							doc.Accessor.Close();
+							Document.Load(om, df, new StreamAccessor(stream));
 						}
 						catch (InvalidDataFormatException)
 						{
@@ -1258,10 +1249,7 @@ namespace UniversalEditor.Common
 						DataFormat df = dfr.Create();
 						try
 						{
-							Document doc = new Document(om, df, new StreamAccessor(stream));
-							doc.Accessor.Open();
-							doc.Load();
-							doc.Accessor.Close();
+							Document.Load(om, df, new StreamAccessor(stream));
 						}
 						catch (InvalidDataFormatException)
 						{
