@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UniversalEditor.Accessors.File;
+using UniversalEditor.ObjectModels.Multimedia3D.Model;
+
+namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
+{
+	public class VBUFDataFormat : DataFormat
+	{
+		private static DataFormatReference _dfr = null;
+		public override DataFormatReference MakeReference()
+		{
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReference();
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+				_dfr.Filters.Add("Avalanche vertex buffer", new string[] { "*.vbuf" });
+				_dfr.Sources.Add("http://forum.xentax.com/viewtopic.php?f=16&t=5983");
+			}
+			return _dfr;
+		}
+
+		protected override void LoadInternal(ref ObjectModel objectModel)
+		{
+			ModelObjectModel model = (objectModel as ModelObjectModel);
+			if (model == null) throw new ObjectModelNotSupportedException();
+
+			FileAccessor facc = (base.Accessor as FileAccessor);
+			if (facc == null) throw new InvalidOperationException("Input must be a file");
+
+			string filename = System.IO.Path.ChangeExtension(facc.FileName, "ibuf");
+			IO.Reader br = base.Stream.Reader;
+			IO.Reader brIBUF = new IO.Reader(System.IO.File.Open(filename, System.IO.FileMode.Open));
+			br.Endianness = IO.Endianness.BigEndian;
+			brIBUF.Endianness = IO.Endianness.BigEndian;
+
+			int check = 0;
+			byte weight = 0;
+
+			ModelSurface surf = new ModelSurface();
+
+			check = br.ReadInt32();
+			br.BaseStream.Seek(-4, System.IO.SeekOrigin.Current);
+			do
+			{
+				if (br.EndOfStream) break;
+
+				float tv = br.ReadSingle();
+				float tu = br.ReadSingle();
+				tu *= -1;
+				tu++;
+				float tw = br.ReadSingle();
+
+				float vx = br.ReadSingle();
+				vx *= 39.34f;
+				float vy = br.ReadSingle();
+				vy *= 39.34f;
+				float vz = br.ReadSingle();
+				vz *= -39.34f;
+
+				byte w1 = br.ReadByte();
+				byte w2 = br.ReadByte();
+				byte w3 = br.ReadByte();
+				byte w4 = br.ReadByte();
+				weight = (byte)(w1 + w2 + w3 + w4);
+
+				if (weight == 0xFF || true)
+				{
+					ModelVertex vtx = new ModelVertex(vx, vy, vz); // vx, vz, vy in original script??
+					vtx.Texture = new TextureVector2(tu, tv); // tv, tu, 0 in original script???
+					surf.Vertices.Add(vtx);
+				}
+				continue;
+			}
+			while (weight == 0xFF || true);
+
+			br.BaseStream.Seek(-28, System.IO.SeekOrigin.Current);
+			for (int x = 0; x < surf.Vertices.Count; x++)
+			{
+				float nx = br.ReadSingle();
+				float ny = br.ReadSingle();
+				float nz = br.ReadSingle();
+				float un = br.ReadSingle();
+			}
+			while (!brIBUF.EndOfStream)
+			{
+				ushort fa = (ushort)(brIBUF.ReadUInt16() + 1);
+				ushort fb = (ushort)(brIBUF.ReadUInt16() + 1);
+				ushort fc = (ushort)(brIBUF.ReadUInt16() + 1);
+				surf.Triangles.Add(surf.Vertices[fa], surf.Vertices[fb], surf.Vertices[fc]);
+			}
+			model.Surfaces.Add(surf);
+			/*
+			 // wtf...?
+			msh = mesh vertices:Vert_array faces:Face_array
+			msh.numTVerts = UV_array.count
+			buildTVFaces msh
+			msh.name=fname
+			for j = 1 to UV_array.count do setTVert msh j UV_array[j]
+			for j = 1 to Face_array.count do setTVFace msh j Face_array[j]
+			--===========================================================================
+			gc()
+			fclose f
+			fclose g
+			enableSceneRedraw()
+			Print ("Done! ("+((((timestamp())-st)/60)as string)+" Seconds)") --print time to finish
+			)))) else (Print "Aborted.")
+		}
+			*/
+		}
+
+		protected override void SaveInternal(ObjectModel objectModel)
+		{
+			throw new NotImplementedException();
+		}
+	}
+}
