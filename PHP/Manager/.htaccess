@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Do not remove this line, otherwise mod_rewrite rules will stop working
+RewriteBase /
+
+RewriteRule ^StyleSheets/(.*)\.css$ lessc.php?filename=$1 [PT,L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?virtualpath=$1 [PT,L,QSA]
