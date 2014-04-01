@@ -154,3 +154,8 @@ $RECYCLE.BIN/
 CSharp/Applications/UniversalEditor.DesktopApplication.WindowsForms
 # Do not pull in output files (if you're gonna get the source, build it yourself)
 CSharp/Output
+
+# Do not pull in configuration files, as these might contain sensitive information
+PHP/Manager/Include/Configuration.inc.php
+PHP/Tenant/Include/Configuration.inc.php
+PHP/Website/Include/Configuration.inc.php
