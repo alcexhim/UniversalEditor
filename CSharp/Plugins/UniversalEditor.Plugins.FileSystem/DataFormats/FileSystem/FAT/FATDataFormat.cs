@@ -682,10 +682,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
             #region Extended BIOS Parameter Block
             {
-                bw.Write(mvarExtendedBiosParameterBlock.PhysicalDriveNumber);
+                bw.WriteByte(mvarExtendedBiosParameterBlock.PhysicalDriveNumber);
 
                 byte reserved1 = (byte)mvarExtendedBiosParameterBlock.CheckDiskFlags;
-                bw.Write(reserved1);
+                bw.WriteByte(reserved1);
 
                 // Extended boot signature. (Should be 0x29 to indicate that an EBPB with the following 3 entries
                 // exists (since OS/2 1.2 and DOS 4.0). Can be 0x28 on some OS/2 1.0-1.1 and PC DOS 3.4 disks

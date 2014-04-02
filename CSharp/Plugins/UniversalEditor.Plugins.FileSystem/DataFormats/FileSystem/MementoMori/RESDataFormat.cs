@@ -69,7 +69,7 @@ namespace UniversalEditor.DataFormats.FileSystem.MementoMori
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
-			bw.WriteFixedLengthString("Centauri Production Resource File 3.10\n\n", Encoding.Unicode);
+			bw.WriteFixedLengthString("Centauri Production Resource File 3.10\n\n", Encoding.UTF16LittleEndian);
 
 			File[] files = fsom.GetAllFiles();
 			bw.WriteUInt32((uint)files.Length);

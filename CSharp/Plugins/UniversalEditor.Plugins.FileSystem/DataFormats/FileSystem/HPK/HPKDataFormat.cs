@@ -64,7 +64,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
                 byte[] data = UniversalEditor.Compression.CompressionModules.Zlib.Decompress(zlibdata);
                 if (data.Length != decompressedFileSize) throw new InvalidDataFormatException("Decompressed size does not match stored value!");
 
-                br = new IO.Reader(data);
+                br = new IO.Reader(new MemoryAccessor(data));
                 br.Accessor.Position = 16;
                 mvarCompressed = true;
             }
@@ -119,7 +119,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
                     byte[] folderData = br.ReadBytes(fi.length);
                     br.Accessor.Position = pos;
 
-                    IO.Reader brf = new IO.Reader(folderData);
+                    IO.Reader brf = new IO.Reader(new MemoryAccessor(folderData));
 
                     int j = 1;
                     while (!brf.EndOfStream)

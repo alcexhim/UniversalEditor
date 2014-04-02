@@ -34,13 +34,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bzip2\Bzip2CompressionModule.cs" />
-    <Compile Include="Bzip2\Internal\BZip2.cs" />
-    <Compile Include="Bzip2\Internal\BZip2Constants.cs" />
-    <Compile Include="Bzip2\Internal\BZip2Exception.cs" />
-    <Compile Include="Bzip2\Internal\BZip2InputStream.cs" />
-    <Compile Include="Bzip2\Internal\BZip2OutputStream.cs" />
-    <Compile Include="Bzip2\Internal\StreamUtils.cs" />
+    <Compile Include="Modules\Bzip2\Bzip2CompressionModule.cs" />
+    <Compile Include="Modules\Bzip2\Internal\BZip2.cs" />
+    <Compile Include="Modules\Bzip2\Internal\BZip2Constants.cs" />
+    <Compile Include="Modules\Bzip2\Internal\BZip2Exception.cs" />
+    <Compile Include="Modules\Bzip2\Internal\BZip2InputStream.cs" />
+    <Compile Include="Modules\Bzip2\Internal\BZip2OutputStream.cs" />
+    <Compile Include="Modules\Bzip2\Internal\StreamUtils.cs" />
     <Compile Include="Common\BlockType.cs" />
     <Compile Include="Common\BurrowsWheelerTransform.cs" />
     <Compile Include="Common\CompressionTracingSwitch.cs" />
