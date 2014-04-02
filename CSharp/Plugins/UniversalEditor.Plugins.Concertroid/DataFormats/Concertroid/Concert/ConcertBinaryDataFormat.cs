@@ -10,6 +10,7 @@ using UniversalEditor.ObjectModels.VersatileContainer;
 using UniversalEditor.ObjectModels.VersatileContainer.Sections;
 using UniversalEditor.DataFormats.VersatileContainer;
 using UniversalEditor.Collections.Generic;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.DataFormats.Concertroid.Concert
 {
@@ -71,75 +72,75 @@ namespace UniversalEditor.DataFormats.Concertroid.Concert
                     MusicianInstrumentIndices.Add(musician, StringTable.GetValue1(musician.Instrument));
                 }
 
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                IO.Writer bw = new IO.Writer(ms);
-                bw.Write(StringTable.Count);
+                MemoryAccessor ma = new MemoryAccessor();
+                IO.Writer bw = new IO.Writer(ma);
+                bw.WriteInt32(StringTable.Count);
                 foreach (KeyValuePair<int, string> kvp in StringTable)
                 {
                     bw.WriteNullTerminatedString(kvp.Value);
                 }
                 bw.Close();
-                vcom.Sections.Add("StringTable", ms.ToArray());
+                vcom.Sections.Add("StringTable", ma.ToArray());
             }
             #endregion
 
             Dictionary<Musician, int> MusicianIndices = new Dictionary<Musician, int>();
             #region Concert
             {
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                IO.Writer bw = new IO.Writer(ms);
+                MemoryAccessor ma = new MemoryAccessor();
+                IO.Writer bw = new IO.Writer(ma);
                 bw.Write(StringTable.GetValue2(0));
                 bw.Close();
-                vcom.Sections.Add("Concert", ms.ToArray());
+                vcom.Sections.Add("Concert", ma.ToArray());
             }
             #endregion
             #region Musicians
             {
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                IO.Writer bw = new IO.Writer(ms);
+                MemoryAccessor ma = new MemoryAccessor();
+                IO.Writer bw = new IO.Writer(ma);
                 int count = 0;
                 foreach (Musician musician in concert.BandMusicians)
                 {
-                    bw.Write(MusicianNameIndices[musician]);
-                    bw.Write(MusicianInstrumentIndices[musician]);
+                    bw.WriteInt32(MusicianNameIndices[musician]);
+                    bw.WriteInt32(MusicianInstrumentIndices[musician]);
                     MusicianIndices[musician] = count;
                     count++;
                 }
                 foreach (Musician musician in concert.GuestMusicians)
                 {
-                    bw.Write(MusicianNameIndices[musician]);
-                    bw.Write(MusicianInstrumentIndices[musician]);
+                    bw.WriteInt32(MusicianNameIndices[musician]);
+                    bw.WriteInt32(MusicianInstrumentIndices[musician]);
                     MusicianIndices[musician] = count;
                     count++;
                 }
                 bw.Close();
-                vcom.Sections.Add("Musicians", ms.ToArray());
+                vcom.Sections.Add("Musicians", ma.ToArray());
             }
             #endregion
             #region BandMusicianReferences
             {
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                IO.Writer bw = new IO.Writer(ms);
+                MemoryAccessor ma = new MemoryAccessor();
+                IO.Writer bw = new IO.Writer(ma);
                 bw.WriteNullTerminatedString(concert.BandName);
-                bw.Write(concert.BandMusicians.Count);
+                bw.WriteInt32(concert.BandMusicians.Count);
                 foreach (Musician musician in concert.BandMusicians)
                 {
-                    bw.Write(MusicianIndices[musician]);
+                    bw.WriteInt32(MusicianIndices[musician]);
                 }
                 bw.Close();
-                vcom.Sections.Add("BandMusicianReferences", ms.ToArray());
+                vcom.Sections.Add("BandMusicianReferences", ma.ToArray());
             }
             #endregion
             #region GuestMusicianReferences
             {
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                IO.Writer bw = new IO.Writer(ms);
+                MemoryAccessor ma = new MemoryAccessor();
+                IO.Writer bw = new IO.Writer(ma);
                 foreach (Musician musician in concert.GuestMusicians)
                 {
-                    bw.Write(MusicianIndices[musician]);
+                    bw.WriteInt32(MusicianIndices[musician]);
                 }
                 bw.Close();
-                vcom.Sections.Add("GuestMusicianReferences", ms.ToArray());
+                vcom.Sections.Add("GuestMusicianReferences", ma.ToArray());
             }
             #endregion
 

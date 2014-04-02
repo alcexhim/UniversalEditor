@@ -483,6 +483,54 @@ namespace UniversalEditor.IO
 		{
 			WriteInt64(value.ToBinary());
 		}
+
+        public void WriteDecimal(decimal value)
+        {
+            int[] bits = decimal.GetBits(value);
+            int lo = bits[0], mid = bits[1], hi = bits[2], flags = bits[3];
+
+            byte[] buffer = new byte[16];
+            if (mvarEndianness == IO.Endianness.LittleEndian)
+            {
+                buffer[0] = (byte)lo;
+                buffer[1] = (byte)(lo >> 8);
+                buffer[2] = (byte)(lo >> 16);
+                buffer[3] = (byte)(lo >> 24);
+                buffer[4] = (byte)mid;
+                buffer[5] = (byte)(mid >> 8);
+                buffer[6] = (byte)(mid >> 16);
+                buffer[7] = (byte)(mid >> 24);
+                buffer[8] = (byte)hi;
+                buffer[9] = (byte)(hi >> 8);
+                buffer[10] = (byte)(hi >> 16);
+                buffer[11] = (byte)(hi >> 24);
+                buffer[12] = (byte)flags;
+                buffer[13] = (byte)(flags >> 8);
+                buffer[14] = (byte)(flags >> 16);
+                buffer[15] = (byte)(flags >> 24);
+            }
+            else
+            {
+                buffer[15] = (byte)lo;
+                buffer[14] = (byte)(lo >> 8);
+                buffer[13] = (byte)(lo >> 16);
+                buffer[12] = (byte)(lo >> 24);
+                buffer[11] = (byte)mid;
+                buffer[10] = (byte)(mid >> 8);
+                buffer[9] = (byte)(mid >> 16);
+                buffer[9] = (byte)(mid >> 24);
+                buffer[7] = (byte)hi;
+                buffer[6] = (byte)(hi >> 8);
+                buffer[5] = (byte)(hi >> 16);
+                buffer[4] = (byte)(hi >> 24);
+                buffer[3] = (byte)flags;
+                buffer[2] = (byte)(flags >> 8);
+                buffer[1] = (byte)(flags >> 16);
+                buffer[0] = (byte)(flags >> 24);
+            }
+            WriteBytes(buffer);
+        }
+
         public void WriteVersion(Version version)
         {
             WriteVersion(version, 4);

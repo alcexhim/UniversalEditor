@@ -41,14 +41,14 @@ namespace UniversalEditor.DataFormats.AniMiku.AnimatedTexture
 
             IO.Writer bw = base.Accessor.Writer;
             int unknown = 150;
-            bw.Write(unknown);
+            bw.WriteInt32(unknown);
 
-            bw.Write(fsom.Files.Count);
+            bw.WriteInt32(fsom.Files.Count);
             foreach (File file in fsom.Files)
             {
                 byte[] data = file.GetDataAsByteArray();
-                bw.Write(data.Length);
-                bw.Write(data);
+                bw.WriteInt32(data.Length);
+                bw.WriteBytes(data);
             }
         }
     }

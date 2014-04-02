@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D.Motion;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Motion.AniMiku
@@ -22,7 +22,8 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.AniMiku
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
-            IO.Reader br = new IO.Reader(base.Accessor, System.Text.Encoding.UTF8);
+            Reader br = new Reader(base.Accessor);
+            base.Accessor.DefaultEncoding = Encoding.UTF8;
             br.Accessor.Position = 0;
 
             MotionObjectModel motion = (objectModel as MotionObjectModel);
@@ -35,7 +36,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.AniMiku
             uint boneCount = br.ReadUInt32();
             for (uint i = 0; i < boneCount; i++)
             {
-                string boneName = br.ReadString();
+                string boneName = br.ReadLengthPrefixedString();
                 uint frameCount = br.ReadUInt32();
 
                 for (uint j = 0; j < frameCount; j++)
