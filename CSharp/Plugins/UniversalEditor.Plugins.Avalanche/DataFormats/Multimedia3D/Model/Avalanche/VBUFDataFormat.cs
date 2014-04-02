@@ -31,15 +31,15 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
 			if (facc == null) throw new InvalidOperationException("Input must be a file");
 
 			string filename = System.IO.Path.ChangeExtension(facc.FileName, "ibuf");
-			IO.Reader br = base.Stream.Reader;
-			IO.Reader brIBUF = new IO.Reader(System.IO.File.Open(filename, System.IO.FileMode.Open));
+			IO.Reader br = base.Accessor.Reader;
+			IO.Reader brIBUF = new IO.Reader(new FileAccessor(filename));
 			br.Endianness = IO.Endianness.LittleEndian;
 			brIBUF.Endianness = IO.Endianness.BigEndian;
 
 			//br.BaseStream.Seek(0, System.IO.SeekOrigin.Begin);
 			ModelSurface surf = new ModelSurface();
 
-            int count = (int)(brIBUF.BaseStream.Length / 2);
+            int count = (int)(brIBUF.Accessor.Length / 2);
 			for (int i = 0; i < count; i++)
 			{
 				float vx = br.ReadSingle();
