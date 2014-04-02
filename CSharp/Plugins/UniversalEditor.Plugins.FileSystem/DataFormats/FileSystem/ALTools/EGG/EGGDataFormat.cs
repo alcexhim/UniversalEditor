@@ -325,13 +325,13 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.EGG
 					if ((flag & ALZipFileNameFlags.UseAreaCode) == ALZipFileNameFlags.UseAreaCode)
 					{
 						short locale = 0;
-						bw.Write(locale);
+						bw.WriteInt16(locale);
 					}
 
 					if ((flag & ALZipFileNameFlags.RelativePath) == ALZipFileNameFlags.RelativePath)
 					{
 						uint parentID = 0;
-						bw.Write(parentID);
+						bw.WriteUInt32(parentID);
 					}
 
 					bw.WriteFixedLengthString(fi.name);
@@ -351,15 +351,15 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.EGG
 
 						// 0 - store, 1 - deflate, 2 - bzip2, 3 - AZO, 4 - LZMA
 						bw.WriteByte((byte)bi.compressionMethod);
-						bw.Write(bi.hint);
+						bw.WriteByte(bi.hint);
 
-						bw.Write(bi.decompressedSize);
-						bw.Write(bi.compressedSize);
-						bw.Write(bi.crc32);
+						bw.WriteUInt32(bi.decompressedSize);
+						bw.WriteUInt32(bi.compressedSize);
+						bw.WriteUInt32(bi.crc32);
 
 						bw.WriteUInt32((uint)0x08E28222);
 
-						bw.Write(bi.compressedData);
+						bw.WriteBytes(bi.compressedData);
 					}
 				}
 				#endregion

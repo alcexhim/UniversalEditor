@@ -7,7 +7,6 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
-using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 {
@@ -132,7 +131,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 			}
 
 
-			// br.BaseStream.Position = 0;
+			// br.Accessor.Position = 0;
 			// model.Surfaces.Clear();
 			#region Load Surfaces
 			{
@@ -200,7 +199,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 					for (uint j = 0; j < deformerCount; j++)
 					{
 						ModelSkin skin = new ModelSkin();
-						skin.Name = br.ReadInt16UnicodeString();
+						skin.Name = br.ReadInt16String();
 						uint deformerVertexCount = br.ReadUInt32();
 						for (uint k = 0; k < deformerVertexCount; k++)
 						{
@@ -230,17 +229,17 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 					ModelMaterial mat = new ModelMaterial();
 					int unknown1 = br.ReadInt32();
 					int unknown2 = br.ReadInt32();
-					mat.Name = br.ReadInt16UnicodeString();
+					mat.Name = br.ReadInt16String();
 					mat.AmbientColor = br.ReadColorARGBSingle();
 					mat.DiffuseColor = br.ReadColorARGBSingle();
 					mat.SpecularColor = br.ReadColorARGBSingle();
 					mat.Shininess = br.ReadSingle();
 
-					string textureFileName = br.ReadInt16UnicodeString();
-					string toonFileName = br.ReadInt16UnicodeString();
-					string unknown5 = br.ReadInt16UnicodeString();
-					string unknown6 = br.ReadInt16UnicodeString();
-					string unknown7 = br.ReadInt16UnicodeString();
+					string textureFileName = br.ReadInt16String();
+					string toonFileName = br.ReadInt16String();
+					string unknown5 = br.ReadInt16String();
+					string unknown6 = br.ReadInt16String();
+					string unknown7 = br.ReadInt16String();
 					// mat.ToonFileName = toonFileName;
 					mat.Textures.Add(textureFileName, null, ModelTextureFlags.Texture);
 					model.Materials.Add(mat);
@@ -255,7 +254,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 				for (uint i = 0; i < boneCount; i++)
 				{
 					ModelBone bone = new ModelBone();
-					bone.Name = br.ReadInt16UnicodeString();
+					bone.Name = br.ReadInt16String();
 
 					#region Bone Matrix #1
 					{

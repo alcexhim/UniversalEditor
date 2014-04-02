@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.Moosta.ImageCollection
@@ -26,18 +27,18 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.ImageCollection
             if (fsom == null) throw new ObjectModelNotSupportedException();
 
             List<File> files = new List<File>();
-            IO.Reader br = base.Stream.Reader;
+            IO.Reader br = base.Accessor.Reader;
             int fileCount = br.ReadInt32();
             for (int i = 0; i < fileCount; i++)
             {
-                string fileName = br.ReadString();
+                string fileName = br.ReadLengthPrefixedString();
                 files.Add(fsom.AddFile(fileName));
             }
             for (int i = 0; i < fileCount; i++)
             {
                 int length = br.ReadInt32();
                 int unknown1 = br.ReadInt32();
-                long offset = br.BaseStream.Position;
+                long offset = br.Accessor.Position;
 
                 files[i].Properties.Add("length", length);
                 files[i].Properties.Add("offset", offset);
@@ -45,7 +46,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.ImageCollection
                 files[i].Size = length;
                 files[i].DataRequest += IMCDataFormat_DataRequest;
 
-                br.BaseStream.Seek(length, System.IO.SeekOrigin.Current);
+                br.Accessor.Seek(length, SeekOrigin.Current);
             }
         }
 
@@ -55,7 +56,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.ImageCollection
             IO.Reader br = (IO.Reader)file.Properties["reader"];
             int length = (int)file.Properties["length"];
             long offset = (long)file.Properties["offset"];
-            br.BaseStream.Seek(offset, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(offset, SeekOrigin.Begin);
             e.Data = br.ReadBytes(length);
         }
         protected override void SaveInternal(ObjectModel objectModel)
@@ -63,18 +64,18 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.ImageCollection
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) throw new ObjectModelNotSupportedException();
 
-            IO.Writer bw = base.Stream.Writer;
+            IO.Writer bw = base.Accessor.Writer;
 
             File[] files = fsom.GetAllFiles();
-            bw.Write(files.Length);
+            bw.WriteInt32(files.Length);
             foreach (File file in files)
             {
                 bw.Write(file.Name);
             }
             foreach (File file in files)
             {
-                bw.Write(file.Size);
-                bw.Write(file.GetDataAsByteArray());
+                bw.WriteInt64(file.Size);
+                bw.WriteBytes(file.GetDataAsByteArray());
             }
             bw.Flush();
         }

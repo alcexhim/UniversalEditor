@@ -704,7 +704,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
                         extendedBootSignature = 0x28;
                     }
                 }
-                bw.Write(extendedBootSignature);
+                bw.WriteByte(extendedBootSignature);
 
                 if (extendedBootSignature == 0x29 || extendedBootSignature == 0x28)
                 {
@@ -714,7 +714,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
                     // number. Alternatively, some DR-DOS disk utilities provide a /# option to generate a
                     // human-readable time stamp "mmdd-hhmm" build from BCD-encoded 8-bit values for the month, day,
                     // hour and minute instead of a serial number.
-                    bw.Write(mvarExtendedBiosParameterBlock.ExtendedBootSignature.VolumeSerialNumber);
+                    bw.WriteInt32(mvarExtendedBiosParameterBlock.ExtendedBootSignature.VolumeSerialNumber);
                 }
                 if (extendedBootSignature == 0x29)
                 {

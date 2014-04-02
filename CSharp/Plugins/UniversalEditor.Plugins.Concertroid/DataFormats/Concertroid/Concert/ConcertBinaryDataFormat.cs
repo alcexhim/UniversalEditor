@@ -23,7 +23,7 @@ namespace UniversalEditor.DataFormats.Concertroid.Concert
                 _dfr = new DataFormatReference(GetType());
                 _dfr.Capabilities.Add(typeof(VersatileContainerObjectModel), DataFormatCapabilities.Bootstrap);
                 _dfr.Capabilities.Add(typeof(ConcertObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Concertroid compiled binary", new string[] { "*.cvb" });
+                _dfr.Filters.Add("Concertroid compili hed binary", new string[] { "*.cvb" });
             }
             return _dfr;
         }

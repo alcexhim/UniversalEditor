@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Moosta.MotionPack;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
@@ -42,7 +42,9 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			MotionPackObjectModel mopkg = (objectModel as MotionPackObjectModel);
 			if (mopkg == null) throw new ObjectModelNotSupportedException();
 
-			IO.Reader br = base.Stream.Reader;
+			IO.Reader br = base.Accessor.Reader;
+            base.Accessor.DefaultEncoding = Encoding.UTF16LittleEndian;
+
 			string signature = br.ReadFixedLengthString(5);
 			if (signature != "MoPkg") throw new InvalidDataFormatException("File does not begin with \"MoPkg\"");
 			
@@ -55,7 +57,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			for (int i = 0; i < packageInfoCount1; i++)
 			{
 				int langID = br.ReadInt32();
-				string value = br.ReadInt16UnicodeString();
+				string value = br.ReadInt16String();
 
 				PackageInformation ste = new PackageInformation();
 				ste.LanguageID = langID;
@@ -66,7 +68,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			for (int i = 0; i < packageInfoCount2; i++)
 			{
 				int langID = br.ReadInt32();
-				string value = br.ReadInt16UnicodeString();
+				string value = br.ReadInt16String();
 				if (i < mopkg.PackageInformation.Count)
 				{
 					mopkg.PackageInformation[i].PackageDescription = value;
@@ -75,7 +77,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			int copyrightCount = br.ReadInt32();
 			for (int i = 0; i < copyrightCount; i++)
 			{
-				string copyright = br.ReadInt16UnicodeString();
+				string copyright = br.ReadInt16String();
 				mvarCopyrights.Add(copyright);
 			}
 
@@ -109,50 +111,50 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			MotionPackObjectModel mopkg = (objectModel as MotionPackObjectModel);
 			if (mopkg == null) throw new ObjectModelNotSupportedException();
 
-			IO.Writer bw = base.Stream.Writer;
+			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("MoPkg");
-			bw.Write(FormatVersion);
-			bw.Write(mvarPackageVersion);
+			bw.WriteSingle(FormatVersion);
+			bw.WriteSingle(mvarPackageVersion);
 			// bw.Write(mopkg.Animations.Count);
-			bw.Write(mopkg.PackageInformation.Count);
+			bw.WriteInt32(mopkg.PackageInformation.Count);
 			foreach (PackageInformation packageName in mopkg.PackageInformation)
 			{
-				bw.Write(packageName.LanguageID);
-				bw.Write(packageName.PackageName);
+				bw.WriteInt32(packageName.LanguageID);
+				bw.WriteLengthPrefixedString(packageName.PackageName);
 			}
-			bw.Write(mopkg.PackageInformation.Count);
+			bw.WriteInt32(mopkg.PackageInformation.Count);
 			foreach (PackageInformation packageName in mopkg.PackageInformation)
 			{
-				bw.Write(packageName.LanguageID);
-				bw.Write(packageName.PackageDescription);
+				bw.WriteInt32(packageName.LanguageID);
+				bw.WriteLengthPrefixedString(packageName.PackageDescription);
 			}
 			foreach (string copyright in mopkg.Copyrights)
 			{
 				bw.WriteUInt16SizedString(copyright);
 			}
-			bw.Write(mvarIsRemovable);
+			bw.WriteBoolean(mvarIsRemovable);
 			if (mvarThumbnail != null)
 			{
-				bw.Write(mvarThumbnail.Width);
-				bw.Write(mvarThumbnail.Height);
+				bw.WriteInt32(mvarThumbnail.Width);
+				bw.WriteInt32(mvarThumbnail.Height);
 				for (int y = 0; y < mvarThumbnail.Height; y++)
 				{
 					for (int x = 0; x < mvarThumbnail.Width; x++)
 					{
 						Color pixel = mvarThumbnail.GetPixel(x, y);
-						bw.Write((byte)(pixel.Alpha * 255));
-						bw.Write((byte)(pixel.Red * 255));
-						bw.Write((byte)(pixel.Green * 255));
-						bw.Write((byte)(pixel.Blue * 255));
+						bw.WriteByte((byte)(pixel.Alpha * 255));
+						bw.WriteByte((byte)(pixel.Red * 255));
+						bw.WriteByte((byte)(pixel.Green * 255));
+						bw.WriteByte((byte)(pixel.Blue * 255));
 					}
 				}
 			}
 			else
 			{
-				bw.Write(0);
-				bw.Write(0);
+				bw.WriteInt32(0);
+				bw.WriteInt32(0);
 			}
-			bw.Write(mvarCompressionMode);
+			bw.WriteByte(mvarCompressionMode);
 		}
 	}
 }
