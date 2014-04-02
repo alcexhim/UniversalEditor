@@ -54,21 +54,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Neo\Neo\Neo.csproj">
-      <Project>{af46d67f-5172-40e9-a0e5-7a25bdf874fd}</Project>
-      <Name>Neo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Surodoine\Surodoine\Surodoine.csproj">
       <Project>{e0897b7b-617a-4709-a4c6-fc0f6b441b2a}</Project>
       <Name>Surodoine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\VersatileContainer\VersatileContainer\VersatileContainer.csproj">
+    <ProjectReference Include="..\..\..\..\VersatileContainer\VersatileContainer\VersatileContainer.csproj">
       <Project>{ffc91b24-39af-49ac-9a3a-900fbe1012ed}</Project>
       <Name>VersatileContainer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
       <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Plugins.FileSystem\UniversalEditor.Plugins.FileSystem.csproj">
       <Project>{76fd1306-9ca4-428f-993b-b7e4eeeacbf3}</Project>

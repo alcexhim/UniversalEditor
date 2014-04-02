@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76FD1306-9CA4-428F-993B-B7E4EEEACBF3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor</RootNamespace>
+    <AssemblyName>UniversalEditor.Plugins.FileSystem</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\Plugins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataFormats\FileSystem\ALTools\ALZ\ALZDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ALTools\EGG\ALZipCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\ALTools\EGG\ALZipFileAttributeFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\ALTools\EGG\ALZipFileNameFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\ALTools\EGG\EGGDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ALTools\EGG\Internal\BlockInfo.cs" />
+    <Compile Include="DataFormats\FileSystem\ALTools\EGG\Internal\FileInfo.cs" />
+    <Compile Include="DataFormats\FileSystem\ARC\ARCDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ARJ\ARJCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\ARJ\ARJDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ARJ\ARJFileType.cs" />
+    <Compile Include="DataFormats\FileSystem\ARJ\ARJHostOperatingSystem.cs" />
+    <Compile Include="DataFormats\FileSystem\ARJ\ARJInternalFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\ARJ\Internal\ARJBasicHeader.cs" />
+    <Compile Include="DataFormats\FileSystem\ARJ\Internal\ARJFileHeader.cs" />
+    <Compile Include="DataFormats\FileSystem\AR\ARDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\BAG\BAGDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Box\BoxDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\BPlus\BPlusFileSystemDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\BPlus\Internal\BTREEINDEXHEADER.cs" />
+    <Compile Include="DataFormats\FileSystem\BPlus\Internal\BTREENODEHEADER.cs" />
+    <Compile Include="DataFormats\FileSystem\BPlus\Internal\DIRECTORYINDEXENTRY.cs" />
+    <Compile Include="DataFormats\FileSystem\BPlus\Internal\DIRECTORYLEAFENTRY.cs" />
+    <Compile Include="DataFormats\FileSystem\BPlus\Internal\FILEHEADER.cs" />
+    <Compile Include="DataFormats\FileSystem\BurikoGeneralInterpreter\BurikoARCDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\BurikoGeneralInterpreter\BurikoHVLDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\CHD\CHDCompressionType.cs" />
+    <Compile Include="DataFormats\FileSystem\CHD\CHDDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\CHD\CHDEntryType.cs" />
+    <Compile Include="DataFormats\FileSystem\CHD\CHDFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\DeepSilver\SecretFiles\SPRDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Dreamfall\PAKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ElectronicArts\BIGFDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATBiosParameterBlock.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATCheckDiskFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATExtendedBiosParameterBlock.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATExtendedBootSignature.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATFileAccessRightsFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATFileAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATMediaDescriptor.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATUserAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\FFS\FFSDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\FSB\FSBDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Garena\YanghxDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\GCD\GCDDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\GOB\GOBDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\GPW\GPWDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Hardball\MB6DataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\HighwayPursuit\HighwayPursuitDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Homeworld\HomeworldDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\HostileWaters\DATDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\HostileWaters\MNGDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\HPK\HPKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\HyPack\HyPackDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ISO\ISODataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ISO\Internal\PrimaryVolumeDescriptor.cs" />
+    <Compile Include="DataFormats\FileSystem\ISO\ISOVolumeDescriptorType.cs" />
+    <Compile Include="DataFormats\FileSystem\JackOrlando\JackOrlandoDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\JadeEmpire\RIMDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\MementoMori\RESCompressionType.cs" />
+    <Compile Include="DataFormats\FileSystem\MementoMori\RESDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Moero\DownhillNight\PKDDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\Internal\HETTable.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\Internal\MPQHeader.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\MPQBlockTableEntryFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\MPQCompressionType.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\MPQDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\MPQEncryption.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\MPQFormatVersion.cs" />
+    <Compile Include="DataFormats\FileSystem\MoPaQ\MPQHashMode.cs" />
+    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedKWAJCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedKWAJHeaderFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\N2M\N2MDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Nero\Internal\DirectoryEntry.cs" />
+    <Compile Include="DataFormats\FileSystem\Nero\NeroDiskImageDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Nvidia\NPK\NPKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\PCK\PCKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\PKG\PKGDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\PRF\PRFDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ProDOS\ProDOSDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\REEVEsoft\Freeze\ICEDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SilentHill\ARC\SilentHillARCDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SPIS\SPISDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveRecordType.cs" />
+    <Compile Include="DataFormats\FileSystem\TLCD\Internal\TLCSequence.cs" />
+    <Compile Include="DataFormats\FileSystem\TLCD\TLCDDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\TroikaGames\Arcanum\DATDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Ultra3D\Ultra3DRBXDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Ultra3D\Ultra3DTBVDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\UUEncoding\UUEncodingDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\WAD\WADDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\WinAce\ACEArchiveFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinAce\ACEDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARFileHeaderFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARHeaderFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARHeaderType.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARHostOperatingSystem.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
+      <Project>{3f664673-7e22-4486-9ad0-fc81861d0b78}</Project>
+      <Name>UniversalEditor.Compression</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataFormats\FileSystem\Box\Internal\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

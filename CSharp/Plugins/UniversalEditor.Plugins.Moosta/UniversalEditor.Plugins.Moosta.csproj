@@ -44,13 +44,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
+      <Project>{3f664673-7e22-4486-9ad0-fc81861d0b78}</Project>
+      <Name>UniversalEditor.Compression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
       <Name>UniversalEditor.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
-      <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
-      <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>

@@ -53,6 +53,18 @@
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Concertroid\UniversalEditor.Plugins.Concertroid.csproj">
+      <Project>{d3bbda07-5088-454e-a16d-da24d8d88037}</Project>
+      <Name>UniversalEditor.Plugins.Concertroid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia3D\UniversalEditor.Plugins.Multimedia3D.csproj">
+      <Project>{4fd9db1d-76aa-48d1-8446-95376c4a2bc2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia3D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{be4d0ba3-0888-42a5-9c09-fc308a4509d2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
