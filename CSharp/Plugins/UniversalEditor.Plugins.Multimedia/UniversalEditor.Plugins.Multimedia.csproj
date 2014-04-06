@@ -116,7 +116,11 @@
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DXTDecompression.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Paint\MSPDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGChunk.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGColorType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGCompressionMethod.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGCompressionModule.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGFilterType.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\PortablePixelmap\PPMDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaExtensionArea.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaFirstPixelDestination.cs" />

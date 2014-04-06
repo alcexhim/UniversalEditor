@@ -35,6 +35,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
                 byte[] chunkData = br.ReadBytes(chunkLength);
                 int chunkCRC = br.ReadInt32();
                 chunks.Add(chunkType, chunkData);
+                
+                if (chunkType == "IEND") break;
             }
 
             IO.Reader brIHDR = new IO.Reader(new MemoryAccessor(chunks["IHDR"].Data));
@@ -42,33 +44,37 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
             pic.Width = brIHDR.ReadInt32();
             pic.Height = brIHDR.ReadInt32();
             byte bitDepth = brIHDR.ReadByte();
-            byte colorType = brIHDR.ReadByte();
-            byte compressionMethod = brIHDR.ReadByte();
+            PNGColorType colorType = (PNGColorType)brIHDR.ReadByte();
+            PNGCompressionMethod compressionMethod = (PNGCompressionMethod)brIHDR.ReadByte();
             byte filterMethod = brIHDR.ReadByte();
             byte interlaceMethod = brIHDR.ReadByte();
 
             byte[] imageData = chunks["IDAT"].Data;
+            
+            // first do a Zlib decompress
+            byte[] uncompressedFilteredImageData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib).Decompress(imageData);
 
-            switch (compressionMethod)
+            // now do a PNG decompress
+            PNGCompressionModule compressionModule = new PNGCompressionModule();
+            compressionModule.ImageWidth = pic.Width;
+            compressionModule.ImageHeight = pic.Height;
+            compressionModule.Method = compressionMethod;
+            compressionModule.BytesPerPixel = ((bitDepth / 8) * 3);
+            
+            byte[] uncompressed = compressionModule.Decompress(uncompressedFilteredImageData);
+
+            for (int y = 0; y < pic.Height; y++)
             {
-                case 0: // DEFLATE compression
+                for (int x = 0; x < pic.Width; x++)
                 {
-                    byte[] uncompressedImageData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib).Decompress(imageData);
+                    int index = ((y * pic.Width) + x) * 3;
 
-                    for (int x = 0; x < pic.Width; x++)
-                    {
-                        for (int y = 0; y < pic.Height; y++)
-						{
-							byte r = 0, g = 0, b = 0;
-                            int index = (x * (y + pic.Width)) + 3;
-							if ((index - 2) < uncompressedImageData.Length) r = uncompressedImageData[index - 2];
-							if ((index - 1) < uncompressedImageData.Length) r = uncompressedImageData[index - 1];
-							if ((index) < uncompressedImageData.Length) r = uncompressedImageData[index];
-                            Color color = Color.FromRGBA(r,g,b);
-                            pic.SetPixel(color, x, y);
-                        }
-                    }
-                    break;
+                    byte r = uncompressed[index];
+                    byte g = uncompressed[index + 1];
+                    byte b = uncompressed[index + 2];
+
+                    Color color = Color.FromRGBA(r, g, b);
+                    pic.SetPixel(color, x, y);
                 }
             }
         }
