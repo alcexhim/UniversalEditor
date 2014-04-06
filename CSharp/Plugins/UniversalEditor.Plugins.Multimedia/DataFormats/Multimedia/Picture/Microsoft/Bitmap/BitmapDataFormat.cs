@@ -144,11 +144,23 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 						case BitmapBitsPerPixel.HighColor:
 						{
 							// X1R5G5B5
-							short value = br.ReadInt16();
-							int x1 = value.GetBits(16, 1);
-							b = (byte)(8 * value.GetBits(0, 5));
-							g = (byte)(8 * value.GetBits(5, 5));
-							r = (byte)(8 * value.GetBits(10, 5));
+                            if (header.Compression == BitmapCompression.Bitfields)
+                            {
+                                // R5G6B5
+                                short value = br.ReadInt16();
+                                b = (byte)(8 * value.GetBits(0, 5));
+                                g = (byte)(8 * value.GetBits(6, 6));
+                                r = (byte)(8 * value.GetBits(11, 5));
+                            }
+                            else
+                            {
+                                // X1R5G5B5
+                                short value = br.ReadInt16();
+                                int x1 = value.GetBits(16, 1);
+                                b = (byte)(8 * value.GetBits(0, 5));
+                                g = (byte)(8 * value.GetBits(5, 5));
+                                r = (byte)(8 * value.GetBits(10, 5));
+                            }
 							break;
 						}
 						case BitmapBitsPerPixel.TrueColor:
