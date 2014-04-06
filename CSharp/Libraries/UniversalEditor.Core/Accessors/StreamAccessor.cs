@@ -53,12 +53,13 @@ namespace UniversalEditor.Accessors
 
 		internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
-			throw new NotImplementedException();
+            return mvarBaseStream.Read(buffer, start, count);
 		}
 
 		internal override int WriteInternal(byte[] buffer, int start, int count)
-		{
-			throw new NotImplementedException();
+        {
+            mvarBaseStream.Write(buffer, start, count);
+            return count;
 		}
 
 		public override void Open()
