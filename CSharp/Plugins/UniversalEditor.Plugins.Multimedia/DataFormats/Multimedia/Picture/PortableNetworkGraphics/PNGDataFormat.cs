@@ -59,7 +59,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
             compressionModule.ImageWidth = pic.Width;
             compressionModule.ImageHeight = pic.Height;
             compressionModule.Method = compressionMethod;
-            compressionModule.BytesPerPixel = ((bitDepth / 8) * 3);
+            compressionModule.BytesPerPixel = (int)(((double)bitDepth / 8) * 3);
             
             byte[] uncompressed = compressionModule.Decompress(uncompressedFilteredImageData);
 

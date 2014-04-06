@@ -56,7 +56,7 @@ namespace UniversalEditor.Accessors
 					break;
 				}
 			}
-			if (start >= 0 && start < _data.Length)
+			if (start >= 0 && start <= _data.Length)
 			{
 				ptr = start;
 			}
@@ -75,7 +75,8 @@ namespace UniversalEditor.Accessors
 
 		internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
-			System.Array.Copy(_data, 0, buffer, start, count);
+            System.Array.Copy(_data, Position, buffer, start, count);
+            Position += count;
 			return count;
 		}
 		internal override int WriteInternal(byte[] buffer, int start, int count)
