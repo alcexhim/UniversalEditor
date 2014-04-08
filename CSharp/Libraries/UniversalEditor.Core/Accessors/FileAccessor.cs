@@ -9,6 +9,11 @@ namespace UniversalEditor.Accessors
 {
     public class FileAccessor : Accessor
     {
+		public override long Position
+		{
+			get { return mvarFileStream.Position; }
+			set { mvarFileStream.Position = value; }
+		}
         public override long Length
         {
             get { return mvarFileStream.Length; }
@@ -47,7 +52,7 @@ namespace UniversalEditor.Accessors
 
         internal override int WriteInternal(byte[] buffer, int offset, int count)
         {
-            mvarFileStream.Write(buffer, offset, count);
+			mvarFileStream.Write(buffer, offset, count);
             return count;
         }
 

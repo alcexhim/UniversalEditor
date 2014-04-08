@@ -19,7 +19,8 @@ namespace UniversalEditor
         public abstract long Length { get; set; }
 
         private long mvarPosition = 0;
-        public long Position { get { return mvarPosition; } set { mvarPosition = value;  Seek(mvarPosition, SeekOrigin.Begin); } }
+        public virtual long Position { get { return mvarPosition; } set { mvarPosition = value;  Seek(mvarPosition, SeekOrigin.Begin); } }
+
         public long Remaining { get { return Length - Position; } }
 
         public void Seek(int length, SeekOrigin position)
