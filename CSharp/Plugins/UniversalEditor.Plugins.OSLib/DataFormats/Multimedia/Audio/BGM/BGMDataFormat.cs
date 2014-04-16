@@ -37,14 +37,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 			byte unknown2 = reader.ReadByte();
 
 			byte[] sampleData = reader.ReadToEnd();
-			short[] samples = new short[sampleData.Length / 2];
-			for (int i = 0; i < samples.Length; i++)
-			{
-				short sample = BitConverter.ToInt16(new byte[] { sampleData[(i * 2)], sampleData[(i * 2) + 1] }, 0);
-				samples[i] = sample;
-			}
-
-			short[] usamples = OSLDecode(samples);
+			short[] usamples = OSLDecode(sampleData.Length / 2, sampleData);
 
 			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
 			wave.RawSamples = usamples;
@@ -114,15 +107,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 				}
 				else
 				{
-					by = (uint)(samples[si]);
+					by = (uint)(data[si]);
 					code = by & 0x0f;
 				}
 
 				diff = ima9_rescale(step, code);
 				index += ima9_step_indices[code & 0x07];
 
-				usamples[si] = (short)(samples[si] + diff);
-				if (samples[si] < -32768)
+				usamples[si] = (short)(data[si] + diff);
+				if (usamples[si] < -32768)
 				{
 					usamples[si] = -32768;
 				}
