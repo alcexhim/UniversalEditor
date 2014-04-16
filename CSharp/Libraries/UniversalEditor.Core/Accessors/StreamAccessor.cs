@@ -69,7 +69,7 @@ namespace UniversalEditor.Accessors
 
 		public override void Close()
 		{
-			throw new NotImplementedException();
+			mvarBaseStream.Close();
 		}
 	}
 }

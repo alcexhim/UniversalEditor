@@ -912,7 +912,67 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		private bool SaveDocumentAs(Document doc, string FileName = null)
 		{
-			throw new NotImplementedException();
+			DataFormatReference dfr = null;
+
+		retrySaveFileAs:
+			if (FileName == null)
+			{
+				SaveFileDialog sfd = new SaveFileDialog();
+
+				List<DataFormatReference> list = new List<DataFormatReference>();
+				sfd.Filter = UniversalEditor.Common.Dialog.GetCommonDialogFilter(doc.ObjectModel.MakeReference(), out list);
+
+				if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+				{
+					return false;
+				}
+
+				if (sfd.FilterIndex > 1 && sfd.FilterIndex <= list.Count + 1)
+				{
+					dfr = list[sfd.FilterIndex - 2];
+				}
+				FileName = sfd.FileName;
+			}
+
+			if (dfr == null)
+			{
+				DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(FileName, doc.ObjectModel.MakeReference());
+				if (dfrs.Length == 0)
+				{
+					if (MessageBox.Show("Could not determine the data format to use to save the file.  Please check to see that you typed the file extension correctly.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Retry)
+					{
+						FileName = null;
+						goto retrySaveFileAs;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				dfr = dfrs[0];
+			}
+
+			DataFormat df = dfr.Create();
+			DataFormatOptionsDialog.ShowDialog(ref df, DataFormatOptionsDialogType.Export);
+
+			#region Save Code
+			NotifySaving(doc);
+
+			if (FileName == doc.Title && doc.Accessor != null)
+			{
+				doc.Accessor.Close();
+			}
+
+
+			doc.DataFormat = df;
+
+			doc.OutputAccessor = new FileAccessor(FileName, true, true);
+			doc.Save();
+
+			dcc.SelectedWindow.Title = System.IO.Path.GetFileName(FileName);
+			doc.IsSaved = true;
+			#endregion
+			return true;
 		}
 
 		/*

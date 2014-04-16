@@ -46,19 +46,23 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
                     try
                     {
                         short sample = 0;
-                        switch (mvarHeader.BitsPerSample)
-                        {
-                            case 8:
-                            {
-                                sample = br.ReadByte();
-                                break;
-                            }
-                            case 16:
-                            {
-                                sample = br.ReadInt16();
-                                break;
-                            }
-                        }
+						switch (mvarHeader.BitsPerSample)
+						{
+							case 8:
+							{
+								sample = br.ReadByte();
+								break;
+							}
+							case 16:
+							{
+								sample = br.ReadInt16();
+								break;
+							}
+							default:
+							{
+								throw new ArgumentException("Bad BitsPerSample value: " + mvarHeader.BitsPerSample.ToString() + "; must be 8 or 16!");
+							}
+						}
                         samples.Add(sample);
                     }
                     catch (System.IO.IOException ex)
