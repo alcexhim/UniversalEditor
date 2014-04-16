@@ -52,5 +52,10 @@ namespace UniversalEditor
         public Reader Reader { get { return mvarReader; } }
         private Writer mvarWriter = null;
         public Writer Writer { get { return mvarWriter; } }
-    }
+
+		public virtual string Title
+		{
+			get { return String.Empty; }
+		}
+	}
 }

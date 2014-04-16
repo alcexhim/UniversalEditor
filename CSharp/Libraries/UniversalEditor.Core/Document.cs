@@ -51,7 +51,8 @@ namespace UniversalEditor
         {
             mvarInputDataFormat.Accessor = mvarInputAccessor;
             mvarObjectModel.Accessor = mvarInputAccessor;
-            mvarInputDataFormat.Load(ref mvarObjectModel);
+			mvarInputDataFormat.Load(ref mvarObjectModel);
+			mvarLastUsedAccessor = LastUsedAccessor.Input;
         }
         /// <summary>
         /// Writes the data contained in the <see cref="ObjectModel" /> to the <see cref="Accessor" /> using the
@@ -61,7 +62,8 @@ namespace UniversalEditor
         {
             mvarOutputDataFormat.Accessor = mvarOutputAccessor;
             mvarObjectModel.Accessor = mvarOutputAccessor;
-            mvarOutputDataFormat.Save(mvarObjectModel);
+			mvarOutputDataFormat.Save(mvarObjectModel);
+			mvarLastUsedAccessor = LastUsedAccessor.Output;
         }
 
         public Document(ObjectModel objectModel, DataFormat dataFormat) : this(objectModel, dataFormat, null)
@@ -111,6 +113,95 @@ namespace UniversalEditor
 			document.Save();
 			document.OutputAccessor.Close();
 			return document;
+		}
+
+		private bool mvarIsSaved = false;
+		/// <summary>
+		/// Determines whether the document has been saved or not.
+		/// </summary>
+		public bool IsSaved { get { return mvarIsSaved; } set { mvarIsSaved = value; } }
+
+		public void Close()
+		{
+			if (mvarInputAccessor != null)
+			{
+				if (mvarInputAccessor.IsOpen)
+				{
+					mvarInputAccessor.Close();
+					mvarTitle = mvarOutputAccessor.Title;
+				}
+			}
+			if (mvarOutputAccessor != null)
+			{
+				if (mvarOutputAccessor.IsOpen)
+				{
+					mvarOutputAccessor.Close();
+					mvarTitle = mvarOutputAccessor.Title;
+				}
+			}
+		}
+
+		private LastUsedAccessor mvarLastUsedAccessor = LastUsedAccessor.Input;
+		private String mvarTitle = String.Empty;
+		public string Title
+		{
+			get
+			{
+				if (mvarLastUsedAccessor == LastUsedAccessor.Input)
+				{
+					return mvarInputAccessor.Title;
+				}
+				else if (mvarLastUsedAccessor == LastUsedAccessor.Output)
+				{
+					return mvarOutputAccessor.Title;
+				}
+				return mvarTitle;
+			}
+		}
+
+		public bool IsChanged { get; set; }
+
+		public Accessor Accessor
+		{
+			get
+			{
+				switch (mvarLastUsedAccessor)
+				{
+					case LastUsedAccessor.Input:
+					{
+						return mvarInputAccessor;
+					}
+					case LastUsedAccessor.Output:
+					{
+						return mvarOutputAccessor;
+					}
+				}
+				return null;
+			}
+		}
+
+		public DataFormat DataFormat
+		{
+			get
+			{
+				switch (mvarLastUsedAccessor)
+				{
+					case LastUsedAccessor.Input:
+					{
+						return mvarInputDataFormat;
+					}
+					case LastUsedAccessor.Output:
+					{
+						return mvarOutputDataFormat;
+					}
+				}
+				return null;
+			}
+			set
+			{
+				mvarInputDataFormat = value;
+				mvarOutputDataFormat = value;
+			}
 		}
 	}
 }
