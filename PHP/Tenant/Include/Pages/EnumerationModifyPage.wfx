@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="http://static.alcehosting.net/dropins/WebFramework/StyleSheets/Main.css" />
+		<link rel="stylesheet" type="text/css" href="http://static.alcehosting.net/dropins/WebFramework/StyleSheets/Workday/Main.css" />
+	</head>
+	<body>
+		<h1>Modify Enumeration</h1>
+		<h2>Slightly Mad Studios BFF Encryption Mode</h2>
+		
+		<h3>Possible values:</h3>
+		<wfx:ListView ID="lvEnumeratedValues">
+			<Columns>
+				<wfx:ListViewColumn Name="lvcName" Title="Name" />
+				<wfx:ListViewColumn Name="lvcValue" Title="Value" />
+			</Columns>
+			<Records>
+				<wfx:ListViewRecord>
+					<Columns>
+						<wfx:ListViewColumn Name="lvcName" Value="None" />
+						<wfx:ListViewColumn Name="lvcValue" Value="0" />
+					</Columns>
+				</wfx:ListViewRecord>
+				<wfx:ListViewRecord>
+					<Columns>
+						<wfx:ListViewColumn Name="lvcName" Value="RC4" />
+						<wfx:ListViewColumn Name="lvcValue" Value="1" />
+					</Columns>
+				</wfx:ListViewRecord>
+			</Records>
+		</wfx:ListView>
+		
+		<div class="Buttons">
+			<a href="#">Save Changes</a>
+		</div>
+	</body>
+</html>
