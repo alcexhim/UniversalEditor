@@ -108,6 +108,7 @@ namespace UniversalEditor.Accessors
 
         public override void Close()
         {
+            mvarFileStream.Close();
         }
     }
 }
