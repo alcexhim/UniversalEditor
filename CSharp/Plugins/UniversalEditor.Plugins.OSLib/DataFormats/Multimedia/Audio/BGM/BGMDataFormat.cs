@@ -45,10 +45,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 			wave.Header.ChannelCount = 1;
 			wave.Header.SampleRate = sampleRate;
 			wave.Header.BlockAlignment = 2;
-			wave.Header.DataRate = sampleRate;
+			wave.Header.DataRate = sampleRate * 2;
 		}
 
-		private readonly sbyte[] ima9_step_indices /*[16]*/ =
+		private readonly sbyte[] ima_index_table /*[16]*/ =
 		{
 		  -1, -1, -1, -1, 2, 4, 7, 12,
 		  -1, -1, -1, -1, 2, 4, 7, 12
@@ -66,80 +66,58 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 		  15289,16818,18500,20350,22385,24623,27086,29794,32767
 		};
 
-		private static int ima9_rescale(int step, uint code)
+		private static int ima_get_diff(int step, byte nibble, ref int predictor)
 		{
-			/* 0,1,2,3,4,5,6,9 */
-            // http://wiki.multimedia.cx/index.php?title=IMA_ADPCM
-            return (int)(((int)code + 0.5) * step / (double)4);
-
-			int diff = step >> 3;
-			if ((code & 1) != 0) diff += step >> 2;
-			if ((code & 2) != 0) diff += step >> 1;
-			if ((code & 4) != 0) diff += step;
-			if ((code & 7) == 7) diff += step >> 1;
-			if ((code & 8) != 0) diff = -diff;
-			return diff;
+            int diff = step >> 3;
+            if ((nibble & 1) != 0) diff += step >> 2;
+            if ((nibble & 2) != 0) diff += step >> 1;
+            if ((nibble & 4) != 0) diff += step;
+            if ((nibble & 7) == 7) diff += step >> 1;
+            if ((nibble & 8) != 0) diff = -diff;
+            return diff;
 		}
 
 		private short[] OSLDecode(int sampleCount, byte[] data)
 		{
-			int index = 0;
+            // each byte represents two IMA nibbles, which each represent a signed 16-bit PCM sample
+            // so therefore each byte represents 2 Int16 samples
+            short[] samples = new short[data.Length * 2];
+
 			int len = data.Length;
-			int si = 0;
-			short[] usamples = new short[sampleCount];
-			uint by = 0;
 
-			while (len > 0)
-			{
-				int step, diff;
-				uint code;
+            int predictor = 0;
+            int step_index = 0;
+            byte nibble = 0;
 
-				if (index < 0)
-				{
-					index = 0;
-				}
-				if (index > 88)
-				{
-					index = 88;
-				}
-				step = ima_step_table[index];
+            for (int i = 0; i < data.Length; i++)
+            {
+                int step = 0;
 
-				if ((len & 1) != 0)
-				{
-					code = by >> 4;
-				}
-				else
-				{
-					by = (uint)(data[si]);
-					code = by & 0x0f;
-				}
-
-				diff = ima9_rescale(step, code);
-				index += ima9_step_indices[code & 0x07];
-
-				usamples[si] = (short)(data[si] + diff);
-				if (usamples[si] < -32768)
-				{
-					usamples[si] = -32768;
-				}
-				if (usamples[si] > 32767)
-				{
-					usamples[si] = 32767;
-				}
-
-				/*
-				//Deux échantillons sur 2 voies
-				for (int i = 0; i < samples.Length; i++)
-				{
-					*dst++ += samples[si];
-				}
-				*/
-
-				len--;
-				si++;
-			}
-			return usamples;
+                nibble = (byte)(data[i] & 0x0F);
+                ima_process_nibble(nibble, ref step_index, ref predictor, ref step);
+                samples[(int)((double)i * 2)] = (short)predictor;
+                
+                nibble = (byte)(data[i] >> 4);
+                ima_process_nibble(nibble, ref step_index, ref predictor, ref step);
+                samples[(int)((double)i * 2) + 1] = (short)predictor;
+            }
+			return samples;
 		}
+
+        private void ima_process_nibble(byte nibble, ref int step_index, ref int predictor, ref int step)
+        {
+            if (step_index < 0) step_index = 0;
+            if (step_index > ima_step_table.Length - 1) step_index = ima_step_table.Length - 1;
+
+            step = ima_step_table[step_index];
+            int diff = ima_get_diff(step, nibble, ref predictor);
+
+            step_index += ima_index_table[nibble & 0x07];
+            
+            predictor = predictor + diff;
+            if (predictor < Int16.MinValue) predictor = Int16.MinValue;
+            if (predictor > Int16.MaxValue) predictor = Int16.MaxValue;
+        }
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
