@@ -71,10 +71,7 @@ internal static class SessionManager
 
         if (!System.IO.File.Exists(mvarDataFileName)) return;
 
-        Document document = new Document(mom, xml, new FileAccessor(mvarDataFileName));
-        document.InputAccessor.Open();
-		document.Load();
-        document.InputAccessor.Close();
+        Document.Load(mom, xml, new FileAccessor(mvarDataFileName), true);
 
         MarkupTagElement tagSessions = (mom.Elements["Sessions"] as MarkupTagElement);
         if (tagSessions == null) return;
@@ -208,9 +205,6 @@ internal static class SessionManager
             }
         }
 
-		Document doc = new Document(om, xml, new FileAccessor(mvarDataFileName, true, true));
-		doc.OutputAccessor.Open();
-		doc.Save();
-		doc.OutputAccessor.Close();
+		Document.Save(om, xml, new FileAccessor(mvarDataFileName, true, true), true);
     }
 }
