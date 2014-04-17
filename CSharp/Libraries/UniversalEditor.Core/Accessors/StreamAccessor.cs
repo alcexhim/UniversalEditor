@@ -53,12 +53,15 @@ namespace UniversalEditor.Accessors
 
 		internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
-            return mvarBaseStream.Read(buffer, start, count);
+            int ct = mvarBaseStream.Read(buffer, start, count);
+			Position += count;
+			return count;
 		}
 
 		internal override int WriteInternal(byte[] buffer, int start, int count)
         {
             mvarBaseStream.Write(buffer, start, count);
+			Position += count;
             return count;
 		}
 
