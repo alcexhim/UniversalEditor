@@ -69,6 +69,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 		private static int ima9_rescale(int step, uint code)
 		{
 			/* 0,1,2,3,4,5,6,9 */
+            // http://wiki.multimedia.cx/index.php?title=IMA_ADPCM
+            return (int)(((int)code + 0.5) * step / (double)4);
+
 			int diff = step >> 3;
 			if ((code & 1) != 0) diff += step >> 2;
 			if ((code & 2) != 0) diff += step >> 1;

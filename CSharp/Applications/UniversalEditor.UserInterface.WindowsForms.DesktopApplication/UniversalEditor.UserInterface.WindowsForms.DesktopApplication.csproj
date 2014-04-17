@@ -109,11 +109,15 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="OptionPanels\ApplicationOptionPanel.cs" />
+    <Compile Include="OptionPanels\ApplicationOptionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="OptionPanels\ApplicationOptionPanel.Designer.cs">
       <DependentUpon>ApplicationOptionPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="OptionPanels\Application\DocumentsOptionPanel.cs" />
+    <Compile Include="OptionPanels\Application\DocumentsOptionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="OptionPanels\Application\DocumentsOptionPanel.Designer.cs">
       <DependentUpon>DocumentsOptionPanel.cs</DependentUpon>
     </Compile>
