@@ -159,3 +159,6 @@ CSharp/Output
 PHP/Manager/Include/Configuration.inc.php
 PHP/Tenant/Include/Configuration.inc.php
 PHP/Website/Include/Configuration.inc.php
+
+# Do not pull in various files used as test cases for certain DataFormats (these can be quite huge)
+Tests/*
