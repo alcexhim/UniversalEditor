@@ -95,6 +95,7 @@ namespace UniversalEditor.IO
         }
         public void WriteBytes(byte[] data)
         {
+            if (data == null) return;
             Write(data, 0, data.Length);
         }
 
