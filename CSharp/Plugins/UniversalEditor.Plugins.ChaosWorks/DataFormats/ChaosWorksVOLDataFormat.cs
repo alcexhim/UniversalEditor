@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using UniversalEditor.Accessors;
+using UniversalEditor.Compression.Modules.LZRW1;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats
@@ -18,7 +20,7 @@ namespace UniversalEditor.DataFormats
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Chaos Works Engine volume", new byte?[][] { new byte?[] { 0x02, 0x42, 0x02, 0x43 }, new byte?[] { 0x02, 0x42, 0x02, 0x42 } }, new string[] { "*.vol" });
 				_dfr.Filters[0].MagicByteOffsets = new int[] { -4 };
-				_dfr.ExportOptions.Add(new ExportOptionBoolean("Compressed", "&Compress this archive using the LZRW1 algorithm", true));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "&Compress this archive using the LZRW1 algorithm", true));
                 _dfr.Sources.Add("Based on a requested QuickBMS script by WRS from xentax.com");
 			}
 			return _dfr;
@@ -32,9 +34,9 @@ namespace UniversalEditor.DataFormats
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			Reader br = Accessor.Reader;
 
-            br.BaseStream.Seek(-20, System.IO.SeekOrigin.End);
+            Accessor.Seek(-20, SeekOrigin.End);
             // 20 byte header at the end of the file
 
             int decompressedSize = br.ReadInt32();
@@ -60,11 +62,11 @@ namespace UniversalEditor.DataFormats
             }
 
             // get FNAME basename
-            
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            System.IO.BinaryWriter bwms = new System.IO.BinaryWriter(ms);
 
-            br.BaseStream.Position = 0;
+            MemoryAccessor ma = new MemoryAccessor();
+            Writer bwms = new Writer(ma);
+
+            Accessor.Position = 0;
 
             byte[] compressed = new byte[0];
             int i = 0;
@@ -87,18 +89,18 @@ namespace UniversalEditor.DataFormats
             }
 
 
-            byte[] uncompressed = UniversalEditor.Compression.LZRW1.LZRW1CompressionModule.Decompress(compressed);
+            byte[] uncompressed = LZRW1CompressionModule.Decompress(compressed);
             bwms.Write(uncompressed, 0, uncompressed.Length);
 
             bwms.Flush();
             
-            ms.Position = 0;
+            ma.Position = 0;
 
-            System.IO.File.WriteAllBytes(@"C:\Temp\New Folder\test.dat", ms.ToArray());
+            System.IO.File.WriteAllBytes(@"C:\Temp\New Folder\test.dat", ma.ToArray());
 
-            IO.BinaryReader brms = new IO.BinaryReader(ms);
-            brms.BaseStream.Position = fileListOffset;
-            if (brms.BaseStream.Position >= (brms.BaseStream.Length - (572 * fileCount))) throw new InvalidOperationException();
+            Reader brms = new Reader(ma);
+            brms.Accessor.Position = fileListOffset;
+            if (brms.Accessor.Position >= (brms.Accessor.Length - (572 * fileCount))) throw new InvalidOperationException();
 
             for (int f = 0; f < fileCount; f++)
             {
@@ -125,7 +127,11 @@ namespace UniversalEditor.DataFormats
             File file = (sender as File);
             int length = (int)file.Properties["length"];
             int offset = (int)file.Properties["offset"];
-            IO.BinaryReader brms = (IO.BinaryReader)file.Properties["reader"];
+            Reader brms = (Reader)file.Properties["reader"];
+
+            brms.Accessor.Position = offset;
+            byte[] data = brms.ReadBytes(length);
+            e.Data = data;
         }
 
         protected override void SaveInternal(ObjectModel objectModel)
