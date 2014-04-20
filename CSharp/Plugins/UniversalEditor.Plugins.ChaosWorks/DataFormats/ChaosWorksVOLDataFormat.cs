@@ -89,14 +89,16 @@ namespace UniversalEditor.DataFormats
             }
 
 
-            byte[] uncompressed = LZRW1CompressionModule.Decompress(compressed);
+            LZRW1CompressionModule module = new LZRW1CompressionModule();
+            byte[] uncompressed = module.Decompress(compressed);
             bwms.Write(uncompressed, 0, uncompressed.Length);
 
             bwms.Flush();
             
             ma.Position = 0;
 
-            System.IO.File.WriteAllBytes(@"C:\Temp\New Folder\test.dat", ma.ToArray());
+            System.IO.File.WriteAllBytes(@"C:\Temp\New Folder\test-compressed.dat", compressed);
+            System.IO.File.WriteAllBytes(@"C:\Temp\New Folder\test-uncompressed.dat", ma.ToArray());
 
             Reader brms = new Reader(ma);
             brms.Accessor.Position = fileListOffset;
