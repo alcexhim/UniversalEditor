@@ -63,7 +63,7 @@
     <Compile Include="LZH\LZHStream.cs" />
     <Compile Include="LZMA\LZMAStream.cs" />
     <Compile Include="LZPL2\LZPL2CompressionModule.cs" />
-    <Compile Include="LZRW1\LZRW1CompressionModule.cs" />
+    <Compile Include="Modules\LZRW1\LZRW1CompressionModule.cs" />
     <Compile Include="LZSS\LZSS2.cs" />
     <Compile Include="LZSS\LZSSCompressionModule.cs" />
     <Compile Include="LZW\Internal\Element.cs" />
