@@ -51,10 +51,15 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                     if (controlbits == 0)
                     {
                         // control bits are 0, so it's time to read a new control ushort
-                        control = br.ReadUInt16();
+                        // don't use ReadUInt16 here because we need to keep the bytes
+                        // for future use
+                        control = br.ReadByte();
+                        control |= (ushort)(br.ReadByte() << 8);
                         controlbits = 16;
                     }
-                    if ((control & 1) != 0)
+
+                    int k = 1; // 0x8000; // 1
+                    if ((control & k) != 0)
                     {
                         ushort offset, len;
                         offset = (ushort)((br.PeekByte() & 0xF0) << 4);
@@ -63,8 +68,7 @@ namespace UniversalEditor.Compression.Modules.LZRW1
 
                         bw.Flush();
                         
-                        int p = (int)(sao.Length - offset);
-                        // sao.Position = p;
+                        sao.Position = sao.Length - offset;
                         byte[] nextdata = sao.Reader.ReadBytes(len);
                         bw.WriteBytes(nextdata);
                     }
