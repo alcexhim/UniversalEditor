@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using UniversalEditor.IO;
@@ -35,6 +36,7 @@ namespace UniversalEditor.Accessors
 			_data = data;
 		}
 
+        [DebuggerNonUserCode()]
 		public override void Seek(long length, SeekOrigin position)
 		{
 			long start = 0;
