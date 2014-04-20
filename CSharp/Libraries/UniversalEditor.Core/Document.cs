@@ -147,11 +147,11 @@ namespace UniversalEditor
 		{
 			get
 			{
-				if (mvarLastUsedAccessor == LastUsedAccessor.Input)
+				if (mvarLastUsedAccessor == LastUsedAccessor.Input && mvarInputAccessor != null)
 				{
 					return mvarInputAccessor.Title;
 				}
-				else if (mvarLastUsedAccessor == LastUsedAccessor.Output)
+				else if (mvarLastUsedAccessor == LastUsedAccessor.Output && mvarOutputAccessor != null)
 				{
 					return mvarOutputAccessor.Title;
 				}
