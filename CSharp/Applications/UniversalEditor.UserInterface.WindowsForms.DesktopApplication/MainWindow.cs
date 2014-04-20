@@ -908,7 +908,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private bool SaveDocument(Document doc)
 		{
-			throw new NotImplementedException();
+            if (doc.Accessor == null)
+            {
+                // The accessor is null, so display the save as dialog
+                SaveDocumentAs(doc);
+            }
+            return false;
 		}
 		private bool SaveDocumentAs(Document doc, string FileName = null)
 		{
