@@ -24,7 +24,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = new DataFormatReference(GetType());
                 _dfr.Capabilities.Add(typeof(SubtitleObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("SubStation Alpha subtitles", new string[] { "*.ssa", "*.ass" });
                 _dfr.ExportOptions.Add(new CustomOptionText("Title", "&Title:"));
@@ -44,6 +44,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
         protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
         {
             SubtitleObjectModel subtitle = (objectModels.Pop() as SubtitleObjectModel);
+            if (subtitle == null) throw new ObjectModelNotSupportedException();
+
             PropertyListObjectModel plom = new PropertyListObjectModel();
 
             Group grpScriptInfo = plom.Groups.Add("Script Info");
