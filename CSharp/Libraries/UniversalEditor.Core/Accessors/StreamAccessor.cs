@@ -65,14 +65,11 @@ namespace UniversalEditor.Accessors
             return count;
 		}
 
-		public override void Open()
+		protected override void OpenInternal()
 		{
-			throw new NotImplementedException();
 		}
-
-		public override void Close()
+        protected override void CloseInternal()
 		{
-			mvarBaseStream.Close();
 		}
 	}
 }

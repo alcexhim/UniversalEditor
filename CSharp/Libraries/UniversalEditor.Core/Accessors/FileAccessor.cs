@@ -88,9 +88,9 @@ namespace UniversalEditor.Accessors
         public void Open(string FileName)
         {
             mvarFileName = FileName;
-            Open();
+            OpenInternal();
         }
-        public override void Open()
+        protected override void OpenInternal()
         {
             System.IO.FileShare share = System.IO.FileShare.Read;
             System.IO.FileMode mode = System.IO.FileMode.OpenOrCreate;
@@ -106,7 +106,7 @@ namespace UniversalEditor.Accessors
             mvarFileStream = System.IO.File.Open(mvarFileName, mode, access, share);
         }
 
-        public override void Close()
+        protected override void CloseInternal()
         {
             mvarFileStream.Close();
         }

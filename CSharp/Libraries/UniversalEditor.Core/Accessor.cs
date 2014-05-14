@@ -47,8 +47,23 @@ namespace UniversalEditor
         private bool mvarIsOpen = false;
         public bool IsOpen { get { return mvarIsOpen; } protected set { mvarIsOpen = value; } }
 
-        public abstract void Open();
-        public abstract void Close();
+        public void Open()
+        {
+            if (mvarIsOpen) return;
+
+            OpenInternal();
+            mvarIsOpen = true;
+        }
+        public void Close()
+        {
+            if (!mvarIsOpen) return;
+
+            CloseInternal();
+            mvarIsOpen = false;
+        }
+
+        protected abstract void OpenInternal();
+        protected abstract void CloseInternal();
 
         private Encoding mvarDefaultEncoding = Encoding.Default;
         /// <summary>
