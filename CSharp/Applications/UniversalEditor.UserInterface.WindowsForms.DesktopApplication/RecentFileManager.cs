@@ -94,6 +94,6 @@ internal static class RecentFileManager
             tagRecentItems.Elements.Add(tagDocuments);
         }
 
-		Document.Save(mom, xml, new FileAccessor(mvarDataFileName, true, true, true), true);
+		Document.Save(mom, xml, new FileAccessor(mvarDataFileName, true, true), true);
     }
 }
