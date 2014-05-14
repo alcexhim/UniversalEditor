@@ -84,7 +84,7 @@ namespace UniversalEditor
 			mvarOutputAccessor = outputAccessor;
         }
 
-		public static Document Load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = false)
+		public static Document Load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = true)
 		{
 			Document document = new Document(objectModel, dataFormat, accessor);
             objectModel.Accessor = document.InputAccessor;
@@ -93,7 +93,7 @@ namespace UniversalEditor
 			if (autoClose) document.InputAccessor.Close();
 			return document;
 		}
-		public static Document Save(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = false)
+		public static Document Save(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = true)
 		{
             Document document = new Document(objectModel, dataFormat, accessor);
             objectModel.Accessor = document.OutputAccessor;
