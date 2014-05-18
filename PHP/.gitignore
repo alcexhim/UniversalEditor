@@ -1,0 +1,21 @@
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+# 
+# disallow local configuration files and backup files
+Tenant/Include/Configuration.*
+Manager/Include/Configuration.*
+# but include the configuration template files
+!Tenant/Include/Configuration.inc.php.template
+!Manager/Include/Configuration.inc.php.template
+# disallow all resource bundles (which could contain proprietary content)
+Tenant/Resources/*
+# but allow common resource files that ship with ObjectFX
+!Tenant/Resources/Common
+# as well as a readme file that describes how to use resource bundles
+!Tenant/Resources/Readme.txt
+# and don't pull in sandbox stuff (which is really only for testing locally)
+Sandbox/*
