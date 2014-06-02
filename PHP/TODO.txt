@@ -1,0 +1,62 @@
+Create an object (if user has permissions):
+http://hosted1.universaleditor.com/default/o/create
+View an object:
+http://hosted1.universaleditor.com/default/o/177
+http://hosted1.universaleditor.com/default/o/177/display
+Edit an object:
+http://hosted1.universaleditor.com/default/o/177/modify
+Delete an object:
+http://hosted1.universaleditor.com/default/o/177/delete
+
+Create an object instance (if user has permissions):
+http://hosted1.universaleditor.com/default/i/create
+View an object instance:
+http://hosted1.universaleditor.com/default/i/177
+http://hosted1.universaleditor.com/default/i/177/display
+Edit an object instance:
+http://hosted1.universaleditor.com/default/i/177/modify
+Delete an object instance:
+http://hosted1.universaleditor.com/default/i/177/delete
+
+Object instance's appearance in Display mode is specified by the object's DisplayTemplate:
+<Objectify>
+	<Objects>
+		<Object ID="5157" Title="Basic Object">
+			<DisplayTemplate>
+				<?php
+					// do your stuff here...
+				?>
+				<h1>Instance <?php echo($thisInstance->Title); ?></h1>
+			</DisplayTemplate>
+		</Object>
+	</Objects>
+	<Instances>
+		<Instance ID="72713" ObjectID="5157">
+			<Properties>
+				...
+			</Properties>
+		</Instance>
+	</Instances>
+</Objectify>
+
+Create a task (if user has permissions):
+http://hosted1.universaleditor.com/default/t/create
+View a task's properties:
+http://hosted1.universaleditor.com/default/t/177 [ Task.DefaultAction = Display ]
+http://hosted1.universaleditor.com/default/t/177/display
+Edit a task:
+http://hosted1.universaleditor.com/default/t/177/modify
+Delete a task:
+http://hosted1.universaleditor.com/default/t/177/delete
+Execute a task:
+http://hosted1.universaleditor.com/default/t/177 [ Task.DefaultAction = Execute ]
+http://hosted1.universaleditor.com/default/t/177/execute
+Execute a task with parameters:
+http://hosted1.universaleditor.com/default/t/177/execute/[base64-encoded parameters list]
+
+Base64-encoded parameters list:
+{
+	"parameter name": "value",
+	"parameter 2 name": "value 2"
+}
+etc.
