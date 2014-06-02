@@ -1672,7 +1672,16 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 		}
 		private void dcc_WindowClosed(object sender, WindowClosedEventArgs e)
-		{
+        {
+            if (dcc.SelectedWindow == null)
+            {
+                mvarCurrentDocument = null;
+                RefreshDocument();
+                return;
+            }
+            if (dcc.SelectedWindow.ParentArea == null) return;
+            if (dcc.SelectedWindow.ParentArea.Position != DockPosition.Center) return;
+
 			RefreshDocument();
 		}
 		#endregion
