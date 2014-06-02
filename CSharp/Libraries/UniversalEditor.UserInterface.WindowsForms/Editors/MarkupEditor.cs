@@ -20,18 +20,25 @@ namespace UniversalEditor.Editors
 
             base.SupportedObjectModels.Add(typeof(MarkupObjectModel));
 
-            string[] FileNames = System.IO.Directory.GetFiles(String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+            string dirname = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
             {
                 "Editors",
                 "Markup",
                 "Images"
-            }));
+            });
 
-            foreach (string FileName in FileNames)
+            // don't even try to load if the data directory does not exist (this should be a global
+            // Editor functionality, not specific to MarkupEditor...)
+            if (System.IO.Directory.Exists(dirname))
             {
-                string FileTitle = System.IO.Path.GetFileNameWithoutExtension(FileName);
-                Image image = Image.FromFile(FileName);
-                imlSmallIcons.Images.Add(FileTitle, image);
+                string[] FileNames = System.IO.Directory.GetFiles(dirname);
+
+                foreach (string FileName in FileNames)
+                {
+                    string FileTitle = System.IO.Path.GetFileNameWithoutExtension(FileName);
+                    Image image = Image.FromFile(FileName);
+                    imlSmallIcons.Images.Add(FileTitle, image);
+                }
             }
 
             ActionMenuItem mnuMarkup = new ActionMenuItem("mnuMarkup", "&Markup");
