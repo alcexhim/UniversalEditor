@@ -5,6 +5,7 @@ using System.Text;
 
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
+using UniversalEditor.ObjectModels.Designer;
 
 namespace UniversalEditor.DataFormats.Designer
 {
