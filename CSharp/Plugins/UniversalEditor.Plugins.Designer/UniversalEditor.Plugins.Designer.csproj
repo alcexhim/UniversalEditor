@@ -34,7 +34,28 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormats\Designer\DesignerXMLDataFormat.cs" />
+    <Compile Include="ObjectModels\Designer\Component.cs" />
+    <Compile Include="ObjectModels\Designer\ComponentInstance.cs" />
+    <Compile Include="ObjectModels\Designer\Connection.cs" />
+    <Compile Include="ObjectModels\Designer\ConnectionValue.cs" />
+    <Compile Include="ObjectModels\Designer\Design.cs" />
+    <Compile Include="ObjectModels\Designer\DesignerObjectModel.cs" />
+    <Compile Include="ObjectModels\Designer\Library.cs" />
+    <Compile Include="ObjectModels\Designer\Measurement.cs" />
+    <Compile Include="ObjectModels\Designer\Property.cs" />
+    <Compile Include="ObjectModels\Designer\PropertyValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
