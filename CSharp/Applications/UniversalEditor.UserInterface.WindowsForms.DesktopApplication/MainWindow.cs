@@ -1768,5 +1768,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			pbProgress.Maximum = maximium;
 			pbProgress.Value = value;
 		}
+
+        private void mnuHelpLicensingAndActivation_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This application has already been activated.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 	}
 }

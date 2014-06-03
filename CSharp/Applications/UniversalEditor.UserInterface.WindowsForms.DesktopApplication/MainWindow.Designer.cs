@@ -90,22 +90,22 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuViewToolbarsSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuViewToolbarsCustomize = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuViewStatusBar = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.panelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuViewSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuViewPanels = new System.Windows.Forms.ToolStripMenuItem();
             this.toolboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuViewPanelsProjectExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuViewSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuViewStartPage = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuViewFullScreen = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addNewItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addExistingItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.excludeFromProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
-            this.projectPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProjectAddNewItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProjectAddExistingItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProjectSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuProjectExclude = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProjectShowAllFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProjectSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuProjectProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBookmarks = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBookmarksAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBookmarksAddAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,28 +119,27 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowNewWindow = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.floatToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.floatAllToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.dockToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.autoHideToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.autoHideAllToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.hideToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-            this.pinTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
-            this.newHorizontalTabGroupToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.newVerticalTabGroupToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowSplit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuWindowSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuWindowFloat = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowFloatAll = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowDock = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowAutoHide = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowAutoHideAll = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowHide = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuWindowPinTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuWindowSep3 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuWindowNewTabGroupHorizontal = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowNewTabGroupVertical = new AwesomeControls.CommandBars.CBMenuItem();
             this.mnuWindowCloseAllDocuments = new AwesomeControls.CommandBars.CBMenuItem();
-            this.resetWindowLayoutToolStripMenuItem = new AwesomeControls.CommandBars.CBMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuWindowResetLayout = new AwesomeControls.CommandBars.CBMenuItem();
+            this.mnuWindowSep4 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuWindowWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuHelpViewHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelpCustomerFeedbackOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelpSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tbStandard = new AwesomeControls.CommandBars.CBToolBar();
             this.tsbStandardNew = new System.Windows.Forms.ToolStripSplitButton();
@@ -168,6 +167,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuContextDocumentType = new AwesomeControls.CommandBars.CBContextMenu(this.components);
             this.mnuContextDocumentTypeDataFormat = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContextDocumentTypeSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuHelpSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuHelpLicensingAndActivation = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelpAboutPlatform = new System.Windows.Forms.ToolStripMenuItem();
             this.cbc.BottomToolStripPanel.SuspendLayout();
             this.cbc.ContentPanel.SuspendLayout();
             this.cbc.TopToolStripPanel.SuspendLayout();
@@ -270,7 +272,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuFile,
             this.mnuEdit,
             this.mnuView,
-            this.projectToolStripMenuItem,
+            this.mnuProject,
             this.mnuBookmarks,
             this.mnuTools,
             this.mnuWindow,
@@ -668,9 +670,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuViewToolbars,
             this.mnuViewStatusBar,
-            this.toolStripMenuItem2,
-            this.panelsToolStripMenuItem,
-            this.toolStripMenuItem10,
+            this.mnuViewSep1,
+            this.mnuViewPanels,
+            this.mnuViewSep2,
             this.mnuViewStartPage,
             this.mnuViewFullScreen});
             this.mnuView.Name = "mnuView";
@@ -689,12 +691,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
             // mnuViewToolbarsSep1
             // 
             this.mnuViewToolbarsSep1.Name = "mnuViewToolbarsSep1";
-            this.mnuViewToolbarsSep1.Size = new System.Drawing.Size(136, 6);
+            this.mnuViewToolbarsSep1.Size = new System.Drawing.Size(149, 6);
             // 
             // mnuViewToolbarsCustomize
             // 
             this.mnuViewToolbarsCustomize.Name = "mnuViewToolbarsCustomize";
-            this.mnuViewToolbarsCustomize.Size = new System.Drawing.Size(139, 22);
+            this.mnuViewToolbarsCustomize.Size = new System.Drawing.Size(152, 22);
             this.mnuViewToolbarsCustomize.Text = "&Customize...";
             this.mnuViewToolbarsCustomize.Click += new System.EventHandler(this.mnuViewToolbarsCustomize_Click);
             // 
@@ -708,20 +710,20 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuViewStatusBar.Text = "Status &Bar";
             this.mnuViewStatusBar.Click += new System.EventHandler(this.mnuViewStatusBar_Click);
             // 
-            // toolStripMenuItem2
+            // mnuViewSep1
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(153, 6);
+            this.mnuViewSep1.Name = "mnuViewSep1";
+            this.mnuViewSep1.Size = new System.Drawing.Size(153, 6);
             // 
-            // panelsToolStripMenuItem
+            // mnuViewPanels
             // 
-            this.panelsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuViewPanels.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolboxToolStripMenuItem,
             this.mnuViewPanelsProjectExplorer,
             this.propertiesToolStripMenuItem});
-            this.panelsToolStripMenuItem.Name = "panelsToolStripMenuItem";
-            this.panelsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.panelsToolStripMenuItem.Text = "&Panels";
+            this.mnuViewPanels.Name = "mnuViewPanels";
+            this.mnuViewPanels.Size = new System.Drawing.Size(156, 22);
+            this.mnuViewPanels.Text = "&Panels";
             // 
             // toolboxToolStripMenuItem
             // 
@@ -742,10 +744,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.propertiesToolStripMenuItem.Text = "&Properties";
             // 
-            // toolStripMenuItem10
+            // mnuViewSep2
             // 
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(153, 6);
+            this.mnuViewSep2.Name = "mnuViewSep2";
+            this.mnuViewSep2.Size = new System.Drawing.Size(153, 6);
             // 
             // mnuViewStartPage
             // 
@@ -762,59 +764,63 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuViewFullScreen.Text = "F&ull Screen";
             this.mnuViewFullScreen.Click += new System.EventHandler(this.mnuViewFullScreen_Click);
             // 
-            // projectToolStripMenuItem
+            // mnuProject
             // 
-            this.projectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNewItemToolStripMenuItem,
-            this.addExistingItemToolStripMenuItem,
-            this.toolStripMenuItem4,
-            this.excludeFromProjectToolStripMenuItem,
-            this.showAllFilesToolStripMenuItem,
-            this.toolStripMenuItem9,
-            this.projectPropertiesToolStripMenuItem});
-            this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-            this.projectToolStripMenuItem.Size = new System.Drawing.Size(56, 21);
-            this.projectToolStripMenuItem.Text = "&Project";
+            this.mnuProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuProjectAddNewItem,
+            this.mnuProjectAddExistingItem,
+            this.mnuProjectSep1,
+            this.mnuProjectExclude,
+            this.mnuProjectShowAllFiles,
+            this.mnuProjectSep2,
+            this.mnuProjectProperties});
+            this.mnuProject.Name = "mnuProject";
+            this.mnuProject.Size = new System.Drawing.Size(56, 21);
+            this.mnuProject.Text = "&Project";
             // 
-            // addNewItemToolStripMenuItem
+            // mnuProjectAddNewItem
             // 
-            this.addNewItemToolStripMenuItem.Name = "addNewItemToolStripMenuItem";
-            this.addNewItemToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.addNewItemToolStripMenuItem.Text = "Add Ne&w Item...";
+            this.mnuProjectAddNewItem.Name = "mnuProjectAddNewItem";
+            this.mnuProjectAddNewItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.A)));
+            this.mnuProjectAddNewItem.Size = new System.Drawing.Size(245, 22);
+            this.mnuProjectAddNewItem.Text = "Add Ne&w Item...";
             // 
-            // addExistingItemToolStripMenuItem
+            // mnuProjectAddExistingItem
             // 
-            this.addExistingItemToolStripMenuItem.Name = "addExistingItemToolStripMenuItem";
-            this.addExistingItemToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.addExistingItemToolStripMenuItem.Text = "Add Existin&g Item...";
+            this.mnuProjectAddExistingItem.Name = "mnuProjectAddExistingItem";
+            this.mnuProjectAddExistingItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.A)));
+            this.mnuProjectAddExistingItem.Size = new System.Drawing.Size(245, 22);
+            this.mnuProjectAddExistingItem.Text = "Add Existin&g Item...";
             // 
-            // toolStripMenuItem4
+            // mnuProjectSep1
             // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 6);
+            this.mnuProjectSep1.Name = "mnuProjectSep1";
+            this.mnuProjectSep1.Size = new System.Drawing.Size(242, 6);
             // 
-            // excludeFromProjectToolStripMenuItem
+            // mnuProjectExclude
             // 
-            this.excludeFromProjectToolStripMenuItem.Name = "excludeFromProjectToolStripMenuItem";
-            this.excludeFromProjectToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.excludeFromProjectToolStripMenuItem.Text = "Exclude from Pro&ject";
+            this.mnuProjectExclude.Name = "mnuProjectExclude";
+            this.mnuProjectExclude.Size = new System.Drawing.Size(245, 22);
+            this.mnuProjectExclude.Text = "Exclude from Pro&ject";
             // 
-            // showAllFilesToolStripMenuItem
+            // mnuProjectShowAllFiles
             // 
-            this.showAllFilesToolStripMenuItem.Name = "showAllFilesToolStripMenuItem";
-            this.showAllFilesToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.showAllFilesToolStripMenuItem.Text = "Sh&ow All Files";
+            this.mnuProjectShowAllFiles.Name = "mnuProjectShowAllFiles";
+            this.mnuProjectShowAllFiles.Size = new System.Drawing.Size(245, 22);
+            this.mnuProjectShowAllFiles.Text = "Sh&ow All Files";
             // 
-            // toolStripMenuItem9
+            // mnuProjectSep2
             // 
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(180, 6);
+            this.mnuProjectSep2.Name = "mnuProjectSep2";
+            this.mnuProjectSep2.Size = new System.Drawing.Size(242, 6);
             // 
-            // projectPropertiesToolStripMenuItem
+            // mnuProjectProperties
             // 
-            this.projectPropertiesToolStripMenuItem.Name = "projectPropertiesToolStripMenuItem";
-            this.projectPropertiesToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.projectPropertiesToolStripMenuItem.Text = "Project &Properties...";
+            this.mnuProjectProperties.Name = "mnuProjectProperties";
+            this.mnuProjectProperties.Size = new System.Drawing.Size(245, 22);
+            this.mnuProjectProperties.Text = "Project &Properties...";
             // 
             // mnuBookmarks
             // 
@@ -904,22 +910,22 @@ namespace UniversalEditor.UserInterface.WindowsForms
             // 
             this.mnuWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuWindowNewWindow,
-            this.splitToolStripMenuItem,
-            this.toolStripMenuItem5,
-            this.floatToolStripMenuItem,
-            this.floatAllToolStripMenuItem,
-            this.dockToolStripMenuItem,
-            this.autoHideToolStripMenuItem,
-            this.autoHideAllToolStripMenuItem,
-            this.hideToolStripMenuItem,
-            this.toolStripMenuItem6,
-            this.pinTabToolStripMenuItem,
-            this.toolStripMenuItem7,
-            this.newHorizontalTabGroupToolStripMenuItem,
-            this.newVerticalTabGroupToolStripMenuItem,
+            this.mnuWindowSplit,
+            this.mnuWindowSep1,
+            this.mnuWindowFloat,
+            this.mnuWindowFloatAll,
+            this.mnuWindowDock,
+            this.mnuWindowAutoHide,
+            this.mnuWindowAutoHideAll,
+            this.mnuWindowHide,
+            this.mnuWindowSep2,
+            this.mnuWindowPinTab,
+            this.mnuWindowSep3,
+            this.mnuWindowNewTabGroupHorizontal,
+            this.mnuWindowNewTabGroupVertical,
             this.mnuWindowCloseAllDocuments,
-            this.resetWindowLayoutToolStripMenuItem,
-            this.toolStripMenuItem8,
+            this.mnuWindowResetLayout,
+            this.mnuWindowSep4,
             this.mnuWindowWindows});
             this.mnuWindow.Name = "mnuWindow";
             this.mnuWindow.Size = new System.Drawing.Size(63, 21);
@@ -932,88 +938,88 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuWindowNewWindow.Text = "&New Window";
             this.mnuWindowNewWindow.Click += new System.EventHandler(this.mnuWindowNewWindow_Click);
             // 
-            // splitToolStripMenuItem
+            // mnuWindowSplit
             // 
-            this.splitToolStripMenuItem.Name = "splitToolStripMenuItem";
-            this.splitToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.splitToolStripMenuItem.Text = "S&plit";
+            this.mnuWindowSplit.Name = "mnuWindowSplit";
+            this.mnuWindowSplit.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowSplit.Text = "S&plit";
             // 
-            // toolStripMenuItem5
+            // mnuWindowSep1
             // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(212, 6);
+            this.mnuWindowSep1.Name = "mnuWindowSep1";
+            this.mnuWindowSep1.Size = new System.Drawing.Size(212, 6);
             // 
-            // floatToolStripMenuItem
+            // mnuWindowFloat
             // 
-            this.floatToolStripMenuItem.Hidden = true;
-            this.floatToolStripMenuItem.Name = "floatToolStripMenuItem";
-            this.floatToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.floatToolStripMenuItem.Text = "&Float";
+            this.mnuWindowFloat.Hidden = true;
+            this.mnuWindowFloat.Name = "mnuWindowFloat";
+            this.mnuWindowFloat.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowFloat.Text = "&Float";
             // 
-            // floatAllToolStripMenuItem
+            // mnuWindowFloatAll
             // 
-            this.floatAllToolStripMenuItem.Hidden = true;
-            this.floatAllToolStripMenuItem.Name = "floatAllToolStripMenuItem";
-            this.floatAllToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.floatAllToolStripMenuItem.Text = "Float All";
+            this.mnuWindowFloatAll.Hidden = true;
+            this.mnuWindowFloatAll.Name = "mnuWindowFloatAll";
+            this.mnuWindowFloatAll.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowFloatAll.Text = "Float All";
             // 
-            // dockToolStripMenuItem
+            // mnuWindowDock
             // 
-            this.dockToolStripMenuItem.Hidden = true;
-            this.dockToolStripMenuItem.Name = "dockToolStripMenuItem";
-            this.dockToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.dockToolStripMenuItem.Text = "Doc&k";
+            this.mnuWindowDock.Hidden = true;
+            this.mnuWindowDock.Name = "mnuWindowDock";
+            this.mnuWindowDock.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowDock.Text = "Doc&k";
             // 
-            // autoHideToolStripMenuItem
+            // mnuWindowAutoHide
             // 
-            this.autoHideToolStripMenuItem.Hidden = true;
-            this.autoHideToolStripMenuItem.Name = "autoHideToolStripMenuItem";
-            this.autoHideToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.autoHideToolStripMenuItem.Text = "&Auto Hide";
+            this.mnuWindowAutoHide.Hidden = true;
+            this.mnuWindowAutoHide.Name = "mnuWindowAutoHide";
+            this.mnuWindowAutoHide.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowAutoHide.Text = "&Auto Hide";
             // 
-            // autoHideAllToolStripMenuItem
+            // mnuWindowAutoHideAll
             // 
-            this.autoHideAllToolStripMenuItem.Hidden = true;
-            this.autoHideAllToolStripMenuItem.Name = "autoHideAllToolStripMenuItem";
-            this.autoHideAllToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.autoHideAllToolStripMenuItem.Text = "A&uto Hide All";
+            this.mnuWindowAutoHideAll.Hidden = true;
+            this.mnuWindowAutoHideAll.Name = "mnuWindowAutoHideAll";
+            this.mnuWindowAutoHideAll.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowAutoHideAll.Text = "A&uto Hide All";
             // 
-            // hideToolStripMenuItem
+            // mnuWindowHide
             // 
-            this.hideToolStripMenuItem.Hidden = true;
-            this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
-            this.hideToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.hideToolStripMenuItem.Text = "&Hide";
+            this.mnuWindowHide.Hidden = true;
+            this.mnuWindowHide.Name = "mnuWindowHide";
+            this.mnuWindowHide.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowHide.Text = "&Hide";
             // 
-            // toolStripMenuItem6
+            // mnuWindowSep2
             // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(212, 6);
+            this.mnuWindowSep2.Name = "mnuWindowSep2";
+            this.mnuWindowSep2.Size = new System.Drawing.Size(212, 6);
             // 
-            // pinTabToolStripMenuItem
+            // mnuWindowPinTab
             // 
-            this.pinTabToolStripMenuItem.Name = "pinTabToolStripMenuItem";
-            this.pinTabToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.pinTabToolStripMenuItem.Text = "&Pin Tab";
+            this.mnuWindowPinTab.Name = "mnuWindowPinTab";
+            this.mnuWindowPinTab.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowPinTab.Text = "&Pin Tab";
             // 
-            // toolStripMenuItem7
+            // mnuWindowSep3
             // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(212, 6);
+            this.mnuWindowSep3.Name = "mnuWindowSep3";
+            this.mnuWindowSep3.Size = new System.Drawing.Size(212, 6);
             // 
-            // newHorizontalTabGroupToolStripMenuItem
+            // mnuWindowNewTabGroupHorizontal
             // 
-            this.newHorizontalTabGroupToolStripMenuItem.Hidden = true;
-            this.newHorizontalTabGroupToolStripMenuItem.Name = "newHorizontalTabGroupToolStripMenuItem";
-            this.newHorizontalTabGroupToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.newHorizontalTabGroupToolStripMenuItem.Text = "New Hori&zontal Tab Group";
+            this.mnuWindowNewTabGroupHorizontal.Hidden = true;
+            this.mnuWindowNewTabGroupHorizontal.Name = "mnuWindowNewTabGroupHorizontal";
+            this.mnuWindowNewTabGroupHorizontal.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowNewTabGroupHorizontal.Text = "New Hori&zontal Tab Group";
             // 
-            // newVerticalTabGroupToolStripMenuItem
+            // mnuWindowNewTabGroupVertical
             // 
-            this.newVerticalTabGroupToolStripMenuItem.Hidden = true;
-            this.newVerticalTabGroupToolStripMenuItem.Name = "newVerticalTabGroupToolStripMenuItem";
-            this.newVerticalTabGroupToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.newVerticalTabGroupToolStripMenuItem.Text = "New &Vertical Tab Group";
+            this.mnuWindowNewTabGroupVertical.Hidden = true;
+            this.mnuWindowNewTabGroupVertical.Name = "mnuWindowNewTabGroupVertical";
+            this.mnuWindowNewTabGroupVertical.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowNewTabGroupVertical.Text = "New &Vertical Tab Group";
             // 
             // mnuWindowCloseAllDocuments
             // 
@@ -1022,17 +1028,17 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuWindowCloseAllDocuments.Size = new System.Drawing.Size(215, 22);
             this.mnuWindowCloseAllDocuments.Text = "C&lose All Documents";
             // 
-            // resetWindowLayoutToolStripMenuItem
+            // mnuWindowResetLayout
             // 
-            this.resetWindowLayoutToolStripMenuItem.Hidden = true;
-            this.resetWindowLayoutToolStripMenuItem.Name = "resetWindowLayoutToolStripMenuItem";
-            this.resetWindowLayoutToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.resetWindowLayoutToolStripMenuItem.Text = "&Reset Window Layout";
+            this.mnuWindowResetLayout.Hidden = true;
+            this.mnuWindowResetLayout.Name = "mnuWindowResetLayout";
+            this.mnuWindowResetLayout.Size = new System.Drawing.Size(215, 22);
+            this.mnuWindowResetLayout.Text = "&Reset Window Layout";
             // 
-            // toolStripMenuItem8
+            // mnuWindowSep4
             // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(212, 6);
+            this.mnuWindowSep4.Name = "mnuWindowSep4";
+            this.mnuWindowSep4.Size = new System.Drawing.Size(212, 6);
             // 
             // mnuWindowWindows
             // 
@@ -1044,42 +1050,39 @@ namespace UniversalEditor.UserInterface.WindowsForms
             // mnuHelp
             // 
             this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contentsToolStripMenuItem,
-            this.indexToolStripMenuItem,
-            this.searchToolStripMenuItem,
-            this.toolStripSeparator5,
-            this.mnuHelpAbout});
+            this.mnuHelpViewHelp,
+            this.mnuHelpSep1,
+            this.mnuHelpCustomerFeedbackOptions,
+            this.mnuHelpLicensingAndActivation,
+            this.mnuHelpSep2,
+            this.mnuHelpAbout,
+            this.mnuHelpAboutPlatform});
             this.mnuHelp.Name = "mnuHelp";
             this.mnuHelp.Size = new System.Drawing.Size(44, 21);
             this.mnuHelp.Text = "&Help";
             // 
-            // contentsToolStripMenuItem
+            // mnuHelpViewHelp
             // 
-            this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.contentsToolStripMenuItem.Text = "&Contents";
+            this.mnuHelpViewHelp.Name = "mnuHelpViewHelp";
+            this.mnuHelpViewHelp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F1)));
+            this.mnuHelpViewHelp.Size = new System.Drawing.Size(241, 22);
+            this.mnuHelpViewHelp.Text = "View &Help";
             // 
-            // indexToolStripMenuItem
+            // mnuHelpCustomerFeedbackOptions
             // 
-            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.indexToolStripMenuItem.Text = "&Index";
+            this.mnuHelpCustomerFeedbackOptions.Name = "mnuHelpCustomerFeedbackOptions";
+            this.mnuHelpCustomerFeedbackOptions.Size = new System.Drawing.Size(241, 22);
+            this.mnuHelpCustomerFeedbackOptions.Text = "Customer &Feedback Options...";
             // 
-            // searchToolStripMenuItem
+            // mnuHelpSep2
             // 
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.searchToolStripMenuItem.Text = "&Search";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
+            this.mnuHelpSep2.Name = "mnuHelpSep2";
+            this.mnuHelpSep2.Size = new System.Drawing.Size(238, 6);
             // 
             // mnuHelpAbout
             // 
             this.mnuHelpAbout.Name = "mnuHelpAbout";
-            this.mnuHelpAbout.Size = new System.Drawing.Size(122, 22);
+            this.mnuHelpAbout.Size = new System.Drawing.Size(241, 22);
             this.mnuHelpAbout.Text = "&About...";
             this.mnuHelpAbout.Click += new System.EventHandler(this.mnuHelpAbout_Click);
             // 
@@ -1301,6 +1304,24 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuContextDocumentTypeSep1.Name = "mnuContextDocumentTypeSep1";
             this.mnuContextDocumentTypeSep1.Size = new System.Drawing.Size(134, 6);
             // 
+            // mnuHelpSep1
+            // 
+            this.mnuHelpSep1.Name = "mnuHelpSep1";
+            this.mnuHelpSep1.Size = new System.Drawing.Size(238, 6);
+            // 
+            // mnuHelpLicensingAndActivation
+            // 
+            this.mnuHelpLicensingAndActivation.Name = "mnuHelpLicensingAndActivation";
+            this.mnuHelpLicensingAndActivation.Size = new System.Drawing.Size(241, 22);
+            this.mnuHelpLicensingAndActivation.Text = "&Licensing and Activation...";
+            this.mnuHelpLicensingAndActivation.Click += new System.EventHandler(this.mnuHelpLicensingAndActivation_Click);
+            // 
+            // mnuHelpAboutPlatform
+            // 
+            this.mnuHelpAboutPlatform.Name = "mnuHelpAboutPlatform";
+            this.mnuHelpAboutPlatform.Size = new System.Drawing.Size(241, 22);
+            this.mnuHelpAboutPlatform.Text = "A&bout Universal Editor Platform";
+            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -1361,10 +1382,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem mnuToolsCustomize;
 		private System.Windows.Forms.ToolStripMenuItem mnuToolsOptions;
 		private System.Windows.Forms.ToolStripMenuItem mnuHelp;
-		private System.Windows.Forms.ToolStripMenuItem contentsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem indexToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelpViewHelp;
+		private System.Windows.Forms.ToolStripMenuItem mnuHelpCustomerFeedbackOptions;
+		private System.Windows.Forms.ToolStripSeparator mnuHelpSep2;
 		private System.Windows.Forms.ToolStripMenuItem mnuHelpAbout;
 		private System.Windows.Forms.ToolStripMenuItem mnuView;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewToolbars;
@@ -1382,7 +1402,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem mnuEditDelete;
 		private System.Windows.Forms.ToolStripSeparator mnuEditSep3;
 		private System.Windows.Forms.ToolStripMenuItem mnuEditFindReplace;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+		private System.Windows.Forms.ToolStripSeparator mnuViewSep1;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewFullScreen;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileSave;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileSaveFile;
@@ -1402,12 +1422,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem mnuFileCloseProject;
 		private System.Windows.Forms.ToolStripMenuItem mnuWindow;
 		private System.Windows.Forms.ToolStripMenuItem mnuWindowNewWindow;
-		private System.Windows.Forms.ToolStripMenuItem splitToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
-		private System.Windows.Forms.ToolStripMenuItem pinTabToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
+		private System.Windows.Forms.ToolStripMenuItem mnuWindowSplit;
+		private System.Windows.Forms.ToolStripSeparator mnuWindowSep1;
+		private System.Windows.Forms.ToolStripSeparator mnuWindowSep2;
+		private System.Windows.Forms.ToolStripMenuItem mnuWindowPinTab;
+		private System.Windows.Forms.ToolStripSeparator mnuWindowSep3;
+		private System.Windows.Forms.ToolStripSeparator mnuWindowSep4;
 		private System.Windows.Forms.ToolStripMenuItem mnuWindowWindows;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewStartPage;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileRecentFiles;
@@ -1429,21 +1449,21 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem saveProjectAsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
 		private System.Windows.Forms.ToolStripMenuItem saveAllFilesAndProjectsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem addNewItemToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem addExistingItemToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
-		private System.Windows.Forms.ToolStripMenuItem excludeFromProjectToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem showAllFilesToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
-		private System.Windows.Forms.ToolStripMenuItem projectPropertiesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem mnuProject;
+		private System.Windows.Forms.ToolStripMenuItem mnuProjectAddNewItem;
+		private System.Windows.Forms.ToolStripMenuItem mnuProjectAddExistingItem;
+		private System.Windows.Forms.ToolStripSeparator mnuProjectSep1;
+		private System.Windows.Forms.ToolStripMenuItem mnuProjectExclude;
+		private System.Windows.Forms.ToolStripMenuItem mnuProjectShowAllFiles;
+		private System.Windows.Forms.ToolStripSeparator mnuProjectSep2;
+		private System.Windows.Forms.ToolStripMenuItem mnuProjectProperties;
 		private System.Windows.Forms.ToolStripSeparator mnuFileSep4;
 		private System.Windows.Forms.Timer tmrToolStripContainerPopup;
-		private System.Windows.Forms.ToolStripMenuItem panelsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem mnuViewPanels;
 		private System.Windows.Forms.ToolStripMenuItem toolboxToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewPanelsProjectExplorer;
 		private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
+		private System.Windows.Forms.ToolStripSeparator mnuViewSep2;
 		private System.Windows.Forms.ComboBox cboAddress;
 		private System.Windows.Forms.ToolStripMenuItem mnuBookmarks;
 		private System.Windows.Forms.ToolStripMenuItem mnuBookmarksAdd;
@@ -1462,16 +1482,19 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private AwesomeControls.CommandBars.CBMenuItem mnuFileExport;
 		private AwesomeControls.CommandBars.CBMenuItem mnuEditInvertSelection;
 		private AwesomeControls.CommandBars.CBMenuItem mnuEditGoTo;
-		private AwesomeControls.CommandBars.CBMenuItem floatToolStripMenuItem;
-		private AwesomeControls.CommandBars.CBMenuItem floatAllToolStripMenuItem;
-		private AwesomeControls.CommandBars.CBMenuItem dockToolStripMenuItem;
-		private AwesomeControls.CommandBars.CBMenuItem autoHideToolStripMenuItem;
-		private AwesomeControls.CommandBars.CBMenuItem autoHideAllToolStripMenuItem;
-		private AwesomeControls.CommandBars.CBMenuItem hideToolStripMenuItem;
-		private AwesomeControls.CommandBars.CBMenuItem newHorizontalTabGroupToolStripMenuItem;
-		private AwesomeControls.CommandBars.CBMenuItem newVerticalTabGroupToolStripMenuItem;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowFloat;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowFloatAll;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowDock;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowAutoHide;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowAutoHideAll;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowHide;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowNewTabGroupHorizontal;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowNewTabGroupVertical;
 		private AwesomeControls.CommandBars.CBMenuItem mnuWindowCloseAllDocuments;
-		private AwesomeControls.CommandBars.CBMenuItem resetWindowLayoutToolStripMenuItem;
+		private AwesomeControls.CommandBars.CBMenuItem mnuWindowResetLayout;
+        private System.Windows.Forms.ToolStripSeparator mnuHelpSep1;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelpLicensingAndActivation;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelpAboutPlatform;
 	}
 }
 
