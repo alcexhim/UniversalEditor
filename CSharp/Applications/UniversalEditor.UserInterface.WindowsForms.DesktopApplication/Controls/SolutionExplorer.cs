@@ -177,23 +177,25 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 
 		private void tv_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
 		{
-			if (e.Label == null) return;
+			string label = e.Label;
+			if (label == null) label = e.Node.Text;
+
 			if (e.Node.Tag is SolutionObjectModel)
 			{
 				SolutionObjectModel sol = (e.Node.Tag as SolutionObjectModel);
-				sol.Title = e.Label;
+				sol.Title = label;
 				e.CancelEdit = true;
-				e.Node.Text = "Solution '" + e.Label + "' (" + sol.Projects.Count.ToString() + " project" + (sol.Projects.Count == 1 ? "" : "s") + ")";
+				e.Node.Text = "Solution '" + label + "' (" + sol.Projects.Count.ToString() + " project" + (sol.Projects.Count == 1 ? "" : "s") + ")";
 			}
 			else if (e.Node.Tag is Project)
 			{
 				Project proj = (e.Node.Tag as Project);
-				proj.Title = e.Label;
-				e.Node.Text = e.Label;
+				proj.Title = label;
+				e.Node.Text = label;
 			}
 			else if (e.Node.Tag is ProjectFile)
 			{
-				if (IsFileNameInvalid(e.Label))
+				if (IsFileNameInvalid(label))
 				{
 					MessageBox.Show("Item and file names cannot:\r\n- contain any of the following characters: / ? : & \\ * \" < > | # %\r\n- contain Unicode control characters\r\n- contain surrogate characters\r\n- be system reserved names, including 'CON', 'AUX', 'PRN', 'COM1' or 'LPT2'\r\n- be '.' or '..'\r\n\r\nPlease enter a valid name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					e.CancelEdit = true;
@@ -201,7 +203,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 				}
 
 				ProjectFile file = (e.Node.Tag as ProjectFile);
-				file.DestinationFileName = e.Label;
+				file.DestinationFileName = label;
 			}
 		}
 
@@ -212,6 +214,52 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 				TreeViewHitTestInfo tvhti = tv.HitTest(e.Location);
 				if (tvhti.Node != null) tv.SelectedNode = tvhti.Node;
 			}
+		}
+
+		private void mnuContext_Opening(object sender, CancelEventArgs e)
+		{
+			mnuContextAdd.DropDownItems.Clear();
+			mnuContextAdd.DropDownItems.Add(mnuContextAddNewItem);
+			mnuContextAdd.DropDownItems.Add(mnuContextAddExistingItem);
+			mnuContextAdd.DropDownItems.Add(mnuContextAddSep1);
+            mnuContextAdd.DropDownItems.Add(mnuContextAddNewFolder);
+            if (tv.SelectedNode.Tag is SolutionObjectModel)
+            {
+                mnuContextAddNewItem.Text = "Ne&w Project...";
+                mnuContextAddExistingItem.Text = "Existin&g Project...";
+            }
+            else
+            {
+                mnuContextAddNewItem.Text = "Ne&w Item...";
+                mnuContextAddExistingItem.Text = "Existin&g Item...";
+            }
+
+            if (tv.SelectedNode.Tag is Project)
+            {
+                Project proj = (tv.SelectedNode.Tag as Project);
+                if (proj.ProjectType != null)
+                {
+                    if (proj.ProjectType.ItemShortcuts.Count > 0)
+                    {
+                        mnuContextAdd.DropDownItems.Add(mnuContextAddSep2);
+                        foreach (ProjectTypeItemShortcut its in proj.ProjectType.ItemShortcuts)
+                        {
+                            ToolStripMenuItem tsmi = new ToolStripMenuItem();
+                            tsmi.Text = its.Title;
+                            tsmi.Click += tsmiItemShortcut_Click;
+                            tsmi.Tag = its;
+                            mnuContextAdd.DropDownItems.Add(tsmi);
+                        }
+                    }
+                }
+            }
+		}
+		private void tsmiItemShortcut_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
+			ProjectTypeItemShortcut its = (tsmi.Tag as ProjectTypeItemShortcut);
+
+			Program.LastWindow.NewFile();
 		}
 	}
 }

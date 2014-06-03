@@ -214,7 +214,11 @@ namespace UniversalEditor
 			{
 				mvarObjectModelType = Type.GetType(mvarObjectModelTypeName);
 			}
-			return (mvarObjectModelType.Assembly.CreateInstance(mvarObjectModelType.FullName) as ObjectModel);
+            if (mvarObjectModelType != null)
+            {
+                return (mvarObjectModelType.Assembly.CreateInstance(mvarObjectModelType.FullName) as ObjectModel);
+            }
+            return null;
 		}
 
 		private string mvarDescription = String.Empty;

@@ -62,6 +62,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuContextProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.imlSmallIcons = new System.Windows.Forms.ImageList(this.components);
+            this.mnuContextAddSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.cbToolBar1.SuspendLayout();
             this.mnuContext.SuspendLayout();
             this.SuspendLayout();
@@ -272,7 +273,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             this.toolStripMenuItem3,
             this.mnuContextProperties});
             this.mnuContext.Name = "cbContextMenu1";
-            this.mnuContext.Size = new System.Drawing.Size(194, 148);
+            this.mnuContext.Size = new System.Drawing.Size(194, 170);
+            this.mnuContext.Opening += new System.ComponentModel.CancelEventHandler(this.mnuContext_Opening);
             // 
             // mnuContextAdd
             // 
@@ -280,6 +282,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             this.mnuContextAddNewItem,
             this.mnuContextAddExistingItem,
             this.mnuContextAddSep1,
+            this.mnuContextAddSep2,
             this.mnuContextAddNewFolder});
             this.mnuContextAdd.Name = "mnuContextAdd";
             this.mnuContextAdd.Size = new System.Drawing.Size(193, 22);
@@ -288,24 +291,24 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             // mnuContextAddNewItem
             // 
             this.mnuContextAddNewItem.Name = "mnuContextAddNewItem";
-            this.mnuContextAddNewItem.Size = new System.Drawing.Size(150, 22);
+            this.mnuContextAddNewItem.Size = new System.Drawing.Size(152, 22);
             this.mnuContextAddNewItem.Text = "Ne&w Item...";
             // 
             // mnuContextAddExistingItem
             // 
             this.mnuContextAddExistingItem.Name = "mnuContextAddExistingItem";
-            this.mnuContextAddExistingItem.Size = new System.Drawing.Size(150, 22);
+            this.mnuContextAddExistingItem.Size = new System.Drawing.Size(152, 22);
             this.mnuContextAddExistingItem.Text = "Existin&g Item...";
             // 
             // mnuContextAddSep1
             // 
             this.mnuContextAddSep1.Name = "mnuContextAddSep1";
-            this.mnuContextAddSep1.Size = new System.Drawing.Size(147, 6);
+            this.mnuContextAddSep1.Size = new System.Drawing.Size(149, 6);
             // 
             // mnuContextAddNewFolder
             // 
             this.mnuContextAddNewFolder.Name = "mnuContextAddNewFolder";
-            this.mnuContextAddNewFolder.Size = new System.Drawing.Size(150, 22);
+            this.mnuContextAddNewFolder.Size = new System.Drawing.Size(152, 22);
             this.mnuContextAddNewFolder.Text = "New Fol&der";
             // 
             // mnuContextSep1
@@ -359,6 +362,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             this.imlSmallIcons.ImageSize = new System.Drawing.Size(16, 16);
             this.imlSmallIcons.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // mnuContextAddSep2
+            // 
+            this.mnuContextAddSep2.Name = "mnuContextAddSep2";
+            this.mnuContextAddSep2.Size = new System.Drawing.Size(149, 6);
+            // 
             // SolutionExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -409,5 +417,6 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem mnuContextProperties;
 		private System.Windows.Forms.ImageList imlSmallIcons;
+        private System.Windows.Forms.ToolStripSeparator mnuContextAddSep2;
     }
 }

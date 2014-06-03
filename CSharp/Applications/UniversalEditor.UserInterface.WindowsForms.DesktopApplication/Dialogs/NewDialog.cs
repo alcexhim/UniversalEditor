@@ -127,7 +127,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				foreach (DocumentTemplate dt in templates)
 				{
 					AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
-					lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
+                    if (System.IO.File.Exists(dt.LargeIconImageFileName))
+                    {
+                        lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
+                    }
 					lvi.Text = dt.Title;
 					lvi.Details.Add(dt.Description);
 					lvi.Data = dt;
@@ -187,7 +190,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					if (tn == tvProject.SelectedNode)
 					{
 						AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
-						lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
+						if (!String.IsNullOrEmpty(dt.LargeIconImageFileName))
+						{
+							lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
+						}
+						else
+						{
+							Console.Error.WriteLine("Large icon image not specified for template \"" + dt.Title + "\"");
+						}
 						lvi.Text = dt.Title;
 						lvi.Details.Add(dt.Description);
 						lvi.Data = dt;
@@ -197,7 +207,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				else
 				{
 					AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
-					lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
+					if (!String.IsNullOrEmpty(dt.LargeIconImageFileName))
+					{
+						lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
+					}
+					else
+					{
+						Console.Error.WriteLine("Large icon image not specified for template \"" + dt.Title + "\"");
+					}
 					lvi.Text = dt.Title;
 					lvi.Details.Add(dt.Description);
 					lvi.Data = dt;
