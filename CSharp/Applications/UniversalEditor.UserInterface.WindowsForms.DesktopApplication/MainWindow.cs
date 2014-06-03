@@ -1773,5 +1773,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
         {
             MessageBox.Show("This application has already been activated.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void HelpContents_Click(object sender, EventArgs e)
+        {
+
+        }
 	}
 }

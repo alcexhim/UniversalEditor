@@ -138,9 +138,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuWindowWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelpViewHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelpSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHelpCustomerFeedbackOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelpLicensingAndActivation = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelpSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelpAboutPlatform = new System.Windows.Forms.ToolStripMenuItem();
             this.tbStandard = new AwesomeControls.CommandBars.CBToolBar();
             this.tsbStandardNew = new System.Windows.Forms.ToolStripSplitButton();
             this.tsbStandardNewFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,11 +154,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.tsbStandardSave = new System.Windows.Forms.ToolStripSplitButton();
             this.tsbStandardSaveFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbStandardSaveFileAs = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.saveProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveProjectAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.saveAllFilesAndProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbStandardSaveSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbStandardSaveProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbStandardSaveProjectAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbStandardSaveSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbStandardSaveAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbStandardPrint = new System.Windows.Forms.ToolStripButton();
             this.tsbStandardSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbStandardCut = new System.Windows.Forms.ToolStripButton();
@@ -167,9 +170,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuContextDocumentType = new AwesomeControls.CommandBars.CBContextMenu(this.components);
             this.mnuContextDocumentTypeDataFormat = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContextDocumentTypeSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuHelpSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuHelpLicensingAndActivation = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuHelpAboutPlatform = new System.Windows.Forms.ToolStripMenuItem();
             this.cbc.BottomToolStripPanel.SuspendLayout();
             this.cbc.ContentPanel.SuspendLayout();
             this.cbc.TopToolStripPanel.SuspendLayout();
@@ -691,12 +691,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
             // mnuViewToolbarsSep1
             // 
             this.mnuViewToolbarsSep1.Name = "mnuViewToolbarsSep1";
-            this.mnuViewToolbarsSep1.Size = new System.Drawing.Size(149, 6);
+            this.mnuViewToolbarsSep1.Size = new System.Drawing.Size(136, 6);
             // 
             // mnuViewToolbarsCustomize
             // 
             this.mnuViewToolbarsCustomize.Name = "mnuViewToolbarsCustomize";
-            this.mnuViewToolbarsCustomize.Size = new System.Drawing.Size(152, 22);
+            this.mnuViewToolbarsCustomize.Size = new System.Drawing.Size(139, 22);
             this.mnuViewToolbarsCustomize.Text = "&Customize...";
             this.mnuViewToolbarsCustomize.Click += new System.EventHandler(this.mnuViewToolbarsCustomize_Click);
             // 
@@ -1067,12 +1067,25 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuHelpViewHelp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F1)));
             this.mnuHelpViewHelp.Size = new System.Drawing.Size(241, 22);
             this.mnuHelpViewHelp.Text = "View &Help";
+            this.mnuHelpViewHelp.Click += new System.EventHandler(this.HelpContents_Click);
+            // 
+            // mnuHelpSep1
+            // 
+            this.mnuHelpSep1.Name = "mnuHelpSep1";
+            this.mnuHelpSep1.Size = new System.Drawing.Size(238, 6);
             // 
             // mnuHelpCustomerFeedbackOptions
             // 
             this.mnuHelpCustomerFeedbackOptions.Name = "mnuHelpCustomerFeedbackOptions";
             this.mnuHelpCustomerFeedbackOptions.Size = new System.Drawing.Size(241, 22);
             this.mnuHelpCustomerFeedbackOptions.Text = "Customer &Feedback Options...";
+            // 
+            // mnuHelpLicensingAndActivation
+            // 
+            this.mnuHelpLicensingAndActivation.Name = "mnuHelpLicensingAndActivation";
+            this.mnuHelpLicensingAndActivation.Size = new System.Drawing.Size(241, 22);
+            this.mnuHelpLicensingAndActivation.Text = "&Licensing and Activation...";
+            this.mnuHelpLicensingAndActivation.Click += new System.EventHandler(this.mnuHelpLicensingAndActivation_Click);
             // 
             // mnuHelpSep2
             // 
@@ -1085,6 +1098,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuHelpAbout.Size = new System.Drawing.Size(241, 22);
             this.mnuHelpAbout.Text = "&About...";
             this.mnuHelpAbout.Click += new System.EventHandler(this.mnuHelpAbout_Click);
+            // 
+            // mnuHelpAboutPlatform
+            // 
+            this.mnuHelpAboutPlatform.Name = "mnuHelpAboutPlatform";
+            this.mnuHelpAboutPlatform.Size = new System.Drawing.Size(241, 22);
+            this.mnuHelpAboutPlatform.Text = "A&bout Universal Editor Platform";
             // 
             // tbStandard
             // 
@@ -1122,14 +1141,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
             // tsbStandardNewFile
             // 
             this.tsbStandardNewFile.Name = "tsbStandardNewFile";
-            this.tsbStandardNewFile.Size = new System.Drawing.Size(147, 22);
+            this.tsbStandardNewFile.Size = new System.Drawing.Size(152, 22);
             this.tsbStandardNewFile.Text = "New &File...";
             this.tsbStandardNewFile.Click += new System.EventHandler(this.FileNewFile_Click);
             // 
             // tsbStandardNewProject
             // 
             this.tsbStandardNewProject.Name = "tsbStandardNewProject";
-            this.tsbStandardNewProject.Size = new System.Drawing.Size(147, 22);
+            this.tsbStandardNewProject.Size = new System.Drawing.Size(152, 22);
             this.tsbStandardNewProject.Text = "New &Project...";
             this.tsbStandardNewProject.Click += new System.EventHandler(this.FileNewProject_Click);
             // 
@@ -1166,11 +1185,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.tsbStandardSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbStandardSaveFile,
             this.tsbStandardSaveFileAs,
-            this.toolStripMenuItem1,
-            this.saveProjectToolStripMenuItem,
-            this.saveProjectAsToolStripMenuItem,
-            this.toolStripMenuItem3,
-            this.saveAllFilesAndProjectsToolStripMenuItem});
+            this.tsbStandardSaveSep1,
+            this.tsbStandardSaveProject,
+            this.tsbStandardSaveProjectAs,
+            this.tsbStandardSaveSep2,
+            this.tsbStandardSaveAll});
             this.tsbStandardSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardSave.Image")));
             this.tsbStandardSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbStandardSave.Name = "tsbStandardSave";
@@ -1192,33 +1211,33 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.tsbStandardSaveFileAs.Text = "Save File &As...";
             this.tsbStandardSaveFileAs.Click += new System.EventHandler(this.FileSaveFileAs_Click);
             // 
-            // toolStripMenuItem1
+            // tsbStandardSaveSep1
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(206, 6);
+            this.tsbStandardSaveSep1.Name = "tsbStandardSaveSep1";
+            this.tsbStandardSaveSep1.Size = new System.Drawing.Size(206, 6);
             // 
-            // saveProjectToolStripMenuItem
+            // tsbStandardSaveProject
             // 
-            this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.saveProjectToolStripMenuItem.Text = "Save &Project";
+            this.tsbStandardSaveProject.Name = "tsbStandardSaveProject";
+            this.tsbStandardSaveProject.Size = new System.Drawing.Size(209, 22);
+            this.tsbStandardSaveProject.Text = "Save &Project";
             // 
-            // saveProjectAsToolStripMenuItem
+            // tsbStandardSaveProjectAs
             // 
-            this.saveProjectAsToolStripMenuItem.Name = "saveProjectAsToolStripMenuItem";
-            this.saveProjectAsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.saveProjectAsToolStripMenuItem.Text = "Save Pro&ject As...";
+            this.tsbStandardSaveProjectAs.Name = "tsbStandardSaveProjectAs";
+            this.tsbStandardSaveProjectAs.Size = new System.Drawing.Size(209, 22);
+            this.tsbStandardSaveProjectAs.Text = "Save Pro&ject As...";
             // 
-            // toolStripMenuItem3
+            // tsbStandardSaveSep2
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(206, 6);
+            this.tsbStandardSaveSep2.Name = "tsbStandardSaveSep2";
+            this.tsbStandardSaveSep2.Size = new System.Drawing.Size(206, 6);
             // 
-            // saveAllFilesAndProjectsToolStripMenuItem
+            // tsbStandardSaveAll
             // 
-            this.saveAllFilesAndProjectsToolStripMenuItem.Name = "saveAllFilesAndProjectsToolStripMenuItem";
-            this.saveAllFilesAndProjectsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.saveAllFilesAndProjectsToolStripMenuItem.Text = "Save A&ll Files and Projects";
+            this.tsbStandardSaveAll.Name = "tsbStandardSaveAll";
+            this.tsbStandardSaveAll.Size = new System.Drawing.Size(209, 22);
+            this.tsbStandardSaveAll.Text = "Save A&ll Files and Projects";
             // 
             // tsbStandardPrint
             // 
@@ -1278,6 +1297,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.tsbStandardHelp.Name = "tsbStandardHelp";
             this.tsbStandardHelp.Size = new System.Drawing.Size(23, 22);
             this.tsbStandardHelp.Text = "He&lp";
+            this.tsbStandardHelp.Click += new System.EventHandler(this.HelpContents_Click);
             // 
             // tmrToolStripContainerPopup
             // 
@@ -1303,24 +1323,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
             // 
             this.mnuContextDocumentTypeSep1.Name = "mnuContextDocumentTypeSep1";
             this.mnuContextDocumentTypeSep1.Size = new System.Drawing.Size(134, 6);
-            // 
-            // mnuHelpSep1
-            // 
-            this.mnuHelpSep1.Name = "mnuHelpSep1";
-            this.mnuHelpSep1.Size = new System.Drawing.Size(238, 6);
-            // 
-            // mnuHelpLicensingAndActivation
-            // 
-            this.mnuHelpLicensingAndActivation.Name = "mnuHelpLicensingAndActivation";
-            this.mnuHelpLicensingAndActivation.Size = new System.Drawing.Size(241, 22);
-            this.mnuHelpLicensingAndActivation.Text = "&Licensing and Activation...";
-            this.mnuHelpLicensingAndActivation.Click += new System.EventHandler(this.mnuHelpLicensingAndActivation_Click);
-            // 
-            // mnuHelpAboutPlatform
-            // 
-            this.mnuHelpAboutPlatform.Name = "mnuHelpAboutPlatform";
-            this.mnuHelpAboutPlatform.Size = new System.Drawing.Size(241, 22);
-            this.mnuHelpAboutPlatform.Text = "A&bout Universal Editor Platform";
             // 
             // MainWindow
             // 
@@ -1444,11 +1446,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripSplitButton tsbStandardSave;
 		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveFile;
 		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveFileAs;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-		private System.Windows.Forms.ToolStripMenuItem saveProjectToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveProjectAsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-		private System.Windows.Forms.ToolStripMenuItem saveAllFilesAndProjectsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator tsbStandardSaveSep1;
+		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveProject;
+		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveProjectAs;
+		private System.Windows.Forms.ToolStripSeparator tsbStandardSaveSep2;
+		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveAll;
 		private System.Windows.Forms.ToolStripMenuItem mnuProject;
 		private System.Windows.Forms.ToolStripMenuItem mnuProjectAddNewItem;
 		private System.Windows.Forms.ToolStripMenuItem mnuProjectAddExistingItem;
