@@ -25,87 +25,87 @@ namespace UniversalEditor.IO
 	// [DebuggerNonUserCode()]
 	public class Reader
 	{
-        private Endianness mvarEndianness = Endianness.LittleEndian;
-        public Endianness Endianness { get { return mvarEndianness; } set { mvarEndianness = value; } }
+		private Endianness mvarEndianness = Endianness.LittleEndian;
+		public Endianness Endianness { get { return mvarEndianness; } set { mvarEndianness = value; } }
 
-        private bool mvarReverse = false;
-        public bool Reverse { get { return mvarReverse; } }
+		private bool mvarReverse = false;
+		public bool Reverse { get { return mvarReverse; } }
 
 		private Accessor mvarAccessor = null;
 		public Accessor Accessor { get { return mvarAccessor; } }
 
-        private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
-        public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
-        public string GetNewLineSequence()
-        {
-            string newline = System.Environment.NewLine;
-            switch (mvarNewLineSequence)
-            {
-                case IO.NewLineSequence.CarriageReturn:
-                {
-                    newline = "\r";
-                    break;
-                }
-                case IO.NewLineSequence.LineFeed:
-                {
-                    newline = "\n";
-                    break;
-                }
-                case IO.NewLineSequence.CarriageReturnLineFeed:
-                {
-                    newline = "\r\n";
-                    break;
-                }
-            }
-            return newline;
-        }
+		private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
+		public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
+		public string GetNewLineSequence()
+		{
+			string newline = System.Environment.NewLine;
+			switch (mvarNewLineSequence)
+			{
+				case IO.NewLineSequence.CarriageReturn:
+				{
+					newline = "\r";
+					break;
+				}
+				case IO.NewLineSequence.LineFeed:
+				{
+					newline = "\n";
+					break;
+				}
+				case IO.NewLineSequence.CarriageReturnLineFeed:
+				{
+					newline = "\r\n";
+					break;
+				}
+			}
+			return newline;
+		}
 
 		public Reader(Accessor input)
 		{
-            this.mvarAccessor = input;
+			this.mvarAccessor = input;
 			this.mvarEndianness = Endianness.LittleEndian;
 			this.mvarReverse = false;
 		}
 
-        public void Read(byte[] buffer, int start, int length)
-        {
-            mvarAccessor.ReadInternal(buffer, start, length);
-        }
+		public void Read(byte[] buffer, int start, int length)
+		{
+			mvarAccessor.ReadInternal(buffer, start, length);
+		}
 
 		public bool ReadBoolean()
 		{
 			return (ReadBytes(1)[0] != 0);
 		}
 
-        public byte ReadByte()
-        {
-            return ReadBytes(1)[0];
-        }
-        public char ReadChar()
-        {
-            return (char)ReadByte();
-        }
-        public byte PeekByte()
-        {
-            byte b = ReadByte();
-            mvarAccessor.Seek(-1, SeekOrigin.Current);
-            return b;
-        }
-        public byte[] PeekBytes(int length)
-        {
-            byte[] buffer = new byte[length];
-            int len = mvarAccessor.ReadInternal(buffer, 0, length);
-            mvarAccessor.Seek(-len, SeekOrigin.Current);
-            return buffer;
-        }
-        public char PeekChar()
-        {
-            return (char)PeekByte();
-        }
-        public sbyte ReadSByte()
-        {
-            return (sbyte)(ReadBytes(1)[0]);
-        }
+		public byte ReadByte()
+		{
+			return ReadBytes(1)[0];
+		}
+		public char ReadChar()
+		{
+			return (char)ReadByte();
+		}
+		public byte PeekByte()
+		{
+			byte b = ReadByte();
+			mvarAccessor.Seek(-1, SeekOrigin.Current);
+			return b;
+		}
+		public byte[] PeekBytes(int length)
+		{
+			byte[] buffer = new byte[length];
+			int len = mvarAccessor.ReadInternal(buffer, 0, length);
+			mvarAccessor.Seek(-len, SeekOrigin.Current);
+			return buffer;
+		}
+		public char PeekChar()
+		{
+			return (char)PeekByte();
+		}
+		public sbyte ReadSByte()
+		{
+			return (sbyte)(ReadBytes(1)[0]);
+		}
 		public byte[] ReadBytes (uint length)
 		{
 			byte[] buf = new byte[length];
@@ -135,8 +135,8 @@ namespace UniversalEditor.IO
 		[DebuggerNonUserCode()]
 		public byte[] ReadBytes(long length)
 		{
-            byte[] buffer = new byte[length];
-            mvarAccessor.ReadInternal(buffer, 0, (int)length);
+			byte[] buffer = new byte[length];
+			mvarAccessor.ReadInternal(buffer, 0, (int)length);
 			return buffer;
 		}
 
@@ -198,67 +198,67 @@ namespace UniversalEditor.IO
 			return new DateTime (nYear, nMonth, nDay, nHour + gmtOffset, nMinute, nSecond, nSecondHundredths, DateTimeKind.Utc);
 		}
 
-        protected internal int Read7BitEncodedInt()
-        {
-            int num = 0;
-            int num2 = 0;
-            while (num2 != 35)
-            {
-                byte b = ReadByte();
-                num |= (int)(b & 127) << num2;
-                num2 += 7;
-                if ((b & 128) == 0)
-                {
-                    return num;
-                }
-            }
-            throw new ArgumentOutOfRangeException("Invalid 7-bit encoded Int32");
-        }
+		protected internal int Read7BitEncodedInt()
+		{
+			int num = 0;
+			int num2 = 0;
+			while (num2 != 35)
+			{
+				byte b = ReadByte();
+				num |= (int)(b & 127) << num2;
+				num2 += 7;
+				if ((b & 128) == 0)
+				{
+					return num;
+				}
+			}
+			throw new ArgumentOutOfRangeException("Invalid 7-bit encoded Int32");
+		}
 
-        private byte[] m_charBytes = null;
-        private char[] m_charBuffer = null;
-        private int m_maxCharsSize = 256;
-        public string ReadLengthPrefixedString()
-        {
-            /*
-            int num = 0;
-            int num2 = Read7BitEncodedInt();
-            if (num2 < 0) throw new ArgumentOutOfRangeException("invalid string length");
+		private byte[] m_charBytes = null;
+		private char[] m_charBuffer = null;
+		private int m_maxCharsSize = 256;
+		public string ReadLengthPrefixedString()
+		{
+			/*
+			int num = 0;
+			int num2 = Read7BitEncodedInt();
+			if (num2 < 0) throw new ArgumentOutOfRangeException("invalid string length");
 
-            if (num2 == 0) return String.Empty;
+			if (num2 == 0) return String.Empty;
 
-            if (this.m_charBytes == null)
-            {
-                this.m_charBytes = new byte[128];
-            }
-            if (this.m_charBuffer == null)
-            {
-                this.m_charBuffer = new char[this.m_maxCharsSize];
-            }
-            StringBuilder stringBuilder = null;
-            int chars;
-            while (true)
-            {
-                int count = (num2 - num > 128) ? 128 : (num2 - num);
-                int num3 = mvarAccessor.Read(m_charBytes, 0, count);
-                if (num3 == 0) throw new EndOfStreamException();
+			if (this.m_charBytes == null)
+			{
+				this.m_charBytes = new byte[128];
+			}
+			if (this.m_charBuffer == null)
+			{
+				this.m_charBuffer = new char[this.m_maxCharsSize];
+			}
+			StringBuilder stringBuilder = null;
+			int chars;
+			while (true)
+			{
+				int count = (num2 - num > 128) ? 128 : (num2 - num);
+				int num3 = mvarAccessor.Read(m_charBytes, 0, count);
+				if (num3 == 0) throw new EndOfStreamException();
 
-                chars = this.m_decoder.GetChars(this.m_charBytes, 0, num3, this.m_charBuffer, 0);
-                if (num == 0 && num3 == num2)
-                {
-                    break;
-                }
-                stringBuilder.Append(this.m_charBuffer, 0, chars);
-                num += num3;
-                if (num >= num2)
-                {
-                    goto Block_11;
-                }
-            }
-            return new string(this.m_charBuffer, 0, chars);
-             * */
-            throw new NotImplementedException();
-        }
+				chars = this.m_decoder.GetChars(this.m_charBytes, 0, num3, this.m_charBuffer, 0);
+				if (num == 0 && num3 == num2)
+				{
+					break;
+				}
+				stringBuilder.Append(this.m_charBuffer, 0, chars);
+				num += num3;
+				if (num >= num2)
+				{
+					goto Block_11;
+				}
+			}
+			return new string(this.m_charBuffer, 0, chars);
+			 * */
+			throw new NotImplementedException();
+		}
 
 		public string ReadFixedLengthString(byte length)
 		{
@@ -365,20 +365,20 @@ namespace UniversalEditor.IO
 		}
 
 		public short ReadInt16()
-        {
-            byte[] buffer = ReadBytes((uint)2);
-            byte[] _buffer = new byte[2];
-            if (this.mvarEndianness == Endianness.LittleEndian)
-            {
-                _buffer[0] = buffer[0];
-                _buffer[1] = buffer[1];
-            }
-            else if (mvarEndianness == IO.Endianness.BigEndian)
-            {
-                _buffer[0] = buffer[1];
-                _buffer[1] = buffer[0];
-            }
-            return BitConverter.ToInt16(_buffer, 0);
+		{
+			byte[] buffer = ReadBytes((uint)2);
+			byte[] _buffer = new byte[2];
+			if (this.mvarEndianness == Endianness.LittleEndian)
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+			}
+			else if (mvarEndianness == IO.Endianness.BigEndian)
+			{
+				_buffer[0] = buffer[1];
+				_buffer[1] = buffer[0];
+			}
+			return BitConverter.ToInt16(_buffer, 0);
 		}
 		public short[] ReadInt16Array(int count)
 		{
@@ -392,23 +392,23 @@ namespace UniversalEditor.IO
 
 		public int ReadInt24()
 		{
-            byte[] buffer = ReadBytes((uint)3);
-            byte[] _buffer = new byte[3];
-            if (this.mvarEndianness == Endianness.LittleEndian)
-            {
-                _buffer[0] = buffer[0];
-                _buffer[1] = buffer[1];
-                _buffer[2] = buffer[2];
-                _buffer[3] = 0;
-            }
-            else if (mvarEndianness == IO.Endianness.BigEndian)
-            {
-                _buffer[0] = 0;
-                _buffer[1] = buffer[2];
-                _buffer[2] = buffer[1];
-                _buffer[3] = buffer[0];
-            }
-            return BitConverter.ToInt32(_buffer, 0);
+			byte[] buffer = ReadBytes((uint)3);
+			byte[] _buffer = new byte[3];
+			if (this.mvarEndianness == Endianness.LittleEndian)
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = 0;
+			}
+			else if (mvarEndianness == IO.Endianness.BigEndian)
+			{
+				_buffer[0] = 0;
+				_buffer[1] = buffer[2];
+				_buffer[2] = buffer[1];
+				_buffer[3] = buffer[0];
+			}
+			return BitConverter.ToInt32(_buffer, 0);
 		}
 		public int[] ReadInt24Array(int count)
 		{
@@ -421,24 +421,24 @@ namespace UniversalEditor.IO
 		}
 
 		public int ReadInt32()
-        {
-            byte[] buffer = ReadBytes((uint)4);
-            byte[] _buffer = new byte[4];
-            if (this.mvarEndianness == Endianness.LittleEndian)
-            {
-                _buffer[0] = buffer[0];
-                _buffer[1] = buffer[1];
-                _buffer[2] = buffer[2];
-                _buffer[3] = buffer[3];
-            }
-            else if (mvarEndianness == IO.Endianness.BigEndian)
-            {
-                _buffer[0] = buffer[3];
-                _buffer[1] = buffer[2];
-                _buffer[2] = buffer[1];
-                _buffer[3] = buffer[0];
-            }
-            return BitConverter.ToInt32(_buffer, 0);
+		{
+			byte[] buffer = ReadBytes((uint)4);
+			byte[] _buffer = new byte[4];
+			if (this.mvarEndianness == Endianness.LittleEndian)
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[3];
+			}
+			else if (mvarEndianness == IO.Endianness.BigEndian)
+			{
+				_buffer[0] = buffer[3];
+				_buffer[1] = buffer[2];
+				_buffer[2] = buffer[1];
+				_buffer[3] = buffer[0];
+			}
+			return BitConverter.ToInt32(_buffer, 0);
 		}
 		public int[] ReadInt32Array(int count)
 		{
@@ -451,32 +451,32 @@ namespace UniversalEditor.IO
 		}
 
 		public long ReadInt64()
-        {
-            byte[] buffer = ReadBytes((uint)8);
-            byte[] _buffer = new byte[8];
+		{
+			byte[] buffer = ReadBytes((uint)8);
+			byte[] _buffer = new byte[8];
 			if (this.mvarEndianness == Endianness.LittleEndian)
-            {
-                _buffer[0] = buffer[0];
-                _buffer[1] = buffer[1];
-                _buffer[2] = buffer[2];
-                _buffer[3] = buffer[3];
-                _buffer[4] = buffer[4];
-                _buffer[5] = buffer[5];
-                _buffer[6] = buffer[6];
-                _buffer[7] = buffer[7];
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[3];
+				_buffer[4] = buffer[4];
+				_buffer[5] = buffer[5];
+				_buffer[6] = buffer[6];
+				_buffer[7] = buffer[7];
 			}
-            else if (mvarEndianness == IO.Endianness.BigEndian)
-            {
-                _buffer[0] = buffer[7];
-                _buffer[1] = buffer[6];
-                _buffer[2] = buffer[5];
-                _buffer[3] = buffer[4];
-                _buffer[4] = buffer[3];
-                _buffer[5] = buffer[2];
-                _buffer[6] = buffer[1];
-                _buffer[7] = buffer[0];
-            }
-            return BitConverter.ToInt64(_buffer, 0);
+			else if (mvarEndianness == IO.Endianness.BigEndian)
+			{
+				_buffer[0] = buffer[7];
+				_buffer[1] = buffer[6];
+				_buffer[2] = buffer[5];
+				_buffer[3] = buffer[4];
+				_buffer[4] = buffer[3];
+				_buffer[5] = buffer[2];
+				_buffer[6] = buffer[1];
+				_buffer[7] = buffer[0];
+			}
+			return BitConverter.ToInt64(_buffer, 0);
 		}
 		public long[] ReadInt64Array(int count)
 		{
@@ -489,23 +489,23 @@ namespace UniversalEditor.IO
 		}
 
 		public float ReadSingle()
-        {
-            byte[] buffer = ReadBytes((uint)4);
-            byte[] _buffer = new byte[4];
-            if (mvarEndianness == Endianness.BigEndian)
-            {
-                _buffer[0] = buffer[3];
-                _buffer[1] = buffer[2];
-                _buffer[2] = buffer[1];
-                _buffer[3] = buffer[0];
-            }
-            else
-            {
-                _buffer[0] = buffer[0];
-                _buffer[1] = buffer[1];
-                _buffer[2] = buffer[2];
-                _buffer[3] = buffer[3];
-            }
+		{
+			byte[] buffer = ReadBytes((uint)4);
+			byte[] _buffer = new byte[4];
+			if (mvarEndianness == Endianness.BigEndian)
+			{
+				_buffer[0] = buffer[3];
+				_buffer[1] = buffer[2];
+				_buffer[2] = buffer[1];
+				_buffer[3] = buffer[0];
+			}
+			else
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[3];
+			}
 			return BitConverter.ToSingle(_buffer, 0);
 		}
 		public float[] ReadSingleArray(int count)
@@ -521,29 +521,29 @@ namespace UniversalEditor.IO
 		public double ReadDouble()
 		{
 			byte[] buffer = ReadBytes((uint)8);
-            byte[] _buffer = new byte[8];
-            if (mvarEndianness == Endianness.BigEndian)
-            {
-                _buffer[0] = buffer[7];
-                _buffer[1] = buffer[6];
-                _buffer[2] = buffer[5];
-                _buffer[3] = buffer[4];
-                _buffer[4] = buffer[3];
-                _buffer[5] = buffer[2];
-                _buffer[6] = buffer[1];
-                _buffer[7] = buffer[0];
-            }
-            else
-            {
-                _buffer[0] = buffer[0];
-                _buffer[1] = buffer[1];
-                _buffer[2] = buffer[2];
-                _buffer[3] = buffer[3];
-                _buffer[4] = buffer[4];
-                _buffer[5] = buffer[5];
-                _buffer[6] = buffer[6];
-                _buffer[7] = buffer[7];
-            }
+			byte[] _buffer = new byte[8];
+			if (mvarEndianness == Endianness.BigEndian)
+			{
+				_buffer[0] = buffer[7];
+				_buffer[1] = buffer[6];
+				_buffer[2] = buffer[5];
+				_buffer[3] = buffer[4];
+				_buffer[4] = buffer[3];
+				_buffer[5] = buffer[2];
+				_buffer[6] = buffer[1];
+				_buffer[7] = buffer[0];
+			}
+			else
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[3];
+				_buffer[4] = buffer[4];
+				_buffer[5] = buffer[5];
+				_buffer[6] = buffer[6];
+				_buffer[7] = buffer[7];
+			}
 			return BitConverter.ToDouble(_buffer, 0);
 		}
 		public double[] ReadDoubleArray(int count)
@@ -557,13 +557,13 @@ namespace UniversalEditor.IO
 		}
 
 		public ushort ReadUInt16 ()
-        {
-            byte[] buffer = ReadBytes(2);
+		{
+			byte[] buffer = ReadBytes(2);
 			if (mvarEndianness == Endianness.LittleEndian)
-            {
-                return (ushort)(buffer[0] | (buffer[1] << 8));
-            }
-            return (ushort)(buffer[1] | (buffer[0] << 8));
+			{
+				return (ushort)(buffer[0] | (buffer[1] << 8));
+			}
+			return (ushort)(buffer[1] | (buffer[0] << 8));
 		}
 		public ushort[] ReadUInt16Array(int count)
 		{
@@ -577,13 +577,13 @@ namespace UniversalEditor.IO
 
 		public uint ReadUInt24()
 		{
-            // TODO: Test this out!
-            byte[] buffer = ReadBytes(3);
+			// TODO: Test this out!
+			byte[] buffer = ReadBytes(3);
 			if (mvarEndianness == Endianness.LittleEndian)
 			{
 				return (uint)((buffer[2] << 16) | (buffer[1] << 8) | (buffer[0]));
 			}
-            return (uint)((buffer[2]) | (buffer[1] << 8) | (buffer[0] << 16));
+			return (uint)((buffer[2]) | (buffer[1] << 8) | (buffer[0] << 16));
 		}
 		public uint[] ReadUInt24Array(int count)
 		{
@@ -596,11 +596,11 @@ namespace UniversalEditor.IO
 		}
 
 		public uint ReadUInt32()
-        {
-            byte[] buffer = ReadBytes((uint)4);
+		{
+			byte[] buffer = ReadBytes((uint)4);
 			if (this.mvarEndianness == Endianness.LittleEndian)
-            {
-                return (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
+			{
+				return (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
 			}
 			return (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
 		}
@@ -668,21 +668,21 @@ namespace UniversalEditor.IO
 		}
 
 		public ulong ReadUInt64()
-        {
-            byte[] buffer = ReadBytes((uint)8);
+		{
+			byte[] buffer = ReadBytes((uint)8);
 			if (this.mvarEndianness == Endianness.LittleEndian)
-            {
-                uint num = (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
-                uint num2 = (uint)(((buffer[4] | (buffer[5] << 8)) | (buffer[6] << 0x10)) | (buffer[7] << 0x18));
-                return (ulong)(num << 0x20 | num2);
+			{
+				uint num = (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
+				uint num2 = (uint)(((buffer[4] | (buffer[5] << 8)) | (buffer[6] << 0x10)) | (buffer[7] << 0x18));
+				return (ulong)(num << 0x20 | num2);
 			}
-            else if (mvarEndianness == IO.Endianness.BigEndian)
-            {
-                uint num = (uint)(((buffer[7] | (buffer[6] << 8)) | (buffer[5] << 0x10)) | (buffer[4] << 0x18));
-                uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
-                return (ulong)(num << 0x20 | num2);
-            }
-            throw new InvalidOperationException();
+			else if (mvarEndianness == IO.Endianness.BigEndian)
+			{
+				uint num = (uint)(((buffer[7] | (buffer[6] << 8)) | (buffer[5] << 0x10)) | (buffer[4] << 0x18));
+				uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
+				return (ulong)(num << 0x20 | num2);
+			}
+			throw new InvalidOperationException();
 		}
 		public ulong[] ReadUInt64Array(int count)
 		{
@@ -751,7 +751,7 @@ namespace UniversalEditor.IO
 
 		public byte[] ReadToEnd()
 		{
-            return ReadBytes(mvarAccessor.Remaining);
+			return ReadBytes(mvarAccessor.Remaining);
 		}
 
 		public byte[] ReadUntil(byte[] sequence)
@@ -1150,7 +1150,7 @@ namespace UniversalEditor.IO
 
 		public Version ReadVersion()
 		{
-            byte parts = ReadByte();
+			byte parts = ReadByte();
 			switch (parts)
 			{
 				case 1:
@@ -1159,16 +1159,16 @@ namespace UniversalEditor.IO
 					return new Version(vmaj, 0);
 				}
 				case 2:
-                {
-                    int vmaj = ReadInt32();
-                    int vmin = ReadInt32();
+				{
+					int vmaj = ReadInt32();
+					int vmin = ReadInt32();
 					return new Version(vmaj, vmin);
 				}
 				case 3:
-                {
-                    int vmaj = ReadInt32();
-                    int vmin = ReadInt32();
-                    int vbld = ReadInt32();
+				{
+					int vmaj = ReadInt32();
+					int vmin = ReadInt32();
+					int vbld = ReadInt32();
 					return new Version(vmaj, vmin, vbld);
 				}
 				case 4:
@@ -1206,12 +1206,12 @@ namespace UniversalEditor.IO
 		{
 			byte[] data = encoding.GetBytes(find);
 			byte[] dataCmp = new byte[data.Length];
-            while (mvarAccessor.Position <= (mvarAccessor.Length - data.Length))
+			while (mvarAccessor.Position <= (mvarAccessor.Length - data.Length))
 			{
-                long rest = mvarAccessor.Remaining;
+				long rest = mvarAccessor.Remaining;
 
-                mvarAccessor.ReadInternal(dataCmp, 0, dataCmp.Length);
-                mvarAccessor.Seek(-(dataCmp.Length - 1), SeekOrigin.Current);
+				mvarAccessor.ReadInternal(dataCmp, 0, dataCmp.Length);
+				mvarAccessor.Seek(-(dataCmp.Length - 1), SeekOrigin.Current);
 
 				bool bad = false;
 				for (int i = 0; i < data.Length; i++)
@@ -1224,7 +1224,7 @@ namespace UniversalEditor.IO
 				}
 				if (!bad)
 				{
-                    mvarAccessor.Seek(-1, SeekOrigin.Current);
+					mvarAccessor.Seek(-1, SeekOrigin.Current);
 					break;
 				}
 			}
@@ -1256,8 +1256,8 @@ namespace UniversalEditor.IO
 
 		public void Align(int alignTo)
 		{
-            long paddingCount = ((alignTo - (mvarAccessor.Position % alignTo)) % alignTo);
-            mvarAccessor.Position += paddingCount;
+			long paddingCount = ((alignTo - (mvarAccessor.Position % alignTo)) % alignTo);
+			mvarAccessor.Position += paddingCount;
 		}
 
 		public string PeekFixedLengthString(int count)
@@ -1276,21 +1276,21 @@ namespace UniversalEditor.IO
 		/// <returns></returns>
 		public float ReadHalf()
 		{
-            byte[] buffer = ReadBytes(2);
-            byte[] buffer2 = new byte[4];
+			byte[] buffer = ReadBytes(2);
+			byte[] buffer2 = new byte[4];
 			if (mvarEndianness == Endianness.LittleEndian)
-            {
-                buffer2[0] = 0;
-                buffer2[1] = 0;
-                buffer2[2] = buffer[0];
-                buffer2[3] = buffer[1];
+			{
+				buffer2[0] = 0;
+				buffer2[1] = 0;
+				buffer2[2] = buffer[0];
+				buffer2[3] = buffer[1];
 			}
 			else
-            {
-                buffer2[0] = buffer[0];
-                buffer2[1] = buffer[1];
-                buffer2[2] = 0;
-                buffer2[3] = 0;
+			{
+				buffer2[0] = buffer[0];
+				buffer2[1] = buffer[1];
+				buffer2[2] = 0;
+				buffer2[3] = 0;
 			}
 			return BitConverter.ToSingle(buffer2, 0);
 		}
@@ -1300,7 +1300,7 @@ namespace UniversalEditor.IO
 
 		public int ReadAtMostBytes(byte[] buffer, int count)
 		{
-            if (mvarAccessor.Remaining == 0) return 0;
+			if (mvarAccessor.Remaining == 0) return 0;
 
 			if (count < mvarAccessor.Remaining)
 			{
@@ -1345,98 +1345,98 @@ namespace UniversalEditor.IO
 			return x;
 		}
 
-        public bool EndOfStream { get { return mvarAccessor.Remaining == 0; } }
+		public bool EndOfStream { get { return mvarAccessor.Remaining == 0; } }
 
-        public string ReadInt64String()
-        {
-            long length = ReadInt64();
-            string value = ReadFixedLengthString(length);
-            return value;
-        }
+		public string ReadInt64String()
+		{
+			long length = ReadInt64();
+			string value = ReadFixedLengthString(length);
+			return value;
+		}
 
-        public string ReadUntil(string[] until)
-        {
-            return ReadUntil(until, null, null);
-        }
-        public string ReadUntil(string until, string ignoreBegin, string ignoreEnd)
-        {
-            return ReadUntil(new string[] { until }, ignoreBegin, ignoreEnd);
-        }
-        public string ReadUntil(string[] until, string ignoreBegin, string ignoreEnd)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+		public string ReadUntil(string[] until)
+		{
+			return ReadUntil(until, null, null);
+		}
+		public string ReadUntil(string until, string ignoreBegin, string ignoreEnd)
+		{
+			return ReadUntil(new string[] { until }, ignoreBegin, ignoreEnd);
+		}
+		public string ReadUntil(string[] until, string ignoreBegin, string ignoreEnd)
+		{
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
-            while (!EndOfStream)
-            {
-                sb.Append(ReadChar());
+			while (!EndOfStream)
+			{
+				sb.Append(ReadChar());
 
-                foreach (string s in until)
-                {
-                    if (sb.ToString().EndsWith(s))
-                    {
-                        string w = sb.ToString();
-                        return w.Substring(0, w.Length - 1);
-                    }
-                }
+				foreach (string s in until)
+				{
+					if (sb.ToString().EndsWith(s))
+					{
+						string w = sb.ToString();
+						return w.Substring(0, w.Length - 1);
+					}
+				}
 
-                /*
+				/*
 				char[] buffer = new char[until.Length * 2];
 				ReadBlock(buffer, 0, until.Length * 2);
 
 				string w = new string(buffer);
-                if (w.Contains(until))
-                {
+				if (w.Contains(until))
+				{
 					string ww = w.Substring(0, w.IndexOf(until));
 					sb.Append(ww);
 
-                    // back up the stream reader
-                    int indexOfUntil = (w.IndexOf(until) + until.Length);
-                    int lengthToBackUp = w.Length - indexOfUntil;
-                    BaseStream.Seek(-1 * lengthToBackUp, SeekOrigin.Current);
-                    break;
-                }
+					// back up the stream reader
+					int indexOfUntil = (w.IndexOf(until) + until.Length);
+					int lengthToBackUp = w.Length - indexOfUntil;
+					BaseStream.Seek(-1 * lengthToBackUp, SeekOrigin.Current);
+					break;
+				}
 				sb.Append(w);
-                */
-            }
-            return sb.ToString();
-        }
+				*/
+			}
+			return sb.ToString();
+		}
 
-        public string ReadBetween(string start, string end, bool discard)
-        {
-            string nextstr = String.Empty;
-            bool inside = false;
-            // 0000000-3842-17774-}ehaomfd
-            while (!EndOfStream)
-            {
-                nextstr += ReadChar();
-                if (!inside)
-                {
-                    if (nextstr.EndsWith(start))
-                    {
-                        inside = true;
-                        nextstr = String.Empty;
-                        if (!discard) nextstr += start;
-                    }
-                }
-                else
-                {
-                    if (nextstr.EndsWith(end))
-                    {
-                        if (discard)
-                        {
-                            nextstr = nextstr.Substring(0, nextstr.Length - end.Length);
-                        }
-                        return nextstr;
-                    }
-                }
-            }
-            return String.Empty;
-        }
+		public string ReadBetween(string start, string end, bool discard)
+		{
+			string nextstr = String.Empty;
+			bool inside = false;
+			// 0000000-3842-17774-}ehaomfd
+			while (!EndOfStream)
+			{
+				nextstr += ReadChar();
+				if (!inside)
+				{
+					if (nextstr.EndsWith(start))
+					{
+						inside = true;
+						nextstr = String.Empty;
+						if (!discard) nextstr += start;
+					}
+				}
+				else
+				{
+					if (nextstr.EndsWith(end))
+					{
+						if (discard)
+						{
+							nextstr = nextstr.Substring(0, nextstr.Length - end.Length);
+						}
+						return nextstr;
+					}
+				}
+			}
+			return String.Empty;
+		}
 
-        public string ReadLine()
-        {
-            return ReadUntil(GetNewLineSequence());
-        }
+		public string ReadLine()
+		{
+			return ReadUntil(GetNewLineSequence());
+		}
 
 		public void Seek(int length, SeekOrigin origin)
 		{
