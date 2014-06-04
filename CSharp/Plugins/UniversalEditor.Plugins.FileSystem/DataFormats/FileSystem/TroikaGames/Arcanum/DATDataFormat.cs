@@ -48,7 +48,16 @@ namespace UniversalEditor.DataFormats.FileSystem.TroikaGames.Arcanum
 			for (uint i = 0; i < FA; i++)
 			{
 				uint fileNameSize = br.ReadUInt32();
-				string fileName = br.ReadFixedLengthString(fileNameSize);
+				string fileName = String.Empty;
+
+				try
+				{
+					fileName = br.ReadFixedLengthString(fileNameSize);
+				}
+				catch (OverflowException ex)
+				{
+					throw new InvalidDataFormatException();
+				}
 				fileName = fileName.TrimNull();
 
 				uint unknown1 = br.ReadUInt32();
