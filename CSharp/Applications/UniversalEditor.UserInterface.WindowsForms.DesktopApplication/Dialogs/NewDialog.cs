@@ -127,10 +127,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				foreach (DocumentTemplate dt in templates)
 				{
 					AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
-                    if (System.IO.File.Exists(dt.LargeIconImageFileName))
-                    {
-                        lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
-                    }
+					if (System.IO.File.Exists(dt.LargeIconImageFileName))
+					{
+						lvi.Image = Image.FromFile(dt.LargeIconImageFileName);
+					}
 					lvi.Text = dt.Title;
 					lvi.Details.Add(dt.Description);
 					lvi.Data = dt;
@@ -222,18 +222,18 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				}
 			}
 
-            if (lvProjectTemplates.Items.Count > 0)
-            {
-                lvProjectTemplates.SelectedItems.Clear();
-                lvProjectTemplates.Items[0].Selected = true;
+			if (lvProjectTemplates.Items.Count > 0)
+			{
+				lvProjectTemplates.SelectedItems.Clear();
+				lvProjectTemplates.Items[0].Selected = true;
 
-                lvProjectTemplates_SelectionChanged(null, EventArgs.Empty);
-                cmdOK.Enabled = true;
-            }
-            else
-            {
-                cmdOK.Enabled = false;
-            }
+				lvProjectTemplates_SelectionChanged(null, EventArgs.Empty);
+				cmdOK.Enabled = true;
+			}
+			else
+			{
+				cmdOK.Enabled = false;
+			}
 		}
 
 
