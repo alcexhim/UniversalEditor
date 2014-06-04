@@ -221,6 +221,19 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					lvProjectTemplates.Items.Add(lvi);
 				}
 			}
+
+            if (lvProjectTemplates.Items.Count > 0)
+            {
+                lvProjectTemplates.SelectedItems.Clear();
+                lvProjectTemplates.Items[0].Selected = true;
+
+                lvProjectTemplates_SelectionChanged(null, EventArgs.Empty);
+                cmdOK.Enabled = true;
+            }
+            else
+            {
+                cmdOK.Enabled = false;
+            }
 		}
 
 
