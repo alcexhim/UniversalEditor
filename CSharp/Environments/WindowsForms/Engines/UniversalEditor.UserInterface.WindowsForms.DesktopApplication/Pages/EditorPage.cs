@@ -283,7 +283,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
                         }
                         finally
                         {
-                            d.InputAccessor.Close();
+                            // do not close input accessor since we may need to read from it later (i.e. if
+                            // it's a FileSystemObjectModel with deferred file data loading)
+
+                            // d.InputAccessor.Close();
                         }
                     }
 
