@@ -613,6 +613,12 @@ namespace UniversalEditor.IO
 			}
 			return retval;
 		}
+        public uint PeekUInt32()
+        {
+            uint value = ReadUInt32();
+            Seek(-4, SeekOrigin.Current);
+            return value;
+        }
 		
 		public int ReadVariableLengthInt32()
 		{
@@ -1453,6 +1459,6 @@ namespace UniversalEditor.IO
 		}
 
 		public long Remaining { get { return mvarAccessor.Remaining; } }
-	}
+    }
 }
 
