@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CommandDisplayStyle.cs" />
     <Compile Include="Common\Reflection.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="HostApplication.cs" />
     <Compile Include="HostApplicationOutputWindow.cs" />
     <Compile Include="IEditorImplementation.cs" />
