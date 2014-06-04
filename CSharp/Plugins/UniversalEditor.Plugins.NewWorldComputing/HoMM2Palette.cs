@@ -74,7 +74,7 @@ namespace UniversalEditor
                 g <<= 2;
                 b <<= 2;
 
-                mvarColorTable.Add(Color.FromArgb(r, g, b));
+                mvarColorTable.Add(Color.FromRGBA(r, g, b));
             }
         }
     }

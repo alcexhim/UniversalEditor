@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.NewWorldComputing.Campaign;
 
 namespace UniversalEditor.DataFormats.NewWorldComputing.Campaign
@@ -19,15 +20,15 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Campaign
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             string H4CAMPAIGN = br.ReadFixedLengthString(10);
             int unknown1 = br.ReadInt32();
             byte nul = br.ReadByte();
 
             byte[] restOfDataCompressed = br.ReadToEnd();
-            byte[] restOfDataUncompressed = UniversalEditor.Compression.Gzip.GzipStream.Decompress(restOfDataCompressed);
+            byte[] restOfDataUncompressed = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(restOfDataCompressed);
 
-            br = new IO.BinaryReader(restOfDataUncompressed);
+            br = new IO.Reader(new MemoryAccessor(restOfDataUncompressed));
 
             short unknown2 = br.ReadInt16();
             short unknown3 = br.ReadInt16();

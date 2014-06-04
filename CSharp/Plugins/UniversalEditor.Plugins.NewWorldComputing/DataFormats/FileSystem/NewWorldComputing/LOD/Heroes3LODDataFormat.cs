@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UniversalEditor.Accessors.File;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
@@ -25,7 +25,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             string magic = br.ReadFixedLengthString(4); // LOD\0
             if (magic != "LOD\0") throw new InvalidDataFormatException("File does not begin with LOD\\0");
 
@@ -65,12 +65,12 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
                 FileName = (Accessor as FileAccessor).FileName;
             }
             
-            IO.BinaryReader br = new IO.BinaryReader(System.IO.File.Open(FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read));
+            IO.Reader br = new IO.Reader(new FileAccessor(FileName));
             File send = (sender as File);
-            br.BaseStream.Position = offsets[send];
+            br.Accessor.Position = offsets[send];
             byte[] compressedData = br.ReadBytes(lengths[send]);
 
-            byte[] uncompressedData = Compression.CompressionStream.Decompress(Compression.CompressionMethod.Zlib, compressedData);
+            byte[] uncompressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Zlib).Decompress(compressedData);
             e.Data = uncompressedData;
             br.Close();
         }
@@ -81,33 +81,33 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
+            IO.Writer bw = base.Accessor.Writer;
             bw.WriteFixedLengthString("LOD\0");
 
-            bw.Write((uint)0);
-            bw.Write((uint)fsom.Files.Count);
+            bw.WriteUInt32((uint)0);
+            bw.WriteUInt32((uint)fsom.Files.Count);
 
-            bw.Write(new byte[80]);
+            bw.WriteBytes(new byte[80]);
 
-            uint offset = (uint)(bw.BaseStream.Position + (32 * fsom.Files.Count));
+            uint offset = (uint)(bw.Accessor.Position + (32 * fsom.Files.Count));
             
             List<byte[]> CompressedDatas = new List<byte[]>();
             foreach (File file in fsom.Files)
             {
                 bw.WriteFixedLengthString(file.Name, 16);
-                bw.Write(offset);
+                bw.WriteUInt32(offset);
 
-                bw.Write((uint)0);
-                bw.Write((uint)0);
+                bw.WriteUInt32((uint)0);
+                bw.WriteUInt32((uint)0);
 
-                byte[] compressedData = Compression.CompressionStream.Compress(Compression.CompressionMethod.Zlib, file.GetDataAsByteArray());
-                bw.Write((uint)compressedData.Length);
+                byte[] compressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Zlib).Compress(file.GetDataAsByteArray());
+                bw.WriteUInt32((uint)compressedData.Length);
                 CompressedDatas.Add(compressedData);
             }
 
             foreach (byte[] compressedData in CompressedDatas)
             {
-                bw.Write(compressedData);
+                bw.WriteBytes(compressedData);
             }
             bw.Flush();
         }

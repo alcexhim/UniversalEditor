@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UniversalEditor.Accessors.File;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
@@ -25,7 +25,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             uint fileCount = br.ReadUInt32();
             for (uint i = 0; i < fileCount; i++)
             {
@@ -56,9 +56,9 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
                 FileName = (Accessor as FileAccessor).FileName;
             }
             
-            IO.BinaryReader br = new IO.BinaryReader(System.IO.File.Open(FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read));
+            IO.Reader br = new IO.Reader(new FileAccessor(FileName));
             File send = (sender as File);
-            br.BaseStream.Position = offsets[send];
+            br.Accessor.Position = offsets[send];
             e.Data = br.ReadBytes(lengths[send]);
             br.Close();
         }

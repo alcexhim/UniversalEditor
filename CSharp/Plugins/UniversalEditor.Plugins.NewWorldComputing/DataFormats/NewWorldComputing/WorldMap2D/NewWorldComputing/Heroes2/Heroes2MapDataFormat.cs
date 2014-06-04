@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
             if (map == null) return;
 
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             uint magic = br.ReadUInt32();
             if (magic != 0x0000005C) throw new InvalidDataFormatException();
 
@@ -99,38 +99,38 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
             #endregion
 
             // kingdom count
-            br.BaseStream.Seek(0x1A, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x1A, IO.SeekOrigin.Begin);
             byte kingdomCount = br.ReadByte();
 
-            br.BaseStream.Seek(0x1D, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x1D, IO.SeekOrigin.Begin);
             map.WinConditions = (MapWinCondition)br.ReadByte();
             
             byte wins1 = br.ReadByte();
             byte wins2 = br.ReadByte();
             ushort wins3 = br.ReadUInt16();
-            br.BaseStream.Seek(0x2C, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x2C, IO.SeekOrigin.Begin);
             ushort wins4 = br.ReadUInt16();
 
-            br.BaseStream.Seek(0x22, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x22, IO.SeekOrigin.Begin);
             map.LoseConditions = (MapLoseCondition)br.ReadByte();
 
             ushort loss1 = br.ReadUInt16();
-            br.BaseStream.Seek(0x2E, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x2E, IO.SeekOrigin.Begin);
             ushort loss2 = br.ReadUInt16();
 
             // starting hero
-            br.BaseStream.Seek(0x25, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x25, IO.SeekOrigin.Begin);
             byte startingHero = br.ReadByte();
             bool withHeroes = (startingHero == 0);
 
             byte[] races = br.ReadBytes(5);
 
             // name 
-            br.BaseStream.Seek(0x3A, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x3A, IO.SeekOrigin.Begin);
             map.Name = br.ReadFixedLengthString(16);
             map.Name = map.Name.TrimNull();
             // name 
-            br.BaseStream.Seek(0x76, System.IO.SeekOrigin.Begin);
+            br.Accessor.Seek(0x76, IO.SeekOrigin.Begin);
             map.Description = br.ReadFixedLengthString(143);
             map.Description = map.Description.TrimNull();
 
@@ -140,8 +140,8 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
 
             // 33044 bytes between here and there - tiles (36 * 36 * 25 bytes per tile)
 
-            long pos = br.BaseStream.Position;
-            br.BaseStream.Position = pos;
+            long pos = br.Accessor.Position;
+            br.Accessor.Position = pos;
 
             for (ushort i = 0; i < unknown2; i++)
             {
@@ -165,7 +165,7 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
             #endregion
         }
 
-        private MapTile ReadTile(IO.BinaryReader br)
+        private MapTile ReadTile(IO.Reader br)
         {
             MapTile tile = new MapTile();
             tile.GroundType = (MapGroundType)br.ReadUInt16();		// tile (ocean, grass, snow, swamp, lava, desert, dirt, wasteland, beach)
@@ -197,7 +197,7 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
             return tile;
         }
 
-        private MapCastle ReadCastle(IO.BinaryReader br)
+        private MapCastle ReadCastle(IO.Reader br)
         {
             MapCastle castle = new MapCastle();
             

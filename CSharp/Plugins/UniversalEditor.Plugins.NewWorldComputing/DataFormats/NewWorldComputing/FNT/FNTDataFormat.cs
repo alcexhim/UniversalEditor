@@ -25,7 +25,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.FNT
         {
             FontObjectModel font = (objectModel as FontObjectModel);
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             font.GlyphHeight = br.ReadUInt16();
             font.GlyphWidth = br.ReadUInt16();
 
@@ -38,9 +38,9 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.FNT
         {
             FontObjectModel font = (objectModel as FontObjectModel);
 
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
-            bw.Write(font.GlyphHeight);
-            bw.Write(font.GlyphWidth);
+            IO.Writer bw = base.Accessor.Writer;
+            bw.WriteUInt16(font.GlyphHeight);
+            bw.WriteUInt16(font.GlyphWidth);
             bw.WriteFixedLengthString(font.GlyphCollectionFileName, 15);
             bw.Flush();
         }

@@ -17,7 +17,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             string magic = br.ReadFixedLengthString(4); // LOD\0
             if (magic != "LOD\0") throw new InvalidDataFormatException("File does not begin with \"LOD\\0\"");
 
@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             uint unknown2 = br.ReadUInt32();
             uint fileCount = br.ReadUInt32();
 
-            br.BaseStream.Position = dirstart;
+            br.Accessor.Position = dirstart;
             for (uint i = 0; i < fileCount; i++)
             {
                 File f = new File();
@@ -53,9 +53,9 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
         private Dictionary<File, uint> lengths = new Dictionary<File, uint>();
         private void f_DataRequest(object sender, DataRequestEventArgs e)
         {
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             File send = (sender as File);
-            br.BaseStream.Position = offsets[send];
+            br.Accessor.Position = offsets[send];
             e.Data = br.ReadBytes(lengths[send]);
         }
         #endregion

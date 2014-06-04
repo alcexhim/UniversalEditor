@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
+    <OutputPath>..\..\..\..\Output\Debug\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -67,13 +67,17 @@
       <Project>{617d9eb5-ca93-45d6-aa6b-5a012b7698ac}</Project>
       <Name>AwesomeControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
       <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
       <Project>{369cfd53-3e65-4a9e-8bdd-4ccd78bf3e33}</Project>

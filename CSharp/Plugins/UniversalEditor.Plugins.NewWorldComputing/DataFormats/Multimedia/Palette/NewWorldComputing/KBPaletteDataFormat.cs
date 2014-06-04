@@ -25,8 +25,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 			PaletteObjectModel palette = (objectModel as PaletteObjectModel);
 			if (palette == null) throw new ObjectModelNotSupportedException();
 
-			IO.BinaryReader br = base.Stream.BinaryReader;
-			if (br.BaseStream.Length != 768) throw new InvalidDataFormatException("Expected a 768-byte palette");
+			IO.Reader br = base.Accessor.Reader;
+			if (br.Accessor.Length != 768) throw new InvalidDataFormatException("Expected a 768-byte palette");
 
 			for (int i = 0; i < (768 / 3); i++)
 			{
@@ -38,7 +38,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 				g <<= 2;
 				b <<= 2;
 
-				Color color = Color.FromArgb(r, g, b);
+				Color color = Color.FromRGBA(r, g, b);
 				palette.Entries.Add(color);
 			}
 		}

@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.NewWorldComputing
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
-			IO.BinaryReader br = base.Stream.BinaryReader;
+			IO.Reader br = base.Accessor.Reader;
 
 			wave.Header.BitsPerSample = 8;
 			wave.Header.ChannelCount = 1;

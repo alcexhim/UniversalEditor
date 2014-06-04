@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.NewWorldComputing.Save;
 
 namespace UniversalEditor.DataFormats.NewWorldComputing.Save
@@ -19,11 +20,11 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Save
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            IO.Reader br = base.Accessor.Reader;
             byte[] dataCompressed = br.ReadToEnd();
-            byte[] dataUncompressed = UniversalEditor.Compression.CompressionStream.Decompress(Compression.CompressionMethod.Gzip, dataCompressed);
+            byte[] dataUncompressed = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(dataCompressed);
 
-            br = new IO.BinaryReader(dataUncompressed);
+            br = new IO.Reader(new MemoryAccessor(dataUncompressed));
 
             string H4_SAVE_GAME = br.ReadFixedLengthString(12);
             if (H4_SAVE_GAME != "H4_SAVE_GAME") throw new InvalidDataFormatException();

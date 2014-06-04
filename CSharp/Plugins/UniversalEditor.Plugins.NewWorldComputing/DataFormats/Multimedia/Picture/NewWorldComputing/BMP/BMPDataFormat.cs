@@ -25,8 +25,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.BMP
             PictureObjectModel pic = (objectModel as PictureObjectModel);
             if (pic == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
-            br.BaseStream.Position = 0;
+            IO.Reader br = base.Accessor.Reader;
+            br.Accessor.Position = 0;
 
             ushort unknown = br.ReadUInt16();
             ushort width = br.ReadUInt16();

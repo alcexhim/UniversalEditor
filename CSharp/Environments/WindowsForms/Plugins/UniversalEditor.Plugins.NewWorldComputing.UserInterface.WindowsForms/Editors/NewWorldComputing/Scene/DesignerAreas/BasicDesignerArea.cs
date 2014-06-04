@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using UniversalEditor.Accessors.File;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Multimedia.Picture.Collection;
 using UniversalEditor.ObjectModels.NWCSceneLayout;
 using UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN;
@@ -34,7 +34,7 @@ namespace UniversalEditor.Editors.NewWorldComputing.Scene.DesignerAreas
 
                     ICNDataFormat icn = new ICNDataFormat();
                     PictureCollectionObjectModel picc = new PictureCollectionObjectModel();
-                    FileAccessor.Load(ICNFileName, picc, icn, true);
+                    Document.Load(picc, icn, new FileAccessor(ICNFileName));
                     _bmpBackground = picc.Pictures[(int)mvarScene.BackgroundImageIndex].ToBitmap();
                 }
                 if (_bmpBackground != null)

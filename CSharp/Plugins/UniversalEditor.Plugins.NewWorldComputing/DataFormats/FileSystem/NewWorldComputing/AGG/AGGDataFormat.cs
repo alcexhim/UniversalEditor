@@ -7,14 +7,14 @@ using UniversalEditor.ObjectModels.FileSystem;
 namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 {
 	public class AGGDataFormat : DataFormat
-    {
-        private struct AGGFileEntry
-        {
-            public uint hash;
-            public uint offset;
-            public uint size;
-            public string name;
-        }
+	{
+		private struct AGGFileEntry
+		{
+			public uint hash;
+			public uint offset;
+			public uint size;
+			public string name;
+		}
 
 		private static DataFormatReference _dfr = null;
 		public override DataFormatReference MakeReference()
@@ -30,85 +30,85 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-            FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            if (fsom == null) return;
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
-            ushort fileCount = br.ReadUInt16();
+			IO.Reader br = base.Accessor.Reader;
+			ushort fileCount = br.ReadUInt16();
 
-            AGGFileEntry[] files = new AGGFileEntry[fileCount];
-            for (ushort i = 0; i < fileCount; i++)
-            {
-                files[i].hash = br.ReadUInt32();
-                files[i].offset = br.ReadUInt32();
-                files[i].size = br.ReadUInt32();
-            }
-            br.BaseStream.Seek(-(fileCount * 15), System.IO.SeekOrigin.End);
-            for (ushort i = 0; i < fileCount; i++)
-            {
-                files[i].name = br.ReadFixedLengthString(15);
-                files[i].name = files[i].name.TrimNull();
+			AGGFileEntry[] files = new AGGFileEntry[fileCount];
+			for (ushort i = 0; i < fileCount; i++)
+			{
+				files[i].hash = br.ReadUInt32();
+				files[i].offset = br.ReadUInt32();
+				files[i].size = br.ReadUInt32();
+			}
+			br.Accessor.Seek(-(fileCount * 15), IO.SeekOrigin.End);
+			for (ushort i = 0; i < fileCount; i++)
+			{
+				files[i].name = br.ReadFixedLengthString(15);
+				files[i].name = files[i].name.TrimNull();
 
-                File file = new File();
-                file.Name = files[i].name;
-                file.Size = files[i].size;
-                file.Properties.Add("InternalData", files[i]);
-                file.Properties.Add("BinaryReader", br);
-                file.DataRequest += file_DataRequest;
-                fsom.Files.Add(file);
-            }
+				File file = new File();
+				file.Name = files[i].name;
+				file.Size = files[i].size;
+				file.Properties.Add("InternalData", files[i]);
+				file.Properties.Add("BinaryReader", br);
+				file.DataRequest += file_DataRequest;
+				fsom.Files.Add(file);
+			}
 
 
-            // 43341516
+			// 43341516
 		}
 
-        void file_DataRequest(object sender, DataRequestEventArgs e)
-        {
-            File file = (sender as File);
+		void file_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (sender as File);
 
-            AGGFileEntry entry = (AGGFileEntry)file.Properties["InternalData"];
-            IO.BinaryReader br = (IO.BinaryReader)file.Properties["BinaryReader"];
+			AGGFileEntry entry = (AGGFileEntry)file.Properties["InternalData"];
+			IO.Reader br = (IO.Reader)file.Properties["BinaryReader"];
 
-            br.BaseStream.Seek(entry.offset, System.IO.SeekOrigin.Begin);
-            e.Data = br.ReadBytes(entry.size);
+			br.Accessor.Seek(entry.offset, IO.SeekOrigin.Begin);
+			e.Data = br.ReadBytes(entry.size);
 
-            // UniversalEditor.Common.Hashing.CRC32.Initialize(UniversalEditor.Common.Hashing.CRC32.Keys.ReversedReciprocal);
+			// UniversalEditor.Common.Hashing.CRC32.Initialize(UniversalEditor.Common.Hashing.CRC32.Keys.ReversedReciprocal);
 			UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule cksm = new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule();
-            uint hash = (uint)cksm.Calculate(e.Data);
+			uint hash = (uint)cksm.Calculate(e.Data);
 
-        }
+		}
 
-        protected override void SaveInternal(ObjectModel objectModel)
-        {
-            FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            if (fsom == null) return;
+		protected override void SaveInternal(ObjectModel objectModel)
+		{
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) return;
 
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
-            ushort fileCount = (ushort)fsom.Files.Count;
-            bw.Write(fileCount);
+			IO.Writer bw = base.Accessor.Writer;
+			ushort fileCount = (ushort)fsom.Files.Count;
+			bw.WriteUInt16(fileCount);
 
-            uint offset = (uint)(bw.BaseStream.Position + (12 * fsom.Files.Count));
-            foreach (File file in fsom.Files)
-            {
-                uint hash = 0;
-                uint size = (uint)file.Size;
+			uint offset = (uint)(bw.Accessor.Position + (12 * fsom.Files.Count));
+			foreach (File file in fsom.Files)
+			{
+				uint hash = 0;
+				uint size = (uint)file.Size;
 
-                bw.Write(hash);
-                bw.Write(offset);
-                bw.Write(size);
+				bw.WriteUInt32(hash);
+				bw.WriteUInt32(offset);
+				bw.WriteUInt32(size);
 
-                offset += size;
-            }
+				offset += size;
+			}
 
-            for (ushort i = 0; i < fileCount; i++)
-            {
-                bw.Write(fsom.Files[i].GetDataAsByteArray());
-            }
+			for (ushort i = 0; i < fileCount; i++)
+			{
+				bw.WriteBytes(fsom.Files[i].GetDataAsByteArray());
+			}
 
-            foreach (File file in fsom.Files)
-            {
-                bw.WriteFixedLengthString(file.Name, 15);
-            }
+			foreach (File file in fsom.Files)
+			{
+				bw.WriteFixedLengthString(file.Name, 15);
+			}
 		}
 	}
 }

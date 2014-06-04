@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Output\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\Output\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -261,27 +261,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj">
       <Project>{617d9eb5-ca93-45d6-aa6b-5a012b7698ac}</Project>
       <Name>AwesomeControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Glue\Glue\Glue.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\Glue\Glue\Glue.csproj">
       <Project>{fe016ea3-dc31-4a92-8b0a-8c746ec117e1}</Project>
       <Name>Glue</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
       <Project>{bcbb72bd-0ecb-4ff2-8d91-e466361fb6f9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>

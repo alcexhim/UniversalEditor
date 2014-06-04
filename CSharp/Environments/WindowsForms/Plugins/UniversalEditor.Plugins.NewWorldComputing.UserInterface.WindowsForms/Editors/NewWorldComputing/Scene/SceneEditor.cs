@@ -13,7 +13,7 @@ using UniversalEditor.ObjectModels.NWCSceneLayout;
 using AwesomeControls.Designer;
 using UniversalEditor.Editors.NewWorldComputing.Scene.DesignerObjectClasses;
 using UniversalEditor.ObjectModels.Multimedia.Picture.Collection;
-using UniversalEditor.Accessors.File;
+using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN;
 
 using UniversalEditor.ObjectModels.NWCSceneLayout.SceneObjects;
