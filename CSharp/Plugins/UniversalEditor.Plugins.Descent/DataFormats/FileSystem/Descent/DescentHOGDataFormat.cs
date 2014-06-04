@@ -30,6 +30,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Descent
             while (!br.EndOfStream)
             {
                 string FileName = br.ReadFixedLengthString(13);
+                FileName = FileName.TrimNull();
+
                 int length = br.ReadInt32();
                 long offset = br.Accessor.Position;
 
