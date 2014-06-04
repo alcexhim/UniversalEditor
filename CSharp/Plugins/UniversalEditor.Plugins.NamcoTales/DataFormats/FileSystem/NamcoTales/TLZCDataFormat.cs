@@ -17,6 +17,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NamcoTales
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Namco Tales Studio TLZC archive", new byte?[][] { new byte?[] { (byte)'T', (byte)'L', (byte)'Z', (byte)'C' } }, new string[] { "*.dat" });
+				_dfr.Sources.Add("http://forum.xentax.com/viewtopic.php?f=21&t=8725");
 			}
 			return _dfr;
 		}
