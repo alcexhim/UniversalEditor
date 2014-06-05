@@ -56,6 +56,7 @@
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="HostApplication.cs" />
+    <Compile Include="HostApplicationMessage.cs" />
     <Compile Include="HostApplicationOutputWindow.cs" />
     <Compile Include="IEditorImplementation.cs" />
     <Compile Include="IHostApplicationWindow.cs" />
