@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFormats\FileSystem\Descent\DescentHOGDataFormat.cs" />
+    <Compile Include="DataFormats\Text\Descent\TXBDataFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
