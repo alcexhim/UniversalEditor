@@ -105,7 +105,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 		{
 			lvFileTemplates.Items.Clear();
 
-			if (dts.SelectedObject == null) return;
+			if (dts.SelectedObject == null)
+			{
+				cmdOK.Enabled = false;
+				return;
+			}
 
 			ObjectModelReference omr = (dts.SelectedObject as ObjectModelReference);
 
@@ -138,12 +142,24 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				}
 			}
 			#endregion
+
+			if (lvFileTemplates.Items.Count > 0)
+			{
+				lvFileTemplates.Items[0].Selected = true;
+			}
+			
+			cmdOK.Enabled = lvFileTemplates.SelectedItems.Count == 1;
 		}
 
 		private void lvFileTemplates_SelectionChanged(object sender, EventArgs e)
 		{
-			if (lvFileTemplates.SelectedItems.Count == 0) return;
+			if (lvFileTemplates.SelectedItems.Count == 0)
+			{
+				cmdOK.Enabled = false;
+				return;
+			}
 			mvarSelectedItem = (lvFileTemplates.SelectedItems[0].Data as Template);
+			cmdOK.Enabled = true;
 		}
 
 		private void tvProject_AfterSelect(object sender, TreeViewEventArgs e)
