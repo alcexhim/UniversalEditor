@@ -222,37 +222,37 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			mnuContextAdd.DropDownItems.Add(mnuContextAddNewItem);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddExistingItem);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddSep1);
-            mnuContextAdd.DropDownItems.Add(mnuContextAddNewFolder);
-            if (tv.SelectedNode.Tag is SolutionObjectModel)
-            {
-                mnuContextAddNewItem.Text = "Ne&w Project...";
-                mnuContextAddExistingItem.Text = "Existin&g Project...";
-            }
-            else
-            {
-                mnuContextAddNewItem.Text = "Ne&w Item...";
-                mnuContextAddExistingItem.Text = "Existin&g Item...";
-            }
+			mnuContextAdd.DropDownItems.Add(mnuContextAddNewFolder);
+			if (tv.SelectedNode.Tag is SolutionObjectModel)
+			{
+				mnuContextAddNewItem.Text = "Ne&w Project...";
+				mnuContextAddExistingItem.Text = "Existin&g Project...";
+			}
+			else
+			{
+				mnuContextAddNewItem.Text = "Ne&w Item...";
+				mnuContextAddExistingItem.Text = "Existin&g Item...";
+			}
 
-            if (tv.SelectedNode.Tag is Project)
-            {
-                Project proj = (tv.SelectedNode.Tag as Project);
-                if (proj.ProjectType != null)
-                {
-                    if (proj.ProjectType.ItemShortcuts.Count > 0)
-                    {
-                        mnuContextAdd.DropDownItems.Add(mnuContextAddSep2);
-                        foreach (ProjectTypeItemShortcut its in proj.ProjectType.ItemShortcuts)
-                        {
-                            ToolStripMenuItem tsmi = new ToolStripMenuItem();
-                            tsmi.Text = its.Title;
-                            tsmi.Click += tsmiItemShortcut_Click;
-                            tsmi.Tag = its;
-                            mnuContextAdd.DropDownItems.Add(tsmi);
-                        }
-                    }
-                }
-            }
+			if (tv.SelectedNode.Tag is Project)
+			{
+				Project proj = (tv.SelectedNode.Tag as Project);
+				if (proj.ProjectType != null)
+				{
+					if (proj.ProjectType.ItemShortcuts.Count > 0)
+					{
+						mnuContextAdd.DropDownItems.Add(mnuContextAddSep2);
+						foreach (ProjectTypeItemShortcut its in proj.ProjectType.ItemShortcuts)
+						{
+							ToolStripMenuItem tsmi = new ToolStripMenuItem();
+							tsmi.Text = its.Title;
+							tsmi.Click += tsmiItemShortcut_Click;
+							tsmi.Tag = its;
+							mnuContextAdd.DropDownItems.Add(tsmi);
+						}
+					}
+				}
+			}
 		}
 		private void tsmiItemShortcut_Click(object sender, EventArgs e)
 		{
