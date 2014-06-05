@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Windows.Forms;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Bootstrapper
+namespace UniversalEditor.ConsoleBootstrapper
 {
-	static class Program
+	class Program
 	{
 		/// <summary>
 		/// The main entry point for the application.
@@ -53,7 +52,12 @@ namespace UniversalEditor.Bootstrapper
 
 			if (engines.Count < 1)
 			{
-				MessageBox.Show("No engines are available to launch this application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				ConsoleColor oldcolor = Console.ForegroundColor;
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("ERROR: No engines are available to launch this application.");
+				Console.ForegroundColor = oldcolor;
+
+				Pause();
 				return;
 			}
 			else if (engines.Count == 1)
@@ -64,6 +68,12 @@ namespace UniversalEditor.Bootstrapper
 			{
 				engines[0].StartApplication();
 			}
+		}
+
+		private static void Pause()
+		{
+			Console.Write("Press any key to continue . . . ");
+			Console.ReadKey(true);
 		}
 	}
 }
