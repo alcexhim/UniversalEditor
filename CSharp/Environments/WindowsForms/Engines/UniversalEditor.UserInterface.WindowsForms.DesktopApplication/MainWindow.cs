@@ -48,8 +48,22 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			HostApplication.OutputWindow.TextCleared += OutputWindow_TextCleared;
 
 			mnuBookmarksSep1.Visible = (BookmarksManager.FileNames.Count > 0);
+			foreach (string FileName in BookmarksManager.FileNames)
+			{
+				ToolStripMenuItem tsmi = new ToolStripMenuItem();
+				tsmi.Text = System.IO.Path.GetFileName(FileName);
+				tsmi.ToolTipText = FileName;
+				tsmi.Click += tsmiBookmark_Click;
+				mnuBookmarks.DropDownItems.Insert(mnuBookmarks.DropDownItems.Count - 2, tsmi);
+			}
 
 			ShowStartPage();
+		}
+
+		private void tsmiBookmark_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
+			OpenFile(tsmi.ToolTipText);
 		}
 
 		PropertyGridControl pgc = new PropertyGridControl();
@@ -350,6 +364,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			mnuEditCopy.Enabled = (CurrentDocument != null);
 			mnuEditPaste.Enabled = (CurrentDocument != null);
 			mnuEditDelete.Enabled = (CurrentDocument != null);
+
+			mnuBookmarksAdd.Enabled = (CurrentDocument != null);
 
 			#region Remove Editor-Specific Menus and Toolbars
 			mnuViewToolbars.DropDownItems.Clear();
@@ -1699,28 +1715,46 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			mnuContextDocumentType.Show(sbStatusBar.PointToScreen(new Point(lblObjectModel.Bounds.Right, lblObjectModel.Bounds.Top)), ToolStripDropDownDirection.AboveLeft);
 		}
+
+		/// <summary>
+		/// Creates a Bookmark for the specified document.
+		/// </summary>
+		/// <param name="doc"></param>
+		public void AddBookmark(Document doc)
+		{
+			if (doc.Accessor is FileAccessor)
+			{
+				if (!BookmarksManager.FileNames.Contains((doc.Accessor as FileAccessor).FileName))
+				{
+					ToolStripMenuItem mnu = new ToolStripMenuItem();
+					mnu.Text = System.IO.Path.GetFileName((doc.Accessor as FileAccessor).FileName);
+					mnu.ToolTipText = (doc.Accessor as FileAccessor).FileName;
+					mnu.Click += tsmiBookmark_Click;
+					mnuBookmarks.DropDownItems.Insert(mnuBookmarks.DropDownItems.Count - 2, mnu);
+					mnuBookmarksSep1.Visible = true;
+
+					BookmarksManager.FileNames.Add((doc.Accessor as FileAccessor).FileName);
+				}
+			}
+		}
 		
 		private void mnuBookmarksAdd_Click(object sender, EventArgs e)
 		{
 			if (CurrentDocument == null) return;
 
-			if (CurrentDocument.Accessor is FileAccessor)
-			{
-				if (!BookmarksManager.FileNames.Contains((CurrentDocument.Accessor as FileAccessor).FileName))
-				{
-					ToolStripMenuItem mnu = new ToolStripMenuItem();
-					mnu.Text = System.IO.Path.GetFileName((CurrentDocument.Accessor as FileAccessor).FileName);
-					mnu.ToolTipText = (CurrentDocument.Accessor as FileAccessor).FileName;
-					mnuBookmarks.DropDownItems.Insert(2, mnu);
-
-					BookmarksManager.FileNames.Add((CurrentDocument.Accessor as FileAccessor).FileName);
-				}
-			}
+			AddBookmark(CurrentDocument);
 		}
 		
 		private void mnuBookmarksAddAll_Click(object sender, EventArgs e)
 		{
-			// TODO: Implement MnuBookmarksAddAll_Click
+			foreach (DockingWindow dw in dcc.Areas[DockPosition.Center].Windows)
+			{
+				if (dw.Control is Pages.EditorPage)
+				{
+					Document doc = (dw.Control as Pages.EditorPage).Document;
+					AddBookmark(doc);
+				}
+			}
 		}
 
 		private void mnuToolsSessionManager_Click(object sender, EventArgs e)
