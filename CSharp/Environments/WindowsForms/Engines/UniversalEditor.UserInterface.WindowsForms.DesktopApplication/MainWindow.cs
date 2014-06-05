@@ -911,9 +911,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
             if (doc.Accessor == null)
             {
                 // The accessor is null, so display the save as dialog
-                SaveDocumentAs(doc);
+                return SaveDocumentAs(doc);
             }
-            return false;
+			doc.Save();
+            return true;
 		}
 		private bool SaveDocumentAs(Document doc, string FileName = null)
 		{
@@ -968,10 +969,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				doc.Accessor.Close();
 			}
 
-
 			doc.DataFormat = df;
-
-			doc.OutputAccessor = new FileAccessor(FileName, true, true);
+			doc.OutputAccessor = new FileAccessor(FileName, true, true, true);
 			doc.Save();
 
 			dcc.SelectedWindow.Title = System.IO.Path.GetFileName(FileName);
