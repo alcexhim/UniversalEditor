@@ -1470,7 +1470,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				sp.OpenProjectClicked += FileOpenProject_Click;
 
 				dwStartPage = dcc.Windows.Add("pnlStartPage", "Start Page", sp);
-				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(dwStartPage);
+				dcc.Areas[DockPosition.Center].Windows.Add(dwStartPage);
 			}
 			dcc.SwitchTab(dwStartPage);
 		}
