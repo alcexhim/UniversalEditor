@@ -65,13 +65,11 @@ namespace UniversalEditor.Compression
 		{
 			switch (method)
 			{
-				/*
 				case CompressionMethod.Deflate: return new Modules.Deflate.DeflateCompressionModule();
 				case CompressionMethod.Gzip: return new Modules.Gzip.GzipCompressionModule();
 				case CompressionMethod.LZSS: return new Modules.LZSS.LZSSCompressionModule();
 				case CompressionMethod.LZX: return new Modules.LZX.LZXCompressionModule();
 				case CompressionMethod.XMemLZX: return new Modules.XMemLZX.XMemLZXCompressionModule();
-				*/
 				case CompressionMethod.Zlib: return new Modules.Zlib.ZlibCompressionModule();
 			}
 			throw new ArgumentException("Could not identify compression module for method " + method.ToString());
