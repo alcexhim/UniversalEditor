@@ -141,15 +141,11 @@ namespace UniversalEditor.Checksum.Modules.CRC32
         /// <summary>
         /// Returns the CRC32 data checksum computed so far.
         /// </summary>
-        public long Value
+        public override long Value
         {
             get
             {
                 return (long)crc;
-            }
-            set
-            {
-                crc = (uint)value;
             }
         }
 
