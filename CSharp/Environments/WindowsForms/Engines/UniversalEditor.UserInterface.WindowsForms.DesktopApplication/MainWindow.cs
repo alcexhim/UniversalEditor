@@ -908,13 +908,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private bool SaveDocument(Document doc)
 		{
-            if (doc.Accessor == null)
-            {
-                // The accessor is null, so display the save as dialog
-                return SaveDocumentAs(doc);
-            }
+			if (doc.Accessor == null)
+			{
+				// The accessor is null, so display the save as dialog
+				return SaveDocumentAs(doc);
+			}
 			doc.Save();
-            return true;
+			return true;
 		}
 		private bool SaveDocumentAs(Document doc, string FileName = null)
 		{
@@ -1671,15 +1671,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 		}
 		private void dcc_WindowClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (dcc.SelectedWindow == null)
-            {
-                mvarCurrentDocument = null;
-                RefreshDocument();
-                return;
-            }
-            if (dcc.SelectedWindow.ParentArea == null) return;
-            if (dcc.SelectedWindow.ParentArea.Position != DockPosition.Center) return;
+		{
+			if (dcc.SelectedWindow == null)
+			{
+				mvarCurrentDocument = null;
+				RefreshDocument();
+				return;
+			}
+			if (dcc.SelectedWindow.ParentArea == null) return;
+			if (dcc.SelectedWindow.ParentArea.Position != DockPosition.Center) return;
 
 			RefreshDocument();
 		}
@@ -1768,14 +1768,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			pbProgress.Value = value;
 		}
 
-        private void mnuHelpLicensingAndActivation_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("This application has already been activated.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+		private void mnuHelpLicensingAndActivation_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("This application has already been activated.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
 
-        private void HelpContents_Click(object sender, EventArgs e)
-        {
+		private void HelpContents_Click(object sender, EventArgs e)
+		{
 
-        }
+		}
 	}
 }
