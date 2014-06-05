@@ -139,8 +139,10 @@
     <Compile Include="DataFormats\FileSystem\WinRAR\RARHeaderFlags.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\RARHeaderType.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\RARHostOperatingSystem.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPCreationPlatform.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPInternalFileAttributes.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

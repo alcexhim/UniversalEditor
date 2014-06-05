@@ -18,14 +18,14 @@ namespace UniversalEditor.Compression.Modules.Deflate
 
 		protected override void CompressInternal(Stream inputStream, Stream outputStream)
         {
-            System.IO.Compression.DeflateStream dst = new System.IO.Compression.DeflateStream(inputStream, System.IO.Compression.CompressionMode.Compress);
+            System.IO.Compression.DeflateStream dst = new System.IO.Compression.DeflateStream(outputStream, System.IO.Compression.CompressionMode.Compress);
             int read = 0;
             int start = 0;
             do
             {
                 byte[] buffer = new byte[BUFFERSIZE];
-                read = dst.Read(buffer, start, buffer.Length);
-                outputStream.Write(buffer, 0, read);
+				read = inputStream.Read(buffer, start, buffer.Length);
+                dst.Write(buffer, 0, read);
             }
             while (read == BUFFERSIZE);
         }
