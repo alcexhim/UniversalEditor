@@ -16,6 +16,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 {
 	public partial class MainWindow : AwesomeControls.Window, IHostApplicationWindow
 	{
+		internal WindowsFormsEngine engine = null;
+
 		#region Docking Windows
 		private Controls.ErrorList pnlErrorList = new Controls.ErrorList();
 		private DockingWindow dwErrorList = null;
@@ -31,6 +33,16 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private DockingWindow dwOutput = null;
 		#endregion
 
+		public void ActivateWindow()
+		{
+			// Invoke required when being called from SingleInstance_Callback
+			Invoke(new Action(delegate()
+			{
+				Activate();
+				BringToFront();
+			}));
+		}
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -38,8 +50,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			pnlSolutionExplorer.ParentWindow = this;
 
-			this.Icon = Configuration.MainIcon;
-			this.Text = Configuration.ApplicationName;
+			this.Icon = LocalConfiguration.MainIcon;
+			this.Text = LocalConfiguration.ApplicationName;
 			
 			mnuContextDocumentTypeDataFormat.Font = new Font(SystemFonts.MenuFont, FontStyle.Bold);
 
@@ -52,8 +64,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			HostApplication.Messages.MessageAdded += Messages_MessageAdded;
 			HostApplication.Messages.MessageRemoved += Messages_MessageRemoved;
 
-			mnuBookmarksSep1.Visible = (BookmarksManager.FileNames.Count > 0);
-			foreach (string FileName in BookmarksManager.FileNames)
+			mnuBookmarksSep1.Visible = (engine.BookmarksManager.FileNames.Count > 0);
+			foreach (string FileName in engine.BookmarksManager.FileNames)
 			{
 				ToolStripMenuItem tsmi = new ToolStripMenuItem();
 				tsmi.Text = System.IO.Path.GetFileName(FileName);
@@ -1809,7 +1821,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			if (doc.Accessor is FileAccessor)
 			{
-				if (!BookmarksManager.FileNames.Contains((doc.Accessor as FileAccessor).FileName))
+				if (!engine.BookmarksManager.FileNames.Contains((doc.Accessor as FileAccessor).FileName))
 				{
 					ToolStripMenuItem mnu = new ToolStripMenuItem();
 					mnu.Text = System.IO.Path.GetFileName((doc.Accessor as FileAccessor).FileName);
@@ -1818,7 +1830,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					mnuBookmarks.DropDownItems.Insert(mnuBookmarks.DropDownItems.Count - 2, mnu);
 					mnuBookmarksSep1.Visible = true;
 
-					BookmarksManager.FileNames.Add((doc.Accessor as FileAccessor).FileName);
+					engine.BookmarksManager.FileNames.Add((doc.Accessor as FileAccessor).FileName);
 				}
 			}
 		}

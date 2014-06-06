@@ -17,15 +17,15 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
             Title = "Start Page";
             Description = "Start Page";
 
-            lblApplicationTitle.Text = Configuration.ApplicationName;
+            lblApplicationTitle.Text = LocalConfiguration.ApplicationName;
 
-            pnlTop.BackColor = Configuration.ColorScheme.DarkColor;
-            pnlSide.BackColor = Configuration.ColorScheme.LightColor;
-            BackColor = Configuration.ColorScheme.BackgroundColor;
+            pnlTop.BackColor = LocalConfiguration.ColorScheme.DarkColor;
+            pnlSide.BackColor = LocalConfiguration.ColorScheme.LightColor;
+            BackColor = LocalConfiguration.ColorScheme.BackgroundColor;
 
-            if (Configuration.MainIcon != null)
+            if (LocalConfiguration.MainIcon != null)
             {
-                picIcon.Image = Configuration.MainIcon.ToBitmap();
+                picIcon.Image = LocalConfiguration.MainIcon.ToBitmap();
             }
 
             foreach (string FileName in RecentFileManager.FileNames)

@@ -17,8 +17,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 	internal class WindowsFormsEngine : Engine
 	{
-		private static readonly string INSTANCEID = "UniversalEditor.UserInterface.WindowsForms.DesktopApplication$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$" + System.Reflection.Assembly.GetEntryAssembly().Location;
-
 		internal static MainWindow LastWindow = null;
 
 		private static List<MainWindow> mvarWindows = new List<MainWindow>();
@@ -27,26 +25,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private static SplashScreenWindow splasher = null;
 		
 		public static bool SessionLoading = false;
-
-		// UniversalDataStorage.Editor.WindowsForms.Program
-		private static void SingleInstanceManager_Callback(object sender, SingleInstanceManager.InstanceCallbackEventArgs e)
-		{
-			if (!e.IsFirstInstance)
-			{
-				if (WindowsFormsEngine.LastWindow != null)
-				{
-					WindowsFormsEngine.LastWindow.Invoke(new Action(delegate()
-					{
-						for (int i = 1; i < e.CommandLineArgs.Length; i++)
-						{
-							LastWindow.OpenFile(e.CommandLineArgs[i].ToString());
-						}
-						WindowsFormsEngine.LastWindow.Activate();
-						WindowsFormsEngine.LastWindow.BringToFront();
-					}));
-				}
-			}
-		}
 
 		protected override void InitializeBranding()
 		{
@@ -64,21 +42,21 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				if (fileSplashScreenImage != null)
 				{
 					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenImage.GetDataAsByteArray());
-					Configuration.SplashScreen.Image = System.Drawing.Image.FromStream(ms);
+					LocalConfiguration.SplashScreen.Image = System.Drawing.Image.FromStream(ms);
 				}
 
 				UniversalEditor.ObjectModels.FileSystem.File fileSplashScreenSound = fsom.Files["SplashScreen.wav"];
 				if (fileSplashScreenSound != null)
 				{
 					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenSound.GetDataAsByteArray());
-					Configuration.SplashScreen.Sound = ms;
+					LocalConfiguration.SplashScreen.Sound = ms;
 				}
 
 				UniversalEditor.ObjectModels.FileSystem.File fileMainIcon = fsom.Files["MainIcon.ico"];
 				if (fileMainIcon != null)
 				{
 					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileMainIcon.GetDataAsByteArray());
-					Configuration.MainIcon = new System.Drawing.Icon(ms);
+					LocalConfiguration.MainIcon = new System.Drawing.Icon(ms);
 				}
 
 				UniversalEditor.ObjectModels.FileSystem.File fileConfiguration = fsom.Files["Configuration.upl"];
@@ -89,10 +67,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel plomBranding = new ObjectModels.PropertyList.PropertyListObjectModel();
 					Document.Load(plomBranding, new UniversalPropertyListDataFormat(), new StreamAccessor(ms), true);
 
-					Configuration.ApplicationName = plomBranding.GetValue<string>(new string[] { "Application", "Title" }, String.Empty);
+					LocalConfiguration.ApplicationName = plomBranding.GetValue<string>(new string[] { "Application", "Title" }, String.Empty);
 
-					Configuration.ColorScheme.DarkColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "DarkColor" }, "#2A0068"));
-					Configuration.ColorScheme.LightColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "LightColor" }, "#C0C0FF"));
+					LocalConfiguration.ColorScheme.DarkColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "DarkColor" }, "#2A0068"));
+					LocalConfiguration.ColorScheme.LightColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "LightColor" }, "#C0C0FF"));
 				}
 
 				fa.Close();
@@ -107,7 +85,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					"Branding",
 					"SplashScreen.png"
 				});
-				if (System.IO.File.Exists(SplashScreenImageFileName)) Configuration.SplashScreen.ImageFileName = SplashScreenImageFileName;
+				if (System.IO.File.Exists(SplashScreenImageFileName)) LocalConfiguration.SplashScreen.ImageFileName = SplashScreenImageFileName;
 
 				string SplashScreenSoundFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
@@ -115,7 +93,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					"Branding",
 					"SplashScreen.wav"
 				});
-				if (System.IO.File.Exists(SplashScreenSoundFileName)) Configuration.SplashScreen.SoundFileName = SplashScreenSoundFileName;
+				if (System.IO.File.Exists(SplashScreenSoundFileName)) LocalConfiguration.SplashScreen.SoundFileName = SplashScreenSoundFileName;
 
 				string MainIconFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
@@ -123,7 +101,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					"Branding",
 					"MainIcon.ico"
 				});
-				if (System.IO.File.Exists(MainIconFileName)) Configuration.MainIcon = System.Drawing.Icon.ExtractAssociatedIcon(MainIconFileName);
+				if (System.IO.File.Exists(MainIconFileName)) LocalConfiguration.MainIcon = System.Drawing.Icon.ExtractAssociatedIcon(MainIconFileName);
 
 				string ConfigurationFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
@@ -136,10 +114,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel plomBranding = new ObjectModels.PropertyList.PropertyListObjectModel();
 					Document.Load(plomBranding, new UniversalPropertyListDataFormat(), new FileAccessor(ConfigurationFileName), true);
 
-					Configuration.ApplicationName = plomBranding.GetValue<string>(new string[] { "Application", "Title" }, String.Empty);
+					LocalConfiguration.ApplicationName = plomBranding.GetValue<string>(new string[] { "Application", "Title" }, String.Empty);
 
-					Configuration.ColorScheme.DarkColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "DarkColor" }, "#2A0068"));
-					Configuration.ColorScheme.LightColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "LightColor" }, "#C0C0FF"));
+					LocalConfiguration.ColorScheme.DarkColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "DarkColor" }, "#2A0068"));
+					LocalConfiguration.ColorScheme.LightColor = ParseColor(plomBranding.GetValue<string>(new string[] { "ColorScheme", "LightColor" }, "#C0C0FF"));
 				}
 			}
 		}
@@ -156,8 +134,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme theme = new AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme();
 			// AwesomeControls.Theming.BuiltinThemes.SlickTheme theme = new AwesomeControls.Theming.BuiltinThemes.SlickTheme();
 			AwesomeControls.Theming.Theme.CurrentTheme = theme;
-
-			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(WindowsFormsEngine.SingleInstanceManager_Callback))) return;
 
 			Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
 			switch (System.Environment.OSVersion.Platform)
@@ -179,18 +155,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 			}
 
-			RecentFileManager.DataFileName = Configuration.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
-			BookmarksManager.DataFileName = Configuration.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
-			SessionManager.DataFileName = Configuration.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
-
-			RecentFileManager.Load();
-			BookmarksManager.Load();
-			SessionManager.Load();
-
 			System.Threading.Thread threadLoader = new System.Threading.Thread(threadLoader_ThreadStart);
 			threadLoader.Start();
 
-			if (Configuration.SplashScreen.Enabled)
+			if (LocalConfiguration.SplashScreen.Enabled)
 			{
 				splasher = new SplashScreenWindow();
 				splasher.ShowDialog();
@@ -389,7 +357,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// if (Configuration.SplashScreen.Enabled) splasher.InvokeUpdateStatus("Loading data formats...");
 			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
 
-			if (Configuration.SplashScreen.Enabled)
+			if (LocalConfiguration.SplashScreen.Enabled)
 			{
 				while (splasher == null)
 				{
@@ -406,6 +374,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		public static void OpenWindow(params string[] FileNames)
 		{
 			MainWindow mw = new MainWindow();
+			mw.Engine = this;
 
 			if (FileNames.Length > 0)
 			{
@@ -418,9 +387,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public static void ExitApplication()
 		{
-			if (Configuration.ConfirmExit)
+			if (LocalConfiguration.ConfirmExit)
 			{
-				if (MessageBox.Show("Are you sure you wish to quit " + Configuration.ApplicationName + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+				if (MessageBox.Show("Are you sure you wish to quit " + LocalConfiguration.ApplicationName + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
 				{
 					return;
 				}

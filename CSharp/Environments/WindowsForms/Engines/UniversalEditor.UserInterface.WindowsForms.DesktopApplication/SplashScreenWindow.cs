@@ -28,17 +28,17 @@ namespace UniversalEditor.UserInterface.WindowsForms
             }
             */
 
-            if (Configuration.SplashScreen.Image != null)
+            if (LocalConfiguration.SplashScreen.Image != null)
             {
-                pictureBox1.Image = Configuration.SplashScreen.Image;
+                pictureBox1.Image = LocalConfiguration.SplashScreen.Image;
             }
             else
             {
-                if (!String.IsNullOrEmpty(Configuration.SplashScreen.ImageFileName))
+                if (!String.IsNullOrEmpty(LocalConfiguration.SplashScreen.ImageFileName))
                 {
-                    if (System.IO.File.Exists(Configuration.SplashScreen.ImageFileName))
+                    if (System.IO.File.Exists(LocalConfiguration.SplashScreen.ImageFileName))
                     {
-                        pictureBox1.Image = Image.FromFile(Configuration.SplashScreen.ImageFileName);
+                        pictureBox1.Image = Image.FromFile(LocalConfiguration.SplashScreen.ImageFileName);
                     }
                 }
             }
@@ -49,16 +49,16 @@ namespace UniversalEditor.UserInterface.WindowsForms
         {
             base.OnShown(e);
 
-            if (Configuration.SplashScreen.Sound != null)
+            if (LocalConfiguration.SplashScreen.Sound != null)
             {
-                System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Configuration.SplashScreen.Sound);
+                System.Media.SoundPlayer sp = new System.Media.SoundPlayer(LocalConfiguration.SplashScreen.Sound);
                 sp.Play();
             }
             else
             {
-                if (System.IO.File.Exists(Configuration.SplashScreen.SoundFileName))
+                if (System.IO.File.Exists(LocalConfiguration.SplashScreen.SoundFileName))
                 {
-                    System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Configuration.SplashScreen.SoundFileName);
+                    System.Media.SoundPlayer sp = new System.Media.SoundPlayer(LocalConfiguration.SplashScreen.SoundFileName);
                     sp.Play();
                 }
             }

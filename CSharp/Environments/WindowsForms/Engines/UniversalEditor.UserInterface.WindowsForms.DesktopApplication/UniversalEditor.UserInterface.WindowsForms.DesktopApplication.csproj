@@ -44,12 +44,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookmarksManager.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="LocalConfiguration.cs" />
     <Compile Include="Controls\ErrorList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -181,9 +179,6 @@
     </Compile>
     <Compile Include="WindowsFormsEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecentFileManager.cs" />
-    <Compile Include="SessionManager.cs" />
-    <Compile Include="SingleInstanceManager.cs" />
     <Compile Include="SplashScreenWindow.cs">
       <SubType>Form</SubType>
     </Compile>
