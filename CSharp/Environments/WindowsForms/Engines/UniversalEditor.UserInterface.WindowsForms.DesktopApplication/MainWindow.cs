@@ -68,13 +68,19 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private void Messages_MessageAdded(object sender, HostApplicationMessageModifiedEventArgs e)
 		{
-			pnlErrorList.Messages.Add(e.Message);
-			pnlErrorList.RefreshList();
+			pnlErrorList.Invoke(new Action(delegate()
+			{
+				pnlErrorList.Messages.Add(e.Message);
+				pnlErrorList.RefreshList();
+			}));
 		}
 		private void Messages_MessageRemoved(object sender, HostApplicationMessageModifiedEventArgs e)
 		{
-			pnlErrorList.Messages.Remove(e.Message);
-			pnlErrorList.RefreshList();
+			pnlErrorList.Invoke(new Action(delegate()
+			{
+				pnlErrorList.Messages.Remove(e.Message);
+				pnlErrorList.RefreshList();
+			}));
 		}
 
 		private void tsmiBookmark_Click(object sender, EventArgs e)
