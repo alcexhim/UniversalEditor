@@ -132,6 +132,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			this.lvFileTemplates.SmallImageList = null;
 			this.lvFileTemplates.SortColumn = null;
 			this.lvFileTemplates.TabIndex = 0;
+			this.lvFileTemplates.ItemActivate += new System.EventHandler(this.lvTemplates_ItemActivate);
 			this.lvFileTemplates.SelectionChanged += new System.EventHandler(this.lvFileTemplates_SelectionChanged);
 			// 
 			// cmdCancel
@@ -223,6 +224,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			this.lvProjectTemplates.SmallImageList = null;
 			this.lvProjectTemplates.SortColumn = null;
 			this.lvProjectTemplates.TabIndex = 0;
+			this.lvProjectTemplates.ItemActivate += new System.EventHandler(this.lvTemplates_ItemActivate);
 			this.lvProjectTemplates.SelectionChanged += new System.EventHandler(this.lvProjectTemplates_SelectionChanged);
 			// 
 			// optSeparate

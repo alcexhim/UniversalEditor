@@ -278,6 +278,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 		{
 			if (!txtSolutionTitle_IsChanged) txtSolutionTitle.Text = txtProjectTitle.Text;
 		}
+
+		private void lvTemplates_ItemActivate(object sender, EventArgs e)
+		{
+			cmdOK_Click(sender, e);
+		}
 	}
 	public enum NewDialogMode
 	{
