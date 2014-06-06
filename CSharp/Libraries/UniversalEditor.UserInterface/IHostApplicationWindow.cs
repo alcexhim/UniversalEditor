@@ -8,12 +8,12 @@ namespace UniversalEditor.UserInterface
 	public interface IHostApplicationWindow
 	{
 		void NewFile();
-		void NewProject();
+		void NewProject(bool combineObjects = false);
 
 		void OpenFile();
 		void OpenFile(params string[] FileNames);
-		void OpenProject();
-		void OpenProject(string FileName);
+		void OpenProject(bool combineObjects = false);
+		void OpenProject(string FileName, bool combineObjects = false);
 
 		void SaveFile();
 		void SaveFileAs();

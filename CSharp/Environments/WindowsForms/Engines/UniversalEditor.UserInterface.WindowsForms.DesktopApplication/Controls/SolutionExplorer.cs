@@ -91,6 +91,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 				tnSolution.Nodes.Add(tnProject);
 			}
 			tv.Nodes.Add(tnSolution);
+
+			tnSolution.Expand();
 		}
 
 		private void LoadFileSystem(ProjectFileSystem pfs, TreeNode tnParent)
@@ -221,7 +223,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			mnuContextAdd.DropDownItems.Clear();
 			mnuContextAdd.DropDownItems.Add(mnuContextAddNewItem);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddExistingItem);
-			mnuContextAdd.DropDownItems.Add(mnuContextAddSep1);
+			mnuContextAdd.DropDownItems.Add(mnuContextAddSep2);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddNewFolder);
 			if (tv.SelectedNode.Tag is SolutionObjectModel)
 			{
@@ -241,7 +243,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 				{
 					if (proj.ProjectType.ItemShortcuts.Count > 0)
 					{
-						mnuContextAdd.DropDownItems.Add(mnuContextAddSep2);
+						mnuContextAdd.DropDownItems.Add(mnuContextAddSep3);
 						foreach (ProjectTypeItemShortcut its in proj.ProjectType.ItemShortcuts)
 						{
 							ToolStripMenuItem tsmi = new ToolStripMenuItem();
@@ -260,6 +262,52 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			ProjectTypeItemShortcut its = (tsmi.Tag as ProjectTypeItemShortcut);
 
 			WindowsFormsEngine.LastWindow.NewFile();
+		}
+
+		private void mnuContextAddNewProject_Click(object sender, EventArgs e)
+		{
+			ParentWindow.AddSolutionProjectNew();
+		}
+
+		private void mnuContextAddExistingProject_Click(object sender, EventArgs e)
+		{
+			ParentWindow.AddSolutionProjectExisting();
+		}
+
+		private void mnuContextAddNewItem_Click(object sender, EventArgs e)
+		{
+			if (tv.SelectedNode.Tag is SolutionObjectModel)
+			{
+				// we add a new project to the solution
+				ParentWindow.AddSolutionProjectNew();
+			}
+			else
+			{
+				// we add a new item to the project
+				ParentWindow.AddProjectItemNew();
+			}
+		}
+
+		private void mnuContextAddExistingItem_Click(object sender, EventArgs e)
+		{
+			if (tv.SelectedNode.Tag is SolutionObjectModel)
+			{
+				ParentWindow.AddSolutionProjectExisting();
+			}
+			else
+			{
+				ParentWindow.AddProjectItemExisting();
+			}
+		}
+
+		private void mnuContextAddNewFolder_Click(object sender, EventArgs e)
+		{
+			TreeNode tn = new TreeNode();
+			tn.Text = "NewFolder1";
+			tv.SelectedNode.Nodes.Add(tn);
+			tv.SelectedNode = tn;
+
+			tn.BeginEdit();
 		}
 	}
 }

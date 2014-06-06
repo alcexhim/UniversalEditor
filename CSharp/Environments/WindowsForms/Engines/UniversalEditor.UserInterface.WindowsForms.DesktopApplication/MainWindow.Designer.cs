@@ -784,6 +784,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
             | System.Windows.Forms.Keys.A)));
 			this.mnuProjectAddNewItem.Size = new System.Drawing.Size(245, 22);
 			this.mnuProjectAddNewItem.Text = "Add Ne&w Item...";
+			this.mnuProjectAddNewItem.Click += new System.EventHandler(this.mnuProjectAddNewItem_Click);
 			// 
 			// mnuProjectAddExistingItem
 			// 
@@ -792,6 +793,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
             | System.Windows.Forms.Keys.A)));
 			this.mnuProjectAddExistingItem.Size = new System.Drawing.Size(245, 22);
 			this.mnuProjectAddExistingItem.Text = "Add Existin&g Item...";
+			this.mnuProjectAddExistingItem.Click += new System.EventHandler(this.mnuProjectAddExistingItem_Click);
 			// 
 			// mnuProjectSep1
 			// 
@@ -803,12 +805,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuProjectExclude.Name = "mnuProjectExclude";
 			this.mnuProjectExclude.Size = new System.Drawing.Size(245, 22);
 			this.mnuProjectExclude.Text = "Exclude from Pro&ject";
+			this.mnuProjectExclude.Click += new System.EventHandler(this.mnuProjectExclude_Click);
 			// 
 			// mnuProjectShowAllFiles
 			// 
 			this.mnuProjectShowAllFiles.Name = "mnuProjectShowAllFiles";
 			this.mnuProjectShowAllFiles.Size = new System.Drawing.Size(245, 22);
 			this.mnuProjectShowAllFiles.Text = "Sh&ow All Files";
+			this.mnuProjectShowAllFiles.Click += new System.EventHandler(this.mnuProjectShowAllFiles_Click);
 			// 
 			// mnuProjectSep2
 			// 
@@ -820,6 +824,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuProjectProperties.Name = "mnuProjectProperties";
 			this.mnuProjectProperties.Size = new System.Drawing.Size(245, 22);
 			this.mnuProjectProperties.Text = "Project &Properties...";
+			this.mnuProjectProperties.Click += new System.EventHandler(this.mnuProjectProperties_Click);
 			// 
 			// mnuBookmarks
 			// 

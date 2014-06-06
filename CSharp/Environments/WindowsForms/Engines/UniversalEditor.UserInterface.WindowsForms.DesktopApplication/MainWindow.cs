@@ -531,10 +531,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				*/
 			}
 		}
-		public void NewProject()
+		public void NewProject(bool combineObjects = false)
 		{
 			NewDialog dlg = new NewDialog();
 			dlg.Mode = NewDialogMode.Project;
+			dlg.CombineObjects = combineObjects;
 			if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				SolutionObjectModel solution = null;
@@ -817,7 +818,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		*/
 
-		public void OpenProject()
+		public void OpenProject(bool combineObjects = false)
 		{
 			SolutionObjectModel solution = new SolutionObjectModel();
 			OpenFileDialog ofd = new OpenFileDialog();
@@ -825,12 +826,22 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			ofd.Multiselect = false;
 			if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				OpenProject(ofd.FileName);
+				OpenProject(ofd.FileName, combineObjects);
 			}
 		}
-		public void OpenProject(string FileName)
+		public void OpenProject(string FileName, bool combineObjects = false)
 		{
-			CurrentSolution = UniversalEditor.Common.Reflection.GetAvailableObjectModel<SolutionObjectModel>(FileName);
+			SolutionObjectModel solution = UniversalEditor.Common.Reflection.GetAvailableObjectModel<SolutionObjectModel>(FileName);
+			if (combineObjects)
+			{
+				SolutionObjectModel oldsolution = CurrentSolution;
+				solution.CopyTo(oldsolution);
+				CurrentSolution = oldsolution;
+			}
+			else
+			{
+				CurrentSolution = solution;
+			}
 		}
 
 		public void SaveFile()
@@ -1165,6 +1176,26 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 			return current;
 		}
+
+
+		#region Project
+		public void AddSolutionProjectNew()
+		{
+			NewProject(true);
+		}
+		public void AddSolutionProjectExisting()
+		{
+			OpenProject(true);
+		}
+		public void AddProjectItemNew()
+		{
+
+		}
+		public void AddProjectItemExisting()
+		{
+
+		}
+		#endregion
 		#endregion
 
 		#region Event Handlers
@@ -1373,6 +1404,32 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private void mnuViewStartPage_Click(object sender, EventArgs e)
 		{
 			ShowStartPage();
+		}
+		#endregion
+		#region Project
+		private void mnuProjectAddNewItem_Click(object sender, EventArgs e)
+		{
+			AddProjectItemNew();
+		}
+
+		private void mnuProjectAddExistingItem_Click(object sender, EventArgs e)
+		{
+			AddProjectItemExisting();
+		}
+
+		private void mnuProjectExclude_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void mnuProjectShowAllFiles_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void mnuProjectProperties_Click(object sender, EventArgs e)
+		{
+
 		}
 		#endregion
 		#endregion
