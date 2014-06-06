@@ -17,16 +17,18 @@ namespace UniversalEditor.UserInterface.WindowsForms
 	public partial class MainWindow : AwesomeControls.Window, IHostApplicationWindow
 	{
 		#region Docking Windows
+		private Controls.ErrorList pnlErrorList = new Controls.ErrorList();
+		private DockingWindow dwErrorList = null;
+
+		private DockingWindow dwProperties = null;
+		
 		private Controls.SolutionExplorer pnlSolutionExplorer = new Controls.SolutionExplorer();
 		private DockingWindow dwSolutionExplorer = null;
-		
-		private DockingWindow dwProperties = null;
+
 		private DockingWindow dwToolbox = null;
-		private DockingWindow dwOutput = null;
-		
-		
+
 		private TextBox txtOutputWindow = null;
-		private Controls.ErrorList pnlErrorList = new Controls.ErrorList();
+		private DockingWindow dwOutput = null;
 		#endregion
 
 		public MainWindow()
@@ -106,7 +108,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			txtOutputWindow.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.CommandBarControlBackground;
 			txtOutputWindow.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.CommandBarControlText;
 			dwOutput = dcc.Windows.Add("Output", txtOutputWindow);
-			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Windows.Add(dwOutput);
+			dcc.Areas[DockPosition.Bottom].Windows.Add(dwOutput);
+			#endregion
+			#region Error List
+			pnlErrorList = new Controls.ErrorList();
+			dwErrorList = dcc.Windows.Add("Error List", pnlErrorList);
+			dcc.Areas[DockPosition.Bottom].Windows.Add(dwErrorList);
 			#endregion
 
 			#region Property Grid
