@@ -229,4 +229,15 @@ namespace UniversalEditor
 			mvarRequireChoice = requireChoice;
 		}
 	}
+	public class CustomOptionVersion : CustomOption
+	{
+		private Version mvarDefaultValue = null;
+		public Version DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
+
+		public CustomOptionVersion(string propertyName, string title, Version defaultValue = null)
+			: base(propertyName, title)
+		{
+			mvarDefaultValue = defaultValue;
+		}
+	}
 }
