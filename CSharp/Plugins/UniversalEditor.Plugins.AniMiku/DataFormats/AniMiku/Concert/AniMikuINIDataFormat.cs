@@ -52,7 +52,7 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 			{
 				Group grp = plom.Groups["CHP-" + i.ToString()];
 
-                Performance perf = new Performance();
+				Performance perf = new Performance();
 
 				Property prpName = grp.Properties["name"];
 				perf.Title = prpName.Value.ToString();
@@ -71,16 +71,16 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 				#region Performer 1
 				{
 					Performer performer = new Performer();
-                    performer.Character = new Character();
-                    performer.Character.FullName = System.IO.Path.GetFileNameWithoutExtension(prpModel1.Value.ToString());
+					performer.Character = new Character();
+					performer.Character.FullName = System.IO.Path.GetFileNameWithoutExtension(prpModel1.Value.ToString());
 
-                    performer.Costume = new Costume();
-                    performer.Costume.Title = System.IO.Path.GetFileNameWithoutExtension(prpModel1.Value.ToString());
+					performer.Costume = new Costume();
+					performer.Costume.Title = System.IO.Path.GetFileNameWithoutExtension(prpModel1.Value.ToString());
 					performer.Costume.ModelFileName = prpModel1.Value.ToString();
 
-                    performer.Animation = new Animation();
-                    performer.Animation.FileName = prpVmd1.Value.ToString();
-                    performer.Offset = new PositionVector3((double)prpOffset1.Value, 0, 0);
+					performer.Animation = new Animation();
+					performer.Animation.FileName = prpVmd1.Value.ToString();
+					performer.Offset = new PositionVector3((double)prpOffset1.Value, 0, 0);
 					perf.Performers.Add(performer);
 				}
 				#endregion
@@ -88,16 +88,16 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 				{
 					Performer performer = new Performer();
 					performer.Character = new Character();
-                    performer.Character.FullName = System.IO.Path.GetFileNameWithoutExtension(prpModel2.Value.ToString());
+					performer.Character.FullName = System.IO.Path.GetFileNameWithoutExtension(prpModel2.Value.ToString());
 
-                    performer.Costume = new Costume();
-                    performer.Costume.Title = System.IO.Path.GetFileNameWithoutExtension(prpModel2.Value.ToString());
-                    performer.Costume.ModelFileName = prpModel2.Value.ToString();
+					performer.Costume = new Costume();
+					performer.Costume.Title = System.IO.Path.GetFileNameWithoutExtension(prpModel2.Value.ToString());
+					performer.Costume.ModelFileName = prpModel2.Value.ToString();
 
-                    performer.Animation = new Animation();
-                    performer.Animation.FileName = prpVmd2.Value.ToString();
-                    performer.Offset = new PositionVector3((double)prpOffset2.Value, 0, 0);
-                    perf.Performers.Add(performer);
+					performer.Animation = new Animation();
+					performer.Animation.FileName = prpVmd2.Value.ToString();
+					performer.Offset = new PositionVector3((double)prpOffset2.Value, 0, 0);
+					perf.Performers.Add(performer);
 				}
 				#endregion
 				#region Song
