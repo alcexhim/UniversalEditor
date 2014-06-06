@@ -26,11 +26,11 @@ namespace UniversalEditor.UserInterface
 		void SaveAll();
 		
 		void ToggleMenuItemEnabled(string menuItemName, bool enabled);
-        void RefreshCommand(object nativeCommandObject);
+		void RefreshCommand(object nativeCommandObject);
 
 		void UpdateStatus(string statusText);
 		
 		void UpdateProgress(bool visible);
 		void UpdateProgress(int minimum, int maximium, int value);
-    }
+	}
 }
