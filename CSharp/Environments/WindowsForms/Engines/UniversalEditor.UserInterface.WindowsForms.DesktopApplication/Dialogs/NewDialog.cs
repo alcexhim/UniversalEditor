@@ -259,7 +259,16 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			ProjectTemplate pt = (lvProjectTemplates.SelectedItems[0].Data as ProjectTemplate);
 			if (pt == null) return;
 
-			if (!txtProjectTitle_IsChanged) txtProjectTitle.Text = pt.ProjectNamePrefix + "1";
+			if (!txtProjectTitle_IsChanged)
+			{
+				string projectNamePrefix = pt.ProjectNamePrefix;
+				if (String.IsNullOrEmpty(projectNamePrefix))
+				{
+					projectNamePrefix = pt.Title.Replace(" ", String.Empty);
+					// projectNamePrefix = "Project";
+				}
+				txtProjectTitle.Text = projectNamePrefix + "1";
+			}
 		}
 
 		private bool txtProjectTitle_IsChanged = false;
