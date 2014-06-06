@@ -41,7 +41,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 			string signature = br.ReadFixedLengthString(30);
 			if (signature != "Versatile Container file 0001\0")
 			{
-                throw new InvalidDataFormatException();
+				throw new InvalidDataFormatException();
 			}
 
 			mvarFormatVersion = br.ReadVersion();
@@ -296,12 +296,12 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 				foreach (File section in fsom.Files)
 				{
 					byte[] data = section.GetDataAsByteArray();
-                    /*
+					/*
 					if (section is File)
 					{
 						data = Compression.CompressionStream.Compress((section as File).CompressionMethod, data);
 					}
-                    */
+					*/
 					ulong sectionVirtualSize = (ulong)data.Length;
 					realDatas[fsom.Files.IndexOf(section)] = data;
 
@@ -319,16 +319,16 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 					WriteUnum(bw, sectionVirtualSize);
 					WriteUnum(bw, sectionPhysicalSize);
 
-                    /*
+					/*
 					if (section is File)
 					{
 						bw.WriteInt32((int)((section as File).CompressionMethod));
 					}
 					else
 					{
-                    */
+					*/
 					bw.WriteInt32((int)Compression.CompressionMethod.None);
-                    // }
+					// }
 
 					sectionOffset += sectionPhysicalSize;
 				}

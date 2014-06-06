@@ -18,10 +18,10 @@ namespace UniversalEditor.ObjectModels.VersatileContainer
 		}
 
 		private VersatileContainerSection.VersatileContainerSectionCollection mvarSections = new VersatileContainerSection.VersatileContainerSectionCollection();
-        public VersatileContainerSection.VersatileContainerSectionCollection Sections { get { return mvarSections; } }
+		public VersatileContainerSection.VersatileContainerSectionCollection Sections { get { return mvarSections; } }
 
-        private VersatileContainerProperty.VersatileContainerPropertyCollection mvarProperties = new VersatileContainerProperty.VersatileContainerPropertyCollection();
-        public VersatileContainerProperty.VersatileContainerPropertyCollection Properties { get { return mvarProperties; } }
+		private VersatileContainerProperty.VersatileContainerPropertyCollection mvarProperties = new VersatileContainerProperty.VersatileContainerPropertyCollection();
+		public VersatileContainerProperty.VersatileContainerPropertyCollection Properties { get { return mvarProperties; } }
 
 		public override void Clear()
 		{

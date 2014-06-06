@@ -7,7 +7,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 {
 	public enum VersatileContainerSectionType : uint
 	{
-        None = 0,
+		None = 0,
 		/// <summary>
 		/// A section that contains data stored within the Versatile Container.
 		/// Multiple named Sections can point to the same data location.
@@ -18,10 +18,10 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 		/// nested within one another.
 		/// </summary>
 		Directory = 2,
-        /// <summary>
-        /// A section that doesn't contain any data, but points to the data
-        /// contained within another indexed Section.
-        /// </summary>
-        Reference = 3
+		/// <summary>
+		/// A section that doesn't contain any data, but points to the data
+		/// contained within another indexed Section.
+		/// </summary>
+		Reference = 3
 	}
 }
