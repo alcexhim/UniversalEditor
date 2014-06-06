@@ -16,8 +16,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 {
 	public partial class MainWindow : AwesomeControls.Window, IHostApplicationWindow
 	{
-		internal WindowsFormsEngine engine = null;
-
 		#region Docking Windows
 		private Controls.ErrorList pnlErrorList = new Controls.ErrorList();
 		private DockingWindow dwErrorList = null;
@@ -64,8 +62,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			HostApplication.Messages.MessageAdded += Messages_MessageAdded;
 			HostApplication.Messages.MessageRemoved += Messages_MessageRemoved;
 
-			mnuBookmarksSep1.Visible = (engine.BookmarksManager.FileNames.Count > 0);
-			foreach (string FileName in engine.BookmarksManager.FileNames)
+			mnuBookmarksSep1.Visible = (Engine.CurrentEngine.BookmarksManager.FileNames.Count > 0);
+			foreach (string FileName in Engine.CurrentEngine.BookmarksManager.FileNames)
 			{
 				ToolStripMenuItem tsmi = new ToolStripMenuItem();
 				tsmi.Text = System.IO.Path.GetFileName(FileName);
@@ -1548,7 +1546,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private void RefreshRecentFilesList()
 		{
 			mnuFileRecentFiles.DropDownItems.Clear();
-			foreach (string fileName in RecentFileManager.FileNames)
+			foreach (string fileName in Engine.CurrentEngine.RecentFileManager.FileNames)
 			{
 				AddRecentMenuItem(fileName);
 			}
@@ -1564,7 +1562,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			{
 				if (MessageBox.Show("The file or folder '" + tsmi.ToolTipText + "' cannot be opened.  Do you want to remove the reference(s) to it from the Recent list(s)?", "File Does Not Exist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
 				{
-					RecentFileManager.FileNames.Remove(tsmi.ToolTipText);
+					Engine.CurrentEngine.RecentFileManager.FileNames.Remove(tsmi.ToolTipText);
 				}
 				return;
 			}
@@ -1821,7 +1819,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			if (doc.Accessor is FileAccessor)
 			{
-				if (!engine.BookmarksManager.FileNames.Contains((doc.Accessor as FileAccessor).FileName))
+				if (!Engine.CurrentEngine.BookmarksManager.FileNames.Contains((doc.Accessor as FileAccessor).FileName))
 				{
 					ToolStripMenuItem mnu = new ToolStripMenuItem();
 					mnu.Text = System.IO.Path.GetFileName((doc.Accessor as FileAccessor).FileName);
@@ -1830,7 +1828,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					mnuBookmarks.DropDownItems.Insert(mnuBookmarks.DropDownItems.Count - 2, mnu);
 					mnuBookmarksSep1.Visible = true;
 
-					engine.BookmarksManager.FileNames.Add((doc.Accessor as FileAccessor).FileName);
+					Engine.CurrentEngine.BookmarksManager.FileNames.Add((doc.Accessor as FileAccessor).FileName);
 				}
 			}
 		}

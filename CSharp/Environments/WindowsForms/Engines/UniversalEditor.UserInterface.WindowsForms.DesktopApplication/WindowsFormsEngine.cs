@@ -374,7 +374,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		public static void OpenWindow(params string[] FileNames)
 		{
 			MainWindow mw = new MainWindow();
-			mw.Engine = this;
 
 			if (FileNames.Length > 0)
 			{

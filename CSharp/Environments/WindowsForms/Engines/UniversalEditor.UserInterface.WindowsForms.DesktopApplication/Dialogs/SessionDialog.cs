@@ -15,7 +15,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			InitializeComponent();
 			Font = SystemFonts.MenuFont;
 
-			foreach (SessionManager.Session session in SessionManager.Sessions)
+			foreach (SessionManager.Session session in Engine.CurrentEngine.SessionManager.Sessions)
 			{
 				AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
 				lvi.Text = session.Title;
@@ -85,7 +85,24 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				window.Top = wnd.Top;
 				window.Width = wnd.Width;
 				window.Height = wnd.Height;
-				window.WindowState = wnd.WindowState;
+				switch (wnd.WindowState)
+				{
+					case FormWindowState.Maximized:
+					{
+						window.WindowState = UserInterface.WindowState.Maximized;
+						break;
+					}
+					case FormWindowState.Minimized:
+					{
+						window.WindowState = UserInterface.WindowState.Minimized;
+						break;
+					}
+					case FormWindowState.Normal:
+					{
+						window.WindowState = UserInterface.WindowState.Normal;
+						break;
+					}
+				}
 
 				System.Collections.ObjectModel.ReadOnlyCollection<Document> documents = wnd.Documents;
 				foreach (Document doc in documents)
@@ -98,7 +115,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				session.Windows.Add(window);
 			}
 
-			SessionManager.Sessions.Add(session);
+			Engine.CurrentEngine.SessionManager.Sessions.Add(session);
 
 			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.Close();

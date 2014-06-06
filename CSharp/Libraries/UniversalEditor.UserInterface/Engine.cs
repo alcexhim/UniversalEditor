@@ -74,8 +74,13 @@ namespace UniversalEditor.UserInterface
 		private SessionManager mvarSessionManager = new SessionManager();
 		public SessionManager SessionManager { get { return mvarSessionManager; } set { mvarSessionManager = value; } }
 
+		private static Engine mvarCurrentEngine = null;
+		public static Engine CurrentEngine { get { return mvarCurrentEngine; } }
+
 		public void StartApplication()
 		{
+			Engine.mvarCurrentEngine = this;
+
 			string[] args1 = Environment.GetCommandLineArgs();
 			string[] args = new string[args1.Length - 1];
 			Array.Copy(args1, 1, args, 0, args.Length);

@@ -28,7 +28,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
                 picIcon.Image = LocalConfiguration.MainIcon.ToBitmap();
             }
 
-            foreach (string FileName in RecentFileManager.FileNames)
+            foreach (string FileName in Engine.CurrentEngine.RecentFileManager.FileNames)
             {
                 AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
                 lvi.Text = System.IO.Path.GetFileName(FileName);
@@ -58,7 +58,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
             {
             	if (MessageBox.Show("The file \"" + lvRecent.SelectedItems[0].TooltipText + "\" does not exist.  Would you like to remove it from the Recent Documents list?", "File Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             	{
-            		RecentFileManager.FileNames.Remove(lvRecent.SelectedItems[0].TooltipText);
+            		Engine.CurrentEngine.RecentFileManager.FileNames.Remove(lvRecent.SelectedItems[0].TooltipText);
             		lvRecent.Items.Remove(lvRecent.SelectedItems[0]);
             	}
             	return;
