@@ -26,6 +26,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		
 		
 		private TextBox txtOutputWindow = null;
+		private Controls.ErrorList pnlErrorList = new Controls.ErrorList();
 		#endregion
 
 		public MainWindow()
@@ -46,6 +47,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			HostApplication.OutputWindow.TextWritten += OutputWindow_TextWritten;
 			HostApplication.OutputWindow.TextCleared += OutputWindow_TextCleared;
+			HostApplication.Messages.MessageAdded += Messages_MessageAdded;
+			HostApplication.Messages.MessageRemoved += Messages_MessageRemoved;
 
 			mnuBookmarksSep1.Visible = (BookmarksManager.FileNames.Count > 0);
 			foreach (string FileName in BookmarksManager.FileNames)
@@ -58,6 +61,18 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 
 			ShowStartPage();
+		}
+
+
+		private void Messages_MessageAdded(object sender, HostApplicationMessageModifiedEventArgs e)
+		{
+			pnlErrorList.Messages.Add(e.Message);
+			pnlErrorList.RefreshList();
+		}
+		private void Messages_MessageRemoved(object sender, HostApplicationMessageModifiedEventArgs e)
+		{
+			pnlErrorList.Messages.Remove(e.Message);
+			pnlErrorList.RefreshList();
 		}
 
 		private void tsmiBookmark_Click(object sender, EventArgs e)

@@ -50,6 +50,12 @@
   <ItemGroup>
     <Compile Include="BookmarksManager.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Controls\ErrorList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorList.Designer.cs">
+      <DependentUpon>ErrorList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SolutionExplorer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -186,6 +192,9 @@
     </Compile>
     <Compile Include="TemporaryFileManager.cs" />
     <Compile Include="UnsavedDocumentOption.cs" />
+    <EmbeddedResource Include="Controls\ErrorList.resx">
+      <DependentUpon>ErrorList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SolutionExplorer.resx">
       <DependentUpon>SolutionExplorer.cs</DependentUpon>
     </EmbeddedResource>
