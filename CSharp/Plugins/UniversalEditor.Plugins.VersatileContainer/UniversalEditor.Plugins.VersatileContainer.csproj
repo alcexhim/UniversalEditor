@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FEC4EAD0-8A6E-4029-A537-EBD9F420B227}</ProjectGuid>
+    <ProjectGuid>{FFC91B24-39AF-49AC-9A3A-900FBE1012ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor</RootNamespace>
-    <AssemblyName>UniversalEditor.Plugins.AniMiku</AssemblyName>
+    <AssemblyName>UniversalEditor.Plugins.VersatileContainer</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -35,31 +35,32 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\AniMiku\AnimatedTexture\AMTDataFormat.cs" />
-    <Compile Include="DataFormats\AniMiku\Concert\AniMikuINIDataFormat.cs" />
-    <Compile Include="DataFormats\AniMiku\ExtendedPMD\ExtendedPMDDataFormat.cs" />
-    <Compile Include="DataFormats\AniMiku\PMDExtension\PMDExtensionDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia3D\Motion\AniMiku\AniMikuMotionDataFormat.cs" />
-    <Compile Include="ObjectModels\AniMiku\PMDExtension\PMDExtensionTextureGroup.cs" />
-    <Compile Include="ObjectModels\AniMiku\PMDExtension\PMDExtensionObjectModel.cs" />
+    <Compile Include="DataFormats\VersatileContainer\VersatileContainerV2DataFormat.cs" />
+    <Compile Include="DataFormats\VersatileContainer\VersatileContainerSectionType.cs" />
+    <Compile Include="DataFormats\VersatileContainer\VersatileContainerV1DataFormat.cs" />
+    <Compile Include="ObjectModels\VersatileContainer\Sections\VersatileContainerBlankSection.cs" />
+    <Compile Include="ObjectModels\VersatileContainer\Sections\VersatileContainerDirectorySection.cs" />
+    <Compile Include="ObjectModels\VersatileContainer\Sections\VersatileContainerReferenceSection.cs" />
+    <Compile Include="ObjectModels\VersatileContainer\VersatileContainerObjectModel.cs" />
+    <Compile Include="ObjectModels\VersatileContainer\VersatileContainerProperty.cs" />
+    <Compile Include="ObjectModels\VersatileContainer\VersatileContainerSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjectModels\VersatileContainer\Sections\VersatileContainerContentSection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
+      <Project>{3f664673-7e22-4486-9ad0-fc81861d0b78}</Project>
+      <Name>UniversalEditor.Compression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
+      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
       <Name>UniversalEditor.Essential</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia3D\UniversalEditor.Plugins.Multimedia3D.csproj">
-      <Project>{4fd9db1d-76aa-48d1-8446-95376c4a2bc2}</Project>
-      <Name>UniversalEditor.Plugins.Multimedia3D</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
-      <Project>{be4d0ba3-0888-42a5-9c09-fc308a4509d2}</Project>
-      <Name>UniversalEditor.Plugins.Multimedia</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

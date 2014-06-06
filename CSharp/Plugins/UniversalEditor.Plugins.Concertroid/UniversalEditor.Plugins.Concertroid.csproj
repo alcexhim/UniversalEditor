@@ -54,14 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Surodoine\Surodoine\Surodoine.csproj">
-      <Project>{e0897b7b-617a-4709-a4c6-fc0f6b441b2a}</Project>
-      <Name>Surodoine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\VersatileContainer\VersatileContainer\VersatileContainer.csproj">
-      <Project>{ffc91b24-39af-49ac-9a3a-900fbe1012ed}</Project>
-      <Name>VersatileContainer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
       <Name>UniversalEditor.Core</Name>
@@ -81,6 +73,10 @@
     <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
       <Project>{be4d0ba3-0888-42a5-9c09-fc308a4509d2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.VersatileContainer\UniversalEditor.Plugins.VersatileContainer.csproj">
+      <Project>{ffc91b24-39af-49ac-9a3a-900fbe1012ed}</Project>
+      <Name>UniversalEditor.Plugins.VersatileContainer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
