@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -10,6 +11,70 @@ namespace UniversalEditor.UserInterface
 {
 	public abstract class Engine
 	{
+		private static Engine[] m_AvailableEngines = null;
+		public static Engine[] GetAvailableEngines()
+		{
+			if (m_AvailableEngines == null)
+			{
+				string directory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+				string[] libraries = System.IO.Directory.GetFiles(directory, "*.dll");
+				List<Engine> engines = new List<Engine>();
+				foreach (string library in libraries)
+				{
+					try
+					{
+						Assembly assembly = Assembly.LoadFile(library);
+						Type[] types = null;
+						try
+						{
+							types = assembly.GetTypes();
+						}
+						catch (ReflectionTypeLoadException ex)
+						{
+							types = ex.Types;
+						}
+						if (types == null)
+						{
+							continue;
+						}
+
+						foreach (Type type in types)
+						{
+							if (type.IsSubclassOf(typeof(Engine)))
+							{
+								Engine engine = (Engine)type.Assembly.CreateInstance(type.FullName);
+								engines.Add(engine);
+							}
+						}
+					}
+					catch
+					{
+
+					}
+				}
+				m_AvailableEngines = engines.ToArray();
+			}
+			return m_AvailableEngines;
+		}
+
+		public static bool Execute()
+		{
+			Engine[] engines = GetAvailableEngines();
+			if (engines.Length < 1)
+			{
+				return false;
+			}
+			else if (engines.Length == 1)
+			{
+				engines[0].StartApplication();
+			}
+			else
+			{
+				engines[0].StartApplication();
+			}
+			return true;
+		}
+
 		protected abstract void MainLoop();
 
 		private PropertyListObjectModel mvarConfiguration = new PropertyListObjectModel();
