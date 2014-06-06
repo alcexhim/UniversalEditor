@@ -186,7 +186,6 @@
       <DependentUpon>SplashScreenWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="TemporaryFileManager.cs" />
-    <Compile Include="UnsavedDocumentOption.cs" />
     <EmbeddedResource Include="Controls\ErrorList.resx">
       <DependentUpon>ErrorList.cs</DependentUpon>
     </EmbeddedResource>

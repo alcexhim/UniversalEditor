@@ -72,6 +72,7 @@
     <Compile Include="SingleInstanceManager.cs" />
     <Compile Include="Toolbar.cs" />
     <Compile Include="Toolbox.cs" />
+    <Compile Include="UnsavedDocumentOption.cs" />
     <Compile Include="WindowState.cs" />
   </ItemGroup>
   <ItemGroup>
