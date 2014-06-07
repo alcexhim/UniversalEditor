@@ -96,6 +96,7 @@
     <Compile Include="DataFormats\FileSystem\JadeEmpire\RIMDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\MementoMori\RESCompressionType.cs" />
     <Compile Include="DataFormats\FileSystem\MementoMori\RESDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\MFD\MFDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Moero\DownhillNight\PKDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\MoPaQ\Internal\HETTable.cs" />
     <Compile Include="DataFormats\FileSystem\MoPaQ\Internal\MPQHeader.cs" />
