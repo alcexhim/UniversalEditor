@@ -551,23 +551,17 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				lvi.ImageKey = "generic-file";
 				lvi.Text = FileTitle;
 				lvi.Data = file;
-	
-				try
-				{
-					ObjectModel picture = UniversalEditor.Common.Reflection.GetAvailableObjectModel(data, file.Name, "UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel");
-					if (picture != null)
-					{
-						System.Reflection.MethodInfo miToBitmap = picture.GetType().GetMethod("ToBitmap", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-						Bitmap bitmap = (miToBitmap.Invoke(picture, null) as Bitmap);
-						if (bitmap != null) lvi.Image = bitmap;
-						//lv.Invoke(new Action<AwesomeControls.ListView.ListViewItem>(InvalidateItem), lvi);
-					}
-				}
-				catch
-				{
-				}
-	
 				lv.Items.Add(lvi);
+
+                if (tIconLoader != null)
+                {
+                    if (tIconLoader.ThreadState != System.Threading.ThreadState.Unstarted)
+                    {
+                        tIconLoader = new System.Threading.Thread(tIconLoader_ThreadStart);
+                    }
+                    tIconLoader.Start();
+                }
+
 				lv.Refresh();
 			}
 			
