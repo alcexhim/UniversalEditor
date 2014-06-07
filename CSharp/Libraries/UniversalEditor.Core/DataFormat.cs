@@ -24,7 +24,7 @@ namespace UniversalEditor
 		}
 		
 		private Accessor mvarAccessor = null;
-		protected internal Accessor Accessor { get { return mvarAccessor; } set { mvarAccessor = value; } }
+		public Accessor Accessor { get { return mvarAccessor; } set { mvarAccessor = value; } }
 
 		protected virtual bool IsObjectModelSupported(ObjectModel objectModel)
 		{
