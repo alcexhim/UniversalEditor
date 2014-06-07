@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 		{
 			DataFormatReference dfr = base.MakeReference();
 			dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-			dfr.Filters.Add("PKWARE ZIP archive", new byte?[][] { new byte?[] { 80, 0x4b } }, new string[] { "*.zip", "*.zipx", "*.zipfs", "*.pk3", "*.pk4" /*, "*.xpi", "*.maff", "*.lwtp", "*.fwtp" */ });
+			dfr.Filters.Add("PKWARE ZIP archive", new byte?[][] { new byte?[] { 80, 0x4b } }, new string[] { "*.zip", "*.zipx", "*.zipfs", "*.pk3", "*.pk4", "*.scs" /*, "*.xpi", "*.maff", "*.lwtp", "*.fwtp" */ });
 			dfr.ContentTypes.Add("application/zip");
 			dfr.ExportOptions.Add(new CustomOptionText("Comment", "&Comment: ", String.Empty, Int16.MaxValue));
 			return dfr;
