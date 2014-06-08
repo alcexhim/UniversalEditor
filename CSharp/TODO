@@ -1,0 +1,3 @@
+"Live folders" - project folders are automatically populated with their physical folder contents when project is loaded
+	Select folder, set "Live folder" = "True" in Properties panel
+	
