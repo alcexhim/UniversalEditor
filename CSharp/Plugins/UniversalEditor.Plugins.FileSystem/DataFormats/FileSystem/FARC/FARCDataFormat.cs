@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -162,10 +163,35 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                     catch (Exception ex)
                     {
                         // data encrypted? we have to decrypt it
-                        byte[] key1 = new byte[] { 0x6D, 0x4A, 0x24, 0x9C, 0x85, 0x29, 0xDE, 0x62, 0xC8, 0xE3, 0x89, 0x39, 0x31, 0xC9, 0xE0, 0xBC };
-                        
-                        compressedData = Decrypt(compressedData, key1);
-                        decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(compressedData);
+                        byte[][] keys = new byte[][]
+                        {
+                            // Virtua Fighter 5
+                            new byte[] { 0x6D, 0x4A, 0x24, 0x9C, 0x85, 0x29, 0xDE, 0x62, 0xC8, 0xE3, 0x89, 0x39, 0x31, 0xC9, 0xE0, 0xBC },
+                            // Project DIVA F
+                            new byte[] { 0x69, 0x17, 0x3E, 0xD8, 0xF5, 0x07, 0x14, 0x43, 0x9F, 0x62, 0x40, 0xAA, 0x74, 0x66, 0xC3, 0x7A }
+                        };
+
+                        byte[] encryptedData = null;
+                        for (int k = 0; k < keys.Length; k++)
+                        {
+                            encryptedData = compressedData;
+                            try
+                            {
+                                encryptedData = Decrypt(compressedData, keys[k]);
+                            }
+                            catch (CryptographicException ex1)
+                            {
+                                continue;
+                            }
+                        }
+                        if (encryptedData == null)
+                        {
+                            throw new InvalidDataFormatException("No valid encryption keys were available to process this file");
+                        }
+
+                        // FIXME:   Project DIVA F key seems to work (without throwing an invalid padding error) but is not in a known compression
+                        //          method...
+                        decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(encryptedData);
                     }
                 }
                 else
