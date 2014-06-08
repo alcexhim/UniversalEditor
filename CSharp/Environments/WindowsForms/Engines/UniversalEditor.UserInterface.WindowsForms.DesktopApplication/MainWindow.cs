@@ -641,7 +641,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			else
 			{
 				DockingWindow wnd = dcc.Windows.Add(System.IO.Path.GetFileName(FileName), page);
-				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(wnd);
+				dcc.Areas[DockPosition.Center].Windows.Add(wnd);
 			}
 
 			page.OpenFile(FileName);
