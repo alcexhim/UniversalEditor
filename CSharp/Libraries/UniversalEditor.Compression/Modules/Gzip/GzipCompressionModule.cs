@@ -12,14 +12,34 @@ namespace UniversalEditor.Compression.Modules.Gzip
 			get { return "gzip"; }
 		}
 
+        public const int BUFFERSIZE = 4096;
+
 		protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
-		{
-			throw new NotImplementedException();
+        {
+            System.IO.Compression.GZipStream dst = new System.IO.Compression.GZipStream(outputStream, System.IO.Compression.CompressionMode.Compress);
+            int read = 0;
+            int start = 0;
+            do
+            {
+                byte[] buffer = new byte[BUFFERSIZE];
+                read = inputStream.Read(buffer, start, buffer.Length);
+                dst.Write(buffer, 0, read);
+            }
+            while (read == BUFFERSIZE);
 		}
 
 		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
-		{
-			throw new NotImplementedException();
+        {
+            System.IO.Compression.GZipStream dst = new System.IO.Compression.GZipStream(inputStream, System.IO.Compression.CompressionMode.Decompress);
+            int read = 0;
+            int start = 0;
+            do
+            {
+                byte[] buffer = new byte[BUFFERSIZE];
+                read = dst.Read(buffer, start, buffer.Length);
+                outputStream.Write(buffer, 0, read);
+            }
+            while (read == BUFFERSIZE);
 		}
 	}
 }
