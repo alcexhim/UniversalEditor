@@ -86,6 +86,8 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                     {
                         file.Size = entry.decompressedSize;
                     }
+
+                    file.Properties.Add("reader", reader);
                     file.Properties.Add("FileEntry", entry);
                     file.DataRequest += file_DataRequest;
                 }
@@ -104,6 +106,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                     file.Size = entry.compressedSize;
                     entry.decompressedSize = entry.compressedSize;
 
+                    file.Properties.Add("reader", reader);
                     file.Properties.Add("FileEntry", entry);
                     file.DataRequest += file_DataRequest;
                 }
@@ -127,6 +130,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                     file.Size = entry.compressedSize;
                     entry.decompressedSize = reader.ReadInt32();
 
+                    file.Properties.Add("reader", reader);
                     file.Properties.Add("FileEntry", entry);
                     file.DataRequest += file_DataRequest;
                 }
@@ -158,7 +162,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                     catch (Exception ex)
                     {
                         // data encrypted? we have to decrypt it
+                        byte[] key1 = new byte[] { 0x6D, 0x4A, 0x24, 0x9C, 0x85, 0x29, 0xDE, 0x62, 0xC8, 0xE3, 0x89, 0x39, 0x31, 0xC9, 0xE0, 0xBC };
                         
+                        compressedData = Decrypt(compressedData, key1);
+                        decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(compressedData);
                     }
                 }
                 else
@@ -171,6 +178,28 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                 decompressedData = reader.ReadBytes(entry.compressedSize);
             }
             e.Data = decompressedData;
+        }
+
+        private byte[] Decrypt(byte[] data, byte[] key)
+        {
+            byte[] input = data;
+            System.Security.Cryptography.AesManaged aes = new System.Security.Cryptography.AesManaged();
+            aes.Key = key;
+
+            System.Security.Cryptography.ICryptoTransform xform = aes.CreateDecryptor();
+            int blockCount = input.Length / xform.InputBlockSize;
+            for (int i = 0; i < blockCount; i++)
+            {
+                if (i == blockCount - 1)
+                {
+                    byte[] output2 = xform.TransformFinalBlock(input, i * xform.InputBlockSize, xform.InputBlockSize);
+                }
+                else
+                {
+                    int l = xform.TransformBlock(input, i * xform.InputBlockSize, xform.InputBlockSize, input, i * xform.InputBlockSize);
+                }
+            }
+            return input;
         }
 
         protected override void SaveInternal(ObjectModel objectModel)
