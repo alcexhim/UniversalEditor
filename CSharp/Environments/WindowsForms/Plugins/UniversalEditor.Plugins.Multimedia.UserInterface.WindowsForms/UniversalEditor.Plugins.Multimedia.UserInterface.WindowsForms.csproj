@@ -33,11 +33,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Multimedia\Audio\Synthesized\PianoRoll\PianoRollControl.cs">
@@ -202,17 +200,21 @@
       <Project>{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}</Project>
       <Name>AwesomeControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Surodoine\Surodoine\Surodoine.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\Surodoine\Surodoine\Surodoine.csproj">
       <Project>{e0897b7b-617a-4709-a4c6-fc0f6b441b2a}</Project>
       <Name>Surodoine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
       <Name>UniversalEditor.UserInterface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{A92D520B-FFA3-4464-8CF6-474D18959E03}</Project>
-      <Name>UniversalEditor.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
       <Project>{369cfd53-3e65-4a9e-8bdd-4ccd78bf3e33}</Project>

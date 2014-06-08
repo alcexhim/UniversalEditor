@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using UniversalEditor.UserInterface.WindowsForms;
 using UniversalEditor.ObjectModels.Multimedia.Picture.Collection;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.Editors.Multimedia.Picture.Collection
 {
@@ -161,8 +162,7 @@ namespace UniversalEditor.Editors.Multimedia.Picture.Collection
                 if (dfrs.Length > 0)
                 {
                     DataFormat df = dfrs[0].Create();
-
-                    UniversalEditor.Accessors.File.FileAccessor.Save(sfd.FileName, mvarCurrentPicture, df, true);
+                    Document.Save(mvarCurrentPicture, df, new FileAccessor(sfd.FileName), true);
                 }
             }
         }

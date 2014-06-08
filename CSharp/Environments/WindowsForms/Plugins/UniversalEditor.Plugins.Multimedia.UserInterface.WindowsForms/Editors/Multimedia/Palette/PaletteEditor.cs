@@ -83,7 +83,7 @@ namespace UniversalEditor.Editors.Multimedia.Palette
 
 		private void UpdateSelectedColor()
 		{
-			Color color = Color.FromArgb((byte)txtRed.Value, (byte)txtGreen.Value, (byte)txtBlue.Value);
+			Color color = Color.FromRGBA((byte)txtRed.Value, (byte)txtGreen.Value, (byte)txtBlue.Value);
 			pal.Entries[pal.SelectedIndex].Color = color;
 			pal.Refresh();
 
