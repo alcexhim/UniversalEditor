@@ -35,7 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checksum\Modules\GCF\GCFChecksumModule.cs" />
+    <Compile Include="DataFormats\FileSystem\Valve\GCF\GCFBlockEntryFlags.cs" />
     <Compile Include="DataFormats\FileSystem\Valve\GCF\GCFDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Valve\GCF\GCFDirectoryEntryFlags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
