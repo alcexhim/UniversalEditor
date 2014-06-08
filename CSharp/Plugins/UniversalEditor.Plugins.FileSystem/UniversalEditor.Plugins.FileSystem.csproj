@@ -67,6 +67,7 @@
     <Compile Include="DataFormats\FileSystem\DeepSilver\SecretFiles\SPRDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Dreamfall\PAKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ElectronicArts\BIGFDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\FARC\FARCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATBiosParameterBlock.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATCheckDiskFlags.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATDataFormat.cs" />
