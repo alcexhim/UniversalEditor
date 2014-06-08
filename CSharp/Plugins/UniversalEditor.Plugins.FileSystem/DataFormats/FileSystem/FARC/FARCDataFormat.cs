@@ -1,12 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.FArC
 {
     public partial class FARCDataFormat : DataFormat
     {
+        // this was mentioned on 
+        // http://forum.xentax.com/viewtopic.php?f=10&t=9639
+        // could this mean anything? -v-
+        // PS : for each files same header (0x10 bytes - maybe key for decrypt??) - 6D4A249C8529DE62C8E3893931C9E0BC 
+        // The files from Project Diva F are the same way, except they have a different header -- 69173ED8F50714439F6240AA7466C37A
+
+        // EDAT v4
+        // key
+        // 6D4BF3D7245DB294B6C3F9E32AA57E79
+        // kgen key
+        // D1DF87B5C1471B360ACE21315A339C06
+
+        // (it's not keys for FARC)
+
+        // I guess it's like AES / XOR because all Sony FS use this.
+        // EBOOT - AES
+        // PSARC - AES
+        // PGD - AES + XOR
+
         private struct FileEntry
         {
             public string name;
@@ -38,23 +58,23 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryReader br = base.Stream.BinaryReader;
-            br.Endianness = IO.Endianness.BigEndian;
-            string FArC = br.ReadFixedLengthString(4);
+            Reader reader = base.Accessor.Reader;
+            reader.Endianness = IO.Endianness.BigEndian;
+            string FArC = reader.ReadFixedLengthString(4);
             if (!(FArC == "FArC" || FArC  == "FArc" || FArC == "FARC")) throw new InvalidDataFormatException();
 
-            int directorySize = br.ReadInt32();
-            int dummy = br.ReadInt32();
+            int directorySize = reader.ReadInt32();
+            int dummy = reader.ReadInt32();
 
             if (FArC == "FArC")
             {
-                while (br.BaseStream.Position < directorySize)
+                while (reader.Accessor.Position < directorySize)
                 {
                     FileEntry entry = new FileEntry();
-                    entry.name = br.ReadNullTerminatedString();
-                    entry.offset = br.ReadInt32();
-                    entry.compressedSize = br.ReadInt32();
-                    entry.decompressedSize = br.ReadInt32();
+                    entry.name = reader.ReadNullTerminatedString();
+                    entry.offset = reader.ReadInt32();
+                    entry.compressedSize = reader.ReadInt32();
+                    entry.decompressedSize = reader.ReadInt32();
 
                     File file = fsom.AddFile(entry.name);
                     if (entry.decompressedSize == 0)
@@ -72,12 +92,12 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
             }
             else if (FArC == "FArc")
             {
-                while (br.BaseStream.Position - 12 < directorySize - 4)
+                while (reader.Accessor.Position - 12 < directorySize - 4)
                 {
                     FileEntry entry = new FileEntry();
-                    entry.name = br.ReadNullTerminatedString();
-                    entry.offset = br.ReadInt32();
-                    entry.compressedSize = br.ReadInt32();
+                    entry.name = reader.ReadNullTerminatedString();
+                    entry.offset = reader.ReadInt32();
+                    entry.compressedSize = reader.ReadInt32();
 
                     File file = fsom.AddFile(entry.name);
 
@@ -90,22 +110,22 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
             }
             else if (FArC == "FARC")
             {
-                uint flag0 = br.ReadUInt32();
-                uint flag1 = br.ReadUInt32();
-                uint flag2 = br.ReadUInt32();
-                uint flag3 = br.ReadUInt32();
+                uint flag0 = reader.ReadUInt32();
+                uint flag1 = reader.ReadUInt32();
+                uint flag2 = reader.ReadUInt32();
+                uint flag3 = reader.ReadUInt32();
 
-                while (br.BaseStream.Position < directorySize + 8)
+                while (reader.Accessor.Position < directorySize + 8)
                 {
                     FileEntry entry = new FileEntry();
-                    entry.name = br.ReadNullTerminatedString();
-                    entry.offset = br.ReadInt32();
-                    entry.compressedSize = br.ReadInt32();
+                    entry.name = reader.ReadNullTerminatedString();
+                    entry.offset = reader.ReadInt32();
+                    entry.compressedSize = reader.ReadInt32();
 
                     File file = fsom.AddFile(entry.name);
 
                     file.Size = entry.compressedSize;
-                    entry.decompressedSize = br.ReadInt32();
+                    entry.decompressedSize = reader.ReadInt32();
 
                     file.Properties.Add("FileEntry", entry);
                     file.DataRequest += file_DataRequest;
@@ -120,20 +140,20 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
         private void file_DataRequest(object sender, DataRequestEventArgs e)
         {
             File file = (sender as File);
-            IO.BinaryReader br = base.Stream.BinaryReader;
+            Reader reader = (Reader)file.Properties["reader"];
             FileEntry entry = (FileEntry)file.Properties["FileEntry"];
 
-            br.BaseStream.Position = entry.offset;
+            reader.Accessor.Position = entry.offset;
 
             byte[] decompressedData = new byte[entry.decompressedSize];
             if (entry.decompressedSize > 0)
             {
-                byte[] compressedData = br.ReadBytes(entry.compressedSize);
+                byte[] compressedData = reader.ReadBytes(entry.compressedSize);
                 if (entry.compressedSize != entry.decompressedSize)
                 {
                     try
                     {
-                        decompressedData = UniversalEditor.Compression.CompressionStream.Decompress(Compression.CompressionMethod.Gzip, compressedData);
+                        decompressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(compressedData);
                     }
                     catch (Exception ex)
                     {
@@ -148,7 +168,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
             }
             else
             {
-                decompressedData = br.ReadBytes(entry.compressedSize);
+                decompressedData = reader.ReadBytes(entry.compressedSize);
             }
             e.Data = decompressedData;
         }
@@ -158,8 +178,8 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.BinaryWriter bw = base.Stream.BinaryWriter;
-            bw.Endianness = IO.Endianness.BigEndian;
+            Writer writer = base.Accessor.Writer;
+            writer.Endianness = IO.Endianness.BigEndian;
             int ioffset = 12, isize = 0;
             
             List<int> FileDecompressedDataLength = new List<int>();
@@ -170,38 +190,38 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                 ioffset += (file.Name.Length + 1) + 12;
 
                 byte[] decompressedData = file.GetDataAsByteArray();
-                byte[] compressedData = UniversalEditor.Compression.CompressionStream.Compress(Compression.CompressionMethod.Gzip, decompressedData);
+                byte[] compressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Compress(decompressedData);
                 FileCompressedData.Add(compressedData);
 
                 isize += ioffset + compressedData.Length;
             }
 
-            bw.WriteFixedLengthString("FArC");
+            writer.WriteFixedLengthString("FArC");
 
             int filesize = isize; 
-            bw.Write(filesize);
+            writer.WriteInt32(filesize);
             int dummy = 0;
-            bw.Write(dummy);
+            writer.WriteInt32(dummy);
 
             // ioffset = 12;
             int i = 0;
             foreach (File file in fsom.Files)
             {
-                bw.WriteNullTerminatedString(file.Name);
-                bw.Write(ioffset);
+                writer.WriteNullTerminatedString(file.Name);
+                writer.WriteInt32(ioffset);
 
                 byte[] compressedData = FileCompressedData[i];
-                bw.Write(compressedData.Length);
-                bw.Write((int)file.Size);
+                writer.WriteInt32(compressedData.Length);
+                writer.WriteInt32((int)file.Size);
 
                 ioffset += compressedData.Length;
                 i++;
             }
             foreach (byte[] data in FileCompressedData)
             {
-                bw.Write(data);
+                writer.WriteBytes(data);
             }
-            bw.Flush();
+            writer.Flush();
         }
     }
 }
