@@ -1,3 +1,8 @@
 "Live folders" - project folders are automatically populated with their physical folder contents when project is loaded
 	Select folder, set "Live folder" = "True" in Properties panel
 	
+Project file BuildActions:
+	"Compile"
+		- Combine multiple selected files into one
+		OutputObjectModel = FileSystemObjectModel
+		User specifies OutputFileName and OutputDataFormat
