@@ -18,9 +18,18 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Moero Downhill Night PKD archive", new byte?[][] { new byte?[] { (byte)'P', (byte)'A', (byte)'C', (byte)'K' } }, new string[] { "*.pkd" } );
+                
+                _dfr.ImportOptions.Add(new CustomOptionNumber("EncryptionKey", "Encryption &key:", 0xC5, 0, 255));
+                _dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionKey", "Encryption &key:", 0xC5, 0, 255));
 			}
 			return _dfr;
 		}
+
+        private byte mvarEncryptionKey = 0xC5;
+        /// <summary>
+        /// The single-byte encryption key XORed with the file data.
+        /// </summary>
+        public byte EncryptionKey { get { return mvarEncryptionKey; } set { mvarEncryptionKey = value; } }
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -34,7 +43,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			byte[] encryptedData = br.ReadToEnd();
 			for (int i = 0; i < encryptedData.Length; i++)
 			{
-				encryptedData[i] = (byte)(encryptedData[i] ^ 0xC5);
+				encryptedData[i] = (byte)(encryptedData[i] ^ mvarEncryptionKey);
 			}
 
 			br = new IO.Reader(new MemoryAccessor(encryptedData));
@@ -103,7 +112,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			byte[] data = ma.ToArray();
 			for (int i = 0; i < data.Length; i++)
 			{
-				data[i] = (byte)(data[i] ^ 0xC5);
+				data[i] = (byte)(data[i] ^ mvarEncryptionKey);
 			}
 			bw.WriteBytes(data);
 			bw.Flush();
