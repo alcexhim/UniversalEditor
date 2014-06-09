@@ -19,6 +19,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 			br.Endianness = Endianness.BigEndian;
 			SynthesizedAudioObjectModel syn = objectModel as SynthesizedAudioObjectModel;
 			string MThd = br.ReadFixedLengthString(4);
+			if (MThd != "MThd") throw new InvalidDataFormatException("File does not begin with \"MThd\"");
+
 			int headerSize = br.ReadInt32();
 			short fileFormat = br.ReadInt16();
 			short trackCount = br.ReadInt16();
@@ -26,6 +28,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 			for (short i = 0; i < trackCount; i += 1)
 			{
 				string MTrk = br.ReadFixedLengthString(4);
+				if (MTrk != "MTrk") throw new InvalidDataFormatException("Could not read track " + (trackCount + 1).ToString() + " - does not begin with \"MTrk\"");
+				
 				int trackLength = br.ReadInt32();
 				SynthesizedAudioTrack track = new SynthesizedAudioTrack();
 				long position = br.Accessor.Position;
