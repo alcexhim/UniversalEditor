@@ -613,12 +613,12 @@ namespace UniversalEditor.IO
 			}
 			return retval;
 		}
-        public uint PeekUInt32()
-        {
-            uint value = ReadUInt32();
-            Seek(-4, SeekOrigin.Current);
-            return value;
-        }
+		public uint PeekUInt32()
+		{
+			uint value = ReadUInt32();
+			Seek(-4, SeekOrigin.Current);
+			return value;
+		}
 		
 		public int ReadVariableLengthInt32()
 		{
@@ -772,28 +772,28 @@ namespace UniversalEditor.IO
 				Array.Resize(ref w, w.Length + 1);
 				w[w.Length - 1] = ReadByte();
 
-                bool matches = true;
-                for (int i = 0; i < sequence.Length; i++)
-                {
-                    if (w.Length < sequence.Length)
-                    {
-                        matches = false;
-                        break;
-                    }
-                    if (w[w.Length - (sequence.Length - i)] != sequence[i])
-                    {
-                        matches = false;
-                        break;
-                    }
-                }
-
-                if (matches)
+				bool matches = true;
+				for (int i = 0; i < sequence.Length; i++)
 				{
-                    if (!includeSequence)
-                    {
-                        Array.Resize(ref w, w.Length - sequence.Length);
-                        Seek(-sequence.Length, SeekOrigin.Current);
-                    }
+					if (w.Length < sequence.Length)
+					{
+						matches = false;
+						break;
+					}
+					if (w[w.Length - (sequence.Length - i)] != sequence[i])
+					{
+						matches = false;
+						break;
+					}
+				}
+
+				if (matches)
+				{
+					if (!includeSequence)
+					{
+						Array.Resize(ref w, w.Length - sequence.Length);
+						Seek(-sequence.Length, SeekOrigin.Current);
+					}
 					return w;
 				}
 			}
@@ -1453,8 +1453,8 @@ namespace UniversalEditor.IO
 		public string ReadLine()
 		{
 			string line = ReadUntil(GetNewLineSequence());
-            byte[] newlineDummy = ReadBytes(GetNewLineSequence().Length);
-            return line;
+			byte[] newlineDummy = ReadBytes(GetNewLineSequence().Length);
+			return line;
 		}
 
 		public void Seek(int length, SeekOrigin origin)
@@ -1472,6 +1472,6 @@ namespace UniversalEditor.IO
 		}
 
 		public long Remaining { get { return mvarAccessor.Remaining; } }
-    }
+	}
 }
 
