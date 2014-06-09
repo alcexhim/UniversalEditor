@@ -31,57 +31,56 @@ namespace UniversalEditor.DataFormats.PropertyList
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			PropertyListObjectModel plom = objectModel as PropertyListObjectModel;
+			PropertyListObjectModel plom = (objectModel as PropertyListObjectModel);
+            if (plom == null) throw new ObjectModelNotSupportedException();
+
 			Reader tr = base.Accessor.Reader;
 			Group CurrentGroup = null;
-			if (objectModel is PropertyListObjectModel)
+            
+			while (!tr.EndOfStream)
 			{
-				PropertyListObjectModel objm = objectModel as PropertyListObjectModel;
-				while (!tr.EndOfStream)
-				{
-					string line = tr.ReadLine();
-					if (String.IsNullOrEmpty(line)) continue;
+				string line = tr.ReadLine();
+				if (String.IsNullOrEmpty(line)) continue;
 
-					if (!line.StartsWith(";") && !line.StartsWith("#"))
+				if (!line.StartsWith(";") && !line.StartsWith("#"))
+				{
+					if (line.StartsWith("[") && line.EndsWith("]"))
 					{
-						if (line.StartsWith("[") && line.EndsWith("]"))
+						string groupName = line.Substring(1, line.Length - 2);
+						CurrentGroup = plom.Groups.Add(groupName);
+					}
+					else
+					{
+						if (line.Contains(mvarPropertyNameValueSeparator))
 						{
-							string groupName = line.Substring(1, line.Length - 2);
-							CurrentGroup = plom.Groups.Add(groupName);
-						}
-						else
-						{
-							if (line.Contains(mvarPropertyNameValueSeparator))
+							string[] nvp = line.Split(new string[]
 							{
-								string[] nvp = line.Split(new string[]
+								mvarPropertyNameValueSeparator
+							}, 2, StringSplitOptions.None);
+							string propertyName = nvp[0].Trim();
+							string propertyValue = string.Empty;
+							if (nvp.Length == 2)
+							{
+								propertyValue = nvp[1].Trim();
+							}
+							if (propertyValue.StartsWith(this.mvarPropertyValuePrefix) && propertyValue.EndsWith(this.mvarPropertyValueSuffix))
+							{
+								propertyValue = propertyValue.Substring(this.mvarPropertyValuePrefix.Length, propertyValue.Length - this.mvarPropertyValuePrefix.Length - this.mvarPropertyValueSuffix.Length);
+							}
+							else
+							{
+								if (propertyValue.ContainsAny(this.mvarCommentSignals))
 								{
-									mvarPropertyNameValueSeparator
-								}, 2, StringSplitOptions.None);
-								string propertyName = nvp[0].Trim();
-								string propertyValue = string.Empty;
-								if (nvp.Length == 2)
-								{
-									propertyValue = nvp[1].Trim();
+									propertyValue = propertyValue.Substring(0, propertyValue.IndexOfAny(this.mvarCommentSignals));
 								}
-								if (propertyValue.StartsWith(this.mvarPropertyValuePrefix) && propertyValue.EndsWith(this.mvarPropertyValueSuffix))
-								{
-									propertyValue = propertyValue.Substring(this.mvarPropertyValuePrefix.Length, propertyValue.Length - this.mvarPropertyValuePrefix.Length - this.mvarPropertyValueSuffix.Length);
-								}
-								else
-								{
-									if (propertyValue.ContainsAny(this.mvarCommentSignals))
-									{
-										propertyValue = propertyValue.Substring(0, propertyValue.IndexOfAny(this.mvarCommentSignals));
-									}
-								}
-								if (CurrentGroup != null)
-								{
-									CurrentGroup.Properties.Add(propertyName, propertyValue);
-								}
-								else
-								{
-									plom.Properties.Add(propertyName, propertyValue);
-								}
+							}
+							if (CurrentGroup != null)
+							{
+								CurrentGroup.Properties.Add(propertyName, propertyValue);
+							}
+							else
+							{
+								plom.Properties.Add(propertyName, propertyValue);
 							}
 						}
 					}
