@@ -771,19 +771,30 @@ namespace UniversalEditor.IO
 			{
 				Array.Resize(ref w, w.Length + 1);
 				w[w.Length - 1] = ReadByte();
-				if (mvarAccessor.Remaining >= sequence.Length)
+
+                bool matches = true;
+                for (int i = 0; i < sequence.Length; i++)
+                {
+                    if (w.Length < sequence.Length)
+                    {
+                        matches = false;
+                        break;
+                    }
+                    if (w[w.Length - (sequence.Length - i)] != sequence[i])
+                    {
+                        matches = false;
+                        break;
+                    }
+                }
+
+                if (matches)
 				{
-					byte[] seq = ReadBytes(sequence.Length);
-					if (sequence.Match(seq))
-					{
-						if (!includeSequence) mvarAccessor.Seek((-1 * sequence.Length), SeekOrigin.Current);
-						return w;
-					}
-					mvarAccessor.Seek((-1 * sequence.Length), SeekOrigin.Current);
-				}
-				else
-				{
-					return null;
+                    if (!includeSequence)
+                    {
+                        Array.Resize(ref w, w.Length - sequence.Length);
+                        Seek(-sequence.Length, SeekOrigin.Current);
+                    }
+					return w;
 				}
 			}
 			return w;
@@ -1441,7 +1452,9 @@ namespace UniversalEditor.IO
 
 		public string ReadLine()
 		{
-			return ReadUntil(GetNewLineSequence());
+			string line = ReadUntil(GetNewLineSequence());
+            byte[] newlineDummy = ReadBytes(GetNewLineSequence().Length);
+            return line;
 		}
 
 		public void Seek(int length, SeekOrigin origin)
