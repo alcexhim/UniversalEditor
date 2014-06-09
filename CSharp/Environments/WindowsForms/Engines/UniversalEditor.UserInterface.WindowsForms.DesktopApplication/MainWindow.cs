@@ -590,6 +590,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 
 				Project project = pjt.Create();
+				project.ID = Guid.NewGuid();
 				project.Title = dlg.ProjectTitle;
 				solution.Projects.Add(project);
 
@@ -949,7 +950,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public void SaveProject()
 		{
-			MessageBox.Show("Not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			SaveProjectAs();
 		}
 		public void SaveProjectAs()
 		{
@@ -963,7 +964,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		public void SaveProjectAs(string FileName)
 		{
-			MessageBox.Show("Not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			if (CurrentSolution != null)
+			{
+				Document.Save(CurrentSolution, new DataFormats.Solution.Microsoft.VisualStudio.VisualStudioSolutionDataFormat(), new FileAccessor(FileName, true, true), true);
+			}
 		}
 		public void SaveAll()
 		{
