@@ -53,6 +53,8 @@
     <Compile Include="DataFormats\PropertyList\UniversalPropertyList\VariantType.cs" />
     <Compile Include="DataFormats\PropertyList\WindowsConfigurationDataFormat.cs" />
     <Compile Include="DataFormats\PropertyList\XML\XMLPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\Solution\Microsoft\VisualStudio\VisualStudioProjectDataFormat.cs" />
+    <Compile Include="DataFormats\Solution\Microsoft\VisualStudio\VisualStudioSolutionDataFormat.cs" />
     <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFDataChunk.cs" />
