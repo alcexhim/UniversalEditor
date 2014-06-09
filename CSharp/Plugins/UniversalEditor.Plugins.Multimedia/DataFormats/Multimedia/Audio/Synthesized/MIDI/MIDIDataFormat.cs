@@ -30,82 +30,82 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 				SynthesizedAudioTrack track = new SynthesizedAudioTrack();
 				long position = br.Accessor.Position;
 				while (br.Accessor.Position - position < (long)trackLength)
-                {
-                    try
-                    {
-                        int deltaTime = br.ReadVariableLengthInt32();
-                        byte command = br.ReadByte();
-                        if (command == 255)
-                        {
-                            byte metaEventType = br.ReadByte();
-                            byte b = metaEventType;
-                            if (b <= 47)
-                            {
-                                switch (b)
-                                {
-                                    case 1:
-                                    {
-                                        byte length = br.ReadByte();
-                                        string text = br.ReadFixedLengthString(length);
-                                        track.Commands.Add(new SynthesizedAudioCommandText(text));
-                                        break;
-                                    }
-                                    case 2:
-                                    {
-                                        break;
-                                    }
-                                    case 3:
-                                    {
-                                        byte length = br.ReadByte();
-                                        string text = br.ReadFixedLengthString(length);
-                                        track.Name = text;
-                                        break;
-                                    }
-                                    default:
-                                    {
-                                        if (b == 47)
-                                        {
-                                            byte endOfTrackMarker = br.ReadByte();
-                                            syn.Tracks.Add(track);
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (b != 81)
-                                {
-                                    if (b == 88)
-                                    {
-                                        byte zero4 = br.ReadByte();
-                                        byte numerator = br.ReadByte();
-                                        byte denominator = (byte)Math.Pow(2.0, (double)br.ReadByte());
-                                        byte ticksPerMetronomeClick = br.ReadByte();
-                                        byte numberOf32ndNotesPerQuarterNote = br.ReadByte();
-                                        track.Commands.Add(new SynthesizedAudioCommandTimeSignature(numerator, denominator, ticksPerMetronomeClick, numberOf32ndNotesPerQuarterNote));
-                                    }
-                                }
-                                else
-                                {
-                                    byte zero5 = br.ReadByte();
-                                    int tempo = (int)br.ReadInt16();
-                                    int tempo2 = (int)br.ReadByte();
-                                    int tempo3 = tempo + tempo2;
-                                    track.Commands.Add(new SynthesizedAudioCommandTempo((double)tempo3));
-                                }
-                            }
-                        }
-                    }
-                    catch (System.IO.EndOfStreamException ex)
-                    {
-                        continue;
-                    }
-                }
+				{
+					try
+					{
+						int deltaTime = br.ReadVariableLengthInt32();
+						byte command = br.ReadByte();
+						if (command == 255)
+						{
+							byte metaEventType = br.ReadByte();
+							byte b = metaEventType;
+							if (b <= 47)
+							{
+								switch (b)
+								{
+									case 1:
+									{
+										byte length = br.ReadByte();
+										string text = br.ReadFixedLengthString(length);
+										track.Commands.Add(new SynthesizedAudioCommandText(text));
+										break;
+									}
+									case 2:
+									{
+										break;
+									}
+									case 3:
+									{
+										byte length = br.ReadByte();
+										string text = br.ReadFixedLengthString(length);
+										track.Name = text;
+										break;
+									}
+									default:
+									{
+										if (b == 47)
+										{
+											byte endOfTrackMarker = br.ReadByte();
+											syn.Tracks.Add(track);
+										}
+										break;
+									}
+								}
+							}
+							else
+							{
+								if (b != 81)
+								{
+									if (b == 88)
+									{
+										byte zero4 = br.ReadByte();
+										byte numerator = br.ReadByte();
+										byte denominator = (byte)Math.Pow(2.0, (double)br.ReadByte());
+										byte ticksPerMetronomeClick = br.ReadByte();
+										byte numberOf32ndNotesPerQuarterNote = br.ReadByte();
+										track.Commands.Add(new SynthesizedAudioCommandTimeSignature(numerator, denominator, ticksPerMetronomeClick, numberOf32ndNotesPerQuarterNote));
+									}
+								}
+								else
+								{
+									byte zero5 = br.ReadByte();
+									int tempo = (int)br.ReadInt16();
+									int tempo2 = (int)br.ReadByte();
+									int tempo3 = tempo + tempo2;
+									track.Commands.Add(new SynthesizedAudioCommandTempo((double)tempo3));
+								}
+							}
+						}
+					}
+					catch (System.IO.EndOfStreamException ex)
+					{
+						continue;
+					}
+				}
 			}
 		}
-        
-        /*
+		
+		/*
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
@@ -147,7 +147,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 				}
 			}
 		}
-        */
+		*/
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
