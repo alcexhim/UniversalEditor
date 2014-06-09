@@ -104,7 +104,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private void InitializeDockingWindows()
 		{
 			dwSolutionExplorer = dcc.Windows.Add("Solution Explorer", pnlSolutionExplorer);
-
 			dwProperties = dcc.Windows.Add("Properties", pgc);
 			dwToolbox = dcc.Windows.Add("Toolbox", new AwesomeControls.Toolbox.ToolboxControl());
 
@@ -124,12 +123,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			txtOutputWindow.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.CommandBarControlBackground;
 			txtOutputWindow.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.CommandBarControlText;
 			dwOutput = dcc.Windows.Add("Output", txtOutputWindow);
-			dcc.Areas[DockPosition.Bottom].Windows.Add(dwOutput);
+			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Windows.Add(dwOutput);
 			#endregion
 			#region Error List
 			pnlErrorList = new Controls.ErrorList();
 			dwErrorList = dcc.Windows.Add("Error List", pnlErrorList);
-			dcc.Areas[DockPosition.Bottom].Windows.Add(dwErrorList);
+			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Windows.Add(dwErrorList);
 			#endregion
 
 			#region Property Grid
@@ -558,7 +557,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				DockingWindow dwNewDocument = dcc.Windows.Add("<untitled>", "<untitled>", page);
 				dwNewDocument.Behavior = DockBehavior.Dock;
 
-				dcc.Areas[DockPosition.Center].Windows.Add(dwNewDocument);
+				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(dwNewDocument);
 
 				/*
 				Glue.ApplicationEventEventArgs ae = new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.AfterCreateFile,
@@ -641,7 +640,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			else
 			{
 				DockingWindow wnd = dcc.Windows.Add(System.IO.Path.GetFileName(FileName), page);
-				dcc.Areas[DockPosition.Center].Windows.Add(wnd);
+				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(wnd);
 			}
 
 			page.OpenFile(FileName);
@@ -1580,7 +1579,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				sp.OpenProjectClicked += FileOpenProject_Click;
 
 				dwStartPage = dcc.Windows.Add("pnlStartPage", "Start Page", sp);
-				dcc.Areas[DockPosition.Center].Windows.Add(dwStartPage);
+				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(dwStartPage);
 			}
 			dcc.SwitchTab(dwStartPage);
 		}
@@ -1842,7 +1841,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		
 		private void mnuBookmarksAddAll_Click(object sender, EventArgs e)
 		{
-			foreach (DockingWindow dw in dcc.Areas[DockPosition.Center].Windows)
+			foreach (DockingWindow dw in dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows)
 			{
 				if (dw.Control is Pages.EditorPage)
 				{
