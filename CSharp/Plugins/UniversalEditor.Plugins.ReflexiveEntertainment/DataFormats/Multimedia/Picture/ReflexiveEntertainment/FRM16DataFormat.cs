@@ -75,6 +75,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
                 }
             }
 
+            for (short i = 0; i < (height * 4) - 4; i++)
+            {
+                int scanlineOffset = reader.ReadInt32();
+
+            }
         }
 
         protected override void SaveInternal(ObjectModel objectModel)
