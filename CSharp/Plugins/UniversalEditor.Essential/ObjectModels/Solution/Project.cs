@@ -31,5 +31,8 @@ namespace UniversalEditor.ObjectModels.Solution
 
 		private ProjectType mvarProjectType = null;
 		public ProjectType ProjectType { get { return mvarProjectType; } set { mvarProjectType = value; } }
+
+		private string mvarRelativeFileName = String.Empty;
+		public string RelativeFileName { get { return mvarRelativeFileName; } set { mvarRelativeFileName = value; } }
 	}
 }
