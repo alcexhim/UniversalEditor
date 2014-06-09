@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.FileSystem.UXT
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            if (fsom == null) return;
+            if (fsom == null) throw new ObjectModelNotSupportedException();
 
             Reader br = base.Accessor.Reader;
 
