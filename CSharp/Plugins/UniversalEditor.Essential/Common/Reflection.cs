@@ -926,6 +926,33 @@ namespace UniversalEditor.Common
 		public static T GetAvailableObjectModel<T>(string FileName) where T : ObjectModel
 		{
 			ObjectModelReference[] omrs = GetAvailableObjectModels(FileName);
+			if (omrs.Length == 0)
+			{
+				// we failed to find an object model from the file name, so let's try and
+				// force the loading of the object model we're told to load in the first place
+
+				Type type = typeof(T);
+				ObjectModel om = (ObjectModel)type.Assembly.CreateInstance(type.FullName);
+				ObjectModelReference omr = om.MakeReference();
+
+				DataFormatReference[] dfrs = GetAvailableDataFormats(om.MakeReference());
+				
+				FileAccessor accessor = new FileAccessor(FileName);
+				foreach (DataFormatReference dfr in dfrs)
+				{
+					try
+					{
+						DataFormat df = dfr.Create();
+						Document.Load(om, df, accessor);
+					}
+					catch
+					{
+						accessor.Close();
+						continue;
+					}
+				}
+				return (T)om;
+			}
 			foreach (ObjectModelReference omr in omrs)
 			{
 				if (omr.ObjectModelType == typeof(T))
@@ -1014,6 +1041,7 @@ namespace UniversalEditor.Common
 			ObjectModelReference[] array = GetAvailableObjectModels();
 			DataFormatReference[] dfs = GetAvailableDataFormats(FileName);
 			List<ObjectModelReference> list = new List<ObjectModelReference>();
+			if (dfs.Length == 0) return list.ToArray();
 
 			foreach (ObjectModelReference om in array)
 			{

@@ -34,6 +34,8 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			if (sol == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
+			if (base.Accessor.Remaining < 3) throw new InvalidDataFormatException("File must be at least three bytes");
+
 			byte[] signature1 = reader.ReadBytes(3);
 			if (!signature1.Match(new byte[] { 0xEF, 0xBB, 0xBF }))
 			{
@@ -148,15 +150,12 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				}
 				*/
 
-				SolutionObjectModel solproj = new SolutionObjectModel();
-				solproj.Projects.Add(project);
-
 				if (!System.IO.Directory.Exists(projdir))
 				{
 					System.IO.Directory.CreateDirectory(projdir);
 				}
 
-				Document.Save(solproj, new VisualStudioProjectDataFormat(), new FileAccessor(projdir + "/" + project.Title + ".ueproj", true, true), true);
+				Document.Save(project, new VisualStudioProjectDataFormat(), new FileAccessor(projdir + "/" + project.Title + ".ueproj", true, true), true);
 			}
 
 			writer.WriteLine("Global");
