@@ -7,6 +7,7 @@ using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
 
 using UniversalEditor.ObjectModels.Solution;
+using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 {
@@ -131,10 +132,20 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				tagItemGroup.FullName = "ItemGroup";
 				tagItemGroup.Attributes.Add("Condition", " '$(Configuration)' == 'Debug' ");
 
-				MarkupTagElement tagCompile = new MarkupTagElement();
-				tagCompile.FullName = "Compile";
-				tagCompile.Attributes.Add("Include", "filename.txt");
-				tagItemGroup.Elements.Add(tagCompile);
+				foreach (ProjectFile file in proj.FileSystem.Files)
+				{
+					MarkupTagElement tagCompile = new MarkupTagElement();
+					tagCompile.FullName = "Compile";
+					tagCompile.Attributes.Add("Include", file.DestinationFileName);
+					foreach (Property p in file.Configuration.Properties)
+					{
+						MarkupTagElement tagProperty = new MarkupTagElement();
+						tagProperty.Name = p.Name;
+						tagProperty.Value = p.Value.ToString();
+						tagCompile.Elements.Add(tagProperty);
+					}
+					tagItemGroup.Elements.Add(tagCompile);
+				}
 
 				tagProject.Elements.Add(tagItemGroup);
 			}

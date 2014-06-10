@@ -71,7 +71,12 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 					Guid projectTypeID = new Guid(strProjectTypeID);
 
 					string restOfDeclaration = line.Substring(line.IndexOf('=') + 1).Trim();
+					string[] paramz = restOfDeclaration.Split(new string[] { "," }, "\"");
 
+					lastProject.Title = paramz[0].Trim();
+					lastProject.RelativeFileName = paramz[1].Trim();
+					lastProject.ID = new Guid(paramz[2].Trim());
+					sol.Projects.Add(lastProject);
 				}
 				else if (line == "EndProject")
 				{
@@ -112,6 +117,9 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 
 			foreach (Project project in sol.Projects)
 			{
+				string projdir = soldir + "/" + project.Title;
+				project.RelativeFileName = project.Title + "\\" + project.Title + ".ueproj";
+
 				/*
 				if (project is SolutionFolder)
 				{
@@ -132,11 +140,11 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				SolutionObjectModel solproj = new SolutionObjectModel();
 				solproj.Projects.Add(project);
 
-				string projdir = soldir + "/" + project.Title;
 				if (!System.IO.Directory.Exists(projdir))
 				{
 					System.IO.Directory.CreateDirectory(projdir);
 				}
+
 				Document.Save(solproj, new VisualStudioProjectDataFormat(), new FileAccessor(projdir + "/" + project.Title + ".ueproj", true, true), true);
 			}
 
