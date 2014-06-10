@@ -13,13 +13,13 @@ namespace UniversalEditor.Collections.Generic
 			this.mvarForwardDictionary.Add(value1, value2);
 			this.mvarBackwardDictionary.Add(value2, value1);
 		}
-		public void Remove(T1 value1)
+		public void RemoveByValue1(T1 value1)
 		{
 			T2 value2 = this.mvarForwardDictionary[value1];
 			this.mvarForwardDictionary.Remove(value1);
 			this.mvarBackwardDictionary.Remove(value2);
 		}
-		public void Remove(T2 value2)
+		public void RemoveByValue2(T2 value2)
 		{
 			T1 value3 = this.mvarBackwardDictionary[value2];
 			this.mvarForwardDictionary.Remove(value3);
