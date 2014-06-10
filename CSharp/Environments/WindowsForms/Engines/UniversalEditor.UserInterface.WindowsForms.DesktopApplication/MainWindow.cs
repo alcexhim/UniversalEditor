@@ -553,6 +553,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				page.FileName = "<untitled>";
 
 				ObjectModel objm = template.ObjectModelReference.Create();
+				if (objm == null)
+				{
+					MessageBox.Show("Failed to create an ObjectModel for the type \"" + template.ObjectModelReference.ObjectModelTypeName + "\"", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+
 				page.Document = new Document(objm, null, null);
 				DockingWindow dwNewDocument = dcc.Windows.Add("<untitled>", "<untitled>", page);
 				dwNewDocument.Behavior = DockBehavior.Dock;
@@ -965,7 +971,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			sfd.FileName = mvarCurrentSolution.Title + ".sln";
 			if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				SaveProjectAs(sfd.FileName, refs[sfd.FilterIndex].Create());
+				DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(sfd.FileName);
+				SaveProjectAs(sfd.FileName, dfrs[0].Create());
 			}
 		}
 		public void SaveProjectAs(string FileName, DataFormat df)
