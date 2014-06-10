@@ -24,6 +24,12 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			return _dfr;
 		}
 
+		public VisualStudioProjectDataFormat()
+		{
+			// Do not encode the apostrophe (') as &apos;
+			base.Settings.Entities.RemoveByValue1("apos");
+		}
+
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			objectModels.Push(new MarkupObjectModel());
