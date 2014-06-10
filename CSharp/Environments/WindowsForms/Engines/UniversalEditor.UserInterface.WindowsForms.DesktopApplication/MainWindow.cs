@@ -954,9 +954,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		public void SaveProjectAs()
 		{
-			SolutionObjectModel solution = new SolutionObjectModel();
+			if (mvarCurrentSolution == null)
+			{
+				return;
+			}
+
 			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.Filter = UniversalEditor.Common.Dialog.GetCommonDialogFilter(solution.MakeReference());
+			sfd.Filter = UniversalEditor.Common.Dialog.GetCommonDialogFilter(mvarCurrentSolution.MakeReference());
+			sfd.FileName = mvarCurrentSolution.Title + ".sln";
 			if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				SaveProjectAs(sfd.FileName);
