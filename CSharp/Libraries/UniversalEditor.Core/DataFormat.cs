@@ -26,17 +26,17 @@ namespace UniversalEditor
 		private Accessor mvarAccessor = null;
 		protected internal Accessor Accessor { get { return mvarAccessor; } set { mvarAccessor = value; } }
 
-        /// <summary>
-        /// Continues loading the file into the specified <see cref="ObjectModel" /> with a different
-        /// <see cref="DataFormat" />.
-        /// </summary>
-        /// <param name="objectModel">The <see cref="ObjectModel" /> in which to continue loading the document.</param>
-        /// <param name="otherDataFormat">The <see cref="DataFormat" /> used to parse the document.</param>
-        protected void ContinueLoading(ref ObjectModel objectModel, DataFormat otherDataFormat)
-        {
-            otherDataFormat.Accessor = mvarAccessor;
-            otherDataFormat.Load(ref objectModel);
-        }
+		/// <summary>
+		/// Continues loading the file into the specified <see cref="ObjectModel" /> with a different
+		/// <see cref="DataFormat" />.
+		/// </summary>
+		/// <param name="objectModel">The <see cref="ObjectModel" /> in which to continue loading the document.</param>
+		/// <param name="otherDataFormat">The <see cref="DataFormat" /> used to parse the document.</param>
+		protected void ContinueLoading(ref ObjectModel objectModel, DataFormat otherDataFormat)
+		{
+			otherDataFormat.Accessor = mvarAccessor;
+			otherDataFormat.Load(ref objectModel);
+		}
 
 		protected virtual bool IsObjectModelSupported(ObjectModel objectModel)
 		{
