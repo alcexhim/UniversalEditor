@@ -4,8 +4,8 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Text.Plain
 {
-    public class PlainTextObjectModel : ObjectModel
-    {
+	public class PlainTextObjectModel : ObjectModel
+	{
 		private ObjectModelReference _omr = null;
 		public override ObjectModelReference MakeReference()
 		{
@@ -33,23 +33,23 @@ namespace UniversalEditor.ObjectModels.Text.Plain
 			throw new InvalidCastException();
 		}
 
-        private System.Collections.Specialized.StringCollection mvarLines = new System.Collections.Specialized.StringCollection();
-        public System.Collections.Specialized.StringCollection Lines { get { return mvarLines; } }
+		private System.Collections.Specialized.StringCollection mvarLines = new System.Collections.Specialized.StringCollection();
+		public System.Collections.Specialized.StringCollection Lines { get { return mvarLines; } }
 
-        private string mvarText = String.Empty;
-        public string Text { get { return mvarText; } set { mvarText = value; RebuildLines(); } }
+		private string mvarText = String.Empty;
+		public string Text { get { return mvarText; } set { mvarText = value; RebuildLines(); } }
 
-        private string mvarLineTerminator = System.Environment.NewLine;
-        public string LineTerminator { get { return mvarLineTerminator; } set { mvarLineTerminator = value; RebuildLines(); } }
+		private string mvarLineTerminator = System.Environment.NewLine;
+		public string LineTerminator { get { return mvarLineTerminator; } set { mvarLineTerminator = value; RebuildLines(); } }
 
-        private void RebuildLines()
-        {
-            mvarLines.Clear();
-            string[] splittt = mvarText.Split(new string[] { mvarLineTerminator }, StringSplitOptions.None);
-            foreach (string splitt in splittt)
-            {
-                mvarLines.Add(splitt);
-            }
-        }
-    }
+		private void RebuildLines()
+		{
+			mvarLines.Clear();
+			string[] splittt = mvarText.Split(new string[] { mvarLineTerminator }, StringSplitOptions.None);
+			foreach (string splitt in splittt)
+			{
+				mvarLines.Add(splitt);
+			}
+		}
+	}
 }
