@@ -11,6 +11,7 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Solution;
 using UniversalEditor.UserInterface.WindowsForms.Dialogs;
 using CancelEventArgs = System.ComponentModel.CancelEventArgs;
+using UniversalEditor.ObjectModels.Project;
 
 namespace UniversalEditor.UserInterface.WindowsForms
 {
@@ -169,8 +170,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private SolutionObjectModel mvarCurrentSolution = null;
 		public SolutionObjectModel CurrentSolution { get { return mvarCurrentSolution; } set { mvarCurrentSolution = value; RefreshSolution(); } }
 
-		private Project mvarCurrentProject = null;
-		public Project CurrentProject { get { return mvarCurrentProject; } set { mvarCurrentProject = value; RefreshProject(); } }
+		private ProjectObjectModel mvarCurrentProject = null;
+		public ProjectObjectModel CurrentProject { get { return mvarCurrentProject; } set { mvarCurrentProject = value; RefreshProject(); } }
 
 		private void RefreshSolution()
 		{
@@ -595,7 +596,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					solution.Title = dlg.SolutionTitle;
 				}
 
-				Project project = pjt.Create();
+				ProjectObjectModel project = pjt.Create();
 				project.ID = Guid.NewGuid();
 				project.Title = dlg.ProjectTitle;
 				solution.Projects.Add(project);

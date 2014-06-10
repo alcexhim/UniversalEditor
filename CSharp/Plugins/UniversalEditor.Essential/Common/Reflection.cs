@@ -9,6 +9,7 @@ using UniversalEditor.ObjectModels.Solution;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.DataFormats.PropertyList.XML;
+using UniversalEditor.ObjectModels.Project;
 
 namespace UniversalEditor.Common
 {
@@ -127,8 +128,8 @@ namespace UniversalEditor.Common
 			if (mvarAvailableProjectTypes == null) mvarAvailableProjectTypes = listProjectTypes.ToArray();
 			if (mvarAvailableConverters == null) mvarAvailableConverters = listConverters.ToArray();
 
-            InitializeProjectTypesFromXML(ref listProjectTypes);
-            InitializeTemplatesFromXML(ref listDocumentTemplates, ref listProjectTemplates, ref listProjectTypes);
+			InitializeProjectTypesFromXML(ref listProjectTypes);
+			InitializeTemplatesFromXML(ref listDocumentTemplates, ref listProjectTemplates, ref listProjectTypes);
 
 			if (mvarAvailableDocumentTemplates == null) mvarAvailableDocumentTemplates = listDocumentTemplates.ToArray();
 			if (mvarAvailableProjectTemplates == null) mvarAvailableProjectTemplates = listProjectTemplates.ToArray();
@@ -442,122 +443,9 @@ namespace UniversalEditor.Common
 			}
 		}
 
-        
+		
 		#region Project Type Initialization
-        private static void InitializeProjectTypesFromXML(ref List<ProjectType> listProjectTypes)
-		{
-			System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
-			paths.Add(System.Environment.CurrentDirectory);
-
-			foreach (string path in paths)
-			{
-				string[] XMLFileNames = null;
-				try
-				{
-					XMLFileNames = System.IO.Directory.GetFiles(path, "*.xml", System.IO.SearchOption.AllDirectories);
-                    foreach (string fileName in XMLFileNames)
-                    {
-                        string basePath = System.IO.Path.GetDirectoryName(fileName);
-
-                        MarkupObjectModel mom = new MarkupObjectModel();
-                        XMLDataFormat xdf = new XMLDataFormat();
-                        ObjectModel om = mom;
-
-                        Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
-
-                        MarkupTagElement tagUniversalEditor = (mom.Elements["UniversalEditor"] as MarkupTagElement);
-                        if (tagUniversalEditor == null) continue;
-
-                        #region Templates
-                        {
-                            #region Project Types
-                            {
-                                MarkupTagElement tagProjectTypes = (tagUniversalEditor.Elements["ProjectTypes"] as MarkupTagElement);
-                                if (tagProjectTypes != null)
-                                {
-                                    foreach (MarkupElement elProjectType in tagProjectTypes.Elements)
-                                    {
-                                        MarkupTagElement tagProjectType = (elProjectType as MarkupTagElement);
-                                        if (tagProjectType == null) continue;
-                                        if (tagProjectType.FullName != "ProjectType") continue;
-
-                                        MarkupAttribute attID = tagProjectType.Attributes["ID"];
-                                        if (attID == null) continue;
-
-                                        ProjectType projtype = new ProjectType();
-                                        projtype.ID = new Guid(attID.Value);
-
-                                        MarkupTagElement tagInformation = (tagProjectType.Elements["Information"] as MarkupTagElement);
-                                        if (tagInformation != null)
-                                        {
-                                            MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
-                                            if (tagTitle != null) projtype.Title = tagTitle.Value;
-                                            MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
-                                            if (tagIconPath != null)
-                                            {
-                                                MarkupAttribute attFileName = tagIconPath.Attributes["FileName"];
-                                                if (attFileName != null)
-                                                {
-                                                    string FileName = attFileName.Value;
-                                                    if (System.IO.File.Exists(FileName)) projtype.LargeIconImageFileName = FileName;
-                                                    if (System.IO.File.Exists(FileName)) projtype.SmallIconImageFileName = FileName;
-                                                }
-                                                MarkupAttribute attLargeFileName = tagIconPath.Attributes["LargeFileName"];
-                                                if (attLargeFileName != null)
-                                                {
-                                                    string FileName = attLargeFileName.Value;
-                                                    if (System.IO.File.Exists(FileName)) projtype.LargeIconImageFileName = FileName;
-                                                }
-                                                MarkupAttribute attSmallFileName = tagIconPath.Attributes["SmallFileName"];
-                                                if (attSmallFileName != null)
-                                                {
-                                                    string FileName = attSmallFileName.Value;
-                                                    if (System.IO.File.Exists(FileName)) projtype.SmallIconImageFileName = FileName;
-                                                }
-                                            }
-                                        }
-                                        #region ItemShortcuts
-                                        {
-                                            MarkupTagElement tagItemShortcuts = (tagProjectType.Elements["ItemShortcuts"] as MarkupTagElement);
-                                            if (tagItemShortcuts != null)
-                                            {
-                                                foreach (MarkupElement el in tagItemShortcuts.Elements)
-                                                {
-                                                    MarkupTagElement tag = (el as MarkupTagElement);
-                                                    if (tag == null) continue;
-                                                    if (tag.FullName != "ItemShortcut") continue;
-
-                                                    ProjectTypeItemShortcut z = new ProjectTypeItemShortcut();
-                                                    z.Title = tag.Attributes["Title"].Value;
-
-                                                    string objectModelTypeName = tag.Attributes["ObjectModelTypeName"].Value;
-                                                    z.ObjectModelReference = GetObjectModelByTypeName(objectModelTypeName);
-
-                                                    projtype.ItemShortcuts.Add(z);
-                                                }
-                                            }
-                                        }
-                                        #endregion
-
-                                        listProjectTypes.Add(projtype);
-                                    }
-                                }
-                                #endregion
-                            }
-                            #endregion
-                        }
-                    }
-				}
-				catch
-				{
-				}
-			}
-            mvarAvailableProjectTypes = listProjectTypes.ToArray();
-		}
-        #endregion
-
-        #region Template Initialization
-        private static void InitializeTemplatesFromXML(ref List<DocumentTemplate> listDocumentTemplates, ref List<ProjectTemplate> listProjectTemplates, ref List<ProjectType> listProjectTypes)
+		private static void InitializeProjectTypesFromXML(ref List<ProjectType> listProjectTypes)
 		{
 			System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
 			paths.Add(System.Environment.CurrentDirectory);
@@ -582,7 +470,120 @@ namespace UniversalEditor.Common
 						if (tagUniversalEditor == null) continue;
 
 						#region Templates
-                        {
+						{
+							#region Project Types
+							{
+								MarkupTagElement tagProjectTypes = (tagUniversalEditor.Elements["ProjectTypes"] as MarkupTagElement);
+								if (tagProjectTypes != null)
+								{
+									foreach (MarkupElement elProjectType in tagProjectTypes.Elements)
+									{
+										MarkupTagElement tagProjectType = (elProjectType as MarkupTagElement);
+										if (tagProjectType == null) continue;
+										if (tagProjectType.FullName != "ProjectType") continue;
+
+										MarkupAttribute attID = tagProjectType.Attributes["ID"];
+										if (attID == null) continue;
+
+										ProjectType projtype = new ProjectType();
+										projtype.ID = new Guid(attID.Value);
+
+										MarkupTagElement tagInformation = (tagProjectType.Elements["Information"] as MarkupTagElement);
+										if (tagInformation != null)
+										{
+											MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
+											if (tagTitle != null) projtype.Title = tagTitle.Value;
+											MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
+											if (tagIconPath != null)
+											{
+												MarkupAttribute attFileName = tagIconPath.Attributes["FileName"];
+												if (attFileName != null)
+												{
+													string FileName = attFileName.Value;
+													if (System.IO.File.Exists(FileName)) projtype.LargeIconImageFileName = FileName;
+													if (System.IO.File.Exists(FileName)) projtype.SmallIconImageFileName = FileName;
+												}
+												MarkupAttribute attLargeFileName = tagIconPath.Attributes["LargeFileName"];
+												if (attLargeFileName != null)
+												{
+													string FileName = attLargeFileName.Value;
+													if (System.IO.File.Exists(FileName)) projtype.LargeIconImageFileName = FileName;
+												}
+												MarkupAttribute attSmallFileName = tagIconPath.Attributes["SmallFileName"];
+												if (attSmallFileName != null)
+												{
+													string FileName = attSmallFileName.Value;
+													if (System.IO.File.Exists(FileName)) projtype.SmallIconImageFileName = FileName;
+												}
+											}
+										}
+										#region ItemShortcuts
+										{
+											MarkupTagElement tagItemShortcuts = (tagProjectType.Elements["ItemShortcuts"] as MarkupTagElement);
+											if (tagItemShortcuts != null)
+											{
+												foreach (MarkupElement el in tagItemShortcuts.Elements)
+												{
+													MarkupTagElement tag = (el as MarkupTagElement);
+													if (tag == null) continue;
+													if (tag.FullName != "ItemShortcut") continue;
+
+													ProjectTypeItemShortcut z = new ProjectTypeItemShortcut();
+													z.Title = tag.Attributes["Title"].Value;
+
+													string objectModelTypeName = tag.Attributes["ObjectModelTypeName"].Value;
+													z.ObjectModelReference = GetObjectModelByTypeName(objectModelTypeName);
+
+													projtype.ItemShortcuts.Add(z);
+												}
+											}
+										}
+										#endregion
+
+										listProjectTypes.Add(projtype);
+									}
+								}
+								#endregion
+							}
+							#endregion
+						}
+					}
+				}
+				catch
+				{
+				}
+			}
+			mvarAvailableProjectTypes = listProjectTypes.ToArray();
+		}
+		#endregion
+
+		#region Template Initialization
+		private static void InitializeTemplatesFromXML(ref List<DocumentTemplate> listDocumentTemplates, ref List<ProjectTemplate> listProjectTemplates, ref List<ProjectType> listProjectTypes)
+		{
+			System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
+			paths.Add(System.Environment.CurrentDirectory);
+
+			foreach (string path in paths)
+			{
+				string[] XMLFileNames = null;
+				try
+				{
+					XMLFileNames = System.IO.Directory.GetFiles(path, "*.xml", System.IO.SearchOption.AllDirectories);
+					foreach (string fileName in XMLFileNames)
+					{
+						string basePath = System.IO.Path.GetDirectoryName(fileName);
+
+						MarkupObjectModel mom = new MarkupObjectModel();
+						XMLDataFormat xdf = new XMLDataFormat();
+						ObjectModel om = mom;
+
+						Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
+
+						MarkupTagElement tagUniversalEditor = (mom.Elements["UniversalEditor"] as MarkupTagElement);
+						if (tagUniversalEditor == null) continue;
+
+						#region Templates
+						{
 							#region Document Templates
 							{
 								MarkupTagElement tagTemplates = (tagUniversalEditor.Elements["DocumentTemplates"] as MarkupTagElement);
@@ -743,129 +744,129 @@ namespace UniversalEditor.Common
 								if (tagTemplates != null)
 								{
 									foreach (MarkupElement elTemplate in tagTemplates.Elements)
-                                    {
-                                        MarkupTagElement tagTemplate = (elTemplate as MarkupTagElement);
-                                        if (tagTemplate == null) continue;
+									{
+										MarkupTagElement tagTemplate = (elTemplate as MarkupTagElement);
+										if (tagTemplate == null) continue;
 
-                                        if (tagTemplate.FullName != "ProjectTemplate") continue;
+										if (tagTemplate.FullName != "ProjectTemplate") continue;
 
-                                        ProjectTemplate template = new ProjectTemplate();
+										ProjectTemplate template = new ProjectTemplate();
 
-                                        MarkupAttribute attTypeID = tagTemplate.Attributes["TypeID"];
-                                        if (attTypeID != null)
-                                        {
-                                            try
-                                            {
-                                                template.ProjectType = GetProjectTypeByTypeID(new Guid(attTypeID.Value));
-                                            }
-                                            catch
-                                            {
-                                            }
-                                        }
+										MarkupAttribute attTypeID = tagTemplate.Attributes["TypeID"];
+										if (attTypeID != null)
+										{
+											try
+											{
+												template.ProjectType = GetProjectTypeByTypeID(new Guid(attTypeID.Value));
+											}
+											catch
+											{
+											}
+										}
 
-                                        #region Information
-                                        MarkupTagElement tagInformation = (tagTemplate.Elements["Information"] as MarkupTagElement);
-                                        if (tagInformation != null)
-                                        {
-                                            MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
-                                            if (tagTitle != null) template.Title = tagTitle.Value;
+										#region Information
+										MarkupTagElement tagInformation = (tagTemplate.Elements["Information"] as MarkupTagElement);
+										if (tagInformation != null)
+										{
+											MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
+											if (tagTitle != null) template.Title = tagTitle.Value;
 
-                                            MarkupTagElement tagDescription = (tagInformation.Elements["Description"] as MarkupTagElement);
-                                            if (tagDescription != null) template.Description = tagDescription.Value;
+											MarkupTagElement tagDescription = (tagInformation.Elements["Description"] as MarkupTagElement);
+											if (tagDescription != null) template.Description = tagDescription.Value;
 
-                                            if (tagInformation.Elements["ProjectNamePrefix"] != null)
-                                            {
-                                                template.ProjectNamePrefix = tagInformation.Elements["ProjectNamePrefix"].Value;
-                                            }
+											if (tagInformation.Elements["ProjectNamePrefix"] != null)
+											{
+												template.ProjectNamePrefix = tagInformation.Elements["ProjectNamePrefix"].Value;
+											}
 
-                                            MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);
-                                            if (tagPath != null)
-                                            {
-                                                List<string> pathParts = new List<string>();
-                                                foreach (MarkupElement elPart in tagPath.Elements)
-                                                {
-                                                    MarkupTagElement tagPart = (elPart as MarkupTagElement);
-                                                    if (tagPart == null) continue;
-                                                    if (tagPart.FullName != "Part") continue;
-                                                    pathParts.Add(tagPart.Value);
-                                                }
-                                                template.Path = pathParts.ToArray();
-                                            }
+											MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);
+											if (tagPath != null)
+											{
+												List<string> pathParts = new List<string>();
+												foreach (MarkupElement elPart in tagPath.Elements)
+												{
+													MarkupTagElement tagPart = (elPart as MarkupTagElement);
+													if (tagPart == null) continue;
+													if (tagPart.FullName != "Part") continue;
+													pathParts.Add(tagPart.Value);
+												}
+												template.Path = pathParts.ToArray();
+											}
 
-                                            MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
-                                            if (tagIconPath != null)
-                                            {
-                                                #region All Icons
-                                                {
-                                                    MarkupAttribute attFileName = tagIconPath.Attributes["FileName"];
-                                                    if (attFileName != null)
-                                                    {
-                                                        string FileName = attFileName.Value;
-                                                        if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
-                                                        if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
-                                                    }
-                                                }
-                                                #endregion
-                                                #region Large Icon
-                                                {
-                                                    MarkupAttribute attLargeFileName = tagIconPath.Attributes["LargeFileName"];
-                                                    if (attLargeFileName != null)
-                                                    {
-                                                        string FileName = attLargeFileName.Value;
-                                                        if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
-                                                    }
-                                                }
-                                                #endregion
-                                                #region Small Icon
-                                                {
-                                                    MarkupAttribute attSmallFileName = tagIconPath.Attributes["SmallFileName"];
-                                                    if (attSmallFileName != null)
-                                                    {
-                                                        string FileName = attSmallFileName.Value;
-                                                        if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
-                                                    }
-                                                }
-                                                #endregion
-                                            }
-                                        }
-                                        #endregion
-                                        #region FileSystem
-                                        {
-                                            MarkupTagElement tagFileSystem = (tagTemplate.Elements["FileSystem"] as MarkupTagElement);
-                                            if (tagFileSystem != null)
-                                            {
-                                                MarkupTagElement tagFiles = (tagFileSystem.Elements["Files"] as MarkupTagElement);
-                                                if (tagFiles != null)
-                                                {
-                                                    foreach (MarkupElement elFile in tagFiles.Elements)
-                                                    {
-                                                        MarkupTagElement tagFile = (elFile as MarkupTagElement);
-                                                        if (tagFile == null) continue;
-                                                        if (tagFile.FullName != "File") continue;
+											MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
+											if (tagIconPath != null)
+											{
+												#region All Icons
+												{
+													MarkupAttribute attFileName = tagIconPath.Attributes["FileName"];
+													if (attFileName != null)
+													{
+														string FileName = attFileName.Value;
+														if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
+														if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
+													}
+												}
+												#endregion
+												#region Large Icon
+												{
+													MarkupAttribute attLargeFileName = tagIconPath.Attributes["LargeFileName"];
+													if (attLargeFileName != null)
+													{
+														string FileName = attLargeFileName.Value;
+														if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
+													}
+												}
+												#endregion
+												#region Small Icon
+												{
+													MarkupAttribute attSmallFileName = tagIconPath.Attributes["SmallFileName"];
+													if (attSmallFileName != null)
+													{
+														string FileName = attSmallFileName.Value;
+														if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
+													}
+												}
+												#endregion
+											}
+										}
+										#endregion
+										#region FileSystem
+										{
+											MarkupTagElement tagFileSystem = (tagTemplate.Elements["FileSystem"] as MarkupTagElement);
+											if (tagFileSystem != null)
+											{
+												MarkupTagElement tagFiles = (tagFileSystem.Elements["Files"] as MarkupTagElement);
+												if (tagFiles != null)
+												{
+													foreach (MarkupElement elFile in tagFiles.Elements)
+													{
+														MarkupTagElement tagFile = (elFile as MarkupTagElement);
+														if (tagFile == null) continue;
+														if (tagFile.FullName != "File") continue;
 
-                                                        LoadProjectFile(tagFile, template.FileSystem.Files);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        #endregion
-                                        #region Configuration
-                                        {
-                                            MarkupTagElement tagConfiguration = (tagTemplate.Elements["Configuration"] as MarkupTagElement);
-                                            if (tagConfiguration != null)
-                                            {
-                                                PropertyListObjectModel plom = template.Configuration;
-                                                XMLPropertyListDataFormat xmlplist = new XMLPropertyListDataFormat();
-                                                XMLPropertyListDataFormat.LoadMarkup(tagConfiguration, ref plom);
-                                            }
-                                        }
-                                        #endregion
+														LoadProjectFile(tagFile, template.FileSystem.Files);
+													}
+												}
+											}
+										}
+										#endregion
+										#region Configuration
+										{
+											MarkupTagElement tagConfiguration = (tagTemplate.Elements["Configuration"] as MarkupTagElement);
+											if (tagConfiguration != null)
+											{
+												PropertyListObjectModel plom = template.Configuration;
+												XMLPropertyListDataFormat xmlplist = new XMLPropertyListDataFormat();
+												XMLPropertyListDataFormat.LoadMarkup(tagConfiguration, ref plom);
+											}
+										}
+										#endregion
 
-                                        listProjectTemplates.Add(template);
-                                    }
+										listProjectTemplates.Add(template);
+									}
 								}
 							}
-                            #endregion
+							#endregion
 						}
 						#endregion
 					}
@@ -876,7 +877,7 @@ namespace UniversalEditor.Common
 			}
 		}
 
-		private static void LoadProjectFile(MarkupTagElement tag, ObjectModels.Solution.ProjectFile.ProjectFileCollection coll)
+		private static void LoadProjectFile(MarkupTagElement tag, ProjectFile.ProjectFileCollection coll)
 		{
 			ProjectFile file = new ProjectFile();
 			MarkupAttribute attSourceFileName = tag.Attributes["SourceFileName"];

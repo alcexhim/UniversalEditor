@@ -7,6 +7,7 @@ using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Solution;
+using UniversalEditor.ObjectModels.Project;
 
 namespace UniversalEditor
 {
@@ -200,9 +201,9 @@ namespace UniversalEditor
 		/// Creates a project from this project template.
 		/// </summary>
 		/// <returns></returns>
-		public Project Create()
+		public ProjectObjectModel Create()
 		{
-			Project p = new Project();
+			ProjectObjectModel p = new ProjectObjectModel();
 			p.ProjectType = mvarProjectType;
 			mvarFileSystem.CopyTo(p.FileSystem);
 			mvarConfiguration.CopyTo(p.Configuration);

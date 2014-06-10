@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using UniversalEditor.Accessors;
+using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.Solution;
 
 namespace UniversalEditor.UserInterface.WindowsForms.Controls
@@ -48,7 +49,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			tnSolution.Text = "Solution '" + mvarSolution.Title + "' (" + mvarSolution.Projects.Count + " project" + (mvarSolution.Projects.Count != 1 ? "s" : String.Empty) + ")";
 			tnSolution.Tag = mvarSolution;
 
-			foreach (Project p in mvarSolution.Projects)
+			foreach (ProjectObjectModel p in mvarSolution.Projects)
 			{
 				TreeNode tnProject = new TreeNode();
 				tnProject.Tag = p;
@@ -189,9 +190,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 				e.CancelEdit = true;
 				e.Node.Text = "Solution '" + label + "' (" + sol.Projects.Count.ToString() + " project" + (sol.Projects.Count == 1 ? "" : "s") + ")";
 			}
-			else if (e.Node.Tag is Project)
+			else if (e.Node.Tag is ProjectObjectModel)
 			{
-				Project proj = (e.Node.Tag as Project);
+				ProjectObjectModel proj = (e.Node.Tag as ProjectObjectModel);
 				proj.Title = label;
 				e.Node.Text = label;
 			}
@@ -236,9 +237,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 				mnuContextAddExistingItem.Text = "Existin&g Item...";
 			}
 
-			if (tv.SelectedNode.Tag is Project)
+			if (tv.SelectedNode.Tag is ProjectObjectModel)
 			{
-				Project proj = (tv.SelectedNode.Tag as Project);
+				ProjectObjectModel proj = (tv.SelectedNode.Tag as ProjectObjectModel);
 				if (proj.ProjectType != null)
 				{
 					if (proj.ProjectType.ItemShortcuts.Count > 0)
