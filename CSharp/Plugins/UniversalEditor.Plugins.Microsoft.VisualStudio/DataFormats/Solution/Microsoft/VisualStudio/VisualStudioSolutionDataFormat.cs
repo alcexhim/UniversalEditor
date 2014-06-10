@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
+using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Solution;
 using UniversalEditor.UserInterface;
@@ -43,6 +44,14 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				reader.Accessor.Seek(-3, SeekOrigin.Current);
 			}
 
+			string solutionFileName = String.Empty;
+			string solutionPath = String.Empty;
+			if (base.Accessor is FileAccessor)
+			{
+				solutionFileName = (base.Accessor as FileAccessor).FileName;
+			}
+			solutionPath = System.IO.Path.GetDirectoryName(solutionFileName);
+
 			string signature2a = reader.ReadLine();
 			if (!String.IsNullOrEmpty(signature2a)) throw new InvalidDataFormatException("Empty line should be present at beginning of file");
 			
@@ -50,7 +59,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			string signature2 = reader.ReadLine();
 			if (!signature2.StartsWith(signature2Verify)) throw new InvalidDataFormatException("File does not begin with \"" + signature2Verify + "\"");
 
-			Project lastProject = null;
+			ProjectObjectModel lastProject = null;
 
 			while (!reader.EndOfStream)
 			{
@@ -65,18 +74,20 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 						continue;
 					}
 
-					lastProject = new Project();
-
 					string strProjectTypeID = line.Substring(9, line.IndexOf(')') - 10);
 					Guid projectTypeID = new Guid(strProjectTypeID);
 
 					string restOfDeclaration = line.Substring(line.IndexOf('=') + 1).Trim();
 					string[] paramz = restOfDeclaration.Split(new string[] { "," }, "\"");
 
-					lastProject.Title = paramz[0].Trim();
-					lastProject.RelativeFileName = paramz[1].Trim();
-					lastProject.ID = new Guid(paramz[2].Trim());
-					sol.Projects.Add(lastProject);
+					string projectTitle = paramz[0].Trim();
+					string projectRelativeFileName = paramz[1].Trim();
+					string projectFileName = solutionPath + System.IO.Path.DirectorySeparatorChar.ToString() + projectRelativeFileName;
+					Guid projectID = new Guid(paramz[2].Trim());
+
+					ProjectObjectModel project = UniversalEditor.Common.Reflection.GetAvailableObjectModel<ProjectObjectModel>(projectFileName);
+					sol.Projects.Add(project);
+					lastProject = project;
 				}
 				else if (line == "EndProject")
 				{
@@ -115,7 +126,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			writer.WriteLine("Microsoft Visual Studio Solution File, Format Version 12.00");
 			writer.WriteLine("# Visual Studio 2012");
 
-			foreach (Project project in sol.Projects)
+			foreach (ProjectObjectModel project in sol.Projects)
 			{
 				string projdir = soldir + "/" + project.Title;
 				project.RelativeFileName = project.Title + "\\" + project.Title + ".ueproj";
@@ -131,7 +142,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				*/
 				Guid projectTypeGuid = Guid.Empty;
 				if (project.ProjectType != null) projectTypeGuid = project.ProjectType.ID;
-				writer.WriteLine("Project(\"" + projectTypeGuid.ToString("B") + "\") = \"" + project.Title + "\", \"" + project.RelativeFileName + "\", \"" + project.ID.ToString("B") + "\"");
+				writer.WriteLine("Project(\"" + projectTypeGuid.ToString("B").ToUpper() + "\") = \"" + project.Title + "\", \"" + project.RelativeFileName + "\", \"" + project.ID.ToString("B").ToUpper() + "\"");
 				writer.WriteLine("EndProject");
 				/*
 				}
@@ -154,14 +165,14 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			writer.WriteLine("\t\tRelease|Any CPU = Release|Any CPU");
 			writer.WriteLine("\tEndGlobalSection");
 			writer.WriteLine("\tGlobalSection(ProjectConfigurationPlatforms) = postSolution");
-			foreach (Project project in sol.Projects)
+			foreach (ProjectObjectModel project in sol.Projects)
 			{
-				writer.WriteLine("\t\t" + project.ID.ToString("B") + ".Debug|Any CPU.ActiveCfg = Debug|Any CPU");
-				writer.WriteLine("\t\t" + project.ID.ToString("B") + ".Debug|Any CPU.Build.0 = Debug|Any CPU");
-				writer.WriteLine("\t\t" + project.ID.ToString("B") + ".Debug|x86.ActiveCfg = Debug|Any CPU");
-				writer.WriteLine("\t\t" + project.ID.ToString("B") + ".Release|Any CPU.ActiveCfg = Release|Any CPU");
-				writer.WriteLine("\t\t" + project.ID.ToString("B") + ".Release|Any CPU.Build.0 = Release|Any CPU");
-				writer.WriteLine("\t\t" + project.ID.ToString("B") + ".Release|x86.ActiveCfg = Release|Any CPU");
+				writer.WriteLine("\t\t" + project.ID.ToString("B").ToUpper() + ".Debug|Any CPU.ActiveCfg = Debug|Any CPU");
+				writer.WriteLine("\t\t" + project.ID.ToString("B").ToUpper() + ".Debug|Any CPU.Build.0 = Debug|Any CPU");
+				writer.WriteLine("\t\t" + project.ID.ToString("B").ToUpper() + ".Debug|x86.ActiveCfg = Debug|Any CPU");
+				writer.WriteLine("\t\t" + project.ID.ToString("B").ToUpper() + ".Release|Any CPU.ActiveCfg = Release|Any CPU");
+				writer.WriteLine("\t\t" + project.ID.ToString("B").ToUpper() + ".Release|Any CPU.Build.0 = Release|Any CPU");
+				writer.WriteLine("\t\t" + project.ID.ToString("B").ToUpper() + ".Release|x86.ActiveCfg = Release|Any CPU");
 			}
 			writer.WriteLine("\tEndGlobalSection");
 			writer.WriteLine("\tGlobalSection(SolutionProperties) = preSolution");

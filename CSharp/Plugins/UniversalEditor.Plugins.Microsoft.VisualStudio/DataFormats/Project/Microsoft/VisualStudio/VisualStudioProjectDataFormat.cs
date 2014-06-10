@@ -6,7 +6,7 @@ using System.Text;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
 
-using UniversalEditor.ObjectModels.Solution;
+using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
@@ -19,7 +19,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			if (_dfr == null)
 			{
 				_dfr = base.MakeReference();
-				_dfr.Capabilities.Add(typeof(SolutionObjectModel), DataFormatCapabilities.All);
+				_dfr.Capabilities.Add(typeof(ProjectObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Microsoft Visual Studio project", new string[] { "*.vbproj", "*.csproj", "*.jsproj", "*.wixproj", "*.fsproj", "*.pyproj", "*.sqlproj", "*.phpproj" });
 			}
 			return _dfr;
@@ -38,14 +38,12 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			MarkupObjectModel mom = (objectModels.Pop() as MarkupObjectModel);
-			SolutionObjectModel sln = (objectModels.Pop() as SolutionObjectModel);
+			ProjectObjectModel proj = (objectModels.Pop() as ProjectObjectModel);
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
-			SolutionObjectModel sln = (objectModels.Pop() as SolutionObjectModel);
+			ProjectObjectModel proj = (objectModels.Pop() as ProjectObjectModel);
 			MarkupObjectModel mom = new MarkupObjectModel();
-
-			Project proj = sln.Projects[0];
 
 			MarkupTagElement tagProject = new MarkupTagElement();
 			tagProject.FullName = "Project";

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.ObjectModels.Solution
+namespace UniversalEditor.ObjectModels.Project
 {
 	public class ProjectFileSystem
 	{
@@ -19,6 +19,11 @@ namespace UniversalEditor.ObjectModels.Solution
 		/// </summary>
 		public ProjectFile.ProjectFileCollection Files { get { return mvarFiles; } }
 
+		public void Clear()
+		{
+			mvarFolders.Clear();
+			mvarFiles.Clear();
+		}
 		public void CopyTo(ProjectFileSystem clone)
 		{
 			foreach (ProjectFile file in mvarFiles)

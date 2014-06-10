@@ -78,11 +78,11 @@
     <Compile Include="ObjectModels\PropertyList\Property.cs" />
     <Compile Include="ObjectModels\PropertyList\PropertyListObjectModel.cs" />
     <Compile Include="ObjectModels\PropertyList\PropertyValueType.cs" />
-    <Compile Include="ObjectModels\Solution\Project.cs" />
-    <Compile Include="ObjectModels\Solution\ProjectFile.cs" />
-    <Compile Include="ObjectModels\Solution\ProjectFileSystem.cs" />
-    <Compile Include="ObjectModels\Solution\ProjectFolder.cs" />
-    <Compile Include="ObjectModels\Solution\Reference.cs" />
+    <Compile Include="ObjectModels\Project\ProjectObjectModel.cs" />
+    <Compile Include="ObjectModels\Project\ProjectFile.cs" />
+    <Compile Include="ObjectModels\Project\ProjectFileSystem.cs" />
+    <Compile Include="ObjectModels\Project\ProjectFolder.cs" />
+    <Compile Include="ObjectModels\Project\Reference.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
     <Compile Include="ProjectType.cs" />
@@ -95,6 +95,7 @@
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

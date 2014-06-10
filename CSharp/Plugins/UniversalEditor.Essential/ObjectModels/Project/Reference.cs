@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.ObjectModels.Solution
+namespace UniversalEditor.ObjectModels.Project
 {
     public class Reference
     {

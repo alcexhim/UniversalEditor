@@ -35,7 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataFormats\Solution\Microsoft\VisualStudio\VisualStudioProjectDataFormat.cs" />
+    <Compile Include="DataFormats\Project\Microsoft\VisualStudio\VisualStudioProjectDataFormat.cs" />
     <Compile Include="DataFormats\Solution\Microsoft\VisualStudio\VisualStudioSolutionDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +52,7 @@
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

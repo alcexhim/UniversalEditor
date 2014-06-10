@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.Project;
 
 namespace UniversalEditor.ObjectModels.Solution
 {
@@ -20,22 +21,24 @@ namespace UniversalEditor.ObjectModels.Solution
 
 		public override void Clear()
 		{
-			throw new NotImplementedException();
+			mvarConfiguration.Clear();
+			mvarProjects.Clear();
+			mvarTitle = String.Empty;
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
 			SolutionObjectModel solution = (where as SolutionObjectModel);
 			solution.Title = (mvarTitle.Clone() as string);
-			foreach (Project project in mvarProjects)
+			foreach (ProjectObjectModel project in mvarProjects)
 			{
 				solution.Projects.Add(project);
 			}
 			mvarConfiguration.CopyTo(solution.Configuration);
 		}
 
-		private Project.ProjectCollection mvarProjects = new Project.ProjectCollection();
-		public Project.ProjectCollection Projects { get { return mvarProjects; } }
+		private ProjectObjectModel.ProjectObjectModelCollection mvarProjects = new ProjectObjectModel.ProjectObjectModelCollection();
+		public ProjectObjectModel.ProjectObjectModelCollection Projects { get { return mvarProjects; } }
 
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.ObjectModels.PropertyList;
 
-namespace UniversalEditor.ObjectModels.Solution
+namespace UniversalEditor.ObjectModels.Project
 {
 	public class ProjectFile : ICloneable
 	{
