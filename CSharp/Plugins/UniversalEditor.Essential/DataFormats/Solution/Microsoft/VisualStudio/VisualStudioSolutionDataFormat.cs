@@ -85,7 +85,9 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				else
 				{
 				*/
-				writer.WriteLine("Project(\"" + project.ProjectType.ID.ToString("B") + "\") = \"" + project.Title + "\", \"" + project.RelativeFileName + "\", \"" + project.ID.ToString("B") + "\"");
+				Guid projectTypeGuid = Guid.Empty;
+				if (project.ProjectType != null) projectTypeGuid = project.ProjectType.ID;
+				writer.WriteLine("Project(\"" + projectTypeGuid.ToString("B") + "\") = \"" + project.Title + "\", \"" + project.RelativeFileName + "\", \"" + project.ID.ToString("B") + "\"");
 				writer.WriteLine("EndProject");
 				/*
 				}
@@ -93,6 +95,11 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 
 				SolutionObjectModel solproj = new SolutionObjectModel();
 				solproj.Projects.Add(project);
+
+				if (!System.IO.Directory.Exists(soldir))
+				{
+					System.IO.Directory.CreateDirectory(soldir);
+				}
 				Document.Save(solproj, new VisualStudioProjectDataFormat(), new FileAccessor(soldir + "/" + project.Title + "/" + project.Title + ".ueproj"), true);
 			}
 
