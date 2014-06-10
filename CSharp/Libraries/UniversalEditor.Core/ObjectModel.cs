@@ -12,8 +12,8 @@ namespace UniversalEditor
 			return omr;
 		}
 
-        private Accessor mvarAccessor = null;
-        public Accessor Accessor { get { return mvarAccessor; } internal set { mvarAccessor = value; } }
+		private Accessor mvarAccessor = null;
+		public Accessor Accessor { get { return mvarAccessor; } internal set { mvarAccessor = value; } }
 
 		public abstract void Clear();
 		public abstract void CopyTo(ObjectModel where);
@@ -214,11 +214,11 @@ namespace UniversalEditor
 			{
 				mvarObjectModelType = Type.GetType(mvarObjectModelTypeName);
 			}
-            if (mvarObjectModelType != null)
-            {
-                return (mvarObjectModelType.Assembly.CreateInstance(mvarObjectModelType.FullName) as ObjectModel);
-            }
-            return null;
+			if (mvarObjectModelType != null)
+			{
+				return (mvarObjectModelType.Assembly.CreateInstance(mvarObjectModelType.FullName) as ObjectModel);
+			}
+			return null;
 		}
 
 		private string mvarDescription = String.Empty;
