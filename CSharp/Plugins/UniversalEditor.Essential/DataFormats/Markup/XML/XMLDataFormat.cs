@@ -1226,7 +1226,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 										{
 											nextAttributeName = currentString;
 											currentString = string.Empty;
-                                            char ccq = tr.PeekChar();
+											char ccq = tr.PeekChar();
 											if (ccq != '"' && ccq != '\'')
 											{
 												char cc = '\0';
