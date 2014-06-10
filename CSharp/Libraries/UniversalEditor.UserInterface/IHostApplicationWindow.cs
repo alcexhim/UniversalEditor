@@ -21,7 +21,7 @@ namespace UniversalEditor.UserInterface
 		
 		void SaveProject();
 		void SaveProjectAs();
-		void SaveProjectAs(string FileName);
+		void SaveProjectAs(string FileName, DataFormat df);
 
 		void SaveAll();
 		
