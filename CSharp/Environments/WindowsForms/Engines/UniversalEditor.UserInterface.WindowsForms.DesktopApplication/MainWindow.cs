@@ -959,19 +959,20 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				return;
 			}
 
+			List<DataFormatReference> refs = new List<DataFormatReference>();
 			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.Filter = UniversalEditor.Common.Dialog.GetCommonDialogFilter(mvarCurrentSolution.MakeReference());
+			sfd.Filter = UniversalEditor.Common.Dialog.GetCommonDialogFilter(mvarCurrentSolution.MakeReference(), out refs);
 			sfd.FileName = mvarCurrentSolution.Title + ".sln";
 			if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				SaveProjectAs(sfd.FileName);
+				SaveProjectAs(sfd.FileName, refs[sfd.FilterIndex].Create());
 			}
 		}
-		public void SaveProjectAs(string FileName)
+		public void SaveProjectAs(string FileName, DataFormat df)
 		{
 			if (CurrentSolution != null)
 			{
-				Document.Save(CurrentSolution, new DataFormats.Solution.Microsoft.VisualStudio.VisualStudioSolutionDataFormat(), new FileAccessor(FileName, true, true), true);
+				Document.Save(CurrentSolution, df, new FileAccessor(FileName, true, true), true);
 			}
 		}
 		public void SaveAll()
