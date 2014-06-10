@@ -6,6 +6,7 @@ using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Solution;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 {
@@ -49,11 +50,46 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			string signature2 = reader.ReadLine();
 			if (!signature2.StartsWith(signature2Verify)) throw new InvalidDataFormatException("File does not begin with \"" + signature2Verify + "\"");
 
+			Project lastProject = null;
+
 			while (!reader.EndOfStream)
 			{
-				string line = reader.ReadLine();
+				string line = reader.ReadLine().Trim();
 				if (line.StartsWith("#") || String.IsNullOrEmpty(line)) continue;
 
+				if (line.StartsWith("Project("))
+				{
+					if (!line.Contains("="))
+					{
+						HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, "Invalid Project declaration in solution file");
+						continue;
+					}
+
+					lastProject = new Project();
+
+					string strProjectTypeID = line.Substring(9, line.IndexOf(')') - 10);
+					Guid projectTypeID = new Guid(strProjectTypeID);
+
+					string restOfDeclaration = line.Substring(line.IndexOf('=') + 1).Trim();
+
+				}
+				else if (line == "EndProject")
+				{
+					lastProject = null;
+				}
+				else if (line.StartsWith("GlobalSection("))
+				{
+
+				}
+				else if (line == "EndGlobalSection")
+				{
+
+				}
+				else
+				{
+					HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, "Ignoring unknown solution directive \"" + line + "\"");
+					continue;
+				}
 			}
 		}
 
@@ -96,11 +132,12 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				SolutionObjectModel solproj = new SolutionObjectModel();
 				solproj.Projects.Add(project);
 
-				if (!System.IO.Directory.Exists(soldir))
+				string projdir = soldir + "/" + project.Title;
+				if (!System.IO.Directory.Exists(projdir))
 				{
-					System.IO.Directory.CreateDirectory(soldir);
+					System.IO.Directory.CreateDirectory(projdir);
 				}
-				Document.Save(solproj, new VisualStudioProjectDataFormat(), new FileAccessor(soldir + "/" + project.Title + "/" + project.Title + ".ueproj"), true);
+				Document.Save(solproj, new VisualStudioProjectDataFormat(), new FileAccessor(projdir + "/" + project.Title + ".ueproj", true, true), true);
 			}
 
 			writer.WriteLine("Global");
