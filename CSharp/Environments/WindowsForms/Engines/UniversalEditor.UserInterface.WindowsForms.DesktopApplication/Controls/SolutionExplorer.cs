@@ -221,11 +221,18 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 
 		private void mnuContext_Opening(object sender, CancelEventArgs e)
 		{
+			if (tv.SelectedNode == null)
+			{
+				e.Cancel = true;
+				return;
+			}
+
 			mnuContextAdd.DropDownItems.Clear();
 			mnuContextAdd.DropDownItems.Add(mnuContextAddNewItem);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddExistingItem);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddSep2);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddNewFolder);
+			
 			if (tv.SelectedNode.Tag is SolutionObjectModel)
 			{
 				mnuContextAddNewItem.Text = "Ne&w Project...";
