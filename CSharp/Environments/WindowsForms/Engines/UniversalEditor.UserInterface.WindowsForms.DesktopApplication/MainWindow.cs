@@ -115,6 +115,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			dwToolbox.Behavior = DockBehavior.AutoHide;
 
 			#region Message Log
+			wndOutputWindow = new Controls.OutputWindow();
 			dwOutput = dcc.Windows.Add("Output", wndOutputWindow);
 			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Windows.Add(dwOutput);
 			#endregion
