@@ -47,6 +47,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\OutputWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OutputWindow.Designer.cs">
+      <DependentUpon>OutputWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocalConfiguration.cs" />
     <Compile Include="Controls\ErrorList.cs">
       <SubType>UserControl</SubType>
@@ -188,6 +194,9 @@
     <Compile Include="TemporaryFileManager.cs" />
     <EmbeddedResource Include="Controls\ErrorList.resx">
       <DependentUpon>ErrorList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OutputWindow.resx">
+      <DependentUpon>OutputWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SolutionExplorer.resx">
       <DependentUpon>SolutionExplorer.cs</DependentUpon>

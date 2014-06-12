@@ -28,7 +28,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private DockingWindow dwToolbox = null;
 
-		private TextBox txtOutputWindow = null;
+		private Controls.OutputWindow wndOutputWindow = null;
 		private DockingWindow dwOutput = null;
 		#endregion
 
@@ -115,15 +115,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			dwToolbox.Behavior = DockBehavior.AutoHide;
 
 			#region Message Log
-			txtOutputWindow = new TextBox();
-			txtOutputWindow.ReadOnly = true;
-			txtOutputWindow.Dock = DockStyle.Fill;
-			txtOutputWindow.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericMonospace, 10, FontStyle.Regular);
-			txtOutputWindow.ScrollBars = ScrollBars.Vertical;
-			txtOutputWindow.Multiline = true;
-			txtOutputWindow.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.CommandBarControlBackground;
-			txtOutputWindow.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.CommandBarControlText;
-			dwOutput = dcc.Windows.Add("Output", txtOutputWindow);
+			dwOutput = dcc.Windows.Add("Output", wndOutputWindow);
 			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Windows.Add(dwOutput);
 			#endregion
 			#region Error List
@@ -149,21 +141,25 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private void _AppendText(string text)
 		{
-			txtOutputWindow.AppendText(text);
+			wndOutputWindow.AppendText(text);
+		}
+		private void _ClearText(string text)
+		{
+			wndOutputWindow.ClearText();
 		}
 
 		private void OutputWindow_TextWritten(object sender, TextWrittenEventArgs e)
 		{
-			if (txtOutputWindow != null)
+			if (wndOutputWindow != null)
 			{
-				txtOutputWindow.Invoke(new Action<string>(_AppendText), e.Text);
+				wndOutputWindow.Invoke(new Action<string>(_AppendText), e.Text);
 			}
 		}
 		private void OutputWindow_TextCleared(object sender, EventArgs e)
 		{
-			if (txtOutputWindow != null)
+			if (wndOutputWindow != null)
 			{
-				txtOutputWindow.Text = String.Empty;
+				wndOutputWindow.Invoke(new Action<string>(_ClearText));
 			}
 		}
 
