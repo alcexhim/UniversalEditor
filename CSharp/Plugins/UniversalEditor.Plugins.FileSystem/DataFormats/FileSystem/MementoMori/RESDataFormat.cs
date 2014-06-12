@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.FileSystem.MementoMori
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
-            base.Accessor.DefaultEncoding = Encoding.UTF16LittleEndian;
+			base.Accessor.DefaultEncoding = Encoding.UTF16LittleEndian;
 
 			string signature = br.ReadFixedLengthString(82);
 			if (signature != "C\0e\0n\0t\0a\0u\0r\0i\0 \0P\0r\0o\0d\0u\0c\0t\0i\0o\0n\0 \0R\0e\0s\0o\0u\0r\0c\0e\0 \0F\0i\0l\0e\0 \03\0.\01\00\0\n\0\n\0") throw new InvalidDataFormatException("File does not begin with null-terminated Unicode string \"Centauri Production Resource File 3.10\", 0x0A, 0x0A");
