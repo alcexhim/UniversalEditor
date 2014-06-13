@@ -17,46 +17,47 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.Reader br = base.Accessor.Reader;
-            string magic = br.ReadFixedLengthString(4); // LOD\0
+            IO.Reader reader = base.Accessor.Reader;
+            string magic = reader.ReadFixedLengthString(4); // LOD\0
             if (magic != "LOD\0") throw new InvalidDataFormatException("File does not begin with \"LOD\\0\"");
 
-            string gameID = br.ReadFixedLengthString(9);
-            byte[] unknown = br.ReadBytes(256 - 13);
-            string dir = br.ReadFixedLengthString(16);
+            string gameID = reader.ReadFixedLengthString(9);
+            byte[] unknown = reader.ReadBytes(256 - 13);
+            string dir = reader.ReadFixedLengthString(16);
 
-            uint dirstart = br.ReadUInt32();
-            uint dirlength = br.ReadUInt32();
-            uint unknown2 = br.ReadUInt32();
-            uint fileCount = br.ReadUInt32();
+            uint dirstart = reader.ReadUInt32();
+            uint dirlength = reader.ReadUInt32();
+            uint unknown2 = reader.ReadUInt32();
+            uint fileCount = reader.ReadUInt32();
 
-            br.Accessor.Position = dirstart;
+            reader.Accessor.Position = dirstart;
             for (uint i = 0; i < fileCount; i++)
             {
                 File f = new File();
-                f.Name = br.ReadFixedLengthString(16);
+                f.Name = reader.ReadFixedLengthString(16);
 
-                uint offset = br.ReadUInt32();
-                uint length = br.ReadUInt32();
-                offsets.Add(f, offset);
-                lengths.Add(f, length);
+                uint offset = reader.ReadUInt32();
+                uint length = reader.ReadUInt32();
+                f.Properties.Add("offset", offset);
+                f.Properties.Add("length", length);
+                f.Properties.Add("reader", reader);
                 f.Size = length;
                 f.DataRequest += new DataRequestEventHandler(f_DataRequest);
 
-                uint u1 = br.ReadUInt32();
-                uint u2 = br.ReadUInt32();
+                uint u1 = reader.ReadUInt32();
+                uint u2 = reader.ReadUInt32();
             }
         }
 
         #region Data Request
-        private Dictionary<File, uint> offsets = new Dictionary<File, uint>();
-        private Dictionary<File, uint> lengths = new Dictionary<File, uint>();
         private void f_DataRequest(object sender, DataRequestEventArgs e)
         {
-            IO.Reader br = base.Accessor.Reader;
-            File send = (sender as File);
-            br.Accessor.Position = offsets[send];
-            e.Data = br.ReadBytes(lengths[send]);
+            File file = (sender as File);
+            IO.Reader reader = (IO.Reader)file.Properties["reader"];
+            uint offset = (uint)file.Properties["offset"];
+            uint length = (uint)file.Properties["length"];
+            reader.Seek(offset, IO.SeekOrigin.Begin);
+            e.Data = reader.ReadBytes(length);
         }
         #endregion
 

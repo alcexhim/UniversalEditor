@@ -12,7 +12,8 @@ namespace UniversalEditor.Accessors
 		public override long Position
 		{
 			get { return mvarFileStream.Position; }
-			set { mvarFileStream.Position = value; }
+			set { mvarFileStream.Position = value; 
+            }
 		}
 		public override long Length
 		{

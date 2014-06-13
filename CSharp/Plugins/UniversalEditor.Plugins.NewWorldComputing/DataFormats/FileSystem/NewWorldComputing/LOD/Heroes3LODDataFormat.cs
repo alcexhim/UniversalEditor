@@ -25,28 +25,29 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             if (fsom == null) return;
 
-            IO.Reader br = base.Accessor.Reader;
-            string magic = br.ReadFixedLengthString(4); // LOD\0
+            IO.Reader reader = base.Accessor.Reader;
+            string magic = reader.ReadFixedLengthString(4); // LOD\0
             if (magic != "LOD\0") throw new InvalidDataFormatException("File does not begin with LOD\\0");
 
-            uint unknown1 = br.ReadUInt32();
-            uint fileCount = br.ReadUInt32();
+            uint unknown1 = reader.ReadUInt32();
+            uint fileCount = reader.ReadUInt32();
 
-            byte[] unknown = br.ReadBytes(80);
+            byte[] unknown = reader.ReadBytes(80);
             for (int i = 0; i < fileCount; i++)
             {
                 File f = new File();
-                f.Name = br.ReadFixedLengthString(16);
+                f.Name = reader.ReadFixedLengthString(16);
                 f.Name = f.Name.TrimNull();
                 
-                uint offset = br.ReadUInt32();
+                uint offset = reader.ReadUInt32();
 
-                uint u1 = br.ReadUInt32();
-                uint u2 = br.ReadUInt32();
+                uint u1 = reader.ReadUInt32();
+                uint u2 = reader.ReadUInt32();
 
-                uint length = br.ReadUInt32();
-                offsets.Add(f, offset);
-                lengths.Add(f, length);
+                uint length = reader.ReadUInt32();
+                f.Properties.Add("offset", offset);
+                f.Properties.Add("length", length);
+                f.Properties.Add("reader", reader);
 
                 f.Size = length;
                 f.DataRequest += new DataRequestEventHandler(f_DataRequest);
@@ -55,8 +56,6 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
         }
 
         #region Data Request
-        private Dictionary<File, uint> offsets = new Dictionary<File, uint>();
-        private Dictionary<File, uint> lengths = new Dictionary<File, uint>();
         private void f_DataRequest(object sender, DataRequestEventArgs e)
         {
             string FileName = String.Empty;
@@ -64,15 +63,16 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             {
                 FileName = (Accessor as FileAccessor).FileName;
             }
-            
-            IO.Reader br = new IO.Reader(new FileAccessor(FileName));
-            File send = (sender as File);
-            br.Accessor.Position = offsets[send];
-            byte[] compressedData = br.ReadBytes(lengths[send]);
+
+            File file = (sender as File);
+            IO.Reader reader = (IO.Reader)file.Properties["reader"];
+            uint offset = (uint)file.Properties["offset"];
+            uint length = (uint)file.Properties["length"];
+            reader.Seek(offset, IO.SeekOrigin.Begin);
+            byte[] compressedData = reader.ReadBytes(length);
 
             byte[] uncompressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Zlib).Decompress(compressedData);
             e.Data = uncompressedData;
-            br.Close();
         }
         #endregion
 
