@@ -57,14 +57,8 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                 uint unroll;
                 if (control == 1)
                 {
-                    byte byte1 = br.ReadByte();
-                    byte byte2 = br.ReadByte();
-
-                    uint primaryControlValue = (uint)(0x10000 | byte1);
-                    uint secondaryControlValue = (uint)(byte2 << 8);
-
-                    control = primaryControlValue;
-                    control |= secondaryControlValue;
+                    control = (uint)(0x10000 | br.ReadByte());
+                    control |= (uint)(br.ReadByte() << 8);
                 }
                 unroll = (uint)((br.Accessor.Position < br.Accessor.Length - 32) ? 16 : 1);
                 while (unroll-- != 0)
@@ -75,7 +69,7 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                         byte offsetCalcByte2 = br.ReadByte();
 
                         ushort offset = (ushort)(((offsetCalcByte1 & 0xF0) << 4) | offsetCalcByte2);
-                        ushort len = (ushort)((offsetCalcByte1 & 0xF) | 4);
+                        ushort len = (ushort)(offsetCalcByte1 & 0xF);
 
                         long oldpos = sao.Position;
                         sao.Position = sao.Length - offset;
@@ -88,7 +82,7 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                         // if((p_dst + offset) > p_dst_end) return(-1);
 
                         
-                        for (int i = 0; i < len; i++)
+                        for (int i = 0; i < len + 3; i++)
                         {
                             bw.WriteByte(value);
                         }
