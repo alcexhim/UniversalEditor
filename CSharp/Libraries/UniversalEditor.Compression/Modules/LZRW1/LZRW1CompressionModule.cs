@@ -57,9 +57,7 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                         control |= (ushort)(br.ReadByte() << 8);
                         controlbits = 16;
                     }
-
-                    int k = 1; // 0x8000; // 1
-                    if ((control & k) != 0)
+                    if ((control & 1) != 0)
                     {
                         ushort offset, len;
                         offset = (ushort)((br.PeekByte() & 0xF0) << 4);
@@ -67,9 +65,12 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                         offset += (ushort)(br.ReadByte() & 0xFF);
 
                         bw.Flush();
-                        
+
+                        long oldpos = sao.Position;
                         sao.Position = sao.Length - offset;
                         byte[] nextdata = sao.Reader.ReadBytes(len);
+                        sao.Position = oldpos;
+
                         bw.WriteBytes(nextdata);
                     }
                     else
@@ -82,8 +83,8 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                     control >>= 1;
                     controlbits--;
                 }
-                bw.Flush();
             }
+            bw.Flush();
         }
     }
 }
