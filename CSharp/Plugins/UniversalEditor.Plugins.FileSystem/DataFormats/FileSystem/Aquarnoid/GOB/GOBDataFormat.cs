@@ -72,8 +72,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Aquarnoid.GOB
             foreach (File file in files)
             {
                 writer.WriteUInt32(offset);
-                writer.WriteUInt32((uint)(file.GetDataAsByteArray().Length));
+                writer.WriteUInt32((uint)(file.Size));
                 writer.WriteFixedLengthString(file.Name, 260);
+                offset += (uint)file.Size;
             }
             foreach (File file in files)
             {
