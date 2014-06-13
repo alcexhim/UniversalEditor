@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormats\FileSystem\AlienNations\GD\GDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ALTools\ALZ\ALZDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ALTools\EGG\ALZipCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\ALTools\EGG\ALZipFileAttributeFlags.cs" />
@@ -41,6 +42,7 @@
     <Compile Include="DataFormats\FileSystem\ALTools\EGG\EGGDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ALTools\EGG\Internal\BlockInfo.cs" />
     <Compile Include="DataFormats\FileSystem\ALTools\EGG\Internal\FileInfo.cs" />
+    <Compile Include="DataFormats\FileSystem\Aquarnoid\GOB\GOBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ARC\ARCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ARJ\ARJCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\ARJ\ARJDataFormat.cs" />
@@ -81,7 +83,7 @@
     <Compile Include="DataFormats\FileSystem\FSB\FSBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Garena\YanghxDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GCD\GCDDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\GOB\GOBDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\IndianaJones\GOB\GOBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GPW\GPWDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Hardball\MB6DataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\HighwayPursuit\HighwayPursuitDataFormat.cs" />

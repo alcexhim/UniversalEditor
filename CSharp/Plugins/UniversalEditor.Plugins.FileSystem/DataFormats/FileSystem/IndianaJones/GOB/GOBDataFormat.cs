@@ -5,7 +5,7 @@ using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.GOB
+namespace UniversalEditor.DataFormats.FileSystem.IndianaJones.GOB
 {
 	public class GOBDataFormat : DataFormat
 	{
@@ -16,7 +16,7 @@ namespace UniversalEditor.DataFormats.FileSystem.GOB
 			{
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Indiana Jones And The Infernal Machine GOB archive", new string[] { "*.gob" });
+				_dfr.Filters.Add("Indiana Jones And The Infernal Machine GOB archive", new byte?[][] { new byte?[] { (byte)'G', (byte)'O', (byte)'B', (byte)' ' } }, new string[] { "*.gob" });
 			}
 			return _dfr;
 		}
