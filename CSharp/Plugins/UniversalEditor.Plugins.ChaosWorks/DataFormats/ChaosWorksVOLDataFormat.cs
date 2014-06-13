@@ -66,43 +66,35 @@ namespace UniversalEditor.DataFormats
             MemoryAccessor ma = new MemoryAccessor();
             Writer bwms = new Writer(ma);
 
-            Accessor.Position = 0;
+            LZRW1CompressionModule module = new LZRW1CompressionModule();
 
-            byte[] compressed = new byte[0];
-            int i = 0;
+            Accessor.Position = 0;
             while (!br.EndOfStream)
             {
             	if (br.Remaining == 20)
             	{
             		// we are done reading the file, because we've encountered the footer!
             		break;
-            	}
-            	
+                }
+
                 short CHUNKSIZE = br.ReadInt16();
 
-                byte[] input = br.ReadBytes(CHUNKSIZE);
-                Array.Resize<byte>(ref compressed, compressed.Length + input.Length);
-                Array.Copy(input, 0, compressed, i, input.Length);
-                i += input.Length;
+                byte[] compressed = br.ReadBytes(CHUNKSIZE);
+
+                byte[] decompressed = module.Decompress(compressed);
+                bwms.WriteBytes(decompressed);
 
                 if (br.EndOfStream) break;
             }
-
-
-            LZRW1ACompressionModule module = new LZRW1ACompressionModule();
-            byte[] uncompressed = module.Decompress(compressed);
-            bwms.Write(uncompressed, 0, uncompressed.Length);
 
             bwms.Flush();
             
             ma.Position = 0;
 
-            System.IO.File.WriteAllBytes(@"C:\Temp\New Folder\test-compressed.dat", compressed);
-            System.IO.File.WriteAllBytes(@"C:\Temp\New Folder\test-uncompressed.dat", ma.ToArray());
-
             Reader brms = new Reader(ma);
+            if (fileListOffset > brms.Accessor.Length) throw new InvalidDataFormatException("File must be larger than file list offset (" + fileListOffset.ToString() + ")");
             brms.Accessor.Position = fileListOffset;
-            if (brms.Accessor.Position >= (brms.Accessor.Length - (572 * fileCount))) throw new InvalidOperationException();
+            if (brms.Accessor.Position >= (brms.Accessor.Length - (572 * fileCount))) throw new InvalidDataFormatException("No file data is present or the archive is too small");
 
             for (int f = 0; f < fileCount; f++)
             {

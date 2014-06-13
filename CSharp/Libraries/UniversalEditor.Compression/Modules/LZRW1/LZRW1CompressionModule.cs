@@ -35,56 +35,75 @@ namespace UniversalEditor.Compression.Modules.LZRW1
             Reader br = new Reader(sai);
             Writer bw = new Writer(sao);
 
-            int flag = br.ReadInt32();
+            /*
+            byte *p_src = p_src_first + 4,
+            *p_dst = p_dst_first,
+                *p_dst_end = p_dst_first + dst_len;
+            byte  *p_src_post = p_src_first + src_len;
+            byte  *p_src_max16 = p_src_first + src_len - (16 * 2);
+            */
+
+            uint control = 1;
+
+            uint flag = br.ReadUInt32();
             if (flag == FLAG_COPY)
             {
                 // entire stream is uncompressed, so read it all
                 byte[] data = br.ReadToEnd();
                 bw.WriteBytes(data);
             }
-            else
+            while (!br.EndOfStream)
             {
-                // flag is not copy, so we have to decompress
-                ushort controlbits = 0, control = 0;
-                while (!br.EndOfStream)
+                uint unroll;
+                if (control == 1)
                 {
-                    if (controlbits == 0)
-                    {
-                        // control bits are 0, so it's time to read a new control ushort
-                        // don't use ReadUInt16 here because we need to keep the bytes
-                        // for future use
-                        control = br.ReadByte();
-                        control |= (ushort)(br.ReadByte() << 8);
-                        controlbits = 16;
-                    }
+                    byte byte1 = br.ReadByte();
+                    byte byte2 = br.ReadByte();
+
+                    uint primaryControlValue = (uint)(0x10000 | byte1);
+                    uint secondaryControlValue = (uint)(byte2 << 8);
+
+                    control = primaryControlValue;
+                    control |= secondaryControlValue;
+                }
+                unroll = (uint)((br.Accessor.Position < br.Accessor.Length - 32) ? 16 : 1);
+                while (unroll-- != 0)
+                {
                     if ((control & 1) != 0)
                     {
-                        ushort offset, len;
-                        offset = (ushort)((br.PeekByte() & 0xF0) << 4);
-                        len = (ushort)(1 + (br.ReadByte() & 0xF));
-                        offset += (ushort)(br.ReadByte() & 0xFF);
+                        byte offsetCalcByte1 = br.ReadByte();
+                        byte offsetCalcByte2 = br.ReadByte();
 
-                        bw.Flush();
+                        ushort offset = (ushort)(((offsetCalcByte1 & 0xF0) << 4) | offsetCalcByte2);
+                        ushort len = (ushort)((offsetCalcByte1 & 0xF) | 4);
 
                         long oldpos = sao.Position;
                         sao.Position = sao.Length - offset;
-                        byte[] nextdata = sao.Reader.ReadBytes(len);
+                        
+                        IO.Reader bro = new Reader(sao);
+                        byte value = bro.ReadByte();
+
                         sao.Position = oldpos;
 
-                        bw.WriteBytes(nextdata);
+                        // if((p_dst + offset) > p_dst_end) return(-1);
+
+                        
+                        for (int i = 0; i < len; i++)
+                        {
+                            bw.WriteByte(value);
+                        }
+
+                        System.IO.File.WriteAllBytes(@"C:\Temp\Test.dat", outputStream.ToByteArray());
                     }
                     else
                     {
-                        // control bit is 0, so perform a simple copy of the next byte
+                        if (br.EndOfStream) return;
                         bw.WriteByte(br.ReadByte());
+                        System.IO.File.WriteAllBytes(@"C:\Temp\Test.dat", outputStream.ToByteArray());
                     }
-
-                    // pop the latest control bit off the control ushort
                     control >>= 1;
-                    controlbits--;
                 }
             }
-            bw.Flush();
         }
     }
 }
