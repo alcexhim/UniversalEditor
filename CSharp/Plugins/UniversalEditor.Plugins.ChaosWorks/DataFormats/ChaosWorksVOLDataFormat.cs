@@ -89,7 +89,7 @@ namespace UniversalEditor.DataFormats
             }
 
 
-            LZRW1CompressionModule module = new LZRW1CompressionModule();
+            LZRW1ACompressionModule module = new LZRW1ACompressionModule();
             byte[] uncompressed = module.Decompress(compressed);
             bwms.Write(uncompressed, 0, uncompressed.Length);
 
