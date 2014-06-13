@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-
 using UniversalEditor.IO;
 
 namespace UniversalEditor.Accessors
@@ -27,6 +27,7 @@ namespace UniversalEditor.Accessors
 			set { throw new InvalidOperationException(); }
 		}
 
+        [DebuggerNonUserCode()]
 		public override void Seek(long offset, SeekOrigin position)
 		{
 			System.IO.SeekOrigin origin = System.IO.SeekOrigin.Begin;
