@@ -27,7 +27,7 @@ namespace UniversalEditor.Accessors
 			set { throw new InvalidOperationException(); }
 		}
 
-        [DebuggerNonUserCode()]
+		[DebuggerNonUserCode()]
 		public override void Seek(long offset, SeekOrigin position)
 		{
 			System.IO.SeekOrigin origin = System.IO.SeekOrigin.Begin;
@@ -54,22 +54,22 @@ namespace UniversalEditor.Accessors
 
 		internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
-            int ct = mvarBaseStream.Read(buffer, start, count);
+			int ct = mvarBaseStream.Read(buffer, start, count);
 			Position += count;
 			return count;
 		}
 
 		internal override int WriteInternal(byte[] buffer, int start, int count)
-        {
-            mvarBaseStream.Write(buffer, start, count);
+		{
+			mvarBaseStream.Write(buffer, start, count);
 			Position += count;
-            return count;
+			return count;
 		}
 
 		protected override void OpenInternal()
 		{
 		}
-        protected override void CloseInternal()
+		protected override void CloseInternal()
 		{
 		}
 	}
