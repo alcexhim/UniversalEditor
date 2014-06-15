@@ -9,6 +9,12 @@ namespace UniversalEditor.ObjectModels.FileSystem
         public class FolderCollection
             : System.Collections.ObjectModel.Collection<Folder>
         {
+            private Folder mvarParent = null;
+            public FolderCollection(Folder parent = null)
+            {
+                mvarParent = parent;
+            }
+
             public Folder Add(string Name)
             {
                 Folder folder = new Folder();
@@ -50,22 +56,40 @@ namespace UniversalEditor.ObjectModels.FileSystem
                 }
                 return false;
             }
+
+            protected override void InsertItem(int index, Folder item)
+            {
+                base.InsertItem(index, item);
+                item.Parent = mvarParent;
+            }
+            protected override void RemoveItem(int index)
+            {
+                this[index].Parent = null;
+                base.RemoveItem(index);
+            }
+            protected override void SetItem(int index, Folder item)
+            {
+                item.Parent = mvarParent;
+                base.SetItem(index, item);
+            }
 		}
 
-		private FolderCollection _parentCollection = null;
+        public Folder()
+        {
+            mvarFolders = new FolderCollection(this);
+        }
+
+        private FolderCollection _parentCollection = null;
 
         private string mvarName = String.Empty;
-		public string Name
-		{
-			get { return mvarName; }
-			set
-			{
-				mvarName = value;
-			}
-		}
+		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-        private FolderCollection mvarFolders = new FolderCollection();
+        private Folder mvarParent = null;
+        public Folder Parent { get { return mvarParent; } private set { mvarParent = value; } }
+
+        private FolderCollection mvarFolders = null;
         public FolderCollection Folders { get { return mvarFolders; } }
+
         private File.FileCollection mvarFiles = new File.FileCollection();
         public File.FileCollection Files { get { return mvarFiles; } }
 
