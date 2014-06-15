@@ -43,17 +43,7 @@
             this.fTPServerToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.hTTPServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fTPServerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuObjectModel = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mnuObjectModelSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuObjectModelSelect = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuObjectModelClear = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDataFormat = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mnuDataFormatSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuDataFormatSelect = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDataFormatClear = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAccessor.SuspendLayout();
-            this.mnuObjectModel.SuspendLayout();
-            this.mnuDataFormat.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtObjectModel
@@ -166,85 +156,31 @@
             this.hTTPServerToolStripMenuItem,
             this.fTPServerToolStripMenuItem1});
             this.mnuAccessor.Name = "mnuAccessor";
-            this.mnuAccessor.Size = new System.Drawing.Size(153, 98);
+            this.mnuAccessor.Size = new System.Drawing.Size(135, 76);
             // 
             // mnuAccessorLocalFile
             // 
             this.mnuAccessorLocalFile.Name = "mnuAccessorLocalFile";
-            this.mnuAccessorLocalFile.Size = new System.Drawing.Size(152, 22);
+            this.mnuAccessorLocalFile.Size = new System.Drawing.Size(134, 22);
             this.mnuAccessorLocalFile.Text = "&Local File";
             this.mnuAccessorLocalFile.Click += new System.EventHandler(this.mnuAccessorLocalFile_Click);
             // 
             // fTPServerToolStripMenuItem
             // 
             this.fTPServerToolStripMenuItem.Name = "fTPServerToolStripMenuItem";
-            this.fTPServerToolStripMenuItem.Size = new System.Drawing.Size(149, 6);
+            this.fTPServerToolStripMenuItem.Size = new System.Drawing.Size(131, 6);
             // 
             // hTTPServerToolStripMenuItem
             // 
             this.hTTPServerToolStripMenuItem.Name = "hTTPServerToolStripMenuItem";
-            this.hTTPServerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hTTPServerToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.hTTPServerToolStripMenuItem.Text = "&HTTP Server";
             // 
             // fTPServerToolStripMenuItem1
             // 
             this.fTPServerToolStripMenuItem1.Name = "fTPServerToolStripMenuItem1";
-            this.fTPServerToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fTPServerToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
             this.fTPServerToolStripMenuItem1.Text = "&FTP Server";
-            // 
-            // mnuObjectModel
-            // 
-            this.mnuObjectModel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuObjectModelSep1,
-            this.mnuObjectModelSelect,
-            this.mnuObjectModelClear});
-            this.mnuObjectModel.Name = "mnuObjectModel";
-            this.mnuObjectModel.Size = new System.Drawing.Size(148, 54);
-            // 
-            // mnuObjectModelSep1
-            // 
-            this.mnuObjectModelSep1.Name = "mnuObjectModelSep1";
-            this.mnuObjectModelSep1.Size = new System.Drawing.Size(144, 6);
-            // 
-            // mnuObjectModelSelect
-            // 
-            this.mnuObjectModelSelect.Name = "mnuObjectModelSelect";
-            this.mnuObjectModelSelect.Size = new System.Drawing.Size(147, 22);
-            this.mnuObjectModelSelect.Text = "&Select from List";
-            this.mnuObjectModelSelect.Click += new System.EventHandler(this.mnuObjectModelSelect_Click);
-            // 
-            // mnuObjectModelClear
-            // 
-            this.mnuObjectModelClear.Name = "mnuObjectModelClear";
-            this.mnuObjectModelClear.Size = new System.Drawing.Size(147, 22);
-            this.mnuObjectModelClear.Text = "&Clear Selection";
-            this.mnuObjectModelClear.Click += new System.EventHandler(this.mnuObjectModelClear_Click);
-            // 
-            // mnuDataFormat
-            // 
-            this.mnuDataFormat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuDataFormatSep1,
-            this.mnuDataFormatSelect,
-            this.mnuDataFormatClear});
-            this.mnuDataFormat.Name = "mnuDataFormat";
-            this.mnuDataFormat.Size = new System.Drawing.Size(148, 54);
-            // 
-            // mnuDataFormatSep1
-            // 
-            this.mnuDataFormatSep1.Name = "mnuDataFormatSep1";
-            this.mnuDataFormatSep1.Size = new System.Drawing.Size(144, 6);
-            // 
-            // mnuDataFormatSelect
-            // 
-            this.mnuDataFormatSelect.Name = "mnuDataFormatSelect";
-            this.mnuDataFormatSelect.Size = new System.Drawing.Size(147, 22);
-            this.mnuDataFormatSelect.Text = "&Select from List";
-            // 
-            // mnuDataFormatClear
-            // 
-            this.mnuDataFormatClear.Name = "mnuDataFormatClear";
-            this.mnuDataFormatClear.Size = new System.Drawing.Size(147, 22);
-            this.mnuDataFormatClear.Text = "&Clear Selection";
             // 
             // DocumentPropertiesDialogBase
             // 
@@ -266,8 +202,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Document Properties";
             this.mnuAccessor.ResumeLayout(false);
-            this.mnuObjectModel.ResumeLayout(false);
-            this.mnuDataFormat.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,14 +223,6 @@
         private System.Windows.Forms.ToolStripSeparator fTPServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hTTPServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fTPServerToolStripMenuItem1;
-        private System.Windows.Forms.ContextMenuStrip mnuObjectModel;
-        private System.Windows.Forms.ToolStripSeparator mnuObjectModelSep1;
-        private System.Windows.Forms.ToolStripMenuItem mnuObjectModelSelect;
-        private System.Windows.Forms.ToolStripMenuItem mnuObjectModelClear;
-        private System.Windows.Forms.ContextMenuStrip mnuDataFormat;
-        private System.Windows.Forms.ToolStripSeparator mnuDataFormatSep1;
-        private System.Windows.Forms.ToolStripMenuItem mnuDataFormatSelect;
-        private System.Windows.Forms.ToolStripMenuItem mnuDataFormatClear;
 
     }
 }
