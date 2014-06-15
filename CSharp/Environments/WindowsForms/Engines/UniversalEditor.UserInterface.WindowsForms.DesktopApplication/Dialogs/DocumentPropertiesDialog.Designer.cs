@@ -1,6 +1,6 @@
 ﻿namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 {
-    partial class DocumentPropertiesDialog
+    partial class DocumentPropertiesDialogBase
     {
         /// <summary>
         /// Required designer variable.
@@ -39,7 +39,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.fraDataFormatOptions = new System.Windows.Forms.GroupBox();
             this.mnuAccessor = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.localfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAccessorLocalFile = new System.Windows.Forms.ToolStripMenuItem();
             this.fTPServerToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.hTTPServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fTPServerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -161,34 +161,35 @@
             // mnuAccessor
             // 
             this.mnuAccessor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.localfileToolStripMenuItem,
+            this.mnuAccessorLocalFile,
             this.fTPServerToolStripMenuItem,
             this.hTTPServerToolStripMenuItem,
             this.fTPServerToolStripMenuItem1});
             this.mnuAccessor.Name = "mnuAccessor";
-            this.mnuAccessor.Size = new System.Drawing.Size(135, 76);
+            this.mnuAccessor.Size = new System.Drawing.Size(153, 98);
             // 
-            // localfileToolStripMenuItem
+            // mnuAccessorLocalFile
             // 
-            this.localfileToolStripMenuItem.Name = "localfileToolStripMenuItem";
-            this.localfileToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.localfileToolStripMenuItem.Text = "&Local File";
+            this.mnuAccessorLocalFile.Name = "mnuAccessorLocalFile";
+            this.mnuAccessorLocalFile.Size = new System.Drawing.Size(152, 22);
+            this.mnuAccessorLocalFile.Text = "&Local File";
+            this.mnuAccessorLocalFile.Click += new System.EventHandler(this.mnuAccessorLocalFile_Click);
             // 
             // fTPServerToolStripMenuItem
             // 
             this.fTPServerToolStripMenuItem.Name = "fTPServerToolStripMenuItem";
-            this.fTPServerToolStripMenuItem.Size = new System.Drawing.Size(131, 6);
+            this.fTPServerToolStripMenuItem.Size = new System.Drawing.Size(149, 6);
             // 
             // hTTPServerToolStripMenuItem
             // 
             this.hTTPServerToolStripMenuItem.Name = "hTTPServerToolStripMenuItem";
-            this.hTTPServerToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.hTTPServerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hTTPServerToolStripMenuItem.Text = "&HTTP Server";
             // 
             // fTPServerToolStripMenuItem1
             // 
             this.fTPServerToolStripMenuItem1.Name = "fTPServerToolStripMenuItem1";
-            this.fTPServerToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.fTPServerToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.fTPServerToolStripMenuItem1.Text = "&FTP Server";
             // 
             // mnuObjectModel
@@ -226,26 +227,26 @@
             this.mnuDataFormatSelect,
             this.mnuDataFormatClear});
             this.mnuDataFormat.Name = "mnuDataFormat";
-            this.mnuDataFormat.Size = new System.Drawing.Size(153, 76);
+            this.mnuDataFormat.Size = new System.Drawing.Size(148, 54);
             // 
             // mnuDataFormatSep1
             // 
             this.mnuDataFormatSep1.Name = "mnuDataFormatSep1";
-            this.mnuDataFormatSep1.Size = new System.Drawing.Size(149, 6);
+            this.mnuDataFormatSep1.Size = new System.Drawing.Size(144, 6);
             // 
             // mnuDataFormatSelect
             // 
             this.mnuDataFormatSelect.Name = "mnuDataFormatSelect";
-            this.mnuDataFormatSelect.Size = new System.Drawing.Size(152, 22);
+            this.mnuDataFormatSelect.Size = new System.Drawing.Size(147, 22);
             this.mnuDataFormatSelect.Text = "&Select from List";
             // 
             // mnuDataFormatClear
             // 
             this.mnuDataFormatClear.Name = "mnuDataFormatClear";
-            this.mnuDataFormatClear.Size = new System.Drawing.Size(152, 22);
+            this.mnuDataFormatClear.Size = new System.Drawing.Size(147, 22);
             this.mnuDataFormatClear.Text = "&Clear Selection";
             // 
-            // DocumentPropertiesDialog
+            // DocumentPropertiesDialogBase
             // 
             this.AcceptButton = this.cmdOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,7 +262,7 @@
             this.Controls.Add(this.txtDataFormat);
             this.Controls.Add(this.cmdObjectModel);
             this.Controls.Add(this.txtObjectModel);
-            this.Name = "DocumentPropertiesDialog";
+            this.Name = "DocumentPropertiesDialogBase";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Document Properties";
             this.mnuAccessor.ResumeLayout(false);
@@ -284,7 +285,7 @@
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.GroupBox fraDataFormatOptions;
         private System.Windows.Forms.ContextMenuStrip mnuAccessor;
-        private System.Windows.Forms.ToolStripMenuItem localfileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuAccessorLocalFile;
         private System.Windows.Forms.ToolStripSeparator fTPServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hTTPServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fTPServerToolStripMenuItem1;
