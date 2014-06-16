@@ -179,10 +179,16 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
         {
             if (mvarMode == DocumentPropertiesDialogMode.Save)
             {
-                string filename = (mvarAccessor as FileAccessor).FileName;
-                if (!System.IO.File.Exists(filename))
+                if (mvarAccessor != null)
                 {
-                    filename = (mvarInitialAccesor as FileAccessor).FileName;
+                    string filename = (mvarAccessor as FileAccessor).FileName;
+                    if (!System.IO.File.Exists(filename))
+                    {
+                        if (mvarInitialAccesor != null)
+                        {
+                            filename = (mvarInitialAccesor as FileAccessor).FileName;
+                        }
+                    }
                 }
             }
             else if (mvarMode == DocumentPropertiesDialogMode.Open)
@@ -321,6 +327,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
                 case DocumentPropertiesDialogMode.Save:
                 {
                     SaveFileDialog sfd = new SaveFileDialog();
+                    if (mvarDataFormat != null)
+                    {
+                        sfd.Filter = UniversalEditor.Common.Dialog.GetCommonDialogFilter(mvarDataFormat.MakeReference());
+                    }
                     if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         mvarAccessor = new FileAccessor(sfd.FileName, true, true);
