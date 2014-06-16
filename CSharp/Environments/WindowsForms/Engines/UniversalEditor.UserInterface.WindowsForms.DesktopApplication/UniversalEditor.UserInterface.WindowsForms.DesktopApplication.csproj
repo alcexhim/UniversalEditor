@@ -53,6 +53,24 @@
     <Compile Include="Controls\OutputWindow.Designer.cs">
       <DependentUpon>OutputWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ObjectModelBrowserPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ObjectModelBrowserPopup.Designer.cs">
+      <DependentUpon>ObjectModelBrowserPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DataFormatBrowserPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DataFormatBrowserPopup.Designer.cs">
+      <DependentUpon>DataFormatBrowserPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DocumentPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DocumentPropertiesDialog.Designer.cs">
+      <DependentUpon>DocumentPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocalConfiguration.cs" />
     <Compile Include="Controls\ErrorList.cs">
       <SubType>UserControl</SubType>
@@ -204,8 +222,14 @@
     <EmbeddedResource Include="Dialogs\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ObjectModelBrowserPopup.resx">
+      <DependentUpon>ObjectModelBrowserPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DataFormatAboutDialog.resx">
       <DependentUpon>DataFormatAboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DataFormatBrowserPopup.resx">
+      <DependentUpon>DataFormatBrowserPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DataFormatOptionsDialog.resx">
       <DependentUpon>DataFormatOptionsDialog.cs</DependentUpon>
@@ -215,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\OptionsDialog.resx">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DocumentPropertiesDialog.resx">
+      <DependentUpon>DocumentPropertiesDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SelectEnvironmentDialog.resx">
       <DependentUpon>SelectEnvironmentDialog.cs</DependentUpon>

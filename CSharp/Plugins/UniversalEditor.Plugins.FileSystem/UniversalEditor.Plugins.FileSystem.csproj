@@ -62,6 +62,10 @@
     <Compile Include="DataFormats\FileSystem\BPlus\Internal\FILEHEADER.cs" />
     <Compile Include="DataFormats\FileSystem\BurikoGeneralInterpreter\BurikoARCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\BurikoGeneralInterpreter\BurikoHVLDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\CFL\CFLCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\CFL\CFLDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\CFL\CFLEncryptionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\CFL\CFLPreprocessorFlags.cs" />
     <Compile Include="DataFormats\FileSystem\CHD\CHDCompressionType.cs" />
     <Compile Include="DataFormats\FileSystem\CHD\CHDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\CHD\CHDEntryType.cs" />

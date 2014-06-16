@@ -604,7 +604,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public void OpenFile()
 		{
+            DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+            dlg.Mode = DocumentPropertiesDialogMode.Open;
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                OpenFile((dlg.Accessor as FileAccessor).FileName);
+            }
+
 			// Display the Open File dialog
+            /*
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
 				ofd.AutoUpgradeEnabled = true;
@@ -628,6 +636,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					OpenFile(ofd.FileNames);
 				}
 			}
+            */
 		}
 		public void OpenFile(params string[] FileNames)
 		{
@@ -1002,6 +1011,25 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		retrySaveFileAs:
 			if (FileName == null)
 			{
+                DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+                dlg.ObjectModel = doc.ObjectModel;
+                dlg.DataFormat = doc.DataFormat;
+                dlg.Accessor = doc.Accessor;
+                dlg.Mode = DocumentPropertiesDialogMode.Save;
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    dfr = dlg.DataFormat.MakeReference();
+
+                    // TODO: Rewrite Save code to make everything use Accessor instead
+                    // of FileName to support multiple types of accessors
+                    FileName = (dlg.Accessor as FileAccessor).FileName;
+                }
+                else
+                {
+                    return false;
+                }
+
+                /*
 				SaveFileDialog sfd = new SaveFileDialog();
 
 				List<DataFormatReference> list = new List<DataFormatReference>();
@@ -1017,8 +1045,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					dfr = list[sfd.FilterIndex - 2];
 				}
 				FileName = sfd.FileName;
+                */
 			}
-
+            /*
 			if (dfr == null)
 			{
 				DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(FileName, doc.ObjectModel.MakeReference());
@@ -1036,10 +1065,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 				dfr = dfrs[0];
 			}
+            */
 
 			DataFormat df = dfr.Create();
 			DataFormatOptionsDialog.ShowDialog(ref df, DataFormatOptionsDialogType.Export);
-
+            
 			#region Save Code
 			NotifySaving(doc);
 

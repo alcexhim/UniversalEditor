@@ -10,6 +10,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 	[DefaultEvent("SelectionChanged")]
     public partial class DocumentTypeSelector : UserControl
     {
+        public event EventHandler SelectionFinalized;
 		public event EventHandler SelectionChanged;
 
         public DocumentTypeSelector()
@@ -223,6 +224,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 
 		}
 
+        protected void OnSelectionFinalized(EventArgs e)
+        {
+            OnSelectionChanged(e);
+            if (SelectionFinalized != null) SelectionFinalized(this, e);
+        }
+
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             RefreshList();
@@ -261,6 +268,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             {
                 e.Node.ImageKey = "generic-folder-open";
                 e.Node.SelectedImageKey = "generic-folder-open";
+            }
+        }
+
+        private void tvObjectModels_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (tvObjectModels.SelectedNode != null)
+            {
+                OnSelectionFinalized(e);
             }
         }
 	}

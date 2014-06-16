@@ -103,6 +103,7 @@
             this.tvObjectModels.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.tvObjectModels_AfterCollapse);
             this.tvObjectModels.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.tvObjectModels_AfterExpand);
             this.tvObjectModels.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvObjectModels_AfterSelect);
+            this.tvObjectModels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tvObjectModels_MouseDoubleClick);
             // 
             // DocumentTypeSelector
             // 
