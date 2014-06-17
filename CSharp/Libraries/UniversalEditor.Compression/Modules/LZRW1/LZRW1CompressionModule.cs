@@ -60,7 +60,7 @@ namespace UniversalEditor.Compression.Modules.LZRW1
                     control = (uint)(0x10000 | br.ReadByte());
                     control |= (uint)(br.ReadByte() << 8);
                 }
-                unroll = (uint)((br.Accessor.Position < br.Accessor.Length - 32) ? 16 : 1);
+                unroll = (uint)((br.Accessor.Position <= (br.Accessor.Length - 32)) ? 16 : 1);
                 while (unroll-- != 0)
                 {
                     if ((control & 1) != 0)
