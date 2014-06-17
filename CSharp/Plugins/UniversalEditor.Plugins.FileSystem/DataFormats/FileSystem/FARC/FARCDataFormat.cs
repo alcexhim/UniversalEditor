@@ -46,7 +46,16 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
             {
                 _dfr = base.MakeReference();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("FArC archive", new byte?[][] { new byte?[] { (byte)'F', (byte)'A', (byte)'r', (byte)'C' }, new byte?[] { (byte)'F', (byte)'A', (byte)'r', (byte)'c' }, new byte?[] { (byte)'F', (byte)'A', (byte)'R', (byte)'C' } }, new string[] { "*.farc" });
+
+                _dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));
+
+                _dfr.Filters.Add("FArC archive", new byte?[][]
+                {
+                    new byte?[] { (byte)'F', (byte)'A', (byte)'r', (byte)'C' },
+                    new byte?[] { (byte)'F', (byte)'A', (byte)'r', (byte)'c' },
+                    new byte?[] { (byte)'F', (byte)'A', (byte)'R', (byte)'C' }
+                },
+                new string[] { "*.farc" });
             }
             return _dfr;
         }
