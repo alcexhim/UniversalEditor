@@ -1,4 +1,7 @@
+FileSystemEditor: Prevent icon loader from running until DataFormat is finished loading
+
 FARC DataFormat - fix saving
+* Saving might actually work, see above note
 
 "Live folders" - project folders are automatically populated with their physical folder contents when project is loaded
 	Select folder, set "Live folder" = "True" in Properties panel
