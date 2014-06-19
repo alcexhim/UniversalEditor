@@ -38,7 +38,7 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.fraDataFormatOptions = new System.Windows.Forms.GroupBox();
-            this.mnuAccessor = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuAccessor = new AwesomeControls.CommandBars.CBContextMenu(this.components);
             this.mnuAccessorLocalFile = new System.Windows.Forms.ToolStripMenuItem();
             this.fTPServerToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.hTTPServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -218,7 +218,7 @@
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.GroupBox fraDataFormatOptions;
-        private System.Windows.Forms.ContextMenuStrip mnuAccessor;
+        private AwesomeControls.CommandBars.CBContextMenu mnuAccessor;
         private System.Windows.Forms.ToolStripMenuItem mnuAccessorLocalFile;
         private System.Windows.Forms.ToolStripSeparator fTPServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hTTPServerToolStripMenuItem;
