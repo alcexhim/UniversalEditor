@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.FArC
+namespace UniversalEditor.DataFormats.FileSystem.FARC
 {
-    public partial class FARCDataFormat : DataFormat
+    public class FARCDataFormat : DataFormat
     {
+        // As of 2014-06-20:
+        // Format       Status
+        // ------------ -------------
+        // FArc         Load, Save
+        // FARC         Load
+        // FArC         Load
+
+
         // this was mentioned on 
         // http://forum.xentax.com/viewtopic.php?f=10&t=9639
         // could this mean anything? -v-
@@ -28,17 +37,6 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
         // PSARC - AES
         // PGD - AES + XOR
 
-        private struct FileEntry
-        {
-            public string name;
-            public int offset;
-            public int compressedSize;
-            public int decompressedSize;
-
-            // for writing
-            public byte[] compressedData;
-        }
-
         private DataFormatReference _dfr = null;
         public override DataFormatReference MakeReference()
         {
@@ -48,6 +46,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 
                 _dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));
+                _dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "&Compress the data with the gzip algorithm"));
 
                 _dfr.Filters.Add("FArC archive", new byte?[][]
                 {
@@ -63,6 +62,9 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
         private bool mvarEncrypted = false;
         public bool Encrypted { get { return mvarEncrypted; } set { mvarEncrypted = value; } }
 
+        private bool mvarCompressed = false;
+        public bool Compressed { get { return mvarCompressed; } set { mvarCompressed = value; } }
+
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -70,151 +72,193 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
 
             Reader reader = base.Accessor.Reader;
             reader.Endianness = IO.Endianness.BigEndian;
-            string FArC = reader.ReadFixedLengthString(4);
-            if (!(FArC == "FArC" || FArC  == "FArc" || FArC == "FARC")) throw new InvalidDataFormatException();
 
+            string FArC = reader.ReadFixedLengthString(4);
             int directorySize = reader.ReadInt32();
             int dummy = reader.ReadInt32();
 
-            if (FArC == "FArC")
+            switch (FArC)
             {
-                while (reader.Accessor.Position < directorySize)
+                case "FArC":
                 {
-                    FileEntry entry = new FileEntry();
-                    entry.name = reader.ReadNullTerminatedString();
-                    entry.offset = reader.ReadInt32();
-                    entry.compressedSize = reader.ReadInt32();
-                    entry.decompressedSize = reader.ReadInt32();
+                    mvarCompressed = true;
+                    mvarEncrypted = false;
 
-                    File file = fsom.AddFile(entry.name);
-                    if (entry.decompressedSize == 0)
+                    while (reader.Accessor.Position < directorySize)
                     {
-                        file.Size = entry.compressedSize;
-                        entry.decompressedSize = entry.compressedSize;
+                        string FileName = reader.ReadNullTerminatedString();
+                        int offset = reader.ReadInt32();
+                        int compressedSize = reader.ReadInt32();
+                        int decompressedSize = reader.ReadInt32();
+
+                        File file = fsom.AddFile(FileName);
+                        if (decompressedSize == 0)
+                        {
+                            decompressedSize = compressedSize;
+                        }
+                        file.Size = decompressedSize;
+
+                        file.Properties.Add("reader", reader);
+                        file.Properties.Add("offset", offset);
+                        file.Properties.Add("CompressedSize", compressedSize);
+                        file.Properties.Add("DecompressedSize", compressedSize);
+                        file.DataRequest += file_DataRequest;
                     }
-                    else
+                    break;
+                }
+                case "FArc":
+                {
+                    mvarCompressed = false;
+                    mvarEncrypted = false;
+
+                    // uncompressed, unencrypted
+                    while (reader.Accessor.Position - 12 < directorySize - 4)
                     {
-                        file.Size = entry.decompressedSize;
+                        string FileName = reader.ReadNullTerminatedString();
+                        int offset = reader.ReadInt32();
+                        int length = reader.ReadInt32();
+
+                        File file = fsom.AddFile(FileName);
+                        file.Size = length;
+
+                        file.Properties.Add("reader", reader);
+                        file.Properties.Add("offset", offset);
+                        file.Properties.Add("length", length);
+                        file.DataRequest += file_DataRequest;
                     }
-
-                    file.Properties.Add("reader", reader);
-                    file.Properties.Add("FileEntry", entry);
-                    file.DataRequest += file_DataRequest;
+                    break;
                 }
-            }
-            else if (FArC == "FArc")
-            {
-                while (reader.Accessor.Position - 12 < directorySize - 4)
+                case "FARC":
                 {
-                    FileEntry entry = new FileEntry();
-                    entry.name = reader.ReadNullTerminatedString();
-                    entry.offset = reader.ReadInt32();
-                    entry.compressedSize = reader.ReadInt32();
+                    mvarCompressed = true;
+                    mvarEncrypted = true;
 
-                    File file = fsom.AddFile(entry.name);
+                    // Encrypted, compressed
 
-                    file.Size = entry.compressedSize;
-                    entry.decompressedSize = entry.compressedSize;
+                    uint flag0 = reader.ReadUInt32();
+                    uint flag1 = reader.ReadUInt32();
+                    uint flag2 = reader.ReadUInt32();
+                    uint flag3 = reader.ReadUInt32();
 
-                    file.Properties.Add("reader", reader);
-                    file.Properties.Add("FileEntry", entry);
-                    file.DataRequest += file_DataRequest;
+                    while (reader.Accessor.Position < directorySize + 8)
+                    {
+                        string FileName = reader.ReadNullTerminatedString();
+                        int offset = reader.ReadInt32();
+                        int compressedSize = reader.ReadInt32();
+                        int decompressedSize = reader.ReadInt32();
+
+                        File file = fsom.AddFile(FileName);
+                        file.Size = compressedSize;
+
+                        file.Properties.Add("reader", reader);
+                        file.Properties.Add("compressedLength", compressedSize);
+                        file.Properties.Add("decompressedLength", decompressedSize);
+                        file.Properties.Add("offset", offset);
+                        file.DataRequest += file_DataRequest;
+                    }
+                    break;
                 }
-            }
-            else if (FArC == "FARC")
-            {
-                uint flag0 = reader.ReadUInt32();
-                uint flag1 = reader.ReadUInt32();
-                uint flag2 = reader.ReadUInt32();
-                uint flag3 = reader.ReadUInt32();
-
-                while (reader.Accessor.Position < directorySize + 8)
+                default:
                 {
-                    FileEntry entry = new FileEntry();
-                    entry.name = reader.ReadNullTerminatedString();
-                    entry.offset = reader.ReadInt32();
-                    entry.compressedSize = reader.ReadInt32();
-
-                    File file = fsom.AddFile(entry.name);
-
-                    file.Size = entry.compressedSize;
-                    entry.decompressedSize = reader.ReadInt32();
-
-                    file.Properties.Add("reader", reader);
-                    file.Properties.Add("FileEntry", entry);
-                    file.DataRequest += file_DataRequest;
+                    throw new InvalidDataFormatException("Unrecognized FARC signature: \"" + FArC + "\"");
                 }
             }
-            else
-            {
-                throw new InvalidDataFormatException("Unknown version " + FArC);
-            }
+
         }
 
         private void file_DataRequest(object sender, DataRequestEventArgs e)
         {
             File file = (sender as File);
-            Reader reader = (Reader)file.Properties["reader"];
-            FileEntry entry = (FileEntry)file.Properties["FileEntry"];
+            IO.Reader reader = (IO.Reader)file.Properties["reader"];
+            
+            int offset = (int)file.Properties["offset"];
+            reader.Seek(offset, SeekOrigin.Begin);
 
-            reader.Accessor.Position = entry.offset;
-
-            byte[] decompressedData = new byte[entry.decompressedSize];
-            if (entry.decompressedSize > 0)
+            if (mvarCompressed && mvarEncrypted)
             {
-                byte[] compressedData = reader.ReadBytes(entry.compressedSize);
-                if (entry.compressedSize != entry.decompressedSize)
+                int compressedLength = (int)file.Properties["compressedLength"];
+                int decompressedLength = (int)file.Properties["decompressedLength"];
+
+                byte[] compressedData = reader.ReadBytes(compressedLength);
+
+                // data encrypted? we have to decrypt it
+                byte[][] keys = new byte[][]
                 {
+                    // Virtua Fighter 5
+                    new byte[] { 0x6D, 0x4A, 0x24, 0x9C, 0x85, 0x29, 0xDE, 0x62, 0xC8, 0xE3, 0x89, 0x39, 0x31, 0xC9, 0xE0, 0xBC },
+                    // Project DIVA VF5
+                    new byte[] { 0x70, 0x72, 0x6F, 0x6A, 0x65, 0x63, 0x74, 0x5F, 0x64, 0x69, 0x76, 0x61, 0x2E, 0x62, 0x69, 0x6E },
+
+                    // Other keys, don't know what they're for
+                    new byte[] { 0x69, 0x17, 0x3E, 0xD8, 0xF5, 0x07, 0x14, 0x43, 0x9F, 0x62, 0x40, 0xAA, 0x74, 0x66, 0xC3, 0x7A },
+                    new byte[] { 0x6D, 0x4B, 0xF3, 0xD7, 0x24, 0x5D, 0xB2, 0x94, 0xB6, 0xC3, 0xF9, 0xE3, 0x2A, 0xA5, 0x7E, 0x79 },
+                    new byte[] { 0xD1, 0xDF, 0x87, 0xB5, 0xC1, 0x47, 0x1B, 0x36, 0x0A, 0xCE, 0x21, 0x31, 0x5A, 0x33, 0x9C, 0x06 }
+                };
+
+                byte[] encryptedData = null;
+                bool foundMatch = false;
+                for (int k = 0; k < keys.Length; k++)
+                {
+                    encryptedData = compressedData;
                     try
                     {
-                        decompressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(compressedData);
+                        encryptedData = Decrypt(compressedData, keys[k]);
+                        foundMatch = true;
+                        break;
                     }
-                    catch (Exception ex)
+                    catch (CryptographicException ex1)
                     {
-                        // data encrypted? we have to decrypt it
-                        byte[][] keys = new byte[][]
-                        {
-                            // Virtua Fighter 5
-                            new byte[] { 0x6D, 0x4A, 0x24, 0x9C, 0x85, 0x29, 0xDE, 0x62, 0xC8, 0xE3, 0x89, 0x39, 0x31, 0xC9, 0xE0, 0xBC },
-                            // Project DIVA F
-                            new byte[] { 0x69, 0x17, 0x3E, 0xD8, 0xF5, 0x07, 0x14, 0x43, 0x9F, 0x62, 0x40, 0xAA, 0x74, 0x66, 0xC3, 0x7A }
-                        };
-
-                        byte[] encryptedData = null;
-                        for (int k = 0; k < keys.Length; k++)
-                        {
-                            encryptedData = compressedData;
-                            try
-                            {
-                                encryptedData = Decrypt(compressedData, keys[k]);
-                            }
-                            catch (CryptographicException ex1)
-                            {
-                                continue;
-                            }
-                        }
-                        if (encryptedData == null)
-                        {
-                            throw new InvalidDataFormatException("No valid encryption keys were available to process this file");
-                        }
-
-                        // FIXME:   Project DIVA F key seems to work (without throwing an invalid padding error) but is not in a known compression
-                        //          method...
-                        decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(encryptedData);
+                        continue;
                     }
+                }
+                if (!foundMatch)
+                {
+                    UniversalEditor.UserInterface.HostApplication.Messages.Add(UserInterface.HostApplicationMessageSeverity.Warning, "No valid encryption keys were available to process this file", file.Name);
+                    return;
+                }
+
+                // FIXME:   Project DIVA F key seems to work (without throwing an invalid padding error) but is not in a known compression
+                //          method...
+                System.IO.File.WriteAllBytes(@"C:\Temp\test.dat", encryptedData);
+                e.Data = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(encryptedData);
+            }
+            else if (mvarCompressed && !mvarEncrypted)
+            {
+                int compressedLength = (int)file.Properties["compressedLength"];
+                int decompressedLength = (int)file.Properties["decompressedLength"];
+
+                byte[] compressedData = reader.ReadBytes(compressedLength);
+                e.Data = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(compressedData);
+            }
+            else if (!mvarCompressed && !mvarEncrypted)
+            {
+                int length = (int)file.Properties["length"];
+                
+                e.Data = reader.ReadBytes(length);
+            }
+        }
+
+        private byte[] Encrypt(byte[] data, byte[] key)
+        {
+            byte[] input = data;
+            System.Security.Cryptography.AesManaged aes = new System.Security.Cryptography.AesManaged();
+            aes.Key = key;
+
+            System.Security.Cryptography.ICryptoTransform xform = aes.CreateEncryptor();
+            int blockCount = input.Length / xform.InputBlockSize;
+            for (int i = 0; i < blockCount; i++)
+            {
+                if (i == blockCount - 1)
+                {
+                    byte[] output2 = xform.TransformFinalBlock(input, i * xform.InputBlockSize, xform.InputBlockSize);
                 }
                 else
                 {
-                    decompressedData = compressedData;
+                    int l = xform.TransformBlock(input, i * xform.InputBlockSize, xform.InputBlockSize, input, i * xform.InputBlockSize);
                 }
             }
-            else
-            {
-                decompressedData = reader.ReadBytes(entry.compressedSize);
-            }
-            e.Data = decompressedData;
+            return input;
         }
-
         private byte[] Decrypt(byte[] data, byte[] key)
         {
             byte[] input = data;
@@ -240,50 +284,86 @@ namespace UniversalEditor.DataFormats.FileSystem.FArC
         protected override void SaveInternal(ObjectModel objectModel)
         {
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            if (fsom == null) return;
+            if (fsom == null) throw new ObjectModelNotSupportedException();
+
+            File[] files = fsom.GetAllFiles();
 
             Writer writer = base.Accessor.Writer;
-            writer.Endianness = IO.Endianness.BigEndian;
-            int ioffset = 12, isize = 0;
-            
-            List<int> FileDecompressedDataLength = new List<int>();
-            List<byte[]> FileCompressedData = new List<byte[]>();
+            writer.Endianness = Endianness.BigEndian;
 
-            foreach (File file in fsom.Files)
+            if (mvarCompressed && mvarEncrypted)
             {
-                ioffset += (file.Name.Length + 1) + 12;
-
-                byte[] decompressedData = file.GetDataAsByteArray();
-                byte[] compressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Compress(decompressedData);
-                FileCompressedData.Add(compressedData);
-
-                isize += ioffset + compressedData.Length;
+                writer.WriteFixedLengthString("FARC");
             }
-
-            writer.WriteFixedLengthString("FArC");
-
-            int filesize = isize; 
-            writer.WriteInt32(filesize);
-            int dummy = 0;
-            writer.WriteInt32(dummy);
-
-            // ioffset = 12;
-            int i = 0;
-            foreach (File file in fsom.Files)
+            else if (mvarCompressed && !mvarEncrypted)
             {
-                writer.WriteNullTerminatedString(file.Name);
-                writer.WriteInt32(ioffset);
+                writer.WriteFixedLengthString("FArC");
 
-                byte[] compressedData = FileCompressedData[i];
-                writer.WriteInt32(compressedData.Length);
-                writer.WriteInt32((int)file.Size);
+                int directorySize = 0;
+                int dummy = 32;
 
-                ioffset += compressedData.Length;
-                i++;
+                int offset = 8;
+
+                foreach (File file in files)
+                {
+                    directorySize += file.Name.Length + 1;
+                    directorySize += 12;
+                }
+                writer.WriteInt32(directorySize);
+                writer.WriteInt32(dummy);
+
+                offset += directorySize;
+
+                Dictionary<File, byte[]> compressedDatas = new Dictionary<File, byte[]>();
+                foreach (File file in files)
+                {
+                    writer.WriteNullTerminatedString(file.Name);
+                    writer.WriteInt32(offset);
+
+                    byte[] decompressedData = file.GetDataAsByteArray();
+                    byte[] compressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Compress(decompressedData);
+                    writer.WriteInt32(compressedData.Length);
+                    writer.WriteInt32(decompressedData.Length);
+
+                    compressedDatas.Add(file, compressedData);
+                }
+                foreach (File file in files)
+                {
+                    writer.WriteBytes(compressedDatas[file]);
+                }
             }
-            foreach (byte[] data in FileCompressedData)
+            else if (!mvarCompressed && !mvarEncrypted)
             {
-                writer.WriteBytes(data);
+                writer.WriteFixedLengthString("FArc");
+                int directorySize = 4;
+                int dummy = 32;
+                foreach (File file in files)
+                {
+                    directorySize += 8 + (file.Name.Length + 1);
+                }
+                writer.WriteInt32(directorySize);
+                writer.WriteInt32(dummy);
+                
+                int offset = directorySize + 8;
+
+                foreach (File file in files)
+                {
+                    writer.WriteNullTerminatedString(file.Name);
+                    writer.WriteInt32(offset);
+                    writer.WriteInt32((int)file.Size);
+                    offset += (int)file.Size;
+                }
+
+                // writer.Align(96);
+
+                foreach (File file in files)
+                {
+                    writer.WriteBytes(file.GetDataAsByteArray());
+                }
+            }
+            else
+            {
+                throw new NotSupportedException("Unsupported parameters");
             }
             writer.Flush();
         }
