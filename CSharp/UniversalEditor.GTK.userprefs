@@ -4,8 +4,8 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Libraries" expanded="True" selected="True">
-            <Node name="UniversalEditor.Core" expanded="True">
+          <Node name="Libraries" expanded="True">
+            <Node name="UniversalEditor.Core" expanded="True" selected="True">
               <Node name="Accessors" expanded="True" />
               <Node name="Checksum" expanded="True">
                 <Node name="Modules" expanded="True">
