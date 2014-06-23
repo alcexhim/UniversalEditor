@@ -73,7 +73,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GTK", "GTK", "{E0422169-2DF9-4B50-A019-84A3251727F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Environments.GTK", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Environments\UniversalEditor.Environments.GTK\UniversalEditor.Environments.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Environments.GTK", "Environments\GTK\Engines\UniversalEditor.Environments.GTK\UniversalEditor.Environments.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -495,7 +495,7 @@ Global
 		{AF5F8ED3-D534-4609-94ED-B2800455B88F} = {E0422169-2DF9-4B50-A019-84A3251727F9}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj
+		StartupItem = Applications\UniversalEditor.Bootstrapper\UniversalEditor.Bootstrapper.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

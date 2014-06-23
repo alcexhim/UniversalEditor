@@ -1,13 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Libraries/UniversalEditor.UserInterface/Engine.cs">
+    <Files>
+      <File FileName="Applications/UniversalEditor.Bootstrapper/Program.cs" Line="17" Column="1" />
+      <File FileName="Libraries/UniversalEditor.UserInterface/Engine.cs" Line="30" Column="32" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
+          <Node name="Applications" expanded="True">
+            <Node name="UniversalEditor.Bootstrapper" expanded="True" />
+          </Node>
           <Node name="Environments" expanded="True">
             <Node name="GTK" expanded="True">
               <Node name="UniversalEditor.Environments.GTK" expanded="True" selected="True" />
             </Node>
+          </Node>
+          <Node name="Libraries" expanded="True">
+            <Node name="UniversalEditor.UserInterface" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -17,7 +27,10 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/beckermj/Documents/Projects2/UniversalEditor/CSharp/Applications/UniversalEditor.Bootstrapper/Program.cs" line="17" />
+      <Breakpoint file="/home/beckermj/Documents/Projects2/UniversalEditor/CSharp/Libraries/UniversalEditor.UserInterface/Engine.cs" line="45" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
