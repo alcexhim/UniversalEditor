@@ -69,6 +69,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surodoine", "..\..\Surodoine\Surodoine\Surodoine.csproj", "{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environments", "{4725A011-066E-4235-82C4-F2184BF56BBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GTK", "GTK", "{E0422169-2DF9-4B50-A019-84A3251727F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Environments.GTK", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Environments\UniversalEditor.Environments.GTK\UniversalEditor.Environments.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +285,18 @@ Global
 		{9F1FDC26-5F1C-4C2A-BBBF-3A597A72802D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9F1FDC26-5F1C-4C2A-BBBF-3A597A72802D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9F1FDC26-5F1C-4C2A-BBBF-3A597A72802D}.Release|x86.ActiveCfg = Release|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Debug|x86.Build.0 = Debug|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Release|x86.ActiveCfg = Release|Any CPU
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F}.Release|x86.Build.0 = Release|Any CPU
 		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAC9FDFD-C39E-4A90-B9F8-CF75B551BE10}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -473,6 +491,8 @@ Global
 		{9F1FDC26-5F1C-4C2A-BBBF-3A597A72802D} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{E6C9A73D-4556-4220-9BC7-302A7EE64C1A} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A} = {5A423A3E-51C5-4188-8AD5-FB5C0CB76C6A}
+		{E0422169-2DF9-4B50-A019-84A3251727F9} = {4725A011-066E-4235-82C4-F2184BF56BBE}
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F} = {E0422169-2DF9-4B50-A019-84A3251727F9}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj
