@@ -89,8 +89,10 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 		/// <summary>
 		/// Returns the Adler32 data checksum computed so far.
 		/// </summary>
-		public long Value {
-			get {
+		public override long Value
+		{
+			get
+			{
 				return checksum;
 			}
 		}
@@ -107,7 +109,7 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 		/// <summary>
 		/// Resets the Adler32 checksum to the initial value.
 		/// </summary>
-		public void Reset()
+		public override void Reset()
 		{
 			checksum = 1;
 		}

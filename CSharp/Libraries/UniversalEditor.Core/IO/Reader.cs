@@ -215,9 +215,6 @@ namespace UniversalEditor.IO
 			throw new ArgumentOutOfRangeException("Invalid 7-bit encoded Int32");
 		}
 
-		private byte[] m_charBytes = null;
-		private char[] m_charBuffer = null;
-		private int m_maxCharsSize = 256;
 		public string ReadLengthPrefixedString()
 		{
 			/*
@@ -1312,9 +1309,6 @@ namespace UniversalEditor.IO
 			return BitConverter.ToSingle(buffer2, 0);
 		}
 
-		private int bitReader_LastByteRead = 0;
-		private int bitReader_CurrentBit = 0;
-
 		public int ReadAtMostBytes(byte[] buffer, int count)
 		{
 			if (mvarAccessor.Remaining == 0) return 0;
@@ -1453,7 +1447,7 @@ namespace UniversalEditor.IO
 		public string ReadLine()
 		{
 			string line = ReadUntil(GetNewLineSequence());
-			byte[] newlineDummy = ReadBytes(GetNewLineSequence().Length);
+			ReadBytes(GetNewLineSequence().Length);
 			return line;
 		}
 

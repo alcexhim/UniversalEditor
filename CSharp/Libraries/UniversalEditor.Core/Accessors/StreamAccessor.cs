@@ -54,6 +54,7 @@ namespace UniversalEditor.Accessors
 
 		internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
+			// TODO: will ct ever be != count? should we add ct to Position instead of count??
 			int ct = mvarBaseStream.Read(buffer, start, count);
 			Position += count;
 			return count;

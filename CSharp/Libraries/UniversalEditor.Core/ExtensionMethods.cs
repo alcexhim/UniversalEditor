@@ -72,7 +72,7 @@ namespace UniversalEditor
 					en2.MoveNext();
 				}
 			}
-			catch (InvalidOperationException ex)
+			catch (InvalidOperationException)
 			{
 			}
 			return true;

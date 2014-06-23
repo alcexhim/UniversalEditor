@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,23 +46,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
-      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Plugins.Concertroid\UniversalEditor.Plugins.Concertroid.csproj">
-      <Project>{d3bbda07-5088-454e-a16d-da24d8d88037}</Project>
+      <Project>{D3BBDA07-5088-454E-A16D-DA24D8D88037}</Project>
       <Name>UniversalEditor.Plugins.Concertroid</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia3D\UniversalEditor.Plugins.Multimedia3D.csproj">
-      <Project>{4fd9db1d-76aa-48d1-8446-95376c4a2bc2}</Project>
+      <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
-      <Project>{be4d0ba3-0888-42a5-9c09-fc308a4509d2}</Project>
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
     </ProjectReference>
   </ItemGroup>

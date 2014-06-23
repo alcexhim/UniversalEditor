@@ -475,7 +475,7 @@ namespace UniversalEditor.IO
 			System.Reflection.FieldInfo[] fis = (objectType.GetFields (System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
 			foreach (System.Reflection.FieldInfo fi in fis)
 			{
-				Type fieldType = fi.FieldType;
+				// Type fieldType = fi.FieldType;
 				WriteObject (fi.GetValue (value));
 			}
 		}
