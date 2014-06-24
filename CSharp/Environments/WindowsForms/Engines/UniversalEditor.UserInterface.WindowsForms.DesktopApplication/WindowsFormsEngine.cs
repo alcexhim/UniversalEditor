@@ -8,6 +8,7 @@ using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.FileSystem.UXT;
 using UniversalEditor.DataFormats.PropertyList.UniversalPropertyList;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.UserInterface.WindowsForms.Dialogs;
 
 namespace UniversalEditor.UserInterface.WindowsForms
 {
@@ -25,6 +26,21 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private static SplashScreenWindow splasher = null;
 		
 		public static bool SessionLoading = false;
+
+		protected override void AfterInitialization()
+		{
+			base.AfterInitialization();
+
+			Commands["HelpLicensingAndActivation"].Executed += delegate(object sender, EventArgs e)
+			{
+				MessageBox.Show("This product has already been activated.", "Licensing and Activation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			};
+			Commands["HelpAboutPlatform"].Executed += delegate(object sender, EventArgs e)
+			{
+				AboutDialog dlg = new AboutDialog();
+				dlg.ShowDialog();
+			};
+		}
 
 		protected override void InitializeBranding()
 		{
