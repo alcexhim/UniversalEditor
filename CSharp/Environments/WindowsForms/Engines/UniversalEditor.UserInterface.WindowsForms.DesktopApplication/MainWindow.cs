@@ -46,6 +46,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			InitializeComponent();
 			InitializeDockingWindows();
+            InitializeCommandBars();
 
 			pnlSolutionExplorer.ParentWindow = this;
 
@@ -75,6 +76,61 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			ShowStartPage();
 		}
+
+        private void InitializeCommandBars()
+        {
+            mbMenuBar.Items.Clear();
+            foreach (CommandItem item in Engine.CurrentEngine.MainMenu.Items)
+            {
+                LoadCommandBarItem(item, null);
+            }
+        }
+
+        private void LoadCommandBarItem(CommandItem item, ToolStripMenuItem parent)
+        {
+            ToolStripItem tsi = null;
+
+            if (item is CommandReferenceCommandItem)
+            {
+                CommandReferenceCommandItem crci = (item as CommandReferenceCommandItem);
+                Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+                if (cmd == null)
+                {
+                    Console.WriteLine("Skipping invalid command reference '" + crci.CommandID + "'");
+                    return;
+                }
+                
+                ToolStripMenuItem tsmi = new ToolStripMenuItem();
+                tsmi.Click += tsmiCommand_Click;
+                tsmi.Tag = cmd;
+                tsmi.Text = cmd.Title;
+                foreach (CommandItem item1 in cmd.Items)
+                {
+                    LoadCommandBarItem(item1, tsmi);
+                }
+                tsi = tsmi;
+            }
+            else if (item is SeparatorCommandItem)
+            {
+                tsi = new ToolStripSeparator();
+            }
+
+            if (parent == null)
+            {
+                mbMenuBar.Items.Add(tsi);
+            }
+            else
+            {
+                parent.DropDownItems.Add(tsi);
+            }
+        }
+
+        void tsmiCommand_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
+            Command cmd = (tsmi.Tag as Command);
+            if (cmd != null) cmd.Execute();
+        }
 
 
 		private void Messages_MessageAdded(object sender, HostApplicationMessageModifiedEventArgs e)
@@ -1846,8 +1902,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private void mnuHelpAbout_Click(object sender, EventArgs e)
 		{
-			AboutDialog dlg = new AboutDialog();
-			dlg.ShowDialog();
 		}
 		
 		private void lblDataFormat_Click(object sender, EventArgs e)
