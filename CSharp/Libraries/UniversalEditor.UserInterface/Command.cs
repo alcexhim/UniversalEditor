@@ -34,6 +34,9 @@ namespace UniversalEditor.UserInterface
 		/// The title of the command (including mnemonic prefix, if applicable).
 		/// </summary>
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+
+		private CommandShortcutKey mvarShortcutKey = new CommandShortcutKey();
+		public CommandShortcutKey ShortcutKey { get { return mvarShortcutKey; } }
 		
 		private StockCommandType mvarStockCommandType = StockCommandType.None;
 		/// <summary>
