@@ -46,7 +46,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			InitializeComponent();
 			InitializeDockingWindows();
-            InitializeCommandBars();
+			InitializeCommandBars();
 
 			pnlSolutionExplorer.ParentWindow = this;
 
@@ -77,60 +77,60 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			ShowStartPage();
 		}
 
-        private void InitializeCommandBars()
-        {
-            mbMenuBar.Items.Clear();
-            foreach (CommandItem item in Engine.CurrentEngine.MainMenu.Items)
-            {
-                LoadCommandBarItem(item, null);
-            }
-        }
+		private void InitializeCommandBars()
+		{
+			mbMenuBar.Items.Clear();
+			foreach (CommandItem item in Engine.CurrentEngine.MainMenu.Items)
+			{
+				LoadCommandBarItem(item, null);
+			}
+		}
 
-        private void LoadCommandBarItem(CommandItem item, ToolStripMenuItem parent)
-        {
-            ToolStripItem tsi = null;
+		private void LoadCommandBarItem(CommandItem item, ToolStripMenuItem parent)
+		{
+			ToolStripItem tsi = null;
 
-            if (item is CommandReferenceCommandItem)
-            {
-                CommandReferenceCommandItem crci = (item as CommandReferenceCommandItem);
-                Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
-                if (cmd == null)
-                {
-                    Console.WriteLine("Skipping invalid command reference '" + crci.CommandID + "'");
-                    return;
-                }
-                
-                ToolStripMenuItem tsmi = new ToolStripMenuItem();
-                tsmi.Click += tsmiCommand_Click;
-                tsmi.Tag = cmd;
-                tsmi.Text = cmd.Title;
-                foreach (CommandItem item1 in cmd.Items)
-                {
-                    LoadCommandBarItem(item1, tsmi);
-                }
-                tsi = tsmi;
-            }
-            else if (item is SeparatorCommandItem)
-            {
-                tsi = new ToolStripSeparator();
-            }
+			if (item is CommandReferenceCommandItem)
+			{
+				CommandReferenceCommandItem crci = (item as CommandReferenceCommandItem);
+				Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+				if (cmd == null)
+				{
+					Console.WriteLine("Skipping invalid command reference '" + crci.CommandID + "'");
+					return;
+				}
+				
+				ToolStripMenuItem tsmi = new ToolStripMenuItem();
+				tsmi.Click += tsmiCommand_Click;
+				tsmi.Tag = cmd;
+				tsmi.Text = cmd.Title;
+				foreach (CommandItem item1 in cmd.Items)
+				{
+					LoadCommandBarItem(item1, tsmi);
+				}
+				tsi = tsmi;
+			}
+			else if (item is SeparatorCommandItem)
+			{
+				tsi = new ToolStripSeparator();
+			}
 
-            if (parent == null)
-            {
-                mbMenuBar.Items.Add(tsi);
-            }
-            else
-            {
-                parent.DropDownItems.Add(tsi);
-            }
-        }
+			if (parent == null)
+			{
+				mbMenuBar.Items.Add(tsi);
+			}
+			else
+			{
+				parent.DropDownItems.Add(tsi);
+			}
+		}
 
-        void tsmiCommand_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
-            Command cmd = (tsmi.Tag as Command);
-            if (cmd != null) cmd.Execute();
-        }
+		void tsmiCommand_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
+			Command cmd = (tsmi.Tag as Command);
+			if (cmd != null) cmd.Execute();
+		}
 
 
 		private void Messages_MessageAdded(object sender, HostApplicationMessageModifiedEventArgs e)
@@ -660,15 +660,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public void OpenFile()
 		{
-            DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
-            dlg.Mode = DocumentPropertiesDialogMode.Open;
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                OpenFile((dlg.Accessor as FileAccessor).FileName);
-            }
+			DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+			dlg.Mode = DocumentPropertiesDialogMode.Open;
+			if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				OpenFile((dlg.Accessor as FileAccessor).FileName);
+			}
 
 			// Display the Open File dialog
-            /*
+			/*
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
 				ofd.AutoUpgradeEnabled = true;
@@ -692,7 +692,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					OpenFile(ofd.FileNames);
 				}
 			}
-            */
+			*/
 		}
 		public void OpenFile(params string[] FileNames)
 		{
@@ -1067,25 +1067,25 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		retrySaveFileAs:
 			if (FileName == null)
 			{
-                DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
-                dlg.ObjectModel = doc.ObjectModel;
-                dlg.DataFormat = doc.DataFormat;
-                dlg.Accessor = doc.Accessor;
-                dlg.Mode = DocumentPropertiesDialogMode.Save;
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    dfr = dlg.DataFormat.MakeReference();
+				DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+				dlg.ObjectModel = doc.ObjectModel;
+				dlg.DataFormat = doc.DataFormat;
+				dlg.Accessor = doc.Accessor;
+				dlg.Mode = DocumentPropertiesDialogMode.Save;
+				if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					dfr = dlg.DataFormat.MakeReference();
 
-                    // TODO: Rewrite Save code to make everything use Accessor instead
-                    // of FileName to support multiple types of accessors
-                    FileName = (dlg.Accessor as FileAccessor).FileName;
-                }
-                else
-                {
-                    return false;
-                }
+					// TODO: Rewrite Save code to make everything use Accessor instead
+					// of FileName to support multiple types of accessors
+					FileName = (dlg.Accessor as FileAccessor).FileName;
+				}
+				else
+				{
+					return false;
+				}
 
-                /*
+				/*
 				SaveFileDialog sfd = new SaveFileDialog();
 
 				List<DataFormatReference> list = new List<DataFormatReference>();
@@ -1101,9 +1101,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					dfr = list[sfd.FilterIndex - 2];
 				}
 				FileName = sfd.FileName;
-                */
+				*/
 			}
-            /*
+			/*
 			if (dfr == null)
 			{
 				DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(FileName, doc.ObjectModel.MakeReference());
@@ -1121,11 +1121,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 				dfr = dfrs[0];
 			}
-            */
+			*/
 
 			DataFormat df = dfr.Create();
 			DataFormatOptionsDialog.ShowDialog(ref df, DataFormatOptionsDialogType.Export);
-            
+			
 			#region Save Code
 			NotifySaving(doc);
 
@@ -1432,15 +1432,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			NewProject();
 		}
 
-		private void FileOpenFile_Click(object sender, EventArgs e)
-		{
-			OpenFile();
-		}
-		private void FileOpenProject_Click(object sender, EventArgs e)
-		{
-			OpenProject();
-		}
-
 		#region Save
 		private void FileSaveFile_Click(object sender, EventArgs e)
 		{
@@ -1464,7 +1455,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		#endregion
 		#region Close   
-		private void FileCloseFile_Click(object sender, EventArgs e)
+		public void CloseFile()
 		{
 			if (dcc.SelectedWindow != null)
 			{
@@ -1472,7 +1463,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 			else
 			{
-				mnuFileCloseWindow_Click(sender, e);
+				CloseWindow();
 			}
 		}
 		private void FileCloseProject_Click(object sender, EventArgs e)
@@ -1676,8 +1667,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			if (dwStartPage == null)
 			{
 				Pages.StartPage sp = new Pages.StartPage();
-				sp.NewProjectClicked += FileNewProject_Click;
-				sp.OpenProjectClicked += FileOpenProject_Click;
+				sp.NewProjectClicked += delegate(object sender, EventArgs e)
+				{
+					Engine.CurrentEngine.Commands["FileNewProject"].Execute();
+				};
+				sp.OpenProjectClicked += delegate(object sender, EventArgs e)
+				{
+					Engine.CurrentEngine.Commands["FileOpenProject"].Execute();
+				};
 
 				dwStartPage = dcc.Windows.Add("pnlStartPage", "Start Page", sp);
 				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(dwStartPage);
@@ -1956,7 +1953,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			dlg.ShowDialog();
 		}
 
-		private void mnuFileCloseWindow_Click(object sender, EventArgs e)
+		public void CloseWindow()
 		{
 			this.Close();
 		}

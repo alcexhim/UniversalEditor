@@ -43,9 +43,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileNewFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileNewProject = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuFileOpenFile = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuFileOpenProject = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileSaveFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileSaveFileAs = new System.Windows.Forms.ToolStripMenuItem();
@@ -278,7 +275,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 			this.mnuFileNew,
-			this.mnuFileOpen,
 			this.mnuFileSave,
 			this.mnuFileClose,
 			this.mnuFileSep1,
@@ -322,34 +318,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuFileNewProject.Size = new System.Drawing.Size(244, 22);
 			this.mnuFileNewProject.Text = "&Project/Solution...";
 			this.mnuFileNewProject.Click += new System.EventHandler(this.FileNewProject_Click);
-			// 
-			// mnuFileOpen
-			// 
-			this.mnuFileOpen.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuFileOpenFile,
-			this.mnuFileOpenProject});
-			this.mnuFileOpen.Name = "mnuFileOpen";
-			this.mnuFileOpen.Size = new System.Drawing.Size(156, 22);
-			this.mnuFileOpen.Text = "&Open";
-			// 
-			// mnuFileOpenFile
-			// 
-			this.mnuFileOpenFile.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileOpenFile.Image")));
-			this.mnuFileOpenFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.mnuFileOpenFile.Name = "mnuFileOpenFile";
-			this.mnuFileOpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.mnuFileOpenFile.Size = new System.Drawing.Size(244, 22);
-			this.mnuFileOpenFile.Text = "&File...";
-			this.mnuFileOpenFile.Click += new System.EventHandler(this.FileOpenFile_Click);
-			// 
-			// mnuFileOpenProject
-			// 
-			this.mnuFileOpenProject.Name = "mnuFileOpenProject";
-			this.mnuFileOpenProject.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.O)));
-			this.mnuFileOpenProject.Size = new System.Drawing.Size(244, 22);
-			this.mnuFileOpenProject.Text = "&Project/Solution...";
-			this.mnuFileOpenProject.Click += new System.EventHandler(this.FileOpenProject_Click);
 			// 
 			// mnuFileSave
 			// 
@@ -1090,33 +1058,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.tsbStandardNewProject.Text = "New &Project...";
 			this.tsbStandardNewProject.Click += new System.EventHandler(this.FileNewProject_Click);
 			// 
-			// tsbStandardOpen
-			// 
-			this.tsbStandardOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardOpen.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.tsbStandardOpenFile,
-			this.tsbStandardOpenProject});
-			this.tsbStandardOpen.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardOpen.Image")));
-			this.tsbStandardOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardOpen.Name = "tsbStandardOpen";
-			this.tsbStandardOpen.Size = new System.Drawing.Size(32, 22);
-			this.tsbStandardOpen.Text = "&Open";
-			this.tsbStandardOpen.ButtonClick += new System.EventHandler(this.FileOpenFile_Click);
-			// 
-			// tsbStandardOpenFile
-			// 
-			this.tsbStandardOpenFile.Name = "tsbStandardOpenFile";
-			this.tsbStandardOpenFile.Size = new System.Drawing.Size(152, 22);
-			this.tsbStandardOpenFile.Text = "Open &File...";
-			this.tsbStandardOpenFile.Click += new System.EventHandler(this.FileOpenFile_Click);
-			// 
-			// tsbStandardOpenProject
-			// 
-			this.tsbStandardOpenProject.Name = "tsbStandardOpenProject";
-			this.tsbStandardOpenProject.Size = new System.Drawing.Size(152, 22);
-			this.tsbStandardOpenProject.Text = "Open &Project...";
-			this.tsbStandardOpenProject.Click += new System.EventHandler(this.FileOpenProject_Click);
-			// 
 			// tsbStandardSave
 			// 
 			this.tsbStandardSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1349,9 +1290,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem mnuFileNew;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileNewFile;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileNewProject;
-		private System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
-		private System.Windows.Forms.ToolStripMenuItem mnuFileOpenFile;
-		private System.Windows.Forms.ToolStripMenuItem mnuFileOpenProject;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileClose;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileCloseFile;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileCloseProject;

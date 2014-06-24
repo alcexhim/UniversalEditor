@@ -31,6 +31,49 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			base.AfterInitialization();
 
+			#region File
+			Commands["FileNewDocument"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.NewFile();
+			};
+			Commands["FileNewProject"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.NewProject();
+			};
+			Commands["FileOpenDocument"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.OpenFile();
+			};
+			Commands["FileOpenProject"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.OpenProject();
+			};
+			Commands["FileSaveDocument"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveFile();
+			};
+			Commands["FileSaveDocumentAs"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveFileAs();
+			};
+			Commands["FileSaveProject"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveProject();
+			};
+			Commands["FileSaveProjectAs"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveProjectAs();
+			};
+			Commands["FileSaveAll"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveAll();
+			};
+			Commands["FileCloseDocument"].Executed += delegate(object sender, EventArgs e)
+			{
+				LastWindow.CloseFile();
+			};
+			#endregion
+
 			Commands["HelpLicensingAndActivation"].Executed += delegate(object sender, EventArgs e)
 			{
 				MessageBox.Show("This product has already been activated.", "Licensing and Activation", MessageBoxButtons.OK, MessageBoxIcon.Information);
