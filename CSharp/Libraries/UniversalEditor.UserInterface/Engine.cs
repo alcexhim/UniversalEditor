@@ -61,12 +61,98 @@ namespace UniversalEditor.UserInterface
 			return m_AvailableEngines;
 		}
 
-        protected virtual void BeforeInitialization()
-        {
-        }
-        protected virtual void AfterInitialization()
-        {
-        }
+		public bool AttachCommandEventHandler(string commandID, EventHandler handler)
+		{
+			Command cmd = Commands[commandID];
+			if (cmd != null)
+			{
+				cmd.Executed += handler;
+				return true;
+			}
+			Console.WriteLine("attempted to attach handler for unknown command '" + commandID + "'");
+			return false;
+		}
+
+		protected virtual void BeforeInitialization()
+		{
+		}
+		protected virtual void AfterInitialization()
+		{
+			// Initialize all the commands that are common to UniversalEditor
+			#region File
+			AttachCommandEventHandler("FileNewDocument", delegate(object sender, EventArgs e)
+			{
+				LastWindow.NewFile();
+			});
+			AttachCommandEventHandler("FileNewProject", delegate(object sender, EventArgs e)
+			{
+				LastWindow.NewProject();
+			});
+			AttachCommandEventHandler("FileOpenDocument", delegate(object sender, EventArgs e)
+			{
+				LastWindow.OpenFile();
+			});
+			AttachCommandEventHandler("FileOpenProject", delegate(object sender, EventArgs e)
+			{
+				LastWindow.OpenProject();
+			});
+			AttachCommandEventHandler("FileSaveDocument", delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveFile();
+			});
+			AttachCommandEventHandler("FileSaveDocumentAs", delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveFileAs();
+			});
+			AttachCommandEventHandler("FileSaveProject", delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveProject();
+			});
+			AttachCommandEventHandler("FileSaveProjectAs", delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveProjectAs();
+			});
+			AttachCommandEventHandler("FileSaveAll", delegate(object sender, EventArgs e)
+			{
+				LastWindow.SaveAll();
+			});
+			AttachCommandEventHandler("FileCloseDocument", delegate(object sender, EventArgs e)
+			{
+				LastWindow.CloseFile();
+			});
+			AttachCommandEventHandler("FileExit", delegate(object sender, EventArgs e)
+			{
+				ExitApplication();
+			});
+			#endregion
+			#region Tools
+			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
+			AttachCommandEventHandler("ToolsOptions", delegate(object sender, EventArgs e)
+			{
+				LastWindow.ShowOptionsDialog();
+			});
+			#endregion
+		}
+
+		public virtual void ExitApplication()
+		{
+		}
+
+		private IHostApplicationWindowCollection mvarWindows = new IHostApplicationWindowCollection();
+		public IHostApplicationWindowCollection Windows { get { return mvarWindows; } }
+
+		public void CloseAllWindows()
+		{
+			List<IHostApplicationWindow> windowsToClose = new List<IHostApplicationWindow>();
+			foreach (IHostApplicationWindow window in mvarWindows)
+			{
+				windowsToClose.Add(window);
+			}
+			foreach (IHostApplicationWindow window in windowsToClose)
+			{
+				window.CloseWindow();
+			}
+		}
 
 		public static bool Execute()
 		{
@@ -93,6 +179,18 @@ namespace UniversalEditor.UserInterface
 		/// The commands defined for this application.
 		/// </summary>
 		public Command.CommandCollection Commands { get { return mvarCommands; } }
+
+		private Language mvarDefaultLanguage = null;
+		/// <summary>
+		/// The default <see cref="Language"/> used to display translatable text in this application.
+		/// </summary>
+		public Language DefaultLanguage { get { return mvarDefaultLanguage; } set { mvarDefaultLanguage = value; } }
+
+		private Language.LanguageCollection mvarLanguages = new Language.LanguageCollection();
+		/// <summary>
+		/// The languages defined for this application. Translations can be added through XML files in the ~/Languages folder.
+		/// </summary>
+		public Language.LanguageCollection Languages { get { return mvarLanguages; } }
 		
 		private EngineMainMenu mvarMainMenu = new EngineMainMenu();
 		/// <summary>
@@ -134,6 +232,19 @@ namespace UniversalEditor.UserInterface
 
 		private IHostApplicationWindow mvarLastWindow = null;
 		public IHostApplicationWindow LastWindow { get { return mvarLastWindow; } set { mvarLastWindow = value; } }
+
+		public void OpenFile(params string[] FileNames)
+		{
+			LastWindow.OpenFile(FileNames);
+		}
+		/// <summary>
+		/// Opens a new window, optionally loading the specified documents.
+		/// </summary>
+		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
+		public virtual void OpenWindow(params string[] FileNames)
+		{
+
+		}
 
 		// UniversalDataStorage.Editor.WindowsForms.Program
 		private void SingleInstanceManager_Callback(object sender, SingleInstanceManager.InstanceCallbackEventArgs e)
@@ -189,14 +300,14 @@ namespace UniversalEditor.UserInterface
 					cmd.ID = attID.Value;
 					
 					MarkupAttribute attTitle = tagCommand.Attributes["Title"];
-                    if (attTitle != null)
-                    {
-                        cmd.Title = attTitle.Value;
-                    }
-                    else
-                    {
-                        cmd.Title = cmd.ID;
-                    }
+					if (attTitle != null)
+					{
+						cmd.Title = attTitle.Value;
+					}
+					else
+					{
+						cmd.Title = cmd.ID;
+					}
 					
 					MarkupTagElement tagItems = (tagCommand.Elements["Items"] as MarkupTagElement);
 					if (tagItems != null)
@@ -221,8 +332,80 @@ namespace UniversalEditor.UserInterface
 				if (tagItem == null) continue;
 				InitializeMainMenuItem(tagItem, null);
 			}
-			
+
+			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Languages") as MarkupTagElement);
+			foreach (MarkupElement elLanguage in tagLanguages.Elements)
+			{
+				MarkupTagElement tagLanguage = (elLanguage as MarkupTagElement);
+				if (tagLanguage == null) continue;
+				if (tagLanguage.FullName != "Language") continue;
+				InitializeLanguage(tagLanguage);
+			}
+
+			MarkupAttribute attDefaultLanguageID = tagLanguages.Attributes["DefaultLanguageID"];
+			if (attDefaultLanguageID != null)
+			{
+				mvarDefaultLanguage = mvarLanguages[attDefaultLanguageID.Value];
+			}
 			#endregion
+
+			if (mvarDefaultLanguage != null)
+			{
+				foreach (Command cmd in mvarCommands)
+				{
+					cmd.Title = mvarDefaultLanguage.GetCommandTitle(cmd.ID, cmd.ID);
+				}
+			}
+		}
+
+		private void InitializeLanguage(MarkupTagElement tag)
+		{
+			Language lang = new Language();
+			MarkupAttribute attID = tag.Attributes["ID"];
+			if (attID != null)
+			{
+				lang.ID = attID.Value;
+			}
+
+			MarkupTagElement tagStringTable = (tag.Elements["StringTable"] as MarkupTagElement);
+			if (tagStringTable != null)
+			{
+				foreach (MarkupElement elStringTableEntry in tagStringTable.Elements)
+				{
+					MarkupTagElement tagStringTableEntry = (elStringTableEntry as MarkupTagElement);
+					if (tagStringTableEntry == null) continue;
+					if (tagStringTableEntry.FullName != "StringTableEntry") continue;
+
+					MarkupAttribute attStringTableEntryID = tagStringTableEntry.Attributes["ID"];
+					if (attStringTableEntryID == null) continue;
+
+					MarkupAttribute attStringTableEntryValue = tagStringTableEntry.Attributes["Value"];
+					if (attStringTableEntryValue == null) continue;
+
+					lang.SetStringTableEntry(attStringTableEntryID.Value, attStringTableEntryValue.Value);
+				}
+			}
+
+			MarkupTagElement tagCommands = (tag.Elements["Commands"] as MarkupTagElement);
+			if (tagCommands != null)
+			{
+				foreach (MarkupElement elCommand in tagCommands.Elements)
+				{
+					MarkupTagElement tagCommand = (elCommand as MarkupTagElement);
+					if (tagCommand == null) continue;
+					if (tagCommand.FullName != "Command") continue;
+
+					MarkupAttribute attCommandID = tagCommand.Attributes["ID"];
+					if (attCommandID == null) continue;
+
+					MarkupAttribute attCommandTitle = tagCommand.Attributes["Title"];
+					if (attCommandTitle == null) continue;
+
+					lang.SetCommandTitle(attCommandID.Value, attCommandTitle.Value);
+				}
+			}
+
+			mvarLanguages.Add(lang);
 		}
 		
 		private void InitializeMainMenuItem(MarkupTagElement tag, Command parent)
@@ -295,7 +478,7 @@ namespace UniversalEditor.UserInterface
 			// overridden with a switch (/basepath:...) ?
 			mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            BeforeInitialization();
+			BeforeInitialization();
 
 			// Initialize the XML files
 			InitializeXMLConfiguration();
@@ -323,7 +506,7 @@ namespace UniversalEditor.UserInterface
 			}
 			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
 
-            AfterInitialization();
+			AfterInitialization();
 
 			MainLoop();
 		}

@@ -269,7 +269,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
 			ProjectTypeItemShortcut its = (tsmi.Tag as ProjectTypeItemShortcut);
 
-			WindowsFormsEngine.LastWindow.NewFile();
+			Engine.CurrentEngine.Commands["FileNewDocument"].Execute();
 		}
 
 		private void mnuContextAddNewProject_Click(object sender, EventArgs e)

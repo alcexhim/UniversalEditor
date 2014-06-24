@@ -17,6 +17,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 {
 	public partial class MainWindow : AwesomeControls.Window, IHostApplicationWindow
 	{
+		public event EventHandler WindowClosed;
+
 		#region Docking Windows
 		private Controls.ErrorList pnlErrorList = new Controls.ErrorList();
 		private DockingWindow dwErrorList = null;
@@ -103,7 +105,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				ToolStripMenuItem tsmi = new ToolStripMenuItem();
 				tsmi.Click += tsmiCommand_Click;
 				tsmi.Tag = cmd;
-				tsmi.Text = cmd.Title;
+				tsmi.Text = cmd.Title.Replace("_", "&");
 				foreach (CommandItem item1 in cmd.Items)
 				{
 					LoadCommandBarItem(item1, tsmi);
@@ -1413,9 +1415,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		protected override void OnClosed(EventArgs e)
 		{
 			base.OnClosed(e);
-			if (WindowsFormsEngine.Windows.Contains(this)) WindowsFormsEngine.Windows.Remove(this);
+			if (WindowClosed != null) WindowClosed(this, e);
 
-			if (!WindowsFormsEngine.SessionLoading && WindowsFormsEngine.Windows.Count == 0)
+			if (!WindowsFormsEngine.SessionLoading && Engine.CurrentEngine.Windows.Count == 0)
 			{
 				Application.Exit();
 			}
@@ -1703,12 +1705,20 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			cbc.ShowCustomizeDialog();
 		}
 
-		private OptionsDialog dlgOptions = null;
 		private void ToolsOptions_Click(object sender, EventArgs e)
+		{
+		}
+
+		private OptionsDialog dlgOptions = null;
+		public bool ShowOptionsDialog()
 		{
 			if (dlgOptions == null) dlgOptions = new OptionsDialog();
 			if (dlgOptions.IsDisposed) dlgOptions = new OptionsDialog();
-			dlgOptions.ShowDialog();
+			if (dlgOptions.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				return true;
+			}
+			return false;
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -1723,7 +1733,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		protected override void OnActivated(EventArgs e)
 		{
 			base.OnActivated(e);
-			WindowsFormsEngine.LastWindow = this;
+			Engine.CurrentEngine.LastWindow = this;
 			HostApplication.CurrentWindow = this;
 		}
 
@@ -1793,7 +1803,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private void mnuWindowNewWindow_Click(object sender, EventArgs e)
 		{
-			WindowsFormsEngine.OpenWindow();
+			Engine.CurrentEngine.OpenWindow();
 		}
 
 		private void cboAddress_KeyDown(object sender, KeyEventArgs e)

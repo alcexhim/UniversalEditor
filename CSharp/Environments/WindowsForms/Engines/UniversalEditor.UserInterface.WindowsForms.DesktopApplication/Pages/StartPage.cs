@@ -63,7 +63,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
             	}
             	return;
             }
-            WindowsFormsEngine.OpenFile(lvRecent.SelectedItems[0].TooltipText);
+            Engine.CurrentEngine.OpenFile(lvRecent.SelectedItems[0].TooltipText);
         }
     }
 }

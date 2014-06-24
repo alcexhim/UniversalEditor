@@ -383,47 +383,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuFileSaveAll.Text = "A&ll Files and Projects";
 			this.mnuFileSaveAll.Click += new System.EventHandler(this.FileSaveAll_Click);
 			// 
-			// mnuFileClose
-			// 
-			this.mnuFileClose.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuFileCloseFile,
-			this.mnuFileCloseProject,
-			this.toolStripMenuItem11,
-			this.mnuFileCloseWindow});
-			this.mnuFileClose.Name = "mnuFileClose";
-			this.mnuFileClose.Size = new System.Drawing.Size(156, 22);
-			this.mnuFileClose.Text = "&Close";
-			// 
-			// mnuFileCloseFile
-			// 
-			this.mnuFileCloseFile.Name = "mnuFileCloseFile";
-			this.mnuFileCloseFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-			this.mnuFileCloseFile.Size = new System.Drawing.Size(237, 22);
-			this.mnuFileCloseFile.Text = "&File";
-			this.mnuFileCloseFile.Click += new System.EventHandler(this.FileCloseFile_Click);
-			// 
-			// mnuFileCloseProject
-			// 
-			this.mnuFileCloseProject.Name = "mnuFileCloseProject";
-			this.mnuFileCloseProject.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.W)));
-			this.mnuFileCloseProject.Size = new System.Drawing.Size(237, 22);
-			this.mnuFileCloseProject.Text = "&Project/Solution";
-			this.mnuFileCloseProject.Click += new System.EventHandler(this.FileCloseProject_Click);
-			// 
-			// toolStripMenuItem11
-			// 
-			this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-			this.toolStripMenuItem11.Size = new System.Drawing.Size(234, 6);
-			// 
-			// mnuFileCloseWindow
-			// 
-			this.mnuFileCloseWindow.Name = "mnuFileCloseWindow";
-			this.mnuFileCloseWindow.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.mnuFileCloseWindow.Size = new System.Drawing.Size(237, 22);
-			this.mnuFileCloseWindow.Text = "&Window";
-			this.mnuFileCloseWindow.Click += new System.EventHandler(this.mnuFileCloseWindow_Click);
-			// 
 			// mnuFileSep1
 			// 
 			this.mnuFileSep1.Name = "mnuFileSep1";

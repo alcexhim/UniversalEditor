@@ -7,6 +7,8 @@ namespace UniversalEditor.UserInterface
 {
 	public interface IHostApplicationWindow
 	{
+		event EventHandler WindowClosed;
+
 		void NewFile();
 		void NewProject(bool combineObjects = false);
 
@@ -24,6 +26,16 @@ namespace UniversalEditor.UserInterface
 		void SaveProjectAs(string FileName, DataFormat df);
 
 		void SaveAll();
+
+		void CloseFile();
+		void CloseWindow();
+
+		/// <summary>
+		/// Displays the "Options" dialog (on Windows, under the "Tools" menu; on Linux, under the "Edit"
+		/// menu, labeled as "Preferences").
+		/// </summary>
+		/// <returns>True if the user accepted the dialog; false otherwise.</returns>
+		bool ShowOptionsDialog();
 		
 		void ToggleMenuItemEnabled(string menuItemName, bool enabled);
 		void RefreshCommand(object nativeCommandObject);
@@ -34,5 +46,10 @@ namespace UniversalEditor.UserInterface
 		void UpdateProgress(int minimum, int maximium, int value);
 
 		void ActivateWindow();
+	}
+	public class IHostApplicationWindowCollection
+		: System.Collections.ObjectModel.Collection<IHostApplicationWindow>
+	{
+
 	}
 }

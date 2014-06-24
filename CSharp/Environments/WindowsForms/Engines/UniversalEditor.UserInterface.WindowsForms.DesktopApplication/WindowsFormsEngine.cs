@@ -18,11 +18,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 	internal class WindowsFormsEngine : Engine
 	{
-		internal static MainWindow LastWindow = null;
-
-		private static List<MainWindow> mvarWindows = new List<MainWindow>();
-		public static List<MainWindow> Windows { get { return mvarWindows; } }
-
 		private static SplashScreenWindow splasher = null;
 		
 		public static bool SessionLoading = false;
@@ -30,49 +25,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		protected override void AfterInitialization()
 		{
 			base.AfterInitialization();
-
-			#region File
-			Commands["FileNewDocument"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.NewFile();
-			};
-			Commands["FileNewProject"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.NewProject();
-			};
-			Commands["FileOpenDocument"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.OpenFile();
-			};
-			Commands["FileOpenProject"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.OpenProject();
-			};
-			Commands["FileSaveDocument"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.SaveFile();
-			};
-			Commands["FileSaveDocumentAs"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.SaveFileAs();
-			};
-			Commands["FileSaveProject"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.SaveProject();
-			};
-			Commands["FileSaveProjectAs"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.SaveProjectAs();
-			};
-			Commands["FileSaveAll"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.SaveAll();
-			};
-			Commands["FileCloseDocument"].Executed += delegate(object sender, EventArgs e)
-			{
-				LastWindow.CloseFile();
-			};
-			#endregion
 
 			Commands["HelpLicensingAndActivation"].Executed += delegate(object sender, EventArgs e)
 			{
@@ -426,11 +378,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 		}
 
-		public static void OpenFile(params string[] FileNames)
-		{
-			LastWindow.OpenFile(FileNames);
-		}
-		public static void OpenWindow(params string[] FileNames)
+		public override void OpenWindow(params string[] FileNames)
 		{
 			MainWindow mw = new MainWindow();
 
@@ -440,10 +388,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 			mw.Show();
 
-			mvarWindows.Add(mw);
+			Windows.Add(mw);
 		}
 
-		public static void ExitApplication()
+		public override void ExitApplication()
 		{
 			if (LocalConfiguration.ConfirmExit)
 			{
@@ -453,19 +401,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 			}
 			Application.Exit();
-		}
-
-		public static void CloseAllWindows()
-		{
-			List<MainWindow> windowsToClose = new List<MainWindow>();
-			foreach (MainWindow window in mvarWindows)
-			{
-				windowsToClose.Add(window);
-			}
-			foreach (MainWindow window in windowsToClose)
-			{
-				window.Close();
-			}
 		}
 	}
 }

@@ -46,7 +46,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			this.Close();
 
 			WindowsFormsEngine.SessionLoading = true;
-			WindowsFormsEngine.CloseAllWindows();
+			Engine.CurrentEngine.CloseAllWindows();
 
 			SessionManager.Session session = (lv.SelectedItems[0].Data as SessionManager.Session);
 
@@ -62,7 +62,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				filenames.Add(wnd, window.FileNames.ToArray());
 
 				wnd.Show();
-				WindowsFormsEngine.Windows.Add(wnd);
+				Engine.CurrentEngine.Windows.Add(wnd);
 			}
 
 			foreach (KeyValuePair<MainWindow, string[]> fkvp in filenames)
@@ -78,7 +78,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			SessionManager.Session session = new SessionManager.Session();
 			session.Title = txtSessionName.Text;
 
-			foreach (MainWindow wnd in WindowsFormsEngine.Windows)
+			foreach (MainWindow wnd in Engine.CurrentEngine.Windows)
 			{
 				SessionManager.Window window = new SessionManager.Window();
 				window.Left = wnd.Left;
@@ -123,8 +123,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			if (MessageBox.Show("Would you like to close all active windows and start a new session at this time?", "Close Session", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
 			{
 				WindowsFormsEngine.SessionLoading = true;
-				WindowsFormsEngine.CloseAllWindows();
-				WindowsFormsEngine.OpenWindow();
+				Engine.CurrentEngine.CloseAllWindows();
+				Engine.CurrentEngine.OpenWindow();
 				WindowsFormsEngine.SessionLoading = false;
 			}
 		}
