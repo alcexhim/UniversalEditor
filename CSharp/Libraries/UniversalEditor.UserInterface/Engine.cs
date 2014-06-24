@@ -61,6 +61,13 @@ namespace UniversalEditor.UserInterface
 			return m_AvailableEngines;
 		}
 
+        protected virtual void BeforeInitialization()
+        {
+        }
+        protected virtual void AfterInitialization()
+        {
+        }
+
 		public static bool Execute()
 		{
 			Engine[] engines = GetAvailableEngines();
@@ -182,10 +189,14 @@ namespace UniversalEditor.UserInterface
 					cmd.ID = attID.Value;
 					
 					MarkupAttribute attTitle = tagCommand.Attributes["Title"];
-					if (attTitle != null)
-					{
-						cmd.Title = attTitle.Value;
-					}
+                    if (attTitle != null)
+                    {
+                        cmd.Title = attTitle.Value;
+                    }
+                    else
+                    {
+                        cmd.Title = cmd.ID;
+                    }
 					
 					MarkupTagElement tagItems = (tagCommand.Elements["Items"] as MarkupTagElement);
 					if (tagItems != null)
@@ -283,7 +294,9 @@ namespace UniversalEditor.UserInterface
 			// Set up the base path for the current application. Should this be able to be
 			// overridden with a switch (/basepath:...) ?
 			mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			
+
+            BeforeInitialization();
+
 			// Initialize the XML files
 			InitializeXMLConfiguration();
 			
@@ -309,6 +322,8 @@ namespace UniversalEditor.UserInterface
 				INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
 			}
 			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
+
+            AfterInitialization();
 
 			MainLoop();
 		}
