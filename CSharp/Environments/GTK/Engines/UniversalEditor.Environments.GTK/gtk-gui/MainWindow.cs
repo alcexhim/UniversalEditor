@@ -20,6 +20,8 @@ public partial class MainWindow
 	private global::Gtk.Action CutAction;
 	private global::Gtk.VBox vbox1;
 	private global::Gtk.MenuBar menubar1;
+	private global::Gtk.Toolbar toolbar1;
+	private global::Gtk.Notebook notebook1;
 	private global::Gtk.Statusbar statusbar1;
 	private global::Gtk.Label lblStatus;
 	
@@ -151,7 +153,7 @@ public partial class MainWindow
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='FileAction' action='FileAction'><menu name='FileNew' action='FileNew'><menuitem name='FileNewDocument' action='FileNewDocument'/><menuitem name='FileNewProject' action='FileNewProject'/></menu><menu name='FileOpen' action='FileOpen'><menuitem name='FileOpenDocument' action='FileOpenDocument'/><menuitem name='FileOpenProject' action='FileOpenProject'/></menu><menu name='CloseAction' action='CloseAction'><menuitem name='DocumentAction' action='DocumentAction'/><menuitem name='ProjectAction' action='ProjectAction'/><menuitem name='WindowAction' action='WindowAction'/></menu><menuitem name='quitAction' action='quitAction'/></menu><menu name='EditAction' action='EditAction'><menuitem name='CutAction' action='CutAction'/></menu></menubar></ui>");
+		this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'/></ui>");
 		this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
 		this.menubar1.Name = "menubar1";
 		this.vbox1.Add (this.menubar1);
@@ -159,6 +161,24 @@ public partial class MainWindow
 		w2.Position = 0;
 		w2.Expand = false;
 		w2.Fill = false;
+		// Container child vbox1.Gtk.Box+BoxChild
+		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'/></ui>");
+		this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar1")));
+		this.toolbar1.Name = "toolbar1";
+		this.toolbar1.ShowArrow = false;
+		this.vbox1.Add (this.toolbar1);
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.toolbar1]));
+		w3.Position = 1;
+		w3.Expand = false;
+		w3.Fill = false;
+		// Container child vbox1.Gtk.Box+BoxChild
+		this.notebook1 = new global::Gtk.Notebook ();
+		this.notebook1.CanFocus = true;
+		this.notebook1.Name = "notebook1";
+		this.notebook1.CurrentPage = -1;
+		this.vbox1.Add (this.notebook1);
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook1]));
+		w4.Position = 2;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.statusbar1 = new global::Gtk.Statusbar ();
 		this.statusbar1.Name = "statusbar1";
@@ -170,19 +190,19 @@ public partial class MainWindow
 		this.lblStatus.Xalign = 0F;
 		this.lblStatus.LabelProp = global::Mono.Unix.Catalog.GetString ("Ready");
 		this.statusbar1.Add (this.lblStatus);
-		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.lblStatus]));
-		w3.Position = 0;
+		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.lblStatus]));
+		w5.Position = 0;
 		this.vbox1.Add (this.statusbar1);
-		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
-		w4.Position = 2;
-		w4.Expand = false;
-		w4.Fill = false;
+		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
+		w6.Position = 3;
+		w6.Expand = false;
+		w6.Fill = false;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
 		this.DefaultWidth = 400;
-		this.DefaultHeight = 300;
+		this.DefaultHeight = 299;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 	}

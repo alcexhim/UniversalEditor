@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.PropertyList;
+
+using UniversalEditor.DataFormats.Markup.XML;
+using UniversalEditor.ObjectModels.Markup;
 
 namespace UniversalEditor.UserInterface
 {
@@ -77,6 +81,23 @@ namespace UniversalEditor.UserInterface
 
 		protected abstract void MainLoop();
 
+		private Command.CommandCollection mvarCommands = new Command.CommandCollection();
+		/// <summary>
+		/// The commands defined for this application.
+		/// </summary>
+		public Command.CommandCollection Commands { get { return mvarCommands; } }
+		
+		private EngineMainMenu mvarMainMenu = new EngineMainMenu();
+		/// <summary>
+		/// The main menu of this application, which can hold multiple <see cref="Command"/>s.
+		/// </summary>
+		public EngineMainMenu MainMenu { get { return mvarMainMenu; } }
+		
+		/// <summary>
+		/// The aggregated raw markup of all the various XML files loaded in the current search path.
+		/// </summary>
+		private MarkupObjectModel mvarRawMarkup = new MarkupObjectModel();
+		
 		private PropertyListObjectModel mvarConfiguration = new PropertyListObjectModel();
 		public PropertyListObjectModel Configuration { get { return mvarConfiguration; } }
 
@@ -125,6 +146,108 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
+		protected virtual void InitializeXMLConfiguration()
+		{
+			#region Load the XML files
+			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, "*.xml", System.IO.SearchOption.AllDirectories);
+			
+			XMLDataFormat xdf = new XMLDataFormat();
+			foreach (string xmlfile in xmlfiles)
+			{
+				MarkupObjectModel markup = new MarkupObjectModel();
+				Document doc = new Document(markup, xdf, new FileAccessor(xmlfile));
+				doc.Accessor.Open ();
+				doc.Load ();
+				doc.Close ();
+				
+				markup.CopyTo (mvarRawMarkup);
+			}
+			
+			#endregion
+			#region Initialize the configuration with the loaded data
+			
+			MarkupTagElement tagCommands = (mvarRawMarkup.FindElement ("UniversalEditor", "Application", "Commands") as MarkupTagElement);
+			if (tagCommands != null)
+			{
+				foreach (MarkupElement elCommand in tagCommands.Elements)
+				{
+					MarkupTagElement tagCommand = (elCommand as MarkupTagElement);
+					if (tagCommand == null) continue;
+					if (tagCommand.FullName != "Command") continue;
+					
+					MarkupAttribute attID = tagCommand.Attributes["ID"];
+					if (attID == null) continue;
+					
+					Command cmd = new Command();
+					cmd.ID = attID.Value;
+					
+					MarkupAttribute attTitle = tagCommand.Attributes["Title"];
+					if (attTitle != null)
+					{
+						cmd.Title = attTitle.Value;
+					}
+					
+					MarkupTagElement tagItems = (tagCommand.Elements["Items"] as MarkupTagElement);
+					if (tagItems != null)
+					{
+						foreach (MarkupElement el in tagItems.Elements)
+						{
+							MarkupTagElement tag = (el as MarkupTagElement);
+							if (tag == null) continue;
+							
+							InitializeMainMenuItem(tag, cmd);
+						}
+					}
+					
+					mvarCommands.Add (cmd);
+				}
+			}
+			
+			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement ("UniversalEditor", "Application", "MainMenu", "Items") as MarkupTagElement);
+			foreach (MarkupElement elItem in tagMainMenuItems.Elements)
+			{
+				MarkupTagElement tagItem = (elItem as MarkupTagElement);
+				if (tagItem == null) continue;
+				InitializeMainMenuItem(tagItem, null);
+			}
+			
+			#endregion
+		}
+		
+		private void InitializeMainMenuItem(MarkupTagElement tag, Command parent)
+		{
+			CommandItem item = null;
+			switch (tag.FullName)
+			{
+				case "CommandReference":
+				{
+					MarkupAttribute attCommandID = tag.Attributes["CommandID"];
+					if (attCommandID != null)
+					{
+						item = new CommandReferenceCommandItem(attCommandID.Value);
+					}
+					break;
+				}
+				case "Separator":
+				{
+					item = new SeparatorCommandItem();
+					break;
+				}
+			}
+			
+			if (item != null)
+			{
+				if (parent == null)
+				{
+					mvarMainMenu.Items.Add(item);
+				}
+				else
+				{
+					parent.Items.Add(item);
+				}
+			}
+		}
+		
 		protected virtual void InitializeBranding()
 		{
 
@@ -160,6 +283,9 @@ namespace UniversalEditor.UserInterface
 			// Set up the base path for the current application. Should this be able to be
 			// overridden with a switch (/basepath:...) ?
 			mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			
+			// Initialize the XML files
+			InitializeXMLConfiguration();
 			
 			// Initialize the branding for the selected application
 			InitializeBranding();

@@ -74,6 +74,10 @@
     <Compile Include="Toolbox.cs" />
     <Compile Include="UnsavedDocumentOption.cs" />
     <Compile Include="WindowState.cs" />
+    <Compile Include="CommandItem.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="StockCommandType.cs" />
+    <Compile Include="EngineMainMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
