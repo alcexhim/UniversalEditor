@@ -81,9 +81,31 @@ namespace UniversalEditor.IO
 		{
 			return ReadBytes(1)[0];
 		}
+
+		string charBuffer = null;
+		int charBufferIndex = 0;
+
 		public char ReadChar()
 		{
-			return (char)ReadByte();
+			if (charBuffer == null)
+			{
+				int maxByteCount = mvarAccessor.DefaultEncoding.GetMaxByteCount(1);
+				byte[] bytes = PeekBytes(maxByteCount);
+				charBuffer = mvarAccessor.DefaultEncoding.GetString(bytes);
+				charBufferIndex = 0;
+			}
+
+			char c = charBuffer[charBufferIndex];
+			charBufferIndex++;
+			
+			int ct = mvarAccessor.DefaultEncoding.GetByteCount(c);
+			Seek(ct, SeekOrigin.Current);
+
+			if (charBufferIndex + 1 > charBuffer.Length)
+			{
+				charBuffer = null;
+			}
+			return c;
 		}
 		public byte PeekByte()
 		{

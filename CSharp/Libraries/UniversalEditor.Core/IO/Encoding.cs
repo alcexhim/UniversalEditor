@@ -92,7 +92,33 @@ namespace UniversalEditor.IO
             return GetChars(bytes, 0, bytes.Length);
         }
         public abstract char[] GetChars(byte[] bytes, int index, int count);
-    }
+
+		public virtual int GetMaxByteCount(int count)
+		{
+			return count;
+		}
+		public virtual int GetMaxCharCount(int count)
+		{
+			return count;
+		}
+		public virtual int GetByteCount(char[] chars, int index, int count)
+		{
+			return 1;
+		}
+		public int GetByteCount(char value)
+		{
+			return GetByteCount(new char[] { value }, 0, 1);
+		}
+		public int GetByteCount(char[] chars)
+		{
+			return GetByteCount(chars, 0, chars.Length);
+		}
+		public int GetByteCount(string value)
+		{
+			char[] chars = value.ToCharArray();
+			return GetByteCount(chars, 0, chars.Length);
+		}
+	}
     public class DefaultEncoding : Encoding
     {
         public override byte[] GetBytes(char[] chars, int index, int count)
@@ -126,6 +152,18 @@ namespace UniversalEditor.IO
 		{
 			return _encoding.GetChars(bytes, index, count);
 		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
+		}
 	}
 	public class UTF16BigEndianEncoding : Encoding
 	{
@@ -138,6 +176,18 @@ namespace UniversalEditor.IO
 		public override char[] GetChars(byte[] bytes, int index, int count)
 		{
 			return _encoding.GetChars(bytes, index, count);
+		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
 		}
 	}
 	public class UTF16LittleEndianEncoding : Encoding
@@ -152,6 +202,18 @@ namespace UniversalEditor.IO
 		{
 			return _encoding.GetChars(bytes, index, count);
 		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
+		}
 	}
 	public class UTF32Encoding : Encoding
 	{
@@ -164,6 +226,18 @@ namespace UniversalEditor.IO
 		public override char[] GetChars(byte[] bytes, int index, int count)
 		{
 			return _encoding.GetChars(bytes, index, count);
+		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
 		}
 	}
 	public class UTF7Encoding : Encoding
@@ -178,6 +252,18 @@ namespace UniversalEditor.IO
 		{
 			return _encoding.GetChars(bytes, index, count);
 		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
+		}
 	}
 	public class UTF8Encoding : Encoding
 	{
@@ -191,6 +277,18 @@ namespace UniversalEditor.IO
 		{
 			return _encoding.GetChars(bytes, index, count);
 		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
+		}
 	}
 	public class ShiftJISEncoding : Encoding
 	{
@@ -203,6 +301,18 @@ namespace UniversalEditor.IO
 		public override char[] GetChars(byte[] bytes, int index, int count)
 		{
 			return _encoding.GetChars(bytes, index, count);
+		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
 		}
 	}
 }
