@@ -259,15 +259,33 @@ namespace UniversalEditor.UserInterface
 
 		public void OpenFile(params string[] FileNames)
 		{
+			if (LastWindow == null)
+			{
+				OpenWindow(FileNames);
+				return;
+			}
 			LastWindow.OpenFile(FileNames);
 		}
+
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.
 		/// </summary>
 		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
-		public virtual void OpenWindow(params string[] FileNames)
-		{
+		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
+		protected abstract IHostApplicationWindow OpenWindowInternal(params string[] FileNames);
 
+		/// <summary>
+		/// Opens a new window, optionally loading the specified documents.
+		/// </summary>
+		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
+		public void OpenWindow(params string[] FileNames)
+		{
+			IHostApplicationWindow window = OpenWindowInternal(FileNames);
+			window.WindowClosed += delegate(object sender, EventArgs e)
+			{
+				mvarWindows.Remove(window);
+			};
+			mvarWindows.Add(window);
 		}
 
 		// UniversalDataStorage.Editor.WindowsForms.Program

@@ -378,7 +378,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 		}
 
-		public override void OpenWindow(params string[] FileNames)
+		protected override IHostApplicationWindow OpenWindowInternal(params string[] FileNames)
 		{
 			MainWindow mw = new MainWindow();
 
@@ -387,8 +387,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				mw.OpenFile(FileNames);
 			}
 			mw.Show();
-
-			Windows.Add(mw);
+			return mw;
 		}
 
 		public override void ExitApplication()
