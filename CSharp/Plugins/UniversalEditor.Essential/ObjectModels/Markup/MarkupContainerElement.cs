@@ -70,7 +70,15 @@ namespace UniversalEditor.ObjectModels.Markup
 
             foreach (MarkupElement el1 in tag.Elements)
             {
-                if (Elements.Contains(el1.FullName))
+				string id = null;
+				MarkupTagElement tag1 = (el1 as MarkupTagElement);
+				if (tag1 != null)
+				{
+					MarkupAttribute attID = tag1.Attributes["ID"];
+					if (attID != null) id = attID.Value;
+				}
+
+                if (Elements.Contains(el1.FullName, id))
                 {
                     Elements[el1.FullName].Combine(el1);
                 }
