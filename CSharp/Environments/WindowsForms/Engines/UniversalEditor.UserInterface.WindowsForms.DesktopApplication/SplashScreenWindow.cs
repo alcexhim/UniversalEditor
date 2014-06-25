@@ -85,7 +85,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
         }
         private void _InvokeUpdateStatus(string p)
         {
-            // lblStatus.Text = p;
+            lblStatus.Text = p;
         }
     }
     public class SplashScreenSettings
