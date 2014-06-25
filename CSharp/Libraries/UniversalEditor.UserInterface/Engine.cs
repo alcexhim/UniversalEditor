@@ -78,6 +78,10 @@ namespace UniversalEditor.UserInterface
 		}
 		protected virtual void AfterInitialization()
 		{
+		}
+
+		private void AfterInitializationInternal()
+		{
 			// Initialize all the commands that are common to UniversalEditor
 			#region File
 			AttachCommandEventHandler("FileNewDocument", delegate(object sender, EventArgs e)
@@ -131,6 +135,26 @@ namespace UniversalEditor.UserInterface
 			{
 				LastWindow.ShowOptionsDialog();
 			});
+			#endregion
+
+			#region Help
+			Command helpLanguage = mvarCommands["HelpLanguage"];
+			if (helpLanguage != null)
+			{
+				foreach (Language lang in mvarLanguages)
+				{
+					Command cmdLanguage = new Command();
+					cmdLanguage.ID = "HelpLanguage_" + lang.ID;
+					cmdLanguage.Title = lang.Title;
+					cmdLanguage.Executed += delegate(object sender, EventArgs e)
+					{
+						HostApplication.Messages.Add(HostApplicationMessageSeverity.Notice, "Clicked language " + lang.ID);
+					};
+					mvarCommands.Add(cmdLanguage);
+
+					helpLanguage.Items.Add(new CommandReferenceCommandItem("HelpLanguage_" + lang.ID));
+				}
+			}
 			#endregion
 		}
 
@@ -274,6 +298,8 @@ namespace UniversalEditor.UserInterface
 			{
 				MarkupObjectModel markup = new MarkupObjectModel();
 				Document doc = new Document(markup, xdf, new FileAccessor(xmlfile));
+				doc.Accessor.DefaultEncoding = IO.Encoding.UTF8;
+
 				doc.Accessor.Open ();
 				doc.Load ();
 				doc.Close ();
@@ -361,10 +387,19 @@ namespace UniversalEditor.UserInterface
 		private void InitializeLanguage(MarkupTagElement tag)
 		{
 			Language lang = new Language();
+			
 			MarkupAttribute attID = tag.Attributes["ID"];
-			if (attID != null)
+			if (attID == null) return;
+			lang.ID = attID.Value;
+
+			MarkupAttribute attTitle = tag.Attributes["Title"];
+			if (attTitle != null)
 			{
-				lang.ID = attID.Value;
+				lang.Title = attTitle.Value;
+			}
+			else
+			{
+				lang.Title = lang.ID;
 			}
 
 			MarkupTagElement tagStringTable = (tag.Elements["StringTable"] as MarkupTagElement);
@@ -506,6 +541,7 @@ namespace UniversalEditor.UserInterface
 			}
 			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
 
+			AfterInitializationInternal();
 			AfterInitialization();
 
 			MainLoop();
