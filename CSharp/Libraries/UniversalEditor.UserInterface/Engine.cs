@@ -512,9 +512,70 @@ namespace UniversalEditor.UserInterface
 		private static Engine mvarCurrentEngine = null;
 		public static Engine CurrentEngine { get { return mvarCurrentEngine; } }
 
+		protected virtual void ShowSplashScreen()
+		{
+		}
+		protected virtual void HideSplashScreen()
+		{
+		}
+		protected virtual void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
+		{
+		}
+
+		private void Initialize()
+		{
+			System.Threading.Thread threadLoader = new System.Threading.Thread(threadLoader_ThreadStart);
+			threadLoader.Start();
+
+			ShowSplashScreen();
+		}
+		protected virtual void InitializeInternal()
+		{
+			UpdateSplashScreenStatus("Loading object models...");
+			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+
+			UpdateSplashScreenStatus("Loading data formats...");
+			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+			// Initialize the XML files
+			InitializeXMLConfiguration();
+
+			// Initialize Recent File Manager
+			mvarRecentFileManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
+			mvarRecentFileManager.Load();
+
+			// Initialize Bookmarks Manager
+			mvarBookmarksManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
+			mvarBookmarksManager.Load();
+
+			// Initialize Session Manager
+			mvarSessionManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
+			mvarSessionManager.Load();
+		}
+		private void threadLoader_ThreadStart()
+		{
+			/*
+			if (Configuration.SplashScreen.Enabled)
+			{
+				while (splasher == null) System.Threading.Thread.Sleep(500);
+			}
+			*/
+
+			InitializeInternal();
+			HideSplashScreen();
+		}
+
 		public void StartApplication()
 		{
 			Engine.mvarCurrentEngine = this;
+
+			string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
+			if (Configuration.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
+			{
+				// The single instance should be unique per directory
+				INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
+			}
+			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
 
 			string[] args1 = Environment.GetCommandLineArgs();
 			string[] args = new string[args1.Length - 1];
@@ -533,36 +594,21 @@ namespace UniversalEditor.UserInterface
 
 			BeforeInitialization();
 
-			// Initialize the XML files
-			InitializeXMLConfiguration();
-			
 			// Initialize the branding for the selected application
 			InitializeBranding();
-
-			// Initialize Recent File Manager
-			mvarRecentFileManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
-			mvarRecentFileManager.Load();
-
-			// Initialize Bookmarks Manager
-			mvarBookmarksManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
-			mvarBookmarksManager.Load();
-
-			// Initialize Session Manager
-			mvarSessionManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
-			mvarSessionManager.Load();
-
-			string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
-			if (Configuration.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
-			{
-				// The single instance should be unique per directory
-				INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
-			}
-			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
+			
+			Initialize();
 
 			AfterInitializationInternal();
 			AfterInitialization();
 
+			OpenWindow(SelectedFileNames.ToArray<string>());
+
 			MainLoop();
+
+			SessionManager.Save();
+			BookmarksManager.Save();
+			RecentFileManager.Save();
 		}
 	}
 }

@@ -133,8 +133,38 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 		}
 
-		[STAThreadAttribute()]
-		protected override void MainLoop()
+		protected override void ShowSplashScreen()
+		{
+			if (LocalConfiguration.SplashScreen.Enabled)
+			{
+				splasher = new SplashScreenWindow();
+				splasher.ShowDialog();
+			}
+		}
+		protected override void HideSplashScreen()
+		{
+			if (LocalConfiguration.SplashScreen.Enabled)
+			{
+				while (splasher == null)
+				{
+					System.Threading.Thread.Sleep(500);
+				}
+				splasher.InvokeClose();
+			}
+		}
+		protected override void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
+		{
+			if (LocalConfiguration.SplashScreen.Enabled)
+			{
+				while (splasher == null)
+				{
+					System.Threading.Thread.Sleep(500);
+				}
+				splasher.InvokeUpdateStatus(message);
+			}
+		}
+
+		protected override void BeforeInitialization()
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
@@ -147,6 +177,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			AwesomeControls.Theming.Theme.CurrentTheme = theme;
 
 			Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
+
+			base.BeforeInitialization();
+		}
+
+		[STAThreadAttribute()]
+		protected override void MainLoop()
+		{
 			switch (System.Environment.OSVersion.Platform)
 			{
 				case PlatformID.MacOSX:
@@ -166,15 +203,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 			}
 
-			System.Threading.Thread threadLoader = new System.Threading.Thread(threadLoader_ThreadStart);
-			threadLoader.Start();
-
-			if (LocalConfiguration.SplashScreen.Enabled)
-			{
-				splasher = new SplashScreenWindow();
-				splasher.ShowDialog();
-			}
-
 			Glue.ApplicationEventEventArgs e = new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStart);
 			Glue.Common.Methods.SendApplicationEvent(e);
 			if (e.CancelApplication) return;
@@ -187,13 +215,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			row1.Items.Add("textEditor", "Text Editor");
 			PieMenuManager.Groups.Add(row1);
 
-			OpenWindow(SelectedFileNames.ToArray<string>());
-
 			Application.Run();
-
-			SessionManager.Save();
-			BookmarksManager.Save();
-			RecentFileManager.Save();
 
 			Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
 		}
@@ -353,30 +375,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 #endif
 
-		private static void threadLoader_ThreadStart()
-		{
-			/*
-			if (Configuration.SplashScreen.Enabled)
-			{
-				while (splasher == null) System.Threading.Thread.Sleep(500);
-			}
-			*/
-
-			// if (Configuration.SplashScreen.Enabled) splasher.InvokeUpdateStatus("Loading object models...");
-			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-
-			// if (Configuration.SplashScreen.Enabled) splasher.InvokeUpdateStatus("Loading data formats...");
-			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-
-			if (LocalConfiguration.SplashScreen.Enabled)
-			{
-				while (splasher == null)
-				{
-					System.Threading.Thread.Sleep(500);
-				}
-				splasher.InvokeClose();
-			}
-		}
 
 		protected override IHostApplicationWindow OpenWindowInternal(params string[] FileNames)
 		{
