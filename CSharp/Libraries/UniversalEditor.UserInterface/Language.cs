@@ -26,6 +26,9 @@ namespace UniversalEditor.UserInterface
 		private string mvarID = String.Empty;
 		public string ID { get { return mvarID; } set { mvarID = value; } }
 
+		private string mvarTitle = String.Empty;
+		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+
 		private Dictionary<string, string> mvarCommandTitles = new Dictionary<string, string>();
 		private Dictionary<string, string> mvarStringTableEntries = new Dictionary<string, string>();
 
