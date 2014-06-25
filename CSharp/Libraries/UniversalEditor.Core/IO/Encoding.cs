@@ -79,11 +79,7 @@ namespace UniversalEditor.IO
         public string GetString(byte[] bytes, int index, int count)
         {
             char[] chars = GetChars(bytes, index, count);
-            string retval = System.String.Empty;
-            for (int i = 0; i < chars.Length; i++)
-            {
-                retval += chars[i].ToString();
-            }
+			string retval = new string(chars);
             return retval;
         }
 
@@ -275,7 +271,12 @@ namespace UniversalEditor.IO
 		}
 		public override char[] GetChars(byte[] bytes, int index, int count)
 		{
-			return _encoding.GetChars(bytes, index, count);
+			int maxCharCt = _encoding.GetMaxCharCount(bytes.Length);
+			char[] chars = new char[maxCharCt];
+			int reallen = _encoding.GetDecoder().GetChars(bytes, index, count, chars, 0);
+			char[] realchars = new char[reallen];
+			System.Array.Copy(chars, 0, realchars, 0, realchars.Length);
+			return realchars;
 		}
 		public override int GetMaxByteCount(int count)
 		{
