@@ -83,6 +83,12 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 
+			string dir = System.IO.Path.GetDirectoryName (mvarDataFileName);
+			if (!System.IO.Directory.Exists (dir))
+			{
+				System.IO.Directory.CreateDirectory (dir);
+			}
+			
 			Document.Save(mom, xml, new FileAccessor(mvarDataFileName, true, true), true);
 		}
 	}

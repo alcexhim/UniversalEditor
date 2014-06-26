@@ -206,6 +206,12 @@ namespace UniversalEditor.UserInterface
 					tagSessions.Elements.Add(tagSession);
 				}
 			}
+			
+			string dir = System.IO.Path.GetDirectoryName (mvarDataFileName);
+			if (!System.IO.Directory.Exists (dir))
+			{
+				System.IO.Directory.CreateDirectory (dir);
+			}
 
 			Document.Save(om, xml, new FileAccessor(mvarDataFileName, true, true), true);
 		}
