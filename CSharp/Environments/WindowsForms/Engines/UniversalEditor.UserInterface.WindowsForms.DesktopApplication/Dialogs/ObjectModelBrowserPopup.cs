@@ -103,8 +103,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
                 }
                 else
                 {
-                    if ((dfr.Title.ToLower().Contains(txtSearch.Text.ToLower()))
-                    || (dfr.Description.ToLower().Contains(txtSearch.Text.ToLower())))
+					if (String.IsNullOrEmpty(dfr.Title)) continue;
+
+					if ((dfr.Title.ToLower().Contains(txtSearch.Text.Trim().ToLower()))
+					|| (dfr.Description.ToLower().Contains(txtSearch.Text.Trim().ToLower())))
                     {
                         AddObjectModelToList(dfr);
                     }
