@@ -52,10 +52,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuFileSaveSep2 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuFileSaveAll = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileClose = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuFileCloseFile = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuFileCloseProject = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
-			this.mnuFileCloseWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileSep1 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuFilePrint = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileSep2 = new System.Windows.Forms.ToolStripSeparator();
@@ -133,28 +129,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuWindowResetLayout = new AwesomeControls.CommandBars.CBMenuItem();
 			this.mnuWindowSep4 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuWindowWindows = new System.Windows.Forms.ToolStripMenuItem();
-			this.tbStandard = new AwesomeControls.CommandBars.CBToolBar();
-			this.tsbStandardNew = new System.Windows.Forms.ToolStripSplitButton();
-			this.tsbStandardNewFile = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardNewProject = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardOpen = new System.Windows.Forms.ToolStripSplitButton();
+			this.mnuFileCloseFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuFileCloseProject = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
+			this.mnuFileCloseWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsbStandardOpenFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsbStandardOpenProject = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardSave = new System.Windows.Forms.ToolStripSplitButton();
-			this.tsbStandardSaveFile = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardSaveFileAs = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardSaveSep1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsbStandardSaveProject = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardSaveProjectAs = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardSaveSep2 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsbStandardSaveAll = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsbStandardPrint = new System.Windows.Forms.ToolStripButton();
-			this.tsbStandardSep1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsbStandardCut = new System.Windows.Forms.ToolStripButton();
-			this.tsbStandardCopy = new System.Windows.Forms.ToolStripButton();
-			this.tsbStandardPaste = new System.Windows.Forms.ToolStripButton();
-			this.tsbStandardSep2 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsbStandardHelp = new System.Windows.Forms.ToolStripButton();
 			this.tmrToolStripContainerPopup = new System.Windows.Forms.Timer(this.components);
 			this.mnuContextDocumentType = new AwesomeControls.CommandBars.CBContextMenu(this.components);
 			this.mnuContextDocumentTypeDataFormat = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,7 +145,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.cbc.SuspendLayout();
 			this.sbStatusBar.SuspendLayout();
 			this.mbMenuBar.SuspendLayout();
-			this.tbStandard.SuspendLayout();
 			this.mnuContextDocumentType.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -180,7 +159,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.cbc.ContentPanel.Controls.Add(this.dcc);
 			this.cbc.ContentPanel.Controls.Add(this.cboAddress);
-			this.cbc.ContentPanel.Size = new System.Drawing.Size(800, 528);
+			this.cbc.ContentPanel.Size = new System.Drawing.Size(800, 553);
 			this.cbc.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.cbc.Location = new System.Drawing.Point(0, 0);
 			this.cbc.Name = "cbc";
@@ -191,16 +170,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// cbc.TopToolStripPanel
 			// 
 			this.cbc.TopToolStripPanel.Controls.Add(this.mbMenuBar);
-			this.cbc.TopToolStripPanel.Controls.Add(this.tbStandard);
 			this.cbc.UseCommandManager = false;
 			// 
 			// sbStatusBar
 			// 
 			this.sbStatusBar.Dock = System.Windows.Forms.DockStyle.None;
 			this.sbStatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.lblStatus,
-			this.pbProgress,
-			this.lblObjectModel});
+            this.lblStatus,
+            this.pbProgress,
+            this.lblObjectModel});
 			this.sbStatusBar.Location = new System.Drawing.Point(0, 0);
 			this.sbStatusBar.Name = "sbStatusBar";
 			this.sbStatusBar.ShowItemToolTips = true;
@@ -236,7 +214,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.dcc.Location = new System.Drawing.Point(0, 21);
 			this.dcc.Name = "dcc";
 			this.dcc.SelectedWindow = null;
-			this.dcc.Size = new System.Drawing.Size(800, 507);
+			this.dcc.Size = new System.Drawing.Size(800, 532);
 			this.dcc.TabIndex = 3;
 			this.dcc.SelectedWindowChanged += new System.EventHandler(this.dcc_SelectedWindowChanged);
 			this.dcc.WindowClosing += new AwesomeControls.DockingWindows.WindowClosingEventHandler(this.dcc_WindowClosing);
@@ -258,13 +236,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mbMenuBar.Dock = System.Windows.Forms.DockStyle.None;
 			this.mbMenuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuFile,
-			this.mnuEdit,
-			this.mnuView,
-			this.mnuProject,
-			this.mnuBookmarks,
-			this.mnuTools,
-			this.mnuWindow});
+            this.mnuFile,
+            this.mnuEdit,
+            this.mnuView,
+            this.mnuProject,
+            this.mnuBookmarks,
+            this.mnuTools,
+            this.mnuWindow});
 			this.mbMenuBar.Location = new System.Drawing.Point(0, 0);
 			this.mbMenuBar.Name = "mbMenuBar";
 			this.mbMenuBar.Size = new System.Drawing.Size(800, 25);
@@ -274,19 +252,19 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuFile
 			// 
 			this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuFileNew,
-			this.mnuFileSave,
-			this.mnuFileClose,
-			this.mnuFileSep1,
-			this.mnuFilePrint,
-			this.mnuFileSep2,
-			this.mnuFileImport,
-			this.mnuFileExport,
-			this.mnuFileSep3,
-			this.mnuFileRecentFiles,
-			this.mnuFileRecentProjects,
-			this.mnuFileSep4,
-			this.mnuFileExit});
+            this.mnuFileNew,
+            this.mnuFileSave,
+            this.mnuFileClose,
+            this.mnuFileSep1,
+            this.mnuFilePrint,
+            this.mnuFileSep2,
+            this.mnuFileImport,
+            this.mnuFileExport,
+            this.mnuFileSep3,
+            this.mnuFileRecentFiles,
+            this.mnuFileRecentProjects,
+            this.mnuFileSep4,
+            this.mnuFileExit});
 			this.mnuFile.Name = "mnuFile";
 			this.mnuFile.Size = new System.Drawing.Size(37, 21);
 			this.mnuFile.Text = "&File";
@@ -294,8 +272,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuFileNew
 			// 
 			this.mnuFileNew.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuFileNewFile,
-			this.mnuFileNewProject});
+            this.mnuFileNewFile,
+            this.mnuFileNewProject});
 			this.mnuFileNew.Name = "mnuFileNew";
 			this.mnuFileNew.Size = new System.Drawing.Size(156, 22);
 			this.mnuFileNew.Text = "&New";
@@ -314,7 +292,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mnuFileNewProject.Name = "mnuFileNewProject";
 			this.mnuFileNewProject.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.N)));
+            | System.Windows.Forms.Keys.N)));
 			this.mnuFileNewProject.Size = new System.Drawing.Size(244, 22);
 			this.mnuFileNewProject.Text = "&Project/Solution...";
 			this.mnuFileNewProject.Click += new System.EventHandler(this.FileNewProject_Click);
@@ -322,13 +300,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuFileSave
 			// 
 			this.mnuFileSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuFileSaveFile,
-			this.mnuFileSaveFileAs,
-			this.mnuFileSaveSep1,
-			this.mnuFileSaveProject,
-			this.mnuFileSaveProjectAs,
-			this.mnuFileSaveSep2,
-			this.mnuFileSaveAll});
+            this.mnuFileSaveFile,
+            this.mnuFileSaveFileAs,
+            this.mnuFileSaveSep1,
+            this.mnuFileSaveProject,
+            this.mnuFileSaveProjectAs,
+            this.mnuFileSaveSep2,
+            this.mnuFileSaveAll});
 			this.mnuFileSave.Name = "mnuFileSave";
 			this.mnuFileSave.Size = new System.Drawing.Size(156, 22);
 			this.mnuFileSave.Text = "&Save";
@@ -378,10 +356,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mnuFileSaveAll.Name = "mnuFileSaveAll";
 			this.mnuFileSaveAll.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.S)));
+            | System.Windows.Forms.Keys.S)));
 			this.mnuFileSaveAll.Size = new System.Drawing.Size(263, 22);
 			this.mnuFileSaveAll.Text = "A&ll Files and Projects";
 			this.mnuFileSaveAll.Click += new System.EventHandler(this.FileSaveAll_Click);
+			// 
+			// mnuFileClose
+			// 
+			this.mnuFileClose.Name = "mnuFileClose";
+			this.mnuFileClose.Size = new System.Drawing.Size(156, 22);
 			// 
 			// mnuFileSep1
 			// 
@@ -452,21 +435,21 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuEdit
 			// 
 			this.mnuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuEditUndo,
-			this.mnuEditRedo,
-			this.mnuEditSep1,
-			this.mnuEditCut,
-			this.mnuEditCopy,
-			this.mnuEditPaste,
-			this.mnuEditDelete,
-			this.mnuEditSep2,
-			this.mnuEditSelectAll,
-			this.mnuEditInvertSelection,
-			this.mnuEditSep3,
-			this.mnuEditFindReplace,
-			this.mnuEditGoTo,
-			this.mnuEditSep4,
-			this.mnuEditPreferences});
+            this.mnuEditUndo,
+            this.mnuEditRedo,
+            this.mnuEditSep1,
+            this.mnuEditCut,
+            this.mnuEditCopy,
+            this.mnuEditPaste,
+            this.mnuEditDelete,
+            this.mnuEditSep2,
+            this.mnuEditSelectAll,
+            this.mnuEditInvertSelection,
+            this.mnuEditSep3,
+            this.mnuEditFindReplace,
+            this.mnuEditGoTo,
+            this.mnuEditSep4,
+            this.mnuEditPreferences});
 			this.mnuEdit.Name = "mnuEdit";
 			this.mnuEdit.Size = new System.Drawing.Size(39, 21);
 			this.mnuEdit.Text = "&Edit";
@@ -547,7 +530,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuEditInvertSelection.Hidden = true;
 			this.mnuEditInvertSelection.Name = "mnuEditInvertSelection";
 			this.mnuEditInvertSelection.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.A)));
+            | System.Windows.Forms.Keys.A)));
 			this.mnuEditInvertSelection.Size = new System.Drawing.Size(229, 22);
 			this.mnuEditInvertSelection.Text = "&Invert Selection";
 			// 
@@ -586,13 +569,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuView
 			// 
 			this.mnuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuViewToolbars,
-			this.mnuViewStatusBar,
-			this.mnuViewSep1,
-			this.mnuViewPanels,
-			this.mnuViewSep2,
-			this.mnuViewStartPage,
-			this.mnuViewFullScreen});
+            this.mnuViewToolbars,
+            this.mnuViewStatusBar,
+            this.mnuViewSep1,
+            this.mnuViewPanels,
+            this.mnuViewSep2,
+            this.mnuViewStartPage,
+            this.mnuViewFullScreen});
 			this.mnuView.Name = "mnuView";
 			this.mnuView.Size = new System.Drawing.Size(44, 21);
 			this.mnuView.Text = "&View";
@@ -600,8 +583,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuViewToolbars
 			// 
 			this.mnuViewToolbars.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuViewToolbarsSep1,
-			this.mnuViewToolbarsCustomize});
+            this.mnuViewToolbarsSep1,
+            this.mnuViewToolbarsCustomize});
 			this.mnuViewToolbars.Name = "mnuViewToolbars";
 			this.mnuViewToolbars.Size = new System.Drawing.Size(156, 22);
 			this.mnuViewToolbars.Text = "&Toolbars";
@@ -636,9 +619,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuViewPanels
 			// 
 			this.mnuViewPanels.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.toolboxToolStripMenuItem,
-			this.mnuViewPanelsProjectExplorer,
-			this.propertiesToolStripMenuItem});
+            this.toolboxToolStripMenuItem,
+            this.mnuViewPanelsProjectExplorer,
+            this.propertiesToolStripMenuItem});
 			this.mnuViewPanels.Name = "mnuViewPanels";
 			this.mnuViewPanels.Size = new System.Drawing.Size(156, 22);
 			this.mnuViewPanels.Text = "&Panels";
@@ -685,13 +668,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuProject
 			// 
 			this.mnuProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuProjectAddNewItem,
-			this.mnuProjectAddExistingItem,
-			this.mnuProjectSep1,
-			this.mnuProjectExclude,
-			this.mnuProjectShowAllFiles,
-			this.mnuProjectSep2,
-			this.mnuProjectProperties});
+            this.mnuProjectAddNewItem,
+            this.mnuProjectAddExistingItem,
+            this.mnuProjectSep1,
+            this.mnuProjectExclude,
+            this.mnuProjectShowAllFiles,
+            this.mnuProjectSep2,
+            this.mnuProjectProperties});
 			this.mnuProject.Name = "mnuProject";
 			this.mnuProject.Size = new System.Drawing.Size(56, 21);
 			this.mnuProject.Text = "&Project";
@@ -700,7 +683,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mnuProjectAddNewItem.Name = "mnuProjectAddNewItem";
 			this.mnuProjectAddNewItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.A)));
+            | System.Windows.Forms.Keys.A)));
 			this.mnuProjectAddNewItem.Size = new System.Drawing.Size(245, 22);
 			this.mnuProjectAddNewItem.Text = "Add Ne&w Item...";
 			this.mnuProjectAddNewItem.Click += new System.EventHandler(this.mnuProjectAddNewItem_Click);
@@ -709,7 +692,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mnuProjectAddExistingItem.Name = "mnuProjectAddExistingItem";
 			this.mnuProjectAddExistingItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.A)));
+            | System.Windows.Forms.Keys.A)));
 			this.mnuProjectAddExistingItem.Size = new System.Drawing.Size(245, 22);
 			this.mnuProjectAddExistingItem.Text = "Add Existin&g Item...";
 			this.mnuProjectAddExistingItem.Click += new System.EventHandler(this.mnuProjectAddExistingItem_Click);
@@ -748,11 +731,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuBookmarks
 			// 
 			this.mnuBookmarks.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuBookmarksAdd,
-			this.mnuBookmarksAddAll,
-			this.mnuBookmarksSep1,
-			this.mnuBookmarksSep2,
-			this.mnuBookmarksManage});
+            this.mnuBookmarksAdd,
+            this.mnuBookmarksAddAll,
+            this.mnuBookmarksSep1,
+            this.mnuBookmarksSep2,
+            this.mnuBookmarksManage});
 			this.mnuBookmarks.Name = "mnuBookmarks";
 			this.mnuBookmarks.Size = new System.Drawing.Size(78, 21);
 			this.mnuBookmarks.Text = "Book&marks";
@@ -769,7 +752,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mnuBookmarksAddAll.Name = "mnuBookmarksAddAll";
 			this.mnuBookmarksAddAll.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.D)));
+            | System.Windows.Forms.Keys.D)));
 			this.mnuBookmarksAddAll.Size = new System.Drawing.Size(263, 22);
 			this.mnuBookmarksAddAll.Text = "Add &All to Bookmarks";
 			this.mnuBookmarksAddAll.Click += new System.EventHandler(this.mnuBookmarksAddAll_Click);
@@ -793,10 +776,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuTools
 			// 
 			this.mnuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuToolsSessionManager,
-			this.mnuToolsSep1,
-			this.mnuToolsCustomize,
-			this.mnuToolsOptions});
+            this.mnuToolsSessionManager,
+            this.mnuToolsSep1,
+            this.mnuToolsCustomize,
+            this.mnuToolsOptions});
 			this.mnuTools.Name = "mnuTools";
 			this.mnuTools.Size = new System.Drawing.Size(48, 21);
 			this.mnuTools.Text = "&Tools";
@@ -805,7 +788,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// 
 			this.mnuToolsSessionManager.Name = "mnuToolsSessionManager";
 			this.mnuToolsSessionManager.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-			| System.Windows.Forms.Keys.S)));
+            | System.Windows.Forms.Keys.S)));
 			this.mnuToolsSessionManager.Size = new System.Drawing.Size(235, 22);
 			this.mnuToolsSessionManager.Text = "&Session Manager...";
 			this.mnuToolsSessionManager.Click += new System.EventHandler(this.mnuToolsSessionManager_Click);
@@ -832,24 +815,24 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuWindow
 			// 
 			this.mnuWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuWindowNewWindow,
-			this.mnuWindowSplit,
-			this.mnuWindowSep1,
-			this.mnuWindowFloat,
-			this.mnuWindowFloatAll,
-			this.mnuWindowDock,
-			this.mnuWindowAutoHide,
-			this.mnuWindowAutoHideAll,
-			this.mnuWindowHide,
-			this.mnuWindowSep2,
-			this.mnuWindowPinTab,
-			this.mnuWindowSep3,
-			this.mnuWindowNewTabGroupHorizontal,
-			this.mnuWindowNewTabGroupVertical,
-			this.mnuWindowCloseAllDocuments,
-			this.mnuWindowResetLayout,
-			this.mnuWindowSep4,
-			this.mnuWindowWindows});
+            this.mnuWindowNewWindow,
+            this.mnuWindowSplit,
+            this.mnuWindowSep1,
+            this.mnuWindowFloat,
+            this.mnuWindowFloatAll,
+            this.mnuWindowDock,
+            this.mnuWindowAutoHide,
+            this.mnuWindowAutoHideAll,
+            this.mnuWindowHide,
+            this.mnuWindowSep2,
+            this.mnuWindowPinTab,
+            this.mnuWindowSep3,
+            this.mnuWindowNewTabGroupHorizontal,
+            this.mnuWindowNewTabGroupVertical,
+            this.mnuWindowCloseAllDocuments,
+            this.mnuWindowResetLayout,
+            this.mnuWindowSep4,
+            this.mnuWindowWindows});
 			this.mnuWindow.Name = "mnuWindow";
 			this.mnuWindow.Size = new System.Drawing.Size(63, 21);
 			this.mnuWindow.Text = "&Window";
@@ -970,172 +953,35 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuWindowWindows.Text = "&Windows...";
 			this.mnuWindowWindows.Click += new System.EventHandler(this.mnuWindowWindows_Click);
 			// 
-			// tbStandard
+			// mnuFileCloseFile
 			// 
-			this.tbStandard.Dock = System.Windows.Forms.DockStyle.None;
-			this.tbStandard.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.tsbStandardNew,
-			this.tsbStandardOpen,
-			this.tsbStandardSave,
-			this.tsbStandardPrint,
-			this.tsbStandardSep1,
-			this.tsbStandardCut,
-			this.tsbStandardCopy,
-			this.tsbStandardPaste,
-			this.tsbStandardSep2,
-			this.tsbStandardHelp});
-			this.tbStandard.Location = new System.Drawing.Point(3, 25);
-			this.tbStandard.Name = "tbStandard";
-			this.tbStandard.Size = new System.Drawing.Size(235, 25);
-			this.tbStandard.TabIndex = 1;
-			this.tbStandard.Text = "Standard";
+			this.mnuFileCloseFile.Name = "mnuFileCloseFile";
+			this.mnuFileCloseFile.Size = new System.Drawing.Size(32, 19);
 			// 
-			// tsbStandardNew
+			// mnuFileCloseProject
 			// 
-			this.tsbStandardNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardNew.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.tsbStandardNewFile,
-			this.tsbStandardNewProject});
-			this.tsbStandardNew.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardNew.Image")));
-			this.tsbStandardNew.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardNew.Name = "tsbStandardNew";
-			this.tsbStandardNew.Size = new System.Drawing.Size(32, 22);
-			this.tsbStandardNew.Text = "&New";
-			this.tsbStandardNew.ButtonClick += new System.EventHandler(this.FileNewFile_Click);
+			this.mnuFileCloseProject.Name = "mnuFileCloseProject";
+			this.mnuFileCloseProject.Size = new System.Drawing.Size(32, 19);
 			// 
-			// tsbStandardNewFile
+			// toolStripMenuItem11
 			// 
-			this.tsbStandardNewFile.Name = "tsbStandardNewFile";
-			this.tsbStandardNewFile.Size = new System.Drawing.Size(147, 22);
-			this.tsbStandardNewFile.Text = "New &File...";
-			this.tsbStandardNewFile.Click += new System.EventHandler(this.FileNewFile_Click);
+			this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+			this.toolStripMenuItem11.Size = new System.Drawing.Size(6, 6);
 			// 
-			// tsbStandardNewProject
+			// mnuFileCloseWindow
 			// 
-			this.tsbStandardNewProject.Name = "tsbStandardNewProject";
-			this.tsbStandardNewProject.Size = new System.Drawing.Size(147, 22);
-			this.tsbStandardNewProject.Text = "New &Project...";
-			this.tsbStandardNewProject.Click += new System.EventHandler(this.FileNewProject_Click);
+			this.mnuFileCloseWindow.Name = "mnuFileCloseWindow";
+			this.mnuFileCloseWindow.Size = new System.Drawing.Size(32, 19);
 			// 
-			// tsbStandardSave
+			// tsbStandardOpenFile
 			// 
-			this.tsbStandardSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.tsbStandardSaveFile,
-			this.tsbStandardSaveFileAs,
-			this.tsbStandardSaveSep1,
-			this.tsbStandardSaveProject,
-			this.tsbStandardSaveProjectAs,
-			this.tsbStandardSaveSep2,
-			this.tsbStandardSaveAll});
-			this.tsbStandardSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardSave.Image")));
-			this.tsbStandardSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardSave.Name = "tsbStandardSave";
-			this.tsbStandardSave.Size = new System.Drawing.Size(32, 22);
-			this.tsbStandardSave.Text = "&Save";
-			this.tsbStandardSave.ButtonClick += new System.EventHandler(this.FileSaveFile_Click);
+			this.tsbStandardOpenFile.Name = "tsbStandardOpenFile";
+			this.tsbStandardOpenFile.Size = new System.Drawing.Size(32, 19);
 			// 
-			// tsbStandardSaveFile
+			// tsbStandardOpenProject
 			// 
-			this.tsbStandardSaveFile.Name = "tsbStandardSaveFile";
-			this.tsbStandardSaveFile.Size = new System.Drawing.Size(209, 22);
-			this.tsbStandardSaveFile.Text = "Save &File";
-			this.tsbStandardSaveFile.Click += new System.EventHandler(this.FileSaveFile_Click);
-			// 
-			// tsbStandardSaveFileAs
-			// 
-			this.tsbStandardSaveFileAs.Name = "tsbStandardSaveFileAs";
-			this.tsbStandardSaveFileAs.Size = new System.Drawing.Size(209, 22);
-			this.tsbStandardSaveFileAs.Text = "Save File &As...";
-			this.tsbStandardSaveFileAs.Click += new System.EventHandler(this.FileSaveFileAs_Click);
-			// 
-			// tsbStandardSaveSep1
-			// 
-			this.tsbStandardSaveSep1.Name = "tsbStandardSaveSep1";
-			this.tsbStandardSaveSep1.Size = new System.Drawing.Size(206, 6);
-			// 
-			// tsbStandardSaveProject
-			// 
-			this.tsbStandardSaveProject.Name = "tsbStandardSaveProject";
-			this.tsbStandardSaveProject.Size = new System.Drawing.Size(209, 22);
-			this.tsbStandardSaveProject.Text = "Save &Project";
-			// 
-			// tsbStandardSaveProjectAs
-			// 
-			this.tsbStandardSaveProjectAs.Name = "tsbStandardSaveProjectAs";
-			this.tsbStandardSaveProjectAs.Size = new System.Drawing.Size(209, 22);
-			this.tsbStandardSaveProjectAs.Text = "Save Pro&ject As...";
-			// 
-			// tsbStandardSaveSep2
-			// 
-			this.tsbStandardSaveSep2.Name = "tsbStandardSaveSep2";
-			this.tsbStandardSaveSep2.Size = new System.Drawing.Size(206, 6);
-			// 
-			// tsbStandardSaveAll
-			// 
-			this.tsbStandardSaveAll.Name = "tsbStandardSaveAll";
-			this.tsbStandardSaveAll.Size = new System.Drawing.Size(209, 22);
-			this.tsbStandardSaveAll.Text = "Save A&ll Files and Projects";
-			// 
-			// tsbStandardPrint
-			// 
-			this.tsbStandardPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardPrint.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardPrint.Image")));
-			this.tsbStandardPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardPrint.Name = "tsbStandardPrint";
-			this.tsbStandardPrint.Size = new System.Drawing.Size(23, 22);
-			this.tsbStandardPrint.Text = "&Print";
-			this.tsbStandardPrint.Click += new System.EventHandler(this.FilePrint_Click);
-			// 
-			// tsbStandardSep1
-			// 
-			this.tsbStandardSep1.Name = "tsbStandardSep1";
-			this.tsbStandardSep1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// tsbStandardCut
-			// 
-			this.tsbStandardCut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardCut.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardCut.Image")));
-			this.tsbStandardCut.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardCut.Name = "tsbStandardCut";
-			this.tsbStandardCut.Size = new System.Drawing.Size(23, 22);
-			this.tsbStandardCut.Text = "C&ut";
-			this.tsbStandardCut.Click += new System.EventHandler(this.EditCut_Click);
-			// 
-			// tsbStandardCopy
-			// 
-			this.tsbStandardCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardCopy.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardCopy.Image")));
-			this.tsbStandardCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardCopy.Name = "tsbStandardCopy";
-			this.tsbStandardCopy.Size = new System.Drawing.Size(23, 22);
-			this.tsbStandardCopy.Text = "&Copy";
-			this.tsbStandardCopy.Click += new System.EventHandler(this.EditCopy_Click);
-			// 
-			// tsbStandardPaste
-			// 
-			this.tsbStandardPaste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardPaste.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardPaste.Image")));
-			this.tsbStandardPaste.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardPaste.Name = "tsbStandardPaste";
-			this.tsbStandardPaste.Size = new System.Drawing.Size(23, 22);
-			this.tsbStandardPaste.Text = "&Paste";
-			this.tsbStandardPaste.Click += new System.EventHandler(this.EditPaste_Click);
-			// 
-			// tsbStandardSep2
-			// 
-			this.tsbStandardSep2.Name = "tsbStandardSep2";
-			this.tsbStandardSep2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// tsbStandardHelp
-			// 
-			this.tsbStandardHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbStandardHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsbStandardHelp.Image")));
-			this.tsbStandardHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbStandardHelp.Name = "tsbStandardHelp";
-			this.tsbStandardHelp.Size = new System.Drawing.Size(23, 22);
-			this.tsbStandardHelp.Text = "He&lp";
-			this.tsbStandardHelp.Click += new System.EventHandler(this.HelpContents_Click);
+			this.tsbStandardOpenProject.Name = "tsbStandardOpenProject";
+			this.tsbStandardOpenProject.Size = new System.Drawing.Size(32, 19);
 			// 
 			// tmrToolStripContainerPopup
 			// 
@@ -1145,8 +991,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			// mnuContextDocumentType
 			// 
 			this.mnuContextDocumentType.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.mnuContextDocumentTypeDataFormat,
-			this.mnuContextDocumentTypeSep1});
+            this.mnuContextDocumentTypeDataFormat,
+            this.mnuContextDocumentTypeSep1});
 			this.mnuContextDocumentType.Name = "mnuContextDataFormat";
 			this.mnuContextDocumentType.Size = new System.Drawing.Size(138, 32);
 			// 
@@ -1187,8 +1033,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.sbStatusBar.PerformLayout();
 			this.mbMenuBar.ResumeLayout(false);
 			this.mbMenuBar.PerformLayout();
-			this.tbStandard.ResumeLayout(false);
-			this.tbStandard.PerformLayout();
 			this.mnuContextDocumentType.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -1224,14 +1068,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem mnuView;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewToolbars;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewStatusBar;
-		private AwesomeControls.CommandBars.CBToolBar tbStandard;
-		private System.Windows.Forms.ToolStripButton tsbStandardPrint;
-		private System.Windows.Forms.ToolStripSeparator tsbStandardSep1;
-		private System.Windows.Forms.ToolStripButton tsbStandardCut;
-		private System.Windows.Forms.ToolStripButton tsbStandardCopy;
-		private System.Windows.Forms.ToolStripButton tsbStandardPaste;
-		private System.Windows.Forms.ToolStripSeparator tsbStandardSep2;
-		private System.Windows.Forms.ToolStripButton tsbStandardHelp;
 		private System.Windows.Forms.ToolStripSeparator mnuViewToolbarsSep1;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewToolbarsCustomize;
 		private System.Windows.Forms.ToolStripMenuItem mnuEditDelete;
@@ -1267,20 +1103,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripSeparator mnuFileSep3;
 		private System.Windows.Forms.ToolStripSeparator mnuEditSep4;
 		private System.Windows.Forms.ToolStripMenuItem mnuEditPreferences;
-		private System.Windows.Forms.ToolStripSplitButton tsbStandardNew;
-		private System.Windows.Forms.ToolStripMenuItem tsbStandardNewFile;
-		private System.Windows.Forms.ToolStripMenuItem tsbStandardNewProject;
-		private System.Windows.Forms.ToolStripSplitButton tsbStandardOpen;
 		private System.Windows.Forms.ToolStripMenuItem tsbStandardOpenFile;
 		private System.Windows.Forms.ToolStripMenuItem tsbStandardOpenProject;
-		private System.Windows.Forms.ToolStripSplitButton tsbStandardSave;
-		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveFile;
-		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveFileAs;
-		private System.Windows.Forms.ToolStripSeparator tsbStandardSaveSep1;
-		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveProject;
-		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveProjectAs;
-		private System.Windows.Forms.ToolStripSeparator tsbStandardSaveSep2;
-		private System.Windows.Forms.ToolStripMenuItem tsbStandardSaveAll;
 		private System.Windows.Forms.ToolStripMenuItem mnuProject;
 		private System.Windows.Forms.ToolStripMenuItem mnuProjectAddNewItem;
 		private System.Windows.Forms.ToolStripMenuItem mnuProjectAddExistingItem;
