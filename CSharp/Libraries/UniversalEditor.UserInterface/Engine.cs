@@ -233,9 +233,6 @@ namespace UniversalEditor.UserInterface
 		/// </summary>
 		private MarkupObjectModel mvarRawMarkup = new MarkupObjectModel();
 		
-		private PropertyListObjectModel mvarConfiguration = new PropertyListObjectModel();
-		public PropertyListObjectModel Configuration { get { return mvarConfiguration; } }
-
 		private System.Collections.ObjectModel.ReadOnlyCollection<string> mvarSelectedFileNames = null;
 		public System.Collections.ObjectModel.ReadOnlyCollection<string> SelectedFileNames { get { return mvarSelectedFileNames; } }
 
@@ -438,7 +435,7 @@ namespace UniversalEditor.UserInterface
 			}
 
 			UpdateSplashScreenStatus("Finalizing configuration");
-
+			ConfigurationManager.Load();
 		}
 
 		private void InitializeLanguage(MarkupTagElement tag)
@@ -613,6 +610,9 @@ namespace UniversalEditor.UserInterface
 
 		}
 
+		private ConfigurationManager mvarConfigurationManager = new ConfigurationManager();
+		public ConfigurationManager ConfigurationManager { get { return mvarConfigurationManager; } }
+
 		private RecentFileManager mvarRecentFileManager = new RecentFileManager();
 		public RecentFileManager RecentFileManager { get { return mvarRecentFileManager; } }
 
@@ -684,7 +684,7 @@ namespace UniversalEditor.UserInterface
 			Engine.mvarCurrentEngine = this;
 
 			string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
-			if (Configuration.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
+			if (ConfigurationManager.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
 			{
 				// The single instance should be unique per directory
 				INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
@@ -723,6 +723,7 @@ namespace UniversalEditor.UserInterface
 			SessionManager.Save();
 			BookmarksManager.Save();
 			RecentFileManager.Save();
+			ConfigurationManager.Save();
 		}
 	}
 }

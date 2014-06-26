@@ -17,15 +17,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
         public virtual void LoadSettings()
         {
-            throw new NotImplementedException();
         }
         public virtual void SaveSettings()
         {
-            throw new NotImplementedException();
         }
         public virtual void ResetSettings()
         {
-            throw new NotImplementedException();
         }
 
         private string[] mvarOptionGroups = null;

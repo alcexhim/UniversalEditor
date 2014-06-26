@@ -65,6 +65,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 					oppanel.Dock = DockStyle.Fill;
 					pnlContainer.Controls.Add(oppanel);
+
+					oppanel.LoadSettings();
 				}
 			}
 
@@ -119,6 +121,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
+			IOptionPanelImplementation[] panels = UniversalEditor.UserInterface.Common.Reflection.GetAvailableOptionPanels();
+			foreach (IOptionPanelImplementation panel in panels)
+			{
+				panel.SaveSettings();
+			}
+
 			this.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.Close();
 		}

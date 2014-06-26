@@ -58,6 +58,7 @@
     <Compile Include="CommandDisplayStyle.cs" />
     <Compile Include="CommandShortcutKey.cs" />
     <Compile Include="Common\Reflection.cs" />
+    <Compile Include="ConfigurationManager.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="HostApplication.cs" />
     <Compile Include="HostApplicationMessage.cs" />

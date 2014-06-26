@@ -210,9 +210,57 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			}
 		}
 
+		/// <summary>
+		/// Finds the property with the specified name. If more than one string is specified,
+		/// searches for groups in hierarchy with the property name being the last in the list.
+		/// If the property does not exist, it is created.
+		/// </summary>
+		/// <param name="names"></param>
+		/// <returns></returns>
+		public Property FindOrCreateProperty<T>(string[] propertyName, T defaultValue)
+		{
+			Group group = null;
+			for (int i = 0; i < propertyName.Length - 1; i++)
+			{
+				if (group == null)
+				{
+					Group newgroup = mvarGroups[propertyName[i]];
+					if (newgroup == null) newgroup = mvarGroups.Add(propertyName[i]);
+					group = newgroup;
+				}
+				else
+				{
+					Group newgroup = group.Groups[propertyName[i]];
+					if (newgroup == null) newgroup = group.Groups.Add(propertyName[i]);
+					group = newgroup;
+				}
+			}
+
+			if (group == null)
+			{
+				string propName = propertyName[propertyName.Length - 1];
+				Property prop = mvarProperties[propName];
+				if (prop == null) prop = mvarProperties.Add(propName, defaultValue);
+				return prop;
+			}
+			else
+			{
+				string propName = propertyName[propertyName.Length - 1];
+				Property prop = group.Properties[propName];
+				if (prop == null) prop = group.Properties.Add(propName, defaultValue);
+				return prop;
+			}
+		}
+
+		public bool HasValue(string[] propertyName)
+		{
+			return (FindProperty(propertyName) != null);
+		}
+
 		public void SetValue<T>(string[] p, T value)
 		{
-
+			Property prop = FindOrCreateProperty(p, value);
+			prop.Value = value;
 		}
 
 		private string mvarTitle = String.Empty;
