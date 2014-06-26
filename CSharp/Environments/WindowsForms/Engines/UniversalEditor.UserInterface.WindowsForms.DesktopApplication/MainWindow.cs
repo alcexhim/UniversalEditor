@@ -84,11 +84,144 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			mbMenuBar.Items.Clear();
 			foreach (CommandItem item in Engine.CurrentEngine.MainMenu.Items)
 			{
-				LoadCommandBarItem(item, null);
+				LoadCommandBarMenuItem(item, null);
+			}
+
+			foreach (CommandBar bar in Engine.CurrentEngine.CommandBars)
+			{
+				LoadCommandBar(bar);
 			}
 		}
 
-		private void LoadCommandBarItem(CommandItem item, ToolStripMenuItem parent)
+		private void LoadCommandBar(CommandBar bar)
+		{
+			AwesomeControls.CommandBars.CBToolBar tb = new AwesomeControls.CommandBars.CBToolBar();
+			tb.Text = bar.Title;
+			foreach (CommandItem item in bar.Items)
+			{
+				LoadCommandBarItem(item, tb);
+			}
+			cbc.TopToolStripPanel.Controls.Add(tb);
+		}
+
+		private ToolStripItem InitializeCommandBarItem(CommandItem item, bool isOnDropDown = false)
+		{
+			if (item is SeparatorCommandItem)
+			{
+				return new ToolStripSeparator();
+			}
+			else if (item is CommandReferenceCommandItem)
+			{
+				CommandReferenceCommandItem crci = (item as CommandReferenceCommandItem);
+				Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+				if (cmd == null)
+				{
+					Console.WriteLine("could not find command '" + crci.CommandID + "'");
+					return null;
+				}
+
+				if (cmd.Items.Count > 0)
+				{
+					ToolStripDropDownItem tsi = null;
+					if (!isOnDropDown)
+					{
+						if (!String.IsNullOrEmpty(cmd.DefaultCommandID))
+						{
+							ToolStripSplitButton tsb = new ToolStripSplitButton();
+							tsb.ButtonClick += tsbCommandBarButton_Click;
+							tsi = tsb;
+						}
+						else
+						{
+							ToolStripDropDownButton tsb = new ToolStripDropDownButton();
+							tsi = tsb;
+						}
+					}
+					else
+					{
+						ToolStripMenuItem tsmi = new ToolStripMenuItem();
+						tsi = tsmi;
+					}
+
+					if (tsi == null)
+					{
+						Console.WriteLine("ToolStripDropDownItem was not loaded!");
+						return null;
+					}
+
+					tsi.Tag = cmd;
+					tsi.Text = cmd.Title.Replace("_", "&");
+					foreach (CommandItem item1 in cmd.Items)
+					{
+						LoadCommandBarItem(item1, tsi);
+					}
+					return tsi;
+				}
+				else
+				{
+					ToolStripItem tsi = null;
+					if (!isOnDropDown)
+					{
+						tsi = new ToolStripButton();
+					}
+					else
+					{
+						tsi = new ToolStripMenuItem();
+					}
+					tsi.Tag = cmd;
+					tsi.Text = cmd.Title.Replace("_", "&");
+					tsi.Click += tsbCommandBarButton_Click;
+					return tsi;
+				}
+			}
+			return null;
+		}
+
+		private void LoadCommandBarItem(CommandItem item, ToolStripDropDownItem parent)
+		{
+			ToolStripItem tsi = InitializeCommandBarItem(item, true);
+			if (tsi == null) return;
+
+			parent.DropDownItems.Add(tsi);
+		}
+		private void LoadCommandBarItem(CommandItem item, AwesomeControls.CommandBars.CBToolBar parent)
+		{
+			ToolStripItem tsi = InitializeCommandBarItem(item);
+			if (tsi == null) return;
+
+			parent.Items.Add(tsi);
+		}
+
+		private void tsbCommandBarButton_Click(object sender, EventArgs e)
+		{
+			if (sender is ToolStripDropDownItem)
+			{
+				ToolStripDropDownItem tsi = (sender as ToolStripDropDownItem);
+				Command cmd = (tsi.Tag as Command);
+				if (tsi.DropDownItems.Count > 0)
+				{
+					Command cmd1 = Engine.CurrentEngine.Commands[cmd.DefaultCommandID];
+					if (cmd1 == null)
+					{
+						Console.WriteLine("could not find command '" + cmd.DefaultCommandID + "'");
+						return;
+					}
+					cmd1.Execute();
+				}
+				else
+				{
+					cmd.Execute();
+				}
+			}
+			else if (sender is ToolStripItem)
+			{
+				ToolStripItem tsi = (sender as ToolStripItem);
+				Command cmd = (tsi.Tag as Command);
+				cmd.Execute();
+			}
+		}
+
+		private void LoadCommandBarMenuItem(CommandItem item, ToolStripMenuItem parent)
 		{
 			ToolStripItem tsi = null;
 
@@ -108,7 +241,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				tsmi.Text = cmd.Title.Replace("_", "&");
 				foreach (CommandItem item1 in cmd.Items)
 				{
-					LoadCommandBarItem(item1, tsmi);
+					LoadCommandBarMenuItem(item1, tsmi);
 				}
 				tsi = tsmi;
 			}

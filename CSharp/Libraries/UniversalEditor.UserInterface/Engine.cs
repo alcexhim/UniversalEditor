@@ -218,9 +218,15 @@ namespace UniversalEditor.UserInterface
 		
 		private EngineMainMenu mvarMainMenu = new EngineMainMenu();
 		/// <summary>
-		/// The main menu of this application, which can hold multiple <see cref="Command"/>s.
+		/// The main menu of this application, which can hold multiple <see cref="CommandItem"/>s.
 		/// </summary>
 		public EngineMainMenu MainMenu { get { return mvarMainMenu; } }
+
+		private CommandBar.CommandBarCollection mvarCommandBars = new CommandBar.CommandBarCollection();
+		/// <summary>
+		/// The command bars loaded in this application, which can each hold multiple <see cref="CommandItem"/>s.
+		/// </summary>
+		public CommandBar.CommandBarCollection CommandBars { get { return mvarCommandBars; } }
 		
 		/// <summary>
 		/// The aggregated raw markup of all the various XML files loaded in the current search path.
@@ -310,6 +316,8 @@ namespace UniversalEditor.UserInterface
 		{
 			#region Load the XML files
 			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, "*.xml", System.IO.SearchOption.AllDirectories);
+
+			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
 			
 			XMLDataFormat xdf = new XMLDataFormat();
 			foreach (string xmlfile in xmlfiles)
@@ -321,11 +329,16 @@ namespace UniversalEditor.UserInterface
 				doc.Accessor.Open ();
 				doc.Load ();
 				doc.Close ();
-				
-				markup.CopyTo (mvarRawMarkup);
+
+				markup.CopyTo(mvarRawMarkup);
+
+				UpdateSplashScreenStatus("Loading XML configuration files", Array.IndexOf(xmlfiles, xmlfile) + 1);
 			}
+
+			UpdateSplashScreenStatus("Loading available commands");
 			
 			#endregion
+
 			#region Initialize the configuration with the loaded data
 			
 			MarkupTagElement tagCommands = (mvarRawMarkup.FindElement ("UniversalEditor", "Application", "Commands") as MarkupTagElement);
@@ -342,6 +355,12 @@ namespace UniversalEditor.UserInterface
 					
 					Command cmd = new Command();
 					cmd.ID = attID.Value;
+
+					MarkupAttribute attDefaultCommandID = tagCommand.Attributes["DefaultCommandID"];
+					if (attDefaultCommandID != null)
+					{
+						cmd.DefaultCommandID = attDefaultCommandID.Value;
+					}
 					
 					MarkupAttribute attTitle = tagCommand.Attributes["Title"];
 					if (attTitle != null)
@@ -368,6 +387,8 @@ namespace UniversalEditor.UserInterface
 					mvarCommands.Add (cmd);
 				}
 			}
+
+			UpdateSplashScreenStatus("Loading main menu items");
 			
 			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement ("UniversalEditor", "Application", "MainMenu", "Items") as MarkupTagElement);
 			foreach (MarkupElement elItem in tagMainMenuItems.Elements)
@@ -376,6 +397,19 @@ namespace UniversalEditor.UserInterface
 				if (tagItem == null) continue;
 				InitializeMainMenuItem(tagItem, null);
 			}
+
+			UpdateSplashScreenStatus("Loading command bars");
+
+			MarkupTagElement tagCommandBars = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "CommandBars") as MarkupTagElement);
+			foreach (MarkupElement elCommandBar in tagCommandBars.Elements)
+			{
+				MarkupTagElement tagCommandBar = (elCommandBar as MarkupTagElement);
+				if (tagCommandBar == null) continue;
+				if (tagCommandBar.FullName != "CommandBar") continue;
+				InitializeCommandBar(tagCommandBar);
+			}
+
+			UpdateSplashScreenStatus("Loading languages and translations");
 
 			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Languages") as MarkupTagElement);
 			foreach (MarkupElement elLanguage in tagLanguages.Elements)
@@ -393,6 +427,8 @@ namespace UniversalEditor.UserInterface
 			}
 			#endregion
 
+			UpdateSplashScreenStatus("Setting language");
+
 			if (mvarDefaultLanguage != null)
 			{
 				foreach (Command cmd in mvarCommands)
@@ -400,6 +436,9 @@ namespace UniversalEditor.UserInterface
 					cmd.Title = mvarDefaultLanguage.GetCommandTitle(cmd.ID, cmd.ID);
 				}
 			}
+
+			UpdateSplashScreenStatus("Finalizing configuration");
+
 		}
 
 		private void InitializeLanguage(MarkupTagElement tag)
@@ -461,6 +500,80 @@ namespace UniversalEditor.UserInterface
 			mvarLanguages.Add(lang);
 		}
 		
+		private void InitializeCommandBar(MarkupTagElement tag)
+		{
+			MarkupAttribute attID = tag.Attributes["ID"];
+			if (attID == null) return;
+
+			CommandBar cb = new CommandBar();
+			cb.ID = attID.Value;
+
+			MarkupAttribute attTitle = tag.Attributes["Title"];
+			if (attTitle != null)
+			{
+				cb.Title = attTitle.Value;
+			}
+			else
+			{
+				cb.Title = cb.ID;
+			}
+
+			MarkupTagElement tagItems = tag.Elements["Items"] as MarkupTagElement;
+			if (tagItems != null)
+			{
+				foreach (MarkupElement elItem in tagItems.Elements)
+				{
+					MarkupTagElement tagItem = (elItem as MarkupTagElement);
+					if (tagItem == null) continue;
+					switch (tagItem.FullName)
+					{
+						case "CommandReference":
+						{
+							MarkupAttribute attCommandID = tagItem.Attributes["CommandID"];
+							if (attCommandID != null)
+							{
+								cb.Items.Add(new CommandReferenceCommandItem(attCommandID.Value));
+							}
+							break;
+						}
+						case "Separator":
+						{
+							cb.Items.Add(new SeparatorCommandItem());
+							break;
+						}
+					}
+				}
+			}
+
+			mvarCommandBars.Add(cb);
+		}
+
+		private void InitializeCommandBarItem(MarkupTagElement tag, CommandBar parent)
+		{
+			CommandItem item = null;
+			switch (tag.FullName)
+			{
+				case "CommandReference":
+				{
+					MarkupAttribute attCommandID = tag.Attributes["CommandID"];
+					if (attCommandID != null)
+					{
+						item = new CommandReferenceCommandItem(attCommandID.Value);
+					}
+					break;
+				}
+				case "Separator":
+				{
+					item = new SeparatorCommandItem();
+					break;
+				}
+			}
+
+			if (item != null)
+			{
+				parent.Items.Add(item);
+			}
+		}
 		private void InitializeMainMenuItem(MarkupTagElement tag, Command parent)
 		{
 			CommandItem item = null;
@@ -525,6 +638,7 @@ namespace UniversalEditor.UserInterface
 		private void Initialize()
 		{
 			System.Threading.Thread threadLoader = new System.Threading.Thread(threadLoader_ThreadStart);
+			threadLoader.Name = "Initialization Thread";
 			threadLoader.Start();
 
 			ShowSplashScreen();

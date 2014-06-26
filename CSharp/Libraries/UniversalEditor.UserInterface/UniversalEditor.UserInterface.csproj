@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookmarksManager.cs" />
+    <Compile Include="CommandBar.cs" />
     <Compile Include="CommandDisplayStyle.cs" />
     <Compile Include="CommandShortcutKey.cs" />
     <Compile Include="Common\Reflection.cs" />
