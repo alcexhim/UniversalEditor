@@ -398,14 +398,17 @@ namespace UniversalEditor.UserInterface
 			UpdateSplashScreenStatus("Loading command bars");
 
 			MarkupTagElement tagCommandBars = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "CommandBars") as MarkupTagElement);
-			foreach (MarkupElement elCommandBar in tagCommandBars.Elements)
+			if (tagCommandBars != null)
 			{
-				MarkupTagElement tagCommandBar = (elCommandBar as MarkupTagElement);
-				if (tagCommandBar == null) continue;
-				if (tagCommandBar.FullName != "CommandBar") continue;
-				InitializeCommandBar(tagCommandBar);
+				foreach (MarkupElement elCommandBar in tagCommandBars.Elements)
+				{
+					MarkupTagElement tagCommandBar = (elCommandBar as MarkupTagElement);
+					if (tagCommandBar == null) continue;
+					if (tagCommandBar.FullName != "CommandBar") continue;
+					InitializeCommandBar(tagCommandBar);
+				}
 			}
-
+			
 			UpdateSplashScreenStatus("Loading languages and translations");
 
 			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Languages") as MarkupTagElement);
