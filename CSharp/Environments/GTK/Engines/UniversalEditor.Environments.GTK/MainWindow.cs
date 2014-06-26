@@ -3,7 +3,7 @@ using Gtk;
 
 using UniversalEditor.UserInterface;
 
-public partial class MainWindow: Gtk.Window
+public partial class MainWindow: Gtk.Window, IHostApplicationWindow
 {	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
@@ -76,4 +76,118 @@ public partial class MainWindow: Gtk.Window
 		Application.Quit ();
 		a.RetVal = true;
 	}
+
+	#region IHostApplicationWindow implementation
+	public event EventHandler WindowClosed;
+
+	public void NewFile ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void NewProject (bool combineObjects)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void OpenFile ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void OpenFile (params string[] FileNames)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void OpenProject (bool combineObjects)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void OpenProject (string FileName, bool combineObjects)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void SaveFile ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void SaveFileAs ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void SaveFileAs (string FileName, UniversalEditor.DataFormat df)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void SaveProject ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void SaveProjectAs ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void SaveProjectAs (string FileName, UniversalEditor.DataFormat df)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void SaveAll ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void CloseFile ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void CloseWindow ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public bool ShowOptionsDialog ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void ToggleMenuItemEnabled (string menuItemName, bool enabled)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void RefreshCommand (object nativeCommandObject)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void UpdateStatus (string statusText)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void UpdateProgress (bool visible)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void UpdateProgress (int minimum, int maximium, int value)
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public void ActivateWindow ()
+	{
+		throw new System.NotImplementedException ();
+	}
+	#endregion
 }

@@ -106,7 +106,7 @@
           <widget class="Gtk.Toolbar" id="toolbar1">
             <property name="MemberName" />
             <property name="ShowArrow">False</property>
-            <node name="__gtksharp_143_Stetic_Editor_ActionToolbar" type="Toolbar" />
+            <node name="toolbar1" type="Toolbar" />
           </widget>
           <packing>
             <property name="Position">1</property>

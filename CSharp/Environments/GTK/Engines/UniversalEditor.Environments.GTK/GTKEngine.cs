@@ -5,12 +5,22 @@ namespace UniversalEditor.Environments.GTK
 {
 	public class GTKEngine : UniversalEditor.UserInterface.Engine
 	{
+		protected override void BeforeInitialization ()
+		{
+			base.BeforeInitialization ();
+			Application.Init ();
+		}
+		
 		protected override void MainLoop ()
 		{
-			Application.Init ();
-			MainWindow win = new MainWindow ();
-			win.Show ();
 			Application.Run ();
+		}
+		
+		protected override UniversalEditor.UserInterface.IHostApplicationWindow OpenWindowInternal (params string[] FileNames)
+		{
+			MainWindow mw = new MainWindow();
+			mw.Show ();
+			return mw;
 		}
 	}
 }
