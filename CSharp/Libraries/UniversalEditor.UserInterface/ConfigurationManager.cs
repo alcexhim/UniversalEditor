@@ -47,13 +47,24 @@ namespace UniversalEditor.UserInterface
 		public void Load()
 		{
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
-			Document.Load(mvarLocalConfiguration, xdf, new Accessors.FileAccessor(Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml"));
+			
+			string FileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
+			if (System.IO.File.Exists(FileName))
+			{
+				Document.Load(mvarLocalConfiguration, xdf, new Accessors.FileAccessor(FileName));
+			}
 		}
 
 		public void Save()
 		{
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
-			Document.Save(mvarLocalConfiguration, xdf, new Accessors.FileAccessor(Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml", true, true));
+			string FileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
+			string dir = System.IO.Path.GetDirectoryName (FileName);
+			if (!System.IO.Directory.Exists(dir))
+			{
+				System.IO.Directory.CreateDirectory(dir);
+			}
+			Document.Save(mvarLocalConfiguration, xdf, new Accessors.FileAccessor(FileName, true, true));
 		}
 	}
 }
