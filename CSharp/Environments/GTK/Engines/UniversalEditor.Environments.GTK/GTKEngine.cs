@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace UniversalEditor.Environments.GTK
+namespace UniversalEditor.Engines.GTK
 {
 	public class GTKEngine : UniversalEditor.UserInterface.Engine
 	{
