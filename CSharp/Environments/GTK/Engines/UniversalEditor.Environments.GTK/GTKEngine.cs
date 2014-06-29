@@ -16,6 +16,11 @@ namespace UniversalEditor.Environments.GTK
 			Application.Run ();
 		}
 		
+		public override void ExitApplication ()
+		{
+			Application.Quit ();
+		}
+		
 		protected override UniversalEditor.UserInterface.IHostApplicationWindow OpenWindowInternal (params string[] FileNames)
 		{
 			MainWindow mw = new MainWindow();
