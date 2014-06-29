@@ -44,6 +44,8 @@ public partial class MainWindow: Gtk.Window, IHostApplicationWindow
 		{
 			menuItem = new Gtk.SeparatorMenuItem();
 		}
+		menuItem.Data.Add ("CommandItem", item);
+		menuItem.Activated += menuItem_Activated;
 		
 		if (menuItem != null)
 		{
@@ -55,6 +57,18 @@ public partial class MainWindow: Gtk.Window, IHostApplicationWindow
 			{
 				parentMenu.Append(menuItem);
 			}
+		}
+	}
+
+	void menuItem_Activated (object sender, EventArgs e)
+	{
+		Gtk.MenuItem mi = (sender as Gtk.MenuItem);
+		CommandItem ci = (mi.Data["CommandItem"] as CommandItem);
+		if (ci is CommandReferenceCommandItem)
+		{
+			CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
+			Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+			cmd.Execute ();
 		}
 	}
 	private Menu CreateCommandItemSubmenu(Command cmd)
