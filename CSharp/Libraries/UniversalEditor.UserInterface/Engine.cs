@@ -653,6 +653,11 @@ namespace UniversalEditor.UserInterface
 			threadLoader.Start();
 
 			ShowSplashScreen();
+			
+			while (threadLoader.ThreadState == System.Threading.ThreadState.Running)
+			{
+				System.Threading.Thread.Sleep (500);
+			}
 		}
 		protected virtual void InitializeInternal()
 		{

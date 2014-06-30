@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace UniversalEditor.Environments.GTK
+namespace UniversalEditor.Engines.GTK
 {
 	public class GTKEngine : UniversalEditor.UserInterface.Engine
 	{
@@ -14,6 +14,11 @@ namespace UniversalEditor.Environments.GTK
 		protected override void MainLoop ()
 		{
 			Application.Run ();
+		}
+		
+		public override void ExitApplication ()
+		{
+			Application.Quit ();
 		}
 		
 		protected override UniversalEditor.UserInterface.IHostApplicationWindow OpenWindowInternal (params string[] FileNames)
