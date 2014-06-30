@@ -30,6 +30,8 @@ namespace UniversalEditor.UserInterface
 		void CloseFile();
 		void CloseWindow();
 
+        bool FullScreen { get; set; }
+
 		/// <summary>
 		/// Displays the "Options" dialog (on Windows, under the "Tools" menu; on Linux, under the "Edit"
 		/// menu, labeled as "Preferences").
