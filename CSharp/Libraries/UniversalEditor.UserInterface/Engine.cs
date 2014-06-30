@@ -129,8 +129,16 @@ namespace UniversalEditor.UserInterface
 				ExitApplication();
 			});
 			#endregion
-			#region Tools
-			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
+            #region View
+            AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
+            {
+                Command cmd = (sender as Command);
+                HostApplication.CurrentWindow.FullScreen = !HostApplication.CurrentWindow.FullScreen;
+                cmd.Checked = HostApplication.CurrentWindow.FullScreen;
+            });
+            #endregion
+            #region Tools
+            // ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
 			AttachCommandEventHandler("ToolsOptions", delegate(object sender, EventArgs e)
 			{
 				LastWindow.ShowOptionsDialog();
