@@ -7,11 +7,10 @@ namespace UniversalEditor.UserInterface
 {
 	public static class HostApplication
 	{
-		private static IHostApplicationWindow mvarCurrentWindow = null;
 		/// <summary>
 		/// Gets or sets the current window of the host application.
 		/// </summary>
-		public static IHostApplicationWindow CurrentWindow { get { return mvarCurrentWindow; } set { mvarCurrentWindow = value; } }
+		public static IHostApplicationWindow CurrentWindow { get { return Engine.CurrentEngine.LastWindow; } set { Engine.CurrentEngine.LastWindow = value; } }
 
 		private static HostApplicationOutputWindow mvarOutputWindow = new HostApplicationOutputWindow();
 		/// <summary>
