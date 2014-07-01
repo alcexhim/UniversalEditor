@@ -1,7 +1,9 @@
 using System;
 using Gtk;
 
+using UniversalEditor;
 using UniversalEditor.UserInterface;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.Engines.GTK
 {
@@ -11,6 +13,30 @@ namespace UniversalEditor.Engines.GTK
 		{
 			Build ();
 			InitializeMenuBar();
+		}
+		
+		protected override bool OnFocused (DirectionType direction)
+		{
+			Engine.CurrentEngine.LastWindow = this;
+			return base.OnFocused (direction);
+		}
+		
+		private bool mvarFullScreen = false;
+		public bool FullScreen
+		{
+			get { return mvarFullScreen; }
+			set
+			{
+				mvarFullScreen = value;
+				if (mvarFullScreen)
+				{
+					base.Fullscreen ();
+				}
+				else
+				{
+					base.Unfullscreen ();
+				}
+			}
 		}
 		
 		private void InitializeMenuBar()
@@ -70,7 +96,15 @@ namespace UniversalEditor.Engines.GTK
 			{
 				CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
 				Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
-				cmd.Execute ();
+				if (cmd == null)
+				{
+					MessageDialog dlg = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Could not find the command " + crci.CommandID);
+					dlg.Run ();
+				}
+				else
+				{
+					cmd.Execute ();
+				}
 			}
 		}
 		private Menu CreateCommandItemSubmenu(Command cmd)
@@ -117,7 +151,12 @@ namespace UniversalEditor.Engines.GTK
 			FileChooserDialog dlg = new FileChooserDialog("Open File", this, FileChooserAction.Open, "Open", Gtk.ResponseType.Ok, "Cancel", Gtk.ResponseType.Cancel);
 			ResponseType result = (ResponseType) dlg.Run ();
 			
-			if (result != ResponseType.Ok) return;
+			dlg.Destroy();
+			
+			if (result != ResponseType.Ok)
+			{
+				return;
+			}
 			
 			OpenFile (dlg.Filenames);
 		}
@@ -139,7 +178,7 @@ namespace UniversalEditor.Engines.GTK
 			
 			FileAccessor fa = new FileAccessor(FileName);
 			
-			Document doc = new Document(om, df, fa);
+			// Document doc = new Document(om, df, fa);
 		}
 	
 		public void OpenProject (bool combineObjects)
