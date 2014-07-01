@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{AF5F8ED3-D534-4609-94ED-B2800455B88F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>UniversalEditor.Environments.GTK</RootNamespace>
+    <RootNamespace>UniversalEditor.Engines.GTK</RootNamespace>
     <AssemblyName>UniversalEditor.Environments.GTK</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
