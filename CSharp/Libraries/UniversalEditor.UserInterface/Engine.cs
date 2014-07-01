@@ -129,6 +129,46 @@ namespace UniversalEditor.UserInterface
 				ExitApplication();
 			});
 			#endregion
+			#region Edit
+			AttachCommandEventHandler("EditCut", delegate(object sender, EventArgs e)
+			{
+				Command cmdCopy = mvarCommands["EditCopy"];
+				Command cmdDelete = mvarCommands["EditDelete"];
+				
+				cmdCopy.Execute ();
+				cmdDelete.Execute ();
+			});
+			AttachCommandEventHandler("EditCopy", delegate(object sender, EventArgs e)
+			{
+				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				if (editor == null) return;
+				editor.Copy();
+			});
+			AttachCommandEventHandler("EditPaste", delegate(object sender, EventArgs e)
+			{
+				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				if (editor == null) return;
+				editor.Paste();
+			});
+			AttachCommandEventHandler("EditDelete", delegate(object sender, EventArgs e)
+			{
+				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				if (editor == null) return;
+				editor.Delete();
+			});
+			AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
+			{
+				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				if (editor == null) return;
+				editor.Undo();
+			});
+			AttachCommandEventHandler("EditRedo", delegate(object sender, EventArgs e)
+			{
+				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				if (editor == null) return;
+				editor.Redo();
+			});
+			#endregion
             #region View
             AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
             {
