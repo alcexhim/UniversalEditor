@@ -69,15 +69,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surodoine", "..\..\Surodoine\Surodoine\Surodoine.csproj", "{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environments", "{4725A011-066E-4235-82C4-F2184BF56BBE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engines", "Engines", "{4725A011-066E-4235-82C4-F2184BF56BBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GTK", "GTK", "{E0422169-2DF9-4B50-A019-84A3251727F9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Environments.GTK", "Environments\GTK\Engines\UniversalEditor.Environments.GTK\UniversalEditor.Environments.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.FileSystem", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem.csproj", "{C17E6B14-3DF4-45E4-9556-5E651868CA6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\UniversalEditor.Engines.GTK\UniversalEditor.Engines.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -508,8 +508,8 @@ Global
 		{E6C9A73D-4556-4220-9BC7-302A7EE64C1A} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A} = {5A423A3E-51C5-4188-8AD5-FB5C0CB76C6A}
 		{E0422169-2DF9-4B50-A019-84A3251727F9} = {4725A011-066E-4235-82C4-F2184BF56BBE}
-		{AF5F8ED3-D534-4609-94ED-B2800455B88F} = {E0422169-2DF9-4B50-A019-84A3251727F9}
 		{B2A30AE0-2FDD-40D1-88CF-9E4B95277F95} = {E0422169-2DF9-4B50-A019-84A3251727F9}
+		{AF5F8ED3-D534-4609-94ED-B2800455B88F} = {E0422169-2DF9-4B50-A019-84A3251727F9}
 		{C17E6B14-3DF4-45E4-9556-5E651868CA6B} = {B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
