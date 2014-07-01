@@ -62,6 +62,8 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="GTKEngine.cs" />
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.MainWindow.cs" />
+    <Compile Include="Editor.cs" />
+    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Editor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
