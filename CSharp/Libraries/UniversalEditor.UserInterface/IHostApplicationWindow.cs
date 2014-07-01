@@ -29,6 +29,8 @@ namespace UniversalEditor.UserInterface
 
 		void CloseFile();
 		void CloseWindow();
+		
+		IEditorImplementation GetCurrentEditor();
 
         bool FullScreen { get; set; }
 

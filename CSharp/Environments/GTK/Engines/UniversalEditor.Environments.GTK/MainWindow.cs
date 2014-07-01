@@ -15,6 +15,11 @@ namespace UniversalEditor.Engines.GTK
 			InitializeMenuBar();
 		}
 		
+		public IEditorImplementation GetCurrentEditor()
+		{
+			return null;
+		}
+		
 		protected override bool OnFocused (DirectionType direction)
 		{
 			Engine.CurrentEngine.LastWindow = this;
