@@ -126,7 +126,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
                     // show all dataformats for the current accessor
                     dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats((mvarAccessor as FileAccessor).FileName);
                 }
-                else
+				else if (mvarObjectModel != null)
+				{
+					dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarObjectModel.MakeReference());
+				}
+				else
                 {
                     dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
                 }
@@ -238,16 +242,24 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
                     txtAccessor.Text = "File: " + (mvarAccessor as FileAccessor).FileName;
                 }
             }
-            if (mvarDataFormat != null)
-            {
-                DataFormatReference dfr = mvarDataFormat.MakeReference();
-                txtDataFormat.Text = DataFormatReferenceToString(dfr);
-            }
-            if (mvarObjectModel != null)
-            {
-                ObjectModelReference omr = mvarObjectModel.MakeReference();
-                txtObjectModel.Text = omr.Title;
-            }
+			if (mvarDataFormat != null)
+			{
+				DataFormatReference dfr = mvarDataFormat.MakeReference();
+				txtDataFormat.Text = DataFormatReferenceToString(dfr);
+			}
+			else
+			{
+				txtDataFormat.Text = String.Empty;
+			}
+			if (mvarObjectModel != null)
+			{
+				ObjectModelReference omr = mvarObjectModel.MakeReference();
+				txtObjectModel.Text = omr.Title;
+			}
+			else
+			{
+				txtObjectModel.Text = String.Empty;
+			}
 
             cmdOK.Enabled = (mvarObjectModel != null && mvarDataFormat != null && mvarAccessor != null);
         }
