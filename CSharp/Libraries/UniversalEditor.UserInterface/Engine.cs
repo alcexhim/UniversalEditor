@@ -133,8 +133,8 @@ namespace UniversalEditor.UserInterface
             AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
             {
                 Command cmd = (sender as Command);
-                HostApplication.CurrentWindow.FullScreen = !HostApplication.CurrentWindow.FullScreen;
-                cmd.Checked = HostApplication.CurrentWindow.FullScreen;
+                LastWindow.FullScreen = !LastWindow.FullScreen;
+                cmd.Checked = LastWindow.FullScreen;
             });
             #endregion
             #region Tools
