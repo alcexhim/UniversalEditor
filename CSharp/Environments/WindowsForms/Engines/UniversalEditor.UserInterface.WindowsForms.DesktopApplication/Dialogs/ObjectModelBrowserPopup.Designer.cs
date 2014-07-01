@@ -51,6 +51,7 @@
             this.lv.TabIndex = 3;
             this.lv.UseCompatibleStateImageBehavior = false;
             this.lv.View = System.Windows.Forms.View.Details;
+            this.lv.ItemActivate += new System.EventHandler(this.lv_ItemActivate);
             this.lv.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // chTitle

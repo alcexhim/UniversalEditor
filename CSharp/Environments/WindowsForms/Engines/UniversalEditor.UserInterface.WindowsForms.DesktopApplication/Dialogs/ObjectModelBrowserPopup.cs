@@ -25,7 +25,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		private System.Collections.ObjectModel.Collection<ObjectModel> mvarObjectModels = new System.Collections.ObjectModel.Collection<ObjectModel>();
 		public System.Collections.ObjectModel.Collection<ObjectModel> ObjectModels { get { return mvarObjectModels; } }
-		
+
 		private ObjectModel mvarObjectModel = null;
 		public ObjectModel ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; } }
 
@@ -84,7 +84,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			return sb.ToString();
 		}
 
-		
+
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
