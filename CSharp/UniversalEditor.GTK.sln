@@ -75,9 +75,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GTK", "GTK", "{E0422169-2DF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.FileSystem", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem.csproj", "{C17E6B14-3DF4-45E4-9556-5E651868CA6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.FileSystem", "Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem.csproj", "{C17E6B14-3DF4-45E4-9556-5E651868CA6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\UniversalEditor.Engines.GTK\UniversalEditor.Engines.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK", "Engines\GTK\UniversalEditor.Engines.GTK\UniversalEditor.Engines.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

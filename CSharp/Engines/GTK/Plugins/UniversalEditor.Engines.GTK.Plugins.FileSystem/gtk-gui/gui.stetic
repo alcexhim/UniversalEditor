@@ -5,7 +5,7 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../../../../../../../../../../../../home/beckermj/Documents/Projects2/UniversalEditor/CSharp/Output/Debug/UniversalEditor.Environments.GTK.dll" />
+    <widget-library name="../../../../../Output/Debug/UniversalEditor.Environments.GTK.dll" />
     <widget-library name="../bin/Debug/UniversalEditor.Engines.GTK.Plugins.FileSystem.dll" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="UniversalEditor.Engines.GTK.Plugins.FileSystem.FileSystemEditor" design-size="616 344">

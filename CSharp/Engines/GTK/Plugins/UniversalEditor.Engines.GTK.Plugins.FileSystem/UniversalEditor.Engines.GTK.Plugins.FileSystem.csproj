@@ -55,9 +55,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\..\..\..\..\home\beckermj\Documents\Projects2\UniversalEditor\CSharp\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UniversalEditor.Engines.GTK\UniversalEditor.Engines.GTK.csproj">
+      <Project>{AF5F8ED3-D534-4609-94ED-B2800455B88F}</Project>
+      <Name>UniversalEditor.Engines.GTK</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
