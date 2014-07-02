@@ -35,10 +35,10 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
             int signature2 = br.ReadInt32();
             if (signature2 != 0x1C27AFBC) throw new InvalidDataFormatException("File does not begin with LE: 0x1C27AFBC");
 
-            short u1a = br.ReadInt16();
-            short u1b = br.ReadInt16();
-            short u2a = br.ReadInt16();
-            short u2b = br.ReadInt16();
+            short u1a = br.ReadInt16();					// 1024		1024
+            int u1b = br.ReadInt16();					// 25464	-6047
+            short u2a = br.ReadInt16();					// 24321	7104
+            short compressedSize = br.ReadInt16();		// 58		240 - this is not compressed size
 
             int u3 = br.ReadInt32();
 
@@ -49,6 +49,36 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
             short u6 = br.ReadInt16();
             short u7 = br.ReadInt16();
             short u8 = br.ReadInt16();
+
+			// byte[] compressedData = br.ReadBytes(compressedSize);
+
+			int u9 = br.ReadInt32();
+			int u10 = br.ReadInt32();
+			int u11 = br.ReadInt32();
+			int u12 = br.ReadInt32();
+			
+			short decompressedSize = br.ReadInt16();
+
+			short u14 = br.ReadInt16();
+			short u15 = br.ReadInt16();
+			short u16 = br.ReadInt16();
+			short u17 = br.ReadInt16();
+			short u18 = br.ReadInt16();
+			short u19 = br.ReadInt16();
+
+			short fileNameLength = br.ReadInt16();
+			fileNameLength--;
+			string fileName = br.ReadFixedLengthString(fileNameLength, IO.Encoding.UTF16LittleEndian);
+			fileName = fileName.TrimNull();
+
+			short u20 = br.ReadInt16();
+			short u21 = br.ReadInt16();
+			int u22 = br.ReadInt32();
+			int u23 = br.ReadInt32();
+			short u24 = br.ReadInt16();
+			short u25 = br.ReadInt16();
+			short u26 = br.ReadInt16();
+			int u27 = br.ReadInt32();
         }
 
         protected override void SaveInternal(ObjectModel objectModel)
