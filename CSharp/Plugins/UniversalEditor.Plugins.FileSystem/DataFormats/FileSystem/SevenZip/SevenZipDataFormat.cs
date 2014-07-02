@@ -176,18 +176,22 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
 
 		private SevenZipFolder ReadFolder(IO.Reader br)
 		{
+			SevenZipFolder folder = new SevenZipFolder();
 			ulong coderCount = ReadNumber(br);
 			for (ulong i = 0; i < coderCount; i++)
 			{
 				SevenZipCoder coder = ReadCodersInfo(br);
 			}
+			/*
 			NumBindPairs
 			BindPairsInfo[NumBindPairs]
 			{
-			  InIndex;
-			  OutIndex;
+			  ulong InIndex = ReadNumber(br);
+			  ulong OutIndex = ReadNumber(br);
 			}
 			PackedIndices
+			*/
+			return folder;
 		}
 
 		private SevenZipCoder ReadCodersInfo(IO.Reader br)
