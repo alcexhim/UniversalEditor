@@ -511,7 +511,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			ToolStripMenuItem tsmi = new ToolStripMenuItem();
 			tsmi.Name = ami.Name;
 
-			Editor currentEditor = GetCurrentEditor();
+			Editor currentEditor = GetCurrentWindowsFormsEditor();
 			string imagePath = currentEditor.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Images" + System.IO.Path.DirectorySeparatorChar.ToString() + "Commands" + System.IO.Path.DirectorySeparatorChar.ToString() + ami.Name + ".png";
 			if (System.IO.File.Exists(imagePath)) tsmi.Image = Image.FromFile(imagePath);
 
@@ -546,7 +546,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				tsi = tsb;
 			}
 
-			Editor currentEditor = GetCurrentEditor();
+			Editor currentEditor = GetCurrentWindowsFormsEditor();
 			string imagePath = currentEditor.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Images" + System.IO.Path.DirectorySeparatorChar.ToString() + "Commands" + System.IO.Path.DirectorySeparatorChar.ToString() + ami.Name + ".png";
 			if (System.IO.File.Exists(imagePath)) tsi.Image = Image.FromFile(imagePath);
 
@@ -619,7 +619,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			if (CurrentDocument != null)
 			{
-				Editor editor = GetCurrentEditor();
+				Editor editor = GetCurrentWindowsFormsEditor();
 				if (editor != null)
 				{
 					foreach (MenuItem mi in editor.MenuBar.Items)
@@ -1381,13 +1381,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public void Undo()
 		{
-			Editor current = GetCurrentEditor();
+			Editor current = GetCurrentWindowsFormsEditor();
 			if (current == null) return;
 			current.Undo();
 		}
 		public void Redo()
 		{
-			Editor current = GetCurrentEditor();
+			Editor current = GetCurrentWindowsFormsEditor();
 			if (current == null) return;
 			current.Redo();
 		}
@@ -1429,7 +1429,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			MessageBox.Show("Not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
-		public Editor GetCurrentEditor()
+		public IEditorImplementation GetCurrentEditor()
+		{
+			return GetCurrentWindowsFormsEditor();
+		}
+		public Editor GetCurrentWindowsFormsEditor()
 		{
 			if (dcc.SelectedWindow == null) return null;
 			Pages.EditorPage editorPage = (dcc.SelectedWindow.Control as Pages.EditorPage);
@@ -1977,7 +1981,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			if (e.Window == null) return;
 			if (e.Window.Control is Pages.EditorPage)
 			{
-				Editor editor = GetCurrentEditor();
+				Editor editor = GetCurrentWindowsFormsEditor();
 				if (editor != null)
 				{
 					CancelEventArgs ce = new CancelEventArgs();
