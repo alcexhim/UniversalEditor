@@ -17,6 +17,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("7-ZIP archive", new byte?[][] { new byte?[] { (byte)'7', (byte)'z', 0xBC, 0xAF, 0x27, 0x1C } }, new string[] { "*.7z" });
                 _dfr.ContentTypes.Add("application/x-7z-compressed");
+				_dfr.Sources.Add("http://cpansearch.perl.org/src/BJOERN/Compress-Deflate7-1.0/7zip/DOC/7zFormat.txt");
             }
             return _dfr;
         }
