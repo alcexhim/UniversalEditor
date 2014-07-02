@@ -34,18 +34,19 @@ namespace UniversalEditor.DataFormats.FileSystem.TroikaGames.Arcanum
 			// seek to end of archive and read TS
 			br.Accessor.Seek(-4, SeekOrigin.End);
 			
-			uint TS = br.ReadUInt32();
+			uint fileTableSize = br.ReadUInt32();
 
 			// seek to TS and read FSP
-			uint AS = (uint)(br.Accessor.Position - 4 - TS);
+			uint AS = (uint)(br.Accessor.Length - 4 - fileTableSize);
 			br.Accessor.Seek(AS, SeekOrigin.Begin);
-			uint FSP = br.ReadUInt32();
+
+			uint fileTableOffset = br.ReadUInt32();
 
 			// seek to FSP and read FA
-			br.Accessor.Seek(FSP, SeekOrigin.Begin);
-			uint FA = br.ReadUInt32();
+			br.Accessor.Seek(fileTableOffset, SeekOrigin.Begin);
+			uint fileCount = br.ReadUInt32();
 
-			for (uint i = 0; i < FA; i++)
+			for (uint i = 0; i < fileCount; i++)
 			{
 				uint fileNameSize = br.ReadUInt32();
 				string fileName = String.Empty;
@@ -87,12 +88,59 @@ namespace UniversalEditor.DataFormats.FileSystem.TroikaGames.Arcanum
 
 			br.Accessor.Position = offset;
 			byte[] compressedData = br.ReadBytes(CompressedLength);
-			byte[] decompressedData = CompressionModules.Zlib.Decompress(compressedData);
+			byte[] decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib).Decompress(compressedData);
 			e.Data = decompressedData;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+
+			File[] files = fsom.GetAllFiles();
+
+			uint fileTableSize = 8;
+			uint fileTableOffset = 4;
+
+			byte[][] compressedDatas = new byte[files.Length][];
+			for (int i = 0; i < files.Length; i++)
+			{
+				byte[] decompressedData = files[i].GetDataAsByteArray();
+				byte[] compressedData = Compression.CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib).Compress(decompressedData);
+				compressedDatas[i] = compressedData;
+				writer.WriteBytes(compressedData);
+
+				fileTableSize += (uint)(24 + files[i].Name.Length);
+				fileTableOffset += (uint)compressedDatas[i].Length;
+			}
+
+			writer.WriteUInt32(fileTableOffset);
+			writer.WriteUInt32((uint)files.Length);
+
+			uint offset = 0;
+			for (int i = 0; i < files.Length; i++)
+			{
+				File file = files[i];
+				writer.WriteUInt32((uint)file.Name.Length);
+				writer.WriteFixedLengthString(file.Name);
+
+				uint unknown1 = 0;
+				uint unknown2 = 0;
+				writer.WriteUInt32(unknown1);
+				writer.WriteUInt32(unknown2);
+
+				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] compressedData = compressedDatas[i];
+				
+				writer.WriteUInt32((uint)decompressedData.Length);
+				writer.WriteUInt32((uint)compressedData.Length);
+				writer.WriteUInt32(offset);
+
+				offset += (uint)compressedData.Length;
+			}
+			writer.WriteUInt32(fileTableSize);
 		}
 	}
 }
