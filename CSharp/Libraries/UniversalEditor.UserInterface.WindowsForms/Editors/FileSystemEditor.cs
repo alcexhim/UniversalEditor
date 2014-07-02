@@ -392,6 +392,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				{
 					byte[] data = file.GetDataAsByteArray();
 
+					if (String.IsNullOrEmpty(file.Name))
+					{
+						file.Name = "[]";
+					}
 					string filePath = TemporaryFileManager.CreateTemporaryFile(file.Name, data);
 					filePaths.Add(filePath);
 
