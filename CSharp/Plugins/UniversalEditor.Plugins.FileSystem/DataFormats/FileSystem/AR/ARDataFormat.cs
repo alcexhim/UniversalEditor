@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UniversalEditor.Accessors;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.AR
@@ -25,15 +26,16 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
-			IO.Reader br = base.Accessor.Reader;
-			string sig_arch = br.ReadFixedLengthString(7);
-			byte sig_mustBe0x0A = br.ReadByte();
+			IO.Reader reader = base.Accessor.Reader;
+			string sig_arch = reader.ReadFixedLengthString(7);
+			byte sig_mustBe0x0A = reader.ReadByte();
 
             if (sig_arch != "!<arch>" || sig_mustBe0x0A != 0x0A) throw new InvalidDataFormatException("File does not begin with !<arch>, 0x1A");
 
-			while (!br.EndOfStream)
+			while (!reader.EndOfStream)
 			{
-				string szFileName = br.ReadFixedLengthString(0x10).Trim();
+				string szFileName = reader.ReadFixedLengthString(0x10).Trim();
+
                 if (szFileName == "\0") break;
 
                 if (szFileName.EndsWith("/"))
@@ -51,27 +53,43 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
                     szFileName = System.IO.Path.GetFileNameWithoutExtension((base.Accessor as FileAccessor).FileName); //; (fsom.Files.Count + 1).ToString().PadLeft(8, '0');
                 }
 
-				string fileModTimestamp = br.ReadFixedLengthString(12).Trim();
-				string ownerID = br.ReadFixedLengthString(6).Trim();
-                string groupID = br.ReadFixedLengthString(6).Trim();
-				string fileMode = br.ReadFixedLengthString(8).Trim();
+				string fileModTimestamp = reader.ReadFixedLengthString(12).Trim();
+				string ownerID = reader.ReadFixedLengthString(6).Trim();
+                string groupID = reader.ReadFixedLengthString(6).Trim();
+				string fileMode = reader.ReadFixedLengthString(8).Trim();
 				
-                string szFileSize = br.ReadFixedLengthString(10).Trim();
+                string szFileSize = reader.ReadFixedLengthString(10).Trim();
                 int fileSize = Int32.Parse(szFileSize);
 
-				string fileMagic = br.ReadFixedLengthString(2);
+				string fileMagic = reader.ReadFixedLengthString(2);
 
-                byte[] fileData = br.ReadBytes(fileSize);
+				long offset = reader.Accessor.Position;
+				reader.Seek(fileSize, IO.SeekOrigin.Current);
 
-				fsom.Files.Add(szFileName, fileData);
+				File file = fsom.AddFile(szFileName);
+				file.Size = fileSize;
+				file.Properties["offset"] = offset;
+				file.Properties["length"] = fileSize;
+				file.Properties["reader"] = reader;
+				file.DataRequest += file_DataRequest;
 
-                if ((br.Accessor.Position % 2) != 0)
+                if ((reader.Accessor.Position % 2) != 0)
                 {
                     // fixed 2013-05-20 for certain .a files
                     // The data section is 2 byte aligned. If it would end on an odd offset, a '\n' is used as filler.
-                    char xA = br.ReadChar();
+                    char xA = reader.ReadChar();
                 }
 			}
+		}
+
+		void file_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (sender as File);
+			long offset = (long)file.Properties["offset"];
+			int length = (int)file.Properties["length"];
+			Reader reader = (Reader)file.Properties["reader"];
+			reader.Seek(offset, SeekOrigin.Begin);
+			e.Data = reader.ReadBytes(length);
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
