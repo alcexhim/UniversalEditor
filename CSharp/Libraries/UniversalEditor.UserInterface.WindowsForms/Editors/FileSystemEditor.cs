@@ -434,6 +434,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 		private void AddFile_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog ofd = new OpenFileDialog();
+			ofd.Title = "Add Files to File System";
 			ofd.Filter = "All files (*.*)|*.*";
 			ofd.Multiselect = true;
 			if (ofd.ShowDialog() == DialogResult.OK)
