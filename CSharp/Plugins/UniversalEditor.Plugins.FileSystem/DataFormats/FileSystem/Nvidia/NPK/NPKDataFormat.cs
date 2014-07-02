@@ -16,15 +16,25 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
             {
                 _dfr = base.MakeReference();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.ImportOptions.Add(new CustomOptionText("Key", "&Key: ", "bogomojo"));
-                _dfr.ExportOptions.Add(new CustomOptionText("Key", "&Key: ", "bogomojo"));
+				_dfr.ImportOptions.Add(new CustomOptionText("EncryptionKey", "Encryption &key: ", "bogomojo"));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));
+                _dfr.ExportOptions.Add(new CustomOptionText("EncryptionKey", "Encryption &key: ", "bogomojo"));
                 _dfr.Filters.Add("Nvidia package", new byte?[][] { new byte?[] { 0xBE, 0xEF, 0xCA, 0xFE } }, new string[] { "*.npk" });
             }
             return _dfr;
         }
 
-        private string mvarKey = "bogomojo";
-        public string Key { get { return mvarKey; } set { mvarKey = value; } }
+		private bool mvarEncrypted = false;
+		/// <summary>
+		/// Determines whether the archive is to be encrypted with the key specified in the <see cref="EncryptionKey" /> property.
+		/// </summary>
+		public bool Encrypted { get { return mvarEncrypted; } set { mvarEncrypted = value; } }
+
+        private string mvarEncryptionKey = "bogomojo";
+		/// <summary>
+		/// The key with which to encrypt the files in the archive when <see cref="Encrypted" /> is true.
+		/// </summary>
+        public string EncryptionKey { get { return mvarEncryptionKey; } set { mvarEncryptionKey = value; } }
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
@@ -69,7 +79,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
             IO.Reader br = (IO.Reader)file.Properties["reader"];
 
             br.Accessor.Position = offset;
-            byte[] key = System.Text.Encoding.ASCII.GetBytes(mvarKey);
+            byte[] key = System.Text.Encoding.ASCII.GetBytes(mvarEncryptionKey);
             byte[] compressedData = br.ReadBytes((ulong)compressedSize);
             byte[] decompressedData = null;
             try
@@ -101,13 +111,72 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
 
             if (decompressedData.Length != decompressedSize)
             {
+				Array.Resize(ref decompressedData, (int)decompressedSize);
             }
             e.Data = decompressedData;
         }
 
         protected override void SaveInternal(ObjectModel objectModel)
         {
-            throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
+
+			File[] files = fsom.GetAllFiles();
+
+			IO.Writer writer = base.Accessor.Writer;
+			writer.WriteBytes(new byte[] { 0xBE, 0xEF, 0xCA, 0xFE });
+
+			writer.WriteUInt32((uint)files.Length);
+
+			byte[][] compressedDatas = new byte[files.Length][];
+
+			long offset = 8;
+			for (int i = 0; i < files.Length; i++)
+			{
+				offset += 4;
+				offset += files[i].Name.Length;
+				offset += 32;
+			}
+
+			for (int i = 0; i < files.Length; i++)
+			{
+				File file = files[i];
+				writer.WriteUInt32((uint)file.Name.Length);
+				writer.WriteFixedLengthString(file.Name);
+
+				long dateTime = 0;
+				writer.WriteInt64(dateTime);
+				writer.WriteInt64(offset);
+
+				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] compressedData = CompressionModules.Zlib.Compress(decompressedData);
+
+				if (mvarEncrypted)
+				{
+					byte[] key = System.Text.Encoding.ASCII.GetBytes(mvarEncryptionKey);
+					// simple XOR "decryption" method
+					int k = 0;
+					for (int j = 0; j < compressedData.Length; j++)
+					{
+						compressedData[j] ^= key[k];
+						k++;
+						if (k >= key.Length) k = 0;
+					}
+				}
+
+				compressedDatas[i] = compressedData;
+
+				writer.WriteInt64(compressedData.Length);
+				writer.WriteInt64(decompressedData.Length);
+
+				offset += compressedData.Length;
+			}
+
+			for (int i = 0; i < files.Length; i++)
+			{
+				writer.WriteBytes(compressedDatas[i]);
+			}
+			writer.Flush();
         }
     }
 }
