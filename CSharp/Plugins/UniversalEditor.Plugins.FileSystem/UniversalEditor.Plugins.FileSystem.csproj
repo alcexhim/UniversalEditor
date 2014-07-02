@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -129,7 +129,14 @@
     <Compile Include="DataFormats\FileSystem\PRF\PRFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ProDOS\ProDOSDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\REEVEsoft\Freeze\ICEDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipBlockType.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipCoder.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipCoderFlags.cs" />
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipFolder.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipHeader.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipPackInfo.cs" />
+    <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipUnpackInfo.cs" />
     <Compile Include="DataFormats\FileSystem\SilentHill\ARC\SilentHillARCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SPIS\SPISDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.cs" />
