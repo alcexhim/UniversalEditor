@@ -27,7 +27,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARC
 			IO.Reader br = base.Accessor.Reader;
             br.Endianness = IO.Endianness.LittleEndian;
 			byte magic = br.ReadByte();
-            if (magic != 0x1A) throw new InvalidDataFormatException();
+            if (magic != 0x1A) throw new InvalidDataFormatException("File does not begin with 0x1A");
 
 			byte compressionMethod = br.ReadByte();
 			string fileName = br.ReadNullTerminatedString(12);
