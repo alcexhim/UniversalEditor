@@ -227,6 +227,34 @@ namespace UniversalEditor.ObjectModels.FileSystem
             }
         }
 
+		/// <summary>
+		/// Gets all files in all folders of the <see cref="FileSystemObjectModel" /> with file names that
+		/// match the <see cref="searchPattern"/>, and assigns the file names separated by the
+		/// <see cref="pathSeparator"/>.
+		/// </summary>
+		/// <param name="searchPattern">The string by which to filter the retrieved file names.</param>
+		/// <param name="pathSeparator">The string by which to separate directory and file names.</param>
+		/// <returns></returns>
+		public File[] GetFiles(string searchPattern = null, string pathSeparator = null)
+		{
+			if (pathSeparator == null) pathSeparator = "/";
+
+			List<File> files = new List<File>();
+			for (int i = 0; i < mvarFiles.Count; i++)
+			{
+				File file = mvarFiles[i];
+				if (searchPattern != null && !file.Name.Match(searchPattern)) continue;
+
+				files.Add(file);
+			}
+			for (int i = 0; i < mvarFolders.Count; i++)
+			{
+				Folder folder = mvarFolders[i];
+				GetAllFilesRecursively(folder, ref files, folder.Name, pathSeparator, searchPattern);
+			}
+			return files.ToArray();
+		}
+
         /// <summary>
         /// Gets all files in all folders of the <see cref="FileSystemObjectModel" />, and assigns the file names
         /// separated by the default path separator.
@@ -250,11 +278,13 @@ namespace UniversalEditor.ObjectModels.FileSystem
             return files.ToArray();
         }
 
-        private void GetAllFilesRecursively(Folder folder, ref List<File> files, string parentPath, string pathSeparator)
+        private void GetAllFilesRecursively(Folder folder, ref List<File> files, string parentPath, string pathSeparator, string searchPattern = null)
         {
             for (int i = 0; i < folder.Files.Count; i++)
             {
                 File file = folder.Files[i];
+				if (searchPattern != null && !file.Name.Match(searchPattern)) continue;
+
                 File file2 = (file.Clone() as File);
                 file2.Name = parentPath + pathSeparator + file.Name;
                 files.Add(file2);
@@ -262,8 +292,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
             for (int i = 0; i < folder.Folders.Count; i++)
             {
                 Folder folder1 = folder.Folders[i];
-                GetAllFilesRecursively(folder1, ref files, parentPath + pathSeparator + folder1.Name, pathSeparator);
+                GetAllFilesRecursively(folder1, ref files, parentPath + pathSeparator + folder1.Name, pathSeparator, searchPattern);
             }
         }
-    }
+	}
 }
