@@ -133,5 +133,12 @@ namespace UniversalEditor.ObjectModels.Markup
 			}
 			return tagParent;
 		}
+
+		public string GetElementValue(string[] path, string defaultValue = null)
+		{
+			MarkupTagElement tag = (FindElement(path) as MarkupTagElement);
+			if (tag == null) return defaultValue;
+			return tag.Value;
+		}
 	}
 }
