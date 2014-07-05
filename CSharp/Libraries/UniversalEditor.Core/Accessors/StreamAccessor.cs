@@ -12,6 +12,10 @@ namespace UniversalEditor.Accessors
 		private System.IO.Stream mvarBaseStream = null;
 		public System.IO.Stream BaseStream { get { return mvarBaseStream; } }
 
+		protected override long GetPosition()
+		{
+			return mvarBaseStream.Position;
+		}
 		public StreamAccessor()
 		{
 			mvarBaseStream = new System.IO.MemoryStream();
@@ -24,10 +28,10 @@ namespace UniversalEditor.Accessors
 		public override long Length
 		{
 			get { return mvarBaseStream.Length; }
-			set { throw new InvalidOperationException(); }
+			set { mvarBaseStream.SetLength(value); }
 		}
 
-		[DebuggerNonUserCode()]
+		// [DebuggerNonUserCode()]
 		public override void Seek(long offset, SeekOrigin position)
 		{
 			System.IO.SeekOrigin origin = System.IO.SeekOrigin.Begin;
@@ -56,14 +60,14 @@ namespace UniversalEditor.Accessors
 		{
 			// TODO: will ct ever be != count? should we add ct to Position instead of count??
 			int ct = mvarBaseStream.Read(buffer, start, count);
-			Position += count;
+			// Position += count;
 			return count;
 		}
 
 		internal override int WriteInternal(byte[] buffer, int start, int count)
 		{
 			mvarBaseStream.Write(buffer, start, count);
-			Position += count;
+			// Position += count;
 			return count;
 		}
 

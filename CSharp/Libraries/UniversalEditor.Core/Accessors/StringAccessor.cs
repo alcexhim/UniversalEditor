@@ -10,6 +10,10 @@ namespace UniversalEditor.Accessors
 		private char[] _data = new char[0];
 
 		private long ptr = 0;
+		protected override long GetPosition()
+		{
+			return ptr;
+		}
 		public override long Length
 		{
 			get { return _data.Length; }

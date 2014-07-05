@@ -11,6 +11,10 @@ namespace UniversalEditor.Accessors
 		private byte[] _data = new byte[0];
 
 		private long ptr = 0;
+		protected override long GetPosition()
+		{
+			return ptr;
+		}
 		public override long Length
 		{
 			get { return _data.Length; }
@@ -36,7 +40,7 @@ namespace UniversalEditor.Accessors
 			_data = data;
 		}
 
-        [DebuggerNonUserCode()]
+        // [DebuggerNonUserCode()]
 		public override void Seek(long length, SeekOrigin position)
 		{
 			long start = 0;

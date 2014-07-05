@@ -9,11 +9,9 @@ namespace UniversalEditor.Accessors
 {
 	public class FileAccessor : Accessor
 	{
-		public override long Position
+		protected override long GetPosition()
 		{
-			get { return mvarFileStream.Position; }
-			set { mvarFileStream.Position = value; 
-            }
+			return mvarFileStream.Position;
 		}
 		public override long Length
 		{
