@@ -1192,6 +1192,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				// The accessor is null, so display the save as dialog
 				return SaveDocumentAs(doc);
 			}
+			
+			doc.Close();
+			doc.OutputAccessor.Open();
 			doc.Save();
 			return true;
 		}
