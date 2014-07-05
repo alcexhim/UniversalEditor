@@ -278,10 +278,8 @@ namespace UniversalEditor
 		}
 		public bool MatchesFile(string FileName, System.IO.Stream FileData)
 		{
-			if (FileName != null)
-			{
-				FileName = System.IO.Path.GetFileName(FileName);
-			}
+			if (FileName == null) return false;
+			if (System.IO.File.Exists(FileName)) FileName = System.IO.Path.GetFileName(FileName);
 
 			switch (mvarHintComparison)
 			{
