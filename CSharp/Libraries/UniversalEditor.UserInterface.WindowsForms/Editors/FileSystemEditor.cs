@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using UniversalEditor.Accessors;
+using UniversalEditor.Dialogs.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.UserInterface.WindowsForms.Editors
@@ -32,6 +33,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			lv.Columns.Add("Size", 100);
 			lv.Columns.Add("Type", 100);
 			lv.Columns.Add("Date Modified", 200);
+			lv.Columns.Add("Comment", 200);
 
 			ActionMenuItem mnuFileSystem = MenuBar.Items.Add("mnuFileSystem", "File&system", null, 4);
 			mnuFileSystem.Items.Add("mnuFileSystemAddFile", "Add &File...", AddFile_Click);
@@ -40,6 +42,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			mnuFileSystem.Items.Add("mnuFileSystemUndelete", "&Undelete");
 			mnuFileSystem.Items.AddSeparator();
 			mnuFileSystem.Items.Add("mnuFileSystemExtractAll", "E&xtract All...", tsbExtract_Click);
+			mnuFileSystem.Items.AddSeparator();
+			mnuFileSystem.Items.Add("mnuFileSystemComment", "Com&ment...", Comment_Click);
 
 			Toolbar tbFileSystem = Toolbars.Add("tbFileSystem", "Filesystem");
 			tbFileSystem.Items.Add(mnuFileSystem.Items["mnuFileSystemAddFile"]);
@@ -48,10 +52,33 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			tbFileSystem.Items.Add(mnuFileSystem.Items["mnuFileSystemUndelete"]);
 			tbFileSystem.Items.AddSeparator();
 			tbFileSystem.Items.Add(mnuFileSystem.Items["mnuFileSystemExtractAll"]);
+			tbFileSystem.Items.AddSeparator();
+			tbFileSystem.Items.Add(mnuFileSystem.Items["mnuFileSystemComment"]);
 		}
 
 		private void AddFolder_Click(object sender, EventArgs e)
 		{
+		}
+
+		private void Comment_Click(object sender, EventArgs e)
+		{
+			if (lv.SelectedItems.Count > 0)
+			{
+				CommentDialog dlg = new CommentDialog();
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					string comment = dlg.txtComment.Text;
+					foreach (AwesomeControls.ListView.ListViewItem lvi in lv.SelectedItems)
+					{
+						File file = (lvi.Data as File);
+						if (file != null)
+						{
+							file.Description = comment;
+							lvi.Details[3] = new AwesomeControls.ListView.ListViewDetailLabel(file.Description);
+						}
+					}
+				}
+			}
 		}
 
 		private string mvarTitle = "File system";
