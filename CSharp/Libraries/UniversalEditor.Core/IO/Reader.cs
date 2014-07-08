@@ -239,44 +239,13 @@ namespace UniversalEditor.IO
 
 		public string ReadLengthPrefixedString()
 		{
-			/*
 			int num = 0;
 			int num2 = Read7BitEncodedInt();
 			if (num2 < 0) throw new ArgumentOutOfRangeException("invalid string length");
-
 			if (num2 == 0) return String.Empty;
 
-			if (this.m_charBytes == null)
-			{
-				this.m_charBytes = new byte[128];
-			}
-			if (this.m_charBuffer == null)
-			{
-				this.m_charBuffer = new char[this.m_maxCharsSize];
-			}
-			StringBuilder stringBuilder = null;
-			int chars;
-			while (true)
-			{
-				int count = (num2 - num > 128) ? 128 : (num2 - num);
-				int num3 = mvarAccessor.Read(m_charBytes, 0, count);
-				if (num3 == 0) throw new EndOfStreamException();
-
-				chars = this.m_decoder.GetChars(this.m_charBytes, 0, num3, this.m_charBuffer, 0);
-				if (num == 0 && num3 == num2)
-				{
-					break;
-				}
-				stringBuilder.Append(this.m_charBuffer, 0, chars);
-				num += num3;
-				if (num >= num2)
-				{
-					goto Block_11;
-				}
-			}
-			return new string(this.m_charBuffer, 0, chars);
-			 * */
-			throw new NotImplementedException();
+			int count = (num2 - num > 128) ? 128 : (num2 - num);
+			return ReadFixedLengthString(count);
 		}
 
 		public string ReadFixedLengthString(byte length)
