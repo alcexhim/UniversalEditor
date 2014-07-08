@@ -218,5 +218,24 @@ namespace UniversalEditor.Editors.UnrealEngine
             DataObject dobj = new DataObject("FileDrop", new string[] { FileName });
             lvExportTable.DoDragDrop(dobj, DragDropEffects.Copy);
         }
+
+		private void mnuExportTableCopyTo_Click(object sender, EventArgs e)
+		{
+			if (lvExportTable.SelectedItems.Count > 0)
+			{
+				foreach (ListViewItem lvi in lvExportTable.SelectedItems)
+				{
+					ExportTableEntry ete = (lvi.Tag as ExportTableEntry);
+					if (ete == null) continue;
+
+					SaveFileDialog sfd = new SaveFileDialog();
+					sfd.Title = "Copy '" + ete.Name + "' to...";
+					if (sfd.ShowDialog() == DialogResult.OK)
+					{
+						System.IO.File.WriteAllBytes(sfd.FileName, ete.GetData());
+					}
+				}
+			}
+		}
     }
 }
