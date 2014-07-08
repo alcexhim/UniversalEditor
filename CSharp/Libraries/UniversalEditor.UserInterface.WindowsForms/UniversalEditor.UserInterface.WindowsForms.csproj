@@ -57,7 +57,9 @@
     <Compile Include="Controls\ProgressPanel.Designer.cs">
       <DependentUpon>ProgressPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\FileSystem\CommentDialog.cs" />
+    <Compile Include="Dialogs\FileSystem\CommentDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\FileSystem\CommentDialog.Designer.cs">
       <DependentUpon>CommentDialog.cs</DependentUpon>
     </Compile>
