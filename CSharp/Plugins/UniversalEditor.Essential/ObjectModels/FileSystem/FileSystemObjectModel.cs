@@ -43,6 +43,12 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 		public static FileSystemObjectModel FromFiles(string[] fileNames)
 		{
+			// TODO: This doesn't work because GetAvailableObjectModel returns an
+			// ObjectModel but automatically closes the file after reading... deferred
+			// FileSystemObjectModels associated files need to remain open in order to
+			// read the file data. Consider using a Document-based approach which provides
+			// more control over closing files as needed?
+
 			FileSystemObjectModel fsom = new FileSystemObjectModel();
 
 			foreach (string fileName in fileNames)
