@@ -12,6 +12,8 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 			{
 				ts.AppendValues(omr, omr.Title, omr.Description);
 			}
+			tvDocumentTypes.AppendColumn("Title", new Gtk.CellRendererText(), "text", 1);
+			tvDocumentTypes.AppendColumn("Description", new Gtk.CellRendererText(), "text", 2);
 			tvDocumentTypes.Model = ts;
 		}
 	}
