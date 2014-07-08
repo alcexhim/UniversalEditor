@@ -57,6 +57,10 @@
     <Compile Include="Controls\ProgressPanel.Designer.cs">
       <DependentUpon>ProgressPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\FileSystem\CommentDialog.cs" />
+    <Compile Include="Dialogs\FileSystem\CommentDialog.Designer.cs">
+      <DependentUpon>CommentDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PropertyList\PropertyDetailsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProgressPanel.resx">
       <DependentUpon>ProgressPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FileSystem\CommentDialog.resx">
+      <DependentUpon>CommentDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\PropertyList\PropertyDetailsDialog.resx">
       <DependentUpon>PropertyDetailsDialog.cs</DependentUpon>
