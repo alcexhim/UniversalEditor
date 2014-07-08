@@ -4,6 +4,7 @@ using Gtk;
 using UniversalEditor;
 using UniversalEditor.UserInterface;
 using UniversalEditor.Accessors;
+using UniversalEditor.Engines.GTK.Dialogs;
 
 namespace UniversalEditor.Engines.GTK
 {
@@ -143,7 +144,12 @@ namespace UniversalEditor.Engines.GTK
 	
 		public void NewFile ()
 		{
-			throw new System.NotImplementedException ();
+			CreateDocumentDialog dlg = new CreateDocumentDialog();
+			ResponseType result = (ResponseType)dlg.Run ();
+			if (result == ResponseType.Ok)
+			{
+				
+			}
 		}
 	
 		public void NewProject (bool combineObjects)
