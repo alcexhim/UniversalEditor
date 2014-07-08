@@ -175,6 +175,8 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
                     // Total size of the object
                     entry.Size = br.ReadINDEX();
 
+					entry.DataRequest += entry_DataRequest;
+
                     if (entry.Size != 0)
                     {
                         // Offset of the object; this field only exists if the SerialSize is larger 0
@@ -224,6 +226,13 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
             }
             #endregion
         }
+
+		private void entry_DataRequest(object sender, ObjectModels.FileSystem.DataRequestEventArgs e)
+		{
+			ExportTableEntry entry = (sender as ExportTableEntry);
+			base.Accessor.Seek(entry.Offset, SeekOrigin.Begin);
+			e.Data = base.Accessor.Reader.ReadBytes(entry.Size);
+		}
 
         protected override void SaveInternal(ObjectModel objectModel)
         {
