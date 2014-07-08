@@ -54,7 +54,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 			return fsom;
 		}
-		public static FileSystemObjectModel FromDirectory(string path, string searchPattern = "*.*", System.IO.SearchOption searchOption)
+		public static FileSystemObjectModel FromDirectory(string path, string searchPattern = "*.*", System.IO.SearchOption searchOption = System.IO.SearchOption.TopDirectoryOnly)
 		{
 			string[] files = System.IO.Directory.GetFiles(path, searchPattern, searchOption);
 			return FromFiles(files);
