@@ -6,6 +6,7 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 		public CreateDocumentDialog ()
 		{
 			this.Build ();
+			
 		}
 	}
 }
