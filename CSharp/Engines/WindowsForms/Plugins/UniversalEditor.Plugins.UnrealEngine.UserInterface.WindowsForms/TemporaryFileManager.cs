@@ -9,7 +9,7 @@ internal static class TemporaryFileManager
 
 	public static string CreateTemporaryFile(string FileName, byte[] FileData)
 	{
-		if (mvarTemporaryFilePath == null) throw new InvalidOperationException();
+		if (mvarTemporaryFilePath == null) mvarTemporaryFilePath = System.IO.Path.GetTempPath();
 		if (!System.IO.Directory.Exists(mvarTemporaryFilePath))
 		{
 			System.IO.Directory.CreateDirectory(mvarTemporaryFilePath);
