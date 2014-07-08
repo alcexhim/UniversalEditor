@@ -55,13 +55,18 @@ namespace UniversalEditor.Plugins.UnrealEngine
             if (packageVersion < 64)
             {
                 bw.WriteNullTerminatedString(value);
-            }
+			}
+			else if (packageVersion >= 512)
+			{
+				bw.WriteUInt32((uint)value.Length);
+				bw.WriteNullTerminatedString(value);
+			}
             else
             {
                 // Newer packages (>=64, UT engine) prepend the length of the string plus the trailing
                 // zero. Again, "UT2k3" would be now stored as: 0x06 "U" "T" "2" "k" "3" 0x00
                 bw.WriteLengthPrefixedString(value);
-                bw.WriteInt32((byte)0);
+                bw.WriteByte((byte)0);
             }
         }
 
