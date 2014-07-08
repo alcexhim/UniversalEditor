@@ -312,10 +312,6 @@
       <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
-      <Project>{bcbb72bd-0ecb-4ff2-8d91-e466361fb6f9}</Project>
-      <Name>UniversalEditor.UserInterface.WindowsForms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
       <Name>UniversalEditor.UserInterface</Name>
