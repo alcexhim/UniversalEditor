@@ -91,7 +91,7 @@
       <Project>{26095090-3f7d-4db5-a9bf-4c687230fc0f}</Project>
       <Name>UniversalEditor.Plugins.NewWorldComputing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
       <Project>{bcbb72bd-0ecb-4ff2-8d91-e466361fb6f9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
     </ProjectReference>
