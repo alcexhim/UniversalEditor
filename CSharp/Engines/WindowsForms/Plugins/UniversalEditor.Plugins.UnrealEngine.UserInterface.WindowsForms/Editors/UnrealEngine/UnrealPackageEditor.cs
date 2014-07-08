@@ -229,10 +229,13 @@ namespace UniversalEditor.Editors.UnrealEngine
 					if (ete == null) continue;
 
 					SaveFileDialog sfd = new SaveFileDialog();
-					sfd.Title = "Copy '" + ete.Name + "' to...";
+					sfd.Title = "Copy '" + ete.Name.Name + "' to...";
+					sfd.FileName = ete.Name.Name;
 					if (sfd.ShowDialog() == DialogResult.OK)
 					{
-						System.IO.File.WriteAllBytes(sfd.FileName, ete.GetData());
+						byte[] data = ete.GetData();
+						if (data == null) data = new byte[0];
+						System.IO.File.WriteAllBytes(sfd.FileName, data);
 					}
 				}
 			}
