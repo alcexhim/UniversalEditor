@@ -239,6 +239,23 @@ namespace UniversalEditor.Editors.UnrealEngine
 					}
 				}
 			}
+			else
+			{
+				FolderBrowserDialog dlg = new FolderBrowserDialog();
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					foreach (ListViewItem lvi in lvExportTable.Items)
+					{
+						ExportTableEntry ete = (lvi.Tag as ExportTableEntry);
+						if (ete == null) continue;
+
+						string fileName = dlg.SelectedPath + System.IO.Path.DirectorySeparatorChar.ToString() + ete.Name.Name;
+						byte[] data = ete.GetData();
+						if (data == null) data = new byte[0];
+						System.IO.File.WriteAllBytes(fileName, data);
+					}
+				}
+			}
 		}
     }
 }
