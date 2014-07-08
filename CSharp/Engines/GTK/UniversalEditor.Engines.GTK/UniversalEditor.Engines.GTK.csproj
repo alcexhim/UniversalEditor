@@ -64,6 +64,8 @@
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.MainWindow.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Editor.cs" />
+    <Compile Include="Dialogs\CreateDocumentDialog.cs" />
+    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Dialogs.CreateDocumentDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -79,5 +81,8 @@
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialogs\" />
   </ItemGroup>
 </Project>
