@@ -41,6 +41,25 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 		}
 
+		public static FileSystemObjectModel FromFiles(string[] fileNames)
+		{
+			FileSystemObjectModel fsom = new FileSystemObjectModel();
+
+			foreach (string fileName in fileNames)
+			{
+				FileSystemObjectModel fsom1 = UniversalEditor.Common.Reflection.GetAvailableObjectModel<FileSystemObjectModel>(fileName);
+				if (fsom1 == null) continue;
+
+				fsom1.CopyTo(fsom);
+			}
+			return fsom;
+		}
+		public static FileSystemObjectModel FromDirectory(string path, string searchPattern = "*.*", System.IO.SearchOption searchOption)
+		{
+			string[] files = System.IO.Directory.GetFiles(path, searchPattern, searchOption);
+			return FromFiles(files);
+		}
+
 		private File.FileCollection mvarFiles = new File.FileCollection();
 		public File.FileCollection Files { get { return mvarFiles; } }
 		private Folder.FolderCollection mvarFolders = new Folder.FolderCollection();
