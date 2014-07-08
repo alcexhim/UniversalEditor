@@ -221,7 +221,24 @@ namespace UniversalEditor.Editors.UnrealEngine
 
 		private void mnuExportTableCopyTo_Click(object sender, EventArgs e)
 		{
-			if (lvExportTable.SelectedItems.Count > 0)
+			if (lvExportTable.SelectedItems.Count > 1)
+			{
+				FolderBrowserDialog dlg = new FolderBrowserDialog();
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					foreach (ListViewItem lvi in lvExportTable.SelectedItems)
+					{
+						ExportTableEntry ete = (lvi.Tag as ExportTableEntry);
+						if (ete == null) continue;
+
+						string fileName = dlg.SelectedPath + System.IO.Path.DirectorySeparatorChar.ToString() + ete.Name.Name;
+						byte[] data = ete.GetData();
+						if (data == null) data = new byte[0];
+						System.IO.File.WriteAllBytes(fileName, data);
+					}
+				}
+			}
+			else if (lvExportTable.SelectedItems.Count == 1)
 			{
 				foreach (ListViewItem lvi in lvExportTable.SelectedItems)
 				{
