@@ -6,7 +6,7 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BCAAD520-4F32-4E4A-BAA1-C4834A2B2C61}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>UniversalEditor.Engines.GTK.Plugins.UnrealEngine</RootNamespace>
     <AssemblyName>UniversalEditor.Engines.GTK.Plugins.UnrealEngine</AssemblyName>
   </PropertyGroup>
