@@ -79,6 +79,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{B2A3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.UnrealEngine", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.UnrealEngine\UniversalEditor.Engines.GTK.Plugins.UnrealEngine.csproj", "{78D1381A-AF21-43B2-9DDA-727AF15539AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.FileSystem", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem.csproj", "{895D95A4-E37F-40F7-B606-4B8FA61B0449}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK", "Engines\GTK\UniversalEditor.Engines.GTK\UniversalEditor.Engines.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
 EndProject
 Global
@@ -283,6 +285,18 @@ Global
 		{8622EBC4-8E20-476E-B284-33D472081F5C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8622EBC4-8E20-476E-B284-33D472081F5C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8622EBC4-8E20-476E-B284-33D472081F5C}.Release|x86.ActiveCfg = Release|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Debug|x86.Build.0 = Debug|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Release|x86.ActiveCfg = Release|Any CPU
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449}.Release|x86.Build.0 = Release|Any CPU
 		{899E3DD6-EA65-4168-AAE3-867A4F9650A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{899E3DD6-EA65-4168-AAE3-867A4F9650A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{899E3DD6-EA65-4168-AAE3-867A4F9650A6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -526,6 +540,7 @@ Global
 		{B2A30AE0-2FDD-40D1-88CF-9E4B95277F95} = {E0422169-2DF9-4B50-A019-84A3251727F9}
 		{AF5F8ED3-D534-4609-94ED-B2800455B88F} = {E0422169-2DF9-4B50-A019-84A3251727F9}
 		{78D1381A-AF21-43B2-9DDA-727AF15539AB} = {B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}
+		{895D95A4-E37F-40F7-B606-4B8FA61B0449} = {B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Applications\UniversalEditor.Bootstrapper\UniversalEditor.Bootstrapper.csproj

@@ -14,11 +14,15 @@ namespace UniversalEditor.Engines.GTK
 		{
 			Build ();
 			InitializeMenuBar();
+			tbsDocumentTabs.RemovePage(0);
 		}
 		
 		public IEditorImplementation GetCurrentEditor()
 		{
-			return null;
+			if (tbsDocumentTabs.Page < 0 || tbsDocumentTabs.Page >= tbsDocumentTabs.NPages) return null;
+			
+			Gtk.Widget currentEditor = tbsDocumentTabs.GetNthPage(tbsDocumentTabs.Page);
+			return (currentEditor as IEditorImplementation);
 		}
 		
 		protected override bool OnFocused (DirectionType direction)

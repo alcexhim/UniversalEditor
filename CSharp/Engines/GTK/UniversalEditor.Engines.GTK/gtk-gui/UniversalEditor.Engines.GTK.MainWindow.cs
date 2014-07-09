@@ -8,7 +8,7 @@ namespace UniversalEditor.Engines.GTK
 		private global::Gtk.VBox vbox2;
 		private global::Gtk.MenuBar menubar1;
 		private global::Gtk.Toolbar toolbar1;
-		private global::Gtk.Notebook notebook1;
+		private global::Gtk.Notebook tbsDocumentTabs;
 		private global::Gtk.Label label1;
 		private global::Gtk.Statusbar statusbar1;
 		
@@ -47,21 +47,21 @@ namespace UniversalEditor.Engines.GTK
 			w3.Expand = false;
 			w3.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.notebook1 = new global::Gtk.Notebook ();
-			this.notebook1.CanFocus = true;
-			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 0;
+			this.tbsDocumentTabs = new global::Gtk.Notebook ();
+			this.tbsDocumentTabs.CanFocus = true;
+			this.tbsDocumentTabs.Name = "tbsDocumentTabs";
+			this.tbsDocumentTabs.CurrentPage = 0;
 			// Notebook tab
 			global::Gtk.Label w4 = new global::Gtk.Label ();
 			w4.Visible = true;
-			this.notebook1.Add (w4);
+			this.tbsDocumentTabs.Add (w4);
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("page1");
-			this.notebook1.SetTabLabel (w4, this.label1);
+			this.tbsDocumentTabs.SetTabLabel (w4, this.label1);
 			this.label1.ShowAll ();
-			this.vbox2.Add (this.notebook1);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.notebook1]));
+			this.vbox2.Add (this.tbsDocumentTabs);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.tbsDocumentTabs]));
 			w5.Position = 2;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.statusbar1 = new global::Gtk.Statusbar ();

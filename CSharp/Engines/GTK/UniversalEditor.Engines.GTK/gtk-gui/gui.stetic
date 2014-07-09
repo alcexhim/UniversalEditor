@@ -27,7 +27,7 @@
         <child>
           <widget class="Gtk.MenuBar" id="menubar1">
             <property name="MemberName" />
-            <node name="__gtksharp_120_Stetic_Editor_ActionMenuBar" type="Menubar" />
+            <node name="menubar1" type="Menubar" />
           </widget>
           <packing>
             <property name="Position">0</property>
@@ -40,7 +40,7 @@
           <widget class="Gtk.Toolbar" id="toolbar1">
             <property name="MemberName" />
             <property name="ShowArrow">False</property>
-            <node name="__gtksharp_121_Stetic_Editor_ActionToolbar" type="Toolbar" />
+            <node name="toolbar1" type="Toolbar" />
           </widget>
           <packing>
             <property name="Position">1</property>
@@ -50,7 +50,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Notebook" id="notebook1">
+          <widget class="Gtk.Notebook" id="tbsDocumentTabs">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="CurrentPage">0</property>
