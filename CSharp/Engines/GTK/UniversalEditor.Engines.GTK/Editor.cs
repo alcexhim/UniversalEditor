@@ -4,7 +4,7 @@ using UniversalEditor.UserInterface;
 namespace UniversalEditor.Engines.GTK
 {
 	[System.ComponentModel.ToolboxItem(true)]
-	public abstract partial class Editor : Gtk.Bin, IEditorImplementation
+	public partial class Editor : Gtk.Bin, IEditorImplementation
 	{
 		public Editor ()
 		{
@@ -15,16 +15,29 @@ namespace UniversalEditor.Engines.GTK
 		public event ToolboxItemEventHandler ToolboxItemAdded;
 		public event ToolboxItemEventHandler ToolboxItemSelected;
 
-		public abstract void Copy ();
-		public abstract void Paste ();
-		public abstract void Delete ();
+		public virtual void Copy ()
+		{
+		}
+		public virtual void Paste ()
+		{
+		}
+		public virtual void Delete ()
+		{
+		}
 
-		public abstract void Undo ();
-		public abstract void Redo ();
+		public virtual void Undo ()
+		{
+		}
+		public virtual void Redo ()
+		{
+		}
 
-		public abstract bool SelectToolboxItem (ToolboxItem item);
+		public virtual bool SelectToolboxItem (ToolboxItem item)
+		{
+			return false;
+		}
 
-		public abstract string Title { get; }
+		public virtual string Title { get { return String.Empty; } }
 
 		private ObjectModelReference.ObjectModelReferenceCollection mvarSupportedObjectModels = new ObjectModelReference.ObjectModelReferenceCollection();
 		public ObjectModelReference.ObjectModelReferenceCollection SupportedObjectModels { get { return mvarSupportedObjectModels; } }
