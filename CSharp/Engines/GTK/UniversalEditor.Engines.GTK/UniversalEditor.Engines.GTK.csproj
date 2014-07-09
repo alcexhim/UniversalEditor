@@ -58,12 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="MainWindow.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="GTKEngine.cs" />
-    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.MainWindow.cs" />
-    <Compile Include="Editor.cs" />
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Editor.cs" />
+    <Compile Include="Editor.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.MainWindow.cs" />
     <Compile Include="Dialogs\CreateDocumentDialog.cs" />
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Dialogs.CreateDocumentDialog.cs" />
   </ItemGroup>

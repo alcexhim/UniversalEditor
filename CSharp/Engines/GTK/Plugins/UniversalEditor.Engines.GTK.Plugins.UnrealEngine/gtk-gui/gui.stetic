@@ -6,13 +6,67 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../../../../../../../../../../../../home/beckermj/Documents/Projects2/UniversalEditor/CSharp/Output/Debug/UniversalEditor.Environments.GTK.dll" />
     <widget-library name="../bin/Debug/UniversalEditor.Engines.GTK.Plugins.UnrealEngine.dll" internal="true" />
   </import>
-  <widget class="Gtk.Bin" id="UniversalEditor.Engines.GTK.Plugins.UnrealEngine.UnrealPackageEditor" design-size="300 300">
+  <widget class="Gtk.Bin" id="UniversalEditor.Editors.UnrealEngine.Package.UnrealPackageEditor" design-size="300 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
-      <placeholder />
+      <widget class="Gtk.Notebook" id="notebook2">
+        <property name="MemberName" />
+        <property name="CanFocus">True</property>
+        <property name="CurrentPage">2</property>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label2">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Name Table</property>
+          </widget>
+          <packing>
+            <property name="type">tab</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label3">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Import Table</property>
+          </widget>
+          <packing>
+            <property name="type">tab</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
+            <property name="MemberName" />
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.TreeView" id="tvExport">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="ShowScrollbars">True</property>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label4">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Export Table</property>
+          </widget>
+          <packing>
+            <property name="type">tab</property>
+          </packing>
+        </child>
+      </widget>
     </child>
   </widget>
 </stetic-interface>

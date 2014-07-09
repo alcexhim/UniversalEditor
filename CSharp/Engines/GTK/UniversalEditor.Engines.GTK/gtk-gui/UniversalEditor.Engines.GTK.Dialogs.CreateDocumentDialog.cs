@@ -4,10 +4,6 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 {
 	public partial class CreateDocumentDialog
 	{
-		private global::Gtk.HPaned hpaned1;
-		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-		private global::Gtk.TreeView tvDocumentTypes;
-		private global::Gtk.IconView lvDocumentTemplates;
 		private global::Gtk.Button buttonCancel;
 		private global::Gtk.Button buttonOk;
 		
@@ -16,43 +12,18 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 			global::Stetic.Gui.Initialize (this);
 			// Widget UniversalEditor.Engines.GTK.Dialogs.CreateDocumentDialog
 			this.Name = "UniversalEditor.Engines.GTK.Dialogs.CreateDocumentDialog";
-			this.Title = global::Mono.Unix.Catalog.GetString ("Create Document");
+			this.Title = global::Mono.Unix.Catalog.GetString ("dialog1");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Internal child UniversalEditor.Engines.GTK.Dialogs.CreateDocumentDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
-			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.hpaned1 = new global::Gtk.HPaned ();
-			this.hpaned1.CanFocus = true;
-			this.hpaned1.Name = "hpaned1";
-			this.hpaned1.Position = 154;
-			// Container child hpaned1.Gtk.Paned+PanedChild
-			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
-			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-			this.tvDocumentTypes = new global::Gtk.TreeView ();
-			this.tvDocumentTypes.CanFocus = true;
-			this.tvDocumentTypes.Name = "tvDocumentTypes";
-			this.GtkScrolledWindow.Add (this.tvDocumentTypes);
-			this.hpaned1.Add (this.GtkScrolledWindow);
-			global::Gtk.Paned.PanedChild w3 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.GtkScrolledWindow]));
-			w3.Resize = false;
-			// Container child hpaned1.Gtk.Paned+PanedChild
-			this.lvDocumentTemplates = new global::Gtk.IconView ();
-			this.lvDocumentTemplates.CanFocus = true;
-			this.lvDocumentTemplates.Name = "lvDocumentTemplates";
-			this.hpaned1.Add (this.lvDocumentTemplates);
-			w1.Add (this.hpaned1);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(w1 [this.hpaned1]));
-			w5.Position = 0;
 			// Internal child UniversalEditor.Engines.GTK.Dialogs.CreateDocumentDialog.ActionArea
-			global::Gtk.HButtonBox w6 = this.ActionArea;
-			w6.Name = "dialog1_ActionArea";
-			w6.Spacing = 10;
-			w6.BorderWidth = ((uint)(5));
-			w6.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w2 = this.ActionArea;
+			w2.Name = "dialog1_ActionArea";
+			w2.Spacing = 10;
+			w2.BorderWidth = ((uint)(5));
+			w2.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -62,9 +33,9 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w7 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6 [this.buttonCancel]));
-			w7.Expand = false;
-			w7.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w3 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w2 [this.buttonCancel]));
+			w3.Expand = false;
+			w3.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -74,10 +45,10 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
 			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6 [this.buttonOk]));
-			w8.Position = 1;
-			w8.Expand = false;
-			w8.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w2 [this.buttonOk]));
+			w4.Position = 1;
+			w4.Expand = false;
+			w4.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

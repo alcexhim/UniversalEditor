@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BCAAD520-4F32-4E4A-BAA1-C4834A2B2C61}</ProjectGuid>
+    <ProjectGuid>{78D1381A-AF21-43B2-9DDA-727AF15539AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>UniversalEditor.Engines.GTK.Plugins.UnrealEngine</RootNamespace>
     <AssemblyName>UniversalEditor.Engines.GTK.Plugins.UnrealEngine</AssemblyName>
@@ -58,11 +58,34 @@
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Plugins.UnrealEngine.UnrealPackageEditor.cs" />
-    <Compile Include="Editors\UnrealPackageEditor.cs" />
+    <Compile Include="Editors\UnrealEngine\Package\UnrealPackageEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Editors\" />
+    <Folder Include="Editors\UnrealEngine\" />
+    <Folder Include="Editors\UnrealEngine\Package\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\..\..\..\home\beckermj\Documents\Projects2\UniversalEditor\CSharp\Engines\GTK\UniversalEditor.Engines.GTK\UniversalEditor.Engines.GTK.csproj">
+      <Project>{AF5F8ED3-D534-4609-94ED-B2800455B88F}</Project>
+      <Name>UniversalEditor.Engines.GTK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\..\..\..\home\beckermj\Documents\Projects2\UniversalEditor\CSharp\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\..\..\..\home\beckermj\Documents\Projects2\UniversalEditor\CSharp\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\..\..\..\home\beckermj\Documents\Projects2\UniversalEditor\CSharp\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
+      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
+      <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\..\..\..\home\beckermj\Documents\Projects2\UniversalEditor\CSharp\Plugins\UniversalEditor.Plugins.UnrealEngine\UniversalEditor.Plugins.UnrealEngine.csproj">
+      <Project>{DF96F24E-FED9-4BAC-8389-63590125DC61}</Project>
+      <Name>UniversalEditor.Plugins.UnrealEngine</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
