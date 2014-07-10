@@ -166,7 +166,7 @@ namespace UniversalEditor.Engines.GTK
 			FileChooserDialog dlg = new FileChooserDialog("Open File", this, FileChooserAction.Open, "Open", Gtk.ResponseType.Ok, "Cancel", Gtk.ResponseType.Cancel);
 			ResponseType result = (ResponseType) dlg.Run ();
 			
-			dlg.Destroy();
+			dlg.Hide();
 			
 			if (result != ResponseType.Ok)
 			{
@@ -174,6 +174,8 @@ namespace UniversalEditor.Engines.GTK
 			}
 			
 			OpenFile (dlg.Filenames);
+			
+			dlg.Destroy();
 		}
 	
 		public void OpenFile (params string[] FileNames)
@@ -186,14 +188,66 @@ namespace UniversalEditor.Engines.GTK
 		
 		private void OpenFileInternal(string FileName)
 		{
-			
-			
-			ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(FileName);
-			ObjectModel om = (omrs[0].Create ());
+			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(FileName);
+			DataFormat df = dfrs[0].Create ();
 			
 			FileAccessor fa = new FileAccessor(FileName);
 			
-			// Document doc = new Document(om, df, fa);
+			ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(df.MakeReference ());
+			foreach (ObjectModelReference omr in omrs)
+			{
+				ObjectModel om = omr.Create ();
+				IEditorImplementation[] ieditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference ());
+				if (ieditors.Length == 1)
+				{
+					Editor editor = (ieditors[0] as Editor);
+					if (editor == null) continue;
+					
+					editor.ObjectModel = om;
+					
+					Document doc = new Document(om, df, fa);
+					AddDocumentTab(editor, FileName, doc);
+					break;
+				}
+				else if (ieditors.Length > 1)
+				{
+					Notebook tbsEditors = new Notebook();
+					foreach (IEditorImplementation ieditor in ieditors)
+					{
+						Editor editor = (ieditor as Editor);
+						if (editor == null) continue;
+						editor.ObjectModel = om;
+						
+						Label tabLabel = new Label();
+						tabLabel.LabelProp = editor.Title;
+						tbsEditors.InsertPage(editor, tabLabel, -1);
+					}
+					AddDocumentTab(tbsEditors, FileName);
+				}
+				else
+				{
+					// AddDocumentTab(widget, FileName);
+				}
+			}
+		}
+		
+		private void AddDocumentTab(Widget child, string tabTitle, Document doc = null)
+		{
+			child.Data.Add("Document", doc);
+			
+			Label tabLabel = new Label();
+			if (System.IO.File.Exists (tabTitle))
+			{
+				tabLabel.LabelProp = System.IO.Path.GetFileName(tabTitle);
+			}
+			else
+			{
+				tabLabel.LabelProp = tabTitle;
+			}
+			tabLabel.TooltipText = tabTitle;
+			tbsDocumentTabs.InsertPage(child, tabLabel, -1);
+			tbsDocumentTabs.Page = tbsDocumentTabs.NPages - 1;
+			tbsDocumentTabs.ShowAll ();
 		}
 	
 		public void OpenProject (bool combineObjects)
