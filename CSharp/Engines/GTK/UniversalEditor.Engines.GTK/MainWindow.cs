@@ -248,7 +248,20 @@ namespace UniversalEditor.Engines.GTK
 				tabLabel.LabelProp = tabTitle;
 			}
 			tabLabel.TooltipText = tabTitle;
-			tbsDocumentTabs.InsertPage(child, tabLabel, -1);
+			
+			Button btnClose = new Button();
+			btnClose.Image = new Image("gtk-close", IconSize.Menu);
+			btnClose.Relief = ReliefStyle.None;
+			
+			Image imgIcon = new Image("gtk-new", IconSize.Menu);
+			
+			HBox hboxLabelAndCloseButton = new HBox();
+			hboxLabelAndCloseButton.PackStart (imgIcon, false, false, 0);
+			hboxLabelAndCloseButton.PackStart (tabLabel, true, true, 0);
+			hboxLabelAndCloseButton.PackEnd (btnClose, false, false, 0);
+			hboxLabelAndCloseButton.ShowAll ();
+			
+			tbsDocumentTabs.InsertPage(child, hboxLabelAndCloseButton, -1);
 			tbsDocumentTabs.Page = tbsDocumentTabs.NPages - 1;
 			tbsDocumentTabs.ShowAll ();
 		}
