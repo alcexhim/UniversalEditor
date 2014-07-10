@@ -203,9 +203,12 @@ namespace UniversalEditor.Engines.GTK
 					Editor editor = (ieditors[0] as Editor);
 					if (editor == null) continue;
 					
+					Document doc = new Document(om, df, fa);
+					doc.InputAccessor.Open ();
+					doc.Load ();
+					
 					editor.ObjectModel = om;
 					
-					Document doc = new Document(om, df, fa);
 					AddDocumentTab(editor, FileName, doc);
 					break;
 				}
