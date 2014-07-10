@@ -17,6 +17,13 @@ namespace UniversalEditor.Engines.GTK
 			tbsDocumentTabs.RemovePage(0);
 		}
 		
+		protected override bool OnDeleteEvent (Gdk.Event evnt)
+		{
+			Engine.CurrentEngine.Windows.Remove (this);
+			if (Engine.CurrentEngine.Windows.Count == 0) Application.Quit();
+			return base.OnDeleteEvent (evnt);
+		}
+		
 		public IEditorImplementation GetCurrentEditor()
 		{
 			if (tbsDocumentTabs.Page < 0 || tbsDocumentTabs.Page >= tbsDocumentTabs.NPages) return null;
