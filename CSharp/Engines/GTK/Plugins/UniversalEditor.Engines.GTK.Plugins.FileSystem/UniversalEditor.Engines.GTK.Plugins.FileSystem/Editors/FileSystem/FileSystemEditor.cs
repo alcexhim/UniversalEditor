@@ -15,11 +15,11 @@ namespace UniversalEditor.Editors.FileSystem
 			this.Build ();
 			base.SupportedObjectModels.Add (typeof(FileSystemObjectModel));
 			
-			tvFolders.AppendColumn (new Gtk.TreeViewColumn("Name", new Gtk.CellRendererText(), 1));
+			tvFolders.AppendColumn (new Gtk.TreeViewColumn("Name", new Gtk.CellRendererText(), "text", 1));
 			tvFolders.HeadersVisible = false;
 			
-			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Name", new Gtk.CellRendererText(), 1));
-			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Size", new Gtk.CellRendererText(), 2));
+			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Name", new Gtk.CellRendererText(), "text", 1));
+			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Size", new Gtk.CellRendererText(), "text", 2));
 			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Type", new Gtk.CellRendererText()));
 			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Date Modified", new Gtk.CellRendererText()));
 		}
