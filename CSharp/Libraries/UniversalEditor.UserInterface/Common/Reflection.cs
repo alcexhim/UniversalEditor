@@ -163,6 +163,7 @@ namespace UniversalEditor.UserInterface.Common
 			return mvarAvailableEditors;
 		}
 
+		/*
 		private static Dictionary<Type, IEditorImplementation[]> editorsByObjectModelType = new Dictionary<Type, IEditorImplementation[]>();
 		public static IEditorImplementation[] GetAvailableEditors(ObjectModelReference objectModelReference)
 		{
@@ -185,6 +186,22 @@ namespace UniversalEditor.UserInterface.Common
 			// editorsByObjectModelType.Clear();
 			return editorsByObjectModelType[objectModelReference.ObjectModelType];
 		}
-
+		*/
+		
+		public static IEditorImplementation[] GetAvailableEditors(ObjectModelReference objectModelReference)
+		{
+			List<IEditorImplementation> list = new List<IEditorImplementation>();
+			IEditorImplementation[] editors = GetAvailableEditors();
+			foreach (IEditorImplementation editor in editors)
+			{
+				if (editor.SupportedObjectModels.Contains(objectModelReference.ObjectModelType) || editor.SupportedObjectModels.Contains(objectModelReference.ObjectModelID))
+				{
+					Type editorType = editor.GetType ();
+					IEditorImplementation editor1 = (editorType.Assembly.CreateInstance(editorType.FullName) as IEditorImplementation);
+					list.Add(editor1);
+				}
+			}
+			return list.ToArray();
+		}
 	}
 }
