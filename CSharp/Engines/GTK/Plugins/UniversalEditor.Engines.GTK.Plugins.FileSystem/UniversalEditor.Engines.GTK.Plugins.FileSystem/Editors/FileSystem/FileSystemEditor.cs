@@ -13,6 +13,10 @@ namespace UniversalEditor.Editors.FileSystem
 		public FileSystemEditor ()
 		{
 			this.Build ();
+			base.SupportedObjectModels.Add (typeof(FileSystemObjectModel));
+			
+			tvFolders.AppendColumn (new Gtk.TreeViewColumn("Name", new Gtk.CellRendererText(), 1));
+			tvFolders.HeadersVisible = false;
 			
 			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Name", new Gtk.CellRendererText(), 1));
 			tvFiles.AppendColumn(new Gtk.TreeViewColumn("Size", new Gtk.CellRendererText(), 2));
@@ -25,6 +29,13 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
+			
+			Gtk.TreeStore tsFolders = new Gtk.TreeStore(typeof(Folder), typeof(string));
+			foreach (Folder folder in fsom.Folders)
+			{
+				RecursiveAppendFolderToTreeStore(folder, ref tsFolders);
+			}
+			tvFolders.Model = tsFolders;
 			
 			File.FileCollection fileColl = null;
 			if (mvarCurrentFolder == null)
@@ -43,7 +54,23 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 			tvFiles.Model = ts;
 		}
-		
+
+		private void RecursiveAppendFolderToTreeStore (Folder folder, ref Gtk.TreeStore ts)
+		{
+			Gtk.TreeIter ti = ts.AppendValues(folder, folder.Name);
+			foreach (Folder folder1 in folder.Folders)
+			{
+				RecursiveAppendFolderToTreeStore(folder1, ref ts, ti);
+			}
+		}
+		private void RecursiveAppendFolderToTreeStore (Folder folder, ref Gtk.TreeStore ts, Gtk.TreeIter tiParent)
+		{
+			Gtk.TreeIter ti = ts.AppendValues(tiParent, folder, folder.Name);
+			foreach (Folder folder1 in folder.Folders)
+			{
+				RecursiveAppendFolderToTreeStore(folder1, ref ts, ti);
+			}
+		}		
 		protected override void OnObjectModelChanged (EventArgs e)
 		{
 			base.OnObjectModelChanged(e);
