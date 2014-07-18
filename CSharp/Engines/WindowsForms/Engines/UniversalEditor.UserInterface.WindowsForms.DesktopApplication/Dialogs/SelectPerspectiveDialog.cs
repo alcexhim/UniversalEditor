@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 {
-	internal partial class SelectEnvironmentDialogBase : Form
+	internal partial class SelectPerspectiveDialogBase : Form
 	{
-		public SelectEnvironmentDialogBase()
+		public SelectPerspectiveDialogBase()
 		{
 			InitializeComponent();
 
@@ -34,11 +34,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			cmdOK.Enabled = (lvEnvironments.CheckedItems.Count == 1);
 		}
 	}
-	public class SelectEnvironmentDialog
+	public class SelectPerspectiveDialog
 	{
 		public DialogResult ShowDialog()
 		{
-			SelectEnvironmentDialogBase dlg = new SelectEnvironmentDialogBase();
+			SelectPerspectiveDialogBase dlg = new SelectPerspectiveDialogBase();
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				return DialogResult.OK;

@@ -1,6 +1,6 @@
 ﻿namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 {
-	partial class SelectEnvironmentDialogBase
+	partial class SelectPerspectiveDialogBase
 	{
 		/// <summary>
 		/// Required designer variable.
