@@ -63,6 +63,7 @@
 					<Command ID="ViewPerspective7" Title="_7 Perspective 7" />
 					<Command ID="ViewPerspective8" Title="_8 Perspective 8" />
 					<Command ID="ViewPerspective9" Title="_9 Perspective 9" />
+					<Command ID="ViewPerspectiveCustomize" Title="C_ustomize..." />
 					
 					<Command ID="ViewStartPage" Title="Start Pa_ge" />
 					<Command ID="ViewFullScreen" Title="F_ull Screen" />
