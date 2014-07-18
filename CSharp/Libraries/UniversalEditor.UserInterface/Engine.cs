@@ -511,18 +511,21 @@ namespace UniversalEditor.UserInterface
 			UpdateSplashScreenStatus("Loading languages and translations");
 
 			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Languages") as MarkupTagElement);
-			foreach (MarkupElement elLanguage in tagLanguages.Elements)
+			if (tagLanguages != null)
 			{
-				MarkupTagElement tagLanguage = (elLanguage as MarkupTagElement);
-				if (tagLanguage == null) continue;
-				if (tagLanguage.FullName != "Language") continue;
-				InitializeLanguage(tagLanguage);
-			}
+				foreach (MarkupElement elLanguage in tagLanguages.Elements)
+				{
+					MarkupTagElement tagLanguage = (elLanguage as MarkupTagElement);
+					if (tagLanguage == null) continue;
+					if (tagLanguage.FullName != "Language") continue;
+					InitializeLanguage(tagLanguage);
+				}
 
-			MarkupAttribute attDefaultLanguageID = tagLanguages.Attributes["DefaultLanguageID"];
-			if (attDefaultLanguageID != null)
-			{
-				mvarDefaultLanguage = mvarLanguages[attDefaultLanguageID.Value];
+				MarkupAttribute attDefaultLanguageID = tagLanguages.Attributes["DefaultLanguageID"];
+				if (attDefaultLanguageID != null)
+				{
+					mvarDefaultLanguage = mvarLanguages[attDefaultLanguageID.Value];
+				}
 			}
 			#endregion
 
