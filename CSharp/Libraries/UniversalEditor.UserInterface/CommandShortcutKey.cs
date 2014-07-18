@@ -17,6 +17,7 @@ namespace UniversalEditor.UserInterface
 	}
 	public enum CommandShortcutKeyValue
 	{
+		None = 0,
 		TopRow0,
 		TopRow1,
 		TopRow2,
