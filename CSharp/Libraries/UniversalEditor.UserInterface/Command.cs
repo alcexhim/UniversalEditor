@@ -21,13 +21,13 @@ namespace UniversalEditor.UserInterface
 		}
 		
 		private bool mvarEnableTearoff = false;
-        public bool EnableTearoff { get { return mvarEnableTearoff; } set { mvarEnableTearoff = value; } }
+		public bool EnableTearoff { get { return mvarEnableTearoff; } set { mvarEnableTearoff = value; } }
 
-        private bool mvarChecked = false;
-        /// <summary>
-        /// Determines whether this command displays as checked.
-        /// </summary>
-        public bool Checked { get { return mvarChecked; } set { mvarChecked = value; } }
+		private bool mvarChecked = false;
+		/// <summary>
+		/// Determines whether this command displays as checked.
+		/// </summary>
+		public bool Checked { get { return mvarChecked; } set { mvarChecked = value; } }
 		
 		private string mvarID = String.Empty;
 		/// <summary>
@@ -78,6 +78,6 @@ namespace UniversalEditor.UserInterface
 		{
 			if (Executed != null) Executed(this, EventArgs.Empty);
 		}
-    }
+	}
 }
 
