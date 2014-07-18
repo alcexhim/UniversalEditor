@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5A14A71-5DB3-4495-92F6-8D27C98FF0F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor.Content.PlatformIndependent</RootNamespace>
+    <AssemblyName>UniversalEditor.Content.PlatformIndependent</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Branding\MainIcon.ico" />
+    <Content Include="Branding\SplashScreen.png" />
+    <Content Include="Configuration\CommandBars.xml" />
+    <Content Include="Configuration\Commands.xml" />
+    <Content Include="Configuration\MainMenu.xml" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\Commands\mnuDebugBreak.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\Commands\mnuDebugStart.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\Commands\mnuDebugStop.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandAffect.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandCamera.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandControlFlowDo.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandControlFlowDoWait.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandControlFlowWait.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandDeclare.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandElse.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandFlush.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandFree.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandIf.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandKill.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandLoop.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandMove.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandPlay.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandPrint.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandRem.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandRemove.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandRotate.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandRun.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandSet.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandSignal.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandSound.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandTask.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandTemplate.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandUse.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandWait.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\ImageList\16x16\IcarusCommandWaitSignal.png" />
+    <Content Include="Editors\UniversalEditor.Editors.MarkupEditor\Images\Attribute.png" />
+    <Content Include="Editors\UniversalEditor.Editors.MarkupEditor\Images\Comment.png" />
+    <Content Include="Editors\UniversalEditor.Editors.MarkupEditor\Images\Entity.png" />
+    <Content Include="Editors\UniversalEditor.Editors.MarkupEditor\Images\Preprocessor.png" />
+    <Content Include="Editors\UniversalEditor.Editors.MarkupEditor\Images\Tag.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Web.WebService.Description.WebServiceDescriptionEditor\Images\ImageList\16x16\Message.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Web.WebService.Description.WebServiceDescriptionEditor\Images\ImageList\16x16\Service.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Web.WebService.Description.WebServiceDescriptionEditor\Images\ImageList\32x32\Message.png" />
+    <Content Include="Editors\UniversalEditor.Editors.Web.WebService.Description.WebServiceDescriptionEditor\Images\ImageList\32x32\Service.png" />
+    <Content Include="Languages\English.xml" />
+    <Content Include="Languages\Japanese.xml" />
+    <Content Include="Projects\SFX1\SFX1.xml" />
+    <Content Include="ProjectTypes\{A0786B88-2ADB-4C21-ABE8-AA2D79766269}.xml" />
+    <Content Include="ProjectTypes\{D3A89FE2-7C08-433B-8165-F484A073588B}.xml" />
+    <Content Include="Templates\Database\AssetsDatabase.xml" />
+    <Content Include="Templates\Database\ContactsDatabase.xml" />
+    <Content Include="Templates\Database\database.ico" />
+    <Content Include="Templates\Database\EventsDatabase.xml" />
+    <Content Include="Templates\Database\FacultyDatabase.xml" />
+    <Content Include="Templates\Database\IssuesDatabase.xml" />
+    <Content Include="Templates\Database\MarketingProjectsDatabase.xml" />
+    <Content Include="Templates\Database\NorthwindDatabase.xml" />
+    <Content Include="Templates\Database\ProjectsDatabase.xml" />
+    <Content Include="Templates\Database\SalesPipelineDatabase.xml" />
+    <Content Include="Templates\Database\StudentsDatabase.xml" />
+    <Content Include="Templates\Database\TasksDatabase.xml" />
+    <Content Include="Templates\FileSystem\WindowsFileSystem.xml" />
+    <Content Include="Templates\FileSystem\windows_16x16.png" />
+    <Content Include="Templates\FileSystem\windows_32x32.png" />
+    <Content Include="Templates\Form\Asset Tracking.xml" />
+    <Content Include="Templates\Form\Expense Report.xml" />
+    <Content Include="Templates\Form\icon_16x16.png" />
+    <Content Include="Templates\Form\icon_32x32.png" />
+    <Content Include="Templates\Form\icon_48x48.png" />
+    <Content Include="Templates\Form\Meeting Agenda.xml" />
+    <Content Include="Templates\Form\Status Report.xml" />
+    <Content Include="Templates\Form\Travel Request.xml" />
+    <Content Include="Templates\Software Development\Websites\PHP\PHP Web Project.xml" />
+    <Content Include="Templates\Web\HTMLPage.ico" />
+    <Content Include="Templates\Web\HTMLPage.xml" />
+    <Content Include="Templates\Web\MasterPage.ico" />
+    <Content Include="Templates\Web\MasterPage.xml" />
+    <Content Include="Templates\Web\WebForm.ico" />
+    <Content Include="Templates\Web\WebForm.xml" />
+    <Content Include="Templates\Web\WebService.ico" />
+    <Content Include="Templates\Web\WebService.xml" />
+    <Content Include="Templates\Web\WebUserControl.ico" />
+    <Content Include="Templates\Web\WebUserControl.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\Application.upl" />
+    <Content Include="Configuration\SplashScreen.upl" />
+    <None Include="Projects\PHPProject1\PHPProject1.uesln" />
+    <None Include="Projects\PHPProject1\PHPProject1\PHPProject1.ueproj" />
+    <None Include="Templates\Web\TravelRequest.xsn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.DatabaseEditor\Images\Icons\" />
+  </ItemGroup>
+  <Target Name="Build">
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="Clean">
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build">
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

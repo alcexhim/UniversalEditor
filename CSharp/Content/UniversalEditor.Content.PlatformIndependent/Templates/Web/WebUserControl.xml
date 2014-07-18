@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{6465294A-D7FC-44BF-B86C-FCB2F8BCAF95}">
+			<Information>
+				<Title>Web User Control</Title>
+				<Description>An ASP.NET server control created using the visual designer</Description>
+				<IconPath FileName="WebUserControl.ico" />
+				<Path>
+					<PathParts>
+						<PathPart>Web Development</PathPart>
+					</PathParts>
+				</Path>
+			</Information>
+			<Variables>
+				<Variable DataType="Choice" Name="Language" Label="&amp;Language:" Value="C#">
+					<Choices>
+						<Choice Value="C#" />
+						<Choice Value="VB" />
+					</Choices>
+				</Variable>
+				<Variable DataType="String" Name="ClassName" Label="Class &amp;name:" Value="WebUserControl1" />
+			</Variables>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.Text.Plain.PlainTextObjectModel">
+				<Text><![CDATA[<%@ Control Language="$(Language)" ClassName="$(ClassName)" %>
+
+<script runat="server">
+
+</script>
+]]>
+				</Text>
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

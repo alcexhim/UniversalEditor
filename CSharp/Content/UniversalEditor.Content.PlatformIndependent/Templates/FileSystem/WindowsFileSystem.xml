@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{F63140FB-C539-45b0-8045-506397ADE75B}">
+			<Information>
+				<Title>Windows filesystem</Title>
+				<Description>Creates a standard Windows NT file structure.</Description>
+				<IconPath LargeFileName="windows_32x32.png" SmallFileName="windows_16x16.png" />
+			</Information>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel">
+				<Folders>
+					<Folder Name="Windows">
+						<Folders>
+							<Folder Name="System32">
+							</Folder>
+						</Folders>
+					</Folder>
+					<Folder Name="Program Files">
+					</Folder>
+					<Folder Name="Users">
+						<Folders>
+							<Folder Name="Default">
+								<Folders>
+									<Folder Name="AppData">
+										<Folders>
+											<Folder Name="Local">
+												<Folders>
+													<Folder Name="Temp" />
+												</Folders>
+											</Folder>
+											<Folder Name="LocalLow" />
+											<Folder Name="Roaming" />
+										</Folders>
+									</Folder>
+									<Folder Name="Favorites" />
+									<Folder Name="Libraries " />
+									<Folder Name="Desktop" />
+									<Folder Name="Documents" />
+									<Folder Name="Downloads" />
+									<Folder Name="Music" />
+									<Folder Name="Pictures" />
+									<Folder Name="Videos" />
+								</Folders>
+							</Folder>
+							<Folder Name="Public">
+								<Folders>
+									<Folder Name="Favorites" />
+									<Folder Name="Libraries " />
+									<Folder Name="Desktop" />
+									<Folder Name="Documents" />
+									<Folder Name="Downloads" />
+									<Folder Name="Music" />
+									<Folder Name="Pictures" />
+									<Folder Name="Videos" />
+								</Folders>
+							</Folder>
+						</Folders>
+					</Folder>
+				</Folders>
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

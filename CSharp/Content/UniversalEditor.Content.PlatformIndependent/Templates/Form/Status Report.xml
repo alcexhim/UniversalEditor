@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{170F4DB0-57BA-4B89-BD13-4B05473455A1}">
+			<Information>
+				<Title>Status Report</Title>
+				<IconPath LargeFileName="icon_32x32.png" SmallFileName="icon_16x16.png" />
+			</Information>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.RIFF.RIFFObjectModel">
+				<Folders>
+					<Folder Name="Windows">
+						<Folders>
+							<Folder Name="System32">
+							</Folder>
+						</Folders>
+					</Folder>
+					<Folder Name="Program Files">
+					</Folder>
+					<Folder Name="Users">
+						<Folders>
+							<Folder Name="Default">
+								<Folders>
+									<Folder Name="AppData">
+										<Folders>
+											<Folder Name="Local">
+												<Folders>
+													<Folder Name="Temp" />
+												</Folders>
+											</Folder>
+											<Folder Name="LocalLow" />
+											<Folder Name="Roaming" />
+										</Folders>
+									</Folder>
+									<Folder Name="Favorites" />
+									<Folder Name="Libraries " />
+									<Folder Name="Desktop" />
+									<Folder Name="Documents" />
+									<Folder Name="Downloads" />
+									<Folder Name="Music" />
+									<Folder Name="Pictures" />
+									<Folder Name="Videos" />
+								</Folders>
+							</Folder>
+							<Folder Name="Public">
+								<Folders>
+									<Folder Name="Favorites" />
+									<Folder Name="Libraries " />
+									<Folder Name="Desktop" />
+									<Folder Name="Documents" />
+									<Folder Name="Downloads" />
+									<Folder Name="Music" />
+									<Folder Name="Pictures" />
+									<Folder Name="Videos" />
+								</Folders>
+							</Folder>
+						</Folders>
+					</Folder>
+				</Folders>
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>
