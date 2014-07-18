@@ -81,7 +81,6 @@
     <Content Include="Editors\UniversalEditor.Editors.Web.WebService.Description.WebServiceDescriptionEditor\Images\ImageList\32x32\Service.png" />
     <Content Include="Languages\English.xml" />
     <Content Include="Languages\Japanese.xml" />
-    <Content Include="Projects\SFX1\SFX1.xml" />
     <Content Include="ProjectTypes\{A0786B88-2ADB-4C21-ABE8-AA2D79766269}.xml" />
     <Content Include="ProjectTypes\{D3A89FE2-7C08-433B-8165-F484A073588B}.xml" />
     <Content Include="Templates\Database\AssetsDatabase.xml" />
@@ -122,8 +121,6 @@
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
     <Content Include="Configuration\SplashScreen.upl" />
-    <None Include="Projects\PHPProject1\PHPProject1.uesln" />
-    <None Include="Projects\PHPProject1\PHPProject1\PHPProject1.ueproj" />
     <None Include="Templates\Web\TravelRequest.xsn" />
   </ItemGroup>
   <ItemGroup>
