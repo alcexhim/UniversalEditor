@@ -1833,6 +1833,66 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 			}
+			else if (e.Control & e.Alt)
+			{
+				switch (e.KeyCode)
+				{
+					case Keys.D1:
+					case Keys.NumPad1:
+					{
+						MessageBox.Show("Switch to perspective 1 not implemented");
+						break;
+					}
+					case Keys.D2:
+					case Keys.NumPad2:
+					{
+						MessageBox.Show("Switch to perspective 2 not implemented");
+						break;
+					}
+					case Keys.D3:
+					case Keys.NumPad3:
+					{
+						MessageBox.Show("Switch to perspective 3 not implemented");
+						break;
+					}
+					case Keys.D4:
+					case Keys.NumPad4:
+					{
+						MessageBox.Show("Switch to perspective 4 not implemented");
+						break;
+					}
+					case Keys.D5:
+					case Keys.NumPad5:
+					{
+						MessageBox.Show("Switch to perspective 5 not implemented");
+						break;
+					}
+					case Keys.D6:
+					case Keys.NumPad6:
+					{
+						MessageBox.Show("Switch to perspective 6 not implemented");
+						break;
+					}
+					case Keys.D7:
+					case Keys.NumPad7:
+					{
+						MessageBox.Show("Switch to perspective 7 not implemented");
+						break;
+					}
+					case Keys.D8:
+					case Keys.NumPad8:
+					{
+						MessageBox.Show("Switch to perspective 8 not implemented");
+						break;
+					}
+					case Keys.D9:
+					case Keys.NumPad9:
+					{
+						MessageBox.Show("Switch to perspective 9 not implemented");
+						break;
+					}
+				}
+			}
 		}
 
 		private void mnuWindowWindows_Click(object sender, EventArgs e)
