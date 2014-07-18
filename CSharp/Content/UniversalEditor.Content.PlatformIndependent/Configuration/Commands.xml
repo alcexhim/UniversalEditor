@@ -165,6 +165,8 @@
 					<CommandReference CommandID="ViewPerspective7" />
 					<CommandReference CommandID="ViewPerspective8" />
 					<CommandReference CommandID="ViewPerspective9" />
+					<Separator />
+					<CommandReference CommandID="ViewPerspectiveCustomize" />
 				</Items>
 			</Command>
 			<Command ID="ViewPerspective1">
@@ -194,6 +196,7 @@
 			<Command ID="ViewPerspective9">
 				<Shortcut Key="TopRow9" Modifiers="Control,Alt" />
 			</Command>
+			<Command ID="ViewPerspectiveCustomize" />
 			
 			<Command ID="ViewStartPage" />
 			<Command ID="ViewFullScreen">
