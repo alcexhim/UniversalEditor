@@ -27,6 +27,12 @@ namespace UniversalEditor.UserInterface
 
 		void SaveAll();
 
+		/// <summary>
+		/// Switches the current window's perspective.
+		/// </summary>
+		/// <param name="index">The index of the perspective to switch to.</param>
+		void SwitchPerspective(int index);
+
 		void CloseFile();
 		void CloseWindow();
 		

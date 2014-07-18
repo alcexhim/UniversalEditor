@@ -176,6 +176,46 @@ namespace UniversalEditor.UserInterface
 				LastWindow.FullScreen = !LastWindow.FullScreen;
 				cmd.Checked = LastWindow.FullScreen;
 			});
+
+			#region Perspective
+			AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(1);
+			});
+			AttachCommandEventHandler("ViewPerspective2", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(2);
+			});
+			AttachCommandEventHandler("ViewPerspective3", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(3);
+			});
+			AttachCommandEventHandler("ViewPerspective4", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(4);
+			});
+			AttachCommandEventHandler("ViewPerspective5", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(5);
+			});
+			AttachCommandEventHandler("ViewPerspective6", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(6);
+			});
+			AttachCommandEventHandler("ViewPerspective7", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(7);
+			});
+			AttachCommandEventHandler("ViewPerspective8", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(8);
+			});
+			AttachCommandEventHandler("ViewPerspective9", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.SwitchPerspective(9);
+			});
+			#endregion
+
 			#endregion
 			#region Tools
 			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems

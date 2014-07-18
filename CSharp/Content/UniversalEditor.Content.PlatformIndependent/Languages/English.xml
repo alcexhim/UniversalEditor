@@ -50,6 +50,18 @@
 					<Command ID="ViewToolbars" Title="_Toolbars" />
 					<Command ID="ViewToolbarsCustomize" Title="_Customize..." />
 					<Command ID="ViewStatusBar" Title="Status _Bar" />
+					
+					<Command ID="ViewPerspective" Title="P_erspective" />
+					<Command ID="ViewPerspective1" Title="_1 Perspective 1" />
+					<Command ID="ViewPerspective2" Title="_2 Perspective 2" />
+					<Command ID="ViewPerspective3" Title="_3 Perspective 3" />
+					<Command ID="ViewPerspective4" Title="_4 Perspective 4" />
+					<Command ID="ViewPerspective5" Title="_5 Perspective 5" />
+					<Command ID="ViewPerspective6" Title="_6 Perspective 6" />
+					<Command ID="ViewPerspective7" Title="_7 Perspective 7" />
+					<Command ID="ViewPerspective8" Title="_8 Perspective 8" />
+					<Command ID="ViewPerspective9" Title="_9 Perspective 9" />
+					
 					<Command ID="ViewPanels" Title="_Panels" />
 					<Command ID="ViewStartPage" Title="Start Pa_ge" />
 					<Command ID="ViewFullScreen" Title="F_ull Screen" />
