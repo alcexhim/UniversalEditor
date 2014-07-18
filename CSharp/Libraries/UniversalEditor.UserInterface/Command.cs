@@ -45,7 +45,7 @@ namespace UniversalEditor.UserInterface
 		public string DefaultCommandID { get { return mvarDefaultCommandID; } set { mvarDefaultCommandID = value; } }
 
 		private CommandShortcutKey mvarShortcutKey = new CommandShortcutKey();
-		public CommandShortcutKey ShortcutKey { get { return mvarShortcutKey; } }
+		public CommandShortcutKey ShortcutKey { get { return mvarShortcutKey; } set { mvarShortcutKey = value; } }
 		
 		private StockCommandType mvarStockCommandType = StockCommandType.None;
 		/// <summary>
