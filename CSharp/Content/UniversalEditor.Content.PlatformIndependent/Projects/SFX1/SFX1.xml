@@ -1,9 +1,0 @@
-<!DOCTYPE UniversalExtractor SYSTEM "U:\Doctypes\UniversalExtractor.dtd">
-<UniversalExtractor Version="1.0">
-	<Title>Universal Editor 3</Title>
-	<Prompt><![CDATA[Welcome to the installation for Universal Editor 3 quick-release.
-
-Click the Extract button to begin the installation process.]]></Prompt>
-	<FileSystem>
-	</FileSystem>
-</UniversalExtractor>
