@@ -140,7 +140,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					else
 					{
 						ToolStripMenuItem tsmi = new ToolStripMenuItem();
-						tsmi.ShortcutKeys = ShortcutKeyToWinFormsKeys(cmd.ShortcutKey);
 						tsi = tsmi;
 					}
 
@@ -168,7 +167,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					else
 					{
 						tsi = new ToolStripMenuItem();
-						(tsi as ToolStripMenuItem).ShortcutKeys = ShortcutKeyToWinFormsKeys(cmd.ShortcutKey);
 					}
 					tsi.Tag = cmd;
 					tsi.Text = cmd.Title.Replace("_", "&");
@@ -253,6 +251,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				tsmi.Click += tsmiCommand_Click;
 				tsmi.Tag = cmd;
 				tsmi.Text = cmd.Title.Replace("_", "&");
+				tsmi.ShortcutKeys = ShortcutKeyToWinFormsKeys(cmd.ShortcutKey);
 				foreach (CommandItem item1 in cmd.Items)
 				{
 					LoadCommandBarMenuItem(item1, tsmi);
