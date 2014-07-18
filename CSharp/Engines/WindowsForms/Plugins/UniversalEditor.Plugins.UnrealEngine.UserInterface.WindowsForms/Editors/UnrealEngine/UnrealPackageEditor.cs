@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using UniversalEditor.Accessors;
+using UniversalEditor.Dialogs.UnrealEngine;
 using UniversalEditor.ObjectModels.UnrealEngine;
 using UniversalEditor.UserInterface.WindowsForms;
 
@@ -273,6 +274,42 @@ namespace UniversalEditor.Editors.UnrealEngine
 					}
 				}
 			}
+		}
+
+		private void cmdExportTableEntryAdd_Click(object sender, EventArgs e)
+		{
+			ExportTableEntryPropertiesDialog dlg = new ExportTableEntryPropertiesDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+			}
+		}
+
+		private void cmdExportTableEntryModify_Click(object sender, EventArgs e)
+		{
+			if (lvExportTable.SelectedItems.Count == 1)
+			{
+				ExportTableEntryPropertiesDialog dlg = new ExportTableEntryPropertiesDialog();
+				
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+				}
+			}
+		}
+
+		private void cmdExportTableEntryRemove_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void cmdExportTableEntryClear_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void lvExportTable_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			cmdExportTableEntryModify.Enabled = (lvExportTable.SelectedItems.Count == 1);
+			cmdExportTableEntryRemove.Enabled = (lvExportTable.SelectedItems.Count > 0);
 		}
     }
 }

@@ -41,6 +41,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\UnrealEngine\ExportTableEntryPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UnrealEngine\ExportTableEntryPropertiesDialog.Designer.cs">
+      <DependentUpon>ExportTableEntryPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\UnrealEngine\UnrealPackageEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dialogs\UnrealEngine\ExportTableEntryPropertiesDialog.resx">
+      <DependentUpon>ExportTableEntryPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Editors\UnrealEngine\UnrealPackageEditor.resx">
       <DependentUpon>UnrealPackageEditor.cs</DependentUpon>
     </EmbeddedResource>

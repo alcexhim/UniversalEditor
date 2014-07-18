@@ -32,10 +32,10 @@
 			this.tv = new System.Windows.Forms.TreeView();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.pnlExportTable = new System.Windows.Forms.Panel();
-			this.button5 = new System.Windows.Forms.Button();
-			this.button6 = new System.Windows.Forms.Button();
-			this.button7 = new System.Windows.Forms.Button();
-			this.button8 = new System.Windows.Forms.Button();
+			this.cmdExportTableEntryClear = new System.Windows.Forms.Button();
+			this.cmdExportTableEntryRemove = new System.Windows.Forms.Button();
+			this.cmdExportTableEntryModify = new System.Windows.Forms.Button();
+			this.cmdExportTableEntryAdd = new System.Windows.Forms.Button();
 			this.lvExportTable = new System.Windows.Forms.ListView();
 			this.chExportObjectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chExportObjectParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -43,6 +43,8 @@
 			this.chExportObjectFlags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chExportObjectOffset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chExportObjectSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.mnuContextExportTable = new AwesomeControls.CommandBars.CBContextMenu(this.components);
+			this.mnuExportTableCopyTo = new System.Windows.Forms.ToolStripMenuItem();
 			this.pnlHeritageTable = new System.Windows.Forms.Panel();
 			this.button9 = new System.Windows.Forms.Button();
 			this.button10 = new System.Windows.Forms.Button();
@@ -67,16 +69,14 @@
 			this.lvNameTable = new System.Windows.Forms.ListView();
 			this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chFlags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.mnuContextExportTable = new AwesomeControls.CommandBars.CBContextMenu(this.components);
-			this.mnuExportTableCopyTo = new System.Windows.Forms.ToolStripMenuItem();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			this.pnlExportTable.SuspendLayout();
+			this.mnuContextExportTable.SuspendLayout();
 			this.pnlHeritageTable.SuspendLayout();
 			this.pnlImportTable.SuspendLayout();
 			this.pnlNameTable.SuspendLayout();
-			this.mnuContextExportTable.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tv
@@ -113,10 +113,10 @@
 			// 
 			// pnlExportTable
 			// 
-			this.pnlExportTable.Controls.Add(this.button5);
-			this.pnlExportTable.Controls.Add(this.button6);
-			this.pnlExportTable.Controls.Add(this.button7);
-			this.pnlExportTable.Controls.Add(this.button8);
+			this.pnlExportTable.Controls.Add(this.cmdExportTableEntryClear);
+			this.pnlExportTable.Controls.Add(this.cmdExportTableEntryRemove);
+			this.pnlExportTable.Controls.Add(this.cmdExportTableEntryModify);
+			this.pnlExportTable.Controls.Add(this.cmdExportTableEntryAdd);
 			this.pnlExportTable.Controls.Add(this.lvExportTable);
 			this.pnlExportTable.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pnlExportTable.Enabled = false;
@@ -126,46 +126,53 @@
 			this.pnlExportTable.TabIndex = 2;
 			this.pnlExportTable.Visible = false;
 			// 
-			// button5
+			// cmdExportTableEntryClear
 			// 
-			this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button5.Location = new System.Drawing.Point(306, 3);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(75, 23);
-			this.button5.TabIndex = 1;
-			this.button5.Text = "&Clear";
-			this.button5.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdExportTableEntryClear.Enabled = false;
+			this.cmdExportTableEntryClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdExportTableEntryClear.Location = new System.Drawing.Point(306, 3);
+			this.cmdExportTableEntryClear.Name = "cmdExportTableEntryClear";
+			this.cmdExportTableEntryClear.Size = new System.Drawing.Size(75, 23);
+			this.cmdExportTableEntryClear.TabIndex = 1;
+			this.cmdExportTableEntryClear.Text = "&Clear";
+			this.cmdExportTableEntryClear.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryClear.Click += new System.EventHandler(this.cmdExportTableEntryClear_Click);
 			// 
-			// button6
+			// cmdExportTableEntryRemove
 			// 
-			this.button6.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button6.Location = new System.Drawing.Point(165, 3);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(75, 23);
-			this.button6.TabIndex = 1;
-			this.button6.Text = "&Remove...";
-			this.button6.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryRemove.Enabled = false;
+			this.cmdExportTableEntryRemove.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdExportTableEntryRemove.Location = new System.Drawing.Point(165, 3);
+			this.cmdExportTableEntryRemove.Name = "cmdExportTableEntryRemove";
+			this.cmdExportTableEntryRemove.Size = new System.Drawing.Size(75, 23);
+			this.cmdExportTableEntryRemove.TabIndex = 1;
+			this.cmdExportTableEntryRemove.Text = "&Remove...";
+			this.cmdExportTableEntryRemove.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryRemove.Click += new System.EventHandler(this.cmdExportTableEntryRemove_Click);
 			// 
-			// button7
+			// cmdExportTableEntryModify
 			// 
-			this.button7.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button7.Location = new System.Drawing.Point(84, 3);
-			this.button7.Name = "button7";
-			this.button7.Size = new System.Drawing.Size(75, 23);
-			this.button7.TabIndex = 1;
-			this.button7.Text = "&Modify...";
-			this.button7.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryModify.Enabled = false;
+			this.cmdExportTableEntryModify.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdExportTableEntryModify.Location = new System.Drawing.Point(84, 3);
+			this.cmdExportTableEntryModify.Name = "cmdExportTableEntryModify";
+			this.cmdExportTableEntryModify.Size = new System.Drawing.Size(75, 23);
+			this.cmdExportTableEntryModify.TabIndex = 1;
+			this.cmdExportTableEntryModify.Text = "&Modify...";
+			this.cmdExportTableEntryModify.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryModify.Click += new System.EventHandler(this.cmdExportTableEntryModify_Click);
 			// 
-			// button8
+			// cmdExportTableEntryAdd
 			// 
-			this.button8.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button8.Location = new System.Drawing.Point(3, 3);
-			this.button8.Name = "button8";
-			this.button8.Size = new System.Drawing.Size(75, 23);
-			this.button8.TabIndex = 1;
-			this.button8.Text = "&Add...";
-			this.button8.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdExportTableEntryAdd.Location = new System.Drawing.Point(3, 3);
+			this.cmdExportTableEntryAdd.Name = "cmdExportTableEntryAdd";
+			this.cmdExportTableEntryAdd.Size = new System.Drawing.Size(75, 23);
+			this.cmdExportTableEntryAdd.TabIndex = 1;
+			this.cmdExportTableEntryAdd.Text = "&Add...";
+			this.cmdExportTableEntryAdd.UseVisualStyleBackColor = true;
+			this.cmdExportTableEntryAdd.Click += new System.EventHandler(this.cmdExportTableEntryAdd_Click);
 			// 
 			// lvExportTable
 			// 
@@ -190,6 +197,7 @@
 			this.lvExportTable.UseCompatibleStateImageBehavior = false;
 			this.lvExportTable.View = System.Windows.Forms.View.Details;
 			this.lvExportTable.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lvExportTable_ItemDrag);
+			this.lvExportTable.SelectedIndexChanged += new System.EventHandler(this.lvExportTable_SelectedIndexChanged);
 			// 
 			// chExportObjectName
 			// 
@@ -219,6 +227,20 @@
 			// chExportObjectSize
 			// 
 			this.chExportObjectSize.Text = "Size";
+			// 
+			// mnuContextExportTable
+			// 
+			this.mnuContextExportTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuExportTableCopyTo});
+			this.mnuContextExportTable.Name = "mnuContextExportTable";
+			this.mnuContextExportTable.Size = new System.Drawing.Size(127, 26);
+			// 
+			// mnuExportTableCopyTo
+			// 
+			this.mnuExportTableCopyTo.Name = "mnuExportTableCopyTo";
+			this.mnuExportTableCopyTo.Size = new System.Drawing.Size(126, 22);
+			this.mnuExportTableCopyTo.Text = "&Copy To...";
+			this.mnuExportTableCopyTo.Click += new System.EventHandler(this.mnuExportTableCopyTo_Click);
 			// 
 			// pnlHeritageTable
 			// 
@@ -472,20 +494,6 @@
 			this.chFlags.Text = "Flags";
 			this.chFlags.Width = 134;
 			// 
-			// mnuContextExportTable
-			// 
-			this.mnuContextExportTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuExportTableCopyTo});
-			this.mnuContextExportTable.Name = "mnuContextExportTable";
-			this.mnuContextExportTable.Size = new System.Drawing.Size(153, 48);
-			// 
-			// mnuExportTableCopyTo
-			// 
-			this.mnuExportTableCopyTo.Name = "mnuExportTableCopyTo";
-			this.mnuExportTableCopyTo.Size = new System.Drawing.Size(152, 22);
-			this.mnuExportTableCopyTo.Text = "&Copy To...";
-			this.mnuExportTableCopyTo.Click += new System.EventHandler(this.mnuExportTableCopyTo_Click);
-			// 
 			// UnrealPackageEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -497,10 +505,10 @@
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			this.splitContainer1.ResumeLayout(false);
 			this.pnlExportTable.ResumeLayout(false);
+			this.mnuContextExportTable.ResumeLayout(false);
 			this.pnlHeritageTable.ResumeLayout(false);
 			this.pnlImportTable.ResumeLayout(false);
 			this.pnlNameTable.ResumeLayout(false);
-			this.mnuContextExportTable.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -527,10 +535,10 @@
         private System.Windows.Forms.ColumnHeader chImportObjectName;
         private System.Windows.Forms.ColumnHeader chImportClassName;
         private System.Windows.Forms.Panel pnlExportTable;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button cmdExportTableEntryClear;
+        private System.Windows.Forms.Button cmdExportTableEntryRemove;
+        private System.Windows.Forms.Button cmdExportTableEntryModify;
+        private System.Windows.Forms.Button cmdExportTableEntryAdd;
         private System.Windows.Forms.ListView lvExportTable;
         private System.Windows.Forms.ColumnHeader chExportObjectParent;
         private System.Windows.Forms.ColumnHeader chExportObjectClass;
