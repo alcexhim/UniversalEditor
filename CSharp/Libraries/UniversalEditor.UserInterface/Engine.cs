@@ -416,6 +416,57 @@ namespace UniversalEditor.UserInterface
 					{
 						cmd.Title = cmd.ID;
 					}
+
+					MarkupTagElement tagShortcut = (tagCommand.Elements["Shortcut"] as MarkupTagElement);
+					if (tagShortcut != null)
+					{
+						MarkupAttribute attModifiers = tagShortcut.Attributes["Modifiers"];
+						MarkupAttribute attKey = tagShortcut.Attributes["Key"];
+						if (attKey != null)
+						{
+							CommandShortcutKeyModifiers modifiers = CommandShortcutKeyModifiers.None;
+							if (attModifiers != null)
+							{
+								string[] strModifiers = attModifiers.Value.Split(new char[] { ',' });
+								foreach (string strModifier in strModifiers)
+								{
+									switch (strModifier.Trim().ToLower())
+									{
+										case "alt":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Alt;
+											break;
+										}
+										case "control":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Control;
+											break;
+										}
+										case "meta":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Meta;
+											break;
+										}
+										case "shift":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Shift;
+											break;
+										}
+										case "super":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Super;
+											break;
+										}
+									}
+								}
+							}
+
+							CommandShortcutKeyValue value = CommandShortcutKeyValue.None;
+							value = (CommandShortcutKeyValue)Enum.Parse(typeof(CommandShortcutKeyValue), attKey.Value);
+
+							cmd.ShortcutKey = new CommandShortcutKey(value, modifiers);
+						}
+					}
 					
 					MarkupTagElement tagItems = (tagCommand.Elements["Items"] as MarkupTagElement);
 					if (tagItems != null)
@@ -429,7 +480,7 @@ namespace UniversalEditor.UserInterface
 						}
 					}
 					
-					mvarCommands.Add (cmd);
+					mvarCommands.Add(cmd);
 				}
 			}
 
