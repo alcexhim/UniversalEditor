@@ -260,7 +260,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
 			lvi.Text = folder.Name;
 			lvi.ImageKey = "generic-folder-closed";
-            lvi.Data = folder;
+			lvi.Data = folder;
 			foreach (Folder folder1 in folder.Folders)
 			{
 				RecursiveLoadListViewFolder(folder1, lvi);
@@ -282,12 +282,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 		private void tv_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-            mvarCurrentFolder = (tv.SelectedNode.Tag as Folder);
+			mvarCurrentFolder = (tv.SelectedNode.Tag as Folder);
 			UpdateListView();
 			lv.Refresh();
 		}
 
-        private Folder mvarCurrentFolder = null;
+		private Folder mvarCurrentFolder = null;
 
 		private void UpdateListView()
 		{
@@ -303,9 +303,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			}
 			tIconLoader = new System.Threading.Thread(tIconLoader_ThreadStart);
 
-            if (mvarCurrentFolder != null)
+			if (mvarCurrentFolder != null)
 			{
-                Folder folder = mvarCurrentFolder;
+				Folder folder = mvarCurrentFolder;
 				foreach (Folder folder1 in folder.Folders)
 				{
 					RecursiveLoadListViewFolder(folder1, null);
@@ -328,38 +328,38 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			}
 			lv.EndUpdate();
 
-            RecursiveUpdateTreeView();
+			RecursiveUpdateTreeView();
 
-            if (tIconLoader != null)
-            {
-                tIconLoader.Abort();
-                tIconLoader = new System.Threading.Thread(tIconLoader_ThreadStart);
-            }
+			if (tIconLoader != null)
+			{
+				tIconLoader.Abort();
+				tIconLoader = new System.Threading.Thread(tIconLoader_ThreadStart);
+			}
 			tIconLoader.Start();
 		}
 
-        private void RecursiveUpdateTreeView(TreeNode parent = null)
-        {
-            if (parent == null)
-            {
-                foreach (TreeNode tn in tv.Nodes)
-                {
-                    RecursiveUpdateTreeView(tn);
-                }
-            }
-            else
-            {
-                if ((parent.Tag == null && mvarCurrentFolder == null) || (parent.Tag == mvarCurrentFolder))
-                {
-                    tv.SelectedNode = parent;
-                }
+		private void RecursiveUpdateTreeView(TreeNode parent = null)
+		{
+			if (parent == null)
+			{
+				foreach (TreeNode tn in tv.Nodes)
+				{
+					RecursiveUpdateTreeView(tn);
+				}
+			}
+			else
+			{
+				if ((parent.Tag == null && mvarCurrentFolder == null) || (parent.Tag == mvarCurrentFolder))
+				{
+					tv.SelectedNode = parent;
+				}
 
-                foreach (TreeNode tn in parent.Nodes)
-                {
-                    RecursiveUpdateTreeView(tn);
-                }
-            }
-        }
+				foreach (TreeNode tn in parent.Nodes)
+				{
+					RecursiveUpdateTreeView(tn);
+				}
+			}
+		}
 
 		private void lv_MouseMove(object sender, MouseEventArgs e)
 		{
@@ -619,14 +619,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				lvi.Data = file;
 				lv.Items.Add(lvi);
 
-                if (tIconLoader != null)
-                {
-                    if (tIconLoader.ThreadState != System.Threading.ThreadState.Unstarted)
-                    {
-                        tIconLoader = new System.Threading.Thread(tIconLoader_ThreadStart);
-                    }
-                    tIconLoader.Start();
-                }
+				if (tIconLoader != null)
+				{
+					if (tIconLoader.ThreadState != System.Threading.ThreadState.Unstarted)
+					{
+						tIconLoader = new System.Threading.Thread(tIconLoader_ThreadStart);
+					}
+					tIconLoader.Start();
+				}
 
 				lv.Refresh();
 			}
@@ -796,42 +796,42 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			UpdateListView();
 		}
 
-        private void lv_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Back)
-            {
-                if (mvarCurrentFolder != null)
-                {
-                    if (mvarCurrentFolder.Parent != null)
-                    {
-                        mvarCurrentFolder = mvarCurrentFolder.Parent;
-                    }
-                    else
-                    {
-                        mvarCurrentFolder = null;
-                    }
-                }
-                else
-                {
-                    System.Media.SystemSounds.Beep.Play();
-                }
-                UpdateListView();
-            }
-        }
+		private void lv_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Back)
+			{
+				if (mvarCurrentFolder != null)
+				{
+					if (mvarCurrentFolder.Parent != null)
+					{
+						mvarCurrentFolder = mvarCurrentFolder.Parent;
+					}
+					else
+					{
+						mvarCurrentFolder = null;
+					}
+				}
+				else
+				{
+					System.Media.SystemSounds.Beep.Play();
+				}
+				UpdateListView();
+			}
+		}
 
-        private void lv_ItemActivate(object sender, EventArgs e)
-        {
-            if (lv.SelectedItems.Count == 1)
-            {
-                if (lv.SelectedItems[0].Items.Count > 0)
-                {
-                    if (lv.SelectedItems[0].Data is Folder)
-                    {
-                        mvarCurrentFolder = (lv.SelectedItems[0].Data as Folder);
-                        UpdateListView();
-                    }
-                }
-            }
-        }
+		private void lv_ItemActivate(object sender, EventArgs e)
+		{
+			if (lv.SelectedItems.Count == 1)
+			{
+				if (lv.SelectedItems[0].Items.Count > 0)
+				{
+					if (lv.SelectedItems[0].Data is Folder)
+					{
+						mvarCurrentFolder = (lv.SelectedItems[0].Data as Folder);
+						UpdateListView();
+					}
+				}
+			}
+		}
 	}
 }
