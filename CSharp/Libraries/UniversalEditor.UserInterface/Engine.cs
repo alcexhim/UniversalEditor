@@ -770,6 +770,9 @@ namespace UniversalEditor.UserInterface
 		private static Engine mvarCurrentEngine = null;
 		public static Engine CurrentEngine { get { return mvarCurrentEngine; } }
 
+		private Perspective.PerspectiveCollection mvarPerspectives = new Perspective.PerspectiveCollection();
+		public Perspective.PerspectiveCollection Perspectives { get { return mvarPerspectives; } }
+
 		protected virtual void ShowSplashScreen()
 		{
 		}

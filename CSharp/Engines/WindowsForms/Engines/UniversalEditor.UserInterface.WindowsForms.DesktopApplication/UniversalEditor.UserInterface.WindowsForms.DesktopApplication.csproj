@@ -133,8 +133,6 @@
       <DependentUpon>UnsavedDocumentsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="IconMethods.cs" />
-    <Compile Include="Perspective.cs" />
-    <Compile Include="PerspectiveManager.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

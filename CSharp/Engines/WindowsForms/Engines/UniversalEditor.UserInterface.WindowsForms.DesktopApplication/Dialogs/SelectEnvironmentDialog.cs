@@ -13,7 +13,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 		{
 			InitializeComponent();
 
-			foreach (Perspective perspective in PerspectiveManager.Perspectives)
+			foreach (Perspective perspective in Engine.CurrentEngine.Perspectives)
 			{
 				ListViewItem lvi = new ListViewItem();
 				lvi.Text = perspective.Title;
