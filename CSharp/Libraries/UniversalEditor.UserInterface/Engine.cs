@@ -169,16 +169,16 @@ namespace UniversalEditor.UserInterface
 				editor.Redo();
 			});
 			#endregion
-            #region View
-            AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
-            {
-                Command cmd = (sender as Command);
-                LastWindow.FullScreen = !LastWindow.FullScreen;
-                cmd.Checked = LastWindow.FullScreen;
-            });
-            #endregion
-            #region Tools
-            // ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
+			#region View
+			AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
+			{
+				Command cmd = (sender as Command);
+				LastWindow.FullScreen = !LastWindow.FullScreen;
+				cmd.Checked = LastWindow.FullScreen;
+			});
+			#endregion
+			#region Tools
+			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
 			AttachCommandEventHandler("ToolsOptions", delegate(object sender, EventArgs e)
 			{
 				LastWindow.ShowOptionsDialog();
@@ -416,6 +416,57 @@ namespace UniversalEditor.UserInterface
 					{
 						cmd.Title = cmd.ID;
 					}
+
+					MarkupTagElement tagShortcut = (tagCommand.Elements["Shortcut"] as MarkupTagElement);
+					if (tagShortcut != null)
+					{
+						MarkupAttribute attModifiers = tagShortcut.Attributes["Modifiers"];
+						MarkupAttribute attKey = tagShortcut.Attributes["Key"];
+						if (attKey != null)
+						{
+							CommandShortcutKeyModifiers modifiers = CommandShortcutKeyModifiers.None;
+							if (attModifiers != null)
+							{
+								string[] strModifiers = attModifiers.Value.Split(new char[] { ',' });
+								foreach (string strModifier in strModifiers)
+								{
+									switch (strModifier.Trim().ToLower())
+									{
+										case "alt":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Alt;
+											break;
+										}
+										case "control":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Control;
+											break;
+										}
+										case "meta":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Meta;
+											break;
+										}
+										case "shift":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Shift;
+											break;
+										}
+										case "super":
+										{
+											modifiers |= CommandShortcutKeyModifiers.Super;
+											break;
+										}
+									}
+								}
+							}
+
+							CommandShortcutKeyValue value = CommandShortcutKeyValue.None;
+							value = (CommandShortcutKeyValue)Enum.Parse(typeof(CommandShortcutKeyValue), attKey.Value);
+
+							cmd.ShortcutKey = new CommandShortcutKey(value, modifiers);
+						}
+					}
 					
 					MarkupTagElement tagItems = (tagCommand.Elements["Items"] as MarkupTagElement);
 					if (tagItems != null)
@@ -429,7 +480,7 @@ namespace UniversalEditor.UserInterface
 						}
 					}
 					
-					mvarCommands.Add (cmd);
+					mvarCommands.Add(cmd);
 				}
 			}
 
@@ -460,18 +511,21 @@ namespace UniversalEditor.UserInterface
 			UpdateSplashScreenStatus("Loading languages and translations");
 
 			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Languages") as MarkupTagElement);
-			foreach (MarkupElement elLanguage in tagLanguages.Elements)
+			if (tagLanguages != null)
 			{
-				MarkupTagElement tagLanguage = (elLanguage as MarkupTagElement);
-				if (tagLanguage == null) continue;
-				if (tagLanguage.FullName != "Language") continue;
-				InitializeLanguage(tagLanguage);
-			}
+				foreach (MarkupElement elLanguage in tagLanguages.Elements)
+				{
+					MarkupTagElement tagLanguage = (elLanguage as MarkupTagElement);
+					if (tagLanguage == null) continue;
+					if (tagLanguage.FullName != "Language") continue;
+					InitializeLanguage(tagLanguage);
+				}
 
-			MarkupAttribute attDefaultLanguageID = tagLanguages.Attributes["DefaultLanguageID"];
-			if (attDefaultLanguageID != null)
-			{
-				mvarDefaultLanguage = mvarLanguages[attDefaultLanguageID.Value];
+				MarkupAttribute attDefaultLanguageID = tagLanguages.Attributes["DefaultLanguageID"];
+				if (attDefaultLanguageID != null)
+				{
+					mvarDefaultLanguage = mvarLanguages[attDefaultLanguageID.Value];
+				}
 			}
 			#endregion
 

@@ -178,10 +178,10 @@ namespace UniversalEditor.UserInterface.Common
 						list.Add(editor);
 					}
 				}
-                if (!editorsByObjectModelType.ContainsKey(objectModelReference.ObjectModelType))
-                {
-                    editorsByObjectModelType.Add(objectModelReference.ObjectModelType, list.ToArray());
-                }
+				if (!editorsByObjectModelType.ContainsKey(objectModelReference.ObjectModelType))
+				{
+					editorsByObjectModelType.Add(objectModelReference.ObjectModelType, list.ToArray());
+				}
 			}
 			// editorsByObjectModelType.Clear();
 			return editorsByObjectModelType[objectModelReference.ObjectModelType];

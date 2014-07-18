@@ -177,6 +177,18 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			return null;
 		}
 
+		private Keys ShortcutKeyToWinFormsKeys(CommandShortcutKey sk)
+		{
+			Keys keys = Keys.None;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Alt) == CommandShortcutKeyModifiers.Alt) keys |= Keys.Alt;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Control) == CommandShortcutKeyModifiers.Control) keys |= Keys.Control;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Meta) == CommandShortcutKeyModifiers.Meta) keys |= Keys.Alt;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Shift) == CommandShortcutKeyModifiers.Shift) keys |= Keys.Shift;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Super) == CommandShortcutKeyModifiers.Super) keys |= Keys.LWin;
+			keys |= (Keys)sk.Value;
+			return keys;
+		}
+
 		private void LoadCommandBarItem(CommandItem item, ToolStripDropDownItem parent)
 		{
 			ToolStripItem tsi = InitializeCommandBarItem(item, true);
@@ -239,6 +251,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				tsmi.Click += tsmiCommand_Click;
 				tsmi.Tag = cmd;
 				tsmi.Text = cmd.Title.Replace("_", "&");
+				tsmi.ShortcutKeys = ShortcutKeyToWinFormsKeys(cmd.ShortcutKey);
 				foreach (CommandItem item1 in cmd.Items)
 				{
 					LoadCommandBarMenuItem(item1, tsmi);

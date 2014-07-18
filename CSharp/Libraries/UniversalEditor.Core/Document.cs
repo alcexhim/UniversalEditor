@@ -5,19 +5,19 @@ using System.Text;
 
 namespace UniversalEditor
 {
-    /// <summary>
-    /// Represents a combination of <see cref="InputDataFormat" />, <see cref="ObjectModel" />, and <see cref="Accessor" />
-    /// that allows you to easily manipulate documents. The Accessor determines WHERE the data is read from and written
-    /// to, the DataFormat determines HOW the data is written, and the ObjectModel contains the actual data in a format-
-    /// agnostic representation.
-    /// </summary>
-    public class Document
-    {
-        private Accessor mvarInputAccessor = null;
-        /// <summary>
-        /// The <see cref="Accessor" /> which determines where the data is read from.
-        /// </summary>
-        public Accessor InputAccessor { get { return mvarInputAccessor; } set { mvarInputAccessor = value; } }
+	/// <summary>
+	/// Represents a combination of <see cref="InputDataFormat" />, <see cref="ObjectModel" />, and <see cref="Accessor" />
+	/// that allows you to easily manipulate documents. The Accessor determines WHERE the data is read from and written
+	/// to, the DataFormat determines HOW the data is written, and the ObjectModel contains the actual data in a format-
+	/// agnostic representation.
+	/// </summary>
+	public class Document
+	{
+		private Accessor mvarInputAccessor = null;
+		/// <summary>
+		/// The <see cref="Accessor" /> which determines where the data is read from.
+		/// </summary>
+		public Accessor InputAccessor { get { return mvarInputAccessor; } set { mvarInputAccessor = value; } }
 
 		private Accessor mvarOutputAccessor = null;
 		/// <summary>
@@ -25,11 +25,11 @@ namespace UniversalEditor
 		/// </summary>
 		public Accessor OutputAccessor { get { return mvarOutputAccessor; } set { mvarOutputAccessor = value; } }
 
-        private DataFormat mvarInputDataFormat = null;
-        /// <summary>
+		private DataFormat mvarInputDataFormat = null;
+		/// <summary>
 		/// The <see cref="DataFormat" /> which determines how the data is read from the accessor.
-        /// </summary>
-        public DataFormat InputDataFormat { get { return mvarInputDataFormat; } set { mvarInputDataFormat = value; } }
+		/// </summary>
+		public DataFormat InputDataFormat { get { return mvarInputDataFormat; } set { mvarInputDataFormat = value; } }
 
 		private DataFormat mvarOutputDataFormat = null;
 		/// <summary>
@@ -37,57 +37,57 @@ namespace UniversalEditor
 		/// </summary>
 		public DataFormat OutputDataFormat { get { return mvarOutputDataFormat; } set { mvarOutputDataFormat = value; } }
 
-        private ObjectModel mvarObjectModel = null;
-        /// <summary>
-        /// The <see cref="ObjectModel" />, which stores the actual data in a format-agnostic representation.
-        /// </summary>
-        public ObjectModel ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; } }
+		private ObjectModel mvarObjectModel = null;
+		/// <summary>
+		/// The <see cref="ObjectModel" />, which stores the actual data in a format-agnostic representation.
+		/// </summary>
+		public ObjectModel ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; } }
 
-        /// <summary>
-        /// Reads data into the current <see cref="ObjectModel" /> from the <see cref="Accessor" /> using the
-        /// current <see cref="InputDataFormat" />.
-        /// </summary>
-        public void Load()
-        {
-            mvarInputDataFormat.Accessor = mvarInputAccessor;
-            mvarObjectModel.Accessor = mvarInputAccessor;
+		/// <summary>
+		/// Reads data into the current <see cref="ObjectModel" /> from the <see cref="Accessor" /> using the
+		/// current <see cref="InputDataFormat" />.
+		/// </summary>
+		public void Load()
+		{
+			mvarInputDataFormat.Accessor = mvarInputAccessor;
+			mvarObjectModel.Accessor = mvarInputAccessor;
 			mvarInputDataFormat.Load(ref mvarObjectModel);
 			mvarLastUsedAccessor = LastUsedAccessor.Input;
-        }
-        /// <summary>
-        /// Writes the data contained in the <see cref="ObjectModel" /> to the <see cref="Accessor" /> using the
-        /// current <see cref="OutputDataFormat" />.
-        /// </summary>
-        public void Save()
-        {
-            mvarOutputDataFormat.Accessor = mvarOutputAccessor;
-            mvarObjectModel.Accessor = mvarOutputAccessor;
+		}
+		/// <summary>
+		/// Writes the data contained in the <see cref="ObjectModel" /> to the <see cref="Accessor" /> using the
+		/// current <see cref="OutputDataFormat" />.
+		/// </summary>
+		public void Save()
+		{
+			mvarOutputDataFormat.Accessor = mvarOutputAccessor;
+			mvarObjectModel.Accessor = mvarOutputAccessor;
 			mvarOutputDataFormat.Save(mvarObjectModel);
 			mvarLastUsedAccessor = LastUsedAccessor.Output;
-        }
+		}
 
-        public Document(ObjectModel objectModel, DataFormat dataFormat) : this(objectModel, dataFormat, null)
-        {
-        }
-        public Document(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) : this(objectModel, dataFormat, dataFormat, accessor)
+		public Document(ObjectModel objectModel, DataFormat dataFormat) : this(objectModel, dataFormat, null)
+		{
+		}
+		public Document(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) : this(objectModel, dataFormat, dataFormat, accessor)
 		{
 		}
 		public Document(ObjectModel objectModel, DataFormat inputDataFormat, DataFormat outputDataFormat, Accessor accessor) : this(objectModel, inputDataFormat, outputDataFormat, accessor, accessor)
 		{
 		}
 		public Document(ObjectModel objectModel, DataFormat inputDataFormat, DataFormat outputDataFormat, Accessor inputAccessor, Accessor outputAccessor)
-        {
-            mvarObjectModel = objectModel;
+		{
+			mvarObjectModel = objectModel;
 			mvarInputDataFormat = inputDataFormat;
 			mvarOutputDataFormat = outputDataFormat;
-            mvarInputAccessor = inputAccessor;
+			mvarInputAccessor = inputAccessor;
 			mvarOutputAccessor = outputAccessor;
-        }
+		}
 
 		public static Document Load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = true)
 		{
 			Document document = new Document(objectModel, dataFormat, accessor);
-            objectModel.Accessor = document.InputAccessor;
+			objectModel.Accessor = document.InputAccessor;
 			document.InputAccessor.Open();
 			document.Load();
 			if (autoClose) document.InputAccessor.Close();
@@ -95,8 +95,8 @@ namespace UniversalEditor
 		}
 		public static Document Save(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = true)
 		{
-            Document document = new Document(objectModel, dataFormat, accessor);
-            objectModel.Accessor = document.OutputAccessor;
+			Document document = new Document(objectModel, dataFormat, accessor);
+			objectModel.Accessor = document.OutputAccessor;
 			document.OutputAccessor.Open();
 			document.Save();
 			if (autoClose) document.OutputAccessor.Close();

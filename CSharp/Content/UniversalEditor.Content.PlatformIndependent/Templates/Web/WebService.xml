@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{FFEDB87C-5146-4D16-917C-025AAC0E6BA4}">
+			<Information>
+				<Title>Web Service</Title>
+				<Description>A visually-designed class for creating a Web Service</Description>
+				<IconPath FileName="WebService.ico" />
+				<Path>
+					<PathParts>
+						<PathPart>Web Development</PathPart>
+					</PathParts>
+				</Path>
+			</Information>
+			<Variables>
+				<Variable DataType="Choice" Name="Language" Label="&amp;Language:" Value="C#">
+					<Choices>
+						<Choice Value="C#" />
+						<Choice Value="VB" />
+					</Choices>
+				</Variable>
+				<Variable DataType="String" Name="Namespace" Label="&amp;Namespace:" Value="http://tempuri.org/" />
+				<Variable DataType="Choice" Name="ConformsTo" Label="Conform to WSI &amp;profile:" Value="BasicProfile1_1">
+					<Choices>
+						<Choice Name="None" Value="None" />
+						<Choice Name="Basic Profile 1.1" Value="BasicProfile1_1" />
+					</Choices>
+				</Variable>
+			</Variables>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.Text.Plain.PlainTextObjectModel">
+				<Text><![CDATA[<%@ WebService Language="$(Language)" Class="WebService1" %>
+
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Web;
+using System.Web.Services;
+
+[WebService(Namespace = "$(Namespace)")]
+[WebServiceBinding(ConformsTo = WsiProfiles.$(ConformsTo))]
+// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+// [System.Web.Script.Services.ScriptService]
+public class WebService1 : System.Web.Services.WebService 
+{
+    public WebService1()
+    {
+        //
+        // TODO: Add any constructor code required
+        //
+    }
+
+    // WEB SERVICE EXAMPLE
+    // The HelloWorld() example service returns the string Hello World.
+
+    [WebMethod]
+    public string HelloWorld()
+    {
+        return "Hello World";
+    }
+}
+]]>
+				</Text>
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

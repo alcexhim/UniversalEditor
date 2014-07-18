@@ -40,7 +40,7 @@ namespace UniversalEditor.Accessors
 			_data = data;
 		}
 
-        // [DebuggerNonUserCode()]
+		// [DebuggerNonUserCode()]
 		public override void Seek(long length, SeekOrigin position)
 		{
 			long start = 0;
@@ -81,8 +81,8 @@ namespace UniversalEditor.Accessors
 
 		internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
-            System.Array.Copy(_data, Position, buffer, start, count);
-            Position += count;
+			System.Array.Copy(_data, Position, buffer, start, count);
+			Position += count;
 			return count;
 		}
 		internal override int WriteInternal(byte[] buffer, int start, int count)
@@ -92,10 +92,10 @@ namespace UniversalEditor.Accessors
 			return count;
 		}
 
-        protected override void OpenInternal()
+		protected override void OpenInternal()
 		{
 		}
-        protected override void CloseInternal()
+		protected override void CloseInternal()
 		{
 		}
 	}

@@ -40,40 +40,40 @@ using System;
 namespace UniversalEditor.Checksum.Modules.CRC32
 {
 
-    /// <summary>
-    /// Generate a table for a byte-wise 32-bit CRC calculation on the polynomial:
-    /// x^32+x^26+x^23+x^22+x^16+x^12+x^11+x^10+x^8+x^7+x^5+x^4+x^2+x+1.
-    ///
-    /// Polynomials over GF(2) are represented in binary, one bit per coefficient,
-    /// with the lowest powers in the most significant bit.  Then adding polynomials
-    /// is just exclusive-or, and multiplying a polynomial by x is a right shift by
-    /// one.  If we call the above polynomial p, and represent a byte as the
-    /// polynomial q, also with the lowest power in the most significant bit (so the
-    /// byte 0xb1 is the polynomial x^7+x^3+x+1), then the CRC is (q*x^32) mod p,
-    /// where a mod b means the remainder after dividing a by b.
-    ///
-    /// This calculation is done using the shift-register method of multiplying and
-    /// taking the remainder.  The register is initialized to zero, and for each
-    /// incoming bit, x^32 is added mod p to the register if the bit is a one (where
-    /// x^32 mod p is p+x^32 = x^26+...+1), and the register is multiplied mod p by
-    /// x (which is shifting right by one and adding x^32 mod p if the bit shifted
-    /// out is a one).  We start with the highest power (least significant bit) of
-    /// q and repeat for all eight bits of q.
-    ///
-    /// The table is simply the CRC of all possible eight bit values.  This is all
-    /// the information needed to generate CRC's on data a byte at a time for all
-    /// combinations of CRC register values and incoming bytes.
-    /// </summary>
-    public sealed class CRC32ChecksumModule : ChecksumModule
-    {
-        const uint CrcSeed = 0xFFFFFFFF;
+	/// <summary>
+	/// Generate a table for a byte-wise 32-bit CRC calculation on the polynomial:
+	/// x^32+x^26+x^23+x^22+x^16+x^12+x^11+x^10+x^8+x^7+x^5+x^4+x^2+x+1.
+	///
+	/// Polynomials over GF(2) are represented in binary, one bit per coefficient,
+	/// with the lowest powers in the most significant bit.  Then adding polynomials
+	/// is just exclusive-or, and multiplying a polynomial by x is a right shift by
+	/// one.  If we call the above polynomial p, and represent a byte as the
+	/// polynomial q, also with the lowest power in the most significant bit (so the
+	/// byte 0xb1 is the polynomial x^7+x^3+x+1), then the CRC is (q*x^32) mod p,
+	/// where a mod b means the remainder after dividing a by b.
+	///
+	/// This calculation is done using the shift-register method of multiplying and
+	/// taking the remainder.  The register is initialized to zero, and for each
+	/// incoming bit, x^32 is added mod p to the register if the bit is a one (where
+	/// x^32 mod p is p+x^32 = x^26+...+1), and the register is multiplied mod p by
+	/// x (which is shifting right by one and adding x^32 mod p if the bit shifted
+	/// out is a one).  We start with the highest power (least significant bit) of
+	/// q and repeat for all eight bits of q.
+	///
+	/// The table is simply the CRC of all possible eight bit values.  This is all
+	/// the information needed to generate CRC's on data a byte at a time for all
+	/// combinations of CRC register values and incoming bytes.
+	/// </summary>
+	public sealed class CRC32ChecksumModule : ChecksumModule
+	{
+		const uint CrcSeed = 0xFFFFFFFF;
 
-        public override string Name
-        {
-            get { return "CRC32"; }
-        }
+		public override string Name
+		{
+			get { return "CRC32"; }
+		}
 
-        readonly static uint[] CrcTable = new uint[] {
+		readonly static uint[] CrcTable = new uint[] {
 			0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419,
 			0x706AF48F, 0xE963A535, 0x9E6495A3, 0x0EDB8832, 0x79DCB8A4,
 			0xE0D5E91E, 0x97D2D988, 0x09B64C2B, 0x7EB17CBD, 0xE7B82D07,
@@ -128,81 +128,81 @@ namespace UniversalEditor.Checksum.Modules.CRC32
 			0x2D02EF8D
 		};
 
-        private static uint ComputeCrc32(uint oldCrc, byte value)
-        {
-            return (uint)(CrcTable[(oldCrc ^ value) & 0xFF] ^ (oldCrc >> 8));
-        }
+		private static uint ComputeCrc32(uint oldCrc, byte value)
+		{
+			return (uint)(CrcTable[(oldCrc ^ value) & 0xFF] ^ (oldCrc >> 8));
+		}
 		
-        /// <summary>
-        /// The crc data checksum so far.
-        /// </summary>
-        uint crc;
+		/// <summary>
+		/// The crc data checksum so far.
+		/// </summary>
+		uint crc;
 
-        /// <summary>
-        /// Returns the CRC32 data checksum computed so far.
-        /// </summary>
-        public override long Value
-        {
-            get
-            {
-                return (long)crc;
-            }
-        }
+		/// <summary>
+		/// Returns the CRC32 data checksum computed so far.
+		/// </summary>
+		public override long Value
+		{
+			get
+			{
+				return (long)crc;
+			}
+		}
 
-        /// <summary>
-        /// Updates the checksum with the int bval.
-        /// </summary>
-        /// <param name = "value">
-        /// the byte is taken as the lower 8 bits of value
-        /// </param>
-        public override void Update(int value)
-        {
-            crc ^= CrcSeed;
-            crc = CrcTable[(crc ^ value) & 0xFF] ^ (crc >> 8);
-            crc ^= CrcSeed;
-        }
+		/// <summary>
+		/// Updates the checksum with the int bval.
+		/// </summary>
+		/// <param name = "value">
+		/// the byte is taken as the lower 8 bits of value
+		/// </param>
+		public override void Update(int value)
+		{
+			crc ^= CrcSeed;
+			crc = CrcTable[(crc ^ value) & 0xFF] ^ (crc >> 8);
+			crc ^= CrcSeed;
+		}
 
-        /// <summary>
-        /// Adds the byte array to the data checksum.
-        /// </summary>
-        /// <param name = "buffer">
-        /// The buffer which contains the data
-        /// </param>
-        /// <param name = "offset">
-        /// The offset in the buffer where the data starts
-        /// </param>
-        /// <param name = "count">
-        /// The number of data bytes to update the CRC with.
-        /// </param>
-        public override void Update(byte[] buffer, int offset, int count)
-        {
-            if (buffer == null)
-            {
-                throw new ArgumentNullException("buffer");
-            }
+		/// <summary>
+		/// Adds the byte array to the data checksum.
+		/// </summary>
+		/// <param name = "buffer">
+		/// The buffer which contains the data
+		/// </param>
+		/// <param name = "offset">
+		/// The offset in the buffer where the data starts
+		/// </param>
+		/// <param name = "count">
+		/// The number of data bytes to update the CRC with.
+		/// </param>
+		public override void Update(byte[] buffer, int offset, int count)
+		{
+			if (buffer == null)
+			{
+				throw new ArgumentNullException("buffer");
+			}
 
-            if (count < 0)
-            {
+			if (count < 0)
+			{
 #if NETCF_1_0
 				throw new ArgumentOutOfRangeException("count");
 #else
-                throw new ArgumentOutOfRangeException("count", "Count cannot be less than zero");
+				throw new ArgumentOutOfRangeException("count", "Count cannot be less than zero");
 #endif
-            }
+			}
 
-            if (offset < 0 || offset + count > buffer.Length)
-            {
-                throw new ArgumentOutOfRangeException("offset");
-            }
+			if (offset < 0 || offset + count > buffer.Length)
+			{
+				throw new ArgumentOutOfRangeException("offset");
+			}
 
-            crc ^= CrcSeed;
+			crc ^= CrcSeed;
 
-            while (--count >= 0)
-            {
-                crc = CrcTable[(crc ^ buffer[offset++]) & 0xFF] ^ (crc >> 8);
-            }
+			while (--count >= 0)
+			{
+				crc = CrcTable[(crc ^ buffer[offset++]) & 0xFF] ^ (crc >> 8);
+			}
 
-            crc ^= CrcSeed;
-        }
-    }
+			crc ^= CrcSeed;
+		}
+	}
 }

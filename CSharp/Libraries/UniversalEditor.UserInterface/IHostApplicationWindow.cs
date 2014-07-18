@@ -32,7 +32,7 @@ namespace UniversalEditor.UserInterface
 		
 		IEditorImplementation GetCurrentEditor();
 
-        bool FullScreen { get; set; }
+		bool FullScreen { get; set; }
 
 		/// <summary>
 		/// Displays the "Options" dialog (on Windows, under the "Tools" menu; on Linux, under the "Edit"

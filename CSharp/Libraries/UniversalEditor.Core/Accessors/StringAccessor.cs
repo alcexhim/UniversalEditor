@@ -102,10 +102,10 @@ namespace UniversalEditor.Accessors
 			return count;
 		}
 
-        protected override void OpenInternal()
+		protected override void OpenInternal()
 		{
 		}
-        protected override void CloseInternal()
+		protected override void CloseInternal()
 		{
 		}
 	}

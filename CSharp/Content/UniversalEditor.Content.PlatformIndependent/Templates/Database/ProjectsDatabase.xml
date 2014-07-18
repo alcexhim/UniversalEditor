@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{58874798-2E63-4C2B-8C93-C31FCFA29AD7}">
+			<Information>
+				<Title>Projects</Title>
+				<Description>Track multiple projects and assign tasks to different people.</Description>
+				<IconPath FileName="database.ico" />
+				<CategoryParts>
+					<CategoryPart>Business</CategoryPart>
+				</CategoryParts>
+			</Information>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+				
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

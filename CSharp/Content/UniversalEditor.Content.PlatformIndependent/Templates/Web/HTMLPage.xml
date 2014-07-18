@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{79B66936-5D57-4907-8801-85A9D40B00FF}">
+			<Information>
+				<Title>HTML Page</Title>
+				<Description>An HTML page that can include client-side code</Description>
+				<IconPath FileName="HTMLPage.ico" />
+				<Path>
+					<PathParts>
+						<PathPart>Web Development</PathPart>
+					</PathParts>
+				</Path>
+			</Information>
+			<Variables>
+				<Variable DataType="String" Name="PageTitle" Label="Page &amp;title:" />
+			</Variables>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.Text.Plain.PlainTextObjectModel">
+				<Text><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$(PageTitle)</title>
+</head>
+<body>
+
+</body>
+</html>
+]]>
+				</Text>
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>
