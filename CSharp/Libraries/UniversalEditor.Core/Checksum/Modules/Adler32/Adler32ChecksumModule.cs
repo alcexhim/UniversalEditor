@@ -76,10 +76,10 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 	/// <see cref="ICSharpCode.SharpZipLib.Zip.Compression.Streams.DeflaterOutputStream"/>
 	public sealed class Adler32 : ChecksumModule
 	{
-        public override string Name
-        {
-            get { return "Adler32"; }
-        }
+		public override string Name
+		{
+			get { return "Adler32"; }
+		}
 
 		/// <summary>
 		/// largest prime smaller than 65536

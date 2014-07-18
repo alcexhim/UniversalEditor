@@ -528,13 +528,13 @@ namespace UniversalEditor
 		}
 		public static byte[] ToByteArray(this System.IO.Stream stream)
 		{
-            long oldpos = stream.Position;
+			long oldpos = stream.Position;
 
 			byte[] array = new byte[(int)((IntPtr)stream.Length)];
 			stream.Position = 0L;
 			stream.Read(array, 0, array.Length);
 
-            stream.Position = oldpos;
+			stream.Position = oldpos;
 			return array;
 		}
 		#endregion

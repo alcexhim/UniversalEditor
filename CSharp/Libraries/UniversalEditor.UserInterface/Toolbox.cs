@@ -24,32 +24,32 @@ namespace UniversalEditor.UserInterface
 		public sealed class ToolboxItemCollection
 			: System.Collections.ObjectModel.Collection<ToolboxItem>
 		{
-            public ToolboxCommandItem AddCommand(string name)
-            {
-                return AddCommand(name, name);
-            }
-            public ToolboxCommandItem AddCommand(string name, string title)
-            {
-                return AddCommand(name, title, null);
-            }
-            public ToolboxCommandItem AddCommand(string name, string title, string imageFileName)
-            {
-                ToolboxCommandItem item = new ToolboxCommandItem(name, title, imageFileName);
-                Add(item);
-                return item;
-            }
+			public ToolboxCommandItem AddCommand(string name)
+			{
+				return AddCommand(name, name);
+			}
+			public ToolboxCommandItem AddCommand(string name, string title)
+			{
+				return AddCommand(name, title, null);
+			}
+			public ToolboxCommandItem AddCommand(string name, string title, string imageFileName)
+			{
+				ToolboxCommandItem item = new ToolboxCommandItem(name, title, imageFileName);
+				Add(item);
+				return item;
+			}
 
-            public ToolboxGroupItem AddGroup(string name)
-            {
-                return AddGroup(name, name);
-            }
-            public ToolboxGroupItem AddGroup(string name, string title)
-            {
-                ToolboxGroupItem group = new ToolboxGroupItem(name, title);
-                Add(group);
-                return group;
-            }
-        }
+			public ToolboxGroupItem AddGroup(string name)
+			{
+				return AddGroup(name, name);
+			}
+			public ToolboxGroupItem AddGroup(string name, string title)
+			{
+				ToolboxGroupItem group = new ToolboxGroupItem(name, title);
+				Add(group);
+				return group;
+			}
+		}
 		
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
@@ -67,8 +67,8 @@ namespace UniversalEditor.UserInterface
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-        private ToolboxItem.ToolboxItemCollection mvarItems = new ToolboxItem.ToolboxItemCollection();
-        public ToolboxItem.ToolboxItemCollection Items { get { return mvarItems; } }
+		private ToolboxItem.ToolboxItemCollection mvarItems = new ToolboxItem.ToolboxItemCollection();
+		public ToolboxItem.ToolboxItemCollection Items { get { return mvarItems; } }
 		
 		public ToolboxGroupItem(string name, string title) : base(name)
 		{
