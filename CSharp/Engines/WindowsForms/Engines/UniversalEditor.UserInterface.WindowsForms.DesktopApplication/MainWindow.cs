@@ -140,6 +140,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					else
 					{
 						ToolStripMenuItem tsmi = new ToolStripMenuItem();
+						tsmi.ShortcutKeys = ShortcutKeyToWinFormsKeys(cmd.ShortcutKey);
 						tsi = tsmi;
 					}
 
@@ -167,6 +168,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					else
 					{
 						tsi = new ToolStripMenuItem();
+						(tsi as ToolStripMenuItem).ShortcutKeys = ShortcutKeyToWinFormsKeys(cmd.ShortcutKey);
 					}
 					tsi.Tag = cmd;
 					tsi.Text = cmd.Title.Replace("_", "&");
@@ -175,6 +177,18 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 			}
 			return null;
+		}
+
+		private Keys ShortcutKeyToWinFormsKeys(CommandShortcutKey sk)
+		{
+			Keys keys = Keys.None;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Alt) == CommandShortcutKeyModifiers.Alt) keys |= Keys.Alt;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Control) == CommandShortcutKeyModifiers.Control) keys |= Keys.Control;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Meta) == CommandShortcutKeyModifiers.Meta) keys |= Keys.Alt;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Shift) == CommandShortcutKeyModifiers.Shift) keys |= Keys.Shift;
+			if ((sk.Modifiers & CommandShortcutKeyModifiers.Super) == CommandShortcutKeyModifiers.Super) keys |= Keys.LWin;
+			keys |= (Keys)sk.Value;
+			return keys;
 		}
 
 		private void LoadCommandBarItem(CommandItem item, ToolStripDropDownItem parent)
