@@ -655,7 +655,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuViewStartPage.Name = "mnuViewStartPage";
 			this.mnuViewStartPage.Size = new System.Drawing.Size(156, 22);
 			this.mnuViewStartPage.Text = "Start Pa&ge";
-			this.mnuViewStartPage.Click += new System.EventHandler(this.mnuViewStartPage_Click);
 			// 
 			// mnuViewFullScreen
 			// 

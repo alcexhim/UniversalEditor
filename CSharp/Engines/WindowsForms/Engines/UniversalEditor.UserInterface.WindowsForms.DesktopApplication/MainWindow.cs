@@ -75,8 +75,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				tsmi.Click += tsmiBookmark_Click;
 				mnuBookmarks.DropDownItems.Insert(mnuBookmarks.DropDownItems.Count - 2, tsmi);
 			}
-
-			ShowStartPage();
 		}
 
 		private void InitializeCommandBars()
@@ -1690,10 +1688,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			cbc.ShowCustomizeDialog();
 		}
 
-		private void mnuViewStartPage_Click(object sender, EventArgs e)
-		{
-			ShowStartPage();
-		}
 		#endregion
 		#region Project
 		private void mnuProjectAddNewItem_Click(object sender, EventArgs e)
@@ -1823,6 +1817,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public void ShowStartPage()
 		{
+			if (!Engine.CurrentEngine.ConfigurationManager.GetValue<bool>(new string[] { "Application", "StartPage", "Enabled" }, true))
+			{
+				// Only show the start page if it's enabled
+				return;
+			}
+
 			DockingWindow dwStartPage = dcc.Windows["pnlStartPage"];
 			if (dwStartPage == null)
 			{
@@ -1850,6 +1850,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				cboAddress.Focus();
 				e.Handled = true;
 				e.SuppressKeyPress = true;
+			}
+			else if (e.KeyCode == Keys.Alt)
+			{
+
 			}
 		}
 
@@ -1885,7 +1889,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			Glue.Common.Methods.InitializeCustomizableMenuItems(mbMenuBar);
 
-			ShowStartPage();
+			if (Engine.CurrentEngine.ConfigurationManager.GetValue<bool>(new string[] { "Application", "StartPage", "Enabled" }, true))
+			{
+				if (Engine.CurrentEngine.ConfigurationManager.GetValue<bool>(new string[] { "Application", "StartPage", "ShowOnStartup" }, true))
+				{
+					// Only show the start page if it's enabled
+					ShowStartPage();
+				}
+			}
 		}
 
 		protected override void OnActivated(EventArgs e)
