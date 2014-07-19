@@ -56,6 +56,8 @@ namespace UniversalEditor.UserInterface
 		void UpdateProgress(int minimum, int maximium, int value);
 
 		void ActivateWindow();
+
+		void ShowStartPage();
 	}
 	public class IHostApplicationWindowCollection
 		: System.Collections.ObjectModel.Collection<IHostApplicationWindow>
