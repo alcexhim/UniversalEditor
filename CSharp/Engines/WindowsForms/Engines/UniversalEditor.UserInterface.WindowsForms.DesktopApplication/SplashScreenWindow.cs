@@ -42,7 +42,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
                     }
                 }
             }
-            Size = pictureBox1.Image.Size;
+            // Size = pictureBox1.Image.Size;
         }
 
         protected override void OnShown(EventArgs e)
