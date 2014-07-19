@@ -1,6 +1,6 @@
 <UniversalEditor>
 	<Application>
-		<CommandBars>
+		<CommandBars LargeButtons="false" ScreenTips="true" ScreenTipShortcutKeys="true">
 			<CommandBar ID="tbStandard" Title="Standard">
 				<Items>
 					<CommandReference CommandID="FileNew" />
