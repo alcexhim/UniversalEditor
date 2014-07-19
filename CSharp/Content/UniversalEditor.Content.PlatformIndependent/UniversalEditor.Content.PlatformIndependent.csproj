@@ -37,6 +37,7 @@
   <ItemGroup>
     <Content Include="Branding\MainIcon.ico" />
     <Content Include="Branding\SplashScreen.png" />
+    <Content Include="Configuration\Application.xml" />
     <Content Include="Configuration\CommandBars.xml" />
     <Content Include="Configuration\Commands.xml" />
     <Content Include="Configuration\MainMenu.xml" />

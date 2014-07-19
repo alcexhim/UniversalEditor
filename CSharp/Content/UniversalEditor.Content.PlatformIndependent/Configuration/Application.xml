@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Configuration>
+		<Group ID="Application">
+			<Property ID="ConfirmExit" Value="true" />
+		</Group>
+	</Configuration>
+</UniversalEditor>
