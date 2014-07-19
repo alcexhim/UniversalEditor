@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor>
+	<OptionPanels>
+		<!-- Application -->
+		<OptionPanel ID="{6B7D5857-CDC7-482E-A6D1-A13E0E273C45}">
+			<Content>
+				<!-- Window layout -->
+				<OptionGroup ID="{1195B01E-3A92-4657-8571-5C4E79532330}">
+					<!-- Tabbed documents -->
+					<RadioButton ID="{7DA81430-F43B-43F0-8304-26AF47359B9B}" PropertyID="Application.WindowLayout" PropertyValue="TabbedDocuments" />
+					<RadioButton ID="{9126C5AD-E8EB-490E-8FE9-D642D3047498}" PropertyID="Application.WindowLayout" PropertyValue="MultipleDocuments" />
+					<RadioButton ID="{2B66334E-1461-4EC1-B3B9-6A81F8DFE463}" PropertyID="Application.WindowLayout" PropertyValue="SeparateWindows" />
+				</OptionGroup>
+				<!-- Title bar behavior -->
+				<OptionGroup ID="{84A39D7E-5315-4C8E-8807-A91AD69CC253}">
+					<!-- Do not display document-specific information in the title bar -->
+					<RadioButton ID="{C14E3ED3-BC07-4485-8094-8CAB40FFB4DD}" PropertyID="Application.TitleBarDocumentInformation" PropertyValue="None" />
+					<RadioButton ID="{E7E7AEBE-FD6E-4B25-96B4-F8DC9E8E7DE5}" PropertyID="Application.TitleBarDocumentInformation" PropertyValue="FileName" />
+					<RadioButton ID="{C409D76D-268E-479E-A089-3AC967991F2B}" PropertyID="Application.TitleBarDocumentInformation" PropertyValue="FullPath" />
+				</OptionGroup>
+				<OptionGroup ID="{BBF31831-AD72-4F15-9D46-5679E5F60125}">
+					<CheckBox ID="{D3FA1630-EA02-4220-98E9-6D90431955A6}" PropertyID="Extensions.OnlineGallery.Enabled" DefaultValue="true" />
+					<TextBox ID="{61C019AB-8E3E-43E4-8545-2BF342474C4B}" PropertyID="Extensions.OnlineGallery.URL" DefaultValue="https://www.universaleditor.com/extensions" />
+					<CheckBox ID="{F9C65C4C-C8EE-43B0-94B6-D29FF957C7F8}" PropertyID="Extensions.AutoCheckUpdates" DefaultValue="true" />
+					<CheckBox ID="{8C135D1E-D647-4843-B826-52B442B0B2EA}" PropertyID="Extensions.LoadUserExtensionsAsAdministrator" DefaultValue="false" />
+				</OptionGroup>
+			</Content>
+			<OptionPanels>
+				<OptionPanel ID="{F14BC2DB-DD07-4579-92D0-7E467758B284}">
+					<Content>
+						<File ID="{5BAC3438-91F6-4120-A389-DF8CD797AF01}" PropertyID="Application.Documents.DefaultUserDocumentsLocation" />
+						<File ID="{2D4F5BDE-CA6C-41CA-AF36-696DF1219377}" PropertyID="Application.Documents.DefaultUserDocumentsLocation" />
+						<CheckBox ID="{EE6D4B91-A5F4-452D-A718-E63E12EC539C}" PropertyID="Application.Documents.DetectFileChanges" />
+						<CheckBox ID="{80B3F83D-85E4-4BFC-9611-82BDA8C619C0}" Indent="1" PropertyID="Application.Documents.AutomaticallyReloadChangedFiles" />
+						<CheckBox ID="{148B7EF4-337B-4569-8FCD-E2CFD230C96E}" PropertyID="Application.Documents.AllowReadOnlyFileEditing" />
+						<CheckBox ID="{BDC05545-3F90-4B3D-AD7E-B74B3FAF365F}" PropertyID="Application.Documents.MaintainRecentlyUsedDocuments" />
+						<Number ID="{9376CE92-B15D-43D0-B367-E8F2916C1C98}" Indent="1" PropertyID="Application.Documents.RecentlyUsedDocumentsMaximum" />
+						<CheckBox ID="{40BFB292-8FB4-46D9-9986-6619424F84E5}" PropertyID="Application.Documents.MaintainRecentlyUsedProjects" />
+						<Number ID="{06913599-E19A-4C85-BD8B-D5BCFFD3C34A}" PropertyID="Application.Documents.RecentlyUsedProjectsMaximum" />
+						<CheckBox ID="{B6772081-4283-4F6A-B248-B4CD310D0BB1}" PropertyID="Application.Documents.MaintainDocumentUndoHistory" />
+						<Number ID="{45E113A5-137C-49EE-8AC5-E1CB652E4B98}" PropertyID="Application.Documents.DocumentUndoHistoryMaximum" />
+						
+						<!-- Automatic Recovery -->
+						<CheckBox ID="{10BA02ED-053D-4EF8-8D46-7F268EC5137A}" PropertyID="Application.Documents.AutoRecovery.Enabled" />
+						<Number ID="{14C57DB1-3CD0-4A4B-9CAE-C2F71CCF2E9D}" Indent="1" PropertyID="Application.Documents.AutoRecovery.Interval" />
+						<Number ID="{A3BC89EE-4FCC-40A2-A4BC-637BACF2C59F}" Indent="1" PropertyID="Application.Documents.AutoRecovery.Duration" />
+						<Directory ID="{83B97141-AB4E-402F-A6E4-2F1659273EA8}" PropertyID="Application.Documents.AutoRecovery.Location" />
+					</Content>
+				</OptionPanel>
+			</OptionPanels>
+		</OptionPanel>
+	</OptionPanels>
+</UniversalEditor>
