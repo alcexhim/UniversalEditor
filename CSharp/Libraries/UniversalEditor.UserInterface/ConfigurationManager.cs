@@ -66,5 +66,38 @@ namespace UniversalEditor.UserInterface
 			}
 			Document.Save(mvarLocalConfiguration, xdf, new Accessors.FileAccessor(FileName, true, true));
 		}
+
+		public void AddProperty(Property property, ConfigurationManagerPropertyScope scope)
+		{
+			switch (scope)
+			{
+				case ConfigurationManagerPropertyScope.Global:
+				{
+					mvarGlobalConfiguration.Properties.Add(property);
+					break;
+				}
+				case ConfigurationManagerPropertyScope.Local:
+				{
+					mvarLocalConfiguration.Properties.Add(property);
+					break;
+				}
+			}
+		}
+		public void AddGroup(Group group, ConfigurationManagerPropertyScope scope)
+		{
+			switch (scope)
+			{
+				case ConfigurationManagerPropertyScope.Global:
+				{
+					mvarGlobalConfiguration.Groups.Add(group);
+					break;
+				}
+				case ConfigurationManagerPropertyScope.Local:
+				{
+					mvarLocalConfiguration.Groups.Add(group);
+					break;
+				}
+			}
+		}
 	}
 }
