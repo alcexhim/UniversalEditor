@@ -139,12 +139,12 @@ namespace UniversalEditor.ObjectModels.PropertyList
 					Group parent = this.mvarGroups[propertyPath[0]];
 					for (int i = 1; i < propertyPath.Length - 1; i++)
 					{
-						parent = parent.Groups[propertyPath[i]];
 						if (parent == null)
 						{
 							result = defaultValue;
 							return result;
 						}
+						parent = parent.Groups[propertyPath[i]];
 					}
 					if (parent == null)
 					{

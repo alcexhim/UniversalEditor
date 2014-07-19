@@ -216,6 +216,11 @@ namespace UniversalEditor.UserInterface
 			});
 			#endregion
 
+			AttachCommandEventHandler("ViewStartPage", delegate(object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.ShowStartPage();
+			});
+
 			#endregion
 			#region Tools
 			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
@@ -403,7 +408,7 @@ namespace UniversalEditor.UserInterface
 			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, "*.xml", System.IO.SearchOption.AllDirectories);
 
 			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
-			
+
 			XMLDataFormat xdf = new XMLDataFormat();
 			foreach (string xmlfile in xmlfiles)
 			{
@@ -411,22 +416,21 @@ namespace UniversalEditor.UserInterface
 				Document doc = new Document(markup, xdf, new FileAccessor(xmlfile));
 				doc.Accessor.DefaultEncoding = IO.Encoding.UTF8;
 
-				doc.Accessor.Open ();
-				doc.Load ();
-				doc.Close ();
+				doc.Accessor.Open();
+				doc.Load();
+				doc.Close();
 
 				markup.CopyTo(mvarRawMarkup);
 
 				UpdateSplashScreenStatus("Loading XML configuration files", Array.IndexOf(xmlfiles, xmlfile) + 1);
 			}
 
-			UpdateSplashScreenStatus("Loading available commands");
-			
 			#endregion
 
 			#region Initialize the configuration with the loaded data
-			
-			MarkupTagElement tagCommands = (mvarRawMarkup.FindElement ("UniversalEditor", "Application", "Commands") as MarkupTagElement);
+			#region Commands
+			UpdateSplashScreenStatus("Loading available commands");
+			MarkupTagElement tagCommands = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Commands") as MarkupTagElement);
 			if (tagCommands != null)
 			{
 				foreach (MarkupElement elCommand in tagCommands.Elements)
@@ -434,10 +438,10 @@ namespace UniversalEditor.UserInterface
 					MarkupTagElement tagCommand = (elCommand as MarkupTagElement);
 					if (tagCommand == null) continue;
 					if (tagCommand.FullName != "Command") continue;
-					
+
 					MarkupAttribute attID = tagCommand.Attributes["ID"];
 					if (attID == null) continue;
-					
+
 					Command cmd = new Command();
 					cmd.ID = attID.Value;
 
@@ -446,7 +450,7 @@ namespace UniversalEditor.UserInterface
 					{
 						cmd.DefaultCommandID = attDefaultCommandID.Value;
 					}
-					
+
 					MarkupAttribute attTitle = tagCommand.Attributes["Title"];
 					if (attTitle != null)
 					{
@@ -473,30 +477,30 @@ namespace UniversalEditor.UserInterface
 									switch (strModifier.Trim().ToLower())
 									{
 										case "alt":
-										{
-											modifiers |= CommandShortcutKeyModifiers.Alt;
-											break;
-										}
+											{
+												modifiers |= CommandShortcutKeyModifiers.Alt;
+												break;
+											}
 										case "control":
-										{
-											modifiers |= CommandShortcutKeyModifiers.Control;
-											break;
-										}
+											{
+												modifiers |= CommandShortcutKeyModifiers.Control;
+												break;
+											}
 										case "meta":
-										{
-											modifiers |= CommandShortcutKeyModifiers.Meta;
-											break;
-										}
+											{
+												modifiers |= CommandShortcutKeyModifiers.Meta;
+												break;
+											}
 										case "shift":
-										{
-											modifiers |= CommandShortcutKeyModifiers.Shift;
-											break;
-										}
+											{
+												modifiers |= CommandShortcutKeyModifiers.Shift;
+												break;
+											}
 										case "super":
-										{
-											modifiers |= CommandShortcutKeyModifiers.Super;
-											break;
-										}
+											{
+												modifiers |= CommandShortcutKeyModifiers.Super;
+												break;
+											}
 									}
 								}
 							}
@@ -507,7 +511,7 @@ namespace UniversalEditor.UserInterface
 							cmd.ShortcutKey = new CommandShortcutKey(value, modifiers);
 						}
 					}
-					
+
 					MarkupTagElement tagItems = (tagCommand.Elements["Items"] as MarkupTagElement);
 					if (tagItems != null)
 					{
@@ -515,18 +519,19 @@ namespace UniversalEditor.UserInterface
 						{
 							MarkupTagElement tag = (el as MarkupTagElement);
 							if (tag == null) continue;
-							
+
 							InitializeMainMenuItem(tag, cmd);
 						}
 					}
-					
+
 					mvarCommands.Add(cmd);
 				}
 			}
-
+			#endregion
+			#region Main Menu Items
 			UpdateSplashScreenStatus("Loading main menu items");
-			
-			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement ("UniversalEditor", "Application", "MainMenu", "Items") as MarkupTagElement);
+
+			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "MainMenu", "Items") as MarkupTagElement);
 			foreach (MarkupElement elItem in tagMainMenuItems.Elements)
 			{
 				MarkupTagElement tagItem = (elItem as MarkupTagElement);
@@ -547,7 +552,8 @@ namespace UniversalEditor.UserInterface
 					InitializeCommandBar(tagCommandBar);
 				}
 			}
-			
+			#endregion
+			#region Languages
 			UpdateSplashScreenStatus("Loading languages and translations");
 
 			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Languages") as MarkupTagElement);
@@ -567,7 +573,6 @@ namespace UniversalEditor.UserInterface
 					mvarDefaultLanguage = mvarLanguages[attDefaultLanguageID.Value];
 				}
 			}
-			#endregion
 
 			UpdateSplashScreenStatus("Setting language");
 
@@ -578,9 +583,69 @@ namespace UniversalEditor.UserInterface
 					cmd.Title = mvarDefaultLanguage.GetCommandTitle(cmd.ID, cmd.ID);
 				}
 			}
+			#endregion
+
+			#region Global Configuration
+			{
+				MarkupTagElement tagConfiguration = (mvarRawMarkup.FindElement("UniversalEditor", "Configuration") as MarkupTagElement);
+				if (tagConfiguration != null)
+				{
+					foreach (MarkupElement el in tagConfiguration.Elements)
+					{
+						MarkupTagElement tag = (el as MarkupTagElement);
+						if (tag == null) continue;
+						LoadConfiguration(tag);
+					}
+				}
+			}
+			#endregion
 
 			UpdateSplashScreenStatus("Finalizing configuration");
 			ConfigurationManager.Load();
+			#endregion
+		}
+
+		private void LoadConfiguration(MarkupTagElement tag, Group group = null)
+		{
+			if (tag.FullName == "Group")
+			{
+				Group group1 = new Group();
+				group1.Name = tag.Attributes["ID"].Value;
+				foreach (MarkupElement el in tag.Elements)
+				{
+					MarkupTagElement tg = (el as MarkupTagElement);
+					if (tg == null) continue;
+					LoadConfiguration(tg, group1);
+				}
+
+				if (group == null)
+				{
+					mvarConfigurationManager.AddGroup(group1, ConfigurationManagerPropertyScope.Global);
+				}
+				else
+				{
+					group.Groups.Add(group1);
+				}
+			}
+			else if (tag.FullName == "Property")
+			{
+				Property property = new Property();
+				property.Name = tag.Attributes["ID"].Value;
+				MarkupAttribute att = tag.Attributes["Value"];
+				if (att != null)
+				{
+					property.Value = att.Value;
+				}
+
+				if (group == null)
+				{
+					mvarConfigurationManager.AddProperty(property, ConfigurationManagerPropertyScope.Global);
+				}
+				else
+				{
+					group.Properties.Add(property);
+				}
+			}
 		}
 
 		private void InitializeLanguage(MarkupTagElement tag)
