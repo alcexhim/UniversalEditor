@@ -30,7 +30,8 @@
 					<Command ID="FileCloseWindow" Title="ウィンドウ(_W)" />
 					
 					<Command ID="FilePrint" Title="印刷(_P)" />
-					
+
+					<Command ID="FileRestart" Title="リスタート(_R)" />
 					<Command ID="FileExit" Title="出口(_X)" />
 					
 					<!-- Edit -->

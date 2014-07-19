@@ -12,6 +12,7 @@
 					<Separator />
 					<CommandReference CommandID="FilePrint" />
 					<Separator />
+					<CommandReference CommandID="FileRestart" />
 					<CommandReference CommandID="FileExit" />
 				</Items>
 			</Command>
@@ -79,6 +80,7 @@
 			<Command ID="FilePrint">
 				<Shortcut Modifiers="Control" Key="P" />
 			</Command>
+			<Command ID="FileRestart" />
 			<Command ID="FileExit">
 				<Shortcut Modifiers="Control" Key="Q" />
 			</Command>

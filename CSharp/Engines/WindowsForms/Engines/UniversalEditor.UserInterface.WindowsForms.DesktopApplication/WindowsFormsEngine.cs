@@ -388,15 +388,20 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			return mw;
 		}
 
-		public override void ExitApplication()
+		protected override void RestartApplicationInternal()
 		{
-			if (LocalConfiguration.ConfirmExit)
+			Application.Restart();
+		}
+		protected override bool BeforeStopApplication()
+		{
+			if (ConfigurationManager.GetValue<bool>(new string[] { "Application", "ConfirmExit" }, false))
 			{
-				if (MessageBox.Show("Are you sure you wish to quit " + LocalConfiguration.ApplicationName + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
-				{
-					return;
-				}
+				if (MessageBox.Show("Are you sure you wish to quit " + LocalConfiguration.ApplicationName + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return false;
 			}
+			return base.BeforeStopApplication();
+		}
+		protected override void StopApplicationInternal()
+		{
 			Application.Exit();
 		}
 	}

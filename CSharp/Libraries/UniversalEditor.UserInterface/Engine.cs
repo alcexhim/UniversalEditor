@@ -124,9 +124,13 @@ namespace UniversalEditor.UserInterface
 			{
 				LastWindow.CloseFile();
 			});
+			AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
+			{
+				RestartApplication();
+			});
 			AttachCommandEventHandler("FileExit", delegate(object sender, EventArgs e)
 			{
-				ExitApplication();
+				StopApplication();
 			});
 			#endregion
 			#region Edit
@@ -249,10 +253,6 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 			#endregion
-		}
-
-		public virtual void ExitApplication()
-		{
 		}
 
 		private IHostApplicationWindowCollection mvarWindows = new IHostApplicationWindowCollection();
@@ -897,51 +897,79 @@ namespace UniversalEditor.UserInterface
 			HideSplashScreen();
 		}
 
+		private bool mvarRunning = false;
+		public bool Running { get { return mvarRunning; } }
+
 		public void StartApplication()
 		{
 			Engine.mvarCurrentEngine = this;
+			mvarRunning = true;
 
-			string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
-			if (ConfigurationManager.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
+			while (mvarRunning)
 			{
-				// The single instance should be unique per directory
-				INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
+				string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
+				if (ConfigurationManager.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
+				{
+					// The single instance should be unique per directory
+					INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
+				}
+				if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
+
+				string[] args1 = Environment.GetCommandLineArgs();
+				string[] args = new string[args1.Length - 1];
+				Array.Copy(args1, 1, args, 0, args.Length);
+
+				System.Collections.ObjectModel.Collection<string> selectedFileNames = new System.Collections.ObjectModel.Collection<string>();
+				foreach (string commandLineArgument in args)
+				{
+					selectedFileNames.Add(commandLineArgument);
+				}
+				mvarSelectedFileNames = new System.Collections.ObjectModel.ReadOnlyCollection<string>(selectedFileNames);
+
+				// Set up the base path for the current application. Should this be able to be
+				// overridden with a switch (/basepath:...) ?
+				mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+				BeforeInitialization();
+
+				// Initialize the branding for the selected application
+				InitializeBranding();
+
+				Initialize();
+
+				AfterInitializationInternal();
+				AfterInitialization();
+
+				OpenWindow(SelectedFileNames.ToArray<string>());
+
+				MainLoop();
+
+				SessionManager.Save();
+				BookmarksManager.Save();
+				RecentFileManager.Save();
+				ConfigurationManager.Save();
 			}
-			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
-
-			string[] args1 = Environment.GetCommandLineArgs();
-			string[] args = new string[args1.Length - 1];
-			Array.Copy(args1, 1, args, 0, args.Length);
-
-			System.Collections.ObjectModel.Collection<string> selectedFileNames = new System.Collections.ObjectModel.Collection<string>();
-			foreach (string commandLineArgument in args)
-			{
-				selectedFileNames.Add(commandLineArgument);
-			}
-			mvarSelectedFileNames = new System.Collections.ObjectModel.ReadOnlyCollection<string>(selectedFileNames);
-
-			// Set up the base path for the current application. Should this be able to be
-			// overridden with a switch (/basepath:...) ?
-			mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-			BeforeInitialization();
-
-			// Initialize the branding for the selected application
-			InitializeBranding();
-			
-			Initialize();
-
-			AfterInitializationInternal();
-			AfterInitialization();
-
-			OpenWindow(SelectedFileNames.ToArray<string>());
-
-			MainLoop();
-
-			SessionManager.Save();
-			BookmarksManager.Save();
-			RecentFileManager.Save();
-			ConfigurationManager.Save();
+		}
+		public void RestartApplication()
+		{
+			RestartApplicationInternal();
+		}
+		public void StopApplication()
+		{
+			if (!BeforeStopApplication()) return;
+			StopApplicationInternal();
+		}
+		protected virtual void RestartApplicationInternal()
+		{
+			StopApplication();
+			StartApplication();
+		}
+		protected virtual bool BeforeStopApplication()
+		{
+			return true;
+		}
+		protected virtual void StopApplicationInternal()
+		{
 		}
 	}
 }

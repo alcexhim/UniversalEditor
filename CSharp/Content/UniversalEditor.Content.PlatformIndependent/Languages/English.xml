@@ -72,7 +72,8 @@
 					<Command ID="FileCloseWindow" Title="_Window" />
 					
 					<Command ID="FilePrint" Title="_Print..." />
-					
+
+					<Command ID="FileRestart" Title="_Restart" />
 					<Command ID="FileExit" Title="E_xit" />
 					
 					<!-- Edit -->
