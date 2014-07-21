@@ -26,11 +26,47 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.WindowsForms.Editor
 			
 			// cboMaterialToon.SelectedIndex = 0;
 
-			PropertyGroup pgTorus_AU_IB = new PropertyGroup("Torus_AU_IB", "Torus");
-			Property pTranslate = pgTorus_AU_IB.Properties.Add("Translate", "[-3.713, 0.000, 3.984]", true);
-			pTranslate.Properties.Add("X", "-3.713");
-			pTranslate.Properties.Add("Y", "0.000");
-			pTranslate.Properties.Add("Z", "3.984");
+			PropertyDataType dtTorus = new PropertyDataType("Torus");
+
+			PropertyGroup pgTorus_AU_IB = new PropertyGroup("Torus_AU_IB", dtTorus);
+
+			PropertyDataType dtVector3 = new PropertyDataType("Vector3");
+			dtVector3.Properties.Add(new Property("X"));
+			dtVector3.Properties.Add(new Property("Y"));
+			dtVector3.Properties.Add(new Property("Z"));
+			dtVector3.PropertyValueRendering += delegate(object sender, PropertyValueRenderingEventArgs e)
+			{
+				StringBuilder sb = new StringBuilder();
+				sb.Append("{ ");
+				sb.Append(e.Property.Properties["X"].Value.ToString());
+				sb.Append(", ");
+				sb.Append(e.Property.Properties["Y"].Value.ToString());
+				sb.Append(", ");
+				sb.Append(e.Property.Properties["Z"].Value.ToString());
+				sb.Append(" }");
+				e.DisplayString = sb.ToString();
+			};
+			dtVector3.PropertyValueParsing += delegate(object sender, PropertyValueParsingEventArgs e)
+			{
+				string w = e.DisplayString;
+				if (!w.StartsWith("{") && !w.EndsWith("}"))
+				{
+					e.Cancel = true;
+					return;
+				}
+				w = w.Substring(1, w.Length - 2).Trim();
+				string[] x = w.Split(",");
+				if (x.Length != 3)
+				{
+				}
+			};
+
+			pgTorus_AU_IB.Properties.Add(new Property("Translate"));
+			pgTorus_AU_IB.Properties[pgTorus_AU_IB.Properties.Count - 1].DataType = dtVector3;
+			pgTorus_AU_IB.Properties[pgTorus_AU_IB.Properties.Count - 1].Properties["X"].Value = -3.713;
+			pgTorus_AU_IB.Properties[pgTorus_AU_IB.Properties.Count - 1].Properties["Y"].Value = 0.000;
+			pgTorus_AU_IB.Properties[pgTorus_AU_IB.Properties.Count - 1].Properties["Z"].Value = 3.984;
+
 			base.PropertyGroups.Add(pgTorus_AU_IB);
 		}
 
