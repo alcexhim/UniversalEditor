@@ -53,7 +53,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			pnlSolutionExplorer.ParentWindow = this;
 
 			this.Icon = LocalConfiguration.MainIcon;
-			this.Text = Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationName", "Universal Editor Platform");
+			this.Text = Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor Platform");
 			
 			mnuContextDocumentTypeDataFormat.Font = new Font(SystemFonts.MenuFont, FontStyle.Bold);
 
