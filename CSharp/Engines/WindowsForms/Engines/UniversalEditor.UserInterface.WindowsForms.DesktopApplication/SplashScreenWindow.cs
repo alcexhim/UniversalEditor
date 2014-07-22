@@ -29,6 +29,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			*/
 
 			lblTitle.Text = Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor");
+			this.Text = lblTitle.Text;
 
 			if (LocalConfiguration.SplashScreen.Image != null)
 			{
