@@ -233,7 +233,12 @@ namespace UniversalEditor.UserInterface
 				LastWindow.ShowOptionsDialog();
 			});
 			#endregion
-
+			#region Window
+			AttachCommandEventHandler("WindowNewWindow", delegate(object sender, EventArgs e)
+			{
+				OpenWindow();
+			});
+			#endregion
 			#region Help
 			Command helpLanguage = mvarCommands["HelpLanguage"];
 			if (helpLanguage != null)
@@ -422,7 +427,7 @@ namespace UniversalEditor.UserInterface
 
 				markup.CopyTo(mvarRawMarkup);
 
-				UpdateSplashScreenStatus("Loading XML configuration files", Array.IndexOf(xmlfiles, xmlfile) + 1);
+				// UpdateSplashScreenStatus("Loading XML configuration files", Array.IndexOf(xmlfiles, xmlfile) + 1);
 			}
 
 			#endregion
@@ -850,6 +855,10 @@ namespace UniversalEditor.UserInterface
 
 		private void Initialize()
 		{
+			// Initialize the XML files before anything else, since this also loads string tables needed
+			// to display the application title
+			InitializeXMLConfiguration();
+
 			System.Threading.Thread threadLoader = new System.Threading.Thread(threadLoader_ThreadStart);
 			threadLoader.Name = "Initialization Thread";
 			threadLoader.Start();
@@ -868,9 +877,6 @@ namespace UniversalEditor.UserInterface
 
 			UpdateSplashScreenStatus("Loading data formats...");
 			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-
-			// Initialize the XML files
-			InitializeXMLConfiguration();
 
 			// Initialize Recent File Manager
 			mvarRecentFileManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
