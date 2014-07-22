@@ -17,8 +17,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 			Font = SystemFonts.MenuFont;
 			lblApplicationTitle.Font = new Font(Font, FontStyle.Bold);
-			lblApplicationTitle.Text = Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor Platform");
-			lblPlatform.Visible = (lblApplicationTitle.Text != "Universal Editor Platform");
+			lblApplicationTitle.Text = Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor");
+			lblPlatform.Visible = (lblApplicationTitle.Text != "Universal Editor");
 
 			this.Text = "About " + lblApplicationTitle.Text;
 

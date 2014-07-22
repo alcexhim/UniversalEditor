@@ -243,7 +243,7 @@ namespace UniversalEditor.UserInterface
 			Command helpAboutPlatform = mvarCommands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
 			{
-				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, mvarDefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor Platform"));
+				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, mvarDefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor"));
 			}
 
 			Command helpLanguage = mvarCommands["HelpLanguage"];
