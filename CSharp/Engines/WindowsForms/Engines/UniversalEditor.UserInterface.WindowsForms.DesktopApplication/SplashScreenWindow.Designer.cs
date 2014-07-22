@@ -34,8 +34,9 @@
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
-			this.lblSeparator = new System.Windows.Forms.Label();
+			this.panel1 = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pictureBox1
@@ -52,9 +53,9 @@
 			// 
 			this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblStatus.Location = new System.Drawing.Point(12, 150);
+			this.lblStatus.Location = new System.Drawing.Point(12, 13);
 			this.lblStatus.Name = "lblStatus";
-			this.lblStatus.Size = new System.Drawing.Size(497, 16);
+			this.lblStatus.Size = new System.Drawing.Size(493, 16);
 			this.lblStatus.TabIndex = 2;
 			this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
@@ -62,10 +63,10 @@
 			// 
 			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(12, 175);
+			this.progressBar1.Location = new System.Drawing.Point(12, 38);
 			this.progressBar1.MarqueeAnimationSpeed = 5;
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(497, 23);
+			this.progressBar1.Size = new System.Drawing.Size(493, 23);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 3;
 			// 
@@ -93,35 +94,37 @@
 			this.label1.TabIndex = 4;
 			this.label1.Text = "version 4.0";
 			// 
-			// lblSeparator
+			// panel1
 			// 
-			this.lblSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblSeparator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.lblSeparator.Location = new System.Drawing.Point(12, 140);
-			this.lblSeparator.Name = "lblSeparator";
-			this.lblSeparator.Size = new System.Drawing.Size(497, 2);
-			this.lblSeparator.TabIndex = 5;
+			this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+			this.panel1.Controls.Add(this.lblStatus);
+			this.panel1.Controls.Add(this.progressBar1);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 134);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(517, 72);
+			this.panel1.TabIndex = 5;
 			// 
 			// SplashScreenWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(521, 210);
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+			this.ClientSize = new System.Drawing.Size(517, 206);
 			this.ControlBox = false;
-			this.Controls.Add(this.lblSeparator);
+			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.lblTitle);
-			this.Controls.Add(this.progressBar1);
-			this.Controls.Add(this.lblStatus);
 			this.Controls.Add(this.pictureBox1);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.ForeColor = System.Drawing.Color.White;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "SplashScreenWindow";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -133,6 +136,6 @@
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label lblTitle;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label lblSeparator;
+		private System.Windows.Forms.Panel panel1;
     }
 }
