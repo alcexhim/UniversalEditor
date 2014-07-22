@@ -905,50 +905,47 @@ namespace UniversalEditor.UserInterface
 			Engine.mvarCurrentEngine = this;
 			mvarRunning = true;
 
-			while (mvarRunning)
+			string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
+			if (ConfigurationManager.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
 			{
-				string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
-				if (ConfigurationManager.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
-				{
-					// The single instance should be unique per directory
-					INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
-				}
-				if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
-
-				string[] args1 = Environment.GetCommandLineArgs();
-				string[] args = new string[args1.Length - 1];
-				Array.Copy(args1, 1, args, 0, args.Length);
-
-				System.Collections.ObjectModel.Collection<string> selectedFileNames = new System.Collections.ObjectModel.Collection<string>();
-				foreach (string commandLineArgument in args)
-				{
-					selectedFileNames.Add(commandLineArgument);
-				}
-				mvarSelectedFileNames = new System.Collections.ObjectModel.ReadOnlyCollection<string>(selectedFileNames);
-
-				// Set up the base path for the current application. Should this be able to be
-				// overridden with a switch (/basepath:...) ?
-				mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-				BeforeInitialization();
-
-				// Initialize the branding for the selected application
-				InitializeBranding();
-
-				Initialize();
-
-				AfterInitializationInternal();
-				AfterInitialization();
-
-				OpenWindow(SelectedFileNames.ToArray<string>());
-
-				MainLoop();
-
-				SessionManager.Save();
-				BookmarksManager.Save();
-				RecentFileManager.Save();
-				ConfigurationManager.Save();
+				// The single instance should be unique per directory
+				INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
 			}
+			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
+
+			string[] args1 = Environment.GetCommandLineArgs();
+			string[] args = new string[args1.Length - 1];
+			Array.Copy(args1, 1, args, 0, args.Length);
+
+			System.Collections.ObjectModel.Collection<string> selectedFileNames = new System.Collections.ObjectModel.Collection<string>();
+			foreach (string commandLineArgument in args)
+			{
+				selectedFileNames.Add(commandLineArgument);
+			}
+			mvarSelectedFileNames = new System.Collections.ObjectModel.ReadOnlyCollection<string>(selectedFileNames);
+
+			// Set up the base path for the current application. Should this be able to be
+			// overridden with a switch (/basepath:...) ?
+			mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+			BeforeInitialization();
+
+			// Initialize the branding for the selected application
+			InitializeBranding();
+
+			Initialize();
+
+			AfterInitializationInternal();
+			AfterInitialization();
+
+			OpenWindow(SelectedFileNames.ToArray<string>());
+
+			MainLoop();
+
+			SessionManager.Save();
+			BookmarksManager.Save();
+			RecentFileManager.Save();
+			ConfigurationManager.Save();
 		}
 		public void RestartApplication()
 		{

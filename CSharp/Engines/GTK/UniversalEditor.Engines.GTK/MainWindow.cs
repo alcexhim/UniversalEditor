@@ -17,6 +17,17 @@ namespace UniversalEditor.Engines.GTK
 			tbsDocumentTabs.RemovePage(0);
 		}
 		
+		public void ShowStartPage()
+		{
+			// AddDocumentTab(new Panels.StartPage(), "Start Page", null);
+		}
+		public void SwitchPerspective(int perspective)
+		{
+			Gtk.MessageDialog dlg = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Switch to perspective " + perspective.ToString () + " not implemented!");
+			dlg.Run ();
+			dlg.Destroy();
+		}
+		
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
 		{
 			Engine.CurrentEngine.Windows.Remove (this);

@@ -16,7 +16,7 @@ namespace UniversalEditor.Engines.GTK
 			Application.Run ();
 		}
 		
-		public override void ExitApplication ()
+		protected override void StopApplicationInternal ()
 		{
 			Application.Quit ();
 		}
