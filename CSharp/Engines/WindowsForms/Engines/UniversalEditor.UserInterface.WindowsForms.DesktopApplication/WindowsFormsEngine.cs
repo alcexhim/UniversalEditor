@@ -156,9 +156,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			if (LocalConfiguration.SplashScreen.Enabled)
 			{
+				int spins = 0, maxspins = 30;
+				if (splasher == null) return;
+
 				while (splasher == null)
 				{
 					System.Threading.Thread.Sleep(500);
+					if (spins == maxspins) return;
+					spins++;
 				}
 				splasher.InvokeUpdateStatus(message);
 			}
