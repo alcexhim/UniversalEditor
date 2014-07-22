@@ -240,6 +240,12 @@ namespace UniversalEditor.UserInterface
 			});
 			#endregion
 			#region Help
+			Command helpAboutPlatform = mvarCommands["HelpAboutPlatform"];
+			if (helpAboutPlatform != null)
+			{
+				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, mvarDefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor Platform"));
+			}
+
 			Command helpLanguage = mvarCommands["HelpLanguage"];
 			if (helpLanguage != null)
 			{
