@@ -401,7 +401,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			if (ConfigurationManager.GetValue<bool>(new string[] { "Application", "ConfirmExit" }, false))
 			{
-				if (MessageBox.Show("Are you sure you wish to quit " + LocalConfiguration.ApplicationName + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return false;
+				if (MessageBox.Show("Are you sure you wish to quit " + Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle") + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return false;
 			}
 			return base.BeforeStopApplication();
 		}
