@@ -111,7 +111,7 @@
 					<Command ID="HelpViewHelp" Title="View _Help" />
 					<Command ID="HelpCustomerFeedbackOptions" Title="Customer _Feedback Options..." />
 					<Command ID="HelpLicensingAndActivation" Title="_Licensing and Activation..." />
-					<Command ID="HelpAboutPlatform" Title="_About Universal Editor Platform" />
+					<Command ID="HelpAboutPlatform" Title="_About {0}" />
 				</Commands>
 			</Language>
 		</Languages>
