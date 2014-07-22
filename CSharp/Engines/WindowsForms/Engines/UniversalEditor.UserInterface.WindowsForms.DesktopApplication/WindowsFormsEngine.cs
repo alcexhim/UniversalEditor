@@ -26,15 +26,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			base.AfterInitialization();
 
-			Commands["HelpLicensingAndActivation"].Executed += delegate(object sender, EventArgs e)
+			AttachCommandEventHandler("HelpLicensingAndActivation", delegate(object sender, EventArgs e)
 			{
 				MessageBox.Show("This product has already been activated.", "Licensing and Activation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			};
-			Commands["HelpAboutPlatform"].Executed += delegate(object sender, EventArgs e)
+			});
+			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
 			{
 				AboutDialog dlg = new AboutDialog();
 				dlg.ShowDialog();
-			};
+			});
 		}
 
 		protected override void InitializeBranding()
