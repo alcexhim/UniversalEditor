@@ -1575,7 +1575,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			if (!WindowsFormsEngine.SessionLoading && Engine.CurrentEngine.Windows.Count == 0)
 			{
-				Application.Exit();
+				if (Engine.CurrentEngine.ConfigurationManager.GetValue<bool>(new string[] { "Application", "ConfirmExit" }, false))
+				{
+					if (MessageBox.Show("Are you sure you wish to quit " + Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle") + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return;
+				}
+				Engine.CurrentEngine.StopApplication();
 			}
 		}
 		#endregion
