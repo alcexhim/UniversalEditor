@@ -26,15 +26,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			base.AfterInitialization();
 
-			Commands["HelpLicensingAndActivation"].Executed += delegate(object sender, EventArgs e)
+			AttachCommandEventHandler("HelpLicensingAndActivation", delegate(object sender, EventArgs e)
 			{
 				MessageBox.Show("This product has already been activated.", "Licensing and Activation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			};
-			Commands["HelpAboutPlatform"].Executed += delegate(object sender, EventArgs e)
+			});
+			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
 			{
 				AboutDialog dlg = new AboutDialog();
 				dlg.ShowDialog();
-			};
+			});
 		}
 
 		protected override void InitializeBranding()
@@ -156,9 +156,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			if (LocalConfiguration.SplashScreen.Enabled)
 			{
+				int spins = 0, maxspins = 30;
+				if (splasher == null) return;
+
 				while (splasher == null)
 				{
 					System.Threading.Thread.Sleep(500);
+					if (spins == maxspins) return;
+					spins++;
 				}
 				splasher.InvokeUpdateStatus(message);
 			}
@@ -396,7 +401,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			if (ConfigurationManager.GetValue<bool>(new string[] { "Application", "ConfirmExit" }, false))
 			{
-				if (MessageBox.Show("Are you sure you wish to quit " + LocalConfiguration.ApplicationName + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return false;
+				if (MessageBox.Show("Are you sure you wish to quit " + Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle") + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return false;
 			}
 			return base.BeforeStopApplication();
 		}

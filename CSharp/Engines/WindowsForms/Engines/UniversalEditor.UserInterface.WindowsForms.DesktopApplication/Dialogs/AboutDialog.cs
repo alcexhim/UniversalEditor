@@ -7,97 +7,101 @@ using System.Windows.Forms;
 
 namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 {
-    public partial class AboutDialog : Glue.GlueWindow
-    {
-        public AboutDialog()
-        {
-            InitializeComponent();
-            InitializeImageLists();
-            InitializeInstalledComponentsTab();
+	public partial class AboutDialog : Glue.GlueWindow
+	{
+		public AboutDialog()
+		{
+			InitializeComponent();
+			InitializeImageLists();
+			InitializeInstalledComponentsTab();
 
-            Font = SystemFonts.MenuFont;
-            lblApplicationTitle.Font = new Font(Font, FontStyle.Bold);
+			Font = SystemFonts.MenuFont;
+			lblApplicationTitle.Font = new Font(Font, FontStyle.Bold);
+			lblApplicationTitle.Text = Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor");
+			lblPlatform.Visible = (lblApplicationTitle.Text != "Universal Editor");
 
-            lblVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        }
+			this.Text = "About " + lblApplicationTitle.Text;
 
-        private void InitializeImageLists()
-        {
-            IconMethods.PopulateSystemIcons(ref imlSmallIcons);
-        }
-        private void InitializeInstalledComponentsTab()
-        {
-            tvComponents.Nodes.Clear();
+			lblVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		}
 
-            #region Object Models
-            {
-                TreeNode tnParent = null;
-                ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-                foreach (ObjectModelReference omr in omrs)
-                {
-                    string title = omr.ObjectModelType.Assembly.GetName().Name;
-                    object[] atts = omr.ObjectModelType.Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
-                    if (atts.Length > 0)
-                    {
-                        title = (atts[0] as System.Reflection.AssemblyTitleAttribute).Title;
-                    }
+		private void InitializeImageLists()
+		{
+			IconMethods.PopulateSystemIcons(ref imlSmallIcons);
+		}
+		private void InitializeInstalledComponentsTab()
+		{
+			tvComponents.Nodes.Clear();
 
-                    if (tnParent == null)
-                    {
-                        if (tvComponents.Nodes.ContainsKey(title))
-                        {
-                            tnParent = tvComponents.Nodes[title];
-                        }
-                        else
-                        {
-                            tnParent = tvComponents.Nodes.Add(title, title, "LibraryClosed");
-                        }
-                    }
-                    else
-                    {
-                        if (tvComponents.Nodes.ContainsKey(title))
-                        {
-                            tnParent = tnParent.Nodes[title];
-                        }
-                        else
-                        {
-                            tnParent = tnParent.Nodes.Add(title, title, "LibraryClosed", "LibraryClosed");
-                        }
-                    }
-                    tnParent.Tag = omr.ObjectModelType.Assembly;
+			#region Object Models
+			{
+				TreeNode tnParent = null;
+				ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+				foreach (ObjectModelReference omr in omrs)
+				{
+					string title = omr.ObjectModelType.Assembly.GetName().Name;
+					object[] atts = omr.ObjectModelType.Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
+					if (atts.Length > 0)
+					{
+						title = (atts[0] as System.Reflection.AssemblyTitleAttribute).Title;
+					}
 
-                    foreach (string s in omr.Path)
-                    {
-                        if (tnParent == null)
-                        {
-                            if (tvComponents.Nodes.ContainsKey(s))
-                            {
-                                tnParent = tvComponents.Nodes[s];
-                            }
-                            else
-                            {
-                                tnParent = tvComponents.Nodes.Add(s, s, "generic-folder-closed", "generic-folder-closed");
-                            }
-                        }
-                        else
-                        {
-                            if (tnParent.Nodes.ContainsKey(s))
-                            {
-                                tnParent = tnParent.Nodes[s];
-                            }
-                            else
-                            {
-                                tnParent = tnParent.Nodes.Add(s, s, "generic-folder-closed", "generic-folder-closed");
-                            }
-                        }
+					if (tnParent == null)
+					{
+						if (tvComponents.Nodes.ContainsKey(title))
+						{
+							tnParent = tvComponents.Nodes[title];
+						}
+						else
+						{
+							tnParent = tvComponents.Nodes.Add(title, title, "LibraryClosed");
+						}
+					}
+					else
+					{
+						if (tvComponents.Nodes.ContainsKey(title))
+						{
+							tnParent = tnParent.Nodes[title];
+						}
+						else
+						{
+							tnParent = tnParent.Nodes.Add(title, title, "LibraryClosed", "LibraryClosed");
+						}
+					}
+					tnParent.Tag = omr.ObjectModelType.Assembly;
 
-                        if (Array.IndexOf<string>(omr.Path, s) == omr.Path.Length - 1)
-                        {
-                            tnParent.ImageKey = "ObjectModel";
-                            tnParent.SelectedImageKey = "ObjectModel";
-                            tnParent.Tag = omr;
+					foreach (string s in omr.Path)
+					{
+						if (tnParent == null)
+						{
+							if (tvComponents.Nodes.ContainsKey(s))
+							{
+								tnParent = tvComponents.Nodes[s];
+							}
+							else
+							{
+								tnParent = tvComponents.Nodes.Add(s, s, "generic-folder-closed", "generic-folder-closed");
+							}
+						}
+						else
+						{
+							if (tnParent.Nodes.ContainsKey(s))
+							{
+								tnParent = tnParent.Nodes[s];
+							}
+							else
+							{
+								tnParent = tnParent.Nodes.Add(s, s, "generic-folder-closed", "generic-folder-closed");
+							}
+						}
 
-                            DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(omr);
+						if (Array.IndexOf<string>(omr.Path, s) == omr.Path.Length - 1)
+						{
+							tnParent.ImageKey = "ObjectModel";
+							tnParent.SelectedImageKey = "ObjectModel";
+							tnParent.Tag = omr;
+
+							DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(omr);
 							if (dfrs.Length > 0)
 							{
 								TreeNode tnParentDataFormats = null;
@@ -150,149 +154,149 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 									}
 								}
 							}
-                        }
-                    }
-                    tnParent = null;
-                }
-            }
-            #endregion
+						}
+					}
+					tnParent = null;
+				}
+			}
+			#endregion
 			tvComponents.Sort();
-        }
+		}
 
-        private void tvComponents_AfterExpand(object sender, TreeViewEventArgs e)
-        {
-            UpdateNodeImage(e.Node);
-        }
-        private void tvComponents_AfterCollapse(object sender, TreeViewEventArgs e)
-        {
-            UpdateNodeImage(e.Node);
-        }
+		private void tvComponents_AfterExpand(object sender, TreeViewEventArgs e)
+		{
+			UpdateNodeImage(e.Node);
+		}
+		private void tvComponents_AfterCollapse(object sender, TreeViewEventArgs e)
+		{
+			UpdateNodeImage(e.Node);
+		}
 
-        private void UpdateNodeImage(TreeNode node)
-        {
-            if (node == null) return;
-            switch (node.ImageKey)
-            {
-                case "LibraryClosed":
-                {
-                    node.ImageKey = "LibraryOpen";
-                    node.SelectedImageKey = "LibraryOpen";
-                    break;
-                }
-                case "LibraryOpen":
-                {
-                    node.ImageKey = "LibraryClosed";
-                    node.SelectedImageKey = "LibraryClosed";
-                    break;
-                }
-                case "generic-folder-closed":
-                {
-                    node.ImageKey = "generic-folder-open";
-                    node.SelectedImageKey = "generic-folder-open";
-                    break;
-                }
-                case "generic-folder-open":
-                {
-                    node.ImageKey = "generic-folder-closed";
-                    node.SelectedImageKey = "generic-folder-closed";
-                    break;
-                }
-            }
-        }
+		private void UpdateNodeImage(TreeNode node)
+		{
+			if (node == null) return;
+			switch (node.ImageKey)
+			{
+				case "LibraryClosed":
+				{
+					node.ImageKey = "LibraryOpen";
+					node.SelectedImageKey = "LibraryOpen";
+					break;
+				}
+				case "LibraryOpen":
+				{
+					node.ImageKey = "LibraryClosed";
+					node.SelectedImageKey = "LibraryClosed";
+					break;
+				}
+				case "generic-folder-closed":
+				{
+					node.ImageKey = "generic-folder-open";
+					node.SelectedImageKey = "generic-folder-open";
+					break;
+				}
+				case "generic-folder-open":
+				{
+					node.ImageKey = "generic-folder-closed";
+					node.SelectedImageKey = "generic-folder-closed";
+					break;
+				}
+			}
+		}
 
-        private void tvComponents_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node == null) return;
+		private void tvComponents_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			if (e.Node == null) return;
 
-            pnlAssemblyInfo.Visible = false;
-            pnlAssemblyInfo.Enabled = false;
+			pnlAssemblyInfo.Visible = false;
+			pnlAssemblyInfo.Enabled = false;
 
-            pnlObjectModelInfo.Visible = false;
-            pnlObjectModelInfo.Enabled = false;
+			pnlObjectModelInfo.Visible = false;
+			pnlObjectModelInfo.Enabled = false;
 
-            pnlDataFormatInfo.Visible = false;
-            pnlDataFormatInfo.Enabled = false;
+			pnlDataFormatInfo.Visible = false;
+			pnlDataFormatInfo.Enabled = false;
 
-            if (e.Node.Tag is System.Reflection.Assembly)
-            {
-                System.Reflection.Assembly asm = (e.Node.Tag as System.Reflection.Assembly);
+			if (e.Node.Tag is System.Reflection.Assembly)
+			{
+				System.Reflection.Assembly asm = (e.Node.Tag as System.Reflection.Assembly);
 
-                txtAssemblyFullName.Text = asm.FullName;
-                txtAssemblyLocation.Text = asm.Location;
+				txtAssemblyFullName.Text = asm.FullName;
+				txtAssemblyLocation.Text = asm.Location;
 
-                object[] atts = asm.GetCustomAttributes(typeof(System.Reflection.AssemblyDescriptionAttribute), false);
-                if (atts.Length > 0)
-                {
-                    txtAssemblyDescription.Text = ((atts[0] as System.Reflection.AssemblyDescriptionAttribute).Description);
-                }
+				object[] atts = asm.GetCustomAttributes(typeof(System.Reflection.AssemblyDescriptionAttribute), false);
+				if (atts.Length > 0)
+				{
+					txtAssemblyDescription.Text = ((atts[0] as System.Reflection.AssemblyDescriptionAttribute).Description);
+				}
 
-                pnlAssemblyInfo.Enabled = true;
-                pnlAssemblyInfo.Visible = true;
-            }
-            else if (e.Node.Tag is ObjectModelReference)
-            {
-                ObjectModelReference omr = (e.Node.Tag as ObjectModelReference);
-                txtObjectModelID.Text = omr.ObjectModelID.ToString("B");
-                if (omr.ObjectModelTypeName == null)
-                {
-                    txtObjectModelTypeName.Text = "(null)";
-                }
-                else
-                {
-                    txtObjectModelTypeName.Text = omr.ObjectModelTypeName;
-                }
-                txtObjectModelTitle.Text = omr.Title;
+				pnlAssemblyInfo.Enabled = true;
+				pnlAssemblyInfo.Visible = true;
+			}
+			else if (e.Node.Tag is ObjectModelReference)
+			{
+				ObjectModelReference omr = (e.Node.Tag as ObjectModelReference);
+				txtObjectModelID.Text = omr.ObjectModelID.ToString("B");
+				if (omr.ObjectModelTypeName == null)
+				{
+					txtObjectModelTypeName.Text = "(null)";
+				}
+				else
+				{
+					txtObjectModelTypeName.Text = omr.ObjectModelTypeName;
+				}
+				txtObjectModelTitle.Text = omr.Title;
 
-                pnlObjectModelInfo.Enabled = true;
-                pnlObjectModelInfo.Visible = true;
-            }
-            else if (e.Node.Tag is DataFormatReference)
-            {
-                DataFormatReference dfr = (e.Node.Tag as DataFormatReference);
-                txtDataFormatID.Text = dfr.ID.ToString("B");
-                if (dfr.DataFormatType != null)
-                {
-                    txtDataFormatTypeName.Text = dfr.DataFormatType.FullName;
-                }
-                else
-                {
-                    txtDataFormatTypeName.Text = "(null)";
-                }
+				pnlObjectModelInfo.Enabled = true;
+				pnlObjectModelInfo.Visible = true;
+			}
+			else if (e.Node.Tag is DataFormatReference)
+			{
+				DataFormatReference dfr = (e.Node.Tag as DataFormatReference);
+				txtDataFormatID.Text = dfr.ID.ToString("B");
+				if (dfr.DataFormatType != null)
+				{
+					txtDataFormatTypeName.Text = dfr.DataFormatType.FullName;
+				}
+				else
+				{
+					txtDataFormatTypeName.Text = "(null)";
+				}
 
-                lvDataFormatFilters.Items.Clear();
-                foreach (DataFormatFilter filter in dfr.Filters)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = filter.Title;
+				lvDataFormatFilters.Items.Clear();
+				foreach (DataFormatFilter filter in dfr.Filters)
+				{
+					ListViewItem lvi = new ListViewItem();
+					lvi.Text = filter.Title;
 
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string s in filter.FileNameFilters)
-                    {
-                        sb.Append(s);
-                        if (filter.FileNameFilters.IndexOf(s) < filter.FileNameFilters.Count - 1)
-                        {
-                            sb.Append(", ");
-                        }
-                    }
-                    lvi.SubItems.Add(sb.ToString());
-                    lvDataFormatFilters.Items.Add(lvi);
-                }
-                foreach (string ct in dfr.ContentTypes)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = ct;
-                    lvDataFormatContentTypes.Items.Add(lvi);
-                }
+					StringBuilder sb = new StringBuilder();
+					foreach (string s in filter.FileNameFilters)
+					{
+						sb.Append(s);
+						if (filter.FileNameFilters.IndexOf(s) < filter.FileNameFilters.Count - 1)
+						{
+							sb.Append(", ");
+						}
+					}
+					lvi.SubItems.Add(sb.ToString());
+					lvDataFormatFilters.Items.Add(lvi);
+				}
+				foreach (string ct in dfr.ContentTypes)
+				{
+					ListViewItem lvi = new ListViewItem();
+					lvi.Text = ct;
+					lvDataFormatContentTypes.Items.Add(lvi);
+				}
 
-                pnlDataFormatInfo.Enabled = true;
-                pnlDataFormatInfo.Visible = true;
-            }
-        }
+				pnlDataFormatInfo.Enabled = true;
+				pnlDataFormatInfo.Visible = true;
+			}
+		}
 
-        private void cmdOpenContainingFolder_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(System.IO.Path.GetDirectoryName(txtAssemblyLocation.Text));
-        }
+		private void cmdOpenContainingFolder_Click(object sender, EventArgs e)
+		{
+			System.Diagnostics.Process.Start(System.IO.Path.GetDirectoryName(txtAssemblyLocation.Text));
+		}
 
-    }
+	}
 }
