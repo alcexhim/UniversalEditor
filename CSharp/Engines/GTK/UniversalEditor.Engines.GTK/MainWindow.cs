@@ -75,6 +75,39 @@ namespace UniversalEditor.Engines.GTK
 			}
 			menubar1.ShowAll ();
 		}
+
+		private Gdk.Key AccelKeyFromCommandShortcutKey (CommandShortcutKey shortcutKey)
+		{
+			AccelKey ak = new AccelKey();
+			switch (shortcutKey.Value)
+			{
+				case CommandShortcutKeyValue.A: ak.Key = Gdk.Key.A; break;
+				case CommandShortcutKeyValue.B: ak.Key = Gdk.Key.B; break;
+			}
+			if (((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Alt) == CommandShortcutKeyModifiers.Alt)
+			    || ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Meta) == CommandShortcutKeyModifiers.Meta))
+			{
+				ak.AccelMods |= Gdk.ModifierType.MetaMask;
+			}
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Control) == CommandShortcutKeyModifiers.Control)
+			{
+				ak.AccelMods |= Gdk.ModifierType.ControlMask;
+			}
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Shift) == CommandShortcutKeyModifiers.Shift)
+			{
+				ak.AccelMods |= Gdk.ModifierType.ShiftMask;
+			}
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Super) == CommandShortcutKeyModifiers.Super)
+			{
+				ak.AccelMods |= Gdk.ModifierType.SuperMask;
+			}
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Hyper) == CommandShortcutKeyModifiers.Hyper)
+			{
+				ak.AccelMods |= Gdk.ModifierType.HyperMask;
+			}
+			return ak;
+		}
+
 		private void CreateCommandItem(CommandItem item, Menu parentMenu)
 		{
 			Gtk.MenuItem menuItem = null;
@@ -90,6 +123,7 @@ namespace UniversalEditor.Engines.GTK
 				}
 				
 				menuItem = new Gtk.MenuItem(cmd.Title);
+				menuItem.AddAccelerator("signal", new AccelGroup(), AccelKeyFromCommandShortcutKey(cmd.ShortcutKey));
 				if (cmd.Items.Count > 0)
 				{
 					Menu submenu = CreateCommandItemSubmenu(cmd);
