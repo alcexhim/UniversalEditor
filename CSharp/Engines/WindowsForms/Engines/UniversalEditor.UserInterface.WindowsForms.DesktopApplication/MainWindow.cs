@@ -307,11 +307,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private void InitializeDockingWindows()
 		{
 			dwSolutionExplorer = dcc.Windows.Add("Solution Explorer", pnlSolutionExplorer);
+			
 			dwProperties = dcc.Windows.Add("Properties", pgc);
+			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Size = 300;
+
+			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Windows.Add(dwProperties);
+
 			dwToolbox = dcc.Windows.Add("Toolbox", new AwesomeControls.Toolbox.ToolboxControl());
 
 			dcc.Areas[DockPosition.Right].Areas[DockPosition.Top].Windows.Add(dwSolutionExplorer);
-			dcc.Areas[DockPosition.Right].Areas[DockPosition.Bottom].Windows.Add(dwProperties);
 			
 			dcc.Areas[DockPosition.Left].Windows.Add(dwToolbox);
 			dwToolbox.Behavior = DockBehavior.AutoHide;
@@ -622,10 +626,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 			}
 			mvarEditorSpecificMenuItems.Clear();
-
+			#endregion
 			#region Remove Editor-Specific Property Pages
 			pgc.Groups.Clear();
-			#endregion
 			#endregion
 
 			if (CurrentDocument != null)
