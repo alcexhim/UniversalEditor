@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Output\Debug\Plugins\UniversalEditor.Plugins.Nintendo.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,8 @@
   <ItemGroup>
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCDataFormat.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCExtendedHeader.cs" />
+    <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCLicensee.cs" />
+    <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCRegion.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCSaveRAMSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
