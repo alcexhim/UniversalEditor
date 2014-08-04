@@ -51,6 +51,23 @@ namespace UniversalEditor
 		public CustomOptionFieldChoice(string title) : this(title, title, false)
 		{
 		}
+		public CustomOptionFieldChoice(object value)
+		{
+			if (value != null)
+			{
+				mvarTitle = value.ToString();
+			}
+			mvarValue = value;
+		}
+		public CustomOptionFieldChoice(object value, bool isDefault)
+		{
+			if (value != null)
+			{
+				mvarTitle = value.ToString();
+			}
+			mvarValue = value;
+			mvarIsDefault = isDefault;
+		}
 		public CustomOptionFieldChoice(string title, object value) : this(title, value, false)
 		{
 		}
