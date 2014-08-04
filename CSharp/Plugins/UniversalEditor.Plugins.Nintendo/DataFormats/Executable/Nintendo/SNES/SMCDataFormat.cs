@@ -356,8 +356,8 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 
 			byte versionNumber = reader.ReadByte();
 
-			byte checksumComplement = reader.ReadByte();
-			byte checksum = reader.ReadByte();
+			ushort checksumComplement = reader.ReadUInt16();
+			ushort checksum = reader.ReadUInt16();
 
 			int checksumCheck = ((int)checksum + (int)checksumComplement);
 			if (checksumCheck != 0xFFFF) throw new InvalidDataFormatException("Invalid checksum/checksum complement pair");
