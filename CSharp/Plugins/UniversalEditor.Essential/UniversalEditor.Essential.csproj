@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -55,6 +55,10 @@
     <Compile Include="DataFormats\PropertyList\UniversalPropertyList\VariantType.cs" />
     <Compile Include="DataFormats\PropertyList\WindowsConfigurationDataFormat.cs" />
     <Compile Include="DataFormats\PropertyList\XML\XMLPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutAction.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutStartupNotifyBehavior.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutType.cs" />
     <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFDataChunk.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="ObjectModels\Project\ProjectFileSystem.cs" />
     <Compile Include="ObjectModels\Project\ProjectFolder.cs" />
     <Compile Include="ObjectModels\Project\Reference.cs" />
+    <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
     <Compile Include="ProjectType.cs" />
