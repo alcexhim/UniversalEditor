@@ -105,6 +105,12 @@
     <Compile Include="Editors\PlainTextEditor.Designer.cs">
       <DependentUpon>PlainTextEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editors\ShortcutEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\ShortcutEditor.Designer.cs">
+      <DependentUpon>ShortcutEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="IconMethods.cs" />
     <Compile Include="OptionPanel.cs">
       <SubType>UserControl</SubType>
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\PlainTextEditor.resx">
       <DependentUpon>PlainTextEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\ShortcutEditor.resx">
+      <DependentUpon>ShortcutEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

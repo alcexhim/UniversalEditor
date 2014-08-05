@@ -100,6 +100,12 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\SynthesizedAudioEditor.Designer.cs">
       <DependentUpon>SynthesizedAudioEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.designer.cs">
+      <DependentUpon>VoicebankEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\Multimedia\Audio\Synthesized\SynthesizedAudioEditor.resx">
       <DependentUpon>SynthesizedAudioEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.resx">
+      <DependentUpon>VoicebankEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditor.resx">
       <DependentUpon>WaveformAudioEditor.cs</DependentUpon>

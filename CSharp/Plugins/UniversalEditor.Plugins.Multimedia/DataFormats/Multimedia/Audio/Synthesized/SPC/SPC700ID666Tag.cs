@@ -1,5 +1,5 @@
-﻿// one line to give the program's name and an idea of what it does.
-// Copyright (C) yyyy  name of author
+﻿// Universal Editor DataFormat for loading SPC700 synthesized audio files
+// Copyright (C) 2014  Mike Becker's Software
 // 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
