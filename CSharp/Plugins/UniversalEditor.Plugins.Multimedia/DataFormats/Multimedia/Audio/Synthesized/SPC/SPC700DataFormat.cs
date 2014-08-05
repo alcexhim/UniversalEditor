@@ -1,6 +1,7 @@
 using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
+
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 {
 	public class SPC700DataFormat : DataFormat
@@ -10,12 +11,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 			DataFormatReference dfr = base.MakeReference();
 			dfr.Filters.Add("SNES-SPC700 sound file", new byte?[][] { new byte?[] { (byte)'S', (byte)'N', (byte)'E', (byte)'S', (byte)'-', (byte)'S', (byte)'P', (byte)'C', (byte)'7', (byte)'0', (byte)'0', (byte)' ', (byte)'S', (byte)'o', (byte)'u', (byte)'n', (byte)'d', (byte)' ', (byte)'F', (byte)'i', (byte)'l', (byte)'e', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a' } }, new string[] { "*.spc" });
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
-            
-            dfr.ExportOptions.Add(new CustomOptionChoice("Generator", "&Generator:", true,
-                new CustomOptionFieldChoice("Unknown", SPC700Emulator.Unknown, true),
-                new CustomOptionFieldChoice("ZSNES", SPC700Emulator.ZSNES),
-                new CustomOptionFieldChoice("Snes9x", SPC700Emulator.Snes9x)
-            ));
+			
+			dfr.ExportOptions.Add(new CustomOptionChoice("Generator", "&Generator:", true,
+				new CustomOptionFieldChoice("Unknown", SPC700Emulator.Unknown, true),
+				new CustomOptionFieldChoice("ZSNES", SPC700Emulator.ZSNES),
+				new CustomOptionFieldChoice("Snes9x", SPC700Emulator.Snes9x)
+			));
 
 			return dfr;
 		}
@@ -25,19 +26,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 		private byte mvarID666DefaultChannelDisables = 0;
 		public byte ID666DefaultChannelDisables { get { return mvarID666DefaultChannelDisables; } set { mvarID666DefaultChannelDisables = value; } }
 
-        private SPC700Emulator mvarGenerator = SPC700Emulator.Unknown;
-        /// <summary>
-        /// The emulator that generated this file.
-        /// </summary>
-        public SPC700Emulator Generator { get { return mvarGenerator; } set { mvarGenerator = value; } }
+		private SPC700Emulator mvarGenerator = SPC700Emulator.Unknown;
+		/// <summary>
+		/// The emulator that generated this file.
+		/// </summary>
+		public SPC700Emulator Generator { get { return mvarGenerator; } set { mvarGenerator = value; } }
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			SynthesizedAudioObjectModel au = (objectModel as SynthesizedAudioObjectModel);
 			
-            Reader br = base.Accessor.Reader;
+			Reader br = base.Accessor.Reader;
 			string fileHeader = br.ReadFixedLengthString(33);
-            if (!fileHeader.StartsWith("SNES-SPC700 Sound File Data")) throw new InvalidDataFormatException("File does not begin with \"SNES-SPC700 Sound File Data\"");
+			if (!fileHeader.StartsWith("SNES-SPC700 Sound File Data")) throw new InvalidDataFormatException("File does not begin with \"SNES-SPC700 Sound File Data\"");
 
 			byte[] flags = br.ReadBytes(2u);
 			byte hasID666Value = br.ReadByte();
@@ -62,7 +63,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 				au.Information.FadeOutLength = int.Parse(br.ReadNullTerminatedString(5));
 				au.Information.SongArtist = br.ReadNullTerminatedString(32);
 				this.mvarID666DefaultChannelDisables = br.ReadByte();
-                mvarGenerator = (SPC700Emulator)br.ReadByte();
+				mvarGenerator = (SPC700Emulator)br.ReadByte();
 				byte[] id666Reserved = br.ReadBytes(45u);
 				this.mvarID666Reserved = id666Reserved;
 			}
@@ -118,7 +119,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 				arg_17A_0.WriteFixedLengthString(num.ToString(), 5);
 				bw.WriteFixedLengthString(au.Information.SongArtist, 32);
 				bw.WriteByte(mvarID666DefaultChannelDisables);
-                bw.WriteByte((byte)mvarGenerator);
+				bw.WriteByte((byte)mvarGenerator);
 
 				bw.WriteFixedLengthBytes(this.mvarID666Reserved, 45);
 			}
