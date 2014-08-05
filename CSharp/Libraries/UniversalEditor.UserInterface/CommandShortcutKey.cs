@@ -13,7 +13,8 @@ namespace UniversalEditor.UserInterface
 		Shift = 2,
 		Alt = 4,
 		Meta = 8,
-		Super = 16
+		Super = 16,
+		Hyper = 32
 	}
 	public enum CommandShortcutKeyValue
 	{
