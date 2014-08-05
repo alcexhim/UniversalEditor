@@ -14,20 +14,20 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 		{
 			ObjectModelReference omr = base.MakeReference();
 			omr.Title = "Synthesized audio voice bank";
-            omr.Path = new string[] { "Multimedia", "Audio", "Voicebank" };
-            return omr;
+			omr.Path = new string[] { "Multimedia", "Audio", "Voicebank" };
+			return omr;
 		}
 
-        public override void Clear()
-        {
-            mvarBankSelect = 0;
-            mvarCreatorVersion = new Version(1, 0);
-            mvarID = String.Empty;
-            mvarInstallationPath = String.Empty;
-            mvarProgramChange = 0;
-            mvarSamples.Clear();
-            mvarSynthesisParameters.Clear();
-        }
+		public override void Clear()
+		{
+			mvarBankSelect = 0;
+			mvarCreatorVersion = new Version(1, 0);
+			mvarID = String.Empty;
+			mvarInstallationPath = String.Empty;
+			mvarProgramChange = 0;
+			mvarSamples.Clear();
+			mvarSynthesisParameters.Clear();
+		}
 
 		private int mvarBankSelect = 0;
 		public int BankSelect { get { return mvarBankSelect; } set { mvarBankSelect = value; } }
@@ -56,7 +56,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 		public override void CopyTo(ObjectModel destination)
 		{
 			VoicebankObjectModel clone = (destination as VoicebankObjectModel);
-            if (clone == null) return;
+			if (clone == null) return;
 
 			foreach (VoicebankSample phoneme in this.mvarSamples)
 			{
