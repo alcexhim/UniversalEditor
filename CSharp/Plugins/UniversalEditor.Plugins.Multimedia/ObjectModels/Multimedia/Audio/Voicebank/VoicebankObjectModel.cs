@@ -38,6 +38,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 		private string mvarID = string.Empty;
 		public string ID { get { return mvarID; } set { mvarID = value; } }
 
+		private PhonemeGroup.PhonemeGroupCollection mvarPhonemeGroups = new PhonemeGroup.PhonemeGroupCollection();
+		public PhonemeGroup.PhonemeGroupCollection PhonemeGroups { get { return mvarPhonemeGroups; } }
+
 		private VoicebankSynthesisParameters mvarSynthesisParameters = new VoicebankSynthesisParameters();
 		public VoicebankSynthesisParameters SynthesisParameters { get { return mvarSynthesisParameters; } }
 
