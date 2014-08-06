@@ -39,7 +39,22 @@ namespace UniversalEditor.ObjectModels.Multimedia.AudioCollection.Synthesized
 		public string OriginalFileName { get { return mvarOriginalFileName; } set { mvarOriginalFileName = value; } }
 
 		private SynthesizedAudioObjectModel mvarObjectModel = null;
-		public SynthesizedAudioObjectModel ObjectModel { get { return mvarObjectModel; } }
+		public SynthesizedAudioObjectModel ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; } }
+
+		public object Clone()
+		{
+			SynthesizedAudioCollectionTrack clone = new SynthesizedAudioCollectionTrack();
+			clone.AlbumTitle = (mvarAlbumTitle.Clone() as string);
+			clone.ArtistName = (mvarArtistName.Clone() as string);
+			clone.Comments = (mvarComments.Clone() as string);
+			clone.DumperName = (mvarDumperName.Clone() as string);
+			clone.GameTitle = (mvarGameTitle.Clone() as string);
+			clone.ObjectModel = (mvarObjectModel.Clone() as SynthesizedAudioObjectModel);
+			clone.OriginalFileName = (mvarOriginalFileName.Clone() as string);
+			clone.PublisherName = (mvarPublisherName.Clone() as string);
+			clone.SongTitle = (mvarSongTitle.Clone() as string);
+			return clone;
+		}
 
 	}
 }
