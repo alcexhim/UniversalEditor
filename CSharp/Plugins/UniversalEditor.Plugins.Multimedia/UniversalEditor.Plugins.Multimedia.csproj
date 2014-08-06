@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</ProjectGuid>
@@ -70,6 +70,7 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\ExtendedMIDI\XMIDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\PSF\PSFDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\PSF\PSFPlatform.cs" />
+    <Compile Include="DataFormats\Multimedia\AudioCollection\Synthesized\SPC2\SPC2DataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Emulator.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700ExtendedID666Tag.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700ID666Tag.cs" />
@@ -137,6 +138,8 @@
     <Compile Include="DataFormats\Multimedia\Video\UVS\UVSFlags.cs" />
     <Compile Include="DataFormats\Multimedia\Video\UVS\UVSLayoutID.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="ObjectModels\Multimedia\AudioCollection\Synthesized\SynthesizedAudioCollectionObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\AudioCollection\Synthesized\SynthesizedAudioCollectionTrack.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\AudioObjectModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -184,6 +187,8 @@
     <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\Phoneme.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryObjectModel.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeList.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\Voicebank\Phoneme.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\Voicebank\PhonemeGroup.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\Voicebank\VoicebankObjectModel.cs">
       <SubType>Code</SubType>
     </Compile>
