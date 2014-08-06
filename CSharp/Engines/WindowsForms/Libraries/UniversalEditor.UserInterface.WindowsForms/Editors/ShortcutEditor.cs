@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using UniversalEditor.ObjectModels.Shortcut;
 using UniversalEditor.UserInterface.WindowsForms;
 
 namespace UniversalEditor.Editors
@@ -29,6 +30,7 @@ namespace UniversalEditor.Editors
 			ShortcutObjectModel doc = (base.ObjectModel as ShortcutObjectModel);
 			if (doc == null) return;
 
+			/*
 			if (doc.Type == ShortcutType.Normal)
 			{
 				cboTargetType.SelectedIndex = 0;
@@ -58,6 +60,7 @@ namespace UniversalEditor.Editors
 						break;
 				}
 			}
+			*/
 
 			if (doc.IconFileName != "")
 			{
