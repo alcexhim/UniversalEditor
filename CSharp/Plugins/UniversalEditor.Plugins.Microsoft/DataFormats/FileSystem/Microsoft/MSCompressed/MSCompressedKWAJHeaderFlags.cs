@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.DataFormats.FileSystem.MSCompressed
+namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 {
     [Flags()]
     public enum MSCompressedKWAJHeaderFlags

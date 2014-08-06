@@ -5,7 +5,7 @@ using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.MSCompressed
+namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 {
     public class MSCompressedDataFormat : DataFormat
     {

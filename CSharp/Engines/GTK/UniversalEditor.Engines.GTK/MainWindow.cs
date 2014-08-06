@@ -76,7 +76,7 @@ namespace UniversalEditor.Engines.GTK
 			menubar1.ShowAll ();
 		}
 
-		private Gdk.Key AccelKeyFromCommandShortcutKey (CommandShortcutKey shortcutKey)
+		private AccelKey AccelKeyFromCommandShortcutKey (CommandShortcutKey shortcutKey)
 		{
 			AccelKey ak = new AccelKey();
 			switch (shortcutKey.Value)

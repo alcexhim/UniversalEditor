@@ -7,6 +7,8 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 {
 	public enum DesktopShortcutType
 	{
-		InternetLink
+		Application,
+		InternetLink,
+		Directory
 	}
 }

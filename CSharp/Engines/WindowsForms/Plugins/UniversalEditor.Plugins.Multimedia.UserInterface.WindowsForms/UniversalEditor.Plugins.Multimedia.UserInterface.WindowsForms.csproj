@@ -103,7 +103,7 @@
     <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.designer.cs">
+    <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.Designer.cs">
       <DependentUpon>VoicebankEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditor.cs">
