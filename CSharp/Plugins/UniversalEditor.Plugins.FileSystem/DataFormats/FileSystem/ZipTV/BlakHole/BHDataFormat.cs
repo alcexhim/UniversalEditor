@@ -47,8 +47,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 				// TODO: figure out how dates are encoded
 				uint modifiedDate = reader.ReadUInt32();
 
-				uint compressedSize /* or compressed size */ = reader.ReadUInt32();
-				uint decompressedSize /* or decompressed size */ = reader.ReadUInt32();
+				uint compressedSize = reader.ReadUInt32();
+				uint decompressedSize = reader.ReadUInt32();
 				
 				uint crc = reader.ReadUInt32();
 				
