@@ -39,7 +39,12 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJHeaderFlags.cs" />
+    <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFormat.cs" />
+    <Compile Include="DataFormats\Shortcut\Microsoft\LNKFileAttributeFlags.cs" />
+    <Compile Include="DataFormats\Shortcut\Microsoft\LNKHotkey.cs" />
+    <Compile Include="DataFormats\Shortcut\Microsoft\LNKLocationFlags.cs" />
+    <Compile Include="DataFormats\Shortcut\Microsoft\LNKWindowState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
