@@ -111,6 +111,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Exe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Executable.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.Executable.UserInterface.WindowsForms\UniversalEditor.Plugins.Executable.UserInterface.WindowsForms.csproj", "{EE70D9BB-52FB-4BF5-A704-06F4881301CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Microsoft", "Plugins\UniversalEditor.Plugins.Microsoft\UniversalEditor.Plugins.Microsoft.csproj", "{4698BC3F-EC29-42EB-9AED-3D8F9983A108}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -293,6 +295,10 @@ Global
 		{EE70D9BB-52FB-4BF5-A704-06F4881301CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE70D9BB-52FB-4BF5-A704-06F4881301CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE70D9BB-52FB-4BF5-A704-06F4881301CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4698BC3F-EC29-42EB-9AED-3D8F9983A108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4698BC3F-EC29-42EB-9AED-3D8F9983A108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4698BC3F-EC29-42EB-9AED-3D8F9983A108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4698BC3F-EC29-42EB-9AED-3D8F9983A108}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -330,6 +336,7 @@ Global
 		{DF96F24E-FED9-4BAC-8389-63590125DC61} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{E0B0223C-3E44-4D2A-9FED-F1A319D84D39} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{791A36F8-5D96-452B-89D2-78BA74596A1E} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
+		{4698BC3F-EC29-42EB-9AED-3D8F9983A108} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{FE016EA3-DC31-4A92-8B0A-8C746EC117E1} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{ED627DF7-3E78-4428-AB31-810BA1586E62} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{C1F34183-7A2F-41A6-9958-F6F329099654} = {A846CA33-9CAA-4237-B14F-8721DBA89442}

@@ -116,10 +116,6 @@
     <Compile Include="DataFormats\FileSystem\MoPaQ\MPQEncryption.cs" />
     <Compile Include="DataFormats\FileSystem\MoPaQ\MPQFormatVersion.cs" />
     <Compile Include="DataFormats\FileSystem\MoPaQ\MPQHashMode.cs" />
-    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedCompressionMethod.cs" />
-    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedKWAJCompressionMethod.cs" />
-    <Compile Include="DataFormats\FileSystem\MSCompressed\MSCompressedKWAJHeaderFlags.cs" />
     <Compile Include="DataFormats\FileSystem\N2M\N2MDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Nero\Internal\DirectoryEntry.cs" />
     <Compile Include="DataFormats\FileSystem\Nero\NeroDiskImageDataFormat.cs" />
