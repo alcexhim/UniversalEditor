@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 															//	uncompressed	deflate		fuse	bzip2-ultra	bzip2-normal
 				byte unknown1 = reader.ReadByte();			//	5
 				byte unknown2 = reader.ReadByte();			//	7
-				ushort unknown3 = reader.ReadUInt16();		// 49
+				BHEncryptionMethod encryptionMethod = (BHEncryptionMethod)reader.ReadUInt16();		// 49
 				ushort unknown4 = reader.ReadUInt16();		// 55845
 				ushort windowSize = reader.ReadUInt16();		// 4				516			4		516			4
 				BHCompressionMethod compressionMethod = (BHCompressionMethod)reader.ReadByte();			// 0				8			3		12			12
@@ -65,6 +65,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 				file.Size = decompressedSize;
 				file.Properties.Add("reader", reader);
 				file.Properties.Add("offset", offset);
+				file.Properties.Add("EncryptionMethod", encryptionMethod);
 				file.Properties.Add("CompressionMethod", compressionMethod);
 				file.Properties.Add("CompressedSize", compressedSize);
 				file.Properties.Add("DecompressedSize", decompressedSize);
@@ -154,9 +155,21 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 			BHCompressionMethod compressionMethod = (BHCompressionMethod)file.Properties["CompressionMethod"];
 			uint compressedSize = (uint)file.Properties["CompressedSize"];
 			uint decompressedSize = (uint)file.Properties["DecompressedSize"];
+			BHEncryptionMethod encryptionMethod = (BHEncryptionMethod)file.Properties["EncryptionMethod"];
 
 			reader.Seek(offset, SeekOrigin.Begin);
 			byte[] compressedData = reader.ReadBytes(compressedSize);
+
+			switch (encryptionMethod)
+			{
+				case BHEncryptionMethod.Encrypted:
+				{
+					byte[] decryptedData = BHEncryptDecrypt.Decrypt(compressedData, "mike-marco");
+					compressedData = decryptedData;
+					break;
+				}
+			}
+
 			byte[] decompressedData = null;
 			switch (compressionMethod)
 			{
