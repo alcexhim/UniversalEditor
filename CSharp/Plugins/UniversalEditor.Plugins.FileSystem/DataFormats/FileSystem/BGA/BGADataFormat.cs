@@ -32,9 +32,15 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 			{
 				uint unknown1 = reader.ReadUInt32();
 				string compressionType = reader.ReadFixedLengthString(4);
+
+				BGACompressionMethod compressionMethod = BGACompressionMethod.Bzip2;
 				if (compressionType == "BZ2\0")
 				{
-
+					compressionMethod = BGACompressionMethod.Bzip2;
+				}
+				else if (compressionType == "GZIP")
+				{
+					compressionMethod = BGACompressionMethod.Gzip;
 				}
 				else
 				{
@@ -54,7 +60,6 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				long offset = reader.Accessor.Position;
 				reader.Accessor.Seek(compressedSize, SeekOrigin.Current);
 
-				BGACompressionMethod compressionMethod = BGACompressionMethod.Bzip2;
 				// TODO: determine compression method from file extension (.bza = Bzip2, .gza = Gzip)
 
 				File file = fsom.AddFile(fileName);
