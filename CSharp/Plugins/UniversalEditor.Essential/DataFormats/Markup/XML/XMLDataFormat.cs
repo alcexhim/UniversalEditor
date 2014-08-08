@@ -54,7 +54,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 		{
 			IO.Writer tw = base.Accessor.Writer;
 
-			string indent = new string(' ', indentLevel * 4);
+			string indent = String.Empty;
+			if (mvarSettings.PrettyPrint) indent = new string(' ', indentLevel * 4);
+
 			if (element is MarkupLiteralElement)
 			{
 				tw.Write(ReplaceEntitiesOutput(element.Value));
@@ -71,16 +73,21 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					{
 						if (element.Value.Contains(Environment.NewLine))
 						{
-							tw.WriteLine(Settings.TagBeginChar.ToString() + Settings.PreprocessorChar.ToString() + element.Name + " ");
-							tw.WriteLine(element.Value);
-							tw.WriteLine(Settings.PreprocessorChar.ToString() + Settings.TagEndChar.ToString());
+							tw.Write(Settings.TagBeginChar.ToString() + Settings.PreprocessorChar.ToString() + element.Name + " ");
+							
+							if (mvarSettings.PrettyPrint) tw.WriteLine();
+							tw.Write(element.Value);
+							if (mvarSettings.PrettyPrint) tw.WriteLine();
+
+							tw.Write(Settings.PreprocessorChar.ToString() + Settings.TagEndChar.ToString());
+							if (mvarSettings.PrettyPrint) tw.WriteLine();
 						}
 						else
 						{
 							tw.Write(indent + Settings.TagBeginChar.ToString() + Settings.PreprocessorChar.ToString() + element.Name + " ");
 							tw.Write(element.Value + " ");
 							tw.Write(Settings.PreprocessorChar.ToString() + Settings.TagEndChar.ToString());
-							tw.WriteLine();
+							if (mvarSettings.PrettyPrint) tw.WriteLine();
 						}
 					}
 					else
@@ -105,18 +112,20 @@ namespace UniversalEditor.DataFormats.Markup.XML
 							{
 								if (String.IsNullOrEmpty(element.Value))
 								{
-									tw.WriteLine(" " + Settings.TagCloseChar.ToString() + Settings.TagEndChar.ToString());
+									tw.Write(" " + Settings.TagCloseChar.ToString() + Settings.TagEndChar.ToString());
+									if (mvarSettings.PrettyPrint) tw.WriteLine();
 								}
 								else
 								{
 									tw.Write(Settings.TagEndChar.ToString());
-									tw.WriteLine(ReplaceEntitiesOutput(element.Value) + Settings.TagBeginChar.ToString() + Settings.TagCloseChar.ToString() + element.FullName + Settings.TagEndChar.ToString());
+									tw.Write(ReplaceEntitiesOutput(element.Value) + Settings.TagBeginChar.ToString() + Settings.TagCloseChar.ToString() + element.FullName + Settings.TagEndChar.ToString());
+									if (mvarSettings.PrettyPrint) tw.WriteLine();
 								}
 							}
 							else
 							{
 								tw.Write(Settings.TagEndChar.ToString());
-								tw.WriteLine();
+								if (mvarSettings.PrettyPrint) tw.WriteLine();
 							}
 						}
 						else
@@ -149,7 +158,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									tw.Write(' ');
 								}
 								tw.Write(Settings.TagSpecialDeclarationCommentStart);
-								tw.WriteLine(Settings.TagEndChar);
+								tw.Write(Settings.TagEndChar);
+								if (mvarSettings.PrettyPrint) tw.WriteLine();
 							}
 						}
 					}
@@ -164,7 +174,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 				}
 				if (ce.Elements.Count > 0)
 				{
-					tw.WriteLine(indent + Settings.TagBeginChar.ToString() + Settings.TagCloseChar.ToString() + element.FullName + Settings.TagEndChar.ToString());
+					tw.Write(indent + Settings.TagBeginChar.ToString() + Settings.TagCloseChar.ToString() + element.FullName + Settings.TagEndChar.ToString());
+					if (mvarSettings.PrettyPrint) tw.WriteLine();
 				}
 			}
 		}
@@ -764,12 +775,13 @@ namespace UniversalEditor.DataFormats.Markup.XML
 											else if (insideSpecialDeclaration && c == this.Settings.CDataBeginChar)
 											{
 												string specialSectionName = tr.ReadUntil(this.Settings.CDataBeginChar.ToString());
-												specialSectionName = specialSectionName.Substring(0, specialSectionName.Length - 1);
+												specialSectionName = specialSectionName.Substring(0, specialSectionName.Length);
+												tr.Accessor.Seek(1, IO.SeekOrigin.Current);
 
 												string specialSectionContent = tr.ReadUntil(this.Settings.CDataEndChar.ToString());
 												if (specialSectionContent.Length > 0)
 												{
-													specialSectionContent = specialSectionContent.Substring(0, specialSectionContent.Length - 1); 
+													specialSectionContent = specialSectionContent.Substring(0, specialSectionContent.Length); 
 												}
 
 												MarkupStringElement tag = new MarkupStringElement();
@@ -920,12 +932,12 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					tw.Write("xml version=\"1.0\" encoding=\"UTF-8\" ");
 					tw.Write(this.Settings.PreprocessorChar.ToString());
 					tw.Write(this.Settings.TagEndChar.ToString());
-					tw.WriteLine();
+					if (mvarSettings.PrettyPrint) tw.WriteLine();
 
 					tw.Write(this.Settings.TagBeginChar.ToString());
 					tw.Write("document");
 					tw.Write(this.Settings.TagEndChar.ToString());
-					tw.WriteLine();
+					if (mvarSettings.PrettyPrint) tw.WriteLine();
 
 					foreach (Group g in plom.Groups)
 					{
@@ -940,7 +952,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					tw.Write(this.Settings.TagCloseChar.ToString());
 					tw.Write("document");
 					tw.Write(this.Settings.TagEndChar.ToString());
-					tw.WriteLine();
+					if (mvarSettings.PrettyPrint) tw.WriteLine();
 				}
 			}
 			tw.Flush();
@@ -952,7 +964,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			string arg_37_0 = c.ToString();
 			string arg_37_1 = g.Name;
 			c = this.Settings.TagEndChar;
-			tw.WriteLine(arg_37_0 + arg_37_1 + c.ToString());
+			tw.Write(arg_37_0 + arg_37_1 + c.ToString());
+			if (mvarSettings.PrettyPrint) tw.WriteLine();
+
 			foreach (Group g2 in g.Groups)
 			{
 				this.WriteXMLPropertyGroup(tw, g2, indentLevel + 1);
@@ -967,7 +981,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			string arg_116_1 = c.ToString();
 			string arg_116_2 = g.Name;
 			c = this.Settings.TagEndChar;
-			tw.WriteLine(arg_116_0 + arg_116_1 + arg_116_2 + c.ToString());
+			tw.Write(arg_116_0 + arg_116_1 + arg_116_2 + c.ToString());
+			if (mvarSettings.PrettyPrint) tw.WriteLine();
 		}
 		private void WriteXMLProperty(IO.Writer tw, Property p, int indentLevel)
 		{
@@ -996,7 +1011,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			int arg_A5_1 = 7;
 			c = this.Settings.TagEndChar;
 			arg_A5_0[arg_A5_1] = c.ToString();
-			tw.WriteLine(string.Concat(array));
+			tw.Write(string.Concat(array));
+			if (mvarSettings.PrettyPrint) tw.WriteLine();
 		}
 
 		public MarkupElement ReadElement()

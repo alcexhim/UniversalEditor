@@ -140,5 +140,11 @@ namespace UniversalEditor.DataFormats.Markup.XML
 		public char CDataBeginChar { get { return mvarCDataBeginChar; } set { mvarCDataBeginChar = value; } }
 		private char mvarCDataEndChar = ']';
 		public char CDataEndChar { get { return mvarCDataEndChar; } set { mvarCDataEndChar = value; } }
+
+		private bool mvarPrettyPrint = true;
+		/// <summary>
+		/// Determines whether to insert tabs and spaces to "pretty-print" the output XML.
+		/// </summary>
+		public bool PrettyPrint { get { return mvarPrettyPrint; } set { mvarPrettyPrint = value; } }
 	}
 }
