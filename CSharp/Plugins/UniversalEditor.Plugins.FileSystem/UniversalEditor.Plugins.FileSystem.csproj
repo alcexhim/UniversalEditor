@@ -55,6 +55,8 @@
     <Compile Include="DataFormats\FileSystem\ARJ\Internal\ARJFileHeader.cs" />
     <Compile Include="DataFormats\FileSystem\AR\ARDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\BAG\BAGDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\BGA\BGACompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\BGA\BGADataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Box\BoxDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\BPlus\BPlusFileSystemDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\BPlus\Internal\BTREEINDEXHEADER.cs" />
