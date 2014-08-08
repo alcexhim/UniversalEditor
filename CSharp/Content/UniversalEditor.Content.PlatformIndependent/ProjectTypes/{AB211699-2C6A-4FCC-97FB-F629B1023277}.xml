@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTypes>
+		<ProjectType ID="{AB211699-2C6A-4FCC-97FB-F629B1023277}">
+			<Information>
+				<Title>XML Transformation Project</Title>
+			</Information>
+		</ProjectType>
+	</ProjectTypes>
+</UniversalEditor>
