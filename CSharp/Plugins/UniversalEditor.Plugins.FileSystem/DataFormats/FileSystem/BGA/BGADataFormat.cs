@@ -54,11 +54,15 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				long offset = reader.Accessor.Position;
 				reader.Accessor.Seek(compressedSize, SeekOrigin.Current);
 
+				BGACompressionMethod compressionMethod = BGACompressionMethod.Bzip2;
+				// TODO: determine compression method from file extension (.bza = Bzip2, .gza = Gzip)
+
 				File file = fsom.AddFile(fileName);
 				file.Size = decompressedSize;
 				file.Properties.Add("offset", offset);
 				file.Properties.Add("CompressedSize", compressedSize);
 				file.Properties.Add("DecompressedSize", decompressedSize);
+				file.Properties.Add("CompressionMethod", compressionMethod);
 				file.Properties.Add("checksum", checksum);
 				file.Properties.Add("reader", reader);
 				file.DataRequest += file_DataRequest;
