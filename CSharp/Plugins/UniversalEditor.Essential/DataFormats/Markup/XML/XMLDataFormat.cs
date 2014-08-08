@@ -434,29 +434,36 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									}
 									else
 									{
-										insideTagValue = true;
-										if (insideAttributeArea)
+										if (insideSpecialDeclaration)
 										{
-											(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
-											nextAttributeName = null;
-											insideAttributeArea = false;
+											insideSpecialDeclaration = false;
 										}
 										else
 										{
-											MarkupElement prevElement = currentElement;
-											currentElement = new MarkupTagElement();
-											currentElement.FullName = currentString.Trim();
-											if (prevElement != null && prevElement is MarkupContainerElement)
+											insideTagValue = true;
+											if (insideAttributeArea)
 											{
-												(prevElement as MarkupContainerElement).Elements.Add(currentElement);
+												(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+												nextAttributeName = null;
+												insideAttributeArea = false;
 											}
 											else
 											{
-												mom.Elements.Add(currentElement);
-											}
-											if (Settings.AutoCloseTagNames.Contains(currentElement.Name))
-											{
-												currentElement = currentElement.Parent;
+												MarkupElement prevElement = currentElement;
+												currentElement = new MarkupTagElement();
+												currentElement.FullName = currentString.Trim();
+												if (prevElement != null && prevElement is MarkupContainerElement)
+												{
+													(prevElement as MarkupContainerElement).Elements.Add(currentElement);
+												}
+												else
+												{
+													mom.Elements.Add(currentElement);
+												}
+												if (Settings.AutoCloseTagNames.Contains(currentElement.Name))
+												{
+													currentElement = currentElement.Parent;
+												}
 											}
 										}
 									}
@@ -800,7 +807,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												char padNext = tr.ReadChar();
 												padNext = tr.ReadChar();
 
-												insideSpecialDeclaration = false;
+												// insideSpecialDeclaration = false;
 												continue;
 											}
 											else
