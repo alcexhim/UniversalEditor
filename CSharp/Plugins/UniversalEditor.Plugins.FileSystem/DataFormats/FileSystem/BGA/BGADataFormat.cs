@@ -17,7 +17,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 			{
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("IZArc BGA archive", new byte?[][] { new byte?[] { null, null, null, null, (byte)'B', (byte)'Z', (byte)'2', (byte)0 } }, new string[] { "*.bza" });
+				_dfr.Filters.Add("IZArc BGA archive", new byte?[][] { new byte?[] { null, null, null, null, (byte)'B', (byte)'Z', (byte)'2', (byte)0 }, new byte?[] { null, null, null, null, (byte)'G', (byte)'Z', (byte)'I', (byte)'P' } }, new string[] { "*.bza", "*.gza" });
 			}
 			return _dfr;
 		}
