@@ -16,6 +16,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StellaGames.LzmaPack
 			{
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Stella_Games_LzmaPack");
 				_dfr.Filters.Add("Stella Games LzmaPack", new string[] { "*.pack" });
 			}
 			return _dfr;
