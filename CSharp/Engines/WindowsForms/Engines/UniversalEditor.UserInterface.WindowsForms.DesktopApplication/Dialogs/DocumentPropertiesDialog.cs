@@ -385,6 +385,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
             dlg.ObjectModel = mvarObjectModel;
             dlg.DataFormat = mvarDataFormat;
             dlg.Accessor = mvarAccessor;
+			dlg.ShowInTaskbar = false;
 
             DialogResult result = dlg.ShowDialog();
 
