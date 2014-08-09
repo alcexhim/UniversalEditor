@@ -138,6 +138,8 @@
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipUnpackInfo.cs" />
     <Compile Include="DataFormats\FileSystem\SilentHill\ARC\SilentHillARCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SPIS\SPISDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\StellaGames\LzmaPack\PACKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\StellaGames\LzmaPack\PACKFileAttributes.cs" />
     <Compile Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveRecordType.cs" />
