@@ -60,8 +60,6 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				long offset = reader.Accessor.Position;
 				reader.Accessor.Seek(compressedSize, SeekOrigin.Current);
 
-				// TODO: determine compression method from file extension (.bza = Bzip2, .gza = Gzip)
-
 				File file = fsom.AddFile(fileName);
 				file.Size = decompressedSize;
 				file.Properties.Add("offset", offset);
@@ -105,7 +103,73 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+			File[] files = fsom.GetAllFiles();
+			foreach (File file in files)
+			{
+				uint unknown1 = 0;
+				writer.WriteUInt32(unknown1);
+
+				BGACompressionMethod compressionMethod = BGACompressionMethod.Bzip2;
+				string compressionType = String.Empty;
+				switch (compressionMethod)
+				{
+					case BGACompressionMethod.Bzip2:
+					{
+						compressionType = "BZ2";
+						break;
+					}
+					case BGACompressionMethod.Gzip:
+					{
+						compressionType = "GZIP";
+						break;
+					}
+					default:
+					{
+						throw new InvalidDataFormatException("Compression type " + compressionType + " not supported!");
+						break;
+					}
+				}
+				writer.WriteFixedLengthString(compressionType, 4);
+
+				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] compressedData = decompressedData;
+				switch (compressionMethod)
+				{
+					case BGACompressionMethod.Bzip2:
+					{
+						compressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Bzip2).Compress(decompressedData);
+						break;
+					}
+					case BGACompressionMethod.Gzip:
+					{
+						compressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Gzip).Compress(decompressedData);
+						break;
+					}
+				}
+
+				writer.WriteUInt32((uint)compressedData.Length);
+				writer.WriteUInt32((uint)decompressedData.Length);
+
+				uint checksum /*?*/ = 0;
+				writer.WriteUInt32(checksum);
+
+				ushort unknown2 = 0;
+				writer.WriteUInt16(unknown2);
+				ushort unknown3 = 0;
+				writer.WriteUInt16(unknown3);
+				ushort unknown4 = 0;
+				writer.WriteUInt16(unknown4);
+
+				ushort fileNameLength = (ushort)file.Name.Length;
+				writer.WriteUInt16(fileNameLength);
+				writer.WriteFixedLengthString(file.Name, fileNameLength);
+				
+				writer.WriteBytes(compressedData);
+			}
 		}
 	}
 }
