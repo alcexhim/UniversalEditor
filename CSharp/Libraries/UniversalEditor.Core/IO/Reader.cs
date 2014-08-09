@@ -1259,6 +1259,13 @@ namespace UniversalEditor.IO
 			return buffer2;
 		}
 
+		/// <summary>
+		/// Aligns the <see cref="Reader" /> to the specified number of bytes. If the current
+		/// position of the <see cref="Reader" /> is not a multiple of the specified number of bytes,
+		/// the position will be increased by the amount of bytes necessary to bring it to the
+		/// aligned position.
+		/// </summary>
+		/// <param name="alignTo">The number of bytes on which to align the <see cref="Reader"/>.</param>
 		public void Align(int alignTo)
 		{
 			long paddingCount = ((alignTo - (mvarAccessor.Position % alignTo)) % alignTo);
