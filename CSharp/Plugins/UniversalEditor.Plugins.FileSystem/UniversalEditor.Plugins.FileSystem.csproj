@@ -105,6 +105,7 @@
     <Compile Include="DataFormats\FileSystem\ISO\ISOVolumeDescriptorType.cs" />
     <Compile Include="DataFormats\FileSystem\JackOrlando\JackOrlandoDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\JadeEmpire\RIMDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\LHA\LHADataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\LHA\LZHDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\MementoMori\RESCompressionType.cs" />
     <Compile Include="DataFormats\FileSystem\MementoMori\RESDataFormat.cs" />
