@@ -988,5 +988,7 @@ namespace UniversalEditor.UserInterface
 		protected virtual void StopApplicationInternal()
 		{
 		}
+
+		public abstract bool ShowDataFormatOptionsDialog(ref DataFormat df, DataFormatOptionsDialogType dataFormatOptionsDialogType);
 	}
 }

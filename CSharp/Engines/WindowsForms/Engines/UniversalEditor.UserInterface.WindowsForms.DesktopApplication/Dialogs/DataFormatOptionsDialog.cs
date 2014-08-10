@@ -244,10 +244,4 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			return DialogResult.None;
 		}
 	}
-
-	public enum DataFormatOptionsDialogType
-	{
-		Import,
-		Export
-	}
 }

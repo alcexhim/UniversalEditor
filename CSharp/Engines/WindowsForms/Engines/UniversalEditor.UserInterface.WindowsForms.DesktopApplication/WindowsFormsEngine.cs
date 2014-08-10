@@ -401,5 +401,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			Application.Exit();
 		}
+
+		public override bool ShowDataFormatOptionsDialog(ref DataFormat df, DataFormatOptionsDialogType type)
+		{
+			if (DataFormatOptionsDialog.ShowDialog(ref df, type) == DialogResult.OK)
+			{
+				return true;
+			}
+			return false;
+		}
 	}
 }

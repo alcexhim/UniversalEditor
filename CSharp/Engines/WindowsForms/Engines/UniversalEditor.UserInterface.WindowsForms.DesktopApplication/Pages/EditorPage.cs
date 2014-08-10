@@ -364,7 +364,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
                         }
                         else
                         {
-                            if (Dialogs.DataFormatOptionsDialog.ShowDialog(ref fmt, Dialogs.DataFormatOptionsDialogType.Import) == DialogResult.Cancel) return;
+                            if (!Engine.CurrentEngine.ShowDataFormatOptionsDialog(ref fmt, DataFormatOptionsDialogType.Import)) return;
 
 							Document document = new UniversalEditor.Document(objm, fmt, new FileAccessor(FileName));
 							document.InputAccessor.Open();

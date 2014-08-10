@@ -1276,7 +1276,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			*/
 
 			DataFormat df = dfr.Create();
-			DataFormatOptionsDialog.ShowDialog(ref df, DataFormatOptionsDialogType.Export);
+			if (!Engine.CurrentEngine.ShowDataFormatOptionsDialog(ref df, DataFormatOptionsDialogType.Export))
+			{
+				return false;
+			}
 			
 			#region Save Code
 			NotifySaving(doc);
