@@ -404,11 +404,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public override bool ShowDataFormatOptionsDialog(ref DataFormat df, DataFormatOptionsDialogType type)
 		{
-			if (DataFormatOptionsDialog.ShowDialog(ref df, type) == DialogResult.OK)
+			if (DataFormatOptionsDialog.ShowDialog(ref df, type) == DialogResult.Cancel)
 			{
-				return true;
+				return false;
 			}
-			return false;
+			return true;
 		}
 	}
 }
