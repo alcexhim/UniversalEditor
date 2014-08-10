@@ -30,11 +30,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			{
 				MessageBox.Show("This product has already been activated.", "Licensing and Activation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			});
-			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
-			{
-				AboutDialog dlg = new AboutDialog();
-				dlg.ShowDialog();
-			});
 		}
 
 		protected override void InitializeBranding()
@@ -380,6 +375,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 #endif
 
+		public override void ShowAboutDialog()
+		{
+			Dialogs.AboutDialog dlg = new AboutDialog();
+			dlg.ShowDialog();
+		}
 
 		protected override IHostApplicationWindow OpenWindowInternal(params string[] FileNames)
 		{
