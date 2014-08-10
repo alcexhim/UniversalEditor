@@ -66,6 +66,10 @@
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.MainWindow.cs" />
     <Compile Include="Dialogs\CreateDocumentDialog.cs" />
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Dialogs.CreateDocumentDialog.cs" />
+    <Compile Include="Controls\ObjectModelBrowser.cs" />
+    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.ObjectModelBrowser.cs" />
+    <Compile Include="Dialogs\AboutDialog.cs" />
+    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.AboutDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -84,5 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dialogs\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,14 @@ namespace UniversalEditor.Engines.GTK
 			Build ();
 			InitializeMenuBar();
 			tbsDocumentTabs.RemovePage(0);
+			
+			RefreshEditor();
+		}
+		
+		protected override void OnShown()
+		{
+			base.OnShown();
+			this.Maximize();
 		}
 		
 		public void ShowStartPage()
@@ -284,6 +292,20 @@ namespace UniversalEditor.Engines.GTK
 					// AddDocumentTab(widget, FileName);
 				}
 			}
+		}
+		
+		private void RefreshEditor()
+		{
+			Editor editor = (GetCurrentEditor() as Editor);
+			string WindowTitle = Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor");
+			if (editor != null)
+			{
+				
+			}
+			else
+			{
+			}
+			this.Title = WindowTitle;
 		}
 		
 		private void AddDocumentTab(Widget child, string tabTitle, Document doc = null)
