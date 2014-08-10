@@ -429,6 +429,13 @@ namespace UniversalEditor.Engines.GTK
 		{
 			throw new System.NotImplementedException ();
 		}
+		
+		public void ShowAboutDialog()
+		{
+			Dialogs.AboutDialog dlg = new Dialogs.AboutDialog();
+			dlg.Run();
+			dlg.Destroy();
+		}
 		#endregion
 	}
 }

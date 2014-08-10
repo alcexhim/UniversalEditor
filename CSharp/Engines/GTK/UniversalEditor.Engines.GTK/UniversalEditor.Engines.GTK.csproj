@@ -69,7 +69,7 @@
     <Compile Include="Controls\ObjectModelBrowser.cs" />
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.ObjectModelBrowser.cs" />
     <Compile Include="Dialogs\AboutDialog.cs" />
-    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.AboutDialog.cs" />
+    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Dialogs.AboutDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

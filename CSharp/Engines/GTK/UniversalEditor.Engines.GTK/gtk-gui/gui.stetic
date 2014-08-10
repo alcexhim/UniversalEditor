@@ -264,7 +264,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="UniversalEditor.Engines.GTK.AboutDialog" design-size="572 444">
+  <widget class="Gtk.Dialog" id="UniversalEditor.Engines.GTK.Dialogs.AboutDialog" design-size="572 444">
     <property name="MemberName" />
     <property name="Title" translatable="yes">About [ApplicationTitle]</property>
     <property name="WindowPosition">CenterOnParent</property>

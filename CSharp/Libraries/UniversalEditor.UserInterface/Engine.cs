@@ -240,6 +240,12 @@ namespace UniversalEditor.UserInterface
 			});
 			#endregion
 			#region Help
+			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
+			{
+				ShowAboutDialog();
+			});
+			#endregion
+			#region Help
 			Command helpAboutPlatform = mvarCommands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
 			{
@@ -380,6 +386,8 @@ namespace UniversalEditor.UserInterface
 		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
 		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
 		protected abstract IHostApplicationWindow OpenWindowInternal(params string[] FileNames);
+		
+		public abstract void ShowAboutDialog();
 
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.

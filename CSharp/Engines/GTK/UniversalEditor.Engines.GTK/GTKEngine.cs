@@ -27,6 +27,13 @@ namespace UniversalEditor.Engines.GTK
 			mw.Show ();
 			return mw;
 		}
+		
+		public override void ShowAboutDialog()
+		{
+			Dialogs.AboutDialog dlg = new Dialogs.AboutDialog();
+			dlg.Run();
+			dlg.Destroy();
+		}
 	}
 }
 
