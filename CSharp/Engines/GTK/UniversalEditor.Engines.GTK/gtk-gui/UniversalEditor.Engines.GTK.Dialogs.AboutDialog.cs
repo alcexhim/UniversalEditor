@@ -38,9 +38,13 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget UniversalEditor.Engines.GTK.Dialogs.AboutDialog
+			this.WidthRequest = 580;
+			this.HeightRequest = 440;
 			this.Name = "UniversalEditor.Engines.GTK.Dialogs.AboutDialog";
 			this.Title = global::Mono.Unix.Catalog.GetString ("About [ApplicationTitle]");
+			this.TypeHint = ((global::Gdk.WindowTypeHint)(1));
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+			this.Modal = true;
 			this.Resizable = false;
 			// Internal child UniversalEditor.Engines.GTK.Dialogs.AboutDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
@@ -255,8 +259,8 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 572;
-			this.DefaultHeight = 444;
+			this.DefaultWidth = 582;
+			this.DefaultHeight = 470;
 			this.Show ();
 		}
 	}

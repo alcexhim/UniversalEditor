@@ -264,10 +264,14 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="UniversalEditor.Engines.GTK.Dialogs.AboutDialog" design-size="572 444">
+  <widget class="Gtk.Dialog" id="UniversalEditor.Engines.GTK.Dialogs.AboutDialog" design-size="582 470">
     <property name="MemberName" />
+    <property name="WidthRequest">580</property>
+    <property name="HeightRequest">440</property>
     <property name="Title" translatable="yes">About [ApplicationTitle]</property>
+    <property name="TypeHint">Dialog</property>
     <property name="WindowPosition">CenterOnParent</property>
+    <property name="Modal">True</property>
     <property name="Resizable">False</property>
     <property name="Buttons">1</property>
     <property name="HelpButton">False</property>
