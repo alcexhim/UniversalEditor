@@ -19,13 +19,54 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-namespace UniversalEditor.Engines.GTK
+using UniversalEditor.UserInterface;
+
+namespace UniversalEditor.Engines.GTK.Dialogs
 {
 	public partial class DataFormatOptionsDialog : Gtk.Dialog
 	{
 		public DataFormatOptionsDialog()
 		{
 			this.Build();
+		}
+		
+		public static bool ShowDialog(ref DataFormat df, DataFormatOptionsDialogType type)
+		{
+			DataFormatReference dfr = df.MakeReference();
+			switch (type)
+			{
+				case DataFormatOptionsDialogType.Export:
+				{
+					if (dfr.ExportOptions.Count > 0)
+					{					
+						DataFormatOptionsDialog dlg = new DataFormatOptionsDialog();
+						switch ((Gtk.ResponseType)dlg.Run())
+						{
+							case Gtk.ResponseType.Cancel:
+							{
+								return false;
+							}
+						}
+					}
+					break;
+				}
+				case DataFormatOptionsDialogType.Import:
+				{
+					if (dfr.ImportOptions.Count > 0)
+					{					
+						DataFormatOptionsDialog dlg = new DataFormatOptionsDialog();
+						switch ((Gtk.ResponseType)dlg.Run())
+						{
+							case Gtk.ResponseType.Cancel:
+							{
+								return false;
+							}
+						}
+					}
+					break;
+				}
+			}
+			return true;
 		}
 	}
 }
