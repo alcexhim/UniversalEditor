@@ -15,7 +15,6 @@ namespace UniversalEditor.Engines.GTK
 		{
 			Application.Run ();
 		}
-		
 		protected override void StopApplicationInternal ()
 		{
 			Application.Quit ();
@@ -33,6 +32,10 @@ namespace UniversalEditor.Engines.GTK
 			Dialogs.AboutDialog dlg = new Dialogs.AboutDialog();
 			dlg.Run();
 			dlg.Destroy();
+		}
+		public override bool ShowDataFormatOptionsDialog(ref DataFormat df, UniversalEditor.UserInterface.DataFormatOptionsDialogType type)
+		{
+			return Dialogs.DataFormatOptionsDialog.ShowDialog(ref df, type);
 		}
 	}
 }
