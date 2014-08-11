@@ -551,11 +551,14 @@ namespace UniversalEditor.UserInterface
 			UpdateSplashScreenStatus("Loading main menu items");
 
 			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "MainMenu", "Items") as MarkupTagElement);
-			foreach (MarkupElement elItem in tagMainMenuItems.Elements)
+			if (tagMainMenuItems != null)
 			{
-				MarkupTagElement tagItem = (elItem as MarkupTagElement);
-				if (tagItem == null) continue;
-				InitializeMainMenuItem(tagItem, null);
+				foreach (MarkupElement elItem in tagMainMenuItems.Elements)
+				{
+					MarkupTagElement tagItem = (elItem as MarkupTagElement);
+					if (tagItem == null) continue;
+					InitializeMainMenuItem(tagItem, null);
+				}
 			}
 
 			UpdateSplashScreenStatus("Loading command bars");
@@ -595,7 +598,11 @@ namespace UniversalEditor.UserInterface
 
 			UpdateSplashScreenStatus("Setting language");
 
-			if (mvarDefaultLanguage != null)
+			if (mvarDefaultLanguage == null)
+			{
+				mvarDefaultLanguage = new Language();
+			}
+			else
 			{
 				foreach (Command cmd in mvarCommands)
 				{
