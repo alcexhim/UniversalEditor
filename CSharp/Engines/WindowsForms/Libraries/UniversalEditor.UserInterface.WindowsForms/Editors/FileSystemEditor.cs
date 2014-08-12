@@ -761,7 +761,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
-			FolderBrowserDialog dlg = new FolderBrowserDialog();
+			AwesomeControls.NativeDialogs.FolderBrowserDialog dlg = new AwesomeControls.NativeDialogs.FolderBrowserDialog();
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				File[] files = fsom.GetAllFiles();
