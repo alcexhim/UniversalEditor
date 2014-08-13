@@ -125,6 +125,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			ListViewItem lvi = new ListViewItem();
 			lvi.Text = dfr.Title;
 			lvi.SubItems.Add(dfr.Description);
+			if (dfr.ObjectModelType != null)
+			{
+				lvi.SubItems.Add(dfr.ObjectModelType.Assembly.Location);
+			}
 			lvi.Tag = dfr;
 			lv.Items.Add(lvi);
 		}
