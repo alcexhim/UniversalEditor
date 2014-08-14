@@ -89,7 +89,6 @@
     <Content Include="Languages\Japanese.xml" />
     <Content Include="ProjectTypes\{A0786B88-2ADB-4C21-ABE8-AA2D79766269}.xml" />
     <Content Include="ProjectTypes\{AB211699-2C6A-4FCC-97FB-F629B1023277}.xml" />
-    <Content Include="ProjectTypes\{D3A89FE2-7C08-433B-8165-F484A073588B}.xml" />
     <Content Include="Templates\Document\Database\AssetsDatabase.xml" />
     <Content Include="Templates\Document\Database\ContactsDatabase.xml" />
     <Content Include="Templates\Document\Database\database.ico" />
