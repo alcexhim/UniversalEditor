@@ -386,6 +386,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				if (theme != null)
 				{
 					theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.Initial);
+					sbStatusBar.Refresh();
 				}
 				return;
 			}
@@ -395,6 +396,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				if (theme != null)
 				{
 					theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.SolutionLoaded);
+					sbStatusBar.Refresh();
 				}
 			}
 
