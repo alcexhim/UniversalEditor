@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{A0786B88-2ADB-4C21-ABE8-AA2D79766269}">
+			<Information>
+				<Title>PHP Web Project</Title>
+				<IconPath LargeFileName="MainIcon_32x32.png" SmallFileName="MainIcon_16x16.png" />
+				<Path>
+					<Part>Website Development</Part>
+					<Part>PHP</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+				<Files>
+					<File Destination="index.php">
+						<Content Type="text/plain"><![CDATA[<?php
+
+echo "Hello World!";
+
+?>]]></Content>
+					</File>
+				</Files>
+			</FileSystem>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

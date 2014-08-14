@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{375F1E79-E5E6-4D5C-973C-C6C89DD89197}">
+			<Information>
+				<Title>Silverlight Application</Title>
+				<ProjectNamePrefix>SilverlightApplication</ProjectNamePrefix>
+				<IconPath LargeFileName="Images/Silverlight_32x32.png" SmallFileName="Images/Silverlight_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>Common Language Runtime</Part>
+					<Part>COBOL</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+			</FileSystem>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

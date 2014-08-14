@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{E6FDF86B-F3D1-11D4-8576-0002A516ECE8}">
+			<Information>
+				<Title>Windows Forms Application</Title>
+				<ProjectNamePrefix>WindowsFormsApplication</ProjectNamePrefix>
+				<IconPath LargeFileName="Images/Application_32x32.png" SmallFileName="Images/Application_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>Common Language Runtime</Part>
+					<Part>IronPython</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+			</FileSystem>
+			<Variables>
+				<Variable ID="Project.DefaultNamespace" Title="Default namespace:" DataType="String" Value="$(Project.Title)" />
+				<Variable ID="Project.MainFormName" Title="Main form name:" DataType="String" Value="Form1" />
+			</Variables>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

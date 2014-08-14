@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<ProjectTemplates>
+		<ProjectTemplate ID="{4856C44F-5236-4002-A88E-6D072E217024}" TypeID="{84512A4B-8649-4356-B6B4-85A7E29A2889}">
+			<Information>
+				<Title>Asset Library</Title>
+				<Description>Creates a library that can hold different types of Concertroid assets, like models, animations, and songs.</Description>
+				<IconPath LargeFileName="Images/Library_32x32.png" SmallFileName="Images/Library_16x16.png" />
+				<Path>
+					<Part>Concertroid</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+			</FileSystem>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

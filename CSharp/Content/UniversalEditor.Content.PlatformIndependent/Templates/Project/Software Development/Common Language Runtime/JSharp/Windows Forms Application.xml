@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{E6FDF86B-F3D1-11D4-8576-0002A516ECE8}">
+			<Information>
+				<Title>Windows Forms Application</Title>
+				<ProjectNamePrefix>WindowsFormsApplication</ProjectNamePrefix>
+				<IconPath LargeFileName="Images/Application_32x32.png" SmallFileName="Images/Application_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>Common Language Runtime</Part>
+					<Part>J#</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+				<Folders>
+					<Folder Name="Properties">
+						<Files>
+							<File DestinationFileName="AssemblyInfo.jsl">
+								<Content Type="text/plain"><![CDATA[import System.Reflection.*;
+import System.Runtime.CompilerServices.*;
+import System.Runtime.InteropServices.*;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+
+/** @assembly AssemblyTitle("$(Project.Title)") */
+/** @assembly AssemblyDescription("") */
+/** @assembly AssemblyCompany("$(Project.CompanyName)") */
+/** @assembly AssemblyProduct("$(Project.Title)") */
+/** @assembly AssemblyCopyright("Copyright ©$(CurrentDate.Year) $(Project.CompanyName)") */
+/** @assembly AssemblyTrademark("") */
+/** @assembly AssemblyCulture("") */
+
+
+// The ComVisible attribute controls accessibility of an individual type
+// or member, or of all types within this assembly, from COM.  To access
+// a type or member in this assembly from COM, set the ComVisible attribute
+// on that type or member to true.
+/** @assembly ComVisible(false) */
+
+
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+
+/** @assembly AssemblyVersion("1.0.0.0") */
+]]></Content>
+							</File>
+						</Files>
+					</Folder>
+				</Folders>
+				<Files>
+					<File DestinationFileName="Program.jsl">
+						<Content Type="text/plain"><![CDATA[package $(Project.Title);
+
+import System.Collections.Generic.*;
+import System.Windows.Forms.*;
+
+/**
+ * Summary description for Program
+ */
+public class Program
+{
+	/**
+	 * The main entry point for the application.
+	 */
+	/** @attribute System.STAThread() */
+	public static void main(String[] args)
+	{
+		Application.EnableVisualStyles();
+		Application.SetCompatibleTextRenderingDefault(false);
+		Application.Run(new $(Project.MainFormName)());
+	}
+}
+]]></Content>
+					</File>
+					<File DestinationFileName="$(Project.MainFormName).jsl">
+						<Content Type="text/plain"><![CDATA[package $(Project.Title);
+
+import System.Collections.Generic.*;
+import System.Drawing.*;
+import System.ComponentModel.*;
+import System.Windows.Forms.*;
+
+/**
+ * Summary description for $(Project.MainFormName).
+ */
+public class $(Project.MainFormName) extends System.Windows.Forms.Form
+{
+	/**
+	 * Required designer variable.
+	 */
+	private System.ComponentModel.IContainer components;
+
+	public $(Project.MainFormName)()
+	{
+		//
+		// Required for Windows Form Designer support
+		//
+		InitializeComponent();
+
+		//
+		// TODO: Add any constructor code after InitializeComponent call
+		//
+	}
+
+	#region Windows Form Designer generated code
+	/**
+     * Clean up any resources being used.
+     */
+	protected void Dispose(boolean disposing)
+	{
+		if (disposing)
+		{
+			if (components != null)
+			{
+				components.Dispose();
+			}
+		}
+		super.Dispose(disposing);
+	}
+
+	/**
+	 * Required method for Designer support - do not modify
+	 * the contents of this method with the code editor.
+	 */
+	private void InitializeComponent()
+	{
+		this.components = new System.ComponentModel.Container();
+		this.set_AutoScaleMode(System.Windows.Forms.AutoScaleMode.Font);
+		this.set_Text("$(Project.MainFormName)");
+	}
+	#endregion
+}
+]]></Content>
+					</File>
+				</Files>
+			</FileSystem>
+			<Variables>
+				<Variable ID="Project.DefaultNamespace" Title="Default namespace:" DataType="String" Value="$(Project.Title)" />
+				<Variable ID="Project.MainFormName" Title="Main form name:" DataType="String" Value="Form1" />
+			</Variables>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

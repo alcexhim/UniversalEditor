@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<ProjectTemplates>
+		<ProjectTemplate ID="{BAB6BF34-F163-46A4-A34C-8FC0B08BC607}" TypeID="{B37FAACC-9946-454A-B4DB-4FAB8D044316}">
+			<Information>
+				<Title>Empty File System</Title>
+				<ProjectNamePrefix>FileSystem</ProjectNamePrefix>
+				<Description>Creates an empty FileSystem project for packaging files in various archive formats.</Description>
+				<IconPath LargeFileName="Images/FileSystem_32x32.png" SmallFileName="Images/FileSystem_16x16.png" />
+				<Path>
+					<Part>File Distribution</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+			</FileSystem>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

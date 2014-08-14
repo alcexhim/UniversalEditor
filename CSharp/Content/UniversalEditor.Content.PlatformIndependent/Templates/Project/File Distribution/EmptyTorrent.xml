@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<ProjectTemplates>
+		<ProjectTemplate ID="{BAB6BF34-F163-46A4-A34C-8FC0B08BC607}" TypeID="{8E28DA96-1267-4077-910E-91D5E863C557}">
+			<Information>
+				<Title>Empty Torrent</Title>
+				<ProjectNamePrefix>Torrent</ProjectNamePrefix>
+				<Description>Creates an empty Torrent project for distributing files over peer-to-peer networks.</Description>
+				<IconPath LargeFileName="Images/Torrent_32x32.png" SmallFileName="Images/Torrent_16x16.png" />
+				<Path>
+					<Part>File Distribution</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+			</FileSystem>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

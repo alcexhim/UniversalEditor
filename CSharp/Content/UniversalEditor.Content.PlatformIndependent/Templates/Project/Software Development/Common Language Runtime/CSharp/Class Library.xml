@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+			<Information>
+				<Title>Class Library</Title>
+				<ProjectNamePrefix>ClassLibrary</ProjectNamePrefix>
+				<IconPath LargeFileName="Images/Library_32x32.png" SmallFileName="Images/Library_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>Common Language Runtime</Part>
+					<Part>C#</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+				<Files>
+					<File DestinationFileName="$(ClassName).cs">
+						<Content Type="text/plain"><![CDATA[using System;
+using System.Text;
+
+namespace $(Project.Title)
+{
+    public class $(ClassName)
+    {
+    }
+}
+]]></Content>
+					</File>
+				</Files>
+			</FileSystem>
+			<Variables>
+				<Variable DataType="String" Name="ClassName" Title="Class name:" Value="Class1" />
+			</Variables>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

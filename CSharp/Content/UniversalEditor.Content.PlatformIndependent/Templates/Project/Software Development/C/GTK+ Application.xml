@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{8891C1AE-6699-45DA-8B22-13BCEBB63364}">
+			<Information>
+				<Title>GTK+ Application</Title>
+				<ProjectNamePrefix>GtkPlusApplication</ProjectNamePrefix>
+				<IconPath LargeFileName="Images/BlankProject_32x32.png" SmallFileName="Images/BlankProject_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>C/C++</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+			</FileSystem>
+			<Configuration>
+				<Property ID="GtkPath" Value="C:/GTK+" />
+				<Group ID="Compilation">
+					<Property ID="OutputFileName" Value="Output/Debug" />
+					<Property ID="OutputType" Value="GraphicalApplication" />
+					
+					<Property ID="IncludePaths">
+						<Value>$(GtkPath)/include</Value>
+						<Value>$(GtkPath)/include/atk-1.0</Value>
+						<Value>$(GtkPath)/include/gtk-2.0</Value>
+						<Value>$(GtkPath)/lib/gtk-2.0/include</Value>
+						<Value>$(GtkPath)/include/gdk-pixbuf-2.0</Value>
+						<Value>$(GtkPath)/include/gio-win32-2.0</Value>
+						<Value>$(GtkPath)/include/cairo</Value>
+						<Value>$(GtkPath)/include/glib-2.0</Value>
+						<Value>$(GtkPath)/lib/glib-2.0/include</Value>
+						<Value>$(GtkPath)/include/freetype2</Value>
+						<Value>$(GtkPath)/include/pango-1.0</Value>
+						<Value>$(GtkPath)/include/libpng14</Value>
+					</Property>
+					<Property ID="LibraryPaths">
+						<Value>$(GtkPath)/lib</Value>
+					</Property>
+					<Property ID="LibraryReferences">
+						<Value>gtk-win32-2.0</Value>
+						<Value>gdk-win32-2.0</Value>
+						<Value>atk-1.0</Value>
+						<Value>gio-2.0</Value>
+						<Value>pangowin32-1.0</Value>
+						<Value>gdi32</Value>
+						<Value>pangocairo-1.0</Value>
+						<Value>gdk_pixbuf-2.0</Value>
+						<Value>lpango-1.0</Value>
+						<Value>cairo</Value>
+						<Value>gmodule-2.0</Value>
+						<Value>gobject-2.0</Value>
+						<Value>gthread-2.0</Value>
+						<Value>glib-2.0</Value>
+						<Value>intl</Value>
+					</Property>
+				</Group>
+			</Configuration>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>
