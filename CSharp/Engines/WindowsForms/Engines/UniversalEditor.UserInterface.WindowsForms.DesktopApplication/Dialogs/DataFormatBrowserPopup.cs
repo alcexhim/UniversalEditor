@@ -76,7 +76,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
                 }
                 else
                 {
-                    if (dfr.Title.ToLower().Contains(txtSearch.Text.ToLower()))
+					if (dfr.Title != null && dfr.Title.ToLower().Contains(txtSearch.Text.ToLower()))
                     {
                         AddDataFormatToList(dfr);
                     }
