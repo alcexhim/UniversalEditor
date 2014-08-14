@@ -380,7 +380,23 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			pnlSolutionExplorer.Solution = mvarCurrentSolution;
 
-			if (mvarCurrentSolution == null) return;
+			if (mvarCurrentSolution == null)
+			{
+				AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme theme = (AwesomeControls.Theming.Theme.CurrentTheme as AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme);
+				if (theme != null)
+				{
+					theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.Initial);
+				}
+				return;
+			}
+			else
+			{
+				AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme theme = (AwesomeControls.Theming.Theme.CurrentTheme as AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme);
+				if (theme != null)
+				{
+					theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.SolutionLoaded);
+				}
+			}
 
 		}
 
