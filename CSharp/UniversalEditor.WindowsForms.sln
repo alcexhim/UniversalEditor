@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Ica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Icarus.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.Icarus.UserInterface.WindowsForms\UniversalEditor.Plugins.Icarus.UserInterface.WindowsForms.csproj", "{F19919B7-1D51-4972-8E4A-E59D68D4926A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Illusion", "Plugins\UniversalEditor.Plugins.Illusion\UniversalEditor.Plugins.Illusion.csproj", "{A968C097-44CE-42BA-B66C-CB3A871EE117}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -317,6 +319,10 @@ Global
 		{F19919B7-1D51-4972-8E4A-E59D68D4926A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F19919B7-1D51-4972-8E4A-E59D68D4926A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F19919B7-1D51-4972-8E4A-E59D68D4926A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A968C097-44CE-42BA-B66C-CB3A871EE117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A968C097-44CE-42BA-B66C-CB3A871EE117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A968C097-44CE-42BA-B66C-CB3A871EE117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A968C097-44CE-42BA-B66C-CB3A871EE117}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -357,6 +363,7 @@ Global
 		{4698BC3F-EC29-42EB-9AED-3D8F9983A108} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{04674541-23C2-4308-A9DF-DBC43AE99814} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{B2DFA94A-A468-48A1-AB31-04EE432E7B2B} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
+		{A968C097-44CE-42BA-B66C-CB3A871EE117} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{FE016EA3-DC31-4A92-8B0A-8C746EC117E1} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{ED627DF7-3E78-4428-AB31-810BA1586E62} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{C1F34183-7A2F-41A6-9958-F6F329099654} = {A846CA33-9CAA-4237-B14F-8721DBA89442}
