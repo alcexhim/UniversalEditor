@@ -61,6 +61,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				}
 				return result;
 			}
+
 			public void Append(Group grp)
 			{
 				Group parent = this[grp.Name];
@@ -94,6 +95,13 @@ namespace UniversalEditor.ObjectModels.PropertyList
 					}
 				}
 			}
+
+			/// <summary>
+			/// If a <see cref="Group" /> with the specified name exists within this collection,
+			/// returns that group. Otherwise, creates a new group with that name and returns it.
+			/// </summary>
+			/// <param name="Name">The name of the <see cref="Group" /> to search for in this collection.</param>
+			/// <returns>The <see cref="Group" /> with the given name in this collection, or if no such group exists, an empty group with the given name.</returns>
 			public Group AddOrRetrieve(string Name)
 			{
 				Group result;
@@ -108,70 +116,48 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				return result;
 			}
 		}
+		
 		private string mvarName = string.Empty;
+		/// <summary>
+		/// The name of this <see cref="Group"/>.
+		/// </summary>
+		public string Name { get { return mvarName; } set { mvarName = value; } }
+
 		private Group mvarParent = null;
+		/// <summary>
+		/// The <see cref="Group" /> that contains this group as a child.
+		/// </summary>
+		public Group Parent { get { return mvarParent; } }
+
 		private Group.GroupCollection mvarGroups = new Group.GroupCollection();
+		/// <summary>
+		/// The children <see cref="Group"/>s that are contained within this group.
+		/// </summary>
+		public Group.GroupCollection Groups { get { return mvarGroups; } }
+
 		private Property.PropertyCollection mvarProperties = null;
-		public string Name
+		/// <summary>
+		/// The children <see cref="Property" />s that are contained within this group.
+		/// </summary>
+		public Property.PropertyCollection Properties { get { return mvarProperties; } }
+
+		public Group() : this(null, String.Empty)
 		{
-			get
-			{
-				return this.mvarName;
-			}
-			set
-			{
-				this.mvarName = value;
-			}
 		}
-		public Group Parent
+		public Group(Group parent) : this(parent, String.Empty)
 		{
-			get
-			{
-				return this.mvarParent;
-			}
 		}
-		public Group.GroupCollection Groups
+		public Group(string Name) : this(null, Name)
 		{
-			get
-			{
-				return this.mvarGroups;
-			}
-		}
-		public Property.PropertyCollection Properties
-		{
-			get
-			{
-				return this.mvarProperties;
-			}
-		}
-		public Group()
-		{
-			this.mvarName = string.Empty;
-			this.mvarParent = null;
-			this.mvarProperties = new Property.PropertyCollection(this);
-			this.mvarGroups = new Group.GroupCollection(this);
-		}
-		public Group(Group parent)
-		{
-			this.mvarName = string.Empty;
-			this.mvarParent = parent;
-			this.mvarProperties = new Property.PropertyCollection(this);
-			this.mvarGroups = new Group.GroupCollection(this);
-		}
-		public Group(string Name)
-		{
-			this.mvarName = Name;
-			this.mvarParent = null;
-			this.mvarProperties = new Property.PropertyCollection(this);
-			this.mvarGroups = new Group.GroupCollection(this);
 		}
 		public Group(Group parent, string Name)
 		{
-			this.mvarName = Name;
-			this.mvarParent = parent;
-			this.mvarProperties = new Property.PropertyCollection(this);
-			this.mvarGroups = new Group.GroupCollection(this);
+			mvarName = Name;
+			mvarParent = parent;
+			mvarProperties = new Property.PropertyCollection(this);
+			mvarGroups = new Group.GroupCollection(this);
 		}
+
 		public object Clone()
 		{
 			Group clone = new Group();
@@ -198,11 +184,9 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				if (mvarIsEmpty != null) return mvarIsEmpty.Value;
 				return (!(mvarGroups.Count > 0 || mvarProperties.Count > 0));
 			}
-			set
-			{
-				mvarIsEmpty = value;
-			}
+			set { mvarIsEmpty = value; }
 		}
+
 		public void Clear()
 		{
 			mvarGroups.Clear();
@@ -222,9 +206,16 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		public bool IsDefined { get { return mvarIsDefined; } set { mvarIsDefined = value; } }
 
 		private string mvarCommentBefore = String.Empty;
+		/// <summary>
+		/// The comment(s) to display before the group header.
+		/// </summary>
 		public string CommentBefore { get { return mvarCommentBefore; } set { mvarCommentBefore = value; } }
 
 		private string mvarCommentAfter = String.Empty;
+		/// <summary>
+		/// The comment(s) to display after the group header but before the first property (or
+		/// subgroup) within the group.
+		/// </summary>
 		public string CommentAfter { get { return mvarCommentAfter; } set { mvarCommentAfter = value; } }
 
 		public override string ToString()
