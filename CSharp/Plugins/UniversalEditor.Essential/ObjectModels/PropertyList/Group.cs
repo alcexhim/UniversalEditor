@@ -183,6 +183,10 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			{
 				clone.Properties.Add(p.Clone() as Property);
 			}
+			clone.IsDefined = mvarIsDefined;
+			clone.CommentBefore = (mvarCommentBefore.Clone() as string);
+			clone.CommentAfter = (mvarCommentAfter.Clone() as string);
+			clone.Name = (mvarName.Clone() as string);
 			return clone;
 		}
 
@@ -203,6 +207,9 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		{
 			mvarGroups.Clear();
 			mvarProperties.Clear();
+			mvarIsDefined = true;
+			mvarCommentBefore = String.Empty;
+			mvarCommentAfter = String.Empty;
 			mvarName = String.Empty;
 			ResetEmpty();
 		}
@@ -214,9 +221,15 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		private bool mvarIsDefined = true;
 		public bool IsDefined { get { return mvarIsDefined; } set { mvarIsDefined = value; } }
 
-        public override string ToString()
-        {
-            return mvarName + " [" + mvarGroups.Count.ToString() + " groups, " + mvarProperties.Count.ToString() + " properties]";
-        }
+		private string mvarCommentBefore = String.Empty;
+		public string CommentBefore { get { return mvarCommentBefore; } set { mvarCommentBefore = value; } }
+
+		private string mvarCommentAfter = String.Empty;
+		public string CommentAfter { get { return mvarCommentAfter; } set { mvarCommentAfter = value; } }
+
+		public override string ToString()
+		{
+			return mvarName + " [" + mvarGroups.Count.ToString() + " groups, " + mvarProperties.Count.ToString() + " properties]";
+		}
 	}
 }
