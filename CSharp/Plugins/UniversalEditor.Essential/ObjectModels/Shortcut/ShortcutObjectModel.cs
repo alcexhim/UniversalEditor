@@ -14,16 +14,34 @@ namespace UniversalEditor.ObjectModels.Shortcut
 			{
 				_omr = base.MakeReference();
 				_omr.Title = "Shortcut";
+				_omr.Description = "Allows the user to find a file or resource located in a different directory or folder from the place where the shortcut is located.";
+				_omr.Path = new string[] { "General" };
 			}
 			return _omr;
 		}
 
 		public override void Clear()
 		{
+			mvarComment = String.Empty;
+			mvarExecutableArguments.Clear();
+			mvarExecutableFileName = String.Empty;
+			mvarIconFileName = String.Empty;
+			mvarRunInTerminal = false;
+			mvarWorkingDirectory = String.Empty;
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
+			ShortcutObjectModel shortcut = (where as ShortcutObjectModel);
+			shortcut.Comment = (mvarComment.Clone() as string);
+			foreach (string s in mvarExecutableArguments)
+			{
+				shortcut.ExecutableArguments.Add(s.Clone() as string);
+			}
+			shortcut.ExecutableFileName = (mvarExecutableFileName.Clone() as string);
+			shortcut.IconFileName = (mvarIconFileName.Clone() as string);
+			shortcut.RunInTerminal = mvarRunInTerminal;
+			shortcut.WorkingDirectory = (mvarWorkingDirectory.Clone() as string);
 		}
 
 		private string mvarComment = String.Empty;
