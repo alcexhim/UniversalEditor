@@ -66,6 +66,7 @@
     <Compile Include="ObjectModels\Chunked\RIFFMetadata.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ObjectModels\DataLink\DataLinkObjectModel.cs" />
     <Compile Include="ObjectModels\FileSystem\CompressedFile.cs" />
     <Compile Include="ObjectModels\FileSystem\DataRequestEvent.cs" />
     <Compile Include="ObjectModels\FileSystem\File.cs" />

@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormats\DataLink\UniversalDataLink\UDLDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJCompressionMethod.cs" />
