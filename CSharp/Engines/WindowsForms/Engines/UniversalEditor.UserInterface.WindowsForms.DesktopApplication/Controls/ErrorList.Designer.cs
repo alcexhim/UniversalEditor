@@ -83,15 +83,15 @@
 			// 
 			this.cbToolBar1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.cbToolBar1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbFilter,
-            this.tsbSep1,
-            this.tsbErrors,
-            this.tsbSep2,
-            this.tsbWarnings,
-            this.tsbSep3,
-            this.tsbMessages,
-            this.tsbSearch,
-            this.cboSearch});
+			this.tsbFilter,
+			this.tsbSep1,
+			this.tsbErrors,
+			this.tsbSep2,
+			this.tsbWarnings,
+			this.tsbSep3,
+			this.tsbMessages,
+			this.tsbSearch,
+			this.cboSearch});
 			this.cbToolBar1.Location = new System.Drawing.Point(0, 0);
 			this.cbToolBar1.Name = "cbToolBar1";
 			this.cbToolBar1.Size = new System.Drawing.Size(557, 25);
@@ -102,9 +102,9 @@
 			// 
 			this.tsbFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.tsbFilter.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.onlyShowOpenDocumentsToolStripMenuItem,
-            this.showEfToolStripMenuItem,
-            this.currentDocumentToolStripMenuItem});
+			this.onlyShowOpenDocumentsToolStripMenuItem,
+			this.showEfToolStripMenuItem,
+			this.currentDocumentToolStripMenuItem});
 			this.tsbFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsbFilter.Image")));
 			this.tsbFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsbFilter.Name = "tsbFilter";
@@ -193,12 +193,12 @@
 			// lv
 			// 
 			this.lv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chIndex,
-            this.chDescription,
-            this.chFileName,
-            this.chLineNumber,
-            this.chColumnNumber,
-            this.chProjectName});
+			this.chIndex,
+			this.chDescription,
+			this.chFileName,
+			this.chLineNumber,
+			this.chColumnNumber,
+			this.chProjectName});
 			this.lv.ContextMenuStrip = this.mnuContext;
 			this.lv.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lv.FullRowSelect = true;
@@ -242,28 +242,28 @@
 			// mnuContext
 			// 
 			this.mnuContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuContextSortBy,
-            this.mnuContextShowColumns,
-            this.showErrorHelpToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.copyToolStripMenuItem,
-            this.pasteSpecialToolStripMenuItem,
-            this.toolStripMenuItem9,
-            this.nextErrorToolStripMenuItem,
-            this.previousErrorToolStripMenuItem});
+			this.mnuContextSortBy,
+			this.mnuContextShowColumns,
+			this.showErrorHelpToolStripMenuItem,
+			this.toolStripMenuItem1,
+			this.copyToolStripMenuItem,
+			this.pasteSpecialToolStripMenuItem,
+			this.toolStripMenuItem9,
+			this.nextErrorToolStripMenuItem,
+			this.previousErrorToolStripMenuItem});
 			this.mnuContext.Name = "mnuContext";
 			this.mnuContext.Size = new System.Drawing.Size(160, 170);
 			// 
 			// mnuContextSortBy
 			// 
 			this.mnuContextSortBy.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem8});
+			this.toolStripMenuItem2,
+			this.toolStripMenuItem3,
+			this.toolStripMenuItem4,
+			this.toolStripMenuItem5,
+			this.toolStripMenuItem6,
+			this.toolStripMenuItem7,
+			this.toolStripMenuItem8});
 			this.mnuContextSortBy.Name = "mnuContextSortBy";
 			this.mnuContextSortBy.Size = new System.Drawing.Size(159, 22);
 			this.mnuContextSortBy.Text = "&Sort By";
@@ -313,13 +313,13 @@
 			// mnuContextShowColumns
 			// 
 			this.mnuContextShowColumns.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.categoryToolStripMenuItem,
-            this.dToolStripMenuItem,
-            this.descriptionToolStripMenuItem,
-            this.fileToolStripMenuItem,
-            this.lineToolStripMenuItem,
-            this.columnToolStripMenuItem,
-            this.projectToolStripMenuItem});
+			this.categoryToolStripMenuItem,
+			this.dToolStripMenuItem,
+			this.descriptionToolStripMenuItem,
+			this.fileToolStripMenuItem,
+			this.lineToolStripMenuItem,
+			this.columnToolStripMenuItem,
+			this.projectToolStripMenuItem});
 			this.mnuContextShowColumns.Name = "mnuContextShowColumns";
 			this.mnuContextShowColumns.Size = new System.Drawing.Size(159, 22);
 			this.mnuContextShowColumns.Text = "Show &Columns";
@@ -386,7 +386,7 @@
 			// pasteSpecialToolStripMenuItem
 			// 
 			this.pasteSpecialToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pasteJSONAsClassesToolStripMenuItem});
+			this.pasteJSONAsClassesToolStripMenuItem});
 			this.pasteSpecialToolStripMenuItem.Name = "pasteSpecialToolStripMenuItem";
 			this.pasteSpecialToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
 			this.pasteSpecialToolStripMenuItem.Text = "Paste &Special";
