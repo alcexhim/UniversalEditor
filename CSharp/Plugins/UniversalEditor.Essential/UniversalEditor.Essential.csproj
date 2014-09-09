@@ -41,6 +41,7 @@
     <Compile Include="Collections\Generic\KeyValuePairList.cs" />
     <Compile Include="Common\Dialog.cs" />
     <Compile Include="Common\Reflection.cs" />
+    <Compile Include="Condition.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
