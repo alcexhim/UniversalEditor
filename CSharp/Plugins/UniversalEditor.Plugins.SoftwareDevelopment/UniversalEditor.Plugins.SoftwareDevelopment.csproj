@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CC5C9010-83EF-491D-9262-2CED509D895D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor</RootNamespace>
+    <AssemblyName>UniversalEditor.Plugins.SoftwareDevelopment</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\Plugins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataFormats\Programming\Java\JavaCodeDataFormat.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElementReferences\CodeElementDynamicReference.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeConditionalStatementActionElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElementReferences\CodeElementEnumerationValueReference.cs" />
+    <Compile Include="ObjectModels\SourceCode\IAccessModifiableCodeElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\INamedCodeElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\SearchExpressions\CodeMethodCallActionSearch.cs" />
+    <Compile Include="DataFormats\Programming\AdaCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\BooCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\CCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\COBOLCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\CodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\CSharpCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\FORTRANCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\FSharpCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\GoCodeDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\Java\JavaClassDataFormat.cs" />
+    <Compile Include="DataFormats\Programming\VisualBasicNETCodeDataFormat.cs" />
+    <Compile Include="ObjectModels\ProgrammingLanguage\ProgrammingLanguageObjectModel.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeAccessModifiers.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElementContainerElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElementReference.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeLoopElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeLoopActionElements\CodeForLoopActionElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeLoopActionElements\CodeWhileLoopActionElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeMethodCallElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodePropertySetElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeVariableDeclarationElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeClassElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeCommentElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeEnumerationElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeIncludeFileElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeLiteralElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeMethodElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeNamespaceElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeNamespaceImportElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodePropertyElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeVariableElement.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeObjectModel.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeDataType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{a92d520b-ffa3-4464-8cf6-474d18959e03}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
