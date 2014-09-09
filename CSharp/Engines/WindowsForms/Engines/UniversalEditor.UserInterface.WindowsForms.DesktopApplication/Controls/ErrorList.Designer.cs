@@ -43,13 +43,13 @@
 			this.tsbMessages = new System.Windows.Forms.ToolStripButton();
 			this.tsbSearch = new System.Windows.Forms.ToolStripButton();
 			this.cboSearch = new System.Windows.Forms.ToolStripComboBox();
-			this.lv = new System.Windows.Forms.ListView();
-			this.chIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.chDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.chFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.chLineNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.chColumnNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.chProjectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.lv = new AwesomeControls.ListView.ListViewControl();
+			this.chIndex = new AwesomeControls.ListView.ListViewColumn();
+			this.chDescription = new AwesomeControls.ListView.ListViewColumn();
+			this.chFileName = new AwesomeControls.ListView.ListViewColumn();
+			this.chLineNumber = new AwesomeControls.ListView.ListViewColumn();
+			this.chColumnNumber = new AwesomeControls.ListView.ListViewColumn();
+			this.chProjectName = new AwesomeControls.ListView.ListViewColumn();
 			this.mnuContext = new AwesomeControls.CommandBars.CBContextMenu(this.components);
 			this.mnuContextSortBy = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -192,7 +192,7 @@
 			// 
 			// lv
 			// 
-			this.lv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+			this.lv.Columns.AddRange(new AwesomeControls.ListView.ListViewColumn[] {
 			this.chIndex,
 			this.chDescription,
 			this.chFileName,
@@ -202,14 +202,13 @@
 			this.lv.ContextMenuStrip = this.mnuContext;
 			this.lv.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lv.FullRowSelect = true;
-			this.lv.GridLines = true;
+			this.lv.ShowGridLines = true;
 			this.lv.HideSelection = false;
 			this.lv.Location = new System.Drawing.Point(0, 25);
 			this.lv.Name = "lv";
 			this.lv.Size = new System.Drawing.Size(557, 230);
 			this.lv.TabIndex = 1;
-			this.lv.UseCompatibleStateImageBehavior = false;
-			this.lv.View = System.Windows.Forms.View.Details;
+			this.lv.Mode = AwesomeControls.ListView.ListViewMode.Details;
 			// 
 			// chIndex
 			// 
@@ -445,13 +444,13 @@
 		private System.Windows.Forms.ToolStripButton tsbMessages;
 		private System.Windows.Forms.ToolStripButton tsbSearch;
 		private System.Windows.Forms.ToolStripComboBox cboSearch;
-		private System.Windows.Forms.ColumnHeader chIndex;
-		private System.Windows.Forms.ColumnHeader chDescription;
-		private System.Windows.Forms.ColumnHeader chFileName;
-		private System.Windows.Forms.ColumnHeader chLineNumber;
-		private System.Windows.Forms.ColumnHeader chColumnNumber;
-		private System.Windows.Forms.ColumnHeader chProjectName;
-		internal System.Windows.Forms.ListView lv;
+		private AwesomeControls.ListView.ListViewColumn chIndex;
+		private AwesomeControls.ListView.ListViewColumn chDescription;
+		private AwesomeControls.ListView.ListViewColumn chFileName;
+		private AwesomeControls.ListView.ListViewColumn chLineNumber;
+		private AwesomeControls.ListView.ListViewColumn chColumnNumber;
+		private AwesomeControls.ListView.ListViewColumn chProjectName;
+		internal AwesomeControls.ListView.ListViewControl lv;
 		private AwesomeControls.CommandBars.CBContextMenu mnuContext;
 		private System.Windows.Forms.ToolStripMenuItem mnuContextShowColumns;
 		private System.Windows.Forms.ToolStripMenuItem categoryToolStripMenuItem;
