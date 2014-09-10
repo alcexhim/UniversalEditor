@@ -39,6 +39,8 @@ namespace UniversalEditor.Plugins.Monolith.DataFormats.FileSystem.Monolith.REZ
 
             uint diroffset = reader.ReadUInt32();
             uint dirsize = reader.ReadUInt32();
+			uint unknown1 = reader.ReadUInt32();
+			
 
             throw new NotImplementedException();
         }

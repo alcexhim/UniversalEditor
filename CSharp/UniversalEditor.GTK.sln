@@ -83,9 +83,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GTK", "GTK", "{E0422169-2DF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.UnrealEngine", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.UnrealEngine\UniversalEditor.Engines.GTK.Plugins.UnrealEngine.csproj", "{78D1381A-AF21-43B2-9DDA-727AF15539AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.FileSystem", "Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem.csproj", "{895D95A4-E37F-40F7-B606-4B8FA61B0449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.FileSystem", "..\..\..\..\..\..\media\0d14d2b2-1b67-4757-8f87-2520a8715f9f\beckermj\Documents\Projects\UniversalEditor\CSharp\Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem\UniversalEditor.Engines.GTK.Plugins.FileSystem.csproj", "{895D95A4-E37F-40F7-B606-4B8FA61B0449}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK.Plugins.UnrealEngine", "Engines\GTK\Plugins\UniversalEditor.Engines.GTK.Plugins.UnrealEngine\UniversalEditor.Engines.GTK.Plugins.UnrealEngine.csproj", "{78D1381A-AF21-43B2-9DDA-727AF15539AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK", "Engines\GTK\UniversalEditor.Engines.GTK\UniversalEditor.Engines.GTK.csproj", "{AF5F8ED3-D534-4609-94ED-B2800455B88F}"
 EndProject
@@ -600,8 +600,8 @@ Global
 		{E0422169-2DF9-4B50-A019-84A3251727F9} = {4725A011-066E-4235-82C4-F2184BF56BBE}
 		{B2A30AE0-2FDD-40D1-88CF-9E4B95277F95} = {E0422169-2DF9-4B50-A019-84A3251727F9}
 		{AF5F8ED3-D534-4609-94ED-B2800455B88F} = {E0422169-2DF9-4B50-A019-84A3251727F9}
-		{78D1381A-AF21-43B2-9DDA-727AF15539AB} = {B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}
 		{895D95A4-E37F-40F7-B606-4B8FA61B0449} = {B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}
+		{78D1381A-AF21-43B2-9DDA-727AF15539AB} = {B2A30AE0-2FDD-40D1-88CF-9E4B95277F95}
 		{A5A14A71-5DB3-4495-92F6-8D27C98FF0F4} = {36B68348-4645-4FE1-81A1-4C98D844FBB8}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
