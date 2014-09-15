@@ -260,7 +260,6 @@
 				<Items>
 					<CommandReference CommandID="ToolsSessionManager" />
 					<Separator />
-					<CommandPlaceholder ID="ExternalTools" />
 					<CommandReference CommandID="ToolsExternalTools" />
 					<Separator />
 					<CommandReference CommandID="ToolsCustomize" />
@@ -268,7 +267,15 @@
 				</Items>
 			</Command>
 			<Command ID="ToolsSessionManager" />
-			<Command ID="ToolsExternalTools" />
+			<Command ID="ToolsExternalTools">
+				<Items>
+					<CommandPlaceholder ID="ExternalTools" />
+					<Separator />
+					<CommandReference CommandID="ToolsExternalToolsCustomize" />
+				</Items>
+			</Command>
+			<Command ID="ToolsExternalToolsCustomize" />
+			
 			<Command ID="ToolsCustomize" />
 			<Command ID="ToolsOptions" />
 			
