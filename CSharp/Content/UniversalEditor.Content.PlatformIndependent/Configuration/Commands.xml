@@ -299,12 +299,15 @@
 					<CommandReference CommandID="HelpCustomerFeedbackOptions" />
 					<CommandReference CommandID="HelpLicensingAndActivation" />
 					<Separator />
+					<CommandReference CommandID="HelpSoftwareManager" />
+					<Separator />
 					<CommandReference CommandID="HelpAboutPlatform" />
 				</Items>
 			</Command>
 			<Command ID="HelpViewHelp" />
 			<Command ID="HelpCustomerFeedbackOptions" />
 			<Command ID="HelpLicensingAndActivation" />
+			<Command ID="HelpSoftwareManager" />
 			<Command ID="HelpAboutPlatform" />
 		</Commands>
 	</Application>
