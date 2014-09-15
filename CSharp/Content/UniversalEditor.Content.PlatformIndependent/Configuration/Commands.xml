@@ -12,6 +12,9 @@
 					<Separator />
 					<CommandReference CommandID="FilePrint" />
 					<Separator />
+					<CommandReference CommandID="FileRecentFiles" />
+					<CommandReference CommandID="FileRecentProjects" />
+					<Separator />
 					<CommandReference CommandID="FileRestart" />
 					<CommandReference CommandID="FileExit" />
 				</Items>
@@ -79,6 +82,16 @@
 			</Command>
 			<Command ID="FilePrint">
 				<Shortcut Modifiers="Control" Key="P" />
+			</Command>
+			<Command ID="FileRecentFiles">
+				<Items>
+					<CommandPlaceholder ID="RecentFiles" />
+				</Items>
+			</Command>
+			<Command ID="FileRecentProjects">
+				<Items>
+					<CommandPlaceholder ID="RecentProjects" />
+				</Items>
 			</Command>
 			<Command ID="FileRestart" />
 			<Command ID="FileExit">
@@ -247,11 +260,15 @@
 				<Items>
 					<CommandReference CommandID="ToolsSessionManager" />
 					<Separator />
+					<CommandPlaceholder ID="ExternalTools" />
+					<CommandReference CommandID="ToolsExternalTools" />
+					<Separator />
 					<CommandReference CommandID="ToolsCustomize" />
 					<CommandReference CommandID="ToolsOptions" />
 				</Items>
 			</Command>
 			<Command ID="ToolsSessionManager" />
+			<Command ID="ToolsExternalTools" />
 			<Command ID="ToolsCustomize" />
 			<Command ID="ToolsOptions" />
 			

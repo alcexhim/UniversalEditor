@@ -86,6 +86,7 @@
 					<!-- Tools -->
 					<Command ID="Tools" Title="_Tools" />
 					<Command ID="ToolsSessionManager" Title="_Session Manager..." />
+					<Command ID="ToolsExternalTools" Title="_External Tools..." />
 					<Command ID="ToolsCustomize" Title="_Customize..." />
 					<Command ID="ToolsOptions" Title="_Options..." />
 					
