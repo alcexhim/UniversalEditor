@@ -4,10 +4,16 @@ using System.Text;
 
 namespace UniversalEditor.Collections.Generic
 {
+	/// <summary>
+	/// Provides a collection that can be keyed either forward (T1=>T2) or backward (T2=>T1).
+	/// </summary>
+	/// <typeparam name="T1">The type of the value on which to forward-key the collection.</typeparam>
+	/// <typeparam name="T2">The type of the value on which to backward-key the collection.</typeparam>
 	public class BidirectionalDictionary<T1, T2> : System.Collections.IEnumerable
 	{
 		private Dictionary<T1, T2> mvarForwardDictionary = new Dictionary<T1, T2>();
 		private Dictionary<T2, T1> mvarBackwardDictionary = new Dictionary<T2, T1>();
+
 		public void Add(T1 value1, T2 value2)
 		{
 			this.mvarForwardDictionary.Add(value1, value2);
@@ -50,22 +56,22 @@ namespace UniversalEditor.Collections.Generic
 			return this.mvarForwardDictionary.GetEnumerator();
 		}
 
-        public bool ContainsValue1(T1 value)
-        {
-            return this.mvarForwardDictionary.ContainsKey(value);
-        }
-        public bool ContainsValue2(T2 value)
-        {
-            return this.mvarBackwardDictionary.ContainsKey(value);
-        }
+		public bool ContainsValue1(T1 value)
+		{
+			return this.mvarForwardDictionary.ContainsKey(value);
+		}
+		public bool ContainsValue2(T2 value)
+		{
+			return this.mvarBackwardDictionary.ContainsKey(value);
+		}
 
-        public int Count
-        {
-            get
-            {
-                if (mvarForwardDictionary.Count != mvarBackwardDictionary.Count) throw new InvalidOperationException("Count mismatch");
-                return mvarBackwardDictionary.Count;
-            }
-        }
+		public int Count
+		{
+			get
+			{
+				if (mvarForwardDictionary.Count != mvarBackwardDictionary.Count) throw new InvalidOperationException("Count mismatch");
+				return mvarBackwardDictionary.Count;
+			}
+		}
 	}
 }

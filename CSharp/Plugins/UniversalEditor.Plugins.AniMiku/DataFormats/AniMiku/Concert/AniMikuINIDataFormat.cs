@@ -13,6 +13,9 @@ using UniversalEditor.ObjectModels.Concertroid.Concert;
 
 namespace UniversalEditor.DataFormats.AniMiku.Concert
 {
+	/// <summary>
+	/// Implements the AniMiku performance data format.
+	/// </summary>
 	public class AniMikuINIDataFormat : WindowsConfigurationDataFormat
 	{
 		public override DataFormatReference MakeReference()
@@ -54,17 +57,25 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 
 				Performance perf = new Performance();
 
+				// The title of the song used in this performance.
 				Property prpName = grp.Properties["name"];
 				perf.Title = prpName.Value.ToString();
 				
+				// File name of the motion data files associated with characters 1 and 2.
 				Property prpVmd1 = grp.Properties["vmd1"];
 				Property prpVmd2 = grp.Properties["vmd2"];
 
+				// Background audio to play during the performance, and delay in milliseconds between
+				// start of animation and start of audio.
 				Property prpSound = grp.Properties["sound"];
 				Property prpDelay = grp.Properties["delay"];
 
+				// File name of the model data files associated with characters 1 and 2.
 				Property prpModel1 = grp.Properties["model1"];
 				Property prpModel2 = grp.Properties["model2"];
+
+				// Offset of the model along the X axis. Currently AMP does not support offsetting the
+				// model along the Y axis.
 				Property prpOffset1 = grp.Properties["offset1"];
 				Property prpOffset2 = grp.Properties["offset2"];
 
