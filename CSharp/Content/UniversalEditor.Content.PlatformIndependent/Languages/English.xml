@@ -3,7 +3,7 @@
 		<Languages DefaultLanguageID="English">
 			<Language ID="English">
 				<StringTable>
-					<StringTableEntry ID="ApplicationTitle" Value="Concertroid Studio" />
+					<StringTableEntry ID="ApplicationTitle" Value="Universal Editor" />
 				</StringTable>
 				<OptionPanels>
 					<OptionPanel ID="{6B7D5857-CDC7-482E-A6D1-A13E0E273C45}" Title="Application">
