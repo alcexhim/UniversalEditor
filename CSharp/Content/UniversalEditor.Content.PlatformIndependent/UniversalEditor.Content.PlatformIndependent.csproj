@@ -43,6 +43,8 @@
     <Content Include="Configuration\Commands.xml" />
     <Content Include="Configuration\MainMenu.xml" />
     <Content Include="Configuration\StartPage.xml" />
+    <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\Commands.xml" />
+    <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\KeyBindings.xml" />
     <Content Include="OptionPanels\Application.xml" />
     <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\Commands\mnuDebugBreak.png" />
     <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\Commands\mnuDebugStart.png" />
@@ -320,10 +322,10 @@
     <None Include="Templates\Project\Website Development\PHP\MainIcon.xcf" />
   </ItemGroup>
   <Target Name="Build">
-    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="Clean">
-    <Delete Files="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Delete Files="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build">
   </Target>
