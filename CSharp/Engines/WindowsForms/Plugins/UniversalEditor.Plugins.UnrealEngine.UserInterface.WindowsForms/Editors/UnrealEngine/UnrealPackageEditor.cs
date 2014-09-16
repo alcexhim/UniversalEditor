@@ -7,18 +7,28 @@ using System.Windows.Forms;
 using UniversalEditor.Accessors;
 using UniversalEditor.Dialogs.UnrealEngine;
 using UniversalEditor.ObjectModels.UnrealEngine;
+using UniversalEditor.UserInterface;
 using UniversalEditor.UserInterface.WindowsForms;
 
 namespace UniversalEditor.Editors.UnrealEngine
 {
 	public partial class UnrealPackageEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(UnrealPackageObjectModel));
+			}
+			return _er;
+		}
+
 		public UnrealPackageEditor()
 		{
 			InitializeComponent();
 			Font = SystemFonts.MenuFont;
-
-			base.SupportedObjectModels.Add(typeof(UnrealPackageObjectModel));
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)

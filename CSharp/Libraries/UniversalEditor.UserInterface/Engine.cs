@@ -613,6 +613,8 @@ namespace UniversalEditor.UserInterface
 
 			#region Global Configuration
 			{
+				UpdateSplashScreenStatus("Loading global configuration");
+
 				MarkupTagElement tagConfiguration = (mvarRawMarkup.FindElement("UniversalEditor", "Configuration") as MarkupTagElement);
 				if (tagConfiguration != null)
 				{
@@ -621,6 +623,25 @@ namespace UniversalEditor.UserInterface
 						MarkupTagElement tag = (el as MarkupTagElement);
 						if (tag == null) continue;
 						LoadConfiguration(tag);
+					}
+				}
+			}
+			#endregion
+			#region Editor Configuration
+			{
+				UpdateSplashScreenStatus("Loading editor configuration");
+
+				MarkupTagElement tagEditors = (mvarRawMarkup.FindElement("UniversalEditor", "Editors") as MarkupTagElement);
+				if (tagEditors != null)
+				{
+					foreach (MarkupElement el in tagEditors.Elements)
+					{
+						MarkupTagElement tag = (el as MarkupTagElement);
+						if (tag == null) continue;
+						if (tag.FullName != "Editor") continue;
+
+						EditorReference editor = Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
+						
 					}
 				}
 			}

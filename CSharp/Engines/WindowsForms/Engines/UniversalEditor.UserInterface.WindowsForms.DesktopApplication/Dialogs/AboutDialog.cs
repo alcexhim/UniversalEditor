@@ -128,8 +128,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 								}
 							}
 
-							IEditorImplementation[] editors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(omr);
-							if (editors.Length > 0)
+							EditorReference[] reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(omr);
+							if (reditors.Length > 0)
 							{
 								TreeNode tnParentEditors = null;
 								if (!tnParent.Nodes.ContainsKey("Editors"))
@@ -145,12 +145,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 								{
 									tnParentEditors = tnParent.Nodes["Editors"];
 								}
-								foreach (IEditorImplementation editor in editors)
+								foreach (EditorReference reditor in reditors)
 								{
-									if (!tnParentEditors.Nodes.ContainsKey(editor.Title))
+									if (!tnParentEditors.Nodes.ContainsKey(reditor.Title))
 									{
-										tnParentEditors.Nodes.Add(editor.Title, editor.Title, "Editor", "Editor");
-										tnParentEditors.Nodes[tnParentEditors.Nodes.Count - 1].Tag = editor;
+										tnParentEditors.Nodes.Add(reditor.Title, reditor.Title, "Editor", "Editor");
+										tnParentEditors.Nodes[tnParentEditors.Nodes.Count - 1].Tag = reditor;
 									}
 								}
 							}

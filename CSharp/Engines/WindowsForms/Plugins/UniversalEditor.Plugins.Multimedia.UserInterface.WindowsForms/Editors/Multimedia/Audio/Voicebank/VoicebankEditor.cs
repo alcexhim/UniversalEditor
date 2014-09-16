@@ -63,17 +63,23 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Voicebank
 	/// </summary>
 	public partial class VoicebankEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(VoicebankObjectModel));
+			}
+			return _er;
+		}
+
 		public VoicebankEditor()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
-			base.SupportedObjectModels.Add(typeof(VoicebankObjectModel));
 			
 			// Select "Explorer" view by default, it looks nice~
 			tabControl1.SelectedIndex = 1;

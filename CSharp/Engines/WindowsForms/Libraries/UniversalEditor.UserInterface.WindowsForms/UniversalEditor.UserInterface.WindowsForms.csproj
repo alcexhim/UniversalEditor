@@ -111,6 +111,7 @@
     <Compile Include="Editors\ShortcutEditor.Designer.cs">
       <DependentUpon>ShortcutEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IconMethods.cs" />
     <Compile Include="OptionPanel.cs">
       <SubType>UserControl</SubType>

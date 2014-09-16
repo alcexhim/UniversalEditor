@@ -4,17 +4,27 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using UniversalEditor.ObjectModels.Shortcut;
+using UniversalEditor.UserInterface;
 using UniversalEditor.UserInterface.WindowsForms;
 
 namespace UniversalEditor.Editors
 {
 	public partial class ShortcutEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(ShortcutObjectModel));
+			}
+			return _er;
+		}
+
 		public ShortcutEditor()
 		{
 			InitializeComponent();
-
-			base.SupportedObjectModels.Add(typeof(ShortcutObjectModel));
 			cboTargetType.SelectedIndex = 0;
 		}
 

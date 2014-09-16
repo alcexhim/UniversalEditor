@@ -16,10 +16,19 @@ namespace UniversalEditor.Editors
 {
 	public partial class CodeEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(CodeObjectModel));
+			}
+			return _er;
+		}
 		public CodeEditor()
 		{
 			InitializeComponent();
-			base.SupportedObjectModels.Add(typeof(CodeObjectModel));
 
 			#region Initializing Menu Items
 			ActionMenuItem mnuProject = base.MenuBar.Items.Add("mnuProject", "&Project");

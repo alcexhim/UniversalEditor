@@ -33,11 +33,12 @@ namespace UniversalEditor.UserInterface
 		void Redo();
 
 		string Title { get; }
-		ObjectModelReference.ObjectModelReferenceCollection SupportedObjectModels { get; }
-		
+
 		event ToolboxItemEventHandler ToolboxItemAdded;
 		event ToolboxItemEventHandler ToolboxItemSelected;
 		
 		bool SelectToolboxItem(ToolboxItem item);
+
+		EditorReference MakeReference();
 	}
 }

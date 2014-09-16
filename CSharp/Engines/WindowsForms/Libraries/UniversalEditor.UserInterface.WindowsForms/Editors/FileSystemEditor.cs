@@ -12,11 +12,22 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 {
 	public partial class FileSystemEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.ID = new Guid("{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}");
+				_er.Title = "File system/archive";
+				_er.SupportedObjectModels.Add(typeof(FileSystemObjectModel));
+			}
+			return _er;
+		}
+
 		public FileSystemEditor()
 		{
 			InitializeComponent();
-
-			base.SupportedObjectModels.Add(typeof(FileSystemObjectModel));
 
 			ImageList large = base.LargeImageList;
 			ImageList small = base.SmallImageList;

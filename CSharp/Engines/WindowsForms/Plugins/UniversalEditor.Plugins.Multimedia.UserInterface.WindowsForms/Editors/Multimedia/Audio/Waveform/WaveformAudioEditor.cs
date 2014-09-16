@@ -9,15 +9,26 @@ using System.Windows.Forms;
 
 using UniversalEditor.UserInterface.WindowsForms;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Waveform
 {
 	public partial class WaveformAudioEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(WaveformAudioObjectModel));
+			}
+			return _er;
+		}
+
 		public WaveformAudioEditor()
 		{
 			InitializeComponent();
-			base.SupportedObjectModels.Add(typeof(WaveformAudioObjectModel));
 		}
 		protected override void OnObjectModelChanged(EventArgs e)
 		{

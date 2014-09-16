@@ -23,7 +23,7 @@ namespace UniversalEditor.UserInterface.Common
 		{
 			System.Reflection.Assembly[] asms = UniversalEditor.Common.Reflection.GetAvailableAssemblies();
 
-			List<IEditorImplementation> listEditors = new List<IEditorImplementation>();
+			List<EditorReference> listEditors = new List<EditorReference>();
 			List<IOptionPanelImplementation> listOptionPanels = new List<IOptionPanelImplementation>();
 			if (mvarAvailableEditors == null || mvarAvailableOptionPanels == null)
 			{
@@ -53,7 +53,7 @@ namespace UniversalEditor.UserInterface.Common
 								try
 								{
 									IEditorImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IEditorImplementation);
-									listEditors.Add(editor);
+									listEditors.Add(editor.MakeReference());
 								}
 								catch (System.Reflection.TargetInvocationException ex)
 								{
@@ -156,8 +156,8 @@ namespace UniversalEditor.UserInterface.Common
 		}
 
 
-		private static IEditorImplementation[] mvarAvailableEditors = null;
-		public static IEditorImplementation[] GetAvailableEditors()
+		private static EditorReference[] mvarAvailableEditors = null;
+		public static EditorReference[] GetAvailableEditors()
 		{
 			if (mvarAvailableEditors == null) Initialize();
 			return mvarAvailableEditors;
@@ -188,20 +188,28 @@ namespace UniversalEditor.UserInterface.Common
 		}
 		*/
 		
-		public static IEditorImplementation[] GetAvailableEditors(ObjectModelReference objectModelReference)
+		public static EditorReference[] GetAvailableEditors(ObjectModelReference objectModelReference)
 		{
-			List<IEditorImplementation> list = new List<IEditorImplementation>();
-			IEditorImplementation[] editors = GetAvailableEditors();
-			foreach (IEditorImplementation editor in editors)
+			List<EditorReference> list = new List<EditorReference>();
+			EditorReference[] editors = GetAvailableEditors();
+			foreach (EditorReference editor in editors)
 			{
 				if (editor.SupportedObjectModels.Contains(objectModelReference.ObjectModelType) || editor.SupportedObjectModels.Contains(objectModelReference.ObjectModelID))
 				{
-					Type editorType = editor.GetType ();
-					IEditorImplementation editor1 = (editorType.Assembly.CreateInstance(editorType.FullName) as IEditorImplementation);
-					list.Add(editor1);
+					list.Add(editor);
 				}
 			}
 			return list.ToArray();
+		}
+
+		public static EditorReference GetAvailableEditorByID(Guid guid)
+		{
+			EditorReference[] editors = GetAvailableEditors();
+			foreach (EditorReference editor in editors)
+			{
+				if (editor.ID == guid) return editor;
+			}
+			return null;
 		}
 	}
 }

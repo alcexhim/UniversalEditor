@@ -9,18 +9,18 @@ using UniversalEditor.UserInterface.WindowsForms;
 
 namespace UniversalEditor.Editors.NewWorldComputing.Map
 {
-    public partial class MapEditor : Editor
-    {
-        public MapEditor()
-        {
-            InitializeComponent();
-        }
+	public partial class MapEditor : Editor
+	{
+		public MapEditor()
+		{
+			InitializeComponent();
+		}
 
-        protected override void OnObjectModelChanged(EventArgs e)
-        {
-            base.OnObjectModelChanged(e);
+		protected override void OnObjectModelChanged(EventArgs e)
+		{
+			base.OnObjectModelChanged(e);
 
 
-        }
-    }
+		}
+	}
 }

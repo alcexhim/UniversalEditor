@@ -13,16 +13,25 @@ using UniversalEditor.ObjectModels.Multimedia3D.Model;
 using UniversalEditor.Plugins.Multimedia3D.UserInterface.WindowsForms.Dialogs;
 
 using AwesomeControls.PropertyGrid;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.WindowsForms.Editors
 {
 	public partial class ModelEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(ModelObjectModel));
+			}
+			return _er;
+		}
 		public ModelEditor()
 		{
 			InitializeComponent();
-
-			base.SupportedObjectModels.Add(typeof(ModelObjectModel));
 			
 			// cboMaterialToon.SelectedIndex = 0;
 

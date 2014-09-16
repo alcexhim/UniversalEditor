@@ -89,8 +89,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 			pnlLoading.Visible = true;
 
 			ObjectModel om = mvarDocument.ObjectModel;
-			IEditorImplementation[] ieditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference());
-			if (ieditors.Length == 0)
+			EditorReference[] reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference());
+			if (reditors.Length == 0)
 			{
 				errorMessage1.Enabled = true;
 				errorMessage1.Visible = true;
@@ -106,14 +106,15 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 				Controls.Add(pnlLoading);
 
 				List<Editor> realEditors = new List<Editor>();
-				foreach (IEditorImplementation ieditor in ieditors)
+				foreach (EditorReference reditor in reditors)
 				{
+					IEditorImplementation ieditor = reditor.Create();
 					if (ieditor is Editor) realEditors.Add((ieditor as Editor));
 				}
 
 				if (realEditors.Count == 1)
 				{
-					IEditorImplementation ieditor = ieditors[0];
+					IEditorImplementation ieditor = reditors[0].Create();
 					if (ieditor is Editor)
 					{
 						Editor editor = (ieditor.GetType().Assembly.CreateInstance(ieditor.GetType().FullName) as Editor);
@@ -238,8 +239,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 				bool notimplemented = false;
 				foreach (ObjectModelReference omr in objms)
 				{
-					IEditorImplementation[] editors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(omr);
-					if (editors.Length < 1) continue;
+					EditorReference[] reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(omr);
+					if (reditors.Length < 1) continue;
 
 					ObjectModel om = omr.Create();
 

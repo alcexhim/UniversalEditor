@@ -11,11 +11,20 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 {
 	public partial class PropertyListEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(PropertyListObjectModel));
+			}
+			return _er;
+		}
+
 		public PropertyListEditor()
 		{
 			InitializeComponent();
-
-			base.SupportedObjectModels.Add(typeof(PropertyListObjectModel));
 
 			lv.SmallImageList = base.SmallImageList;
 			lv.LargeImageList = base.LargeImageList;

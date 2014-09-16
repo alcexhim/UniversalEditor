@@ -4,18 +4,28 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
 using UniversalEditor.ObjectModels.Multimedia.Palette;
+using UniversalEditor.UserInterface;
 using UniversalEditor.UserInterface.WindowsForms;
 
 namespace UniversalEditor.Editors.Multimedia.Palette
 {
 	public partial class PaletteEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(PaletteObjectModel));
+			}
+			return _er;
+		}
+
 		public PaletteEditor()
 		{
 			InitializeComponent();
-			base.SupportedObjectModels.Add(typeof(PaletteObjectModel));
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)

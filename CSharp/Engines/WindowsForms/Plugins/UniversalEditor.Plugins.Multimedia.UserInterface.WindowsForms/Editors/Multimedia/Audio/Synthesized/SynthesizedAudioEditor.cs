@@ -16,12 +16,21 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 {
 	public partial class SynthesizedAudioEditor : Editor
 	{
-		public override string Title { get { return "Synthesized Audio"; } }
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.Title = "Synthesized audio";
+				_er.SupportedObjectModels.Add(typeof(SynthesizedAudioObjectModel));
+			}
+			return _er;
+		}
 
 		public SynthesizedAudioEditor()
 		{
 			InitializeComponent();
-			base.SupportedObjectModels.Add(typeof(SynthesizedAudioObjectModel));
 
 			#region Menu Bar
 			#region View

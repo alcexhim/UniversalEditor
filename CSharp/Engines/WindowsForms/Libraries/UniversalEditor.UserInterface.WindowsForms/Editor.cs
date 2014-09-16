@@ -12,6 +12,18 @@ namespace UniversalEditor.UserInterface.WindowsForms
 {
 	public partial class Editor : UserControl, IEditorImplementation
 	{
+		private static EditorReference _er = null;
+		public virtual EditorReference MakeReference()
+		{
+			return new EditorReference(GetType());
+
+			if (_er == null)
+			{
+				_er = new EditorReference(GetType());
+			}
+			return _er;
+		}
+
 		private bool mvarInhibitUndo = false;
 		protected bool InhibitUndo { get { return mvarInhibitUndo; } set { mvarInhibitUndo = value; } }
 
@@ -191,9 +203,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		public virtual void Delete()
 		{
 		}
-
-		private ObjectModelReference.ObjectModelReferenceCollection mvarSupportedObjectModels = new ObjectModelReference.ObjectModelReferenceCollection();
-		public ObjectModelReference.ObjectModelReferenceCollection SupportedObjectModels { get { return mvarSupportedObjectModels; } }
 
 		private ObjectModel mvarObjectModel = null;
 		public ObjectModel ObjectModel
@@ -424,5 +433,29 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 
 		public string DataPath { get { return String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { "Editors", this.GetType().FullName }); } }
+
+		private Command.CommandCollection mvarCommands = new Command.CommandCollection();
+		public Command.CommandCollection Commands { get { return mvarCommands; } }
+
+		protected override bool ProcessKeyPreview(ref Message m)
+		{
+			Keys keys = (Keys)m.WParam;
+			OnKeyDown(new KeyEventArgs(keys));
+
+			return base.ProcessKeyPreview(ref m);
+		}
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			base.OnKeyDown(e);
+
+			// look at this editor's configuration to see if we have any registered keybindings
+			foreach (Command cmd in mvarCommands)
+			{
+				if (cmd.ShortcutKey.CompareTo(e.KeyData))
+				{
+					cmd.Execute();
+				}
+			}
+		}
 	}
 }

@@ -8,15 +8,25 @@ using System.Text;
 using System.Windows.Forms;
 using UniversalEditor.UserInterface.WindowsForms;
 using UniversalEditor.ObjectModels.Multimedia.Subtitle;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Multimedia.Subtitle
 {
 	public partial class SubtitleEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(SubtitleObjectModel));
+			}
+			return _er;
+		}
 		public SubtitleEditor()
 		{
 			InitializeComponent();
-			base.SupportedObjectModels.Add(typeof(SubtitleObjectModel));
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
