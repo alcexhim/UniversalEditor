@@ -76,8 +76,12 @@
 			// 
 			this.tv.ContextMenuStrip = this.mnuContextTreeView;
 			this.tv.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tv.HideSelection = false;
+			this.tv.ImageIndex = 0;
+			this.tv.ImageList = this.imlSmallIcons;
 			this.tv.Location = new System.Drawing.Point(0, 0);
 			this.tv.Name = "tv";
+			this.tv.SelectedImageIndex = 0;
 			this.tv.Size = new System.Drawing.Size(205, 306);
 			this.tv.TabIndex = 0;
 			this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_AfterSelect);
@@ -113,13 +117,13 @@
 			// mnuContextTreeViewAddNewItem
 			// 
 			this.mnuContextTreeViewAddNewItem.Name = "mnuContextTreeViewAddNewItem";
-			this.mnuContextTreeViewAddNewItem.Size = new System.Drawing.Size(152, 22);
+			this.mnuContextTreeViewAddNewItem.Size = new System.Drawing.Size(148, 22);
 			this.mnuContextTreeViewAddNewItem.Text = "Ne&w Item...";
 			// 
 			// mnuContextTreeViewAddExistingItem
 			// 
 			this.mnuContextTreeViewAddExistingItem.Name = "mnuContextTreeViewAddExistingItem";
-			this.mnuContextTreeViewAddExistingItem.Size = new System.Drawing.Size(152, 22);
+			this.mnuContextTreeViewAddExistingItem.Size = new System.Drawing.Size(148, 22);
 			this.mnuContextTreeViewAddExistingItem.Text = "Existin&g Item...";
 			// 
 			// mnuContextTreeViewSep1
@@ -183,9 +187,14 @@
 			// lv
 			// 
 			this.lv.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lv.FullRowSelect = true;
+			this.lv.GridLines = true;
+			this.lv.HideSelection = false;
+			this.lv.LargeImageList = this.imlLargeIcons;
 			this.lv.Location = new System.Drawing.Point(0, 0);
 			this.lv.Name = "lv";
 			this.lv.Size = new System.Drawing.Size(407, 306);
+			this.lv.SmallImageList = this.imlSmallIcons;
 			this.lv.TabIndex = 0;
 			this.lv.UseCompatibleStateImageBehavior = false;
 			// 
