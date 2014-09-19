@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using UniversalEditor.ObjectModels.StoryWriter.Story;
+using UniversalEditor.UserInterface;
 using UniversalEditor.UserInterface.WindowsForms;
 
 namespace UniversalEditor.Editors
@@ -15,6 +16,18 @@ namespace UniversalEditor.Editors
 		{
 			InitializeComponent();
 			IconMethods.PopulateSystemIcons(ref imlSmallIcons);
+		}
+
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.Title = "Story";
+				_er.SupportedObjectModels.Add(typeof(StoryObjectModel));
+			}
+			return _er;
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)

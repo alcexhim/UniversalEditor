@@ -6,6 +6,18 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 {
 	public class StoryObjectModel : ObjectModel
 	{
+		private static ObjectModelReference _omr = null;
+		public override ObjectModelReference MakeReference()
+		{
+			if (_omr == null)
+			{
+				_omr = base.MakeReference();
+				_omr.Title = "StoryWriter story";
+				_omr.Description = "Tracks characters, locations, and other components of large fictional universes";
+			}
+			return _omr;
+		}
+
 		private Universe mvarUniverse = new Universe();
 		/// <summary>
 		/// The <see cref="Universe" /> this story is set in. A Universe is a collection of characters and
