@@ -14,6 +14,7 @@ namespace UniversalEditor.Editors
 		public StoryEditor()
 		{
 			InitializeComponent();
+			IconMethods.PopulateSystemIcons(ref imlSmallIcons);
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
@@ -24,23 +25,30 @@ namespace UniversalEditor.Editors
 
 			tv.Nodes.Clear();
 
-			TreeNode tnUniverse = tv.Nodes.Add("tnUniverse", "Universe", "generic-folder-closed");
-			
-			TreeNode tnCharacters = tnUniverse.Nodes.Add("tnCharacters", "Characters", "generic-folder-closed");
-			foreach (Character chara in story.Characters)
+			#region Universe
 			{
-				TreeNode tn = new TreeNode();
-				tn.Text = chara.Name;
-				tn.ImageKey = "character";
-				tnCharacters.Nodes.Add(tn);
+				TreeNode tnUniverse = tv.Nodes.Add("tnUniverse", "Universe", "generic-folder-closed");
+			
+				TreeNode tnCharacters = tnUniverse.Nodes.Add("tnCharacters", "Characters", "generic-folder-closed");
+				foreach (Character chara in story.Characters)
+				{
+					TreeNode tn = new TreeNode();
+					tn.Text = chara.Name.ToString();
+					tn.ImageKey = "character";
+					tnCharacters.Nodes.Add(tn);
+				}
+
+				tnUniverse.Nodes.Add("tnDevices", "Devices", "generic-folder-closed");
+				tnUniverse.Nodes.Add("tnLocations", "Locations", "generic-folder-closed");
+				tnUniverse.Nodes.Add("tnOrganizations", "Organizations", "generic-folder-closed");
+				tnUniverse.Nodes.Add("tnVehicles", "Vehicles", "generic-folder-closed");
 			}
-
-			tnUniverse.Nodes.Add("tnDevices", "Devices", "generic-folder-closed");
-			tnUniverse.Nodes.Add("tnLocations", "Locations", "generic-folder-closed");
-			tnUniverse.Nodes.Add("tnOrganizations", "Organizations", "generic-folder-closed");
-			tnUniverse.Nodes.Add("tnVehicles", "Vehicles", "generic-folder-closed");
-
-			tv.Nodes.Add("tnBooks", "Books", "generic-folder-closed");
+			#endregion
+			#region Books
+			{
+				tv.Nodes.Add("tnBooks", "Books", "generic-folder-closed");
+			}
+			#endregion
 
 			tv.ExpandAll();
 		}
@@ -48,6 +56,23 @@ namespace UniversalEditor.Editors
 		private void tv_AfterSelect(object sender, TreeViewEventArgs e)
 		{
 
+		}
+
+		private void mnuContextTreeView_Opening(object sender, CancelEventArgs e)
+		{
+			if (tv.SelectedNode.Tag is Chapter)
+			{
+
+			}
+		}
+
+		private void tv_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			{
+				TreeNode tn = tv.HitTest(e.Location).Node;
+				if (tn != null) tv.SelectedNode = tn;
+			}
 		}
 	}
 }

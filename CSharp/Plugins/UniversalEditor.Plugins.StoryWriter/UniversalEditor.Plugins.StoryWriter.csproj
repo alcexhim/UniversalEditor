@@ -36,11 +36,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFormats\StoryWriter\Story\StoryXML\StoryXMLDataFormat.cs" />
+    <Compile Include="ObjectModels\StoryWriter\Story\Author.cs" />
     <Compile Include="ObjectModels\StoryWriter\Story\Book.cs" />
     <Compile Include="ObjectModels\StoryWriter\Story\Chapter.cs" />
     <Compile Include="ObjectModels\StoryWriter\Story\Character.cs" />
+    <Compile Include="ObjectModels\StoryWriter\Story\ContentItem.cs" />
     <Compile Include="ObjectModels\StoryWriter\Story\Gender.cs" />
+    <Compile Include="ObjectModels\StoryWriter\Story\PersonalName.cs" />
+    <Compile Include="ObjectModels\StoryWriter\Story\PersonalNameReference.cs" />
+    <Compile Include="ObjectModels\StoryWriter\Story\Section.cs" />
     <Compile Include="ObjectModels\StoryWriter\Story\StoryObjectModel.cs" />
+    <Compile Include="ObjectModels\StoryWriter\Story\Universe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

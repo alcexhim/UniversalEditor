@@ -5,11 +5,13 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.StoryWriter.Story
 {
-	public class Chapter : ICloneable
+	/// <summary>
+	/// Represents a section or a scene in a <see cref="Chapter" />.
+	/// </summary>
+	public class Section : ICloneable
 	{
-
-		public class ChapterCollection
-			: System.Collections.ObjectModel.Collection<Chapter>
+		public class SectionCollection
+			: System.Collections.ObjectModel.Collection<Section>
 		{
 
 		}
@@ -20,17 +22,10 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-		private Section.SectionCollection mvarSections = new Section.SectionCollection();
-		public Section.SectionCollection Sections { get { return mvarSections; } }
-
 		public object Clone()
 		{
-			Chapter clone = new Chapter();
+			Section clone = new Section();
 			clone.Title = (mvarTitle.Clone() as string);
-			foreach (Section section in mvarSections)
-			{
-				clone.Sections.Add(section.Clone() as Section);
-			}
 			return clone;
 		}
 	}

@@ -5,10 +5,10 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.StoryWriter.Story
 {
-	public class Character : ICloneable
+	public class Author : ICloneable
 	{
-		public class CharacterCollection
-			: System.Collections.ObjectModel.Collection<Character>
+		public class AuthorCollection
+			: System.Collections.ObjectModel.Collection<Author>
 		{
 
 		}
@@ -16,17 +16,13 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 		private PersonalName mvarName = null;
 		public PersonalName Name { get { return mvarName; } set { mvarName = value; } }
 
-		private Gender mvarGender = null;
-		public Gender Gender { get { return mvarGender; } set { mvarGender = value; } }
-
 		public object Clone()
 		{
-			Character clone = new Character();
+			Author clone = new Author();
 			if (mvarName != null)
 			{
 				clone.Name = (mvarName.Clone() as PersonalName);
 			}
-			clone.Gender = mvarGender;
 			return clone;
 		}
 	}
