@@ -966,6 +966,15 @@ namespace UniversalEditor.UserInterface
 			Array.Copy(args1, 1, args, 0, args.Length);
 
 			System.Collections.ObjectModel.Collection<string> selectedFileNames = new System.Collections.ObjectModel.Collection<string>();
+			if (selectedFileNames.Count == 0 || ConfigurationManager.GetValue<bool>(new string[] { "Application", "Startup", "ForceLoadStartupFileNames" }, false))
+			{
+				object[] oStartupFileNames = ConfigurationManager.GetValue<object[]>(new string[] { "Application", "Startup", "FileNames" }, new object[0]);
+				for (int i = 0; i < oStartupFileNames.Length; i++)
+				{
+					string startupFileName = oStartupFileNames[i].ToString();
+					selectedFileNames.Add(startupFileName);
+				}
+			}
 			foreach (string commandLineArgument in args)
 			{
 				selectedFileNames.Add(commandLineArgument);
