@@ -51,6 +51,8 @@
     <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormatSettings.cs" />
     <Compile Include="DataFormats\PropertyList\CoreObject\CoreObjectDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\ExtensibleConfiguration\ExtensibleConfigurationDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\ExtensibleConfiguration\ExtensibleConfigurationSettings.cs" />
     <Compile Include="DataFormats\PropertyList\Text\TextPropertyListDataFormat.cs" />
     <Compile Include="DataFormats\PropertyList\Text\TextPropertyListSettings.cs" />
     <Compile Include="DataFormats\PropertyList\UniversalPropertyList\UniversalPropertyListDataFormat.cs" />
