@@ -238,6 +238,10 @@ namespace UniversalEditor.UserInterface
 			{
 				OpenWindow();
 			});
+			AttachCommandEventHandler("WindowWindows", delegate(object sender, EventArgs e)
+			{
+				LastWindow.SetWindowListVisible(true, true);
+			});
 			#endregion
 			#region Help
 			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)

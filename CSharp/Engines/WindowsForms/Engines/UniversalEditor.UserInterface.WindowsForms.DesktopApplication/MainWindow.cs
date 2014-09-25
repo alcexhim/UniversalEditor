@@ -1885,9 +1885,23 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 		}
 
-		private void mnuWindowWindows_Click(object sender, EventArgs e)
+		public void SetWindowListVisible(bool visible, bool modal)
 		{
-			dcc.DisplayWindowListDialog();
+			if (modal)
+			{
+				dcc.DisplayWindowListDialog();
+			}
+			else
+			{
+				if (visible)
+				{
+					dcc.ShowWindowListPopupDialog();
+				}
+				else
+				{
+					dcc.HideWindowListPopupDialog();
+				}
+			}
 		}
 
 		private void ToolsCustomize_Click(object sender, EventArgs e)
@@ -1996,11 +2010,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 				OpenFile("shell://" + guid.ToString("B"));
 			}
-		}
-
-		private void mnuWindowNewWindow_Click(object sender, EventArgs e)
-		{
-			Engine.CurrentEngine.OpenWindow();
 		}
 
 		private void cboAddress_KeyDown(object sender, KeyEventArgs e)
