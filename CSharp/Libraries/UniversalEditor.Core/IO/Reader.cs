@@ -747,6 +747,12 @@ namespace UniversalEditor.IO
 		{
 			return ReadBytes(mvarAccessor.Remaining);
 		}
+		public string ReadStringToEnd(Encoding encoding = null)
+		{
+			if (encoding == null) encoding = Encoding.Default;
+			byte[] data = ReadToEnd();
+			return encoding.GetString(data);
+		}
 
 		public byte[] ReadUntil(byte[] sequence)
 		{
