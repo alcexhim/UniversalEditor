@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor.UserInterface.WindowsForms</RootNamespace>
-    <AssemblyName>UniversalEditor.UserInterface.WindowsForms.DesktopApplication</AssemblyName>
+    <AssemblyName>UniversalEditor.Engines.WindowsForms</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,8 +43,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\OutputWindow.cs">
@@ -52,6 +54,12 @@
     </Compile>
     <Compile Include="Controls\OutputWindow.Designer.cs">
       <DependentUpon>OutputWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CrashDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CrashDialog.Designer.cs">
+      <DependentUpon>CrashDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ObjectModelBrowserPopup.cs">
       <SubType>Form</SubType>
@@ -219,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CrashDialog.resx">
+      <DependentUpon>CrashDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ObjectModelBrowserPopup.resx">
       <DependentUpon>ObjectModelBrowserPopup.cs</DependentUpon>

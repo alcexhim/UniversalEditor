@@ -294,21 +294,41 @@ namespace UniversalEditor.UserInterface
 
 		public static bool Execute()
 		{
-			Engine[] engines = GetAvailableEngines();
+			Engine[] engines = null;
+			try
+			{
+				engines = GetAvailableEngines();
+			}
+			catch
+			{
+				return false;
+			}
+
 			if (engines.Length < 1)
 			{
 				return false;
 			}
 			else if (engines.Length == 1)
 			{
-				engines[0].StartApplication();
+				mvarCurrentEngine = engines[0];
 			}
 			else
 			{
-				engines[0].StartApplication();
+				mvarCurrentEngine = engines[0];
+			}
+
+			try
+			{
+				mvarCurrentEngine.StartApplication();
+			}
+			catch (Exception ex)
+			{
+				mvarCurrentEngine.ShowCrashDialog(ex);
 			}
 			return true;
 		}
+
+		protected abstract void ShowCrashDialog(Exception ex);
 
 		protected abstract void MainLoop();
 

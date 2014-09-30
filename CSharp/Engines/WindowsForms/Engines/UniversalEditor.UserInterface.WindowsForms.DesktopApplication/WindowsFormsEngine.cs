@@ -216,9 +216,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			row1.Items.Add("textEditor", "Text Editor");
 			PieMenuManager.Groups.Add(row1);
 
+			Application.ThreadException += Application_ThreadException;
 			Application.Run();
 
 			Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
+		}
+
+		private void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+		{
+			ShowCrashDialog(e.Exception);
 		}
 
 		private static System.Drawing.Color ParseColor(string htmlCode)
@@ -410,6 +416,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				return false;
 			}
 			return true;
+		}
+
+		protected override void ShowCrashDialog(Exception ex)
+		{
+			Dialogs.CrashDialog dlg = new Dialogs.CrashDialog();
+			dlg.Exception = ex;
+			dlg.ShowDialog();
 		}
 	}
 }
