@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UniversalEditor.Plugins.Concertroid")]
+[assembly: AssemblyTitle("Concertroid plugin for Universal Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UniversalEditor.Plugins.Concertroid")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("Mike Becker's Software")]
+[assembly: AssemblyProduct("Universal Editor Plugin Pack")]
+[assembly: AssemblyCopyright("Copyright ©2013-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

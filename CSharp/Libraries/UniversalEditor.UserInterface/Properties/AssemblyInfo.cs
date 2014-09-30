@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UniversalEditor.UserInterface")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Universal Editor User Interface")]
+[assembly: AssemblyDescription("Common user interface components for all Universal Editor engines.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("UniversalEditor.UserInterface")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Mike Becker's Software")]
+[assembly: AssemblyProduct("Universal Editor")]
+[assembly: AssemblyCopyright("Copyright ©2012-2014 Mike Becker's Software")]
+[assembly: AssemblyTrademark("Licensed under the GNU General Public License, version 3.")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

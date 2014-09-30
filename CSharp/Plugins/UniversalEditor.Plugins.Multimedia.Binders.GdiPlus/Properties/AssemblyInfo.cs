@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UniversalEditor.Plugins.Multimedia.Binders.GdiPlus")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("GDI+ binder for Universal Editor")]
+[assembly: AssemblyDescription("Provides the necessary extension methods to allow Universal Editor code to interoperate in a GDI+ environment.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UniversalEditor.Plugins.Multimedia.Binders.GdiPlus")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("Mike Becker's Software")]
+[assembly: AssemblyProduct("Universal Editor Plugin Pack")]
+[assembly: AssemblyCopyright("Copyright ©2013-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

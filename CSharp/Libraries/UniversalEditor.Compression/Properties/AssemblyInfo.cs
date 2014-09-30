@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UniversalEditor.Compression")]
+[assembly: AssemblyTitle("Compression routines for Universal Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("City of Orlando")]
-[assembly: AssemblyProduct("UniversalEditor.Compression")]
-[assembly: AssemblyCopyright("Copyright © City of Orlando 2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Mike Becker's Software")]
+[assembly: AssemblyProduct("Universal Editor")]
+[assembly: AssemblyCopyright("Copyright ©2011-2014 Mike Becker's Software")]
+[assembly: AssemblyTrademark("Licensed under the GNU General Public License, version 3.")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mike Becker's Software")]
 [assembly: AssemblyProduct("Universal Editor Plugin Pack")]
-[assembly: AssemblyCopyright("Copyright ©2012 Mike Becker's Software")]
+[assembly: AssemblyCopyright("Copyright ©2012-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("AniMiku is a trademark of Re:VB-P.")]
 [assembly: AssemblyCulture("")]
 

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UniversalEditor.Plugins.NewWorldComputing.UserInterface.WindowsForms")]
+[assembly: AssemblyTitle("New World Computing plugin for Windows Forms engine of Universal Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mike Becker's Software")]
-[assembly: AssemblyProduct("UniversalEditor.Plugins.NewWorldComputing.UserInterface.WindowsForms")]
-[assembly: AssemblyCopyright("Copyright ©2013 Mike Becker's Software")]
+[assembly: AssemblyProduct("Universal Editor Plugin Pack")]
+[assembly: AssemblyCopyright("Copyright ©2013-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UniversalEditor.Plugins.ChaosWorks")]
+[assembly: AssemblyTitle("Chaos Works plugin for Universal Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("City of Orlando")]
-[assembly: AssemblyProduct("UniversalEditor.Plugins.ChaosWorks")]
-[assembly: AssemblyCopyright("Copyright © City of Orlando 2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Mike Becker's Software")]
+[assembly: AssemblyProduct("Universal Editor Plugin Pack")]
+[assembly: AssemblyCopyright("Copyright ©2012-2014 Mike Becker's Software")]
+[assembly: AssemblyTrademark("Contains code ported from QuickBMS scripts by 'wrs' on Xentax.")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mike Becker's Software")]
 [assembly: AssemblyProduct("Universal Editor Plugin Pack")]
-[assembly: AssemblyCopyright("Copyright ©2013 Mike Becker's Software")]
+[assembly: AssemblyCopyright("Copyright ©2013-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
