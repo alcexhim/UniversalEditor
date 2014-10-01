@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<ObjectModels>
+		<!--
+			Default settings for all object models unless overridden with a specific ObjectModel tag.
+			
+				Enabled
+					Determines whether the ObjectModel is visible in user interface elements (for example, creating
+					a new document). If false, the ObjectModel won't show up in the user interface but will still
+					be accessible to any code that references it directly.
+		-->
+		<Default Enabled="true" />
+	</ObjectModels>
+</UniversalEditor>
