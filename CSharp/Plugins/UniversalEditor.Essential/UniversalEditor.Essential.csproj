@@ -96,6 +96,7 @@
     <Compile Include="ObjectModels\Project\Reference.cs" />
     <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
     <Compile Include="ProjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

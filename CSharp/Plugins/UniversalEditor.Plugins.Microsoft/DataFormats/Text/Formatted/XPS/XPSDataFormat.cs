@@ -23,6 +23,8 @@ using System;
 using UniversalEditor.DataFormats.FileSystem.ZIP;
 using UniversalEditor.ObjectModels.FileSystem;
 
+using UniversalEditor.ObjectModels.Text.Formatted;
+
 namespace UniversalEditor
 {
 	public class XPSDataFormat : ZIPDataFormat
@@ -33,7 +35,7 @@ namespace UniversalEditor
 			if (_dfr == null)
 			{
 				_dfr = new DataFormatReference(GetType());
-				// _dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
+				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Microsoft XPS document", new string[] { "*.xps", "*.oxps" });
 			}
 			return _dfr;
@@ -51,7 +53,7 @@ namespace UniversalEditor
 		
 		protected override void BeforeSaveInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
 		{
-			// FormattedTextObjectModel text = (objectModels.Pop() as FormattedTextObjectModel);
+			FormattedTextObjectModel text = (objectModels.Pop() as FormattedTextObjectModel);
 			
 			FileSystemObjectModel fsom = new FileSystemObjectModel();
 			
@@ -95,4 +97,3 @@ namespace UniversalEditor
 		}
 	}
 }
-

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
+
 using UniversalEditor.ObjectModels.Text.Plain;
+using UniversalEditor.ObjectModels.Text.Formatted;
 
 namespace UniversalEditor.DataFormats.Text.MHTML
 {
@@ -18,6 +20,7 @@ namespace UniversalEditor.DataFormats.Text.MHTML
 				_dfr = base.MakeReference();
 				_dfr.Clear();
 				_dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
+				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("MIME-encoded HyperText Markup Language", new string[] { "*.mht", "*.mhtml" });
 			}
 			return _dfr;
