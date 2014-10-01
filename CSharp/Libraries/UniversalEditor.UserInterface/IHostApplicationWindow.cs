@@ -58,6 +58,13 @@ namespace UniversalEditor.UserInterface
 		void ActivateWindow();
 
 		void ShowStartPage();
+
+		/// <summary>
+		/// Shows or hides the window list based on the given options.
+		/// </summary>
+		/// <param name="visible">True if the window list should be shown; false if the window list should be hidden.</param>
+		/// <param name="modal">True if the window list should be presented as a modal dialog; false if it should be presented as a popup (for example, during a window switch action).</param>
+		void SetWindowListVisible(bool visible, bool modal);
 	}
 	public class IHostApplicationWindowCollection
 		: System.Collections.ObjectModel.Collection<IHostApplicationWindow>

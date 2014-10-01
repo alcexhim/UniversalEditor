@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Universal Editor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Universal Editor engine for Windows Forms")]
+[assembly: AssemblyDescription("Provides a Windows Forms-based user interface for Universal Editor.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mike Becker's Software")]
 [assembly: AssemblyProduct("Universal Editor")]

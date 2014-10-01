@@ -110,25 +110,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuToolsSep1 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuToolsCustomize = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuWindow = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuWindowNewWindow = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuWindowSplit = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuWindowSep1 = new System.Windows.Forms.ToolStripSeparator();
-			this.mnuWindowFloat = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowFloatAll = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowDock = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowAutoHide = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowAutoHideAll = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowHide = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowSep2 = new System.Windows.Forms.ToolStripSeparator();
-			this.mnuWindowPinTab = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuWindowSep3 = new System.Windows.Forms.ToolStripSeparator();
-			this.mnuWindowNewTabGroupHorizontal = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowNewTabGroupVertical = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowCloseAllDocuments = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowResetLayout = new AwesomeControls.CommandBars.CBMenuItem();
-			this.mnuWindowSep4 = new System.Windows.Forms.ToolStripSeparator();
-			this.mnuWindowWindows = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileCloseFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuFileCloseProject = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
@@ -229,7 +210,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.cboAddress.Name = "cboAddress";
 			this.cboAddress.Size = new System.Drawing.Size(800, 21);
 			this.cboAddress.TabIndex = 2;
-			this.cboAddress.Visible = false;
 			this.cboAddress.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboAddress_KeyDown);
 			// 
 			// mbMenuBar
@@ -241,8 +221,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
             this.mnuView,
             this.mnuProject,
             this.mnuBookmarks,
-            this.mnuTools,
-            this.mnuWindow});
+            this.mnuTools});
 			this.mbMenuBar.Location = new System.Drawing.Point(0, 0);
 			this.mbMenuBar.Name = "mbMenuBar";
 			this.mbMenuBar.Size = new System.Drawing.Size(800, 25);
@@ -811,147 +790,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			this.mnuToolsOptions.Text = "&Options...";
 			this.mnuToolsOptions.Click += new System.EventHandler(this.ToolsOptions_Click);
 			// 
-			// mnuWindow
-			// 
-			this.mnuWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuWindowNewWindow,
-            this.mnuWindowSplit,
-            this.mnuWindowSep1,
-            this.mnuWindowFloat,
-            this.mnuWindowFloatAll,
-            this.mnuWindowDock,
-            this.mnuWindowAutoHide,
-            this.mnuWindowAutoHideAll,
-            this.mnuWindowHide,
-            this.mnuWindowSep2,
-            this.mnuWindowPinTab,
-            this.mnuWindowSep3,
-            this.mnuWindowNewTabGroupHorizontal,
-            this.mnuWindowNewTabGroupVertical,
-            this.mnuWindowCloseAllDocuments,
-            this.mnuWindowResetLayout,
-            this.mnuWindowSep4,
-            this.mnuWindowWindows});
-			this.mnuWindow.Name = "mnuWindow";
-			this.mnuWindow.Size = new System.Drawing.Size(63, 21);
-			this.mnuWindow.Text = "&Window";
-			// 
-			// mnuWindowNewWindow
-			// 
-			this.mnuWindowNewWindow.Name = "mnuWindowNewWindow";
-			this.mnuWindowNewWindow.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowNewWindow.Text = "&New Window";
-			this.mnuWindowNewWindow.Click += new System.EventHandler(this.mnuWindowNewWindow_Click);
-			// 
-			// mnuWindowSplit
-			// 
-			this.mnuWindowSplit.Name = "mnuWindowSplit";
-			this.mnuWindowSplit.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowSplit.Text = "S&plit";
-			// 
-			// mnuWindowSep1
-			// 
-			this.mnuWindowSep1.Name = "mnuWindowSep1";
-			this.mnuWindowSep1.Size = new System.Drawing.Size(212, 6);
-			// 
-			// mnuWindowFloat
-			// 
-			this.mnuWindowFloat.Hidden = true;
-			this.mnuWindowFloat.Name = "mnuWindowFloat";
-			this.mnuWindowFloat.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowFloat.Text = "&Float";
-			// 
-			// mnuWindowFloatAll
-			// 
-			this.mnuWindowFloatAll.Hidden = true;
-			this.mnuWindowFloatAll.Name = "mnuWindowFloatAll";
-			this.mnuWindowFloatAll.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowFloatAll.Text = "Float All";
-			// 
-			// mnuWindowDock
-			// 
-			this.mnuWindowDock.Hidden = true;
-			this.mnuWindowDock.Name = "mnuWindowDock";
-			this.mnuWindowDock.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowDock.Text = "Doc&k";
-			// 
-			// mnuWindowAutoHide
-			// 
-			this.mnuWindowAutoHide.Hidden = true;
-			this.mnuWindowAutoHide.Name = "mnuWindowAutoHide";
-			this.mnuWindowAutoHide.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowAutoHide.Text = "&Auto Hide";
-			// 
-			// mnuWindowAutoHideAll
-			// 
-			this.mnuWindowAutoHideAll.Hidden = true;
-			this.mnuWindowAutoHideAll.Name = "mnuWindowAutoHideAll";
-			this.mnuWindowAutoHideAll.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowAutoHideAll.Text = "A&uto Hide All";
-			// 
-			// mnuWindowHide
-			// 
-			this.mnuWindowHide.Hidden = true;
-			this.mnuWindowHide.Name = "mnuWindowHide";
-			this.mnuWindowHide.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowHide.Text = "&Hide";
-			// 
-			// mnuWindowSep2
-			// 
-			this.mnuWindowSep2.Name = "mnuWindowSep2";
-			this.mnuWindowSep2.Size = new System.Drawing.Size(212, 6);
-			// 
-			// mnuWindowPinTab
-			// 
-			this.mnuWindowPinTab.Name = "mnuWindowPinTab";
-			this.mnuWindowPinTab.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowPinTab.Text = "&Pin Tab";
-			// 
-			// mnuWindowSep3
-			// 
-			this.mnuWindowSep3.Name = "mnuWindowSep3";
-			this.mnuWindowSep3.Size = new System.Drawing.Size(212, 6);
-			// 
-			// mnuWindowNewTabGroupHorizontal
-			// 
-			this.mnuWindowNewTabGroupHorizontal.Hidden = true;
-			this.mnuWindowNewTabGroupHorizontal.Name = "mnuWindowNewTabGroupHorizontal";
-			this.mnuWindowNewTabGroupHorizontal.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowNewTabGroupHorizontal.Text = "New Hori&zontal Tab Group";
-			// 
-			// mnuWindowNewTabGroupVertical
-			// 
-			this.mnuWindowNewTabGroupVertical.Hidden = true;
-			this.mnuWindowNewTabGroupVertical.Name = "mnuWindowNewTabGroupVertical";
-			this.mnuWindowNewTabGroupVertical.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowNewTabGroupVertical.Text = "New &Vertical Tab Group";
-			// 
-			// mnuWindowCloseAllDocuments
-			// 
-			this.mnuWindowCloseAllDocuments.Hidden = true;
-			this.mnuWindowCloseAllDocuments.Name = "mnuWindowCloseAllDocuments";
-			this.mnuWindowCloseAllDocuments.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowCloseAllDocuments.Text = "C&lose All Documents";
-			// 
-			// mnuWindowResetLayout
-			// 
-			this.mnuWindowResetLayout.Hidden = true;
-			this.mnuWindowResetLayout.Name = "mnuWindowResetLayout";
-			this.mnuWindowResetLayout.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowResetLayout.Text = "&Reset Window Layout";
-			// 
-			// mnuWindowSep4
-			// 
-			this.mnuWindowSep4.Name = "mnuWindowSep4";
-			this.mnuWindowSep4.Size = new System.Drawing.Size(212, 6);
-			// 
-			// mnuWindowWindows
-			// 
-			this.mnuWindowWindows.Name = "mnuWindowWindows";
-			this.mnuWindowWindows.Size = new System.Drawing.Size(215, 22);
-			this.mnuWindowWindows.Text = "&Windows...";
-			this.mnuWindowWindows.Click += new System.EventHandler(this.mnuWindowWindows_Click);
-			// 
 			// mnuFileCloseFile
 			// 
 			this.mnuFileCloseFile.Name = "mnuFileCloseFile";
@@ -1087,15 +925,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem mnuFileClose;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileCloseFile;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileCloseProject;
-		private System.Windows.Forms.ToolStripMenuItem mnuWindow;
-		private System.Windows.Forms.ToolStripMenuItem mnuWindowNewWindow;
-		private System.Windows.Forms.ToolStripMenuItem mnuWindowSplit;
-		private System.Windows.Forms.ToolStripSeparator mnuWindowSep1;
-		private System.Windows.Forms.ToolStripSeparator mnuWindowSep2;
-		private System.Windows.Forms.ToolStripMenuItem mnuWindowPinTab;
-		private System.Windows.Forms.ToolStripSeparator mnuWindowSep3;
-		private System.Windows.Forms.ToolStripSeparator mnuWindowSep4;
-		private System.Windows.Forms.ToolStripMenuItem mnuWindowWindows;
 		private System.Windows.Forms.ToolStripMenuItem mnuViewStartPage;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileRecentFiles;
 		private System.Windows.Forms.ToolStripMenuItem mnuFileRecentProjects;
@@ -1137,16 +966,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private AwesomeControls.CommandBars.CBMenuItem mnuFileExport;
 		private AwesomeControls.CommandBars.CBMenuItem mnuEditInvertSelection;
 		private AwesomeControls.CommandBars.CBMenuItem mnuEditGoTo;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowFloat;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowFloatAll;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowDock;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowAutoHide;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowAutoHideAll;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowHide;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowNewTabGroupHorizontal;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowNewTabGroupVertical;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowCloseAllDocuments;
-		private AwesomeControls.CommandBars.CBMenuItem mnuWindowResetLayout;
 	}
 }
 

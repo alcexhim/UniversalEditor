@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<ObjectModels>
+		<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel"
+			Enabled="true" />
+	</ObjectModels>
+</UniversalEditor>

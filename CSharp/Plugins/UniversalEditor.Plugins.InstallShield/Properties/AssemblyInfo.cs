@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Universal Editor plugin for InstallShield solutions")]
+[assembly: AssemblyTitle("InstallShield plugin for Universal Editor")]
 [assembly: AssemblyDescription("Provides data formats and object models to manipulate InstallShield installation data")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mike Becker's Software")]
 [assembly: AssemblyProduct("Universal Editor Plugin Pack")]
-[assembly: AssemblyCopyright("Copyright ©2012 Mike Becker's Software")]
+[assembly: AssemblyCopyright("Copyright ©2012-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

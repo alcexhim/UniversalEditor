@@ -238,6 +238,10 @@ namespace UniversalEditor.UserInterface
 			{
 				OpenWindow();
 			});
+			AttachCommandEventHandler("WindowWindows", delegate(object sender, EventArgs e)
+			{
+				LastWindow.SetWindowListVisible(true, true);
+			});
 			#endregion
 			#region Help
 			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
@@ -290,21 +294,41 @@ namespace UniversalEditor.UserInterface
 
 		public static bool Execute()
 		{
-			Engine[] engines = GetAvailableEngines();
+			Engine[] engines = null;
+			try
+			{
+				engines = GetAvailableEngines();
+			}
+			catch
+			{
+				return false;
+			}
+
 			if (engines.Length < 1)
 			{
 				return false;
 			}
 			else if (engines.Length == 1)
 			{
-				engines[0].StartApplication();
+				mvarCurrentEngine = engines[0];
 			}
 			else
 			{
-				engines[0].StartApplication();
+				mvarCurrentEngine = engines[0];
+			}
+
+			try
+			{
+				mvarCurrentEngine.StartApplication();
+			}
+			catch (Exception ex)
+			{
+				mvarCurrentEngine.ShowCrashDialog(ex);
 			}
 			return true;
 		}
+
+		protected abstract void ShowCrashDialog(Exception ex);
 
 		protected abstract void MainLoop();
 
@@ -966,6 +990,15 @@ namespace UniversalEditor.UserInterface
 			Array.Copy(args1, 1, args, 0, args.Length);
 
 			System.Collections.ObjectModel.Collection<string> selectedFileNames = new System.Collections.ObjectModel.Collection<string>();
+			if (selectedFileNames.Count == 0 || ConfigurationManager.GetValue<bool>(new string[] { "Application", "Startup", "ForceLoadStartupFileNames" }, false))
+			{
+				object[] oStartupFileNames = ConfigurationManager.GetValue<object[]>(new string[] { "Application", "Startup", "FileNames" }, new object[0]);
+				for (int i = 0; i < oStartupFileNames.Length; i++)
+				{
+					string startupFileName = oStartupFileNames[i].ToString();
+					selectedFileNames.Add(startupFileName);
+				}
+			}
 			foreach (string commandLineArgument in args)
 			{
 				selectedFileNames.Add(commandLineArgument);

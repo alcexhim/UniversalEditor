@@ -52,7 +52,11 @@
     <Compile Include="CustomDataFormat.cs" />
     <Compile Include="CustomDataFormatItem.cs" />
     <Compile Include="DataCorruptedException.cs" />
+    <Compile Include="DataFormatCapabilities.cs" />
     <Compile Include="DataFormatException.cs" />
+    <Compile Include="DataFormatFilter.cs" />
+    <Compile Include="DataFormatHintComparison.cs" />
+    <Compile Include="DataFormatReference.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DataFormat.cs" />
     <Compile Include="CustomOption.cs" />
@@ -70,6 +74,7 @@
     <Compile Include="Localization\StringTable.cs" />
     <Compile Include="ObjectModel.cs" />
     <Compile Include="ObjectModelNotSupportedException.cs" />
+    <Compile Include="ObjectModelReference.cs" />
     <Compile Include="ProgressEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Universal Editor plugin for New World Computing games (Might and Magic series)")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("New World Computing plugin for Universal Editor")]
+[assembly: AssemblyDescription("Supports manipulating data files for New World Computing games (Might and Magic, Heroes of Might and Magic, etc.)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mike Becker's Software")]
 [assembly: AssemblyProduct("Universal Editor Plugin Pack")]
-[assembly: AssemblyCopyright("Copyright ©2012 Mike Becker's Software")]
+[assembly: AssemblyCopyright("Copyright ©2012-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

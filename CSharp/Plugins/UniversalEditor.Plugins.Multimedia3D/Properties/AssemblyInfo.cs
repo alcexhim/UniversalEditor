@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Universal Editor plugin for Multimedia 3D")]
+[assembly: AssemblyTitle("Multimedia 3D plugin for Universal Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mike Becker's Software")]
 [assembly: AssemblyProduct("Universal Editor Plugin Pack")]
-[assembly: AssemblyCopyright("Copyright ©2010-2012 Mike Becker's Software")]
+[assembly: AssemblyCopyright("Copyright ©2010-2014 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
