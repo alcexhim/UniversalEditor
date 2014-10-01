@@ -174,5 +174,8 @@ namespace UniversalEditor
 
 		private string mvarDescription = String.Empty;
 		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
+
+		private bool mvarVisible = true;
+		public bool Visible { get { return mvarVisible; } set { mvarVisible = value; } }
 	}
 }
