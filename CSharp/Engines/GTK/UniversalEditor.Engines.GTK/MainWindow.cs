@@ -19,6 +19,10 @@ namespace UniversalEditor.Engines.GTK
 			RefreshEditor();
 		}
 		
+		public void SetWindowListVisible(bool visible, bool modal)
+		{
+		}
+		
 		protected override void OnShown()
 		{
 			base.OnShown();
@@ -257,10 +261,10 @@ namespace UniversalEditor.Engines.GTK
 			foreach (ObjectModelReference omr in omrs)
 			{
 				ObjectModel om = omr.Create ();
-				IEditorImplementation[] ieditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference ());
+				EditorReference[] ieditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference ());
 				if (ieditors.Length == 1)
 				{
-					Editor editor = (ieditors[0] as Editor);
+					Editor editor = (ieditors[0].Create() as Editor);
 					if (editor == null) continue;
 					
 					Document doc = new Document(om, df, fa);
@@ -275,9 +279,9 @@ namespace UniversalEditor.Engines.GTK
 				else if (ieditors.Length > 1)
 				{
 					Notebook tbsEditors = new Notebook();
-					foreach (IEditorImplementation ieditor in ieditors)
+					foreach (EditorReference ieditor in ieditors)
 					{
-						Editor editor = (ieditor as Editor);
+						Editor editor = (ieditor.Create() as Editor);
 						if (editor == null) continue;
 						editor.ObjectModel = om;
 						

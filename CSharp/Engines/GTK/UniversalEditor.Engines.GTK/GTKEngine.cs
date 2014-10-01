@@ -37,6 +37,18 @@ namespace UniversalEditor.Engines.GTK
 		{
 			return Dialogs.DataFormatOptionsDialog.ShowDialog(ref df, type);
 		}
+		protected override void ShowCrashDialog(Exception ex)
+		{
+			Dialogs.CrashDialog dlg = new Dialogs.CrashDialog();
+			switch ((ResponseType)dlg.Run())
+			{
+				case ResponseType.Ok:
+				{
+					break;
+				}
+			}
+			dlg.Destroy();
+		}
 	}
 }
 

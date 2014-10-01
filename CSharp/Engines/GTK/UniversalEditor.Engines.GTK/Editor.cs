@@ -10,6 +10,11 @@ namespace UniversalEditor.Engines.GTK
 		{
 			this.Build ();
 		}
+		
+		public virtual EditorReference MakeReference()
+		{
+			return new EditorReference(this.GetType());
+		}
 
 		#region IEditorImplementation implementation
 		public event ToolboxItemEventHandler ToolboxItemAdded;

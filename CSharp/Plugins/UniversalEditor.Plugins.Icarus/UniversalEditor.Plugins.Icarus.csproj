@@ -70,12 +70,6 @@
     <Compile Include="ObjectModels\Icarus\IIcarusContainerCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{A92D520B-FFA3-4464-8CF6-474D18959E03}</Project>
-      <Name>UniversalEditor.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -85,4 +79,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

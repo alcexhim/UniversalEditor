@@ -72,6 +72,8 @@
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Dialogs.AboutDialog.cs" />
     <Compile Include="Dialogs\DataFormatOptionsDialog.cs" />
     <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Dialogs.DataFormatOptionsDialog.cs" />
+    <Compile Include="Dialogs\CrashDialog.cs" />
+    <Compile Include="gtk-gui\UniversalEditor.Engines.GTK.Dialogs.CrashDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
