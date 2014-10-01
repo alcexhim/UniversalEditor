@@ -8,168 +8,176 @@ using System.Windows.Forms;
 namespace UniversalEditor.UserInterface.WindowsForms.Controls
 {
 	[DefaultEvent("SelectionChanged")]
-    public partial class DocumentTypeSelector : UserControl
-    {
-        public event EventHandler SelectionFinalized;
+	public partial class DocumentTypeSelector : UserControl
+	{
+		public event EventHandler SelectionFinalized;
 		public event EventHandler SelectionChanged;
 
-        public DocumentTypeSelector()
-        {
-            InitializeComponent();
+		public DocumentTypeSelector()
+		{
+			InitializeComponent();
 
-            IconMethods.PopulateSystemIcons(ref imlLargeIcons);
-            IconMethods.PopulateSystemIcons(ref imlSmallIcons);
-        }
+			IconMethods.PopulateSystemIcons(ref imlLargeIcons);
+			IconMethods.PopulateSystemIcons(ref imlSmallIcons);
+		}
 
-        protected override void OnCreateControl()
-        {
-            base.OnCreateControl();
+		protected override void OnCreateControl()
+		{
+			base.OnCreateControl();
 
-            RefreshList();
-        }
+			RefreshList();
+		}
 
-        private bool mvarIncludeObjectModelsWithoutEditor = false;
-        /// <summary>
-        /// Determines whether to include object models in the list if the object models do not have an associated editor.
-        /// </summary>
-        [Description("Determines whether to include object models in the list if the object models do not have an associated editor."), DefaultValue(false)]
-        public bool IncludeObjectModelsWithoutEditor { get { return mvarIncludeObjectModelsWithoutEditor; } set { mvarIncludeObjectModelsWithoutEditor = value; } }
+		private bool mvarIncludeInvisibleObjectModels = false;
+		/// <summary>
+		/// Determines whether to include object models that are marked as invisible.
+		/// </summary>
+		[Description("Determines whether to include object models that are marked as invisible."), DefaultValue(false)]
+		public bool IncludeInvisibleObjectModels { get { return mvarIncludeInvisibleObjectModels; } set { mvarIncludeInvisibleObjectModels = value; } }
 
-        private void RefreshList()
-        {
-            switch (mvarObjectType)
-            {
-                case DocumentTypeSelectorObjectTypes.DataFormat:
-                {
-                    foreach (DataFormatReference dfr in UniversalEditor.Common.Reflection.GetAvailableDataFormats())
-                    {
-                        ListViewItem lvi = new ListViewItem();
-                        lvi.Text = dfr.Title;
-                        lvi.Tag = dfr;
-                        lvDataFormats.Items.Add(lvi);
-                    }
-                    break;
-                }
-                case DocumentTypeSelectorObjectTypes.ObjectModel:
-                {
-                    tvObjectModels.Nodes.Clear();
+		private bool mvarIncludeObjectModelsWithoutEditor = false;
+		/// <summary>
+		/// Determines whether to include object models in the list if the object models do not have an associated editor.
+		/// </summary>
+		[Description("Determines whether to include object models in the list if the object models do not have an associated editor."), DefaultValue(false)]
+		public bool IncludeObjectModelsWithoutEditor { get { return mvarIncludeObjectModelsWithoutEditor; } set { mvarIncludeObjectModelsWithoutEditor = value; } }
 
-                    ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-                    foreach (ObjectModelReference omr in omrs)
-                    {
-                        if (!mvarIncludeObjectModelsWithoutEditor && Common.Reflection.GetAvailableEditors(omr).Length == 0) continue;
+		private void RefreshList()
+		{
+			switch (mvarObjectType)
+			{
+				case DocumentTypeSelectorObjectTypes.DataFormat:
+				{
+					foreach (DataFormatReference dfr in UniversalEditor.Common.Reflection.GetAvailableDataFormats())
+					{
+						ListViewItem lvi = new ListViewItem();
+						lvi.Text = dfr.Title;
+						lvi.Tag = dfr;
+						lvDataFormats.Items.Add(lvi);
+					}
+					break;
+				}
+				case DocumentTypeSelectorObjectTypes.ObjectModel:
+				{
+					tvObjectModels.Nodes.Clear();
 
-                        if (omr.Path.Length > 0)
-                        {
-                            if (txtSearch.Text.Length != 0 && !omr.Path[omr.Path.Length - 1].ToLower().Contains(txtSearch.Text.ToLower())) continue;
-                        }
+					ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+					foreach (ObjectModelReference omr in omrs)
+					{
+						if (!mvarIncludeObjectModelsWithoutEditor && Common.Reflection.GetAvailableEditors(omr).Length == 0) continue;
+						if (!mvarIncludeInvisibleObjectModels && !omr.Visible) continue;
 
-                        TreeNode tnParent = null;
-                        foreach (string pathItem in omr.Path)
-                        {
-                            if (tnParent == null)
-                            {
-                                if (tvObjectModels.Nodes.ContainsKey(pathItem))
-                                {
-                                    tnParent = tvObjectModels.Nodes[pathItem];
-                                }
-                                else
-                                {
-                                    tnParent = tvObjectModels.Nodes.Add(pathItem, pathItem);
-                                }
-                            }
-                            else
-                            {
-                                if (tnParent.Nodes.ContainsKey(pathItem))
-                                {
-                                    tnParent = tnParent.Nodes[pathItem];
-                                }
-                                else
-                                {
-                                    tnParent = tnParent.Nodes.Add(pathItem, pathItem);
-                                }
-                            }
+						if (omr.Path.Length > 0)
+						{
+							if (txtSearch.Text.Length != 0 && !omr.Path[omr.Path.Length - 1].ToLower().Contains(txtSearch.Text.ToLower())) continue;
+						}
 
-                            if (Array.IndexOf(omr.Path, pathItem) < omr.Path.Length - 1)
-                            {
-                                tnParent.ImageKey = "generic-folder-closed";
-                                tnParent.SelectedImageKey = "generic-folder-closed";
-                            }
-                        }
+						TreeNode tnParent = null;
+						foreach (string pathItem in omr.Path)
+						{
+							if (tnParent == null)
+							{
+								if (tvObjectModels.Nodes.ContainsKey(pathItem))
+								{
+									tnParent = tvObjectModels.Nodes[pathItem];
+								}
+								else
+								{
+									tnParent = tvObjectModels.Nodes.Add(pathItem, pathItem);
+								}
+							}
+							else
+							{
+								if (tnParent.Nodes.ContainsKey(pathItem))
+								{
+									tnParent = tnParent.Nodes[pathItem];
+								}
+								else
+								{
+									tnParent = tnParent.Nodes.Add(pathItem, pathItem);
+								}
+							}
 
-                        if (tnParent != null)
-                        {
-                            if (txtSearch.Text.Length != 0 && omr.Path[omr.Path.Length - 1].ToLower().Contains(txtSearch.Text.ToLower()))
-                            {
-                                tnParent.EnsureVisible();
-                                tvObjectModels.SelectedNode = tnParent;
-                                tvObjectModels_AfterSelect(null, new TreeViewEventArgs(tvObjectModels.SelectedNode));
-                            }
-                            tnParent.Tag = omr;
-                        }
-                    }
-                    break;
-                }
-                case DocumentTypeSelectorObjectTypes.Both:
-                {
-                    tvObjectModels.Nodes.Clear();
+							if (Array.IndexOf(omr.Path, pathItem) < omr.Path.Length - 1)
+							{
+								tnParent.ImageKey = "generic-folder-closed";
+								tnParent.SelectedImageKey = "generic-folder-closed";
+							}
+						}
 
-                    ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-                    foreach (ObjectModelReference omr in omrs)
-                    {
-                        if (!mvarIncludeObjectModelsWithoutEditor && Common.Reflection.GetAvailableEditors(omr).Length == 0) continue;
+						if (tnParent != null)
+						{
+							if (txtSearch.Text.Length != 0 && omr.Path[omr.Path.Length - 1].ToLower().Contains(txtSearch.Text.ToLower()))
+							{
+								tnParent.EnsureVisible();
+								tvObjectModels.SelectedNode = tnParent;
+								tvObjectModels_AfterSelect(null, new TreeViewEventArgs(tvObjectModels.SelectedNode));
+							}
+							tnParent.Tag = omr;
+						}
+					}
+					break;
+				}
+				case DocumentTypeSelectorObjectTypes.Both:
+				{
+					tvObjectModels.Nodes.Clear();
 
-                        TreeNode tnParent = null;
-                        foreach (string pathItem in omr.Path)
-                        {
-                            if (tnParent == null)
-                            {
-                                if (tvObjectModels.Nodes.ContainsKey(pathItem))
-                                {
-                                    tnParent = tvObjectModels.Nodes[pathItem];
-                                }
-                                else
-                                {
-                                    tnParent = tvObjectModels.Nodes.Add(pathItem, pathItem);
-                                }
-                            }
-                            else
-                            {
-                                if (tnParent.Nodes.ContainsKey(pathItem))
-                                {
-                                    tnParent = tnParent.Nodes[pathItem];
-                                }
-                                else
-                                {
-                                    tnParent = tnParent.Nodes.Add(pathItem, pathItem);
-                                }
-                            }
-                        }
+					ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+					foreach (ObjectModelReference omr in omrs)
+					{
+						if (!mvarIncludeObjectModelsWithoutEditor && Common.Reflection.GetAvailableEditors(omr).Length == 0) continue;
 
-                        tnParent.Tag = omr;
-                        DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(omr);
-                        foreach (DataFormatReference dfr in dfrs)
-                        {
-                            TreeNode tnDataFormat = new TreeNode();
-                            tnDataFormat.Text = dfr.Title;
-                            tnDataFormat.Tag = dfr;
-                            tnParent.Nodes.Add(tnDataFormat);
-                        }
-                    }
-                    break;
-                }
-            }
-        }
+						TreeNode tnParent = null;
+						foreach (string pathItem in omr.Path)
+						{
+							if (tnParent == null)
+							{
+								if (tvObjectModels.Nodes.ContainsKey(pathItem))
+								{
+									tnParent = tvObjectModels.Nodes[pathItem];
+								}
+								else
+								{
+									tnParent = tvObjectModels.Nodes.Add(pathItem, pathItem);
+								}
+							}
+							else
+							{
+								if (tnParent.Nodes.ContainsKey(pathItem))
+								{
+									tnParent = tnParent.Nodes[pathItem];
+								}
+								else
+								{
+									tnParent = tnParent.Nodes.Add(pathItem, pathItem);
+								}
+							}
+						}
 
-        private DocumentTypeSelectorObjectTypes mvarObjectType = DocumentTypeSelectorObjectTypes.ObjectModel;
-        public DocumentTypeSelectorObjectTypes ObjectType
-        {
-            get { return mvarObjectType; }
-            set
-            {
-                mvarObjectType = value;
-                switch (mvarObjectType)
-                {
+						tnParent.Tag = omr;
+						DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(omr);
+						foreach (DataFormatReference dfr in dfrs)
+						{
+							TreeNode tnDataFormat = new TreeNode();
+							tnDataFormat.Text = dfr.Title;
+							tnDataFormat.Tag = dfr;
+							tnParent.Nodes.Add(tnDataFormat);
+						}
+					}
+					break;
+				}
+			}
+		}
+
+		private DocumentTypeSelectorObjectTypes mvarObjectType = DocumentTypeSelectorObjectTypes.ObjectModel;
+		public DocumentTypeSelectorObjectTypes ObjectType
+		{
+			get { return mvarObjectType; }
+			set
+			{
+				mvarObjectType = value;
+				switch (mvarObjectType)
+				{
 					case DocumentTypeSelectorObjectTypes.DataFormat:
 					{
 						tvObjectModels.Visible = false;
@@ -194,9 +202,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 						lvDataFormats.Enabled = false;
 						break;
 					}
-                }
-            }
-        }
+				}
+			}
+		}
 
 		protected void OnSelectionChanged(EventArgs e)
 		{
@@ -224,15 +232,15 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 
 		}
 
-        protected void OnSelectionFinalized(EventArgs e)
-        {
-            OnSelectionChanged(e);
-            if (SelectionFinalized != null) SelectionFinalized(this, e);
-        }
+		protected void OnSelectionFinalized(EventArgs e)
+		{
+			OnSelectionChanged(e);
+			if (SelectionFinalized != null) SelectionFinalized(this, e);
+		}
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            RefreshList();
+		private void txtSearch_TextChanged(object sender, EventArgs e)
+		{
+			RefreshList();
 		}
 
 		private void tvObjectModels_AfterSelect(object sender, TreeViewEventArgs e)
@@ -252,40 +260,40 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 		public object SelectedObject { get { return mvarSelectedObject; } }
 
 
-        private void tvObjectModels_AfterCollapse(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node == null) return;
-            if (e.Node.ImageKey == "generic-folder-open")
-            {
-                e.Node.ImageKey = "generic-folder-closed";
-                e.Node.SelectedImageKey = "generic-folder-closed";
-            }
-        }
-        private void tvObjectModels_AfterExpand(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node == null) return;
-            if (e.Node.ImageKey == "generic-folder-closed")
-            {
-                e.Node.ImageKey = "generic-folder-open";
-                e.Node.SelectedImageKey = "generic-folder-open";
-            }
-        }
+		private void tvObjectModels_AfterCollapse(object sender, TreeViewEventArgs e)
+		{
+			if (e.Node == null) return;
+			if (e.Node.ImageKey == "generic-folder-open")
+			{
+				e.Node.ImageKey = "generic-folder-closed";
+				e.Node.SelectedImageKey = "generic-folder-closed";
+			}
+		}
+		private void tvObjectModels_AfterExpand(object sender, TreeViewEventArgs e)
+		{
+			if (e.Node == null) return;
+			if (e.Node.ImageKey == "generic-folder-closed")
+			{
+				e.Node.ImageKey = "generic-folder-open";
+				e.Node.SelectedImageKey = "generic-folder-open";
+			}
+		}
 
-        private void tvObjectModels_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (tvObjectModels.SelectedNode != null)
-            {
-                OnSelectionFinalized(e);
-            }
-        }
+		private void tvObjectModels_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			if (tvObjectModels.SelectedNode != null)
+			{
+				OnSelectionFinalized(e);
+			}
+		}
 	}
-    
-    [Flags()]
-    public enum DocumentTypeSelectorObjectTypes
-    {
-        None = 0,
-        ObjectModel = 1,
-        DataFormat = 2,
-        Both = 3
-    }
+	
+	[Flags()]
+	public enum DocumentTypeSelectorObjectTypes
+	{
+		None = 0,
+		ObjectModel = 1,
+		DataFormat = 2,
+		Both = 3
+	}
 }
