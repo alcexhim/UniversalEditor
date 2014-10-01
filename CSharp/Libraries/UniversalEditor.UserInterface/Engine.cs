@@ -520,30 +520,30 @@ namespace UniversalEditor.UserInterface
 									switch (strModifier.Trim().ToLower())
 									{
 										case "alt":
-											{
-												modifiers |= CommandShortcutKeyModifiers.Alt;
-												break;
-											}
+										{
+											modifiers |= CommandShortcutKeyModifiers.Alt;
+											break;
+										}
 										case "control":
-											{
-												modifiers |= CommandShortcutKeyModifiers.Control;
-												break;
-											}
+										{
+											modifiers |= CommandShortcutKeyModifiers.Control;
+											break;
+										}
 										case "meta":
-											{
-												modifiers |= CommandShortcutKeyModifiers.Meta;
-												break;
-											}
+										{
+											modifiers |= CommandShortcutKeyModifiers.Meta;
+											break;
+										}
 										case "shift":
-											{
-												modifiers |= CommandShortcutKeyModifiers.Shift;
-												break;
-											}
+										{
+											modifiers |= CommandShortcutKeyModifiers.Shift;
+											break;
+										}
 										case "super":
-											{
-												modifiers |= CommandShortcutKeyModifiers.Super;
-												break;
-											}
+										{
+											modifiers |= CommandShortcutKeyModifiers.Super;
+											break;
+										}
 									}
 								}
 							}
@@ -666,6 +666,49 @@ namespace UniversalEditor.UserInterface
 
 						EditorReference editor = Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
 						
+					}
+				}
+			}
+			#endregion
+			#region Object Model Configuration
+			{
+				UpdateSplashScreenStatus("Loading object model configuration");
+
+				MarkupTagElement tagObjectModels = (mvarRawMarkup.FindElement("UniversalEditor", "ObjectModels") as MarkupTagElement);
+				if (tagObjectModels != null)
+				{
+					MarkupTagElement tagDefault = (tagObjectModels.Elements["Default"] as MarkupTagElement);
+					if (tagDefault != null)
+					{
+						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+						MarkupAttribute attVisible = tagDefault.Attributes["Visible"];
+						foreach (ObjectModelReference omr in omrs)
+						{
+							if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+						}
+					}
+
+					foreach (MarkupElement el in tagObjectModels.Elements)
+					{
+						MarkupTagElement tag = (el as MarkupTagElement);
+						if (tag == null) continue;
+						if (tag.FullName == "ObjectModel")
+						{
+							MarkupAttribute attTypeName = tag.Attributes["TypeName"];
+							MarkupAttribute attID = tag.Attributes["ID"];
+							MarkupAttribute attVisible = tag.Attributes["Visible"];
+
+							if (attTypeName != null)
+							{
+								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByTypeName(attTypeName.Value);
+								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+							}
+							else
+							{
+								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByID(new Guid(attID.Value));
+								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+							}
+						}
 					}
 				}
 			}
