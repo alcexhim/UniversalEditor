@@ -52,7 +52,11 @@
     <Compile Include="CustomDataFormat.cs" />
     <Compile Include="CustomDataFormatItem.cs" />
     <Compile Include="DataCorruptedException.cs" />
+    <Compile Include="DataFormatCapabilities.cs" />
     <Compile Include="DataFormatException.cs" />
+    <Compile Include="DataFormatFilter.cs" />
+    <Compile Include="DataFormatHintComparison.cs" />
+    <Compile Include="DataFormatReference.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DataFormat.cs" />
     <Compile Include="CustomOption.cs" />
