@@ -97,6 +97,11 @@
     <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextObjectModel.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextItem.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyle.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyleGroup.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\Container.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\Literal.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
     <Compile Include="ProjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
