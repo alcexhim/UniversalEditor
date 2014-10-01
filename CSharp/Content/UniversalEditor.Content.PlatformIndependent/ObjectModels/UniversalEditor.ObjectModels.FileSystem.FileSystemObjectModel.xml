@@ -2,6 +2,6 @@
 <UniversalEditor Version="4.0">
 	<ObjectModels>
 		<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel"
-			Enabled="true" />
+			Visible="true" />
 	</ObjectModels>
 </UniversalEditor>

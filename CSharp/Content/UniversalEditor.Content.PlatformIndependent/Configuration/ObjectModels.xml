@@ -9,6 +9,6 @@
 					a new document). If false, the ObjectModel won't show up in the user interface but will still
 					be accessible to any code that references it directly.
 		-->
-		<Default Enabled="true" />
+		<Default Visible="true" />
 	</ObjectModels>
 </UniversalEditor>
