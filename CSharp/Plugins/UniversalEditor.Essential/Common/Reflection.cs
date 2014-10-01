@@ -532,7 +532,7 @@ namespace UniversalEditor.Common
 													z.Title = tag.Attributes["Title"].Value;
 
 													string objectModelTypeName = tag.Attributes["ObjectModelTypeName"].Value;
-													z.ObjectModelReference = GetObjectModelByTypeName(objectModelTypeName);
+													z.ObjectModelReference = GetAvailableObjectModelByTypeName(objectModelTypeName);
 
 													projtype.ItemShortcuts.Add(z);
 												}
@@ -1058,12 +1058,24 @@ namespace UniversalEditor.Common
 			}
 			return list.ToArray();
 		}
-		public static ObjectModelReference GetObjectModelByTypeName(string TypeName)
+		public static ObjectModelReference GetAvailableObjectModelByTypeName(string TypeName)
 		{
 			ObjectModelReference[] omrs = GetAvailableObjectModels();
 			foreach (ObjectModelReference omr in omrs)
 			{
 				if (omr.ObjectModelType.FullName == TypeName)
+				{
+					return omr;
+				}
+			}
+			return null;
+		}
+		public static ObjectModelReference GetAvailableObjectModelByID(Guid ID)
+		{
+			ObjectModelReference[] omrs = GetAvailableObjectModels();
+			foreach (ObjectModelReference omr in omrs)
+			{
+				if (omr.ObjectModelID == ID)
 				{
 					return omr;
 				}
