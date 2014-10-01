@@ -45,6 +45,10 @@
     <Content Include="Configuration\StartPage.xml" />
     <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\Commands.xml" />
     <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\KeyBindings.xml" />
+    <Content Include="ObjectModels\UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel.xml" />
+    <Content Include="ObjectModels\UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel.xml" />
+    <Content Include="ObjectModels\UniversalEditor.ObjectModels.Shortcut.ShortcutObjectModel.xml" />
+    <Content Include="ObjectModels\UniversalEditor.ObjectModels.Text.Plain.PlainTextObjectModel.xml" />
     <Content Include="OptionPanels\Application.xml" />
     <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\Commands\mnuDebugBreak.png" />
     <Content Include="Editors\UniversalEditor.Editors.Icarus.IcarusScriptEditor\Images\Commands\mnuDebugStart.png" />
