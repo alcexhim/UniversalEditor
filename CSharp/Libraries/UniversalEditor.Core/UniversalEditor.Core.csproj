@@ -70,6 +70,7 @@
     <Compile Include="Localization\StringTable.cs" />
     <Compile Include="ObjectModel.cs" />
     <Compile Include="ObjectModelNotSupportedException.cs" />
+    <Compile Include="ObjectModelReference.cs" />
     <Compile Include="ProgressEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
