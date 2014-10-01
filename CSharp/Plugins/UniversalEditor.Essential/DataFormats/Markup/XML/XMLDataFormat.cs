@@ -323,6 +323,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			{
 				char c = tr.ReadChar();
 				
+				if (c == (char)65279) continue;
+
 				if (!loaded && (c != '<'))
 				{
 					return;
