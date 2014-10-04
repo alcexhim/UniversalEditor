@@ -20,47 +20,26 @@ namespace UniversalEditor.IO
 	public abstract class Encoding
 	{
 		private static Encoding _Default = new DefaultEncoding();
-		public static Encoding Default
-		{
-			get { return _Default; }
-		}
+		public static Encoding Default { get { return _Default; } }
 		private static Encoding _ASCII = new ASCIIEncoding();
-		public static Encoding ASCII
-		{
-			get { return _ASCII; }
-		}
+		public static Encoding ASCII { get { return _ASCII; } }
 
 		private static Encoding _UTF7 = new UTF7Encoding();
-		public static Encoding UTF7
-		{
-			get { return _UTF7; }
-		}
+		public static Encoding UTF7 { get { return _UTF7; } }
 		private static Encoding _UTF8 = new UTF8Encoding();
-		public static Encoding UTF8
-		{
-			get { return _UTF8; }
-		}
+		public static Encoding UTF8 { get { return _UTF8; } }
 		private static Encoding _UTF16LittleEndian = new UTF16LittleEndianEncoding();
-		public static Encoding UTF16LittleEndian
-		{
-			get { return _UTF16LittleEndian; }
-		}
+		public static Encoding UTF16LittleEndian { get { return _UTF16LittleEndian; } }
 		private static Encoding _UTF16BigEndian = new UTF16BigEndianEncoding();
-		public static Encoding UTF16BigEndian
-		{
-			get { return _UTF16BigEndian; }
-		}
+		public static Encoding UTF16BigEndian { get { return _UTF16BigEndian; } }
 		private static Encoding _UTF32 = new UTF32Encoding();
-		public static Encoding UTF32
-		{
-			get { return _UTF32; }
-		}
+		public static Encoding UTF32 { get { return _UTF32; } }
 
 		private static Encoding _ShiftJIS = new ShiftJISEncoding();
-		public static Encoding ShiftJIS
-		{
-			get { return _ShiftJIS; }
-		}
+		public static Encoding ShiftJIS { get { return _ShiftJIS; } }
+
+		private static Encoding _Windows1252 = new CodePageEncoding(1252);
+		public static Encoding Windows1252 { get { return _Windows1252; } }
 
 		public byte[] GetBytes(string value)
 		{
@@ -114,6 +93,11 @@ namespace UniversalEditor.IO
 			char[] chars = value.ToCharArray();
 			return GetByteCount(chars, 0, chars.Length);
 		}
+
+		public static Encoding GetEncoding(int codepage)
+		{
+			return new CodePageEncoding(codepage);
+		}
 	}
 	public class DefaultEncoding : Encoding
 	{
@@ -134,6 +118,35 @@ namespace UniversalEditor.IO
 				retval[i] = (char)bytes[i];
 			}
 			return retval;
+		}
+	}
+	public class CodePageEncoding : Encoding
+	{
+		private System.Text.Encoding _encoding = null;
+		public CodePageEncoding(int codepage)
+		{
+			_encoding = System.Text.Encoding.GetEncoding(codepage);
+		}
+
+		public override byte[] GetBytes(char[] chars, int index, int count)
+		{
+			return _encoding.GetBytes(chars, index, count);
+		}
+		public override char[] GetChars(byte[] bytes, int index, int count)
+		{
+			return _encoding.GetChars(bytes, index, count);
+		}
+		public override int GetMaxByteCount(int count)
+		{
+			return _encoding.GetMaxByteCount(count);
+		}
+		public override int GetMaxCharCount(int count)
+		{
+			return _encoding.GetMaxCharCount(count);
+		}
+		public override int GetByteCount(char[] chars, int index, int count)
+		{
+			return _encoding.GetByteCount(chars, index, count);
 		}
 	}
 	public class ASCIIEncoding : Encoding
