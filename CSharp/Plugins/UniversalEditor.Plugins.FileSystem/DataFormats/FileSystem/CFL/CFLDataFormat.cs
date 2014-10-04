@@ -38,9 +38,10 @@ namespace UniversalEditor.DataFormats.FileSystem.CFL
 			uint compressionType = reader.ReadUInt32();
 			uint directorySize = reader.ReadUInt32();
 			long directoryEnd = reader.Accessor.Position + directorySize;
+			if (directoryEnd > reader.Accessor.Length) throw new InvalidDataFormatException("Directory extends outside the bounds of the file (possible corruption)");
 
 			#region Directory Entry
-			while (reader.Accessor.Position != directoryEnd)
+			while (reader.Accessor.Position < directoryEnd)
 			{
 				uint fileSize = reader.ReadUInt32();
 				uint offset = reader.ReadUInt32();
@@ -77,7 +78,62 @@ namespace UniversalEditor.DataFormats.FileSystem.CFL
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+			writer.WriteFixedLengthString("CFL3");
+
+			File[] files = fsom.GetAllFiles();
+			uint[] fileOffsets = new uint[files.Length];
+
+			uint initialDirectoryOffset = 12;
+			uint initialDirectoryDecompressedLength = 0;
+			for (int i = 0; i < files.Length; i++)
+			{
+				initialDirectoryDecompressedLength += (uint)(14 + files[i].Name.Length);
+				initialDirectoryOffset += (uint)(4 + files[i].Size);
+			}
+			uint initialDirectoryCompressedLength = initialDirectoryDecompressedLength;
+			
+			writer.WriteUInt32(initialDirectoryOffset);
+			writer.WriteUInt32(initialDirectoryCompressedLength);
+
+			for (int i = 0; i < files.Length; i++)
+			{
+				fileOffsets[i] = (uint)writer.Accessor.Position;
+				byte[] decompressedData = files[i].GetDataAsByteArray();
+				byte[] compressedData = decompressedData;
+				uint compressedLength = (uint)compressedData.Length;
+				writer.WriteUInt32(compressedLength);
+				writer.WriteBytes(compressedData);
+			}
+
+			uint compressionType = 0;
+			writer.WriteUInt32(compressionType);
+
+			writer.WriteUInt32(initialDirectoryCompressedLength);
+			for (int i = 0; i < files.Length; i++)
+			{
+				uint fileSize = (uint)files[i].Size;
+				writer.WriteUInt32(fileSize);
+
+				uint offset = fileOffsets[i];
+				writer.WriteUInt32(offset);
+
+				uint compressionMethod = 0;
+				writer.WriteUInt32(compressionMethod);
+
+				writer.WriteUInt16String(files[i].Name);
+			}
+
+			uint offsetToEndOfFile = (uint)(writer.Accessor.Position + 8);
+			writer.WriteUInt32(offsetToEndOfFile);
+
+			string signatureFooter = "3CFL";
+			writer.WriteFixedLengthString(signatureFooter);
+
+			writer.Flush();
 		}
 	}
 }
