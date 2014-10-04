@@ -130,6 +130,7 @@
     <Compile Include="DataFormats\FileSystem\PRF\PRFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ProDOS\ProDOSDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\REEVEsoft\Freeze\ICEDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Roxor\PCK\PCKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipBlockType.cs" />
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipCoder.cs" />
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipCoderFlags.cs" />
