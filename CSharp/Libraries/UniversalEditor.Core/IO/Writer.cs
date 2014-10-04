@@ -711,6 +711,20 @@ namespace UniversalEditor.IO
 			SwapEndianness();
 		}
 
+		public void WriteUInt16String(string value)
+		{
+			WriteUInt16String(value, mvarAccessor.DefaultEncoding);
+		}
+		public void WriteUInt16String(string value, Encoding encoding)
+		{
+			ushort length = (ushort)value.Length;
+			byte[] input = encoding.GetBytes(value);
+			byte[] output = new byte[length];
+			Array.Copy(input, 0, output, 0, output.Length);
+			WriteUInt16(length);
+			WriteBytes(output);
+		}
+
 		public void WriteUInt16SizedString(string value)
 		{
 			WriteUInt16SizedString(value, mvarAccessor.DefaultEncoding);
