@@ -216,7 +216,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			row1.Items.Add("textEditor", "Text Editor");
 			PieMenuManager.Groups.Add(row1);
 
+#if !DEBUG
 			Application.ThreadException += Application_ThreadException;
+#endif
+
 			Application.Run();
 
 			Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
