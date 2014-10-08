@@ -7,7 +7,7 @@ namespace UniversalEditor.DataFormats.FileSystem.DeepSilver.SecretFiles
 {
 	internal struct SPRDirectoryInfo
 	{
-		public int directoryNameIndex;
-		public int parentDirectoryIndex;
+		public uint directoryNameIndex;
+		public uint parentDirectoryIndex;
 	}
 }
