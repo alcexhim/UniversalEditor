@@ -15,7 +15,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARC
 			{
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("SEA ARC archive", new byte?[][] { new byte?[] { 0x1A } }, new string[] { "*.arc" });
+				_dfr.Filters.Add("SEA ARC archive", new byte?[][] { new byte?[] { 0x1A } }, new string[] { "*.arc" });
 			}
 			return _dfr;
 		}
@@ -25,9 +25,9 @@ namespace UniversalEditor.DataFormats.FileSystem.ARC
 			if (fsom == null) return;
 
 			IO.Reader br = base.Accessor.Reader;
-            br.Endianness = IO.Endianness.LittleEndian;
+			br.Endianness = IO.Endianness.LittleEndian;
 			byte magic = br.ReadByte();
-            if (magic != 0x1A) throw new InvalidDataFormatException("File does not begin with 0x1A");
+			if (magic != 0x1A) throw new InvalidDataFormatException("File does not begin with 0x1A");
 
 			byte compressionMethod = br.ReadByte();
 			string fileName = br.ReadNullTerminatedString(12);

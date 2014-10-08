@@ -103,9 +103,9 @@ namespace UniversalEditor.DataFormats.FileSystem.BAG
 			// received when transferring this archive.
 			byte eof = br.ReadByte(); // 0x1A
 
-            if (eof != 0x1A)
-            {
-            }
+			if (eof != 0x1A)
+			{
+			}
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

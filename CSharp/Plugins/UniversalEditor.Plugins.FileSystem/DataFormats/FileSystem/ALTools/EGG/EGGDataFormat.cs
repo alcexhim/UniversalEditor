@@ -190,7 +190,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.EGG
 			IO.Reader br = (IO.Reader)file.Properties["reader"];
 			Internal.FileInfo fi = (Internal.FileInfo)file.Properties["fileinfo"];
 
-            MemoryAccessor ma = new MemoryAccessor();
+			MemoryAccessor ma = new MemoryAccessor();
 			IO.Writer bw = new IO.Writer(ma);
 
 			foreach (Internal.BlockInfo block in fi.blocks)
