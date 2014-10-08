@@ -33,29 +33,23 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 			int fileCount = br.ReadInt32();
 			int FileDataOffset = 16 + (fileCount * 32);
 
-			try
+			for (int i = 0; i < fileCount; i++)
 			{
-				for (int i = 0; i < fileCount; i++)
-				{
-					string FileName = br.ReadFixedLengthString(16);
-					if (FileName.Contains('\0')) FileName = FileName.Substring(0, FileName.IndexOf('\0'));
+				string FileName = br.ReadFixedLengthString(16);
+				if (FileName.Contains('\0')) FileName = FileName.Substring(0, FileName.IndexOf('\0'));
 
-					int FileOffset = br.ReadInt32();
-					int FileSize = br.ReadInt32();
-					int reserved1 = br.ReadInt32();
-					int reserved2 = br.ReadInt32();
+				int FileOffset = br.ReadInt32();
+				int FileSize = br.ReadInt32();
+				int reserved1 = br.ReadInt32();
+				int reserved2 = br.ReadInt32();
 
-					File file = new File();
-					file.Name = FileName;
-					file.Size = FileSize;
-					file.Properties.Add("offset", FileDataOffset + FileOffset);
-					file.Properties.Add("length", FileSize);
-					file.DataRequest += file_DataRequest;
-					fsom.Files.Add(file);
-				}
-			}
-			catch (Exception ex)
-			{
+				File file = new File();
+				file.Name = FileName;
+				file.Size = FileSize;
+				file.Properties.Add("offset", FileDataOffset + FileOffset);
+				file.Properties.Add("length", FileSize);
+				file.DataRequest += file_DataRequest;
+				fsom.Files.Add(file);
 			}
 		}
 
