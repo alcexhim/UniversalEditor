@@ -146,6 +146,8 @@
     <Compile Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveRecordType.cs" />
+    <Compile Include="DataFormats\FileSystem\TerminalReality\POD\PODDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\TerminalReality\POD\PODVersion.cs" />
     <Compile Include="DataFormats\FileSystem\TLCD\Internal\TLCSequence.cs" />
     <Compile Include="DataFormats\FileSystem\TLCD\TLCDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TroikaGames\Arcanum\DATDataFormat.cs" />
