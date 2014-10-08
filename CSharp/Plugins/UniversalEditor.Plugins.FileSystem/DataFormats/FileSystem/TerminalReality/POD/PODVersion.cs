@@ -8,6 +8,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 	public enum PODVersion
 	{
 		POD1,
-		POD2
+		POD2,
+		POD3
 	}
 }

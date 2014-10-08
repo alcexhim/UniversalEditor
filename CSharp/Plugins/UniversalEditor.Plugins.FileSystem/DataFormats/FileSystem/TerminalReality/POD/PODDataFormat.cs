@@ -19,12 +19,14 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 				_dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format &version: ", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("POD1", PODVersion.POD1, true),
-					new CustomOptionFieldChoice("POD2", PODVersion.POD2)
+					new CustomOptionFieldChoice("POD2", PODVersion.POD2),
+					new CustomOptionFieldChoice("POD3", PODVersion.POD3)
 				}));
-				_dfr.ExportOptions.Add(new CustomOptionText("ArchiveName", "Archive &name: "));
+				_dfr.ExportOptions.Add(new CustomOptionText("Comment", "&Comment: "));
 				_dfr.Filters.Add("Terminal Reality POD archive", new string[] { "*.pod" });
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive1");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive2");
+				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive3");
 			}
 			return _dfr;
 		}
@@ -32,8 +34,8 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 		private PODVersion mvarFormatVersion = PODVersion.POD1;
 		public PODVersion FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
 
-		private string mvarArchiveName = String.Empty;
-		public string ArchiveName { get { return mvarArchiveName; } set { mvarArchiveName = value; } }
+		private string mvarComment = String.Empty;
+		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -46,22 +48,26 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 			{
 				mvarFormatVersion = PODVersion.POD2;
 			}
+			else if (signatureV2 == "POD3")
+			{
+				mvarFormatVersion = PODVersion.POD3;
+			}
 			else
 			{
 				base.Accessor.Seek(-4, SeekOrigin.Current);
 			}
 
-			if (mvarFormatVersion == PODVersion.POD2)
+			if (mvarFormatVersion >= PODVersion.POD2)
 			{
-				uint unknown1 = reader.ReadUInt32();
+				uint checksum = reader.ReadUInt32();
 			}
 
-			mvarArchiveName = reader.ReadFixedLengthString(80);
-			mvarArchiveName = mvarArchiveName.TrimNull();
+			mvarComment = reader.ReadFixedLengthString(80);
+			mvarComment = mvarComment.TrimNull();
 			uint fileCount = reader.ReadUInt32();
 			uint trailCount = 0;
 
-			if (mvarFormatVersion == PODVersion.POD2)
+			if (mvarFormatVersion >= PODVersion.POD2)
 			{
 				trailCount = reader.ReadUInt32();
 			}
@@ -114,6 +120,54 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 					}
 					break;
 				}
+				case PODVersion.POD3:
+				{
+					uint unknown1 = reader.ReadUInt32();
+					uint unknown2 = reader.ReadUInt32();
+					byte[] unknown3 = reader.ReadBytes(160);
+					uint directoryOffset = reader.ReadUInt32();
+					uint unknown4 = reader.ReadUInt32();
+					uint filenameDirectoryLength = reader.ReadUInt32();
+					uint unknown5 = reader.ReadUInt32();
+					int padding = reader.ReadInt32(); // -1
+					uint unknown6 = reader.ReadUInt32();
+
+					base.Accessor.Seek(directoryOffset, SeekOrigin.Begin);
+
+					uint[] lengths = new uint[fileCount];
+					uint[] offsets = new uint[fileCount];
+					for (uint i = 0; i < fileCount; i++)
+					{
+						// relative to the start of the filename directory
+						uint filenameOffset = reader.ReadUInt32();
+						lengths[i] = reader.ReadUInt32();
+						offsets[i] = reader.ReadUInt32();
+						ulong checksum = reader.ReadUInt64();
+					}
+					for (uint i = 0; i < fileCount; i++)
+					{
+						string filename = reader.ReadNullTerminatedString();
+
+						File file = fsom.AddFile(filename);
+						file.Size = lengths[i];
+						file.Properties.Add("reader", reader);
+						file.Properties.Add("length", lengths[i]);
+						file.Properties.Add("offset", offsets[i]);
+						file.DataRequest += file_DataRequest;
+					}
+
+					// russellm directory
+					for (uint i = 0; i < fileCount; i++)
+					{
+						string russellm = reader.ReadFixedLengthString(32).TrimNull();
+						byte[] data = reader.ReadBytes(4); // (byte)20 + "RdA"
+						uint unknown7 = reader.ReadUInt32();
+						string fileName = reader.ReadFixedLengthString(256).TrimNull();
+						ulong checksum = reader.ReadUInt64();
+						ulong unknown8 = reader.ReadUInt64();
+					}
+					break;
+				}
 			}
 		}
 
@@ -140,12 +194,17 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 				writer.WriteFixedLengthString("POD2");
 				writer.WriteUInt32(0);
 			}
-			writer.WriteFixedLengthString(mvarArchiveName, 80);
+			else if (mvarFormatVersion == PODVersion.POD3)
+			{
+				writer.WriteFixedLengthString("POD3");
+				writer.WriteUInt32(0);
+			}
+			writer.WriteFixedLengthString(mvarComment, 80);
 
 			File[] files = fsom.GetAllFiles();
 			writer.WriteUInt32((uint)files.Length);
 
-			if (mvarFormatVersion == PODVersion.POD2)
+			if (mvarFormatVersion >= PODVersion.POD2)
 			{
 				writer.WriteUInt32(0); // trail count
 			}
@@ -202,6 +261,83 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 						writer.WriteBytes(files[i].GetDataAsByteArray());
 					}
 					writer.Flush();
+					break;
+				}
+				case PODVersion.POD3:
+				{
+					writer.WriteUInt32(1000);
+					writer.WriteUInt32(1000);
+					byte[] unknown3 = new byte[160];
+					writer.WriteBytes(unknown3);
+
+					uint directoryOffset = (uint)(base.Accessor.Position + 24);
+					for (uint i = 0; i < files.Length; i++)
+					{
+						directoryOffset += (uint)files[i].Size;
+					}
+					writer.WriteUInt32(directoryOffset);
+
+					uint unknown4 = 0;
+					writer.WriteUInt32(unknown4);
+
+					uint filenameDirectoryLength = 0;
+					for (uint i = 0; i < files.Length; i++)
+					{
+						filenameDirectoryLength += (uint)(files[i].Name.Length + 1);
+					}
+					writer.WriteUInt32(filenameDirectoryLength);
+
+					uint unknown5 = 0;
+					writer.WriteUInt32(unknown5);
+
+					int padding = -1;
+					writer.WriteInt32(padding);
+
+					uint unknown6 = 0;
+					writer.WriteUInt32(unknown6);
+
+					uint offset = (uint)base.Accessor.Position;
+					for (uint i = 0; i < files.Length; i++)
+					{
+						writer.WriteBytes(files[i].GetDataAsByteArray());
+					}
+
+					uint filenameOffset = 0;
+					for (uint i = 0; i < files.Length; i++)
+					{
+						// relative to the start of the filename directory
+						writer.WriteUInt32(filenameOffset);
+						writer.WriteUInt32((uint)files[i].Size);
+						writer.WriteUInt32(offset);
+						ulong checksum = 0;
+						writer.WriteUInt64(checksum);
+						filenameOffset += (uint)files[i].Name.Length;
+						offset += (uint)files[i].Size;
+					}
+
+					// filename directory
+					for (uint i = 0; i < files.Length; i++)
+					{
+						writer.WriteNullTerminatedString(files[i].Name);
+					}
+
+					// russellm directory
+					for (uint i = 0; i < files.Length; i++)
+					{
+						writer.WriteFixedLengthString("russellm", 32);
+						byte[] data = new byte[] { 20, (byte)'R', (byte)'d', (byte)'A' };
+						writer.WriteBytes(data);
+
+						uint unknown7 = 0;
+						writer.WriteUInt32(unknown7);
+
+						writer.WriteFixedLengthString(files[i].Name, 256);
+
+						ulong checksum = 0;
+						writer.WriteUInt64(checksum);
+						ulong unknown8 = 0;
+						writer.WriteUInt64(unknown8);
+					}
 					break;
 				}
 			}
