@@ -227,7 +227,94 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
+
+			IO.Writer bw = base.Accessor.Writer;
+			bw.Endianness = IO.Endianness.BigEndian;
+
+			bw.WriteFixedLengthString("MComprHD");
+
+			uint headerLength = 16;
+			
+			// length of header (including tag and length fields)
+			bw.WriteUInt32(headerLength);
+			// drive format version
+			bw.WriteUInt32(mvarFormatVersion);
+			bw.WriteUInt32((uint)mvarFlags);
+			bw.WriteUInt32((uint)mvarCompressionType);
+
+			uint totalHunks = 0;
+
+			if (mvarFormatVersion == 1 || mvarFormatVersion == 2)
+			{
+				bw.WriteUInt32(mvarHunkSize);
+			}
+			if (mvarFormatVersion < 5)
+			{
+				bw.WriteUInt32(totalHunks);
+			}
+			if (mvarFormatVersion <= 2)
+			{
+				// number of cylinders on hard disk
+				uint cylinders = 0;
+				bw.WriteUInt32(cylinders);
+				// number of heads on hard disk
+				uint heads = 0;
+				bw.WriteUInt32(heads);
+				// number of sectors on hard disk
+				uint sectors = 0;
+				bw.WriteUInt32(sectors);
+			}
+			else
+			{
+				ulong logicalBytes = 0;
+				bw.WriteUInt64(logicalBytes);
+				ulong metaOffset = 0;
+				bw.WriteUInt64(metaOffset);
+			}
+
+			if (mvarFormatVersion <= 3)
+			{ 
+				// MD5 checksum of raw data
+				byte[] md5 = new byte[16];
+				bw.WriteBytes(md5);
+
+				// MD5 checksum of parent file
+				byte[] parentmd5 = new byte[16];
+				bw.WriteBytes(parentmd5);
+			}
+			if (mvarFormatVersion >= 3)
+			{
+				bw.WriteUInt32(mvarHunkSize);
+			}
+			if (mvarFormatVersion >= 5)
+			{
+				uint unitbytes = 0;			// number of bytes per unit within each hunk
+				bw.WriteUInt32(unitbytes);
+				byte[] rawsha1 = new byte[20];			// raw data SHA1
+				bw.WriteBytes(rawsha1);
+
+				byte[] sha1 = new byte[20];				// combined raw+meta SHA1
+				bw.WriteBytes(sha1);
+
+				byte[] parentsha1 = new byte[20];		// combined raw+meta SHA1 of parent
+				bw.WriteBytes(parentsha1);
+			}
+			else if (mvarFormatVersion >= 3)
+			{
+				byte[] sha1 = new byte[20];				// combined raw+meta SHA1
+				bw.WriteBytes(sha1);
+
+				byte[] parentsha1 = new byte[20];		// combined raw+meta SHA1 of parent
+				bw.WriteBytes(parentsha1);
+
+				if (mvarFormatVersion == 4)
+				{
+					byte[] rawsha1 = new byte[20];			// raw data SHA1
+					bw.WriteBytes(rawsha1);
+				}
+			}
 		}
 	}
 }
