@@ -133,8 +133,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Web.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.Web.UserInterface.WindowsForms\UniversalEditor.Plugins.Web.UserInterface.WindowsForms.csproj", "{997FFB89-0ED6-47EB-BD97-68B3138F91AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Auraluminous.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.Auraluminous.UserInterface.WindowsForms\UniversalEditor.Plugins.Auraluminous.UserInterface.WindowsForms.csproj", "{15E460DD-7256-4645-ADFC-254FDE1B377A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -362,10 +360,6 @@ Global
 		{997FFB89-0ED6-47EB-BD97-68B3138F91AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{997FFB89-0ED6-47EB-BD97-68B3138F91AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{997FFB89-0ED6-47EB-BD97-68B3138F91AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15E460DD-7256-4645-ADFC-254FDE1B377A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15E460DD-7256-4645-ADFC-254FDE1B377A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15E460DD-7256-4645-ADFC-254FDE1B377A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15E460DD-7256-4645-ADFC-254FDE1B377A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -429,7 +423,6 @@ Global
 		{094E86E4-903B-493C-91EF-4597658748A9} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{F635B40D-4BC1-48CB-9FFD-38076D569640} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{997FFB89-0ED6-47EB-BD97-68B3138F91AD} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
-		{15E460DD-7256-4645-ADFC-254FDE1B377A} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{118E40C4-323E-4B4B-8EF4-38EED6CC5E83} = {54990D5E-CE09-459F-916E-AF13101765B4}
 		{A5A14A71-5DB3-4495-92F6-8D27C98FF0F4} = {BC6859FB-B61C-471D-9F84-613E5C388C52}
 	EndGlobalSection
