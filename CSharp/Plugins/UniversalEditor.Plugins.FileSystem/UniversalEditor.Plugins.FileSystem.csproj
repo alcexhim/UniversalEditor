@@ -143,6 +143,7 @@
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipPackInfo.cs" />
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipUnpackInfo.cs" />
     <Compile Include="DataFormats\FileSystem\SilentHill\ARC\SilentHillARCDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SinisterGames\GUT\GUTDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SPIS\SPISDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\StellaGames\LzmaPack\PACKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\StellaGames\LzmaPack\PACKFileAttributes.cs" />
