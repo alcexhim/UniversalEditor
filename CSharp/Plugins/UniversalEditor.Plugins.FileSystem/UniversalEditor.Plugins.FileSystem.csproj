@@ -96,6 +96,8 @@
     <Compile Include="DataFormats\FileSystem\FSB\FSBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Garena\YanghxDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GCD\GCDDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\GremlinInteractive\ActuaSoccer\MAD\MADDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\GremlinInteractive\ActuaSoccer\MAD\MADFormatVersion.cs" />
     <Compile Include="DataFormats\FileSystem\IndianaJones\GOB\GOBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GPW\GPWDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Hardball\MB6DataFormat.cs" />
