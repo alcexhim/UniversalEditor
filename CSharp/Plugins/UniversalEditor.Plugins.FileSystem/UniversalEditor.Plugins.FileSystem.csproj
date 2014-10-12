@@ -92,6 +92,8 @@
     <Compile Include="DataFormats\FileSystem\FAT\FATFileAttributes.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATMediaDescriptor.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATUserAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\FeverPitchStudios\UTF\UTFDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\FeverPitchStudios\UTF\UTFFlags.cs" />
     <Compile Include="DataFormats\FileSystem\FFS\FFSDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\FSB\FSBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Garena\YanghxDataFormat.cs" />
