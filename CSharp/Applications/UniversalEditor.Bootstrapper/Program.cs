@@ -16,17 +16,24 @@ namespace UniversalEditor.Bootstrapper
 		{
 			try
 			{
-				// why do we do this? because, if the class was static, it tries to load the 'Engine' type
-				// from another library immediately... if it can't be found, it crashes. this way, if it
-				// can't be found, we can still catch it since it's loaded on-demand rather than
-				// immediately.
-				(new BootstrapperInstance()).Main();
+				string path =
+					System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
+					+ System.IO.Path.DirectorySeparatorChar.ToString()
+					+ "UniversalEditor.UserInterface.dll";
+
+				Assembly asm = System.Reflection.Assembly.LoadFile(path);
 			}
 			catch
 			{
 				MessageBox.Show("The file 'UniversalEditor.UserInterface.dll' is required for this software to run, but is either missing or corrupted.  Please re-install the software and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
+
+			// why do we do this? because, if the class was static, it tries to load the 'Engine' type
+			// from another library immediately... if it can't be found, it crashes. this way, if it
+			// can't be found, we can still catch it since it's loaded on-demand rather than
+			// immediately.
+			(new BootstrapperInstance()).Main();
 		}
 
 		private class BootstrapperInstance
