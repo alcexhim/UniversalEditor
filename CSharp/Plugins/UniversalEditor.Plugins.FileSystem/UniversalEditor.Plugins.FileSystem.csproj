@@ -92,10 +92,14 @@
     <Compile Include="DataFormats\FileSystem\FAT\FATFileAttributes.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATMediaDescriptor.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATUserAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\FeverPitchStudios\UTF\UTFDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\FeverPitchStudios\UTF\UTFFlags.cs" />
     <Compile Include="DataFormats\FileSystem\FFS\FFSDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\FSB\FSBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Garena\YanghxDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GCD\GCDDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\GremlinInteractive\ActuaSoccer\MAD\MADDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\GremlinInteractive\ActuaSoccer\MAD\MADFormatVersion.cs" />
     <Compile Include="DataFormats\FileSystem\IndianaJones\GOB\GOBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GPW\GPWDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Hardball\MB6DataFormat.cs" />
@@ -110,6 +114,7 @@
     <Compile Include="DataFormats\FileSystem\ISO\ISOVolumeDescriptorType.cs" />
     <Compile Include="DataFormats\FileSystem\JackOrlando\JackOrlandoDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\JadeEmpire\RIMDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\KensLabyrinth\KZP\KZPDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\LHA\LHADataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\LHA\LZHDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\MementoMori\RESCompressionType.cs" />
@@ -131,6 +136,7 @@
     <Compile Include="DataFormats\FileSystem\PCK\PCKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\PKG\PKGDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\PRF\PRFDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\PrincessWaltz\ARC\ARCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ProDOS\ProDOSDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\REEVEsoft\Freeze\ICEDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Roxor\PCK\PCKDataFormat.cs" />
@@ -143,6 +149,7 @@
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipPackInfo.cs" />
     <Compile Include="DataFormats\FileSystem\SevenZip\SevenZipUnpackInfo.cs" />
     <Compile Include="DataFormats\FileSystem\SilentHill\ARC\SilentHillARCDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SinisterGames\GUT\GUTDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SPIS\SPISDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\StellaGames\LzmaPack\PACKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\StellaGames\LzmaPack\PACKFileAttributes.cs" />
