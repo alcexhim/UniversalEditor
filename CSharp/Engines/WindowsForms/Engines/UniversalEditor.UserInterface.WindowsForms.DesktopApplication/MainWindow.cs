@@ -246,6 +246,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 				
 				ToolStripMenuItem tsmi = new ToolStripMenuItem();
+				tsmi.Name = cmd.ID;
 				tsmi.Click += tsmiCommand_Click;
 				tsmi.Tag = cmd;
 				tsmi.Text = cmd.Title.Replace("_", "&");
@@ -512,7 +513,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 						}
 						else
 						{
-							tsiParent.DropDownItems.Insert(ami.Position, tsmi);
+							int pos = ami.Position;
+							if (pos > tsiParent.DropDownItems.Count)
+							{
+								pos = tsiParent.DropDownItems.Count;
+							}
+							tsiParent.DropDownItems.Insert(pos, tsmi);
 						}
 					}
 					mvarEditorSpecificMenuItems.Add(tsmi);
@@ -531,7 +537,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 				else
 				{
-					tsiParent.DropDownItems.Insert(smi.Position, tsmi);
+					int pos = smi.Position;
+					if (pos > tsiParent.DropDownItems.Count) pos = tsiParent.DropDownItems.Count;
+					tsiParent.DropDownItems.Insert(pos, tsmi);
 				}
 				mvarEditorSpecificMenuItems.Add(tsmi);
 
