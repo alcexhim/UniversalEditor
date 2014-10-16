@@ -1,0 +1,6 @@
+FixedString[4]		Chunk ID
+UInt32				Total size of this chunk (including this field and Chunk ID field)
+					So, to get data size, TotalSize - 8 // 4 for chunk ID and 4 for size field
+Byte[]				chunk data
+
+Known chunk types:	"FRM2", "SND ", "ENV "
