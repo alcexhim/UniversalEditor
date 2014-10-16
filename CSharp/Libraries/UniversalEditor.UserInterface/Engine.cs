@@ -317,14 +317,18 @@ namespace UniversalEditor.UserInterface
 				mvarCurrentEngine = engines[0];
 			}
 
+#if !DEBUG
 			try
 			{
+#endif
 				mvarCurrentEngine.StartApplication();
+#if !DEBUG
 			}
 			catch (Exception ex)
 			{
 				mvarCurrentEngine.ShowCrashDialog(ex);
 			}
+#endif
 			return true;
 		}
 
