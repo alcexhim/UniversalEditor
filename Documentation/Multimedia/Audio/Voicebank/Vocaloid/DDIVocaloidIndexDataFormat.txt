@@ -1,0 +1,40 @@
+DDI format
+
+UInt32			unknown1	(0)
+UInt32			unknown2	(0)
+FixedString[4]	chunk name
+UInt32			unknown3	(0)
+UInt32			unknown4	(version number?)
+UInt32			unknown5	(0)
+UInt32			unknown6	(3)
+
+FixedString[4]	chunk name	("PHDC")
+UInt32			total size of PHDC chunk (3927 in Bruno)
+UInt32			unknown7		(4)
+UInt32			phoneme count	(32)
+for each phoneme
+{
+	FixedString[30]		name
+	Byte				padding?
+}
+
+FixedString[4]	chunk name ("PHG2")
+UInt32			total size of PHG2 chunk (515 in Bruno)
+
+UInt32			group count (9)
+for each group
+{
+	UInt32			group name length
+	FixedString[]	group name
+	
+	UInt32			phoneme count
+	for each phoneme
+	{
+		UInt32			unknown (possibly index into PHDC table?)
+		UInt32			phoneme name length
+		FixedString[]	phoneme name
+	}
+	
+	UInt32			unknown (0)
+}
+
