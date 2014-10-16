@@ -2,21 +2,25 @@ using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.Accessors;
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.Vocaloid
 {
 	public class VocaloidVoicebankDataFormat : DataFormat
 	{
+		private static DataFormatReference _dfr = null;
 		public override DataFormatReference MakeReference()
 		{
-			DataFormatReference dfr = base.MakeReference();
-			dfr.Filters.Add("VOCALOID voice bank database", new byte?[][] { new byte?[] { new byte?(70), new byte?(45), new byte?(0), new byte?(0) }, new byte?[] { new byte?(70), new byte?(82), new byte?(77), new byte?(50) } }, new string[] { "*.ddb" });
-			dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.Load);
-			dfr.Capabilities.Add(typeof(VoicebankObjectModel), DataFormatCapabilities.All);
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReference();
+				_dfr.Filters.Add("VOCALOID voice bank database", new byte?[][] { new byte?[] { new byte?(70), new byte?(45), new byte?(0), new byte?(0) }, new byte?[] { new byte?(70), new byte?(82), new byte?(77), new byte?(50) } }, new string[] { "*.ddb" });
+				_dfr.Capabilities.Add(typeof(VoicebankObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			BinaryReader br = base.Stream.BinaryReader;
+			Reader br = base.Accessor.Reader;
 
 			VoicebankObjectModel vom = (objectModel as VoicebankObjectModel);
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -42,34 +46,36 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.Vocaloid
 			int i = 0;
 			while (!br.EndOfStream)
 			{
-				br.SeekUntil("SND ");
+				string chunkName = br.ReadFixedLengthString(4);
+				uint chunkSize = br.ReadUInt32();
+				uint dataSize = chunkSize - 8;
+				byte[] chunkData = br.ReadBytes(dataSize);
 
-				string SND_ = br.ReadFixedLengthString(4);
-				if (SND_ == "SND ")
+				switch (chunkName)
 				{
-					int sign = br.ReadInt32();
-					int size = br.ReadInt32();
-					int freq = br.ReadInt32();
-					short channels = br.ReadInt16();
-					int dummy = br.ReadInt32();
-
-					byte[] data = br.ReadBytes(size - 18);
-
-					if (fsom != null)
+					case "SND ":
 					{
-						fsom.Files.Add(i.ToString() + ".raw", data);
+						Reader r = new Reader(new MemoryAccessor(chunkData));
+						int size = r.ReadInt32();
+						int freq = r.ReadInt32();
+						short channels = br.ReadInt16();
+						int dummy = br.ReadInt32();
+
+						// TODO: test this
+						byte[] data = br.ReadBytes(size - 18);
+
+						if (fsom != null)
+						{
+							fsom.Files.Add(i.ToString() + ".raw", data);
+						}
+						Console.WriteLine("found sound file " + i.ToString() + ":");
+						Console.WriteLine("    size: " + size.ToString());
+						Console.WriteLine("    freq: " + freq.ToString());
+						Console.WriteLine("    channels: " + channels.ToString());
+						Console.WriteLine("    unknown_int32: " + dummy.ToString());
+						i++;
+						break;
 					}
-					Console.WriteLine("found sound file " + i.ToString() + ":");
-                    Console.WriteLine("    sign: " + sign.ToString());
-                    Console.WriteLine("    size: " + size.ToString());
-                    Console.WriteLine("    freq: " + freq.ToString());
-                    Console.WriteLine("    channels: " + channels.ToString());
-                    Console.WriteLine("    unknown_int32: " + dummy.ToString());
-					i++;
-				}
-				else
-				{
-					break;
 				}
 			}
 		}

@@ -77,6 +77,8 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Memory.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Registers.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryXMLDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Voicebank\Vocaloid\VocaloidIndexDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Voicebank\Vocaloid\VocaloidVoicebankDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACODataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ASEDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\GIMP\GPLDataFormat.cs" />
