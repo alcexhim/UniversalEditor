@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 {
-	public class PhonemeGroup
+	public class PhonemeGroup : ICloneable
 	{
 		public class PhonemeGroupCollection
 			: System.Collections.ObjectModel.Collection<PhonemeGroup>
@@ -18,5 +18,16 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 
 		private Phoneme.PhonemeCollection mvarPhonemes = new Phoneme.PhonemeCollection();
 		public Phoneme.PhonemeCollection Phonemes { get { return mvarPhonemes; } }
+
+		public object Clone()
+		{
+			PhonemeGroup clone = new PhonemeGroup();
+			clone.Title = (mvarTitle.Clone() as string);
+			foreach (Phoneme p in mvarPhonemes)
+			{
+				clone.Phonemes.Add(p);
+			}
+			return clone;
+		}
 	}
 }

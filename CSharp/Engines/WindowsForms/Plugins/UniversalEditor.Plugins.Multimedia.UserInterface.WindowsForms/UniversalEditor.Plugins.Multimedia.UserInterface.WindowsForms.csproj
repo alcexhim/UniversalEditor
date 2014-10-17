@@ -33,9 +33,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Multimedia\Audio\Synthesized\PianoRoll\PianoRollControl.cs">
@@ -106,6 +108,12 @@
     <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.Designer.cs">
       <DependentUpon>VoicebankEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankIndexEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankIndexEditor.Designer.cs">
+      <DependentUpon>VoicebankIndexEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -174,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.resx">
       <DependentUpon>VoicebankEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\Multimedia\Audio\Voicebank\VoicebankIndexEditor.resx">
+      <DependentUpon>VoicebankIndexEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditor.resx">
       <DependentUpon>WaveformAudioEditor.cs</DependentUpon>

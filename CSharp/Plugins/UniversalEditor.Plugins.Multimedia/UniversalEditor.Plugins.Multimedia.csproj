@@ -76,8 +76,9 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700ID666Tag.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Memory.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Registers.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\VoicebankIndex\Vocaloid\DDIParameter.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryXMLDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Audio\Voicebank\Vocaloid\VocaloidIndexDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\VoicebankIndex\Vocaloid\DDIDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Voicebank\Vocaloid\VocaloidVoicebankDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACODataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ASEDataFormat.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="ObjectModels\Multimedia\Audio\Synthesized\SynthesizedAudioVibratoType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ObjectModels\Multimedia\Audio\VoicebankIndex\VoicebankIndexObjectModel.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\Phoneme.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryObjectModel.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeList.cs" />

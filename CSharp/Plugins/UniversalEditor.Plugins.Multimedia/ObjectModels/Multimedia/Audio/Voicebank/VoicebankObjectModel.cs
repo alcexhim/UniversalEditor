@@ -10,12 +10,16 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 		{
 		}
 
+		private static ObjectModelReference _omr = null;
 		public override ObjectModelReference MakeReference()
 		{
-			ObjectModelReference omr = base.MakeReference();
-			omr.Title = "Synthesized audio voice bank";
-			omr.Path = new string[] { "Multimedia", "Audio", "Voicebank" };
-			return omr;
+			if (_omr == null)
+			{
+				_omr = base.MakeReference();
+				_omr.Title = "Synthesized audio voice bank";
+				_omr.Path = new string[] { "Multimedia", "Audio", "Voicebank" };
+			}
+			return _omr;
 		}
 
 		public override void Clear()
