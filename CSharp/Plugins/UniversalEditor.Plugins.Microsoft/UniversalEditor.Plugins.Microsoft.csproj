@@ -37,6 +37,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFormats\DataLink\UniversalDataLink\UDLDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentKnownSectorID.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJCompressionMethod.cs" />
@@ -64,7 +66,9 @@
       <Name>UniversalEditor.Plugins.FileSystem</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ObjectModels\Text\Formatted\XPS\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -73,13 +77,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="DataFormats\Text\" />
-    <Folder Include="DataFormats\Text\Formatted\" />
-    <Folder Include="DataFormats\Text\Formatted\XPS\" />
-    <Folder Include="ObjectModels\" />
-    <Folder Include="ObjectModels\Text\" />
-    <Folder Include="ObjectModels\Text\Formatted\" />
-    <Folder Include="ObjectModels\Text\Formatted\XPS\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
