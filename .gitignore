@@ -165,3 +165,6 @@ PHP/Website/Include/Configuration.inc.php
 
 # Do not pull in various files used as test cases for certain DataFormats (these can be quite huge)
 Tests/*
+
+# Do not pull in the NSIS setup output file (setup.exe)
+CSharp/Setup/setup.exe
