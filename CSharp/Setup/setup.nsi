@@ -459,8 +459,7 @@ SectionGroup "Document Templates" SecDocumentTemplates
 	SectionGroupEnd
 	SectionGroup "Website Development" SecDocumentTemplatesWeb
 		Section "HTML Page" SecDocumentTemplatesWebHTMLPage
-			SectionIn 2
-			SectionIn 5
+			SectionIn 2 5
 			
 			SetOutPath "$INSTDIR\Templates\Document\Web"
 			File "..\Output\${BUILD_CONFIGURATION}\Templates\Document\Web\HTMLPage.ico"
