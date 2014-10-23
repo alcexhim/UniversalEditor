@@ -40,6 +40,7 @@ namespace UniversalEditor.Engines.GTK
 		protected override void ShowCrashDialog(Exception ex)
 		{
 			Dialogs.CrashDialog dlg = new Dialogs.CrashDialog();
+			dlg.Exception = ex;
 			switch ((ResponseType)dlg.Run())
 			{
 				case ResponseType.Ok:

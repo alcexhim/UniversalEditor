@@ -27,6 +27,31 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 		{
 			this.Build();
 		}
+		
+		private Exception mvarException = null;
+		public Exception Exception
+		{
+			get { return mvarException; }
+			set
+			{
+				mvarException = value;
+				
+				if (mvarException == null)
+				{
+					txtException.Text = String.Empty;
+					txtMessage.Buffer.Text = String.Empty;
+					txtSource.Text = String.Empty;
+					txtStackTrace.Buffer.Text = String.Empty;
+				}
+				else
+				{
+					txtException.Text = mvarException.GetType().Name;
+					txtMessage.Buffer.Text = mvarException.Message;
+					txtSource.Text = mvarException.Source;
+					txtStackTrace.Buffer.Text = mvarException.StackTrace;
+				}
+			}
+		}
 	}
 }
 
