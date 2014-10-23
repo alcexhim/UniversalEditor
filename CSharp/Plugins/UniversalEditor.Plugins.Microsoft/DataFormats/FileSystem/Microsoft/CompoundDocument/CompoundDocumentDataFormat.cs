@@ -20,6 +20,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				_dfr.ExportOptions.Add(new CustomOptionNumber("SectorSize", "&Sector size (in bytes):", 512, 128));
 				_dfr.ExportOptions.Add(new CustomOptionNumber("ShortSectorSize", "S&hort sector size (in bytes):", 64));
 				_dfr.ExportOptions.Add(new CustomOptionNumber("MinimumStandardStreamSize", "&Minimum standard stream size (in bytes):", 4096, 4096));
+				_dfr.Filters.Add("Microsoft Compound Document file system", new byte?[][] { new byte?[] { 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1 } }, new string[] { "*.cbf" });
 				_dfr.Sources.Add("http://www.openoffice.org/sc/compdocfileformat.pdf");
 			}
 			return _dfr;
@@ -125,13 +126,24 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			mvarMasterSectorAllocationTableFirstSectorID = reader.ReadInt32();
 			mvarMasterSectorAllocationTableSize = reader.ReadInt32();
 
+			#region Read Master Sector Allocation Table
 			// First part of the master sector allocation table, containing 109 SecIDs
 			int[] masterSectorAllocationTable = reader.ReadInt32Array(109);
-			if (mvarMasterSectorAllocationTableFirstSectorID != (int)CompoundDocumentKnownSectorID.EndOfChain)
+			
+			// TODO: test this! when MSAT contains more than 109 SecIDs
+			int countForMSAT = (int)((double)mvarSectorSize / 4);
+			int nextSectorForMSAT = mvarMasterSectorAllocationTableFirstSectorID;
+			int nextPositionForMSAT = masterSectorAllocationTable.Length;
+			while (nextSectorForMSAT != (int)CompoundDocumentKnownSectorID.EndOfChain)
 			{
-				int nextSectorForMSAT = masterSectorAllocationTable[masterSectorAllocationTable.Length - 1];
+				Array.Resize(ref masterSectorAllocationTable, masterSectorAllocationTable.Length + countForMSAT);
+				int[] masterSectorAllocationTablePart = reader.ReadInt32Array(countForMSAT);
+				Array.Copy(masterSectorAllocationTablePart, 0, masterSectorAllocationTable, nextPositionForMSAT, masterSectorAllocationTablePart.Length);
+				
+				nextSectorForMSAT = masterSectorAllocationTablePart[masterSectorAllocationTablePart.Length - 1];
 			}
-
+			#endregion
+			#region Read Sector Allocation Table
 			int pos = GetSectorPositionFromSectorID(masterSectorAllocationTable[0]);
 			reader.Accessor.Seek(pos, SeekOrigin.Begin);
 			int[] sectorAllocationTable = reader.ReadInt32Array((int)(mvarSectorSize / 4));
@@ -152,7 +164,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				byte[] sectorData = reader.ReadBytes(mvarSectorSize);
 				Array.Copy(sectorData, 0, data, (i * mvarSectorSize), mvarSectorSize);
 			}
-
+			#endregion
+			#region Read Sector Directory Entries
 			Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(data);
 			reader = new Reader(ma);
 
@@ -198,6 +211,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				file.DataRequest += file_DataRequest;
 				files.Add(file);
 			}
+			#endregion
 		}
 
 		private int GetSectorPositionFromSectorID(int sectorID)
