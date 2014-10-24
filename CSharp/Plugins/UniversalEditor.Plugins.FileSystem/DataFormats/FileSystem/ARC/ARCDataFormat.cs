@@ -15,7 +15,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARC
 			{
 				_dfr = base.MakeReference();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("SEA ARC archive", new byte?[][] { new byte?[] { 0x1A } }, new string[] { "*.arc" });
+				_dfr.Filters.Add("SEA ARC archive", /* new byte?[][] { new byte?[] { 0x1A } }, */ new string[] { "*.arc" });
 			}
 			return _dfr;
 		}
