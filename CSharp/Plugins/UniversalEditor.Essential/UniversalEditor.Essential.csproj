@@ -48,6 +48,7 @@
     <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\UXT\Internal\FileInfo.cs" />
     <Compile Include="DataFormats\FileSystem\UXT\UXTDataFormat.cs" />
+    <Compile Include="DataFormats\Markup\EBML\EBMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormatSettings.cs" />
     <Compile Include="DataFormats\PropertyList\CoreObject\CoreObjectDataFormat.cs" />
