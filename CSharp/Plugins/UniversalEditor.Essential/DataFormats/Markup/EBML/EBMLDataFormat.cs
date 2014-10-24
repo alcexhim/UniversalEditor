@@ -40,8 +40,8 @@ namespace UniversalEditor.DataFormats.Markup.EBML
 
 		private MarkupElement ReadEBMLElement(Reader reader)
 		{
-			long elementID = ReadEBMLElementID(reader);
-			long dataSize = ReadEBMLElementID(reader);
+			long elementID = ReadEBMLCompressedInteger(reader);
+			long dataSize = ReadEBMLCompressedInteger(reader);
 			byte[] data = reader.ReadBytes(dataSize);
 
 			MarkupTagElement tag = new MarkupTagElement();
@@ -67,7 +67,7 @@ namespace UniversalEditor.DataFormats.Markup.EBML
 			return tag;
 		}
 
-		private long ReadEBMLElementID(Reader reader)
+		private long ReadEBMLCompressedInteger(Reader reader)
 		{
 			byte[] buffer = reader.ReadBytes(8);
 			reader.Seek(-8, SeekOrigin.Current);
@@ -190,6 +190,111 @@ namespace UniversalEditor.DataFormats.Markup.EBML
 			// coding allows for an Element to grow to 72000 To, i.e. 7x10^16 octets or 72000 terabytes,
 			// which will be sufficient for the time being.
 			throw new NotImplementedException("Unknown Element Size coding: 0x" + buffer[0].ToString("X"));
+		}
+		private void WriteEBMLCompressedInteger(Writer writer, long value)
+		{
+			if (value <= 0x7F)
+			{
+				writer.WriteByte((byte)(value & 0x80));
+				return;
+			}
+			else if (value <= 0x7FFF)
+			{
+				// two bytes
+				byte[] _buffer = new byte[2];
+				byte[] buffer = BitConverter.GetBytes(value);
+				_buffer[0] = (byte)(buffer[1] | 0x40);
+				_buffer[1] = buffer[0];
+				writer.WriteBytes(_buffer);
+				return;
+			}
+			else if (value <= 0x7FFFFF)
+			{
+				// three bytes
+				byte[] _buffer = new byte[3];
+				byte[] buffer = BitConverter.GetBytes(value);
+				_buffer[0] = (byte)(buffer[2] | 0x20);
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[0];
+				writer.WriteBytes(_buffer);
+				return;
+			}
+			else if (value <= 0x7FFFFFFF)
+			{
+				// four bytes
+				byte[] _buffer = new byte[4];
+				byte[] buffer = BitConverter.GetBytes(value);
+				_buffer[0] = (byte)(buffer[3] | 0x10);
+				_buffer[1] = buffer[2];
+				_buffer[2] = buffer[1];
+				_buffer[3] = buffer[0];
+				writer.WriteBytes(_buffer);
+				return;
+			}
+			else if (value <= 0x7FFFFFFFFF)
+			{
+				// five bytes
+				byte[] _buffer = new byte[5];
+				byte[] buffer = BitConverter.GetBytes(value);
+				_buffer[0] = (byte)(buffer[4] | 0x08);
+				_buffer[1] = buffer[3];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[1];
+				_buffer[4] = buffer[0];
+				writer.WriteBytes(_buffer);
+				return;
+			}
+			else if (value <= 0x7FFFFFFFFFFF)
+			{
+				// six bytes
+				byte[] _buffer = new byte[6];
+				byte[] buffer = BitConverter.GetBytes(value);
+				_buffer[0] = (byte)(buffer[5] | 0x04);
+				_buffer[1] = buffer[4];
+				_buffer[2] = buffer[3];
+				_buffer[3] = buffer[2];
+				_buffer[4] = buffer[1];
+				_buffer[5] = buffer[0];
+				writer.WriteBytes(_buffer);
+				return;
+			}
+			else if (value <= 0x7FFFFFFFFFFFFF)
+			{
+				// seven bytes
+				byte[] _buffer = new byte[7];
+				byte[] buffer = BitConverter.GetBytes(value);
+				_buffer[0] = (byte)(buffer[6] | 0x02);
+				_buffer[1] = buffer[5];
+				_buffer[2] = buffer[4];
+				_buffer[3] = buffer[3];
+				_buffer[4] = buffer[2];
+				_buffer[5] = buffer[1];
+				_buffer[6] = buffer[0];
+				writer.WriteBytes(_buffer);
+				return;
+			}
+			else if (value <= 0x7FFFFFFFFFFFFFFF)
+			{
+				// eight bytes
+				byte[] _buffer = new byte[8];
+				byte[] buffer = BitConverter.GetBytes(value);
+				_buffer[0] = (byte)(buffer[7] | 0x01);
+				_buffer[1] = buffer[6];
+				_buffer[2] = buffer[5];
+				_buffer[3] = buffer[4];
+				_buffer[4] = buffer[3];
+				_buffer[5] = buffer[2];
+				_buffer[6] = buffer[1];
+				_buffer[7] = buffer[0];
+				writer.WriteBytes(_buffer);
+				return;
+			}
+
+			// Since modern computers do not easily deal with data coded in sizes greater than 64 bits,
+			// any larger Element Sizes are left undefined at the moment. Currently, the Element Size
+			// coding allows for an Element to grow to 72000 To, i.e. 7x10^16 octets or 72000 terabytes,
+			// which will be sufficient for the time being.
+			throw new NotImplementedException("Value cannot be represented as an EBML compressed integer: " + value.ToString());
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
