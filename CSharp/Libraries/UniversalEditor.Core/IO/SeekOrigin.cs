@@ -7,8 +7,8 @@ namespace UniversalEditor.IO
 {
     public enum SeekOrigin
     {
-        Begin,
-        Current,
-        End
+        Begin = 0,
+        Current = 1,
+        End = 2
     }
 }
