@@ -78,8 +78,31 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 		/// </summary>
 		private int mvarMasterSectorAllocationTableSize = 0;
 
-		private void ReadHeader(Reader reader)
+		private int mvarShortSectorFirstSectorID = 0;
+
+		private int GetSectorPositionFromSectorID(int sectorID)
 		{
+			if (sectorID < 0) return 0;
+			return (int)(512 + (sectorID * mvarSectorSize));
+		}
+		private int GetShortSectorPositionFromSectorID(int sectorID)
+		{
+			if (sectorID < 0) return 0;
+			return (int)(sectorID * mvarShortSectorSize);
+		}
+
+		private byte[] mvarShortSectorContainerStreamData = null;
+
+		protected override void LoadInternal(ref ObjectModel objectModel)
+		{
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
+
+			Reader reader = base.Accessor.Reader;
+
+			// The header is always located at the beginning of the file, and its size is
+			// exactly 512 bytes. This implies that the first sector (0) always starts at
+			// file offset 512.
 			byte[] validSignature = new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 };
 			byte[] signature = reader.ReadBytes(8);
 			if (!signature.Match(validSignature))
@@ -87,7 +110,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				throw new InvalidDataFormatException("File does not begin with { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 }");
 			}
 			mvarUniqueIdentifier = reader.ReadGuid();
-			
+
 			ushort MinorVersion = reader.ReadUInt16();
 			ushort MajorVersion = reader.ReadUInt16();
 			mvarFormatVersion = new Version(MajorVersion, MinorVersion);
@@ -129,7 +152,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			#region Read Master Sector Allocation Table
 			// First part of the master sector allocation table, containing 109 SecIDs
 			int[] masterSectorAllocationTable = reader.ReadInt32Array(109);
-			
+
 			// TODO: test this! when MSAT contains more than 109 SecIDs
 			int countForMSAT = (int)((double)mvarSectorSize / 4);
 			int nextSectorForMSAT = mvarMasterSectorAllocationTableFirstSectorID;
@@ -139,7 +162,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				Array.Resize(ref masterSectorAllocationTable, masterSectorAllocationTable.Length + countForMSAT);
 				int[] masterSectorAllocationTablePart = reader.ReadInt32Array(countForMSAT);
 				Array.Copy(masterSectorAllocationTablePart, 0, masterSectorAllocationTable, nextPositionForMSAT, masterSectorAllocationTablePart.Length);
-				
+
 				nextSectorForMSAT = masterSectorAllocationTablePart[masterSectorAllocationTablePart.Length - 1];
 			}
 			#endregion
@@ -165,150 +188,171 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				Array.Copy(sectorData, 0, data, (i * mvarSectorSize), mvarSectorSize);
 			}
 			#endregion
+			#region Read Short Sector Allocation Table
+			List<int> shortSectorAllocationTable = new List<int>();
+			List<int> shortSectorAllocationTableSectors = new List<int>();
+			if (mvarShortSectorAllocationTableFirstSectorID >= 0)
+			{
+				int sector = mvarShortSectorAllocationTableFirstSectorID;
+				while (sector >= 0)
+				{
+					shortSectorAllocationTableSectors.Add(sector);
+					sector = sectorAllocationTable[sector];
+				}
+			}
+
+			byte[] shortSectorAllocationTableData = new byte[mvarSectorSize * shortSectorAllocationTableSectors.Count];
+			for (int i = 0; i < shortSectorAllocationTableSectors.Count; i++)
+			{
+				pos = GetSectorPositionFromSectorID(shortSectorAllocationTableSectors[i]);
+				reader.Accessor.Seek(pos, SeekOrigin.Begin);
+				byte[] sectorData = reader.ReadBytes(mvarSectorSize);
+				Array.Copy(sectorData, 0, shortSectorAllocationTableData, (i * mvarSectorSize), mvarSectorSize);
+			}
+
+			Accessors.MemoryAccessor ma1 = new Accessors.MemoryAccessor(shortSectorAllocationTableData);
+			Reader shortSectorAllocationTableReader = new Reader(ma1);
+			while (!shortSectorAllocationTableReader.EndOfStream)
+			{
+				int sectorID = shortSectorAllocationTableReader.ReadInt32();
+				shortSectorAllocationTable.Add(sectorID);
+			}
+			#endregion
 			#region Read Sector Directory Entries
 			Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(data);
-			reader = new Reader(ma);
-
-			List<File> files = new List<File>();
+			
+			Reader sectorReader = new Reader(ma);
 			while (!reader.EndOfStream)
 			{
 				// The first directory entry always represents the root storage entry
-				string storageName = reader.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian).TrimNull();
-				ushort storageNameLength = reader.ReadUInt16();
+				string storageName = sectorReader.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian).TrimNull();
+				if (String.IsNullOrEmpty(storageName)) break;
+
+				ushort storageNameLength = sectorReader.ReadUInt16();
 				storageNameLength /= 2;
 				if (storageNameLength > 0) storageNameLength -= 1;
 				if (storageName.Length != storageNameLength) throw new InvalidDataFormatException("Sanity check: storage name length is not actual length of storage name");
 
-				byte storageType = reader.ReadByte();
-				byte storageNodeColor = reader.ReadByte();
+				byte storageType = sectorReader.ReadByte();
+				byte storageNodeColor = sectorReader.ReadByte();
 
-				int leftChildNodeDirectoryID = reader.ReadInt32();
-				int rightChildNodeDirectoryID = reader.ReadInt32();
+				int leftChildNodeDirectoryID = sectorReader.ReadInt32();
+				int rightChildNodeDirectoryID = sectorReader.ReadInt32();
 				// directory ID of the root node entry of the red-black tree of all members of the root storage
-				int rootNodeEntryDirectoryID = reader.ReadInt32();
+				int rootNodeEntryDirectoryID = sectorReader.ReadInt32();
 
-				Guid uniqueIdentifier = reader.ReadGuid();
-				uint flags = reader.ReadUInt32();
-				long creationTimestamp = reader.ReadInt64();
-				long lastModificationTimestamp = reader.ReadInt64();
+				Guid uniqueIdentifier = sectorReader.ReadGuid();
+				uint flags = sectorReader.ReadUInt32();
+				long creationTimestamp = sectorReader.ReadInt64();
+				long lastModificationTimestamp = sectorReader.ReadInt64();
 
-				int firstSectorOfStream = reader.ReadInt32();
-				int streamOffset = GetSectorPositionFromSectorID(firstSectorOfStream);
-				int streamLength = reader.ReadInt32();
-				int unused3 = reader.ReadInt32();
-
-				if (streamLength < mvarMinimumStandardStreamSize)
+				int firstSectorOfStream = sectorReader.ReadInt32();
+				if (storageType == 0x05)
 				{
-					// stored as a short-sector container stream
-					streamOffset = (int)(512 + (firstSectorOfStream * mvarShortSectorSize));
+					// this is the root storage entry
+					mvarShortSectorFirstSectorID = firstSectorOfStream;
+
+					#region Read Short Stream Container Stream
+					List<int> shortStreamContainerStreamSectors = new List<int>();
+					{
+						int shortSectorDataSector = mvarShortSectorFirstSectorID;
+						while (shortSectorDataSector >= 0)
+						{
+							shortStreamContainerStreamSectors.Add(shortSectorDataSector);
+							shortSectorDataSector = sectorAllocationTable[shortSectorDataSector];
+						}
+					}
+					byte[] shortStreamContainerStreamData = new byte[shortStreamContainerStreamSectors.Count * mvarSectorSize];
+					int i = 0;
+					foreach (int sector in shortStreamContainerStreamSectors)
+					{
+						int wpos = GetSectorPositionFromSectorID(sector);
+						reader.Seek(wpos, SeekOrigin.Begin);
+						byte[] sectorData = reader.ReadBytes(mvarSectorSize);
+						Array.Copy(sectorData, 0, shortStreamContainerStreamData, i, sectorData.Length);
+						i += sectorData.Length;
+					}
+					mvarShortSectorContainerStreamData = shortStreamContainerStreamData;
+					#endregion
 				}
 
-				File file = new File();
-				file.Name = storageName;
-				file.Properties.Add("reader", reader);
-				file.Properties.Add("offset", streamOffset);
-				file.Properties.Add("length", streamLength);
-				file.DataRequest += file_DataRequest;
-				files.Add(file);
-			}
-			#endregion
-		}
+				int streamLength = sectorReader.ReadInt32();
+				int unused3 = sectorReader.ReadInt32();
 
-		private int GetSectorPositionFromSectorID(int sectorID)
-		{
-			if (sectorID < 0) return 0;
-			return (int)(512 + (sectorID * mvarSectorSize));
-		}
-
-		protected override void LoadInternal(ref ObjectModel objectModel)
-		{
-			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) throw new ObjectModelNotSupportedException();
-
-			Reader reader = base.Accessor.Reader;
-
-			// The header is always located at the beginning of the file, and its size is
-			// exactly 512 bytes. This implies that the first sector (0) always starts at
-			// file offset 512.
-			ReadHeader(reader);
-
-			// TODO: read extra sectors if necessary
-
-			int directoryEntryLength = 128;
-			int directoryEntryCount = (int)((mvarSectorAllocationTableSize * mvarSectorSize) / directoryEntryLength);
-			for (int i = 0; i < directoryEntryCount; i++)
-			{
-				// The first directory entry always represents the root storage entry
-				string storageName = reader.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian).TrimNull();
-				ushort storageNameLength = reader.ReadUInt16();
-				storageNameLength /= 2;
-				storageNameLength -= 1;
-				if (storageName.Length != storageNameLength) throw new InvalidDataFormatException("Sanity check: storage name length is not actual length of storage name");
-
-				byte storageType = reader.ReadByte();
-				byte storageNodeColor = reader.ReadByte();
-
-				int leftChildNodeDirectoryID = reader.ReadInt32();
-				int rightChildNodeDirectoryID = reader.ReadInt32();
-				// directory ID of the root node entry of the red-black tree of all members of the root storage
-				int rootNodeEntryDirectoryID = reader.ReadInt32();
-
-				Guid uniqueIdentifier = reader.ReadGuid();
-				uint flags = reader.ReadUInt32();
-				long creationTimestamp = reader.ReadInt64();
-				long lastModificationTimestamp = reader.ReadInt64();
-
-				int firstSectorOfStream = reader.ReadInt32();
-				int streamOffset = GetSectorPositionFromSectorID(firstSectorOfStream);
-				int streamLength = reader.ReadInt32();
-				int unused3 = reader.ReadInt32();
-
-				/*
-				The directory entry of a stream contains the SecID of the first sector or
-				short-sector containing the stream data. All streams that are shorter than a
-				specific size given in the header are stored as a short-stream, thus inserted
-				into the short-stream container stream. In this case the SecID specifies the
-				first short-sector inside the short-stream container stream, and the
-				short-sector allocation table is used to build up the SecID chain of the
-				stream.
-				*/
-
-				if (i == 0)
+				List<int> sectors = new List<int>();
+				if (streamLength < mvarMinimumStandardStreamSize)
 				{
-					// in the case of the Root Entry, the firstSectorOfStream is the SecID of
-					// the first sector and the streamLength is the size of the short-stream
-					// container stream
-					continue;
+					// use the short-sector allocation table
+					int sector = firstSectorOfStream;
+					while (sector >= 0)
+					{
+						sectors.Add(sector);
+						sector = shortSectorAllocationTable[sector];
+					}
 				}
 				else
 				{
-
-				}
-
-				if (streamLength < mvarMinimumStandardStreamSize)
-				{
-					// stored as a short-sector container stream
-					streamOffset = (int)(512 + (firstSectorOfStream * mvarShortSectorSize));
+					// use the standard sector allocation table
+					int sector = firstSectorOfStream;
+					while (sector >= 0)
+					{
+						sectors.Add(sector);
+						sector = sectorAllocationTable[sector];
+					}
 				}
 
 				File file = new File();
 				file.Name = storageName;
 				file.Properties.Add("reader", reader);
-				file.Properties.Add("offset", streamOffset);
+				file.Properties.Add("sectors", sectors);
 				file.Properties.Add("length", streamLength);
 				file.DataRequest += file_DataRequest;
 				fsom.Files.Add(file);
 			}
+			#endregion
 		}
+
+		private Reader shortSectorReader = null;
 
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
 			File file = (sender as File);
 			Reader reader = (Reader)file.Properties["reader"];
-			int offset = (int)file.Properties["offset"];
+			if (shortSectorReader == null) shortSectorReader = new Reader(new Accessors.MemoryAccessor(mvarShortSectorContainerStreamData));
+			List<int> sectors = (List<int>)file.Properties["sectors"];
 			int length = (int)file.Properties["length"];
-			reader.Accessor.Seek(offset, SeekOrigin.Begin);
-			e.Data = reader.ReadBytes(length);
+
+			byte[] realdata = new byte[length];
+			if (length < mvarMinimumStandardStreamSize)
+			{
+				// use the short-sector allocation table and short stream container stream
+
+				byte[] data = new byte[sectors.Count * mvarShortSectorSize];
+				int start = 0;
+				foreach (int sector in sectors)
+				{
+					int pos = GetShortSectorPositionFromSectorID(sector);
+					shortSectorReader.Accessor.Seek(pos, SeekOrigin.Begin);
+					byte[] sectorData = shortSectorReader.ReadBytes(mvarShortSectorSize);
+					Array.Copy(sectorData, 0, data, start, sectorData.Length);
+					start += (int)mvarShortSectorSize;
+				}
+				e.Data = data;
+			}
+			else
+			{
+				byte[] data = new byte[sectors.Count * mvarSectorSize];
+				int start = 0;
+				foreach (int sector in sectors)
+				{
+					int pos = GetSectorPositionFromSectorID(sector);
+					reader.Accessor.Seek(pos, SeekOrigin.Begin);
+					byte[] sectorData = reader.ReadBytes(mvarSectorSize);
+					Array.Copy(sectorData, 0, data, start, sectorData.Length);
+					start += (int)mvarSectorSize;
+				}
+				e.Data = data;
+			}
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
