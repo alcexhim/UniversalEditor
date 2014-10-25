@@ -163,7 +163,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				int[] masterSectorAllocationTablePart = reader.ReadInt32Array(countForMSAT);
 				Array.Copy(masterSectorAllocationTablePart, 0, masterSectorAllocationTable, nextPositionForMSAT, masterSectorAllocationTablePart.Length);
 
-				nextSectorForMSAT = masterSectorAllocationTablePart[masterSectorAllocationTablePart.Length - 1];
+				nextSectorForMSAT = masterSectorAllocationTablePart[nextSectorForMSAT];
 			}
 			#endregion
 			#region Read Sector Allocation Table
