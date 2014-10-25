@@ -326,7 +326,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			if (length < mvarMinimumStandardStreamSize)
 			{
 				// use the short-sector allocation table and short stream container stream
-
 				byte[] data = new byte[sectors.Count * mvarShortSectorSize];
 				int start = 0;
 				foreach (int sector in sectors)
@@ -337,7 +336,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 					Array.Copy(sectorData, 0, data, start, sectorData.Length);
 					start += (int)mvarShortSectorSize;
 				}
-				e.Data = data;
+				Array.Copy(data, 0, realdata, 0, realdata.Length);
 			}
 			else
 			{
@@ -351,8 +350,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 					Array.Copy(sectorData, 0, data, start, sectorData.Length);
 					start += (int)mvarSectorSize;
 				}
-				e.Data = data;
+				Array.Copy(data, 0, realdata, 0, realdata.Length);
 			}
+			e.Data = realdata;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
