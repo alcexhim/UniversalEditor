@@ -44,6 +44,7 @@
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="DataFormats\AbstractSyntax\DER\DERDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\UXT\Internal\FileInfo.cs" />
@@ -60,10 +61,12 @@
     <Compile Include="DataFormats\PropertyList\UniversalPropertyList\VariantType.cs" />
     <Compile Include="DataFormats\PropertyList\WindowsConfigurationDataFormat.cs" />
     <Compile Include="DataFormats\PropertyList\XML\XMLPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\SecurityCertificate\DER\DERCertificateDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutAction.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutStartupNotifyBehavior.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutType.cs" />
+    <Compile Include="ObjectModels\AbstractSyntax\AbstractSyntaxObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFDataChunk.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="ObjectModels\Project\ProjectFileSystem.cs" />
     <Compile Include="ObjectModels\Project\ProjectFolder.cs" />
     <Compile Include="ObjectModels\Project\Reference.cs" />
+    <Compile Include="ObjectModels\SecurityCertificate\SecurityCertificateObjectModel.cs" />
     <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextObjectModel.cs" />
