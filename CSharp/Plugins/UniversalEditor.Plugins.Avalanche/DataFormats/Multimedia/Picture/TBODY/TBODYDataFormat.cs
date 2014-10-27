@@ -26,12 +26,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TBODY
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-            // A TBODY file is just a DDS file without a header
+			// A TBODY file is just a DDS file without a header
 			IO.Reader br = base.Accessor.Reader;
 			byte[] data = br.ReadToEnd();
 
-            // We have to add the DDS header
-            MemoryAccessor ma = new MemoryAccessor();
+			// We have to add the DDS header
+			MemoryAccessor ma = new MemoryAccessor();
 			IO.Writer bw = new IO.Writer(ma);
 			bw.WriteUInt32(DirectDrawSurfaceDataFormat.DDS_MAGIC);
 			bw.WriteUInt32((uint)124); // data size
@@ -71,10 +71,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TBODY
 			ma = new MemoryAccessor(data1);
 
 			DirectDrawSurfaceDataFormat dds = new DirectDrawSurfaceDataFormat();
-            Document doc = new Document(objectModel, new DirectDrawSurfaceDataFormat(), ma);
-            doc.InputAccessor.Open();
-            doc.Load();
-            doc.InputAccessor.Close();
+			Document doc = new Document(objectModel, new DirectDrawSurfaceDataFormat(), ma);
+			doc.InputAccessor.Open();
+			doc.Load();
+			doc.InputAccessor.Close();
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

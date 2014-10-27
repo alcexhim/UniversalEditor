@@ -19,28 +19,9 @@ namespace UniversalEditor.Accessors
 			set { mvarFileStream.SetLength(value); }
 		}
 
-		public override void Seek(long length, SeekOrigin position)
+		public override void Seek(long length, SeekOrigin origin)
 		{
-			System.IO.SeekOrigin origin = System.IO.SeekOrigin.Begin;
-			switch (position)
-			{
-				case SeekOrigin.Begin:
-				{
-					origin = System.IO.SeekOrigin.Begin;
-					break;
-				}
-				case SeekOrigin.Current:
-				{
-					origin = System.IO.SeekOrigin.Current;
-					break;
-				}
-				case SeekOrigin.End:
-				{
-					origin = System.IO.SeekOrigin.End;
-					break;
-				}
-			}
-			mvarFileStream.Seek(length, origin);
+			mvarFileStream.Seek(length, (System.IO.SeekOrigin)origin);
 		}
 
 		internal override int ReadInternal(byte[] buffer, int offset, int count)
