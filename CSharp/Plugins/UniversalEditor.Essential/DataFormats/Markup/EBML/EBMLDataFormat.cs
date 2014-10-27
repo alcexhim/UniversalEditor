@@ -38,6 +38,11 @@ namespace UniversalEditor.DataFormats.Markup.EBML
 			}
 		}
 
+		protected virtual bool HasChildren(long elementID)
+		{
+			return false;
+		}
+
 		private MarkupElement ReadEBMLElement(Reader reader)
 		{
 			long elementID = ReadEBMLElementID(reader);
@@ -59,10 +64,23 @@ namespace UniversalEditor.DataFormats.Markup.EBML
 			}
 			else
 			{
-				MarkupStringElement mse = new MarkupStringElement();
-				mse.FullName = "CDATA";
-				mse.Value = Convert.ToBase64String(data);
-				tag.Elements.Add(mse);
+				if (HasChildren(elementID))
+				{
+					Reader rdr = new Reader(new MemoryAccessor(data));
+					while (!rdr.EndOfStream)
+					{
+						MarkupElement el = ReadEBMLElement(rdr);
+						tag.Elements.Add(el);
+					}
+					reader.Close();
+				}
+				else
+				{
+					MarkupStringElement mse = new MarkupStringElement();
+					mse.FullName = "CDATA";
+					mse.Value = Convert.ToBase64String(data);
+					tag.Elements.Add(mse);
+				}
 			}
 			return tag;
 		}
