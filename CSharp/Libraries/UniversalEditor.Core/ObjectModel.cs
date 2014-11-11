@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UniversalEditor
 {
-	public abstract class ObjectModel : ICloneable
+	public abstract class ObjectModel : ICloneable, References<ObjectModelReference>
 	{
 		public virtual ObjectModelReference MakeReference()
 		{

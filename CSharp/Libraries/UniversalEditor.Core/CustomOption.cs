@@ -15,6 +15,9 @@ namespace UniversalEditor
 
 		private bool mvarDefaultValue = false;
 		public bool DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
+
+		private bool mvarValue = false;
+		public bool Value { get { return mvarValue; } set { mvarValue = value; } }
 	}
 	public class CustomOptionGroup : CustomOption
 	{
@@ -136,6 +139,9 @@ namespace UniversalEditor
 
 		private string mvarDefaultValue = String.Empty;
 		public string DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
+
+		private string mvarValue = String.Empty;
+		public string Value { get { return mvarValue; } set { mvarValue = value; } }
 	}
 	public class CustomOptionChoice : CustomOption
 	{
@@ -145,7 +151,17 @@ namespace UniversalEditor
 		/// <param name="title">The title of the export option.</param>
 		/// <param name="requireChoice"></param>
 		/// <param name="choices"></param>
-		public CustomOptionChoice(string propertyName, string title, bool requireChoice = false, params CustomOptionFieldChoice[] choices, bool enabled = true, bool visible = true)
+		public CustomOptionChoice(string propertyName, string title, bool requireChoice = false, params CustomOptionFieldChoice[] choices)
+			: base(propertyName, title)
+		{
+			mvarIsRadioButton = false;
+			mvarRequireChoice = requireChoice;
+			foreach (CustomOptionFieldChoice choice in choices)
+			{
+				mvarChoices.Add(choice);
+			}
+		}
+		public CustomOptionChoice(string propertyName, string title, bool requireChoice = false, bool enabled = true, bool visible = true, params CustomOptionFieldChoice[] choices)
 			: base(propertyName, title, enabled, visible)
 		{
 			mvarIsRadioButton = false;
@@ -182,6 +198,12 @@ namespace UniversalEditor
 
 		private CustomOptionFieldChoice.CustomOptionFieldChoiceCollection mvarChoices = new CustomOptionFieldChoice.CustomOptionFieldChoiceCollection();
 		public CustomOptionFieldChoice.CustomOptionFieldChoiceCollection Choices { get { return mvarChoices; } }
+
+		private CustomOptionFieldChoice mvarDefaultValue = null;
+		public CustomOptionFieldChoice DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
+
+		private CustomOptionFieldChoice mvarValue = null;
+		public CustomOptionFieldChoice Value { get { return mvarValue; } set { mvarValue = value; } }
 	}
 
 	public class DataFormatOptionNumberSuggestedValue
@@ -222,6 +244,9 @@ namespace UniversalEditor
 		private decimal mvarDefaultValue = 0;
 		public decimal DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
 
+		private decimal mvarValue = 0;
+		public decimal Value { get { return mvarValue; } set { mvarValue = value; } }
+
 		public CustomOptionNumber(string propertyName, string title, decimal defaultValue = 0, decimal? minimumValue = null, decimal? maximumValue = null, bool enabled = true, bool visible = true)
 			: base(propertyName, title, enabled, visible)
 		{
@@ -232,11 +257,22 @@ namespace UniversalEditor
 	}
 	public class CustomOptionMultipleChoice : CustomOption
 	{
-		public CustomOptionMultipleChoice(string propertyName, string title, params CustomOptionFieldChoice[] choices, bool enabled = true, bool visible = true)
-			: base(propertyName, title, enabled, visible)
+		public CustomOptionMultipleChoice(string propertyName, string title, params CustomOptionFieldChoice[] choices)
+			: base(propertyName, title)
 		{
 			
 		}
+		public CustomOptionMultipleChoice(string propertyName, string title, bool enabled = true, bool visible = true, params CustomOptionFieldChoice[] choices)
+			: base(propertyName, title, enabled, visible)
+		{
+
+		}
+	}
+
+	public enum CustomOptionFileDialogMode
+	{
+		Open,
+		Save
 	}
 	public class CustomOptionFile : CustomOption
 	{
@@ -246,16 +282,18 @@ namespace UniversalEditor
 		private string mvarFilter = String.Empty;
 		public string Filter { get { return mvarFilter; } set { mvarFilter = value; } }
 
-		private bool mvarRequireChoice = false;
-		public bool RequireChoice { get { return mvarRequireChoice; } set { mvarRequireChoice  = value; } }
+		private string mvarValue = String.Empty;
+		public string Value { get { return mvarValue; } set { mvarValue = value; } }
 
-		public CustomOptionFile(string propertyName, string title, string defaultValue = "", string filter = "*.*", bool requireChoice = false, bool enabled = true, bool visible = true)
+		public CustomOptionFile(string propertyName, string title, string defaultValue = "", string filter = "*.*", bool enabled = true, bool visible = true)
 			: base(propertyName, title, enabled, visible)
 		{
 			mvarDefaultValue = defaultValue;
 			mvarFilter = filter;
-			mvarRequireChoice = requireChoice;
 		}
+
+		private CustomOptionFileDialogMode mvarDialogMode = CustomOptionFileDialogMode.Open;
+		public CustomOptionFileDialogMode DialogMode { get { return mvarDialogMode; } set { mvarDialogMode = value; } }
 	}
 	public class CustomOptionVersion : CustomOption
 	{

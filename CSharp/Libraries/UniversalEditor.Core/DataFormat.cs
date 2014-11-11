@@ -6,7 +6,7 @@ using UniversalEditor.IO;
 
 namespace UniversalEditor
 {
-	public abstract class DataFormat
+	public abstract class DataFormat : References<DataFormatReference>
 	{
 		internal DataFormatReference mvarReference = null;
 		/// <summary>

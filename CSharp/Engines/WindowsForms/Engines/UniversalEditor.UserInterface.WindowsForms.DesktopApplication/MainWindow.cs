@@ -1302,7 +1302,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			*/
 
 			DataFormat df = dfr.Create();
-			if (!Engine.CurrentEngine.ShowDataFormatOptionsDialog(ref df, DataFormatOptionsDialogType.Export))
+			if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Export))
 			{
 				return false;
 			}

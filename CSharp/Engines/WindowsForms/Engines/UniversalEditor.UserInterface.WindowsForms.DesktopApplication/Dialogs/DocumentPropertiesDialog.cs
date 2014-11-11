@@ -70,8 +70,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		private void cmdObjectModel_Click(object sender, EventArgs e)
 		{
-			ObjectModelBrowserPopup dlg = new ObjectModelBrowserPopup();
-			dlg.ObjectModel = mvarObjectModel;
+			GenericBrowserPopup<ObjectModel, ObjectModelReference> dlg = new GenericBrowserPopup<ObjectModel, ObjectModelReference>();
+			dlg.SelectedObject = mvarObjectModel;
 
 			Point loc = PointToScreen(cmdObjectModel.Location);
 			dlg.Location = new Point(loc.X, loc.Y + cmdObjectModel.Height);
@@ -98,7 +98,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			}
 			foreach (ObjectModelReference dfr in omrs)
 			{
-				dlg.ObjectModels.Add(dfr.Create());
+				dlg.AvailableObjects.Add(dfr.Create());
 			}
 			dlg.SelectionChanged += dlgObjectModel_SelectionChanged;
 			dlg.Show();
@@ -106,8 +106,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		private void cmdDataFormat_Click(object sender, EventArgs e)
 		{
-			DataFormatBrowserPopup dlg = new DataFormatBrowserPopup();
-			dlg.DataFormat = mvarDataFormat;
+			GenericBrowserPopup<DataFormat, DataFormatReference> dlg = new GenericBrowserPopup<DataFormat, DataFormatReference>();
+			dlg.SelectedObject = mvarDataFormat;
 
 			Point loc = PointToScreen(cmdDataFormat.Location);
 			dlg.Location = new Point(loc.X, loc.Y + cmdDataFormat.Height);
@@ -137,7 +137,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			}
 			foreach (DataFormatReference dfr in dfrs)
 			{
-				dlg.DataFormats.Add(dfr.Create());
+				dlg.AvailableObjects.Add(dfr.Create());
 			}
 			dlg.SelectionChanged += dlgDataFormat_SelectionChanged;
 			dlg.Show();
@@ -145,20 +145,55 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		private void dlgObjectModel_SelectionChanged(object sender, EventArgs e)
 		{
-			ObjectModelBrowserPopup dlg = (sender as ObjectModelBrowserPopup);
-			mvarObjectModel = dlg.ObjectModel;
+			GenericBrowserPopup<ObjectModel, ObjectModelReference> dlg = (sender as GenericBrowserPopup<ObjectModel, ObjectModelReference>);
+			mvarObjectModel = dlg.SelectedObject;
 			RefreshButtons();
 		}
 		private void dlgDataFormat_SelectionChanged(object sender, EventArgs e)
 		{
-			DataFormatBrowserPopup dlg = (sender as DataFormatBrowserPopup);
-			mvarDataFormat = dlg.DataFormat;
+			GenericBrowserPopup<DataFormat, DataFormatReference> dlg = (sender as GenericBrowserPopup<DataFormat, DataFormatReference>);
+			mvarDataFormat = dlg.SelectedObject;
+			RefreshButtons();
+		}
+		private void dlgAccessor_SelectionChanged(object sender, EventArgs e)
+		{
+			GenericBrowserPopup<Accessor, AccessorReference> dlg = (sender as GenericBrowserPopup<Accessor, AccessorReference>);
+			mvarAccessor = dlg.SelectedObject;
+
+			switch (mvarMode)
+			{
+				case DocumentPropertiesDialogMode.Open:
+				{
+					Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Import);
+					break;
+				}
+				case DocumentPropertiesDialogMode.Save:
+				{
+					Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Export);
+					break;
+				}
+			}
+
 			RefreshButtons();
 		}
 
 		private void cmdAccessor_Click(object sender, EventArgs e)
 		{
-			ShowContextMenuBelow(mnuAccessor, cmdAccessor);
+			GenericBrowserPopup<Accessor, AccessorReference> dlg = new GenericBrowserPopup<Accessor, AccessorReference>();
+			dlg.SelectedObject = mvarAccessor;
+
+			Point loc = PointToScreen(cmdAccessor.Location);
+			dlg.Location = new Point(loc.X, loc.Y + cmdAccessor.Height);
+			dlg.Size = new Size(Width, 200);
+
+			AccessorReference[] ars = UniversalEditor.Common.Reflection.GetAvailableAccessors();
+			foreach (AccessorReference ar in ars)
+			{
+				if (!ar.Visible) continue;
+				dlg.AvailableObjects.Add(ar.Create());
+			}
+			dlg.SelectionChanged += dlgAccessor_SelectionChanged;
+			dlg.Show();
 		}
 
 		private void ShowContextMenuBelow(ContextMenuStrip menu, Control parent)

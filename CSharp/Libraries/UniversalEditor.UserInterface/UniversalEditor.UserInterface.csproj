@@ -59,7 +59,7 @@
     <Compile Include="CommandShortcutKey.cs" />
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="ConfigurationManager.cs" />
-    <Compile Include="DataFormatOptionsDialogType.cs" />
+    <Compile Include="CustomOptionDialogType.cs" />
     <Compile Include="EditorReference.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="HostApplication.cs" />

@@ -387,7 +387,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		public override void ShowAboutDialog()
 		{
-			Dialogs.AboutDialog dlg = new AboutDialog();
+			AboutDialog dlg = new AboutDialog();
+			dlg.ShowDialog();
+		}
+		public override void ShowAboutDialog(DataFormatReference dfr)
+		{
+			DataFormatAboutDialog dlg = new DataFormatAboutDialog();
+			dlg.DataFormatReference = dfr;
 			dlg.ShowDialog();
 		}
 
@@ -412,9 +418,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			Application.Exit();
 		}
 
-		public override bool ShowDataFormatOptionsDialog(ref DataFormat df, DataFormatOptionsDialogType type)
+		public override bool ShowCustomOptionDialog(ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null)
 		{
-			if (DataFormatOptionsDialog.ShowDialog(ref df, type) == DialogResult.Cancel)
+			if (CustomOptionDialog.ShowDialog(ref customOptions, title, aboutButtonClicked) == DialogResult.Cancel)
 			{
 				return false;
 			}

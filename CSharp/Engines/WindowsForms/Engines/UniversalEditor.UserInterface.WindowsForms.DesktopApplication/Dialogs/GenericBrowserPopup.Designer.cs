@@ -1,33 +1,33 @@
 ﻿namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 {
-    partial class DataFormatBrowserPopup
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class GenericBrowserPopup<TObj, TRef>
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.txtSearch = new System.Windows.Forms.TextBox();
 			this.lv = new System.Windows.Forms.ListView();
 			this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -38,7 +38,7 @@
 			// txtSearch
 			// 
 			this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtSearch.Location = new System.Drawing.Point(6, 7);
 			this.txtSearch.Name = "txtSearch";
@@ -50,12 +50,12 @@
 			// lv
 			// 
 			this.lv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left) 
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.lv.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.lv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chTitle,
-            this.chFilters});
+			this.chTitle,
+			this.chFilters});
 			this.lv.FullRowSelect = true;
 			this.lv.GridLines = true;
 			this.lv.HideSelection = false;
@@ -104,14 +104,14 @@
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.ListView lv;
-        private System.Windows.Forms.ColumnHeader chTitle;
-        private System.Windows.Forms.ColumnHeader chFilters;
-        private System.Windows.Forms.Button cmdClear;
-    }
+		private System.Windows.Forms.TextBox txtSearch;
+		private System.Windows.Forms.ListView lv;
+		private System.Windows.Forms.ColumnHeader chTitle;
+		private System.Windows.Forms.ColumnHeader chFilters;
+		private System.Windows.Forms.Button cmdClear;
+	}
 }

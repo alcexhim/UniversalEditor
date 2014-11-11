@@ -414,8 +414,9 @@ namespace UniversalEditor.UserInterface
 		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
 		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
 		protected abstract IHostApplicationWindow OpenWindowInternal(params string[] FileNames);
-		
+
 		public abstract void ShowAboutDialog();
+		public abstract void ShowAboutDialog(DataFormatReference dfr);
 
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.
@@ -1097,6 +1098,151 @@ namespace UniversalEditor.UserInterface
 		{
 		}
 
-		public abstract bool ShowDataFormatOptionsDialog(ref DataFormat df, DataFormatOptionsDialogType dataFormatOptionsDialogType);
+		public bool ShowCustomOptionDialog(ref DataFormat df, CustomOptionDialogType type)
+		{
+			CustomOption.CustomOptionCollection coll = null;
+			DataFormatReference dfr = df.MakeReference();
+
+			if (type == CustomOptionDialogType.Export)
+			{
+				coll = dfr.ExportOptions;
+			}
+			else
+			{
+				coll = dfr.ImportOptions;
+			}
+			if (coll.Count == 0) return true;
+
+			bool retval = ShowCustomOptionDialog(ref coll, dfr.Title + " Options", delegate(object sender, EventArgs e)
+			{
+				ShowAboutDialog(dfr);
+			});
+
+			if (retval)
+			{
+				foreach (CustomOption eo in coll)
+				{
+					System.Reflection.PropertyInfo pi = dfr.DataFormatType.GetProperty(eo.PropertyName);
+					if (pi == null) continue;
+
+					if (eo is CustomOptionNumber)
+					{
+						CustomOptionNumber itm = (eo as CustomOptionNumber);
+						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+					}
+					else if (eo is CustomOptionBoolean)
+					{
+						CustomOptionBoolean itm = (eo as CustomOptionBoolean);
+						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+					}
+					else if (eo is CustomOptionChoice)
+					{
+						CustomOptionFieldChoice choice = (eo as CustomOptionChoice).Value;
+						if (choice != null)
+						{
+							Type[] interfaces = pi.PropertyType.GetInterfaces();
+							bool convertible = false;
+							foreach (Type t in interfaces)
+							{
+								if (t == typeof(IConvertible))
+								{
+									convertible = true;
+									break;
+								}
+							}
+							if (convertible)
+							{
+								pi.SetValue(df, Convert.ChangeType(choice.Value, pi.PropertyType), null);
+							}
+							else
+							{
+								pi.SetValue(df, choice.Value, null);
+							}
+						}
+					}
+					else if (eo is CustomOptionText)
+					{
+						CustomOptionText itm = (eo as CustomOptionText);
+						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+					}
+				}
+
+				return true;
+			}
+			return false;
+		}
+		public bool ShowCustomOptionDialog(ref Accessor df, CustomOptionDialogType type)
+		{
+			if (df == null) return true;
+
+			CustomOption.CustomOptionCollection coll = null;
+			AccessorReference dfr = df.MakeReference();
+
+			if (type == CustomOptionDialogType.Export)
+			{
+				coll = dfr.ExportOptions;
+			}
+			else
+			{
+				coll = dfr.ImportOptions;
+			}
+			if (coll.Count == 0) return true;
+
+			bool retval = ShowCustomOptionDialog(ref coll, dfr.Title + " Options");
+
+			if (retval)
+			{
+				foreach (CustomOption eo in coll)
+				{
+					System.Reflection.PropertyInfo pi = dfr.AccessorType.GetProperty(eo.PropertyName);
+					if (pi == null) continue;
+
+					if (eo is CustomOptionNumber)
+					{
+						CustomOptionNumber itm = (eo as CustomOptionNumber);
+						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+					}
+					else if (eo is CustomOptionBoolean)
+					{
+						CustomOptionBoolean itm = (eo as CustomOptionBoolean);
+						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+					}
+					else if (eo is CustomOptionChoice)
+					{
+						CustomOptionFieldChoice choice = (eo as CustomOptionChoice).Value;
+						if (choice != null)
+						{
+							Type[] interfaces = pi.PropertyType.GetInterfaces();
+							bool convertible = false;
+							foreach (Type t in interfaces)
+							{
+								if (t == typeof(IConvertible))
+								{
+									convertible = true;
+									break;
+								}
+							}
+							if (convertible)
+							{
+								pi.SetValue(df, Convert.ChangeType(choice.Value, pi.PropertyType), null);
+							}
+							else
+							{
+								pi.SetValue(df, choice.Value, null);
+							}
+						}
+					}
+					else if (eo is CustomOptionText)
+					{
+						CustomOptionText itm = (eo as CustomOptionText);
+						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+					}
+				}
+
+				return true;
+			}
+			return false;
+		}
+		public abstract bool ShowCustomOptionDialog(ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null);
 	}
 }

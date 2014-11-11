@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.UserInterface
 {
-	public enum DataFormatOptionsDialogType
+	public enum CustomOptionDialogType
 	{
 		Import,
 		Export

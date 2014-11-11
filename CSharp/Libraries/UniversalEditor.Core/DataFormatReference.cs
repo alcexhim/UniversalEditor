@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor
 {
-	public class DataFormatReference
+	public class DataFormatReference : ReferencedBy<DataFormat>
 	{
 		private string mvarTitle = null;
 		public string Title
@@ -23,6 +23,65 @@ namespace UniversalEditor
 
 		private Type mvarDataFormatType = null;
 		public Type DataFormatType { get { return mvarDataFormatType; } }
+
+		private string DataFormatFilterCollectionToString(DataFormatFilter.DataFormatFilterCollection collection)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (DataFormatFilter filter in collection)
+			{
+				sb.Append(StringArrayToString(filter.FileNameFilters));
+				if (collection.IndexOf(filter) < collection.Count - 1)
+				{
+					sb.Append("; ");
+				}
+			}
+			return sb.ToString();
+		}
+		private string StringArrayToString(System.Collections.Specialized.StringCollection collection)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (string s in collection)
+			{
+				sb.Append(s);
+				if (collection.IndexOf(s) < collection.Count - 1)
+				{
+					sb.Append(", ");
+				}
+			}
+			return sb.ToString();
+		}
+
+		public string[] GetDetails()
+		{
+			string title = mvarTitle;
+			if (String.IsNullOrEmpty(mvarTitle) && mvarFilters.Count > 0)
+			{
+				title = mvarFilters[0].Title;
+			}
+			return new string[] { title, DataFormatFilterCollectionToString(mvarFilters) };
+		}
+		public bool ShouldFilterObject(string filter)
+		{
+			string title = mvarTitle;
+			if (String.IsNullOrEmpty(mvarTitle) && mvarFilters.Count > 0)
+			{
+				title = mvarFilters[0].Title;
+			}
+			if (title == null) title = String.Empty;
+			if (title.ToLower().Contains(filter.ToLower())) return true;
+
+			foreach (DataFormatFilter filter1 in mvarFilters)
+			{
+				foreach (string s in filter1.FileNameFilters)
+				{
+					if (s.ToLower().Contains(filter.ToLower()))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 
 		public DataFormatReference(Type dataFormatType)
 		{

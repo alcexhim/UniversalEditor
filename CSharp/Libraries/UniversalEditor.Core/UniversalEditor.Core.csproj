@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accessor.cs" />
+    <Compile Include="AccessorReference.cs" />
     <Compile Include="Accessors\FileAccessor.cs" />
     <Compile Include="Accessors\MemoryAccessor.cs" />
     <Compile Include="Accessors\StreamAccessor.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="ObjectModelReference.cs" />
     <Compile Include="ProgressEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="References.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

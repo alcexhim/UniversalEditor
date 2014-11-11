@@ -55,23 +55,17 @@
     <Compile Include="Controls\OutputWindow.Designer.cs">
       <DependentUpon>OutputWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\GenericBrowserPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs">
+      <DependentUpon>GenericBrowserPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CrashDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\CrashDialog.Designer.cs">
       <DependentUpon>CrashDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ObjectModelBrowserPopup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ObjectModelBrowserPopup.Designer.cs">
-      <DependentUpon>ObjectModelBrowserPopup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\DataFormatBrowserPopup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\DataFormatBrowserPopup.Designer.cs">
-      <DependentUpon>DataFormatBrowserPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\DocumentPropertiesDialog.cs">
       <SubType>Form</SubType>
@@ -104,11 +98,11 @@
     <Compile Include="Dialogs\DataFormatAboutDialog.Designer.cs">
       <DependentUpon>DataFormatAboutDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DataFormatOptionsDialog.cs">
+    <Compile Include="Dialogs\CustomOptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DataFormatOptionsDialog.Designer.cs">
-      <DependentUpon>DataFormatOptionsDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\CustomOptionsDialog.Designer.cs">
+      <DependentUpon>CustomOptionsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\NewDialog.cs">
       <SubType>Form</SubType>
@@ -228,20 +222,17 @@
     <EmbeddedResource Include="Dialogs\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\GenericBrowserPopup.resx">
+      <DependentUpon>GenericBrowserPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CrashDialog.resx">
       <DependentUpon>CrashDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ObjectModelBrowserPopup.resx">
-      <DependentUpon>ObjectModelBrowserPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DataFormatAboutDialog.resx">
       <DependentUpon>DataFormatAboutDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DataFormatBrowserPopup.resx">
-      <DependentUpon>DataFormatBrowserPopup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DataFormatOptionsDialog.resx">
-      <DependentUpon>DataFormatOptionsDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\CustomOptionsDialog.resx">
+      <DependentUpon>CustomOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\NewDialog.resx">
       <DependentUpon>NewDialog.cs</DependentUpon>
