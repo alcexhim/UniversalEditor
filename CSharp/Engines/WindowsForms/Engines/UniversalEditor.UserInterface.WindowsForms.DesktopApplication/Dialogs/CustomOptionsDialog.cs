@@ -198,6 +198,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 						TextBox itm = (ctl as TextBox);
 						(eo as CustomOptionText).Value = itm.Text;
 					}
+					else if (ctl is AwesomeControls.FileTextBox.FileTextBoxControl)
+					{
+						AwesomeControls.FileTextBox.FileTextBoxControl itm = (ctl as AwesomeControls.FileTextBox.FileTextBoxControl);
+						(eo as CustomOptionFile).Value = itm.SelectedFileName;
+					}
 				}
 			}
 			catch (OverflowException ex)
