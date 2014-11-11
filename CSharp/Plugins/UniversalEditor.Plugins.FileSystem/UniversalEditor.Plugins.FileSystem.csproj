@@ -80,6 +80,7 @@
     <Compile Include="DataFormats\FileSystem\DeepSilver\SecretFiles\SPRDirectoryInfo.cs" />
     <Compile Include="DataFormats\FileSystem\DeepSilver\SecretFiles\SPRFileInfo.cs" />
     <Compile Include="DataFormats\FileSystem\Dreamfall\PAKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Dynamix\VOL\VOLDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Eighting\FPK\FPKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ElectronicArts\BIGFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\FARC\FARCDataFormat.cs" />
