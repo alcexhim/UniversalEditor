@@ -1532,6 +1532,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			base.OnClosing(e);
 
+			if (!WindowsFormsEngine.SessionLoading && Engine.CurrentEngine.Windows.Count == 0)
+			{
+				if (Engine.CurrentEngine.ConfigurationManager.GetValue<bool>(new string[] { "Application", "ConfirmExit" }, false))
+				{
+					if (MessageBox.Show("Are you sure you wish to quit " + Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle") + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return;
+				}
+			}
+
 			List<Document> unsavedDocuments = new List<Document>();
 			foreach (AwesomeControls.DockingWindows.DockingWindow doc in dcc.Windows)
 			{
@@ -1604,15 +1612,6 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			base.OnClosed(e);
 			if (WindowClosed != null) WindowClosed(this, e);
-
-			if (!WindowsFormsEngine.SessionLoading && Engine.CurrentEngine.Windows.Count == 0)
-			{
-				if (Engine.CurrentEngine.ConfigurationManager.GetValue<bool>(new string[] { "Application", "ConfirmExit" }, false))
-				{
-					if (MessageBox.Show("Are you sure you wish to quit " + Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle") + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return;
-				}
-				Engine.CurrentEngine.StopApplication();
-			}
 		}
 		#endregion
 		#region Menu Bar
