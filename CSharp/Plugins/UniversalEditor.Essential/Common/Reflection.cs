@@ -55,6 +55,7 @@ namespace UniversalEditor.Common
 			}
 
 			#region Initializing Object Models
+			List<AccessorReference> listAccessors = new List<AccessorReference>();
 			List<ObjectModelReference> listObjectModels = new List<ObjectModelReference>();
 			List<DataFormatReference> listDataFormats = new List<DataFormatReference>();
 			List<DocumentTemplate> listDocumentTemplates = new List<DocumentTemplate>();
@@ -81,6 +82,21 @@ namespace UniversalEditor.Common
 						ObjectModelReference omr = tmp.MakeReference();
 
 						listObjectModels.Add(omr);
+					}
+					else if (mvarAvailableAccessors == null && (type.IsSubclassOf(typeof(Accessor)) && !type.IsAbstract))
+					{
+						try
+						{
+							Accessor a = (type.Assembly.CreateInstance(type.FullName) as Accessor);
+							AccessorReference ar = a.MakeReference();
+							if (ar != null)
+							{
+								listAccessors.Add(ar);
+							}
+						}
+						catch
+						{
+						}
 					}
 					else if (mvarAvailableDataFormats == null && (type.IsSubclassOf(typeof(DataFormat)) && !type.IsAbstract))
 					{
@@ -133,6 +149,7 @@ namespace UniversalEditor.Common
 
 			if (mvarAvailableDocumentTemplates == null) mvarAvailableDocumentTemplates = listDocumentTemplates.ToArray();
 			if (mvarAvailableProjectTemplates == null) mvarAvailableProjectTemplates = listProjectTemplates.ToArray();
+			if (mvarAvailableAccessors == null) mvarAvailableAccessors = listAccessors.ToArray();
 		}
 		
 		private static int _DataFormatReferenceComparer(DataFormatReference dfr1, DataFormatReference dfr2)
@@ -1099,6 +1116,14 @@ namespace UniversalEditor.Common
 				if (cr.Capabilities.Contains(from, to)) list.Add(cr);
 			}
 			return list.ToArray();
+		}
+		#endregion
+		#region Accessors
+		private static AccessorReference[] mvarAvailableAccessors = null;
+		public static AccessorReference[] GetAvailableAccessors()
+		{
+			if (mvarAvailableAccessors == null) Initialize();
+			return mvarAvailableAccessors;
 		}
 		#endregion
 		#region Data Formats

@@ -9,6 +9,17 @@ namespace UniversalEditor.Accessors
 {
 	public class StreamAccessor : Accessor
 	{
+		private static AccessorReference _ar = null;
+		public override AccessorReference MakeReference()
+		{
+			if (_ar == null)
+			{
+				_ar = base.MakeReference();
+				_ar.Visible = false;
+			}
+			return _ar;
+		}
+
 		private System.IO.Stream mvarBaseStream = null;
 		public System.IO.Stream BaseStream { get { return mvarBaseStream; } }
 

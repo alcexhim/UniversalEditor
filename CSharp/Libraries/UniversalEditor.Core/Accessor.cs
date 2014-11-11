@@ -8,8 +8,13 @@ using System.Diagnostics;
 namespace UniversalEditor
 {
 	[DebuggerNonUserCode()]
-	public abstract class Accessor
+	public abstract class Accessor : References<AccessorReference>
 	{
+		public virtual AccessorReference MakeReference()
+		{
+			return new AccessorReference(this.GetType());
+		}
+
 		public Accessor()
 		{
 			mvarReader = new Reader(this);

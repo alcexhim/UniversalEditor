@@ -9,6 +9,25 @@ namespace UniversalEditor.Accessors
 {
 	public class FileAccessor : Accessor
 	{
+		private static AccessorReference _ar = null;
+		public override AccessorReference MakeReference()
+		{
+			if (_ar == null)
+			{
+				_ar = base.MakeReference();
+				_ar.Title = "Local file";
+
+				_ar.ImportOptions.Add(new CustomOptionFile("FileName", "&File name:"));
+				_ar.ImportOptions.Add(new CustomOptionBoolean("ForceOverwrite", "Force &overwrite if file exists", false, false));
+				_ar.ImportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", false, false));
+
+				_ar.ExportOptions.Add(new CustomOptionFile("FileName", "&File name:"));
+				_ar.ExportOptions.Add(new CustomOptionBoolean("ForceOverwrite", "Force &overwrite if file exists", true, true));
+				_ar.ExportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", true, false));
+			}
+			return _ar;
+		}
+
 		protected override long GetPosition()
 		{
 			return mvarFileStream.Position;
@@ -50,7 +69,11 @@ namespace UniversalEditor.Accessors
 		public bool ForceOverwrite { get { return mvarForceOverwrite; } set { mvarForceOverwrite = value; } }
 
 		private string mvarFileName = String.Empty;
+		public string FileName { get { return mvarFileName; } set { mvarFileName = value; } }
 
+		public FileAccessor()
+		{
+		}
 		public FileAccessor(string FileName, bool AllowWrite = false, bool ForceOverwrite = false, bool AutoOpen = false)
 		{
 			mvarFileName = FileName;
@@ -62,8 +85,6 @@ namespace UniversalEditor.Accessors
 				Open();
 			}
 		}
-
-		public string FileName { get { return mvarFileName; } set { mvarFileName = value; } }
 
 		public void Open(string FileName)
 		{

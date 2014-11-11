@@ -8,6 +8,17 @@ namespace UniversalEditor.Accessors
 {
 	public class MemoryAccessor : Accessor
 	{
+		private static AccessorReference _ar = null;
+		public override AccessorReference MakeReference()
+		{
+			if (_ar == null)
+			{
+				_ar = base.MakeReference();
+				_ar.Visible = false;
+			}
+			return _ar;
+		}
+
 		private byte[] _data = new byte[0];
 
 		private long ptr = 0;
