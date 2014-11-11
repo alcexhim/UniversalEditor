@@ -1237,6 +1237,11 @@ namespace UniversalEditor.UserInterface
 						CustomOptionText itm = (eo as CustomOptionText);
 						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
 					}
+					else if (eo is CustomOptionFile)
+					{
+						CustomOptionFile itm = (eo as CustomOptionFile);
+						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+					}
 				}
 
 				return true;
