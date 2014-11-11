@@ -7,8 +7,8 @@ namespace UniversalEditor
 {
 	public class CustomOptionBoolean : CustomOption
 	{
-		public CustomOptionBoolean(string propertyName, string title, bool defaultValue = false)
-			: base(propertyName, title)
+		public CustomOptionBoolean(string propertyName, string title, bool defaultValue = false, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			mvarDefaultValue = defaultValue;
 		}
@@ -22,8 +22,9 @@ namespace UniversalEditor
 			: System.Collections.ObjectModel.Collection<CustomOptionGroup>
 		{
 		}
-		
-		public CustomOptionGroup(string propertyName, string title = null) : base(propertyName, title)
+
+		public CustomOptionGroup(string propertyName, string title = null, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			if (title == null) base.Title = propertyName;
 		}
@@ -102,10 +103,18 @@ namespace UniversalEditor
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-		public CustomOption(string propertyName, string title)
+		private bool mvarEnabled = true;
+		public bool Enabled { get { return mvarEnabled; } set { mvarEnabled = value; } }
+
+		private bool mvarVisible = true;
+		public bool Visible { get { return mvarVisible; } set { mvarVisible = value; } }
+
+		public CustomOption(string propertyName, string title, bool enabled = true, bool visible = true)
 		{
 			mvarPropertyName = propertyName;
 			mvarTitle = title;
+			mvarEnabled = enabled;
+			mvarVisible = visible;
 		}
 	}
 
@@ -115,7 +124,8 @@ namespace UniversalEditor
 		/// Creates a custom option as a text box.
 		/// </summary>
 		/// <param name="title">The title of the export option.</param>
-		public CustomOptionText(string propertyName, string title, string defaultValue = "", int? maximumLength = null) : base(propertyName, title)
+		public CustomOptionText(string propertyName, string title, string defaultValue = "", int? maximumLength = null, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			mvarDefaultValue = defaultValue;
 			mvarMaximumLength = maximumLength;
@@ -135,7 +145,8 @@ namespace UniversalEditor
 		/// <param name="title">The title of the export option.</param>
 		/// <param name="requireChoice"></param>
 		/// <param name="choices"></param>
-		public CustomOptionChoice(string propertyName, string title, bool requireChoice = false, params CustomOptionFieldChoice[] choices) : base(propertyName, title)
+		public CustomOptionChoice(string propertyName, string title, bool requireChoice = false, params CustomOptionFieldChoice[] choices, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			mvarIsRadioButton = false;
 			mvarRequireChoice = requireChoice;
@@ -211,8 +222,8 @@ namespace UniversalEditor
 		private decimal mvarDefaultValue = 0;
 		public decimal DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
 
-		public CustomOptionNumber(string propertyName, string title, decimal defaultValue = 0, decimal? minimumValue = null, decimal? maximumValue = null)
-			: base(propertyName, title)
+		public CustomOptionNumber(string propertyName, string title, decimal defaultValue = 0, decimal? minimumValue = null, decimal? maximumValue = null, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			mvarMinimumValue = minimumValue;
 			mvarMaximumValue = maximumValue;
@@ -221,8 +232,8 @@ namespace UniversalEditor
 	}
 	public class CustomOptionMultipleChoice : CustomOption
 	{
-		public CustomOptionMultipleChoice(string propertyName, string title, params CustomOptionFieldChoice[] choices)
-			: base(propertyName, title)
+		public CustomOptionMultipleChoice(string propertyName, string title, params CustomOptionFieldChoice[] choices, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			
 		}
@@ -238,8 +249,8 @@ namespace UniversalEditor
 		private bool mvarRequireChoice = false;
 		public bool RequireChoice { get { return mvarRequireChoice; } set { mvarRequireChoice  = value; } }
 
-		public CustomOptionFile(string propertyName, string title, string defaultValue = "", string filter = "*.*", bool requireChoice = false)
-			: base(propertyName, title)
+		public CustomOptionFile(string propertyName, string title, string defaultValue = "", string filter = "*.*", bool requireChoice = false, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			mvarDefaultValue = defaultValue;
 			mvarFilter = filter;
@@ -251,8 +262,8 @@ namespace UniversalEditor
 		private Version mvarDefaultValue = null;
 		public Version DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
 
-		public CustomOptionVersion(string propertyName, string title, Version defaultValue = null)
-			: base(propertyName, title)
+		public CustomOptionVersion(string propertyName, string title, Version defaultValue = null, bool enabled = true, bool visible = true)
+			: base(propertyName, title, enabled, visible)
 		{
 			mvarDefaultValue = defaultValue;
 		}
