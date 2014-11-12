@@ -43,12 +43,15 @@ namespace UniversalEditor.Accessors
 			_data = newdata;
 		}
 
+		private string mvarFileName = null;
+
 		public MemoryAccessor()
 		{
 		}
-		public MemoryAccessor(byte[] data)
+		public MemoryAccessor(byte[] data, string filename = null)
 		{
 			_data = data;
+			mvarFileName = filename;
 		}
 
 		// [DebuggerNonUserCode()]
@@ -108,6 +111,17 @@ namespace UniversalEditor.Accessors
 		}
 		protected override void CloseInternal()
 		{
+		}
+
+		public override string GetFileName()
+		{
+			if (mvarFileName != null) return mvarFileName;
+			return base.GetFileName();
+		}
+		public override string GetFileTitle()
+		{
+			if (mvarFileName != null) return System.IO.Path.GetFileName(mvarFileName);
+			return base.GetFileTitle();
 		}
 	}
 }
