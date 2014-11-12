@@ -85,5 +85,14 @@ namespace UniversalEditor
 		{
 			get { return String.Empty; }
 		}
+
+		public virtual string GetFileTitle()
+		{
+			return String.Empty;
+		}
+		public virtual string GetFileName()
+		{
+			return String.Empty;
+		}
 	}
 }

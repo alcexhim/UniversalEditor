@@ -31,6 +31,14 @@ namespace UniversalEditor.Accessors
 			return _ar;
 		}
 
+		public override string GetFileTitle()
+		{
+			return System.IO.Path.GetFileName(mvarFileName);
+		}
+		public override string GetFileName()
+		{
+			return mvarFileName;
+		}
 		protected override long GetPosition()
 		{
 			return mvarFileStream.Position;
