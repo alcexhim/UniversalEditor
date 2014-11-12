@@ -21,7 +21,10 @@ namespace UniversalEditor.Accessors
 				_ar.ImportOptions.Add(new CustomOptionBoolean("ForceOverwrite", "Force &overwrite if file exists", false, false));
 				_ar.ImportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", false, false));
 
-				_ar.ExportOptions.Add(new CustomOptionFile("FileName", "&File name:"));
+                CustomOptionFile cofExportFileName = new CustomOptionFile("FileName", "&File name:");
+                cofExportFileName.DialogMode = CustomOptionFileDialogMode.Save;
+				_ar.ExportOptions.Add(cofExportFileName);
+
 				_ar.ExportOptions.Add(new CustomOptionBoolean("ForceOverwrite", "Force &overwrite if file exists", true, true));
 				_ar.ExportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", true, false));
 			}
