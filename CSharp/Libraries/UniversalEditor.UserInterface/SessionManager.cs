@@ -34,8 +34,8 @@ namespace UniversalEditor.UserInterface
 			private WindowState mvarWindowState = WindowState.Normal;
 			public WindowState WindowState { get { return mvarWindowState; } set { mvarWindowState = value; } }
 
-			private List<string> mvarFileNames = new List<string>();
-			public List<string> FileNames { get { return mvarFileNames; } }
+			private List<Document> mvarDocuments = new List<Document>();
+			public List<Document> Documents { get { return mvarDocuments; } }
 
 		}
 		public class Session
@@ -130,10 +130,17 @@ namespace UniversalEditor.UserInterface
 							if (tagDocument == null) continue;
 							if (tagDocument.FullName != "Document") continue;
 
+							// TODO: Implement accessor agnosticism in Session Manager!!!
+#if DEBUG
+							throw new NotImplementedException();
+#endif
+
+							/*
 							MarkupAttribute attFileName = tagDocument.Attributes["FileName"];
 							if (attFileName == null) continue;
 
-							window.FileNames.Add(attFileName.Value);
+							window.Documents.Add(attFileName.Value);
+							*/
 						}
 					}
 
@@ -185,15 +192,40 @@ namespace UniversalEditor.UserInterface
 						tagWindow.Attributes.Add("Width", window.Width.ToString());
 						tagWindow.Attributes.Add("Height", window.Height.ToString());
 
-						if (window.FileNames.Count > 0)
+						if (window.Documents.Count > 0)
 						{
 							MarkupTagElement tagDocuments = new MarkupTagElement();
 							tagDocuments.FullName = "Documents";
-							foreach (string fileName in window.FileNames)
+							foreach (Document document in window.Documents)
 							{
 								MarkupTagElement tagDocument = new MarkupTagElement();
 								tagDocument.FullName = "Document";
-								tagDocument.Attributes.Add("FileName", fileName);
+
+#if DEBUG
+								throw new NotImplementedException("Implement accessor agnosticism in Session Manager");
+#endif
+
+								// We need to store information about the ObjectModel and DataFormat
+								// if the document has not been saved yet.
+								if (document.ObjectModel != null)
+								{
+									MarkupTagElement tagObjectModel = new MarkupTagElement();
+									tagObjectModel.FullName = "ObjectModel";
+
+									ObjectModelReference omr = document.ObjectModel.MakeReference();
+									if (omr.ObjectModelTypeName != null)
+									{
+										tagObjectModel.Attributes.Add("TypeName", omr.ObjectModelTypeName);
+									}
+									if (omr.ObjectModelID != Guid.Empty)
+									{
+										tagObjectModel.Attributes.Add("ID", omr.ObjectModelID.ToString("B"));
+									}
+
+									tagDocument.Elements.Add(tagObjectModel);
+								}
+
+								// tagDocument.Attributes.Add("FileName", fileName);
 								tagDocuments.Elements.Add(tagDocument);
 							}
 							tagWindow.Elements.Add(tagDocuments);

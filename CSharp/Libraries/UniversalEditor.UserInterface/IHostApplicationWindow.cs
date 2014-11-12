@@ -13,7 +13,8 @@ namespace UniversalEditor.UserInterface
 		void NewProject(bool combineObjects = false);
 
 		void OpenFile();
-		void OpenFile(params string[] FileNames);
+		void OpenFile(params string[] fileNames);
+		void OpenFile(params Document[] documents);
 		void OpenProject(bool combineObjects = false);
 		void OpenProject(string FileName, bool combineObjects = false);
 

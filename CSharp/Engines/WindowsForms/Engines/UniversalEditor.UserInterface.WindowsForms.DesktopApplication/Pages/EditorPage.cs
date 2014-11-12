@@ -190,12 +190,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 			if (IsHandleCreated) Invoke(_NotifyOnFileOpened, sender, e);
 		}
 
-		public void OpenFile(string FileName)
+		public void OpenFile(Document document)
 		{
-			this.FileName = FileName;
+			this.Document = document;
 
-			System.Threading.Thread tOpenFile = new System.Threading.Thread(tOpenFile_ParameterizedThreadStart);
-			tOpenFile.Start(FileName);
+			System.Threading.Thread tOpenFile = new System.Threading.Thread(tOpenFile_ThreadStart);
+			tOpenFile.Start();
 		}
 
 		private void _ErrorMessageConfig(bool visible, string title)
@@ -212,16 +212,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 			if (message != null) errorMessage1.Details = message;
 		}
 
-		private void tOpenFile_ParameterizedThreadStart(object param)
+		private void tOpenFile_ThreadStart()
 		{
-			string Path = param.ToString();
-
-			string[] FileNameParts = Path.Split(new string[] { "::/" }, 2, StringSplitOptions.None);
-			string FileName = FileNameParts[0];
-			string SecondaryFileName = String.Empty;
-			if (FileNameParts.Length > 1) SecondaryFileName = FileNameParts[1];
-
-			DataFormatReference[] fmts = UniversalEditor.Common.Reflection.GetAvailableDataFormats(FileName);
+			DataFormatReference[] fmts = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarDocument.Accessor);
 			#region When there is no available DataFormat
 			if (fmts.Length == 0)
 			{
@@ -232,7 +225,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 			else if (fmts.Length > 1)
 			{
 				// attempt to guess the data format for the object model
-				ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(FileName);
+				ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarDocument.Accessor);
 				ObjectModel om1 = null;
 				DataFormat df1 = null;
 				bool found1 = false;
@@ -250,7 +243,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 					{
 						df = dfr.Create();
 
-						Document d = new UniversalEditor.Document(om, df, new FileAccessor(FileName));
+						Document d = new UniversalEditor.Document(om, df, mvarDocument.Accessor);
 						d.InputAccessor.Open();
 						try
 						{
@@ -311,7 +304,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 				}
 				else
 				{
-					Document = new Document(om1, df1, new FileAccessor(FileName));
+					Document = new Document(om1, df1, mvarDocument.Accessor);
 
 					if (IsHandleCreated) Invoke(new Action<bool, string>(_ErrorMessageConfig), false, null);
 
@@ -344,36 +337,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 						ObjectModel objm = objms[0].Create();
 						DataFormat fmt = fmts[0].Create();
 
-						if (!String.IsNullOrEmpty(SecondaryFileName))
-						{
-							FileSystemObjectModel fsom = (objm as FileSystemObjectModel);
-							Document document = new UniversalEditor.Document(fsom, fmt, new FileAccessor(FileName));
+						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
 
-							object fso = fsom.FindObject(SecondaryFileName);
-							if (fso is UniversalEditor.ObjectModels.FileSystem.File)
-							{
-								UniversalEditor.ObjectModels.FileSystem.File file = (fso as UniversalEditor.ObjectModels.FileSystem.File);
-								// OpenFileInternal(file, FileName);
-							}
-							else if (fso is UniversalEditor.ObjectModels.FileSystem.Folder)
-							{
-							}
-							else
-							{
-							}
-							return;
-						}
-						else
-						{
-							if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
+						Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
+						document.InputAccessor.Open();
+						document.Load();
 
-							Document document = new UniversalEditor.Document(objm, fmt, new FileAccessor(FileName));
-							document.InputAccessor.Open();
-							document.Load();
-
-							Document = document;
-							NotifyOnFileOpened(this, EventArgs.Empty);
-						}
+						Document = document;
+						NotifyOnFileOpened(this, EventArgs.Empty);
 					}
 					catch (InvalidDataFormatException ex)
 					{

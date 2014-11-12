@@ -398,14 +398,23 @@ namespace UniversalEditor.UserInterface
 		private IHostApplicationWindow mvarLastWindow = null;
 		public IHostApplicationWindow LastWindow { get { return mvarLastWindow; } set { mvarLastWindow = value; } }
 
-		public void OpenFile(params string[] FileNames)
+		public void OpenFile(params string[] fileNames)
+		{
+			Document[] documents = new Document[fileNames.Length];
+			for (int i = 0; i < fileNames.Length; i++)
+			{
+				documents[i] = new Document(null, null, new FileAccessor(fileNames[i]));
+			}
+			OpenFile(documents);
+		}
+		public void OpenFile(params Document[] documents)
 		{
 			if (LastWindow == null)
 			{
-				OpenWindow(FileNames);
+				OpenWindow(documents);
 				return;
 			}
-			LastWindow.OpenFile(FileNames);
+			LastWindow.OpenFile(documents);
 		}
 
 		/// <summary>
@@ -413,18 +422,31 @@ namespace UniversalEditor.UserInterface
 		/// </summary>
 		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
 		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
-		protected abstract IHostApplicationWindow OpenWindowInternal(params string[] FileNames);
+		protected abstract IHostApplicationWindow OpenWindowInternal(params Document[] documents);
 
 		public abstract void ShowAboutDialog();
 		public abstract void ShowAboutDialog(DataFormatReference dfr);
 
+		public void OpenWindow()
+		{
+			OpenWindow(new Document[0]);
+		}
+		public void OpenWindow(params string[] fileNames)
+		{
+			Document[] documents = new Document[fileNames.Length];
+			for (int i = 0; i < fileNames.Length; i++)
+			{
+				documents[i] = new Document(null, null, new FileAccessor(fileNames[i]));
+			}
+			OpenWindow(documents);
+		}
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.
 		/// </summary>
 		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
-		public void OpenWindow(params string[] FileNames)
+		public void OpenWindow(params Document[] documents)
 		{
-			IHostApplicationWindow window = OpenWindowInternal(FileNames);
+			IHostApplicationWindow window = OpenWindowInternal(documents);
 			window.WindowClosed += delegate(object sender, EventArgs e)
 			{
 				mvarWindows.Remove(window);
@@ -439,12 +461,13 @@ namespace UniversalEditor.UserInterface
 			{
 				if (LastWindow != null)
 				{
-					string[] FileNames = new string[e.CommandLineArgs.Length - 1];
+					Document[] documents = new Document[e.CommandLineArgs.Length - 1];
 					for (int i = 1; i < e.CommandLineArgs.Length; i++)
 					{
-						FileNames[i - 1] = e.CommandLineArgs[i];
+						documents[i - 1] = new Document(null, null, new FileAccessor(e.CommandLineArgs[i]));
 					}
-					LastWindow.OpenFile(FileNames);
+
+					LastWindow.OpenFile(documents);
 					LastWindow.ActivateWindow();
 				}
 			}

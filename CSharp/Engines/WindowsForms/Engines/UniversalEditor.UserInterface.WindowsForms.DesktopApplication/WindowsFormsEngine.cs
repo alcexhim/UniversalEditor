@@ -397,13 +397,13 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			dlg.ShowDialog();
 		}
 
-		protected override IHostApplicationWindow OpenWindowInternal(params string[] FileNames)
+		protected override IHostApplicationWindow OpenWindowInternal(params Document[] documents)
 		{
 			MainWindow mw = new MainWindow();
 
-			if (FileNames.Length > 0)
+			if (documents.Length > 0)
 			{
-				mw.OpenFile(FileNames);
+				mw.OpenFile(documents);
 			}
 			mw.Show();
 			return mw;

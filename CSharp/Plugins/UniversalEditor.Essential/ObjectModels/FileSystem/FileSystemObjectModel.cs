@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.ObjectModels.FileSystem
 {
@@ -19,11 +20,11 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		}
 		public override void Clear()
 		{
-            mvarFiles.Clear();
-            mvarFolders.Clear();
-            mvarID = Guid.Empty;
-            mvarTitle = String.Empty;
-            mvarPathSeparators = new string[] { System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
+			mvarFiles.Clear();
+			mvarFolders.Clear();
+			mvarID = Guid.Empty;
+			mvarTitle = String.Empty;
+			mvarPathSeparators = new string[] { System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
 		}
 		public override void CopyTo(ObjectModel where)
 		{
@@ -31,12 +32,12 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			clone.ID = mvarID;
 			for (int i = 0; i < mvarFiles.Count; i++)
 			{
-                File file = mvarFiles[i];
+				File file = mvarFiles[i];
 				clone.Files.Add(file.Clone() as File);
 			}
 			for (int i = 0; i < mvarFolders.Count; i++)
 			{
-                Folder folder = mvarFolders[i];
+				Folder folder = mvarFolders[i];
 				clone.Folders.Add(folder.Clone() as Folder);
 			}
 		}
@@ -53,7 +54,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			foreach (string fileName in fileNames)
 			{
-				FileSystemObjectModel fsom1 = UniversalEditor.Common.Reflection.GetAvailableObjectModel<FileSystemObjectModel>(fileName);
+				FileAccessor accessor = new FileAccessor(fileName);
+				FileSystemObjectModel fsom1 = UniversalEditor.Common.Reflection.GetAvailableObjectModel<FileSystemObjectModel>(accessor);
 				if (fsom1 == null) continue;
 
 				fsom1.CopyTo(fsom);
@@ -83,8 +85,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// </summary>
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-        private string[] mvarPathSeparators = new string[] { System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
-        public string[] PathSeparators { get { return mvarPathSeparators; } set { mvarPathSeparators = value; } }
+		private string[] mvarPathSeparators = new string[] { System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
+		public string[] PathSeparators { get { return mvarPathSeparators; } set { mvarPathSeparators = value; } }
 
 		public bool ContainsFile(string path)
 		{
@@ -120,137 +122,137 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			return null;
 		}
 
-        public Folder FindFolder(string name)
-        {
-            string[] path = name.Split(new char[] { '/' });
-            Folder parent = null;
-            for (int i = 0; i < path.Length - 1; i++)
-            {
-                if (parent == null)
-                {
-                    parent = mvarFolders[path[i]];
-                }
-                else
-                {
-                    parent = parent.Folders[path[i]];
-                }
-            }
+		public Folder FindFolder(string name)
+		{
+			string[] path = name.Split(new char[] { '/' });
+			Folder parent = null;
+			for (int i = 0; i < path.Length - 1; i++)
+			{
+				if (parent == null)
+				{
+					parent = mvarFolders[path[i]];
+				}
+				else
+				{
+					parent = parent.Folders[path[i]];
+				}
+			}
 
-            if (parent == null)
-            {
-                return mvarFolders[path[path.Length - 1]];
-            }
-            else
-            {
-                return parent.Folders[path[path.Length - 1]];
-            }
-        }
+			if (parent == null)
+			{
+				return mvarFolders[path[path.Length - 1]];
+			}
+			else
+			{
+				return parent.Folders[path[path.Length - 1]];
+			}
+		}
 
-        public object FindObject(string name)
-        {
-            string[] path = name.Split(new char[] { '/' });
-            Folder parent = null;
-            for (int i = 0; i < path.Length - 1; i++)
-            {
-                if (parent == null)
-                {
-                    parent = mvarFolders[path[i]];
-                }
-                else
-                {
-                    parent = parent.Folders[path[i]];
-                }
-            }
+		public object FindObject(string name)
+		{
+			string[] path = name.Split(new char[] { '/' });
+			Folder parent = null;
+			for (int i = 0; i < path.Length - 1; i++)
+			{
+				if (parent == null)
+				{
+					parent = mvarFolders[path[i]];
+				}
+				else
+				{
+					parent = parent.Folders[path[i]];
+				}
+			}
 
-            if (parent == null)
-            {
-                File file = mvarFiles[path[path.Length - 1]];
-                Folder folder = mvarFolders[path[path.Length - 1]];
-                if (folder == null) return file;
-                return folder;
-            }
-            else
-            {
-                File file = parent.Files[path[path.Length - 1]];
-                Folder folder = parent.Folders[path[path.Length - 1]];
-                if (folder == null) return file;
-                return folder;
-            }
-        }
+			if (parent == null)
+			{
+				File file = mvarFiles[path[path.Length - 1]];
+				Folder folder = mvarFolders[path[path.Length - 1]];
+				if (folder == null) return file;
+				return folder;
+			}
+			else
+			{
+				File file = parent.Files[path[path.Length - 1]];
+				Folder folder = parent.Folders[path[path.Length - 1]];
+				if (folder == null) return file;
+				return folder;
+			}
+		}
 
-        public Folder AddFolder(string name)
-        {
-            string[] path = name.Split(mvarPathSeparators, StringSplitOptions.None);
-            Folder parent = null;
-            for (int i = 0; i < path.Length - 1; i++)
-            {
-                if (parent == null)
-                {
-                    parent = mvarFolders[path[i]];
-                }
-                else
-                {
-                    parent = parent.Folders[path[i]];
-                }
-                if (parent == null) throw new System.IO.DirectoryNotFoundException();
-            }
-            if (parent == null)
-            {
-                return mvarFolders.Add(path[path.Length - 1]);
-            }
-            return parent.Folders.Add(path[path.Length - 1]);
-        }
+		public Folder AddFolder(string name)
+		{
+			string[] path = name.Split(mvarPathSeparators, StringSplitOptions.None);
+			Folder parent = null;
+			for (int i = 0; i < path.Length - 1; i++)
+			{
+				if (parent == null)
+				{
+					parent = mvarFolders[path[i]];
+				}
+				else
+				{
+					parent = parent.Folders[path[i]];
+				}
+				if (parent == null) throw new System.IO.DirectoryNotFoundException();
+			}
+			if (parent == null)
+			{
+				return mvarFolders.Add(path[path.Length - 1]);
+			}
+			return parent.Folders.Add(path[path.Length - 1]);
+		}
 
-        public File AddFile(string name)
-        {
-            string[] path = name.Split(mvarPathSeparators, StringSplitOptions.None);
-            Folder parent = null;
-            for (int i = 0; i < path.Length - 1; i++)
-            {
-                if (parent == null)
-                {
-                    if (mvarFolders.Contains(path[i]))
-                    {
-                        parent = mvarFolders[path[i]];
-                    }
-                    else
-                    {
-                        parent = mvarFolders.Add(path[i]);
-                    }
-                }
-                else
-                {
-                    if (parent.Folders.Contains(path[i]))
-                    {
-                        parent = parent.Folders[path[i]];
-                    }
-                    else
-                    {
-                        parent = parent.Folders.Add(path[i]);
-                    }
-                }
+		public File AddFile(string name)
+		{
+			string[] path = name.Split(mvarPathSeparators, StringSplitOptions.None);
+			Folder parent = null;
+			for (int i = 0; i < path.Length - 1; i++)
+			{
+				if (parent == null)
+				{
+					if (mvarFolders.Contains(path[i]))
+					{
+						parent = mvarFolders[path[i]];
+					}
+					else
+					{
+						parent = mvarFolders.Add(path[i]);
+					}
+				}
+				else
+				{
+					if (parent.Folders.Contains(path[i]))
+					{
+						parent = parent.Folders[path[i]];
+					}
+					else
+					{
+						parent = parent.Folders.Add(path[i]);
+					}
+				}
 
-                if (parent == null)
-                {
-                    throw new System.IO.DirectoryNotFoundException();
-                }
-            }
+				if (parent == null)
+				{
+					throw new System.IO.DirectoryNotFoundException();
+				}
+			}
 
-            if (parent == null)
-            {
-                File file = new File();
-                file.Name = path[path.Length - 1];
-                mvarFiles.Add(file);
-                return file;
-            }
-            else
-            {
-                File file = new File();
-                file.Name = path[path.Length - 1];
-                parent.Files.Add(file);
-                return file;
-            }
-        }
+			if (parent == null)
+			{
+				File file = new File();
+				file.Name = path[path.Length - 1];
+				mvarFiles.Add(file);
+				return file;
+			}
+			else
+			{
+				File file = new File();
+				file.Name = path[path.Length - 1];
+				parent.Files.Add(file);
+				return file;
+			}
+		}
 
 		/// <summary>
 		/// Gets all files in all folders of the <see cref="FileSystemObjectModel" /> with file names that
@@ -280,45 +282,45 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			return files.ToArray();
 		}
 
-        /// <summary>
-        /// Gets all files in all folders of the <see cref="FileSystemObjectModel" />, and assigns the file names
-        /// separated by the default path separator.
-        /// </summary>
-        /// <returns></returns>
-        public File[] GetAllFiles(string pathSeparator = null)
-        {
-            if (pathSeparator == null) pathSeparator = "/";
+		/// <summary>
+		/// Gets all files in all folders of the <see cref="FileSystemObjectModel" />, and assigns the file names
+		/// separated by the default path separator.
+		/// </summary>
+		/// <returns></returns>
+		public File[] GetAllFiles(string pathSeparator = null)
+		{
+			if (pathSeparator == null) pathSeparator = "/";
 
-            List<File> files = new List<File>();
-            for (int i = 0; i < mvarFiles.Count; i++)
-            {
-                File file = mvarFiles[i];
-                files.Add(file);
-            }
-            for (int i = 0; i < mvarFolders.Count; i++ )
-            {
-                Folder folder = mvarFolders[i];
-                GetAllFilesRecursively(folder, ref files, folder.Name, pathSeparator);
-            }
-            return files.ToArray();
-        }
+			List<File> files = new List<File>();
+			for (int i = 0; i < mvarFiles.Count; i++)
+			{
+				File file = mvarFiles[i];
+				files.Add(file);
+			}
+			for (int i = 0; i < mvarFolders.Count; i++ )
+			{
+				Folder folder = mvarFolders[i];
+				GetAllFilesRecursively(folder, ref files, folder.Name, pathSeparator);
+			}
+			return files.ToArray();
+		}
 
-        private void GetAllFilesRecursively(Folder folder, ref List<File> files, string parentPath, string pathSeparator, string searchPattern = null)
-        {
-            for (int i = 0; i < folder.Files.Count; i++)
-            {
-                File file = folder.Files[i];
+		private void GetAllFilesRecursively(Folder folder, ref List<File> files, string parentPath, string pathSeparator, string searchPattern = null)
+		{
+			for (int i = 0; i < folder.Files.Count; i++)
+			{
+				File file = folder.Files[i];
 				if (searchPattern != null && !file.Name.Match(searchPattern)) continue;
 
-                File file2 = (file.Clone() as File);
-                file2.Name = parentPath + pathSeparator + file.Name;
-                files.Add(file2);
-            }
-            for (int i = 0; i < folder.Folders.Count; i++)
-            {
-                Folder folder1 = folder.Folders[i];
-                GetAllFilesRecursively(folder1, ref files, parentPath + pathSeparator + folder1.Name, pathSeparator, searchPattern);
-            }
-        }
+				File file2 = (file.Clone() as File);
+				file2.Name = parentPath + pathSeparator + file.Name;
+				files.Add(file2);
+			}
+			for (int i = 0; i < folder.Folders.Count; i++)
+			{
+				Folder folder1 = folder.Folders[i];
+				GetAllFilesRecursively(folder1, ref files, parentPath + pathSeparator + folder1.Name, pathSeparator, searchPattern);
+			}
+		}
 	}
 }

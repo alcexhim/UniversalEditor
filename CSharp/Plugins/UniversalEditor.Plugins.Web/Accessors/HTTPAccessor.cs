@@ -30,16 +30,19 @@ namespace UniversalEditor.Accessors
 		{
 			get
 			{
+				if (mvarStream == null) throw new InvalidOperationException("Please open before looking");
 				return mvarStream.Length;
 			}
 			set
 			{
+				if (mvarStream == null) throw new InvalidOperationException("Please open before looking");
 				mvarStream.SetLength(value);
 			}
 		}
 
 		protected override long GetPosition()
 		{
+			if (mvarStream == null) throw new InvalidOperationException("Please open before looking");
 			return mvarStream.Position;
 		}
 

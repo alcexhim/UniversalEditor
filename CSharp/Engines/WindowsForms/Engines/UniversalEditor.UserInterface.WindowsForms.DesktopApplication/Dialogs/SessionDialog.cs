@@ -50,7 +50,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 			SessionManager.Session session = (lv.SelectedItems[0].Data as SessionManager.Session);
 
-			Dictionary<MainWindow, string[]> filenames = new Dictionary<MainWindow, string[]>();
+			Dictionary<MainWindow, Document[]> filenames = new Dictionary<MainWindow, Document[]>();
 			foreach (SessionManager.Window window in session.Windows)
 			{
 				MainWindow wnd = new MainWindow();
@@ -59,13 +59,13 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				wnd.Top = window.Top;
 				wnd.Width = window.Width;
 				wnd.Height = window.Height;
-				filenames.Add(wnd, window.FileNames.ToArray());
+				filenames.Add(wnd, window.Documents.ToArray());
 
 				wnd.Show();
 				Engine.CurrentEngine.Windows.Add(wnd);
 			}
 
-			foreach (KeyValuePair<MainWindow, string[]> fkvp in filenames)
+			foreach (KeyValuePair<MainWindow, Document[]> fkvp in filenames)
 			{
 				fkvp.Key.OpenFile(fkvp.Value);
 			}
@@ -107,10 +107,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				System.Collections.ObjectModel.ReadOnlyCollection<Document> documents = wnd.Documents;
 				foreach (Document doc in documents)
 				{
-					if (System.IO.File.Exists(doc.Title))
-					{
-						window.FileNames.Add(doc.Title);
-					}
+					window.Documents.Add(doc);
 				}
 				session.Windows.Add(window);
 			}

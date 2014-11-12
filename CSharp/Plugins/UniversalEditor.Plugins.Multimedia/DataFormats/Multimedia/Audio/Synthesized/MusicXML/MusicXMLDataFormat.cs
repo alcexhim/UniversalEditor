@@ -133,14 +133,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MusicXML
 																{
 																	if (text == "synthesizer")
 																	{
-                                                                        if (Accessor is FileAccessor)
-                                                                        {
-                                                                            FileAccessor file = (Accessor as FileAccessor);
-                                                                            if (file.FileName != null)
-                                                                            {
-                                                                                track.Synthesizer = Reflection.GetAvailableObjectModel<VoicebankObjectModel>(Path.MakeAbsolutePath(tag_elTagScorePartChild.Attributes["href"].Value, System.IO.Path.GetDirectoryName(file.FileName)));
-                                                                            }
-                                                                        }
+																		if (Accessor is FileAccessor)
+																		{
+																			FileAccessor file = (Accessor as FileAccessor);
+																			if (file.FileName != null)
+																			{
+																				string fileName = Path.MakeAbsolutePath(tag_elTagScorePartChild.Attributes["href"].Value, System.IO.Path.GetDirectoryName(file.FileName));
+																				track.Synthesizer = Reflection.GetAvailableObjectModel<VoicebankObjectModel>(new FileAccessor(fileName));
+																			}
+																		}
 																	}
 																}
 															}

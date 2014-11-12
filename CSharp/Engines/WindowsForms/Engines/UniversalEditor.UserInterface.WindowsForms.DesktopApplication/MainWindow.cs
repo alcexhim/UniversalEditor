@@ -300,7 +300,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		private void tsmiBookmark_Click(object sender, EventArgs e)
 		{
 			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
-			OpenFile(tsmi.ToolTipText);
+			OpenFile(tsmi.Tag as Document);
 		}
 
 		PropertyGridControl pgc = new PropertyGridControl();
@@ -779,7 +779,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 				Pages.EditorPage page = new Pages.EditorPage();
 				page.DocumentEdited += page_DocumentEdited;
-				page.FileName = "<untitled>";
+				page.Title = "<untitled>";
 
 				ObjectModel objm = template.ObjectModelReference.Create();
 				if (objm == null)
@@ -839,44 +839,26 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			dlg.Mode = DocumentPropertiesDialogMode.Open;
 			if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				OpenFile((dlg.Accessor as FileAccessor).FileName);
+				OpenFile(new Document(dlg.ObjectModel, dlg.DataFormat, dlg.Accessor));
 			}
-
-			// Display the Open File dialog
-			/*
-			using (OpenFileDialog ofd = new OpenFileDialog())
-			{
-				ofd.AutoUpgradeEnabled = true;
-				ofd.Filter = "All Files (*.*)|*.*";
-				ofd.Multiselect = true;
-
-				Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.BeforeOpenFileDialog,
-					new KeyValuePair<string, object>("Filter", ofd.Filter),
-					new KeyValuePair<string, object>("FilterIndex", ofd.FilterIndex),
-					new KeyValuePair<string, object>("FileNames", ofd.FileNames)
-				));
-
-				if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-				{
-					Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.AfterOpenFileDialog,
-						new KeyValuePair<string, object>("Filter", ofd.Filter),
-						new KeyValuePair<string, object>("FilterIndex", ofd.FilterIndex),
-						new KeyValuePair<string, object>("FileNames", ofd.FileNames)
-					));
-
-					OpenFile(ofd.FileNames);
-				}
-			}
-			*/
 		}
-		public void OpenFile(params string[] FileNames)
+		public void OpenFile(params string[] fileNames)
 		{
-			foreach (string FileName in FileNames)
+			Document[] documents = new Document[fileNames.Length];
+			for (int i = 0; i < documents.Length; i++)
 			{
-				OpenFile(FileName, false);
+				documents[i] = new Document(null, null, new FileAccessor(fileNames[i]));
+			}
+			OpenFile(documents);
+		}
+		public void OpenFile(params Document[] documents)
+		{
+			foreach (Document doc in documents)
+			{
+				OpenFile(doc, false);
 			}
 		}
-		public void OpenFile(string FileName, bool reuseTab)
+		public void OpenFile(Document document, bool reuseTab)
 		{
 			Pages.EditorPage page = new Pages.EditorPage();
 			if (reuseTab && dcc.SelectedWindow != null)
@@ -884,11 +866,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 			else
 			{
-				DockingWindow wnd = dcc.Windows.Add(System.IO.Path.GetFileName(FileName), page);
+				DockingWindow wnd = dcc.Windows.Add(document.Accessor.GetFileTitle(), page);
 				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(wnd);
 			}
 
-			page.OpenFile(FileName);
+			page.OpenFile(document);
 			page.FileOpened += page_FileOpened;
 		}
 
@@ -990,8 +972,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			page.Description = FileName + "::/" + file.Name;
 
 			byte[] data = file.GetDataAsByteArray();
-			System.IO.MemoryStream ms = new System.IO.MemoryStream(data);
-			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(ms, file.Name);
+			MemoryAccessor ma = new MemoryAccessor(data);
+
+			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(ma);
 			foreach (DataFormatReference dfr in dfrs)
 			{
 				ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(dfr);
@@ -999,7 +982,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				DataFormat df = dfr.Create();
 				ObjectModel om = omrs[0].Create();
 
-				page.Document = new Document(om, df, new StreamAccessor(ms));
+				page.Document = new Document(om, df, ma);
 				// page.DocumentEdited += page_DocumentEdited;
 				page.Document.InputAccessor.Open();
 				page.Document.Load();
@@ -1113,7 +1096,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		public void OpenProject(string FileName, bool combineObjects = false)
 		{
-			SolutionObjectModel solution = UniversalEditor.Common.Reflection.GetAvailableObjectModel<SolutionObjectModel>(FileName);
+			FileAccessor fa = new FileAccessor(FileName);
+
+			SolutionObjectModel solution = UniversalEditor.Common.Reflection.GetAvailableObjectModel<SolutionObjectModel>(fa);
 			if (combineObjects)
 			{
 				SolutionObjectModel oldsolution = CurrentSolution;
@@ -1772,7 +1757,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		private void page_Navigate(object sender, UniversalEditor.UserInterface.WindowsForms.Controls.NavigateEventArgs e)
 		{
-			OpenFile(e.FileName, ((Control.ModifierKeys & Keys.Alt) != Keys.Alt));
+			// OpenFile(e.FileName, ((Control.ModifierKeys & Keys.Alt) != Keys.Alt));
 		}
 		#endregion
 
@@ -1846,7 +1831,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 				return;
 			}
-			OpenFile(tsmi.ToolTipText);
+			OpenFile(new Document(null, null, new FileAccessor(tsmi.ToolTipText)));
 		}
 		#endregion
 
@@ -1998,7 +1983,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			else if (e.Data.GetDataPresent("FileNameW"))
 			{
 				string[] filenames = (e.Data.GetData("FileNameW") as string[]);
-				OpenFile(filenames);
+				Document[] documents = new Document[filenames.Length];
+				for (int i = 0; i < documents.Length; i++)
+				{
+					documents[i] = new Document(null, null, new FileAccessor(filenames[i]));
+				}
+				OpenFile(documents);
 			}
 			else if (e.Data.GetDataPresent("Shell IDList Array"))
 			{
@@ -2015,7 +2005,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				Guid guid = br.ReadGuid();
 				short terminator = br.ReadInt16();
 
-				OpenFile("shell://" + guid.ToString("B"));
+				// OpenFile(new Document(null, null, new ShellObjectAccessor(guid)));
 			}
 		}
 
@@ -2023,7 +2013,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				OpenFile(cboAddress.Text, !e.Alt);
+				OpenFile(new Document(null, null, new FileAccessor(cboAddress.Text)), !e.Alt);
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 			}
@@ -2044,7 +2034,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 
 			Pages.EditorPage editorPage = (dcc.SelectedWindow.Control as Pages.EditorPage);
-			cboAddress.Text = editorPage.FileName;
+			if (editorPage.Document != null && editorPage.Document.Accessor != null)
+			{
+				cboAddress.Text = editorPage.Document.Accessor.GetFileName();
+			}
+			else
+			{
+				cboAddress.Text = String.Empty;
+			}
 
 			if (mvarCurrentDocument != editorPage.Document)
 			{

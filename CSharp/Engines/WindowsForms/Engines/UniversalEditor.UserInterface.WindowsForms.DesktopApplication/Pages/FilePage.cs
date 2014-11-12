@@ -7,31 +7,44 @@ using System.Windows.Forms;
 
 namespace UniversalEditor.UserInterface.WindowsForms.Pages
 {
-    public partial class FilePage : Page
-    {
-        public FilePage()
-        {
-            InitializeComponent();
-        }
+	public partial class FilePage : Page
+	{
+		public FilePage()
+		{
+			InitializeComponent();
+		}
 
-        private string mvarFileName = String.Empty;
-        public string FileName
-        {
-            get { return mvarFileName; }
-            set
-            {
-                mvarFileName = value;
+		private Document mvarDocument = null;
+		public Document Document
+		{
+			get { return mvarDocument; }
+			set
+			{
+				OnDocumentChanging(EventArgs.Empty);
 
-                try
-                {
-                    Title = System.IO.Path.GetFileName(mvarFileName);
-                }
-                catch
-                {
-                    Title = mvarFileName;
-                }
-                Description = mvarFileName;
-            }
-        }
-    }
+				mvarDocument = value;
+				if (mvarDocument.Accessor != null)
+				{
+					try
+					{
+						Title = System.IO.Path.GetFileName(mvarDocument.Accessor.GetFileName());
+					}
+					catch
+					{
+						Title = mvarDocument.Accessor.GetFileName();
+					}
+					Description = mvarDocument.Accessor.GetFileName();
+				}
+
+				OnDocumentChanged(EventArgs.Empty);
+			}
+		}
+
+		protected virtual void OnDocumentChanging(EventArgs e)
+		{
+		}
+		protected virtual void OnDocumentChanged(EventArgs e)
+		{
+		}
+	}
 }

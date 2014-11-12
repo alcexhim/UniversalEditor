@@ -89,7 +89,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				if (mvarAccessor != null)
 				{
 					// show all dataformats for the current accessor
-					omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels((mvarAccessor as FileAccessor).FileName);
+					omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarAccessor);
 				}
 				else
 				{
@@ -123,8 +123,17 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			{
 				if (mvarAccessor != null)
 				{
-					// show all dataformats for the current accessor
-					dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats((mvarAccessor as FileAccessor).FileName);
+					// TODO: This desperately needs to be fixed; GetAvailableDataFormats should take
+					// an accessor, not a file name, as parameter to be cross-accessor compatible!!!
+					if (mvarAccessor is FileAccessor)
+					{
+						// show all dataformats for the current accessor
+						dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarAccessor);
+					}
+					else
+					{
+						dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+					}
 				}
 				else if (mvarObjectModel != null)
 				{
@@ -234,8 +243,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			{
 				if (mvarAccessor is FileAccessor)
 				{
-					string filename = (mvarAccessor as FileAccessor).FileName;
-					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(filename);
+					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarAccessor);
 
 					if (mvarDataFormat == null)
 					{
@@ -261,7 +269,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					else if (mvarAccessor is FileAccessor)
 					{
 						string filename = (mvarAccessor as FileAccessor).FileName;
-						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(filename);
+						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarAccessor);
 						if (omrs.Length == 1)
 						{
 							mvarObjectModel = omrs[0].Create();
@@ -272,10 +280,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 			if (mvarAccessor != null)
 			{
-				if (mvarAccessor is FileAccessor)
-				{
-					txtAccessor.Text = "File: " + (mvarAccessor as FileAccessor).FileName;
-				}
+				txtAccessor.Text = mvarAccessor.ToString();
 			}
 			if (mvarDataFormat != null)
 			{
