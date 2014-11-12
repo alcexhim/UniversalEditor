@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accessors\HTTPAccessor.cs" />
     <Compile Include="DataFormats\AddressBook\WABDataFormat.cs" />
     <Compile Include="DataFormats\Text\HTML\HTMLDataFormat.cs" />
     <Compile Include="DataFormats\Text\MHTML\MHTMLDataFormat.cs" />
