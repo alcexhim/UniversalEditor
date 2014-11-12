@@ -128,6 +128,19 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					cmd.Click += cmdFileBrowse_Click;
 					cmd.Dock = DockStyle.Fill;
 					cmd.Tag = eo;
+                    switch (option.DialogMode)
+                    {
+                        case CustomOptionFileDialogMode.Open:
+                        {
+                            cmd.Mode = AwesomeControls.FileTextBox.FileTextBoxMode.Open;
+                            break;
+                        }
+                        case CustomOptionFileDialogMode.Save:
+                        {
+                            cmd.Mode = AwesomeControls.FileTextBox.FileTextBoxMode.Save;
+                            break;
+                        }
+                    }
 
 					tbl.Controls.Add(cmd);
 
