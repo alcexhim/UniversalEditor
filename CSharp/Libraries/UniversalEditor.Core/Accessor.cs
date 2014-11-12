@@ -42,8 +42,8 @@ namespace UniversalEditor
 		}
 		public abstract void Seek(long length, SeekOrigin position);
 
-		internal abstract int ReadInternal(byte[] buffer, int start, int count);
-		internal abstract int WriteInternal(byte[] buffer, int start, int count);
+		protected internal abstract int ReadInternal(byte[] buffer, int start, int count);
+		protected internal abstract int WriteInternal(byte[] buffer, int start, int count);
 
 		internal virtual void FlushInternal()
 		{

@@ -96,12 +96,12 @@ namespace UniversalEditor.Accessors
 			return new System.String(ToArray());
 		}
 
-		internal override int ReadInternal(byte[] buffer, int start, int count)
+		protected internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
 			System.Array.Copy(_data, 0, buffer, start, count);
 			return count;
 		}
-		internal override int WriteInternal(byte[] buffer, int start, int count)
+		protected internal override int WriteInternal(byte[] buffer, int start, int count)
 		{
 			string value = DefaultEncoding.GetString(buffer);
 			int j = _data.Length;

@@ -46,13 +46,13 @@ namespace UniversalEditor.Accessors
 			mvarFileStream.Seek(length, (System.IO.SeekOrigin)origin);
 		}
 
-		internal override int ReadInternal(byte[] buffer, int offset, int count)
+		protected internal override int ReadInternal(byte[] buffer, int offset, int count)
 		{
 			int length = mvarFileStream.Read(buffer, offset, count);
 			return length;
 		}
 
-		internal override int WriteInternal(byte[] buffer, int offset, int count)
+		protected internal override int WriteInternal(byte[] buffer, int offset, int count)
 		{
 			mvarFileStream.Write(buffer, offset, count);
 			return count;

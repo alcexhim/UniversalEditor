@@ -67,7 +67,7 @@ namespace UniversalEditor.Accessors
 			mvarBaseStream.Seek(offset, origin);
 		}
 
-		internal override int ReadInternal(byte[] buffer, int start, int count)
+		protected internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
 			// TODO: will ct ever be != count? should we add ct to Position instead of count??
 			int ct = mvarBaseStream.Read(buffer, start, count);
@@ -75,7 +75,7 @@ namespace UniversalEditor.Accessors
 			return count;
 		}
 
-		internal override int WriteInternal(byte[] buffer, int start, int count)
+		protected internal override int WriteInternal(byte[] buffer, int start, int count)
 		{
 			mvarBaseStream.Write(buffer, start, count);
 			// Position += count;

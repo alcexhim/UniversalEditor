@@ -90,13 +90,13 @@ namespace UniversalEditor.Accessors
 			return data;
 		}
 
-		internal override int ReadInternal(byte[] buffer, int start, int count)
+		protected internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
 			System.Array.Copy(_data, Position, buffer, start, count);
 			Position += count;
 			return count;
 		}
-		internal override int WriteInternal(byte[] buffer, int start, int count)
+		protected internal override int WriteInternal(byte[] buffer, int start, int count)
 		{
 			ResizeArray(ref _data, _data.Length + count);
 			System.Array.Copy(buffer, start, _data, _data.Length - count, count);
