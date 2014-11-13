@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{15D19291-4200-4C30-A68A-0191B6F83BE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Core", "Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj", "{2D4737E6-6D95-408A-90DB-8DFF38147E85}"
@@ -134,6 +132,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Web.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.Web.UserInterface.WindowsForms\UniversalEditor.Plugins.Web.UserInterface.WindowsForms.csproj", "{997FFB89-0ED6-47EB-BD97-68B3138F91AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Gainax", "Plugins\UniversalEditor.Plugins.Gainax\UniversalEditor.Plugins.Gainax.csproj", "{7BB04C9F-DC3F-448A-8FD3-9A6BB52BC886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Michelangelo", "Plugins\UniversalEditor.Plugins.Michelangelo\UniversalEditor.Plugins.Michelangelo.csproj", "{D623EC26-1A04-4BFE-84EE-E738281499C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Michelangelo.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.Michelangelo.UserInterface.WindowsForms\UniversalEditor.Plugins.Michelangelo.UserInterface.WindowsForms.csproj", "{E1A1FD87-BEA4-41B7-9472-B4E35A0630B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -362,6 +364,14 @@ Global
 		{7BB04C9F-DC3F-448A-8FD3-9A6BB52BC886}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BB04C9F-DC3F-448A-8FD3-9A6BB52BC886}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BB04C9F-DC3F-448A-8FD3-9A6BB52BC886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D623EC26-1A04-4BFE-84EE-E738281499C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D623EC26-1A04-4BFE-84EE-E738281499C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D623EC26-1A04-4BFE-84EE-E738281499C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D623EC26-1A04-4BFE-84EE-E738281499C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1A1FD87-BEA4-41B7-9472-B4E35A0630B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A1FD87-BEA4-41B7-9472-B4E35A0630B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A1FD87-BEA4-41B7-9472-B4E35A0630B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A1FD87-BEA4-41B7-9472-B4E35A0630B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -406,6 +416,7 @@ Global
 		{7C861D40-8214-4DC5-89D1-129F267C1D1B} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{64089452-6A08-47A5-A857-BF418F80D4A3} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{7BB04C9F-DC3F-448A-8FD3-9A6BB52BC886} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
+		{D623EC26-1A04-4BFE-84EE-E738281499C0} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{FE016EA3-DC31-4A92-8B0A-8C746EC117E1} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{ED627DF7-3E78-4428-AB31-810BA1586E62} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{C1F34183-7A2F-41A6-9958-F6F329099654} = {A846CA33-9CAA-4237-B14F-8721DBA89442}
@@ -425,6 +436,7 @@ Global
 		{094E86E4-903B-493C-91EF-4597658748A9} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{F635B40D-4BC1-48CB-9FFD-38076D569640} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{997FFB89-0ED6-47EB-BD97-68B3138F91AD} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
+		{E1A1FD87-BEA4-41B7-9472-B4E35A0630B5} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{118E40C4-323E-4B4B-8EF4-38EED6CC5E83} = {54990D5E-CE09-459F-916E-AF13101765B4}
 		{A5A14A71-5DB3-4495-92F6-8D27C98FF0F4} = {BC6859FB-B61C-471D-9F84-613E5C388C52}
 	EndGlobalSection
