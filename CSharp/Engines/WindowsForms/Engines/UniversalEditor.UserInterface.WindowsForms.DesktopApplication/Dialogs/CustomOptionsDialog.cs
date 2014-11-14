@@ -38,6 +38,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 			foreach (CustomOption eo in mvarCustomOptions)
 			{
+				// do not render the CustomOption if it's supposed to be invisible
+				if (!eo.Visible) continue;
+
 				if (!(eo is CustomOptionBoolean))
 				{
 					Label lbl = new Label();
