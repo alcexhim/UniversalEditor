@@ -764,7 +764,25 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 		private void mnuListViewContextProperties_Click(object sender, EventArgs e)
 		{
+			if (lv.SelectedItems.Count == 0)
+			{
 
+			}
+			else if (lv.SelectedItems.Count == 1)
+			{
+				File file = (lv.SelectedItems[0].Data as File);
+				if (file != null)
+				{
+					Dialogs.FileSystem.FilePropertiesDialog dlg = new Dialogs.FileSystem.FilePropertiesDialog();
+					dlg.SelectedObjects.Add(file);
+
+					if (dlg.ShowDialog() == DialogResult.OK)
+					{
+						lv.SelectedItems[0].Text = file.Name;
+						lv.Refresh();
+					}
+				}
+			}
 		}
 
 		private void tsbExtract_Click(object sender, EventArgs e)

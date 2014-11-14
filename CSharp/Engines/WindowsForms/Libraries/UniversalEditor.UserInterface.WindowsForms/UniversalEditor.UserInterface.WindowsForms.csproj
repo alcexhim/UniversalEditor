@@ -58,11 +58,19 @@
     <Compile Include="Controls\ProgressPanel.Designer.cs">
       <DependentUpon>ProgressPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialog.cs" />
     <Compile Include="Dialogs\FileSystem\CommentDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\FileSystem\CommentDialog.Designer.cs">
       <DependentUpon>CommentDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FileSystem\FilePropertiesDialog.cs" />
+    <Compile Include="Dialogs\FileSystem\Internal\FilePropertiesDialogImpl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FileSystem\Internal\FilePropertiesDialogImpl.Designer.cs">
+      <DependentUpon>FilePropertiesDialogImpl.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\PropertyList\PropertyDetailsDialog.cs">
       <SubType>Form</SubType>
@@ -167,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\FileSystem\CommentDialog.resx">
       <DependentUpon>CommentDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FileSystem\Internal\FilePropertiesDialogImpl.resx">
+      <DependentUpon>FilePropertiesDialogImpl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\PropertyList\PropertyDetailsDialog.resx">
       <DependentUpon>PropertyDetailsDialog.cs</DependentUpon>
