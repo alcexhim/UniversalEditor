@@ -39,7 +39,6 @@
   <ItemGroup>
     <Compile Include="Collections\Generic\AutoDictionary.cs" />
     <Compile Include="Collections\Generic\BidirectionalDictionary.cs" />
-    <Compile Include="Collections\Generic\KeyValuePairList.cs" />
     <Compile Include="Common\Dialog.cs" />
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="Condition.cs" />
