@@ -193,6 +193,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			{
 				foreach (CustomOption eo in mvarCustomOptions)
 				{
+					// Do not process invisible CustomOptions; this results in a crash
+					if (!eo.Visible) continue;
+
 					Control ctl = CustomOptionControls[eo.PropertyName];
 					if (ctl is NumericUpDown)
 					{
