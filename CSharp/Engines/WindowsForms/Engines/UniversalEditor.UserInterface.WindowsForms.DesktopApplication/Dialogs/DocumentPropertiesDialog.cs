@@ -173,12 +173,18 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			{
 				case DocumentPropertiesDialogMode.Open:
 				{
-					Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Import);
+					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Import))
+					{
+						return;
+					}
 					break;
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
-					Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Export);
+					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Export))
+					{
+						return;
+					}
 					break;
 				}
 			}
