@@ -18,15 +18,15 @@ namespace UniversalEditor.Accessors
 				_ar.Title = "Local file";
 
 				_ar.ImportOptions.Add(new CustomOptionFile("FileName", "&File name:"));
-				_ar.ImportOptions.Add(new CustomOptionBoolean("ForceOverwrite", "Force &overwrite if file exists", false, false));
-				_ar.ImportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", false, false));
+				_ar.ImportOptions.Add(new CustomOptionBoolean("ForceOverwrite", "Force &overwrite if file exists", false, false, false));
+				_ar.ImportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", false, false, false));
 
 				CustomOptionFile cofExportFileName = new CustomOptionFile("FileName", "&File name:");
 				cofExportFileName.DialogMode = CustomOptionFileDialogMode.Save;
 				_ar.ExportOptions.Add(cofExportFileName);
 
 				_ar.ExportOptions.Add(new CustomOptionBoolean("ForceOverwrite", "Force &overwrite if file exists", true, true));
-				_ar.ExportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", true, false));
+				_ar.ExportOptions.Add(new CustomOptionBoolean("AllowWrite", "Open file for &writing", true, false, false));
 			}
 			return _ar;
 		}
