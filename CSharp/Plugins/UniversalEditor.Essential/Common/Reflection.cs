@@ -1157,6 +1157,14 @@ namespace UniversalEditor.Common
 		}
 		public static DataFormatReference[] GetAvailableDataFormats(Accessor accessor)
 		{
+			bool needsOpen = false;
+			if (!accessor.IsOpen)
+			{
+				// we need to open the accessor before we can sniff the file
+				needsOpen = true;
+				accessor.Open();
+			}
+
 			List<DataFormatReference> list = new List<DataFormatReference>();
 			DataFormatReference[] dfs = GetAvailableDataFormats();
 			foreach (DataFormatReference df in dfs)
@@ -1171,6 +1179,12 @@ namespace UniversalEditor.Common
 				}
 			}
 			list.Sort(new Comparison<DataFormatReference>(_DataFormatReferenceComparer));
+
+			if (needsOpen)
+			{
+				// close the accessor since we're done with it
+				accessor.Close();
+			}
 			return list.ToArray();
 		}
 		
