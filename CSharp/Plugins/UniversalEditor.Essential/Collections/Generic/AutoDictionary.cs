@@ -6,31 +6,22 @@ using System.Text;
 namespace UniversalEditor.Collections.Generic
 {
 	/// <summary>
-	/// Provides a <see cref="Dictionary" /> that automatically adds or updates a key or value when it is
-	/// requested.
+	/// Provides a <see cref="T:Dictionary`2" /> that automatically adds or updates a key or value when
+	/// it is requested.
 	/// </summary>
 	/// <typeparam name="TKey">The type of the key part of the dictionary.</typeparam>
 	/// <typeparam name="TValue">The type of the value part of the dictionary.</typeparam>
 	public class AutoDictionary<TKey, TValue> : Dictionary<TKey, TValue>
 	{
-		public new TValue this[TKey key]
-		{
-			get { return this[key, default(TValue)]; }
-			set
-			{
-				if (ContainsKey(key))
-				{
-					// we already contain an item with this key, so update the value accordingly
-					base[key] = value;
-				}
-				else
-				{
-					// we do not already contain an item with this key, so create a new value
-					base.Add(key, value);
-				}
-			}
-		}
-		public TValue this[TKey key, TValue defaultValue]
+		/// <summary>
+		/// Retrieves or updates an item with the specified key. If the item does not exist on update,
+		/// it will be created. If the item does not exist on retrieval, the value specified for
+		/// <paramref name="defaultValue" /> will be returned.
+		/// </summary>
+		/// <param name="key">The key of the item to retrieve or update.</param>
+		/// <param name="defaultValue">The value returned on retrieval when the item with the specified key does not exist.</param>
+		/// <returns>The item with the specified key if it exists in this collection; otherwise, defaultValue.</returns>
+		public TValue this[TKey key, TValue defaultValue = default(TValue)]
 		{
 			get
 			{
@@ -47,7 +38,12 @@ namespace UniversalEditor.Collections.Generic
 					return defaultValue;
 				}
 			}
-			set { this[key] = value; }
+			set
+			{
+				// the .NET Framework Dictionary`2 implementation handles the "add or update" case
+				// automatically if a non-existent key is specified
+				this[key] = value;
+			}
 		}
 	}
 }
