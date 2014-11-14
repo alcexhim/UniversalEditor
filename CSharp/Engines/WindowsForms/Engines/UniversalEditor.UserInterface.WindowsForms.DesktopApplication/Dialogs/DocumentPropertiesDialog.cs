@@ -381,7 +381,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					SaveFileDialog sfd = new SaveFileDialog();
 					if (mvarDataFormat != null)
 					{
-						sfd.Filter = UniversalEditor.Common.Dialog.GetCommonDialogFilter(mvarDataFormat.MakeReference());
+						sfd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(mvarDataFormat.MakeReference());
 					}
 					if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 					{

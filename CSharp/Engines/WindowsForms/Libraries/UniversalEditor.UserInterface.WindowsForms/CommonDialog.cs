@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.Common
+namespace UniversalEditor.UserInterface.WindowsForms
 {
-	public static class Dialog
+	/// <summary>
+	/// Contains methods useful for common file dialogs in Windows Forms.
+	/// </summary>
+	public static class CommonDialog
 	{
 		// UniversalDataStorage.Common.Methods
 		public static string GetCommonDialogFilter(DataFormatReference dataFormatReference)
@@ -43,7 +47,7 @@ namespace UniversalEditor.Common
 			List<DataFormatReference> dfrs = new List<DataFormatReference>();
 			StringBuilder sb = new StringBuilder();
 			StringBuilder sbCompatible = new StringBuilder();
-			DataFormatReference[] dataFormats = Reflection.GetAvailableDataFormats(objectModelReference);
+			DataFormatReference[] dataFormats = UniversalEditor.Common.Reflection.GetAvailableDataFormats(objectModelReference);
 			DataFormatReference[] array = dataFormats;
 			for (int k = 0; k < array.Length; k++)
 			{
@@ -73,15 +77,15 @@ namespace UniversalEditor.Common
 				}
 			}
 			sb.Insert(0, string.Concat(new string[]
-	{
-		"All ", 
-		objectModelReference.Title, 
-		" files (", 
-		sbCompatible.ToString(), 
-		")|", 
-		sbCompatible.ToString(), 
-		"|"
-	}));
+			{
+				"All ", 
+				objectModelReference.Title, 
+				" files (", 
+				sbCompatible.ToString(), 
+				")|", 
+				sbCompatible.ToString(), 
+				"|"
+			}));
 			sb.Append("All files (*.*)|*.*");
 
 			dataFormatReferences = dfrs;

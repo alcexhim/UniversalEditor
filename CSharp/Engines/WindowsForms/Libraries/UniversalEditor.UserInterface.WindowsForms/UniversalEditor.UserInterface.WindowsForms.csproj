@@ -39,6 +39,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonDialog.cs" />
     <Compile Include="Controls\DocumentTypeSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
