@@ -133,6 +133,7 @@
     <Compile Include="DataFormats\FileSystem\N2M\N2MDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Nero\Internal\DirectoryEntry.cs" />
     <Compile Include="DataFormats\FileSystem\Nero\NeroDiskImageDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\NScripter\NSA\NSADataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Nvidia\NPK\NPKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\PCK\PCKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\PKG\PKGDataFormat.cs" />
