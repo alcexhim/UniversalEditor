@@ -26,36 +26,48 @@ namespace UniversalEditor.Accessors
 		private System.Net.HttpWebRequest http = null;
 		private System.IO.Stream mvarStream = null;
 
+		private long mvarLength = 0;
 		public override long Length
 		{
 			get
 			{
-				if (mvarStream == null) throw new InvalidOperationException("Please open before looking");
-				return mvarStream.Length;
+				return mvarLength;
 			}
 			set
 			{
-				if (mvarStream == null) throw new InvalidOperationException("Please open before looking");
-				mvarStream.SetLength(value);
+				throw new InvalidOperationException();
 			}
 		}
+
+		private long mvarPosition = 0;
+		private byte[] mvarBuffer = new byte[0];
 
 		protected override long GetPosition()
 		{
 			if (mvarStream == null) throw new InvalidOperationException("Please open before looking");
-			return mvarStream.Position;
+			return mvarPosition;
 		}
 
 		public override void Seek(long length, IO.SeekOrigin position)
 		{
-			System.IO.SeekOrigin position1 = System.IO.SeekOrigin.Begin;
 			switch (position)
 			{
-				case IO.SeekOrigin.Begin: position1 = System.IO.SeekOrigin.Begin; break;
-				case IO.SeekOrigin.Current: position1 = System.IO.SeekOrigin.Current; break;
-				case IO.SeekOrigin.End: position1 = System.IO.SeekOrigin.End; break;
+				case IO.SeekOrigin.Begin:
+				{
+					mvarPosition = length;
+					break;
+				}
+				case IO.SeekOrigin.Current:
+				{
+					mvarPosition += length;
+					break;
+				}
+				case IO.SeekOrigin.End:
+				{
+					mvarPosition = mvarLength - length;
+					break;
+				}
 			}
-			mvarStream.Seek(length, position1);
 		}
 
 		protected override void OpenInternal()
@@ -63,8 +75,19 @@ namespace UniversalEditor.Accessors
 			if (http != null) throw new InvalidOperationException("Please close before opening");
 			http = (HttpWebRequest)WebRequest.Create(mvarFileName);
 			WebResponse resp = http.GetResponse();
+
+			string contentLength = resp.Headers[HttpResponseHeader.ContentLength];
+			long contentLengthL = 0;
+			if (Int64.TryParse(contentLength, out contentLengthL))
+			{
+				mvarLength = contentLengthL;
+			}
+			mvarBuffer = new byte[mvarLength];
+
 			mvarStream = resp.GetResponseStream();
 		}
+
+		private long mvarActualPosition = 0;
 
 		protected override void CloseInternal()
 		{
@@ -83,8 +106,42 @@ namespace UniversalEditor.Accessors
 		}
 		protected override int ReadInternal(byte[] buffer, int start, int count)
 		{
-			if (mvarStream == null) throw new InvalidOperationException("Please open before reading");
-			return mvarStream.Read(buffer, start, count);
+			if (mvarPosition < mvarActualPosition)
+			{
+				// count of bytes available to be read from the buffer, starting at
+				// current position
+				long bufferAvailableCount = (mvarActualPosition - mvarPosition);
+
+				// count of bytes that will be read from the buffer for this read
+				// operation
+				long bufferCount = Math.Min(count, bufferAvailableCount);
+
+				// count of bytes that will be read from the stream for this read
+				// operation
+				long newCount = (count - bufferAvailableCount);
+
+				// total count of bytes to be read from both buffer and stream
+				long realCount = bufferCount + newCount;
+
+				byte[] newBuffer = new byte[newCount];
+				int readFromStream = mvarStream.Read(newBuffer, 0, (int)newCount);
+
+				Array.Copy(newBuffer, 0, mvarBuffer, (int)(start + bufferCount), newCount);
+
+				Array.Copy(mvarBuffer, mvarPosition, buffer, start, realCount);
+
+				return (int)realCount;
+			}
+			else if (mvarPosition == mvarActualPosition)
+			{
+				if (mvarStream == null) throw new InvalidOperationException("Please open before reading");
+				int realCount = mvarStream.Read(buffer, start, count);
+				Array.Copy(buffer, 0, mvarBuffer, mvarPosition, realCount);
+				mvarActualPosition += realCount;
+				mvarPosition += count;
+				return realCount;
+			}
+			return -1;
 		}
 	}
 }
