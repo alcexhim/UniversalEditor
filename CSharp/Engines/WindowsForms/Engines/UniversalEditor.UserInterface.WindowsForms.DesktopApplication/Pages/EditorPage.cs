@@ -214,149 +214,169 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 
 		private void tOpenFile_ThreadStart()
 		{
-			DataFormatReference[] fmts = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarDocument.Accessor);
-			#region When there is no available DataFormat
-			if (fmts.Length == 0)
+			if (mvarDocument.DataFormat == null)
 			{
-				Invoke(new Action<bool, string>(_ErrorMessageConfig), true, "There are no data formats available for this file");
-			}
-			#endregion
-			#region When there is more than one DataFormat
-			else if (fmts.Length > 1)
-			{
-				// attempt to guess the data format for the object model
-				ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarDocument.Accessor);
-				ObjectModel om1 = null;
-				DataFormat df1 = null;
-				bool found1 = false;
-				bool notimplemented = false;
-				foreach (ObjectModelReference omr in objms)
-				{
-					EditorReference[] reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(omr);
-					if (reditors.Length < 1) continue;
+				// TODO: DataFormat-guessing should be implemented in the platform-
+				// independent UserInterface library, or possibly in core
 
-					ObjectModel om = omr.Create();
-
-					bool found = false;
-					DataFormat df = null;
-					foreach (DataFormatReference dfr in fmts)
-					{
-						df = dfr.Create();
-
-						Document d = new UniversalEditor.Document(om, df, mvarDocument.Accessor);
-						d.InputAccessor.Open();
-						try
-						{
-							d.Load();
-							found = true;
-							break;
-						}
-						catch (InvalidDataFormatException ex)
-						{
-							continue;
-						}
-						catch (NotImplementedException ex)
-						{
-							notimplemented = true;
-							continue;
-						}
-						catch (NotSupportedException ex)
-						{
-							continue;
-						}
-						catch (DataCorruptedException ex)
-						{
-							// MessageBox.Show("The data is corrupted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-							found = true;
-							break;
-						}
-						catch (ArgumentException ex)
-						{
-							found = true;
-							break;
-						}
-						finally
-						{
-							// do not close input accessor since we may need to read from it later (i.e. if
-							// it's a FileSystemObjectModel with deferred file data loading)
-
-							// d.InputAccessor.Close();
-						}
-					}
-
-					if (found)
-					{
-						notimplemented = false;
-						om1 = om;
-						df1 = df;
-						found1 = true;
-						break;
-					}
-				}
-
-				if (!found1)
+				DataFormatReference[] fmts = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarDocument.Accessor);
+				#region When there is no available DataFormat
+				if (fmts.Length == 0)
 				{
 					Invoke(new Action<bool, string>(_ErrorMessageConfig), true, "There are no data formats available for this file");
 				}
-				else if (notimplemented)
+				#endregion
+				#region When there is more than one DataFormat
+				else if (fmts.Length > 1)
 				{
-					Invoke(new Action<bool, string>(_ErrorMessageConfig), true, "The data format for this file has not been implemented");
-				}
-				else
-				{
-					Document = new Document(om1, df1, mvarDocument.Accessor);
-
-					if (IsHandleCreated) Invoke(new Action<bool, string>(_ErrorMessageConfig), false, null);
-
-					NotifyOnFileOpened(this, EventArgs.Empty);
-				}
-			}
-			#endregion
-			#region When there is exactly one DataFormat
-			else
-			{
-				ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(fmts[0]);
-				if (objms.Length >= 1)
-				{
-					/*
-					if (objms.Length > 1)
+					// attempt to guess the data format for the object model
+					ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarDocument.Accessor);
+					ObjectModel om1 = null;
+					DataFormat df1 = null;
+					bool found1 = false;
+					bool notimplemented = false;
+					foreach (ObjectModelReference omr in objms)
 					{
-						// TODO: Attempt to sort available object models by
-						// relevance.
-						Pages.MultipleObjectModelPage page = new Pages.MultipleObjectModelPage();
-						// page.DataFormat = fmts[0].Create();
-						// page.FileName = FileName;
-						// page.SelectionChanged += MultipleObjectModelPage_SelectionChanged;
-						mdcc.Documents.Add(System.IO.Path.GetFileName(FileName), page);
+						EditorReference[] reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(omr);
+						if (reditors.Length < 1) continue;
+
+						ObjectModel om = omr.Create();
+
+						bool found = false;
+						DataFormat df = null;
+						foreach (DataFormatReference dfr in fmts)
+						{
+							df = dfr.Create();
+
+							Document d = new UniversalEditor.Document(om, df, mvarDocument.Accessor);
+							d.InputAccessor.Open();
+							try
+							{
+								d.Load();
+								found = true;
+								break;
+							}
+							catch (InvalidDataFormatException ex)
+							{
+								continue;
+							}
+							catch (NotImplementedException ex)
+							{
+								notimplemented = true;
+								continue;
+							}
+							catch (NotSupportedException ex)
+							{
+								continue;
+							}
+							catch (DataCorruptedException ex)
+							{
+								// MessageBox.Show("The data is corrupted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								found = true;
+								break;
+							}
+							catch (ArgumentException ex)
+							{
+								found = true;
+								break;
+							}
+							finally
+							{
+								// do not close input accessor since we may need to read from it later (i.e. if
+								// it's a FileSystemObjectModel with deferred file data loading)
+
+								// d.InputAccessor.Close();
+							}
+						}
+
+						if (found)
+						{
+							notimplemented = false;
+							om1 = om;
+							df1 = df;
+							found1 = true;
+							break;
+						}
 					}
-					else if (objms.Length == 1)
+
+					if (!found1)
 					{
-					*/
-					try
+						Invoke(new Action<bool, string>(_ErrorMessageConfig), true, "There are no data formats available for this file");
+					}
+					else if (notimplemented)
 					{
-						ObjectModel objm = objms[0].Create();
-						DataFormat fmt = fmts[0].Create();
+						Invoke(new Action<bool, string>(_ErrorMessageConfig), true, "The data format for this file has not been implemented");
+					}
+					else
+					{
+						Document = new Document(om1, df1, mvarDocument.Accessor);
 
-						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
+						if (IsHandleCreated) Invoke(new Action<bool, string>(_ErrorMessageConfig), false, null);
 
-						Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
-						document.InputAccessor.Open();
-						document.Load();
-
-						Document = document;
 						NotifyOnFileOpened(this, EventArgs.Empty);
 					}
-					catch (InvalidDataFormatException ex)
-					{
-						Invoke(new Action<bool, string, string>(_ErrorMessageConfig), true, ex.GetType().FullName, ex.Message);
-					}
 				}
+				#endregion
+				#region When there is exactly one DataFormat
 				else
 				{
+					ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(fmts[0]);
+					if (objms.Length >= 1)
+					{
+						/*
+						if (objms.Length > 1)
+						{
+							// TODO: Attempt to sort available object models by
+							// relevance.
+							Pages.MultipleObjectModelPage page = new Pages.MultipleObjectModelPage();
+							// page.DataFormat = fmts[0].Create();
+							// page.FileName = FileName;
+							// page.SelectionChanged += MultipleObjectModelPage_SelectionChanged;
+							mdcc.Documents.Add(System.IO.Path.GetFileName(FileName), page);
+						}
+						else if (objms.Length == 1)
+						{
+						*/
+						try
+						{
+							ObjectModel objm = objms[0].Create();
+							DataFormat fmt = fmts[0].Create();
 
+							if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
+
+							Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
+							document.InputAccessor.Open();
+							document.Load();
+
+							Document = document;
+							NotifyOnFileOpened(this, EventArgs.Empty);
+						}
+						catch (InvalidDataFormatException ex)
+						{
+							Invoke(new Action<bool, string, string>(_ErrorMessageConfig), true, ex.GetType().FullName, ex.Message);
+						}
+					}
+					else
+					{
+
+					}
 				}
+				#endregion
 			}
-			#endregion
+			else
+			{
+				ObjectModel objm = mvarDocument.ObjectModel;
+				DataFormat fmt = mvarDocument.DataFormat;
+
+				if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
+
+				Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
+				document.InputAccessor.Open();
+				document.Load();
+
+				Document = document;
+				NotifyOnFileOpened(this, EventArgs.Empty);
+			}
 
 			RefreshEditor();
 		}
