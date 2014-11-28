@@ -161,7 +161,9 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 				ushort unknown7 = br.ReadUInt16();					// 256			256
 
 				string fileName = br.ReadLengthPrefixedString();
-				if (fileName.Length % 2 == 0) br.ReadByte();
+				
+				// align the reader to a multiple of 2 bytes
+				br.Align(2);
 
 				File file = fsom.AddFile(fileName);
 				file.Size = dataLength;
