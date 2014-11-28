@@ -146,8 +146,9 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 
 			while (true)
 			{														// file 1		file 2
-				ushort unknown1 = br.ReadUInt16();					// 48			42
-				if (unknown1 == 0) break;
+				// length of this record entry
+				ushort recordLength = br.ReadUInt16();				// 48			42
+				if (recordLength == 0) break;
 				
 				// index of first sector (offset is firstSector * mvarLogicalBlockSize
 				uint firstSector = br.ReadDoubleEndianUInt32();		// 21			22
