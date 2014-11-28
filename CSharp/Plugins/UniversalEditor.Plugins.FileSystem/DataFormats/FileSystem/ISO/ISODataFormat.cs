@@ -75,8 +75,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			IO.Reader br = base.Accessor.Reader;
 
-			br.Seek(0, SeekOrigin.Begin);
-
 			// skip system area (32768 bytes... WHY???)
 			br.Accessor.Seek(32768, SeekOrigin.Current);
 
@@ -92,33 +90,33 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 				switch (type)
 				{
 					case ISOVolumeDescriptorType.Primary:
-						{
-							Internal.PrimaryVolumeDescriptor descriptor = ReadPrimaryVolumeDescriptor(br);
-							mvarSystemName = descriptor.systemName;
-							mvarVolumeName = descriptor.volumeName;
-							mvarVolumeSetSize = descriptor.volumeSetSize;
-							mvarVolumeSequenceNumber = descriptor.volumeSequenceNumber;
-							mvarLogicalBlockSize = descriptor.logicalBlockSize;
-							mvarVolumeSet = descriptor.volumeSet;
-							mvarPublisher = descriptor.publisher;
-							mvarDataPreparer = descriptor.dataPreparer;
-							mvarApplication = descriptor.application;
-							mvarCopyrightFile = descriptor.copyrightFile;
-							mvarAbstractFile = descriptor.abstractFile;
-							mvarBibliographicFile = descriptor.bibliographicFile;
-							pathTableLocationTypeL = descriptor.pathTableLocationTypeL;
-							pathTableLocationTypeM = descriptor.pathTableLocationTypeM;
-							break;
-						}
+					{
+						Internal.PrimaryVolumeDescriptor descriptor = ReadPrimaryVolumeDescriptor(br);
+						mvarSystemName = descriptor.systemName;
+						mvarVolumeName = descriptor.volumeName;
+						mvarVolumeSetSize = descriptor.volumeSetSize;
+						mvarVolumeSequenceNumber = descriptor.volumeSequenceNumber;
+						mvarLogicalBlockSize = descriptor.logicalBlockSize;
+						mvarVolumeSet = descriptor.volumeSet;
+						mvarPublisher = descriptor.publisher;
+						mvarDataPreparer = descriptor.dataPreparer;
+						mvarApplication = descriptor.application;
+						mvarCopyrightFile = descriptor.copyrightFile;
+						mvarAbstractFile = descriptor.abstractFile;
+						mvarBibliographicFile = descriptor.bibliographicFile;
+						pathTableLocationTypeL = descriptor.pathTableLocationTypeL;
+						pathTableLocationTypeM = descriptor.pathTableLocationTypeM;
+						break;
+					}
 					case ISOVolumeDescriptorType.Terminator:
-						{
-							break;
-						}
+					{
+						break;
+					}
 					default:
-						{
-							br.Accessor.Seek(2041, SeekOrigin.Current);
-							break;
-						}
+					{
+						br.Accessor.Seek(2041, SeekOrigin.Current);
+						break;
+					}
 				}
 				if (type == ISOVolumeDescriptorType.Terminator) break;
 			}
@@ -150,19 +148,39 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			{														// file 1		file 2
 				ushort unknown1 = br.ReadUInt16();					// 48			42
 				if (unknown1 == 0) break;
+				
+				// index of first sector (offset is firstSector * mvarLogicalBlockSize
+				uint firstSector = br.ReadDoubleEndianUInt32();		// 21			22
 
-				uint unknown2 = br.ReadDoubleEndianUInt32();		// 21			22
-				uint unknown3 = br.ReadDoubleEndianUInt32();		// 44			20
+				// actual size of the file
+				uint dataLength = br.ReadDoubleEndianUInt32();		// 44			20
+
 				ulong unknown4 = br.ReadUInt64();					// ...			
 				ushort unknown5 = br.ReadUInt16();					// 0			0
 				ushort unknown6 = br.ReadUInt16();					// 1			1
 				ushort unknown7 = br.ReadUInt16();					// 256			256
 
 				string fileName = br.ReadLengthPrefixedString();
-				byte nulTerminator = br.ReadByte();
+				if (fileName.Length % 2 == 0) br.ReadByte();
 
 				File file = fsom.AddFile(fileName);
+				file.Size = dataLength;
+				file.Properties.Add("reader", br);
+				file.Properties.Add("sector", firstSector);
+				file.Properties.Add("length", dataLength);
+				file.DataRequest += file_DataRequest;
 			}
+		}
+
+		private void file_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (sender as File);
+			Reader reader = (Reader)file.Properties["reader"];
+			uint sector = (uint)file.Properties["sector"];
+			uint length = (uint)file.Properties["length"];
+
+			reader.Seek((long)(mvarLogicalBlockSize * sector), SeekOrigin.Begin);
+			e.Data = reader.ReadBytes(length);
 		}
 
 		private Internal.PrimaryVolumeDescriptor ReadPrimaryVolumeDescriptor(IO.Reader br)
