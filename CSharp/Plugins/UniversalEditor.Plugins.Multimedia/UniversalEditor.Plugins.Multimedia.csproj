@@ -136,6 +136,7 @@
     <Compile Include="DataFormats\Multimedia\Subtitle\QuickSub\QuickSubTextDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Subtitle\SubRip\SubRipDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Subtitle\SubStationAlpha\SubStationAlphaDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\ExpressionDesign\ExpressionDesignDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Video\UVS\UVSColorspace.cs" />
     <Compile Include="DataFormats\Multimedia\Video\UVS\UVSDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Video\UVS\UVSFlags.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="ObjectModels\Multimedia\Subtitle\Event.cs" />
     <Compile Include="ObjectModels\Multimedia\Subtitle\Style.cs" />
     <Compile Include="ObjectModels\Multimedia\Subtitle\SubtitleObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\VectorImage\VectorImageObjectModel.cs" />
     <Compile Include="ObjectModels\Multimedia\Video\AudioTrack.cs">
       <SubType>Code</SubType>
     </Compile>
