@@ -237,7 +237,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			return descriptor;
 		}
 
-		private DateTime ReadDECDateTime(IO.Reader br)
+		private DateTime? ReadDECDateTime(IO.Reader br)
 		{
 			string szYear = br.ReadFixedLengthString(4);              // Year from 1 to 9999.
 			string szMonth = br.ReadFixedLengthString(2);             // Month from 1 to 12.
@@ -267,23 +267,34 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			}
 			catch (Exception ex)
 			{
-				return DateTime.Now;
+				return null;
 			}
 		}
-		private void WriteDECDateTime(IO.Writer bw, DateTime dt)
+		private void WriteDECDateTime(IO.Writer bw, DateTime? dt)
 		{
-			bw.WriteFixedLengthString(dt.Year.ToString(), 4, ' ');
-			bw.WriteFixedLengthString(dt.Month.ToString(), 2, ' ');
-			bw.WriteFixedLengthString(dt.Day.ToString(), 2, ' ');
-			bw.WriteFixedLengthString(dt.Hour.ToString(), 2, ' ');
-			bw.WriteFixedLengthString(dt.Minute.ToString(), 2, ' ');
-			bw.WriteFixedLengthString(dt.Second.ToString(), 2, ' ');
-			bw.WriteFixedLengthString(dt.Millisecond.ToString(), 2, ' ');
+			if (dt == null)
+			{
+				bw.WriteFixedLengthString("0000000000000000");
+			}
+			else
+			{
+				bw.WriteFixedLengthString(dt.Value.Year.ToString(), 4, ' ');
+				bw.WriteFixedLengthString(dt.Value.Month.ToString(), 2, ' ');
+				bw.WriteFixedLengthString(dt.Value.Day.ToString(), 2, ' ');
+				bw.WriteFixedLengthString(dt.Value.Hour.ToString(), 2, ' ');
+				bw.WriteFixedLengthString(dt.Value.Minute.ToString(), 2, ' ');
+				bw.WriteFixedLengthString(dt.Value.Second.ToString(), 2, ' ');
+				bw.WriteFixedLengthString(dt.Value.Millisecond.ToString(), 2, ' ');
+			}
 
 			// Time zone offset from GMT in 15 minute intervals, starting at interval -48 (west) and running up to
 			// interval 52 (east). So value 0 indicates interval -48 which equals GMT-12 hours, and value 100
 			// indicates interval 52 which equals GMT+13 hours.
 			byte timeZoneOffset = 0;
+
+			if (dt != null)
+			{
+			}
 			bw.WriteByte(timeZoneOffset);
 		}
 
