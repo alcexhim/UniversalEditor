@@ -38,4 +38,6 @@ Project Types and Templates
 
 Future Goals
 ------------
-Starting with Universal Editor 5, multiple Accessor/DataFormat pairs can be associated with an ObjectModel. This would allow an ObjectModel to store data simultaneously in one format in one file, and in another format in another file. This is achieved through the use of a new component called an *Endpoint*, which pairs an Accessor and a DataFormat. If more than one Output Endpoint is specified, the resulting data is written to each Accessor using the associated DataFormat. <s>If more than one Input Endpoint is specified, the resulting data gets concatenated to the ObjectModel.</s> Multiple Input Endpoints will not be supported due to concerns about how to handle concatenation of the ObjectModel.
+Starting with Universal Editor 5, multiple Accessor/DataFormat pairs can be associated with an ObjectModel. This would allow an ObjectModel to store data simultaneously in one format in one file, and in another format in another file. This is achieved through the use of a new component called an *Endpoint*, which pairs an Accessor and a DataFormat.
+* If more than one Output Endpoint is specified, the resulting data is written to each Accessor using the associated DataFormat.
+* <s>If more than one Input Endpoint is specified, the resulting data gets concatenated to the ObjectModel.</s> Multiple Input Endpoints will not be supported due to concerns about how to handle concatenation of the ObjectModel.
