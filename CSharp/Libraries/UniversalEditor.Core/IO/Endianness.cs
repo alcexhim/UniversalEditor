@@ -19,10 +19,26 @@ namespace UniversalEditor.IO
 {
     using System;
 
+	/// <summary>
+	/// Represents the order of bytes in a multi-byte value (for example, <see cref="Int16" />, <see cref="Int32" />,
+	/// and <see cref="Int64" />).
+	/// </summary>
     public enum Endianness
     {
-        LittleEndian,
-        BigEndian
+		/// <summary>
+		/// The bytes are stored with the least-significant byte at the lowest address, while the following bytes are
+		/// stored in increasing order of significance. (0x0A0B0C0D = { 0x0D, 0x0C, 0x0B, 0x0A })
+		/// </summary>
+		LittleEndian,
+		/// <summary>
+		/// The bytes are stored with the most-significant byte at the lowest address, while the following bytes are
+		/// stored in decreasing order of significance. (0x0A0B0C0D = { 0x0A, 0x0B, 0x0C, 0x0D })
+		/// </summary>
+        BigEndian,
+		/// <summary>
+		/// Little-endian except for bytes in 32-bit values which are stored with the 16-bit halves swapped.
+		/// </summary>
+		PDPEndian
     }
 }
 
