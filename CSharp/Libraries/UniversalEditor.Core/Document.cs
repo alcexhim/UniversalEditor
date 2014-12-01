@@ -143,6 +143,9 @@ namespace UniversalEditor
 
 		private LastUsedAccessor mvarLastUsedAccessor = LastUsedAccessor.Input;
 		private String mvarTitle = String.Empty;
+		/// <summary>
+		/// The title of this <see cref="Document" />.
+		/// </summary>
 		public string Title
 		{
 			get
@@ -159,8 +162,13 @@ namespace UniversalEditor
 			}
 		}
 
+		/// <summary>
+		/// Determines whether the content of this <see cref="Document" /> has changed.
+		/// </summary>
 		public bool IsChanged { get; set; }
-
+		/// <summary>
+		/// The last-used <see cref="Accessor" /> associated with this <see cref="Document" />.
+		/// </summary>
 		public Accessor Accessor
 		{
 			get
@@ -179,7 +187,9 @@ namespace UniversalEditor
 				return null;
 			}
 		}
-
+		/// <summary>
+		/// The <see cref="DataFormat" /> associated with this <see cref="Document" />.
+		/// </summary>
 		public DataFormat DataFormat
 		{
 			get
