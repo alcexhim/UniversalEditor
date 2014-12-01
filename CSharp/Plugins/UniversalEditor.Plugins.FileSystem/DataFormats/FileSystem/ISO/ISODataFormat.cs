@@ -76,7 +76,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			IO.Reader br = base.Accessor.Reader;
 
 			// skip system area (32768 bytes... WHY???)
-			br.Accessor.Seek(32768, SeekOrigin.Current);
+			br.Accessor.Seek(32768, SeekOrigin.Begin);
 
 			uint pathTableLocationTypeL = 0;
 			uint pathTableLocationTypeM = 0;
@@ -89,6 +89,10 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 
 				switch (type)
 				{
+					case ISOVolumeDescriptorType.BootRecord:
+					{
+						break;
+					}
 					case ISOVolumeDescriptorType.Primary:
 					{
 						Internal.PrimaryVolumeDescriptor descriptor = ReadPrimaryVolumeDescriptor(br);
@@ -108,15 +112,21 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 						pathTableLocationTypeM = descriptor.pathTableLocationTypeM;
 						break;
 					}
+					case ISOVolumeDescriptorType.Supplementary:
+					{
+						ushort unknown1 = br.ReadUInt16();
+						string unknown2 = br.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian);
+						break;
+					}
 					case ISOVolumeDescriptorType.Terminator:
 					{
 						break;
 					}
 					default:
-					{
-						br.Accessor.Seek(2041, SeekOrigin.Current);
-						break;
-					}
+						{
+							br.Accessor.Seek(2041, SeekOrigin.Current);
+							break;
+						}
 				}
 				if (type == ISOVolumeDescriptorType.Terminator) break;
 			}
@@ -253,16 +263,16 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			// indicates interval 52 which equals GMT+13 hours.
 			byte timeZoneOffset = br.ReadByte();
 
-			int iYear = Int32.Parse(szYear);
-			int iMonth = Int32.Parse(szMonth);
-			int iDay = Int32.Parse(szDay);
-			int iHour = Int32.Parse(szHour);
-			int iMinute = Int32.Parse(szMinute);
-			int iSecond = Int32.Parse(szSecond);
-			int iHundredSeconds = Int32.Parse(szHundredSeconds);
-
 			try
 			{
+				int iYear = Int32.Parse(szYear);
+				int iMonth = Int32.Parse(szMonth);
+				int iDay = Int32.Parse(szDay);
+				int iHour = Int32.Parse(szHour);
+				int iMinute = Int32.Parse(szMinute);
+				int iSecond = Int32.Parse(szSecond);
+				int iHundredSeconds = Int32.Parse(szHundredSeconds);
+
 				DateTime dt = new DateTime(iYear, iMonth, iDay, iHour, iMinute, iSecond, iHundredSeconds);
 				return dt;
 			}
