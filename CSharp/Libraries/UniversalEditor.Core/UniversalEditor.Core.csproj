@@ -67,6 +67,7 @@
     <Compile Include="IO\Encoding.cs" />
     <Compile Include="IO\NewLineSequence.cs" />
     <Compile Include="IO\Reader.cs" />
+    <Compile Include="IO\ReaderWriterBase.cs" />
     <Compile Include="IO\Writer.cs" />
     <Compile Include="IO\Endianness.cs" />
     <Compile Include="IO\EndOfStreamException.cs" />

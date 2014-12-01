@@ -21,64 +21,17 @@ using System.IO;
 
 namespace UniversalEditor.IO
 {
-	public class Writer
+	public class Writer : ReaderWriterBase
 	{
-		private Accessor mvarAccessor = null;
-		public Accessor Accessor { get { return mvarAccessor; } }
-
-		private Endianness mvarEndianness = Endianness.LittleEndian;
-		public Endianness Endianness
-		{
-			get { return mvarEndianness; }
-			set { mvarEndianness = value; }
-		}
-
-		private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
-		public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
-		public string GetNewLineSequence()
-		{
-			string newline = System.Environment.NewLine;
-			switch (mvarNewLineSequence)
-			{
-				case IO.NewLineSequence.CarriageReturn:
-				{
-					newline = "\r";
-					break;
-				}
-				case IO.NewLineSequence.LineFeed:
-				{
-					newline = "\n";
-					break;
-				}
-				case IO.NewLineSequence.CarriageReturnLineFeed:
-				{
-					newline = "\r\n";
-					break;
-				}
-			}
-			return newline;
-		}
-
-		public void SwapEndianness()
-		{
-			if (mvarEndianness == IO.Endianness.LittleEndian)
-			{
-				mvarEndianness = IO.Endianness.BigEndian;
-			}
-			else
-			{
-				mvarEndianness = IO.Endianness.LittleEndian;
-			}
-		}
 
 		public Writer(Accessor accessor)
+            : base(accessor)
 		{
-			mvarAccessor = accessor;
 		}
 
 		public void Write(byte[] buffer, int start, int count)
 		{
-			mvarAccessor.WriteInternal(buffer, start, count);
+			base.Accessor.WriteInternal(buffer, start, count);
 		}
 
 		public void WriteBoolean(bool value)
@@ -108,7 +61,7 @@ namespace UniversalEditor.IO
 
 		public void WriteChar(char value)
 		{
-			WriteChar(value, mvarAccessor.DefaultEncoding);
+			WriteChar(value, base.Accessor.DefaultEncoding);
 		}
 		public void WriteChar(char value, Encoding encoding)
 		{
@@ -143,15 +96,15 @@ namespace UniversalEditor.IO
 		}
 		public void WriteFixedLengthString(string value)
 		{
-			WriteFixedLengthString(value, mvarAccessor.DefaultEncoding);
+			WriteFixedLengthString(value, base.Accessor.DefaultEncoding);
 		}
 		public void WriteFixedLengthString(string value, int length)
 		{
-			WriteFixedLengthString(value, mvarAccessor.DefaultEncoding, length);
+			WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length);
 		}
 		public void WriteFixedLengthString(string value, uint length)
 		{
-			WriteFixedLengthString(value, mvarAccessor.DefaultEncoding, length);
+			WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length);
 		}
 		public void WriteFixedLengthString(string value, Encoding encoding)
 		{
@@ -160,11 +113,11 @@ namespace UniversalEditor.IO
 		}
 		public void WriteFixedLengthString(string value, int length, char paddingChar)
 		{
-			WriteFixedLengthString(value, mvarAccessor.DefaultEncoding, length, paddingChar);
+			WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length, paddingChar);
 		}
 		public void WriteFixedLengthString(string value, uint length, char paddingChar)
 		{
-			this.WriteFixedLengthString(value, mvarAccessor.DefaultEncoding, length, paddingChar);
+			this.WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length, paddingChar);
 		}
 		public void WriteFixedLengthString(string value, Encoding encoding, int length)
 		{
@@ -201,7 +154,7 @@ namespace UniversalEditor.IO
 
 		public void WriteLengthPrefixedString(string value)
 		{
-			WriteLengthPrefixedString(value, mvarAccessor.DefaultEncoding);
+			WriteLengthPrefixedString(value, base.Accessor.DefaultEncoding);
 		}
 		public void WriteLengthPrefixedString(string value, Encoding encoding)
 		{
@@ -235,7 +188,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
 			byte[] buffer = new byte[2];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				buffer[1] = _buffer[0];
 				buffer[0] = _buffer[1];
@@ -251,7 +204,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
 			byte[] buffer = new byte[2];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				buffer[1] = _buffer[0];
 				buffer[0] = _buffer[1];
@@ -266,7 +219,7 @@ namespace UniversalEditor.IO
 		public void WriteInt24 (int value)
 		{
 			byte[] buffer = new byte[3];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				buffer[2] = (byte)value;
 				buffer[1] = (byte)(value >> 8);
@@ -283,7 +236,7 @@ namespace UniversalEditor.IO
 		public void WriteUInt24(uint value)
 		{
 			byte[] buffer = new byte[3];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				buffer[2] = (byte)value;
 				buffer[1] = (byte)(value >> 8);
@@ -301,7 +254,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
 			byte[] buffer = new byte[4];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				buffer[3] = _buffer[0];
 				buffer[2] = _buffer[1];
@@ -321,7 +274,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
 			byte[] buffer = new byte[4];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				buffer[3] = _buffer[0];
 				buffer[2] = _buffer[1];
@@ -340,7 +293,7 @@ namespace UniversalEditor.IO
 		public void WriteInt64(long value)
 		{
 			byte[] _buffer = new byte[8];
-			if (mvarEndianness == IO.Endianness.BigEndian)
+			if (base.Endianness == IO.Endianness.BigEndian)
 			{
 				_buffer[0] = (byte)(value >> 56);
 				_buffer[1] = (byte)(value >> 48);
@@ -367,7 +320,7 @@ namespace UniversalEditor.IO
 		public void WriteUInt64(ulong value)
 		{
 			byte[] _buffer = new byte[8];
-			if (mvarEndianness == IO.Endianness.BigEndian)
+			if (base.Endianness == IO.Endianness.BigEndian)
 			{
 				_buffer[0] = (byte)(value >> 56);
 				_buffer[1] = (byte)(value >> 48);
@@ -491,7 +444,7 @@ namespace UniversalEditor.IO
 			int lo = bits[0], mid = bits[1], hi = bits[2], flags = bits[3];
 
 			byte[] buffer = new byte[16];
-			if (mvarEndianness == IO.Endianness.LittleEndian)
+			if (base.Endianness == IO.Endianness.LittleEndian)
 			{
 				buffer[0] = (byte)lo;
 				buffer[1] = (byte)(lo >> 8);
@@ -579,7 +532,7 @@ namespace UniversalEditor.IO
 		}
 		public long CountAlignment(int paddingCount, int dataCount)
 		{
-			long position = (mvarAccessor.Position + dataCount);
+			long position = (base.Accessor.Position + dataCount);
 			int num = (int)(position % paddingCount);
 			return num;
 		}
@@ -591,7 +544,7 @@ namespace UniversalEditor.IO
 			{
 				case 2:
 				{
-					long position = mvarAccessor.Position;
+					long position = base.Accessor.Position;
 					int num = (int)(position % 2L);
 					byte[] array = new byte[num];
 					array.Initialize();
@@ -600,9 +553,9 @@ namespace UniversalEditor.IO
 				}
 				case 4:
 				{
-					long num = mvarAccessor.Position;
+					long num = base.Accessor.Position;
 					num = (num + 3L & -4L);
-					long num2 = num - mvarAccessor.Position;
+					long num2 = num - base.Accessor.Position;
 					byte[] array = new byte[num2];
 					array.Initialize();
 					WriteBytes(array);
@@ -610,7 +563,7 @@ namespace UniversalEditor.IO
 				}
 				default:
 				{
-					long count = (mvarAccessor.Position % paddingCount);
+					long count = (base.Accessor.Position % paddingCount);
 					byte[] array = new byte[count];
 					WriteBytes(array);
 					break;
@@ -623,7 +576,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = BitConverter.GetBytes(value);
 			byte[] _buffer = new byte[4];
-			if (mvarEndianness == IO.Endianness.BigEndian)
+			if (base.Endianness == IO.Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[3];
 				_buffer[1] = buffer[2];
@@ -643,7 +596,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = BitConverter.GetBytes(value);
 			byte[] _buffer = new byte[8];
-			if (mvarEndianness == IO.Endianness.BigEndian)
+			if (base.Endianness == IO.Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[7];
 				_buffer[1] = buffer[6];
@@ -713,7 +666,7 @@ namespace UniversalEditor.IO
 
 		public void WriteUInt16String(string value)
 		{
-			WriteUInt16String(value, mvarAccessor.DefaultEncoding);
+			WriteUInt16String(value, base.Accessor.DefaultEncoding);
 		}
 		public void WriteUInt16String(string value, Encoding encoding)
 		{
@@ -727,7 +680,7 @@ namespace UniversalEditor.IO
 
 		public void WriteUInt16SizedString(string value)
 		{
-			WriteUInt16SizedString(value, mvarAccessor.DefaultEncoding);
+			WriteUInt16SizedString(value, base.Accessor.DefaultEncoding);
 		}
 		public void WriteUInt16SizedString(string value, Encoding encoding)
 		{
@@ -746,11 +699,11 @@ namespace UniversalEditor.IO
 
 		public void Flush()
 		{
-			mvarAccessor.FlushInternal();
+			base.Accessor.FlushInternal();
 		}
 		public void Close()
 		{
-			mvarAccessor.Close();
+			base.Accessor.Close();
 		}
 	}
 }

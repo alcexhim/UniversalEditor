@@ -23,53 +23,16 @@ using System.Diagnostics;
 namespace UniversalEditor.IO
 {
 	// [DebuggerNonUserCode()]
-	public class Reader
+	public class Reader : ReaderWriterBase
 	{
-		private Endianness mvarEndianness = Endianness.LittleEndian;
-		public Endianness Endianness { get { return mvarEndianness; } set { mvarEndianness = value; } }
-
-		private bool mvarReverse = false;
-		public bool Reverse { get { return mvarReverse; } }
-
-		private Accessor mvarAccessor = null;
-		public Accessor Accessor { get { return mvarAccessor; } }
-
-		private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
-		public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
-		public string GetNewLineSequence()
-		{
-			string newline = System.Environment.NewLine;
-			switch (mvarNewLineSequence)
-			{
-				case IO.NewLineSequence.CarriageReturn:
-				{
-					newline = "\r";
-					break;
-				}
-				case IO.NewLineSequence.LineFeed:
-				{
-					newline = "\n";
-					break;
-				}
-				case IO.NewLineSequence.CarriageReturnLineFeed:
-				{
-					newline = "\r\n";
-					break;
-				}
-			}
-			return newline;
-		}
-
 		public Reader(Accessor input)
+            : base(input)
 		{
-			this.mvarAccessor = input;
-			this.mvarEndianness = Endianness.LittleEndian;
-			this.mvarReverse = false;
 		}
 
 		public void Read(byte[] buffer, int start, int length)
 		{
-			mvarAccessor.ReadInternal(buffer, start, length);
+			base.Accessor.ReadInternal(buffer, start, length);
 		}
 
 		public bool ReadBoolean()
@@ -89,16 +52,16 @@ namespace UniversalEditor.IO
 		{
 			if (charBuffer == null)
 			{
-				int maxByteCount = mvarAccessor.DefaultEncoding.GetMaxByteCount(1);
+				int maxByteCount = base.Accessor.DefaultEncoding.GetMaxByteCount(1);
 				byte[] bytes = PeekBytes(maxByteCount);
-				charBuffer = mvarAccessor.DefaultEncoding.GetString(bytes);
+                charBuffer = base.Accessor.DefaultEncoding.GetString(bytes);
 				charBufferIndex = 0;
 			}
 
 			char c = charBuffer[charBufferIndex];
 			charBufferIndex++;
 			
-			int ct = mvarAccessor.DefaultEncoding.GetByteCount(c);
+			int ct = base.Accessor.DefaultEncoding.GetByteCount(c);
 			Seek(ct, SeekOrigin.Current);
 
 			if (charBufferIndex + 1 > charBuffer.Length)
@@ -110,14 +73,14 @@ namespace UniversalEditor.IO
 		public byte PeekByte()
 		{
 			byte b = ReadByte();
-			mvarAccessor.Seek(-1, SeekOrigin.Current);
+			base.Accessor.Seek(-1, SeekOrigin.Current);
 			return b;
 		}
 		public byte[] PeekBytes(int length)
 		{
 			byte[] buffer = new byte[length];
-			int len = mvarAccessor.ReadInternal(buffer, 0, length);
-			mvarAccessor.Seek(-len, SeekOrigin.Current);
+			int len = base.Accessor.ReadInternal(buffer, 0, length);
+			base.Accessor.Seek(-len, SeekOrigin.Current);
 			return buffer;
 		}
 		public char PeekChar()
@@ -158,7 +121,7 @@ namespace UniversalEditor.IO
 		public byte[] ReadBytes(long length)
 		{
 			byte[] buffer = new byte[length];
-			mvarAccessor.ReadInternal(buffer, 0, (int)length);
+			base.Accessor.ReadInternal(buffer, 0, (int)length);
 			return buffer;
 		}
 
@@ -250,17 +213,17 @@ namespace UniversalEditor.IO
 
 		public string ReadFixedLengthString(byte length)
 		{
-			return this.ReadFixedLengthString(length, mvarAccessor.DefaultEncoding);
+			return this.ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
 
 		public string ReadFixedLengthString(int length)
 		{
-			return ReadFixedLengthString(length, mvarAccessor.DefaultEncoding);
+			return ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
 
 		public string ReadFixedLengthString(uint length)
 		{
-			return this.ReadFixedLengthString(length, mvarAccessor.DefaultEncoding);
+			return this.ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
 
 		public string ReadFixedLengthString(byte length, Encoding encoding)
@@ -288,7 +251,7 @@ namespace UniversalEditor.IO
 		}
 		public string ReadFixedLengthString(long length)
 		{
-			return ReadFixedLengthString(length, mvarAccessor.DefaultEncoding);
+			return ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
 		public string ReadFixedLengthString(long length, Encoding encoding)
 		{
@@ -312,7 +275,7 @@ namespace UniversalEditor.IO
 			byte i = 0;
 			byte j = 0;
 			byte k = 0;
-			if (!this.mvarReverse)
+			if (!this.Reverse)
 			{
 				a = ReadUInt32();
 				b = ReadUInt16();
@@ -356,12 +319,12 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = ReadBytes((uint)2);
 			byte[] _buffer = new byte[2];
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				_buffer[0] = buffer[0];
 				_buffer[1] = buffer[1];
 			}
-			else if (mvarEndianness == IO.Endianness.BigEndian)
+			else if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[1];
 				_buffer[1] = buffer[0];
@@ -382,14 +345,14 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = ReadBytes((uint)3);
 			byte[] _buffer = new byte[3];
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				_buffer[0] = buffer[0];
 				_buffer[1] = buffer[1];
 				_buffer[2] = buffer[2];
 				_buffer[3] = 0;
 			}
-			else if (mvarEndianness == IO.Endianness.BigEndian)
+			else if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = 0;
 				_buffer[1] = buffer[2];
@@ -412,14 +375,14 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = ReadBytes((uint)4);
 			byte[] _buffer = new byte[4];
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				_buffer[0] = buffer[0];
 				_buffer[1] = buffer[1];
 				_buffer[2] = buffer[2];
 				_buffer[3] = buffer[3];
 			}
-			else if (mvarEndianness == IO.Endianness.BigEndian)
+			else if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[3];
 				_buffer[1] = buffer[2];
@@ -442,7 +405,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = ReadBytes((uint)8);
 			byte[] _buffer = new byte[8];
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				_buffer[0] = buffer[0];
 				_buffer[1] = buffer[1];
@@ -453,7 +416,7 @@ namespace UniversalEditor.IO
 				_buffer[6] = buffer[6];
 				_buffer[7] = buffer[7];
 			}
-			else if (mvarEndianness == IO.Endianness.BigEndian)
+			else if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[7];
 				_buffer[1] = buffer[6];
@@ -480,7 +443,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = ReadBytes((uint)4);
 			byte[] _buffer = new byte[4];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[3];
 				_buffer[1] = buffer[2];
@@ -510,7 +473,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = ReadBytes((uint)8);
 			byte[] _buffer = new byte[8];
-			if (mvarEndianness == Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[7];
 				_buffer[1] = buffer[6];
@@ -547,7 +510,7 @@ namespace UniversalEditor.IO
 		public ushort ReadUInt16 ()
 		{
 			byte[] buffer = ReadBytes(2);
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				return (ushort)(buffer[0] | (buffer[1] << 8));
 			}
@@ -567,7 +530,7 @@ namespace UniversalEditor.IO
 		{
 			// TODO: Test this out!
 			byte[] buffer = ReadBytes(3);
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				return (uint)((buffer[2] << 16) | (buffer[1] << 8) | (buffer[0]));
 			}
@@ -586,7 +549,7 @@ namespace UniversalEditor.IO
 		public uint ReadUInt32()
 		{
 			byte[] buffer = ReadBytes((uint)4);
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				return (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
 			}
@@ -638,7 +601,7 @@ namespace UniversalEditor.IO
 		public ulong ReadUInt48()
 		{
 			byte[] buffer = ReadBytes((uint)6);
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				uint num = (uint)(((buffer[0] << 0x10)) | (buffer[1] << 0x18));
 				uint num2 = (uint)(((buffer[2] | (buffer[3] << 8)) | (buffer[4] << 0x10)) | (buffer[5] << 0x18));
@@ -664,13 +627,13 @@ namespace UniversalEditor.IO
 		public ulong ReadUInt64()
 		{
 			byte[] buffer = ReadBytes((uint)8);
-			if (this.mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				uint num = (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
 				uint num2 = (uint)(((buffer[4] | (buffer[5] << 8)) | (buffer[6] << 0x10)) | (buffer[7] << 0x18));
 				return (ulong)(num << 0x20 | num2);
 			}
-			else if (mvarEndianness == IO.Endianness.BigEndian)
+			else if (base.Endianness == Endianness.BigEndian)
 			{
 				uint num = (uint)(((buffer[7] | (buffer[6] << 8)) | (buffer[5] << 0x10)) | (buffer[4] << 0x18));
 				uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
@@ -690,12 +653,12 @@ namespace UniversalEditor.IO
 
 		public string ReadNullTerminatedString()
 		{
-			return this.ReadNullTerminatedString(mvarAccessor.DefaultEncoding);
+			return this.ReadNullTerminatedString(base.Accessor.DefaultEncoding);
 		}
 
 		public string ReadNullTerminatedString(int maxLength)
 		{
-			return this.ReadNullTerminatedString(maxLength, mvarAccessor.DefaultEncoding);
+			return this.ReadNullTerminatedString(maxLength, base.Accessor.DefaultEncoding);
 		}
 
 		public string ReadNullTerminatedString(Encoding encoding)
@@ -745,7 +708,7 @@ namespace UniversalEditor.IO
 
 		public byte[] ReadToEnd()
 		{
-			return ReadBytes(mvarAccessor.Remaining);
+			return ReadBytes(base.Accessor.Remaining);
 		}
 		public string ReadStringToEnd(Encoding encoding = null)
 		{
@@ -795,11 +758,11 @@ namespace UniversalEditor.IO
 		}
 		public string ReadUntil(string sequence)
 		{
-			return ReadUntil(sequence, mvarAccessor.DefaultEncoding);
+			return ReadUntil(sequence, base.Accessor.DefaultEncoding);
 		}
 		public byte[] ReadUntil(string sequence, bool includeSequence)
 		{
-			return ReadUntil(sequence, mvarAccessor.DefaultEncoding, includeSequence);
+			return ReadUntil(sequence, base.Accessor.DefaultEncoding, includeSequence);
 		}
 		public string ReadUntil(string sequence, Encoding encoding)
 		{
@@ -811,11 +774,11 @@ namespace UniversalEditor.IO
 		}
 		public byte[] ReadUntil(char[] sequence)
 		{
-			return this.ReadUntil(sequence, mvarAccessor.DefaultEncoding);
+			return this.ReadUntil(sequence, base.Accessor.DefaultEncoding);
 		}
 		public byte[] ReadUntil(char[] sequence, bool includeSequence)
 		{
-			return this.ReadUntil(sequence, mvarAccessor.DefaultEncoding, includeSequence);
+			return this.ReadUntil(sequence, base.Accessor.DefaultEncoding, includeSequence);
 		}
 		public byte[] ReadUntil(char[] sequence, Encoding encoding)
 		{
@@ -827,11 +790,11 @@ namespace UniversalEditor.IO
 		}
 		public string ReadStringUntil(string sequence)
 		{
-			return ReadStringUntil(sequence, mvarAccessor.DefaultEncoding, mvarAccessor.DefaultEncoding);
+			return ReadStringUntil(sequence, base.Accessor.DefaultEncoding, base.Accessor.DefaultEncoding);
 		}
 		public string ReadStringUntil(string sequence, bool includeSequence)
 		{
-			return ReadStringUntil(sequence, mvarAccessor.DefaultEncoding, mvarAccessor.DefaultEncoding, includeSequence);
+			return ReadStringUntil(sequence, base.Accessor.DefaultEncoding, base.Accessor.DefaultEncoding, includeSequence);
 		}
 		public string ReadStringUntil(string sequence, Encoding inputEncoding, Encoding outputEncoding)
 		{
@@ -843,11 +806,11 @@ namespace UniversalEditor.IO
 		}
 		public string ReadStringUntil(char[] sequence)
 		{
-			return ReadStringUntil(sequence, mvarAccessor.DefaultEncoding, mvarAccessor.DefaultEncoding);
+			return ReadStringUntil(sequence, base.Accessor.DefaultEncoding, base.Accessor.DefaultEncoding);
 		}
 		public string ReadStringUntil(char[] sequence, bool includeSequence)
 		{
-			return ReadStringUntil(sequence, mvarAccessor.DefaultEncoding, mvarAccessor.DefaultEncoding, includeSequence);
+			return ReadStringUntil(sequence, base.Accessor.DefaultEncoding, base.Accessor.DefaultEncoding, includeSequence);
 		}
 		public string ReadStringUntil(char[] sequence, Encoding inputEncoding, Encoding outputEncoding)
 		{
@@ -869,7 +832,7 @@ namespace UniversalEditor.IO
 		public string[] ReadNullTerminatedStringArray(int stringTableSize)
 		{
 			System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
-			while (mvarAccessor.Remaining < stringTableSize)
+			while (base.Accessor.Remaining < stringTableSize)
 			{
 				list.Add(ReadNullTerminatedString());
 			}
@@ -919,22 +882,22 @@ namespace UniversalEditor.IO
 		public short ReadDoubleEndianInt16()
 		{
 			short value1 = ReadInt16();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 			short value2 = ReadInt16();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 
 			if (value2 != value1)
@@ -946,22 +909,22 @@ namespace UniversalEditor.IO
 		public ushort ReadDoubleEndianUInt16()
 		{
 			ushort value1 = ReadUInt16();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 			ushort value2 = ReadUInt16();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 
 			if (value2 != value1)
@@ -973,22 +936,22 @@ namespace UniversalEditor.IO
 		public int ReadDoubleEndianInt32()
 		{
 			int value1 = ReadInt32();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 			int value2 = ReadInt32();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 
 			if (value2 != value1)
@@ -1000,22 +963,22 @@ namespace UniversalEditor.IO
 		public uint ReadDoubleEndianUInt32()
 		{
 			uint value1 = ReadUInt32();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 			uint value2 = ReadUInt32();
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
-				mvarEndianness = Endianness.BigEndian;
+				base.Endianness = Endianness.BigEndian;
 			}
 			else
 			{
-				mvarEndianness = Endianness.LittleEndian;
+				base.Endianness = Endianness.LittleEndian;
 			}
 
 			if (value2 != value1)
@@ -1146,7 +1109,7 @@ namespace UniversalEditor.IO
 		/// <returns></returns>
 		public string ReadInt32String()
 		{
-			return ReadInt32String(mvarAccessor.DefaultEncoding);
+			return ReadInt32String(base.Accessor.DefaultEncoding);
 		}
 		/// <summary>
 		/// Reads a 32-bit integer length-prefixed string using the specified encoding.
@@ -1211,18 +1174,18 @@ namespace UniversalEditor.IO
 
 		public void SeekUntil(string find)
 		{
-			SeekUntil(find, mvarAccessor.DefaultEncoding);
+			SeekUntil(find, base.Accessor.DefaultEncoding);
 		}
 		public void SeekUntil(string find, Encoding encoding)
 		{
 			byte[] data = encoding.GetBytes(find);
 			byte[] dataCmp = new byte[data.Length];
-			while (mvarAccessor.Position <= (mvarAccessor.Length - data.Length))
+			while (base.Accessor.Position <= (base.Accessor.Length - data.Length))
 			{
-				long rest = mvarAccessor.Remaining;
+				long rest = base.Accessor.Remaining;
 
-				mvarAccessor.ReadInternal(dataCmp, 0, dataCmp.Length);
-				mvarAccessor.Seek(-(dataCmp.Length - 1), SeekOrigin.Current);
+				base.Accessor.ReadInternal(dataCmp, 0, dataCmp.Length);
+				base.Accessor.Seek(-(dataCmp.Length - 1), SeekOrigin.Current);
 
 				bool bad = false;
 				for (int i = 0; i < data.Length; i++)
@@ -1235,7 +1198,7 @@ namespace UniversalEditor.IO
 				}
 				if (!bad)
 				{
-					mvarAccessor.Seek(-1, SeekOrigin.Current);
+					base.Accessor.Seek(-1, SeekOrigin.Current);
 					break;
 				}
 			}
@@ -1253,11 +1216,11 @@ namespace UniversalEditor.IO
 				byte b2 = buffer[i + 1];
 				int index = (int)(i / 2);
 
-				if (mvarEndianness == Endianness.LittleEndian)
+				if (base.Endianness == Endianness.LittleEndian)
 				{
 					buffer2[index] = (short)(b1 | (b2 << 8));
 				}
-				else if (mvarEndianness == Endianness.BigEndian)
+				else if (base.Endianness == Endianness.BigEndian)
 				{
 					buffer2[index] = (short)(b2 | (b1 << 8));
 				}
@@ -1274,13 +1237,13 @@ namespace UniversalEditor.IO
 		/// <param name="alignTo">The number of bytes on which to align the <see cref="Reader"/>.</param>
 		public void Align(int alignTo)
 		{
-			long paddingCount = ((alignTo - (mvarAccessor.Position % alignTo)) % alignTo);
-			mvarAccessor.Position += paddingCount;
+			long paddingCount = ((alignTo - (base.Accessor.Position % alignTo)) % alignTo);
+			base.Accessor.Position += paddingCount;
 		}
 
 		public string PeekFixedLengthString(int count)
 		{
-			return PeekFixedLengthString(count, mvarAccessor.DefaultEncoding);
+			return PeekFixedLengthString(count, base.Accessor.DefaultEncoding);
 		}
 		public string PeekFixedLengthString(int count, Encoding encoding)
 		{
@@ -1296,7 +1259,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = ReadBytes(2);
 			byte[] buffer2 = new byte[4];
-			if (mvarEndianness == Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				buffer2[0] = 0;
 				buffer2[1] = 0;
@@ -1315,17 +1278,17 @@ namespace UniversalEditor.IO
 
 		public int ReadAtMostBytes(byte[] buffer, int count)
 		{
-			if (mvarAccessor.Remaining == 0) return 0;
+			if (base.Accessor.Remaining == 0) return 0;
 
-			if (count < mvarAccessor.Remaining)
+			if (count < base.Accessor.Remaining)
 			{
 				Read(buffer, 0, count);
 				return count;
 			}
 			else
 			{
-				Read(buffer, 0, (int)mvarAccessor.Remaining);
-				return (int)mvarAccessor.Remaining;
+				Read(buffer, 0, (int)base.Accessor.Remaining);
+				return (int)base.Accessor.Remaining;
 			}
 		}
 
@@ -1360,7 +1323,7 @@ namespace UniversalEditor.IO
 			return x;
 		}
 
-		public bool EndOfStream { get { return mvarAccessor.Remaining == 0; } }
+		public bool EndOfStream { get { return base.Accessor.Remaining == 0; } }
 
 		public string ReadInt64String()
 		{
@@ -1457,19 +1420,19 @@ namespace UniversalEditor.IO
 
 		public void Seek(int length, SeekOrigin origin)
 		{
-			mvarAccessor.Seek(length, origin);
+			base.Accessor.Seek(length, origin);
 		}
 		public void Seek(long length, SeekOrigin origin)
 		{
-			mvarAccessor.Seek(length, origin);
+			base.Accessor.Seek(length, origin);
 		}
 
 		public void Close()
 		{
-			mvarAccessor.Close();
+			base.Accessor.Close();
 		}
 
-		public long Remaining { get { return mvarAccessor.Remaining; } }
+		public long Remaining { get { return base.Accessor.Remaining; } }
 	}
 }
 
