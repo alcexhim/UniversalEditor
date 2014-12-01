@@ -12,13 +12,13 @@ namespace UniversalEditor.IO
 
         public void SwapEndianness()
         {
-            if (mvarEndianness == IO.Endianness.LittleEndian)
+            if (mvarEndianness == Endianness.LittleEndian)
             {
-                mvarEndianness = IO.Endianness.BigEndian;
+                mvarEndianness = Endianness.BigEndian;
             }
             else
             {
-                mvarEndianness = IO.Endianness.LittleEndian;
+                mvarEndianness = Endianness.LittleEndian;
             }
         }
 

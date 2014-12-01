@@ -293,7 +293,7 @@ namespace UniversalEditor.IO
 		public void WriteInt64(long value)
 		{
 			byte[] _buffer = new byte[8];
-			if (base.Endianness == IO.Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = (byte)(value >> 56);
 				_buffer[1] = (byte)(value >> 48);
@@ -320,7 +320,7 @@ namespace UniversalEditor.IO
 		public void WriteUInt64(ulong value)
 		{
 			byte[] _buffer = new byte[8];
-			if (base.Endianness == IO.Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = (byte)(value >> 56);
 				_buffer[1] = (byte)(value >> 48);
@@ -444,7 +444,7 @@ namespace UniversalEditor.IO
 			int lo = bits[0], mid = bits[1], hi = bits[2], flags = bits[3];
 
 			byte[] buffer = new byte[16];
-			if (base.Endianness == IO.Endianness.LittleEndian)
+			if (base.Endianness == Endianness.LittleEndian)
 			{
 				buffer[0] = (byte)lo;
 				buffer[1] = (byte)(lo >> 8);
@@ -576,7 +576,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = BitConverter.GetBytes(value);
 			byte[] _buffer = new byte[4];
-			if (base.Endianness == IO.Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[3];
 				_buffer[1] = buffer[2];
@@ -596,7 +596,7 @@ namespace UniversalEditor.IO
 		{
 			byte[] buffer = BitConverter.GetBytes(value);
 			byte[] _buffer = new byte[8];
-			if (base.Endianness == IO.Endianness.BigEndian)
+			if (base.Endianness == Endianness.BigEndian)
 			{
 				_buffer[0] = buffer[7];
 				_buffer[1] = buffer[6];
