@@ -31,10 +31,20 @@ namespace UniversalEditor
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
+        /// <summary>
+        /// Determines if this <see cref="ReferencedBy" /> object should be filtered by the given criteria.
+        /// </summary>
+        /// <param name="filter">The filter that determines whether this object should be displayed in a list of <see cref="ReferencedBy" /> objects.</param>
+        /// <returns>True if this object should appear in the list; false otherwise.</returns>
 		public bool ShouldFilterObject(string filter)
 		{
 			return mvarTitle.ToLower().Contains(filter.ToLower());
 		}
+        
+        /// <summary>
+        /// Gets the detail fields that are shown in lists of this <see cref="ReferencedBy" /> object in details view.
+        /// </summary>
+        /// <returns>An array of <see cref="String" />s that are shown in detail columns of lists of this <see cref="ReferencedBy" /> object.</returns>
 		public string[] GetDetails()
 		{
 			return new string[] { mvarTitle };
@@ -56,12 +66,17 @@ namespace UniversalEditor
 		/// </summary>
 		public CustomOption.CustomOptionCollection ExportOptions { get { return mvarExportOptions; } }
 
-		private CustomOption.CustomOptionCollection mvarImportOptions = new CustomOption.CustomOptionCollection();/// <summary>
+		private CustomOption.CustomOptionCollection mvarImportOptions = new CustomOption.CustomOptionCollection();
+        /// <summary>
 		/// A collection of <see cref="CustomOption" />s that are applied to the <see cref="Accessor" />
 		/// when it is being used to open or import a file.
 		/// </summary>
 		public CustomOption.CustomOptionCollection ImportOptions { get { return mvarImportOptions; } }
 
+        /// <summary>
+        /// Creates an instance of an <see cref="Accessor" /> from the <see cref="Type" /> described in this <see cref="AccessorReference" />.
+        /// </summary>
+        /// <returns>An <see cref="Accessor" /> instance from the <see cref="Type" /> described in this <see cref="AccessorReference" />.</returns>
 		public Accessor Create()
 		{
 			if (mvarAccessorType == null && mvarAccessorTypeName != null)
