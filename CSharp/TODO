@@ -1,3 +1,10 @@
+Platform:
+* Implement UE Packages (*.uepack) in Essential
+	* These are ZIP files that contain all the XML and compiled binary files for DataFormats, ObjectModels, etc.
+	
+* NOTE: Accessors cannot be made runtime-independent since they require interfacing directly with sources of data (e.g. FTP server, local file...); DataFormats and
+        ObjectModels should be implemented in markup, but Accessors simply cannot be.
+
 Editor:
 * Provide PropertyGridSettings to communicate property changes using the UniversalEditor PropertyGrid control
 
@@ -21,3 +28,4 @@ Project file BuildActions:
 
 Document Tabs:
 * Dragging items over document tabs should cause the active tab to switch to the tab being dragged over. As of 2012, Visual Studio does not support this ;)
+	* This (dragging text from a text editor across tabs) appears to be fixed in VS2013, or the original post could be about a completely unrelated phenomenon
