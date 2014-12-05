@@ -94,6 +94,7 @@
     <Content Include="Extensions\SoftwareDeveloper\ProjectTypes\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.xml" />
     <Content Include="Languages\English.xml" />
     <Content Include="Languages\Japanese.xml" />
+    <Content Include="ProjectTypes\{8891C1AE-6699-45DA-8B22-13BCEBB63364}.xml" />
     <Content Include="ProjectTypes\{A0786B88-2ADB-4C21-ABE8-AA2D79766269}.xml" />
     <Content Include="ProjectTypes\{AB211699-2C6A-4FCC-97FB-F629B1023277}.xml" />
     <Content Include="ProjectTypes\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.xml" />

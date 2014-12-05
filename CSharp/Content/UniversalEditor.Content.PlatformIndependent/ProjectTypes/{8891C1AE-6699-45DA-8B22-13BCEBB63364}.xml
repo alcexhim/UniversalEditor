@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTypes>
+		<ProjectType ID="{8891C1AE-6699-45DA-8B22-13BCEBB63364}">
+			<Information>
+				<Title>C++ Application</Title>
+			</Information>
+			<Tasks>
+				<Task ID="{9749807D-CD3F-4EC2-A356-6CA4DB7E4AFC}" TaskTypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}" Title="Compile">
+					<FileName>$(MinGWPath)\g++.exe</FileName>
+					<Arguments>
+						<StringBuilder>
+							<Literal Value="-o " />
+							<Quote />
+							<Variable Name="OutputFileName" />
+							<Quote />
+							<ConditionalStatement>
+								<Conditions>
+									<Condition VariableName="OutputType" Comparison="EqualTo" Value="GraphicalApplication" />
+								</Conditions>
+								<TrueResult>
+									<Literal Value="-mwindows " />
+								</TrueResult>
+							</ConditionalStatement>
+							<ConditionalStatement>
+								<Conditions>
+									<Condition VariableName="IncludeFiles.Length" Comparison="GreaterThan" Value="0" />
+								</Conditions>
+								<TrueResult>
+									<VariableArray Name="IncludeFiles" Prefix="-I" Separator=" " />
+								</TrueResult>
+							</ConditionalStatement>
+							<ConditionalStatement>
+								<Conditions>
+									<Condition VariableName="LibraryPaths.Length" Comparison="GreaterThan" Value="0" />
+								</Conditions>
+								<TrueResult>
+									<VariableArray Name="LibraryPaths" Prefix="-L" Separator=" " />
+								</TrueResult>
+							</ConditionalStatement>
+							<ConditionalStatement>
+								<Conditions>
+									<Condition VariableName="LibraryReferences.Length" Comparison="GreaterThan" Value="0" />
+								</Conditions>
+								<TrueResult>
+									<VariableArray Name="LibraryReferences" Prefix="-l" Separator=" " />
+								</TrueResult>
+							</ConditionalStatement>
+							<Literal Value=" " />
+							<VariableArray Name="ProjectFiles" Separator=" " />
+						</StringBuilder>
+					</Arguments>
+				</Task>
+			</Tasks>
+		</ProjectType>
+	</ProjectTypes>
+</UniversalEditor>
