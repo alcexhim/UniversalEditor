@@ -19,6 +19,12 @@ namespace UniversalEditor
 		private string mvarSmallIconImageFileName = null;
 		public string SmallIconImageFileName { get { return mvarSmallIconImageFileName; } set { mvarSmallIconImageFileName = value; } }
 
+		private ProjectTask.ProjectTaskCollection mvarTasks = new ProjectTask.ProjectTaskCollection();
+		/// <summary>
+		/// Gets the <see cref="ProjectTask" />s that are made available by this <see cref="ProjectType" />.
+		/// </summary>
+		public ProjectTask.ProjectTaskCollection Tasks { get { return mvarTasks; } }
+
 		private ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection mvarItemShortcuts = new ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection();
 		public ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection ItemShortcuts { get { return mvarItemShortcuts; } }
 	}

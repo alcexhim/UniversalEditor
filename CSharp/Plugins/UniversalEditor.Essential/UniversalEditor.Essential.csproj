@@ -107,6 +107,7 @@
     <Compile Include="ObjectModels\Text\Formatted\Items\Container.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\Literal.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
+    <Compile Include="ProjectTask.cs" />
     <Compile Include="ProjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Template.cs" />
