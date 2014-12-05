@@ -8,16 +8,16 @@
 			</Information>
 			<Tasks>
 				<Task Title="Transform">
-					<TaskActions>
-						<TaskAction TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+					<Actions>
+						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
 							<FileName>C:\Program Files\Saxonica\bin\saxon.exe</FileName>
 							<Arguments>
 								<StringBuilder>
 									<ProjectFiles Separator=" " />
 								</StringBuilder>
 							</Arguments>
-						</TaskAction>
-					</TaskActions>
+						</Action>
+					</Actions>
 				</Task>
 			</Tasks>
 		</ProjectType>

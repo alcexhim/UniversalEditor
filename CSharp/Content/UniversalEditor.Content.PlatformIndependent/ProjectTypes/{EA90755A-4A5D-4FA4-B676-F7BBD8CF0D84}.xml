@@ -8,15 +8,15 @@
 			</Information>
 			<Tasks>
 				<!--
-					TaskActionTypes are defined in libraries.
-						{EE505E05-F125-4718-BA0A-879C72B5125A} corresponds to the built-in task action type ExecutableTaskAction
-						When Tasks are executed, each TaskAction in TaskActions gets executed.
-						When TaskActions are executed, the TaskType gets the inner XML of the task and processes it to extract parameters.
+					ActionTypes are defined in libraries.
+						{EE505E05-F125-4718-BA0A-879C72B5125A} corresponds to the built-in task action type ExecutableAction
+						When Tasks are executed, each Action in Actions gets executed.
+						When Actions are executed, the TaskType gets the inner XML of the task and processes it to extract parameters.
 						Certain tags are expanded by the preprocessor, like StringBuilder which is common to all TaskTypes.
 				-->
 				<Task Title="Build">
-					<TaskActions>
-						<TaskAction TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+					<Actions>
+						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
 							<FileName>$(ArduinoPath)\avr-gcc.exe</FileName>
 							<Arguments>
 								<StringBuilder>
@@ -28,8 +28,8 @@
 									<ProjectFiles Separator=" " />
 								</StringBuilder>
 							</Arguments>
-						</TaskAction>
-					</TaskActions>
+						</Action>
+					</Actions>
 				</Task>
 			</Tasks>
 		</ProjectType>
