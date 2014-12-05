@@ -319,19 +319,20 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			char prevChar = '\0';
 			string nextAttributeName = null;
 			bool loaded = false;
+
+			char c = tr.ReadChar();
+			int times = 0, maxtimes = 5;
+			while (c != '<')
+			{
+				// clear out junk
+				c = tr.ReadChar();
+				times++;
+				if (times == maxtimes) break;
+			}
+			tr.Accessor.Seek(-1, IO.SeekOrigin.Current);
+
 			while (!tr.EndOfStream)
 			{
-				char c = tr.ReadChar();
-				int times = 0, maxtimes = 5;
-				while (c != '<')
-				{
-					// clear out junk
-					c = tr.ReadChar();
-					times++;
-					if (times == maxtimes) break;
-				}
-				if (c == (char)65279) continue;
-
 				if (!loaded && (c != '<'))
 				{
 					return;
