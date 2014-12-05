@@ -403,7 +403,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 								}
 							}
 							#endregion
-							#region
+							#region Tasks
 							{
 								MarkupTagElement tagTasks = (tagProjectType.Elements["Tasks"] as MarkupTagElement);
 								if (tagTasks != null)
@@ -416,6 +416,24 @@ namespace UniversalEditor.DataFormats.UEPackage
 
 										ProjectTask task = new ProjectTask();
 										task.Title = tag.Attributes["Title"].Value;
+
+										MarkupTagElement tagActions = (tag.Elements["Actions"] as MarkupTagElement);
+										if (tagActions != null)
+										{
+											foreach (MarkupElement elAction in tagActions.Elements)
+											{
+												MarkupTagElement tagAction = (elAction as MarkupTagElement);
+												if (tagAction == null) continue;
+												if (tagAction.FullName != "Action") continue;
+
+												MarkupAttribute attTypeID = tagAction.Attributes["TypeID"];
+												if (attTypeID != null)
+												{
+													Guid id = new Guid(attTypeID.Value);
+													task.Actions.Add(ProjectTaskAction.CreateFromTypeID(id));
+												}
+											}
+										}
 
 										projtype.Tasks.Add(task);
 									}
