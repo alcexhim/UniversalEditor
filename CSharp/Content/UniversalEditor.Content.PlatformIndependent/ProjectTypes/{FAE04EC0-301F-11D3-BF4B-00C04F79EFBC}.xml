@@ -7,18 +7,22 @@
 				<Title>C# Project</Title>
 			</Information>
 			<Tasks>
-				<Task ID="{9749807D-CD3F-4EC2-A356-6CA4DB7E4AFC}" TaskTypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}" Title="Compile">
-					<FileName>$(DotNetFrameworkPath)\v$(DotNetVersion)\csc.exe</FileName>
-					<Arguments>
-						<StringBuilder>
-							<Literal Value="/out:" />
-							<Quote />
-							<Variable Name="OutputFileName" />
-							<Quote />
-							<Literal Value=" " />
-							<ProjectFiles Separator=" " />
-						</StringBuilder>
-					</Arguments>
+				<Task Title="Build">
+					<TaskActions>
+						<TaskAction TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}" >
+							<FileName>$(DotNetFrameworkPath)\v$(DotNetVersion)\csc.exe</FileName>
+							<Arguments>
+								<StringBuilder>
+									<Literal Value="/out:" />
+									<Quote />
+									<Variable Name="OutputFileName" />
+									<Quote />
+									<Literal Value=" " />
+									<ProjectFiles Separator=" " />
+								</StringBuilder>
+							</Arguments>
+						</TaskAction>
+					</TaskActions>
 				</Task>
 			</Tasks>
 		</ProjectType>

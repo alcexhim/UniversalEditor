@@ -7,13 +7,17 @@
 				<Title>XML Transformation Project</Title>
 			</Information>
 			<Tasks>
-				<Task ID="{42ACEBEB-F1E8-43D7-B58B-AF9BE33E634C}" TaskTypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}" Title="Transform XML with Saxonica">
-					<FileName>C:\Program Files\Saxonica\bin\saxon.exe</FileName>
-					<Arguments>
-						<StringBuilder>
-							<ProjectFiles Separator=" " />
-						</StringBuilder>
-					</Arguments>
+				<Task Title="Transform">
+					<TaskActions>
+						<TaskAction TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+							<FileName>C:\Program Files\Saxonica\bin\saxon.exe</FileName>
+							<Arguments>
+								<StringBuilder>
+									<ProjectFiles Separator=" " />
+								</StringBuilder>
+							</Arguments>
+						</TaskAction>
+					</TaskActions>
 				</Task>
 			</Tasks>
 		</ProjectType>

@@ -20,18 +20,21 @@ UniversalEditor Projects:
 * "Live folders" - project folders are automatically populated with their physical folder contents when project is loaded
 	Select folder, set "Live folder" = "True" in Properties panel
 	
-Project file BuildActions:
-	"Compile"
+Project file Tasks and TaskActions:
+	ExecutableTaskAction
+		- Run the given program with the given parameters
+	FileSystemTaskAction
 		- Combine multiple selected files into one
 		OutputObjectModel = FileSystemObjectModel
 		User specifies OutputFileName and OutputDataFormat
-	Support multiple Tasks for a BuildAction, i.e.
-		<BuildAction Title="Compile">
-			<Tasks>
-				<Task ID="..." />
-				<Task ID="..." />
-			</Tasks>
-		</BuildAction>
+	Support multiple TaskActions for a Task, i.e.
+		<Task Title="Compile">
+			<TaskActions>
+				<TaskAction TypeID="..." />
+				<TaskAction TypeID="..." />
+			</TaskActions>
+		</Task>
+	If any one of the TaskActions fails, the task is terminated.
 
 Document Tabs:
 * Dragging items over document tabs should cause the active tab to switch to the tab being dragged over. As of 2012, Visual Studio does not support this ;)

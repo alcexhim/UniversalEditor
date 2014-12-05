@@ -7,50 +7,55 @@
 				<Title>C++ Application</Title>
 			</Information>
 			<Tasks>
-				<Task ID="{9749807D-CD3F-4EC2-A356-6CA4DB7E4AFC}" TaskTypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}" Title="Compile">
-					<FileName>$(MinGWPath)\g++.exe</FileName>
-					<Arguments>
-						<StringBuilder>
-							<Literal Value="-o " />
-							<Quote />
-							<Variable Name="OutputFileName" />
-							<Quote />
-							<ConditionalStatement>
-								<Conditions>
-									<Condition VariableName="OutputType" Comparison="EqualTo" Value="GraphicalApplication" />
-								</Conditions>
-								<TrueResult>
-									<Literal Value="-mwindows " />
-								</TrueResult>
-							</ConditionalStatement>
-							<ConditionalStatement>
-								<Conditions>
-									<Condition VariableName="IncludeFiles.Length" Comparison="GreaterThan" Value="0" />
-								</Conditions>
-								<TrueResult>
-									<VariableArray Name="IncludeFiles" Prefix="-I" Separator=" " />
-								</TrueResult>
-							</ConditionalStatement>
-							<ConditionalStatement>
-								<Conditions>
-									<Condition VariableName="LibraryPaths.Length" Comparison="GreaterThan" Value="0" />
-								</Conditions>
-								<TrueResult>
-									<VariableArray Name="LibraryPaths" Prefix="-L" Separator=" " />
-								</TrueResult>
-							</ConditionalStatement>
-							<ConditionalStatement>
-								<Conditions>
-									<Condition VariableName="LibraryReferences.Length" Comparison="GreaterThan" Value="0" />
-								</Conditions>
-								<TrueResult>
-									<VariableArray Name="LibraryReferences" Prefix="-l" Separator=" " />
-								</TrueResult>
-							</ConditionalStatement>
-							<Literal Value=" " />
-							<VariableArray Name="ProjectFiles" Separator=" " />
-						</StringBuilder>
-					</Arguments>
+				<Task Title="Build">
+					<TaskActions>
+						<TaskAction TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+							<!-- ExecutableTaskAction -->
+							<FileName>$(MinGWPath)\g++.exe</FileName>
+							<Arguments>
+								<StringBuilder>
+									<Literal Value="-o " />
+									<Quote />
+									<Variable Name="OutputFileName" />
+									<Quote />
+									<ConditionalStatement>
+										<Conditions>
+											<Condition VariableName="OutputType" Comparison="EqualTo" Value="GraphicalApplication" />
+										</Conditions>
+										<TrueResult>
+											<Literal Value="-mwindows " />
+										</TrueResult>
+									</ConditionalStatement>
+									<ConditionalStatement>
+										<Conditions>
+											<Condition VariableName="IncludeFiles.Length" Comparison="GreaterThan" Value="0" />
+										</Conditions>
+										<TrueResult>
+											<VariableArray Name="IncludeFiles" Prefix="-I" Separator=" " />
+										</TrueResult>
+									</ConditionalStatement>
+									<ConditionalStatement>
+										<Conditions>
+											<Condition VariableName="LibraryPaths.Length" Comparison="GreaterThan" Value="0" />
+										</Conditions>
+										<TrueResult>
+											<VariableArray Name="LibraryPaths" Prefix="-L" Separator=" " />
+										</TrueResult>
+									</ConditionalStatement>
+									<ConditionalStatement>
+										<Conditions>
+											<Condition VariableName="LibraryReferences.Length" Comparison="GreaterThan" Value="0" />
+										</Conditions>
+										<TrueResult>
+											<VariableArray Name="LibraryReferences" Prefix="-l" Separator=" " />
+										</TrueResult>
+									</ConditionalStatement>
+									<Literal Value=" " />
+									<VariableArray Name="ProjectFiles" Separator=" " />
+								</StringBuilder>
+							</Arguments>
+						</TaskAction>
+					</TaskActions>
 				</Task>
 			</Tasks>
 		</ProjectType>
