@@ -556,6 +556,25 @@ namespace UniversalEditor.Common
 											}
 										}
 										#endregion
+										#region
+										{
+											MarkupTagElement tagTasks = (tagProjectType.Elements["Tasks"] as MarkupTagElement);
+											if (tagTasks != null)
+											{
+												foreach (MarkupElement el in tagTasks.Elements)
+												{
+													MarkupTagElement tag = (el as MarkupTagElement);
+													if (tag == null) continue;
+													if (tag.FullName != "Task") continue;
+
+													ProjectTask task = new ProjectTask();
+													task.Title = tag.Attributes["Title"].Value;
+
+													projtype.Tasks.Add(task);
+												}
+											}
+										}
+										#endregion
 
 										listProjectTypes.Add(projtype);
 									}
