@@ -1,9 +1,30 @@
-<UniversalEditor Version="4.0">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
 	<ProjectTypes>
 		<ProjectType ID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
 			<Information>
 				<Title>C# Project</Title>
 			</Information>
+			<Tasks>
+				<Task Title="Build">
+					<Actions>
+						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}" >
+							<FileName>$(DotNetFrameworkPath)\v$(DotNetVersion)\csc.exe</FileName>
+							<Arguments>
+								<StringBuilder>
+									<Literal Value="/out:" />
+									<Quote />
+									<Variable Name="OutputFileName" />
+									<Quote />
+									<Literal Value=" " />
+									<ProjectFiles Separator=" " />
+								</StringBuilder>
+							</Arguments>
+						</Action>
+					</Actions>
+				</Task>
+			</Tasks>
 		</ProjectType>
 	</ProjectTypes>
 </UniversalEditor>
