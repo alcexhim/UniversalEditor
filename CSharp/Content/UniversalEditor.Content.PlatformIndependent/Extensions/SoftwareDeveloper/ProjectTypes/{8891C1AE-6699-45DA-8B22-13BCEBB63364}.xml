@@ -11,51 +11,79 @@
 					<Actions>
 						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
 							<!-- ExecutableAction -->
-							<FileName>$(MinGWPath)\g++.exe</FileName>
-							<Arguments>
-								<StringBuilder>
-									<Literal Value="-o &quot;" />
-									<Variable Name="OutputFileName" />
-									<Literal Value="&quot; " />
-									<ConditionalStatement>
-										<Conditions>
-											<Condition VariableName="OutputType" Comparison="EqualTo" Value="GraphicalApplication" />
-										</Conditions>
-										<TrueResult>
-											<Literal Value="-mwindows " />
-										</TrueResult>
-									</ConditionalStatement>
-									<ConditionalStatement>
-										<Conditions>
-											<Condition VariableName="IncludeFiles.Length" Comparison="GreaterThan" Value="0" />
-										</Conditions>
-										<TrueResult>
-											<VariableArray Name="IncludeFiles" Prefix="-I" Separator=" " />
-										</TrueResult>
-									</ConditionalStatement>
-									<ConditionalStatement>
-										<Conditions>
-											<Condition VariableName="LibraryPaths.Length" Comparison="GreaterThan" Value="0" />
-										</Conditions>
-										<TrueResult>
-											<VariableArray Name="LibraryPaths" Prefix="-L" Separator=" " />
-										</TrueResult>
-									</ConditionalStatement>
-									<ConditionalStatement>
-										<Conditions>
-											<Condition VariableName="LibraryReferences.Length" Comparison="GreaterThan" Value="0" />
-										</Conditions>
-										<TrueResult>
-											<VariableArray Name="LibraryReferences" Prefix="-l" Separator=" " />
-										</TrueResult>
-									</ConditionalStatement>
-									<VariableArray Name="ProjectFiles" Separator=" " />
-								</StringBuilder>
-							</Arguments>
+							<CommandLine>
+								<Conditional>
+									<Conditions>
+										<Condition Variable="OperatingSystemPlatform" Comparison="Equals" Value="Windows" />
+									</Conditions>
+									<TrueResult>
+										<GlobalVariableReference ID="MinGWPath" />
+										<PathSeparator />
+										<Literal Value="g++.exe" />
+									</TrueResult>
+									<FalseResult>
+										<Literal Value="g++" />
+									</FalseResult>
+								</Conditional>
+								<Literal Value=" -o &quot;" />
+								<ProjectVariableReference ID="OutputFileName" />
+								<Literal Value="&quot; " />
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="ProjectTarget" Comparison="EqualTo" Value="winexe" />
+									</Conditions>
+									<TrueResult>
+										<Literal Value="-mwindows " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="ProjectTarget" Comparison="EqualTo" Value="library" />
+									</Conditions>
+									<TrueResult>
+										<Literal Value="--shared " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="IncludeFiles.Length" Comparison="GreaterThan" Value="0" />
+									</Conditions>
+									<TrueResult>
+										<VariableArray Name="IncludeFiles" Prefix="-I" Separator=" " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="LibraryPaths.Length" Comparison="GreaterThan" Value="0" />
+									</Conditions>
+									<TrueResult>
+										<VariableArray Name="LibraryPaths" Prefix="-L" Separator=" " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="LibraryReferences.Length" Comparison="GreaterThan" Value="0" />
+									</Conditions>
+									<TrueResult>
+										<VariableArray Name="LibraryReferences" Prefix="-l" Separator=" " />
+									</TrueResult>
+								</Conditional>
+								<VariableArray Name="ProjectFiles" Separator=" " />
+							</CommandLine>
 						</Action>
 					</Actions>
 				</Task>
 			</Tasks>
+			<ProjectVariables>
+				<ProjectVariable ID="ProjectTarget" Type="Selection">
+					<ValidValues>
+						<ValidValue Title="Console Executable" Value="exe" />
+						<ValidValue Title="GUI Executable" Value="winexe" />
+						<ValidValue Title="Class Library" Value="library" />
+					</ValidValues>
+				</ProjectVariable>
+				<ProjectVariable ID="OutputFileName" Type="File" />
+			</ProjectVariables>
 		</ProjectType>
 	</ProjectTypes>
 </UniversalEditor>

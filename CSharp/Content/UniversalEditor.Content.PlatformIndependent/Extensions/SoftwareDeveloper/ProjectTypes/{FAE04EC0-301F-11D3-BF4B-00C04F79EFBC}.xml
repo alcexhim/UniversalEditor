@@ -9,20 +9,46 @@
 			<Tasks>
 				<Task Title="Build">
 					<Actions>
-						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}" >
-							<FileName>$(DotNetFrameworkPath)\v$(DotNetVersion)\csc.exe</FileName>
-							<Arguments>
-								<StringBuilder>
-									<Literal Value="/out:&quot;" />
-									<Variable Name="OutputFileName" />
-									<Literal Value="&quot; " />
-									<ProjectFiles Separator=" " />
-								</StringBuilder>
-							</Arguments>
+						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+							<CommandLine>
+								<Conditional>
+									<Conditions>
+										<Condition Variable="OperatingSystemPlatform" Comparison="Equals" Value="Windows" />
+									</Conditions>
+									<TrueResult>
+										<GlobalVariableReference ID="FrameworkPath" />
+										<PathSeparator />
+										<Literal Value="csc.exe" />
+									</TrueResult>
+									<FalseResult>
+										<Literal Value="csc" />
+									</FalseResult>
+								</Conditional>
+								<Literal Value=" /target:" />
+								<ProjectVariableReference ID="ProjectTarget" />
+								<Literal Value=" /out:&quot;" />
+								<ProjectVariableReference ID="OutputFileName" />
+								<Literal Value="&quot; " />
+								<ProjectFiles Separator=" " />
+							</CommandLine>
 						</Action>
 					</Actions>
 				</Task>
 			</Tasks>
+			<ProjectVariables>
+				<ProjectVariable ID="ProjectTarget" Type="Selection">
+					<ValidValues>
+						<ValidValue Title="Console Executable" Value="exe" />
+						<ValidValue Title="GUI Executable" Value="winexe" />
+						<ValidValue Title="Class Library" Value="library" />
+						<ValidValue Title="Module" Value="module" />
+						<ValidValue Title="AppContainer Executable" Value="appcontainerexe" />
+						<ValidValue Title="Windows Metadata object" Value="winmdobj" />
+					</ValidValues>
+				</ProjectVariable>
+				<ProjectVariable ID="OutputFileName" Type="File" />
+				<ProjectVariable ID="RootNamespace" Type="String" />
+			</ProjectVariables>
 		</ProjectType>
 	</ProjectTypes>
 </UniversalEditor>

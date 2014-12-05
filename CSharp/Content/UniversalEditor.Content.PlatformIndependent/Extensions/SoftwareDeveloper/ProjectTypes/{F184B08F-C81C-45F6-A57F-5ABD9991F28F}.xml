@@ -4,37 +4,41 @@
 			<Information>
 				<Title>VB.NET Project</Title>
 			</Information>
-			<BuildActions>
-				<BuildAction ID="{8A5A000E-EA45-415F-86E4-2186808BD386}">
-					<Execute>
-						<Conditional>
-							<Conditions>
-								<Condition Variable="OperatingSystemPlatform" Comparison="Equals" Value="Windows" />
-							</Conditions>
-							<TrueResult>
-								<GlobalVariableReference ID="FrameworkPath" />
-								<PathSeparator />
-								<Literal Value="vbc.exe" />
-							</TrueResult>
-							<FalseResult>
-								<Literal Value="vbnc" />
-							</FalseResult>
-						</Conditional>
-						<Literal Value=" " />
-						<Literal Value="/target: " />
-						<ProjectVariableReference ID="ProjectTarget" />
-						
-						<Literal Value="/out: " />
-						<ProjectVariableReference ID="OutputFileName" />
+			<Tasks>
+				<Task Title="Build">
+					<Actions>
+						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+							<CommandLine>
+								<Conditional>
+									<Conditions>
+										<Condition Variable="OperatingSystemPlatform" Comparison="Equals" Value="Windows" />
+									</Conditions>
+									<TrueResult>
+										<GlobalVariableReference ID="FrameworkPath" />
+										<PathSeparator />
+										<Literal Value="vbc.exe" />
+									</TrueResult>
+									<FalseResult>
+										<Literal Value="vbnc" />
+									</FalseResult>
+								</Conditional>
+								<Literal Value=" /target:" />
+								<ProjectVariableReference ID="ProjectTarget" />
 
-						<Literal Value="/rootnamespace: " />
-						<ProjectVariableReference ID="RootNamespace" />
-						
-						<ProjectReferenceList ArrayItemPrefix="/reference:" ArrayItemSeparator=" " />
-						<ProjectFileList ArrayItemSeparator=" " />
-					</Execute>
-				</BuildAction>
-			</BuildActions>
+								<Literal Value=" /out:&quot;" />
+								<ProjectVariableReference ID="OutputFileName" />
+								<Literal Value="&quot;" />
+
+								<Literal Value=" /rootnamespace:" />
+								<ProjectVariableReference ID="RootNamespace" />
+
+								<ProjectReferenceList ArrayItemPrefix="/reference:" ArrayItemSeparator=" " />
+								<ProjectFileList ArrayItemSeparator=" " />
+							</CommandLine>
+						</Action>
+					</Actions>
+				</Task>
+			</Tasks>
 			<ProjectVariables>
 				<ProjectVariable ID="ProjectTarget" Type="Selection">
 					<ValidValues>
