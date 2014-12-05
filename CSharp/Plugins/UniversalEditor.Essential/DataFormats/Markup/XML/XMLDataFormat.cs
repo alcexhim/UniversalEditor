@@ -322,7 +322,14 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			while (!tr.EndOfStream)
 			{
 				char c = tr.ReadChar();
-				
+				int times = 0, maxtimes = 5;
+				while (c != '<')
+				{
+					// clear out junk
+					c = tr.ReadChar();
+					times++;
+					if (times == maxtimes) break;
+				}
 				if (c == (char)65279) continue;
 
 				if (!loaded && (c != '<'))
