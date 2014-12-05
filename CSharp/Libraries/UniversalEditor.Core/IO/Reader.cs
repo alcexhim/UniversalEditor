@@ -49,6 +49,7 @@ namespace UniversalEditor.IO
 
 		public char ReadChar()
 		{
+			charBuffer = null;
 			if (charBuffer == null)
 			{
 				int maxByteCount = base.Accessor.DefaultEncoding.GetMaxByteCount(1);
