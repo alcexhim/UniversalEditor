@@ -6,6 +6,16 @@
 			<Information>
 				<Title>XML Transformation Project</Title>
 			</Information>
+			<Tasks>
+				<Task ID="{42ACEBEB-F1E8-43D7-B58B-AF9BE33E634C}" Title="Transform XML with Saxonica">
+					<FileName>C:\Program Files\Saxonica\bin\saxon.exe</FileName>
+					<Arguments>
+						<StringBuilder>
+							<ProjectFiles Separator=" " />
+						</StringBuilder>
+					</Arguments>
+				</Task>
+			</Tasks>
 		</ProjectType>
 	</ProjectTypes>
 </UniversalEditor>
