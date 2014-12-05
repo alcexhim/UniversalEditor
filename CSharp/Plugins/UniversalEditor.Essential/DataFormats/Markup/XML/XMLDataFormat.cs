@@ -333,6 +333,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 
 			while (!tr.EndOfStream)
 			{
+				c = tr.ReadChar();
 				if (!loaded && (c != '<'))
 				{
 					return;
