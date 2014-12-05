@@ -20,11 +20,9 @@
 							<FileName>$(ArduinoPath)\avr-gcc.exe</FileName>
 							<Arguments>
 								<StringBuilder>
-									<Literal Value="-o " />
-									<Quote />
+									<Literal Value="-o &quot;" />
 									<Variable Name="OutputFileName" />
-									<Quote />
-									<Literal Value=" " />
+									<Literal Value="&quot; " />
 									<ProjectFiles Separator=" " />
 								</StringBuilder>
 							</Arguments>

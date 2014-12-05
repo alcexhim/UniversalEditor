@@ -13,11 +13,9 @@
 							<FileName>$(DotNetFrameworkPath)\v$(DotNetVersion)\csc.exe</FileName>
 							<Arguments>
 								<StringBuilder>
-									<Literal Value="/out:" />
-									<Quote />
+									<Literal Value="/out:&quot;" />
 									<Variable Name="OutputFileName" />
-									<Quote />
-									<Literal Value=" " />
+									<Literal Value="&quot; " />
 									<ProjectFiles Separator=" " />
 								</StringBuilder>
 							</Arguments>

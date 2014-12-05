@@ -14,10 +14,9 @@
 							<FileName>$(MinGWPath)\g++.exe</FileName>
 							<Arguments>
 								<StringBuilder>
-									<Literal Value="-o " />
-									<Quote />
+									<Literal Value="-o &quot;" />
 									<Variable Name="OutputFileName" />
-									<Quote />
+									<Literal Value="&quot; " />
 									<ConditionalStatement>
 										<Conditions>
 											<Condition VariableName="OutputType" Comparison="EqualTo" Value="GraphicalApplication" />
@@ -50,7 +49,6 @@
 											<VariableArray Name="LibraryReferences" Prefix="-l" Separator=" " />
 										</TrueResult>
 									</ConditionalStatement>
-									<Literal Value=" " />
 									<VariableArray Name="ProjectFiles" Separator=" " />
 								</StringBuilder>
 							</Arguments>
