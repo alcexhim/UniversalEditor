@@ -232,17 +232,20 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			if (tv.SelectedNode.Tag is ProjectObjectModel)
 			{
 				ProjectObjectModel project = (tv.SelectedNode.Tag as ProjectObjectModel);
-				if (project.ProjectType.Tasks.Count > 0)
+				if (project.ProjectType != null)
 				{
-					foreach (ProjectTask task in project.ProjectType.Tasks)
+					if (project.ProjectType.Tasks.Count > 0)
 					{
-						ToolStripMenuItem tsmiProjectTask = new ToolStripMenuItem();
-						tsmiProjectTask.Text = task.Title;
-						tsmiProjectTask.Tag = task;
-						tsmiProjectTask.Click += tsmiProjectTask_Click;
-						mnuContext.Items.Add(tsmiProjectTask);
+						foreach (ProjectTask task in project.ProjectType.Tasks)
+						{
+							ToolStripMenuItem tsmiProjectTask = new ToolStripMenuItem();
+							tsmiProjectTask.Text = task.Title;
+							tsmiProjectTask.Tag = task;
+							tsmiProjectTask.Click += tsmiProjectTask_Click;
+							mnuContext.Items.Add(tsmiProjectTask);
+						}
+						mnuContext.Items.Add(new ToolStripSeparator());
 					}
-					mnuContext.Items.Add(new ToolStripSeparator());
 				}
 			}
 
