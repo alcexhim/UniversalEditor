@@ -25,6 +25,13 @@ Project file BuildActions:
 		- Combine multiple selected files into one
 		OutputObjectModel = FileSystemObjectModel
 		User specifies OutputFileName and OutputDataFormat
+	Support multiple Tasks for a BuildAction, i.e.
+		<BuildAction Title="Compile">
+			<Tasks>
+				<Task ID="..." />
+				<Task ID="..." />
+			</Tasks>
+		</BuildAction>
 
 Document Tabs:
 * Dragging items over document tabs should cause the active tab to switch to the tab being dragged over. As of 2012, Visual Studio does not support this ;)
