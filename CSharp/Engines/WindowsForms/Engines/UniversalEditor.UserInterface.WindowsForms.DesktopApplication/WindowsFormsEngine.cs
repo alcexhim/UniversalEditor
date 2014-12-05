@@ -169,6 +169,9 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
+            // TODO: figure out why this is being done on BeforeInitialization and whether we could move it to after
+            //       the configuration is initialized, so we can specify the user's favorite theme in a configuration file
+
 			AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme theme = new AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.ColorMode.Dark);
 			theme.UseAllCapsMenus = false;
 			theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.Initial);
