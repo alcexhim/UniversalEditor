@@ -227,6 +227,34 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 				return;
 			}
 
+			mnuContext.Items.Clear();
+
+			if (tv.SelectedNode.Tag is ProjectObjectModel)
+			{
+				ProjectObjectModel project = (tv.SelectedNode.Tag as ProjectObjectModel);
+				if (project.ProjectType.Tasks.Count > 0)
+				{
+					foreach (ProjectTask task in project.ProjectType.Tasks)
+					{
+						ToolStripMenuItem tsmiProjectTask = new ToolStripMenuItem();
+						tsmiProjectTask.Text = task.Title;
+						tsmiProjectTask.Tag = task;
+						tsmiProjectTask.Click += tsmiProjectTask_Click;
+						mnuContext.Items.Add(tsmiProjectTask);
+					}
+					mnuContext.Items.Add(new ToolStripSeparator());
+				}
+			}
+
+			mnuContext.Items.Add(mnuContextAdd);
+			mnuContext.Items.Add(mnuContextSep1);
+			mnuContext.Items.Add(mnuContextCut);
+			mnuContext.Items.Add(mnuContextCopy);
+			mnuContext.Items.Add(mnuContextPaste);
+			mnuContext.Items.Add(deleteToolStripMenuItem);
+			mnuContext.Items.Add(toolStripSeparator1);
+			mnuContext.Items.Add(mnuContextProperties);
+
 			mnuContextAdd.DropDownItems.Clear();
 			mnuContextAdd.DropDownItems.Add(mnuContextAddNewItem);
 			mnuContextAdd.DropDownItems.Add(mnuContextAddExistingItem);
@@ -263,6 +291,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 					}
 				}
 			}
+		}
+
+		private void tsmiProjectTask_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
+			ProjectTask task = (tsmi.Tag as ProjectTask);
+
+			MessageBox.Show("Task activated: " + task.Title + " (" + task.Actions.Count.ToString() + " actions)");
 		}
 		private void tsmiItemShortcut_Click(object sender, EventArgs e)
 		{
