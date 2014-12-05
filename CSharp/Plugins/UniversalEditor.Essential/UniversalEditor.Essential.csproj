@@ -64,6 +64,8 @@
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutStartupNotifyBehavior.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutType.cs" />
+    <Compile Include="DataFormats\UEPackage\UEPackageXMLDataFormat.cs" />
+    <Compile Include="ExpandedString.cs" />
     <Compile Include="ObjectModels\AbstractSyntax\AbstractSyntaxObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="ObjectModels\Text\Formatted\Items\Container.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\Literal.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
+    <Compile Include="ObjectModels\UEPackage\UEPackageObjectModel.cs" />
     <Compile Include="ProjectTask.cs" />
     <Compile Include="ProjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
