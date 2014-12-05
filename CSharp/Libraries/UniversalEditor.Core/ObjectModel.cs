@@ -6,6 +6,12 @@ namespace UniversalEditor
 {
 	public abstract class ObjectModel : ICloneable, References<ObjectModelReference>
 	{
+		public class ObjectModelCollection
+			: System.Collections.ObjectModel.Collection<ObjectModel>
+		{
+
+		}
+
 		public virtual ObjectModelReference MakeReference()
 		{
 			ObjectModelReference omr = new ObjectModelReference(GetType());

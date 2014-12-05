@@ -68,6 +68,12 @@ namespace UniversalEditor
 	}
 	public class DocumentTemplate : Template
 	{
+		public class DocumentTemplateCollection
+			: System.Collections.ObjectModel.Collection<DocumentTemplate>
+		{
+
+		}
+
 		private ObjectModel mvarObjectModel = null;
 		/// <summary>
 		/// The complete object model that is used as the basis for the content provided by the template.
@@ -179,6 +185,12 @@ namespace UniversalEditor
 	}
 	public class ProjectTemplate : Template
 	{
+		public class ProjectTemplateCollection
+			 : System.Collections.ObjectModel.Collection<ProjectTemplate>
+		{
+
+		}
+
 		private string[] mvarPath = null;
 		/// <summary>
 		/// 

@@ -7,6 +7,12 @@ namespace UniversalEditor
 {
 	public class ProjectType
 	{
+		public class ProjectTypeCollection
+			: System.Collections.ObjectModel.Collection<ProjectType>
+		{
+
+		}
+
 		private Guid mvarID = Guid.Empty;
 		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 

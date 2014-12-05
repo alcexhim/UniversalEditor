@@ -7,6 +7,12 @@ namespace UniversalEditor
 {
 	public class DataFormatReference : ReferencedBy<DataFormat>
 	{
+		public class DataFormatReferenceCollection
+			: System.Collections.ObjectModel.Collection<DataFormatReference>
+		{
+
+		}
+
 		private string mvarTitle = null;
 		public string Title
 		{

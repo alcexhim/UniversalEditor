@@ -8,6 +8,12 @@ namespace UniversalEditor
 {
 	public abstract class DataFormat : References<DataFormatReference>
 	{
+		public class DataFormatCollection 
+			: System.Collections.ObjectModel.Collection<DataFormat>
+		{
+
+		}
+
 		internal DataFormatReference mvarReference = null;
 		/// <summary>
 		/// The DataFormatReference used to create this DataFormat.
