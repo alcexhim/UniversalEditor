@@ -430,7 +430,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 												if (attTypeID != null)
 												{
 													Guid id = new Guid(attTypeID.Value);
-													task.Actions.Add(ProjectTaskAction.CreateFromTypeID(id));
+													task.Actions.Add(ProjectTaskActionReference.GetByTypeID(id).Create());
 												}
 											}
 										}
