@@ -296,12 +296,15 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			}
 		}
 
+		private void task_Progress(object sender, ProgressEventArgs e)
+		{ 
+		}
+
 		private void tsmiProjectTask_Click(object sender, EventArgs e)
 		{
 			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
 			ProjectTask task = (tsmi.Tag as ProjectTask);
-
-			MessageBox.Show("Task activated: " + task.Title + " (" + task.Actions.Count.ToString() + " actions)");
+			task.Execute(new ProgressEventHandler(task_Progress));
 		}
 		private void tsmiItemShortcut_Click(object sender, EventArgs e)
 		{
