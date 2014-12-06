@@ -30,32 +30,43 @@ namespace UniversalEditor.Common
 			return a.ObjectModelType.FullName.CompareTo(b.ObjectModelType.FullName);
 		}
 
+		private static Type[] mvarAvailableTypes = null;
+		public static Type[] GetAvailableTypes()
+		{
+			if (mvarAvailableTypes == null)
+			{
+				Assembly[] asms = GetAvailableAssemblies();
+				Type[] types = new Type[0];
+				foreach (Assembly asm in asms)
+				{
+					Type[] types1 = null;
+					try
+					{
+						types1 = asm.GetTypes();
+					}
+					catch (ReflectionTypeLoadException ex)
+					{
+						types1 = ex.Types;
+					}
+
+					if (types1 == null) continue;
+
+					Array.Resize<Type>(ref types, types.Length + types1.Length);
+					Array.Copy(types1, 0, types, types.Length - types1.Length, types1.Length);
+				}
+				mvarAvailableTypes = types;
+			}
+			return mvarAvailableTypes;
+		}
+
 		#region Initialization
 		private static bool mvarInitialized = false;
 		private static void Initialize()
 		{
 			if (mvarInitialized) return;
 
-			Assembly[] asms = GetAvailableAssemblies();
-			Type[] types = new Type[0];
-			foreach (Assembly asm in asms)
-			{
-				Type[] types1 = null;
-				try
-				{
-					types1 = asm.GetTypes();
-				}
-				catch (ReflectionTypeLoadException ex)
-				{
-					types1 = ex.Types;
-				}
-
-				if (types1 == null) continue;
-
-				Array.Resize<Type>(ref types, types.Length + types1.Length);
-				Array.Copy(types1, 0, types, types.Length - types1.Length, types1.Length);
-			}
-
+			Type[] types = GetAvailableTypes();
+			
 			#region Initializing Object Models
 			List<AccessorReference> listAccessors = new List<AccessorReference>();
 			List<ObjectModelReference> listObjectModels = new List<ObjectModelReference>();
