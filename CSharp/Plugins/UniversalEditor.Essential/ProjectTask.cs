@@ -18,9 +18,22 @@ namespace UniversalEditor
 		
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+
+		public void Execute(ProgressEventHandler progressEventHandler = null)
+		{
+			for (int i = 0; i < mvarActions.Count; i++)
+			{
+				mvarActions[i].Execute();
+				if (progressEventHandler != null)
+				{
+					progressEventHandler(this, new ProgressEventArgs(i, mvarActions.Count, mvarActions[i].Title));
+				}
+			}
+		}
 	}
 	public abstract class ProjectTaskAction : References<ProjectTaskActionReference>
 	{
+		public abstract string Title { get; }
 		protected abstract void ExecuteInternal();
 
 		public void Execute()
@@ -79,16 +92,43 @@ namespace UniversalEditor
 		{
 			throw new NotImplementedException();
 		}
+
+		private static Dictionary<Guid, ProjectTaskActionReference> _dict = null;
+
+		public static ProjectTaskActionReference GetByTypeID(Guid id)
+		{
+			if (_dict == null)
+			{
+				_dict = new Dictionary<Guid, ProjectTaskActionReference>();
+				Type[] types = Common.Reflection.GetAvailableTypes();
+				foreach (Type type in types)
+				{
+					if (!type.IsAbstract && type.IsSubclassOf(typeof(ProjectTaskAction)))
+					{
+						ProjectTaskAction action = (ProjectTaskAction)type.Assembly.CreateInstance(type.FullName);
+						ProjectTaskActionReference actionref = action.MakeReference();
+						_dict[actionref.ProjectTaskActionTypeID] = actionref;
+					}
+				}
+			}
+			return _dict[id];
+		}
 	}
 	public class ProjectTaskActionExecute : ProjectTaskAction
 	{
+		public override string Title
+		{
+			get { return "Execute: " + mvarCommandLine.ToString(); }
+		}
+
 		private static ProjectTaskActionReference _ptar = null;
 		public override ProjectTaskActionReference MakeReference()
 		{
 			if (_ptar == null)
 			{
 				_ptar = base.MakeReference();
-				_ptar.ID = new Guid("{EE505E05-F125-4718-BA0A-879C72B5125A}");
+				_ptar.ProjectTaskActionTypeID = new Guid("{EE505E05-F125-4718-BA0A-879C72B5125A}");
+				_ptar.ProjectTaskActionTypeName = "UniversalEditor.ProjectTaskActionExecute";
 			}
 			return _ptar;
 		}
@@ -111,6 +151,8 @@ namespace UniversalEditor
 		protected override void ExecuteInternal()
 		{
 			string fileNameWithArguments = mvarCommandLine.ToString();
+			if (String.IsNullOrEmpty(fileNameWithArguments)) return;
+
 			string[] fileNameArgumentsSplit = fileNameWithArguments.Split(new char[] { ' ' }, "\"", StringSplitOptions.None, 2);
 			string fileName = fileNameArgumentsSplit[0];
 			string arguments = fileNameArgumentsSplit[1];
