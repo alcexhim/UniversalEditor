@@ -75,6 +75,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		internal void InvokeClose()
 		{
+			while (!this.IsHandleCreated)
+			{
+				System.Threading.Thread.Sleep(500);
+			}
 			Invoke(new Action(_InvokeClose));
 		}
 		private void _InvokeClose()
