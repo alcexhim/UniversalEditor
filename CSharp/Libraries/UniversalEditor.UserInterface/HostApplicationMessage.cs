@@ -92,6 +92,12 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 
+			public event EventHandler MessagesCleared;
+			protected virtual void OnMessagesCleared(EventArgs e)
+			{
+				if (MessagesCleared != null) MessagesCleared(this, e);
+			}
+
 			protected override void InsertItem(int index, HostApplicationMessage item)
 			{
 				HostApplicationMessage message = item;
@@ -113,6 +119,11 @@ namespace UniversalEditor.UserInterface
 				base.RemoveItem(index);
 
 				OnMessageRemoved(new HostApplicationMessageModifiedEventArgs(message));
+			}
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				OnMessagesCleared(EventArgs.Empty);
 			}
 		}
 
