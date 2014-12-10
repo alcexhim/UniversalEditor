@@ -10,12 +10,11 @@
 				<Task Title="Transform">
 					<Actions>
 						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
-							<FileName>C:\Program Files\Saxonica\bin\saxon.exe</FileName>
-							<Arguments>
-								<StringBuilder>
-									<ProjectFiles Separator=" " />
-								</StringBuilder>
-							</Arguments>
+							<CommandLine>
+								<VariableReference Scope="Global" ID="CompilerExecutablePath" />
+								<Literal Value=" " />
+								<ConstantReference Scope="Project" ID="ProjectFiles" />
+							</CommandLine>
 						</Action>
 					</Actions>
 				</Task>

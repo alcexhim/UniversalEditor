@@ -21,12 +21,25 @@
 			</Command>
 			<Command ID="FileNew" DefaultCommandID="FileNewDocument">
 				<Items>
+					<CommandReference CommandID="FileNewDocumentFileSystem" />
+					<Separator />
+					
 					<CommandReference CommandID="FileNewDocument" />
 					<CommandReference CommandID="FileNewProject" />
 				</Items>
 			</Command>
 			<Command ID="FileNewDocument">
 				<Shortcut Modifiers="Control" Key="N" />
+				<Parameters>
+					<!-- This command takes one parameter which is not set by default -->
+					<Parameter Name="ObjectModelTypeName" />
+				</Parameters>
+			</Command>
+			<Command ID="FileNewDocumentFileSystem" ParentCommandID="FileNewDocument">
+				<!-- Execute FileNewDocument with the specified parameters -->
+				<ParameterValues>
+					<ParameterValue Name="ObjectModelTypeName" Value="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+				</ParameterValues>
 			</Command>
 			<Command ID="FileNewProject">
 				<Shortcut Modifiers="Control,Shift" Key="N" />

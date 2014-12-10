@@ -11,25 +11,13 @@
 					<Actions>
 						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
 							<CommandLine>
-								<Conditional>
-									<Conditions>
-										<Condition Variable="OperatingSystemPlatform" Comparison="Equals" Value="Windows" />
-									</Conditions>
-									<TrueResult>
-										<GlobalVariableReference ID="FrameworkPath" />
-										<PathSeparator />
-										<Literal Value="csc.exe" />
-									</TrueResult>
-									<FalseResult>
-										<Literal Value="csc" />
-									</FalseResult>
-								</Conditional>
+								<VariableReference Scope="Global" ID="CompilerExecutablePath" />
 								<Literal Value=" /target:" />
-								<ProjectVariableReference ID="ProjectTarget" />
+								<VariableReference Scope="Project" ID="ProjectTarget" />
 								<Literal Value=" /out:&quot;" />
-								<ProjectVariableReference ID="OutputFileName" />
+								<VariableReference Scope="Project" ID="OutputFileName" />
 								<Literal Value="&quot; " />
-								<ProjectFiles Separator=" " />
+								<ConstantReference Scope="Project" ID="ProjectFiles" Separator=" " />
 							</CommandLine>
 						</Action>
 					</Actions>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.Markup;
 
 namespace UniversalEditor
 {
@@ -13,32 +14,73 @@ namespace UniversalEditor
 
 		}
 
+		public event EventHandler TaskStarted;
+		public event ProjectTaskEventHandler TaskCompleted;
+		public event ProjectTaskEventHandler TaskFailed;
+		public event ProgressEventHandler TaskProgress;
+
+		protected virtual void OnTaskStarted(EventArgs e)
+		{
+			if (TaskStarted != null) TaskStarted(this, e);
+		}
+		protected virtual void OnTaskCompleted(ProjectTaskEventArgs e)
+		{
+			if (TaskCompleted != null) TaskCompleted(this, e);
+		}
+		protected virtual void OnTaskFailed(ProjectTaskEventArgs e)
+		{
+			if (TaskFailed != null) TaskFailed(this, e);
+		}
+		protected virtual void OnTaskProgress(ProgressEventArgs e)
+		{
+			if (TaskProgress != null) TaskProgress(this, e);
+		}
+
 		private ProjectTaskAction.ProjectTaskActionCollection mvarActions = new ProjectTaskAction.ProjectTaskActionCollection();
 		public ProjectTaskAction.ProjectTaskActionCollection Actions { get { return mvarActions; } }
 		
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-		public void Execute(ProgressEventHandler progressEventHandler = null)
+		public void Execute()
 		{
+			OnTaskStarted(EventArgs.Empty);
+
+			ExpandedStringVariableStore variables = new ExpandedStringVariableStore();
+			ExpandedStringVariable varr = new ExpandedStringVariable();
+			varr.ID = "CompilerExecutablePath";
+			varr.Value = @"C:\Applications\MinGW\bin\gcc.exe";
+			variables.Variables[ExpandedStringSegmentVariableScope.Global, "CompilerExecutablePath"] = varr;
+
+			varr = new ExpandedStringVariable();
+			varr.ID = "OutputFileName";
+			varr.Value = @"C:\Temp\ProjectOutput.exe";
+			variables.Variables[ExpandedStringSegmentVariableScope.Project, "OutputFileName"] = varr;
+
 			for (int i = 0; i < mvarActions.Count; i++)
 			{
-				mvarActions[i].Execute();
-				if (progressEventHandler != null)
+				try
 				{
-					progressEventHandler(this, new ProgressEventArgs(i, mvarActions.Count, mvarActions[i].Title));
+					mvarActions[i].Execute(variables);
 				}
+				catch (Exception ex)
+				{
+					OnTaskFailed(new ProjectTaskEventArgs(ex.Message));
+					return;
+				}
+
+				OnTaskProgress(new ProgressEventArgs(i, mvarActions.Count, mvarActions[i].Title));
 			}
 		}
 	}
 	public abstract class ProjectTaskAction : References<ProjectTaskActionReference>
 	{
 		public abstract string Title { get; }
-		protected abstract void ExecuteInternal();
+		protected abstract void ExecuteInternal(ExpandedStringVariableStore variables);
 
-		public void Execute()
+		public void Execute(ExpandedStringVariableStore variables)
 		{
-			ExecuteInternal();
+			ExecuteInternal(variables);
 		}
 
 		public class ProjectTaskActionCollection
@@ -51,6 +93,14 @@ namespace UniversalEditor
 		{
 			return new ProjectTaskActionReference(GetType());
 		}
+
+		public void LoadFromMarkup(MarkupTagElement tag)
+		{
+			if (tag == null) return;
+			if (tag.FullName != "Action") return;
+			LoadFromMarkupInternal(tag);
+		}
+		protected abstract void LoadFromMarkupInternal(MarkupTagElement tag);
 	}
 	public class ProjectTaskActionReference : ReferencedBy<ProjectTaskAction>
 	{
@@ -148,9 +198,9 @@ namespace UniversalEditor
 			}
 		}
 
-		protected override void ExecuteInternal()
+		protected override void ExecuteInternal(ExpandedStringVariableStore variables)
 		{
-			string fileNameWithArguments = mvarCommandLine.ToString();
+			string fileNameWithArguments = mvarCommandLine.ToString(variables);
 			if (String.IsNullOrEmpty(fileNameWithArguments)) return;
 
 			string[] fileNameArgumentsSplit = fileNameWithArguments.Split(new char[] { ' ' }, "\"", StringSplitOptions.None, 2);
@@ -160,12 +210,30 @@ namespace UniversalEditor
 			if (!System.IO.File.Exists(fileName)) throw new System.IO.FileNotFoundException(fileName);
 
 			System.Diagnostics.Process p = new System.Diagnostics.Process();
-
-			StringBuilder sbArguments = new StringBuilder();
-			// TODO: complete loading arguments
-
 			p.StartInfo = new System.Diagnostics.ProcessStartInfo(fileName, arguments);
+			p.StartInfo.UseShellExecute = false;
+			p.StartInfo.CreateNoWindow = true;
+			p.StartInfo.RedirectStandardError = true;
+			p.StartInfo.RedirectStandardOutput = true;
 			p.Start();
+			p.WaitForExit();
+
+			string error = p.StandardError.ReadToEnd();
+			string output = p.StandardOutput.ReadToEnd();
+
+			if (!String.IsNullOrEmpty(error))
+			{
+				throw new Exception(error);
+			}
+		}
+
+		protected override void LoadFromMarkupInternal(MarkupTagElement tag)
+		{
+			MarkupTagElement tagCommandLine = (tag.Elements["CommandLine"] as MarkupTagElement);
+			if (tagCommandLine != null)
+			{
+				mvarCommandLine = ExpandedString.FromMarkup(tagCommandLine);
+			}
 		}
 	}
 }
