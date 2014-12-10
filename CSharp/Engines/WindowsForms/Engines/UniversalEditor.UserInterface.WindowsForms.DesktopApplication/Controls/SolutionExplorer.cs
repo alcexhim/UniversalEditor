@@ -240,6 +240,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 						{
 							ToolStripMenuItem tsmiProjectTask = new ToolStripMenuItem();
 							task.TaskStarted += task_TaskStarted;
+							task.TaskFailed += task_TaskFailed;
 							task.TaskProgress += task_TaskProgress;
 
 							tsmiProjectTask.Text = task.Title;
