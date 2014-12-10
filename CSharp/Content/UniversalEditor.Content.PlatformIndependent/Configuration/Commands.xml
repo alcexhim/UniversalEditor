@@ -21,9 +21,10 @@
 			</Command>
 			<Command ID="FileNew" DefaultCommandID="FileNewDocument">
 				<Items>
+					<!--
 					<CommandReference CommandID="FileNewDocumentFileSystem" />
 					<Separator />
-					
+					-->
 					<CommandReference CommandID="FileNewDocument" />
 					<CommandReference CommandID="FileNewProject" />
 				</Items>
