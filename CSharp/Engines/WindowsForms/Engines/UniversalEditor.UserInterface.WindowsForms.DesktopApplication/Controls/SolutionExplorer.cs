@@ -239,6 +239,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 						foreach (ProjectTask task in project.ProjectType.Tasks)
 						{
 							ToolStripMenuItem tsmiProjectTask = new ToolStripMenuItem();
+							task.TaskStarted += task_TaskStarted;
+							task.TaskProgress += task_TaskProgress;
+
 							tsmiProjectTask.Text = task.Title;
 							tsmiProjectTask.Tag = task;
 							tsmiProjectTask.Click += tsmiProjectTask_Click;
@@ -296,7 +299,15 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			}
 		}
 
-		private void task_Progress(object sender, ProgressEventArgs e)
+		private void task_TaskStarted(object sender, EventArgs e)
+		{
+			HostApplication.Messages.Clear();
+		}
+		private void task_TaskFailed(object sender, ProjectTaskEventArgs e)
+		{
+			HostApplication.Messages.Add(HostApplicationMessageSeverity.Error, e.Message);
+		}
+		private void task_TaskProgress(object sender, ProgressEventArgs e)
 		{ 
 		}
 
@@ -304,7 +315,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 		{
 			ToolStripMenuItem tsmi = (sender as ToolStripMenuItem);
 			ProjectTask task = (tsmi.Tag as ProjectTask);
-			task.Execute(new ProgressEventHandler(task_Progress));
+			task.Execute();
 		}
 		private void tsmiItemShortcut_Click(object sender, EventArgs e)
 		{
