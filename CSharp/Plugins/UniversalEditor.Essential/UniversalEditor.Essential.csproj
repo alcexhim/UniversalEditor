@@ -111,6 +111,9 @@
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
     <Compile Include="ObjectModels\UEPackage\UEPackageObjectModel.cs" />
     <Compile Include="ProjectTask.cs" />
+    <Compile Include="ProjectTaskAction.cs" />
+    <Compile Include="ProjectTaskActions\ProjectTaskActionExecute.cs" />
+    <Compile Include="ProjectTaskActions\ProjectTaskActionPackage.cs" />
     <Compile Include="ProjectTaskEvent.cs" />
     <Compile Include="ProjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
