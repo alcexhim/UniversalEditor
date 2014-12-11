@@ -141,11 +141,11 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="OptionPanels\ApplicationOptionPanel.cs">
+    <Compile Include="OptionPanels\Application\GeneralOptionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="OptionPanels\ApplicationOptionPanel.Designer.cs">
-      <DependentUpon>ApplicationOptionPanel.cs</DependentUpon>
+    <Compile Include="OptionPanels\Application\GeneralOptionPanel.Designer.cs">
+      <DependentUpon>GeneralOptionPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionPanels\Application\DocumentsOptionPanel.cs">
       <SubType>UserControl</SubType>
@@ -255,8 +255,8 @@
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OptionPanels\ApplicationOptionPanel.resx">
-      <DependentUpon>ApplicationOptionPanel.cs</DependentUpon>
+    <EmbeddedResource Include="OptionPanels\Application\GeneralOptionPanel.resx">
+      <DependentUpon>GeneralOptionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionPanels\Application\DocumentsOptionPanel.resx">
       <DependentUpon>DocumentsOptionPanel.cs</DependentUpon>

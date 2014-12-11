@@ -1,6 +1,6 @@
-﻿namespace UniversalEditor.UserInterface.WindowsForms.OptionPanels
+﻿namespace UniversalEditor.UserInterface.WindowsForms.OptionPanels.Application
 {
-    partial class ApplicationOptionPanel
+    partial class GeneralOptionPanel
     {
         /// <summary> 
         /// Required designer variable.

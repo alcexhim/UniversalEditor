@@ -5,16 +5,16 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace UniversalEditor.UserInterface.WindowsForms.OptionPanels
+namespace UniversalEditor.UserInterface.WindowsForms.OptionPanels.Application
 {
-	public partial class ApplicationOptionPanel : OptionPanel
+	public partial class GeneralOptionPanel : OptionPanel
 	{
-		public ApplicationOptionPanel()
+		public GeneralOptionPanel()
 		{
 			InitializeComponent();
 		}
 
-		private string[] mvarOptionGroups = new string[] { "Application" };
+		private string[] mvarOptionGroups = new string[] { "Application", "General" };
 		public override string[] OptionGroups { get { return mvarOptionGroups; } }
 
 		public override void LoadSettings()
