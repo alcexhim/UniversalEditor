@@ -65,6 +65,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			HostApplication.OutputWindow.TextCleared += OutputWindow_TextCleared;
 			HostApplication.Messages.MessageAdded += Messages_MessageAdded;
 			HostApplication.Messages.MessageRemoved += Messages_MessageRemoved;
+			HostApplication.Messages.MessagesCleared += Messages_MessagesCleared;
 
 			mnuBookmarksSep1.Visible = (Engine.CurrentEngine.BookmarksManager.FileNames.Count > 0);
 			foreach (string FileName in Engine.CurrentEngine.BookmarksManager.FileNames)
@@ -293,6 +294,14 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			pnlErrorList.Invoke(new Action(delegate()
 			{
 				pnlErrorList.Messages.Remove(e.Message);
+				pnlErrorList.RefreshList();
+			}));
+		}
+		private void Messages_MessagesCleared(object sender, EventArgs e)
+		{
+			pnlErrorList.Invoke(new Action(delegate()
+			{
+				pnlErrorList.Messages.Clear();
 				pnlErrorList.RefreshList();
 			}));
 		}

@@ -52,6 +52,8 @@
 					<!-- File -->
 					<Command ID="File" Title="_File" />
 					<Command ID="FileNew" Title="_New" />
+					<Command ID="FileNewDocumentFileSystem" Title="_File System" />
+					
 					<Command ID="FileNewDocument" Title="_Document..." />
 					<Command ID="FileNewProject" Title="_Project/Solution..." />
 					

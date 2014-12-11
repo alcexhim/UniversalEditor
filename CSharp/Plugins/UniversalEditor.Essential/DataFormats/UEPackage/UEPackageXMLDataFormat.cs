@@ -430,7 +430,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 												if (attTypeID != null)
 												{
 													Guid id = new Guid(attTypeID.Value);
-													task.Actions.Add(ProjectTaskActionReference.GetByTypeID(id).Create());
+
+													ProjectTaskActionReference ptar = ProjectTaskActionReference.GetByTypeID(id);
+													ProjectTaskAction pta = ptar.Create();
+													pta.LoadFromMarkup(tagAction);
+													task.Actions.Add(pta);
 												}
 											}
 										}

@@ -12,21 +12,9 @@
 						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
 							<!-- ExecutableAction -->
 							<CommandLine>
-								<Conditional>
-									<Conditions>
-										<Condition Variable="OperatingSystemPlatform" Comparison="Equals" Value="Windows" />
-									</Conditions>
-									<TrueResult>
-										<GlobalVariableReference ID="MinGWPath" />
-										<PathSeparator />
-										<Literal Value="g++.exe" />
-									</TrueResult>
-									<FalseResult>
-										<Literal Value="g++" />
-									</FalseResult>
-								</Conditional>
+								<VariableReference Scope="Global" ID="CompilerExecutablePath" />
 								<Literal Value=" -o &quot;" />
-								<ProjectVariableReference ID="OutputFileName" />
+								<VariableReference Scope="Project" ID="OutputFileName" />
 								<Literal Value="&quot; " />
 								<Conditional>
 									<Conditions>
@@ -49,7 +37,7 @@
 										<Condition VariableName="IncludeFiles.Length" Comparison="GreaterThan" Value="0" />
 									</Conditions>
 									<TrueResult>
-										<VariableArray Name="IncludeFiles" Prefix="-I" Separator=" " />
+										<VariableReference Scope="Project" Name="IncludeFiles" Prefix="-I" Separator=" " />
 									</TrueResult>
 								</Conditional>
 								<Conditional>
@@ -57,7 +45,7 @@
 										<Condition VariableName="LibraryPaths.Length" Comparison="GreaterThan" Value="0" />
 									</Conditions>
 									<TrueResult>
-										<VariableArray Name="LibraryPaths" Prefix="-L" Separator=" " />
+										<VariableReference Scope="Project" Name="LibraryPaths" Prefix="-L" Separator=" " />
 									</TrueResult>
 								</Conditional>
 								<Conditional>
@@ -65,10 +53,10 @@
 										<Condition VariableName="LibraryReferences.Length" Comparison="GreaterThan" Value="0" />
 									</Conditions>
 									<TrueResult>
-										<VariableArray Name="LibraryReferences" Prefix="-l" Separator=" " />
+										<VariableReference Scope="Project" Name="LibraryReferences" Prefix="-l" Separator=" " />
 									</TrueResult>
 								</Conditional>
-								<VariableArray Name="ProjectFiles" Separator=" " />
+								<ConstantReference Scope="Project" Name="ProjectFiles" Separator=" " />
 							</CommandLine>
 						</Action>
 					</Actions>
