@@ -16,7 +16,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.QuickSub
 		}
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{

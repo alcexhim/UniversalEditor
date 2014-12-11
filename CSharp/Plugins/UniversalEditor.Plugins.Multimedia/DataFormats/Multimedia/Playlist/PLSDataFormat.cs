@@ -8,7 +8,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 {
 	public class PLSDataFormat : WindowsConfigurationDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = new DataFormatReference(GetType());
 			dfr.Filters.Add("PLS playlist", new byte?[][] { new byte?[] { (byte)'[', (byte)'p', (byte)'l', (byte)'a', (byte)'y', (byte)'l', (byte)'i', (byte)'s', (byte)'t' } }, new string[] { "*.pls" });

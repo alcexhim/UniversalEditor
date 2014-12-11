@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.FNT
     public class FNTDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FontObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Heroes of Might and Magic font", new string[] { "*.fnt" });
             }

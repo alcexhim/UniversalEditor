@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.InstallShield.Script
     {
         #region DataFormat members
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(InstallShieldScriptObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("InstallShield script (INX)", new byte?[][] { new byte?[] { (byte)'a', (byte)'L', (byte)'u', (byte)'Z' } }, new string[] { "*.inx" });
             }

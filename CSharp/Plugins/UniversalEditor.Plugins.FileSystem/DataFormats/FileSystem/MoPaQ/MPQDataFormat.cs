@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
     public partial class MPQDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Mike O'Brien's MoPaQ archive", new byte?[][] { new byte?[] { (byte)'M', (byte)'P', (byte)'Q' } }, new string[] { "*.mpq" });
             }

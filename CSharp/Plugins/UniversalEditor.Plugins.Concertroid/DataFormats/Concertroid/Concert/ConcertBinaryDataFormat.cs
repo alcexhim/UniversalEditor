@@ -17,7 +17,7 @@ namespace UniversalEditor.DataFormats.Concertroid.Concert
     public class ConcertBinaryDataFormat : VersatileContainerV1DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {

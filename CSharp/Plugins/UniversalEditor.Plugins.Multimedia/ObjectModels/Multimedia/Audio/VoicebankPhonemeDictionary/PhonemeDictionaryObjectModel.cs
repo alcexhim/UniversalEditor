@@ -8,11 +8,11 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankPhonemeDictiona
 	public class PhonemeDictionaryObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "Phoneme dictionary";
 			}
 			return _omr;

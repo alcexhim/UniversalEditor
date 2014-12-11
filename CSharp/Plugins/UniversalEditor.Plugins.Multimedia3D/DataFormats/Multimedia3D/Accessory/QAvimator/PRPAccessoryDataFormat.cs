@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Accessory.QAvimator
 {
     public class PRPAccessoryDataFormat : DataFormat
     {
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Capabilities.Add(typeof(AccessoryObjectModel), DataFormatCapabilities.All);
             dfr.Filters.Add("QAvimator props", new string[] { "*.prp" });
             return dfr;

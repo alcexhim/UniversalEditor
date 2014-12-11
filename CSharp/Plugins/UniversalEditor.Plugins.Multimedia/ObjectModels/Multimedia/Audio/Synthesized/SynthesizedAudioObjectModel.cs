@@ -4,9 +4,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 {
 	public class SynthesizedAudioObjectModel : AudioObjectModel
 	{
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Synthesized audio sequence";
             omr.Path = new string[] { "Multimedia", "Audio", "Synthesized Audio" };
 			return omr;

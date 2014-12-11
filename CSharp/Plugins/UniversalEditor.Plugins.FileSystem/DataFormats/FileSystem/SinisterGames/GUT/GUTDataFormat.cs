@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 	public class GUTDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ExportOptions.Add(new CustomOptionText("GameTitle", "Game &title: ", "Shadow Company: Left for Dead"));
 				_dfr.ExportOptions.Add(new CustomOptionText("GameCopyright", "Game &copyright: ", "Copyright 1998 by Sinister Games Inc."));

@@ -13,7 +13,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WebP
     public class WebPDataFormat : RIFFDataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {

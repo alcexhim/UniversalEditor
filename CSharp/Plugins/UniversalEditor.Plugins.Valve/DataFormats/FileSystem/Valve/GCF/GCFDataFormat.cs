@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Valve.GCF
 	public class GCFDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Valve Game Cache File (GCF) archive", new byte?[][] { new byte?[] { (byte)0, (byte)0, (byte)0, (byte)1 } }, new string[] { "*.gcf" });
 				_dfr.ExportOptions.Add(new CustomOptionVersion("FormatVersion", "Format &version: "));

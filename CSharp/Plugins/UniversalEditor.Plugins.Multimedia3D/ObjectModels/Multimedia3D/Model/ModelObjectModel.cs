@@ -19,11 +19,11 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 		public bool MaterialsLoaded = false;
 
 		private static ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "Model";
 				_omr.Path = new string[] { "Multimedia", "3D Multimedia", "3D Model" };
 				_omr.Description = "A model that can be manipulated in 3D space.";

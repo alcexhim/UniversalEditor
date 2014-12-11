@@ -7,11 +7,11 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 	public class StoryObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "StoryWriter story";
 				_omr.Description = "Tracks characters, locations, and other components of large fictional universes";
 				_omr.Path = new string[] { "StoryWriter" };

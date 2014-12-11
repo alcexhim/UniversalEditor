@@ -12,11 +12,11 @@ namespace UniversalEditor.DataFormats.FileSystem.GPW
 	public class GPWDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Filters.Add("Game Programmers' Wiki custom resource file", new byte?[][] { new byte?[] { (byte)0x89, (byte)0x88, (byte)'G', (byte)'p', (byte)'W', (byte)0x0D, (byte)0x0A, (byte)0x1A } }, new string[] { "*.gpw" });
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 			}

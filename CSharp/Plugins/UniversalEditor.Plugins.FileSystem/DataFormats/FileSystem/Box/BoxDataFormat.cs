@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 	public class BoxDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Mike Becker's BOX archive", new byte?[][] { new byte?[] { (byte)'B', (byte)'O', (byte)'X', (byte)' ', (byte)'F', (byte)'I', (byte)'L', (byte)'E' } }, new string[] { "*.box" });
 				_dfr.ExportOptions.Add(new CustomOptionChoice("NumberSize", "Number size:", true,

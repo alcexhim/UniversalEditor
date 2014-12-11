@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.PSF
 	public class PSFDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Portable Sound Format", new byte?[][] { new byte?[] { (byte)'P', (byte)'S', (byte)'F' } }, new string[] { "*.psf" });
 			}

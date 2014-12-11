@@ -14,11 +14,11 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 		private const byte EV_CURRENT = 1;
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ExecutableObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Executable and Linkable Format", new byte?[][] { new byte?[] { (byte)0x7F, (byte)'E', (byte)'L', (byte)'F' } }, new string[] { "*.elf" });
 			}

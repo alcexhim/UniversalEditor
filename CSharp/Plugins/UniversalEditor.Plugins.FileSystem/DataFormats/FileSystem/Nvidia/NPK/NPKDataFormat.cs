@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
     public class NPKDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ImportOptions.Add(new CustomOptionText("EncryptionKey", "Encryption &key: ", "bogomojo"));
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));

@@ -17,11 +17,11 @@ namespace UniversalEditor.ObjectModels.AddressBook
 			throw new NotImplementedException();
 		}
 		private static ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "Address book";
 				_omr.Description = "Stores names and contact information for people";
 			}

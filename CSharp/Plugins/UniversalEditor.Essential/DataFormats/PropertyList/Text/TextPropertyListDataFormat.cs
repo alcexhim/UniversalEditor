@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 	public class TextPropertyListDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Text-based property list", new byte?[][] { new byte?[] { (byte)'#', (byte)'T', (byte)'P', (byte)'L', (byte)'-', (byte)'1', (byte)'.', (byte)'0' } }, new string[] { "*.tpl" });
 				_dfr.ExportOptions.Add(new CustomOptionText("Title", "&Title: ", "Text Property List"));

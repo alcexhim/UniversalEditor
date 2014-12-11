@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Cyberlore
     public class CAMDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Cyberlore CAM archive", new byte?[][] { new byte?[] { (byte)'C', (byte)'Y', (byte)'L', (byte)'B', (byte)'P', (byte)'C', (byte)' ', (byte)' ', (byte)' ' } }, new string[] { "*.cam" });
                 _dfr.Sources.Add("http://forum.xentax.com/viewtopic.php?p=9801#9801");

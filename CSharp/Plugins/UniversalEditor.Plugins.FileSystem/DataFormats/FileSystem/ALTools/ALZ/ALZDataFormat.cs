@@ -12,11 +12,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 		private const byte MAX_VERSION = 1;
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("ALZip ALZ archive", new byte?[][] { new byte?[] { (byte)'A', (byte)'L', (byte)'Z', (byte)1 } }, new string[] { "*.alz" });
 				_dfr.ContentTypes.Add("application/x-alz-compressed");

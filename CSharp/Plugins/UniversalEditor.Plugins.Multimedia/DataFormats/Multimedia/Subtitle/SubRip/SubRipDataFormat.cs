@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubRip
     public class SubRipDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(SubtitleObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("SubRip subtitles", new string[] { "*.srt" });
             }

@@ -14,11 +14,11 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 		public Version FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(VersatileContainerObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Versatile Container object file", new byte?[][] { new byte?[] { (byte)'V', (byte)'e', (byte)'r', (byte)'s', (byte)'a', (byte)'t', (byte)'i', (byte)'l', (byte)'e', (byte)' ', (byte)'C', (byte)'o', (byte)'n', (byte)'t', (byte)'a', (byte)'i', (byte)'n', (byte)'e', (byte)'r', (byte)' ', (byte)'f', (byte)'i', (byte)'l', (byte)'e', (byte)' ', (byte)'0', (byte)'0', (byte)'0', (byte)'2' } }, new string[] { "*.vco" });
 			}

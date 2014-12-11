@@ -16,9 +16,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 
         // TODO: figure out why PMD Save still generates an incompatible PMD file...
 
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             dfr.Filters.Add("Polygon Movie Maker model", new byte?[][] { new byte?[] { new byte?(80), new byte?(109), new byte?(100) } }, new string[] { "*.pmd" });
             

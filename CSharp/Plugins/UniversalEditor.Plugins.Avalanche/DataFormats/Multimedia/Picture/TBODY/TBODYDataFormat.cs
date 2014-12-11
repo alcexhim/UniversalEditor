@@ -13,11 +13,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TBODY
 	public class TBODYDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Avalanche TBODY texture", new string[] { "*.tbody" });
 			}

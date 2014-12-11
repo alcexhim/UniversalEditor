@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.FileSystem.PKG
     public class PKGDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReference();
+            if (_dfr == null) _dfr = base.MakeReferenceInternal();
             _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
             _dfr.Filters.Add("PlayStation Network package", new byte?[][] { new byte?[] { (byte)0x7F, (byte)'P', (byte)'K', (byte)'G' } }, new string[] { "*.pkg" });
             _dfr.ExportOptions.Add(new CustomOptionText("GameName", "Game &name:"));

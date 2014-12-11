@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 {
 	public class MD2DataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("id software MD2 model", new byte?[][] { new byte?[] { new byte?(73), new byte?(68), new byte?(80), new byte?(50) } }, new string[] { "*.md2" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ElectronicArts
     public class BIGFDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Electronic Arts BIGF archive", new byte?[][] { new byte?[] { (byte)'B', (byte)'I', (byte)'G', (byte)'F' } }, new string[] { "*.abg", "*.ama", "*.big", "*.dua", "*.fra", "*.gea", "*.poa", "*.spa", "*.swa", "*.uka", "*.hog", "*.viv" });
             }

@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.AbstractSyntax.DER
 	public class DERDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(AbstractSyntaxObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;

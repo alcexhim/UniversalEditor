@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Multimedia.VectorImage.Microsoft.Expressio
 	public class ExpressionDesignDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(VectorImageObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Microsoft Expression Design image", new byte?[][] { new byte?[] { (byte)'<', (byte)'X', (byte)'D', (byte)'F', (byte)'V', (byte)':', (byte)'9', (byte)'>', (byte)0x0A } }, new string[] { "*.design" });
 			}

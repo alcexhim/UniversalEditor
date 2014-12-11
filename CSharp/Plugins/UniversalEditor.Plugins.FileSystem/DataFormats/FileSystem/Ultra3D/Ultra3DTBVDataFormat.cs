@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
     public class Ultra3DTBVDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("3D Ultra TBVolume archive", new byte?[][] { new byte?[] { (byte)'T', (byte)'B', (byte)'V', (byte)'o', (byte)'l', (byte)'u', (byte)'m', (byte)'e' } }, new string[] { "*.tbv" });
                 _dfr.ExportOptions.Add(new CustomOptionText("Description", "Description:", "RichRayl@CUC"));

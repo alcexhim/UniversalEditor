@@ -3,9 +3,9 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
 {
 	public class SceneObjectModel : ObjectModel
 	{
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
-            ObjectModelReference omr = base.MakeReference();
+            ObjectModelReference omr = base.MakeReferenceInternal();
             omr.Title = "Animation scene";
             omr.Path = new string[] { "Multimedia", "3D Multimedia", "3D Scene" };
             omr.Description = "Stores model settings and camera settings for an animated or static scene in 3D space.";

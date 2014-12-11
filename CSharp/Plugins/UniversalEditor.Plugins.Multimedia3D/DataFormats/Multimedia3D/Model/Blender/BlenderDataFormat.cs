@@ -4,9 +4,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Blender
 {
 	public class BlenderDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Blender scene", new string[] { "*.blend" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

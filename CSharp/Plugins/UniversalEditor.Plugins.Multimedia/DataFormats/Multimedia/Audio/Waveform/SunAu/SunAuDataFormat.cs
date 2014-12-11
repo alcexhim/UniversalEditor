@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.SunAu
 {
 	public class SunAuDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Sun Microsystems audio file", new byte?[][] { new byte?[] { new byte?(46), new byte?(115), new byte?(110), new byte?(100) } }, new string[] { "*.au" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;

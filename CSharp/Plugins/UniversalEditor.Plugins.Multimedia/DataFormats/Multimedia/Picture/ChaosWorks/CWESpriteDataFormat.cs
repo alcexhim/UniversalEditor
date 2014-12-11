@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ChaosWorks
     public class CWESpriteDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Chaos Works Engine sprite", new byte?[][] { new byte?[] { (byte)'C', (byte)'W', (byte)'E', (byte)' ', (byte)'s', (byte)'p', (byte)'r', (byte)'i', (byte)'t', (byte)'e' } }, new string[] { "*.sph" });
             }

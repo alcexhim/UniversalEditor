@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 {
 	public class RIFFDataFormat : DataFormat
     {
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			
 			List<byte?[]> riffTags = new List<byte?[]>();
 			foreach (string riffTag in mvarRIFFtagsLittleEndian)

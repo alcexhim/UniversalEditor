@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Shaiya
 	public class Shaiya3DCDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Shaiya Online 3DC model", new string[] { "*.3dc" });
 			}

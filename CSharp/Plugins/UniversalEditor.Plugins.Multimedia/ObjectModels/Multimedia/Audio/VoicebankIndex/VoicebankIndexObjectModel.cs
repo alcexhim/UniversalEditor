@@ -9,11 +9,11 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankIndex
 	public class VoicebankIndexObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Path = new string[] { "Multimedia", "Audio", "Voicebank index" };
 				_omr.Title = "Voicebank index";
 			}

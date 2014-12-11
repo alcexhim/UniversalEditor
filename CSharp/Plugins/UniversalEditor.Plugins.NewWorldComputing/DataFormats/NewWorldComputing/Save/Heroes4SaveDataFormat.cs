@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Save
     public class Heroes4SaveDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReference();
+            if (_dfr == null) _dfr = base.MakeReferenceInternal();
             _dfr.Capabilities.Add(typeof(SaveObjectModel), DataFormatCapabilities.All);
             _dfr.Filters.Add("Heroes of Might and Magic IV Save Data", new string[] { "*.h4s" });
             return _dfr;

@@ -24,9 +24,9 @@ namespace UniversalEditor.ObjectModels.Icarus
                 clone.Commands.Add(cmd.Clone() as IcarusCommand);
             }
         }
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
-            ObjectModelReference omr = base.MakeReference();
+            ObjectModelReference omr = base.MakeReferenceInternal();
             omr.Title = "ICARUS engine script";
             omr.Path = new string[] { "Game development", "ICARUS engine script" };
             return omr;

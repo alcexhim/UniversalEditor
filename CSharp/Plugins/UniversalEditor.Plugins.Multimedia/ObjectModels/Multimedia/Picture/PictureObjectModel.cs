@@ -123,9 +123,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 		}
 
 
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Picture";
 			omr.Path = new string[] { "Multimedia", "Picture", "Single Picture" };
 			return omr;

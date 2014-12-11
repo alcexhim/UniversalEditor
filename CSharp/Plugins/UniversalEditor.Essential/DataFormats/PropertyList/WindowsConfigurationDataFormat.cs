@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.PropertyList
 {
 	public class WindowsConfigurationDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Windows Configuration document", new string[] { "*.ini", "*.inf" });
 			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 			return dfr;

@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Descent
     public class DescentHOGDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Descent HOG archive", new byte?[][] { new byte?[] { (byte)'D', (byte)'H', (byte)'F' } }, new string[] { "*.hog" });
             }

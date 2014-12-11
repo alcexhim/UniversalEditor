@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.FileSystem.DeepSilver.SecretFiles
 	public class SPRDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionDomain", "Encryption &domain:", 0xbebe2, Int32.MaxValue, Int32.MinValue));
 				_dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionSeed", "Encryption &seed:", 0, Int32.MaxValue, Int32.MinValue));

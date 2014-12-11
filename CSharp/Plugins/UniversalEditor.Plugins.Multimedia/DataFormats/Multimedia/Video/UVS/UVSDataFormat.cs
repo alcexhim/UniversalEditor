@@ -8,11 +8,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.UVS
     public class UVSDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Sources.Add("http://wiki.xiph.org/OggUVS");
             }
             return _dfr;

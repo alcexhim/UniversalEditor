@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Accessory.PolygonMovieMaker
 {
 	public class VACAccessoryDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(AccessoryObjectModel), DataFormatCapabilities.All);
 			dfr.Filters.Add("Polygon Movie Maker accessory file", new string[] { "*.vac" });
 			return dfr;

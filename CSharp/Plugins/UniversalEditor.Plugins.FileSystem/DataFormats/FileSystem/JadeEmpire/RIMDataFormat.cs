@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.JadeEmpire
 	public class RIMDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Jade Empire RIM archive", new byte?[][] { new byte?[] { (byte)'R', (byte)'I', (byte)'M', (byte)' ', (byte)'V', (byte)'1', (byte)'.', (byte)'0' } }, new string[] { "*.rim" });
 			}

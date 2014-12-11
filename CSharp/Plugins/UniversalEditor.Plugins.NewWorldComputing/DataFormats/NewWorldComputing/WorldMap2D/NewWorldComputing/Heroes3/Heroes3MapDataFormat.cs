@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
 	public class Heroes3MapDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(MapObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Heroes of Might and Magic III map", new byte?[][] { new byte?[] { 0x0E, 0x00, 0x00, 0x00 }, new byte?[] { 0x15, 0x00, 0x00, 0x00 }, new byte?[] { 0x1C, 0x00, 0x00, 0x00 }, new byte?[] { 0x33, 0x00, 0x00, 0x00 } }, new string[] { "*.h3m" });
 			}

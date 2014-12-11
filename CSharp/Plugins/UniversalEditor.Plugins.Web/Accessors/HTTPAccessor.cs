@@ -9,11 +9,11 @@ namespace UniversalEditor.Accessors
 	public class HTTPAccessor : Accessor
 	{
 		private static AccessorReference _ar = null;
-		public override AccessorReference MakeReference()
+		protected override AccessorReference MakeReferenceInternal()
 		{
 			if (_ar == null)
 			{
-				_ar = base.MakeReference();
+				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Internet via HyperText Transfer Protocol (HTTP)";
 				_ar.ImportOptions.Add(new CustomOptionText("FileName", "&File name: "));
 			}

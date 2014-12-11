@@ -12,11 +12,11 @@ namespace UniversalEditor.ProjectTaskActions
 		}
 
 		private static ProjectTaskActionReference _ptar = null;
-		public override ProjectTaskActionReference MakeReference()
+		protected override ProjectTaskActionReference MakeReferenceInternal()
 		{
 			if (_ptar == null)
 			{
-				_ptar = base.MakeReference();
+				_ptar = base.MakeReferenceInternal();
 				_ptar.ProjectTaskActionTypeID = new Guid("{EE505E05-F125-4718-BA0A-879C72B5125A}");
 				_ptar.ProjectTaskActionTypeName = "UniversalEditor.ProjectTaskActionExecute";
 			}

@@ -18,11 +18,11 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Accessory
         }
 
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
             if (_omr == null)
             {
-                _omr = base.MakeReference();
+                _omr = base.MakeReferenceInternal();
                 _omr.Title = "Accessory";
                 _omr.Path = new string[] { "Multimedia", "3D Multimedia", "Accessory" };
                 _omr.Description = "Defines a 3D model that can be attached to another 3D model that supports the attachment of accessories";

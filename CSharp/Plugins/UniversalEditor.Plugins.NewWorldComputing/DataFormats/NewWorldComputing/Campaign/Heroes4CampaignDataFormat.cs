@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Campaign
     public class Heroes4CampaignDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReference();
+            if (_dfr == null) _dfr = base.MakeReferenceInternal();
             _dfr.Capabilities.Add(typeof(CampaignObjectModel), DataFormatCapabilities.All);
             _dfr.Filters.Add("Heroes of Might and Magic IV campaign", new byte?[][] { new byte?[] { (byte)'H', (byte)'4', (byte)'C', (byte)'A', (byte)'M', (byte)'P', (byte)'A', (byte)'I', (byte)'G', (byte)'N' } }, new string[] { "*.h4c" });
             return _dfr;

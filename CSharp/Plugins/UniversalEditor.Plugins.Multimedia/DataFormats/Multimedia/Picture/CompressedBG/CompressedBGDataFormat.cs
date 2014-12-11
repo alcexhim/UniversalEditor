@@ -36,9 +36,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.CompressedBG
     public class CompressedBGDataFormat : DataFormat 
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReference();
+            if (_dfr == null) _dfr = base.MakeReferenceInternal();
             _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
             _dfr.Filters.Add("Buriko General Interpreter compressed image", new byte?[][] { new byte?[] { (byte)'C', (byte)'o', (byte)'m', (byte)'p', (byte)'r', (byte)'e', (byte)'s', (byte)'s', (byte)'e', (byte)'d', (byte)'B', (byte)'G', (byte)'_', (byte)'_', (byte)'_', (byte)0 } }, new string[] { "*.cbg" });
             return _dfr;

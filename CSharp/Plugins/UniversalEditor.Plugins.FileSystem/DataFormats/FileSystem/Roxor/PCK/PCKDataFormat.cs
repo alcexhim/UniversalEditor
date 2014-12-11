@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 	public class PCKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Roxor In the Groove PCK archive", new byte?[][] { new byte?[] { (byte)'P', (byte)'C', (byte)'K', (byte)'F' } }, new string[] { "*.pck" });
 				_dfr.ExportOptions.Add(new CustomOptionText("Comment", "&Comment: ", String.Empty, 128));

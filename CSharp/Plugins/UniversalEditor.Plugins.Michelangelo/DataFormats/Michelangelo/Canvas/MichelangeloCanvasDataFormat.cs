@@ -12,7 +12,7 @@ namespace UniversalEditor.DataFormats.Michelangelo.Canvas
 	public class MichelangeloCanvasDataFormat : ZIPDataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{

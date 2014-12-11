@@ -24,9 +24,9 @@ namespace UniversalEditor.ObjectModels.PMAXPatch
             }
         }
 
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
-            ObjectModelReference omr = base.MakeReference();
+            ObjectModelReference omr = base.MakeReferenceInternal();
             omr.Title = "PMAX patch";
             omr.Path = new string[] { "Multimedia", "3D Multimedia", "Concertroid Extensions" };
             omr.Description = "Extensions that enhance the 3D model rendered with Concertroid";

@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
     public class FRM16DataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Reflexive Entertainment FRM16 image", new byte?[][] { new byte?[] { (byte)0x32, (byte)0x10 } }, new string[] { "*.frm16" });
                 _dfr.Sources.Add("http://lionheart.eowyn.cz/doku.php?id=formats:frm16");

@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.AVI
 {
 	public class AVIDataFormat : RIFFDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Clear();
 			dfr.Filters.Add("Audio/Video Interleaved", new string[] { "*.avi" });
 			dfr.Capabilities.Add(typeof(VideoObjectModel), DataFormatCapabilities.All);

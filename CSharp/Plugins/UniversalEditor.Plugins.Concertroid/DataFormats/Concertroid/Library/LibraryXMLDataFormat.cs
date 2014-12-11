@@ -14,7 +14,7 @@ namespace UniversalEditor.DataFormats.Concertroid.Library
     public class LibraryXMLDataFormat : XMLDataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {

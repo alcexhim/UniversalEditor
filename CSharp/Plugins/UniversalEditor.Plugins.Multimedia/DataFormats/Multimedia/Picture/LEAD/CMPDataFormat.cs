@@ -17,11 +17,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.LEAD
 	public class CMPDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("LEAD compressed image", new byte?[][] { new byte?[] { (byte)'L', (byte)'E', (byte)'A', (byte)'D' } }, new string[] { "*.cmp" });
 			}

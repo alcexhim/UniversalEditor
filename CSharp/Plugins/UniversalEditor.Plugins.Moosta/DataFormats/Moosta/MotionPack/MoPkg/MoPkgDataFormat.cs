@@ -26,11 +26,11 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 		private byte mvarCompressionMode = 0;
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(MotionPackObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Moosta motion pack", new byte?[][] { new byte?[] { (byte)'M', (byte)'o', (byte)'P', (byte)'k', (byte)'g' } }, new string[] { "*.mopkg" });
 			}

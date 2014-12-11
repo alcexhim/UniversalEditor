@@ -12,9 +12,9 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Motion
 		private MotionFrame.MotionFrameCollection mvarFrames = new MotionFrame.MotionFrameCollection();
 		public MotionFrame.MotionFrameCollection Frames { get { return mvarFrames; } }
 
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Motion capture data";
             omr.Path = new string[] { "Multimedia", "3D Multimedia", "Motion Capture Data" };
             omr.Description = "Motion capture data that can be used to animate a model in 3D space.";

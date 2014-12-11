@@ -40,10 +40,10 @@ namespace UniversalEditor
             return false;
 		}
 	}
-	public class ConverterReference
+	public class ConverterReference : ReferencedBy<Converter>
 	{
-		private Type mvarConverterType = null;
-		public Type ConverterType { get { return mvarConverterType; } set { mvarConverterType = value; } }
+		private Type mvarType = null;
+		public Type Type { get { return mvarType; } set { mvarType = value; } }
 
 		private ConverterCapabilityCollection mvarCapabilities = new ConverterCapabilityCollection();
 		public ConverterCapabilityCollection Capabilities { get { return mvarCapabilities; } }
@@ -59,13 +59,34 @@ namespace UniversalEditor
 				throw new InvalidOperationException("Cannot create a converter reference to an abstract type");
 			}
 
-			mvarConverterType = type;
+			mvarType = type;
+		}
+
+		public Converter Create()
+		{
+			if (mvarType != null) return (Converter)mvarType.Assembly.CreateInstance(mvarType.FullName);
+			return null;
+		}
+
+		public string[] GetDetails()
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool ShouldFilterObject(string filter)
+		{
+			throw new NotImplementedException();
 		}
 	}
-	public abstract class Converter
+	public abstract class Converter : References<ConverterReference>
 	{
 		public abstract void Convert(ObjectModel from, ObjectModel to);
-		public virtual ConverterReference MakeReference()
+
+		public ConverterReference MakeReference()
+		{
+			return MakeReferenceInternal();
+		}
+		protected virtual ConverterReference MakeReferenceInternal()
 		{
 			ConverterReference _cr = new ConverterReference(this.GetType());
 			return _cr;

@@ -8,11 +8,11 @@ namespace UniversalEditor.ObjectModels.Web.WebService.Description
     public class WebServiceDescriptionObjectModel : ObjectModel
     {
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
             if (_omr == null)
             {
-                _omr = base.MakeReference();
+                _omr = base.MakeReferenceInternal();
                 _omr.Title = "Web Service Description";
                 _omr.Path = new string[] { "Web", "Services", "Web Service Description" };
             }

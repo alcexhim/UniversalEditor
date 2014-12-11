@@ -3,9 +3,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Project
 {
 	public class AudioProjectObjectModel : ObjectModel
 	{
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Audio project";
             omr.Path = new string[] { "Multimedia", "Audio", "Audio Project" };
 			return omr;

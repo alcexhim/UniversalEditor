@@ -711,7 +711,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 						mnu.Text = omr.Title;
 						mnu.Tag = omr;
 						mnu.Click += new EventHandler(mnuSwitchObjectModel_Click);
-						if (omr.ObjectModelType == CurrentDocument.ObjectModel.GetType())
+						if (omr.Type == CurrentDocument.ObjectModel.GetType())
 						{
 							mnu.Checked = true;
 						}
@@ -793,7 +793,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				ObjectModel objm = template.ObjectModelReference.Create();
 				if (objm == null)
 				{
-					MessageBox.Show("Failed to create an ObjectModel for the type \"" + template.ObjectModelReference.ObjectModelTypeName + "\"", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("Failed to create an ObjectModel for the type \"" + template.ObjectModelReference.TypeName + "\"", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
 				}
 

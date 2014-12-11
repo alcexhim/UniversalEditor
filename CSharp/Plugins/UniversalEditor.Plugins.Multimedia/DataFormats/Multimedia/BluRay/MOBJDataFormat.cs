@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia.BluRay
 {
 	public class MOBJDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Blu-Ray/AVCHD Movie Object", new byte?[][] { new byte?[] { new byte?(77), new byte?(79), new byte?(66), new byte?(74) } }, new string[] { "*.bdmv", "*.bdm" });
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			return dfr;

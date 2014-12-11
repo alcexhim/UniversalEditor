@@ -19,7 +19,12 @@ namespace UniversalEditor
 		/// Creates or returns an existing <see cref="ReferencedBy" /> object referring to this <see cref="References" /> object.
 		/// </summary>
 		/// <returns>A <see cref="ReferencedBy" /> object that can be used to create additional instances of this <see cref="References" /> object.</returns>
-		public virtual AccessorReference MakeReference()
+		public AccessorReference MakeReference()
+		{
+			AccessorReference ar = MakeReferenceInternal();
+			return ar;
+		}
+		protected virtual AccessorReference MakeReferenceInternal()
 		{
 			return new AccessorReference(this.GetType());
 		}

@@ -8,11 +8,11 @@ namespace UniversalEditor.ObjectModels.Concertroid.Concert
     public class ConcertObjectModel : ObjectModel
     {
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
             if (_omr == null)
             {
-                _omr = base.MakeReference();
+                _omr = base.MakeReferenceInternal();
                 _omr.Title = "Concert";
                 _omr.Path = new string[] { "Concertroid", "Concert" };
             }

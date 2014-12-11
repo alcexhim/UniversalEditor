@@ -17,9 +17,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.NewWorldComputing
 	public class Eight2MDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			if (_dfr == null) _dfr = base.MakeReference();
+			if (_dfr == null) _dfr = base.MakeReferenceInternal();
 			_dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			_dfr.Sources.Add("http://www.terrybutler.co.uk/misc/heroes-of-might-and-magic-ii/");
 			_dfr.Filters.Add("Heroes of Might and Magic II sound effect", new string[] { "*.82M" });

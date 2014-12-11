@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 	public class PPMDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Portable AnyMap (NetPBM) image", new byte?[][] { new byte?[] { (byte)'P', (byte)'1' }, new byte?[] { (byte)'P', (byte)'2' }, new byte?[] { (byte)'P', (byte)'3' }, new byte?[] { (byte)'P', (byte)'4' }, new byte?[] { (byte)'P', (byte)'5' }, new byte?[] { (byte)'P', (byte)'6' }, new byte?[] { (byte)'P', (byte)'7' } }, new string[] { "*.ppm", "*.pgm", "*.pbm", "*.pam" });
 			}

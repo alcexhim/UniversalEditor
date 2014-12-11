@@ -13,9 +13,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
         private readonly byte?[] SZDDsignal = new byte?[] { (byte)'S', (byte)'Z', (byte)'D', (byte)'D', (byte)0x88, (byte)0xF0, (byte)0x27, (byte)0x33 };
         private readonly byte?[] SZsignal = new byte?[] { (byte)'S', (byte)'Z', (byte)' ', (byte)0x88, (byte)0xF0, (byte)0x27, (byte)0x33, (byte)0xD1 };
 
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference _dfr = base.MakeReference();
+            DataFormatReference _dfr = base.MakeReferenceInternal();
             _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
             _dfr.Filters.Add("MSCompressed", new byte?[][] { KWAJsignal, SZDDsignal, SZsignal }, new string[] { "*.??_" });
             return _dfr;

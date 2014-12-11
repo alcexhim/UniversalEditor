@@ -12,7 +12,13 @@ namespace UniversalEditor
 
 		}
 
-		public virtual ObjectModelReference MakeReference()
+		public ObjectModelReference MakeReference()
+		{
+			ObjectModelReference omr = MakeReferenceInternal();
+			ObjectModelReference.Register(omr);
+			return omr;
+		}
+		protected virtual ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = new ObjectModelReference(GetType());
 			return omr;

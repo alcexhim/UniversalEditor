@@ -13,7 +13,7 @@ namespace UniversalEditor.DataFormats.DataLink.UniversalDataLink
 	public class UDLDataFormat : WindowsConfigurationDataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{

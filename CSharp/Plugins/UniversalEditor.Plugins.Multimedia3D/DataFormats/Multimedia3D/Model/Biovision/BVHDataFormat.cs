@@ -12,9 +12,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Biovision
     /// </summary>
     public class BVHDataFormat : DataFormat
     {
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Capabilities.Add(typeof(MotionObjectModel), DataFormatCapabilities.All);
             dfr.Filters.Add("Biovision Hierarchy animation data", new byte?[][] { new byte?[] { (byte)'H', (byte)'I', (byte)'E', (byte)'R', (byte)'A', (byte)'R', (byte)'C', (byte)'H', (byte)'Y' } }, new string[] { "*.bvh" });
             dfr.Filters.Add("Qavimator motion data", new byte?[][] { new byte?[] { (byte)'H', (byte)'I', (byte)'E', (byte)'R', (byte)'A', (byte)'R', (byte)'C', (byte)'H', (byte)'Y' } }, new string[] { "*.avm" });

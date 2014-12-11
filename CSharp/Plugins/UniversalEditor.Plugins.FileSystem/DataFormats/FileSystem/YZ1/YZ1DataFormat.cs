@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.YZ1
 	public class YZ1DataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Yamazaki ZIPPER/DeepFreezer archive", new byte?[][] { new byte?[] { (byte)'y', (byte)'z', (byte)'0', (byte)'1', (byte)'0', (byte)'6', (byte)'0', (byte)'0' } }, new string[] { "*.yz1" });
 			}

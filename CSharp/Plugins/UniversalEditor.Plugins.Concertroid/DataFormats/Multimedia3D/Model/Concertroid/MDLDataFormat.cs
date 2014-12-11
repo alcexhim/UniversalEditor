@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Concertroid
 {
 	public class MDLDataFormat : UniversalEditor.DataFormats.FileSystem.ZIP.ZIPDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 			dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 			dfr.Filters.Add("Concertroid all-in-one model package", new string[] { "*.mdl" });

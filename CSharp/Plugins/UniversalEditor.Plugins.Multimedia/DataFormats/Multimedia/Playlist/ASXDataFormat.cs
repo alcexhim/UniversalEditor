@@ -7,9 +7,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 {
 	public class ASXDataFormat : XMLDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 
 			dfr.Filters.Add("Advanced Stream Redirector", new string[] { "*.asx" });

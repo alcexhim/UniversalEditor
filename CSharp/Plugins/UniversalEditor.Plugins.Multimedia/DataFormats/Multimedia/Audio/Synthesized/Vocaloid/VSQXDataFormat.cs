@@ -14,7 +14,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
         private Version mvarProductVersion = new Version(1, 0);
         public Version ProductVersion { get { return mvarProductVersion; } set { mvarProductVersion = value; } }
 
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
             DataFormatReference dfr = new DataFormatReference(this.GetType());
 			dfr.Filters.Add("VOCALOID3 voice sequence (XML)", new string[] { "*.vsqx" });

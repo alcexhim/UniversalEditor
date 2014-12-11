@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Icarus
     public class IcarusTextDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(IcarusScriptObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("ICARUS text script", new string[] { "*.icarus" });
             }

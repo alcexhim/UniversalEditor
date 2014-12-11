@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.SPIS
     public class SPISDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("SPIS archive", new byte?[][] { new byte?[] { (byte)'S', (byte)'P', (byte)'I', (byte)'S' } }, new string[] { "*.dsk" });
             }

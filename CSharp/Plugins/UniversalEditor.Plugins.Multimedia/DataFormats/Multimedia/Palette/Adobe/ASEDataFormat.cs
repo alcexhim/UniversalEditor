@@ -12,11 +12,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 		// http://www.selapa.net/swatches/colors/fileformats.php#adobe_acb
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Adobe Swatch Exchange color palette", new byte?[][] { new byte?[] { (byte)'A', (byte)'S', (byte)'E', (byte)'F' } }, new string[] { "*.ase" });
 			}

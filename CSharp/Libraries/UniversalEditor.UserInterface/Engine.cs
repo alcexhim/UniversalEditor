@@ -1145,7 +1145,7 @@ namespace UniversalEditor.UserInterface
 			{
 				foreach (CustomOption eo in coll)
 				{
-					System.Reflection.PropertyInfo pi = dfr.DataFormatType.GetProperty(eo.PropertyName);
+					System.Reflection.PropertyInfo pi = dfr.Type.GetProperty(eo.PropertyName);
 					if (pi == null) continue;
 
 					if (eo is CustomOptionNumber)

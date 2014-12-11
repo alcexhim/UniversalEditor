@@ -10,11 +10,11 @@ namespace UniversalEditor.Accessors
 	public class FileAccessor : Accessor
 	{
 		private static AccessorReference _ar = null;
-		public override AccessorReference MakeReference()
+		protected override AccessorReference MakeReferenceInternal()
 		{
 			if (_ar == null)
 			{
-				_ar = base.MakeReference();
+				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Local file";
 
 				_ar.ImportOptions.Add(new CustomOptionFile("FileName", "&File name:"));

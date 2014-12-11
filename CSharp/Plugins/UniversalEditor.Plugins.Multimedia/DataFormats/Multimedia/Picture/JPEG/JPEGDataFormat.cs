@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.JPEG
     /// </summary>
 	public class JPEGDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Joint Photographic Experts Group image", new string[] { "*.jpg", "*.jpe", "*.jpeg" } );
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			return dfr;

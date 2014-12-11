@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia.BluRay
 {
 	public class MPLSDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Blu-Ray/AVCHD Media PlayList", new byte?[][] { new byte?[] { new byte?(77), new byte?(80), new byte?(76), new byte?(83) } }, new string[] { "*.mpls", "*.mpl" });
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			return dfr;

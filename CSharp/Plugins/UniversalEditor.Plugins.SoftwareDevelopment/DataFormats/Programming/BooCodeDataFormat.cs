@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Programming
 {
     public class BooCodeDataFormat : CodeDataFormat
     {
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Boo code file", new string[] { "*.boo" });
             return dfr;
         }

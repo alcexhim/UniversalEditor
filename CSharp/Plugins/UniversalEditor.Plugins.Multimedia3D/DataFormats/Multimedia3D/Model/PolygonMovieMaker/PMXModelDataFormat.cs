@@ -11,9 +11,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 {
 	public class PMXModelDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Polygon Movie Maker enhanced model", new byte?[][] { new byte?[] { new byte?(80), new byte?(77), new byte?(88), new byte?(32) } }, new string[] { "*.pmx" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

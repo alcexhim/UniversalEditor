@@ -19,15 +19,15 @@ namespace UniversalEditor.Common
 	{
 		private static int _ObjectModelReferenceComparer(ObjectModelReference a, ObjectModelReference b)
 		{
-			if (a.ObjectModelType.BaseType == typeof(ObjectModel) && b.ObjectModelType.BaseType != typeof(ObjectModel))
+			if (a.Type.BaseType == typeof(ObjectModel) && b.Type.BaseType != typeof(ObjectModel))
 			{
 				return 1;
 			}
-			else if (a.ObjectModelType.BaseType != typeof(ObjectModel) && b.ObjectModelType.BaseType == typeof(ObjectModel))
+			else if (a.Type.BaseType != typeof(ObjectModel) && b.Type.BaseType == typeof(ObjectModel))
 			{
 				return -1;
 			}
-			return a.ObjectModelType.FullName.CompareTo(b.ObjectModelType.FullName);
+			return a.Type.FullName.CompareTo(b.Type.FullName);
 		}
 
 		private static Type[] mvarAvailableTypes = null;
@@ -164,11 +164,11 @@ namespace UniversalEditor.Common
 		
 		private static int _DataFormatReferenceComparer(DataFormatReference dfr1, DataFormatReference dfr2)
 		{
-			if (dfr1.DataFormatType.IsAbstract)
+			if (dfr1.Type.IsAbstract)
 			{
 				return 1;
 			}
-			if (dfr2.DataFormatType.IsAbstract)
+			if (dfr2.Type.IsAbstract)
 			{
 				return -1;
 			}
@@ -264,7 +264,7 @@ namespace UniversalEditor.Common
 				ObjectModel om = (ObjectModel)type.Assembly.CreateInstance(type.FullName);
 				ObjectModelReference omr = om.MakeReference();
 
-				DataFormatReference[] dfrs = GetAvailableDataFormats(om.MakeReference());
+				DataFormatReference[] dfrs = GetAvailableDataFormats(omr);
 				
 				foreach (DataFormatReference dfr in dfrs)
 				{
@@ -283,7 +283,7 @@ namespace UniversalEditor.Common
 			}
 			foreach (ObjectModelReference omr in omrs)
 			{
-				if (omr.ObjectModelType == typeof(T))
+				if (omr.Type == typeof(T))
 				{
 					ObjectModel om = (T)omr.Create();
 
@@ -361,7 +361,7 @@ namespace UniversalEditor.Common
 
 			foreach (ObjectModelReference om in array)
 			{
-				if ((dfr.Capabilities[om.ObjectModelType] & capabilities) == capabilities)
+				if ((dfr.Capabilities[om.Type] & capabilities) == capabilities)
 				{
 					list.Add(om);
 				}
@@ -382,7 +382,7 @@ namespace UniversalEditor.Common
 				foreach (DataFormatReference df in dfs)
 				{
 					if (df == null) continue;
-					if ((df.Capabilities[om.ObjectModelType] & capabilities) == capabilities)
+					if ((df.Capabilities[om.Type] & capabilities) == capabilities)
 					{
 						list.Add(om);
 					}
@@ -395,7 +395,7 @@ namespace UniversalEditor.Common
 			ObjectModelReference[] omrs = GetAvailableObjectModels();
 			foreach (ObjectModelReference omr in omrs)
 			{
-				if (omr.ObjectModelType.FullName == TypeName)
+				if (omr.Type.FullName == TypeName)
 				{
 					return omr;
 				}
@@ -407,7 +407,7 @@ namespace UniversalEditor.Common
 			ObjectModelReference[] omrs = GetAvailableObjectModels();
 			foreach (ObjectModelReference omr in omrs)
 			{
-				if (omr.ObjectModelID == ID)
+				if (omr.ID == ID)
 				{
 					return omr;
 				}
@@ -506,7 +506,7 @@ namespace UniversalEditor.Common
 			DataFormatReference[] dfs = GetAvailableDataFormats();
 			foreach (DataFormatReference df in dfs)
 			{
-				if (df.Capabilities[objectModelReference.ObjectModelType] != DataFormatCapabilities.None)
+				if (df.Capabilities[objectModelReference.Type] != DataFormatCapabilities.None)
 				{
 					list.Add(df);
 				}
@@ -519,7 +519,7 @@ namespace UniversalEditor.Common
 			DataFormatReference[] dfs = GetAvailableDataFormats();
 			foreach (DataFormatReference df in dfs)
 			{
-				if (df.Capabilities[omr.ObjectModelType] != DataFormatCapabilities.None)
+				if (df.Capabilities[omr.Type] != DataFormatCapabilities.None)
 				{
 					foreach (DataFormatFilter filter in df.Filters)
 					{
@@ -538,7 +538,7 @@ namespace UniversalEditor.Common
 			DataFormatReference[] dfrs = GetAvailableDataFormats();
 			foreach (DataFormatReference dfr in dfrs)
 			{
-				if (dfr.DataFormatType.FullName == TypeName)
+				if (dfr.Type.FullName == TypeName)
 				{
 					return dfr;
 				}
@@ -603,7 +603,7 @@ namespace UniversalEditor.Common
 			{
 				if (template.ObjectModelReference != null)
 				{
-					if (omr == null || (template.ObjectModelReference.ObjectModelTypeName == omr.ObjectModelTypeName || (template.ObjectModelReference.ObjectModelID != Guid.Empty && template.ObjectModelReference.ObjectModelID == omr.ObjectModelID)))
+					if (omr == null || (template.ObjectModelReference.TypeName == omr.TypeName || (template.ObjectModelReference.ID != Guid.Empty && template.ObjectModelReference.ID == omr.ID)))
 					{
 						retval.Add(template);
 					}
@@ -669,7 +669,7 @@ namespace UniversalEditor.Common
 				ObjectModelReference[] omrs = GetAvailableObjectModels(dfr);
 				foreach (ObjectModelReference omr in omrs)
 				{
-					if (omr.ObjectModelType.FullName == ObjectModelTypeName)
+					if (omr.Type.FullName == ObjectModelTypeName)
 					{
 						ObjectModel om = omr.Create();
 						if (om == null) return null;

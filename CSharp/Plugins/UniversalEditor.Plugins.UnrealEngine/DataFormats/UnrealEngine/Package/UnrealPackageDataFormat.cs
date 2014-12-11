@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
     public class UnrealPackageDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(UnrealPackageObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Unreal Engine package", new byte?[][] { new byte?[] { 0xC1, 0x83, 0x2A, 0x9E } }, new string[] { "*.u", "*.utx", "*.upk" });
                 _dfr.ExportOptions.Add(new CustomOptionText("PackageName", "Package &name:"));

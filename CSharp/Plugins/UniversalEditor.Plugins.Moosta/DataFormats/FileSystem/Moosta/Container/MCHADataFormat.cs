@@ -13,11 +13,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 	public class MCHADataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Moosta character animation", new byte?[][] { new byte?[] { (byte)'M', (byte)'c', (byte)'h', (byte)'a' } }, new string[] { "*.mcha" });
 			}

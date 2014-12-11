@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.FileSystem.TLCD
     public class TLCDDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("The Learning Company data file", new byte?[][] { new byte?[] { (byte)'T', (byte)'L', (byte)'C', (byte)'D' } }, new string[] { "*.tld" });
             }

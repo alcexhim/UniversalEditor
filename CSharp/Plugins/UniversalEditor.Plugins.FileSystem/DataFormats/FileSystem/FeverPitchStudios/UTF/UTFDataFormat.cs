@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.FeverPitchStudios.UTF
 	public class UTFDataFormat : DataFormat
 	{
 		private DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 
 			}

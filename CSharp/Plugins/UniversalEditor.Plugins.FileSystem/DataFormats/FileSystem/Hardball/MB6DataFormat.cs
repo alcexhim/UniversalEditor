@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Hardball
     public class MB6DataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Hardball MB6/GLU archive", new byte?[][] { new byte?[] { (byte)'M', (byte)'B', (byte)'6', (byte)0 } }, new string[] { "*.glu" });
             }

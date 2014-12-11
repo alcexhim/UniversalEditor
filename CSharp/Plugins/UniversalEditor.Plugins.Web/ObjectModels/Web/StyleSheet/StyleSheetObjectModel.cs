@@ -14,11 +14,11 @@ namespace UniversalEditor.ObjectModels.Web.StyleSheet
 		}
 
 		private static ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "Style sheet";
 				_omr.Path = new string[] { "Software development", "Web", "Style sheet" };
 				_omr.Description = "A cascading style sheet used for rich HTML style definitions.";

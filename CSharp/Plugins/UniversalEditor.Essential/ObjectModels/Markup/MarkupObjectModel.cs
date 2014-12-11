@@ -6,9 +6,9 @@ namespace UniversalEditor.ObjectModels.Markup
 {
 	public class MarkupObjectModel : ObjectModel
 	{
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Markup";
 			omr.Path = new string[] { "General", "Markup" };
 			return omr;

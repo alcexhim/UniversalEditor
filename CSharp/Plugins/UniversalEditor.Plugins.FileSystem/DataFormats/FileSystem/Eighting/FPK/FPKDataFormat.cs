@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Eighting.FPK
 	public class FPKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ExportOptions.Add(new CustomOptionNumber("DataAlignment", "Data &alignment (in bytes): ", 16, 0, UInt32.MaxValue));
 				_dfr.Filters.Add("Eighting (Bleach PSP) FPK archive", new byte?[][] { new byte?[] { (byte)'x', (byte)'J', (byte)0, (byte)0 } }, new string[] { "*.fpk" });

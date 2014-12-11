@@ -41,9 +41,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 			InitializePhonemeDictionary();
 		}
 
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 
 			dfr.Filters.Add("UTAU voice sequence", new string[] { "*.ust" });

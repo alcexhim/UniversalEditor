@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 	public class GLBDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Ultimate Stunts GLB", new byte?[][] { new byte?[] { (byte)0, (byte)'G', (byte)'L', (byte)'B' } }, new string[] { "*.glb" });
 			}

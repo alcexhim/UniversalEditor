@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
     public class Ultra3DRBXDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("3D Ultra RBX archive", new byte?[][] { new byte?[] { 0x9E, 0x9A, 0xA9, 0x0B } }, new string[] { "*.rbx" });
             }

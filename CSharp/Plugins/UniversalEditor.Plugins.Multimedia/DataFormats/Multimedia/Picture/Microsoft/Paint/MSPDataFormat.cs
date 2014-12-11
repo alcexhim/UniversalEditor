@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Paint
 	public class MSPDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Microsoft Paint (Windows 1.0) picture", new byte?[][] { new byte?[] { (byte)'D', (byte)'a', (byte)'n', (byte)'M' }, new byte?[] { (byte)'L', (byte)'i', (byte)'n', (byte)'S' } }, new string[] { "*.msp" });
 				_dfr.Sources.Add("http://www.fileformat.info/format/mspaint/egff.htm");

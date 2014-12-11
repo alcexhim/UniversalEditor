@@ -34,9 +34,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 		/// </summary>
 		public string CompensateTopLevelTagName { get { return mvarCompensateTopLevelTagName; } set { mvarCompensateTopLevelTagName = value; } }
 
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Title = "eXtensible Markup Language";
 
 			dfr.Filters.Clear();

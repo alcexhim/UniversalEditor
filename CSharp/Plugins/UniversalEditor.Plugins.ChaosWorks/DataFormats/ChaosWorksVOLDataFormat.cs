@@ -12,11 +12,11 @@ namespace UniversalEditor.DataFormats
 	public class ChaosWorksVOLDataFormat : DataFormat
 	{
 		DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Chaos Works Engine volume", new byte?[][] { new byte?[] { 0x02, 0x42, 0x02, 0x43 }, new byte?[] { 0x02, 0x42, 0x02, 0x42 } }, new string[] { "*.vol" });
 				_dfr.Filters[0].MagicByteOffsets = new int[] { -4 };

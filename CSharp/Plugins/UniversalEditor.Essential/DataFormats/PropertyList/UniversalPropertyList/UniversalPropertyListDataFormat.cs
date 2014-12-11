@@ -12,11 +12,11 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
         private const int HEADER_SIZE = 20;
 
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Universal Property List file", new byte?[][] { new byte?[] { (byte)'U', (byte)'P', (byte)'L', (byte)'F' } }, new string[] { "*.upl" });
                 _dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format version:", true, new CustomOptionFieldChoice("1.0", 1.0f)));

@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 	public class BurikoARCDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Buriko General Interpreter archive", new byte?[][] { new byte?[] { (byte)'P', (byte)'a', (byte)'c', (byte)'k', (byte)'F', (byte)'i', (byte)'l', (byte)'e', (byte)' ', (byte)' ', (byte)' ', (byte)' ' } }, new string[] { "*.arc" });
 			}

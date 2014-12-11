@@ -14,11 +14,11 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 	public class VisualStudioProjectDataFormat : XMLDataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ProjectObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Microsoft Visual Studio project", new string[] { "*.vbproj", "*.csproj", "*.jsproj", "*.wixproj", "*.fsproj", "*.pyproj", "*.sqlproj", "*.phpproj" });
 			}

@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Programming
 {
     public class COBOLCodeDataFormat : CodeDataFormat
     {
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Cobol code file", new string[] { "*.cob", "*.cbl", "*.cobol" });
             return dfr;
         }

@@ -20,11 +20,11 @@ namespace UniversalEditor.DataFormats.AniMiku.ExtendedPMD
 	public class ExtendedPMDDataFormat : PMDModelDataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Clear();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("AniMiku extended Polygon Movie Maker model", new string[] { "*.apmd" });

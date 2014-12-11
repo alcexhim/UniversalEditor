@@ -7,11 +7,11 @@ namespace UniversalEditor.ObjectModels.Chunked
 	public class ChunkedObjectModel : ObjectModel
 	{
 		private ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "Resource Interchange File Format (RIFF)";
 				_omr.Path = new string[] { "Software Development", "Resource Interchange File Format (RIFF)" };
 			}

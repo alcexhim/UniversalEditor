@@ -213,13 +213,13 @@ namespace UniversalEditor.UserInterface
 									tagObjectModel.FullName = "ObjectModel";
 
 									ObjectModelReference omr = document.ObjectModel.MakeReference();
-									if (omr.ObjectModelTypeName != null)
+									if (omr.TypeName != null)
 									{
-										tagObjectModel.Attributes.Add("TypeName", omr.ObjectModelTypeName);
+										tagObjectModel.Attributes.Add("TypeName", omr.TypeName);
 									}
-									if (omr.ObjectModelID != Guid.Empty)
+									if (omr.ID != Guid.Empty)
 									{
-										tagObjectModel.Attributes.Add("ID", omr.ObjectModelID.ToString("B"));
+										tagObjectModel.Attributes.Add("ID", omr.ID.ToString("B"));
 									}
 
 									tagDocument.Elements.Add(tagObjectModel);

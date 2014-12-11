@@ -57,9 +57,9 @@ namespace UniversalEditor.ObjectModels.Executable
 			clone.Subsystem = mvarSubsystem;
 			clone.Timestamp = mvarTimestamp;
 		}
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Executable";
 			omr.Path = new string[] { "Software Development", "Executable" };
 			return omr;

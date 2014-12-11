@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid
 	public class VocaloidIndexDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(VoicebankIndexObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Vocaloid voicebank index", new byte?[][] { new byte?[] { null, null, null, null, null, null, null, null, (byte)'D', (byte)'B', (byte)'S', (byte)'e' } }, new string[] { "*.ddi" });
 			}

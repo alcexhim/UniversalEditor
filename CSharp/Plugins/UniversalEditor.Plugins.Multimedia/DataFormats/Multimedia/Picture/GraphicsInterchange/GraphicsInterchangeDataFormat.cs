@@ -6,9 +6,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 {
 	public class GraphicsInterchangeDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("CompuServe Graphics Interchange Format", new byte?[][] { new byte?[] { (byte)'G', (byte)'I', (byte)'F', (byte)'8', (byte)'7', (byte)'a' }, new byte?[] { (byte)'G', (byte)'I', (byte)'F', (byte)'8', (byte)'9', (byte)'a' } }, new string[] { "*.gif" });
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			return dfr;

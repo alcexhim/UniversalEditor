@@ -8,7 +8,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 	public class FileSystemObjectModel : ObjectModel
 	{
 		private ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{

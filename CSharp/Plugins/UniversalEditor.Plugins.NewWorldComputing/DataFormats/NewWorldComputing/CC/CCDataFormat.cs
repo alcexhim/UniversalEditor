@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.CC
 	public partial class CCDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Might and Magic CC archive", new string[] { "*.cc" });
 				_dfr.Sources.Add("http://rewiki.regengedanken.de/wiki/.CC");

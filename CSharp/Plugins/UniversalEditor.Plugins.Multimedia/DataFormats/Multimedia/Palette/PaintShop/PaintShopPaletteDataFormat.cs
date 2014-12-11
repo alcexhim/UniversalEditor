@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.PaintShop
     public class PaintShopPaletteDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("JASC Paint Shop color palette", new byte?[][] { new byte?[] { (byte)'J', (byte)'A', (byte)'S', (byte)'C', (byte)'-', (byte)'P', (byte)'A', (byte)'L' } }, new string[] { "*.pal" });
             }

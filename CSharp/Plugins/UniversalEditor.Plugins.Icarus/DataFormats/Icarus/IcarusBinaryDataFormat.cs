@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.Icarus
 {
 	public class IcarusBinaryDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(IcarusScriptObjectModel), DataFormatCapabilities.All);
 			dfr.Filters.Add("ICARUS compiled script", new byte?[][] { new byte?[] { (byte)'I', (byte)'B', (byte)'I', (byte)0 } }, new string[] { "*.ibi" });
 			return dfr;

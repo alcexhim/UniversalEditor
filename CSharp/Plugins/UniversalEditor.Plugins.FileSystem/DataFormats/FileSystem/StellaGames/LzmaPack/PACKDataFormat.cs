@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.StellaGames.LzmaPack
 	public class PACKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Stella_Games_LzmaPack");
 				_dfr.Filters.Add("Stella Games LzmaPack", new string[] { "*.pack" });

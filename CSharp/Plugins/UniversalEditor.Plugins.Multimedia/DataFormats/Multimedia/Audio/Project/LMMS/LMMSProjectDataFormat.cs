@@ -7,9 +7,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Project.LMMS
 {
 	public class LMMSProjectDataFormat : XMLDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 			dfr.Filters.Add("Linux MultiMedia Studio Project", new string[] { "*.mmp" });
 			dfr.Capabilities.Add(typeof(AudioProjectObjectModel), DataFormatCapabilities.All);

@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.PRF
     public class PRFDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Hoyle Casino 99 PRF archive", new byte?[][] { new byte?[] { null, null, null, null, (byte)'P', (byte)'R', (byte)'F', (byte)0 } }, new string[] { "*.prf" });
             }

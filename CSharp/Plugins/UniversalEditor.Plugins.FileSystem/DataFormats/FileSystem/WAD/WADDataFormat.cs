@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.WAD
     public class WADDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("DOOM WAD archive", new byte?[][] { new byte?[] { (byte)'I', (byte)'W', (byte)'A', (byte)'D' } }, new string[] { "*.wad" });
                 _dfr.ExportOptions.Add(new CustomOptionBoolean("UserContent", "This archive contains public content (PWAD) rather than internal content (IWAD)"));

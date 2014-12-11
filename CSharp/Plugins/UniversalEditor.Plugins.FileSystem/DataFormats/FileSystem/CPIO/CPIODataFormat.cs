@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 	public class CPIODataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://people.freebsd.org/~kientzle/libarchive/man/cpio.5.txt");
 				_dfr.ExportOptions.Add(new CustomOptionChoice("Encoding", "&Encoding: ", true, new CustomOptionFieldChoice[]

@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.BRSTM
 {
 	public class BRSTMDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("BRSTM/ADPCM sound data", new byte?[][] { new byte?[] { new byte?(77), new byte?(84), new byte?(83), new byte?(82), new byte?(255), new byte?(254) } }, new string[] { "*.brstm" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;

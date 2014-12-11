@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Metasequoia
 {
 	public class MQOTextDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Metasequoia model", new string[] { "*.mqo" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

@@ -14,11 +14,11 @@ namespace UniversalEditor.ObjectModels.Concertroid.Library
         public Producer.ProducerCollection Producers { get { return mvarProducers; } }
 
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
             if (_omr == null)
             {
-                _omr = base.MakeReference();
+                _omr = base.MakeReferenceInternal();
                 _omr.Title = "Asset library";
                 _omr.Path = new string[] { "Concertroid", "Asset library" };
                 _omr.Description = "A container to hold various Concertroid assets, such as songs, musicians, producers, characters, costumes, and animations.";

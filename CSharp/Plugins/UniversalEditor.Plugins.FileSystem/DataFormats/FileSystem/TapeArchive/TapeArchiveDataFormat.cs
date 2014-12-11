@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 	public class TapeArchiveDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Tape archive", new string[] { "*.tar", "*.tar.gz", "*.tgz", "*.tar.bz2", "*.tbz2", "*.tb2", "*.taz", "*.tar.z", "*.tlz", "*.tar.lz", "*.txz", "*.tar.xz" });
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("IsUnixStandardTAR", "Create a UNIX standard tape archive (ustar)", true));

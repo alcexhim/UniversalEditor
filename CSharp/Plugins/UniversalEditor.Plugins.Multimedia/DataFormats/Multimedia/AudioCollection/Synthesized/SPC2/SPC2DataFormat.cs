@@ -29,11 +29,11 @@ namespace UniversalEditor.DataFormats.Multimedia.AudioCollection.Synthesized.SPC
 	public class SPC2DataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(SynthesizedAudioCollectionObjectModel), DataFormatCapabilities.All);
 				_dfr.ImportOptions.Add(new CustomOptionBoolean("UseID666TagInformationIfAvailable", "Use &ID666 tag information if available"));
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("IncludeID666TagInformation", "Include &ID666 tag information in output file"));

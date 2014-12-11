@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Abomination
     public class CLTDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Abomination: The Nemesis Project CLT archive", new byte?[][] { new byte?[] { (byte)'A', (byte)'W', (byte)'A', (byte)'D' } }, new string[] { "*.clt" });
             }

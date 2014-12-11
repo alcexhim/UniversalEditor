@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Super6
     public class Super6DataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Super6 model", new byte?[][] { new byte?[] { 0xFF, 0xFF, 0xFF, 0x9B } }, new string[] { "*.6kt" });
             }

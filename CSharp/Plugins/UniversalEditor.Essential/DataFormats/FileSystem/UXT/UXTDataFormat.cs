@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.UXT
     public class UXTDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Universal Editor extension", new byte?[][] { new byte?[] { (byte)'U', (byte)'n', (byte)'i', (byte)'v', (byte)'e', (byte)'r', (byte)'s', (byte)'a', (byte)'l', (byte)' ', (byte)'E', (byte)'d', (byte)'i', (byte)'t', (byte)'o', (byte)'r', (byte)' ', (byte)'e', (byte)'x', (byte)'t', (byte)'e', (byte)'n', (byte)'s', (byte)'i', (byte)'o', (byte)'n', (byte)' ', (byte)'f', (byte)'i', (byte)'l', (byte)'e', (byte)0 } }, new string[] { "*.uxt" });
                 _dfr.ExportOptions.Add(new CustomOptionText("Comment", "Comment: "));

@@ -59,9 +59,9 @@ namespace UniversalEditor
 				{
 					foreach (ObjectModelReference omr in this)
 					{
-						if (omr.ObjectModelType != null)
+						if (omr.Type != null)
 						{
-							refsByType.Add(omr.ObjectModelType, omr);
+							refsByType.Add(omr.Type, omr);
 						}
 					}
 				}
@@ -69,21 +69,22 @@ namespace UniversalEditor
 			}
 		}
 
-		private string mvarObjectModelTypeName = null;
-		public string ObjectModelTypeName
+		private string mvarTypeName = null;
+		public string TypeName
 		{
 			get
 			{
-				if (mvarObjectModelTypeName != null)
+				if (mvarTypeName != null)
 				{
-					return mvarObjectModelTypeName;
+					return mvarTypeName;
 				}
-				else if (mvarObjectModelType != null)
+				else if (mvarType != null)
 				{
-					return mvarObjectModelType.FullName;
+					return mvarType.FullName;
 				}
 				return null;
 			}
+			set { mvarTypeName = value; }
 		}
 
 		public string[] GetDetails()
@@ -102,11 +103,11 @@ namespace UniversalEditor
 				|| (description.ToLower().Contains(filter.Trim().ToLower())));
 		}
 
-		private Type mvarObjectModelType = null;
-		public Type ObjectModelType { get { return mvarObjectModelType; } }
+		private Type mvarType = null;
+		public Type Type { get { return mvarType; } }
 
-		private Guid mvarObjectModelID = Guid.Empty;
-		public Guid ObjectModelID { get { return mvarObjectModelID; } }
+		private Guid mvarID = Guid.Empty;
+		public Guid ID { get { return mvarID; } }
 
 		private string mvarTitle = null;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
@@ -114,8 +115,8 @@ namespace UniversalEditor
 		public string GetTitle()
 		{
 			if (mvarTitle != null) return mvarTitle;
-			if (mvarObjectModelType != null) return mvarObjectModelType.FullName;
-			return mvarObjectModelID.ToString("B");
+			if (mvarType != null) return mvarType.FullName;
+			return mvarID.ToString("B");
 		}
 
 		private string[] mvarPath = null;
@@ -123,9 +124,9 @@ namespace UniversalEditor
 		{
 			get
 			{
-				if (mvarPath == null && mvarObjectModelType != null)
+				if (mvarPath == null && mvarType != null)
 				{
-					string[] sz = mvarObjectModelType.FullName.Split(new char[] { '.' });
+					string[] sz = mvarType.FullName.Split(new char[] { '.' });
 					if (mvarTitle != null)
 					{
 						sz[sz.Length - 1] = mvarTitle;
@@ -139,11 +140,11 @@ namespace UniversalEditor
 
 		public ObjectModelReference(Guid ID)
 		{
-			mvarObjectModelID = ID;
+			mvarID = ID;
 		}
 		public ObjectModelReference(string TypeName)
 		{
-			mvarObjectModelTypeName = TypeName;
+			mvarTypeName = TypeName;
 		}
 		public ObjectModelReference(Type type)
 		{
@@ -156,8 +157,8 @@ namespace UniversalEditor
 				throw new InvalidOperationException("Cannot create an object model reference to an abstract type");
 			}
 
-			mvarObjectModelType = type;
-			mvarObjectModelTypeName = mvarObjectModelType.FullName;
+			mvarType = type;
+			mvarTypeName = mvarType.FullName;
 		}
 		public ObjectModelReference(Type type, Guid ID)
 		{
@@ -170,20 +171,20 @@ namespace UniversalEditor
 				throw new InvalidOperationException("Cannot create an object model reference to an abstract type");
 			}
 
-			mvarObjectModelType = type;
-			mvarObjectModelTypeName = mvarObjectModelType.FullName;
-			mvarObjectModelID = ID;
+			mvarType = type;
+			mvarTypeName = mvarType.FullName;
+			mvarID = ID;
 		}
 
 		public ObjectModel Create()
 		{
-			if (mvarObjectModelType == null && mvarObjectModelTypeName != null)
+			if (mvarType == null && mvarTypeName != null)
 			{
-				mvarObjectModelType = Type.GetType(mvarObjectModelTypeName);
+				mvarType = Type.GetType(mvarTypeName);
 			}
-			if (mvarObjectModelType != null)
+			if (mvarType != null)
 			{
-				return (mvarObjectModelType.Assembly.CreateInstance(mvarObjectModelType.FullName) as ObjectModel);
+				return (mvarType.Assembly.CreateInstance(mvarType.FullName) as ObjectModel);
 			}
 			return null;
 		}
@@ -193,5 +194,55 @@ namespace UniversalEditor
 
 		private bool mvarVisible = true;
 		public bool Visible { get { return mvarVisible; } set { mvarVisible = value; } }
+
+
+		private static Dictionary<Guid, ObjectModelReference> _referencesByGUID = new Dictionary<Guid, ObjectModelReference>();
+		private static Dictionary<string, ObjectModelReference> _referencesByTypeName = new Dictionary<string, ObjectModelReference>();
+
+		public static bool Register(ObjectModelReference dfr)
+		{
+			bool retval = false;
+			if (dfr.Type != null)
+			{
+				dfr.TypeName = dfr.Type.FullName;
+			}
+			if (dfr.ID != Guid.Empty)
+			{
+				_referencesByGUID[dfr.ID] = dfr;
+				retval = true;
+			}
+			if (dfr.TypeName != null)
+			{
+				_referencesByTypeName[dfr.TypeName] = dfr;
+				retval = true;
+			}
+			return retval;
+		}
+		public static bool Unregister(ObjectModelReference dfr)
+		{
+			bool retval = false;
+			if (dfr.ID != Guid.Empty && _referencesByGUID.ContainsKey(dfr.ID))
+			{
+				_referencesByGUID.Remove(dfr.ID);
+				retval = true;
+			}
+			if (dfr.TypeName != null && _referencesByTypeName.ContainsKey(dfr.TypeName))
+			{
+				_referencesByTypeName.Remove(dfr.TypeName);
+				retval = true;
+			}
+			return retval;
+		}
+
+		public static ObjectModelReference FromTypeName(string typeName)
+		{
+			if (_referencesByTypeName.ContainsKey(typeName)) return _referencesByTypeName[typeName];
+			return null;
+		}
+		public static ObjectModelReference FromGUID(Guid guid)
+		{
+			if (_referencesByGUID.ContainsKey(guid)) return _referencesByGUID[guid];
+			return null;
+		}
 	}
 }

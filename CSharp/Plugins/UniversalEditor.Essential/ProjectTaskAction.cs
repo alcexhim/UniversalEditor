@@ -20,7 +20,11 @@ namespace UniversalEditor
 
 		}
 
-		public virtual ProjectTaskActionReference MakeReference()
+		public ProjectTaskActionReference MakeReference()
+		{
+			return MakeReferenceInternal();
+		}
+		protected virtual ProjectTaskActionReference MakeReferenceInternal()
 		{
 			return new ProjectTaskActionReference(GetType());
 		}

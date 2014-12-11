@@ -4,9 +4,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Wavefront
 {
 	public class OBJDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Wavefront object model", new string[] { "*.obj" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

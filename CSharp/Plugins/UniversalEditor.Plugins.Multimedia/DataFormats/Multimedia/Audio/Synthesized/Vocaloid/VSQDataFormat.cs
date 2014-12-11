@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 {
 	public class VSQDataFormat : MIDIDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 			dfr.Filters.Add("VOCALOID2 voice sequence", new string[] { "*.vsq" });
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);

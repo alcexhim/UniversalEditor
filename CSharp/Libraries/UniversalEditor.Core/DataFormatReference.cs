@@ -27,8 +27,11 @@ namespace UniversalEditor
 			set { mvarTitle = value; }
 		}
 
-		private Type mvarDataFormatType = null;
-		public Type DataFormatType { get { return mvarDataFormatType; } }
+		private Type mvarType = null;
+		public Type Type { get { return mvarType; } }
+
+		private string mvarTypeName = null;
+		public string TypeName { get { return mvarTypeName; } set { mvarTypeName = value; } }
 
 		private string DataFormatFilterCollectionToString(DataFormatFilter.DataFormatFilterCollection collection)
 		{
@@ -89,6 +92,14 @@ namespace UniversalEditor
 			return false;
 		}
 
+		public DataFormatReference(Guid id)
+		{
+			mvarID = id;
+		}
+		public DataFormatReference(string dataFormatTypeName)
+		{
+			mvarTypeName = dataFormatTypeName;
+		}
 		public DataFormatReference(Type dataFormatType)
 		{
 			if (!dataFormatType.IsSubclassOf(typeof(DataFormat)))
@@ -100,7 +111,7 @@ namespace UniversalEditor
 				throw new InvalidOperationException("Cannot create a data format reference to an abstract type");
 			}
 
-			mvarDataFormatType = dataFormatType;
+			mvarType = dataFormatType;
 		}
 
 		private Guid mvarID = Guid.Empty;
@@ -126,7 +137,7 @@ namespace UniversalEditor
 
 		public virtual DataFormat Create()
 		{
-			DataFormat df = (mvarDataFormatType.Assembly.CreateInstance(mvarDataFormatType.FullName) as DataFormat);
+			DataFormat df = (mvarType.Assembly.CreateInstance(mvarType.FullName) as DataFormat);
 			df.mvarReference = this;
 			return df;
 		}
@@ -150,14 +161,63 @@ namespace UniversalEditor
 			{
 				return mvarFilters[0].Title;
 			}
-			else if (mvarDataFormatType != null)
+			else if (mvarType != null)
 			{
-				return mvarDataFormatType.FullName;
+				return mvarType.FullName;
 			}
 			return GetType().FullName;
 		}
 
 		private int mvarPriority = 0;
 		public int Priority { get { return mvarPriority; } set { mvarPriority = value; } }
+
+		private static Dictionary<Guid, DataFormatReference> _referencesByGUID = new Dictionary<Guid, DataFormatReference>();
+		private static Dictionary<string, DataFormatReference> _referencesByTypeName = new Dictionary<string, DataFormatReference>();
+
+		public static bool Register(DataFormatReference dfr)
+		{
+			bool retval = false;
+			if (dfr.Type != null)
+			{
+				dfr.TypeName = dfr.Type.FullName;
+			}
+			if (dfr.ID != Guid.Empty)
+			{
+				_referencesByGUID[dfr.ID] = dfr;
+				retval = true;
+			}
+			if (dfr.TypeName != null)
+			{
+				_referencesByTypeName[dfr.TypeName] = dfr;
+				retval = true;
+			}
+			return retval;
+		}
+		public static bool Unregister(DataFormatReference dfr)
+		{
+			bool retval = false;
+			if (dfr.ID != Guid.Empty && _referencesByGUID.ContainsKey(dfr.ID))
+			{
+				_referencesByGUID.Remove(dfr.ID);
+				retval = true;
+			}
+			if (dfr.TypeName != null && _referencesByTypeName.ContainsKey(dfr.TypeName))
+			{
+				_referencesByTypeName.Remove(dfr.TypeName);
+				retval = true;
+			}
+			return retval;
+		}
+
+		public static DataFormatReference FromTypeName(string typeName)
+		{
+			if (_referencesByTypeName.ContainsKey(typeName)) return _referencesByTypeName[typeName];
+			return null;
+		}
+		public static DataFormatReference FromGUID(Guid guid)
+		{
+			if (_referencesByGUID.ContainsKey(guid)) return _referencesByGUID[guid];
+			return null;
+		}
 	}
 }

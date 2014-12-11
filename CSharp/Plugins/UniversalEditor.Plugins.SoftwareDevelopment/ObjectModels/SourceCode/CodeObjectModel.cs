@@ -13,11 +13,11 @@ namespace UniversalEditor.ObjectModels.SourceCode
 	public class CodeObjectModel : ObjectModel
 	{
 		private ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Path = new string[] { "Programming", "Code File" };
 				_omr.Title = "Source code";
 			}

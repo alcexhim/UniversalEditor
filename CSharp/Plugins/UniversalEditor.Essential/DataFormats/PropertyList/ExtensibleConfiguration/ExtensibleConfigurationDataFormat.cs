@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 {
 	public class ExtensibleConfigurationDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Extensible Configuration document", new string[] { "*.inix", "*.xni" });
 			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 			return dfr;

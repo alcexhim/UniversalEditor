@@ -7,9 +7,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake.BSP
 {
 	public class BSPMapDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Binary Space Partitioned 3D scene", new byte?[][] { new byte?[] { (byte)'I', (byte)'B', (byte)'S', (byte)'P' } }, new string[] { "*.bsp" });
             dfr.Capabilities.Add(typeof(SceneObjectModel), DataFormatCapabilities.All);
             return dfr;

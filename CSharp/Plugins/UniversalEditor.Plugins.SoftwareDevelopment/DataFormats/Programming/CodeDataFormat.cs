@@ -12,9 +12,9 @@ namespace UniversalEditor.DataFormats.Programming
 {
 	public abstract class CodeDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(CodeObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

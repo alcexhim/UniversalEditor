@@ -13,11 +13,11 @@ namespace UniversalEditor.DataFormats.Shortcut.Microsoft
 		private static readonly Guid LNK_CLASSID = new Guid("00021401-0000-0000-00c0-000000000046}");
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ShortcutObjectModel), DataFormatCapabilities.All);
 				_dfr.ContentTypes.Add("application/x-ms-shortcut");
 				_dfr.Sources.Add("https://03132e779c908f66a75b1162132f53bf2761aa1a.googledrive.com/host/0B3fBvzttpiiSQmluVC1YeDVvZWM/Windows%20Shortcut%20File%20%28LNK%29%20format.pdf");

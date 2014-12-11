@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Dreamfall
 	public class PAKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Dreamfall PAK archive", new byte?[][] { new byte?[] { (byte)'t', (byte)'l', (byte)'j', (byte)'_', (byte)'p', (byte)'a', (byte)'c', (byte)'k', (byte)'0', (byte)'0', (byte)'0', (byte)'1' } }, new string[] { "*.pak" });
 			}

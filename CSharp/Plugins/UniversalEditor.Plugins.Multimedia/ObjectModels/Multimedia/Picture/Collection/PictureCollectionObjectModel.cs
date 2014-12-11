@@ -8,11 +8,11 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture.Collection
     public class PictureCollectionObjectModel : ObjectModel
     {
     	private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
         	if (_omr == null)
         	{
-        		_omr = base.MakeReference();
+        		_omr = base.MakeReferenceInternal();
         		_omr.Title = "Picture collection";
         		_omr.Description = "Store multiple pictures in a single file";
         		_omr.Path = new string[] { "Multimedia", "Picture", "Picture Collection" };

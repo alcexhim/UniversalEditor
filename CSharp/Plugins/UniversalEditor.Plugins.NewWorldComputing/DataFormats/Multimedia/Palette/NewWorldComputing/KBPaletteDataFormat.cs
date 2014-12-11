@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 	public class KBPaletteDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("New World Computing palette", new string[] { "*.pal" });
 			}

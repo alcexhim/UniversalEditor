@@ -23,7 +23,13 @@ namespace UniversalEditor
 			get { return mvarReference; }
 		}
 
-		public virtual DataFormatReference MakeReference()
+		public DataFormatReference MakeReference()
+		{
+			DataFormatReference dfr = MakeReferenceInternal();
+			DataFormatReference.Register(dfr);
+			return dfr;
+		}
+		protected virtual DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = new DataFormatReference(GetType());
 			return dfr;
@@ -46,9 +52,9 @@ namespace UniversalEditor
 
 		protected virtual bool IsObjectModelSupported(ObjectModel objectModel)
 		{
-			DataFormatReference dfr = MakeReference();
+			DataFormatReference dfr = MakeReferenceInternal();
 			ObjectModelReference omr = objectModel.MakeReference();
-			return dfr.Capabilities.Contains(omr.ObjectModelType) || dfr.Capabilities.Contains(omr.ObjectModelID);
+			return dfr.Capabilities.Contains(omr.Type) || dfr.Capabilities.Contains(omr.ID);
 		}
 
 		public void Load(ref ObjectModel objectModel)

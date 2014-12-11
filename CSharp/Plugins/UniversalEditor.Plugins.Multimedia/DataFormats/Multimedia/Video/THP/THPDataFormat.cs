@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.THP
 {
 	public class THPDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Nintendo GameCube THP video", new byte?[][] { new byte?[] { new byte?(84), new byte?(72), new byte?(80), new byte?(0) } }, new string[] { "*.thp" });
 			dfr.Capabilities.Add(typeof(VideoObjectModel), DataFormatCapabilities.All);
 			return dfr;

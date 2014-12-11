@@ -18,11 +18,11 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 	public class PKGDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("InstallShield installation package", new byte?[][] { new byte?[] { 0x4A, 0xA3 } }, new string[] { "*.pkg" });
 			}

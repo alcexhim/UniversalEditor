@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Auth3D.ASCII
     public class A3DCDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Auth3D model (ASCII format)", new byte?[][] { new byte?[] { (byte)'#', (byte)'A', (byte)'3', (byte)'D', (byte)'C', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_' } }, new string[] { "*.a3da" });
             }

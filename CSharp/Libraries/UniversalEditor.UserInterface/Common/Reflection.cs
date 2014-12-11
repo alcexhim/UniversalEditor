@@ -202,7 +202,7 @@ namespace UniversalEditor.UserInterface.Common
 			EditorReference[] editors = GetAvailableEditors();
 			foreach (EditorReference editor in editors)
 			{
-				if (editor.SupportedObjectModels.Contains(objectModelReference.ObjectModelType) || editor.SupportedObjectModels.Contains(objectModelReference.ObjectModelID))
+				if (editor.SupportedObjectModels.Contains(objectModelReference.Type) || editor.SupportedObjectModels.Contains(objectModelReference.ID))
 				{
 					list.Add(editor);
 				}

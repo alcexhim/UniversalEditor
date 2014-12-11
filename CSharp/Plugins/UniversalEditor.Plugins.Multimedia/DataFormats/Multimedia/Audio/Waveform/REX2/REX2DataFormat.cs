@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.REX2
 {
 	public class REX2DataFormat : RIFFDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 
 			dfr.Filters.Add("Propellerhead ReCycle EXport", new byte?[][] { new byte?[] { new byte?(67), new byte?(65), new byte?(84), new byte?(32), null, null, null, null, new byte?(82), new byte?(69), new byte?(88), new byte?(50) } }, new string[] { "*.rex", "*.rx2" });

@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Aquarnoid.GOB
     public class GOBDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Aquarnoid GOB archive", new byte?[][] { new byte?[] { (byte)'G', (byte)'O', (byte)'B', (byte)0 } }, new string[] { "*.gob" });
             }

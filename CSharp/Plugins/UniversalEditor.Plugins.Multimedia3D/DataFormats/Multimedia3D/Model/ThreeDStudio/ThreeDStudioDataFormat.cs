@@ -11,7 +11,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.ThreeDStudio
 	{
         public override DataFormatReference MakeReference()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("3D Studio model", new string[] { "*.3ds" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

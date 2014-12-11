@@ -5,9 +5,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.DirectWave
 {
 	public class DirectWavePatchDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("DirectWave patch", new byte?[][] { new byte?[] { new byte?(68), new byte?(119), new byte?(80), new byte?(114) } }, new string[] { "*.dwp" });
 			dfr.Capabilities.Add(typeof(VoicebankObjectModel), DataFormatCapabilities.All);
 			return dfr;

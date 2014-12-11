@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Pose.PolygonMovieMaker
 {
 	public class VPDPoseDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Polygon Movie Maker pose data", new byte?[][] { new byte?[] { (byte)'V', (byte)'o', (byte)'c', (byte)'a', (byte)'l', (byte)'o', (byte)'i', (byte)'d', (byte)' ', (byte)'P', (byte)'o', (byte)'s', (byte)'e', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a', (byte)' ', (byte)'f', (byte)'i', (byte)'l', (byte)'e' } }, new string[] { "*.vpd" });
 			dfr.Capabilities.Add(typeof(PoseObjectModel), DataFormatCapabilities.All);
 			return dfr;

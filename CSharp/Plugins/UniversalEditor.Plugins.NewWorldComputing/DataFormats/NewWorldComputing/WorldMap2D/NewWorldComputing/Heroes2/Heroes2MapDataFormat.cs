@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
     public class Heroes2MapDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(MapObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Heroes of Might and Magic II original/expansion/campaign map file", new byte?[][] { new byte?[] { 0x0000005C } }, new string[] { "*.mp2", "*.mx2", "*.hxc" });
             }

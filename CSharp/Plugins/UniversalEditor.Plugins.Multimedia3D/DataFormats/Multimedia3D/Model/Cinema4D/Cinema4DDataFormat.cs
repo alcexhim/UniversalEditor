@@ -4,9 +4,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Cinema4D
 {
 	public class Cinema4DDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("CINEMA 4D scene", new string[] { "*.c4d" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

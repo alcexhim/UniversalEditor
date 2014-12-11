@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.HighwayPursuit
     public class HighwayPursuitDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Highway Pursuit archive", new byte?[][] { new byte?[] { (byte)'H', (byte)'P', (byte)'D', (byte)'T' } }, new string[] { "*.hfd", "*.hgd", "*.hmd", "*.hod", "*.hsd", "*.hvd" });
             }

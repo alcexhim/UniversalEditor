@@ -12,11 +12,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Cyberlore
     public class PICTDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Cyberlore PICT image", new string[] { "*.pict" });
                 _dfr.Sources.Add("http://wiki.xentax.com/index.php?title=GRF_Playboy_The_Mansion");

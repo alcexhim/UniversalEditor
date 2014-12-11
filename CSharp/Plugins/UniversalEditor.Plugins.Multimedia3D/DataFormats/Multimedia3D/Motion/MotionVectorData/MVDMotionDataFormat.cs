@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.MotionVectorData
     /// </summary>
     public class MVDMotionDataFormat : DataFormat
     {
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Capabilities.Add(typeof(MotionObjectModel), DataFormatCapabilities.All);
             dfr.Filters.Add("Motion vector data file", new byte?[][] { new byte?[] { (byte)'M', (byte)'o', (byte)'t', (byte)'i', (byte)'o', (byte)'n', (byte)' ', (byte)'V', (byte)'e', (byte)'c', (byte)'t', (byte)'o', (byte)'r', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a', (byte)' ', (byte)'f', (byte)'i', (byte)'l', (byte)'e' } }, new string[] { "*.mvd" });
             return dfr;

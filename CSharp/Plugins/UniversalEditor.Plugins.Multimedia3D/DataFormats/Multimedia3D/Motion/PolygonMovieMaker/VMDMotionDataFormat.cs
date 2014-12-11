@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 	/// </summary>
 	public class VMDMotionDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(MotionObjectModel), DataFormatCapabilities.All);
 			dfr.Filters.Add("MikuMikuDance v1.30 motion data", new byte?[][] { new byte?[] { (byte)'V', (byte)'o', (byte)'c', (byte)'a', (byte)'l', (byte)'o', (byte)'i', (byte)'d', (byte)' ', (byte)'M', (byte)'o', (byte)'t', (byte)'i', (byte)'o', (byte)'n', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a', (byte)' ', (byte)'f', (byte)'i', (byte)'l', (byte)'e' } }, new string[] { "*.vmd" });
 			dfr.Filters.Add("Polygon Movie Maker motion data", new byte?[][] { new byte?[] { (byte)'V', (byte)'o', (byte)'c', (byte)'a', (byte)'l', (byte)'o', (byte)'i', (byte)'d', (byte)' ', (byte)'M', (byte)'o', (byte)'t', (byte)'i', (byte)'o', (byte)'n', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a', (byte)' ', (byte)'0', (byte)'0', (byte)'0', (byte)'2' } }, new string[] { "*.vmd" });

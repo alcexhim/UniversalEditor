@@ -8,11 +8,11 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
     public class MapObjectModel : ObjectModel
     {
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
             if (_omr == null)
             {
-                _omr = base.MakeReference();
+                _omr = base.MakeReferenceInternal();
                 _omr.Title = "Heroes of Might and Magic map file";
             }
             return _omr;

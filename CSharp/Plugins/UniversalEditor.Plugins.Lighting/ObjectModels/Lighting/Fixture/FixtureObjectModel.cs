@@ -8,11 +8,11 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 	public class FixtureObjectModel : ObjectModel
 	{
 		private ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "Fixture";
 				_omr.Path = new string[] { "Lighting", "Fixture" };
 			}

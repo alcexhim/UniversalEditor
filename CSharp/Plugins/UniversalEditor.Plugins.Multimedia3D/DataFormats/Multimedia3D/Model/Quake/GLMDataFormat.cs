@@ -8,9 +8,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 {
 	public class GLMDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Ghoul2 model", new string[] { "*.glm" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

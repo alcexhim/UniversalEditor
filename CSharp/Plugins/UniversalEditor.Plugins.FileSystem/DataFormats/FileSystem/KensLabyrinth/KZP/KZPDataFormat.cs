@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.KensLabyrinth.KZP
 	public class KZPDataFormat : DataFormat
 	{
 		private DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Ken's Labyrinth KZP archive", new string[] { "*.kzp" });
 			}

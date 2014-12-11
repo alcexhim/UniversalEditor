@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.Markup.EBML
 	public class EBMLDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Extensible Binary Meta Language", new byte?[][] { new byte?[] { 0x1A, 0x45, 0xDF, 0xA3 } }, new string[] { "*.ebml" });
 				_dfr.Sources.Add("http://ebml.sourceforge.net/specs/");

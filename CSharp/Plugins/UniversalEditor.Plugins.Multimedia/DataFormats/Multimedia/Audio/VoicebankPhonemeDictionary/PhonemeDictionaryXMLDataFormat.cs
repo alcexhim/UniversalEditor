@@ -13,7 +13,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.VoicebankPhonemeDictionar
 	public class PhonemeDictionaryXMLDataFormat : XMLDataFormat
 	{
 		private DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{

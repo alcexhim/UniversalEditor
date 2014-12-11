@@ -14,11 +14,11 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 	public class SMCDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ExecutableObjectModel), DataFormatCapabilities.All);
 
 				_dfr.ExportOptions.Add(new CustomOptionChoice("Region", "&Region:", false, new CustomOptionFieldChoice[]

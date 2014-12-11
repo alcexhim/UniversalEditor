@@ -20,11 +20,11 @@ namespace UniversalEditor.ObjectModels.SMD
         }
 
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
             if (_omr == null)
             {
-                _omr = base.MakeReference();
+                _omr = base.MakeReferenceInternal();
                 _omr.Title = "SMD";
             }
             return _omr;

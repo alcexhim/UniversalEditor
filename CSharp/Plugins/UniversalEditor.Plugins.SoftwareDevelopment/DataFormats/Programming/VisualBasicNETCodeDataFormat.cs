@@ -15,9 +15,9 @@ namespace UniversalEditor.DataFormats.Programming
 		private string mvarNamespaceSeparator = ".";
 		public string NamespaceSeparator { get { return mvarNamespaceSeparator; } set { mvarNamespaceSeparator = value; } }
 
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Visual Basic .NET code file", new string[] { "*.vb" });
 			return dfr;
 		}

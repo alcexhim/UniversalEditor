@@ -7,11 +7,11 @@ namespace UniversalEditor.ObjectModels.Text.Plain
 	public class PlainTextObjectModel : ObjectModel
 	{
 		private ObjectModelReference _omr = null;
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReference();
+				_omr = base.MakeReferenceInternal();
 				_omr.Title = "Text Document";
 				_omr.Path = new string[] { "General", "Text", "Plain" };
 			}

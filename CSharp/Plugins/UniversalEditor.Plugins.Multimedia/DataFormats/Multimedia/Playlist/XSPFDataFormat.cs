@@ -9,9 +9,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 {
 	public class XSPFDataFormat : XMLDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 			dfr.Filters.Add("XML Sharable Playlist File", new string[] { "*.xspf" });
 			dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);

@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Chunked.REV
     public class REVDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.All);
             }
             return _dfr;

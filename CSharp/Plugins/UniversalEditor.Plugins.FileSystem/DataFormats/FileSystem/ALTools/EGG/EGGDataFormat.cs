@@ -13,11 +13,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.EGG
 	public class EGGDataFormat : DataFormat
 	{
 		private DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("ALTools egg", new byte?[][] { new byte?[] { (byte)'E', (byte)'G', (byte)'G', (byte)'A' } }, new string[] { "*.egg" });
 			}

@@ -3,9 +3,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MonkeyAudio
 {
 	public class APLDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Monkey's Audio track metadata", new string[] { "*.apl" });
 			return dfr;
 		}

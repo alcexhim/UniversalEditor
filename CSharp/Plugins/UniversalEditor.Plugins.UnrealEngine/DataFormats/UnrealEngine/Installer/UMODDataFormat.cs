@@ -12,11 +12,11 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Installer
     public class UMODDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Unreal Tournament UMOD installer", new byte?[][] { new byte?[] { 0xA3, 0xC5, 0xE3, 0x9F } }, new string[] { "*.umod" });
                 _dfr.Filters[0].MagicByteOffsets = new int[] { -20 };

@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 	public class ARJDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Archive by Robert Jung", new byte?[][] { new byte?[] { 0x60, 0xEA } }, new string[] { "*.arj" });
 			}

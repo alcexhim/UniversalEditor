@@ -11,9 +11,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 		public const uint DDS_MAGIC = 0x20534444;
 
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			if (_dfr == null) _dfr = base.MakeReference();
+			if (_dfr == null) _dfr = base.MakeReferenceInternal();
 			_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			_dfr.Filters.Add("DirectDraw Surface", new byte?[][] { new byte?[] { 0x44, 0x44, 0x53, 0x20 } }, new string[] { "*.dds" });
 			return _dfr;

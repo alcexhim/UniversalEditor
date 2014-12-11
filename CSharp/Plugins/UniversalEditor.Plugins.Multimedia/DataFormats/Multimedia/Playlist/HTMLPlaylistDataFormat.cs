@@ -7,9 +7,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 {
 	public class HTMLPlaylistDataFormat : XMLDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 
 			dfr.Filters.Add("HTML playlist", new byte?[][] { new byte?[] { new byte?(60), new byte?(63), new byte?(120), new byte?(109), new byte?(108) } }, new string[] { "*.html" });

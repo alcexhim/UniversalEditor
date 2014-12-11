@@ -15,11 +15,11 @@ namespace UniversalEditor.ProjectTaskActions
 		public DataFormatReference DataFormatReference { get { return mvarDataFormatReference; } }
 
 		private static ProjectTaskActionReference _ptar = null;
-		public override ProjectTaskActionReference MakeReference()
+		protected override ProjectTaskActionReference MakeReferenceInternal()
 		{
 			if (_ptar == null)
 			{
-				_ptar = base.MakeReference();
+				_ptar = base.MakeReferenceInternal();
 				_ptar.ProjectTaskActionTypeID = new Guid("{527B7B07-FB0E-46F2-9EA8-0E93E3B21A14}");
 				_ptar.ProjectTaskActionTypeName = "UniversalEditor.ProjectTaskActionPackage";
 			}

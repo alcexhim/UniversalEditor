@@ -22,9 +22,9 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 		private string mvarComment = String.Empty;
 		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
 
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 			dfr.Filters.Add("PKWARE ZIP archive", new byte?[][] { new byte?[] { 80, 0x4b } }, new string[] { "*.zip", "*.zipx", "*.zipfs", "*.pk3", "*.pk4", "*.scs" /*, "*.xpi", "*.maff", "*.lwtp", "*.fwtp" */ });
 			dfr.ContentTypes.Add("application/zip");

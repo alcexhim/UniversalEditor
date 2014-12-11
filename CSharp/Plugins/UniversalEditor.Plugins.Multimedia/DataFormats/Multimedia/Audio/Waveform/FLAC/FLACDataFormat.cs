@@ -6,9 +6,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.FLAC
 {
 	public class FLACDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("Free Lossless Audio Codec", new byte?[][] { new byte?[] { new byte?(102), new byte?(76), new byte?(97), new byte?(67) } }, new string[] { "*.flac" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;

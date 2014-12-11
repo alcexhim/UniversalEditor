@@ -10,9 +10,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 {
 	public class MD3DataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("id software MD3 model", new byte?[][] { new byte?[] { new byte?(73), new byte?(68), new byte?(80), new byte?(51) } }, new string[] { "*.md3" });
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;

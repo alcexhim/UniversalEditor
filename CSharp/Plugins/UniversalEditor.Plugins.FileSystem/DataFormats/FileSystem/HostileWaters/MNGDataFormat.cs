@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
     public class MNGDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Hostile Waters ZGWH/MNG archive", new byte?[][] { new byte?[] { (byte)'Z', (byte)'G', (byte)'W', (byte)'H' } }, new string[] { "*.mng" });
             }

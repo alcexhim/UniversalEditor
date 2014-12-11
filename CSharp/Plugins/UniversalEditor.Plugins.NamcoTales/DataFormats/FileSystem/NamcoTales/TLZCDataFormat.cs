@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.FileSystem.NamcoTales
 	public class TLZCDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Namco Tales Studio TLZC archive", new byte?[][] { new byte?[] { (byte)'T', (byte)'L', (byte)'Z', (byte)'C' } }, new string[] { "*.dat" });
 				_dfr.Sources.Add("http://forum.xentax.com/viewtopic.php?f=21&t=8725");

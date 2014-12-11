@@ -8,9 +8,9 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Campaign
     public class CampaignObjectModel : ObjectModel
     {
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
-            _omr = base.MakeReference();
+            _omr = base.MakeReferenceInternal();
             _omr.Title = "New World Computing campaign";
             return _omr;
         }

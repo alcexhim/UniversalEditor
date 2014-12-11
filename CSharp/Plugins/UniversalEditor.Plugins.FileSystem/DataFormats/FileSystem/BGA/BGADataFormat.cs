@@ -11,11 +11,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 	public class BGADataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("IZArc BGA archive", new byte?[][] { new byte?[] { null, null, null, null, (byte)'B', (byte)'Z', (byte)'2', (byte)0 }, new byte?[] { null, null, null, null, (byte)'G', (byte)'Z', (byte)'I', (byte)'P' } }, new string[] { "*.bza", "*.gza" });
 			}

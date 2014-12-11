@@ -4,9 +4,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.WavPack
 {
 	public class WavPackDataFormat : DataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Filters.Add("WavPack audio", new string[] { "*.wv" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;

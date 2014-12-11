@@ -18,11 +18,11 @@ namespace UniversalEditor.DataFormats.FileSystem.StuffIt
 	public class StuffItDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("StuffIt archive", new byte?[][] { new byte?[] { (byte)'S', (byte)'t', (byte)'u', (byte)'f', (byte)'f', (byte)'I', (byte)'t', (byte)' ', (byte)'(', (byte)'c', (byte)')', (byte)'1', (byte)'9', (byte)'9', (byte)'7', (byte)'-', (byte)'2', (byte)'0', (byte)'0', (byte)'1', (byte)' ', (byte)'A', (byte)'l', (byte)'a', (byte)'d', (byte)'d', (byte)'i', (byte)'n', (byte)' ', (byte)'S', (byte)'y', (byte)'s', (byte)'t', (byte)'e', (byte)'m', (byte)'s', (byte)',', (byte)' ', (byte)'I', (byte)'n', (byte)'c', (byte)'.', (byte)',', (byte)' ', (byte)'h', (byte)'t', (byte)'t', (byte)'p', (byte)':', (byte)'/', (byte)'/', (byte)'w', (byte)'w', (byte)'w', (byte)'.', (byte)'a', (byte)'l', (byte)'a', (byte)'d', (byte)'d', (byte)'i', (byte)'n', (byte)'s', (byte)'y', (byte)'s', (byte)'.', (byte)'c', (byte)'o', (byte)'m', (byte)'/', (byte)'S', (byte)'t', (byte)'u', (byte)'f', (byte)'f', (byte)'I', (byte)'t', (byte)'/', 0xD, 0xA } }, new string[] { "*.sit" });
 			}

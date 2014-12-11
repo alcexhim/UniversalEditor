@@ -8,11 +8,11 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
     public class UnrealPackageObjectModel : ObjectModel
     {
         private static ObjectModelReference _omr = null;
-        public override ObjectModelReference MakeReference()
+        protected override ObjectModelReference MakeReferenceInternal()
         {
             if (_omr == null)
             {
-                _omr = base.MakeReference();
+                _omr = base.MakeReferenceInternal();
                 _omr.Title = "Unreal Engine package";
                 _omr.Path = new string[] { "Game development", "Unreal Engine", "Package" };
             }

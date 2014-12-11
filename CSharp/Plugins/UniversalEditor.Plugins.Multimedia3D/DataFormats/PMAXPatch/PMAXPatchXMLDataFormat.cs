@@ -14,9 +14,9 @@ namespace UniversalEditor.DataFormats.PMAXPatch
 {
     public class PMAXPatchXMLDataFormat : XMLDataFormat
     {
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Clear();
             dfr.Capabilities.Add(typeof(PMAXPatchObjectModel), DataFormatCapabilities.All);
             dfr.Filters.Add("PMAX patch (XML)", new string[] { "*.pmax" });

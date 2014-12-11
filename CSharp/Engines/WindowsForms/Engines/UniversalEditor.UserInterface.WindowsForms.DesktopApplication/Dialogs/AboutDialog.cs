@@ -39,8 +39,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
 				foreach (ObjectModelReference omr in omrs)
 				{
-					string title = omr.ObjectModelType.Assembly.GetName().Name;
-					object[] atts = omr.ObjectModelType.Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
+					string title = omr.Type.Assembly.GetName().Name;
+					object[] atts = omr.Type.Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
 					if (atts.Length > 0)
 					{
 						title = (atts[0] as System.Reflection.AssemblyTitleAttribute).Title;
@@ -68,7 +68,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 							tnParent = tnParent.Nodes.Add(title, title, "LibraryClosed", "LibraryClosed");
 						}
 					}
-					tnParent.Tag = omr.ObjectModelType.Assembly;
+					tnParent.Tag = omr.Type.Assembly;
 
 					foreach (string s in omr.Path)
 					{
@@ -236,14 +236,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			else if (e.Node.Tag is ObjectModelReference)
 			{
 				ObjectModelReference omr = (e.Node.Tag as ObjectModelReference);
-				txtObjectModelID.Text = omr.ObjectModelID.ToString("B");
-				if (omr.ObjectModelTypeName == null)
+				txtObjectModelID.Text = omr.ID.ToString("B");
+				if (omr.TypeName == null)
 				{
 					txtObjectModelTypeName.Text = "(null)";
 				}
 				else
 				{
-					txtObjectModelTypeName.Text = omr.ObjectModelTypeName;
+					txtObjectModelTypeName.Text = omr.TypeName;
 				}
 				txtObjectModelTitle.Text = omr.Title;
 
@@ -254,9 +254,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			{
 				DataFormatReference dfr = (e.Node.Tag as DataFormatReference);
 				txtDataFormatID.Text = dfr.ID.ToString("B");
-				if (dfr.DataFormatType != null)
+				if (dfr.Type != null)
 				{
-					txtDataFormatTypeName.Text = dfr.DataFormatType.FullName;
+					txtDataFormatTypeName.Text = dfr.Type.FullName;
 				}
 				else
 				{

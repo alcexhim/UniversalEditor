@@ -13,9 +13,9 @@ namespace UniversalEditor.DataFormats.Programming
 {
     public class GoCodeDataFormat : CodeDataFormat
     {
-        public override UniversalEditor.DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReference();
+            DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Filters.Add("Go code file", new string[] { "*.go" });
             return dfr;
         }

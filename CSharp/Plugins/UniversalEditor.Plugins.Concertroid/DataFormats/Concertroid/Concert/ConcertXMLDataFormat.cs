@@ -14,7 +14,7 @@ namespace UniversalEditor.DataFormats.Concertroid.Concert
     public class ConcertXMLDataFormat : XMLDataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {

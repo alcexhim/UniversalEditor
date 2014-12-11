@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
 	public class VBUFDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 				_dfr.Filters.Add("Avalanche vertex buffer", new string[] { "*.vbuf" });
 				_dfr.Sources.Add("http://forum.xentax.com/viewtopic.php?f=16&t=5983");

@@ -22,9 +22,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		/// </summary>
 		public BitmapBitsPerPixel PixelDepth { get { return mvarPixelDepth; } set { mvarPixelDepth = value; } }
 
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			
 			dfr.Filters.Add("Microsoft Windows and OS/2 bitmap", new byte?[][]

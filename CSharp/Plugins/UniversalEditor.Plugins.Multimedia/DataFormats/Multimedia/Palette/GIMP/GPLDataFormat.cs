@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
     public class GPLDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("GIMP color palette", new byte?[][] { new byte?[] { (byte)'G', (byte)'I', (byte)'M', (byte)'P', (byte)' ', (byte)'P', (byte)'a', (byte)'l', (byte)'e', (byte)'t', (byte)'t', (byte)'e' } }, new string[] { "*.gpl" });
             }

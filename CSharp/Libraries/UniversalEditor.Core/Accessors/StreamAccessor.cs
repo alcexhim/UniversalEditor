@@ -10,11 +10,11 @@ namespace UniversalEditor.Accessors
 	public class StreamAccessor : Accessor
 	{
 		private static AccessorReference _ar = null;
-		public override AccessorReference MakeReference()
+		protected override AccessorReference MakeReferenceInternal()
 		{
 			if (_ar == null)
 			{
-				_ar = base.MakeReference();
+				_ar = base.MakeReferenceInternal();
 				_ar.Visible = false;
 			}
 			return _ar;

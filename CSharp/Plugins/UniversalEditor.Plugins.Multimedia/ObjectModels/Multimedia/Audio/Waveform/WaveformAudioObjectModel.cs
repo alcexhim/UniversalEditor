@@ -6,9 +6,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 {
 	public class WaveformAudioObjectModel : AudioObjectModel
 	{
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Waveform (raw) audio";
 			omr.Path = new string[] { "Multimedia", "Audio", "Waveform Audio" };
 			return omr;

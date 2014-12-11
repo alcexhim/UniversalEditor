@@ -3,9 +3,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Video
 {
 	public class VideoObjectModel : ObjectModel
 	{
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Video";
             omr.Path = new string[] { "Multimedia", "Video" };
 			return omr;

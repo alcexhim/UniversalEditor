@@ -10,11 +10,11 @@ namespace UniversalEditor.DataFormats.Text.Descent
     public class TXBDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("Descent encrypted text file", new string[] { "*.txb", "*.ctb" });
             }

@@ -12,9 +12,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 {
 	public class CDDADataFormat : RIFFDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReference();
+			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 
 			dfr.Filters.Add("Compact Disc Digital Audio", new byte?[][] { new byte?[] { new byte?(82), new byte?(73), new byte?(70), new byte?(70), null, null, null, null, new byte?(67), new byte?(68), new byte?(68), new byte?(65) } }, new string[] { "*.cda" });

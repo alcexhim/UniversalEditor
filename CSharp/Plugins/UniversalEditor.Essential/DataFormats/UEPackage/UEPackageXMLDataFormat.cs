@@ -14,7 +14,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 	public class UEPackageXMLDataFormat : XMLDataFormat
 	{
 		private static DataFormatReference _dfr = null;
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
@@ -741,6 +741,82 @@ namespace UniversalEditor.DataFormats.UEPackage
 				#endregion
 			}
 			#endregion
+			#region Associations
+			{
+				MarkupTagElement tagAssociations = (tagUniversalEditor.Elements["Associations"] as MarkupTagElement);
+				if (tagAssociations != null)
+				{
+					foreach (MarkupElement elAssociation in tagAssociations.Elements)
+					{
+						MarkupTagElement tagAssociation = (elAssociation as MarkupTagElement);
+						if (tagAssociation == null) continue;
+						if (tagAssociation.FullName != "Association") continue;
+
+						Association association = new Association();
+
+						MarkupTagElement tagObjectModels = (tagAssociation.Elements["ObjectModels"] as MarkupTagElement);
+						if (tagObjectModels != null)
+						{
+							foreach (MarkupElement elObjectModel in tagObjectModels.Elements)
+							{
+								MarkupTagElement tagObjectModel = (elObjectModel as MarkupTagElement);
+								if (tagObjectModel == null) continue;
+								if (tagObjectModel.FullName != "ObjectModel") continue;
+
+								MarkupAttribute attTypeName = tagObjectModel.Attributes["TypeName"];
+								MarkupAttribute attID = tagObjectModel.Attributes["ID"];
+
+								ObjectModelReference omr = null;
+								if (attTypeName != null)
+								{
+									omr = ObjectModelReference.FromTypeName(attTypeName.Value);
+								}
+								else if (attID != null)
+								{
+									omr = ObjectModelReference.FromGUID(new Guid(attID.Value));
+								}
+
+								if (omr != null)
+								{
+									association.ObjectModels.Add(omr);
+								}
+							}
+						}
+
+						MarkupTagElement tagDataFormats = (tagAssociation.Elements["DataFormats"] as MarkupTagElement);
+						if (tagDataFormats != null)
+						{
+							foreach (MarkupElement elDataFormat in tagDataFormats.Elements)
+							{
+								MarkupTagElement tagDataFormat = (elDataFormat as MarkupTagElement);
+								if (tagDataFormat == null) continue;
+								if (tagDataFormat.FullName != "DataFormat") continue;
+
+								MarkupAttribute attTypeName = tagDataFormat.Attributes["TypeName"];
+								MarkupAttribute attID = tagDataFormat.Attributes["ID"];
+
+								DataFormatReference dfr = null;
+								if (attTypeName != null)
+								{
+									dfr = DataFormatReference.FromTypeName(attTypeName.Value);
+								}
+								else if (attID != null)
+								{
+									dfr = DataFormatReference.FromGUID(new Guid(attID.Value));
+								}
+
+								if (dfr != null)
+								{
+									association.DataFormats.Add(dfr);
+								}
+							}
+						}
+
+						package.Associations.Add(association);
+					}
+				}
+			}
+			#endregion
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
@@ -827,13 +903,13 @@ namespace UniversalEditor.DataFormats.UEPackage
 										MarkupTagElement tagItemShortcut = new MarkupTagElement();
 										tagItemShortcut.FullName = "ItemShortcut";
 										tagItemShortcut.Attributes.Add("Title", shortcut.Title);
-										if (shortcut.ObjectModelReference.ObjectModelTypeName != null)
+										if (shortcut.ObjectModelReference.TypeName != null)
 										{
-											tagItemShortcut.Attributes.Add("ObjectModelTypeName", shortcut.ObjectModelReference.ObjectModelTypeName);
+											tagItemShortcut.Attributes.Add("ObjectModelTypeName", shortcut.ObjectModelReference.TypeName);
 										}
-										if (shortcut.ObjectModelReference.ObjectModelID != Guid.Empty)
+										if (shortcut.ObjectModelReference.ID != Guid.Empty)
 										{
-											tagItemShortcut.Attributes.Add("ObjectModelID", shortcut.ObjectModelReference.ObjectModelID.ToString("B"));
+											tagItemShortcut.Attributes.Add("ObjectModelID", shortcut.ObjectModelReference.ID.ToString("B"));
 										}
 										tagItemShortcut.Attributes.Add("DocumentTemplateID", shortcut.DocumentTemplate.ID.ToString("B"));
 										tagItemShortcuts.Elements.Add(tagItemShortcut);

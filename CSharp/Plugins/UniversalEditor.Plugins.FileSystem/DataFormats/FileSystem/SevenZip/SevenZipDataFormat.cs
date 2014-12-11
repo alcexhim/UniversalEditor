@@ -9,11 +9,11 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
     public class SevenZipDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
-        public override DataFormatReference MakeReference()
+        protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)
             {
-                _dfr = base.MakeReference();
+                _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
                 _dfr.Filters.Add("7-ZIP archive", new byte?[][] { new byte?[] { (byte)'7', (byte)'z', 0xBC, 0xAF, 0x27, 0x1C } }, new string[] { "*.7z" });
                 _dfr.ContentTypes.Add("application/x-7z-compressed");

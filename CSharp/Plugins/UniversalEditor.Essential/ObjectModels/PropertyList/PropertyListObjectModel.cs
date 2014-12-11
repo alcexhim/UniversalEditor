@@ -7,9 +7,9 @@ namespace UniversalEditor.ObjectModels.PropertyList
 {
 	public class PropertyListObjectModel : ObjectModel
 	{
-		public override ObjectModelReference MakeReference()
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReference();
+			ObjectModelReference omr = base.MakeReferenceInternal();
 			omr.Title = "Property List";
 			omr.Path = new string[] { "General", "Property List" };
 

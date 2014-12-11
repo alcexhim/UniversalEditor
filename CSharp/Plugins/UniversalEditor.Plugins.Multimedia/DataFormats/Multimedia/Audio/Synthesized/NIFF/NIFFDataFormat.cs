@@ -9,7 +9,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.NIFF
 {
 	public class NIFFDataFormat : RIFFDataFormat
 	{
-		public override DataFormatReference MakeReference()
+		protected override DataFormatReference MakeReferenceInternal()
 		{
             DataFormatReference dfr = new DataFormatReference(this.GetType());
 			dfr.Filters.Add("Notation Interchange File Format", new byte?[][] { new byte?[] { new byte?(82), new byte?(73), new byte?(70), new byte?(88), null, null, null, null, new byte?(78), new byte?(73), new byte?(70), new byte?(70) } }, new string[] { "*.nif" });
