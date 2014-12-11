@@ -36,11 +36,27 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 				sc.Enabled = true;
 				sc.Visible = true;
 
+				cmdGeneralInformationDataFormatChange.Enabled = false;
 				IFileSystemObject fso = mvarSelectedObjects[0];
 				if (fso is File)
 				{
 					File file = (fso as File);
 					txtFileName.Text = file.Name;
+
+					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetDataAsByteArray());
+					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(ma);
+					if (dfrs.Length > 0)
+					{
+						DataFormatReference dfr = dfrs[0];
+						txtGeneralInformationDataFormat.Text = dfr.Title;
+
+						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(dfr);
+						if (omrs.Length > 0)
+						{
+							txtGeneralInformationObjectModel.Text = omrs[0].Title;
+							cmdGeneralInformationDataFormatChange.Enabled = true;
+						}
+					}
 					txtGeneralInformationSize.Text = PrettyPrintFileSize(file.Size);
 				}
 				else if (fso is Folder)
