@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the Markup ObjectModel with the EBML DataFormats -->
+			<Filters>
+				<Filter Title="Extensible Binary Meta Language">
+					<FileNameFilters>
+						<FileNameFilter>*.ebml</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">1A45DFA3</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Markup.MarkupObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Markup.EBML.EBMLDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<!-- Associate the Markup ObjectModel with the XML DataFormats -->
+			<Filters>
+				<Filter Title="eXtensible Markup Language">
+					<FileNameFilters>
+						<FileNameFilter>*.xml</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">&lt;?xml</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Markup.MarkupObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Markup.XML.XMLDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

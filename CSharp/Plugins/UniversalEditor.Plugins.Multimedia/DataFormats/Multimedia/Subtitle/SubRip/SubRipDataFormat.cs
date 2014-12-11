@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubRip
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(SubtitleObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("SubRip subtitles", new string[] { "*.srt" });
             }
             return _dfr;
         }

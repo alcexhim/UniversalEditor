@@ -6,7 +6,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MonkeyAudio
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Monkey's Audio track metadata", new string[] { "*.apl" });
 			return dfr;
 		}
 

@@ -8,7 +8,6 @@ namespace UniversalEditor.DataFormats.Multimedia.BluRay
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Blu-Ray/AVCHD index", new byte?[][] { new byte?[] { new byte?(73), new byte?(78), new byte?(68), new byte?(88) } }, new string[] { "*.bdmv", "*.bdm" });
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.Markup.EBML
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Extensible Binary Meta Language", new byte?[][] { new byte?[] { 0x1A, 0x45, 0xDF, 0xA3 } }, new string[] { "*.ebml" });
 				_dfr.Sources.Add("http://ebml.sourceforge.net/specs/");
 			}
 			return _dfr;

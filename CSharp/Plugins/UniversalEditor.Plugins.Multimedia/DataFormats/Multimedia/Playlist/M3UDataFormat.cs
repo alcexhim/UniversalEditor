@@ -8,7 +8,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("M3U playlist", new byte?[][] { new byte?[] { new byte?(35), new byte?(69), new byte?(88), new byte?(84), new byte?(77), new byte?(51), new byte?(85) } }, new string[] { "*.m3u", "*.m3u8" });
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

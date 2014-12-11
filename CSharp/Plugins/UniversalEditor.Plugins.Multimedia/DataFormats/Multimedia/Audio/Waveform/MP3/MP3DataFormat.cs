@@ -9,7 +9,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MP3
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("MPEG-2 layer III audio", new byte?[][] { new byte?[] { new byte?(73), new byte?(68), new byte?(51) } }, new string[] { "*.mp3" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

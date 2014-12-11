@@ -7,7 +7,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.Shorten
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Shorten audio", new string[] { "*.shn" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

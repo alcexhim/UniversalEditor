@@ -23,7 +23,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.QuickSub
 				_dfr = new DataFormatReference(this.GetType());
 				_dfr.Capabilities.Add(typeof(SubtitleObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.None);
-				_dfr.Filters.Add("QuickSub subtitle", new byte?[][] { new byte?[] { (byte)'#', (byte)'T', (byte)'P', (byte)'L', (byte)'-', (byte)'1', (byte)'.', (byte)'0', (byte)' ', (byte)'Q', (byte)'u', (byte)'i', (byte)'c', (byte)'k', (byte)'S', (byte)'u', (byte)'b', (byte)' ', (byte)'T', (byte)'e', (byte)'x', (byte)'t', (byte)' ', (byte)'F', (byte)'i', (byte)'l', (byte)'e', (byte)' ', (byte)'F', (byte)'o', (byte)'r', (byte)'m', (byte)'a', (byte)'t' } }, new string[] { "*.qst" });
 			}
 			return _dfr;
 		}

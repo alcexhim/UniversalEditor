@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Wavelet Scalar Quantization image", new byte?[][] { new byte?[] { 0xA0, 0xFF } }, new string[] { "*.wsq" });
 			}
 			return _dfr;
 		}

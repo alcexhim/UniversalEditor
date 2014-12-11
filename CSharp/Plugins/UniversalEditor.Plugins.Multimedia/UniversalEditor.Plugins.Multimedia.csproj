@@ -102,7 +102,6 @@
     <Compile Include="DataFormats\Multimedia\Picture\Icon\Microsoft\GroupICODataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\JPEG\JPEGMarker.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\LEAD\CMPDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Picture\MicrosoftDDSDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\DirectDrawSurfaceDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfaceCaps1.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfaceCaps2.cs" />

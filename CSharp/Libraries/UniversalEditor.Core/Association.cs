@@ -142,5 +142,45 @@ namespace UniversalEditor
 		/// The <see cref="DataFormatReference" />s which refer to <see cref="DataFormat" />s that are included in this <see cref="Association" />.
 		/// </summary>
 		public DataFormatReference.DataFormatReferenceCollection DataFormats { get { return mvarDataFormats; } }
+
+		public static Association[] FromCriteria(AssociationCriteria ac)
+		{
+			List<Association> associations = new List<Association>();
+			Association[] _associations = GetAllAssociations();
+			foreach (Association assoc in _associations)
+			{
+				if (ac.ObjectModel != null)
+				{
+					if (assoc.ObjectModels.Contains(ac.ObjectModel))
+					{
+						associations.Add(assoc);
+						continue;
+					}
+				}
+				if (ac.DataFormat != null)
+				{
+					if (assoc.DataFormats.Contains(ac.DataFormat))
+					{
+						associations.Add(assoc);
+						continue;
+					}
+				}
+				if (ac.Accessor != null)
+				{
+					bool found = false;
+					foreach (DataFormatFilter filter in assoc.Filters)
+					{
+						if (filter.MatchesFile(ac.Accessor))
+						{
+							associations.Add(assoc);
+							found = true;
+							break;
+						}
+					}
+					if (found) continue;
+				}
+			}
+			return associations.ToArray();
+		}
 	}
 }

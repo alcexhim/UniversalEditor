@@ -8,7 +8,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("RealNetworks Audio", new byte?[][] { new byte?[] { new byte?(46), new byte?(114), new byte?(97), new byte?(253) } }, new string[] { "*.ra" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

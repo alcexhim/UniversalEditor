@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ChaosWorks
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Chaos Works Engine sprite", new byte?[][] { new byte?[] { (byte)'C', (byte)'W', (byte)'E', (byte)' ', (byte)'s', (byte)'p', (byte)'r', (byte)'i', (byte)'t', (byte)'e' } }, new string[] { "*.sph" });
             }
             return _dfr;
         }

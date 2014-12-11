@@ -26,21 +26,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-			
-			dfr.Filters.Add("Microsoft Windows and OS/2 bitmap", new byte?[][]
-			{
-				new byte?[] { (byte)'B', (byte)'M' }, // Windows 3.1x, 95, NT, ... etc.; and it is not mandatory unless file size is greater or equal to SIGNATURE
-				new byte?[] { (byte)'B', (byte)'A' }, // OS/2 struct Bitmap Array
-				new byte?[] { (byte)'C', (byte)'I' }, // OS/2 struct Color Icon
-				// new byte?[] { (byte)'C', (byte)'P' }, // OS/2 const Color Pointer
-				new byte?[] { (byte)'I', (byte)'C' }, // OS/2 struct Icon
-				new byte?[] { (byte)'P', (byte)'T' } // OS/2 Pointer
-			}, new string[] { "*.bmp", "*.spa", "*.sph" });
-
-			// TODO: Figure out how to prevent this from colliding with CPK files that start with "CP" ("CPK")
-			// dfr.Filters[0].HintComparison = DataFormatHintComparison.FilterOnly;
-			// TODO: Sort list of data formats by length of magic byte requirement during the sniffing process? ;)
-
 			return dfr;
 		}
 

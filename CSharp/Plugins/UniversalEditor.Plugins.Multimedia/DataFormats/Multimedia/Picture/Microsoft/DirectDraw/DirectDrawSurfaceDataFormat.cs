@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 		{
 			if (_dfr == null) _dfr = base.MakeReferenceInternal();
 			_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-			_dfr.Filters.Add("DirectDraw Surface", new byte?[][] { new byte?[] { 0x44, 0x44, 0x53, 0x20 } }, new string[] { "*.dds" });
 			return _dfr;
 		}
 

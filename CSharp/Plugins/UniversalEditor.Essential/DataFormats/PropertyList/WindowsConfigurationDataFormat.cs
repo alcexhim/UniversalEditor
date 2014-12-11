@@ -12,7 +12,6 @@ namespace UniversalEditor.DataFormats.PropertyList
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Windows Configuration document", new string[] { "*.ini", "*.inf" });
 			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

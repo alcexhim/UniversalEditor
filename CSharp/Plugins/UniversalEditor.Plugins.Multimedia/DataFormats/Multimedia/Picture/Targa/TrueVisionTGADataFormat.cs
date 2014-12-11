@@ -1,4 +1,4 @@
-﻿using System;
+﻿	using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +26,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-			dfr.Filters.Add("TrueVision TARGA", new string[] { "*.tga" });
 			dfr.ContentTypes.Add("image/x-targa");
 			dfr.ContentTypes.Add("image/x-tga");
 			return dfr;

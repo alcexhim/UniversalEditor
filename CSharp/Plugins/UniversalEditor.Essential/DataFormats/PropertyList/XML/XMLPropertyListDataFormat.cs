@@ -52,7 +52,6 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("XML property list", new string[] { "*.cfg" });
 			}
 			return _dfr;
 		}

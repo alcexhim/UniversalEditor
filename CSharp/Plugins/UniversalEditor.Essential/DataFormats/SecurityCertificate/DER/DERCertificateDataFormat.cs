@@ -20,8 +20,6 @@ namespace UniversalEditor.DataFormats.SecurityCertificate.DER
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(SecurityCertificateObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Security certificate (Binary-encoded DER)", new byte?[][] { new byte?[] { (byte)0x30, (byte)0x82 } }, new string[] { "*.cer", "*.der", "*.p7b" });
-				_dfr.Filters.Add("Security certificate (Base64-encoded DER)", new byte?[][] { new byte?[] { (byte)'-', (byte)'-', (byte)'-', (byte)'-', (byte)'-', (byte)'B', (byte)'E', (byte)'G', (byte)'I', (byte)'N', (byte)' ', (byte)'C', (byte)'E', (byte)'R', (byte)'T', (byte)'I', (byte)'F', (byte)'I', (byte)'C', (byte)'A', (byte)'T', (byte)'E', (byte)'-', (byte)'-', (byte)'-', (byte)'-', (byte)'-', (byte)'\r', (byte)'\n' } }, new string[] { "*.cer", "*.der", "*.p7b" });
 			}
 			return _dfr;
 		}

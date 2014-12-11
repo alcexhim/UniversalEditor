@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(VoicebankIndexObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Vocaloid voicebank index", new byte?[][] { new byte?[] { null, null, null, null, null, null, null, null, (byte)'D', (byte)'B', (byte)'S', (byte)'e' } }, new string[] { "*.ddi" });
 			}
 			return _dfr;
 		}

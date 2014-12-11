@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Free Lossless Audio Codec">
+					<FileNameFilters>
+						<FileNameFilter>*.flac</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="Byte">102</MagicByte>
+							<MagicByte Type="Byte">76</MagicByte>
+							<MagicByte Type="Byte">97</MagicByte>
+							<MagicByte Type="Byte">67</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.Waveform.WaveformAudioObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.Waveform.FLAC.FLACDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

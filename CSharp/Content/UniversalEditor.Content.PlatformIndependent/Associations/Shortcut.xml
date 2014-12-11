@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the Chunked ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<Filters>
+				<Filter Title="FreeDesktop.org desktop/directory shortcut entry">
+					<FileNameFilters>
+						<FileNameFilter>*.desktop</FileNameFilter>
+						<FileNameFilter>*.directory</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Shortcut.ShortcutObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Shortcut.FreeDesktop.DesktopShortcutDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

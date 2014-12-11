@@ -26,7 +26,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("SNES-SPC700 sound file", new byte?[][] { new byte?[] { (byte)'S', (byte)'N', (byte)'E', (byte)'S', (byte)'-', (byte)'S', (byte)'P', (byte)'C', (byte)'7', (byte)'0', (byte)'0', (byte)' ', (byte)'S', (byte)'o', (byte)'u', (byte)'n', (byte)'d', (byte)' ', (byte)'F', (byte)'i', (byte)'l', (byte)'e', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a' } }, new string[] { "*.spc" });
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 			
 			dfr.ExportOptions.Add(new CustomOptionChoice("Generator", "&Generator:", true,

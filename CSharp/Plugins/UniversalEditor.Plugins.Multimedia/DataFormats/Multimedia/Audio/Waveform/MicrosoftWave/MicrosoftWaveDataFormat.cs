@@ -19,8 +19,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
             if (_dfr == null)
             {
                 _dfr = new DataFormatReference(GetType());
-                _dfr.Filters.Add("Microsoft waveform audio", new byte?[][] { new byte?[] { (byte)'R', (byte)'I', (byte)'F', (byte)'F', null, null, null, null, (byte)'W', (byte)'A', (byte)'V', (byte)'E', (byte)'f', (byte)'m', (byte)'t', (byte)' ' } }, new string[] { "*.wav", "*.wave" });
-                _dfr.Filters.Add("Sony ATRAC3+ encoded waveform audio", new string[] { "*.at3" });
                 _dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
             }
 			return _dfr;

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft DirectDraw Surface">
+					<FileNameFilters>
+						<FileNameFilter>*.dds</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">44445320</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.DirectDraw.DirectDrawSurfaceDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

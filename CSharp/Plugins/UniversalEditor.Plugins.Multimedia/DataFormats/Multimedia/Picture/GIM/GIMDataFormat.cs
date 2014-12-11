@@ -27,7 +27,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("GIM image", new byte?[][] { new byte?[] { (byte)'M', (byte)'I', (byte)'G', (byte)'.' }, new byte?[] { (byte)'.', (byte)'G', (byte)'I', (byte)'M' } }, new string[] { "*.gim" });
                 _dfr.Sources.Add("http://pspdum.my.land.to/psp/gim.html");
 
                 _dfr.ExportOptions.Add(new CustomOptionChoice("Endianness", "&Endianness:", true,

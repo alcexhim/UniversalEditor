@@ -12,7 +12,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.JPEG
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Joint Photographic Experts Group image", new string[] { "*.jpg", "*.jpe", "*.jpeg" } );
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

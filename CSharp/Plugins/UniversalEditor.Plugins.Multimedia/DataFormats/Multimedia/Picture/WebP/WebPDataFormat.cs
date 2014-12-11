@@ -20,7 +20,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WebP
                 _dfr = new DataFormatReference(this.GetType());
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
                 _dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.Bootstrap);
-                _dfr.Filters.Add("WebP graphics", new byte?[][] { new byte?[] { (byte)'R', (byte)'I', (byte)'F', (byte)'F', null, null, null, null, (byte)'W', (byte)'E', (byte)'B', (byte)'P' } }, new string[] { "*.webp" });
             }
             return _dfr;
         }

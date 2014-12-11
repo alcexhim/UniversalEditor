@@ -13,36 +13,13 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			
-			List<byte?[]> riffTags = new List<byte?[]>();
-			foreach (string riffTag in mvarRIFFtagsLittleEndian)
-			{
-				byte[] a = System.Text.Encoding.ASCII.GetBytes(riffTag);
-				byte?[] b = new byte?[a.Length];
-				for (int i = 0; i < a.Length; i++)
-				{
-					b[i] = a[i];
-				}
-				riffTags.Add(b);
-			}
-			foreach (string riffTag in mvarRIFFtagsBigEndian)
-			{
-				byte[] a = System.Text.Encoding.ASCII.GetBytes(riffTag);
-				byte?[] b = new byte?[a.Length];
-				for (int i = 0; i < a.Length; i++)
-				{
-					b[i] = a[i];
-				}
-				riffTags.Add(b);
-			}
-
-			dfr.Filters.Add("Resource Interchange File Format (RIFF)", riffTags.ToArray(), new string[] { "*.riff" });
 			dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
 
 		private string[] mvarRIFFtagsLittleEndian = new string[]
 		{
-			"RIFF", 
+			"RIFF",
 			"RIFX"
 		};
 		public virtual string[] RIFFTagsLittleEndian

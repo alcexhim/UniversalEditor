@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.PSF
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Portable Sound Format", new byte?[][] { new byte?[] { (byte)'P', (byte)'S', (byte)'F' } }, new string[] { "*.psf" });
 			}
 			return _dfr;
 		}

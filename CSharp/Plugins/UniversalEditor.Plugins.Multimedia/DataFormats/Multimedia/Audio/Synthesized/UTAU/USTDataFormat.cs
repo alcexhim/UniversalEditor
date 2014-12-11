@@ -46,7 +46,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
 
-			dfr.Filters.Add("UTAU voice sequence", new string[] { "*.ust" });
 			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.Bootstrap);
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;

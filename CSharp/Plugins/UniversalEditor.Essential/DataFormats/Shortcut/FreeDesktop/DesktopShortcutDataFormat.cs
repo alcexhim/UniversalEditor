@@ -24,7 +24,6 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("Deleted", "&Mark this shortcut as being deleted by the user"));
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("DBusActivatable", "&Enable DBus activation"));
 				_dfr.Sources.Add("http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html");
-				_dfr.Filters.Add("FreeDesktop.org desktop/directory shortcut entry", new string[] { "*.desktop", "*.directory" });
 			}
 			return _dfr;
 		}

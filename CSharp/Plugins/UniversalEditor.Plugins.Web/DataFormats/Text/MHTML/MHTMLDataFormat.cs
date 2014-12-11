@@ -21,7 +21,6 @@ namespace UniversalEditor.DataFormats.Text.MHTML
 				_dfr.Clear();
 				_dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("MIME-encoded HyperText Markup Language", new string[] { "*.mht", "*.mhtml" });
 			}
 			return _dfr;
 		}

@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia.VectorImage.Microsoft.Expressio
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(VectorImageObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Microsoft Expression Design image", new byte?[][] { new byte?[] { (byte)'<', (byte)'X', (byte)'D', (byte)'F', (byte)'V', (byte)':', (byte)'9', (byte)'>', (byte)0x0A } }, new string[] { "*.design" });
 			}
 			return _dfr;
 		}

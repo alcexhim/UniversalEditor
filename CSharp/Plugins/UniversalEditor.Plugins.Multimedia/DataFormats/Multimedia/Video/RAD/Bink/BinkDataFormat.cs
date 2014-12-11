@@ -8,7 +8,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.RAD.Bink
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("RAD Video Tools Bink video", new byte?[][] { new byte?[] { new byte?(83), new byte?(77), new byte?(75), new byte?(50) }, new byte?[] { new byte?(83), new byte?(77), new byte?(75), new byte?(52) } }, new string[] { "*.bik" });
 			dfr.Capabilities.Add(typeof(VideoObjectModel), DataFormatCapabilities.All);
 			dfr.Sources.Add("http://wiki.multimedia.cx/index.php?title=Smacker");
 			return dfr;

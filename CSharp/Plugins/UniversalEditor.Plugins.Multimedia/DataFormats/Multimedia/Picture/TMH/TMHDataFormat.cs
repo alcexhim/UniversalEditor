@@ -23,7 +23,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TMH
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("TMH image", new byte?[][] { new byte?[] { (byte)'.', (byte)'T', (byte)'M', (byte)'H', (byte)'0', (byte)'.', (byte)'1', (byte)'4' } }, new string[] { "*.tmh" });
 			}
 			return _dfr;
 		}

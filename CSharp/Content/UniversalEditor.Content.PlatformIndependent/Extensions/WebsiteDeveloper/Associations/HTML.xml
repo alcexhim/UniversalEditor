@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="HyperText Markup Language">
+					<FileNameFilters>
+						<FileNameFilter>*.htm</FileNameFilter>
+						<FileNameFilter>*.html</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Text.Plain.PlainTextObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Text.Formatted.FormattedTextObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Text.HTML.HTMLDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

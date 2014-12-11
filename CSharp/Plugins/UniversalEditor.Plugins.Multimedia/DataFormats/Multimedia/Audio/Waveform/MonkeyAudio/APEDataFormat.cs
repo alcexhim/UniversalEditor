@@ -7,7 +7,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MonkeyAudio
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Monkey's Audio", new string[] { "*.ape" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

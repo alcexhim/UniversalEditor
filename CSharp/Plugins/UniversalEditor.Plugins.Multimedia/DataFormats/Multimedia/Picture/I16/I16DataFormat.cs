@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.I16
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("I16 image", new string[] { "*.i16" });
             }
             return _dfr;
         }

@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.ExtendedMIDI
                 _dfr = new DataFormatReference(this.GetType());
                 _dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
                 _dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.Bootstrap);
-                _dfr.Filters.Add("Miles Sound System eXtended MIDI audio", new byte?[][] { new byte?[] { (byte)'F', (byte)'O', (byte)'R', (byte)'M', null, null, null, null, (byte)'X', (byte)'D', (byte)'I', (byte)'R', (byte)'I', (byte)'N', (byte)'F', (byte)'O' } }, new string[] { "*.xmi" });
             }
             return _dfr;
         }

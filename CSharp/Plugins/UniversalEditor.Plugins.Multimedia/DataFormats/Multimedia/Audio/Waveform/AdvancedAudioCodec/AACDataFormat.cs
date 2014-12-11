@@ -7,7 +7,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.AdvancedAudioCod
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Advanced Audio Codec", new string[] { "*.aac" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MusicXML
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
-			dfr.Filters.Add("MusicXML markup", new string[] { "*.mxl" });
 			dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;

@@ -9,7 +9,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Icon.Microsoft
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Windows icon", new byte?[][] { new byte?[] { new byte?(0), new byte?(0), new byte?(0), new byte?(1) } }, new string[] { "*.ico" });
             dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

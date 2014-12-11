@@ -11,7 +11,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Project.LMMS
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Linux MultiMedia Studio (LMMS) project (compressed)", new string[] { "*.mmpz" });
 			dfr.Capabilities.Add(typeof(AudioProjectObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

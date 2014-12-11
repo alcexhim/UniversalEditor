@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="QuickSub subtitle">
+					<FileNameFilters>
+						<FileNameFilter>*.qst</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">#TPL-1.0 QuickSub Text File Format</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Subtitle.SubtitleObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Subtitle.QuickSub.QuickSubTextDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

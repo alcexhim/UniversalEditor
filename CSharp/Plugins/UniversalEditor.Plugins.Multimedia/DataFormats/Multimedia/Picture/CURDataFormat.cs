@@ -7,7 +7,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Windows cursor", new byte?[][] { new byte?[] { new byte?(0), new byte?(0), new byte?(0), new byte?(2) } }, new string[] { "*.cur" });
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

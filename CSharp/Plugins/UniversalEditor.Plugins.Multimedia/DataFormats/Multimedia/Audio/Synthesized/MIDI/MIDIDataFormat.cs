@@ -9,7 +9,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Music Instrument Digital Interface sequence", new byte?[][] { new byte?[] { (byte)'M', (byte)'T', (byte)'h', (byte)'d' } }, new string[] { "*.mid", "*.midi", "*.rmi" });
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

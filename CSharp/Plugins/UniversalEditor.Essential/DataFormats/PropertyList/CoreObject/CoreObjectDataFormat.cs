@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.PropertyList.CoreObject
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Core Object", new string[] { "*.vcs", "*.ics", "*.vcf" });
             }
             return _dfr;
         }

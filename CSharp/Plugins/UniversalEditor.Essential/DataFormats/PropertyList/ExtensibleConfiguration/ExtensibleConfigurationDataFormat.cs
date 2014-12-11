@@ -12,7 +12,6 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Extensible Configuration document", new string[] { "*.inix", "*.xni" });
 			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

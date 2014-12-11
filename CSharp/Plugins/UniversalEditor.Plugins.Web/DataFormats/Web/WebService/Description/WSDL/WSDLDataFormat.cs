@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.Web.WebService.Description.WSDL
                 _dfr = new DataFormatReference(GetType());
                 _dfr.Capabilities.Add(typeof(WebServiceDescriptionObjectModel), DataFormatCapabilities.All);
                 _dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
-                _dfr.Filters.Add("Web Services Description Language", new string[] { "*.wsdl" });
             }
             return _dfr;
         }

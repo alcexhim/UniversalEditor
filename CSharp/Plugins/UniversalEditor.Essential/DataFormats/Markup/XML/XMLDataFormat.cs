@@ -39,9 +39,6 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Title = "eXtensible Markup Language";
 
-			dfr.Filters.Clear();
-			dfr.Filters.Add("eXtensible Markup Language", new byte?[][] { new byte?[] { (byte)'<', (byte)'?', (byte)'x', (byte)'m', (byte)'l' } }, new string[] { "*.xml" });
-
 			dfr.Capabilities.Clear();
 			dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.All);
 			return dfr;

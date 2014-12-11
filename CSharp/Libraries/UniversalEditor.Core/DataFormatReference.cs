@@ -20,7 +20,7 @@ namespace UniversalEditor
 			{
 				if (mvarTitle == null)
 				{
-					if (mvarFilters.Count > 0) return mvarFilters[0].Title;
+					// if (mvarFilters.Count > 0) return mvarFilters[0].Title;
 				}
 				return mvarTitle;
 			}
@@ -63,32 +63,23 @@ namespace UniversalEditor
 		public string[] GetDetails()
 		{
 			string title = mvarTitle;
+			/*
 			if (String.IsNullOrEmpty(mvarTitle) && mvarFilters.Count > 0)
 			{
 				title = mvarFilters[0].Title;
 			}
 			return new string[] { title, DataFormatFilterCollectionToString(mvarFilters) };
+			 */
+			return new string[] { title };
 		}
 		public bool ShouldFilterObject(string filter)
 		{
 			string title = mvarTitle;
-			if (String.IsNullOrEmpty(mvarTitle) && mvarFilters.Count > 0)
+			if (String.IsNullOrEmpty(mvarTitle))
 			{
-				title = mvarFilters[0].Title;
 			}
 			if (title == null) title = String.Empty;
 			if (title.ToLower().Contains(filter.ToLower())) return true;
-
-			foreach (DataFormatFilter filter1 in mvarFilters)
-			{
-				foreach (string s in filter1.FileNameFilters)
-				{
-					if (s.ToLower().Contains(filter.ToLower()))
-					{
-						return true;
-					}
-				}
-			}
 			return false;
 		}
 
@@ -117,9 +108,6 @@ namespace UniversalEditor
 		private Guid mvarID = Guid.Empty;
 		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
-		private DataFormatFilter.DataFormatFilterCollection mvarFilters = new DataFormatFilter.DataFormatFilterCollection();
-		public DataFormatFilter.DataFormatFilterCollection Filters { get { return mvarFilters; } }
-
 		private DataFormatCapabilityCollection mvarCapabilities = new DataFormatCapabilityCollection();
 		public DataFormatCapabilityCollection Capabilities { get { return mvarCapabilities; } }
 
@@ -146,7 +134,6 @@ namespace UniversalEditor
 		{
 			mvarCapabilities.Clear();
 			mvarContentTypes.Clear();
-			mvarFilters.Clear();
 			mvarSources.Clear();
 			mvarTitle = null;
 		}
@@ -156,10 +143,6 @@ namespace UniversalEditor
 			if (!String.IsNullOrEmpty(mvarTitle))
 			{
 				return mvarTitle;
-			}
-			else if (mvarFilters.Count > 0 && !String.IsNullOrEmpty(mvarFilters[0].Title))
-			{
-				return mvarFilters[0].Title;
 			}
 			else if (mvarType != null)
 			{

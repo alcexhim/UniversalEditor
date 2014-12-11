@@ -23,7 +23,6 @@ namespace UniversalEditor.DataFormats.Text.HTML
 				_dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
 				_dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("HyperText Markup Language", new string[] { "*.htm", "*.html" });
 
 				_dfr.ExportOptions.Add(new CustomOptionText("Title", "&Title: "));
 			}

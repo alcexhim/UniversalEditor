@@ -14,7 +14,6 @@ namespace UniversalEditor.DataFormats.Icarus
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(IcarusScriptObjectModel), DataFormatCapabilities.All);
-			dfr.Filters.Add("ICARUS compiled script", new byte?[][] { new byte?[] { (byte)'I', (byte)'B', (byte)'I', (byte)0 } }, new string[] { "*.ibi" });
 			return dfr;
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)

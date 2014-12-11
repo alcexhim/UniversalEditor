@@ -21,7 +21,6 @@ namespace UniversalEditor.DataFormats.UEPackage
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(UEPackageObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
-				_dfr.Filters.Add("Universal Editor package (XML)", new string[] { "*.uexml" });
 			}
 			return _dfr;
 		}
@@ -273,7 +272,8 @@ namespace UniversalEditor.DataFormats.UEPackage
 								}
 								#endregion
 
-								dfr.Filters.Add(filter);
+								Console.WriteLine("WARNING: this method of adding filters is deprecated; please use Associations instead!");
+								// dfr.Filters.Add(filter);
 							}
 						}
 						#endregion

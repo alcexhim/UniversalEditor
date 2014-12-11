@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft Windows and OS/2 bitmap">
+					<FileNameFilters>
+						<FileNameFilter>*.bmp</FileNameFilter>
+						<FileNameFilter>*.spa</FileNameFilter>
+						<FileNameFilter>*.sph</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<!--
+								Windows 3.1x, 95, NT, ... etc.; and it is not mandatory unless file size is greater or
+								equal to SIGNATURE
+							-->
+							<MagicByte Type="String">BM</MagicByte>
+						</MagicByteSequence>
+						<MagicByteSequence>
+							<!-- OS/2 struct Bitmap Array -->
+							<MagicByte Type="String">BA</MagicByte>
+						</MagicByteSequence>
+						<MagicByteSequence>
+							<!-- OS/2 struct Color Icon -->
+							<MagicByte Type="String">CI</MagicByte>
+						</MagicByteSequence>
+						<!--
+						
+						TODO: Figure out how to prevent this from colliding with CPK files that start with "CP"
+						("CPK"):
+							dfr.Filters[0].HintComparison = DataFormatHintComparison.FilterOnly;
+						
+						TODO: Sort list of data formats by length of magic byte requirement during the sniffing
+						process? ;)
+
+						<MagicByteSequence>
+							OS/2 const Color Pointer
+							<MagicByte Type="String">CP</MagicByte>
+						</MagicByteSequence>
+						-->
+						<MagicByteSequence>
+							<!-- OS/2 struct Icon -->
+							<MagicByte Type="String">IC</MagicByte>
+						</MagicByteSequence>
+						<MagicByteSequence>
+							<!-- OS/2 Pointer -->
+							<MagicByte Type="String">PT</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap.BitmapDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

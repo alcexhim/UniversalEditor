@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 		protected override DataFormatReference MakeReferenceInternal()
 		{
             DataFormatReference dfr = new DataFormatReference(this.GetType());
-			dfr.Filters.Add("VOCALOID3 voice sequence (XML)", new string[] { "*.vsqx" });
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

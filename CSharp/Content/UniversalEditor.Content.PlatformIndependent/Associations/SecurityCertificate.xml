@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the Chunked ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<Filters>
+				<Filter Title="Security certificate (Binary-encoded DER)">
+					<FileNameFilters>
+						<FileNameFilter>*.cer</FileNameFilter>
+						<FileNameFilter>*.der</FileNameFilter>
+						<FileNameFilter>*.p7b</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">3082</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+				<Filter Title="Security certificate (Base64-encoded DER)">
+					<FileNameFilters>
+						<FileNameFilter>*.cer</FileNameFilter>
+						<FileNameFilter>*.der</FileNameFilter>
+						<FileNameFilter>*.p7b</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">-----BEGIN CERTIFICATE-----\r\n</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.SecurityCertificate.SecurityCertificateObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.SecurityCertificate.DER.DERCertificateDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

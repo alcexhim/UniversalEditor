@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Icarus
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(IcarusScriptObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("ICARUS text script", new string[] { "*.icarus" });
             }
             return _dfr;
         }

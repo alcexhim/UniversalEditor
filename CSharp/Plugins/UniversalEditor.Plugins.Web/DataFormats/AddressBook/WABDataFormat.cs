@@ -56,7 +56,6 @@ namespace UniversalEditor.DataFormats.AddressBook
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(AddressBookObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Outlook Express address book", new string[] { "*.wab" });
 			}
 			return _dfr;
 		}

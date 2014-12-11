@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Universal Property List file", new byte?[][] { new byte?[] { (byte)'U', (byte)'P', (byte)'L', (byte)'F' } }, new string[] { "*.upl" });
                 _dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format version:", true, new CustomOptionFieldChoice("1.0", 1.0f)));
             }
             return _dfr;

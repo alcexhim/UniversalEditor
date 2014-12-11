@@ -14,7 +14,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
         {
             DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-            dfr.Filters.Add("Portable Network Graphics", new byte?[][] { new byte?[] { (byte)0x89, (byte)'P', (byte)'N', (byte)'G', (byte)0x0D, (byte)0x0A, (byte)0x1A, (byte)0x0A } }, new string[] { "*.png" });
             return dfr;
         }
 

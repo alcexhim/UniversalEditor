@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("ARGB image", new byte?[][] { new byte?[] { (byte)'B', (byte)'G', (byte)'R', (byte)'A' } }, new string[] { "*.argb" });
             }
             return _dfr;
         }

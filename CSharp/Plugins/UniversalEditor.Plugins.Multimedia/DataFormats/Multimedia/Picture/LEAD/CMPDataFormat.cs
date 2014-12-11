@@ -23,7 +23,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.LEAD
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("LEAD compressed image", new byte?[][] { new byte?[] { (byte)'L', (byte)'E', (byte)'A', (byte)'D' } }, new string[] { "*.cmp" });
 			}
 			return _dfr;
 		}

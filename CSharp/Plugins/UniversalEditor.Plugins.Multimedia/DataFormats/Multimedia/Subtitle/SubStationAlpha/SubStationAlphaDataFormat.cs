@@ -26,7 +26,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
             {
                 _dfr = new DataFormatReference(GetType());
                 _dfr.Capabilities.Add(typeof(SubtitleObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("SubStation Alpha subtitles", new string[] { "*.ssa", "*.ass" });
                 _dfr.ExportOptions.Add(new CustomOptionText("Title", "&Title:"));
                 _dfr.ExportOptions.Add(new CustomOptionFile("VideoFileName", "&Video file:", String.Empty, "*.asf;*.avi;*.avs;*.d2v;*.m2ts;*.m4v;*.mkv;*.mov;*.mp4;*.mpeg;*.mpg;*.ogm;*.webm;*.wmv;*.ts;*.y4m;*.yuv"));
             }

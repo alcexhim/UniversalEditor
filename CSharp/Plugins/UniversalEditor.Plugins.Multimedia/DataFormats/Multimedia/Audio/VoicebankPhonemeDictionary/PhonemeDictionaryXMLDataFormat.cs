@@ -20,7 +20,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.VoicebankPhonemeDictionar
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
 				_dfr.Capabilities.Add(typeof(PhonemeDictionaryObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Phoneme dictionary", new string[] { "*.xml" });
 			}
 			return _dfr;
 		}

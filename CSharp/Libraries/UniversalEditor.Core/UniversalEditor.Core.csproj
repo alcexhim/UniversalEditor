@@ -47,6 +47,7 @@
     <Compile Include="Accessors\StreamAccessor.cs" />
     <Compile Include="Accessors\StringAccessor.cs" />
     <Compile Include="Association.cs" />
+    <Compile Include="AssociationCriteria.cs" />
     <Compile Include="Checksum\ChecksumModule.cs" />
     <Compile Include="Checksum\Modules\Adler32\Adler32ChecksumModule.cs" />
     <Compile Include="Checksum\Modules\CRC32\CRC32ChecksumModule.cs" />

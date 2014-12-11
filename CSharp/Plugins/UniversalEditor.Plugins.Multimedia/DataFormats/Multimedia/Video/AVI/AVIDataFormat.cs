@@ -14,7 +14,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Video.AVI
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Clear();
-			dfr.Filters.Add("Audio/Video Interleaved", new string[] { "*.avi" });
 			dfr.Capabilities.Add(typeof(VideoObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}

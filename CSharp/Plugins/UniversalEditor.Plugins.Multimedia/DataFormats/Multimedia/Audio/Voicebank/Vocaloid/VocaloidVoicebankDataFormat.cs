@@ -13,7 +13,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.Vocaloid
 			if (_dfr == null)
 			{
 				_dfr = base.MakeReferenceInternal();
-				_dfr.Filters.Add("VOCALOID voice bank database", new byte?[][] { new byte?[] { new byte?(70), new byte?(45), new byte?(0), new byte?(0) }, new byte?[] { new byte?(70), new byte?(82), new byte?(77), new byte?(50) } }, new string[] { "*.ddb" });
 				_dfr.Capabilities.Add(typeof(VoicebankObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Music Instrument Digital Interface sequence">
+					<FileNameFilters>
+						<FileNameFilter>*.mid</FileNameFilter>
+						<FileNameFilter>*.midi</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">MThd</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized.SynthesizedAudioObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI.MIDIDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

@@ -21,7 +21,6 @@ namespace UniversalEditor.DataFormats.Web.StyleSheet
 				_dfr.Clear();
 				_dfr.Capabilities.Add(typeof(StyleSheetObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.Bootstrap);
-				_dfr.Filters.Add("Cascading Style Sheet", new string[] { "*.css" });
 			}
 			return _dfr;
 		}

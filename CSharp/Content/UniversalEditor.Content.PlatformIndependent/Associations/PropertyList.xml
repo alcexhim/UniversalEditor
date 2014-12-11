@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<!-- Associate the PropertyList ObjectModel with its DataFormats -->
+		<Association>
+			<Filters>
+				<Filter Title="Windows configuration document">
+					<FileNameFilters>
+						<FileNameFilter>*.ini</FileNameFilter>
+						<FileNameFilter>*.inf</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.WindowsConfigurationDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Core Object">
+					<FileNameFilters>
+						<FileNameFilter>*.vcs</FileNameFilter>
+						<FileNameFilter>*.ics</FileNameFilter>
+						<FileNameFilter>*.vcf</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.CoreObject.CoreObjectDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Extensible Configuration document">
+					<FileNameFilters>
+						<FileNameFilter>*.inix</FileNameFilter>
+						<FileNameFilter>*.xni</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration.ExtensibleConfigurationDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Text-based property list">
+					<FileNameFilters>
+						<FileNameFilter>*.tpl</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">#TPL-1.0</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.Text.TextPropertyListDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Universal Property List file">
+					<FileNameFilters>
+						<FileNameFilter>*.upl</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">UPLF</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.UniversalPropertyList.UniversalPropertyListDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="XML property list">
+					<FileNameFilters>
+						<FileNameFilter>*.cfg</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

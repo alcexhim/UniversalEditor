@@ -456,17 +456,13 @@ namespace UniversalEditor.Common
 
 		public static DataFormatReference[] GetAvailableDataFormats(string filename)
 		{
+			Association[] associations = Association.FromCriteria(new AssociationCriteria() { FileName = filename });
 			List<DataFormatReference> list = new List<DataFormatReference>();
-			DataFormatReference[] dfs = GetAvailableDataFormats();
-			foreach (DataFormatReference df in dfs)
+			foreach (Association association in associations)
 			{
-				foreach (DataFormatFilter filter in df.Filters)
+				for (int i = 0; i < association.DataFormats.Count; i++)
 				{
-					if (filter.MatchesFile(filename))
-					{
-						list.Add(df);
-						break;
-					}
+					list.Add(association.DataFormats[i]);
 				}
 			}
 			list.Sort(new Comparison<DataFormatReference>(_DataFormatReferenceComparer));
@@ -482,17 +478,13 @@ namespace UniversalEditor.Common
 				accessor.Open();
 			}
 
+			Association[] associations = Association.FromCriteria(new AssociationCriteria() { Accessor = accessor });
 			List<DataFormatReference> list = new List<DataFormatReference>();
-			DataFormatReference[] dfs = GetAvailableDataFormats();
-			foreach (DataFormatReference df in dfs)
+			foreach (Association association in associations)
 			{
-				foreach (DataFormatFilter filter in df.Filters)
+				for (int i = 0; i < association.DataFormats.Count; i++)
 				{
-					if (filter.MatchesFile(accessor.GetFileName(), accessor))
-					{
-						list.Add(df);
-						break;
-					}
+					list.Add(association.DataFormats[i]);
 				}
 			}
 			list.Sort(new Comparison<DataFormatReference>(_DataFormatReferenceComparer));
@@ -520,23 +512,17 @@ namespace UniversalEditor.Common
 		}
 		public static DataFormatReference[] GetAvailableDataFormats(Accessor accessor, ObjectModelReference omr)
 		{
-			List<DataFormatReference> list = new List<DataFormatReference>();
-			DataFormatReference[] dfs = GetAvailableDataFormats();
-			foreach (DataFormatReference df in dfs)
+			AssociationCriteria ac = new AssociationCriteria() { Accessor = accessor, ObjectModel = omr };
+			Association[] associations = Association.FromCriteria(ac);
+			List<DataFormatReference> dfrs = new List<DataFormatReference>();
+			foreach (Association assocs in associations)
 			{
-				if (df.Capabilities[omr.Type] != DataFormatCapabilities.None)
+				for (int i = 0; i < assocs.DataFormats.Count; i++)
 				{
-					foreach (DataFormatFilter filter in df.Filters)
-					{
-						if (filter.MatchesFile(accessor))
-						{
-							list.Add(df);
-							break;
-						}
-					}
+					dfrs.Add(assocs.DataFormats[i]);
 				}
 			}
-			return list.ToArray();
+			return dfrs.ToArray();
 		}
 		public static DataFormatReference GetDataFormatByTypeName(string TypeName)
 		{

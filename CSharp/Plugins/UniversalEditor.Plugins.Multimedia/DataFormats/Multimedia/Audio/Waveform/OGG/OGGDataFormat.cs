@@ -7,7 +7,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.OGG
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Ogg audio container", new string[] { "*.ogg", "*.ogm", "*.oga", "*.ogv" });
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
