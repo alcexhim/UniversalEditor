@@ -44,8 +44,10 @@
     <Content Include="Configuration\MainMenu.xml" />
     <Content Include="Configuration\ObjectModels.xml" />
     <Content Include="Configuration\StartPage.xml" />
+    <Content Include="Associations\FileSystem.xml" />
     <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\Commands.xml" />
     <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\KeyBindings.xml" />
+    <Content Include="Extensions\FileSystem\Associations\Archive.xml" />
     <Content Include="ObjectModels\UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel.xml" />
     <Content Include="ObjectModels\UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel.xml" />
     <Content Include="ObjectModels\UniversalEditor.ObjectModels.Shortcut.ShortcutObjectModel.xml" />

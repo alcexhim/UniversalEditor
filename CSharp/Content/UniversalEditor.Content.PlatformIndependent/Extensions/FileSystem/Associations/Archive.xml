@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the FileSystem ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.ALTools.ALZ.ALZDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.ALTools.EGG.EGGDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.AR.ARDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.ARC.ARCDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.ARJ.ARJDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.BAG.BAGDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.BGA.BGADataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.CFL.CFLDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.CPIO.CPIODataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.LHA.LHADataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.StuffIt.StuffItDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.TapeArchive.TapeArchiveDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.WinAce.ACEDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.WinRAR.RARDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.ZIP.ZIPDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole.BHDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
