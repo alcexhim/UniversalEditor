@@ -3,6 +3,19 @@
 	<Associations>
 		<Association>
 			<!-- Associate the FileSystem ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<Filters>
+				<Filter Title="Universal Editor eXtension">
+					<FileNameFilters>
+						<FileNameFilter>*.uxt</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">Universal Editor extension file</MagicByte>
+							<MagicByte Type="HexString">00</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
 			<ObjectModels>
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>

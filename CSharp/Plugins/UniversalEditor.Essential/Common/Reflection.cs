@@ -231,6 +231,11 @@ namespace UniversalEditor.Common
 						{
 							listProjectTemplates.Add(template);
 						}
+
+						foreach (Association assoc in mom.Associations)
+						{
+							Association.Register(assoc);
+						}
 					}
 					catch
 					{

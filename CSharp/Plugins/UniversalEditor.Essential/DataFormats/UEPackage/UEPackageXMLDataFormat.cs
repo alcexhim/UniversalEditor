@@ -812,6 +812,122 @@ namespace UniversalEditor.DataFormats.UEPackage
 							}
 						}
 
+						MarkupTagElement tagFilters = (tagAssociation.Elements["Filters"] as MarkupTagElement);
+						if (tagFilters != null)
+						{
+							foreach (MarkupElement elFilter in tagFilters.Elements)
+							{
+								MarkupTagElement tagFilter = (elFilter as MarkupTagElement);
+								if (tagFilter == null) continue;
+								if (tagFilter.FullName != "Filter") continue;
+
+								DataFormatFilter filter = new DataFormatFilter();
+								MarkupAttribute attTitle = tagFilter.Attributes["Title"];
+								if (attTitle != null)
+								{
+									filter.Title = attTitle.Value;
+								}
+
+								MarkupTagElement tagFileNameFilters = (tagFilter.Elements["FileNameFilters"] as MarkupTagElement);
+								if (tagFileNameFilters != null)
+								{
+									foreach (MarkupElement elFileNameFilter in tagFileNameFilters.Elements)
+									{
+										MarkupTagElement tagFileNameFilter = (elFileNameFilter as MarkupTagElement);
+										if (tagFileNameFilter == null) continue;
+										if (tagFileNameFilter.FullName != "FileNameFilter") continue;
+
+										filter.FileNameFilters.Add(tagFileNameFilter.Value);
+									}
+								}
+
+								MarkupTagElement tagMagicByteSequences = (tagFilter.Elements["MagicByteSequences"] as MarkupTagElement);
+								if (tagMagicByteSequences != null)
+								{
+									foreach (MarkupElement elMagicByteSequence in tagMagicByteSequences.Elements)
+									{
+										MarkupTagElement tagMagicByteSequence = (elMagicByteSequence as MarkupTagElement);
+										if (tagMagicByteSequence == null) continue;
+										if (tagMagicByteSequence.FullName != "MagicByteSequence") continue;
+
+										List<byte?> magicByteSequence = new List<byte?>();
+
+										foreach (MarkupElement elMagicByte in tagMagicByteSequence.Elements)
+										{
+											MarkupTagElement tagMagicByte = (elMagicByte as MarkupTagElement);
+											if (tagMagicByte == null) continue;
+											if (tagMagicByte.FullName != "MagicByte") continue;
+
+											MarkupAttribute attType = tagMagicByte.Attributes["Type"];
+											if (attType == null) continue;
+
+											switch (attType.Value.ToLower())
+											{
+												case "blank":
+												{
+													MarkupAttribute attLength = tagMagicByte.Attributes["Length"];
+													if (attLength == null) continue;
+
+													int iLength = 0;
+													if (!Int32.TryParse(attLength.Value, out iLength)) continue;
+
+													for (int i = 0; i < iLength; i++)
+													{
+														magicByteSequence.Add(null);
+													}
+													break;
+												}
+												case "string":
+												{
+													string value = tagMagicByte.Value;
+													for (int i = 0; i < value.Length; i++)
+													{
+														magicByteSequence.Add((byte)value[i]);
+													}
+													break;
+												}
+												case "byte":
+												{
+													string value = tagMagicByte.Value.ToLower();
+													byte realvalue = 0;
+													if (value.StartsWith("0x") || value.StartsWith("&h"))
+													{
+														value = value.Substring(2);
+														realvalue = Byte.Parse(value, System.Globalization.NumberStyles.HexNumber);
+													}
+													else
+													{
+														realvalue = Byte.Parse(value);
+													}
+													for (int i = 0; i < value.Length; i++)
+													{
+														magicByteSequence.Add(realvalue);
+													}
+													break;
+												}
+												case "hexstring":
+												{
+													string value = tagMagicByte.Value.ToLower();
+													byte realvalue = 0;
+													for (int i = 0; i < value.Length; i += 2)
+													{
+														string val = value.Substring(i, 2);
+														realvalue = Byte.Parse(value, System.Globalization.NumberStyles.HexNumber);
+														magicByteSequence.Add(realvalue);
+													}
+													break;
+												}
+											}
+										}
+
+										filter.MagicBytes.Add(magicByteSequence.ToArray());
+									}
+								}
+
+								association.Filters.Add(filter);
+							}
+						}
+
 						package.Associations.Add(association);
 					}
 				}
