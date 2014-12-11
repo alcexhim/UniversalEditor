@@ -19,6 +19,12 @@ namespace UniversalEditor.ObjectModels.UEPackage
 			return _omr;
 		}
 
+		private Association.AssociationCollection mvarAssociations = new Association.AssociationCollection();
+		/// <summary>
+		/// The <see cref="Association" />s provided by this package.
+		/// </summary>
+		public Association.AssociationCollection Associations { get { return mvarAssociations; } }
+
 		private ObjectModelReference.ObjectModelReferenceCollection mvarObjectModels = new ObjectModelReference.ObjectModelReferenceCollection();
 		/// <summary>
 		/// The <see cref="ObjectModel" />s provided by this package.
