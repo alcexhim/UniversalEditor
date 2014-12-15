@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Dreamfall
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Dreamfall PAK archive", new byte?[][] { new byte?[] { (byte)'t', (byte)'l', (byte)'j', (byte)'_', (byte)'p', (byte)'a', (byte)'c', (byte)'k', (byte)'0', (byte)'0', (byte)'0', (byte)'1' } }, new string[] { "*.pak" });
 			}
 			return _dfr;
 		}

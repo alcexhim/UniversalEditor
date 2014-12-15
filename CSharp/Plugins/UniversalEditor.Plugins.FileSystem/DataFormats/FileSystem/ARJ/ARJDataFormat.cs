@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Archive by Robert Jung", new byte?[][] { new byte?[] { 0x60, 0xEA } }, new string[] { "*.arj" });
 			}
 			return _dfr;
 		}

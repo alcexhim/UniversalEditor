@@ -14,7 +14,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
-			dfr.Filters.Add("SMIL/Windows Media/Zune playlist", new byte?[][] { new byte?[] { new byte?(60), new byte?(63), new byte?(119), new byte?(112), new byte?(108) }, new byte?[] { new byte?(60), new byte?(63), new byte?(122), new byte?(112), new byte?(108) }, new byte?[] { new byte?(60), new byte?(63), new byte?(120), new byte?(109), new byte?(108) } }, new string[] { "*.wpl", "*.zpl", "*.smil" });
 			dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			dfr.ContentTypes.AddRange("application/smil+xml", "application/vnd.ms-wpl");

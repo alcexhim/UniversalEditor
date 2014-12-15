@@ -16,8 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
-
-			dfr.Filters.Add("Compact Disc Digital Audio", new byte?[][] { new byte?[] { new byte?(82), new byte?(73), new byte?(70), new byte?(70), null, null, null, null, new byte?(67), new byte?(68), new byte?(68), new byte?(65) } }, new string[] { "*.cda" });
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
@@ -28,7 +26,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 			PlaylistObjectModel pom = objectModels.Pop() as PlaylistObjectModel;
 			RIFFDataChunk fmtChunk = new RIFFDataChunk();
 			fmtChunk.ID = "fmt ";
-            Accessors.MemoryAccessor ms = new Accessors.MemoryAccessor();
+			Accessors.MemoryAccessor ms = new Accessors.MemoryAccessor();
 			IO.Writer bw = new IO.Writer(ms);
 			ushort CDAFileVersion = 1;
 			ushort CDATrackNumber = 1;
@@ -66,7 +64,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 				CDATrackLengthRBFMinute, 
 				CDATrackLengthRBFUnused
 			});
-            ms.Close();
+			ms.Close();
 
 			fmtChunk.Data = ms.ToArray();
 			rom.Chunks.Add(fmtChunk);

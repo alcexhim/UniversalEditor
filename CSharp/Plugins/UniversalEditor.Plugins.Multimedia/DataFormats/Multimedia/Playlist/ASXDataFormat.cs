@@ -11,8 +11,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
-
-			dfr.Filters.Add("Advanced Stream Redirector", new string[] { "*.asx" });
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			dfr.ContentTypes.Add("video/x-ms-asf");
 			return dfr;

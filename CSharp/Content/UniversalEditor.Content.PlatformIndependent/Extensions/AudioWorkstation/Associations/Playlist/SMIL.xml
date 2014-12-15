@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="SMIL/Windows Media/Zune playlist">
+					<FileNameFilters>
+						<FileNameFilter>*.wpl</FileNameFilter>
+						<FileNameFilter>*.zpl</FileNameFilter>
+						<FileNameFilter>*.smil</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">&lt;?xml</MagicByte>
+							<MagicByte Type="String">&lt;?zpl</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Playlist.PlaylistObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Playlist.SMILDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

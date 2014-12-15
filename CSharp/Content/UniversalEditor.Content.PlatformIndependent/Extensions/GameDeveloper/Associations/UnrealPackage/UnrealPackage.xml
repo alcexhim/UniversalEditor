@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Unreal Engine package">
+					<FileNameFilters>
+						<FileNameFilter>*.u</FileNameFilter>
+						<FileNameFilter>*.utx</FileNameFilter>
+						<FileNameFilter>*.upk</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">C1832A9E</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.UnrealEngine.UnrealPackageObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.UnrealEngine.Package.UnrealPackageDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

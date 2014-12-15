@@ -15,16 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.MementoMori
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Centauri Production / Memento Mori RES archive", new byte?[][]
-				{
-					new byte?[] { (byte)'C', 0, (byte)'e', 0, (byte)'n', 0, (byte)'t', 0, (byte)'a', 0,
-						(byte)'u', 0, (byte)'r', 0, (byte)'i', 0, (byte)' ', 0, (byte)'P', 0, (byte)'r', 0,
-						(byte)'o', 0, (byte)'d', 0, (byte)'u', 0, (byte)'c', 0, (byte)'t', 0, (byte)'i', 0,
-						(byte)'o', 0, (byte)'n', 0, (byte)' ', 0, (byte)'R', 0, (byte)'e', 0, (byte)'s', 0,
-						(byte)'o', 0, (byte)'u', 0, (byte)'r', 0, (byte)'c', 0, (byte)'e', 0, (byte)' ', 0,
-						(byte)'F', 0, (byte)'i', 0, (byte)'l', 0, (byte)'e', 0, (byte)' ', 0, (byte)'3', 0,
-						(byte)'.', 0, (byte)'1', 0, (byte)'0', 0, 0x0A, 0, 0x0A, 0 }
-				}, new string[] { "*.res" });
 			}
 			return _dfr;
 		}

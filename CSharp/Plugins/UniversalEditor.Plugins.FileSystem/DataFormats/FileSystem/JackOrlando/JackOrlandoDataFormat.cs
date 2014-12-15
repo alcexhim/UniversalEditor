@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.JackOrlando
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Jack Orlando archive", new byte?[][] { new byte?[] { (byte)'P', (byte)'A', (byte)'K', (byte)0 } }, new string[] { "*.pak", "*.phk", "*.ph2" });
 			}
 			return _dfr;
 		}

@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Adobe Swatch Exchange color palette", new byte?[][] { new byte?[] { (byte)'A', (byte)'S', (byte)'E', (byte)'F' } }, new string[] { "*.ase" });
 			}
 			return _dfr;
 		}

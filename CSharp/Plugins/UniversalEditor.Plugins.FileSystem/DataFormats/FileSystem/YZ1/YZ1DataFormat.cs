@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.YZ1
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Yamazaki ZIPPER/DeepFreezer archive", new byte?[][] { new byte?[] { (byte)'y', (byte)'z', (byte)'0', (byte)'1', (byte)'0', (byte)'6', (byte)'0', (byte)'0' } }, new string[] { "*.yz1" });
 			}
 			return _dfr;
 		}

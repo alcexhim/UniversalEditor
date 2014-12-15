@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Centauri Production / Memento Mori RES archive">
+					<FileNameFilters>
+						<FileNameFilter>*.res</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">C\0e\0n\0t\0a\0u\0r\0i\0 \0P\0r\0o\0d\0u\0c\0t\0i\0o\0n\0 \0R\0e\0s\0o\0u\0r\0c\0e\0 \0F\0i\0l\0e\0 \03\0.\01\00\0\xa\0\xa\0</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.MementoMori.RESDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

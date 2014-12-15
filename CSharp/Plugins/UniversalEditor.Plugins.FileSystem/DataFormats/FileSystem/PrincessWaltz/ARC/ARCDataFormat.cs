@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.PrincessWaltz.ARC
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Princess Waltz ARC", new string[] { "*.arc" });
 			}
 			return _dfr;
 		}
