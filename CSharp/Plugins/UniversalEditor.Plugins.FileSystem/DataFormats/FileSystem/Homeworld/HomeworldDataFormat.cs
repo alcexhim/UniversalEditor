@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Homeworld
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Homeworld VCE/WXD archive", new byte?[][] { new byte?[] { (byte)'V', (byte)'C', (byte)'E', (byte)'0' }, new byte?[] { (byte)'W', (byte)'X', (byte)'D', (byte)'1' } }, new string[] { "*.wxd", "*.vce" });
 				_dfr.ExportOptions.Add(new CustomOptionChoice("Version", "Format &version:", true,
 					new CustomOptionFieldChoice("Version \"VCE0\"", (uint)0),
 					new CustomOptionFieldChoice("Version \"WXD1\"", (uint)1)

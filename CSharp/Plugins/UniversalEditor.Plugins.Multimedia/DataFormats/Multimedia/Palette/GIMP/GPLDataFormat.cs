@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("GIMP color palette", new byte?[][] { new byte?[] { (byte)'G', (byte)'I', (byte)'M', (byte)'P', (byte)' ', (byte)'P', (byte)'a', (byte)'l', (byte)'e', (byte)'t', (byte)'t', (byte)'e' } }, new string[] { "*.gpl" });
             }
             return _dfr;
         }

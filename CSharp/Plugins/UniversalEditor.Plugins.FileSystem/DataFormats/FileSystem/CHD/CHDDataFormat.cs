@@ -14,7 +14,6 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Compressed Hunks of Data", new byte?[][] { new byte?[] { (byte)'M', (byte)'C', (byte)'o', (byte)'m', (byte)'p', (byte)'r', (byte)'H', (byte)'D' } }, new string[] { "*.chd" });
 			}
 			return _dfr;
 		}

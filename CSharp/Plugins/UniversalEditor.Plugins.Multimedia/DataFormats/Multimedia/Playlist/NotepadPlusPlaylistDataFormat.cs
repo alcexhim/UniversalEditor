@@ -10,7 +10,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Notepad++ session", new byte?[][] { new byte?[] { new byte?(60), new byte?(63), new byte?(120), new byte?(109), new byte?(108) } }, new string[] { "session.xml" });
 			dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			return dfr;

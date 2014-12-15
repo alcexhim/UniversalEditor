@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.PaintShop
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("JASC Paint Shop color palette", new byte?[][] { new byte?[] { (byte)'J', (byte)'A', (byte)'S', (byte)'C', (byte)'-', (byte)'P', (byte)'A', (byte)'L' } }, new string[] { "*.pal" });
             }
             return _dfr;
         }

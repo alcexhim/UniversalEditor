@@ -11,7 +11,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = new DataFormatReference(GetType());
-			dfr.Filters.Add("PLS playlist", new byte?[][] { new byte?[] { (byte)'[', (byte)'p', (byte)'l', (byte)'a', (byte)'y', (byte)'l', (byte)'i', (byte)'s', (byte)'t' } }, new string[] { "*.pls" });
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			dfr.ContentTypes.Add("audio/x-scpls");
 			return dfr;

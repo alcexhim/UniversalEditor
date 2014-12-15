@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Eugene Roshal WinRAR archive", new byte?[][] { new byte?[] { (byte)'R', (byte)'a', (byte)'r', (byte)'!' } }, new string[] { "*.rar" });
             }
             return _dfr;
         }
