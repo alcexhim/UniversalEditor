@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Hostile Waters DAT archive", new string[] { "*.dat" });
             }
             return _dfr;
         }

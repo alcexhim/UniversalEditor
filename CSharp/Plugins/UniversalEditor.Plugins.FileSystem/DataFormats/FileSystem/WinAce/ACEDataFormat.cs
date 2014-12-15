@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("WinAce archive", new byte?[][] { new byte?[] { null, null, null, null, null, null, null, (byte)'*', (byte)'*', (byte)'A', (byte)'C', (byte)'E', (byte)'*', (byte)'*' } }, new string[] { "*.ace" });
             }
             return _dfr;
         }

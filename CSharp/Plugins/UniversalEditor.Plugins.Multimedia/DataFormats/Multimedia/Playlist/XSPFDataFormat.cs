@@ -13,7 +13,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Clear();
-			dfr.Filters.Add("XML Sharable Playlist File", new string[] { "*.xspf" });
 			dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
 			dfr.Capabilities.Add(typeof(PlaylistObjectModel), DataFormatCapabilities.All);
 			return dfr;

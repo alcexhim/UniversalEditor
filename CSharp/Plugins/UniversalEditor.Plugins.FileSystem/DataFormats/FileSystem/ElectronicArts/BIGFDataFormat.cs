@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ElectronicArts
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Electronic Arts BIGF archive", new byte?[][] { new byte?[] { (byte)'B', (byte)'I', (byte)'G', (byte)'F' } }, new string[] { "*.abg", "*.ama", "*.big", "*.dua", "*.fra", "*.gea", "*.poa", "*.spa", "*.swa", "*.uka", "*.hog", "*.viv" });
             }
             return _dfr;
         }

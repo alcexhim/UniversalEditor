@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Hardball
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Hardball MB6/GLU archive", new byte?[][] { new byte?[] { (byte)'M', (byte)'B', (byte)'6', (byte)0 } }, new string[] { "*.glu" });
             }
             return _dfr;
         }

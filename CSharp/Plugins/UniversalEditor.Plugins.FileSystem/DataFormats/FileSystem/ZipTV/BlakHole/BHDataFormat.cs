@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("ZipTV BlakHole archive", new byte?[][] { new byte?[] { (byte)'B', (byte)'H' } }, new string[] { "*.bh" });
 			}
 			return _dfr;
 		}

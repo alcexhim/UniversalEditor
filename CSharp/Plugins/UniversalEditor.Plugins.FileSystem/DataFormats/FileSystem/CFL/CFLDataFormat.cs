@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.CFL
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Compressed File Library archive", new byte?[][] { new byte?[] { (byte)'C', (byte)'F', (byte)'L', (byte)'3' } }, new string[] { "*.cfl" });
 				_dfr.Sources.Add("http://sol.gfxile.net/cfl/index.html");
 			}
 			return _dfr;

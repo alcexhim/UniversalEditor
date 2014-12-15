@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("3D Ultra TBVolume archive", new byte?[][] { new byte?[] { (byte)'T', (byte)'B', (byte)'V', (byte)'o', (byte)'l', (byte)'u', (byte)'m', (byte)'e' } }, new string[] { "*.tbv" });
                 _dfr.ExportOptions.Add(new CustomOptionText("Description", "Description:", "RichRayl@CUC"));
             }
             return _dfr;

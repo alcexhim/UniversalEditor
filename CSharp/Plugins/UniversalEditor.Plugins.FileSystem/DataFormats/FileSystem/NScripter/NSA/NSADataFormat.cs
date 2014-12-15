@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.NScripter.NSA
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("NScripter NSA archive", new string[] { "*.nsa" });
 			}
 			return _dfr;
 		}

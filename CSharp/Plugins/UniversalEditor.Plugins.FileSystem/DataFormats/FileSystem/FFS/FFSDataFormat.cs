@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.FFS
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Heroes of the Pacific FFS archive", new byte?[][] { new byte?[] { (byte)'F', (byte)'F', (byte)'S', (byte)' ' } }, new string[] { "*.ffs" });
             }
             return _dfr;
         }

@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("ISO 9660 optical disc image", new string[] { "*.iso" });
 				_dfr.ContentTypes.Add("application/x-iso9660-image");
 
 				_dfr.ExportOptions.Add(new CustomOptionText("SystemName", "System &name:", String.Empty, 128));

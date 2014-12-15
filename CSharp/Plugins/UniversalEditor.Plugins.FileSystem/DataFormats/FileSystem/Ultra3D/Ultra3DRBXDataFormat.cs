@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("3D Ultra RBX archive", new byte?[][] { new byte?[] { 0x9E, 0x9A, 0xA9, 0x0B } }, new string[] { "*.rbx" });
             }
             return _dfr;
         }

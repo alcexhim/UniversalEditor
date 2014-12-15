@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.HighwayPursuit
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Highway Pursuit archive", new byte?[][] { new byte?[] { (byte)'H', (byte)'P', (byte)'D', (byte)'T' } }, new string[] { "*.hfd", "*.hgd", "*.hmd", "*.hod", "*.hsd", "*.hvd" });
             }
             return _dfr;
         }

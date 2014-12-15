@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.KensLabyrinth.KZP
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Ken's Labyrinth KZP archive", new string[] { "*.kzp" });
 			}
 			return _dfr;
 		}

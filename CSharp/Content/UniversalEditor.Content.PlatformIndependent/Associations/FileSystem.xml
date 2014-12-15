@@ -2,7 +2,15 @@
 <UniversalEditor Version="4.0">
 	<Associations>
 		<Association>
-			<!-- Associate the FileSystem ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<!-- Associate the FileSystem ObjectModel with the FileSystem Editor -->
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<Editors>
+				<Editor ID="{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}" />
+			</Editors>
+		</Association>
+		<Association>
 			<Filters>
 				<Filter Title="Universal Editor eXtension">
 					<FileNameFilters>
@@ -22,9 +30,6 @@
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.UXT.UXTDataFormat" />
 			</DataFormats>
-			<Editors>
-				<Editor ID="{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}" />
-			</Editors>
 		</Association>
 	</Associations>
 </UniversalEditor>

@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Aquarnoid.GOB
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Aquarnoid GOB archive", new byte?[][] { new byte?[] { (byte)'G', (byte)'O', (byte)'B', (byte)0 } }, new string[] { "*.gob" });
             }
             return _dfr;
         }

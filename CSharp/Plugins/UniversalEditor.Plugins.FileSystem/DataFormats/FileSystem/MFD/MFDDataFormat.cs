@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.MFD
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("187 Ride or Die MFD archive", new string[] { "*.mfd" });
                 _dfr.Sources.Add("http://wiki.xentax.com/index.php?title=GRAF:187_Ride_Or_Die_MFD");
             }
             return _dfr;

@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.REEVEsoft.Freeze
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("REEVEsoft Freeze archive", new byte?[][] { new byte?[] { (byte)'F', (byte)'R' } }, new string[] { "*.ice" });
             }
             return _dfr;
         }

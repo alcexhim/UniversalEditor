@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Buriko General Interpreter HVL", new byte?[][] { new byte?[] { (byte)'B', (byte)'H', (byte)'V', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)0, (byte)0, (byte)0, (byte)0 } }, new string[] { "*.hvl" });
 			}
 			return _dfr;
 		}
@@ -28,7 +27,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 			string BHV_____0000 = br.ReadFixedLengthString(12);
 			if (BHV_____0000 != "BHV_____\0\0\0\0")
 			{
-				throw new InvalidDataFormatException("File does not begin with BHV_____");
+				throw new InvalidDataFormatException("File does not begin with 'BHV_____', 0x00, 0x00, 0x00, 0x00");
 			}
 
 			int FileCount = br.ReadInt32();

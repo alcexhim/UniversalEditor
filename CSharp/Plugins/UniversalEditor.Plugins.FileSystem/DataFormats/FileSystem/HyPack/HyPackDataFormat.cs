@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.HyPack
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("HyPack archive", new byte?[][] { new byte?[] { (byte)'H', (byte)'y', (byte)'P', (byte)'a', (byte)'c', (byte)'k' } }, new string[] { "*.pak" });
             }
             return _dfr;
         }

@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Roxor In the Groove PCK archive", new byte?[][] { new byte?[] { (byte)'P', (byte)'C', (byte)'K', (byte)'F' } }, new string[] { "*.pck" });
 				_dfr.ExportOptions.Add(new CustomOptionText("Comment", "&Comment: ", String.Empty, 128));
 			}
 			return _dfr;

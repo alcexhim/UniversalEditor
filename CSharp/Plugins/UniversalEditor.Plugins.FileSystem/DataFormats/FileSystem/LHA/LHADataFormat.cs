@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.LHA
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("LHA archive", new byte?[][] { }, new string[] { "*.lha" });
 			}
 			return _dfr;
 		}

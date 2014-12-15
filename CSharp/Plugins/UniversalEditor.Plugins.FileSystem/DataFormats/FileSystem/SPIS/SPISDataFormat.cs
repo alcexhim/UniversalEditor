@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.SPIS
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("SPIS archive", new byte?[][] { new byte?[] { (byte)'S', (byte)'P', (byte)'I', (byte)'S' } }, new string[] { "*.dsk" });
             }
             return _dfr;
         }

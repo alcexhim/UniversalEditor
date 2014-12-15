@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.FSB
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("FMOD Sample Bank", new byte?[][] { new byte?[] { (byte)'F', (byte)'S', (byte)'B', (byte)'3' } }, new string[] { "*.fsb" });
             }
             return _dfr;
         }

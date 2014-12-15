@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Hostile Waters ZGWH/MNG archive", new byte?[][] { new byte?[] { (byte)'Z', (byte)'G', (byte)'W', (byte)'H' } }, new string[] { "*.mng" });
             }
             return _dfr;
         }

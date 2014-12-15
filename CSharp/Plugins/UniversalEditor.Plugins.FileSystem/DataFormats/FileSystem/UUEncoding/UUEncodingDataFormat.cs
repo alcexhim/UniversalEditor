@@ -12,12 +12,11 @@ namespace UniversalEditor.DataFormats.FileSystem.UUEncoding
         private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null)
-            {
-                _dfr = base.MakeReferenceInternal();
-                _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("UUEncoded file", new byte?[][] { new byte?[] { (byte)'b', (byte)'e', (byte)'g', (byte)'i', (byte)'n' } }, new string[] { "*.uue" });
-            }
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+			}
             return _dfr;
         }
 
