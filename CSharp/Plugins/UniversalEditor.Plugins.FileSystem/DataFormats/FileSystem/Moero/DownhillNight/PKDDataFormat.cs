@@ -17,8 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Moero Downhill Night PKD archive", new byte?[][] { new byte?[] { (byte)'P', (byte)'A', (byte)'C', (byte)'K' } }, new string[] { "*.pkd" } );
-                
                 _dfr.ImportOptions.Add(new CustomOptionNumber("EncryptionKey", "Encryption &key:", 0xC5, 0, 255));
                 _dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionKey", "Encryption &key:", 0xC5, 0, 255));
 			}

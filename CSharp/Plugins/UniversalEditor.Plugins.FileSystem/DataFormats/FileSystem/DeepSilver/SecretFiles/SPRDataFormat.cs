@@ -19,7 +19,6 @@ namespace UniversalEditor.DataFormats.FileSystem.DeepSilver.SecretFiles
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionDomain", "Encryption &domain:", 0xbebe2, Int32.MaxValue, Int32.MinValue));
 				_dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionSeed", "Encryption &seed:", 0, Int32.MaxValue, Int32.MinValue));
-				_dfr.Filters.Add("Secret Files: Tunguska SPR archive", new byte?[][] { new byte?[] { (byte)'S', (byte)'P', (byte)'C', (byte)'D' } }, new string[] { "*.spr" });
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Secret_Files:_Tunguska_%28Demo%29_SPR");
 			}
 			return _dfr;

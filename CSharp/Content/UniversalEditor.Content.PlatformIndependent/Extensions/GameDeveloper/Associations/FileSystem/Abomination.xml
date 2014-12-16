@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Abomination: The Nemesis Project AWF archive">
+					<FileNameFilters>
+						<FileNameFilter>*.awf</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Abomination.AWFDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Abomination: The Nemesis Project CLT archive">
+					<FileNameFilters>
+						<FileNameFilter>*.clt</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">AWAD</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Abomination.CLTDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

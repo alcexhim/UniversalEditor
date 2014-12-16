@@ -19,7 +19,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
 				_dfr.ImportOptions.Add(new CustomOptionText("EncryptionKey", "Encryption &key: ", "bogomojo"));
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));
                 _dfr.ExportOptions.Add(new CustomOptionText("EncryptionKey", "Encryption &key: ", "bogomojo"));
-                _dfr.Filters.Add("Nvidia package", new byte?[][] { new byte?[] { 0xBE, 0xEF, 0xCA, 0xFE } }, new string[] { "*.npk" });
             }
             return _dfr;
         }

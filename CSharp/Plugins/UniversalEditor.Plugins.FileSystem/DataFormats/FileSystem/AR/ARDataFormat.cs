@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("AR archive", new byte?[][] { new byte?[] { (byte)'!', (byte)'<', (byte)'a', (byte)'r', (byte)'c', (byte)'h', (byte)'>', 0x0A } }, new string[] { "*.ar", "*.deb" });
 			}
 			return _dfr;
 		}

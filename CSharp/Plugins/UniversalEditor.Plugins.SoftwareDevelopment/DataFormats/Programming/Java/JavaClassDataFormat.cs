@@ -12,12 +12,15 @@ namespace UniversalEditor.DataFormats.Programming.Java
 {
 	public class JavaClassDataFormat : DataFormat
 	{
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Java class", new byte?[][] { new byte?[] { 0xBE, 0xBA, 0xFE, 0xCA } }, new string[] { "*.class" });
-			dfr.Capabilities.Add(typeof(CodeObjectModel), DataFormatCapabilities.All);
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(CodeObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 
 		protected override void LoadInternal(ref ObjectModel objectModel)

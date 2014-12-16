@@ -47,14 +47,6 @@ namespace UniversalEditor.DataFormats.FileSystem.FARC
 
                 _dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));
                 _dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "&Compress the data with the gzip algorithm"));
-
-                _dfr.Filters.Add("FArC archive", new byte?[][]
-                {
-                    new byte?[] { (byte)'F', (byte)'A', (byte)'r', (byte)'C' },
-                    new byte?[] { (byte)'F', (byte)'A', (byte)'r', (byte)'c' },
-                    new byte?[] { (byte)'F', (byte)'A', (byte)'R', (byte)'C' }
-                },
-                new string[] { "*.farc" });
             }
             return _dfr;
         }

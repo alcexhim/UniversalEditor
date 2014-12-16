@@ -15,11 +15,14 @@ namespace UniversalEditor.DataFormats.Programming
 		private string mvarNamespaceSeparator = ".";
 		public string NamespaceSeparator { get { return mvarNamespaceSeparator; } set { mvarNamespaceSeparator = value; } }
 
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Visual Basic .NET code file", new string[] { "*.vb" });
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+			}
+			return _dfr;
 		}
 
 		private List<CodeElement> emptyStack = new List<CodeElement>();

@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Mike O'Brien's MoPaQ archive", new byte?[][] { new byte?[] { (byte)'M', (byte)'P', (byte)'Q' } }, new string[] { "*.mpq" });
             }
             return _dfr;
         }

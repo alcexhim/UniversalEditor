@@ -19,7 +19,6 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ExportOptions.Add(new CustomOptionText("GameTitle", "Game &title: ", "Shadow Company: Left for Dead"));
 				_dfr.ExportOptions.Add(new CustomOptionText("GameCopyright", "Game &copyright: ", "Copyright 1998 by Sinister Games Inc."));
-				_dfr.Filters.Add("Sinister Games GUT archive", new string[] { "*.gut" });
 			}
 			return _dfr;
 		}

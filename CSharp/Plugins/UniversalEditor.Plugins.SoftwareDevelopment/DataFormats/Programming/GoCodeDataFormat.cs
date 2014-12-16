@@ -13,11 +13,14 @@ namespace UniversalEditor.DataFormats.Programming
 {
     public class GoCodeDataFormat : CodeDataFormat
     {
+		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("Go code file", new string[] { "*.go" });
-            return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+			}
+            return _dfr;
         }
 
         protected internal override string GenerateCode(object obj, int indentCount)

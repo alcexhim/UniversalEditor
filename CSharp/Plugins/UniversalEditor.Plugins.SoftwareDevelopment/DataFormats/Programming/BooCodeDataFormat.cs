@@ -9,11 +9,14 @@ namespace UniversalEditor.DataFormats.Programming
 {
     public class BooCodeDataFormat : CodeDataFormat
     {
+		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("Boo code file", new string[] { "*.boo" });
-            return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+			}
+            return _dfr;
         }
         protected internal override string GenerateCode(object obj, int indentCount)
         {

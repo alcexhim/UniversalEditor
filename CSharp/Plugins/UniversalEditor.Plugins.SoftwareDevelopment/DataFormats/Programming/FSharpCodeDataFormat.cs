@@ -16,11 +16,14 @@ namespace UniversalEditor.DataFormats.Programming
         private string mvarNamespaceSeparator = ".";
         public string NamespaceSeparator { get { return mvarNamespaceSeparator; } set { mvarNamespaceSeparator = value; } }
 
+		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("F# code file", new string[] { "*.fs" });
-            return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+			}
+            return _dfr;
         }
 
         protected override string MakeFriendlyDataType(string DataType)

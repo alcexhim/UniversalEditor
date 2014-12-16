@@ -35,7 +35,6 @@ namespace UniversalEditor.DataFormats.FileSystem.PCK
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("2NBF PCK archive", new byte?[][] { new byte?[] { (byte)'2', (byte)'N', (byte)'B', (byte)'F' } }, new string[] { "*.pck" });
             }
             return _dfr;
         }

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="COBOL code file">
+					<FileNameFilters>
+						<FileNameFilter>*.cob</FileNameFilter>
+						<FileNameFilter>*.cbl</FileNameFilter>
+						<FileNameFilter>*.cobol</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.SourceCode.CodeObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Programming.COBOLCodeDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

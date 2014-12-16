@@ -7,7 +7,7 @@ using UniversalEditor.Compression.Modules.LZRW1;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats
+namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 {
 	public class ChaosWorksVOLDataFormat : DataFormat
 	{
@@ -18,8 +18,6 @@ namespace UniversalEditor.DataFormats
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Chaos Works Engine volume", new byte?[][] { new byte?[] { 0x02, 0x42, 0x02, 0x43 }, new byte?[] { 0x02, 0x42, 0x02, 0x42 } }, new string[] { "*.vol" });
-				_dfr.Filters[0].MagicByteOffsets = new int[] { -4 };
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "&Compress this archive using the LZRW1 algorithm", true));
                 _dfr.Sources.Add("Based on a requested QuickBMS script by WRS from xentax.com");
 			}

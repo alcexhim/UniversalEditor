@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="File Allocation Table filesystem">
+					<FileNameFilters>
+						<FileNameFilter>*.fat</FileNameFilter>
+						<FileNameFilter>*.fat16</FileNameFilter>
+						<FileNameFilter>*.fat32</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="None" Length="3" />
+							<MagicByte Type="String">IBM  3.3</MagicByte>
+							<MagicByte Type="String">MSDOS5.0</MagicByte>
+							<MagicByte Type="String">MSWIN4.1</MagicByte>
+							<MagicByte Type="String">IBM  7.1</MagicByte>
+							<MagicByte Type="String">mkdosfs </MagicByte>
+							<MagicByte Type="String">FreeDOS </MagicByte>
+							<MagicByte Type="String">(lesTHIC</MagicByte>
+							<MagicByte Type="String">WINIMAGE</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.FAT.FATDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

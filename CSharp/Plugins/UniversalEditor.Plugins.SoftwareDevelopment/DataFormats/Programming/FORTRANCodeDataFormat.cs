@@ -9,11 +9,14 @@ namespace UniversalEditor.DataFormats.Programming
 {
     public class FORTRANCodeDataFormat : CodeDataFormat
     {
+		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("Fortran code file", new string[] { "*.for" });
-            return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+			}
+            return _dfr;
         }
         protected internal override string GenerateCode(object obj, int indentCount)
         {

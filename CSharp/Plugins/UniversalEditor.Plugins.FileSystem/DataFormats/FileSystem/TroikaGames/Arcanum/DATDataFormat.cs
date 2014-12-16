@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.TroikaGames.Arcanum
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Troika Games Arcanum DAT", new string[] { "*.dat" });
 			}
 			return _dfr;
 		}

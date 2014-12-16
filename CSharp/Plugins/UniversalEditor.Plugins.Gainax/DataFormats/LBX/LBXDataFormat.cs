@@ -4,7 +4,7 @@ using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.Plugins.Gainax.DataFormats.LBX
+namespace UniversalEditor.DataFormats.FileSystem.Gainax.LBX
 {
 	public class LBXDataFormat : DataFormat
 	{
@@ -15,7 +15,6 @@ namespace UniversalEditor.Plugins.Gainax.DataFormats.LBX
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Gainax LBX archive", new string[] { "*.lbx" });
 			}
 			return _dfr;
 		}

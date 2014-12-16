@@ -24,7 +24,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Nero
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Nero Burning ROM disk image", new byte?[][] { new byte?[] { 0xE, (byte)'N', (byte)'e', (byte)'r', (byte)'o', (byte)'I', (byte)'S', (byte)'O', (byte)'0', (byte)'.', (byte)'0', (byte)'2', (byte)'.', (byte)'0', (byte)'3' } }, new string[] { "*.nrb", "*.nri", "*.nrg" });
 				_dfr.ExportOptions.Add(new CustomOptionText("ImageName", "Image &name:"));
 				_dfr.ExportOptions.Add(new CustomOptionText("ImageName2", "Image name (&Joliet):"));
 			}

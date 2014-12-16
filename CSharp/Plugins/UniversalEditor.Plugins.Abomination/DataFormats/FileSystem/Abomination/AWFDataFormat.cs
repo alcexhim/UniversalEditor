@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Abomination
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Abomination: The Nemesis Project AWF archive", new string[] { "*.awf" });
             }
             return _dfr;
         }

@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Tape archive", new string[] { "*.tar", "*.tar.gz", "*.tgz", "*.tar.bz2", "*.tbz2", "*.tb2", "*.taz", "*.tar.z", "*.tlz", "*.tar.lz", "*.txz", "*.tar.xz" });
 				_dfr.ExportOptions.Add(new CustomOptionBoolean("IsUnixStandardTAR", "Create a UNIX standard tape archive (ustar)", true));
 			}
 			return _dfr;

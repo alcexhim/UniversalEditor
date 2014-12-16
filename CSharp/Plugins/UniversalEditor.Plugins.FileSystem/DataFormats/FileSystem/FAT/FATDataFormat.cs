@@ -39,18 +39,6 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("File Allocation Table archive", new byte?[][]
-				{
-					new byte?[] { null, null, null, (byte)'I', (byte)'B', (byte)'M', (byte)' ', (byte)' ', (byte)'3', (byte)'.', (byte)'3' },
-					new byte?[] { null, null, null, (byte)'M', (byte)'S', (byte)'D', (byte)'O', (byte)'S', (byte)'5', (byte)'.', (byte)'0' },
-					new byte?[] { null, null, null, (byte)'M', (byte)'S', (byte)'W', (byte)'I', (byte)'N', (byte)'4', (byte)'.', (byte)'1' },
-					new byte?[] { null, null, null, (byte)'I', (byte)'B', (byte)'M', (byte)' ', (byte)' ', (byte)'7', (byte)'.', (byte)'1' },
-					new byte?[] { null, null, null, (byte)'m', (byte)'k', (byte)'d', (byte)'o', (byte)'s', (byte)'f', (byte)'s', (byte)' ' },
-					new byte?[] { null, null, null, (byte)'F', (byte)'r', (byte)'e', (byte)'e', (byte)'D', (byte)'O', (byte)'S', (byte)' ' },
-					new byte?[] { null, null, null, (byte)'(', (byte)'l', (byte)'e', (byte)'s', (byte)'T', (byte)'H', (byte)'I', (byte)'C' },
-					new byte?[] { null, null, null, (byte)'W', (byte)'I', (byte)'N', (byte)'I', (byte)'M', (byte)'A', (byte)'G', (byte)'E' }
-				}, new string[] { "*.fat", "*.fat16", "*.fat32" });
-                
                 _dfr.ExportOptions.Add(new CustomOptionText("OEMName", "OEM &name:", "MSDOS5.0", 8));
                 
                 #region Bios Parameter Block

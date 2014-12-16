@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Cabinet
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("InstallShield cabinet header", new byte?[][] { new byte?[] { (byte)'I', (byte)'S', (byte)'c', (byte)'(' } }, new string[] { "*.hdr" });
             }
             return _dfr;
         }

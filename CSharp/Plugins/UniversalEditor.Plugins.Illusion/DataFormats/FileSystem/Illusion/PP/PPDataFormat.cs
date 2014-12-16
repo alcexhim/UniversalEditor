@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Illusion.PP
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Illusion Games' PP archive", new string[] { "*.pp" });
 			}
 			return _dfr;
 		}

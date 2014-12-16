@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("ALZip ALZ archive", new byte?[][] { new byte?[] { (byte)'A', (byte)'L', (byte)'Z', (byte)1 } }, new string[] { "*.alz" });
 				_dfr.ContentTypes.Add("application/x-alz-compressed");
 			}
 			return _dfr;

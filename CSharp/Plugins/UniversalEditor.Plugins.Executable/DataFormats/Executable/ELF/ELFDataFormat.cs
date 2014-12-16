@@ -20,7 +20,6 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ExecutableObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Executable and Linkable Format", new byte?[][] { new byte?[] { (byte)0x7F, (byte)'E', (byte)'L', (byte)'F' } }, new string[] { "*.elf" });
 			}
 			return _dfr;
 		}

@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Dynamix.VOL
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Dynamix/Starsiege VOL archive", new byte?[][] { new byte?[] { (byte)'P', (byte)'V', (byte)'O', (byte)'L' } }, new string[] { "*.vol" });
 				_dfr.ID = new Guid("{7AB0E953-243D-4DA4-BC2F-766CF0F5168A}");
 			}
 			return _dfr;

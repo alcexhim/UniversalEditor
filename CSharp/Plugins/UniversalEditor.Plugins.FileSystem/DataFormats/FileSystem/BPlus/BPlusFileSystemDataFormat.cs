@@ -20,7 +20,6 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("B+ file system", new byte?[][] { new byte?[] { 0x3F, 0x5F, 0x03, 0x00 } }, new string[] { "*.hlp" });
 			}
 			return _dfr;
 		}

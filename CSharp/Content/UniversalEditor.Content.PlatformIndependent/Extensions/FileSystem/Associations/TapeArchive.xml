@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Tape archive">
+					<FileNameFilters>
+						<FileNameFilter>*.tar</FileNameFilter>
+						<FileNameFilter>*.tar.gz</FileNameFilter>
+						<FileNameFilter>*.tgz</FileNameFilter>
+						<FileNameFilter>*.tar.bz2</FileNameFilter>
+						<FileNameFilter>*.tbz2</FileNameFilter>
+						<FileNameFilter>*.tb2</FileNameFilter>
+						<FileNameFilter>*.taz</FileNameFilter>
+						<FileNameFilter>*.tar.z</FileNameFilter>
+						<FileNameFilter>*.tlz</FileNameFilter>
+						<FileNameFilter>*.tar.lz</FileNameFilter>
+						<FileNameFilter>*.txz</FileNameFilter>
+						<FileNameFilter>*.tar.xz"</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.TapeArchive.TapeArchiveDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

@@ -19,7 +19,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.EGG
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("ALTools egg", new byte?[][] { new byte?[] { (byte)'E', (byte)'G', (byte)'G', (byte)'A' } }, new string[] { "*.egg" });
 			}
 			return _dfr;
 		}

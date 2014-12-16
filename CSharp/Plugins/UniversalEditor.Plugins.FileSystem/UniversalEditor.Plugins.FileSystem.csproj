@@ -36,6 +36,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormats\BurikoARCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\AlienNations\GD\GDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ALTools\ALZ\ALZDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ALTools\EGG\ALZipCompressionMethod.cs" />

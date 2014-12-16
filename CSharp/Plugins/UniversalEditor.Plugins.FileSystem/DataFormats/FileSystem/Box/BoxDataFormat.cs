@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Mike Becker's BOX archive", new byte?[][] { new byte?[] { (byte)'B', (byte)'O', (byte)'X', (byte)' ', (byte)'F', (byte)'I', (byte)'L', (byte)'E' } }, new string[] { "*.box" });
 				_dfr.ExportOptions.Add(new CustomOptionChoice("NumberSize", "Number size:", true,
 					new CustomOptionFieldChoice("8-bit, 1 byte per number", 1),
 					new CustomOptionFieldChoice("16-bit, 2 bytes per number", 2),

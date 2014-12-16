@@ -23,7 +23,6 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 					new CustomOptionFieldChoice("POD3", PODVersion.POD3)
 				}));
 				_dfr.ExportOptions.Add(new CustomOptionText("Comment", "&Comment: "));
-				_dfr.Filters.Add("Terminal Reality POD archive", new string[] { "*.pod" });
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive1");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive2");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive3");

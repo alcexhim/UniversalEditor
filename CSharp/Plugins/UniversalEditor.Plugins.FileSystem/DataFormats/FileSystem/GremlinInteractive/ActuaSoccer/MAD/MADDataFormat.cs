@@ -26,7 +26,6 @@ namespace UniversalEditor.DataFormats.FileSystem.GremlinInteractive.ActuaSoccer.
 					new CustomOptionFieldChoice("Type 1 (includes file names)", MADFormatVersion.Type1, true),
 					new CustomOptionFieldChoice("Type 2 (does not include file names)", MADFormatVersion.Type2)
 				}));
-				_dfr.Filters.Add("Gremlin Interactive - Actua Soccer MAD archive", new string[] { "*.mad" });
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=GRAF:Actua_Soccer_MAD");
 			}
 			return _dfr;

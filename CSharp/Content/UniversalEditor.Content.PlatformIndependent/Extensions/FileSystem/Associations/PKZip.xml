@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="PKWARE ZIP archive">
+					<FileNameFilters>
+						<FileNameFilter>*.zip</FileNameFilter>
+						<FileNameFilter>*.zipx</FileNameFilter>
+						<FileNameFilter>*.zipfs</FileNameFilter>
+						<FileNameFilter>*.pk3</FileNameFilter>
+						<FileNameFilter>*.pk4</FileNameFilter>
+						<FileNameFilter>*.scs</FileNameFilter>
+						<FileNameFilter>*.xpi</FileNameFilter>
+						<FileNameFilter>*.maff</FileNameFilter>
+						<FileNameFilter>*.lwtp</FileNameFilter>
+						<FileNameFilter>*.fwtp</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">PK</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.ZIP.ZIPDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

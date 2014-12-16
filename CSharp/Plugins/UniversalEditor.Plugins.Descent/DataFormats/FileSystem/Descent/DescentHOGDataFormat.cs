@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Descent
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Descent HOG archive", new byte?[][] { new byte?[] { (byte)'D', (byte)'H', (byte)'F' } }, new string[] { "*.hog" });
             }
             return _dfr;
         }
