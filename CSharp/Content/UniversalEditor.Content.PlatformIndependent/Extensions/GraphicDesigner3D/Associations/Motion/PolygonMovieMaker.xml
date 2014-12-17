@@ -31,5 +31,25 @@
 				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker.VMDMotionDataFormat" />
 			</DataFormats>
 		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="MikuMikuMoving motion vector data file">
+					<FileNameFilters>
+						<FileNameFilter>*.mvd</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">Motion Vector Data file</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Motion.MotionObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Motion.MotionVectorData.MVDMotionDataFormat" />
+			</DataFormats>
+		</Association>
 	</Associations>
 </UniversalEditor>

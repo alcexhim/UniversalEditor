@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D.Accessory;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Accessory.QAvimator
 {
     public class PRPAccessoryDataFormat : DataFormat
     {
+		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Capabilities.Add(typeof(AccessoryObjectModel), DataFormatCapabilities.All);
-            dfr.Filters.Add("QAvimator props", new string[] { "*.prp" });
-            return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(AccessoryObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
         }
 
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
-            AccessoryObjectModel accs = new AccessoryObjectModel();
-            IO.Reader tr = base.Accessor.Reader;
+            AccessoryObjectModel accs = (objectModel as AccessoryObjectModel);
+			if (accs == null) throw new ObjectModelNotSupportedException();
+
+            Reader tr = base.Accessor.Reader;
             while (!tr.EndOfStream)
             {
                 string propLine = tr.ReadLine();
@@ -52,7 +57,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Accessory.QAvimator
         protected override void SaveInternal(ObjectModel objectModel)
         {
             AccessoryObjectModel accs = new AccessoryObjectModel();
-            IO.Writer tw = base.Accessor.Writer;
+            Writer tw = base.Accessor.Writer;
             foreach (AccessoryItem acc in accs.Accessories)
             {
                 string accTitle = acc.Title;

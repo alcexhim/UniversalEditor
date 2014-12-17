@@ -7,7 +7,7 @@ using UniversalEditor.Accessors;
 using UniversalEditor.Compression;
 using UniversalEditor.IO;
 
-namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
+namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.BGM
 {
 	public class OSLCompressionModule : CompressionModule
 	{

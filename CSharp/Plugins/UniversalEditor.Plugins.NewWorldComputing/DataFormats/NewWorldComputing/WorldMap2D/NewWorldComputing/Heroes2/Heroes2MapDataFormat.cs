@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(MapObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Heroes of Might and Magic II original/expansion/campaign map file", new byte?[][] { new byte?[] { 0x0000005C } }, new string[] { "*.mp2", "*.mx2", "*.hxc" });
             }
             return _dfr;
         }

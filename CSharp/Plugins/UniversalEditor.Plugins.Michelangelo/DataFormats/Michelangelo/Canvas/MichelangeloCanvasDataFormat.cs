@@ -19,7 +19,6 @@ namespace UniversalEditor.DataFormats.Michelangelo.Canvas
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(CanvasObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.Bootstrap);
-				_dfr.Filters.Add("Michelangelo canvas", new string[] { "*.mcv" });
 			}
 			return _dfr;
 		}

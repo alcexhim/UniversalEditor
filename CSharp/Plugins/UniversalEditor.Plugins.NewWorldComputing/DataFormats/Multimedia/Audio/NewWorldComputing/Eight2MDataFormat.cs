@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
 
 namespace UniversalEditor.DataFormats.Multimedia.Audio.NewWorldComputing
@@ -22,22 +23,32 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.NewWorldComputing
 			if (_dfr == null) _dfr = base.MakeReferenceInternal();
 			_dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			_dfr.Sources.Add("http://www.terrybutler.co.uk/misc/heroes-of-might-and-magic-ii/");
-			_dfr.Filters.Add("Heroes of Might and Magic II sound effect", new string[] { "*.82M" });
 			return _dfr;
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
-			IO.Reader br = base.Accessor.Reader;
+			if (wave == null) throw new ObjectModelNotSupportedException();
+
+			Reader reader = base.Accessor.Reader;
 
 			wave.Header.BitsPerSample = 8;
 			wave.Header.ChannelCount = 1;
 			wave.Header.SampleRate = 22050;
-			wave.RawData = br.ReadToEnd();
+			wave.RawData = reader.ReadToEnd();
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
+			if (wave == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+
+			if (wave.Header.BitsPerSample != 8 || wave.Header.ChannelCount != 1 || wave.Header.SampleRate != 22050)
+			{
+				// TODO: should we throw an exception or attempt to convert the audio (how?)
+			}
+			writer.WriteBytes(wave.RawData);
 		}
 	}
 }

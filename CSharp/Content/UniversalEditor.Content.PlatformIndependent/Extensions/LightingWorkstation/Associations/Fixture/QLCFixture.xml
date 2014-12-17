@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Q Light Controller fixture">
+					<FileNameFilters>
+						<FileNameFilter>*.xml</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Lighting.Fixture.FixtureObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Lighting.Fixture.QLC.QLCFixtureXMLDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

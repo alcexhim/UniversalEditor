@@ -12,9 +12,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Inivis
         private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReferenceInternal();
-            _dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            _dfr.Filters.Add("Inivis AC3D model", new byte?[][] { new byte?[] { (byte)'A', (byte)'C', (byte)'3', (byte)'D', (byte)'b' } }, new string[] { "*.ac" });
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+			}
             return _dfr;
         }
 

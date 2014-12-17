@@ -20,7 +20,6 @@ namespace UniversalEditor.DataFormats.DataLink.UniversalDataLink
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(DataLinkObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.Bootstrap);
-				_dfr.Filters.Add("Universal Data Link", new byte?[][] { new byte?[] { (byte)'[', (byte)'o', (byte)'l', (byte)'e', (byte)'d', (byte)'b', (byte)']' } }, new string[] { "*.udl" });
 				_dfr.Sources.Add("http://msdn.microsoft.com/en-us/library/ms722656%28v=vs.71%29.aspx");
 			}
 			return _dfr;

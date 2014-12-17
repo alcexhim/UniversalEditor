@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Super6
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Super6 model", new byte?[][] { new byte?[] { 0xFF, 0xFF, 0xFF, 0x9B } }, new string[] { "*.6kt" });
             }
             return _dfr;
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.DataFormats.NewWorldComputing.CC
+namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 {
     partial class CCDataFormat
     {

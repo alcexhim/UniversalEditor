@@ -20,7 +20,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				_dfr.ExportOptions.Add(new CustomOptionNumber("SectorSize", "&Sector size (in bytes):", 512, 128));
 				_dfr.ExportOptions.Add(new CustomOptionNumber("ShortSectorSize", "S&hort sector size (in bytes):", 64));
 				_dfr.ExportOptions.Add(new CustomOptionNumber("MinimumStandardStreamSize", "&Minimum standard stream size (in bytes):", 4096, 4096));
-				_dfr.Filters.Add("Microsoft Compound Document file system", new byte?[][] { new byte?[] { 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1 } }, new string[] { "*.cbf" });
 				_dfr.Sources.Add("http://www.openoffice.org/sc/compdocfileformat.pdf");
 			}
 			return _dfr;

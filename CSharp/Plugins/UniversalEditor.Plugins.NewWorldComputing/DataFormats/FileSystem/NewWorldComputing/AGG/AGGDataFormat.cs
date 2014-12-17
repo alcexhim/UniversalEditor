@@ -23,7 +23,6 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Heroes of Might and Magic II AGG archive", new string[] { "*.agg" });
 			}
 			return _dfr;
 		}

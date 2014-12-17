@@ -20,8 +20,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
         {
             DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            dfr.Filters.Add("Polygon Movie Maker model", new byte?[][] { new byte?[] { new byte?(80), new byte?(109), new byte?(100) } }, new string[] { "*.pmd" });
-            
             dfr.ExportOptions.Add(new CustomOptionText("ModelTitleJapanese", "&Japanese model title:"));
             dfr.ExportOptions.Add(new CustomOptionText("ModelTitleEnglish", "&English model title:"));
             dfr.ExportOptions.Add(new CustomOptionText("ModelCommentJapanese", "Ja&panese model comment:"));

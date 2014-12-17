@@ -12,9 +12,11 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
         private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReferenceInternal();
-            _dfr.Capabilities.Add(typeof(NWCSceneLayoutObjectModel), DataFormatCapabilities.All);
-            _dfr.Filters.Add("Heroes of Might and Magic II scene layout", new string[] { "*.bin" });
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(NWCSceneLayoutObjectModel), DataFormatCapabilities.All);
+			}
             return _dfr;
         }
 

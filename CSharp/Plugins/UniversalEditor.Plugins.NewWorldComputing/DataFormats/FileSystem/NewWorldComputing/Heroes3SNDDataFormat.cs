@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Heroes of Might and Magic SND archive", new string[] { "*.snd" });
             }
             return _dfr;
         }

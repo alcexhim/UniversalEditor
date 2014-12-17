@@ -20,10 +20,6 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(SolutionObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Microsoft Visual Studio solution", new byte?[][]
-				{
-					new byte?[] { (byte)0xEF, (byte)0xBB, (byte)0xBF, (byte)0x0D, (byte)0x0A, (byte)'M', (byte)'i', (byte)'c', (byte)'r', (byte)'o', (byte)'s', (byte)'o', (byte)'f', (byte)'t', (byte)' ', (byte)'V', (byte)'i', (byte)'s', (byte)'u', (byte)'a', (byte)'l', (byte)' ', (byte)'S', (byte)'t', (byte)'u', (byte)'d', (byte)'i', (byte)'o', (byte)' ', (byte)'S', (byte)'o', (byte)'l', (byte)'u', (byte)'t', (byte)'i', (byte)'o', (byte)'n', (byte)' ', (byte)'F', (byte)'i', (byte)'l', (byte)'e', (byte)',', (byte)' ', (byte)'F', (byte)'o', (byte)'r', (byte)'m', (byte)'a', (byte)'t', (byte)' ', (byte)'V', (byte)'e', (byte)'r', (byte)'s', (byte)'i', (byte)'o', (byte)'n', (byte)' ' }
-				}, new string[] { "*.sln" }); ;
 			}
 			return _dfr;
 		}

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
 
-namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
+namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.BGM
 {
 	class BGMDataFormat : DataFormat
 	{
@@ -15,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("OSLib BGM audio", new byte?[][] { new byte?[] { (byte)'O', (byte)'S', (byte)'L', (byte)'B', (byte)'G', (byte)'M', (byte)' ', (byte)'v', (byte)'0', (byte)'1', (byte)0 } }, new string[] { "*.bgm" });
 				_dfr.Sources.Add("https://www.assembla.com/code/oslibmod/subversion/nodes/trunk/bgm.h?rev=52");
 			}
 			return _dfr;
@@ -23,9 +23,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			IO.Reader reader = base.Accessor.Reader;
-			reader.Accessor.Position = 0;
+			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
+			if (wave == null) throw new ObjectModelNotSupportedException();
 
+			Reader reader = base.Accessor.Reader;
+			
 			string header = reader.ReadFixedLengthString(11);
 			if (header != "OSLBGM v01\0") throw new InvalidDataFormatException();
 
@@ -41,7 +43,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 			OSLCompressionModule ocm = new OSLCompressionModule();
 			sampleData = ocm.Decompress(sampleData);
 
-			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
 			wave.RawData = sampleData;
 			wave.Header.BitsPerSample = 16;
 			wave.Header.ChannelCount = 1;
@@ -52,7 +53,24 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.BGM
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
+			if (wave == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+
+			writer.WriteFixedLengthString("OSLBGM v01\0");
+
+			writer.WriteByte(0);
+			writer.WriteUInt32(1); // always 1
+			writer.WriteInt32(wave.Header.SampleRate); // sampling rate
+			writer.WriteByte((byte)wave.Header.ChannelCount); // mono or stereo
+			writer.WriteBytes(new byte[32]); // reserved
+			writer.WriteByte(0);
+
+			byte[] sampleData = wave.RawData;
+			OSLCompressionModule ocm = new OSLCompressionModule();
+			sampleData = ocm.Compress(sampleData);
+			writer.WriteBytes(sampleData);
 		}
 	}
 }

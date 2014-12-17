@@ -24,7 +24,6 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("InstallShield installation package", new byte?[][] { new byte?[] { 0x4A, 0xA3 } }, new string[] { "*.pkg" });
 			}
 			return _dfr;
 		}

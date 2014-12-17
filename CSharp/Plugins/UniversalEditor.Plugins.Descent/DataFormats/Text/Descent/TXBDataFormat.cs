@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Text.Descent
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Descent encrypted text file", new string[] { "*.txb", "*.ctb" });
             }
             return _dfr;
         }

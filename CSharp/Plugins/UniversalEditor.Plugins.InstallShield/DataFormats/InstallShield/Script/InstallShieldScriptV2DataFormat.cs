@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.InstallShield.Script
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(InstallShieldScriptObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("InstallShield script (INX)", new byte?[][] { new byte?[] { (byte)'a', (byte)'L', (byte)'u', (byte)'Z' } }, new string[] { "*.inx" });
             }
             return _dfr;
         }

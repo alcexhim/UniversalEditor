@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Heroes of Might and Magic III archive", new byte?[][] { new byte?[] { (byte)'L', (byte)'O', (byte)'D', 0 } }, new string[] { "*.lod" });
             }
             return _dfr;
         }

@@ -5,7 +5,7 @@ using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.NewWorldComputing.CC
+namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 {
 	public partial class CCDataFormat : DataFormat
 	{
@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.CC
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Might and Magic CC archive", new string[] { "*.cc" });
 				_dfr.Sources.Add("http://rewiki.regengedanken.de/wiki/.CC");
 			}
 			return _dfr;

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft XPS document">
+					<FileNameFilters>
+						<FileNameFilter>*.xps</FileNameFilter>
+						<FileNameFilter>*.oxps</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">1A45DFA3</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Text.Formatted.FormattedTextObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Text.Formatted.XPS.XPSDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

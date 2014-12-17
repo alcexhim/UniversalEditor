@@ -21,7 +21,6 @@ namespace UniversalEditor.DataFormats.Shortcut.Microsoft
 				_dfr.Capabilities.Add(typeof(ShortcutObjectModel), DataFormatCapabilities.All);
 				_dfr.ContentTypes.Add("application/x-ms-shortcut");
 				_dfr.Sources.Add("https://03132e779c908f66a75b1162132f53bf2761aa1a.googledrive.com/host/0B3fBvzttpiiSQmluVC1YeDVvZWM/Windows%20Shortcut%20File%20%28LNK%29%20format.pdf");
-				_dfr.Filters.Add("Microsoft shortcut", new byte?[][] { new byte?[] { 0x4C, 0x00, 0x00, 0x00 } }, new string[] { "*.lnk" });
 			}
 			return _dfr;
 		}

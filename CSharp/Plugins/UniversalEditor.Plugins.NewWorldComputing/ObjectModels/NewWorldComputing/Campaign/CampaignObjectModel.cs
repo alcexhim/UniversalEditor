@@ -10,19 +10,31 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Campaign
         private static ObjectModelReference _omr = null;
         protected override ObjectModelReference MakeReferenceInternal()
         {
-            _omr = base.MakeReferenceInternal();
-            _omr.Title = "New World Computing campaign";
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Title = "New World Computing campaign";
+			}
             return _omr;
         }
 
+		private string mvarTitle = String.Empty;
+		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+
+		private string mvarDescription = String.Empty;
+		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
+
         public override void Clear()
         {
-            throw new NotImplementedException();
+			mvarTitle = String.Empty;
+			mvarDescription = String.Empty;
         }
 
         public override void CopyTo(ObjectModel where)
         {
-            throw new NotImplementedException();
+			CampaignObjectModel clone = (where as CampaignObjectModel);
+			clone.Description = (mvarDescription.Clone() as string);
+			clone.Title = (mvarTitle.Clone() as string);
         }
     }
 }

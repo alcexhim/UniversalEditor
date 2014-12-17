@@ -11,12 +11,15 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 {
 	public class PMXModelDataFormat : DataFormat
 	{
+		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("Polygon Movie Maker enhanced model", new byte?[][] { new byte?[] { new byte?(80), new byte?(77), new byte?(88), new byte?(32) } }, new string[] { "*.pmx" });
-            dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+			}
+            return _dfr;
         }
 		
         private float mvarVersion = 0f;

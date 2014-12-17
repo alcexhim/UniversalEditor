@@ -65,7 +65,7 @@
     <Compile Include="DataFormats\Multimedia3D\Model\Auth3D\Compiled\A3DCDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\GLB\GLBObjectType.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Inivis\AC3DDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia3D\Model\Biovision\BVHDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia3D\Motion\Biovision\BVHDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\GLB\GLBDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Shaiya\Shaiya3DCDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\SMD\SMDBaseDataFormat.cs" />
@@ -81,7 +81,6 @@
     <Compile Include="DataFormats\Multimedia3D\Model\PolygonMovieMaker\PMDModelDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\PolygonMovieMaker\PMXModelDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Pose\PolygonMovieMaker\VPDPoseDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia3D\Scene\PolygonMovieMaker\MMDSceneDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Scene\PolygonMovieMaker\PMMSceneDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Quake\BSP\BSPMapDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Quake\GLMDataFormat.cs" />

@@ -12,9 +12,11 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Save
         private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReferenceInternal();
-            _dfr.Capabilities.Add(typeof(SaveObjectModel), DataFormatCapabilities.All);
-            _dfr.Filters.Add("Heroes of Might and Magic IV Save Data", new string[] { "*.h4s" });
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(SaveObjectModel), DataFormatCapabilities.All);
+			}
             return _dfr;
         }
 

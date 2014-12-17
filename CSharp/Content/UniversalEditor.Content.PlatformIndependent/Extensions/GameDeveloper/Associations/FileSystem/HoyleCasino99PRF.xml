@@ -3,13 +3,14 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Descent HOG archive">
+				<Filter Title="Hoyle Casino 99 PRF archive">
 					<FileNameFilters>
-						<FileNameFilter>*.hog</FileNameFilter>
+						<FileNameFilter>*.prf</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
-							<MagicByte Type="String">DHF</MagicByte>
+							<MagicByte Type="None" Length="4" />
+							<MagicByte Type="String">PRF\0</MagicByte>
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>
@@ -18,7 +19,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Descent.DescentHOGDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.PRF.PRFDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

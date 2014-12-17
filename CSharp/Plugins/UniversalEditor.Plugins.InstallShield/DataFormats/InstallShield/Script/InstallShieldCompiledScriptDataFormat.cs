@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.InstallShield.Script
             if (_dfr == null)
             {
                 _dfr = base.MakeReferenceInternal();
-                _dfr.Filters.Add("InstallShield compiled script", new byte?[][] { new byte?[] { null, null, null, null, null, null, null, null, null, null, null, null, 48, 13, 10, (byte)'S', (byte)'t', (byte)'i', (byte)'r', (byte)'l', (byte)'i', (byte)'n', (byte)'g', (byte)' ', (byte)'T', (byte)'e', (byte)'c', (byte)'h', (byte)'n', (byte)'o', (byte)'l', (byte)'o', (byte)'g', (byte)'i', (byte)'e', (byte)'s', (byte)',', (byte)' ', (byte)'I', (byte)'n', (byte)'c', (byte)'.', (byte)' ', (byte)' ', (byte)'(', (byte)'c', (byte)')', (byte)' ', (byte)'1', (byte)'9', (byte)'9', (byte)'0', (byte)'-', (byte)'1', (byte)'9', (byte)'9', (byte)'4' } }, new string[] { "*.ins" });
                 _dfr.Capabilities.Add(typeof(InstallShieldScriptObjectModel), DataFormatCapabilities.All);
             }
             return _dfr;

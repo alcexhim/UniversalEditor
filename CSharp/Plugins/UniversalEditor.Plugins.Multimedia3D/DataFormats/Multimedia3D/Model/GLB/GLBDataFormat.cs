@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Ultimate Stunts GLB", new byte?[][] { new byte?[] { (byte)0, (byte)'G', (byte)'L', (byte)'B' } }, new string[] { "*.glb" });
 			}
 			return _dfr;
 		}
@@ -34,6 +33,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 
 			IO.Reader br = base.Accessor.Reader;
 			string magic = br.ReadFixedLengthString(4); // "\0GLB"
+			if (magic != "\0GLB") throw new InvalidDataFormatException("File does not begin with 0, 'GLB'");
 
 			GLBObjectType objectType = (GLBObjectType)br.ReadInt32();
 			

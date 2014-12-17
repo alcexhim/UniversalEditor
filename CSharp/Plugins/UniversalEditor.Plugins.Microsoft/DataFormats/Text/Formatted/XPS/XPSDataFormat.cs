@@ -25,7 +25,7 @@ using UniversalEditor.ObjectModels.FileSystem;
 
 using UniversalEditor.ObjectModels.Text.Formatted;
 
-namespace UniversalEditor
+namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 {
 	public class XPSDataFormat : ZIPDataFormat
 	{
@@ -36,7 +36,6 @@ namespace UniversalEditor
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Microsoft XPS document", new string[] { "*.xps", "*.oxps" });
 			}
 			return _dfr;
 		}

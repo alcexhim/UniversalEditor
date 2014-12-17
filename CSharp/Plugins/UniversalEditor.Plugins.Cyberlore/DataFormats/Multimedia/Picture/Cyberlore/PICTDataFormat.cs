@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Cyberlore
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Cyberlore PICT image", new string[] { "*.pict" });
                 _dfr.Sources.Add("http://wiki.xentax.com/index.php?title=GRF_Playboy_The_Mansion");
                 _dfr.Sources.Add("http://forum.xentax.com/viewtopic.php?p=9778");
             }

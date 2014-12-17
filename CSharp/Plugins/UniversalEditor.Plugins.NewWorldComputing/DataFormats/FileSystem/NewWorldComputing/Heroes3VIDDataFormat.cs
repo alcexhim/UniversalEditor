@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Heroes of Might and Magic VID archive", new string[] { "*.vid" });
 			}
 			return _dfr;
 		}

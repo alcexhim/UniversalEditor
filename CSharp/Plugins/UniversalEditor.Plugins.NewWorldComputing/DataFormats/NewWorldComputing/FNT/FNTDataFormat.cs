@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.FNT
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FontObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Heroes of Might and Magic font", new string[] { "*.fnt" });
             }
             return _dfr;
         }

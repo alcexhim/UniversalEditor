@@ -14,13 +14,16 @@ namespace UniversalEditor.DataFormats.PMAXPatch
 {
     public class PMAXPatchXMLDataFormat : XMLDataFormat
     {
+		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Clear();
-            dfr.Capabilities.Add(typeof(PMAXPatchObjectModel), DataFormatCapabilities.All);
-            dfr.Filters.Add("PMAX patch (XML)", new string[] { "*.pmax" });
-            return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Clear();
+				_dfr.Capabilities.Add(typeof(PMAXPatchObjectModel), DataFormatCapabilities.All);
+			}
+            return _dfr;
         }
 
         protected override void BeforeLoadInternal(Stack<UniversalEditor.ObjectModel> objectModels)

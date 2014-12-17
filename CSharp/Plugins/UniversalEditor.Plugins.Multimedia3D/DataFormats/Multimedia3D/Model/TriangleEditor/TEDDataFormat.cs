@@ -11,9 +11,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.TriangleEditor
         private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
         {
-            if (_dfr == null) _dfr = base.MakeReferenceInternal();
-            _dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            _dfr.Filters.Add("TriangleEditor model", new byte?[][] { new byte?[] { 0x14, (byte)'T', (byte)'r', (byte)'i', (byte)'a', (byte)'n', (byte)'g', (byte)'l', (byte)'e', (byte)'E', (byte)'d', (byte)'i', (byte)'t', (byte)'o', (byte)'r', (byte)'_', (byte)'V', (byte)'.', (byte)'1', (byte)'.', (byte)'0' } }, new string[] { "*.ted" });
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+			}
             return _dfr;
         }
 

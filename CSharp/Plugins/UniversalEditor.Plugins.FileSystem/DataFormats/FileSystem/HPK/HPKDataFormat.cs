@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Tropico HPK/BPUL archive", new byte?[][] { new byte?[] { (byte)'B', (byte)'P', (byte)'U', (byte)'L' }, new byte?[] { (byte)'Z', (byte)'L', (byte)'I', (byte)'B' } }, new string[] { "*.hpk" });
                 _dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "Compress the file using Zlib", false));
             }
             return _dfr;

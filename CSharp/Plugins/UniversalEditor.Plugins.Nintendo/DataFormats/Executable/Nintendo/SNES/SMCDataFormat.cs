@@ -225,7 +225,6 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 					new CustomOptionFieldChoice(SMCLicensees.Davidson),
 				}));
 
-				_dfr.Filters.Add("Nintendo SNES executable", new string[] { "*.smc", "*.sfc", "*.swc", "*.fig", "*.ufo", "*.?gm" });
 				_dfr.Sources.Add("http://romhack.wikia.com/wiki/SNES_ROM_layout");
 				_dfr.Sources.Add("http://romhack.wikia.com/wiki/SNES_header");
 				_dfr.Sources.Add("http://romhack.wikia.com/wiki/SMC_header");

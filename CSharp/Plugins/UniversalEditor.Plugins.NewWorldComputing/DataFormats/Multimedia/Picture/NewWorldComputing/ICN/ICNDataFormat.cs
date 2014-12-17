@@ -27,7 +27,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureCollectionObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Heroes of Might and Magic II ICN picture", new string[] { "*.icn" });
 			}
 			return _dfr;
 		}

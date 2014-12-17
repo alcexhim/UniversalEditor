@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.SMD
             {
                 _dfr = new DataFormatReference(GetType());
                 _dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Half-Life 2 SMD", new byte?[][] { new byte?[] { (byte)'v', (byte)'e', (byte)'r', (byte)'s', (byte)'i', (byte)'o', (byte)'n', (byte)' ', (byte)'1' } }, new string[] { "*.smd" });
             }
             return _dfr;
         }

@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.FileSystem.PRF
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Hoyle Casino 99 PRF archive", new byte?[][] { new byte?[] { null, null, null, null, (byte)'P', (byte)'R', (byte)'F', (byte)0 } }, new string[] { "*.prf" });
             }
             return _dfr;
         }

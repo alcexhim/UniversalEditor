@@ -23,7 +23,6 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 					new CustomOptionFieldChoice("Binary (big-endian)", CPIOEncoding.BinaryBigEndian),
 					new CustomOptionFieldChoice("ASCII", CPIOEncoding.ASCII)
 				}));
-				_dfr.Filters.Add("CPIO archive", new byte?[][] { new byte?[] { 0xC7, 0x71 }, new byte?[] { 0x71, 0xC7 }, new byte?[] { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'1' } }, new string[] { "*.cpio" });
 			}
 			return _dfr;
 		}

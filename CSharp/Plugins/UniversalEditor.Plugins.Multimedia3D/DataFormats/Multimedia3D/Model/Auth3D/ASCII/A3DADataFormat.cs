@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Auth3D.ASCII
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Auth3D model (ASCII format)", new byte?[][] { new byte?[] { (byte)'#', (byte)'A', (byte)'3', (byte)'D', (byte)'C', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_', (byte)'_' } }, new string[] { "*.a3da" });
             }
             return _dfr;
         }

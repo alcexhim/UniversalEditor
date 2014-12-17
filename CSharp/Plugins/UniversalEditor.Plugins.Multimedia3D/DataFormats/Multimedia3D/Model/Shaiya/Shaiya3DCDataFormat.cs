@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Shaiya
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Shaiya Online 3DC model", new string[] { "*.3dc" });
 			}
 			return _dfr;
 		}

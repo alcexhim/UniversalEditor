@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.BMP
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Heroes of Might and Magic BMP sprite", new string[] { "*.bmp" });
             }
             return _dfr;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
 namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
@@ -15,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("New World Computing palette", new string[] { "*.pal" });
 			}
 			return _dfr;
 		}
@@ -45,7 +45,24 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			PaletteObjectModel palette = (objectModel as PaletteObjectModel);
+			if (palette == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+
+			for (int i = 0; i < (768 / 3); i++)
+			{
+				Color color = palette.Entries[i].Color;
+				byte r = (byte)color.Red;
+				byte g = (byte)color.Green;
+				byte b = (byte)color.Blue;
+
+				r >>= 2;
+				g >>= 2;
+				b >>= 2;
+
+				writer.WriteBytes(new byte[] { r, g, b });
+			}
 		}
 	}
 }
