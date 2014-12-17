@@ -1,23 +1,33 @@
 using System;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
+
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Blender
 {
 	public class BlenderDataFormat : DataFormat
 	{
-        protected override DataFormatReference MakeReferenceInternal()
-        {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("Blender scene", new string[] { "*.blend" });
-            dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            return dfr;
-        }
+		private static DataFormatReference _dfr = null;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
+		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			ModelObjectModel model = (objectModel as ModelObjectModel);
+			if (model == null) throw new ObjectModelNotSupportedException();
+
+			Reader reader = base.Accessor.Reader;
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			ModelObjectModel model = (objectModel as ModelObjectModel);
+			if (model == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
 		}
 	}
 }

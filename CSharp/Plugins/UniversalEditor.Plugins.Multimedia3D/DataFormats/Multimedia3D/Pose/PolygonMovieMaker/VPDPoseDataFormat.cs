@@ -9,20 +9,23 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Pose.PolygonMovieMaker
 {
 	public class VPDPoseDataFormat : DataFormat
 	{
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Filters.Add("Polygon Movie Maker pose data", new byte?[][] { new byte?[] { (byte)'V', (byte)'o', (byte)'c', (byte)'a', (byte)'l', (byte)'o', (byte)'i', (byte)'d', (byte)' ', (byte)'P', (byte)'o', (byte)'s', (byte)'e', (byte)' ', (byte)'D', (byte)'a', (byte)'t', (byte)'a', (byte)' ', (byte)'f', (byte)'i', (byte)'l', (byte)'e' } }, new string[] { "*.vpd" });
-			dfr.Capabilities.Add(typeof(PoseObjectModel), DataFormatCapabilities.All);
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(PoseObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PoseObjectModel pose = (objectModel as PoseObjectModel);
-			if (pose == null) return;
+			if (pose == null) throw new ObjectModelNotSupportedException();
 
 			base.Accessor.DefaultEncoding = Encoding.ShiftJIS;
-			IO.Reader tr = new IO.Reader(base.Accessor);
+			Reader tr = base.Accessor.Reader;
 
 			bool parentFileNameRead = false;
 			bool totalNumberOfBonesRead = false;
@@ -161,6 +164,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Pose.PolygonMovieMaker
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
+			PoseObjectModel pose = (objectModel as PoseObjectModel);
+			if (pose == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -3,25 +3,22 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="DOOM WAD archive">
+				<Filter Title="Polygon Movie Maker pose data">
 					<FileNameFilters>
-						<FileNameFilter>*.wad</FileNameFilter>
+						<FileNameFilter>*.vpd</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
-							<MagicByte Type="String">IWAD</MagicByte>
-						</MagicByteSequence>
-						<MagicByteSequence>
-							<MagicByte Type="String">PWAD</MagicByte>
+							<MagicByte Type="String">Vocaloid Pose Data file</MagicByte>
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Scene.SceneObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.WAD.WADDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Pose.PolygonMovieMaker.VPDPoseDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

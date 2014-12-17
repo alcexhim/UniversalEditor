@@ -9,12 +9,15 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Accessory.PolygonMovieMaker
 {
 	public class VACAccessoryDataFormat : DataFormat
 	{
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Capabilities.Add(typeof(AccessoryObjectModel), DataFormatCapabilities.All);
-			dfr.Filters.Add("Polygon Movie Maker accessory file", new string[] { "*.vac" });
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(AccessoryObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{

@@ -5,24 +5,28 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 {
 	public class MD2DataFormat : DataFormat
 	{
-        protected override DataFormatReference MakeReferenceInternal()
-        {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("id software MD2 model", new byte?[][] { new byte?[] { new byte?(73), new byte?(68), new byte?(80), new byte?(50) } }, new string[] { "*.md2" });
-            dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            return dfr;
-        }
+		private static DataFormatReference _dfr = null;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
+		}
 		private int mvarVersion = 8;
-        public int Version
-        {
-            get { return mvarVersion; }
-            set { mvarVersion = value; }
-        }
+		public int Version
+		{
+			get { return mvarVersion; }
+			set { mvarVersion = value; }
+		}
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			Reader br = base.Accessor.Reader;
 			ModelObjectModel mom = objectModel as ModelObjectModel;
 			string IDP2 = br.ReadFixedLengthString(4);
+			if (IDP2 != "IDP2") throw new InvalidDataFormatException("File does not begin with 'IDP2'");
+
 			this.mvarVersion = br.ReadInt32();
 			int skinwidth = br.ReadInt32();
 			int skinheight = br.ReadInt32();

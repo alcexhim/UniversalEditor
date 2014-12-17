@@ -1,17 +1,21 @@
 using System;
+
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
+using UniversalEditor.IO;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Metasequoia
 {
 	public class MQOTextDataFormat : DataFormat
 	{
-        protected override DataFormatReference MakeReferenceInternal()
-        {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("Metasequoia model", new string[] { "*.mqo" });
-            dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            return dfr;
-        }
+		private static DataFormatReference _dfr = null;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
+		}
 
 		private float mvarFormatVersion = 1.0f;
 		public float FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
@@ -21,7 +25,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Metasequoia
 			ModelObjectModel model = (objectModel as ModelObjectModel);
 			if (model == null) throw new ObjectModelNotSupportedException();
 
-			IO.Reader tr = base.Accessor.Reader;
+			Reader tr = base.Accessor.Reader;
 			string MetasequoiaDocument = tr.ReadLine();
 			if (MetasequoiaDocument != "MetasequoiaDocument") throw new InvalidDataFormatException("File does not begin with \"MetasequoiaDocument\"");
 
@@ -47,10 +51,10 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Metasequoia
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-            ModelObjectModel model = (objectModel as ModelObjectModel);
-            if (model == null) throw new ObjectModelNotSupportedException();
+			ModelObjectModel model = (objectModel as ModelObjectModel);
+			if (model == null) throw new ObjectModelNotSupportedException();
 
-			IO.Writer tw = base.Accessor.Writer;
+			Writer tw = base.Accessor.Writer;
 			tw.WriteLine("MetasequoiaDocument");
 
 			tw.WriteLine("Format Text Ver " + mvarFormatVersion.ToString("0.#"));
