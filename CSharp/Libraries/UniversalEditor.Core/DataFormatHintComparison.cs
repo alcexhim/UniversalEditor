@@ -7,7 +7,8 @@ namespace UniversalEditor
 {
 	public enum DataFormatHintComparison
 	{
-		None = 0,
+		Unspecified = -1,
+		Never = 0,
 		FilterOnly = 1,
 		MagicOnly = 2,
 		FilterThenMagic = 3,
