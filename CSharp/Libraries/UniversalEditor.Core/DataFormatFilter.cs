@@ -257,11 +257,18 @@ namespace UniversalEditor
 		}
 		public bool MatchesFile(Accessor FileData)
 		{
+			bool basedOnFilter = false;
+			bool basedOnMagic = false;
+
 			// first determine if our file name matches any of the filters
 			string fileName = FileData.GetFileName();
 			for (int i = 0; i < mvarFileNameFilters.Count; i++)
 			{
-				if (fileName.Match(mvarFileNameFilters[i])) return true;
+				if (fileName.Match(mvarFileNameFilters[i]))
+				{
+					basedOnFilter = true;
+					break;
+				}
 			}
 
 			// then determine if the magic bytes match
@@ -297,7 +304,35 @@ namespace UniversalEditor
 							break;
 						}
 					}
-					if (ret) return true;
+					if (ret)
+					{
+						basedOnMagic = true;
+						break;
+					}
+				}
+			}
+
+			switch (mvarHintComparison)
+			{
+				case DataFormatHintComparison.Always: return true;
+				case DataFormatHintComparison.None: return false;
+				case DataFormatHintComparison.FilterOnly:
+				{
+					return basedOnFilter;
+				}
+				case DataFormatHintComparison.FilterThenMagic:
+				{
+					if (!basedOnFilter) return basedOnMagic;
+					return basedOnFilter;
+				}
+				case DataFormatHintComparison.MagicOnly:
+				{
+					return basedOnMagic;
+				}
+				case DataFormatHintComparison.MagicThenFilter:
+				{
+					if (!basedOnMagic) return basedOnFilter;
+					return basedOnMagic;
 				}
 			}
 			return false;
