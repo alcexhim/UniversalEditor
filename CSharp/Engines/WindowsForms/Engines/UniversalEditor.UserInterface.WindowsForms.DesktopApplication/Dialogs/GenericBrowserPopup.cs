@@ -19,10 +19,13 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			Font = SystemFonts.MenuFont;
 		}
 
+		private bool mvarAutoClose = true;
+		public bool AutoClose { get { return mvarAutoClose; } set { mvarAutoClose = value; } }
+
 		protected override void OnDeactivate(EventArgs e)
 		{
 			base.OnDeactivate(e);
-			this.Close();
+			if (mvarAutoClose) this.Close();
 		}
 
 		private System.Collections.ObjectModel.Collection<TRef> mvarAvailableObjects = new System.Collections.ObjectModel.Collection<TRef>();

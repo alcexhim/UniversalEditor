@@ -178,6 +178,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 		{
 			GenericBrowserPopup<Accessor, AccessorReference> dlg = (sender as GenericBrowserPopup<Accessor, AccessorReference>);
 			mvarAccessor = dlg.SelectedObject;
+			dlg.AutoClose = false;
 
 			switch (mvarMode)
 			{
@@ -200,6 +201,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			}
 
 			RefreshButtons();
+
+			dlg.AutoClose = true;
 		}
 
 		private void cmdAccessor_Click(object sender, EventArgs e)
@@ -259,8 +262,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			{
 				if (mvarAccessor is FileAccessor)
 				{
-					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarAccessor);
+					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = mvarAccessor });
 
+					DataFormatReference[] dfrs = null;
 					if (mvarDataFormat == null)
 					{
 						if (dfrs.Length > 0)
