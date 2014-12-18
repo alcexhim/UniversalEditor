@@ -196,7 +196,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 										}
 										default:
 										{
-											filter.HintComparison = DataFormatHintComparison.None;
+											filter.HintComparison = DataFormatHintComparison.Never;
 											break;
 										}
 									}
@@ -826,6 +826,49 @@ namespace UniversalEditor.DataFormats.UEPackage
 								if (attTitle != null)
 								{
 									filter.Title = attTitle.Value;
+								}
+
+								MarkupAttribute attHintComparison = tagFilter.Attributes["HintComparison"];
+								if (attHintComparison != null)
+								{
+									switch (attHintComparison.Value.ToLower())
+									{
+										case "always":
+										{
+											filter.HintComparison = DataFormatHintComparison.Always;
+											break;
+										}
+										case "filteronly":
+										{
+											filter.HintComparison = DataFormatHintComparison.FilterOnly;
+											break;
+										}
+										case "filterthenmagic":
+										{
+											filter.HintComparison = DataFormatHintComparison.FilterThenMagic;
+											break;
+										}
+										case "magiconly":
+										{
+											filter.HintComparison = DataFormatHintComparison.MagicOnly;
+											break;
+										}
+										case "magicthenfilter":
+										{
+											filter.HintComparison = DataFormatHintComparison.MagicThenFilter;
+											break;
+										}
+										case "never":
+										{
+											filter.HintComparison = DataFormatHintComparison.Never;
+											break;
+										}
+										default:
+										{
+											filter.HintComparison = DataFormatHintComparison.Unspecified;
+											break;
+										}
+									}
 								}
 
 								MarkupTagElement tagFileNameFilters = (tagFilter.Elements["FileNameFilters"] as MarkupTagElement);
