@@ -46,6 +46,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				string[] details = item.GetDetails();
 				foreach (string detail in details)
 				{
+					if (detail == null) continue;
 					if (detail.ToLower().Trim().Contains(txtSearch.Text.ToLower().Trim()))
 					{
 						itemShouldFilter = true;
