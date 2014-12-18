@@ -98,7 +98,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			}
 			foreach (ObjectModelReference dfr in omrs)
 			{
-				dlg.AvailableObjects.Add(dfr.Create());
+				dlg.AvailableObjects.Add(dfr);
 			}
 			dlg.SelectionChanged += dlgObjectModel_SelectionChanged;
 			dlg.Show();
@@ -117,7 +117,17 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			if (mvarMode == DocumentPropertiesDialogMode.Save)
 			{
 				// show all dataformats for the current object model
-				dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarObjectModel.MakeReference());
+				Association[] assocs = Association.FromCriteria(new AssociationCriteria() { ObjectModel = mvarObjectModel.MakeReference() });
+				List<DataFormatReference> dfrlist = new List<DataFormatReference>();
+				foreach (Association assoc in assocs)
+				{
+					foreach(DataFormatReference dfr in assoc.DataFormats)
+					{
+						dlg.AvailableObjects.Add(dfr);
+					}
+				}
+				dlg.SelectionChanged += dlgDataFormat_SelectionChanged;
+				dlg.Show();
 			}
 			else if (mvarMode == DocumentPropertiesDialogMode.Open)
 			{
@@ -146,7 +156,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			}
 			foreach (DataFormatReference dfr in dfrs)
 			{
-				dlg.AvailableObjects.Add(dfr.Create());
+				dlg.AvailableObjects.Add(dfr);
 			}
 			dlg.SelectionChanged += dlgDataFormat_SelectionChanged;
 			dlg.Show();
@@ -205,7 +215,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			foreach (AccessorReference ar in ars)
 			{
 				if (!ar.Visible) continue;
-				dlg.AvailableObjects.Add(ar.Create());
+				dlg.AvailableObjects.Add(ar);
 			}
 			dlg.SelectionChanged += dlgAccessor_SelectionChanged;
 			dlg.Show();

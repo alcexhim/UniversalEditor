@@ -21,12 +21,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		protected override void OnDeactivate(EventArgs e)
 		{
-			// base.OnDeactivate(e);
-			// this.Close();
+			base.OnDeactivate(e);
+			this.Close();
 		}
 
-		private System.Collections.ObjectModel.Collection<TObj> mvarAvailableObjects = new System.Collections.ObjectModel.Collection<TObj>();
-		public System.Collections.ObjectModel.Collection<TObj> AvailableObjects { get { return mvarAvailableObjects; } }
+		private System.Collections.ObjectModel.Collection<TRef> mvarAvailableObjects = new System.Collections.ObjectModel.Collection<TRef>();
+		public System.Collections.ObjectModel.Collection<TRef> AvailableObjects { get { return mvarAvailableObjects; } }
 
 		private TObj mvarSelectedObject = default(TObj);
 		public TObj SelectedObject { get { return mvarSelectedObject; } set { mvarSelectedObject = value; } }
@@ -40,12 +40,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 		private void UpdateSearch()
 		{
 			lv.Items.Clear();
-			foreach (TObj item in mvarAvailableObjects)
+			foreach (TRef item in mvarAvailableObjects)
 			{
-				TRef itmr = item.MakeReference();
-				if (String.IsNullOrEmpty(txtSearch.Text.Trim()) || itmr.ShouldFilterObject(txtSearch.Text))
+				if (String.IsNullOrEmpty(txtSearch.Text.Trim()) || item.ShouldFilterObject(txtSearch.Text))
 				{
-					AddObjectToList(itmr);
+					AddObjectToList(item);
 				}
 			}
 
