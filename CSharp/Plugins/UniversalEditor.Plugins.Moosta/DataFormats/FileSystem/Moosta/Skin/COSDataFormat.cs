@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Skin
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Moosta OMP costume file", new byte?[][] { new byte?[] { (byte)'O', (byte)'m', (byte)'p', (byte)'S', (byte)'k', (byte)'i', (byte)'n' } }, new string[] { "*.cos" });
 			}
 			return _dfr;
 		}

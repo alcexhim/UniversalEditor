@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.ImageCollection
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("Moosta image collection archive", new string[] { "*.imc" });
             }
             return _dfr;
         }

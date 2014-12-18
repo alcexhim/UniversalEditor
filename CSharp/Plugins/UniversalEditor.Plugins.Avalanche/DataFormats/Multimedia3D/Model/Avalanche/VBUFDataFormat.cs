@@ -16,7 +16,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Avalanche vertex buffer", new string[] { "*.vbuf" });
 				_dfr.Sources.Add("http://forum.xentax.com/viewtopic.php?f=16&t=5983");
 			}
 			return _dfr;

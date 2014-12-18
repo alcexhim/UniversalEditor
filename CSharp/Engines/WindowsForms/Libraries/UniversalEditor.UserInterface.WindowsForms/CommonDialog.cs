@@ -11,84 +11,29 @@ namespace UniversalEditor.UserInterface.WindowsForms
 	public static class CommonDialog
 	{
 		// UniversalDataStorage.Common.Methods
-		public static string GetCommonDialogFilter(DataFormatReference dataFormatReference)
+		public static string GetCommonDialogFilter(Association[] associations, bool includeAllFiles = true)
 		{
 			StringBuilder sb = new StringBuilder();
-			StringBuilder sbCompatible = new StringBuilder();
-			for (int i = 0; i < dataFormatReference.Filters.Count; i++)
+			foreach (Association assoc in associations)
 			{
-				sb.Append(dataFormatReference.Filters[i].Title + " (");
-				StringBuilder sbFilters = new StringBuilder();
-				for (int j = 0; j < dataFormatReference.Filters[i].FileNameFilters.Count; j++)
+				foreach (DataFormatFilter filter in assoc.Filters)
 				{
-					sbFilters.Append(dataFormatReference.Filters[i].FileNameFilters[j]);
-					if (j < dataFormatReference.Filters[i].FileNameFilters.Count - 1)
+					sb.Append(filter.Title + "|");
+					foreach (string s in filter.FileNameFilters)
 					{
-						sbFilters.Append("; ");
-					}
-				}
-				sb.Append(sbFilters.ToString());
-				sb.Append(")|");
-				sb.Append(sbFilters.ToString());
-				sb.Append("|");
-				sbCompatible.Append(sbFilters.ToString());
-			}
-
-			sb.Append("All files (*.*)|*.*");
-			return sb.ToString();
-		}
-		public static string GetCommonDialogFilter(ObjectModelReference objectModelReference)
-		{
-			List<DataFormatReference> dataFormatReferences = new List<DataFormatReference>();
-			return GetCommonDialogFilter(objectModelReference, out dataFormatReferences);
-		}
-		public static string GetCommonDialogFilter(ObjectModelReference objectModelReference, out List<DataFormatReference> dataFormatReferences)
-		{
-			List<DataFormatReference> dfrs = new List<DataFormatReference>();
-			StringBuilder sb = new StringBuilder();
-			StringBuilder sbCompatible = new StringBuilder();
-			DataFormatReference[] dataFormats = UniversalEditor.Common.Reflection.GetAvailableDataFormats(objectModelReference);
-			DataFormatReference[] array = dataFormats;
-			for (int k = 0; k < array.Length; k++)
-			{
-				DataFormatReference dfb = array[k];
-				for (int i = 0; i < dfb.Filters.Count; i++)
-				{
-					sb.Append(dfb.Filters[i].Title + " (");
-					StringBuilder sbFilters = new StringBuilder();
-					for (int j = 0; j < dfb.Filters[i].FileNameFilters.Count; j++)
-					{
-						sbFilters.Append(dfb.Filters[i].FileNameFilters[j]);
-						if (j < dfb.Filters[i].FileNameFilters.Count - 1)
+						sb.Append(s);
+						if (filter.FileNameFilters.IndexOf(s) > filter.FileNameFilters.Count - 1)
 						{
-							sbFilters.Append("; ");
+							sb.Append("; ");
 						}
 					}
-					sb.Append(sbFilters.ToString());
-					sb.Append(")|");
-					sb.Append(sbFilters.ToString());
-					sb.Append("|");
-					sbCompatible.Append(sbFilters.ToString());
-					if (i < dfb.Filters.Count - 1 || Array.IndexOf<DataFormatReference>(dataFormats, dfb) < dataFormats.Length - 1)
-					{
-						sbCompatible.Append("; ");
-					}
-					dfrs.Add(dfb);
+					if (assoc.Filters.IndexOf(filter) > assoc.Filters.Count - 1) sb.Append("|");
 				}
 			}
-			sb.Insert(0, string.Concat(new string[]
+			if (includeAllFiles)
 			{
-				"All ", 
-				objectModelReference.Title, 
-				" files (", 
-				sbCompatible.ToString(), 
-				")|", 
-				sbCompatible.ToString(), 
-				"|"
-			}));
-			sb.Append("All files (*.*)|*.*");
-
-			dataFormatReferences = dfrs;
+				sb.Append("|All files (*.*)|*.*");
+			}
 			return sb.ToString();
 		}
 	}

@@ -19,7 +19,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TBODY
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Avalanche TBODY texture", new string[] { "*.tbody" });
 			}
 			return _dfr;
 		}

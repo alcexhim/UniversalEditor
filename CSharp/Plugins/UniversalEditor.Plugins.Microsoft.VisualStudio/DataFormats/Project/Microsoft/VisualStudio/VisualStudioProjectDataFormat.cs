@@ -9,7 +9,7 @@ using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.PropertyList;
 
-namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
+namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 {
 	public class VisualStudioProjectDataFormat : XMLDataFormat
 	{
@@ -20,7 +20,6 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ProjectObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Microsoft Visual Studio project", new string[] { "*.vbproj", "*.csproj", "*.jsproj", "*.wixproj", "*.fsproj", "*.pyproj", "*.sqlproj", "*.phpproj" });
 			}
 			return _dfr;
 		}

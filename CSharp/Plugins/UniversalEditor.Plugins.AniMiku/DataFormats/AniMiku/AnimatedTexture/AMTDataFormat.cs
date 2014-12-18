@@ -4,7 +4,7 @@ using System.Text;
 
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.AniMiku.AnimatedTexture
+namespace UniversalEditor.DataFormats.FileSystem.AniMiku.TexturePackage
 {
 	/// <summary>
 	/// Implements the AniMiku Texture Package data format.
@@ -18,7 +18,6 @@ namespace UniversalEditor.DataFormats.AniMiku.AnimatedTexture
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("AniMiku texture package", new string[] { "*.amt" });
 			}
 			return _dfr;
 		}

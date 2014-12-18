@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
-using UniversalEditor.ObjectModels.Project;
+using UniversalEditor.UserInterface;
+
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Solution;
-using UniversalEditor.UserInterface;
+
+using UniversalEditor.ObjectModels.Project;
+using UniversalEditor.DataFormats.Project.Microsoft.VisualStudio;
 
 namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 {

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association Priority="1">
+			<Filters>
+				<Filter Title="AniMiku extended Polygon Movie Maker model">
+					<FileNameFilters>
+						<FileNameFilter>*.apmd</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Model.ModelObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.AniMiku.ExtendedPMD.ExtendedPMDDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

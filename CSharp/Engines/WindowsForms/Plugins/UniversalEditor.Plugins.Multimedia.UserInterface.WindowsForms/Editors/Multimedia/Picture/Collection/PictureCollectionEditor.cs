@@ -166,7 +166,9 @@ namespace UniversalEditor.Editors.Multimedia.Picture.Collection
 			sfd.Title = "Export Current Frame";
 
 			ObjectModelReference omr = mvarCurrentPicture.MakeReference();
-			sfd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(omr);
+			
+			Association[] assocs = Association.FromCriteria(new AssociationCriteria() { ObjectModel = omr });
+			sfd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(assocs);
 			if (sfd.ShowDialog() == DialogResult.OK)
 			{
 				DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(sfd.FileName);

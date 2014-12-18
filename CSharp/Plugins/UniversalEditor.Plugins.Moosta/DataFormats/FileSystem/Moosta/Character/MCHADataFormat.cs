@@ -8,7 +8,7 @@ using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
-namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
+namespace UniversalEditor.DataFormats.FileSystem.Moosta.Character
 {
 	public class MCHADataFormat : DataFormat
 	{
@@ -19,7 +19,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Moosta character animation", new byte?[][] { new byte?[] { (byte)'M', (byte)'c', (byte)'h', (byte)'a' } }, new string[] { "*.mcha" });
 			}
 			return _dfr;
 		}
@@ -52,7 +51,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Container
 			}
 			if (!UniversalEditor.Plugins.Moosta.Common.CheckMoostaFileType(magic, Plugins.Moosta.MoostaFileType.Mcha | Plugins.Moosta.MoostaFileType.Dmcha, out size))
 			{
-				throw new InvalidDataFormatException("File does not begin with Mcha or is not a DRM-protected Mcha");
+				throw new InvalidDataFormatException("File does not begin with Mcha and is not a DRM-protected Mcha");
 			}
 			br.Accessor.Position -= (14 - size);
 

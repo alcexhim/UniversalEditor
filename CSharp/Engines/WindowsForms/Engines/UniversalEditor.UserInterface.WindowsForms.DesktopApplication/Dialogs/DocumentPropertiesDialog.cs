@@ -326,18 +326,22 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		private string DataFormatReferenceToString(DataFormatReference dfr)
 		{
-			return dfr.Title + " (" + DataFormatFilterCollectionToString(dfr.Filters) + ")";
+			Association[] assocs = Association.FromCriteria(new AssociationCriteria() { DataFormat = dfr });
+			return dfr.Title + " (" + DataFormatFilterCollectionToString(assocs) + ")";
 		}
 
-		private string DataFormatFilterCollectionToString(DataFormatFilter.DataFormatFilterCollection collection)
+		private string DataFormatFilterCollectionToString(Association[] associations)
 		{
 			StringBuilder sb = new StringBuilder();
-			foreach (DataFormatFilter filter in collection)
+			foreach (Association assoc in associations)
 			{
-				sb.Append(StringArrayToString(filter.FileNameFilters));
-				if (collection.IndexOf(filter) < collection.Count - 1)
+				foreach (DataFormatFilter filter in assoc.Filters)
 				{
-					sb.Append("; ");
+					sb.Append(StringArrayToString(filter.FileNameFilters));
+					if (assoc.Filters.IndexOf(filter) < assoc.Filters.Count - 1)
+					{
+						sb.Append("; ");
+					}
 				}
 			}
 			return sb.ToString();
@@ -387,7 +391,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					SaveFileDialog sfd = new SaveFileDialog();
 					if (mvarDataFormat != null)
 					{
-						sfd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(mvarDataFormat.MakeReference());
+						Association[] assocs = Association.FromCriteria(new AssociationCriteria() { DataFormat = mvarDataFormat.MakeReference() });
+						sfd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(assocs);
 					}
 					if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 					{

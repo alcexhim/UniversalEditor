@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.AniMiku
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(MotionObjectModel), DataFormatCapabilities.All);
-                _dfr.Filters.Add("AniMiku motion data", new byte?[][] { new byte?[] { (byte)'a', (byte)'m', (byte)'d' } }, new string[] { "*.amd" });
             }
             return _dfr;
         }

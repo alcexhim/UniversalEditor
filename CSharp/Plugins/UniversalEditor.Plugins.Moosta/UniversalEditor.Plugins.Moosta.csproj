@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -36,7 +36,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\FileSystem\Moosta\Container\MCHADataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Moosta\Character\MCHADataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Moosta\ImageCollection\IMCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Moosta\Skin\COSDataFormat.cs" />
     <Compile Include="DataFormats\Moosta\MotionPack\MoPkg\MoPkgDataFormat.cs" />

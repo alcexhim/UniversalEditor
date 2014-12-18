@@ -6,17 +6,22 @@ using System.Text;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
+using UniversalEditor.DataFormats.FileSystem.ZIP;
+
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Concertroid
 {
-	public class MDLDataFormat : UniversalEditor.DataFormats.FileSystem.ZIP.ZIPDataFormat
+	public class MDLDataFormat : ZIPDataFormat
 	{
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Clear();
-			dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-			dfr.Filters.Add("Concertroid all-in-one model package", new string[] { "*.mdl" });
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Clear();
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)

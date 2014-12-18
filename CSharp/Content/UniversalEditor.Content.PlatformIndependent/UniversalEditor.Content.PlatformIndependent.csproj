@@ -54,6 +54,10 @@
     <Content Include="Associations\FileSystem.xml" />
     <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\Commands.xml" />
     <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\KeyBindings.xml" />
+    <Content Include="Extensions\AniMiku\Associations\Concert\AniMikuConcert.xml" />
+    <Content Include="Extensions\AniMiku\Associations\FileSystem\AniMikuTexturePackage.xml" />
+    <Content Include="Extensions\AniMiku\Associations\Model\AniMikuPMD.xml" />
+    <Content Include="Extensions\AniMiku\Associations\Motion\AniMikuMotion.xml" />
     <Content Include="Extensions\AudioWorkstation\Associations\Playlist\ASX.xml" />
     <Content Include="Extensions\AudioWorkstation\Associations\Playlist\CompactDisc.xml" />
     <Content Include="Extensions\AudioWorkstation\Associations\Playlist\XSPF.xml" />
@@ -65,6 +69,10 @@
     <Content Include="Extensions\AudioWorkstation\Associations\Project\LMMS.xml" />
     <Content Include="Extensions\AudioWorkstation\Associations\SynthesizedAudio\Vocaloid.xml" />
     <Content Include="Extensions\AudioWorkstation\Associations\SynthesizedAudio\UST.xml" />
+    <Content Include="Extensions\Caltron\Associations\TextureFont\TextureFont.xml" />
+    <Content Include="Extensions\Concertroid\Associations\Concert\Concert.xml" />
+    <Content Include="Extensions\Concertroid\Associations\Library\LibraryXML.xml" />
+    <Content Include="Extensions\Concertroid\Associations\Model\ConcertroidMDL.xml" />
     <Content Include="Extensions\FileSystem\Associations\Microsoft\CompoundDocument.xml" />
     <Content Include="Extensions\FileSystem\Associations\Microsoft\MSCompressed.xml" />
     <Content Include="Extensions\FileSystem\Associations\CPIO.xml" />
@@ -91,6 +99,7 @@
     <Content Include="Extensions\FileSystem\Associations\ARJ.xml" />
     <Content Include="Extensions\FileSystem\Associations\ARC.xml" />
     <Content Include="Extensions\FileSystem\Associations\WinRAR.xml" />
+    <Content Include="Extensions\GameDeveloper\Associations\Multimedia3D\Model\AvalancheVBUF.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\Multimedia3D\Model\IDSoftware.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\Multimedia3D\Model\HalfLife2SMD.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\Multimedia3D\Model\UltimateStuntsGLB.xml" />
@@ -158,6 +167,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\NewWorldComputing\NWCGameSave.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\NewWorldComputing\NWCResourceBIN.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\Cyberlore\Cyberlore.xml" />
+    <Content Include="Extensions\GameDeveloper\Associations\Picture\AvalancheTBODY.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\ReflexiveEntertainment\FRM16.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\Multimedia3D\Scene\IDSoftware.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\SynthesizedAudio\SPC.xml" />
@@ -201,6 +211,10 @@
     <Content Include="Extensions\GraphicDesigner3D\Associations\Pose\PolygonMovieMaker.xml" />
     <Content Include="Extensions\GraphicDesigner3D\Associations\Scene\Cinema4D.xml" />
     <Content Include="Extensions\GraphicDesigner3D\Associations\Scene\PolygonMovieMaker.xml" />
+    <Content Include="Extensions\GraphicDesigner3D\Extensions\Moosta\Associations\FileSystem\ImageCollection.xml" />
+    <Content Include="Extensions\GraphicDesigner3D\Extensions\Moosta\Associations\FileSystem\OmpSkin.xml" />
+    <Content Include="Extensions\GraphicDesigner3D\Extensions\Moosta\Associations\Model\Mcha.xml" />
+    <Content Include="Extensions\GraphicDesigner3D\Extensions\Moosta\Associations\MotionPackage\MoPkg.xml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Palette\Adobe\ACOColorPalette.xml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Palette\Adobe\AdobeSwatchExchange.xml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Palette\GIMPColorPalette.xml" />
@@ -208,6 +222,7 @@
     <Content Include="Extensions\GraphicDesigner\Associations\VectorImage\ExpressionDesign.xml" />
     <Content Include="Extensions\LightingWorkstation\Associations\Fixture\QLCFixture.xml" />
     <Content Include="Extensions\Michelangelo\Associations\Michelangelo.xml" />
+    <Content Include="Extensions\SoftwareDeveloper\Associations\Project\VisualStudio.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\ExecutableObjectModel\ELF.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\CodeObjectModel\Java.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\CodeObjectModel\Go.xml" />
@@ -219,6 +234,8 @@
     <Content Include="Extensions\SoftwareDeveloper\Associations\CodeObjectModel\Ada.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\CodeObjectModel\FORTRAN.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\InstallationScript\InstallShield.xml" />
+    <Content Include="Extensions\SoftwareDeveloper\Associations\PropertyList\VisualStudio.xml" />
+    <Content Include="Extensions\SoftwareDeveloper\Associations\Solution\VisualStudio.xml" />
     <Content Include="Extensions\VideoWorkstation\Associations\BluRay\MOBJ.xml" />
     <Content Include="Extensions\VideoWorkstation\Associations\BluRay\INDX.xml" />
     <Content Include="Extensions\VideoWorkstation\Associations\BluRay\HDMV.xml" />
@@ -513,6 +530,19 @@
     <Content Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\PHP\MainIcon_16x16.png" />
     <Content Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\PHP\MainIcon_32x32.png" />
     <Content Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\PHP\PHP Web Project.xml" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\Control.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\CSharp.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\CSharp_Project.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\Form.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\generic-file.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\generic-folder-closed.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\generic-folder-open.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\hidden-folder-closed.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\hidden-folder-open.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\PropertiesFolder.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\Reference.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\Resources.png" />
+    <Content Include="Themes\VisualStudio2012\Images\TreeView\UserControl.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

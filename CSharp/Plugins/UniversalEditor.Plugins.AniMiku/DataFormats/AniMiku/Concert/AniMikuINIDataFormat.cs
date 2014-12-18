@@ -18,13 +18,16 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 	/// </summary>
 	public class AniMikuINIDataFormat : WindowsConfigurationDataFormat
 	{
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Clear();
-			dfr.Capabilities.Add(typeof(ConcertObjectModel), DataFormatCapabilities.All);
-			dfr.Filters.Add("AniMiku performance", new byte?[][] { new byte?[] { (byte)'A', (byte)'M', (byte)'P', (byte)'V', (byte)'2', (byte)'\r', (byte)'\n' } }, new string[] { "*.amp" });
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Clear();
+				_dfr.Capabilities.Add(typeof(ConcertObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)

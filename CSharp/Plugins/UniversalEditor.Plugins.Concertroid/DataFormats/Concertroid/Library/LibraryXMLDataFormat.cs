@@ -21,7 +21,6 @@ namespace UniversalEditor.DataFormats.Concertroid.Library
                 _dfr = new DataFormatReference(GetType());
                 _dfr.Capabilities.Add(typeof(LibraryObjectModel), DataFormatCapabilities.All);
                 _dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
-                _dfr.Filters.Add("Concertroid XML library", new string[] { "*.library" });
             }
             return _dfr;
         }

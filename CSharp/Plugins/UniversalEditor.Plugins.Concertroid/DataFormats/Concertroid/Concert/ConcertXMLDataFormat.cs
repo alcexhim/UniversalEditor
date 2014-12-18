@@ -21,7 +21,6 @@ namespace UniversalEditor.DataFormats.Concertroid.Concert
                 _dfr = new DataFormatReference(GetType());
                 _dfr.Capabilities.Add(typeof(ConcertObjectModel), DataFormatCapabilities.All);
                 _dfr.Capabilities.Add(typeof(MarkupObjectModel), DataFormatCapabilities.Bootstrap);
-                _dfr.Filters.Add("Concertroid XML concert", new string[] { "*.concert" });
             }
             return _dfr;
         }

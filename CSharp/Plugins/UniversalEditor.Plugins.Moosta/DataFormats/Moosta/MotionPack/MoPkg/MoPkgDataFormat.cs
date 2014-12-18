@@ -32,7 +32,6 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(MotionPackObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Moosta motion pack", new byte?[][] { new byte?[] { (byte)'M', (byte)'o', (byte)'P', (byte)'k', (byte)'g' } }, new string[] { "*.mopkg" });
 			}
 			return _dfr;
 		}
@@ -43,7 +42,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			if (mopkg == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
-            base.Accessor.DefaultEncoding = Encoding.UTF16LittleEndian;
+			base.Accessor.DefaultEncoding = Encoding.UTF16LittleEndian;
 
 			string signature = br.ReadFixedLengthString(5);
 			if (signature != "MoPkg") throw new InvalidDataFormatException("File does not begin with \"MoPkg\"");

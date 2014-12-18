@@ -1096,7 +1096,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			SolutionObjectModel solution = new SolutionObjectModel();
 			OpenFileDialog ofd = new OpenFileDialog();
-			ofd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(solution.MakeReference());
+			Association[] assocs = Association.FromCriteria(new AssociationCriteria() { ObjectModel = solution.MakeReference() });
+			ofd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(assocs);
 			ofd.Multiselect = false;
 			if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
@@ -1199,7 +1200,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			List<DataFormatReference> refs = new List<DataFormatReference>();
 			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(mvarCurrentSolution.MakeReference(), out refs);
+			Association[] assocs = Association.FromCriteria(new AssociationCriteria() { ObjectModel = mvarCurrentSolution.MakeReference() });
+			sfd.Filter = UniversalEditor.UserInterface.WindowsForms.CommonDialog.GetCommonDialogFilter(assocs);
 			sfd.FileName = mvarCurrentSolution.Title + ".sln";
 			if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{

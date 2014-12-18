@@ -264,22 +264,27 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				}
 
 				lvDataFormatFilters.Items.Clear();
-				foreach (DataFormatFilter filter in dfr.Filters)
-				{
-					ListViewItem lvi = new ListViewItem();
-					lvi.Text = filter.Title;
 
-					StringBuilder sb = new StringBuilder();
-					foreach (string s in filter.FileNameFilters)
+				Association[] assocs = Association.FromCriteria(new AssociationCriteria() { DataFormat = dfr });
+				foreach (Association assoc in assocs)
+				{
+					foreach (DataFormatFilter filter in assoc.Filters)
 					{
-						sb.Append(s);
-						if (filter.FileNameFilters.IndexOf(s) < filter.FileNameFilters.Count - 1)
+						ListViewItem lvi = new ListViewItem();
+						lvi.Text = filter.Title;
+
+						StringBuilder sb = new StringBuilder();
+						foreach (string s in filter.FileNameFilters)
 						{
-							sb.Append(", ");
+							sb.Append(s);
+							if (filter.FileNameFilters.IndexOf(s) < filter.FileNameFilters.Count - 1)
+							{
+								sb.Append(", ");
+							}
 						}
+						lvi.SubItems.Add(sb.ToString());
+						lvDataFormatFilters.Items.Add(lvi);
 					}
-					lvi.SubItems.Add(sb.ToString());
-					lvDataFormatFilters.Items.Add(lvi);
 				}
 				foreach (string ct in dfr.ContentTypes)
 				{

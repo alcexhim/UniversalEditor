@@ -17,7 +17,6 @@ namespace UniversalEditor.DataFormats.PropertyList.Microsoft.VisualStudio
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Visual Studio Solution Options", new string[] { "*.suo" });
 			}
 			return _dfr;
 		}
