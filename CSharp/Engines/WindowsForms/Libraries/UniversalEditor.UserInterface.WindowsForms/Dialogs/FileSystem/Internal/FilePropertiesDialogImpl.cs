@@ -43,11 +43,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 					File file = (fso as File);
 					txtFileName.Text = file.Name;
 
-					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetDataAsByteArray());
-					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(ma);
-					if (dfrs.Length > 0)
+					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetDataAsByteArray(), file.Name);
+					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = ma });
+					if (assocs.Length > 0)
 					{
-						DataFormatReference dfr = dfrs[0];
+						DataFormatReference dfr = assocs[0].DataFormats[0];
 						txtGeneralInformationDataFormat.Text = dfr.Title;
 
 						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(dfr);
