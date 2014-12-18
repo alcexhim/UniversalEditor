@@ -257,56 +257,47 @@ namespace UniversalEditor
 		}
 		public bool MatchesFile(Accessor FileData)
 		{
-			switch (mvarHintComparison)
+			// first determine if our file name matches any of the filters
+			string fileName = FileData.GetFileName();
+			for (int i = 0; i < mvarFileNameFilters.Count; i++)
 			{
-				case DataFormatHintComparison.Always:
+				if (fileName.Match(mvarFileNameFilters[i])) return true;
+			}
+
+			// then determine if the magic bytes match
+			for (int i = 0; i < mvarMagicBytes.Count; i++)
+			{
+				byte?[] bytes = mvarMagicBytes[i];
+				if ((FileData.Position + bytes.Length) <= FileData.Length)
 				{
-					return true;
-				}
-				case DataFormatHintComparison.MagicOnly:
-				case DataFormatHintComparison.FilterThenMagic:
-				case DataFormatHintComparison.MagicThenFilter:
-				{
-					for (int i = 0; i < mvarMagicBytes.Count; i++)
+					bool ret = true;
+					byte[] cmp = new byte[bytes.Length];
+
+					long offset = FileData.Position;
+					if (i < mvarMagicByteOffsets.Length)
 					{
-						byte?[] bytes = mvarMagicBytes[i];
-						if ((FileData.Position + bytes.Length) <= FileData.Length)
+						if (mvarMagicByteOffsets[i] < 0)
 						{
-							bool ret = true;
-							byte[] cmp = new byte[bytes.Length];
-
-							long offset = FileData.Position;
-							if (i < mvarMagicByteOffsets.Length)
-							{
-								if (mvarMagicByteOffsets[i] < 0)
-								{
-									FileData.Seek(mvarMagicByteOffsets[i], SeekOrigin.End);
-								}
-								else
-								{
-									FileData.Seek(mvarMagicByteOffsets[i], SeekOrigin.Begin);
-								}
-							}
-							FileData.Reader.Read(cmp, 0, cmp.Length);
-							FileData.Position = offset;
-
-							for (int j = 0; j < bytes.Length; j++)
-							{
-								if (bytes[j] == null) continue;
-								if (bytes[j] != cmp[j])
-								{
-									ret = false;
-									break;
-								}
-							}
-							if (ret) return true;
+							FileData.Seek(mvarMagicByteOffsets[i], SeekOrigin.End);
+						}
+						else
+						{
+							FileData.Seek(mvarMagicByteOffsets[i], SeekOrigin.Begin);
 						}
 					}
-					return false;
-				}
-				case DataFormatHintComparison.None:
-				{
-					return false;
+					FileData.Reader.Read(cmp, 0, cmp.Length);
+					FileData.Position = offset;
+
+					for (int j = 0; j < bytes.Length; j++)
+					{
+						if (bytes[j] == null) continue;
+						if (bytes[j] != cmp[j])
+						{
+							ret = false;
+							break;
+						}
+					}
+					if (ret) return true;
 				}
 			}
 			return false;
