@@ -42,7 +42,17 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			lv.Items.Clear();
 			foreach (TRef item in mvarAvailableObjects)
 			{
-				if (String.IsNullOrEmpty(txtSearch.Text.Trim()) || item.ShouldFilterObject(txtSearch.Text))
+				bool itemShouldFilter = false;
+				string[] details = item.GetDetails();
+				foreach (string detail in details)
+				{
+					if (detail.ToLower().Trim().Contains(txtSearch.Text.ToLower().Trim()))
+					{
+						itemShouldFilter = true;
+						break;
+					}
+				}
+				if (String.IsNullOrEmpty(txtSearch.Text.Trim()) || itemShouldFilter)
 				{
 					AddObjectToList(item);
 				}

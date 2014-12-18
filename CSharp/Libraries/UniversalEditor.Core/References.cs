@@ -34,11 +34,5 @@ namespace UniversalEditor
         /// </summary>
 		/// <returns>An array of <see cref="String" />s that are shown in detail columns of lists of this <see cref="T:ReferencedBy`1" /> object.</returns>
         string[] GetDetails();
-        /// <summary>
-		/// Determines if this <see cref="T:ReferencedBy`1" /> object should be filtered by the given criteria.
-        /// </summary>
-		/// <param name="filter">The filter that determines whether this object should be displayed in a list of <see cref="T:ReferencedBy`1" /> objects.</param>
-        /// <returns>True if this object should appear in the list; false otherwise.</returns>
-		bool ShouldFilterObject(string filter);
 	}
 }

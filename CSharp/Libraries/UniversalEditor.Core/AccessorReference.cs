@@ -30,16 +30,6 @@ namespace UniversalEditor
 
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
-
-        /// <summary>
-        /// Determines if this <see cref="ReferencedBy" /> object should be filtered by the given criteria.
-        /// </summary>
-        /// <param name="filter">The filter that determines whether this object should be displayed in a list of <see cref="ReferencedBy" /> objects.</param>
-        /// <returns>True if this object should appear in the list; false otherwise.</returns>
-		public bool ShouldFilterObject(string filter)
-		{
-			return mvarTitle.ToLower().Contains(filter.ToLower());
-		}
         
         /// <summary>
         /// Gets the detail fields that are shown in lists of this <see cref="ReferencedBy" /> object in details view.

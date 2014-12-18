@@ -63,24 +63,28 @@ namespace UniversalEditor
 		public string[] GetDetails()
 		{
 			string title = mvarTitle;
-			/*
-			if (String.IsNullOrEmpty(mvarTitle) && mvarFilters.Count > 0)
+			Association[] assocs = Association.FromCriteria(new AssociationCriteria() { DataFormat = this });
+			if (String.IsNullOrEmpty(mvarTitle) && assocs.Length > 0 && assocs[0].Filters.Count > 0)
 			{
-				title = mvarFilters[0].Title;
+				title = assocs[0].Filters[0].Title;
 			}
-			return new string[] { title, DataFormatFilterCollectionToString(mvarFilters) };
-			 */
-			return new string[] { title };
-		}
-		public bool ShouldFilterObject(string filter)
-		{
-			string title = mvarTitle;
-			if (String.IsNullOrEmpty(mvarTitle))
+
+			StringBuilder sb = new StringBuilder();
+			foreach (Association assoc in assocs)
 			{
+				foreach (DataFormatFilter filter in assoc.Filters)
+				{
+					foreach (string s in filter.FileNameFilters)
+					{
+						sb.Append(s);
+						if (filter.FileNameFilters.IndexOf(s) < filter.FileNameFilters.Count - 1) sb.Append("; ");
+					}
+					if (assoc.Filters.IndexOf(filter) < assoc.Filters.Count - 1) sb.Append("; ");
+				}
+				if (Array.IndexOf(assocs, assoc) < assocs.Length - 1) sb.Append("; ");
 			}
-			if (title == null) title = String.Empty;
-			if (title.ToLower().Contains(filter.ToLower())) return true;
-			return false;
+
+			return new string[] { title, sb.ToString() };
 		}
 
 		public DataFormatReference(Guid id)

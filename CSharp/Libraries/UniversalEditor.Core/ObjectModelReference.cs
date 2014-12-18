@@ -91,17 +91,6 @@ namespace UniversalEditor
 		{
 			return new string[] { mvarTitle, mvarDescription };
 		}
-		public bool ShouldFilterObject(string filter)
-		{
-			string title = mvarTitle;
-			if (title == null) title = String.Empty;
-
-			string description = mvarDescription;
-			if (description == null) description = String.Empty;
-
-			return ((title.ToLower().Contains(filter.Trim().ToLower()))
-				|| (description.ToLower().Contains(filter.Trim().ToLower())));
-		}
 
 		private Type mvarType = null;
 		public Type Type { get { return mvarType; } }
