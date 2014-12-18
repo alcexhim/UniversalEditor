@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor
 {
-	public class ObjectModelReference : ReferencedBy<ObjectModel>
+	public class ObjectModelReference : ReferencedBy<ObjectModel>, IComparable<ObjectModelReference>
 	{
 		public class ObjectModelReferenceCollection
 			: System.Collections.ObjectModel.Collection<ObjectModelReference>
@@ -243,6 +243,32 @@ namespace UniversalEditor
 		{
 			if (_referencesByGUID.ContainsKey(guid)) return _referencesByGUID[guid];
 			return null;
+		}
+		public override bool Equals(object obj)
+		{
+			ObjectModelReference omr = (obj as ObjectModelReference);
+			if (omr == null) return false;
+			if (mvarID == Guid.Empty)
+			{
+				// do not compare ID
+				if (mvarTypeName == null) return false;
+				return mvarTypeName.Equals(omr.TypeName);
+			}
+			return mvarID.Equals(omr.ID);
+		}
+		public int CompareTo(ObjectModelReference other)
+		{
+			if (mvarID == Guid.Empty)
+			{
+				// do not compare ID
+				if (mvarTypeName == null)
+				{
+					if (other.ID == Guid.Empty && other.TypeName == null) return 0;
+					return -1;
+				}
+				return mvarTypeName.CompareTo(other.TypeName);
+			}
+			return mvarID.CompareTo(other.ID);
 		}
 	}
 }
