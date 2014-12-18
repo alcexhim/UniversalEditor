@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Garena yanghx compressed archive" HintComparison="MagicByteOnly">
+				<Filter Title="Garena yanghx compressed archive" HintComparison="MagicOnly">
 					<FileNameFilters>
 						<FileNameFilter>*</FileNameFilter>
 					</FileNameFilters>
