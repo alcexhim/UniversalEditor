@@ -170,7 +170,7 @@ namespace UniversalEditor
 					bool found = false;
 					foreach (DataFormatFilter filter in assoc.Filters)
 					{
-						if (filter.MatchesFile(ac.Accessor))
+						if (filter.Matches(ac.Accessor))
 						{
 							associations.Add(assoc);
 							found = true;
