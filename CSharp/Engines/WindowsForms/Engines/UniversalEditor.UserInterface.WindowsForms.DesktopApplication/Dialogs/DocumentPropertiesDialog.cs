@@ -263,11 +263,17 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				if (mvarAccessor is FileAccessor)
 				{
 					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = mvarAccessor });
-
-					DataFormatReference[] dfrs = null;
+					List<DataFormatReference> dfrs = new List<DataFormatReference>();
+					foreach (Association assoc in assocs)
+					{
+						foreach (DataFormatReference dfr in assoc.DataFormats)
+						{
+							dfrs.Add(dfr);
+						}
+					}
 					if (mvarDataFormat == null)
 					{
-						if (dfrs.Length > 0)
+						if (dfrs.Count > 0)
 						{
 							mvarDataFormat = dfrs[0].Create();
 						}
