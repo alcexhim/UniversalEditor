@@ -557,6 +557,8 @@
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Reference.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Resources.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\UserControl.png" />
+    <Content Include="WindowLayouts\Default.xml" />
+    <Content Include="WindowLayouts\VisualStudio2013.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

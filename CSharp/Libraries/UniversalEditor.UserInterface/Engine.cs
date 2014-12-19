@@ -180,7 +180,6 @@ namespace UniversalEditor.UserInterface
 				LastWindow.FullScreen = !LastWindow.FullScreen;
 				cmd.Checked = LastWindow.FullScreen;
 			});
-
 			#region Perspective
 			AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
 			{
@@ -249,6 +248,31 @@ namespace UniversalEditor.UserInterface
 				ShowAboutDialog();
 			});
 			#endregion
+
+
+			#region Dynamic Commands
+			#region View
+			#region Panels
+			for (int i = mvarCommandBars.Count - 1; i >= 0; i--)
+			{
+				Command cmdViewToolbarsToolbar = new Command();
+				cmdViewToolbarsToolbar.ID = "ViewToolbars" + i.ToString();
+				cmdViewToolbarsToolbar.Title = mvarCommandBars[i].Title;
+				cmdViewToolbarsToolbar.Executed += cmdViewToolbarsToolbar_Executed;
+				mvarCommands.Add(cmdViewToolbarsToolbar);
+				mvarCommands["ViewToolbars"].Items.Insert(0, new CommandReferenceCommandItem(cmdViewToolbarsToolbar.ID));
+			}
+			#endregion
+			#region Panels
+			Command cmdViewPanels1 = new Command();
+			cmdViewPanels1.ID = "ViewPanels1";
+			mvarCommands.Add(cmdViewPanels1);
+			mvarCommands["ViewPanels"].Items.Add(new CommandReferenceCommandItem("ViewPanels1"));
+			#endregion
+			#endregion
+			#endregion
+
+			#region Language Strings
 			#region Help
 			Command helpAboutPlatform = mvarCommands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
@@ -274,6 +298,13 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 			#endregion
+			#endregion
+		}
+
+		void cmdViewToolbarsToolbar_Executed(object sender, EventArgs e)
+		{
+			Command cmd = (sender as Command);
+			
 		}
 
 		private IHostApplicationWindowCollection mvarWindows = new IHostApplicationWindowCollection();
