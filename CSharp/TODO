@@ -1,9 +1,13 @@
 Platform:
-* Implement UE Packages (*.uepack) in Essential
+* Finish implementing project/document template variables, project type variables, etc.
+* Determine how to handle project task actions
+	* Each file in a project should have file-specific actions (BuildAction = Compile, Content, EmbeddedResource, etc.)
+	* Entire project should have project-specific actions? Or just use file-specific actions?
+	
+* Implement UE Packages (*.uepack) in Essential		- READ DONE
 	* These are ZIP files that contain all the XML and compiled binary files for DataFormats, ObjectModels, etc.
 	
-* NOTE: Accessors cannot be made runtime-independent since they require interfacing directly with sources of data (e.g. FTP server, local file...); DataFormats and
-        ObjectModels should be implemented in markup, but Accessors simply cannot be.
+* NOTE: Accessors cannot be made runtime-independent since they require interfacing directly with sources of data (e.g. FTP server, local file...); DataFormats and ObjectModels should be implemented in markup, but Accessors simply cannot be.
 
 Editor:
 * Provide PropertyGridSettings to communicate property changes using the UniversalEditor PropertyGrid control
