@@ -48,7 +48,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					lbl.AutoSize = true;
 					lbl.Dock = DockStyle.None;
 					lbl.Anchor = AnchorStyles.Left;
-					lbl.Text = eo.Title;
+					lbl.Text = eo.Title.Replace("_", "&");
 					tbl.Controls.Add(lbl);
 				}
 
@@ -149,6 +149,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 					CustomOptionControls.Add(eo.PropertyName, cmd);
 				}
+
+				tbl.ColumnCount = 2;
+				tbl.RowCount = CustomOptionControls.Count;
 			}
 
 			foreach (RowStyle rs in tbl.RowStyles)
