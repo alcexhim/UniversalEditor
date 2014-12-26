@@ -49,12 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\SolutionExplorerSelectionChangedEvent.cs" />
     <Compile Include="Controls\OutputWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\OutputWindow.Designer.cs">
       <DependentUpon>OutputWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SolutionExplorerSelectionChangingEvent.cs" />
     <Compile Include="Dialogs\GenericBrowserPopup.cs">
       <SubType>Form</SubType>
     </Compile>
