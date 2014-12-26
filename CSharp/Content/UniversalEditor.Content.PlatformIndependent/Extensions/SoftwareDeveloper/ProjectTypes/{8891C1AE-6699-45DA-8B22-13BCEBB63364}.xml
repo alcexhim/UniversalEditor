@@ -62,16 +62,16 @@
 					</Actions>
 				</Task>
 			</Tasks>
-			<ProjectVariables>
-				<ProjectVariable ID="ProjectTarget" Type="Selection">
+			<Variables>
+				<Variable Name="ProjectTarget" Title="Project _target: " Type="Choice">
 					<ValidValues>
 						<ValidValue Title="Console Executable" Value="exe" />
 						<ValidValue Title="GUI Executable" Value="winexe" />
 						<ValidValue Title="Class Library" Value="library" />
 					</ValidValues>
-				</ProjectVariable>
-				<ProjectVariable ID="OutputFileName" Type="File" />
-			</ProjectVariables>
+				</Variable>
+				<Variable Name="OutputFileName" Title="Output _file name:" Type="FileSave" />
+			</Variables>
 		</ProjectType>
 	</ProjectTypes>
 </UniversalEditor>

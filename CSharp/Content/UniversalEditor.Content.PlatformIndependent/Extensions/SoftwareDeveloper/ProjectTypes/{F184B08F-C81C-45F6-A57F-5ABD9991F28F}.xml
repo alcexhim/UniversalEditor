@@ -27,8 +27,8 @@
 					</Actions>
 				</Task>
 			</Tasks>
-			<ProjectVariables>
-				<ProjectVariable ID="ProjectTarget" Type="Selection">
+			<Variables>
+				<Variable Name="ProjectTarget" Type="Selection">
 					<ValidValues>
 						<ValidValue Title="Console Executable" Value="exe" />
 						<ValidValue Title="GUI Executable" Value="winexe" />
@@ -37,10 +37,10 @@
 						<ValidValue Title="AppContainer Executable" Value="appcontainerexe" />
 						<ValidValue Title="Windows Metadata object" Value="winmdobj" />
 					</ValidValues>
-				</ProjectVariable>
-				<ProjectVariable ID="OutputFileName" Type="File" />
-				<ProjectVariable ID="RootNamespace" Type="String" />
-			</ProjectVariables>
+				</Variable>
+				<Variable Name="OutputFileName" Type="FileSave" />
+				<Variable Name="RootNamespace" Type="String" />
+			</Variables>
 		</ProjectType>
 	</ProjectTypes>
 </UniversalEditor>

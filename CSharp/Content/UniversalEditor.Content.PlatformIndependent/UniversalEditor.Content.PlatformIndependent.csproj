@@ -198,6 +198,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\UnrealPackage\UnrealUMOD.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\UnrealPackage\UnrealPackage.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\WaveformAudio\OSLib.xml" />
+    <Content Include="Extensions\GameDeveloper\ProjectTypes\{94E32BE3-D458-4786-A7E0-59DE5F769CDC}.xml" />
     <Content Include="Extensions\GraphicDesigner3D\Associations\Accessory\QAvimator.xml" />
     <Content Include="Extensions\GraphicDesigner3D\Associations\Accessory\PolygonMovieMaker.xml" />
     <Content Include="Extensions\GraphicDesigner3D\Associations\Model\PolygonMovieMaker.xml" />
@@ -236,6 +237,7 @@
     <Content Include="Extensions\SoftwareDeveloper\Associations\InstallationScript\InstallShield.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\PropertyList\VisualStudio.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\Solution\VisualStudio.xml" />
+    <Content Include="Extensions\UniversalEditorDeveloper\ProjectTypes\{13A1DBF5-B527-4218-9442-F1D165033AEB}.xml" />
     <Content Include="Extensions\VideoWorkstation\Associations\BluRay\MOBJ.xml" />
     <Content Include="Extensions\VideoWorkstation\Associations\BluRay\INDX.xml" />
     <Content Include="Extensions\VideoWorkstation\Associations\BluRay\HDMV.xml" />
