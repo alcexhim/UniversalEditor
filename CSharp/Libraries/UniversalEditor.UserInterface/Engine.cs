@@ -124,6 +124,10 @@ namespace UniversalEditor.UserInterface
 			{
 				LastWindow.CloseFile();
 			});
+			AttachCommandEventHandler("FileCloseProject", delegate(object sender, EventArgs e)
+			{
+				LastWindow.CloseProject();
+			});
 			AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
 			{
 				RestartApplication();

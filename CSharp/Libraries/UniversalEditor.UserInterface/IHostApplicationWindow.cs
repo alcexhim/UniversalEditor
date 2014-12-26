@@ -35,6 +35,7 @@ namespace UniversalEditor.UserInterface
 		void SwitchPerspective(int index);
 
 		void CloseFile();
+		void CloseProject();
 		void CloseWindow();
 		
 		IEditorImplementation GetCurrentEditor();

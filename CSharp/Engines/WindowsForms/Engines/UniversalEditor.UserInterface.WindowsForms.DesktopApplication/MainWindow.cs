@@ -1655,7 +1655,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				CloseWindow();
 			}
 		}
-		private void FileCloseProject_Click(object sender, EventArgs e)
+		public void CloseProject()
 		{
 			CurrentSolution = null;
 		}
