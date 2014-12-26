@@ -10,6 +10,7 @@ using UniversalEditor.ObjectModels.Solution;
 
 namespace UniversalEditor.UserInterface.WindowsForms.Controls
 {
+	[DefaultEvent("SelectionChanged")]
 	public partial class SolutionExplorer : UserControl
 	{
 		public SolutionExplorer()
@@ -132,8 +133,22 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			tnParent.Nodes.Add(tn);
 		}
 
+		private void tv_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+		{
+			SolutionExplorerSelectionChangingEventArgs ce = new SolutionExplorerSelectionChangingEventArgs(e.Node.Tag);
+			OnSelectionChanging(ce);
+			if (ce.Cancel)
+			{
+				e.Cancel = true;
+				return;
+			}
+			e.Node.Tag = ce.SelectedItem;
+		}
 		private void tv_AfterSelect(object sender, TreeViewEventArgs e)
 		{
+			// TODO: update Properties window
+			OnSelectionChanged(new SolutionExplorerSelectionChangedEventArgs(e.Node.Tag));
+
 			if (tsbPreviewSelectedItems.Checked)
 			{
 				// TODO: do preview of selected item
@@ -370,6 +385,18 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			tv.SelectedNode = tn;
 
 			tn.BeginEdit();
+		}
+
+		public event SolutionExplorerSelectionChangingEventHandler SelectionChanging;
+		private void OnSelectionChanging(SolutionExplorerSelectionChangingEventArgs e)
+		{
+			if (SelectionChanging != null) SelectionChanging(this, e);
+		}
+
+		public event SolutionExplorerSelectionChangedEventHandler SelectionChanged;
+		private void OnSelectionChanged(SolutionExplorerSelectionChangedEventArgs e)
+		{
+			if (SelectionChanged != null) SelectionChanged(this, e);
 		}
 	}
 }

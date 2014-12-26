@@ -50,6 +50,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			this.tv = new System.Windows.Forms.TreeView();
 			this.mnuContext = new AwesomeControls.CommandBars.CBContextMenu(this.components);
 			this.mnuContextAdd = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuContextAddNewProject = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuContextAddExistingProject = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuContextAddSep1 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuContextAddNewItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuContextAddExistingItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuContextAddSep2 = new System.Windows.Forms.ToolStripSeparator();
@@ -63,9 +66,6 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuContextProperties = new System.Windows.Forms.ToolStripMenuItem();
 			this.imlSmallIcons = new System.Windows.Forms.ImageList(this.components);
-			this.mnuContextAddNewProject = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuContextAddExistingProject = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuContextAddSep1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cbToolBar1.SuspendLayout();
 			this.mnuContext.SuspendLayout();
 			this.SuspendLayout();
@@ -139,13 +139,13 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			// pendingChangesFilterToolStripMenuItem
 			// 
 			this.pendingChangesFilterToolStripMenuItem.Name = "pendingChangesFilterToolStripMenuItem";
-			this.pendingChangesFilterToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+			this.pendingChangesFilterToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
 			this.pendingChangesFilterToolStripMenuItem.Text = "Pending Changes Filter";
 			// 
 			// openFilesFilterToolStripMenuItem
 			// 
 			this.openFilesFilterToolStripMenuItem.Name = "openFilesFilterToolStripMenuItem";
-			this.openFilesFilterToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+			this.openFilesFilterToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
 			this.openFilesFilterToolStripMenuItem.Text = "Open Files Filter";
 			// 
 			// tsbRefresh
@@ -221,6 +221,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			this.txtFilter.CaretSize = 1;
 			this.txtFilter.CaseSensitive = true;
 			this.txtFilter.CharacterSpacing = 0;
+			this.txtFilter.CurrentLineIndex = 0;
 			this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
 			this.txtFilter.EnableCaret = true;
 			this.txtFilter.EnableCaretBlink = true;
@@ -238,10 +239,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			this.txtFilter.Multiline = false;
 			this.txtFilter.Name = "txtFilter";
 			this.txtFilter.PlaceholderText = "";
+			this.txtFilter.ReplaceTabsWithSpaces = true;
 			this.txtFilter.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
 			this.txtFilter.SelectionStart = 0;
 			this.txtFilter.Size = new System.Drawing.Size(322, 23);
 			this.txtFilter.TabIndex = 1;
+			this.txtFilter.TabSize = 4;
 			this.txtFilter.WordSpacing = 0;
 			// 
 			// tv
@@ -260,6 +263,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			this.tv.TabIndex = 2;
 			this.tv.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tv_BeforeLabelEdit);
 			this.tv.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tv_AfterLabelEdit);
+			this.tv.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.tv_BeforeSelect);
 			this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_AfterSelect);
 			this.tv.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tv_NodeMouseDoubleClick);
 			this.tv.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tv_MouseDown);
@@ -276,7 +280,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             this.toolStripMenuItem3,
             this.mnuContextProperties});
 			this.mnuContext.Name = "cbContextMenu1";
-			this.mnuContext.Size = new System.Drawing.Size(194, 170);
+			this.mnuContext.Size = new System.Drawing.Size(190, 148);
 			this.mnuContext.Opening += new System.ComponentModel.CancelEventHandler(this.mnuContext_Opening);
 			// 
 			// mnuContextAdd
@@ -291,83 +295,102 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
             this.mnuContextAddSep3,
             this.mnuContextAddNewFolder});
 			this.mnuContextAdd.Name = "mnuContextAdd";
-			this.mnuContextAdd.Size = new System.Drawing.Size(193, 22);
+			this.mnuContextAdd.Size = new System.Drawing.Size(189, 22);
 			this.mnuContextAdd.Text = "A&dd";
+			// 
+			// mnuContextAddNewProject
+			// 
+			this.mnuContextAddNewProject.Name = "mnuContextAddNewProject";
+			this.mnuContextAddNewProject.Size = new System.Drawing.Size(156, 22);
+			this.mnuContextAddNewProject.Text = "&New Project...";
+			this.mnuContextAddNewProject.Click += new System.EventHandler(this.mnuContextAddNewProject_Click);
+			// 
+			// mnuContextAddExistingProject
+			// 
+			this.mnuContextAddExistingProject.Name = "mnuContextAddExistingProject";
+			this.mnuContextAddExistingProject.Size = new System.Drawing.Size(156, 22);
+			this.mnuContextAddExistingProject.Text = "&Existing Project..";
+			this.mnuContextAddExistingProject.Click += new System.EventHandler(this.mnuContextAddExistingProject_Click);
+			// 
+			// mnuContextAddSep1
+			// 
+			this.mnuContextAddSep1.Name = "mnuContextAddSep1";
+			this.mnuContextAddSep1.Size = new System.Drawing.Size(153, 6);
 			// 
 			// mnuContextAddNewItem
 			// 
 			this.mnuContextAddNewItem.Name = "mnuContextAddNewItem";
-			this.mnuContextAddNewItem.Size = new System.Drawing.Size(160, 22);
+			this.mnuContextAddNewItem.Size = new System.Drawing.Size(156, 22);
 			this.mnuContextAddNewItem.Text = "Ne&w Item...";
 			this.mnuContextAddNewItem.Click += new System.EventHandler(this.mnuContextAddNewItem_Click);
 			// 
 			// mnuContextAddExistingItem
 			// 
 			this.mnuContextAddExistingItem.Name = "mnuContextAddExistingItem";
-			this.mnuContextAddExistingItem.Size = new System.Drawing.Size(160, 22);
+			this.mnuContextAddExistingItem.Size = new System.Drawing.Size(156, 22);
 			this.mnuContextAddExistingItem.Text = "Existin&g Item...";
 			this.mnuContextAddExistingItem.Click += new System.EventHandler(this.mnuContextAddExistingItem_Click);
 			// 
 			// mnuContextAddSep2
 			// 
 			this.mnuContextAddSep2.Name = "mnuContextAddSep2";
-			this.mnuContextAddSep2.Size = new System.Drawing.Size(157, 6);
+			this.mnuContextAddSep2.Size = new System.Drawing.Size(153, 6);
 			// 
 			// mnuContextAddSep3
 			// 
 			this.mnuContextAddSep3.Name = "mnuContextAddSep3";
-			this.mnuContextAddSep3.Size = new System.Drawing.Size(157, 6);
+			this.mnuContextAddSep3.Size = new System.Drawing.Size(153, 6);
 			// 
 			// mnuContextAddNewFolder
 			// 
 			this.mnuContextAddNewFolder.Name = "mnuContextAddNewFolder";
-			this.mnuContextAddNewFolder.Size = new System.Drawing.Size(160, 22);
+			this.mnuContextAddNewFolder.Size = new System.Drawing.Size(156, 22);
 			this.mnuContextAddNewFolder.Text = "New Fol&der";
 			this.mnuContextAddNewFolder.Click += new System.EventHandler(this.mnuContextAddNewFolder_Click);
 			// 
 			// mnuContextSep1
 			// 
 			this.mnuContextSep1.Name = "mnuContextSep1";
-			this.mnuContextSep1.Size = new System.Drawing.Size(190, 6);
+			this.mnuContextSep1.Size = new System.Drawing.Size(186, 6);
 			// 
 			// mnuContextCut
 			// 
 			this.mnuContextCut.Name = "mnuContextCut";
 			this.mnuContextCut.ShortcutKeyDisplayString = "Ctrl+X";
-			this.mnuContextCut.Size = new System.Drawing.Size(193, 22);
+			this.mnuContextCut.Size = new System.Drawing.Size(189, 22);
 			this.mnuContextCut.Text = "Cu&t";
 			// 
 			// mnuContextCopy
 			// 
 			this.mnuContextCopy.Name = "mnuContextCopy";
 			this.mnuContextCopy.ShortcutKeyDisplayString = "Ctrl+C";
-			this.mnuContextCopy.Size = new System.Drawing.Size(193, 22);
+			this.mnuContextCopy.Size = new System.Drawing.Size(189, 22);
 			this.mnuContextCopy.Text = "&Copy";
 			// 
 			// mnuContextPaste
 			// 
 			this.mnuContextPaste.Name = "mnuContextPaste";
 			this.mnuContextPaste.ShortcutKeyDisplayString = "Ctrl+V";
-			this.mnuContextPaste.Size = new System.Drawing.Size(193, 22);
+			this.mnuContextPaste.Size = new System.Drawing.Size(189, 22);
 			this.mnuContextPaste.Text = "&Paste";
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.ShortcutKeyDisplayString = "Del";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.deleteToolStripMenuItem.Text = "&Delete";
 			// 
 			// toolStripMenuItem3
 			// 
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(190, 6);
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(186, 6);
 			// 
 			// mnuContextProperties
 			// 
 			this.mnuContextProperties.Name = "mnuContextProperties";
 			this.mnuContextProperties.ShortcutKeyDisplayString = "Alt+Enter";
-			this.mnuContextProperties.Size = new System.Drawing.Size(193, 22);
+			this.mnuContextProperties.Size = new System.Drawing.Size(189, 22);
 			this.mnuContextProperties.Text = "P&roperties...";
 			// 
 			// imlSmallIcons
@@ -375,25 +398,6 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			this.imlSmallIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
 			this.imlSmallIcons.ImageSize = new System.Drawing.Size(16, 16);
 			this.imlSmallIcons.TransparentColor = System.Drawing.Color.Transparent;
-			// 
-			// mnuContextAddNewProject
-			// 
-			this.mnuContextAddNewProject.Name = "mnuContextAddNewProject";
-			this.mnuContextAddNewProject.Size = new System.Drawing.Size(160, 22);
-			this.mnuContextAddNewProject.Text = "&New Project...";
-			this.mnuContextAddNewProject.Click += new System.EventHandler(this.mnuContextAddNewProject_Click);
-			// 
-			// mnuContextAddExistingProject
-			// 
-			this.mnuContextAddExistingProject.Name = "mnuContextAddExistingProject";
-			this.mnuContextAddExistingProject.Size = new System.Drawing.Size(160, 22);
-			this.mnuContextAddExistingProject.Text = "&Existing Project..";
-			this.mnuContextAddExistingProject.Click += new System.EventHandler(this.mnuContextAddExistingProject_Click);
-			// 
-			// mnuContextAddSep1
-			// 
-			this.mnuContextAddSep1.Name = "mnuContextAddSep1";
-			this.mnuContextAddSep1.Size = new System.Drawing.Size(157, 6);
 			// 
 			// SolutionExplorer
 			// 
