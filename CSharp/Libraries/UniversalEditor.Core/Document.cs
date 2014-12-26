@@ -84,8 +84,10 @@ namespace UniversalEditor
 			mvarOutputAccessor = outputAccessor;
 		}
 
-		public static Document Load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = true)
+		public static Document Load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = true, bool append = false)
 		{
+			if (!append) objectModel.Clear();
+
 			Document document = new Document(objectModel, dataFormat, accessor);
 			objectModel.Accessor = document.InputAccessor;
 			document.InputAccessor.Open();
