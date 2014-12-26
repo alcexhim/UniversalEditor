@@ -112,6 +112,9 @@
     <Compile Include="ObjectModels\UEPackage\UEPackageObjectModel.cs" />
     <Compile Include="ProjectTask.cs" />
     <Compile Include="ProjectTaskAction.cs" />
+    <Compile Include="ProjectTaskActions\ProjectTaskActionConvert.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ProjectTaskActions\ProjectTaskActionExecute.cs" />
     <Compile Include="ProjectTaskActions\ProjectTaskActionPackage.cs" />
     <Compile Include="ProjectTaskEvent.cs" />
