@@ -33,6 +33,9 @@ namespace UniversalEditor
 
 		private ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection mvarItemShortcuts = new ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection();
 		public ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection ItemShortcuts { get { return mvarItemShortcuts; } }
+
+		private ProjectTypeVariable.ProjectTypeVariableCollection mvarVariables = new ProjectTypeVariable.ProjectTypeVariableCollection();
+		public ProjectTypeVariable.ProjectTypeVariableCollection Variables { get { return mvarVariables; } }
 	}
 	/// <summary>
 	/// A shortcut placed in the "Add New Item" menu when the project is selected. When

@@ -444,6 +444,69 @@ namespace UniversalEditor.DataFormats.UEPackage
 								}
 							}
 							#endregion
+							#region Variables
+							{
+								MarkupTagElement tagVariables = (tagProjectType.Elements["Variables"] as MarkupTagElement);
+								if (tagVariables != null)
+								{
+									foreach (MarkupElement el in tagVariables.Elements)
+									{
+										MarkupTagElement tag = (el as MarkupTagElement);
+										if (tag == null) continue;
+										if (tag.FullName != "Variable") continue;
+
+										ProjectTypeVariable varr = new ProjectTypeVariable();
+										varr.Name = (tag.Attributes["Name"] == null ? String.Empty : tag.Attributes["Name"].Value);
+										varr.Title = (tag.Attributes["Title"] == null ? String.Empty : tag.Attributes["Title"].Value);
+
+										MarkupAttribute attType = tag.Attributes["Type"];
+										if (attType != null)
+										{
+											switch (attType.Value.ToLower())
+											{
+												case "choice":
+												{
+													varr.Type = ProjectTypeVariableType.Choice;
+													break;
+												}
+												case "fileopen":
+												{
+													varr.Type = ProjectTypeVariableType.FileOpen;
+													break;
+												}
+												case "filesave":
+												{
+													varr.Type = ProjectTypeVariableType.FileSave;
+													break;
+												}
+												default:
+												{
+													varr.Type = ProjectTypeVariableType.Text;
+													break;
+												}
+											}
+										}
+
+										MarkupTagElement tagValidValues = (tag.Elements["ValidValues"] as MarkupTagElement);
+										if (tagValidValues != null)
+										{
+											foreach (MarkupElement elValidValue in tagValidValues.Elements)
+											{
+												MarkupTagElement tagValidValue = (elValidValue as MarkupTagElement);
+												if (tagValidValue == null) continue;
+												if (tagValidValue.FullName != "ValidValue") continue;
+
+												string value = (tagValidValue.Attributes["Value"] == null ? String.Empty : tagValidValue.Attributes["Value"].Value);
+												string title = (tagValidValue.Attributes["Title"] == null ? value : tagValidValue.Attributes["Title"].Value);
+
+												varr.ValidValues.Add(title, value);
+											}
+										}
+										projtype.Variables.Add(varr);
+									}
+								}
+							}
+							#endregion
 
 							package.ProjectTypes.Add(projtype);
 						}
@@ -1077,17 +1140,15 @@ namespace UniversalEditor.DataFormats.UEPackage
 								}
 							}
 							#endregion
-							#region ProjectVariables
+							#region Variables
 							{
-								/*
-								if (projtype.ProjectVariables.Count > 0)
+								if (projtype.Variables.Count > 0)
 								{
-									MarkupTagElement tagProjectVariables = new MarkupTagElement();
-									tagProjectVariables.FullName = "ProjectVariables";
+									MarkupTagElement tagVariables = new MarkupTagElement();
+									tagVariables.FullName = "Variables";
 
-									tagProjectType.Elements.Add(tagProjectVariables);
+									tagProjectType.Elements.Add(tagVariables);
 								}
-								*/
 							}
 							#endregion
 

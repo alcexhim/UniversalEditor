@@ -89,7 +89,56 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 						return;
 					}
 
-					mvarSelectedItem = (lvProjectTemplates.SelectedItems[0].Data as Template);
+					ProjectTemplate template = (lvProjectTemplates.SelectedItems[0].Data as ProjectTemplate);
+					if (template.ProjectType.Variables.Count > 0)
+					{
+						CustomOption.CustomOptionCollection coll = new CustomOption.CustomOptionCollection();
+						foreach (ProjectTypeVariable ptv in template.ProjectType.Variables)
+						{
+							switch (ptv.Type)
+							{
+								case ProjectTypeVariableType.Choice:
+								{
+									List<CustomOptionFieldChoice> choices = new List<CustomOptionFieldChoice>();
+									foreach (KeyValuePair<string, object> kvp in ptv.ValidValues)
+									{
+										choices.Add(new CustomOptionFieldChoice(kvp.Key, kvp.Value, kvp.Value == ptv.DefaultValue));
+									}
+
+									CustomOptionChoice co = new CustomOptionChoice(ptv.Name, ptv.Title, true, choices.ToArray());
+									coll.Add(co);
+									break;
+								}
+								case ProjectTypeVariableType.FileOpen:
+								{
+									CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
+									co.DialogMode = CustomOptionFileDialogMode.Open;
+									coll.Add(co);
+									break;
+								}
+								case ProjectTypeVariableType.FileSave:
+								{
+									CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
+									co.DialogMode = CustomOptionFileDialogMode.Save;
+									coll.Add(co);
+									break;
+								}
+							}
+						}
+
+						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref coll, template.ProjectType.Title + " properties"))
+						{
+							return;
+						}
+
+						foreach (CustomOption co in coll)
+						{
+							// template.ProjectType.Variables[co.PropertyName].Value = co.GetValue().ToString();
+							// TODO: Figure out how to assign variable values to the newly
+							// created project from the template
+						}
+					}
+					mvarSelectedItem = template;
 					break;
 				}
 			}
