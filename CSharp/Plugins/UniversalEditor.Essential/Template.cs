@@ -16,6 +16,17 @@ namespace UniversalEditor
 		public class TemplateVariableCollection
 			: System.Collections.ObjectModel.Collection<TemplateVariable>
 		{
+			public TemplateVariable this[string name]
+			{
+				get
+				{
+					foreach (TemplateVariable varr in this)
+					{
+						if (varr.Name == name) return varr;
+					}
+					return null;
+				}
+			}
 		}
 
 		private string mvarName = String.Empty;
