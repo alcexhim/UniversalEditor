@@ -12,6 +12,7 @@ using UniversalEditor.ObjectModels.Solution;
 using UniversalEditor.UserInterface.WindowsForms.Dialogs;
 using CancelEventArgs = System.ComponentModel.CancelEventArgs;
 using UniversalEditor.ObjectModels.Project;
+using UniversalEditor.UserInterface.WindowsForms.Controls;
 
 namespace UniversalEditor.UserInterface.WindowsForms
 {
@@ -316,6 +317,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 		private void InitializeDockingWindows()
 		{
+			pnlSolutionExplorer.SelectionChanged += pnlSolutionExplorer_SelectionChanged;
 			dwSolutionExplorer = dcc.Windows.Add("Solution Explorer", pnlSolutionExplorer);
 			
 			dwProperties = dcc.Windows.Add("Properties", pgc);
@@ -345,6 +347,34 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			pgc.PropertyChanging += new PropertyChangingEventHandler(pgc_PropertyChanging);
 			pgc.PropertyChanged += new PropertyChangedEventHandler(pgc_PropertyChanged);
 			#endregion
+		}
+
+		private void pnlSolutionExplorer_SelectionChanged(object sender, SolutionExplorerSelectionChangedEventArgs e)
+		{
+			pgc.Groups.Clear();
+			if (e.SelectedItem is ProjectFile)
+			{
+				ProjectFile file = (e.SelectedItem as ProjectFile);
+
+				PropertyCategory catAdvanced = new PropertyCategory("Advanced");
+
+				PropertyGroup group = pgc.Groups.Add(file.DestinationFileName);
+
+				PropertyDataType pdtFileProperties = new PropertyDataType("File Properties");
+				
+				Property propBuildAction = new Property("Build Action");
+
+				PropertyDataType dtBuildAction = new PropertyDataType("BuildAction");
+				dtBuildAction.Choices.Add(new PropertyDataTypeChoice("Compile"));
+				dtBuildAction.Choices.Add(new PropertyDataTypeChoice("Content"));
+				dtBuildAction.Choices.Add(new PropertyDataTypeChoice("Embedded Resource"));
+				propBuildAction.DataType = dtBuildAction;
+				propBuildAction.Category = catAdvanced;
+				pdtFileProperties.Properties.Add(propBuildAction);
+				group.DataType = pdtFileProperties;
+
+				pgc.SelectedGroupIndex = 0;
+			}
 		}
 
 		private void pgc_PropertyChanging(object sender, PropertyChangingEventArgs e)
