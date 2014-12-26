@@ -18,6 +18,11 @@ namespace UniversalEditor
 
 		private bool mvarValue = false;
 		public bool Value { get { return mvarValue; } set { mvarValue = value; } }
+
+		public override object GetValue()
+		{
+			return mvarValue;
+		}
 	}
 	public class CustomOptionGroup : CustomOption
 	{
@@ -34,6 +39,11 @@ namespace UniversalEditor
 
 		private CustomOption.CustomOptionCollection mvarOptions = new CustomOption.CustomOptionCollection();
 		public CustomOption.CustomOptionCollection Options { get { return mvarOptions; } }
+
+		public override object GetValue()
+		{
+			return null;
+		}
 	}
 
 	public class CustomOptionFieldChoice
@@ -119,6 +129,8 @@ namespace UniversalEditor
 			mvarEnabled = enabled;
 			mvarVisible = visible;
 		}
+
+		public abstract object GetValue();
 	}
 
 	public class CustomOptionText : CustomOption
@@ -142,6 +154,11 @@ namespace UniversalEditor
 
 		private string mvarValue = String.Empty;
 		public string Value { get { return mvarValue; } set { mvarValue = value; } }
+
+		public override object GetValue()
+		{
+			return mvarValue;
+		}
 	}
 	public class CustomOptionChoice : CustomOption
 	{
@@ -204,6 +221,12 @@ namespace UniversalEditor
 
 		private CustomOptionFieldChoice mvarValue = null;
 		public CustomOptionFieldChoice Value { get { return mvarValue; } set { mvarValue = value; } }
+
+		public override object GetValue()
+		{
+			if (mvarValue == null) return null;
+			return mvarValue.Value;
+		}
 	}
 
 	public class DataFormatOptionNumberSuggestedValue
@@ -254,6 +277,11 @@ namespace UniversalEditor
 			mvarMaximumValue = maximumValue;
 			mvarDefaultValue = defaultValue;
 		}
+
+		public override object GetValue()
+		{
+			return mvarValue;
+		}
 	}
 	public class CustomOptionMultipleChoice : CustomOption
 	{
@@ -266,6 +294,11 @@ namespace UniversalEditor
 			: base(propertyName, title, enabled, visible)
 		{
 
+		}
+
+		public override object GetValue()
+		{
+			return null;
 		}
 	}
 
@@ -294,16 +327,26 @@ namespace UniversalEditor
 
 		private CustomOptionFileDialogMode mvarDialogMode = CustomOptionFileDialogMode.Open;
 		public CustomOptionFileDialogMode DialogMode { get { return mvarDialogMode; } set { mvarDialogMode = value; } }
+
+		public override object GetValue()
+		{
+			return mvarValue;
+		}
 	}
 	public class CustomOptionVersion : CustomOption
 	{
-		private Version mvarDefaultValue = null;
-		public Version DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
+		private Version mvarValue = null;
+		public Version Value { get { return mvarValue; } set { mvarValue = value; } }
 
-		public CustomOptionVersion(string propertyName, string title, Version defaultValue = null, bool enabled = true, bool visible = true)
+		public CustomOptionVersion(string propertyName, string title, Version value = null, bool enabled = true, bool visible = true)
 			: base(propertyName, title, enabled, visible)
 		{
-			mvarDefaultValue = defaultValue;
+			mvarValue = value;
+		}
+
+		public override object GetValue()
+		{
+			return mvarValue;
 		}
 	}
 }
