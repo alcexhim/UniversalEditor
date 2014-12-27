@@ -64,6 +64,7 @@
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutStartupNotifyBehavior.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutType.cs" />
+    <Compile Include="DataFormats\Text\Formatted\RichText\RTFDataFormat.cs" />
     <Compile Include="DataFormats\UEPackage\UEPackageXMLDataFormat.cs" />
     <Compile Include="ExpandedString.cs" />
     <Compile Include="ObjectModels\AbstractSyntax\AbstractSyntaxObjectModel.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyle.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyleGroup.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\Container.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemHyperlink.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\Literal.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
     <Compile Include="ObjectModels\UEPackage\UEPackageObjectModel.cs" />
