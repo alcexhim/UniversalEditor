@@ -108,9 +108,10 @@
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextItem.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyle.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyleGroup.cs" />
-    <Compile Include="ObjectModels\Text\Formatted\Items\Container.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemBold.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemContainer.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemHyperlink.cs" />
-    <Compile Include="ObjectModels\Text\Formatted\Items\Literal.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemLiteral.cs" />
     <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
     <Compile Include="ObjectModels\UEPackage\UEPackageObjectModel.cs" />
     <Compile Include="ProjectTask.cs" />

@@ -62,7 +62,26 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 			if (item is FormattedTextItemHyperlink)
 			{
 				FormattedTextItemHyperlink itm = (item as FormattedTextItemHyperlink);
-				writer.WriteLine("{\\field{\\*\\fldinst {HYPERLINK \"" + itm.TargetURL + "\"}}{\\fldrslt {" + itm.Title + "}}}");
+				writer.Write("{\\field{\\*\\fldinst {HYPERLINK \"" + itm.TargetURL + "\"}}{\\fldrslt {");
+				foreach (FormattedTextItem itm1 in itm.Items)
+				{
+					RenderItem(writer, itm1);
+				}
+				writer.Write("}}}");
+			}
+			else if (item is FormattedTextItemBold)
+			{
+				writer.Write("{\b ");
+				FormattedTextItemBold itm = (item as FormattedTextItemBold);
+				foreach (FormattedTextItem itm1 in itm.Items)
+				{
+					RenderItem(writer, itm1);
+				}
+				writer.Write("}");
+			}
+			else if (item is FormattedTextItemLiteral)
+			{
+				writer.Write((item as FormattedTextItemLiteral).Text);
 			}
 		}
 	}
