@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UniversalEditor.IO;
+
 using UniversalEditor.ObjectModels.Text.Formatted;
 using UniversalEditor.ObjectModels.Text.Formatted.Items;
 
+using UniversalEditor.ObjectModels.RichTextMarkup;
+using UniversalEditor.DataFormats.RichTextMarkup.RTML;
+
 namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 {
-	public class RTFDataFormat : DataFormat
+	public class RTFDataFormat : RTMLDataFormat
 	{
 		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
@@ -21,67 +24,131 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 			return _dfr;
 		}
 
-		protected override void LoadInternal(ref ObjectModel objectModel)
+		private RTFCharacterSet mvarCharacterSet = RTFCharacterSet.ANSI;
+		/// <summary>
+		/// The character set used in this document.
+		/// </summary>
+		public RTFCharacterSet CharacterSet { get { return mvarCharacterSet; } set { mvarCharacterSet = value; } }
+
+		private int mvarCodePage = 1252;
+		/// <summary>
+		/// The ANSI code page which is used to perform the Unicode to ANSI conversion when writing
+		/// RTF text.
+		/// </summary>
+		public int CodePage { get { return mvarCodePage; } set { mvarCodePage = value; } }
+
+		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
+			base.BeforeLoadInternal(objectModels);
+			objectModels.Push(new RichTextMarkupObjectModel());
 		}
-
-		protected override void SaveInternal(ObjectModel objectModel)
+		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
-			FormattedTextObjectModel ftom = (objectModel as FormattedTextObjectModel);
-			if (ftom == null) throw new ObjectModelNotSupportedException();
+			base.AfterLoadInternal(objectModels);
 
-			Writer writer = base.Accessor.Writer;
-			writer.Write("{\\rtf1");
-			// writer.WriteLine("\\ansi\\ansicpg1252");
+			RichTextMarkupObjectModel mom = (objectModels.Pop() as RichTextMarkupObjectModel);
+			FormattedTextObjectModel ftom = (objectModels.Pop() as FormattedTextObjectModel);
+		}
+		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
+		{
+			base.BeforeSaveInternal(objectModels);
+			FormattedTextObjectModel ftom = (objectModels.Pop() as FormattedTextObjectModel);
+			RichTextMarkupObjectModel rtml = new RichTextMarkupObjectModel();
+
+			RichTextMarkupItemGroup grpRTF1 = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("rtf1"));
+			switch (mvarCharacterSet)
+			{
+				case RTFCharacterSet.ANSI:
+				{
+					grpRTF1.Items.Add(new RichTextMarkupItemTag("ansi"));
+					break;
+				}
+				case RTFCharacterSet.AppleMacintosh:
+				{
+					grpRTF1.Items.Add(new RichTextMarkupItemTag("mac"));
+					break;
+				}
+				case RTFCharacterSet.IBMPC437:
+				{
+					grpRTF1.Items.Add(new RichTextMarkupItemTag("pc"));
+					break;
+				}
+				case RTFCharacterSet.IBMPC850:
+				{
+					grpRTF1.Items.Add(new RichTextMarkupItemTag("pca"));
+					break;
+				}
+			}
+			grpRTF1.Items.Add(new RichTextMarkupItemTag("ansicpg" + mvarCodePage.ToString()));
 
 			if (ftom.DefaultFont != null && ftom.Fonts.Contains(ftom.DefaultFont))
 			{
-				writer.Write("\\deff" + ftom.Fonts.IndexOf(ftom.DefaultFont));
+				RichTextMarkupItemTag tagDEFF = new RichTextMarkupItemTag("deff" + ftom.Fonts.IndexOf(ftom.DefaultFont));
+				grpRTF1.Items.Add(tagDEFF);
 			}
 			// writer.Write("\\deflang1033\\uc1");
 
 			if (ftom.Fonts.Count > 0)
 			{
-				writer.Write("{\\fonttbl");
+				RichTextMarkupItemGroup grpFontTbl = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("fonttbl"));
 				foreach (FormattedTextFont font in ftom.Fonts)
 				{
-					writer.Write("{\\f" + ftom.Fonts.IndexOf(font).ToString() + " " + font.Name + ";}");
+					grpFontTbl.Items.Add(new RichTextMarkupItemTag("f" + ftom.Fonts.IndexOf(font)));
+					switch (font.Family)
+					{
+						case FormattedTextFontFamily.Bidi: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fbidi")); break;
+						case FormattedTextFontFamily.Decor: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fdecor")); break;
+						case FormattedTextFontFamily.Modern: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fmodern")); break;
+						case FormattedTextFontFamily.Roman: grpFontTbl.Items.Add(new RichTextMarkupItemTag("froman")); break;
+						case FormattedTextFontFamily.Script: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fscript")); break;
+						case FormattedTextFontFamily.Swiss: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fswiss")); break;
+						case FormattedTextFontFamily.Tech: grpFontTbl.Items.Add(new RichTextMarkupItemTag("ftech")); break;
+					}
+					grpFontTbl.Items.Add(new RichTextMarkupItemLiteral(font.Name + ";"));
 				}
-				writer.Write("}");
+				grpRTF1.Items.Add(grpFontTbl);
 			}
-
 			foreach (FormattedTextItem item in ftom.Items)
 			{
-				RenderItem(writer, item);
+				RenderItem(grpRTF1, item);
 			}
-			writer.WriteLine(" }");
+
+			rtml.Items.Add(grpRTF1);
+			objectModels.Push(rtml);
 		}
 
-		private void RenderItem(Writer writer, FormattedTextItem item)
+		private void RenderItem(RichTextMarkupItemGroup parent, FormattedTextItem item)
 		{
 			if (item is FormattedTextItemHyperlink)
 			{
 				FormattedTextItemHyperlink itm = (item as FormattedTextItemHyperlink);
-				writer.Write("{\\field{\\*\\fldinst {HYPERLINK \"" + itm.TargetURL + "\"}}{\\fldrslt {");
+
+				RichTextMarkupItemGroup grpField = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("field"));
+				RichTextMarkupItemGroup grpAsterisk = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("*"), new RichTextMarkupItemTag("fldinst"));
+				grpAsterisk.Items.Add(new RichTextMarkupItemGroup(new RichTextMarkupItemLiteral("HYPERLINK \"" + itm.TargetURL + "\"")));
+				grpField.Items.Add(grpAsterisk);
+
+				RichTextMarkupItemGroup group = new RichTextMarkupItemGroup();
 				foreach (FormattedTextItem itm1 in itm.Items)
 				{
-					RenderItem(writer, itm1);
+					RenderItem(group, itm1);
 				}
-				writer.Write("}}}");
+				grpField.Items.Add(new RichTextMarkupItemGroup(new RichTextMarkupItemTag("fldrslt"), group));
+				parent.Items.Add(grpField);
 			}
 			else if (item is FormattedTextItemBold)
 			{
-				writer.Write("{\b ");
+				RichTextMarkupItemGroup group = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("b"));
 				FormattedTextItemBold itm = (item as FormattedTextItemBold);
 				foreach (FormattedTextItem itm1 in itm.Items)
 				{
-					RenderItem(writer, itm1);
+					RenderItem(group, itm1);
 				}
-				writer.Write("}");
+				parent.Items.Add(group);
 			}
 			else if (item is FormattedTextItemLiteral)
 			{
-				writer.Write((item as FormattedTextItemLiteral).Text);
+				parent.Items.Add(new RichTextMarkupItemLiteral((item as FormattedTextItemLiteral).Text));
 			}
 		}
 	}

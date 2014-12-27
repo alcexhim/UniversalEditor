@@ -48,6 +48,7 @@
     <Compile Include="DataFormats\FileSystem\UXT\Internal\FileInfo.cs" />
     <Compile Include="DataFormats\FileSystem\UXT\UXTDataFormat.cs" />
     <Compile Include="DataFormats\Markup\EBML\EBMLDataFormat.cs" />
+    <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormatSettings.cs" />
     <Compile Include="DataFormats\PropertyList\CoreObject\CoreObjectDataFormat.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutStartupNotifyBehavior.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutType.cs" />
+    <Compile Include="DataFormats\Text\Formatted\RichText\RTFCharacterSet.cs" />
     <Compile Include="DataFormats\Text\Formatted\RichText\RTFDataFormat.cs" />
     <Compile Include="DataFormats\UEPackage\UEPackageXMLDataFormat.cs" />
     <Compile Include="ExpandedString.cs" />
@@ -100,10 +102,16 @@
     <Compile Include="ObjectModels\Project\ProjectFileSystem.cs" />
     <Compile Include="ObjectModels\Project\ProjectFolder.cs" />
     <Compile Include="ObjectModels\Project\Reference.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItemGroup.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItem.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItemLiteral.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupObjectModel.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItemTag.cs" />
     <Compile Include="ObjectModels\SecurityCertificate\SecurityCertificateObjectModel.cs" />
     <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextFont.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextFontFamily.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextItem.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyle.cs" />

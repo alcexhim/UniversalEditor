@@ -16,6 +16,9 @@ namespace UniversalEditor.ObjectModels.Text.Formatted
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
 
+		private FormattedTextFontFamily mvarFamily = FormattedTextFontFamily.None;
+		public FormattedTextFontFamily Family { get { return mvarFamily; } set { mvarFamily = value; } }
+
 		public object Clone()
 		{
 			FormattedTextFont clone = new FormattedTextFont();
