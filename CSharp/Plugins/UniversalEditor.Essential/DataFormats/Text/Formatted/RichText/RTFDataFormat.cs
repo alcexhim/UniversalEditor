@@ -150,6 +150,27 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 			{
 				parent.Items.Add(new RichTextMarkupItemLiteral((item as FormattedTextItemLiteral).Text));
 			}
+			else if (item is FormattedTextItemParagraph)
+			{
+				RichTextMarkupItemGroup group = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("pard"));
+				FormattedTextItemParagraph itm = (item as FormattedTextItemParagraph);
+				foreach (FormattedTextItem item1 in itm.Items)
+				{
+					RenderItem(group, item1);
+				}
+				group.Items.Add(new RichTextMarkupItemTag("par"));
+				parent.Items.Add(group);
+			}
+			else if (item is FormattedTextItemFontSize)
+			{
+				FormattedTextItemFontSize itm = (item as FormattedTextItemFontSize);
+				RichTextMarkupItemGroup group = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("fs" + (itm.Value * 2).ToString()));
+				foreach (FormattedTextItem item1 in itm.Items)
+				{
+					RenderItem(group, item1);
+				}
+				parent.Items.Add(group);
+			}
 		}
 	}
 }
