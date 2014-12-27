@@ -19,20 +19,31 @@ namespace UniversalEditor.ObjectModels.Text.Formatted
 			return _omr;
 		}
 
-		private FormattedTextItem.FormattedTextItemCollection mvarSegments = new FormattedTextItem.FormattedTextItemCollection();
-		public FormattedTextItem.FormattedTextItemCollection Items { get { return mvarSegments; } }
+		private FormattedTextFont mvarDefaultFont = null;
+		public FormattedTextFont DefaultFont { get { return mvarDefaultFont; } set { mvarDefaultFont = value; } }
+
+		private FormattedTextFont.FormattedTextFontCollection mvarFonts = new FormattedTextFont.FormattedTextFontCollection();
+		public FormattedTextFont.FormattedTextFontCollection Fonts { get { return mvarFonts; } }
+
+		private FormattedTextItem.FormattedTextItemCollection mvarItems = new FormattedTextItem.FormattedTextItemCollection();
+		public FormattedTextItem.FormattedTextItemCollection Items { get { return mvarItems; } }
 
 		public override void Clear()
 		{
-			mvarSegments.Clear();
+			mvarFonts.Clear();
+			mvarItems.Clear();
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
 			FormattedTextObjectModel clone = (where as FormattedTextObjectModel);
-			foreach (FormattedTextItem segment in mvarSegments)
+			foreach (FormattedTextFont font in mvarFonts)
 			{
-				clone.Items.Add(segment.Clone() as FormattedTextItem);
+				clone.Fonts.Add(font.Clone() as FormattedTextFont);
+			}
+			foreach (FormattedTextItem item in mvarItems)
+			{
+				clone.Items.Add(item.Clone() as FormattedTextItem);
 			}
 		}
 	}

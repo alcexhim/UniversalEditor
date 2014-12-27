@@ -31,7 +31,25 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 			if (ftom == null) throw new ObjectModelNotSupportedException();
 
 			Writer writer = base.Accessor.Writer;
-			writer.WriteLine("{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033\\uc1 ");
+			writer.Write("{\\rtf1");
+			// writer.WriteLine("\\ansi\\ansicpg1252");
+
+			if (ftom.DefaultFont != null && ftom.Fonts.Contains(ftom.DefaultFont))
+			{
+				writer.Write("\\deff" + ftom.Fonts.IndexOf(ftom.DefaultFont));
+			}
+			// writer.Write("\\deflang1033\\uc1");
+
+			if (ftom.Fonts.Count > 0)
+			{
+				writer.Write("{\\fonttbl");
+				foreach (FormattedTextFont font in ftom.Fonts)
+				{
+					writer.Write("{\\f" + ftom.Fonts.IndexOf(font).ToString() + " " + font.Name + ";}");
+				}
+				writer.Write("}");
+			}
+
 			foreach (FormattedTextItem item in ftom.Items)
 			{
 				RenderItem(writer, item);

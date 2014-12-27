@@ -103,6 +103,7 @@
     <Compile Include="ObjectModels\SecurityCertificate\SecurityCertificateObjectModel.cs" />
     <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextFont.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextItem.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyle.cs" />
