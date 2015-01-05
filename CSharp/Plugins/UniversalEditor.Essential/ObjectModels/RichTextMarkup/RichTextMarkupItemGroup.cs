@@ -7,11 +7,12 @@ namespace UniversalEditor.ObjectModels.RichTextMarkup
 {
 	public class RichTextMarkupItemGroup : RichTextMarkupItem
 	{
-		private RichTextMarkupItem.RichTextMarkupItemCollection mvarItems = new RichTextMarkupItemCollection();
+		private RichTextMarkupItem.RichTextMarkupItemCollection mvarItems = null;
 		public RichTextMarkupItem.RichTextMarkupItemCollection Items { get { return mvarItems; } }
 
 		public RichTextMarkupItemGroup(params RichTextMarkupItem[] items)
 		{
+			mvarItems = new RichTextMarkupItemCollection(this);
 			foreach (RichTextMarkupItem item in items)
 			{
 				mvarItems.Add(item);

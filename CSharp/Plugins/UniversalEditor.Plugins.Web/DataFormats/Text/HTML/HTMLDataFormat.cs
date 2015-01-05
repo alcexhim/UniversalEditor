@@ -146,9 +146,9 @@ namespace UniversalEditor.DataFormats.Text.HTML
 
 		private MarkupElement RenderFormattedTextItemToHTML(FormattedTextItem segment)
 		{
-			if (segment is Literal)
+			if (segment is FormattedTextItemLiteral)
 			{
-				Literal item = (segment as Literal);
+				FormattedTextItemLiteral item = (segment as FormattedTextItemLiteral);
 				MarkupTagElement tagSpan = new MarkupTagElement();
 				tagSpan.FullName = "span";
 				tagSpan.Value = item.Text;

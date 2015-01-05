@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Text.Formatted.Items
 {
-	public abstract class FormattedTextItemContainer : FormattedTextItem
+	public abstract class FormattedTextItemContainer : FormattedTextItem, IFormattedTextItemParent
 	{
 		private FormattedTextItem.FormattedTextItemCollection mvarItems = new FormattedTextItemCollection();
 		public FormattedTextItem.FormattedTextItemCollection Items { get { return mvarItems; } }

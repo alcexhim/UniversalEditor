@@ -104,9 +104,11 @@ namespace UniversalEditor.IO
 		public override byte[] GetBytes(char[] chars, int index, int count)
 		{
 			byte[] bytes = new byte[count];
-			for (int i = 0; i < chars.Length; i++)
+
+			int min = System.Math.Min(chars.Length, count);
+			for (int i = index; i < min + index; i++)
 			{
-				bytes[i] = (byte)(chars[i]);
+				bytes[i - index] = (byte)(chars[i]);
 			}
 			return bytes;
 		}

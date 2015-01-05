@@ -75,14 +75,16 @@ namespace UniversalEditor.Accessors
 					break;
 				}
 			}
-			if (start >= 0 && start < _data.Length)
+			if (start >= 0 /* && start < _data.Length */)
 			{
 				ptr = start;
 			}
+			/*
 			else
 			{
 				throw new EndOfStreamException();
 			}
+			*/
 		}
 
 		public char[] ToArray()
@@ -98,7 +100,9 @@ namespace UniversalEditor.Accessors
 
 		protected internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
-			System.Array.Copy(_data, 0, buffer, start, count);
+			byte[] bytes = this.DefaultEncoding.GetBytes(_data, (int)ptr, 1);
+			System.Array.Copy(bytes, 0, buffer, start, count);
+			ptr += count;
 			return count;
 		}
 		protected internal override int WriteInternal(byte[] buffer, int start, int count)

@@ -60,6 +60,7 @@
     <Compile Include="DataFormats\PropertyList\UniversalPropertyList\VariantType.cs" />
     <Compile Include="DataFormats\PropertyList\WindowsConfigurationDataFormat.cs" />
     <Compile Include="DataFormats\PropertyList\XML\XMLPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLSettings.cs" />
     <Compile Include="DataFormats\SecurityCertificate\DER\DERCertificateDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutAction.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextItem.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyle.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyleGroup.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\IFormattedTextItemParent.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemBold.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemContainer.cs" />
     <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemFontSize.cs" />

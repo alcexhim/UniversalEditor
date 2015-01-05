@@ -37,6 +37,23 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 		/// </summary>
 		public int CodePage { get { return mvarCodePage; } set { mvarCodePage = value; } }
 
+		private string mvarGenerator = String.Empty;
+		/// <summary>
+		/// The application which generated this RTF document. See <see cref="RTFGenerator" />
+		/// for known values.
+		/// </summary>
+		public string Generator { get { return mvarGenerator; } set { mvarGenerator = value; } }
+
+		private void LoadItem(RichTextMarkupItem item, IFormattedTextItemParent ftom)
+		{
+			if (item is RichTextMarkupItemLiteral)
+			{
+				RichTextMarkupItemLiteral itm = (item as RichTextMarkupItemLiteral);
+				FormattedTextItemLiteral literal = new FormattedTextItemLiteral(itm.Content);
+				ftom.Items.Add(literal);
+			}
+		}
+
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal(objectModels);
@@ -48,6 +65,11 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 
 			RichTextMarkupObjectModel mom = (objectModels.Pop() as RichTextMarkupObjectModel);
 			FormattedTextObjectModel ftom = (objectModels.Pop() as FormattedTextObjectModel);
+
+			foreach (RichTextMarkupItem item in mom.Items)
+			{
+				LoadItem(item, ftom);
+			}
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
@@ -93,20 +115,26 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 				RichTextMarkupItemGroup grpFontTbl = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("fonttbl"));
 				foreach (FormattedTextFont font in ftom.Fonts)
 				{
-					grpFontTbl.Items.Add(new RichTextMarkupItemTag("f" + ftom.Fonts.IndexOf(font)));
+					RichTextMarkupItemGroup grpFont = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("f" + ftom.Fonts.IndexOf(font).ToString()));
 					switch (font.Family)
 					{
-						case FormattedTextFontFamily.Bidi: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fbidi")); break;
-						case FormattedTextFontFamily.Decor: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fdecor")); break;
-						case FormattedTextFontFamily.Modern: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fmodern")); break;
-						case FormattedTextFontFamily.Roman: grpFontTbl.Items.Add(new RichTextMarkupItemTag("froman")); break;
-						case FormattedTextFontFamily.Script: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fscript")); break;
-						case FormattedTextFontFamily.Swiss: grpFontTbl.Items.Add(new RichTextMarkupItemTag("fswiss")); break;
-						case FormattedTextFontFamily.Tech: grpFontTbl.Items.Add(new RichTextMarkupItemTag("ftech")); break;
+						case FormattedTextFontFamily.Bidi: grpFont.Items.Add(new RichTextMarkupItemTag("fbidi")); break;
+						case FormattedTextFontFamily.Decor: grpFont.Items.Add(new RichTextMarkupItemTag("fdecor")); break;
+						case FormattedTextFontFamily.Modern: grpFont.Items.Add(new RichTextMarkupItemTag("fmodern")); break;
+						case FormattedTextFontFamily.Roman: grpFont.Items.Add(new RichTextMarkupItemTag("froman")); break;
+						case FormattedTextFontFamily.Script: grpFont.Items.Add(new RichTextMarkupItemTag("fscript")); break;
+						case FormattedTextFontFamily.Swiss: grpFont.Items.Add(new RichTextMarkupItemTag("fswiss")); break;
+						case FormattedTextFontFamily.Tech: grpFont.Items.Add(new RichTextMarkupItemTag("ftech")); break;
 					}
-					grpFontTbl.Items.Add(new RichTextMarkupItemLiteral(font.Name + ";"));
+					grpFont.Items.Add(new RichTextMarkupItemLiteral(font.Name + ";"));
+					grpFontTbl.Items.Add(grpFont);
 				}
 				grpRTF1.Items.Add(grpFontTbl);
+			}
+			if (!String.IsNullOrEmpty(mvarGenerator))
+			{
+				RichTextMarkupItemGroup grpGenerator = new RichTextMarkupItemGroup(new RichTextMarkupItemTag("*"), new RichTextMarkupItemTag("generator"), new RichTextMarkupItemLiteral(mvarGenerator + ";"));
+				grpRTF1.Items.Add(grpGenerator);
 			}
 			foreach (FormattedTextItem item in ftom.Items)
 			{

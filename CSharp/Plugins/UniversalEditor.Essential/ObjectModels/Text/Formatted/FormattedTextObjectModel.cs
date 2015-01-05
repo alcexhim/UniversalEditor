@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Text.Formatted
 {
-	public class FormattedTextObjectModel : ObjectModel
+	public class FormattedTextObjectModel : ObjectModel, IFormattedTextItemParent
 	{
 		private ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()

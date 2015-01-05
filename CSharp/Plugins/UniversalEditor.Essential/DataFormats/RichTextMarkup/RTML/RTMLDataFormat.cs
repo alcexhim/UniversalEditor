@@ -24,8 +24,72 @@ namespace UniversalEditor.DataFormats.RichTextMarkup.RTML
 			return _dfr;
 		}
 
+		public RTMLDataFormat()
+		{
+			mvarSettings.GroupBeginChar = '{';
+			mvarSettings.GroupEndChar = '}';
+			mvarSettings.TagBeginChar = '\\';
+		}
+
+		private RTMLSettings mvarSettings = new RTMLSettings();
+		public RTMLSettings Settings { get { return mvarSettings; } }
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
+			Reader reader = base.Accessor.Reader;
+
+			RichTextMarkupObjectModel rtml = (objectModel as RichTextMarkupObjectModel);
+			if (rtml == null) throw new ObjectModelNotSupportedException();
+
+			RichTextMarkupItemGroup currentGroup = null;
+			StringBuilder sbnext = new StringBuilder();
+
+			while (!reader.EndOfStream)
+			{
+				char c = reader.ReadChar();
+				if (c == ' ')
+				{
+					string content = reader.ReadStringUntilAny(new char[] { mvarSettings.TagBeginChar, mvarSettings.GroupBeginChar, mvarSettings.GroupEndChar });
+					rtml.Items.Add(new RichTextMarkupItemLiteral(content));
+				}
+				else if (c == mvarSettings.GroupBeginChar)
+				{
+					if (currentGroup == null)
+					{
+						RichTextMarkupItemGroup group = new RichTextMarkupItemGroup();
+						rtml.Items.Add(group);
+						currentGroup = group;
+					}
+					else
+					{
+						RichTextMarkupItemGroup group = new RichTextMarkupItemGroup();
+						currentGroup.Items.Add(group);
+						currentGroup = group;
+					}
+				}
+				else if (c == mvarSettings.GroupEndChar)
+				{
+					if (currentGroup == null) throw new InvalidDataFormatException("Attempted to close RTML group when none was opened");
+
+					currentGroup = currentGroup.Parent;
+				}
+				else if (c == mvarSettings.TagBeginChar)
+				{
+					string name = reader.ReadStringUntilAny(new char[] { mvarSettings.TagBeginChar, ' ', mvarSettings.GroupBeginChar, mvarSettings.GroupEndChar });
+					if (currentGroup == null)
+					{
+						rtml.Items.Add(new RichTextMarkupItemTag(name));
+					}
+					else
+					{
+						currentGroup.Items.Add(new RichTextMarkupItemTag(name));
+					}
+				}
+				else
+				{
+					sbnext.Append(c);
+				}
+			}
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

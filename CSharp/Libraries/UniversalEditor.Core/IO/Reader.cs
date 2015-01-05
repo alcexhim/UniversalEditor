@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
 namespace UniversalEditor.IO
 {
@@ -814,7 +815,8 @@ namespace UniversalEditor.IO
 		}
 		public string ReadStringUntil(char[] sequence, Encoding inputEncoding, Encoding outputEncoding)
 		{
-			return outputEncoding.GetString(ReadUntil(inputEncoding.GetBytes(sequence)));
+			byte[] bytes = ReadUntil(inputEncoding.GetBytes(sequence));
+			return outputEncoding.GetString(bytes);
 		}
 		public string ReadStringUntil(char[] sequence, Encoding inputEncoding, Encoding outputEncoding, bool includeSequence)
 		{
@@ -1433,6 +1435,28 @@ namespace UniversalEditor.IO
 		}
 
 		public long Remaining { get { return base.Accessor.Remaining; } }
+
+		public string ReadStringUntilAny(char[] anyOf)
+		{
+			StringBuilder sb = new StringBuilder();
+			while (!EndOfStream)
+			{
+				char c = ReadChar();
+				bool found = false;
+				for (int i = 0; i < anyOf.Length; i++)
+				{
+					if (c == anyOf[i])
+					{
+						found = true;
+						break;
+					}
+				}
+				if (found) break;
+				sb.Append(c);
+			}
+			Seek(-1, SeekOrigin.Current);
+			return sb.ToString();
+		}
 	}
 }
 
