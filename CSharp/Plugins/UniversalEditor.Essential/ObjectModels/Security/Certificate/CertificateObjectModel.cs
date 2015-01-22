@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.ObjectModels.SecurityCertificate
+namespace UniversalEditor.ObjectModels.Security.Certificate
 {
-	public class SecurityCertificateObjectModel : ObjectModel
+	public class CertificateObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()

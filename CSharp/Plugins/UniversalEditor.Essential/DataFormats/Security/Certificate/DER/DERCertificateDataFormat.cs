@@ -7,9 +7,9 @@ using UniversalEditor.ObjectModels.AbstractSyntax;
 using UniversalEditor.DataFormats.AbstractSyntax.DER;
 
 using UniversalEditor.IO;
-using UniversalEditor.ObjectModels.SecurityCertificate;
+using UniversalEditor.ObjectModels.Security.Certificate;
 
-namespace UniversalEditor.DataFormats.SecurityCertificate.DER
+namespace UniversalEditor.DataFormats.Security.Certificate.DER
 {
 	public class DERCertificateDataFormat : DERDataFormat
 	{
@@ -19,7 +19,7 @@ namespace UniversalEditor.DataFormats.SecurityCertificate.DER
 			if (_dfr == null)
 			{
 				_dfr = new DataFormatReference(GetType());
-				_dfr.Capabilities.Add(typeof(SecurityCertificateObjectModel), DataFormatCapabilities.All);
+				_dfr.Capabilities.Add(typeof(CertificateObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;
 		}
@@ -33,13 +33,13 @@ namespace UniversalEditor.DataFormats.SecurityCertificate.DER
 		{
 			base.AfterLoadInternal(objectModels);
 			AbstractSyntaxObjectModel asn = (objectModels.Pop() as AbstractSyntaxObjectModel);
-			SecurityCertificateObjectModel cer = (objectModels.Pop() as SecurityCertificateObjectModel);
+			CertificateObjectModel cer = (objectModels.Pop() as CertificateObjectModel);
 		}
 
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeSaveInternal(objectModels);
-			SecurityCertificateObjectModel cer = (objectModels.Pop() as SecurityCertificateObjectModel);
+			CertificateObjectModel cer = (objectModels.Pop() as CertificateObjectModel);
 			AbstractSyntaxObjectModel asn = new AbstractSyntaxObjectModel();
 
 			objectModels.Push(asn);
