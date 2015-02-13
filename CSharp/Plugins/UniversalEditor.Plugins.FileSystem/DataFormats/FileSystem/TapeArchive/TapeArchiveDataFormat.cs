@@ -44,20 +44,20 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 			{
 				if (br.Remaining < 263) break;
 
-				string fileName = br.ReadFixedLengthString(100).TrimNull();
+				string fileName = br.ReadFixedLengthString(100).TrimNull().Trim();
 				if (fileName == String.Empty) break;
 
-				string fileMode = br.ReadFixedLengthString(8).TrimNull();
-				string owner = br.ReadFixedLengthString(8).TrimNull();
-				string group = br.ReadFixedLengthString(8).TrimNull();
-				string fileSizeInBytesOctal = br.ReadFixedLengthString(12).TrimNull();
-				string lastModificationTimeUnixOctal = br.ReadFixedLengthString(12).TrimNull();
-				string headerChecksum = br.ReadFixedLengthString(8).TrimNull();
+				string fileMode = br.ReadFixedLengthString(8).TrimNull().Trim();
+				string owner = br.ReadFixedLengthString(8).TrimNull().Trim();
+				string group = br.ReadFixedLengthString(8).TrimNull().Trim();
+				string fileSizeInBytesOctal = br.ReadFixedLengthString(12).TrimNull().Trim();
+				string lastModificationTimeUnixOctal = br.ReadFixedLengthString(12).TrimNull().Trim();
+				string headerChecksum = br.ReadFixedLengthString(8).TrimNull().Trim();
 				
 				char c = br.ReadChar();
 				TapeArchiveRecordType type = (TapeArchiveRecordType)((int)c);
 
-				string linkedFileName = br.ReadFixedLengthString(100).TrimNull();
+				string linkedFileName = br.ReadFixedLengthString(100).TrimNull().Trim();
 
 				string ustar = br.ReadFixedLengthString(6);
 				if (ustar == "ustar ")
@@ -67,12 +67,12 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 						mvarIsUnixStandardTAR = true;
 						ustar_set = true;
 					}
-					string ustarVersion = br.ReadFixedLengthString(2).TrimNull();
-					string ownerName = br.ReadFixedLengthString(32).TrimNull();
-					string groupName = br.ReadFixedLengthString(32).TrimNull();
-					string deviceMajor = br.ReadFixedLengthString(8).TrimNull();
-					string deviceMinor = br.ReadFixedLengthString(8).TrimNull();
-					string filenamePrefix = br.ReadFixedLengthString(155).TrimNull();
+					string ustarVersion = br.ReadFixedLengthString(2).TrimNull().Trim();
+					string ownerName = br.ReadFixedLengthString(32).TrimNull().Trim();
+					string groupName = br.ReadFixedLengthString(32).TrimNull().Trim();
+					string deviceMajor = br.ReadFixedLengthString(8).TrimNull().Trim();
+					string deviceMinor = br.ReadFixedLengthString(8).TrimNull().Trim();
+					string filenamePrefix = br.ReadFixedLengthString(155).TrimNull().Trim();
 				}
 				else
 				{
