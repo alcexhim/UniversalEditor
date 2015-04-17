@@ -39,5 +39,12 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 
 		private string mvarGroupEnd = "}";
 		public string GroupEnd { get { return mvarGroupEnd; } set { mvarGroupEnd = value; } }
+
+		private bool mvarInlineGroupStart = true;
+		/// <summary>
+		/// Determines whether the group start character (default '{') should be placed on the same line as the group name.
+		/// </summary>
+		public bool InlineGroupStart { get { return mvarInlineGroupStart; } set { mvarInlineGroupStart = value; } }
+
 	}
 }

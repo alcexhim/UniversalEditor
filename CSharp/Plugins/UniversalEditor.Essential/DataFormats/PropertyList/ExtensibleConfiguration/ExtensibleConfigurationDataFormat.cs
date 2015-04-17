@@ -157,25 +157,37 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 		private void WriteGroup(Writer tw, Group group, int indent)
 		{
 			string indents = new string(' ', indent * this.mvarIndentLength);
-			tw.WriteLine(indents + group.Name);
-			tw.WriteLine(indents + "{");
+			tw.Write(indents + group.Name);
+			if (mvarSettings.InlineGroupStart)
+			{
+				tw.Write(' ');
+				tw.Write(mvarSettings.GroupStart);
+				tw.WriteLine();
+			}
+			else
+			{
+				tw.WriteLine();
+				tw.WriteLine(indents + mvarSettings.GroupStart);
+			}
 			foreach (Property p in group.Properties)
 			{
 				tw.WriteLine(string.Concat(new object[]
 				{
 					indents, 
 					new string(' ', this.mvarIndentLength), 
-					p.Name, 
-					"=\"", 
+					p.Name,
+					mvarSettings.PropertyNameValueSeparator,
+					mvarSettings.PropertyValuePrefix,
 					p.Value, 
-					"\";"
+					mvarSettings.PropertyValueSuffix,
+					mvarSettings.PropertySeparator
 				}));
 			}
 			foreach (Group g in group.Groups)
 			{
 				this.WriteGroup(tw, g, indent + 1);
 			}
-			tw.WriteLine(indents + "}");
+			tw.WriteLine(indents + mvarSettings.GroupEnd);
 		}
 	}
 }
