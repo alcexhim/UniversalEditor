@@ -168,3 +168,9 @@ Tests/*
 
 # Do not pull in the NSIS setup output file (setup.exe)
 CSharp/Setup/setup.exe
+
+# Eclipse crap
+.buildpath
+.project
+.settings
+RemoteSystemsTempFiles
