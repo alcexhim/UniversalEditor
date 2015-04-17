@@ -7,8 +7,10 @@ using System.Windows.Forms;
 
 using UniversalEditor.UserInterface.WindowsForms;
 
-using UniversalEditor.Plugins.RebelSoftware.ObjectModels.InstallationScript;
+using UniversalEditor.ObjectModels.RebelSoftware.InstallationScript;
 using UniversalEditor.ObjectModels.RebelSoftware.InstallationScript.Dialogs;
+
+using ISDialog = UniversalEditor.ObjectModels.RebelSoftware.InstallationScript.Dialog;
 
 namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 {
@@ -17,6 +19,17 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 		public InstallationScriptEditor()
 		{
 			InitializeComponent();
+		}
+
+		private static UserInterface.EditorReference _er = null;
+		public override UserInterface.EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(InstallationScriptObjectModel));
+			}
+			return _er;
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
@@ -30,7 +43,7 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 
 			TreeNode nodeDialogs = new TreeNode("Dialogs");
 
-			foreach (Dialog dialog in script.Dialogs)
+			foreach (ISDialog dialog in script.Dialogs)
 			{
 				TreeNode tn = new TreeNode();
 				if (dialog is WelcomeDialog)

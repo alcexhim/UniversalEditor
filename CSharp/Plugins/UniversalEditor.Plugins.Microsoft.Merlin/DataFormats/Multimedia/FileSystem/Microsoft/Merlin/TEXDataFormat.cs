@@ -23,7 +23,7 @@ namespace UniversalEditor.DataFormats.Multimedia.FileSystem.Microsoft.Merlin
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.Filters.Add("Microsoft Merlin Game Engine (Hover!) texture pack", new string[] { "*.tex" });
+				// _dfr.Filters.Add("Microsoft Merlin Game Engine (Hover!) texture pack", new string[] { "*.tex" });
 			}
 			return _dfr;
 		}
