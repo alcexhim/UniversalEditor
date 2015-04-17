@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{311885BE-3FAF-430B-91B2-6EC135D3A8AB}</ProjectGuid>
+    <ProjectGuid>{D804B16F-289B-4846-AE4A-6070F84389F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor</RootNamespace>
-    <AssemblyName>UniversalEditor.Plugins.RebelSoftware</AssemblyName>
+    <AssemblyName>UniversalEditor.Plugins.RebelSoftware.UserInterface.WindowsForms</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
+    <OutputPath>..\..\..\Output\Debug\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
+    <OutputPath>..\..\..\Output\Release\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,32 +33,35 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\RebelSoftware\InstallationScript\IAPDataFormat.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Action.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Actions\UnzipAction.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialog.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\CopyFilesDialog.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\DestinationDialog.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\FinishDialog.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\LicenseDialog.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\StartCopyingDialog.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\WelcomeDialog.cs" />
-    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\InstallationScriptObjectModel.cs" />
+    <Compile Include="Editors\RebelSoftware\InstallationScript\InstallationScriptEditor.cs" />
+    <Compile Include="Editors\RebelSoftware\InstallationScript\InstallationScriptEditor.Designer.cs">
+      <DependentUpon>InstallationScriptEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+    <EmbeddedResource Include="Editors\RebelSoftware\InstallationScript\InstallationScriptEditor.resx">
+      <DependentUpon>InstallationScriptEditor.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.RebelSoftware\UniversalEditor.Plugins.RebelSoftware.csproj">
+      <Project>{311885be-3faf-430b-91b2-6ec135d3a8ab}</Project>
+      <Name>UniversalEditor.Plugins.RebelSoftware</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
