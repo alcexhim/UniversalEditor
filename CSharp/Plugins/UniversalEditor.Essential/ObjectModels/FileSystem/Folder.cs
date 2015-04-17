@@ -109,5 +109,23 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			clone.Name = mvarName;
 			return clone;
 		}
+
+		/// <summary>
+		/// Recursively gets the size of this <see cref="Folder" /> and all the contained files.
+		/// </summary>
+		/// <returns></returns>
+		public long GetSize()
+		{
+			long size = 0;
+			foreach (File file in mvarFiles)
+			{
+				size += file.Size;
+			}
+			foreach (Folder folder in mvarFolders)
+			{
+				size += folder.GetSize();
+			}
+			return size;
+		}
 	}
 }
