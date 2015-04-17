@@ -44,20 +44,20 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 			{
 				if (br.Remaining < 263) break;
 
-				string fileName = br.ReadFixedLengthString(100).TrimNull();
+				string fileName = br.ReadFixedLengthString(100).TrimNull().Trim();
 				if (fileName == String.Empty) break;
 
-				string fileMode = br.ReadFixedLengthString(8).TrimNull();
-				string owner = br.ReadFixedLengthString(8).TrimNull();
-				string group = br.ReadFixedLengthString(8).TrimNull();
-				string fileSizeInBytesOctal = br.ReadFixedLengthString(12).TrimNull();
-				string lastModificationTimeUnixOctal = br.ReadFixedLengthString(12).TrimNull();
-				string headerChecksum = br.ReadFixedLengthString(8).TrimNull();
+				string fileMode = br.ReadPaddedNullTerminatedString(8);
+				string owner = br.ReadPaddedNullTerminatedString(8);
+				string group = br.ReadPaddedNullTerminatedString(8);
+				string fileSizeInBytesOctal = br.ReadPaddedNullTerminatedString(12);
+				string lastModificationTimeUnixOctal = br.ReadPaddedNullTerminatedString(12);
+				string headerChecksum = br.ReadPaddedNullTerminatedString(8);
 				
 				char c = br.ReadChar();
 				TapeArchiveRecordType type = (TapeArchiveRecordType)((int)c);
 
-				string linkedFileName = br.ReadFixedLengthString(100).TrimNull();
+				string linkedFileName = br.ReadPaddedNullTerminatedString(100);
 
 				string ustar = br.ReadFixedLengthString(6);
 				if (ustar == "ustar ")
@@ -67,12 +67,12 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 						mvarIsUnixStandardTAR = true;
 						ustar_set = true;
 					}
-					string ustarVersion = br.ReadFixedLengthString(2).TrimNull();
-					string ownerName = br.ReadFixedLengthString(32).TrimNull();
-					string groupName = br.ReadFixedLengthString(32).TrimNull();
-					string deviceMajor = br.ReadFixedLengthString(8).TrimNull();
-					string deviceMinor = br.ReadFixedLengthString(8).TrimNull();
-					string filenamePrefix = br.ReadFixedLengthString(155).TrimNull();
+					string ustarVersion = br.ReadPaddedNullTerminatedString(2);
+					string ownerName = br.ReadPaddedNullTerminatedString(32);
+					string groupName = br.ReadPaddedNullTerminatedString(32);
+					string deviceMajor = br.ReadPaddedNullTerminatedString(8);
+					string deviceMinor = br.ReadPaddedNullTerminatedString(8);
+					string filenamePrefix = br.ReadPaddedNullTerminatedString(155);
 				}
 				else
 				{
@@ -149,18 +149,22 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 		{
 			bw.WriteFixedLengthString(folder.Name + "/", 100);
 
-			string fileMode = "       \0";
-			bw.WriteFixedLengthString(fileMode, 8);
-			string owner = "       \0";
-			bw.WriteFixedLengthString(owner, 8);
-			string group = "       \0";
-			bw.WriteFixedLengthString(group, 8);
-			string fileSizeInBytesOctal = "           \0";
-			bw.WriteFixedLengthString(fileSizeInBytesOctal, 12);
-			string lastModificationTimeUnixOctal = "           \0";
-			bw.WriteFixedLengthString(lastModificationTimeUnixOctal, 12);
-			string headerChecksum = "           \0";
-			bw.WriteFixedLengthString(headerChecksum, 12);
+			long? fileMode = null;
+			bw.WritePaddedNullableInt64(fileMode, 8);
+			long? owner = null;
+			bw.WritePaddedNullableInt64(owner, 8);
+			long? group = null;
+			bw.WritePaddedNullableInt64(group, 8);
+
+			long fileSizeInBytesDecimal = folder.GetSize();
+			long? fileSizeInBytesOctal = null;
+			bw.WritePaddedNullableInt64(fileSizeInBytesOctal, 8);
+
+			long? lastModificationTimeUnixOctal = null;
+			bw.WritePaddedNullableInt64(lastModificationTimeUnixOctal, 12);
+
+			long? headerChecksum = null;
+			bw.WritePaddedNullableInt64(headerChecksum, 12);
 
 			char c = (char)(int)TapeArchiveRecordType.Directory;
 
@@ -202,18 +206,18 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 
 			bw.WriteFixedLengthString(parentPath, 100);
 
-			string fileMode = "       \0";
-			bw.WriteFixedLengthString(fileMode, 8);
-			string owner = "       \0";
-			bw.WriteFixedLengthString(owner, 8);
-			string group = "       \0";
-			bw.WriteFixedLengthString(group, 8);
+			long? fileMode = null;
+			bw.WritePaddedNullableInt64(fileMode, 8);
+			long? owner = null;
+			bw.WritePaddedNullableInt64(owner, 8);
+			long? group = null;
+			bw.WritePaddedNullableInt64(group, 8);
 			string fileSizeInBytesOctal = Convert.ToString(file.Size, 8).PadLeft(11, ' ') + "\0";
 			bw.WriteFixedLengthString(fileSizeInBytesOctal, 12);
-			string lastModificationTimeUnixOctal = "           \0";
+			string lastModificationTimeUnixOctal = String.Empty;
 			bw.WriteFixedLengthString(lastModificationTimeUnixOctal, 12);
-			string headerChecksum = "           \0";
-			bw.WriteFixedLengthString(headerChecksum, 12);
+			long? headerChecksum = null;
+			bw.WritePaddedNullableInt64(headerChecksum, 12);
 
 			char c = (char)(int)TapeArchiveRecordType.Directory;
 

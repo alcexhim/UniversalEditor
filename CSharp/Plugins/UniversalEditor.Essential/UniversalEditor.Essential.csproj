@@ -71,6 +71,7 @@
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutType.cs" />
     <Compile Include="DataFormats\Text\Formatted\RichText\RTFCharacterSet.cs" />
     <Compile Include="DataFormats\Text\Formatted\RichText\RTFDataFormat.cs" />
+    <Compile Include="DataFormats\Text\Formatted\RichText\RTFGenerator.cs" />
     <Compile Include="DataFormats\UEPackage\UEPackageXMLDataFormat.cs" />
     <Compile Include="ExpandedString.cs" />
     <Compile Include="ObjectModels\AbstractSyntax\AbstractSyntaxObjectModel.cs" />

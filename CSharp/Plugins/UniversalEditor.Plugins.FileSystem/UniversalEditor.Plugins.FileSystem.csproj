@@ -157,6 +157,7 @@
     <Compile Include="DataFormats\FileSystem\StellaGames\LzmaPack\PACKFileAttributes.cs" />
     <Compile Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveExtensions.cs" />
     <Compile Include="DataFormats\FileSystem\TapeArchive\TapeArchiveRecordType.cs" />
     <Compile Include="DataFormats\FileSystem\TerminalReality\POD\PODDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TerminalReality\POD\PODVersion.cs" />

@@ -19,3 +19,10 @@ Tenant/Resources/*
 !Tenant/Resources/Readme.txt
 # and don't pull in sandbox stuff (which is really only for testing locally)
 Sandbox/*
+
+# ignore Eclipse IDE stuff
+.buildpath
+.project
+.settings
+.metadata
+RemoteSystemsTempFiles
