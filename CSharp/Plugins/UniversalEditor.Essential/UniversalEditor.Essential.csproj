@@ -62,6 +62,9 @@
     <Compile Include="DataFormats\PropertyList\XML\XMLPropertyListDataFormat.cs" />
     <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLSettings.cs" />
     <Compile Include="DataFormats\Security\Certificate\DER\DERCertificateDataFormat.cs" />
+    <Compile Include="DataFormats\Security\Key\RSA\RSAKeyAlgorithm.cs" />
+    <Compile Include="DataFormats\Security\Key\RSA\RSAKeyDataFormat.cs" />
+    <Compile Include="DataFormats\Security\Key\RSA\RSAKeyType.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutAction.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutStartupNotifyBehavior.cs" />
@@ -109,6 +112,7 @@
     <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupObjectModel.cs" />
     <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItemTag.cs" />
     <Compile Include="ObjectModels\Security\Certificate\CertificateObjectModel.cs" />
+    <Compile Include="ObjectModels\Security\Key\RSA\RSAKeyObjectModel.cs" />
     <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
     <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
     <Compile Include="ObjectModels\Text\Formatted\FormattedTextFont.cs" />

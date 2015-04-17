@@ -177,14 +177,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 		private void dlgAccessor_SelectionChanged(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<Accessor, AccessorReference> dlg = (sender as GenericBrowserPopup<Accessor, AccessorReference>);
-			mvarAccessor = dlg.SelectedObject;
+			Accessor acc = dlg.SelectedObject;
 			dlg.AutoClose = false;
 
 			switch (mvarMode)
 			{
 				case DocumentPropertiesDialogMode.Open:
 				{
-					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Import))
+					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Import))
 					{
 						return;
 					}
@@ -192,7 +192,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
-					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref mvarAccessor, CustomOptionDialogType.Export))
+					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Export))
 					{
 						return;
 					}
@@ -200,6 +200,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				}
 			}
 
+			mvarAccessor = acc;
 			RefreshButtons();
 
 			dlg.AutoClose = true;
@@ -307,6 +308,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			if (mvarAccessor != null)
 			{
 				txtAccessor.Text = mvarAccessor.ToString();
+			}
+			else
+			{
+				txtAccessor.Text = String.Empty;
 			}
 			if (mvarDataFormat != null)
 			{
