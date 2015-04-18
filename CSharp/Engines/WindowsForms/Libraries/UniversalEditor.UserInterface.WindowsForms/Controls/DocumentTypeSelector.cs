@@ -17,8 +17,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 		{
 			InitializeComponent();
 
-			IconMethods.PopulateSystemIcons(ref imlLargeIcons);
-			IconMethods.PopulateSystemIcons(ref imlSmallIcons);
+			imlLargeIcons.PopulateSystemIcons();
+			imlSmallIcons.PopulateSystemIcons();
 		}
 
 		protected override void OnCreateControl()

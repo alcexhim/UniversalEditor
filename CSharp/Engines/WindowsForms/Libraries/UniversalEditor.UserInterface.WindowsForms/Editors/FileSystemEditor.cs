@@ -31,8 +31,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 			ImageList large = base.LargeImageList;
 			ImageList small = base.SmallImageList;
-			IconMethods.PopulateSystemIcons(ref large);
-			IconMethods.PopulateSystemIcons(ref small);
+			large.PopulateSystemIcons();
+			small.PopulateSystemIcons();
 
 			lv.LargeImageList = base.LargeImageList;
 			lv.SmallImageList = base.SmallImageList;
