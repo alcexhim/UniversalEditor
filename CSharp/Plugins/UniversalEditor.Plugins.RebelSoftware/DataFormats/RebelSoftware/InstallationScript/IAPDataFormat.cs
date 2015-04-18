@@ -37,7 +37,7 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 			this.Settings.PropertyNameValueSeparator = " ";
 
 			// Property separator is the newline character
-			this.Settings.PropertySeparator = "\r\n";
+			this.Settings.PropertySeparator = "\n";
 
 			// Do not allow top-level properties as property name/value separator (' ') conflicts with group definitions with spaces in them
 			this.Settings.AllowTopLevelProperties = false;
@@ -59,6 +59,7 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 				{
 					case "IA_Globals":
 					{
+						if (group.Properties["version"] != null) script.ProductVersion = new Version(group.Properties["version"].Value.ToString());
 						break;
 					}
 					case "IA_WelcomeDialog":

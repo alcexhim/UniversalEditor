@@ -101,7 +101,7 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 						nextString = string.Empty;
 						foundRealChar = false;
 					}
-					else if (cw == mvarSettings.PropertySeparator)
+					else if (cw == mvarSettings.PropertySeparator && (mvarSettings.AllowTopLevelProperties || nextGroup != null))
 					{
 						if (nextPropertyName != null)
 						{

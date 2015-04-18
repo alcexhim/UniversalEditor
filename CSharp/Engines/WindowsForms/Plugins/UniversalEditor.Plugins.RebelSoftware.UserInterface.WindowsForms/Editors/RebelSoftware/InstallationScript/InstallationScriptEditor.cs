@@ -19,6 +19,7 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 		public InstallationScriptEditor()
 		{
 			InitializeComponent();
+			tvExplorer.PopulateSystemIcons();
 		}
 
 		private static UserInterface.EditorReference _er = null;
@@ -42,6 +43,7 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 			if (script == null) return;
 
 			TreeNode nodeDialogs = new TreeNode("Dialogs");
+			nodeDialogs.ImageKey = "generic-folder-closed";
 
 			foreach (ISDialog dialog in script.Dialogs)
 			{
@@ -49,6 +51,10 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 				if (dialog is CopyFilesDialog)
 				{
 					tn.Text = "CopyFiles";
+				}
+				else if (dialog is DestinationDialog)
+				{
+					tn.Text = "Destination";
 				}
 				else if (dialog is FinishDialog)
 				{
