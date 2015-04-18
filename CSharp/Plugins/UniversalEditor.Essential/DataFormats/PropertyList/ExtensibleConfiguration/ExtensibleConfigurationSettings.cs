@@ -46,5 +46,10 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 		/// </summary>
 		public bool InlineGroupStart { get { return mvarInlineGroupStart; } set { mvarInlineGroupStart = value; } }
 
+		private bool mvarAllowTopLevelProperties = true;
+		/// <summary>
+		/// Determines whether top-level properties (i.e., those outside of a group definition) are allowed.
+		/// </summary>
+		public bool AllowTopLevelProperties { get { return mvarAllowTopLevelProperties; } set { mvarAllowTopLevelProperties = value; } }
 	}
 }

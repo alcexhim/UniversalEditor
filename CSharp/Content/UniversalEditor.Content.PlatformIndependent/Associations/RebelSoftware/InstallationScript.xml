@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the Chunked ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<Filters>
+				<Filter Title="Rebel Software Installation Script">
+					<FileNameFilters>
+						<FileNameFilter>*.iap</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.RebelSoftware.InstallationScript.InstallationScriptObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.RebelSoftware.InstallationScript.IAPDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

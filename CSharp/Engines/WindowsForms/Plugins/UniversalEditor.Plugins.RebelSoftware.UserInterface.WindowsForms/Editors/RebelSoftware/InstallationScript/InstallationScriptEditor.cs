@@ -46,7 +46,23 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 			foreach (ISDialog dialog in script.Dialogs)
 			{
 				TreeNode tn = new TreeNode();
-				if (dialog is WelcomeDialog)
+				if (dialog is CopyFilesDialog)
+				{
+					tn.Text = "CopyFiles";
+				}
+				else if (dialog is FinishDialog)
+				{
+					tn.Text = "Finish";
+				}
+				else if (dialog is LicenseDialog)
+				{
+					tn.Text = "License";
+				}
+				else if (dialog is StartCopyingDialog)
+				{
+					tn.Text = "StartCopying";
+				}
+				else if (dialog is WelcomeDialog)
 				{
 					tn.Text = "Welcome";
 				}
