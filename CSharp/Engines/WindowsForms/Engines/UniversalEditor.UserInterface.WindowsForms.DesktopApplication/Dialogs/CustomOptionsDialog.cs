@@ -177,7 +177,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				OpenFileDialog ofd = new OpenFileDialog();
 				if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
-					cmd.Text = ofd.FileName;
+					(cmd as AwesomeControls.FileTextBox.FileTextBoxControl).SelectedFileName = ofd.FileName;
 				}
 			}
 			else if (eo.DialogMode == CustomOptionFileDialogMode.Save)
@@ -185,7 +185,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 				SaveFileDialog sfd = new SaveFileDialog();
 				if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
-					cmd.Text = sfd.FileName;
+					(cmd as AwesomeControls.FileTextBox.FileTextBoxControl).SelectedFileName = sfd.FileName;
 				}
 			}
 		}
