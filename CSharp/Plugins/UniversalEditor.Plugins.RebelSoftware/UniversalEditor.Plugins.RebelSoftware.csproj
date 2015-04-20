@@ -35,17 +35,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\IAPDataFormat.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Action.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Actions\UnzipAction.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Dialog.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Dialogs\CopyFilesDialog.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Dialogs\DestinationDialog.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Dialogs\FinishDialog.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Dialogs\LicenseDialog.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Dialogs\StartCopyingDialog.cs" />
-    <Compile Include="ObjectModels\InstallationScript\Dialogs\WelcomeDialog.cs" />
-    <Compile Include="ObjectModels\InstallationScript\InstallationScriptObjectModel.cs" />
+    <Compile Include="DataFormats\RebelSoftware\InstallationScript\IAPDataFormat.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Action.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Actions\UnzipAction.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialog.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\CopyFilesDialog.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\DestinationDialog.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\FinishDialog.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\LicenseDialog.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\StartCopyingDialog.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Dialogs\WelcomeDialog.cs" />
+    <Compile Include="ObjectModels\RebelSoftware\InstallationScript\InstallationScriptObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
