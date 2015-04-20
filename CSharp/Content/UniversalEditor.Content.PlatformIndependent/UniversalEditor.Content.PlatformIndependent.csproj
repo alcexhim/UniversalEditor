@@ -41,6 +41,7 @@
     <Content Include="Associations\Markup.xml" />
     <Content Include="Associations\DataLink.xml" />
     <Content Include="Associations\PropertyList.xml" />
+    <Content Include="Associations\RebelSoftware\InstallationScript.xml" />
     <Content Include="Associations\SecurityCertificate.xml" />
     <Content Include="Associations\Shortcut.xml" />
     <Content Include="Branding\MainIcon.ico" />

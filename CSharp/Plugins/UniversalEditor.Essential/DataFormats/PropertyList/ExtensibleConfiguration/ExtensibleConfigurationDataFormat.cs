@@ -31,6 +31,10 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 			bool insideQuotedString = false;
 			bool escaping = false;
 			Group nextGroup = null;
+
+			// true if a real char (non-whitespace) was found; false otherwise
+			bool foundRealChar = false;
+
 			while (!tr.EndOfStream)
 			{
 				if (nextString.StartsWith(mvarSettings.SingleLineCommentStart))
@@ -46,6 +50,18 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 				}
 
 				char nextChar = tr.ReadChar();
+				if (!foundRealChar)
+				{
+					if (!Char.IsWhiteSpace(nextChar))
+					{
+						foundRealChar = true;
+					}
+					else
+					{
+						continue;
+					}
+				}
+
 				if (insideQuotedString)
 				{
 					if (nextChar == '"')
@@ -79,12 +95,13 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 						insideQuotedString = !insideQuotedString;
 						continue;
 					}
-					else if (cw == mvarSettings.PropertyNameValueSeparator)
+					else if (cw == mvarSettings.PropertyNameValueSeparator && (mvarSettings.AllowTopLevelProperties || nextGroup != null))
 					{
 						nextPropertyName = nextString;
 						nextString = string.Empty;
+						foundRealChar = false;
 					}
-					else if (cw == mvarSettings.PropertySeparator)
+					else if (cw == mvarSettings.PropertySeparator && (mvarSettings.AllowTopLevelProperties || nextGroup != null))
 					{
 						if (nextPropertyName != null)
 						{
@@ -102,6 +119,7 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 						}
 						nextPropertyName = string.Empty;
 						nextString = string.Empty;
+						foundRealChar = false;
 					}
 					else if (cw == mvarSettings.GroupStart)
 					{

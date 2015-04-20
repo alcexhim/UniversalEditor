@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.Plugins.RebelSoftware.ObjectModels.InstallationScript
+namespace UniversalEditor.ObjectModels.RebelSoftware.InstallationScript
 {
 	public abstract class Dialog : ICloneable
 	{

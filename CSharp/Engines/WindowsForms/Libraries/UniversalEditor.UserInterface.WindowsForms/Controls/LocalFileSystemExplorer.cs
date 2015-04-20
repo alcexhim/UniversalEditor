@@ -17,8 +17,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
         {
             InitializeComponent();
 
-            IconMethods.PopulateSystemIcons(ref imlSmallIcons);
-            IconMethods.PopulateSystemIcons(ref imlLargeIcons);
+			imlSmallIcons.PopulateSystemIcons();
+            imlLargeIcons.PopulateSystemIcons();
         }
 
         public bool ShowFavorites

@@ -11,8 +11,19 @@ using UniversalEditor.ObjectModels.RebelSoftware.InstallationScript.Actions;
 
 namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 {
-    public class IAPDataFormat : ExtensibleConfigurationDataFormat
-    {
+	public class IAPDataFormat : ExtensibleConfigurationDataFormat
+	{
+		private DataFormatReference _dfr = null;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr = new DataFormatReference(GetType());
+				_dfr.Capabilities.Add(typeof(InstallationScriptObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
+		}
+
 		public IAPDataFormat()
 		{
 			// quote characters are literally part of the property value
@@ -24,15 +35,69 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 
 			// No separator except space between name and value
 			this.Settings.PropertyNameValueSeparator = " ";
+
+			// Property separator is the newline character
+			this.Settings.PropertySeparator = "\n";
+
+			// Do not allow top-level properties as property name/value separator (' ') conflicts with group definitions with spaces in them
+			this.Settings.AllowTopLevelProperties = false;
 		}
 
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal(objectModels);
+			objectModels.Push(new PropertyListObjectModel());
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
-			base.AfterLoadInternal(objectModels);
+			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
+			InstallationScriptObjectModel script = (objectModels.Pop() as InstallationScriptObjectModel);
+
+			foreach (Group group in plom.Groups)
+			{
+				switch (group.Name)
+				{
+					case "IA_Globals":
+					{
+						if (group.Properties["version"] != null) script.ProductVersion = new Version(group.Properties["version"].Value.ToString());
+						break;
+					}
+					case "IA_WelcomeDialog":
+					{
+						script.Dialogs.Add(new WelcomeDialog());
+						break;
+					}
+					case "IA_FinishDialog":
+					{
+						script.Dialogs.Add(new FinishDialog());
+						break;
+					}
+					case "IA_LicenseDialog":
+					{
+						script.Dialogs.Add(new LicenseDialog());
+						break;
+					}
+					case "IA_DestinationDialog":
+					{
+						script.Dialogs.Add(new DestinationDialog());
+						break;
+					}
+					case "IA_StartCopyingDialog":
+					{
+						script.Dialogs.Add(new StartCopyingDialog());
+						break;
+					}
+					case "IA_CopyFilesDialog":
+					{
+						script.Dialogs.Add(new CopyFilesDialog());
+						break;
+					}
+					case "IA_StartMenu":
+					{
+						break;
+					}
+				}
+			}
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
@@ -121,5 +186,5 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 
 			objectModels.Push(plom);
 		}
-    }
+	}
 }

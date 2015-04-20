@@ -104,7 +104,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			mvarLargeImageList.ColorDepth = ColorDepth.Depth32Bit;
 			mvarLargeImageList.ImageSize = new System.Drawing.Size(32, 32);
-			IconMethods.PopulateSystemIcons(ref mvarLargeImageList);
+			mvarLargeImageList.PopulateSystemIcons();
 
 			string largeImageListPath = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 			{
@@ -131,7 +131,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			mvarSmallImageList.ColorDepth = ColorDepth.Depth32Bit;
 			mvarSmallImageList.ImageSize = new System.Drawing.Size(16, 16);
-			IconMethods.PopulateSystemIcons(ref mvarSmallImageList);
+			mvarSmallImageList.PopulateSystemIcons();
 
 			string smallImageListPath = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 			{
