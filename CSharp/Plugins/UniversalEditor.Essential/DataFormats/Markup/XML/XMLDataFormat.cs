@@ -328,6 +328,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			}
 			tr.Accessor.Seek(-1, IO.SeekOrigin.Current);
 
+			bool seenBeginChar = false;
+
 			while (!tr.EndOfStream)
 			{
 				c = tr.ReadChar();
@@ -339,6 +341,17 @@ namespace UniversalEditor.DataFormats.Markup.XML
 				{
 					loaded = true;
 				}
+
+				if (c == this.Settings.TagEndChar && !seenBeginChar)
+				{
+					currentString += c;
+					continue;
+				}
+				else if (c == this.Settings.TagEndChar && seenBeginChar)
+				{
+					seenBeginChar = false;
+				}
+
 				if (c == this.Settings.TagBeginChar)
 				{
 					if (insideString == 0 && !insidePreprocessor)
@@ -357,6 +370,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					{
 						currentString += c;
 					}
+					seenBeginChar = true;
 				}
 				else
 				{
