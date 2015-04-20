@@ -766,7 +766,25 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 		{
 			if (lv.SelectedItems.Count == 0)
 			{
+				string fileName = ObjectModel.Accessor.GetFileName();
+				if (System.IO.File.Exists(fileName))
+				{
+					File file = new File();
+					file.Name = fileName;
+					file.SetDataAsByteArray(System.IO.File.ReadAllBytes(fileName));
 
+					Dialogs.FileSystem.FilePropertiesDialog dlg = new Dialogs.FileSystem.FilePropertiesDialog();
+					dlg.SelectedObjects.Add(file);
+
+					if (dlg.ShowDialog() == DialogResult.OK)
+					{
+
+					}
+				}
+				else
+				{
+					MessageBox.Show("Could not get file information for this editor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 			}
 			else if (lv.SelectedItems.Count == 1)
 			{

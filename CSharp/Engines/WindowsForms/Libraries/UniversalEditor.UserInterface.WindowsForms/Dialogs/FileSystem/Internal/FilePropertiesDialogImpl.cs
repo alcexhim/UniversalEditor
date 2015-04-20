@@ -41,7 +41,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 				if (fso is File)
 				{
 					File file = (fso as File);
-					txtFileName.Text = file.Name;
+
+					string fileTitle = System.IO.Path.GetFileName(file.Name);
+					string fileLocation = System.IO.Path.GetDirectoryName(file.Name);
+
+					txtFileName.Text = fileTitle;
+					txtGeneralInformationLocation.Text = fileLocation;
 
 					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetDataAsByteArray(), file.Name);
 					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = ma });
@@ -138,6 +143,34 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 			set
 			{
 				if (value != null) mvarSelectedObjects = value;
+			}
+		}
+
+		private void cmdGeneralInformationLocationBrowse_Click(object sender, EventArgs e)
+		{
+			// Check if location is a directory so we don't inadvertently launch a program
+			if (System.IO.Directory.Exists(txtGeneralInformationLocation.Text))
+			{
+				System.Diagnostics.Process.Start(txtGeneralInformationLocation.Text);
+			}
+		}
+
+		private void cmdGeneralInformationLocationChange_Click(object sender, EventArgs e)
+		{
+			// Check if location is a directory so we don't inadvertently move a program
+			if (System.IO.Directory.Exists(txtGeneralInformationLocation.Text))
+			{
+				string oldFilePath = txtGeneralInformationLocation.Text + System.IO.Path.DirectorySeparatorChar.ToString() + txtFileName.Text;
+
+				// use AC NativeDialog for FolderBrowserDialog because it looks much sexier than the built-in WinForms one
+				AwesomeControls.NativeDialogs.FolderBrowserDialog dlg = new AwesomeControls.NativeDialogs.FolderBrowserDialog();
+				if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					string newFilePath = dlg.SelectedPath + System.IO.Path.DirectorySeparatorChar.ToString() + txtFileName.Text;
+
+					// move the specified file from the old location to the new location
+					System.IO.File.Move(oldFilePath, newFilePath);
+				}
 			}
 		}
 	}

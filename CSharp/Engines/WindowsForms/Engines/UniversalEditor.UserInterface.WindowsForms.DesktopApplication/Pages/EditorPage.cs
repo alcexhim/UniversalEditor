@@ -194,6 +194,17 @@ namespace UniversalEditor.UserInterface.WindowsForms.Pages
 		{
 			this.Document = document;
 
+			if (System.IO.Directory.Exists(document.Accessor.GetFileName()))
+			{
+				// we're looking at a directory, so create a FileSystemObjectModel for it
+				FileSystemObjectModel fsom = FileSystemObjectModel.FromDirectory(document.Accessor.GetFileName());
+				
+				Document = new Document(fsom, null, null);
+				NotifyOnFileOpened(this, EventArgs.Empty);
+				RefreshEditor();
+				return;
+			}
+
 			System.Threading.Thread tOpenFile = new System.Threading.Thread(tOpenFile_ThreadStart);
 			tOpenFile.Start();
 		}

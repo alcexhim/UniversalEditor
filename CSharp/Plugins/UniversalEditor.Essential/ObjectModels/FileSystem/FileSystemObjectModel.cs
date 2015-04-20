@@ -64,8 +64,24 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		}
 		public static FileSystemObjectModel FromDirectory(string path, string searchPattern = "*.*", System.IO.SearchOption searchOption = System.IO.SearchOption.TopDirectoryOnly)
 		{
-			string[] files = System.IO.Directory.GetFiles(path, searchPattern, searchOption);
-			return FromFiles(files);
+			string[] folders = System.IO.Directory.GetDirectories(path);
+			string[] files = System.IO.Directory.GetFiles(path);
+
+			FileSystemObjectModel fsom = new FileSystemObjectModel();
+			foreach (string folder in folders)
+			{
+				string title = System.IO.Path.GetFileName(folder);
+				fsom.Folders.Add(title);
+			}
+			foreach (string fileName in files)
+			{
+				string title = System.IO.Path.GetFileName(fileName);
+				fsom.Files.Add(title, fileName);
+			}
+			return fsom;
+
+			// string[] files = System.IO.Directory.GetFiles(path, searchPattern, searchOption);
+			// return FromFiles(files);
 		}
 
 		private File.FileCollection mvarFiles = new File.FileCollection();
