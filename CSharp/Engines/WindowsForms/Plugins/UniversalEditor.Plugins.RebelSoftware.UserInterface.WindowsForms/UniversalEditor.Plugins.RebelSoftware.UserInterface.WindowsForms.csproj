@@ -44,10 +44,19 @@
       <DependentUpon>InstallationScriptEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Editors\RebelSoftware\InstallationScript\InstallationScriptEditor.resx">
       <DependentUpon>InstallationScriptEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +80,33 @@
       <Project>{bcbb72bd-0ecb-4ff2-8d91-e466361fb6f9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Install_01_Welcome.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Install_02_License.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Install_03_Destination.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Install_04_Summary.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Install_05_Progress.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Install_06_Finish.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Uninstall_01_Welcome.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Uninstall_02_Progress.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_Uninstall_03_Finish.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

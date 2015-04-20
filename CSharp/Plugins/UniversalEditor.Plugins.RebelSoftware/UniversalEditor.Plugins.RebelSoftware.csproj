@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormats\RebelSoftware\InstallationPackage\ZAPDataFormat.cs" />
     <Compile Include="DataFormats\RebelSoftware\InstallationScript\IAPDataFormat.cs" />
     <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Action.cs" />
     <Compile Include="ObjectModels\RebelSoftware\InstallationScript\Actions\UnzipAction.cs" />
@@ -49,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
+      <Project>{3f664673-7e22-4486-9ad0-fc81861d0b78}</Project>
+      <Name>UniversalEditor.Compression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
       <Name>UniversalEditor.Core</Name>
