@@ -169,7 +169,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 		private void cmdFileBrowse_Click(object sender, EventArgs e)
 		{
-			Button cmd = (sender as Button);
+			Control cmd = (sender as Control);
 			CustomOptionFile eo = (cmd.Tag as CustomOptionFile);
 
 			if (eo.DialogMode == CustomOptionFileDialogMode.Open)
