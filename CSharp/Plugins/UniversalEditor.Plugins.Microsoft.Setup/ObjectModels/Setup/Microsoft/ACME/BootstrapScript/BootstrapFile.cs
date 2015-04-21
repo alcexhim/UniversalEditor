@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.ObjectModels.SoftwareInstallation.Microsoft.ACME.BootstrapScript
+namespace UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript
 {
 	public class BootstrapFile : ICloneable
 	{

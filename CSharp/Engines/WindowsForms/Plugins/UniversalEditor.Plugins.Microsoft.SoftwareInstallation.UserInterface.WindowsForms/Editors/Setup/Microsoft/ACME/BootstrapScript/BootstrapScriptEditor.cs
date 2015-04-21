@@ -8,9 +8,9 @@ using System.Windows.Forms;
 using UniversalEditor.UserInterface;
 using UniversalEditor.UserInterface.WindowsForms;
 
-using UniversalEditor.ObjectModels.SoftwareInstallation.Microsoft.ACME.BootstrapScript;
+using UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript;
 
-namespace UniversalEditor.Editors.SoftwareInstallation.Microsoft.ACME.BootstrapScript
+namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 {
 	public partial class BootstrapScriptEditor : Editor
 	{

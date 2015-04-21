@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.Editors.SoftwareInstallation.Microsoft.ACME.BootstrapScript
+﻿namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 {
 	partial class BootstrapScriptEditor
 	{

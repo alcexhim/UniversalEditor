@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor</RootNamespace>
-    <AssemblyName>UniversalEditor.Plugins.Microsoft.SoftwareInstallation.UserInterface.WindowsForms</AssemblyName>
+    <AssemblyName>UniversalEditor.Plugins.Microsoft.Setup.UserInterface.WindowsForms</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -37,10 +37,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Editors\SoftwareInstallation\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.cs">
+    <Compile Include="Editors\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editors\SoftwareInstallation\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.Designer.cs">
+    <Compile Include="Editors\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.Designer.cs">
       <DependentUpon>BootstrapScriptEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +51,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Microsoft.Setup\UniversalEditor.Plugins.Microsoft.Setup.csproj">
+      <Project>{05127997-b7f3-4802-8021-06c048c8fe63}</Project>
+      <Name>UniversalEditor.Plugins.Microsoft.Setup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
       <Project>{bcbb72bd-0ecb-4ff2-8d91-e466361fb6f9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
@@ -67,17 +71,9 @@
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Microsoft.SoftwareInstallation\UniversalEditor.Plugins.Microsoft.SoftwareInstallation.csproj">
-      <Project>{05127997-b7f3-4802-8021-06c048c8fe63}</Project>
-      <Name>UniversalEditor.Plugins.Microsoft.SoftwareInstallation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Microsoft\UniversalEditor.Plugins.Microsoft.csproj">
-      <Project>{4698bc3f-ec29-42eb-9aed-3d8f9983a108}</Project>
-      <Name>UniversalEditor.Plugins.Microsoft</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Editors\SoftwareInstallation\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.resx">
+    <EmbeddedResource Include="Editors\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.resx">
       <DependentUpon>BootstrapScriptEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

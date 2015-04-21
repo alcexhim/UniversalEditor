@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.DataFormats.PropertyList;
 using UniversalEditor.ObjectModels.PropertyList;
-using UniversalEditor.ObjectModels.SoftwareInstallation.Microsoft.ACME.BootstrapScript;
+using UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript;
 
-namespace UniversalEditor.DataFormats.SoftwareInstallation.Microsoft.ACME.BootstrapScript
+namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 {
 	public class LSTDataFormat : WindowsConfigurationDataFormat
 	{

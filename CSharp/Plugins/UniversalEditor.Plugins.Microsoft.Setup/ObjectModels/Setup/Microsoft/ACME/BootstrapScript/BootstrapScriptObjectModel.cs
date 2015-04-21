@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.ObjectModels.SoftwareInstallation.Microsoft.ACME.BootstrapScript
+namespace UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript
 {
 	public class BootstrapScriptObjectModel : ObjectModel
 	{
@@ -16,7 +16,7 @@ namespace UniversalEditor.ObjectModels.SoftwareInstallation.Microsoft.ACME.Boots
 				_omr.Title = "Microsoft ACME Setup Bootstrapper Script";
 				_omr.Path = new string[]
 				{
-					"Software Installation",
+					"Setup",
 					"Microsoft",
 					"ACME Setup"
 				};

@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor</RootNamespace>
-    <AssemblyName>UniversalEditor.Plugins.Microsoft.SoftwareInstallation</AssemblyName>
+    <AssemblyName>UniversalEditor.Plugins.Microsoft.Setup</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -35,9 +35,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\SoftwareInstallation\Microsoft\ACME\BootstrapScript\LSTDataFormat.cs" />
-    <Compile Include="ObjectModels\SoftwareInstallation\Microsoft\ACME\BootstrapScript\BootstrapFile.cs" />
-    <Compile Include="ObjectModels\SoftwareInstallation\Microsoft\ACME\BootstrapScript\BootstrapScriptObjectModel.cs" />
+    <Compile Include="DataFormats\Setup\Microsoft\ACME\BootstrapScript\LSTDataFormat.cs" />
+    <Compile Include="ObjectModels\Setup\Microsoft\ACME\BootstrapScript\BootstrapFile.cs" />
+    <Compile Include="ObjectModels\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
