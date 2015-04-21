@@ -12,6 +12,7 @@ namespace UniversalEditor.Dialogs.Setup.Microsoft.ACME.BootstrapScript
 		public OperatingSystemPropertiesDialogImpl()
 		{
 			InitializeComponent();
+			Font = SystemFonts.MenuFont;
 		}
 
 		private void cmdOK_Click(object sender, EventArgs e)
