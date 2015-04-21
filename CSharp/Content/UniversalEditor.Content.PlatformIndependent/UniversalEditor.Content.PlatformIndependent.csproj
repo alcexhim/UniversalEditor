@@ -41,9 +41,9 @@
     <Content Include="Associations\Markup.xml" />
     <Content Include="Associations\DataLink.xml" />
     <Content Include="Associations\PropertyList.xml" />
-    <Content Include="Associations\Microsoft\SoftwareInstallation\ACME\BootstrapScript.xml" />
-    <Content Include="Associations\RebelSoftware\InstallationPackage.xml" />
-    <Content Include="Associations\RebelSoftware\InstallationScript.xml" />
+    <Content Include="Extensions\SoftwarePublisher\Associations\Setup\Microsoft\ACME\BootstrapScript.xml" />
+    <Content Include="Extensions\SoftwarePublisher\Associations\Setup\RebelSoftware\InstallationPackage.xml" />
+    <Content Include="Extensions\SoftwarePublisher\Associations\Setup\RebelSoftware\InstallationScript.xml" />
     <Content Include="Associations\SecurityCertificate.xml" />
     <Content Include="Associations\Shortcut.xml" />
     <Content Include="Branding\MainIcon.ico" />
@@ -237,7 +237,7 @@
     <Content Include="Extensions\SoftwareDeveloper\Associations\CodeObjectModel\COBOL.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\CodeObjectModel\Ada.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\CodeObjectModel\FORTRAN.xml" />
-    <Content Include="Extensions\SoftwareDeveloper\Associations\InstallationScript\InstallShield.xml" />
+    <Content Include="Extensions\SoftwarePublisher\Associations\Setup\InstallShield\InstallShieldScript.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\PropertyList\VisualStudio.xml" />
     <Content Include="Extensions\SoftwareDeveloper\Associations\Solution\VisualStudio.xml" />
     <Content Include="Extensions\UniversalEditorDeveloper\ProjectTypes\{13A1DBF5-B527-4218-9442-F1D165033AEB}.xml" />
