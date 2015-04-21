@@ -287,6 +287,7 @@
 			// cmdFilesClear
 			// 
 			this.cmdFilesClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdFilesClear.Enabled = false;
 			this.cmdFilesClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cmdFilesClear.Location = new System.Drawing.Point(392, 19);
 			this.cmdFilesClear.Name = "cmdFilesClear";
@@ -294,9 +295,11 @@
 			this.cmdFilesClear.TabIndex = 1;
 			this.cmdFilesClear.Text = "Cl&ear";
 			this.cmdFilesClear.UseVisualStyleBackColor = true;
+			this.cmdFilesClear.Click += new System.EventHandler(this.cmdFilesClear_Click);
 			// 
 			// cmdFilesRemove
 			// 
+			this.cmdFilesRemove.Enabled = false;
 			this.cmdFilesRemove.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cmdFilesRemove.Location = new System.Drawing.Point(168, 19);
 			this.cmdFilesRemove.Name = "cmdFilesRemove";
@@ -304,9 +307,11 @@
 			this.cmdFilesRemove.TabIndex = 1;
 			this.cmdFilesRemove.Text = "&Remove";
 			this.cmdFilesRemove.UseVisualStyleBackColor = true;
+			this.cmdFilesRemove.Click += new System.EventHandler(this.cmdFilesRemove_Click);
 			// 
 			// cmdFilesModify
 			// 
+			this.cmdFilesModify.Enabled = false;
 			this.cmdFilesModify.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cmdFilesModify.Location = new System.Drawing.Point(87, 19);
 			this.cmdFilesModify.Name = "cmdFilesModify";
@@ -314,6 +319,7 @@
 			this.cmdFilesModify.TabIndex = 1;
 			this.cmdFilesModify.Text = "&Modify...";
 			this.cmdFilesModify.UseVisualStyleBackColor = true;
+			this.cmdFilesModify.Click += new System.EventHandler(this.cmdFilesModify_Click);
 			// 
 			// cmdFilesAdd
 			// 
@@ -324,6 +330,7 @@
 			this.cmdFilesAdd.TabIndex = 1;
 			this.cmdFilesAdd.Text = "&Add...";
 			this.cmdFilesAdd.UseVisualStyleBackColor = true;
+			this.cmdFilesAdd.Click += new System.EventHandler(this.cmdFilesAdd_Click);
 			// 
 			// lvFiles
 			// 
@@ -340,6 +347,8 @@
 			this.lvFiles.TabIndex = 0;
 			this.lvFiles.UseCompatibleStateImageBehavior = false;
 			this.lvFiles.View = System.Windows.Forms.View.Details;
+			this.lvFiles.ItemActivate += new System.EventHandler(this.lvFiles_ItemActivate);
+			this.lvFiles.SelectedIndexChanged += new System.EventHandler(this.lvFiles_SelectedIndexChanged);
 			// 
 			// chSource
 			// 

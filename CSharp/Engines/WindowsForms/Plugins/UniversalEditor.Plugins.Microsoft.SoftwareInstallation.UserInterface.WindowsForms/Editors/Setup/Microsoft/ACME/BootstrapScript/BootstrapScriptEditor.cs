@@ -9,6 +9,7 @@ using UniversalEditor.UserInterface;
 using UniversalEditor.UserInterface.WindowsForms;
 
 using UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript;
+using UniversalEditor.Dialogs.Setup.Microsoft.ACME.BootstrapScript;
 
 namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 {
@@ -142,6 +143,103 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			BeginEdit();
 			script.Require31Message = txtRequire31.Text;
 			EndEdit();
+		}
+
+		private void cmdFilesAdd_Click(object sender, EventArgs e)
+		{
+			BootstrapFilePropertiesDialog dlg = new BootstrapFilePropertiesDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				ListViewItem lvi = new ListViewItem();
+				BootstrapFile file = new BootstrapFile();
+				file.SourceFileName = dlg.SourceFileName;
+				file.DestinationFileName = dlg.DestinationFileName;
+
+				BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
+				BeginEdit();
+				script.Files.Add(file);
+				EndEdit();
+
+				lvi.Tag = file;
+				lvi.Text = file.SourceFileName;
+				lvi.SubItems.Add(file.DestinationFileName);
+				lvFiles.Items.Add(lvi);
+
+				RefreshButtons();
+			}
+		}
+
+		private void cmdFilesModify_Click(object sender, EventArgs e)
+		{
+			if (lvFiles.SelectedItems.Count == 1)
+			{
+				BootstrapFile file = (lvFiles.SelectedItems[0].Tag as BootstrapFile);
+				
+				BootstrapFilePropertiesDialog dlg = new BootstrapFilePropertiesDialog();
+				dlg.SourceFileName = file.SourceFileName;
+				dlg.DestinationFileName = file.DestinationFileName;
+
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					file.SourceFileName = dlg.SourceFileName;
+					file.DestinationFileName = dlg.DestinationFileName;
+
+					lvFiles.SelectedItems[0].Text = file.SourceFileName;
+					lvFiles.SelectedItems[0].SubItems[1].Text = file.DestinationFileName;
+				}
+			}
+		}
+
+		private void cmdFilesRemove_Click(object sender, EventArgs e)
+		{
+			if (lvFiles.SelectedItems.Count > 0)
+			{
+				if (MessageBox.Show("Are you sure you want to remove the selected files from the list?", "Remove Files", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+				{
+					return;
+				}
+
+				BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
+				BeginEdit();
+				foreach (ListViewItem lvi in lvFiles.SelectedItems)
+				{
+					script.Files.Remove(lvi.Tag as BootstrapFile);
+				}
+				EndEdit();
+
+				while (lvFiles.SelectedItems.Count > 0)
+				{
+					lvFiles.SelectedItems[0].Remove();
+				}
+				RefreshButtons();
+			}
+		}
+
+		private void RefreshButtons()
+		{
+			cmdFilesModify.Enabled = (lvFiles.SelectedItems.Count == 1);
+			cmdFilesRemove.Enabled = (lvFiles.SelectedItems.Count > 0);
+			cmdFilesClear.Enabled = (lvFiles.Items.Count > 0);
+		}
+
+		private void cmdFilesClear_Click(object sender, EventArgs e)
+		{
+			lvFiles.Items.Clear();
+
+			BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
+			BeginEdit();
+			script.Files.Clear();
+			EndEdit();
+		}
+
+		private void lvFiles_ItemActivate(object sender, EventArgs e)
+		{
+			cmdFilesModify_Click(sender, e);
+		}
+
+		private void lvFiles_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			RefreshButtons();
 		}
 	}
 }

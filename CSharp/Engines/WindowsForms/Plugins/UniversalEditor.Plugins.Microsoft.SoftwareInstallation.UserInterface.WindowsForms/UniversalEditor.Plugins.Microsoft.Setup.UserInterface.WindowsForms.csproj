@@ -37,6 +37,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\BootstrapFilePropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\BootstrapFilePropertiesDialog.Designer.cs">
+      <DependentUpon>BootstrapFilePropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\BootstrapFilePropertiesDialog.resx">
+      <DependentUpon>BootstrapFilePropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Editors\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.resx">
       <DependentUpon>BootstrapScriptEditor.cs</DependentUpon>
     </EmbeddedResource>
