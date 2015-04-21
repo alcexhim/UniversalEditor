@@ -187,6 +187,7 @@
 			// 
 			this.lblRequire31.AutoSize = true;
 			this.lblRequire31.Enabled = false;
+			this.lblRequire31.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblRequire31.Location = new System.Drawing.Point(51, 175);
 			this.lblRequire31.Name = "lblRequire31";
 			this.lblRequire31.Size = new System.Drawing.Size(77, 13);
@@ -197,6 +198,7 @@
 			// 
 			this.lblTemporaryDirectorySize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblTemporaryDirectorySize.AutoSize = true;
+			this.lblTemporaryDirectorySize.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblTemporaryDirectorySize.Location = new System.Drawing.Point(369, 99);
 			this.lblTemporaryDirectorySize.Name = "lblTemporaryDirectorySize";
 			this.lblTemporaryDirectorySize.Size = new System.Drawing.Size(30, 13);
@@ -206,6 +208,7 @@
 			// lblCommandLine
 			// 
 			this.lblCommandLine.AutoSize = true;
+			this.lblCommandLine.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblCommandLine.Location = new System.Drawing.Point(16, 126);
 			this.lblCommandLine.Name = "lblCommandLine";
 			this.lblCommandLine.Size = new System.Drawing.Size(76, 13);
@@ -215,6 +218,7 @@
 			// lblWindowClassName
 			// 
 			this.lblWindowClassName.AutoSize = true;
+			this.lblWindowClassName.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblWindowClassName.Location = new System.Drawing.Point(16, 74);
 			this.lblWindowClassName.Name = "lblWindowClassName";
 			this.lblWindowClassName.Size = new System.Drawing.Size(105, 13);
@@ -224,6 +228,7 @@
 			// lblTemporaryDirectoryName
 			// 
 			this.lblTemporaryDirectoryName.AutoSize = true;
+			this.lblTemporaryDirectoryName.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblTemporaryDirectoryName.Location = new System.Drawing.Point(16, 99);
 			this.lblTemporaryDirectoryName.Name = "lblTemporaryDirectoryName";
 			this.lblTemporaryDirectoryName.Size = new System.Drawing.Size(132, 13);
@@ -233,6 +238,7 @@
 			// lblWindowMessage
 			// 
 			this.lblWindowMessage.AutoSize = true;
+			this.lblWindowMessage.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblWindowMessage.Location = new System.Drawing.Point(53, 48);
 			this.lblWindowMessage.Name = "lblWindowMessage";
 			this.lblWindowMessage.Size = new System.Drawing.Size(94, 13);
@@ -253,6 +259,7 @@
 			// lblWindowTitle
 			// 
 			this.lblWindowTitle.AutoSize = true;
+			this.lblWindowTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblWindowTitle.Location = new System.Drawing.Point(53, 22);
 			this.lblWindowTitle.Name = "lblWindowTitle";
 			this.lblWindowTitle.Size = new System.Drawing.Size(68, 13);
@@ -269,6 +276,7 @@
 			this.fraFiles.Controls.Add(this.cmdFilesModify);
 			this.fraFiles.Controls.Add(this.cmdFilesAdd);
 			this.fraFiles.Controls.Add(this.lvFiles);
+			this.fraFiles.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.fraFiles.Location = new System.Drawing.Point(4, 218);
 			this.fraFiles.Name = "fraFiles";
 			this.fraFiles.Size = new System.Drawing.Size(473, 171);
@@ -279,6 +287,7 @@
 			// cmdFilesClear
 			// 
 			this.cmdFilesClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdFilesClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cmdFilesClear.Location = new System.Drawing.Point(392, 19);
 			this.cmdFilesClear.Name = "cmdFilesClear";
 			this.cmdFilesClear.Size = new System.Drawing.Size(75, 23);
@@ -288,6 +297,7 @@
 			// 
 			// cmdFilesRemove
 			// 
+			this.cmdFilesRemove.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cmdFilesRemove.Location = new System.Drawing.Point(168, 19);
 			this.cmdFilesRemove.Name = "cmdFilesRemove";
 			this.cmdFilesRemove.Size = new System.Drawing.Size(75, 23);
@@ -297,6 +307,7 @@
 			// 
 			// cmdFilesModify
 			// 
+			this.cmdFilesModify.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cmdFilesModify.Location = new System.Drawing.Point(87, 19);
 			this.cmdFilesModify.Name = "cmdFilesModify";
 			this.cmdFilesModify.Size = new System.Drawing.Size(75, 23);
@@ -306,6 +317,7 @@
 			// 
 			// cmdFilesAdd
 			// 
+			this.cmdFilesAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cmdFilesAdd.Location = new System.Drawing.Point(6, 19);
 			this.cmdFilesAdd.Name = "cmdFilesAdd";
 			this.cmdFilesAdd.Size = new System.Drawing.Size(75, 23);
