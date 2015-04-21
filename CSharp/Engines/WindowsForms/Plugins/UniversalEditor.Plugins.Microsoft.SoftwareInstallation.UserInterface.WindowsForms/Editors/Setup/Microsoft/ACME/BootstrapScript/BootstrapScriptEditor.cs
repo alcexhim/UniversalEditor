@@ -18,6 +18,7 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 		public BootstrapScriptEditor()
 		{
 			InitializeComponent();
+			cboOperatingSystem.SelectedIndex = 0;
 		}
 
 		private static EditorReference _er = null;
@@ -41,7 +42,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.Require31Enabled = chkRequire31.Checked;
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.Require31Enabled = chkRequire31.Checked;
+			}
 			EndEdit();
 		}
 
@@ -52,17 +57,15 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
 			if (script == null) script = new BootstrapScriptObjectModel();
 
-			txtWindowTitle.Text = script.WindowTitle;
-			txtWindowMessage.Text = script.WindowMessage;
-			txtTemporaryDirectorySize.Value = script.TemporaryDirectorySize;
-			txtTemporaryDirectoryName.Text = script.TemporaryDirectoryName;
-			txtCommandLine.Text = script.CommandLine;
-			txtWindowClassName.Text = script.WindowClassName;
-			
-			chkRequire31.Checked = script.Require31Enabled;
-			txtRequire31.ReadOnly = !script.Require31Enabled;
-			txtRequire31.Text = script.Require31Message;
-			lblRequire31.Enabled = script.Require31Enabled;
+			cboOperatingSystem.Items.Clear();
+			foreach (BootstrapOperatingSystem item in script.OperatingSystems)
+			{
+				cboOperatingSystem.Items.Add(item);
+			}
+			if (cboOperatingSystem.Items.Count > 0)
+			{
+				cboOperatingSystem.SelectedIndex = 0;
+			}
 		}
 
 		private void txtWindowTitle_TextChanged(object sender, EventArgs e)
@@ -81,7 +84,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.WindowTitle = txtWindowTitle.Text;
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.WindowTitle = txtWindowTitle.Text;
+			}
 			EndEdit();
 		}
 
@@ -91,7 +98,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.WindowMessage = txtWindowMessage.Text;
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.WindowMessage = txtWindowMessage.Text;
+			}
 			EndEdit();
 		}
 
@@ -101,7 +112,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.WindowClassName = txtWindowClassName.Text;
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.WindowClassName = txtWindowClassName.Text;
+			}
 			EndEdit();
 		}
 
@@ -111,7 +126,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.TemporaryDirectoryName = txtTemporaryDirectoryName.Text;
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.TemporaryDirectoryName = txtTemporaryDirectoryName.Text;
+			}
 			EndEdit();
 		}
 
@@ -121,7 +140,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.TemporaryDirectorySize = (int)txtTemporaryDirectorySize.Value;
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.TemporaryDirectorySize = (int)txtTemporaryDirectorySize.Value;
+			}
 			EndEdit();
 		}
 
@@ -131,7 +154,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.CommandLine = txtCommandLine.Text;
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.CommandLine = txtCommandLine.Text;
+			}
 			EndEdit();
 		}
 
@@ -141,7 +168,13 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			if (script == null) return;
 
 			BeginEdit();
-			script.Require31Message = txtRequire31.Text;
+			
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.Require31Message = txtRequire31.Text;
+			}
+
 			EndEdit();
 		}
 
@@ -157,7 +190,13 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 
 				BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
 				BeginEdit();
-				script.Files.Add(file);
+				
+				BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+				if (item != null)
+				{
+					item.Files.Add(file);
+				}
+
 				EndEdit();
 
 				lvi.Tag = file;
@@ -201,9 +240,14 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 
 				BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
 				BeginEdit();
-				foreach (ListViewItem lvi in lvFiles.SelectedItems)
+
+				BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+				if (item != null)
 				{
-					script.Files.Remove(lvi.Tag as BootstrapFile);
+					foreach (ListViewItem lvi in lvFiles.SelectedItems)
+					{
+						item.Files.Remove(lvi.Tag as BootstrapFile);
+					}
 				}
 				EndEdit();
 
@@ -228,7 +272,13 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 
 			BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
 			BeginEdit();
-			script.Files.Clear();
+
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				item.Files.Clear();
+			}
+
 			EndEdit();
 		}
 
@@ -240,6 +290,49 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 		private void lvFiles_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			RefreshButtons();
+		}
+
+		private void cmdManageOperatingSystems_Click(object sender, EventArgs e)
+		{
+			BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
+			if (script == null) return;
+
+			ManageOperatingSystemsDialog dlg = new ManageOperatingSystemsDialog();
+			foreach (BootstrapOperatingSystem item in script.OperatingSystems)
+			{
+				dlg.OperatingSystems.Add(item);
+			}
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				script.OperatingSystems.Clear();
+				cboOperatingSystem.Items.Clear();
+				foreach (BootstrapOperatingSystem item in dlg.OperatingSystems)
+				{
+					script.OperatingSystems.Add(item);
+
+					if (item.Enabled) cboOperatingSystem.Items.Add(item);
+				}
+				if (cboOperatingSystem.SelectedIndex == -1 && cboOperatingSystem.Items.Count > 0) cboOperatingSystem.SelectedIndex = 0;
+			}
+		}
+
+		private void cboOperatingSystem_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			BootstrapOperatingSystem item = (cboOperatingSystem.SelectedItem as BootstrapOperatingSystem);
+			if (item != null)
+			{
+				txtWindowTitle.Text = item.WindowTitle;
+				txtWindowMessage.Text = item.WindowMessage;
+				txtTemporaryDirectorySize.Value = item.TemporaryDirectorySize;
+				txtTemporaryDirectoryName.Text = item.TemporaryDirectoryName;
+				txtCommandLine.Text = item.CommandLine;
+				txtWindowClassName.Text = item.WindowClassName;
+
+				chkRequire31.Checked = item.Require31Enabled;
+				txtRequire31.ReadOnly = !item.Require31Enabled;
+				txtRequire31.Text = item.Require31Message;
+				lblRequire31.Enabled = item.Require31Enabled;
+			}
 		}
 	}
 }

@@ -12,6 +12,7 @@ namespace UniversalEditor.Dialogs.Setup.Microsoft.ACME.BootstrapScript
 		public BootstrapFilePropertiesDialogImpl()
 		{
 			InitializeComponent();
+			Font = SystemFonts.MenuFont;
 		}
 
 		private void cmdBrowseSourceFileName_Click(object sender, EventArgs e)

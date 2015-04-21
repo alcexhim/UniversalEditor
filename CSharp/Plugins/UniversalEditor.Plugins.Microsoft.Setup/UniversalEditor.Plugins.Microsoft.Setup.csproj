@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="DataFormats\Setup\Microsoft\ACME\BootstrapScript\LSTDataFormat.cs" />
     <Compile Include="ObjectModels\Setup\Microsoft\ACME\BootstrapScript\BootstrapFile.cs" />
+    <Compile Include="ObjectModels\Setup\Microsoft\ACME\BootstrapScript\BootstrapOperatingSystem.cs" />
     <Compile Include="ObjectModels\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

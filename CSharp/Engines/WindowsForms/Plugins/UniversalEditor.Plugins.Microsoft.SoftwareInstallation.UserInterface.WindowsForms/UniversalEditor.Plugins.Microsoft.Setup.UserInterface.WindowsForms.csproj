@@ -43,6 +43,18 @@
     <Compile Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\BootstrapFilePropertiesDialog.Designer.cs">
       <DependentUpon>BootstrapFilePropertiesDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\ManageOperatingSystemsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\ManageOperatingSystemsDialog.Designer.cs">
+      <DependentUpon>ManageOperatingSystemsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\OperatingSystemPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\OperatingSystemPropertiesDialog.Designer.cs">
+      <DependentUpon>OperatingSystemPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -81,6 +93,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\BootstrapFilePropertiesDialog.resx">
       <DependentUpon>BootstrapFilePropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\ManageOperatingSystemsDialog.resx">
+      <DependentUpon>ManageOperatingSystemsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Setup\Microsoft\ACME\BootstrapScript\OperatingSystemPropertiesDialog.resx">
+      <DependentUpon>OperatingSystemPropertiesDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\Setup\Microsoft\ACME\BootstrapScript\BootstrapScriptEditor.resx">
       <DependentUpon>BootstrapScriptEditor.cs</DependentUpon>

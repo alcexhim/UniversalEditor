@@ -53,6 +53,9 @@
 			this.lvFiles = new System.Windows.Forms.ListView();
 			this.chSource = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chDestination = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.lblOperatingSystem = new System.Windows.Forms.Label();
+			this.cboOperatingSystem = new System.Windows.Forms.ComboBox();
+			this.cmdManageOperatingSystems = new System.Windows.Forms.Button();
 			this.fraGeneral.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtTemporaryDirectorySize)).BeginInit();
@@ -80,10 +83,10 @@
 			this.fraGeneral.Controls.Add(this.txtWindowTitle);
 			this.fraGeneral.Controls.Add(this.lblWindowTitle);
 			this.fraGeneral.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.fraGeneral.Location = new System.Drawing.Point(4, 4);
+			this.fraGeneral.Location = new System.Drawing.Point(4, 32);
 			this.fraGeneral.Name = "fraGeneral";
 			this.fraGeneral.Size = new System.Drawing.Size(479, 208);
-			this.fraGeneral.TabIndex = 0;
+			this.fraGeneral.TabIndex = 3;
 			this.fraGeneral.TabStop = false;
 			this.fraGeneral.Text = "General";
 			// 
@@ -103,7 +106,7 @@
 			this.chkRequire31.Location = new System.Drawing.Point(19, 149);
 			this.chkRequire31.Name = "chkRequire31";
 			this.chkRequire31.Size = new System.Drawing.Size(134, 18);
-			this.chkRequire31.TabIndex = 3;
+			this.chkRequire31.TabIndex = 12;
 			this.chkRequire31.Text = "&Require Windows 3.1";
 			this.chkRequire31.UseVisualStyleBackColor = true;
 			this.chkRequire31.CheckedChanged += new System.EventHandler(this.chkRequire31_CheckedChanged);
@@ -119,7 +122,7 @@
             0});
 			this.txtTemporaryDirectorySize.Name = "txtTemporaryDirectorySize";
 			this.txtTemporaryDirectorySize.Size = new System.Drawing.Size(68, 20);
-			this.txtTemporaryDirectorySize.TabIndex = 2;
+			this.txtTemporaryDirectorySize.TabIndex = 9;
 			this.txtTemporaryDirectorySize.Value = new decimal(new int[] {
             3200,
             0,
@@ -134,7 +137,7 @@
 			this.txtTemporaryDirectoryName.Location = new System.Drawing.Point(154, 96);
 			this.txtTemporaryDirectoryName.Name = "txtTemporaryDirectoryName";
 			this.txtTemporaryDirectoryName.Size = new System.Drawing.Size(209, 20);
-			this.txtTemporaryDirectoryName.TabIndex = 1;
+			this.txtTemporaryDirectoryName.TabIndex = 7;
 			this.txtTemporaryDirectoryName.Text = "~msstfqf.t";
 			this.txtTemporaryDirectoryName.Validated += new System.EventHandler(this.txtTemporaryDirectoryName_Validated);
 			// 
@@ -146,7 +149,7 @@
 			this.txtRequire31.Name = "txtRequire31";
 			this.txtRequire31.ReadOnly = true;
 			this.txtRequire31.Size = new System.Drawing.Size(319, 20);
-			this.txtRequire31.TabIndex = 1;
+			this.txtRequire31.TabIndex = 14;
 			this.txtRequire31.Text = "This application requires a newer version of Microsoft Windows.";
 			this.txtRequire31.Validated += new System.EventHandler(this.txtRequire31_Validated);
 			// 
@@ -157,7 +160,7 @@
 			this.txtCommandLine.Location = new System.Drawing.Point(154, 123);
 			this.txtCommandLine.Name = "txtCommandLine";
 			this.txtCommandLine.Size = new System.Drawing.Size(319, 20);
-			this.txtCommandLine.TabIndex = 1;
+			this.txtCommandLine.TabIndex = 11;
 			this.txtCommandLine.Text = "acmsetup /T setup.stf";
 			this.txtCommandLine.Validated += new System.EventHandler(this.txtCommandLine_Validated);
 			// 
@@ -168,7 +171,7 @@
 			this.txtWindowClassName.Location = new System.Drawing.Point(154, 71);
 			this.txtWindowClassName.Name = "txtWindowClassName";
 			this.txtWindowClassName.Size = new System.Drawing.Size(319, 20);
-			this.txtWindowClassName.TabIndex = 1;
+			this.txtWindowClassName.TabIndex = 5;
 			this.txtWindowClassName.Text = "Stuff-Shell";
 			this.txtWindowClassName.Validated += new System.EventHandler(this.txtWindowClassName_Validated);
 			// 
@@ -179,7 +182,7 @@
 			this.txtWindowMessage.Location = new System.Drawing.Point(154, 45);
 			this.txtWindowMessage.Name = "txtWindowMessage";
 			this.txtWindowMessage.Size = new System.Drawing.Size(319, 20);
-			this.txtWindowMessage.TabIndex = 1;
+			this.txtWindowMessage.TabIndex = 3;
 			this.txtWindowMessage.Text = "Initializing Setup...";
 			this.txtWindowMessage.Validated += new System.EventHandler(this.txtWindowMessage_Validated);
 			// 
@@ -191,7 +194,7 @@
 			this.lblRequire31.Location = new System.Drawing.Point(51, 175);
 			this.lblRequire31.Name = "lblRequire31";
 			this.lblRequire31.Size = new System.Drawing.Size(77, 13);
-			this.lblRequire31.TabIndex = 0;
+			this.lblRequire31.TabIndex = 13;
 			this.lblRequire31.Text = "Error &message:";
 			// 
 			// lblTemporaryDirectorySize
@@ -202,7 +205,7 @@
 			this.lblTemporaryDirectorySize.Location = new System.Drawing.Point(369, 99);
 			this.lblTemporaryDirectorySize.Name = "lblTemporaryDirectorySize";
 			this.lblTemporaryDirectorySize.Size = new System.Drawing.Size(30, 13);
-			this.lblTemporaryDirectorySize.TabIndex = 0;
+			this.lblTemporaryDirectorySize.TabIndex = 8;
 			this.lblTemporaryDirectorySize.Text = "&Size:";
 			// 
 			// lblCommandLine
@@ -212,7 +215,7 @@
 			this.lblCommandLine.Location = new System.Drawing.Point(16, 126);
 			this.lblCommandLine.Name = "lblCommandLine";
 			this.lblCommandLine.Size = new System.Drawing.Size(76, 13);
-			this.lblCommandLine.TabIndex = 0;
+			this.lblCommandLine.TabIndex = 10;
 			this.lblCommandLine.Text = "&Command line:";
 			// 
 			// lblWindowClassName
@@ -222,7 +225,7 @@
 			this.lblWindowClassName.Location = new System.Drawing.Point(16, 74);
 			this.lblWindowClassName.Name = "lblWindowClassName";
 			this.lblWindowClassName.Size = new System.Drawing.Size(105, 13);
-			this.lblWindowClassName.TabIndex = 0;
+			this.lblWindowClassName.TabIndex = 4;
 			this.lblWindowClassName.Text = "Window class &name:";
 			// 
 			// lblTemporaryDirectoryName
@@ -232,7 +235,7 @@
 			this.lblTemporaryDirectoryName.Location = new System.Drawing.Point(16, 99);
 			this.lblTemporaryDirectoryName.Name = "lblTemporaryDirectoryName";
 			this.lblTemporaryDirectoryName.Size = new System.Drawing.Size(132, 13);
-			this.lblTemporaryDirectoryName.TabIndex = 0;
+			this.lblTemporaryDirectoryName.TabIndex = 6;
 			this.lblTemporaryDirectoryName.Text = "&Temporary directory name:";
 			// 
 			// lblWindowMessage
@@ -242,8 +245,8 @@
 			this.lblWindowMessage.Location = new System.Drawing.Point(53, 48);
 			this.lblWindowMessage.Name = "lblWindowMessage";
 			this.lblWindowMessage.Size = new System.Drawing.Size(94, 13);
-			this.lblWindowMessage.TabIndex = 0;
-			this.lblWindowMessage.Text = "Window &message:";
+			this.lblWindowMessage.TabIndex = 2;
+			this.lblWindowMessage.Text = "&Window message:";
 			// 
 			// txtWindowTitle
 			// 
@@ -277,10 +280,10 @@
 			this.fraFiles.Controls.Add(this.cmdFilesAdd);
 			this.fraFiles.Controls.Add(this.lvFiles);
 			this.fraFiles.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.fraFiles.Location = new System.Drawing.Point(4, 218);
+			this.fraFiles.Location = new System.Drawing.Point(4, 246);
 			this.fraFiles.Name = "fraFiles";
-			this.fraFiles.Size = new System.Drawing.Size(473, 171);
-			this.fraFiles.TabIndex = 1;
+			this.fraFiles.Size = new System.Drawing.Size(473, 143);
+			this.fraFiles.TabIndex = 4;
 			this.fraFiles.TabStop = false;
 			this.fraFiles.Text = "Files";
 			// 
@@ -292,7 +295,7 @@
 			this.cmdFilesClear.Location = new System.Drawing.Point(392, 19);
 			this.cmdFilesClear.Name = "cmdFilesClear";
 			this.cmdFilesClear.Size = new System.Drawing.Size(75, 23);
-			this.cmdFilesClear.TabIndex = 1;
+			this.cmdFilesClear.TabIndex = 3;
 			this.cmdFilesClear.Text = "Cl&ear";
 			this.cmdFilesClear.UseVisualStyleBackColor = true;
 			this.cmdFilesClear.Click += new System.EventHandler(this.cmdFilesClear_Click);
@@ -304,7 +307,7 @@
 			this.cmdFilesRemove.Location = new System.Drawing.Point(168, 19);
 			this.cmdFilesRemove.Name = "cmdFilesRemove";
 			this.cmdFilesRemove.Size = new System.Drawing.Size(75, 23);
-			this.cmdFilesRemove.TabIndex = 1;
+			this.cmdFilesRemove.TabIndex = 2;
 			this.cmdFilesRemove.Text = "&Remove";
 			this.cmdFilesRemove.UseVisualStyleBackColor = true;
 			this.cmdFilesRemove.Click += new System.EventHandler(this.cmdFilesRemove_Click);
@@ -317,7 +320,7 @@
 			this.cmdFilesModify.Name = "cmdFilesModify";
 			this.cmdFilesModify.Size = new System.Drawing.Size(75, 23);
 			this.cmdFilesModify.TabIndex = 1;
-			this.cmdFilesModify.Text = "&Modify...";
+			this.cmdFilesModify.Text = "Mo&dify...";
 			this.cmdFilesModify.UseVisualStyleBackColor = true;
 			this.cmdFilesModify.Click += new System.EventHandler(this.cmdFilesModify_Click);
 			// 
@@ -327,7 +330,7 @@
 			this.cmdFilesAdd.Location = new System.Drawing.Point(6, 19);
 			this.cmdFilesAdd.Name = "cmdFilesAdd";
 			this.cmdFilesAdd.Size = new System.Drawing.Size(75, 23);
-			this.cmdFilesAdd.TabIndex = 1;
+			this.cmdFilesAdd.TabIndex = 0;
 			this.cmdFilesAdd.Text = "&Add...";
 			this.cmdFilesAdd.UseVisualStyleBackColor = true;
 			this.cmdFilesAdd.Click += new System.EventHandler(this.cmdFilesAdd_Click);
@@ -343,8 +346,8 @@
 			this.lvFiles.HideSelection = false;
 			this.lvFiles.Location = new System.Drawing.Point(6, 48);
 			this.lvFiles.Name = "lvFiles";
-			this.lvFiles.Size = new System.Drawing.Size(461, 117);
-			this.lvFiles.TabIndex = 0;
+			this.lvFiles.Size = new System.Drawing.Size(461, 89);
+			this.lvFiles.TabIndex = 4;
 			this.lvFiles.UseCompatibleStateImageBehavior = false;
 			this.lvFiles.View = System.Windows.Forms.View.Details;
 			this.lvFiles.ItemActivate += new System.EventHandler(this.lvFiles_ItemActivate);
@@ -360,10 +363,51 @@
 			this.chDestination.Text = "Destination";
 			this.chDestination.Width = 287;
 			// 
+			// lblOperatingSystem
+			// 
+			this.lblOperatingSystem.AutoSize = true;
+			this.lblOperatingSystem.Location = new System.Drawing.Point(7, 8);
+			this.lblOperatingSystem.Name = "lblOperatingSystem";
+			this.lblOperatingSystem.Size = new System.Drawing.Size(91, 13);
+			this.lblOperatingSystem.TabIndex = 0;
+			this.lblOperatingSystem.Text = "&Operating system:";
+			// 
+			// cboOperatingSystem
+			// 
+			this.cboOperatingSystem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cboOperatingSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboOperatingSystem.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cboOperatingSystem.FormattingEnabled = true;
+			this.cboOperatingSystem.Items.AddRange(new object[] {
+            "(Platform-Independent)",
+            "Windows 95",
+            "NT Intel"});
+			this.cboOperatingSystem.Location = new System.Drawing.Point(104, 5);
+			this.cboOperatingSystem.Name = "cboOperatingSystem";
+			this.cboOperatingSystem.Size = new System.Drawing.Size(298, 21);
+			this.cboOperatingSystem.TabIndex = 1;
+			this.cboOperatingSystem.SelectedIndexChanged += new System.EventHandler(this.cboOperatingSystem_SelectedIndexChanged);
+			// 
+			// cmdManageOperatingSystems
+			// 
+			this.cmdManageOperatingSystems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdManageOperatingSystems.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdManageOperatingSystems.Location = new System.Drawing.Point(408, 3);
+			this.cmdManageOperatingSystems.Name = "cmdManageOperatingSystems";
+			this.cmdManageOperatingSystems.Size = new System.Drawing.Size(75, 23);
+			this.cmdManageOperatingSystems.TabIndex = 2;
+			this.cmdManageOperatingSystems.Text = "Ma&nage...";
+			this.cmdManageOperatingSystems.UseVisualStyleBackColor = true;
+			this.cmdManageOperatingSystems.Click += new System.EventHandler(this.cmdManageOperatingSystems_Click);
+			// 
 			// BootstrapScriptEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.cmdManageOperatingSystems);
+			this.Controls.Add(this.cboOperatingSystem);
+			this.Controls.Add(this.lblOperatingSystem);
 			this.Controls.Add(this.fraFiles);
 			this.Controls.Add(this.fraGeneral);
 			this.MinimumSize = new System.Drawing.Size(486, 392);
@@ -375,6 +419,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtTemporaryDirectorySize)).EndInit();
 			this.fraFiles.ResumeLayout(false);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -405,5 +450,8 @@
 		private System.Windows.Forms.Button cmdFilesModify;
 		private System.Windows.Forms.Button cmdFilesAdd;
 		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Label lblOperatingSystem;
+		private System.Windows.Forms.ComboBox cboOperatingSystem;
+		private System.Windows.Forms.Button cmdManageOperatingSystems;
 	}
 }
