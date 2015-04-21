@@ -79,7 +79,6 @@
 			this.fraGeneral.Controls.Add(this.lblWindowMessage);
 			this.fraGeneral.Controls.Add(this.txtWindowTitle);
 			this.fraGeneral.Controls.Add(this.lblWindowTitle);
-			this.fraGeneral.Cursor = System.Windows.Forms.Cursors.IBeam;
 			this.fraGeneral.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.fraGeneral.Location = new System.Drawing.Point(4, 4);
 			this.fraGeneral.Name = "fraGeneral";
