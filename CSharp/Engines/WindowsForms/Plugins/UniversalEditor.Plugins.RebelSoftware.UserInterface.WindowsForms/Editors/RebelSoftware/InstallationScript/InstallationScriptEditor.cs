@@ -20,6 +20,8 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 		{
 			InitializeComponent();
 			tvExplorer.PopulateSystemIcons();
+
+			SwitchTo("Product");
 		}
 
 		private static UserInterface.EditorReference _er = null;
@@ -111,16 +113,25 @@ namespace UniversalEditor.Editors.RebelSoftware.InstallationScript
 
 		private void tvExplorer_AfterSelect(object sender, TreeViewEventArgs e)
 		{
+			if (e.Node != null)
+			{
+				SwitchTo(e.Node.Name.Substring(4));
+			}
+			else
+			{
+				SwitchTo(null);
+			}
+		}
+
+		private void SwitchTo(string name)
+		{
 			foreach (Control ctl in scMain.Panel2.Controls)
 			{
-				if (e.Node != null)
+				if (name != null && (ctl.Name.Substring(3) == name))
 				{
-					if (ctl.Name.Substring(3) == e.Node.Name.Substring(4))
-					{
-						ctl.Enabled = true;
-						ctl.Visible = true;
-						continue;
-					}
+					ctl.Enabled = true;
+					ctl.Visible = true;
+					continue;
 				}
 
 				ctl.Visible = false;
