@@ -50,6 +50,8 @@ namespace UniversalEditor.Dialogs.Setup.Microsoft.ACME.BootstrapScript
 				lvi.Tag = item;
 				lv.Items.Add(lvi);
 			}
+
+			RefreshButtons();
 		}
 
 		private void cmdAdd_Click(object sender, EventArgs e)
@@ -109,6 +111,19 @@ namespace UniversalEditor.Dialogs.Setup.Microsoft.ACME.BootstrapScript
 			}
 
 			lv.Items.Clear();
+
+			mvarOperatingSystems.Clear();
+			mvarOperatingSystems.Add(BootstrapOperatingSystem.PlatformIndependent);
+
+			foreach (BootstrapOperatingSystem item in mvarOperatingSystems)
+			{
+				ListViewItem lvi = new ListViewItem();
+				lvi.Checked = item.Enabled;
+				lvi.Text = item.Name;
+				lvi.Tag = item;
+				lv.Items.Add(lvi);
+			}
+
 			RefreshButtons();
 		}
 
