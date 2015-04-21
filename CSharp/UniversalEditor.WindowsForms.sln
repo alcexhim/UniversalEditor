@@ -21,11 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Mul
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{46041F27-7C1C-4209-B72B-251EDB5D4C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeControls", "..\AwesomeControls\AwesomeControls\AwesomeControls.csproj", "{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeControls", "..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj", "{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.UserInterface", "Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj", "{8622EBC4-8E20-476E-B284-33D472081F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glue", "..\Glue\Glue\Glue.csproj", "{FE016EA3-DC31-4A92-8B0A-8C746EC117E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glue", "..\..\Glue\Glue\Glue.csproj", "{FE016EA3-DC31-4A92-8B0A-8C746EC117E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Multimedia.Binders.GdiPlus", "Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj", "{369CFD53-3E65-4A9E-8BDD-4CCD78BF3E33}"
 EndProject
@@ -79,13 +79,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Cyb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.ReflexiveEntertainment", "Plugins\UniversalEditor.Plugins.ReflexiveEntertainment\UniversalEditor.Plugins.ReflexiveEntertainment.csproj", "{BED1EEAF-9ADD-46F6-92D0-53957858E25B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surodoine", "..\Surodoine\Surodoine\Surodoine.csproj", "{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surodoine", "..\..\Surodoine\Surodoine\Surodoine.csproj", "{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Microsoft.Merlin", "Plugins\UniversalEditor.Plugins.Microsoft.Merlin\UniversalEditor.Plugins.Microsoft.Merlin.csproj", "{9F1FDC26-5F1C-4C2A-BBBF-3A597A72802D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Microsoft.VisualStudio", "Plugins\UniversalEditor.Plugins.Microsoft.VisualStudio\UniversalEditor.Plugins.Microsoft.VisualStudio.csproj", "{E6C9A73D-4556-4220-9BC7-302A7EE64C1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanjigen", "..\Sanjigen\Sanjigen\Sanjigen.csproj", "{ED627DF7-3E78-4428-AB31-810BA1586E62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanjigen", "..\..\Sanjigen\Sanjigen\Sanjigen.csproj", "{ED627DF7-3E78-4428-AB31-810BA1586E62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.UnrealEngine", "Plugins\UniversalEditor.Plugins.UnrealEngine\UniversalEditor.Plugins.UnrealEngine.csproj", "{DF96F24E-FED9-4BAC-8389-63590125DC61}"
 EndProject
