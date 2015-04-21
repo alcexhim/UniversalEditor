@@ -100,9 +100,10 @@
 			// chkRequire31
 			// 
 			this.chkRequire31.AutoSize = true;
+			this.chkRequire31.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.chkRequire31.Location = new System.Drawing.Point(19, 149);
 			this.chkRequire31.Name = "chkRequire31";
-			this.chkRequire31.Size = new System.Drawing.Size(128, 17);
+			this.chkRequire31.Size = new System.Drawing.Size(134, 18);
 			this.chkRequire31.TabIndex = 3;
 			this.chkRequire31.Text = "&Require Windows 3.1";
 			this.chkRequire31.UseVisualStyleBackColor = true;
@@ -186,6 +187,7 @@
 			// lblRequire31
 			// 
 			this.lblRequire31.AutoSize = true;
+			this.lblRequire31.Enabled = false;
 			this.lblRequire31.Location = new System.Drawing.Point(51, 175);
 			this.lblRequire31.Name = "lblRequire31";
 			this.lblRequire31.Size = new System.Drawing.Size(77, 13);

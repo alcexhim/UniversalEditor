@@ -34,6 +34,7 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 		private void chkRequire31_CheckedChanged(object sender, EventArgs e)
 		{
 			txtRequire31.ReadOnly = !chkRequire31.Checked;
+			lblRequire31.Enabled = chkRequire31.Checked;
 
 			BootstrapScriptObjectModel script = (ObjectModel as BootstrapScriptObjectModel);
 			if (script == null) return;
@@ -56,8 +57,11 @@ namespace UniversalEditor.Editors.Setup.Microsoft.ACME.BootstrapScript
 			txtTemporaryDirectoryName.Text = script.TemporaryDirectoryName;
 			txtCommandLine.Text = script.CommandLine;
 			txtWindowClassName.Text = script.WindowClassName;
-			chkRequire31.Enabled = script.Require31Enabled;
+			
+			chkRequire31.Checked = script.Require31Enabled;
+			txtRequire31.ReadOnly = !script.Require31Enabled;
 			txtRequire31.Text = script.Require31Message;
+			lblRequire31.Enabled = script.Require31Enabled;
 		}
 
 		private void txtWindowTitle_TextChanged(object sender, EventArgs e)
