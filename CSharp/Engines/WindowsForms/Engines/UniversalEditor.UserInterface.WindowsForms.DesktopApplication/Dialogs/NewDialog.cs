@@ -90,53 +90,65 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 					}
 
 					ProjectTemplate template = (lvProjectTemplates.SelectedItems[0].Data as ProjectTemplate);
-					if (template.ProjectType.Variables.Count > 0)
+					if (template.ProjectType != null)
 					{
-						CustomOption.CustomOptionCollection coll = new CustomOption.CustomOptionCollection();
-						foreach (ProjectTypeVariable ptv in template.ProjectType.Variables)
+						if (template.ProjectType.Variables.Count > 0)
 						{
-							switch (ptv.Type)
+							CustomOption.CustomOptionCollection coll = new CustomOption.CustomOptionCollection();
+							foreach (ProjectTypeVariable ptv in template.ProjectType.Variables)
 							{
-								case ProjectTypeVariableType.Choice:
+								switch (ptv.Type)
 								{
-									List<CustomOptionFieldChoice> choices = new List<CustomOptionFieldChoice>();
-									foreach (KeyValuePair<string, object> kvp in ptv.ValidValues)
-									{
-										choices.Add(new CustomOptionFieldChoice(kvp.Key, kvp.Value, kvp.Value == ptv.DefaultValue));
-									}
+									case ProjectTypeVariableType.Choice:
+										{
+											List<CustomOptionFieldChoice> choices = new List<CustomOptionFieldChoice>();
+											foreach (KeyValuePair<string, object> kvp in ptv.ValidValues)
+											{
+												choices.Add(new CustomOptionFieldChoice(kvp.Key, kvp.Value, kvp.Value == ptv.DefaultValue));
+											}
 
-									CustomOptionChoice co = new CustomOptionChoice(ptv.Name, ptv.Title, true, choices.ToArray());
-									coll.Add(co);
-									break;
-								}
-								case ProjectTypeVariableType.FileOpen:
-								{
-									CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
-									co.DialogMode = CustomOptionFileDialogMode.Open;
-									coll.Add(co);
-									break;
-								}
-								case ProjectTypeVariableType.FileSave:
-								{
-									CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
-									co.DialogMode = CustomOptionFileDialogMode.Save;
-									coll.Add(co);
-									break;
+											CustomOptionChoice co = new CustomOptionChoice(ptv.Name, ptv.Title, true, choices.ToArray());
+											coll.Add(co);
+											break;
+										}
+									case ProjectTypeVariableType.FileOpen:
+										{
+											CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
+											co.DialogMode = CustomOptionFileDialogMode.Open;
+											coll.Add(co);
+											break;
+										}
+									case ProjectTypeVariableType.FileSave:
+										{
+											CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
+											co.DialogMode = CustomOptionFileDialogMode.Save;
+											coll.Add(co);
+											break;
+										}
 								}
 							}
-						}
 
-						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref coll, template.ProjectType.Title + " properties"))
+							if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref coll, template.ProjectType.Title + " properties"))
+							{
+								return;
+							}
+
+							foreach (CustomOption co in coll)
+							{
+								// template.ProjectType.Variables[co.PropertyName].Value = co.GetValue().ToString();
+								// TODO: Figure out how to assign variable values to the newly
+								// created project from the template
+							}
+						}
+					}
+					else
+					{
+#if DEBUG
+						if (MessageBox.Show("The specified template does not have a ProjectType set! This may cause problems with certain features that expect a ProjectType.\r\n\r\nIt is recommended that you specify a ProjectType for all project templates.\r\n\r\nYou are using the Debug build of Universal Editor. This message will not be shown in the Release build. Please fix this issue before release to ensure there are no unexpected problems in the future.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Cancel)
 						{
 							return;
 						}
-
-						foreach (CustomOption co in coll)
-						{
-							// template.ProjectType.Variables[co.PropertyName].Value = co.GetValue().ToString();
-							// TODO: Figure out how to assign variable values to the newly
-							// created project from the template
-						}
+#endif
 					}
 					mvarSelectedItem = template;
 					break;
