@@ -7,6 +7,22 @@ namespace UniversalEditor.ObjectModels.RebelSoftware.InstallationScript
 {
 	public class InstallationScriptObjectModel : ObjectModel
 	{
+		private static ObjectModelReference _omr = null;
+		protected override ObjectModelReference MakeReferenceInternal()
+		{
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Title = "Installation Script";
+				_omr.Path = new string[]
+				{
+					"Setup",
+					"Rebel Software"
+				};
+			}
+			return _omr;
+		}
+
 		private string mvarProductName = String.Empty;
 		public string ProductName { get { return mvarProductName; } set { mvarProductName = value; } }
 
