@@ -211,11 +211,18 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			set
 			{
 				ObjectModelChangingEventArgs omce = new ObjectModelChangingEventArgs(mvarObjectModel, value);
+
+				BeginUpdate();
 				OnObjectModelChanging(omce);
+				EndUpdate();
+
 				if (omce.Cancel) return;
 
 				mvarObjectModel = omce.NewObjectModel;
+				
+				BeginUpdate();
 				OnObjectModelChanged(EventArgs.Empty);
+				EndUpdate();
 			}
 		}
 		#endregion
@@ -266,9 +273,22 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 
 		private int mvarEditing = 0;
+		private int mvarUpdating = 0;
+
+		protected void BeginUpdate()
+		{
+			mvarUpdating++;
+		}
+		protected void EndUpdate()
+		{
+			if (mvarUpdating == 0) return;
+			mvarUpdating--;
+		}
 
 		protected void BeginEdit()
 		{
+			if (mvarUpdating > 0) return;
+
 			if (mvarEditing > 0)
 			{
 				mvarEditing++;
@@ -326,6 +346,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		}
 		protected void EndEdit()
 		{
+			if (mvarUpdating > 0) return;
+
 			if (mvarEditing == 0) return; // throw new InvalidOperationException();
 			if (mvarEditing > 1)
 			{
