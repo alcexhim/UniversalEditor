@@ -82,7 +82,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 			if (mvarMode == DocumentPropertiesDialogMode.Save)
 			{
 				// show all dataformats for the current object model
-				omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarDataFormat.MakeReference());
+				if (mvarDataFormat == null)
+				{
+					omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+				}
+				else
+				{
+					omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarDataFormat.MakeReference());
+				}
 			}
 			else if (mvarMode == DocumentPropertiesDialogMode.Open)
 			{
