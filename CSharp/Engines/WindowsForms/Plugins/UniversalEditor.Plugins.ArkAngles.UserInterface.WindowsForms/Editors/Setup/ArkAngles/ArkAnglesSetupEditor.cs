@@ -8,10 +8,25 @@ using System.Windows.Forms;
 using UniversalEditor.ObjectModels.Setup.ArkAngles;
 using UniversalEditor.ObjectModels.Setup.ArkAngles.Actions;
 
+using UniversalEditor.UserInterface;
+using UniversalEditor.UserInterface.WindowsForms;
+
 namespace UniversalEditor.Editors.Setup.ArkAngles
 {
-	public partial class ArkAnglesSetupEditor : UserControl
+	public partial class ArkAnglesSetupEditor : Editor
 	{
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference()
+		{
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.Title = "Ark Angles Setup editor";
+				_er.SupportedObjectModels.Add(typeof(SetupObjectModel));
+			}
+			return _er;
+		}
+
 		public ArkAnglesSetupEditor()
 		{
 			InitializeComponent();
