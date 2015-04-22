@@ -35,6 +35,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFormats\Setup\ArkAngles\SETDataFormat.cs" />
+    <Compile Include="ObjectModels\Setup\ArkAngles\Action.cs" />
+    <Compile Include="ObjectModels\Setup\ArkAngles\Actions\FileAction.cs" />
+    <Compile Include="ObjectModels\Setup\ArkAngles\Actions\FontAction.cs" />
+    <Compile Include="ObjectModels\Setup\ArkAngles\Actions\ProgramGroupAction.cs" />
+    <Compile Include="ObjectModels\Setup\ArkAngles\Actions\PromptAction.cs" />
+    <Compile Include="ObjectModels\Setup\ArkAngles\AutoStartCommand.cs" />
+    <Compile Include="ObjectModels\Setup\ArkAngles\ProgramGroupShortcut.cs" />
     <Compile Include="ObjectModels\Setup\ArkAngles\SetupObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -47,10 +54,12 @@
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{be4d0ba3-0888-42a5-9c09-fc308a4509d2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ObjectModels\Setup\ArkAngles\Actions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
