@@ -121,9 +121,12 @@ namespace UniversalEditor
 		private static Color m_Red = Color.FromRGBA(255, 0, 0);
 		public static Color Red { get { return m_Red; } }
 		private static Color m_Green = Color.FromRGBA(0, 255, 0);
-		public static Color Green { get { return m_Green; } set { m_Green = value; } }
+		public static Color Green { get { return m_Green; } }
 		private static Color m_Blue = Color.FromRGBA(0, 0, 255);
-		public static Color Blue { get { return m_Blue; } set { m_Blue = value; } }
+		public static Color Blue { get { return m_Blue; } }
+
+		private static Color m_Cyan = Color.FromRGBA(0, 255, 255);
+		public static Color Cyan { get { return m_Cyan; } }
 
 		private static Color m_LightGreen = Color.FromRGBA(144, 238, 144);
 		public static Color LightGreen { get { return m_LightGreen; } }
