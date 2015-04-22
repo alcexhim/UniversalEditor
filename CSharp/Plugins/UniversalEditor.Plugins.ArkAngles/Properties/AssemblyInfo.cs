@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UniversalEditor.Plugins.ArkAngles")]
+[assembly: AssemblyTitle("Ark Angles plugin for Universal Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("UniversalEditor.Plugins.ArkAngles")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCompany("Mike Becker's Software")]
+[assembly: AssemblyProduct("Universal Editor Plugin Pack")]
+[assembly: AssemblyCopyright("Copyright ©2015 Mike Becker's Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
