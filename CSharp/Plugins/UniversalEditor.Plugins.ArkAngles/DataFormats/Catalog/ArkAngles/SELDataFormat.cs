@@ -15,6 +15,7 @@ namespace UniversalEditor.DataFormats.Catalog.ArkAngles
 			if (_dfr == null)
 			{
 				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(CatalogObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;
 		}
@@ -132,9 +133,36 @@ namespace UniversalEditor.DataFormats.Catalog.ArkAngles
 
 			Writer writer = base.Accessor.Writer;
 
-			foreach (Category category in catalog.Categories)
+			foreach (Category item in catalog.Categories)
 			{
-				writer.WriteLine("CATEGORY " + category.Title);
+				writer.WriteLine("CATEGORY " + item.Title);
+			}
+			writer.WriteLine();
+			foreach (Platform item in catalog.Platforms)
+			{
+				writer.WriteLine("PLATFORM " + item.Title);
+			}
+			writer.WriteLine();
+			foreach (Listing item in catalog.Listings)
+			{
+				writer.WriteLine("LISTING " + item.Title);
+			}
+			writer.WriteLine();
+			foreach (Product item in catalog.Products)
+			{
+				StringBuilder sbKeywords = new StringBuilder();
+				foreach (string item1 in item.Keywords)
+				{
+					sbKeywords.Append(item1);
+					if (item.Keywords.IndexOf(item1) < item.Keywords.Count - 1) sbKeywords.Append(" ");
+				}
+				StringBuilder sbFileNames = new StringBuilder();
+				foreach (string item1 in item.AssociatedFiles)
+				{
+					sbFileNames.Append(item1);
+					if (item.AssociatedFiles.IndexOf(item1) < item.AssociatedFiles.Count - 1) sbFileNames.Append(" ");
+				}
+				writer.WriteLine("PRODUCT " + item.Title + "," + (item.Category == null ? String.Empty : item.Category.Title) + "," + (item.Platform == null ? String.Empty : item.Platform.Title) + "," + (item.Listing == null ? String.Empty : item.Listing.Title) + "," + sbKeywords.ToString() + "," + sbFileNames.ToString());
 			}
 		}
 	}

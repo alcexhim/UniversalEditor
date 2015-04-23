@@ -39,6 +39,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\Catalog\ArkAngles\AttachmentPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\AttachmentPropertiesDialog.Designer.cs">
+      <DependentUpon>AttachmentPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\KeywordPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\KeywordPropertiesDialog.Designer.cs">
+      <DependentUpon>KeywordPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\CategoryPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\CategoryPropertiesDialog.Designer.cs">
+      <DependentUpon>CategoryPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\PlatformPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\PlatformPropertiesDialog.Designer.cs">
+      <DependentUpon>PlatformPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\ListingPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Catalog\ArkAngles\ListingPropertiesDialog.Designer.cs">
+      <DependentUpon>ListingPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\Catalog\ArkAngles\ProductPropertiesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +95,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dialogs\Catalog\ArkAngles\AttachmentPropertiesDialog.resx">
+      <DependentUpon>AttachmentPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Catalog\ArkAngles\KeywordPropertiesDialog.resx">
+      <DependentUpon>KeywordPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Catalog\ArkAngles\CategoryPropertiesDialog.resx">
+      <DependentUpon>CategoryPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Catalog\ArkAngles\PlatformPropertiesDialog.resx">
+      <DependentUpon>PlatformPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Catalog\ArkAngles\ListingPropertiesDialog.resx">
+      <DependentUpon>ListingPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Catalog\ArkAngles\ProductPropertiesDialog.resx">
       <DependentUpon>ProductPropertiesDialog.cs</DependentUpon>
     </EmbeddedResource>

@@ -27,9 +27,10 @@ namespace UniversalEditor.ObjectModels.Catalog.ArkAngles
 			}
 			protected override void InsertItem(int index, Platform item)
 			{
-				if (!(index < Count && index >= 0)) return;
-
-				itemsByName.Remove(this[index].Title);
+				if (index >= 0 && index < Count)
+				{
+					itemsByName.Remove(this[index].Title);
+				}
 				base.InsertItem(index, item);
 				itemsByName.Add(item.Title, item);
 			}
@@ -40,9 +41,10 @@ namespace UniversalEditor.ObjectModels.Catalog.ArkAngles
 			}
 			protected override void SetItem(int index, Platform item)
 			{
-				if (index > this.Count - 1 || index < 0) return;
-
-				itemsByName.Remove(this[index].Title);
+				if (index >= 0 && index < Count)
+				{
+					itemsByName.Remove(this[index].Title);
+				}
 				base.SetItem(index, item);
 				itemsByName.Add(item.Title, item);
 			}
@@ -76,6 +78,10 @@ namespace UniversalEditor.ObjectModels.Catalog.ArkAngles
 			Platform clone = new Platform();
 			clone.Title = (mvarTitle.Clone() as string);
 			return clone;
+		}
+		public override string ToString()
+		{
+			return mvarTitle;
 		}
 	}
 }

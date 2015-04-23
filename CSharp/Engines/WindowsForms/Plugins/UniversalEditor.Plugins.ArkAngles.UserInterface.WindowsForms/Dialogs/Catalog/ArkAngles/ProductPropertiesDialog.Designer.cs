@@ -45,12 +45,12 @@
 			this.lvKeywords = new System.Windows.Forms.ListView();
 			this.chKeyword = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.fraFiles = new System.Windows.Forms.GroupBox();
-			this.button4 = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
+			this.cmdFileClear = new System.Windows.Forms.Button();
+			this.cmdFileAdd = new System.Windows.Forms.Button();
+			this.cmdFileRemove = new System.Windows.Forms.Button();
 			this.lvFiles = new System.Windows.Forms.ListView();
 			this.chFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.button2 = new System.Windows.Forms.Button();
+			this.cmdFileModify = new System.Windows.Forms.Button();
 			this.cmdCancel = new System.Windows.Forms.Button();
 			this.cmdOK = new System.Windows.Forms.Button();
 			this.tblKeywordsFiles.SuspendLayout();
@@ -187,6 +187,7 @@
 			this.cmdKeywordClear.TabIndex = 3;
 			this.cmdKeywordClear.Text = "Cl&ear";
 			this.cmdKeywordClear.UseVisualStyleBackColor = true;
+			this.cmdKeywordClear.Click += new System.EventHandler(this.cmdKeywordClear_Click);
 			// 
 			// cmdKeywordRemove
 			// 
@@ -198,6 +199,7 @@
 			this.cmdKeywordRemove.TabIndex = 2;
 			this.cmdKeywordRemove.Text = "&Remove";
 			this.cmdKeywordRemove.UseVisualStyleBackColor = true;
+			this.cmdKeywordRemove.Click += new System.EventHandler(this.cmdKeywordRemove_Click);
 			// 
 			// cmdKeywordModify
 			// 
@@ -209,6 +211,7 @@
 			this.cmdKeywordModify.TabIndex = 1;
 			this.cmdKeywordModify.Text = "&Modify...";
 			this.cmdKeywordModify.UseVisualStyleBackColor = true;
+			this.cmdKeywordModify.Click += new System.EventHandler(this.cmdKeywordModify_Click);
 			// 
 			// cmdKeywordAdd
 			// 
@@ -219,6 +222,7 @@
 			this.cmdKeywordAdd.TabIndex = 0;
 			this.cmdKeywordAdd.Text = "&Add...";
 			this.cmdKeywordAdd.UseVisualStyleBackColor = true;
+			this.cmdKeywordAdd.Click += new System.EventHandler(this.cmdKeywordAdd_Click);
 			// 
 			// lvKeywords
 			// 
@@ -236,6 +240,8 @@
 			this.lvKeywords.TabIndex = 4;
 			this.lvKeywords.UseCompatibleStateImageBehavior = false;
 			this.lvKeywords.View = System.Windows.Forms.View.Details;
+			this.lvKeywords.ItemActivate += new System.EventHandler(this.lvKeywords_ItemActivate);
+			this.lvKeywords.SelectedIndexChanged += new System.EventHandler(this.lvKeywords_SelectedIndexChanged);
 			// 
 			// chKeyword
 			// 
@@ -244,11 +250,11 @@
 			// 
 			// fraFiles
 			// 
-			this.fraFiles.Controls.Add(this.button4);
-			this.fraFiles.Controls.Add(this.button1);
-			this.fraFiles.Controls.Add(this.button3);
+			this.fraFiles.Controls.Add(this.cmdFileClear);
+			this.fraFiles.Controls.Add(this.cmdFileAdd);
+			this.fraFiles.Controls.Add(this.cmdFileRemove);
 			this.fraFiles.Controls.Add(this.lvFiles);
-			this.fraFiles.Controls.Add(this.button2);
+			this.fraFiles.Controls.Add(this.cmdFileModify);
 			this.fraFiles.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.fraFiles.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.fraFiles.Location = new System.Drawing.Point(340, 3);
@@ -258,40 +264,43 @@
 			this.fraFiles.TabStop = false;
 			this.fraFiles.Text = "Files";
 			// 
-			// button4
+			// cmdFileClear
 			// 
-			this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button4.Enabled = false;
-			this.button4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button4.Location = new System.Drawing.Point(250, 19);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(75, 23);
-			this.button4.TabIndex = 3;
-			this.button4.Text = "Cl&ear";
-			this.button4.UseVisualStyleBackColor = true;
+			this.cmdFileClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdFileClear.Enabled = false;
+			this.cmdFileClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdFileClear.Location = new System.Drawing.Point(250, 19);
+			this.cmdFileClear.Name = "cmdFileClear";
+			this.cmdFileClear.Size = new System.Drawing.Size(75, 23);
+			this.cmdFileClear.TabIndex = 3;
+			this.cmdFileClear.Text = "Cl&ear";
+			this.cmdFileClear.UseVisualStyleBackColor = true;
+			this.cmdFileClear.Click += new System.EventHandler(this.cmdFileClear_Click);
 			// 
-			// button1
+			// cmdFileAdd
 			// 
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button1.Location = new System.Drawing.Point(6, 19);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "&Add...";
-			this.button1.UseVisualStyleBackColor = true;
+			this.cmdFileAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdFileAdd.Location = new System.Drawing.Point(6, 19);
+			this.cmdFileAdd.Name = "cmdFileAdd";
+			this.cmdFileAdd.Size = new System.Drawing.Size(75, 23);
+			this.cmdFileAdd.TabIndex = 0;
+			this.cmdFileAdd.Text = "&Add...";
+			this.cmdFileAdd.UseVisualStyleBackColor = true;
+			this.cmdFileAdd.Click += new System.EventHandler(this.cmdFileAdd_Click);
 			// 
-			// button3
+			// cmdFileRemove
 			// 
-			this.button3.Enabled = false;
-			this.button3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button3.Location = new System.Drawing.Point(168, 19);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(75, 23);
-			this.button3.TabIndex = 2;
-			this.button3.Text = "&Remove";
-			this.button3.UseVisualStyleBackColor = true;
+			this.cmdFileRemove.Enabled = false;
+			this.cmdFileRemove.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdFileRemove.Location = new System.Drawing.Point(168, 19);
+			this.cmdFileRemove.Name = "cmdFileRemove";
+			this.cmdFileRemove.Size = new System.Drawing.Size(75, 23);
+			this.cmdFileRemove.TabIndex = 2;
+			this.cmdFileRemove.Text = "&Remove";
+			this.cmdFileRemove.UseVisualStyleBackColor = true;
+			this.cmdFileRemove.Click += new System.EventHandler(this.cmdFileRemove_Click);
 			// 
-			// listView1
+			// lvFiles
 			// 
 			this.lvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -302,27 +311,30 @@
 			this.lvFiles.GridLines = true;
 			this.lvFiles.HideSelection = false;
 			this.lvFiles.Location = new System.Drawing.Point(6, 48);
-			this.lvFiles.Name = "listView1";
+			this.lvFiles.Name = "lvFiles";
 			this.lvFiles.Size = new System.Drawing.Size(319, 109);
 			this.lvFiles.TabIndex = 4;
 			this.lvFiles.UseCompatibleStateImageBehavior = false;
 			this.lvFiles.View = System.Windows.Forms.View.Details;
+			this.lvFiles.ItemActivate += new System.EventHandler(this.lvFiles_ItemActivate);
+			this.lvFiles.SelectedIndexChanged += new System.EventHandler(this.lvFiles_SelectedIndexChanged);
 			// 
 			// chFileName
 			// 
 			this.chFileName.Text = "File name";
 			this.chFileName.Width = 309;
 			// 
-			// button2
+			// cmdFileModify
 			// 
-			this.button2.Enabled = false;
-			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button2.Location = new System.Drawing.Point(87, 19);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(75, 23);
-			this.button2.TabIndex = 1;
-			this.button2.Text = "&Modify...";
-			this.button2.UseVisualStyleBackColor = true;
+			this.cmdFileModify.Enabled = false;
+			this.cmdFileModify.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdFileModify.Location = new System.Drawing.Point(87, 19);
+			this.cmdFileModify.Name = "cmdFileModify";
+			this.cmdFileModify.Size = new System.Drawing.Size(75, 23);
+			this.cmdFileModify.TabIndex = 1;
+			this.cmdFileModify.Text = "&Modify...";
+			this.cmdFileModify.UseVisualStyleBackColor = true;
+			this.cmdFileModify.Click += new System.EventHandler(this.cmdFileModify_Click);
 			// 
 			// cmdCancel
 			// 
@@ -355,7 +367,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cmdCancel;
-			this.ClientSize = new System.Drawing.Size(698, 330);
+			this.ClientSize = new System.Drawing.Size(698, 331);
 			this.Controls.Add(this.cmdOK);
 			this.Controls.Add(this.cmdCancel);
 			this.Controls.Add(this.tblKeywordsFiles);
@@ -399,11 +411,11 @@
 		private System.Windows.Forms.Button cmdKeywordClear;
 		private System.Windows.Forms.Button cmdKeywordRemove;
 		private System.Windows.Forms.Button cmdKeywordModify;
-		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button cmdFileClear;
+		private System.Windows.Forms.Button cmdFileAdd;
+		private System.Windows.Forms.Button cmdFileRemove;
 		internal System.Windows.Forms.ListView lvFiles;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button cmdFileModify;
 		private System.Windows.Forms.ColumnHeader chKeyword;
 		private System.Windows.Forms.ColumnHeader chFileName;
 	}
