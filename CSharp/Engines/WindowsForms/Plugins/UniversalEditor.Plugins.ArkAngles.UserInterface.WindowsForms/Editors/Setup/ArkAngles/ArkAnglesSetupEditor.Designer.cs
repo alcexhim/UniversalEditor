@@ -28,6 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
+			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Installation");
 			this.lblProductTitle = new System.Windows.Forms.Label();
 			this.txtHeaderText = new System.Windows.Forms.TextBox();
 			this.lblFooterText = new System.Windows.Forms.Label();
@@ -47,34 +49,37 @@
 			this.pnlUninstallation = new System.Windows.Forms.Panel();
 			this.chkRestart = new System.Windows.Forms.CheckBox();
 			this.fraAutomatedActions = new System.Windows.Forms.GroupBox();
-			this.lvPostInstallActions = new System.Windows.Forms.ListView();
-			this.cmdPostInstallActionMoveUp = new System.Windows.Forms.Button();
 			this.cmdPostInstallActionMoveDown = new System.Windows.Forms.Button();
+			this.cmdPostInstallActionMoveUp = new System.Windows.Forms.Button();
+			this.lvPostInstallActions = new System.Windows.Forms.ListView();
 			this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.fraAppearance = new System.Windows.Forms.GroupBox();
-			this.lblAppearanceBackground = new System.Windows.Forms.Label();
-			this.cmdAppearanceBackgroundTop = new System.Windows.Forms.Button();
-			this.cmdAppearanceBackgroundBottom = new System.Windows.Forms.Button();
-			this.lblAppearanceBackgroundTop = new System.Windows.Forms.Label();
-			this.lblAppearanceBackgroundBottom = new System.Windows.Forms.Label();
-			this.lblAppearanceTitle = new System.Windows.Forms.Label();
-			this.cmdAppearanceTitleForeground = new System.Windows.Forms.Button();
-			this.cmdAppearanceTitleBackground = new System.Windows.Forms.Button();
-			this.lblAppearanceTitleForeground = new System.Windows.Forms.Label();
-			this.lblAppearanceTitleBackground = new System.Windows.Forms.Label();
-			this.fraGeneral = new System.Windows.Forms.GroupBox();
-			this.lblAppearanceTitleShadowOffset = new System.Windows.Forms.Label();
-			this.txtAppearanceTitleShadowOffset = new System.Windows.Forms.NumericUpDown();
-			this.cmdAppearanceFooter = new System.Windows.Forms.Button();
-			this.cmdAppearanceButtonLabel = new System.Windows.Forms.Button();
-			this.lblAppearanceFooter = new System.Windows.Forms.Label();
 			this.lblAppearanceButtonLabel = new System.Windows.Forms.Label();
-			this.pnlInstallation = new System.Windows.Forms.Panel();
-			this.panel3 = new System.Windows.Forms.Panel();
-			this.label1 = new System.Windows.Forms.Label();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.label6 = new System.Windows.Forms.Label();
+			this.lblAppearanceTitleBackground = new System.Windows.Forms.Label();
+			this.lblAppearanceBackgroundBottom = new System.Windows.Forms.Label();
+			this.lblAppearanceFooter = new System.Windows.Forms.Label();
+			this.lblAppearanceTitleForeground = new System.Windows.Forms.Label();
+			this.lblAppearanceBackgroundTop = new System.Windows.Forms.Label();
+			this.cmdAppearanceButtonLabel = new System.Windows.Forms.Button();
+			this.cmdAppearanceTitleBackground = new System.Windows.Forms.Button();
+			this.cmdAppearanceBackgroundBottom = new System.Windows.Forms.Button();
+			this.cmdAppearanceFooter = new System.Windows.Forms.Button();
+			this.cmdAppearanceTitleForeground = new System.Windows.Forms.Button();
+			this.lblAppearanceTitleShadowOffset = new System.Windows.Forms.Label();
 			this.lblAppearanceOther = new System.Windows.Forms.Label();
+			this.lblAppearanceTitle = new System.Windows.Forms.Label();
+			this.txtAppearanceTitleShadowOffset = new System.Windows.Forms.NumericUpDown();
+			this.cmdAppearanceBackgroundTop = new System.Windows.Forms.Button();
+			this.lblAppearanceBackground = new System.Windows.Forms.Label();
+			this.fraGeneral = new System.Windows.Forms.GroupBox();
+			this.scMain = new System.Windows.Forms.SplitContainer();
+			this.tv = new System.Windows.Forms.TreeView();
+			this.pnlGeneral = new System.Windows.Forms.Panel();
+			this.pnlInstallation = new System.Windows.Forms.Panel();
+			this.fraInstallationProcess = new System.Windows.Forms.GroupBox();
+			this.lvActions = new System.Windows.Forms.ListView();
+			this.chActionName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.chActionParameters = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
 			this.pnlUninstallationTitle.SuspendLayout();
@@ -82,11 +87,14 @@
 			this.pnlUninstallation.SuspendLayout();
 			this.fraAutomatedActions.SuspendLayout();
 			this.fraAppearance.SuspendLayout();
-			this.fraGeneral.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtAppearanceTitleShadowOffset)).BeginInit();
+			this.fraGeneral.SuspendLayout();
+			this.scMain.Panel1.SuspendLayout();
+			this.scMain.Panel2.SuspendLayout();
+			this.scMain.SuspendLayout();
+			this.pnlGeneral.SuspendLayout();
 			this.pnlInstallation.SuspendLayout();
-			this.panel3.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.fraInstallationProcess.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblProductTitle
@@ -105,7 +113,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtHeaderText.Location = new System.Drawing.Point(77, 19);
 			this.txtHeaderText.Name = "txtHeaderText";
-			this.txtHeaderText.Size = new System.Drawing.Size(360, 20);
+			this.txtHeaderText.Size = new System.Drawing.Size(169, 20);
 			this.txtHeaderText.TabIndex = 2;
 			this.txtHeaderText.Text = "Your Application Setup";
 			// 
@@ -125,7 +133,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox2.Location = new System.Drawing.Point(77, 45);
 			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(360, 20);
+			this.textBox2.Size = new System.Drawing.Size(169, 20);
 			this.textBox2.TabIndex = 2;
 			this.textBox2.Text = "Copyright ©2015 Your Company Name";
 			// 
@@ -134,7 +142,7 @@
 			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label2.AutoSize = true;
 			this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label2.Location = new System.Drawing.Point(441, 22);
+			this.label2.Location = new System.Drawing.Point(250, 22);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(30, 13);
 			this.label2.TabIndex = 1;
@@ -145,7 +153,7 @@
 			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label3.AutoSize = true;
 			this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label3.Location = new System.Drawing.Point(443, 48);
+			this.label3.Location = new System.Drawing.Point(252, 48);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(30, 13);
 			this.label3.TabIndex = 1;
@@ -154,7 +162,7 @@
 			// numericUpDown1
 			// 
 			this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericUpDown1.Location = new System.Drawing.Point(479, 20);
+			this.numericUpDown1.Location = new System.Drawing.Point(288, 20);
 			this.numericUpDown1.Name = "numericUpDown1";
 			this.numericUpDown1.Size = new System.Drawing.Size(49, 20);
 			this.numericUpDown1.TabIndex = 3;
@@ -170,7 +178,7 @@
 			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label4.AutoSize = true;
 			this.label4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label4.Location = new System.Drawing.Point(534, 22);
+			this.label4.Location = new System.Drawing.Point(343, 22);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(16, 13);
 			this.label4.TabIndex = 1;
@@ -179,7 +187,7 @@
 			// numericUpDown2
 			// 
 			this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericUpDown2.Location = new System.Drawing.Point(477, 46);
+			this.numericUpDown2.Location = new System.Drawing.Point(286, 46);
 			this.numericUpDown2.Name = "numericUpDown2";
 			this.numericUpDown2.Size = new System.Drawing.Size(49, 20);
 			this.numericUpDown2.TabIndex = 3;
@@ -190,7 +198,7 @@
 			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label5.AutoSize = true;
 			this.label5.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label5.Location = new System.Drawing.Point(532, 48);
+			this.label5.Location = new System.Drawing.Point(341, 48);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(16, 13);
 			this.label5.TabIndex = 1;
@@ -265,7 +273,7 @@
 			this.pnlUninstallation.Controls.Add(this.pnlUninstallationTitle);
 			this.pnlUninstallation.Controls.Add(this.lblLogFileName);
 			this.pnlUninstallation.Controls.Add(this.txtLogFileName);
-			this.pnlUninstallation.Location = new System.Drawing.Point(0, 496);
+			this.pnlUninstallation.Location = new System.Drawing.Point(0, 322);
 			this.pnlUninstallation.Name = "pnlUninstallation";
 			this.pnlUninstallation.Size = new System.Drawing.Size(562, 90);
 			this.pnlUninstallation.TabIndex = 7;
@@ -274,9 +282,9 @@
 			// 
 			this.chkRestart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.chkRestart.Location = new System.Drawing.Point(6, 170);
+			this.chkRestart.Location = new System.Drawing.Point(6, 103);
 			this.chkRestart.Name = "chkRestart";
-			this.chkRestart.Size = new System.Drawing.Size(279, 17);
+			this.chkRestart.Size = new System.Drawing.Size(353, 17);
 			this.chkRestart.TabIndex = 7;
 			this.chkRestart.Text = "Provide &restart option upon installation completion";
 			this.chkRestart.UseVisualStyleBackColor = true;
@@ -290,12 +298,36 @@
 			this.fraAutomatedActions.Controls.Add(this.lvPostInstallActions);
 			this.fraAutomatedActions.Controls.Add(this.chkRestart);
 			this.fraAutomatedActions.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.fraAutomatedActions.Location = new System.Drawing.Point(268, 86);
+			this.fraAutomatedActions.Location = new System.Drawing.Point(3, 3);
 			this.fraAutomatedActions.Name = "fraAutomatedActions";
-			this.fraAutomatedActions.Size = new System.Drawing.Size(291, 198);
+			this.fraAutomatedActions.Size = new System.Drawing.Size(365, 131);
 			this.fraAutomatedActions.TabIndex = 8;
 			this.fraAutomatedActions.TabStop = false;
 			this.fraAutomatedActions.Text = "Automated actions";
+			// 
+			// cmdPostInstallActionMoveDown
+			// 
+			this.cmdPostInstallActionMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdPostInstallActionMoveDown.Enabled = false;
+			this.cmdPostInstallActionMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdPostInstallActionMoveDown.Location = new System.Drawing.Point(284, 48);
+			this.cmdPostInstallActionMoveDown.Name = "cmdPostInstallActionMoveDown";
+			this.cmdPostInstallActionMoveDown.Size = new System.Drawing.Size(75, 23);
+			this.cmdPostInstallActionMoveDown.TabIndex = 1;
+			this.cmdPostInstallActionMoveDown.Text = "Move &Down";
+			this.cmdPostInstallActionMoveDown.UseVisualStyleBackColor = true;
+			// 
+			// cmdPostInstallActionMoveUp
+			// 
+			this.cmdPostInstallActionMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdPostInstallActionMoveUp.Enabled = false;
+			this.cmdPostInstallActionMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdPostInstallActionMoveUp.Location = new System.Drawing.Point(284, 19);
+			this.cmdPostInstallActionMoveUp.Name = "cmdPostInstallActionMoveUp";
+			this.cmdPostInstallActionMoveUp.Size = new System.Drawing.Size(75, 23);
+			this.cmdPostInstallActionMoveUp.TabIndex = 1;
+			this.cmdPostInstallActionMoveUp.Text = "Move &Up";
+			this.cmdPostInstallActionMoveUp.UseVisualStyleBackColor = true;
 			// 
 			// lvPostInstallActions
 			// 
@@ -309,36 +341,12 @@
 			this.lvPostInstallActions.HideSelection = false;
 			this.lvPostInstallActions.Location = new System.Drawing.Point(6, 19);
 			this.lvPostInstallActions.Name = "lvPostInstallActions";
-			this.lvPostInstallActions.Size = new System.Drawing.Size(198, 145);
+			this.lvPostInstallActions.Size = new System.Drawing.Size(272, 78);
 			this.lvPostInstallActions.TabIndex = 0;
 			this.lvPostInstallActions.UseCompatibleStateImageBehavior = false;
 			this.lvPostInstallActions.View = System.Windows.Forms.View.Details;
 			this.lvPostInstallActions.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lvPostInstallActions_ItemCheck);
 			this.lvPostInstallActions.SelectedIndexChanged += new System.EventHandler(this.lvPostInstallActions_SelectedIndexChanged);
-			// 
-			// cmdPostInstallActionMoveUp
-			// 
-			this.cmdPostInstallActionMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmdPostInstallActionMoveUp.Enabled = false;
-			this.cmdPostInstallActionMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cmdPostInstallActionMoveUp.Location = new System.Drawing.Point(210, 19);
-			this.cmdPostInstallActionMoveUp.Name = "cmdPostInstallActionMoveUp";
-			this.cmdPostInstallActionMoveUp.Size = new System.Drawing.Size(75, 23);
-			this.cmdPostInstallActionMoveUp.TabIndex = 1;
-			this.cmdPostInstallActionMoveUp.Text = "Move &Up";
-			this.cmdPostInstallActionMoveUp.UseVisualStyleBackColor = true;
-			// 
-			// cmdPostInstallActionMoveDown
-			// 
-			this.cmdPostInstallActionMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmdPostInstallActionMoveDown.Enabled = false;
-			this.cmdPostInstallActionMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cmdPostInstallActionMoveDown.Location = new System.Drawing.Point(210, 48);
-			this.cmdPostInstallActionMoveDown.Name = "cmdPostInstallActionMoveDown";
-			this.cmdPostInstallActionMoveDown.Size = new System.Drawing.Size(75, 23);
-			this.cmdPostInstallActionMoveDown.TabIndex = 1;
-			this.cmdPostInstallActionMoveDown.Text = "Move &Down";
-			this.cmdPostInstallActionMoveDown.UseVisualStyleBackColor = true;
 			// 
 			// chTitle
 			// 
@@ -366,50 +374,30 @@
 			this.fraAppearance.Controls.Add(this.lblAppearanceBackground);
 			this.fraAppearance.Location = new System.Drawing.Point(3, 86);
 			this.fraAppearance.Name = "fraAppearance";
-			this.fraAppearance.Size = new System.Drawing.Size(259, 198);
+			this.fraAppearance.Size = new System.Drawing.Size(361, 198);
 			this.fraAppearance.TabIndex = 9;
 			this.fraAppearance.TabStop = false;
 			this.fraAppearance.Text = "Appearance";
 			// 
-			// lblAppearanceBackground
+			// lblAppearanceButtonLabel
 			// 
-			this.lblAppearanceBackground.AutoSize = true;
-			this.lblAppearanceBackground.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceBackground.Location = new System.Drawing.Point(6, 24);
-			this.lblAppearanceBackground.Name = "lblAppearanceBackground";
-			this.lblAppearanceBackground.Size = new System.Drawing.Size(68, 13);
-			this.lblAppearanceBackground.TabIndex = 0;
-			this.lblAppearanceBackground.Text = "Background:";
+			this.lblAppearanceButtonLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceButtonLabel.Location = new System.Drawing.Point(161, 145);
+			this.lblAppearanceButtonLabel.Name = "lblAppearanceButtonLabel";
+			this.lblAppearanceButtonLabel.Size = new System.Drawing.Size(75, 15);
+			this.lblAppearanceButtonLabel.TabIndex = 2;
+			this.lblAppearanceButtonLabel.Text = "Button Label";
+			this.lblAppearanceButtonLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
-			// cmdAppearanceBackgroundTop
+			// lblAppearanceTitleBackground
 			// 
-			this.cmdAppearanceBackgroundTop.BackColor = System.Drawing.Color.Cyan;
-			this.cmdAppearanceBackgroundTop.Location = new System.Drawing.Point(80, 19);
-			this.cmdAppearanceBackgroundTop.Name = "cmdAppearanceBackgroundTop";
-			this.cmdAppearanceBackgroundTop.Size = new System.Drawing.Size(75, 23);
-			this.cmdAppearanceBackgroundTop.TabIndex = 1;
-			this.cmdAppearanceBackgroundTop.UseVisualStyleBackColor = false;
-			this.cmdAppearanceBackgroundTop.Click += new System.EventHandler(this.cmdColor_Click);
-			// 
-			// cmdAppearanceBackgroundBottom
-			// 
-			this.cmdAppearanceBackgroundBottom.BackColor = System.Drawing.Color.Lime;
-			this.cmdAppearanceBackgroundBottom.Location = new System.Drawing.Point(161, 19);
-			this.cmdAppearanceBackgroundBottom.Name = "cmdAppearanceBackgroundBottom";
-			this.cmdAppearanceBackgroundBottom.Size = new System.Drawing.Size(75, 23);
-			this.cmdAppearanceBackgroundBottom.TabIndex = 1;
-			this.cmdAppearanceBackgroundBottom.UseVisualStyleBackColor = false;
-			this.cmdAppearanceBackgroundBottom.Click += new System.EventHandler(this.cmdColor_Click);
-			// 
-			// lblAppearanceBackgroundTop
-			// 
-			this.lblAppearanceBackgroundTop.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceBackgroundTop.Location = new System.Drawing.Point(80, 49);
-			this.lblAppearanceBackgroundTop.Name = "lblAppearanceBackgroundTop";
-			this.lblAppearanceBackgroundTop.Size = new System.Drawing.Size(75, 15);
-			this.lblAppearanceBackgroundTop.TabIndex = 2;
-			this.lblAppearanceBackgroundTop.Text = "Top";
-			this.lblAppearanceBackgroundTop.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.lblAppearanceTitleBackground.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceTitleBackground.Location = new System.Drawing.Point(161, 97);
+			this.lblAppearanceTitleBackground.Name = "lblAppearanceTitleBackground";
+			this.lblAppearanceTitleBackground.Size = new System.Drawing.Size(75, 15);
+			this.lblAppearanceTitleBackground.TabIndex = 2;
+			this.lblAppearanceTitleBackground.Text = "Background";
+			this.lblAppearanceTitleBackground.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// lblAppearanceBackgroundBottom
 			// 
@@ -421,35 +409,15 @@
 			this.lblAppearanceBackgroundBottom.Text = "Bottom";
 			this.lblAppearanceBackgroundBottom.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
-			// lblAppearanceTitle
+			// lblAppearanceFooter
 			// 
-			this.lblAppearanceTitle.AutoSize = true;
-			this.lblAppearanceTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceTitle.Location = new System.Drawing.Point(6, 72);
-			this.lblAppearanceTitle.Name = "lblAppearanceTitle";
-			this.lblAppearanceTitle.Size = new System.Drawing.Size(30, 13);
-			this.lblAppearanceTitle.TabIndex = 0;
-			this.lblAppearanceTitle.Text = "Title:";
-			// 
-			// cmdAppearanceTitleForeground
-			// 
-			this.cmdAppearanceTitleForeground.BackColor = System.Drawing.Color.White;
-			this.cmdAppearanceTitleForeground.Location = new System.Drawing.Point(80, 67);
-			this.cmdAppearanceTitleForeground.Name = "cmdAppearanceTitleForeground";
-			this.cmdAppearanceTitleForeground.Size = new System.Drawing.Size(75, 23);
-			this.cmdAppearanceTitleForeground.TabIndex = 1;
-			this.cmdAppearanceTitleForeground.UseVisualStyleBackColor = false;
-			this.cmdAppearanceTitleForeground.Click += new System.EventHandler(this.cmdColor_Click);
-			// 
-			// cmdAppearanceTitleBackground
-			// 
-			this.cmdAppearanceTitleBackground.BackColor = System.Drawing.Color.Black;
-			this.cmdAppearanceTitleBackground.Location = new System.Drawing.Point(161, 67);
-			this.cmdAppearanceTitleBackground.Name = "cmdAppearanceTitleBackground";
-			this.cmdAppearanceTitleBackground.Size = new System.Drawing.Size(75, 23);
-			this.cmdAppearanceTitleBackground.TabIndex = 1;
-			this.cmdAppearanceTitleBackground.UseVisualStyleBackColor = false;
-			this.cmdAppearanceTitleBackground.Click += new System.EventHandler(this.cmdColor_Click);
+			this.lblAppearanceFooter.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceFooter.Location = new System.Drawing.Point(80, 145);
+			this.lblAppearanceFooter.Name = "lblAppearanceFooter";
+			this.lblAppearanceFooter.Size = new System.Drawing.Size(75, 15);
+			this.lblAppearanceFooter.TabIndex = 2;
+			this.lblAppearanceFooter.Text = "Footer";
+			this.lblAppearanceFooter.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// lblAppearanceTitleForeground
 			// 
@@ -461,15 +429,123 @@
 			this.lblAppearanceTitleForeground.Text = "Foreground";
 			this.lblAppearanceTitleForeground.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
-			// lblAppearanceTitleBackground
+			// lblAppearanceBackgroundTop
 			// 
-			this.lblAppearanceTitleBackground.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceTitleBackground.Location = new System.Drawing.Point(161, 97);
-			this.lblAppearanceTitleBackground.Name = "lblAppearanceTitleBackground";
-			this.lblAppearanceTitleBackground.Size = new System.Drawing.Size(75, 15);
-			this.lblAppearanceTitleBackground.TabIndex = 2;
-			this.lblAppearanceTitleBackground.Text = "Background";
-			this.lblAppearanceTitleBackground.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.lblAppearanceBackgroundTop.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceBackgroundTop.Location = new System.Drawing.Point(80, 49);
+			this.lblAppearanceBackgroundTop.Name = "lblAppearanceBackgroundTop";
+			this.lblAppearanceBackgroundTop.Size = new System.Drawing.Size(75, 15);
+			this.lblAppearanceBackgroundTop.TabIndex = 2;
+			this.lblAppearanceBackgroundTop.Text = "Top";
+			this.lblAppearanceBackgroundTop.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// cmdAppearanceButtonLabel
+			// 
+			this.cmdAppearanceButtonLabel.BackColor = System.Drawing.Color.Black;
+			this.cmdAppearanceButtonLabel.Location = new System.Drawing.Point(161, 115);
+			this.cmdAppearanceButtonLabel.Name = "cmdAppearanceButtonLabel";
+			this.cmdAppearanceButtonLabel.Size = new System.Drawing.Size(75, 23);
+			this.cmdAppearanceButtonLabel.TabIndex = 1;
+			this.cmdAppearanceButtonLabel.UseVisualStyleBackColor = false;
+			this.cmdAppearanceButtonLabel.Click += new System.EventHandler(this.cmdColor_Click);
+			// 
+			// cmdAppearanceTitleBackground
+			// 
+			this.cmdAppearanceTitleBackground.BackColor = System.Drawing.Color.Black;
+			this.cmdAppearanceTitleBackground.Location = new System.Drawing.Point(161, 67);
+			this.cmdAppearanceTitleBackground.Name = "cmdAppearanceTitleBackground";
+			this.cmdAppearanceTitleBackground.Size = new System.Drawing.Size(75, 23);
+			this.cmdAppearanceTitleBackground.TabIndex = 1;
+			this.cmdAppearanceTitleBackground.UseVisualStyleBackColor = false;
+			this.cmdAppearanceTitleBackground.Click += new System.EventHandler(this.cmdColor_Click);
+			// 
+			// cmdAppearanceBackgroundBottom
+			// 
+			this.cmdAppearanceBackgroundBottom.BackColor = System.Drawing.Color.Lime;
+			this.cmdAppearanceBackgroundBottom.Location = new System.Drawing.Point(161, 19);
+			this.cmdAppearanceBackgroundBottom.Name = "cmdAppearanceBackgroundBottom";
+			this.cmdAppearanceBackgroundBottom.Size = new System.Drawing.Size(75, 23);
+			this.cmdAppearanceBackgroundBottom.TabIndex = 1;
+			this.cmdAppearanceBackgroundBottom.UseVisualStyleBackColor = false;
+			this.cmdAppearanceBackgroundBottom.Click += new System.EventHandler(this.cmdColor_Click);
+			// 
+			// cmdAppearanceFooter
+			// 
+			this.cmdAppearanceFooter.BackColor = System.Drawing.Color.Black;
+			this.cmdAppearanceFooter.Location = new System.Drawing.Point(80, 115);
+			this.cmdAppearanceFooter.Name = "cmdAppearanceFooter";
+			this.cmdAppearanceFooter.Size = new System.Drawing.Size(75, 23);
+			this.cmdAppearanceFooter.TabIndex = 1;
+			this.cmdAppearanceFooter.UseVisualStyleBackColor = false;
+			this.cmdAppearanceFooter.Click += new System.EventHandler(this.cmdColor_Click);
+			// 
+			// cmdAppearanceTitleForeground
+			// 
+			this.cmdAppearanceTitleForeground.BackColor = System.Drawing.Color.White;
+			this.cmdAppearanceTitleForeground.Location = new System.Drawing.Point(80, 67);
+			this.cmdAppearanceTitleForeground.Name = "cmdAppearanceTitleForeground";
+			this.cmdAppearanceTitleForeground.Size = new System.Drawing.Size(75, 23);
+			this.cmdAppearanceTitleForeground.TabIndex = 1;
+			this.cmdAppearanceTitleForeground.UseVisualStyleBackColor = false;
+			this.cmdAppearanceTitleForeground.Click += new System.EventHandler(this.cmdColor_Click);
+			// 
+			// lblAppearanceTitleShadowOffset
+			// 
+			this.lblAppearanceTitleShadowOffset.AutoSize = true;
+			this.lblAppearanceTitleShadowOffset.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceTitleShadowOffset.Location = new System.Drawing.Point(6, 174);
+			this.lblAppearanceTitleShadowOffset.Name = "lblAppearanceTitleShadowOffset";
+			this.lblAppearanceTitleShadowOffset.Size = new System.Drawing.Size(99, 13);
+			this.lblAppearanceTitleShadowOffset.TabIndex = 0;
+			this.lblAppearanceTitleShadowOffset.Text = "Title shadow &offset:";
+			// 
+			// lblAppearanceOther
+			// 
+			this.lblAppearanceOther.AutoSize = true;
+			this.lblAppearanceOther.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceOther.Location = new System.Drawing.Point(6, 120);
+			this.lblAppearanceOther.Name = "lblAppearanceOther";
+			this.lblAppearanceOther.Size = new System.Drawing.Size(36, 13);
+			this.lblAppearanceOther.TabIndex = 0;
+			this.lblAppearanceOther.Text = "Other:";
+			// 
+			// lblAppearanceTitle
+			// 
+			this.lblAppearanceTitle.AutoSize = true;
+			this.lblAppearanceTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceTitle.Location = new System.Drawing.Point(6, 72);
+			this.lblAppearanceTitle.Name = "lblAppearanceTitle";
+			this.lblAppearanceTitle.Size = new System.Drawing.Size(30, 13);
+			this.lblAppearanceTitle.TabIndex = 0;
+			this.lblAppearanceTitle.Text = "Title:";
+			// 
+			// txtAppearanceTitleShadowOffset
+			// 
+			this.txtAppearanceTitleShadowOffset.Location = new System.Drawing.Point(111, 172);
+			this.txtAppearanceTitleShadowOffset.Name = "txtAppearanceTitleShadowOffset";
+			this.txtAppearanceTitleShadowOffset.Size = new System.Drawing.Size(49, 20);
+			this.txtAppearanceTitleShadowOffset.TabIndex = 3;
+			this.txtAppearanceTitleShadowOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// cmdAppearanceBackgroundTop
+			// 
+			this.cmdAppearanceBackgroundTop.BackColor = System.Drawing.Color.Cyan;
+			this.cmdAppearanceBackgroundTop.Location = new System.Drawing.Point(80, 19);
+			this.cmdAppearanceBackgroundTop.Name = "cmdAppearanceBackgroundTop";
+			this.cmdAppearanceBackgroundTop.Size = new System.Drawing.Size(75, 23);
+			this.cmdAppearanceBackgroundTop.TabIndex = 1;
+			this.cmdAppearanceBackgroundTop.UseVisualStyleBackColor = false;
+			this.cmdAppearanceBackgroundTop.Click += new System.EventHandler(this.cmdColor_Click);
+			// 
+			// lblAppearanceBackground
+			// 
+			this.lblAppearanceBackground.AutoSize = true;
+			this.lblAppearanceBackground.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.lblAppearanceBackground.Location = new System.Drawing.Point(6, 24);
+			this.lblAppearanceBackground.Name = "lblAppearanceBackground";
+			this.lblAppearanceBackground.Size = new System.Drawing.Size(68, 13);
+			this.lblAppearanceBackground.TabIndex = 0;
+			this.lblAppearanceBackground.Text = "Background:";
 			// 
 			// fraGeneral
 			// 
@@ -487,145 +563,115 @@
 			this.fraGeneral.Controls.Add(this.numericUpDown2);
 			this.fraGeneral.Location = new System.Drawing.Point(3, 3);
 			this.fraGeneral.Name = "fraGeneral";
-			this.fraGeneral.Size = new System.Drawing.Size(556, 77);
+			this.fraGeneral.Size = new System.Drawing.Size(365, 77);
 			this.fraGeneral.TabIndex = 11;
 			this.fraGeneral.TabStop = false;
 			this.fraGeneral.Text = "General";
 			// 
-			// lblAppearanceTitleShadowOffset
+			// scMain
 			// 
-			this.lblAppearanceTitleShadowOffset.AutoSize = true;
-			this.lblAppearanceTitleShadowOffset.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceTitleShadowOffset.Location = new System.Drawing.Point(6, 174);
-			this.lblAppearanceTitleShadowOffset.Name = "lblAppearanceTitleShadowOffset";
-			this.lblAppearanceTitleShadowOffset.Size = new System.Drawing.Size(99, 13);
-			this.lblAppearanceTitleShadowOffset.TabIndex = 0;
-			this.lblAppearanceTitleShadowOffset.Text = "Title shadow &offset:";
+			this.scMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.scMain.Location = new System.Drawing.Point(0, 0);
+			this.scMain.Name = "scMain";
 			// 
-			// txtAppearanceTitleShadowOffset
+			// scMain.Panel1
 			// 
-			this.txtAppearanceTitleShadowOffset.Location = new System.Drawing.Point(111, 172);
-			this.txtAppearanceTitleShadowOffset.Name = "txtAppearanceTitleShadowOffset";
-			this.txtAppearanceTitleShadowOffset.Size = new System.Drawing.Size(49, 20);
-			this.txtAppearanceTitleShadowOffset.TabIndex = 3;
-			this.txtAppearanceTitleShadowOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.scMain.Panel1.Controls.Add(this.tv);
 			// 
-			// cmdAppearanceFooter
+			// scMain.Panel2
 			// 
-			this.cmdAppearanceFooter.BackColor = System.Drawing.Color.Black;
-			this.cmdAppearanceFooter.Location = new System.Drawing.Point(80, 115);
-			this.cmdAppearanceFooter.Name = "cmdAppearanceFooter";
-			this.cmdAppearanceFooter.Size = new System.Drawing.Size(75, 23);
-			this.cmdAppearanceFooter.TabIndex = 1;
-			this.cmdAppearanceFooter.UseVisualStyleBackColor = false;
-			this.cmdAppearanceFooter.Click += new System.EventHandler(this.cmdColor_Click);
+			this.scMain.Panel2.Controls.Add(this.pnlGeneral);
+			this.scMain.Panel2.Controls.Add(this.pnlInstallation);
+			this.scMain.Size = new System.Drawing.Size(562, 412);
+			this.scMain.SplitterDistance = 187;
+			this.scMain.TabIndex = 13;
 			// 
-			// cmdAppearanceButtonLabel
+			// tv
 			// 
-			this.cmdAppearanceButtonLabel.BackColor = System.Drawing.Color.Black;
-			this.cmdAppearanceButtonLabel.Location = new System.Drawing.Point(161, 115);
-			this.cmdAppearanceButtonLabel.Name = "cmdAppearanceButtonLabel";
-			this.cmdAppearanceButtonLabel.Size = new System.Drawing.Size(75, 23);
-			this.cmdAppearanceButtonLabel.TabIndex = 1;
-			this.cmdAppearanceButtonLabel.UseVisualStyleBackColor = false;
-			this.cmdAppearanceButtonLabel.Click += new System.EventHandler(this.cmdColor_Click);
+			this.tv.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tv.Location = new System.Drawing.Point(0, 0);
+			this.tv.Name = "tv";
+			treeNode1.Name = "nodeGeneral";
+			treeNode1.Text = "General";
+			treeNode2.Name = "nodeInstallation";
+			treeNode2.Text = "Installation";
+			this.tv.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+			this.tv.Size = new System.Drawing.Size(187, 412);
+			this.tv.TabIndex = 0;
+			this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_AfterSelect);
 			// 
-			// lblAppearanceFooter
+			// pnlGeneral
 			// 
-			this.lblAppearanceFooter.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceFooter.Location = new System.Drawing.Point(80, 145);
-			this.lblAppearanceFooter.Name = "lblAppearanceFooter";
-			this.lblAppearanceFooter.Size = new System.Drawing.Size(75, 15);
-			this.lblAppearanceFooter.TabIndex = 2;
-			this.lblAppearanceFooter.Text = "Footer";
-			this.lblAppearanceFooter.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			// 
-			// lblAppearanceButtonLabel
-			// 
-			this.lblAppearanceButtonLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceButtonLabel.Location = new System.Drawing.Point(161, 145);
-			this.lblAppearanceButtonLabel.Name = "lblAppearanceButtonLabel";
-			this.lblAppearanceButtonLabel.Size = new System.Drawing.Size(75, 15);
-			this.lblAppearanceButtonLabel.TabIndex = 2;
-			this.lblAppearanceButtonLabel.Text = "Button Label";
-			this.lblAppearanceButtonLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.pnlGeneral.Controls.Add(this.fraGeneral);
+			this.pnlGeneral.Controls.Add(this.fraAppearance);
+			this.pnlGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlGeneral.Location = new System.Drawing.Point(0, 0);
+			this.pnlGeneral.Name = "pnlGeneral";
+			this.pnlGeneral.Size = new System.Drawing.Size(371, 412);
+			this.pnlGeneral.TabIndex = 0;
 			// 
 			// pnlInstallation
 			// 
-			this.pnlInstallation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.pnlInstallation.Controls.Add(this.fraInstallationProcess);
+			this.pnlInstallation.Controls.Add(this.fraAutomatedActions);
+			this.pnlInstallation.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlInstallation.Location = new System.Drawing.Point(0, 0);
+			this.pnlInstallation.Name = "pnlInstallation";
+			this.pnlInstallation.Size = new System.Drawing.Size(371, 412);
+			this.pnlInstallation.TabIndex = 2;
+			// 
+			// fraInstallationProcess
+			// 
+			this.fraInstallationProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.pnlInstallation.Controls.Add(this.panel3);
-			this.pnlInstallation.Location = new System.Drawing.Point(0, 290);
-			this.pnlInstallation.Name = "pnlInstallation";
-			this.pnlInstallation.Size = new System.Drawing.Size(562, 200);
-			this.pnlInstallation.TabIndex = 12;
+			this.fraInstallationProcess.Controls.Add(this.lvActions);
+			this.fraInstallationProcess.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.fraInstallationProcess.Location = new System.Drawing.Point(3, 140);
+			this.fraInstallationProcess.Name = "fraInstallationProcess";
+			this.fraInstallationProcess.Size = new System.Drawing.Size(365, 269);
+			this.fraInstallationProcess.TabIndex = 9;
+			this.fraInstallationProcess.TabStop = false;
+			this.fraInstallationProcess.Text = "Installation process";
 			// 
-			// panel3
+			// lvActions
 			// 
-			this.panel3.BackColor = System.Drawing.SystemColors.Window;
-			this.panel3.Controls.Add(this.label1);
-			this.panel3.Controls.Add(this.pictureBox1);
-			this.panel3.Controls.Add(this.label6);
-			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel3.Location = new System.Drawing.Point(0, 0);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(562, 56);
-			this.panel3.TabIndex = 5;
+			this.lvActions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lvActions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chActionName,
+            this.chActionParameters});
+			this.lvActions.FullRowSelect = true;
+			this.lvActions.GridLines = true;
+			this.lvActions.HideSelection = false;
+			this.lvActions.Location = new System.Drawing.Point(6, 19);
+			this.lvActions.Name = "lvActions";
+			this.lvActions.Size = new System.Drawing.Size(353, 244);
+			this.lvActions.TabIndex = 0;
+			this.lvActions.UseCompatibleStateImageBehavior = false;
+			this.lvActions.View = System.Windows.Forms.View.Details;
 			// 
-			// label1
+			// chActionName
 			// 
-			this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label1.Location = new System.Drawing.Point(0, 54);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(562, 2);
-			this.label1.TabIndex = 0;
+			this.chActionName.Text = "Action";
+			this.chActionName.Width = 128;
 			// 
-			// pictureBox1
+			// chActionParameters
 			// 
-			this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.pictureBox1.Image = global::UniversalEditor.Properties.Resources.Setup;
-			this.pictureBox1.Location = new System.Drawing.Point(13, 12);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-			this.pictureBox1.TabIndex = 0;
-			this.pictureBox1.TabStop = false;
-			// 
-			// label6
-			// 
-			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.label6.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-			this.label6.Location = new System.Drawing.Point(51, 22);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(508, 13);
-			this.label6.TabIndex = 1;
-			this.label6.Text = "Installation";
-			// 
-			// lblAppearanceOther
-			// 
-			this.lblAppearanceOther.AutoSize = true;
-			this.lblAppearanceOther.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.lblAppearanceOther.Location = new System.Drawing.Point(6, 120);
-			this.lblAppearanceOther.Name = "lblAppearanceOther";
-			this.lblAppearanceOther.Size = new System.Drawing.Size(36, 13);
-			this.lblAppearanceOther.TabIndex = 0;
-			this.lblAppearanceOther.Text = "Other:";
+			this.chActionParameters.Text = "Parameters";
+			this.chActionParameters.Width = 217;
 			// 
 			// ArkAnglesSetupEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.pnlInstallation);
-			this.Controls.Add(this.fraGeneral);
-			this.Controls.Add(this.fraAppearance);
-			this.Controls.Add(this.fraAutomatedActions);
+			this.Controls.Add(this.scMain);
 			this.Controls.Add(this.pnlUninstallation);
 			this.Name = "ArkAnglesSetupEditor";
-			this.Size = new System.Drawing.Size(562, 586);
+			this.Size = new System.Drawing.Size(562, 412);
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
 			this.pnlUninstallationTitle.ResumeLayout(false);
@@ -636,13 +682,15 @@
 			this.fraAutomatedActions.ResumeLayout(false);
 			this.fraAppearance.ResumeLayout(false);
 			this.fraAppearance.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.txtAppearanceTitleShadowOffset)).EndInit();
 			this.fraGeneral.ResumeLayout(false);
 			this.fraGeneral.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.txtAppearanceTitleShadowOffset)).EndInit();
+			this.scMain.Panel1.ResumeLayout(false);
+			this.scMain.Panel2.ResumeLayout(false);
+			this.scMain.ResumeLayout(false);
+			this.pnlGeneral.ResumeLayout(false);
 			this.pnlInstallation.ResumeLayout(false);
-			this.panel3.ResumeLayout(false);
-			this.panel3.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.fraInstallationProcess.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -690,11 +738,14 @@
 		private System.Windows.Forms.Label lblAppearanceFooter;
 		private System.Windows.Forms.Button cmdAppearanceButtonLabel;
 		private System.Windows.Forms.Button cmdAppearanceFooter;
-		private System.Windows.Forms.Panel pnlInstallation;
-		private System.Windows.Forms.Panel panel3;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label lblAppearanceOther;
+		private System.Windows.Forms.SplitContainer scMain;
+		private System.Windows.Forms.TreeView tv;
+		private System.Windows.Forms.Panel pnlInstallation;
+		private System.Windows.Forms.GroupBox fraInstallationProcess;
+		private System.Windows.Forms.Panel pnlGeneral;
+		private System.Windows.Forms.ListView lvActions;
+		private System.Windows.Forms.ColumnHeader chActionName;
+		private System.Windows.Forms.ColumnHeader chActionParameters;
 	}
 }

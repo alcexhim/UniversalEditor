@@ -43,8 +43,10 @@ namespace UniversalEditor.Editors.Setup.ArkAngles
 			foreach (AutoStartCommand cmd in cmds)
 			{
 				ListViewItem lvi = new ListViewItem();
+				lvi.Tag = cmd;
 				if (cmd == null)
 				{
+					lvi.Checked = true;
 					lvi.ForeColor = Color.FromKnownColor(KnownColor.GrayText);
 					lvi.Text = "(Installation Process)";
 				}
@@ -69,6 +71,8 @@ namespace UniversalEditor.Editors.Setup.ArkAngles
 				}
 				lvPostInstallActions.Items.Add(lvi);
 			}
+
+			SwitchTo("General");
 		}
 
 		private void lvPostInstallActions_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -90,6 +94,34 @@ namespace UniversalEditor.Editors.Setup.ArkAngles
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				cmd.BackColor = dlg.Color;
+			}
+		}
+
+		private void SwitchTo(string name)
+		{
+			foreach (Control ctl in scMain.Panel2.Controls)
+			{
+				if (name != null && (ctl.Name.Substring(3) == name))
+				{
+					ctl.Enabled = true;
+					ctl.Visible = true;
+					continue;
+				}
+
+				ctl.Visible = false;
+				ctl.Enabled = false;
+			}
+		}
+
+		private void tv_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			if (e.Node != null)
+			{
+				SwitchTo(e.Node.Name.Substring(4));
+			}
+			else
+			{
+				SwitchTo(null);
 			}
 		}
 	}
