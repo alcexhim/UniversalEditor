@@ -1570,11 +1570,15 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			base.OnClosing(e);
 
-			if (!WindowsFormsEngine.SessionLoading && Engine.CurrentEngine.Windows.Count == 0)
+			if (!WindowsFormsEngine.SessionLoading && Engine.CurrentEngine.Windows.Count == 1)
 			{
 				if (Engine.CurrentEngine.ConfigurationManager.GetValue<bool>(new string[] { "Application", "ConfirmExit" }, false))
 				{
-					if (MessageBox.Show("Are you sure you wish to quit " + Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle") + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No) return;
+					if (MessageBox.Show("Are you sure you wish to quit " + Engine.CurrentEngine.DefaultLanguage.GetStringTableEntry("ApplicationTitle") + "?", "Quit Application", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+					{
+						e.Cancel = true;
+						return;
+					}
 				}
 			}
 
@@ -1650,6 +1654,12 @@ namespace UniversalEditor.UserInterface.WindowsForms
 		{
 			base.OnClosed(e);
 			if (WindowClosed != null) WindowClosed(this, e);
+
+			if (Engine.CurrentEngine.Windows.Count == 0)
+			{
+				// there are no more windows, so exit the application
+				Application.Exit();
+			}
 		}
 		#endregion
 		#region Menu Bar
