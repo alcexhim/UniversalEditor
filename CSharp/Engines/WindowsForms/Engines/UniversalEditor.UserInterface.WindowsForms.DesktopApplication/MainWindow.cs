@@ -150,10 +150,16 @@ namespace UniversalEditor.UserInterface.WindowsForms
 					}
 
 					tsi.Tag = cmd;
+					tsi.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("Commands/" + cmd.ID + ".png");
 					tsi.Text = cmd.Title.Replace("_", "&");
 					foreach (CommandItem item1 in cmd.Items)
 					{
 						LoadCommandBarItem(item1, tsi);
+					}
+					if (tsi.DropDownItems.Count > 0) tsi.Image = tsi.DropDownItems[0].Image;
+					if (tsi.Image != null && !isOnDropDown )
+					{
+						tsi.DisplayStyle = ToolStripItemDisplayStyle.Image;
 					}
 					return tsi;
 				}
@@ -169,6 +175,11 @@ namespace UniversalEditor.UserInterface.WindowsForms
 						tsi = new ToolStripMenuItem();
 					}
 					tsi.Tag = cmd;
+					tsi.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("Commands/" + cmd.ID + ".png");
+					if (tsi.Image != null && !isOnDropDown)
+					{
+						tsi.DisplayStyle = ToolStripItemDisplayStyle.Image;
+					}
 					tsi.Text = cmd.Title.Replace("_", "&");
 					tsi.Click += tsbCommandBarButton_Click;
 					return tsi;
@@ -250,6 +261,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				ToolStripMenuItem tsmi = new ToolStripMenuItem();
 				tsmi.Name = cmd.ID;
 				tsmi.Click += tsmiCommand_Click;
+				tsmi.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("Commands/" + cmd.ID + ".png");
 				tsmi.Tag = cmd;
 				tsmi.Text = cmd.Title.Replace("_", "&");
 				tsmi.ShortcutKeys = ShortcutKeyToWinFormsKeys(cmd.ShortcutKey);
