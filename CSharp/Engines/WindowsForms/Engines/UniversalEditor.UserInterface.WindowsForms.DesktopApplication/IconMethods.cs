@@ -202,49 +202,66 @@ internal static class IconMethods
         return icon;
     }
 
+	private static Dictionary<string, Image> _systemIcons = new Dictionary<string, Image>();
+	private static void InitializeSystemIcons()
+	{
+		if (_systemIcons.Count > 0) return;
+		_systemIcons.Clear();
+
+		switch (Environment.OSVersion.Platform)
+		{
+			case PlatformID.MacOSX:
+				break;
+			case PlatformID.Unix:
+				break;
+			case PlatformID.Win32NT:
+			case PlatformID.Win32S:
+			case PlatformID.Win32Windows:
+			case PlatformID.WinCE:
+			{
+				_systemIcons.Add("generic-file-16x16", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 0, IconSize.Small).ToBitmap());
+				_systemIcons.Add("generic-document-16x16", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 1, IconSize.Small).ToBitmap());
+				_systemIcons.Add("generic-application-16x16", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 2, IconSize.Small).ToBitmap());
+				_systemIcons.Add("generic-folder-closed-16x16", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 3, IconSize.Small).ToBitmap());
+				_systemIcons.Add("generic-folder-open-16x16", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 4, IconSize.Small).ToBitmap());
+
+				_systemIcons.Add("generic-file-32x32", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 0, IconSize.Large).ToBitmap());
+				_systemIcons.Add("generic-document-32x32", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 1, IconSize.Large).ToBitmap());
+				_systemIcons.Add("generic-application-32x32", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 2, IconSize.Large).ToBitmap());
+				_systemIcons.Add("generic-folder-closed-32x32", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 3, IconSize.Large).ToBitmap());
+				_systemIcons.Add("generic-folder-open-32x32", ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 4, IconSize.Large).ToBitmap());
+				break;
+			}
+		}
+	}
     
     public static void PopulateSystemIcons(ref System.Windows.Forms.ImageList iml)
-    {
-        switch (Environment.OSVersion.Platform)
-        {
-            case PlatformID.MacOSX:
-                break;
-            case PlatformID.Unix:
-                break;
-            case PlatformID.Win32NT:
-            case PlatformID.Win32S:
-            case PlatformID.Win32Windows:
-            case PlatformID.WinCE:
-            {
-                if (iml.ImageSize.Width == 16 && iml.ImageSize.Height == 16)
-                {
-                    Icon iconFile = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 0, IconSize.Small);
-                    iml.Images.Add("generic-file", iconFile);
-                    Icon iconDocument = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 1, IconSize.Small);
-                    iml.Images.Add("generic-document", iconDocument);
-                    Icon iconApplication = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 2, IconSize.Small);
-                    iml.Images.Add("generic-application", iconApplication);
-                    Icon iconFolderClosed = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 3, IconSize.Small);
-                    iml.Images.Add("generic-folder-closed", iconFolderClosed);
-                    Icon iconFolderOpen = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 4, IconSize.Small);
-                    iml.Images.Add("generic-folder-open", iconFolderOpen);
-                }
-                else
-                {
-                    Icon iconFile = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 0, IconSize.Large);
-                    iml.Images.Add("generic-file", iconFile);
-                    Icon iconDocument = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 1, IconSize.Large);
-                    iml.Images.Add("generic-document", iconDocument);
-                    Icon iconApplication = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 2, IconSize.Large);
-                    iml.Images.Add("generic-application", iconApplication);
-                    Icon iconFolderClosed = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 3, IconSize.Large);
-                    iml.Images.Add("generic-folder-closed", iconFolderClosed);
-                    Icon iconFolderOpen = ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 4, IconSize.Large);
-                    iml.Images.Add("generic-folder-open", iconFolderOpen);
-                }
-                return;
-            }
-        }
-        // throw new PlatformNotSupportedException();
+	{
+		string[] paths = new string[]
+		{
+			"generic-file",
+			"generic-document",
+			"generic-application",
+			"generic-folder-closed",
+			"generic-folder-open"
+		};
+		foreach (string s in paths)
+		{
+			if (iml.Images.ContainsKey(s)) iml.Images.RemoveByKey(s);
+			
+			string path = "ImageList/" + iml.ImageSize.Width.ToString() + "x" + iml.ImageSize.Height.ToString() + "/" + s + ".png";
+			Image image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage(path);
+			if (image == null) image = _systemIcons[s + "-16x16"];
+			if (image != null)
+			{
+				// the image exists, so use it
+				iml.Images.Add(s, image);
+			}
+			else
+			{
+				// the image doesn't exist, so just fail silently
+				Console.WriteLine("Couldn't find system icon or theme icon for '" + s + "'");
+			}
+		}
     }
 }

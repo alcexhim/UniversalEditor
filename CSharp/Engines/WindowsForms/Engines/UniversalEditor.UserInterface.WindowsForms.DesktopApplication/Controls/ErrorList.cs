@@ -12,6 +12,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 		public ErrorList()
 		{
 			InitializeComponent();
+
+			tsbFilter.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ErrorList/Filter.png");
+			tsbErrors.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ErrorList/Error.png");
+			tsbWarnings.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ErrorList/Warning.png");
+			tsbMessages.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ErrorList/Message.png");
 		}
 
 		private HostApplicationMessage.HostApplicationMessageCollection mvarMessages = new HostApplicationMessage.HostApplicationMessageCollection();

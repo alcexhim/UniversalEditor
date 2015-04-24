@@ -4,10 +4,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+using UniversalEditor.Dialogs.Setup.ArkAngles;
 using UniversalEditor.ObjectModels.Setup.ArkAngles;
 using UniversalEditor.ObjectModels.Setup.ArkAngles.Actions;
-
 using UniversalEditor.UserInterface;
 using UniversalEditor.UserInterface.WindowsForms;
 
@@ -124,5 +123,27 @@ namespace UniversalEditor.Editors.Setup.ArkAngles
 				SwitchTo(null);
 			}
 		}
+
+		/*
+		private void cmdActionAdd_Click(object sender, EventArgs e)
+		{
+			ActionPropertiesDialog dlg = new ActionPropertiesDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+
+			}
+		}
+
+		private void cmdActionModify_Click(object sender, EventArgs e)
+		{
+			if (lvActions.SelectedItems.Count != 1) return;
+
+			ActionPropertiesDialog dlg = new ActionPropertiesDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+
+			}
+		}
+		*/
 	}
 }

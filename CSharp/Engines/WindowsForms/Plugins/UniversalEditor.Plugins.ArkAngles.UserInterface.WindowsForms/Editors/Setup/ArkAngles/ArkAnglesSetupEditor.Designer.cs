@@ -74,12 +74,10 @@
 			this.fraGeneral = new System.Windows.Forms.GroupBox();
 			this.scMain = new System.Windows.Forms.SplitContainer();
 			this.tv = new System.Windows.Forms.TreeView();
-			this.pnlGeneral = new System.Windows.Forms.Panel();
 			this.pnlInstallation = new System.Windows.Forms.Panel();
 			this.fraInstallationProcess = new System.Windows.Forms.GroupBox();
-			this.lvActions = new System.Windows.Forms.ListView();
-			this.chActionName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.chActionParameters = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.pnlGeneral = new System.Windows.Forms.Panel();
+			this.lv = new AwesomeControls.CollectionListView.CollectionListViewControl();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
 			this.pnlUninstallationTitle.SuspendLayout();
@@ -92,9 +90,9 @@
 			this.scMain.Panel1.SuspendLayout();
 			this.scMain.Panel2.SuspendLayout();
 			this.scMain.SuspendLayout();
-			this.pnlGeneral.SuspendLayout();
 			this.pnlInstallation.SuspendLayout();
 			this.fraInstallationProcess.SuspendLayout();
+			this.pnlGeneral.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblProductTitle
@@ -282,6 +280,7 @@
 			// 
 			this.chkRestart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkRestart.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.chkRestart.Location = new System.Drawing.Point(6, 103);
 			this.chkRestart.Name = "chkRestart";
 			this.chkRestart.Size = new System.Drawing.Size(353, 17);
@@ -580,8 +579,8 @@
 			// 
 			// scMain.Panel2
 			// 
-			this.scMain.Panel2.Controls.Add(this.pnlGeneral);
 			this.scMain.Panel2.Controls.Add(this.pnlInstallation);
+			this.scMain.Panel2.Controls.Add(this.pnlGeneral);
 			this.scMain.Size = new System.Drawing.Size(562, 412);
 			this.scMain.SplitterDistance = 187;
 			this.scMain.TabIndex = 13;
@@ -602,16 +601,6 @@
 			this.tv.TabIndex = 0;
 			this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_AfterSelect);
 			// 
-			// pnlGeneral
-			// 
-			this.pnlGeneral.Controls.Add(this.fraGeneral);
-			this.pnlGeneral.Controls.Add(this.fraAppearance);
-			this.pnlGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pnlGeneral.Location = new System.Drawing.Point(0, 0);
-			this.pnlGeneral.Name = "pnlGeneral";
-			this.pnlGeneral.Size = new System.Drawing.Size(371, 412);
-			this.pnlGeneral.TabIndex = 0;
-			// 
 			// pnlInstallation
 			// 
 			this.pnlInstallation.Controls.Add(this.fraInstallationProcess);
@@ -627,7 +616,7 @@
 			this.fraInstallationProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.fraInstallationProcess.Controls.Add(this.lvActions);
+			this.fraInstallationProcess.Controls.Add(this.lv);
 			this.fraInstallationProcess.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.fraInstallationProcess.Location = new System.Drawing.Point(3, 140);
 			this.fraInstallationProcess.Name = "fraInstallationProcess";
@@ -636,33 +625,29 @@
 			this.fraInstallationProcess.TabStop = false;
 			this.fraInstallationProcess.Text = "Installation process";
 			// 
-			// lvActions
+			// pnlGeneral
 			// 
-			this.lvActions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.pnlGeneral.Controls.Add(this.fraGeneral);
+			this.pnlGeneral.Controls.Add(this.fraAppearance);
+			this.pnlGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlGeneral.Location = new System.Drawing.Point(0, 0);
+			this.pnlGeneral.Name = "pnlGeneral";
+			this.pnlGeneral.Size = new System.Drawing.Size(371, 412);
+			this.pnlGeneral.TabIndex = 0;
+			// 
+			// lv
+			// 
+			this.lv.AllowItemInsert = true;
+			this.lv.AllowItemModify = true;
+			this.lv.AllowItemRemove = true;
+			this.lv.AllowItemReorder = false;
+			this.lv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.lvActions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chActionName,
-            this.chActionParameters});
-			this.lvActions.FullRowSelect = true;
-			this.lvActions.GridLines = true;
-			this.lvActions.HideSelection = false;
-			this.lvActions.Location = new System.Drawing.Point(6, 19);
-			this.lvActions.Name = "lvActions";
-			this.lvActions.Size = new System.Drawing.Size(353, 244);
-			this.lvActions.TabIndex = 0;
-			this.lvActions.UseCompatibleStateImageBehavior = false;
-			this.lvActions.View = System.Windows.Forms.View.Details;
-			// 
-			// chActionName
-			// 
-			this.chActionName.Text = "Action";
-			this.chActionName.Width = 128;
-			// 
-			// chActionParameters
-			// 
-			this.chActionParameters.Text = "Parameters";
-			this.chActionParameters.Width = 217;
+			this.lv.Location = new System.Drawing.Point(6, 19);
+			this.lv.Name = "lv";
+			this.lv.Size = new System.Drawing.Size(353, 244);
+			this.lv.TabIndex = 0;
 			// 
 			// ArkAnglesSetupEditor
 			// 
@@ -688,9 +673,9 @@
 			this.scMain.Panel1.ResumeLayout(false);
 			this.scMain.Panel2.ResumeLayout(false);
 			this.scMain.ResumeLayout(false);
-			this.pnlGeneral.ResumeLayout(false);
 			this.pnlInstallation.ResumeLayout(false);
 			this.fraInstallationProcess.ResumeLayout(false);
+			this.pnlGeneral.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -744,8 +729,6 @@
 		private System.Windows.Forms.Panel pnlInstallation;
 		private System.Windows.Forms.GroupBox fraInstallationProcess;
 		private System.Windows.Forms.Panel pnlGeneral;
-		private System.Windows.Forms.ListView lvActions;
-		private System.Windows.Forms.ColumnHeader chActionName;
-		private System.Windows.Forms.ColumnHeader chActionParameters;
+		private AwesomeControls.CollectionListView.CollectionListViewControl lv;
 	}
 }
