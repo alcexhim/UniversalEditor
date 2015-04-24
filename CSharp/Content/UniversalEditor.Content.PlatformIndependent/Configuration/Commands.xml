@@ -173,6 +173,8 @@
 					<Separator />
 					<CommandReference CommandID="ViewStartPage" />
 					<CommandReference CommandID="ViewFullScreen" />
+					<Separator />
+					<CommandReference CommandID="ViewRefresh" />
 				</Items>
 			</Command>
 			<Command ID="ViewToolbars">
