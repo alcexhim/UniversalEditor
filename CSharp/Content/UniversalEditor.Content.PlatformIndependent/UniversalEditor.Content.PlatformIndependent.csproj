@@ -537,33 +537,6 @@
     <Content Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\PHP\MainIcon_16x16.png" />
     <Content Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\PHP\MainIcon_32x32.png" />
     <Content Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\PHP\PHP Web Project.xml" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileClose.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileExit.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewFile.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewProject.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewTeamProject.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewWebSite.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenFile.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenProject.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenTeamProject.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenWebSite.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FilePageSetup.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FilePrint.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileSave.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileSaveAll.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Control.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\CSharp.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\CSharp_Project.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Form.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\generic-file.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\generic-folder-closed.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\generic-folder-open.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\hidden-folder-closed.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\hidden-folder-open.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\PropertiesFolder.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Reference.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Resources.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\UserControl.png" />
     <Content Include="WindowLayouts\Default.xml" />
     <Content Include="WindowLayouts\VisualStudio2013.xml" />
   </ItemGroup>
@@ -588,7 +561,6 @@
     <None Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Common Language Runtime\CSharp\Images\Library.xcf" />
     <None Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\ColdFusion\Images\Project.xcf" />
     <None Include="Extensions\WebsiteDeveloper\Templates\Project\Website Development\PHP\MainIcon.xcf" />
-    <Content Include="Themes\VisualStudio2012\Dark\Theme.xml" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
