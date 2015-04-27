@@ -237,6 +237,7 @@ internal static class IconMethods
     
     public static void PopulateSystemIcons(ref System.Windows.Forms.ImageList iml)
 	{
+		InitializeSystemIcons();
 		string[] paths = new string[]
 		{
 			"generic-file",
@@ -251,7 +252,7 @@ internal static class IconMethods
 			
 			string path = "ImageList/" + iml.ImageSize.Width.ToString() + "x" + iml.ImageSize.Height.ToString() + "/" + s + ".png";
 			Image image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage(path);
-			if (image == null) image = _systemIcons[s + "-16x16"];
+			if (image == null && _systemIcons.ContainsKey(s + "-16x16")) image = _systemIcons[s + "-16x16"];
 			if (image != null)
 			{
 				// the image exists, so use it
