@@ -5,7 +5,7 @@ using UniversalEditor.Accessors;
 
 namespace UniversalEditor.ObjectModels.FileSystem
 {
-	public class FileSystemObjectModel : ObjectModel
+	public class FileSystemObjectModel : ObjectModel, IFileSystemContainer
 	{
 		private ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()

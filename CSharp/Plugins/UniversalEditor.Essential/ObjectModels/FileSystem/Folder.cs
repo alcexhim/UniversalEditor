@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.FileSystem
 {
-	public class Folder : IFileSystemObject
+	public class Folder : IFileSystemObject, IFileSystemContainer
 	{
 		public class FolderCollection
 			: System.Collections.ObjectModel.Collection<Folder>

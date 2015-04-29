@@ -88,6 +88,7 @@
     <Compile Include="ObjectModels\FileSystem\File.cs" />
     <Compile Include="ObjectModels\FileSystem\FileSystemObjectModel.cs" />
     <Compile Include="ObjectModels\FileSystem\Folder.cs" />
+    <Compile Include="ObjectModels\FileSystem\IFileSystemContainer.cs" />
     <Compile Include="ObjectModels\FileSystem\IFileSystemObject.cs" />
     <Compile Include="ObjectModels\Markup\MarkupAttribute.cs" />
     <Compile Include="ObjectModels\Markup\MarkupCommentElement.cs" />
