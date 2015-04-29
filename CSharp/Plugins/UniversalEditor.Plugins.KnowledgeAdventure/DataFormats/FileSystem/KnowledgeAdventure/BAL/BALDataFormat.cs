@@ -98,6 +98,14 @@ namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 			entry.UnknownA3 = reader.ReadInt32();
 			return entry;
 		}
+		private void WriteDirectoryEntry(Writer writer, BALDirectoryEntry entry)
+		{
+			writer.WriteInt32(entry.UnknownA1);
+			writer.WriteInt32(entry.Offset);
+			writer.WriteInt32(entry.Length);
+			writer.WriteInt32((int)entry.Attributes);
+			writer.WriteInt32(entry.UnknownA3);
+		}
 
 		void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
@@ -117,6 +125,55 @@ namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Writer writer = base.Accessor.Writer;
+
+			int totalCount = fsom.Folders.Count + fsom.Files.Count;
+			writer.WriteInt32(totalCount);
+
+			IFileSystemObject[] allObjects = fsom.GetAllObjects();
+			IFileSystemObject[] allObjectsToplevel = fsom.GetAllObjects(null, System.IO.SearchOption.TopDirectoryOnly);
+			IFileSystemObject[] allFolders = fsom.GetAllObjects(null, System.IO.SearchOption.AllDirectories, IFileSystemObjectType.Folder);
+
+			int totalFolderCountIncludingRoot = allFolders.Length + 1;
+
+			// each folder including the root has a 20-byte directory entry
+			int totalSize = (20 * totalFolderCountIncludingRoot);
+			
+			// each actual folder including the root also has 4 bytes for the count of files and 4 bytes for the name table size
+			totalSize += (8 * totalFolderCountIncludingRoot);
+
+			for (int i = 0; i < allObjects.Length; i++)
+			{
+				// add the length of the file name including the null byte
+				totalSize += allObjects[i].Name.Length + 1;
+
+				// add the total size of the file data
+				if (allObjects[i] is File)
+				{
+					totalSize += (int)((allObjects[i] as File).Size);
+				}
+				else if (allObjects[i] is Folder)
+				{
+					totalSize += (int)(allObjects[i] as Folder).GetSize();
+				}
+			}
+
+			BALDirectoryEntry entryRoot = new BALDirectoryEntry();
+			entryRoot.Attributes = BALDirectoryEntryAttributes.Directory;
+			entryRoot.Offset = 0;
+			entryRoot.Length = totalSize;
+			WriteDirectoryEntry(writer, entryRoot);
+
+			for (int i = 0; i < fsom.Folders.Count; i++)
+			{
+				BALDirectoryEntry entry = new BALDirectoryEntry();
+				entry.Attributes = BALDirectoryEntryAttributes.Directory;
+				entry.Offset = 0;
+				entry.Length = 0;
+				WriteDirectoryEntry(writer, entry);
+			}
+
+			// I have no idea what this does but it's at the end of the SOUND.BAL file
+			writer.WriteInt32(-1172438784);
 		}
 	}
 }
