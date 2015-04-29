@@ -153,6 +153,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Ark
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeControls.Content.PlatformIndependent", "..\..\AwesomeControls\AwesomeControls.Content.PlatformIndependent\AwesomeControls.Content.PlatformIndependent.csproj", "{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.KnowledgeAdventure", "Plugins\UniversalEditor.Plugins.KnowledgeAdventure\UniversalEditor.Plugins.KnowledgeAdventure.csproj", "{991F734F-D659-4252-8D2D-E6F828474861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -416,6 +418,10 @@ Global
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{991F734F-D659-4252-8D2D-E6F828474861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{991F734F-D659-4252-8D2D-E6F828474861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{991F734F-D659-4252-8D2D-E6F828474861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{991F734F-D659-4252-8D2D-E6F828474861}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -490,5 +496,6 @@ Global
 		{21D14362-103A-4B38-8FB8-EEA6C7C89E09} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{CF83423B-800F-4EF9-8955-E7A8C2C5C057} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF} = {5A423A3E-51C5-4188-8AD5-FB5C0CB76C6A}
+		{991F734F-D659-4252-8D2D-E6F828474861} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 	EndGlobalSection
 EndGlobal

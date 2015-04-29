@@ -41,6 +41,7 @@
     <Content Include="Associations\Markup.xml" />
     <Content Include="Associations\DataLink.xml" />
     <Content Include="Associations\PropertyList.xml" />
+    <Content Include="Extensions\KnowledgeAdventure\Associations\BALDataFormat.xml" />
     <Content Include="Extensions\SoftwarePublisher\Associations\Setup\ArkAngles\Setup.xml" />
     <Content Include="Extensions\SoftwarePublisher\Associations\Setup\Microsoft\ACME\BootstrapScript.xml" />
     <Content Include="Extensions\SoftwarePublisher\Associations\Setup\ArkAngles\Catalog.xml" />
