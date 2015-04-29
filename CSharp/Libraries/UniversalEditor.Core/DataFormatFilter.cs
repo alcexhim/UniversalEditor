@@ -90,8 +90,27 @@ namespace UniversalEditor
 
 			// first determine if our file name matches any of the filters
 			string fileName = accessor.GetFileName();
+
+			bool caseSensitiveOS = true;
+			// extremely hacky
+			switch (Environment.OSVersion.Platform)
+			{
+				case PlatformID.Win32NT:
+				case PlatformID.Win32S:
+				case PlatformID.Win32Windows:
+				case PlatformID.WinCE:
+				{
+					caseSensitiveOS = false;
+					break;
+				}
+			}
+
+			if (!caseSensitiveOS) fileName = fileName.ToLower();
 			for (int i = 0; i < mvarFileNameFilters.Count; i++)
 			{
+				string filter = mvarFileNameFilters[i];
+				if (!caseSensitiveOS) filter = filter.ToLower();
+
 				if (fileName.Match(mvarFileNameFilters[i]))
 				{
 					basedOnFilter = true;
