@@ -16,7 +16,7 @@
 						<FileNameFilter>*.tlz</FileNameFilter>
 						<FileNameFilter>*.tar.lz</FileNameFilter>
 						<FileNameFilter>*.txz</FileNameFilter>
-						<FileNameFilter>*.tar.xz"</FileNameFilter>
+						<FileNameFilter>*.tar.xz</FileNameFilter>
 					</FileNameFilters>
 				</Filter>
 			</Filters>
