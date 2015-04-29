@@ -339,40 +339,52 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 		}
 
-		public IFileSystemObject[] GetAllObjects(string pathSeparator = null)
+		public IFileSystemObject[] GetAllObjects(string pathSeparator = null, System.IO.SearchOption option = System.IO.SearchOption.AllDirectories, IFileSystemObjectType objectTypes = IFileSystemObjectType.All)
 		{
 			if (pathSeparator == null) pathSeparator = "/";
 
 			List<IFileSystemObject> files = new List<IFileSystemObject>();
-			for (int i = 0; i < mvarFiles.Count; i++)
+			if ((objectTypes & IFileSystemObjectType.File) == IFileSystemObjectType.File)
 			{
-				File file = mvarFiles[i];
-				files.Add(file);
+				for (int i = 0; i < mvarFiles.Count; i++)
+				{
+					File file = mvarFiles[i];
+					files.Add(file);
+				}
 			}
 			for (int i = 0; i < mvarFolders.Count; i++)
 			{
 				Folder folder = mvarFolders[i];
-				files.Add(folder);
-				GetAllObjectsRecursively(folder, ref files, folder.Name, pathSeparator);
+				if ((objectTypes & IFileSystemObjectType.Folder) == IFileSystemObjectType.Folder)
+				{
+					files.Add(folder);
+				}
+				if (option == System.IO.SearchOption.AllDirectories) GetAllObjectsRecursively(folder, ref files, folder.Name, pathSeparator, null, objectTypes);
 			}
 			return files.ToArray();
 		}
 
-		private void GetAllObjectsRecursively(Folder folder, ref List<IFileSystemObject> files, string parentPath, string pathSeparator, string searchPattern = null)
+		private void GetAllObjectsRecursively(Folder folder, ref List<IFileSystemObject> files, string parentPath, string pathSeparator, string searchPattern = null, IFileSystemObjectType objectTypes = IFileSystemObjectType.All)
 		{
-			for (int i = 0; i < folder.Files.Count; i++)
+			if ((objectTypes & IFileSystemObjectType.File) == IFileSystemObjectType.File)
 			{
-				File file = folder.Files[i];
-				if (searchPattern != null && !file.Name.Match(searchPattern)) continue;
+				for (int i = 0; i < folder.Files.Count; i++)
+				{
+					File file = folder.Files[i];
+					if (searchPattern != null && !file.Name.Match(searchPattern)) continue;
 
-				File file2 = (file.Clone() as File);
-				file2.Name = parentPath + pathSeparator + file.Name;
-				files.Add(file2);
+					File file2 = (file.Clone() as File);
+					file2.Name = parentPath + pathSeparator + file.Name;
+					files.Add(file2);
+				}
 			}
 			for (int i = 0; i < folder.Folders.Count; i++)
 			{
 				Folder folder1 = folder.Folders[i];
-				files.Add(folder1);
+				if ((objectTypes & IFileSystemObjectType.Folder) == IFileSystemObjectType.Folder)
+				{
+					files.Add(folder1);
+				}
 				GetAllObjectsRecursively(folder1, ref files, parentPath + pathSeparator + folder1.Name, pathSeparator, searchPattern);
 			}
 		}
