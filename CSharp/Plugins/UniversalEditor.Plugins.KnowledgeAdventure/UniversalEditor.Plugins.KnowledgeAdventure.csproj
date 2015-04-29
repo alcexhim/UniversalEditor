@@ -35,9 +35,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\FileSystem\KnowledgeAdventure\BALDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\KnowledgeAdventure\BALDirectoryEntry.cs" />
-    <Compile Include="DataFormats\FileSystem\KnowledgeAdventure\BALDirectoryEntryAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\KnowledgeAdventure\BAL\BALDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\KnowledgeAdventure\BAL\BALDirectoryEntry.cs" />
+    <Compile Include="DataFormats\FileSystem\KnowledgeAdventure\BAL\BALDirectoryEntryAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\KnowledgeAdventure\RSC\RSCDataFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

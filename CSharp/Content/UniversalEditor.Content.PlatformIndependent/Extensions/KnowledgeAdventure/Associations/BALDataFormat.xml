@@ -13,7 +13,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BALDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL.BALDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

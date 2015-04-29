@@ -4,7 +4,7 @@ using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure
+namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 {
     public class BALDataFormat : DataFormat
     {
