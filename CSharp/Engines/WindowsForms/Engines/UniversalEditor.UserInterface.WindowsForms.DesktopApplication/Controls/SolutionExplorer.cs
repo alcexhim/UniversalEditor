@@ -8,6 +8,8 @@ using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.Solution;
 
+using AwesomeControls;
+
 namespace UniversalEditor.UserInterface.WindowsForms.Controls
 {
 	[DefaultEvent("SelectionChanged")]
@@ -24,23 +26,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			imlSmallIcons.Images.Add("generic-solution", Properties.Resources.solution_icon);
 			imlSmallIcons.Images.Add("generic-project", Properties.Resources.project_icon);
 
-			RecursiveLoadToolbarItemImages(cbToolBar1.Items);
-		}
-
-		private void RecursiveLoadToolbarItemImages(ToolStripItemCollection coll)
-		{
-			foreach (ToolStripItem tsi in coll)
-			{
-				string name = tsi.Name;
-				if (name.StartsWith("tsb")) name = name.Substring(3);
-				tsi.Image = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("SolutionExplorer/" + name + ".png");
-				if (tsi is ToolStripDropDownItem)
-				{
-					ToolStripDropDownItem tsddi = (tsi as ToolStripDropDownItem);
-					RecursiveLoadToolbarItemImages(tsddi.DropDownItems);
-					if (tsi.Image == null && tsddi.DropDownItems.Count > 0) tsi.Image = tsddi.DropDownItems[0].Image;
-				}
-			}
+			cbToolBar1.LoadThemeIcons("SolutionExplorer");
 		}
 
 		private MainWindow mvarParentWindow = null;
