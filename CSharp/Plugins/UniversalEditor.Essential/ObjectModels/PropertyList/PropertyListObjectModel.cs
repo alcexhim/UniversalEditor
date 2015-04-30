@@ -152,15 +152,12 @@ namespace UniversalEditor.ObjectModels.PropertyList
 					}
 					else
 					{
-						try
-						{
-							result = (T)parent.Properties[propertyPath[propertyPath.Length - 1]].Value;
-						}
-						catch (NullReferenceException)
+						Property p = parent.Properties[propertyPath[propertyPath.Length - 1]];
+						if (p == null || p.Value == null)
 						{
 							result = defaultValue;
 						}
-						catch (InvalidCastException)
+						else if (p.Value.GetType() != typeof(T) && p.Value.GetType() == typeof(String))
 						{
 							Type t = typeof(T);
 							MethodInfo miParse = t.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public, null, new Type[]
@@ -172,6 +169,30 @@ namespace UniversalEditor.ObjectModels.PropertyList
 								parent.Properties[propertyPath[propertyPath.Length - 1]].Value
 							});
 							result = (T)retvalobj;
+						}
+						else
+						{
+							try
+							{
+								result = (T)parent.Properties[propertyPath[propertyPath.Length - 1]].Value;
+							}
+							catch (NullReferenceException)
+							{
+								result = defaultValue;
+							}
+							catch (InvalidCastException)
+							{
+								Type t = typeof(T);
+								MethodInfo miParse = t.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public, null, new Type[]
+								{
+									typeof(string)
+								}, null);
+								object retvalobj = miParse.Invoke(null, new object[]
+								{
+									parent.Properties[propertyPath[propertyPath.Length - 1]].Value
+								});
+								result = (T)retvalobj;
+							}
 						}
 					}
 				}
