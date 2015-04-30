@@ -13,6 +13,11 @@ namespace UniversalEditor
 			private Dictionary<Guid, ObjectModelReference> refsByID = new Dictionary<Guid, ObjectModelReference>();
 			private Dictionary<Type, ObjectModelReference> refsByType = new Dictionary<Type, ObjectModelReference>();
 
+			/// <summary>
+			/// Associates a new <see cref="ObjectModelReference" /> with the specified <see cref="Guid" /> ID and returns it.
+			/// </summary>
+			/// <param name="ID">The <see cref="Guid" /> of the <see cref="ObjectModel" /> for which to create an <see cref="ObjectModelReference" />.</param>
+			/// <returns>The newly-created <see cref="ObjectModelReference" />.</returns>
 			public ObjectModelReference Add(Guid ID)
 			{
 				if (refsByID.ContainsKey(ID)) return refsByID[ID];
@@ -22,6 +27,11 @@ namespace UniversalEditor
 				Add(omr);
 				return omr;
 			}
+			/// <summary>
+			/// Associates a new <see cref="ObjectModelReference" /> with the specified <see cref="Type" /> and returns it.
+			/// </summary>
+			/// <param name="type">The <see cref="Type" /> of the <see cref="ObjectModel" /> for which to create an <see cref="ObjectModelReference" />.</param>
+			/// <returns>The newly-created <see cref="ObjectModelReference" />.</returns>
 			public ObjectModelReference Add(Type type)
 			{
 				if (refsByType.ContainsKey(type)) return refsByType[type];
@@ -32,6 +42,11 @@ namespace UniversalEditor
 				return omr;
 			}
 
+			/// <summary>
+			/// Gets the <see cref="ObjectModelReference" /> associated with the specified ID.
+			/// </summary>
+			/// <param name="ID">The <see cref="Guid" /> to search for.</param>
+			/// <returns>The <see cref="ObjectModelReference" /> associated with the specified ID, or null if no <see cref="ObjectModelReference" /> is associated with the specified ID.</returns>
 			public ObjectModelReference this[Guid ID]
 			{
 				get
@@ -40,6 +55,12 @@ namespace UniversalEditor
 					return null;
 				}
 			}
+
+			/// <summary>
+			/// Gets the <see cref="ObjectModelReference" /> associated with the specified <see cref="Type" />.
+			/// </summary>
+			/// <param name="type">The <see cref="Type" /> to search for.</param>
+			/// <returns>The <see cref="ObjectModelReference" /> associated with the specified <see cref="Type" />, or null if no <see cref="ObjectModelReference" /> is associated with the specified <see cref="Type" />.</returns>
 			public ObjectModelReference this[Type type]
 			{
 				get
@@ -48,11 +69,20 @@ namespace UniversalEditor
 					return null;
 				}
 			}
-
+			/// <summary>
+			/// Determines if a <see cref="ObjectModelReference" /> with the specified ID exists in the collection.
+			/// </summary>
+			/// <param name="ID">The <see cref="Guid" /> of the <see cref="ObjectModelReference" /> to search for.</param>
+			/// <returns>True if an <see cref="ObjectModelReference" /> with the specified ID exists in the collection; false otherwise.</returns>
 			public bool Contains(Guid ID)
 			{
 				return (refsByID.ContainsKey(ID));
 			}
+			/// <summary>
+			/// Determines if a <see cref="ObjectModelReference" /> associated with the specified <see cref="Type" /> exists in the collection.
+			/// </summary>
+			/// <param name="ID">The <see cref="Type" /> of the <see cref="ObjectModelReference" /> to search for.</param>
+			/// <returns>True if an <see cref="ObjectModelReference" /> associated with the specified <see cref="Type" /> exists in the collection; false otherwise.</returns>
 			public bool Contains(Type type)
 			{
 				if (refsByType.Count == 0)
