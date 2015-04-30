@@ -99,6 +99,7 @@
 			this.tsbClearAllPanes.Name = "tsbClearAllPanes";
 			this.tsbClearAllPanes.Size = new System.Drawing.Size(23, 22);
 			this.tsbClearAllPanes.Text = "Clear All Panes";
+			this.tsbClearAllPanes.Visible = false;
 			// 
 			// tsbSep2
 			// 
