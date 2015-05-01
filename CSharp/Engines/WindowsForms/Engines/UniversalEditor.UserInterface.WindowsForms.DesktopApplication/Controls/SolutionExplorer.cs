@@ -27,6 +27,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 			imlSmallIcons.Images.Add("generic-project", Properties.Resources.project_icon);
 
 			cbToolBar1.LoadThemeIcons("SolutionExplorer");
+
+			txtFilter.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.DropDownBackgroundColorNormal;
+			txtFilter.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.DropDownForegroundColorNormal;
+
+			tv.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowBackground;
 		}
 
 		private MainWindow mvarParentWindow = null;
