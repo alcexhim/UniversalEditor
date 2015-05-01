@@ -333,7 +333,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			dwSolutionExplorer = dcc.Windows.Add("Solution Explorer", pnlSolutionExplorer);
 			
 			dwProperties = dcc.Windows.Add("Properties", pgc);
-			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Size = 300;
+			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Size = 200;
 
 			dcc.Areas[DockPosition.Center].Areas[DockPosition.Bottom].Windows.Add(dwProperties);
 
