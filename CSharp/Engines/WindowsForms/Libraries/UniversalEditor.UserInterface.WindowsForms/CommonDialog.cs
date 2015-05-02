@@ -32,7 +32,8 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			}
 			if (includeAllFiles)
 			{
-				sb.Append("|All files (*.*)|*.*");
+				if (sb.Length > 0) sb.Append("|");
+				sb.Append("All files (*.*)|*.*");
 			}
 			return sb.ToString();
 		}
