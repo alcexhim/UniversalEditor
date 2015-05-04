@@ -38,6 +38,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			lv.SmallImageList = base.SmallImageList;
 			tv.ImageList = base.SmallImageList;
 
+			txtFilter.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowBackground;
+			txtFilter.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowForeground;
+
 			mnuTreeViewContextExpand.Font = new Font(mnuTreeViewContextExpand.Font, FontStyle.Bold);
 
 			lv.Columns.Add("Name", 300);
@@ -770,8 +773,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 		{
 			if (lv.SelectedItems.Count == 0)
 			{
-				string fileName = ObjectModel.Accessor.GetFileName();
-				if (System.IO.File.Exists(fileName))
+				string fileName = String.Empty;
+				if (ObjectModel != null && ObjectModel.Accessor != null) fileName = ObjectModel.Accessor.GetFileName();
+				if (!String.IsNullOrEmpty(fileName) && System.IO.File.Exists(fileName))
 				{
 					File file = new File();
 					file.Name = fileName;
