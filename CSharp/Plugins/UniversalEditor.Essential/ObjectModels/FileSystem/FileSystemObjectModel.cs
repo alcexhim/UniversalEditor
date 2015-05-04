@@ -408,7 +408,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				if (f.Name.StartsWith("New Folder (") && f.Name.EndsWith(")"))
 				{
-					string strIntPart = f.Name.Substring("New Folder (".Length, f.Name.Length - "New Folder (".Length - 2);
+					string strIntPart = f.Name.Substring("New Folder (".Length, f.Name.Length - "New Folder (".Length - 1);
 					int intPart = 0;
 					if (Int32.TryParse(strIntPart, out intPart))
 					{
