@@ -39,30 +39,67 @@ namespace UniversalEditor
 				case PlatformID.Win32Windows:
 				case PlatformID.WinCE:
 				{
+					string strSize = "32x32";
+					IconMethods.IconSize icnSize = IconMethods.IconSize.Large;
+					
 					if (iml.ImageSize.Width == 16 && iml.ImageSize.Height == 16)
 					{
-						Icon iconFile = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 0, IconMethods.IconSize.Small);
-						iml.Images.Add("generic-file", iconFile);
-						Icon iconDocument = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 1, IconMethods.IconSize.Small);
-						iml.Images.Add("generic-document", iconDocument);
-						Icon iconApplication = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 2, IconMethods.IconSize.Small);
-						iml.Images.Add("generic-application", iconApplication);
-						Icon iconFolderClosed = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 3, IconMethods.IconSize.Small);
-						iml.Images.Add("generic-folder-closed", iconFolderClosed);
-						Icon iconFolderOpen = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 4, IconMethods.IconSize.Small);
-						iml.Images.Add("generic-folder-open", iconFolderOpen);
+						strSize = "16x16";
+						icnSize = IconMethods.IconSize.Small;
+					}
+
+					Image imageFile = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ImageList/" + strSize + "/generic-file.png");
+					if (imageFile != null)
+					{
+						iml.Images.Add("generic-file", imageFile);
 					}
 					else
 					{
-						Icon iconFile = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 0, IconMethods.IconSize.Large);
+						Icon iconFile = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 0, icnSize);
 						iml.Images.Add("generic-file", iconFile);
-						Icon iconDocument = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 1, IconMethods.IconSize.Large);
+					}
+
+					Image imageDocument = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ImageList/" + strSize + "/generic-document.png");
+					if (imageDocument != null)
+					{
+						iml.Images.Add("generic-document", imageDocument);
+					}
+					else
+					{
+						Icon iconDocument = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 1, icnSize);
 						iml.Images.Add("generic-document", iconDocument);
-						Icon iconApplication = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 2, IconMethods.IconSize.Large);
+					}
+						
+					Image imageApplication = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ImageList/" + strSize + "/generic-application.png");
+					if (imageApplication != null)
+					{
+						iml.Images.Add("generic-application", imageApplication);
+					}
+					else
+					{
+						Icon iconApplication = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 2, icnSize);
 						iml.Images.Add("generic-application", iconApplication);
-						Icon iconFolderClosed = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 3, IconMethods.IconSize.Large);
+					}
+						
+					Image imageFolderClosed = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ImageList/" + strSize + "/generic-folder-closed.png");
+					if (imageFolderClosed != null)
+					{
+						iml.Images.Add("generic-folder-closed", imageFolderClosed);
+					}
+					else
+					{
+						Icon iconFolderClosed = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 3, icnSize);
 						iml.Images.Add("generic-folder-closed", iconFolderClosed);
-						Icon iconFolderOpen = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 4, IconMethods.IconSize.Large);
+					}
+						
+					Image imageFolderOpen = AwesomeControls.Theming.Theme.CurrentTheme.GetImage("ImageList/" + strSize + "/generic-folder-open.png");
+					if (imageFolderOpen != null)
+					{
+						iml.Images.Add("generic-folder-open", imageFolderOpen);
+					}
+					else
+					{
+						Icon iconFolderOpen = IconMethods.ExtractAssociatedIcon(Environment.GetFolderPath(Environment.SpecialFolder.System) + System.IO.Path.DirectorySeparatorChar + "shell32.dll", 4, icnSize);
 						iml.Images.Add("generic-folder-open", iconFolderOpen);
 					}
 					return;
