@@ -9,5 +9,6 @@ namespace UniversalEditor.ObjectModels.FileSystem
 	{
 		File.FileCollection Files { get; }
 		Folder.FolderCollection Folders { get; }
+		string GetNewFolderName();
 	}
 }

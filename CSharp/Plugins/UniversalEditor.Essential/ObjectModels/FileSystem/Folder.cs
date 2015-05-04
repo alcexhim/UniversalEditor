@@ -93,6 +93,15 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		private File.FileCollection mvarFiles = new File.FileCollection();
 		public File.FileCollection Files { get { return mvarFiles; } }
 
+		/// <summary>
+		/// Gets the next available "New Folder" name for this folder.
+		/// </summary>
+		/// <returns>A string "New Folder" if there are no other "New Folder"s in this folder; otherwise, a string "New Folder (n)" where N is the number of "New Folder"s in this folder plus one.</returns>
+		public string GetNewFolderName()
+		{
+			return FileSystemObjectModel.GetNewFolderName(this);
+		}
+
 		public object Clone()
 		{
 			Folder clone = new Folder();
@@ -126,6 +135,55 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				size += folder.GetSize();
 			}
 			return size;
+		}
+
+		public File AddFile(string fileName, byte[] fileData)
+		{
+			string[] path = fileName.Split(new string[] { System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() }, StringSplitOptions.None);
+			Folder parent = null;
+			for (int i = 0; i < path.Length - 1; i++)
+			{
+				if (parent == null)
+				{
+					if (mvarFolders.Contains(path[i]))
+					{
+						parent = mvarFolders[path[i]];
+					}
+					else
+					{
+						parent = mvarFolders.Add(path[i]);
+					}
+				}
+				else
+				{
+					if (parent.Folders.Contains(path[i]))
+					{
+						parent = parent.Folders[path[i]];
+					}
+					else
+					{
+						parent = parent.Folders.Add(path[i]);
+					}
+				}
+
+				if (parent == null)
+				{
+					throw new System.IO.DirectoryNotFoundException();
+				}
+			}
+
+			File file = new File();
+			file.Name = path[path.Length - 1];
+			if (fileData != null) file.SetDataAsByteArray(fileData);
+			if (parent == null)
+			{
+				mvarFiles.Add(file);
+			}
+			else
+			{
+				parent.Files.Add(file);
+			}
+			return file;
 		}
 	}
 }
