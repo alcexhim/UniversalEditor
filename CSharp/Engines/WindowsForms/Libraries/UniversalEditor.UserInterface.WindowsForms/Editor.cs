@@ -479,5 +479,16 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				}
 			}
 		}
+
+		public Image GetThemeImage(string path)
+		{
+			string fileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+			{
+				"Editors",
+				this.GetType().FullName,
+				path
+			});
+			return AwesomeControls.Theming.Theme.CurrentTheme.GetImage(fileName);
+		}
 	}
 }
