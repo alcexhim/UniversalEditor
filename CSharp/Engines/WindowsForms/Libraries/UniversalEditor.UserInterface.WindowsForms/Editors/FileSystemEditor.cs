@@ -273,7 +273,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 		private void RecursiveLoadListViewFolder(Folder folder, AwesomeControls.ListView.ListViewItem parent)
 		{
-			if (!String.IsNullOrEmpty(txtFilter.Text) && (folder.Name.ToLower().Contains(txtFilter.Text.ToLower()) || !folder.Name.ToLower().Match(txtFilter.Text.ToLower()))) return;
+			if (String.IsNullOrEmpty(txtFilter.Text) || !(folder.Name.ToLower().Contains(txtFilter.Text.ToLower())
+				/* || !folder.Name.ToLower().Match(txtFilter.Text.ToLower()) */
+			)) return;
 
 			AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
 			lvi.Text = folder.Name;
