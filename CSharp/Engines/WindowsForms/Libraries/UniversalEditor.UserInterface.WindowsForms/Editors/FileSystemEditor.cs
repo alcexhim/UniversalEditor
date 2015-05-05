@@ -766,8 +766,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 		{
 			if (lv.SelectedItems.Count == 0)
 			{
-				string fileName = ObjectModel.Accessor.GetFileName();
-				if (System.IO.File.Exists(fileName))
+				string fileName = null;
+				if (ObjectModel.Accessor != null) fileName = ObjectModel.Accessor.GetFileName();
+				if (!String.IsNullOrEmpty(fileName) && System.IO.File.Exists(fileName))
 				{
 					File file = new File();
 					file.Name = fileName;
@@ -792,6 +793,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				if (file != null)
 				{
 					Dialogs.FileSystem.FilePropertiesDialog dlg = new Dialogs.FileSystem.FilePropertiesDialog();
+					if (ObjectModel.Accessor != null)
+					{
+						dlg.ParentFileName = ObjectModel.Accessor.GetFileName();
+					}
 					dlg.SelectedObjects.Add(file);
 
 					if (dlg.ShowDialog() == DialogResult.OK)
