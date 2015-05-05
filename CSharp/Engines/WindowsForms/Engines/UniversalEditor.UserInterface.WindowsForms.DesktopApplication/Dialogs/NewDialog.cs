@@ -21,6 +21,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs
 
 			RefreshProjectTemplates();
 			tvProject.Sort();
+
+			// UseThemeBackground = true;
 		}
 
 		private NewDialogMode mvarMode = NewDialogMode.File;
