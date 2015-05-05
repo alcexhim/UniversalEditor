@@ -38,6 +38,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			lv.SmallImageList = base.SmallImageList;
 			tv.ImageList = base.SmallImageList;
 
+			txtFilter.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowBackground;
+			txtFilter.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowForeground;
+
 			mnuTreeViewContextExpand.Font = new Font(mnuTreeViewContextExpand.Font, FontStyle.Bold);
 
 			lv.Columns.Add("Name", 300);
@@ -48,7 +51,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 			ActionMenuItem mnuFileSystem = MenuBar.Items.Add("mnuFileSystem", "File&system", null, 4);
 			mnuFileSystem.Items.Add("mnuFileSystemAddFile", "Add &File...", AddFile_Click);
-			mnuFileSystem.Items.Add("mnuFileSystemAddFolder", "Add Fol&der...", AddFolder_Click);
+			mnuFileSystem.Items.Add("mnuFileSystemAddFolder", "Add Fol&der...", AddExistingFolder_Click);
 			mnuFileSystem.Items.AddSeparator();
 			mnuFileSystem.Items.Add("mnuFileSystemUndelete", "&Undelete");
 			mnuFileSystem.Items.AddSeparator();
@@ -65,10 +68,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			tbFileSystem.Items.Add(mnuFileSystem.Items["mnuFileSystemExtractAll"]);
 			tbFileSystem.Items.AddSeparator();
 			tbFileSystem.Items.Add(mnuFileSystem.Items["mnuFileSystemComment"]);
-		}
 
-		private void AddFolder_Click(object sender, EventArgs e)
-		{
+			mnuTreeViewContextAddNewItem.Image = GetThemeImage("ContextMenu/AddNewItem.png");
+			mnuTreeViewContextAddExistingItem.Image = GetThemeImage("ContextMenu/AddExistingItem.png");
+			mnuTreeViewContextAddNewFolder.Image = GetThemeImage("ContextMenu/AddNewFolder.png");
+
+			mnuListViewContextAddNewItem.Image = GetThemeImage("ContextMenu/AddNewItem.png");
+			mnuListViewContextAddExistingItem.Image = GetThemeImage("ContextMenu/AddExistingItem.png");
+			mnuListViewContextAddNewFolder.Image = GetThemeImage("ContextMenu/AddNewFolder.png");
 		}
 
 		private void Comment_Click(object sender, EventArgs e)
@@ -266,7 +273,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 		private void RecursiveLoadListViewFolder(Folder folder, AwesomeControls.ListView.ListViewItem parent)
 		{
-			if (!String.IsNullOrEmpty(txtFilter.Text) && (folder.Name.ToLower().Contains(txtFilter.Text.ToLower()) || !folder.Name.ToLower().Match(txtFilter.Text.ToLower()))) return;
+			if (String.IsNullOrEmpty(txtFilter.Text) || !(folder.Name.ToLower().Contains(txtFilter.Text.ToLower())
+				/* || !folder.Name.ToLower().Match(txtFilter.Text.ToLower()) */
+			)) return;
 
 			AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
 			lvi.Text = folder.Name;
@@ -766,8 +775,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 		{
 			if (lv.SelectedItems.Count == 0)
 			{
-				string fileName = null;
-				if (ObjectModel.Accessor != null) fileName = ObjectModel.Accessor.GetFileName();
+				string fileName = String.Empty;
+				if (ObjectModel != null && ObjectModel.Accessor != null) fileName = ObjectModel.Accessor.GetFileName();
 				if (!String.IsNullOrEmpty(fileName) && System.IO.File.Exists(fileName))
 				{
 					File file = new File();
@@ -867,6 +876,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				{
 					System.Media.SystemSounds.Beep.Play();
 				}
+				RecursiveUpdateTreeView();
 				UpdateListView();
 			}
 		}
@@ -880,9 +890,93 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 					if (lv.SelectedItems[0].Data is Folder)
 					{
 						mvarCurrentFolder = (lv.SelectedItems[0].Data as Folder);
+
+						RecursiveUpdateTreeView();
 						UpdateListView();
 					}
 				}
+			}
+		}
+
+		private void AddNewFolder_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
+			if (fsom == null) return;
+
+			if (mvarCurrentFolder == null)
+			{
+				fsom.Folders.Add(fsom.GetNewFolderName());
+			}
+			else
+			{
+				mvarCurrentFolder.Folders.Add(mvarCurrentFolder.GetNewFolderName());
+			}
+
+			RecursiveUpdateTreeView();
+			UpdateListView();
+		}
+
+		private void AddExistingFolder_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
+			if (fsom == null) return;
+
+			AwesomeControls.NativeDialogs.FolderBrowserDialog dlg = new AwesomeControls.NativeDialogs.FolderBrowserDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				string path = dlg.SelectedPath;
+				string name = System.IO.Path.GetFileName(path);
+
+				Folder f = new Folder();
+				f.Name = name;
+
+				string[] files = System.IO.Directory.GetFiles(path, "*.*", System.IO.SearchOption.AllDirectories);
+				foreach (string file in files)
+				{
+					string fileName = file.Substring(path.Length + 1);
+					f.AddFile(fileName, System.IO.File.ReadAllBytes(file));
+				}
+
+				if (mvarCurrentFolder == null)
+				{
+					fsom.Folders.Add(f);
+				}
+				else
+				{
+					mvarCurrentFolder.Folders.Add(f);
+				}
+
+				RecursiveUpdateTreeView();
+				UpdateListView();
+			}
+		}
+
+		private void AddExistingFolderToCurrent_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
+			if (fsom == null) return;
+
+			AwesomeControls.NativeDialogs.FolderBrowserDialog dlg = new AwesomeControls.NativeDialogs.FolderBrowserDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				string path = dlg.SelectedPath;
+				string name = System.IO.Path.GetDirectoryName(path);
+
+				string[] files = System.IO.Directory.GetFiles(path, "*.*", System.IO.SearchOption.AllDirectories);
+				foreach (string file in files)
+				{
+					if (mvarCurrentFolder == null)
+					{
+						fsom.AddFile(file, System.IO.File.ReadAllBytes(file));
+					}
+					else
+					{
+						mvarCurrentFolder.AddFile(file, System.IO.File.ReadAllBytes(file));
+					}
+				}
+
+				RecursiveUpdateTreeView();
+				UpdateListView();
 			}
 		}
 	}

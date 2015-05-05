@@ -219,7 +219,13 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			return parent.Folders.Add(path[path.Length - 1]);
 		}
 
-		public File AddFile(string name)
+		/// <summary>
+		/// Adds a <see cref="File" /> to this <see cref="FileSystemObjectModel" />, building the parent directory hierarchy as appropriate.
+		/// </summary>
+		/// <param name="name">The full path of the <see cref="File" /> to create, including any parent directories.</param>
+		/// <param name="fileData"></param>
+		/// <returns></returns>
+		public File AddFile(string name, byte[] fileData = null)
 		{
 			string[] path = name.Split(mvarPathSeparators, StringSplitOptions.None);
 			Folder parent = null;
@@ -254,20 +260,21 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				}
 			}
 
+			File file = new File();
+			file.Name = path[path.Length - 1];
+			if (fileData != null)
+			{
+				file.SetDataAsByteArray(fileData);
+			}
 			if (parent == null)
 			{
-				File file = new File();
-				file.Name = path[path.Length - 1];
 				mvarFiles.Add(file);
-				return file;
 			}
 			else
 			{
-				File file = new File();
-				file.Name = path[path.Length - 1];
 				parent.Files.Add(file);
-				return file;
 			}
+			return file;
 		}
 
 		/// <summary>
@@ -387,6 +394,44 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				}
 				GetAllObjectsRecursively(folder1, ref files, parentPath + pathSeparator + folder1.Name, pathSeparator, searchPattern);
 			}
+		}
+
+		/// <summary>
+		/// Gets the next available "New Folder" name for the given <see cref="IFileSystemContainer" />.
+		/// </summary>
+		/// <returns>A string "New Folder" if there are no other "New Folder"s in the given <see cref="IFileSystemContainer" />; otherwise, a string "New Folder (n)" where N is the number of "New Folder"s in the given <see cref="IFileSystemContainer" /> plus one.</returns>
+		public static string GetNewFolderName(IFileSystemContainer container)
+		{
+			int count = 0;
+
+			foreach (Folder f in container.Folders)
+			{
+				if (f.Name.StartsWith("New Folder (") && f.Name.EndsWith(")"))
+				{
+					string strIntPart = f.Name.Substring("New Folder (".Length, f.Name.Length - "New Folder (".Length - 1);
+					int intPart = 0;
+					if (Int32.TryParse(strIntPart, out intPart))
+					{
+						if (intPart > count) count = intPart;
+					}
+				}
+				else if (f.Name == "New Folder")
+				{
+					count++;
+				}
+			}
+
+			if (count == 0) return "New Folder";
+			return "New Folder (" + (count + 1).ToString() + ")";
+		}
+
+		/// <summary>
+		/// Gets the next available "New Folder" name for this <see cref="FileSystemObjectModel" />.
+		/// </summary>
+		/// <returns>A string "New Folder" if there are no other "New Folder"s in this <see cref="FileSystemObjectModel" />; otherwise, a string "New Folder (n)" where N is the number of "New Folder"s in this <see cref="FileSystemObjectModel" /> plus one.</returns>
+		public string GetNewFolderName()
+		{
+			return FileSystemObjectModel.GetNewFolderName(this);
 		}
 	}
 }

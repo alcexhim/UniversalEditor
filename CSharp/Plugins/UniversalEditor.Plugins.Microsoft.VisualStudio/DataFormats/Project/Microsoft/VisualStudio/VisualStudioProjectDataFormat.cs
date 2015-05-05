@@ -18,7 +18,7 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReferenceInternal();
+				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(ProjectObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;

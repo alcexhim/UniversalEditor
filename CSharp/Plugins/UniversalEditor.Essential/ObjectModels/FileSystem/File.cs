@@ -88,7 +88,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		{
 			if (mvarData == null && DataRequest == null)
 			{
-				throw new InvalidOperationException("Data is not represented as a byte array and data request is not handled");
+				// throw new InvalidOperationException("Data is not represented as a byte array and data request is not handled");
+				Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array and data request is not handled");
+				return mvarData;
 			}
 			else if (mvarData == null && DataRequest != null)
 			{
