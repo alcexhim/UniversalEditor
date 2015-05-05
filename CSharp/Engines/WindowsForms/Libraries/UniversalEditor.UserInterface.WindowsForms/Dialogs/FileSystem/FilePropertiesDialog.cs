@@ -18,8 +18,15 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem
 			if (dlg == null) dlg = new Internal.FilePropertiesDialogImpl();
 			if (dlg.IsDisposed) dlg = new Internal.FilePropertiesDialogImpl();
 
+			dlg.txtGeneralInformationLocation.Text = mvarParentFileName;
 			dlg.SelectedObjects = mvarSelectedObjects;
 			return dlg.ShowDialog();
 		}
+
+		private string mvarParentFileName = String.Empty;
+		/// <summary>
+		/// The directory or file name of the parent location that contains the file whose properties are to be displayed.
+		/// </summary>
+		public string ParentFileName { get { return mvarParentFileName; } set { mvarParentFileName = value; } }
 	}
 }

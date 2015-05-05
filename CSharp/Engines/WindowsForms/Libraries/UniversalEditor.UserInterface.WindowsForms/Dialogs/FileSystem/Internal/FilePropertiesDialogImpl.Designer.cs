@@ -492,7 +492,7 @@
 		private System.Windows.Forms.CheckBox chkGeneralAttributesHidden;
 		private System.Windows.Forms.CheckBox chkGeneralAttributesReadOnly;
 		private System.Windows.Forms.TextBox txtGeneralInformationDataFormat;
-		private System.Windows.Forms.TextBox txtGeneralInformationLocation;
+		internal System.Windows.Forms.TextBox txtGeneralInformationLocation;
 		private System.Windows.Forms.TextBox txtGeneralInformationSize;
 		private System.Windows.Forms.TextBox txtGeneralInformationDateCreated;
 		private System.Windows.Forms.TextBox txtGeneralInformationDateModified;

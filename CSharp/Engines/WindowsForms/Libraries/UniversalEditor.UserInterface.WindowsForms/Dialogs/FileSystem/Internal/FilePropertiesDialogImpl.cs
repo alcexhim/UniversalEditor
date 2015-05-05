@@ -46,14 +46,25 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 					string fileLocation = System.IO.Path.GetDirectoryName(file.Name);
 
 					txtFileName.Text = fileTitle;
-					txtGeneralInformationLocation.Text = fileLocation;
+					if (String.IsNullOrEmpty(txtGeneralInformationLocation.Text))
+					{
+						// only set the General - Location value if it has not already been set
+						txtGeneralInformationLocation.Text = fileLocation;
+					}
 
 					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetDataAsByteArray(), file.Name);
 					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = ma });
 					if (assocs.Length > 0)
 					{
 						DataFormatReference dfr = assocs[0].DataFormats[0];
-						txtGeneralInformationDataFormat.Text = dfr.Title;
+						if (assocs[0].Filters.Count > 0)
+						{
+							txtGeneralInformationDataFormat.Text = assocs[0].Filters[0].Title;
+						}
+						else
+						{
+							txtGeneralInformationDataFormat.Text = dfr.Title;
+						}
 
 						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(dfr);
 						if (omrs.Length > 0)
