@@ -17,6 +17,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Controls
 		{
 			InitializeComponent();
 
+			txtSearch.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowBackground;
+			txtSearch.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowForeground;
+
+			tvObjectModels.BackColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowBackground;
+			tvObjectModels.ForeColor = AwesomeControls.Theming.Theme.CurrentTheme.ColorTable.WindowForeground;
+
 			imlLargeIcons.PopulateSystemIcons();
 			imlSmallIcons.PopulateSystemIcons();
 		}

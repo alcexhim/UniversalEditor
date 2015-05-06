@@ -199,9 +199,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 		private void RecursiveLoadFile(File file, AwesomeControls.ListView.ListViewItem parent)
 		{
+			if (!String.IsNullOrEmpty(txtFilter.Text) && !(file.Name.ToLower().Contains(txtFilter.Text.ToLower())
+				/* || !file.Name.ToLower().Match(txtFilter.Text.ToLower()) */
+			)) return;
+			
 			AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
-			if (!String.IsNullOrEmpty(txtFilter.Text) && (file.Name.Contains(txtFilter.Text) || !file.Name.Match(txtFilter.Text))) return;
-
+			
 			lvi.Data = file;
 			lvi.ImageKey = "generic-file";
 			lvi.Text = file.Name;
@@ -273,7 +276,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 		private void RecursiveLoadListViewFolder(Folder folder, AwesomeControls.ListView.ListViewItem parent)
 		{
-			if (String.IsNullOrEmpty(txtFilter.Text) || !(folder.Name.ToLower().Contains(txtFilter.Text.ToLower())
+			if (!String.IsNullOrEmpty(txtFilter.Text) && !(folder.Name.ToLower().Contains(txtFilter.Text.ToLower())
 				/* || !folder.Name.ToLower().Match(txtFilter.Text.ToLower()) */
 			)) return;
 
@@ -297,6 +300,12 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			else
 			{
 				lv.Items.Add(lvi);
+			}
+
+			if (lv.Items.Count == 1)
+			{
+				lv.SelectedItems.Clear();
+				lv.Items[0].Selected = true;
 			}
 		}
 
@@ -965,13 +974,14 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				string[] files = System.IO.Directory.GetFiles(path, "*.*", System.IO.SearchOption.AllDirectories);
 				foreach (string file in files)
 				{
+					string fileName = file.Substring(path.Length + 1);
 					if (mvarCurrentFolder == null)
 					{
-						fsom.AddFile(file, System.IO.File.ReadAllBytes(file));
+						fsom.AddFile(fileName, System.IO.File.ReadAllBytes(file));
 					}
 					else
 					{
-						mvarCurrentFolder.AddFile(file, System.IO.File.ReadAllBytes(file));
+						mvarCurrentFolder.AddFile(fileName, System.IO.File.ReadAllBytes(file));
 					}
 				}
 
