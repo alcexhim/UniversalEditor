@@ -4,11 +4,11 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Executable
 {
-    public class ExecutableSection : ICloneable
-    {
-        public class ExecutableSectionCollection
-            : System.Collections.ObjectModel.Collection<ExecutableSection>
-        {
+	public class ExecutableSection : ICloneable
+	{
+		public class ExecutableSectionCollection
+			: System.Collections.ObjectModel.Collection<ExecutableSection>
+		{
 			private Dictionary<string, ExecutableSection> sectionsByName = new Dictionary<string, ExecutableSection>();
 
 			public ExecutableSection Add(string name, byte[] data)
@@ -47,16 +47,16 @@ namespace UniversalEditor.ObjectModels.Executable
 				return false;
 			}
 
-            internal void UpdateSectionName(ExecutableSection item, string oldName)
-            {
-                sectionsByName.Remove(oldName);
-                sectionsByName.Add(item.Name, item);
-            }
+			internal void UpdateSectionName(ExecutableSection item, string oldName)
+			{
+				sectionsByName.Remove(oldName);
+				sectionsByName.Add(item.Name, item);
+			}
 
 			protected override void InsertItem(int index, ExecutableSection item)
 			{
-                base.InsertItem(index, item);
-                item.mvarParent = this;
+				base.InsertItem(index, item);
+				item.mvarParent = this;
 				if (!sectionsByName.ContainsKey(item.Name))
 				{
 					sectionsByName.Add(item.Name, item);
@@ -69,39 +69,39 @@ namespace UniversalEditor.ObjectModels.Executable
 				{
 					sectionsByName.Remove(name);
 				}
-                this[index].mvarParent = null;
+				this[index].mvarParent = null;
 				base.RemoveItem(index);
 			}
 
 
-            public void SaveAll(string Path)
-            {
-                foreach (ExecutableSection sect in this)
-                {
-                    string FileName = Path + "_" + sect.Name;
-                    sect.Save(FileName);
-                }
-            }
-        }
+			public void SaveAll(string Path)
+			{
+				foreach (ExecutableSection sect in this)
+				{
+					string FileName = Path + "_" + sect.Name;
+					sect.Save(FileName);
+				}
+			}
+		}
 
-        private ExecutableSectionCollection mvarParent = null;
+		private ExecutableSectionCollection mvarParent = null;
 
-        private string mvarName = String.Empty;
-        public string Name
-        {
-            get { return mvarName; }
-            set
-            {
-                string oldName = mvarName;
-                mvarName = value;
-                if (mvarParent != null)
-                {
-                    mvarParent.UpdateSectionName(this, oldName);
-                }
-            }
-        }
+		private string mvarName = String.Empty;
+		public string Name
+		{
+			get { return mvarName; }
+			set
+			{
+				string oldName = mvarName;
+				mvarName = value;
+				if (mvarParent != null)
+				{
+					mvarParent.UpdateSectionName(this, oldName);
+				}
+			}
+		}
 
-        private byte[] mvarData = new byte[0];
+		private byte[] mvarData = new byte[0];
 		public byte[] Data { get { return mvarData; } set { mvarData = value; } }
 
 		private long mvarPhysicalAddress = 0;
@@ -110,13 +110,21 @@ namespace UniversalEditor.ObjectModels.Executable
 		private long mvarVirtualAddress = 0;
 		public long VirtualAddress { get { return mvarVirtualAddress; } set { mvarVirtualAddress = value; } }
 
-        public object Clone()
-        {
-            ExecutableSection clone = new ExecutableSection();
-            clone.Name = mvarName;
-            clone.Data = (mvarData.Clone() as byte[]);
-            return clone;
-        }
+		public object Clone()
+		{
+			ExecutableSection clone = new ExecutableSection();
+			clone.Characteristics = mvarCharacteristics;
+			clone.Data = (mvarData.Clone() as byte[]);
+			clone.LineNumberCount = mvarLineNumberCount;
+			clone.LineNumberOffset = mvarLineNumberOffset;
+			clone.Name = mvarName;
+			clone.PhysicalAddress = mvarPhysicalAddress;
+			clone.RelocationCount = mvarRelocationCount;
+			clone.RelocationOffset = mvarRelocationOffset;
+			clone.VirtualAddress = mvarVirtualAddress;
+			clone.VirtualSize = mvarVirtualSize;
+			return clone;
+		}
 
 		public override string ToString()
 		{
