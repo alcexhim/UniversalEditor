@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Associations\Chunked.xml" />
+    <Content Include="Associations\Executable.xml" />
     <Content Include="Associations\FormattedText.xml" />
     <Content Include="Associations\Markup.xml" />
     <Content Include="Associations\DataLink.xml" />

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the Chunked ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<Filters>
+				<Filter Title="Microsoft executable">
+					<FileNameFilters>
+						<FileNameFilter>*.exe</FileNameFilter>
+						<FileNameFilter>*.com</FileNameFilter>
+						<FileNameFilter>*.dll</FileNameFilter>
+						<FileNameFilter>*.rll</FileNameFilter>
+						<FileNameFilter>*.fon</FileNameFilter>
+						<FileNameFilter>*.olb</FileNameFilter>
+						<FileNameFilter>*.tlb"</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">MZ</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Executable.ExecutableObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Executable.Microsoft.MicrosoftExecutableDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
