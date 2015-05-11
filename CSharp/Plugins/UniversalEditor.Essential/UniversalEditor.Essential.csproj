@@ -74,6 +74,8 @@
     <Compile Include="DataFormats\Text\Formatted\RichText\RTFGenerator.cs" />
     <Compile Include="DataFormats\UEPackage\UEPackageXMLDataFormat.cs" />
     <Compile Include="ExpandedString.cs" />
+    <Compile Include="NameValuePair.cs" />
+    <Compile Include="NameValuePairGroup.cs" />
     <Compile Include="ObjectModels\AbstractSyntax\AbstractSyntaxObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
