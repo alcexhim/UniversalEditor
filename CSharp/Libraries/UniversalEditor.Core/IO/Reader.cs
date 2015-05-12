@@ -26,7 +26,7 @@ namespace UniversalEditor.IO
 	public class Reader : ReaderWriterBase
 	{
 		public Reader(Accessor input)
-            : base(input)
+			: base(input)
 		{
 		}
 
@@ -55,7 +55,7 @@ namespace UniversalEditor.IO
 			{
 				int maxByteCount = base.Accessor.DefaultEncoding.GetMaxByteCount(1);
 				byte[] bytes = PeekBytes(maxByteCount);
-                charBuffer = base.Accessor.DefaultEncoding.GetString(bytes);
+				charBuffer = base.Accessor.DefaultEncoding.GetString(bytes);
 				charBufferIndex = 0;
 			}
 
