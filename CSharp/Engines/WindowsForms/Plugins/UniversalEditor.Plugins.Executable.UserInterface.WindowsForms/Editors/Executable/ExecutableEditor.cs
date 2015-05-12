@@ -93,7 +93,7 @@ namespace UniversalEditor.Editors.Executable
 			if (ofd.ShowDialog() == DialogResult.OK)
 			{
 				ExecutableSection section = new ExecutableSection();
-				section.Name = ofd.FileName;
+				section.Name = System.IO.Path.GetFileName(ofd.FileName);
 				section.Load(ofd.FileName);
 
 				BeginEdit();
@@ -102,11 +102,27 @@ namespace UniversalEditor.Editors.Executable
 
 				ListViewItem lvi = new ListViewItem();
 				lvi.Tag = section;
-				lvi.Text = section.Name;
+				lvi.Text = System.IO.Path.GetFileName(section.Name);
 				lvi.SubItems.Add((0).ToString());
 				lvi.SubItems.Add((0).ToString());
 
 				lvSections.Items.Add(lvi);
+			}
+		}
+
+		private void mnuContextListViewSectionsDelete_Click(object sender, EventArgs e)
+		{
+			ExecutableObjectModel executable = (ObjectModel as ExecutableObjectModel);
+			if (executable == null) return;
+
+			if (lvSections.SelectedItems.Count == 0) return;
+			if (MessageBox.Show("Are you sure you want to delete the selected sections?", "Delete Sections", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
+
+			while (lvSections.SelectedItems.Count > 0)
+			{
+				ExecutableSection section = (lvSections.SelectedItems[0].Tag as ExecutableSection);
+				if (section != null) executable.Sections.Remove(section);
+				lvSections.SelectedItems[0].Remove();
 			}
 		}
 	}

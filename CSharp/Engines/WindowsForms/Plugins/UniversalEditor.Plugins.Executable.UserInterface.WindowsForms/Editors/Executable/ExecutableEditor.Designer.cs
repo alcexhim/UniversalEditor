@@ -30,15 +30,17 @@
         {
 			this.components = new System.ComponentModel.Container();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.pnlSections = new System.Windows.Forms.Panel();
 			this.tv = new System.Windows.Forms.TreeView();
+			this.pnlSections = new System.Windows.Forms.Panel();
 			this.lvSections = new System.Windows.Forms.ListView();
 			this.chSectionName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chSectionOffset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chSectionLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.mnuContextListViewSections = new AwesomeControls.CommandBars.CBContextMenu(this.components);
-			this.mnuContextListViewSectionsExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuContextListViewSectionsImport = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuContextListViewSectionsExport = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuContextListViewSectionsDelete = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuContextListViewSectionsSep1 = new System.Windows.Forms.ToolStripSeparator();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -64,15 +66,6 @@
 			this.splitContainer1.SplitterDistance = 167;
 			this.splitContainer1.TabIndex = 0;
 			// 
-			// pnlSections
-			// 
-			this.pnlSections.Controls.Add(this.lvSections);
-			this.pnlSections.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pnlSections.Location = new System.Drawing.Point(0, 0);
-			this.pnlSections.Name = "pnlSections";
-			this.pnlSections.Size = new System.Drawing.Size(331, 247);
-			this.pnlSections.TabIndex = 0;
-			// 
 			// tv
 			// 
 			this.tv.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -81,6 +74,15 @@
 			this.tv.Name = "tv";
 			this.tv.Size = new System.Drawing.Size(167, 247);
 			this.tv.TabIndex = 0;
+			// 
+			// pnlSections
+			// 
+			this.pnlSections.Controls.Add(this.lvSections);
+			this.pnlSections.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlSections.Location = new System.Drawing.Point(0, 0);
+			this.pnlSections.Name = "pnlSections";
+			this.pnlSections.Size = new System.Drawing.Size(331, 247);
+			this.pnlSections.TabIndex = 0;
 			// 
 			// lvSections
 			// 
@@ -116,11 +118,20 @@
 			// mnuContextListViewSections
 			// 
 			this.mnuContextListViewSections.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuContextListViewSectionsDelete,
+            this.mnuContextListViewSectionsSep1,
             this.mnuContextListViewSectionsImport,
             this.mnuContextListViewSectionsExport});
 			this.mnuContextListViewSections.Name = "mnuContextListViewSections";
-			this.mnuContextListViewSections.Size = new System.Drawing.Size(153, 70);
+			this.mnuContextListViewSections.Size = new System.Drawing.Size(153, 98);
 			this.mnuContextListViewSections.Opening += new System.ComponentModel.CancelEventHandler(this.mnuContextListViewSections_Opening);
+			// 
+			// mnuContextListViewSectionsImport
+			// 
+			this.mnuContextListViewSectionsImport.Name = "mnuContextListViewSectionsImport";
+			this.mnuContextListViewSectionsImport.Size = new System.Drawing.Size(152, 22);
+			this.mnuContextListViewSectionsImport.Text = "&Import...";
+			this.mnuContextListViewSectionsImport.Click += new System.EventHandler(this.mnuContextListViewSectionsImport_Click);
 			// 
 			// mnuContextListViewSectionsExport
 			// 
@@ -130,12 +141,17 @@
 			this.mnuContextListViewSectionsExport.Text = "&Export...";
 			this.mnuContextListViewSectionsExport.Click += new System.EventHandler(this.mnuContextListViewSectionsExport_Click);
 			// 
-			// mnuContextListViewSectionsImport
+			// mnuContextListViewSectionsDelete
 			// 
-			this.mnuContextListViewSectionsImport.Name = "mnuContextListViewSectionsImport";
-			this.mnuContextListViewSectionsImport.Size = new System.Drawing.Size(152, 22);
-			this.mnuContextListViewSectionsImport.Text = "&Import...";
-			this.mnuContextListViewSectionsImport.Click += new System.EventHandler(this.mnuContextListViewSectionsImport_Click);
+			this.mnuContextListViewSectionsDelete.Name = "mnuContextListViewSectionsDelete";
+			this.mnuContextListViewSectionsDelete.Size = new System.Drawing.Size(152, 22);
+			this.mnuContextListViewSectionsDelete.Text = "&Delete";
+			this.mnuContextListViewSectionsDelete.Click += new System.EventHandler(this.mnuContextListViewSectionsDelete_Click);
+			// 
+			// mnuContextListViewSectionsSep1
+			// 
+			this.mnuContextListViewSectionsSep1.Name = "mnuContextListViewSectionsSep1";
+			this.mnuContextListViewSectionsSep1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// ExecutableEditor
 			// 
@@ -165,5 +181,7 @@
 		private AwesomeControls.CommandBars.CBContextMenu mnuContextListViewSections;
 		private System.Windows.Forms.ToolStripMenuItem mnuContextListViewSectionsExport;
 		private System.Windows.Forms.ToolStripMenuItem mnuContextListViewSectionsImport;
+		private System.Windows.Forms.ToolStripMenuItem mnuContextListViewSectionsDelete;
+		private System.Windows.Forms.ToolStripSeparator mnuContextListViewSectionsSep1;
     }
 }
