@@ -52,7 +52,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Executable.ExecutableObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Executable.Microsoft.MicrosoftExecutableDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.Executable.ELF.ELFDataFormat" />
 			</DataFormats>
 		</Association>
 		<Association>
@@ -78,7 +78,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Executable.ExecutableObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Executable.Microsoft.MicrosoftExecutableDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.Executable.Apple.MachO.MachODataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>
