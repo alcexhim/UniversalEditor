@@ -517,7 +517,9 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			peoh.imageSize = 16384;
 			peoh.headerSize = 512;
 			peoh.subsystem = 2;
-			peoh.rvaCount = 16;
+
+			uint[] rvas = new uint[16];
+			peoh.rvaCount = (uint)rvas.Length;
 
 			if (peoh.enabled)
 			{
@@ -551,6 +553,12 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			}
 			#endregion
 			#endregion
+
+			// write the RVA values
+			for (uint i = 0; i < peoh.rvaCount; i++)
+			{
+				bw.WriteUInt32(rvas[(int)i]);
+			}
 
 			#region Sections
 			{
