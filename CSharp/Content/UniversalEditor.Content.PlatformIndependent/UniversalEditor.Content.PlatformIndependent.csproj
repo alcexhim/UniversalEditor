@@ -105,6 +105,7 @@
     <Content Include="Extensions\FileSystem\Associations\ARJ.xml" />
     <Content Include="Extensions\FileSystem\Associations\BPlus.xml" />
     <Content Include="Extensions\FileSystem\Associations\CFL.xml" />
+    <Content Include="Extensions\FileSystem\Associations\BinHex.xml" />
     <Content Include="Extensions\FileSystem\Associations\CPIO.xml" />
     <Content Include="Extensions\FileSystem\Associations\FAT.xml" />
     <Content Include="Extensions\FileSystem\Associations\InstallShield.xml" />
