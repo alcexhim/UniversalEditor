@@ -49,13 +49,13 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-			reader.SavePosition();
+			base.Accessor.SavePosition();
 			
 			string line = reader.ReadLine();
 			if (!(line.StartsWith("(This file must be converted with BinHex ") && line.EndsWith(")")))
 			{
 				if (mvarRequireWarningComment) throw new InvalidDataFormatException("File does not begin with BinHex warning comment");
-				reader.LoadPosition();
+				base.Accessor.LoadPosition();
 			}
 			else
 			{
@@ -63,7 +63,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 				line = line.Substring(0, line.Length - 1);
 				mvarFormatVersion = new Version(line);
 			}
-			reader.ClearLastPosition();
+			base.Accessor.ClearLastPosition();
 
 			string inputStr = reader.ReadStringToEnd();
 

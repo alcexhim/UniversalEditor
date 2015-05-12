@@ -189,5 +189,27 @@ namespace UniversalEditor
 		{
 			return String.Empty;
 		}
+
+		#region Position Saving and Loading
+		private Stack<long> _positions = new Stack<long>();
+		[DebuggerNonUserCode()]
+		public void SavePosition()
+		{
+			_positions.Push(this.Position);
+		}
+		[DebuggerNonUserCode()]
+		public void LoadPosition()
+		{
+			if (_positions.Count > 0) this.Position = _positions.Pop();
+		}
+		public void ClearLastPosition()
+		{
+			if (_positions.Count > 0) _positions.Pop();
+		}
+		public void ClearAllPositions()
+		{
+			if (_positions.Count > 0) _positions.Clear();
+		}
+		#endregion
 	}
 }
