@@ -711,6 +711,14 @@ namespace UniversalEditor.IO
 				WriteUInt16(values[i]);
 			}
 		}
+
+		public void WriteCharArray(char[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteChar(values[i]);
+			}
+		}
 	}
 }
 
