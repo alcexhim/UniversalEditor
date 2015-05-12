@@ -11,9 +11,9 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft
         public string signature;
         public PEMachineType machine;
         public short sectionCount;
-        public short unknown1;
-        public short unknown2;
-        public short unknown3;
+        public short timestamp;
+        public short symbolTableOffset;
+        public short symbolCount;
         public short unknown4;
         public short unknown5;
         public short unknown6;

@@ -176,9 +176,9 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 						pe.enabled = true;
 						pe.machine = (PEMachineType)br.ReadUInt16();
 						pe.sectionCount = br.ReadInt16();
-						pe.unknown1 = br.ReadInt16();		// date/time stamp
-						pe.unknown2 = br.ReadInt16();		// symbolTableOffset
-						pe.unknown3 = br.ReadInt16();		// symbolCount
+						pe.timestamp = br.ReadInt16();		// date/time stamp
+						pe.symbolTableOffset = br.ReadInt16();		// symbolTableOffset
+						pe.symbolCount = br.ReadInt16();		// symbolCount
 						pe.unknown4 = br.ReadInt16();		
 						pe.unknown5 = br.ReadInt16();		
 						pe.unknown6 = br.ReadInt16();
@@ -495,9 +495,9 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			bw.WriteFixedLengthString(pe.signature);
 			bw.WriteUInt16((ushort)pe.machine);
 			bw.WriteUInt16((ushort)pe.sectionCount);
-			bw.WriteUInt16((ushort)pe.unknown1);
-			bw.WriteUInt16((ushort)pe.unknown2);
-			bw.WriteUInt16((ushort)pe.unknown3);
+			bw.WriteUInt16((ushort)pe.timestamp);
+			bw.WriteUInt16((ushort)pe.symbolTableOffset);
+			bw.WriteUInt16((ushort)pe.symbolCount);
 			bw.WriteUInt16((ushort)pe.unknown4);
 			bw.WriteUInt16((ushort)pe.unknown5);
 			bw.WriteUInt16((ushort)pe.unknown6);
