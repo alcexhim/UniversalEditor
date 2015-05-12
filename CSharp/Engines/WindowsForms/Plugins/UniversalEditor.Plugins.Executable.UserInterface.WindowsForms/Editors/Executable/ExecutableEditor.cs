@@ -66,6 +66,7 @@ namespace UniversalEditor.Editors.Executable
 
 		private void mnuContextListViewSections_Opening(object sender, CancelEventArgs e)
 		{
+			mnuContextListViewSectionsDelete.Enabled = (lvSections.SelectedItems.Count > 0);
 			mnuContextListViewSectionsExport.Enabled = (lvSections.SelectedItems.Count > 0);
 		}
 
