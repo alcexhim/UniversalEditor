@@ -50,6 +50,7 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ExecutableObjectModel), DataFormatCapabilities.All);
+				_dfr.Sources.Add("http://www.csn.ul.ie/~caolan/publink/winresdump/winresdump/doc/pefile.html");
 				// _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;
