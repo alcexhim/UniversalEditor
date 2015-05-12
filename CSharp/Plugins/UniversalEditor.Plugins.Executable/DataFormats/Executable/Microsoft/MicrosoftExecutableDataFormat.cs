@@ -157,6 +157,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				ushort e_oemid = br.ReadUInt16();         // OEM identifier (for e_oeminfo)
 				ushort e_oeminfo = br.ReadUInt16();       // OEM information; e_oemid specific
 				ushort[] e_res2 = br.ReadUInt16Array(10);      // Reserved words
+
 				e_lfanew = br.ReadUInt32();        // File address of new exe header
 			}
 			#endregion
@@ -463,9 +464,19 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			bw.WriteUInt16(mvarDOSHeader.InitialValueRegisterCS); // Initial value of the CS register, relative to the segment the program was loaded at.
 			bw.WriteUInt16(mvarDOSHeader.FirstRelocationItemOffset); // Offset of the first relocation item in the file.
 			bw.WriteUInt16(mvarDOSHeader.OverlayNumber); // Overlay number. Normally zero, meaning that it's the main program.
+
+
+			ushort[] e_res = new ushort[4];
+			bw.WriteUInt16Array(e_res);        // Reserved words
+			ushort e_oemid = 0;
+			bw.WriteUInt16(e_oemid);         // OEM identifier (for e_oeminfo)
+			ushort e_oeminfo = 0;       // OEM information; e_oemid specific
+			bw.WriteUInt16(e_oeminfo);
+			ushort[] e_res2 = new ushort[10];      // Reserved words
+			bw.WriteUInt16Array(e_res2);
+
 			#endregion
 			#region Portable Executable
-			bw.Accessor.Position = 0x3C;
 			int e_lfanew = (int)(bw.Accessor.Position + 4);
 			bw.WriteInt32(e_lfanew);
 
