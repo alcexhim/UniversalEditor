@@ -36,6 +36,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormats\Executable\Apple\MachO\MachOCpuSubType.cs" />
+    <Compile Include="DataFormats\Executable\Apple\MachO\MachOCpuType.cs" />
+    <Compile Include="DataFormats\Executable\Apple\MachO\MachODataFormat.cs" />
+    <Compile Include="DataFormats\Executable\Apple\MachO\MachOFileType.cs" />
+    <Compile Include="DataFormats\Executable\Apple\MachO\MachOFlags.cs" />
+    <Compile Include="DataFormats\Executable\Apple\MachO\MachOMagic.cs" />
     <Compile Include="DataFormats\Executable\ELF\ELFCapacity.cs" />
     <Compile Include="DataFormats\Executable\ELF\ELFDataFormat.cs" />
     <Compile Include="DataFormats\Executable\ELF\ELFEncoding.cs" />
