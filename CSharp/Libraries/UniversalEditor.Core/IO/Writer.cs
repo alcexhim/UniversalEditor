@@ -23,7 +23,7 @@ namespace UniversalEditor.IO
 	{
 
 		public Writer(Accessor accessor)
-            : base(accessor)
+			: base(accessor)
 		{
 		}
 
@@ -702,6 +702,14 @@ namespace UniversalEditor.IO
 		public void Close()
 		{
 			base.Accessor.Close();
+		}
+
+		public void WriteUInt16Array(ushort[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteUInt16(values[i]);
+			}
 		}
 	}
 }
