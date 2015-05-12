@@ -134,7 +134,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			if (fsom == null && exec == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
 			ExecutableObjectModel exe = new ExecutableObjectModel();
-
+			uint e_lfanew = 0;
 			#region DOS part
 			{
 				string signature = br.ReadFixedLengthString(2); // 0x4d, 0x5a. This is the "magic number" of an EXE file. The first byte of the file is 0x4d and the second is 0x5a.
@@ -152,13 +152,17 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				mvarDOSHeader.InitialValueRegisterCS = br.ReadUInt16(); // Initial value of the CS register, relative to the segment the program was loaded at.
 				mvarDOSHeader.FirstRelocationItemOffset = br.ReadUInt16(); // Offset of the first relocation item in the file.
 				mvarDOSHeader.OverlayNumber = br.ReadUInt16(); // Overlay number. Normally zero, meaning that it's the main program.
+
+				ushort[] e_res = br.ReadUInt16Array(4);        // Reserved words
+				ushort e_oemid = br.ReadUInt16();         // OEM identifier (for e_oeminfo)
+				ushort e_oeminfo = br.ReadUInt16();       // OEM information; e_oemid specific
+				ushort[] e_res2 = br.ReadUInt16Array(10);      // Reserved words
+				e_lfanew = br.ReadUInt32();        // File address of new exe header
 			}
 			#endregion
+
 			#region Portable Executable
 			{
-				br.Accessor.Position = 0x3C;
-
-				int e_lfanew = br.ReadInt32(); // offset to PE header
 				if (e_lfanew != 0)
 				{
 					br.Accessor.Position = e_lfanew;
@@ -171,11 +175,11 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 						pe.enabled = true;
 						pe.machine = (PEMachineType)br.ReadUInt16();
 						pe.sectionCount = br.ReadInt16();
-						pe.unknown1 = br.ReadInt16();
-						pe.unknown2 = br.ReadInt16();
-						pe.unknown3 = br.ReadInt16();
-						pe.unknown4 = br.ReadInt16();
-						pe.unknown5 = br.ReadInt16();
+						pe.unknown1 = br.ReadInt16();		// date/time stamp
+						pe.unknown2 = br.ReadInt16();		// symbolTableOffset
+						pe.unknown3 = br.ReadInt16();		// symbolCount
+						pe.unknown4 = br.ReadInt16();		
+						pe.unknown5 = br.ReadInt16();		
 						pe.unknown6 = br.ReadInt16();
 						pe.sizeOfOptionalHeader = br.ReadInt16(); // relative offset to sectiontable
 						pe.characteristics = (PECharacteristics)br.ReadUInt16();
@@ -190,6 +194,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 					}
 					#endregion
 					#region Optional Header
+					long peohOffset = br.Accessor.Position;
 					PEOptionalHeader peoh = new PEOptionalHeader();
 					if (pe.sizeOfOptionalHeader > 0)
 					{
@@ -239,8 +244,11 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 					#region Sections Table
 					{
 						// offset: 0x138
-						br.Accessor.Seek(64, SeekOrigin.Current);
-
+						if (peoh.enabled)
+						{
+							br.Accessor.Seek(peohOffset + pe.sizeOfOptionalHeader, SeekOrigin.Begin);
+						}
+						
 						uint lastRawDataPtr = 0;
 						for (short i = 0; i < pe.sectionCount; i++)
 						{
@@ -464,7 +472,14 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			#region PE header
 			PEHeader pe = new PEHeader();
 			pe.signature = "PE\0\0";
-			pe.sectionCount = (short)fsom.Files.Count;
+			if (fsom != null)
+			{
+				pe.sectionCount = (short)fsom.Files.Count;
+			}
+			else if (exe != null)
+			{
+				pe.sectionCount = (short)exe.Sections.Count;
+			}
 
 			bw.WriteFixedLengthString(pe.signature);
 			bw.WriteUInt16((ushort)pe.machine);
@@ -523,6 +538,51 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				bw.WriteUInt32((uint)peoh.rvaCount);
 			}
 			#endregion
+			#endregion
+
+			#region Sections
+			{
+				System.Collections.Generic.List<PESectionHeader> peshes = new System.Collections.Generic.List<PESectionHeader>();
+
+				long offset = base.Accessor.Position;
+				if (exe != null)
+				{
+					foreach (ExecutableSection section in exe.Sections)
+					{
+						offset += PESectionHeader.HeaderSize;
+					}
+					foreach (ExecutableSection section in exe.Sections)
+					{
+						PESectionHeader pesh = new PESectionHeader();
+						pesh.name = section.Name;
+						pesh.virtualSize = section.VirtualSize;
+						pesh.virtualAddress = (uint)offset;
+						pesh.rawDataPtr = (uint)offset;
+						pesh.rawDataSize = (uint)section.Data.Length;
+						peshes.Add(pesh);
+
+						offset += section.Data.Length;
+					}
+				}
+
+				foreach (PESectionHeader pesh in peshes)
+				{
+					bw.WriteFixedLengthString(pesh.name, 8);
+					bw.WriteUInt32(pesh.virtualSize);
+					bw.WriteUInt32(pesh.virtualAddress);
+					bw.WriteUInt32(pesh.rawDataSize);
+					bw.WriteUInt32(pesh.rawDataPtr);
+					bw.WriteUInt32(pesh.unknown1);
+					bw.WriteUInt32(pesh.unknown2);
+					bw.WriteUInt32(pesh.unknown3);
+					bw.WriteUInt32((uint)pesh.characteristics);
+				}
+
+				foreach (ExecutableSection section in exe.Sections)
+				{
+					bw.WriteBytes(section.Data);
+				}
+			}
 			#endregion
 		}
 	}
