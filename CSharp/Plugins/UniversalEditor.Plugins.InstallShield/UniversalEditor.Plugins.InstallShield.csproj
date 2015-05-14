@@ -38,6 +38,7 @@
     <Compile Include="DataFormats\FileSystem\InstallShield\PKG\PKGDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\InstallShield\Cabinet\CABDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\InstallShield\Cabinet\HDRDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\InstallShield\Z\ZDataFormat.cs" />
     <Compile Include="DataFormats\InstallShield\Script\InstallShieldCompiledScriptDataFormat.cs" />
     <Compile Include="DataFormats\InstallShield\Script\InstallShieldScriptV2DataFormat.cs" />
     <Compile Include="ObjectModels\InstallShield\InstallShieldScriptObjectModel.cs" />
