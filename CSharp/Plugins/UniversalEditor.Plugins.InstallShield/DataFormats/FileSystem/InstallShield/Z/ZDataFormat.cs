@@ -24,9 +24,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			Reader reader = base.Accessor.Reader;
-			reader.Seek(0, SeekOrigin.Begin);
-			fsom.Clear();
-
+			
 			uint signature1 = reader.ReadUInt32();
 			uint signature2 = reader.ReadUInt32();
 			if (!(signature1 == 0x8C655D13 && signature2 == 0x0002013A))
