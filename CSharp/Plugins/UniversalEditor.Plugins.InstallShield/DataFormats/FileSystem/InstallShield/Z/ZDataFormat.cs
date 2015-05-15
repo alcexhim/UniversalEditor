@@ -101,7 +101,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 			}
 		}
 
-		// private UniversalEditor.Compression.Modules.Explode.ExplodeCompressionModule comp = new UniversalEditor.Compression.Modules.Explode.ExplodeCompressionModule();
+		private UniversalEditor.Compression.Modules.Explode.ExplodeCompressionModule comp = new UniversalEditor.Compression.Modules.Explode.ExplodeCompressionModule();
 
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
@@ -115,7 +115,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 			byte[] decompressedData = compressedData;
 			if (CompressedLength != DecompressedLength)
 			{
-				// decompressedData = comp.Decompress(compressedData);
+				decompressedData = comp.Decompress(compressedData);
 			}
 			e.Data = decompressedData;
 		}
