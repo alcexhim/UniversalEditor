@@ -108,7 +108,8 @@
     <Content Include="Extensions\FileSystem\Associations\BinHex.xml" />
     <Content Include="Extensions\FileSystem\Associations\CPIO.xml" />
     <Content Include="Extensions\FileSystem\Associations\FAT.xml" />
-    <Content Include="Extensions\FileSystem\Associations\InstallShield.xml" />
+    <Content Include="Extensions\FileSystem\Associations\InstallShield\Cabinet.xml" />
+    <Content Include="Extensions\FileSystem\Associations\InstallShield\Z.xml" />
     <Content Include="Extensions\FileSystem\Associations\ISO9660.xml" />
     <Content Include="Extensions\FileSystem\Associations\IZArc.xml" />
     <Content Include="Extensions\FileSystem\Associations\LHA.xml" />

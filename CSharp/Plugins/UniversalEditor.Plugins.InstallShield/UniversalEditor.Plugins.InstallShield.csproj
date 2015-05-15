@@ -38,6 +38,7 @@
     <Compile Include="DataFormats\FileSystem\InstallShield\PKG\PKGDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\InstallShield\Cabinet\CABDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\InstallShield\Cabinet\HDRDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\InstallShield\Z\ZDataFormat.cs" />
     <Compile Include="DataFormats\InstallShield\Script\InstallShieldCompiledScriptDataFormat.cs" />
     <Compile Include="DataFormats\InstallShield\Script\InstallShieldScriptV2DataFormat.cs" />
     <Compile Include="ObjectModels\InstallShield\InstallShieldScriptObjectModel.cs" />
@@ -45,6 +46,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
+      <Project>{3f664673-7e22-4486-9ad0-fc81861d0b78}</Project>
+      <Name>UniversalEditor.Compression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>

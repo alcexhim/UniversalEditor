@@ -121,36 +121,29 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 		private System.Threading.Thread tIconLoader = null;
 		private void tIconLoader_ThreadStart()
 		{
-			try
+			foreach (AwesomeControls.ListView.ListViewItem lvi in lv.Items)
 			{
-				foreach (AwesomeControls.ListView.ListViewItem lvi in lv.Items)
+				File file = (lvi.Data as File);
+				if (file == null) continue;
+
+				byte[] data = file.GetDataAsByteArray();
+				if (data == null) continue;
+
+				try
 				{
-					File file = (lvi.Data as File);
-					if (file == null) continue;
-
-					byte[] data = null;
-					try
+					ObjectModel picture = UniversalEditor.Common.Reflection.GetAvailableObjectModel(data, file.Name, "UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel");
+					UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel pic = (picture as UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel);
+					if (pic != null)
 					{
-						data = file.GetDataAsByteArray();
-						if (data == null) continue;
-
-						ObjectModel picture = UniversalEditor.Common.Reflection.GetAvailableObjectModel(data, file.Name, "UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel");
-						UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel pic = (picture as UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel);
-						if (pic != null)
-						{
-							// System.Reflection.MethodInfo miToBitmap = picture.GetType().GetMethod("ToBitmap", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-							Bitmap bitmap = pic.ToBitmap(); // (miToBitmap.Invoke(picture, null) as Bitmap);
-							if (bitmap != null) lvi.Image = bitmap;
-							//lv.Invoke(new Action<AwesomeControls.ListView.ListViewItem>(InvalidateItem), lvi);
-						}
-					}
-					catch
-					{
+						// System.Reflection.MethodInfo miToBitmap = picture.GetType().GetMethod("ToBitmap", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+						Bitmap bitmap = pic.ToBitmap(); // (miToBitmap.Invoke(picture, null) as Bitmap);
+						if (bitmap != null) lvi.Image = bitmap;
+						//lv.Invoke(new Action<AwesomeControls.ListView.ListViewItem>(InvalidateItem), lvi);
 					}
 				}
-			}
-			catch (Exception)
-			{
+				catch
+				{
+				}
 			}
 		}
 
@@ -465,7 +458,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 				e.DataObject = dobj;
 				
-				e.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+				e.Effects = DragDropEffects.Copy;
+				if ((Control.ModifierKeys & Keys.ShiftKey) == Keys.ShiftKey)
+				{
+					e.Effects = DragDropEffects.Move;
+				}
 			}
 		}
 
@@ -478,15 +475,26 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			foreach (AwesomeControls.ListView.ListViewItem lvi in items)
 			{
 				File file = (lvi.Data as File);
-				if (!System.IO.File.Exists(file.Properties["tempfile"].ToString()))
+				Folder folder = (lvi.Data as Folder);
+				if (file != null)
 				{
-					// delete the file from the archive
-					BeginEdit();
+					if (!System.IO.File.Exists(file.Properties["tempfile"].ToString()))
+					{
+						if (e.Effects == DragDropEffects.Move)
+						{
+							// delete the file from the archive
+							BeginEdit();
 
-					fsom.Files.Remove(file);
-					lv.Items.Remove(lvi);
+							fsom.Files.Remove(file);
+							lv.Items.Remove(lvi);
 
-					EndEdit();
+							EndEdit();
+						}
+					}
+				}
+				else if (folder != null)
+				{
+					// ExtractFolder(folder);
 				}
 			}
 		}
