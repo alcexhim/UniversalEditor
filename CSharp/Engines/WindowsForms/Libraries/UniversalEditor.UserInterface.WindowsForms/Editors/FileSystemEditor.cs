@@ -465,7 +465,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 				e.DataObject = dobj;
 				
-				e.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+				e.Effects = DragDropEffects.Copy;
+				if ((Control.ModifierKeys & Keys.ShiftKey) == Keys.ShiftKey)
+				{
+					e.Effects = DragDropEffects.Move;
+				}
 			}
 		}
 
@@ -478,15 +482,26 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			foreach (AwesomeControls.ListView.ListViewItem lvi in items)
 			{
 				File file = (lvi.Data as File);
-				if (!System.IO.File.Exists(file.Properties["tempfile"].ToString()))
+				Folder folder = (lvi.Data as Folder);
+				if (file != null)
 				{
-					// delete the file from the archive
-					BeginEdit();
+					if (!System.IO.File.Exists(file.Properties["tempfile"].ToString()))
+					{
+						if (e.Effects == DragDropEffects.Move)
+						{
+							// delete the file from the archive
+							BeginEdit();
 
-					fsom.Files.Remove(file);
-					lv.Items.Remove(lvi);
+							fsom.Files.Remove(file);
+							lv.Items.Remove(lvi);
 
-					EndEdit();
+							EndEdit();
+						}
+					}
+				}
+				else if (folder != null)
+				{
+					// ExtractFolder(folder);
 				}
 			}
 		}
