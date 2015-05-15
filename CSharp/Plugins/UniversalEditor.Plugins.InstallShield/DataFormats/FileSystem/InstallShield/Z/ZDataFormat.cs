@@ -58,33 +58,41 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 
 			for (ushort i = 0; i < folderNameCount; i++)
 			{
-				ushort a1 = reader.ReadUInt16();
-				ushort a2 = reader.ReadUInt16();
+				ushort a1 = reader.ReadUInt16();							// 3
+				ushort a2 = reader.ReadUInt16();							// 16
 				ushort nameLength = reader.ReadUInt16();
 				string name = reader.ReadFixedLengthString(nameLength);
 
-				uint unknownB1 = reader.ReadUInt32();
-				byte nul = reader.ReadByte();
+				uint unknownB1 = reader.ReadUInt32();						// 0
+				byte nul = reader.ReadByte();								// 0
 				
-				names.Add(name);
+				names.Add(name);											// WIN32
 			}
 
-			byte unknownB1X = reader.ReadByte();
-			ushort unknownB2X = reader.ReadUInt16();
-
+			byte unknownB1X = reader.ReadByte();							// 0
+			
 			for (ushort i = 0; i < fileCount; i++)
 			{
-				// uint unknownB2 = reader.ReadUInt32();				// 0
-				// uint unknownB3 = reader.ReadUInt32();				// 0
+				ushort folderNameIndex = reader.ReadUInt16();
 				uint decompressedLength = reader.ReadUInt32();
 				uint compressedLength = reader.ReadUInt32();
 				uint offset = reader.ReadUInt32();
-				uint unknownB4 = reader.ReadUInt32();				// 155197798
+				ushort unknownB4A = reader.ReadUInt16();				// 155197798
+				ushort unknownB4B = reader.ReadUInt16();				// 155197798
 				uint unknownB5 = reader.ReadUInt32();				// 32
 				ushort unknownB6 = reader.ReadUInt16();				// 55
 				uint unknownB7 = reader.ReadUInt32();				// 16
 
 				string fileName = reader.ReadLengthPrefixedString();
+
+				uint unknownB8 = reader.ReadUInt32();				// ???
+				uint unknownB9 = reader.ReadUInt32();				// ???
+				uint unknownB10 = reader.ReadUInt32();				// ???
+				ushort unknownB11A = reader.ReadUInt16();
+
+				fileName = names[folderNameIndex] + "/" + fileName;
+				if (fileName.StartsWith("/")) fileName = fileName.Substring(1);
+
 				File file = fsom.AddFile(fileName);
 				file.Size = decompressedLength;
 				file.Properties.Add("reader", reader);
@@ -92,13 +100,10 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 				file.Properties.Add("DecompressedLength", decompressedLength);
 				file.Properties.Add("offset", offset);
 				file.DataRequest += file_DataRequest;
-
-				uint unknownB8 = reader.ReadUInt32();				// 0
-				uint unknownB9 = reader.ReadUInt32();				// 0
-				uint unknownB10 = reader.ReadUInt32();				// 0
-				uint unknownB11 = reader.ReadUInt32();				// 0
 			}
 		}
+
+		// private UniversalEditor.Compression.Modules.Explode.ExplodeCompressionModule comp = new UniversalEditor.Compression.Modules.Explode.ExplodeCompressionModule();
 
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
@@ -112,7 +117,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 			byte[] decompressedData = compressedData;
 			if (CompressedLength != DecompressedLength)
 			{
-
+				// decompressedData = comp.Decompress(compressedData);
 			}
 			e.Data = decompressedData;
 		}
