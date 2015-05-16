@@ -37,15 +37,23 @@
 			this.chSectionOffset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chSectionLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.mnuContextListViewSections = new AwesomeControls.CommandBars.CBContextMenu(this.components);
-			this.mnuContextListViewSectionsImport = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuContextListViewSectionsExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuContextListViewSectionsDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuContextListViewSectionsSep1 = new System.Windows.Forms.ToolStripSeparator();
+			this.mnuContextListViewSectionsImport = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuContextListViewSectionsExport = new System.Windows.Forms.ToolStripMenuItem();
+			this.pnlSection = new System.Windows.Forms.Panel();
+			this.lblSectionName = new System.Windows.Forms.Label();
+			this.txtSectionName = new System.Windows.Forms.TextBox();
+			this.fraSectionCharacteristics = new System.Windows.Forms.GroupBox();
+			this.lvSectionCharacteristics = new System.Windows.Forms.ListView();
+			this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			this.pnlSections.SuspendLayout();
 			this.mnuContextListViewSections.SuspendLayout();
+			this.pnlSection.SuspendLayout();
+			this.fraSectionCharacteristics.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -61,6 +69,7 @@
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.pnlSection);
 			this.splitContainer1.Panel2.Controls.Add(this.pnlSections);
 			this.splitContainer1.Size = new System.Drawing.Size(502, 247);
 			this.splitContainer1.SplitterDistance = 167;
@@ -74,6 +83,7 @@
 			this.tv.Name = "tv";
 			this.tv.Size = new System.Drawing.Size(167, 247);
 			this.tv.TabIndex = 0;
+			this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_AfterSelect);
 			// 
 			// pnlSections
 			// 
@@ -123,13 +133,25 @@
             this.mnuContextListViewSectionsImport,
             this.mnuContextListViewSectionsExport});
 			this.mnuContextListViewSections.Name = "mnuContextListViewSections";
-			this.mnuContextListViewSections.Size = new System.Drawing.Size(153, 98);
+			this.mnuContextListViewSections.Size = new System.Drawing.Size(119, 76);
 			this.mnuContextListViewSections.Opening += new System.ComponentModel.CancelEventHandler(this.mnuContextListViewSections_Opening);
+			// 
+			// mnuContextListViewSectionsDelete
+			// 
+			this.mnuContextListViewSectionsDelete.Name = "mnuContextListViewSectionsDelete";
+			this.mnuContextListViewSectionsDelete.Size = new System.Drawing.Size(118, 22);
+			this.mnuContextListViewSectionsDelete.Text = "&Delete";
+			this.mnuContextListViewSectionsDelete.Click += new System.EventHandler(this.mnuContextListViewSectionsDelete_Click);
+			// 
+			// mnuContextListViewSectionsSep1
+			// 
+			this.mnuContextListViewSectionsSep1.Name = "mnuContextListViewSectionsSep1";
+			this.mnuContextListViewSectionsSep1.Size = new System.Drawing.Size(115, 6);
 			// 
 			// mnuContextListViewSectionsImport
 			// 
 			this.mnuContextListViewSectionsImport.Name = "mnuContextListViewSectionsImport";
-			this.mnuContextListViewSectionsImport.Size = new System.Drawing.Size(152, 22);
+			this.mnuContextListViewSectionsImport.Size = new System.Drawing.Size(118, 22);
 			this.mnuContextListViewSectionsImport.Text = "&Import...";
 			this.mnuContextListViewSectionsImport.Click += new System.EventHandler(this.mnuContextListViewSectionsImport_Click);
 			// 
@@ -137,21 +159,74 @@
 			// 
 			this.mnuContextListViewSectionsExport.Enabled = false;
 			this.mnuContextListViewSectionsExport.Name = "mnuContextListViewSectionsExport";
-			this.mnuContextListViewSectionsExport.Size = new System.Drawing.Size(152, 22);
+			this.mnuContextListViewSectionsExport.Size = new System.Drawing.Size(118, 22);
 			this.mnuContextListViewSectionsExport.Text = "&Export...";
 			this.mnuContextListViewSectionsExport.Click += new System.EventHandler(this.mnuContextListViewSectionsExport_Click);
 			// 
-			// mnuContextListViewSectionsDelete
+			// pnlSection
 			// 
-			this.mnuContextListViewSectionsDelete.Name = "mnuContextListViewSectionsDelete";
-			this.mnuContextListViewSectionsDelete.Size = new System.Drawing.Size(152, 22);
-			this.mnuContextListViewSectionsDelete.Text = "&Delete";
-			this.mnuContextListViewSectionsDelete.Click += new System.EventHandler(this.mnuContextListViewSectionsDelete_Click);
+			this.pnlSection.Controls.Add(this.fraSectionCharacteristics);
+			this.pnlSection.Controls.Add(this.txtSectionName);
+			this.pnlSection.Controls.Add(this.lblSectionName);
+			this.pnlSection.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlSection.Location = new System.Drawing.Point(0, 0);
+			this.pnlSection.Name = "pnlSection";
+			this.pnlSection.Size = new System.Drawing.Size(331, 247);
+			this.pnlSection.TabIndex = 1;
 			// 
-			// mnuContextListViewSectionsSep1
+			// lblSectionName
 			// 
-			this.mnuContextListViewSectionsSep1.Name = "mnuContextListViewSectionsSep1";
-			this.mnuContextListViewSectionsSep1.Size = new System.Drawing.Size(149, 6);
+			this.lblSectionName.AutoSize = true;
+			this.lblSectionName.Location = new System.Drawing.Point(3, 6);
+			this.lblSectionName.Name = "lblSectionName";
+			this.lblSectionName.Size = new System.Drawing.Size(75, 13);
+			this.lblSectionName.TabIndex = 0;
+			this.lblSectionName.Text = "Section &name:";
+			// 
+			// txtSectionName
+			// 
+			this.txtSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtSectionName.Location = new System.Drawing.Point(84, 3);
+			this.txtSectionName.Name = "txtSectionName";
+			this.txtSectionName.Size = new System.Drawing.Size(244, 20);
+			this.txtSectionName.TabIndex = 1;
+			// 
+			// fraSectionCharacteristics
+			// 
+			this.fraSectionCharacteristics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.fraSectionCharacteristics.Controls.Add(this.lvSectionCharacteristics);
+			this.fraSectionCharacteristics.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.fraSectionCharacteristics.Location = new System.Drawing.Point(3, 29);
+			this.fraSectionCharacteristics.Name = "fraSectionCharacteristics";
+			this.fraSectionCharacteristics.Size = new System.Drawing.Size(325, 161);
+			this.fraSectionCharacteristics.TabIndex = 2;
+			this.fraSectionCharacteristics.TabStop = false;
+			this.fraSectionCharacteristics.Text = "Characteristics";
+			// 
+			// lvSectionCharacteristics
+			// 
+			this.lvSectionCharacteristics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lvSectionCharacteristics.CheckBoxes = true;
+			this.lvSectionCharacteristics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chTitle});
+			this.lvSectionCharacteristics.FullRowSelect = true;
+			this.lvSectionCharacteristics.GridLines = true;
+			this.lvSectionCharacteristics.HideSelection = false;
+			this.lvSectionCharacteristics.Location = new System.Drawing.Point(6, 19);
+			this.lvSectionCharacteristics.Name = "lvSectionCharacteristics";
+			this.lvSectionCharacteristics.Size = new System.Drawing.Size(313, 136);
+			this.lvSectionCharacteristics.TabIndex = 0;
+			this.lvSectionCharacteristics.UseCompatibleStateImageBehavior = false;
+			this.lvSectionCharacteristics.View = System.Windows.Forms.View.Details;
+			// 
+			// chTitle
+			// 
+			this.chTitle.Text = "Characteristic";
+			this.chTitle.Width = 300;
 			// 
 			// ExecutableEditor
 			// 
@@ -165,6 +240,9 @@
 			this.splitContainer1.ResumeLayout(false);
 			this.pnlSections.ResumeLayout(false);
 			this.mnuContextListViewSections.ResumeLayout(false);
+			this.pnlSection.ResumeLayout(false);
+			this.pnlSection.PerformLayout();
+			this.fraSectionCharacteristics.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -183,5 +261,11 @@
 		private System.Windows.Forms.ToolStripMenuItem mnuContextListViewSectionsImport;
 		private System.Windows.Forms.ToolStripMenuItem mnuContextListViewSectionsDelete;
 		private System.Windows.Forms.ToolStripSeparator mnuContextListViewSectionsSep1;
+		private System.Windows.Forms.Panel pnlSection;
+		private System.Windows.Forms.TextBox txtSectionName;
+		private System.Windows.Forms.Label lblSectionName;
+		private System.Windows.Forms.GroupBox fraSectionCharacteristics;
+		private System.Windows.Forms.ListView lvSectionCharacteristics;
+		private System.Windows.Forms.ColumnHeader chTitle;
     }
 }

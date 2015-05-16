@@ -29,6 +29,59 @@ namespace UniversalEditor.Editors.Executable
 		{
 			InitializeComponent();
 			tv.PopulateSystemIcons();
+
+			string[] names = Enum.GetNames(typeof(ExecutableSectionCharacteristics));
+			Array values = (Enum.GetValues(typeof(ExecutableSectionCharacteristics)) as Array);
+
+			for (int i = 0; i < names.Length; i++)
+			{
+				ListViewItem lvi = new ListViewItem();
+				lvi.Text = names[i];
+				lvi.Tag = (ExecutableSectionCharacteristics) values.GetValue(i);
+				lvSectionCharacteristics.Items.Add(lvi);
+			}
+
+			SwitchTo(null);
+		}
+
+		private void SwitchTo(string name)
+		{
+			foreach (Control ctl in splitContainer1.Panel2.Controls)
+			{
+				if (name != null)
+				{
+					if (ctl.Name == "pnl" + name)
+					{
+						ctl.Enabled = true;
+						ctl.Visible = true;
+					}
+					else
+					{
+						ctl.Visible = false;
+						ctl.Enabled = false;
+					}
+				}
+				else
+				{
+					ctl.Visible = false;
+					ctl.Enabled = false;
+				}
+			}
+
+			switch (name)
+			{
+				case "Section":
+				{
+					ExecutableSection section = (tv.SelectedNode.Tag as ExecutableSection);
+					txtSectionName.Text = section.Name;
+					foreach (ListViewItem lvi in lvSectionCharacteristics.Items)
+					{
+						ExecutableSectionCharacteristics value = (ExecutableSectionCharacteristics)lvi.Tag;
+						lvi.Checked = ((section.Characteristics & value) == value);
+					}
+					break;
+				}
+			}
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
@@ -49,8 +102,9 @@ namespace UniversalEditor.Editors.Executable
 
 			foreach (ExecutableSection section in executable.Sections)
 			{
-				TreeNode nodeSection = new TreeNode(section.Name);
+				TreeNode nodeSection = new TreeNode();
 				nodeSection.Name = "nodeSection" + executable.Sections.IndexOf(section).ToString();
+				nodeSection.Text = section.Name;
 				nodeSection.Tag = section;
 				nodeSections.Nodes.Add(nodeSection);
 
@@ -124,6 +178,25 @@ namespace UniversalEditor.Editors.Executable
 				ExecutableSection section = (lvSections.SelectedItems[0].Tag as ExecutableSection);
 				if (section != null) executable.Sections.Remove(section);
 				lvSections.SelectedItems[0].Remove();
+			}
+		}
+
+		private void tv_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			if (tv.SelectedNode != null)
+			{
+				if (tv.SelectedNode.Tag is ExecutableSection)
+				{
+					SwitchTo("Section");
+				}
+				else
+				{
+					SwitchTo(tv.SelectedNode.Name.Substring("node".Length));
+				}
+			}
+			else
+			{
+				SwitchTo(null);
 			}
 		}
 	}
