@@ -338,7 +338,12 @@ namespace UniversalEditor.UserInterface
 			{
 				return false;
 			}
-
+			
+			for (int i = 0; i < engines.Length; i++)
+			{
+				Console.WriteLine("Found engine " + engines[i].GetType().FullName);
+			}
+			
 			if (engines.Length < 1)
 			{
 				return false;
@@ -349,7 +354,12 @@ namespace UniversalEditor.UserInterface
 			}
 			else
 			{
-				mvarCurrentEngine = engines[0];
+				mvarCurrentEngine = engines[1];
+			}
+			
+			if (mvarCurrentEngine != null)
+			{
+				Console.WriteLine("Using engine " + mvarCurrentEngine.GetType().FullName);
 			}
 
 #if !DEBUG

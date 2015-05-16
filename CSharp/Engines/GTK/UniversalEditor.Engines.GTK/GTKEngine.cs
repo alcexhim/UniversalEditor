@@ -20,7 +20,7 @@ namespace UniversalEditor.Engines.GTK
 			Application.Quit ();
 		}
 		
-		protected override UniversalEditor.UserInterface.IHostApplicationWindow OpenWindowInternal (params string[] FileNames)
+		protected override UniversalEditor.UserInterface.IHostApplicationWindow OpenWindowInternal(params Document[] documents)
 		{
 			MainWindow mw = new MainWindow();
 			mw.Show ();
@@ -29,13 +29,20 @@ namespace UniversalEditor.Engines.GTK
 		
 		public override void ShowAboutDialog()
 		{
-			Dialogs.AboutDialog dlg = new Dialogs.AboutDialog();
-			dlg.Run();
-			dlg.Destroy();
+			ShowAboutDialog(null);
 		}
-		public override bool ShowDataFormatOptionsDialog(ref DataFormat df, UniversalEditor.UserInterface.DataFormatOptionsDialogType type)
+		public override void ShowAboutDialog(DataFormatReference dfr)
 		{
-			return Dialogs.DataFormatOptionsDialog.ShowDialog(ref df, type);
+			if (dfr == null)
+			{
+				Dialogs.AboutDialog dlg = new Dialogs.AboutDialog();
+				dlg.Run();
+				dlg.Destroy();
+			}
+		}
+		public override bool ShowCustomOptionDialog(ref CustomOption.CustomOptionCollection customOptions, string title, EventHandler aboutButtonClicked)
+		{
+			return Dialogs.DataFormatOptionsDialog.ShowDialog(ref customOptions, title, aboutButtonClicked);
 		}
 		protected override void ShowCrashDialog(Exception ex)
 		{
