@@ -30,40 +30,18 @@ namespace UniversalEditor.Engines.GTK.Dialogs
 			this.Build();
 		}
 		
-		public static bool ShowDialog(ref DataFormat df, DataFormatOptionsDialogType type)
+		public static bool ShowDialog(ref CustomOption.CustomOptionCollection customOptions, string title, EventHandler aboutButtonClicked)
 		{
-			DataFormatReference dfr = df.MakeReference();
-			switch (type)
-			{
-				case DataFormatOptionsDialogType.Export:
+			if (customOptions.Count > 0)
+			{					
+				DataFormatOptionsDialog dlg = new DataFormatOptionsDialog();
+				dlg.Title = title;
+				switch ((Gtk.ResponseType)dlg.Run())
 				{
-					if (dfr.ExportOptions.Count > 0)
-					{					
-						DataFormatOptionsDialog dlg = new DataFormatOptionsDialog();
-						switch ((Gtk.ResponseType)dlg.Run())
-						{
-							case Gtk.ResponseType.Cancel:
-							{
-								return false;
-							}
-						}
+					case Gtk.ResponseType.Cancel:
+					{
+						return false;
 					}
-					break;
-				}
-				case DataFormatOptionsDialogType.Import:
-				{
-					if (dfr.ImportOptions.Count > 0)
-					{					
-						DataFormatOptionsDialog dlg = new DataFormatOptionsDialog();
-						switch ((Gtk.ResponseType)dlg.Run())
-						{
-							case Gtk.ResponseType.Cancel:
-							{
-								return false;
-							}
-						}
-					}
-					break;
 				}
 			}
 			return true;

@@ -241,21 +241,33 @@ namespace UniversalEditor.Engines.GTK
 			
 			dlg.Destroy();
 		}
-	
-		public void OpenFile (params string[] FileNames)
+		
+		public void OpenFile (params string[] fileNames)
 		{
-			foreach (string FileName in FileNames)
+			Document[] documents = new Document[fileNames.Length];
+			for (int i = 0; i < documents.Length; i++)
 			{
-				OpenFileInternal(FileName);
+				documents[i] = new Document(null, null, new FileAccessor(fileNames[i]));
+			}
+			OpenFile(documents);
+		}
+		public void OpenFile(params Document[] documents)
+		{
+			foreach (Document doc in documents)
+			{
+				OpenFile(doc, false);
 			}
 		}
-		
-		private void OpenFileInternal(string FileName)
+		public void OpenFile(Document document, bool reuseTab)
 		{
-			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(FileName);
-			DataFormat df = dfrs[0].Create ();
-			
-			FileAccessor fa = new FileAccessor(FileName);
+			OpenFileInternal(document, reuseTab);
+		}
+		
+		private void OpenFileInternal(Document document, bool reuseTab)
+		{
+			// DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(FileName);
+			// DataFormat df = dfrs[0].Create ();
+			DataFormat df = document.DataFormat;
 			
 			ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(df.MakeReference ());
 			foreach (ObjectModelReference omr in omrs)
@@ -267,13 +279,12 @@ namespace UniversalEditor.Engines.GTK
 					Editor editor = (ieditors[0].Create() as Editor);
 					if (editor == null) continue;
 					
-					Document doc = new Document(om, df, fa);
-					doc.InputAccessor.Open ();
-					doc.Load ();
+					document.InputAccessor.Open ();
+					document.Load ();
 					
 					editor.ObjectModel = om;
 					
-					AddDocumentTab(editor, FileName, doc);
+					AddDocumentTab(editor, document.Title, document);
 					break;
 				}
 				else if (ieditors.Length > 1)
@@ -289,7 +300,7 @@ namespace UniversalEditor.Engines.GTK
 						tabLabel.LabelProp = editor.Title;
 						tbsEditors.InsertPage(editor, tabLabel, -1);
 					}
-					AddDocumentTab(tbsEditors, FileName);
+					AddDocumentTab(tbsEditors, document.Title);
 				}
 				else
 				{
@@ -397,6 +408,11 @@ namespace UniversalEditor.Engines.GTK
 		public void CloseWindow ()
 		{
 			throw new System.NotImplementedException ();
+		}
+		
+		public void CloseProject()
+		{
+			throw new System.NotImplementedException();
 		}
 	
 		public bool ShowOptionsDialog ()

@@ -45,7 +45,7 @@ namespace UniversalEditor.UserInterface.Common
 						Type[] interfaces = type.GetInterfaces();
 						foreach (Type typeInt in interfaces)
 						{
-							if (type.IsAbstract) continue;
+							if (typeInt.IsAbstract) continue;
 
 							#region Initializing Editors
 							if (typeInt == typeof(IEditorImplementation))
