@@ -161,6 +161,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Kno
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.AddressBook", "Plugins\UniversalEditor.Plugins.AddressBook\UniversalEditor.Plugins.AddressBook.csproj", "{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.AddressBook.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.AddressBook.UserInterface.WindowsForms\UniversalEditor.Plugins.AddressBook.UserInterface.WindowsForms.csproj", "{740341DE-FFE0-4456-B2A7-7FEC7E52E4F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -440,6 +442,10 @@ Global
 		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{740341DE-FFE0-4456-B2A7-7FEC7E52E4F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{740341DE-FFE0-4456-B2A7-7FEC7E52E4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{740341DE-FFE0-4456-B2A7-7FEC7E52E4F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{740341DE-FFE0-4456-B2A7-7FEC7E52E4F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -516,6 +522,7 @@ Global
 		{B6F4A892-3701-445D-A7E9-B5D5C07FEF2D} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{CF83423B-800F-4EF9-8955-E7A8C2C5C057} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{2006E5F0-E3C2-4F3C-9F55-2171B9334FA4} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
+		{740341DE-FFE0-4456-B2A7-7FEC7E52E4F9} = {D3CE7A47-3989-4B6D-9867-0EA3C8DD7AB1}
 		{118E40C4-323E-4B4B-8EF4-38EED6CC5E83} = {54990D5E-CE09-459F-916E-AF13101765B4}
 		{A5A14A71-5DB3-4495-92F6-8D27C98FF0F4} = {BC6859FB-B61C-471D-9F84-613E5C388C52}
 		{AF5F8ED3-D534-4609-94ED-B2800455B88F} = {F987D8B5-6393-4272-A9F6-62A7744CB070}
