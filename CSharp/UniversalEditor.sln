@@ -159,6 +159,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Engines.GTK
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.KnowledgeAdventure.UserInterface.WindowsForms", "Engines\WindowsForms\Plugins\UniversalEditor.Plugins.KnowledgeAdventure.UserInterface.WindowsForms\UniversalEditor.Plugins.KnowledgeAdventure.UserInterface.WindowsForms.csproj", "{2006E5F0-E3C2-4F3C-9F55-2171B9334FA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.AddressBook", "Plugins\UniversalEditor.Plugins.AddressBook\UniversalEditor.Plugins.AddressBook.csproj", "{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -434,6 +436,10 @@ Global
 		{2006E5F0-E3C2-4F3C-9F55-2171B9334FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2006E5F0-E3C2-4F3C-9F55-2171B9334FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2006E5F0-E3C2-4F3C-9F55-2171B9334FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -483,6 +489,7 @@ Global
 		{05127997-B7F3-4802-8021-06C048C8FE63} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{21D14362-103A-4B38-8FB8-EEA6C7C89E09} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{991F734F-D659-4252-8D2D-E6F828474861} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
+		{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E} = {71CFF024-26F7-4626-A526-B435FDF8D64E}
 		{FE016EA3-DC31-4A92-8B0A-8C746EC117E1} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{ED627DF7-3E78-4428-AB31-810BA1586E62} = {46041F27-7C1C-4209-B72B-251EDB5D4C61}
 		{C1F34183-7A2F-41A6-9958-F6F329099654} = {A846CA33-9CAA-4237-B14F-8721DBA89442}
