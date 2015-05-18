@@ -45,8 +45,6 @@ namespace UniversalEditor.UserInterface.Common
 						Type[] interfaces = type.GetInterfaces();
 						foreach (Type typeInt in interfaces)
 						{
-							if (typeInt.IsAbstract) continue;
-
 							#region Initializing Editors
 							if (typeInt == typeof(IEditorImplementation))
 							{
@@ -59,10 +57,10 @@ namespace UniversalEditor.UserInterface.Common
 								{
 									Console.WriteLine("binding error: " + ex.InnerException.Message);
 								}
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
-                                }
+								catch (Exception ex)
+								{
+									Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
+								}
 								break;
 							}
 							#endregion
@@ -73,15 +71,15 @@ namespace UniversalEditor.UserInterface.Common
 								{
 									IOptionPanelImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IOptionPanelImplementation);
 									listOptionPanels.Add(editor);
-                                }
-                                catch (System.Reflection.TargetInvocationException ex)
-                                {
-                                    Console.WriteLine("binding error: " + ex.InnerException.Message);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
-                                }
+								}
+								catch (System.Reflection.TargetInvocationException ex)
+								{
+									Console.WriteLine("binding error: " + ex.InnerException.Message);
+								}
+								catch (Exception ex)
+								{
+									Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
+								}
 								break;
 							}
 							#endregion
