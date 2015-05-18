@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="DataFormats\AddressBook\WABDataFormat.cs" />
     <Compile Include="DataFormats\Contact\Microsoft\ContactDataFormat.cs" />
+    <Compile Include="DataFormats\Contact\VCard\VCardDataFormat.cs" />
     <Compile Include="ObjectModels\AddressBook\AddressBookObjectModel.cs" />
     <Compile Include="ObjectModels\Contact\ContactEmailAddress.cs" />
     <Compile Include="ObjectModels\Contact\ContactGender.cs" />
