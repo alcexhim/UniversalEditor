@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
-      <Project>{3f664673-7e22-4486-9ad0-fc81861d0b78}</Project>
+      <Project>{3F664673-7E22-4486-9AD0-FC81861D0B78}</Project>
       <Name>UniversalEditor.Compression</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

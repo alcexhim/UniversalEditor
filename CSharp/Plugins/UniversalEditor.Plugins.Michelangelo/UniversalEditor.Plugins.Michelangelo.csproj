@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,19 +48,19 @@
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
-      <Project>{3f664673-7e22-4486-9ad0-fc81861d0b78}</Project>
+      <Project>{3F664673-7E22-4486-9AD0-FC81861D0B78}</Project>
       <Name>UniversalEditor.Compression</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
-      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Plugins.FileSystem\UniversalEditor.Plugins.FileSystem.csproj">
-      <Project>{76fd1306-9ca4-428f-993b-b7e4eeeacbf3}</Project>
+      <Project>{76FD1306-9CA4-428F-993B-B7E4EEEACBF3}</Project>
       <Name>UniversalEditor.Plugins.FileSystem</Name>
     </ProjectReference>
   </ItemGroup>
