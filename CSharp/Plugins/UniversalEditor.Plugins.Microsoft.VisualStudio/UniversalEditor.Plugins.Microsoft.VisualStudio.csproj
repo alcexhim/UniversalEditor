@@ -55,7 +55,7 @@
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Plugins.Microsoft\UniversalEditor.Plugins.Microsoft.csproj">
-      <Project>{4698bc3f-ec29-42eb-9aed-3d8f9983a108}</Project>
+      <Project>{4698BC3F-EC29-42EB-9AED-3D8F9983A108}</Project>
       <Name>UniversalEditor.Plugins.Microsoft</Name>
     </ProjectReference>
   </ItemGroup>

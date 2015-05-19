@@ -11,6 +11,8 @@
     <AssemblyName>UniversalEditor.Plugins.NewWorldComputing.UserInterface.WindowsForms</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,35 +66,35 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj">
-      <Project>{617d9eb5-ca93-45d6-aa6b-5a012b7698ac}</Project>
+      <Project>{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}</Project>
       <Name>AwesomeControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
-      <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
+      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
-      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
-      <Project>{369cfd53-3e65-4a9e-8bdd-4ccd78bf3e33}</Project>
+      <Project>{369CFD53-3E65-4A9E-8BDD-4CCD78BF3E33}</Project>
       <Name>UniversalEditor.Plugins.Multimedia.Binders.GdiPlus</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
-      <Project>{be4d0ba3-0888-42a5-9c09-fc308a4509d2}</Project>
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.NewWorldComputing\UniversalEditor.Plugins.NewWorldComputing.csproj">
-      <Project>{26095090-3f7d-4db5-a9bf-4c687230fc0f}</Project>
+      <Project>{26095090-3F7D-4DB5-A9BF-4C687230FC0F}</Project>
       <Name>UniversalEditor.Plugins.NewWorldComputing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
-      <Project>{bcbb72bd-0ecb-4ff2-8d91-e466361fb6f9}</Project>
+      <Project>{BCBB72BD-0ECB-4FF2-8D91-E466361FB6F9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
     </ProjectReference>
   </ItemGroup>

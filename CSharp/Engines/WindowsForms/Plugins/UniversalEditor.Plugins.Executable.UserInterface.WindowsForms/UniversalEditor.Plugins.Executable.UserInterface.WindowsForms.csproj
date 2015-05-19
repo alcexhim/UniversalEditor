@@ -11,6 +11,8 @@
     <AssemblyName>UniversalEditor.Plugins.Executable.UserInterface.WindowsForms</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,16 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AwesomeControls, Version=1.0.5609.33224, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\AwesomeControls\bin\Debug\AwesomeControls.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="UniversalEditor.Plugins.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="AwesomeControls">
+      <HintPath>..\..\..\..\..\..\AwesomeControls\bin\Debug\AwesomeControls.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Editors\Executable\ExecutableEditor.cs">
@@ -57,23 +58,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{2d4737e6-6d95-408a-90db-8dff38147e85}</Project>
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
-      <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
+      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
-      <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Executable\UniversalEditor.Plugins.Executable.csproj">
-      <Project>{791a36f8-5d96-452b-89d2-78ba74596a1e}</Project>
+      <Project>{791A36F8-5D96-452B-89D2-78BA74596A1E}</Project>
       <Name>UniversalEditor.Plugins.Executable</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
-      <Project>{bcbb72bd-0ecb-4ff2-8d91-e466361fb6f9}</Project>
+      <Project>{BCBB72BD-0ECB-4FF2-8D91-E466361FB6F9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
     </ProjectReference>
   </ItemGroup>
