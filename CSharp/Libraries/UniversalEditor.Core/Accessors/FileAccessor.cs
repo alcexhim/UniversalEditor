@@ -122,5 +122,13 @@ namespace UniversalEditor.Accessors
 		{
 			mvarFileStream.Close();
 		}
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+			// sb.Append("file:///");
+			sb.Append(mvarFileName);
+			return sb.ToString();
+		}
 	}
 }
