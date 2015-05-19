@@ -28,6 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Summary");
+			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Names and E-mail Addresses");
+			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Physical Addresses");
+			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Employment");
+			System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Family and Relationships");
+			System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Notes");
+			System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Digital IDs and Certificates");
 			this.sc = new System.Windows.Forms.SplitContainer();
 			this.tv = new System.Windows.Forms.TreeView();
 			this.pnlGeneral = new System.Windows.Forms.Panel();
@@ -49,6 +56,7 @@
 			// 
 			this.sc.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.sc.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.sc.IsSplitterFixed = true;
 			this.sc.Location = new System.Drawing.Point(0, 0);
 			this.sc.Name = "sc";
 			// 
@@ -60,17 +68,43 @@
 			// 
 			this.sc.Panel2.Controls.Add(this.pnlGeneral);
 			this.sc.Size = new System.Drawing.Size(588, 289);
-			this.sc.SplitterDistance = 196;
+			this.sc.SplitterDistance = 163;
 			this.sc.TabIndex = 0;
 			// 
 			// tv
 			// 
 			this.tv.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tv.HideSelection = false;
+			this.tv.FullRowSelect = true;
+			this.tv.ItemHeight = 26;
 			this.tv.Location = new System.Drawing.Point(0, 0);
 			this.tv.Name = "tv";
-			this.tv.Size = new System.Drawing.Size(196, 289);
+			treeNode1.Name = "nodeSummary";
+			treeNode1.Text = "Summary";
+			treeNode2.Name = "nodeNameAndEmail";
+			treeNode2.Text = "Names and E-mail Addresses";
+			treeNode3.Name = "nodePhysicalAddresses";
+			treeNode3.Text = "Physical Addresses";
+			treeNode4.Name = "nodeEmployment";
+			treeNode4.Text = "Employment";
+			treeNode5.Name = "nodeFamilyAndRelationships";
+			treeNode5.Text = "Family and Relationships";
+			treeNode6.Name = "nodeNotes";
+			treeNode6.Text = "Notes";
+			treeNode7.Name = "nodeDigitalIDs";
+			treeNode7.Text = "Digital IDs and Certificates";
+			this.tv.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7});
+			this.tv.ShowLines = false;
+			this.tv.ShowRootLines = false;
+			this.tv.Size = new System.Drawing.Size(163, 289);
 			this.tv.TabIndex = 0;
+			this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_AfterSelect);
 			// 
 			// pnlGeneral
 			// 
@@ -78,7 +112,7 @@
 			this.pnlGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pnlGeneral.Location = new System.Drawing.Point(0, 0);
 			this.pnlGeneral.Name = "pnlGeneral";
-			this.pnlGeneral.Size = new System.Drawing.Size(388, 289);
+			this.pnlGeneral.Size = new System.Drawing.Size(421, 289);
 			this.pnlGeneral.TabIndex = 0;
 			// 
 			// tblGeneral
@@ -95,7 +129,7 @@
 			this.tblGeneral.RowCount = 2;
 			this.tblGeneral.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tblGeneral.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tblGeneral.Size = new System.Drawing.Size(382, 283);
+			this.tblGeneral.Size = new System.Drawing.Size(415, 283);
 			this.tblGeneral.TabIndex = 1;
 			// 
 			// fraEmailAddresses
@@ -105,7 +139,7 @@
 			this.fraEmailAddresses.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.fraEmailAddresses.Location = new System.Drawing.Point(3, 144);
 			this.fraEmailAddresses.Name = "fraEmailAddresses";
-			this.fraEmailAddresses.Size = new System.Drawing.Size(376, 136);
+			this.fraEmailAddresses.Size = new System.Drawing.Size(409, 136);
 			this.fraEmailAddresses.TabIndex = 1;
 			this.fraEmailAddresses.TabStop = false;
 			this.fraEmailAddresses.Text = "E-mail addresses";
@@ -119,11 +153,15 @@
 			this.lvEmailAddresses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.lvEmailAddresses.FullRowSelect = false;
+			this.lvEmailAddresses.HideSelection = true;
 			this.lvEmailAddresses.ItemNamePlural = "items";
 			this.lvEmailAddresses.ItemNameSingular = "item";
 			this.lvEmailAddresses.Location = new System.Drawing.Point(6, 19);
+			this.lvEmailAddresses.MultiSelect = false;
 			this.lvEmailAddresses.Name = "lvEmailAddresses";
-			this.lvEmailAddresses.Size = new System.Drawing.Size(364, 111);
+			this.lvEmailAddresses.ShowGridLines = true;
+			this.lvEmailAddresses.Size = new System.Drawing.Size(397, 111);
 			this.lvEmailAddresses.TabIndex = 0;
 			this.lvEmailAddresses.RequestItemProperties += new AwesomeControls.CollectionListView.ItemPropertiesEventHandler(this.lvEmailAddresses_RequestItemProperties);
 			// 
@@ -134,7 +172,7 @@
 			this.fraNames.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.fraNames.Location = new System.Drawing.Point(3, 3);
 			this.fraNames.Name = "fraNames";
-			this.fraNames.Size = new System.Drawing.Size(376, 135);
+			this.fraNames.Size = new System.Drawing.Size(409, 135);
 			this.fraNames.TabIndex = 0;
 			this.fraNames.TabStop = false;
 			this.fraNames.Text = "Names";
@@ -148,11 +186,15 @@
 			this.lvNames.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.lvNames.FullRowSelect = false;
+			this.lvNames.HideSelection = true;
 			this.lvNames.ItemNamePlural = "items";
 			this.lvNames.ItemNameSingular = "item";
 			this.lvNames.Location = new System.Drawing.Point(6, 22);
+			this.lvNames.MultiSelect = false;
 			this.lvNames.Name = "lvNames";
-			this.lvNames.Size = new System.Drawing.Size(364, 107);
+			this.lvNames.ShowGridLines = true;
+			this.lvNames.Size = new System.Drawing.Size(397, 107);
 			this.lvNames.TabIndex = 0;
 			this.lvNames.RequestItemProperties += new AwesomeControls.CollectionListView.ItemPropertiesEventHandler(this.lvNames_RequestItemProperties);
 			// 

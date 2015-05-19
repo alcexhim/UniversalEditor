@@ -35,9 +35,39 @@ namespace UniversalEditor.Editors.Contact
 
 			tv.Nodes.Clear();
 
+			lvNames.Items.Clear();
+			lvEmailAddresses.Items.Clear();
+
 			ContactObjectModel contact = (ObjectModel as ContactObjectModel);
 			if (contact == null) return;
 
+			tv.Nodes.Add("General Information");
+			tv.Nodes.Add("Physical Addresses");
+			tv.Nodes.Add("Family and Relationships");
+			tv.Nodes.Add("Notes");
+			tv.Nodes.Add("Digital IDs and Certificates");
+
+			foreach (ContactName name in contact.Names)
+			{
+				AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
+				lvi.Data = name;
+				if (!String.IsNullOrEmpty(name.FormattedName))
+				{
+					lvi.Text = name.FormattedName;
+				}
+				else
+				{
+					lvi.Text = name.FamilyName + ", " + name.GivenName + " " + name.MiddleName;
+				}
+				lvNames.Items.Add(lvi);
+			}
+			foreach (ContactEmailAddress email in contact.EmailAddresses)
+			{
+				AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
+				lvi.Data = email;
+				lvi.Text = email.Address;
+				lvEmailAddresses.Items.Add(lvi);
+			}
 
 		}
 
@@ -70,7 +100,14 @@ namespace UniversalEditor.Editors.Contact
 			name.Title = dlg.PersonalTitle;
 			name.Nickname = dlg.Nickname;
 
-			e.Item.Text = name.GivenName;
+			if (!String.IsNullOrEmpty(name.FormattedName))
+			{
+				e.Item.Text = name.FormattedName;
+			}
+			else
+			{
+				e.Item.Text = name.FamilyName + ", " + name.GivenName + " " + name.MiddleName;
+			}
 			e.Item.Details.Clear();
 
 			e.Item.Data = name;
@@ -120,6 +157,11 @@ namespace UniversalEditor.Editors.Contact
 			e.Item.Data = email;
 
 			EndEdit();
+		}
+
+		private void tv_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+
 		}
 	}
 }
