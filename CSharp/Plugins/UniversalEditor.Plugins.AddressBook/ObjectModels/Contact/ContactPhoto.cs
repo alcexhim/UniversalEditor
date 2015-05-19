@@ -27,6 +27,12 @@ namespace UniversalEditor.ObjectModels.Contact
 		private ContactLabel.ContactLabelCollection mvarLabels = new ContactLabel.ContactLabelCollection();
 		public ContactLabel.ContactLabelCollection Labels { get { return mvarLabels; } }
 
+		private string mvarContentType = String.Empty;
+		public string ContentType { get { return mvarContentType; } set { mvarContentType = value; } }
+
+		private string mvarImageUrl = String.Empty;
+		public string ImageUrl { get { return mvarImageUrl; } set { mvarImageUrl = value; } }
+
 		public object Clone()
 		{
 			ContactPhoto clone = new ContactPhoto();
@@ -37,6 +43,9 @@ namespace UniversalEditor.ObjectModels.Contact
 				clone.Labels.Add(item.Clone() as ContactLabel);
 			}
 			clone.ModificationDate = mvarModificationDate;
+
+			clone.ContentType = (mvarContentType.Clone() as string);
+			clone.ImageUrl = (mvarImageUrl.Clone() as string);
 			return clone;
 		}
 	}
