@@ -48,17 +48,25 @@ namespace UniversalEditor.UserInterface.Common
 							#region Initializing Editors
 							if (typeInt == typeof(IEditorImplementation))
 							{
+								Console.Write("loading editor '" + type.FullName + "'... ");
+								
 								try
 								{
 									IEditorImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IEditorImplementation);
 									listEditors.Add(editor.MakeReference());
+									
+									Console.WriteLine("SUCCESS!");
 								}
 								catch (System.Reflection.TargetInvocationException ex)
 								{
+									Console.WriteLine("FAILURE!");
+									
 									Console.WriteLine("binding error: " + ex.InnerException.Message);
 								}
 								catch (Exception ex)
 								{
+									Console.WriteLine("FAILURE!");
+									
 									Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
 								}
 								break;
