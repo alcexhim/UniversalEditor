@@ -16,6 +16,18 @@ namespace UniversalEditor.ObjectModels.CoreObject
 				Add(item);
 				return item;
 			}
+
+			public CoreObjectAttribute this[string name]
+			{
+				get
+				{
+					foreach (CoreObjectAttribute item in this)
+					{
+						if (item.Name == name) return item;
+					}
+					return null;
+				}
+			}
 		}
 
 		public CoreObjectAttribute()

@@ -118,6 +118,166 @@ namespace UniversalEditor.DataFormats.Contact.VCard
 						// organizations
 						break;
 					}
+					case "PHOTO":
+					{
+						ContactPhoto photo = new ContactPhoto();
+
+						CoreObjectAttribute attMediaType = prop.Attributes["MEDIATYPE"];
+						if (attMediaType != null && attMediaType.Values.Count > 0)
+						{
+							photo.ContentType = attMediaType.Values[0];
+						}
+
+						if (prop.Values.Count > 0)
+						{
+							photo.ImageUrl = prop.Values[0];
+						}
+
+						contact.Photos.Add(photo);
+						break;
+					}
+					case "TEL":
+					{
+						ContactPhoneNumber phone = new ContactPhoneNumber();
+						if (mvarFormatVersion.Major >= 4)
+						{
+							phone.Value = prop.Values[0].Substring(4);
+						}
+						else
+						{
+							phone.Value = prop.Values[0];
+						}
+
+						CoreObjectAttribute attType = prop.Attributes["TYPE"];
+						if (attType != null)
+						{
+							foreach (string value in attType.Values)
+							{
+								switch (value.ToLower())
+								{
+									case "work":
+									{
+										break;
+									}
+									case "home":
+									{
+										break;
+									}
+									case "voice":
+									{
+										break;
+									}
+								}
+								phone.Labels.Add(value);
+							}
+						}
+
+						contact.PhoneNumbers.Add(phone);
+						break;
+					}
+					case "ADR":
+					{
+						ContactPhysicalAddress addr = new ContactPhysicalAddress();
+
+						CoreObjectAttribute attType = prop.Attributes["TYPE"];
+						if (attType != null)
+						{
+							foreach (string value in attType.Values)
+							{
+								addr.Labels.Add(value);
+							}
+						}
+
+						if (prop.Values.Count > 2)
+						{
+							addr.StreetAddress = new ContactGenericField<string>(prop.Values[2]);
+							if (prop.Values.Count > 3)
+							{
+								addr.Locality = new ContactGenericField<string>(prop.Values[3]);
+								if (prop.Values.Count > 4)
+								{
+									addr.Region = new ContactGenericField<string>(prop.Values[4]);
+									if (prop.Values.Count > 5)
+									{
+										addr.PostalCode = new ContactGenericField<string>(prop.Values[5]);
+										if (prop.Values.Count > 6)
+										{
+											addr.Country = new ContactGenericField<string>(prop.Values[6]);
+										}
+									}
+								}
+							}
+						}
+
+						contact.PhysicalAddresses.Add(addr);
+						break;
+					}
+					case "EMAIL":
+					{
+						ContactEmailAddress email = new ContactEmailAddress();
+						if (prop.Values.Count > 0)
+						{
+							email.Address = prop.Values[0];
+						}
+
+						CoreObjectAttribute attType = prop.Attributes["TYPE"];
+						if (attType != null)
+						{
+							foreach (string value in attType.Values)
+							{
+								switch (value)
+								{
+									case "PREF":
+									{
+										email.Labels.Add("Preferred");
+										break;
+									}
+									default:
+									{
+										email.Labels.Add(value);
+										break;
+									}
+								}
+							}
+						}
+						contact.EmailAddresses.Add(email);
+						break;
+					}
+					case "REV":
+					{
+						if (prop.Values.Count > 0)
+						{
+							string datetime = prop.Values[0];
+							try
+							{
+								contact.CreationDate = DateTime.Parse(datetime);
+							}
+							catch
+							{
+								if (!datetime.Contains("-"))
+								{
+									// hack
+									string strYear = datetime.Substring(0, 4);
+									string strMonth = datetime.Substring(4, 2);
+									string strDay = datetime.Substring(6, 2);
+									string strHour = datetime.Substring(9, 2);
+									string strMinute = datetime.Substring(11, 2);
+									string strSecond = datetime.Substring(13, 2);
+									string strTimeZone = datetime.Substring(15);
+
+									int year = Int32.Parse(strYear);
+									int month = Int32.Parse(strMonth);
+									int day = Int32.Parse(strDay);
+									int hour = Int32.Parse(strHour);
+									int minute = Int32.Parse(strMinute);
+									int second = Int32.Parse(strSecond);
+
+									contact.CreationDate = new DateTime(year, month, day, hour, minute, second);
+								}
+							}
+						}
+						break;
+					}
 				}
 			}
 

@@ -29,81 +29,109 @@ namespace UniversalEditor.DataFormats.CoreObject
 
 			CoreObjectGroup currentGroup = null;
 
-			string lastPropertyKey = null;
-			string lastPropertyValue = null;
+			string lastLine = null;
+			reader.Seek(0, SeekOrigin.Begin);
 
 			while (!reader.EndOfStream)
 			{
 				string line = reader.ReadLine();
 				if (line.StartsWith(" "))
 				{
-					if (lastPropertyValue == null)
+					if (lastLine == null)
 					{
 						throw new InvalidDataFormatException("Cannot continue a property that hasn't been declared");
 					}
 					line = line.Substring(1);
 					line = line.Replace("\\,", ",");
-					lastPropertyValue += line;
+					lastLine += line;
 					continue;
 				}
 				else
 				{
-					if (lastPropertyValue != null)
+					if (lastLine != null)
 					{
-						string[] lastPropertyValues = lastPropertyValue.Split(new char[] { ';' });
-						if (currentGroup != null)
+						// parse the last line
+						if (lastLine.Contains(":"))
 						{
-							currentGroup.Properties.Add(lastPropertyKey, lastPropertyValues);
+							string[] splits = lastLine.Split(new char[] { ':' }, 2, StringSplitOptions.None);
+							if (splits[0].ToUpper() == "BEGIN")
+							{
+								if (currentGroup != null)
+								{
+									currentGroup = currentGroup.Groups.Add(splits[1]);
+								}
+								else
+								{
+									currentGroup = core.Groups.Add(splits[1]);
+								}
+							}
+							else if (splits[0].ToUpper() == "END")
+							{
+								currentGroup = currentGroup.ParentGroup;
+							}
+							else
+							{
+								if (splits.Length > 0)
+								{
+									CoreObjectProperty prop = new CoreObjectProperty();
+
+									string name = null;
+									if (splits[0].Contains(";"))
+									{
+										string[] attrs = splits[0].Split(new char[] { ';' });
+										name = attrs[0];
+
+										for (int i = 1; i < attrs.Length; i++)
+										{
+											string[] attrValues = attrs[i].Split(new char[] { '=' });
+											if (attrValues.Length > 0)
+											{
+												CoreObjectAttribute att = new CoreObjectAttribute();
+												att.Name = attrValues[0];
+												if (attrValues.Length > 1)
+												{
+													string[] values = attrValues[1].Split(new char[] { ',' }, "\"");
+													for (int j = 0; j < values.Length; j++)
+													{
+														att.Values.Add(values[j]);
+													}
+												}
+												prop.Attributes.Add(att);
+											}
+										}
+									}
+									else
+									{
+										name = splits[0];
+									}
+									
+									prop.Name = name;
+									if (splits.Length > 1)
+									{
+										string[] values = splits[1].Split(new char[] { ';' });
+										foreach (string value in values)
+										{
+											prop.Values.Add(value);
+										}
+									}
+
+									if (currentGroup != null)
+									{
+										currentGroup.Properties.Add(prop);
+									}
+									else
+									{
+										core.Properties.Add(prop);
+									}
+								}
+							}
 						}
-						else
-						{
-							core.Properties.Add(lastPropertyKey, lastPropertyValues);
-						}
-					}
-				}
-				// line = line.Trim();
-
-				if (String.IsNullOrEmpty(line)) continue;
-
-				string[] parts = line.Split(new char[] { ':' }, 2, StringSplitOptions.None);
-				
-				string key = parts[0];
-				string value = parts[1];
-				value = value.Replace("\\,", ",");
-
-				if (key.ToUpper() == "BEGIN")
-				{
-					if (currentGroup != null)
-					{
-						currentGroup = currentGroup.Groups.Add(value);
+						lastLine = line;
 					}
 					else
 					{
-						currentGroup = core.Groups.Add(value);
+						lastLine = line;
 					}
-				}
-				else if (key.ToUpper() == "END")
-				{
-					if (currentGroup != null)
-					{
-						if (currentGroup.Name != value)
-						{
-							throw new InvalidDataFormatException("Cannot close a group that has not been opened yet ('" + value + "')");
-						}
-						else
-						{
-							currentGroup = currentGroup.ParentGroup;
-						}
-					}
-					else
-					{
-						throw new InvalidDataFormatException("Cannot close a group that has not been opened yet ('" + value + "')");
-					}
-				}
-				else
-				{
-					lastPropertyKey = key;
-					lastPropertyValue = value;
 				}
 			}
 		}

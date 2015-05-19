@@ -38,13 +38,14 @@ namespace UniversalEditor.ObjectModels.CoreObject
 				return item;
 			}
 
-			private Dictionary<string, CoreObjectProperty> _itemsByName = new Dictionary<string, CoreObjectProperty>();
-
 			public CoreObjectProperty this[string name]
 			{
 				get
 				{
-					if (_itemsByName.ContainsKey(name)) return _itemsByName[name];
+					foreach (CoreObjectProperty item in this)
+					{
+						if (item.Name == name) return item;
+					}
 					return null;
 				}
 			}
@@ -53,12 +54,10 @@ namespace UniversalEditor.ObjectModels.CoreObject
 			{
 				base.InsertItem(index, item);
 				item.ParentGroup = _parent;
-				_itemsByName.Add(item.Name, item);
 			}
 			protected override void RemoveItem(int index)
 			{
 				this[index].ParentGroup = null;
-				_itemsByName.Remove(this[index].Name);
 				base.RemoveItem(index);
 			}
 			protected override void SetItem(int index, CoreObjectProperty item)
@@ -66,10 +65,8 @@ namespace UniversalEditor.ObjectModels.CoreObject
 				if (index > -1 && index < this.Count - 1)
 				{
 					this[index].ParentGroup = null;
-					_itemsByName.Remove(this[index].Name);
 				}
 				base.SetItem(index, item);
-				_itemsByName.Add(item.Name, item);
 				item.ParentGroup = _parent;
 			}
 			protected override void ClearItems()
@@ -78,7 +75,6 @@ namespace UniversalEditor.ObjectModels.CoreObject
 				{
 					item.ParentGroup = null;
 				}
-				_itemsByName.Clear();
 				base.ClearItems();
 			}
 
@@ -125,17 +121,28 @@ namespace UniversalEditor.ObjectModels.CoreObject
 			if (mvarAttributes.Count > 0)
 			{
 				sb.Append(";");
-				foreach (CoreObjectAttribute att in mvarAttributes)
+				for (int i = 0; i < mvarAttributes.Count; i++)
 				{
+					CoreObjectAttribute att = mvarAttributes[i];
 					sb.Append(att.Name);
 					if (att.Values.Count > 0)
 					{
 						sb.Append("=");
-						for (int i = 0; i < att.Values.Count; i++)
+						for (int j = 0; j < att.Values.Count; j++)
 						{
-							sb.Append(att.Values[i]);
-							if (i < att.Values.Count - 1) sb.Append(',');
+							sb.Append(att.Values[j]);
+							if (j < att.Values.Count - 1) sb.Append(',');
 						}
+					}
+					if (i < mvarAttributes.Count - 1) sb.Append(";");
+				}
+				if (mvarValues.Count > 0)
+				{
+					sb.Append(":");
+					for (int i = 0; i < mvarValues.Count; i++)
+					{
+						sb.Append(mvarValues[i]);
+						if (i < mvarValues.Count - 1) sb.Append(";");
 					}
 				}
 			}
