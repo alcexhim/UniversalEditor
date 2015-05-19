@@ -507,17 +507,20 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 					}
 				}
 
+				Group group = null;
 				if (tv.SelectedNode != null)
 				{
-					Group group = (tv.SelectedNode.Tag as Group);
-					if (group != null)
-					{
-						group.Properties.Add(prop);
-						return;
-					}
+					group = (tv.SelectedNode.Tag as Group);
 				}
 
-				plom.Properties.Add(prop);
+				if (group != null)
+				{
+					group.Properties.Add(prop);
+				}
+				else
+				{
+					plom.Properties.Add(prop);
+				}
 
 				ListViewItem lvi = new ListViewItem();
 				lvi.Text = prop.Name;
