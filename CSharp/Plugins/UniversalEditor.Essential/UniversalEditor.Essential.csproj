@@ -51,7 +51,7 @@
     <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormatSettings.cs" />
-    <Compile Include="DataFormats\PropertyList\CoreObject\CoreObjectDataFormat.cs" />
+    <Compile Include="DataFormats\CoreObject\CoreObjectDataFormat.cs" />
     <Compile Include="DataFormats\PropertyList\ExtensibleConfiguration\ExtensibleConfigurationDataFormat.cs" />
     <Compile Include="DataFormats\PropertyList\ExtensibleConfiguration\ExtensibleConfigurationSettings.cs" />
     <Compile Include="DataFormats\PropertyList\Text\TextPropertyListDataFormat.cs" />
@@ -84,6 +84,10 @@
     <Compile Include="ObjectModels\Chunked\RIFFMetadata.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ObjectModels\CoreObject\CoreObjectAttribute.cs" />
+    <Compile Include="ObjectModels\CoreObject\CoreObjectObjectModel.cs" />
+    <Compile Include="ObjectModels\CoreObject\CoreObjectGroup.cs" />
+    <Compile Include="ObjectModels\CoreObject\CoreObjectProperty.cs" />
     <Compile Include="ObjectModels\DataLink\DataLinkObjectModel.cs" />
     <Compile Include="ObjectModels\FileSystem\CompressedFile.cs" />
     <Compile Include="ObjectModels\FileSystem\DataRequestEvent.cs" />

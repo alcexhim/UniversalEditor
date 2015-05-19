@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using UniversalEditor.DataFormats.PropertyList.CoreObject;
+using UniversalEditor.DataFormats.CoreObject;
 using UniversalEditor.ObjectModels.Contact;
-using UniversalEditor.ObjectModels.PropertyList;
+using UniversalEditor.ObjectModels.CoreObject;
 
 namespace UniversalEditor.DataFormats.Contact.VCard
 {
@@ -33,20 +33,20 @@ namespace UniversalEditor.DataFormats.Contact.VCard
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal(objectModels);
-			objectModels.Push(new PropertyListObjectModel());
+			objectModels.Push(new CoreObjectObjectModel());
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
-			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
+			CoreObjectObjectModel core = (objectModels.Pop() as CoreObjectObjectModel);
 			ContactObjectModel contact = (objectModels.Pop() as ContactObjectModel);
 
-			Group vcard = plom.Groups["VCARD"];
+			CoreObjectGroup vcard = core.Groups["VCARD"];
 			if (vcard == null) throw new InvalidDataFormatException("File does not contain a top-level VCARD group");
 
 			bool hasVersion = false;
 
-			foreach (Property prop in vcard.Properties)
+			foreach (CoreObjectProperty prop in vcard.Properties)
 			{
 				switch (prop.Name)
 				{
@@ -54,27 +54,33 @@ namespace UniversalEditor.DataFormats.Contact.VCard
 					{
 						if (!hasVersion)
 						{
-							mvarFormatVersion = new Version(prop.Value.ToString());
-							hasVersion = true;
+							if (prop.Values.Count > 0)
+							{
+								mvarFormatVersion = new Version(prop.Values[0].ToString());
+								hasVersion = true;
+							}
 						}
 						break;
 					}
 					case "N":
 					{
 						ContactName name = new ContactName();
-						string[] splits = prop.Value.ToString().Split(new char[] { ';' });
-						if (splits.Length > 1)
+						if (prop.Values.Count > 0)
 						{
-							name.FamilyName = splits[0];
-							name.GivenName = splits[1];
-							if (splits.Length > 2)
+							name.GivenName = prop.Values[0];
+							if (prop.Values.Count > 1)
 							{
-								// third assuming is middle name
-								name.MiddleName = splits[2];
-								if (splits.Length > 3)
+								name.FamilyName = prop.Values[0];
+								name.GivenName = prop.Values[1];
+								if (prop.Values.Count > 2)
 								{
-									// per wikipedia fourth is title
-									name.Title = splits[3];
+									// third assuming is middle name
+									name.MiddleName = prop.Values[2];
+									if (prop.Values.Count > 3)
+									{
+										// per wikipedia fourth is title
+										name.Title = prop.Values[3];
+									}
 								}
 							}
 						}
@@ -86,12 +92,18 @@ namespace UniversalEditor.DataFormats.Contact.VCard
 						// formatted name
 						if (contact.Names.Count > 0)
 						{
-							contact.Names[contact.Names.Count - 1].FormattedName = prop.Value.ToString();
+							if (prop.Values.Count > 0)
+							{
+								contact.Names[contact.Names.Count - 1].FormattedName = prop.Values[0].ToString();
+							}
 						}
 						else
 						{
 							ContactName name = new ContactName();
-							name.FormattedName = prop.Value.ToString();
+							if (prop.Values.Count > 0)
+							{
+								name.FormattedName = prop.Values[0].ToString();
+							}
 							contact.Names.Add(name);
 						}
 						break;
@@ -116,9 +128,9 @@ namespace UniversalEditor.DataFormats.Contact.VCard
 			base.BeforeSaveInternal(objectModels);
 
 			ContactObjectModel contact = (objectModels.Pop() as ContactObjectModel);
-			PropertyListObjectModel plom = new PropertyListObjectModel();
+			CoreObjectObjectModel core = new CoreObjectObjectModel();
 
-			objectModels.Push(plom);
+			objectModels.Push(core);
 		}
 	}
 }
