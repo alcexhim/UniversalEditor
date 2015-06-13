@@ -5,6 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.FileSystem.FAT
 {
+	[Flags()]
 	public enum FATFileAttributes
 	{
 		/// <summary>
