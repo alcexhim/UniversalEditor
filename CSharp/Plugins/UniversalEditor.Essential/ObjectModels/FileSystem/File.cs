@@ -77,6 +77,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 		public event DataRequestEventHandler DataRequest;
 
+		private FileAttributes mvarAttributes = FileAttributes.None;
+		public FileAttributes Attributes { get { return mvarAttributes; } set { mvarAttributes = value; } }
+
 		private string mvarName = String.Empty;
 		/// <summary>
 		/// The name of this file.

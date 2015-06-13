@@ -92,6 +92,7 @@
     <Compile Include="ObjectModels\FileSystem\CompressedFile.cs" />
     <Compile Include="ObjectModels\FileSystem\DataRequestEvent.cs" />
     <Compile Include="ObjectModels\FileSystem\File.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileAttributes.cs" />
     <Compile Include="ObjectModels\FileSystem\FileSystemObjectModel.cs" />
     <Compile Include="ObjectModels\FileSystem\Folder.cs" />
     <Compile Include="ObjectModels\FileSystem\IFileSystemContainer.cs" />
