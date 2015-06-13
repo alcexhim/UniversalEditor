@@ -236,6 +236,19 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			lvi.Details.Add("File");
 			lvi.Details.Add(file.ModificationTimestamp.ToString());
 
+			if ((file.Attributes & FileAttributes.Deleted) == FileAttributes.Deleted)
+			{
+				lvi.ForeColor = System.Drawing.Color.FromArgb(215, 157, 133);
+			}
+			else if ((file.Attributes & FileAttributes.Encrypted) == FileAttributes.Encrypted)
+			{
+				lvi.ForeColor = System.Drawing.Color.FromArgb(57, 135, 214);
+			}
+			else if ((file.Attributes & FileAttributes.Compressed) == FileAttributes.Compressed)
+			{
+				lvi.ForeColor = System.Drawing.Color.FromArgb(61, 201, 129);
+			}
+
 			if (parent != null)
 			{
 				parent.Items.Add(lvi);
