@@ -75,6 +75,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 		///	</remarks>
 		VolumeLabel = 0x08,
 		/// <summary>
+		/// The file entry is a component of a Long File Name entry.
+		/// </summary>
+		LongFileName = ReadOnly | Hidden | System | VolumeLabel,
+		/// <summary>
 		/// Subdirectory. (Since DOS 2.0) Indicates that the cluster-chain associated with this entry gets
 		/// interpreted as subdirectory instead of as a file. Subdirectories have a filesize entry of zero.
 		/// </summary>
