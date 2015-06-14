@@ -215,7 +215,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 			// The number of blocks that appear before the root directory is given by:
 			int numBlocksBeforeRootDir = (mvarBiosParameterBlock.FileAllocationTableCount * mvarBiosParameterBlock.SectorsPerFAT16) + 1;
-			int numBytesBeforeRootDir = mvarBiosParameterBlock.BytesPerSector * numBlocksBeforeRootDir;
+			long numBytesBeforeRootDir = (long)mvarBiosParameterBlock.BytesPerSector * numBlocksBeforeRootDir;
 
 			br.Accessor.Position = numBytesBeforeRootDir;
 
@@ -597,7 +597,9 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 				for (int i = 0; i < fileInfos.Count; i++)
 				{
 					FATFileInfo fi = fileInfos[i];
-					long fileOffset = (numBytesBeforeRootDir + bytesOccupiedByRootDirEntries + ((fi.Offset - 2) * mvarBiosParameterBlock.BytesPerSector));
+					long firstSectorOffset = (long)numBytesBeforeRootDir + bytesOccupiedByRootDirEntries;
+					int realSectorIndex = fi.Offset - 4; //  2;
+					long fileOffset = (firstSectorOffset + (realSectorIndex * mvarBiosParameterBlock.BytesPerSector));
 					
 					File file = new File();
 					file.Name = fi.LongFileName;
@@ -610,6 +612,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						br.Accessor.Position = fileOffset;
 						byte[] data = br.ReadBytes(fi.Length);
 						file.SetDataAsByteArray(data);
+					}
+					else
+					{
+
 					}
 					br.Accessor.Position = pos;
 
