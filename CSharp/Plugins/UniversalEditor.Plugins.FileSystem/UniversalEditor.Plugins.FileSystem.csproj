@@ -92,6 +92,7 @@
     <Compile Include="DataFormats\FileSystem\FAT\FATExtendedBootSignature.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATFileAccessRightsFlags.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATFileAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\FAT\FATFileInfo.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATMediaDescriptor.cs" />
     <Compile Include="DataFormats\FileSystem\FAT\FATUserAttributes.cs" />
     <Compile Include="DataFormats\FileSystem\FeverPitchStudios\UTF\UTFDataFormat.cs" />

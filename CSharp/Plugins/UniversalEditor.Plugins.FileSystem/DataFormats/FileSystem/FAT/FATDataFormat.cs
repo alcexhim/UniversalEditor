@@ -217,14 +217,14 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 			br.Accessor.Position = numBytesBeforeRootDir;
 
-			List<string> fileNames = new List<string>();
-			List<short> fileOffsets = new List<short>();
-			List<uint> fileSizes = new List<uint>();
+			List<FATFileInfo> fileInfos = new List<FATFileInfo>();
 
 			string LFN_FileName = String.Empty;
 
 			#region File name table
 			{
+				bool fileIsDeleted = false;
+
 				while (!br.EndOfStream)
 				{
 					byte[] fileNameBytes = br.ReadBytes(8);
@@ -256,8 +256,9 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						// (The reason, why 0xE5 was chosen for this purpose in 86-DOS is down to the
 						// fact, that 8-inch CP/M floppies came pre-formatted with this value filled
 						// and so could be used to store files out-of-the box.)
-
 					}
+
+					fileIsDeleted = (fileNameBytes[0] == 0xE5);
 
 					string fileName = System.Text.Encoding.ASCII.GetString(fileNameBytes).Trim();
 					if (fileName[0] == '\0') break;
@@ -274,7 +275,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// FAT16+ or FAT32+ as they can never occur on the same type of volume.):
 					FATFileAttributes fileAttributes = (FATFileAttributes)implementationSpecificByte1;
 
-					if ((byte)fileAttributes == 15)
+					if (fileAttributes == FATFileAttributes.LongFileName)
 					{
 						br.Accessor.Position -= 12;
 
@@ -304,16 +305,6 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 							// This is the first LFN entry, stop reading now.
 						}
 						continue;
-					}
-					if (LFN_FileName != String.Empty)
-					{
-						LFN_FileName = LFN_FileName.TrimNull();
-						fileNames.Add(LFN_FileName);
-						LFN_FileName = String.Empty;
-					}
-					else
-					{
-						fileNames.Add(fileName + "." + fileExt);
 					}
 
 					/*
@@ -564,8 +555,31 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					short startingClusterNumber = br.ReadInt16();
 					uint fileSize = br.ReadUInt32();
 
-					fileOffsets.Add(startingClusterNumber);
-					fileSizes.Add(fileSize);
+					FATFileInfo fi = new FATFileInfo();
+					if (fileAttributes != FATFileAttributes.VolumeLabel)
+					{
+						if (LFN_FileName != String.Empty)
+						{
+							LFN_FileName = LFN_FileName.TrimNull();
+							
+							fi.LongFileName = LFN_FileName;
+							fi.ShortFileName = fileName + "." + fileExt;
+
+							LFN_FileName = String.Empty;
+						}
+						else
+						{
+							fi.LongFileName = (fileName + "." + fileExt);
+							fi.ShortFileName = (fileName + "." + fileExt);
+						}
+						fi.Offset = startingClusterNumber;
+						fi.Length = fileSize;
+						if (fileIsDeleted)
+						{
+							fi.Attributes |= FileAttributes.Deleted;
+						}
+						fileInfos.Add(fi);
+					}
 				}
 			}
 			#endregion
@@ -573,16 +587,19 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			{
 				int bytesOccupiedByRootDirEntries = (mvarBiosParameterBlock.MaximumRootDirectoryEntryCount * 32);
 				
-				for (int i = 0; i < fileNames.Count; i++)
+				for (int i = 0; i < fileInfos.Count; i++)
 				{
-					long fileOffset = (numBytesBeforeRootDir + bytesOccupiedByRootDirEntries + ((fileOffsets[i] - 2) * mvarBiosParameterBlock.BytesPerSector));
+					FATFileInfo fi = fileInfos[i];
+					long fileOffset = (numBytesBeforeRootDir + bytesOccupiedByRootDirEntries + ((fi.Offset - 2) * mvarBiosParameterBlock.BytesPerSector));
 					
 					File file = new File();
-					file.Name = fileNames[i];
+					file.Name = fi.LongFileName;
+
+					file.Attributes = fi.Attributes;
 
 					long pos = br.Accessor.Position;
 					br.Accessor.Position = fileOffset;
-					byte[] data = br.ReadBytes(fileSizes[i]);
+					byte[] data = br.ReadBytes(fi.Length);
 					br.Accessor.Position = pos;
 
 					file.SetDataAsByteArray(data);
