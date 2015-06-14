@@ -103,13 +103,13 @@
 			this.txtFilter = new System.Windows.Forms.TextBox();
 			this.cbToolBar1 = new AwesomeControls.CommandBars.CBToolBar();
 			this.tsbAddFiles = new System.Windows.Forms.ToolStripButton();
-			this.tsbExtract = new System.Windows.Forms.ToolStripButton();
-			this.tsbUndelete = new System.Windows.Forms.ToolStripButton();
 			this.tsbAddFolder = new System.Windows.Forms.ToolStripSplitButton();
 			this.tsbAddFolderNew = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsbAddFolderExisting = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsbAddFolderSep1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tsbAddFolderFiles = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsbExtract = new System.Windows.Forms.ToolStripButton();
+			this.tsbUndelete = new System.Windows.Forms.ToolStripButton();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -122,7 +122,7 @@
 			// 
 			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-			this.splitContainer1.Location = new System.Drawing.Point(0, 86);
+			this.splitContainer1.Location = new System.Drawing.Point(0, 84);
 			this.splitContainer1.Name = "splitContainer1";
 			// 
 			// splitContainer1.Panel1
@@ -133,7 +133,7 @@
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.lv);
 			this.splitContainer1.Panel2.Controls.Add(this.txtFilter);
-			this.splitContainer1.Size = new System.Drawing.Size(499, 213);
+			this.splitContainer1.Size = new System.Drawing.Size(499, 215);
 			this.splitContainer1.SplitterDistance = 192;
 			this.splitContainer1.TabIndex = 0;
 			// 
@@ -145,7 +145,7 @@
 			this.tv.LabelEdit = true;
 			this.tv.Location = new System.Drawing.Point(0, 0);
 			this.tv.Name = "tv";
-			this.tv.Size = new System.Drawing.Size(192, 213);
+			this.tv.Size = new System.Drawing.Size(192, 215);
 			this.tv.TabIndex = 0;
 			this.tv.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tv_BeforeLabelEdit);
 			this.tv.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tv_AfterLabelEdit);
@@ -170,70 +170,70 @@
             this.toolStripMenuItem23,
             this.mnuTreeViewContextProperties});
 			this.mnuTreeViewContext.Name = "mnuTreeViewContext";
-			this.mnuTreeViewContext.Size = new System.Drawing.Size(208, 216);
+			this.mnuTreeViewContext.Size = new System.Drawing.Size(200, 216);
 			// 
 			// mnuTreeViewContextExpand
 			// 
 			this.mnuTreeViewContextExpand.Name = "mnuTreeViewContextExpand";
-			this.mnuTreeViewContextExpand.Size = new System.Drawing.Size(207, 22);
+			this.mnuTreeViewContextExpand.Size = new System.Drawing.Size(199, 22);
 			this.mnuTreeViewContextExpand.Text = "Exp&and";
 			// 
 			// toolStripMenuItem17
 			// 
 			this.toolStripMenuItem17.Name = "toolStripMenuItem17";
-			this.toolStripMenuItem17.Size = new System.Drawing.Size(204, 6);
+			this.toolStripMenuItem17.Size = new System.Drawing.Size(196, 6);
 			// 
 			// mnuTreeViewContextOpenInNewWindow
 			// 
 			this.mnuTreeViewContextOpenInNewWindow.Name = "mnuTreeViewContextOpenInNewWindow";
-			this.mnuTreeViewContextOpenInNewWindow.Size = new System.Drawing.Size(207, 22);
+			this.mnuTreeViewContextOpenInNewWindow.Size = new System.Drawing.Size(199, 22);
 			this.mnuTreeViewContextOpenInNewWindow.Text = "Op&en in new window";
 			// 
 			// toolStripMenuItem18
 			// 
 			this.toolStripMenuItem18.Name = "toolStripMenuItem18";
-			this.toolStripMenuItem18.Size = new System.Drawing.Size(204, 6);
+			this.toolStripMenuItem18.Size = new System.Drawing.Size(196, 6);
 			// 
 			// shareWithToolStripMenuItem1
 			// 
 			this.shareWithToolStripMenuItem1.Name = "shareWithToolStripMenuItem1";
-			this.shareWithToolStripMenuItem1.Size = new System.Drawing.Size(207, 22);
+			this.shareWithToolStripMenuItem1.Size = new System.Drawing.Size(199, 22);
 			this.shareWithToolStripMenuItem1.Text = "S&hare with";
 			// 
 			// toolStripMenuItem19
 			// 
 			this.toolStripMenuItem19.Name = "toolStripMenuItem19";
-			this.toolStripMenuItem19.Size = new System.Drawing.Size(204, 6);
+			this.toolStripMenuItem19.Size = new System.Drawing.Size(196, 6);
 			// 
 			// restorePreviousversionsToolStripMenuItem
 			// 
 			this.restorePreviousversionsToolStripMenuItem.Name = "restorePreviousversionsToolStripMenuItem";
-			this.restorePreviousversionsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+			this.restorePreviousversionsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
 			this.restorePreviousversionsToolStripMenuItem.Text = "Restore previous &versions";
 			// 
 			// toolStripMenuItem20
 			// 
 			this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-			this.toolStripMenuItem20.Size = new System.Drawing.Size(204, 6);
+			this.toolStripMenuItem20.Size = new System.Drawing.Size(196, 6);
 			// 
 			// mnuTreeViewContextCopy
 			// 
 			this.mnuTreeViewContextCopy.Name = "mnuTreeViewContextCopy";
 			this.mnuTreeViewContextCopy.ShortcutKeyDisplayString = "Ctrl+C";
-			this.mnuTreeViewContextCopy.Size = new System.Drawing.Size(207, 22);
+			this.mnuTreeViewContextCopy.Size = new System.Drawing.Size(199, 22);
 			this.mnuTreeViewContextCopy.Text = "&Copy";
 			// 
 			// mnuTreeViewContextRename
 			// 
 			this.mnuTreeViewContextRename.Name = "mnuTreeViewContextRename";
 			this.mnuTreeViewContextRename.ShortcutKeyDisplayString = "F3";
-			this.mnuTreeViewContextRename.Size = new System.Drawing.Size(207, 22);
+			this.mnuTreeViewContextRename.Size = new System.Drawing.Size(199, 22);
 			this.mnuTreeViewContextRename.Text = "Rena&me";
 			// 
 			// toolStripMenuItem21
 			// 
 			this.toolStripMenuItem21.Name = "toolStripMenuItem21";
-			this.toolStripMenuItem21.Size = new System.Drawing.Size(204, 6);
+			this.toolStripMenuItem21.Size = new System.Drawing.Size(196, 6);
 			// 
 			// newToolStripMenuItem1
 			// 
@@ -243,14 +243,14 @@
             this.mnuTreeViewContextAddSep1,
             this.mnuTreeViewContextAddNewFolder});
 			this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-			this.newToolStripMenuItem1.Size = new System.Drawing.Size(207, 22);
+			this.newToolStripMenuItem1.Size = new System.Drawing.Size(199, 22);
 			this.newToolStripMenuItem1.Text = "A&dd";
 			// 
 			// mnuTreeViewContextAddNewItem
 			// 
 			this.mnuTreeViewContextAddNewItem.Image = global::UniversalEditor.Properties.Resources.AddNew;
 			this.mnuTreeViewContextAddNewItem.Name = "mnuTreeViewContextAddNewItem";
-			this.mnuTreeViewContextAddNewItem.Size = new System.Drawing.Size(150, 22);
+			this.mnuTreeViewContextAddNewItem.Size = new System.Drawing.Size(148, 22);
 			this.mnuTreeViewContextAddNewItem.Text = "Ne&w Item";
 			this.mnuTreeViewContextAddNewItem.Click += new System.EventHandler(this.mnuListViewContextAddNewItem_Click);
 			// 
@@ -258,33 +258,33 @@
 			// 
 			this.mnuTreeViewContextAddExistingItem.Image = global::UniversalEditor.Properties.Resources.AddExisting;
 			this.mnuTreeViewContextAddExistingItem.Name = "mnuTreeViewContextAddExistingItem";
-			this.mnuTreeViewContextAddExistingItem.Size = new System.Drawing.Size(150, 22);
+			this.mnuTreeViewContextAddExistingItem.Size = new System.Drawing.Size(148, 22);
 			this.mnuTreeViewContextAddExistingItem.Text = "Existin&g Item...";
 			this.mnuTreeViewContextAddExistingItem.Click += new System.EventHandler(this.AddFile_Click);
 			// 
 			// mnuTreeViewContextAddSep1
 			// 
 			this.mnuTreeViewContextAddSep1.Name = "mnuTreeViewContextAddSep1";
-			this.mnuTreeViewContextAddSep1.Size = new System.Drawing.Size(147, 6);
+			this.mnuTreeViewContextAddSep1.Size = new System.Drawing.Size(145, 6);
 			// 
 			// mnuTreeViewContextAddNewFolder
 			// 
 			this.mnuTreeViewContextAddNewFolder.Image = global::UniversalEditor.Properties.Resources.AddNewFolder;
 			this.mnuTreeViewContextAddNewFolder.Name = "mnuTreeViewContextAddNewFolder";
-			this.mnuTreeViewContextAddNewFolder.Size = new System.Drawing.Size(150, 22);
+			this.mnuTreeViewContextAddNewFolder.Size = new System.Drawing.Size(148, 22);
 			this.mnuTreeViewContextAddNewFolder.Text = "New Fol&der";
 			this.mnuTreeViewContextAddNewFolder.Click += new System.EventHandler(this.mnuListViewContextAddNewFolder_Click);
 			// 
 			// toolStripMenuItem23
 			// 
 			this.toolStripMenuItem23.Name = "toolStripMenuItem23";
-			this.toolStripMenuItem23.Size = new System.Drawing.Size(204, 6);
+			this.toolStripMenuItem23.Size = new System.Drawing.Size(196, 6);
 			// 
 			// mnuTreeViewContextProperties
 			// 
 			this.mnuTreeViewContextProperties.Name = "mnuTreeViewContextProperties";
 			this.mnuTreeViewContextProperties.ShortcutKeyDisplayString = "Alt+Enter";
-			this.mnuTreeViewContextProperties.Size = new System.Drawing.Size(207, 22);
+			this.mnuTreeViewContextProperties.Size = new System.Drawing.Size(199, 22);
 			this.mnuTreeViewContextProperties.Text = "P&roperties...";
 			this.mnuTreeViewContextProperties.Click += new System.EventHandler(this.mnuListViewContextProperties_Click);
 			// 
@@ -297,6 +297,7 @@
 			this.lv.ContextMenuStrip = this.mnuListViewContext;
 			this.lv.DefaultItemHeight = 24;
 			this.lv.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lv.EnableAutomaticInlineRenaming = true;
 			this.lv.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.lv.FullRowSelect = true;
 			this.lv.HideSelection = false;
@@ -306,13 +307,14 @@
 			this.lv.MultiSelect = true;
 			this.lv.Name = "lv";
 			this.lv.ShadeColor = System.Drawing.Color.WhiteSmoke;
-			this.lv.Size = new System.Drawing.Size(303, 193);
+			this.lv.Size = new System.Drawing.Size(303, 195);
 			this.lv.SmallImageList = null;
 			this.lv.SortColumn = null;
 			this.lv.TabIndex = 0;
 			this.lv.ItemActivate += new System.EventHandler(this.lv_ItemActivate);
 			this.lv.ItemDrag += new AwesomeControls.ListView.ListViewItemDragEventHandler(this.lv_ItemDrag);
 			this.lv.ItemDragComplete += new AwesomeControls.ListView.ListViewItemDragEventHandler(this.lv_ItemDragComplete);
+			this.lv.ItemLabelEdited += new AwesomeControls.ListView.ListViewItemLabelEditedEventHandler(this.lv_ItemLabelEdited);
 			this.lv.DragDrop += new System.Windows.Forms.DragEventHandler(this.lv_DragDrop);
 			this.lv.DragOver += new System.Windows.Forms.DragEventHandler(this.lv_DragOver);
 			this.lv.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lv_KeyDown);
@@ -338,7 +340,7 @@
             this.toolStripMenuItem15,
             this.mnuListViewContextProperties});
 			this.mnuListViewContext.Name = "mnuListViewContext";
-			this.mnuListViewContext.Size = new System.Drawing.Size(196, 276);
+			this.mnuListViewContext.Size = new System.Drawing.Size(187, 276);
 			// 
 			// mnuListViewContextView
 			// 
@@ -352,14 +354,14 @@
             this.mnuListViewContextViewTiles,
             this.mnuListViewContextViewContent});
 			this.mnuListViewContextView.Name = "mnuListViewContextView";
-			this.mnuListViewContextView.Size = new System.Drawing.Size(195, 22);
+			this.mnuListViewContextView.Size = new System.Drawing.Size(186, 22);
 			this.mnuListViewContextView.Text = "&View";
 			// 
 			// mnuListViewContextViewExtraLargeIcons
 			// 
 			this.mnuListViewContextViewExtraLargeIcons.CheckOnClick = true;
 			this.mnuListViewContextViewExtraLargeIcons.Name = "mnuListViewContextViewExtraLargeIcons";
-			this.mnuListViewContextViewExtraLargeIcons.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewExtraLargeIcons.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewExtraLargeIcons.Text = "E&xtra large icons";
 			this.mnuListViewContextViewExtraLargeIcons.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -367,7 +369,7 @@
 			// 
 			this.mnuListViewContextViewLargeIcons.CheckOnClick = true;
 			this.mnuListViewContextViewLargeIcons.Name = "mnuListViewContextViewLargeIcons";
-			this.mnuListViewContextViewLargeIcons.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewLargeIcons.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewLargeIcons.Text = "La&rge icons";
 			this.mnuListViewContextViewLargeIcons.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -375,7 +377,7 @@
 			// 
 			this.mnuListViewContextViewMediumIcons.CheckOnClick = true;
 			this.mnuListViewContextViewMediumIcons.Name = "mnuListViewContextViewMediumIcons";
-			this.mnuListViewContextViewMediumIcons.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewMediumIcons.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewMediumIcons.Text = "&Medium icons";
 			this.mnuListViewContextViewMediumIcons.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -383,7 +385,7 @@
 			// 
 			this.mnuListViewContextViewSmallIcons.CheckOnClick = true;
 			this.mnuListViewContextViewSmallIcons.Name = "mnuListViewContextViewSmallIcons";
-			this.mnuListViewContextViewSmallIcons.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewSmallIcons.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewSmallIcons.Text = "Small ico&ns";
 			this.mnuListViewContextViewSmallIcons.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -391,7 +393,7 @@
 			// 
 			this.mnuListViewContextViewList.CheckOnClick = true;
 			this.mnuListViewContextViewList.Name = "mnuListViewContextViewList";
-			this.mnuListViewContextViewList.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewList.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewList.Text = "&List";
 			this.mnuListViewContextViewList.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -399,7 +401,7 @@
 			// 
 			this.mnuListViewContextViewDetails.CheckOnClick = true;
 			this.mnuListViewContextViewDetails.Name = "mnuListViewContextViewDetails";
-			this.mnuListViewContextViewDetails.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewDetails.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewDetails.Text = "&Details";
 			this.mnuListViewContextViewDetails.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -409,7 +411,7 @@
 			this.mnuListViewContextViewTiles.CheckOnClick = true;
 			this.mnuListViewContextViewTiles.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.mnuListViewContextViewTiles.Name = "mnuListViewContextViewTiles";
-			this.mnuListViewContextViewTiles.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewTiles.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewTiles.Text = "Tile&s";
 			this.mnuListViewContextViewTiles.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -417,7 +419,7 @@
 			// 
 			this.mnuListViewContextViewContent.CheckOnClick = true;
 			this.mnuListViewContextViewContent.Name = "mnuListViewContextViewContent";
-			this.mnuListViewContextViewContent.Size = new System.Drawing.Size(159, 22);
+			this.mnuListViewContextViewContent.Size = new System.Drawing.Size(154, 22);
 			this.mnuListViewContextViewContent.Text = "Conten&t";
 			this.mnuListViewContextViewContent.Click += new System.EventHandler(this.mnuListViewContextView_Click);
 			// 
@@ -434,59 +436,59 @@
             this.toolStripSeparator2,
             this.toolStripMenuItem10});
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(195, 22);
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(186, 22);
 			this.toolStripMenuItem3.Text = "S&ort by";
 			// 
 			// toolStripMenuItem4
 			// 
 			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-			this.toolStripMenuItem4.Size = new System.Drawing.Size(149, 22);
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(140, 22);
 			this.toolStripMenuItem4.Text = "Name";
 			// 
 			// toolStripMenuItem5
 			// 
 			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-			this.toolStripMenuItem5.Size = new System.Drawing.Size(149, 22);
+			this.toolStripMenuItem5.Size = new System.Drawing.Size(140, 22);
 			this.toolStripMenuItem5.Text = "Date modified";
 			// 
 			// toolStripMenuItem6
 			// 
 			this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-			this.toolStripMenuItem6.Size = new System.Drawing.Size(149, 22);
+			this.toolStripMenuItem6.Size = new System.Drawing.Size(140, 22);
 			this.toolStripMenuItem6.Text = "Type";
 			// 
 			// toolStripMenuItem7
 			// 
 			this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-			this.toolStripMenuItem7.Size = new System.Drawing.Size(149, 22);
+			this.toolStripMenuItem7.Size = new System.Drawing.Size(140, 22);
 			this.toolStripMenuItem7.Text = "Size";
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(137, 6);
 			// 
 			// toolStripMenuItem8
 			// 
 			this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-			this.toolStripMenuItem8.Size = new System.Drawing.Size(149, 22);
+			this.toolStripMenuItem8.Size = new System.Drawing.Size(140, 22);
 			this.toolStripMenuItem8.Text = "&Ascending";
 			// 
 			// toolStripMenuItem9
 			// 
 			this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-			this.toolStripMenuItem9.Size = new System.Drawing.Size(149, 22);
+			this.toolStripMenuItem9.Size = new System.Drawing.Size(140, 22);
 			this.toolStripMenuItem9.Text = "&Descending";
 			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(146, 6);
+			this.toolStripSeparator2.Size = new System.Drawing.Size(137, 6);
 			// 
 			// toolStripMenuItem10
 			// 
 			this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-			this.toolStripMenuItem10.Size = new System.Drawing.Size(149, 22);
+			this.toolStripMenuItem10.Size = new System.Drawing.Size(140, 22);
 			this.toolStripMenuItem10.Text = "&More...";
 			// 
 			// sortByToolStripMenuItem
@@ -503,127 +505,127 @@
             this.toolStripMenuItem2,
             this.moreToolStripMenuItem});
 			this.sortByToolStripMenuItem.Name = "sortByToolStripMenuItem";
-			this.sortByToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.sortByToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.sortByToolStripMenuItem.Text = "Grou&p by";
 			// 
 			// nameToolStripMenuItem
 			// 
 			this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-			this.nameToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.nameToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.nameToolStripMenuItem.Text = "Name";
 			// 
 			// dateModifiedToolStripMenuItem
 			// 
 			this.dateModifiedToolStripMenuItem.Name = "dateModifiedToolStripMenuItem";
-			this.dateModifiedToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.dateModifiedToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.dateModifiedToolStripMenuItem.Text = "Date modified";
 			// 
 			// typeToolStripMenuItem
 			// 
 			this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-			this.typeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.typeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.typeToolStripMenuItem.Text = "Type";
 			// 
 			// sizeToolStripMenuItem
 			// 
 			this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
-			this.sizeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.sizeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.sizeToolStripMenuItem.Text = "Size";
 			// 
 			// noneToolStripMenuItem
 			// 
 			this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
-			this.noneToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.noneToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.noneToolStripMenuItem.Text = "(None)";
 			this.noneToolStripMenuItem.Visible = false;
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(146, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(137, 6);
 			// 
 			// ascendingToolStripMenuItem
 			// 
 			this.ascendingToolStripMenuItem.Enabled = false;
 			this.ascendingToolStripMenuItem.Name = "ascendingToolStripMenuItem";
-			this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.ascendingToolStripMenuItem.Text = "&Ascending";
 			// 
 			// descendingToolStripMenuItem
 			// 
 			this.descendingToolStripMenuItem.Enabled = false;
 			this.descendingToolStripMenuItem.Name = "descendingToolStripMenuItem";
-			this.descendingToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.descendingToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.descendingToolStripMenuItem.Text = "&Descending";
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(146, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(137, 6);
 			// 
 			// moreToolStripMenuItem
 			// 
 			this.moreToolStripMenuItem.Name = "moreToolStripMenuItem";
-			this.moreToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.moreToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.moreToolStripMenuItem.Text = "&More...";
 			// 
 			// refreshToolStripMenuItem
 			// 
 			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.refreshToolStripMenuItem.Text = "R&efresh";
 			// 
 			// toolStripMenuItem11
 			// 
 			this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-			this.toolStripMenuItem11.Size = new System.Drawing.Size(192, 6);
+			this.toolStripMenuItem11.Size = new System.Drawing.Size(183, 6);
 			// 
 			// customizeThisfolderToolStripMenuItem
 			// 
 			this.customizeThisfolderToolStripMenuItem.Name = "customizeThisfolderToolStripMenuItem";
-			this.customizeThisfolderToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.customizeThisfolderToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.customizeThisfolderToolStripMenuItem.Text = "Customize this &folder...";
 			// 
 			// toolStripMenuItem12
 			// 
 			this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-			this.toolStripMenuItem12.Size = new System.Drawing.Size(192, 6);
+			this.toolStripMenuItem12.Size = new System.Drawing.Size(183, 6);
 			// 
 			// pasteToolStripMenuItem
 			// 
 			this.pasteToolStripMenuItem.Enabled = false;
 			this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.pasteToolStripMenuItem.Text = "&Paste";
 			// 
 			// pasteshortcutToolStripMenuItem
 			// 
 			this.pasteshortcutToolStripMenuItem.Enabled = false;
 			this.pasteshortcutToolStripMenuItem.Name = "pasteshortcutToolStripMenuItem";
-			this.pasteshortcutToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.pasteshortcutToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.pasteshortcutToolStripMenuItem.Text = "Paste &shortcut";
 			// 
 			// undoMoveToolStripMenuItem
 			// 
 			this.undoMoveToolStripMenuItem.Name = "undoMoveToolStripMenuItem";
-			this.undoMoveToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.undoMoveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.undoMoveToolStripMenuItem.Text = "&Undo";
 			// 
 			// toolStripMenuItem13
 			// 
 			this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-			this.toolStripMenuItem13.Size = new System.Drawing.Size(192, 6);
+			this.toolStripMenuItem13.Size = new System.Drawing.Size(183, 6);
 			// 
 			// shareWithToolStripMenuItem
 			// 
 			this.shareWithToolStripMenuItem.Name = "shareWithToolStripMenuItem";
-			this.shareWithToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.shareWithToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.shareWithToolStripMenuItem.Text = "S&hare with";
 			// 
 			// toolStripMenuItem14
 			// 
 			this.toolStripMenuItem14.Name = "toolStripMenuItem14";
-			this.toolStripMenuItem14.Size = new System.Drawing.Size(192, 6);
+			this.toolStripMenuItem14.Size = new System.Drawing.Size(183, 6);
 			// 
 			// mnuListViewContextAdd
 			// 
@@ -633,14 +635,14 @@
             this.mnuListViewContextAddSep1,
             this.mnuListViewContextAddNewFolder});
 			this.mnuListViewContextAdd.Name = "mnuListViewContextAdd";
-			this.mnuListViewContextAdd.Size = new System.Drawing.Size(195, 22);
+			this.mnuListViewContextAdd.Size = new System.Drawing.Size(186, 22);
 			this.mnuListViewContextAdd.Text = "A&dd";
 			// 
 			// mnuListViewContextAddNewItem
 			// 
 			this.mnuListViewContextAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("mnuListViewContextAddNewItem.Image")));
 			this.mnuListViewContextAddNewItem.Name = "mnuListViewContextAddNewItem";
-			this.mnuListViewContextAddNewItem.Size = new System.Drawing.Size(150, 22);
+			this.mnuListViewContextAddNewItem.Size = new System.Drawing.Size(148, 22);
 			this.mnuListViewContextAddNewItem.Text = "Ne&w Item";
 			this.mnuListViewContextAddNewItem.Click += new System.EventHandler(this.mnuListViewContextAddNewItem_Click);
 			// 
@@ -648,31 +650,31 @@
 			// 
 			this.mnuListViewContextAddExistingItem.Image = ((System.Drawing.Image)(resources.GetObject("mnuListViewContextAddExistingItem.Image")));
 			this.mnuListViewContextAddExistingItem.Name = "mnuListViewContextAddExistingItem";
-			this.mnuListViewContextAddExistingItem.Size = new System.Drawing.Size(150, 22);
+			this.mnuListViewContextAddExistingItem.Size = new System.Drawing.Size(148, 22);
 			this.mnuListViewContextAddExistingItem.Text = "Existin&g Item...";
 			this.mnuListViewContextAddExistingItem.Click += new System.EventHandler(this.AddFile_Click);
 			// 
 			// mnuListViewContextAddSep1
 			// 
 			this.mnuListViewContextAddSep1.Name = "mnuListViewContextAddSep1";
-			this.mnuListViewContextAddSep1.Size = new System.Drawing.Size(147, 6);
+			this.mnuListViewContextAddSep1.Size = new System.Drawing.Size(145, 6);
 			// 
 			// mnuListViewContextAddNewFolder
 			// 
 			this.mnuListViewContextAddNewFolder.Image = global::UniversalEditor.Properties.Resources.AddNewFolder;
 			this.mnuListViewContextAddNewFolder.Name = "mnuListViewContextAddNewFolder";
-			this.mnuListViewContextAddNewFolder.Size = new System.Drawing.Size(150, 22);
+			this.mnuListViewContextAddNewFolder.Size = new System.Drawing.Size(148, 22);
 			this.mnuListViewContextAddNewFolder.Text = "New Fol&der";
 			// 
 			// toolStripMenuItem15
 			// 
 			this.toolStripMenuItem15.Name = "toolStripMenuItem15";
-			this.toolStripMenuItem15.Size = new System.Drawing.Size(192, 6);
+			this.toolStripMenuItem15.Size = new System.Drawing.Size(183, 6);
 			// 
 			// mnuListViewContextProperties
 			// 
 			this.mnuListViewContextProperties.Name = "mnuListViewContextProperties";
-			this.mnuListViewContextProperties.Size = new System.Drawing.Size(195, 22);
+			this.mnuListViewContextProperties.Size = new System.Drawing.Size(186, 22);
 			this.mnuListViewContextProperties.Text = "P&roperties...";
 			this.mnuListViewContextProperties.Click += new System.EventHandler(this.mnuListViewContextProperties_Click);
 			// 
@@ -695,7 +697,7 @@
             this.tsbUndelete});
 			this.cbToolBar1.Location = new System.Drawing.Point(0, 0);
 			this.cbToolBar1.Name = "cbToolBar1";
-			this.cbToolBar1.Size = new System.Drawing.Size(499, 86);
+			this.cbToolBar1.Size = new System.Drawing.Size(499, 84);
 			this.cbToolBar1.TabIndex = 2;
 			this.cbToolBar1.Text = "cbToolBar1";
 			// 
@@ -706,33 +708,10 @@
 			this.tsbAddFiles.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsbAddFiles.Name = "tsbAddFiles";
 			this.tsbAddFiles.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.tsbAddFiles.Size = new System.Drawing.Size(84, 83);
+			this.tsbAddFiles.Size = new System.Drawing.Size(82, 81);
 			this.tsbAddFiles.Text = "&Add File(s)...";
 			this.tsbAddFiles.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.tsbAddFiles.Click += new System.EventHandler(this.AddFile_Click);
-			// 
-			// tsbExtract
-			// 
-			this.tsbExtract.Image = ((System.Drawing.Image)(resources.GetObject("tsbExtract.Image")));
-			this.tsbExtract.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tsbExtract.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbExtract.Name = "tsbExtract";
-			this.tsbExtract.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.tsbExtract.Size = new System.Drawing.Size(76, 83);
-			this.tsbExtract.Text = "E&xtract...";
-			this.tsbExtract.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.tsbExtract.Click += new System.EventHandler(this.tsbExtract_Click);
-			// 
-			// tsbUndelete
-			// 
-			this.tsbUndelete.Image = ((System.Drawing.Image)(resources.GetObject("tsbUndelete.Image")));
-			this.tsbUndelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tsbUndelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbUndelete.Name = "tsbUndelete";
-			this.tsbUndelete.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.tsbUndelete.Size = new System.Drawing.Size(76, 83);
-			this.tsbUndelete.Text = "&Undelete";
-			this.tsbUndelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// tsbAddFolder
 			// 
@@ -746,7 +725,7 @@
 			this.tsbAddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsbAddFolder.Name = "tsbAddFolder";
 			this.tsbAddFolder.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.tsbAddFolder.Size = new System.Drawing.Size(98, 83);
+			this.tsbAddFolder.Size = new System.Drawing.Size(95, 81);
 			this.tsbAddFolder.Text = "Add Fol&der...";
 			this.tsbAddFolder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.tsbAddFolder.ButtonClick += new System.EventHandler(this.AddExistingFolder_Click);
@@ -754,28 +733,51 @@
 			// tsbAddFolderNew
 			// 
 			this.tsbAddFolderNew.Name = "tsbAddFolderNew";
-			this.tsbAddFolderNew.Size = new System.Drawing.Size(332, 22);
+			this.tsbAddFolderNew.Size = new System.Drawing.Size(313, 22);
 			this.tsbAddFolderNew.Text = "Add Ne&w Folder";
 			this.tsbAddFolderNew.Click += new System.EventHandler(this.AddNewFolder_Click);
 			// 
 			// tsbAddFolderExisting
 			// 
 			this.tsbAddFolderExisting.Name = "tsbAddFolderExisting";
-			this.tsbAddFolderExisting.Size = new System.Drawing.Size(332, 22);
+			this.tsbAddFolderExisting.Size = new System.Drawing.Size(313, 22);
 			this.tsbAddFolderExisting.Text = "Add Existin&g Folder...";
 			this.tsbAddFolderExisting.Click += new System.EventHandler(this.AddExistingFolder_Click);
 			// 
 			// tsbAddFolderSep1
 			// 
 			this.tsbAddFolderSep1.Name = "tsbAddFolderSep1";
-			this.tsbAddFolderSep1.Size = new System.Drawing.Size(329, 6);
+			this.tsbAddFolderSep1.Size = new System.Drawing.Size(310, 6);
 			// 
 			// tsbAddFolderFiles
 			// 
 			this.tsbAddFolderFiles.Name = "tsbAddFolderFiles";
-			this.tsbAddFolderFiles.Size = new System.Drawing.Size(332, 22);
+			this.tsbAddFolderFiles.Size = new System.Drawing.Size(313, 22);
 			this.tsbAddFolderFiles.Text = "Add &Files from Existing Folder to Current Folder...";
 			this.tsbAddFolderFiles.Click += new System.EventHandler(this.AddExistingFolderToCurrent_Click);
+			// 
+			// tsbExtract
+			// 
+			this.tsbExtract.Image = ((System.Drawing.Image)(resources.GetObject("tsbExtract.Image")));
+			this.tsbExtract.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.tsbExtract.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbExtract.Name = "tsbExtract";
+			this.tsbExtract.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.tsbExtract.Size = new System.Drawing.Size(76, 81);
+			this.tsbExtract.Text = "E&xtract...";
+			this.tsbExtract.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.tsbExtract.Click += new System.EventHandler(this.tsbExtract_Click);
+			// 
+			// tsbUndelete
+			// 
+			this.tsbUndelete.Image = ((System.Drawing.Image)(resources.GetObject("tsbUndelete.Image")));
+			this.tsbUndelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.tsbUndelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbUndelete.Name = "tsbUndelete";
+			this.tsbUndelete.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.tsbUndelete.Size = new System.Drawing.Size(76, 81);
+			this.tsbUndelete.Text = "&Undelete";
+			this.tsbUndelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// FileSystemEditor
 			// 

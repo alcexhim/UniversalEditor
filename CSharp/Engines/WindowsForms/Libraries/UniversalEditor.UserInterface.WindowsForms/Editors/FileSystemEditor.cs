@@ -1023,5 +1023,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				UpdateListView();
 			}
 		}
+
+		private void lv_ItemLabelEdited(object sender, AwesomeControls.ListView.ListViewItemLabelEditedEventArgs e)
+		{
+			File file = (e.Item.Data as File);
+			file.Name = e.Item.Text;
+		}
 	}
 }
