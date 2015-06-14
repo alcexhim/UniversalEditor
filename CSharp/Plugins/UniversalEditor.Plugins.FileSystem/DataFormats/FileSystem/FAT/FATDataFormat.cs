@@ -605,11 +605,13 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					file.Attributes = fi.Attributes;
 
 					long pos = br.Accessor.Position;
-					br.Accessor.Position = fileOffset;
-					byte[] data = br.ReadBytes(fi.Length);
+					if (fileOffset > 0)
+					{
+						br.Accessor.Position = fileOffset;
+						byte[] data = br.ReadBytes(fi.Length);
+						file.SetDataAsByteArray(data);
+					}
 					br.Accessor.Position = pos;
-
-					file.SetDataAsByteArray(data);
 
 					fsom.Files.Add(file);
 				}
