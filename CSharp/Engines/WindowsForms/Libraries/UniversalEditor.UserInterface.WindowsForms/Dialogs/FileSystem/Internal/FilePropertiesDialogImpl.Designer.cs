@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("General");
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
 			this.tv = new System.Windows.Forms.TreeView();
 			this.pnlGeneral = new System.Windows.Forms.Panel();
 			this.fraGeneralInformation = new System.Windows.Forms.GroupBox();
@@ -45,6 +45,8 @@
 			this.txtGeneralInformationObjectModel = new System.Windows.Forms.TextBox();
 			this.txtGeneralInformationDataFormat = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
+			this.cmdGeneralInformationLocationBrowse = new System.Windows.Forms.Button();
+			this.cmdGeneralInformationLocationChange = new System.Windows.Forms.Button();
 			this.cmdGeneralInformationDataFormatChange = new System.Windows.Forms.Button();
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtGeneralInformationLocation = new System.Windows.Forms.TextBox();
@@ -59,8 +61,7 @@
 			this.cmdOK = new System.Windows.Forms.Button();
 			this.pnlNoObjectsSelected = new System.Windows.Forms.Panel();
 			this.lblNoObjectsSelected = new System.Windows.Forms.Label();
-			this.cmdGeneralInformationLocationChange = new System.Windows.Forms.Button();
-			this.cmdGeneralInformationLocationBrowse = new System.Windows.Forms.Button();
+			this.chkGeneralAttributesDeleted = new System.Windows.Forms.CheckBox();
 			this.pnlGeneral.SuspendLayout();
 			this.fraGeneralInformation.SuspendLayout();
 			this.fraAttributes.SuspendLayout();
@@ -77,10 +78,10 @@
 			this.tv.HideSelection = false;
 			this.tv.Location = new System.Drawing.Point(0, 0);
 			this.tv.Name = "tv";
-			treeNode3.Name = "nodeGeneral";
-			treeNode3.Text = "General";
+			treeNode1.Name = "nodeGeneral";
+			treeNode1.Text = "General";
 			this.tv.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
 			this.tv.Size = new System.Drawing.Size(127, 373);
 			this.tv.TabIndex = 0;
 			// 
@@ -256,6 +257,30 @@
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Location:";
 			// 
+			// cmdGeneralInformationLocationBrowse
+			// 
+			this.cmdGeneralInformationLocationBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdGeneralInformationLocationBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdGeneralInformationLocationBrowse.Location = new System.Drawing.Point(151, 126);
+			this.cmdGeneralInformationLocationBrowse.Name = "cmdGeneralInformationLocationBrowse";
+			this.cmdGeneralInformationLocationBrowse.Size = new System.Drawing.Size(75, 23);
+			this.cmdGeneralInformationLocationBrowse.TabIndex = 2;
+			this.cmdGeneralInformationLocationBrowse.Text = "&Browse";
+			this.cmdGeneralInformationLocationBrowse.UseVisualStyleBackColor = true;
+			this.cmdGeneralInformationLocationBrowse.Click += new System.EventHandler(this.cmdGeneralInformationLocationBrowse_Click);
+			// 
+			// cmdGeneralInformationLocationChange
+			// 
+			this.cmdGeneralInformationLocationChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmdGeneralInformationLocationChange.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.cmdGeneralInformationLocationChange.Location = new System.Drawing.Point(232, 126);
+			this.cmdGeneralInformationLocationChange.Name = "cmdGeneralInformationLocationChange";
+			this.cmdGeneralInformationLocationChange.Size = new System.Drawing.Size(75, 23);
+			this.cmdGeneralInformationLocationChange.TabIndex = 2;
+			this.cmdGeneralInformationLocationChange.Text = "&Change...";
+			this.cmdGeneralInformationLocationChange.UseVisualStyleBackColor = true;
+			this.cmdGeneralInformationLocationChange.Click += new System.EventHandler(this.cmdGeneralInformationLocationChange_Click);
+			// 
 			// cmdGeneralInformationDataFormatChange
 			// 
 			this.cmdGeneralInformationDataFormatChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -291,6 +316,7 @@
 			// 
 			// fraAttributes
 			// 
+			this.fraAttributes.Controls.Add(this.chkGeneralAttributesDeleted);
 			this.fraAttributes.Controls.Add(this.chkGeneralAttributesArchive);
 			this.fraAttributes.Controls.Add(this.chkGeneralAttributesHidden);
 			this.fraAttributes.Controls.Add(this.chkGeneralAttributesReadOnly);
@@ -305,9 +331,10 @@
 			// chkGeneralAttributesArchive
 			// 
 			this.chkGeneralAttributesArchive.AutoSize = true;
+			this.chkGeneralAttributesArchive.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.chkGeneralAttributesArchive.Location = new System.Drawing.Point(162, 19);
 			this.chkGeneralAttributesArchive.Name = "chkGeneralAttributesArchive";
-			this.chkGeneralAttributesArchive.Size = new System.Drawing.Size(62, 17);
+			this.chkGeneralAttributesArchive.Size = new System.Drawing.Size(68, 18);
 			this.chkGeneralAttributesArchive.TabIndex = 2;
 			this.chkGeneralAttributesArchive.Text = "&Archive";
 			this.chkGeneralAttributesArchive.UseVisualStyleBackColor = true;
@@ -315,9 +342,10 @@
 			// chkGeneralAttributesHidden
 			// 
 			this.chkGeneralAttributesHidden.AutoSize = true;
+			this.chkGeneralAttributesHidden.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.chkGeneralAttributesHidden.Location = new System.Drawing.Point(96, 19);
 			this.chkGeneralAttributesHidden.Name = "chkGeneralAttributesHidden";
-			this.chkGeneralAttributesHidden.Size = new System.Drawing.Size(60, 17);
+			this.chkGeneralAttributesHidden.Size = new System.Drawing.Size(66, 18);
 			this.chkGeneralAttributesHidden.TabIndex = 1;
 			this.chkGeneralAttributesHidden.Text = "&Hidden";
 			this.chkGeneralAttributesHidden.UseVisualStyleBackColor = true;
@@ -325,9 +353,10 @@
 			// chkGeneralAttributesReadOnly
 			// 
 			this.chkGeneralAttributesReadOnly.AutoSize = true;
+			this.chkGeneralAttributesReadOnly.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.chkGeneralAttributesReadOnly.Location = new System.Drawing.Point(16, 19);
 			this.chkGeneralAttributesReadOnly.Name = "chkGeneralAttributesReadOnly";
-			this.chkGeneralAttributesReadOnly.Size = new System.Drawing.Size(74, 17);
+			this.chkGeneralAttributesReadOnly.Size = new System.Drawing.Size(80, 18);
 			this.chkGeneralAttributesReadOnly.TabIndex = 0;
 			this.chkGeneralAttributesReadOnly.Text = "&Read-only";
 			this.chkGeneralAttributesReadOnly.UseVisualStyleBackColor = true;
@@ -414,29 +443,16 @@
 			this.lblNoObjectsSelected.TabIndex = 0;
 			this.lblNoObjectsSelected.Text = "Nothing selected";
 			// 
-			// cmdGeneralInformationLocationChange
+			// chkGeneralAttributesDeleted
 			// 
-			this.cmdGeneralInformationLocationChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmdGeneralInformationLocationChange.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cmdGeneralInformationLocationChange.Location = new System.Drawing.Point(232, 126);
-			this.cmdGeneralInformationLocationChange.Name = "cmdGeneralInformationLocationChange";
-			this.cmdGeneralInformationLocationChange.Size = new System.Drawing.Size(75, 23);
-			this.cmdGeneralInformationLocationChange.TabIndex = 2;
-			this.cmdGeneralInformationLocationChange.Text = "&Change...";
-			this.cmdGeneralInformationLocationChange.UseVisualStyleBackColor = true;
-			this.cmdGeneralInformationLocationChange.Click += new System.EventHandler(this.cmdGeneralInformationLocationChange_Click);
-			// 
-			// cmdGeneralInformationLocationBrowse
-			// 
-			this.cmdGeneralInformationLocationBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmdGeneralInformationLocationBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cmdGeneralInformationLocationBrowse.Location = new System.Drawing.Point(151, 126);
-			this.cmdGeneralInformationLocationBrowse.Name = "cmdGeneralInformationLocationBrowse";
-			this.cmdGeneralInformationLocationBrowse.Size = new System.Drawing.Size(75, 23);
-			this.cmdGeneralInformationLocationBrowse.TabIndex = 2;
-			this.cmdGeneralInformationLocationBrowse.Text = "&Browse";
-			this.cmdGeneralInformationLocationBrowse.UseVisualStyleBackColor = true;
-			this.cmdGeneralInformationLocationBrowse.Click += new System.EventHandler(this.cmdGeneralInformationLocationBrowse_Click);
+			this.chkGeneralAttributesDeleted.AutoSize = true;
+			this.chkGeneralAttributesDeleted.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.chkGeneralAttributesDeleted.Location = new System.Drawing.Point(230, 19);
+			this.chkGeneralAttributesDeleted.Name = "chkGeneralAttributesDeleted";
+			this.chkGeneralAttributesDeleted.Size = new System.Drawing.Size(69, 18);
+			this.chkGeneralAttributesDeleted.TabIndex = 2;
+			this.chkGeneralAttributesDeleted.Text = "&Deleted";
+			this.chkGeneralAttributesDeleted.UseVisualStyleBackColor = true;
 			// 
 			// FilePropertiesDialogImpl
 			// 
@@ -444,7 +460,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cmdCancel;
-			this.ClientSize = new System.Drawing.Size(478, 426);
+			this.ClientSize = new System.Drawing.Size(486, 437);
 			this.Controls.Add(this.cmdOK);
 			this.Controls.Add(this.cmdCancel);
 			this.Controls.Add(this.sc);
@@ -503,6 +519,7 @@
 		private System.Windows.Forms.Label lblGeneralInformationObjectModel;
 		private System.Windows.Forms.Button cmdGeneralInformationLocationBrowse;
 		private System.Windows.Forms.Button cmdGeneralInformationLocationChange;
+		private System.Windows.Forms.CheckBox chkGeneralAttributesDeleted;
 
 	}
 }

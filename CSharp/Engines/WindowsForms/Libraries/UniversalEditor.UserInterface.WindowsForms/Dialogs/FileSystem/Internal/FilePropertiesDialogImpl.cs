@@ -52,6 +52,11 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 						txtGeneralInformationLocation.Text = fileLocation;
 					}
 
+					chkGeneralAttributesArchive.Checked = ((file.Attributes & FileAttributes.Archive) == FileAttributes.Archive);
+					chkGeneralAttributesDeleted.Checked = ((file.Attributes & FileAttributes.Deleted) == FileAttributes.Deleted);
+					chkGeneralAttributesHidden.Checked = ((file.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden);
+					chkGeneralAttributesReadOnly.Checked = ((file.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly);
+
 					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetDataAsByteArray(), file.Name);
 					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = ma });
 					if (assocs.Length > 0)
@@ -134,6 +139,43 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 				{
 					File file = (fso as File);
 					file.Name = txtFileName.Text;
+
+
+					if (chkGeneralAttributesArchive.Checked)
+					{
+						file.Attributes |= FileAttributes.Archive;
+					}
+					else
+					{
+						file.Attributes &= ~FileAttributes.Archive;
+					}
+
+					if (chkGeneralAttributesDeleted.Checked)
+					{
+						file.Attributes |= FileAttributes.Deleted;
+					}
+					else
+					{
+						file.Attributes &= ~FileAttributes.Deleted;
+					}
+
+					if (chkGeneralAttributesHidden.Checked)
+					{
+						file.Attributes |= FileAttributes.Hidden;
+					}
+					else
+					{
+						file.Attributes &= ~FileAttributes.Hidden;
+					}
+
+					if (chkGeneralAttributesReadOnly.Checked)
+					{
+						file.Attributes |= FileAttributes.ReadOnly;
+					}
+					else
+					{
+						file.Attributes &= ~FileAttributes.ReadOnly;
+					}
 				}
 			}
 

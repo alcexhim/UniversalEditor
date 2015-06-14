@@ -197,7 +197,20 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			)) return;
 			
 			AwesomeControls.ListView.ListViewItem lvi = new AwesomeControls.ListView.ListViewItem();
-			
+			UpdateListViewItem(ref lvi, file);
+
+			if (parent != null)
+			{
+				parent.Items.Add(lvi);
+			}
+			else
+			{
+				lv.Items.Add(lvi);
+			}
+		}
+
+		private void UpdateListViewItem(ref AwesomeControls.ListView.ListViewItem lvi, File file)
+		{
 			lvi.Data = file;
 			lvi.ImageKey = "generic-file";
 			lvi.Text = file.Name;
@@ -240,6 +253,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			{
 				lvi.ForeColor = System.Drawing.Color.FromArgb(215, 157, 133);
 			}
+			else if ((file.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+			{
+				lvi.ForeColor = System.Drawing.Color.FromArgb(155, 155, 155);
+			}
 			else if ((file.Attributes & FileAttributes.Encrypted) == FileAttributes.Encrypted)
 			{
 				lvi.ForeColor = System.Drawing.Color.FromArgb(57, 135, 214);
@@ -248,14 +265,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			{
 				lvi.ForeColor = System.Drawing.Color.FromArgb(61, 201, 129);
 			}
-
-			if (parent != null)
-			{
-				parent.Items.Add(lvi);
-			}
 			else
 			{
-				lv.Items.Add(lvi);
+				lvi.ForeColor = System.Drawing.Color.Empty;
 			}
 		}
 
@@ -840,7 +852,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 					if (dlg.ShowDialog() == DialogResult.OK)
 					{
-						lv.SelectedItems[0].Text = file.Name;
+						AwesomeControls.ListView.ListViewItem lvi = lv.SelectedItems[0];
+						UpdateListViewItem(ref lvi, file);
 						lv.Refresh();
 					}
 				}
