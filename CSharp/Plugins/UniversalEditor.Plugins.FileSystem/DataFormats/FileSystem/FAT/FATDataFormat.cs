@@ -217,6 +217,8 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			int numBlocksBeforeRootDir = (mvarBiosParameterBlock.FileAllocationTableCount * mvarBiosParameterBlock.SectorsPerFAT16) + 1;
 			long numBytesBeforeRootDir = (long)mvarBiosParameterBlock.BytesPerSector * numBlocksBeforeRootDir;
 
+			int bytesOccupiedByRootDirEntries = (mvarBiosParameterBlock.MaximumRootDirectoryEntryCount * 32);
+			
 			br.Accessor.Position = numBytesBeforeRootDir;
 
 			List<FATFileInfo> fileInfos = new List<FATFileInfo>();
@@ -582,7 +584,20 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 							fi.Attributes |= FileAttributes.Deleted;
 						}
 
-						if (!((fileAttributes & FATFileAttributes.Subdirectory) == FATFileAttributes.Subdirectory))
+						if ((fileAttributes & FATFileAttributes.Subdirectory) == FATFileAttributes.Subdirectory)
+						{
+							long firstSectorOffset = (long)numBytesBeforeRootDir + bytesOccupiedByRootDirEntries;
+							int realSectorIndex = fi.Offset - 2; //  2;
+							long fileOffset = (firstSectorOffset + (realSectorIndex * mvarBiosParameterBlock.BytesPerSector));
+					
+							long pos = br.Accessor.Position;
+							br.Accessor.Position = fileOffset;
+
+							// 16896 in test.fat
+
+							br.Accessor.Position = pos;
+						}
+						else
 						{
 							fileInfos.Add(fi);
 						}
@@ -592,13 +607,11 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			#endregion
 			#region File data
 			{
-				int bytesOccupiedByRootDirEntries = (mvarBiosParameterBlock.MaximumRootDirectoryEntryCount * 32);
-				
 				for (int i = 0; i < fileInfos.Count; i++)
 				{
 					FATFileInfo fi = fileInfos[i];
 					long firstSectorOffset = (long)numBytesBeforeRootDir + bytesOccupiedByRootDirEntries;
-					int realSectorIndex = fi.Offset - 4; //  2;
+					int realSectorIndex = fi.Offset - 2; //  2;
 					long fileOffset = (firstSectorOffset + (realSectorIndex * mvarBiosParameterBlock.BytesPerSector));
 					
 					File file = new File();
