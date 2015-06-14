@@ -100,8 +100,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			IO.Reader br = base.Accessor.Reader;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
+			IO.Reader br = base.Accessor.Reader;
+			
 			mvarJumpInstruction = br.ReadBytes(3);
 
 			mvarOEMName = br.ReadFixedLengthString(8);
@@ -550,6 +552,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					*/
 
 					byte[] reserved = br.ReadBytes(10);
+
 					short timeCreatedOrLastUpdated = br.ReadInt16();
 					short dateCreatedOrLastUpdated = br.ReadInt16();
 					short startingClusterNumber = br.ReadInt16();
@@ -578,7 +581,11 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						{
 							fi.Attributes |= FileAttributes.Deleted;
 						}
-						fileInfos.Add(fi);
+
+						if (!((fileAttributes & FATFileAttributes.Subdirectory) == FATFileAttributes.Subdirectory))
+						{
+							fileInfos.Add(fi);
+						}
 					}
 				}
 			}
