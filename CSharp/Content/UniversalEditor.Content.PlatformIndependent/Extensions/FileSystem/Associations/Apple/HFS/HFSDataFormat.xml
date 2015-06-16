@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Apple hierarchical file system (HFS)">
+					<FileNameFilters>
+						<FileNameFilter>*.hfs</FileNameFilter>
+						<FileNameFilter>*.hfv</FileNameFilter>
+					</FileNameFilters>
+					<!--
+					<MagicByteSequences>
+						<MagicByteSequence Offset="1024">
+							<MagicByte Type="HexString">4244</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+					-->
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Apple.HFS.HFSDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
