@@ -1,0 +1,12 @@
+package net.alcetech.UniversalEditor.Windows;
+import javax.swing.*;
+
+public class MainWindow extends JFrame
+{
+	public MainWindow()
+	{
+		this.setIconImage(ThemeManager);
+		this.setSize(800, 600);
+		this.setTitle("Universal Editor");
+	}
+}

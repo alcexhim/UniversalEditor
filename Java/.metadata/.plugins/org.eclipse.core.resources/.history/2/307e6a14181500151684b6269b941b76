@@ -1,0 +1,7 @@
+package net.alcetech.UniversalEditor.Core;
+
+public class Document
+{
+	private Accessor mvarInputAccessor = null;
+
+}

@@ -1,0 +1,12 @@
+package net.alcetech.UserInterface;
+
+public enum MessageDialogResult
+{
+	OK,
+	Cancel,
+	Abort,
+	Retry,
+	Ignore,
+	Yes,
+	No
+}

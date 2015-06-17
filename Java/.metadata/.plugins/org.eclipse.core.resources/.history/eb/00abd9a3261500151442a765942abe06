@@ -1,0 +1,8 @@
+package net.alcetech.UserInterface.Controls.Ribbon;
+
+import javax.swing.JComponent;
+
+public class RibbonControl extends JComponent
+{
+	
+}

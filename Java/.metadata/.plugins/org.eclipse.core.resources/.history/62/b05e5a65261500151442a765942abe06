@@ -1,0 +1,5 @@
+package net.alcetech.UserInterface.Controls.Ribbon;
+
+public class RibbonControl {
+
+}

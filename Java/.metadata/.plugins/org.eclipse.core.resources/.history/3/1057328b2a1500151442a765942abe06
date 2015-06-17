@@ -1,0 +1,11 @@
+package net.alcetech.UserInterface.Controls;
+
+import javax.swing.*;
+
+public class Window extends JFrame implements ActionListener, WindowListener
+{
+	public Window()
+	{
+		this.addWindowListener(this);
+	}
+}

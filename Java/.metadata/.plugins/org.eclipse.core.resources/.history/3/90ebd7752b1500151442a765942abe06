@@ -1,0 +1,6 @@
+package net.alcetech.Core;
+
+public class EventArgs
+{
+
+}

@@ -1,0 +1,14 @@
+package net.alcetech.UserInterface.Controls.Ribbon;
+
+import javax.swing.JComponent;
+
+public class RibbonControl extends JComponent
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9178388103241727516L;
+	
+	
+}

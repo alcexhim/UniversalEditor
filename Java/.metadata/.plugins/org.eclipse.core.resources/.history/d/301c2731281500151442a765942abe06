@@ -1,0 +1,22 @@
+package net.alcetech.UserInterface;
+
+import java.awt.Rectangle;
+
+public class Graphics
+{
+	private java.awt.Graphics mvarUnderlyingGraphics = null;
+
+	public Graphics(java.awt.Graphics underlyingGraphics)
+	{
+		mvarUnderlyingGraphics = underlyingGraphics;
+	}
+	
+	public void fillRectangle(Rectangle rect, Brush brush)
+	{
+		fillRectangle(rect.x, rect.y, rect.width, rect.height);
+	}
+	public void fillRectangle(int x, int y, int width, int height)
+	{
+		mvarUnderlyingGraphics.fillRect(x, y, width, height);
+	}
+}

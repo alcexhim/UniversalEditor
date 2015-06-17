@@ -1,0 +1,11 @@
+package net.alcetech.UserInterface;
+
+import javax.swing.JOptionPane;
+
+public class MessageDialog
+{
+	public static MessageDialogResult ShowDialog(JComponent parent, String message, String title, MessageDialogButtons buttons)
+	{
+		int retval = JOptionPane.showConfirmDialog(parent, message)
+	}
+}

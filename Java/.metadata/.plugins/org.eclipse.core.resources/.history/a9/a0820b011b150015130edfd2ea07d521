@@ -1,0 +1,11 @@
+package net.alcetech.UniversalEditor.Core;
+
+public class NotImplementedException extends RuntimeException
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3339305748229439661L;
+
+}

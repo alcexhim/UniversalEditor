@@ -1,0 +1,9 @@
+package net.alcetech.UniversalEditor.Core;
+
+public abstract class ObjectModel
+{
+	protected ObjectModelReference getObjectModelReference()
+	{
+		return new ObjectModelReference(this.getClass().getName());
+	}
+}

@@ -1,0 +1,6 @@
+package net.alcetech.UniversalEditor.Core.IO;
+
+public class Reader
+{
+
+}

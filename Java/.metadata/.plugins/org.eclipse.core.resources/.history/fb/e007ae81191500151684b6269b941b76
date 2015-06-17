@@ -1,0 +1,20 @@
+package net.alcetech.UniversalEditor;
+
+import javax.swing.UIManager;
+
+public class Program
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			UIManager.setLookAndFeel(javax.swing.plaf.nimbus.NimbusLookAndFeel.class.getName());
+		}
+		catch (Exception ex)
+		{
+			System.out.println("unable to initialize look and feel '" + className + "'");
+		}
+		
+		System.out.println("Hello world!");
+	}
+}

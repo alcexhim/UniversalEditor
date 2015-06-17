@@ -1,0 +1,12 @@
+package net.alcetech.UserInterface;
+
+public class Graphics
+{
+	private java.awt.Graphics mvarUnderlyingGraphics = null;
+
+	public Graphics(java.awt.Graphics underlyingGraphics)
+	{
+		mvarUnderlyingGraphics = underlyingGraphics;
+	}
+
+}

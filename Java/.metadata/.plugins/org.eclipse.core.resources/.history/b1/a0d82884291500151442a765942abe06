@@ -1,0 +1,21 @@
+package net.alcetech.UniversalEditor.Windows;
+import javax.swing.*;
+
+import net.alcetech.UserInterface.Theming.ThemeManager;
+
+public class MainWindow extends JFrame
+{
+	private void InitializeComponent()
+	{
+		this.add(this.ribbon);
+		
+		this.setIconImages(ThemeManager.GetThemedIconImages("MainIcon"));
+		this.setSize(800, 600);
+		this.setTitle("Universal Editor");
+	}
+	
+	public MainWindow()
+	{
+		InitializeComponent();
+	}
+}

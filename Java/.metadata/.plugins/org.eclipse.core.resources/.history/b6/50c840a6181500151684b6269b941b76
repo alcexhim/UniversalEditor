@@ -1,0 +1,5 @@
+package net.alcetech.UniversalEditor.Core;
+
+public class NotImplementedException extends RuntimeException {
+
+}

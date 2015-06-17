@@ -1,0 +1,72 @@
+package net.alcetech.UniversalEditor.Windows;
+
+import java.awt.event.*;
+
+import javax.swing.*;
+
+import net.alcetech.UserInterface.Controls.Ribbon;
+import net.alcetech.UserInterface.Theming.ThemeManager;
+
+public class MainWindow extends JFrame implements ActionListener, WindowListener
+{
+	private Ribbon ribbon = new Ribbon();
+	private void InitializeComponent()
+	{
+		this.add(this.ribbon);
+		this.addWindowListener(this);
+		
+		this.setIconImages(ThemeManager.GetThemedIconImages("MainIcon"));
+		this.setSize(800, 600);
+		this.setTitle("Universal Editor");
+	}
+	
+	public MainWindow()
+	{
+		InitializeComponent();
+	}
+	
+	public void actionPerformed(ActionEvent evt)
+	{
+		
+	}
+	
+	
+	/**
+	 * Invoked when the Window is set to be the active Window.
+	 */
+	public void windowActivated(WindowEvent e)
+	{
+		
+	}
+	/**
+	 * Invoked when a window has been closed as the result of calling dispose on the window.
+	 */
+	public void windowClosed(WindowEvent e)
+	{
+		
+	}
+	/**
+	 * Invoked when the user attempts to close the window from the window's system menu.
+	 */
+	public void windowClosing(WindowEvent e)
+	{
+		
+	}
+	/**
+	 * Invoked when a Window is no longer the active Window.
+	 */
+	public void windowDeactivated(WindowEvent e)
+	{
+		
+	}
+	 
+	void windowDeiconified(WindowEvent e) 
+	Invoked when a window is changed from a minimized to a normal state.
+	 
+	void windowIconified(WindowEvent e) 
+	Invoked when a window is changed from a normal to a minimized state.
+	 
+	void windowOpened(WindowEvent e) 
+	Invoked the first time a window is made visible. 
+
+}
