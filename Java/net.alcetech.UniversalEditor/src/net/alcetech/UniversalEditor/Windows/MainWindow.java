@@ -27,6 +27,9 @@ public class MainWindow extends Window
 		
 		CommandBar cbMenuBar = new CommandBar();
 		
+		// this is a menu bar, so set the default display style to text only
+		cbMenuBar.setDefaultCommandDisplayStyle(CommandDisplayStyle.TextOnly);
+		
 		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuFile"));
 		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuEdit"));
 		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuView"));
