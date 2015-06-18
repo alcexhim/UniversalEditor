@@ -2,9 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/net.alcetech.Core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/net.alcetech.UniversalEditor.Core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/net.alcetech.UserInterface"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/net.alcetech.UniversalEditor.Plugins.Core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net.alcetech.Core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
