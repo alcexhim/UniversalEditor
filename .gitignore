@@ -171,6 +171,7 @@ CSharp/Setup/setup.exe
 
 # Eclipse crap
 .buildpath
+.metadata
 .project
 .settings
 RemoteSystemsTempFiles

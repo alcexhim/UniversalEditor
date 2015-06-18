@@ -1,8 +1,0 @@
-package net.alcetech.Core;
-
-public class CancelEventArgs extends EventArgs
-{
-	private boolean mvarCancel = false;
-	public boolean getCancel() { return mvarCancel; }
-	public void setCancel(boolean value) { mvarCancel = value; }
-}

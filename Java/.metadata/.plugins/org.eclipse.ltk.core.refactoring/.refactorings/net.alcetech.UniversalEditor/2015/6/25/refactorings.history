@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move element &apos;MainWindow.java&apos; to &apos;net.alcetech.UniversalEditor/src/net.alcetech.UniversalEditor.Windows&apos;&#x0D;&#x0A;- Original project: &apos;net.alcetech.UniversalEditor&apos;&#x0D;&#x0A;- Destination element: &apos;net.alcetech.UniversalEditor/src/net.alcetech.UniversalEditor.Windows&apos;&#x0D;&#x0A;- Original element: &apos;net.alcetech.UniversalEditor.MainWindow.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;net.alcetech.UniversalEditor.Windows" element1="/src&lt;net.alcetech.UniversalEditor{MainWindow.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1434563373282" units="1" version="1.0"/>
-</session>

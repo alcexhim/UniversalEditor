@@ -1,9 +1,0 @@
-package net.alcetech.UserInterface.Controls;
-
-public class RibbonTab extends JComponent
-{
-	private String mvarText = "";
-	public String getText() { return mvarText; }
-	public void setText(String value) { mvarText = value; }
-
-}
