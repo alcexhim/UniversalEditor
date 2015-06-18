@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Configuration>
+		<Group ID="Application">
+			<Property ID="ConfirmExit" Value="true" />
+			<Group ID="Startup">
+				 <Property ID="ForceLoadStartupFileNames" Value="true" />
+				 <Property ID="FileNames">
+					<Value>C:\Temp\UETEST\uetest.farc</Value>
+				 </Property>
+			</Group>
+		</Group>
+	</Configuration>
+</UniversalEditor>
