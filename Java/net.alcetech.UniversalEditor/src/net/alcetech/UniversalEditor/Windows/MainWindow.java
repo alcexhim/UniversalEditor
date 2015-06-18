@@ -1,6 +1,9 @@
 package net.alcetech.UniversalEditor.Windows;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -10,33 +13,38 @@ import net.alcetech.UserInterface.*;
 import net.alcetech.UserInterface.Controls.*;
 import net.alcetech.UserInterface.Theming.ThemeManager;
 
-public class MainWindow extends Window implements ActionListener
+public class MainWindow extends Window
 {
-	private Ribbon ribbon = new Ribbon();
-
-	private JMenuItem mnuFileExit = new JMenuItem();
+	private CommandBarContainer commandBarContainer = new CommandBarContainer();
+	
+	private DockingWindowContainer dwc = new DockingWindowContainer();
 	
 	private void InitializeComponent()
 	{
-		this.add(this.ribbon);
-		
 		this.setIconImages(ThemeManager.GetThemedIconImages("MainIcon"));
 		this.setSize(800, 600);
 		this.setTitle("Universal Editor");
-		this.setLayout(new BorderLayout());
-		
-		JMenu mnuFile = new JMenu();
-		mnuFile.setText("File");
-		mnuFile.setMnemonic('F');
-		mnuFileExit.addActionListener(this);
-		mnuFileExit.setText("Exit");;
-		mnuFileExit.setMnemonic('x');
-		mnuFileExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));
-		mnuFile.add(mnuFileExit);
 		
 		CommandBar cbMenuBar = new CommandBar();
-		cbMenuBar.add(mnuFile);
-		this.add(cbMenuBar, BorderLayout.NORTH);
+		
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuFile"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuEdit"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuView"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuProject"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuBuild"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuDebug"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuTools"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuWindow"));
+		cbMenuBar.getCommandCollection().add(new CommandReferenceCommandItem("mnuHelp"));
+		
+		this.commandBarContainer.add(cbMenuBar, BorderLayout.NORTH);
+		
+		this.commandBarContainer.add(dwc, BorderLayout.CENTER);
+		
+		this.add(this.commandBarContainer);
+		
+		dwc.getWindowCollection().add("Start Page", new JTextArea());
+		dwc.getWindowCollection().add("X11R2", new JButton());
 	}
 	
 	public MainWindow()
@@ -62,14 +70,6 @@ public class MainWindow extends Window implements ActionListener
 				e.cancel();
 				break;
 			}
-		}
-	}
-	
-	public void actionPerformed(ActionEvent evt)
-	{
-		if (evt.getSource() == mnuFileExit)
-		{
-			Application.Exit();
 		}
 	}
 }
