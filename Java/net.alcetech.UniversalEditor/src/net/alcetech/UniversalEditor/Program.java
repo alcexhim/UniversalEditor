@@ -34,6 +34,8 @@ public class Program
 		*/
 		
 		Command mnuFile = new Command("mnuFile", "_File");
+		Command mnuFileExit = new Command("mnuFileExit", "E_xit");
+		
 		Command mnuEdit = new Command("mnuEdit", "_Edit");
 		Command mnuView = new Command("mnuView", "_View");
 		Command mnuProject = new Command("mnuProject", "_Project");
@@ -43,9 +45,11 @@ public class Program
 		Command mnuWindow = new Command("mnuWindow", "_Window");
 		Command mnuHelp = new Command("mnuHelp", "_Help");
 		
-		mnuFile.getCommandCollection().add(new Command("mnuFileExit", "Exit"));
+		mnuFile.getCommandCollection().add(new CommandReferenceCommandItem("mnuFileExit"));
 		
 		Application.getCommandCollection().add(mnuFile);
+		Application.getCommandCollection().add(mnuFileExit);
+		
 		Application.getCommandCollection().add(mnuEdit);
 		Application.getCommandCollection().add(mnuView);
 		Application.getCommandCollection().add(mnuProject);
@@ -62,6 +66,11 @@ public class Program
 			{
 				// TODO Auto-generated method stub
 				System.out.println("Command '" + e.getCommand().getName() + "' executed!");
+				
+				if (e.getCommand().getName() == "mnuFileExit")
+				{
+					Application.exit();
+				}
 			}
 		});
 		
