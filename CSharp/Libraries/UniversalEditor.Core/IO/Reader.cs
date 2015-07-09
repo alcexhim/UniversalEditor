@@ -1237,9 +1237,11 @@ namespace UniversalEditor.IO
 		/// aligned position.
 		/// </summary>
 		/// <param name="alignTo">The number of bytes on which to align the <see cref="Reader"/>.</param>
-		public void Align(int alignTo)
+		/// <param name="extraPadding">Any additional padding bytes that should be included after aligning to the specified boundary.</param>
+		public void Align(int alignTo, int extraPadding = 0)
 		{
 			long paddingCount = ((alignTo - (base.Accessor.Position % alignTo)) % alignTo);
+			paddingCount += extraPadding;
 			base.Accessor.Position += paddingCount;
 		}
 
