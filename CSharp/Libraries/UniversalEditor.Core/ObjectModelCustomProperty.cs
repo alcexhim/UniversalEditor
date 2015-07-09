@@ -9,9 +9,9 @@ namespace UniversalEditor
 	{
 		public class ObjectModelCustomPropertyCollection
 		{
-			private Dictionary<DataFormat, Dictionary<string, ObjectModelCustomProperty>> _internalCollection = new Dictionary<DataFormat, Dictionary<string, ObjectModelCustomProperty>>();
+			private Dictionary<DataFormatReference, Dictionary<string, ObjectModelCustomProperty>> _internalCollection = new Dictionary<DataFormatReference, Dictionary<string, ObjectModelCustomProperty>>();
 
-			public ObjectModelCustomProperty Add(DataFormat dataFormat, string name, object value)
+			public ObjectModelCustomProperty Add(DataFormatReference dataFormat, string name, object value)
 			{
 				ObjectModelCustomProperty item = new ObjectModelCustomProperty();
 				item.DataFormat = dataFormat;
@@ -31,7 +31,7 @@ namespace UniversalEditor
 				values[name] = item;
 				return item;
 			}
-			public ObjectModelCustomProperty[] this[DataFormat dataFormat]
+			public ObjectModelCustomProperty[] this[DataFormatReference dataFormat]
 			{
 				get
 				{
@@ -46,7 +46,7 @@ namespace UniversalEditor
 					return list.ToArray();
 				}
 			}
-			public ObjectModelCustomProperty this[DataFormat dataFormat, string name]
+			public ObjectModelCustomProperty this[DataFormatReference dataFormat, string name]
 			{
 				get
 				{
@@ -63,8 +63,8 @@ namespace UniversalEditor
 			}
 		}
 
-		private DataFormat mvarDataFormat = null;
-		public DataFormat DataFormat { get { return mvarDataFormat; } set { mvarDataFormat = value; } }
+		private DataFormatReference mvarDataFormat = null;
+		public DataFormatReference DataFormat { get { return mvarDataFormat; } set { mvarDataFormat = value; } }
 
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
