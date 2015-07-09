@@ -50,6 +50,15 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJHeaderFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMArchiveFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMArchiveHeader.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMDirectoryEntry.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMOffsetTableEntry.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMResourceHeaderDisk.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMResourceHeaderDiskFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMResourceHeaderDiskShort.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMStreamEntry.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKFileAttributeFlags.cs" />

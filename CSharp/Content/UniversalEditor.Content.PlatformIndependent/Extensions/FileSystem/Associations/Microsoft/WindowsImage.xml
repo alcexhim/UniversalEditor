@@ -6,6 +6,7 @@
 				<Filter Title="Windows Imaging archive">
 					<FileNameFilters>
 						<FileNameFilter>*.wim</FileNameFilter>
+						<FileNameFilter>*.swm</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>

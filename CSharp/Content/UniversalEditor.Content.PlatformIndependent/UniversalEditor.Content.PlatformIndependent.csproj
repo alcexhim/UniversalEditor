@@ -117,6 +117,7 @@
     <Content Include="Extensions\FileSystem\Associations\LHA.xml" />
     <Content Include="Extensions\FileSystem\Associations\Microsoft\CompoundDocument.xml" />
     <Content Include="Extensions\FileSystem\Associations\Microsoft\Cabinet.xml" />
+    <Content Include="Extensions\FileSystem\Associations\Microsoft\WindowsImage.xml" />
     <Content Include="Extensions\FileSystem\Associations\Microsoft\MSCompressed.xml" />
     <Content Include="Extensions\FileSystem\Associations\NeroDiscImage.xml" />
     <Content Include="Extensions\FileSystem\Associations\PKZip.xml" />
