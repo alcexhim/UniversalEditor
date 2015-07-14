@@ -21,6 +21,42 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ExecutableObjectModel), DataFormatCapabilities.All);
 
+				_dfr.ExportOptions.Add(new CustomOptionText("GameName", "Game &name:", String.Empty, 21));
+				_dfr.ExportOptions.Add(new CustomOptionChoice("CartridgeType", "Cartridge &type:", true, new CustomOptionFieldChoice[]
+				{
+					new CustomOptionFieldChoice(SMCCartridgeTypes.ROMOnly, true),
+					new CustomOptionFieldChoice(SMCCartridgeTypes.ROMAndRAM),
+					new CustomOptionFieldChoice(SMCCartridgeTypes.ROMAndRAMWithBattery),
+
+					// Values greater than $02 indicate special add-on hardware in the cartridge. The caveat is that emulators like
+					// Snes9x may ignore these values unless the add-on (at $ffd6) is compatible with the ROM layout (at $ffd5).
+					new CustomOptionFieldChoice(SMCCartridgeTypes.SuperFXNoBattery0x13, true),
+					new CustomOptionFieldChoice(SMCCartridgeTypes.SuperFXNoBattery0x14),
+					new CustomOptionFieldChoice(SMCCartridgeTypes.SuperFXWithBattery0x15),
+					new CustomOptionFieldChoice(SMCCartridgeTypes.SuperFXWithBattery0x1A),
+					new CustomOptionFieldChoice(SMCCartridgeTypes.SA10x34),
+					new CustomOptionFieldChoice(SMCCartridgeTypes.SA10x35)
+				}));
+
+				CustomOptionFieldChoice[] _smcMemorySizes = new CustomOptionFieldChoice[]
+				{
+					new CustomOptionFieldChoice(SMCMemorySizes.K2),
+					new CustomOptionFieldChoice(SMCMemorySizes.K4),
+					new CustomOptionFieldChoice(SMCMemorySizes.K8),
+					new CustomOptionFieldChoice(SMCMemorySizes.K16),
+					new CustomOptionFieldChoice(SMCMemorySizes.K32),
+					new CustomOptionFieldChoice(SMCMemorySizes.K64),
+					new CustomOptionFieldChoice(SMCMemorySizes.K128),
+					new CustomOptionFieldChoice(SMCMemorySizes.K256, true),
+					new CustomOptionFieldChoice(SMCMemorySizes.K512),
+					new CustomOptionFieldChoice(SMCMemorySizes.M1),
+					new CustomOptionFieldChoice(SMCMemorySizes.M2),
+					new CustomOptionFieldChoice(SMCMemorySizes.M4),
+				};
+
+				_dfr.ExportOptions.Add(new CustomOptionChoice("ROMSize", "RO&M size:", true, _smcMemorySizes));
+				_dfr.ExportOptions.Add(new CustomOptionChoice("RAMSize", "R&AM size:", true, _smcMemorySizes));
+
 				_dfr.ExportOptions.Add(new CustomOptionChoice("Region", "&Region:", false, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice(SMCRegions.Japan),
@@ -224,6 +260,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 					new CustomOptionFieldChoice(SMCLicensees.Psygnosis),
 					new CustomOptionFieldChoice(SMCLicensees.Davidson),
 				}));
+				_dfr.ExportOptions.Add(new CustomOptionNumber("VersionNumber", "&Version number:", 0, Byte.MinValue, Byte.MaxValue));
 
 				_dfr.Sources.Add("http://romhack.wikia.com/wiki/SNES_ROM_layout");
 				_dfr.Sources.Add("http://romhack.wikia.com/wiki/SNES_header");
@@ -234,6 +271,33 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 
 		private SMCExtendedHeader mvarExtendedHeader = new SMCExtendedHeader();
 		public SMCExtendedHeader ExtendedHeader { get { return mvarExtendedHeader; } }
+
+		private string mvarGameName = String.Empty;
+		/// <summary>
+		/// Name of the ROM, typically in ASCII, using spaces to pad the name to 21 bytes.
+		/// </summary>
+		public string GameName { get { return mvarGameName; } set { mvarGameName = value; } }
+
+		private SMCLayout mvarROMLayout = SMCLayout.LoROM;
+		public SMCLayout ROMLayout { get { return mvarROMLayout; } set { mvarROMLayout = value; } }
+
+		private SMCCartridgeType mvarCartridgeType = SMCCartridgeTypes.ROMOnly;
+		/// <summary>
+		/// indicates the hardware in the cartridge. Emulators use this byte to decide which hardware to emulate. A real SNES ignores this byte and uses the real hardware in the real cartridge.
+		/// </summary>
+		public SMCCartridgeType CartridgeType { get { return mvarCartridgeType; } set { mvarCartridgeType = value; } }
+
+		private SMCMemorySize mvarROMSize = SMCMemorySizes.K256;
+		/// <summary>
+		/// Indicates the amount of ROM in the cartridge.
+		/// </summary>
+		public SMCMemorySize ROMSize { get { return mvarROMSize; } set { mvarROMSize = value; } }
+
+		private SMCMemorySize mvarRAMSize = SMCMemorySizes.K256;
+		/// <summary>
+		/// Indicates the amount of RAM in the cartridge (excluding the RAM in the SNES system).
+		/// </summary>
+		public SMCMemorySize RAMSize { get { return mvarRAMSize; } set { mvarRAMSize = value; } }
 
 		private SMCRegion mvarRegion = SMCRegions.Japan;
 		/// <summary>
@@ -247,6 +311,13 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 		/// </summary>
 		public SMCLicensee Licensee { get { return mvarLicensee; } set { mvarLicensee = value; } }
 
+		private byte mvarVersionNumber = 0;
+		/// <summary>
+		/// Typically contains 0x00. Most ROM hackers never touch this byte, so multiple versions of a ROM
+		/// hack may share the same value of this byte. A few ROM hackers actually set this byte.
+		/// </summary>
+		public byte VersionNumber { get { return mvarVersionNumber; } set { mvarVersionNumber = value; } }
+
 		/// <summary>
 		/// Loads game data into the specified <see cref="ObjectModel" />.
 		/// </summary>
@@ -257,74 +328,82 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 			if (exe == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-			
 
-			mvarExtendedHeader.Enabled = (base.Accessor.Length % 1024 == 512);
-			if (mvarExtendedHeader.Enabled)
+			#region Extended Header
 			{
-				#region 00-02 The size of the ROM dump, in units of 8 kilobytes, as a little-endian integer.
+				mvarExtendedHeader.Enabled = (base.Accessor.Length % 1024 == 512);
+				if (mvarExtendedHeader.Enabled)
 				{
-					mvarExtendedHeader.FileSize = reader.ReadInt16();
-					mvarExtendedHeader.FileSize *= 8000;
-				}
-				#endregion
-				#region 02-03 Flags
-				byte flags = reader.ReadByte();
-				mvarExtendedHeader.SplitFile = ((flags & 0x40) == 0x40);
-				mvarExtendedHeader.HiRomEnabled = ((flags & 0x30) == 0x30);
+					#region 00-02 The size of the ROM dump, in units of 8 kilobytes, as a little-endian integer.
+					{
+						mvarExtendedHeader.FileSize = reader.ReadInt16();
+						mvarExtendedHeader.FileSize *= 8000;
+					}
+					#endregion
+					#region 02-03 Flags
+					SMCExtendedHeaderFlags flags = (SMCExtendedHeaderFlags)reader.ReadByte();
+					mvarExtendedHeader.SplitFile = ((flags & SMCExtendedHeaderFlags.SplitFile) == SMCExtendedHeaderFlags.SplitFile);
+					mvarExtendedHeader.HiRomEnabled = ((flags & SMCExtendedHeaderFlags.HiRomEnabled) == SMCExtendedHeaderFlags.HiRomEnabled);
 
-				if ((flags & 0x04) == 0x04)
-				{
-					mvarExtendedHeader.SaveRAMSize = SMCSaveRAMSize.SaveRAM8K;
-				}
-				else if ((flags & 0x08) == 0x08)
-				{
-					mvarExtendedHeader.SaveRAMSize = SMCSaveRAMSize.SaveRAM2K;
-				}
-				else if ((flags & 0x0C) == 0x0C)
-				{
-					mvarExtendedHeader.SaveRAMSize = SMCSaveRAMSize.SaveRAMNone;
-				}
+					if ((flags & SMCExtendedHeaderFlags.SaveRam8K) == SMCExtendedHeaderFlags.SaveRam8K)
+					{
+						mvarExtendedHeader.SaveRAMSize = SMCSaveRAMSize.SaveRAM8K;
+					}
+					else if ((flags & SMCExtendedHeaderFlags.SaveRam2K) == SMCExtendedHeaderFlags.SaveRam2K)
+					{
+						mvarExtendedHeader.SaveRAMSize = SMCSaveRAMSize.SaveRAM2K;
+					}
+					else if ((flags & SMCExtendedHeaderFlags.SaveRamNone) == SMCExtendedHeaderFlags.SaveRamNone)
+					{
+						mvarExtendedHeader.SaveRAMSize = SMCSaveRAMSize.SaveRAMNone;
+					}
 
-				if ((flags & 0x80) == 0x80)
-				{
-					mvarExtendedHeader.ResetVectorOverride = 0x8000;
-				}
-				#endregion
-				#region 03-04 HiRom/LoRom (Pro Fighter specific)
-				byte hiRomLoRom = reader.ReadByte();
-				if ((flags & 0x30) != 0x30)
-				{
-					// only set HiRom/LoRom from this field if not set in a flag
-					mvarExtendedHeader.HiRomEnabled = ((hiRomLoRom & 0x80) == 0x80);
-				}
-				#endregion
-				#region 04-06 DSP-1 settings (Pro Fighter specific)
-				mvarExtendedHeader.DSP1Settings = reader.ReadInt16();
-				#endregion
-				#region 06-08 Unknown
-				ushort unknown1 = reader.ReadUInt16();
-				#endregion
-				#region 08-16 SUPERUFO
-				string creator = reader.ReadFixedLengthString(8); // SUPERUFO
-				mvarExtendedHeader.Creator = creator;
-				#endregion
-				#region 16-24 Extra data
-				byte[] extradata = reader.ReadBytes(8);
-				#endregion
+					if ((flags & SMCExtendedHeaderFlags.ResetVectorAddressOverride) == SMCExtendedHeaderFlags.ResetVectorAddressOverride)
+					{
+						mvarExtendedHeader.ResetVectorOverride = 0x8000;
+					}
+					#endregion
+					#region 03-04 HiRom/LoRom (Pro Fighter specific)
+					byte hiRomLoRom = reader.ReadByte();
+					if ((flags & SMCExtendedHeaderFlags.HiRomEnabled) != SMCExtendedHeaderFlags.HiRomEnabled)
+					{
+						// only set HiRom/LoRom from this field if not set in a flag
+						mvarExtendedHeader.HiRomEnabled = ((hiRomLoRom & 0x80) == 0x80);
+					}
+					if (mvarExtendedHeader.HiRomEnabled)
+					{
+						mvarROMLayout = SMCLayout.HiROM;
+					}
+					#endregion
+					#region 04-06 DSP-1 settings (Pro Fighter specific)
+					mvarExtendedHeader.DSP1Settings = reader.ReadInt16();
+					#endregion
+					#region 06-08 Unknown
+					ushort unknown1 = reader.ReadUInt16();
+					#endregion
+					#region 08-16 SUPERUFO
+					string creator = reader.ReadFixedLengthString(8); // SUPERUFO
+					mvarExtendedHeader.Creator = creator;
+					#endregion
+					#region 16-24 Extra data
+					byte[] extradata = reader.ReadBytes(8);
+					#endregion
 
-				if (mvarExtendedHeader.HiRomEnabled)
-				{
-					base.Accessor.Seek(0x101c0, SeekOrigin.Begin);
-				}
-				else
-				{
-					base.Accessor.Seek(0x81c0, SeekOrigin.Begin);
+					if (mvarExtendedHeader.HiRomEnabled)
+					{
+						base.Accessor.Seek(0x101c0, SeekOrigin.Begin);
+					}
+					else
+					{
+						base.Accessor.Seek(0x81c0, SeekOrigin.Begin);
+					}
 				}
 			}
+			#endregion
 
 			#region SNES header
-			string gamename = reader.ReadFixedLengthString(21).Trim();
+			mvarGameName = reader.ReadFixedLengthString(21).Trim();
+
 			byte romLayout = reader.ReadByte();
 			if (romLayout == 0x20)
 			{
@@ -335,8 +414,13 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 				// HiROM
 			}
 			byte cartridgeType = reader.ReadByte();
+			mvarCartridgeType = SMCCartridgeType.FromCode(cartridgeType);
+
 			byte romsize = reader.ReadByte();
+			mvarROMSize = SMCMemorySize.FromCode(romsize);
+
 			byte ramsize = reader.ReadByte();
+			mvarRAMSize = SMCMemorySize.FromCode(ramsize);
 
 			// Country code, which selects the video in the emulator. Values $00, $01, $0d use NTSC.
 			// Values in range $02..$0c use PAL. Other values are invalid.
@@ -353,7 +437,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 
 			}
 
-			byte versionNumber = reader.ReadByte();
+			mvarVersionNumber = reader.ReadByte();
 
 			ushort checksumComplement = reader.ReadUInt16();
 			ushort checksum = reader.ReadUInt16();
@@ -390,7 +474,77 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 			ExecutableObjectModel exe = (objectModel as ExecutableObjectModel);
 			if (exe == null) throw new ObjectModelNotSupportedException();
 
-			throw new NotImplementedException();
+			Writer writer = base.Accessor.Writer;
+
+			#region SNES header
+			writer.WriteFixedLengthString(mvarGameName, 21, ' ');
+
+			switch (mvarROMLayout)
+			{
+				case SMCLayout.LoROM:
+				{
+					writer.WriteByte(0x20);
+					break;
+				}
+				case SMCLayout.HiROM:
+				{
+					writer.WriteByte(0x21);
+					break;
+				}
+			}
+
+			writer.WriteByte((byte)(mvarCartridgeType != null ? mvarCartridgeType.Value : 0));
+			writer.WriteByte((byte)(mvarROMSize != null ? mvarROMSize.Value : 0));
+			writer.WriteByte((byte)(mvarRAMSize != null ? mvarRAMSize.Value : 0));
+			writer.WriteByte((byte)(mvarRegion != null ? mvarRegion.Value : 0));
+			writer.WriteByte((byte)(mvarLicensee != null ? mvarLicensee.Value : 0));
+
+			if (mvarLicensee != null && mvarLicensee.Value == 0x33)
+			{
+
+			}
+
+			writer.WriteByte(mvarVersionNumber);
+
+			ushort checksumComplement = 0;
+			ushort checksum = 0;
+			writer.WriteUInt16(checksumComplement);
+			writer.WriteUInt16(checksum);
+
+			int unknown2 = 0;
+			writer.WriteInt32(unknown2);
+
+			short nativeInterruptVectorCOP = 0;
+			short nativeInterruptVectorBRK = 0;
+			short nativeInterruptVectorABORT = 0;
+			short nativeInterruptVectorNMI = 0; // vertical blank
+			short nativeInterruptVectorUnused = 0;
+			short nativeInterruptVectorIRQ = 0;
+
+			writer.WriteInt16(nativeInterruptVectorCOP);
+			writer.WriteInt16(nativeInterruptVectorBRK);
+			writer.WriteInt16(nativeInterruptVectorABORT);
+			writer.WriteInt16(nativeInterruptVectorNMI);
+			writer.WriteInt16(nativeInterruptVectorUnused);
+			writer.WriteInt16(nativeInterruptVectorIRQ);
+
+			int unknown3 = 0;
+			writer.WriteInt32(unknown3);
+
+			short emulationInterruptVectorCOP = 0;
+			short emulationInterruptVectorUnused = 0;
+			short emulationInterruptVectorABORT = 0;
+			short emulationInterruptVectorNMI = 0; // vertical blank
+			short emulationInterruptVectorRESET = 0;
+			short emulationInterruptVectorIRQorBRK = 0;
+
+			writer.WriteInt16(emulationInterruptVectorCOP);
+			writer.WriteInt16(emulationInterruptVectorUnused);
+			writer.WriteInt16(emulationInterruptVectorABORT);
+			writer.WriteInt16(emulationInterruptVectorNMI);
+			writer.WriteInt16(emulationInterruptVectorRESET);
+			writer.WriteInt16(emulationInterruptVectorIRQorBRK);
+			#endregion
 		}
 	}
 }

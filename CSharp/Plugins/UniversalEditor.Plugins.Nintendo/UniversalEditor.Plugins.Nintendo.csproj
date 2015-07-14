@@ -37,8 +37,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCLayout.cs" />
+    <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCMemorySize.cs" />
+    <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCCartridgeType.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCDataFormat.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCExtendedHeader.cs" />
+    <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCExtendedHeaderFlags.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCLicensee.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCRegion.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCSaveRAMSize.cs" />
