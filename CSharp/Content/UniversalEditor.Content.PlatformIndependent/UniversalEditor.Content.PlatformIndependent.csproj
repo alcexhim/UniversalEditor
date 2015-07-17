@@ -172,6 +172,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\MoPaQ.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\N2M-CTAR.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\NamcoTales.xml" />
+    <Content Include="Extensions\GameDeveloper\Associations\FileSystem\Nintendo\Optical\NintendoOpticalDisc.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\NScripter.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\NvidiaNPK.xml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\PlayStation\PKG.xml" />

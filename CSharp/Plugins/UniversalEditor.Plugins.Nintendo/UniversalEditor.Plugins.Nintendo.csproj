@@ -46,6 +46,10 @@
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCLicensee.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCRegion.cs" />
     <Compile Include="DataFormats\Executable\Nintendo\SNES\SMCSaveRAMSize.cs" />
+    <Compile Include="DataFormats\FileSystem\Nintendo\Optical\NintendoOpticalDiscFormatCode.cs" />
+    <Compile Include="DataFormats\FileSystem\Nintendo\Optical\NintendoOpticalDiscDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Nintendo\Optical\NintendoOpticalDiscRegionCode.cs" />
+    <Compile Include="DataFormats\FileSystem\Nintendo\Optical\NintendoOpticalDiscSystemType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
