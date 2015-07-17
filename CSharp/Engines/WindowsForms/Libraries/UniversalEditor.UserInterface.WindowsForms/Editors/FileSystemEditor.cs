@@ -343,7 +343,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 			lv.Items.Clear();
 
-			if (tIconLoader.ThreadState == System.Threading.ThreadState.Running)
+			if (tIconLoader.ThreadState != System.Threading.ThreadState.Stopped)
 			{
 				tIconLoader.Abort();
 				tIconLoader = null;
