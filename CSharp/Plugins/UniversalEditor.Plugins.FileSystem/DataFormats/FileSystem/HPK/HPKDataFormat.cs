@@ -268,7 +268,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
 
             foreach (File file in fsom.Files)
             {
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
 
             foreach (FileInfo fi in fis)

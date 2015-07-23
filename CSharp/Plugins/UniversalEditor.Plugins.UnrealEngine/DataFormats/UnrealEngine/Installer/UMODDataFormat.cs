@@ -98,7 +98,7 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Installer
 			bw = new Writer(msData);
 			foreach (File file in fsom.Files)
 			{
-				bw.WriteBytes(file.GetDataAsByteArray());
+				bw.WriteBytes(file.GetData());
 			}
 			bw.Close();
 

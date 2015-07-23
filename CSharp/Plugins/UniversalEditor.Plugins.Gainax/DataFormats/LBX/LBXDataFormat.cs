@@ -75,7 +75,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Gainax.LBX
 			uint offset = 0;
 			for (int i = 0; i < files.Length; i++)
 			{
-				byte[] data = files[i].GetDataAsByteArray();
+				byte[] data = files[i].GetData();
 				writer.WriteBytes(data);
 
 				lengths[i] = (uint)data.Length;

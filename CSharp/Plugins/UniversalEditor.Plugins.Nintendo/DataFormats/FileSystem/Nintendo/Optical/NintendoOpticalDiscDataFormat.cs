@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 {
@@ -248,27 +249,10 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 			{
 				File file = parent.Files.Add(fileName);
 				file.Size = fileSize;
-				file.Properties.Add("offset", diskAddress);
-				file.Properties.Add("length", fileSize);
-				file.Properties.Add("reader", reader);
-				file.DataRequest += file_DataRequest;
+				file.Source = new EmbeddedFileSource(reader, diskAddress, fileSize);
 				return 1;
 			}
 			return 0;
-		}
-
-		private void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			Reader reader = (Reader)file.Properties["reader"];
-			int offset = (int)file.Properties["offset"];
-			int length = (int)file.Properties["length"];
-
-			if (offset + length > reader.Accessor.Length) return;
-
-			reader.Seek(offset, SeekOrigin.Begin);
-			byte[] data = reader.ReadBytes(length);
-			e.Data = data;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

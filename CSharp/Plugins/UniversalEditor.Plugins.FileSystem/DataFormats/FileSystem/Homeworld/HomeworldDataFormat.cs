@@ -80,7 +80,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Homeworld
 			{
 				bw.WriteFixedLengthString("DATA");
 
-				byte[] data = file.GetDataAsByteArray();
+				byte[] data = file.GetData();
 				bw.WriteUInt32((uint)data.Length);
 				bw.WriteBytes(data);
 			}

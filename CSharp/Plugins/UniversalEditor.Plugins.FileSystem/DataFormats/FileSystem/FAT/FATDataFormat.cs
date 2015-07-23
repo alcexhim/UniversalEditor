@@ -624,7 +624,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					{
 						br.Accessor.Position = fileOffset;
 						byte[] data = br.ReadBytes(fi.Length);
-						file.SetDataAsByteArray(data);
+						file.SetData(data);
 					}
 					else
 					{

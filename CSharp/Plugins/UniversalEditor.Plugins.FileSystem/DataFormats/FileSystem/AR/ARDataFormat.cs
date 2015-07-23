@@ -5,6 +5,7 @@ using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.AR
 {
@@ -67,10 +68,7 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
 
 				File file = fsom.AddFile(szFileName);
 				file.Size = fileSize;
-				file.Properties["offset"] = offset;
-				file.Properties["length"] = fileSize;
-				file.Properties["reader"] = reader;
-				file.DataRequest += file_DataRequest;
+				file.Source = new EmbeddedFileSource(reader, offset, fileSize);
 
 				if ((reader.Accessor.Position % 2) != 0)
 				{
@@ -113,7 +111,13 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
 				bw.WriteByte((byte)0x60);
 				bw.WriteByte((byte)10);
 
-				bw.WriteBytes(file.GetDataAsByteArray());
+				file.WriteTo(bw);
+				if ((bw.Accessor.Position % 2) != 0)
+				{
+					// fixed 2015-07-23 to match LoadInternal fix 2013-05-20 for certain .a files
+					// The data section is 2 byte aligned. If it would end on an odd offset, a '\n' is used as filler.
+					bw.WriteByte(0xA);
+				}
 			}
 		}
 	}

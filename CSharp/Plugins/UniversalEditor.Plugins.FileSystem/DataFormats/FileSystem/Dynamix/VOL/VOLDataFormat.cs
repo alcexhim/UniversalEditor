@@ -111,7 +111,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Dynamix.VOL
 				writer.WriteFixedLengthString("VBLK");
 				writer.WriteUInt16((ushort)file.Size);
 				writer.WriteUInt16(32768);
-				writer.WriteBytes(file.GetDataAsByteArray());
+				writer.WriteBytes(file.GetData());
 			}
 
 			#region VOLS chunk

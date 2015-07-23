@@ -38,11 +38,11 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 		/// <summary>
 		/// The type of hunk.
 		/// </summary>
-		private const byte	V34_MAP_ENTRY_FLAG_TYPE_MASK	=	0x0f;
+		internal const byte	V34_MAP_ENTRY_FLAG_TYPE_MASK	=	0x0f;
 		/// <summary>
 		/// No CRC is present.
 		/// </summary>
-		private const byte	V34_MAP_ENTRY_FLAG_NO_CRC		=	0x10;
+		internal const byte V34_MAP_ENTRY_FLAG_NO_CRC = 0x10;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -115,114 +115,16 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 				File file = new File();
 				file.Name = "HUNK" + (i + 1).ToString().PadLeft(4, '0');
 				file.Size = mvarHunkSize;
-				file.Properties.Add("reader", br);
-				file.Properties.Add("hunkid", i);
-				file.DataRequest += file_DataRequest;
+				file.Source = new CHDHunkFileSource(br, i, m_RawMapOffset, mvarHunkSize);
 				fsom.Files.Add(file);
 			}
 
-		}
-
-		void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			if (file == null) return;
-
-			IO.Reader br = (IO.Reader)file.Properties["reader"];
-			uint hunkid = (uint)file.Properties["hunkid"];
-
-			e.Data = ReadHunk(br, hunkid);
-			
-
-			/*
-			br.Accessor.Position = offset;
-			byte[] compressedData = br.ReadBytes(length);
-			byte[] decompressedData = compressedData;
-
-			// decompressedData = UniversalEditor.Compression.Zlib.ZlibStream.Decompress(compressedData);
-			e.Data = decompressedData;
-			*/
 		}
 
 		Compression.CompressionModule[] compressionModules = new Compression.CompressionModule[]
 		{
 			new Compression.Modules.Deflate.DeflateCompressionModule()
 		};
-
-		private byte[] ReadHunk(IO.Reader br, ulong hunkid)
-		{
-			uint hunkRawMapOffset = (uint)((ulong)m_RawMapOffset + (16 * hunkid));
-
-			br.Accessor.Position = hunkRawMapOffset;
-			ulong blockOffset = br.ReadUInt64();
-			uint blockCRC = br.ReadUInt32();
-			ushort blockLengthPart1 = br.ReadUInt16();
-			byte blockLengthPart2 = br.ReadByte();
-
-			uint blockLength = (uint)(blockLengthPart1 + (blockLengthPart2 << 16));
-
-			byte flags = br.ReadByte();
-			CHDEntryType entryType = (CHDEntryType)(flags & V34_MAP_ENTRY_FLAG_TYPE_MASK);
-			bool noCRC = ((flags & V34_MAP_ENTRY_FLAG_NO_CRC) == V34_MAP_ENTRY_FLAG_NO_CRC);
-
-			switch (entryType)
-			{
-				case CHDEntryType.Compressed:
-				{
-					byte[] compressedData = new byte[0];
-
-					br.Accessor.Position = (long)blockOffset;
-					compressedData = br.ReadBytes(blockLength);
-
-					byte[] decompressedData = compressedData; // UniversalEditor.Compression.Zlib.ZlibStream.Decompress(compressedData);
-					
-					// no, this is not Zlib, this is plain old Deflate...?
-					decompressedData = compressionModules[0].Decompress(compressedData);
-
-					// m_decompressor[0]->decompress(m_compressed, blocklen, dest, m_hunkbytes);
-					// if (!(rawmap[15] & V34_MAP_ENTRY_FLAG_NO_CRC) && dest != NULL && crc32_creator::simple(dest, m_hunkbytes) != blockcrc)
-					// throw new System.IO.IOException("Decompression failed");
-					return decompressedData;
-				}
-				case CHDEntryType.Uncompressed:
-				{
-					byte[] buffer = new byte[0];
-					br.Read(buffer, (int)blockOffset, (int)mvarHunkSize);
-					// if (!noCRC && crc32_creator::simple(dest, m_hunkbytes) != blockcrc)
-					// throw CHDERR_DECOMPRESSION_ERROR;
-					return buffer;
-				}
-				case CHDEntryType.Miniature:
-				{
-					MemoryAccessor ma = new MemoryAccessor();
-					IO.Writer bw = new IO.Writer(ma);
-					bw.Endianness = IO.Endianness.BigEndian;
-					bw.WriteUInt64((ulong)blockOffset);
-					bw.WriteBytes(new byte[mvarHunkSize - 8]);
-					bw.Flush();
-					bw.Close();
-					byte[] buffer = ma.ToArray();
-
-					for (uint bytes = 8; bytes < mvarHunkSize; bytes++)
-					{
-						buffer[bytes] = buffer[bytes - 8];
-					}
-					return buffer;
-				}
-				case CHDEntryType.SelfHunk:
-				{
-					return ReadHunk(br, blockOffset);
-				}
-				case CHDEntryType.ParentHunk:
-				{
-					// if (mvarParent != null)
-					// {
-					// }
-					throw new InvalidOperationException("Parent required");
-				}
-			}
-			throw new InvalidOperationException("No hunk exists or hunk type not implemented");
-		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{

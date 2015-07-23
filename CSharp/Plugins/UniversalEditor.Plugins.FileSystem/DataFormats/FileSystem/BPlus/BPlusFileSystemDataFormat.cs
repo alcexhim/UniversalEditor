@@ -122,7 +122,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 
 				File file = new File();
 				file.Name = entry.FileName;
-				file.SetDataAsByteArray(fileHeader.FileContent);
+				file.SetData(fileHeader.FileContent);
 				fsom.Files.Add(file);
 			}
 		}

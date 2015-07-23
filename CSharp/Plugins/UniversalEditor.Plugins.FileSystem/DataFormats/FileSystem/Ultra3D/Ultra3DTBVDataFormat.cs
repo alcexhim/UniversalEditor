@@ -83,7 +83,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
             {
                 bw.WriteFixedLengthString(file.Name, 24);
                 bw.WriteUInt32((uint)file.Size);
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
         }
     }

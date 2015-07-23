@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 {
@@ -45,23 +46,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 				File file = new File();
 				file.Name = FileName;
 				file.Size = FileSize;
-				file.Properties.Add("offset", FileDataOffset + FileOffset);
-				file.Properties.Add("length", FileSize);
-				file.DataRequest += file_DataRequest;
+				file.Source = new EmbeddedFileSource(br, FileDataOffset + FileOffset, FileSize);
 				fsom.Files.Add(file);
 			}
 		}
-
-		private void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			IO.Reader br = base.Accessor.Reader;
-			File file = (sender as File);
-			int offset = (int)file.Properties["offset"];
-			int length = (int)file.Properties["length"];
-			br.Accessor.Seek(offset, SeekOrigin.Begin);
-			e.Data = br.ReadBytes(length);
-		}
-
+		
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -72,7 +61,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 			bw.WriteInt32(fsom.Files.Count);
 
 			int fileOffset = 0;
-			byte[][] fileDatas = new byte[fsom.Files.Count][];
+
 			foreach (File file in fsom.Files)
 			{
 				int i = fsom.Files.IndexOf(file);
@@ -81,8 +70,8 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 
 				bw.WriteInt32(fileOffset);
 
-				fileDatas[i] = file.GetDataAsByteArray();
-				bw.WriteInt32(fileDatas[i].Length);
+				int length = (int)file.Source.GetLength();
+				bw.WriteInt32(length);
 
 				int reserved1 = 0;
 				bw.WriteInt32(reserved1);
@@ -90,12 +79,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 				int reserved2 = 0;
 				bw.WriteInt32(reserved2);
 
-				fileOffset += fileDatas[i].Length;
+				fileOffset += length;
 			}
 			foreach (File file in fsom.Files)
 			{
-				int i = fsom.Files.IndexOf(file);
-				bw.WriteBytes(fileDatas[i]);
+				file.WriteTo(bw);
 			}
 		}
 	}

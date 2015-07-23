@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.Moosta.Skin
 {
@@ -35,25 +36,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Skin
 				int fileSize = br.ReadInt32();
 
 				File file = fsom.AddFile(fileName);
-				file.Properties.Add("reader", br);
-				file.Properties.Add("offset", br.Accessor.Position);
-				file.Properties.Add("length", fileSize);
+				file.Source = new EmbeddedFileSource(br, br.Accessor.Position, fileSize);
 				file.Size = fileSize;
-				file.DataRequest += file_DataRequest;
 
 				br.Accessor.Seek(fileSize, SeekOrigin.Current);
 			}
-		}
-
-		void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			IO.Reader br = (IO.Reader)file.Properties["reader"];
-			long offset = (long)file.Properties["offset"];
-			int length = (int)file.Properties["length"];
-			br.Accessor.Seek(offset, SeekOrigin.Begin);
-
-			e.Data = br.ReadBytes(length);
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -69,7 +56,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Skin
 			{
 				bw.Write(file.Name);
 				bw.WriteInt32((int)file.Size);
-				bw.WriteBytes(file.GetDataAsByteArray());
+				file.WriteTo(bw);
 			}
 			bw.Flush();
 		}

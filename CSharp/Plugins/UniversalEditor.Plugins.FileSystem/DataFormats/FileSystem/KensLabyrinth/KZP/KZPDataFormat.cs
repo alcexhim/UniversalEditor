@@ -79,7 +79,7 @@ namespace UniversalEditor.DataFormats.FileSystem.KensLabyrinth.KZP
 			}
 			for (ushort i = 0; i < (ushort)files.Length; i++)
 			{
-				writer.WriteBytes(files[i].GetDataAsByteArray());
+				writer.WriteBytes(files[i].GetData());
 			}
 			writer.Flush();
 		}

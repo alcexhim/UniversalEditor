@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.CPIO
 {
@@ -107,10 +108,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 						// included with each copy of the file.
 						File file = fsom.AddFile(c_filename);
 						file.Size = c_filesize;
-						file.DataRequest += file_DataRequest;
-						file.Properties.Add("reader", reader);
-						file.Properties.Add("offset", offset);
-						file.Properties.Add("length", c_filesize);
+						file.Source = new EmbeddedFileSource(reader, offset, c_filesize);
 
 						base.Accessor.Seek(c_filesize, SeekOrigin.Current);
 						break;
@@ -119,16 +117,6 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 
 				if (fin) break;
 			}
-		}
-
-		private void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			Reader reader = (Reader)file.Properties["reader"];
-			long offset = (long)file.Properties["offset"];
-			uint length = (uint)file.Properties["length"];
-			reader.Seek(offset, SeekOrigin.Begin);
-			e.Data = reader.ReadBytes(length);
 		}
 
 		private uint ReadTransEndianUInt32(Reader reader)

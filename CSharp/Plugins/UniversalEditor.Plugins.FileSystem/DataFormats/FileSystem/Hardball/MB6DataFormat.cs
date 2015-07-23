@@ -88,7 +88,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Hardball
             }
             foreach (File file in fsom.Files)
             {
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
             bw.Flush();
         }

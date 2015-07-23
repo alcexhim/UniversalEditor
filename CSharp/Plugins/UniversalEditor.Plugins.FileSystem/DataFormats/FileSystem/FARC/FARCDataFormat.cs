@@ -312,7 +312,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FARC
                     writer.WriteNullTerminatedString(file.Name);
                     writer.WriteInt32(offset);
 
-                    byte[] decompressedData = file.GetDataAsByteArray();
+                    byte[] decompressedData = file.GetData();
                     byte[] compressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Compress(decompressedData);
                     writer.WriteInt32(compressedData.Length);
                     writer.WriteInt32(decompressedData.Length);
@@ -350,7 +350,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FARC
 
                 foreach (File file in files)
                 {
-                    writer.WriteBytes(file.GetDataAsByteArray());
+                    writer.WriteBytes(file.GetData());
                 }
             }
             else

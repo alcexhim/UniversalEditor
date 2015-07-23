@@ -55,7 +55,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HighwayPursuit
 
                 File file = new File();
                 file.Name = i.ToString().PadLeft(8, '0');
-                file.SetDataAsByteArray(filedata);
+                file.SetData(filedata);
                 file.Properties.Add("padding", paddingdata);
                 fsom.Files.Add(file);
             }
@@ -70,7 +70,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HighwayPursuit
 
             foreach (File file in fsom.Files)
             {
-                byte[] filedata = file.GetDataAsByteArray();
+                byte[] filedata = file.GetData();
                 byte[] padding = new byte[0];
                 if (file.Properties.ContainsKey("padding"))
                 {
@@ -81,7 +81,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HighwayPursuit
             }
             foreach (File file in fsom.Files)
             {
-                byte[] filedata = file.GetDataAsByteArray();
+                byte[] filedata = file.GetData();
                 byte[] padding = new byte[0];
                 if (file.Properties.ContainsKey("padding"))
                 {

@@ -104,7 +104,7 @@ namespace UniversalEditor.DataFormats.FileSystem.LHA
 				string compressionMethod = "-lh0-";
 				writer.WriteFixedLengthString(compressionMethod);
 
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = decompressedData;
 				switch (compressionMethod)
 				{

@@ -276,7 +276,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.EGG
 				fi.name = file.Name;
 				fi.length = (ulong)file.Size;
 
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = CompressionModules.Bzip2.Compress(decompressedData);
 
 				Checksum.Modules.CRC32.CRC32ChecksumModule module = new Checksum.Modules.CRC32.CRC32ChecksumModule();

@@ -89,7 +89,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SPIS
 
                 bw.WriteUInt32(decompressedSize);
 
-                byte[] decompressedData = file.GetDataAsByteArray();
+                byte[] decompressedData = file.GetData();
                 byte[] compressedData = decompressedData;
 
                 bw.WriteUInt32((uint)compressedData.Length);

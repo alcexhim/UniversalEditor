@@ -101,7 +101,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 			{
 				File file = files[i];
 				bool compressed = false;
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = decompressedData;
 				compressedDatas[i] = compressedData;
 

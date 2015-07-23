@@ -80,7 +80,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARC
 				byte compressionMethod = 1;
 				bw.WriteByte(compressionMethod);
 				bw.WriteFixedLengthString(fsom.Files[i].Name, 12);
-				byte[] decompressedData = fsom.Files[i].GetDataAsByteArray();
+				byte[] decompressedData = fsom.Files[i].GetData();
 				byte[] compressedData = null;
 				switch (compressionMethod)
 				{

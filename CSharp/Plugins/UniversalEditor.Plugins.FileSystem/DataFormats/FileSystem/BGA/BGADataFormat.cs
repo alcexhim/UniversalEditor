@@ -5,6 +5,7 @@ using System.Text;
 using UniversalEditor.Compression;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.BGA
 {
@@ -67,7 +68,8 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				file.Properties.Add("CompressionMethod", compressionMethod);
 				file.Properties.Add("checksum", checksum);
 				file.Properties.Add("reader", reader);
-				file.DataRequest += file_DataRequest;
+
+				throw new NotImplementedException("Figure out how to do this with FileSource");
 			}
 		}
 
@@ -134,7 +136,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				}
 				writer.WriteFixedLengthString(compressionType, 4);
 
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = decompressedData;
 				switch (compressionMethod)
 				{

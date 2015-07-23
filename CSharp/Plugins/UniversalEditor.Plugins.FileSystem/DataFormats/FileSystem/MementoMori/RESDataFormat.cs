@@ -74,7 +74,7 @@ namespace UniversalEditor.DataFormats.FileSystem.MementoMori
 			uint fileOffset = (uint)bw.Accessor.Position;
 			foreach (File file in files)
 			{
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = decompressedData;
 				file.Properties["CompressedSize"] = (uint)compressedData.Length;
 				bw.WriteBytes(compressedData);

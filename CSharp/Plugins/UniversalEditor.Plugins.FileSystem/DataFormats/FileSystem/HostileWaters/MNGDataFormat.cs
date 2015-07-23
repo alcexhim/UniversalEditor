@@ -79,7 +79,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
             {
                 bw.WriteNullTerminatedString(file.Name);
                 
-                byte[] decompressedData = file.GetDataAsByteArray();
+                byte[] decompressedData = file.GetData();
                 byte[] compressedData = UniversalEditor.Compression.CompressionModules.Zlib.Compress(decompressedData);
                 bw.WriteUInt32((uint)compressedData.Length);
                 bw.WriteUInt32((uint)decompressedData.Length);
@@ -87,7 +87,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
             }
             foreach (File file in fsom.Files)
             {
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
             bw.Flush();
         }

@@ -91,7 +91,7 @@ namespace UniversalEditor.DataFormats.FileSystem.IndianaJones.GOB
 			}
 			foreach (File file in files)
 			{
-				bw.WriteBytes(file.GetDataAsByteArray());
+				bw.WriteBytes(file.GetData());
 			}
 		}
 	}

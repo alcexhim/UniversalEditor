@@ -120,8 +120,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BAG
 			foreach (File file in fsom.Files)
 			{
 				// There is one file block for each file
-				byte[] fileData = file.GetDataAsByteArray();
-				bw.WriteInt32(fileData.Length);
+				bw.WriteInt32((int)file.Size);
 
 				byte fileNameLength = (byte)file.Name.Length;
 				bw.WriteByte(fileNameLength);
@@ -130,7 +129,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BAG
 				if (fileName.Length > fileNameLength) fileName = fileName.Substring(0, fileNameLength);
 				bw.WriteFixedLengthString(fileName);
 
-				bw.WriteBytes(fileData);
+				file.WriteTo(bw);
 			}
 
 			// The last character is an end-of-file character to ensure the whole file was

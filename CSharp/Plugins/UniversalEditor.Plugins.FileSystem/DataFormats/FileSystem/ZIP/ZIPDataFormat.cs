@@ -184,13 +184,13 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				short iFileLastModificationDate = (short)(DateTime.Now.ToFileTime() >> 2);
 				bw.WriteInt16(iFileLastModificationDate);
 
-				byte[] uncompressedData = file.GetDataAsByteArray();
+				byte[] uncompressedData = file.GetData();
 
 				bool isEncrypted = false;
 				int iCRC32 = (int)(new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule()).Calculate(uncompressedData);
 				bw.WriteInt32(iCRC32);
 
-				byte[] compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(file.GetDataAsByteArray());
+				byte[] compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(file.GetData());
 				bw.WriteInt32((int)compressedData.Length);
 				bw.WriteInt32((int)uncompressedData.Length);
 
@@ -249,11 +249,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				bw.WriteInt16(iFileLastModificationDate);
 
 				bool isEncrypted = false;
-				byte[] uncompressedData = file.GetDataAsByteArray();
+				byte[] uncompressedData = file.GetData();
 				int iCRC32 = (int)(new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule()).Calculate(uncompressedData);
 				bw.WriteInt32(iCRC32);
 
-				byte[] compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(file.GetDataAsByteArray());
+				byte[] compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(file.GetData());
 				bw.WriteInt32((int)compressedData.Length);
 				bw.WriteInt32((int)uncompressedData.Length);
 
@@ -447,7 +447,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			}
 
 			File f = new File();
-			f.SetDataAsByteArray(unpackedData);
+			f.SetData(unpackedData);
 			f.Name = fileName;
 			return f;
 		}

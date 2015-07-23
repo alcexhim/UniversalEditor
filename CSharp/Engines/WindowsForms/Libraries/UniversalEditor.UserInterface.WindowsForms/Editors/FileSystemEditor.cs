@@ -126,7 +126,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				File file = (lvi.Data as File);
 				if (file == null) continue;
 
-				byte[] data = file.GetDataAsByteArray();
+				byte[] data = file.GetData();
 				if (data == null) continue;
 
 				try
@@ -464,7 +464,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				File file = (lvi.Data as File);
 				if (file != null)
 				{
-					byte[] data = file.GetDataAsByteArray();
+					byte[] data = file.GetData();
 
 					if (String.IsNullOrEmpty(file.Name))
 					{
@@ -662,7 +662,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 			File file = new File();
 			file.Name = FileTitle;
-			file.SetDataAsByteArray(data);
+			file.SetData(data);
 
 			if (parent != null)
 			{
@@ -739,7 +739,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 						{
 							if (fsom.Files.Contains(file.Name))
 							{
-								fsom.Files.Add("Copy of " + file.Name, file.GetDataAsByteArray());
+								fsom.Files.Add("Copy of " + file.Name, file.GetData());
 							}
 						}
 					}
@@ -823,7 +823,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				{
 					File file = new File();
 					file.Name = fileName;
-					file.SetDataAsByteArray(System.IO.File.ReadAllBytes(fileName));
+					file.SetData(System.IO.File.ReadAllBytes(fileName));
 
 					Dialogs.FileSystem.FilePropertiesDialog dlg = new Dialogs.FileSystem.FilePropertiesDialog();
 					dlg.SelectedObjects.Add(file);

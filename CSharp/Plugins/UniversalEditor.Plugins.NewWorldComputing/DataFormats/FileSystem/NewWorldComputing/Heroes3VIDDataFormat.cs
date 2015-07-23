@@ -60,7 +60,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
 			}
 			foreach (File file in files)
 			{
-				bw.WriteBytes(file.GetDataAsByteArray());
+				bw.WriteBytes(file.GetData());
 			}
 		}
 

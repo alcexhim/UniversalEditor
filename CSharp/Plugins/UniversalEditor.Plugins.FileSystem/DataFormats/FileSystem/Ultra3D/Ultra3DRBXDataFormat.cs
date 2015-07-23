@@ -77,7 +77,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
             foreach (File file in fsom.Files)
             {
                 bw.WriteUInt32((uint)file.Size);
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
         }
     }

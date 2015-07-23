@@ -106,7 +106,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TroikaGames.Arcanum
 			byte[][] compressedDatas = new byte[files.Length][];
 			for (int i = 0; i < files.Length; i++)
 			{
-				byte[] decompressedData = files[i].GetDataAsByteArray();
+				byte[] decompressedData = files[i].GetData();
 				byte[] compressedData = Compression.CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib).Compress(decompressedData);
 				compressedDatas[i] = compressedData;
 				writer.WriteBytes(compressedData);
@@ -130,7 +130,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TroikaGames.Arcanum
 				writer.WriteUInt32(unknown1);
 				writer.WriteUInt32(unknown2);
 
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = compressedDatas[i];
 				
 				writer.WriteUInt32((uint)decompressedData.Length);

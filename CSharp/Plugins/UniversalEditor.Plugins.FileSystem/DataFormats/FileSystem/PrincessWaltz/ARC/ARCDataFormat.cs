@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.PrincessWaltz.ARC
 {
@@ -48,10 +49,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PrincessWaltz.ARC
 
 					File file = fsom.AddFile(fileName);
 					file.Size = length;
-					file.Properties.Add("reader", reader);
-					file.Properties.Add("length", length);
-					file.Properties.Add("offset", offset);
-					file.DataRequest += file_DataRequest;
+					file.Source = new EmbeddedFileSource(reader, offset, length);
 				}
 			}
 		}
@@ -114,7 +112,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PrincessWaltz.ARC
 			{
 				foreach (File file in kvp.Value)
 				{
-					writer.WriteBytes(file.GetDataAsByteArray());
+					file.WriteTo(writer);
 				}
 			}
 			writer.Flush();

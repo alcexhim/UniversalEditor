@@ -1022,7 +1022,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 			page.Title = file.Name;
 			page.Description = FileName + "::/" + file.Name;
 
-			byte[] data = file.GetDataAsByteArray();
+			byte[] data = file.GetData();
 			MemoryAccessor ma = new MemoryAccessor(data);
 
 			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(ma);

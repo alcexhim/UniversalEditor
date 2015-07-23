@@ -11,16 +11,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 	{
 
 		private byte[] mvarData = null;
-		[Obsolete("Please use Reader, Offset, and Length to construct a DataRequest")]
+		[Obsolete("Please use FileSources instead of DataRequests")]
 		public byte[] Data { get { return mvarData; } set { mvarData = value; } }
-
-		private Reader mvarReader = null;
-		public Reader Reader { get { return mvarReader; } set { mvarReader = value; } }
-
-		private long mvarOffset = 0;
-		public long Offset { get { return mvarOffset; } set { mvarOffset = value; } }
-
-		private long mvarLength = 0;
-		public long Length { get { return mvarLength; } set { mvarLength = value; } }
 	}
 }

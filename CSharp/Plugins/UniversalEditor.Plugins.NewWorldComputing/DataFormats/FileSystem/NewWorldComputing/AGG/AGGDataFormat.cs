@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 {
@@ -51,9 +52,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 				File file = new File();
 				file.Name = files[i].name;
 				file.Size = files[i].size;
-				file.Properties.Add("InternalData", files[i]);
-				file.Properties.Add("BinaryReader", br);
-				file.DataRequest += file_DataRequest;
+				file.Source = new EmbeddedFileSource(br, files[i].offset, files[i].size);
 				fsom.Files.Add(file);
 			}
 
@@ -61,6 +60,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 			// 43341516
 		}
 
+		/*
 		void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
 			File file = (sender as File);
@@ -76,6 +76,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 			uint hash = (uint)cksm.Calculate(e.Data);
 
 		}
+		*/
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
@@ -101,7 +102,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 
 			for (ushort i = 0; i < fileCount; i++)
 			{
-				bw.WriteBytes(fsom.Files[i].GetDataAsByteArray());
+				fsom.Files[i].WriteTo(bw);
 			}
 
 			foreach (File file in fsom.Files)

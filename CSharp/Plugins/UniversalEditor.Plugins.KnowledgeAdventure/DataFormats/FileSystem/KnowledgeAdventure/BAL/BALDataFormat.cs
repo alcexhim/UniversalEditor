@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 {
-    public class BALDataFormat : DataFormat
-    {
+	public class BALDataFormat : DataFormat
+	{
 		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
@@ -80,10 +81,7 @@ namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 				File file = new File();
 				file.Name = entry.Name;
 				file.Size = entry.Length;
-				file.Properties.Add("reader", reader);
-				file.Properties.Add("offset", entry.Offset);
-				file.Properties.Add("length", entry.Length);
-				file.DataRequest += file_DataRequest;
+				file.Source = new EmbeddedFileSource(reader, entry.Offset, entry.Length);
 				parent.Files.Add(file);
 			}
 		}
@@ -105,18 +103,6 @@ namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 			writer.WriteInt32(entry.Length);
 			writer.WriteInt32((int)entry.Attributes);
 			writer.WriteInt32(entry.UnknownA3);
-		}
-
-		void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			Reader reader = (Reader)file.Properties["reader"];
-			int offset = (int)file.Properties["offset"];
-			int length = (int)file.Properties["length"];
-
-			reader.Seek(offset, SeekOrigin.Begin);
-			byte[] data = reader.ReadBytes(length);
-			e.Data = data;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
