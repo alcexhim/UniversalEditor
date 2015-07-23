@@ -99,7 +99,18 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				DataRequestEventArgs e = new DataRequestEventArgs();
 				DataRequest(this, e);
-				mvarData = e.Data;
+				if (e.Data == null && e.Reader == null)
+				{
+					Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array or Reader");
+				}
+				else if (e.Data != null)
+				{
+					mvarData = e.Data;
+				}
+				else
+				{
+					Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array; please use GetData() method");
+				}
 			}
 			return mvarData;
 		}
@@ -107,6 +118,29 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		{
 			mvarStream = null;
 			mvarData = data;
+		}
+
+		public byte[] GetData(long offset, long length)
+		{
+			DataRequestEventArgs e = new DataRequestEventArgs();
+			DataRequest(this, e);
+			if (e.Data != null)
+			{
+				long realLength = Math.Min(length, e.Data.Length);
+				byte[] data = new byte[realLength];
+				Array.Copy(e.Data, 0, data, 0, realLength);
+				return data;
+			}
+			else if (e.Reader != null)
+			{
+				long realLength = Math.Min(length, e.Length);
+				e.Reader.Seek(e.Offset + offset, IO.SeekOrigin.Begin);
+				byte[] data = e.Reader.ReadBytes(length);
+				return data;
+			}
+
+			Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array or Reader");
+			return null;
 		}
 
 		private System.IO.Stream mvarStream = null;
