@@ -9,7 +9,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 	public delegate void DataRequestEventHandler(object sender, DataRequestEventArgs e);
 	public class DataRequestEventArgs : EventArgs
 	{
+
 		private byte[] mvarData = null;
+		[Obsolete("Please use Reader, Offset, and Length to construct a DataRequest")]
 		public byte[] Data { get { return mvarData; } set { mvarData = value; } }
 
 		private Reader mvarReader = null;
