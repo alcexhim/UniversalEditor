@@ -259,7 +259,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			long blockSize = (System.Environment.WorkingSet / BLOCK_FRACTION);
 			
 			long offset = 0;
-			long blockCount = mvarSource.GetLength() / blockSize;
+			double dbl = ((double)mvarSource.GetLength() / (double)blockSize);
+			long blockCount = (long)Math.Ceiling(dbl);
 
 			if (transformations != null)
 			{
