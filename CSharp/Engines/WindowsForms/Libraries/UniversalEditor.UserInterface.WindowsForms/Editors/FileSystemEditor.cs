@@ -118,6 +118,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			TemporaryFileManager.UnregisterTemporaryDirectory();
 		}
 
+		private const int ICON_LOADER_SKIP_THRESHOLD_SIZE = 8388608;
+
 		private System.Threading.Thread tIconLoader = null;
 		private void tIconLoader_ThreadStart()
 		{
@@ -125,6 +127,9 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			{
 				File file = (lvi.Data as File);
 				if (file == null) continue;
+
+				// skip over impossibly huge files of an arbitrary threshold size
+				if (file.Size > ICON_LOADER_SKIP_THRESHOLD_SIZE) continue;
 
 				byte[] data = file.GetData();
 				if (data == null) continue;
@@ -464,13 +469,13 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				File file = (lvi.Data as File);
 				if (file != null)
 				{
-					byte[] data = file.GetData();
-
 					if (String.IsNullOrEmpty(file.Name))
 					{
 						file.Name = "[]";
 					}
-					string filePath = TemporaryFileManager.CreateTemporaryFile(file.Name, data);
+
+					string filePath = TemporaryFileManager.CreateTemporaryFile(file.Name);
+					file.WriteTo(new IO.Writer(new FileAccessor(filePath, true, true, true)));
 					filePaths.Add(filePath);
 
 					file.Properties["tempfile"] = filePath;
@@ -882,7 +887,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 					{
 						System.IO.Directory.CreateDirectory(ParentDirectoryName);
 					}
-					file.Save(FileName);
+					file.WriteTo(new IO.Writer(new FileAccessor(FileName)));
 				}
 				HostApplication.CurrentWindow.UpdateProgress(false);
 				HostApplication.CurrentWindow.UpdateStatus("Ready");
