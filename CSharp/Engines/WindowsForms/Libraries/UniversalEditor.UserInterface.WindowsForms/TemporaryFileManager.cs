@@ -7,19 +7,18 @@ internal static class TemporaryFileManager
 	private static System.Collections.Specialized.StringCollection mvarTemporaryFileNames = new System.Collections.Specialized.StringCollection();
 	private static string mvarTemporaryFilePath = null;
 
-	public static string CreateTemporaryFile(string FileName, byte[] FileData)
+	public static string CreateTemporaryFile(string FileName, byte[] FileData = null)
 	{
 		if (mvarTemporaryFilePath == null) throw new InvalidOperationException();
-        if (!System.IO.Directory.Exists(mvarTemporaryFilePath))
-        {
-            System.IO.Directory.CreateDirectory(mvarTemporaryFilePath);
-        }
+		if (!System.IO.Directory.Exists(mvarTemporaryFilePath))
+		{
+			System.IO.Directory.CreateDirectory(mvarTemporaryFilePath);
+		}
 
-        FileName = System.IO.Path.GetFileName(FileName);
-        if (FileData == null) FileData = new byte[0];
-
+		FileName = System.IO.Path.GetFileName(FileName);
+		
 		string filePath = mvarTemporaryFilePath + System.IO.Path.DirectorySeparatorChar.ToString() + FileName;
-		System.IO.File.WriteAllBytes(filePath, FileData);
+		if (FileData != null) System.IO.File.WriteAllBytes(filePath, FileData);
 		mvarTemporaryFileNames.Add(filePath);
 		return filePath;
 	}
