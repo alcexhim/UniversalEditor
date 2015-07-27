@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.CFL
 {
@@ -49,30 +51,22 @@ namespace UniversalEditor.DataFormats.FileSystem.CFL
 
 				File file = fsom.AddFile(fileName);
 				file.Size = fileSize;
-				file.Properties.Add("reader", reader);
-				file.Properties.Add("length", fileSize);
-				file.Properties.Add("offset", offset);
-				file.DataRequest += file_DataRequest;
+				file.Source = new EmbeddedFileSource(reader, offset, fileSize, new FileSourceTransformation[]
+				{
+					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+					{
+						Reader reader1 = new Reader(new StreamAccessor(inputStream));
+						uint compressedSize = reader1.ReadUInt32();
+						
+						// uh... continue?
+					})
+				});
 			}
 			#endregion
 
 			uint offsetToEndOfFile = reader.ReadUInt32();
 			string signatureFooter = reader.ReadFixedLengthString(4);
 			if (signatureFooter != "3CFL") throw new InvalidDataFormatException("File does not end with '3CFL'");
-		}
-
-		private void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			Reader reader = (Reader)file.Properties["reader"];
-			uint filesize = (uint)file.Properties["length"];
-			uint offset = (uint)file.Properties["offset"];
-
-			reader.Accessor.Seek(offset, SeekOrigin.Begin);
-			uint compressedSize = reader.ReadUInt32();
-			byte[] compressedData = reader.ReadBytes(compressedSize);
-			byte[] decompressedData = compressedData;
-			e.Data = decompressedData;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -101,7 +95,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CFL
 			for (int i = 0; i < files.Length; i++)
 			{
 				fileOffsets[i] = (uint)writer.Accessor.Position;
-				byte[] decompressedData = files[i].GetDataAsByteArray();
+				byte[] decompressedData = files[i].GetData();
 				byte[] compressedData = decompressedData;
 				uint compressedLength = (uint)compressedData.Length;
 				writer.WriteUInt32(compressedLength);

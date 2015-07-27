@@ -230,7 +230,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
                 byte un1 = 128;
                 bw.WriteByte(un1);
 
-                byte[] decompressedData = file.GetDataAsByteArray();
+                byte[] decompressedData = file.GetData();
                 byte[] compressedData = decompressedData;
 
                 bw.WriteUInt32((uint)compressedData.Length);

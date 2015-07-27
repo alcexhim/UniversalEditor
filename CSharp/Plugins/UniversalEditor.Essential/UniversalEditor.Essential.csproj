@@ -45,7 +45,6 @@
     <Compile Include="DataFormats\AbstractSyntax\DER\DERDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\UXT\Internal\FileInfo.cs" />
     <Compile Include="DataFormats\FileSystem\UXT\UXTDataFormat.cs" />
     <Compile Include="DataFormats\Markup\EBML\EBMLDataFormat.cs" />
     <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLDataFormat.cs" />
@@ -93,6 +92,12 @@
     <Compile Include="ObjectModels\FileSystem\DataRequestEvent.cs" />
     <Compile Include="ObjectModels\FileSystem\File.cs" />
     <Compile Include="ObjectModels\FileSystem\FileAttributes.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\MemoryFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\PhysicalFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\EmbeddedFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\AccessorFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSourceTransformation.cs" />
     <Compile Include="ObjectModels\FileSystem\FileSystemObjectModel.cs" />
     <Compile Include="ObjectModels\FileSystem\Folder.cs" />
     <Compile Include="ObjectModels\FileSystem\IFileSystemContainer.cs" />

@@ -104,7 +104,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Eighting.FPK
 				writer.WriteFixedLengthString(file.Name, 36);
 				writer.WriteUInt32(offset);
 
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = decompressedData;
 
 				compressedDatas[i] = compressedData;

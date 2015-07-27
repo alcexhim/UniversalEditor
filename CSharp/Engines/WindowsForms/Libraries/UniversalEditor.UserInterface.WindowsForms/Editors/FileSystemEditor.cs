@@ -118,6 +118,8 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 			TemporaryFileManager.UnregisterTemporaryDirectory();
 		}
 
+		private const int ICON_LOADER_SKIP_THRESHOLD_SIZE = 8388608;
+
 		private System.Threading.Thread tIconLoader = null;
 		private void tIconLoader_ThreadStart()
 		{
@@ -128,7 +130,10 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 					File file = (lvi.Data as File);
 					if (file == null) continue;
 
-					byte[] data = file.GetDataAsByteArray();
+					// skip over impossibly huge files of an arbitrary threshold size
+					if (file.Size > ICON_LOADER_SKIP_THRESHOLD_SIZE) continue;
+
+					byte[] data = file.GetData();
 					if (data == null) continue;
 
 					try
@@ -471,13 +476,13 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				File file = (lvi.Data as File);
 				if (file != null)
 				{
-					byte[] data = file.GetDataAsByteArray();
-
 					if (String.IsNullOrEmpty(file.Name))
 					{
 						file.Name = "[]";
 					}
-					string filePath = TemporaryFileManager.CreateTemporaryFile(file.Name, data);
+
+					string filePath = TemporaryFileManager.CreateTemporaryFile(file.Name);
+					file.WriteTo(new IO.Writer(new FileAccessor(filePath, true, true, true)));
 					filePaths.Add(filePath);
 
 					file.Properties["tempfile"] = filePath;
@@ -669,7 +674,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 
 			File file = new File();
 			file.Name = FileTitle;
-			file.SetDataAsByteArray(data);
+			file.SetData(data);
 
 			if (parent != null)
 			{
@@ -746,7 +751,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 						{
 							if (fsom.Files.Contains(file.Name))
 							{
-								fsom.Files.Add("Copy of " + file.Name, file.GetDataAsByteArray());
+								fsom.Files.Add("Copy of " + file.Name, file.GetData());
 							}
 						}
 					}
@@ -830,7 +835,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 				{
 					File file = new File();
 					file.Name = fileName;
-					file.SetDataAsByteArray(System.IO.File.ReadAllBytes(fileName));
+					file.SetData(System.IO.File.ReadAllBytes(fileName));
 
 					Dialogs.FileSystem.FilePropertiesDialog dlg = new Dialogs.FileSystem.FilePropertiesDialog();
 					dlg.SelectedObjects.Add(file);
@@ -889,7 +894,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 					{
 						System.IO.Directory.CreateDirectory(ParentDirectoryName);
 					}
-					file.Save(FileName);
+					file.WriteTo(new IO.Writer(new FileAccessor(FileName)));
 				}
 				HostApplication.CurrentWindow.UpdateProgress(false);
 				HostApplication.CurrentWindow.UpdateStatus("Ready");

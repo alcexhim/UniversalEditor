@@ -174,7 +174,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			File file = new File();
 			file.Name = path[path.Length - 1];
-			if (fileData != null) file.SetDataAsByteArray(fileData);
+			if (fileData != null) file.SetData(fileData);
 			if (parent == null)
 			{
 				mvarFiles.Add(file);

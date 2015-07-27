@@ -96,6 +96,7 @@
     <Compile Include="DataFormats\FileSystem\CHD\CHDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\CHD\CHDEntryType.cs" />
     <Compile Include="DataFormats\FileSystem\CHD\CHDFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\CHD\CHDHunkFileSource.cs" />
     <Compile Include="DataFormats\FileSystem\CPIO\CPIODataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\CPIO\CPIOEncoding.cs" />
     <Compile Include="DataFormats\FileSystem\DeepSilver\SecretFiles\SPRDataFormat.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="DataFormats\FileSystem\GCD\GCDDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GremlinInteractive\ActuaSoccer\MAD\MADDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GremlinInteractive\ActuaSoccer\MAD\MADFormatVersion.cs" />
+    <Compile Include="DataFormats\FileSystem\HostileWaters\MBXFileSource.cs" />
     <Compile Include="DataFormats\FileSystem\IndianaJones\GOB\GOBDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\GPW\GPWDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Hardball\MB6DataFormat.cs" />

@@ -5,6 +5,7 @@ using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.Box
 {
@@ -143,23 +144,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 
 				File file = new File();
 				file.Name = sectionName;
-				file.Properties.Add("brf", brf);
-				file.Properties.Add("offset", sectionOffset);
-				file.Properties.Add("length", sectionVirtualSize);
-				file.DataRequest += file_DataRequest;
+				file.Source = new EmbeddedFileSource(brf, (long)sectionOffset, (long)sectionVirtualSize);
 			}
-		}
-
-		private void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-
-			IO.Reader br = (file.Properties["brf"] as IO.Reader);
-			ulong sectionOffset = (ulong)file.Properties["offset"];
-			ulong sectionLength = (ulong)file.Properties["length"];
-			br.Accessor.Seek((long)sectionOffset, SeekOrigin.Begin);
-			byte[] fileData = br.ReadBytes(sectionLength);
-			e.Data = fileData;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -191,7 +177,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			}
 			foreach (File file in fsom.Files)
 			{
-				bw.WriteBytes(file.GetDataAsByteArray());
+				file.WriteTo(bw);
 
 				ulong allocationPadding = ((ulong)file.Size / mvarAllocationSize);
 				ulong rem = allocationPadding * mvarAllocationSize;

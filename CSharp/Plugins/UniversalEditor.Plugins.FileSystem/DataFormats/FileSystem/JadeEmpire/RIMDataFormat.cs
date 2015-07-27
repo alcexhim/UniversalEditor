@@ -109,7 +109,7 @@ namespace UniversalEditor.DataFormats.FileSystem.JadeEmpire
 			}
 			foreach (File file in fsom.Files)
 			{
-				bw.WriteBytes(file.GetDataAsByteArray());
+				bw.WriteBytes(file.GetData());
 
 				uint paddingCount = (uint)(offset % 128);
 				bw.WriteBytes(new byte[paddingCount]);

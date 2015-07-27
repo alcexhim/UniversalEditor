@@ -194,7 +194,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 				Internal.ARJFileHeader fileheader = new Internal.ARJFileHeader();
 				fileheader.Timestamp = 0;
 
-				byte[] data = file.GetDataAsByteArray();
+				byte[] data = file.GetData();
 				fileheader.CompressedSize = data.Length;
 				fileheader.OriginalSize = data.Length;
 				fileheader.OriginalCRC32 = 0;

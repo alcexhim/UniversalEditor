@@ -119,7 +119,7 @@ namespace UniversalEditor.DataFormats.FileSystem.GremlinInteractive.ActuaSoccer.
 			}
 			for (uint i = 0; i < files.Length; i++)
 			{
-				writer.WriteBytes(files[i].GetDataAsByteArray());
+				writer.WriteBytes(files[i].GetData());
 			}
 			writer.Flush();
 		}

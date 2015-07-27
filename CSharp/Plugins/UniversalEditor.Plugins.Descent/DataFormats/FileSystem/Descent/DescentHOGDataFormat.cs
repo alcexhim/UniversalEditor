@@ -64,7 +64,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Descent
             {
                 bw.WriteFixedLengthString(file.Name, 13);
                 bw.WriteInt32((int)file.Size);
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
             bw.Flush();
         }

@@ -93,7 +93,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WAD
             }
             foreach (File file in fsom.Files)
             {
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
         }
     }

@@ -264,7 +264,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			file.Name = path[path.Length - 1];
 			if (fileData != null)
 			{
-				file.SetDataAsByteArray(fileData);
+				file.SetData(fileData);
 			}
 			if (parent == null)
 			{

@@ -198,7 +198,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 			if (fsom.Files.Count > 0)
 			{
 				File file = fsom.Files[0];
-				byte[] data = file.GetDataAsByteArray();
+				byte[] data = file.GetData();
 
 			}
 		}

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using UniversalEditor.Accessors;
-using UniversalEditor.IO;
-using UniversalEditor.ObjectModels.FileSystem.FileSources;
+using System.Text;
 
 namespace UniversalEditor.ObjectModels.FileSystem
 {
@@ -23,7 +20,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				File file = new File();
 				file.Name = FileName;
-				file.SetData(FileData);
+				file.SetDataAsByteArray(FileData);
 				base.Add(file);
 				return file;
 			}
@@ -31,7 +28,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				File file = new File();
 				file.Name = FileName;
-				file.SetData(System.IO.File.ReadAllBytes(SourceFileName));
+				file.SetDataAsByteArray(System.IO.File.ReadAllBytes(SourceFileName));
 				base.Add(file);
 				return file;
 			}
@@ -78,6 +75,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 		}
 
+		public event DataRequestEventHandler DataRequest;
+
 		private FileAttributes mvarAttributes = FileAttributes.None;
 		public FileAttributes Attributes { get { return mvarAttributes; } set { mvarAttributes = value; } }
 
@@ -87,29 +86,60 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// </summary>
 		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-		public void SetData(byte[] data)
+		private byte[] mvarData = null;
+		public byte[] GetDataAsByteArray()
 		{
-			mvarSource = new MemoryFileSource(data);
-		}
-
-		public byte[] GetData()
-		{
-			if (mvarSource != null) return mvarSource.GetData();
-			if (DataRequest != null)
+			if (mvarData == null && DataRequest == null)
+			{
+				// throw new InvalidOperationException("Data is not represented as a byte array and data request is not handled");
+				Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array and data request is not handled");
+				return mvarData;
+			}
+			else if (mvarData == null && DataRequest != null)
 			{
 				DataRequestEventArgs e = new DataRequestEventArgs();
 				DataRequest(this, e);
-				return e.Data;
+				if (e.Data == null && e.Reader == null)
+				{
+					Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array or Reader");
+				}
+				else if (e.Data != null)
+				{
+					mvarData = e.Data;
+				}
+				else
+				{
+					Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array; please use GetData() method");
+				}
 			}
-
-			Console.WriteLine("DataRequest: " + mvarName + ": No source associated with this file");
-			return null;
+			return mvarData;
 		}
+		public void SetDataAsByteArray(byte[] data)
+		{
+			mvarStream = null;
+			mvarData = data;
+		}
+
 		public byte[] GetData(long offset, long length)
 		{
-			if (mvarSource != null) return mvarSource.GetData(offset, length);
+			DataRequestEventArgs e = new DataRequestEventArgs();
+			DataRequest(this, e);
+			if (e.Data != null)
+			{
+				long realLength = Math.Min(length, e.Data.Length);
+				byte[] data = new byte[realLength];
+				Array.Copy(e.Data, 0, data, 0, realLength);
+				return data;
+			}
+			else if (e.Reader != null)
+			{
+				long realLength = Math.Min(length, e.Length);
+				e.Reader.Seek(e.Offset + offset, IO.SeekOrigin.Begin);
+				byte[] data = e.Reader.ReadBytes(length);
+				return data;
+			}
 
-			Console.WriteLine("DataRequest: " + mvarName + ": No source associated with this file");
+			Console.WriteLine("DataRequest: " + mvarName + ": Data is not represented as a byte array or Reader");
 			return null;
 		}
 
@@ -119,25 +149,43 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			if (mvarStream == null) throw new InvalidOperationException("Data is not represented as a stream");
 			return mvarStream;
 		}
-		public void SetData(System.IO.Stream stream)
+		public void SetDataAsStream(System.IO.Stream stream)
 		{
-			mvarSource = new AccessorFileSource(new StreamAccessor(stream));
+			mvarStream = stream;
+			mvarData = null;
 		}
 
-		public void SetData(string value)
+		public string GetDataAsString()
 		{
-			SetData(value, Encoding.Default);
+			return GetDataAsString(Encoding.Default);
 		}
-		public void SetData(string value, Encoding encoding)
+		public string GetDataAsString(Encoding encoding)
 		{
-			SetData(encoding.GetBytes(value));
+			if (mvarData == null) throw new InvalidOperationException("Data is not represented as a byte array");
+			return encoding.GetString(mvarData);
+		}
+		public void SetDataAsString(string value)
+		{
+			SetDataAsString(value, Encoding.Default);
+		}
+		public void SetDataAsString(string value, Encoding encoding)
+		{
+			SetDataAsByteArray(encoding.GetBytes(value));
 		}
 
 		public object Clone()
 		{
 			File clone = new File();
 			clone.Name = mvarName;
-			clone.Source = mvarSource;
+			clone.DataRequest = DataRequest;
+			if (mvarData == null && mvarStream != null)
+			{
+				clone.SetDataAsStream(mvarStream);
+			}
+			else if (mvarData != null && mvarStream == null)
+			{
+				clone.SetDataAsByteArray(GetDataAsByteArray());
+			}
 			foreach (KeyValuePair<string, object> kvp in mvarProperties)
 			{
 				clone.Properties.Add(kvp.Key, kvp.Value);
@@ -150,7 +198,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			string strSize = "*";
 			try
 			{
-				byte[] data = this.GetData();
+				byte[] data = this.GetDataAsByteArray();
 				if (data != null)
 				{
 					strSize = data.Length.ToString();
@@ -174,23 +222,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				System.IO.Directory.CreateDirectory(FileDirectory);
 			}
-
-			FileSource source = mvarSource;
-			long blockSize = (System.Environment.WorkingSet / 8);
-			long blockCount = (blockSize / source.GetLength());
-			long offset = 0;
-
-			FileAccessor fa = new FileAccessor(FileName, true, true);
-			fa.Open();
-			for (long i = 0; i < blockCount; i++)
-			{
-				byte[] blockData = GetData(offset, blockSize);
-				offset += blockSize;
-
-				fa.Writer.WriteBytes(blockData);
-			}
-			fa.Writer.Flush();
-			fa.Close();
+			System.IO.File.WriteAllBytes(FileName, GetDataAsByteArray());
 		}
 
 		private long? mvarSize = null;
@@ -204,9 +236,13 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				}
 				else
 				{
-					if (mvarSource != null)
+					if (mvarData != null)
 					{
-						return mvarSource.GetLength();
+						return mvarData.Length;
+					}
+					else if (mvarStream != null)
+					{
+						return mvarStream.Length;
 					}
 					return 0;
 				}
@@ -230,53 +266,10 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
 		#endregion
 
-		public event DataRequestEventHandler DataRequest;
-
 		private Dictionary<string, object> mvarProperties = new Dictionary<string,object>();
 		public Dictionary<string, object> Properties { get { return mvarProperties; } }
 
 		private DateTime mvarModificationTimestamp = DateTime.Now;
 		public DateTime ModificationTimestamp { get { return mvarModificationTimestamp; } set { mvarModificationTimestamp = value; } }
-
-		private FileSource mvarSource = null;
-		/// <summary>
-		/// Determines where this <see cref="File" /> gets its data from.
-		/// </summary>
-		public FileSource Source { get { return mvarSource; } set { mvarSource = value; } }
-
-		// The amount of working set to allocate to each block.
-		public const int BLOCK_FRACTION = 4;
-
-		/// <summary>
-		/// Writes the entire contents of this <see cref="File" />, in blocks, to a <see cref="Writer" />.
-		/// </summary>
-		/// <param name="bw"></param>
-		/// <param name="transformations">The <see cref="FileSourceTransformation" />s that are applied to the output data.</param>
-		/// <returns>The number of bytes written to the <see cref="Writer" />.</returns>
-		public long WriteTo(Writer bw, FileSourceTransformation[] transformations = null)
-		{
-			long count = 0;
-			long blockSize = (System.Environment.WorkingSet / BLOCK_FRACTION);
-			
-			long offset = 0;
-			double dbl = ((double)mvarSource.GetLength() / (double)blockSize);
-			long blockCount = (long)Math.Ceiling(dbl);
-
-			if (transformations != null)
-			{
-			
-			}
-
-			for (long i = 0; i < blockCount; i++)
-			{
-				byte[] data = mvarSource.GetData(offset, blockSize);
-				offset += blockSize;
-
-				bw.WriteBytes(data);
-				count += data.Length;
-			}
-			bw.Flush();
-			return count;
-		}
 	}
 }

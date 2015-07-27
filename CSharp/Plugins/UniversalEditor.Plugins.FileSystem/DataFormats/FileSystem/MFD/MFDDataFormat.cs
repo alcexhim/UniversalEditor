@@ -80,7 +80,7 @@ namespace UniversalEditor.DataFormats.FileSystem.MFD
             }
             foreach (File file in files)
             {
-                writer.WriteBytes(file.GetDataAsByteArray());
+                writer.WriteBytes(file.GetData());
                 writer.Align(4);
             }
             writer.Flush();

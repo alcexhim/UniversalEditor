@@ -79,7 +79,7 @@ namespace UniversalEditor.DataFormats.FileSystem.GPW
 				bw.WriteFixedLengthString(file.Name);
 
 				// The stored file's data, where n is the file size. 
-				bw.WriteBytes(file.GetDataAsByteArray());
+				bw.WriteBytes(file.GetData());
 			}
 		}
 	}

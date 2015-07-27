@@ -74,7 +74,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.ImageCollection
             foreach (File file in files)
             {
                 bw.WriteInt64(file.Size);
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
             }
             bw.Flush();
         }

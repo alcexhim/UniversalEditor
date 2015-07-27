@@ -57,7 +57,7 @@ namespace UniversalEditor.UserInterface.WindowsForms.Dialogs.FileSystem.Internal
 					chkGeneralAttributesHidden.Checked = ((file.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden);
 					chkGeneralAttributesReadOnly.Checked = ((file.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly);
 
-					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetDataAsByteArray(), file.Name);
+					Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(file.GetData(), file.Name);
 					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = ma });
 					if (assocs.Length > 0)
 					{

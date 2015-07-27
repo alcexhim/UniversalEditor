@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UniversalEditor.Accessors;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 {
@@ -135,44 +137,38 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 
 			for (ushort i = 0; i < filecount; i++)
 			{
-				FileInfo fi = new FileInfo();
-				fi.hash = brh.ReadUInt16();
+				ushort hash = brh.ReadUInt16();
 
-				fi.filename = "FILE" + i.ToString().PadLeft(4, '0');
-				if (HashFileNames.ContainsKey(fi.hash))
+				string filename = "FILE" + i.ToString().PadLeft(4, '0');
+				if (HashFileNames.ContainsKey(hash))
 				{
-					fi.filename = HashFileNames[fi.hash];
+					filename = HashFileNames[hash];
 				}
 
-				fi.offset = brh.ReadUInt24();
-				fi.size = brh.ReadUInt16();
-				fi.nul = brh.ReadByte();
+				uint offset = brh.ReadUInt24();
+				ushort length = brh.ReadUInt16();
+				byte nul = brh.ReadByte();
 
-				File file = new File();
-				file.Name = fi.filename;
-				file.Properties.Add("reader", br);
-				file.Properties.Add("fileinfo", fi);
-				file.DataRequest += file_DataRequest;
-				fsom.Files.Add(file);
+				File file = fsom.AddFile(filename);
+				file.Source = new EmbeddedFileSource(brh, (long)offset, (long)length, new FileSourceTransformation[]
+				{
+					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+					{
+						StreamAccessor saInput = new StreamAccessor(inputStream);
+						StreamAccessor saOutput = new StreamAccessor(outputStream);
+
+						Reader reader = new Reader(saInput);
+						Writer writer = new Writer(saOutput);
+
+						while (!reader.EndOfStream)
+						{
+							byte data = reader.ReadByte();
+							data ^= mvarKey;
+							writer.WriteByte(data);
+						}
+					})
+				});
 			}
-		}
-
-		void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			if (file == null) return;
-
-			IO.Reader br = (file.Properties["reader"] as IO.Reader);
-			FileInfo fi = (FileInfo)file.Properties["fileinfo"];
-
-			br.Accessor.Seek(fi.offset, IO.SeekOrigin.Begin);
-			byte[] data = br.ReadBytes(fi.size);
-
-			for (int i = 0; i < data.Length; i++)
-			{
-				data[i] ^= mvarKey;
-			}
-			e.Data = data;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

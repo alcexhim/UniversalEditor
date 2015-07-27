@@ -124,7 +124,7 @@ namespace UniversalEditor.DataFormats.FileSystem.UUEncoding
             
             File file = new File();
             file.Name = fileName;
-            file.SetDataAsByteArray(data);
+            file.SetData(data);
             fsom.Files.Add(file);
         }
 

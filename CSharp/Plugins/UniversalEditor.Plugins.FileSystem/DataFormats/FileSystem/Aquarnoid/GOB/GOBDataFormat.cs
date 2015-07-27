@@ -77,7 +77,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Aquarnoid.GOB
             }
             foreach (File file in files)
             {
-                writer.WriteBytes(file.GetDataAsByteArray());
+                writer.WriteBytes(file.GetData());
             }
             writer.Flush();
         }

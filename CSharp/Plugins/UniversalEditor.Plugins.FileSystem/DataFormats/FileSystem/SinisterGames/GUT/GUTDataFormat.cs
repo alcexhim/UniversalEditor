@@ -133,7 +133,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 			}
 			foreach (File file in files)
 			{
-				writer.WriteBytes(file.GetDataAsByteArray());
+				writer.WriteBytes(file.GetData());
 			}
 		}
 	}

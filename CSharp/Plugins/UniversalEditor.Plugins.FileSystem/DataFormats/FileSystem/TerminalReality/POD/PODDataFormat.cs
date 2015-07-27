@@ -225,7 +225,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 
 					foreach (File file in files)
 					{
-						writer.WriteBytes(file.GetDataAsByteArray());
+						writer.WriteBytes(file.GetData());
 					}
 					break;
 				}
@@ -257,7 +257,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 					}
 					for (uint i = 0; i < files.Length; i++)
 					{
-						writer.WriteBytes(files[i].GetDataAsByteArray());
+						writer.WriteBytes(files[i].GetData());
 					}
 					writer.Flush();
 					break;
@@ -298,7 +298,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 					uint offset = (uint)base.Accessor.Position;
 					for (uint i = 0; i < files.Length; i++)
 					{
-						writer.WriteBytes(files[i].GetDataAsByteArray());
+						writer.WriteBytes(files[i].GetData());
 					}
 
 					uint filenameOffset = 0;

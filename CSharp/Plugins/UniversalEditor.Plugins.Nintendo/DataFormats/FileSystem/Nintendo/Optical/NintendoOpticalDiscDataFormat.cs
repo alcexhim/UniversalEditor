@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 {
@@ -55,6 +56,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 				
 				_dfr.Sources.Add("http://wiibrew.org/wiki/Wii_Disc");
 				_dfr.Sources.Add("http://www.emutalk.net/threads/21512-GCM-file-extension!/page3");
+				_dfr.Sources.Add("http://hitmen.c02.at/files/yagcd/yagcd/chap13.html");
 			}
 			return _dfr;
 		}
@@ -217,7 +219,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 		private int m_OffsetToFST = 0;
 		private int m_NameTableOffset = 0;
 
-		private int LoadFileSystemObject(Reader reader, IFileSystemContainer parent)
+		private int LoadFileSystemObject(Reader reader, IFileSystemContainer parent, int parentOffset = 0, int nextOffset = 0)
 		{
 			int relativeNameOffsetAndFlag = reader.ReadInt32();
 			int relativeNameOffset = relativeNameOffsetAndFlag;
@@ -230,8 +232,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 			}
 
 			string fileName = m_NameTableEntries[relativeNameOffset];
-			int diskAddress = reader.ReadInt32();
-			int fileSize = reader.ReadInt32();
+			int diskAddress = reader.ReadInt32();						// file_offset or parent_offset (dir)
+			int fileSize = reader.ReadInt32();							// file_length or num_entries (root) or next_offset (dir)
 
 			if (isDirectory)
 			{
@@ -239,7 +241,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 				Folder folder = parent.Folders.Add(fileName);
 				for (int i = 0; i < fileSize; i++)
 				{
-					filesRead += LoadFileSystemObject(reader, folder);
+					filesRead += LoadFileSystemObject(reader, folder, diskAddress, fileSize);
 				}
 				return filesRead + 1;
 			}
@@ -247,6 +249,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 			{
 				File file = parent.Files.Add(fileName);
 				file.Size = fileSize;
+				file.Source = new EmbeddedFileSource(reader, diskAddress, fileSize);
 				return 1;
 			}
 			return 0;

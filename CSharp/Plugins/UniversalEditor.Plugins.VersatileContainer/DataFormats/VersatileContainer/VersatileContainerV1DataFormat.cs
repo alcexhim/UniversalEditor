@@ -129,14 +129,14 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 						File section = new File();
 						section.Name = sectionName;
 						byte[] data = CompressionModule.FromKnownCompressionMethod(sectionCompression).Decompress(sectionData);
-						section.SetDataAsByteArray(data);
+						section.SetData(data);
 						fsom.Files.Add(section);
 					}
 					else
 					{
 						File section = new File();
 						section.Name = sectionName;
-						section.SetDataAsByteArray(sectionData);
+						section.SetData(sectionData);
 						fsom.Files.Add(section);
 					}
 				}
@@ -295,7 +295,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 			{
 				foreach (File section in fsom.Files)
 				{
-					byte[] data = section.GetDataAsByteArray();
+					byte[] data = section.GetData();
 					/*
 					if (section is File)
 					{

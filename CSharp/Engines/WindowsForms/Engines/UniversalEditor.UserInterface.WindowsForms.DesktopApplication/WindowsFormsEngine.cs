@@ -47,28 +47,28 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				UniversalEditor.ObjectModels.FileSystem.File fileSplashScreenImage = fsom.Files["SplashScreen.png"];
 				if (fileSplashScreenImage != null)
 				{
-					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenImage.GetDataAsByteArray());
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenImage.GetData());
 					LocalConfiguration.SplashScreen.Image = System.Drawing.Image.FromStream(ms);
 				}
 
 				UniversalEditor.ObjectModels.FileSystem.File fileSplashScreenSound = fsom.Files["SplashScreen.wav"];
 				if (fileSplashScreenSound != null)
 				{
-					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenSound.GetDataAsByteArray());
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenSound.GetData());
 					LocalConfiguration.SplashScreen.Sound = ms;
 				}
 
 				UniversalEditor.ObjectModels.FileSystem.File fileMainIcon = fsom.Files["MainIcon.ico"];
 				if (fileMainIcon != null)
 				{
-					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileMainIcon.GetDataAsByteArray());
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileMainIcon.GetData());
 					LocalConfiguration.MainIcon = new System.Drawing.Icon(ms);
 				}
 
 				UniversalEditor.ObjectModels.FileSystem.File fileConfiguration = fsom.Files["Configuration.upl"];
 				if (fileConfiguration != null)
 				{
-					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileConfiguration.GetDataAsByteArray());
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileConfiguration.GetData());
 
 					UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel plomBranding = new ObjectModels.PropertyList.PropertyListObjectModel();
 					Document.Load(plomBranding, new UniversalPropertyListDataFormat(), new StreamAccessor(ms), true);

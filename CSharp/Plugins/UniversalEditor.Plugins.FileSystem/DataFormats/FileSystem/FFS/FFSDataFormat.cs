@@ -93,7 +93,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FFS
             }
             foreach (File file in fsom.Files)
             {
-                bw.WriteBytes(file.GetDataAsByteArray());
+                bw.WriteBytes(file.GetData());
                 bw.WriteByte((byte)255); // not quite sure what this is for, other than a file separator??
             }
         }

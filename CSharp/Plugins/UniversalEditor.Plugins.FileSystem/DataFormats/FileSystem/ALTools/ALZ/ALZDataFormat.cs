@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 {
@@ -41,69 +43,57 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 				switch (chunkID)
 				{
 					case 0x015A4C41:    // ALZ[soh]
-						{
-							int unknown = br.ReadInt32();
-							break;
-						}
+					{
+						int unknown = br.ReadInt32();
+						break;
+					}
 					case 0x015A4C42:    // BLZ[soh]
+					{
+						short fileNameLength = br.ReadInt16();
+						byte unknown1 = br.ReadByte();
+						int timestamp = br.ReadInt32();
+
+						int seconds = (((int)timestamp) << 1) & 0x3e;
+						int minutes = (((int)timestamp) >> 5) & 0x3f;
+						int hours = (((int)timestamp) >> 11) & 0x1f;
+						int days = (int)(timestamp >> 16) & 0x1f;
+						int months = ((int)(timestamp >> 21) & 0x0f);
+						int years = (((int)(timestamp >> 25) & 0x7f) + 1980);
+						
+						int formatChecksum = br.ReadInt32();
+						int unknown4 = br.ReadInt32();
+
+						short compressedLength = br.ReadInt16();
+						short decompressedLength = br.ReadInt16();
+						string filename = br.ReadFixedLengthString(fileNameLength);
+
+						File file = fsom.AddFile(filename);
+						file.ModificationTimestamp = new DateTime(years, months, days, hours, minutes, seconds);
+						file.Size = decompressedLength;
+						file.Source = new EmbeddedFileSource(br, br.Accessor.Position, compressedLength, new FileSourceTransformation[]
 						{
-							File file = new File();
-							short fileNameLength = br.ReadInt16();
-							byte unknown1 = br.ReadByte();
-							int timestamp = br.ReadInt32();
+							new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+							{
+								UniversalEditor.Compression.CompressionModule module = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Deflate);
+								module.Decompress(inputStream, outputStream);
+							})
+						});
 
-							int seconds = (((int)timestamp) << 1) & 0x3e;
-							int minutes = (((int)timestamp) >> 5) & 0x3f;
-							int hours = (((int)timestamp) >> 11) & 0x1f;
-							int days = (int)(timestamp >> 16) & 0x1f;
-							int months = ((int)(timestamp >> 21) & 0x0f);
-							int years = (((int)(timestamp >> 25) & 0x7f) + 1980);
-							file.ModificationTimestamp = new DateTime(years, months, days, hours, minutes, seconds);
-
-							int formatChecksum = br.ReadInt32();
-							int unknown4 = br.ReadInt32();
-
-							short compressedLength = br.ReadInt16();
-							short decompressedLength = br.ReadInt16();
-							string filename = br.ReadFixedLengthString(fileNameLength);
-
-							file.Name = filename;
-							file.Size = decompressedLength;
-							file.Properties.Add("length", compressedLength);
-							file.Properties.Add("offset", br.Accessor.Position);
-							file.Properties.Add("reader", br);
-							file.DataRequest += file_DataRequest;
-							fsom.Files.Add(file);
-
-							br.Accessor.Seek(compressedLength, SeekOrigin.Current);
-							break;
-						}
+						br.Accessor.Seek(compressedLength, SeekOrigin.Current);
+						break;
+					}
 					case 0x015A4C43:    // CLZ[soh]
-						{
-							long unknown = br.ReadInt64();
-							break;
-						}
+					{
+						long unknown = br.ReadInt64();
+						break;
+					}
 					case 0x025A4C43:    // CLZ[?]
-						{
-							// end of stream
-							break;
-						}
+					{
+						// end of stream
+						break;
+					}
 				}
 			}
-		}
-
-		void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-
-			short length = (short)file.Properties["length"];
-			long offset = (long)file.Properties["offset"];
-
-			IO.Reader br = (IO.Reader)file.Properties["reader"];
-			br.Accessor.Seek(offset, SeekOrigin.Begin);
-			byte[] compressedData = br.ReadBytes(length);
-			byte[] decompressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Deflate).Decompress(compressedData);
-			e.Data = decompressedData;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -147,14 +137,26 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 				uint unknown4 = 0xF83D6BFC;
 				bw.WriteUInt32(unknown4);
 
-				byte[] decompressedData = file.GetDataAsByteArray();
-				byte[] compressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Deflate).Compress(decompressedData);
+				short decompressedLength = (short)file.Source.GetLength();
 
-				bw.WriteInt16((short)compressedData.Length);
-				bw.WriteInt16((short)decompressedData.Length);
+				MemoryAccessor ma = new MemoryAccessor();
+				Writer writer1 = new Writer(ma);
+				short compressedLength = (short) file.WriteTo(writer1, new FileSourceTransformation[]
+				{
+					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+					{
+						UniversalEditor.Compression.CompressionModule module = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Deflate);
+						module.Compress(inputStream, outputStream);
+					})
+				});
+				writer1.Flush();
+				writer1.Close();
+
+				bw.WriteInt16((short)compressedLength);
+				bw.WriteInt16((short)decompressedLength);
 
 				bw.WriteFixedLengthString(file.Name);
-				bw.WriteBytes(compressedData);
+				bw.WriteBytes(ma.ToArray());
 				#endregion
 			}
 

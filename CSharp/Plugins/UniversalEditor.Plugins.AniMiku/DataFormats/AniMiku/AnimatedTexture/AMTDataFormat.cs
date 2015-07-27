@@ -48,7 +48,7 @@ namespace UniversalEditor.DataFormats.FileSystem.AniMiku.TexturePackage
 			bw.WriteInt32(fsom.Files.Count);
 			foreach (File file in fsom.Files)
 			{
-				byte[] data = file.GetDataAsByteArray();
+				byte[] data = file.GetData();
 				bw.WriteInt32(data.Length);
 				bw.WriteBytes(data);
 			}

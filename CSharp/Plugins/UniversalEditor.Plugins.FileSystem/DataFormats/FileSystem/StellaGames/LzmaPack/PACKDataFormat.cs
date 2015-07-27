@@ -90,7 +90,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StellaGames.LzmaPack
 			foreach (File file in files)
 			{
 				writer.WriteLengthPrefixedString(file.Name);
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = decompressedData;
 
 				writer.WriteInt64((long)decompressedData.Length);

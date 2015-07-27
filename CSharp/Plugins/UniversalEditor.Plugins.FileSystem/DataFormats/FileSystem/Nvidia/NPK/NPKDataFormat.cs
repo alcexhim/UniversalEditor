@@ -147,7 +147,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
 				writer.WriteInt64(dateTime);
 				writer.WriteInt64(offset);
 
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = CompressionModules.Zlib.Compress(decompressedData);
 
 				if (mvarEncrypted)

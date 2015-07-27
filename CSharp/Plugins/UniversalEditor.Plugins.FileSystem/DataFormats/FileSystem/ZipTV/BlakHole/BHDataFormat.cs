@@ -68,7 +68,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 				file.Properties.Add("CompressionMethod", compressionMethod);
 				file.Properties.Add("CompressedSize", compressedSize);
 				file.Properties.Add("DecompressedSize", decompressedSize);
-				file.DataRequest += file_DataRequest;
+
+				throw new NotImplementedException("Figure out how to do this with FileSource");
 			}
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -101,7 +102,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 				uint modifiedDate = 0;
 				writer.WriteUInt32(modifiedDate);
 
-				byte[] decompressedData = file.GetDataAsByteArray();
+				byte[] decompressedData = file.GetData();
 				byte[] compressedData = null;
 				switch (compressionMethod)
 				{

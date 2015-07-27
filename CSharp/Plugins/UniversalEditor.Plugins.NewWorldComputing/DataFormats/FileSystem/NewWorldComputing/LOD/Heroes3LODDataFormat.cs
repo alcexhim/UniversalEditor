@@ -99,7 +99,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
                 bw.WriteUInt32((uint)0);
                 bw.WriteUInt32((uint)0);
 
-                byte[] compressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Zlib).Compress(file.GetDataAsByteArray());
+                byte[] compressedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Zlib).Compress(file.GetData());
                 bw.WriteUInt32((uint)compressedData.Length);
                 CompressedDatas.Add(compressedData);
             }

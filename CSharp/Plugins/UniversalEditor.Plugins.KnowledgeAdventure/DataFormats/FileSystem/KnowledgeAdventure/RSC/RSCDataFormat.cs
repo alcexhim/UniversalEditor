@@ -87,7 +87,7 @@ namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.RSC
 
 			for (int i = 0; i < fsom.Files.Count; i++)
 			{
-				byte[] data = fsom.Files[i].GetDataAsByteArray();
+				byte[] data = fsom.Files[i].GetData();
 				writer.WriteBytes(data);
 			}
 		}

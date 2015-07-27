@@ -111,7 +111,7 @@ namespace UniversalEditor.DataFormats.FileSystem.REEVEsoft.Freeze
                 short s2 = 0;
                 bw.WriteInt16(s2);
 
-                byte[] decompressedData = file.GetDataAsByteArray();
+                byte[] decompressedData = file.GetData();
                 byte[] compressedData = decompressedData;
 
                 bw.WriteInt32((int)decompressedData.Length);
