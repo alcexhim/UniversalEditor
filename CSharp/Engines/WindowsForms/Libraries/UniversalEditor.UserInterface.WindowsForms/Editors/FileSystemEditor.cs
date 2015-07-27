@@ -121,29 +121,36 @@ namespace UniversalEditor.UserInterface.WindowsForms.Editors
 		private System.Threading.Thread tIconLoader = null;
 		private void tIconLoader_ThreadStart()
 		{
-			foreach (AwesomeControls.ListView.ListViewItem lvi in lv.Items)
+			try
 			{
-				File file = (lvi.Data as File);
-				if (file == null) continue;
-
-				byte[] data = file.GetDataAsByteArray();
-				if (data == null) continue;
-
-				try
+				foreach (AwesomeControls.ListView.ListViewItem lvi in lv.Items)
 				{
-					ObjectModel picture = UniversalEditor.Common.Reflection.GetAvailableObjectModel(data, file.Name, "UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel");
-					UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel pic = (picture as UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel);
-					if (pic != null)
+					File file = (lvi.Data as File);
+					if (file == null) continue;
+
+					byte[] data = file.GetDataAsByteArray();
+					if (data == null) continue;
+
+					try
 					{
-						// System.Reflection.MethodInfo miToBitmap = picture.GetType().GetMethod("ToBitmap", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-						Bitmap bitmap = pic.ToBitmap(); // (miToBitmap.Invoke(picture, null) as Bitmap);
-						if (bitmap != null) lvi.Image = bitmap;
-						//lv.Invoke(new Action<AwesomeControls.ListView.ListViewItem>(InvalidateItem), lvi);
+						ObjectModel picture = UniversalEditor.Common.Reflection.GetAvailableObjectModel(data, file.Name, "UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel");
+						UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel pic = (picture as UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel);
+						if (pic != null)
+						{
+							// System.Reflection.MethodInfo miToBitmap = picture.GetType().GetMethod("ToBitmap", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+							Bitmap bitmap = pic.ToBitmap(); // (miToBitmap.Invoke(picture, null) as Bitmap);
+							if (bitmap != null) lvi.Image = bitmap;
+							//lv.Invoke(new Action<AwesomeControls.ListView.ListViewItem>(InvalidateItem), lvi);
+						}
+					}
+					catch
+					{
 					}
 				}
-				catch
-				{
-				}
+			}
+			catch
+			{
+				// quietly ignore when collection is modified
 			}
 		}
 
