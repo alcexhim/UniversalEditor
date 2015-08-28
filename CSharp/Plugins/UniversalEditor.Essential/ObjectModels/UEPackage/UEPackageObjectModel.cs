@@ -51,6 +51,7 @@ namespace UniversalEditor.ObjectModels.UEPackage
 
 		public override void Clear()
 		{
+			mvarAssociations.Clear();
 			mvarDataFormats.Clear();
 			mvarObjectModels.Clear();
 			mvarProjectTypes.Clear();
