@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Polygon Movie Maker accessory file">
+					<FileNameFilters>
+						<FileNameFilter>*.vac</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Accessory.AccessoryObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Accessory.PolygonMovieMaker.VACAccessoryDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

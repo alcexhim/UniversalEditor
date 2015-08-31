@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the FileSystem ObjectModel with the FileSystem Editor -->
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<Editors>
+				<Editor ID="{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}" />
+			</Editors>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Universal Editor eXtension">
+					<FileNameFilters>
+						<FileNameFilter>*.uxt</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">Universal Editor extension file</MagicByte>
+							<MagicByte Type="HexString">00</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.UXT.UXTDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

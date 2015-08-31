@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Configuration>
+		<Group ID="Application">
+			<Group ID="StartPage">
+				<!--
+					Set to false if you don't want the StartPage to be available. Note
+					that you will also need to remove the ViewStartPage menu item if it's
+					defined in MainMenu.xml to completely remove all entry points to the
+					Start Page.
+				-->
+				<Property ID="Enabled" Value="true" />
+
+				<!--
+					The URL from which to download Start Page content.
+				-->
+				<Property ID="ContentURL" />
+
+				<!--
+					Configuration settings for content refresh.
+				-->
+				<Group ID="ContentRefreshTimeout">
+					<Property ID="Enabled" Value="false" />
+					<Property ID="Interval" Value="0" />
+				</Group>
+			</Group>
+		</Group>
+	</Configuration>
+</UniversalEditor>

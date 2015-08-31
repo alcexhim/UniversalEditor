@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{4A16562A-8D1A-46B7-A0BF-AFBF759EB439}">
+			<Information>
+				<Title>Issues</Title>
+				<Description>Manage a set of issues or problems. Assign, prioritize, and follow the progress of issues from start to finish.</Description>
+				<IconPath FileName="database.ico" />
+				<CategoryParts>
+					<CategoryPart>Business</CategoryPart>
+				</CategoryParts>
+			</Information>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+				
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

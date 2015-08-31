@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="DOOM WAD archive">
+					<FileNameFilters>
+						<FileNameFilter>*.wad</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">IWAD</MagicByte>
+						</MagicByteSequence>
+						<MagicByteSequence>
+							<MagicByte Type="String">PWAD</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.WAD.WADDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

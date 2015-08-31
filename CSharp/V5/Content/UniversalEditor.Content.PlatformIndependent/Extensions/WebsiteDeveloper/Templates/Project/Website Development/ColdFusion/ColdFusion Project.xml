@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{D0865228-5949-4FBD-809B-9C222A6CB3DB}">
+			<Information>
+				<Title>Basic Project</Title>
+				<IconPath LargeFileName="Images/Project_32x32.png" SmallFileName="Images/Project_16x16.png" />
+				<Path>
+					<Part>Website Development</Part>
+					<Part>ColdFusion</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+				<Files>
+					<File Destination="index.cfm">
+						<Content Type="text/plain"><![CDATA[<html>
+	<head>
+		<title>Hello World</title>
+	</head>
+	<body>
+		<cfoutput>#ucase("hello world")#</cfoutput>
+	</body>
+</html>]]></Content>
+					</File>
+				</Files>
+			</FileSystem>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

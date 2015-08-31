@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Polygon Movie Maker model">
+					<FileNameFilters>
+						<FileNameFilter>*.pmd</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">Pmd</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Model.ModelObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker.PMDModelDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Polygon Movie Maker eXtended model">
+					<FileNameFilters>
+						<FileNameFilter>*.pmx</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">PMX </MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Model.ModelObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker.PMXModelDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="PMAX patch (XML)">
+					<FileNameFilters>
+						<FileNameFilter>*.pmax</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PMAXPatch.PMAXPatchObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PMAXPatch.PMAXPatchXMLDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

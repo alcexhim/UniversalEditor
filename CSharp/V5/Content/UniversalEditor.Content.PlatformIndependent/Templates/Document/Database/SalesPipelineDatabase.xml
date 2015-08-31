@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{A7B4581E-94F1-4FF0-935E-5B5BB80E3F38}">
+			<Information>
+				<Title>Sales Pipeline</Title>
+				<Description>Track the progress of prospective sales within a small group of sales professionals.</Description>
+				<IconPath FileName="database.ico" />
+				<CategoryParts>
+					<CategoryPart>Business</CategoryPart>
+				</CategoryParts>
+			</Information>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+				
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

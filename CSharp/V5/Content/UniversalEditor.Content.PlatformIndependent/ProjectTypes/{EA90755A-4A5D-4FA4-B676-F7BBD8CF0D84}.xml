@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTypes>
+		<ProjectType ID="{EA90755A-4A5D-4FA4-B676-F7BBD8CF0D84}">
+			<Information>
+				<Title>Arduino Application</Title>
+			</Information>
+			<Tasks>
+				<!--
+					ActionTypes are defined in libraries.
+						{EE505E05-F125-4718-BA0A-879C72B5125A} corresponds to the built-in task action type ExecutableAction
+						When Tasks are executed, each Action in Actions gets executed.
+						When Actions are executed, the TaskType gets the inner XML of the task and processes it to extract parameters.
+						Certain tags are expanded by the preprocessor, like StringBuilder which is common to all TaskTypes.
+				-->
+				<Task Title="Build">
+					<Actions>
+						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+							<CommandLine>
+								<VariableReference Scope="Global" ID="ArduinoCompilerPath" />
+								<Literal Value=" -o &quot;" />
+								<VariableReference Scope="Project" ID="OutputFileName" />
+								<Literal Value="&quot; " />
+								<ConstantReference Scope="Project" ID="ProjectFiles" Separator=" " />
+							</CommandLine>
+						</Action>
+					</Actions>
+				</Task>
+			</Tasks>
+		</ProjectType>
+	</ProjectTypes>
+</UniversalEditor>

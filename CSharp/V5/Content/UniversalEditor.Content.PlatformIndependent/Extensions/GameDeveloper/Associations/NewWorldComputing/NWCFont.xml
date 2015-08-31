@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Heroes of Might and Magic font">
+					<FileNameFilters>
+						<FileNameFilter>*.fnt</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.NewWorldComputing.Font.FontObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.NewWorldComputing.FNT.FNTDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTypes>
+		<ProjectType ID="{13A1DBF5-B527-4218-9442-F1D165033AEB}">
+			<Information>
+				<Title>Universal Editor plugin project</Title>
+			</Information>
+		</ProjectType>
+	</ProjectTypes>
+</UniversalEditor>

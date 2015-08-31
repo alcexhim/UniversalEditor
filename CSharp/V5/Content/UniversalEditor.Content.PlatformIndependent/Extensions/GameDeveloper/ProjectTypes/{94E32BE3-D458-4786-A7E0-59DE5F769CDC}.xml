@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTypes>
+		<ProjectType ID="{94E32BE3-D458-4786-A7E0-59DE5F769CDC}">
+			<Information>
+				<Title>Star Wars: Jedi Knight II: Jedi Outcast engine</Title>
+			</Information>
+			<!-- Per-file build actions -->
+			<BuildActions>
+				<BuildAction Title="Embedded Resource">
+					<!--
+						Place the file into a PK3 ZIP archive with the given name. If the
+						archive already exists (for example, if it has already been created by a
+						prior file's BuildAction), it will be appended to the archive.
+					-->
+					<Actions>
+						<Action TypeID="{0EB3C0A9-804A-433F-BDD8-888D0CA8C760}">
+							<!-- Convert -->
+							<OutputDataFormatReference TypeName="UniversalEditor.DataFormats.FileSystem.ZIP.ZIPDataFormat" />
+						</Action>
+					</Actions>
+				</BuildAction>
+			</BuildActions>
+		</ProjectType>
+	</ProjectTypes>
+</UniversalEditor>

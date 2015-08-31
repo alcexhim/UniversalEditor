@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTypes>
+		<ProjectType ID="{8891C1AE-6699-45DA-8B22-13BCEBB63364}">
+			<Information>
+				<Title>C++ Application</Title>
+			</Information>
+			<Tasks>
+				<Task Title="Build">
+					<Actions>
+						<Action TypeID="{EE505E05-F125-4718-BA0A-879C72B5125A}">
+							<!-- ExecutableAction -->
+							<CommandLine>
+								<VariableReference Scope="Global" ID="CompilerExecutablePath" />
+								<Literal Value=" -o &quot;" />
+								<VariableReference Scope="Project" ID="OutputFileName" />
+								<Literal Value="&quot; " />
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="ProjectTarget" Comparison="EqualTo" Value="winexe" />
+									</Conditions>
+									<TrueResult>
+										<Literal Value="-mwindows " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="ProjectTarget" Comparison="EqualTo" Value="library" />
+									</Conditions>
+									<TrueResult>
+										<Literal Value="--shared " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="IncludeFiles.Length" Comparison="GreaterThan" Value="0" />
+									</Conditions>
+									<TrueResult>
+										<VariableReference Scope="Project" Name="IncludeFiles" Prefix="-I" Separator=" " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="LibraryPaths.Length" Comparison="GreaterThan" Value="0" />
+									</Conditions>
+									<TrueResult>
+										<VariableReference Scope="Project" Name="LibraryPaths" Prefix="-L" Separator=" " />
+									</TrueResult>
+								</Conditional>
+								<Conditional>
+									<Conditions>
+										<Condition VariableName="LibraryReferences.Length" Comparison="GreaterThan" Value="0" />
+									</Conditions>
+									<TrueResult>
+										<VariableReference Scope="Project" Name="LibraryReferences" Prefix="-l" Separator=" " />
+									</TrueResult>
+								</Conditional>
+								<ConstantReference Scope="Project" Name="ProjectFiles" Separator=" " />
+							</CommandLine>
+						</Action>
+					</Actions>
+				</Task>
+			</Tasks>
+			<Variables>
+				<Variable Name="ProjectTarget" Title="Project _target: " Type="Choice">
+					<ValidValues>
+						<ValidValue Title="Console Executable" Value="exe" />
+						<ValidValue Title="GUI Executable" Value="winexe" />
+						<ValidValue Title="Class Library" Value="library" />
+					</ValidValues>
+				</Variable>
+				<Variable Name="OutputFileName" Title="Output _file name:" Type="FileSave" />
+			</Variables>
+		</ProjectType>
+	</ProjectTypes>
+</UniversalEditor>

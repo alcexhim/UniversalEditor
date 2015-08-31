@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="MPEG-2 layer III audio">
+					<FileNameFilters>
+						<FileNameFilter>*.mp3</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="Byte">73</MagicByte>
+							<MagicByte Type="Byte">68</MagicByte>
+							<MagicByte Type="Byte">51</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.Waveform.WaveformAudioObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MP3.MP3DataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

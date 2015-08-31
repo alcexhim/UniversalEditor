@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Cyberlore CAM archive">
+					<FileNameFilters>
+						<FileNameFilter>*.cam</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">CYLBPC   </MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Cyberlore.CAMDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Cyberlore PICT image">
+					<FileNameFilters>
+						<FileNameFilter>*.pict</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.Cyberlore.PICTDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

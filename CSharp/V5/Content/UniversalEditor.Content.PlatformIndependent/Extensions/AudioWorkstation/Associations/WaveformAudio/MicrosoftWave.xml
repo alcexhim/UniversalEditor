@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft waveform audio">
+					<FileNameFilters>
+						<FileNameFilter>*.wav</FileNameFilter>
+						<FileNameFilter>*.wave</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">RIFF</MagicByte>
+							<MagicByte Type="Empty" Length="4" />
+							<MagicByte Type="String">WAVEfmt </MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+				<Filter Title="Sony ATRAC3+ encoded waveform audio">
+					<FileNameFilters>
+						<FileNameFilter>*.at3</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.Waveform.WaveformAudioObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave.MicrosoftWaveDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

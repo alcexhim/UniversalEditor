@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{740341DE-FFE0-4456-B2A7-7FEC7E52E4F9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor</RootNamespace>
+    <AssemblyName>UniversalEditor.Plugins.AddressBook.UserInterface.WindowsForms</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Output\Debug\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Output\Release\Plugins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\ComplexObjectPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ComplexObjectPropertiesControl.Designer.cs">
+      <DependentUpon>ComplexObjectPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Contact\EmailPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Contact\EmailPropertiesDialog.Designer.cs">
+      <DependentUpon>EmailPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Contact\LabelPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Contact\LabelPropertiesDialog.Designer.cs">
+      <DependentUpon>LabelPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Contact\NamePropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Contact\NamePropertiesDialog.Designer.cs">
+      <DependentUpon>NamePropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Contact\ContactEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\Contact\ContactEditor.Designer.cs">
+      <DependentUpon>ContactEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj">
+      <Project>{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}</Project>
+      <Name>AwesomeControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
+      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
+      <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.AddressBook\UniversalEditor.Plugins.AddressBook.csproj">
+      <Project>{AC2E7D52-E3C0-4C5A-A13E-B77F6D41C46E}</Project>
+      <Name>UniversalEditor.Plugins.AddressBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
+      <Project>{BCBB72BD-0ECB-4FF2-8D91-E466361FB6F9}</Project>
+      <Name>UniversalEditor.UserInterface.WindowsForms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editors\AddressBook\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\ComplexObjectPropertiesControl.resx">
+      <DependentUpon>ComplexObjectPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Contact\EmailPropertiesDialog.resx">
+      <DependentUpon>EmailPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Contact\LabelPropertiesDialog.resx">
+      <DependentUpon>LabelPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Contact\NamePropertiesDialog.resx">
+      <DependentUpon>NamePropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\Contact\ContactEditor.resx">
+      <DependentUpon>ContactEditor.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

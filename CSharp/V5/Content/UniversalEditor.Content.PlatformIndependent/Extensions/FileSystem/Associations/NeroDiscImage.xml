@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Nero Burning ROM disc image">
+					<FileNameFilters>
+						<FileNameFilter>*.nrb</FileNameFilter>
+						<FileNameFilter>*.nri</FileNameFilter>
+						<FileNameFilter>*.nrg</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">0E</MagicByte>
+							<MagicByte Type="String">NeroISO0.02.03</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Nero.NeroDiskImageDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

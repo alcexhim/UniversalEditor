@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+
+<UniversalEditor Version="1.0">
+    <OptionPanels>
+        <OptionPanel ID="{0D6F6E10-E935-4CF6-9B67-995E9530609F}">
+            <Location>
+                <Segment>Editors</Segment>
+                <Segment>Synthesized Audio</Segment>
+                <Segment>External Programs</Segment>
+            </Location>
+            <Content>
+                <Table>
+                    <Row>
+                        <Column>
+                            <CheckBox Text="Use external &amp;wavefile manipulation tool:" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <TextBox ID="txtWavefileManipulationTool" Editable="false" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <Button ID="cmdBrowseWavefileManipulationTool" HorizontalAlignment="Right" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <CheckBox Text="Use external &amp;resampling tool:" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <TextBox ID="txtResamplingTool" Editable="false" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <Button ID="cmdBrowseResamplingTool" HorizontalAlignment="Right" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <CheckBox Text="Change voicebank &amp;directory:" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <TextBox ID="txtVoicebankDirectory" Editable="false" />
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>
+                            <Button ID="cmdBrowseVoicebankDirectory" HorizontalAlignment="Right" />
+                        </Column>
+                    </Row>
+                </Table>
+            </Content>
+        </OptionPanel>
+    </OptionPanels>
+</UniversalEditor>

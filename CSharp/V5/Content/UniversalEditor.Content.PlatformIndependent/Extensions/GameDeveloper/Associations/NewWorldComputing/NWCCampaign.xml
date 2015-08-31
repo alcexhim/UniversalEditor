@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Heroes of Might and Magic IV campaign">
+					<FileNameFilters>
+						<FileNameFilter>*.h4c</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">H4CAMPAIGN</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.NewWorldComputing.Campaign.CampaignObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.NewWorldComputing.Campaign.Heroes4CampaignDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

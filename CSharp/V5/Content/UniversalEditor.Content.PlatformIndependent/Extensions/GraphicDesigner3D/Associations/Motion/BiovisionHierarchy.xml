@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Biovision Hierarchy animation data">
+					<FileNameFilters>
+						<FileNameFilter>*.bvh</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">HIERARCHY</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+				<Filter Title="QAvimator motion data">
+					<FileNameFilters>
+						<FileNameFilter>*.avm</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">HIERARCHY</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Motion.MotionObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Motion.Biovision.BVHDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

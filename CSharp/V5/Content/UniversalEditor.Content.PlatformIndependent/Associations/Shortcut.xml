@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="FreeDesktop.org desktop/directory shortcut entry">
+					<FileNameFilters>
+						<FileNameFilter>*.desktop</FileNameFilter>
+						<FileNameFilter>*.directory</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Shortcut.ShortcutObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Shortcut.FreeDesktop.DesktopShortcutDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft shortcut">
+					<FileNameFilters>
+						<FileNameFilter>*.lnk</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">4C000000</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Shortcut.ShortcutObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Shortcut.Microsoft.LNKDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

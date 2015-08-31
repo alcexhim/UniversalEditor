@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="ICARUS compiled script">
+					<FileNameFilters>
+						<FileNameFilter>*.ibi</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">IBI</MagicByte>
+							<MagicByte Type="Byte">0</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Icarus.IcarusScriptObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Icarus.IcarusBinaryDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

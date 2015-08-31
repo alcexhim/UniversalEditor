@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE UniversalEditor SYSTEM "U:\Doctypes\UniversalEditor.dtd">
+<UniversalEditor Version="3.0">
+	<ProjectTemplates>
+		<ProjectTemplate TypeID="{888888A0-9F3D-457C-B088-3A5042F75D52}">
+			<Information>
+				<Title>Native Application</Title>
+				<ProjectNamePrefix>NativeApplication</ProjectNamePrefix>
+				<IconPath LargeFileName="Images/Console_32x32.png" SmallFileName="Images/Console_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>Python</Part>
+				</Path>
+			</Information>
+			<FileSystem>
+				<Files>
+					<File DestinationFileName="Program.py">
+						<Content Type="text/plain"><![CDATA[print('Hello World')]]>
+						</Content>
+					</File>
+				</Files>
+			</FileSystem>
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>

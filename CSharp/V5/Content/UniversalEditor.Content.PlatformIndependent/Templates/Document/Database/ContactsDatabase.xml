@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{C507C886-6D3B-4B58-9C42-94A35152E4A6}">
+			<Information>
+				<Title>Contacts</Title>
+				<Description>Manage information about people that your team works with, such as customers and partners.</Description>
+				<IconPath FileName="database.ico" />
+				<CategoryParts>
+					<CategoryPart>Business</CategoryPart>
+				</CategoryParts>
+			</Information>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+				
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

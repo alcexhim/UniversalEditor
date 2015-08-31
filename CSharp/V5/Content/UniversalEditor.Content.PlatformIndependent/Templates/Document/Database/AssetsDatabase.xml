@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<Templates>
+		<Template ID="{86F141C1-A729-4092-A883-CDBEF377FF47}">
+			<Information>
+				<Title>Assets</Title>
+				<Description>Keep track of assets, including asset details and owners.</Description>
+				<IconPath FileName="database.ico" />
+				<CategoryParts>
+					<CategoryPart>Business</CategoryPart>
+				</CategoryParts>
+			</Information>
+			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+				
+			</Content>
+		</Template>
+	</Templates>
+</UniversalEditor>

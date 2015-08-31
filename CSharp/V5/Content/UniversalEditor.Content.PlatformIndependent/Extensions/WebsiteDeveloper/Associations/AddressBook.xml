@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Outlook Express address book">
+					<FileNameFilters>
+						<FileNameFilter>*.wab</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.AddressBook.AddressBookObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.AddressBook.WABDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

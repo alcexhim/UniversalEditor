@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Highway Pursuit HPDT archive">
+					<FileNameFilters>
+						<FileNameFilter>*.hfd</FileNameFilter>
+						<FileNameFilter>*.hgd</FileNameFilter>
+						<FileNameFilter>*.hmd</FileNameFilter>
+						<FileNameFilter>*.hod</FileNameFilter>
+						<FileNameFilter>*.hsd</FileNameFilter>
+						<FileNameFilter>*.hvd</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">HPDT</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.HighwayPursuit.HighwayPursuitDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
