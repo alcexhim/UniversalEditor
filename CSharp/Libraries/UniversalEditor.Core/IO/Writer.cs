@@ -268,6 +268,13 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(buffer);
 		}
+		public void WriteInt32Array(int[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteInt32(values[i]);
+			}
+		}
 		public void WriteUInt32(uint value)
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
