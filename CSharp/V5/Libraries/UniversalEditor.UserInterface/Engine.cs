@@ -524,7 +524,7 @@ namespace UniversalEditor.UserInterface
 		protected virtual void InitializeXMLConfiguration()
 		{
 			#region Load the XML files
-			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, "*.xml", System.IO.SearchOption.AllDirectories);
+			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, "*.uexml", System.IO.SearchOption.AllDirectories);
 
 			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
 

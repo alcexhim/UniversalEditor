@@ -183,7 +183,7 @@ namespace UniversalEditor.Common
 			foreach (string path in paths)
 			{
 				string[] XMLFileNames = null;
-				XMLFileNames = System.IO.Directory.GetFiles(path, "*.xml", System.IO.SearchOption.AllDirectories);
+				XMLFileNames = System.IO.Directory.GetFiles(path, "*.uexml", System.IO.SearchOption.AllDirectories);
 				foreach (string fileName in XMLFileNames)
 				{
 					try

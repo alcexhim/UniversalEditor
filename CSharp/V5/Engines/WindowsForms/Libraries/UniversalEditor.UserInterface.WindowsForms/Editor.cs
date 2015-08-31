@@ -164,7 +164,7 @@ namespace UniversalEditor.UserInterface.WindowsForms
 
 			if (System.IO.Directory.Exists(configurationPath))
 			{
-				string[] fileNames = System.IO.Directory.GetFiles(configurationPath, "*.xml");
+				string[] fileNames = System.IO.Directory.GetFiles(configurationPath, "*.uexml");
 				XMLPropertyListDataFormat xmpl = new XMLPropertyListDataFormat();
 				
 				foreach (string fileName in fileNames)

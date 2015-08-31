@@ -99,7 +99,7 @@ namespace UniversalEditor.Engines.WindowsForms
 			string[] xmlfiles = null;
 			try
 			{
-				xmlfiles = System.IO.Directory.GetFiles(path, "*.xml", System.IO.SearchOption.AllDirectories);
+				xmlfiles = System.IO.Directory.GetFiles(path, "*.uexml", System.IO.SearchOption.AllDirectories);
 			}
 			catch
 			{
