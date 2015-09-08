@@ -38,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -69,7 +70,6 @@
     <Compile Include="Dialogs\DocumentPropertiesDialog.Designer.cs">
       <DependentUpon>DocumentPropertiesDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="LocalConfiguration.cs" />
     <Compile Include="Controls\ErrorList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -131,6 +131,9 @@
       <DependentUpon>UnsavedDocumentsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="IconMethods.cs" />
+    <Compile Include="LocalConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

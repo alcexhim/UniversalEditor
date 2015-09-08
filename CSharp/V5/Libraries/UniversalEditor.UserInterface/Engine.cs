@@ -521,10 +521,11 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
+		// FIXME: this is the single XML configuration file loader that should be executed at the beginning of engine launch
 		protected virtual void InitializeXMLConfiguration()
 		{
 			#region Load the XML files
-			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, "*.uexml", System.IO.SearchOption.AllDirectories);
+			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"], System.IO.SearchOption.AllDirectories);
 
 			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
 
@@ -790,8 +791,8 @@ namespace UniversalEditor.UserInterface
 			}
 			#endregion
 
-			UpdateSplashScreenStatus("Finalizing configuration");
-			ConfigurationManager.Load();
+			// UpdateSplashScreenStatus("Finalizing configuration");
+			// ConfigurationManager.Load();
 			#endregion
 		}
 
