@@ -339,8 +339,7 @@ namespace UniversalEditor.Engines.WindowsForms.Pages
 						/*
 						if (objms.Length > 1)
 						{
-							// TODO: Attempt to sort available object models by
-							// relevance.
+							// TODO: Attempt to sort available object models by relevance
 							Pages.MultipleObjectModelPage page = new Pages.MultipleObjectModelPage();
 							// page.DataFormat = fmts[0].Create();
 							// page.FileName = FileName;
