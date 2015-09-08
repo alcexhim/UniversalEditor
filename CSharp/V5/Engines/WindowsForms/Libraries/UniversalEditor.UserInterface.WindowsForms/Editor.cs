@@ -162,9 +162,10 @@ namespace UniversalEditor.UserInterface.WindowsForms
 				"Configuration"
 			});
 
+			// FIXME: refactor this into a single XML configuration file loader at the beginning of engine launch
 			if (System.IO.Directory.Exists(configurationPath))
 			{
-				string[] fileNames = System.IO.Directory.GetFiles(configurationPath, "*.uexml");
+				string[] fileNames = System.IO.Directory.GetFiles(configurationPath, System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"]);
 				XMLPropertyListDataFormat xmpl = new XMLPropertyListDataFormat();
 				
 				foreach (string fileName in fileNames)

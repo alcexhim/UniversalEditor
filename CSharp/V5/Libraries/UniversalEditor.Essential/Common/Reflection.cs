@@ -175,6 +175,7 @@ namespace UniversalEditor.Common
 			return dfr2.Priority.CompareTo(dfr1.Priority);
 		}
 
+		// FIXME: refactor this into a single XML configuration file loader at the beginning of engine launch
 		private static void InitializeFromXML(ref List<ObjectModelReference> listObjectModels, ref List<DataFormatReference> listDataFormats, ref List<ProjectType> listProjectTypes, ref List<DocumentTemplate> listDocumentTemplates, ref List<ProjectTemplate> listProjectTemplates)
 		{
 			System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
@@ -183,7 +184,7 @@ namespace UniversalEditor.Common
 			foreach (string path in paths)
 			{
 				string[] XMLFileNames = null;
-				XMLFileNames = System.IO.Directory.GetFiles(path, "*.uexml", System.IO.SearchOption.AllDirectories);
+				XMLFileNames = System.IO.Directory.GetFiles(path, System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"], System.IO.SearchOption.AllDirectories);
 				foreach (string fileName in XMLFileNames)
 				{
 					try
