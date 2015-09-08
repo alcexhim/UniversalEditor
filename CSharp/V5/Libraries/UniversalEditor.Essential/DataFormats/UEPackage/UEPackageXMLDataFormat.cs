@@ -88,18 +88,22 @@ namespace UniversalEditor.DataFormats.UEPackage
 						MarkupTagElement tagDataFormat = (elDataFormat as MarkupTagElement);
 						if (tagDataFormat == null) continue;
 
+						MarkupAttribute attID = tagDataFormat.Attributes["ID"];
+						if (attID == null) continue;
+
 						MarkupTagElement tagInformation = (tagDataFormat.Elements["Information"] as MarkupTagElement);
 
 						MarkupTagElement tagFilters = (tagDataFormat.Elements["Filters"] as MarkupTagElement);
-						if (tagFilters == null) continue;
+						// if (tagFilters == null) continue;
 
 						MarkupTagElement tagCapabilities = (tagDataFormat.Elements["Capabilities"] as MarkupTagElement);
-						if (tagCapabilities == null) continue;
+						// if (tagCapabilities == null) continue;
 
 						MarkupTagElement tagFormat = (tagDataFormat.Elements["Format"] as MarkupTagElement);
 						if (tagFormat == null) continue;
 
 						CustomDataFormatReference dfr = new CustomDataFormatReference();
+						dfr.ID = new Guid(attID.Value);
 
 						Dictionary<string, object> localVariables = new Dictionary<string, object>();
 
@@ -116,164 +120,171 @@ namespace UniversalEditor.DataFormats.UEPackage
 						#endregion
 						#region Capabilities
 						{
-							foreach (MarkupElement elCapability in tagCapabilities.Elements)
-							{
-								MarkupTagElement tagCapability = (elCapability as MarkupTagElement);
-								if (tagCapability == null) continue;
-								if (tagCapability.Name != "Capability") continue;
-								if (tagCapability.Attributes["Value"] == null) continue;
+							if (tagCapabilities != null)
+							{ 
+								foreach (MarkupElement elCapability in tagCapabilities.Elements)
+								{
+									MarkupTagElement tagCapability = (elCapability as MarkupTagElement);
+									if (tagCapability == null) continue;
+									if (tagCapability.Name != "Capability") continue;
+									if (tagCapability.Attributes["Value"] == null) continue;
 
-								string capability = tagCapability.Attributes["Value"].Value;
-								DataFormatCapabilities caps = DataFormatCapabilities.None;
-								try
-								{
-									caps = (DataFormatCapabilities)Enum.Parse(typeof(DataFormatCapabilities), capability);
-								}
-								catch
-								{
-								}
-
-								if (tagCapability.Attributes["ObjectModelType"] != null)
-								{
-									string nam = tagCapability.Attributes["ObjectModelType"].Value;
-									Type objectModelType = Type.GetType(nam);
-									if (objectModelType == null)
+									string capability = tagCapability.Attributes["Value"].Value;
+									DataFormatCapabilities caps = DataFormatCapabilities.None;
+									try
 									{
-										continue;
+										caps = (DataFormatCapabilities)Enum.Parse(typeof(DataFormatCapabilities), capability);
+									}
+									catch
+									{
 									}
 
-									if (objectModelType.IsSubclassOf(typeof(ObjectModel)))
+									if (tagCapability.Attributes["ObjectModelType"] != null)
 									{
-										dfr.Capabilities.Add(objectModelType, caps);
-									}
-								}
-								else if (tagCapability.Attributes["ObjectModelID"] != null)
-								{
-									dfr.Capabilities.Add(new Guid(tagCapability.Attributes["ObjectModelID"].Value), caps);
-								}
+										string nam = tagCapability.Attributes["ObjectModelType"].Value;
+										Type objectModelType = Type.GetType(nam);
+										if (objectModelType == null)
+										{
+											continue;
+										}
 
+										if (objectModelType.IsSubclassOf(typeof(ObjectModel)))
+										{
+											dfr.Capabilities.Add(objectModelType, caps);
+										}
+									}
+									else if (tagCapability.Attributes["ObjectModelID"] != null)
+									{
+										dfr.Capabilities.Add(new Guid(tagCapability.Attributes["ObjectModelID"].Value), caps);
+									}
+
+								}
 							}
 						}
 						#endregion
 						#region Filters
 						{
-							foreach (MarkupElement elFilter in tagFilters.Elements)
+							if (tagFilters != null)
 							{
-								MarkupTagElement tagFilter = (elFilter as MarkupTagElement);
-								if (tagFilter.Name != "Filter") continue;
+								Console.WriteLine("WARNING: this method of adding filters is deprecated; please use Associations instead!");
 
-
-								DataFormatFilter filter = new DataFormatFilter();
-								MarkupAttribute attHintComparison = tagFilter.Attributes["HintComparison"];
-								if (attHintComparison != null)
+								foreach (MarkupElement elFilter in tagFilters.Elements)
 								{
-									switch (attHintComparison.Value.ToLower())
-									{
-										case "always":
-										{
-											filter.HintComparison = DataFormatHintComparison.Always;
-											break;
-										}
-										case "filteronly":
-										{
-											filter.HintComparison = DataFormatHintComparison.FilterOnly;
-											break;
-										}
-										case "filterthenmagic":
-										{
-											filter.HintComparison = DataFormatHintComparison.FilterThenMagic;
-											break;
-										}
-										case "magiconly":
-										{
-											filter.HintComparison = DataFormatHintComparison.MagicOnly;
-											break;
-										}
-										case "magicthenfilter":
-										{
-											filter.HintComparison = DataFormatHintComparison.MagicThenFilter;
-											break;
-										}
-										default:
-										{
-											filter.HintComparison = DataFormatHintComparison.Never;
-											break;
-										}
-									}
-								}
+									MarkupTagElement tagFilter = (elFilter as MarkupTagElement);
+									if (tagFilter.Name != "Filter") continue;
 
-								MarkupTagElement tagFilterTitle = (tagFilter.Elements["Title"] as MarkupTagElement);
-								if (tagFilterTitle != null) filter.Title = tagFilterTitle.Value;
 
-								#region File Name Filters
-								{
-									MarkupTagElement tagFilterFileNames = (tagFilter.Elements["FileNameFilters"] as MarkupTagElement);
-									if (tagFilterFileNames != null)
+									DataFormatFilter filter = new DataFormatFilter();
+									MarkupAttribute attHintComparison = tagFilter.Attributes["HintComparison"];
+									if (attHintComparison != null)
 									{
-										foreach (MarkupElement elFilterFileName in tagFilterFileNames.Elements)
+										switch (attHintComparison.Value.ToLower())
 										{
-											MarkupTagElement tagFilterFileName = (elFilterFileName as MarkupTagElement);
-											if (tagFilterFileName.Name != "FileNameFilter") continue;
-											filter.FileNameFilters.Add(tagFilterFileName.Value);
-										}
-									}
-								}
-								#endregion
-								#region Magic Bytes
-								{
-									MarkupTagElement tagMagicBytes = (tagFilter.Elements["MagicBytes"] as MarkupTagElement);
-									if (tagMagicBytes != null)
-									{
-										foreach (MarkupElement elMagicByteCollection in tagMagicBytes.Elements)
-										{
-											MarkupTagElement tagMagicByteCollection = (elMagicByteCollection as MarkupTagElement);
-											if (tagMagicByteCollection == null) continue;
-											if (tagMagicByteCollection.Name != "MagicByteCollection") continue;
-
-											List<byte?> array = new List<byte?>();
-											foreach (MarkupElement elMagicByte in tagMagicByteCollection.Elements)
+											case "always":
 											{
-												MarkupTagElement tagMagicByte = (elMagicByte as MarkupTagElement);
-												if (tagMagicByte == null) continue;
-												if (tagMagicByte.Name != "MagicByte") continue;
+												filter.HintComparison = DataFormatHintComparison.Always;
+												break;
+											}
+											case "filteronly":
+											{
+												filter.HintComparison = DataFormatHintComparison.FilterOnly;
+												break;
+											}
+											case "filterthenmagic":
+											{
+												filter.HintComparison = DataFormatHintComparison.FilterThenMagic;
+												break;
+											}
+											case "magiconly":
+											{
+												filter.HintComparison = DataFormatHintComparison.MagicOnly;
+												break;
+											}
+											case "magicthenfilter":
+											{
+												filter.HintComparison = DataFormatHintComparison.MagicThenFilter;
+												break;
+											}
+											default:
+											{
+												filter.HintComparison = DataFormatHintComparison.Never;
+												break;
+											}
+										}
+									}
 
-												byte? value = null;
-												byte tryValue = 0;
-												char tryChar = '\0';
+									MarkupTagElement tagFilterTitle = (tagFilter.Elements["Title"] as MarkupTagElement);
+									if (tagFilterTitle != null) filter.Title = tagFilterTitle.Value;
 
-												if (Byte.TryParse(tagMagicByte.Value, out tryValue))
+									#region File Name Filters
+									{
+										MarkupTagElement tagFilterFileNames = (tagFilter.Elements["FileNameFilters"] as MarkupTagElement);
+										if (tagFilterFileNames != null)
+										{
+											foreach (MarkupElement elFilterFileName in tagFilterFileNames.Elements)
+											{
+												MarkupTagElement tagFilterFileName = (elFilterFileName as MarkupTagElement);
+												if (tagFilterFileName.Name != "FileNameFilter") continue;
+												filter.FileNameFilters.Add(tagFilterFileName.Value);
+											}
+										}
+									}
+									#endregion
+									#region Magic Bytes
+									{
+										MarkupTagElement tagMagicBytes = (tagFilter.Elements["MagicBytes"] as MarkupTagElement);
+										if (tagMagicBytes != null)
+										{
+											foreach (MarkupElement elMagicByteCollection in tagMagicBytes.Elements)
+											{
+												MarkupTagElement tagMagicByteCollection = (elMagicByteCollection as MarkupTagElement);
+												if (tagMagicByteCollection == null) continue;
+												if (tagMagicByteCollection.Name != "MagicByteCollection") continue;
+
+												List<byte?> array = new List<byte?>();
+												foreach (MarkupElement elMagicByte in tagMagicByteCollection.Elements)
 												{
-													value = tryValue;
-												}
-												else if (tagMagicByte.Value.StartsWith("0x"))
-												{
-													if (Byte.TryParse(tagMagicByte.Value.Substring(2), System.Globalization.NumberStyles.HexNumber, null, out tryValue))
+													MarkupTagElement tagMagicByte = (elMagicByte as MarkupTagElement);
+													if (tagMagicByte == null) continue;
+													if (tagMagicByte.Name != "MagicByte") continue;
+
+													byte? value = null;
+													byte tryValue = 0;
+													char tryChar = '\0';
+
+													if (Byte.TryParse(tagMagicByte.Value, out tryValue))
 													{
 														value = tryValue;
 													}
-												}
-												else if (tagMagicByte.Value.Length > 1)
-												{
-													for (int i = 0; i < tagMagicByte.Value.Length; i++)
+													else if (tagMagicByte.Value.StartsWith("0x"))
 													{
-														array.Add((byte)(tagMagicByte.Value[i]));
+														if (Byte.TryParse(tagMagicByte.Value.Substring(2), System.Globalization.NumberStyles.HexNumber, null, out tryValue))
+														{
+															value = tryValue;
+														}
 													}
-													continue;
+													else if (tagMagicByte.Value.Length > 1)
+													{
+														for (int i = 0; i < tagMagicByte.Value.Length; i++)
+														{
+															array.Add((byte)(tagMagicByte.Value[i]));
+														}
+														continue;
+													}
+													else if (Char.TryParse(tagMagicByte.Value, out tryChar))
+													{
+														value = (byte)tryChar;
+													}
+													array.Add(value);
 												}
-												else if (Char.TryParse(tagMagicByte.Value, out tryChar))
-												{
-													value = (byte)tryChar;
-												}
-												array.Add(value);
+												filter.MagicBytes.Add(array.ToArray());
 											}
-											filter.MagicBytes.Add(array.ToArray());
 										}
 									}
-								}
-								#endregion
+									#endregion
 
-								Console.WriteLine("WARNING: this method of adding filters is deprecated; please use Associations instead!");
-								// dfr.Filters.Add(filter);
+									// dfr.Filters.Add(filter);
+								}
 							}
 						}
 						#endregion
@@ -293,9 +304,16 @@ namespace UniversalEditor.DataFormats.UEPackage
 										CustomDataFormatItemField cdfif = new CustomDataFormatItemField();
 										cdfif.DataType = tagField.Attributes["DataType"].Value;
 
-										if (tagField.Attributes["ID"] != null)
+										MarkupAttribute attFieldID = tagField.Attributes["ID"];
+										if (attFieldID != null)
 										{
-											cdfif.Name = tagField.Attributes["ID"].Value;
+											cdfif.Name = attFieldID.Value;
+										}
+
+										MarkupAttribute attValue = tagField.Attributes["Value"];
+										if (attValue != null)
+										{
+											cdfif.Value = attValue.Value;
 										}
 										dfr.Items.Add(cdfif);
 										break;
@@ -328,6 +346,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 						}
 						#endregion
 
+						DataFormatReference.Register(dfr);
 						package.DataFormats.Add(dfr);
 					}
 				}
