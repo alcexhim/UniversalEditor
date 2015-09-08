@@ -27,6 +27,9 @@ namespace UniversalEditor
 
 		private IO.Encoding mvarEncoding = null;
 		public IO.Encoding Encoding { get { return mvarEncoding; } set { mvarEncoding = value; } }
+
+		private string mvarValue = null;
+		public string Value { get { return mvarValue; } set { mvarValue = value; } }
 	}
 	public class CustomDataFormatItemArray : CustomDataFormatItem
 	{
