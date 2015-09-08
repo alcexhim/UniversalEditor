@@ -179,7 +179,15 @@ namespace UniversalEditor.IO
 		}
 		public void WriteNullTerminatedString(string sz, int length)
 		{
-			this.WriteFixedLengthString(sz, length);
+			// TODO: not sure how to handle this, should "length" refer to just the string length (data length) or should it include the null-terminator (field length)?
+			string ssz = sz.Substring(0, Math.Min(sz.Length, length) - 1);
+			WriteNullTerminatedString(ssz);
+		}
+		public void WriteNullTerminatedString(string sz, Encoding encoding, int length)
+		{
+			// TODO: not sure how to handle this, should "length" refer to just the string length (data length) or should it include the null-terminator (field length)?
+			string ssz = sz.Substring(0, Math.Min(sz.Length, length) - 1);
+			WriteNullTerminatedString(ssz, encoding);
 		}
 		
 		public void WriteInt16(short value)
