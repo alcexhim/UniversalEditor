@@ -7,6 +7,7 @@ using System.Text;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.Accessors;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Engines.WindowsForms
 {
@@ -32,90 +33,6 @@ namespace UniversalEditor.Engines.WindowsForms
 
 		private static bool mvarConfirmExit = false;
 		public static bool ConfirmExit { get { return mvarConfirmExit; } set { mvarConfirmExit = value; } }
-
-		private static void LoadPreliminaryConfiguration(ref MarkupObjectModel mom)
-		{
-			string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			LoadConfigurationFiles(path, ref mom);
-
-			MarkupTagElement tagTitle = (mom.FindElement("UniversalEditor", "Application", "Title") as MarkupTagElement);
-			if (tagTitle != null)
-			{
-				mvarApplicationName = tagTitle.Value;
-			}
-			MarkupTagElement tagShortTitle = (mom.FindElement("UniversalEditor", "Application", "ShortTitle") as MarkupTagElement);
-			if (tagShortTitle != null)
-			{
-				mvarApplicationShortName = tagShortTitle.Value;
-			}
-			MarkupTagElement tagCompanyName = (mom.FindElement("UniversalEditor", "Application", "CompanyName") as MarkupTagElement);
-			if (tagCompanyName != null)
-			{
-				mvarCompanyName = tagCompanyName.Value;
-			}
-		}
-
-		static LocalConfiguration()
-		{
-			MarkupObjectModel mom = new MarkupObjectModel();
-
-			LoadPreliminaryConfiguration(ref mom);
-
-			List<string> paths = new List<string>();
-			switch (Environment.OSVersion.Platform)
-			{
-				case PlatformID.MacOSX:
-				{
-					break;
-				}
-				case PlatformID.Unix:
-				{
-					paths.Add(String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), mvarApplicationShortName }));
-					paths.Add(String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), mvarApplicationShortName }));
-					paths.Add(String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), mvarApplicationShortName }));
-					break;
-				}
-				case PlatformID.Win32NT:
-				case PlatformID.Win32S:
-				case PlatformID.Win32Windows:
-				case PlatformID.WinCE:
-				{
-					paths.Add(String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), mvarCompanyName, mvarApplicationName }));
-					paths.Add(String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), mvarCompanyName, mvarApplicationName }));
-					paths.Add(String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Mike Becker's Software", "PolyMo Live!" }));
-					break;
-				}
-			}
-
-			foreach (string path in paths)
-			{
-				if (!System.IO.Directory.Exists(path)) continue;
-				LoadConfigurationFiles(path, ref mom);
-			}
-		}
-
-		private static void LoadConfigurationFiles(string path, ref MarkupObjectModel mom)
-		{
-			string[] xmlfiles = null;
-			try
-			{
-				xmlfiles = System.IO.Directory.GetFiles(path, "*.uexml", System.IO.SearchOption.AllDirectories);
-			}
-			catch
-			{
-			}
-			if (xmlfiles == null) return;
-
-			foreach (string xmlfile in xmlfiles)
-			{
-				MarkupObjectModel local_mom = new MarkupObjectModel();
-
-				Document doc = new Document(local_mom, new XMLDataFormat(), new FileAccessor(xmlfile));
-				if (local_mom.FindElement("UniversalEditor") == null) continue;
-
-				local_mom.CopyTo(mom);
-			}
-		}
 
 		private static System.Drawing.Icon mvarMainIcon = null;
 		public static System.Drawing.Icon MainIcon { get { return mvarMainIcon; } set { mvarMainIcon = value; } }
