@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<DataFormats>
+		<DataFormat ID="{F9970625-4147-424A-81FB-FF470F2AA67D}">
+			<Information>
+				<Title>SEGA FARC archive</Title>
+			</Information>
+			<ExportOptions>
+				<CustomOptionBoolean ID="Compressed" Title="_Compress the data with the gzip algorithm" />
+				<CustomOptionBoolean ID="Encrypted" Title="_Encrypt the data with the specified key" />
+			</ExportOptions>
+			<Structures>
+				<Structure ID="{8964EB0B-3666-4866-B72F-5B11BB1597DD}">
+					<Information>
+						<Title>Compressed file entry</Title>
+					</Information>
+					<Format>
+						<Field DataType="TerminatedString" ID="FileName" />
+						<Field DataType="Int32" ID="Offset" />
+						<Field DataType="Int32" ID="CompressedSize" />
+						<Field DataType="Int32" ID="DecompressedSize" />
+					</Format>
+				</Structure>
+				<Structure ID="{A5945008-DB97-4314-BE99-6A3A383064FF}">
+					<Information>
+						<Title>File entry</Title>
+					</Information>
+					<Format>
+						<Field DataType="TerminatedString" ID="FileName" />
+						<Field DataType="Int32" ID="Offset" />
+						<Field DataType="Int32" ID="Length" />
+					</Format>
+				</Structure>
+			</Structures>
+			<Format>
+				<!-- signature field -->
+				<Field DataType="FixedString" ID="Signature" Length="2" Value="FA" />
+				<!--
+					Conditional properties within a Field behave like so:
+						
+					During a LOAD operation, if the FieldCondition is satisfied (i.e., current field value matches 'TrueResult'), the 'Variable' is set to the given 'Value'.
+					During a SAVE operation, if the FieldCondition is satisfied (i.e, 'Variable' matches 'TrueResult'), the 'TrueResult' is written as the value of the field; otherwise, the 'FalseResult' is written.
+				-->
+				<Field DataType="FixedString" ID="EncryptionFlag" Length="1"
+					   Conditional-Variable="$(CustomOption:Encrypted)" Conditional-Value="true" Conditional-TrueResult="R" Conditional-FalseResult="r" />
+				<Field DataType="FixedString" ID="CompressionFlag" Length="1"
+					   Conditional-Variable="$(CustomOption:Encrypted)" Conditional-Value="true" Conditional-TrueResult="C" Conditional-FalseResult="c" />
+
+				<Field DataType="Int32" ID="DirectorySize">
+					<Value>
+						<!--
+							for each file:
+							directorySize += (fileName.length + 1 + 4 + 4 + 4)
+							
+							TODO: Figure out how to represent this!
+						-->
+					</Value>
+				</Field>
+				<Field DataType="Int32" ID="Reserved1" />
+				
+				<Array DataType="Structure" ID="Files" StructureID="{A5945008-DB97-4314-BE99-6A3A383064FF}" MaximumSize="$(Field:DirectorySize)" />
+			</Format>
+		</DataFormat>
+	</DataFormats>
+</UniversalEditor>

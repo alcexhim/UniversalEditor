@@ -162,128 +162,38 @@ namespace UniversalEditor.DataFormats.UEPackage
 							}
 						}
 						#endregion
-						#region Filters
+						#region Export Options
 						{
-							if (tagFilters != null)
+							MarkupTagElement tagCustomOptions = (tagDataFormat.Elements["ExportOptions"] as MarkupTagElement);
+							if (tagCustomOptions != null)
 							{
-								Console.WriteLine("WARNING: this method of adding filters is deprecated; please use Associations instead!");
-
-								foreach (MarkupElement elFilter in tagFilters.Elements)
+								foreach (MarkupElement elCustomOption in tagCustomOptions.Elements)
 								{
-									MarkupTagElement tagFilter = (elFilter as MarkupTagElement);
-									if (tagFilter.Name != "Filter") continue;
+									MarkupTagElement tagCustomOption = (elCustomOption as MarkupTagElement);
+									if (tagCustomOption == null) continue;
 
+									CustomOption co = LoadCustomOption(tagCustomOption);
+									if (co == null) continue;
 
-									DataFormatFilter filter = new DataFormatFilter();
-									MarkupAttribute attHintComparison = tagFilter.Attributes["HintComparison"];
-									if (attHintComparison != null)
-									{
-										switch (attHintComparison.Value.ToLower())
-										{
-											case "always":
-											{
-												filter.HintComparison = DataFormatHintComparison.Always;
-												break;
-											}
-											case "filteronly":
-											{
-												filter.HintComparison = DataFormatHintComparison.FilterOnly;
-												break;
-											}
-											case "filterthenmagic":
-											{
-												filter.HintComparison = DataFormatHintComparison.FilterThenMagic;
-												break;
-											}
-											case "magiconly":
-											{
-												filter.HintComparison = DataFormatHintComparison.MagicOnly;
-												break;
-											}
-											case "magicthenfilter":
-											{
-												filter.HintComparison = DataFormatHintComparison.MagicThenFilter;
-												break;
-											}
-											default:
-											{
-												filter.HintComparison = DataFormatHintComparison.Never;
-												break;
-											}
-										}
-									}
+									dfr.ExportOptions.Add(co);
+								}
+							}
+						}
+						#endregion
+						#region Import Options
+						{
+							MarkupTagElement tagCustomOptions = (tagDataFormat.Elements["ImportOptions"] as MarkupTagElement);
+							if (tagCustomOptions != null)
+							{
+								foreach (MarkupElement elCustomOption in tagCustomOptions.Elements)
+								{
+									MarkupTagElement tagCustomOption = (elCustomOption as MarkupTagElement);
+									if (tagCustomOption == null) continue;
 
-									MarkupTagElement tagFilterTitle = (tagFilter.Elements["Title"] as MarkupTagElement);
-									if (tagFilterTitle != null) filter.Title = tagFilterTitle.Value;
+									CustomOption co = LoadCustomOption(tagCustomOption);
+									if (co == null) continue;
 
-									#region File Name Filters
-									{
-										MarkupTagElement tagFilterFileNames = (tagFilter.Elements["FileNameFilters"] as MarkupTagElement);
-										if (tagFilterFileNames != null)
-										{
-											foreach (MarkupElement elFilterFileName in tagFilterFileNames.Elements)
-											{
-												MarkupTagElement tagFilterFileName = (elFilterFileName as MarkupTagElement);
-												if (tagFilterFileName.Name != "FileNameFilter") continue;
-												filter.FileNameFilters.Add(tagFilterFileName.Value);
-											}
-										}
-									}
-									#endregion
-									#region Magic Bytes
-									{
-										MarkupTagElement tagMagicBytes = (tagFilter.Elements["MagicBytes"] as MarkupTagElement);
-										if (tagMagicBytes != null)
-										{
-											foreach (MarkupElement elMagicByteCollection in tagMagicBytes.Elements)
-											{
-												MarkupTagElement tagMagicByteCollection = (elMagicByteCollection as MarkupTagElement);
-												if (tagMagicByteCollection == null) continue;
-												if (tagMagicByteCollection.Name != "MagicByteCollection") continue;
-
-												List<byte?> array = new List<byte?>();
-												foreach (MarkupElement elMagicByte in tagMagicByteCollection.Elements)
-												{
-													MarkupTagElement tagMagicByte = (elMagicByte as MarkupTagElement);
-													if (tagMagicByte == null) continue;
-													if (tagMagicByte.Name != "MagicByte") continue;
-
-													byte? value = null;
-													byte tryValue = 0;
-													char tryChar = '\0';
-
-													if (Byte.TryParse(tagMagicByte.Value, out tryValue))
-													{
-														value = tryValue;
-													}
-													else if (tagMagicByte.Value.StartsWith("0x"))
-													{
-														if (Byte.TryParse(tagMagicByte.Value.Substring(2), System.Globalization.NumberStyles.HexNumber, null, out tryValue))
-														{
-															value = tryValue;
-														}
-													}
-													else if (tagMagicByte.Value.Length > 1)
-													{
-														for (int i = 0; i < tagMagicByte.Value.Length; i++)
-														{
-															array.Add((byte)(tagMagicByte.Value[i]));
-														}
-														continue;
-													}
-													else if (Char.TryParse(tagMagicByte.Value, out tryChar))
-													{
-														value = (byte)tryChar;
-													}
-													array.Add(value);
-												}
-												filter.MagicBytes.Add(array.ToArray());
-											}
-										}
-									}
-									#endregion
-
-									// dfr.Filters.Add(filter);
+									dfr.ImportOptions.Add(co);
 								}
 							}
 						}
@@ -295,53 +205,8 @@ namespace UniversalEditor.DataFormats.UEPackage
 								MarkupTagElement tagField = (elField as MarkupTagElement);
 								if (tagField == null) continue;
 
-								switch (tagField.Name)
-								{
-									case "Field":
-									{
-										if (tagField.Attributes["DataType"] == null) continue;
-
-										CustomDataFormatItemField cdfif = new CustomDataFormatItemField();
-										cdfif.DataType = tagField.Attributes["DataType"].Value;
-
-										MarkupAttribute attFieldID = tagField.Attributes["ID"];
-										if (attFieldID != null)
-										{
-											cdfif.Name = attFieldID.Value;
-										}
-
-										MarkupAttribute attValue = tagField.Attributes["Value"];
-										if (attValue != null)
-										{
-											cdfif.Value = attValue.Value;
-										}
-										dfr.Items.Add(cdfif);
-										break;
-									}
-									case "Array":
-									{
-										if (tagField.Attributes["DataType"] == null) continue;
-
-										CustomDataFormatItemArray cdfif = new CustomDataFormatItemArray();
-										cdfif.DataType = tagField.Attributes["DataType"].Value;
-
-										if (tagField.Attributes["ID"] != null)
-										{
-											cdfif.Name = tagField.Attributes["ID"].Value;
-										}
-										if (tagField.Attributes["Length"] != null)
-										{
-											string value = tagField.Attributes["Length"].Value;
-											value = UniversalEditor.Common.Strings.ReplaceVariables(value, localVariables);
-											int length = 0;
-											Int32.TryParse(value, out length);
-
-											cdfif.Length = length;
-										}
-										dfr.Items.Add(cdfif);
-										break;
-									}
-								}
+								CustomDataFormatItem cdfi = CreateField(tagField, localVariables);
+								if (cdfi != null) dfr.Items.Add(cdfi);
 							}
 						}
 						#endregion
@@ -1037,7 +902,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 													for (int i = 0; i < value.Length; i += 2)
 													{
 														string val = value.Substring(i, 2);
-														realvalue = Byte.Parse(value, System.Globalization.NumberStyles.HexNumber);
+														realvalue = Byte.Parse(val, System.Globalization.NumberStyles.HexNumber);
 														magicByteSequence.Add(realvalue);
 													}
 													break;
@@ -1058,6 +923,112 @@ namespace UniversalEditor.DataFormats.UEPackage
 				}
 			}
 			#endregion
+		}
+
+		private CustomOption LoadCustomOption(MarkupTagElement tag)
+		{
+			CustomOption co = null;
+
+			Type[] tCustomOptions = UniversalEditor.Common.Reflection.GetAvailableTypes(new Type[] { typeof(CustomOption) });
+			foreach (Type tCustomOption in tCustomOptions)
+			{
+				if (tCustomOption.Name == tag.FullName)
+				{
+					MarkupAttribute attID = tag.Attributes["ID"];
+					if (attID == null) continue;
+
+					MarkupAttribute attTitle = tag.Attributes["Title"];
+					if (attTitle == null) continue;
+
+					co = (CustomOption)tCustomOption.Assembly.CreateInstance(tCustomOption.FullName, false, System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.OptionalParamBinding, null, new object[] { attID.Value, attTitle.Value.Replace("_", "&") }, null, null);
+
+					foreach (MarkupAttribute att in tag.Attributes)
+					{
+						if (att.Name == "ID" || att.Name == "Title")
+						{
+							// already initialized
+							continue;
+						}
+						else
+						{
+							tCustomOption.GetProperty(att.Name).SetValue(co, att.Value, null);
+						}
+					}
+				}
+			}
+			return co;
+		}
+
+		private CustomDataFormatItem CreateField(MarkupTagElement tagField, Dictionary<string, object> localVariables)
+		{
+			switch (tagField.Name)
+			{
+				case "Field":
+				{
+					if (tagField.Attributes["DataType"] == null) return null;
+
+					CustomDataFormatItemField cdfif = new CustomDataFormatItemField();
+					cdfif.DataType = tagField.Attributes["DataType"].Value;
+
+					MarkupAttribute attFieldID = tagField.Attributes["ID"];
+					if (attFieldID != null)
+					{
+						cdfif.Name = attFieldID.Value;
+					}
+
+					MarkupAttribute attValue = tagField.Attributes["Value"];
+					if (attValue != null)
+					{
+						cdfif.Value = attValue.Value;
+					}
+
+					MarkupAttribute attConditionalVariable = tagField.Attributes["Conditional-Variable"];
+					if (attConditionalVariable != null)
+					{
+						CustomDataFormatFieldCondition cond = new CustomDataFormatFieldCondition();
+						cond.Variable = attConditionalVariable.Value;
+
+						MarkupAttribute attConditionalValue = tagField.Attributes["Conditional-Value"];
+						if (attConditionalValue != null) cond.Value = attConditionalValue.Value;
+
+						MarkupAttribute attConditionalTrueResult = tagField.Attributes["Conditional-TrueResult"];
+						if (attConditionalTrueResult != null) cond.TrueResult = attConditionalTrueResult.Value;
+
+						MarkupAttribute attConditionalFalseResult = tagField.Attributes["Conditional-FalseResult"];
+						if (attConditionalFalseResult != null) cond.FalseResult = attConditionalFalseResult.Value;
+
+						cdfif.FieldCondition = cond;
+					}
+					return cdfif;
+				}
+				case "Array":
+				{
+					if (tagField.Attributes["DataType"] == null) return null;
+
+					CustomDataFormatItemArray cdfif = new CustomDataFormatItemArray();
+					cdfif.DataType = tagField.Attributes["DataType"].Value;
+					if (cdfif.DataType == "Structure")
+					{
+						MarkupAttribute attStructureID = tagField.Attributes["StructureID"];
+						if (attStructureID != null) cdfif.StructureID = new Guid(attStructureID.Value);
+					}
+
+					if (tagField.Attributes["ID"] != null)
+					{
+						cdfif.Name = tagField.Attributes["ID"].Value;
+					}
+					if (tagField.Attributes["Length"] != null)
+					{
+						cdfif.Length = tagField.Attributes["Length"].Value;
+					}
+					if (tagField.Attributes["MaximumSize"] != null)
+					{
+						cdfif.MaximumSize = tagField.Attributes["MaximumSize"].Value;
+					}
+					return cdfif;
+				}
+			}
+			return null;
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{

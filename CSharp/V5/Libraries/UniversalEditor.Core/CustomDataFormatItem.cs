@@ -9,6 +9,34 @@ namespace UniversalEditor
 		public class CustomDataFormatItemCollection
 			: System.Collections.ObjectModel.Collection<CustomDataFormatItem>
 		{
+			public CustomDataFormatItem this[string name]
+			{
+				get
+				{
+					foreach (CustomDataFormatItem item in this)
+					{
+						if (item.Name == name) return item;
+					}
+					return null;
+				}
+			}
+		}
+		public class CustomDataFormatItemReadOnlyCollection
+			: System.Collections.ObjectModel.ReadOnlyCollection<CustomDataFormatItem>
+		{
+			public CustomDataFormatItemReadOnlyCollection(IList<CustomDataFormatItem> list) : base(list) { }
+			
+			public CustomDataFormatItem this[string name]
+			{
+				get
+				{
+					foreach (CustomDataFormatItem item in this)
+					{
+						if (item.Name == name) return item;
+					}
+					return null;
+				}
+			}
 		}
 
 		private string mvarName = null;
@@ -22,21 +50,33 @@ namespace UniversalEditor
 		private string mvarDataType = String.Empty;
 		public string DataType { get { return mvarDataType; } set { mvarDataType = value; } }
 
+		private Guid mvarStructureID = Guid.Empty;
+		public Guid StructureID { get { return mvarStructureID; } set { mvarStructureID = value; } }
+
 		private int? mvarLength = null;
 		public int? Length { get { return mvarLength; } set { mvarLength = value; } }
 
 		private IO.Encoding mvarEncoding = null;
 		public IO.Encoding Encoding { get { return mvarEncoding; } set { mvarEncoding = value; } }
 
-		private string mvarValue = null;
-		public string Value { get { return mvarValue; } set { mvarValue = value; } }
+		private object mvarValue = null;
+		public object Value { get { return mvarValue; } set { mvarValue = value; } }
+
+		private CustomDataFormatFieldCondition mvarFieldCondition = null;
+		public CustomDataFormatFieldCondition FieldCondition { get { return mvarFieldCondition; } set { mvarFieldCondition = value; } }
 	}
 	public class CustomDataFormatItemArray : CustomDataFormatItem
 	{
 		private string mvarDataType = String.Empty;
 		public string DataType { get { return mvarDataType; } set { mvarDataType = value; } }
 
-		private int mvarLength = 0;
-		public int Length { get { return mvarLength; } set { mvarLength = value; } }
+		private Guid mvarStructureID = Guid.Empty;
+		public Guid StructureID { get { return mvarStructureID; } set { mvarStructureID = value; } }
+
+		private string mvarLength = null;
+		public string Length { get { return mvarLength; } set { mvarLength = value; } }
+
+		private string mvarMaximumSize = null;
+		public string MaximumSize { get { return mvarMaximumSize; } set { mvarMaximumSize = value; } }
 	}
 }

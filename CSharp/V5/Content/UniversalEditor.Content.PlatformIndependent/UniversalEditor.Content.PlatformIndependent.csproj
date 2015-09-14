@@ -181,7 +181,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\PrincessWaltzARC.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\RoxorInTheGroove.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\SecretFilesTunguska.uexml" />
-    <Content Include="Extensions\GameDeveloper\Associations\FileSystem\SegaFARC.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\SEGA\Associations\SegaFARC.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\SinisterGames.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\StellaGamesLzmaPack.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\TerminalRealityPOD.uexml" />
@@ -660,6 +660,9 @@
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />
     <Content Include="Templates\Project\Concertroid\Images\Library.xcf" />
     <Content Include="Templates\Project\File Distribution\Images\Torrent.xcf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Extensions\GameDeveloper\Extensions\SEGA\DataFormats\SegaFARC.uexml" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />

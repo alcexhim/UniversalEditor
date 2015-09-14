@@ -56,7 +56,10 @@
     <Compile Include="Common\Path.cs" />
     <Compile Include="Common\Strings.cs" />
     <Compile Include="CustomDataFormat.cs" />
+    <Compile Include="CustomDataFormatFieldCondition.cs" />
     <Compile Include="CustomDataFormatItem.cs" />
+    <Compile Include="CustomDataFormatStructure.cs" />
+    <Compile Include="CustomDataFormatStructureInstance.cs" />
     <Compile Include="ObjectModelCustomProperty.cs" />
     <Compile Include="DataCorruptedException.cs" />
     <Compile Include="DataFormatCapabilities.cs" />
