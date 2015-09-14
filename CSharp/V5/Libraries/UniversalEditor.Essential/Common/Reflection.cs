@@ -31,7 +31,7 @@ namespace UniversalEditor.Common
 		}
 
 		private static Type[] mvarAvailableTypes = null;
-		public static Type[] GetAvailableTypes()
+		public static Type[] GetAvailableTypes(Type[] inheritsFrom = null)
 		{
 			if (mvarAvailableTypes == null)
 			{
@@ -55,6 +55,19 @@ namespace UniversalEditor.Common
 					Array.Copy(types1, 0, types, types.Length - types1.Length, types1.Length);
 				}
 				mvarAvailableTypes = types;
+			}
+
+			if (inheritsFrom != null)
+			{
+				List<Type> retval = new List<Type>();
+				foreach (Type tAvailable in mvarAvailableTypes)
+				{
+					foreach (Type tInheritsFrom in inheritsFrom)
+					{
+						if (tAvailable.IsSubclassOf(tInheritsFrom)) retval.Add(tAvailable);
+					}
+				}
+				return retval.ToArray();
 			}
 			return mvarAvailableTypes;
 		}
@@ -187,8 +200,10 @@ namespace UniversalEditor.Common
 				XMLFileNames = System.IO.Directory.GetFiles(path, System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"], System.IO.SearchOption.AllDirectories);
 				foreach (string fileName in XMLFileNames)
 				{
+#if !DEBUG
 					try
 					{
+#endif
 						string basePath = System.IO.Path.GetDirectoryName(fileName);
 
 						UEPackageObjectModel mom = new UEPackageObjectModel();
@@ -202,10 +217,12 @@ namespace UniversalEditor.Common
 						{
 							listProjectTypes.Add(projtype);
 						}
+#if !DEBUG
 					}
 					catch
 					{
 					}
+#endif
 				}
 
 				// ensure project types are loaded before running the next pass
