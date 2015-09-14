@@ -108,6 +108,19 @@ namespace UniversalEditor
 		public class CustomOptionCollection
 			: System.Collections.ObjectModel.Collection<CustomOption>
 		{
+
+			public CustomOption this[string propertyName]
+			{
+				get
+				{
+					foreach (CustomOption co in this)
+					{
+						if (co.PropertyName == propertyName) return co;
+					}
+					return null;
+				}
+			}
+
 		}
 
 		private string mvarPropertyName = String.Empty;
