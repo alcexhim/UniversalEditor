@@ -176,13 +176,14 @@ namespace UniversalEditor.Engines.WindowsForms
 			// TODO: figure out why this is being done on BeforeInitialization and whether we could move it to after
 			//       the configuration is initialized, so we can specify the user's favorite theme in a configuration file
 
-			AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme theme = new AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.ColorMode.Dark);
-			theme.UseAllCapsMenus = false;
-			theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.Initial);
+			// AwesomeControls.Theming.BuiltinThemes. theme = new AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.ColorMode.Dark);
+			// theme.UseAllCapsMenus = false;
+			// theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.Initial);
 			// AwesomeControls.Theming.BuiltinThemes.Office2003Theme theme = new AwesomeControls.Theming.BuiltinThemes.Office2003Theme();
 			// AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme theme = new AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme();
 			// AwesomeControls.Theming.BuiltinThemes.SlickTheme theme = new AwesomeControls.Theming.BuiltinThemes.SlickTheme();
-			AwesomeControls.Theming.Theme.CurrentTheme = theme;
+			AwesomeControls.Theming.Theme.CurrentTheme = AwesomeControls.Theming.Theme.GetByID(new Guid("{25134C94-B1EB-4C38-9B5B-A2E29FC57AE1}"));
+			// AwesomeControls.Theming.Theme.CurrentTheme.Properties["UseAllCapsMenus"] = false;
 
 			Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
 

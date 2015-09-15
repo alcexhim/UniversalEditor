@@ -436,24 +436,14 @@ namespace UniversalEditor.Engines.WindowsForms
 
 			if (mvarCurrentSolution == null)
 			{
-				AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme theme = (AwesomeControls.Theming.Theme.CurrentTheme as AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme);
-				if (theme != null)
-				{
-					theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.Initial);
-					sbStatusBar.Refresh();
-				}
-				return;
+				// AwesomeControls.Theming.Theme.CurrentTheme.Properties["StatusBarState"] = "Initial";
+				sbStatusBar.Refresh();
 			}
 			else
 			{
-				AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme theme = (AwesomeControls.Theming.Theme.CurrentTheme as AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme);
-				if (theme != null)
-				{
-					theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.SolutionLoaded);
-					sbStatusBar.Refresh();
-				}
+				// AwesomeControls.Theming.Theme.CurrentTheme.Properties["StatusBarState"] = "SolutionLoaded";
+				sbStatusBar.Refresh();
 			}
-
 		}
 
 		#region Editor-Specific Menus
