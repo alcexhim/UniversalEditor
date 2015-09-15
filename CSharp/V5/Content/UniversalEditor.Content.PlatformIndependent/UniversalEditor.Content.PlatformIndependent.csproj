@@ -600,20 +600,12 @@
     <Content Include="Templates\Project\File Distribution\Images\Torrent.ico" />
     <Content Include="Templates\Project\File Distribution\Images\Torrent_16x16.png" />
     <Content Include="Templates\Project\File Distribution\Images\Torrent_32x32.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileClose.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileExit.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewFile.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewProject.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewTeamProject.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileNewWebSite.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenFile.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenProject.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenTeamProject.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileOpenWebSite.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FilePageSetup.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FilePrint.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileSave.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Images\Commands\FileSaveAll.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\16x16\Blank Solution.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\16x16\Package.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\16x16\Plugin.png" />
@@ -635,7 +627,6 @@
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Reference.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Resources.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\UserControl.png" />
-    <Content Include="Themes\VisualStudio2012\Dark\Theme.xml" />
     <Content Include="WindowLayouts\Default.uexml" />
     <Content Include="WindowLayouts\VisualStudio2013.uexml" />
   </ItemGroup>
