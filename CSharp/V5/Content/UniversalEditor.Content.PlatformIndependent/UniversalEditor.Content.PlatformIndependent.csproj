@@ -626,7 +626,10 @@
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\PropertiesFolder.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Reference.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Resources.png" />
+    <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\Solution.png" />
     <Content Include="Themes\VisualStudio2012\Dark\Images\TreeView\UserControl.png" />
+    <Content Include="Themes\VisualStudio2013\Dark\Images\TreeView\generic-folder-closed.png" />
+    <Content Include="Themes\VisualStudio2013\Dark\Images\TreeView\generic-folder-open.png" />
     <Content Include="WindowLayouts\Default.uexml" />
     <Content Include="WindowLayouts\VisualStudio2013.uexml" />
   </ItemGroup>
