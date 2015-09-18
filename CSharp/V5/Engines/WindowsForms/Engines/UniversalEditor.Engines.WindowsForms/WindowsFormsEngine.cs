@@ -182,7 +182,10 @@ namespace UniversalEditor.Engines.WindowsForms
 			// AwesomeControls.Theming.BuiltinThemes.Office2003Theme theme = new AwesomeControls.Theming.BuiltinThemes.Office2003Theme();
 			// AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme theme = new AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme();
 			// AwesomeControls.Theming.BuiltinThemes.SlickTheme theme = new AwesomeControls.Theming.BuiltinThemes.SlickTheme();
-			AwesomeControls.Theming.Theme.CurrentTheme = AwesomeControls.Theming.Theme.GetByID(new Guid("{25134C94-B1EB-4C38-9B5B-A2E29FC57AE1}"));
+
+			AwesomeControls.Theming.Theme theme = AwesomeControls.Theming.Theme.GetByID(new Guid("{25134C94-B1EB-4C38-9B5B-A2E29FC57AE1}"));
+			if (theme != null) AwesomeControls.Theming.Theme.CurrentTheme = theme;
+
 			// AwesomeControls.Theming.Theme.CurrentTheme.Properties["UseAllCapsMenus"] = false;
 
 			Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
