@@ -314,7 +314,6 @@ namespace UniversalEditor.Engines.WindowsForms.Dialogs
 			this.Name = "NewDialogBase";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Create New";
-			this.UseThemeBackground = false;
 			this.sc.Panel1.ResumeLayout(false);
 			this.sc.Panel2.ResumeLayout(false);
 			this.sc.ResumeLayout(false);

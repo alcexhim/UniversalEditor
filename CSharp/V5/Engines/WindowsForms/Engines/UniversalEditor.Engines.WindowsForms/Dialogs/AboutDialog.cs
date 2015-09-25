@@ -6,9 +6,11 @@ using System.Text;
 using System.Windows.Forms;
 using UniversalEditor.UserInterface;
 
+using AwesomeControls;
+
 namespace UniversalEditor.Engines.WindowsForms.Dialogs
 {
-	public partial class AboutDialog : Glue.GlueWindow
+	public partial class AboutDialog : Window
 	{
 		public AboutDialog()
 		{

@@ -9,7 +9,7 @@ using UniversalEditor.UserInterface.WindowsForms;
 
 namespace UniversalEditor.Engines.WindowsForms.Dialogs
 {
-	public partial class OptionsDialog : AwesomeControls.Dialog
+	public partial class OptionsDialog : AwesomeControls.Window
 	{
 		public OptionsDialog()
 		{
