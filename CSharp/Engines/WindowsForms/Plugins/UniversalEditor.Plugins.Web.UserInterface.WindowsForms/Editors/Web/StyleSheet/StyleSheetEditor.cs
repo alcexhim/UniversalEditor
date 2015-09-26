@@ -18,11 +18,15 @@ namespace UniversalEditor.Editors.Web.StyleSheet
 		{
 			InitializeComponent();
 
-			object[] FontSizes = (base.Configuration.Properties["FontSizes"].Value as object[]);
-			foreach (object FontSizeO in FontSizes)
+			UniversalEditor.ObjectModels.PropertyList.Property propFontSizes = base.Configuration.Properties["FontSizes"];
+			if (propFontSizes != null)
 			{
-				string FontSize = FontSizeO.ToString();
-				txtFontSize.Items.Add(FontSize);
+				object[] FontSizes = (propFontSizes.Value as object[]);
+				foreach (object FontSizeO in FontSizes)
+				{
+					string FontSize = FontSizeO.ToString();
+					txtFontSize.Items.Add(FontSize);
+				}
 			}
 		}
 
