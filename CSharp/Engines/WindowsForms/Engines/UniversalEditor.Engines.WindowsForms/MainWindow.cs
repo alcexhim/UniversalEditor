@@ -404,7 +404,7 @@ namespace UniversalEditor.Engines.WindowsForms
 		{
 			wndOutputWindow.AppendText(text);
 		}
-		private void _ClearText(string text)
+		private void _ClearText()
 		{
 			wndOutputWindow.ClearText();
 		}
@@ -420,7 +420,7 @@ namespace UniversalEditor.Engines.WindowsForms
 		{
 			if (wndOutputWindow != null)
 			{
-				wndOutputWindow.Invoke(new Action<string>(_ClearText));
+				wndOutputWindow.Invoke(new Action(_ClearText));
 			}
 		}
 
