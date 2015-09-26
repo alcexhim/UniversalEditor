@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor.Plugins.Auraluminous.UserInterface.WindowsForms</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.Auraluminous.UserInterface.WindowsForms</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -92,7 +92,7 @@
       <Project>{8622ebc4-8e20-476e-b284-33d472081f5c}</Project>
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467e5c-05bc-4856-aadc-13906ef4cadd}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
