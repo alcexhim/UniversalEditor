@@ -8,7 +8,7 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Engines.WindowsForms.Dialogs
 {
-	internal partial class NewDialogBase : AwesomeControls.Window
+	internal partial class NewDialogBase : Form
 	{
 		public NewDialogBase()
 		{

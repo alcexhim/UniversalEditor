@@ -10,7 +10,7 @@ using AwesomeControls;
 
 namespace UniversalEditor.Engines.WindowsForms.Dialogs
 {
-	public partial class AboutDialog : Window
+	public partial class AboutDialog : Form
 	{
 		public AboutDialog()
 		{
