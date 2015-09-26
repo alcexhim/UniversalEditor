@@ -404,7 +404,7 @@ namespace UniversalEditor.Engines.WindowsForms
 		{
 			wndOutputWindow.AppendText(text);
 		}
-		private void _ClearText(string text)
+		private void _ClearText()
 		{
 			wndOutputWindow.ClearText();
 		}
