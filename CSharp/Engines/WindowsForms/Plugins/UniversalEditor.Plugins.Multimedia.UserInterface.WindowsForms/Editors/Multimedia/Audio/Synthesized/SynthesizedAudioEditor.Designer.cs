@@ -52,6 +52,7 @@
 			this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
 			this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -100,12 +101,14 @@
 			this.pnlPianoRoll.BackColor = System.Drawing.SystemColors.Window;
 			this.pnlPianoRoll.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.pnlPianoRoll.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pnlPianoRoll.GridSize = new System.Drawing.Size(128, 16);
+			this.pnlPianoRoll.KeyboardWidth = 64;
 			this.pnlPianoRoll.Location = new System.Drawing.Point(0, 0);
 			this.pnlPianoRoll.Name = "pnlPianoRoll";
 			this.pnlPianoRoll.QuantizationSize = new System.Drawing.Size(16, 16);
+			this.pnlPianoRoll.ShowKeyboard = true;
 			this.pnlPianoRoll.Size = new System.Drawing.Size(417, 375);
 			this.pnlPianoRoll.TabIndex = 0;
+			this.pnlPianoRoll.ZoomFactor = 1D;
 			// 
 			// mnuContextTreeView
 			// 
@@ -122,7 +125,7 @@
             this.toolStripMenuItem4,
             this.propertiesToolStripMenuItem});
 			this.mnuContextTreeView.Name = "mnuContextTreeView";
-			this.mnuContextTreeView.Size = new System.Drawing.Size(194, 220);
+			this.mnuContextTreeView.Size = new System.Drawing.Size(194, 198);
 			// 
 			// addToolStripMenuItem
 			// 
@@ -246,6 +249,7 @@
 			this.Size = new System.Drawing.Size(631, 375);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			this.pnlTrackEditor.ResumeLayout(false);
 			this.mnuContextTreeView.ResumeLayout(false);
