@@ -143,6 +143,7 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 	}
+
 	public class ActionMenuItem : MenuItem
 	{
 		private string mvarTitle = String.Empty;
@@ -179,5 +180,15 @@ namespace UniversalEditor.UserInterface
 	public class SeparatorMenuItem : MenuItem
 	{
 
+	}
+	public class PlaceholderMenuItem : MenuItem
+	{
+		private string mvarPlaceholderID = String.Empty;
+		public string PlaceholderID { get { return mvarPlaceholderID; } set { mvarPlaceholderID = value; } }
+
+		public PlaceholderMenuItem(string placeholderID)
+		{
+			mvarPlaceholderID = placeholderID;
+		}
 	}
 }

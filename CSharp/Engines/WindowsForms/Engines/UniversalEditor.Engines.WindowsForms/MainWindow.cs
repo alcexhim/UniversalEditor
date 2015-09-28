@@ -273,6 +273,10 @@ namespace UniversalEditor.Engines.WindowsForms
 				}
 				tsi = tsmi;
 			}
+			else if (item is CommandPlaceholderCommandItem)
+			{
+				throw new NotImplementedException();
+			}
 			else if (item is SeparatorCommandItem)
 			{
 				tsi = new ToolStripSeparator();
@@ -587,6 +591,14 @@ namespace UniversalEditor.Engines.WindowsForms
 				mvarEditorSpecificMenuItems.Add(tsmi);
 
 				smi.NativeControls.Add(tsmi);
+			}
+			else if (item is PlaceholderMenuItem)
+			{
+				ActionMenuItem[] amis = Engine.CurrentEngine.CreateMenuItemsFromPlaceholder(item as PlaceholderMenuItem);
+				foreach (ActionMenuItem ami in amis)
+				{
+					RecursiveLoadCustomMenuItems(ami, tsiParent);
+				}
 			}
 		}
 

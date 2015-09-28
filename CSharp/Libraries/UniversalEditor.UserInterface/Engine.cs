@@ -640,7 +640,7 @@ namespace UniversalEditor.UserInterface
 							MarkupTagElement tag = (el as MarkupTagElement);
 							if (tag == null) continue;
 
-							InitializeMainMenuItem(tag, cmd);
+							InitializeCommandBarItem(tag, cmd, null);
 						}
 					}
 
@@ -658,7 +658,7 @@ namespace UniversalEditor.UserInterface
 				{
 					MarkupTagElement tagItem = (elItem as MarkupTagElement);
 					if (tagItem == null) continue;
-					InitializeMainMenuItem(tagItem, null);
+					InitializeCommandBarItem(tagItem, null, null);
 				}
 			}
 
@@ -923,30 +923,15 @@ namespace UniversalEditor.UserInterface
 				{
 					MarkupTagElement tagItem = (elItem as MarkupTagElement);
 					if (tagItem == null) continue;
-					switch (tagItem.FullName)
-					{
-						case "CommandReference":
-						{
-							MarkupAttribute attCommandID = tagItem.Attributes["CommandID"];
-							if (attCommandID != null)
-							{
-								cb.Items.Add(new CommandReferenceCommandItem(attCommandID.Value));
-							}
-							break;
-						}
-						case "Separator":
-						{
-							cb.Items.Add(new SeparatorCommandItem());
-							break;
-						}
-					}
+
+					InitializeCommandBarItem(tagItem, null, cb);
 				}
 			}
 
 			mvarCommandBars.Add(cb);
 		}
 
-		private void InitializeCommandBarItem(MarkupTagElement tag, CommandBar parent)
+		private void InitializeCommandBarItem(MarkupTagElement tag, Command parent, CommandBar parentCommandBar)
 		{
 			CommandItem item = null;
 			switch (tag.FullName)
@@ -960,29 +945,12 @@ namespace UniversalEditor.UserInterface
 					}
 					break;
 				}
-				case "Separator":
+				case "CommandPlaceholder":
 				{
-					item = new SeparatorCommandItem();
-					break;
-				}
-			}
-
-			if (item != null)
-			{
-				parent.Items.Add(item);
-			}
-		}
-		private void InitializeMainMenuItem(MarkupTagElement tag, Command parent)
-		{
-			CommandItem item = null;
-			switch (tag.FullName)
-			{
-				case "CommandReference":
-				{
-					MarkupAttribute attCommandID = tag.Attributes["CommandID"];
-					if (attCommandID != null)
+					MarkupAttribute attPlaceholderID = tag.Attributes["PlaceholderID"];
+					if (attPlaceholderID != null)
 					{
-						item = new CommandReferenceCommandItem(attCommandID.Value);
+						item = new CommandPlaceholderCommandItem(attPlaceholderID.Value);
 					}
 					break;
 				}
@@ -997,7 +965,14 @@ namespace UniversalEditor.UserInterface
 			{
 				if (parent == null)
 				{
-					mvarMainMenu.Items.Add(item);
+					if (parentCommandBar != null)
+					{
+						parentCommandBar.Items.Add(item);
+					}
+					else
+					{
+						mvarMainMenu.Items.Add(item);
+					}
 				}
 				else
 				{
@@ -1321,5 +1296,18 @@ namespace UniversalEditor.UserInterface
 			return false;
 		}
 		public abstract bool ShowCustomOptionDialog(ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null);
+
+		public virtual ActionMenuItem[] CreateMenuItemsFromPlaceholder(PlaceholderMenuItem pmi)
+		{
+			List<ActionMenuItem> list = new List<ActionMenuItem>();
+			switch (pmi.PlaceholderID)
+			{
+				case "RecentFiles":
+				{
+					break;
+				}
+			}
+			return list.ToArray();
+		}
 	}
 }

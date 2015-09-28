@@ -99,12 +99,12 @@
 			</Command>
 			<Command ID="FileRecentFiles">
 				<Items>
-					<CommandPlaceholder ID="RecentFiles" />
+					<CommandPlaceholder PlaceholderID="RecentFiles" />
 				</Items>
 			</Command>
 			<Command ID="FileRecentProjects">
 				<Items>
-					<CommandPlaceholder ID="RecentProjects" />
+					<CommandPlaceholder PlaceholderID="RecentProjects" />
 				</Items>
 			</Command>
 			<Command ID="FileRestart" />
@@ -285,7 +285,7 @@
 			<Command ID="ToolsSessionManager" />
 			<Command ID="ToolsExternalTools">
 				<Items>
-					<CommandPlaceholder ID="ExternalTools" />
+					<CommandPlaceholder PlaceholderID="ExternalTools" />
 					<Separator />
 					<CommandReference CommandID="ToolsExternalToolsCustomize" />
 				</Items>

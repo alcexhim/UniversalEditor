@@ -18,6 +18,16 @@ namespace UniversalEditor.UserInterface
 			mvarCommandID = commandID;
 		}
 	}
+	public class CommandPlaceholderCommandItem : CommandItem
+	{
+		private string mvarPlaceholderID = String.Empty;
+		public string PlaceholderID { get { return mvarPlaceholderID; } set { mvarPlaceholderID = value; } }
+
+		public CommandPlaceholderCommandItem(string placeholderID)
+		{
+			mvarPlaceholderID = placeholderID;
+		}
+	}
 	public class SeparatorCommandItem : CommandItem
 	{
 	}
