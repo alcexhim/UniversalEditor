@@ -35,8 +35,8 @@ namespace UniversalEditor.Common
 		{
 			if (mvarAvailableTypes == null)
 			{
+				List<Type> types = new List<Type>();
 				Assembly[] asms = GetAvailableAssemblies();
-				Type[] types = new Type[0];
 				foreach (Assembly asm in asms)
 				{
 					Type[] types1 = null;
@@ -51,10 +51,13 @@ namespace UniversalEditor.Common
 
 					if (types1 == null) continue;
 
-					Array.Resize<Type>(ref types, types.Length + types1.Length);
-					Array.Copy(types1, 0, types, types.Length - types1.Length, types1.Length);
+					foreach (Type type in types1)
+					{
+						if (type == null) continue;
+						types.Add(type);
+					}
 				}
-				mvarAvailableTypes = types;
+				mvarAvailableTypes = types.ToArray();
 			}
 
 			if (inheritsFrom != null)
