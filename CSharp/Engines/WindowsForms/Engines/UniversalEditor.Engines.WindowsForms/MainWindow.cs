@@ -436,12 +436,12 @@ namespace UniversalEditor.Engines.WindowsForms
 
 			if (mvarCurrentSolution == null)
 			{
-				AwesomeControls.Theming.Theme.CurrentTheme.SetColor("StatusBarBackground", "StatusBarBackgroundPurple");
+				AwesomeControls.Theming.Theme.CurrentTheme.SetColor("StatusBarBackground", "@StatusBarBackgroundPurple");
 				sbStatusBar.Refresh();
 			}
 			else
 			{
-				AwesomeControls.Theming.Theme.CurrentTheme.SetColor("StatusBarBackground", "StatusBarBackgroundBlue");
+				AwesomeControls.Theming.Theme.CurrentTheme.SetColor("StatusBarBackground", "@StatusBarBackgroundBlue");
 				sbStatusBar.Refresh();
 			}
 		}
