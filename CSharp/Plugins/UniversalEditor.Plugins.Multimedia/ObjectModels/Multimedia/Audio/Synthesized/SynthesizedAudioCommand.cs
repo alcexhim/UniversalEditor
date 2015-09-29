@@ -24,8 +24,35 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
                 return command;
             }
 
+			public event EventHandler ItemsChanged;
+			protected virtual void OnItemsChanged(EventArgs e)
+			{
+				if (ItemsChanged != null) ItemsChanged(this, e);
+			}
+			protected override void InsertItem(int index, SynthesizedAudioCommand item)
+			{
+				base.InsertItem(index, item);
+				OnItemsChanged(EventArgs.Empty);
+			}
+
+			protected override void RemoveItem(int index)
+			{
+				base.RemoveItem(index);
+				OnItemsChanged(EventArgs.Empty);
+			}
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				OnItemsChanged(EventArgs.Empty);
+			}
+			protected override void SetItem(int index, SynthesizedAudioCommand item)
+			{
+				base.SetItem(index, item);
+				OnItemsChanged(EventArgs.Empty);
+			}
 
 		}
+
 		public virtual object Clone()
 		{
 			return base.MemberwiseClone();

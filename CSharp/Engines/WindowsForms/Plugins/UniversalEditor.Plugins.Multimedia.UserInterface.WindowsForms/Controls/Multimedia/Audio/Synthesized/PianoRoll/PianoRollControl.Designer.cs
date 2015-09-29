@@ -28,10 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.txtLyric = new System.Windows.Forms.TextBox();
+			this.SuspendLayout();
+			// 
+			// txtLyric
+			// 
+			this.txtLyric.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.txtLyric.Enabled = false;
+			this.txtLyric.Location = new System.Drawing.Point(16, 45);
+			this.txtLyric.Name = "txtLyric";
+			this.txtLyric.Size = new System.Drawing.Size(71, 20);
+			this.txtLyric.TabIndex = 0;
+			this.txtLyric.Visible = false;
+			this.txtLyric.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtLyric_KeyDown);
+			// 
+			// PianoRollControl
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.txtLyric);
+			this.Name = "PianoRollControl";
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
         }
 
         #endregion
+
+		private System.Windows.Forms.TextBox txtLyric;
     }
 }

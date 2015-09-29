@@ -164,6 +164,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\Multimedia\Audio\Synthesized\PianoRoll\PianoRollControl.resx">
+      <DependentUpon>PianoRollControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Multimedia\Audio\Waveform\WaveformTrackList\WaveformTrackListControl.resx">
       <DependentUpon>WaveformTrackListControl.cs</DependentUpon>
     </EmbeddedResource>

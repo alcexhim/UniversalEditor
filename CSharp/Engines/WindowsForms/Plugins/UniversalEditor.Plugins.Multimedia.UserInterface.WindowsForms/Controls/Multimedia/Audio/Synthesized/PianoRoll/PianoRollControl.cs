@@ -17,7 +17,23 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
         {
             InitializeComponent();
 			DoubleBuffered = true;
+
+			mvarCommands.ItemsChanged += mvarCommands_ItemsChanged;
         }
+
+		private void mvarCommands_ItemsChanged(object sender, EventArgs e)
+		{
+			List<SynthesizedAudioCommand> cmdsToRemove = new List<SynthesizedAudioCommand>();
+			foreach (SynthesizedAudioCommand cmd in mvarSelectedCommands)
+			{
+				if (!mvarCommands.Contains(cmd)) cmdsToRemove.Add(cmd);
+			}
+			foreach (SynthesizedAudioCommand cmd in cmdsToRemove)
+			{
+				mvarSelectedCommands.Remove(cmd);
+			}
+			Invalidate();
+		}
 
 		private SynthesizedAudioCommand.SynthesizedAudioCommandCollection mvarCommands = new SynthesizedAudioCommand.SynthesizedAudioCommandCollection();
 		public SynthesizedAudioCommand.SynthesizedAudioCommandCollection Commands { get { return mvarCommands; } }
@@ -55,17 +71,39 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
 			}
 
 			SynthesizedAudioCommand cmd = HitTest(e.Location);
+			if (Control.ModifierKeys == Keys.None)
+			{
+				mvarSelectedCommands.Clear();
+			}
 			if (cmd != null)
 			{
-				if (Control.ModifierKeys == Keys.None)
+				bool remove = false;
+				if (Control.ModifierKeys == Keys.Shift)
 				{
-					mvarSelectedCommands.Clear();
-				}
-				else if (Control.ModifierKeys == Keys.Shift)
-				{
+					if (mvarSelectedCommands.Count > 0)
+					{
+						int startIndex = mvarCommands.IndexOf(mvarSelectedCommands[mvarSelectedCommands.Count - 1]);
+						int endIndex = mvarCommands.IndexOf(cmd);
 
+						mvarSelectedCommands.Clear();
+						for (int i = startIndex; i < endIndex; i++)
+						{
+							mvarSelectedCommands.Add(mvarCommands[i]);
+						}
+					}
 				}
-				mvarSelectedCommands.Add(cmd);
+				else if (Control.ModifierKeys == Keys.Control)
+				{
+					remove = mvarSelectedCommands.Contains(cmd);
+				}
+				if (remove)
+				{
+					mvarSelectedCommands.Remove(cmd);
+				}
+				else
+				{
+					mvarSelectedCommands.Add(cmd);
+				}
 			}
 
 			if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -74,6 +112,9 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
 				drag_CurrentLocation = drag_OriginalLocation;
 				drag_Dragging = true;
 			}
+
+			txtLyric.Visible = false;
+			txtLyric.Enabled = false;
 		}
 		
 		protected override void OnMouseMove(MouseEventArgs e)
@@ -119,6 +160,28 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
 			}
 
 			Invalidate();
+		}
+
+		protected override void OnMouseDoubleClick(MouseEventArgs e)
+		{
+			base.OnMouseDoubleClick(e);
+			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			{
+				SynthesizedAudioCommand cmd = HitTest(e.Location);
+				if (cmd is SynthesizedAudioCommandNote)
+				{
+					SynthesizedAudioCommandNote note = (cmd as SynthesizedAudioCommandNote);
+					Rectangle rect = GetNoteRect(note);
+					txtLyric.Location = rect.Location;
+					txtLyric.Size = rect.Size;
+					txtLyric.Text = note.Lyric;
+
+					txtLyric.Enabled = true;
+					txtLyric.Visible = true;
+
+					txtLyric.Focus();
+				}
+			}
 		}
 
 		private Point Quantize(Point pt)
@@ -177,6 +240,19 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
 				gridPen.Color = Colors.LightGray.ToGdiColor();
 				e.Graphics.DrawLine(gridPen, gridRect.Left, gridRect.Top + i, gridRect.Right, gridRect.Top + i);
 
+				string[] noteNames = new string[]
+				{
+					"A#", "A", "G#", "G", "F#", "F", "E", "D#", "D", "C#", "C", "B"
+				};
+				if ((noteValue - 1) >= 0 && (noteValue - 1) < noteNames.Length)
+				{
+					string noteName = noteNames[noteValue - 1];
+					if (noteName.EndsWith("#")) continue;
+					if (!noteName.Equals("C")) continue;
+
+					e.Graphics.DrawString(noteName, Font, new SolidBrush(noteName.Equals("C") ? Colors.DarkGray.ToGdiColor() : Colors.LightGray.ToGdiColor()), new Point(mvarKeyboardWidth - 24, i + 1));
+				}
+
 				// e.Graphics.DrawString(noteValue.ToString(), Font, new SolidBrush(Colors.Red.ToGdiColor()), new Point(0, i));
 			}
 			for (int i = 0; i < this.Width; i += gridWidth)
@@ -219,6 +295,10 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
 					{
 						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBA(0xCC, 0xFF, 0xCC).ToGdiColor()), rect);
 					}
+					e.Graphics.DrawRectangle(new Pen(Colors.DarkGray.ToGdiColor()), rect);
+
+					Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 1, rect.Width - 4, rect.Height - 2);
+					e.Graphics.DrawString(note.Lyric, Font, new SolidBrush(Colors.Black.ToGdiColor()), textRect);
 				}
 			}
         }
@@ -267,6 +347,22 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
 			Point pt1 = Unquantize(new Point((int)(note.Position), FrequencyToValue(note.Frequency)));
 			Point pt2 = Unquantize(new Point((int)note.Length, FrequencyToValue(note.Frequency)));
 			return new Rectangle(gridRect.X + pt1.X + 1, gridRect.Y + pt1.Y + 1, pt2.X - 1, mvarNoteHeight - 1);
+		}
+
+		private void txtLyric_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				foreach (SynthesizedAudioCommand cmd in mvarSelectedCommands)
+				{
+					if (cmd is SynthesizedAudioCommandNote)
+					{
+						(cmd as SynthesizedAudioCommandNote).Lyric = txtLyric.Text;
+					}
+				}
+				txtLyric.Visible = false;
+				txtLyric.Enabled = false;
+			}
 		}
     }
 }
