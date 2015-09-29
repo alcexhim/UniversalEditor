@@ -364,5 +364,53 @@ namespace UniversalEditor.Controls.Multimedia.Audio.Synthesized.PianoRoll
 				txtLyric.Enabled = false;
 			}
 		}
+
+		public void Delete()
+		{
+			while (mvarSelectedCommands.Count > 0)
+			{
+				mvarCommands.Remove(mvarSelectedCommands[0]);
+			}
+		}
+
+		private void mnuContextCut_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void mnuContextCopy_Click(object sender, EventArgs e)
+		{
+
+		}
+		private void mnuContextPaste_Click(object sender, EventArgs e)
+		{
+			IDataObject data = Clipboard.GetDataObject();
+			if (data != null)
+			{
+				string[] formats = data.GetFormats();
+			}
+		}
+
+		private void mnuContextDelete_Click(object sender, EventArgs e)
+		{
+			Delete();
+		}
+
+		private void mnuContextProperties_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void mnuContext_Opening(object sender, CancelEventArgs e)
+		{
+			bool enableCmds = (mvarSelectedCommands.Count > 0);
+			mnuContextCut.Enabled = enableCmds;
+			mnuContextCopy.Enabled = enableCmds;
+			// mnuContextPaste.Enabled = Clipboard.ContainsData(...);
+			mnuContextPaste.Enabled = false;
+			mnuContextDelete.Enabled = enableCmds;
+			mnuContextProperties.Enabled = enableCmds;
+		}
+
     }
 }

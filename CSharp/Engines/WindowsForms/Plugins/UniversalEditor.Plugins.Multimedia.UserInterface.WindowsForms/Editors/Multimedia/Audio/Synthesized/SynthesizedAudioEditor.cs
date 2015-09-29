@@ -122,10 +122,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 		#region Editor Commands
 		public override void Delete()
 		{
-			while (pnlPianoRoll.SelectedCommands.Count > 0)
-			{
-				pnlPianoRoll.Commands.Remove(pnlPianoRoll.SelectedCommands[0]);
-			}
+			pnlPianoRoll.Delete();
 		}
 		#endregion
 		#endregion
