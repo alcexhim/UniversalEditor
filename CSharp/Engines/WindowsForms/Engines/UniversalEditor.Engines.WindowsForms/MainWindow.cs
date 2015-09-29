@@ -275,7 +275,10 @@ namespace UniversalEditor.Engines.WindowsForms
 			}
 			else if (item is CommandPlaceholderCommandItem)
 			{
-				throw new NotImplementedException();
+				Console.WriteLine("Please implement CommandPlaceholderCommandItem!");
+				// TODO: implement CommandPlaceholderCommandItem
+				// throw new NotImplementedException();
+				return;
 			}
 			else if (item is SeparatorCommandItem)
 			{
