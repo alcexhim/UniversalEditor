@@ -2034,6 +2034,15 @@ namespace UniversalEditor.Engines.WindowsForms
 			{
 				e.Effect = DragDropEffects.Link;
 			}
+
+			if (e.Data.GetDataPresent("Preferred DropEffect"))
+			{
+				System.IO.MemoryStream ms = (e.Data.GetData("Preferred DropEffect") as System.IO.MemoryStream);
+				System.IO.BinaryReader br = new System.IO.BinaryReader(ms);
+				int value = br.ReadInt32();
+				DragDropEffects effect = (DragDropEffects)value;
+				e.Effect = effect;
+			}
 		}
 
 		private void MainWindow_DragDrop(object sender, DragEventArgs e)
@@ -2056,6 +2065,17 @@ namespace UniversalEditor.Engines.WindowsForms
 			else if (e.Data.GetDataPresent("Text"))
 			{
 				string rtf = (e.Data.GetData("Text") as string);
+			}
+			else if (e.Data.GetDataPresent("FileDrop"))
+			{
+				object data = e.Data.GetData("FileDrop");
+				string[] filenames = (e.Data.GetData("FileDrop") as string[]);
+				Document[] documents = new Document[filenames.Length];
+				for (int i = 0; i < documents.Length; i++)
+				{
+					documents[i] = new Document(null, null, new FileAccessor(filenames[i]));
+				}
+				OpenFile(documents);
 			}
 			else if (e.Data.GetDataPresent("FileNameW"))
 			{
