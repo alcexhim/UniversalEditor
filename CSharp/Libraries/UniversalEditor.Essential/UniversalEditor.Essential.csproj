@@ -105,6 +105,8 @@
     <Compile Include="ObjectModels\FileSystem\IFileSystemContainer.cs" />
     <Compile Include="ObjectModels\FileSystem\IFileSystemObject.cs" />
     <Compile Include="ObjectModels\FileSystem\IFileSystemObjectType.cs" />
+    <Compile Include="ObjectModels\Help\TableOfContents\TableOfContentsObjectModel.cs" />
+    <Compile Include="ObjectModels\Help\TableOfContents\TOCNode.cs" />
     <Compile Include="ObjectModels\Markup\MarkupAttribute.cs" />
     <Compile Include="ObjectModels\Markup\MarkupCommentElement.cs" />
     <Compile Include="ObjectModels\Markup\MarkupContainerElement.cs" />
