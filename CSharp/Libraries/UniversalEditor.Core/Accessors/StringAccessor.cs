@@ -101,6 +101,7 @@ namespace UniversalEditor.Accessors
 		protected internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
 			byte[] bytes = this.DefaultEncoding.GetBytes(_data, (int)ptr, 1);
+			count = System.Math.Min(bytes.Length, count);
 			System.Array.Copy(bytes, 0, buffer, start, count);
 			ptr += count;
 			return count;
