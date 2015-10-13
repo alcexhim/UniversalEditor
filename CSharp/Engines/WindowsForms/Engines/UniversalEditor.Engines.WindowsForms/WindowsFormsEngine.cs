@@ -183,12 +183,14 @@ namespace UniversalEditor.Engines.WindowsForms
 			// AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme theme = new AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme();
 			// AwesomeControls.Theming.BuiltinThemes.SlickTheme theme = new AwesomeControls.Theming.BuiltinThemes.SlickTheme();
 
+			// Office 2000  =   {105843D0-2F26-4CB7-86AB-10A449815C19}
 			// Office 2007	=	{4D86F538-E277-4E6F-9CAC-60F82D49A19D}
 			// VS2012-Dark	=	{25134C94-B1EB-4C38-9B5B-A2E29FC57AE1}
 			// VS2012-Light	=	{54CE64B1-2DE3-4147-B499-03F0934AFD37}
 			// VS2012-Blue	=	{898A65FC-8D08-46F1-BB94-2BF666AC996E}
 
-			AwesomeControls.Theming.Theme theme = AwesomeControls.Theming.Theme.GetByID(new Guid("{54CE64B1-2DE3-4147-B499-03F0934AFD37}"));
+			// AwesomeControls.Theming.Theme theme = AwesomeControls.Theming.Theme.GetByID(new Guid("{54CE64B1-2DE3-4147-B499-03F0934AFD37}"));
+			AwesomeControls.Theming.Theme theme = AwesomeControls.Theming.Theme.GetByID(new Guid("{105843D0-2F26-4CB7-86AB-10A449815C19}"));
 			if (theme != null) AwesomeControls.Theming.Theme.CurrentTheme = theme;
 
 			// AwesomeControls.Theming.Theme.CurrentTheme.Properties["UseAllCapsMenus"] = false;

@@ -104,6 +104,12 @@
     <Compile Include="Editors\FormattedTextEditor.Designer.cs">
       <DependentUpon>FormattedTextEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Help\TableOfContentsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\Help\TableOfContentsEditor.Designer.cs">
+      <DependentUpon>TableOfContentsEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\MarkupEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -202,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\FormattedTextEditor.resx">
       <DependentUpon>FormattedTextEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\Help\TableOfContentsEditor.resx">
+      <DependentUpon>TableOfContentsEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\MarkupEditor.resx">
       <DependentUpon>MarkupEditor.cs</DependentUpon>
