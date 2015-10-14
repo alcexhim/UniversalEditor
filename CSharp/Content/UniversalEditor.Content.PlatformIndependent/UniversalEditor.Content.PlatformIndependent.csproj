@@ -658,6 +658,9 @@
   <ItemGroup>
     <Content Include="Extensions\GameDeveloper\Extensions\SEGA\DataFormats\SegaFARC.uexml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Extensions\FileSystem\Associations\Microsoft\POD.uexml" />
+  </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
