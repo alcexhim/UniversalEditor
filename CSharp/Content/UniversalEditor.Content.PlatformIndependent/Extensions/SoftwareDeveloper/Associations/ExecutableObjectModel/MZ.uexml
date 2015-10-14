@@ -12,8 +12,11 @@
 						<FileNameFilter>*.fon</FileNameFilter>
 						<FileNameFilter>*.olb</FileNameFilter>
 						<FileNameFilter>*.tlb</FileNameFilter>
-						<FileNameFilter>*.mpd</FileNameFilter>
 						<FileNameFilter>*.vxd</FileNameFilter>
+						
+						<!-- found on Win95 OSR2 CD-ROM -->
+						<FileNameFilter>*.mpd</FileNameFilter>
+						<FileNameFilter>*.pdr</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
