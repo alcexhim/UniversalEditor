@@ -46,14 +46,23 @@ internal static class TemporaryFileManager
 	{
 		if (mvarTemporaryFilePath == null) return false;
 
+		System.Collections.Generic.List<string> fileNamesNotDeleted = new System.Collections.Generic.List<string>();
+
 		foreach (string fileName in mvarTemporaryFileNames)
 		{
 			if (System.IO.File.Exists(fileName))
 			{
-				System.IO.File.Delete(fileName); 
+				try
+				{
+					System.IO.File.Delete(fileName);
+				}
+				catch (Exception ex)
+				{
+					fileNamesNotDeleted.Add(fileName);
+				}
 			}
 		}
-		if (System.IO.Directory.Exists(mvarTemporaryFilePath))
+		if (System.IO.Directory.Exists(mvarTemporaryFilePath) && fileNamesNotDeleted.Count == 0)
 		{
 			System.IO.Directory.Delete(mvarTemporaryFilePath, true);
 		}
