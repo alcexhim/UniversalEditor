@@ -5,7 +5,13 @@
 			<Filters>
 				<Filter Title="Executable and Linkable Format">
 					<FileNameFilters>
+						<FileNameFilter>*.axf</FileNameFilter>
+						<FileNameFilter>*.bin</FileNameFilter>
 						<FileNameFilter>*.elf</FileNameFilter>
+						<FileNameFilter>*.o</FileNameFilter>
+						<FileNameFilter>*.prx</FileNameFilter>
+						<FileNameFilter>*.puff</FileNameFilter>
+						<FileNameFilter>*.so</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>

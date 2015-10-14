@@ -39,7 +39,7 @@
   <ItemGroup>
     <Content Include="Associations\Chunked.uexml" />
     <Content Include="Extensions\AddressBook\Associations\Contact.uexml" />
-    <Content Include="Associations\Executable.uexml" />
+    <Content Include="Extensions\SoftwareDeveloper\Associations\ExecutableObjectModel\AppleMachO.uexml" />
     <Content Include="Associations\FormattedText.uexml" />
     <Content Include="Associations\Markup.uexml" />
     <Content Include="Associations\DataLink.uexml" />
@@ -663,6 +663,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\FileSystem\Associations\PVM.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Extensions\SoftwareDeveloper\Associations\ExecutableObjectModel\MZ.uexml" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />

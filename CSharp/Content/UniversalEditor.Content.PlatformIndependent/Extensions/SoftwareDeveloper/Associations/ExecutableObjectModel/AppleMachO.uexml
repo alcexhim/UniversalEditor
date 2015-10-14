@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Apple Mach-O executable">
+					<FileNameFilters>
+						<FileNameFilter>*.dylib</FileNameFilter>
+						<FileNameFilter>*.bundle</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<!-- normal endianness -->
+							<MagicByte Type="Hexadecimal">FEEDFACE</MagicByte>
+						</MagicByteSequence>
+						<MagicByteSequence>
+							<!-- reverse endianness -->
+							<MagicByte Type="Hexadecimal">CEFAEDFE</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Executable.ExecutableObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Executable.Apple.MachO.MachODataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
