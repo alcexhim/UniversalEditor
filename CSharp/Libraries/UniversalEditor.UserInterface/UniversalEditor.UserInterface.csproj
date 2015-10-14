@@ -80,6 +80,7 @@
     <Compile Include="SessionManager.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="SingleInstanceManager.cs" />
+    <Compile Include="TemporaryFileManager.cs" />
     <Compile Include="Toolbar.cs" />
     <Compile Include="Toolbox.cs" />
     <Compile Include="UnsavedDocumentOption.cs" />

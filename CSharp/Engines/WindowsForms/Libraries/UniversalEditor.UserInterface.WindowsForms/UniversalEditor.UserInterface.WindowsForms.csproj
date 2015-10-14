@@ -149,7 +149,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TemporaryFileManager.cs" />
     <Compile Include="VirtualFileDataObject.cs" />
   </ItemGroup>
   <ItemGroup>
