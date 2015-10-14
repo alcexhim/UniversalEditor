@@ -12,11 +12,25 @@
 						<FileNameFilter>*.fon</FileNameFilter>
 						<FileNameFilter>*.olb</FileNameFilter>
 						<FileNameFilter>*.tlb</FileNameFilter>
+						<FileNameFilter>*.drv</FileNameFilter>
 						<FileNameFilter>*.vxd</FileNameFilter>
+
+						<!-- Control Panel DLL -->
+						<FileNameFilter>*.cpl</FileNameFilter>
+						
+						<!-- ActiveX control -->
+						<FileNameFilter>*.ocx</FileNameFilter>
+						<!-- ActiveX control (Visual Basic) -->
+						<FileNameFilter>*.vbx</FileNameFilter>
 						
 						<!-- found on Win95 OSR2 CD-ROM -->
 						<FileNameFilter>*.mpd</FileNameFilter>
 						<FileNameFilter>*.pdr</FileNameFilter>
+						<FileNameFilter>*.386</FileNameFilter>
+						<FileNameFilter>*.3gr</FileNameFilter>
+
+						<!-- unimdm.tsp on Win95 OSR2 CD-ROM -->
+						<FileNameFilter>*.tsp</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
