@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 {
@@ -85,10 +86,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 
 						File file = fsom.AddFile(fileName);
 						file.Size = length;
-						file.Properties.Add("reader", reader);
-						file.Properties.Add("length", length);
-						file.Properties.Add("offset", offset);
-						file.DataRequest += file_DataRequest;
+						file.Source = new EmbeddedFileSource(reader, offset, length);
 					}
 					break;
 				}
@@ -112,10 +110,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 						
 						File file = fsom.AddFile(fileName);
 						file.Size = lengths[i];
-						file.Properties.Add("reader", reader);
-						file.Properties.Add("length", lengths[i]);
-						file.Properties.Add("offset", offsets[i]);
-						file.DataRequest += file_DataRequest;
+						file.Source = new EmbeddedFileSource(reader, offsets[i], lengths[i]);
 					}
 					break;
 				}
@@ -149,10 +144,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 
 						File file = fsom.AddFile(filename);
 						file.Size = lengths[i];
-						file.Properties.Add("reader", reader);
-						file.Properties.Add("length", lengths[i]);
-						file.Properties.Add("offset", offsets[i]);
-						file.DataRequest += file_DataRequest;
+						file.Source = new EmbeddedFileSource(reader, offsets[i], lengths[i]);
 					}
 
 					// russellm directory
@@ -168,18 +160,6 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 					break;
 				}
 			}
-		}
-
-		private void file_DataRequest(object sender, DataRequestEventArgs e)
-		{
-			File file = (sender as File);
-			Reader reader = (Reader)file.Properties["reader"];
-			uint length = (uint)file.Properties["length"];
-			uint offset = (uint)file.Properties["offset"];
-
-			reader.Accessor.Seek(offset, SeekOrigin.Begin);
-			byte[] data = reader.ReadBytes(length);
-			e.Data = data;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

@@ -51,7 +51,6 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedKWAJHeaderFlags.cs" />
-    <Compile Include="DataFormats\FileSystem\Microsoft\POD\PODDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMArchiveFlags.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMArchiveHeader.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMDataFormat.cs" />
