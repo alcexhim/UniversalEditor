@@ -102,11 +102,14 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			switch (compiler)
 			{
 				case PECompiler.IntelCPP80Linux:
+				case PECompiler.HPaCppIA64:
+				case PECompiler.IAREwarmCPP54ARM:
+				case PECompiler.GCC3or4x:
 				{
-					// _Z1hi 					_Z1hic 					_Z1hv
-					// void h(int)				void h(int, char)		void h(void)
+					// _Z{name.length}{name}i 					_Z1hic 					_Z1hv
+					// void h(int)								void h(int, char)		void h(void)
 
-					string _Z1 = name.Substring(0, 2);
+					string _Z = name.Substring(0, 2);
 
 					break;
 				}
@@ -128,121 +131,43 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 		
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			Reader br = base.Accessor.Reader;
+			Reader reader = base.Accessor.Reader;
 
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			ExecutableObjectModel exec = (objectModel as ExecutableObjectModel);
 			if (fsom == null && exec == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
 			ExecutableObjectModel exe = new ExecutableObjectModel();
-			uint e_lfanew = 0;
-			#region DOS part
-			{
-				string signature = br.ReadFixedLengthString(2); // 0x4d, 0x5a. This is the "magic number" of an EXE file. The first byte of the file is 0x4d and the second is 0x5a.
-				if (signature != "MZ") throw new InvalidDataFormatException("File does not begin with \"MZ\"");
-				mvarDOSHeader.LastBlockLength = br.ReadUInt16(); // The number of bytes in the last block of the program that are actually used. If this value is zero, that means the entire last block is used (i.e. the effective value is 512).
-				mvarDOSHeader.NumBlocksInEXE = br.ReadUInt16(); // Number of blocks in the file that are part of the EXE file. If mvarDOSHeader.LastBlockLength is non-zero, only that much of the last block is used.
-				mvarDOSHeader.NumRelocEntriesAfterHeader = br.ReadUInt16(); // Number of relocation entries stored after the header. May be zero.
-				mvarDOSHeader.NumParagraphsInHeader = br.ReadUInt16(); // Number of paragraphs in the header. The program's data begins just after the header, and this field can be used to calculate the appropriate file offset. The header includes the relocation entries. Note that some OSs and/or programs may fail if the header is not a multiple of 512 bytes.
-				mvarDOSHeader.NumParagraphsAdditionalMemory = br.ReadUInt16(); // Number of paragraphs of additional memory that the program will need. This is the equivalent of the BSS size in a Unix program. The program can't be loaded if there isn't at least this much memory available to it.
-				mvarDOSHeader.NumMaxParagraphsAdditionalMemory = br.ReadUInt16(); // Maximum number of paragraphs of additional memory. Normally, the OS reserves all the remaining conventional memory for your program, but you can limit it with this field.
-				mvarDOSHeader.RelativeStackSegmentValue = br.ReadUInt16(); // Relative value of the stack segment. This value is added to the segment the program was loaded at, and the result is used to initialize the SS register.
-				mvarDOSHeader.InitialValueRegisterSP = br.ReadUInt16(); // Initial value of the SP register.
-				mvarDOSHeader.WordChecksum = br.ReadUInt16(); // Word checksum. If set properly, the 16-bit sum of all words in the file should be zero. Usually, this isn't filled in.
-				mvarDOSHeader.InitialValueRegisterIP = br.ReadUInt16(); // Initial value of the IP register.
-				mvarDOSHeader.InitialValueRegisterCS = br.ReadUInt16(); // Initial value of the CS register, relative to the segment the program was loaded at.
-				mvarDOSHeader.FirstRelocationItemOffset = br.ReadUInt16(); // Offset of the first relocation item in the file.
-				mvarDOSHeader.OverlayNumber = br.ReadUInt16(); // Overlay number. Normally zero, meaning that it's the main program.
 
-				ushort[] e_res = br.ReadUInt16Array(4);        // Reserved words
-				ushort e_oemid = br.ReadUInt16();         // OEM identifier (for e_oeminfo)
-				ushort e_oeminfo = br.ReadUInt16();       // OEM information; e_oemid specific
-				ushort[] e_res2 = br.ReadUInt16Array(10);      // Reserved words
+			mvarDOSHeader = ReadDOSHeader(reader);
 
-				e_lfanew = br.ReadUInt32();        // File address of new exe header
-			}
-			#endregion
-
-			byte[] stubProgram = br.ReadBytes(64);
+			byte[] stubProgram = reader.ReadBytes(64);
 
 			#region Portable Executable
 			{
-				if (e_lfanew != 0)
+				if (mvarDOSHeader.NewEXEHeaderOffset != 0)
 				{
-					br.Accessor.Position = e_lfanew;
+					reader.Accessor.Position = mvarDOSHeader.NewEXEHeaderOffset;
 
-					#region PE header
-					PEHeader pe = new PEHeader();
-					pe.signature = br.ReadFixedLengthString(4);
-					if (pe.signature == "PE\0\0")
+					// PE header
+					PEHeader pe = ReadPEHeader(reader);
+					if (pe.enabled)
 					{
-						pe.enabled = true;
-						pe.machine = (PEMachineType)br.ReadUInt16();
-						pe.sectionCount = br.ReadInt16();
-						pe.timestamp = br.ReadInt16();		// date/time stamp
-						pe.symbolTableOffset = br.ReadInt16();		// symbolTableOffset
-						pe.symbolCount = br.ReadInt16();		// symbolCount
-						pe.unknown4 = br.ReadInt16();		
-						pe.unknown5 = br.ReadInt16();		
-						pe.unknown6 = br.ReadInt16();
-						pe.sizeOfOptionalHeader = br.ReadInt16(); // relative offset to sectiontable
-						pe.characteristics = (PECharacteristics)br.ReadUInt16();
-
 						exe.TargetMachineType = (ExecutableMachine)pe.machine;
 						exe.Characteristics = (ExecutableCharacteristics)pe.characteristics;
 					}
-					else
-					{
-						pe.enabled = false;
-						br.Accessor.Position -= 4;
-					}
-					#endregion
-					#region Optional Header
-					long peohOffset = br.Accessor.Position;
+					
+					// Optional Header
+					long peohOffset = reader.Accessor.Position;
 					PEOptionalHeader peoh = new PEOptionalHeader();
-					if (pe.sizeOfOptionalHeader > 0)
-					{
-						// offset: 0x58
-						peoh.enabled = true;
-						peoh.magic = br.ReadUInt16();
-						peoh.unknown1 = br.ReadUInt16();
-						peoh.unknown2 = br.ReadUInt32();
-						peoh.unknown3 = br.ReadUInt32();
-						peoh.unknown4 = br.ReadUInt32();
-						peoh.entryPointAddr = br.ReadUInt32();
-						peoh.unknown5 = br.ReadUInt32();
-						peoh.unknown6 = br.ReadUInt32();
-						peoh.imageBase = br.ReadUInt32();
-						peoh.sectionAlignment = br.ReadUInt32();
-						peoh.fileAlignment = br.ReadUInt32();
-						peoh.unknown7 = br.ReadUInt32();
-						peoh.unknown8 = br.ReadUInt32();
-						peoh.majorSubsystemVersion = br.ReadUInt16(); // 4 = NT 4 or later
-						peoh.unknown9 = br.ReadUInt16();
-						peoh.unknown10 = br.ReadUInt32();
-						peoh.imageSize = br.ReadUInt32();
-						peoh.headerSize = br.ReadUInt32();
-						peoh.unknown11 = br.ReadUInt32();
-						peoh.subsystem = br.ReadUInt16();
-						peoh.unknown12 = br.ReadUInt16();
-						peoh.unknown13 = br.ReadUInt32();
-						peoh.unknown14 = br.ReadUInt32();
-						peoh.unknown15 = br.ReadUInt32();
-						peoh.unknown16 = br.ReadUInt32();
-						peoh.unknown17 = br.ReadUInt32();
-						peoh.rvaCount = br.ReadUInt32();
-					}
-					else
-					{
-						peoh.enabled = false;
-					}
-					#endregion
+					peoh = ReadPEOptionalHeader(reader, pe);
+					
 					#region Data Directories
 					{
 						for (int i = 0; i < peoh.rvaCount; i++)
 						{
-							uint dataDirectoryOffset = br.ReadUInt32();
-							uint dataDirectoryLength = br.ReadUInt32();
+							uint dataDirectoryOffset = reader.ReadUInt32();
+							uint dataDirectoryLength = reader.ReadUInt32();
 						}
 					}
 					#endregion
@@ -251,28 +176,19 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 						// offset: 0x138
 						if (peoh.enabled)
 						{
-							br.Accessor.Seek(peohOffset + pe.sizeOfOptionalHeader, SeekOrigin.Begin);
+							reader.Accessor.Seek(peohOffset + pe.sizeOfOptionalHeader, SeekOrigin.Begin);
 						}
 						
 						uint lastRawDataPtr = 0;
 						for (short i = 0; i < pe.sectionCount; i++)
 						{
-							PESectionHeader pesh = new PESectionHeader();
-							pesh.name = br.ReadFixedLengthString(8).TrimNull();
-							pesh.virtualSize = br.ReadUInt32();
-							pesh.virtualAddress = br.ReadUInt32();
-							pesh.rawDataSize = br.ReadUInt32();
-							pesh.rawDataPtr = br.ReadUInt32();
-							pesh.unknown1 = br.ReadUInt32();
-							pesh.unknown2 = br.ReadUInt32();
-							pesh.unknown3 = br.ReadUInt32();
-							pesh.characteristics = (PESectionCharacteristics)br.ReadUInt32();
+							PESectionHeader pesh = ReadPESectionHeader(reader);
 
 							if (fsom != null)
 							{
 								File file = new File();
 								file.Name = pesh.name;
-								file.Properties.Add("reader", br);
+								file.Properties.Add("reader", reader);
 								file.Properties.Add("offset", pesh.rawDataPtr);
 								file.Properties.Add("length", pesh.rawDataSize);
 
@@ -289,10 +205,10 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 							sect.PhysicalAddress = pesh.rawDataPtr;
 							sect.Characteristics = (ExecutableSectionCharacteristics)pesh.characteristics;
 
-							long ofs = br.Accessor.Position;
-							br.Accessor.Position = pesh.rawDataPtr;
-							sect.Data = br.ReadBytes(pesh.rawDataSize);
-							br.Accessor.Position = ofs;
+							long ofs = reader.Accessor.Position;
+							reader.Accessor.Position = pesh.rawDataPtr;
+							sect.Data = reader.ReadBytes(pesh.rawDataSize);
+							reader.Accessor.Position = ofs;
 
 							exe.Sections.Add(sect);
 						}
@@ -303,41 +219,41 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				{
 					#region New Executable
 					// not a PE file, try NE?
-					br.Accessor.Position = 128;
-					string NE = br.ReadFixedLengthString(2);
+					reader.Accessor.Position = 128;
+					string NE = reader.ReadFixedLengthString(2);
 					if (NE == "NE")
 					{
-						byte MajLinkerVersion = br.ReadByte(); ;    //The major linker version
-						byte MinLinkerVersion = br.ReadByte();    //The minor linker version
-						ushort EntryTableOffset = br.ReadUInt16();   //Offset of entry table, see below
-						ushort EntryTableLength = br.ReadUInt16();   //Length of entry table in bytes
-						uint FileLoadCRC = br.ReadUInt32();        //UNKNOWN - PLEASE ADD INFO
-						byte ProgFlags = br.ReadByte();           //Program flags, bitmapped
-						byte ApplFlags = br.ReadByte();           //Application flags, bitmapped
-						byte AutoDataSegIndex = br.ReadByte();    //The automatic data segment index
-						ushort InitHeapSize = br.ReadUInt16();       //The intial local heap size
-						ushort InitStackSize = br.ReadUInt16();      //The inital stack size
-						uint EntryPoint = br.ReadUInt32();         //CS:IP entry point, CS is index into segment table
-						uint InitStack = br.ReadUInt32();          //SS:SP inital stack pointer, SS is index into segment table
-						ushort SegCount = br.ReadUInt16();           //Number of segments in segment table
-						ushort ModRefs = br.ReadUInt16();            //Number of module references (DLLs)
-						ushort NoResNamesTabSiz = br.ReadUInt16();   //Size of non-resident names table, in bytes (Please clarify non-resident names table)
-						ushort SegTableOffset = br.ReadUInt16();     //Offset of Segment table
-						ushort ResTableOffset = br.ReadUInt16();     //Offset of resources table
-						ushort ResidNamTable = br.ReadUInt16();      //Offset of resident names table
-						ushort ModRefTable = br.ReadUInt16();        //Offset of module reference table
-						ushort ImportNameTable = br.ReadUInt16();    //Offset of imported names table (array of counted strings, terminated with string of length 00h)
-						uint OffStartNonResTab = br.ReadUInt32();  //Offset from start of file to non-resident names table
-						ushort MovEntryCount = br.ReadUInt16();      //Count of moveable entry point listed in entry table
-						ushort FileAlnSzShftCnt = br.ReadUInt16();   //File alligbment size shift count (0=9(default 512 byte pages))
-						ushort nResTabEntries = br.ReadUInt16();     //Number of resource table entries
-						byte targOS = br.ReadByte();              //Target OS
-						byte OS2EXEFlags = br.ReadByte();         //Other OS/2 flags
-						ushort retThunkOffset = br.ReadUInt16();     //Offset to return thunks or start of gangload area - what is gangload?
-						ushort segrefthunksoff = br.ReadUInt16();    //Offset to segment reference thunks or size of gangload area
-						ushort mincodeswap = br.ReadUInt16();        //Minimum code swap area size
-						byte expctwinver_min = br.ReadByte();      //Expected windows version (minor)
-						byte expctwinver_maj = br.ReadByte();      //Expected windows version (major)
+						byte MajLinkerVersion = reader.ReadByte(); ;    //The major linker version
+						byte MinLinkerVersion = reader.ReadByte();    //The minor linker version
+						ushort EntryTableOffset = reader.ReadUInt16();   //Offset of entry table, see below
+						ushort EntryTableLength = reader.ReadUInt16();   //Length of entry table in bytes
+						uint FileLoadCRC = reader.ReadUInt32();        //UNKNOWN - PLEASE ADD INFO
+						byte ProgFlags = reader.ReadByte();           //Program flags, bitmapped
+						byte ApplFlags = reader.ReadByte();           //Application flags, bitmapped
+						byte AutoDataSegIndex = reader.ReadByte();    //The automatic data segment index
+						ushort InitHeapSize = reader.ReadUInt16();       //The intial local heap size
+						ushort InitStackSize = reader.ReadUInt16();      //The inital stack size
+						uint EntryPoint = reader.ReadUInt32();         //CS:IP entry point, CS is index into segment table
+						uint InitStack = reader.ReadUInt32();          //SS:SP inital stack pointer, SS is index into segment table
+						ushort SegCount = reader.ReadUInt16();           //Number of segments in segment table
+						ushort ModRefs = reader.ReadUInt16();            //Number of module references (DLLs)
+						ushort NoResNamesTabSiz = reader.ReadUInt16();   //Size of non-resident names table, in bytes (Please clarify non-resident names table)
+						ushort SegTableOffset = reader.ReadUInt16();     //Offset of Segment table
+						ushort ResTableOffset = reader.ReadUInt16();     //Offset of resources table
+						ushort ResidNamTable = reader.ReadUInt16();      //Offset of resident names table
+						ushort ModRefTable = reader.ReadUInt16();        //Offset of module reference table
+						ushort ImportNameTable = reader.ReadUInt16();    //Offset of imported names table (array of counted strings, terminated with string of length 00h)
+						uint OffStartNonResTab = reader.ReadUInt32();  //Offset from start of file to non-resident names table
+						ushort MovEntryCount = reader.ReadUInt16();      //Count of moveable entry point listed in entry table
+						ushort FileAlnSzShftCnt = reader.ReadUInt16();   //File alligbment size shift count (0=9(default 512 byte pages))
+						ushort nResTabEntries = reader.ReadUInt16();     //Number of resource table entries
+						byte targOS = reader.ReadByte();              //Target OS
+						byte OS2EXEFlags = reader.ReadByte();         //Other OS/2 flags
+						ushort retThunkOffset = reader.ReadUInt16();     //Offset to return thunks or start of gangload area - what is gangload?
+						ushort segrefthunksoff = reader.ReadUInt16();    //Offset to segment reference thunks or size of gangload area
+						ushort mincodeswap = reader.ReadUInt16();        //Minimum code swap area size
+						byte expctwinver_min = reader.ReadByte();      //Expected windows version (minor)
+						byte expctwinver_maj = reader.ReadByte();      //Expected windows version (major)
 					}
 					#endregion
 				}
@@ -415,6 +331,88 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			#endregion
 		}
 
+		private static PEHeader ReadPEHeader(Reader reader)
+		{
+			PEHeader pe = new PEHeader();
+			pe.signature = reader.ReadFixedLengthString(4);
+			if (pe.signature == "PE\0\0")
+			{
+				pe.enabled = true;
+				pe.machine = (PEMachineType)reader.ReadUInt16();
+				pe.sectionCount = reader.ReadInt16();
+				pe.timestamp = reader.ReadInt16();		// date/time stamp
+				pe.symbolTableOffset = reader.ReadInt16();		// symbolTableOffset
+				pe.symbolCount = reader.ReadInt16();		// symbolCount
+				pe.unknown4 = reader.ReadInt16();
+				pe.unknown5 = reader.ReadInt16();
+				pe.unknown6 = reader.ReadInt16();
+				pe.sizeOfOptionalHeader = reader.ReadInt16(); // relative offset to sectiontable
+				pe.characteristics = (PECharacteristics)reader.ReadUInt16();
+			}
+			else
+			{
+				pe.enabled = false;
+				reader.Accessor.Position -= 4;
+			}
+			return pe;
+		}
+		private static PESectionHeader ReadPESectionHeader(Reader reader)
+		{
+			PESectionHeader pesh = new PESectionHeader();
+			pesh.name = reader.ReadFixedLengthString(8).TrimNull();
+			pesh.virtualSize = reader.ReadUInt32();
+			pesh.virtualAddress = reader.ReadUInt32();
+			pesh.rawDataSize = reader.ReadUInt32();
+			pesh.rawDataPtr = reader.ReadUInt32();
+			pesh.unknown1 = reader.ReadUInt32();
+			pesh.unknown2 = reader.ReadUInt32();
+			pesh.unknown3 = reader.ReadUInt32();
+			pesh.characteristics = (PESectionCharacteristics)reader.ReadUInt32();
+			return pesh;
+		}
+		private static PEOptionalHeader ReadPEOptionalHeader(Reader reader, PEHeader pe)
+		{
+			PEOptionalHeader peoh = new PEOptionalHeader();
+			if (pe.sizeOfOptionalHeader > 0)
+			{
+				// offset: 0x58
+				peoh.enabled = true;
+				peoh.magic = reader.ReadUInt16();
+				peoh.unknown1 = reader.ReadUInt16();
+				peoh.unknown2 = reader.ReadUInt32();
+				peoh.unknown3 = reader.ReadUInt32();
+				peoh.unknown4 = reader.ReadUInt32();
+				peoh.entryPointAddr = reader.ReadUInt32();
+				peoh.unknown5 = reader.ReadUInt32();
+				peoh.unknown6 = reader.ReadUInt32();
+				peoh.imageBase = reader.ReadUInt32();
+				peoh.sectionAlignment = reader.ReadUInt32();
+				peoh.fileAlignment = reader.ReadUInt32();
+				peoh.unknown7 = reader.ReadUInt32();
+				peoh.unknown8 = reader.ReadUInt32();
+				peoh.majorSubsystemVersion = reader.ReadUInt16(); // 4 = NT 4 or later
+				peoh.unknown9 = reader.ReadUInt16();
+				peoh.unknown10 = reader.ReadUInt32();
+				peoh.imageSize = reader.ReadUInt32();
+				peoh.headerSize = reader.ReadUInt32();
+				peoh.unknown11 = reader.ReadUInt32();
+				peoh.subsystem = reader.ReadUInt16();
+				peoh.unknown12 = reader.ReadUInt16();
+				peoh.unknown13 = reader.ReadUInt32();
+				peoh.unknown14 = reader.ReadUInt32();
+				peoh.unknown15 = reader.ReadUInt32();
+				peoh.unknown16 = reader.ReadUInt32();
+				peoh.unknown17 = reader.ReadUInt32();
+				peoh.rvaCount = reader.ReadUInt32();
+			}
+			else
+			{
+				peoh.enabled = false;
+			}
+			return peoh;
+		}
+
+
 #if EXECUTABLE_LOAD_RESOURCES
 		private void RecursiveLoadResourceBlock(ResourceBlock block, Folder parent)
 		{
@@ -446,6 +444,64 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			e.Data = br.ReadBytes(length);
 		}
 
+		private static DOSExecutableHeader ReadDOSHeader(Reader reader)	
+		{
+			DOSExecutableHeader value = new DOSExecutableHeader();
+
+			// 0x4d, 0x5a. This is the "magic number" of an EXE file. The first byte of the file is 0x4d and the second is 0x5a.
+			string signature = reader.ReadFixedLengthString(2);
+			if (signature != "MZ") throw new InvalidDataFormatException("File does not begin with \"MZ\"");
+
+			value.LastBlockLength = reader.ReadUInt16();
+			value.NumBlocksInEXE = reader.ReadUInt16();
+			value.NumRelocEntriesAfterHeader = reader.ReadUInt16();
+			value.NumParagraphsInHeader = reader.ReadUInt16();
+			value.NumParagraphsAdditionalMemory = reader.ReadUInt16();
+			value.NumMaxParagraphsAdditionalMemory = reader.ReadUInt16();
+			value.RelativeStackSegmentValue = reader.ReadUInt16();
+			value.InitialValueRegisterSP = reader.ReadUInt16();
+			value.WordChecksum = reader.ReadUInt16();
+			value.InitialValueRegisterIP = reader.ReadUInt16();
+			value.InitialValueRegisterCS = reader.ReadUInt16();
+			value.FirstRelocationItemOffset = reader.ReadUInt16();
+			value.OverlayNumber = reader.ReadUInt16();
+
+			ushort[] e_res = reader.ReadUInt16Array(4);        // Reserved words
+			ushort e_oemid = reader.ReadUInt16();         // OEM identifier (for e_oeminfo)
+			ushort e_oeminfo = reader.ReadUInt16();       // OEM information; e_oemid specific
+			ushort[] e_res2 = reader.ReadUInt16Array(10);      // Reserved words
+
+			value.NewEXEHeaderOffset = reader.ReadUInt32();
+			return value;
+		}
+		private static void WriteDOSHeader(Writer writer, DOSExecutableHeader value)
+		{
+			writer.WriteFixedLengthString("MZ");
+			writer.WriteUInt16(value.LastBlockLength); // The number of bytes in the last block of the program that are actually used. If this value is zero, that means the entire last block is used (i.e. the effective value is 512).
+			writer.WriteUInt16(value.NumBlocksInEXE); // Number of blocks in the file that are part of the EXE file. If mvarDOSHeader.LastBlockLength is non-zero, only that much of the last block is used.
+			writer.WriteUInt16(value.NumRelocEntriesAfterHeader); // Number of relocation entries stored after the header. May be zero.
+			writer.WriteUInt16(value.NumParagraphsInHeader); // Number of paragraphs in the header. The program's data begins just after the header, and this field can be used to calculate the appropriate file offset. The header includes the relocation entries. Note that some OSs and/or programs may fail if the header is not a multiple of 512 bytes.
+			writer.WriteUInt16(value.NumParagraphsAdditionalMemory); // Number of paragraphs of additional memory that the program will need. This is the equivalent of the BSS size in a Unix program. The program can't be loaded if there isn't at least this much memory available to it.
+			writer.WriteUInt16(value.NumMaxParagraphsAdditionalMemory); // Maximum number of paragraphs of additional memory. Normally, the OS reserves all the remaining conventional memory for your program, but you can limit it with this field.
+			writer.WriteUInt16(value.RelativeStackSegmentValue); // Relative value of the stack segment. This value is added to the segment the program was loaded at, and the result is used to initialize the SS register.
+			writer.WriteUInt16(value.InitialValueRegisterSP); // Initial value of the SP register.
+			writer.WriteUInt16(value.WordChecksum); // Word checksum. If set properly, the 16-bit sum of all words in the file should be zero. Usually, this isn't filled in.
+			writer.WriteUInt16(value.InitialValueRegisterIP); // Initial value of the IP register.
+			writer.WriteUInt16(value.InitialValueRegisterCS); // Initial value of the CS register, relative to the segment the program was loaded at.
+			writer.WriteUInt16(value.FirstRelocationItemOffset); // Offset of the first relocation item in the file.
+			writer.WriteUInt16(value.OverlayNumber); // Overlay number. Normally zero, meaning that it's the main program.
+
+
+			ushort[] e_res = new ushort[4];
+			writer.WriteUInt16Array(e_res);        // Reserved words
+			ushort e_oemid = 0;
+			writer.WriteUInt16(e_oemid);         // OEM identifier (for e_oeminfo)
+			ushort e_oeminfo = 0;       // OEM information; e_oemid specific
+			writer.WriteUInt16(e_oeminfo);
+			ushort[] e_res2 = new ushort[10];      // Reserved words
+			writer.WriteUInt16Array(e_res2);
+		}
+
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			Writer bw = base.Accessor.Writer;
@@ -453,33 +509,9 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			ExecutableObjectModel exe = (objectModel as ExecutableObjectModel);
 			if (fsom == null && exe == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
-			#region DOS part
-			bw.WriteFixedLengthString("MZ");
-			bw.WriteUInt16(mvarDOSHeader.LastBlockLength); // The number of bytes in the last block of the program that are actually used. If this value is zero, that means the entire last block is used (i.e. the effective value is 512).
-			bw.WriteUInt16(mvarDOSHeader.NumBlocksInEXE); // Number of blocks in the file that are part of the EXE file. If mvarDOSHeader.LastBlockLength is non-zero, only that much of the last block is used.
-			bw.WriteUInt16(mvarDOSHeader.NumRelocEntriesAfterHeader); // Number of relocation entries stored after the header. May be zero.
-			bw.WriteUInt16(mvarDOSHeader.NumParagraphsInHeader); // Number of paragraphs in the header. The program's data begins just after the header, and this field can be used to calculate the appropriate file offset. The header includes the relocation entries. Note that some OSs and/or programs may fail if the header is not a multiple of 512 bytes.
-			bw.WriteUInt16(mvarDOSHeader.NumParagraphsAdditionalMemory); // Number of paragraphs of additional memory that the program will need. This is the equivalent of the BSS size in a Unix program. The program can't be loaded if there isn't at least this much memory available to it.
-			bw.WriteUInt16(mvarDOSHeader.NumMaxParagraphsAdditionalMemory); // Maximum number of paragraphs of additional memory. Normally, the OS reserves all the remaining conventional memory for your program, but you can limit it with this field.
-			bw.WriteUInt16(mvarDOSHeader.RelativeStackSegmentValue); // Relative value of the stack segment. This value is added to the segment the program was loaded at, and the result is used to initialize the SS register.
-			bw.WriteUInt16(mvarDOSHeader.InitialValueRegisterSP); // Initial value of the SP register.
-			bw.WriteUInt16(mvarDOSHeader.WordChecksum); // Word checksum. If set properly, the 16-bit sum of all words in the file should be zero. Usually, this isn't filled in.
-			bw.WriteUInt16(mvarDOSHeader.InitialValueRegisterIP); // Initial value of the IP register.
-			bw.WriteUInt16(mvarDOSHeader.InitialValueRegisterCS); // Initial value of the CS register, relative to the segment the program was loaded at.
-			bw.WriteUInt16(mvarDOSHeader.FirstRelocationItemOffset); // Offset of the first relocation item in the file.
-			bw.WriteUInt16(mvarDOSHeader.OverlayNumber); // Overlay number. Normally zero, meaning that it's the main program.
+			// DOS part
+			WriteDOSHeader(bw, mvarDOSHeader);
 
-
-			ushort[] e_res = new ushort[4];
-			bw.WriteUInt16Array(e_res);        // Reserved words
-			ushort e_oemid = 0;
-			bw.WriteUInt16(e_oemid);         // OEM identifier (for e_oeminfo)
-			ushort e_oeminfo = 0;       // OEM information; e_oemid specific
-			bw.WriteUInt16(e_oeminfo);
-			ushort[] e_res2 = new ushort[10];      // Reserved words
-			bw.WriteUInt16Array(e_res2);
-
-			#endregion
 			#region Portable Executable
 			int e_lfanew = (int)(bw.Accessor.Position + 4);
 			bw.WriteInt32(e_lfanew);
