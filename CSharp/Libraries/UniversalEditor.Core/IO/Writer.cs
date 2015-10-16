@@ -66,6 +66,13 @@ namespace UniversalEditor.IO
 			byte[] data = encoding.GetBytes(new char[] { value });
 			WriteBytes(data);
 		}
+		public void WriteCharArray(char[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteChar(values[i]);
+			}
+		}
 
 		public void Write(char value)
 		{
@@ -190,6 +197,12 @@ namespace UniversalEditor.IO
 			WriteNullTerminatedString(ssz, encoding);
 		}
 		
+		/// <summary>
+		/// Writes a two-byte signed integer to the current stream and advances the stream position by two bytes.
+		/// </summary>
+		/// <param name="value">The two-byte signed integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteInt16(short value)
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
@@ -206,6 +219,25 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(buffer);
 		}
+		/// <summary>
+		/// Writes an array of two-byte signed integers to the current stream and advances the stream position by two bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of two-byte signed integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteInt16Array(short[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteInt16(values[i]);
+			}
+		}
+		/// <summary>
+		/// Writes a two-byte unsigned integer to the current stream and advances the stream position by two bytes.
+		/// </summary>
+		/// <param name="value">The two-byte unsigned integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteUInt16(ushort value)
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
@@ -222,6 +254,25 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(buffer);
 		}
+		/// <summary>
+		/// Writes an array of two-byte unsigned integers to the current stream and advances the stream position by two bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of two-byte unsigned integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteUInt16Array(ushort[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteUInt16(values[i]);
+			}
+		}
+		/// <summary>
+		/// Writes a three-byte signed integer to the current stream and advances the stream position by three bytes.
+		/// </summary>
+		/// <param name="value">The three-byte signed integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteInt24 (int value)
 		{
 			byte[] buffer = new byte[3];
@@ -239,6 +290,25 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(buffer);
 		}
+		/// <summary>
+		/// Writes an array of three-byte signed integers to the current stream and advances the stream position by three bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of three-byte signed integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteInt24Array(int[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteInt24(values[i]);
+			}
+		}
+		/// <summary>
+		/// Writes a three-byte unsigned integer to the current stream and advances the stream position by three bytes.
+		/// </summary>
+		/// <param name="value">The three-byte unsigned integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteUInt24(uint value)
 		{
 			byte[] buffer = new byte[3];
@@ -256,6 +326,25 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(buffer);
 		}
+		/// <summary>
+		/// Writes an array of three-byte unsigned integers to the current stream and advances the stream position by three bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of three-byte unsigned integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteUInt24Array(uint[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteUInt24(values[i]);
+			}
+		}
+		/// <summary>
+		/// Writes a four-byte signed integer to the current stream and advances the stream position by four bytes.
+		/// </summary>
+		/// <param name="value">The four-byte signed integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteInt32(int value)
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
@@ -276,6 +365,12 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(buffer);
 		}
+		/// <summary>
+		/// Writes an array of four-byte signed integers to the current stream and advances the stream position by four bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of four-byte signed integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteInt32Array(int[] values)
 		{
 			for (int i = 0; i < values.Length; i++)
@@ -283,6 +378,12 @@ namespace UniversalEditor.IO
 				WriteInt32(values[i]);
 			}
 		}
+		/// <summary>
+		/// Writes a four-byte unsigned integer to the current stream and advances the stream position by four bytes.
+		/// </summary>
+		/// <param name="value">The four-byte unsigned integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteUInt32(uint value)
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
@@ -303,6 +404,25 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(buffer);
 		}
+		/// <summary>
+		/// Writes an array of four-byte unsigned integers to the current stream and advances the stream position by four bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of four-byte unsigned integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteUInt32Array(uint[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteUInt32(values[i]);
+			}
+		}
+		/// <summary>
+		/// Writes an eight-byte signed integer to the current stream and advances the stream position by eight bytes.
+		/// </summary>
+		/// <param name="value">The eight-byte signed integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteInt64(long value)
 		{
 			byte[] _buffer = new byte[8];
@@ -330,6 +450,25 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(_buffer);
 		}
+		/// <summary>
+		/// Writes an array of eight-byte signed integers to the current stream and advances the stream position by eight bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of eight-byte signed integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteInt64Array(long[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteInt64(values[i]);
+			}
+		}
+		/// <summary>
+		/// Writes an eight-byte unsigned integer to the current stream and advances the stream position by eight bytes.
+		/// </summary>
+		/// <param name="value">The eight-byte unsigned integer to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteUInt64(ulong value)
 		{
 			byte[] _buffer = new byte[8];
@@ -357,8 +496,26 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(_buffer);
 		}
-		
-		public void WriteObject (object value)
+		/// <summary>
+		/// Writes an array of eight-byte unsigned integers to the current stream and advances the stream position by eight bytes times the number of values written.
+		/// </summary>
+		/// <param name="values">The array of eight-byte unsigned integers to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteUInt64Array(ulong[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteUInt64(values[i]);
+			}
+		}
+		/// <summary>
+		/// Writes an arbitrary object to the current stream and advances the stream position by the number of bytes needed to store the object.
+		/// </summary>
+		/// <param name="value">The object to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteObject(object value)
 		{
 			Type objectType = value.GetType ();
 			
@@ -445,12 +602,97 @@ namespace UniversalEditor.IO
 				WriteObject (fi.GetValue (value));
 			}
 		}
-		
+		/// <summary>
+		/// Writes an array of arbitrary objects to the current stream and advances the stream position by the number of bytes needed to store the objects.
+		/// </summary>
+		/// <param name="values">The array of objects to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteObjectArray(object[] values)
+		{
+			for (int i = 0; i < values.Length; i++)
+			{
+				WriteObject(values[i]);
+			}
+		}
+
+		/// <summary>
+		/// Writes a <see cref="DateTime" /> in a format that encodes the <see cref="System.DateTime.Kind" /> property in a 2-bit field
+		/// and the <see cref="System.DateTime.Ticks" /> property in a 62-bit field.
+		/// </summary>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteDateTime(DateTime value)
 		{
 			WriteInt64(value.ToBinary());
 		}
 
+		/// <summary>
+		/// Writes a four-byte floating-point value to the current stream and advances the stream position by four bytes.
+		/// </summary>
+		/// <param name="value">The four-byte floating-point value to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteSingle(float value)
+		{
+			byte[] buffer = BitConverter.GetBytes(value);
+			byte[] _buffer = new byte[4];
+			if (base.Endianness == Endianness.BigEndian)
+			{
+				_buffer[0] = buffer[3];
+				_buffer[1] = buffer[2];
+				_buffer[2] = buffer[1];
+				_buffer[3] = buffer[0];
+			}
+			else
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[3];
+			}
+			WriteBytes(_buffer);
+		}
+		/// <summary>
+		/// Writes an eight-byte floating-point value to the current stream and advances the stream position by eight bytes.
+		/// </summary>
+		/// <param name="value">The eight-byte floating-point value to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		public void WriteDouble(double value)
+		{
+			byte[] buffer = BitConverter.GetBytes(value);
+			byte[] _buffer = new byte[8];
+			if (base.Endianness == Endianness.BigEndian)
+			{
+				_buffer[0] = buffer[7];
+				_buffer[1] = buffer[6];
+				_buffer[2] = buffer[5];
+				_buffer[3] = buffer[4];
+				_buffer[4] = buffer[3];
+				_buffer[5] = buffer[2];
+				_buffer[6] = buffer[1];
+				_buffer[7] = buffer[0];
+			}
+			else
+			{
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[3];
+				_buffer[4] = buffer[4];
+				_buffer[5] = buffer[5];
+				_buffer[6] = buffer[6];
+				_buffer[7] = buffer[7];
+			}
+			WriteBytes(_buffer);
+		}
+		/// <summary>
+		/// Writes a decimal value to the current stream and advances the stream position by sixteen bytes.
+		/// </summary>
+		/// <param name="value">The decimal value to write.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteDecimal(decimal value)
 		{
 			int[] bits = decimal.GetBits(value);
@@ -565,56 +807,6 @@ namespace UniversalEditor.IO
 			base.Accessor.Position += paddingCount;
 		}
 
-
-		public void WriteSingle(float value)
-		{
-			byte[] buffer = BitConverter.GetBytes(value);
-			byte[] _buffer = new byte[4];
-			if (base.Endianness == Endianness.BigEndian)
-			{
-				_buffer[0] = buffer[3];
-				_buffer[1] = buffer[2];
-				_buffer[2] = buffer[1];
-				_buffer[3] = buffer[0];
-			}
-			else
-			{
-				_buffer[0] = buffer[0];
-				_buffer[1] = buffer[1];
-				_buffer[2] = buffer[2];
-				_buffer[3] = buffer[3];
-			}
-			WriteBytes(_buffer);
-		}
-		public void WriteDouble(double value)
-		{
-			byte[] buffer = BitConverter.GetBytes(value);
-			byte[] _buffer = new byte[8];
-			if (base.Endianness == Endianness.BigEndian)
-			{
-				_buffer[0] = buffer[7];
-				_buffer[1] = buffer[6];
-				_buffer[2] = buffer[5];
-				_buffer[3] = buffer[4];
-				_buffer[4] = buffer[3];
-				_buffer[5] = buffer[2];
-				_buffer[6] = buffer[1];
-				_buffer[7] = buffer[0];
-			}
-			else
-			{
-				_buffer[0] = buffer[0];
-				_buffer[1] = buffer[1];
-				_buffer[2] = buffer[2];
-				_buffer[3] = buffer[3];
-				_buffer[4] = buffer[4];
-				_buffer[5] = buffer[5];
-				_buffer[6] = buffer[6];
-				_buffer[7] = buffer[7];
-			}
-			WriteBytes(_buffer);
-		}
-
 		public void WriteDoubleEndianInt16(short value)
 		{
 			WriteInt16(value);
@@ -691,29 +883,19 @@ namespace UniversalEditor.IO
 			WriteFixedLengthString(value);
 		}
 
+		/// <summary>
+		/// Clears all buffers for the associated <see cref="Accessor" /> and causes any buffered data to be written to the underlying device.
+		/// </summary>
 		public void Flush()
 		{
-			base.Accessor.FlushInternal();
+			base.Accessor.Flush();
 		}
+		/// <summary>
+		/// Closes the associated <see cref="Accessor" /> and the underlying stream.
+		/// </summary>
 		public void Close()
 		{
 			base.Accessor.Close();
-		}
-
-		public void WriteUInt16Array(ushort[] values)
-		{
-			for (int i = 0; i < values.Length; i++)
-			{
-				WriteUInt16(values[i]);
-			}
-		}
-
-		public void WriteCharArray(char[] values)
-		{
-			for (int i = 0; i < values.Length; i++)
-			{
-				WriteChar(values[i]);
-			}
 		}
 	}
 }

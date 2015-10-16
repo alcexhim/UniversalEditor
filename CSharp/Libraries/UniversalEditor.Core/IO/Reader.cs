@@ -151,8 +151,63 @@ namespace UniversalEditor.IO
 			}
 			return (multiplier * b1);
 		}
-		
-		public DateTime ReadISO9660DateTime ()
+
+		/// <summary>
+		/// Reads a <see cref="DateTime" /> in a format that encodes the <see cref="System.DateTime.Kind" /> property in a 2-bit field
+		/// and the <see cref="System.DateTime.Ticks" /> property in a 62-bit field.
+		/// </summary>
+		/// <returns>An object that is equivalent to the System.DateTime object that was serialized by the <see cref="System.DateTime.ToBinary" /> method.</returns>
+		/// <exception cref="System.ArgumentException">
+		///	The serialized <see cref="Int64" /> value is less than <see cref="System.DateTime.MinValue" />  or greater than <see cref="System.DateTime.MaxValue" />.
+		///	</exception>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public DateTime ReadDateTime()
+		{
+			return ReadDateTime64();
+		}
+		/// <summary>
+		/// Reads a <see cref="DateTime" /> in a format that encodes the <see cref="System.DateTime.Kind" /> property in a 2-bit field
+		/// and the <see cref="System.DateTime.Ticks" /> property in a 62-bit field.
+		/// </summary>
+		/// <returns>An object that is equivalent to the System.DateTime object that was serialized by the <see cref="System.DateTime.ToBinary" /> method.</returns>
+		/// <exception cref="System.ArgumentException">
+		///	The serialized <see cref="Int64" /> value is less than <see cref="System.DateTime.MinValue" />  or greater than <see cref="System.DateTime.MaxValue" />.
+		///	</exception>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public DateTime ReadDateTime64()
+		{
+			long l = ReadInt64();
+			return DateTime.FromBinary(l);
+		}
+		/// <summary>
+		/// Reads a <see cref="DateTime" /> in a format that encodes the <see cref="System.DateTime.Kind" /> property in a 2-bit field
+		/// and the <see cref="System.DateTime.Ticks" /> property in a 30-bit field.
+		/// </summary>
+		/// <returns>An object that is equivalent to the System.DateTime object that was serialized by the <see cref="System.DateTime.ToBinary" /> method.</returns>
+		/// <exception cref="System.ArgumentException">
+		///	The serialized <see cref="Int32" /> value is less than <see cref="System.DateTime.MinValue" />  or greater than <see cref="System.DateTime.MaxValue" />.
+		///	</exception>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public DateTime ReadDateTime32()
+		{
+			int l = ReadInt32();
+			return DateTime.FromBinary(l);
+		}
+
+		/// <summary>
+		/// Reads a <see cref="DateTime" /> in ISO-9660 format (yyyyMMddHHMMSSssT).
+		/// </summary>
+		/// <returns>The <see cref="DateTime" /> read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public DateTime ReadISO9660DateTime()
 		{
 			string year = ReadFixedLengthString (4);
 			int nYear = int.Parse (year);
@@ -201,6 +256,13 @@ namespace UniversalEditor.IO
 			throw new ArgumentOutOfRangeException("Invalid 7-bit encoded Int32");
 		}
 
+		/// <summary>
+		/// Reads a string from the current stream. The string is prefixed with the length, encoded as an integer seven bits at a time.
+		/// </summary>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadLengthPrefixedString()
 		{
 			int num = 0;
@@ -212,32 +274,77 @@ namespace UniversalEditor.IO
 			return ReadFixedLengthString(count);
 		}
 
+		/// <summary>
+		/// Reads a string of the specified length from the current stream. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(byte length)
 		{
 			return this.ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
-
+		/// <summary>
+		/// Reads a string of the specified length from the current stream. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(int length)
 		{
 			return ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
-
+		/// <summary>
+		/// Reads a string of the specified length from the current stream. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(uint length)
 		{
 			return this.ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
-
+		/// <summary>
+		/// Reads a string of the specified length from the current stream. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(byte length, Encoding encoding)
 		{
 			return this.ReadFixedLengthString((int) length, encoding);
 		}
-
+		/// <summary>
+		/// Reads a string of the specified length from the current stream using the specified encoding. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <param name="encoding">The <see cref="Encoding" /> to use to convert the bytes read into a <see cref="String" /> instance.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(int length, Encoding encoding)
 		{
 			byte[] id = ReadBytes(length);
 			return encoding.GetString(id);
 		}
-
+		/// <summary>
+		/// Reads a string of the specified length from the current stream using the specified encoding. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <param name="encoding">The <see cref="Encoding" /> to use to convert the bytes read into a <see cref="String" /> instance.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(uint length, Encoding encoding)
 		{
 			int l1 = (int) length;
@@ -250,19 +357,39 @@ namespace UniversalEditor.IO
 			}
 			return encoding.GetString(id);
 		}
+		/// <summary>
+		/// Reads a string of the specified length from the current stream. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(long length)
 		{
 			return ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
 		}
+		/// <summary>
+		/// Reads a string of the specified length from the current stream using the specified encoding. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
+		/// </summary>
+		/// <param name="length">The length of the string to read.</param>
+		/// <param name="encoding">The <see cref="Encoding" /> to use to convert the bytes read into a <see cref="String" /> instance.</param>
+		/// <returns>The string being read.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(long length, Encoding encoding)
 		{
 			return encoding.GetString(ReadBytes((ulong)length));
 		}
 
 		/// <summary>
-		/// Reads a 16-byte (128-bit) GUID value from the stream.
+		/// Reads a 16-byte (128-bit) <see cref="Guid" /> value from the current stream and advances the current position of the stream by sixteen bytes.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>A 16-byte (128-bit) <see cref="Guid" /> value read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public Guid ReadGuid()
 		{
 			uint a = 0;
@@ -306,6 +433,14 @@ namespace UniversalEditor.IO
 			}
 			return new Guid(a, b, c, d, e, f, g, h, i, j, k);
 		}
+		/// <summary>
+		/// Reads an array of 16-byte (128-bit) <see cref="Guid" /> values from the current stream and advances the current position of the stream by sixteen bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 16-byte (128-bit) <see cref="Guid" /> values read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public Guid[] ReadGuidArray(int count)
 		{
 			Guid[] retval = new Guid[count];
@@ -316,6 +451,13 @@ namespace UniversalEditor.IO
 			return retval;
 		}
 
+		/// <summary>
+		/// Reads a 2-byte signed integer from the current stream and advances the current position of the stream by two bytes.
+		/// </summary>
+		/// <returns>A 2-byte signed integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public short ReadInt16()
 		{
 			byte[] buffer = ReadBytes((uint)2);
@@ -332,6 +474,14 @@ namespace UniversalEditor.IO
 			}
 			return BitConverter.ToInt16(_buffer, 0);
 		}
+		/// <summary>
+		/// Reads an array of 2-byte signed integers from the current stream and advances the current position of the stream by two bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 2-byte signed integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public short[] ReadInt16Array(int count)
 		{
 			short[] retval = new short[count];
@@ -341,7 +491,46 @@ namespace UniversalEditor.IO
 			}
 			return retval;
 		}
-
+		/// <summary>
+		/// Reads a 2-byte unsigned integer from the current stream and advances the current position of the stream by two bytes.
+		/// </summary>
+		/// <returns>A 2-byte unsigned integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public ushort ReadUInt16()
+		{
+			byte[] buffer = ReadBytes(2);
+			if (base.Endianness == Endianness.LittleEndian)
+			{
+				return (ushort)(buffer[0] | (buffer[1] << 8));
+			}
+			return (ushort)(buffer[1] | (buffer[0] << 8));
+		}
+		/// <summary>
+		/// Reads an array of 2-byte unsigned integers from the current stream and advances the current position of the stream by two bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 2-byte unsigned integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public ushort[] ReadUInt16Array(int count)
+		{
+			ushort[] retval = new ushort[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt16();
+			}
+			return retval;
+		}
+		/// <summary>
+		/// Reads a 3-byte signed integer from the current stream and advances the current position of the stream by three bytes.
+		/// </summary>
+		/// <returns>A 3-byte signed integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public int ReadInt24()
 		{
 			byte[] buffer = ReadBytes((uint)3);
@@ -362,6 +551,14 @@ namespace UniversalEditor.IO
 			}
 			return BitConverter.ToInt32(_buffer, 0);
 		}
+		/// <summary>
+		/// Reads an array of 3-byte signed integers from the current stream and advances the current position of the stream by three bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 3-byte signed integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public int[] ReadInt24Array(int count)
 		{
 			int[] retval = new int[count];
@@ -371,7 +568,47 @@ namespace UniversalEditor.IO
 			}
 			return retval;
 		}
-
+		/// <summary>
+		/// Reads a 3-byte unsigned integer from the current stream and advances the current position of the stream by three bytes.
+		/// </summary>
+		/// <returns>A 3-byte unsigned integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public uint ReadUInt24()
+		{
+			// TODO: Test this out!
+			byte[] buffer = ReadBytes(3);
+			if (base.Endianness == Endianness.LittleEndian)
+			{
+				return (uint)((buffer[2] << 16) | (buffer[1] << 8) | (buffer[0]));
+			}
+			return (uint)((buffer[2]) | (buffer[1] << 8) | (buffer[0] << 16));
+		}
+		/// <summary>
+		/// Reads an array of 3-byte unsigned integers from the current stream and advances the current position of the stream by three bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 3-byte unsigned integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public uint[] ReadUInt24Array(int count)
+		{
+			uint[] retval = new uint[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt24();
+			}
+			return retval;
+		}
+		/// <summary>
+		/// Reads a 4-byte signed integer from the current stream and advances the current position of the stream by four bytes.
+		/// </summary>
+		/// <returns>A 4-byte signed integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public int ReadInt32()
 		{
 			byte[] buffer = ReadBytes((uint)4);
@@ -392,6 +629,14 @@ namespace UniversalEditor.IO
 			}
 			return BitConverter.ToInt32(_buffer, 0);
 		}
+		/// <summary>
+		/// Reads an array of 4-byte signed integers from the current stream and advances the current position of the stream by four bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 4-byte signed integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public int[] ReadInt32Array(int count)
 		{
 			int[] retval = new int[count];
@@ -401,7 +646,59 @@ namespace UniversalEditor.IO
 			}
 			return retval;
 		}
-
+		/// <summary>
+		/// Reads a 4-byte unsigned integer from the current stream but does not advance the current position of the stream.
+		/// </summary>
+		/// <returns>A 4-byte unsigned integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public uint PeekUInt32()
+		{
+			uint value = ReadUInt32();
+			Seek(-4, SeekOrigin.Current);
+			return value;
+		}
+		/// <summary>
+		/// Reads a 4-byte unsigned integer from the current stream and advances the current position of the stream by four bytes.
+		/// </summary>
+		/// <returns>A 4-byte unsigned integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public uint ReadUInt32()
+		{
+			byte[] buffer = ReadBytes((uint)4);
+			if (base.Endianness == Endianness.LittleEndian)
+			{
+				return (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
+			}
+			return (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
+		}
+		/// <summary>
+		/// Reads an array of 4-byte unsigned integers from the current stream and advances the current position of the stream by four bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 4-byte unsigned integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public uint[] ReadUInt32Array(int count)
+		{
+			uint[] retval = new uint[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt32();
+			}
+			return retval;
+		}
+		/// <summary>
+		/// Reads an 8-byte signed integer from the current stream and advances the current position of the stream by eight bytes.
+		/// </summary>
+		/// <returns>An 8-byte signed integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public long ReadInt64()
 		{
 			byte[] buffer = ReadBytes((uint)8);
@@ -430,12 +727,61 @@ namespace UniversalEditor.IO
 			}
 			return BitConverter.ToInt64(_buffer, 0);
 		}
+		/// <summary>
+		/// Reads an array of 8-byte signed integers from the current stream and advances the current position of the stream by eight bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 8-byte signed integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public long[] ReadInt64Array(int count)
 		{
 			long[] retval = new long[count];
 			for (int i = 0; i < count; i++)
 			{
 				retval[i] = ReadInt64();
+			}
+			return retval;
+		}
+		/// <summary>
+		/// Reads an 8-byte unsigned integer from the current stream and advances the current position of the stream by eight bytes.
+		/// </summary>
+		/// <returns>An 8-byte unsigned integer read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public ulong ReadUInt64()
+		{
+			byte[] buffer = ReadBytes((uint)8);
+			if (base.Endianness == Endianness.LittleEndian)
+			{
+				uint num = (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
+				uint num2 = (uint)(((buffer[4] | (buffer[5] << 8)) | (buffer[6] << 0x10)) | (buffer[7] << 0x18));
+				return (ulong)(num << 0x20 | num2);
+			}
+			else if (base.Endianness == Endianness.BigEndian)
+			{
+				uint num = (uint)(((buffer[7] | (buffer[6] << 8)) | (buffer[5] << 0x10)) | (buffer[4] << 0x18));
+				uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
+				return (ulong)(num << 0x20 | num2);
+			}
+			throw new InvalidOperationException();
+		}
+		/// <summary>
+		/// Reads an array of 8-byte unsigned integers from the current stream and advances the current position of the stream by eight bytes times the number of values read.
+		/// </summary>
+		/// <param name="count">The number of values to read from the current stream.</param>
+		/// <returns>An array of 8-byte unsigned integers read from the current stream.</returns>
+		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		public ulong[] ReadUInt64Array(int count)
+		{
+			ulong[] retval = new ulong[count];
+			for (int i = 0; i < count; i++)
+			{
+				retval[i] = ReadUInt64();
 			}
 			return retval;
 		}
@@ -508,69 +854,6 @@ namespace UniversalEditor.IO
 			return retval;
 		}
 
-		public ushort ReadUInt16 ()
-		{
-			byte[] buffer = ReadBytes(2);
-			if (base.Endianness == Endianness.LittleEndian)
-			{
-				return (ushort)(buffer[0] | (buffer[1] << 8));
-			}
-			return (ushort)(buffer[1] | (buffer[0] << 8));
-		}
-		public ushort[] ReadUInt16Array(int count)
-		{
-			ushort[] retval = new ushort[count];
-			for (int i = 0; i < count; i++)
-			{
-				retval[i] = ReadUInt16();
-			}
-			return retval;
-		}
-
-		public uint ReadUInt24()
-		{
-			// TODO: Test this out!
-			byte[] buffer = ReadBytes(3);
-			if (base.Endianness == Endianness.LittleEndian)
-			{
-				return (uint)((buffer[2] << 16) | (buffer[1] << 8) | (buffer[0]));
-			}
-			return (uint)((buffer[2]) | (buffer[1] << 8) | (buffer[0] << 16));
-		}
-		public uint[] ReadUInt24Array(int count)
-		{
-			uint[] retval = new uint[count];
-			for (int i = 0; i < count; i++)
-			{
-				retval[i] = ReadUInt24();
-			}
-			return retval;
-		}
-
-		public uint ReadUInt32()
-		{
-			byte[] buffer = ReadBytes((uint)4);
-			if (base.Endianness == Endianness.LittleEndian)
-			{
-				return (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
-			}
-			return (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
-		}
-		public uint[] ReadUInt32Array(int count)
-		{
-			uint[] retval = new uint[count];
-			for (int i = 0; i < count; i++)
-			{
-				retval[i] = ReadUInt32();
-			}
-			return retval;
-		}
-		public uint PeekUInt32()
-		{
-			uint value = ReadUInt32();
-			Seek(-4, SeekOrigin.Current);
-			return value;
-		}
 		
 		public int ReadVariableLengthInt32()
 		{
@@ -625,32 +908,6 @@ namespace UniversalEditor.IO
 			return retval;
 		}
 
-		public ulong ReadUInt64()
-		{
-			byte[] buffer = ReadBytes((uint)8);
-			if (base.Endianness == Endianness.LittleEndian)
-			{
-				uint num = (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
-				uint num2 = (uint)(((buffer[4] | (buffer[5] << 8)) | (buffer[6] << 0x10)) | (buffer[7] << 0x18));
-				return (ulong)(num << 0x20 | num2);
-			}
-			else if (base.Endianness == Endianness.BigEndian)
-			{
-				uint num = (uint)(((buffer[7] | (buffer[6] << 8)) | (buffer[5] << 0x10)) | (buffer[4] << 0x18));
-				uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
-				return (ulong)(num << 0x20 | num2);
-			}
-			throw new InvalidOperationException();
-		}
-		public ulong[] ReadUInt64Array(int count)
-		{
-			ulong[] retval = new ulong[count];
-			for (int i = 0; i < count; i++)
-			{
-				retval[i] = ReadUInt64();
-			}
-			return retval;
-		}
 
 		public string ReadNullTerminatedString()
 		{
@@ -692,7 +949,7 @@ namespace UniversalEditor.IO
 		}
 
 		/// <summary>
-		/// Reads a length-prefixed string that is prefixed with a short (2-byte) length, rather than an int (4-byte) length.
+		/// Reads a length-prefixed string that is prefixed with a signed short (2-byte) length, rather than an int (4-byte) length.
 		/// </summary>
 		/// <returns></returns>
 		public string ReadInt16String()
@@ -700,7 +957,10 @@ namespace UniversalEditor.IO
 			short length = ReadInt16();
 			return this.ReadFixedLengthString((int)length);
 		}
-
+		/// <summary>
+		/// Reads a length-prefixed string that is prefixed with an unsigned short (2-byte) length, rather than an int (4-byte) length.
+		/// </summary>
+		/// <returns></returns>
 		public string ReadUInt16String()
 		{
 			ushort length = ReadUInt16();
@@ -839,21 +1099,6 @@ namespace UniversalEditor.IO
 				list.Add(ReadNullTerminatedString());
 			}
 			return list.ToArray();
-		}
-
-		public DateTime ReadDateTime()
-		{
-			return ReadDateTime64();
-		}
-		public DateTime ReadDateTime64()
-		{
-			long l = ReadInt64 ();
-			return DateTime.FromBinary(l);
-		}
-		public DateTime ReadDateTime32()
-		{
-			int l = ReadInt32();
-			return DateTime.FromBinary(l);
 		}
 
 		// TODO: TEST THIS!!
@@ -1124,6 +1369,10 @@ namespace UniversalEditor.IO
 			return ReadFixedLengthString(length);
 		}
 
+		/// <summary>
+		/// Reads a <see cref="Version" /> from the 
+		/// </summary>
+		/// <returns></returns>
 		public Version ReadVersion()
 		{
 			byte parts = ReadByte();
@@ -1422,20 +1671,43 @@ namespace UniversalEditor.IO
 			return line;
 		}
 
-		public void Seek(int length, SeekOrigin origin)
+		/// <summary>
+		/// Sets the current position of the associated <see cref="Accessor" />.
+		/// </summary>
+		/// <param name="offset">The offset at which to place the associated <see cref="Accessor" /> relative to the specified <see cref="SeekOrigin" />.</param>
+		/// <param name="origin">The <see cref="SeekOrigin" /> that the <see cref="offset" /> is relative to.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output.</exception>
+		/// <exception cref="System.ObjectDisposedException">Methods were called after the stream was closed.</exception>
+		public void Seek(int offset, SeekOrigin origin)
 		{
-			base.Accessor.Seek(length, origin);
+			base.Accessor.Seek(offset, origin);
 		}
-		public void Seek(long length, SeekOrigin origin)
+		/// <summary>
+		/// Sets the current position of the associated <see cref="Accessor" />.
+		/// </summary>
+		/// <param name="offset">The offset at which to place the associated <see cref="Accessor" /> relative to the specified <see cref="SeekOrigin" />.</param>
+		/// <param name="origin">The <see cref="SeekOrigin" /> that the <see cref="offset" /> is relative to.</param>
+		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		/// <exception cref="System.NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output.</exception>
+		/// <exception cref="System.ObjectDisposedException">Methods were called after the stream was closed.</exception>
+		public void Seek(long offset, SeekOrigin origin)
 		{
-			base.Accessor.Seek(length, origin);
+			base.Accessor.Seek(offset, origin);
 		}
-
+		/// <summary>
+		/// Closes the current stream and releases any resources (such as sockets and file handles) associated with the current stream.
+		/// </summary>
 		public void Close()
 		{
 			base.Accessor.Close();
 		}
 
+		/// <summary>
+		/// Gets the amount of data remaining to be read by the associated <see cref="Accessor" />.
+		/// </summary>
+		/// <exception cref="System.NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output.</exception>
+		/// <exception cref="System.ObjectDisposedException">Methods were called after the stream was closed.</exception>
 		public long Remaining { get { return base.Accessor.Remaining; } }
 
 		public string ReadStringUntilAny(char[] anyOf)

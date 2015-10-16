@@ -66,7 +66,7 @@ namespace UniversalEditor.Accessors
 			return count;
 		}
 
-		internal override void FlushInternal()
+		protected override void FlushInternal()
 		{
 			mvarFileStream.Flush();
 		}

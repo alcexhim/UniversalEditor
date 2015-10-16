@@ -88,5 +88,10 @@ namespace UniversalEditor.Accessors
 		protected override void CloseInternal()
 		{
 		}
+
+		protected override void FlushInternal()
+		{
+			mvarBaseStream.Flush();
+		}
 	}
 }

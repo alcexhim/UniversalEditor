@@ -108,7 +108,14 @@ namespace UniversalEditor
 		/// </returns>
 		protected internal abstract int WriteInternal(byte[] buffer, int start, int count);
 
-		internal virtual void FlushInternal()
+		/// <summary>
+		/// Clears all buffers for this <see cref="Accessor" /> and causes any buffered data to be written to the underlying device.
+		/// </summary>
+		public void Flush()
+		{
+			FlushInternal();
+		}
+		protected virtual void FlushInternal()
 		{
 		}
 
@@ -129,8 +136,7 @@ namespace UniversalEditor
 			mvarIsOpen = true;
 		}
 		/// <summary>
-		/// Closes this <see cref="Accessor" />, making the underlying stream available to be re-opened by another
-		/// <see cref="Accessor" />.
+		/// Closes this <see cref="Accessor" />, making the underlying stream available to be re-opened by another <see cref="Accessor" />.
 		/// </summary>
 		public void Close()
 		{
