@@ -525,7 +525,10 @@ namespace UniversalEditor.UserInterface
 		protected virtual void InitializeXMLConfiguration()
 		{
 			#region Load the XML files
-			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"], System.IO.SearchOption.AllDirectories);
+			string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
+			if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
+
+			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
 
 			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
 

@@ -199,8 +199,11 @@ namespace UniversalEditor.Common
 
 			foreach (string path in paths)
 			{
+				string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
+				if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
+
 				string[] XMLFileNames = null;
-				XMLFileNames = System.IO.Directory.GetFiles(path, System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"], System.IO.SearchOption.AllDirectories);
+				XMLFileNames = System.IO.Directory.GetFiles(path, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
 				foreach (string fileName in XMLFileNames)
 				{
 #if !DEBUG
