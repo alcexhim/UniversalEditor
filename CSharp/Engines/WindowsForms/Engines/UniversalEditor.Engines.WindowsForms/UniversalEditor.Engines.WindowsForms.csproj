@@ -299,7 +299,7 @@
       <Project>{617d9eb5-ca93-45d6-aa6b-5a012b7698ac}</Project>
       <Name>AwesomeControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\..\Glue\Glue\Glue.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\Glue\Glue\Glue.csproj">
       <Project>{fe016ea3-dc31-4a92-8b0a-8c746ec117e1}</Project>
       <Name>Glue</Name>
     </ProjectReference>
