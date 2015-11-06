@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Relocatable Object executable">
+					<FileNameFilters>
+						<FileNameFilter>*.obj</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Executable.ExecutableObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Executable.RelocatableObject.OBJDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
