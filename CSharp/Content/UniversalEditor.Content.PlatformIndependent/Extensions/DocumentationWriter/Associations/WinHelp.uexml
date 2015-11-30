@@ -15,7 +15,7 @@
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.Help.Compiled" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Help.Compiled.CompiledHelpObjectModel" />
 				<!-- <ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" /> -->
 			</ObjectModels>
 			<DataFormats>
