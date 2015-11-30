@@ -60,6 +60,7 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMResourceHeaderDiskFlags.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMResourceHeaderDiskShort.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\WindowsImage\WIMStreamEntry.cs" />
+    <Compile Include="DataFormats\Help\Compiled\WinHelp\HLPDataFormat.cs" />
     <Compile Include="DataFormats\Help\TableOfContents\V3\H1TDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFormat.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKHotkey.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKLocationFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKWindowState.cs" />
+    <Compile Include="ObjectModels\Help\Compiled\CompiledHelpObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\Text\Formatted\XPS\XPSDataFormat.cs" />
   </ItemGroup>
