@@ -9,6 +9,23 @@ namespace UniversalEditor.UserInterface
 		private static System.Collections.Specialized.StringCollection mvarTemporaryFileNames = new System.Collections.Specialized.StringCollection();
 		private static string mvarTemporaryFilePath = null;
 
+		private static string SanitizeFileName(string FileName)
+		{
+			if (String.IsNullOrEmpty(FileName)) return "_";
+			string[] invalidCharacters = new string[]
+			{
+				"\\", "/", ":", "*", "\"", "<", ">", "?", "|"
+			};
+			foreach (string invalidCharacter in invalidCharacters)
+			{
+				FileName = FileName.Replace(invalidCharacter, "_");
+			}
+			
+			// Check twice because we might have encountered a filename consisting solely of invalid chars (weird, but possible)
+			if (String.IsNullOrEmpty(FileName)) return "_";
+			return FileName;
+		}
+
 		public static string CreateTemporaryFile(string FileName, byte[] FileData = null)
 		{
 			if (mvarTemporaryFilePath == null) throw new InvalidOperationException();
@@ -17,6 +34,7 @@ namespace UniversalEditor.UserInterface
 				System.IO.Directory.CreateDirectory(mvarTemporaryFilePath);
 			}
 
+			FileName = SanitizeFileName(FileName);
 			FileName = System.IO.Path.GetFileName(FileName);
 
 			string filePath = mvarTemporaryFilePath + System.IO.Path.DirectorySeparatorChar.ToString() + FileName;
