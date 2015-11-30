@@ -20,6 +20,8 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.Sources.Add("Based on documentation contributed by M. Winterhoff, Pete Davis, Holger Haase, and Bent Lynggaard.");
+				_dfr.Sources.Add("http://sourceforge.net/projects/helpdeco/");
 			}
 			return _dfr;
 		}
