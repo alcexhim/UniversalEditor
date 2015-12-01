@@ -143,6 +143,35 @@ namespace UniversalEditor
 		/// </summary>
 		public DataFormatReference.DataFormatReferenceCollection DataFormats { get { return mvarDataFormats; } }
 
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append('[');
+			for (int i = 0; i < mvarFilters.Count; i++)
+			{
+				sb.Append(mvarFilters[i].Title);
+				if (i < mvarFilters.Count - 1) sb.Append(", ");
+			}
+			sb.Append(']');
+			sb.Append(' ');
+			sb.Append('{');
+			for (int i = 0; i < mvarObjectModels.Count; i++)
+			{
+				sb.Append(mvarObjectModels[i].TypeName);
+				if (i < mvarObjectModels.Count - 1) sb.Append(", ");
+			}
+			sb.Append('}');
+			sb.Append(' ');
+			sb.Append('(');
+			for (int i = 0; i < mvarDataFormats.Count; i++)
+			{
+				sb.Append(mvarDataFormats[i].TypeName);
+				if (i < mvarDataFormats.Count - 1) sb.Append(", ");
+			}
+			sb.Append(')');
+			return sb.ToString();
+		}
+
 		public static Association[] FromCriteria(AssociationCriteria ac)
 		{
 			List<Association> associations = new List<Association>();
