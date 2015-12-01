@@ -11,6 +11,9 @@ using UniversalEditor.DataFormats.FileSystem.BPlus;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Help.Compiled;
 
+using UniversalEditor.ObjectModels.Text.Formatted;
+using UniversalEditor.ObjectModels.Text.Formatted.Items;
+
 namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 {
 	/// <summary>
@@ -146,6 +149,9 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 				}
 			}
 			#endregion
+
+			List<Internal.OLDFONT> listFonts = new List<Internal.OLDFONT>();
+
 			#region Font File
 			{
 				File file = fsom.Files["|FONT"];
@@ -171,8 +177,6 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 				}
 				else
 				{
-					List<Internal.OLDFONT> listFonts = new List<Internal.OLDFONT>();
-
 					// At DescriptorsOffset is an array located describing all fonts used in the help file.
 					// If this kind of descriptor appears in a help file, any metric value is given in HalfPoints.
 					reader.Seek(fontHeader.DescriptorsOffset, SeekOrigin.Begin);
@@ -219,11 +223,17 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 						case Internal.TopicLinkRecordType.Display31:
 						case Internal.TopicLinkRecordType.Table31:
 						{
+							FormattedTextObjectModel ftom = new FormattedTextObjectModel();
+							FormattedTextItemContainer nextContainer = null;
+
 							// TODO: test with putty.hlp
+							ushort TopicLength = 0;
 							if (topicLink.RecordType == Internal.TopicLinkRecordType.Display31 || topicLink.RecordType == Internal.TopicLinkRecordType.Table31)
 							{
 								int TopicSize = ReadCompressedInt32(reader);
-								ushort TopicLength = ReadCompressedUInt16(reader);
+								
+								TopicLength = ReadCompressedUInt16(reader);
+								TopicLength = (ushort)(TopicLength - 1);
 							}
 
 							if (topicLink.RecordType == Internal.TopicLinkRecordType.Table31)
@@ -240,15 +250,15 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 
 							if ((flags & Internal.TopicLinkDisplay31Flags.UnknownFollows) == Internal.TopicLinkDisplay31Flags.UnknownFollows)
 							{
-								// read compressed long Unknown
+								int unknown = ReadCompressedInt32(reader);
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.SpacingAboveFollows) == Internal.TopicLinkDisplay31Flags.SpacingAboveFollows)
 							{
-								// read compressed short SpacingAbove
+								short spacingAbove = ReadCompressedInt16(reader);
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.SpacingBelowFollows) == Internal.TopicLinkDisplay31Flags.SpacingBelowFollows)
 							{
-
+								short spacingBelow = ReadCompressedInt16(reader);
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.SpacingLinesFollows) == Internal.TopicLinkDisplay31Flags.SpacingLinesFollows)
 							{
@@ -256,7 +266,7 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.LeftIndentFollows) == Internal.TopicLinkDisplay31Flags.LeftIndentFollows)
 							{
-
+								short leftIndent = ReadCompressedInt16(reader);
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.RightIndentFollows) == Internal.TopicLinkDisplay31Flags.RightIndentFollows)
 							{
@@ -264,7 +274,7 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.FirstLineIndentFollows) == Internal.TopicLinkDisplay31Flags.FirstLineIndentFollows)
 							{
-
+								short firstLineIndent = ReadCompressedInt16(reader);
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.BorderInfoFollows) == Internal.TopicLinkDisplay31Flags.BorderInfoFollows)
 							{
@@ -273,22 +283,66 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 							}
 							if ((flags & Internal.TopicLinkDisplay31Flags.TabInfoFollows) == Internal.TopicLinkDisplay31Flags.TabInfoFollows)
 							{
-								// compressed short TabStopCount
-								// ... da fuq?
+								short tabStopCount = ReadCompressedInt16(reader);
+								for (short i = 0; i < tabStopCount; i++)
+								{
+									short tabStopInfo = ReadCompressedInt16(reader);
+								}
 							}
 
-							Internal.TopicLinkDisplay31Opcode opcode = (Internal.TopicLinkDisplay31Opcode)reader.ReadUInt16();
-							while (opcode != Internal.TopicLinkDisplay31Opcode.EndOfCharacterFormatting)
+							Internal.TopicLinkDisplay31Opcode opcode = (Internal.TopicLinkDisplay31Opcode)reader.ReadByte();
+							while (opcode != Internal.TopicLinkDisplay31Opcode.None)
 							{
 								switch (opcode)
 								{
+									case Internal.TopicLinkDisplay31Opcode.FontNumber:
+									{
+										short fontNumber = reader.ReadInt16();
+										Internal.OLDFONT font = listFonts[fontNumber];
+										break;
+									}
+									case Internal.TopicLinkDisplay31Opcode.EndOfParagraph:
+									{
+										// next paragraph has same Paragraphinfo as this one
+										break;
+									}
+									case Internal.TopicLinkDisplay31Opcode.EndOfCharacterFormatting:
+									{
+										// end of character formatting. proceed with next ParagraphInfo if RecordType is 0x23, else you are done
+										string value = reader.ReadFixedLengthString(TopicLength);
+										string[] values = value.Split(new char[] { '\0' });
+
+										// Always output the next string (NUL terminated) from LinkData2 (use Phrase decompression if required), than read the next formatting
+										// command, set up the required font, color or position before displaying the next string.
+										break;
+									}
+									case Internal.TopicLinkDisplay31Opcode.VFldNumber:
+									{
+										int vfldNumber = reader.ReadInt32();
+										break;
+									}
+									case Internal.TopicLinkDisplay31Opcode.PopupJump0xE0:
+									case Internal.TopicLinkDisplay31Opcode.TopicJump0xE1:
+									case Internal.TopicLinkDisplay31Opcode.PopupJump0xE2:
+									case Internal.TopicLinkDisplay31Opcode.PopupJump0xE3:
+									case Internal.TopicLinkDisplay31Opcode.PopupJumpWithoutFontChange:
+									case Internal.TopicLinkDisplay31Opcode.TopicJumpWithoutFontChange:
+									{
+										int topicOffset = reader.ReadInt32();
+										break;
+									}
+									case Internal.TopicLinkDisplay31Opcode.HotspotEnd:
+									{
+										// end of hotspot (switch back from underlined green)
+										break;
+									}
+									default:
+									{
+										break;
+									}
 								}
-								opcode = (Internal.TopicLinkDisplay31Opcode)reader.ReadUInt16();
+								opcode = (Internal.TopicLinkDisplay31Opcode)reader.ReadByte();
 							}
-
-							// end of character formatting. proceed with next ParagraphInfo if RecordType is 0x23, else you are done
-							string value = reader.ReadNullTerminatedString();
-
 							break;
 						}
 					}
