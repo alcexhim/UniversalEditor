@@ -197,7 +197,6 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 				while (!reader.EndOfStream)
 				{
 					Internal.TOPICLINK topicLink = ReadTOPICLINK(reader);
-
 					switch (topicLink.RecordType)
 					{
 						case Internal.TopicLinkRecordType.TopicHeader:
@@ -218,20 +217,78 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 							break;
 						}
 						case Internal.TopicLinkRecordType.Display31:
+						case Internal.TopicLinkRecordType.Table31:
 						{
 							// TODO: test with putty.hlp
-							byte unknown1 = reader.ReadByte();
-							byte unknown2 = reader.ReadByte();
-							ushort id = reader.ReadUInt16();
-							ushort flags = reader.ReadUInt16(); // unknownfollows, spacingabovefollows, rightindentfollows, etc.
-							byte[] blahblah = reader.ReadBytes(7);
-
-							ushort sanityCheck0xFF = reader.ReadUInt16();
-							if (sanityCheck0xFF == 0xFF)
+							if (topicLink.RecordType == Internal.TopicLinkRecordType.Display31 || topicLink.RecordType == Internal.TopicLinkRecordType.Table31)
 							{
-								// end of character formatting. proceed with next ParagraphInfo if RecordType is 0x23, else you are done
-								string value = reader.ReadNullTerminatedString();
+								int TopicSize = ReadCompressedInt32(reader);
+								ushort TopicLength = ReadCompressedUInt16(reader);
 							}
+
+							if (topicLink.RecordType == Internal.TopicLinkRecordType.Table31)
+							{
+								short column = reader.ReadInt16();	// -1 if end of topic, don't continue
+								short unknown = reader.ReadInt16();
+								byte always0 = reader.ReadByte();
+							}
+
+							byte unknown01 = reader.ReadByte();
+							byte unknown02 = reader.ReadByte();
+							ushort id = reader.ReadUInt16();
+							Internal.TopicLinkDisplay31Flags flags = (Internal.TopicLinkDisplay31Flags)reader.ReadUInt16();
+
+							if ((flags & Internal.TopicLinkDisplay31Flags.UnknownFollows) == Internal.TopicLinkDisplay31Flags.UnknownFollows)
+							{
+								// read compressed long Unknown
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.SpacingAboveFollows) == Internal.TopicLinkDisplay31Flags.SpacingAboveFollows)
+							{
+								// read compressed short SpacingAbove
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.SpacingBelowFollows) == Internal.TopicLinkDisplay31Flags.SpacingBelowFollows)
+							{
+
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.SpacingLinesFollows) == Internal.TopicLinkDisplay31Flags.SpacingLinesFollows)
+							{
+								short spacingLines = ReadCompressedInt16(reader);
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.LeftIndentFollows) == Internal.TopicLinkDisplay31Flags.LeftIndentFollows)
+							{
+
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.RightIndentFollows) == Internal.TopicLinkDisplay31Flags.RightIndentFollows)
+							{
+								short rightIndent = ReadCompressedInt16(reader);
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.FirstLineIndentFollows) == Internal.TopicLinkDisplay31Flags.FirstLineIndentFollows)
+							{
+
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.BorderInfoFollows) == Internal.TopicLinkDisplay31Flags.BorderInfoFollows)
+							{
+								Internal.TopicLinkDisplay31BorderStyle borderStyle = (Internal.TopicLinkDisplay31BorderStyle)reader.ReadByte();
+								short borderWidth = reader.ReadInt16();
+							}
+							if ((flags & Internal.TopicLinkDisplay31Flags.TabInfoFollows) == Internal.TopicLinkDisplay31Flags.TabInfoFollows)
+							{
+								// compressed short TabStopCount
+								// ... da fuq?
+							}
+
+							Internal.TopicLinkDisplay31Opcode opcode = (Internal.TopicLinkDisplay31Opcode)reader.ReadUInt16();
+							while (opcode != Internal.TopicLinkDisplay31Opcode.EndOfCharacterFormatting)
+							{
+								switch (opcode)
+								{
+								}
+								opcode = (Internal.TopicLinkDisplay31Opcode)reader.ReadUInt16();
+							}
+
+							// end of character formatting. proceed with next ParagraphInfo if RecordType is 0x23, else you are done
+							string value = reader.ReadNullTerminatedString();
+
 							break;
 						}
 					}
@@ -239,6 +296,67 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 			}
 			#endregion
 		}
+
+		private ushort ReadCompressedUInt16(Reader reader)
+		{
+			// A compressed unsigned short is made of a single byte. Divide by two to get the value if it's even.
+			// Divide by two and add 128 times the value of the next byte if it's odd.
+			ushort retval = 0;
+			retval = (ushort)reader.ReadByte();
+			if ((retval % 2) == 0)
+			{
+				retval = (ushort)((double)retval / 2);
+			}
+			else
+			{
+				ushort retval2 = (ushort)reader.ReadByte();
+				retval = (ushort)(((double)retval / 2) + (128 * retval2));
+			}
+			return retval;
+		}
+
+		private int ReadCompressedInt32(Reader reader)
+		{
+			int retval = 0;
+			// A compressed signed long is made of a 2 byte value. Divide by two and subtract 16384 to get its
+			// value if it's even. Divide by two, add 32768 times the value of the next 2 bytes and subtract
+			// 67108864 if it's odd.
+			retval = (int)reader.ReadInt16();
+			if ((retval % 2) == 0)
+			{
+				retval = (int)(((double)retval / 2) - 16384);
+			}
+			else
+			{
+				int retval2 = (int)reader.ReadInt16();
+				retval = (int)((((double)retval / 2) + (32768 * retval2)) - 67108864);
+			}
+			return retval;
+		}
+
+
+		private static short ReadCompressedInt16(Reader reader)
+		{
+			short retval = 0;
+			// A compressed signed short is made of a single byte. Divide by two and subtract 64 to get the value
+			// if it's even. Divide by two, add 128 times the value of the next byte and subtract 16384 if it's
+			// odd.
+			retval = (short)reader.ReadByte();
+			if ((retval % 2) == 0)
+			{
+				// compressedShortValue is even, divide by two to get the value
+				retval = (short)(((double)retval / 2) - 64);
+			}
+			else
+			{
+				short retval2 = (short)reader.ReadByte();
+				retval = (short)((((double)retval / 2) + (128 * retval2)) - 16384);
+			}
+			return retval;
+		}
+
+		// A compressed unsigned long is made of a 2 byte value. Divide by two to get its value if it's even.
+		// Divide by two and add 32768 times the value of the next 2 bytes if it's odd.
 
 		private Internal.TOPICHEADER ReadTOPICHEADER(Reader reader)
 		{

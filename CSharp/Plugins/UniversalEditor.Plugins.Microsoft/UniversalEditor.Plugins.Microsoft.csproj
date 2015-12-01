@@ -72,6 +72,9 @@
     <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TOPICBLOCKHEADER.cs" />
     <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TOPICHEADER.cs" />
     <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TOPICLINK.cs" />
+    <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TopicLinkDisplay31BorderStyle.cs" />
+    <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TopicLinkDisplay31Flags.cs" />
+    <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TopicLinkDisplay31Opcode.cs" />
     <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TopicLinkRecordType.cs" />
     <Compile Include="DataFormats\Help\TableOfContents\V3\H1TDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFlags.cs" />
