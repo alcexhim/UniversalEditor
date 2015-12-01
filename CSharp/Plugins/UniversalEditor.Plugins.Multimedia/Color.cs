@@ -105,6 +105,26 @@ namespace UniversalEditor
 		{
 			return !left.Equals(right);
 		}
+
+		public static Color FromString(string value)
+		{
+			if (value.StartsWith("#"))
+			{
+				// hex string
+				value = value.Substring(1);
+
+				string rr = value.Substring(0, 2);
+				string gg = value.Substring(2, 2);
+				string bb = value.Substring(4, 2);
+
+				byte r = Byte.Parse(rr, System.Globalization.NumberStyles.HexNumber);
+				byte g = Byte.Parse(gg, System.Globalization.NumberStyles.HexNumber);
+				byte b = Byte.Parse(bb, System.Globalization.NumberStyles.HexNumber);
+
+				return Color.FromRGBA(r, g, b);
+			}
+			return Color.Empty;
+		}
 	}
 	public static class Colors
 	{
