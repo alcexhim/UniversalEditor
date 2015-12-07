@@ -169,6 +169,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTD2XX", "..\..\FTD2XX\FTD2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanjigen", "..\..\Sanjigen\Sanjigen\Sanjigen.csproj", "{ED627DF7-3E78-4428-AB31-810BA1586E62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Designer.UserInterface.WindowsForms", "Plugins\UniversalEditor.Plugins.Designer.UserInterface.WindowsForms\UniversalEditor.Plugins.Designer.UserInterface.WindowsForms.csproj", "{ECF44164-1AF5-4675-842C-94C527C4422E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -617,6 +619,12 @@ Global
 		{ED627DF7-3E78-4428-AB31-810BA1586E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED627DF7-3E78-4428-AB31-810BA1586E62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED627DF7-3E78-4428-AB31-810BA1586E62}.Release|x86.ActiveCfg = Release|Any CPU
+		{ECF44164-1AF5-4675-842C-94C527C4422E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECF44164-1AF5-4675-842C-94C527C4422E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECF44164-1AF5-4675-842C-94C527C4422E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ECF44164-1AF5-4675-842C-94C527C4422E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECF44164-1AF5-4675-842C-94C527C4422E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECF44164-1AF5-4675-842C-94C527C4422E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -700,5 +708,6 @@ Global
 		{0936544E-E909-4E70-870C-2F60ACBA480E} = {F23649CB-5743-4862-9F29-411A08925D8B}
 		{E735D457-50D8-4958-B68C-79617595B023} = {F23649CB-5743-4862-9F29-411A08925D8B}
 		{ED627DF7-3E78-4428-AB31-810BA1586E62} = {F23649CB-5743-4862-9F29-411A08925D8B}
+		{ECF44164-1AF5-4675-842C-94C527C4422E} = {10FB1DF5-3985-47FC-93AA-39EFA257EB88}
 	EndGlobalSection
 EndGlobal
