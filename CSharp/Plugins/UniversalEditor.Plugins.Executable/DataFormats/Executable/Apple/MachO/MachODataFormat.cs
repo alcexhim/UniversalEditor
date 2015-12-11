@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.DataFormats.Executable.Apple.MachO.Internal;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Executable;
 
@@ -36,6 +37,9 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 		private MachOFlags mvarFlags = MachOFlags.None;
 		public MachOFlags Flags { get { return mvarFlags; } set { mvarFlags = value; } }
 
+		private static readonly byte[] m_MachOMagicBigEndian = new byte[] { 0xFE, 0xED, 0xFA, 0xCE };
+		private static readonly byte[] m_MachOMagicLittleEndian = new byte[] { 0xCE, 0xFA, 0xED, 0xFE };
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ExecutableObjectModel exe = (objectModel as ExecutableObjectModel);
@@ -47,7 +51,18 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 			// constant MH_MAGIC if the file is intended for use on a CPU with the same endianness
 			// as the computer on which the compiler is running. The constant MH_CIGAM can be used
 			// when the byte ordering scheme of the target machine is the reverse of the host CPU.
-			MachOMagic magic = (MachOMagic)reader.ReadUInt32();
+			reader.Accessor.Position = 0;
+
+			byte[] bytes = reader.ReadBytes(4);
+			MachOMagic magic = MachOMagic.None;
+			if (bytes.Match(m_MachOMagicBigEndian))
+			{
+				magic = MachOMagic.MachOBigEndian;
+			}
+			else if (bytes.Match(m_MachOMagicLittleEndian))
+			{
+				magic = MachOMagic.MachOLittleEndian;
+			}
 
 			// set up endianness
 			switch (magic)
@@ -78,6 +93,48 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 					uint loadCommandAreaSize = reader.ReadUInt32();
 
 					mvarFlags = (MachOFlags)reader.ReadInt32();
+
+					for (uint i = 0; i < loadCommandCount; i++)
+					{
+						MachOLoadCommandType loadCommandType = (MachOLoadCommandType)reader.ReadUInt32();
+						uint loadCommandSize = reader.ReadUInt32();
+						switch (loadCommandType)
+						{
+							case MachOLoadCommandType.Segment:
+							{
+								MachOSegment segment = ReadMachOSegment(reader);
+								for (uint j = 0; j < segment.nsects; j++)
+								{
+									MachOSection section = ReadMachOSection(reader);
+								}
+								break;
+							}
+							case (MachOLoadCommandType)12:
+							{
+								// BFD_MACH_O_LC_LOAD_DYLIB
+								uint filenameLength = reader.ReadUInt32();
+								uint libraryBuildTimestamp = reader.ReadUInt32();
+								uint currentVersion = reader.ReadUInt32();
+								uint compatibilityVersion = reader.ReadUInt32();
+								string fileName = reader.ReadFixedLengthString(filenameLength);
+								uint unknown5 = reader.ReadUInt32();
+								uint unknown6 = reader.ReadUInt32();
+								uint unknown7 = reader.ReadUInt32();
+								break;
+							}
+							case (MachOLoadCommandType)24:
+							{
+								// BFD_MACH_O_LC_LOAD_WEAK_DYLIB
+								uint unknown1 = reader.ReadUInt32();
+								uint unknown2 = reader.ReadUInt32();
+								break;
+							}
+							default:
+							{
+								break;
+							}
+						}
+					}
 					break;
 				}
 				default:
@@ -85,6 +142,38 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 					throw new InvalidDataFormatException("The executable format 0x" + ((uint)magic).ToString("X") + " is not supported");
 				}
 			}
+		}
+
+		private MachOSection ReadMachOSection(Reader reader)
+		{
+			MachOSection section = new MachOSection();
+			section.sectname = reader.ReadFixedLengthString(16).TrimNull();
+			section.segname = reader.ReadFixedLengthString(16).TrimNull();
+			section.addr = reader.ReadUInt32();
+			section.size = reader.ReadUInt32();  
+			section.offset = reader.ReadUInt32();
+			section.align = reader.ReadUInt32();
+			section.reloff = reader.ReadUInt32();
+			section.nreloc = reader.ReadUInt32();
+			section.flags = (MachOSectionFlags)reader.ReadUInt32();
+			section.reserved1 = reader.ReadUInt32();
+			section.reserved2 = reader.ReadUInt32();
+			return section;
+		}
+
+		private MachOSegment ReadMachOSegment(Reader reader)
+		{
+			MachOSegment segment = new MachOSegment();
+			segment.segname = reader.ReadFixedLengthString(16).TrimNull();
+			segment.vmaddr = reader.ReadUInt32();
+			segment.vmsize = reader.ReadUInt32();
+			segment.fileoff = reader.ReadUInt32();
+			segment.filesize = reader.ReadUInt32();
+			segment.maxprot = (MachOVMProtection)reader.ReadUInt32();
+			segment.initprot = (MachOVMProtection)reader.ReadUInt32();
+			segment.nsects = reader.ReadUInt32();
+			segment.flags = (MachOSegmentFlags)reader.ReadUInt32();
+			return segment;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

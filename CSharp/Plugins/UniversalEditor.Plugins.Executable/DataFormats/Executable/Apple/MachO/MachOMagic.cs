@@ -7,6 +7,7 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 {
 	public enum MachOMagic : uint
 	{
+		None = 0x00000000,
 		MachOBigEndian = 0xFEEDFACE,
 		MachOLittleEndian = 0xCEFAEDFE,
 		FatBinaryBigEndian = 0xCAFEBABE,
