@@ -425,7 +425,16 @@ namespace UniversalEditor.DataFormats.Programming
 				else
 				{
 					INamedCodeElement CurrentElement = ((CodeElement)base.TemporaryVariables["CurrentElement", null] as INamedCodeElement);
-					if (CurrentElement != null) CurrentElement.Name = lastToken;
+					if (CurrentElement != null)
+					{
+						CurrentElement.Name = lastToken;
+					}
+					else
+					{
+						// is it an IMultipleNamedCodeElement?
+						IMultipleNamedCodeElement CurrentEl = ((CodeElement)base.TemporaryVariables["CurrentElement", null] as IMultipleNamedCodeElement);
+						CurrentEl.Name = lastToken.Split(new char[] { '.' });
+					}
 				}
 				base.InhibitTokenProcessing = false;
 			}
@@ -455,6 +464,44 @@ namespace UniversalEditor.DataFormats.Programming
 					CurrentElements.Add(comment);
 				}
 				base.InhibitTokenProcessing = false;
+			}
+			else if (token.EndsWith("("))
+			{
+				token = token.Substring(0, token.Length - 1);
+				string[] dataTypeAndName = token.Split(new char[] { ' ' });
+
+				if (dataTypeAndName.Length == 2)
+				{
+					// has a data type and name
+
+					CodeMethodElement meth = new CodeMethodElement();
+					meth.DataType = dataTypeAndName[0].Trim();
+					meth.Name = dataTypeAndName[1].Trim();
+					meth.IsStatic = ((bool)base.TemporaryVariables["NextElementIsStatic", false]);
+					meth.AccessModifiers = ((CodeAccessModifiers)base.TemporaryVariables["NextElementAccessModifier", CodeAccessModifiers.None]);
+
+					base.TemporaryVariables.Remove("NextElementIsStatic");
+					base.TemporaryVariables.Remove("NextElementAccessModifier");
+
+					CodeElementContainerElement CurrentElement = (base.TemporaryVariables["CurrentElement", null] as CodeElementContainerElement);
+					if (CurrentElement != null)
+					{
+						CurrentElement.Elements.Add(meth);
+					}
+				}
+				else if (dataTypeAndName.Length == 1)
+				{
+					// does not have a data type, must be a method call
+					CodeMethodCallElement methcall = new CodeMethodCallElement();
+					methcall.MethodName = dataTypeAndName[0];
+
+					CodeElementContainerElement CurrentElement = (base.TemporaryVariables["CurrentElement", null] as CodeElementContainerElement);
+					if (CurrentElement != null)
+					{
+						CurrentElement.Elements.Add(methcall);
+					}
+				}
+
 			}
 			else
 			{
