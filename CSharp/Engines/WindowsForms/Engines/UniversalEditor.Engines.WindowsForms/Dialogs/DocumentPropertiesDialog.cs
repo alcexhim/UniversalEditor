@@ -304,6 +304,8 @@ namespace UniversalEditor.Engines.WindowsForms.Dialogs
 					else if (mvarAccessor is FileAccessor)
 					{
 						string filename = (mvarAccessor as FileAccessor).FileName;
+						if (String.IsNullOrEmpty(filename)) return;
+
 						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarAccessor);
 						if (omrs.Length == 1)
 						{
