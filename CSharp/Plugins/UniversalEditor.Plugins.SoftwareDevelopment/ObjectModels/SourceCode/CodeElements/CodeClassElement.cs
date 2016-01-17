@@ -50,7 +50,7 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElements
 
 		public override string ToString()
 		{
-			return "Class: " + mvarName + " (" + mvarAccessModifiers.ToString() + ")";
+			return "Class: " + mvarName + " (" + mvarAccessModifiers.ToString() + (mvarIsStatic ? ", Static" : String.Empty) + ")";
 		}
 
         private string[] mvarBaseClassName = new string[0];
