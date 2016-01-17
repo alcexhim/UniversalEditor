@@ -42,7 +42,7 @@ namespace UniversalEditor.Collections.Generic
 			{
 				// the .NET Framework Dictionary`2 implementation handles the "add or update" case
 				// automatically if a non-existent key is specified
-				this[key] = value;
+				base[key] = value;
 			}
 		}
 	}
