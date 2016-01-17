@@ -52,6 +52,8 @@ namespace UniversalEditor.UserInterface.Common
 								
 								try
 								{
+									// TODO: see if there is a way we can MakeReference() without having to create all the UI
+									// components of the IEditorImplementation
 									IEditorImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IEditorImplementation);
 									listEditors.Add(editor.MakeReference());
 									
