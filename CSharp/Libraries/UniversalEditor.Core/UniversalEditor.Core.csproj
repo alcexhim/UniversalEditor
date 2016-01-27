@@ -60,7 +60,6 @@
     <Compile Include="CustomDataFormatItem.cs" />
     <Compile Include="CustomDataFormatStructure.cs" />
     <Compile Include="CustomDataFormatStructureInstance.cs" />
-    <Compile Include="ObjectModelCustomProperty.cs" />
     <Compile Include="DataCorruptedException.cs" />
     <Compile Include="DataFormatCapabilities.cs" />
     <Compile Include="DataFormatException.cs" />
