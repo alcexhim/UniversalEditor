@@ -66,26 +66,33 @@ namespace UniversalEditor
 			}
 		}
 
-		private Dictionary<string, object> _customProperties = new Dictionary<string, object>();
-		public T GetCustomProperty<T>(string name, T defaultValue = default(T))
+		private Dictionary<DataFormatReference, Dictionary<string, object>> _customProperties = new Dictionary<DataFormatReference, Dictionary<string, object>>();
+		public T GetCustomProperty<T>(DataFormatReference dfr, string name, T defaultValue = default(T))
 		{
-			if (_customProperties.ContainsKey(name))
+			if (_customProperties.ContainsKey(dfr))
 			{
-				return (T)_customProperties[name];
+				if (_customProperties[dfr].ContainsKey(name))
+				{
+					return (T)_customProperties[dfr][name];
+				}
 			}
 			return defaultValue;
 		}
-		public object GetCustomProperty(string name, object defaultValue = null)
+		public object GetCustomProperty(DataFormatReference dfr, string name, object defaultValue = null)
 		{
-			return GetCustomProperty<object>(name, defaultValue);
+			return GetCustomProperty<object>(dfr, name, defaultValue);
 		}
-		public void SetCustomProperty<T>(string name, T value)
+		public void SetCustomProperty<T>(DataFormatReference dfr, string name, T value)
 		{
-			_customProperties[name] = value;
+			if (!_customProperties.ContainsKey(dfr))
+			{
+				_customProperties.Add(dfr, new Dictionary<string, object>());
+			}
+			_customProperties[dfr][name] = value;
 		}
-		public void SetCustomProperty(string name, object value)
+		public void SetCustomProperty(DataFormatReference dfr, string name, object value)
 		{
-			SetCustomProperty<object>(name, value);
+			SetCustomProperty<object>(dfr, name, value);
 		}
 	}
 }

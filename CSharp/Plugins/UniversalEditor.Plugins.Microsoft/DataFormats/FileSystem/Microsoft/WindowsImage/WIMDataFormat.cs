@@ -107,7 +107,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.WindowsImage
 				UniversalEditor.DataFormats.Markup.XML.XMLDataFormat xdf = new Markup.XML.XMLDataFormat();
 				Document.Load(mom, xdf, new Accessors.StringAccessor(xmlData));
 
-				fsom.CustomProperties.Add(MakeReference(), "XMLDescriptor", mom);
+				fsom.SetCustomProperty<UniversalEditor.ObjectModels.Markup.MarkupObjectModel>(MakeReference(), "XMLDescriptor", mom);
 			}
 			#endregion
 		}
