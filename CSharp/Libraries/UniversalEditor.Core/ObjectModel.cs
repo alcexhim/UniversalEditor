@@ -66,7 +66,26 @@ namespace UniversalEditor
 			}
 		}
 
-		private ObjectModelCustomProperty.ObjectModelCustomPropertyCollection mvarCustomProperties = new ObjectModelCustomProperty.ObjectModelCustomPropertyCollection();
-		public ObjectModelCustomProperty.ObjectModelCustomPropertyCollection CustomProperties { get { return mvarCustomProperties; } }
+		private Dictionary<string, object> _customProperties = new Dictionary<string, object>();
+		public T GetCustomProperty<T>(string name, T defaultValue = default(T))
+		{
+			if (_customProperties.ContainsKey(name))
+			{
+				return (T)_customProperties[name];
+			}
+			return defaultValue;
+		}
+		public object GetCustomProperty(string name, object defaultValue = null)
+		{
+			return GetCustomProperty<object>(name, defaultValue);
+		}
+		public void SetCustomProperty<T>(string name, T value)
+		{
+			_customProperties[name] = value;
+		}
+		public void SetCustomProperty(string name, object value)
+		{
+			SetCustomProperty<object>(name, value);
+		}
 	}
 }
