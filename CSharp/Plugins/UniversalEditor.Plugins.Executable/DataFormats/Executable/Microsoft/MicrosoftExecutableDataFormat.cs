@@ -136,10 +136,22 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 
 			ExecutableObjectModel exe = new ExecutableObjectModel();
 			DOSExecutableHeader mvarDOSHeader = ReadDOSHeader(reader);
-			exe.SetCustomProperty<DOSExecutableHeader>("DOSExecutableHeader", mvarDOSHeader);
+			exec.SetCustomProperty<DOSExecutableHeader>(MakeReference(), "DOSExecutableHeader", mvarDOSHeader);
 
 			byte[] stubProgram = reader.ReadBytes(64);
+			exec.SetCustomProperty<byte[]>(MakeReference(), "StubProgram", stubProgram);
 
+			byte[] richHeaderDataEncrypted = null;
+			byte[] richHeaderDataDecrypted = null;
+			byte[] richHeaderDecryptionKey = null;
+			bool richHeaderEnabled = ReadRichHeader(reader, out richHeaderDataEncrypted, out richHeaderDataDecrypted, out richHeaderDecryptionKey);
+			RichHeader rh = DecodeRichHeader(richHeaderDataDecrypted);
+			exec.SetCustomProperty<RichHeader>(MakeReference(), "RichHeader", rh);
+
+			exec.SetCustomProperty<byte[]>(MakeReference(), "RichHeaderDataEncrypted", richHeaderDataEncrypted);
+			exec.SetCustomProperty<byte[]>(MakeReference(), "RichHeaderDataDecrypted", richHeaderDataDecrypted);
+			exec.SetCustomProperty<byte[]>(MakeReference(), "RichHeaderDecryptionKey", richHeaderDecryptionKey);
+			
 			#region Portable Executable
 			{
 				if (mvarDOSHeader.NewEXEHeaderOffset != 0)
@@ -153,12 +165,12 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 						exe.TargetMachineType = (ExecutableMachine)pe.machine;
 						exe.Characteristics = (ExecutableCharacteristics)pe.characteristics;
 					}
-					
+
 					// Optional Header
 					long peohOffset = reader.Accessor.Position;
 					PEOptionalHeader peoh = new PEOptionalHeader();
 					peoh = ReadPEOptionalHeader(reader, pe);
-					
+
 					#region Data Directories
 					{
 						for (int i = 0; i < peoh.rvaCount; i++)
@@ -175,7 +187,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 						{
 							reader.Accessor.Seek(peohOffset + pe.sizeOfOptionalHeader, SeekOrigin.Begin);
 						}
-						
+
 						uint lastRawDataPtr = 0;
 						for (short i = 0; i < pe.sectionCount; i++)
 						{
@@ -326,6 +338,96 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				}
 			}
 			#endregion
+		}
+
+		private RichHeader DecodeRichHeader(byte[] richHeader)
+		{
+			if (richHeader == null) return null;
+
+			RichHeader rich = new RichHeader();
+			Reader reader = new Reader(new MemoryAccessor(richHeader));
+			
+			string signature = reader.ReadFixedLengthString(4);
+			if (signature != "DanS") throw new InvalidDataFormatException("Rich header does not begin with 'DanS'");
+
+			for (int i = 0; i < 3; i++)
+			{
+				// three times the mask value, which when "decrypted" leaves three 4-byte zeros
+				int unknown1 = reader.ReadInt32();
+			}
+
+			while (!reader.EndOfStream)
+			{
+				int dword = reader.ReadInt32();
+				int id = (dword >> 16);
+				int minver = (dword & 0xFFFF);
+				int vnum = reader.ReadInt32();
+
+				RichHeaderEntry entry = new RichHeaderEntry();
+				entry.Id = id;
+				entry.Version = minver;
+				entry.Count = vnum;
+				rich.Entries.Add(entry);
+			}
+
+			reader.Close();
+			return rich;
+		}
+
+		private const int MAX_RICH_HEADER_DECRYPTION_ATTEMPTS = 100;
+
+		/// <summary>
+		/// Decrypts and returns the Rich header, or null if no Rich header was included with the executable.
+		/// </summary>
+		/// <param name="reader">The <see cref="Reader" /> used to access the file.</param>
+		/// <returns>The data of the Rich header, or null if no Rich header was included with the executable.</returns>
+		private bool ReadRichHeader(Reader reader, out byte[] encryptedData, out byte[] decryptedData, out byte[] decryptionKey)
+		{
+			// store the original position in case we run into an error later
+			long originalPosition = reader.Accessor.Position;
+
+			// http://ntcore.com/files/richsign.htm
+			byte[] richBlock = System.Text.Encoding.ASCII.GetBytes("Rich");
+			byte[] nextBlock = reader.ReadBytes(4);
+			System.Collections.Generic.List<byte[]> RichBlocks = new System.Collections.Generic.List<byte[]>();
+
+			int nRichHeaderDecryptionAttempt = 0;
+			while (!nextBlock.Match(richBlock))
+			{
+				// see if we time out before hitting the Rich header
+				if (nRichHeaderDecryptionAttempt == MAX_RICH_HEADER_DECRYPTION_ATTEMPTS)
+				{
+					// reset the reader to original position
+					reader.Accessor.Position = originalPosition;
+
+					encryptedData = null;
+					decryptedData = null;
+					decryptionKey = null;
+					return false;
+				}
+				RichBlocks.Add(nextBlock);
+				nextBlock = reader.ReadBytes(4);
+				nRichHeaderDecryptionAttempt++;
+			}
+			byte[] decKey = reader.ReadBytes(4);
+
+			byte[] encData = new byte[RichBlocks.Count * 4];
+			byte[] decData = new byte[encData.Length];
+			int x = 0;
+			for (int i = 0; i < RichBlocks.Count; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					encData[x] = RichBlocks[i][j];
+					decData[x] = (byte)(RichBlocks[i][j] ^ decKey[j]);
+					x++;
+				}
+			}
+
+			encryptedData = encData;
+			decryptedData = decData;
+			decryptionKey = decKey;
+			return true;
 		}
 
 		private static PEHeader ReadPEHeader(Reader reader)
@@ -507,17 +609,54 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			if (fsom == null && exe == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
 			// DOS part
-			DOSExecutableHeader mvarDOSHeader = exe.GetCustomProperty<DOSExecutableHeader>("DOSExecutableHeader", new DOSExecutableHeader());
+			DOSExecutableHeader mvarDOSHeader = exe.GetCustomProperty<DOSExecutableHeader>(MakeReference(), "DOSExecutableHeader", new DOSExecutableHeader());
 			WriteDOSHeader(bw, mvarDOSHeader);
 
 			#region Portable Executable
 			int e_lfanew = (int)(bw.Accessor.Position + 4);
 			bw.WriteInt32(e_lfanew);
 
-			byte[] stubProgram = new byte[64];
+			byte[] stubProgram = exe.GetCustomProperty<byte[]>(MakeReference(), "StubProgram", new byte[64]);
 			bw.WriteBytes(stubProgram);
 
-			byte[] unknown = new byte[96];
+			int sizeOfRich = 0;
+
+			RichHeader rh = exe.GetCustomProperty<RichHeader>(MakeReference(), "RichHeader");
+			byte[] richHeaderData = exe.GetCustomProperty<byte[]>(MakeReference(), "RichHeaderDataEncrypted");
+			if (richHeaderData != null)
+			{
+				byte[] richHeaderDecryptionKey = exe.GetCustomProperty<byte[]>(MakeReference(), "RichHeaderDecryptionKey");
+				sizeOfRich = richHeaderData.Length;
+
+				byte[] DanS = new byte[] { (byte)'D', (byte)'a', (byte)'n', (byte)'S' };
+				bw.WriteBytes(XorByteArray(DanS, richHeaderDecryptionKey));
+				for (int i = 0; i < 3; i++)
+				{
+					bw.WriteBytes(richHeaderDecryptionKey);
+				}
+				foreach (RichHeaderEntry entry in rh.Entries)
+				{
+					int dw = 0;
+					dw = (entry.Id << 16);
+					dw |= (entry.Version | 0xFFFF);
+
+					byte[] dword1 = BitConverter.GetBytes(dw);
+					dword1 = XorByteArray(dword1, richHeaderDecryptionKey);
+					byte[] dword2 = BitConverter.GetBytes(entry.Count);
+					dword2 = XorByteArray(dword2, richHeaderDecryptionKey);
+
+					bw.WriteBytes(dword1);
+					bw.WriteBytes(dword2);
+				}
+				// bw.WriteBytes(richHeaderData);
+
+				bw.WriteFixedLengthString("Rich");
+				bw.WriteBytes(richHeaderDecryptionKey);
+			}
+
+			int sizeOfPadding = 96 - sizeOfRich;
+
+			byte[] unknown = new byte[sizeOfPadding];
 			bw.WriteBytes(unknown);
 
 			#region PE header
@@ -653,6 +792,19 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				}
 			}
 			#endregion
+		}
+
+		private byte[] XorByteArray(byte[] value, byte[] key)
+		{
+			byte[] resultValue = new byte[value.Length];
+			int j = 0;
+			for (int i = 0; i < resultValue.Length; i++)
+			{
+				resultValue[i] = (byte)(value[i] ^ key[j]);
+				j++;
+				if (j == key.Length) j = 0;
+			}
+			return resultValue;
 		}
 	}
 }

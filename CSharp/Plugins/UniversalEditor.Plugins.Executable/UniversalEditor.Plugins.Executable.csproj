@@ -66,6 +66,7 @@
     <Compile Include="DataFormats\Executable\Microsoft\PEOptionalHeader.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\PESectionCharacteristics.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\PESectionHeader.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\RichHeader.cs" />
     <Compile Include="DataFormats\Executable\RelocatableObject\OBJDataFormat.cs" />
     <Compile Include="DataFormats\Executable\RelocatableObject\OBJRecordType.cs" />
     <Compile Include="ObjectModels\Executable\ExecutableCharacteristics.cs" />
