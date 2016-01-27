@@ -34,9 +34,6 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft
 	/// </summary>
 	public class MicrosoftExecutableDataFormat : DataFormat
 	{
-		private DOSExecutableHeader mvarDOSHeader = new DOSExecutableHeader();
-		public DOSExecutableHeader DOSHeader { get { return mvarDOSHeader; } }
-
 		private NameValuePair<int>.NameValuePairCollection mvarImportTable = new NameValuePair<int>.NameValuePairCollection();
 		public NameValuePair<int>.NameValuePairCollection ImportTable { get { return mvarImportTable; } }
 		
@@ -138,8 +135,8 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			if (fsom == null && exec == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
 			ExecutableObjectModel exe = new ExecutableObjectModel();
-
-			mvarDOSHeader = ReadDOSHeader(reader);
+			DOSExecutableHeader mvarDOSHeader = ReadDOSHeader(reader);
+			exe.SetCustomProperty<DOSExecutableHeader>("DOSExecutableHeader", mvarDOSHeader);
 
 			byte[] stubProgram = reader.ReadBytes(64);
 
@@ -510,6 +507,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			if (fsom == null && exe == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
 			// DOS part
+			DOSExecutableHeader mvarDOSHeader = exe.GetCustomProperty<DOSExecutableHeader>("DOSExecutableHeader", new DOSExecutableHeader());
 			WriteDOSHeader(bw, mvarDOSHeader);
 
 			#region Portable Executable
