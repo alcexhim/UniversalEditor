@@ -1300,7 +1300,7 @@ namespace UniversalEditor.Engines.WindowsForms
 				DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
 				dlg.ObjectModel = doc.ObjectModel;
 				dlg.DataFormat = doc.DataFormat;
-				dlg.Accessor = doc.Accessor;
+				dlg.Accessor = null; // doc.Accessor;
 				dlg.Mode = DocumentPropertiesDialogMode.Save;
 				if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
@@ -1368,6 +1368,12 @@ namespace UniversalEditor.Engines.WindowsForms
 			}
 
 			doc.DataFormat = df;
+
+			if (doc.OutputAccessor.IsOpen)
+			{
+				doc.OutputAccessor.Close();
+			}
+
 			doc.OutputAccessor = new FileAccessor(FileName, true, true, true);
 			doc.Save();
 
