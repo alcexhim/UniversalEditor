@@ -638,7 +638,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				{
 					int dw = 0;
 					dw = (entry.Id << 16);
-					dw |= (entry.Version | 0xFFFF);
+					dw |= entry.Version;
 
 					byte[] dword1 = BitConverter.GetBytes(dw);
 					dword1 = XorByteArray(dword1, richHeaderDecryptionKey);
