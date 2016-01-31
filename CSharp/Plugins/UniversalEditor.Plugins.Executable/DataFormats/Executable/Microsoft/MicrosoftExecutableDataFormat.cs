@@ -671,26 +671,21 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				pe.sectionCount = (short)exe.Sections.Count;
 			}
 			// pe.characteristics = ExecutableCharacteristicsToPECharacteristics(exe.Characteristics);
-			pe.sizeOfOptionalHeader = 240;
-			pe.machine = PEMachineType.AMD64;
+			// pe.sizeOfOptionalHeader = 240;
+			pe.sizeOfOptionalHeader = 224;		// 240???
+			pe.machine = PEMachineType.Intel386;
 			pe.characteristics = PECharacteristics.RelocationInformationStripped | PECharacteristics.ExecutableImage | PECharacteristics.UpdateObject;
 
-			bw.WriteFixedLengthString(pe.signature);
-			bw.WriteUInt16((ushort)pe.machine);
-			bw.WriteUInt16((ushort)pe.sectionCount);
-			bw.WriteUInt16((ushort)pe.timestamp);
-			bw.WriteUInt16((ushort)pe.symbolTableOffset);
-			bw.WriteUInt16((ushort)pe.symbolCount);
-			bw.WriteUInt16((ushort)pe.unknown4);
-			bw.WriteUInt16((ushort)pe.unknown5);
-			bw.WriteUInt16((ushort)pe.unknown6);
-			bw.WriteUInt16((ushort)pe.sizeOfOptionalHeader); // relative offset to sectiontable
+			bw.Flush();
+			WritePEHeader(bw, pe);
+			bw.Flush();
 
-			
-			bw.WriteUInt16((ushort)pe.characteristics);
 			#endregion
 			#region PE Optional Header
 			long peohOffset = bw.Accessor.Position;
+			peohOffset += 8;
+			bw.Accessor.Seek(peohOffset, SeekOrigin.Begin);
+
 			PEOptionalHeader peoh = new PEOptionalHeader();
 			peoh.enabled = true;
 			peoh.magic = 267;
@@ -702,49 +697,16 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			peoh.imageSize = 16384;
 			peoh.headerSize = 512;
 			peoh.subsystem = 2;
+			peoh.rvaCount = 16;
+			peoh.rvas1 = new uint[16];
+			peoh.rvas2 = new uint[16];
 			
-			uint[] rvas = new uint[16];
-			peoh.rvaCount = (uint)rvas.Length;
-
 			if (peoh.enabled)
 			{
-				bw.WriteUInt16((ushort)peoh.magic);
-				bw.WriteUInt16((ushort)peoh.unknown1);		// major/minor linker version
-				bw.WriteUInt32((uint)peoh.unknown2);		// size of code
-				bw.WriteUInt32((uint)peoh.unknown3);		// size of initialized data
-				bw.WriteUInt32((uint)peoh.unknown4);		// size of uninitialized data
-				bw.WriteUInt32((uint)peoh.entryPointAddr);
-				bw.WriteUInt32((uint)peoh.unknown5);		// base of code
-				bw.WriteUInt32((uint)peoh.unknown6);		// base of data
-				bw.WriteUInt32((uint)peoh.imageBase);
-				bw.WriteUInt32((uint)peoh.sectionAlignment);
-				bw.WriteUInt32((uint)peoh.fileAlignment);
-				bw.WriteUInt32((uint)peoh.unknown7);		// major/minor OS version
-				bw.WriteUInt32((uint)peoh.unknown8);		// major/minor Image version
-				bw.WriteUInt16((ushort)peoh.majorSubsystemVersion); // major subsystem version (4 = NT 4 or later)
-				bw.WriteUInt16((ushort)peoh.unknown9);		// minor subsystem version
-				bw.WriteUInt32((uint)peoh.unknown10);		// reserved1
-				bw.WriteUInt32((uint)peoh.imageSize);		// image size
-				bw.WriteUInt32((uint)peoh.headerSize);		// header size
-				bw.WriteUInt32((uint)peoh.unknown11);		// checksum
-				bw.WriteUInt16((ushort)peoh.subsystem);
-				bw.WriteUInt16((ushort)peoh.unknown12);		// DLL characteristics
-				bw.WriteUInt32((uint)peoh.unknown13);		// size of stack reserve
-				bw.WriteUInt32((uint)peoh.unknown14);		// size of stack commit
-				bw.WriteUInt32((uint)peoh.unknown15);		// size of heap reserve
-				bw.WriteUInt32((uint)peoh.unknown16);		// size of heap commit
-				bw.WriteUInt32((uint)peoh.unknown17);		// loader flags
-				bw.WriteUInt32((uint)peoh.rvaCount);
+				WritePEOptionalHeader(bw, peoh);
 			}
 			#endregion
 			#endregion
-
-			// write the RVA values
-			for (uint i = 0; i < peoh.rvaCount; i++)
-			{
-				bw.WriteUInt32(rvas[(int)i]);
-				bw.WriteUInt32(rvas[(int)i]);
-			}
 
 			bw.Accessor.Seek(peohOffset + pe.sizeOfOptionalHeader, SeekOrigin.Begin);
 
@@ -786,12 +748,68 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 					bw.WriteUInt32((uint)pesh.characteristics);
 				}
 
+				bw.Align(1024);
+
 				foreach (ExecutableSection section in exe.Sections)
 				{
 					bw.WriteBytes(section.Data);
 				}
 			}
 			#endregion
+		}
+
+		private void WritePEHeader(Writer bw, PEHeader pe)
+		{
+			bw.WriteFixedLengthString(pe.signature);
+			bw.WriteUInt16((ushort)pe.machine);
+			bw.WriteUInt16((ushort)pe.sectionCount);
+			bw.WriteUInt16((ushort)pe.timestamp);					// ®9
+			bw.WriteUInt16((ushort)pe.symbolTableOffset);			// PE
+			bw.WriteUInt16((ushort)pe.symbolCount);					// CO
+			bw.WriteUInt16((ushort)pe.unknown4);					// \0\0
+			bw.WriteUInt16((ushort)pe.unknown5);					// \0\0
+			bw.WriteUInt16((ushort)pe.unknown6);					// à\0
+			bw.WriteUInt16((ushort)pe.sizeOfOptionalHeader); // relative offset to sectiontable
+			bw.WriteUInt16((ushort)pe.characteristics);
+		}
+
+		private void WritePEOptionalHeader(Writer bw, PEOptionalHeader peoh)
+		{
+			bw.WriteUInt16((ushort)peoh.magic);
+			bw.WriteUInt16((ushort)peoh.unknown1);		// major/minor linker version
+			bw.WriteUInt32((uint)peoh.unknown2);		// size of code
+			bw.WriteUInt32((uint)peoh.unknown3);		// size of initialized data
+			bw.WriteUInt32((uint)peoh.unknown4);		// size of uninitialized data
+			bw.WriteUInt32((uint)peoh.entryPointAddr);
+			bw.WriteUInt32((uint)peoh.unknown5);		// base of code
+			bw.WriteUInt32((uint)peoh.unknown6);		// base of data
+			bw.WriteUInt32((uint)peoh.imageBase);
+			bw.WriteUInt32((uint)peoh.sectionAlignment);
+			bw.WriteUInt32((uint)peoh.fileAlignment);
+			bw.WriteUInt32((uint)peoh.unknown7);		// major/minor OS version
+			bw.WriteUInt32((uint)peoh.unknown8);		// major/minor Image version
+			bw.WriteUInt16((ushort)peoh.majorSubsystemVersion); // major subsystem version (4 = NT 4 or later)
+			bw.WriteUInt16((ushort)peoh.unknown9);		// minor subsystem version
+			bw.WriteUInt32((uint)peoh.unknown10);		// reserved1
+			bw.WriteUInt32((uint)peoh.imageSize);		// image size
+			bw.WriteUInt32((uint)peoh.headerSize);		// header size
+			bw.WriteUInt32((uint)peoh.unknown11);		// checksum
+			bw.WriteUInt16((ushort)peoh.subsystem);
+			bw.WriteUInt16((ushort)peoh.unknown12);		// DLL characteristics
+			bw.WriteUInt32((uint)peoh.unknown13);		// size of stack reserve
+			bw.WriteUInt32((uint)peoh.unknown14);		// size of stack commit
+			bw.WriteUInt32((uint)peoh.unknown15);		// size of heap reserve
+			bw.WriteUInt32((uint)peoh.unknown16);		// size of heap commit
+			bw.WriteUInt32((uint)peoh.unknown17);		// loader flags
+			bw.WriteUInt32((uint)peoh.rvaCount);
+			// 96 + 128 = 224
+			
+			// write the RVA values
+			for (uint i = 0; i < peoh.rvaCount; i++)
+			{
+				bw.WriteUInt32(peoh.rvas1[(int)i]);
+				bw.WriteUInt32(peoh.rvas2[(int)i]);
+			}
 		}
 
 		private byte[] XorByteArray(byte[] value, byte[] key)
