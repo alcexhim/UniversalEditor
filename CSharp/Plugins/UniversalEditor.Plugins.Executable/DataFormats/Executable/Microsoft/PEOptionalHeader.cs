@@ -34,6 +34,9 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft
         public uint unknown15;
         public uint unknown16;
         public uint unknown17;
-        public uint rvaCount;
+		public uint rvaCount;
+
+		public uint[] rvas1;
+		public uint[] rvas2;
     }
 }
