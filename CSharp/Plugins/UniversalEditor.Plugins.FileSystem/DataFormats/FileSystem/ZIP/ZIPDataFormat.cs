@@ -19,6 +19,9 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 	{
 		private ZIPSettings mvarSettings = new ZIPSettings();
 
+		private static readonly byte[] SIG_CENTRAL_DIRECTORY_ENTRY = new byte[] { 0x50, 0x4B, 0x01, 0x02 };
+		private static readonly byte[] SIG_END_OF_CENTRAL_DIRECTORY = new byte[] { 0x50, 0x4B, 0x05, 0x06 };
+
 		private string mvarComment = String.Empty;
 		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
 
@@ -37,6 +40,120 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			if (fsom == null) return;
 
 			IO.Reader br = base.Accessor.Reader;
+
+
+			long eocdOffset = zip_FindEndOfCentralDirectory(br);
+			if (eocdOffset != -1)
+			{
+				// let's work with the central directory since it's more reliable than the file header
+				Internal.ZIPCentralDirectoryFooter footer = ReadZIPCentralDirectoryFooter(br);
+				if (footer.centralDirectoryOffset > 0 && footer.centralDirectoryOffset < br.Accessor.Length)
+				{
+					br.Seek(footer.centralDirectoryOffset, SeekOrigin.Begin);
+					long pos = br.Accessor.Position;
+
+					while (br.Accessor.Position < footer.centralDirectoryLength + pos)
+					{
+						byte[] centralDirectorySignature = br.ReadBytes(4);
+						if (!centralDirectorySignature.Match(SIG_CENTRAL_DIRECTORY_ENTRY))
+						{
+							Console.WriteLine("zip: @" + br.Accessor.Position.ToString() + " - invalid central directory entry, shit might get real now");
+						}
+
+						ushort unknown1 = br.ReadUInt16();
+						ushort unknown2 = br.ReadUInt16();
+						ushort unknown3 = br.ReadUInt16();
+						ushort unknown4 = br.ReadUInt16();
+						uint unknown5 = br.ReadUInt32();
+						uint unknown6 = br.ReadUInt32();
+						uint compressedLength = br.ReadUInt32();
+						uint decompressedLength = br.ReadUInt32();
+						uint fileNameLength = br.ReadUInt32();
+						ushort unknown7 = br.ReadUInt16();
+						ushort unknown8 = br.ReadUInt16();
+						ushort unknown9 = br.ReadUInt16();
+						ushort unknown10 = br.ReadUInt16();
+						ushort unknown11 = br.ReadUInt16();
+						uint fileOffset = br.ReadUInt32();
+						string fileName = br.ReadFixedLengthString(fileNameLength);
+
+						long curpos = br.Accessor.Position;
+						br.Accessor.Position = fileOffset;
+
+						byte[] headerSignature = br.ReadBytes(4);
+						if (!headerSignature.Match(new byte[] { 0x50, 0x4B, 0x03, 0x04 }))
+						{
+
+						}
+
+						CompressionMethod method = CompressionMethod.None;
+						short iMinimumVersionNeededToExtract = br.ReadInt16();
+						short iGeneralPurposeBitFlag = br.ReadInt16();
+						short iCompressionMethod = br.ReadInt16();
+						switch (iCompressionMethod)
+						{
+							case 8:
+							{
+								method = CompressionMethod.Deflate;
+								break;
+							}
+							case 9:
+							{
+								method = CompressionMethod.Deflate64;
+								break;
+							}
+							case 12:
+							{
+								method = CompressionMethod.Bzip2;
+								break;
+							}
+							case 14:
+							{
+								method = CompressionMethod.LZMA;
+								break;
+							}
+						}
+						short iFileLastModificationTime = br.ReadInt16();
+						short iFileLastModificationDate = br.ReadInt16();
+						bool isEncrypted = false;
+						int iCRC32 = br.ReadInt32();
+						int packedFileLength = br.ReadInt32();
+						int unpackedFileLength = br.ReadInt32();
+						short local_fileNameLength = br.ReadInt16();
+						short extraFieldLength = br.ReadInt16();
+						string local_fileName = br.ReadFixedLengthString(fileNameLength);
+						long local_pos = br.Accessor.Position;
+						while (br.Accessor.Position < (local_pos + extraFieldLength))
+						{
+							short chunkIDCode = br.ReadInt16();
+							short chunkLength = br.ReadInt16();
+							byte[] data = br.ReadBytes(chunkLength);
+						}
+
+
+						byte[] compressedData = br.ReadBytes(compressedLength);
+						br.Accessor.Position = curpos;
+
+						byte[] decompressedData = compressedData;
+						if (compressedLength != decompressedLength)
+						{
+							decompressedData = UniversalEditor.Compression.CompressionModules.Deflate.Decompress(compressedData);
+							if (decompressedData.Length != decompressedLength)
+							{
+								Console.WriteLine("zip: sanity check - decompressed data length (" + decompressedData.Length.ToString() + ") does not match expected value (" + decompressedLength.ToString() + ")");
+							}
+						}
+
+						File file = fsom.AddFile(fileName, decompressedData);
+					}
+					return;
+				}
+				else
+				{
+					Console.WriteLine("zip: central directory offset " + footer.centralDirectoryOffset.ToString() + " out of bounds for file (" + br.Accessor.Length.ToString() + ")");
+				}
+			}
+
 			int firstFile = this.zip_FindFirstFileOffset(br);
 			if (firstFile == -1)
 			{
@@ -49,7 +166,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				File file = null;
 				try
 				{
-					file = (zip_ReadFile(br) as File);
+					zip_ReadFile(br, fsom);
+					/*
 					if (file != null)
 					{
 						if (file.Name.Contains("/"))
@@ -106,12 +224,25 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 					{
 						break;
 					}
+					*/
 				}
 				catch (System.Security.SecurityException)
 				{
 					// file is encrypted, what do we do?
 				}
 			}
+		}
+
+		private static Internal.ZIPCentralDirectoryFooter ReadZIPCentralDirectoryFooter(Reader reader)
+		{
+			Internal.ZIPCentralDirectoryFooter item = new Internal.ZIPCentralDirectoryFooter();
+			item.unknown1 = reader.ReadUInt32();
+			item.unknown2 = reader.ReadUInt16();
+			item.unknown3 = reader.ReadUInt16();
+			item.centralDirectoryLength = reader.ReadUInt32();
+			item.centralDirectoryOffset = reader.ReadUInt32();
+			item.unknown4 = reader.ReadUInt16();
+			return item;
 		}
 
 		private bool readCentralDirectory(IO.Reader br)
@@ -373,8 +504,23 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			}
 			return -1;
 		}
+		
+		private long zip_FindEndOfCentralDirectory(IO.Reader reader)
+		{
+			reader.Seek(-4, SeekOrigin.End);
+			while (true)
+			{
+				byte[] test = reader.ReadBytes(4);
+				if (test.Match(SIG_END_OF_CENTRAL_DIRECTORY))
+				{
+					return reader.Accessor.Position;
+				}
+				reader.Seek(-5, SeekOrigin.Current);
+			}
+			return -1;
+		}
 
-		private File zip_ReadFile(IO.Reader br)
+		private File zip_ReadFile(IO.Reader br, IFileSystemContainer fsom)
 		{
 			byte[] unpackedData;
 			CompressionMethod method = CompressionMethod.Deflate;
@@ -446,9 +592,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				HostApplication.Messages.Add(HostApplicationMessageSeverity.Error, "File size mismatch, source archive may be corrupted", fileName);
 			}
 
-			File f = new File();
+			File f = fsom.AddFile(fileName);
 			f.SetData(unpackedData);
-			f.Name = fileName;
 			return f;
 		}
 
