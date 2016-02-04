@@ -120,23 +120,50 @@ namespace UniversalEditor.Editors.Executable
 
 		private void mnuContextListViewSections_Opening(object sender, CancelEventArgs e)
 		{
-			mnuContextListViewSectionsDelete.Enabled = (lvSections.SelectedItems.Count > 0);
-			mnuContextListViewSectionsExport.Enabled = (lvSections.SelectedItems.Count > 0);
+			if (lvSections.Focused)
+			{
+				mnuContextSectionsDelete.Enabled = (lvSections.SelectedItems.Count > 0);
+				mnuContextSectionsExport.Enabled = (lvSections.SelectedItems.Count > 0);
+			}
+			else if (tv.Focused)
+			{
+				mnuContextSectionsDelete.Enabled = (tv.SelectedNode != null && tv.SelectedNode.Tag is ExecutableSection);
+				mnuContextSectionsExport.Enabled = (tv.SelectedNode != null && tv.SelectedNode.Tag is ExecutableSection);
+			}
 		}
 
 		private void mnuContextListViewSectionsExport_Click(object sender, EventArgs e)
 		{
-			foreach (ListViewItem lvi in lvSections.SelectedItems)
+			if (lvSections.Focused)
 			{
-				ExecutableSection section = (lvi.Tag as ExecutableSection);
-
-				SaveFileDialog sfd = new SaveFileDialog();
-				sfd.FileName = section.Name;
-				if (sfd.ShowDialog() == DialogResult.OK)
+				foreach (ListViewItem lvi in lvSections.SelectedItems)
 				{
-					section.Save(sfd.FileName);
+					ExecutableSection section = (lvi.Tag as ExecutableSection);
+					UISaveSection(section);
 				}
 			}
+			else if (tv.Focused)
+			{
+				ExecutableSection section = (tv.SelectedNode.Tag as ExecutableSection);
+				UISaveSection(section);
+			}
+		}
+
+		/// <summary>
+		/// Displays the Save file dialog and saves the specified section if the user clicks the Save button.
+		/// </summary>
+		/// <param name="section">The section to save.</param>
+		/// <returns>True if the user clicks the Save button and saves the section; false otherwise.</returns>
+		private bool UISaveSection(ExecutableSection section)
+		{
+			SaveFileDialog sfd = new SaveFileDialog();
+			sfd.FileName = section.Name;
+			if (sfd.ShowDialog() == DialogResult.OK)
+			{
+				section.Save(sfd.FileName);
+				return true;
+			}
+			return false;
 		}
 
 		private void mnuContextListViewSectionsImport_Click(object sender, EventArgs e)
@@ -197,6 +224,14 @@ namespace UniversalEditor.Editors.Executable
 			else
 			{
 				SwitchTo(null);
+			}
+		}
+
+		private void tv_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			{
+				tv.SelectedNode = tv.HitTest(e.Location).Node;
 			}
 		}
 	}
