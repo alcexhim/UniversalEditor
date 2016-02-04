@@ -208,6 +208,7 @@
     <Compile Include="DataFormats\FileSystem\ZipTV\BlakHole\BHDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZipTV\BlakHole\BHEncryptDecrypt.cs" />
     <Compile Include="DataFormats\FileSystem\ZipTV\BlakHole\BHEncryptionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\Internal\ZIPCentralDirectoryFooter.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPCreationPlatform.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />

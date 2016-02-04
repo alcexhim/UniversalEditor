@@ -20,14 +20,15 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using UniversalEditor.DataFormats.FileSystem.ZIP;
-using UniversalEditor.ObjectModels.FileSystem;
 
+using UniversalEditor.DataFormats.Package.OpenPackagingConvention;
+
+using UniversalEditor.ObjectModels.Package;
 using UniversalEditor.ObjectModels.Text.Formatted;
 
 namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 {
-	public class XPSDataFormat : ZIPDataFormat
+	public class XPSDataFormat : OPCDataFormat
 	{
 		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
@@ -42,57 +43,25 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 		
 		protected override void BeforeLoadInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
 		{
-			objectModels.Push(new FileSystemObjectModel());
+			objectModels.Push(new PackageObjectModel());
+			base.BeforeLoadInternal(objectModels);
 		}
 		protected override void AfterLoadInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
 		{
-			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
+			base.AfterLoadInternal(objectModels);
+
+			PackageObjectModel package = (objectModels.Pop() as PackageObjectModel);
 			FormattedTextObjectModel text = (objectModels.Pop() as FormattedTextObjectModel);
+
 		}
 		
 		protected override void BeforeSaveInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
 		{
 			FormattedTextObjectModel text = (objectModels.Pop() as FormattedTextObjectModel);
+
+			PackageObjectModel package = new PackageObjectModel();
 			
-			FileSystemObjectModel fsom = new FileSystemObjectModel();
-			
-			#region _rels
-			{
-				Folder fldr = new Folder();
-				fldr.Name = "_rels";
-				fsom.Folders.Add(fldr);
-			}
-			#endregion
-			#region Documents
-			{
-				Folder fldr = new Folder();
-				fldr.Name = "Documents";
-				fsom.Folders.Add(fldr);
-			}
-			#endregion
-			#region Metadata
-			{
-				Folder fldr = new Folder();
-				fldr.Name = "Metadata";
-				fsom.Folders.Add(fldr);
-			}
-			#endregion
-			#region [Content_Types].xml
-			{
-				File file = new File();
-				file.Name = "[Content_Types].xml";
-				fsom.Files.Add(file);
-			}
-			#endregion
-			#region FixedDocumentSequence.fdseq
-			{
-				File file = new File();
-				file.Name = "FixedDocumentSequence.fdseq";
-				fsom.Files.Add(file);
-			}
-			#endregion
-			
-			objectModels.Push(fsom);
+			objectModels.Push(package);
 		}
 	}
 }

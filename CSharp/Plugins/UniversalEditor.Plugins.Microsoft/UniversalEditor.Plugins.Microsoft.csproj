@@ -77,6 +77,9 @@
     <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TopicLinkDisplay31Opcode.cs" />
     <Compile Include="DataFormats\Help\Compiled\WinHelp\Internal\TopicLinkRecordType.cs" />
     <Compile Include="DataFormats\Help\TableOfContents\V3\H1TDataFormat.cs" />
+    <Compile Include="DataFormats\Package\ContentTypes\OPCContentTypesDataFormat.cs" />
+    <Compile Include="DataFormats\Package\OpenPackagingConvention\OPCDataFormat.cs" />
+    <Compile Include="DataFormats\Package\Relationships\OPCRelationshipsDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKFileAttributeFlags.cs" />
@@ -84,6 +87,11 @@
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKLocationFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKWindowState.cs" />
     <Compile Include="ObjectModels\Help\Compiled\CompiledHelpObjectModel.cs" />
+    <Compile Include="ObjectModels\Package\ContentTypes\ContentType.cs" />
+    <Compile Include="ObjectModels\Package\ContentTypes\ContentTypesObjectModel.cs" />
+    <Compile Include="ObjectModels\Package\PackageObjectModel.cs" />
+    <Compile Include="ObjectModels\Package\Relationships\Relationship.cs" />
+    <Compile Include="ObjectModels\Package\Relationships\RelationshipsObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\Text\Formatted\XPS\XPSDataFormat.cs" />
   </ItemGroup>
