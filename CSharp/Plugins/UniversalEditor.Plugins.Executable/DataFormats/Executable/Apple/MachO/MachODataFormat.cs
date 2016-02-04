@@ -139,7 +139,7 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 				}
 				default:
 				{
-					throw new InvalidDataFormatException("The executable format 0x" + ((uint)magic).ToString("X") + " is not supported");
+					throw new InvalidDataFormatException("The executable format 0x" + ((uint)magic).ToString("X").PadLeft(8, '0') + " is not supported");
 				}
 			}
 		}
