@@ -10,7 +10,20 @@ namespace UniversalEditor.ObjectModels.Package.Relationships
 		public class RelationshipCollection
 			: System.Collections.ObjectModel.Collection<Relationship>
 		{
-
+			/// <summary>
+			/// Gets all <see cref="Relationship" />s with the specified schema.
+			/// </summary>
+			/// <param name="schema">The schema to search for.</param>
+			/// <returns>Array of <see cref="Relationship" /> objects whose Schema property is set to the specified value.</returns>
+			public Relationship[] GetBySchema(string schema)
+			{
+				List<Relationship> rels = new List<Relationship>();
+				foreach (Relationship rel in this)
+				{
+					if (rel.Schema == schema) rels.Add(rel);
+				}
+				return rels.ToArray();
+			}
 		}
 
 		private string mvarID = String.Empty;
@@ -21,8 +34,6 @@ namespace UniversalEditor.ObjectModels.Package.Relationships
 
 		private string mvarTarget = String.Empty;
 		public string Target { get { return mvarTarget; } set { mvarTarget = value; } }
-
-
 
 		public object Clone()
 		{
