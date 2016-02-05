@@ -1576,5 +1576,34 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			}
 			return String.Empty;
 		}
+
+		public static object GetXMLValue(MarkupTagElement tag)
+		{
+			if (tag == null) return null;
+
+			MarkupAttribute attType = tag.Attributes["xsi:type"];
+			if (attType != null)
+			{
+				switch (attType.Value)
+				{
+					/*
+					case "xsd:string":
+					{
+						return tag.Value;
+					}
+					*/
+					case "xsd:integer":
+					{
+						return Int32.Parse(tag.Value);
+					}
+				}
+			}
+			
+			MarkupAttribute attNil = tag.Attributes["xsi:nil"];
+			// return null if xsi:nil attribute is present
+			if (attNil != null) return null;
+
+			return tag.Value;
+		}
 	}
 }
