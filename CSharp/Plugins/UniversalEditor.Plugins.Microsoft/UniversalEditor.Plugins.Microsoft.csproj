@@ -86,6 +86,9 @@
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKHotkey.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKLocationFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKWindowState.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\FixedDocumentSequence\FDSEQDataFormat.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocumentSequence\DocumentReference.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocumentSequence\FixedDocumentSequenceObjectModel.cs" />
     <Compile Include="ObjectModels\Help\Compiled\CompiledHelpObjectModel.cs" />
     <Compile Include="ObjectModels\Package\ContentTypes\ContentType.cs" />
     <Compile Include="ObjectModels\Package\ContentTypes\ContentTypesObjectModel.cs" />
@@ -113,9 +116,7 @@
       <Name>UniversalEditor.Plugins.FileSystem</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ObjectModels\Text\Formatted\XPS\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -20,11 +20,12 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
 using UniversalEditor.DataFormats.Package.OpenPackagingConvention;
-
+using UniversalEditor.DataFormats.Text.Formatted.XPS.FixedDocumentSequence;
+using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Package;
 using UniversalEditor.ObjectModels.Text.Formatted;
+using UniversalEditor.ObjectModels.Text.Formatted.XPS.FixedDocumentSequence;
 
 namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 {
@@ -53,6 +54,14 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 			PackageObjectModel package = (objectModels.Pop() as PackageObjectModel);
 			FormattedTextObjectModel text = (objectModels.Pop() as FormattedTextObjectModel);
 
+			// we need to get the FixedRepresentation for the XPS document
+			File[] files = package.GetFilesBySchema("http://schemas.microsoft.com/xps/2005/06/fixedrepresentation");
+			
+			FixedDocumentSequenceObjectModel fdom = files[0].GetObjectModel<FixedDocumentSequenceObjectModel>(new FDSEQDataFormat());
+
+			File fdoc = package.FileSystem.FindFile(fdom.DocumentReferences[0].Source.Substring(1));
+
+			// FixedDocument fdoc = file.GetObjectModel<FixedDocumentObjectModel>(new FDOCDataFormat());
 		}
 		
 		protected override void BeforeSaveInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
