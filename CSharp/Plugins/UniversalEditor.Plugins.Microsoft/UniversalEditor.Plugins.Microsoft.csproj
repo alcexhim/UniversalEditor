@@ -87,6 +87,7 @@
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKLocationFlags.cs" />
     <Compile Include="DataFormats\Shortcut\Microsoft\LNKWindowState.cs" />
     <Compile Include="DataFormats\Text\Formatted\XPS\FixedDocumentSequence\FDSEQDataFormat.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\PrintTicket\PrintTicketXMLDataFormat.cs" />
     <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocumentSequence\DocumentReference.cs" />
     <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocumentSequence\FixedDocumentSequenceObjectModel.cs" />
     <Compile Include="ObjectModels\Help\Compiled\CompiledHelpObjectModel.cs" />
@@ -95,6 +96,10 @@
     <Compile Include="ObjectModels\Package\PackageObjectModel.cs" />
     <Compile Include="ObjectModels\Package\Relationships\Relationship.cs" />
     <Compile Include="ObjectModels\Package\Relationships\RelationshipsObjectModel.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\PrintTicket\PrintTicketItem.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\PrintTicket\PrintTicketItems\Feature.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\PrintTicket\PrintTicketItems\ParameterInit.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\PrintTicket\PrintTicketObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\Text\Formatted\XPS\XPSDataFormat.cs" />
   </ItemGroup>

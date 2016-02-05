@@ -22,10 +22,12 @@
 using System;
 using UniversalEditor.DataFormats.Package.OpenPackagingConvention;
 using UniversalEditor.DataFormats.Text.Formatted.XPS.FixedDocumentSequence;
+using UniversalEditor.DataFormats.Text.Formatted.XPS.PrintTicket;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Package;
 using UniversalEditor.ObjectModels.Text.Formatted;
 using UniversalEditor.ObjectModels.Text.Formatted.XPS.FixedDocumentSequence;
+using UniversalEditor.ObjectModels.Text.Formatted.XPS.PrintTicket;
 
 namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 {
@@ -57,8 +59,12 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 			// we need to get the FixedRepresentation for the XPS document
 			File[] files = package.GetFilesBySchema("http://schemas.microsoft.com/xps/2005/06/fixedrepresentation");
 			
-			FixedDocumentSequenceObjectModel fdom = files[0].GetObjectModel<FixedDocumentSequenceObjectModel>(new FDSEQDataFormat());
+			// get the related print tickets
+			File[] printTickets = package.GetFilesBySchema("http://schemas.microsoft.com/xps/2005/06/printticket", "FixedDocumentSequence.fdseq");
+			PrintTicketObjectModel printTicket = printTickets[0].GetObjectModel<PrintTicketObjectModel>(new PrintTicketXMLDataFormat());
 
+			FixedDocumentSequenceObjectModel fdom = files[0].GetObjectModel<FixedDocumentSequenceObjectModel>(new FDSEQDataFormat());
+			
 			File fdoc = package.FileSystem.FindFile(fdom.DocumentReferences[0].Source.Substring(1));
 
 			// FixedDocument fdoc = file.GetObjectModel<FixedDocumentObjectModel>(new FDOCDataFormat());
