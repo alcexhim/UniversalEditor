@@ -76,6 +76,28 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				return (this[Name] != null);
 			}
+
+			private Folder mvarParent = null;
+			public FileCollection(Folder parent = null)
+			{
+				mvarParent = parent;
+			}
+
+			protected override void InsertItem(int index, File item)
+			{
+				base.InsertItem(index, item);
+				item.Parent = mvarParent;
+			}
+			protected override void RemoveItem(int index)
+			{
+				this[index].Parent = null;
+				base.RemoveItem(index);
+			}
+			protected override void SetItem(int index, File item)
+			{
+				item.Parent = mvarParent;
+				base.SetItem(index, item);
+			}
 		}
 
 		private FileAttributes mvarAttributes = FileAttributes.None;
@@ -142,6 +164,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				clone.Properties.Add(kvp.Key, kvp.Value);
 			}
+			clone.Parent = mvarParent;
 			return clone;
 		}
 
@@ -243,6 +266,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// Determines where this <see cref="File" /> gets its data from.
 		/// </summary>
 		public FileSource Source { get { return mvarSource; } set { mvarSource = value; } }
+
+		private Folder mvarParent = null;
+		public Folder Parent { get { return mvarParent; } internal set { mvarParent = value; } }
 
 		// The amount of working set to allocate to each block.
 		public const int BLOCK_FRACTION = 4;

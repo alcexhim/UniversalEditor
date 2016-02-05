@@ -77,6 +77,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public Folder()
 		{
 			mvarFolders = new FolderCollection(this);
+			mvarFiles = new File.FileCollection(this);
 		}
 
 		private FolderCollection _parentCollection = null;
@@ -90,7 +91,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		private FolderCollection mvarFolders = null;
 		public FolderCollection Folders { get { return mvarFolders; } }
 
-		private File.FileCollection mvarFiles = new File.FileCollection();
+		private File.FileCollection mvarFiles = null;
 		public File.FileCollection Files { get { return mvarFiles; } }
 
 		/// <summary>
