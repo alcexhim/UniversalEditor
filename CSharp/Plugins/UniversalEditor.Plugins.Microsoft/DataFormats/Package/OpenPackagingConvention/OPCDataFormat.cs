@@ -46,7 +46,11 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 					RelationshipsObjectModel rels = file.GetObjectModel<RelationshipsObjectModel>(new OPCRelationshipsDataFormat());
 					if (relatedFileName != null)
 					{
-
+						foreach (Relationship rel in rels.Relationships)
+						{
+							rel.Source = relatedFileName;
+							package.Relationships.Add(rel);
+						}
 					}
 					else
 					{

@@ -41,10 +41,10 @@ namespace UniversalEditor.ObjectModels.Package
 		private FileSystemObjectModel mvarFileSystem = new FileSystemObjectModel();
 		public FileSystemObjectModel FileSystem { get { return mvarFileSystem; } }
 
-		public File[] GetFilesBySchema(string p)
+		public File[] GetFilesBySchema(string schema, string relationshipSource = null)
 		{
 			List<File> files = new List<File>();
-			Relationship[] rels = mvarRelationships.GetBySchema(p);
+			Relationship[] rels = mvarRelationships.GetBySchema(schema, relationshipSource);
 			foreach (Relationship rel in rels)
 			{
 				if (rel.Target.StartsWith("/"))
