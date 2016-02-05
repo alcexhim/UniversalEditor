@@ -43,13 +43,7 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 						relatedFileName = fn.Substring(0, fn.Length - ".rels".Length);
 					}
 
-
-					byte[] data = file.GetData();
-
-					OPCRelationshipsDataFormat df = new OPCRelationshipsDataFormat();
-					RelationshipsObjectModel rels = new RelationshipsObjectModel();
-					Document.Load(rels, df, new MemoryAccessor(data));
-
+					RelationshipsObjectModel rels = file.GetObjectModel<RelationshipsObjectModel>(new OPCRelationshipsDataFormat());
 					if (relatedFileName != null)
 					{
 
@@ -64,12 +58,7 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				}
 				else if (file.Name == "[Content_Types].xml" && file.Parent == null)
 				{
-					byte[] data = file.GetData();
-
-					OPCContentTypesDataFormat df = new OPCContentTypesDataFormat();
-					ContentTypesObjectModel contentTypes = new ContentTypesObjectModel();
-					Document.Load(contentTypes, df, new MemoryAccessor(data));
-
+					ContentTypesObjectModel contentTypes = file.GetObjectModel<ContentTypesObjectModel>(new OPCContentTypesDataFormat());
 					foreach (ContentType type in contentTypes.ContentTypes)
 					{
 						package.ContentTypes.Add(type);
