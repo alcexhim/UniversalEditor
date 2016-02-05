@@ -168,6 +168,23 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			return clone;
 		}
 
+		/// <summary>
+		/// Gets an <see cref="ObjectModel" /> for this file using the specified <see cref="DataFormat" />.
+		/// </summary>
+		/// <typeparam name="T">The type of <see cref="ObjectModel" /> to return.</typeparam>
+		/// <param name="df">The <see cref="DataFormat" /> specifying how to read the file data.</param>
+		/// <returns>An <see cref="ObjectModel" /> with the file data, or null if the specified ObjectModel cannot be retrieved with the specified DataFormat from this file.</returns>
+		public T GetObjectModel<T>(DataFormat df) where T : ObjectModel, new()
+		{
+			byte[] data = GetData();
+			MemoryAccessor ma = new MemoryAccessor(data);
+
+			T om = new T();
+			Document.Load(om, df, ma);
+
+			return om;
+		}
+
 		public override string ToString()
 		{
 			string strSize = "*";
