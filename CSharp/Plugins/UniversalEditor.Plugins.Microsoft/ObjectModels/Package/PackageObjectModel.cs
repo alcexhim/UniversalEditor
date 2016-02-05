@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Package.ContentTypes;
 using UniversalEditor.ObjectModels.Package.Relationships;
 
@@ -35,6 +36,26 @@ namespace UniversalEditor.ObjectModels.Package
 			{
 				clone.Relationships.Add(item.Clone() as Relationship);
 			}
+		}
+
+		private FileSystemObjectModel mvarFileSystem = new FileSystemObjectModel();
+		public FileSystemObjectModel FileSystem { get { return mvarFileSystem; } }
+
+		public File[] GetFilesBySchema(string p)
+		{
+			List<File> files = new List<File>();
+			Relationship[] rels = mvarRelationships.GetBySchema(p);
+			foreach (Relationship rel in rels)
+			{
+				if (rel.Target.StartsWith("/"))
+				{
+					string target = rel.Target.Substring(1);
+
+					File file = mvarFileSystem.FindFile(target);
+					if (file != null) files.Add(file);
+				}
+			}
+			return files.ToArray();
 		}
 	}
 }

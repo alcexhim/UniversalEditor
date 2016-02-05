@@ -30,16 +30,17 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 
 			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
 			PackageObjectModel package = (objectModels.Pop() as PackageObjectModel);
-
-			Folder _rels = fsom.Folders["_rels"];
-			if (_rels != null)
+			
+			File[] files = fsom.GetAllFiles();
+			foreach (File file in files)
 			{
-				foreach (File file in _rels.Files)
+				if (file.Name.EndsWith(".rels") && file.Parent.Name == "_rels")
 				{
 					string relatedFileName = null;
-					if (file.Name.EndsWith(".rels") && file.Name != ".rels")
+					string fn = System.IO.Path.GetFileName(file.Name);
+					if (fn != ".rels")
 					{
-						relatedFileName = file.Name.Substring(0, file.Name.Length - ".rels".Length);
+						relatedFileName = fn.Substring(0, fn.Length - ".rels".Length);
 					}
 
 
@@ -61,19 +62,22 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 						}
 					}
 				}
-			}
-
-			File _Content_Types = fsom.Files["[Content_Types].xml"];
-			{
-				byte[] data = _Content_Types.GetData();
-
-				OPCContentTypesDataFormat df = new OPCContentTypesDataFormat();
-				ContentTypesObjectModel contentTypes = new ContentTypesObjectModel();
-				Document.Load(contentTypes, df, new MemoryAccessor(data));
-
-				foreach (ContentType type in contentTypes.ContentTypes)
+				else if (file.Name == "[Content_Types].xml" && file.Parent == null)
 				{
-					package.ContentTypes.Add(type);
+					byte[] data = file.GetData();
+
+					OPCContentTypesDataFormat df = new OPCContentTypesDataFormat();
+					ContentTypesObjectModel contentTypes = new ContentTypesObjectModel();
+					Document.Load(contentTypes, df, new MemoryAccessor(data));
+
+					foreach (ContentType type in contentTypes.ContentTypes)
+					{
+						package.ContentTypes.Add(type);
+					}
+				}
+				else
+				{
+					package.FileSystem.AddFile(file.Name, file.GetData());
 				}
 			}
 
