@@ -105,10 +105,6 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
-      <Project>{369CFD53-3E65-4A9E-8BDD-4CCD78BF3E33}</Project>
-      <Name>UniversalEditor.Plugins.Multimedia.Binders.GdiPlus</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia3D\UniversalEditor.Plugins.Multimedia3D.csproj">
       <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia3D</Name>
@@ -124,6 +120,10 @@
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
+      <Project>{369CFD53-3E65-4A9E-8BDD-4CCD78BF3E33}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia.Binders.GdiPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

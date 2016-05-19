@@ -35,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonDialog.cs" />
@@ -152,10 +152,6 @@
     <Compile Include="VirtualFileDataObject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj">
-      <Project>{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}</Project>
-      <Name>AwesomeControls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
@@ -164,10 +160,6 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
-      <Project>{369cfd53-3e65-4a9e-8bdd-4ccd78bf3e33}</Project>
-      <Name>UniversalEditor.Plugins.Multimedia.Binders.GdiPlus</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
       <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
@@ -175,6 +167,14 @@
     <ProjectReference Include="..\..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj">
+      <Project>{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}</Project>
+      <Name>AwesomeControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
+      <Project>{369CFD53-3E65-4A9E-8BDD-4CCD78BF3E33}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia.Binders.GdiPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

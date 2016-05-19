@@ -82,10 +82,6 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
-      <Project>{369CFD53-3E65-4A9E-8BDD-4CCD78BF3E33}</Project>
-      <Name>UniversalEditor.Plugins.Multimedia.Binders.GdiPlus</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
       <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
@@ -97,6 +93,10 @@
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
       <Project>{BCBB72BD-0ECB-4FF2-8D91-E466361FB6F9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus\UniversalEditor.Plugins.Multimedia.Binders.GdiPlus.csproj">
+      <Project>{369CFD53-3E65-4A9E-8BDD-4CCD78BF3E33}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia.Binders.GdiPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

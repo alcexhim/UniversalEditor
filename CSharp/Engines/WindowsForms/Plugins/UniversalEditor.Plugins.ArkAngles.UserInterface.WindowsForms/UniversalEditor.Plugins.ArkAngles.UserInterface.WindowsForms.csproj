@@ -38,10 +38,6 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="UniversalEditor.Plugins.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="AwesomeControls">
-      <HintPath>..\..\..\..\..\..\AwesomeControls\bin\Debug\AwesomeControls.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\Catalog\ArkAngles\AttachmentPropertiesDialog.cs">
@@ -164,6 +160,14 @@
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface.WindowsForms\UniversalEditor.UserInterface.WindowsForms.csproj">
       <Project>{BCBB72BD-0ECB-4FF2-8D91-E466361FB6F9}</Project>
       <Name>UniversalEditor.UserInterface.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\AwesomeControls\AwesomeControls\AwesomeControls.csproj">
+      <Project>{617D9EB5-CA93-45D6-AA6B-5A012B7698AC}</Project>
+      <Name>AwesomeControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Plugins\UniversalEditor.Plugins.Web\UniversalEditor.Plugins.Web.csproj">
+      <Project>{64089452-6A08-47A5-A857-BF418F80D4A3}</Project>
+      <Name>UniversalEditor.Plugins.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
