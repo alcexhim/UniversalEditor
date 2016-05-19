@@ -152,6 +152,7 @@ $RECYCLE.BIN/
 
 # MonoDevelop crap
 *.userprefs
+*.resources
 
 # Do not pull in UniversalEditor WinForms until we're ready
 CSharp/Applications/UniversalEditor.DesktopApplication.WindowsForms
