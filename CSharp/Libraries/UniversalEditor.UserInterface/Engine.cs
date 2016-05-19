@@ -472,7 +472,10 @@ namespace UniversalEditor.UserInterface
 		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
 		protected abstract IHostApplicationWindow OpenWindowInternal(params Document[] documents);
 
-		public abstract void ShowAboutDialog();
+		public void ShowAboutDialog()
+		{
+			this.ShowAboutDialog(null);
+		}
 		public abstract void ShowAboutDialog(DataFormatReference dfr);
 
 		public void OpenWindow()
