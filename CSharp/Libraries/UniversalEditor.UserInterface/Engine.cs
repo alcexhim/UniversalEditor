@@ -531,7 +531,46 @@ namespace UniversalEditor.UserInterface
 			string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
 			if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
 
-			string[] xmlfiles = System.IO.Directory.GetFiles(mvarBasePath, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
+			List<String> xmlFilesList = new List<String>();
+
+			// TODO: change "universal-editor" string to platform-dependent "universal-editor" on *nix or "Mike Becker's Software/Universal Editor" on Windowds
+			string[] paths = new string[]
+			{
+				// first look in the application root directory since this will be overridden by everything else
+				mvarBasePath,
+				// then look in /usr/share/universal-editor or C:\ProgramData\Mike Becker's Software\Universal Editor
+				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonApplicationData),
+					"universal-editor"
+				}),
+				// then look in ~/.local/share/universal-editor or C:\Users\USERNAME\AppData\Local\Mike Becker's Software\Universal Editor
+				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),
+					"universal-editor"
+				}),
+				// then look in ~/.universal-editor or C:\Users\USERNAME\AppData\Roaming\Mike Becker's Software\Universal Editor
+				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
+					"universal-editor"
+				})
+			};
+
+			foreach (string path in paths)
+			{
+				// skip this one if the path doesn't exist
+				if (!System.IO.Directory.Exists(path)) continue;
+
+				string[] xmlfilesPath = System.IO.Directory.GetFiles(path, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
+				foreach (string s in xmlfilesPath)
+				{
+					xmlFilesList.Add(s);
+				}
+			}
+
+			string[] xmlfiles = xmlFilesList.ToArray();
 
 			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
 
