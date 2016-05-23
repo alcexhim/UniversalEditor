@@ -785,8 +785,34 @@ namespace UniversalEditor.UserInterface
 						MarkupTagElement tag = (el as MarkupTagElement);
 						if (tag == null) continue;
 						if (tag.FullName != "Editor") continue;
-
-						EditorReference editor = Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
+						
+						switch (System.Environment.OSVersion.Platform)
+						{
+							case PlatformID.MacOSX:
+							case PlatformID.Unix:
+							case PlatformID.Xbox:
+							{
+								// TODO: this fails on Linux and I don't know why
+								Console.WriteLine("skipping load editor configuration on Mac OS X, Unix, or Xbox because it fails on Linux and I don't know why");
+								break;
+							}
+							case PlatformID.Win32NT:
+							case PlatformID.Win32S:
+							case PlatformID.Win32Windows:
+							case PlatformID.WinCE:
+							{
+								EditorReference editor = null;
+								try
+								{
+									Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
+								}
+								catch (Exception ex)
+								{
+									Console.WriteLine("couldn't load editor " + tag.Attributes["ID"].Value);
+								}
+								break;
+							}
+						}
 					}
 				}
 			}
