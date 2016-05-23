@@ -86,6 +86,8 @@ namespace UniversalEditor.Engines.GTK
 			set
 			{
 				Internal.GTK.Methods.gtk_widget_set_visible (mvarHandle, value);
+				if (value)
+					Internal.GTK.Methods.gtk_widget_show_all (mvarHandle);
 			}
 		}
 	}
