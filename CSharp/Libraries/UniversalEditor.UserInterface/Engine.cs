@@ -595,7 +595,7 @@ namespace UniversalEditor.UserInterface
 			#region Initialize the configuration with the loaded data
 			#region Commands
 			UpdateSplashScreenStatus("Loading available commands");
-			MarkupTagElement tagCommands = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Commands") as MarkupTagElement);
+			MarkupTagElement tagCommands = (mvarRawMarkup.FindElement("ApplicationFramework", "Commands") as MarkupTagElement);
 			if (tagCommands != null)
 			{
 				foreach (MarkupElement elCommand in tagCommands.Elements)
@@ -696,7 +696,7 @@ namespace UniversalEditor.UserInterface
 			#region Main Menu Items
 			UpdateSplashScreenStatus("Loading main menu items");
 
-			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "MainMenu", "Items") as MarkupTagElement);
+			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement("ApplicationFramework", "MainMenu", "Items") as MarkupTagElement);
 			if (tagMainMenuItems != null)
 			{
 				foreach (MarkupElement elItem in tagMainMenuItems.Elements)
@@ -709,7 +709,7 @@ namespace UniversalEditor.UserInterface
 
 			UpdateSplashScreenStatus("Loading command bars");
 
-			MarkupTagElement tagCommandBars = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "CommandBars") as MarkupTagElement);
+			MarkupTagElement tagCommandBars = (mvarRawMarkup.FindElement("ApplicationFramework", "CommandBars") as MarkupTagElement);
 			if (tagCommandBars != null)
 			{
 				foreach (MarkupElement elCommandBar in tagCommandBars.Elements)
@@ -724,7 +724,7 @@ namespace UniversalEditor.UserInterface
 			#region Languages
 			UpdateSplashScreenStatus("Loading languages and translations");
 
-			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("UniversalEditor", "Application", "Languages") as MarkupTagElement);
+			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("ApplicationFramework", "Languages") as MarkupTagElement);
 			if (tagLanguages != null)
 			{
 				foreach (MarkupElement elLanguage in tagLanguages.Elements)
@@ -787,7 +787,6 @@ namespace UniversalEditor.UserInterface
 						if (tag.FullName != "Editor") continue;
 
 						EditorReference editor = Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
-						
 					}
 				}
 			}
