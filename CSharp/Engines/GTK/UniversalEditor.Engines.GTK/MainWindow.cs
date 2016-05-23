@@ -10,7 +10,23 @@ namespace UniversalEditor.Engines.GTK
 		{
 			this.Text = "Universal Editor";
 
+			GtkMenuBar mbMenuBar = new GtkMenuBar ();
 
+			GtkMenuItem miFile = new GtkMenuItem ();
+			miFile.Text = "_File";
+
+			GtkMenu miFile_Menu = new GtkMenu ();
+			miFile.Menu = miFile_Menu;
+
+			GtkMenuItem miFileExit = new GtkMenuItem ();
+			miFileExit.Text = "E_xit";
+			miFile_Menu.Items.Add (miFileExit);
+
+			mbMenuBar.Items.Add (miFile);
+
+			GtkBox box = new GtkBox (GtkBoxOrientation.Vertical, 5);
+			box.Pack (PackDirection.Start, mbMenuBar, false, false, 3);
+			Controls.Add (box);
 		}
 
 		protected override void OnClosed (EventArgs e)

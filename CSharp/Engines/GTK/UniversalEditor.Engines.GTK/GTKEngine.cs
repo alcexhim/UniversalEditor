@@ -23,7 +23,6 @@ namespace UniversalEditor.Engines.GTK
 		{
 			MainWindow mw = new MainWindow ();
 			mw.Show ();
-
 			return mw;
 		}
 		protected override void ShowCrashDialog (Exception ex)
