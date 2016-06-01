@@ -6,23 +6,58 @@ namespace UniversalEditor.Engines.GTK
 {
 	public class MainWindow : GtkWindow, IHostApplicationWindow
 	{
+		private GtkWidget LoadCommandItem(CommandItem ci)
+		{
+			if (ci is CommandReferenceCommandItem)
+			{
+				CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
+
+				Command cmd = Engine.CurrentEngine.Commands [crci.CommandID];
+				if (cmd == null)
+					return null;
+
+				GtkMenuItem miFile = new GtkMenuItem ();
+				miFile.Text = cmd.Title;
+
+				if (cmd.Items.Count > 0)
+				{
+					GtkMenu miFile_Menu = new GtkMenu ();
+					miFile.Menu = miFile_Menu;
+
+					foreach (CommandItem ci1 in cmd.Items)
+					{
+						GtkWidget mi1 = LoadCommandItem (ci1);
+						if (mi1 == null)
+							continue;
+
+						miFile_Menu.Items.Add (mi1);
+					}
+				}
+				return miFile;
+			}
+			else if (ci is SeparatorCommandItem)
+			{
+				GtkSeparator sep = new GtkSeparator (GtkBoxOrientation.Horizontal);
+				return sep;
+			}
+			return null;
+		}
+
+
 		public MainWindow ()
 		{
 			this.Text = "Universal Editor";
 
 			GtkMenuBar mbMenuBar = new GtkMenuBar ();
 
-			GtkMenuItem miFile = new GtkMenuItem ();
-			miFile.Text = "_File";
+			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
+			{
+				GtkWidget mi = LoadCommandItem (ci);
+				if (mi == null)
+					continue;
 
-			GtkMenu miFile_Menu = new GtkMenu ();
-			miFile.Menu = miFile_Menu;
-
-			GtkMenuItem miFileExit = new GtkMenuItem ();
-			miFileExit.Text = "E_xit";
-			miFile_Menu.Items.Add (miFileExit);
-
-			mbMenuBar.Items.Add (miFile);
+				mbMenuBar.Items.Add (mi);
+			}
 
 			GtkBox box = new GtkBox (GtkBoxOrientation.Vertical, 5);
 			box.Pack (PackDirection.Start, mbMenuBar, false, false, 3);
