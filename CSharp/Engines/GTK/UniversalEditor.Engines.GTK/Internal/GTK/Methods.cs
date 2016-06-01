@@ -135,6 +135,11 @@ namespace UniversalEditor.Engines.GTK.Internal.GTK
 		[DllImport(LIBRARY_FILENAME)]
 		public static extern void gtk_menu_item_set_submenu(IntPtr handle, IntPtr submenu);
 		#endregion
+
+		#region Separator
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern IntPtr gtk_separator_new(GtkBoxOrientation orientation);
+		#endregion
 	}
 }
 

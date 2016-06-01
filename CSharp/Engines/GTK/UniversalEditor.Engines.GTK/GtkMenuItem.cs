@@ -5,7 +5,7 @@ namespace UniversalEditor.Engines.GTK
 	public class GtkMenuItem : GtkWidget
 	{
 		public class GtkMenuItemCollection
-			: System.Collections.ObjectModel.Collection<GtkMenuItem>
+			: System.Collections.ObjectModel.Collection<GtkWidget>
 		{
 			private GtkMenuShell _parent = null;
 			internal GtkMenuItemCollection(GtkMenuShell parent)
@@ -13,7 +13,7 @@ namespace UniversalEditor.Engines.GTK
 				_parent = parent;
 			}
 
-			protected override void InsertItem (int index, GtkMenuItem item)
+			protected override void InsertItem (int index, GtkWidget item)
 			{
 				base.InsertItem (index, item);
 				Internal.GTK.Methods.gtk_menu_shell_insert (_parent.Handle, item.Handle, index);
