@@ -9,7 +9,7 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.SourceCode;
 using UniversalEditor.ObjectModels.SourceCode.CodeElements;
 
-namespace UniversalEditor.DataFormats.Programming
+namespace UniversalEditor.DataFormats.SourceCode
 {
     public class GoCodeDataFormat : CodeDataFormat
     {

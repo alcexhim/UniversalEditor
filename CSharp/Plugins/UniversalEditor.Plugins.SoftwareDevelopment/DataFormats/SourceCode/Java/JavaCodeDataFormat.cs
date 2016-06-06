@@ -9,7 +9,7 @@ using UniversalEditor.ObjectModels.SourceCode.CodeElements.CodeLoopActionElement
 using UniversalEditor.ObjectModels.SourceCode.CodeElementReferences;
 using UniversalEditor.IO;
 
-namespace UniversalEditor.DataFormats.Programming.Java
+namespace UniversalEditor.DataFormats.SourceCode.Java
 {
     public class JavaCodeDataFormat : CodeDataFormat
     {

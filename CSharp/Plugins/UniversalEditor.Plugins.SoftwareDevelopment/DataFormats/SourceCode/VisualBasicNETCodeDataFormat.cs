@@ -8,7 +8,7 @@ using UniversalEditor.ObjectModels.SourceCode.CodeElementReferences;
 using UniversalEditor.ObjectModels.SourceCode.CodeElements;
 using UniversalEditor.ObjectModels.SourceCode.CodeElements.CodeLoopActionElements;
 
-namespace UniversalEditor.DataFormats.Programming
+namespace UniversalEditor.DataFormats.SourceCode
 {
 	public class VisualBasicNETCodeDataFormat : CodeDataFormat
 	{

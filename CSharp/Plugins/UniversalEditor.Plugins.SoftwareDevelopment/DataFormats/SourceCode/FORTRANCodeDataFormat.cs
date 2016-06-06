@@ -5,9 +5,9 @@ using System.Text;
 
 using UniversalEditor;
 
-namespace UniversalEditor.DataFormats.Programming
+namespace UniversalEditor.DataFormats.SourceCode
 {
-    public class COBOLCodeDataFormat : CodeDataFormat
+    public class FORTRANCodeDataFormat : CodeDataFormat
     {
 		private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()

@@ -8,7 +8,7 @@ using UniversalEditor.ObjectModels.SourceCode;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.SourceCode.CodeElements;
 
-namespace UniversalEditor.DataFormats.Programming.Java
+namespace UniversalEditor.DataFormats.SourceCode.Java
 {
 	public class JavaClassDataFormat : DataFormat
 	{

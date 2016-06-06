@@ -38,24 +38,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\Programming\Java\JavaCodeDataFormat.cs" />
     <Compile Include="ObjectModels\SourceCode\CodeElementReferences\CodeElementDynamicReference.cs" />
     <Compile Include="ObjectModels\SourceCode\CodeElements\CodeConditionalStatementActionElement.cs" />
     <Compile Include="ObjectModels\SourceCode\CodeElementReferences\CodeElementEnumerationValueReference.cs" />
     <Compile Include="ObjectModels\SourceCode\IAccessModifiableCodeElement.cs" />
     <Compile Include="ObjectModels\SourceCode\INamedCodeElement.cs" />
     <Compile Include="ObjectModels\SourceCode\SearchExpressions\CodeMethodCallActionSearch.cs" />
-    <Compile Include="DataFormats\Programming\AdaCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\BooCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\CCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\COBOLCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\CodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\CSharpCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\FORTRANCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\FSharpCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\GoCodeDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\Java\JavaClassDataFormat.cs" />
-    <Compile Include="DataFormats\Programming\VisualBasicNETCodeDataFormat.cs" />
     <Compile Include="ObjectModels\ProgrammingLanguage\ProgrammingLanguageObjectModel.cs" />
     <Compile Include="ObjectModels\SourceCode\CodeAccessModifiers.cs" />
     <Compile Include="ObjectModels\SourceCode\CodeElement.cs" />
@@ -80,6 +68,18 @@
     <Compile Include="ObjectModels\SourceCode\CodeObjectModel.cs" />
     <Compile Include="ObjectModels\SourceCode\CodeDataType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFormats\SourceCode\Java\JavaCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\AdaCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\BooCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\CCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\COBOLCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\CodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\CSharpCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\FORTRANCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\FSharpCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\GoCodeDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\Java\JavaClassDataFormat.cs" />
+    <Compile Include="DataFormats\SourceCode\VisualBasicNETCodeDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
