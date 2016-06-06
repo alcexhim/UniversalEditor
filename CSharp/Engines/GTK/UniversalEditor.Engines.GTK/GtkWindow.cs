@@ -11,7 +11,7 @@ namespace UniversalEditor.Engines.GTK
 		}
 
 		private Internal.GLib.Delegates.GCallback _this_quit = null;
-		private void _this_quit_impl()
+		private void _this_quit_impl(IntPtr sender)
 		{
 			OnClosed (EventArgs.Empty);
 		}
