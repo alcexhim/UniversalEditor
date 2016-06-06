@@ -726,6 +726,14 @@ void File_Open_Document(Command* command)
 		mw->addDocumentTab(strFileTitle->toString()->toCharArray(), filename.toStdString().c_str(), txt);
 	}
 }
+void File_Open_Project(Command* command)
+{
+	MainWindow* mw = GuiApplication::getCurrentMainWindow();
+	if (mw == NULL) return;
+
+	QStringList list = QFileDialog::getOpenFileNames(mw->getHandle(), NULL, NULL, "Project Files (*.ueproj)\0*.ueproj\0Solution Files (*.uesln)\0*.uesln");
+
+}
 void File_Close_Document(Command* command) {
 	MainWindow* mw = GuiApplication::getCurrentMainWindow();
 	if (mw == NULL) return;
@@ -929,6 +937,8 @@ int main(int argc, char** argv)
 	}
 
 	Application::bindCommand(Application::getCommand("FileOpenDocument"), &File_Open_Document);
+	Application::bindCommand(Application::getCommand("FileOpenProject"), &File_Open_Project);
+
 	Application::bindCommand(Application::getCommand("FileCloseDocument"), &File_Close_Document);
 	Application::bindCommand(Application::getCommand("FileCloseWindow"), &File_Close_Window);
 	Application::bindCommand(Application::getCommand("ViewFullScreen"), &View_FullScreen);
