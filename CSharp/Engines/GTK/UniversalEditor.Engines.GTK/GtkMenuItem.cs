@@ -20,9 +20,19 @@ namespace UniversalEditor.Engines.GTK
 			}
 		}
 
+		private Internal.GLib.Delegates.GCallback _this_activate = null;
+		private void _this_activate_impl(IntPtr sender)
+		{
+			Console.WriteLine ("Hello world for item " + sender.ToString ());
+		}
+
 		protected override IntPtr CreateInternal ()
 		{
 			IntPtr handle = Internal.GTK.Methods.gtk_menu_item_new ();
+
+			_this_activate = new Internal.GLib.Delegates.GCallback (_this_activate_impl);
+			Internal.GLib.Methods.g_signal_connect (handle, "activate", _this_activate, IntPtr.Zero);
+
 			return handle;
 		}
 		protected override void AfterCreateInternal ()
