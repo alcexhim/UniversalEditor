@@ -31,6 +31,11 @@ namespace UniversalEditor.Engines.GTK.Internal.GTK
 		[DllImport(LIBRARY_FILENAME)]
 		public static extern void gtk_window_set_title(IntPtr window, string title);
 
+		#region Application
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern IntPtr gtk_application_new(string application_id, Constants.GApplicationFlags flags);
+		#endregion
+
 		#region Widget 
 		[DllImport(LIBRARY_FILENAME)]
 		public static extern void gtk_widget_set_size_request(IntPtr widget, uint width, uint height);
