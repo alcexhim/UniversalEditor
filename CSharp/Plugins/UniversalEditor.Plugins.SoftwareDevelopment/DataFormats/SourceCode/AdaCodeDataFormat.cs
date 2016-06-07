@@ -47,6 +47,16 @@ namespace UniversalEditor.DataFormats.SourceCode
                         break;
                 }
             }
+			else if (obj is CodeNamespaceElement)
+			{
+				CodeNamespaceElement ns = (obj as CodeNamespaceElement);
+				sb.Append (indent);
+				sb.AppendLine ("package " + ns.GetFullName () + " is");
+				foreach (CodeElement el in ns.Elements) {
+					sb.Append (GenerateCode (el, indentCount + 1));
+				}
+				sb.AppendLine ("end " + ns.GetFullName () + ";");
+			}
             else if (obj is CodeClassElement)
             {
                 CodeClassElement classEl = (obj as CodeClassElement);
@@ -73,7 +83,7 @@ namespace UniversalEditor.DataFormats.SourceCode
                     }
                     i++;
                 }
-                sb.Append(");");
+                sb.AppendLine(");");
             }
             else if (obj is CodeVariableElement)
             {
@@ -109,6 +119,18 @@ namespace UniversalEditor.DataFormats.SourceCode
                 sb.Append(GenerateCode(cond.Value));
             }
             #endregion
+			else if (obj is CodeCommentElement)
+			{
+				CodeCommentElement comment = (obj as CodeCommentElement);
+				string[] lines = comment.Content.Split (new string[] { Environment.NewLine });
+				for (int i = 0; i < lines.Length; i++) {
+					sb.Append (indent);
+					sb.Append ("-- ");
+					sb.Append (lines [i]);
+					if (i < lines.Length - 1)
+						sb.AppendLine ();
+				}
+			}
 
             return sb.ToString();
         }
