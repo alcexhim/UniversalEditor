@@ -61,6 +61,13 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElements
     }
 	public class CodeEnumerationElement : CodeElement, INamedCodeElement, IAccessModifiableCodeElement
 	{
+		public CodeEnumerationElement(string name = null)
+		{
+			if (name == null)
+				name = String.Empty;
+			mvarName = name;
+		}
+
         private string mvarName = String.Empty;
         public string Name { get { return mvarName; } set { mvarName = value; } }
 
