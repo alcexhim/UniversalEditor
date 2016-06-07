@@ -809,6 +809,38 @@ namespace UniversalEditor.DataFormats.SourceCode
 					sb.Append(";");
 				}
 			}
+			else if (obj is CodeEnumerationElement)
+			{
+				CodeEnumerationElement enumm = (obj as CodeEnumerationElement);
+
+				sb.Append (indent);
+
+				if (enumm.AccessModifiers != CodeAccessModifiers.None)
+				{
+					sb.Append (enumm.AccessModifiers);
+					sb.Append (" ");
+				}
+				sb.Append ("enum ");
+				sb.Append (enumm.Name);
+				sb.AppendLine ();
+				sb.Append (indent);
+				sb.AppendLine ("{");
+				for (int i = 0; i < enumm.Values.Count; i++) {
+					CodeEnumerationValue value = enumm.Values [i];
+					sb.Append (GetIndentString (indentCount + 1));
+					sb.Append (value.Name);
+					if (value.IsValueDefined) {
+						sb.Append (" = ");
+						sb.Append (value.Value.ToString ());
+					}
+					if (i < enumm.Values.Count - 1) {
+						sb.Append (",");
+					}
+					sb.AppendLine ();
+				}
+				sb.Append (indent);
+				sb.Append ("}");
+			}
 			else if (obj is CodeReturnElement) 
 			{
 				sb.Append (indent);
