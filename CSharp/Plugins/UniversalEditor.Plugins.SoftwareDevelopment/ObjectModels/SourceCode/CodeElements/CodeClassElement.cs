@@ -7,6 +7,12 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElements
 {
     public class CodeClassElement : CodeElementContainerElement, INamedCodeElement, IAccessModifiableCodeElement
     {
+		public CodeClassElement() {
+		}
+		public CodeClassElement(string name) {
+			mvarName = name;
+		}
+
         private string mvarName = String.Empty;
         public string Name { get { return mvarName; } set { mvarName = value; } }
 
