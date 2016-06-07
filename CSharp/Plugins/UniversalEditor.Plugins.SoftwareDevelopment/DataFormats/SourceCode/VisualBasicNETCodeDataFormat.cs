@@ -1032,6 +1032,22 @@ namespace UniversalEditor.DataFormats.SourceCode
 				}
 				sb.Append(")");
 				sb.Append(" As " + MakeFriendlyDataType(propertyEl.DataType));
+
+				sb.AppendLine ();
+				sb.Append (GetIndentString (indentCount + 1));
+				sb.AppendLine ("Get");
+				sb.Append (GetIndentString (indentCount + 1));
+				sb.Append ("End Get");
+
+				sb.AppendLine ();
+				sb.Append (GetIndentString (indentCount + 1));
+				sb.AppendLine ("Set");
+				sb.Append (GetIndentString (indentCount + 1));
+				sb.Append ("End Set");
+
+				sb.AppendLine ();
+				sb.Append (indent);
+				sb.Append ("End Property");
 			}
 			else if (obj is CodeVariableElement)
 			{
@@ -1055,7 +1071,10 @@ namespace UniversalEditor.DataFormats.SourceCode
 				sb.Append(indent);
 				CodeEnumerationElement enumEL = (obj as CodeEnumerationElement);
 				sb.Append(GenerateCode(enumEL.AccessModifiers));
-				sb.AppendLine(" Enum " + enumEL.Name);
+				if (enumEL.AccessModifiers != CodeAccessModifiers.None) {
+					sb.Append (" ");
+				}
+				sb.AppendLine("Enum " + enumEL.Name);
 
 				string indent2 = GetIndentString(indentCount + 1);
 				foreach (CodeEnumerationValue value in enumEL.Values)
@@ -1178,6 +1197,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 				string[] commentLines = comment.Content.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
 				foreach (string commentLine in commentLines)
 				{
+					sb.Append (indent);
 					if (comment.IsDocumentationComment)
 					{
 						sb.Append("''' ");
