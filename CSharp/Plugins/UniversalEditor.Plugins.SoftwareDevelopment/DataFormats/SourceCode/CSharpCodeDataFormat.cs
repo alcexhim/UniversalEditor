@@ -826,6 +826,34 @@ namespace UniversalEditor.DataFormats.SourceCode
 				}
 				sb.Append (dynref.Name);
 			}
+			else if (obj is CodeCommentElement)
+			{
+				CodeCommentElement comment = (obj as CodeCommentElement);
+
+				string[] lines = comment.Content.Split (new string[] { System.Environment.NewLine });
+				if (comment.Multiline && !comment.IsDocumentationComment) {
+					sb.Append (indent);
+					sb.AppendLine ("/* ");
+					for (int i = 0; i < lines.Length; i++) {
+						sb.Append (indent);
+						sb.Append (" * ");
+						sb.AppendLine (lines [i]);
+					}
+					sb.Append (" */");
+				} else {
+					for (int i = 0; i < lines.Length; i++) {
+						sb.Append (indent);
+						if (comment.IsDocumentationComment) {
+							sb.Append ("/// ");
+						} else {
+							sb.Append ("// ");
+						}
+						sb.Append (lines [i]);
+						if (i < lines.Length - 1)
+							sb.AppendLine ();
+					}
+				}
+			}
 			return sb.ToString();
 		}
 	}
