@@ -530,7 +530,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 			}
 			return base.MakeKnownDataType(DataType);
 		}
-		protected override string MakeFriendlyDataType(string DataType)
+		protected override string MakeFriendlyDataTypeInternal(string DataType)
 		{
 			switch (DataType)
 			{
@@ -548,6 +548,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 				case "System.UInt16": return "ushort";
 				case "System.UInt32": return "uint";
 				case "System.UInt64": return "ulong";
+				case "System.Void": return "void";
 			}
 			return base.MakeFriendlyDataType(DataType);
 		}
@@ -725,6 +726,70 @@ namespace UniversalEditor.DataFormats.SourceCode
 					}
 					sb.Append("]");
 				}
+
+				sb.AppendLine ();
+				sb.Append (indent);
+				sb.AppendLine ("{");
+				
+				sb.Append (GetIndentString (indentCount + 1));
+
+				bool generatedMethod = false;
+
+				CodeMethodElement methGet = propertyEl.GetMethod;
+				if (methGet == null && propertyEl.AutoGenerateGetMethod) {
+					methGet = new CodeMethodElement ();
+					methGet.Elements.Add (new CodeReturnElement (new CodeElementDynamicReference ("_" + propertyEl.Name)));
+				}
+
+				if (methGet != null) {
+					sb.AppendLine ("get");
+					sb.Append (GetIndentString (indentCount + 1));
+					sb.AppendLine ("{");
+
+					foreach (CodeElement el in methGet.Elements) {
+						sb.Append (GenerateCode (el, indentCount + 2));
+					}
+
+					sb.AppendLine ();
+					sb.Append (GetIndentString (indentCount + 1));
+					sb.AppendLine ("}");
+
+					generatedMethod = true;
+				}
+
+				if (generatedMethod && (propertyEl.SetMethod != null || propertyEl.AutoGenerateSetMethod)) {
+					sb.Append (GetIndentString (indentCount + 1));
+				}
+
+				CodeMethodElement methSet = propertyEl.SetMethod;
+				if (methSet == null && propertyEl.AutoGenerateSetMethod) {
+					methSet = new CodeMethodElement ();
+					// methSet.Elements.Add (new CodeVariableAssignmentElement ("_" + propertyEl.Name, new VariableReference ("value")));
+				}
+
+				if (methSet != null) {
+
+					sb.AppendLine ("set");
+					sb.Append (GetIndentString (indentCount + 1));
+					sb.AppendLine ("{");
+
+					foreach (CodeElement el in methSet.Elements) {
+						sb.Append (GenerateCode (el, indentCount + 2));
+					}
+
+					sb.AppendLine ();
+					sb.Append (GetIndentString (indentCount + 1));
+					sb.AppendLine ("}");
+
+					generatedMethod = true;
+				}
+
+				if (!generatedMethod) {
+					sb.AppendLine ();
+				}
+
+				sb.Append (indent);
+				sb.Append ("}");
 			}
 			else if (obj is CodeVariableElement)
 			{
@@ -743,6 +808,23 @@ namespace UniversalEditor.DataFormats.SourceCode
 				{
 					sb.Append(";");
 				}
+			}
+			else if (obj is CodeReturnElement) 
+			{
+				sb.Append (indent);
+				sb.Append ("return ");
+				sb.Append (GenerateCode ((obj as CodeReturnElement).Expression));
+				sb.Append (";");
+			}
+			else if (obj is CodeElementDynamicReference)
+			{
+				CodeElementDynamicReference dynref = (obj as CodeElementDynamicReference);
+				if (dynref.ObjectName != null && dynref.ObjectName.Length > 0)
+				{
+					sb.Append (String.Join (".", dynref.ObjectName));
+					sb.Append (".");
+				}
+				sb.Append (dynref.Name);
 			}
 			return sb.ToString();
 		}
