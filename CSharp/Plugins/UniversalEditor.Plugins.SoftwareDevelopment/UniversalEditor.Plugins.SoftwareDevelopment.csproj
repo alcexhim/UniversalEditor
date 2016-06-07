@@ -80,6 +80,7 @@
     <Compile Include="DataFormats\SourceCode\GoCodeDataFormat.cs" />
     <Compile Include="DataFormats\SourceCode\Java\JavaClassDataFormat.cs" />
     <Compile Include="DataFormats\SourceCode\VisualBasicNETCodeDataFormat.cs" />
+    <Compile Include="ObjectModels\SourceCode\CodeElements\CodeReturnElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
