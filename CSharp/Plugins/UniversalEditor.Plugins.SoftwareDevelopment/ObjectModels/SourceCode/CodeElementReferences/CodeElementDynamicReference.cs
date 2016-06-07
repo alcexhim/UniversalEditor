@@ -11,7 +11,7 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElementReferences
     /// </summary>
     public class CodeElementDynamicReference : CodeElementReference
     {
-        public CodeElementDynamicReference(string name, string[] objectName)
+        public CodeElementDynamicReference(string name, string[] objectName = null)
         {
             mvarName = name;
             mvarObjectName = objectName;
@@ -30,11 +30,12 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElementReferences
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            if (mvarObjectName.Length > 0)
-            {
-                sb.Append(String.Join(".", mvarObjectName));
-                sb.Append('.');
-            }
+			if (mvarObjectName != null) {
+				if (mvarObjectName.Length > 0) {
+					sb.Append (String.Join (".", mvarObjectName));
+					sb.Append ('.');
+				}
+			}
             sb.Append(mvarName);
             return sb.ToString();
         }
