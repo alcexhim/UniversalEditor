@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.SourceCode
             return _dfr;
         }
 
-        protected override string MakeFriendlyDataType(string DataType)
+        protected override string MakeFriendlyDataTypeInternal(string DataType)
         {
             switch (DataType)
             {
@@ -85,6 +85,10 @@ namespace UniversalEditor.DataFormats.SourceCode
                 case "System.UInt64":
                 {
                     return "ulong";
+                }
+                case "System.Void":
+                {
+                    return "void";
                 }
             }
             return base.MakeFriendlyDataType(DataType);

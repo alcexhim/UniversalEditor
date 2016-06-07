@@ -364,7 +364,7 @@ namespace UniversalEditor.DataFormats.SourceCode.Java
         {
             base.ProcessToken(token, tr);
         }
-        protected override string MakeFriendlyDataType(string DataType)
+        protected override string MakeFriendlyDataTypeInternal(string DataType)
         {
             switch (DataType)
             {
@@ -376,7 +376,8 @@ namespace UniversalEditor.DataFormats.SourceCode.Java
                 case "System.Int32": return "int";
                 case "System.Int64": return "long";
                 case "System.Single": return "float";
-                case "System.String": return "string";
+				case "System.String": return "string";
+				case "System.Void": return "void";
             }
             return base.MakeFriendlyDataType(DataType);
         }

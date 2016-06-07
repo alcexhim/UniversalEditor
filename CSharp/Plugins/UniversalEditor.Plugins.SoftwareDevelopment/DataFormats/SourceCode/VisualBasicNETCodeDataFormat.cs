@@ -699,7 +699,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 			}
 		}
 
-		protected override string MakeFriendlyDataType(string DataType)
+		protected override string MakeFriendlyDataTypeInternal(string DataType)
 		{
 			switch (DataType)
 			{

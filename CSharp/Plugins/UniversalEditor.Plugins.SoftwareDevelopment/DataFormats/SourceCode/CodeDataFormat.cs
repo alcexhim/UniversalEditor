@@ -82,10 +82,18 @@ namespace UniversalEditor.DataFormats.SourceCode
 			return sb.ToString();
 		}
 
-		protected virtual string MakeFriendlyDataType(string DataType)
+		public string MakeFriendlyDataType(string DataType)
+		{
+			if (String.IsNullOrEmpty (DataType))
+				DataType = "System.Void";
+
+			return MakeFriendlyDataTypeInternal (DataType);
+		}
+		protected virtual string MakeFriendlyDataTypeInternal(string DataType)
 		{
 			return DataType;
 		}
+
 		protected virtual string MakeKnownDataType(string DataType)
 		{
 			return DataType;
