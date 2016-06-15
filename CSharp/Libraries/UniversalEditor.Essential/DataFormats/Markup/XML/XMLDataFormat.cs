@@ -409,7 +409,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 										name = currentString.Substring(0, currentString.IndexOf(' '));
 										content = currentString.Substring(name.Length + 1);
 									}
-									currentElement.Name = name.Trim();
+									currentElement.FullName = name.Trim();
 									currentElement.Value = content.Trim();
 									if (prevElement != null && prevElement is MarkupContainerElement)
 									{
@@ -527,7 +527,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												if (currentElement is MarkupTagElement && !string.IsNullOrEmpty(currentString))
 												{
 													MarkupTagElement e = new MarkupTagElement();
-													e.Name = currentString;
+													e.FullName = currentString;
 													(currentElement as MarkupTagElement).Elements.Add(e);
 													currentElement = e;
 												}
@@ -747,7 +747,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 														{
 															MarkupElement prevElement = currentElement;
 															currentElement = new MarkupTagElement();
-															currentElement.Name = currentString.Trim();
+															currentElement.FullName = currentString.Trim();
 															if (prevElement == null)
 															{
 																mom.Elements.Add(currentElement);
@@ -1131,7 +1131,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 										name = currentString.Substring(0, currentString.IndexOf(' '));
 										content = currentString.Substring(name.Length + 1);
 									}
-									currentElement.Name = name.Trim();
+									currentElement.FullName = name.Trim();
 									currentElement.Value = content.Trim();
 									if (prevElement != null && prevElement is MarkupContainerElement)
 									{
@@ -1242,7 +1242,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												if (currentElement is MarkupTagElement && !string.IsNullOrEmpty(currentString))
 												{
 													MarkupTagElement e = new MarkupTagElement();
-													e.Name = currentString;
+													e.FullName = currentString;
 													(currentElement as MarkupTagElement).Elements.Add(e);
 													currentElement = e;
 												}
@@ -1462,7 +1462,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 														{
 															MarkupElement prevElement = currentElement;
 															currentElement = new MarkupTagElement();
-															currentElement.Name = currentString.Trim();
+															currentElement.FullName = currentString.Trim();
 															if (prevElement == null)
 															{
 																return currentElement;
