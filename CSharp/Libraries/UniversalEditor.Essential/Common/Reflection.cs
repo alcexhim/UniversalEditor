@@ -301,10 +301,16 @@ namespace UniversalEditor.Common
 					{
 						DataFormat df = dfr.Create();
 						Document.Load(om, df, accessor);
+						break;
 					}
-					catch
+					catch (InvalidDataFormatException ex)
 					{
-						accessor.Close();
+						accessor.Close ();
+						continue;
+					}
+					catch (NotImplementedException ex)
+					{
+						accessor.Close ();
 						continue;
 					}
 				}
