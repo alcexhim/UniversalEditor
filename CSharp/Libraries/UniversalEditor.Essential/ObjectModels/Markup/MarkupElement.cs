@@ -9,6 +9,9 @@ namespace UniversalEditor.ObjectModels.Markup
 		public class MarkupElementCollection
 			: System.Collections.ObjectModel.Collection<MarkupElement>
 		{
+			private MarkupObjectModel _parentObjectModel = null;
+			public MarkupObjectModel ParentObjectModel { get { return _parentObjectModel; } internal set { _parentObjectModel = value; } }
+
 			private MarkupContainerElement _parent = null;
 			public MarkupElement this[string nameSpace, string name]
 			{
@@ -57,16 +60,26 @@ namespace UniversalEditor.ObjectModels.Markup
 				}
 			}
 			public MarkupElementCollection()
-				: this(null)
+				: this(null, null)
+			{
+			}
+			public MarkupElementCollection(MarkupObjectModel parentObjectModel)
+				: this(null, parentObjectModel)
 			{
 			}
 			public MarkupElementCollection(MarkupContainerElement parent)
+				: this(parent, null)
+			{
+			}
+			public MarkupElementCollection(MarkupContainerElement parent, MarkupObjectModel parentObjectModel)
 			{
 				this._parent = parent;
+				this._parentObjectModel = parentObjectModel;
 			}
 			public new void Add(MarkupElement item)
 			{
 				item.mvarParent = this._parent;
+				item.ParentObjectModel = this._parentObjectModel;
 				base.Add(item);
 			}
 			public bool Contains(string fullName, string id = null)
@@ -90,6 +103,14 @@ namespace UniversalEditor.ObjectModels.Markup
 				return false;
 			}
 		}
+
+		private MarkupObjectModel mvarParentObjectModel = null;
+		public MarkupObjectModel ParentObjectModel { get { return mvarParentObjectModel; } internal set { mvarParentObjectModel = value; UpdateParentObjectModel (); } }
+
+		protected virtual void UpdateParentObjectModel()
+		{
+		}
+
 		private string mvarName = string.Empty;
 		private string mvarValue = string.Empty;
 		private string mvarNamespace = string.Empty;

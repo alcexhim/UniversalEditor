@@ -18,14 +18,14 @@ namespace UniversalEditor.ObjectModels.Markup
 			this.mvarElements.Clear();
 		}
 
-		private MarkupElement.MarkupElementCollection mvarElements = new MarkupElement.MarkupElementCollection();
-		public MarkupElement.MarkupElementCollection Elements
+		public MarkupObjectModel() 
 		{
-			get
-			{
-				return this.mvarElements;
-			}
+			mvarElements = new MarkupElement.MarkupElementCollection (null, this);
 		}
+
+		private MarkupElement.MarkupElementCollection mvarElements = null;
+		public MarkupElement.MarkupElementCollection Elements { get { return this.mvarElements; } }
+
 		public override void CopyTo(ObjectModel destination)
 		{
 			MarkupObjectModel dest = destination as MarkupObjectModel;
@@ -140,5 +140,35 @@ namespace UniversalEditor.ObjectModels.Markup
 			if (tag == null) return defaultValue;
 			return tag.Value;
 		}
+
+		public MarkupElement FindElementUsingSchema(string schema, string name)
+		{
+			string tagPrefix = null;
+
+			for (int i = 0; i < this.Elements.Count; i++) {
+				MarkupTagElement tagTopLevel = (this.Elements [i] as MarkupTagElement);
+				if (tagTopLevel != null) {
+					for (int j = 0; j < tagTopLevel.Attributes.Count; j++) {
+						if (tagTopLevel.Attributes [j].Namespace.Equals ("xmlns")) {
+
+							if (tagTopLevel.Attributes [j].Value.Equals (schema)) {
+								tagPrefix = tagTopLevel.Attributes [j].Name;
+								break;
+							}
+
+						}
+					}
+				}
+			}
+
+			if (tagPrefix == null) {
+				Console.WriteLine ("ue: MarkupObjectModel: tag prefix for schema '" + schema + "' not found");
+				return null;
+			}
+
+			string fullName = tagPrefix + ":" + name;
+			return FindElement (fullName);
+		}
+
 	}
 }

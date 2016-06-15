@@ -7,16 +7,11 @@ namespace UniversalEditor.ObjectModels.Markup
 	public abstract class MarkupContainerElement : MarkupElement
 	{
 		private MarkupElement.MarkupElementCollection mvarElements = null;
-		public MarkupElement.MarkupElementCollection Elements
-		{
-			get
-			{
-				return this.mvarElements;
-			}
-		}
+		public MarkupElement.MarkupElementCollection Elements { get { return mvarElements; } }
+
 		public MarkupContainerElement()
 		{
-			this.mvarElements = new MarkupElement.MarkupElementCollection(this);
+			this.mvarElements = new MarkupElement.MarkupElementCollection(this, this.ParentObjectModel);
 		}
 		public MarkupElement FindElement(params string[] fullNames)
 		{
@@ -48,19 +43,78 @@ namespace UniversalEditor.ObjectModels.Markup
 				if (tag == null)
 				{
 					tag = new MarkupTagElement();
-					tag.Name = elementNames[i];
+					tag.FullName = elementNames[i];
 					basetag = tag;
 					this.Elements.Add(tag);
 				}
 				else
 				{
 					MarkupTagElement newtag = new MarkupTagElement();
-					newtag.Name = elementNames[i];
+					newtag.FullName = elementNames[i];
 					tag.Elements.Add(newtag);
 					tag = newtag;
 				}
 			}
 			return basetag;
+		}
+
+		public string XMLSchema
+		{
+			get
+			{
+				if (this.Namespace == null)
+					return null;
+
+				for (int i = 0; i < this.ParentObjectModel.Elements.Count; i++) {
+					MarkupTagElement tagTopLevel = (this.ParentObjectModel.Elements [i] as MarkupTagElement);
+					if (tagTopLevel == null)
+						continue;
+
+					MarkupAttribute att = tagTopLevel.Attributes ["xmlns:" + this.Namespace];
+					if (att != null)
+						return att.Value;
+				}
+
+				return null;
+			}
+		}
+
+		protected override void UpdateParentObjectModel ()
+		{
+			base.UpdateParentObjectModel ();
+			this.Elements.ParentObjectModel = this.ParentObjectModel;
+			for (int i = 0; i < this.Elements.Count; i++) {
+				this.Elements [i].ParentObjectModel = this.ParentObjectModel;
+			}
+		}
+
+		public MarkupElement FindElementUsingSchema(string schema, string name)
+		{
+			string tagPrefix = null;
+			for (int i = 0; i < this.ParentObjectModel.Elements.Count; i++)
+			{
+				MarkupTagElement tagTopLevel = (this.ParentObjectModel.Elements [i] as MarkupTagElement);
+				if (tagTopLevel != null) {
+					for (int j = 0; j < tagTopLevel.Attributes.Count; j++) {
+						if (tagTopLevel.Attributes [j].Namespace.Equals ("xmlns")) {
+
+							if (tagTopLevel.Attributes [j].Value.Equals (schema)) {
+								tagPrefix = tagTopLevel.Attributes [j].Name;
+								break;
+							}
+
+						}
+					}
+				}
+			}
+
+			if (tagPrefix == null) {
+				Console.WriteLine ("ue: MarkupObjectModel: tag prefix for schema '" + schema + "' not found");
+				return null;
+			}
+
+			string fullName = tagPrefix + ":" + name;
+			return FindElement (fullName);
 		}
 
         public override void Combine(MarkupElement el)
