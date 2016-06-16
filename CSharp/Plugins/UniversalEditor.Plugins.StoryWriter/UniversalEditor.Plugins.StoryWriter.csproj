@@ -50,6 +50,7 @@
     <Compile Include="ObjectModels\StoryWriter\Story\StoryObjectModel.cs" />
     <Compile Include="ObjectModels\StoryWriter\Story\Universe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFormats\StoryWriter\Story\StoryXML\XMLSchemas.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
