@@ -13,6 +13,9 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 
 		}
 
+		private Guid mvarID = Guid.Empty;
+		public Guid ID { get { return mvarID; } set { mvarID = value; } }
+
 		private PersonalName mvarName = null;
 		public PersonalName Name { get { return mvarName; } set { mvarName = value; } }
 
