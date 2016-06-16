@@ -11,8 +11,9 @@ namespace UniversalEditor.Engines.GTK
 		{
 			base.InitializeInternal ();
 
-			int argc = 0;
-			string[] argv = new string[0];
+			string[] argv = System.Environment.GetCommandLineArgs ();
+			int argc = argv.Length;
+
 			bool check = GtkApplication.Initialize (ref argc, ref argv);
 		}
 		protected override void MainLoop ()
