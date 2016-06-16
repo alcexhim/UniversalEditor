@@ -6,7 +6,15 @@ namespace UniversalEditor.Engines.GTK.Internal.GTK
 	{
 		public enum GApplicationFlags
 		{
-			None = 0
+			None = 0,
+			IsService  =          (1 << 0),
+			IsLauncher =          (1 << 1),
+
+			HandlesOpen =         (1 << 2),
+			HandlesCommandLine = (1 << 3),
+			SendEnvironment    =  (1 << 4),
+
+			NonUnique =           (1 << 5)
 		}
 
 		public enum GtkWindowType
