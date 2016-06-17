@@ -9,15 +9,177 @@ namespace UniversalEditor
 	{
 		private double mvarRed;
 		public double Red { get { return mvarRed; } set { mvarRed = value; } }
+		public int RedInt32 { get { return (int)(mvarRed * 255); } set { mvarRed = (double)value / 255.0; } }
 
 		private double mvarGreen;
 		public double Green { get { return mvarGreen; } set { mvarGreen = value; } }
+		public int GreenInt32 { get { return (int)(mvarGreen * 255); } set { mvarGreen = (double)value / 255.0; } }
 
 		private double mvarBlue;
 		public double Blue { get { return mvarBlue; } set { mvarBlue = value; } }
+		public int BlueInt32 { get { return (int)(mvarBlue * 255); } set { mvarBlue = (double)value / 255.0; } }
 
 		private double mvarAlpha;
 		public double Alpha { get { return mvarAlpha; } set { mvarAlpha = value; } }
+		public int AlphaInt32 { get { return (int)(mvarAlpha * 255); } set { mvarAlpha = (double)value / 255.0; } }
+
+		public double Hue
+		{
+			get
+			{
+				int r = this.RedInt32;
+				int g = this.GreenInt32;
+				int b = this.BlueInt32;
+
+				byte minRGB = (byte)Math.Min (r, Math.Min (g, b));
+				byte maxRGB = (byte)Math.Max (r, Math.Max (g, b));
+				if (maxRGB == minRGB) return 0.0;
+
+				float num = (float)(maxRGB - minRGB);
+				float redFraction = (float)((int)maxRGB - r) / num;
+				float greenFraction = (float)((int)maxRGB - g) / num;
+				float blueFraction = (float)((int)maxRGB - b) / num;
+				float hue = 0f;
+				if (r == (int)maxRGB)
+				{
+					hue = 60f * (6f + blueFraction - greenFraction);
+				}
+				if (g == (int)maxRGB)
+				{
+					hue = 60f * (2f + redFraction - blueFraction);
+				}
+				if (b == (int)maxRGB)
+				{
+					hue = 60f * (4f + greenFraction - redFraction);
+				}
+				if (hue > 360f)
+				{
+					hue -= 360f;
+				}
+				return hue;
+			}
+			set { UpdateHSL (value, Saturation, Luminosity); }
+		}
+		public int HueInt32
+		{
+			get { return (int)(Hue * HSL_SCALE); }
+			set { Hue = CheckRange ((double)value / HSL_SCALE); }
+		}
+		public double Saturation
+		{
+			get
+			{
+				int minRGB = Math.Min (this.RedInt32, Math.Min (this.GreenInt32, this.BlueInt32));
+				int maxRGB = Math.Max (this.RedInt32, Math.Max (this.GreenInt32, this.BlueInt32));
+				if (maxRGB == minRGB) return 0.0;
+
+				int num = (int)(maxRGB + minRGB);
+				if (num > 255)
+				{
+					num = 510 - num;
+				}
+				return (double)(maxRGB - minRGB) / (double)num;
+			}
+			set { UpdateHSL (Hue, value, Luminosity); }
+		}
+		public int SaturationInt32
+		{
+			get { return (int)(Saturation * HSL_SCALE); }
+			set { Saturation = CheckRange ((double)value / HSL_SCALE); }
+		}
+		public double Luminosity
+		{
+			get
+			{
+				int minRGB = Math.Min (this.RedInt32, Math.Min (this.GreenInt32, this.BlueInt32));
+				int maxRGB = Math.Max (this.RedInt32, Math.Max (this.GreenInt32, this.BlueInt32));
+				return (double)(maxRGB + minRGB) / 510.0;
+			}
+			set { UpdateHSL (Hue, Saturation, value); }
+		}
+		public int LuminosityInt32
+		{
+			get { return (int)(Luminosity * HSL_SCALE); }
+			set { Luminosity = CheckRange ((double)value / HSL_SCALE); }
+		}
+
+		private void UpdateHSL(double h, double s, double l)
+		{
+			if (l != 0)
+			{
+				if (s == 0)
+					mvarRed = mvarGreen = mvarBlue = l;
+				else
+				{
+					double temp2 = GetTemp2(h, s, l);
+					double temp1 = 2.0 * l - temp2;
+
+					mvarRed = GetColorComponent(temp1, temp2, h + 1.0 / 3.0);
+					mvarGreen = GetColorComponent(temp1, temp2, h);
+					mvarBlue = GetColorComponent(temp1, temp2, h - 1.0 / 3.0);
+				}
+			}
+		}
+
+		private const double HSL_SCALE = 240.0;
+		private double CheckRange(double value)
+		{
+			if (value < 0.0)
+				value = 0.0;
+			else if (value > 1.0)
+				value = 1.0;
+			return value;
+		}
+
+		public static Color FromHSL(double h, double s, double l)
+		{
+			double r = 0, g = 0, b = 0;
+			if (l != 0)
+			{
+				if (s == 0)
+					r = g = b = l;
+				else
+				{
+					double temp2 = GetTemp2(h, s, l);
+					double temp1 = 2.0 * l - temp2;
+
+					r = GetColorComponent(temp1, temp2, h + 1.0 / 3.0);
+					g = GetColorComponent(temp1, temp2, h);
+					b = GetColorComponent(temp1, temp2, h - 1.0 / 3.0);
+				}
+			}
+			return Color.FromRGBA(r, g, b);
+		}
+
+		private static double GetColorComponent(double temp1, double temp2, double temp3)
+		{
+			temp3 = MoveIntoRange(temp3);
+			if (temp3 < 1.0 / 6.0)
+				return temp1 + (temp2 - temp1) * 6.0 * temp3;
+			else if (temp3 < 0.5)
+				return temp2;
+			else if (temp3 < 2.0 / 3.0)
+				return temp1 + ((temp2 - temp1) * ((2.0 / 3.0) - temp3) * 6.0);
+			else
+				return temp1;
+		}
+		private static double MoveIntoRange(double temp3)
+		{
+			if (temp3 < 0.0)
+				temp3 += 1.0;
+			else if (temp3 > 1.0)
+				temp3 -= 1.0;
+			return temp3;
+		}
+		private static double GetTemp2(double h, double s, double l)
+		{
+			double temp2;
+			if (l < 0.5)  //<=??
+				temp2 = l * (1.0 + s);
+			else
+				temp2 = l + s - (l * s);
+			return temp2;
+		}
 
 		public static readonly Color Empty;
 
