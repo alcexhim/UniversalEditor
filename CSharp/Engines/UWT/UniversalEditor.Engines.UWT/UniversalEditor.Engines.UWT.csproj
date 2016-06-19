@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>12.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F1393A83-C180-417F-B5EE-C6EA3A3691E7}</ProjectGuid>
+    <ProjectGuid>{90B038C3-99D3-4E18-AFA8-FB5941909732}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>UniversalEditor.Engines.GTK</RootNamespace>
-    <AssemblyName>UniversalEditor.Engines.GTK</AssemblyName>
+    <RootNamespace>UniversalEditor.Engines.UWT</RootNamespace>
+    <AssemblyName>UniversalEditor.Engines.UWT</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,45 +33,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Internal\GTK\Methods.cs" />
-    <Compile Include="GTKEngine.cs" />
-    <Compile Include="Internal\GTK\Constants.cs" />
-    <Compile Include="Internal\GDK\Methods.cs" />
-    <Compile Include="GtkMenuBar.cs" />
-    <Compile Include="GtkWidget.cs" />
-    <Compile Include="GtkMenuItem.cs" />
-    <Compile Include="GtkMenu.cs" />
-    <Compile Include="Internal\GLib\Methods.cs" />
-    <Compile Include="Internal\GLib\Constants.cs" />
-    <Compile Include="Internal\GLib\Delegates.cs" />
-    <Compile Include="GtkWindow.cs" />
     <Compile Include="MainWindow.cs" />
-    <Compile Include="GtkApplication.cs" />
-    <Compile Include="GtkMenuShell.cs" />
-    <Compile Include="GtkContainer.cs" />
-    <Compile Include="GtkBox.cs" />
-    <Compile Include="PackDirection.cs" />
-    <Compile Include="GtkSeparator.cs" />
+    <Compile Include="UWTEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Internal\" />
-    <Folder Include="Internal\GTK\" />
-    <Folder Include="Internal\GDK\" />
-    <Folder Include="Internal\GLib\" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
-      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
-      <Name>UniversalEditor.UserInterface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>UniversalWidgetToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
+      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
+      <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

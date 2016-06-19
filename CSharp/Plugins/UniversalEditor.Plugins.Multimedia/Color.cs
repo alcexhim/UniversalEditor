@@ -56,7 +56,7 @@ namespace UniversalEditor
 				{
 					hue -= 360f;
 				}
-				return hue;
+				return (double)(hue / HSL_SCALE);
 			}
 			set { UpdateHSL (value, Saturation, Luminosity); }
 		}
@@ -78,7 +78,7 @@ namespace UniversalEditor
 				{
 					num = 510 - num;
 				}
-				return (double)(maxRGB - minRGB) / (double)num;
+				return (double)((double)(maxRGB - minRGB) / (double)num) / HSL_SCALE;
 			}
 			set { UpdateHSL (Hue, value, Luminosity); }
 		}
@@ -93,7 +93,7 @@ namespace UniversalEditor
 			{
 				int minRGB = Math.Min (this.RedInt32, Math.Min (this.GreenInt32, this.BlueInt32));
 				int maxRGB = Math.Max (this.RedInt32, Math.Max (this.GreenInt32, this.BlueInt32));
-				return (double)(maxRGB + minRGB) / 510.0;
+				return (double)((double)(maxRGB + minRGB) / 510.0) / HSL_SCALE;
 			}
 			set { UpdateHSL (Hue, Saturation, value); }
 		}
@@ -119,6 +119,12 @@ namespace UniversalEditor
 					mvarBlue = GetColorComponent(temp1, temp2, h - 1.0 / 3.0);
 				}
 			}
+			else
+			{
+				mvarRed = 0.0;
+				mvarGreen = 0.0;
+				mvarBlue = 0.0;
+			}
 		}
 
 		private const double HSL_SCALE = 240.0;
@@ -129,6 +135,11 @@ namespace UniversalEditor
 			else if (value > 1.0)
 				value = 1.0;
 			return value;
+		}
+
+		public static Color FromHSL(int h, int s, int l)
+		{
+			return FromHSL ((double)h / HSL_SCALE, (double)s / HSL_SCALE, (double)l / HSL_SCALE);
 		}
 
 		public static Color FromHSL(double h, double s, double l)
@@ -148,7 +159,7 @@ namespace UniversalEditor
 					b = GetColorComponent(temp1, temp2, h - 1.0 / 3.0);
 				}
 			}
-			return Color.FromRGBA(r, g, b);
+			return Color.FromRGBA((int)(255 * r), (int)(255 * g), (int)(255 * b));
 		}
 
 		private static double GetColorComponent(double temp1, double temp2, double temp3)
