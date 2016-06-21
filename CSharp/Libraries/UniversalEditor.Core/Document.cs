@@ -72,6 +72,9 @@ namespace UniversalEditor
 		public Document(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) : this(objectModel, dataFormat, dataFormat, accessor)
 		{
 		}
+		public Document(Accessor accessor) : this(null, null, accessor)
+		{
+		}
 		public Document(ObjectModel objectModel, DataFormat inputDataFormat, DataFormat outputDataFormat, Accessor accessor) : this(objectModel, inputDataFormat, outputDataFormat, accessor, accessor)
 		{
 		}
