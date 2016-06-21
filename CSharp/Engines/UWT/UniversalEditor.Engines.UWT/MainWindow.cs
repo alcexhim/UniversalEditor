@@ -1,24 +1,66 @@
 using System;
 
+using UniversalEditor.Accessors;
 using UniversalEditor.UserInterface;
 
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
+using UniversalWidgetToolkit.Dialogs;
 
 namespace UniversalEditor.Engines.UWT
 {
 	public class MainWindow : Window, IHostApplicationWindow
 	{
+		private TabContainer tbsDocumentTabs = null;
+
 		public MainWindow ()
 		{
+			UniversalWidgetToolkit.Layouts.BoxLayout layout = new UniversalWidgetToolkit.Layouts.BoxLayout (Orientation.Vertical);
+			this.Layout = layout;
 
 			foreach (CommandItem ci in UniversalEditor.UserInterface.Engine.CurrentEngine.MainMenu.Items) {
 				UniversalWidgetToolkit.MenuItem mi = LoadMenuItem (ci);
 				if (mi == null)
 					continue;
+
+				if (mi.Name == "Help") {
+					mi.HorizontalAlignment = MenuItemHorizontalAlignment.Right;
+				}
 				this.MenuBar.Items.Add (mi);
 			}
 
+			tbsDocumentTabs = new TabContainer ();
+			tbsDocumentTabs.TabPages.Add (new TabPage ("Test Tab"));
+			this.Controls.Add (tbsDocumentTabs, new UniversalWidgetToolkit.Layouts.BoxLayout.Constraints (true, true, 0, UniversalWidgetToolkit.Layouts.BoxLayout.PackType.End));
+
+			this.Bounds = new UniversalWidgetToolkit.Drawing.Rectangle (0, 0, 600, 400);
+
+			this.Text = "Universal Editor";
+		}
+
+		private void MainWindow_MenuBar_Item_Click(object sender, EventArgs e)
+		{
+			CommandMenuItem mi = (sender as CommandMenuItem);
+			if (mi == null)
+				return;
+
+			Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands [mi.Name];
+			if (cmd == null) {
+				Console.WriteLine ("unknown cmd '" + mi.Name + "'");
+				return;
+			}
+
+			cmd.Execute ();
+		}
+
+		public override void OnActivate (EventArgs e)
+		{
+			Console.WriteLine ("Window activated");
+		}
+
+		public override void OnClosed(EventArgs e)
+		{
+			UniversalWidgetToolkit.Application.Stop ();
 		}
 
 		private UniversalWidgetToolkit.MenuItem LoadMenuItem(CommandItem ci)
@@ -29,9 +71,15 @@ namespace UniversalEditor.Engines.UWT
 				Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands [crci.CommandID];
 				if (cmd != null) {
 					CommandMenuItem mi = new CommandMenuItem (cmd.Title);
-					foreach (CommandItem ci1 in cmd.Items) {
-						UniversalWidgetToolkit.MenuItem mi1 = LoadMenuItem (ci1);
-						mi.Items.Add (mi1);
+					mi.Name = cmd.ID;
+					if (cmd.Items.Count > 0) {
+						foreach (CommandItem ci1 in cmd.Items) {
+							UniversalWidgetToolkit.MenuItem mi1 = LoadMenuItem (ci1);
+							mi.Items.Add (mi1);
+						}
+					}
+					else {
+						mi.Click += MainWindow_MenuBar_Item_Click;
 					}
 					return mi;
 				} else {
@@ -58,17 +106,31 @@ namespace UniversalEditor.Engines.UWT
 
 		public void OpenFile ()
 		{
-			throw new NotImplementedException ();
+			FileDialog dlg = new FileDialog ();
+			dlg.Mode = FileDialogMode.Open;
+			dlg.MultiSelect = true;
+			if (dlg.ShowDialog () == CommonDialogResult.OK) {
+				OpenFile (dlg.SelectedFileNames.ToArray ());
+			}
 		}
 
 		public void OpenFile (params string[] fileNames)
 		{
-			throw new NotImplementedException ();
+			Document[] documents = new Document[fileNames.Length];
+			for (int i = 0; i < documents.Length; i++) {
+				FileAccessor fa = new FileAccessor (fileNames [i]);
+				documents [i] = new Document (fa);
+			}
+			OpenFile (documents);
 		}
 
 		public void OpenFile (params Document[] documents)
 		{
-			throw new NotImplementedException ();
+			foreach (Document doc in documents) {
+				TabPage tab = new TabPage ();
+				tab.Text = doc.Title;
+				tbsDocumentTabs.TabPages.Add (tab);
+			}
 		}
 
 		public void OpenProject (bool combineObjects = false)
