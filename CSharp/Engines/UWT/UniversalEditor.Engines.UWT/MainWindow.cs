@@ -6,6 +6,7 @@ using UniversalEditor.UserInterface;
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
 using UniversalWidgetToolkit.Dialogs;
+using UniversalWidgetToolkit.Input.Keyboard;
 
 namespace UniversalEditor.Engines.UWT
 {
@@ -63,6 +64,154 @@ namespace UniversalEditor.Engines.UWT
 			UniversalWidgetToolkit.Application.Stop ();
 		}
 
+		private Shortcut CommandShortcutKeyToUWTShortcut(CommandShortcutKey shortcutKey)
+		{
+			KeyboardKey key = KeyboardKey.None;
+
+			switch (shortcutKey.Value) {
+				case CommandShortcutKeyValue.A:
+				{
+					key = KeyboardKey.A;
+					break;
+				}
+				case CommandShortcutKeyValue.B:
+				{
+					key = KeyboardKey.B;
+					break;
+				}
+				case CommandShortcutKeyValue.C:
+				{
+					key = KeyboardKey.C;
+					break;
+				}
+				case CommandShortcutKeyValue.D:
+				{
+					key = KeyboardKey.D;
+					break;
+				}
+				case CommandShortcutKeyValue.E:
+				{
+					key = KeyboardKey.E;
+					break;
+				}
+				case CommandShortcutKeyValue.F:
+				{
+					key = KeyboardKey.F;
+					break;
+				}
+				case CommandShortcutKeyValue.G:
+				{
+					key = KeyboardKey.G;
+					break;
+				}
+				case CommandShortcutKeyValue.H:
+				{
+					key = KeyboardKey.H;
+					break;
+				}
+				case CommandShortcutKeyValue.I:
+				{
+					key = KeyboardKey.I;
+					break;
+				}
+				case CommandShortcutKeyValue.J:
+				{
+					key = KeyboardKey.J;
+					break;
+				}
+				case CommandShortcutKeyValue.K:
+				{
+					key = KeyboardKey.K;
+					break;
+				}
+				case CommandShortcutKeyValue.L:
+				{
+					key = KeyboardKey.L;
+					break;
+				}
+				case CommandShortcutKeyValue.M:
+				{
+					key = KeyboardKey.M;
+					break;
+				}
+				case CommandShortcutKeyValue.N:
+				{
+					key = KeyboardKey.N;
+					break;
+				}
+				case CommandShortcutKeyValue.O:
+				{
+					key = KeyboardKey.O;
+					break;
+				}
+				case CommandShortcutKeyValue.P:
+				{
+					key = KeyboardKey.P;
+					break;
+				}
+				case CommandShortcutKeyValue.Q:
+				{
+					key = KeyboardKey.Q;
+					break;
+				}
+				case CommandShortcutKeyValue.R:
+				{
+					key = KeyboardKey.R;
+					break;
+				}
+				case CommandShortcutKeyValue.S:
+				{
+					key = KeyboardKey.S;
+					break;
+				}
+				case CommandShortcutKeyValue.T:
+				{
+					key = KeyboardKey.T;
+					break;
+				}
+				case CommandShortcutKeyValue.U:
+				{
+					key = KeyboardKey.U;
+					break;
+				}
+				case CommandShortcutKeyValue.V:
+				{
+					key = KeyboardKey.V;
+					break;
+				}
+				case CommandShortcutKeyValue.W:
+				{
+					key = KeyboardKey.W;
+					break;
+				}
+				case CommandShortcutKeyValue.X:
+				{
+					key = KeyboardKey.X;
+					break;
+				}
+				case CommandShortcutKeyValue.Y:
+				{
+					key = KeyboardKey.Y;
+					break;
+				}
+				case CommandShortcutKeyValue.Z:
+				{
+					key = KeyboardKey.Z;
+					break;
+				}
+			}
+
+			KeyboardModifierKey modifierKeys = KeyboardModifierKey.None;
+
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Alt) == CommandShortcutKeyModifiers.Alt) modifierKeys |= KeyboardModifierKey.Alt;
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Control) == CommandShortcutKeyModifiers.Control) modifierKeys |= KeyboardModifierKey.Control;
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Hyper) == CommandShortcutKeyModifiers.Hyper) modifierKeys |= KeyboardModifierKey.Hyper;
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Shift) == CommandShortcutKeyModifiers.Shift) modifierKeys |= KeyboardModifierKey.Shift;
+			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Super) == CommandShortcutKeyModifiers.Super) modifierKeys |= KeyboardModifierKey.Super;
+
+			return new Shortcut (key, modifierKeys);
+		}
+
 		private UniversalWidgetToolkit.MenuItem LoadMenuItem(CommandItem ci)
 		{
 			if (ci is CommandReferenceCommandItem) {
@@ -72,6 +221,7 @@ namespace UniversalEditor.Engines.UWT
 				if (cmd != null) {
 					CommandMenuItem mi = new CommandMenuItem (cmd.Title);
 					mi.Name = cmd.ID;
+					mi.Shortcut = CommandShortcutKeyToUWTShortcut (cmd.ShortcutKey);
 					if (cmd.Items.Count > 0) {
 						foreach (CommandItem ci1 in cmd.Items) {
 							UniversalWidgetToolkit.MenuItem mi1 = LoadMenuItem (ci1);
