@@ -259,7 +259,7 @@ namespace UniversalEditor.Engines.UWT
 			FileDialog dlg = new FileDialog ();
 			dlg.Mode = FileDialogMode.Open;
 			dlg.MultiSelect = true;
-			if (dlg.ShowDialog () == CommonDialogResult.OK) {
+			if (dlg.ShowDialog () == DialogResult.OK) {
 				OpenFile (dlg.SelectedFileNames.ToArray ());
 			}
 		}
@@ -285,7 +285,13 @@ namespace UniversalEditor.Engines.UWT
 
 		public void OpenProject (bool combineObjects = false)
 		{
-			throw new NotImplementedException ();
+			FileDialog dlg = new FileDialog ();
+			dlg.FileNameFilters.Add ("Project files", "*.ueproj");
+			dlg.FileNameFilters.Add ("Solution files", "*.uesln");
+			dlg.Title = "Open Project or Solution";
+			if (dlg.ShowDialog () == DialogResult.OK) {
+
+			}
 		}
 
 		public void OpenProject (string FileName, bool combineObjects = false)
