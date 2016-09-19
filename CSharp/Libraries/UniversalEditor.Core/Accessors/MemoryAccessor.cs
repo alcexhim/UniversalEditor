@@ -95,6 +95,9 @@ namespace UniversalEditor.Accessors
 
 		protected internal override int ReadInternal(byte[] buffer, int start, int count)
 		{
+			if (Position >= _data.Length) {
+				return 0;
+			}
 			System.Array.Copy(_data, Position, buffer, start, count);
 			Position += count;
 			return count;
