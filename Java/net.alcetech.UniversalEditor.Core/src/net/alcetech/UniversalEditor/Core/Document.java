@@ -32,11 +32,32 @@ public class Document
 	public ObjectModel getObjectModel() { return mvarObjectModel; }
 	public void setObjectModel(ObjectModel value) { mvarObjectModel = value; }
 	
+	public void load() {
+		this.getInputDataFormat().setAccessor(this.getInputAccessor());
+		this.getInputDataFormat().load(this.getObjectModel());
+	}
+	public void save() {
+		this.getOutputDataFormat().setAccessor(this.getOutputAccessor());
+		this.getOutputDataFormat().save(this.getObjectModel());
+	}
+	
 	public static Document load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) {
 		Document document = new Document();
 		document.setObjectModel(objectModel);
 		document.setDataFormat(dataFormat);
 		document.setAccessor(accessor);
+		
+		document.load();
+		return document;
+	}
+	
+	public static Document save(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) {
+		Document document = new Document();
+		document.setObjectModel(objectModel);
+		document.setDataFormat(dataFormat);
+		document.setAccessor(accessor);
+		
+		document.save();
 		return document;
 	}
 }
