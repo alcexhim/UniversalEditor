@@ -2,6 +2,7 @@ package net.alcetech.UniversalEditor.Core.IO;
 
 import java.io.IOException;
 
+import net.alcetech.ApplicationFramework.Exceptions.NotImplementedException;
 import net.alcetech.UniversalEditor.Core.*;
 
 public class Writer
@@ -94,7 +95,7 @@ public class Writer
 		}
 		writeByteArray(buffer);
 	}
-	public void writeSingle(float value) throws IOException
+	public void writeSingle(float value) throws IOException, NotImplementedException
 	{
 		byte[] _buffer = BitConverter.getBytes(value);
 		byte[] buffer = new byte[4];

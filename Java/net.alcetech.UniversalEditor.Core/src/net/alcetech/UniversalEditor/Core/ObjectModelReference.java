@@ -1,14 +1,13 @@
 package net.alcetech.UniversalEditor.Core;
 
-import net.alcetech.Core.NotImplementedException;
-import net.alcetech.Core.Collections.Generic.Dictionary;
+import net.alcetech.ApplicationFramework.Collections.Generic.Dictionary;
 
 public class ObjectModelReference
 {
 	private static Dictionary<Class<?>, ObjectModelReference> _omrsByClass = new Dictionary<Class<?>, ObjectModelReference>();
 	public static ObjectModelReference fromClass(Class<?> clazz)
 	{
-		if (_omrsByClass.containsKey(clazz)) return _omrsByClass.getValueByKey(clazz);
+		if (_omrsByClass.containsKey(clazz)) return _omrsByClass.get(clazz);
 		return null;
 	}
 	
@@ -18,8 +17,9 @@ public class ObjectModelReference
 		mvarTypeName = typeName;
 	}
 	
-	public ObjectModel Create()
+	public ObjectModel Create() throws InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
-		throw new NotImplementedException();
+		Object newInst = Class.forName(this.mvarTypeName).newInstance();
+		return (ObjectModel)newInst;
 	}
 }

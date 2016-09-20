@@ -1,7 +1,7 @@
 package net.alcetech.UniversalEditor.Core;
 
-import net.alcetech.Core.NotImplementedException;
-import net.alcetech.Core.Collections.ObjectModel.Collection;
+import net.alcetech.ApplicationFramework.Exceptions.*;
+import net.alcetech.ApplicationFramework.Collections.ObjectModel.*;
 
 public class DataFormatReference
 {
@@ -11,7 +11,7 @@ public class DataFormatReference
 		mvarTypeName = typeName;
 	}
 	
-	public DataFormat Create()
+	public DataFormat Create() throws NotImplementedException
 	{
 		throw new NotImplementedException();
 	}

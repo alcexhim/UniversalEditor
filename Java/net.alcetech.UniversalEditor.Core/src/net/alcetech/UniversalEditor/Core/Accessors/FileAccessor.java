@@ -9,7 +9,13 @@ public class FileAccessor extends Accessor
 {
 	private RandomAccessFile _file = null;
 	
-	public FileAccessor()
+	public static FileAccessor fromFile(File file) throws FileNotFoundException {
+		FileAccessor fa = new FileAccessor();
+		fa._file = new RandomAccessFile(file, "rw");
+		return fa;
+	}
+	
+	private FileAccessor()
 	{
 	}
 	public FileAccessor(String fileName)

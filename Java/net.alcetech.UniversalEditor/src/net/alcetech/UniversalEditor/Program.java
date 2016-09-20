@@ -1,8 +1,10 @@
 package net.alcetech.UniversalEditor;
 
-import net.alcetech.Core.*;
+import net.alcetech.ApplicationFramework.*;
+import net.alcetech.ApplicationFramework.CommandItems.*;
+import net.alcetech.ApplicationFramework.Theming.*;
+
 import net.alcetech.UniversalEditor.Windows.*;
-import net.alcetech.UserInterface.Theming.*;
 import net.alcetech.UniversalEditor.Core.Accessors.*;
 import net.alcetech.UniversalEditor.Core.IO.*;
 import net.alcetech.UniversalEditor.ObjectModels.Markup.*;
@@ -12,7 +14,7 @@ public class Program
 {
 	public static void main(String[] args)
 	{
-		ThemeManager.Initialize();
+		ThemeManager.initialize();
 		
 		FileAccessor fa = new FileAccessor("/var/tmp/test.xml");
 
@@ -33,49 +35,71 @@ public class Program
 		}
 		*/
 		
-		Command mnuFile = new Command("mnuFile", "_File");
-		Command mnuFileExit = new Command("mnuFileExit", "E_xit");
+		Command mnuFile = new Command("File", "_File");
+		Command mnuFileExit = new Command("FileExit", "E_xit");
+
+		mnuFile.addItem(new CommandReferenceCommandItem("FileExit"));
 		
-		Command mnuEdit = new Command("mnuEdit", "_Edit");
-		Command mnuView = new Command("mnuView", "_View");
-		Command mnuProject = new Command("mnuProject", "_Project");
-		Command mnuBuild = new Command("mnuBuild", "_Build");
-		Command mnuDebug = new Command("mnuDebug", "_Debug");
-		Command mnuTools = new Command("mnuTools", "_Tools");
-		Command mnuWindow = new Command("mnuWindow", "_Window");
-		Command mnuHelp = new Command("mnuHelp", "_Help");
+		Command mnuEdit = new Command("Edit", "_Edit");
+		Command mnuEditCut = new Command("EditCut", "Cu_t");
+		Command mnuEditCopy = new Command("EditCopy", "_Copy");
+		Command mnuEditPaste = new Command("EditPaste", "_Paste");
 		
-		mnuFile.getCommandCollection().add(new CommandReferenceCommandItem("mnuFileExit"));
+		mnuEdit.addItem(new CommandReferenceCommandItem("EditCut"));
+		mnuEdit.addItem(new CommandReferenceCommandItem("EditCopy"));
+		mnuEdit.addItem(new CommandReferenceCommandItem("EditPaste"));
 		
-		Application.getCommandCollection().add(mnuFile);
-		Application.getCommandCollection().add(mnuFileExit);
+		Command mnuView = new Command("View", "_View");
+		Command mnuProject = new Command("Project", "_Project");
+		Command mnuBuild = new Command("Build", "_Build");
+		Command mnuDebug = new Command("Debug", "_Debug");
+		Command mnuTools = new Command("Tools", "_Tools");
+		Command mnuWindow = new Command("Window", "_Window");
+		Command mnuHelp = new Command("Help", "_Help");
 		
-		Application.getCommandCollection().add(mnuEdit);
-		Application.getCommandCollection().add(mnuView);
-		Application.getCommandCollection().add(mnuProject);
-		Application.getCommandCollection().add(mnuBuild);
-		Application.getCommandCollection().add(mnuDebug);
-		Application.getCommandCollection().add(mnuTools);
-		Application.getCommandCollection().add(mnuWindow);
-		Application.getCommandCollection().add(mnuHelp);
+		Application.addCommand(mnuFile);
+		Application.addCommand(mnuFileExit);
 		
-		Application.addCommandListener(new ICommandListener()
+		Application.addCommand(mnuEdit);
+		Application.addCommand(mnuEditCut);
+		Application.addCommand(mnuEditCopy);
+		Application.addCommand(mnuEditPaste);
+		
+		Application.addCommand(mnuView);
+		Application.addCommand(mnuProject);
+		Application.addCommand(mnuBuild);
+		Application.addCommand(mnuDebug);
+		Application.addCommand(mnuTools);
+		Application.addCommand(mnuWindow);
+		Application.addCommand(mnuHelp);
+		
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("File"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Edit"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("View"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Project"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Build"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Debug"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Tools"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Window"));
+		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Help"));
+		
+		Application.addCommandListener(new CommandListener()
 		{
 			@Override
-			public void onCommandExecuted(CommandEventArgs e)
-			{
+			public void commandExecuted(Command item) {
+
 				// TODO Auto-generated method stub
-				System.out.println("Command '" + e.getCommand().getName() + "' executed!");
+				System.out.println("Command '" + item.getID() + "' executed!");
 				
-				if (e.getCommand().getName() == "mnuFileExit")
+				if (item.getID() == "FileExit")
 				{
-					Application.exit();
+					Application.stop();
 				}
 			}
 		});
 		
 		MarkupObjectModel mom = new MarkupObjectModel();
-		mom.getElementCollection().add(new MarkupTagElement("test", "honduras"));
+		mom.addElement(new MarkupTagElement("test", "honduras"));
 		
 		MainWindow mw = new MainWindow();
 		mw.setVisible(true);

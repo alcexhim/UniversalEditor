@@ -1,6 +1,6 @@
 package net.alcetech.UniversalEditor.Core.IO;
 
-import net.alcetech.Core.NotImplementedException;
+import net.alcetech.ApplicationFramework.Exceptions.*;
 
 public class BitConverter
 {
@@ -44,7 +44,7 @@ public class BitConverter
 			(byte)((value & (0xFF << 56)) >> 56)
 		};
 	}
-	public static byte[] getBytes(float value)
+	public static byte[] getBytes(float value) throws NotImplementedException
 	{
 		throw new NotImplementedException();
 		/*
