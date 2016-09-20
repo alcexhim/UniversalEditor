@@ -19,6 +19,7 @@ public class Program
 		Application.setTitle("Universal Editor");
 		// Application.setConsoleMessageVisibility(ConsoleMessageVisibility.DEBUG);
 		
+		ConfigurationManager.setConfigurationFileNameFilter("*.uexml");
 		ConfigurationManager.initialize();
 		ThemeManager.initialize();
 		
