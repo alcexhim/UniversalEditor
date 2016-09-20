@@ -1,18 +1,10 @@
 package net.alcetech.UniversalEditor.Windows;
 
 import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.event.*;
-
-import javax.swing.*;
 
 import net.alcetech.ApplicationFramework.*;
-import net.alcetech.ApplicationFramework.CommandItems.*;
 import net.alcetech.ApplicationFramework.UserInterface.*;
 import net.alcetech.ApplicationFramework.UserInterface.Dialogs.*;
-import net.alcetech.ApplicationFramework.UserInterface.Theming.ThemeManager;
 
 public class MainWindow extends net.alcetech.ApplicationFramework.UserInterface.MainWindow
 {
