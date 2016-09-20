@@ -2,6 +2,7 @@ package net.alcetech.UniversalEditor;
 
 import net.alcetech.ApplicationFramework.*;
 import net.alcetech.ApplicationFramework.CommandItems.*;
+import net.alcetech.ApplicationFramework.Configuration.ConfigurationManager;
 import net.alcetech.ApplicationFramework.Theming.*;
 
 import net.alcetech.UniversalEditor.Windows.*;
@@ -14,6 +15,11 @@ public class Program
 {
 	public static void main(String[] args)
 	{
+		Application.setShortName("universal-editor");
+		Application.setTitle("Universal Editor");
+		// Application.setConsoleMessageVisibility(ConsoleMessageVisibility.DEBUG);
+		
+		ConfigurationManager.initialize();
 		ThemeManager.initialize();
 		
 		FileAccessor fa = new FileAccessor("/var/tmp/test.xml");
