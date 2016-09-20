@@ -1,6 +1,6 @@
 package net.alcetech.UniversalEditor.ObjectModels.Markup;
 
-import net.alcetech.Core.Collections.ObjectModel.*;
+import java.util.ArrayList;
 
 import net.alcetech.UniversalEditor.Core.*;
 import net.alcetech.UniversalEditor.ObjectModels.Markup.Elements.*;
@@ -17,32 +17,33 @@ public class MarkupObjectModel extends ObjectModel
 		return _omr;
 	}
 	
-	private MarkupElementCollection mvarElementCollection = new MarkupElementCollection();
-	public MarkupElementCollection getElementCollection()
+	private ArrayList<MarkupElement> _elements = new ArrayList<MarkupElement>();
+	
+	public void addElement(MarkupElement element)
 	{
-		return mvarElementCollection;
+		_elements.add(element);
 	}
 	
-	public ReadOnlyCollection<MarkupTagElement> getElements()
+	public MarkupElement[] getElements()
 	{
-		Collection<MarkupTagElement> list = new Collection<MarkupTagElement>();
-		int count = mvarElementCollection.count();
-		for (int i = 0; i < count; i++)
-		{
-			MarkupElement el = mvarElementCollection.getByIndex(i);
-			if (MarkupTagElement.class.isInstance(el)) list.add((MarkupTagElement)el);
-		}
-		return list.toReadOnlyCollection();
+		MarkupElement[] elements = new MarkupElement[_elements.size()];
+		_elements.toArray(elements);
+		return elements;
 	}
-	
-	public ReadOnlyCollection<MarkupTagElement> getElementsByTagName(String tagName)
+
+	public MarkupTagElement[] getTagsByTagName(String tagName)
 	{
-		Collection<MarkupTagElement> list = new Collection<MarkupTagElement>();
-		ReadOnlyCollection<MarkupTagElement> elems = getElements();
-		for (int i = 0; i < elems.count(); i++)
+		ArrayList<MarkupTagElement> list = new ArrayList<MarkupTagElement>();
+		for (int i = 0; i < _elements.size(); i++)
 		{
-			if (elems.getByIndex(i).getFullName().equals(tagName)) list.add(elems.getByIndex(i));
+			MarkupTagElement tag = ((MarkupTagElement)_elements.get(i));
+			if (tag == null) continue;
+			
+			if (tag.getFullName().equals(tagName)) list.add(tag);
 		}
-		return list.toReadOnlyCollection();
+		
+		MarkupTagElement[] array = new MarkupTagElement[list.size()];
+		list.toArray(array);
+		return array;
 	}
 }
