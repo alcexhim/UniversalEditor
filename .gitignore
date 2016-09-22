@@ -175,5 +175,6 @@ CSharp/Setup/setup.exe
 .classpath
 .metadata
 .project
+.recommenders
 .settings
 RemoteSystemsTempFiles
