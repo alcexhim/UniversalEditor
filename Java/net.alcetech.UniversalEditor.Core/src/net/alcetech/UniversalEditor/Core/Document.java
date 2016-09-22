@@ -1,5 +1,7 @@
 package net.alcetech.UniversalEditor.Core;
 
+import java.io.IOException;
+
 public class Document
 {
 	private Accessor mvarInputAccessor = null;
@@ -32,16 +34,16 @@ public class Document
 	public ObjectModel getObjectModel() { return mvarObjectModel; }
 	public void setObjectModel(ObjectModel value) { mvarObjectModel = value; }
 	
-	public void load() {
+	public void load() throws IOException {
 		this.getInputDataFormat().setAccessor(this.getInputAccessor());
 		this.getInputDataFormat().load(this.getObjectModel());
 	}
-	public void save() {
+	public void save() throws IOException {
 		this.getOutputDataFormat().setAccessor(this.getOutputAccessor());
 		this.getOutputDataFormat().save(this.getObjectModel());
 	}
 	
-	public static Document load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) {
+	public static Document load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) throws IOException {
 		Document document = new Document();
 		document.setObjectModel(objectModel);
 		document.setDataFormat(dataFormat);
@@ -51,7 +53,7 @@ public class Document
 		return document;
 	}
 	
-	public static Document save(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) {
+	public static Document save(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor) throws IOException {
 		Document document = new Document();
 		document.setObjectModel(objectModel);
 		document.setDataFormat(dataFormat);

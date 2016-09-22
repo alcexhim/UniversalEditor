@@ -9,8 +9,12 @@ public class FileAccessor extends Accessor
 {
 	private RandomAccessFile _file = null;
 	
+	public static FileAccessor fromFile(String fileName) throws FileNotFoundException {
+		return fromFile(new File(fileName));
+	}
 	public static FileAccessor fromFile(File file) throws FileNotFoundException {
 		FileAccessor fa = new FileAccessor();
+		fa.setFileName(file.getAbsolutePath());
 		fa._file = new RandomAccessFile(file, "rw");
 		return fa;
 	}
@@ -18,14 +22,21 @@ public class FileAccessor extends Accessor
 	private FileAccessor()
 	{
 	}
-	public FileAccessor(String fileName)
-	{
-		mvarFileName = fileName;
-	}
 	
-	private String mvarFileName = "";
-	public void setFileName(String value) { mvarFileName = value; }
-	public String getFileName() { return mvarFileName; }
+	@Override
+	protected long getLengthInternal() throws IOException {
+		if (_file != null) {
+			return _file.getChannel().size();
+		}
+		return 0;
+	}
+	@Override
+	protected long getPositionInternal() throws IOException {
+		if (_file != null) {
+			return _file.getChannel().position();
+		}
+		return 0;
+	}
 	
 	protected void openInternal() throws IOException
 	{
@@ -52,6 +63,24 @@ public class FileAccessor extends Accessor
 	
 	protected void seekInternal(long position, SeekOrigin origin) throws IOException
 	{
-		_file.seek(position);
+		long value = position;
+		switch (origin) {
+			case BEGIN:
+			{
+				value = position;
+				break;
+			}
+			case CURRENT:
+			{
+				value = _file.getChannel().position() + position;
+				break;
+			}
+			case END:
+			{
+				value = _file.getChannel().size() + position;
+				break;
+			}
+		}
+		_file.seek(value);
 	}
 }

@@ -1,63 +1,42 @@
-package net.alcetech.UniversalEditor.ObjectModels.Markup.Elements;
+package net.alcetech.UniversalEditor.ObjectModels.Markup;
+
+import java.util.ArrayList;
 
 import net.alcetech.UniversalEditor.ObjectModels.Markup.*;
 
 public class MarkupTagElement extends MarkupElement
 {
-	private String mvarName = "";
-	public void setName(String value) { mvarName = value; }
-	public String getName() { return mvarName; }
-	
-	private String mvarNamespace = "";
-	public void setNamespace(String value) { mvarNamespace = value; }
-	public String getNamespace() { return mvarNamespace; }
-	
 	public MarkupTagElement(String fullName)
 	{
-		this.setFullName(fullName);
+		super(fullName);
 	}
 	public MarkupTagElement(String fullName, String value)
 	{
-		this.setFullName(fullName);
-		this.setValue(value);
+		super(fullName, value);
 	}
 	
-	public String getFullName()
-	{
-		StringBuilder sb = new StringBuilder();
-		if (mvarNamespace != "")
-		{
-			sb.append(mvarNamespace);
-			sb.append(':');
-		}
-		sb.append(mvarName);
-		return sb.toString();
+	private ArrayList<MarkupAttribute> _attributes = new ArrayList<MarkupAttribute>();
+	public void addAttribute(MarkupAttribute item) {
+		_attributes.add(item);
 	}
-	public void setFullName(String value)
-	{
-		String[] parts = value.split(":");
-		if (parts.length > 1)
-		{
-			mvarNamespace = parts[0];
-			mvarName = parts[1];
-		}
-		else if (parts.length > 0)
-		{
-			mvarNamespace = "";
-			mvarName = parts[0];
-		}
+	public MarkupAttribute addAttribute(String name) {
+		return addAttribute(name, "");
 	}
-	
-	private String mvarValue = "";
-	public void setValue(String value) { mvarValue = value; mvarHasValue = true; }
-	public String getValue() { return mvarValue; }
-	
-	private boolean mvarHasValue = false;
-	public boolean hasValue() { return mvarHasValue; }
-	
-	public void clearValue()
-	{
-		mvarHasValue = false;
-		mvarValue = "";
+	public MarkupAttribute addAttribute(String name, String value) {
+		MarkupAttribute att = new MarkupAttribute(name, value);
+		addAttribute(att);
+		return att;
 	}
+
+	private ArrayList<MarkupElement> _elements = new ArrayList<MarkupElement>();
+	public void addElement(MarkupElement item) {
+		item.setParentElement(this);
+		_elements.add(item);
+	}
+	public MarkupElement[] getElements() {
+		MarkupElement[] elements = new MarkupElement[_elements.size()];
+		_elements.toArray(elements);
+		return elements;
+	}
+
 }

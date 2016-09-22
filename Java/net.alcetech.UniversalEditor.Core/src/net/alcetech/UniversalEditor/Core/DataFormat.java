@@ -1,5 +1,6 @@
 package net.alcetech.UniversalEditor.Core;
 
+import java.io.IOException;
 import java.util.Stack;
 
 public abstract class DataFormat
@@ -16,15 +17,15 @@ public abstract class DataFormat
 		_accessor = value;
 	}
 	
-	protected void beforeLoadInternal(Stack<ObjectModel> objectModels) {
+	protected void beforeLoadInternal(Stack<ObjectModel> objectModels) throws IOException {
 		// virtual
 	}
-	protected void afterLoadInternal(Stack<ObjectModel> objectModels ) {
+	protected void afterLoadInternal(Stack<ObjectModel> objectModels ) throws IOException {
 		// virtual
 	}
-	protected abstract void loadInternal(ObjectModel objectModel);
+	protected abstract void loadInternal(ObjectModel objectModel) throws IOException;
 	
-	public void load(ObjectModel objectModel) {
+	public void load(ObjectModel objectModel) throws IOException {
 		if (objectModel == null)
 			throw new NullPointerException();
 		
@@ -39,15 +40,15 @@ public abstract class DataFormat
 		afterLoadInternal(stack);
 	}
 
-	protected void beforeSaveInternal(Stack<ObjectModel> objectModels) {
+	protected void beforeSaveInternal(Stack<ObjectModel> objectModels) throws IOException {
 		// virtual
 	}
-	protected void afterSaveInternal(Stack<ObjectModel> objectModels ) {
+	protected void afterSaveInternal(Stack<ObjectModel> objectModels) throws IOException {
 		// virtual
 	}
-	protected abstract void saveInternal(ObjectModel objectModel);
+	protected abstract void saveInternal(ObjectModel objectModel) throws IOException;
 	
-	public void save(ObjectModel objectModel) {
+	public void save(ObjectModel objectModel) throws IOException {
 		if (objectModel == null)
 			throw new NullPointerException();
 		

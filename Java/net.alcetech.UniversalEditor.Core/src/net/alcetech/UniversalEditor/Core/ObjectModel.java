@@ -6,4 +6,11 @@ public abstract class ObjectModel
 	{
 		return new ObjectModelReference(this.getClass().getName());
 	}
+	
+	public abstract void copyTo(ObjectModel destination);
+	public void copyFrom(ObjectModel source) {
+		source.copyTo(this);
+	}
+	
+	public abstract void clear();
 }

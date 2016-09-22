@@ -3,7 +3,6 @@ package net.alcetech.UniversalEditor.ObjectModels.Markup;
 import java.util.ArrayList;
 
 import net.alcetech.UniversalEditor.Core.*;
-import net.alcetech.UniversalEditor.ObjectModels.Markup.Elements.*;
 
 public class MarkupObjectModel extends ObjectModel
 {
@@ -45,5 +44,15 @@ public class MarkupObjectModel extends ObjectModel
 		MarkupTagElement[] array = new MarkupTagElement[list.size()];
 		list.toArray(array);
 		return array;
+	}
+
+	@Override
+	public void copyTo(ObjectModel destination) {
+		
+	}
+	
+	@Override
+	public void clear() {
+		this._elements.clear();
 	}
 }

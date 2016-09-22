@@ -1,5 +1,7 @@
 package net.alcetech.UniversalEditor;
 
+import java.io.FileNotFoundException;
+
 import net.alcetech.ApplicationFramework.*;
 import net.alcetech.ApplicationFramework.CommandItems.*;
 import net.alcetech.ApplicationFramework.Configuration.ConfigurationManager;
@@ -9,7 +11,6 @@ import net.alcetech.UniversalEditor.Windows.*;
 import net.alcetech.UniversalEditor.Core.Accessors.*;
 import net.alcetech.UniversalEditor.Core.IO.*;
 import net.alcetech.UniversalEditor.ObjectModels.Markup.*;
-import net.alcetech.UniversalEditor.ObjectModels.Markup.Elements.*;
 
 public class Program
 {
@@ -23,7 +24,12 @@ public class Program
 		ConfigurationManager.initialize();
 		ThemeManager.initialize();
 		
-		FileAccessor fa = new FileAccessor("/var/tmp/test.xml");
+		try {
+			FileAccessor fa = FileAccessor.fromFile("/var/tmp/test.xml");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		/*
 		Writer writer = new Writer(fa);
