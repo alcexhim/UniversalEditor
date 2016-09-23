@@ -7,6 +7,7 @@ import net.alcetech.ApplicationFramework.Exceptions.*;
 import net.alcetech.UniversalEditor.Core.*;
 import net.alcetech.UniversalEditor.Core.IO.Reader;
 import net.alcetech.UniversalEditor.Core.IO.SeekOrigin;
+import net.alcetech.UniversalEditor.Exceptions.ObjectModelNotSupportedException;
 import net.alcetech.UniversalEditor.ObjectModels.Markup.*;
 
 public class XMLDataFormat extends DataFormat
@@ -598,7 +599,12 @@ public class XMLDataFormat extends DataFormat
 
 		if (objectModel.getClass().isAssignableFrom(MarkupObjectModel.class))
 		{
-			mom.copyTo(objectModel);
+			try {
+				mom.copyTo(objectModel);
+			} catch (ObjectModelNotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	@Override

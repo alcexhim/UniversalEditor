@@ -27,6 +27,20 @@ public class MarkupTagElement extends MarkupElement
 		addAttribute(att);
 		return att;
 	}
+	public MarkupAttribute[] getAttributes() {
+		MarkupAttribute[] array = new MarkupAttribute[_attributes.size()];
+		_attributes.toArray(array);
+		return array;
+	}
+	public MarkupAttribute getAttribute(String name) {
+		MarkupAttribute[] atts = this.getAttributes();
+		for (int i = 0; i < atts.length; i++) {
+			if (atts[i].getName().equals(name)) {
+				return atts[i];
+			}
+		}
+		return null;
+	}
 
 	private ArrayList<MarkupElement> _elements = new ArrayList<MarkupElement>();
 	public void addElement(MarkupElement item) {
@@ -37,6 +51,29 @@ public class MarkupTagElement extends MarkupElement
 		MarkupElement[] elements = new MarkupElement[_elements.size()];
 		_elements.toArray(elements);
 		return elements;
+	}
+	
+	public MarkupTagElement getTagByTagName(String name) {
+		MarkupElement[] elements = getElements();
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i].getName().equals(name)) {
+				return (MarkupTagElement)elements[i];
+			}
+		}
+		return null;
+	}
+	public MarkupTagElement[] getTags() {
+		ArrayList<MarkupTagElement> list = new ArrayList<MarkupTagElement>();
+		MarkupElement[] elements = getElements();
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i].getClass().isAssignableFrom(MarkupTagElement.class)) {
+				list.add((MarkupTagElement)elements[i]);
+			}
+		}
+		
+		MarkupTagElement[] array = new MarkupTagElement[list.size()];
+		list.toArray(array);
+		return array;
 	}
 
 }

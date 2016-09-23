@@ -48,54 +48,6 @@ public class Program
 		}
 		*/
 		
-		Command mnuFile = new Command("File", "_File");
-		Command mnuFileExit = new Command("FileExit", "E_xit");
-
-		mnuFile.addItem(new CommandReferenceCommandItem("FileExit"));
-		
-		Command mnuEdit = new Command("Edit", "_Edit");
-		Command mnuEditCut = new Command("EditCut", "Cu_t");
-		Command mnuEditCopy = new Command("EditCopy", "_Copy");
-		Command mnuEditPaste = new Command("EditPaste", "_Paste");
-		
-		mnuEdit.addItem(new CommandReferenceCommandItem("EditCut"));
-		mnuEdit.addItem(new CommandReferenceCommandItem("EditCopy"));
-		mnuEdit.addItem(new CommandReferenceCommandItem("EditPaste"));
-		
-		Command mnuView = new Command("View", "_View");
-		Command mnuProject = new Command("Project", "_Project");
-		Command mnuBuild = new Command("Build", "_Build");
-		Command mnuDebug = new Command("Debug", "_Debug");
-		Command mnuTools = new Command("Tools", "_Tools");
-		Command mnuWindow = new Command("Window", "_Window");
-		Command mnuHelp = new Command("Help", "_Help");
-		
-		Application.addCommand(mnuFile);
-		Application.addCommand(mnuFileExit);
-		
-		Application.addCommand(mnuEdit);
-		Application.addCommand(mnuEditCut);
-		Application.addCommand(mnuEditCopy);
-		Application.addCommand(mnuEditPaste);
-		
-		Application.addCommand(mnuView);
-		Application.addCommand(mnuProject);
-		Application.addCommand(mnuBuild);
-		Application.addCommand(mnuDebug);
-		Application.addCommand(mnuTools);
-		Application.addCommand(mnuWindow);
-		Application.addCommand(mnuHelp);
-		
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("File"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Edit"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("View"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Project"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Build"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Debug"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Tools"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Window"));
-		Application.addMainMenuCommandItem(new CommandReferenceCommandItem("Help"));
-		
 		Application.addCommandListener(new CommandListener()
 		{
 			@Override

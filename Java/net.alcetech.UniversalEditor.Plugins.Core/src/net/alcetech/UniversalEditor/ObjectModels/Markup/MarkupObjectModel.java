@@ -3,6 +3,7 @@ package net.alcetech.UniversalEditor.ObjectModels.Markup;
 import java.util.ArrayList;
 
 import net.alcetech.UniversalEditor.Core.*;
+import net.alcetech.UniversalEditor.Exceptions.ObjectModelNotSupportedException;
 
 public class MarkupObjectModel extends ObjectModel
 {
@@ -47,8 +48,16 @@ public class MarkupObjectModel extends ObjectModel
 	}
 
 	@Override
-	public void copyTo(ObjectModel destination) {
+	public void copyTo(ObjectModel destination) throws ObjectModelNotSupportedException {
+		MarkupObjectModel clone = ((MarkupObjectModel)destination);
+		if (clone == null) {
+			throw new ObjectModelNotSupportedException();
+		}
 		
+		MarkupElement[] elements = this.getElements();
+		for (int i = 0; i < elements.length; i++) {
+			clone.addElement(elements[i]);
+		}
 	}
 	
 	@Override
