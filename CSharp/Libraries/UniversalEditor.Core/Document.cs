@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -47,6 +48,7 @@ namespace UniversalEditor
 		/// Reads data into the current <see cref="ObjectModel" /> from the <see cref="Accessor" /> using the
 		/// current <see cref="InputDataFormat" />.
 		/// </summary>
+		[DebuggerNonUserCode()]
 		public void Load()
 		{
 			mvarInputDataFormat.Accessor = mvarInputAccessor;
@@ -87,6 +89,7 @@ namespace UniversalEditor
 			mvarOutputAccessor = outputAccessor;
 		}
 
+		[DebuggerNonUserCode()]
 		public static Document Load(ObjectModel objectModel, DataFormat dataFormat, Accessor accessor, bool autoClose = true, bool append = false)
 		{
 			if (!append) objectModel.Clear();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using UniversalEditor.DataFormats.Markup.XML;
@@ -68,6 +69,8 @@ namespace UniversalEditor.DataFormats.UEPackage
 			base.BeforeLoadInternal(objectModels);
 			objectModels.Push(new MarkupObjectModel());
 		}
+
+		[DebuggerNonUserCode()]
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);

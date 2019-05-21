@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 using UniversalEditor.IO;
@@ -57,6 +58,7 @@ namespace UniversalEditor
 			return dfr.Capabilities.Contains(omr.Type) || dfr.Capabilities.Contains(omr.ID);
 		}
 
+		[DebuggerNonUserCode()]
 		public void Load(ref ObjectModel objectModel)
 		{
 			if (objectModel == null) throw new ArgumentNullException("objectModel", "objectModel cannot be null");
