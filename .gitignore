@@ -178,3 +178,6 @@ CSharp/Setup/setup.exe
 .recommenders
 .settings
 RemoteSystemsTempFiles
+
+# New MonoDevelop crap
+.vs
