@@ -5,6 +5,7 @@ using UniversalEditor.UserInterface;
 
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
+using UniversalWidgetToolkit.Controls.Docking;
 using UniversalWidgetToolkit.Dialogs;
 using UniversalWidgetToolkit.Input.Keyboard;
 
@@ -12,7 +13,7 @@ namespace UniversalEditor.Engines.UWT
 {
 	public class MainWindow : Window, IHostApplicationWindow
 	{
-		private TabContainer tbsDocumentTabs = null;
+		private DockingContainer tbsDocumentTabs = null;
 
 		public MainWindow ()
 		{
@@ -30,13 +31,33 @@ namespace UniversalEditor.Engines.UWT
 				this.MenuBar.Items.Add (mi);
 			}
 
-			tbsDocumentTabs = new TabContainer ();
-			tbsDocumentTabs.TabPages.Add (new TabPage ("Test Tab"));
-			this.Controls.Add (tbsDocumentTabs, new UniversalWidgetToolkit.Layouts.BoxLayout.Constraints (true, true, 0, UniversalWidgetToolkit.Layouts.BoxLayout.PackType.End));
+			tbsDocumentTabs = new DockingContainer ();
+
+			Container ctStartPage = new Container();
+
+			Label lblStartPage = new Label();
+			lblStartPage.Text = "this is a start page";
+			ctStartPage.Controls.Add(lblStartPage);
+
+			InitDocTab("Start Page", ctStartPage);
+
+			TextBox txt = new TextBox();
+			txt.Multiline = true;
+
+			InitDocTab("file1.txt", txt);
+			InitDocTab("Archive3.zip", null);
+
+			this.Controls.Add(tbsDocumentTabs, new UniversalWidgetToolkit.Layouts.BoxLayout.Constraints(true, true, 0, UniversalWidgetToolkit.Layouts.BoxLayout.PackType.End));
 
 			this.Bounds = new UniversalWidgetToolkit.Drawing.Rectangle (0, 0, 600, 400);
 
 			this.Text = "Universal Editor";
+		}
+
+		private void InitDocTab(string title, Control content)
+		{
+			DockingItem item = new DockingItem(title, content);
+			tbsDocumentTabs.Items.Add(item);
 		}
 
 		private void MainWindow_MenuBar_Item_Click(object sender, EventArgs e)
@@ -279,7 +300,7 @@ namespace UniversalEditor.Engines.UWT
 			foreach (Document doc in documents) {
 				TabPage tab = new TabPage ();
 				tab.Text = doc.Title;
-				tbsDocumentTabs.TabPages.Add (tab);
+				// tbsDocumentTabs.TabPages.Add (tab);
 			}
 		}
 
@@ -301,7 +322,16 @@ namespace UniversalEditor.Engines.UWT
 
 		public void SaveFile ()
 		{
-			throw new NotImplementedException ();
+			IEditorImplementation currentEditor = GetCurrentEditor();
+			if (currentEditor != null)
+			{
+				FileDialog fd = new FileDialog();
+				fd.Mode = FileDialogMode.Save;
+				if (fd.ShowDialog() == DialogResult.OK)
+				{
+
+				}
+			}
 		}
 
 		public void SaveFileAs ()
@@ -356,7 +386,7 @@ namespace UniversalEditor.Engines.UWT
 
 		public IEditorImplementation GetCurrentEditor ()
 		{
-			throw new NotImplementedException ();
+			return null;
 		}
 
 		public bool ShowOptionsDialog ()
