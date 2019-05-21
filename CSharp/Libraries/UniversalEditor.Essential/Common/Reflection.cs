@@ -217,7 +217,14 @@ namespace UniversalEditor.Common
 						xdf.IncludeTemplates = false;
 						ObjectModel om = mom;
 
-						Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
+						try
+						{
+							Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
+						}
+						catch (InvalidDataFormatException ex)
+						{
+							// ignore it
+						}
 
 						foreach (ProjectType projtype in mom.ProjectTypes)
 						{

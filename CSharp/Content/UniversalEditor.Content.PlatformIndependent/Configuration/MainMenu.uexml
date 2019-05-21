@@ -1,16 +1,14 @@
-<UniversalEditor>
-	<Application>
-		<MainMenu>
-			<Items>
-				<CommandReference CommandID="File" />
-				<CommandReference CommandID="Edit" />
-				<CommandReference CommandID="View" />
-				<CommandReference CommandID="Project" />
-				<CommandReference CommandID="Bookmarks" />
-				<CommandReference CommandID="Tools" />
-				<CommandReference CommandID="Window" />
-				<CommandReference CommandID="Help" />
-			</Items>
-		</MainMenu>
-	</Application>
-</UniversalEditor>
+<ApplicationFramework>
+	<MainMenu>
+		<Items>
+			<CommandReference CommandID="File" />
+			<CommandReference CommandID="Edit" />
+			<CommandReference CommandID="View" />
+			<CommandReference CommandID="Project" />
+			<CommandReference CommandID="Bookmarks" />
+			<CommandReference CommandID="Tools" />
+			<CommandReference CommandID="Window" />
+			<CommandReference CommandID="Help" />
+		</Items>
+	</MainMenu>
+</ApplicationFramework>

@@ -1,354 +1,352 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<UniversalEditor>
-	<Application>
-		<Commands>
-			<!-- File -->
-			<Command ID="File">
-				<Items>
-					<CommandReference CommandID="FileNew" />
-					<CommandReference CommandID="FileOpen" />
-					<CommandReference CommandID="FileSave" />
-					<CommandReference CommandID="FileClose" />
-					<Separator />
-					<CommandReference CommandID="FilePrint" />
-					<Separator />
-					<CommandReference CommandID="FileRecentFiles" />
-					<CommandReference CommandID="FileRecentProjects" />
-					<Separator />
-					<CommandReference CommandID="FileRestart" />
-					<CommandReference CommandID="FileExit" />
-				</Items>
-			</Command>
-			<Command ID="FileNew" DefaultCommandID="FileNewDocument">
-				<Items>
-					<!--
-					<CommandReference CommandID="FileNewDocumentFileSystem" />
-					<Separator />
-					-->
-					<CommandReference CommandID="FileNewDocument" />
-					<CommandReference CommandID="FileNewProject" />
-				</Items>
-			</Command>
-			<Command ID="FileNewDocument">
-				<Shortcut Modifiers="Control" Key="N" />
-				<Parameters>
-					<!-- This command takes one parameter which is not set by default -->
-					<Parameter Name="ObjectModelTypeName" />
-				</Parameters>
-			</Command>
-			<Command ID="FileNewDocumentFileSystem" ParentCommandID="FileNewDocument">
-				<!-- Execute FileNewDocument with the specified parameters -->
-				<ParameterValues>
-					<ParameterValue Name="ObjectModelTypeName" Value="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
-				</ParameterValues>
-			</Command>
-			<Command ID="FileNewProject">
-				<Shortcut Modifiers="Control,Shift" Key="N" />
-			</Command>
-			<Command ID="FileOpen" DefaultCommandID="FileOpenDocument">
-				<Items>
-					<CommandReference CommandID="FileOpenDocument" />
-					<CommandReference CommandID="FileOpenProject" />
-				</Items>
-			</Command>
-			<Command ID="FileOpenDocument">
-				<Shortcut Modifiers="Control" Key="O" />
-			</Command>
-			<Command ID="FileOpenProject">
-				<Shortcut Modifiers="Control,Shift" Key="O" />
-			</Command>
-			<Command ID="FileSave" DefaultCommandID="FileSaveDocument">
-				<Items>
-					<CommandReference CommandID="FileSaveDocument" />
-					<CommandReference CommandID="FileSaveDocumentAs" />
-					<Separator />
-					<CommandReference CommandID="FileSaveProject" />
-					<CommandReference CommandID="FileSaveProjectAs" />
-					<Separator />
-					<CommandReference CommandID="FileSaveAll" />
-				</Items>
-			</Command>
-			<Command ID="FileSaveDocument">
-				<Shortcut Modifiers="Control" Key="S" />
-			</Command>
-			<Command ID="FileSaveDocumentAs" />
-			<Command ID="FileSaveProject" />
-			<Command ID="FileSaveProjectAs" />
-			<Command ID="FileSaveAll">
-				<Shortcut Modifiers="Control,Shift" Key="S" />
-			</Command>
-			<Command ID="FileClose">
-				<Items>
-					<CommandReference CommandID="FileCloseDocument" />
-					<CommandReference CommandID="FileCloseProject" />
-					<Separator />
-					<CommandReference CommandID="FileCloseWindow" />
-				</Items>
-			</Command>
-			<Command ID="FileCloseDocument">
-				<Shortcut Modifiers="Control" Key="W" />
-			</Command>
-			<Command ID="FileCloseProject">
-				<Shortcut Modifiers="Control,Shift" Key="W" />
-			</Command>
-			<Command ID="FileCloseWindow">
-				<Shortcut Modifiers="Alt" Key="F4" />
-			</Command>
-			<Command ID="FilePrint">
-				<Shortcut Modifiers="Control" Key="P" />
-			</Command>
-			<Command ID="FileRecentFiles">
-				<Items>
-					<CommandPlaceholder PlaceholderID="RecentFiles" />
-				</Items>
-			</Command>
-			<Command ID="FileRecentProjects">
-				<Items>
-					<CommandPlaceholder PlaceholderID="RecentProjects" />
-				</Items>
-			</Command>
-			<Command ID="FileRestart" />
-			<Command ID="FileExit">
-				<Shortcut Modifiers="Control" Key="Q" />
-			</Command>
-			
-			<!-- Edit -->
-			<Command ID="Edit">
-				<Items>
-					<CommandReference CommandID="EditUndo" />
-					<CommandReference CommandID="EditRedo" />
-					<Separator />
-					<CommandReference CommandID="EditCut" />
-					<CommandReference CommandID="EditCopy" />
-					<CommandReference CommandID="EditPaste" />
-					<CommandReference CommandID="EditDelete" />
-					<Separator />
-					<CommandReference CommandID="EditSelectAll" />
-					<CommandReference CommandID="EditInvertSelection" />
-					<Separator />
-					<CommandReference CommandID="EditFindReplace" />
-					<CommandReference CommandID="EditGoTo" />
-				</Items>
-			</Command>
-			<Command ID="EditUndo">
-				<Shortcut Modifiers="Control" Key="Z" />
-			</Command>
-			<Command ID="EditRedo">
-				<Shortcut Modifiers="Control" Key="Y" />
-			</Command>
-			<Command ID="EditCut">
-				<Shortcut Modifiers="Control" Key="X" />
-			</Command>
-			<Command ID="EditCopy">
-				<Shortcut Modifiers="Control" Key="C" />
-			</Command>
-			<Command ID="EditPaste">
-				<Shortcut Modifiers="Control" Key="V" />
-			</Command>
-			<Command ID="EditDelete">
-				<Shortcut Key="Delete" />
-			</Command>
-			<Command ID="EditSelectAll">
-				<Shortcut Modifiers="Control" Key="A" />
-			</Command>
-			<Command ID="EditInvertSelection">
-				<Shortcut Modifiers="Control,Shift" Key="A" />
-			</Command>
-			<Command ID="EditFindReplace">
-				<Shortcut Modifiers="Control" Key="F" />
-			</Command>
-			<Command ID="EditGoTo">
-				<Shortcut Modifiers="Control" Key="G" />
-			</Command>
-			
-			<!-- View -->
-			<Command ID="View">
-				<Items>
-					<CommandReference CommandID="ViewToolbars" />
-					<CommandReference CommandID="ViewStatusBar" />
-					<Separator />
-					<CommandReference CommandID="ViewPanels" />
-					<Separator />
-					<CommandReference CommandID="ViewPerspective" />
-					<Separator />
-					<CommandReference CommandID="ViewStartPage" />
-					<CommandReference CommandID="ViewFullScreen" />
-					<Separator />
-					<CommandReference CommandID="ViewRefresh" />
-				</Items>
-			</Command>
-			<Command ID="ViewToolbars">
-				<Items>
-					<CommandReference CommandID="ViewToolbarsCustomize" />
-				</Items>
-			</Command>
-			<Command ID="ViewToolbarsCustomize" />
-			<Command ID="ViewStatusBar" />
-			<Command ID="ViewPanels" />
-			<Command ID="ViewPerspective">
-				<Items>
-					<CommandReference CommandID="ViewPerspective1" />
-					<CommandReference CommandID="ViewPerspective2" />
-					<CommandReference CommandID="ViewPerspective3" />
-					<CommandReference CommandID="ViewPerspective4" />
-					<CommandReference CommandID="ViewPerspective5" />
-					<CommandReference CommandID="ViewPerspective6" />
-					<CommandReference CommandID="ViewPerspective7" />
-					<CommandReference CommandID="ViewPerspective8" />
-					<CommandReference CommandID="ViewPerspective9" />
-					<Separator />
-					<CommandReference CommandID="ViewPerspectiveCustomize" />
-				</Items>
-			</Command>
-			<Command ID="ViewPerspective1">
-				<Shortcut Key="TopRow1" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective2">
-				<Shortcut Key="TopRow2" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective3">
-				<Shortcut Key="TopRow3" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective4">
-				<Shortcut Key="TopRow4" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective5">
-				<Shortcut Key="TopRow5" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective6">
-				<Shortcut Key="TopRow6" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective7">
-				<Shortcut Key="TopRow7" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective8">
-				<Shortcut Key="TopRow8" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspective9">
-				<Shortcut Key="TopRow9" Modifiers="Control,Alt" />
-			</Command>
-			<Command ID="ViewPerspectiveCustomize" />
-			
-			<Command ID="ViewStartPage" />
-			<Command ID="ViewFullScreen">
-				<Shortcut Key="F11" />
-			</Command>
-			
-			<!-- Project -->
-			<Command ID="Project">
-				<Items>
-					<CommandReference CommandID="ProjectAddNew" />
-					<CommandReference CommandID="ProjectAddExisting" />
-					<Separator />
-					<CommandReference CommandID="ProjectExclude" />
-					<CommandReference CommandID="ProjectShowAllFiles" />
-					<Separator />
-					<CommandReference CommandID="ProjectProperties" />
-				</Items>
-			</Command>
-			<Command ID="ProjectAddNew">
-				<Shortcut Modifiers="Control" Key="A" />
-			</Command>
-			<Command ID="ProjectAddExisting">
-				<Shortcut Modifiers="Control,Shift" Key="A" />
-			</Command>
-			<Command ID="ProjectExclude" />
-			<Command ID="ProjectShowAllFiles" />
-			<Command ID="ProjectProperties" />
-			
-			<Command ID="Bookmarks">
-				<Items>
-					<CommandReference CommandID="BookmarksAdd" />
-					<CommandReference CommandID="BookmarksAddAll" />
-					<Separator />
-					<CommandReference CommandID="BookmarksManage" />
-				</Items>
-			</Command>
-			<Command ID="BookmarksAdd">
-				<Shortcut Modifiers="Control" Key="D" />
-			</Command>
-			<Command ID="BookmarksAddAll">
-				<Shortcut Modifiers="Control,Shift" Key="D" />
-			</Command>
-			<Command ID="BookmarksManage" />
-			
-			<Command ID="Tools">
-				<Items>
-					<CommandReference CommandID="ToolsSessionManager" />
-					<Separator />
-					<CommandReference CommandID="ToolsExternalTools" />
-					<Separator />
-					<CommandReference CommandID="ToolsCustomize" />
-					<CommandReference CommandID="ToolsOptions" />
-				</Items>
-			</Command>
-			<Command ID="ToolsSessionManager" />
-			<Command ID="ToolsExternalTools">
-				<Items>
-					<CommandPlaceholder PlaceholderID="ExternalTools" />
-					<Separator />
-					<CommandReference CommandID="ToolsExternalToolsCustomize" />
-				</Items>
-			</Command>
-			<Command ID="ToolsExternalToolsCustomize" />
-			
-			<Command ID="ToolsCustomize" />
-			<Command ID="ToolsOptions" />
-			
-			<Command ID="Window">
-				<Items>
-					<CommandReference CommandID="WindowNewWindow" />
-					<CommandReference CommandID="WindowSplit" />
-					<Separator />
-					<CommandReference CommandID="WindowFloat" />
-					<CommandReference CommandID="WindowFloatAll" />
-					<CommandReference CommandID="WindowDock" />
-					<CommandReference CommandID="WindowAutoHide" />
-					<CommandReference CommandID="WindowAutoHideAll" />
-					<CommandReference CommandID="WindowHide" />
-					<Separator />
-					<CommandReference CommandID="WindowPinTab" />
-					<Separator />
-					<CommandReference CommandID="WindowNewTabGroupHorizontal" />
-					<CommandReference CommandID="WindowNewTabGroupVertical" />
-					<CommandReference CommandID="WindowCloseAllDocuments" />
-					<CommandReference CommandID="WindowResetWindowLayout" />
-					<Separator />
-					<CommandReference CommandID="WindowWindows" />
-				</Items>
-			</Command>
-			<Command ID="WindowNewWindow" />
-			<Command ID="WindowSplit" />
-			<Command ID="WindowFloat" />
-			<Command ID="WindowFloatAll" />
-			<Command ID="WindowDock" />
-			<Command ID="WindowAutoHide" />
-			<Command ID="WindowAutoHideAll" />
-			<Command ID="WindowHide" />
-			<Command ID="WindowPinTab" />
-			<Command ID="WindowNewTabGroupHorizontal" />
-			<Command ID="WindowNewTabGroupVertical" />
-			<Command ID="WindowCloseAllDocuments" />
-			<Command ID="WindowResetWindowLayout" />
-			<Command ID="WindowWindows" />
-			
-			<Command ID="Help" DefaultCommandID="HelpViewHelp">
-				<Items>
-					<CommandReference CommandID="HelpViewHelp" />
-					<Separator />
-					<CommandReference CommandID="HelpCustomerFeedbackOptions" />
-					<CommandReference CommandID="HelpLicensingAndActivation" />
-					<Separator />
-					<CommandReference CommandID="HelpSoftwareManager" />
-					<Separator />
-					<CommandReference CommandID="HelpAboutPlatform" />
-				</Items>
-			</Command>
-			<Command ID="HelpViewHelp" />
-			<Command ID="HelpCustomerFeedbackOptions" />
-			<Command ID="HelpLicensingAndActivation" />
-			<Command ID="HelpSoftwareManager" />
-			<Command ID="HelpAboutPlatform" />
-		</Commands>
-	</Application>
-</UniversalEditor>
+<ApplicationFramework>
+	<Commands>
+		<!-- File -->
+		<Command ID="File">
+			<Items>
+				<CommandReference CommandID="FileNew" />
+				<CommandReference CommandID="FileOpen" />
+				<CommandReference CommandID="FileSave" />
+				<CommandReference CommandID="FileClose" />
+				<Separator />
+				<CommandReference CommandID="FilePrint" />
+				<Separator />
+				<CommandReference CommandID="FileRecentFiles" />
+				<CommandReference CommandID="FileRecentProjects" />
+				<Separator />
+				<CommandReference CommandID="FileRestart" />
+				<CommandReference CommandID="FileExit" />
+			</Items>
+		</Command>
+		<Command ID="FileNew" DefaultCommandID="FileNewDocument">
+			<Items>
+				<!--
+				<CommandReference CommandID="FileNewDocumentFileSystem" />
+				<Separator />
+				-->
+				<CommandReference CommandID="FileNewDocument" />
+				<CommandReference CommandID="FileNewProject" />
+			</Items>
+		</Command>
+		<Command ID="FileNewDocument">
+			<Shortcut Modifiers="Control" Key="N" />
+			<Parameters>
+				<!-- This command takes one parameter which is not set by default -->
+				<Parameter Name="ObjectModelTypeName" />
+			</Parameters>
+		</Command>
+		<Command ID="FileNewDocumentFileSystem" ParentCommandID="FileNewDocument">
+			<!-- Execute FileNewDocument with the specified parameters -->
+			<ParameterValues>
+				<ParameterValue Name="ObjectModelTypeName" Value="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ParameterValues>
+		</Command>
+		<Command ID="FileNewProject">
+			<Shortcut Modifiers="Control,Shift" Key="N" />
+		</Command>
+		<Command ID="FileOpen" DefaultCommandID="FileOpenDocument">
+			<Items>
+				<CommandReference CommandID="FileOpenDocument" />
+				<CommandReference CommandID="FileOpenProject" />
+			</Items>
+		</Command>
+		<Command ID="FileOpenDocument">
+			<Shortcut Modifiers="Control" Key="O" />
+		</Command>
+		<Command ID="FileOpenProject">
+			<Shortcut Modifiers="Control,Shift" Key="O" />
+		</Command>
+		<Command ID="FileSave" DefaultCommandID="FileSaveDocument">
+			<Items>
+				<CommandReference CommandID="FileSaveDocument" />
+				<CommandReference CommandID="FileSaveDocumentAs" />
+				<Separator />
+				<CommandReference CommandID="FileSaveProject" />
+				<CommandReference CommandID="FileSaveProjectAs" />
+				<Separator />
+				<CommandReference CommandID="FileSaveAll" />
+			</Items>
+		</Command>
+		<Command ID="FileSaveDocument">
+			<Shortcut Modifiers="Control" Key="S" />
+		</Command>
+		<Command ID="FileSaveDocumentAs" />
+		<Command ID="FileSaveProject" />
+		<Command ID="FileSaveProjectAs" />
+		<Command ID="FileSaveAll">
+			<Shortcut Modifiers="Control,Shift" Key="S" />
+		</Command>
+		<Command ID="FileClose">
+			<Items>
+				<CommandReference CommandID="FileCloseDocument" />
+				<CommandReference CommandID="FileCloseProject" />
+				<Separator />
+				<CommandReference CommandID="FileCloseWindow" />
+			</Items>
+		</Command>
+		<Command ID="FileCloseDocument">
+			<Shortcut Modifiers="Control" Key="W" />
+		</Command>
+		<Command ID="FileCloseProject">
+			<Shortcut Modifiers="Control,Shift" Key="W" />
+		</Command>
+		<Command ID="FileCloseWindow">
+			<Shortcut Modifiers="Alt" Key="F4" />
+		</Command>
+		<Command ID="FilePrint">
+			<Shortcut Modifiers="Control" Key="P" />
+		</Command>
+		<Command ID="FileRecentFiles">
+			<Items>
+				<CommandPlaceholder PlaceholderID="RecentFiles" />
+			</Items>
+		</Command>
+		<Command ID="FileRecentProjects">
+			<Items>
+				<CommandPlaceholder PlaceholderID="RecentProjects" />
+			</Items>
+		</Command>
+		<Command ID="FileRestart" />
+		<Command ID="FileExit">
+			<Shortcut Modifiers="Control" Key="Q" />
+		</Command>
+		
+		<!-- Edit -->
+		<Command ID="Edit">
+			<Items>
+				<CommandReference CommandID="EditUndo" />
+				<CommandReference CommandID="EditRedo" />
+				<Separator />
+				<CommandReference CommandID="EditCut" />
+				<CommandReference CommandID="EditCopy" />
+				<CommandReference CommandID="EditPaste" />
+				<CommandReference CommandID="EditDelete" />
+				<Separator />
+				<CommandReference CommandID="EditSelectAll" />
+				<CommandReference CommandID="EditInvertSelection" />
+				<Separator />
+				<CommandReference CommandID="EditFindReplace" />
+				<CommandReference CommandID="EditGoTo" />
+			</Items>
+		</Command>
+		<Command ID="EditUndo">
+			<Shortcut Modifiers="Control" Key="Z" />
+		</Command>
+		<Command ID="EditRedo">
+			<Shortcut Modifiers="Control" Key="Y" />
+		</Command>
+		<Command ID="EditCut">
+			<Shortcut Modifiers="Control" Key="X" />
+		</Command>
+		<Command ID="EditCopy">
+			<Shortcut Modifiers="Control" Key="C" />
+		</Command>
+		<Command ID="EditPaste">
+			<Shortcut Modifiers="Control" Key="V" />
+		</Command>
+		<Command ID="EditDelete">
+			<Shortcut Key="Delete" />
+		</Command>
+		<Command ID="EditSelectAll">
+			<Shortcut Modifiers="Control" Key="A" />
+		</Command>
+		<Command ID="EditInvertSelection">
+			<Shortcut Modifiers="Control,Shift" Key="A" />
+		</Command>
+		<Command ID="EditFindReplace">
+			<Shortcut Modifiers="Control" Key="F" />
+		</Command>
+		<Command ID="EditGoTo">
+			<Shortcut Modifiers="Control" Key="G" />
+		</Command>
+		
+		<!-- View -->
+		<Command ID="View">
+			<Items>
+				<CommandReference CommandID="ViewToolbars" />
+				<CommandReference CommandID="ViewStatusBar" />
+				<Separator />
+				<CommandReference CommandID="ViewPanels" />
+				<Separator />
+				<CommandReference CommandID="ViewPerspective" />
+				<Separator />
+				<CommandReference CommandID="ViewStartPage" />
+				<CommandReference CommandID="ViewFullScreen" />
+				<Separator />
+				<CommandReference CommandID="ViewRefresh" />
+			</Items>
+		</Command>
+		<Command ID="ViewToolbars">
+			<Items>
+				<CommandReference CommandID="ViewToolbarsCustomize" />
+			</Items>
+		</Command>
+		<Command ID="ViewToolbarsCustomize" />
+		<Command ID="ViewStatusBar" />
+		<Command ID="ViewPanels" />
+		<Command ID="ViewPerspective">
+			<Items>
+				<CommandReference CommandID="ViewPerspective1" />
+				<CommandReference CommandID="ViewPerspective2" />
+				<CommandReference CommandID="ViewPerspective3" />
+				<CommandReference CommandID="ViewPerspective4" />
+				<CommandReference CommandID="ViewPerspective5" />
+				<CommandReference CommandID="ViewPerspective6" />
+				<CommandReference CommandID="ViewPerspective7" />
+				<CommandReference CommandID="ViewPerspective8" />
+				<CommandReference CommandID="ViewPerspective9" />
+				<Separator />
+				<CommandReference CommandID="ViewPerspectiveCustomize" />
+			</Items>
+		</Command>
+		<Command ID="ViewPerspective1">
+			<Shortcut Key="TopRow1" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective2">
+			<Shortcut Key="TopRow2" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective3">
+			<Shortcut Key="TopRow3" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective4">
+			<Shortcut Key="TopRow4" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective5">
+			<Shortcut Key="TopRow5" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective6">
+			<Shortcut Key="TopRow6" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective7">
+			<Shortcut Key="TopRow7" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective8">
+			<Shortcut Key="TopRow8" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspective9">
+			<Shortcut Key="TopRow9" Modifiers="Control,Alt" />
+		</Command>
+		<Command ID="ViewPerspectiveCustomize" />
+		
+		<Command ID="ViewStartPage" />
+		<Command ID="ViewFullScreen">
+			<Shortcut Key="F11" />
+		</Command>
+		
+		<!-- Project -->
+		<Command ID="Project">
+			<Items>
+				<CommandReference CommandID="ProjectAddNew" />
+				<CommandReference CommandID="ProjectAddExisting" />
+				<Separator />
+				<CommandReference CommandID="ProjectExclude" />
+				<CommandReference CommandID="ProjectShowAllFiles" />
+				<Separator />
+				<CommandReference CommandID="ProjectProperties" />
+			</Items>
+		</Command>
+		<Command ID="ProjectAddNew">
+			<Shortcut Modifiers="Control" Key="A" />
+		</Command>
+		<Command ID="ProjectAddExisting">
+			<Shortcut Modifiers="Control,Shift" Key="A" />
+		</Command>
+		<Command ID="ProjectExclude" />
+		<Command ID="ProjectShowAllFiles" />
+		<Command ID="ProjectProperties" />
+		
+		<Command ID="Bookmarks">
+			<Items>
+				<CommandReference CommandID="BookmarksAdd" />
+				<CommandReference CommandID="BookmarksAddAll" />
+				<Separator />
+				<CommandReference CommandID="BookmarksManage" />
+			</Items>
+		</Command>
+		<Command ID="BookmarksAdd">
+			<Shortcut Modifiers="Control" Key="D" />
+		</Command>
+		<Command ID="BookmarksAddAll">
+			<Shortcut Modifiers="Control,Shift" Key="D" />
+		</Command>
+		<Command ID="BookmarksManage" />
+		
+		<Command ID="Tools">
+			<Items>
+				<CommandReference CommandID="ToolsSessionManager" />
+				<Separator />
+				<CommandReference CommandID="ToolsExternalTools" />
+				<Separator />
+				<CommandReference CommandID="ToolsCustomize" />
+				<CommandReference CommandID="ToolsOptions" />
+			</Items>
+		</Command>
+		<Command ID="ToolsSessionManager" />
+		<Command ID="ToolsExternalTools">
+			<Items>
+				<CommandPlaceholder PlaceholderID="ExternalTools" />
+				<Separator />
+				<CommandReference CommandID="ToolsExternalToolsCustomize" />
+			</Items>
+		</Command>
+		<Command ID="ToolsExternalToolsCustomize" />
+		
+		<Command ID="ToolsCustomize" />
+		<Command ID="ToolsOptions" />
+		
+		<Command ID="Window">
+			<Items>
+				<CommandReference CommandID="WindowNewWindow" />
+				<CommandReference CommandID="WindowSplit" />
+				<Separator />
+				<CommandReference CommandID="WindowFloat" />
+				<CommandReference CommandID="WindowFloatAll" />
+				<CommandReference CommandID="WindowDock" />
+				<CommandReference CommandID="WindowAutoHide" />
+				<CommandReference CommandID="WindowAutoHideAll" />
+				<CommandReference CommandID="WindowHide" />
+				<Separator />
+				<CommandReference CommandID="WindowPinTab" />
+				<Separator />
+				<CommandReference CommandID="WindowNewTabGroupHorizontal" />
+				<CommandReference CommandID="WindowNewTabGroupVertical" />
+				<CommandReference CommandID="WindowCloseAllDocuments" />
+				<CommandReference CommandID="WindowResetWindowLayout" />
+				<Separator />
+				<CommandReference CommandID="WindowWindows" />
+			</Items>
+		</Command>
+		<Command ID="WindowNewWindow" />
+		<Command ID="WindowSplit" />
+		<Command ID="WindowFloat" />
+		<Command ID="WindowFloatAll" />
+		<Command ID="WindowDock" />
+		<Command ID="WindowAutoHide" />
+		<Command ID="WindowAutoHideAll" />
+		<Command ID="WindowHide" />
+		<Command ID="WindowPinTab" />
+		<Command ID="WindowNewTabGroupHorizontal" />
+		<Command ID="WindowNewTabGroupVertical" />
+		<Command ID="WindowCloseAllDocuments" />
+		<Command ID="WindowResetWindowLayout" />
+		<Command ID="WindowWindows" />
+		
+		<Command ID="Help" DefaultCommandID="HelpViewHelp">
+			<Items>
+				<CommandReference CommandID="HelpViewHelp" />
+				<Separator />
+				<CommandReference CommandID="HelpCustomerFeedbackOptions" />
+				<CommandReference CommandID="HelpLicensingAndActivation" />
+				<Separator />
+				<CommandReference CommandID="HelpSoftwareManager" />
+				<Separator />
+				<CommandReference CommandID="HelpAboutPlatform" />
+			</Items>
+		</Command>
+		<Command ID="HelpViewHelp" />
+		<Command ID="HelpCustomerFeedbackOptions" />
+		<Command ID="HelpLicensingAndActivation" />
+		<Command ID="HelpSoftwareManager" />
+		<Command ID="HelpAboutPlatform" />
+	</Commands>
+</ApplicationFramework>

@@ -1,166 +1,164 @@
-<UniversalEditor>
-	<Application>
-		<Languages DefaultLanguageID="English">
-			<Language ID="English">
-				<StringTable>
-					<StringTableEntry ID="ApplicationTitle" Value="Universal Editor" />
-				</StringTable>
-				<OptionPanels>
-					<OptionPanel ID="{6B7D5857-CDC7-482E-A6D1-A13E0E273C45}" Title="Application">
-						<Content>
-							<OptionGroup ID="{1195B01E-3A92-4657-8571-5C4E79532330}" Title="Window layout">
-								<RadioButton ID="{7DA81430-F43B-43F0-8304-26AF47359B9B}" Title="_Tabbed documents" />
-								<RadioButton ID="{9126C5AD-E8EB-490E-8FE9-D642D3047498}" Title="_Multiple documents" />
-								<RadioButton ID="{2B66334E-1461-4EC1-B3B9-6A81F8DFE463}" Title="_Separate windows" />
-							</OptionGroup>
-							<OptionGroup ID="{84A39D7E-5315-4C8E-8807-A91AD69CC253}" Title="Title bar behavior">
-								<RadioButton ID="{C14E3ED3-BC07-4485-8094-8CAB40FFB4DD}" Title="Do not display document-specific information in the title bar" />
-								<RadioButton ID="{E7E7AEBE-FD6E-4B25-96B4-F8DC9E8E7DE5}" Title="Display the file _name of the current in the title bar" />
-								<RadioButton ID="{C409D76D-268E-479E-A089-3AC967991F2B}" Title="Display the full _path to the current document in the title bar" />
-							</OptionGroup>
-							<OptionGroup ID="{BBF31831-AD72-4F15-9D46-5679E5F60125}" Title="Extensions">
-								<CheckBox ID="{D3FA1630-EA02-4220-98E9-6D90431955A6}" Title="Enable access to extensions in the Online _Gallery" />
-								<TextBox ID="{61C019AB-8E3E-43E4-8545-2BF342474C4B}" Title="Online gallery _URL:" />
-								<CheckBox ID="{F9C65C4C-C8EE-43B0-94B6-D29FF957C7F8}" Title="Automatically check for up_dates to installed extensions" />
-								<CheckBox ID="{8C135D1E-D647-4843-B826-52B442B0B2EA}" Title="Load _per-user extensions when running as Administrator" />
-							</OptionGroup>
-						</Content>
-						<OptionPanels>
-							<OptionPanel ID="{F14BC2DB-DD07-4579-92D0-7E467758B284}" Title="Documents">
-								<Content>
-									<File ID="{5BAC3438-91F6-4120-A389-DF8CD797AF01}" Title="Default user docu_ments location" />
-									<File ID="{2D4F5BDE-CA6C-41CA-AF36-696DF1219377}" Title="Default user _projects location" />
-									<CheckBox ID="{EE6D4B91-A5F4-452D-A718-E63E12EC539C}" Title="_Detect when file is changed in another program" />
-									<CheckBox ID="{80B3F83D-85E4-4BFC-9611-82BDA8C619C0}" Title="Automatically re_load the changed file without prompting if the file has been saved" />
-									<CheckBox ID="{148B7EF4-337B-4569-8FCD-E2CFD230C96E}" Title="Allo_w editing of read-only files, warn when attempting to save" />
-									<CheckBox ID="{BDC05545-3F90-4B3D-AD7E-B74B3FAF365F}" Title="K_eep a record of recently-opened documents" />
-									<Number ID="{9376CE92-B15D-43D0-B367-E8F2916C1C98}" Prefix="Store a ma_ximum of " Suffix="items in the Recent Files list" />
-									<CheckBox ID="{40BFB292-8FB4-46D9-9986-6619424F84E5}" Title="K_eep a record of recently-opened projects" />
-									<Number ID="{06913599-E19A-4C85-BD8B-D5BCFFD3C34A}" Prefix="Store a ma_ximum of " Suffix="items in the Recent Projects list" />
-									<CheckBox ID="{B6772081-4283-4F6A-B248-B4CD310D0BB1}" Title="Keep a record of _changes made to each document (undo history)" />
-									<Number ID="{45E113A5-137C-49EE-8AC5-E1CB652E4B98}" Prefix="Store a ma_ximum of " Suffix="items in the undo history" />
-									<CheckBox ID="{10BA02ED-053D-4EF8-8D46-7F268EC5137A}" Title="_Save automatic recovery information" />
-									<Number ID="{14C57DB1-3CD0-4A4B-9CAE-C2F71CCF2E9D}" Prefix="Sa_ve every" Suffix="minutes" />
-									<Number ID="{A3BC89EE-4FCC-40A2-A4BC-637BACF2C59F}" Prefix="_Keep for" Suffix="days" />
-									<Directory ID="{83B97141-AB4E-402F-A6E4-2F1659273EA8}" Title="Automatic _recovery location" />
-								</Content>
-							</OptionPanel>
-						</OptionPanels>
-					</OptionPanel>
-				</OptionPanels>
-				<Commands>
-					<!-- File -->
-					<Command ID="File" Title="_File" />
-					<Command ID="FileNew" Title="_New" />
-					<Command ID="FileNewDocumentFileSystem" Title="_File System" />
-					
-					<Command ID="FileNewDocument" Title="_Document..." />
-					<Command ID="FileNewProject" Title="_Project/Solution..." />
-					
-					<Command ID="FileOpen" Title="_Open" />
-					<Command ID="FileOpenDocument" Title="_Document..." />
-					<Command ID="FileOpenProject" Title="_Project/Solution..." />
-					
-					<Command ID="FileSave" Title="_Save" />
-					<Command ID="FileSaveDocument" Title="_Document..." />
-					<Command ID="FileSaveDocumentAs" Title="Document with Other N_ame..." />
-					<Command ID="FileSaveProject" Title="_Project/Solution..." />
-					<Command ID="FileSaveProjectAs" Title="Pro_ject/Solution with Other Name..." />
-					<Command ID="FileSaveAll" Title="A_ll Documents and Projects" />
-					
-					<Command ID="FileClose" Title="_Close" />
-					<Command ID="FileCloseDocument" Title="_Document" />
-					<Command ID="FileCloseProject" Title="_Project/Solution" />
-					<Command ID="FileCloseWindow" Title="_Window" />
-					
-					<Command ID="FilePrint" Title="_Print..." />
+<ApplicationFramework>
+	<Languages DefaultLanguageID="English">
+		<Language ID="English">
+			<StringTable>
+				<StringTableEntry ID="ApplicationTitle" Value="Universal Editor" />
+			</StringTable>
+			<OptionPanels>
+				<OptionPanel ID="{6B7D5857-CDC7-482E-A6D1-A13E0E273C45}" Title="Application">
+					<Content>
+						<OptionGroup ID="{1195B01E-3A92-4657-8571-5C4E79532330}" Title="Window layout">
+							<RadioButton ID="{7DA81430-F43B-43F0-8304-26AF47359B9B}" Title="_Tabbed documents" />
+							<RadioButton ID="{9126C5AD-E8EB-490E-8FE9-D642D3047498}" Title="_Multiple documents" />
+							<RadioButton ID="{2B66334E-1461-4EC1-B3B9-6A81F8DFE463}" Title="_Separate windows" />
+						</OptionGroup>
+						<OptionGroup ID="{84A39D7E-5315-4C8E-8807-A91AD69CC253}" Title="Title bar behavior">
+							<RadioButton ID="{C14E3ED3-BC07-4485-8094-8CAB40FFB4DD}" Title="Do not display document-specific information in the title bar" />
+							<RadioButton ID="{E7E7AEBE-FD6E-4B25-96B4-F8DC9E8E7DE5}" Title="Display the file _name of the current in the title bar" />
+							<RadioButton ID="{C409D76D-268E-479E-A089-3AC967991F2B}" Title="Display the full _path to the current document in the title bar" />
+						</OptionGroup>
+						<OptionGroup ID="{BBF31831-AD72-4F15-9D46-5679E5F60125}" Title="Extensions">
+							<CheckBox ID="{D3FA1630-EA02-4220-98E9-6D90431955A6}" Title="Enable access to extensions in the Online _Gallery" />
+							<TextBox ID="{61C019AB-8E3E-43E4-8545-2BF342474C4B}" Title="Online gallery _URL:" />
+							<CheckBox ID="{F9C65C4C-C8EE-43B0-94B6-D29FF957C7F8}" Title="Automatically check for up_dates to installed extensions" />
+							<CheckBox ID="{8C135D1E-D647-4843-B826-52B442B0B2EA}" Title="Load _per-user extensions when running as Administrator" />
+						</OptionGroup>
+					</Content>
+					<OptionPanels>
+						<OptionPanel ID="{F14BC2DB-DD07-4579-92D0-7E467758B284}" Title="Documents">
+							<Content>
+								<File ID="{5BAC3438-91F6-4120-A389-DF8CD797AF01}" Title="Default user docu_ments location" />
+								<File ID="{2D4F5BDE-CA6C-41CA-AF36-696DF1219377}" Title="Default user _projects location" />
+								<CheckBox ID="{EE6D4B91-A5F4-452D-A718-E63E12EC539C}" Title="_Detect when file is changed in another program" />
+								<CheckBox ID="{80B3F83D-85E4-4BFC-9611-82BDA8C619C0}" Title="Automatically re_load the changed file without prompting if the file has been saved" />
+								<CheckBox ID="{148B7EF4-337B-4569-8FCD-E2CFD230C96E}" Title="Allo_w editing of read-only files, warn when attempting to save" />
+								<CheckBox ID="{BDC05545-3F90-4B3D-AD7E-B74B3FAF365F}" Title="K_eep a record of recently-opened documents" />
+								<Number ID="{9376CE92-B15D-43D0-B367-E8F2916C1C98}" Prefix="Store a ma_ximum of " Suffix="items in the Recent Files list" />
+								<CheckBox ID="{40BFB292-8FB4-46D9-9986-6619424F84E5}" Title="K_eep a record of recently-opened projects" />
+								<Number ID="{06913599-E19A-4C85-BD8B-D5BCFFD3C34A}" Prefix="Store a ma_ximum of " Suffix="items in the Recent Projects list" />
+								<CheckBox ID="{B6772081-4283-4F6A-B248-B4CD310D0BB1}" Title="Keep a record of _changes made to each document (undo history)" />
+								<Number ID="{45E113A5-137C-49EE-8AC5-E1CB652E4B98}" Prefix="Store a ma_ximum of " Suffix="items in the undo history" />
+								<CheckBox ID="{10BA02ED-053D-4EF8-8D46-7F268EC5137A}" Title="_Save automatic recovery information" />
+								<Number ID="{14C57DB1-3CD0-4A4B-9CAE-C2F71CCF2E9D}" Prefix="Sa_ve every" Suffix="minutes" />
+								<Number ID="{A3BC89EE-4FCC-40A2-A4BC-637BACF2C59F}" Prefix="_Keep for" Suffix="days" />
+								<Directory ID="{83B97141-AB4E-402F-A6E4-2F1659273EA8}" Title="Automatic _recovery location" />
+							</Content>
+						</OptionPanel>
+					</OptionPanels>
+				</OptionPanel>
+			</OptionPanels>
+			<Commands>
+				<!-- File -->
+				<Command ID="File" Title="_File" />
+				<Command ID="FileNew" Title="_New" />
+				<Command ID="FileNewDocumentFileSystem" Title="_File System" />
+				
+				<Command ID="FileNewDocument" Title="_Document..." />
+				<Command ID="FileNewProject" Title="_Project/Solution..." />
+				
+				<Command ID="FileOpen" Title="_Open" />
+				<Command ID="FileOpenDocument" Title="_Document..." />
+				<Command ID="FileOpenProject" Title="_Project/Solution..." />
+				
+				<Command ID="FileSave" Title="_Save" />
+				<Command ID="FileSaveDocument" Title="_Document..." />
+				<Command ID="FileSaveDocumentAs" Title="Document with Other N_ame..." />
+				<Command ID="FileSaveProject" Title="_Project/Solution..." />
+				<Command ID="FileSaveProjectAs" Title="Pro_ject/Solution with Other Name..." />
+				<Command ID="FileSaveAll" Title="A_ll Documents and Projects" />
+				
+				<Command ID="FileClose" Title="_Close" />
+				<Command ID="FileCloseDocument" Title="_Document" />
+				<Command ID="FileCloseProject" Title="_Project/Solution" />
+				<Command ID="FileCloseWindow" Title="_Window" />
+				
+				<Command ID="FilePrint" Title="_Print..." />
 
-					<Command ID="FileRestart" Title="_Restart" />
-					<Command ID="FileExit" Title="E_xit" />
-					
-					<!-- Edit -->
-					<Command ID="Edit" Title="_Edit" />
-					<Command ID="EditUndo" Title="_Undo" />
-					<Command ID="EditRedo" Title="_Redo" />
-					<Command ID="EditCut" Title="Cu_t" />
-					<Command ID="EditCopy" Title="_Copy" />
-					<Command ID="EditPaste" Title="_Paste" />
-					<Command ID="EditDelete" Title="_Delete" />
-					<Command ID="EditSelectAll" Title="Select _All" />
-					<Command ID="EditInvertSelection" Title="_Invert Selection" />
-					<Command ID="EditFindReplace" Title="_Find/Replace..." />
-					<Command ID="EditGoTo" Title="_Go To..." />
-					
-					<!-- View -->
-					<Command ID="View" Title="_View" />
-					<Command ID="ViewToolbars" Title="_Toolbars" />
-					<Command ID="ViewToolbarsCustomize" Title="_Customize..." />
-					<Command ID="ViewStatusBar" Title="Status _Bar" />
-					
-					<Command ID="ViewPerspective" Title="P_erspective" />
-					<Command ID="ViewPerspective1" Title="_1 Perspective 1" />
-					<Command ID="ViewPerspective2" Title="_2 Perspective 2" />
-					<Command ID="ViewPerspective3" Title="_3 Perspective 3" />
-					<Command ID="ViewPerspective4" Title="_4 Perspective 4" />
-					<Command ID="ViewPerspective5" Title="_5 Perspective 5" />
-					<Command ID="ViewPerspective6" Title="_6 Perspective 6" />
-					<Command ID="ViewPerspective7" Title="_7 Perspective 7" />
-					<Command ID="ViewPerspective8" Title="_8 Perspective 8" />
-					<Command ID="ViewPerspective9" Title="_9 Perspective 9" />
-					<Command ID="ViewPerspectiveCustomize" Title="C_ustomize..." />
-					
-					<Command ID="ViewPanels" Title="_Panels" />
-					<Command ID="ViewStartPage" Title="Start Pa_ge" />
-					<Command ID="ViewFullScreen" Title="F_ull Screen" />
-					
-					<!-- Project -->
-					<Command ID="Project" Title="_Project" />
-					<Command ID="ProjectAddNew" Title="Add Ne_w Item..." />
-					<Command ID="ProjectAddExisting" Title="Add Existin_g Item..." />
-					<Command ID="ProjectExclude" Title="Exclude from Pro_ject" />
-					<Command ID="ProjectShowAllFiles" Title="Sh_ow All Files" />
-					<Command ID="ProjectProperties" Title="Project _Properties..." />
-					
-					<!-- Bookmarks -->
-					<Command ID="Bookmarks" Title="Book_marks" />
-					<Command ID="BookmarksAdd" Title="Add to Boo_kmarks" />
-					<Command ID="BookmarksAddAll" Title="Add _All to Bookmarks" />
-					<Command ID="BookmarksManage" Title="_Manage Bookmarks..." />
-					
-					<!-- Tools -->
-					<Command ID="Tools" Title="_Tools" />
-					<Command ID="ToolsSessionManager" Title="_Session Manager..." />
-					<Command ID="ToolsExternalTools" Title="_External Tools..." />
-					<Command ID="ToolsExternalToolsCustomize" Title="_Customize..." />
-					<Command ID="ToolsCustomize" Title="_Customize..." />
-					<Command ID="ToolsOptions" Title="_Options..." />
-					
-					<!-- Window -->
-					<Command ID="Window" Title="_Window" />
-					<Command ID="WindowNewWindow" Title="_New Window" />
-					<Command ID="WindowSplit" Title="S_plit" />
-					<Command ID="WindowFloat" Title="_Float" />
-					<Command ID="WindowFloatAll" Title="Float All" />
-					<Command ID="WindowDock" Title="Doc_k" />
-					<Command ID="WindowAutoHide" Title="_Auto Hide" />
-					<Command ID="WindowAutoHideAll" Title="A_uto Hide All" />
-					<Command ID="WindowHide" Title="_Hide" />
-					<Command ID="WindowPinTab" Title="_Pin Tab" />
-					<Command ID="WindowNewTabGroupHorizontal" Title="New Hori_zontal Tab Group" />
-					<Command ID="WindowNewTabGroupVertical" Title="New _Vertical Tab Group" />
-					<Command ID="WindowCloseAllDocuments" Title="Close A_ll Documents" />
-					<Command ID="WindowResetWindowLayout" Title="_Reset Window Layout" />
-					<Command ID="WindowWindows" Title="_Windows..." />
-					
-					<!-- Help -->
-					<Command ID="Help" Title="_Help" />
-					<Command ID="HelpViewHelp" Title="View _Help" />
-					<Command ID="HelpCustomerFeedbackOptions" Title="Customer _Feedback Options..." />
-					<Command ID="HelpLicensingAndActivation" Title="_Licensing and Activation..." />
-					<Command ID="HelpSoftwareManager" Title="Software and Update _Manager..." />
-					<Command ID="HelpAboutPlatform" Title="_About {0}" />
-				</Commands>
-			</Language>
-		</Languages>
-	</Application>
-</UniversalEditor>
+				<Command ID="FileRestart" Title="_Restart" />
+				<Command ID="FileExit" Title="E_xit" />
+				
+				<!-- Edit -->
+				<Command ID="Edit" Title="_Edit" />
+				<Command ID="EditUndo" Title="_Undo" />
+				<Command ID="EditRedo" Title="_Redo" />
+				<Command ID="EditCut" Title="Cu_t" />
+				<Command ID="EditCopy" Title="_Copy" />
+				<Command ID="EditPaste" Title="_Paste" />
+				<Command ID="EditDelete" Title="_Delete" />
+				<Command ID="EditSelectAll" Title="Select _All" />
+				<Command ID="EditInvertSelection" Title="_Invert Selection" />
+				<Command ID="EditFindReplace" Title="_Find/Replace..." />
+				<Command ID="EditGoTo" Title="_Go To..." />
+				
+				<!-- View -->
+				<Command ID="View" Title="_View" />
+				<Command ID="ViewToolbars" Title="_Toolbars" />
+				<Command ID="ViewToolbarsCustomize" Title="_Customize..." />
+				<Command ID="ViewStatusBar" Title="Status _Bar" />
+				
+				<Command ID="ViewPerspective" Title="P_erspective" />
+				<Command ID="ViewPerspective1" Title="_1 Perspective 1" />
+				<Command ID="ViewPerspective2" Title="_2 Perspective 2" />
+				<Command ID="ViewPerspective3" Title="_3 Perspective 3" />
+				<Command ID="ViewPerspective4" Title="_4 Perspective 4" />
+				<Command ID="ViewPerspective5" Title="_5 Perspective 5" />
+				<Command ID="ViewPerspective6" Title="_6 Perspective 6" />
+				<Command ID="ViewPerspective7" Title="_7 Perspective 7" />
+				<Command ID="ViewPerspective8" Title="_8 Perspective 8" />
+				<Command ID="ViewPerspective9" Title="_9 Perspective 9" />
+				<Command ID="ViewPerspectiveCustomize" Title="C_ustomize..." />
+				
+				<Command ID="ViewPanels" Title="_Panels" />
+				<Command ID="ViewStartPage" Title="Start Pa_ge" />
+				<Command ID="ViewFullScreen" Title="F_ull Screen" />
+				
+				<!-- Project -->
+				<Command ID="Project" Title="_Project" />
+				<Command ID="ProjectAddNew" Title="Add Ne_w Item..." />
+				<Command ID="ProjectAddExisting" Title="Add Existin_g Item..." />
+				<Command ID="ProjectExclude" Title="Exclude from Pro_ject" />
+				<Command ID="ProjectShowAllFiles" Title="Sh_ow All Files" />
+				<Command ID="ProjectProperties" Title="Project _Properties..." />
+				
+				<!-- Bookmarks -->
+				<Command ID="Bookmarks" Title="Book_marks" />
+				<Command ID="BookmarksAdd" Title="Add to Boo_kmarks" />
+				<Command ID="BookmarksAddAll" Title="Add _All to Bookmarks" />
+				<Command ID="BookmarksManage" Title="_Manage Bookmarks..." />
+				
+				<!-- Tools -->
+				<Command ID="Tools" Title="_Tools" />
+				<Command ID="ToolsSessionManager" Title="_Session Manager..." />
+				<Command ID="ToolsExternalTools" Title="_External Tools..." />
+				<Command ID="ToolsExternalToolsCustomize" Title="_Customize..." />
+				<Command ID="ToolsCustomize" Title="_Customize..." />
+				<Command ID="ToolsOptions" Title="_Options..." />
+				
+				<!-- Window -->
+				<Command ID="Window" Title="_Window" />
+				<Command ID="WindowNewWindow" Title="_New Window" />
+				<Command ID="WindowSplit" Title="S_plit" />
+				<Command ID="WindowFloat" Title="_Float" />
+				<Command ID="WindowFloatAll" Title="Float All" />
+				<Command ID="WindowDock" Title="Doc_k" />
+				<Command ID="WindowAutoHide" Title="_Auto Hide" />
+				<Command ID="WindowAutoHideAll" Title="A_uto Hide All" />
+				<Command ID="WindowHide" Title="_Hide" />
+				<Command ID="WindowPinTab" Title="_Pin Tab" />
+				<Command ID="WindowNewTabGroupHorizontal" Title="New Hori_zontal Tab Group" />
+				<Command ID="WindowNewTabGroupVertical" Title="New _Vertical Tab Group" />
+				<Command ID="WindowCloseAllDocuments" Title="Close A_ll Documents" />
+				<Command ID="WindowResetWindowLayout" Title="_Reset Window Layout" />
+				<Command ID="WindowWindows" Title="_Windows..." />
+				
+				<!-- Help -->
+				<Command ID="Help" Title="_Help" />
+				<Command ID="HelpViewHelp" Title="View _Help" />
+				<Command ID="HelpCustomerFeedbackOptions" Title="Customer _Feedback Options..." />
+				<Command ID="HelpLicensingAndActivation" Title="_Licensing and Activation..." />
+				<Command ID="HelpSoftwareManager" Title="Software and Update _Manager..." />
+				<Command ID="HelpAboutPlatform" Title="_About {0}" />
+			</Commands>
+		</Language>
+	</Languages>
+</ApplicationFramework>
