@@ -26,7 +26,7 @@ namespace UniversalEditor.Engines.UWT
 			MainWindow mw = new MainWindow ();
 			LastWindow = mw;
 			mw.Show ();
-			return mw;
+ 			return mw;
 		}
 		public override void ShowAboutDialog (DataFormatReference dfr)
 		{

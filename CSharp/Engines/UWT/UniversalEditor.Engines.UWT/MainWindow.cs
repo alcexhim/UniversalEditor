@@ -9,6 +9,8 @@ using UniversalWidgetToolkit.Controls.Docking;
 using UniversalWidgetToolkit.Dialogs;
 using UniversalWidgetToolkit.Input.Keyboard;
 
+// TODO: We need to work on UWT signaling to native objects...
+
 namespace UniversalEditor.Engines.UWT
 {
 	public class MainWindow : Window, IHostApplicationWindow
@@ -33,25 +35,29 @@ namespace UniversalEditor.Engines.UWT
 
 			tbsDocumentTabs = new DockingContainer ();
 
-			Container ctStartPage = new Container();
-
-			Label lblStartPage = new Label();
-			lblStartPage.Text = "this is a start page";
-			ctStartPage.Controls.Add(lblStartPage);
-
-			InitDocTab("Start Page", ctStartPage);
-
-			TextBox txt = new TextBox();
-			txt.Multiline = true;
-
-			InitDocTab("file1.txt", txt);
-			InitDocTab("Archive3.zip", null);
+			InitStartPage();
+			InitEditorPage("test.txt");
 
 			this.Controls.Add(tbsDocumentTabs, new UniversalWidgetToolkit.Layouts.BoxLayout.Constraints(true, true, 0, UniversalWidgetToolkit.Layouts.BoxLayout.PackType.End));
 
 			this.Bounds = new UniversalWidgetToolkit.Drawing.Rectangle (0, 0, 600, 400);
 
 			this.Text = "Universal Editor";
+		}
+
+		private void InitEditorPage(string title)
+		{
+			TextBox txt = new TextBox(); 
+			txt.Text = "Testing for " + title;
+			txt.Multiline = true;
+
+			InitDocTab(title, txt);
+		}
+		private void InitStartPage()
+		{
+			Label lblStartPage = new Label();
+			lblStartPage.Text = "this is a start page";
+			InitDocTab("Start Page", lblStartPage);
 		}
 
 		private void InitDocTab(string title, Control content)
@@ -298,9 +304,7 @@ namespace UniversalEditor.Engines.UWT
 		public void OpenFile (params Document[] documents)
 		{
 			foreach (Document doc in documents) {
-				TabPage tab = new TabPage ();
-				tab.Text = doc.Title;
-				// tbsDocumentTabs.TabPages.Add (tab);
+				InitEditorPage(doc.Title);
 			}
 		}
 
@@ -369,9 +373,17 @@ namespace UniversalEditor.Engines.UWT
 			throw new NotImplementedException ();
 		}
 
+		private System.Collections.Generic.List<Window> Windows = new System.Collections.Generic.List<Window>();
 		public void CloseFile ()
 		{
-			throw new NotImplementedException ();
+			if (tbsDocumentTabs.CurrentItem != null)
+			{
+				tbsDocumentTabs.Items.Remove(tbsDocumentTabs.CurrentItem);
+			}
+			if (this.Windows.Count == 0)
+			{
+				this.Destroy();
+			}
 		}
 
 		public void CloseProject ()
@@ -386,12 +398,23 @@ namespace UniversalEditor.Engines.UWT
 
 		public IEditorImplementation GetCurrentEditor ()
 		{
-			return null;
+			DockingItem curitem = tbsDocumentTabs.CurrentItem;
+			if (curitem == null) return null;
+
+			Editor editor = (curitem.ChildControl as Editor);
+			if (editor == null) return null;
+
+			return editor;
 		}
 
 		public bool ShowOptionsDialog ()
 		{
-			throw new NotImplementedException ();
+			OptionsDialog dlg = new OptionsDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public void ToggleMenuItemEnabled (string menuItemName, bool enabled)
@@ -426,7 +449,7 @@ namespace UniversalEditor.Engines.UWT
 
 		public void ShowStartPage ()
 		{
-			throw new NotImplementedException ();
+			InitStartPage();
 		}
 
 		public void SetWindowListVisible (bool visible, bool modal)
