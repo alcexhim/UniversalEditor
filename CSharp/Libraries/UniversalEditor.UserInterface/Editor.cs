@@ -1,44 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UniversalWidgetToolkit;
 
 namespace UniversalEditor.UserInterface
 {
 	/// <summary>
 	/// Provides an interface for custom editor implementations not using the Universal Widget Toolkit.
 	/// </summary>
-	public interface IEditorImplementation
+	public abstract class Editor : Control
 	{
+
 		/// <summary>
 		/// Copies the selected content to the Universal Editor clipboard.
 		/// </summary>
-		void Copy();
+		public abstract void Copy();
 		/// <summary>
 		/// Pastes the content from the Universal Editor clipboard, overwriting any selected content.
 		/// </summary>
-		void Paste();
+		public abstract void Paste();
 		/// <summary>
 		/// Deletes the selected content.
 		/// </summary>
-		void Delete();
+		public abstract void Delete();
 
 		/// <summary>
 		/// Restores the previous object model in the stack.
 		/// </summary>
-		void Undo();
+		public abstract void Undo();
 		/// <summary>
 		/// Restores the previously-undone object model from the stack.
 		/// </summary>
-		void Redo();
+		public abstract void Redo();
 
-		string Title { get; }
+		public abstract string Title { get; }
 
-		event ToolboxItemEventHandler ToolboxItemAdded;
-		event ToolboxItemEventHandler ToolboxItemSelected;
-		
-		bool SelectToolboxItem(ToolboxItem item);
+		public event ToolboxItemEventHandler ToolboxItemAdded;
+		public event ToolboxItemEventHandler ToolboxItemSelected;
 
-		EditorReference MakeReference();
+		public abstract bool SelectToolboxItem(ToolboxItem item);
+
+		public abstract EditorReference MakeReference();
 	}
 }

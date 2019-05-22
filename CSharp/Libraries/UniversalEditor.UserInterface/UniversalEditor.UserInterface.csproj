@@ -67,7 +67,7 @@
     <Compile Include="HostApplication.cs" />
     <Compile Include="HostApplicationMessage.cs" />
     <Compile Include="HostApplicationOutputWindow.cs" />
-    <Compile Include="IEditorImplementation.cs" />
+    <Compile Include="Editor.cs" />
     <Compile Include="IHostApplicationWindow.cs" />
     <Compile Include="IOptionPanelImplementation.cs" />
     <Compile Include="Language.cs" />
@@ -89,6 +89,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="StockCommandType.cs" />
     <Compile Include="EngineMainMenu.cs" />
+    <Compile Include="MainWIndow.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -115,6 +116,10 @@
     <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>UniversalWidgetToolkit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

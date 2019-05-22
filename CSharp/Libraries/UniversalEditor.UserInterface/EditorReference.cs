@@ -24,11 +24,11 @@ namespace UniversalEditor.UserInterface
 			mvarEditorType = type;
 		}
 
-		public IEditorImplementation Create()
+		public Editor Create()
 		{
 			if (mvarEditorType != null)
 			{
-				return (mvarEditorType.Assembly.CreateInstance(mvarEditorType.FullName) as IEditorImplementation);
+				return (mvarEditorType.Assembly.CreateInstance(mvarEditorType.FullName) as Editor);
 			}
 			return null;
 		}

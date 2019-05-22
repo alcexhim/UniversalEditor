@@ -13,52 +13,64 @@ using UniversalEditor.ObjectModels.Markup;
 
 namespace UniversalEditor.UserInterface
 {
-	public abstract class Engine
+	public class Engine
 	{
+		private static Engine _TheEngine = new Engine();
+
+		#region implemented abstract members of Engine
+		protected void ShowCrashDialog (Exception ex)
+		{
+			Console.WriteLine (ex.ToString ());
+		}
+
+		protected void BeforeInitialization ()
+		{
+			UniversalWidgetToolkit.Application.Initialize();
+		}
+		
+		protected void MainLoop ()
+		{
+			UniversalWidgetToolkit.Application.Start ();
+		}
+
+		/// <summary>
+		/// Opens a new window, optionally loading the specified documents.
+		/// </summary>
+		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
+		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
+		protected IHostApplicationWindow OpenWindowInternal (params Document[] documents)
+		{
+			MainWindow mw = new MainWindow ();
+			LastWindow = mw;
+			mw.Show ();
+ 			return mw;
+		}
+		public void ShowAboutDialog (DataFormatReference dfr)
+		{
+			UniversalWidgetToolkit.Dialogs.AboutDialog dlg = new UniversalWidgetToolkit.Dialogs.AboutDialog ();
+			dlg.ProgramName = "Universal Editor";
+			dlg.Version = System.Reflection.Assembly.GetEntryAssembly ().GetName ().Version;
+			dlg.Copyright = "(c) 1997-2016 Michael Becker";
+			dlg.Comments = "A modular, extensible document editor";
+			dlg.LicenseType = UniversalWidgetToolkit.LicenseType.GPL30;
+			dlg.ShowDialog ();
+		}
+		public bool ShowCustomOptionDialog (ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null)
+		{
+			return false;
+		}
+		#endregion
+
+		protected void StopApplicationInternal ()
+		{
+			UniversalWidgetToolkit.Application.Stop ();
+		}
+
+
 		private static Engine[] m_AvailableEngines = null;
 		public static Engine[] GetAvailableEngines()
 		{
-			if (m_AvailableEngines == null)
-			{
-				string directory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-				string[] libraries = System.IO.Directory.GetFiles(directory, "*.dll");
-				List<Engine> engines = new List<Engine>();
-				foreach (string library in libraries)
-				{
-					try
-					{
-						Assembly assembly = Assembly.LoadFile(library);
-						Type[] types = null;
-						try
-						{
-							types = assembly.GetTypes();
-						}
-						catch (ReflectionTypeLoadException ex)
-						{
-							types = ex.Types;
-						}
-						if (types == null)
-						{
-							continue;
-						}
-
-						foreach (Type type in types)
-						{
-							if (type.IsSubclassOf(typeof(Engine)))
-							{
-								Engine engine = (Engine)type.Assembly.CreateInstance(type.FullName);
-								engines.Add(engine);
-							}
-						}
-					}
-					catch
-					{
-
-					}
-				}
-				m_AvailableEngines = engines.ToArray();
-			}
-			return m_AvailableEngines;
+			return new Engine[] { _TheEngine };
 		}
 
 		public bool AttachCommandEventHandler(string commandID, EventHandler handler)
@@ -73,9 +85,6 @@ namespace UniversalEditor.UserInterface
 			return false;
 		}
 
-		protected virtual void BeforeInitialization()
-		{
-		}
 		protected virtual void AfterInitialization()
 		{
 		}
@@ -148,31 +157,31 @@ namespace UniversalEditor.UserInterface
 			});
 			AttachCommandEventHandler("EditCopy", delegate(object sender, EventArgs e)
 			{
-				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Copy();
 			});
 			AttachCommandEventHandler("EditPaste", delegate(object sender, EventArgs e)
 			{
-				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Paste();
 			});
 			AttachCommandEventHandler("EditDelete", delegate(object sender, EventArgs e)
 			{
-				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Delete();
 			});
 			AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
 			{
-				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Undo();
 			});
 			AttachCommandEventHandler("EditRedo", delegate(object sender, EventArgs e)
 			{
-				IEditorImplementation editor = LastWindow.GetCurrentEditor();
+				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Redo();
 			});
@@ -332,34 +341,9 @@ namespace UniversalEditor.UserInterface
 
 		public static bool Execute()
 		{
-			Engine[] engines = null;
-			try
-			{
-				engines = GetAvailableEngines();
-			}
-			catch
-			{
-				return false;
-			}
-			
-			for (int i = 0; i < engines.Length; i++)
-			{
-				Console.WriteLine("Found engine " + engines[i].GetType().FullName);
-			}
-			
-			if (engines.Length < 1)
-			{
-				return false;
-			}
-			else if (engines.Length == 1)
-			{
-				mvarCurrentEngine = engines[0];
-			}
-			else
-			{
-				mvarCurrentEngine = engines[1];
-			}
-			
+			Console.WriteLine(" *** There is only UWT *** ");
+			mvarCurrentEngine = _TheEngine;
+
 			if (mvarCurrentEngine != null)
 			{
 				Console.WriteLine("Using engine " + mvarCurrentEngine.GetType().FullName);
@@ -379,10 +363,6 @@ namespace UniversalEditor.UserInterface
 #endif
 			return true;
 		}
-
-		protected abstract void ShowCrashDialog(Exception ex);
-
-		protected abstract void MainLoop();
 
 		private Command.CommandCollection mvarCommands = new Command.CommandCollection();
 		/// <summary>
@@ -465,18 +445,10 @@ namespace UniversalEditor.UserInterface
 			LastWindow.OpenFile(documents);
 		}
 
-		/// <summary>
-		/// Opens a new window, optionally loading the specified documents.
-		/// </summary>
-		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
-		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
-		protected abstract IHostApplicationWindow OpenWindowInternal(params Document[] documents);
-
 		public void ShowAboutDialog()
 		{
 			this.ShowAboutDialog(null);
 		}
-		public abstract void ShowAboutDialog(DataFormatReference dfr);
 
 		public void OpenWindow()
 		{
@@ -1211,9 +1183,6 @@ namespace UniversalEditor.UserInterface
 		{
 			return true;
 		}
-		protected virtual void StopApplicationInternal()
-		{
-		}
 
 		public bool ShowCustomOptionDialog(ref DataFormat df, CustomOptionDialogType type)
 		{
@@ -1365,7 +1334,6 @@ namespace UniversalEditor.UserInterface
 			}
 			return false;
 		}
-		public abstract bool ShowCustomOptionDialog(ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null);
 
 		public virtual ActionMenuItem[] CreateMenuItemsFromPlaceholder(PlaceholderMenuItem pmi)
 		{

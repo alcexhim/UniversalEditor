@@ -46,7 +46,7 @@ namespace UniversalEditor.UserInterface.Common
 						foreach (Type typeInt in interfaces)
 						{
 							#region Initializing Editors
-							if (typeInt == typeof(IEditorImplementation))
+							if (typeInt == typeof(Editor))
 							{
 								Console.Write("loading editor '" + type.FullName + "'... ");
 								
@@ -54,7 +54,7 @@ namespace UniversalEditor.UserInterface.Common
 								{
 									// TODO: see if there is a way we can MakeReference() without having to create all the UI
 									// components of the IEditorImplementation
-									IEditorImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IEditorImplementation);
+									Editor editor = (type.Assembly.CreateInstance(type.FullName) as Editor);
 									listEditors.Add(editor.MakeReference());
 									
 									Console.WriteLine("SUCCESS!");

@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 
 using UniversalEditor.Accessors;
-using UniversalEditor.UserInterface;
 
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
@@ -11,43 +10,45 @@ using UniversalWidgetToolkit.Input.Keyboard;
 
 // TODO: We need to work on UWT signaling to native objects...
 
-namespace UniversalEditor.Engines.UWT
+namespace UniversalEditor.UserInterface
 {
 	public class MainWindow : Window, IHostApplicationWindow
 	{
 		private DockingContainer tbsDocumentTabs = null;
 
-		public MainWindow ()
+		public MainWindow()
 		{
-			UniversalWidgetToolkit.Layouts.BoxLayout layout = new UniversalWidgetToolkit.Layouts.BoxLayout (Orientation.Vertical);
+			UniversalWidgetToolkit.Layouts.BoxLayout layout = new UniversalWidgetToolkit.Layouts.BoxLayout(Orientation.Vertical);
 			this.Layout = layout;
 
-			foreach (CommandItem ci in UniversalEditor.UserInterface.Engine.CurrentEngine.MainMenu.Items) {
-				UniversalWidgetToolkit.MenuItem mi = LoadMenuItem (ci);
+			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
+			{
+				UniversalWidgetToolkit.MenuItem mi = LoadMenuItem(ci);
 				if (mi == null)
 					continue;
 
-				if (mi.Name == "Help") {
+				if (mi.Name == "Help")
+				{
 					mi.HorizontalAlignment = MenuItemHorizontalAlignment.Right;
 				}
-				this.MenuBar.Items.Add (mi);
+				this.MenuBar.Items.Add(mi);
 			}
 
-			tbsDocumentTabs = new DockingContainer ();
+			tbsDocumentTabs = new DockingContainer();
 
 			InitStartPage();
 			InitEditorPage("test.txt");
 
 			this.Controls.Add(tbsDocumentTabs, new UniversalWidgetToolkit.Layouts.BoxLayout.Constraints(true, true, 0, UniversalWidgetToolkit.Layouts.BoxLayout.PackType.End));
 
-			this.Bounds = new UniversalWidgetToolkit.Drawing.Rectangle (0, 0, 600, 400);
+			this.Bounds = new UniversalWidgetToolkit.Drawing.Rectangle(0, 0, 600, 400);
 
 			this.Text = "Universal Editor";
 		}
 
 		private void InitEditorPage(string title)
 		{
-			TextBox txt = new TextBox(); 
+			TextBox txt = new TextBox();
 			txt.Text = "Testing for " + title;
 			txt.Multiline = true;
 
@@ -72,30 +73,32 @@ namespace UniversalEditor.Engines.UWT
 			if (mi == null)
 				return;
 
-			Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands [mi.Name];
-			if (cmd == null) {
-				Console.WriteLine ("unknown cmd '" + mi.Name + "'");
+			Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands[mi.Name];
+			if (cmd == null)
+			{
+				Console.WriteLine("unknown cmd '" + mi.Name + "'");
 				return;
 			}
 
-			cmd.Execute ();
+			cmd.Execute();
 		}
 
-		public override void OnActivate (EventArgs e)
+		public override void OnActivate(EventArgs e)
 		{
-			Console.WriteLine ("Window activated");
+			Console.WriteLine("Window activated");
 		}
 
 		public override void OnClosed(EventArgs e)
 		{
-			UniversalWidgetToolkit.Application.Stop ();
+			UniversalWidgetToolkit.Application.Stop();
 		}
 
 		private Shortcut CommandShortcutKeyToUWTShortcut(CommandShortcutKey shortcutKey)
 		{
 			KeyboardKey key = KeyboardKey.None;
 
-			switch (shortcutKey.Value) {
+			switch (shortcutKey.Value)
+			{
 				case CommandShortcutKeyValue.A:
 				{
 					key = KeyboardKey.A;
@@ -236,97 +239,110 @@ namespace UniversalEditor.Engines.UWT
 			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Shift) == CommandShortcutKeyModifiers.Shift) modifierKeys |= KeyboardModifierKey.Shift;
 			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Super) == CommandShortcutKeyModifiers.Super) modifierKeys |= KeyboardModifierKey.Super;
 
-			return new Shortcut (key, modifierKeys);
+			return new Shortcut(key, modifierKeys);
 		}
 
 		private UniversalWidgetToolkit.MenuItem LoadMenuItem(CommandItem ci)
 		{
-			if (ci is CommandReferenceCommandItem) {
+			if (ci is CommandReferenceCommandItem)
+			{
 				CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
 
-				Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands [crci.CommandID];
-				if (cmd != null) {
-					CommandMenuItem mi = new CommandMenuItem (cmd.Title);
+				Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands[crci.CommandID];
+				if (cmd != null)
+				{
+					CommandMenuItem mi = new CommandMenuItem(cmd.Title);
 					mi.Name = cmd.ID;
-					mi.Shortcut = CommandShortcutKeyToUWTShortcut (cmd.ShortcutKey);
-					if (cmd.Items.Count > 0) {
-						foreach (CommandItem ci1 in cmd.Items) {
-							UniversalWidgetToolkit.MenuItem mi1 = LoadMenuItem (ci1);
-							mi.Items.Add (mi1);
+					mi.Shortcut = CommandShortcutKeyToUWTShortcut(cmd.ShortcutKey);
+					if (cmd.Items.Count > 0)
+					{
+						foreach (CommandItem ci1 in cmd.Items)
+						{
+							UniversalWidgetToolkit.MenuItem mi1 = LoadMenuItem(ci1);
+							mi.Items.Add(mi1);
 						}
 					}
-					else {
+					else
+					{
 						mi.Click += MainWindow_MenuBar_Item_Click;
 					}
 					return mi;
-				} else {
-					Console.WriteLine ("attempted to load unknown cmd '" + crci.CommandID + "'");
+				}
+				else
+				{
+					Console.WriteLine("attempted to load unknown cmd '" + crci.CommandID + "'");
 				}
 				return null;
-			} else if (ci is SeparatorCommandItem) {
-				return new UniversalWidgetToolkit.SeparatorMenuItem ();
+			}
+			else if (ci is SeparatorCommandItem)
+			{
+				return new UniversalWidgetToolkit.SeparatorMenuItem();
 			}
 			return null;
 		}
 
 		#region IHostApplicationWindow implementation
 
-		public void NewFile ()
+		public void NewFile()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void NewProject (bool combineObjects = false)
+		public void NewProject(bool combineObjects = false)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void OpenFile ()
+		public void OpenFile()
 		{
-			FileDialog dlg = new FileDialog ();
+			FileDialog dlg = new FileDialog();
 			dlg.Mode = FileDialogMode.Open;
 			dlg.MultiSelect = true;
-			if (dlg.ShowDialog () == DialogResult.OK) {
-				OpenFile (dlg.SelectedFileNames.ToArray ());
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				OpenFile(dlg.SelectedFileNames.ToArray());
 			}
 		}
 
-		public void OpenFile (params string[] fileNames)
+		public void OpenFile(params string[] fileNames)
 		{
 			Document[] documents = new Document[fileNames.Length];
-			for (int i = 0; i < documents.Length; i++) {
-				FileAccessor fa = new FileAccessor (fileNames [i]);
-				documents [i] = new Document (fa);
+			for (int i = 0; i < documents.Length; i++)
+			{
+				FileAccessor fa = new FileAccessor(fileNames[i]);
+				documents[i] = new Document(fa);
 			}
-			OpenFile (documents);
+			OpenFile(documents);
 		}
 
-		public void OpenFile (params Document[] documents)
+		public void OpenFile(params Document[] documents)
 		{
-			foreach (Document doc in documents) {
+			foreach (Document doc in documents)
+			{
 				InitEditorPage(doc.Title);
 			}
 		}
 
-		public void OpenProject (bool combineObjects = false)
+		public void OpenProject(bool combineObjects = false)
 		{
-			FileDialog dlg = new FileDialog ();
-			dlg.FileNameFilters.Add ("Project files", "*.ueproj");
-			dlg.FileNameFilters.Add ("Solution files", "*.uesln");
+			FileDialog dlg = new FileDialog();
+			dlg.FileNameFilters.Add("Project files", "*.ueproj");
+			dlg.FileNameFilters.Add("Solution files", "*.uesln");
 			dlg.Title = "Open Project or Solution";
-			if (dlg.ShowDialog () == DialogResult.OK) {
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
 
 			}
 		}
 
-		public void OpenProject (string FileName, bool combineObjects = false)
+		public void OpenProject(string FileName, bool combineObjects = false)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void SaveFile ()
+		public void SaveFile()
 		{
-			IEditorImplementation currentEditor = GetCurrentEditor();
+			Editor currentEditor = GetCurrentEditor();
 			if (currentEditor != null)
 			{
 				FileDialog fd = new FileDialog();
@@ -338,43 +354,43 @@ namespace UniversalEditor.Engines.UWT
 			}
 		}
 
-		public void SaveFileAs ()
+		public void SaveFileAs()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void SaveFileAs (string FileName, DataFormat df)
+		public void SaveFileAs(string FileName, DataFormat df)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void SaveProject ()
+		public void SaveProject()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void SaveProjectAs ()
+		public void SaveProjectAs()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void SaveProjectAs (string FileName, DataFormat df)
+		public void SaveProjectAs(string FileName, DataFormat df)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void SaveAll ()
+		public void SaveAll()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void SwitchPerspective (int index)
+		public void SwitchPerspective(int index)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
 		private System.Collections.Generic.List<Window> Windows = new System.Collections.Generic.List<Window>();
-		public void CloseFile ()
+		public void CloseFile()
 		{
 			if (tbsDocumentTabs.CurrentItem != null)
 			{
@@ -386,17 +402,17 @@ namespace UniversalEditor.Engines.UWT
 			}
 		}
 
-		public void CloseProject ()
+		public void CloseProject()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void CloseWindow ()
+		public void CloseWindow()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public IEditorImplementation GetCurrentEditor ()
+		public Editor GetCurrentEditor()
 		{
 			DockingItem curitem = tbsDocumentTabs.CurrentItem;
 			if (curitem == null) return null;
@@ -407,7 +423,7 @@ namespace UniversalEditor.Engines.UWT
 			return editor;
 		}
 
-		public bool ShowOptionsDialog ()
+		public bool ShowOptionsDialog()
 		{
 			OptionsDialog dlg = new OptionsDialog();
 			if (dlg.ShowDialog() == DialogResult.OK)
@@ -417,44 +433,44 @@ namespace UniversalEditor.Engines.UWT
 			return false;
 		}
 
-		public void ToggleMenuItemEnabled (string menuItemName, bool enabled)
+		public void ToggleMenuItemEnabled(string menuItemName, bool enabled)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void RefreshCommand (object nativeCommandObject)
+		public void RefreshCommand(object nativeCommandObject)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void UpdateStatus (string statusText)
+		public void UpdateStatus(string statusText)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void UpdateProgress (bool visible)
+		public void UpdateProgress(bool visible)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void UpdateProgress (int minimum, int maximium, int value)
+		public void UpdateProgress(int minimum, int maximium, int value)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void ActivateWindow ()
+		public void ActivateWindow()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public void ShowStartPage ()
+		public void ShowStartPage()
 		{
 			InitStartPage();
 		}
 
-		public void SetWindowListVisible (bool visible, bool modal)
+		public void SetWindowListVisible(bool visible, bool modal)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
 		public event EventHandler WindowClosed;
@@ -464,4 +480,3 @@ namespace UniversalEditor.Engines.UWT
 		#endregion
 	}
 }
-

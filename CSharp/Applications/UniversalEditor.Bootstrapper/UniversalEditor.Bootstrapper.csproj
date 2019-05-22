@@ -83,6 +83,10 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>UniversalWidgetToolkit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

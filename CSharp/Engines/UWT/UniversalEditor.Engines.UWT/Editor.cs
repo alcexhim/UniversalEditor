@@ -4,7 +4,7 @@ using UniversalWidgetToolkit;
 
 namespace UniversalEditor.Engines.UWT
 {
-	public class Editor : Control, IEditorImplementation
+	public class Editor : Control
 	{
 		public Editor()
 		{
