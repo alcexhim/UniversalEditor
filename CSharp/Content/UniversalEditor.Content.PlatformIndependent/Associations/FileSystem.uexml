@@ -31,5 +31,25 @@
 				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.UXT.UXTDataFormat" />
 			</DataFormats>
 		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="VirtualBox disk image">
+					<FileNameFilters>
+						<FileNameFilter>*.vdi</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">&lt;&lt;&lt; Oracle VM VirtualBox Disk Image &gt;&gt;&gt;</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.VirtualBox.VDIDataFormat" />
+			</DataFormats>
+		</Association>
 	</Associations>
 </UniversalEditor>

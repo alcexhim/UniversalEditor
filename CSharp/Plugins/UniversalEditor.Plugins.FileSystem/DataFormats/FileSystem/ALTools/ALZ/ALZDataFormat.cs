@@ -72,7 +72,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 						file.Size = decompressedLength;
 						file.Source = new EmbeddedFileSource(br, br.Accessor.Position, compressedLength, new FileSourceTransformation[]
 						{
-							new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+							new FileSourceTransformation(FileSourceTransformationType.Output, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 							{
 								UniversalEditor.Compression.CompressionModule module = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Deflate);
 								module.Decompress(inputStream, outputStream);
@@ -143,7 +143,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 				Writer writer1 = new Writer(ma);
 				short compressedLength = (short) file.WriteTo(writer1, new FileSourceTransformation[]
 				{
-					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 					{
 						UniversalEditor.Compression.CompressionModule module = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Deflate);
 						module.Compress(inputStream, outputStream);

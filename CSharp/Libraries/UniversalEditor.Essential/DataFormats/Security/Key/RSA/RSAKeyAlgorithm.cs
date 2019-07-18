@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Security.Key.RSA
 {
-	public enum RSAKeyAlgorithm : uint
+	public enum RSAKeyAlgorithm : int
 	{
 		KeyX = 0x0000A400,
 		Sign = 0x00002400

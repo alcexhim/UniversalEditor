@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.BMP
 {
     public class BMPDataFormat : DataFormat

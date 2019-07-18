@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantization
@@ -1015,7 +1016,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			{
 				for (int j = 0; j < width; j++)
 				{
-					pic.SetPixel(Color.FromRGBA(cdata[pix], cdata[pix], cdata[pix]), j, i);
+					pic.SetPixel(Color.FromRGBAByte(cdata[pix], cdata[pix], cdata[pix]), j, i);
 					pix++;
 				}
 			}

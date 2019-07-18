@@ -759,6 +759,17 @@ namespace UniversalEditor.DataFormats.UEPackage
 								{
 									association.DataFormats.Add(dfr);
 								}
+								else
+								{
+									if (attTypeName != null)
+									{
+										Console.WriteLine("DataFormat could not be associated: " + attTypeName.Value);
+									}
+									else if (attID != null)
+									{
+										Console.WriteLine("DataFormat could not be associated: " + attID.Value);
+									}
+								}
 							}
 						}
 
@@ -899,6 +910,8 @@ namespace UniversalEditor.DataFormats.UEPackage
 													break;
 												}
 												case "hexstring":
+												// case "hexadecimal": // I don't know which one is correct
+												// okay, apparently it's "hexstring"
 												{
 													string value = tagMagicByte.Value.ToLower();
 													byte realvalue = 0;

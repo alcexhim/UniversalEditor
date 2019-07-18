@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor
 {
     public static class HoMM2Palette
@@ -74,7 +76,7 @@ namespace UniversalEditor
                 g <<= 2;
                 b <<= 2;
 
-                mvarColorTable.Add(Color.FromRGBA(r, g, b));
+                mvarColorTable.Add(Color.FromRGBAByte(r, g, b));
             }
         }
     }

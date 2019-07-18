@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Picture
 {
@@ -11,9 +12,8 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 		}
 
 		private PositionVector2 lastAddedLocation = new PositionVector2(0, 0);
-		
-		private List<Color> mvarColorMap = new List<Color>();
-		public List<Color> ColorMap { get { return mvarColorMap; } }
+
+		public List<Color> ColorMap { get; } = new List<Color>();
 
 		public void SetPixel(Color color)
 		{
@@ -39,10 +39,10 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			}
 
 			int index = (x + (y * mvarWidth)) * 4;
-			bitmapData[index] = (byte)(color.Red * 255);
-			bitmapData[index + 1] = (byte)(color.Green * 255);
-			bitmapData[index + 2] = (byte)(color.Blue * 255);
-			bitmapData[index + 3] = (byte)(color.Alpha * 255);
+			bitmapData[index] = (byte)(color.R * 255);
+			bitmapData[index + 1] = (byte)(color.G * 255);
+			bitmapData[index + 2] = (byte)(color.B * 255);
+			bitmapData[index + 3] = (byte)(color.A * 255);
 
 			int realIndex = (int)(index / 4);
 			bitmapDataSet[realIndex] = true;
@@ -74,7 +74,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 				byte g = bitmapData[index + 2];
 				byte b = bitmapData[index + 3];
 
-				Color color = Color.FromRGBA(a, r, g, b);
+				Color color = Color.FromRGBAByte(a, r, g, b);
 				return color;
 			}
 			return Color.Empty;
@@ -131,9 +131,14 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			return omr;
 		}
 
+		public void SetPixel(object p, int x, int y)
+		{
+			throw new NotImplementedException();
+		}
+
 		public override void Clear()
 		{
-			mvarColorMap = new List<Color>();
+			ColorMap.Clear();
 			Width = 1;
 			Height = 1;
 		}
@@ -188,7 +193,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 					byte r = data[i + 2];
 					byte a = data[i + 3];
 
-					Color color = Color.FromRGBA(a, r, g, b);
+					Color color = Color.FromRGBAByte(r, g, b, a);
 					pic.SetPixel(color, w, h);
 
 					i += 4;

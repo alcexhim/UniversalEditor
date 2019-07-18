@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.FileSystem
 {
-	public delegate void FileSourceTransformationFunction(System.IO.Stream inputStream, System.IO.Stream outputStream);
+	public delegate void FileSourceTransformationFunction(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream);
 	public enum FileSourceTransformationType
 	{
 		None = 0,

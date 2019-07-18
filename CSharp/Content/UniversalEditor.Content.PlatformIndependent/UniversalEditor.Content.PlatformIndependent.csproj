@@ -14,6 +14,8 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <TargetFrameworkProfile />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -631,6 +633,11 @@
     <Content Include="Themes\VisualStudio2013\Dark\Images\TreeView\generic-folder-open.png" />
     <Content Include="WindowLayouts\Default.uexml" />
     <Content Include="WindowLayouts\VisualStudio2013.uexml" />
+    <Content Include="Dialogs\AboutDialog.glade" />
+    <Content Include="Dialogs\NewDialog.glade" />
+    <Content Include="Extensions\Microsoft\Associations\Registry.uexml" />
+    <Content Include="Dialogs\DocumentPropertiesDialog.glade" />
+    <Content Include="Panels\StartPage.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -639,6 +646,8 @@
   <ItemGroup>
     <Folder Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.DatabaseEditor\Images\Icons\" />
     <Folder Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Addins\" />
+    <Folder Include="Extensions\Microsoft\" />
+    <Folder Include="Extensions\Microsoft\Associations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

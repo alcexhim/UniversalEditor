@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
 namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
@@ -61,7 +62,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
                         int B = (y / 256);
 
                         PaletteEntry entry = new PaletteEntry();
-                        entry.Color = Color.FromRGBA(R, G, B);
+                        entry.Color = Color.FromRGBAInt32(R, G, B);
                         palette.Entries.Add(entry);
                         break;
                     }
@@ -91,9 +92,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
                 {
                     case 0:
                     {
-                        ushort w = (ushort)((color.Color.Red * 255) * 256);
-                        ushort x = (ushort)((color.Color.Green * 255) * 256);
-                        ushort y = (ushort)((color.Color.Blue * 255) * 256);
+                        ushort w = (ushort)((color.Color.R * 255) * 256);
+                        ushort x = (ushort)((color.Color.G * 255) * 256);
+                        ushort y = (ushort)((color.Color.B * 255) * 256);
                         ushort z = 0;
 
                         bw.WriteUInt16(w);

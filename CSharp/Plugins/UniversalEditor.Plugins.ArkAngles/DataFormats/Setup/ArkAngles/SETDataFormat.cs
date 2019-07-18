@@ -6,6 +6,8 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Setup.ArkAngles;
 using UniversalEditor.ObjectModels.Setup.ArkAngles.Actions;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.DataFormats.Setup.ArkAngles
 {
 	public class SETDataFormat : DataFormat
@@ -242,18 +244,18 @@ namespace UniversalEditor.DataFormats.Setup.ArkAngles
 			string redStr = colorStr.Substring(4, 2);
 
 			Color color = new Color();
-			color.Red = ((double)Int32.Parse(redStr) / 255);
-			color.Green = ((double)Int32.Parse(greenStr) / 255);
-			color.Blue = ((double)Int32.Parse(blueStr) / 255);
+			color.R = ((double)Int32.Parse(redStr) / 255);
+			color.G = ((double)Int32.Parse(greenStr) / 255);
+			color.B = ((double)Int32.Parse(blueStr) / 255);
 			return color;
 		}
 		private string ColorToString(Color color)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append("$");
-			sb.Append(color.Red.ToString("X").ToLower().PadLeft(2, '0'));
-			sb.Append(color.Green.ToString("X").ToLower().PadLeft(2, '0'));
-			sb.Append(color.Blue.ToString("X").ToLower().PadLeft(2, '0'));
+			sb.Append(color.R.ToString("X").ToLower().PadLeft(2, '0'));
+			sb.Append(color.G.ToString("X").ToLower().PadLeft(2, '0'));
+			sb.Append(color.B.ToString("X").ToLower().PadLeft(2, '0'));
 			return sb.ToString();
 		}
 	}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
 {
@@ -43,10 +44,10 @@ namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
 			mvarDefaultStyle = new Style();
 			mvarDefaultStyle.FontName = "Arial";
 			mvarDefaultStyle.FontSize = 32;
-			mvarDefaultStyle.PrimaryColor = Color.FromRGBA(0, 255, 255, 255);
-			mvarDefaultStyle.SecondaryColor = Color.FromRGBA(0, 0, 0, 255);
-			mvarDefaultStyle.OutlineColor = Color.FromRGBA(0, 0, 0, 0);
-			mvarDefaultStyle.BackgroundColor = Color.FromRGBA(0, 0, 0, 0);
+			mvarDefaultStyle.PrimaryColor = Color.FromRGBAInt32(0, 255, 255, 255);
+			mvarDefaultStyle.SecondaryColor = Color.FromRGBAInt32(0, 0, 0, 255);
+			mvarDefaultStyle.OutlineColor = Color.FromRGBAInt32(0, 0, 0, 0);
+			mvarDefaultStyle.BackgroundColor = Color.FromRGBAInt32(0, 0, 0, 0);
 			mvarDefaultStyle.Bold = false;
 			mvarDefaultStyle.Italic = false;
 			mvarDefaultStyle.Underline = false;

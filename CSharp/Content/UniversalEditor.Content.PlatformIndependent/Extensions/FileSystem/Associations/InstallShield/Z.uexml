@@ -9,7 +9,7 @@
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
-							<MagicByte Type="Hexadecimal">135D658C3A010200</MagicByte>
+							<MagicByte Type="HexString">135D658C3A010200</MagicByte>
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>

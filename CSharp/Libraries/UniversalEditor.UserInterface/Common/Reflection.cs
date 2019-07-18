@@ -36,64 +36,66 @@ namespace UniversalEditor.UserInterface.Common
 					}
 					catch (System.Reflection.ReflectionTypeLoadException ex)
 					{
+						Console.Error.WriteLine("ReflectionTypeLoadException(" + ex.LoaderExceptions.Length.ToString() + "): " + asm.FullName);
+						Console.Error.WriteLine(ex.Message);
+						
 						types = ex.Types;
 					}
 
 					foreach (Type type in types)
 					{
 						if (type == null) continue;
-						Type[] interfaces = type.GetInterfaces();
-						foreach (Type typeInt in interfaces)
+
+						if (type.IsSubclassOf(typeof(Editor)))
 						{
 							#region Initializing Editors
-							if (typeInt == typeof(Editor))
+							Console.Write("loading editor '" + type.FullName + "'... ");
+							
+							try
 							{
-								Console.Write("loading editor '" + type.FullName + "'... ");
+								// TODO: see if there is a way we can MakeReference() without having to create all the UI
+								// components of the IEditorImplementation
+								Editor editor = (type.Assembly.CreateInstance(type.FullName) as Editor);
+								listEditors.Add(editor.MakeReference());
 								
-								try
-								{
-									// TODO: see if there is a way we can MakeReference() without having to create all the UI
-									// components of the IEditorImplementation
-									Editor editor = (type.Assembly.CreateInstance(type.FullName) as Editor);
-									listEditors.Add(editor.MakeReference());
-									
-									Console.WriteLine("SUCCESS!");
-								}
-								catch (System.Reflection.TargetInvocationException ex)
-								{
-									Console.WriteLine("FAILURE!");
-									
-									Console.WriteLine("binding error: " + ex.InnerException.Message);
-								}
-								catch (Exception ex)
-								{
-									Console.WriteLine("FAILURE!");
-									
-									Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
-								}
-								break;
+								Console.WriteLine("SUCCESS!");
 							}
-							#endregion
-							#region Initializing Option Panels
-							else if (typeInt == typeof(IOptionPanelImplementation))
+							catch (System.Reflection.TargetInvocationException ex)
 							{
-								try
-								{
-									IOptionPanelImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IOptionPanelImplementation);
-									listOptionPanels.Add(editor);
-								}
-								catch (System.Reflection.TargetInvocationException ex)
-								{
-									Console.WriteLine("binding error: " + ex.InnerException.Message);
-								}
-								catch (Exception ex)
-								{
-									Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
-								}
-								break;
+								Console.WriteLine("FAILURE!");
+								
+								Console.WriteLine("binding error: " + ex.InnerException.Message);
 							}
-							#endregion
+							catch (Exception ex)
+							{
+								Console.WriteLine("FAILURE!");
+								
+								Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
+							}
+							continue;
 						}
+						#endregion
+						/*
+						#region Initializing Option Panels
+						else if (type.IsSubclassOf(typeof(OptionPanel))
+						{
+							try
+							{
+								IOptionPanelImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IOptionPanelImplementation);
+								listOptionPanels.Add(editor);
+							}
+							catch (System.Reflection.TargetInvocationException ex)
+							{
+								Console.WriteLine("binding error: " + ex.InnerException.Message);
+							}
+							catch (Exception ex)
+							{
+								Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
+							}
+							break;
+						}
+						#endregion
+						*/
 					}
 				}
 			}
@@ -126,6 +128,9 @@ namespace UniversalEditor.UserInterface.Common
 					}
 					catch (System.Reflection.ReflectionTypeLoadException ex)
 					{
+						Console.Error.WriteLine("ReflectionTypeLoadException(" + ex.LoaderExceptions.Length.ToString() + "): " + asm.FullName);
+						Console.Error.WriteLine(ex.Message);
+
 						types = ex.Types;
 					}
 					foreach (Type type in types)

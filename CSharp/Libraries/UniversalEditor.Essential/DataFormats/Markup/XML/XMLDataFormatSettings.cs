@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using MBS.Framework.Collections.Generic;
+
 namespace UniversalEditor.DataFormats.Markup.XML
 {
 	public class XMLDataFormatSettings
@@ -133,8 +135,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 		private System.Collections.Specialized.StringCollection mvarAutoCloseTagNames = new System.Collections.Specialized.StringCollection();
 		public System.Collections.Specialized.StringCollection AutoCloseTagNames { get { return mvarAutoCloseTagNames; } }
 
-		private Collections.Generic.BidirectionalDictionary<string, string> mvarEntities = new Collections.Generic.BidirectionalDictionary<string, string>();
-		public Collections.Generic.BidirectionalDictionary<string, string> Entities { get { return mvarEntities; } }
+		private BidirectionalDictionary<string, string> mvarEntities = new BidirectionalDictionary<string, string>();
+		public BidirectionalDictionary<string, string> Entities { get { return mvarEntities; } }
 
 		private char mvarCDataBeginChar = '[';
 		public char CDataBeginChar { get { return mvarCDataBeginChar; } set { mvarCDataBeginChar = value; } }

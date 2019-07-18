@@ -37,7 +37,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFormats\Concertroid\Concert\ConcertBinaryDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Concertroid\MDLDataFormat.cs" />
     <Compile Include="DataFormats\Concertroid\Concert\ConcertXMLDataFormat.cs" />
     <Compile Include="DataFormats\Concertroid\Library\LibraryXMLDataFormat.cs" />
@@ -77,9 +76,9 @@
       <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UniversalEditor.Plugins.VersatileContainer\UniversalEditor.Plugins.VersatileContainer.csproj">
-      <Project>{FFC91B24-39AF-49AC-9A3A-900FBE1012ED}</Project>
-      <Name>UniversalEditor.Plugins.VersatileContainer</Name>
+    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{23ACD09E-E096-4B05-A6CE-6853EDDC589A}</Project>
+      <Name>MBS.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -70,7 +70,14 @@ namespace UniversalEditor.UserInterface
 		/// The event that is fired when the command is executed.
 		/// </summary>
 		public event EventHandler Executed;
-		
+
+		/// <summary>
+		/// Determines whether this <see cref="Command" /> is visible in all <see cref="CommandBar" />s and <see cref="MenuBar" />s
+		/// that reference it.
+		/// </summary>
+		/// <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
+		public bool Visible { get; set; }
+
 		/// <summary>
 		/// Executes this <see cref="Command"/>.
 		/// </summary>

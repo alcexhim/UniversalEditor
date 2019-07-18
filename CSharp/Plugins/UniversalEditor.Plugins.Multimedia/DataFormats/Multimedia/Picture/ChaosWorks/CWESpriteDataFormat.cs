@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.ChaosWorks
@@ -45,7 +46,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ChaosWorks
                     byte g = br.ReadByte();
                     byte b = br.ReadByte();
 
-                    pic.SetPixel(Color.FromRGBA(r, g, b), x, y);
+                    pic.SetPixel(Color.FromRGBAByte(r, g, b), x, y);
                 }
             }
         }

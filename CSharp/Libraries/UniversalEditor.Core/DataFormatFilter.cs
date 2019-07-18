@@ -23,7 +23,7 @@ namespace UniversalEditor
 				base.Add(dff);
 				return dff;
 			}
-			public DataFormatFilter Add(string Title, string[] FileNameFilters, byte?[][] MagicBytes)
+			public DataFormatFilter Add(string Title, string[] FileNameFilters, byte?[][] MagicBytes, DataFormatHintComparison comparison = DataFormatHintComparison.FilterThenMagic)
 			{
 				DataFormatFilter dff = new DataFormatFilter();
 				dff.Title = Title;
@@ -35,23 +35,7 @@ namespace UniversalEditor
 				{
 					dff.MagicBytes.Add(magicBytes);
 				}
-				dff.HintComparison = DataFormatHintComparison.FilterThenMagic;
-				base.Add(dff);
-				return dff;
-			}
-			public DataFormatFilter Add(string Title, byte?[][] MagicBytes, string[] FileNameFilters)
-			{
-				DataFormatFilter dff = new DataFormatFilter();
-				dff.Title = Title;
-				foreach (string FileNameFilter in FileNameFilters)
-				{
-					dff.FileNameFilters.Add(FileNameFilter);
-				}
-				foreach (byte?[] magicBytes in MagicBytes)
-				{
-					dff.MagicBytes.Add(magicBytes);
-				}
-				dff.HintComparison = DataFormatHintComparison.MagicThenFilter;
+				dff.HintComparison = comparison;
 				base.Add(dff);
 				return dff;
 			}
@@ -90,6 +74,7 @@ namespace UniversalEditor
 
 			// first determine if our file name matches any of the filters
 			string fileName = accessor.GetFileName();
+			fileName = System.IO.Path.GetFileName(fileName);
 
 			bool caseSensitiveOS = true;
 			// extremely hacky

@@ -152,7 +152,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 				File file = fsom.AddFile(filename);
 				file.Source = new EmbeddedFileSource(brh, (long)offset, (long)length, new FileSourceTransformation[]
 				{
-					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 					{
 						StreamAccessor saInput = new StreamAccessor(inputStream);
 						StreamAccessor saOutput = new StreamAccessor(outputStream);

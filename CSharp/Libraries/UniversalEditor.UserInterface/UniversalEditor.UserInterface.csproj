@@ -28,6 +28,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,7 +73,6 @@
     <Compile Include="IHostApplicationWindow.cs" />
     <Compile Include="IOptionPanelImplementation.cs" />
     <Compile Include="Language.cs" />
-    <Compile Include="MenuBar.cs" />
     <Compile Include="ObjectModelChangingEvent.cs" />
     <Compile Include="Perspective.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,7 +82,6 @@
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="SingleInstanceManager.cs" />
     <Compile Include="TemporaryFileManager.cs" />
-    <Compile Include="Toolbar.cs" />
     <Compile Include="Toolbox.cs" />
     <Compile Include="UnsavedDocumentOption.cs" />
     <Compile Include="WindowState.cs" />
@@ -89,7 +89,31 @@
     <Compile Include="Command.cs" />
     <Compile Include="StockCommandType.cs" />
     <Compile Include="EngineMainMenu.cs" />
-    <Compile Include="MainWIndow.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="SplashScreenWindow.cs" />
+    <Compile Include="Panels\ErrorListPanel.cs" />
+    <Compile Include="Panel.cs" />
+    <Compile Include="MenuBar.cs" />
+    <Compile Include="LocalConfiguration.cs" />
+    <Compile Include="Tests.cs" />
+    <Compile Include="Dialogs\DataFormatAboutDialog.cs" />
+    <Compile Include="Panels\SolutionExplorerPanel.cs" />
+    <Compile Include="Dialogs\NewDialog.cs" />
+    <Compile Include="Pages\EditorPage.cs" />
+    <Compile Include="Page.cs" />
+    <Compile Include="Pages\FilePage.cs" />
+    <Compile Include="Dialogs\NewDialog.Designer.cs" />
+    <Compile Include="Editors\Text\Plain\PlainTextEditor.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditor.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditor.Designer.cs" />
+    <Compile Include="Common\FileInfo.cs" />
+    <Compile Include="Editors\PropertyList\PropertyListEditor.cs" />
+    <Compile Include="Editors\PropertyList\PropertyListEditor.Designer.cs" />
+    <Compile Include="Dialogs\DocumentPropertiesDialog.cs" />
+    <Compile Include="Dialogs\GenericBrowserPopup.cs" />
+    <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs" />
+    <Compile Include="Dialogs\CustomOptionsDialog.cs" />
+    <Compile Include="Panels\StartPagePanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -121,6 +145,20 @@
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>UniversalWidgetToolkit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{23ACD09E-E096-4B05-A6CE-6853EDDC589A}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Panels\" />
+    <Folder Include="Dialogs\" />
+    <Folder Include="Pages\" />
+    <Folder Include="Editors\" />
+    <Folder Include="Editors\Text\" />
+    <Folder Include="Editors\Text\Plain\" />
+    <Folder Include="Editors\FileSystem\" />
+    <Folder Include="Editors\PropertyList\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

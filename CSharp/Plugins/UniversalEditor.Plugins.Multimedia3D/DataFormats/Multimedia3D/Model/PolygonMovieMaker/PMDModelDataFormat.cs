@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModelExtensions.Multimedia3D.Model;
 using UniversalEditor.ObjectModels.Multimedia3D;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.PropertyList
 {
-	public class Group : ICloneable
+	public class Group : ICloneable, IPropertyListContainer
 	{
 		public class GroupCollection : System.Collections.ObjectModel.Collection<Group>
 		{

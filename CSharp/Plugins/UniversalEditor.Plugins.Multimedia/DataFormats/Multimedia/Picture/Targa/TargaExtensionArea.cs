@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 {
@@ -22,8 +23,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 		private string mvarVersionString = String.Empty;
 		public string VersionString { get { return mvarVersionString; } set { mvarVersionString = value; } }
 
-		private Color mvarColorKey = Color.Empty;
-		public Color ColorKey { get { return mvarColorKey; } set { mvarColorKey = value; } }
+		public Color ColorKey { get; set; } = Color.Empty;
 
 		private int mvarPixelAspectRatioNumerator = 0;
 		public int PixelAspectRatioNumerator { get { return mvarPixelAspectRatioNumerator; } set { mvarPixelAspectRatioNumerator = value; } }

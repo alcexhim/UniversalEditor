@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace UniversalEditor.ObjectModels.PropertyList
 {
-	public class PropertyListObjectModel : ObjectModel
+	public class PropertyListObjectModel : ObjectModel, IPropertyListContainer
 	{
 		protected override ObjectModelReference MakeReferenceInternal()
 		{

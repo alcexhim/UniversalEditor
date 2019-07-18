@@ -331,7 +331,7 @@ namespace UniversalEditor
 		private string mvarValue = String.Empty;
 		public string Value { get { return mvarValue; } set { mvarValue = value; } }
 
-		public CustomOptionFile(string propertyName, string title, string defaultValue = "", string filter = "*.*", bool enabled = true, bool visible = true)
+		public CustomOptionFile(string propertyName, string title, string defaultValue = "", string filter = "All Files|*.*", bool enabled = true, bool visible = true)
 			: base(propertyName, title, enabled, visible)
 		{
 			mvarDefaultValue = defaultValue;

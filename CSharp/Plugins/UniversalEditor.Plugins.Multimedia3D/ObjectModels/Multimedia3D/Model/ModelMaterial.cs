@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Drawing;
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 {
 	public class ModelMaterial : ICloneable
@@ -9,18 +10,8 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 		{
 		}
 		private string mvarName = string.Empty;
-		private Color mvarDiffuseColor = Color.FromRGBA(0, 0, 0, 0);
-        private Color mvarEmissiveColor = Color.FromRGBA(0, 0, 0, 0);
-        private Color mvarSpecularColor = Color.FromRGBA(0, 0, 0, 0);
-		private Color mvarAmbientColor = Color.FromRGBA(0, 0, 0, 0);
-		private sbyte mvarToonNumber = 0;
-		private float mvarShininess = 0f;
 		private uint? mvarMapID = null;
-		private bool mvarEdgeFlag = false;
-		private uint mvarIndexCount = 0u;
-		private string mvarComment = string.Empty;
-		private Color mvarEdgeColor = Color.Empty;
-		private float mvarEdgeSize = 0f;
+
 		public string Name
 		{
 			get
@@ -32,141 +23,33 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 				this.mvarName = value;
 			}
 		}
-		public Color DiffuseColor
-		{
-			get
-			{
-				return this.mvarDiffuseColor;
-			}
-			set
-			{
-				this.mvarDiffuseColor = value;
-			}
-		}
-		public Color SpecularColor
-		{
-			get
-			{
-				return this.mvarSpecularColor;
-			}
-			set
-			{
-				this.mvarSpecularColor = value;
-			}
-		}
-        public Color EmissiveColor
-        {
-            get
-            {
-                return this.mvarEmissiveColor;
-            }
-            set
-            {
-                this.mvarEmissiveColor = value;
-            }
-        }
-		public Color AmbientColor
-		{
-			get
-			{
-				return this.mvarAmbientColor;
-			}
-			set
-			{
-				this.mvarAmbientColor = value;
-			}
-		}
-		public sbyte ToonNumber
-		{
-			get
-			{
-				return this.mvarToonNumber;
-			}
-			set
-			{
-				this.mvarToonNumber = value;
-			}
-		}
-		public float Shininess
-		{
-			get
-			{
-				return this.mvarShininess;
-			}
-			set
-			{
-				this.mvarShininess = value;
-			}
-		}
+		public Color DiffuseColor { get; set; } = Colors.Black;
+		public Color SpecularColor { get; set; } = Colors.Black;
+		public Color EmissiveColor { get; set; } = Colors.Black;
+		public Color AmbientColor { get; set; } = Colors.Black;
 
-		public bool EdgeFlag
-		{
-			get
-			{
-				return this.mvarEdgeFlag;
-			}
-			set
-			{
-				this.mvarEdgeFlag = value;
-			}
-		}
-		public uint IndexCount
-		{
-			get
-			{
-				return this.mvarIndexCount;
-			}
-			set
-			{
-				this.mvarIndexCount = value;
-			}
-		}
-		
-        public string Comment
-		{
-			get
-			{
-				return this.mvarComment;
-			}
-			set
-			{
-				this.mvarComment = value;
-			}
-		}
-		public Color EdgeColor
-		{
-			get
-			{
-				return this.mvarEdgeColor;
-			}
-			set
-			{
-				this.mvarEdgeColor = value;
-			}
-		}
-		public float EdgeSize
-		{
-			get
-			{
-				return this.mvarEdgeSize;
-			}
-			set
-			{
-				this.mvarEdgeSize = value;
-			}
-		}
+		public sbyte ToonNumber { get; set; } = 0;
+		public float Shininess { get; set; } = 0f;
+
+		public bool EdgeFlag { get; set; } = false;
+		public uint IndexCount { get; set; } = 0u;
+
+		public string Comment { get; set; } = string.Empty;
+		public Color EdgeColor { get; set; } = Color.Empty;
+		public float EdgeSize { get; set; } = 0f;
+
 		public object Clone()
 		{
-            ModelMaterial clone = new ModelMaterial();
-            clone.AmbientColor = mvarAmbientColor;
-            clone.DiffuseColor = mvarDiffuseColor;
-            clone.EdgeColor = mvarEdgeColor;
-            clone.EdgeFlag = mvarEdgeFlag;
-            clone.EdgeSize = mvarEdgeSize;
-            clone.IndexCount = mvarIndexCount;
+			ModelMaterial clone = new ModelMaterial();
+			clone.AmbientColor = AmbientColor;
+			clone.DiffuseColor = DiffuseColor;
+			clone.EdgeColor = EdgeColor;
+			clone.EdgeFlag = EdgeFlag;
+			clone.EdgeSize = EdgeSize;
+			clone.IndexCount = IndexCount;
             clone.Name = mvarName;
-            clone.Shininess = mvarShininess;
-            clone.SpecularColor = mvarSpecularColor;
+            clone.Shininess = Shininess;
+            clone.SpecularColor = SpecularColor;
 
             foreach (ModelTexture texture in mvarTextures)
             {
@@ -184,7 +67,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
         public override string ToString()
         {
-            return mvarName + " (" + ((mvarTextures.Count > 0) ? (!String.IsNullOrEmpty(mvarTextures[0].TextureFileName) ? mvarTextures[0].TextureFileName : mvarTextures[0].MapFileName) : mvarAmbientColor.ToString()) + ")";
+            return mvarName + " (" + ((mvarTextures.Count > 0) ? (!String.IsNullOrEmpty(mvarTextures[0].TextureFileName) ? mvarTextures[0].TextureFileName : mvarTextures[0].MapFileName) : AmbientColor.ToString()) + ")";
         }
 
         private bool mvarAlwaysLight = false;

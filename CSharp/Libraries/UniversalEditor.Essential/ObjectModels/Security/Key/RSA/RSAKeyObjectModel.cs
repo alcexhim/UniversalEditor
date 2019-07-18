@@ -38,11 +38,11 @@ namespace UniversalEditor.ObjectModels.Security.Key.RSA
 		/// </summary>
 		public int BitLength { get { return mvarBitLength; } set { mvarBitLength = value; } }
 
-		private uint mvarPublicExponent = 0;
+		private int mvarPublicExponent = 0;
 		/// <summary>
 		/// The exponent of the public key.
 		/// </summary>
-		public uint PublicExponent { get { return mvarPublicExponent; } set { mvarPublicExponent = value; } }
+		public int PublicExponent { get { return mvarPublicExponent; } set { mvarPublicExponent = value; } }
 
 		private byte[] mvarModulus = new byte[0];
 		/// <summary>

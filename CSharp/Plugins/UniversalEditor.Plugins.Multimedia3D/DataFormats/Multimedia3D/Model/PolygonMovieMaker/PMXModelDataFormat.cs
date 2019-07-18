@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-
+using MBS.Framework.Drawing;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
@@ -454,20 +453,20 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					float diffuseG = br.ReadSingle();
 					float diffuseB = br.ReadSingle();
 					float diffuseA = br.ReadSingle();
-					material.DiffuseColor = Color.FromRGBA((int)(diffuseA * 255f), (int)(diffuseR * 255f), (int)(diffuseG * 255f), (int)(diffuseB * 255f));
+					material.DiffuseColor = Color.FromRGBAInt32((int)(diffuseA * 255f), (int)(diffuseR * 255f), (int)(diffuseG * 255f), (int)(diffuseB * 255f));
                     #endregion
                     #region Specular Color
                     float specularR = br.ReadSingle();
 					float specularG = br.ReadSingle();
 					float specularB = br.ReadSingle();
 					float specularCoefficient = br.ReadSingle();
-					material.SpecularColor = Color.FromRGBA((int)(specularR * 255f), (int)(specularG * 255f), (int)(specularB * 255f));
+					material.SpecularColor = Color.FromRGBAInt32((int)(specularR * 255f), (int)(specularG * 255f), (int)(specularB * 255f));
                     #endregion
                     #region Ambient Color
                     float ambientR = br.ReadSingle();
 					float ambientG = br.ReadSingle();
 					float ambientB = br.ReadSingle();
-					material.AmbientColor = Color.FromRGBA((int)(ambientR * 255f), (int)(ambientG * 255f), (int)(ambientB * 255f));
+					material.AmbientColor = Color.FromRGBAInt32((int)(ambientR * 255f), (int)(ambientG * 255f), (int)(ambientB * 255f));
                     #endregion
                     byte flag = br.ReadByte();
                     #region EdgeColor
@@ -475,7 +474,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					float edgeG = br.ReadSingle();
 					float edgeB = br.ReadSingle();
 					float edgeA = br.ReadSingle();
-					material.EdgeColor = Color.FromRGBA((int)(edgeA * 255f), (int)(edgeR * 255f), (int)(edgeG * 255f), (int)(edgeB * 255f));
+					material.EdgeColor = Color.FromRGBAInt32((int)(edgeA * 255f), (int)(edgeR * 255f), (int)(edgeG * 255f), (int)(edgeB * 255f));
                     #endregion
                     material.EdgeSize = br.ReadSingle();
                     switch (model.IndexSizes.Texture)
@@ -1062,39 +1061,39 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 								float diffuseG = br.ReadSingle();
 								float diffuseB = br.ReadSingle();
 								float diffuseA = br.ReadSingle();
-								morph5.DiffuseColor = Color.FromRGBA((int)(diffuseA * 255f), (int)(diffuseR * 255f), (int)(diffuseG * 255f), (int)(diffuseB * 255f));
+								morph5.DiffuseColor = Color.FromRGBAInt32((int)(diffuseA * 255f), (int)(diffuseR * 255f), (int)(diffuseG * 255f), (int)(diffuseB * 255f));
 								float specularR = br.ReadSingle();
 								float specularG = br.ReadSingle();
 								float specularB = br.ReadSingle();
-								morph5.SpecularColor = Color.FromRGBA((int)(specularR * 255f), (int)(specularG * 255f), (int)(specularB * 255f));
+								morph5.SpecularColor = Color.FromRGBAInt32((int)(specularR * 255f), (int)(specularG * 255f), (int)(specularB * 255f));
 								float specularCoefficient = br.ReadSingle();
 								morph5.SpecularCoefficient = specularCoefficient;
 								float ambientR = br.ReadSingle();
 								float ambientG = br.ReadSingle();
 								float ambientB = br.ReadSingle();
-								morph5.AmbientColor = Color.FromRGBA((int)(ambientR * 255f), (int)(ambientG * 255f), (int)(ambientB * 255f));
+								morph5.AmbientColor = Color.FromRGBAInt32((int)(ambientR * 255f), (int)(ambientG * 255f), (int)(ambientB * 255f));
 								float edgeR = br.ReadSingle();
 								float edgeG = br.ReadSingle();
 								float edgeB = br.ReadSingle();
 								float edgeA = br.ReadSingle();
-								morph5.EdgeColor = Color.FromRGBA((int)(edgeA * 255f), (int)(edgeR * 255f), (int)(edgeG * 255f), (int)(edgeB * 255f));
+								morph5.EdgeColor = Color.FromRGBAInt32((int)(edgeA * 255f), (int)(edgeR * 255f), (int)(edgeG * 255f), (int)(edgeB * 255f));
 								float edgeSize = br.ReadSingle();
 								morph5.EdgeSize = edgeSize;
 								float textureCoefficientR = br.ReadSingle();
 								float textureCoefficientG = br.ReadSingle();
 								float textureCoefficientB = br.ReadSingle();
 								float textureCoefficientA = br.ReadSingle();
-								morph5.TextureCoefficient = Color.FromRGBA((int)(textureCoefficientA * 255f), (int)(textureCoefficientR * 255f), (int)(textureCoefficientG * 255f), (int)(textureCoefficientB * 255f));
+								morph5.TextureCoefficient = Color.FromRGBAInt32((int)(textureCoefficientA * 255f), (int)(textureCoefficientR * 255f), (int)(textureCoefficientG * 255f), (int)(textureCoefficientB * 255f));
 								float sphereTextureCoefficientR = br.ReadSingle();
 								float sphereTextureCoefficientG = br.ReadSingle();
 								float sphereTextureCoefficientB = br.ReadSingle();
 								float sphereTextureCoefficientA = br.ReadSingle();
-								morph5.SphereCoefficient = Color.FromRGBA((int)(sphereTextureCoefficientA * 255f), (int)(sphereTextureCoefficientR * 255f), (int)(sphereTextureCoefficientG * 255f), (int)(sphereTextureCoefficientB * 255f));
+								morph5.SphereCoefficient = Color.FromRGBAInt32((int)(sphereTextureCoefficientA * 255f), (int)(sphereTextureCoefficientR * 255f), (int)(sphereTextureCoefficientG * 255f), (int)(sphereTextureCoefficientB * 255f));
 								float toonTextureCoefficientR = br.ReadSingle();
 								float toonTextureCoefficientG = br.ReadSingle();
 								float toonTextureCoefficientB = br.ReadSingle();
 								float toonTextureCoefficientA = br.ReadSingle();
-								morph5.ToonTextureCoefficient = Color.FromRGBA((int)(toonTextureCoefficientA * 255f), (int)(toonTextureCoefficientR * 255f), (int)(toonTextureCoefficientG * 255f), (int)(toonTextureCoefficientB * 255f));
+								morph5.ToonTextureCoefficient = Color.FromRGBAInt32((int)(toonTextureCoefficientA * 255f), (int)(toonTextureCoefficientR * 255f), (int)(toonTextureCoefficientG * 255f), (int)(toonTextureCoefficientB * 255f));
 							}
 							model.Morphs.Add(morph5);
 							break;

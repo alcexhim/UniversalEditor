@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.TriangleEditor

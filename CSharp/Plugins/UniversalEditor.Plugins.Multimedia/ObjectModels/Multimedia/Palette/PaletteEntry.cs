@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Palette
 {
@@ -24,14 +25,13 @@ namespace UniversalEditor.ObjectModels.Multimedia.Palette
         private string mvarName = String.Empty;
         public string Name { get { return mvarName; } set { mvarName = value; } }
 
-        private Color mvarColor = Color.Empty;
-        public Color Color { get { return mvarColor; } set { mvarColor = value; } }
+		public Color Color { get; set; } = Color.Empty;
 
         public object Clone()
         {
             PaletteEntry clone = new PaletteEntry();
             clone.Name = mvarName;
-            clone.Color = mvarColor;
+            clone.Color = Color;
             return clone;
         }
 

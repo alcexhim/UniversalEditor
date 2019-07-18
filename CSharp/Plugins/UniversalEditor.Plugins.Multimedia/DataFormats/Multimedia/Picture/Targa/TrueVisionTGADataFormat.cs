@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
@@ -239,7 +240,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 											b = Convert.ToInt32(br.ReadByte());
 											g = Convert.ToInt32(br.ReadByte());
 											r = Convert.ToInt32(br.ReadByte());
-											pic.ColorMap.Add(Color.FromRGBA(r, g, b));
+											pic.ColorMap.Add(Color.FromRGBAInt32(r, g, b));
 											break;
 										}
 										case 32:
@@ -248,7 +249,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 											b = Convert.ToInt32(br.ReadByte());
 											g = Convert.ToInt32(br.ReadByte());
 											r = Convert.ToInt32(br.ReadByte());
-											pic.ColorMap.Add(Color.FromRGBA(a, r, g, b));
+											pic.ColorMap.Add(Color.FromRGBAInt32(a, r, g, b));
 											break;
 										}
 										default:
@@ -340,7 +341,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					int r = (int)br.ReadByte();
 					int b = (int)br.ReadByte();
 					int g = (int)br.ReadByte();
-					mvarExtensionArea.ColorKey = (Color.FromRGBA(a, r, g, b));
+					mvarExtensionArea.ColorKey = (Color.FromRGBAInt32(r, g, b, a));
 
 
 					mvarExtensionArea.PixelAspectRatioNumerator = (int)br.ReadInt16();
@@ -375,7 +376,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 							r = (int)br.ReadInt16();
 							b = (int)br.ReadInt16();
 							g = (int)br.ReadInt16();
-							mvarExtensionArea.ColorCorrectionTable.Add(Color.FromRGBA(a, r, g, b));
+							mvarExtensionArea.ColorCorrectionTable.Add(Color.FromRGBAInt32(r, g, b, a));
 						}
 					}
 				}
@@ -609,7 +610,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 								z++;
 							}
 
-							Color color = Color.FromRGBA(r, g, b, a);
+							Color color = Color.FromRGBAInt32(r, g, b, a);
 							pic.SetPixel(color, x, y);
 
 							x++;
@@ -691,7 +692,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			int a = a1 * 255;
 
 			// return the resulting Color
-			return Color.FromRGBA(a, r, g, b);
+			return Color.FromRGBAInt32(r, g, b, a);
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
 namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
@@ -56,7 +57,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
                             colorName = colors[3];
                         }
 
-                        Color color = Color.FromRGBA(r, g, b);
+                        Color color = Color.FromRGBAInt32(r, g, b);
                         palette.Entries.Add(color, colorName);
                     }
                 }

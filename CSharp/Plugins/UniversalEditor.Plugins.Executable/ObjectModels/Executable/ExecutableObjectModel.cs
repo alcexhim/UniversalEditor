@@ -86,5 +86,11 @@ namespace UniversalEditor.ObjectModels.Executable
 
 		private ExecutableInstruction.ExecutableInstructionCollection mvarInstructions = new ExecutableInstruction.ExecutableInstructionCollection();
 		public ExecutableInstruction.ExecutableInstructionCollection Instructions { get { return mvarInstructions; } }
+
+		/// <summary>
+		/// The <see cref="System.Reflection.Assembly" /> for this <see cref="ExecutableObjectModel" />.
+		/// </summary>
+		/// <value>The managed assembly.</value>
+		public System.Reflection.Assembly ManagedAssembly { get; set; }
 	}
 }

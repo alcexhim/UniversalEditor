@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Windows registry (compiled)">
+					<FileNameFilters>
+						<FileNameFilter>NTUSER.DAT</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.Registry.MicrosoftRegistryDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

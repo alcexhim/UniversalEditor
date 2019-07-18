@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using UniversalEditor;
 using UniversalEditor.IO;
 
 using UniversalEditor.ObjectModels.SourceCode;
 using UniversalEditor.ObjectModels.SourceCode.CodeElements;
+
+using MBS.Framework.Collections.Generic;
 
 namespace UniversalEditor.DataFormats.SourceCode
 {
@@ -117,8 +117,8 @@ namespace UniversalEditor.DataFormats.SourceCode
 		private bool mvarInhibitTokenProcessing = false;
 		protected bool InhibitTokenProcessing { get { return mvarInhibitTokenProcessing; } set { mvarInhibitTokenProcessing = value; } }
 
-		private UniversalEditor.Collections.Generic.AutoDictionary<string, object> mvarTemporaryVariables = new UniversalEditor.Collections.Generic.AutoDictionary<string, object>();
-		protected UniversalEditor.Collections.Generic.AutoDictionary<string, object> TemporaryVariables { get { return mvarTemporaryVariables; } }
+		private AutoDictionary<string, object> mvarTemporaryVariables = new AutoDictionary<string, object>();
+		protected AutoDictionary<string, object> TemporaryVariables { get { return mvarTemporaryVariables; } }
 
 		protected virtual void ProcessToken(string token, Reader tr)
 		{

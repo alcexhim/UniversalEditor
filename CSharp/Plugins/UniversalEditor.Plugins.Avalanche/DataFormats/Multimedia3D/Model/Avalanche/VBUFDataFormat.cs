@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
@@ -90,7 +91,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
 
 			ModelMaterial matDefault = new ModelMaterial();
 			matDefault.Name = "default";
-			matDefault.EmissiveColor = Color.FromRGBA(255, 255, 255, 255);
+			matDefault.EmissiveColor = Color.FromRGBAByte(255, 255, 255, 255);
 			foreach (ModelTriangle tri in surf.Triangles)
 			{
 				matDefault.Triangles.Add(tri);

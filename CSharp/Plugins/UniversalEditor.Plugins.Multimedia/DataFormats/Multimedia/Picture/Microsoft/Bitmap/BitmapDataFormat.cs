@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
+
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 {
@@ -81,7 +81,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 				byte g = br.ReadByte();
 				byte r = br.ReadByte();
 				byte a = br.ReadByte();
-				palette.Add(Color.FromRGBA(r, g, b, a));
+				palette.Add(Color.FromRGBAByte(r, g, b, a));
 			}
 
 			if (mvarPixelDepth == BitmapBitsPerPixel.TrueColor)
@@ -121,9 +121,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 						case BitmapBitsPerPixel.Color256:
 						{
 							byte rgb = br.ReadByte();
-							r = (byte)(palette[rgb].Red * 255);
-							g = (byte)(palette[rgb].Green * 255);
-							b = (byte)(palette[rgb].Blue * 255);
+							r = (byte)(palette[rgb].R * 255);
+							g = (byte)(palette[rgb].G * 255);
+							b = (byte)(palette[rgb].B * 255);
 							break;
 						}
 						case BitmapBitsPerPixel.HighColor:
@@ -179,7 +179,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 						}
 					}
 					
-					Color color = Color.FromRGBA(r, g, b, a);
+					Color color = Color.FromRGBAByte(r, g, b, a);
 					pic.SetPixel(color, x, y);
 				}
 			}
@@ -221,7 +221,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 				for (int x = 0; x < pic.Width; x++)
 				{
 					Color color = pic.GetPixel(x, y);
-					byte r = (byte)(color.Red * 255), g = (byte)(color.Green * 255), b = (byte)(color.Blue * 255);
+					byte r = (byte)(color.R * 255), g = (byte)(color.G * 255), b = (byte)(color.B * 255);
 
 					/*
 					if (bitsPerPixel == 1)

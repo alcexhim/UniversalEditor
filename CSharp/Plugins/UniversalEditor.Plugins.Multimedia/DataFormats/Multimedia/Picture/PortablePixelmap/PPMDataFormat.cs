@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
@@ -94,7 +95,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 									g = (byte)(255 - g);
 									b = (byte)(255 - b);
 
-									Color color = Color.FromRGBA(r, g, b);
+									Color color = Color.FromRGBAByte(r, g, b);
 									pic.SetPixel(color, x, y);
 									break;
 								}
@@ -104,7 +105,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 									byte level = (byte)tr.ReadChar();
 									level = (byte)((double)level / (256 - divisor));
 
-									Color color = Color.FromRGBA(level, level, level);
+									Color color = Color.FromRGBAByte(level, level, level);
 									pic.SetPixel(color, x, y);
 									break;
 								}
@@ -115,7 +116,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 									byte g = (byte)tr.ReadChar();
 									byte b = (byte)tr.ReadChar();
 
-									Color color = Color.FromRGBA(r, g, b);
+									Color color = Color.FromRGBAByte(r, g, b);
 									pic.SetPixel(color, x, y);
 									break;
 								}

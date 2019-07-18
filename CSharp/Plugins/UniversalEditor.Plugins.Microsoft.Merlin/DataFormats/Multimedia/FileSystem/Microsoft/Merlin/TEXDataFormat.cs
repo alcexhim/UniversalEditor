@@ -8,6 +8,8 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.DataFormats.Multimedia.FileSystem.Microsoft.Merlin
 {
 	/// <summary>
@@ -47,7 +49,7 @@ namespace UniversalEditor.DataFormats.Multimedia.FileSystem.Microsoft.Merlin
 				byte g = reader.ReadByte();
 				byte b = reader.ReadByte();
 				byte a = reader.ReadByte();
-				mvarPalette.Entries.Add(Color.FromRGBA(r, g, b, a));
+				mvarPalette.Entries.Add(Color.FromRGBAByte(r, g, b, a));
 			}
 
 			MemoryAccessor ma = new MemoryAccessor();

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 {
@@ -40,7 +40,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 				byte r = br.ReadByte();
 				byte g = br.ReadByte();
 				byte b = br.ReadByte();
-				palette.Add(Color.FromRGBA(r, g, b));
+				palette.Add(Color.FromRGBAByte(r, g, b));
 			}
 			#endregion
 

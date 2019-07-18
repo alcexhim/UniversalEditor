@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using MBS.Framework.Drawing;
 
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
@@ -86,11 +84,11 @@ namespace UniversalEditor
         }
         public static System.Drawing.Color ToGdiColor(this Color color)
         {
-            return System.Drawing.Color.FromArgb((byte)(color.Alpha * 255), (byte)(color.Red * 255), (byte)(color.Green * 255), (byte)(color.Blue * 255));
+            return System.Drawing.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
         }
         public static Color ToUniversalColor(this System.Drawing.Color color)
         {
-            return Color.FromRGBA(color.R, color.G, color.B, color.A);
+            return Color.FromRGBAByte(color.R, color.G, color.B, color.A);
         }
     }
 }

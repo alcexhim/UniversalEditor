@@ -54,7 +54,9 @@ internal static class SingleInstanceManager
             case PlatformID.Unix:
             case PlatformID.Xbox:
             case PlatformID.MacOSX:
-                result = true;
+				Console.WriteLine("IpcServerChannel constructor fails on linux and I don't know why");
+				Console.WriteLine("Single Instance Mode Not Supported!!!");
+				result = true;
                 return result;
         }
         name = name.Replace("\\", "_");

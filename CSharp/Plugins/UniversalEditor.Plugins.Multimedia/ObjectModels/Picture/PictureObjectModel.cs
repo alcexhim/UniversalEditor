@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UniversalEditor.ObjectModels.Multimedia.Picture
+namespace UniversalEditor.ObjectModels.Picture
 {
 	public class PictureObjectModel : ObjectModel
 	{

@@ -7,6 +7,8 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Cyberlore
 {
     public class PICTDataFormat : DataFormat
@@ -53,7 +55,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Cyberlore
                     byte green = reader.ReadByte();
                     byte red = reader.ReadByte();
                     byte alpha = reader.ReadByte();
-                    mvarPalette.Entries.Add(Color.FromRGBA(red, green, blue, alpha));
+                    mvarPalette.Entries.Add(Color.FromRGBAByte(red, green, blue, alpha));
                 }
 
                 pic.Width = width;

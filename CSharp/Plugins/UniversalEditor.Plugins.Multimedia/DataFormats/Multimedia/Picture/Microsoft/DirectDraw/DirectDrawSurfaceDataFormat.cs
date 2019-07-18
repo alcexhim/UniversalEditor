@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
@@ -196,7 +197,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 					Internal.DXTDecompression.decompressImage(out rgba, (int)width, (int)height, data, 1 << 1);
 					for (int i = 0; i < rgba.Length; i += 4)
 					{
-						Color color = Color.FromRGBA(rgba[i], rgba[i + 1], rgba[i + 2], rgba[i + 3]);
+						Color color = Color.FromRGBAByte(rgba[i], rgba[i + 1], rgba[i + 2], rgba[i + 3]);
 						pic.SetPixel(color);
 					}
 
@@ -322,7 +323,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 							}
 						}
 
-						Color color = Color.FromRGBA(a, r, g, b);
+						Color color = Color.FromRGBAByte(a, r, g, b);
 						pic.SetPixel(color, (int)x, (int)y);
 					}
 
@@ -340,7 +341,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 			byte r = (byte)rgb1.GetBits(0, 5);
 			byte g = (byte)rgb1.GetBits(5, 6);
 			byte b = (byte)rgb1.GetBits(11, 5);
-			return Color.FromRGBA(alpha, r, g, b);
+			return Color.FromRGBAByte(alpha, r, g, b);
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

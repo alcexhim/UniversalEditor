@@ -53,7 +53,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CFL
 				file.Size = fileSize;
 				file.Source = new EmbeddedFileSource(reader, offset, fileSize, new FileSourceTransformation[]
 				{
-					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+					new FileSourceTransformation(FileSourceTransformationType.Output, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 					{
 						Reader reader1 = new Reader(new StreamAccessor(inputStream));
 						uint compressedSize = reader1.ReadUInt32();

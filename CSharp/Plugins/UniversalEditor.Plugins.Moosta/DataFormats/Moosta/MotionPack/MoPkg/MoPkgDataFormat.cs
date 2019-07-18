@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MBS.Framework.Drawing;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Moosta.MotionPack;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
@@ -98,7 +99,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 						byte r = br.ReadByte();
 						byte g = br.ReadByte();
 						byte b = br.ReadByte();
-						mvarThumbnail.SetPixel(Color.FromRGBA(r, g, b, a), x, y);
+						mvarThumbnail.SetPixel(Color.FromRGBAByte(r, g, b, a), x, y);
 					}
 				}
 			}
@@ -141,10 +142,10 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 					for (int x = 0; x < mvarThumbnail.Width; x++)
 					{
 						Color pixel = mvarThumbnail.GetPixel(x, y);
-						bw.WriteByte((byte)(pixel.Alpha * 255));
-						bw.WriteByte((byte)(pixel.Red * 255));
-						bw.WriteByte((byte)(pixel.Green * 255));
-						bw.WriteByte((byte)(pixel.Blue * 255));
+						bw.WriteByte((byte)(pixel.A * 255));
+						bw.WriteByte((byte)(pixel.R * 255));
+						bw.WriteByte((byte)(pixel.G * 255));
+						bw.WriteByte((byte)(pixel.B * 255));
 					}
 				}
 			}

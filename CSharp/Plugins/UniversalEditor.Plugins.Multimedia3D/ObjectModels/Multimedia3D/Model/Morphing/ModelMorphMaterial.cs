@@ -1,19 +1,12 @@
 using System;
-using System.Drawing;
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 {
 	public class ModelMorphMaterial : ModelMorph
 	{
 		private long mvarMaterialIndex = 0L;
-		private Color mvarDiffuseColor = Color.Empty;
-		private Color mvarSpecularColor = Color.Empty;
-		private float mvarSpecularCoefficient = 0f;
-		private Color mvarAmbientColor = Color.Empty;
-		private Color mvarEdgeColor;
-		private float mvarEdgeSize = 0f;
-		private Color mvarTextureCoefficient = Color.Empty;
-		private Color mvarSphereCoefficient = Color.Empty;
-		private Color mvarToonTextureCoefficient = Color.Empty;
+
 		public long MaterialIndex
 		{
 			get
@@ -25,120 +18,33 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 				this.mvarMaterialIndex = value;
 			}
 		}
-		public Color DiffuseColor
-		{
-			get
-			{
-				return this.mvarDiffuseColor;
-			}
-			set
-			{
-				this.mvarDiffuseColor = value;
-			}
-		}
-		public Color SpecularColor
-		{
-			get
-			{
-				return this.mvarSpecularColor;
-			}
-			set
-			{
-				this.mvarSpecularColor = value;
-			}
-		}
-		public float SpecularCoefficient
-		{
-			get
-			{
-				return this.mvarSpecularCoefficient;
-			}
-			set
-			{
-				this.mvarSpecularCoefficient = value;
-			}
-		}
-		public Color AmbientColor
-		{
-			get
-			{
-				return this.mvarAmbientColor;
-			}
-			set
-			{
-				this.mvarAmbientColor = value;
-			}
-		}
-		public Color EdgeColor
-		{
-			get
-			{
-				return this.mvarEdgeColor;
-			}
-			set
-			{
-				this.mvarEdgeColor = value;
-			}
-		}
-		public float EdgeSize
-		{
-			get
-			{
-				return this.mvarEdgeSize;
-			}
-			set
-			{
-				this.mvarEdgeSize = value;
-			}
-		}
-		public Color TextureCoefficient
-		{
-			get
-			{
-				return this.mvarTextureCoefficient;
-			}
-			set
-			{
-				this.mvarTextureCoefficient = value;
-			}
-		}
-		public Color SphereCoefficient
-		{
-			get
-			{
-				return this.mvarSphereCoefficient;
-			}
-			set
-			{
-				this.mvarSphereCoefficient = value;
-			}
-		}
-		public Color ToonTextureCoefficient
-		{
-			get
-			{
-				return this.mvarToonTextureCoefficient;
-			}
-			set
-			{
-				this.mvarToonTextureCoefficient = value;
-			}
-		}
+		public Color DiffuseColor { get; set; } = Color.Empty;
+		public Color SpecularColor { get; set; } = Color.Empty;
+
+		public float SpecularCoefficient { get; set; } = 0f;
+		public Color AmbientColor { get; set; } = Color.Empty;
+		public Color EdgeColor { get; set; }
+		public float EdgeSize { get; set; } = 0f;
+
+		public Color TextureCoefficient { get; set; } = Color.Empty;
+		public Color SphereCoefficient { get; set; } = Color.Empty;
+		public Color ToonTextureCoefficient { get; set; } = Color.Empty;
+
 		public override object Clone()
 		{
 			return new ModelMorphMaterial
 			{
-				AmbientColor = this.mvarAmbientColor, 
-				DiffuseColor = this.mvarDiffuseColor, 
-				EdgeColor = this.mvarEdgeColor, 
-				EdgeSize = this.mvarEdgeSize, 
+				AmbientColor = this.AmbientColor, 
+				DiffuseColor = this.DiffuseColor, 
+				EdgeColor = this.EdgeColor, 
+				EdgeSize = this.EdgeSize, 
 				MaterialIndex = this.mvarMaterialIndex, 
 				Name = base.Name, 
-				SpecularCoefficient = this.mvarSpecularCoefficient, 
-				SpecularColor = this.mvarSpecularColor, 
-				SphereCoefficient = this.mvarSphereCoefficient, 
-				TextureCoefficient = this.mvarTextureCoefficient, 
-				ToonTextureCoefficient = this.mvarToonTextureCoefficient
+				SpecularCoefficient = this.SpecularCoefficient, 
+				SpecularColor = this.SpecularColor, 
+				SphereCoefficient = this.SphereCoefficient, 
+				TextureCoefficient = this.TextureCoefficient, 
+				ToonTextureCoefficient = this.ToonTextureCoefficient
 			};
 		}
 	}

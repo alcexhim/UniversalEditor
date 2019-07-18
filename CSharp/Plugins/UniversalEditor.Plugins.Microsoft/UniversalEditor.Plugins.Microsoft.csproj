@@ -102,6 +102,20 @@
     <Compile Include="ObjectModels\Text\Formatted\XPS\PrintTicket\PrintTicketObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\Text\Formatted\XPS\XPSDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryReservedFlags.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryOfflineRegistryInfo.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryHiveBinHeader.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryHiveCellType.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyNodeFlags.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyUserFlags.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyVirtualizationFlags.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyDebugFlags.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyNodeAccess.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyNode.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValue.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValueDataType.cs" />
+    <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValueFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -120,6 +134,10 @@
       <Project>{76FD1306-9CA4-428F-993B-B7E4EEEACBF3}</Project>
       <Name>UniversalEditor.Plugins.FileSystem</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
+      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
+      <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -131,4 +149,8 @@
   </Target>
   -->
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataFormats\PropertyList\" />
+    <Folder Include="DataFormats\PropertyList\Registry\" />
+  </ItemGroup>
 </Project>

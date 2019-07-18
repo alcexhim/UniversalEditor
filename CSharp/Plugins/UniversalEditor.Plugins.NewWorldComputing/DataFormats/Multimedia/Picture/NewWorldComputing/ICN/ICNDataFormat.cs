@@ -5,6 +5,8 @@ using System.Text;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.ObjectModels.Multimedia.Picture.Collection;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN
 {
 	public class ICNDataFormat : DataFormat
@@ -32,8 +34,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN
 		}
 
 
-		private Color shadowColor = Color.FromRGBA(0, 0, 0, 0x40);
-		private Color opaqueColor = Color.FromRGBA(0, 0, 0, 0xFF); // non-transparent mask
+		private Color shadowColor = Color.FromRGBAByte(0, 0, 0, 0x40);
+		private Color opaqueColor = Color.FromRGBAByte(0, 0, 0, 0xFF); // non-transparent mask
 
 		private Color GetColorIndex(byte index)
 		{

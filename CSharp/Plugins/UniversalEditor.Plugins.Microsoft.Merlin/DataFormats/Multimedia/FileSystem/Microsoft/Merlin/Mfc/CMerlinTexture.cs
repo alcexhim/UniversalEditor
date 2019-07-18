@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
+
+using MBS.Framework.Drawing;
+using UniversalEditor;
 
 namespace UniversalEditor.DataFormats.Multimedia.FileSystem.Microsoft.Merlin.Mfc
 {
 	public class MipMap
 	{
-		public Size ImageDimensionsMinusOne { get; set; }
-		public Size ImageDimensions { get; set; }
+		public Dimension2D ImageDimensionsMinusOne { get; set; }
+		public Dimension2D ImageDimensions { get; set; }
 		public uint Level { get; set; }
 		public byte[] ImageData { get; set; }
 
@@ -54,8 +56,8 @@ namespace UniversalEditor.DataFormats.Multimedia.FileSystem.Microsoft.Merlin.Mfc
 				var nextLargestWidth = reader.ReadUInt16();
 				var imageWidth = reader.ReadUInt16();
 
-				mipmap.ImageDimensionsMinusOne = new Size(imageWidth, imageHeight);
-				mipmap.ImageDimensions = new Size(nextLargestWidth, nextLargestHeight);
+				mipmap.ImageDimensionsMinusOne = new Dimension2D(imageWidth, imageHeight);
+				mipmap.ImageDimensions = new Dimension2D(nextLargestWidth, nextLargestHeight);
 				mipmap.Level = reader.ReadUInt16();
 
 				var imageDataLength = reader.ReadUInt32();

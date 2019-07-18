@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.Accessors;
 using UniversalEditor.Compression;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
@@ -72,7 +73,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
                     byte g = uncompressed[index + 1];
                     byte b = uncompressed[index + 2];
 
-                    Color color = Color.FromRGBA(r, g, b);
+                    Color color = Color.FromRGBAByte(r, g, b);
                     pic.SetPixel(color, x, y);
                 }
             }

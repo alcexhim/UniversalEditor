@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor
 {
@@ -31,7 +32,7 @@ namespace UniversalEditor
             int r = (int)Math.Min(255f, specularR * 255f);
             int g = (int)Math.Min(255f, specularG * 255f);
             int b = (int)Math.Min(255f, specularB * 255f);
-            return Color.FromRGBA(r, g, b);
+            return Color.FromRGBAInt32(r, g, b);
 		}
 		/// <summary>
 		/// Reads a series of 4 32-bit Single values as a <see cref="Color" />
@@ -50,7 +51,7 @@ namespace UniversalEditor
             int r = (int)Math.Min(255f, diffuseR * 255f);
             int g = (int)Math.Min(255f, diffuseG * 255f);
             int b = (int)Math.Min(255f, diffuseB * 255f);
-            return Color.FromRGBA(r, g, b, a);
+            return Color.FromRGBAInt32(r, g, b, a);
 		}
         /// <summary>
         /// Reads a series of 4 32-bit Single values as a <see cref="Color" />
@@ -69,7 +70,7 @@ namespace UniversalEditor
             int r = (int)Math.Min(255f, diffuseR * 255f);
             int g = (int)Math.Min(255f, diffuseG * 255f);
             int b = (int)Math.Min(255f, diffuseB * 255f);
-            return Color.FromRGBA(r, g, b, a);
+            return Color.FromRGBAInt32(r, g, b, a);
         }
 		
 		/// <summary>
@@ -86,7 +87,7 @@ namespace UniversalEditor
 			byte b = (byte)(rgba.GetBits(8, 4));
 			byte a = (byte)(rgba.GetBits(12, 4));
 			
-			Color color = Color.FromRGBA(a, r, g, b);
+			Color color = Color.FromRGBAByte(a, r, g, b);
 			return color;
 		}
 		
@@ -103,7 +104,7 @@ namespace UniversalEditor
 			byte g = (byte)(rgb.GetBits(5, 6));
 			byte b = (byte)(rgb.GetBits(11, 5));
 			
-			Color color = Color.FromRGBA(r, g, b);
+			Color color = Color.FromRGBAByte(r, g, b);
 			return color;
 		}
 		
@@ -120,7 +121,7 @@ namespace UniversalEditor
 			byte b = br.ReadByte();
 			byte a = br.ReadByte();
 
-			Color color = Color.FromRGBA(a, r, g, b);
+			Color color = Color.FromRGBAByte(a, r, g, b);
 			return color;
 		}
 		
@@ -137,7 +138,7 @@ namespace UniversalEditor
 			byte b = (byte)(rgba.GetBits(10, 5));
 			byte a = (byte)(rgba.GetBits(15, 1));
 			
-			Color color = Color.FromRGBA(a, r, g, b);
+			Color color = Color.FromRGBAByte(a, r, g, b);
 			return color;
         }
         #endregion
@@ -150,9 +151,9 @@ namespace UniversalEditor
 		/// <returns></returns>
 		public static void WriteColorRGBSingle(this IO.Writer bw, Color color)
         {
-            bw.WriteSingle((float)color.Red);
-            bw.WriteSingle((float)color.Green);
-            bw.WriteSingle((float)color.Blue);
+            bw.WriteSingle((float)color.R);
+            bw.WriteSingle((float)color.G);
+            bw.WriteSingle((float)color.B);
 		}
 		/// <summary>
 		/// Writes a series of 4 32-bit Single values as a <see cref="Color" />
@@ -162,10 +163,10 @@ namespace UniversalEditor
 		/// <returns></returns>
         public static void WriteColorRGBASingle(this IO.Writer bw, Color color)
         {
-            bw.WriteSingle((float)color.Red);
-            bw.WriteSingle((float)color.Green);
-            bw.WriteSingle((float)color.Blue);
-            bw.WriteSingle((float)color.Alpha);
+            bw.WriteSingle((float)color.R);
+            bw.WriteSingle((float)color.G);
+            bw.WriteSingle((float)color.B);
+            bw.WriteSingle((float)color.A);
 		}
         /// <summary>
         /// Writes a series of 4 32-bit Single values as a <see cref="Color" />
@@ -175,10 +176,10 @@ namespace UniversalEditor
         /// <returns></returns>
         public static void WriteColorARGBSingle(this IO.Writer bw, Color color)
         {
-            bw.WriteSingle((float)color.Alpha);
-            bw.WriteSingle((float)color.Red);
-            bw.WriteSingle((float)color.Green);
-            bw.WriteSingle((float)color.Blue);
+            bw.WriteSingle((float)color.A);
+            bw.WriteSingle((float)color.R);
+            bw.WriteSingle((float)color.G);
+            bw.WriteSingle((float)color.B);
         }
 		
 		/// <summary>
@@ -218,10 +219,10 @@ namespace UniversalEditor
 		/// <returns></returns>
 		public static void WriteColorRGBA8888(this IO.Writer bw, Color color)
 		{
-            bw.WriteByte((byte)(color.Red * 255));
-            bw.WriteByte((byte)(color.Green * 255));
-            bw.WriteByte((byte)(color.Blue * 255));
-            bw.WriteByte((byte)(color.Alpha * 255));
+            bw.WriteByte((byte)(color.R * 255));
+            bw.WriteByte((byte)(color.G * 255));
+            bw.WriteByte((byte)(color.B * 255));
+            bw.WriteByte((byte)(color.A * 255));
 		}
 		
 		/// <summary>

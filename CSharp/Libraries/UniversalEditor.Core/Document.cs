@@ -136,7 +136,7 @@ namespace UniversalEditor
 				if (mvarInputAccessor.IsOpen)
 				{
 					mvarInputAccessor.Close();
-					mvarTitle = mvarOutputAccessor.Title;
+					mvarTitle = mvarOutputAccessor.GetFileTitle();
 				}
 			}
 			if (mvarOutputAccessor != null)
@@ -144,7 +144,7 @@ namespace UniversalEditor
 				if (mvarOutputAccessor.IsOpen)
 				{
 					mvarOutputAccessor.Close();
-					mvarTitle = mvarOutputAccessor.Title;
+					mvarTitle = mvarOutputAccessor.GetFileTitle();
 				}
 			}
 		}
@@ -160,11 +160,11 @@ namespace UniversalEditor
 			{
 				if (mvarLastUsedAccessor == LastUsedAccessor.Input && mvarInputAccessor != null)
 				{
-					return mvarInputAccessor.Title;
+					return mvarInputAccessor.GetFileTitle();
 				}
 				else if (mvarLastUsedAccessor == LastUsedAccessor.Output && mvarOutputAccessor != null)
 				{
-					return mvarOutputAccessor.Title;
+					return mvarOutputAccessor.GetFileTitle();
 				}
 				return mvarTitle;
 			}

@@ -64,6 +64,22 @@ namespace UniversalEditor
 
 		private CustomDataFormatFieldCondition mvarFieldCondition = null;
 		public CustomDataFormatFieldCondition FieldCondition { get { return mvarFieldCondition; } set { mvarFieldCondition = value; } }
+
+		public CustomDataFormatItemField()
+		{
+
+		}
+		public CustomDataFormatItemField(string name, string dataType)
+		{
+			Name = name;
+			DataType = dataType;
+		}
+		public CustomDataFormatItemField(string name, string dataType, int length)
+		{
+			Name = name;
+			DataType = dataType;
+			Length = length;
+		}
 	}
 	public class CustomDataFormatItemArray : CustomDataFormatItem
 	{
@@ -78,5 +94,6 @@ namespace UniversalEditor
 
 		private string mvarMaximumSize = null;
 		public string MaximumSize { get { return mvarMaximumSize; } set { mvarMaximumSize = value; } }
+
 	}
 }

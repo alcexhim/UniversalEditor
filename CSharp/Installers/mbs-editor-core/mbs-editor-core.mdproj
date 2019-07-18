@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProjectGuid>{E6B75C75-E02B-46A9-B628-72DF709E49EE}</ProjectGuid>
+    <Packages>
+      <Packages>
+        <Package>
+          <Builder>
+            <ChildEntries>
+              <SolutionItemReference>
+                <path>..\..\UniversalEditor.GTK.sln</path>
+                <id>{8FDADC6F-4B85-46E7-B2EA-8742B0246769}</id>
+              </SolutionItemReference>
+              <SolutionItemReference>
+                <path>..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj</path>
+              </SolutionItemReference>
+              <SolutionItemReference>
+                <path>..\..\UniversalEditor.GTK.sln</path>
+                <id>{0399182F-AF56-4E86-B229-EAB38C2EE6AF}</id>
+              </SolutionItemReference>
+              <SolutionItemReference>
+                <path>..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj</path>
+              </SolutionItemReference>
+            </ChildEntries>
+            <RootEntry>
+              <path>..\..\UniversalEditor.GTK.sln</path>
+              <id>:root:</id>
+            </RootEntry>
+            <targetFile>..\..\mbs-editor-core.tar.gz</targetFile>
+            <platform>Linux</platform>
+            <configuration>Debug</configuration>
+            <ctype>BinariesZipPackageBuilder</ctype>
+          </Builder>
+          <name>Linux Binaries</name>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>

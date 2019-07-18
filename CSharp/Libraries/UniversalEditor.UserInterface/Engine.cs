@@ -10,54 +10,181 @@ using UniversalEditor.ObjectModels.PropertyList;
 
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Markup;
+using UniversalEditor.DataFormats.FileSystem.UXT;
+using UniversalEditor.DataFormats.PropertyList.UniversalPropertyList;
+
+using UniversalWidgetToolkit.Dialogs;
+using UniversalWidgetToolkit.Drawing;
+using UniversalEditor.UserInterface.Dialogs;
+using UniversalWidgetToolkit;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.UserInterface
 {
+	// TODO: Finish implementing ObjectModel Converters... will need to have something
+	// like GetAvailableConvertersFrom(Type objectModel) to get a list of available
+	// converters that can convert from the specified object model.
+
 	public class Engine
 	{
 		private static Engine _TheEngine = new Engine();
+		private SplashScreenWindow splasher = null;
+
+		private void ShowSplashScreen()
+		{
+			// if (LocalConfiguration.SplashScreen.Enabled)
+			// {
+				splasher = new SplashScreenWindow();
+				splasher.Show();
+			// }
+		}
+		private void HideSplashScreen()
+		{
+			while (splasher == null)
+			{
+				System.Threading.Thread.Sleep(500);
+			}
+			splasher.Hide();
+		}
 
 		#region implemented abstract members of Engine
 		protected void ShowCrashDialog (Exception ex)
 		{
 			Console.WriteLine (ex.ToString ());
+
+			// Dialogs.CrashDialog dlg = new Dialogs.CrashDialog();
+			// dlg.Exception = ex;
+			// dlg.ShowDialog();
 		}
 
 		protected void BeforeInitialization ()
 		{
+			// Application.EnableVisualStyles();
+			// Application.SetCompatibleTextRenderingDefault(false);
+
+			// TODO: figure out why this is being done on BeforeInitialization and whether we could move it to after
+			//       the configuration is initialized, so we can specify the user's favorite theme in a configuration file
+
+			// AwesomeControls.Theming.BuiltinThemes. theme = new AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.ColorMode.Dark);
+			// theme.UseAllCapsMenus = false;
+			// theme.SetStatusBarState(AwesomeControls.Theming.BuiltinThemes.VisualStudio2012Theme.StatusBarState.Initial);
+			// AwesomeControls.Theming.BuiltinThemes.Office2003Theme theme = new AwesomeControls.Theming.BuiltinThemes.Office2003Theme();
+			// AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme theme = new AwesomeControls.Theming.BuiltinThemes.OfficeXPTheme();
+			// AwesomeControls.Theming.BuiltinThemes.SlickTheme theme = new AwesomeControls.Theming.BuiltinThemes.SlickTheme();
+
+			// Office 2000  =   {105843D0-2F26-4CB7-86AB-10A449815C19}
+			// Office 2007	=	{4D86F538-E277-4E6F-9CAC-60F82D49A19D}
+			// VS2012-Dark	=	{25134C94-B1EB-4C38-9B5B-A2E29FC57AE1}
+			// VS2012-Light	=	{54CE64B1-2DE3-4147-B499-03F0934AFD37}
+			// VS2012-Blue	=	{898A65FC-8D08-46F1-BB94-2BF666AC996E}
+
+			// AwesomeControls.Theming.Theme theme = AwesomeControls.Theming.Theme.GetByID(new Guid("{54CE64B1-2DE3-4147-B499-03F0934AFD37}"));
+			// AwesomeControls.Theming.Theme theme = AwesomeControls.Theming.Theme.GetByID(new Guid("{105843D0-2F26-4CB7-86AB-10A449815C19}"));
+			// if (theme != null) AwesomeControls.Theming.Theme.CurrentTheme = theme;
+
+			// AwesomeControls.Theming.Theme.CurrentTheme.Properties["UseAllCapsMenus"] = false;
+
+			// Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
+
 			UniversalWidgetToolkit.Application.Initialize();
 		}
 		
 		protected void MainLoop ()
 		{
-			UniversalWidgetToolkit.Application.Start ();
+			switch (System.Environment.OSVersion.Platform)
+			{
+				case PlatformID.MacOSX:
+				case PlatformID.Unix:
+				{
+					// Glue.ApplicationInformation.ApplicationDataPath = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { "universal-editor", "plugins" });
+					break;
+				}
+				case PlatformID.Win32NT:
+				case PlatformID.Win32S:
+				case PlatformID.Win32Windows:
+				case PlatformID.WinCE:
+				case PlatformID.Xbox:
+				{
+					// Glue.ApplicationInformation.ApplicationDataPath = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { "Universal Editor", "Plugins" });
+					break;
+				}
+			}
+
+			// Glue.ApplicationEventEventArgs e = new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStart);
+			// Glue.Common.Methods.SendApplicationEvent(e);
+			// if (e.CancelApplication) return;
+
+			/*
+			PieMenuManager.Title = "Universal Editor pre-alpha build";
+
+			PieMenuItemGroup row1 = new PieMenuItemGroup();
+			row1.Title = "Tools";
+			row1.Items.Add("atlMFCTraceTool", "ATL/MFC Trace Tool");
+			row1.Items.Add("textEditor", "Text Editor");
+			PieMenuManager.Groups.Add(row1);
+			*/
+
+#if !DEBUG
+			// Application.ThreadException += Application_ThreadException;
+#endif
+
+			UniversalWidgetToolkit.Application.Start();
+
+			// Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
 		}
 
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.
 		/// </summary>
-		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
+		/// <param name="documents">The document model(s) of the document(s) to load.</param>
 		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
 		protected IHostApplicationWindow OpenWindowInternal (params Document[] documents)
 		{
 			MainWindow mw = new MainWindow ();
 			LastWindow = mw;
+			if (documents.Length > 0)
+			{
+				mw.OpenFile(documents);
+			}
 			mw.Show ();
  			return mw;
 		}
 		public void ShowAboutDialog (DataFormatReference dfr)
 		{
-			UniversalWidgetToolkit.Dialogs.AboutDialog dlg = new UniversalWidgetToolkit.Dialogs.AboutDialog ();
-			dlg.ProgramName = "Universal Editor";
-			dlg.Version = System.Reflection.Assembly.GetEntryAssembly ().GetName ().Version;
-			dlg.Copyright = "(c) 1997-2016 Michael Becker";
-			dlg.Comments = "A modular, extensible document editor";
-			dlg.LicenseType = UniversalWidgetToolkit.LicenseType.GPL30;
-			dlg.ShowDialog ();
+			if (dfr == null)
+			{
+				string dlgfilename = ExpandRelativePath("~/Dialogs/AboutDialog.glade");
+				if (dlgfilename != null)
+				{
+					Dialog dlg = new Dialog();
+					dlg.LoadFromMarkup(dlgfilename, "GtkDialog");
+					dlg.ShowDialog();
+				}
+				else
+				{
+					AboutDialog dlg = new AboutDialog();
+					dlg.ProgramName = "Universal Editor";
+					dlg.Version = System.Reflection.Assembly.GetEntryAssembly().GetName().Version;
+					dlg.Copyright = "(c) 1997-2019 Michael Becker";
+					dlg.Comments = "A modular, extensible document editor";
+					dlg.LicenseType = UniversalWidgetToolkit.LicenseType.GPL30;
+					dlg.ShowDialog();
+				}
+			}
+			else
+			{
+				DataFormatAboutDialog dlg = new DataFormatAboutDialog();
+				dlg.DataFormatReference = dfr;
+				dlg.ShowDialog();
+			}
 		}
 		public bool ShowCustomOptionDialog (ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null)
 		{
-			return false;
+			if (CustomOptionsDialog.ShowDialog(ref customOptions, title, aboutButtonClicked) == DialogResult.Cancel)
+			{
+				return false;
+			}
+			return true;
 		}
 		#endregion
 
@@ -256,6 +383,10 @@ namespace UniversalEditor.UserInterface
 			});
 			#endregion
 			#region Help
+			AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
+			{
+				MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
+			});
 			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
 			{
 				ShowAboutDialog();
@@ -450,10 +581,17 @@ namespace UniversalEditor.UserInterface
 			this.ShowAboutDialog(null);
 		}
 
+		/// <summary>
+		/// Opens a new window, with no documents loaded.
+		/// </summary>
 		public void OpenWindow()
 		{
 			OpenWindow(new Document[0]);
 		}
+		/// <summary>
+		/// Opens a new window, optionally loading the specified documents.
+		/// </summary>
+		/// <param name="fileNames">The file name(s) of the document(s) to load.</param>
 		public void OpenWindow(params string[] fileNames)
 		{
 			Document[] documents = new Document[fileNames.Length];
@@ -466,7 +604,7 @@ namespace UniversalEditor.UserInterface
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.
 		/// </summary>
-		/// <param name="FileNames">The file name(s) of the document(s) to load.</param>
+		/// <param name="documents">The document model(s) of the document(s) to load.</param>
 		public void OpenWindow(params Document[] documents)
 		{
 			IHostApplicationWindow window = OpenWindowInternal(documents);
@@ -496,17 +634,9 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		// FIXME: this is the single XML configuration file loader that should be executed at the beginning of engine launch
-		protected virtual void InitializeXMLConfiguration()
+		private string[] EnumerateDataPaths()
 		{
-			#region Load the XML files
-			string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
-			if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
-
-			List<String> xmlFilesList = new List<String>();
-
-			// TODO: change "universal-editor" string to platform-dependent "universal-editor" on *nix or "Mike Becker's Software/Universal Editor" on Windowds
-			string[] paths = new string[]
+			return new string[]
 			{
 				// first look in the application root directory since this will be overridden by everything else
 				mvarBasePath,
@@ -514,35 +644,73 @@ namespace UniversalEditor.UserInterface
 				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
 					System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonApplicationData),
-					"universal-editor"
+					"mbs-editor"
 				}),
 				// then look in ~/.local/share/universal-editor or C:\Users\USERNAME\AppData\Local\Mike Becker's Software\Universal Editor
 				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
 					System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),
-					"universal-editor"
+					"mbs-editor"
 				}),
 				// then look in ~/.universal-editor or C:\Users\USERNAME\AppData\Roaming\Mike Becker's Software\Universal Editor
 				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
 					System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
-					"universal-editor"
+					"mbs-editor"
 				})
 			};
+		}
+		private string[] EnumerateDataFiles(string filter)
+		{
+			List<String> xmlFilesList = new List<String>();
+
+			// TODO: change "universal-editor" string to platform-dependent "universal-editor" on *nix or "Mike Becker's Software/Universal Editor" on Windowds
+			string[] paths = EnumerateDataPaths();
 
 			foreach (string path in paths)
 			{
 				// skip this one if the path doesn't exist
 				if (!System.IO.Directory.Exists(path)) continue;
 
-				string[] xmlfilesPath = System.IO.Directory.GetFiles(path, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
+				string[] xmlfilesPath = System.IO.Directory.GetFiles(path, filter, System.IO.SearchOption.AllDirectories);
 				foreach (string s in xmlfilesPath)
 				{
 					xmlFilesList.Add(s);
 				}
 			}
+			return xmlFilesList.ToArray();
+		}
+		public string ExpandRelativePath(string relativePath)
+		{
+			if (relativePath.StartsWith("~/"))
+			{
+				string[] potentialFileNames = EnumerateDataPaths();
+				for (int i = potentialFileNames.Length - 1; i >= 0; i--)
+				{
+					potentialFileNames[i] = potentialFileNames[i] + '/' + relativePath.Substring(2);
+					Console.WriteLine("Looking for " + potentialFileNames[i]);
 
-			string[] xmlfiles = xmlFilesList.ToArray();
+					if (System.IO.File.Exists(potentialFileNames[i]))
+					{
+						return potentialFileNames[i];
+					}
+				}
+			}
+			if (System.IO.File.Exists(relativePath))
+			{
+				return relativePath;
+			}
+			return null;
+		}
+
+		// FIXME: this is the single XML configuration file loader that should be executed at the beginning of engine launch
+		protected virtual void InitializeXMLConfiguration()
+		{
+			#region Load the XML files
+			string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
+			if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
+
+			string[] xmlfiles = EnumerateDataFiles(configurationFileNameFilter);
 
 			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
 
@@ -1025,7 +1193,105 @@ namespace UniversalEditor.UserInterface
 		
 		protected virtual void InitializeBranding()
 		{
+			// I don't know why this ever was WindowsFormsEngine-specific...
 
+			// First, attempt to load the branding from Branding.uxt
+			string BrandingFileName = BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Branding.uxt";
+			if (System.IO.File.Exists(BrandingFileName))
+			{
+				FileSystemObjectModel fsom = new FileSystemObjectModel();
+				FileAccessor fa = new FileAccessor(BrandingFileName);
+				Document.Load(fsom, new UXTDataFormat(), fa, false);
+
+				UniversalEditor.ObjectModels.FileSystem.File fileSplashScreenImage = fsom.Files["SplashScreen.png"];
+				if (fileSplashScreenImage != null)
+				{
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenImage.GetData());
+					// oh, yeah, maybe because of this?
+					// LocalConfiguration.SplashScreen.Image = System.Drawing.Image.FromStream(ms);
+
+					// when I did this back in ... who knows when, Universal Widget Toolkit didn't
+					// exist, let alone have a UniversalWidgetToolkit.Drawing.Image class...
+				}
+
+				UniversalEditor.ObjectModels.FileSystem.File fileSplashScreenSound = fsom.Files["SplashScreen.wav"];
+				if (fileSplashScreenSound != null)
+				{
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileSplashScreenSound.GetData());
+					// LocalConfiguration.SplashScreen.Sound = ms;
+				}
+
+				UniversalEditor.ObjectModels.FileSystem.File fileMainIcon = fsom.Files["MainIcon.ico"];
+				if (fileMainIcon != null)
+				{
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileMainIcon.GetData());
+					// LocalConfiguration.MainIcon = new System.Drawing.Icon(ms);
+				}
+
+				UniversalEditor.ObjectModels.FileSystem.File fileConfiguration = fsom.Files["Configuration.upl"];
+				if (fileConfiguration != null)
+				{
+					System.IO.MemoryStream ms = new System.IO.MemoryStream(fileConfiguration.GetData());
+
+					UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel plomBranding = new ObjectModels.PropertyList.PropertyListObjectModel();
+					Document.Load(plomBranding, new UniversalPropertyListDataFormat(), new StreamAccessor(ms), true);
+
+					LocalConfiguration.ApplicationName = plomBranding.GetValue<string>(new string[] { "Application", "Title" }, String.Empty);
+
+					LocalConfiguration.ColorScheme.DarkColor = Color.FromString(plomBranding.GetValue<string>(new string[] { "ColorScheme", "DarkColor" }, "#2A0068"));
+					LocalConfiguration.ColorScheme.LightColor = Color.FromString(plomBranding.GetValue<string>(new string[] { "ColorScheme", "LightColor" }, "#C0C0FF"));
+				}
+
+				fa.Close();
+			}
+
+			// Now, determine if we should override any branding details with local copies
+			if (System.IO.Directory.Exists(BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Branding"))
+			{
+				string SplashScreenImageFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					BasePath,
+					"Branding",
+					"SplashScreen.png"
+				});
+				if (System.IO.File.Exists(SplashScreenImageFileName)) LocalConfiguration.SplashScreen.ImageFileName = SplashScreenImageFileName;
+
+				string SplashScreenSoundFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					BasePath,
+					"Branding",
+					"SplashScreen.wav"
+				});
+				if (System.IO.File.Exists(SplashScreenSoundFileName)) LocalConfiguration.SplashScreen.SoundFileName = SplashScreenSoundFileName;
+
+				string MainIconFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					BasePath,
+					"Branding",
+					"MainIcon.ico"
+				});
+				// if (System.IO.File.Exists(MainIconFileName)) LocalConfiguration.MainIcon = System.Drawing.Icon.ExtractAssociatedIcon(MainIconFileName);
+
+				string ConfigurationFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					BasePath,
+					"Branding",
+					"Configuration.upl"
+				});
+
+				if (System.IO.File.Exists(ConfigurationFileName))
+				{
+					UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel plomBranding = new ObjectModels.PropertyList.PropertyListObjectModel();
+					Document.Load(plomBranding, new UniversalPropertyListDataFormat(), new FileAccessor(ConfigurationFileName), true);
+
+					LocalConfiguration.ApplicationName = plomBranding.GetValue<string>(new string[] { "Application", "Title" }, "Universal Editor");
+					LocalConfiguration.ApplicationShortName = plomBranding.GetValue<string>(new string[] { "Application", "ShortTitle" }, "universal-editor");
+					LocalConfiguration.CompanyName = plomBranding.GetValue<string>(new string[] { "Application", "CompanyName" }, "Mike Becker's Software");
+
+					LocalConfiguration.ColorScheme.DarkColor = Color.FromString(plomBranding.GetValue<string>(new string[] { "ColorScheme", "DarkColor" }, "#2A0068"));
+					LocalConfiguration.ColorScheme.LightColor = Color.FromString(plomBranding.GetValue<string>(new string[] { "ColorScheme", "LightColor" }, "#C0C0FF"));
+				}
+			}
 		}
 
 		private ConfigurationManager mvarConfigurationManager = new ConfigurationManager();
@@ -1046,18 +1312,37 @@ namespace UniversalEditor.UserInterface
 		private Perspective.PerspectiveCollection mvarPerspectives = new Perspective.PerspectiveCollection();
 		public Perspective.PerspectiveCollection Perspectives { get { return mvarPerspectives; } }
 
-		protected virtual void ShowSplashScreen()
-		{
-		}
-		protected virtual void HideSplashScreen()
-		{
-		}
 		protected virtual void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
 		{
+			// most of this is relic from when we had to workaround WinForms
+			// threading issues; these threading issues should be
+			// automagically handled by the UWT WinForms engine
+
+			/*
+			if (LocalConfiguration.SplashScreen.Enabled)
+			{
+				int spins = 0, maxspins = 30;
+				if (splasher == null) return;
+
+				while (splasher == null)
+				{
+					System.Threading.Thread.Sleep(500);
+					if (spins == maxspins) return;
+					spins++;
+				}
+				splasher.InvokeUpdateStatus(message);
+			}
+			*/
+			splasher.SetStatus(message, progressValue, progressMinimum, progressMaximum);
 		}
 
 		private void Initialize()
 		{
+			ShowSplashScreen();
+
+			Application.ShortName = "mbs-editor";
+			// Application.Title = "Universal Editor";
+
 			// Initialize the XML files before anything else, since this also loads string tables needed
 			// to display the application title
 			InitializeXMLConfiguration();
@@ -1066,8 +1351,6 @@ namespace UniversalEditor.UserInterface
 			threadLoader.Name = "Initialization Thread";
 			threadLoader.Start();
 
-			ShowSplashScreen();
-			
 			while (threadLoader.ThreadState == System.Threading.ThreadState.Running)
 			{
 				System.Threading.Thread.Sleep (500);
@@ -1176,8 +1459,8 @@ namespace UniversalEditor.UserInterface
 		}
 		protected virtual void RestartApplicationInternal()
 		{
-			StopApplication();
-			StartApplication();
+			// StopApplication();
+			// StartApplication();
 		}
 		protected virtual bool BeforeStopApplication()
 		{

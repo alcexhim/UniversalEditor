@@ -5,6 +5,8 @@ using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
 {
     public class FRM16DataFormat : DataFormat
@@ -70,7 +72,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
                     int r = pixel.GetBits(0, 5);
                     int g = pixel.GetBits(5, 6);
                     int b = pixel.GetBits(11, 5);
-                    pict.SetPixel(Color.FromRGBA(r, g, b), x, y);
+                    pict.SetPixel(Color.FromRGBAInt32(r, g, b), x, y);
                 }
             }
 

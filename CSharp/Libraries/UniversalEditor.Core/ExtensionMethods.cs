@@ -38,6 +38,8 @@ namespace UniversalEditor
 		{
 			return (value >> offset) & ((1 << count) - 1);
 		}
+
+		[CLSCompliant(false)]
 		public static int GetBits(this ushort value, int offset, int count)
 		{
 			return (value >> offset) & ((1 << count) - 1);
@@ -325,40 +327,49 @@ namespace UniversalEditor
 		#endregion
 
 		#region Endianness
+		[CLSCompliant(false)]
 		public static ushort SwapEndian(this ushort x)
 		{
 			return (ushort)(x >> 8 | (int)x << 8);
 		}
+		[CLSCompliant(false)]
 		public static ushort SwapEndian(this short x)
 		{
 			return ((ushort)x).SwapEndian();
 		}
+		[CLSCompliant(false)]
 		public static uint SwapEndian(this uint x)
 		{
 			return x >> 24 | (x << 8 & 16711680u) | (x >> 8 & 65280u) | x << 24;
 		}
+		[CLSCompliant(false)]
 		public static uint SwapEndian(this int x)
 		{
 			return ((uint)x).SwapEndian();
 		}
+		[CLSCompliant(false)]
 		public static ushort Swap(short x)
 		{
 			return x.SwapEndian();
 		}
+		[CLSCompliant(false)]
 		public static ushort Swap(ushort x)
 		{
 			return x.SwapEndian();
 		}
+		[CLSCompliant(false)]
 		public static uint Swap(int x)
 		{
 			return x.SwapEndian();
 		}
+		[CLSCompliant(false)]
 		public static uint Swap(uint x)
 		{
 			return x.SwapEndian();
 		}
 		#endregion
 		#region Number
+		[CLSCompliant(false)]
 		public static uint RoundUp(this uint number, int multiple)
 		{
 			uint result;
@@ -402,10 +413,12 @@ namespace UniversalEditor
 		{
 			return (short)(number & 0xFFFF);
 		}
+		[CLSCompliant(false)]
 		public static ushort UpperWord(this ushort number)
 		{
 			return (ushort)(number >> 16);
 		}
+		[CLSCompliant(false)]
 		public static ushort LowerWord(this ushort number)
 		{
 			return (ushort)(number & 0xFFFF);
@@ -418,10 +431,12 @@ namespace UniversalEditor
 		{
 			return (int)(number & 0xFFFF);
 		}
+		[CLSCompliant(false)]
 		public static uint UpperWord(this uint number)
 		{
 			return (uint)(number >> 16);
 		}
+		[CLSCompliant(false)]
 		public static uint LowerWord(this uint number)
 		{
 			return (uint)(number & 0xFFFF);
@@ -434,10 +449,12 @@ namespace UniversalEditor
 		{
 			return (long)(number & 0xFFFF);
 		}
+		[CLSCompliant(false)]
 		public static ulong UpperWord(this ulong number)
 		{
 			return (ulong)(number >> 16);
 		}
+		[CLSCompliant(false)]
 		public static ulong LowerWord(this ulong number)
 		{
 			return (ulong)(number & 0xFFFF);
@@ -457,6 +474,7 @@ namespace UniversalEditor
 			stream.Read(array, 0, length);
 			return array;
 		}
+		[CLSCompliant(false)]
 		public static byte[] ReadBytes(this System.IO.Stream stream, long offset, uint length)
 		{
 			return stream.ReadBytes(offset, (int)length);
@@ -468,6 +486,7 @@ namespace UniversalEditor
 			stream.Read(array, 0, 2);
 			return BitConverter.ToInt16(array, 0);
 		}
+		[CLSCompliant(false)]
 		public static ushort ReadUShort(this System.IO.Stream stream, long offset)
 		{
 			byte[] array = new byte[2];
@@ -482,6 +501,7 @@ namespace UniversalEditor
 			stream.Read(array, 0, 4);
 			return BitConverter.ToInt32(array, 0);
 		}
+		[CLSCompliant(false)]
 		public static uint ReadUInt(this System.IO.Stream stream, long offset)
 		{
 			byte[] array = new byte[4];
@@ -548,6 +568,7 @@ namespace UniversalEditor
 		{
 			stream.Write(BitConverter.GetBytes(value), 0, 2);
 		}
+		[CLSCompliant(false)]
 		public static void Write(this System.IO.Stream stream, ushort value)
 		{
 			stream.Write(BitConverter.GetBytes(value), 0, 2);
@@ -556,6 +577,7 @@ namespace UniversalEditor
 		{
 			stream.Write(BitConverter.GetBytes(value), 0, 4);
 		}
+		[CLSCompliant(false)]
 		public static void Write(this System.IO.Stream stream, uint value)
 		{
 			stream.Write(BitConverter.GetBytes(value), 0, 4);
@@ -669,6 +691,7 @@ namespace UniversalEditor
 			}
 			return memoryStream;
 		}
+		[CLSCompliant(false)]
 		public static System.IO.MemoryStream Copy(this System.IO.Stream input, long offset, uint length)
 		{
 			System.IO.MemoryStream memoryStream = new System.IO.MemoryStream((int)length);

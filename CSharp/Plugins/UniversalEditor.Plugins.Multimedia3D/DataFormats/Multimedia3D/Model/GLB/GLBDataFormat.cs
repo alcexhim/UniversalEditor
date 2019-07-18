@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
@@ -64,7 +64,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 							byte g = br.ReadByte();
 							byte b = br.ReadByte();
 							byte a = br.ReadByte();
-							System.Drawing.Color color = System.Drawing.Color.FromArgb(a, r, g, b);
+							Color color = Color.FromRGBAByte(r, g, b, a);
 						}
 						#endregion
 						#region material replacement color
@@ -73,7 +73,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 							byte g = br.ReadByte();
 							byte b = br.ReadByte();
 							byte a = br.ReadByte();
-							System.Drawing.Color color = System.Drawing.Color.FromArgb(a, r, g, b);
+							Color color = Color.FromRGBAByte(r, g, b, a);
 						}
 						#endregion
 						

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
@@ -44,7 +44,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
                     byte g = br.ReadByte();
                     byte b = br.ReadByte();
 
-                    Color color = Color.FromRGBA(a, r, g, b);
+                    Color color = Color.FromRGBAByte(r, g, b, a);
                     pic.SetPixel(color, x, y);
                 }
             }
@@ -68,10 +68,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
 				for (int y = 0; y < pic.Height; y++)
 				{
 					Color color = pic.GetPixel(x, y);
-					bw.WriteByte((byte)(color.Alpha * 255));
-					bw.WriteByte((byte)(color.Red * 255));
-					bw.WriteByte((byte)(color.Green * 255));
-					bw.WriteByte((byte)(color.Blue * 255));
+					bw.WriteByte((byte)(color.A * 255));
+					bw.WriteByte((byte)(color.R * 255));
+					bw.WriteByte((byte)(color.G * 255));
+					bw.WriteByte((byte)(color.B * 255));
 				}
 			}
         }

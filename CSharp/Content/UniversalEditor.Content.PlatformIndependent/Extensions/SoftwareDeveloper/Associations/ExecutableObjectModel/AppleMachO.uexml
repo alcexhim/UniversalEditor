@@ -11,11 +11,11 @@
 					<MagicByteSequences>
 						<MagicByteSequence>
 							<!-- normal endianness -->
-							<MagicByte Type="Hexadecimal">FEEDFACE</MagicByte>
+							<MagicByte Type="HexString">FEEDFACE</MagicByte>
 						</MagicByteSequence>
 						<MagicByteSequence>
 							<!-- reverse endianness -->
-							<MagicByte Type="Hexadecimal">CEFAEDFE</MagicByte>
+							<MagicByte Type="HexString">CEFAEDFE</MagicByte>
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 {
@@ -150,10 +151,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 			return clone;
 		}
 
-        private double mvarTempo = 120;
-        public double Tempo { get { return mvarTempo; } set { mvarTempo = value; } }
-
-        private Color mvarColor = Color.Empty;
-        public Color Color { get { return mvarColor; } set { mvarColor = value; } }
-    }
+		public double Tempo { get; set; } = 120;
+		public Color Color { get; set; } = Color.Empty;
+	}
 }

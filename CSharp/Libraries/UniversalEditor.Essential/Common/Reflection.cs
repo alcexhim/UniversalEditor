@@ -46,6 +46,9 @@ namespace UniversalEditor.Common
 					}
 					catch (ReflectionTypeLoadException ex)
 					{
+						Console.Error.WriteLine("ReflectionTypeLoadException(" + ex.LoaderExceptions.Length.ToString() + "): " + asm.FullName);
+						Console.Error.WriteLine(ex.Message);
+
 						types1 = ex.Types;
 					}
 
@@ -196,6 +199,10 @@ namespace UniversalEditor.Common
 		{
 			System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
 			paths.Add(System.Environment.CurrentDirectory);
+			paths.Add(System.IO.Path.Combine(new string[]
+			{
+				System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "universal-editor"
+			}));
 
 			foreach (string path in paths)
 			{

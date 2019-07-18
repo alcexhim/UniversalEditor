@@ -10,6 +10,8 @@ using UniversalEditor.Compression;
 using UniversalEditor.IO;
 using UniversalEditor.UserInterface;
 
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
+
 namespace UniversalEditor.DataFormats.FileSystem.ZIP
 {
 	// TODO: Fix the ZIP data format's saving!!!
@@ -68,7 +70,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 						uint unknown6 = br.ReadUInt32();
 						uint compressedLength = br.ReadUInt32();
 						uint decompressedLength = br.ReadUInt32();
-						uint fileNameLength = br.ReadUInt32();
+						ushort fileNameLength = br.ReadUInt16();        // oops... had this as Int32
+						ushort extraFieldLength = br.ReadUInt16();
 						ushort unknown7 = br.ReadUInt16();
 						ushort unknown8 = br.ReadUInt16();
 						ushort unknown9 = br.ReadUInt16();
@@ -77,51 +80,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 						uint fileOffset = br.ReadUInt32();
 						string fileName = br.ReadFixedLengthString(fileNameLength);
 
-						long curpos = br.Accessor.Position;
-						br.Accessor.Position = fileOffset;
-
-						byte[] headerSignature = br.ReadBytes(4);
-						if (!headerSignature.Match(new byte[] { 0x50, 0x4B, 0x03, 0x04 }))
-						{
-
-						}
-
-						CompressionMethod method = CompressionMethod.None;
-						short iMinimumVersionNeededToExtract = br.ReadInt16();
-						short iGeneralPurposeBitFlag = br.ReadInt16();
-						short iCompressionMethod = br.ReadInt16();
-						switch (iCompressionMethod)
-						{
-							case 8:
-							{
-								method = CompressionMethod.Deflate;
-								break;
-							}
-							case 9:
-							{
-								method = CompressionMethod.Deflate64;
-								break;
-							}
-							case 12:
-							{
-								method = CompressionMethod.Bzip2;
-								break;
-							}
-							case 14:
-							{
-								method = CompressionMethod.LZMA;
-								break;
-							}
-						}
-						short iFileLastModificationTime = br.ReadInt16();
-						short iFileLastModificationDate = br.ReadInt16();
-						bool isEncrypted = false;
-						int iCRC32 = br.ReadInt32();
-						int packedFileLength = br.ReadInt32();
-						int unpackedFileLength = br.ReadInt32();
-						short local_fileNameLength = br.ReadInt16();
-						short extraFieldLength = br.ReadInt16();
-						string local_fileName = br.ReadFixedLengthString(fileNameLength);
 						long local_pos = br.Accessor.Position;
 						while (br.Accessor.Position < (local_pos + extraFieldLength))
 						{
@@ -130,21 +88,14 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 							byte[] data = br.ReadBytes(chunkLength);
 						}
 
-
-						byte[] compressedData = br.ReadBytes(compressedLength);
-						br.Accessor.Position = curpos;
-
-						byte[] decompressedData = compressedData;
-						if (compressedLength != decompressedLength)
+						File file = fsom.AddFile(fileName);
+						file.Properties.Add("offset", fileOffset);
+						file.Properties.Add("compressedLength", compressedLength);
+						file.Properties.Add("decompressedLength", decompressedLength);
+						file.Source = new CompressedEmbeddedFileSource(br, fileOffset, decompressedLength, compressedLength, new FileSourceTransformation[]
 						{
-							decompressedData = UniversalEditor.Compression.CompressionModules.Deflate.Decompress(compressedData);
-							if (decompressedData.Length != decompressedLength)
-							{
-								Console.WriteLine("zip: sanity check - decompressed data length (" + decompressedData.Length.ToString() + ") does not match expected value (" + decompressedLength.ToString() + ")");
-							}
-						}
-
-						File file = fsom.AddFile(fileName, decompressedData);
+							new FileSourceTransformation(FileSourceTransformationType.Output, HandleFileSourceTransformationFunction)
+						});
 					}
 					return;
 				}
@@ -232,6 +183,84 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				}
 			}
 		}
+
+		void HandleFileSourceTransformationFunction(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
+		{
+			File file = (sender as File);
+
+			long decompressedLength = (long)file.Properties["decompressedLength"];
+			long compressedLength = (long)file.Properties["compressedLength"];
+
+			Reader br = (Reader)file.Properties["reader"];
+			long curpos = br.Accessor.Position;
+
+			br.Accessor.Position = (long)file.Properties["offset"];
+
+			byte[] headerSignature = br.ReadBytes(4);
+			if (!headerSignature.Match(new byte[] { 0x50, 0x4B, 0x03, 0x04 }))
+			{
+
+			}
+
+			CompressionMethod method = CompressionMethod.None;
+			short iMinimumVersionNeededToExtract = br.ReadInt16();
+			short iGeneralPurposeBitFlag = br.ReadInt16();
+			short iCompressionMethod = br.ReadInt16();
+			switch (iCompressionMethod)
+			{
+				case 8:
+				{
+					method = CompressionMethod.Deflate;
+					break;
+				}
+				case 9:
+				{
+					method = CompressionMethod.Deflate64;
+					break;
+				}
+				case 12:
+				{
+					method = CompressionMethod.Bzip2;
+					break;
+				}
+				case 14:
+				{
+					method = CompressionMethod.LZMA;
+					break;
+				}
+			}
+			short iFileLastModificationTime = br.ReadInt16();
+			short iFileLastModificationDate = br.ReadInt16();
+			bool isEncrypted = false;
+			int iCRC32 = br.ReadInt32();
+			int packedFileLength = br.ReadInt32();
+			int unpackedFileLength = br.ReadInt32();
+			short local_fileNameLength = br.ReadInt16();
+			short extraFieldLength = br.ReadInt16();
+			string local_fileName = br.ReadFixedLengthString(local_fileNameLength);
+			long local_pos = br.Accessor.Position;
+			while (br.Accessor.Position < (local_pos + extraFieldLength))
+			{
+				short chunkIDCode = br.ReadInt16();
+				short chunkLength = br.ReadInt16();
+				byte[] data = br.ReadBytes(chunkLength);
+			}
+
+
+			byte[] compressedData = br.ReadBytes(compressedLength);
+			br.Accessor.Position = curpos;
+
+			byte[] decompressedData = compressedData;
+			if (compressedLength != decompressedLength)
+			{
+				decompressedData = UniversalEditor.Compression.CompressionModules.Deflate.Decompress(compressedData);
+				if (decompressedData.Length != decompressedLength)
+				{
+					Console.WriteLine("zip: sanity check - decompressed data length (" + decompressedData.Length.ToString() + ") does not match expected value (" + decompressedLength.ToString() + ")");
+				}
+			}
+		}
+
 
 		private static Internal.ZIPCentralDirectoryFooter ReadZIPCentralDirectoryFooter(Reader reader)
 		{

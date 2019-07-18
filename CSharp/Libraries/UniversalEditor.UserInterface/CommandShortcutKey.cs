@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalWidgetToolkit.Input.Keyboard;
 
 namespace UniversalEditor.UserInterface
 {
@@ -162,6 +163,15 @@ namespace UniversalEditor.UserInterface
 
 		private CommandShortcutKeyValue mvarValue = CommandShortcutKeyValue.None;
 		public CommandShortcutKeyValue Value { get { return mvarValue; } set { mvarValue = value; } }
+
+		public bool CompareTo(KeyboardKey keyData)
+		{
+			// first look at modifier keys
+			// if (!(((value.Modifiers & CommandShortcutKeyModifiers.Alt) == CommandShortcutKeyModifiers.Alt)
+			//	&& ((keyData & KeyboardModifierKey.Alt) == KeyboardModifierKey.Alt))) return false;
+
+			return true;
+		}
 
 		public CommandShortcutKey()
 			: this(CommandShortcutKeyValue.None, CommandShortcutKeyModifiers.None)

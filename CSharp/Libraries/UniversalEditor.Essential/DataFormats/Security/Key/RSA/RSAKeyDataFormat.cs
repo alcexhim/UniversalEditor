@@ -70,7 +70,7 @@ namespace UniversalEditor.DataFormats.Security.Key.RSA
 			//---- read RSA public exponent ------ 
 			reader.Endianness = Endianness.BigEndian;
 			uint pubexp = reader.ReadUInt32();   //get public exponent
-			key.PublicExponent = pubexp;
+			key.PublicExponent = (int)pubexp;
 
 			//---- read RSA modulus -----------
 			//Reverse byte array for little-endian to big-endian conversion 

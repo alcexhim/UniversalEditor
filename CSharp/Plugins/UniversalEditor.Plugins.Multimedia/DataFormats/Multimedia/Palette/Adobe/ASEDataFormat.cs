@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using MBS.Framework.Drawing;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
@@ -84,7 +84,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 								byte _g = (byte)(Math.Round(g * 255));
 								byte _b = (byte)(Math.Round(b * 255));
 
-								Color color = Color.FromRGBA(_r, _g, _b);
+								Color color = Color.FromRGBAByte(_r, _g, _b);
 								palette.Entries.Add(color);
 								break;
 							}

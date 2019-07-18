@@ -80,7 +80,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 			{
 				ALDFEntryStruct entry1 = entries[entry.EntryID];
 				File file = fsom.AddFile(entry.Name);
-				file.Source = new EmbeddedFileSource(reader, GetLogicalOffsetFromBlockOffset(entry1.dwBlock, true), entry1.dwSize, new FileSourceTransformation[] { new FileSourceTransformation(FileSourceTransformationType.Input, delegate(System.IO.Stream inputStream, System.IO.Stream outputStream)
+				file.Source = new EmbeddedFileSource(reader, GetLogicalOffsetFromBlockOffset(entry1.dwBlock, true), entry1.dwSize, new FileSourceTransformation[] { new FileSourceTransformation(FileSourceTransformationType.Input, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 				{
 					if ((entry.Flags & ResourceTableEntryFlags.CompressZlib) == ResourceTableEntryFlags.CompressZlib)
 					{

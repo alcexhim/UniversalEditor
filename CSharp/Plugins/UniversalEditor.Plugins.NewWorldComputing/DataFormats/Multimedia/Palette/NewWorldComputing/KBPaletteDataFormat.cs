@@ -5,6 +5,8 @@ using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 {
 	public class KBPaletteDataFormat : DataFormat
@@ -38,7 +40,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 				g <<= 2;
 				b <<= 2;
 
-				Color color = Color.FromRGBA(r, g, b);
+				Color color = Color.FromRGBAByte(r, g, b);
 				palette.Entries.Add(color);
 			}
 		}
@@ -53,9 +55,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 			for (int i = 0; i < (768 / 3); i++)
 			{
 				Color color = palette.Entries[i].Color;
-				byte r = (byte)color.Red;
-				byte g = (byte)color.Green;
-				byte b = (byte)color.Blue;
+				byte r = (byte)color.R;
+				byte g = (byte)color.G;
+				byte b = (byte)color.B;
 
 				r >>= 2;
 				g >>= 2;

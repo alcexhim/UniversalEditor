@@ -40,6 +40,8 @@ namespace UniversalEditor.IO
 		{
 			WriteBytes(new byte[] { value });
 		}
+
+		[CLSCompliant(false)]
 		public void WriteSByte(sbyte value)
 		{
 			WriteBytes(new byte[] { (byte)value });
@@ -107,6 +109,7 @@ namespace UniversalEditor.IO
 		{
 			WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length);
 		}
+		[CLSCompliant(false)]
 		public void WriteFixedLengthString(string value, uint length)
 		{
 			WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length);
@@ -120,6 +123,7 @@ namespace UniversalEditor.IO
 		{
 			WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length, paddingChar);
 		}
+		[CLSCompliant(false)]
 		public void WriteFixedLengthString(string value, uint length, char paddingChar)
 		{
 			this.WriteFixedLengthString(value, base.Accessor.DefaultEncoding, length, paddingChar);
@@ -128,6 +132,7 @@ namespace UniversalEditor.IO
 		{
 			this.WriteFixedLengthString(value, encoding, length, '\0');
 		}
+		[CLSCompliant(false)]
 		public void WriteFixedLengthString(string value, Encoding encoding, uint length)
 		{
 			WriteFixedLengthString(value, encoding, length, '\0');
@@ -136,6 +141,7 @@ namespace UniversalEditor.IO
 		{
 			WriteFixedLengthString(value, encoding, (uint)length, paddingChar);
 		}
+		[CLSCompliant(false)]
 		public void WriteFixedLengthString(string value, Encoding encoding, uint length, char paddingChar)
 		{
 			string v = value;
@@ -238,6 +244,7 @@ namespace UniversalEditor.IO
 		/// <param name="value">The two-byte unsigned integer to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt16(ushort value)
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
@@ -260,6 +267,7 @@ namespace UniversalEditor.IO
 		/// <param name="values">The array of two-byte unsigned integers to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt16Array(ushort[] values)
 		{
 			for (int i = 0; i < values.Length; i++)
@@ -309,6 +317,7 @@ namespace UniversalEditor.IO
 		/// <param name="value">The three-byte unsigned integer to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt24(uint value)
 		{
 			byte[] buffer = new byte[3];
@@ -332,6 +341,7 @@ namespace UniversalEditor.IO
 		/// <param name="values">The array of three-byte unsigned integers to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt24Array(uint[] values)
 		{
 			for (int i = 0; i < values.Length; i++)
@@ -384,6 +394,7 @@ namespace UniversalEditor.IO
 		/// <param name="value">The four-byte unsigned integer to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt32(uint value)
 		{
 			byte[] _buffer = BitConverter.GetBytes(value);
@@ -410,6 +421,7 @@ namespace UniversalEditor.IO
 		/// <param name="values">The array of four-byte unsigned integers to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt32Array(uint[] values)
 		{
 			for (int i = 0; i < values.Length; i++)
@@ -469,6 +481,7 @@ namespace UniversalEditor.IO
 		/// <param name="value">The eight-byte unsigned integer to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt64(ulong value)
 		{
 			byte[] _buffer = new byte[8];
@@ -502,6 +515,7 @@ namespace UniversalEditor.IO
 		/// <param name="values">The array of eight-byte unsigned integers to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+		[CLSCompliant(false)]
 		public void WriteUInt64Array(ulong[] values)
 		{
 			for (int i = 0; i < values.Length; i++)
@@ -828,6 +842,7 @@ namespace UniversalEditor.IO
 			WriteInt64(value);
 			SwapEndianness();
 		}
+		[CLSCompliant(false)]
 		public void WriteDoubleEndianUInt16(ushort value)
 		{
 			WriteUInt16(value);
@@ -835,6 +850,7 @@ namespace UniversalEditor.IO
 			WriteUInt16(value);
 			SwapEndianness();
 		}
+		[CLSCompliant(false)]
 		public void WriteDoubleEndianUInt32(uint value)
 		{
 			WriteUInt32(value);
@@ -842,6 +858,7 @@ namespace UniversalEditor.IO
 			WriteUInt32(value);
 			SwapEndianness();
 		}
+		[CLSCompliant(false)]
 		public void WriteDoubleEndianUInt64(ulong value)
 		{
 			WriteUInt64(value);

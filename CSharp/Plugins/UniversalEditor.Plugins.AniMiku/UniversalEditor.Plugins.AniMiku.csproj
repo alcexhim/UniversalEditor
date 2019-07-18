@@ -55,10 +55,6 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UniversalEditor.Plugins.Concertroid\UniversalEditor.Plugins.Concertroid.csproj">
-      <Project>{D3BBDA07-5088-454E-A16D-DA24D8D88037}</Project>
-      <Name>UniversalEditor.Plugins.Concertroid</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia3D\UniversalEditor.Plugins.Multimedia3D.csproj">
       <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia3D</Name>
@@ -66,6 +62,10 @@
     <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
       <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Concertroid\UniversalEditor.Plugins.Concertroid.csproj">
+      <Project>{D3BBDA07-5088-454E-A16D-DA24D8D88037}</Project>
+      <Name>UniversalEditor.Plugins.Concertroid</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

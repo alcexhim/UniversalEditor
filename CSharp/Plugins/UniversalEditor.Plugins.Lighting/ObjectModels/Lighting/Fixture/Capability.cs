@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.ObjectModels.Lighting.Fixture
 {
 	public class Capability : ICloneable
@@ -23,8 +25,8 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		private byte mvarMaximumValue = 255;
 		public byte MaximumValue { get { return mvarMaximumValue; } set { mvarMaximumValue = value; } }
 
-        private byte mvarDefaultValue = 0;
-        public byte DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
+		private byte mvarDefaultValue = 0;
+		public byte DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
 
 		private Color mvarColor = Color.Empty;
 		public Color Color { get { return mvarColor; } set { mvarColor = value; } }
@@ -43,7 +45,7 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 			return clone;
 		}
 
-        private PictureObjectModel mvarImage = null;
-        public PictureObjectModel Image { get { return mvarImage; } set { mvarImage = value; } }
-    }
+		private PictureObjectModel mvarImage = null;
+		public PictureObjectModel Image { get { return mvarImage; } set { mvarImage = value; } }
+	}
 }

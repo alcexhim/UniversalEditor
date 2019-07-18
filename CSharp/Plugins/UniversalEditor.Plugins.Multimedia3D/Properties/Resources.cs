@@ -2,7 +2,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -38,6 +37,7 @@ namespace UniversalEditor.Multimedia3D.Properties
 				Resources.resourceCulture = value;
 			}
 		}
+		/*
 		internal static Bitmap image
 		{
 			get
@@ -46,6 +46,7 @@ namespace UniversalEditor.Multimedia3D.Properties
 				return (Bitmap)obj;
 			}
 		}
+		*/
 		internal Resources()
 		{
 		}

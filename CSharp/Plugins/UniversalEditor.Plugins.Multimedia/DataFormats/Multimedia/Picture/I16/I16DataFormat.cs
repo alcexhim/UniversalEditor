@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.I16
@@ -43,7 +44,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.I16
                 byte b = br.ReadByte();
                 byte a = br.ReadByte();
 
-                Color color = Color.FromRGBA(a, r, g, b);
+                Color color = Color.FromRGBAByte(r, g, b, a);
                 pic.SetPixel(color);
             }
         }

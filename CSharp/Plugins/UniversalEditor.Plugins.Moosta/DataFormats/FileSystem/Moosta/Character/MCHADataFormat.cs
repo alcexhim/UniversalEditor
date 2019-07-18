@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MBS.Framework.Drawing;
 using UniversalEditor.Accessors;
 using UniversalEditor.Compression.Modules.Gzip;
 using UniversalEditor.IO;
@@ -102,7 +103,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Character
 					byte r = br.ReadByte();
 					byte g = br.ReadByte();
 					byte b = br.ReadByte();
-					Color color = Color.FromRGBA(r, g, b, a);
+					Color color = Color.FromRGBAByte(r, g, b, a);
 					pic.SetPixel(color, x, y);
 				}
 			}
@@ -342,7 +343,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Character
 								byte r = br.ReadByte();
 								byte g = br.ReadByte();
 								byte b = br.ReadByte();
-								Color color = Color.FromRGBA(r, g, b, a);
+								Color color = Color.FromRGBAByte(r, g, b, a);
 								picture.SetPixel(color, x, y);
 							}
 						}

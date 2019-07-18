@@ -67,7 +67,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Color.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\ExtendedMIDI\XMIDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\PSF\PSFDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\PSF\PSFPlatform.cs" />
@@ -315,6 +314,10 @@
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{23ACD09E-E096-4B05-A6CE-6853EDDC589A}</Project>
+      <Name>MBS.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

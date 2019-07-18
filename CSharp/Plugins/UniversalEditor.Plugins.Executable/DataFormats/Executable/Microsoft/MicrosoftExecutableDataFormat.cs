@@ -134,6 +134,21 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			ExecutableObjectModel exec = (objectModel as ExecutableObjectModel);
 			if (fsom == null && exec == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
+			// try loading as a .NET assembly
+			if (base.Accessor is FileAccessor)
+			{
+				System.Reflection.Assembly asm = null;
+				try
+				{
+					asm = System.Reflection.Assembly.LoadFile(base.Accessor.GetFileName());
+				}
+				catch
+				{
+				}
+
+				exec.ManagedAssembly = asm;
+			}
+
 			ExecutableObjectModel exe = new ExecutableObjectModel();
 			DOSExecutableHeader mvarDOSHeader = ReadDOSHeader(reader);
 			exec.SetCustomProperty<DOSExecutableHeader>(MakeReference(), "DOSExecutableHeader", mvarDOSHeader);

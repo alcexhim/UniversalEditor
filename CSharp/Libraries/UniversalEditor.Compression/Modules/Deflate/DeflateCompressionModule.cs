@@ -37,8 +37,19 @@ namespace UniversalEditor.Compression.Modules.Deflate
             do
             {
                 byte[] buffer = new byte[BUFFERSIZE];
-                read = dst.Read(buffer, start, buffer.Length);
-                outputStream.Write(buffer, 0, read);
+				try
+				{
+
+					read = dst.Read(buffer, start, buffer.Length);
+				}
+				catch (Exception ex)
+				{
+					// This is the ONLY line in the entire code that
+					// references UniversalEditor.UserInterface...
+					// HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, ex.GetType().Name + ": " + ex.Message);
+					break;
+				}
+				outputStream.Write(buffer, 0, read);
             }
             while (read == BUFFERSIZE);
         }

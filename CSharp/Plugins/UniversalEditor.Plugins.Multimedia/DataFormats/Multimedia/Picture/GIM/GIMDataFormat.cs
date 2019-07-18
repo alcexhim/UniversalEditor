@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 using UniversalEditor.IO;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 {

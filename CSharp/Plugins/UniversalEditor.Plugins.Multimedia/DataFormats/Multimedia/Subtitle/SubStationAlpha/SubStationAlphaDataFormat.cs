@@ -7,6 +7,7 @@ using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.DataFormats.PropertyList;
 
 using UniversalEditor.ObjectModels.Multimedia.Subtitle;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
 {
@@ -69,7 +70,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
             grpV4Styles.Properties.Add("Format", "Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding");
             foreach (Style style in subtitle.Styles)
             {
-                grpV4Styles.Properties.Add("Style", style.Name + "," + style.FontName + "," + style.FontSize + "," + ToHexadecimalVB(style.PrimaryColor) + "," + ToHexadecimalVB(style.SecondaryColor) + "," + ToHexadecimalVB(style.OutlineColor) + "," + ToHexadecimalVB(style.BackgroundColor) + "," + (style.Bold ? "1" : "0") + (style.Italic ? "1" : "0") + (style.Underline ? "1" : "0") + (style.Strikethrough ? "1" : "0") + "," + (style.ScaleX * 100).ToString() + ",100,0,0,1,2,2,2,10,10,10,1");
+                grpV4Styles.Properties.Add("Style", style.Name + "," + style.FontName + "," + style.FontSize + "," + style.PrimaryColor.ToHexadecimalVB() + "," + style.SecondaryColor.ToHexadecimalVB() + "," + style.OutlineColor.ToHexadecimalVB() + "," + style.BackgroundColor.ToHexadecimalVB() + "," + (style.Bold ? "1" : "0") + (style.Italic ? "1" : "0") + (style.Underline ? "1" : "0") + (style.Strikethrough ? "1" : "0") + "," + (style.ScaleX * 100).ToString() + ",100,0,0,1,2,2,2,10,10,10,1");
             }
 
             Group grpEvents = plom.Groups.Add("Events");
@@ -99,17 +100,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
             }
 
             objectModels.Push(plom);
-        }
-
-        private string ToHexadecimalVB(Color color)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("&H");
-            sb.Append((color.Red * 255).ToString("X"));
-            sb.Append((color.Green * 255).ToString("X"));
-            sb.Append((color.Blue * 255).ToString("X"));
-            sb.Append((color.Alpha * 255).ToString("X"));
-            return sb.ToString();
         }
 
         private string mvarTitle = String.Empty;

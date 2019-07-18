@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
 {
@@ -22,19 +23,12 @@ namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
         private int mvarFontSize = 32;
         public int FontSize { get { return mvarFontSize; } set { mvarFontSize = value; } }
 
-        private Color mvarPrimaryColor = Color.Empty;
-        public Color PrimaryColor { get { return mvarPrimaryColor; } set { mvarPrimaryColor = value; } }
+		public Color PrimaryColor { get; set; } = Color.Empty;
+		public Color SecondaryColor { get; set; } = Color.Empty;
+		public Color OutlineColor { get; set; } = Color.Empty;
+		public Color BackgroundColor { get; set; } = Color.Empty;
 
-        private Color mvarSecondaryColor = Color.Empty;
-        public Color SecondaryColor { get { return mvarSecondaryColor; } set { mvarSecondaryColor = value; } }
-
-        private Color mvarOutlineColor = Color.Empty;
-        public Color OutlineColor { get { return mvarOutlineColor; } set { mvarOutlineColor = value; } }
-
-        private Color mvarBackgroundColor = Color.Empty;
-        public Color BackgroundColor { get { return mvarBackgroundColor; } set { mvarBackgroundColor = value; } }
-
-        private bool mvarBold = false;
+		private bool mvarBold = false;
         public bool Bold { get { return mvarBold; } set { mvarBold = value; } }
 
         private bool mvarItalic = false;
@@ -87,7 +81,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
             Style clone = new Style();
             clone.Alignment = mvarAlignment;
             clone.Angle = mvarAngle;
-            clone.BackgroundColor = mvarBackgroundColor;
+            clone.BackgroundColor = BackgroundColor;
             clone.Bold = mvarBold;
             clone.BorderStyle = mvarBorderStyle;
             clone.Encoding = mvarEncoding;
@@ -98,12 +92,12 @@ namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
             clone.MarginRight = mvarMarginRight;
             clone.MarginVertical = mvarMarginVertical;
             clone.Name = (mvarName.Clone() as string);
-            clone.OutlineColor = mvarOutlineColor;
+            clone.OutlineColor = OutlineColor;
             clone.OutlineWidth = mvarOutlineWidth;
-            clone.PrimaryColor = mvarPrimaryColor;
+            clone.PrimaryColor = PrimaryColor;
             clone.ScaleX = mvarScaleX;
             clone.ScaleY = mvarScaleY;
-            clone.SecondaryColor = mvarSecondaryColor;
+            clone.SecondaryColor = SecondaryColor;
             clone.ShadowWidth = mvarShadowWidth;
             clone.Spacing = mvarSpacing;
             clone.Strikethrough = mvarStrikethrough;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
 namespace UniversalEditor.DataFormats.Multimedia.Palette.PaintShop
@@ -41,7 +42,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.PaintShop
                 string sR = colorInfo[0], sG = colorInfo[1], sB = colorInfo[2];
                 int iR = Int32.Parse(sR), iG = Int32.Parse(sG), iB = Int32.Parse(sB);
 
-                Color color = Color.FromRGBA(iR, iG, iB);
+                Color color = Color.FromRGBAInt32(iR, iG, iB);
                 palette.Entries.Add(color);
             }
         }

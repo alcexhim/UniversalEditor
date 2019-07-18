@@ -61,7 +61,7 @@ namespace UniversalEditor.IO
 
 			char c = charBuffer[charBufferIndex];
 			charBufferIndex++;
-			
+
 			int ct = base.Accessor.DefaultEncoding.GetByteCount(c);
 			Seek(ct, SeekOrigin.Current);
 
@@ -88,11 +88,13 @@ namespace UniversalEditor.IO
 		{
 			return (char)PeekByte();
 		}
+		[CLSCompliant(false)]
 		public sbyte ReadSByte()
 		{
 			return (sbyte)(ReadBytes(1)[0]);
 		}
-		public byte[] ReadBytes (uint length)
+		[CLSCompliant(false)]
+		public byte[] ReadBytes(uint length)
 		{
 			byte[] buf = new byte[length];
 			uint lastct = 0;
@@ -102,16 +104,17 @@ namespace UniversalEditor.IO
 				byte[] buf2 = new byte[ct];
 				Read(buf2, 0, ct);
 
-				Array.Copy (buf2, 0, buf, lastct, buf2.Length);
+				Array.Copy(buf2, 0, buf, lastct, buf2.Length);
 				lastct += (uint)ct;
 			}
 			return buf;
 		}
 
+		[CLSCompliant(false)]
 		public byte[] ReadBytes(ulong length)
 		{
 			byte[] buf = new byte[length];
-			for (ulong i = 0L; i < length; i += (ulong) 1L)
+			for (ulong i = 0L; i < length; i += (ulong)1L)
 			{
 				buf[(int)i] = ReadByte();
 			}
@@ -209,34 +212,34 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public DateTime ReadISO9660DateTime()
 		{
-			string year = ReadFixedLengthString (4);
-			int nYear = int.Parse (year);
-			
-			string month = ReadFixedLengthString (2);
-			int nMonth = int.Parse (month);
-			
-			string day = ReadFixedLengthString (2);
-			int nDay = int.Parse (day);
-			
-			string hour = ReadFixedLengthString (2);
-			int nHour = int.Parse (hour);
-			
-			string minute = ReadFixedLengthString (2);
-			int nMinute = int.Parse (minute);
-			
-			string second = ReadFixedLengthString (2);
-			int nSecond = int.Parse (second);
-			
-			string secondHundredths = ReadFixedLengthString (2);
-			int nSecondHundredths = int.Parse (secondHundredths);
-			
+			string year = ReadFixedLengthString(4);
+			int nYear = int.Parse(year);
+
+			string month = ReadFixedLengthString(2);
+			int nMonth = int.Parse(month);
+
+			string day = ReadFixedLengthString(2);
+			int nDay = int.Parse(day);
+
+			string hour = ReadFixedLengthString(2);
+			int nHour = int.Parse(hour);
+
+			string minute = ReadFixedLengthString(2);
+			int nMinute = int.Parse(minute);
+
+			string second = ReadFixedLengthString(2);
+			int nSecond = int.Parse(second);
+
+			string secondHundredths = ReadFixedLengthString(2);
+			int nSecondHundredths = int.Parse(secondHundredths);
+
 			// offset from Greenwich Mean Time, in 15-minute intervals,
 			// as a twos complement signed number, positive for time
 			// zones east of Greenwich, and negative for time zones
 			// west of Greenwich
-			sbyte gmtOffset = ReadSByte ();
-			
-			return new DateTime (nYear, nMonth, nDay, nHour + gmtOffset, nMinute, nSecond, nSecondHundredths, DateTimeKind.Utc);
+			sbyte gmtOffset = ReadSByte();
+
+			return new DateTime(nYear, nMonth, nDay, nHour + gmtOffset, nMinute, nSecond, nSecondHundredths, DateTimeKind.Utc);
 		}
 
 		protected internal int Read7BitEncodedInt()
@@ -306,6 +309,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public string ReadFixedLengthString(uint length)
 		{
 			return this.ReadFixedLengthString(length, base.Accessor.DefaultEncoding);
@@ -320,7 +324,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		public string ReadFixedLengthString(byte length, Encoding encoding)
 		{
-			return this.ReadFixedLengthString((int) length, encoding);
+			return this.ReadFixedLengthString((int)length, encoding);
 		}
 		/// <summary>
 		/// Reads a string of the specified length from the current stream using the specified encoding. This method does not trim null characters; use <see cref="String.TrimNull" /> to do this.
@@ -345,9 +349,10 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public string ReadFixedLengthString(uint length, Encoding encoding)
 		{
-			int l1 = (int) length;
+			int l1 = (int)length;
 			int l2 = ((int)(length - l1));
 			byte[] id = ReadBytes(l1);
 			if (l2 > 0)
@@ -498,6 +503,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public ushort ReadUInt16()
 		{
 			byte[] buffer = ReadBytes(2);
@@ -515,6 +521,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public ushort[] ReadUInt16Array(int count)
 		{
 			ushort[] retval = new ushort[count];
@@ -575,6 +582,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public uint ReadUInt24()
 		{
 			// TODO: Test this out!
@@ -593,6 +601,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public uint[] ReadUInt24Array(int count)
 		{
 			uint[] retval = new uint[count];
@@ -653,6 +662,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public uint PeekUInt32()
 		{
 			uint value = ReadUInt32();
@@ -666,6 +676,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public uint ReadUInt32()
 		{
 			byte[] buffer = ReadBytes((uint)4);
@@ -683,6 +694,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public uint[] ReadUInt32Array(int count)
 		{
 			uint[] retval = new uint[count];
@@ -751,6 +763,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public ulong ReadUInt64()
 		{
 			byte[] buffer = ReadBytes((uint)8);
@@ -776,6 +789,7 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.IO.EndOfStreamException">The end of the stream is reached.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
+		[CLSCompliant(false)]
 		public ulong[] ReadUInt64Array(int count)
 		{
 			ulong[] retval = new ulong[count];
@@ -854,12 +868,12 @@ namespace UniversalEditor.IO
 			return retval;
 		}
 
-		
+
 		public int ReadVariableLengthInt32()
 		{
 			int value = ReadByte();
 			byte c = 0;
-			
+
 			if ((value & 0x80) == 0x80)
 			{
 				value &= 0x7F;
@@ -869,7 +883,7 @@ namespace UniversalEditor.IO
 				}
 				while ((c & 0x80) == 0x80);
 			}
-			
+
 			return value;
 		}
 		public int[] ReadVariableLengthInt32Array(int count)
@@ -882,6 +896,7 @@ namespace UniversalEditor.IO
 			return retval;
 		}
 
+		[CLSCompliant(false)]
 		public ulong ReadUInt48()
 		{
 			byte[] buffer = ReadBytes((uint)6);
@@ -898,6 +913,7 @@ namespace UniversalEditor.IO
 				return (ulong)(num << 0x20 | num2);
 			}
 		}
+		[CLSCompliant(false)]
 		public ulong[] ReadUInt48Array(int count)
 		{
 			ulong[] retval = new ulong[count];
@@ -1153,6 +1169,7 @@ namespace UniversalEditor.IO
 			}
 			return value1;
 		}
+		[CLSCompliant(false)]
 		public ushort ReadDoubleEndianUInt16()
 		{
 			ushort value1 = ReadUInt16();
@@ -1207,6 +1224,7 @@ namespace UniversalEditor.IO
 			}
 			return value1;
 		}
+		[CLSCompliant(false)]
 		public uint ReadDoubleEndianUInt32()
 		{
 			uint value1 = ReadUInt32();
@@ -1274,79 +1292,79 @@ namespace UniversalEditor.IO
 			switch (w)
 			{
 				case 'd':
-				{
-					// Read the starting 'd'
-					w = ReadChar();
-
-					Dictionary<string, object> dict = new Dictionary<string, object>();
-					while (w != 'e')
 					{
-						string key = (string)ReadBEncodedObject();
-						object value = ReadBEncodedObject();
-						w = (char)PeekChar();
-						dict.Add(key, value);
-					}
-					
-					// Read the final 'e' 
-					w = ReadChar();
+						// Read the starting 'd'
+						w = ReadChar();
 
-					return dict;
-				}
+						Dictionary<string, object> dict = new Dictionary<string, object>();
+						while (w != 'e')
+						{
+							string key = (string)ReadBEncodedObject();
+							object value = ReadBEncodedObject();
+							w = (char)PeekChar();
+							dict.Add(key, value);
+						}
+
+						// Read the final 'e' 
+						w = ReadChar();
+
+						return dict;
+					}
 				case 'l':
-				{
-					// Read the starting 'l'
-					w = ReadChar();
-
-					List<object> list = new List<object>();
-					while (w != 'e')
 					{
-						object item = ReadBEncodedObject();
-						w = (char)PeekChar();
+						// Read the starting 'l'
+						w = ReadChar();
 
-						list.Add(item);
+						List<object> list = new List<object>();
+						while (w != 'e')
+						{
+							object item = ReadBEncodedObject();
+							w = (char)PeekChar();
+
+							list.Add(item);
+						}
+
+						// Read the final 'e'
+						w = ReadChar();
+						return list;
 					}
-
-					// Read the final 'e'
-					w = ReadChar();
-					return list;
-				}
 				case 'i':
-				{
-					// Read the starting 'i'
-					w = ReadChar();
-					string num = String.Empty;
-					while (w != 'e')
 					{
+						// Read the starting 'i'
 						w = ReadChar();
-						if (w != 'e')
+						string num = String.Empty;
+						while (w != 'e')
 						{
-							num += w;
+							w = ReadChar();
+							if (w != 'e')
+							{
+								num += w;
+							}
 						}
+						// Already read the final 'e'
+
+						return Int32.Parse(num);
 					}
-					// Already read the final 'e'
-					
-					return Int32.Parse(num);
-				}
 				default:
-				{
-					// Assume a string
-					w = (char)PeekChar();
-					string num = String.Empty;
-					string val = String.Empty;
-					while (w != ':')
 					{
-						w = ReadChar();
-						if (w != ':')
+						// Assume a string
+						w = (char)PeekChar();
+						string num = String.Empty;
+						string val = String.Empty;
+						while (w != ':')
 						{
-							num += w;
+							w = ReadChar();
+							if (w != ':')
+							{
+								num += w;
+							}
 						}
+
+						uint nnum = UInt32.Parse(num);
+						val = ReadFixedLengthString(nnum);
+
+						return val;
 					}
-
-					uint nnum = UInt32.Parse(num);
-					val = ReadFixedLengthString(nnum);
-
-					return val;
-				}
 			}
 		}
 		/// <summary>
@@ -1379,46 +1397,46 @@ namespace UniversalEditor.IO
 			switch (parts)
 			{
 				case 1:
-				{
-					int vmaj = ReadInt32();
-					return new Version(vmaj, 0);
-				}
-				case 2:
-				{
-					int vmaj = ReadInt32();
-					int vmin = ReadInt32();
-					return new Version(vmaj, vmin);
-				}
-				case 3:
-				{
-					int vmaj = ReadInt32();
-					int vmin = ReadInt32();
-					int vbld = ReadInt32();
-					return new Version(vmaj, vmin, vbld);
-				}
-				case 4:
-				{
-					int vmaj = ReadInt32();
-					int vmin = ReadInt32();
-					int vbld = ReadInt32();
-					int vrev = ReadInt32();
-
-					if (vbld > -1)
 					{
-						if (vrev > -1)
+						int vmaj = ReadInt32();
+						return new Version(vmaj, 0);
+					}
+				case 2:
+					{
+						int vmaj = ReadInt32();
+						int vmin = ReadInt32();
+						return new Version(vmaj, vmin);
+					}
+				case 3:
+					{
+						int vmaj = ReadInt32();
+						int vmin = ReadInt32();
+						int vbld = ReadInt32();
+						return new Version(vmaj, vmin, vbld);
+					}
+				case 4:
+					{
+						int vmaj = ReadInt32();
+						int vmin = ReadInt32();
+						int vbld = ReadInt32();
+						int vrev = ReadInt32();
+
+						if (vbld > -1)
 						{
-							return new Version(vmaj, vmin, vbld, vrev);
+							if (vrev > -1)
+							{
+								return new Version(vmaj, vmin, vbld, vrev);
+							}
+							else
+							{
+								return new Version(vmaj, vmin, vbld);
+							}
 						}
 						else
 						{
-							return new Version(vmaj, vmin, vbld);
+							return new Version(vmaj, vmin);
 						}
 					}
-					else
-					{
-						return new Version(vmaj, vmin);
-					}
-				}
 			}
 			return new Version();
 		}
@@ -1554,10 +1572,10 @@ namespace UniversalEditor.IO
 		public int ReadBitsAsInt32(int count)
 		{
 			int i, x = 0;
-	
-			for (i = 0 ; i < count; i++)
+
+			for (i = 0; i < count; i++)
 			{
-				if ( getbit_mask == 0 )
+				if (getbit_mask == 0)
 				{
 					if (getbit_len == getbit_count)
 					{
