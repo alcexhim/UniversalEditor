@@ -3,6 +3,8 @@ UniversalEditor
 
 A free, cross-platform modular data manipulation framework.
 
+This is Universal Editor 5, which is built using Universal Widget Toolkit to run smoothly on Windows and Linux. Mac OS X support in Universal Widget Toolkit is planned for the distant future.
+
 Philosophy
 ----------
 UniversalEditor 4 has four components:
@@ -14,10 +16,10 @@ UniversalEditor 4 has four components:
 
 Prerequisites
 -------------
-* Glue (if building UserInterface)
 * Sanjigen (if building Multimedia3D plugin)
-* AwesomeControls (if building Windows Forms Engine)
-* Surodoine (if building Windows Forms Engine)
+* Universal Widget Toolkit (if building UserInterface)
+
+Glue is no longer a requirement for building UserInterface. Since Universal Editor engines have been removed in favor of Universal Widget Toolkit, AwesomeControls and Surodoine are no longer required. AwesomeControls may be required for building Universal Widget Toolkit Windows Forms Engine until the controls are successfully ported to Universal Widget Toolkit.x
 
 Customization and Branding
 --------------------------
@@ -38,6 +40,6 @@ Project Types and Templates
 
 Future Goals
 ------------
-Starting with Universal Editor 5, multiple Accessor/DataFormat pairs can be associated with an ObjectModel. This would allow an ObjectModel to store data simultaneously in one format in one file, and in another format in another file. This is achieved through the use of a new component called an *Endpoint*, which pairs an Accessor and a DataFormat.
+In a future release (originally planned for Universal Editor 5), multiple Accessor/DataFormat pairs can be associated with an ObjectModel. This would allow an ObjectModel to store data simultaneously in one format in one file, and in another format in another file. This is achieved through the use of a new component called an *Endpoint*, which pairs an Accessor and a DataFormat.
 * If more than one Output Endpoint is specified, the resulting data is written to each Accessor using the associated DataFormat.
 * <s>If more than one Input Endpoint is specified, the resulting data gets concatenated to the ObjectModel.</s> Multiple Input Endpoints will not be supported due to concerns about how to handle concatenation of the ObjectModel.
