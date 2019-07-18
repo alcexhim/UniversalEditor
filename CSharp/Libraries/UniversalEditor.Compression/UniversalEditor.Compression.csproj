@@ -130,6 +130,10 @@
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Checksum\UniversalEditor.Checksum.csproj">
+      <Project>{0F7D5BD4-7970-412F-ABD7-0A098BB01ACE}</Project>
+      <Name>UniversalEditor.Checksum</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

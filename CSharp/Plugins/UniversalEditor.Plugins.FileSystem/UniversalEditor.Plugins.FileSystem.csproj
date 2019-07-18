@@ -234,6 +234,10 @@
       <Project>{3F664673-7E22-4486-9AD0-FC81861D0B78}</Project>
       <Name>UniversalEditor.Compression</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Checksum\UniversalEditor.Checksum.csproj">
+      <Project>{0F7D5BD4-7970-412F-ABD7-0A098BB01ACE}</Project>
+      <Name>UniversalEditor.Checksum</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\FileSystem\Box\Internal\" />
