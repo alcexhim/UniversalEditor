@@ -24,6 +24,9 @@ using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
 
 using UniversalWidgetToolkit;
+using UniversalWidgetToolkit.DragDrop;
+using UniversalWidgetToolkit.Input.Keyboard;
+using UniversalWidgetToolkit.Input.Mouse;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -32,6 +35,20 @@ namespace UniversalEditor.Editors.FileSystem
 		public FileSystemEditor()
 		{
 			this.InitializeComponent();
+		}
+		
+		public override void OnCreated(EventArgs e)
+		{
+			this.tv.RegisterDragSource(new DragDropTarget[]
+			{
+				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
+			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
+
+			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
+		}
+		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
+		{
+			e.Data = "file:///tmp/test/" + tv.SelectedRows[0].RowColumns[0].Value.ToString() + "\r\n";
 		}
 
 		public override void Copy()

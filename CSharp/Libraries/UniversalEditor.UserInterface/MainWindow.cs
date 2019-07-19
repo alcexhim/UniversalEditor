@@ -12,7 +12,9 @@ using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
 using UniversalWidgetToolkit.Controls.Docking;
 using UniversalWidgetToolkit.Dialogs;
+using UniversalWidgetToolkit.DragDrop;
 using UniversalWidgetToolkit.Input.Keyboard;
+using UniversalWidgetToolkit.Input.Mouse;
 
 using UniversalWidgetToolkit.Drawing;
 using MBS.Framework.Drawing;
@@ -288,6 +290,13 @@ namespace UniversalEditor.UserInterface
 		public override void OnClosed(EventArgs e)
 		{
 			UniversalWidgetToolkit.Application.Stop();
+		}
+		public override void OnCreated(EventArgs e)
+		{
+			this.RegisterDropTarget(new DragDropTarget[]
+			{
+				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
+			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 		}
 
 		private Shortcut CommandShortcutKeyToUWTShortcut(CommandShortcutKey shortcutKey)
