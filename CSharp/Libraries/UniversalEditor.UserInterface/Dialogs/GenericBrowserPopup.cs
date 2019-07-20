@@ -59,7 +59,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		}
 		*/
 
-		public override void OnCreated(EventArgs e)
+		protected override void OnCreated(EventArgs e)
 		{
 			base.OnCreated(e);
 			UpdateSearch();

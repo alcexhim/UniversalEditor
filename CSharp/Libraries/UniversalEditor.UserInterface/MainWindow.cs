@@ -287,11 +287,11 @@ namespace UniversalEditor.UserInterface
 			cmd.Execute();
 		}
 
-		public override void OnClosed(EventArgs e)
+		protected override void OnClosed(EventArgs e)
 		{
 			UniversalWidgetToolkit.Application.Stop();
 		}
-		public override void OnCreated(EventArgs e)
+		protected override void OnCreated(EventArgs e)
 		{
 			this.RegisterDropTarget(new DragDropTarget[]
 			{

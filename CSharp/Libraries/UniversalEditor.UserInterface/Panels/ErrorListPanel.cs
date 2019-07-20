@@ -74,7 +74,7 @@ namespace UniversalEditor.UserInterface.Panels
 			this.Controls.Add(tvErrorList, new BoxLayout.Constraints(true, true));
 		}
 
-		public override void OnCreated(EventArgs e)
+		protected override void OnCreated(EventArgs e)
 		{
 			base.OnCreated(e);
 

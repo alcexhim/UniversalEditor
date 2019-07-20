@@ -38,7 +38,7 @@ namespace UniversalEditor.Controls.DrawingArea
 				this.Refresh();
 			}
 		}
-		public override void OnPaint(PaintEventArgs e)
+		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint(e);
 

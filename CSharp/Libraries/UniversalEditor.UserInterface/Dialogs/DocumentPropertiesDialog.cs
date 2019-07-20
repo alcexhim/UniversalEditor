@@ -50,7 +50,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private TextBox txtAccessor = null;
 		// **********************************************************
 		
-		public override void OnCreating(EventArgs e)
+		protected override void OnCreating(EventArgs e)
 		{
 			base.OnCreating(e);
 			

@@ -475,7 +475,7 @@ namespace UniversalEditor.UserInterface
 			return base.ProcessKeyPreview(ref m);
 		}
 		*/
-		public override void OnKeyDown(KeyEventArgs e)
+		protected override void OnKeyDown(KeyEventArgs e)
 		{
 			base.OnKeyDown(e);
 

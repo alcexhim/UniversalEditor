@@ -154,7 +154,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		public string SolutionTitle { get; set; }
 		public string ProjectTitle { get; set; }
 
-		public override void OnCreating(EventArgs e)
+		protected override void OnCreating(EventArgs e)
 		{
 			base.OnCreating(e);
 

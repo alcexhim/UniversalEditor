@@ -37,6 +37,7 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tmTreeView = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
 
 			this.tv = new ListView();
+			this.tv.Mode = ListViewMode.Detail;
 			this.tv.SelectionMode = SelectionMode.Multiple;
 			this.tv.Model = this.tmTreeView;
 

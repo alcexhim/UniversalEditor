@@ -54,7 +54,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private CustomOption.CustomOptionCollection mvarCustomOptions = new CustomOption.CustomOptionCollection();
 		public CustomOption.CustomOptionCollection CustomOptions { get { return mvarCustomOptions; } set { mvarCustomOptions = value; } }
 
-		public override void OnCreating(EventArgs e)
+		protected override void OnCreating(EventArgs e)
 		{
 			base.OnCreating(e);
 

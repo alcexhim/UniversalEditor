@@ -37,18 +37,24 @@ namespace UniversalEditor.Editors.FileSystem
 			this.InitializeComponent();
 		}
 		
-		public override void OnCreated(EventArgs e)
+		protected override void OnCreated(EventArgs e)
 		{
 			this.tv.RegisterDragSource(new DragDropTarget[]
 			{
-				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
+				new DragDropTarget("STRING", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x0)
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 
 			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
 		}
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
 		{
-			e.Data = "file:///tmp/test/" + tv.SelectedRows[0].RowColumns[0].Value.ToString() + "\r\n";
+			if (tv.SelectedRows.Count == 0) return;
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+			for (int i = 0; i < tv.SelectedRows.Count; i++)
+			{
+				sb.AppendLine("file:///tmp/test/" + tv.SelectedRows[i].RowColumns[0].Value.ToString());
+			}
+			e.Data = sb.ToString();
 		}
 
 		public override void Copy()
