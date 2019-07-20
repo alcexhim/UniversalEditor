@@ -181,3 +181,5 @@ RemoteSystemsTempFiles
 
 # New MonoDevelop crap
 .vs
+mono_crash.*.blob
+
