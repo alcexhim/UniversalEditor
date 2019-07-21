@@ -18,7 +18,7 @@
 				<CommandReference CommandID="FileExit" />
 			</Items>
 		</Command>
-		<Command ID="FileNew" DefaultCommandID="FileNewDocument">
+		<Command ID="FileNew" DefaultCommandID="FileNewDocument" StockType="New">
 			<Items>
 				<!--
 				<CommandReference CommandID="FileNewDocumentFileSystem" />
@@ -28,7 +28,7 @@
 				<CommandReference CommandID="FileNewProject" />
 			</Items>
 		</Command>
-		<Command ID="FileNewDocument">
+		<Command ID="FileNewDocument" StockType="New">
 			<Shortcut Modifiers="Control" Key="N" />
 			<Parameters>
 				<!-- This command takes one parameter which is not set by default -->
@@ -44,19 +44,19 @@
 		<Command ID="FileNewProject">
 			<Shortcut Modifiers="Control,Shift" Key="N" />
 		</Command>
-		<Command ID="FileOpen" DefaultCommandID="FileOpenDocument">
+		<Command ID="FileOpen" DefaultCommandID="FileOpenDocument" StockType="Open">
 			<Items>
 				<CommandReference CommandID="FileOpenDocument" />
 				<CommandReference CommandID="FileOpenProject" />
 			</Items>
 		</Command>
-		<Command ID="FileOpenDocument">
+		<Command ID="FileOpenDocument" StockType="Open">
 			<Shortcut Modifiers="Control" Key="O" />
 		</Command>
 		<Command ID="FileOpenProject">
 			<Shortcut Modifiers="Control,Shift" Key="O" />
 		</Command>
-		<Command ID="FileSave" DefaultCommandID="FileSaveDocument">
+		<Command ID="FileSave" DefaultCommandID="FileSaveDocument" StockType="Save">
 			<Items>
 				<CommandReference CommandID="FileSaveDocument" />
 				<CommandReference CommandID="FileSaveDocumentAs" />
@@ -67,7 +67,7 @@
 				<CommandReference CommandID="FileSaveAll" />
 			</Items>
 		</Command>
-		<Command ID="FileSaveDocument">
+		<Command ID="FileSaveDocument" StockType="Save">
 			<Shortcut Modifiers="Control" Key="S" />
 		</Command>
 		<Command ID="FileSaveDocumentAs" />
@@ -76,7 +76,7 @@
 		<Command ID="FileSaveAll">
 			<Shortcut Modifiers="Control,Shift" Key="S" />
 		</Command>
-		<Command ID="FileClose">
+		<Command ID="FileClose" StockType="Close">
 			<Items>
 				<CommandReference CommandID="FileCloseDocument" />
 				<CommandReference CommandID="FileCloseProject" />
@@ -84,7 +84,7 @@
 				<CommandReference CommandID="FileCloseWindow" />
 			</Items>
 		</Command>
-		<Command ID="FileCloseDocument">
+		<Command ID="FileCloseDocument" StockType="Close">
 			<Shortcut Modifiers="Control" Key="W" />
 		</Command>
 		<Command ID="FileCloseProject">
@@ -93,7 +93,7 @@
 		<Command ID="FileCloseWindow">
 			<Shortcut Modifiers="Alt" Key="F4" />
 		</Command>
-		<Command ID="FilePrint">
+		<Command ID="FilePrint" StockType="Print">
 			<Shortcut Modifiers="Control" Key="P" />
 		</Command>
 		<Command ID="FileRecentFiles">
@@ -107,7 +107,7 @@
 			</Items>
 		</Command>
 		<Command ID="FileRestart" />
-		<Command ID="FileExit">
+		<Command ID="FileExit" StockType="Quit">
 			<Shortcut Modifiers="Control" Key="Q" />
 		</Command>
 		
@@ -129,34 +129,34 @@
 				<CommandReference CommandID="EditGoTo" />
 			</Items>
 		</Command>
-		<Command ID="EditUndo">
+		<Command ID="EditUndo" StockType="Undo">
 			<Shortcut Modifiers="Control" Key="Z" />
 		</Command>
-		<Command ID="EditRedo">
+		<Command ID="EditRedo" StockType="Redo">
 			<Shortcut Modifiers="Control" Key="Y" />
 		</Command>
-		<Command ID="EditCut">
+		<Command ID="EditCut" StockType="Cut">
 			<Shortcut Modifiers="Control" Key="X" />
 		</Command>
-		<Command ID="EditCopy">
+		<Command ID="EditCopy" StockType="Copy">
 			<Shortcut Modifiers="Control" Key="C" />
 		</Command>
-		<Command ID="EditPaste">
+		<Command ID="EditPaste" StockType="Paste">
 			<Shortcut Modifiers="Control" Key="V" />
 		</Command>
-		<Command ID="EditDelete">
+		<Command ID="EditDelete" StockType="Delete">
 			<Shortcut Key="Delete" />
 		</Command>
-		<Command ID="EditSelectAll">
+		<Command ID="EditSelectAll" StockType="SelectAll">
 			<Shortcut Modifiers="Control" Key="A" />
 		</Command>
-		<Command ID="EditInvertSelection">
+		<Command ID="EditInvertSelection" StockType="InvertSelection">
 			<Shortcut Modifiers="Control,Shift" Key="A" />
 		</Command>
-		<Command ID="EditFindReplace">
+		<Command ID="EditFindReplace" StockType="FindAndReplace">
 			<Shortcut Modifiers="Control" Key="F" />
 		</Command>
-		<Command ID="EditGoTo">
+		<Command ID="EditGoTo" StockType="GoTo">
 			<Shortcut Modifiers="Control" Key="G" />
 		</Command>
 		
@@ -331,7 +331,7 @@
 		<Command ID="WindowResetWindowLayout" />
 		<Command ID="WindowWindows" />
 		
-		<Command ID="Help" DefaultCommandID="HelpViewHelp">
+		<Command ID="Help" DefaultCommandID="HelpViewHelp" StockType="Help">
 			<Items>
 				<CommandReference CommandID="HelpViewHelp" />
 				<Separator />
@@ -343,7 +343,7 @@
 				<CommandReference CommandID="HelpAboutPlatform" />
 			</Items>
 		</Command>
-		<Command ID="HelpViewHelp" />
+		<Command ID="HelpViewHelp" StockType="Help" />
 		<Command ID="HelpCustomerFeedbackOptions" />
 		<Command ID="HelpLicensingAndActivation" />
 		<Command ID="HelpSoftwareManager" />

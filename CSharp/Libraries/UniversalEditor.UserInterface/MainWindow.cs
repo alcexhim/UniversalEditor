@@ -31,6 +31,38 @@ namespace UniversalEditor.UserInterface
 		private ErrorListPanel pnlErrorList = new ErrorListPanel();
 		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
 
+		private Toolbar LoadCommandBar(CommandBar cb)
+		{
+			Toolbar tb = new Toolbar();	
+			foreach (CommandItem ci in cb.Items)
+			{
+				if (ci is SeparatorCommandItem)
+				{
+					tb.Items.Add(new ToolbarItemSeparator());
+				}
+				else if (ci is CommandReferenceCommandItem)
+				{
+					CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
+					Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+					if (cmd == null) continue;
+					
+					ToolbarItemButton tsb = new ToolbarItemButton(cmd.ID, (StockType)cmd.StockType);
+					tsb.SetExtraData<CommandReferenceCommandItem>("crci", crci);
+					tsb.Click += tsbCommand_Click;
+					tb.Items.Add(tsb);
+				}
+			}
+			return tb;
+		}
+
+		private void tsbCommand_Click(object sender, EventArgs e)
+		{
+			ToolbarItemButton tsb = (sender as ToolbarItemButton);
+			CommandReferenceCommandItem crci = tsb.GetExtraData<CommandReferenceCommandItem>("crci");
+			Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+			cmd.Execute();
+		}
+
 		public MainWindow()
 		{
 			UniversalWidgetToolkit.Layouts.BoxLayout layout = new UniversalWidgetToolkit.Layouts.BoxLayout(Orientation.Vertical);
@@ -48,6 +80,13 @@ namespace UniversalEditor.UserInterface
 					mi.HorizontalAlignment = MenuItemHorizontalAlignment.Right;
 				}
 				this.MenuBar.Items.Add(mi);
+			}
+			foreach (CommandBar cb in Engine.CurrentEngine.CommandBars)
+			{
+				Toolbar tb = LoadCommandBar(cb);
+				if (tb == null) continue;
+				
+				Controls.Add(tb);
 			}
 
 			dckContainer = new DockingContainer();

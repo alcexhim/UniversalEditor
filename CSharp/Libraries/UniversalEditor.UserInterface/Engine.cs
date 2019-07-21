@@ -756,6 +756,23 @@ namespace UniversalEditor.UserInterface
 						cmd.DefaultCommandID = attDefaultCommandID.Value;
 					}
 
+					MarkupAttribute attCommandStockType = tagCommand.Attributes["StockType"];
+					if (attCommandStockType != null)
+					{
+						StockType stockType = StockType.None;
+						string[] names = Enum.GetNames(typeof(StockType));
+						int[] values = (int[]) Enum.GetValues(typeof(StockType));
+						for (int i = 0; i < names.Length; i++)
+						{
+							if (names[i].Equals(attCommandStockType.Value))
+							{
+								stockType = (StockType)values[i];
+								break;
+							}
+						}
+						cmd.StockType = stockType;
+					}
+
 					MarkupAttribute attTitle = tagCommand.Attributes["Title"];
 					if (attTitle != null)
 					{

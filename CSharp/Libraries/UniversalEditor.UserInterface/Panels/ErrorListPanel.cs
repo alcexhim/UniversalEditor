@@ -36,9 +36,16 @@ namespace UniversalEditor.UserInterface.Panels
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
-			tbErrorList.Items.Add(new ToolbarItemButton("tsbErrors", "Errors"));
-			tbErrorList.Items.Add(new ToolbarItemButton("tsbWarnings", "Warnings"));
-			tbErrorList.Items.Add(new ToolbarItemButton("tsbMessages", "Messages"));
+			ToolbarItemButton tsbErrors = new ToolbarItemButton("tsbErrors", "Errors");
+			tsbErrors.CheckOnClick = true;
+			ToolbarItemButton tsbWarnings = new ToolbarItemButton("tsbWarnings", "Warnings");
+			tsbWarnings.CheckOnClick = true;
+			ToolbarItemButton tsbMessages = new ToolbarItemButton("tsbMessages", "Messages");
+			tsbMessages.CheckOnClick = true;
+			
+			tbErrorList.Items.Add(tsbErrors);
+			tbErrorList.Items.Add(tsbWarnings);
+			tbErrorList.Items.Add(tsbMessages);
 
 			this.Controls.Add(tbErrorList);
 

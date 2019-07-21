@@ -2,9 +2,9 @@
 	<CommandBars LargeButtons="false" ScreenTips="true" ScreenTipShortcutKeys="true">
 		<CommandBar ID="tbStandard" Title="Standard">
 			<Items>
-				<CommandReference CommandID="FileNew" />
-				<CommandReference CommandID="FileOpen" />
-				<CommandReference CommandID="FileSave" />
+				<CommandReference CommandID="FileNewDocument" />
+				<CommandReference CommandID="FileOpenDocument" />
+				<CommandReference CommandID="FileSaveDocument" />
 				<CommandReference CommandID="FilePrint" />
 				<Separator />
 				<CommandReference CommandID="EditCut" />

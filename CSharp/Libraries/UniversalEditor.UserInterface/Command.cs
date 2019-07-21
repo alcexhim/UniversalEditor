@@ -1,4 +1,5 @@
 using System;
+using UniversalWidgetToolkit;
 
 namespace UniversalEditor.UserInterface
 {
@@ -47,11 +48,11 @@ namespace UniversalEditor.UserInterface
 		private CommandShortcutKey mvarShortcutKey = new CommandShortcutKey();
 		public CommandShortcutKey ShortcutKey { get { return mvarShortcutKey; } set { mvarShortcutKey = value; } }
 		
-		private StockCommandType mvarStockCommandType = StockCommandType.None;
+		private StockType mvarStockType = StockType.None;
 		/// <summary>
-		/// A <see cref="StockCommandType"/> that represents a predefined, platform-themed command.
+		/// A <see cref="StockType"/> that represents a predefined, platform-themed command.
 		/// </summary>
-		public StockCommandType StockCommandType { get { return mvarStockCommandType; } set { mvarStockCommandType = value; } }
+		public StockType StockType { get; set; }
 		
 		private string mvarImageFileName = String.Empty;
 		/// <summary>
@@ -84,6 +85,11 @@ namespace UniversalEditor.UserInterface
 		public void Execute()
 		{
 			if (Executed != null) Executed(this, EventArgs.Empty);
+		}
+
+		public override string ToString()
+		{
+			return this.ID;
 		}
 	}
 }
