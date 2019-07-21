@@ -38,7 +38,7 @@ namespace UniversalEditor.UserInterface
 				splasher.Show();
 			// }
 		}
-		private void HideSplashScreen()
+		protected internal void HideSplashScreen()
 		{
 			while (splasher == null)
 			{
@@ -704,7 +704,7 @@ namespace UniversalEditor.UserInterface
 		}
 
 		// FIXME: this is the single XML configuration file loader that should be executed at the beginning of engine launch
-		protected virtual void InitializeXMLConfiguration()
+		protected internal virtual void InitializeXMLConfiguration()
 		{
 			#region Load the XML files
 			string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
@@ -1312,7 +1312,7 @@ namespace UniversalEditor.UserInterface
 		private Perspective.PerspectiveCollection mvarPerspectives = new Perspective.PerspectiveCollection();
 		public Perspective.PerspectiveCollection Perspectives { get { return mvarPerspectives; } }
 
-		protected virtual void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
+		protected internal virtual void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
 		{
 			// most of this is relic from when we had to workaround WinForms
 			// threading issues; these threading issues should be
@@ -1339,56 +1339,11 @@ namespace UniversalEditor.UserInterface
 		private void Initialize()
 		{
 			ShowSplashScreen();
-
-			Application.ShortName = "mbs-editor";
-			// Application.Title = "Universal Editor";
-
-			// Initialize the XML files before anything else, since this also loads string tables needed
-			// to display the application title
-			InitializeXMLConfiguration();
-
-			System.Threading.Thread threadLoader = new System.Threading.Thread(threadLoader_ThreadStart);
-			threadLoader.Name = "Initialization Thread";
-			threadLoader.Start();
-
-			while (threadLoader.ThreadState == System.Threading.ThreadState.Running)
-			{
-				System.Threading.Thread.Sleep (500);
-			}
 		}
 		protected virtual void InitializeInternal()
 		{
-			UpdateSplashScreenStatus("Loading object models...");
-			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-
-			UpdateSplashScreenStatus("Loading data formats...");
-			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-
-			// Initialize Recent File Manager
-			mvarRecentFileManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
-			mvarRecentFileManager.Load();
-
-			// Initialize Bookmarks Manager
-			mvarBookmarksManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
-			mvarBookmarksManager.Load();
-
-			// Initialize Session Manager
-			mvarSessionManager.DataFileName = DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
-			mvarSessionManager.Load();
 		}
-		private void threadLoader_ThreadStart()
-		{
-			/*
-			if (Configuration.SplashScreen.Enabled)
-			{
-				while (splasher == null) System.Threading.Thread.Sleep(500);
-			}
-			*/
-
-			InitializeInternal();
-			HideSplashScreen();
-		}
-
+		
 		private bool mvarRunning = false;
 		public bool Running { get { return mvarRunning; } }
 
