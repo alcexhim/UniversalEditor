@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>UniversalEditor.Plugins.Multimedia.UserInterface</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.Multimedia.UserInterface</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
