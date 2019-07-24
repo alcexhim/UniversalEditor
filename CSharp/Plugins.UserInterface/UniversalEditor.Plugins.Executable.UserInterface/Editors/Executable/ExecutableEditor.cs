@@ -88,8 +88,13 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			tabManagedAssembly.Layout = new BoxLayout(Orientation.Vertical);
 
 			lblAssemblyName = new Label("Assembly name: ");
+			lblAssemblyName.HorizontalAlignment = HorizontalAlignment.Left;
+
 			txtAssemblyName = new TextBox();
+
 			lblAssemblyVersion = new Label("Assembly version: ");
+			lblAssemblyVersion.HorizontalAlignment = HorizontalAlignment.Left;
+
 			txtAssemblyVersion = new TextBox();
 
 			Container pnlMetadata = new Container();
