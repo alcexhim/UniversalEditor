@@ -211,6 +211,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			if (eo.DialogMode == CustomOptionFileDialogMode.Open)
 			{
 				fd.Mode = FileDialogMode.Open;
+				fd.Text = "Select File to Open";
 				if (fd.ShowDialog() == DialogResult.OK)
 				{
 					(cmd as TextBox).Text = fd.SelectedFileNames[0];  // SelectedFileName = ofd.FileName;
@@ -219,6 +220,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			else if (eo.DialogMode == CustomOptionFileDialogMode.Save)
 			{
 				fd.Mode = FileDialogMode.Save;
+				fd.Text = "Select File to Save";
 				if (fd.ShowDialog() == DialogResult.OK)
 				{
 					(cmd as TextBox).Text = fd.SelectedFileNames[0]; // SelectedFileName = sfd.FileName;
