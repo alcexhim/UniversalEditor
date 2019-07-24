@@ -568,7 +568,7 @@ namespace UniversalEditor.UserInterface
 			FileDialog dlg = new FileDialog();
 			dlg.FileNameFilters.Add("Project files", "*.ueproj");
 			dlg.FileNameFilters.Add("Solution files", "*.uesln");
-			dlg.Title = "Open Project or Solution";
+			dlg.Text = "Open Project or Solution";
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 
