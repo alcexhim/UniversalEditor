@@ -42,6 +42,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private DefaultTreeModel tmTemplate = null;
 		private TextBox txtSearch = null;
 
+		private Label lblName = null;
+		private Label lblLocation = null;
+		private Label lblProjectName = null;
+
 		private void InitializeComponent()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
@@ -79,21 +83,29 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.txtFilePath = new TextBox();
 			this.txtSolutionName = new TextBox();
 
+			this.lblName = new Label ("_Name:");
+			this.lblName.HorizontalAlignment = HorizontalAlignment.Left;
+			this.lblLocation = new Label ("_Location:");
+			this.lblLocation.HorizontalAlignment = HorizontalAlignment.Left;
+
+			this.lblProjectName = new Label ((Mode == NewDialogMode.File ? "Project" : "Solution") + " na_me:");
+			this.lblProjectName.HorizontalAlignment = HorizontalAlignment.Left;
+
 			Container tableParams = new Container();
 			tableParams.Layout = new GridLayout();
-			tableParams.Controls.Add(new Label("_Name:"), new GridLayout.Constraints(0, 0));
+			tableParams.Controls.Add(lblName, new GridLayout.Constraints(0, 0));
 			tableParams.Controls.Add(txtFileName, new GridLayout.Constraints(0, 1, 1, 1, ExpandMode.Horizontal));
-			tableParams.Controls.Add(new Label("_Location:"), new GridLayout.Constraints(1, 0));
+			tableParams.Controls.Add(lblLocation, new GridLayout.Constraints(1, 0));
 			tableParams.Controls.Add(txtFilePath, new GridLayout.Constraints(1, 1, 1, 1, ExpandMode.Horizontal));
 
 			this.chkAddToSolution = new CheckBox();
 			this.chkAddToSolution.Text = "Add to " + (Mode == NewDialogMode.File ? "project" : "solution");
 			tableParams.Controls.Add(chkAddToSolution, new GridLayout.Constraints(2, 0, 1, 2, ExpandMode.Horizontal));
 
-			tableParams.Controls.Add(new Label((Mode == NewDialogMode.File ? "Project" : "Solution") + " na_me:"), new GridLayout.Constraints(3, 0));
+			tableParams.Controls.Add(this.lblProjectName, new GridLayout.Constraints(3, 0));
 			tableParams.Controls.Add(txtSolutionName, new GridLayout.Constraints(3, 1, 1, 1, ExpandMode.Horizontal));
 
-			this.Controls.Add(tableParams, new BoxLayout.Constraints(true, true, 16, BoxLayout.PackType.End));
+			this.Controls.Add(tableParams, new BoxLayout.Constraints(false, false, 16, BoxLayout.PackType.End));
 
 
 			this.Buttons.Add(new Button(ButtonStockType.New, DialogResult.None));
@@ -102,6 +114,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.Buttons[0].Click += cmdOK_Click;
 
 			this.Text = "New File";
+			this.MinimumSize = new MBS.Framework.Drawing.Dimension2D (500, 400);
+			this.Size = new MBS.Framework.Drawing.Dimension2D (600, 500);
 		}
 	}
 }
