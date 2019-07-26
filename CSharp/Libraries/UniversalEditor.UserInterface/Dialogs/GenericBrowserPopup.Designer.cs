@@ -22,6 +22,7 @@ using System;
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
 using UniversalWidgetToolkit.Layouts;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -64,6 +65,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 			lv.RowActivated += this.lv_RowActivated;
 			this.lv.Model = tm;
 			this.Controls.Add(this.lv, new BoxLayout.Constraints(true, true));
+
+			this.MinimumSize = new Dimension2D (300, 200);
 		}
 
 	}
