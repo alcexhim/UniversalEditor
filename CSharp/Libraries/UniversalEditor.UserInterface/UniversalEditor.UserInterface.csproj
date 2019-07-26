@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8622EBC4-8E20-476E-B284-33D472081F5C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -60,7 +58,6 @@
     <Compile Include="BookmarksManager.cs" />
     <Compile Include="CommandBar.cs" />
     <Compile Include="CommandDisplayStyle.cs" />
-    <Compile Include="CommandShortcutKey.cs" />
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="ConfigurationManager.cs" />
     <Compile Include="CustomOptionDialogType.cs" />
@@ -85,8 +82,6 @@
     <Compile Include="Toolbox.cs" />
     <Compile Include="UnsavedDocumentOption.cs" />
     <Compile Include="WindowState.cs" />
-    <Compile Include="CommandItem.cs" />
-    <Compile Include="Command.cs" />
     <Compile Include="StockCommandType.cs" />
     <Compile Include="EngineMainMenu.cs" />
     <Compile Include="MainWindow.cs" />

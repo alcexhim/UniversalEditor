@@ -482,10 +482,12 @@ namespace UniversalEditor.UserInterface
 			// look at this editor's configuration to see if we have any registered keybindings
 			foreach (Command cmd in mvarCommands)
 			{
-				if (cmd.ShortcutKey.CompareTo(e.KeyData))
+				/*
+				if (cmd.Shortcut.CompareTo(e.KeyData))
 				{
 					cmd.Execute();
 				}
+				*/
 			}
 		}
 

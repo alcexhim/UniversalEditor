@@ -17,6 +17,7 @@ using UniversalWidgetToolkit.Dialogs;
 using UniversalWidgetToolkit.Drawing;
 using UniversalEditor.UserInterface.Dialogs;
 using UniversalWidgetToolkit;
+using UniversalWidgetToolkit.Input.Keyboard;
 using MBS.Framework.Drawing;
 
 namespace UniversalEditor.UserInterface
@@ -200,18 +201,6 @@ namespace UniversalEditor.UserInterface
 			return new Engine[] { _TheEngine };
 		}
 
-		public bool AttachCommandEventHandler(string commandID, EventHandler handler)
-		{
-			Command cmd = Commands[commandID];
-			if (cmd != null)
-			{
-				cmd.Executed += handler;
-				return true;
-			}
-			Console.WriteLine("attempted to attach handler for unknown command '" + commandID + "'");
-			return false;
-		}
-
 		protected virtual void AfterInitialization()
 		{
 		}
@@ -220,93 +209,93 @@ namespace UniversalEditor.UserInterface
 		{
 			// Initialize all the commands that are common to UniversalEditor
 			#region File
-			AttachCommandEventHandler("FileNewDocument", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileNewDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.NewFile();
 			});
-			AttachCommandEventHandler("FileNewProject", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileNewProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.NewProject();
 			});
-			AttachCommandEventHandler("FileOpenDocument", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileOpenDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.OpenFile();
 			});
-			AttachCommandEventHandler("FileOpenProject", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileOpenProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.OpenProject();
 			});
-			AttachCommandEventHandler("FileSaveDocument", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileSaveDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveFile();
 			});
-			AttachCommandEventHandler("FileSaveDocumentAs", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileSaveDocumentAs", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveFileAs();
 			});
-			AttachCommandEventHandler("FileSaveProject", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileSaveProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveProject();
 			});
-			AttachCommandEventHandler("FileSaveProjectAs", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileSaveProjectAs", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveProjectAs();
 			});
-			AttachCommandEventHandler("FileSaveAll", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileSaveAll", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveAll();
 			});
-			AttachCommandEventHandler("FileCloseDocument", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileCloseDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.CloseFile();
 			});
-			AttachCommandEventHandler("FileCloseProject", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileCloseProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.CloseProject();
 			});
-			AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
 			{
 				RestartApplication();
 			});
-			AttachCommandEventHandler("FileExit", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("FileExit", delegate(object sender, EventArgs e)
 			{
 				StopApplication();
 			});
 			#endregion
 			#region Edit
-			AttachCommandEventHandler("EditCut", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("EditCut", delegate(object sender, EventArgs e)
 			{
-				Command cmdCopy = mvarCommands["EditCopy"];
-				Command cmdDelete = mvarCommands["EditDelete"];
+				Command cmdCopy = Application.Commands["EditCopy"];
+				Command cmdDelete = Application.Commands["EditDelete"];
 				
 				cmdCopy.Execute ();
 				cmdDelete.Execute ();
 			});
-			AttachCommandEventHandler("EditCopy", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("EditCopy", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Copy();
 			});
-			AttachCommandEventHandler("EditPaste", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("EditPaste", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Paste();
 			});
-			AttachCommandEventHandler("EditDelete", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("EditDelete", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Delete();
 			});
-			AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Undo();
 			});
-			AttachCommandEventHandler("EditRedo", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("EditRedo", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
@@ -314,52 +303,52 @@ namespace UniversalEditor.UserInterface
 			});
 			#endregion
 			#region View
-			AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
 			{
 				Command cmd = (sender as Command);
 				LastWindow.FullScreen = !LastWindow.FullScreen;
 				cmd.Checked = LastWindow.FullScreen;
 			});
 			#region Perspective
-			AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(1);
 			});
-			AttachCommandEventHandler("ViewPerspective2", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective2", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(2);
 			});
-			AttachCommandEventHandler("ViewPerspective3", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective3", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(3);
 			});
-			AttachCommandEventHandler("ViewPerspective4", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective4", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(4);
 			});
-			AttachCommandEventHandler("ViewPerspective5", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective5", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(5);
 			});
-			AttachCommandEventHandler("ViewPerspective6", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective6", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(6);
 			});
-			AttachCommandEventHandler("ViewPerspective7", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective7", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(7);
 			});
-			AttachCommandEventHandler("ViewPerspective8", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective8", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(8);
 			});
-			AttachCommandEventHandler("ViewPerspective9", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewPerspective9", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(9);
 			});
 			#endregion
 
-			AttachCommandEventHandler("ViewStartPage", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ViewStartPage", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.ShowStartPage();
 			});
@@ -367,27 +356,27 @@ namespace UniversalEditor.UserInterface
 			#endregion
 			#region Tools
 			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
-			AttachCommandEventHandler("ToolsOptions", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("ToolsOptions", delegate(object sender, EventArgs e)
 			{
 				LastWindow.ShowOptionsDialog();
 			});
 			#endregion
 			#region Window
-			AttachCommandEventHandler("WindowNewWindow", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("WindowNewWindow", delegate(object sender, EventArgs e)
 			{
 				OpenWindow();
 			});
-			AttachCommandEventHandler("WindowWindows", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("WindowWindows", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SetWindowListVisible(true, true);
 			});
 			#endregion
 			#region Help
-			AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
+			Application.AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
 			{
 				MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
 			});
-			AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
+			Application.AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
 			{
 				ShowAboutDialog();
 			});
@@ -403,17 +392,17 @@ namespace UniversalEditor.UserInterface
 				cmdViewToolbarsToolbar.ID = "ViewToolbars" + i.ToString();
 				cmdViewToolbarsToolbar.Title = mvarCommandBars[i].Title;
 				cmdViewToolbarsToolbar.Executed += cmdViewToolbarsToolbar_Executed;
-				mvarCommands.Add(cmdViewToolbarsToolbar);
-				mvarCommands["ViewToolbars"].Items.Insert(0, new CommandReferenceCommandItem(cmdViewToolbarsToolbar.ID));
+				Application.Commands.Add(cmdViewToolbarsToolbar);
+				Application.Commands["ViewToolbars"].Items.Insert(0, new CommandReferenceCommandItem(cmdViewToolbarsToolbar.ID));
 			}
 			#endregion
 			#region Panels
-			if (mvarCommands["ViewPanels"] != null)
+			if (Application.Commands["ViewPanels"] != null)
 			{
 				Command cmdViewPanels1 = new Command();
 				cmdViewPanels1.ID = "ViewPanels1";
-				mvarCommands.Add(cmdViewPanels1);
-				mvarCommands["ViewPanels"].Items.Add(new CommandReferenceCommandItem("ViewPanels1"));
+				Application.Commands.Add(cmdViewPanels1);
+				Application.Commands["ViewPanels"].Items.Add(new CommandReferenceCommandItem("ViewPanels1"));
 			}
 			#endregion
 			#endregion
@@ -421,13 +410,13 @@ namespace UniversalEditor.UserInterface
 
 			#region Language Strings
 			#region Help
-			Command helpAboutPlatform = mvarCommands["HelpAboutPlatform"];
+			Command helpAboutPlatform = Application.Commands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
 			{
 				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, mvarDefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor"));
 			}
 
-			Command helpLanguage = mvarCommands["HelpLanguage"];
+			Command helpLanguage = Application.Commands["HelpLanguage"];
 			if (helpLanguage != null)
 			{
 				foreach (Language lang in mvarLanguages)
@@ -439,7 +428,7 @@ namespace UniversalEditor.UserInterface
 					{
 						HostApplication.Messages.Add(HostApplicationMessageSeverity.Notice, "Clicked language " + lang.ID);
 					};
-					mvarCommands.Add(cmdLanguage);
+					Application.Commands.Add(cmdLanguage);
 
 					helpLanguage.Items.Add(new CommandReferenceCommandItem("HelpLanguage_" + lang.ID));
 				}
@@ -494,12 +483,6 @@ namespace UniversalEditor.UserInterface
 #endif
 			return true;
 		}
-
-		private Command.CommandCollection mvarCommands = new Command.CommandCollection();
-		/// <summary>
-		/// The commands defined for this application.
-		/// </summary>
-		public Command.CommandCollection Commands { get { return mvarCommands; } }
 
 		private Language mvarDefaultLanguage = null;
 		/// <summary>
@@ -790,7 +773,7 @@ namespace UniversalEditor.UserInterface
 						MarkupAttribute attKey = tagShortcut.Attributes["Key"];
 						if (attKey != null)
 						{
-							CommandShortcutKeyModifiers modifiers = CommandShortcutKeyModifiers.None;
+							KeyboardModifierKey modifiers = KeyboardModifierKey.None;
 							if (attModifiers != null)
 							{
 								string[] strModifiers = attModifiers.Value.Split(new char[] { ',' });
@@ -800,37 +783,40 @@ namespace UniversalEditor.UserInterface
 									{
 										case "alt":
 										{
-											modifiers |= CommandShortcutKeyModifiers.Alt;
+											modifiers |= KeyboardModifierKey.Alt;
 											break;
 										}
 										case "control":
 										{
-											modifiers |= CommandShortcutKeyModifiers.Control;
+											modifiers |= KeyboardModifierKey.Control;
 											break;
 										}
 										case "meta":
 										{
-											modifiers |= CommandShortcutKeyModifiers.Meta;
+											modifiers |= KeyboardModifierKey.Meta;
 											break;
 										}
 										case "shift":
 										{
-											modifiers |= CommandShortcutKeyModifiers.Shift;
+											modifiers |= KeyboardModifierKey.Shift;
 											break;
 										}
 										case "super":
 										{
-											modifiers |= CommandShortcutKeyModifiers.Super;
+											modifiers |= KeyboardModifierKey.Super;
 											break;
 										}
 									}
 								}
 							}
 
-							CommandShortcutKeyValue value = CommandShortcutKeyValue.None;
-							value = (CommandShortcutKeyValue)Enum.Parse(typeof(CommandShortcutKeyValue), attKey.Value);
+							KeyboardKey value = KeyboardKey.None;
+							if (!Enum.TryParse<KeyboardKey>(attKey.Value, out value))
+							{
+								Console.WriteLine("ue: ui: unable to parse keyboard key '{0}'", attKey.Value);
+							}
 
-							cmd.ShortcutKey = new CommandShortcutKey(value, modifiers);
+							cmd.Shortcut = new Shortcut(value, modifiers);
 						}
 					}
 
@@ -846,7 +832,7 @@ namespace UniversalEditor.UserInterface
 						}
 					}
 
-					mvarCommands.Add(cmd);
+					Application.Commands.Add(cmd);
 				}
 			}
 			#endregion
@@ -907,7 +893,7 @@ namespace UniversalEditor.UserInterface
 			}
 			else
 			{
-				foreach (Command cmd in mvarCommands)
+				foreach (Command cmd in Application.Commands)
 				{
 					cmd.Title = mvarDefaultLanguage.GetCommandTitle(cmd.ID, cmd.ID);
 				}

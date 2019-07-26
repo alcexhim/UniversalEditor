@@ -20,6 +20,8 @@ using UniversalWidgetToolkit.Drawing;
 using MBS.Framework.Drawing;
 
 // TODO: We need to work on UWT signaling to native objects...
+using UniversalWidgetToolkit.Layouts;
+using UniversalWidgetToolkit.Controls.Ribbon;
 
 namespace UniversalEditor.UserInterface
 {
@@ -30,6 +32,43 @@ namespace UniversalEditor.UserInterface
 
 		private ErrorListPanel pnlErrorList = new ErrorListPanel();
 		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
+
+		private RibbonTab LoadRibbonBar(CommandBar cb)
+		{
+			RibbonTab tab = new RibbonTab ();
+
+			RibbonTabGroup rtgClipboard = new RibbonTabGroup ();
+			rtgClipboard.Title = "Clipboard";
+
+			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditPaste"));
+			(rtgClipboard.Items[0] as RibbonCommandItemButton).IsImportant = true;
+
+			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditCut"));
+			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditCopy"));
+			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditDelete"));
+
+			tab.Groups.Add (rtgClipboard);
+
+			/*
+			Container ctFont = new Container ();
+			ctFont.Layout = new BoxLayout (Orientation.Vertical);
+			Container ctFontFace = new Container ();
+			ctFontFace.Layout = new BoxLayout (Orientation.Horizontal);
+			TextBox txtFontFace = new TextBox ();
+			txtFontFace.Text = "Calibri (Body)";
+			ctFontFace.Controls.Add (txtFontFace);
+			ctFont.Controls.Add (ctFontFace);
+
+			RibbonTabGroup rtgFont = LoadRibbonTabGroup ("Font", ctFont);
+			tab.Groups.Add (rtgFont);
+
+			Toolbar tb = LoadCommandBar (cb);
+			RibbonTabGroup rtg2 = LoadRibbonTabGroup ("General", tb);
+
+			tab.Groups.Add (rtg2);
+			*/
+			return tab;
+		}
 
 		private Toolbar LoadCommandBar(CommandBar cb)
 		{
@@ -43,7 +82,7 @@ namespace UniversalEditor.UserInterface
 				else if (ci is CommandReferenceCommandItem)
 				{
 					CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
-					Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+					Command cmd = Application.Commands[crci.CommandID];
 					if (cmd == null) continue;
 					
 					ToolbarItemButton tsb = new ToolbarItemButton(cmd.ID, (StockType)cmd.StockType);
@@ -59,8 +98,22 @@ namespace UniversalEditor.UserInterface
 		{
 			ToolbarItemButton tsb = (sender as ToolbarItemButton);
 			CommandReferenceCommandItem crci = tsb.GetExtraData<CommandReferenceCommandItem>("crci");
-			Command cmd = Engine.CurrentEngine.Commands[crci.CommandID];
+			Command cmd = Application.Commands[crci.CommandID];
 			cmd.Execute();
+		}
+
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			// we have to process key shortcuts manually if we do not use a traditional menu bar
+			if ((e.ModifierKeys & KeyboardModifierKey.Control) == KeyboardModifierKey.Control) {
+				switch (e.Key) {
+				case KeyboardKey.Q:
+					{
+						Application.Stop (0);
+						break;
+					}
+				}
+			}
 		}
 
 		public MainWindow()
@@ -68,6 +121,8 @@ namespace UniversalEditor.UserInterface
 			UniversalWidgetToolkit.Layouts.BoxLayout layout = new UniversalWidgetToolkit.Layouts.BoxLayout(Orientation.Vertical);
 			this.Layout = layout;
 			this.IconName = "universal-editor";
+
+			this.CommandDisplayMode = CommandDisplayMode.Ribbon;
 
 			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
 			{
@@ -81,14 +136,18 @@ namespace UniversalEditor.UserInterface
 				}
 				this.MenuBar.Items.Add(mi);
 			}
-			foreach (CommandBar cb in Engine.CurrentEngine.CommandBars)
-			{
-				Toolbar tb = LoadCommandBar(cb);
-				if (tb == null) continue;
-				
-				Controls.Add(tb);
-			}
 
+			if (this.CommandDisplayMode == CommandDisplayMode.Ribbon || this.CommandDisplayMode == CommandDisplayMode.Both) {
+				foreach (CommandBar cb in Engine.CurrentEngine.CommandBars) {
+					RibbonTab ribbonTabHome = LoadRibbonBar (cb);
+					ribbonTabHome.Title = "Home";
+					this.Ribbon.Tabs.Add (ribbonTabHome);
+				}
+			} else {
+				foreach (CommandBar cb in Engine.CurrentEngine.CommandBars) {
+					this.Controls.Add (LoadCommandBar(cb));
+				}
+			}
 			dckContainer = new DockingContainer();
 			tbsDocumentTabs = new TabContainer();
 
@@ -137,9 +196,10 @@ namespace UniversalEditor.UserInterface
 
 		public void NewFile()
 		{
+			/*
 			NewDialog2 dlg2 = new NewDialog2();
 			dlg2.ShowDialog();
-
+			*/
 
 			NewDialog dlg = new NewDialog();
 			dlg.Mode = NewDialogMode.File;
@@ -316,7 +376,7 @@ namespace UniversalEditor.UserInterface
 			if (mi == null)
 				return;
 
-			Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands[mi.Name];
+			Command cmd = Application.Commands[mi.Name];
 			if (cmd == null)
 			{
 				Console.WriteLine("unknown cmd '" + mi.Name + "'");
@@ -338,167 +398,18 @@ namespace UniversalEditor.UserInterface
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 		}
 
-		private Shortcut CommandShortcutKeyToUWTShortcut(CommandShortcutKey shortcutKey)
-		{
-			KeyboardKey key = KeyboardKey.None;
-
-			switch (shortcutKey.Value)
-			{
-				case CommandShortcutKeyValue.A:
-				{
-					key = KeyboardKey.A;
-					break;
-				}
-				case CommandShortcutKeyValue.B:
-				{
-					key = KeyboardKey.B;
-					break;
-				}
-				case CommandShortcutKeyValue.C:
-				{
-					key = KeyboardKey.C;
-					break;
-				}
-				case CommandShortcutKeyValue.D:
-				{
-					key = KeyboardKey.D;
-					break;
-				}
-				case CommandShortcutKeyValue.E:
-				{
-					key = KeyboardKey.E;
-					break;
-				}
-				case CommandShortcutKeyValue.F:
-				{
-					key = KeyboardKey.F;
-					break;
-				}
-				case CommandShortcutKeyValue.G:
-				{
-					key = KeyboardKey.G;
-					break;
-				}
-				case CommandShortcutKeyValue.H:
-				{
-					key = KeyboardKey.H;
-					break;
-				}
-				case CommandShortcutKeyValue.I:
-				{
-					key = KeyboardKey.I;
-					break;
-				}
-				case CommandShortcutKeyValue.J:
-				{
-					key = KeyboardKey.J;
-					break;
-				}
-				case CommandShortcutKeyValue.K:
-				{
-					key = KeyboardKey.K;
-					break;
-				}
-				case CommandShortcutKeyValue.L:
-				{
-					key = KeyboardKey.L;
-					break;
-				}
-				case CommandShortcutKeyValue.M:
-				{
-					key = KeyboardKey.M;
-					break;
-				}
-				case CommandShortcutKeyValue.N:
-				{
-					key = KeyboardKey.N;
-					break;
-				}
-				case CommandShortcutKeyValue.O:
-				{
-					key = KeyboardKey.O;
-					break;
-				}
-				case CommandShortcutKeyValue.P:
-				{
-					key = KeyboardKey.P;
-					break;
-				}
-				case CommandShortcutKeyValue.Q:
-				{
-					key = KeyboardKey.Q;
-					break;
-				}
-				case CommandShortcutKeyValue.R:
-				{
-					key = KeyboardKey.R;
-					break;
-				}
-				case CommandShortcutKeyValue.S:
-				{
-					key = KeyboardKey.S;
-					break;
-				}
-				case CommandShortcutKeyValue.T:
-				{
-					key = KeyboardKey.T;
-					break;
-				}
-				case CommandShortcutKeyValue.U:
-				{
-					key = KeyboardKey.U;
-					break;
-				}
-				case CommandShortcutKeyValue.V:
-				{
-					key = KeyboardKey.V;
-					break;
-				}
-				case CommandShortcutKeyValue.W:
-				{
-					key = KeyboardKey.W;
-					break;
-				}
-				case CommandShortcutKeyValue.X:
-				{
-					key = KeyboardKey.X;
-					break;
-				}
-				case CommandShortcutKeyValue.Y:
-				{
-					key = KeyboardKey.Y;
-					break;
-				}
-				case CommandShortcutKeyValue.Z:
-				{
-					key = KeyboardKey.Z;
-					break;
-				}
-			}
-
-			KeyboardModifierKey modifierKeys = KeyboardModifierKey.None;
-
-			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Alt) == CommandShortcutKeyModifiers.Alt) modifierKeys |= KeyboardModifierKey.Alt;
-			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Control) == CommandShortcutKeyModifiers.Control) modifierKeys |= KeyboardModifierKey.Control;
-			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Hyper) == CommandShortcutKeyModifiers.Hyper) modifierKeys |= KeyboardModifierKey.Hyper;
-			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Shift) == CommandShortcutKeyModifiers.Shift) modifierKeys |= KeyboardModifierKey.Shift;
-			if ((shortcutKey.Modifiers & CommandShortcutKeyModifiers.Super) == CommandShortcutKeyModifiers.Super) modifierKeys |= KeyboardModifierKey.Super;
-
-			return new Shortcut(key, modifierKeys);
-		}
-
 		private UniversalWidgetToolkit.MenuItem LoadMenuItem(CommandItem ci)
 		{
 			if (ci is CommandReferenceCommandItem)
 			{
 				CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
 
-				Command cmd = UniversalEditor.UserInterface.Engine.CurrentEngine.Commands[crci.CommandID];
+				Command cmd = Application.Commands[crci.CommandID];
 				if (cmd != null)
 				{
 					CommandMenuItem mi = new CommandMenuItem(cmd.Title);
 					mi.Name = cmd.ID;
-					mi.Shortcut = CommandShortcutKeyToUWTShortcut(cmd.ShortcutKey);
+					mi.Shortcut = cmd.Shortcut;
 					if (cmd.Items.Count > 0)
 					{
 						foreach (CommandItem ci1 in cmd.Items)
@@ -685,27 +596,27 @@ namespace UniversalEditor.UserInterface
 
 		private void AddRecentMenuItem(string FileName)
 		{
-			Command mnuFileRecentFiles = Engine.CurrentEngine.Commands["FileRecentFiles"];
+			Command mnuFileRecentFiles = Application.Commands["FileRecentFiles"];
 
 			Command mnuFileRecentFile = new Command();
 			mnuFileRecentFile.ID = "FileRecentFile_" + FileName;
 			mnuFileRecentFile.Title = System.IO.Path.GetFileName(FileName);
 			// mnuFileRecentFile.ToolTipText = FileName;
-			Engine.CurrentEngine.Commands.Add(mnuFileRecentFile);
+			Application.Commands.Add(mnuFileRecentFile);
 
 			CommandReferenceCommandItem tsmi = new CommandReferenceCommandItem("FileRecentFile_" + FileName);
 			mnuFileRecentFiles.Items.Add(tsmi);
 		}
 		private void RefreshRecentFilesList()
 		{
-			Command mnuFileRecentFiles = Engine.CurrentEngine.Commands["FileRecentFiles"];
+			Command mnuFileRecentFiles = Application.Commands["FileRecentFiles"];
 			mnuFileRecentFiles.Items.Clear();
 			foreach (string fileName in Engine.CurrentEngine.RecentFileManager.FileNames)
 			{
 				AddRecentMenuItem(fileName);
 			}
 
-			Command mnuFileRecentProjects = Engine.CurrentEngine.Commands["FileRecentProjects"];
+			Command mnuFileRecentProjects = Application.Commands["FileRecentProjects"];
 
 			mnuFileRecentFiles.Visible = (mnuFileRecentFiles.Items.Count > 0);
 			mnuFileRecentProjects.Visible = (mnuFileRecentProjects.Items.Count > 0);
