@@ -68,7 +68,6 @@
     <Compile Include="HostApplicationOutputWindow.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="IHostApplicationWindow.cs" />
-    <Compile Include="IOptionPanelImplementation.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="ObjectModelChangingEvent.cs" />
     <Compile Include="Perspective.cs" />
@@ -109,6 +108,8 @@
     <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs" />
     <Compile Include="Dialogs\CustomOptionsDialog.cs" />
     <Compile Include="Panels\StartPagePanel.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditorOptionProvider.cs" />
+    <Compile Include="Editors\Text\Plain\PlainTextEditorOptionProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

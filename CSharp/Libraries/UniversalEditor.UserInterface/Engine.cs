@@ -60,6 +60,19 @@ namespace UniversalEditor.UserInterface
 
 		protected void BeforeInitialization ()
 		{
+			Application.DefaultOptionProvider.OptionGroups.Add ("Application:Author Information", new Option[] {
+				new TextOption("_Name"),
+				new TextOption("_E-mail address")
+			});
+			Application.DefaultOptionProvider.OptionGroups.Add ("Application:Documents", new Option[] {
+			});
+			Application.DefaultOptionProvider.OptionGroups.Add("Application:Projects and Solutions", new Option[]
+			{
+			});
+			Application.DefaultOptionProvider.OptionGroups.Add("Source Control", new Option[]
+			{
+			});
+
 			// Application.EnableVisualStyles();
 			// Application.SetCompatibleTextRenderingDefault(false);
 
@@ -1336,7 +1349,9 @@ namespace UniversalEditor.UserInterface
 				splasher.InvokeUpdateStatus(message);
 			}
 			*/
-			splasher.SetStatus(message, progressValue, progressMinimum, progressMaximum);
+			if (!splasher.IsDisposed) {
+				splasher.SetStatus (message, progressValue, progressMinimum, progressMaximum);
+			}
 		}
 
 		private void Initialize()
