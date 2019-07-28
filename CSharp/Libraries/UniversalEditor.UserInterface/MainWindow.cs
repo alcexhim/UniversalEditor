@@ -122,7 +122,7 @@ namespace UniversalEditor.UserInterface
 			this.Layout = layout;
 			this.IconName = "universal-editor";
 
-			this.CommandDisplayMode = CommandDisplayMode.Ribbon;
+			this.CommandDisplayMode = CommandDisplayMode.Both;
 
 			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
 			{
