@@ -9,23 +9,13 @@ namespace UniversalEditor.UserInterface.Common
 {
 	public static class Reflection
 	{
-		
-		#region Option Panels
-		private static IOptionPanelImplementation[] mvarAvailableOptionPanels = null;
-		public static IOptionPanelImplementation[] GetAvailableOptionPanels()
-		{
-			if (mvarAvailableOptionPanels == null) Initialize();
-			return mvarAvailableOptionPanels;
-		}
-		#endregion
-
 		private static void Initialize()
 		{
 			System.Reflection.Assembly[] asms = UniversalEditor.Common.Reflection.GetAvailableAssemblies();
 
 			List<EditorReference> listEditors = new List<EditorReference>();
-			List<IOptionPanelImplementation> listOptionPanels = new List<IOptionPanelImplementation>();
-			if (mvarAvailableEditors == null || mvarAvailableOptionPanels == null)
+
+			if (mvarAvailableEditors == null)
 			{
 				foreach (System.Reflection.Assembly asm in asms)
 				{
@@ -72,44 +62,13 @@ namespace UniversalEditor.UserInterface.Common
 								
 								Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
 							}
-							continue;
 						}
 						#endregion
-						/*
-						#region Initializing Option Panels
-						else if (type.IsSubclassOf(typeof(OptionPanel))
-						{
-							try
-							{
-								IOptionPanelImplementation editor = (type.Assembly.CreateInstance(type.FullName) as IOptionPanelImplementation);
-								listOptionPanels.Add(editor);
-							}
-							catch (System.Reflection.TargetInvocationException ex)
-							{
-								Console.WriteLine("binding error: " + ex.InnerException.Message);
-							}
-							catch (Exception ex)
-							{
-								Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
-							}
-							break;
-						}
-						#endregion
-						*/
 					}
 				}
 			}
-			#region Initializing Option Panels
-			{
-				if (mvarAvailableOptionPanels == null)
-				{
-
-				}
-			}
-			#endregion
 
 			if (mvarAvailableEditors == null) mvarAvailableEditors = listEditors.ToArray();
-			if (mvarAvailableOptionPanels == null) mvarAvailableOptionPanels = listOptionPanels.ToArray();
 		}
 
 		private static Dictionary<string, Type> TypesByName = new Dictionary<string, Type>();
