@@ -60,16 +60,16 @@ namespace UniversalEditor.UserInterface
 
 		protected void BeforeInitialization ()
 		{
-			Application.DefaultOptionProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
+			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
 				new TextSetting("_Name"),
 				new TextSetting("_E-mail address")
 			});
-			Application.DefaultOptionProvider.SettingsGroups.Add ("Application:Documents", new Setting[] {
+			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Documents", new Setting[] {
 			});
-			Application.DefaultOptionProvider.SettingsGroups.Add("Application:Projects and Solutions", new Setting[]
+			Application.DefaultSettingsProvider.SettingsGroups.Add("Application:Projects and Solutions", new Setting[]
 			{
 			});
-			Application.DefaultOptionProvider.SettingsGroups.Add("Source Control", new Setting[]
+			Application.DefaultSettingsProvider.SettingsGroups.Add("Source Control", new Setting[]
 			{
 			});
 
