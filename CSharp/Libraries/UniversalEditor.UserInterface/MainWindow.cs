@@ -594,7 +594,7 @@ namespace UniversalEditor.UserInterface
 
 		public bool ShowOptionsDialog()
 		{
-			OptionsDialog dlg = new OptionsDialog();
+			SettingsDialog dlg = new SettingsDialog();
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				return true;

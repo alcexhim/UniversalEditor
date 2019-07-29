@@ -32,11 +32,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="OptionProviders\SyntaxEditorOptionProvider.cs" />
+    <Compile Include="SettingsProviders\SyntaxEditorSettingsProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="OptionProviders\" />
+    <Folder Include="SettingsProviders\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">

@@ -108,8 +108,8 @@
     <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs" />
     <Compile Include="Dialogs\CustomOptionsDialog.cs" />
     <Compile Include="Panels\StartPagePanel.cs" />
-    <Compile Include="Editors\FileSystem\FileSystemEditorOptionProvider.cs" />
-    <Compile Include="Editors\Text\Plain\PlainTextEditorOptionProvider.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditorSettingsProvider.cs" />
+    <Compile Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

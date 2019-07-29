@@ -23,26 +23,26 @@ using UniversalWidgetToolkit;
 
 namespace UniversalEditor.Editors.Text.Plain
 {
-	public class PlainTextEditorOptionProvider : OptionProvider
+	public class PlainTextEditorSettingsProvider : SettingsProvider
 	{
-		public PlainTextEditorOptionProvider()
+		public PlainTextEditorSettingsProvider()
 		{
-			OptionGroups.Add(new OptionGroup("Editors:Plain Text Editor", new Option[]
+			SettingsGroups.Add(new SettingsGroup("Editors:Plain Text Editor", new Setting[]
 			{
-				new BooleanOption("_Display line numbers"),
-				new BooleanOption("_Display right margin"),
-				new TextOption("Right margin at _column"),
-				new BooleanOption("Display _overview map"),
+				new BooleanSetting("_Display line numbers"),
+				new BooleanSetting("_Display right margin"),
+				new TextSetting("Right margin at _column"),
+				new BooleanSetting("Display _overview map"),
 
-				new BooleanOption("Enable text _wrapping"),
-				new BooleanOption("Do not _split words over two lines"),
+				new BooleanSetting("Enable text _wrapping"),
+				new BooleanSetting("Do not _split words over two lines"),
 
-				new BooleanOption("Highlight current _line"),
-				new BooleanOption("Highlight matching _brackets"),
+				new BooleanSetting("Highlight current _line"),
+				new BooleanSetting("Highlight matching _brackets"),
 				
-				new RangeOption("_Tab width", 8, 1, 24),
-				new BooleanOption("Insert _spaces instead of tabs"),
-				new BooleanOption("_Enable automatic indentation", true)
+				new RangeSetting("_Tab width", 8, 1, 24),
+				new BooleanSetting("Insert _spaces instead of tabs"),
+				new BooleanSetting("_Enable automatic indentation", true)
 			}));
 		}
 	}

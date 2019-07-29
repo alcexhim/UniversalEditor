@@ -33,7 +33,7 @@
     <Compile Include="Editors\Multimedia\Picture\PictureEditor.cs" />
     <Compile Include="Editors\Multimedia\Picture\PictureEditor.Designer.cs" />
     <Compile Include="Controls\DrawingArea\DrawingAreaControl.cs" />
-    <Compile Include="OptionProviders\SingingStyleDefaultsOptionProvider.cs" />
+    <Compile Include="SettingsProviders\SingingStyleDefaultsSettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -41,7 +41,7 @@
     <Folder Include="Editors\Multimedia\Picture\" />
     <Folder Include="Controls\" />
     <Folder Include="Controls\DrawingArea\" />
-    <Folder Include="OptionProviders\" />
+    <Folder Include="SettingsProviders\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
