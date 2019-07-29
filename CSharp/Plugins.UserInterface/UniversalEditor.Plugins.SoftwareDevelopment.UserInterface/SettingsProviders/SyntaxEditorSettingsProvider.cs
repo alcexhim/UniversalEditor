@@ -23,7 +23,7 @@ using UniversalWidgetToolkit;
 
 namespace UniversalEditor.SettingsProviders
 {
-	public class SyntaxEditorSettingsProvider : SettingsProvider
+	public class SyntaxEditorSettingsProvider : ApplicationSettingsProvider
 	{
 		public SyntaxEditorSettingsProvider ()
 		{

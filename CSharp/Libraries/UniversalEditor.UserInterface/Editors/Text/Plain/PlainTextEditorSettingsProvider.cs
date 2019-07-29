@@ -23,7 +23,7 @@ using UniversalWidgetToolkit;
 
 namespace UniversalEditor.Editors.Text.Plain
 {
-	public class PlainTextEditorSettingsProvider : SettingsProvider
+	public class PlainTextEditorSettingsProvider : ApplicationSettingsProvider
 	{
 		public PlainTextEditorSettingsProvider()
 		{

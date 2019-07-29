@@ -23,7 +23,7 @@ using UniversalWidgetToolkit;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.SettingsProviders
 {
-	public class SingingStyleDefaultsSettingsProvider : SettingsProvider
+	public class SingingStyleDefaultsSettingsProvider : ApplicationSettingsProvider
 	{
 		public SingingStyleDefaultsSettingsProvider ()
 		{

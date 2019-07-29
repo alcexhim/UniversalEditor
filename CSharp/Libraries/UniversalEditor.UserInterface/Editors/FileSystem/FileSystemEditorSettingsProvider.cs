@@ -23,7 +23,7 @@ using UniversalWidgetToolkit;
 
 namespace UniversalEditor.Editors.FileSystem
 {
-	public class FileSystemEditorSettingsProvider : SettingsProvider
+	public class FileSystemEditorSettingsProvider : ApplicationSettingsProvider
 	{
 		public FileSystemEditorSettingsProvider ()
 		{
