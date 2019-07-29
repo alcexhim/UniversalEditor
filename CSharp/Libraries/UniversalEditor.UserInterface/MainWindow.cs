@@ -49,6 +49,24 @@ namespace UniversalEditor.UserInterface
 
 			tab.Groups.Add (rtgClipboard);
 
+			RibbonTabGroup rtgNew = new RibbonTabGroup ();
+			rtgNew.Title = "New";
+
+			rtgNew.Items.Add (new RibbonCommandItemButton ("FileNewDocument"));
+			(rtgNew.Items [0] as RibbonCommandItemButton).IsImportant = true;
+			rtgNew.Items.Add (new RibbonCommandItemButton ("FileNewProject"));
+			(rtgNew.Items [1] as RibbonCommandItemButton).IsImportant = true;
+
+			tab.Groups.Add (rtgNew);
+
+			RibbonTabGroup rtgSelect = new RibbonTabGroup ();
+			rtgSelect.Title = "Select";
+
+			rtgSelect.Items.Add (new RibbonCommandItemButton ("EditSelectAll"));
+			rtgSelect.Items.Add (new RibbonCommandItemButton ("EditInvertSelection"));
+
+			tab.Groups.Add (rtgSelect);
+
 			/*
 			Container ctFont = new Container ();
 			ctFont.Layout = new BoxLayout (Orientation.Vertical);

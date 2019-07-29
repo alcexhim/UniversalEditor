@@ -8,8 +8,6 @@
     <AssemblyName>UniversalEditor.Plugins.Multimedia3D</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <WarningLevel>4</WarningLevel>
-    <ProductVersion>10.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>UniversalEditor.Plugins.Multimedia3D</RootNamespace>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
