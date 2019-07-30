@@ -36,11 +36,11 @@ namespace UniversalEditor.Editors.FileSystem
 			{
 				new BooleanSetting ("_Single-click to open items"),
 				new BooleanSetting ("Show action to create symbolic _links"),
-				new ChoiceSetting<int> ("Default option for _executable text files", null, new ChoiceSetting<int>.ChoiceSettingValue[]
+				new ChoiceSetting ("Default option for _executable text files", null, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new ChoiceSetting<int>.ChoiceSettingValue ("Display them in text editor", 1),
-					new ChoiceSetting<int>.ChoiceSettingValue ("Run them as executable", 2),
-					new ChoiceSetting<int>.ChoiceSettingValue ("Ask me what to do", 3)
+					new ChoiceSetting.ChoiceSettingValue ("Display them in text editor", 1),
+					new ChoiceSetting.ChoiceSettingValue ("Run them as executable", 2),
+					new ChoiceSetting.ChoiceSettingValue ("Ask me what to do", 3)
 				}),
 				new BooleanSetting ("Ask before _emptying the Trash/Recycle Bin"),
 				new BooleanSetting ("Show action to _permanently delete files and folders")

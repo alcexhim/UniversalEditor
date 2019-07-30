@@ -39,12 +39,12 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.SettingsProviders
 			{
 				new GroupSetting("MIDI Devices", new Setting[]
 				{
-					new ChoiceSetting<int>("_Input device"),
-					new ChoiceSetting<int>("_Output device")
+					new ChoiceSetting("_Input device"),
+					new ChoiceSetting("_Output device")
 				}),
 				new BooleanSetting("Play notes through MIDI output upon _selection"),
 				new BooleanSetting("Send _Program Change for the following program before continuing"),
-				new ChoiceSetting<int>(String.Empty)
+				new ChoiceSetting(String.Empty)
 			});
 			SettingsGroups.Add ("Editors:Synthesized Audio:Phoneme Dictionary", new Setting[]
 			{
@@ -56,14 +56,14 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.SettingsProviders
 			{
 				// new CommandOption("_Load settings from VOCALOID2"),
 				// 2q22wnew CommandOption("_Save settings from VOCALOID2"),
-				new ChoiceSetting<string>("_Template", null, new ChoiceSetting<string>.ChoiceSettingValue[]
+				new ChoiceSetting("_Template", null, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new ChoiceSetting<string>.ChoiceSettingValue("(Custom)", "custom"),
-					new ChoiceSetting<string>.ChoiceSettingValue("Normal", "normal"),
-					new ChoiceSetting<string>.ChoiceSettingValue("Accent", "accent"),
-					new ChoiceSetting<string>.ChoiceSettingValue("Strong Accent", "strongaccent"),
-					new ChoiceSetting<string>.ChoiceSettingValue("Legato", "legato"),
-					new ChoiceSetting<string>.ChoiceSettingValue("Slow Legato", "slowlegato"),
+					new ChoiceSetting.ChoiceSettingValue("(Custom)", "custom"),
+					new ChoiceSetting.ChoiceSettingValue("Normal", "normal"),
+					new ChoiceSetting.ChoiceSettingValue("Accent", "accent"),
+					new ChoiceSetting.ChoiceSettingValue("Strong Accent", "strongaccent"),
+					new ChoiceSetting.ChoiceSettingValue("Legato", "legato"),
+					new ChoiceSetting.ChoiceSettingValue("Slow Legato", "slowlegato"),
 				}),
 				new GroupSetting("Pitch control", new Setting[]
 				{

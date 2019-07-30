@@ -41,7 +41,7 @@ namespace UniversalEditor.SettingsProviders
 			SettingsGroups.Add(new SettingsGroup("Editors:Syntax:Languages", new Setting[]
 			{
 				new BooleanSetting("_Map extensionless files to"),
-				new ChoiceSetting<string>("Default language"),
+				new ChoiceSetting("Default language"),
 			}));
 
 			// for each language...
