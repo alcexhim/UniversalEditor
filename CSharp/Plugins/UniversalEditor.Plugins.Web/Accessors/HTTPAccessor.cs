@@ -14,7 +14,7 @@ namespace UniversalEditor.Accessors
 			if (_ar == null)
 			{
 				_ar = base.MakeReferenceInternal();
-				_ar.Title = "Internet via HyperText Transfer Protocol (HTTP)";
+				_ar.Title = "Internet (HTTP)";
 				_ar.ImportOptions.Add(new CustomOptionText("FileName", "&File name: "));
 			}
 			return _ar;
