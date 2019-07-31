@@ -113,7 +113,8 @@ namespace UniversalEditor.Common
 
 						ObjectModelReference omr = tmp.MakeReference();
 
-						listObjectModels.Add(omr);
+						if (!listObjectModels.Contains(omr))
+							listObjectModels.Add(omr);
 					}
 					else if (mvarAvailableAccessors == null && (type.IsSubclassOf(typeof(Accessor)) && !type.IsAbstract))
 					{
@@ -123,7 +124,8 @@ namespace UniversalEditor.Common
 							AccessorReference ar = a.MakeReference();
 							if (ar != null)
 							{
-								listAccessors.Add(ar);
+								if (!listAccessors.Contains(ar))
+									listAccessors.Add(ar);
 							}
 						}
 						catch
@@ -138,7 +140,8 @@ namespace UniversalEditor.Common
 							DataFormatReference dfr = df.MakeReference();
 							if (dfr != null)
 							{
-								listDataFormats.Add(dfr);
+								if (!listDataFormats.Contains(dfr))
+									listDataFormats.Add(dfr);
 							}
 						}
 						catch
@@ -150,7 +153,8 @@ namespace UniversalEditor.Common
 						DocumentTemplate template = (type.Assembly.CreateInstance(type.FullName) as DocumentTemplate);
 						if (template != null)
 						{
-							listDocumentTemplates.Add(template);
+							if (!listDocumentTemplates.Contains(template))
+								listDocumentTemplates.Add(template);
 						}
 					}
 					else if (mvarAvailableConverters == null && (type.IsSubclassOf(typeof(Converter)) && !type.IsAbstract))
@@ -159,7 +163,8 @@ namespace UniversalEditor.Common
 						if (item != null)
 						{
 							ConverterReference cr = item.MakeReference();
-							listConverters.Add(cr);
+							if (!listConverters.Contains(cr))
+								listConverters.Add(cr);
 						}
 					}
 				}
