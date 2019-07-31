@@ -251,6 +251,7 @@ namespace UniversalEditor.UserInterface
 
 				Glue.Common.Methods.SendApplicationEvent(ae);
 				*/
+				InitDocTab (page.Document.Title, page);
 			}
 		}
 		public void NewProject(bool combineObjects = false)
@@ -459,15 +460,10 @@ namespace UniversalEditor.UserInterface
 		#region IHostApplicationWindow implementation
 		public void OpenFile()
 		{
-			Console.WriteLine("in OpenFile()");
 			using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog())
 			{
 				if (dlg.ShowDialog() == DialogResult.OK)
 				{
-					Console.WriteLine("====== DOCUMENT PROPERTIES DIALOG RESULTS ======");
-					Console.WriteLine("    ObjectModel:  {0}", dlg.ObjectModel);
-					Console.WriteLine("    DataFormat:   {0}", dlg.DataFormat);
-					Console.WriteLine("    Accessor:     {0}", dlg.Accessor);
 					Document doc = new Document(dlg.ObjectModel, dlg.DataFormat, dlg.Accessor);
 					OpenFile(doc);
 				}
