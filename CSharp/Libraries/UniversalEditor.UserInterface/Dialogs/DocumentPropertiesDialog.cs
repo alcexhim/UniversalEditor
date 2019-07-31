@@ -54,18 +54,21 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			base.OnCreating(e);
 			
-			this.Buttons[0].ResponseValue = (int)DialogResult.OK;
+			this.Buttons [0].ResponseValue = (int)DialogResult.OK;
+			this.Buttons [1].ResponseValue = (int)DialogResult.Cancel;
 			
 			switch (Mode)
 			{
 				case DocumentPropertiesDialogMode.Open:
 				{
 					this.Text = "Open Document";
+					this.Buttons [0].StockType = ButtonStockType.Open;
 					break;
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
 					this.Text = "Save Document";
+					this.Buttons [0].StockType = ButtonStockType.Save;
 					break;
 				}
 			}
