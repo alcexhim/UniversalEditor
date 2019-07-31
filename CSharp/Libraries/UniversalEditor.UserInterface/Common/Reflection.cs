@@ -174,6 +174,9 @@ namespace UniversalEditor.UserInterface.Common
 			EditorReference[] editors = GetAvailableEditors();
 			foreach (EditorReference editor in editors)
 			{
+				if (list.Contains (editor))
+					continue;
+				
 				if (editor.SupportedObjectModels.Contains(objectModelReference.Type) || editor.SupportedObjectModels.Contains(objectModelReference.ID))
 				{
 					list.Add(editor);
