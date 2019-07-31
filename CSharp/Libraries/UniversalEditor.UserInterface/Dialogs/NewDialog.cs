@@ -373,7 +373,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 
 				DocumentTemplate dtEmpty = new DocumentTemplate();
-				dtEmpty.Title = path[path.Length - 1];
+				dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
 				dts.Add(dtEmpty);
 			}
 
@@ -482,7 +482,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
-			// holy crapola this actually works!...
+			/*
 			if (String.IsNullOrEmpty(this.txtFileName.Text))
 			{
 				MessageDialog.ShowDialog("Please enter a file name", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
@@ -492,6 +492,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				// way to cancel the dialog close event... what do?
 				return;
 			}
+			*/
 
 			if (tmTemplate.Rows.Count == 1 && tvTemplate.SelectedRows.Count == 0)
 			{
