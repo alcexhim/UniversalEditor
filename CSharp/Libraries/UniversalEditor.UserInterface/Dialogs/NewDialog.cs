@@ -319,12 +319,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 				string strPath = String.Join("/", omr.Path);
 				if (String.IsNullOrEmpty(txtSearch.Text) || strPath.ToLower().Contains(txtSearch.Text.ToLower()))
 				{
-					InitializeObjectModelTreeViewRow(tmObjectModel, null, omr.Path, 0);
+					InitializeObjectModelTreeViewRow(tmObjectModel, null, omr, 0);
 				}
 			}
 		}
-		private void InitializeObjectModelTreeViewRow(DefaultTreeModel tm, TreeModelRow rp, string[] path, int index)
+		private void InitializeObjectModelTreeViewRow(DefaultTreeModel tm, TreeModelRow rp, ObjectModelReference omr, int index)
 		{
+			string[] path = omr.Path;
 			if (index > path.Length - 1) return;
 
 			TreeModelRow row = null;
@@ -373,11 +374,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 
 				DocumentTemplate dtEmpty = new DocumentTemplate();
+				dtEmpty.ObjectModelReference = omr;
 				dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
 				dts.Add(dtEmpty);
 			}
 
-			InitializeObjectModelTreeViewRow(tm, row, path, index + 1);
+			InitializeObjectModelTreeViewRow(tm, row, omr, index + 1);
 		}
 
 		private void InitializeDocumentTemplateTreeView()
