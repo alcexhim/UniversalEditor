@@ -376,10 +376,11 @@ namespace UniversalEditor.UserInterface
 
 		private void InitStartPage()
 		{
-			// StartPagePanel lblStartPage = new StartPagePanel();
 			// StartPageDialog dlg = new StartPageDialog();
 			// dlg.ShowDialog();
-			// InitDocTab("Start Page", lblStartPage);
+
+			StartPagePanel lblStartPage = new StartPagePanel();
+			InitDocTab("Start Page", lblStartPage);
 		}
 
 		private void InitDocTab(string title, Control content)
