@@ -248,7 +248,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					if (ctl is CheckBox)
 					{
 						CheckBox itm = (ctl as CheckBox);
-						// (eo as CustomOptionBoolean).Value = itm.Checked;
+						(eo as CustomOptionBoolean).Value = itm.Checked;
 					}
 					/*
 					else if (ctl is ComboBox)
