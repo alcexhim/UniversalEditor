@@ -30,12 +30,6 @@ using MBS.Framework.Drawing;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
-	public enum DocumentPropertiesDialogMode
-	{
-		Open,
-		Save
-	}
-
 	[ContainerLayout("~/Dialogs/DocumentPropertiesDialog.glade", "GtkDialog")]
 	public class DocumentPropertiesDialog : Dialog
 	{
