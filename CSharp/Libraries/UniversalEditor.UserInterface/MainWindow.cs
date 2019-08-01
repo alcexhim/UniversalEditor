@@ -473,6 +473,18 @@ namespace UniversalEditor.UserInterface
 		#region IHostApplicationWindow implementation
 		public void OpenFile()
 		{
+			using (DocumentPropertiesDialogV2 dlg = new DocumentPropertiesDialogV2 ())
+			{
+				if (dlg.ShowDialog () == DialogResult.OK)
+				{
+					if (dlg.ObjectModel == null || dlg.DataFormat == null || dlg.Accessor == null) {
+						return;
+					}
+					Document doc = new Document(dlg.ObjectModel, dlg.DataFormat, dlg.Accessor);
+					OpenFile(doc);
+				}
+			}
+			/*
 			using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog())
 			{
 				if (dlg.ShowDialog() == DialogResult.OK)
@@ -481,6 +493,7 @@ namespace UniversalEditor.UserInterface
 					OpenFile(doc);
 				}
 			}
+			*/
 		}
 
 		public void OpenFile(params string[] fileNames)

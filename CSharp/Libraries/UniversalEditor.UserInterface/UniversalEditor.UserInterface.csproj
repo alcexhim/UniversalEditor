@@ -110,6 +110,9 @@
     <Compile Include="Editors\FileSystem\FileSystemEditorSettingsProvider.cs" />
     <Compile Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialogMode.cs" />
+    <Compile Include="Dialogs\DocumentPropertiesDialogV2.cs" />
+    <Compile Include="Controls\UniversalEditorFileBrowserControl.cs" />
+    <Compile Include="Controls\GenericBrowserButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -155,6 +158,7 @@
     <Folder Include="Editors\Text\Plain\" />
     <Folder Include="Editors\FileSystem\" />
     <Folder Include="Editors\PropertyList\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
