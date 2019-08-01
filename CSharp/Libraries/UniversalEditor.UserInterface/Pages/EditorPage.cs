@@ -26,6 +26,8 @@ using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
 using UniversalWidgetToolkit.Controls;
+using UniversalWidgetToolkit.Layouts;
+using UniversalWidgetToolkit;
 
 namespace UniversalEditor.UserInterface.Pages
 {
@@ -39,6 +41,7 @@ namespace UniversalEditor.UserInterface.Pages
 
 		public EditorPage()
 		{
+			this.Layout = new BoxLayout (Orientation.Vertical);
 		}
 
 		/*
@@ -146,7 +149,7 @@ namespace UniversalEditor.UserInterface.Pages
 
 					// pnlLoading.Visible = false;
 					// pnlLoading.Enabled = false;
-					Controls.Add(editor);
+					Controls.Add(editor, new BoxLayout.Constraints(true, true));
 				}
 				else
 				{
@@ -160,15 +163,16 @@ namespace UniversalEditor.UserInterface.Pages
 						editor.DocumentEdited += editor_DocumentEdited;
 
 						TabPage tab = new TabPage();
+						tab.Layout = new BoxLayout (Orientation.Vertical);
 						tab.Text = editor.Title;
 
-						tab.Controls.Add(editor);
+						tab.Controls.Add(editor, new BoxLayout.Constraints(true, true));
 						tbs.TabPages.Add(tab);
 					}
 
 					// pnlLoading.Visible = false;
 					// pnlLoading.Enabled = false;
-					Controls.Add(tbs);
+					Controls.Add(tbs, new BoxLayout.Constraints(true, true));
 				}
 			}
 		}
