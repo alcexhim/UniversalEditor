@@ -167,6 +167,8 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 			dckContainer = new DockingContainer();
+			dckContainer.SelectionChanged += dckContainer_SelectionChanged;
+
 			tbsDocumentTabs = new TabContainer();
 
 			InitStartPage();
@@ -254,6 +256,17 @@ namespace UniversalEditor.UserInterface
 				InitDocTab (page.Document.Title, page);
 			}
 		}
+
+		private void dckContainer_SelectionChanged(object sender, EventArgs e)
+		{
+			Editor editor = GetCurrentEditor ();
+			if (editor == null) {
+				Console.WriteLine ("Editor is null");
+			} else {
+				Console.WriteLine ("Editor is NOT null");
+			}
+		}
+
 		public void NewProject(bool combineObjects = false)
 		{
 			NewDialog dlg = new NewDialog();
@@ -508,21 +521,28 @@ namespace UniversalEditor.UserInterface
 
 		public void SaveFile()
 		{
-			Editor currentEditor = GetCurrentEditor();
-			if (currentEditor != null)
+			Pages.EditorPage currentEditorPage = GetCurrentEditorPage();
+			if (currentEditorPage != null)
 			{
-				FileDialog fd = new FileDialog();
-				fd.Mode = FileDialogMode.Save;
-				if (fd.ShowDialog() == DialogResult.OK)
-				{
-
+				if (currentEditorPage.Document.IsSaved) {
+					// save it again
+				} else {
+					SaveFileAs ();
 				}
 			}
 		}
 
 		public void SaveFileAs()
 		{
-			throw new NotImplementedException();
+			Pages.EditorPage currentEditorPage = GetCurrentEditorPage();
+			if (currentEditorPage != null)
+			{
+				using (DocumentPropertiesDialogV2 dlg = new DocumentPropertiesDialogV2 ()) {
+					dlg.Mode = DocumentPropertiesDialogMode.Save;
+					if (dlg.ShowDialog () == DialogResult.OK) {
+					}
+				}
+			}
 		}
 
 		public void SaveFileAs(string FileName, DataFormat df)
@@ -580,13 +600,21 @@ namespace UniversalEditor.UserInterface
 
 		public Editor GetCurrentEditor()
 		{
+			Pages.EditorPage page = GetCurrentEditorPage ();
+			if (page == null)
+				return null;
+
+			return null;
+		}
+		public Pages.EditorPage GetCurrentEditorPage()
+		{
 			DockingItem curitem = dckContainer.CurrentItem;
 			if (curitem == null) return null;
 
-			Editor editor = (curitem.ChildControl as Editor);
-			if (editor == null) return null;
+			Pages.EditorPage editorPage = (curitem.ChildControl as Pages.EditorPage);
+			if (editorPage == null) return null;
 
-			return editor;
+			return editorPage;
 		}
 
 		public bool ShowOptionsDialog()
