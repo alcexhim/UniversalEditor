@@ -611,6 +611,16 @@ namespace UniversalEditor.UserInterface
 			throw new NotImplementedException();
 		}
 
+		public void PrintDocument()
+		{
+			Editor editor = GetCurrentEditor ();
+			if (editor != null) {
+				PrintDialog dlg = new PrintDialog ();
+				if (dlg.ShowDialog () == DialogResult.OK) {
+				}
+			}
+		}
+
 		public Editor GetCurrentEditor()
 		{
 			Pages.EditorPage page = GetCurrentEditorPage ();

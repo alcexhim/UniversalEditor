@@ -266,6 +266,10 @@ namespace UniversalEditor.UserInterface
 			{
 				LastWindow.CloseProject();
 			});
+			Application.AttachCommandEventHandler("FilePrint", delegate(object sender, EventArgs e)
+			{
+				LastWindow.PrintDocument();
+			});
 			Application.AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
 			{
 				RestartApplication();

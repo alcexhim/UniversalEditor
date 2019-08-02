@@ -37,6 +37,8 @@ namespace UniversalEditor.UserInterface
 		void CloseFile();
 		void CloseProject();
 		void CloseWindow();
+
+		void PrintDocument();
 		
 		Editor GetCurrentEditor();
 
