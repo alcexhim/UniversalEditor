@@ -169,6 +169,9 @@ namespace UniversalEditor.Editors.Contact
 		{
 			// eeek! I dont' rememver how  this works...... !!!a
 			TextBox txt = (sender as TextBox);
+			if (ProcessingUndoRedo)
+				return;
+
 			string propertyObject = txt.GetExtraData<string> ("PropertyObject");
 			string propertyName = txt.GetExtraData<string> ("PropertyName");
 
@@ -181,8 +184,7 @@ namespace UniversalEditor.Editors.Contact
 					if (contact.Names.Count == 0) {
 						contact.Names.Add (new ContactName ());
 					}
-					BeginEdit (propertyName, txt.Text, contact.Names [0]);
-					EndEdit ();
+					SetProperty<string> (propertyName, txt.Text, contact.Names[0], txt);
 					break;
 				}
 				case "Job":
@@ -191,6 +193,8 @@ namespace UniversalEditor.Editors.Contact
 				}
 			}
 		}
+
+
 
 		public override void Copy ()
 		{

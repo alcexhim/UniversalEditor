@@ -252,12 +252,15 @@ namespace UniversalEditor.UserInterface
 			public object oldValue;
 			public bool closed;
 
-			public EDITINFO(object item, string propertyName, object oldValue)
+			public Control EditingControl;
+
+			public EDITINFO(object item, string propertyName, object oldValue, Control editingControl = null)
 			{
 				this.item = item;
 				this.propertyName = propertyName;
 				this.oldValue = oldValue;
 				this.closed = false;
+				this.EditingControl = editingControl;
 			}
 		}
 
@@ -310,7 +313,7 @@ namespace UniversalEditor.UserInterface
 			// clear out all the redos
 			redo.Clear();
 		}
-		protected void BeginEdit(string PropertyName, object Value = null, object ParentObject = null)
+		protected void BeginEdit(string PropertyName, object Value = null, object ParentObject = null, Control editingControl = null)
 		{
 			if (mvarEditing > 0)
 			{
@@ -338,7 +341,7 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 
-			EDITINFO edit = new EDITINFO(ParentObject, PropertyName, Value);
+			EDITINFO edit = new EDITINFO(ParentObject, PropertyName, Value, editingControl);
 			undo.Push(edit);
 
 			// clear out all the redos
@@ -367,11 +370,19 @@ namespace UniversalEditor.UserInterface
 		}
 
 		/// <summary>
+		/// Gets a value indicating whether this <see cref="Editor"/> is currently processing an undo/redo operation.
+		/// </summary>
+		/// <value><c>true</c> if processing undo redo; otherwise, <c>false</c>.</value>
+		public bool ProcessingUndoRedo { get; private set; } = false;
+
+		/// <summary>
 		/// Restores the previous object model in the stack.
 		/// </summary>
 		public void Undo()
 		{
 			if (undo.Count == 0) return;
+
+			ProcessingUndoRedo = true;
 
 			EDITINFO edi = undo.Pop();
 			EDITINFO newedi = edi;
@@ -383,22 +394,28 @@ namespace UniversalEditor.UserInterface
 
 				// get the current value of the property, for a "redo"
 				object newValue = pi.GetValue(edi.item, null);
-				newedi = new EDITINFO(edi.item, edi.propertyName, newValue);
+				newedi = new EDITINFO(edi.item, edi.propertyName, newValue, edi.EditingControl);
 
 				// set the current value to the "un-done" value
 				pi.SetValue(edi.item, edi.oldValue, null);
 			}
 			else
 			{
-				newedi = new EDITINFO(null, null, mvarObjectModel);
+				newedi = new EDITINFO(null, null, mvarObjectModel, edi.EditingControl);
 				mvarObjectModel = (edi.oldValue as ObjectModel);
 			}
 
 			// cause a refresh of the editor
 			OnObjectModelChanged(EventArgs.Empty);
 
+			if (edi.EditingControl != null) {
+				edi.EditingControl.Focus ();
+			}
+
 			// push the previous value into the redo log
 			redo.Push(newedi);
+
+			ProcessingUndoRedo = false;
 		}
 
 		/// <summary>
@@ -408,6 +425,8 @@ namespace UniversalEditor.UserInterface
 		{
 			// this is EXACTLY like undo, only in reverse ;)
 			if (redo.Count == 0) return;
+
+			ProcessingUndoRedo = true;
 
 			EDITINFO edi = redo.Pop();
 			EDITINFO newedi = edi;
@@ -419,22 +438,27 @@ namespace UniversalEditor.UserInterface
 
 				// get the current value of the property, for a "redo"
 				object newValue = pi.GetValue(edi.item, null);
-				newedi = new EDITINFO(edi.item, edi.propertyName, newValue);
+				newedi = new EDITINFO(edi.item, edi.propertyName, newValue, edi.EditingControl);
 
 				// set the current value to the "un-done" value
 				pi.SetValue(edi.item, edi.oldValue, null);
 			}
 			else
 			{
-				newedi = new EDITINFO(null, null, mvarObjectModel);
+				newedi = new EDITINFO(null, null, mvarObjectModel, edi.EditingControl);
 				mvarObjectModel = (edi.oldValue as ObjectModel);
 			}
 
 			// cause a refresh of the editor
 			OnObjectModelChanged(EventArgs.Empty);
 
+			if (edi.EditingControl != null)
+				edi.EditingControl.Focus ();
+
 			// push the previous value into the undo log
 			undo.Push(newedi);
+
+			ProcessingUndoRedo = false;
 		}
 		#endregion
 
@@ -501,6 +525,57 @@ namespace UniversalEditor.UserInterface
 			});
 			return null;
 			// return AwesomeControls.Theming.Theme.CurrentTheme.GetImage(fileName);
+		}
+
+		public bool Changed { get; private set; } = false;
+
+		/// <summary>
+		/// Gets the value of the non-indexed public property named <see cref="Name" /> on this <see cref="ObjectModel" />. 
+		/// </summary>
+		/// <param name="name">The name of the public property whose value should be retrieved.</param>
+		/// <typeparam name="T">The 1st type parameter.</typeparam>
+		public T GetProperty<T>(string name, T defaultValue = default(T), object childObject = null)
+		{
+			if (childObject == null) {
+				childObject = ObjectModel;
+			}
+
+			if (childObject == null) // ???
+				return defaultValue;
+
+			Type t = childObject.GetType ();
+			System.Reflection.PropertyInfo pi = t.GetProperty (name);
+			try {
+				return (T) pi.GetValue(childObject, null);
+			}
+			catch {
+				return defaultValue;
+			}
+		}
+		/// <summary>
+		/// Sets the value of the non-indexed public property named <see cref="Name" /> on the specified object and marks the editor as changed.
+		/// </summary>
+		/// <param name="name">The name of the public property whose value should be set.</param>
+		/// <param name="value">The value to set.</param>
+		/// <typeparam name="T">The 1st type parameter.</typeparam>
+		public void SetProperty<T>(string name, T value, object childObject = null, Control editingControl = null)
+		{
+			if (childObject == null)
+				childObject = ObjectModel;
+
+			if (childObject == null) // ???
+				return;
+			
+			Type t = childObject.GetType ();
+			System.Reflection.PropertyInfo pi = t.GetProperty (name);
+
+			object oldvalue = pi.GetValue (childObject, null);
+			BeginEdit (name, oldvalue, childObject, editingControl);
+
+			pi.SetValue(childObject, value, null);
+			Changed = true;
+
+			EndEdit ();
 		}
 	}
 }
