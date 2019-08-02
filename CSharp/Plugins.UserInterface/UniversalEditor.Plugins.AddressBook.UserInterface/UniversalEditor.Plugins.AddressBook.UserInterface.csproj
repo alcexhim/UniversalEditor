@@ -31,7 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ContactEditor.cs" />
+    <Compile Include="Editors\Contact\ContactEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -67,5 +67,9 @@
       <Project>{23ACD09E-E096-4B05-A6CE-6853EDDC589A}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editors\" />
+    <Folder Include="Editors\Contact\" />
   </ItemGroup>
 </Project>

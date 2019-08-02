@@ -1,5 +1,5 @@
 ﻿//
-//  MyClass.cs
+//  ContactEditor.cs - a UWT editor for ContactObjectModel
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -28,7 +28,7 @@ using UniversalWidgetToolkit.Controls;
 using MBS.Framework.Drawing;
 using System.Text;
 
-namespace UniversalEditor.Plugins.AddressBook.UserInterface
+namespace UniversalEditor.Editors.Contact
 {
 	public class ContactEditor : Editor
 	{
