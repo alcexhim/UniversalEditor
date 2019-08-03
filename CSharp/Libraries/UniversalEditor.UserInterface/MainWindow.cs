@@ -136,8 +136,7 @@ namespace UniversalEditor.UserInterface
 
 		public MainWindow()
 		{
-			UniversalWidgetToolkit.Layouts.BoxLayout layout = new UniversalWidgetToolkit.Layouts.BoxLayout(Orientation.Vertical);
-			this.Layout = layout;
+			Layout = new BoxLayout(Orientation.Vertical);
 			this.IconName = "universal-editor";
 
 			this.CommandDisplayMode = CommandDisplayMode.Both;
@@ -168,6 +167,7 @@ namespace UniversalEditor.UserInterface
 			}
 			dckContainer = new DockingContainer();
 			dckContainer.SelectionChanged += dckContainer_SelectionChanged;
+			Controls.Add (dckContainer, new BoxLayout.Constraints(true, true, 0, BoxLayout.PackType.End));
 
 			tbsDocumentTabs = new TabContainer();
 
@@ -180,9 +180,6 @@ namespace UniversalEditor.UserInterface
 
 
 			AddPanel("Error List", DockingItemPlacement.Bottom, pnlErrorList);
-
-
-			this.Controls.Add(dckContainer, new UniversalWidgetToolkit.Layouts.BoxLayout.Constraints(true, true, 0, UniversalWidgetToolkit.Layouts.BoxLayout.PackType.End));
 
 			this.Bounds = new Rectangle(0, 0, 600, 400);
 			this.Size = new Dimension2D(800, 600);
