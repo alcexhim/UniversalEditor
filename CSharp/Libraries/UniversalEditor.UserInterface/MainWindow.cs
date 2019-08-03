@@ -624,7 +624,9 @@ namespace UniversalEditor.UserInterface
 			if (page == null)
 				return null;
 
-			return (page.Controls[0] as Editor);
+			if (page.Controls.Count > 0)
+				return (page.Controls[0] as Editor);
+			return null;
 		}
 		public Pages.EditorPage GetCurrentEditorPage()
 		{
