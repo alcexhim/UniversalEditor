@@ -46,12 +46,22 @@ namespace UniversalEditor.Editors.Text.Plain
 			throw new NotImplementedException();
 		}
 
-		private TextBox txt = null;
+		private SyntaxTextBox txt = null;
+
+		private static EditorReference _er = null;
+		public override EditorReference MakeReference ()
+		{
+			if (_er == null) {
+				_er = base.MakeReference ();
+				_er.SupportedObjectModels.Add (typeof (PlainTextObjectModel));
+			}
+			return _er;
+		}
 
 		public PlainTextEditor ()
 		{
-			txt = new TextBox();
-			txt.Multiline = true;
+			txt = new SyntaxTextBox();
+			// txt.Multiline = true;
 
 			this.Layout = new BoxLayout(Orientation.Vertical);
 			this.Controls.Add(txt, new BoxLayout.Constraints(true, true));
