@@ -33,10 +33,13 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsProviders\SyntaxEditorSettingsProvider.cs" />
+    <Compile Include="Editors\Syntax\SyntaxEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="SettingsProviders\" />
+    <Folder Include="Editors\" />
+    <Folder Include="Editors\Syntax\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
@@ -54,6 +57,10 @@
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.SoftwareDevelopment\UniversalEditor.Plugins.SoftwareDevelopment.csproj">
+      <Project>{CC5C9010-83EF-491D-9262-2CED509D895D}</Project>
+      <Name>UniversalEditor.Plugins.SoftwareDevelopment</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
