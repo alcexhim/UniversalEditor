@@ -211,6 +211,8 @@ namespace UniversalEditor.UserInterface
 		*/
 		#endregion
 
+		private int iUntitledDocCount = 0;
+
 		public void NewFile()
 		{
 			/*
@@ -222,12 +224,14 @@ namespace UniversalEditor.UserInterface
 			dlg.Mode = NewDialogMode.File;
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
+				iUntitledDocCount++;
+
 				DocumentTemplate template = (dlg.SelectedItem as DocumentTemplate);
 				if (template == null) return;
 
 				Pages.EditorPage page = new Pages.EditorPage();
 				page.DocumentEdited += page_DocumentEdited;
-				page.Title = "<untitled>";
+				page.Title = String.Format("<untitled{0}>", iUntitledDocCount);
 
 				ObjectModel objm = template.ObjectModelReference.Create();
 				if (objm == null)
@@ -250,7 +254,7 @@ namespace UniversalEditor.UserInterface
 
 				Glue.Common.Methods.SendApplicationEvent(ae);
 				*/
-				InitDocTab (page.Document.Title, page);
+				InitDocTab (page.Title, page);
 			}
 		}
 
