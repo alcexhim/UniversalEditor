@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Editors\Contact\ContactEditor.cs" />
+    <Compile Include="Editors\ContactGroup\ContactGroupEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -71,5 +72,7 @@
   <ItemGroup>
     <Folder Include="Editors\" />
     <Folder Include="Editors\Contact\" />
+    <Folder Include="Editors\AddressBook\" />
+    <Folder Include="Editors\ContactGroup\" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,11 @@ namespace UniversalEditor.ObjectModels.Contact
 {
 	public class ContactObjectModel : ObjectModel
 	{
+		public class ContactObjectModelCollection
+			: System.Collections.ObjectModel.Collection<ContactObjectModel>
+		{
+		}
+
 		private static ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()
 		{

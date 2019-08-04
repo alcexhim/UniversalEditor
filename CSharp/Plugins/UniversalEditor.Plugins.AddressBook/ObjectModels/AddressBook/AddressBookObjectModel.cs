@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.Contact;
 
 namespace UniversalEditor.ObjectModels.AddressBook
 {
@@ -9,13 +10,21 @@ namespace UniversalEditor.ObjectModels.AddressBook
 	{
 		public override void Clear()
 		{
-			throw new NotImplementedException();
+			Contacts.Clear ();
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
-			throw new NotImplementedException();
+			AddressBookObjectModel clone = (where as AddressBookObjectModel);
+			if (clone == null) throw new ObjectModelNotSupportedException ();
+
+			foreach (ContactObjectModel c in Contacts) {
+				clone.Contacts.Add (c.Clone () as ContactObjectModel);
+			}
 		}
+
+		public ContactObjectModel.ContactObjectModelCollection Contacts { get; } = new ContactObjectModel.ContactObjectModelCollection ();
+
 		private static ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()
 		{

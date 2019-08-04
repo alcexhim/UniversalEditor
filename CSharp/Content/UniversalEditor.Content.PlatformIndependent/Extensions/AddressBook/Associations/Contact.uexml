@@ -18,6 +18,21 @@
 		</Association>
 		<Association>
 			<Filters>
+				<Filter Title="Windows XML contact group">
+					<FileNameFilters>
+						<FileNameFilter>*.group</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.AddressBook" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.AddressBook.Microsoft.ContactGroup.ContactGroupDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
 				<Filter Title="vCard contact">
 					<FileNameFilters>
 						<FileNameFilter>*.vcf</FileNameFilter>
