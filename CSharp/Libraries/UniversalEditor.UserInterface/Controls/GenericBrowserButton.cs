@@ -86,19 +86,20 @@ namespace UniversalEditor.UserInterface.Controls
 			foreach (TRef item in AvailableObjects)
 			{
 				bool itemShouldFilter = false;
-				string[] details = item.GetDetails();
-				foreach (string detail in details)
-				{
-					if (detail == null) continue;
-					if (detail.ToLower().Trim().Contains(txtSearch.Text.ToLower().Trim()))
-					{
-						itemShouldFilter = true;
-						break;
+				if (String.IsNullOrEmpty (txtSearch.Text)) {
+					itemShouldFilter = true;
+				} else {
+					string [] details = item.GetDetails ();
+					foreach (string detail in details) {
+						if (detail == null) continue;
+						if (detail.ToLower ().Trim ().Contains (txtSearch.Text.ToLower ().Trim ())) {
+							itemShouldFilter = true;
+							break;
+						}
 					}
 				}
-				if (String.IsNullOrEmpty(txtSearch.Text.Trim()) || itemShouldFilter)
-				{
-					AddObjectToList(item);
+				if (itemShouldFilter) {
+					AddObjectToList (item);
 				}
 			}
 
