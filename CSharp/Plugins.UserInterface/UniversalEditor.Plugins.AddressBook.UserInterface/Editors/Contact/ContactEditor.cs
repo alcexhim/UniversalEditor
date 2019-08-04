@@ -145,13 +145,65 @@ namespace UniversalEditor.Editors.Contact
 				Container ct = new Container ();
 				ct.Name = "ctAddresses";
 				ct.Text = "Addresses";
-				ct.Layout = new GridLayout ();
+				ct.Layout = new BoxLayout (Orientation.Vertical);
 
 				tmAddresses = new DefaultTreeModel (new Type [] { typeof (string) });
 
 				ListView lvAddresses = new ListView ();
 				lvAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
 				ct.Controls.Add (lvAddresses, new BoxLayout.Constraints (true, true));
+
+				StackSidebarPanel panel = new StackSidebarPanel ();
+				panel.Control = ct;
+				sidebar.Items.Add (panel);
+			}
+			#endregion
+			#region Family
+			{
+				Container ct = new Container ();
+				ct.Name = "ctFamily";
+				ct.Text = "Family and Relationships";
+				ct.Layout = new BoxLayout (Orientation.Vertical);
+
+				tmAddresses = new DefaultTreeModel (new Type [] { typeof (string) });
+
+				ListView lvAddresses = new ListView ();
+				lvAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
+				ct.Controls.Add (lvAddresses, new BoxLayout.Constraints (true, true));
+
+				StackSidebarPanel panel = new StackSidebarPanel ();
+				panel.Control = ct;
+				sidebar.Items.Add (panel);
+			}
+			#endregion
+			#region Digital IDs
+			{
+				Container ct = new Container ();
+				ct.Name = "ctDigitalIDs";
+				ct.Text = "Digital IDs";
+				ct.Layout = new BoxLayout (Orientation.Vertical);
+
+				tmAddresses = new DefaultTreeModel (new Type [] { typeof (string) });
+
+				ListView lvAddresses = new ListView ();
+				lvAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
+				ct.Controls.Add (lvAddresses, new BoxLayout.Constraints (true, true));
+
+				StackSidebarPanel panel = new StackSidebarPanel ();
+				panel.Control = ct;
+				sidebar.Items.Add (panel);
+			}
+			#endregion
+			#region Notes
+			{
+				Container ct = new Container ();
+				ct.Name = "ctNotes";
+				ct.Text = "Notes";
+				ct.Layout = new BoxLayout (Orientation.Vertical);
+
+				TextBox txtNotes = new TextBox ();
+				txtNotes.Multiline = true;
+				ct.Controls.Add (txtNotes, new BoxLayout.Constraints (true, true));
 
 				StackSidebarPanel panel = new StackSidebarPanel ();
 				panel.Control = ct;
