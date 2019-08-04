@@ -158,8 +158,16 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			base.OnCreating(e);
 
+			tvTemplate.RowActivated += tvTemplate_RowActivated;
+
 			InitializeTreeView();
 		}
+
+		private void tvTemplate_RowActivated (object sender, ListViewRowActivatedEventArgs e)
+		{
+			cmdOK_Click (sender, e);
+		}
+
 
 		private void InitializeTreeView()
 		{
@@ -484,6 +492,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
+			this.DialogResult = DialogResult.OK;
 			/*
 			if (String.IsNullOrEmpty(this.txtFileName.Text))
 			{
