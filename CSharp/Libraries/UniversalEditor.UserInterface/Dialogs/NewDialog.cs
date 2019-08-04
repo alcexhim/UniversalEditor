@@ -158,6 +158,20 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			base.OnCreating(e);
 
+			switch (Mode)
+			{
+				case NewDialogMode.File:
+				{
+					this.Text = "New File";
+					break;
+				}
+				case NewDialogMode.Project:
+				{
+					this.Text = "New Project";
+					break;
+				}
+			}
+
 			tvTemplate.RowActivated += tvTemplate_RowActivated;
 
 			InitializeTreeView();
