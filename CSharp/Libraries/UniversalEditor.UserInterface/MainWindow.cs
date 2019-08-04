@@ -123,13 +123,13 @@ namespace UniversalEditor.UserInterface
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
 			// we have to process key shortcuts manually if we do not use a traditional menu bar
-			if ((e.ModifierKeys & KeyboardModifierKey.Control) == KeyboardModifierKey.Control) {
-				switch (e.Key) {
-				case KeyboardKey.Q:
-					{
-						Application.Stop (0);
-						break;
-					}
+			foreach (Command cmd in Application.Commands) {
+				if (cmd.Shortcut == null) continue;
+
+				if (cmd.Shortcut.Key == e.Key && cmd.Shortcut.ModifierKeys == e.ModifierKeys) {
+					Application.ExecuteCommand (cmd.ID);
+					e.Cancel = true;
+					break;
 				}
 			}
 		}
@@ -139,7 +139,7 @@ namespace UniversalEditor.UserInterface
 			Layout = new BoxLayout(Orientation.Vertical);
 			this.IconName = "universal-editor";
 
-			this.CommandDisplayMode = CommandDisplayMode.Both;
+			this.CommandDisplayMode = CommandDisplayMode.Ribbon;
 
 			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
 			{
@@ -594,7 +594,7 @@ namespace UniversalEditor.UserInterface
 			}
 			if (this.Windows.Count == 0)
 			{
-				this.Destroy();
+				CloseWindow ();
 			}
 		}
 
@@ -605,7 +605,7 @@ namespace UniversalEditor.UserInterface
 
 		public void CloseWindow()
 		{
-			throw new NotImplementedException();
+			this.Destroy ();
 		}
 
 		public void PrintDocument()
