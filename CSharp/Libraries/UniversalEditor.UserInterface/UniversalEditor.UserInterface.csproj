@@ -113,6 +113,7 @@
     <Compile Include="Dialogs\DocumentPropertiesDialogV2.cs" />
     <Compile Include="Controls\UniversalEditorFileBrowserControl.cs" />
     <Compile Include="Controls\GenericBrowserButton.cs" />
+    <Compile Include="Dialogs\AboutDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -170,13 +170,12 @@ namespace UniversalEditor.UserInterface
 				string dlgfilename = ExpandRelativePath("~/Dialogs/AboutDialog.glade");
 				if (dlgfilename != null)
 				{
-					Dialog dlg = new Dialog();
-					dlg.LoadFromMarkup(dlgfilename, "GtkDialog");
-					dlg.ShowDialog();
+					UniversalEditor.UserInterface.Dialogs.AboutDialog dlg = new UniversalEditor.UserInterface.Dialogs.AboutDialog ();
+					dlg.ShowDialog ();
 				}
 				else
 				{
-					AboutDialog dlg = new AboutDialog();
+					UniversalWidgetToolkit.Dialogs.AboutDialog dlg = new UniversalWidgetToolkit.Dialogs.AboutDialog ();
 					dlg.ProgramName = "Universal Editor";
 					dlg.Version = System.Reflection.Assembly.GetEntryAssembly().GetName().Version;
 					dlg.Copyright = "(c) 1997-2019 Michael Becker";

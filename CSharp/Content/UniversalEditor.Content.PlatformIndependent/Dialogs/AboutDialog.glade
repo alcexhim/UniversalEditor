@@ -877,7 +877,7 @@ Public License instead of this License.  But first, please read
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkTreeView">
+                  <object class="GtkTreeView" id="tvComponents">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child internal-child="selection">
