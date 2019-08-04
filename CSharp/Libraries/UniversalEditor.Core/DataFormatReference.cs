@@ -41,6 +41,12 @@ namespace UniversalEditor
 			{
 				if (mvarTitle == null)
 				{
+					string[] deets = GetDetails ();
+					if (deets != null) {
+						if (deets.Length > 0) {
+							return deets [0];
+						}
+					}
 					// if (mvarFilters.Count > 0) return mvarFilters[0].Title;
 				}
 				return mvarTitle;
