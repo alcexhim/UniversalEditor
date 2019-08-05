@@ -46,10 +46,12 @@ namespace UniversalEditor.UserInterface
 			this.Controls.Add(image, new BoxLayout.Constraints(true, true));
 			// this.Controls.Add(lbl, new BoxLayout.Constraints(true, true));
 		}
+
+private static bool created = false;
 		protected override void OnCreated(EventArgs e)
 		{
-			Application.DoEvents();
-			
+if (created) return;
+created = true;
 			// less do this
 			Application.ShortName = "mbs-editor";
 			// Application.Title = "Universal Editor";
@@ -69,7 +71,6 @@ namespace UniversalEditor.UserInterface
 
 		private void threadLoader_ThreadStart()
 		{
-			Application.DoEvents();
 			/*
 			if (Configuration.SplashScreen.Enabled)
 			{

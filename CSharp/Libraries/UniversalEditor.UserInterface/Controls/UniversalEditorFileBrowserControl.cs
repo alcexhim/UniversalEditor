@@ -40,11 +40,14 @@ namespace UniversalEditor.UserInterface.Controls
 		public ObjectModel ObjectModel { get; set; } = null;
 		public DataFormat DataFormat { get; set; } = null;
 
+		public System.Collections.ObjectModel.ReadOnlyCollection<string> SelectedFileNames { get { return _Browser.SelectedFileNames; } }
+
 		public UniversalEditorFileBrowserControl ()
 		{
 			this.Layout = new BoxLayout (Orientation.Vertical);
 
 			_Browser = new FileBrowserControl ();
+			_Browser.ItemActivated += _Browser_ItemActivated;
 			this.Controls.Add (_Browser, new BoxLayout.Constraints (true, true));
 
 			cboObjectModel = new GenericBrowserButton<ObjectModel, ObjectModelReference> ();
@@ -146,6 +149,18 @@ namespace UniversalEditor.UserInterface.Controls
 			_Table.Controls.Add (cboDataFormat, new BoxLayout.Constraints (true, true));
 			this.Controls.Add (_Table, new BoxLayout.Constraints (false, false));
 		}
+
+		public event EventHandler ItemActivated;
+		protected virtual void OnItemActivated (EventArgs e)
+		{
+			ItemActivated?.Invoke (this, e);
+		}
+
+		void _Browser_ItemActivated (object sender, EventArgs e)
+		{
+			OnItemActivated (e);
+		}
+
 	}
 }
 

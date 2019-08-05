@@ -1537,61 +1537,66 @@ namespace UniversalEditor.UserInterface
 
 			if (retval)
 			{
-				foreach (CustomOption eo in coll)
-				{
-					System.Reflection.PropertyInfo pi = dfr.AccessorType.GetProperty(eo.PropertyName);
-					if (pi == null) continue;
-
-					if (eo is CustomOptionNumber)
-					{
-						CustomOptionNumber itm = (eo as CustomOptionNumber);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
-					}
-					else if (eo is CustomOptionBoolean)
-					{
-						CustomOptionBoolean itm = (eo as CustomOptionBoolean);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
-					}
-					else if (eo is CustomOptionChoice)
-					{
-						CustomOptionFieldChoice choice = (eo as CustomOptionChoice).Value;
-						if (choice != null)
-						{
-							Type[] interfaces = pi.PropertyType.GetInterfaces();
-							bool convertible = false;
-							foreach (Type t in interfaces)
-							{
-								if (t == typeof(IConvertible))
-								{
-									convertible = true;
-									break;
-								}
-							}
-							if (convertible)
-							{
-								pi.SetValue(df, Convert.ChangeType(choice.Value, pi.PropertyType), null);
-							}
-							else
-							{
-								pi.SetValue(df, choice.Value, null);
-							}
-						}
-					}
-					else if (eo is CustomOptionText)
-					{
-						CustomOptionText itm = (eo as CustomOptionText);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
-					}
-					else if (eo is CustomOptionFile)
-					{
-						CustomOptionFile itm = (eo as CustomOptionFile);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
-					}
-				}
-
+				ApplyCustomOptions (ref df, coll);
 				return true;
 			}
 			return false;
+		}
+
+		public void ApplyCustomOptions (ref Accessor df, CustomOption.CustomOptionCollection coll)
+		{
+			AccessorReference dfr = df.MakeReference ();
+			foreach (CustomOption eo in coll)
+			{
+				System.Reflection.PropertyInfo pi = dfr.AccessorType.GetProperty(eo.PropertyName);
+				if (pi == null) continue;
+
+				if (eo is CustomOptionNumber)
+				{
+					CustomOptionNumber itm = (eo as CustomOptionNumber);
+					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+				}
+				else if (eo is CustomOptionBoolean)
+				{
+					CustomOptionBoolean itm = (eo as CustomOptionBoolean);
+					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+				}
+				else if (eo is CustomOptionChoice)
+				{
+					CustomOptionFieldChoice choice = (eo as CustomOptionChoice).Value;
+					if (choice != null)
+					{
+						Type[] interfaces = pi.PropertyType.GetInterfaces();
+						bool convertible = false;
+						foreach (Type t in interfaces)
+						{
+							if (t == typeof(IConvertible))
+							{
+								convertible = true;
+								break;
+							}
+						}
+						if (convertible)
+						{
+							pi.SetValue(df, Convert.ChangeType(choice.Value, pi.PropertyType), null);
+						}
+						else
+						{
+							pi.SetValue(df, choice.Value, null);
+						}
+					}
+				}
+				else if (eo is CustomOptionText)
+				{
+					CustomOptionText itm = (eo as CustomOptionText);
+					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+				}
+				else if (eo is CustomOptionFile)
+				{
+					CustomOptionFile itm = (eo as CustomOptionFile);
+					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+				}
+			}
 		}
 
 		public virtual ActionMenuItem[] CreateMenuItemsFromPlaceholder(PlaceholderMenuItem pmi)

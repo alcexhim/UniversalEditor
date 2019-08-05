@@ -63,9 +63,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 		void cmdOK_Click (object sender, EventArgs e)
 		{
 			StackSidebarPanel pnl = sidebar.SelectedPanel;
+			if (pnl == null) return;
+
 			Container ct = (pnl.Control as Container);
 
 			AccessorReference accref = pnl.GetExtraData<AccessorReference> ("ar");
+			CustomOption.CustomOptionCollection coll = new CustomOption.CustomOptionCollection ();
 			foreach (Control ctl in ct.Controls) {
 				CustomOption eo = (ctl.GetExtraData ("eo") as CustomOption);
 				if (eo == null)
@@ -91,12 +94,19 @@ namespace UniversalEditor.UserInterface.Dialogs
 					UniversalEditorFileBrowserControl fbc = (ctl as UniversalEditorFileBrowserControl);
 					if (eo is CustomOptionFile)
 					{
-						// (eo as CustomOptionFile).Value = fbc.SelectedFileNames [0];
+						(eo as CustomOptionFile).Value = fbc.SelectedFileNames [0];
 					}
 				}
+
+				coll.Add (eo);
 			}
 
 			Accessor acc = accref.Create ();
+			Engine.CurrentEngine.ApplyCustomOptions (ref acc, coll);
+
+			Accessor = acc;
+
+			this.DialogResult = DialogResult.OK;
 			this.Close ();
 		}
 
@@ -118,6 +128,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 		public Accessor Accessor { get { return mvarAccessor; } set { mvarAccessor = value; mvarInitialAccesor = value; } }
 
 		private StackSidebar sidebar = null;
+
+		private void fbc_ItemActivated (object sender, EventArgs e)
+		{
+			cmdOK_Click (sender, e);
+		}
 
 		private void InitializeComponent()
 		{
@@ -238,6 +253,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 						UniversalEditorFileBrowserControl fbc = new UniversalEditorFileBrowserControl ();
 						fbc.SetExtraData("eo", option);
+						fbc.ItemActivated += fbc_ItemActivated;
 						// TextBox cmd = new TextBox();
 						// AwesomeControls.FileTextBox.FileTextBoxControl cmd = new AwesomeControls.FileTextBox.FileTextBoxControl();
 						// cmd.Click += cmdFileBrowse_Click;

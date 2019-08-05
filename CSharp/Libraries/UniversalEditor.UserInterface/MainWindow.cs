@@ -325,7 +325,7 @@ namespace UniversalEditor.UserInterface
 				
 				if (dfrs.Length > 0)
 				{
-					ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(doc.Accessor);
+					ObjectModelReference [] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels (dfrs [0]);
 					if (omrs.Length < 1)
 					{
 						Console.WriteLine("Object model not found for data format " + dfrs[0].Title + " ; using default editor");
@@ -476,12 +476,14 @@ namespace UniversalEditor.UserInterface
 		{
 			using (DocumentPropertiesDialogV2 dlg = new DocumentPropertiesDialogV2 ())
 			{
-				if (dlg.ShowDialog () == DialogResult.OK)
+				DialogResult result = dlg.ShowDialog ();
+				if (result == DialogResult.OK)
 				{
-					if (dlg.ObjectModel == null || dlg.DataFormat == null || dlg.Accessor == null) {
+					if (dlg.Accessor == null) {
 						return;
 					}
-					Document doc = new Document(dlg.ObjectModel, dlg.DataFormat, dlg.Accessor);
+
+					Document doc = new Document(null, null, dlg.Accessor);
 					OpenFile(doc);
 				}
 			}
