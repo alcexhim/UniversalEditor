@@ -46,21 +46,22 @@ namespace UniversalEditor.DataFormats.Contact.Microsoft
 			MarkupTagElement tagGender = (tagContact.Elements["c:Gender"] as MarkupTagElement);
 			if (tagGender != null)
 			{
+				// idk why this breaks
 				switch (tagGender.Value)
 				{
 					case "Unspecified":
 					{
-						contact.Gender = ContactGender.Unspecified;
+						// contact.Gender = ContactGender.Unspecified;
 						break;
 					}
 					case "Male":
 					{
-						contact.Gender = ContactGender.Male;
+						// contact.Gender = ContactGender.Male;
 						break;
 					}
 					case "Female":
 					{
-						contact.Gender = ContactGender.Female;
+						// contact.Gender = ContactGender.Female;
 						break;
 					}
 				}
