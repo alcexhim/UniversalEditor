@@ -125,7 +125,20 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		}
 		public override string ToString()
 		{
-			return mvarName + " = \"" + mvarValue.ToString() + "\"";
+			string sValue = String.Empty;
+			if (mvarValue == null)
+			{
+				sValue = "null";
+			}
+			else if (mvarValue is string)
+			{
+				sValue = "\"" + mvarValue.ToString() + "\"";
+			}
+			else
+			{
+				sValue = mvarValue.ToString();
+			}
+			return String.Format("{0} = {1}", mvarName, sValue);
 		}
 
 		public Property()
