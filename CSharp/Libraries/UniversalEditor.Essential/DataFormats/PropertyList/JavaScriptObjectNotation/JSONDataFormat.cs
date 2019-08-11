@@ -9,6 +9,8 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 	{
 		private class _Context
 		{
+			public string CurrentStringRaw { get; set; } = String.Empty;
+
 			public Property CurrentProperty { get; set; } = null;
 
 			public bool InsideArray { get; set; } = false;
@@ -49,7 +51,7 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				if (c == '[')
 				{
 					// we begin a new array
-					ctx.InsideArray = true;
+					return ReadArray(ctx, r);
 				}
 				else if (c == ']')
 				{
@@ -65,6 +67,13 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				else if (c == '}')
 				{
 					// we close current object
+					if (ctx.CurrentString != null)
+					{
+						if (ctx.CurrentProperty != null)
+						{
+							ctx.CurrentProperty.Value = ctx.CurrentString;
+						}
+					}
 				}
 
 			}
@@ -89,32 +98,23 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 			Reader r = base.Accessor.Reader;
 			while (!r.EndOfStream)
 			{
-				char c = r.ReadChar();
-				if (c == '[')
+				object obj = ReadNextObject(ctx, r);
+				if (obj is Group)
 				{
-					r.Seek(-1, SeekOrigin.Current);
-					object[] values = ReadArray(ctx, r);
-					foreach (object val in values)
+					plom.Groups.Add(obj as Group);
+				}
+				else if (obj is Property)
+				{
+					plom.Properties.Add(obj as Property);
+				}
+				else if (obj is Array)
+				{
+					object[] array = (object[])obj;
+					foreach (object item in array)
 					{
-						if (val is Group)
-						{
-							plom.Groups.Add(val as Group);
-						}
+						Group g = (item as Group);
+						plom.Groups.Add(g);
 					}
-				}
-				if (ctx.CheckWhiteSpace(c))
-					continue;
-
-				if (r.EndOfStream) break;
-
-				Group g = ReadGroup(ctx, r);
-				foreach (Group g1 in g.Groups)
-				{
-					plom.Groups.Add(g1);
-				}
-				foreach (Property p1 in g.Properties)
-				{
-					plom.Properties.Add(p1);
 				}
 			}
 		}
@@ -179,6 +179,24 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				{
 					// we are starting an array
 					return ReadArray(ctx, r);
+				}
+				else if (c == '{')
+				{
+					return ReadGroup(ctx, r);
+				}
+				else if (c == '}' || c == ',')
+				{
+					// could be null?
+					if (ctx.CurrentStringRaw == "null")
+					{
+						r.Seek(-1, SeekOrigin.Current);
+						ctx.CurrentStringRaw = String.Empty;
+						return null;
+					}
+				}
+				else
+				{
+					ctx.CurrentStringRaw += c;
 				}
 			}
 			return null;
@@ -297,7 +315,7 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 			PropertyListObjectModel plom = (objectModel as PropertyListObjectModel);
 
 			Writer w = base.Accessor.Writer;
-			w.WriteLine("{");
+			w.Write("{");
 
 			foreach (Group g in plom.Groups)
 			{
@@ -308,7 +326,7 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				w.Write(PropertyToString(p, plom.Properties.IndexOf(p) < plom.Properties.Count - 1));
 			}
 
-			w.WriteLine("}");
+			w.Write("}");
 		}
 
 		private string GroupToString(Group group, bool more)
