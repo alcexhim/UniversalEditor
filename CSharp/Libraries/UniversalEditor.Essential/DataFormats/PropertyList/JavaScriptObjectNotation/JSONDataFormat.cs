@@ -141,8 +141,16 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				}
 				else if (c == ',')
 				{
-					list.Add(lastObject);
-					lastObject = null;
+					if (lastObject == null && !String.IsNullOrEmpty(ctx.CurrentString))
+					{
+						list.Add(ctx.CurrentString);
+						ctx.CurrentString = String.Empty;
+					}
+					else
+					{
+						list.Add(lastObject);
+						lastObject = null;
+					}
 				}
 			}
 
@@ -150,6 +158,11 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 			{
 				list.Add(lastObject);
 				lastObject = null;
+			}
+			else if (!String.IsNullOrEmpty(ctx.CurrentString))
+			{
+				list.Add(ctx.CurrentString);
+				ctx.CurrentString = String.Empty;
 			}
 			// hack hack hack
 			ctx.CurrentString = String.Empty;
@@ -192,6 +205,18 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 						r.Seek(-1, SeekOrigin.Current);
 						ctx.CurrentStringRaw = String.Empty;
 						return null;
+					}
+					else if (ctx.CurrentStringRaw == "true")
+					{
+						r.Seek(-1, SeekOrigin.Current);
+						ctx.CurrentStringRaw = String.Empty;
+						return true;
+					}
+					else if (ctx.CurrentStringRaw == "false")
+					{
+						r.Seek(-1, SeekOrigin.Current);
+						ctx.CurrentStringRaw = String.Empty;
+						return false;
 					}
 				}
 				else
@@ -247,6 +272,12 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				if (c == '\\' && !ctx.Escaped)
 				{
 					ctx.Escaped = true;
+					continue;
+				}
+				else if (c == '\\' && ctx.Escaped)
+				{
+					ctx.Escaped = false;
+					ctx.CurrentString += '\\';
 					continue;
 				}
 				else if (c == '"' && !ctx.Escaped)
