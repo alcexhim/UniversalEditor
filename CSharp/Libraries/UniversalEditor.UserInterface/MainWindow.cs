@@ -325,19 +325,34 @@ namespace UniversalEditor.UserInterface
 				
 				if (dfrs.Length > 0)
 				{
-					ObjectModelReference [] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels (dfrs [0]);
-					if (omrs.Length < 1)
-					{
-						Console.WriteLine("Object model not found for data format " + dfrs[0].Title + " ; using default editor");
-						OpenDefaultEditor(doc.Accessor.GetFileName());
+					bool found = false;
+					foreach (DataFormatReference dfr in dfrs) {
+						ObjectModelReference [] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels (dfr);
+						if (omrs.Length < 1) {
+							Console.WriteLine ("Object model not found for data format " + dfr.Title + " ; using default editor");
+						}
+
+						ObjectModelReference omr = omrs [0];
+						ObjectModel om = omr.Create ();
+
+						doc.DataFormat = dfr.Create ();
+						doc.ObjectModel = om;
+
+						try {
+							doc.Accessor.Open ();
+							doc.Load ();
+						} catch (InvalidDataFormatException ex) {
+							doc.Accessor.Close ();
+							continue;
+						}
+
+						found = true;
+						break;
+					}
+					if (!found) {
+						OpenDefaultEditor (doc.Accessor.GetFileName ());
 						return;
 					}
-					
-					ObjectModelReference omr = omrs[0];
-					ObjectModel om = omr.Create();
-
-					doc.DataFormat = dfrs[0].Create();
-					doc.ObjectModel = om;
 				}
 			}
 			
@@ -380,8 +395,7 @@ namespace UniversalEditor.UserInterface
 			}
 			ed.ObjectModel = om1;
 
-			InitDocTab(System.IO.Path.GetFileName(filename)
-			, ed);
+			InitDocTab(System.IO.Path.GetFileName(filename), ed);
 		}
 
 		[ContainerLayout("~/Panels/StartPage.glade")]
