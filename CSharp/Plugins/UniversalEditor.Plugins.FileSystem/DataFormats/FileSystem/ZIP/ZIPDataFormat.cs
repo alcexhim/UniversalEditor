@@ -328,7 +328,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				// by a 4-byte signature) immediately after the compressed data:
 
 				short compressionMethod = 0;
-				CompressionMethod _compressionMethod = CompressionMethod.Deflate;
+				CompressionMethod _compressionMethod = CompressionMethod.Deflate; // FIXME: for some reason Deflate does not work on Mono...
 				switch (_compressionMethod)
 				{
 					case CompressionMethod.Deflate: compressionMethod = 8; break;
@@ -350,7 +350,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				int iCRC32 = (int)(new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule()).Calculate(uncompressedData);
 				bw.WriteInt32(iCRC32);
 
-				byte[] compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(file.GetData());
+				byte[] compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(uncompressedData);
 				bw.WriteInt32((int)compressedData.Length);
 				bw.WriteInt32((int)uncompressedData.Length);
 
