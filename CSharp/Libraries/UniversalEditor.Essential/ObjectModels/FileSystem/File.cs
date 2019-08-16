@@ -196,9 +196,14 @@ namespace UniversalEditor.ObjectModels.FileSystem
 					strSize = data.Length.ToString();
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
-				strSize = "?";
+				Console.Error.WriteLine ("ue: FileSystem: File: {0}", ex.Message);
+				if (mvarSize != null) {
+					strSize = Size.ToString () + "?";
+				} else {
+					strSize = "?";
+				}
 			}
 			return mvarName + " [" + strSize + "]";
 		}
