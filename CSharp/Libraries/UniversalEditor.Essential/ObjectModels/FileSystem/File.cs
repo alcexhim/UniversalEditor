@@ -125,14 +125,15 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 
 			Console.WriteLine("DataRequest: " + mvarName + ": No source associated with this file");
-			return null;
+			return new byte[0];
 		}
+
 		public byte[] GetData(long offset, long length)
 		{
 			if (mvarSource != null) return mvarSource.GetData(offset, length);
 
 			Console.WriteLine("DataRequest: " + mvarName + ": No source associated with this file");
-			return null;
+			return new byte[length];
 		}
 
 		private System.IO.Stream mvarStream = null;
