@@ -129,6 +129,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Add
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalWidgetToolkit.Engines.WindowsForms", "..\..\UniversalWidgetToolkit\Engines\WindowsForms\UniversalWidgetToolkit.Engines.WindowsForms\UniversalWidgetToolkit.Engines.WindowsForms.csproj", "{B8573BB1-A0CD-41F4-A775-E0CB79555C59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.FamilyTreeMaker", "Plugins\UniversalEditor.Plugins.FamilyTreeMaker\UniversalEditor.Plugins.FamilyTreeMaker.csproj", "{74A835FD-93B8-4268-B120-1ACAA128AC7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.FamilyTreeMaker.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.FamilyTreeMaker.UserInterface\UniversalEditor.Plugins.FamilyTreeMaker.UserInterface.csproj", "{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -373,6 +377,14 @@ Global
 		{B8573BB1-A0CD-41F4-A775-E0CB79555C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8573BB1-A0CD-41F4-A775-E0CB79555C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8573BB1-A0CD-41F4-A775-E0CB79555C59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A835FD-93B8-4268-B120-1ACAA128AC7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A835FD-93B8-4268-B120-1ACAA128AC7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A835FD-93B8-4268-B120-1ACAA128AC7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A835FD-93B8-4268-B120-1ACAA128AC7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -433,6 +445,8 @@ Global
 		{5CC1FF25-44BF-4CD1-BD36-11E29EB21D19} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{E94B6C34-660F-4280-AEEC-D28AC6A3F528} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{B8573BB1-A0CD-41F4-A775-E0CB79555C59} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
+		{74A835FD-93B8-4268-B120-1ACAA128AC7B} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{E6C8A539-F219-4BD0-A2F4-E7064ABF6777} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

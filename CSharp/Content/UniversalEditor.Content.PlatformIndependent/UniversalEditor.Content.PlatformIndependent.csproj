@@ -636,6 +636,7 @@
     <Content Include="Extensions\Microsoft\Associations\Registry.uexml" />
     <Content Include="Dialogs\DocumentPropertiesDialog.glade" />
     <Content Include="Panels\StartPage.glade" />
+    <Content Include="Extensions\FamilyTreeMaker\Associations\FTW.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -646,6 +647,8 @@
     <Folder Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Addins\" />
     <Folder Include="Extensions\Microsoft\" />
     <Folder Include="Extensions\Microsoft\Associations\" />
+    <Folder Include="Extensions\FamilyTreeMaker\" />
+    <Folder Include="Extensions\FamilyTreeMaker\Associations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
