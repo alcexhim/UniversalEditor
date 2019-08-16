@@ -27,5 +27,10 @@ namespace UniversalEditor.ObjectModels.Contact
 				mvarModificationDate = DateTime.Now;
 			}
 		}
+
+		public override string ToString ()
+		{
+			return Value.ToString ();
+		}
 	}
 }

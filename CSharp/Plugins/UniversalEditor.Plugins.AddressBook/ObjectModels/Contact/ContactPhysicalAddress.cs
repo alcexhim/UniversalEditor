@@ -59,5 +59,27 @@ namespace UniversalEditor.ObjectModels.Contact
 			clone.StreetAddress = mvarStreetAddress;
 			return clone;
 		}
+
+		public string ToString (bool multiline)
+		{
+			StringBuilder sb = new StringBuilder ();
+			sb.Append (StreetAddress);
+			if (multiline) {
+				sb.Append (System.Environment.NewLine);
+			} else {
+				sb.Append (", ");
+			}
+			sb.Append (Locality);
+			sb.Append (", ");
+			sb.Append (Region);
+			sb.Append (' ');
+			sb.Append (PostalCode);
+
+			return sb.ToString ();
+		}
+		public override string ToString ()
+		{
+			return ToString (false);
+		}
 	}
 }

@@ -46,6 +46,10 @@ namespace UniversalEditor.Editors.Contact
 
 		private DefaultTreeModel tmAddresses;
 
+		private ListView lvPhysicalAddresses;
+		private Container ct;
+		private Container ctName;
+
 		private void InitializeComponent()
 		{
 			this.Layout = new BoxLayout (Orientation.Vertical);
@@ -55,7 +59,7 @@ namespace UniversalEditor.Editors.Contact
 
 			#region Summary Panel
 			{
-				Container ct = new Container ();
+				ct = new Container ();
 				ct.Name = "ctSummary";
 				ct.Text = "Summary";
 				ct.Layout = new GridLayout ();
@@ -64,7 +68,7 @@ namespace UniversalEditor.Editors.Contact
 				btnPhoto.Size = new Dimension2D (128, 128);
 				ct.Controls.Add (btnPhoto, new GridLayout.Constraints (0, 0, 1, 1, ExpandMode.None));
 
-				Container ctName = new Container ();
+				ctName = new Container ();
 				ctName.Layout = new GridLayout ();
 
 				Label lblGivenName = new Label ();
@@ -124,17 +128,6 @@ namespace UniversalEditor.Editors.Contact
 
 				ct.Controls.Add (ctName, new GridLayout.Constraints (0, 1, 2, 1, ExpandMode.None));
 
-				// for all details
-
-				for (int iRow = 0; iRow < 4; iRow++) {
-					ComboBox cboDetail = new ComboBox ();
-					TextBox txtDetail = new TextBox ();
-					Button btnDelete = new Button (ButtonStockType.Delete);
-					ct.Controls.Add (cboDetail, new GridLayout.Constraints (iRow + 1, 0, 1, 1, ExpandMode.None));
-					ct.Controls.Add (txtDetail, new GridLayout.Constraints (iRow + 1, 1, 1, 1, ExpandMode.Horizontal));
-					ct.Controls.Add (btnDelete, new GridLayout.Constraints (iRow + 1, 2, 1, 1, ExpandMode.None));
-				}
-
 				StackSidebarPanel panel = new StackSidebarPanel ();
 				panel.Control = ct;
 				sidebar.Items.Add (panel);
@@ -149,9 +142,10 @@ namespace UniversalEditor.Editors.Contact
 
 				tmAddresses = new DefaultTreeModel (new Type [] { typeof (string) });
 
-				ListView lvAddresses = new ListView ();
-				lvAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
-				ct.Controls.Add (lvAddresses, new BoxLayout.Constraints (true, true));
+				lvPhysicalAddresses = new ListView ();
+				lvPhysicalAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
+				lvPhysicalAddresses.Model = tmAddresses;
+				ct.Controls.Add (lvPhysicalAddresses, new BoxLayout.Constraints (true, true));
 
 				StackSidebarPanel panel = new StackSidebarPanel ();
 				panel.Control = ct;
@@ -214,6 +208,18 @@ namespace UniversalEditor.Editors.Contact
 			this.Controls.Add (sidebar, new BoxLayout.Constraints(true, true));
 		}
 
+		private void AddDetailRow (int iRow, string detailType, string value)
+		{
+			ComboBox cboDetail = new ComboBox ();
+			cboDetail.Text = detailType;
+
+			TextBox txtDetail = new TextBox ();
+			Button btnDelete = new Button (ButtonStockType.Delete);
+			ct.Controls.Add (cboDetail, new GridLayout.Constraints (iRow + 1, 0, 1, 1, ExpandMode.None));
+			ct.Controls.Add (txtDetail, new GridLayout.Constraints (iRow + 1, 1, 1, 1, ExpandMode.Horizontal));
+			ct.Controls.Add (btnDelete, new GridLayout.Constraints (iRow + 1, 2, 1, 1, ExpandMode.None));
+		}
+
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference ()
 		{
@@ -230,6 +236,8 @@ namespace UniversalEditor.Editors.Contact
 			txtMiddleName.Text = String.Empty;
 			txtFamilyName.Text = String.Empty;
 
+			tmAddresses.Rows.Clear ();
+
 			base.OnObjectModelChanged (e);
 
 			ContactObjectModel contact = (ObjectModel as ContactObjectModel);
@@ -238,6 +246,16 @@ namespace UniversalEditor.Editors.Contact
 				txtMiddleName.Text = contact.Names [0].MiddleName;
 				txtFamilyName.Text = contact.Names [0].FamilyName;
 			}
+
+			foreach (ContactPhysicalAddress address in contact.PhysicalAddresses) {
+				if (address.IsEmpty) continue;
+
+				string addr = address.ToString ();
+				tmAddresses.Rows.Add (new TreeModelRow (new TreeModelRowColumn [] { new TreeModelRowColumn (tmAddresses.Columns [0], addr) }));
+			}
+			lvPhysicalAddresses.Model = tmAddresses;
+
+			AddDetailRow (0, "Address", contact.PhysicalAddresses [0].ToString ());
 		}
 
 		/// <summary>
