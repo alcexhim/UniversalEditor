@@ -940,6 +940,11 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					WriteStartTag(mvarCompensateTopLevelTagName);
 				}
 
+				if (!(mom.Elements.Count > 0 && mom.Elements [0] is MarkupPreprocessorElement && (mom.Elements [0] as MarkupPreprocessorElement).FullName == "xml"))
+				{
+					tw.WriteLine ("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+				}
+
 				foreach (MarkupElement element in mom.Elements)
 				{
 					WriteElement(element, 0);
