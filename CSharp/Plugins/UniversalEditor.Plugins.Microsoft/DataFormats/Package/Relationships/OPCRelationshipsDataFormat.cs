@@ -44,5 +44,30 @@ namespace UniversalEditor.DataFormats.Package.Relationships
 				rels.Relationships.Add(rel);
 			}
 		}
+
+		protected override void BeforeSaveInternal (Stack<ObjectModel> objectModels)
+		{
+			base.BeforeSaveInternal (objectModels);
+
+			RelationshipsObjectModel rels = (objectModels.Pop () as RelationshipsObjectModel);
+			MarkupObjectModel mom = new MarkupObjectModel ();
+
+			MarkupTagElement tagRelationships = new MarkupTagElement ();
+			tagRelationships.Attributes.Add ("xmlns", "http://schemas.openxmlformats.org/package/2006/relationships");
+			tagRelationships.FullName = "Relationships";
+			foreach (Relationship rel in rels.Relationships)
+			{
+				MarkupTagElement tagRelationship = new MarkupTagElement ();
+				tagRelationship.FullName = "Relationship";
+				tagRelationship.Attributes.Add ("Target", rel.Target);
+				tagRelationship.Attributes.Add ("Id", rel.ID);
+				tagRelationship.Attributes.Add ("Type", rel.Schema);
+				tagRelationships.Elements.Add (tagRelationship);
+			}
+
+			mom.Elements.Add (tagRelationships);
+
+			objectModels.Push (mom);
+		}
 	}
 }

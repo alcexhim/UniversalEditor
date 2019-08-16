@@ -91,6 +91,13 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				File _rels = new File();
 				_rels.Name = ".rels";
 
+				RelationshipsObjectModel rels = new RelationshipsObjectModel ();
+				foreach (Relationship rel in package.Relationships)
+				{
+					rels.Relationships.Add (rel);
+				}
+				_rels.SetObjectModel<RelationshipsObjectModel> (new OPCRelationshipsDataFormat (), rels);
+
 				fldr.Files.Add(_rels);
 
 				fsom.Folders.Add(fldr);
