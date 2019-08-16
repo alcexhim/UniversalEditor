@@ -122,6 +122,7 @@
     <Compile Include="Modules\Zlib\Internal\ZOutputStream.cs" />
     <Compile Include="Modules\Zlib\Internal\ZStream.cs" />
     <Compile Include="Modules\Zlib\Internal\ZStreamException.cs" />
+    <Compile Include="Modules\Store\StoreCompressionModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -132,6 +133,9 @@
       <Project>{0F7D5BD4-7970-412F-ABD7-0A098BB01ACE}</Project>
       <Name>UniversalEditor.Checksum</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\Store\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

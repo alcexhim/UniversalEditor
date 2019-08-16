@@ -214,6 +214,7 @@
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\FileSystem\VirtualBox\VDIDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPCompressionMethod.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

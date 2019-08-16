@@ -65,6 +65,7 @@ namespace UniversalEditor.Compression
 		{
 			switch (method)
 			{
+				case CompressionMethod.None: return new Modules.Store.StoreCompressionModule();
 				case CompressionMethod.Bzip2: return new Modules.Bzip2.Bzip2CompressionModule();
 				case CompressionMethod.Deflate: return new Modules.Deflate.DeflateCompressionModule();
 				case CompressionMethod.Gzip: return new Modules.Gzip.GzipCompressionModule();
