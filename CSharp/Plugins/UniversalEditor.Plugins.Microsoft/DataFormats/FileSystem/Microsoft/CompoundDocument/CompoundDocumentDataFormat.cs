@@ -175,7 +175,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			while (currentSector != -2)
 			{
 				directorySectors.Add(currentSector);
-				currentSector = sectorAllocationTable[currentSector];
+				if (currentSector < sectorAllocationTable.Length - 1) {
+					currentSector = sectorAllocationTable [currentSector];
+				} else {
+					Console.Error.WriteLine ("ue: CompoundDocumen[181]t: current sector {0} is out of bounds for sector allocation table (length {1})", currentSector, sectorAllocationTable.Length);
+					break;
+				}
 			}
 
 			byte[] data = new byte[mvarSectorSize * directorySectors.Count];
@@ -196,7 +201,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				while (sector >= 0)
 				{
 					shortSectorAllocationTableSectors.Add(sector);
-					sector = sectorAllocationTable[sector];
+					if (sector < sectorAllocationTable.Length - 1) {
+						sector = sectorAllocationTable [sector];
+					} else {
+						Console.Error.WriteLine ("ue: CompoundDocument[207]: short sector {0} is out of bounds for sector allocation table (length: {1})", sector, sectorAllocationTable.Length);
+						break;
+					}
 				}
 			}
 
@@ -258,7 +268,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 						while (shortSectorDataSector >= 0)
 						{
 							shortStreamContainerStreamSectors.Add(shortSectorDataSector);
-							shortSectorDataSector = sectorAllocationTable[shortSectorDataSector];
+							if (shortSectorDataSector < sectorAllocationTable.Length) {
+								shortSectorDataSector = sectorAllocationTable [shortSectorDataSector];
+							} else {
+								Console.Error.WriteLine ("ue: CompoundDocument[274]: short sector data sector {0} is out of bounds for sector allocation table {1}", shortSectorDataSector, sectorAllocationTable.Length);
+								break;
+							}
 						}
 					}
 					byte[] shortStreamContainerStreamData = new byte[shortStreamContainerStreamSectors.Count * mvarSectorSize];
@@ -286,7 +301,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 					while (sector >= 0)
 					{
 						sectors.Add(sector);
-						sector = shortSectorAllocationTable[sector];
+						if (sector < shortSectorAllocationTable.Count) {
+							sector = shortSectorAllocationTable [sector];
+						} else {
+							Console.Error.WriteLine ("ue: CompoundDocument[307]: sector {0} is out of bounds for short sector allocation table (length: {1})", sector, shortSectorAllocationTable.Count);
+							break;
+						}
 					}
 				}
 				else
@@ -296,12 +316,18 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 					while (sector >= 0)
 					{
 						sectors.Add(sector);
-						sector = sectorAllocationTable[sector];
+						if (sector < sectorAllocationTable.Length) {
+							sector = sectorAllocationTable [sector];
+						} else {
+							Console.Error.WriteLine ("ue: CompoundDocument[321]: sector {0} is out of bounds for sector allocation table (length: {1})", sector, sectorAllocationTable.Length);
+							break;
+						}
 					}
 				}
 
 				File file = new File();
 				file.Name = storageName;
+				file.Size = streamLength;
 				file.Properties.Add("reader", reader);
 				file.Properties.Add("sectors", sectors);
 				file.Properties.Add("length", streamLength);
