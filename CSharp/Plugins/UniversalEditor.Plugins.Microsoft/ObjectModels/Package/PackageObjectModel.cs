@@ -11,15 +11,16 @@ namespace UniversalEditor.ObjectModels.Package
 	public class PackageObjectModel : ObjectModel
 	{
 
-		private ContentType.ContentTypeCollection mvarContentTypes = new ContentType.ContentTypeCollection();
-		public ContentType.ContentTypeCollection ContentTypes { get { return mvarContentTypes; } }
+		public DefaultDefinition.DefaultDefinitionCollection DefaultContentTypes { get; } = new DefaultDefinition.DefaultDefinitionCollection ();
+		public OverrideDefinition.OverrideDefinitionCollection OverrideContentTypes { get; } = new OverrideDefinition.OverrideDefinitionCollection ();
 
 		private Relationship.RelationshipCollection mvarRelationships = new Relationship.RelationshipCollection();
 		public Relationship.RelationshipCollection Relationships { get { return mvarRelationships; } }
 
 		public override void Clear()
 		{
-			mvarContentTypes.Clear();
+			DefaultContentTypes.Clear();
+			OverrideContentTypes.Clear ();
 			mvarRelationships.Clear();
 		}
 
@@ -28,9 +29,13 @@ namespace UniversalEditor.ObjectModels.Package
 			PackageObjectModel clone = (where as PackageObjectModel);
 			if (clone == null) throw new ObjectModelNotSupportedException();
 
-			foreach (ContentType item in mvarContentTypes)
+			foreach (DefaultDefinition item in DefaultContentTypes)
 			{
-				clone.ContentTypes.Add(item.Clone() as ContentType);
+				clone.DefaultContentTypes.Add(item.Clone() as DefaultDefinition);
+			}
+			foreach (OverrideDefinition item in OverrideContentTypes)
+			{
+				clone.OverrideContentTypes.Add(item.Clone() as OverrideDefinition);
 			}
 			foreach (Relationship item in mvarRelationships)
 			{

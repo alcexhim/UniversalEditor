@@ -89,7 +89,7 @@
     <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocumentSequence\DocumentReference.cs" />
     <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocumentSequence\FixedDocumentSequenceObjectModel.cs" />
     <Compile Include="ObjectModels\Help\Compiled\CompiledHelpObjectModel.cs" />
-    <Compile Include="ObjectModels\Package\ContentTypes\ContentType.cs" />
+    <Compile Include="ObjectModels\Package\ContentTypes\DefaultDefinition.cs" />
     <Compile Include="ObjectModels\Package\ContentTypes\ContentTypesObjectModel.cs" />
     <Compile Include="ObjectModels\Package\PackageObjectModel.cs" />
     <Compile Include="ObjectModels\Package\Relationships\Relationship.cs" />
@@ -114,6 +114,7 @@
     <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValue.cs" />
     <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValueDataType.cs" />
     <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValueFlags.cs" />
+    <Compile Include="ObjectModels\Package\ContentTypes\OverrideDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">

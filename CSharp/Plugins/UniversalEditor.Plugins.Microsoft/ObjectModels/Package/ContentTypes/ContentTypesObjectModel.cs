@@ -7,12 +7,19 @@ namespace UniversalEditor.ObjectModels.Package.ContentTypes
 {
 	public class ContentTypesObjectModel : ObjectModel
 	{
-		private ContentType.ContentTypeCollection mvarContentTypes = new ContentType.ContentTypeCollection();
-		public ContentType.ContentTypeCollection ContentTypes { get { return mvarContentTypes; } }
+		public DefaultDefinition.DefaultDefinitionCollection DefaultDefinitions { get; } = new DefaultDefinition.DefaultDefinitionCollection ();
+		public OverrideDefinition.OverrideDefinitionCollection OverrideDefinitions { get; } = new OverrideDefinition.OverrideDefinitionCollection ();
+
+		public ContentTypesObjectModel()
+		{
+			DefaultDefinitions.Add ("xml", "application/xml");
+			DefaultDefinitions.Add ("rels", "application/vnd.openxmlformats-package.relationships+xml");
+		}
 
 		public override void Clear()
 		{
-			mvarContentTypes.Clear();
+			DefaultDefinitions.Clear();
+			OverrideDefinitions.Clear();
 		}
 
 		public override void CopyTo(ObjectModel where)
@@ -20,9 +27,13 @@ namespace UniversalEditor.ObjectModels.Package.ContentTypes
 			ContentTypesObjectModel clone = (where as ContentTypesObjectModel);
 			if (clone == null) throw new ObjectModelNotSupportedException();
 
-			foreach (ContentType item in mvarContentTypes)
+			foreach (DefaultDefinition item in DefaultDefinitions)
 			{
-				clone.ContentTypes.Add(item.Clone() as ContentType);
+				clone.DefaultDefinitions.Add(item.Clone() as DefaultDefinition);
+			}
+			foreach (OverrideDefinition item in OverrideDefinitions)
+			{
+				clone.OverrideDefinitions.Add(item.Clone() as OverrideDefinition);
 			}
 		}
 	}

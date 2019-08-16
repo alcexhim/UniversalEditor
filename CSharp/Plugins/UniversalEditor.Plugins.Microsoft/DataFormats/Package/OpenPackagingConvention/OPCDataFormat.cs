@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UniversalEditor.Accessors;
+﻿using System.Collections.Generic;
 
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.DataFormats.FileSystem.ZIP;
@@ -63,9 +58,13 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				else if (file.Name == "[Content_Types].xml" && file.Parent == null)
 				{
 					ContentTypesObjectModel contentTypes = file.GetObjectModel<ContentTypesObjectModel>(new OPCContentTypesDataFormat());
-					foreach (ContentType type in contentTypes.ContentTypes)
+					foreach (DefaultDefinition type in contentTypes.DefaultDefinitions)
 					{
-						package.ContentTypes.Add(type);
+						package.DefaultContentTypes.Add(type);
+					}
+					foreach (OverrideDefinition type in contentTypes.OverrideDefinitions)
+					{
+						package.OverrideContentTypes.Add(type);
 					}
 				}
 				else
@@ -97,6 +96,29 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				fsom.Folders.Add(fldr);
 			}
 			#endregion
+
+			#region [Content_Types].xml
+			{
+				File file = new File ();
+				file.Name = "[Content_Types].xml";
+
+				ContentTypesObjectModel contentTypes = new ContentTypesObjectModel ();
+				foreach (DefaultDefinition type in package.DefaultContentTypes)
+				{
+					contentTypes.DefaultDefinitions.Add(type);
+				}
+				foreach (OverrideDefinition type in package.OverrideContentTypes)
+				{
+					contentTypes.OverrideDefinitions.Add(type);
+				}
+ 				file.SetObjectModel<ContentTypesObjectModel>(new OPCContentTypesDataFormat(), contentTypes);
+
+				fsom.Files.Add (file);
+			}
+			#endregion
+
+			#region XPS-specific
+			/*
 			#region Documents
 			{
 				Folder fldr = new Folder();
@@ -111,19 +133,14 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				fsom.Folders.Add(fldr);
 			}
 			#endregion
-			#region [Content_Types].xml
-			{
-				File file = new File();
-				file.Name = "[Content_Types].xml";
-				fsom.Files.Add(file);
-			}
-			#endregion
 			#region FixedDocumentSequence.fdseq
 			{
-				File file = new File();
+				File file = new File ();
 				file.Name = "FixedDocumentSequence.fdseq";
-				fsom.Files.Add(file);
+				fsom.Files.Add (file);
 			}
+			#endregion
+			*/
 			#endregion
 
 			objectModels.Push(fsom);

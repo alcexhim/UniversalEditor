@@ -29,22 +29,55 @@ namespace UniversalEditor.DataFormats.Package.ContentTypes
 				MarkupTagElement tagType = (elType as MarkupTagElement);
 				if (elType == null) continue;
 
-				ContentType type = new ContentType();
+				DefaultDefinition type = new DefaultDefinition();
 				MarkupAttribute attExtension = tagType.Attributes["Extension"];
 				if (attExtension != null) type.Extension = attExtension.Value;
 
 				MarkupAttribute attContentType = tagType.Attributes["ContentType"];
-				if (attContentType != null) type.Value = attContentType.Value;
+				if (attContentType != null) type.ContentType = attContentType.Value;
 
 				switch (elType.FullName)
 				{
 					case "Default":
 					{
-						types.ContentTypes.Add(type);
+						types.DefaultDefinitions.Add(type);
 						break;
 					}
 				}
 			}
+		}
+
+		protected override void BeforeSaveInternal (Stack<ObjectModel> objectModels)
+		{
+			MarkupObjectModel mom = new MarkupObjectModel ();
+			ContentTypesObjectModel types = (objectModels.Pop () as ContentTypesObjectModel);
+
+			MarkupTagElement tagTypes = new MarkupTagElement ();
+			tagTypes.FullName = "Types";
+			tagTypes.Attributes.Add ("xmlns", "http://schemas.openxmlformats.org/package/2006/content-types");
+
+			foreach (DefaultDefinition type in types.DefaultDefinitions)
+			{
+				MarkupTagElement tagDefault = new MarkupTagElement ();
+				tagDefault.FullName = "Default";
+				tagDefault.Attributes.Add ("Extension", type.Extension);
+				tagDefault.Attributes.Add ("ContentType", type.ContentType);
+				tagTypes.Elements.Add (tagDefault);
+			}
+			foreach (OverrideDefinition def in types.OverrideDefinitions)
+			{
+				MarkupTagElement tagOverride = new MarkupTagElement ();
+				tagOverride.FullName = "Override";
+				tagOverride.Attributes.Add ("PartName", def.PartName);
+				tagOverride.Attributes.Add ("ContentType", def.ContentType);
+				tagTypes.Elements.Add (tagOverride);
+			}
+
+			mom.Elements.Add (tagTypes);
+
+			objectModels.Push (mom);
+
+			base.BeforeSaveInternal (objectModels);
 		}
 	}
 }
