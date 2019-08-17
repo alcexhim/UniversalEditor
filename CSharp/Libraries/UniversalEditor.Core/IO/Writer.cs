@@ -190,7 +190,7 @@ namespace UniversalEditor.IO
 		public void WriteNullTerminatedString(string sz, Encoding encoding)
 		{
 			byte[] values = encoding.GetBytes(sz);
-			
+
 			WriteBytes(values);
 			WriteInt16(0);
 		}
@@ -206,7 +206,7 @@ namespace UniversalEditor.IO
 			string ssz = sz.Substring(0, Math.Min(sz.Length, length) - 1);
 			WriteNullTerminatedString(ssz, encoding);
 		}
-		
+
 		/// <summary>
 		/// Writes a two-byte signed integer to the current stream and advances the stream position by two bytes.
 		/// </summary>
@@ -285,7 +285,7 @@ namespace UniversalEditor.IO
 		/// <param name="value">The three-byte signed integer to write.</param>
 		/// <exception cref="System.IO.IOException">An I/O error occurs.</exception>
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
-		public void WriteInt24 (int value)
+		public void WriteInt24(int value)
 		{
 			byte[] buffer = new byte[3];
 			if (base.Endianness == Endianness.BigEndian)
@@ -535,8 +535,8 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteObject(object value)
 		{
-			Type objectType = value.GetType ();
-			
+			Type objectType = value.GetType();
+
 			if (objectType == typeof(Byte))
 			{
 				WriteByte((byte)value);
@@ -612,12 +612,12 @@ namespace UniversalEditor.IO
 				WriteDateTime((DateTime)value);
 				return;
 			}
-			
-			System.Reflection.FieldInfo[] fis = (objectType.GetFields (System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
+
+			System.Reflection.FieldInfo[] fis = (objectType.GetFields(System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
 			foreach (System.Reflection.FieldInfo fi in fis)
 			{
 				// Type fieldType = fi.FieldType;
-				WriteObject (fi.GetValue (value));
+				WriteObject(fi.GetValue(value));
 			}
 		}
 		/// <summary>
