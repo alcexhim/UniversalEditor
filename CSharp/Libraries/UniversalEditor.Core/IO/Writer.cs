@@ -646,6 +646,41 @@ namespace UniversalEditor.IO
 		}
 
 		/// <summary>
+		/// Encodes a <see cref="DateTime" /> into a 32-bit value as used in MS-DOS and Windows FAT directory entries.
+		/// </summary>
+		/// <param name="dateTime">Date time.</param>
+		/// <remarks>
+		/// Each portion of the time stamp (year, month etc.) is encoded within specific bits of the 32-bit timestamp. The epoch for this time format is 1980. This format has a granularity of 2 seconds.
+		/// </remarks>
+		public void WriteDOSFileTime(DateTime dateTime)
+		{
+			// The 32 bit date and time format used in the MSDOS and Windows FAT directory entry
+
+			//		Year    Month   Day     Hour    Min     Seconds / 2
+			// Bits    31-25   24-21   20-16   15-11   10-5    4-0
+
+			/*
+			cal.set(Calendar.YEAR, (int)((dosTime >> 25) & 0x7F) + 1980);
+			cal.set(Calendar.MONTH, (int)((dosTime >> 21) & 0x0f) - 1);
+			cal.set(Calendar.DATE, (int)(dosTime >> 16) & 0x1f);
+			cal.set(Calendar.HOUR_OF_DAY, (int)(dosTime >> 11) & 0x1f);
+			cal.set(Calendar.MINUTE, (int)(dosTime >> 5) & 0x3f);
+			cal.set(Calendar.SECOND, (int)(dosTime << 1) & 0x3e);
+			cal.set(Calendar.MILLISECOND, 0);
+			*/
+
+			uint seconds = (uint)(dateTime.Second / 2);
+			uint min = (uint)dateTime.Minute;
+			uint hour = (uint)dateTime.Hour;
+			uint day = (uint)dateTime.Day;
+			uint month = (uint)dateTime.Month;
+			uint year = (uint)dateTime.Year - 1973; // huh?
+
+			uint value = 0;//e (seconds | (min << 6) | (hour << 11) | (day << 16) | (month << 21) | (year << 25));
+			WriteUInt32(value);  // (int)(dateTime.Second / 2));
+		}
+
+		/// <summary>
 		/// Writes a four-byte floating-point value to the current stream and advances the stream position by four bytes.
 		/// </summary>
 		/// <param name="value">The four-byte floating-point value to write.</param>
