@@ -11,6 +11,7 @@ using UniversalEditor.IO;
 using UniversalEditor.UserInterface;
 
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
+using UniversalEditor.DataFormats.FileSystem.ZIP.ExtraDataFields;
 
 namespace UniversalEditor.DataFormats.FileSystem.ZIP
 {
@@ -395,11 +396,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			}
 			bw.WriteInt16 (compressionMethod);
 
-			short iFileLastModificationTime = (short)(DateTime.Now.ToFileTime ());
-			bw.WriteInt16 (iFileLastModificationTime);
-
-			short iFileLastModificationDate = (short)(DateTime.Now.ToFileTime () >> 2);
-			bw.WriteInt16 (iFileLastModificationDate);
+			bw.WriteDOSFileTime (DateTime.Now);
 
 			bool isEncrypted = false;
 			byte [] uncompressedData = file.GetData ();
@@ -412,10 +409,19 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 
 			short fileNameLength = (short)file.Name.Length;
 
-			byte [] extraField = new byte [0];
+			ZIPExtraDataField [] edfs = new ZIPExtraDataField []
+			{
+				new ZIPExtraDataFieldExtendedTimestamp(DateTime.Now, DateTime.Now, DateTime.Now)
+			};
+
+			short extraFieldLength = 0;
+			foreach (ZIPExtraDataField edf in edfs)
+			{
+				extraFieldLength += (short)(4 + edf.CentralData.Length);
+			}
 
 			bw.WriteInt16 (fileNameLength);
-			bw.WriteInt16 ((short)extraField.Length);
+			bw.WriteInt16 (extraFieldLength);
 
 			string fileComment = String.Empty;
 
@@ -432,7 +438,12 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 
 			bw.WriteFixedLengthString (file.Name.Replace ("\\", "/"), fileNameLength);
 
-			bw.WriteBytes (extraField);
+			foreach (ZIPExtraDataField edf in edfs)
+			{
+				bw.WriteInt16 (edf.TypeCode);
+				bw.WriteInt16 ((short) edf.CentralData.Length);
+				bw.WriteBytes (edf.CentralData);
+			}
 
 			bw.WriteFixedLengthString (fileComment);
 		}
@@ -467,7 +478,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			}
 			bw.WriteInt16 ((short)compressionMethod);
 
-			WriteDate (bw, DateTime.Now);
+			bw.WriteDOSFileTime (DateTime.Now);
 
 			bool isEncrypted = false;
 
@@ -494,20 +505,28 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				bw.WriteInt32 (0);
 			}
 
+			ZIPExtraDataField [] edfs = new ZIPExtraDataField []
+			{
+				new ZIPExtraDataFieldExtendedTimestamp(DateTime.Now, DateTime.Now, DateTime.Now)
+			};
+
 			short fileNameLength = (short)item.Name.Length;
 			short extraFieldLength = 0;
+			foreach (ZIPExtraDataField edf in edfs)
+			{
+				extraFieldLength += (short)(4 + edf.LocalData.Length);
+			}
+
 			bw.WriteInt16 (fileNameLength);
 			bw.WriteInt16 (extraFieldLength);
 			bw.WriteFixedLengthString (item.Name, fileNameLength);
-			/*
-			long pos = br.Accessor.Position;
-			while (br.Accessor.Position < (pos + extraFieldLength))
+
+			foreach (ZIPExtraDataField edf in edfs)
 			{
-				short chunkIDCode = br.ReadInt16();
-				short chunkLength = br.ReadInt16();
-				byte[] data = br.ReadBytes(chunkLength);
+				bw.WriteInt16 (edf.TypeCode);
+				bw.WriteInt16 ((short) edf.LocalData.Length);
+				bw.WriteBytes (edf.LocalData);
 			}
-			*/
 
 			if (item is File)
 			{

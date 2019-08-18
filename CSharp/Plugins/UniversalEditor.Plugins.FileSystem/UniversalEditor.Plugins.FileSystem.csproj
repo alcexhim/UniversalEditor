@@ -215,6 +215,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\FileSystem\VirtualBox\VDIDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPExtraDataField.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ExtraDataFields\ZIPExtraDataFieldExtendedTimestamp.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPExtraDataFieldType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -241,6 +244,7 @@
   <ItemGroup>
     <Folder Include="DataFormats\FileSystem\Box\Internal\" />
     <Folder Include="DataFormats\FileSystem\VirtualBox\" />
+    <Folder Include="DataFormats\FileSystem\ZIP\ExtraDataFields\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
