@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Microsoft\UniversalEditor.Plugins.Microsoft.csproj">
@@ -49,6 +50,14 @@
     <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.FileSystem\UniversalEditor.Plugins.FileSystem.csproj">
       <Project>{76FD1306-9CA4-428F-993B-B7E4EEEACBF3}</Project>
       <Name>UniversalEditor.Plugins.FileSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Multimedia3D\UniversalEditor.Plugins.Multimedia3D.csproj">
+      <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia3D</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
