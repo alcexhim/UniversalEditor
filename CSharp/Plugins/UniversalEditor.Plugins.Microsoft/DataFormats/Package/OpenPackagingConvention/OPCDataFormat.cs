@@ -78,10 +78,8 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
-			base.BeforeSaveInternal(objectModels);
-
 			PackageObjectModel package = (objectModels.Pop() as PackageObjectModel);
-			FileSystemObjectModel fsom = new FileSystemObjectModel();
+			FileSystemObjectModel fsom = (package.FileSystem.Clone() as FileSystemObjectModel);
 			
 			#region _rels
 			{
@@ -151,6 +149,8 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 			#endregion
 
 			objectModels.Push(fsom);
+
+			base.BeforeSaveInternal(objectModels);
 		}
 	}
 }
