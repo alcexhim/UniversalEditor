@@ -128,6 +128,7 @@ namespace UniversalEditor
 			objectModel.Accessor = document.OutputAccessor;
 			document.OutputAccessor.Open();
 			document.Save();
+			document.OutputAccessor.Flush();
 			if (autoClose) document.OutputAccessor.Close();
 			return document;
 		}
