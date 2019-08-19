@@ -29,6 +29,18 @@ namespace UniversalEditor.Accessors
 {
 	public class MemoryAccessor : Accessor
 	{
+		/// <summary>
+		/// Determines the default value for the <see cref="BufferAllocationSize"/> of a newly-created <see cref="MemoryAccessor" />.
+		/// </summary>
+		/// <value>The default size of the buffer allocation.</value>
+		public static int DefaultBufferAllocationSize { get; set; } = 268435456;
+		/// <summary>
+		/// Determines the amount by which to increase the buffer when a reallocation is needed. Smaller values will cause more allocations, which take time,
+		/// but larger values may exceed the host's memory capacity and cause unnecessary paging (which also takes time).
+		/// </summary>
+		/// <value>The size of the buffer allocation.</value>
+		public int BufferAllocationSize { get; set; } = DefaultBufferAllocationSize;
+
 		private static AccessorReference _ar = null;
 		protected override AccessorReference MakeReferenceInternal()
 		{
@@ -109,8 +121,8 @@ namespace UniversalEditor.Accessors
 
 		public byte[] ToArray()
 		{
-			byte[] data = new byte[_data.Length];
-			System.Array.Copy(_data, 0, data, 0, data.Length);
+			byte[] data = new byte[_actualLength];
+			System.Array.Copy(_data, 0, data, 0, _actualLength);
 			return data;
 		}
 
@@ -123,11 +135,24 @@ namespace UniversalEditor.Accessors
 			Position += count;
 			return count;
 		}
+
+		private int _actualLength = 0;
 		protected internal override int WriteInternal(byte[] buffer, int start, int count)
 		{
-			ResizeArray(ref _data, _data.Length + count);
-			System.Array.Copy(buffer, start, _data, _data.Length - count, count);
+			if (_actualLength + count > _data.Length)
+			{
+				ResizeArray(ref _data, _data.Length + BufferAllocationSize);
+			}
+			System.Array.Copy(buffer, start, _data, _actualLength, count);
+			_actualLength += count;
 			return count;
+		}
+
+		protected override void FlushInternal()
+		{
+			base.FlushInternal();
+			
+			ResizeArray(ref _data, _actualLength);
 		}
 
 		protected override void OpenInternal()
