@@ -115,6 +115,20 @@
     <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValueDataType.cs" />
     <Compile Include="DataFormats\PropertyList\Registry\MicrosoftRegistryKeyValueFlags.cs" />
     <Compile Include="ObjectModels\Package\ContentTypes\OverrideDefinition.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\XPSSchemaType.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\XPSSchemaVersion.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\XPSSchemaKey.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocument\FixedDocumentObjectModel.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\FixedDocument\FDOCDataFormat.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedDocument\PageContent.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\XPSSchemas.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\XPSGenerator.cs" />
+    <Compile Include="DataFormats\Text\Formatted\XPS\FixedPage\FPAGEDataFormat.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedPage\FixedPageObjectModel.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedPage\Glyph.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedPage\FixedPageItem.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\XPSStyleSimulations.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\XPS\FixedPage\Path.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -137,6 +151,10 @@
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{23ACD09E-E096-4B05-A6CE-6853EDDC589A}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -151,5 +169,9 @@
   <ItemGroup>
     <Folder Include="DataFormats\PropertyList\" />
     <Folder Include="DataFormats\PropertyList\Registry\" />
+    <Folder Include="ObjectModels\Text\Formatted\XPS\FixedDocument\" />
+    <Folder Include="DataFormats\Text\Formatted\XPS\FixedDocument\" />
+    <Folder Include="DataFormats\Text\Formatted\XPS\FixedPage\" />
+    <Folder Include="ObjectModels\Text\Formatted\XPS\FixedPage\" />
   </ItemGroup>
 </Project>
