@@ -92,6 +92,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 
 		private byte[] mvarShortSectorContainerStreamData = null;
 
+		private static readonly byte[] VALID_SIGNATURE = new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 };
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -102,9 +104,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			// The header is always located at the beginning of the file, and its size is
 			// exactly 512 bytes. This implies that the first sector (0) always starts at
 			// file offset 512.
-			byte[] validSignature = new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 };
 			byte[] signature = reader.ReadBytes(8);
-			if (!signature.Match(validSignature))
+			if (!signature.Match(VALID_SIGNATURE))
 			{
 				throw new InvalidDataFormatException("File does not begin with { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 }");
 			}
@@ -128,11 +129,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				throw new InvalidDataFormatException("Invalid value for byte order (" + ByteOrderIdentifier[0].ToString("X").PadLeft(2, '0') + ", " + ByteOrderIdentifier[1].ToString("X").PadLeft(2, '0') + ")");
 			}
 
-			ushort SectorSize = reader.ReadUInt16();
-			mvarSectorSize = (uint)(Math.Pow(2, SectorSize));
+			ushort uSectorSize = reader.ReadUInt16();
+			mvarSectorSize = (uint)(Math.Pow(2, uSectorSize));
 
-			ushort ShortSectorSize = reader.ReadUInt16();
-			mvarShortSectorSize = (uint)(Math.Pow(2, ShortSectorSize));
+			ushort uShortSectorSize = reader.ReadUInt16();
+			mvarShortSectorSize = (uint)(Math.Pow(2, uShortSectorSize));
 
 			if (ShortSectorSize > SectorSize) throw new InvalidDataFormatException("Short sector size (" + ShortSectorSize.ToString() + ") exceeds sector size (" + SectorSize.ToString() + ")");
 
@@ -145,7 +146,10 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 
 			mvarShortSectorAllocationTableFirstSectorID = reader.ReadInt32();
 			mvarShortSectorAllocationTableSize = reader.ReadInt32();
+
+			// SecID of first sector of the master sector allocation table, or –2 (End Of Chain) if no additional sectors used
 			mvarMasterSectorAllocationTableFirstSectorID = reader.ReadInt32();
+			// Total number of sectors used for the master sector allocation table
 			mvarMasterSectorAllocationTableSize = reader.ReadInt32();
 
 			#region Read Master Sector Allocation Table
@@ -156,9 +160,10 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			int countForMSAT = (int)((double)mvarSectorSize / 4);
 			int nextSectorForMSAT = mvarMasterSectorAllocationTableFirstSectorID;
 			int nextPositionForMSAT = masterSectorAllocationTable.Length;
+
+			Array.Resize(ref masterSectorAllocationTable, masterSectorAllocationTable.Length + countForMSAT);
 			while (nextSectorForMSAT != (int)CompoundDocumentKnownSectorID.EndOfChain)
 			{
-				Array.Resize(ref masterSectorAllocationTable, masterSectorAllocationTable.Length + countForMSAT);
 				int[] masterSectorAllocationTablePart = reader.ReadInt32Array(countForMSAT);
 				Array.Copy(masterSectorAllocationTablePart, 0, masterSectorAllocationTable, nextPositionForMSAT, masterSectorAllocationTablePart.Length);
 
@@ -166,9 +171,21 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			}
 			#endregion
 			#region Read Sector Allocation Table
-			int pos = GetSectorPositionFromSectorID(masterSectorAllocationTable[0]);
-			reader.Accessor.Seek(pos, SeekOrigin.Begin);
-			int[] sectorAllocationTable = reader.ReadInt32Array((int)(mvarSectorSize / 4));
+			int[] sectorAllocationTable = new int[(int)(mvarSectorSize / 4)];
+			for (int i = 0; i < masterSectorAllocationTable.Length; i++)
+			{
+				if (masterSectorAllocationTable[i] == -1)
+					break;
+
+				// The last SecID in each sector of the MSAT refers to the next sector used by the MSAT. If no more sectors follow, the
+				// last SecID is the special End Of Chain SecID with the value –2( ➜ 3.1).
+
+				SeekToSector(masterSectorAllocationTable[i]);
+				int[] sectorAllocationTablePart = reader.ReadInt32Array((int)(mvarSectorSize / 4));
+
+				Array.Resize<int>(ref sectorAllocationTable, sectorAllocationTable.Length + sectorAllocationTablePart.Length);
+				Array.Copy(sectorAllocationTablePart, 0, sectorAllocationTable, (int)(i * (mvarSectorSize / 4)), sectorAllocationTablePart.Length);
+			}
 
 			List<int> directorySectors = new List<int>();
 			int currentSector = (int)mvarDirectoryStreamFirstSectorID;
@@ -186,8 +203,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			byte[] data = new byte[mvarSectorSize * directorySectors.Count];
 			for (int i = 0; i < directorySectors.Count; i++)
 			{
-				pos = GetSectorPositionFromSectorID(directorySectors[i]);
-				reader.Accessor.Seek(pos, SeekOrigin.Begin);
+				SeekToSector(directorySectors[i]);
 				byte[] sectorData = reader.ReadBytes(mvarSectorSize);
 				Array.Copy(sectorData, 0, data, (i * mvarSectorSize), mvarSectorSize);
 			}
@@ -213,8 +229,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			byte[] shortSectorAllocationTableData = new byte[mvarSectorSize * shortSectorAllocationTableSectors.Count];
 			for (int i = 0; i < shortSectorAllocationTableSectors.Count; i++)
 			{
-				pos = GetSectorPositionFromSectorID(shortSectorAllocationTableSectors[i]);
-				reader.Accessor.Seek(pos, SeekOrigin.Begin);
+				SeekToSector(shortSectorAllocationTableSectors[i]);
 				byte[] sectorData = reader.ReadBytes(mvarSectorSize);
 				Array.Copy(sectorData, 0, shortSectorAllocationTableData, (i * mvarSectorSize), mvarSectorSize);
 			}
@@ -335,6 +350,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				fsom.Files.Add(file);
 			}
 			#endregion
+		}
+
+		private void SeekToSector(int v)
+		{
+			int pos = GetSectorPositionFromSectorID(v);
+			Accessor.Seek(pos, SeekOrigin.Begin);
 		}
 
 		private Reader shortSectorReader = null;
