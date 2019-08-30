@@ -1,4 +1,6 @@
 using System;
+using UniversalEditor.ObjectModels.Multimedia3D.Model;
+
 namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
 {
 	public class SceneObjectModel : ObjectModel
@@ -35,6 +37,16 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
         private SceneModelReference.SceneModelReferenceCollection mvarModels = new SceneModelReference.SceneModelReferenceCollection();
         public SceneModelReference.SceneModelReferenceCollection Models { get { return mvarModels; } }
 
+		public SceneBrush.SceneBrushCollection Brushes { get; } = new SceneBrush.SceneBrushCollection();
+		public ModelVertex.ModelVertexCollection Vertices { get; } = new ModelVertex.ModelVertexCollection();
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this
+		/// <see cref="T:UniversalEditor.ObjectModels.Multimedia3D.Scene.SceneObjectModel"/> is visible.
+		/// </summary>
+		/// <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
+		public bool Visible { get; set; } = true;
+
 		public override void CopyTo(ObjectModel destination)
 		{
 			SceneObjectModel clone = destination as SceneObjectModel;
@@ -59,5 +71,5 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
         /// The frame rate limit 
         /// </summary>
         public float FPSLimit { get { return mvarFPSLimit; } set { mvarFPSLimit = value; } }
-    }
+	}
 }

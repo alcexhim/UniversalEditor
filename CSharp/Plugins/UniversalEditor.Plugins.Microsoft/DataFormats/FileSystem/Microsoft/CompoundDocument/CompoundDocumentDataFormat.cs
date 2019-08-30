@@ -94,6 +94,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 
 		private static readonly byte[] VALID_SIGNATURE = new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 };
 
+		public string LogPath { get; set; } = null;
+
+		private int[] shortSectorAllocationTable = new int[0];
+		private List<int> shortSectorAllocationTableSectors = new List<int>();
+		private int[] sectorAllocationTable = new int[0];
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -161,17 +167,17 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			int nextSectorForMSAT = mvarMasterSectorAllocationTableFirstSectorID;
 			int nextPositionForMSAT = masterSectorAllocationTable.Length;
 
-			Array.Resize(ref masterSectorAllocationTable, masterSectorAllocationTable.Length + countForMSAT);
 			while (nextSectorForMSAT != (int)CompoundDocumentKnownSectorID.EndOfChain)
 			{
 				int[] masterSectorAllocationTablePart = reader.ReadInt32Array(countForMSAT);
+				Array.Resize(ref masterSectorAllocationTable, masterSectorAllocationTable.Length + countForMSAT);
 				Array.Copy(masterSectorAllocationTablePart, 0, masterSectorAllocationTable, nextPositionForMSAT, masterSectorAllocationTablePart.Length);
 
 				nextSectorForMSAT = masterSectorAllocationTablePart[masterSectorAllocationTablePart.Length - 1];
 			}
 			#endregion
 			#region Read Sector Allocation Table
-			int[] sectorAllocationTable = new int[(int)(mvarSectorSize / 4)];
+			sectorAllocationTable = new int[(int)(mvarSectorSize / 4)];
 			for (int i = 0; i < masterSectorAllocationTable.Length; i++)
 			{
 				if (masterSectorAllocationTable[i] == -1)
@@ -186,92 +192,79 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				Array.Resize<int>(ref sectorAllocationTable, sectorAllocationTable.Length + sectorAllocationTablePart.Length);
 				Array.Copy(sectorAllocationTablePart, 0, sectorAllocationTable, (int)(i * (mvarSectorSize / 4)), sectorAllocationTablePart.Length);
 			}
-
-			List<int> directorySectors = new List<int>();
-			int currentSector = (int)mvarDirectoryStreamFirstSectorID;
-			while (currentSector != -2)
-			{
-				directorySectors.Add(currentSector);
-				if (currentSector < sectorAllocationTable.Length - 1) {
-					currentSector = sectorAllocationTable [currentSector];
-				} else {
-					Console.Error.WriteLine ("ue: CompoundDocumen[181]t: current sector {0} is out of bounds for sector allocation table (length {1})", currentSector, sectorAllocationTable.Length);
-					break;
-				}
-			}
-
-			byte[] data = new byte[mvarSectorSize * directorySectors.Count];
-			for (int i = 0; i < directorySectors.Count; i++)
-			{
-				SeekToSector(directorySectors[i]);
-				byte[] sectorData = reader.ReadBytes(mvarSectorSize);
-				Array.Copy(sectorData, 0, data, (i * mvarSectorSize), mvarSectorSize);
-			}
 			#endregion
+
+			// read directory entries - each entry is 128 bytes
+			byte[] directoryData = ReadDirectoryData(reader);
+
 			#region Read Short Sector Allocation Table
-			List<int> shortSectorAllocationTable = new List<int>();
-			List<int> shortSectorAllocationTableSectors = new List<int>();
+			shortSectorAllocationTableSectors = new List<int>();
 			if (mvarShortSectorAllocationTableFirstSectorID >= 0)
 			{
 				int sector = mvarShortSectorAllocationTableFirstSectorID;
-				while (sector >= 0)
+				while (sector != -2)
 				{
 					shortSectorAllocationTableSectors.Add(sector);
 					if (sector < sectorAllocationTable.Length - 1) {
 						sector = sectorAllocationTable [sector];
 					} else {
-						Console.Error.WriteLine ("ue: CompoundDocument[207]: short sector {0} is out of bounds for sector allocation table (length: {1})", sector, sectorAllocationTable.Length);
-						break;
+						throw new IndexOutOfRangeException(String.Format("short sector {0} is out of bounds for sector allocation table (length: {1})", sector, sectorAllocationTable.Length));
 					}
 				}
 			}
 
+			shortSectorAllocationTable = new int[(mvarSectorSize / 4) * shortSectorAllocationTableSectors.Count];
 			byte[] shortSectorAllocationTableData = new byte[mvarSectorSize * shortSectorAllocationTableSectors.Count];
 			for (int i = 0; i < shortSectorAllocationTableSectors.Count; i++)
 			{
 				SeekToSector(shortSectorAllocationTableSectors[i]);
-				byte[] sectorData = reader.ReadBytes(mvarSectorSize);
-				Array.Copy(sectorData, 0, shortSectorAllocationTableData, (i * mvarSectorSize), mvarSectorSize);
-			}
 
-			Accessors.MemoryAccessor ma1 = new Accessors.MemoryAccessor(shortSectorAllocationTableData);
-			Reader shortSectorAllocationTableReader = new Reader(ma1);
-			while (!shortSectorAllocationTableReader.EndOfStream)
-			{
-				int sectorID = shortSectorAllocationTableReader.ReadInt32();
-				shortSectorAllocationTable.Add(sectorID);
+				int[] tablePart = reader.ReadInt32Array((int)(mvarSectorSize / 4));
+				Array.Copy(tablePart, 0, shortSectorAllocationTable, (i * tablePart.Length), tablePart.Length);
 			}
 			#endregion
 			#region Read Sector Directory Entries
-			Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(data);
-			
-			Reader sectorReader = new Reader(ma);
-			while (!reader.EndOfStream)
+			Accessors.MemoryAccessor maDirectory = new Accessors.MemoryAccessor(directoryData);
+			Reader directoryReader = new Reader(maDirectory);
+			while (!directoryReader.EndOfStream)
 			{
 				// The first directory entry always represents the root storage entry
-				string storageName = sectorReader.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian).TrimNull();
-				if (String.IsNullOrEmpty(storageName)) break;
+				byte[] storageNameBytes = directoryReader.ReadBytes(64);
+				ushort storageNameLength = directoryReader.ReadUInt16();
 
-				ushort storageNameLength = sectorReader.ReadUInt16();
-				storageNameLength /= 2;
-				if (storageNameLength > 0) storageNameLength -= 1;
-				if (storageName.Length != storageNameLength) throw new InvalidDataFormatException("Sanity check: storage name length is not actual length of storage name");
+				byte[] storageNameValidBytes = new byte[storageNameLength];
+				Array.Copy(storageNameBytes, 0, storageNameValidBytes, 0, storageNameValidBytes.Length);
 
-				byte storageType = sectorReader.ReadByte();
-				byte storageNodeColor = sectorReader.ReadByte();
+				string storageName = System.Text.Encoding.Unicode.GetString(storageNameValidBytes);
+				storageName = storageName.TrimNull();
+				// if (storageName.Length != storageNameLength) throw new InvalidDataFormatException("Sanity check: storage name length is not actual length of storage name");
 
-				int leftChildNodeDirectoryID = sectorReader.ReadInt32();
-				int rightChildNodeDirectoryID = sectorReader.ReadInt32();
+				CompoundDocumentStorageType storageType = (CompoundDocumentStorageType) directoryReader.ReadByte();
+				byte storageNodeColor = directoryReader.ReadByte();
+
+				int leftChildNodeDirectoryID = directoryReader.ReadInt32();
+				int rightChildNodeDirectoryID = directoryReader.ReadInt32();
 				// directory ID of the root node entry of the red-black tree of all members of the root storage
-				int rootNodeEntryDirectoryID = sectorReader.ReadInt32();
+				int rootNodeEntryDirectoryID = directoryReader.ReadInt32();
 
-				Guid uniqueIdentifier = sectorReader.ReadGuid();
-				uint flags = sectorReader.ReadUInt32();
-				long creationTimestamp = sectorReader.ReadInt64();
-				long lastModificationTimestamp = sectorReader.ReadInt64();
+				Guid uniqueIdentifier = directoryReader.ReadGuid();
+				uint flags = directoryReader.ReadUInt32();
+				long creationTimestamp = directoryReader.ReadInt64();
+				long lastModificationTimestamp = directoryReader.ReadInt64();
 
-				int firstSectorOfStream = sectorReader.ReadInt32();
-				if (storageType == 0x05)
+				// SecID of first sector or short-sector, if this entry refers to a stream
+				// SecID of first sector of the short-stream container stream, if this is the root storage entry
+				// 0 otherwise
+				int firstSectorOfStream = directoryReader.ReadInt32();
+
+				// Total stream size in bytes, if this entry refers to a stream,
+				// total size of the short-stream container stream, if this is the root storage entry
+				// 0 otherwise
+				int streamLength = directoryReader.ReadInt32();
+
+ 				int unused3 = directoryReader.ReadInt32();
+
+				if (storageType == CompoundDocumentStorageType.RootStorage)
 				{
 					// this is the root storage entry
 					mvarShortSectorFirstSectorID = firstSectorOfStream;
@@ -280,14 +273,16 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 					List<int> shortStreamContainerStreamSectors = new List<int>();
 					{
 						int shortSectorDataSector = mvarShortSectorFirstSectorID;
-						while (shortSectorDataSector >= 0)
+						while (shortSectorDataSector != -2)
 						{
 							shortStreamContainerStreamSectors.Add(shortSectorDataSector);
-							if (shortSectorDataSector < sectorAllocationTable.Length) {
-								shortSectorDataSector = sectorAllocationTable [shortSectorDataSector];
-							} else {
-								Console.Error.WriteLine ("ue: CompoundDocument[274]: short sector data sector {0} is out of bounds for sector allocation table {1}", shortSectorDataSector, sectorAllocationTable.Length);
-								break;
+							if (shortSectorDataSector < sectorAllocationTable.Length)
+							{
+								shortSectorDataSector = sectorAllocationTable[shortSectorDataSector];
+							}
+							else
+							{
+								throw new IndexOutOfRangeException(String.Format("short sector data sector {0} is out of bounds for sector allocation table {1}", shortSectorDataSector, sectorAllocationTable.Length));
 							}
 						}
 					}
@@ -302,54 +297,78 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 						i += sectorData.Length;
 					}
 					mvarShortSectorContainerStreamData = shortStreamContainerStreamData;
+
+					System.IO.File.WriteAllBytes("/tmp/test.ue/shrtstrm.dat", shortStreamContainerStreamData);
 					#endregion
 				}
-
-				int streamLength = sectorReader.ReadInt32();
-				int unused3 = sectorReader.ReadInt32();
-
-				List<int> sectors = new List<int>();
-				if (streamLength < mvarMinimumStandardStreamSize)
+				else if (storageType == CompoundDocumentStorageType.UserStorage)
 				{
-					// use the short-sector allocation table
-					int sector = firstSectorOfStream;
-					while (sector >= 0)
-					{
-						sectors.Add(sector);
-						if (sector < shortSectorAllocationTable.Count) {
-							sector = shortSectorAllocationTable [sector];
-						} else {
-							Console.Error.WriteLine ("ue: CompoundDocument[307]: sector {0} is out of bounds for short sector allocation table (length: {1})", sector, shortSectorAllocationTable.Count);
-							break;
-						}
-					}
+				}
+				else if (storageType == CompoundDocumentStorageType.UserStream)
+				{
+					File file = new File();
+					file.Name = storageName;
+					file.Size = streamLength;
+					file.Properties.Add("reader", reader);
+					file.Properties.Add("firstSector", firstSectorOfStream);
+					file.Properties.Add("length", streamLength);
+					file.DataRequest += file_DataRequest;
+					fsom.Files.Add(file);
+
+					Console.WriteLine("{3}    {0}        {1}    {2}", file.Name, firstSectorOfStream, streamLength, storageType.ToString());
+				}
+				else if (storageType == CompoundDocumentStorageType.Empty)
+				{
+					Console.WriteLine(storageName + " is empty; should we included it in file list?");
 				}
 				else
 				{
-					// use the standard sector allocation table
-					int sector = firstSectorOfStream;
-					while (sector >= 0)
-					{
-						sectors.Add(sector);
-						if (sector < sectorAllocationTable.Length) {
-							sector = sectorAllocationTable [sector];
-						} else {
-							Console.Error.WriteLine ("ue: CompoundDocument[321]: sector {0} is out of bounds for sector allocation table (length: {1})", sector, sectorAllocationTable.Length);
-							break;
-						}
-					}
+					throw new NotImplementedException(storageType.ToString() + " not implemented");
 				}
-
-				File file = new File();
-				file.Name = storageName;
-				file.Size = streamLength;
-				file.Properties.Add("reader", reader);
-				file.Properties.Add("sectors", sectors);
-				file.Properties.Add("length", streamLength);
-				file.DataRequest += file_DataRequest;
-				fsom.Files.Add(file);
 			}
 			#endregion
+
+			WriteLog(fsom);
+		}
+
+		private void WriteLog(FileSystemObjectModel fsom)
+		{
+			if (LogPath == null) return;
+			if (!System.IO.Directory.Exists(LogPath))
+			{
+				System.IO.Directory.CreateDirectory(LogPath);
+			}
+			foreach (File file in fsom.Files)
+			{
+				System.IO.File.WriteAllBytes(LogPath + System.IO.Path.DirectorySeparatorChar.ToString() + file.Name, file.GetData());
+			}
+		}
+
+		private byte[] ReadDirectoryData(Reader reader)
+		{
+			List<int> directorySectors = new List<int>();
+			int currentSector = (int)mvarDirectoryStreamFirstSectorID;
+			while (currentSector != -2)
+			{
+				directorySectors.Add(currentSector);
+				if (currentSector < sectorAllocationTable.Length - 1)
+				{
+					currentSector = sectorAllocationTable[currentSector];
+				}
+				else
+				{
+					throw new IndexOutOfRangeException(String.Format("sector {0} is out of bounds for sector allocation table (length {1})", currentSector, sectorAllocationTable.Length)); ;
+				}
+			}
+
+			byte[] directoryData = new byte[mvarSectorSize * directorySectors.Count];
+			for (int i = 0; i < directorySectors.Count; i++)
+			{
+				SeekToSector(directorySectors[i]);
+				byte[] sectorData = reader.ReadBytes(mvarSectorSize);
+				Array.Copy(sectorData, 0, directoryData, (i * mvarSectorSize), mvarSectorSize);
+			}
+			return directoryData;
 		}
 
 		private void SeekToSector(int v)
@@ -358,14 +377,89 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			Accessor.Seek(pos, SeekOrigin.Begin);
 		}
 
-		private Reader shortSectorReader = null;
-
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
 			File file = (sender as File);
 			Reader reader = (Reader)file.Properties["reader"];
+
+			int firstSectorOfStream = (int)file.Properties["firstSector"];
+			int streamLength = (int)file.Properties["length"];
+
+			List<int> sectors = new List<int>();
+			byte[] sectorData = null;
+			if (streamLength < mvarMinimumStandardStreamSize)
+			{
+				// use the short-sector allocation table
+				int sector = firstSectorOfStream;
+				while (sector >= 0)
+				{
+					sectors.Add(sector);
+					if (sector < shortSectorAllocationTable.Length)
+					{
+						sector = shortSectorAllocationTable[sector];
+					}
+					else
+					{
+						throw new IndexOutOfRangeException(String.Format("sector {0} is out of bounds for short sector allocation table (length: {1})", sector, shortSectorAllocationTable.Length));
+					}
+				}
+
+				sectorData = new byte[sectors.Count * ShortSectorSize];
+				for (int i = 0; i < sectors.Count; i++)
+				{
+					Array.Copy(mvarShortSectorContainerStreamData, (sectors[i] * ShortSectorSize), sectorData, i * ShortSectorSize, ShortSectorSize);
+				}
+			}
+			else
+			{
+				// use the standard sector allocation table
+				int sector = firstSectorOfStream;
+				while (sector >= 0)
+				{
+					sectors.Add(sector);
+					if (sector < sectorAllocationTable.Length)
+					{
+						sector = sectorAllocationTable[sector];
+					}
+					else
+					{
+						throw new IndexOutOfRangeException(String.Format("sector {0} is out of bounds for sector allocation table (length: {1})", sector, sectorAllocationTable.Length));
+					}
+				}
+
+				sectorData = new byte[sectors.Count * SectorSize];
+				for (int i = 0; i < sectors.Count; i++)
+				{
+					SeekToSector(sectors[i]);
+					byte[] data = reader.ReadBytes(SectorSize);
+					Array.Copy(data, 0, sectorData, (i * SectorSize), data.Length);
+				}
+
+				Array.Resize(ref sectorData, streamLength);
+			}
+
+			e.Data = sectorData;
+			// TODO: actually make this work!
+
+			/*
+
+
+			List<int> sectors = new List<int>();
+			if (storageType != 0x05) // hack: why do we need this?
+			{
+				
+			}
+
+			*/
+			/*
 			if (shortSectorReader == null) shortSectorReader = new Reader(new Accessors.MemoryAccessor(mvarShortSectorContainerStreamData));
 			List<int> sectors = (List<int>)file.Properties["sectors"];
+			if (sectors.Count == 0)
+			{
+				e.Data = new byte[0];
+				return;
+			}
+
 			int length = (int)file.Properties["length"];
 
 			byte[] realdata = new byte[length];
@@ -399,6 +493,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				Array.Copy(data, 0, realdata, 0, realdata.Length);
 			}
 			e.Data = realdata;
+			*/		
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -407,6 +502,64 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Writer writer = base.Accessor.Writer;
+
+			// The header is always located at the beginning of the file, and its size is
+			// exactly 512 bytes. This implies that the first sector (0) always starts at
+			// file offset 512.
+			writer.WriteBytes(VALID_SIGNATURE);
+			writer.WriteGuid(UniqueIdentifier);
+
+			writer.WriteUInt16((ushort)FormatVersion.Minor);
+			writer.WriteUInt16((ushort)FormatVersion.Major);
+
+			switch (Endianness)
+			{
+				case Endianness.LittleEndian:
+				{
+					writer.WriteBytes(new byte[] { 0xFE, 0xFF });
+					break;
+				}
+				case Endianness.BigEndian:
+				{
+					writer.WriteBytes(new byte[] { 0xFF, 0xFE });
+					break;
+				}
+			}
+
+			if (ShortSectorSize > SectorSize) throw new InvalidDataFormatException("Short sector size (" + ShortSectorSize.ToString() + ") exceeds sector size (" + SectorSize.ToString() + ")");
+
+			// get the 2-root of SectorSize
+			ushort uSectorSize = (ushort)(Math.Log10(SectorSize) / Math.Log10(2));
+			writer.WriteUInt16(uSectorSize);
+
+			// get the 2-root of SectorSize
+			ushort uShortSectorSize = (ushort)(Math.Log10(ShortSectorSize) / Math.Log10(2));
+			writer.WriteUInt16(uShortSectorSize);
+
+			writer.WriteBytes(new byte[10]); // unused?
+
+			writer.WriteUInt32(mvarSectorAllocationTableSize);
+			writer.WriteUInt32(mvarDirectoryStreamFirstSectorID);
+			writer.WriteUInt32(0);
+			writer.WriteUInt32(mvarMinimumStandardStreamSize);
+
+			writer.WriteInt32(mvarShortSectorAllocationTableFirstSectorID);
+			writer.WriteInt32(mvarShortSectorAllocationTableSize);
+			writer.WriteInt32(mvarMasterSectorAllocationTableFirstSectorID);
+			writer.WriteInt32(mvarMasterSectorAllocationTableSize);
+
+			#region Read Master Sector Allocation Table
+			// First part of the master sector allocation table, containing 109 SecIDs
+			int[] masterSectorAllocationTable = new int[109];
+			writer.WriteInt32Array(masterSectorAllocationTable);
+
+			// TODO: test this! when MSAT contains more than 109 SecIDs
+			int countForMSAT = (int)((double)mvarSectorSize / 4);
+			int nextSectorForMSAT = mvarMasterSectorAllocationTableFirstSectorID;
+			int nextPositionForMSAT = masterSectorAllocationTable.Length;
+			#endregion
+
+			// ok, i have absolutely no clue what we're doing here
 		}
 	}
 }

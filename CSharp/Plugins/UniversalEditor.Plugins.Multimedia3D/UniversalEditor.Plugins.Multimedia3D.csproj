@@ -25,6 +25,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -161,6 +163,7 @@
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="TextureVector2.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Metasequoia\MQOTextDataFormat.cs" />
+    <Compile Include="ObjectModels\Multimedia3D\Scene\SceneBrush.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resources" />
