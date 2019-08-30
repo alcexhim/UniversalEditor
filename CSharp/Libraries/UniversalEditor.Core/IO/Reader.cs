@@ -834,6 +834,10 @@ namespace UniversalEditor.IO
 			return retval;
 		}
 
+		/// <summary>
+		/// Reads a 64-bit floating-point value.
+		/// </summary>
+		/// <returns>The double.</returns>
 		public double ReadDouble()
 		{
 			byte[] buffer = ReadBytes((uint)8);
@@ -945,7 +949,7 @@ namespace UniversalEditor.IO
 			while (true)
 			{
 				byte nextChar = ReadByte();
-				if (nextChar == 0)
+				if ((nextChar == 0 && !(encoding == Encoding.UTF16LittleEndian)) || ((encoding == Encoding.UTF16LittleEndian) && (nextChar == 0 && (r.Count > 2 && r[r.Count - 1] == 0))))
 				{
 					string result = encoding.GetString(r.ToArray());
 					return result;
