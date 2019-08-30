@@ -206,10 +206,17 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			string strSize = "*";
 			try
 			{
-				byte[] data = this.GetData();
-				if (data != null)
+				if (mvarSize != null)
 				{
-					strSize = data.Length.ToString();
+					strSize = mvarSize.ToString();
+				}
+				else
+				{
+					byte[] data = this.GetData();
+					if (data != null)
+					{
+						strSize = data.Length.ToString();
+					}
 				}
 			}
 			catch (Exception ex)
