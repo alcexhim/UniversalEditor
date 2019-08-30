@@ -223,5 +223,27 @@ namespace UniversalEditor
             PositionVector4 clone = new PositionVector4(mvarX, mvarY, mvarZ, mvarW);
             return clone;
         }
-    }
+
+		public override bool Equals(object obj)
+		{
+			PositionVector4 pv = (PositionVector4)obj;
+			try
+			{
+				return (pv.X == X && pv.Y == Y && pv.Z == Z && pv.W == W);
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+
+		public static bool operator ==(PositionVector4 left, PositionVector4 right)
+		{
+			return left.Equals(right);
+		}
+		public static bool operator !=(PositionVector4 left, PositionVector4 right)
+		{
+			return !left.Equals(right);
+		}
+	}
 }

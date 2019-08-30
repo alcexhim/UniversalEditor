@@ -116,9 +116,31 @@ namespace UniversalEditor
             clone.Y = mvarY;
             clone.Z = mvarZ;
             return clone;
-        }
+		}
 
-        public double GetLargestComponentValue()
+		public override bool Equals(object obj)
+		{
+			PositionVector3 pv = (PositionVector3)obj;
+			try
+			{
+				return (pv.X == X && pv.Y == Y && pv.Z == Z);
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+
+		public static bool operator ==(PositionVector3 left, PositionVector3 right)
+		{
+			return left.Equals(right);
+		}
+		public static bool operator !=(PositionVector3 left, PositionVector3 right)
+		{
+			return !left.Equals(right);
+		}
+
+		public double GetLargestComponentValue()
         {
             if (mvarX > mvarY && mvarX > mvarZ) return mvarX;
             if (mvarY > mvarX && mvarY > mvarZ) return mvarY;
