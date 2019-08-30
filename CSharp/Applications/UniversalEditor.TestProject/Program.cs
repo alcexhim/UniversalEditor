@@ -4,10 +4,14 @@ using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.DataFormats.Package.OpenPackagingConvention;
+using UniversalEditor.DataFormats.Text.Formatted.DOC;
+using UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 using UniversalEditor.ObjectModels.Package;
+using UniversalEditor.ObjectModels.Text.Formatted;
+using UniversalEditor.Plugins.Genealogy.DataFormats.GEDCOM;
 
 namespace UniversalEditor.TestProject
 {
@@ -251,6 +255,51 @@ namespace UniversalEditor.TestProject
 				}
 				return String.Empty;
 			}
+
+		}
+
+		private static void TestCDFDOC()
+		{
+			DOCDataFormat doc = new DOCDataFormat();
+			FormattedTextObjectModel ftom = new FormattedTextObjectModel();
+
+			Document.Load(ftom, doc, new FileAccessor("/home/beckermj/Documents/UE Tests/OLE Compound Document/test.doc"));
+		}
+
+		private static void TestCDFFTW()
+		{
+			GEDCOMDataFormat ged = new GEDCOMDataFormat();
+
+			FamilyTreeObjectModel ftom = new FamilyTreeObjectModel();
+
+			/*
+			FTWDataFormat cdf = new FTWDataFormat();
+			cdf.LogPath = "/tmp/test.ue/AAFT/AAFT0000";
+			Document.Load(ftom, cdf, new FileAccessor("/tmp/test.ue/AAFT/AAFT0000.FTW"));
+
+			cdf.LogPath = "/tmp/test.ue/AAFT/AAFT0001";
+			Document.Load(ftom, cdf, new FileAccessor("/tmp/test.ue/AAFT/AAFT0001.FTW"));
+
+			cdf.LogPath = "/tmp/test.ue/AAFT/AAFT0002";
+			Document.Load(ftom, cdf, new FileAccessor("/tmp/test.ue/AAFT/AAFT0002.FTW"));
+			// Document.Save(ftom, cdf, new FileAccessor("/home/beckermj/Documents/UE Tests/OLE Compound Document/Anthony Azcona Family Tree UE-TEST.ftw", true, true));
+			*/
+
+			Document.Load(ftom, ged, new FileAccessor("/tmp/test.ue/AAFT/AAFT.GED"));
+		}
+
+		private static void TestOPCModel()
+		{
+			DateTime start = DateTime.Now;
+
+			ModelObjectModel model = new ModelObjectModel();
+			UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker.PMDModelDataFormat pmd = new DataFormats.Multimedia3D.Model.PolygonMovieMaker.PMDModelDataFormat();
+
+			Document.Load(model, pmd, new FileAccessor("/home/beckermj/Documents/UE Tests/Open Packaging Convention/Concertroid Model Data OPC (.pmdx)/test.pmdx_source/model/kio_miku_20111121.pmd"));
+			Document.Save(model, new OPCModelDataFormat(), new FileAccessor("/home/beckermj/Documents/UE Tests/Open Packaging Convention/Concertroid Model Data OPC (.pmdx)/kio_miku.pmdx", true, true));
+
+			DateTime end = DateTime.Now;
+			Console.WriteLine("Took " + (end - start).ToString() + " with buffer size " + MemoryAccessor.DefaultBufferAllocationSize);
 		}
 
 		public static void Main (string [] args)
@@ -264,16 +313,8 @@ namespace UniversalEditor.TestProject
 			Document.Save (om, df, new FileAccessor (fileName, true, true));
 			*/
 
-			DateTime start = DateTime.Now;
-
-			ModelObjectModel model = new ModelObjectModel();
-			UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker.PMDModelDataFormat pmd = new DataFormats.Multimedia3D.Model.PolygonMovieMaker.PMDModelDataFormat();
-
-			Document.Load(model, pmd, new FileAccessor("/home/beckermj/Documents/UE Tests/Open Packaging Convention/Concertroid Model Data OPC (.pmdx)/test.pmdx_source/model/kio_miku_20111121.pmd"));
-			Document.Save(model, new OPCModelDataFormat(), new FileAccessor("/home/beckermj/Documents/UE Tests/Open Packaging Convention/Concertroid Model Data OPC (.pmdx)/kio_miku.pmdx", true, true));
-
-			DateTime end = DateTime.Now;
-			Console.WriteLine("Took " + (end - start).ToString() + " with buffer size " + MemoryAccessor.DefaultBufferAllocationSize);
+			// TestCDFDOC();
+			TestCDFFTW();
 		}
 	}
 }

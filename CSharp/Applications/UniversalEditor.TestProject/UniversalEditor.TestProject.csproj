@@ -59,6 +59,10 @@
       <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia3D</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Genealogy\UniversalEditor.Plugins.Genealogy.csproj">
+      <Project>{74A835FD-93B8-4268-B120-1ACAA128AC7B}</Project>
+      <Name>UniversalEditor.Plugins.Genealogy</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

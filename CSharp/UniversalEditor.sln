@@ -129,9 +129,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Add
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalWidgetToolkit.Engines.WindowsForms", "..\..\UniversalWidgetToolkit\Engines\WindowsForms\UniversalWidgetToolkit.Engines.WindowsForms\UniversalWidgetToolkit.Engines.WindowsForms.csproj", "{B8573BB1-A0CD-41F4-A775-E0CB79555C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.FamilyTreeMaker", "Plugins\UniversalEditor.Plugins.FamilyTreeMaker\UniversalEditor.Plugins.FamilyTreeMaker.csproj", "{74A835FD-93B8-4268-B120-1ACAA128AC7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Genealogy", "Plugins\UniversalEditor.Plugins.Genealogy\UniversalEditor.Plugins.Genealogy.csproj", "{74A835FD-93B8-4268-B120-1ACAA128AC7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.FamilyTreeMaker.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.FamilyTreeMaker.UserInterface\UniversalEditor.Plugins.FamilyTreeMaker.UserInterface.csproj", "{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Genealogy.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Genealogy.UserInterface\UniversalEditor.Plugins.Genealogy.UserInterface.csproj", "{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.TestProject", "Applications\UniversalEditor.TestProject\UniversalEditor.TestProject.csproj", "{242A32D8-9A3A-4FE3-902B-AB9C3154723A}"
 EndProject

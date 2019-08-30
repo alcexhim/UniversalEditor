@@ -1,5 +1,5 @@
 ﻿using System;
-using UniversalEditor.ObjectModels.FamilyTree;
+using UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.FamilyTree

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6C8A539-F219-4BD0-A2F4-E7064ABF6777}</ProjectGuid>
+    <ProjectGuid>{74A835FD-93B8-4268-B120-1ACAA128AC7B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>UniversalEditor.Plugins.FamilyTreeMaker.UserInterface</RootNamespace>
-    <AssemblyName>UniversalEditor.Plugins.FamilyTreeMaker.UserInterface</AssemblyName>
+    <RootNamespace>UniversalEditor.Plugins.FamilyTreeMaker</RootNamespace>
+    <AssemblyName>UniversalEditor.Plugins.FamilyTreeMaker</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,11 +31,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Editors\FamilyTree\FamilyTreeEditor.cs" />
+    <Compile Include="DataFormats\FamilyTreeMaker\Windows\FTWDataFormat.cs" />
+    <Compile Include="ObjectModels\FamilyTree\FamilyTreeObjectModel.cs" />
+    <Compile Include="DataFormats\FamilyTreeMaker\Windows\INDDBDataFormat.cs" />
+    <Compile Include="DataFormats\FamilyTreeMaker\Windows\INDGROUPSDataFormat.cs" />
+    <Compile Include="DataFormats\GEDCOM\GEDCOMDataFormat.cs" />
+    <Compile Include="DataFormats\GEDCOM\GEDCOMChunkedDataFormat.cs" />
+    <Compile Include="ObjectModels\GEDCOM\GEDCOMChunkedObjectModel.cs" />
+    <Compile Include="ObjectModels\GEDCOM\GEDCOMChunk.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Editors\" />
-    <Folder Include="Editors\FamilyTree\" />
+    <Folder Include="DataFormats\" />
+    <Folder Include="DataFormats\FamilyTreeMaker\" />
+    <Folder Include="DataFormats\FamilyTreeMaker\Windows\" />
+    <Folder Include="ObjectModels\" />
+    <Folder Include="ObjectModels\FamilyTree\" />
+    <Folder Include="DataFormats\GEDCOM\" />
+    <Folder Include="ObjectModels\GEDCOM\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -46,21 +58,17 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.FamilyTreeMaker\UniversalEditor.Plugins.FamilyTreeMaker.csproj">
-      <Project>{74A835FD-93B8-4268-B120-1ACAA128AC7B}</Project>
-      <Name>UniversalEditor.Plugins.FamilyTreeMaker</Name>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Microsoft\UniversalEditor.Plugins.Microsoft.csproj">
+      <Project>{4698BC3F-EC29-42EB-9AED-3D8F9983A108}</Project>
+      <Name>UniversalEditor.Plugins.Microsoft</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.FileSystem\UniversalEditor.Plugins.FileSystem.csproj">
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
+      <Project>{3F664673-7E22-4486-9AD0-FC81861D0B78}</Project>
+      <Name>UniversalEditor.Compression</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.FileSystem\UniversalEditor.Plugins.FileSystem.csproj">
       <Project>{76FD1306-9CA4-428F-993B-B7E4EEEACBF3}</Project>
       <Name>UniversalEditor.Plugins.FileSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
-      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
-      <Name>UniversalEditor.UserInterface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj">
-      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
-      <Name>UniversalWidgetToolkit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
