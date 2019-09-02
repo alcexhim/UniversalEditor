@@ -24,6 +24,7 @@ using UniversalWidgetToolkit.Layouts;
 using UniversalWidgetToolkit.Controls.Ribbon;
 using UniversalEditor.Printing;
 using UniversalWidgetToolkit.Printing;
+using UniversalEditor.UserInterface.Pages;
 
 namespace UniversalEditor.UserInterface
 {
@@ -367,7 +368,10 @@ namespace UniversalEditor.UserInterface
 				//doc.Close();
 
 				Editor editor = editors[0].Create();
-				InitDocTab(doc.Title, editor);
+				EditorPage page = new EditorPage();
+				page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
+
+				InitDocTab(doc.Title, page);
 
 				editor.ObjectModel = doc.ObjectModel;
 			}
