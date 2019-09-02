@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
+using System.Threading.Tasks;
 using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.PropertyList.XML;
 using UniversalEditor.ObjectModels.PropertyList;
@@ -15,19 +17,76 @@ namespace UniversalEditor.UserInterface
 	/// </summary>
 	public abstract class Editor : UniversalWidgetToolkit.Container
 	{
+		public EditorSelection.EditorSelectionCollection Selections { get; } = new EditorSelection.EditorSelectionCollection();
+		public abstract void UpdateSelections();
+		public EditorSelection[] GetSelections()
+		{
+			UpdateSelections();
+
+			EditorSelection[] sels = new EditorSelection[Selections.Count];
+			for (int i = 0; i < Selections.Count; i++)
+			{
+				sels[i] = Selections[i];
+			}
+			return sels;
+		}
+
+		protected abstract EditorSelection CreateSelectionInternal(object content);
+		public EditorSelection CreateSelection(object content)
+		{
+			return CreateSelectionInternal(content);
+		}
 
 		/// <summary>
-		/// Copies the selected content to the Universal Editor clipboard.
+		/// Copies the content of all selections to the system clipboard, and then clears the content.
 		/// </summary>
-		public abstract void Copy();
+		public void Cut()
+		{
+			StringBuilder sb = new StringBuilder();
+			EditorSelection[] sels = GetSelections();
+			foreach (EditorSelection sel in sels)
+			{
+				if (sel.Content != null)
+				{
+					sb.Append(sel.Content.ToString());
+				}
+				sel.Content = null;
+			}
+			Clipboard.Default.SetText(sb.ToString());
+		}
 		/// <summary>
-		/// Pastes the content from the Universal Editor clipboard, overwriting any selected content.
+		/// Copies the content of all selections to the system clipboard.
 		/// </summary>
-		public abstract void Paste();
+		public void Copy()
+		{
+			StringBuilder sb = new StringBuilder();
+			EditorSelection[] sels = GetSelections();
+			foreach (EditorSelection sel in sels)
+			{
+				if (sel.Content != null)
+				{
+					sb.Append(sel.Content.ToString());
+				}
+			}
+			Clipboard.Default.SetText(sb.ToString());
+		}
 		/// <summary>
-		/// Causes the editor to delete the currently-selected item.
+		/// Pastes the content from the system clipboard into a new selection, overwriting any selected content.
 		/// </summary>
-		public abstract void Delete();
+		public void Paste()
+		{
+			Selections.Clear();
+
+			string clipboardText = Clipboard.Default.GetText();
+			Selections.Add(CreateSelection(clipboardText));
+		}
+		public void Delete()
+		{
+			foreach (EditorSelection sel in Selections)
+			{
+				sel.Content = null;
+			}
+		}
 
 		#region IEditorImplementation Members
 		public virtual string Title { get { return String.Empty; } }

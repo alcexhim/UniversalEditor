@@ -29,24 +29,28 @@ using UniversalWidgetToolkit.Layouts;
 
 namespace UniversalEditor.Editors.Text.Plain
 {
-	public class PlainTextEditor : Editor
+	public class PlainTextEditor : TextEditor
 	{
-		public override void Copy()
+		protected override EditorSelection CreateSelectionInternal(object content)
 		{
-			throw new NotImplementedException();
+			if (content is string)
+			{
+				txt.SelectedText = (string)content;
+				return new TextEditorSelection(this, (string)content);
+			}
+			return null;
 		}
-
-		public override void Delete()
+		public override void UpdateSelections()
 		{
-			throw new NotImplementedException();
+			Selections.Clear();
+			Selections.Add(new TextEditorSelection(this, txt.SelectedText, txt.SelectionStart, txt.SelectionLength));
 		}
-
-		public override void Paste()
-		{
-			throw new NotImplementedException();
-		}
-
 		private TextBox txt = null;
+
+		internal override void ClearSelectedText()
+		{
+			txt.SelectedText = null;
+		}
 
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference ()

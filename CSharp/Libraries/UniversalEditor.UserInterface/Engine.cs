@@ -281,11 +281,9 @@ namespace UniversalEditor.UserInterface
 			#region Edit
 			Application.AttachCommandEventHandler("EditCut", delegate(object sender, EventArgs e)
 			{
-				Command cmdCopy = Application.Commands["EditCopy"];
-				Command cmdDelete = Application.Commands["EditDelete"];
-				
-				cmdCopy.Execute ();
-				cmdDelete.Execute ();
+				Editor editor = LastWindow.GetCurrentEditor();
+				if (editor == null) return;
+				editor.Cut();
 			});
 			Application.AttachCommandEventHandler("EditCopy", delegate(object sender, EventArgs e)
 			{

@@ -41,16 +41,13 @@ namespace UniversalEditor.Editors.PropertyList
 			return _er;
 		}
 
-		public override void Copy()
+		protected override EditorSelection CreateSelectionInternal(object content)
 		{
+			throw new NotImplementedException();
 		}
-
-		public override void Delete()
+		public override void UpdateSelections()
 		{
-		}
-
-		public override void Paste()
-		{
+			throw new NotImplementedException();
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)

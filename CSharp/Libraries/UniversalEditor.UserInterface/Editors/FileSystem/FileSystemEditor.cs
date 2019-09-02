@@ -57,17 +57,20 @@ namespace UniversalEditor.Editors.FileSystem
 			e.Data = sb.ToString();
 		}
 
-		public override void Copy()
+		protected override EditorSelection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}
-		public override void Paste()
+		public override void UpdateSelections()
 		{
-			throw new NotImplementedException();
-		}
-		public override void Delete()
-		{
-			throw new NotImplementedException();
+			Selections.Clear();
+			for (int i = 0;  i < tv.SelectedRows.Count; i++)
+			{
+				TreeModelRow row = tv.SelectedRows[i];
+
+				FileSystemSelection sel = new FileSystemSelection(row.GetExtraData<IFileSystemObject>("item"));
+				Selections.Add(sel);
+			}
 		}
 
 		private static EditorReference _er = null;
@@ -90,6 +93,7 @@ namespace UniversalEditor.Editors.FileSystem
 				new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
 				new TreeModelRowColumn(tmTreeView.Columns[3], "")
 			});
+			r.SetExtraData<IFileSystemObject>("item", f);
 
 			foreach (Folder f2 in f.Folders)
 			{
@@ -118,7 +122,7 @@ namespace UniversalEditor.Editors.FileSystem
 				new TreeModelRowColumn(tmTreeView.Columns[2], ""),
 				new TreeModelRowColumn(tmTreeView.Columns[3], "")
 			});
-
+			r.SetExtraData<IFileSystemObject>("item", f);
 
 			if (parent == null)
 			{
