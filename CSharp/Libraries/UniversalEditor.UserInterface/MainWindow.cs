@@ -630,29 +630,11 @@ namespace UniversalEditor.UserInterface
 			this.Destroy ();
 		}
 
-		private class TestPrintHandler : PrintHandler
-		{
-			private static PrintHandlerReference _phr = null;
-			protected override PrintHandlerReference MakeReferenceInternal()
-			{
-				if (_phr == null)
-				{
-					_phr = base.MakeReferenceInternal();
-				}
-				return _phr;
-			}
-
-			protected override void PrintInternal(ObjectModel objectModel)
-			{
-			}
-		}
-
 		public void PrintDocument()
 		{
 			Editor editor = GetCurrentEditor ();
 			if (editor != null) {
-				PrintHandler ph1 = new TestPrintHandler();
-				PrintHandlerReference[] phrs = { ph1.MakeReference() }; // PrintHandler.GetAvailablePrintHandlers(editor.ObjectModel);
+				PrintHandlerReference[] phrs = UniversalEditor.Printing.Reflection.GetAvailablePrintHandlers(editor.ObjectModel);
 				if (phrs.Length > 0)
 				{
 					PrintDialog dlg = new PrintDialog();
@@ -661,7 +643,7 @@ namespace UniversalEditor.UserInterface
 						PrintHandler ph = phrs[0].Create();
 						if (ph != null)
 						{
-							PrintJob job = new PrintJob("Test Page", dlg.SelectedPrinter, dlg.Settings);
+							PrintJob job = new PrintJob(editor.Title, dlg.SelectedPrinter, dlg.Settings);
 							job.BeginPrint += Job_BeginPrint;
 							job.DrawPage += Job_DrawPage;
 							job.SetExtraData<PrintHandler>("ph", ph);
@@ -680,29 +662,7 @@ namespace UniversalEditor.UserInterface
 			PrintHandler ph = job.GetExtraData<PrintHandler>("ph");
 			ObjectModel om = job.GetExtraData<ObjectModel>("om");
 
-
-			e.Graphics.DrawRectangle(new Pen(MBS.Framework.Drawing.Colors.Gray, new Measurement(1.0, MeasurementUnit.Pixel)), new Rectangle(20, 20, 120, 80));
-			e.Graphics.DrawRectangle(new Pen(MBS.Framework.Drawing.Colors.Gray, new Measurement(1.0, MeasurementUnit.Pixel)), new Rectangle(180, 20, 80, 80));
-
-			e.Graphics.FillRectangle(new SolidBrush(MBS.Framework.Drawing.Colors.Gray), new Rectangle(20, 20, 120, 80));
-			e.Graphics.FillRectangle(new SolidBrush(MBS.Framework.Drawing.Colors.Gray), new Rectangle(180, 20, 80, 80));
-
-
-			// if (settings != NULL)
-			// 	print.Settings = settings;  // gtk_print_operation_set_print_settings(print, settings);
-
-			// res = gtk_print_operation_run(print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
-			// 							   GTK_WINDOW(main_window), NULL);
-
-			// if (res == GTK_PRINT_OPERATION_RESULT_APPLY)
-			// {
-			//	if (settings != NULL)x
-			//		g_object_unref(settings);
-			//	settings = g_object_ref(gtk_print_operation_get_print_settings(print));
-			//}
-
-			//g_object_unref(print);
-			// ph.Print(om);
+			ph.Print(om, e.Graphics);
 		}
 
 

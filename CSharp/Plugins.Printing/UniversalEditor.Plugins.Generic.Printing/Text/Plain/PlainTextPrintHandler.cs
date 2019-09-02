@@ -1,5 +1,5 @@
 ﻿//
-//  PrintHandler.cs
+//  PlainTextPrintHandler.cs
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -18,31 +18,33 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 using System;
+using UniversalEditor.ObjectModels.Text.Plain;
+using UniversalEditor.Printing;
 using UniversalWidgetToolkit.Drawing;
 
-namespace UniversalEditor.Printing
+namespace UniversalEditor.Plugins.Generic.Printing.Text.Plain
 {
-	public abstract class PrintHandler : References<PrintHandlerReference>
+	public class PlainTextPrintHandler : PrintHandler
 	{
-		public PrintHandlerReference Reference { get; internal set; }
-
-		protected virtual PrintHandlerReference MakeReferenceInternal()
+		private static PrintHandlerReference _phr = null;
+		protected override PrintHandlerReference MakeReferenceInternal()
 		{
-			return new PrintHandlerReference(this.GetType());
-		}
-		public PrintHandlerReference MakeReference()
-		{
-			PrintHandlerReference phr = MakeReferenceInternal();
-			PrintHandlerReference.Register(phr);
-			return phr;
+			if (_phr == null)
+			{
+				_phr = base.MakeReferenceInternal();
+				_phr.SupportedObjectModels.Add(typeof(PlainTextObjectModel));
+			}
+			return _phr;
 		}
 
-		protected abstract void PrintInternal(ObjectModel objectModel, Graphics g);
-		public void Print(ObjectModel objectModel, Graphics g)
+		protected override void PrintInternal(ObjectModel objectModel, Graphics g)
 		{
-			PrintInternal(objectModel, g);
+			PlainTextObjectModel text = (objectModel as PlainTextObjectModel);
+			if (text == null)
+				throw new ObjectModelNotSupportedException();
+
+			g.DrawText(text.Text, Font.FromFamily("Liberation Serif", 12), new Rectangle(64, 64, 1400, 1400), Brushes.Black);
 		}
 	}
 }

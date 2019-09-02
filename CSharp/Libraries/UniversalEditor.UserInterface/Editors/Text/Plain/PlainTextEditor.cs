@@ -46,7 +46,7 @@ namespace UniversalEditor.Editors.Text.Plain
 			throw new NotImplementedException();
 		}
 
-		private SyntaxTextBox txt = null;
+		private TextBox txt = null;
 
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference ()
@@ -58,10 +58,17 @@ namespace UniversalEditor.Editors.Text.Plain
 			return _er;
 		}
 
+		private void txt_Changed(object sender, EventArgs e)
+		{
+			PlainTextObjectModel om = (this.ObjectModel as PlainTextObjectModel);
+			om.Text = txt.Text;
+		}
+
 		public PlainTextEditor ()
 		{
-			txt = new SyntaxTextBox();
-			// txt.Multiline = true;
+			txt = new TextBox();	
+			txt.Changed += txt_Changed;
+			txt.Multiline = true;
 
 			this.Layout = new BoxLayout(Orientation.Vertical);
 			this.Controls.Add(txt, new BoxLayout.Constraints(true, true));

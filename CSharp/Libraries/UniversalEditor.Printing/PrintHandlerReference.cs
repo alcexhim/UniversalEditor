@@ -47,6 +47,8 @@ namespace UniversalEditor.Printing
 			mvarType = dataFormatType;
 		}
 
+		public ObjectModelReference.ObjectModelReferenceCollection SupportedObjectModels { get; } = new ObjectModelReference.ObjectModelReferenceCollection();
+
 		private Guid mvarID = Guid.Empty;
 		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
