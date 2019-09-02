@@ -255,7 +255,10 @@ namespace UniversalEditor.Editors.Contact
 			}
 			lvPhysicalAddresses.Model = tmAddresses;
 
-			AddDetailRow (0, "Address", contact.PhysicalAddresses [0].ToString ());
+			foreach (ContactPhysicalAddress addr in contact.PhysicalAddresses)
+			{
+				AddDetailRow(0, "Address", addr.ToString());
+			}
 		}
 
 		/// <summary>
