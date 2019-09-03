@@ -82,7 +82,8 @@ namespace UniversalEditor.UserInterface
 		}
 		public void Delete()
 		{
-			foreach (EditorSelection sel in Selections)
+			EditorSelection[] sels = GetSelections();
+			foreach (EditorSelection sel in sels)
 			{
 				sel.Content = null;
 			}

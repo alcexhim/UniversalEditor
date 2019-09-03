@@ -36,7 +36,20 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			this.InitializeComponent();
 		}
-		
+
+		internal void ClearSelectionContent(FileSystemSelection sel)
+		{
+			while (tv.SelectedRows.Count > 0)
+			{
+				if (tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") == sel.Item)
+				{
+					tmTreeView.Rows.Remove(tv.SelectedRows[0]);
+					break;
+				}
+			}
+		}
+
+
 		protected override void OnCreated(EventArgs e)
 		{
 			this.tv.RegisterDragSource(new DragDropTarget[]
@@ -67,9 +80,9 @@ namespace UniversalEditor.Editors.FileSystem
 			for (int i = 0;  i < tv.SelectedRows.Count; i++)
 			{
 				TreeModelRow row = tv.SelectedRows[i];
+				if (row == null) continue;
 
-				FileSystemSelection sel = new FileSystemSelection(row.GetExtraData<IFileSystemObject>("item"));
-				Selections.Add(sel);
+				Selections.Add(new FileSystemSelection(this, row.GetExtraData<IFileSystemObject>("item")));
 			}
 		}
 

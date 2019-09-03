@@ -26,10 +26,22 @@ namespace UniversalEditor.Editors.FileSystem
 	internal class FileSystemSelection : EditorSelection
 	{
 		public IFileSystemObject Item { get; set; } = null;
-		public override object Content { get => Item; set => Item = (value is IFileSystemObject ? (value as IFileSystemObject) : null); }
-
-		public FileSystemSelection(IFileSystemObject item)
+		public override object Content
 		{
+			get => Item;
+			set
+			{
+				if (value == null)
+					_parent.ClearSelectionContent(this);
+
+				Item = (value is IFileSystemObject ? (value as IFileSystemObject) : null);
+			}
+		}
+
+		private FileSystemEditor _parent = null;
+		internal FileSystemSelection(FileSystemEditor parent, IFileSystemObject item)
+		{
+			_parent = parent;
 			Item = item;
 		}
 	}
