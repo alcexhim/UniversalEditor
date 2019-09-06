@@ -203,7 +203,7 @@ namespace UniversalEditor.Editors.FileSystem
 				fd.MultiSelect = false;
 				if (fd.ShowDialog() == DialogResult.OK)
 				{
-					System.IO.File.WriteAllBytes(fd.SelectedFileNames[0], f.GetData());
+					System.IO.File.WriteAllBytes(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1], f.GetData());
 				}
 			}
 			else if (fso is Folder)
@@ -214,7 +214,7 @@ namespace UniversalEditor.Editors.FileSystem
 				fd.MultiSelect = false;
 				if (fd.ShowDialog() == DialogResult.OK)
 				{
-					System.IO.Directory.CreateDirectory(fd.SelectedFileNames[0]);
+					System.IO.Directory.CreateDirectory(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
 					// TODO: implement this
 				}
 			}
