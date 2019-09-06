@@ -638,6 +638,7 @@
     <Content Include="Panels\StartPage.glade" />
     <Content Include="Extensions\FamilyTreeMaker\Associations\FTW.uexml" />
     <Content Include="Extensions\FileSystem\Associations\NewWorldComputing\AGG.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\Apogee\DLT.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -651,6 +652,7 @@
     <Folder Include="Extensions\FamilyTreeMaker\" />
     <Folder Include="Extensions\FamilyTreeMaker\Associations\" />
     <Folder Include="Extensions\FileSystem\Associations\NewWorldComputing\" />
+    <Folder Include="Extensions\FileSystem\Associations\Apogee\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
