@@ -24,6 +24,7 @@ using UniversalEditor.UserInterface;
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
 using UniversalWidgetToolkit.Dialogs;
+using UniversalWidgetToolkit.Input.Mouse;
 using UniversalWidgetToolkit.Layouts;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
@@ -41,15 +42,11 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			return _er;
 		}
 
-		public override void Copy()
+		protected override EditorSelection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}
-		public override void Delete()
-		{
-			throw new NotImplementedException();
-		}
-		public override void Paste()
+		public override void UpdateSelections()
 		{
 			throw new NotImplementedException();
 		}
@@ -75,6 +72,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[1], "Physical address"));
 			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[2], "Virtual address"));
 			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[3], "Size"));
+			tvSections.BeforeContextMenu += tvSections_BeforeContextMenu;
 
 			tbs = new TabContainer();
 			TabPage tabSections = new TabPage("Sections (0)");
@@ -110,8 +108,69 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			tbs.TabPages.Add(tabManagedAssembly);
 
 
+			this.contextMenuItemSelected = new Menu();
+			this.contextMenuItemSelected.Items.AddRange(new UniversalWidgetToolkit.MenuItem[]
+			{
+				new UniversalWidgetToolkit.CommandMenuItem("_Copy to", null, ContextMenu_CopyTo_Click)
+			});
+
+
 			this.Controls.Add(tbs, new BoxLayout.Constraints(true, true));
 		}
+
+		private void ContextMenu_CopyTo_Click(object sender, EventArgs e)
+		{
+			FileDialog fd = new FileDialog();
+			if (tvSections.SelectedRows.Count == 1)
+			{
+				fd.Mode = FileDialogMode.Save;
+
+				ExecutableSection section = tvSections.SelectedRows[0].GetExtraData<ExecutableSection>("section");
+				fd.SelectedFileNames.Add(section.Name);
+
+				if (fd.ShowDialog() == DialogResult.OK)
+				{
+					System.IO.File.WriteAllBytes(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1], section.Data);
+				}
+			}
+			else if (tvSections.SelectedRows.Count > 1)
+			{
+				// select a folder
+				fd.Mode = FileDialogMode.SelectFolder;
+
+				if (fd.ShowDialog() == DialogResult.OK)
+				{
+					foreach (TreeModelRow row in tvSections.SelectedRows)
+					{
+						ExecutableSection section = tvSections.SelectedRows[0].GetExtraData<ExecutableSection>("section");
+						System.IO.File.WriteAllBytes(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1] + System.IO.Path.DirectorySeparatorChar.ToString() + section.Name, section.Data);
+					}
+				}
+			}
+		}
+
+		private Menu contextMenuItemSelected = null;
+		void tvSections_BeforeContextMenu(object sender, EventArgs e)
+		{
+			bool selected = tvSections.SelectedRows.Count > 0;
+			if (e is MouseEventArgs)
+			{
+				MouseEventArgs ee = (e as MouseEventArgs);
+				ListViewHitTestInfo lvih = tvSections.HitTest(ee.X, ee.Y);
+				if (lvih.Row == null)
+					selected = false;
+			}
+
+			if (selected)
+			{
+				tvSections.ContextMenu = contextMenuItemSelected;
+			}
+			else
+			{
+				tvSections.ContextMenu = null;
+			}
+		}
+
 
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
@@ -137,6 +196,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 					new TreeModelRowColumn(tmSections.Columns[2], section.VirtualAddress.ToString()),
 					new TreeModelRowColumn(tmSections.Columns[3], section.VirtualSize.ToString())
 				}));
+				tmSections.Rows[tmSections.Rows.Count - 1].SetExtraData<ExecutableSection>("section", section);
 			}
 
 			if (executable.ManagedAssembly != null)
