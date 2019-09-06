@@ -6,19 +6,13 @@ namespace UniversalEditor.Editors.FamilyTree
 {
 	public class FamilyTreeEditor : Editor
 	{
-		public override void Copy ()
+		public override void UpdateSelections()
 		{
-			throw new System.NotImplementedException ();
+			throw new NotImplementedException();
 		}
-
-		public override void Delete ()
+		protected override EditorSelection CreateSelectionInternal(object content)
 		{
-			throw new System.NotImplementedException ();
-		}
-
-		public override void Paste ()
-		{
-			throw new System.NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
 		private static EditorReference _er = null;

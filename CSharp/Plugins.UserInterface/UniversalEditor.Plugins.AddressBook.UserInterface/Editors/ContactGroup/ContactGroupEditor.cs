@@ -9,17 +9,14 @@ namespace UniversalEditor.Plugins.AddressBook.UserInterface.Editors.ContactGroup
 		{
 		}
 
-		public override void Copy ()
+		public override void UpdateSelections()
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
-		public override void Paste ()
+
+		protected override EditorSelection CreateSelectionInternal(object content)
 		{
-			throw new NotImplementedException ();
-		}
-		public override void Delete ()
-		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 	}
 }

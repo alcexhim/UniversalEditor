@@ -42,25 +42,20 @@ namespace UniversalEditor.Editors.Multimedia.Picture
 			return _er;
 		}
 
-		public override void Copy()
-		{
-			throw new NotImplementedException();
-		}
-
-		public override void Delete()
-		{
-			throw new NotImplementedException();
-		}
-
-		public override void Paste()
-		{
-			throw new NotImplementedException();
-		}
-
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);
 			this.da.Picture = (this.ObjectModel as PictureObjectModel);
+		}
+
+		public override void UpdateSelections()
+		{
+			throw new NotImplementedException();
+		}
+
+		protected override EditorSelection CreateSelectionInternal(object content)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
