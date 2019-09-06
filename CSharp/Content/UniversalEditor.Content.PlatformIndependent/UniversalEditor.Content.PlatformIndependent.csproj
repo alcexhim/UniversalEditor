@@ -637,6 +637,7 @@
     <Content Include="Dialogs\DocumentPropertiesDialog.glade" />
     <Content Include="Panels\StartPage.glade" />
     <Content Include="Extensions\FamilyTreeMaker\Associations\FTW.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\NewWorldComputing\AGG.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -649,6 +650,7 @@
     <Folder Include="Extensions\Microsoft\Associations\" />
     <Folder Include="Extensions\FamilyTreeMaker\" />
     <Folder Include="Extensions\FamilyTreeMaker\Associations\" />
+    <Folder Include="Extensions\FileSystem\Associations\NewWorldComputing\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

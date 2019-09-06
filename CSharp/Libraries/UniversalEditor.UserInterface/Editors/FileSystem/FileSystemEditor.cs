@@ -24,6 +24,7 @@ using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
 
 using UniversalWidgetToolkit;
+using UniversalWidgetToolkit.Dialogs;
 using UniversalWidgetToolkit.DragDrop;
 using UniversalWidgetToolkit.Input.Keyboard;
 using UniversalWidgetToolkit.Input.Mouse;
@@ -161,6 +162,82 @@ namespace UniversalEditor.Editors.FileSystem
 			foreach (File f in fsom.Files)
 			{
 				RecursiveAddFile(f, null);
+			}
+		}
+
+		void ContextMenuCopyTo_Click(object sender, EventArgs e)
+		{
+			// extract files
+			if (tv.SelectedRows.Count == 1)
+			{
+				UIExtractFileSystemObject(tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item"));
+			}
+			else if (tv.SelectedRows.Count > 1)
+			{
+				FileDialog fd = new FileDialog();
+				fd.Mode = FileDialogMode.SelectFolder;
+				fd.MultiSelect = false;
+				foreach (TreeModelRow row in tv.SelectedRows)
+				{
+				}
+			}
+		}
+
+		private void UIExtractFileSystemObject(IFileSystemObject fso)
+		{
+			FileDialog fd = new FileDialog();
+			if (fso is File)
+			{
+				File f = (fso as File);
+				/*
+				if (System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + System.IO.Path.DirectorySeparatorChar.ToString() + f.Name))
+				{
+					fd.SelectedFileNames.Add(System.IO.Directory.GetCurrentDirectory() + System.IO.Path.DirectorySeparatorChar.ToString() + f.Name);
+				}
+				else
+				{
+				*/			
+				fd.SelectedFileNames.Add(f.Name);
+				//}
+				fd.Mode = FileDialogMode.Save;
+				fd.MultiSelect = false;
+				if (fd.ShowDialog() == DialogResult.OK)
+				{
+					System.IO.File.WriteAllBytes(fd.SelectedFileNames[0], f.GetData());
+				}
+			}
+			else if (fso is Folder)
+			{
+				Folder f = (fso as Folder);
+				fd.SelectedFileNames.Add(f.Name);
+				fd.Mode = FileDialogMode.CreateFolder;
+				fd.MultiSelect = false;
+				if (fd.ShowDialog() == DialogResult.OK)
+				{
+					System.IO.Directory.CreateDirectory(fd.SelectedFileNames[0]);
+					// TODO: implement this
+				}
+			}
+		}
+
+		void tv_BeforeContextMenu(object sender, EventArgs e)
+		{
+			TreeModelRow row = null;
+			if (e is MouseEventArgs)
+			{
+				MouseEventArgs ee = (e as MouseEventArgs);
+				ListViewHitTestInfo info = tv.HitTest(ee.X, ee.Y);
+				if (info != null)
+					row = info.Row;
+			}
+
+			if (row != null)
+			{
+				tv.ContextMenu = contextMenuSelected;
+			}
+			else
+			{
+				tv.ContextMenu = contextMenuUnselected;
 			}
 		}
 	}

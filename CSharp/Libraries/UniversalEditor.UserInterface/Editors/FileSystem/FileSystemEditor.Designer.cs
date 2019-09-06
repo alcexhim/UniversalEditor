@@ -92,10 +92,16 @@ namespace UniversalEditor.Editors.FileSystem
 			{
 				new CommandMenuItem("_Open"),
 				new SeparatorMenuItem(),
+				new CommandMenuItem("Open in New _Tab"),
+				new CommandMenuItem("Open in New _Window"),
+				new SeparatorMenuItem(),
 				new CommandMenuItem("Se_nd to"),
 				new SeparatorMenuItem(),
 				new CommandMenuItem("Cu_t"),
 				new CommandMenuItem("_Copy"),
+				new SeparatorMenuItem(),
+				new CommandMenuItem("Move to..."),
+				new CommandMenuItem("Copy to...", null, ContextMenuCopyTo_Click),
 				new SeparatorMenuItem(),
 				new CommandMenuItem("Create _shortcut"),
 				new CommandMenuItem("_Delete"),
@@ -112,27 +118,6 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.Columns.Add(new ListViewColumnText(tmTreeView.Columns[3], "Date modified"));
 
 			this.Controls.Add(this.tv, new BoxLayout.Constraints(true, true));
-		}
-
-		void tv_BeforeContextMenu(object sender, EventArgs e)
-		{
-			TreeModelRow row = null;
-			if (e is MouseEventArgs)
-			{
-				MouseEventArgs ee = (e as MouseEventArgs);
-				ListViewHitTestInfo info = tv.HitTest(ee.X, ee.Y);
-				if (info != null)
-					row = info.Row;
-			}
-
-			if (row != null)
-			{
-				tv.ContextMenu = contextMenuSelected;
-			}
-			else
-			{
-				tv.ContextMenu = contextMenuUnselected;
-			}
 		}
 
 	}
