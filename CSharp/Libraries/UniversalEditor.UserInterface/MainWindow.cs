@@ -363,10 +363,7 @@ namespace UniversalEditor.UserInterface
 			Console.WriteLine("found {0} editors for object model {1}", editors.Length.ToString(), doc.ObjectModel.ToString());
 			if (editors.Length > 0)
 			{
-				doc.Accessor.Open();
-				doc.Load();
-				//doc.Close();
-
+				// no need to open and load file, it's already been done
 				Editor editor = editors[0].Create();
 				EditorPage page = new EditorPage();
 				page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
