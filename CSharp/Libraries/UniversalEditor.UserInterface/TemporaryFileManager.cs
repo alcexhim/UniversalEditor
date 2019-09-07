@@ -43,6 +43,26 @@ namespace UniversalEditor.UserInterface
 			return filePath;
 		}
 
+		public static bool RegisterTemporaryDirectory()
+		{
+			while (true)
+			{
+				string pathName = System.IO.Path.GetRandomFileName();
+				string path = System.IO.Path.Combine(new string[]
+				{
+					System.IO.Path.GetTempPath(),
+					pathName
+				});
+
+				if (!System.IO.Directory.Exists(path))
+				{
+					System.IO.Directory.CreateDirectory(path);
+
+					mvarTemporaryFilePath = path;
+					return true;
+				}
+			}
+		}
 		public static bool RegisterTemporaryDirectory(string prefix, int maxNameLength)
 		{
 			if (mvarTemporaryFilePath != null)

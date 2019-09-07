@@ -1403,6 +1403,8 @@ namespace UniversalEditor.UserInterface
 			// overridden with a switch (/basepath:...) ?
 			mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
+			TemporaryFileManager.RegisterTemporaryDirectory();
+
 			BeforeInitialization();
 
 			// Initialize the branding for the selected application
@@ -1421,6 +1423,8 @@ namespace UniversalEditor.UserInterface
 			BookmarksManager.Save();
 			RecentFileManager.Save();
 			ConfigurationManager.Save();
+
+			TemporaryFileManager.UnregisterTemporaryDirectory();
 		}
 		public void RestartApplication()
 		{
