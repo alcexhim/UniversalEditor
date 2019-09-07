@@ -22,6 +22,8 @@ using System;
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Drawing;
 
+using MBS.Framework.Drawing;
+
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.Controls.DrawingArea
@@ -48,7 +50,15 @@ namespace UniversalEditor.Controls.DrawingArea
 			else
 			{
 				Console.WriteLine("new picture dimensions {0}x{1}", mvarPicture.Width, mvarPicture.Height);
-				e.Graphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, mvarPicture.Width, mvarPicture.Height));
+				for (int x = 0; x < mvarPicture.Width; x++)
+				{
+					for (int y = 0; y < mvarPicture.Height; y++)
+					{
+						Color c = mvarPicture.GetPixel(x, y);
+						e.Graphics.DrawLine(new Pen(c), x, y, x + 1, y + 1);
+					}
+				}
+				// e.Graphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, mvarPicture.Width, mvarPicture.Height));
 			}
 		}
 	}
