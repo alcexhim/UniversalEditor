@@ -639,6 +639,7 @@
     <Content Include="Extensions\FamilyTreeMaker\Associations\FTW.uexml" />
     <Content Include="Extensions\FileSystem\Associations\NewWorldComputing\AGG.uexml" />
     <Content Include="Extensions\FileSystem\Associations\Apogee\DLT.uexml" />
+    <Content Include="Extensions\GraphicDesigner\Associations\Picture\PCX.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

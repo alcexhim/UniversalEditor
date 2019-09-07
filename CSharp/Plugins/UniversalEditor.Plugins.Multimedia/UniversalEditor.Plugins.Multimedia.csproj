@@ -301,6 +301,8 @@
     <Compile Include="DataFormats\Multimedia\Video\ROQ\ROQDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Video\THP\THPDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\BluRay\MPLSDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\ZSoft\PCXDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\ZSoft\PCXHeader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -342,6 +344,9 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataFormats\Multimedia\Picture\ZSoft\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

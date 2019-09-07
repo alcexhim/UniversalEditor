@@ -131,11 +131,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			return omr;
 		}
 
-		public void SetPixel(object p, int x, int y)
-		{
-			throw new NotImplementedException();
-		}
-
 		public override void Clear()
 		{
 			ColorMap.Clear();
