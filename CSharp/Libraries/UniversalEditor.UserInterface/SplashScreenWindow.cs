@@ -36,7 +36,7 @@ namespace UniversalEditor.UserInterface
 			this.Size = new Dimension2D(300, 300);
 			this.StartPosition = WindowStartPosition.Center;
 			
-			Image image = new Image();
+			PictureFrame image = new PictureFrame();
 			image.IconName = "universal-editor";
 			image.IconSize = new Dimension2D(128, 128);
 			
