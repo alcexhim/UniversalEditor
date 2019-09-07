@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-
+using System.Collections.Generic;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
 
@@ -53,22 +53,31 @@ namespace UniversalEditor.Editors.FileSystem
 
 		protected override void OnCreated(EventArgs e)
 		{
+			// FIXME: this is GTK-specific...
 			this.tv.RegisterDragSource(new DragDropTarget[]
 			{
-				new DragDropTarget("STRING", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x0)
+				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x0)
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 
 			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
 		}
+
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
 		{
 			if (tv.SelectedRows.Count == 0) return;
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+			List<string> list = new List<string>();
 			for (int i = 0; i < tv.SelectedRows.Count; i++)
 			{
-				sb.AppendLine("file:///tmp/test/" + tv.SelectedRows[i].RowColumns[0].Value.ToString());
+				IFileSystemObject fso = tv.SelectedRows[i].GetExtraData<IFileSystemObject>("item");
+				if (fso is File)
+				{
+					string wTmpFile = TemporaryFileManager.CreateTemporaryFile(tv.SelectedRows[i].RowColumns[0].Value.ToString(), (fso as File).GetData());
+					list.Add(String.Format("file://{0}", wTmpFile));
+				}
 			}
-			e.Data = sb.ToString();
+			e.Data = list.ToArray();
 		}
 
 		protected override EditorSelection CreateSelectionInternal(object content)
@@ -196,7 +205,7 @@ namespace UniversalEditor.Editors.FileSystem
 				}
 				else
 				{
-				*/			
+				*/
 				fd.SelectedFileNames.Add(f.Name);
 				//}
 				fd.Mode = FileDialogMode.Save;
