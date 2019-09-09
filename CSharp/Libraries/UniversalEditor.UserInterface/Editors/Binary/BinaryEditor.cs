@@ -26,6 +26,7 @@ using UniversalEditor.UserInterface;
 using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
 using UniversalWidgetToolkit.Controls.HexEditor;
+using UniversalWidgetToolkit.Dialogs;
 using UniversalWidgetToolkit.Layouts;
 
 namespace UniversalEditor.Editors.Binary
@@ -55,21 +56,21 @@ namespace UniversalEditor.Editors.Binary
 
 		private HexEditorControl hexedit = null;
 		private Container conversionPanel = null;
-
-		private Label lblSigned8Bit = null;
-		private TextBox txtSigned8Bit = null;
+		private TabContainer tabs = null;
 
 		private struct CONVERSION_DATA
 		{
 			public string Label;
-			public Func<byte[], string> ConversionFunc;
+			public Func<byte[], string> ByteToStringFunc;
+			public Func<string, byte[]> StringToByteFunc;
 			public TextBox TextBox;
 			public int MaximumSize;
 
-			public CONVERSION_DATA(string label, Func<byte[], string> conversionFunc, int maximumSize)
+			public CONVERSION_DATA(string label, Func<byte[], string> byteToStringFunc, Func<string, byte[]> stringToByteFunc, int maximumSize)
 			{
 				Label = label;
-				ConversionFunc = conversionFunc;
+				ByteToStringFunc = byteToStringFunc;
+				StringToByteFunc = stringToByteFunc;
 				TextBox = null;
 				MaximumSize = maximumSize;
 			}
@@ -84,6 +85,10 @@ namespace UniversalEditor.Editors.Binary
 
 				sbyte b = (sbyte)input[0];
 				return b.ToString();
+			}, delegate(string input)
+			{
+				sbyte b = SByte.Parse(input);
+				return new byte[] { (byte)b };
 			}, 1),
 			new CONVERSION_DATA("Unsigned 8-bit", delegate(byte[] input)
 			{
@@ -92,6 +97,10 @@ namespace UniversalEditor.Editors.Binary
 
 				byte b = input[0];
 				return b.ToString();
+			}, delegate(string input)
+			{
+				byte b = Byte.Parse(input);
+				return new byte[] { b };
 			}, 1),
 			new CONVERSION_DATA("Signed 16-bit", delegate(byte[] input)
 			{
@@ -100,6 +109,10 @@ namespace UniversalEditor.Editors.Binary
 
 				short b = BitConverter.ToInt16(input, 0);
 				return b.ToString();
+			}, delegate(string input)
+			{
+				short b = Int16.Parse(input);
+				return BitConverter.GetBytes(b);
 			}, 2),
 			new CONVERSION_DATA("Unsigned 16-bit", delegate(byte[] input)
 			{
@@ -108,6 +121,10 @@ namespace UniversalEditor.Editors.Binary
 
 				ushort b = BitConverter.ToUInt16(input, 0);
 				return b.ToString();
+			}, delegate(string input)
+			{
+				ushort b = UInt16.Parse(input);
+				return BitConverter.GetBytes(b);
 			}, 2),
 			// Second column
 			new CONVERSION_DATA("Signed 32-bit", delegate(byte[] input)
@@ -117,6 +134,10 @@ namespace UniversalEditor.Editors.Binary
 
 				int b = BitConverter.ToInt32(input, 0);
 				return b.ToString();
+			}, delegate(string input)
+			{
+				int b = Int32.Parse(input);
+				return BitConverter.GetBytes(b);
 			}, 4),
 			new CONVERSION_DATA("Unsigned 32-bit", delegate(byte[] input)
 			{
@@ -125,6 +146,13 @@ namespace UniversalEditor.Editors.Binary
 
 				uint b = BitConverter.ToUInt32(input, 0);
 				return b.ToString();
+			}, delegate(string input)
+			{
+				if (input.Length < 2)
+					return null;
+
+				uint b = UInt32.Parse(input, 0);
+				return BitConverter.GetBytes(b);
 			}, 4),
 			new CONVERSION_DATA("Float 32-bit", delegate(byte[] input)
 			{
@@ -133,6 +161,13 @@ namespace UniversalEditor.Editors.Binary
 
 				float b = BitConverter.ToSingle(input, 0);
 				return b.ToString();
+			}, delegate(string input)
+			{
+				if (input.Length < 2)
+					return null;
+
+				float b = Single.Parse(input);
+				return BitConverter.GetBytes(b);
 			}, 4),
 			new CONVERSION_DATA("Float 64-bit", delegate(byte[] input)
 			{
@@ -141,6 +176,10 @@ namespace UniversalEditor.Editors.Binary
 
 				double b = BitConverter.ToDouble(input, 0);
 				return b.ToString();
+			}, delegate(string input)
+			{
+				double b = Double.Parse(input);
+				return BitConverter.GetBytes(b);
 			}, 8),
 			// Third column
 			new CONVERSION_DATA("Hexadecimal", delegate(byte[] input)
@@ -157,6 +196,10 @@ namespace UniversalEditor.Editors.Binary
 						sb.Append(' ');
 				}
 				return sb.ToString();
+			}, delegate(string input)
+			{
+				// unsupported right now
+				return null;
 			}, 4),
 			new CONVERSION_DATA("Decimal", delegate(byte[] input)
 			{
@@ -172,6 +215,10 @@ namespace UniversalEditor.Editors.Binary
 						sb.Append(' ');
 				}
 				return sb.ToString();
+			}, delegate(string input)
+			{
+				// unsupported right now
+				return null;
 			}, 4),
 			new CONVERSION_DATA("Octal", delegate(byte[] input)
 			{
@@ -187,6 +234,10 @@ namespace UniversalEditor.Editors.Binary
 						sb.Append(' ');
 				}
 				return sb.ToString();
+			}, delegate(string input)
+			{
+				// unsupported right now
+				return null;
 			}, 4),
 			new CONVERSION_DATA("Binary", delegate(byte[] input)
 			{
@@ -202,6 +253,10 @@ namespace UniversalEditor.Editors.Binary
 						sb.Append(' ');
 				}
 				return sb.ToString();
+			}, delegate(string input)
+			{
+				// unsupported right now
+				return null;
 			}, 4)
 		};
 
@@ -226,6 +281,7 @@ namespace UniversalEditor.Editors.Binary
 				TextBox txt = new TextBox();
 				txt.GotFocus += Txt_GotFocus;
 				txt.LostFocus += Txt_LostFocus;
+				txt.KeyDown += Txt_KeyDown;
 				txt.Text = "---";
 				this.conversionPanel.Controls.Add(txt, new GridLayout.Constraints(r, c + 1));
 				converters[i].TextBox = txt;
@@ -242,8 +298,50 @@ namespace UniversalEditor.Editors.Binary
 				}
 			}
 
-			this.Controls.Add(conversionPanel, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.End));
+			this.tabs = new TabContainer();
+
+			TabPage tabPageConverters = new TabPage();
+			tabPageConverters.Layout = new BoxLayout(Orientation.Horizontal);
+			tabPageConverters.Text = "Numeric Conversion";
+			tabPageConverters.Controls.Add(this.conversionPanel);
+
+			this.tabs.TabPages.Add(tabPageConverters);
+
+			this.Controls.Add(tabs, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.End));
 		}
+
+		void Txt_KeyDown(object sender, UniversalWidgetToolkit.Input.Keyboard.KeyEventArgs e)
+		{
+			if (e.Key == UniversalWidgetToolkit.Input.Keyboard.KeyboardKey.Enter)
+			{
+				TextBox ctl = sender as TextBox;
+				CONVERSION_DATA converter = ctl.GetExtraData<CONVERSION_DATA>("converter");
+
+				byte[] data = null;
+				try
+				{
+					data = converter.StringToByteFunc(ctl.Text);
+				}
+				catch (Exception ex)
+				{
+					MessageDialog.ShowDialog(ex.Message, "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				}
+
+				if (data != null)
+				{
+					Array.Copy(data, 0, hexedit.Data, hexedit.SelectionStart.ByteIndex, data.Length);
+					Refresh();
+				}
+				else
+				{
+					data = new byte[Math.Min(hexedit.Data.Length - hexedit.SelectionStart.ByteIndex, 8)];
+					Array.Copy(hexedit.Data, hexedit.SelectionStart.ByteIndex, data, 0, data.Length);
+
+					ctl.Text = converter.ByteToStringFunc(data);
+				}
+			}
+		}
+
 
 		void Txt_LostFocus(object sender, EventArgs e)
 		{
@@ -277,7 +375,7 @@ namespace UniversalEditor.Editors.Binary
 			for (int i = 0; i < converters.Length; i++)
 			{
 				if (converters[i].TextBox != null)
-					converters[i].TextBox.Text = converters[i].ConversionFunc(data);
+					converters[i].TextBox.Text = converters[i].ByteToStringFunc(data);
 			}
 		}
 
