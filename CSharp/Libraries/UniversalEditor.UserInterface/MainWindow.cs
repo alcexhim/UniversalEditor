@@ -434,10 +434,13 @@ namespace UniversalEditor.UserInterface
 			InitDocTab("Start Page", lblStartPage);
 		}
 
+		private int documentWindowCount = 0;
 		private void InitDocTab(string title, Control content)
 		{
 			DockingItem item = new DockingItem(title, content);
 			dckContainer.Items.Add(item);
+
+			documentWindowCount++;
 		}
 
 		private void MainWindow_MenuBar_Item_Click(object sender, EventArgs e)
@@ -642,8 +645,9 @@ namespace UniversalEditor.UserInterface
 			if (dckContainer.CurrentItem != null)
 			{
 				dckContainer.Items.Remove(dckContainer.CurrentItem);
+				documentWindowCount--;
 			}
-			if (this.Windows.Count == 0)
+			if (documentWindowCount == 0)
 			{
 				CloseWindow ();
 			}
