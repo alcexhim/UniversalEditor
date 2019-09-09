@@ -165,6 +165,7 @@
     <Compile Include="DataFormats\PropertyList\JavaScriptObjectNotation\JSONDataFormat.cs" />
     <Compile Include="ObjectModels\FileSystem\FileSources\CompressedEmbeddedFileSource.cs" />
     <Compile Include="ObjectModels\PropertyList\IPropertyListContainer.cs" />
+    <Compile Include="ObjectModels\Binary\BinaryObjectModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -179,6 +180,7 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="DataFormats\PropertyList\JavaScriptObjectNotation\" />
+    <Folder Include="ObjectModels\Binary\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -118,6 +118,7 @@
     <Compile Include="Editors\Text\TextEditorSelection.cs" />
     <Compile Include="Editors\FileSystem\FileSystemSelection.cs" />
     <Compile Include="Editors\Text\TextEditor.cs" />
+    <Compile Include="Editors\Binary\BinaryEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -168,6 +169,7 @@
     <Folder Include="Editors\FileSystem\" />
     <Folder Include="Editors\PropertyList\" />
     <Folder Include="Controls\" />
+    <Folder Include="Editors\Binary\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

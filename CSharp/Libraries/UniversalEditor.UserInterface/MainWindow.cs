@@ -25,6 +25,7 @@ using UniversalWidgetToolkit.Controls.Ribbon;
 using UniversalEditor.Printing;
 using UniversalWidgetToolkit.Printing;
 using UniversalEditor.UserInterface.Pages;
+using UniversalEditor.ObjectModels.Binary;
 
 namespace UniversalEditor.UserInterface
 {
@@ -379,13 +380,14 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		private EditorReference DefaultEditor = new EditorReference(typeof(Editors.Text.Plain.PlainTextEditor));
+		private EditorReference DefaultEditor = new EditorReference(typeof(Editors.Binary.BinaryEditor));
 		private void OpenDefaultEditor(string filename)
 		{
 			if (DefaultEditor == null) return;
 
 			Editor ed = DefaultEditor.Create();
 
+			/*
 			PlainTextObjectModel om1 = new PlainTextObjectModel();
 			if (System.IO.File.Exists(filename))
 			{
@@ -394,6 +396,19 @@ namespace UniversalEditor.UserInterface
 				{
 					String content = System.IO.File.ReadAllText(filename);
 					om1.Text = content;
+				}
+			}
+			ed.ObjectModel = om1;
+			*/
+
+			BinaryObjectModel om1 = new BinaryObjectModel();
+			if (System.IO.File.Exists(filename))
+			{
+				System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+				if (fi.Length < Math.Pow(1024, 2))
+				{
+					byte[] content = System.IO.File.ReadAllBytes(filename);
+					om1.Data = content;
 				}
 			}
 			ed.ObjectModel = om1;
