@@ -65,9 +65,11 @@ namespace UniversalEditor.Editors.Binary
 			public Func<string, byte[]> StringToByteFunc;
 			public TextBox TextBox;
 			public int MaximumSize;
+			public Type DataType;
 
-			public CONVERSION_DATA(string label, Func<byte[], string> byteToStringFunc, Func<string, byte[]> stringToByteFunc, int maximumSize)
+			public CONVERSION_DATA(Type dataType, string label, Func<byte[], string> byteToStringFunc, Func<string, byte[]> stringToByteFunc, int maximumSize)
 			{
+				DataType = dataType;
 				Label = label;
 				ByteToStringFunc = byteToStringFunc;
 				StringToByteFunc = stringToByteFunc;
@@ -78,7 +80,7 @@ namespace UniversalEditor.Editors.Binary
 
 		private CONVERSION_DATA[] converters = new CONVERSION_DATA[]
 		{
-			new CONVERSION_DATA("Signed 8-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(sbyte), "Signed 8-bit", delegate(byte[] input)
 			{
 				if (input.Length < 1)
 					return null;
@@ -87,10 +89,21 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
-				sbyte b = SByte.Parse(input);
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				sbyte b = SByte.Parse(input, ns);
 				return new byte[] { (byte)b };
 			}, 1),
-			new CONVERSION_DATA("Unsigned 8-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(byte), "Unsigned 8-bit", delegate(byte[] input)
 			{
 				if (input.Length < 1)
 					return null;
@@ -99,10 +112,21 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
 				byte b = Byte.Parse(input);
 				return new byte[] { b };
 			}, 1),
-			new CONVERSION_DATA("Signed 16-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(short), "Signed 16-bit", delegate(byte[] input)
 			{
 				if (input.Length < 2)
 					return null;
@@ -111,10 +135,21 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
 				short b = Int16.Parse(input);
 				return BitConverter.GetBytes(b);
 			}, 2),
-			new CONVERSION_DATA("Unsigned 16-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(ushort), "Unsigned 16-bit", delegate(byte[] input)
 			{
 				if (input.Length < 2)
 					return null;
@@ -123,11 +158,22 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
 				ushort b = UInt16.Parse(input);
 				return BitConverter.GetBytes(b);
 			}, 2),
 			// Second column
-			new CONVERSION_DATA("Signed 32-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(int), "Signed 32-bit", delegate(byte[] input)
 			{
 				if (input.Length < 4)
 					return null;
@@ -136,10 +182,21 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
 				int b = Int32.Parse(input);
 				return BitConverter.GetBytes(b);
 			}, 4),
-			new CONVERSION_DATA("Unsigned 32-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(uint), "Unsigned 32-bit", delegate(byte[] input)
 			{
 				if (input.Length < 4)
 					return null;
@@ -148,13 +205,22 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
-				if (input.Length < 2)
-					return null;
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
 
 				uint b = UInt32.Parse(input, 0);
 				return BitConverter.GetBytes(b);
 			}, 4),
-			new CONVERSION_DATA("Float 32-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(float), "Float 32-bit", delegate(byte[] input)
 			{
 				if (input.Length < 4)
 					return null;
@@ -163,13 +229,22 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
-				if (input.Length < 2)
-					return null;
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
 
 				float b = Single.Parse(input);
 				return BitConverter.GetBytes(b);
 			}, 4),
-			new CONVERSION_DATA("Float 64-bit", delegate(byte[] input)
+			new CONVERSION_DATA(typeof(double), "Float 64-bit", delegate(byte[] input)
 			{
 				if (input.Length < 8)
 					return null;
@@ -178,11 +253,22 @@ namespace UniversalEditor.Editors.Binary
 				return b.ToString();
 			}, delegate(string input)
 			{
+				System.Globalization.NumberStyles ns = System.Globalization.NumberStyles.None;
+				if (input.StartsWith("&H") && input.EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
+				else if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+					ns |= System.Globalization.NumberStyles.HexNumber;
+				}
 				double b = Double.Parse(input);
 				return BitConverter.GetBytes(b);
 			}, 8),
 			// Third column
-			new CONVERSION_DATA("Hexadecimal", delegate(byte[] input)
+			new CONVERSION_DATA(null, "Hexadecimal", delegate(byte[] input)
 			{
 				StringBuilder sb = new StringBuilder();
 				if (input.Length < 1)
@@ -201,7 +287,7 @@ namespace UniversalEditor.Editors.Binary
 				// unsupported right now
 				return null;
 			}, 4),
-			new CONVERSION_DATA("Decimal", delegate(byte[] input)
+			new CONVERSION_DATA(null, "Decimal", delegate(byte[] input)
 			{
 				StringBuilder sb = new StringBuilder();
 				if (input.Length < 1)
@@ -220,7 +306,7 @@ namespace UniversalEditor.Editors.Binary
 				// unsupported right now
 				return null;
 			}, 4),
-			new CONVERSION_DATA("Octal", delegate(byte[] input)
+			new CONVERSION_DATA(null, "Octal", delegate(byte[] input)
 			{
 				StringBuilder sb = new StringBuilder();
 				if (input.Length < 1)
@@ -239,7 +325,7 @@ namespace UniversalEditor.Editors.Binary
 				// unsupported right now
 				return null;
 			}, 4),
-			new CONVERSION_DATA("Binary", delegate(byte[] input)
+			new CONVERSION_DATA(null, "Binary", delegate(byte[] input)
 			{
 				StringBuilder sb = new StringBuilder();
 				if (input.Length < 1)
@@ -324,7 +410,29 @@ namespace UniversalEditor.Editors.Binary
 				}
 				catch (Exception ex)
 				{
-					MessageDialog.ShowDialog(ex.Message, "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+					StringBuilder sb = new StringBuilder();
+					if (converter.DataType != null)
+					{
+						object minValue = null;
+						object maxValue = null;
+
+						System.Reflection.FieldInfo fiMaxValue = converter.DataType.GetField("MaxValue");
+						System.Reflection.FieldInfo fiMinValue = converter.DataType.GetField("MinValue");
+
+						if (!(ex is OverflowException) || (fiMinValue == null || fiMaxValue == null))
+						{
+							sb.AppendLine(ex.Message);
+							sb.AppendLine();
+						}
+
+						if (fiMinValue != null && fiMaxValue != null)
+						{
+							minValue = fiMinValue.GetValue(null);
+							maxValue = fiMaxValue.GetValue(null);
+							sb.AppendLine(String.Format("Value for {0} must be between {1} and {2}", converter.DataType.Name, minValue, maxValue));
+						}
+					}
+					MessageDialog.ShowDialog(sb.ToString(), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
 				}
 
 				if (data != null)
@@ -336,9 +444,10 @@ namespace UniversalEditor.Editors.Binary
 				{
 					data = new byte[Math.Min(hexedit.Data.Length - hexedit.SelectionStart.ByteIndex, 8)];
 					Array.Copy(hexedit.Data, hexedit.SelectionStart.ByteIndex, data, 0, data.Length);
-
-					ctl.Text = converter.ByteToStringFunc(data);
 				}
+
+				// update the rest of the converters
+				Hexedit_SelectionChanged(sender, e);
 			}
 		}
 
