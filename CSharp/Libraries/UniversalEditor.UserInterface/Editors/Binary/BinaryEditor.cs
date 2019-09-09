@@ -58,6 +58,10 @@ namespace UniversalEditor.Editors.Binary
 		private Container conversionPanel = null;
 		private TabContainer tabs = null;
 
+		private Toolbar tbFieldDefinitions;
+		private ListView lvFieldDefinitions;
+		private DefaultTreeModel tmFieldDefinitions;
+
 		private struct CONVERSION_DATA
 		{
 			public string Label;
@@ -387,11 +391,34 @@ namespace UniversalEditor.Editors.Binary
 			this.tabs = new TabContainer();
 
 			TabPage tabPageConverters = new TabPage();
-			tabPageConverters.Layout = new BoxLayout(Orientation.Horizontal);
+			tabPageConverters.Layout = new BoxLayout(Orientation.Vertical);
 			tabPageConverters.Text = "Numeric Conversion";
 			tabPageConverters.Controls.Add(this.conversionPanel);
-
 			this.tabs.TabPages.Add(tabPageConverters);
+
+			TabPage tabPageFields = new TabPage();
+			tabPageFields.Layout = new BoxLayout(Orientation.Vertical);
+			tabPageFields.Text = "Field Definitions";
+
+			this.tbFieldDefinitions = new Toolbar();
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionAdd", StockType.Add));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionEdit", StockType.Edit));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionRemove", StockType.Remove));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemSeparator());
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionLoadFromDefinition", "Open Definition File"));
+			tabPageFields.Controls.Add(this.tbFieldDefinitions, new BoxLayout.Constraints(false, true));
+
+			this.tmFieldDefinitions = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
+
+			this.lvFieldDefinitions = new ListView();
+			this.lvFieldDefinitions.Model = tmFieldDefinitions;
+			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[0], "Name"));
+			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[1], "Offset"));
+			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[2], "Size"));
+			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[3], "Color"));
+			tabPageFields.Controls.Add(this.lvFieldDefinitions, new BoxLayout.Constraints(true, true));
+			this.tabs.TabPages.Add(tabPageFields);
+
 
 			this.Controls.Add(tabs, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.End));
 		}
