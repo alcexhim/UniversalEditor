@@ -367,6 +367,7 @@ namespace UniversalEditor.Editors.Binary
 			{
 				Label lbl = new Label();
 				lbl.Text = converters[i].Label;
+				lbl.HorizontalAlignment = HorizontalAlignment.Right;
 				this.conversionPanel.Controls.Add(lbl, new GridLayout.Constraints(r, c));
 
 				TextBox txt = new TextBox();
