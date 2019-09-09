@@ -119,6 +119,8 @@
     <Compile Include="Editors\FileSystem\FileSystemSelection.cs" />
     <Compile Include="Editors\Text\TextEditor.cs" />
     <Compile Include="Editors\Binary\BinaryEditor.cs" />
+    <Compile Include="Editors\Binary\FieldDefinitionPropertiesDialog.cs" />
+    <Compile Include="Editors\Binary\FieldDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

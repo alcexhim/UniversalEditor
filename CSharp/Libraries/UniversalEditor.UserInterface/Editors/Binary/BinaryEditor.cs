@@ -27,6 +27,7 @@ using UniversalWidgetToolkit;
 using UniversalWidgetToolkit.Controls;
 using UniversalWidgetToolkit.Controls.HexEditor;
 using UniversalWidgetToolkit.Dialogs;
+using UniversalWidgetToolkit.Drawing;
 using UniversalWidgetToolkit.Layouts;
 
 namespace UniversalEditor.Editors.Binary
@@ -127,7 +128,7 @@ namespace UniversalEditor.Editors.Binary
 					input = input.Substring(2);
 					ns |= System.Globalization.NumberStyles.HexNumber;
 				}
-				byte b = Byte.Parse(input);
+				byte b = Byte.Parse(input, ns);
 				return new byte[] { b };
 			}, 1),
 			new CONVERSION_DATA(typeof(short), "Signed 16-bit", delegate(byte[] input)
@@ -150,7 +151,7 @@ namespace UniversalEditor.Editors.Binary
 					input = input.Substring(2);
 					ns |= System.Globalization.NumberStyles.HexNumber;
 				}
-				short b = Int16.Parse(input);
+				short b = Int16.Parse(input, ns);
 				return BitConverter.GetBytes(b);
 			}, 2),
 			new CONVERSION_DATA(typeof(ushort), "Unsigned 16-bit", delegate(byte[] input)
@@ -197,7 +198,7 @@ namespace UniversalEditor.Editors.Binary
 					input = input.Substring(2);
 					ns |= System.Globalization.NumberStyles.HexNumber;
 				}
-				int b = Int32.Parse(input);
+				int b = Int32.Parse(input, ns);
 				return BitConverter.GetBytes(b);
 			}, 4),
 			new CONVERSION_DATA(typeof(uint), "Unsigned 32-bit", delegate(byte[] input)
@@ -221,7 +222,7 @@ namespace UniversalEditor.Editors.Binary
 					ns |= System.Globalization.NumberStyles.HexNumber;
 				}
 
-				uint b = UInt32.Parse(input, 0);
+				uint b = UInt32.Parse(input, ns);
 				return BitConverter.GetBytes(b);
 			}, 4),
 			new CONVERSION_DATA(typeof(float), "Float 32-bit", delegate(byte[] input)
@@ -245,7 +246,7 @@ namespace UniversalEditor.Editors.Binary
 					ns |= System.Globalization.NumberStyles.HexNumber;
 				}
 
-				float b = Single.Parse(input);
+				float b = Single.Parse(input, ns);
 				return BitConverter.GetBytes(b);
 			}, 4),
 			new CONVERSION_DATA(typeof(double), "Float 64-bit", delegate(byte[] input)
@@ -268,7 +269,7 @@ namespace UniversalEditor.Editors.Binary
 					input = input.Substring(2);
 					ns |= System.Globalization.NumberStyles.HexNumber;
 				}
-				double b = Double.Parse(input);
+				double b = Double.Parse(input, ns);
 				return BitConverter.GetBytes(b);
 			}, 8),
 			// Third column
@@ -401,26 +402,65 @@ namespace UniversalEditor.Editors.Binary
 			tabPageFields.Text = "Field Definitions";
 
 			this.tbFieldDefinitions = new Toolbar();
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionAdd", StockType.Add));
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionEdit", StockType.Edit));
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionRemove", StockType.Remove));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionAdd", StockType.Add, tsbFieldDefinitionAdd_Click));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionEdit", StockType.Edit, tsbFieldDefinitionEdit_Click));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionRemove", StockType.Remove, tsbFieldDefinitionRemove_Click));
 			this.tbFieldDefinitions.Items.Add(new ToolbarItemSeparator());
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionLoadFromDefinition", "Open Definition File"));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionLoadFromDefinition", "Open Definition File", tsbFieldDefinitionLoad_Click));
 			tabPageFields.Controls.Add(this.tbFieldDefinitions, new BoxLayout.Constraints(false, true));
 
-			this.tmFieldDefinitions = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
+			this.tmFieldDefinitions = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string), typeof(string) });
 
 			this.lvFieldDefinitions = new ListView();
 			this.lvFieldDefinitions.Model = tmFieldDefinitions;
 			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[0], "Name"));
 			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[1], "Offset"));
-			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[2], "Size"));
+			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[2], "Data Type [Size]"));
 			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[3], "Color"));
+			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[4], "Value"));
 			tabPageFields.Controls.Add(this.lvFieldDefinitions, new BoxLayout.Constraints(true, true));
 			this.tabs.TabPages.Add(tabPageFields);
 
 
 			this.Controls.Add(tabs, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.End));
+		}
+
+		private void tsbFieldDefinitionAdd_Click(object sender, EventArgs e)
+		{
+			FieldDefinitionPropertiesDialog dlg = new FieldDefinitionPropertiesDialog();
+			dlg.FieldDefinition.Offset = hexedit.SelectionStart;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				tmFieldDefinitions.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmFieldDefinitions.Columns[0], dlg.FieldDefinition.Name),
+					new TreeModelRowColumn(tmFieldDefinitions.Columns[1], dlg.FieldDefinition.Offset),
+					new TreeModelRowColumn(tmFieldDefinitions.Columns[2], dlg.FieldDefinition.Length)
+					// new TreeModelRowColumn(tmFieldDefinitions.Columns[0], dlg.cmdColor.Text)
+				}));
+
+				hexedit.HighlightAreas.Add(new HexEditorHighlightArea(dlg.FieldDefinition.Name, dlg.FieldDefinition.Name, dlg.FieldDefinition.Offset, dlg.FieldDefinition.Length, (dlg.cmdColor.BackgroundBrush as SolidBrush).Color));
+			}
+		}
+		private void tsbFieldDefinitionEdit_Click(object sender, EventArgs e)
+		{
+			if (lvFieldDefinitions.SelectedRows.Count != 1)
+				return;
+
+			FieldDefinition def = lvFieldDefinitions.SelectedRows[0].GetExtraData<FieldDefinition>("def");
+			if (def != null)
+			{
+				FieldDefinitionPropertiesDialog dlg = new FieldDefinitionPropertiesDialog();
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+				}
+			}
+		}
+		private void tsbFieldDefinitionRemove_Click(object sender, EventArgs e)
+		{
+		}
+		private void tsbFieldDefinitionLoad_Click(object sender, EventArgs e)
+		{
 		}
 
 		void Txt_KeyDown(object sender, UniversalWidgetToolkit.Input.Keyboard.KeyEventArgs e)
