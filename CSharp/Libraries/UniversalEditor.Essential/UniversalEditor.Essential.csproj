@@ -166,6 +166,7 @@
     <Compile Include="ObjectModels\FileSystem\FileSources\CompressedEmbeddedFileSource.cs" />
     <Compile Include="ObjectModels\PropertyList\IPropertyListContainer.cs" />
     <Compile Include="ObjectModels\Binary\BinaryObjectModel.cs" />
+    <Compile Include="DataFormats\Binary\BinaryDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -181,6 +182,7 @@
   <ItemGroup>
     <Folder Include="DataFormats\PropertyList\JavaScriptObjectNotation\" />
     <Folder Include="ObjectModels\Binary\" />
+    <Folder Include="DataFormats\Binary\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

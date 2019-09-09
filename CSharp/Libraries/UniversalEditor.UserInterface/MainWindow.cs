@@ -26,6 +26,7 @@ using UniversalEditor.Printing;
 using UniversalWidgetToolkit.Printing;
 using UniversalEditor.UserInterface.Pages;
 using UniversalEditor.ObjectModels.Binary;
+using UniversalEditor.DataFormats.Binary;
 
 namespace UniversalEditor.UserInterface
 {
@@ -413,7 +414,10 @@ namespace UniversalEditor.UserInterface
 			}
 			ed.ObjectModel = om1;
 
-			InitDocTab(System.IO.Path.GetFileName(filename), ed);
+			EditorPage page = new EditorPage();
+			page.Controls.Add(ed, new BoxLayout.Constraints(true, true));
+
+			InitDocTab(System.IO.Path.GetFileName(filename), page);
 		}
 
 		[ContainerLayout("~/Panels/StartPage.glade")]
@@ -582,12 +586,20 @@ namespace UniversalEditor.UserInterface
 
 		public void SaveFileAs()
 		{
-			Pages.EditorPage currentEditorPage = GetCurrentEditorPage();
-			if (currentEditorPage != null)
+			Editor currentEditor = GetCurrentEditor();
+			if (currentEditor != null)
 			{
-				using (DocumentPropertiesDialogV2 dlg = new DocumentPropertiesDialogV2 ()) {
+				using (DocumentPropertiesDialogV2 dlg = new DocumentPropertiesDialogV2 ())
+				{
 					dlg.Mode = DocumentPropertiesDialogMode.Save;
-					if (dlg.ShowDialog () == DialogResult.OK) {
+					if (dlg.ShowDialog () == DialogResult.OK)
+					{
+						DataFormat df = dlg.DataFormat;
+						if (df == null && currentEditor.ObjectModel is BinaryObjectModel)
+						{
+							df = new BinaryDataFormat();
+						}
+						SaveFileAs(dlg.Accessor.GetFileName(), df);
 					}
 				}
 			}
@@ -595,7 +607,8 @@ namespace UniversalEditor.UserInterface
 
 		public void SaveFileAs(string FileName, DataFormat df)
 		{
-			throw new NotImplementedException();
+			Editor ed = GetCurrentEditor();
+			Document.Save(ed.ObjectModel, df, new FileAccessor(FileName, true, true, true));
 		}
 
 		public void SaveProject()
