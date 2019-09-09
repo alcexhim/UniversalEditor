@@ -81,6 +81,7 @@ namespace UniversalEditor.Editors.Binary
 			this.Controls.Add(this.lblColor, new GridLayout.Constraints(3, 0));
 
 			this.cmdColor = new Button();
+			this.cmdColor.Click += cmdColor_Click;
 			this.Controls.Add(this.cmdColor, new GridLayout.Constraints(3, 1));
 
 			this.Buttons.Add(new Button(ButtonStockType.OK));
@@ -90,6 +91,17 @@ namespace UniversalEditor.Editors.Binary
 			this.Buttons.Add(new Button(ButtonStockType.Cancel));
 			this.Buttons[this.Buttons.Count - 1].ResponseValue = (int)DialogResult.Cancel;
 		}
+
+		void cmdColor_Click(object sender, EventArgs e)
+		{
+			ColorDialog dlg = new ColorDialog();
+			dlg.SelectedColor = (cmdColor.BackgroundBrush as SolidBrush).Color;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				cmdColor.BackgroundBrush = new SolidBrush(dlg.SelectedColor);
+			}
+		}
+
 
 		void cmdOK_Click(object sender, EventArgs e)
 		{
