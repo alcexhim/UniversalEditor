@@ -410,20 +410,40 @@ namespace UniversalEditor.Editors.Binary
 			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionLoadFromDefinition", "Open Definition File", tsbFieldDefinitionLoad_Click));
 			tabPageFields.Controls.Add(this.tbFieldDefinitions, new BoxLayout.Constraints(false, true));
 
-			this.tmFieldDefinitions = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string), typeof(string) });
+			this.tmFieldDefinitions = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
 
 			this.lvFieldDefinitions = new ListView();
 			this.lvFieldDefinitions.Model = tmFieldDefinitions;
+			this.lvFieldDefinitions.RowActivated += lvFieldDefinitions_RowActivated;
 			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[0], "Name"));
 			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[1], "Offset"));
 			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[2], "Data Type [Size]"));
-			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[3], "Color"));
-			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[4], "Value"));
+			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[3], "Value"));
 			tabPageFields.Controls.Add(this.lvFieldDefinitions, new BoxLayout.Constraints(true, true));
 			this.tabs.TabPages.Add(tabPageFields);
 
 
 			this.Controls.Add(tabs, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.End));
+		}
+
+		private void lvFieldDefinitions_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		{
+			tsbFieldDefinitionEdit_Click(sender, e);
+		}
+
+		private string GetFieldValue(FieldDefinition definition)
+		{
+			foreach (CONVERSION_DATA converter in converters)
+			{
+				if (converter.DataType == definition.DataType)
+				{
+					byte[] data = new byte[converter.MaximumSize];
+					Array.Copy(hexedit.Data, definition.Offset, data, 0, Math.Min(data.Length, hexedit.Data.Length - definition.Offset));
+					string value = converter.ByteToStringFunc(data);
+					return value;
+				}
+			}
+			return String.Empty;
 		}
 
 		private void tsbFieldDefinitionAdd_Click(object sender, EventArgs e)
@@ -436,11 +456,12 @@ namespace UniversalEditor.Editors.Binary
 				{
 					new TreeModelRowColumn(tmFieldDefinitions.Columns[0], dlg.FieldDefinition.Name),
 					new TreeModelRowColumn(tmFieldDefinitions.Columns[1], dlg.FieldDefinition.Offset),
-					new TreeModelRowColumn(tmFieldDefinitions.Columns[2], dlg.FieldDefinition.Length)
-					// new TreeModelRowColumn(tmFieldDefinitions.Columns[0], dlg.cmdColor.Text)
+					new TreeModelRowColumn(tmFieldDefinitions.Columns[2], dlg.FieldDefinition.DataType.Name + " [" + dlg.FieldDefinition.DataTypeSizeString + "]"),
+					new TreeModelRowColumn(tmFieldDefinitions.Columns[3], GetFieldValue(dlg.FieldDefinition))
 				}));
+				tmFieldDefinitions.Rows[tmFieldDefinitions.Rows.Count - 1].SetExtraData<FieldDefinition>("def", dlg.FieldDefinition);
 
-				hexedit.HighlightAreas.Add(new HexEditorHighlightArea(dlg.FieldDefinition.Name, dlg.FieldDefinition.Name, dlg.FieldDefinition.Offset, dlg.FieldDefinition.Length, (dlg.cmdColor.BackgroundBrush as SolidBrush).Color));
+				hexedit.HighlightAreas.Add(new HexEditorHighlightArea(dlg.FieldDefinition.Name, dlg.FieldDefinition.Name, dlg.FieldDefinition.Offset, dlg.FieldDefinition.DataTypeSize, dlg.FieldDefinition.Color));
 			}
 		}
 		private void tsbFieldDefinitionEdit_Click(object sender, EventArgs e)
@@ -452,8 +473,10 @@ namespace UniversalEditor.Editors.Binary
 			if (def != null)
 			{
 				FieldDefinitionPropertiesDialog dlg = new FieldDefinitionPropertiesDialog();
+				dlg.FieldDefinition = def;
 				if (dlg.ShowDialog() == DialogResult.OK)
 				{
+					def = dlg.FieldDefinition;
 				}
 			}
 		}
@@ -554,6 +577,19 @@ namespace UniversalEditor.Editors.Binary
 				if (converters[i].TextBox != null)
 					converters[i].TextBox.Text = converters[i].ByteToStringFunc(data);
 			}
+
+			UpdateFieldDefinitions();
+		}
+
+		private void UpdateFieldDefinitions()
+		{
+			foreach (TreeModelRow row in tmFieldDefinitions.Rows)
+			{
+				FieldDefinition def = row.GetExtraData<FieldDefinition>("def");
+				if (def == null) continue;
+
+				row.RowColumns[3].Value = GetFieldValue(def);
+			}
 		}
 
 
@@ -564,7 +600,7 @@ namespace UniversalEditor.Editors.Binary
 			BinaryObjectModel om = (ObjectModel as BinaryObjectModel);
 			if (om == null) return;
 
-			this.hexedit.Data = om.Data;
+			hexedit.Data = om.Data;
 		}
 	}
 }

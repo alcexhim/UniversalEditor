@@ -31,13 +31,15 @@ namespace UniversalEditor.Editors.Binary
 	public class FieldDefinitionPropertiesDialog : Dialog
 	{
 		private Label lblName;
-		internal TextBox txtName;
+		private TextBox txtName;
 		private Label lblOffset;
-		internal TextBox txtOffset;
-		private Label lblLength;
-		internal TextBox txtLength;
+		private TextBox txtOffset;
+		private Label lblDataType;
+		private ComboBox cboDataType;
 		private Label lblColor;
-		internal Button cmdColor;
+		private Button cmdColor;
+
+		private DefaultTreeModel tmDataType = null;
 
 		public FieldDefinition FieldDefinition = new FieldDefinition();
 
@@ -69,12 +71,77 @@ namespace UniversalEditor.Editors.Binary
 			this.txtOffset = new TextBox();
 			this.Controls.Add(this.txtOffset, new GridLayout.Constraints(1, 1));
 
-			this.lblLength = new Label();
-			this.lblLength.Text = "_Length";
-			this.Controls.Add(this.lblLength, new GridLayout.Constraints(2, 0));
+			this.lblDataType = new Label();
+			this.lblDataType.Text = "_Data type";
+			this.Controls.Add(this.lblDataType, new GridLayout.Constraints(2, 0));
 
-			this.txtLength = new TextBox();
-			this.Controls.Add(this.txtLength, new GridLayout.Constraints(2, 1));
+			tmDataType = new DefaultTreeModel(new Type[] { typeof(string) });
+
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Signed 8-bit integer (SByte)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(sbyte));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Unsigned 8-bit integer (Byte)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(byte));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Signed 16-bit integer (Short)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(short));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Unsigned 16-bit integer (UShort)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(ushort));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Signed 32-bit integer (Int)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(int));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Unsigned 32-bit integer (UInt)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(uint));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Signed 64-bit integer (Long)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(long));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Unsigned 64-bit integer (ULong)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(long));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "32-bit floating-point (Float/Single)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(float));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "64-bit floating-point (Double)")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(double));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Fixed-length string")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(string));
+			tmDataType.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmDataType.Columns[0], "Length-prefixed string")
+			}));
+			tmDataType.Rows[tmDataType.Rows.Count - 1].SetExtraData<Type>("type", typeof(string));
+
+			this.cboDataType = new ComboBox();
+			this.cboDataType.ReadOnly = true;
+			this.cboDataType.Model = tmDataType;
+			this.Controls.Add(this.cboDataType, new GridLayout.Constraints(2, 1));
 
 			this.lblColor = new Label();
 			this.lblColor.Text = "_Color";
@@ -114,14 +181,18 @@ namespace UniversalEditor.Editors.Binary
 				this.DialogResult = DialogResult.None;
 				return;
 			}
-			if (!Int32.TryParse(txtLength.Text, out length))
+			if (cboDataType.SelectedItem != null)
 			{
-				MessageDialog.ShowDialog("length must be a 32-bit integer");
+				FieldDefinition.DataType = cboDataType.SelectedItem.GetExtraData<Type>("type");
+			}
+			else 
+			{
+				MessageDialog.ShowDialog("please select a data type");
 				this.DialogResult = DialogResult.None;
 				return;
 			}
+			FieldDefinition.Color = (cmdColor.BackgroundBrush as SolidBrush).Color;
 			FieldDefinition.Offset = offset;
-			FieldDefinition.Length = length;
 		}
 
 	}

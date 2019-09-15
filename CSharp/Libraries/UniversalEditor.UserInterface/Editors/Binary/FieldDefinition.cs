@@ -27,7 +27,41 @@ namespace UniversalEditor.Editors.Binary
 	{
 		public string Name;
 		public int Offset;
-		public int Length;
+		public Type DataType;
 		public Color Color;
+
+		public int DataTypeSize
+		{
+			get
+			{
+				int len = -1;
+				if (DataType == typeof(sbyte) || DataType == typeof(byte))
+				{
+					len = 1;
+				}
+				else if (DataType == typeof(short) || DataType == typeof(ushort))
+				{
+					len = 2;
+				}
+				else if (DataType == typeof(int) || DataType == typeof(uint) || DataType == typeof(float))
+				{
+					len = 4;
+				}
+				else if (DataType == typeof(long) || DataType == typeof(ulong) || DataType == typeof(double) || DataType == typeof(Guid))
+				{
+					len = 8;
+				}
+				return len;
+			}
+		}
+		public string DataTypeSizeString
+		{
+			get
+			{
+				if (DataTypeSize > -1)
+					return DataTypeSize.ToString();
+				return "*";
+			}
+		}
 	}
 }
