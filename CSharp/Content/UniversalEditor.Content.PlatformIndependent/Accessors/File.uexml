@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Accessors>
+		<Accessor Title="Local file" TypeName="UniversalEditor.Accessors.File.FileAccessor">
+			<Schemas>
+				<Schema Title="Local file" Value="file" />
+			</Schemas>
+		</Accessor>
+	</Accessors>
+</UniversalEditor>

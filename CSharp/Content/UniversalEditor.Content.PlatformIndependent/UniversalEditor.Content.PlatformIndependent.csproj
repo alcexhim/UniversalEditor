@@ -654,6 +654,7 @@
     <Folder Include="Extensions\FamilyTreeMaker\Associations\" />
     <Folder Include="Extensions\FileSystem\Associations\NewWorldComputing\" />
     <Folder Include="Extensions\FileSystem\Associations\Apogee\" />
+    <Folder Include="Accessors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
@@ -689,6 +690,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Associations\ExecutableObjectModel\ApplePreferredExecutable.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Accessors\File.uexml" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
