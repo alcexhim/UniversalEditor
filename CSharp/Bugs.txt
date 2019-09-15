@@ -1,4 +1,19 @@
+BUGS:
+ 2019-09-10
+ 
+1. When opening a file over MTP via command line
 
+	System.IO.DirectoryNotFoundException: Could not find a part of the path "/home/beckermj/Documents/Projects/UniversalEditor/CSharp/Output/Debug/mtp:/KYOCERA_KYOCERA_Android_524700024001/Internal%20shared%20storage/Android/data/com.android.providers.media/albumthumbs/1556075497435".
+
+   This is because we do not currently support loading from MTP. We need to build an MTPAccessor and set  the schema to "mtp" in  order to parse this type of URL.
+
+
+2. When opening an existing file via command line,
+	
+	System.NullReferenceException: Object reference not set to an instance of an object
+  at UniversalWidgetToolkit.Engines.GTK.Controls.DockingContainerImplementation.GetCurrentItem () [0x00007] in <a7977898437a4b3195fc97fa96d57331>:0
+  
+ 
 The following had to be removed from UE v4.0c to compile with IL2CPU...
 
 
