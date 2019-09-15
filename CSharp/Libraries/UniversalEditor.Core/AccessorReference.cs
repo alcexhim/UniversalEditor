@@ -21,6 +21,7 @@
 
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -51,6 +52,8 @@ namespace UniversalEditor
 
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+
+		public StringCollection Schemas { get; } = new StringCollection();
         
         /// <summary>
         /// Gets the detail fields that are shown in lists of this <see cref="ReferencedBy" /> object in details view.

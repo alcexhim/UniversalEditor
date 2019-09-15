@@ -543,8 +543,12 @@ namespace UniversalEditor.UserInterface
 			Document[] documents = new Document[fileNames.Length];
 			for (int i = 0; i < documents.Length; i++)
 			{
-				FileAccessor fa = new FileAccessor(fileNames[i]);
-				documents[i] = new Document(fa);
+				AccessorReference[] accs = UniversalEditor.Common.Reflection.GetAvailableAccessors(fileNames[i]);
+				if (accs.Length > 0)
+				{
+					Accessor fa = accs[0].Create();
+					documents[i] = new Document(fa);
+				}
 			}
 			OpenFile(documents);
 		}

@@ -494,6 +494,23 @@ namespace UniversalEditor.Common
 			if (mvarAvailableAccessors == null) Initialize();
 			return mvarAvailableAccessors;
 		}
+		public static AccessorReference[] GetAvailableAccessors(string fileName)
+		{
+			AccessorReference[] accrefs = GetAvailableAccessors();
+			List<AccessorReference> _list = new List<AccessorReference>();
+			foreach (AccessorReference ar in accrefs)
+			{
+				foreach (string schema in ar.Schemas)
+				{
+					if (fileName.StartsWith(schema + "://"))
+					{
+						_list.Add(ar);
+						break;
+					}
+				}
+			}
+			return _list.ToArray();
+		}
 		#endregion
 		#region Data Formats
 		private static DataFormatReference[] mvarAvailableDataFormats = null;

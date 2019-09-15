@@ -591,12 +591,23 @@ namespace UniversalEditor.UserInterface
 		/// <param name="fileNames">The file name(s) of the document(s) to load.</param>
 		public void OpenWindow(params string[] fileNames)
 		{
-			Document[] documents = new Document[fileNames.Length];
+			List<Document> loadedDocuments = new List<Document>();
 			for (int i = 0; i < fileNames.Length; i++)
 			{
-				documents[i] = new Document(null, null, new FileAccessor(fileNames[i]));
+				AccessorReference[] accs = UniversalEditor.Common.Reflection.GetAvailableAccessors(fileNames[i]);
+				if (accs.Length > 0)
+				{
+					Accessor fa = accs[0].Create();
+					fa.OriginalUri = new Uri(fileNames[i]);
+					Document document = new Document(fa);
+					loadedDocuments.Add(document);
+				}
+				else
+				{
+					Console.Error.WriteLine("ue: accessor not found for path " + fileNames[i]);
+				}
 			}
-			OpenWindow(documents);
+			OpenWindow(loadedDocuments.ToArray());
 		}
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.

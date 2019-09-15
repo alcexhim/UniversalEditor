@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,6 +36,19 @@ namespace UniversalEditor
 	[DebuggerNonUserCode()]
 	public abstract class Accessor : References<AccessorReference>
 	{
+		protected bool Initialized { get; private set; } = false;
+		protected void Initialize()
+		{
+			if (Initialized)
+				return;
+
+			InitializeInternal();
+			Initialized = true;
+		}
+		protected virtual void InitializeInternal()
+		{
+		}
+
 		/// <summary>
 		/// Creates or returns an existing <see cref="ReferencedBy" /> object referring to this <see cref="References" /> object.
 		/// </summary>
@@ -200,6 +213,13 @@ namespace UniversalEditor
 		{
 			get { return String.Empty; }
 		}
+
+		/// <summary>
+		/// Gets or sets the original URI.
+		/// </summary>
+		/// <value>The original URI.</value>
+		public Uri OriginalUri { get; set; }
+
 		/// <summary>
 		/// Gets the file name without path information for this <see cref="Accessor" />, if applicable.
 		/// </summary>
