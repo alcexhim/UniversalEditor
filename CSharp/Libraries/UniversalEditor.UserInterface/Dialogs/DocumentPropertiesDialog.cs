@@ -282,7 +282,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			if (Mode == DocumentPropertiesDialogMode.Save)
 			{
 				// show all dataformats for the current object model
-				Association[] assocs = Association.FromCriteria(new AssociationCriteria() { ObjectModel = mvarObjectModel.MakeReference() });
+				Association[] assocs = Association.FromCriteria(new AssociationCriteria() { ObjectModel = mvarObjectModel?.MakeReference() });
 				List<DataFormatReference> dfrlist = new List<DataFormatReference>();
 				foreach (Association assoc in assocs)
 				{
