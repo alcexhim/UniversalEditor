@@ -25,6 +25,18 @@ namespace UniversalEditor.ObjectModels.Binary
 	{
 		public byte[] Data { get; set; } = new byte[0];
 
+		private static ObjectModelReference _omr = null;
+		protected override ObjectModelReference MakeReferenceInternal()
+		{
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Title = "Binary";
+				_omr.Path = new string[] { "General", "Binary" };
+				_omr.Description = "Edits raw binary data";
+			}
+			return _omr;
+		}
 		public override void Clear()
 		{
 			Data = new byte[0];
