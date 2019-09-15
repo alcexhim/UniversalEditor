@@ -592,7 +592,7 @@ namespace UniversalEditor.UserInterface
 			Editor currentEditor = GetCurrentEditor();
 			if (currentEditor != null)
 			{
-				using (DocumentPropertiesDialogV2 dlg = new DocumentPropertiesDialogV2 ())
+				using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog ())
 				{
 					dlg.Mode = DocumentPropertiesDialogMode.Save;
 					if (dlg.ShowDialog () == DialogResult.OK)
