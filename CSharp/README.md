@@ -17,9 +17,17 @@ UniversalEditor 4 has four components:
 Prerequisites
 -------------
 * Sanjigen (if building Multimedia3D plugin)
-* Universal Widget Toolkit (if building UserInterface)
+* MBS.Framework.UserInterface (if building UserInterface)
 
-Glue is no longer a requirement for building UserInterface. Since Universal Editor engines have been removed in favor of Universal Widget Toolkit, AwesomeControls and Surodoine are no longer required. AwesomeControls may be required for building Universal Widget Toolkit Windows Forms Engine until the controls are successfully ported to Universal Widget Toolkit.x
+Glue is no longer a requirement for building UserInterface. Since Universal Editor engines have been removed in favor of Universal Widget Toolkit, AwesomeControls and Surodoine are no longer required. AwesomeControls may be required for building Universal Widget Toolkit Windows Forms Engine until the controls are successfully ported to Universal Widget Toolkit.
+
+Building
+--------
+The solution and dependencies need to be cleaned up before we can write a proper tutorial for building. Keep everything in the same parent directory, *git clone* alcexhim/UniversalEditor, alcexhim/MBS.Framework, alcexhim/MBS.Framework.UserInterface, and (maybe) alcexhim/Auraluminous and its dependencies if you wish to build the associated plugin.
+
+The application *WILL NOT* work properly if the appropriate Universal Widget Toolkit engine, MBS.Framework.UserInterface.(engine).dll, is not in the Output/(configuration) directory! The build process at this time does not automatically copy this file from the MBS.Framework.UserInterface output directory to the Universal Editor output directory.
+
+Currently the most up-to-date User Interface Engine is GTK, but I hope to be bringing the Windows Forms one up to par soon. You might find that the GTK engine only works on Linux. I can't offer any help or support for getting the GTK engine to work on a different operating system. In the future, the Windows Forms engine should be used on Windows.
 
 Customization and Branding
 --------------------------
