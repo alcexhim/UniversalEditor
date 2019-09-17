@@ -303,6 +303,19 @@
     <Compile Include="DataFormats\Multimedia\BluRay\MPLSDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\ZSoft\PCXDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\ZSoft\PCXHeader.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDColorMode.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\PSDHeader.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\PSDImageResourceBlock.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\PSDKnownImageResourceBlockId.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDColorSamplerColorSpace.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDPathType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDBlendModeKey.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDLayerFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDLayerMaskFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDLayerMaskParameterFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDLayerCompressionMode.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\PSDLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -347,6 +360,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\Multimedia\Picture\ZSoft\" />
+    <Folder Include="DataFormats\Multimedia\Picture\Adobe\" />
+    <Folder Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\" />
+    <Folder Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
