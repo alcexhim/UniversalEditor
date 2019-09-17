@@ -22,9 +22,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UniversalEditor.Accessors;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Drawing;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Drawing;
 
 using MBS.Framework.Drawing;
 

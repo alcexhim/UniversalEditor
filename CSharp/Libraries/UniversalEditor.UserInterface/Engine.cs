@@ -13,11 +13,11 @@ using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.FileSystem.UXT;
 using UniversalEditor.DataFormats.PropertyList.UniversalPropertyList;
 
-using UniversalWidgetToolkit.Dialogs;
-using UniversalWidgetToolkit.Drawing;
+using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.Drawing;
 using UniversalEditor.UserInterface.Dialogs;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Input.Keyboard;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.Drawing;
 
 namespace UniversalEditor.UserInterface
@@ -100,7 +100,7 @@ namespace UniversalEditor.UserInterface
 
 			// Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
 
-			UniversalWidgetToolkit.Application.Initialize();
+			MBS.Framework.UserInterface.Application.Initialize();
 		}
 		
 		protected void MainLoop ()
@@ -142,7 +142,7 @@ namespace UniversalEditor.UserInterface
 			// Application.ThreadException += Application_ThreadException;
 #endif
 
-			UniversalWidgetToolkit.Application.Start();
+			MBS.Framework.UserInterface.Application.Start();
 
 			// Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
 		}
@@ -175,12 +175,12 @@ namespace UniversalEditor.UserInterface
 				}
 				else
 				{
-					UniversalWidgetToolkit.Dialogs.AboutDialog dlg = new UniversalWidgetToolkit.Dialogs.AboutDialog ();
+					MBS.Framework.UserInterface.Dialogs.AboutDialog dlg = new MBS.Framework.UserInterface.Dialogs.AboutDialog ();
 					dlg.ProgramName = "Universal Editor";
 					dlg.Version = System.Reflection.Assembly.GetEntryAssembly().GetName().Version;
 					dlg.Copyright = "(c) 1997-2019 Michael Becker";
 					dlg.Comments = "A modular, extensible document editor";
-					dlg.LicenseType = UniversalWidgetToolkit.LicenseType.GPL30;
+					dlg.LicenseType = MBS.Framework.UserInterface.LicenseType.GPL30;
 					dlg.ShowDialog();
 				}
 			}
@@ -203,7 +203,7 @@ namespace UniversalEditor.UserInterface
 
 		protected void StopApplicationInternal ()
 		{
-			UniversalWidgetToolkit.Application.Stop ();
+			MBS.Framework.UserInterface.Application.Stop ();
 		}
 
 
@@ -1239,7 +1239,7 @@ namespace UniversalEditor.UserInterface
 					// LocalConfiguration.SplashScreen.Image = System.Drawing.Image.FromStream(ms);
 
 					// when I did this back in ... who knows when, Universal Widget Toolkit didn't
-					// exist, let alone have a UniversalWidgetToolkit.Drawing.Image class...
+					// exist, let alone have a MBS.Framework.UserInterface.Drawing.Image class...
 				}
 
 				UniversalEditor.ObjectModels.FileSystem.File fileSplashScreenSound = fsom.Files["SplashScreen.wav"];

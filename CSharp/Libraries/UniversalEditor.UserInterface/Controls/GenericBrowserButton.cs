@@ -19,10 +19,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Input.Keyboard;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Layouts;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Input.Keyboard;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Layouts;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 

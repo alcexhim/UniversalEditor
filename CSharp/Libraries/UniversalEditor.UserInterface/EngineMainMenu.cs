@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-using UniversalWidgetToolkit;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface
 {

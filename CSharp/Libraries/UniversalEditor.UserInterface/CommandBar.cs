@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using UniversalWidgetToolkit;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface
 {

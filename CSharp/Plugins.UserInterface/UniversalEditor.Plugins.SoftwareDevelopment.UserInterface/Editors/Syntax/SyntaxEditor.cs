@@ -20,10 +20,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using UniversalEditor.UserInterface;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Layouts;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.ObjectModels.SourceCode;
-using UniversalWidgetToolkit;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Syntax
 {

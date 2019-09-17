@@ -22,9 +22,9 @@ using System;
 using UniversalEditor.UserInterface;
 
 using UniversalEditor.ObjectModels.Contact;
-using UniversalWidgetToolkit.Layouts;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
+using MBS.Framework.UserInterface.Layouts;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.Drawing;
 using System.Text;
 

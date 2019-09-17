@@ -1,3 +1,3 @@
-rm Output/Debug/UniversalWidgetToolkit.Engines.WindowsForms.dll
-rm Output/Debug/UniversalWidgetToolkit.Engines.WindowsForms.pdb
+rm Output/Debug/MBS.Framework.UserInterface.Engines.WindowsForms.dll
+rm Output/Debug/MBS.Framework.UserInterface.Engines.WindowsForms.pdb
 

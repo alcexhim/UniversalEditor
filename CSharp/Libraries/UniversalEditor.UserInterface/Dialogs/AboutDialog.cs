@@ -1,6 +1,6 @@
 ﻿using System;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {

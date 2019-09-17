@@ -7,15 +7,15 @@ using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.PropertyList.XML;
 using UniversalEditor.ObjectModels.PropertyList;
 
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Input.Keyboard;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Input.Keyboard;
 
 namespace UniversalEditor.UserInterface
 {
 	/// <summary>
 	/// Provides an interface for custom editor implementations not using the Universal Widget Toolkit.
 	/// </summary>
-	public abstract class Editor : UniversalWidgetToolkit.Container
+	public abstract class Editor : MBS.Framework.UserInterface.Container
 	{
 		public EditorSelection.EditorSelectionCollection Selections { get; } = new EditorSelection.EditorSelectionCollection();
 		public abstract void UpdateSelections();

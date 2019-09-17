@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Essential",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{20F315E0-52AE-479F-AF43-3402482C1FC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalWidgetToolkit", "..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj", "{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface", "..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj", "{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalWidgetToolkit.Engines.GTK", "..\..\UniversalWidgetToolkit\Engines\GTK\UniversalWidgetToolkit.Engines.GTK\UniversalWidgetToolkit.Engines.GTK.csproj", "{62DC7CF9-C608-49E5-8C39-305B2E3E93F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface.Engines.GTK", "..\..\MBS.Framework.UserInterface\Engines\GTK\MBS.Framework.UserInterface.Engines.GTK\MBS.Framework.UserInterface.Engines.GTK.csproj", "{62DC7CF9-C608-49E5-8C39-305B2E3E93F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework", "..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj", "{23ACD09E-E096-4B05-A6CE-6853EDDC589A}"
 EndProject
@@ -127,7 +127,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Sof
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.AddressBook.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.AddressBook.UserInterface\UniversalEditor.Plugins.AddressBook.UserInterface.csproj", "{E94B6C34-660F-4280-AEEC-D28AC6A3F528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalWidgetToolkit.Engines.WindowsForms", "..\..\UniversalWidgetToolkit\Engines\WindowsForms\UniversalWidgetToolkit.Engines.WindowsForms\UniversalWidgetToolkit.Engines.WindowsForms.csproj", "{B8573BB1-A0CD-41F4-A775-E0CB79555C59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface.Engines.WindowsForms", "..\..\MBS.Framework.UserInterface\Engines\WindowsForms\MBS.Framework.UserInterface.Engines.WindowsForms\MBS.Framework.UserInterface.Engines.WindowsForms.csproj", "{B8573BB1-A0CD-41F4-A775-E0CB79555C59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Genealogy", "Plugins\UniversalEditor.Plugins.Genealogy\UniversalEditor.Plugins.Genealogy.csproj", "{74A835FD-93B8-4268-B120-1ACAA128AC7B}"
 EndProject

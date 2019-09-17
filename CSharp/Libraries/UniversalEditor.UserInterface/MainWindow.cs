@@ -8,22 +8,22 @@ using UniversalEditor.ObjectModels.Text.Plain;
 using UniversalEditor.UserInterface.Dialogs;
 using UniversalEditor.UserInterface.Panels;
 
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Controls.Docking;
-using UniversalWidgetToolkit.Dialogs;
-using UniversalWidgetToolkit.DragDrop;
-using UniversalWidgetToolkit.Input.Keyboard;
-using UniversalWidgetToolkit.Input.Mouse;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.Docking;
+using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.DragDrop;
+using MBS.Framework.UserInterface.Input.Keyboard;
+using MBS.Framework.UserInterface.Input.Mouse;
 
-using UniversalWidgetToolkit.Drawing;
+using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.Drawing;
 
 // TODO: We need to work on UWT signaling to native objects...
-using UniversalWidgetToolkit.Layouts;
-using UniversalWidgetToolkit.Controls.Ribbon;
+using MBS.Framework.UserInterface.Layouts;
+using MBS.Framework.UserInterface.Controls.Ribbon;
 using UniversalEditor.Printing;
-using UniversalWidgetToolkit.Printing;
+using MBS.Framework.UserInterface.Printing;
 using UniversalEditor.UserInterface.Pages;
 using UniversalEditor.ObjectModels.Binary;
 using UniversalEditor.DataFormats.Binary;
@@ -148,7 +148,7 @@ namespace UniversalEditor.UserInterface
 
 			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
 			{
-				UniversalWidgetToolkit.MenuItem mi = LoadMenuItem(ci);
+				MBS.Framework.UserInterface.MenuItem mi = LoadMenuItem(ci);
 				if (mi == null)
 					continue;
 
@@ -461,7 +461,7 @@ namespace UniversalEditor.UserInterface
 
 		protected override void OnClosed(EventArgs e)
 		{
-			UniversalWidgetToolkit.Application.Stop();
+			MBS.Framework.UserInterface.Application.Stop();
 		}
 		protected override void OnCreated(EventArgs e)
 		{
@@ -471,7 +471,7 @@ namespace UniversalEditor.UserInterface
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 		}
 
-		private UniversalWidgetToolkit.MenuItem LoadMenuItem(CommandItem ci)
+		private MBS.Framework.UserInterface.MenuItem LoadMenuItem(CommandItem ci)
 		{
 			if (ci is CommandReferenceCommandItem)
 			{
@@ -487,7 +487,7 @@ namespace UniversalEditor.UserInterface
 					{
 						foreach (CommandItem ci1 in cmd.Items)
 						{
-							UniversalWidgetToolkit.MenuItem mi1 = LoadMenuItem(ci1);
+							MBS.Framework.UserInterface.MenuItem mi1 = LoadMenuItem(ci1);
 							mi.Items.Add(mi1);
 						}
 					}
@@ -505,7 +505,7 @@ namespace UniversalEditor.UserInterface
 			}
 			else if (ci is SeparatorCommandItem)
 			{
-				return new UniversalWidgetToolkit.SeparatorMenuItem();
+				return new MBS.Framework.UserInterface.SeparatorMenuItem();
 			}
 			return null;
 		}

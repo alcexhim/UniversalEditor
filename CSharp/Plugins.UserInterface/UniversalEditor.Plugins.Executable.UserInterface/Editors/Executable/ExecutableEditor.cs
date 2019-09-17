@@ -21,11 +21,11 @@
 using System;
 using UniversalEditor.ObjectModels.Executable;
 using UniversalEditor.UserInterface;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Dialogs;
-using UniversalWidgetToolkit.Input.Mouse;
-using UniversalWidgetToolkit.Layouts;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.Input.Mouse;
+using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 {
@@ -109,9 +109,9 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 
 			this.contextMenuItemSelected = new Menu();
-			this.contextMenuItemSelected.Items.AddRange(new UniversalWidgetToolkit.MenuItem[]
+			this.contextMenuItemSelected.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
 			{
-				new UniversalWidgetToolkit.CommandMenuItem("_Copy to", null, ContextMenu_CopyTo_Click)
+				new MBS.Framework.UserInterface.CommandMenuItem("_Copy to", null, ContextMenu_CopyTo_Click)
 			});
 
 

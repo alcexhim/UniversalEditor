@@ -22,7 +22,7 @@ using System;
 using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Text.Plain;
 using UniversalEditor.Printing;
-using UniversalWidgetToolkit.Drawing;
+using MBS.Framework.UserInterface.Drawing;
 
 namespace UniversalEditor.Plugins.Generic.Printing.Text.Plain
 {

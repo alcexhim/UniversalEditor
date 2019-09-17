@@ -22,9 +22,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Input.Keyboard;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Input.Keyboard;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {

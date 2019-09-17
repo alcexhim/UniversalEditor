@@ -19,10 +19,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Input.Mouse;
-using UniversalWidgetToolkit.Layouts;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Input.Mouse;
+using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Editors.FileSystem
 {

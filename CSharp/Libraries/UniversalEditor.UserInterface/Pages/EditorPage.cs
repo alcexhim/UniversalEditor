@@ -25,9 +25,9 @@ using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Layouts;
-using UniversalWidgetToolkit;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Layouts;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface.Pages
 {

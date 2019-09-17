@@ -19,12 +19,12 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface;
 using MBS.Framework.Drawing;
-using UniversalWidgetToolkit.Layouts;
-using UniversalWidgetToolkit.Controls.FileBrowser;
-using UniversalWidgetToolkit.Dialogs;
+using MBS.Framework.UserInterface.Layouts;
+using MBS.Framework.UserInterface.Controls.FileBrowser;
+using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.UserInterface.Controls;
 
 namespace UniversalEditor.UserInterface.Dialogs

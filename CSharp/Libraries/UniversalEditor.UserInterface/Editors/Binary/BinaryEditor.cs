@@ -23,12 +23,12 @@ using System.Text;
 using MBS.Framework.Drawing;
 using UniversalEditor.ObjectModels.Binary;
 using UniversalEditor.UserInterface;
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Controls.HexEditor;
-using UniversalWidgetToolkit.Dialogs;
-using UniversalWidgetToolkit.Drawing;
-using UniversalWidgetToolkit.Layouts;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.HexEditor;
+using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.Drawing;
+using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Editors.Binary
 {
@@ -353,7 +353,7 @@ namespace UniversalEditor.Editors.Binary
 
 		public BinaryEditor()
 		{
-			this.Layout = new BoxLayout(UniversalWidgetToolkit.Orientation.Vertical);
+			this.Layout = new BoxLayout(MBS.Framework.UserInterface.Orientation.Vertical);
 
 			this.hexedit = new HexEditorControl();
 			this.hexedit.SelectionChanged += Hexedit_SelectionChanged;
@@ -487,9 +487,9 @@ namespace UniversalEditor.Editors.Binary
 		{
 		}
 
-		void Txt_KeyDown(object sender, UniversalWidgetToolkit.Input.Keyboard.KeyEventArgs e)
+		void Txt_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
 		{
-			if (e.Key == UniversalWidgetToolkit.Input.Keyboard.KeyboardKey.Enter)
+			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
 			{
 				TextBox ctl = sender as TextBox;
 				CONVERSION_DATA converter = ctl.GetExtraData<CONVERSION_DATA>("converter");

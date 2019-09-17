@@ -23,9 +23,9 @@ using System;
 using UniversalEditor.ObjectModels.Text.Plain;
 using UniversalEditor.UserInterface;
 
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Controls;
-using UniversalWidgetToolkit.Layouts;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Editors.Text.Plain
 {

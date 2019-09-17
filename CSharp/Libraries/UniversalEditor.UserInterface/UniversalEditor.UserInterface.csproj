@@ -148,17 +148,17 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj">
-      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
-      <Name>UniversalWidgetToolkit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
-      <Project>{23ACD09E-E096-4B05-A6CE-6853EDDC589A}</Project>
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalEditor.Printing\UniversalEditor.Printing.csproj">
       <Project>{868A6888-EDB9-407E-A710-40F297D4EAB8}</Project>
       <Name>UniversalEditor.Printing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

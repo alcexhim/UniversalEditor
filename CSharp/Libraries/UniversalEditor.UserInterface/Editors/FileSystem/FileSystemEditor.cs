@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
 
-using UniversalWidgetToolkit;
-using UniversalWidgetToolkit.Dialogs;
-using UniversalWidgetToolkit.DragDrop;
-using UniversalWidgetToolkit.Input.Keyboard;
-using UniversalWidgetToolkit.Input.Mouse;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.DragDrop;
+using MBS.Framework.UserInterface.Input.Keyboard;
+using MBS.Framework.UserInterface.Input.Mouse;
 
 namespace UniversalEditor.Editors.FileSystem
 {
