@@ -141,6 +141,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins.Printing", "Plugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Generic.Printing", "Plugins.Printing\UniversalEditor.Plugins.Generic.Printing\UniversalEditor.Plugins.Generic.Printing.csproj", "{A3231B32-A0E4-4B67-9A09-310B25BBB9B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.MTP", "Plugins\UniversalEditor.Plugins.MTP\UniversalEditor.Plugins.MTP.csproj", "{EA724755-2670-4520-86AA-657C8A124DB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -405,6 +407,10 @@ Global
 		{A3231B32-A0E4-4B67-9A09-310B25BBB9B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3231B32-A0E4-4B67-9A09-310B25BBB9B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3231B32-A0E4-4B67-9A09-310B25BBB9B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA724755-2670-4520-86AA-657C8A124DB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA724755-2670-4520-86AA-657C8A124DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA724755-2670-4520-86AA-657C8A124DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA724755-2670-4520-86AA-657C8A124DB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -470,6 +476,7 @@ Global
 		{242A32D8-9A3A-4FE3-902B-AB9C3154723A} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
 		{868A6888-EDB9-407E-A710-40F297D4EAB8} = {0399182F-AF56-4E86-B229-EAB38C2EE6AF}
 		{A3231B32-A0E4-4B67-9A09-310B25BBB9B6} = {FB678C6D-29A0-405B-BA86-E1EC12A96AA9}
+		{EA724755-2670-4520-86AA-657C8A124DB7} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
