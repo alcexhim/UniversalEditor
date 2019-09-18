@@ -88,6 +88,18 @@
     <Compile Include="ObjectModels\Executable\Instructions\ExecutableInstructionCall.cs" />
     <Compile Include="ObjectModels\Executable\Instructions\ExecutableInstructionPush.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFormats\Executable\Atari\AtariSTExecutableDataFormat.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFF64DataFormat.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFF32AuxilaryHeader.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFSectionHeader.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFF32SectionHeader.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFSectionType.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFF64AuxilaryHeader.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFF64SectionHeader.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFF32DataFormat.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFDataFormat.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFAuxilaryHeader.cs" />
+    <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFDocumentFlags.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

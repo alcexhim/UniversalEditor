@@ -131,6 +131,13 @@
     <Compile Include="ObjectModels\Text\Formatted\XPS\FixedPage\Path.cs" />
     <Compile Include="DataFormats\Text\Formatted\DOC\DOCDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentStorageType.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDFeatures.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskDynamicHeader.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskFooter.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskGeometry.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskParentLocatorEntry.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -154,7 +161,7 @@
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
-      <Project>{23ACD09E-E096-4B05-A6CE-6853EDDC589A}</Project>
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
   </ItemGroup>
@@ -176,5 +183,6 @@
     <Folder Include="DataFormats\Text\Formatted\XPS\FixedPage\" />
     <Folder Include="ObjectModels\Text\Formatted\XPS\FixedPage\" />
     <Folder Include="DataFormats\Text\Formatted\DOC\" />
+    <Folder Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\" />
   </ItemGroup>
 </Project>
