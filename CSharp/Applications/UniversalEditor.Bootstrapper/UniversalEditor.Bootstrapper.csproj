@@ -85,7 +85,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj">
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
-      <Name>UniversalWidgetToolkit</Name>
+      <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
