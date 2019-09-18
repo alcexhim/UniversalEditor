@@ -28,6 +28,9 @@ using UniversalEditor.IO;
 
 namespace UniversalEditor.Accessors
 {
+	/// <summary>
+	/// Provides an <see cref="Accessor"/> for reading from/writing to a file on the local file system.
+	/// </summary>
 	public class FileAccessor : Accessor
 	{
 		private static AccessorReference _ar = null;
