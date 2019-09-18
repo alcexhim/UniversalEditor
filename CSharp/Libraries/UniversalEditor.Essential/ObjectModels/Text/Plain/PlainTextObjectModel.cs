@@ -51,5 +51,27 @@ namespace UniversalEditor.ObjectModels.Text.Plain
 				mvarLines.Add(splitt);
 			}
 		}
+
+		private int indentSize = 4;
+		public string GetIndent(int length)
+		{
+			return new string(' ', indentSize * length);
+		}
+
+		public void Write(string value)
+		{
+			if (Lines.Count < 1)
+			{
+				Lines.Add(value);
+			}
+			else
+			{
+				Lines[Lines.Count - 1] = Lines[Lines.Count - 1] + value;
+			}
+		}
+		public void WriteLine(string value = "")
+		{
+			Write(value + LineTerminator);
+		}
 	}
 }
