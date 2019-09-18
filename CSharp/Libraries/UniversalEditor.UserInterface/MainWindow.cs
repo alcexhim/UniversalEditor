@@ -165,7 +165,8 @@ namespace UniversalEditor.UserInterface
 					ribbonTabHome.Title = "Home";
 					this.Ribbon.Tabs.Add (ribbonTabHome);
 				}
-			} else {
+			}
+			if (this.CommandDisplayMode == CommandDisplayMode.CommandBar || this.CommandDisplayMode == CommandDisplayMode.Both) {
 				foreach (CommandBar cb in Engine.CurrentEngine.CommandBars) {
 					this.Controls.Add (LoadCommandBar(cb));
 				}
