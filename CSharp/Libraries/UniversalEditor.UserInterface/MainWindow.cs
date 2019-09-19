@@ -111,6 +111,7 @@ namespace UniversalEditor.UserInterface
 					ToolbarItemButton tsb = new ToolbarItemButton(cmd.ID, (StockType)cmd.StockType);
 					tsb.SetExtraData<CommandReferenceCommandItem>("crci", crci);
 					tsb.Click += tsbCommand_Click;
+					tsb.Title = cmd.Title;
 					tb.Items.Add(tsb);
 				}
 			}
