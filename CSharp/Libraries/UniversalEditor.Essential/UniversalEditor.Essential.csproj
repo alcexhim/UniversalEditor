@@ -179,6 +179,7 @@
     <Compile Include="ObjectModels\JSON\Fields\JSONObjectField.cs" />
     <Compile Include="ObjectModels\JSON\Fields\JSONStringField.cs" />
     <Compile Include="DataFormats\Text\Plain\PlainTextDataFormat.cs" />
+    <Compile Include="DataFormats\Shortcut\Linux\LinuxShortcutDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -199,6 +200,7 @@
     <Folder Include="ObjectModels\JSON\" />
     <Folder Include="ObjectModels\JSON\Fields\" />
     <Folder Include="DataFormats\Text\Plain\" />
+    <Folder Include="DataFormats\Shortcut\Linux\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -316,6 +316,13 @@
     <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDLayerMaskParameterFlags.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\PSDLayerCompressionMode.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\PSDLayer.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXBlock.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXEncodingType.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXVersion.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\D00DataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\AdlibSoundcard.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\AdlibBlockType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -363,6 +370,9 @@
     <Folder Include="DataFormats\Multimedia\Picture\Adobe\" />
     <Folder Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\" />
     <Folder Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\" />
+    <Folder Include="DataFormats\Multimedia\Audio\Waveform\CRI\" />
+    <Folder Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\" />
+    <Folder Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

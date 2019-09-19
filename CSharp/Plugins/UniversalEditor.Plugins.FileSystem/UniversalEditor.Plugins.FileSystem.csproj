@@ -228,6 +228,8 @@
     <Compile Include="DataFormats\FileSystem\VMware\VMDKAdapterType.cs" />
     <Compile Include="DataFormats\FileSystem\VMware\VMDKCreateType.cs" />
     <Compile Include="DataFormats\FileSystem\VMware\VMDKDiskGeometry.cs" />
+    <Compile Include="DataFormats\FileSystem\HA\HADataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\HyperArchiver\HyperArchiverDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -263,6 +265,8 @@
     <Folder Include="DataFormats\FileSystem\SquareSoft\" />
     <Folder Include="DataFormats\FileSystem\RealNetworks\" />
     <Folder Include="DataFormats\FileSystem\VMware\" />
+    <Folder Include="DataFormats\FileSystem\HA\" />
+    <Folder Include="DataFormats\FileSystem\HyperArchiver\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
