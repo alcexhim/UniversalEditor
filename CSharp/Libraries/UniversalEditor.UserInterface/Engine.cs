@@ -608,7 +608,8 @@ namespace UniversalEditor.UserInterface
 				}
 				else
 				{
-					Console.Error.WriteLine("ue: accessor not found for path " + fileNames[i]);
+					Console.Error.WriteLine("ue: accessor not found for path " + fileNames[i] + "; assuming local file");
+					loadedDocuments.Add(new Document(new FileAccessor(fileNames[i])));
 				}
 			}
 			OpenWindow(loadedDocuments.ToArray());

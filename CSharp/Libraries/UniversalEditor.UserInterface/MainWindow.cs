@@ -267,7 +267,15 @@ namespace UniversalEditor.UserInterface
 
 		private void dckContainer_SelectionChanged(object sender, EventArgs e)
 		{
-			Editor editor = GetCurrentEditor ();
+			Editor editor = null;
+			try
+			{
+				editor = GetCurrentEditor();
+			}
+			catch (Exception ex)
+			{
+			}
+
 			if (editor == null) {
 				Console.WriteLine ("Editor is null");
 			} else {
