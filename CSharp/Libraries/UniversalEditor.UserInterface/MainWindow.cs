@@ -812,23 +812,21 @@ namespace UniversalEditor.UserInterface
 		public void SetWindowListVisible(bool visible, bool modal)
 		{
 			// this calls out to the DockingContainerControl in WF
-			/*
 			if (modal)
 			{
-				dcc.DisplayWindowListDialog();
+				// dckContainer.ShowWindowListPopupDialog();
 			}
 			else
 			{
 				if (visible)
 				{
-					dcc.ShowWindowListPopupDialog();
+					// dckContainer.ShowWindowListPopup();
 				}
 				else
 				{
-					dcc.HideWindowListPopupDialog();
+					// dckContainer.HideWindowListPopup();
 				}
 			}
-			*/
 		}
 
 		public event EventHandler WindowClosed;
@@ -838,5 +836,12 @@ namespace UniversalEditor.UserInterface
 		public SolutionObjectModel CurrentSolution { get; set; }
 
 		#endregion
+
+
+		public void ShowDocumentPropertiesDialog()
+		{
+			MessageDialog.ShowDialog("TODO: Implement Document Properties dialog!", "Not Implemented", MessageDialogButtons.OK, MessageDialogIcon.Error);
+		}
 	}
 }
+	

@@ -269,6 +269,10 @@ namespace UniversalEditor.UserInterface
 			{
 				LastWindow.PrintDocument();
 			});
+			Application.AttachCommandEventHandler("FileProperties", delegate (object sender, EventArgs e)
+			{
+				LastWindow.ShowDocumentPropertiesDialog();
+			});
 			Application.AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
 			{
 				RestartApplication();

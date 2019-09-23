@@ -14,6 +14,8 @@
 				<CommandReference CommandID="FileRecentFiles" />
 				<CommandReference CommandID="FileRecentProjects" />
 				<Separator />
+				<CommandReference CommandID="FileProperties" />
+				<Separator />
 				<CommandReference CommandID="FileRestart" />
 				<CommandReference CommandID="FileExit" />
 			</Items>
@@ -106,6 +108,7 @@
 				<CommandPlaceholder PlaceholderID="RecentProjects" />
 			</Items>
 		</Command>
+		<Command ID="FileProperties" />
 		<Command ID="FileRestart" />
 		<Command ID="FileExit" StockType="Quit">
 			<Shortcut Modifiers="Control" Key="Q" />

@@ -39,7 +39,9 @@ namespace UniversalEditor.UserInterface
 		void CloseWindow();
 
 		void PrintDocument();
-		
+
+		void ShowDocumentPropertiesDialog();
+
 		Editor GetCurrentEditor();
 
 		bool FullScreen { get; set; }
