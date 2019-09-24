@@ -47,38 +47,28 @@ namespace UniversalEditor.UserInterface
 			// this.Controls.Add(lbl, new BoxLayout.Constraints(true, true));
 		}
 
-private static bool created = false;
-		protected override void OnCreated(EventArgs e)
+		protected override void OnRealize(EventArgs e)
 		{
+			base.OnRealize(e);
+			OnShown(e);
+		}
+
+		private static bool created = false;
+		protected override void OnMapped(EventArgs e)
+		{
+			base.OnMapped(e);
 if (created) return;
 created = true;
 			// less do this
 			Application.ShortName = "mbs-editor";
 			// Application.Title = "Universal Editor";
 
+			Application.DoEvents();
+
 			// Initialize the XML files before anything else, since this also loads string tables needed
 			// to display the application title
 			Engine.CurrentEngine.InitializeXMLConfiguration();
 
-			System.Threading.Thread threadLoader = new System.Threading.Thread(threadLoader_ThreadStart);
-			threadLoader.Name = "Initialization Thread";
-			threadLoader.Start();
-		}
-		public void SetStatus(string message, int progressValue, int progressMinimum, int progressMaximum)
-		{
-
-		}
-
-		private void threadLoader_ThreadStart()
-		{
-			/*
-			if (Configuration.SplashScreen.Enabled)
-			{
-				while (splasher == null) System.Threading.Thread.Sleep(500);
-			}
-			*/
-
-			
 			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading object models...");
 			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
 
@@ -96,8 +86,12 @@ created = true;
 			// Initialize Session Manager
 			Engine.CurrentEngine.SessionManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
 			Engine.CurrentEngine.SessionManager.Load();
-			
+
 			Engine.CurrentEngine.HideSplashScreen();
+		}
+		public void SetStatus(string message, int progressValue, int progressMinimum, int progressMaximum)
+		{
+
 		}
 
 		

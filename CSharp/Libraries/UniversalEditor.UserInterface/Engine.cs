@@ -46,6 +46,11 @@ namespace UniversalEditor.UserInterface
 				System.Threading.Thread.Sleep(500);
 			}
 			splasher.Hide();
+
+			AfterInitializationInternal();
+			AfterInitialization();
+
+			OpenWindow(SelectedFileNames.ToArray<string>());
 		}
 
 		#region implemented abstract members of Engine
@@ -1427,11 +1432,6 @@ namespace UniversalEditor.UserInterface
 			InitializeBranding();
 
 			Initialize();
-
-			AfterInitializationInternal();
-			AfterInitialization();
-
-			OpenWindow(SelectedFileNames.ToArray<string>());
 
 			MainLoop();
 
