@@ -7,6 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>UniversalEditor.Printing</RootNamespace>
     <AssemblyName>UniversalEditor.Printing</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

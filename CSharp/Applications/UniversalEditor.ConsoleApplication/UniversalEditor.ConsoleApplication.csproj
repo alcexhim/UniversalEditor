@@ -7,6 +7,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>UniversalEditor.ConsoleApplication</RootNamespace>
     <AssemblyName>ue</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
