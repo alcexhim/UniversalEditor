@@ -199,18 +199,47 @@ namespace UniversalEditor.Common
 			return dfr2.Priority.CompareTo(dfr1.Priority);
 		}
 
+		private static string[] EnumerateDataPaths()
+		{
+			// ripped from MBS.Framework.UserInterface, but should be refactored into common DLL
+			string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+			return new string[]
+			{
+				// first look in the application root directory since this will be overridden by everything else
+				basePath,
+				// then look in /usr/share/universal-editor or C:\ProgramData\Mike Becker's Software\Universal Editor
+				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonApplicationData),
+					"universal-editor"
+				}),
+				// then look in ~/.local/share/universal-editor or C:\Users\USERNAME\AppData\Local\Mike Becker's Software\Universal Editor
+				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),
+					"universal-editor"
+				}),
+				// then look in ~/.universal-editor or C:\Users\USERNAME\AppData\Roaming\Mike Becker's Software\Universal Editor
+				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+				{
+					System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
+					"universal-editor"
+				})
+			};
+		}
+
 		// FIXME: refactor this into a single XML configuration file loader at the beginning of engine launch
 		private static void InitializeFromXML(ref List<ObjectModelReference> listObjectModels, ref List<DataFormatReference> listDataFormats, ref List<ProjectType> listProjectTypes, ref List<DocumentTemplate> listDocumentTemplates, ref List<ProjectTemplate> listProjectTemplates)
 		{
-			System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
-			paths.Add(System.Environment.CurrentDirectory);
-			paths.Add(System.IO.Path.Combine(new string[]
-			{
-				System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "universal-editor"
-			}));
-
+			string[] paths = EnumerateDataPaths();
 			foreach (string path in paths)
 			{
+				if (!System.IO.Directory.Exists(path))
+				{
+					Console.WriteLine("skipping nonexistent directory {0}", path);
+					continue;
+				}
+
 				string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
 				if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
 
