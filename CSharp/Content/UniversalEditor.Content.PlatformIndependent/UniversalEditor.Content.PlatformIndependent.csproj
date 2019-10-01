@@ -694,6 +694,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Accessors\File.uexml" />
+    <None Include="Images\SplashScreen.png" />
+    <None Include="Images\SplashScreen.xcf" />
+    <None Include="splash.bmp" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />

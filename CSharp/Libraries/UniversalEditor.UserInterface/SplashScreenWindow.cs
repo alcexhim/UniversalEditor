@@ -33,11 +33,18 @@ namespace UniversalEditor.UserInterface
 		{
 			this.Decorated = false;
 			this.Layout = new BoxLayout(Orientation.Vertical);
-			this.Size = new Dimension2D(300, 300);
 			this.StartPosition = WindowStartPosition.Center;
 			
 			PictureFrame image = new PictureFrame();
-			image.IconName = "universal-editor";
+			if (System.IO.File.Exists("splash.bmp"))
+			{
+				image.Image = Image.FromFile("splash.bmp");
+			}
+			else
+			{
+				image.IconName = "universal-editor";
+				this.Size = new Dimension2D(300, 300);
+			}
 			image.IconSize = new Dimension2D(128, 128);
 			
 			Label lbl = new Label("Universal Editor");
