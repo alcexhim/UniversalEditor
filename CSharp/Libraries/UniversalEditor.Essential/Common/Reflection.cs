@@ -286,8 +286,6 @@ namespace UniversalEditor.Common
 				{
 					try
 					{
-						string basePath = System.IO.Path.GetDirectoryName(fileName);
-
 						UEPackageObjectModel mom = new UEPackageObjectModel();
 						UEPackageXMLDataFormat xdf = new UEPackageXMLDataFormat();
 						xdf.IncludeProjectTypes = false;
