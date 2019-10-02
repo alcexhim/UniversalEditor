@@ -672,7 +672,7 @@
     <Content Include="Templates\Project\File Distribution\Images\Torrent.xcf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Extensions\GameDeveloper\Extensions\SEGA\DataFormats\SegaFARC.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\SEGA\DataFormats\SegaFARC.uexml.exclude" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\FileSystem\Associations\Microsoft\POD.uexml" />
