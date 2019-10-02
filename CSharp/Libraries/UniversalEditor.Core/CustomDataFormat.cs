@@ -410,13 +410,13 @@ namespace UniversalEditor
 					}
 					case "Byte":
 					{
-						value = Byte.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : Byte.Parse(value.ToString());
 						writer.WriteByte((byte)value);
 						break;
 					}
 					case "Char":
 					{
-						value = Char.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? '\0' : Char.Parse(value.ToString());
 						writer.WriteChar((char)value);
 						break;
 					}
@@ -428,49 +428,49 @@ namespace UniversalEditor
 					}
 					case "Decimal":
 					{
-						value = Decimal.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : Decimal.Parse(value.ToString());
 						writer.WriteDecimal((decimal)value);
 						break;
 					}
 					case "Double":
 					{
-						value = Double.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : Double.Parse(value.ToString());
 						writer.WriteDouble((double)value);
 						break;
 					}
 					case "Guid":
 					{
-						value = Guid.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? Guid.Empty : Guid.Parse(value.ToString());
 						writer.WriteGuid((Guid)value);
 						break;
 					}
 					case "Int16":
 					{
-						value = Int16.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : Int16.Parse(value.ToString());
 						writer.WriteInt16((short)value);
 						break;
 					}
 					case "Int32":
 					{
-						value = Int32.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : Int32.Parse(value.ToString());
 						writer.WriteInt32((int)value);
 						break;
 					}
 					case "Int64":
 					{
-						value = Int64.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : Int64.Parse(value.ToString());
 						writer.WriteInt64((long)value);
 						break;
 					}
 					case "SByte":
 					{
-						value = SByte.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : SByte.Parse(value.ToString());
 						writer.WriteSByte((sbyte)value);
 						break;
 					}
 					case "Single":
 					{
-						value = Single.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : Single.Parse(value.ToString());
 						writer.WriteSingle((float)value);
 						break;
 					}
@@ -486,19 +486,19 @@ namespace UniversalEditor
 					}
 					case "UInt16":
 					{
-						value = UInt16.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : UInt16.Parse(value.ToString());
 						writer.WriteUInt16((ushort)value);
 						break;
 					}
 					case "UInt32":
 					{
-						value = UInt32.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : UInt32.Parse(value.ToString());
 						writer.WriteUInt32((uint)value);
 						break;
 					}
 					case "UInt64":
 					{
-						value = UInt64.Parse(value.ToString());
+						value = String.IsNullOrEmpty(value.ToString()) ? 0 : UInt64.Parse(value.ToString());
 						writer.WriteUInt64((ulong)value);
 						break;
 					}
