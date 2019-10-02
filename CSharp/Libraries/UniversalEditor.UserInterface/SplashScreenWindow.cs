@@ -42,10 +42,9 @@ namespace UniversalEditor.UserInterface
 			}
 			else
 			{
-				image.IconName = "universal-editor";
+				image.Image = Image.FromName("universal-editor", 300);
 				this.Size = new Dimension2D(300, 300);
 			}
-			image.IconSize = new Dimension2D(128, 128);
 			
 			Label lbl = new Label("Universal Editor");
 			lbl.Attributes.Add("scale", 1.4);
