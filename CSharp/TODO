@@ -1,4 +1,7 @@
 Platform:
+* Rewrite Settings (Options, Preferences, etc...) to use UEXML definitions (which we have already)
+	* Newer versions of MSO use settings dialog eerily similar to GNOME3... perhaps a redesign is in order
+	* This MIGHT be better suited to UWT, which handles the current settings load/save, see MBS.Framework.UserInterface / SettingsProvider
 * Finish implementing project/document template variables, project type variables, etc.
 * Determine how to handle project task actions
 	* Each file in a project should have file-specific actions (BuildAction = Compile, Content, EmbeddedResource, etc.)
