@@ -51,6 +51,7 @@ namespace UniversalEditor.UserInterface
 				string path = System.IO.Path.Combine(new string[]
 				{
 					System.IO.Path.GetTempPath(),
+					"universal-editor",
 					pathName
 				});
 
@@ -105,6 +106,12 @@ namespace UniversalEditor.UserInterface
 			if (System.IO.Directory.Exists(mvarTemporaryFilePath) && fileNamesNotDeleted.Count == 0)
 			{
 				System.IO.Directory.Delete(mvarTemporaryFilePath, true);
+			}
+
+			string uetmppath = System.IO.Path.Combine(new string[] { System.IO.Path.GetTempPath(), "universal-editor" });
+			if (System.IO.Directory.Exists(uetmppath) && System.IO.Directory.GetFileSystemEntries(uetmppath).Length == 0)
+			{
+				System.IO.Directory.Delete(uetmppath);
 			}
 			return true;
 		}

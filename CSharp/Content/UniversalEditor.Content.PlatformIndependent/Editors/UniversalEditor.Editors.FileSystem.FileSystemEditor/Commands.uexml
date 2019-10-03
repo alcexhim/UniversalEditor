@@ -1,0 +1,62 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Editors.FileSystem.FileSystemEditor">
+			<Commands>
+				<Command ID="FileSystemContextMenu_View" />
+				<Command ID="FileSystemContextMenu_Add" />
+				<Command ID="FileSystemContextMenu_New" />
+				
+				<Command ID="FileSystemContextMenu_Open" />
+				<Command ID="FileSystemContextMenu_OpenNewTab" />
+				<Command ID="FileSystemContextMenu_OpenNewWindow" />
+				<Command ID="FileSystemContextMenu_SendTo" />
+				
+				<Command ID="FileSystemContextMenu_MoveTo" />
+				<Command ID="FileSystemContextMenu_CopyTo" />
+				
+				<Command ID="FileSystemContextMenu_CreateShortcut" />
+				<Command ID="FileSystemContextMenu_Rename" />
+			</Commands>
+			<Menus>
+				<Menu ID="UniversalEditor.Editors.FileSystem.FileSystemEditor.ContextMenuUnselected">
+					<Items>
+						<CommandReference CommandID="FileSystemContextMenu_View" />
+						<Separator />
+						<CommandReference CommandID="ViewArrangeIconsBy" />
+						<CommandReference CommandID="ViewRefresh" />
+						<Separator />
+						<CommandReference CommandID="EditPaste" />
+						<CommandReference CommandID="FileSystemContextMenu_PasteShortcut" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_Add" />
+						<CommandReference CommandID="FileSystemContextMenu_New" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Menu>
+				<Menu ID="UniversalEditor.Editors.FileSystem.FileSystemEditor.ContextMenuSelected">
+					<Items>
+						<CommandReference CommandID="FileSystemContextMenu_Open" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_OpenNewTab" />
+						<CommandReference CommandID="FileSystemContextMenu_OpenNewWindow" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_SendTo" />
+						<Separator />
+						<CommandReference CommandID="EditCut" />
+						<CommandReference CommandID="EditCopy" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_MoveTo" />
+						<CommandReference CommandID="FileSystemContextMenu_CopyTo" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_CreateShortcut" />
+						<CommandReference CommandID="EditDelete" />
+						<CommandReference CommandID="FileSystemContextMenu_Rename" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Menu>
+			</Menus>
+		</Editor>
+	</Editors>
+</UniversalEditor>

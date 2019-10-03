@@ -641,6 +641,7 @@
     <Content Include="Extensions\FileSystem\Associations\Apogee\DLT.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\PCX.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\PSD.uexml" />
+    <Content Include="Editors\UniversalEditor.Editors.FileSystem.FileSystemEditor\Commands.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -656,6 +657,7 @@
     <Folder Include="Extensions\FileSystem\Associations\NewWorldComputing\" />
     <Folder Include="Extensions\FileSystem\Associations\Apogee\" />
     <Folder Include="Accessors\" />
+    <Folder Include="Editors\UniversalEditor.Editors.FileSystem.FileSystemEditor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

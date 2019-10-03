@@ -186,5 +186,19 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 			return file;
 		}
+
+		public IFileSystemObject[] GetContents()
+		{
+			List<IFileSystemObject> fsos = new List<IFileSystemObject>();
+			foreach (Folder folder in Folders)
+			{
+				fsos.Add(folder);
+			}
+			foreach (File file in Files)
+			{
+				fsos.Add(file);
+			}
+			return fsos.ToArray();
+		}
 	}
 }

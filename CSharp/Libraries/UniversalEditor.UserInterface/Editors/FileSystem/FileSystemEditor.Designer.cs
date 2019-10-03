@@ -21,6 +21,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Input.Mouse;
 using MBS.Framework.UserInterface.Layouts;
 
@@ -34,8 +35,13 @@ namespace UniversalEditor.Editors.FileSystem
 		private Menu contextMenuUnselected = new Menu();
 		private Menu contextMenuSelected = new Menu();
 
+		private CommandMenuItem contextMenuUnselectedPaste = null;
+		private CommandMenuItem contextMenuUnselectedPasteShortcut = new CommandMenuItem("Paste _shortcut");
+
 		private void InitializeComponent()
 		{
+			contextMenuUnselectedPaste = new CommandMenuItem("_Paste", null, contextMenuUnselectedPaste_Click);
+
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
 			this.tmTreeView = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
@@ -45,6 +51,7 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.SelectionMode = SelectionMode.Multiple;
 			this.tv.Model = this.tmTreeView;
 
+			// these need to somehow be loaded from xml
 			contextMenuUnselected.Items.AddRange(new MenuItem[]
 			{
 				new CommandMenuItem("_View", new MenuItem[]
@@ -67,14 +74,24 @@ namespace UniversalEditor.Editors.FileSystem
 					new CommandMenuItem("_Auto arrange"),
 					new CommandMenuItem("A_lign to grid")
 				}),
-				new CommandMenuItem("_Refresh"),
+				new CommandMenuItem("R_efresh"),
 				new SeparatorMenuItem(),
-				new CommandMenuItem("_Paste"),
-				new CommandMenuItem("Paste _shortcut"),
+				contextMenuUnselectedPaste,
+				contextMenuUnselectedPasteShortcut,
 				new SeparatorMenuItem(),
+				new CommandMenuItem("A_dd", new MenuItem[]
+				{
+					new CommandMenuItem("Ne_w Item", null, delegate(object sender, EventArgs e) { MessageDialog.ShowDialog("TODO: Implement a way to open a new document editor for an embedded file", "Not Implemented", MessageDialogButtons.OK, MessageDialogIcon.Warning); }),
+					new CommandMenuItem("E_xisting Item...", null, FileAddExistingItem_Click),
+					new SeparatorMenuItem(),
+					new CommandMenuItem("New Fol_der", null, FileNewFolder_Click),
+					new CommandMenuItem("Existin_g Folder...", null, FileAddItemsFromFolder_Click),
+					new SeparatorMenuItem(),
+					new CommandMenuItem("_Files from Folder...", null, FileAddExistingFolder_Click)
+				}),
 				new CommandMenuItem("Ne_w", new MenuItem[]
 				{
-					new CommandMenuItem("_Folder"),
+					new CommandMenuItem("_Folder", null, FileNewFolder_Click),
 					new CommandMenuItem("_Shortcut"),
 					new SeparatorMenuItem(),
 					new CommandMenuItem("Briefcase"),
@@ -85,7 +102,7 @@ namespace UniversalEditor.Editors.FileSystem
 					new CommandMenuItem("Compressed (zipped) folder")
 				}),
 				new SeparatorMenuItem(),
-				new CommandMenuItem("P_roperties")
+				new CommandMenuItem("P_roperties", null, ContextMenuProperties_Click)
 			});
 
 			contextMenuSelected.Items.AddRange(new MenuItem[]
@@ -104,10 +121,10 @@ namespace UniversalEditor.Editors.FileSystem
 				new CommandMenuItem("Copy to...", null, ContextMenuCopyTo_Click),
 				new SeparatorMenuItem(),
 				new CommandMenuItem("Create _shortcut"),
-				new CommandMenuItem("_Delete"),
-				new CommandMenuItem("Rena_me"),
+				new CommandMenuItem("_Delete", null, ContextMenuDelete_Click),
+				new CommandMenuItem("Rena_me", null, ContextMenuRename_Click),
 				new SeparatorMenuItem(),
-				new CommandMenuItem("P_roperties")
+				new CommandMenuItem("P_roperties", null, ContextMenuProperties_Click)
 			});
 
 			this.tv.BeforeContextMenu += tv_BeforeContextMenu;

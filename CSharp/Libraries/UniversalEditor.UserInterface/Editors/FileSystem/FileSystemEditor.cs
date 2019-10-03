@@ -28,6 +28,7 @@ using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
+using UniversalEditor.Editors.FileSystem.Dialogs;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -42,7 +43,7 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			while (tv.SelectedRows.Count > 0)
 			{
-				if (tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") == sel.Item)
+				if (tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") == sel.Items[0])
 				{
 					tmTreeView.Rows.Remove(tv.SelectedRows[0]);
 					break;
@@ -60,6 +61,20 @@ namespace UniversalEditor.Editors.FileSystem
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 
 			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
+		}
+
+		private void ContextMenuDelete_Click(object sender, EventArgs e)
+		{
+			// forward to EditDelete - this will be unnecessary once we implement these menu item definitions as XML
+			if (Application.Commands["EditDelete"] != null)
+				Application.Commands["EditDelete"].Execute();
+		}
+
+		private void contextMenuUnselectedPaste_Click(object sender, EventArgs e)
+		{
+			// forward to EditPaste - this will be unnecessary once we implement these menu item definitions as XML
+			if (Application.Commands["EditPaste"] != null)
+				Application.Commands["EditPaste"].Execute();
 		}
 
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
@@ -80,10 +95,249 @@ namespace UniversalEditor.Editors.FileSystem
 			e.Data = list.ToArray();
 		}
 
+		/// <summary>
+		/// Prompts the user to select an existing file to add to the currently-loaded <see cref="FileSystemObjectModel"/>.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="e">E.</param>
+		private void FileAddExistingItem_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (fsom == null)
+				return;
+
+			FileDialog fd = new FileDialog();
+			fd.Mode = FileDialogMode.Open;
+			fd.MultiSelect = true;
+			if (fd.ShowDialog() == DialogResult.OK)
+			{
+				foreach (string fileName in fd.SelectedFileNames)
+				{
+					string fileTitle = System.IO.Path.GetFileName(fileName);
+					byte[] data = System.IO.File.ReadAllBytes(fileName);
+
+					UIAddExistingFile(fsom, fileTitle, data);
+				}
+			}
+		}
+
+		private Folder UIAddEmptyFolder(IFileSystemContainer fsom, string fileTitle)
+		{
+			Folder f = fsom.Folders.Add(fileTitle);
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
+				new TreeModelRowColumn(tmTreeView.Columns[1], String.Format("{0} files, {1} folders", f.Files.Count, f.Folders.Count)),
+				new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
+				new TreeModelRowColumn(tmTreeView.Columns[3], DateTime.Now.ToString())
+			});
+			row.SetExtraData<IFileSystemObject>("item", f);
+
+			tmTreeView.Rows.Add(row);
+			return f;
+		}
+		private File UIAddExistingFile(IFileSystemContainer fsom, string fileTitle, byte[] data)
+		{
+			File f = fsom.AddFile(fileTitle, data);
+			TreeModelRow row = UIGetTreeModelRowForFileSystemObject(f);
+			row.SetExtraData<IFileSystemObject>("item", f);
+			tmTreeView.Rows.Add(row);
+			return f;
+		}
+
+		/// <summary>
+		/// Creates a new folder in the current directory of the currently-loaded <see cref="FileSystemObjectModel"/>.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="e">E.</param>
+		private void FileNewFolder_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (fsom == null)
+				return;
+
+			int iNewFolderCt = 0;
+			foreach (Folder ef in fsom.Folders)
+			{
+				if (ef.Name.Equals("New folder") || ef.Name.StartsWith("New folder "))
+				{
+					iNewFolderCt++;
+				}
+			}
+
+			UIAddEmptyFolder(fsom, String.Format("New folder{0}", ((iNewFolderCt > 0) ? " (" + (iNewFolderCt + 1).ToString() + ")" : String.Empty)));
+		}
+
+		private void FileAddItemsFromFolder_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (fsom == null)
+				return;
+
+			FileDialog fd = new FileDialog();
+			fd.Mode = FileDialogMode.SelectFolder;
+			if (fd.ShowDialog() == DialogResult.OK)
+			{
+				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
+				RecursiveAddFolder(f);
+			}
+		}
+		private void FileAddExistingFolder_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (fsom == null)
+				return;
+
+			FileDialog fd = new FileDialog();
+			fd.Mode = FileDialogMode.SelectFolder;
+			if (fd.ShowDialog() == DialogResult.OK)
+			{
+				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
+				IFileSystemObject[] files = f.GetContents();
+				foreach (IFileSystemObject fso in files)
+				{
+					if (fso is File)
+					{
+						RecursiveAddFile(fso as File);
+					}
+					else if (fso is Folder)
+					{
+						RecursiveAddFolder(fso as Folder);
+					}
+				}
+			}
+		}
+
 		protected override EditorSelection CreateSelectionInternal(object content)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
+			if (fsom == null) return null;
+
+			if (content is string)
+			{
+				string str = (string)content;
+
+				// FIXME: assuming nautilus, for now, PLEASE FIX THIS
+				string[] parts = str.Split(new char[] { '\n' });
+				if (parts[0] == "x-special/nautilus-clipboard")
+				{
+					if (parts[1] == "cut" || parts[1] == "copy")
+					{
+						List<IFileSystemObject> fileList = new List<IFileSystemObject>();
+						for (int ip = 2; ip < parts.Length - 1; ip++)
+						{
+							string url = parts[ip];
+							Uri uri = new Uri(url);
+
+							string filepath = uri.LocalPath;
+
+							IFileSystemObject fso = FileSystemObjectFromPath(filepath);
+							if (fso == null)
+								continue;
+
+							TreeModelRow row = UIGetTreeModelRowForFileSystemObject(fso);
+							tmTreeView.Rows.Add(row);
+
+							fileList.Add(fso);
+						}
+						return new FileSystemSelection(this, fileList.ToArray());
+					}
+				}
+			}
+			return null;
 		}
+
+		/// <summary>
+		/// Creates and returns a new <see cref="TreeModelRow" /> containing details about the specified <see cref="IFileSystemObject" />.
+		/// </summary>
+		/// <returns>The et tree model row for file system object.</returns>
+		/// <param name="fso">Fso.</param>
+		private TreeModelRow UIGetTreeModelRowForFileSystemObject(IFileSystemObject fso, bool recurse = true)
+		{
+			TreeModelRow r = null;
+			if (fso is Folder)
+			{
+				Folder f = (fso as Folder);
+				r = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
+					new TreeModelRowColumn(tmTreeView.Columns[1], (f.Folders.Count + f.Files.Count).ToString() + " items"),
+					new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
+					new TreeModelRowColumn(tmTreeView.Columns[3], "")
+				});
+
+				if (recurse)
+				{
+					foreach (Folder folder in f.Folders)
+					{
+						TreeModelRow r2 = UIGetTreeModelRowForFileSystemObject(folder);
+						r.Rows.Add(r2);
+					}
+					foreach (File file in f.Files)
+					{
+						TreeModelRow r2 = UIGetTreeModelRowForFileSystemObject(file);
+						r.Rows.Add(r2);
+					}
+				}
+			}
+			else if (fso is File)
+			{
+				File f = (fso as File);
+				r = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
+					new TreeModelRowColumn(tmTreeView.Columns[1], UserInterface.Common.FileInfo.FormatSize(f.Size)),
+					new TreeModelRowColumn(tmTreeView.Columns[2], "File"),
+					new TreeModelRowColumn(tmTreeView.Columns[3], DateTime.Now.ToString())
+				});
+			}
+			r.SetExtraData<IFileSystemObject>("item", fso);
+			return r;
+		}
+
+		/// <summary>
+		/// Creates a <see cref="Folder" /> or a <see cref="File" /> from the specified path to a folder or a file.
+		/// </summary>
+		/// <returns>The created <see cref="IFileSystemObject" />.</returns>
+		/// <param name="filepath">The path in the actual file system that contains the object to load.</param>
+		private IFileSystemObject FileSystemObjectFromPath(string filepath)
+		{
+			if (System.IO.Directory.Exists(filepath))
+			{
+				return FolderFromPath(filepath);
+			}
+			else if (System.IO.File.Exists(filepath))
+			{
+				return FileFromPath(filepath);
+			}
+			return null;
+		}
+
+		private File FileFromPath(string filepath)
+		{
+			File file = new File();
+			file.Name = System.IO.Path.GetFileName(filepath);
+			file.SetData(System.IO.File.ReadAllBytes(filepath));
+			return file;
+		}
+		private Folder FolderFromPath(string filepath)
+		{
+			Folder f = new Folder();
+			f.Name = System.IO.Path.GetFileName(filepath);
+
+			string[] folders = System.IO.Directory.GetDirectories(filepath);
+			foreach (string folder in folders)
+			{
+				f.Folders.Add(FolderFromPath(folder));
+			}
+			string[] files = System.IO.Directory.GetFiles(filepath);
+			foreach (string file in files)
+			{
+				f.Files.Add(FileFromPath(file));
+			}
+			return f;
+		}
+
 		public override void UpdateSelections()
 		{
 			Selections.Clear();
@@ -109,15 +363,7 @@ namespace UniversalEditor.Editors.FileSystem
 
 		private void RecursiveAddFolder(Folder f, TreeModelRow parent = null)
 		{
-			TreeModelRow r = new TreeModelRow(new TreeModelRowColumn[]
-			{
-				new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
-				new TreeModelRowColumn(tmTreeView.Columns[1], (f.Folders.Count + f.Files.Count).ToString() + " items"),
-				new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
-				new TreeModelRowColumn(tmTreeView.Columns[3], "")
-			});
-			r.SetExtraData<IFileSystemObject>("item", f);
-
+			TreeModelRow r = UIGetTreeModelRowForFileSystemObject(f, false);
 			foreach (Folder f2 in f.Folders)
 			{
 				RecursiveAddFolder(f2, r);
@@ -138,13 +384,7 @@ namespace UniversalEditor.Editors.FileSystem
 		}
 		private void RecursiveAddFile(File f, TreeModelRow parent = null)
 		{
-			TreeModelRow r = new TreeModelRow(new TreeModelRowColumn[]
-			{
-				new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
-				new TreeModelRowColumn(tmTreeView.Columns[1], UniversalEditor.UserInterface.Common.FileInfo.FormatSize(f.Size)),
-				new TreeModelRowColumn(tmTreeView.Columns[2], ""),
-				new TreeModelRowColumn(tmTreeView.Columns[3], "")
-			});
+			TreeModelRow r = UIGetTreeModelRowForFileSystemObject(f);
 			r.SetExtraData<IFileSystemObject>("item", f);
 
 			if (parent == null)
@@ -174,7 +414,29 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
-		void ContextMenuCopyTo_Click(object sender, EventArgs e)
+		private void ContextMenuProperties_Click(object sender, EventArgs e)
+		{
+			if (tv.SelectedRows.Count == 1 && tv.LastHitTest.Row != null)
+			{
+				TreeModelRow row = tv.SelectedRows[0];
+				IFileSystemObject fso = row.GetExtraData<IFileSystemObject>("item");
+
+				if (FilePropertiesDialog.ShowDialog(fso) == DialogResult.OK)
+				{
+					row.RowColumns[0].Value = fso.Name;
+				}
+			}
+			else
+			{
+			}
+		}
+
+		/// <summary>
+		/// Prompts the user to choose a filename, and then extracts the selected file in the current <see cref="FileSystemObjectModel" /> to a file on disk with the chosen filename.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="e">E.</param>
+		private void ContextMenuCopyTo_Click(object sender, EventArgs e)
 		{
 			// extract files
 			if (tv.SelectedRows.Count == 1)
@@ -186,8 +448,59 @@ namespace UniversalEditor.Editors.FileSystem
 				FileDialog fd = new FileDialog();
 				fd.Mode = FileDialogMode.SelectFolder;
 				fd.MultiSelect = false;
-				foreach (TreeModelRow row in tv.SelectedRows)
+
+				if (fd.ShowDialog() == DialogResult.OK)
 				{
+					string fileName = fd.SelectedFileNames[0];
+
+					if (!System.IO.Directory.Exists(fileName))
+						System.IO.Directory.CreateDirectory(fileName);
+
+					foreach (TreeModelRow row in tv.SelectedRows)
+					{
+						IFileSystemObject fso = row.GetExtraData<IFileSystemObject>("item");
+						ExtractFileSystemObject(fso, fileName);
+					}
+				}
+			}
+		}
+
+		private void ContextMenuRename_Click(object sender, EventArgs e)
+		{
+			// gtk_tree_view_column_focus_cell (GtkTreeViewColumn *tree_column, GtkCellRenderer* cell);
+			// tv.SelectedRows[0].RowColumns[0].BeginEdit();
+		}
+
+		private void ExtractFileSystemObject(IFileSystemObject fso, string fileName)
+		{
+			if (String.IsNullOrEmpty(fso.Name))
+			{
+				Console.Error.WriteLine("ERROR! FileSystemEditor::ExtractFileSystemObject - we have to work around some weirdo bug in ZIP");
+				return;
+			}
+
+			if (fso is File)
+			{
+				File f = (fso as File);
+
+				string filePath = System.IO.Path.Combine(new string[] { fileName, System.IO.Path.GetFileName(f.Name) });
+				System.IO.File.WriteAllBytes(filePath, f.GetData());
+			}
+			else if (fso is Folder)
+			{
+				Folder f = (fso as Folder);
+
+				string filePath = System.IO.Path.Combine(new string[] { fileName, f.Name });
+				if (!System.IO.Directory.Exists(filePath))
+					System.IO.Directory.CreateDirectory(filePath);
+
+				foreach (File file in f.Files)
+				{
+					ExtractFileSystemObject(file, filePath);
+				}
+				foreach (Folder file in f.Folders)
+				{
+					ExtractFileSystemObject(file, filePath);
 				}
 			}
 		}
@@ -223,8 +536,7 @@ namespace UniversalEditor.Editors.FileSystem
 				fd.MultiSelect = false;
 				if (fd.ShowDialog() == DialogResult.OK)
 				{
-					System.IO.Directory.CreateDirectory(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
-					// TODO: implement this
+					ExtractFileSystemObject(f, fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
 				}
 			}
 		}
@@ -239,6 +551,9 @@ namespace UniversalEditor.Editors.FileSystem
 				if (info != null)
 					row = info.Row;
 			}
+
+			contextMenuUnselectedPaste.Enabled = Clipboard.Default.ContainsFileList;
+			contextMenuUnselectedPasteShortcut.Enabled = Clipboard.Default.ContainsFileList;
 
 			if (row != null)
 			{

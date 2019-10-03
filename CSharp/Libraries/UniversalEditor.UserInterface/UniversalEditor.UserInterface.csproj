@@ -121,6 +121,7 @@
     <Compile Include="Editors\Binary\BinaryEditor.cs" />
     <Compile Include="Editors\Binary\FieldDefinitionPropertiesDialog.cs" />
     <Compile Include="Editors\Binary\FieldDefinition.cs" />
+    <Compile Include="Editors\FileSystem\Dialogs\FilePropertiesDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -172,6 +173,7 @@
     <Folder Include="Editors\PropertyList\" />
     <Folder Include="Controls\" />
     <Folder Include="Editors\Binary\" />
+    <Folder Include="Editors\FileSystem\Dialogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

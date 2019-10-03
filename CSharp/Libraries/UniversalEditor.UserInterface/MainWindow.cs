@@ -370,23 +370,31 @@ namespace UniversalEditor.UserInterface
 					}
 				}
 			}
-			
-			EditorReference[] editors = Common.Reflection.GetAvailableEditors(doc.ObjectModel.MakeReference());
-			Console.WriteLine("found {0} editors for object model {1}", editors.Length.ToString(), doc.ObjectModel.ToString());
-			if (editors.Length > 0)
+
+			if (doc.ObjectModel != null)
 			{
-				// no need to open and load file, it's already been done
-				Editor editor = editors[0].Create();
-				EditorPage page = new EditorPage();
-				page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
+				EditorReference[] editors = Common.Reflection.GetAvailableEditors(doc.ObjectModel.MakeReference());
+				Console.WriteLine("found {0} editors for object model {1}", editors.Length.ToString(), doc.ObjectModel.ToString());
+				if (editors.Length > 0)
+				{
+					// no need to open and load file, it's already been done
+					Editor editor = editors[0].Create();
+					EditorPage page = new EditorPage();
+					page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
 
-				InitDocTab(doc.Title, page);
+					InitDocTab(doc.Title, page);
 
-				editor.ObjectModel = doc.ObjectModel;
+					editor.ObjectModel = doc.ObjectModel;
+				}
+				else
+				{
+					Console.Error.WriteLine("Editor not found for object model " + doc.ObjectModel.MakeReference().Title + " ; using default editor");
+					OpenDefaultEditor(doc.Accessor.GetFileName());
+				}
 			}
 			else
 			{
-				Console.Error.WriteLine("Editor not found for object model " + doc.ObjectModel.MakeReference().Title + " ; using default editor");
+				Console.Error.WriteLine("ObjectModel not specified for accessor " + doc.Accessor.ToString() + " ; using default editor");
 				OpenDefaultEditor(doc.Accessor.GetFileName());
 			}
 		}
@@ -416,7 +424,7 @@ namespace UniversalEditor.UserInterface
 			if (System.IO.File.Exists(filename))
 			{
 				System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-				if (fi.Length < Math.Pow(1024, 2))
+				if (fi.Length < Math.Pow(1024, 4))
 				{
 					byte[] content = System.IO.File.ReadAllBytes(filename);
 					om1.Data = content;
