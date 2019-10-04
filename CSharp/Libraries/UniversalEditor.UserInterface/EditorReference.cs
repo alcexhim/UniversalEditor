@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.UserInterface;
+using UniversalEditor.ObjectModels.Markup;
 
 namespace UniversalEditor.UserInterface
 {
@@ -18,6 +20,11 @@ namespace UniversalEditor.UserInterface
 
 		private ObjectModelReference.ObjectModelReferenceCollection mvarSupportedObjectModels = new ObjectModelReference.ObjectModelReferenceCollection();
 		public ObjectModelReference.ObjectModelReferenceCollection SupportedObjectModels { get { return mvarSupportedObjectModels; } }
+
+		public MarkupTagElement Configuration { get; set; } = null;
+
+		public CommandBar MenuBar { get; } = new CommandBar();
+		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
 
 		public EditorReference(Type type)
 		{

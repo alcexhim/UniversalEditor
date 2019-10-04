@@ -4,6 +4,7 @@ using System.Text;
 
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.UserInterface.Common
 {
@@ -68,7 +69,120 @@ namespace UniversalEditor.UserInterface.Common
 				}
 			}
 
+			InitializeFromXML(ref listEditors);
+
 			if (mvarAvailableEditors == null) mvarAvailableEditors = listEditors.ToArray();
+		}
+
+		private static void InitializeFromXML(ref List<EditorReference> listEditors)
+		{
+			string[] paths = MBS.Framework.UserInterface.Application.EnumerateDataPaths();
+			foreach (string path in paths)
+			{
+				if (!System.IO.Directory.Exists(path))
+					continue;
+
+				string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
+				if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
+
+				string[] XMLFileNames = null;
+				XMLFileNames = System.IO.Directory.GetFiles(path, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
+				foreach (string fileName in XMLFileNames)
+				{
+					string basePath = System.IO.Path.GetDirectoryName(fileName);
+
+					MarkupObjectModel mom = new MarkupObjectModel();
+					XMLDataFormat xdf = new XMLDataFormat();
+
+					try
+					{
+						Document.Load(mom, xdf, new FileAccessor(fileName, false, false, false), true);
+					}
+					catch (InvalidDataFormatException ex)
+					{
+						// ignore it
+					}
+
+					MarkupTagElement tagUniversalEditor = (mom.Elements["UniversalEditor"] as MarkupTagElement);
+					if (tagUniversalEditor == null) continue;
+
+					MarkupTagElement tagEditors = (tagUniversalEditor.Elements["Editors"] as MarkupTagElement);
+					if (tagEditors != null)
+					{
+						foreach (MarkupElement elEditor in tagEditors.Elements)
+						{
+							MarkupTagElement tagEditor = (elEditor as MarkupTagElement);
+							if (tagEditor == null) continue;
+							if (tagEditor.Name != "Editor") continue;
+
+							EditorReference er = null;
+
+							MarkupAttribute attTypeName = tagEditor.Attributes["TypeName"];
+							MarkupAttribute attID = tagEditor.Attributes["ID"];
+							if (attTypeName != null)
+							{
+								er = GetAvailableEditorByTypeName(attTypeName.Value, listEditors);
+							}
+							else if (attID != null)
+							{
+								Guid id = new Guid(attID.Value);
+								er = GetAvailableEditorByID(id, listEditors);
+							}
+							else
+							{
+								continue;
+							}
+
+							if (er != null)
+							{
+								er.Configuration = tagEditor;
+
+								MarkupTagElement tagCommands = (tagEditor.Elements["Commands"] as MarkupTagElement);
+								if (tagCommands != null)
+								{
+									foreach (MarkupElement elCommand in tagCommands.Elements)
+									{
+										MarkupTagElement tagCommand = (elCommand as MarkupTagElement);
+										if (tagCommand != null)
+										{
+											string id = tagCommand.Attributes["ID"]?.Value;
+											string title = tagCommand.Attributes["Title"]?.Value;
+											er.Commands.Add(new MBS.Framework.UserInterface.Command(id, title != null ? title : id));
+										}
+									}
+								}
+								MarkupTagElement tagMenuBar = (tagEditor.Elements["MenuBar"] as MarkupTagElement);
+								if (tagMenuBar != null)
+								{
+									MarkupTagElement tagItems = tagMenuBar.Elements["Items"] as MarkupTagElement;
+									if (tagItems != null)
+									{
+										foreach (MarkupElement elItem in tagItems.Elements)
+										{
+											MarkupTagElement tagItem = (elItem as MarkupTagElement);
+											if (tagItem == null) continue;
+											switch (tagItem.Name)
+											{
+												case "CommandReference":
+												{
+													MBS.Framework.UserInterface.CommandReferenceCommandItem crci = new MBS.Framework.UserInterface.CommandReferenceCommandItem(tagItem.Attributes["ID"]?.Value);
+													er.MenuBar.Items.Add(crci);
+													break;
+												}
+												case "Separator":
+												{
+													er.MenuBar.Items.Add(new MBS.Framework.UserInterface.SeparatorCommandItem());
+													break;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 
 		private static Dictionary<string, Type> TypesByName = new Dictionary<string, Type>();
@@ -185,12 +299,37 @@ namespace UniversalEditor.UserInterface.Common
 			return list.ToArray();
 		}
 
-		public static EditorReference GetAvailableEditorByID(Guid guid)
+		public static EditorReference GetAvailableEditorByID(Guid guid, List<EditorReference> list = null)
 		{
-			EditorReference[] editors = GetAvailableEditors();
+			EditorReference[] editors = null;
+			if (list != null)
+			{
+				editors = list.ToArray();
+			}
+			else
+			{
+				editors = GetAvailableEditors();
+			}
 			foreach (EditorReference editor in editors)
 			{
 				if (editor.ID == guid) return editor;
+			}
+			return null;
+		}
+		public static EditorReference GetAvailableEditorByTypeName(string typeName, List<EditorReference> list = null)
+		{
+			EditorReference[] editors = null;
+			if (list != null)
+			{
+				editors = list.ToArray();
+			}
+			else
+			{
+				editors = GetAvailableEditors();
+			}
+			foreach (EditorReference editor in editors)
+			{
+				if (editor.EditorType == FindType(typeName)) return editor;
 			}
 			return null;
 		}
