@@ -138,10 +138,12 @@ namespace UniversalEditor.UserInterface.Pages
 
 				if (realEditors.Count == 1)
 				{
-					Editor editor = reditors[0].Create();
+					Editor editor = realEditors[0];
 
 					// clone it
-					editor = (Editor)editor.GetType().Assembly.CreateInstance(editor.GetType().FullName);
+
+					// TODO: need to test this, this should not be necessary since we're using EditorReferences
+					// editor = (Editor)editor.GetType().Assembly.CreateInstance(editor.GetType().FullName);
 
 					// editor.Dock = DockStyle.Fill;
 					editor.ObjectModel = om;
