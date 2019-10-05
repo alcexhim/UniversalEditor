@@ -496,6 +496,9 @@ namespace UniversalEditor.UserInterface
 			dckContainer.Items.Add(item);
 
 			documentWindowCount++;
+
+			// HACK: until we can properly figure out when a docking container has its current window changed
+			dckContainer_SelectionChanged(this, EventArgs.Empty);
 		}
 
 		private void MainWindow_MenuBar_Item_Click(object sender, EventArgs e)
