@@ -1,0 +1,74 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.PianoRollEditor">
+			<Commands>
+				<Command ID="View">
+					<Items>
+						<CommandReference CommandID="ViewTrackOverlay" InsertBeforeID="ViewPanels" />
+						<Separator InsertBeforeID="ViewPanels" />
+					</Items>
+				</Command>
+				
+				<Command ID="JobNormalizeNotes" Title="_Normalize Overlapping Notes..." />
+				<Command ID="JobInsertBars" Title="_Insert Measures..." />
+				<Command ID="JobDeleteBars" Title="_Delete Measures..." />
+				
+				<Command ID="JobRandomize" Title="Insert _Random Notes..." />
+				<Command ID="JobConnect" Title="_Connect Notes..." />
+				
+				<Command ID="JobInsertLyrics" Title="Insert _Lyrics..." />
+				
+				<Command ID="Job" Title="_Job">
+					<Items>
+						<CommandReference CommandID="JobNormalizeNotes" />
+						<Separator />
+						<CommandReference CommandID="JobInsertBars" />
+						<CommandReference CommandID="JobDeleteBars" />
+						<Separator />
+						<CommandReference CommandID="JobRandomize" />
+						<CommandReference CommandID="JobConnect" />
+						<Separator />
+						<CommandReference CommandID="JobInsertLyrics" />
+					</Items>
+				</Command>
+				
+				<Command ID="TrackEnable" Title="Enable Trac_k" />
+				
+				<Command ID="TrackAdd" Title="_Add Track" />
+				<Command ID="TrackDuplicate" Title="Dupli_cate Track" />
+				<Command ID="TrackRename" Title="_Rename Track" />
+				<Command ID="TrackDelete" Title="_Delete Track" />
+				
+				<Command ID="TrackRenderCurrent" Title="Render Current _Track" />
+				<Command ID="TrackRenderAll" Title="Render All Track_s" />
+				
+				<Command ID="Track" Title="Trac_k">
+					<Items>
+						<CommandReference CommandID="TrackEnable" />
+						<Separator />
+						<CommandReference CommandID="TrackAdd" />
+						<CommandReference CommandID="TrackDuplicate" />
+						<CommandReference CommandID="TrackRename" />
+						<CommandReference CommandID="TrackDelete" />
+						<Separator />
+						<CommandReference CommandID="TrackRenderCurrent" />
+						<CommandReference CommandID="TrackRenderAll" />
+					</Items>
+				</Command>
+				
+				<Command ID="Part" Title="Pa_rt" />
+				<Command ID="Lyrics" Title="_Lyrics" />
+				<Command ID="Transport" Title="Tra_nsport" />
+			</Commands>
+			<MenuBar>
+				<Items>
+					<CommandReference CommandID="Job" InsertAfterID="View" />
+					<CommandReference CommandID="Track" />
+					<CommandReference CommandID="Part" />
+					<CommandReference CommandID="Lyrics" />
+					<CommandReference CommandID="Transport" />
+				</Items>
+			</MenuBar>
+		</Editor>
+	</Editors>
+</UniversalEditor>

@@ -147,7 +147,32 @@ namespace UniversalEditor.UserInterface.Common
 										{
 											string id = tagCommand.Attributes["ID"]?.Value;
 											string title = tagCommand.Attributes["Title"]?.Value;
-											er.Commands.Add(new MBS.Framework.UserInterface.Command(id, title != null ? title : id));
+
+											MBS.Framework.UserInterface.Command cmd = new MBS.Framework.UserInterface.Command(id, title != null ? title : id);
+											MarkupTagElement tagItems = tagCommand.Elements["Items"] as MarkupTagElement;
+											if (tagItems != null)
+											{
+												foreach (MarkupElement elItem in tagItems.Elements)
+												{
+													MarkupTagElement tagItem = (elItem as MarkupTagElement);
+													if (tagItem == null) continue;
+													switch (tagItem.Name)
+													{
+														case "CommandReference":
+														{
+															MBS.Framework.UserInterface.CommandReferenceCommandItem crci = new MBS.Framework.UserInterface.CommandReferenceCommandItem(tagItem.Attributes["CommandID"]?.Value);
+															cmd.Items.Add(crci);
+															break;
+														}
+														case "Separator":
+														{
+															cmd.Items.Add(new MBS.Framework.UserInterface.SeparatorCommandItem());
+															break;
+														}
+													}
+												}
+											}
+											er.Commands.Add(cmd);
 										}
 									}
 								}
@@ -165,7 +190,7 @@ namespace UniversalEditor.UserInterface.Common
 											{
 												case "CommandReference":
 												{
-													MBS.Framework.UserInterface.CommandReferenceCommandItem crci = new MBS.Framework.UserInterface.CommandReferenceCommandItem(tagItem.Attributes["ID"]?.Value);
+													MBS.Framework.UserInterface.CommandReferenceCommandItem crci = new MBS.Framework.UserInterface.CommandReferenceCommandItem(tagItem.Attributes["CommandID"]?.Value);
 													er.MenuBar.Items.Add(crci);
 													break;
 												}

@@ -27,6 +27,7 @@ using MBS.Framework.UserInterface.Printing;
 using UniversalEditor.UserInterface.Pages;
 using UniversalEditor.ObjectModels.Binary;
 using UniversalEditor.DataFormats.Binary;
+using System.Collections.Generic;
 
 namespace UniversalEditor.UserInterface
 {
@@ -149,7 +150,7 @@ namespace UniversalEditor.UserInterface
 
 			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
 			{
-				MBS.Framework.UserInterface.MenuItem mi = LoadMenuItem(ci);
+				MBS.Framework.UserInterface.MenuItem mi = MBS.Framework.UserInterface.MenuItem.LoadMenuItem(ci, MainWindow_MenuBar_Item_Click);
 				if (mi == null)
 					continue;
 
@@ -265,6 +266,10 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
+		private Editor _prevEditor = null;
+		private List<Command> _editorScopedCommands = new List<Command>();
+		private List<MBS.Framework.UserInterface.MenuItem> _editorScopedMenuItems = new List<MBS.Framework.UserInterface.MenuItem>();
+
 		private void dckContainer_SelectionChanged(object sender, EventArgs e)
 		{
 			Editor editor = null;
@@ -276,11 +281,43 @@ namespace UniversalEditor.UserInterface
 			{
 			}
 
+			if (editor != _prevEditor)
+			{
+				foreach (MBS.Framework.UserInterface.MenuItem mi in _editorScopedMenuItems)
+				{
+					MenuBar.Items.Remove(mi);
+				}
+				_editorScopedMenuItems.Clear();
+
+				foreach (Command cmd in _editorScopedCommands)
+				{
+					Console.WriteLine("unregistering temporary (editor-scoped) command '{0}'", cmd.ID);
+					Application.Commands.Remove(cmd);
+				}
+				_editorScopedCommands.Clear();
+			}
+
 			if (editor == null) {
 				Console.WriteLine ("Editor is null");
 			} else {
 				Console.WriteLine ("Editor is NOT null");
+
+				EditorReference er = editor.MakeReference();
+				foreach (Command cmd in er.Commands)
+				{
+					Console.WriteLine("registering temporary (editor-scoped) command '{0}'", cmd.ID);
+					Application.Commands.Add(cmd);
+					_editorScopedCommands.Add(cmd);
+				}
+
+				foreach (CommandItem ci in er.MenuBar.Items)
+				{
+					MBS.Framework.UserInterface.MenuItem mi = MBS.Framework.UserInterface.MenuItem.LoadMenuItem(ci, MainWindow_MenuBar_Item_Click);
+					MenuBar.Items.Add(mi);
+					_editorScopedMenuItems.Add(mi);
+				}
 			}
+			_prevEditor = editor;
 		}
 
 		public void NewProject(bool combineObjects = false)
@@ -487,45 +524,6 @@ namespace UniversalEditor.UserInterface
 			{
 				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
-		}
-
-		private MBS.Framework.UserInterface.MenuItem LoadMenuItem(CommandItem ci)
-		{
-			if (ci is CommandReferenceCommandItem)
-			{
-				CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
-
-				Command cmd = Application.Commands[crci.CommandID];
-				if (cmd != null)
-				{
-					CommandMenuItem mi = new CommandMenuItem(cmd.Title);
-					mi.Name = cmd.ID;
-					mi.Shortcut = cmd.Shortcut;
-					if (cmd.Items.Count > 0)
-					{
-						foreach (CommandItem ci1 in cmd.Items)
-						{
-							MBS.Framework.UserInterface.MenuItem mi1 = LoadMenuItem(ci1);
-							mi.Items.Add(mi1);
-						}
-					}
-					else
-					{
-						mi.Click += MainWindow_MenuBar_Item_Click;
-					}
-					return mi;
-				}
-				else
-				{
-					Console.WriteLine("attempted to load unknown cmd '" + crci.CommandID + "'");
-				}
-				return null;
-			}
-			else if (ci is SeparatorCommandItem)
-			{
-				return new MBS.Framework.UserInterface.SeparatorMenuItem();
-			}
-			return null;
 		}
 
 		#region IHostApplicationWindow implementation
