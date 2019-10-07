@@ -34,6 +34,10 @@
     <Compile Include="Editors\Multimedia\Picture\PictureEditor.Designer.cs" />
     <Compile Include="Controls\DrawingArea\DrawingAreaControl.cs" />
     <Compile Include="SettingsProviders\SingingStyleDefaultsSettingsProvider.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\PianoRollEditor.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\PianoRollEditor.Designer.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Views\PianoRollView.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\PianoRollSelectionMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -42,6 +46,10 @@
     <Folder Include="Controls\" />
     <Folder Include="Controls\DrawingArea\" />
     <Folder Include="SettingsProviders\" />
+    <Folder Include="Editors\Multimedia\Audio\" />
+    <Folder Include="Editors\Multimedia\Audio\Synthesized\" />
+    <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\" />
+    <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Views\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
