@@ -1042,6 +1042,9 @@ namespace UniversalEditor.UserInterface
 			// UpdateSplashScreenStatus("Finalizing configuration");
 			// ConfigurationManager.Load();
 			#endregion
+
+			// load editors into memory so we don't wait 10-15 seconds before opening a file
+			Common.Reflection.GetAvailableEditors();
 		}
 
 		private void LoadConfiguration(MarkupTagElement tag, Group group = null)
