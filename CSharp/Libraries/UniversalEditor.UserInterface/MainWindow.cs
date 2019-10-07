@@ -291,7 +291,6 @@ namespace UniversalEditor.UserInterface
 
 				foreach (Command cmd in _editorScopedCommands)
 				{
-					Console.WriteLine("unregistering temporary (editor-scoped) command '{0}'", cmd.ID);
 					Application.Commands.Remove(cmd);
 				}
 				_editorScopedCommands.Clear();
@@ -305,7 +304,6 @@ namespace UniversalEditor.UserInterface
 				EditorReference er = editor.MakeReference();
 				foreach (Command cmd in er.Commands)
 				{
-					Console.WriteLine("registering temporary (editor-scoped) command '{0}'", cmd.ID);
 					Application.Commands.Add(cmd);
 					_editorScopedCommands.Add(cmd);
 				}
