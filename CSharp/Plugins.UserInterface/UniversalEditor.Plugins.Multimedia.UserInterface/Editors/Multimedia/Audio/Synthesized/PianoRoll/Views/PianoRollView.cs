@@ -25,6 +25,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
+using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Controls
@@ -90,7 +91,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				new SeparatorMenuItem(),
 				new CommandMenuItem("Insert _Lyrics..."),
 				new SeparatorMenuItem(),
-				new CommandMenuItem("_Properties...") // displays Note Property dialog
+				new CommandMenuItem("P_roperties...", null, ContextMenuProperties_Click) // displays Note Property dialog
 			});
 			this.ContextMenu = contextMenu;
 		}
@@ -252,12 +253,16 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		private Vector2D drag_OriginalLocation = new Vector2D(0, 0);
 		private Vector2D drag_CurrentLocation = new Vector2D(0, 0);
 
+		private SynthesizedAudioCommand draggingCommand = null;
+
+		private bool moved = false;
+
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
 			base.OnMouseDown(e);
 
 			SynthesizedAudioCommand cmd = HitTest(e.Location);
-			if ((e.ModifierKeys == KeyboardModifierKey.None && e.Buttons == MouseButtons.Primary) || cmd == null)
+			if ((e.ModifierKeys == KeyboardModifierKey.None && (cmd != null && !mvarSelectedCommands.Contains(cmd))) || cmd == null)
 			{
 				mvarSelectedCommands.Clear();
 			}
@@ -286,10 +291,13 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				{
 					mvarSelectedCommands.Remove(cmd);
 				}
-				else
+				else if (!mvarSelectedCommands.Contains(cmd))
 				{
 					mvarSelectedCommands.Add(cmd);
 				}
+
+				if (e.Buttons == MouseButtons.Primary)
+					draggingCommand = cmd;
 			}
 
 			if (e.Buttons == MouseButtons.Primary)
@@ -326,16 +334,16 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 			if (e.Buttons == MouseButtons.Primary)
 			{
+				moved = true;
 				dx = e.X;
 				dy = e.Y;
 
 				if (ShowKeyboard && dx < KeyboardWidth)
 					dx = KeyboardWidth;
 
-				if (SelectionMode == PianoRollSelectionMode.Select || SelectionMode == PianoRollSelectionMode.Insert)
+				if (draggingCommand == null && (SelectionMode == PianoRollSelectionMode.Select || SelectionMode == PianoRollSelectionMode.Insert))
 				{
 					drag_CurrentLocation = Quantize(new Vector2D(dx, drag_OriginalLocation.Y));
-
 					if (SelectionMode == PianoRollSelectionMode.Select)
 					{
 						Rectangle rectSelection = new Rectangle(cx, cy, dx - cx, dy - cy);
@@ -346,8 +354,12 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 							mvarSelectedCommands.Add(cmd1);
 						}
 					}
-					Refresh();
 				}
+				else
+				{
+					drag_CurrentLocation = Quantize(new Vector2D(dx, dy));
+				}
+				Refresh();
 			}
 		}
 		protected override void OnMouseUp(MouseEventArgs e)
@@ -356,7 +368,42 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 			if (e.Buttons == MouseButtons.Primary)
 			{
-				if (SelectionMode == PianoRollSelectionMode.Insert)
+				SynthesizedAudioCommand cmd = HitTest(e.Location);
+				if (cmd != null && e.ModifierKeys == KeyboardModifierKey.None && !moved)
+				{
+					mvarSelectedCommands.Clear();
+					mvarSelectedCommands.Add(cmd);
+				}
+
+				if (draggingCommand != null)
+				{
+					foreach (SynthesizedAudioCommand cmd1 in mvarSelectedCommands)
+					{
+						SynthesizedAudioCommandNote note = (cmd1 as SynthesizedAudioCommandNote);
+						if (note != null)
+						{
+							double x = drag_CurrentLocation.X - drag_OriginalLocation.X;
+							double y = drag_CurrentLocation.Y - drag_OriginalLocation.Y;
+
+							Rectangle origNoteRect = GetNoteRect(note);
+							Vector2D v = Quantize(origNoteRect.Location);
+							v.X += x;
+							v.Y += y;
+
+							ApplyNoteRect(ref note, v);
+						}
+					}
+					/*
+					SynthesizedAudioCommandNote note = (draggingCommand as SynthesizedAudioCommandNote);
+					if (note != null)
+					{
+						note.Position = (int)drag_CurrentLocation.X;
+						note.Frequency = ValueToFrequency((int)drag_CurrentLocation.Y);
+					}
+					*/
+					draggingCommand = null;
+				}
+				else if (SelectionMode == PianoRollSelectionMode.Insert)
 				{
 					if (drag_CurrentLocation.X - drag_OriginalLocation.X > 0)
 					{
@@ -372,8 +419,16 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 					}
 				}
 				m_selecting = false;
+				moved = false;
+
 				Refresh();
 			}
+		}
+
+		private void ApplyNoteRect(ref SynthesizedAudioCommandNote note, Vector2D quantized)
+		{
+			note.Position = (int)quantized.X;
+			note.Frequency = ValueToFrequency((int)quantized.Y);
 		}
 
 		protected override void OnMouseDoubleClick(MouseEventArgs e)
@@ -387,6 +442,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 					SynthesizedAudioCommandNote note = (cmd as SynthesizedAudioCommandNote);
 					Rectangle rect = GetNoteRect(note);
 
+					ShowNotePropertiesDialog(note);
 					/*
 					txtLyric.Location = rect.Location;
 					txtLyric.Size = rect.Size;
@@ -398,6 +454,23 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 					txtLyric.Focus();
 					*/				
 				}
+			}
+		}
+
+		public void ShowNotePropertiesDialog(SynthesizedAudioCommandNote note = null)
+		{
+			if (note == null && mvarSelectedCommands.Count > 0)
+			{
+				note = (mvarSelectedCommands[0] as SynthesizedAudioCommandNote);
+			}
+			if (note == null)
+				return;
+
+			// FIXME: ParentWindow is null, probably because this isn't a "normal" parented control but rather it's inside a DockingWindow...
+			NotePropertiesDialog dlg = new NotePropertiesDialog();
+			if (dlg.ShowDialog(ParentWindow) == DialogResult.OK)
+			{
+
 			}
 		}
 
@@ -536,7 +609,30 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				}
 			}
 
-			if (m_selecting)
+			if (draggingCommand != null)
+			{
+				if (draggingCommand is SynthesizedAudioCommandNote)
+				{
+					Rectangle origNoteRect = GetNoteRect(draggingCommand as SynthesizedAudioCommandNote);
+					Rectangle newNoteRect = GetNoteRect(draggingCommand as SynthesizedAudioCommandNote);
+					newNoteRect.Location = Unquantize(drag_CurrentLocation);
+
+					Vector2D diff = new Vector2D(newNoteRect.X - origNoteRect.X, newNoteRect.Y - origNoteRect.Y);
+					foreach (SynthesizedAudioCommand cmd in mvarSelectedCommands)
+					{
+						if (cmd is SynthesizedAudioCommandNote)
+						{
+							Rectangle noteRect = GetNoteRect(cmd as SynthesizedAudioCommandNote);
+							noteRect.Location = new Vector2D(noteRect.X + diff.X, noteRect.Y + diff.Y);
+							if (ShowKeyboard)
+								noteRect.X += KeyboardWidth;
+
+							e.Graphics.DrawRectangle(pSelectionBorder, noteRect);
+						}
+					}
+				}
+			}
+			else if (m_selecting)
 			{
 				if (SelectionMode == PianoRollSelectionMode.Select)
 				{
@@ -588,6 +684,11 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 					g.FillRectangle(new SolidBrush(Colors.DarkGray), keyboardRect.X, i, (int)((double)keyboardRect.Width / 2), gridHeight);
 				}
 			}
+		}
+
+		private void ContextMenuProperties_Click(object sender, EventArgs e)
+		{
+			ShowNotePropertiesDialog();
 		}
 
 		private int QuantizeHeight(int cy)
