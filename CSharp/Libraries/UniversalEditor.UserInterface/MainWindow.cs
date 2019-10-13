@@ -294,25 +294,28 @@ namespace UniversalEditor.UserInterface
 					Application.Commands.Remove(cmd);
 				}
 				_editorScopedCommands.Clear();
-			}
 
-			if (editor == null) {
-				Console.WriteLine ("Editor is null");
-			} else {
-				Console.WriteLine ("Editor is NOT null");
-
-				EditorReference er = editor.MakeReference();
-				foreach (Command cmd in er.Commands)
+				if (editor == null)
 				{
-					Application.Commands.Add(cmd);
-					_editorScopedCommands.Add(cmd);
+					Console.WriteLine("Editor is null");
 				}
-
-				foreach (CommandItem ci in er.MenuBar.Items)
+				else
 				{
-					MBS.Framework.UserInterface.MenuItem mi = MBS.Framework.UserInterface.MenuItem.LoadMenuItem(ci, MainWindow_MenuBar_Item_Click);
-					MenuBar.Items.Add(mi);
-					_editorScopedMenuItems.Add(mi);
+					Console.WriteLine("Editor is NOT null");
+
+					EditorReference er = editor.MakeReference();
+					foreach (Command cmd in er.Commands)
+					{
+						Application.Commands.Add(cmd);
+						_editorScopedCommands.Add(cmd);
+					}
+
+					foreach (CommandItem ci in er.MenuBar.Items)
+					{
+						MBS.Framework.UserInterface.MenuItem mi = MBS.Framework.UserInterface.MenuItem.LoadMenuItem(ci, MainWindow_MenuBar_Item_Click);
+						MenuBar.Items.Add(mi);
+						_editorScopedMenuItems.Add(mi);
+					}
 				}
 			}
 			_prevEditor = editor;

@@ -20,7 +20,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -129,55 +128,49 @@ namespace UniversalEditor.UserInterface.Pages
 				Controls.Clear();
 				// Controls.Add(pnlLoading);
 
-				List<Editor> realEditors = new List<Editor>();
-				foreach (EditorReference reditor in reditors)
+				Container tbEditorsAndViews = new Container();
+				tbEditorsAndViews.Layout = new GridLayout();
+				for (int i = 0; i < reditors.Length; i++)
 				{
+					EditorReference reditor = reditors[i];
 					Editor editor = reditor.Create();
-					realEditors.Add(editor);
-				}
-
-				if (realEditors.Count == 1)
-				{
-					Editor editor = realEditors[0];
-
-					// clone it
-
-					// TODO: need to test this, this should not be necessary since we're using EditorReferences
-					// editor = (Editor)editor.GetType().Assembly.CreateInstance(editor.GetType().FullName);
 
 					// editor.Dock = DockStyle.Fill;
 					editor.ObjectModel = om;
 					editor.DocumentEdited += editor_DocumentEdited;
 
-					// pnlLoading.Visible = false;
-					// pnlLoading.Enabled = false;
+					for (int j = 0; j < reditor.Views.Count; j++)
+					{
+						EditorView view = reditor.Views[j];
+						Button btn = new Button();
+						btn.BorderStyle = ButtonBorderStyle.None;
+						btn.Text = view.Title;
+						btn.Click += tibEditorView_Click;
+						btn.SetExtraData<Editor>("editor", editor);
+						btn.SetExtraData<EditorView>("view", view);
+						btn.HorizontalAlignment = HorizontalAlignment.Left;
+						// btn.DisplayStyle = ToolbarItemDisplayStyle.ImageAndText;
+						tbEditorsAndViews.Controls.Add(btn, new GridLayout.Constraints(0, i + j));
+					}
 					Controls.Add(editor, new BoxLayout.Constraints(true, true));
 				}
-				else
-				{
-					TabContainer tbs = new TabContainer();
-					foreach (Editor editor in realEditors)
-					{
-						// clone it
-						Editor editorInst = (editor.GetType().Assembly.CreateInstance(editor.GetType().FullName) as Editor);
-						// editor.Dock = DockStyle.Fill;
-						editor.ObjectModel = om;
-						editor.DocumentEdited += editor_DocumentEdited;
+				Controls.Add(tbEditorsAndViews, new BoxLayout.Constraints(false, false));
 
-						TabPage tab = new TabPage();
-						tab.Layout = new BoxLayout (Orientation.Vertical);
-						tab.Text = editor.Title;
-
-						tab.Controls.Add(editor, new BoxLayout.Constraints(true, true));
-						tbs.TabPages.Add(tab);
-					}
-
-					// pnlLoading.Visible = false;
-					// pnlLoading.Enabled = false;
-					Controls.Add(tbs, new BoxLayout.Constraints(true, true));
-				}
+				// pnlLoading.Visible = false;
+				// pnlLoading.Enabled = false;
 			}
 		}
+
+		private void tibEditorView_Click(object sender, EventArgs e)
+		{
+			Button tib = (sender as Button);
+			Editor editor = tib.GetExtraData<Editor>("editor");
+			EditorView view = tib.GetExtraData<EditorView>("view");
+			editor.CurrentView = view;
+
+			Console.WriteLine("Switching to view '" + view.Title + "'");
+		}
+
 
 		private void editor_DocumentEdited(object sender, EventArgs e)
 		{
@@ -185,7 +178,7 @@ namespace UniversalEditor.UserInterface.Pages
 		}
 
 		/*
-		public event ObjectModelChangingEventHandler ObjectModelChanging;
+		public event ObjectModelChangingEventHandler ObjectModelChanging;c
 		protected virtual void OnObjectModelChanging(ObjectModelChangingEventArgs e)
 		{
 			if (ObjectModelChanging != null) ObjectModelChanging(this, e);

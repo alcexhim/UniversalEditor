@@ -46,6 +46,9 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 			if (_er == null)
 			{
 				_er = base.MakeReference();
+				_er.Views.Add("Piano Roll");
+				_er.Views.Add("Score");
+				_er.Views.Add("MIDI Events");
 				_er.SupportedObjectModels.Add(typeof(SynthesizedAudioObjectModel));
 			}
 			return _er;

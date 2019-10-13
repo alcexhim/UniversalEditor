@@ -26,6 +26,8 @@ namespace UniversalEditor.UserInterface
 		public CommandBar MenuBar { get; } = new CommandBar();
 		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
 
+		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();
+
 		public EditorReference(Type type)
 		{
 			mvarEditorType = type;

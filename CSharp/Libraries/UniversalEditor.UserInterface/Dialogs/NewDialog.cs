@@ -534,7 +534,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			{
 				case NewDialogMode.File:
 				{
-			SelectedItem = tvTemplate.SelectedRows[0].GetExtraData<DocumentTemplate>("dt");
+					SelectedItem = tvTemplate.SelectedRows[0].GetExtraData<DocumentTemplate>("dt");
 					break;
 				}
 				case NewDialogMode.Project:

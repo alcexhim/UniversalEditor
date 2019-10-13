@@ -31,6 +31,31 @@ namespace UniversalEditor.UserInterface
 			return sels;
 		}
 
+		private EditorView _CurrentView = null;
+		public EditorView CurrentView
+		{
+			get { return _CurrentView; }
+			set
+			{
+				EditorViewChangingEventArgs e = new EditorViewChangingEventArgs(_CurrentView, value);
+				OnViewChanging(e);
+				if (e.Cancel) return;
+				_CurrentView = e.NewView;
+				OnViewChanged(new EditorViewChangedEventArgs(e.OldView, e.NewView));
+			}
+		}
+
+		public event EditorViewChangingEventHandler ViewChanging;
+		protected virtual void OnViewChanging(EditorViewChangingEventArgs e)
+		{
+			ViewChanging?.Invoke(this, e);
+		}
+		public event EditorViewChangedEventHandler ViewChanged;
+		protected virtual void OnViewChanged(EditorViewChangedEventArgs e)
+		{
+			ViewChanged?.Invoke(this, e);
+		}
+
 		protected abstract EditorSelection CreateSelectionInternal(object content);
 		public EditorSelection CreateSelection(object content)
 		{

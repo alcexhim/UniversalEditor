@@ -122,6 +122,9 @@
     <Compile Include="Editors\Binary\FieldDefinitionPropertiesDialog.cs" />
     <Compile Include="Editors\Binary\FieldDefinition.cs" />
     <Compile Include="Editors\FileSystem\Dialogs\FilePropertiesDialog.cs" />
+    <Compile Include="EditorView.cs" />
+    <Compile Include="EditorViewChangingEvent.cs" />
+    <Compile Include="EditorViewChangedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
