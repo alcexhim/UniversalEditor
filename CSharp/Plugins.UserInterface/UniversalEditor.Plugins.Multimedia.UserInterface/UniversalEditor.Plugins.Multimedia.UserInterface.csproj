@@ -39,6 +39,7 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Views\PianoRollView.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\PianoRollSelectionMode.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Dialogs\NotePropertiesDialog.cs" />
+    <Compile Include="PictureObjectModelExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
