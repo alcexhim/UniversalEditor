@@ -26,18 +26,28 @@ namespace UniversalEditor.UserInterface
 			return FileName;
 		}
 
-		public static string CreateTemporaryFile(string FileName, byte[] FileData = null)
+		public static string GetTemporaryDirectory()
 		{
 			if (mvarTemporaryFilePath == null) throw new InvalidOperationException();
 			if (!System.IO.Directory.Exists(mvarTemporaryFilePath))
 			{
 				System.IO.Directory.CreateDirectory(mvarTemporaryFilePath);
 			}
-
+			return mvarTemporaryFilePath;
+		}
+		public static string GetTemporaryFileName()
+		{
+			string fpath = System.IO.Path.GetTempFileName();
+			string fname = System.IO.Path.GetFileName(fpath);
+			System.IO.File.Delete(fpath);
+			return GetTemporaryDirectory() + System.IO.Path.DirectorySeparatorChar.ToString() + fname;
+		}
+		public static string CreateTemporaryFile(string FileName, byte[] FileData = null)
+		{
 			FileName = SanitizeFileName(FileName);
 			FileName = System.IO.Path.GetFileName(FileName);
 
-			string filePath = mvarTemporaryFilePath + System.IO.Path.DirectorySeparatorChar.ToString() + FileName;
+			string filePath = GetTemporaryDirectory() + System.IO.Path.DirectorySeparatorChar.ToString() + FileName;
 			if (FileData != null) System.IO.File.WriteAllBytes(filePath, FileData);
 			mvarTemporaryFileNames.Add(filePath);
 			return filePath;
