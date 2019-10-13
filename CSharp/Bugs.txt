@@ -1,4 +1,10 @@
 BUGS:
+ 2019-10-13
+ 
+ TODO: Figure out why
+	after showing a dialog, then closing it
+	dialogs stop responding with GTK_IS_WINDOW assertion failed
+
  2019-09-19
 
  bug still exists in the case where
