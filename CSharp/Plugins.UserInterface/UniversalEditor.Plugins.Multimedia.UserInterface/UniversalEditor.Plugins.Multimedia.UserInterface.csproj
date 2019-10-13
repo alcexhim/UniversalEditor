@@ -40,6 +40,8 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\PianoRollSelectionMode.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Dialogs\NotePropertiesDialog.cs" />
     <Compile Include="PictureObjectModelExtensions.cs" />
+    <Compile Include="Editors\Multimedia\Palette\PaletteEditor.cs" />
+    <Compile Include="Editors\Multimedia\Palette\PaletteEditor.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -53,6 +55,7 @@
     <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Views\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Dialogs\" />
+    <Folder Include="Editors\Multimedia\Palette\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
