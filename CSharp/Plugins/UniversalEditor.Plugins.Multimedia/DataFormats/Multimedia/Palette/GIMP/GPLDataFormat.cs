@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MBS.Framework.Drawing;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
 namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
@@ -23,13 +24,28 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             PaletteObjectModel palette = (objectModel as PaletteObjectModel);
-            if (palette == null) return;
+            if (palette == null) throw new ObjectModelNotSupportedException();
 
-            IO.Reader tr = base.Accessor.Reader;
+            Reader tr = base.Accessor.Reader;
             bool headerRead = false;
             while (!tr.EndOfStream)
             {
                 string line = tr.ReadLine();
+				if (line.Contains(":"))
+				{
+					string[] parms = line.Split(new char[] { ':' }, 2);
+
+					string name = parms[0].Trim();
+					string value = String.Empty;
+					if (parms.Length > 1)
+						value = parms[1].Trim();
+
+					if (name == "Name")
+					{
+						palette.Name = value;
+					}
+					continue;
+				}
                 if (line.Contains("#")) line = line.Substring(0, line.IndexOf("#"));
                 line = line.Trim();
                 if (line == String.Empty) continue;
@@ -45,12 +61,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
                 }
                 else
                 {
-                    string[] colors = line.Split(new char[] { ' ' }, 4, StringSplitOptions.RemoveEmptyEntries);
+                    string[] colors = line.Split(new char[] { ' ' }, 3, StringSplitOptions.RemoveEmptyEntries);
                     if (colors.Length >= 3)
                     {
                         string colorName = String.Empty;
                         int r = Int32.Parse(colors[0]);
                         int g = Int32.Parse(colors[1]);
+
+						if (colors[2].Contains("\t"))
+						{
+							string[] w = colors[2].Split(new char[] { '\t' });
+							colors[2] = w[0];
+							colorName = w[1];
+						}
                         int b = Int32.Parse(colors[2]);
                         if (colors.Length >= 4)
                         {
@@ -65,8 +88,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
         }
 
         protected override void SaveInternal(ObjectModel objectModel)
-        {
-            throw new NotImplementedException();
+		{
+			PaletteObjectModel palette = (objectModel as PaletteObjectModel);
+			if (palette == null) throw new ObjectModelNotSupportedException();
+
+			Writer writer = base.Accessor.Writer;
+			writer.WriteLine("GIMP Palette");
+			writer.WriteLine(String.Format("Name: {0}", palette.Name));
+			writer.WriteLine("#");
+
+			foreach (PaletteEntry entry in palette.Entries)
+			{
+				writer.WriteLine(String.Format("{0} {1} {2}\t{3}", entry.Color.GetRedByte().ToString(), entry.Color.GetGreenByte().ToString(), entry.Color.GetBlueByte().ToString(), entry.Name));
+			}
         }
     }
 }
