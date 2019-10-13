@@ -394,6 +394,7 @@ namespace UniversalEditor.UserInterface
 						try {
 							doc.Accessor.Open ();
 							doc.Load ();
+							doc.IsSaved = true;
 						} catch (InvalidDataFormatException ex) {
 							doc.Accessor.Close ();
 							continue;
@@ -418,7 +419,8 @@ namespace UniversalEditor.UserInterface
 					// no need to open and load file, it's already been done
 					Editor editor = editors[0].Create();
 					EditorPage page = new EditorPage();
-					page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
+					page.Document = doc;
+					// page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
 
 					InitDocTab(doc.Title, page);
 
@@ -603,10 +605,60 @@ namespace UniversalEditor.UserInterface
 			Pages.EditorPage currentEditorPage = GetCurrentEditorPage();
 			if (currentEditorPage != null)
 			{
-				if (currentEditorPage.Document.IsSaved) {
-					// save it again
-				} else {
-					SaveFileAs ();
+				SaveFile(currentEditorPage.Document);
+			}
+		}
+
+		public void SaveFile(Document document)
+		{
+			if (document.IsSaved)
+			{
+				if (document.InputAccessor.IsOpen)
+					document.InputAccessor.Close();
+
+				if (document.Accessor is FileAccessor)
+				{
+					(document.OutputAccessor as FileAccessor).AllowWrite = true;
+
+					string oldfilename = (document.OutputAccessor as FileAccessor).FileName;
+					string newfilename = TemporaryFileManager.GetTemporaryFileName();
+					(document.OutputAccessor as FileAccessor).FileName = newfilename;
+					document.OutputAccessor.Open();
+					document.Save();
+					document.OutputAccessor.Close();
+					(document.OutputAccessor as FileAccessor).FileName = oldfilename;
+
+					System.IO.File.Delete(oldfilename);
+					System.IO.File.Copy(newfilename, oldfilename);
+				}
+				else
+				{
+					document.OutputAccessor.Open();
+					document.Save();
+					document.OutputAccessor.Close();
+				}
+			}
+			else
+			{
+				SaveFileAs(document);
+			}
+		}
+		public void SaveFileAs(Document document)
+		{
+			using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog())
+			{
+				dlg.Mode = DocumentPropertiesDialogMode.Save;
+				dlg.DataFormat = document.DataFormat;
+				dlg.ObjectModel = document.ObjectModel;
+				dlg.Accessor = document.Accessor;
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					DataFormat df = dlg.DataFormat;
+					if (df == null && document.ObjectModel is BinaryObjectModel)
+					{
+						df = new BinaryDataFormat();
+					}
+					SaveFileAs(dlg.Accessor.GetFileName(), df, document.ObjectModel);
 				}
 			}
 		}
@@ -626,16 +678,20 @@ namespace UniversalEditor.UserInterface
 						{
 							df = new BinaryDataFormat();
 						}
-						SaveFileAs(dlg.Accessor.GetFileName(), df);
+
+						SaveFileAs(dlg.Accessor.GetFileName(), df, currentEditor.ObjectModel);
 					}
 				}
 			}
 		}
 
+		public void SaveFileAs(string FileName, DataFormat df, ObjectModel om)
+		{
+			Document.Save(om, df, new FileAccessor(FileName, true, true, true));
+		}
 		public void SaveFileAs(string FileName, DataFormat df)
 		{
-			Editor ed = GetCurrentEditor();
-			Document.Save(ed.ObjectModel, df, new FileAccessor(FileName, true, true, true));
+			SaveFileAs(FileName, df, GetCurrentEditor()?.ObjectModel);
 		}
 
 		public void SaveProject()
@@ -655,7 +711,13 @@ namespace UniversalEditor.UserInterface
 
 		public void SaveAll()
 		{
-			throw new NotImplementedException();
+			foreach (DockingItem item in dckContainer.Items)
+			{
+				if (item.ChildControl is EditorPage)
+				{
+					SaveFile((item.ChildControl as EditorPage).Document);
+				}
+			}
 		}
 
 		public void SwitchPerspective(int index)
