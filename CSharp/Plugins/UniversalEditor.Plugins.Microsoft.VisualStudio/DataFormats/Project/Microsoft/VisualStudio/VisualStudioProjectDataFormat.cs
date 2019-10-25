@@ -38,6 +38,37 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 		{
 			MarkupObjectModel mom = (objectModels.Pop() as MarkupObjectModel);
 			ProjectObjectModel proj = (objectModels.Pop() as ProjectObjectModel);
+
+			string basePath = System.IO.Path.GetDirectoryName(Accessor.GetFileName());
+
+			MarkupTagElement tagProject = (mom.Elements["Project"] as MarkupTagElement);
+			if (tagProject == null) throw new InvalidDataFormatException();
+
+			for (int i = 0; i < tagProject.Elements.Count; i++)
+			{
+				MarkupTagElement tag = (tagProject.Elements[i] as MarkupTagElement);
+				if (tag == null) continue;
+
+				if (tag.FullName.Equals("ItemGroup"))
+				{
+					for (int j = 0; j < tag.Elements.Count; j++)
+					{
+						MarkupTagElement tag1 = (tag.Elements[j] as MarkupTagElement);
+						if (tag1.FullName.Equals("Compile") || tag1.FullName.Equals("Content") || tag1.FullName.Equals("None"))
+						{
+							MarkupAttribute attInclude = tag1.Attributes["Include"];
+							proj.FileSystem.AddFile(basePath + System.IO.Path.DirectorySeparatorChar.ToString() + attInclude.Value.Replace('\\', System.IO.Path.DirectorySeparatorChar), attInclude.Value, '\\');
+						}
+						else if (tag1.FullName.Equals("Reference"))
+						{
+							MarkupAttribute attInclude = tag1.Attributes["Include"];
+							Reference reff = new Reference();
+							reff.Title = attInclude.Value;
+							proj.References.Add(reff);
+						}
+					}
+				}
+			}
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{

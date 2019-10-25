@@ -24,13 +24,28 @@ namespace UniversalEditor.ObjectModels.Project
 				return folder;
 			}
 
+			private Dictionary<string, ProjectFolder> _itemsByName = new Dictionary<string, ProjectFolder>();
+			public ProjectFolder this[string name]
+			{
+				get
+				{
+					if (_itemsByName.ContainsKey(name))
+						return _itemsByName[name];
+					return null;
+				}
+			}
+
 			protected override void InsertItem(int index, ProjectFolder item)
 			{
 				base.InsertItem(index, item);
 				item.Parent = _parent;
+				_itemsByName[item.Name] = item;
 			}
 			protected override void RemoveItem(int index)
 			{
+				if (_itemsByName.ContainsKey(this[index].Name))
+					_itemsByName.Remove(this[index].Name);
+
 				this[index].Parent = null;
 				base.RemoveItem(index);
 			}
@@ -41,6 +56,15 @@ namespace UniversalEditor.ObjectModels.Project
 					folder.Parent = null;
 				}
 				base.ClearItems();
+			}
+			protected override void SetItem(int index, ProjectFolder item)
+			{
+				if (_itemsByName.ContainsKey(this[index].Name))
+					_itemsByName.Remove(this[index].Name);
+
+				base.SetItem(index, item);
+
+				_itemsByName[item.Name] = item;
 			}
 		}
 

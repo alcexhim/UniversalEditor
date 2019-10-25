@@ -154,6 +154,15 @@ namespace UniversalEditor.UserInterface.Dialogs
 		public string SolutionTitle { get; set; }
 		public string ProjectTitle { get; set; }
 
+
+		private void txtFileName_Changed(object sender, EventArgs e)
+		{
+			if (!txtSolutionName.IsChangedByUser)
+			{
+				txtSolutionName.Text = txtFileName.Text;
+			}
+		}
+
 		protected override void OnCreating(EventArgs e)
 		{
 			base.OnCreating(e);
@@ -163,11 +172,15 @@ namespace UniversalEditor.UserInterface.Dialogs
 				case NewDialogMode.File:
 				{
 					this.Text = "New File";
+					this.lblProjectName.Text = "Project na_me:";
+					this.chkAddToSolution.Visible = true;
 					break;
 				}
 				case NewDialogMode.Project:
 				{
 					this.Text = "New Project";
+					this.lblProjectName.Text = "Solution na_me:";
+					this.chkAddToSolution.Visible = false;
 					break;
 				}
 			}
@@ -506,6 +519,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
+			SolutionTitle = txtSolutionName.Text;
+			ProjectTitle = txtFileName.Text;
+
 			this.DialogResult = DialogResult.OK;
 			/*
 			if (String.IsNullOrEmpty(this.txtFileName.Text))

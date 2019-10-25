@@ -35,5 +35,49 @@ namespace UniversalEditor.ObjectModels.Project
 				clone.Folders.Add(folder.Clone() as ProjectFolder);
 			}
 		}
+
+		public void AddFile(string sourceFileName, string destinationFileName, char pathSeparator)
+		{
+			string[] paths = destinationFileName.Split(pathSeparator);
+			ProjectFolder parentFolder = null;
+			for (int i = 0; i < paths.Length - 1; i++)
+			{
+				if (parentFolder == null)
+				{
+					if (Folders[paths[i]] != null)
+					{
+						parentFolder = Folders[paths[i]];
+					}
+					else
+					{
+						parentFolder = Folders.Add(paths[i]);
+					}
+				}
+				else
+				{
+					if (parentFolder.Folders[paths[i]] != null)
+					{
+						parentFolder = parentFolder.Folders[paths[i]];
+					}
+					else
+					{
+						parentFolder = parentFolder.Folders.Add(paths[i]);
+					}
+				}
+			}
+
+			ProjectFile pf = new ProjectFile();
+			pf.SourceFileName = sourceFileName;
+			pf.DestinationFileName = paths[paths.Length - 1];
+
+			if (parentFolder == null)
+			{
+				Files.Add(pf);
+			}
+			else
+			{
+				parentFolder.Files.Add(pf);
+			}
+		}
 	}
 }

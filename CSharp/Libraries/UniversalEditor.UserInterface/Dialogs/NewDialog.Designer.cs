@@ -91,6 +91,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.lblProjectName = new Label ((Mode == NewDialogMode.File ? "Project" : "Solution") + " na_me:");
 			this.lblProjectName.HorizontalAlignment = HorizontalAlignment.Left;
 
+			this.txtFileName.Changed += txtFileName_Changed;
+
 			Container tableParams = new Container();
 			tableParams.Layout = new GridLayout();
 			tableParams.Controls.Add(lblName, new GridLayout.Constraints(0, 0));
@@ -119,5 +121,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.MinimumSize = new MBS.Framework.Drawing.Dimension2D (500, 400);
 			this.Size = new MBS.Framework.Drawing.Dimension2D (600, 500);
 		}
+
 	}
 }

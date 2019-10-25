@@ -586,18 +586,62 @@ namespace UniversalEditor.UserInterface
 		public void OpenProject(bool combineObjects = false)
 		{
 			FileDialog dlg = new FileDialog();
-			dlg.FileNameFilters.Add("Project files", "*.ueproj");
-			dlg.FileNameFilters.Add("Solution files", "*.uesln");
+
+			Association[] projectAssocs = Association.FromObjectModelOrDataFormat((new ProjectObjectModel()).MakeReference());
+			Association[] solutionAssocs = Association.FromObjectModelOrDataFormat((new SolutionObjectModel()).MakeReference());
+
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+			foreach (Association projectAssoc in projectAssocs)
+			{
+				for (int i = 0; i < projectAssoc.Filters.Count; i++)
+				{
+					for (int j = 0; j < projectAssoc.Filters[i].FileNameFilters.Count; j++)
+					{
+						sb.Append(projectAssoc.Filters[i].FileNameFilters[j]);
+						if (j < projectAssoc.Filters[i].FileNameFilters.Count - 1)
+							sb.Append("; ");
+					}
+
+					if (i < projectAssoc.Filters.Count - 1)
+						sb.Append("; ");
+				}
+			}
+			dlg.FileNameFilters.Add("Project files", sb.ToString());
+			sb.Clear();
+			foreach (Association solutionAssoc in solutionAssocs)
+			{
+				for (int i = 0; i < solutionAssoc.Filters.Count; i++)
+				{
+					for (int j = 0; j < solutionAssoc.Filters[i].FileNameFilters.Count; j++)
+					{
+						sb.Append(solutionAssoc.Filters[i].FileNameFilters[j]);
+						if (j < solutionAssoc.Filters[i].FileNameFilters.Count - 1)
+							sb.Append("; ");
+					}
+
+					if (i < solutionAssoc.Filters.Count - 1)
+						sb.Append("; ");
+				}
+			}
+			dlg.FileNameFilters.Add("Solution files", sb.ToString());
 			dlg.Text = "Open Project or Solution";
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-
+				OpenProject(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1], combineObjects);
 			}
 		}
 
 		public void OpenProject(string FileName, bool combineObjects = false)
 		{
-			throw new NotImplementedException();
+			if (!combineObjects)
+				CurrentSolution = new SolutionObjectModel();
+
+			FileAccessor fa = new FileAccessor(FileName);
+			Association[] assocs = Association.FromAccessor(fa);
+			DataFormat df = assocs[0].DataFormats[0].Create();
+
+			Document.Load(_CurrentSolution, df, fa);
+			CurrentSolution = _CurrentSolution; // to reset the UI
 		}
 
 		public void SaveFile()
@@ -696,12 +740,52 @@ namespace UniversalEditor.UserInterface
 
 		public void SaveProject()
 		{
-			throw new NotImplementedException();
+			if (_CurrentSolutionDocument != null && _CurrentSolutionDocument.IsSaved)
+			{
+				MessageDialog.ShowDialog("TODO: overwrite current solution in-place", "Implement this!", MessageDialogButtons.OK);
+			}
+			else
+			{
+				SaveProjectAs();
+			}
 		}
 
 		public void SaveProjectAs()
 		{
-			throw new NotImplementedException();
+			if (CurrentSolution == null)
+				return;
+
+			Association[] assocs = Association.FromObjectModelOrDataFormat(CurrentSolution.MakeReference());
+
+			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Save;
+
+			System.Text.StringBuilder sbFilter = new System.Text.StringBuilder();
+
+			foreach (Association assoc in assocs)
+			{
+				foreach (DataFormatFilter filter in assoc.Filters)
+				{
+					sbFilter.Clear();
+					for (int i = 0; i < filter.FileNameFilters.Count; i++)
+					{
+						sbFilter.Append(filter.FileNameFilters[i]);
+						if (i < filter.FileNameFilters.Count - 1)
+							sbFilter.Append("; ");
+					}
+					dlg.FileNameFilters.Add(filter.Title, sbFilter.ToString());
+				}
+			}
+
+			DataFormat df = assocs[0].DataFormats[0].Create();
+
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				_CurrentSolutionDocument = new Document(CurrentSolution, df, new FileAccessor(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1], true, true));
+				_CurrentSolutionDocument.Accessor.Open();
+				_CurrentSolutionDocument.Save();
+				_CurrentSolutionDocument.Accessor.Close();
+			}
 		}
 
 		public void SaveProjectAs(string FileName, DataFormat df)
@@ -741,7 +825,7 @@ namespace UniversalEditor.UserInterface
 
 		public void CloseProject()
 		{
-			throw new NotImplementedException();
+			CurrentSolution = null;
 		}
 
 		public void CloseWindow()
@@ -913,7 +997,22 @@ namespace UniversalEditor.UserInterface
 
 		public bool FullScreen { get; set; }
 
-		public SolutionObjectModel CurrentSolution { get; set; }
+		private SolutionObjectModel _CurrentSolution = null;
+		private Document _CurrentSolutionDocument = null;
+		public SolutionObjectModel CurrentSolution
+		{
+			get { return _CurrentSolution; }
+			set
+			{
+				bool changed = (_CurrentSolution != value);
+				_CurrentSolution = value;
+
+				if (value == null || changed)
+					_CurrentSolutionDocument = null;
+
+				pnlSolutionExplorer.Solution = value;
+			}
+		}
 
 		#endregion
 

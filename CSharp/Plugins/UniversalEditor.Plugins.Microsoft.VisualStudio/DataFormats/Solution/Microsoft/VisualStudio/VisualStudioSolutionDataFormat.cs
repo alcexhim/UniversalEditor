@@ -51,9 +51,11 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			{
 				solutionFileName = (base.Accessor as FileAccessor).FileName;
 			}
+			sol.Title = System.IO.Path.GetFileNameWithoutExtension(solutionFileName);
 			solutionPath = System.IO.Path.GetDirectoryName(solutionFileName);
 
 			string signature2a = reader.ReadLine();
+			signature2a = signature2a.Trim();
 			if (!String.IsNullOrEmpty(signature2a)) throw new InvalidDataFormatException("Empty line should be present at beginning of file");
 			
 			string signature2Verify = "Microsoft Visual Studio Solution File, Format Version ";
@@ -86,9 +88,26 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 					string projectFileName = solutionPath + System.IO.Path.DirectorySeparatorChar.ToString() + projectRelativeFileName;
 					Guid projectID = new Guid(paramz[2].Trim());
 
-					ProjectObjectModel project = UniversalEditor.Common.Reflection.GetAvailableObjectModel<ProjectObjectModel>(projectFileName);
-					sol.Projects.Add(project);
-					lastProject = project;
+					if (projectTypeID == KnownProjectTypeIDs.SolutionFolder)
+					{
+						ProjectFolder pf = new ProjectFolder();
+						pf.Name = projectTitle;
+					}
+					else
+					{
+						projectFileName = projectFileName.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+						if (System.IO.File.Exists(projectFileName))
+						{
+							ProjectObjectModel project = UniversalEditor.Common.Reflection.GetAvailableObjectModel<ProjectObjectModel>(projectFileName);
+							project.Title = projectTitle;
+							sol.Projects.Add(project);
+							lastProject = project;
+						}
+						else
+						{
+							Console.WriteLine("skipping nonexistent project file {0}", projectFileName);
+						}
+					}
 				}
 				else if (line == "EndProject")
 				{
