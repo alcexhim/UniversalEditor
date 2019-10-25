@@ -643,6 +643,7 @@
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\PSD.uexml" />
     <Content Include="Editors\UniversalEditor.Editors.FileSystem.FileSystemEditor\Commands.uexml" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\MenuBar.uexml" />
+    <Content Include="splash.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -703,7 +704,7 @@
     <None Include="Accessors\File.uexml" />
     <None Include="Images\SplashScreen.png" />
     <None Include="Images\SplashScreen.xcf" />
-    <None Include="splash.bmp" />
+    <None Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Toolbox.uexml" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
