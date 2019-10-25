@@ -37,8 +37,9 @@ namespace UniversalEditor.Common
 			{
 				List<Type> types = new List<Type>();
 				Assembly[] asms = GetAvailableAssemblies();
-				foreach (Assembly asm in asms)
+				for (int iAsm = 0; iAsm < asms.Length; iAsm++)
 				{
+					Assembly asm = asms[iAsm];
 					Type[] types1 = null;
 					try
 					{
@@ -54,10 +55,10 @@ namespace UniversalEditor.Common
 
 					if (types1 == null) continue;
 
-					foreach (Type type in types1)
+					for (int jTyp = 0; jTyp < types1.Length; jTyp++)
 					{
-						if (type == null) continue;
-						types.Add(type);
+						if (types1[jTyp] == null) continue;
+						types.Add(types1[jTyp]);
 					}
 				}
 				mvarAvailableTypes = types.ToArray();
@@ -66,11 +67,11 @@ namespace UniversalEditor.Common
 			if (inheritsFrom != null)
 			{
 				List<Type> retval = new List<Type>();
-				foreach (Type tAvailable in mvarAvailableTypes)
+				for (int iTyp = 0; iTyp < mvarAvailableTypes.Length; iTyp++)
 				{
-					foreach (Type tInheritsFrom in inheritsFrom)
+					for (int jInh = 0; jInh < inheritsFrom.Length; jInh++)
 					{
-						if (tAvailable.IsSubclassOf(tInheritsFrom)) retval.Add(tAvailable);
+						if (mvarAvailableTypes[iTyp].IsSubclassOf(inheritsFrom[jInh])) retval.Add(mvarAvailableTypes[iTyp]);
 					}
 				}
 				return retval.ToArray();
@@ -95,8 +96,9 @@ namespace UniversalEditor.Common
 			List<ConverterReference> listConverters = new List<ConverterReference>();
 			List<ProjectType> listProjectTypes = new List<ProjectType>();
 			{
-				foreach (Type type in types)
+				for (int iTyp = 0; iTyp < types.Length; iTyp++)
 				{
+					Type type = types[iTyp];
 					if (type == null) continue;
 					if (mvarAvailableObjectModels == null && (type.IsSubclassOf(typeof(ObjectModel)) && !type.IsAbstract))
 					{
@@ -232,8 +234,9 @@ namespace UniversalEditor.Common
 		private static void InitializeFromXML(ref List<ObjectModelReference> listObjectModels, ref List<DataFormatReference> listDataFormats, ref List<ProjectType> listProjectTypes, ref List<DocumentTemplate> listDocumentTemplates, ref List<ProjectTemplate> listProjectTemplates)
 		{
 			string[] paths = EnumerateDataPaths();
-			foreach (string path in paths)
+			for (int iPath = 0; iPath < paths.Length; iPath++)
 			{
+				string path = paths[iPath];
 				if (!System.IO.Directory.Exists(path))
 				{
 					Console.WriteLine("skipping nonexistent directory {0}", path);
@@ -245,8 +248,9 @@ namespace UniversalEditor.Common
 
 				string[] XMLFileNames = null;
 				XMLFileNames = System.IO.Directory.GetFiles(path, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
-				foreach (string fileName in XMLFileNames)
+				for (int jFileName = 0; jFileName < XMLFileNames.Length; jFileName++)
 				{
+					string fileName = XMLFileNames[jFileName];
 #if !DEBUG
 					try
 					{
@@ -282,8 +286,9 @@ namespace UniversalEditor.Common
 				// ensure project types are loaded before running the next pass
 				mvarAvailableProjectTypes = listProjectTypes.ToArray();
 
-				foreach (string fileName in XMLFileNames)
+				for (int jFileName = 0; jFileName < XMLFileNames.Length; jFileName++)
 				{
+					string fileName = XMLFileNames[jFileName];
 					try
 					{
 						UEPackageObjectModel mom = new UEPackageObjectModel();
@@ -293,18 +298,18 @@ namespace UniversalEditor.Common
 
 						Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
 
-						foreach (DocumentTemplate template in mom.DocumentTemplates)
+						for (int kTemp = 0; kTemp < mom.DocumentTemplates.Count; kTemp++)
 						{
-							listDocumentTemplates.Add(template);
+							listDocumentTemplates.Add(mom.DocumentTemplates[kTemp]);
 						}
-						foreach (ProjectTemplate template in mom.ProjectTemplates)
+						for (int kTemp = 0; kTemp < mom.ProjectTemplates.Count; kTemp++)
 						{
-							listProjectTemplates.Add(template);
+							listProjectTemplates.Add(mom.ProjectTemplates[kTemp]);
 						}
 
-						foreach (Association assoc in mom.Associations)
+						for (int kAssoc = 0; kAssoc < mom.Associations.Count; kAssoc++)
 						{
-							Association.Register(assoc);
+							Association.Register(mom.Associations[kAssoc]);
 						}
 					}
 					catch
@@ -341,8 +346,9 @@ namespace UniversalEditor.Common
 
 				DataFormatReference[] dfrs = GetAvailableDataFormats(omr);
 				
-				foreach (DataFormatReference dfr in dfrs)
+				for (int i = 0; i < dfrs.Length; i++)
 				{
+					DataFormatReference dfr = dfrs[i];
 					try
 					{
 						DataFormat df = dfr.Create();

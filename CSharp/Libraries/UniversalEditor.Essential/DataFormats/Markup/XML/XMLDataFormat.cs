@@ -70,7 +70,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 						if (element.Value.Contains(Environment.NewLine))
 						{
 							tw.Write(Settings.TagBeginChar.ToString() + Settings.PreprocessorChar.ToString() + element.Name + " ");
-							
+
 							if (mvarSettings.PrettyPrint) tw.WriteLine();
 							tw.Write(element.Value);
 							if (mvarSettings.PrettyPrint) tw.WriteLine();
@@ -96,19 +96,18 @@ namespace UniversalEditor.DataFormats.Markup.XML
 							{
 								tw.Write(" ");
 							}
-							foreach (MarkupAttribute att in tag.Attributes)
+							for (int i = 0; i < tag.Attributes.Count; i++)
 							{
-								tw.Write(att.FullName + "=\"" + this.ReplaceEntitiesOutput(att.Value) + "\"");
-								if (tag.Attributes.IndexOf(att) < tag.Attributes.Count - 1)
-								{
-									tw.Write(" ");
-								}
+								MarkupAttribute att = tag.Attributes[i];
+								tw.Write(String.Format("{0}=\"{1}\"", att.FullName, this.ReplaceEntitiesOutput(att.Value)));
+
+								if (i < tag.Attributes.Count - 1) tw.Write(" ");
 							}
 							if (tag.Elements.Count == 0)
 							{
 								if (String.IsNullOrEmpty(element.Value))
 								{
-									tw.Write(" " + Settings.TagCloseChar.ToString() + Settings.TagEndChar.ToString());
+									tw.Write(String.Format(" {0}{1}", Settings.TagCloseChar.ToString(), Settings.TagEndChar.ToString()));
 									if (mvarSettings.PrettyPrint) tw.WriteLine();
 								}
 								else
@@ -133,7 +132,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 								tw.Write(Settings.TagSpecialDeclarationCommentStart);
 								bool containsNewline = element.Value.ContainsAny(new string[]
 								{
-									"\r", 
+									"\r",
 									"\n"
 								});
 								if (containsNewline)
@@ -809,7 +808,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												string specialSectionContent = tr.ReadUntil(this.Settings.CDataEndChar.ToString());
 												if (specialSectionContent.Length > 0)
 												{
-													specialSectionContent = specialSectionContent.Substring(0, specialSectionContent.Length); 
+													specialSectionContent = specialSectionContent.Substring(0, specialSectionContent.Length);
 												}
 
 												MarkupStringElement tag = new MarkupStringElement();
@@ -940,14 +939,14 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					WriteStartTag(mvarCompensateTopLevelTagName);
 				}
 
-				if (!(mom.Elements.Count > 0 && mom.Elements [0] is MarkupPreprocessorElement && (mom.Elements [0] as MarkupPreprocessorElement).FullName == "xml"))
+				if (!(mom.Elements.Count > 0 && mom.Elements[0] is MarkupPreprocessorElement && (mom.Elements[0] as MarkupPreprocessorElement).FullName == "xml"))
 				{
-					tw.WriteLine ("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+					tw.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 				}
 
-				foreach (MarkupElement element in mom.Elements)
+				for (int i = 0; i < mom.Elements.Count; i++)
 				{
-					WriteElement(element, 0);
+					WriteElement(mom.Elements[i], 0);
 				}
 
 				if (mom.Elements.Count > 1 && (mvarCompensateTopLevelTagName != null))
@@ -972,13 +971,13 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					tw.Write(this.Settings.TagEndChar.ToString());
 					if (mvarSettings.PrettyPrint) tw.WriteLine();
 
-					foreach (Group g in plom.Groups)
+					for (int i = 0; i < plom.Groups.Count; i++)
 					{
-						this.WriteXMLPropertyGroup(tw, g, 1);
+						this.WriteXMLPropertyGroup(tw, plom.Groups[i], 1);
 					}
-					foreach (Property p in plom.Properties)
+					for (int i = 0; i < plom.Properties.Count; i++)
 					{
-						this.WriteXMLProperty(tw, p, 1);
+						this.WriteXMLProperty(tw, plom.Properties[i], 1);
 					}
 
 					tw.Write(this.Settings.TagBeginChar.ToString());
@@ -1000,13 +999,13 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			tw.Write(arg_37_0 + arg_37_1 + c.ToString());
 			if (mvarSettings.PrettyPrint) tw.WriteLine();
 
-			foreach (Group g2 in g.Groups)
+			for (int i = 0; i < g.Groups.Count; i++)
 			{
-				this.WriteXMLPropertyGroup(tw, g2, indentLevel + 1);
+				this.WriteXMLPropertyGroup(tw, g.Groups[i], indentLevel + 1);
 			}
-			foreach (Property p in g.Properties)
+			for (int i = 0; i < g.Properties.Count; i++)
 			{
-				this.WriteXMLProperty(tw, p, indentLevel + 1);
+				this.WriteXMLProperty(tw, g.Properties[i], indentLevel + 1);
 			}
 			c = this.Settings.TagBeginChar;
 			string arg_116_0 = c.ToString();
@@ -1590,19 +1589,19 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			{
 				switch (attType.Value)
 				{
-					/*
-					case "xsd:string":
-					{
-						return tag.Value;
-					}
-					*/
-					case "xsd:integer":
+				/*
+				case "xsd:string":
+				{
+					return tag.Value;
+				}
+				*/
+				case "xsd:integer":
 					{
 						return Int32.Parse(tag.Value);
 					}
 				}
 			}
-			
+
 			MarkupAttribute attNil = tag.Attributes["xsi:nil"];
 			// return null if xsi:nil attribute is present
 			if (attNil != null) return null;
