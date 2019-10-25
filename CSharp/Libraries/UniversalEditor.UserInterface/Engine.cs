@@ -31,8 +31,12 @@ namespace UniversalEditor.UserInterface
 		private static Engine _TheEngine = new Engine();
 		private SplashScreenWindow splasher = null;
 
+		private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+
 		private void ShowSplashScreen()
 		{
+			sw.Reset();
+			sw.Start();
 			// if (LocalConfiguration.SplashScreen.Enabled)
 			// {
 				splasher = new SplashScreenWindow();
@@ -51,6 +55,8 @@ namespace UniversalEditor.UserInterface
 			AfterInitialization();
 
 			OpenWindow(SelectedFileNames.ToArray<string>());
+			sw.Stop();
+			Console.WriteLine("stopwatch: went from rip to ready in {0}", sw.Elapsed);
 		}
 
 		#region implemented abstract members of Engine
