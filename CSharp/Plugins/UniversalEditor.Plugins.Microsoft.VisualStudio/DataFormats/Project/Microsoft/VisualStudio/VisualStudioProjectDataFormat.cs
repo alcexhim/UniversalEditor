@@ -44,6 +44,7 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 			MarkupTagElement tagProject = (mom.Elements["Project"] as MarkupTagElement);
 			if (tagProject == null) throw new InvalidDataFormatException();
 
+			Dictionary<string, List<string>> dependents = new Dictionary<string, List<string>>();
 			for (int i = 0; i < tagProject.Elements.Count; i++)
 			{
 				MarkupTagElement tag = (tagProject.Elements[i] as MarkupTagElement);
@@ -54,10 +55,24 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 					for (int j = 0; j < tag.Elements.Count; j++)
 					{
 						MarkupTagElement tag1 = (tag.Elements[j] as MarkupTagElement);
-						if (tag1.FullName.Equals("Compile") || tag1.FullName.Equals("Content") || tag1.FullName.Equals("None"))
+						if (tag1.FullName.Equals("Compile") || tag1.FullName.Equals("Content") || tag1.FullName.Equals("EmbeddedResource") || tag1.FullName.Equals("None"))
 						{
 							MarkupAttribute attInclude = tag1.Attributes["Include"];
-							proj.FileSystem.AddFile(basePath + System.IO.Path.DirectorySeparatorChar.ToString() + attInclude.Value.Replace('\\', System.IO.Path.DirectorySeparatorChar), attInclude.Value, '\\');
+							string relativePath = attInclude.Value.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+							proj.FileSystem.AddFile(basePath + System.IO.Path.DirectorySeparatorChar.ToString() + relativePath, attInclude.Value, '\\');
+
+							MarkupTagElement tagDependentUpon = (tag1.Elements["DependentUpon"] as MarkupTagElement);
+							if (tagDependentUpon != null)
+							{
+								string[] pathParts = attInclude.Value.Split(new char[] { '\\' });
+								string dependentParentPath = String.Join("\\", pathParts, 0, pathParts.Length - 1);
+								string dependentFullPath = String.Format("{0}\\{1}", dependentParentPath, tagDependentUpon.Value);
+								if (!dependents.ContainsKey(dependentFullPath))
+								{
+									dependents[dependentFullPath] = new List<string>();
+								}
+								dependents[dependentFullPath].Add(relativePath);
+							}
 						}
 						else if (tag1.FullName.Equals("Reference"))
 						{
@@ -67,6 +82,22 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 							proj.References.Add(reff);
 						}
 					}
+				}
+			}
+
+			foreach (KeyValuePair<string, List<string>> kvp in dependents)
+			{
+				ProjectFile pfDependent = proj.FileSystem.FindFile(kvp.Key);
+				foreach (string val in kvp.Value)
+				{
+					ProjectFile pf2 = proj.FileSystem.FindFile(val);
+					if (pf2 == null)
+					{
+						Console.WriteLine("prj::fs file {0} not found", val);
+						continue;
+					}
+					pfDependent.Files.Add(pf2);
+					pf2.Dependents.Add(pfDependent);
 				}
 			}
 		}

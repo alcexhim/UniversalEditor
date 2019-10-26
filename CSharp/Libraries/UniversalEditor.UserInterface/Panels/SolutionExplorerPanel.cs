@@ -24,6 +24,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
+using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.Solution;
 
 namespace UniversalEditor.UserInterface.Panels
@@ -59,14 +60,29 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 			foreach (ObjectModels.Project.ProjectFile file in fold.Files)
 			{
-				TreeModelRow rowFile = new TreeModelRow(new TreeModelRowColumn[]
-				{
-					new TreeModelRowColumn(tmSolutionExplorer.Columns[0], file.DestinationFileName)
-				});
-				rowFile.SetExtraData<ObjectModels.Project.ProjectFile>("file", file);
+				if (file.Dependents.Count > 0)
+					continue;
+
+				TreeModelRow rowFile = LoadSolutionExplorerFile(file);
 				rowFolder.Rows.Add(rowFile);
 			}
 			return rowFolder;
+		}
+
+		private TreeModelRow LoadSolutionExplorerFile(ProjectFile file)
+		{
+			TreeModelRow rowFile = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmSolutionExplorer.Columns[0], file.DestinationFileName)
+			});
+			rowFile.SetExtraData<ObjectModels.Project.ProjectFile>("file", file);
+			foreach (ProjectFile file2 in file.Files)
+			{
+				TreeModelRow rowFile2 = LoadSolutionExplorerFile(file2);
+				rowFile2.SetExtraData<ObjectModels.Project.ProjectFile>("file", file2);
+				rowFile.Rows.Add(rowFile2);
+			}
+			return rowFile;
 		}
 
 		private void UpdateSolutionExplorer()

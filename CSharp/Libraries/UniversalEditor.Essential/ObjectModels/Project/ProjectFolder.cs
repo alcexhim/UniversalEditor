@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Project
 {
-	public class ProjectFolder : ICloneable
+	public class ProjectFolder : IProjectFileContainer, ICloneable
 	{
 		public class ProjectFolderCollection
 			: System.Collections.ObjectModel.Collection<ProjectFolder>

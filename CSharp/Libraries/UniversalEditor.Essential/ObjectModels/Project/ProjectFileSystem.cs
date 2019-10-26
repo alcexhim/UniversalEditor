@@ -79,5 +79,30 @@ namespace UniversalEditor.ObjectModels.Project
 				parentFolder.Files.Add(pf);
 			}
 		}
+
+		public ProjectFile FindFile(string filePath)
+		{
+			string[] pathParts = filePath.Split(new char[] { '\\', '/' });
+			ProjectFolder pfParent = null;
+			for (int i = 0; i < pathParts.Length - 1; i++)
+			{
+				if (pfParent == null)
+				{
+					pfParent = Folders[pathParts[i]];
+				}
+				else
+				{
+					pfParent = pfParent.Folders[pathParts[i]];
+				}
+			}
+			if (pfParent == null)
+			{
+				return Files[pathParts[pathParts.Length - 1]];
+			}
+			else
+			{
+				return pfParent.Files[pathParts[pathParts.Length - 1]];
+			}
+		}
 	}
 }

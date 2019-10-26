@@ -6,12 +6,12 @@ using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor.ObjectModels.Project
 {
-	public class ProjectFile : ICloneable
+	public class ProjectFile : IProjectFileContainer, ICloneable
 	{
 		public class ProjectFileCollection
 			: System.Collections.ObjectModel.Collection<ProjectFile>
 		{
-			private ProjectFolder _parent = null;
+			private IProjectFileContainer _parent = null;
 			public ProjectFileCollection(ProjectFolder parent = null)
 			{
 				_parent = parent;
@@ -30,23 +30,52 @@ namespace UniversalEditor.ObjectModels.Project
 				return file;
 			}
 
+			private Dictionary<string, ProjectFile> _itemsByName = new Dictionary<string, ProjectFile>();
+			public ProjectFile this[string name]
+			{
+				get
+				{
+					if (_itemsByName.ContainsKey(name))
+						return _itemsByName[name];
+					return null;
+				}
+			}
+
 			protected override void InsertItem(int index, ProjectFile item)
 			{
 				base.InsertItem(index, item);
-				item.Parent = _parent;
+				if (_parent != null)
+					item.Parent = _parent;
+				_itemsByName[item.DestinationFileName] = item;
 			}
 			protected override void RemoveItem(int index)
 			{
-				this[index].Parent = null;
+				if (_itemsByName.ContainsKey(this[index].DestinationFileName))
+					_itemsByName.Remove(this[index].DestinationFileName);
+
+				if (_parent != null)
+					this[index].Parent = null;
 				base.RemoveItem(index);
 			}
 			protected override void ClearItems()
 			{
-				foreach (ProjectFile file in this)
+				if (_parent != null)
 				{
-					file.Parent = null;
+					foreach (ProjectFile file in this)
+					{
+						file.Parent = null;
+					}
 				}
 				base.ClearItems();
+			}
+			protected override void SetItem(int index, ProjectFile item)
+			{
+				if (_itemsByName.ContainsKey(this[index].DestinationFileName))
+					_itemsByName.Remove(this[index].DestinationFileName);
+
+				base.SetItem(index, item);
+
+				_itemsByName[item.DestinationFileName] = item;
 			}
 		}
 
@@ -68,8 +97,8 @@ namespace UniversalEditor.ObjectModels.Project
 		/// </summary>
 		public PropertyListObjectModel Configuration { get { return mvarConfiguration; } set { mvarConfiguration = value; } }
 
-		private ProjectFolder mvarParent = null;
-		public ProjectFolder Parent { get { return mvarParent; } private set { mvarParent = value; } }
+		private IProjectFileContainer mvarParent = null;
+		public IProjectFileContainer Parent { get { return mvarParent; } private set { mvarParent = value; } }
 
 		public object Clone()
 		{
@@ -82,5 +111,8 @@ namespace UniversalEditor.ObjectModels.Project
 
 		private byte[] mvarContent = new byte[0];
 		public byte[] Content { get { return mvarContent; } set { mvarContent = value; } }
+
+		public ProjectFileCollection Dependents { get; } = new ProjectFileCollection();
+		public ProjectFileCollection Files { get; } = new ProjectFileCollection();
 	}
 }
