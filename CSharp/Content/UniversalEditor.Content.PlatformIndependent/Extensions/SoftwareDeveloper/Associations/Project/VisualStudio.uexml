@@ -14,6 +14,9 @@
 						<FileNameFilter>*.sqlproj</FileNameFilter>
 						<FileNameFilter>*.phpproj</FileNameFilter>
 						<FileNameFilter>*.proj</FileNameFilter>
+						<FileNameFilter>*.vcproj</FileNameFilter>
+						<FileNameFilter>*.vcxproj</FileNameFilter>
+						<FileNameFilter>*.booproj</FileNameFilter>
 					</FileNameFilters>
 				</Filter>
 			</Filters>
