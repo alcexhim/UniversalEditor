@@ -13,7 +13,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.SourceCode.CodeObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Programming.AdaCodeDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.SourceCode.AdaCodeDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

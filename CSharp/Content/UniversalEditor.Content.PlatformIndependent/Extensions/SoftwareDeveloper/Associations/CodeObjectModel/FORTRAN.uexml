@@ -14,7 +14,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.SourceCode.CodeObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Programming.FORTRANCodeDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.SourceCode.FORTRANCodeDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

@@ -18,7 +18,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.SourceCode.CodeObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Programming.Java.JavaClassDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.SourceCode.Java.JavaClassDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>
