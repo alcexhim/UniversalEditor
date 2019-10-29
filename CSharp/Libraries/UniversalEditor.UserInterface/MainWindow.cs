@@ -583,13 +583,12 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		public void OpenProject(bool combineObjects = false)
+		public ProjectObjectModel ShowOpenProjectDialog()
 		{
 			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Open;
 
 			Association[] projectAssocs = Association.FromObjectModelOrDataFormat((new ProjectObjectModel()).MakeReference());
-			Association[] solutionAssocs = Association.FromObjectModelOrDataFormat((new SolutionObjectModel()).MakeReference());
-
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			foreach (Association projectAssoc in projectAssocs)
 			{
@@ -607,23 +606,64 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 			dlg.FileNameFilters.Add("Project files", sb.ToString());
-			sb.Clear();
+			dlg.Text = "Open Project";
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				ProjectObjectModel proj = new ProjectObjectModel();
+
+				FileAccessor fa = new FileAccessor(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1]);
+				Association[] assocs = Association.FromAccessor(fa);
+				DataFormat df = assocs[0].DataFormats[0].Create();
+
+				Document.Load(proj, df, fa);
+				return proj;
+			}
+			return null;
+		}
+
+		public void OpenProject(bool combineObjects = false)
+		{
+			FileDialog dlg = new FileDialog();
+
+			Association[] projectAssocs = Association.FromObjectModelOrDataFormat((new ProjectObjectModel()).MakeReference());
+			Association[] solutionAssocs = Association.FromObjectModelOrDataFormat((new SolutionObjectModel()).MakeReference());
+
+			System.Text.StringBuilder sbProject = new System.Text.StringBuilder();
+			foreach (Association projectAssoc in projectAssocs)
+			{
+				for (int i = 0; i < projectAssoc.Filters.Count; i++)
+				{
+					for (int j = 0; j < projectAssoc.Filters[i].FileNameFilters.Count; j++)
+					{
+						sbProject.Append(projectAssoc.Filters[i].FileNameFilters[j]);
+						if (j < projectAssoc.Filters[i].FileNameFilters.Count - 1)
+							sbProject.Append("; ");
+					}
+
+					if (i < projectAssoc.Filters.Count - 1)
+						sbProject.Append("; ");
+				}
+			}
+			System.Text.StringBuilder sbSolution = new System.Text.StringBuilder();
 			foreach (Association solutionAssoc in solutionAssocs)
 			{
 				for (int i = 0; i < solutionAssoc.Filters.Count; i++)
 				{
 					for (int j = 0; j < solutionAssoc.Filters[i].FileNameFilters.Count; j++)
 					{
-						sb.Append(solutionAssoc.Filters[i].FileNameFilters[j]);
+						sbSolution.Append(solutionAssoc.Filters[i].FileNameFilters[j]);
 						if (j < solutionAssoc.Filters[i].FileNameFilters.Count - 1)
-							sb.Append("; ");
+							sbSolution.Append("; ");
 					}
 
 					if (i < solutionAssoc.Filters.Count - 1)
-						sb.Append("; ");
+						sbSolution.Append("; ");
 				}
 			}
-			dlg.FileNameFilters.Add("Solution files", sb.ToString());
+			dlg.FileNameFilters.Add("Project or solution files", sbProject.ToString() + ';' + sbSolution.ToString());
+			dlg.FileNameFilters.Add("Project files", sbProject.ToString());
+			dlg.FileNameFilters.Add("Solution files", sbSolution.ToString());
+
 			dlg.Text = "Open Project or Solution";
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{

@@ -50,7 +50,15 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 				MarkupTagElement tag = (tagProject.Elements[i] as MarkupTagElement);
 				if (tag == null) continue;
 
-				if (tag.FullName.Equals("ItemGroup"))
+				if (tag.FullName.Equals("PropertyGroup"))
+				{
+					MarkupTagElement tagAssemblyName = (tag.Elements["AssemblyName"] as MarkupTagElement);
+					if (tagAssemblyName != null)
+					{
+						proj.Title = tagAssemblyName.Value;
+					}
+				}
+				else if (tag.FullName.Equals("ItemGroup"))
 				{
 					for (int j = 0; j < tag.Elements.Count; j++)
 					{

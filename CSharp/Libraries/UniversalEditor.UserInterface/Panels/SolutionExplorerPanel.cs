@@ -151,6 +151,7 @@ namespace UniversalEditor.UserInterface.Panels
 			tmSolutionExplorer = new DefaultTreeModel(new Type[] { typeof(string) });
 			tvSolutionExplorer.Model = tmSolutionExplorer;
 			tvSolutionExplorer.BeforeContextMenu += tvSolutionExplorer_BeforeContextMenu;
+			tvSolutionExplorer.RowActivated += tvSolutionExplorer_RowActivated;
 
 			// (UniversalEditor.exe:24867): Gtk-CRITICAL **: 21:28:56.913: gtk_tree_store_set_value: assertion 'G_IS_VALUE (value)' failed
 			tvSolutionExplorer.Columns.Add(new ListViewColumnText(tmSolutionExplorer.Columns[0], "File Name"));
@@ -195,7 +196,7 @@ namespace UniversalEditor.UserInterface.Panels
 				new MBS.Framework.UserInterface.CommandMenuItem("A_dd", new MBS.Framework.UserInterface.MenuItem[]
 				{
 					new MBS.Framework.UserInterface.CommandMenuItem("New _Project...", null, mnuContextSolutionAddNewProject_Click),
-					new MBS.Framework.UserInterface.CommandMenuItem("E_xisting Project..."),
+					new MBS.Framework.UserInterface.CommandMenuItem("E_xisting Project...", null, mnuContextSolutionAddExistingProject_Click),
 					new MBS.Framework.UserInterface.SeparatorMenuItem(),
 					new MBS.Framework.UserInterface.CommandMenuItem("New Fol_der")
 				}),
@@ -209,8 +210,78 @@ namespace UniversalEditor.UserInterface.Panels
 			});
 
 			mnuContextFile = new Menu();
+			mnuContextFile.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
+			{
+				new MBS.Framework.UserInterface.CommandMenuItem("Open", null, mnuContextFileOpen_Click),
+				new MBS.Framework.UserInterface.SeparatorMenuItem(),
+				new MBS.Framework.UserInterface.CommandMenuItem("Cu_t"),
+				new MBS.Framework.UserInterface.CommandMenuItem("_Copy"),
+				// new MBS.Framework.UserInterface.CommandMenuItem("_Paste"),
+				new MBS.Framework.UserInterface.CommandMenuItem("_Delete"),
+				new MBS.Framework.UserInterface.SeparatorMenuItem(),
+				new MBS.Framework.UserInterface.CommandMenuItem("Rena_me"),
+				new MBS.Framework.UserInterface.SeparatorMenuItem(),
+				new MBS.Framework.UserInterface.CommandMenuItem("P_roperties...")
+			});
 			mnuContextFolder = new Menu();
+			mnuContextFolder.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
+			{
+				new MBS.Framework.UserInterface.CommandMenuItem("A_dd", new MBS.Framework.UserInterface.MenuItem[]
+				{
+					new MBS.Framework.UserInterface.CommandMenuItem("New _File...", null, mnuContextFolderAddNewFile_Click),
+					new MBS.Framework.UserInterface.CommandMenuItem("E_xisting File...", null, mnuContextFolderAddExistingFile_Click),
+					new MBS.Framework.UserInterface.SeparatorMenuItem(),
+					new MBS.Framework.UserInterface.CommandMenuItem("New Fol_der")
+				}),
+				new MBS.Framework.UserInterface.SeparatorMenuItem(),
+				new MBS.Framework.UserInterface.CommandMenuItem("Cu_t"),
+				new MBS.Framework.UserInterface.CommandMenuItem("_Copy"),
+				// new MBS.Framework.UserInterface.CommandMenuItem("_Paste"),
+				new MBS.Framework.UserInterface.CommandMenuItem("_Delete"),
+				new MBS.Framework.UserInterface.SeparatorMenuItem(),
+				new MBS.Framework.UserInterface.CommandMenuItem("Rena_me"),
+				new MBS.Framework.UserInterface.SeparatorMenuItem(),
+				new MBS.Framework.UserInterface.CommandMenuItem("P_roperties...")
+			});
 		}
+
+		private void mnuContextFileOpen_Click(object sender, EventArgs e)
+		{
+		}
+
+		private void mnuContextFolderAddNewFile_Click(object sender, EventArgs e)
+		{
+		}
+
+		private void mnuContextFolderAddExistingFile_Click(object sender, EventArgs e)
+		{
+		}
+
+		void tvSolutionExplorer_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		{
+			// TODO: implement what happens when we activate a row in the solution explorer list
+
+			// typically:
+			//		- if it is a ProjectFile we want to open the respective file in a new document tab
+			// 		- if it is a ProjectFolder we just want to expand/collapse tree (default action)
+			//		- if it is a special folder named "Properties", or the project item itself, it should display the special project properties dialog
+			//		- if it is a special folder named "Properties/Resources", the resource editor shall be shown
+			ProjectObjectModel project = e.Row.GetExtraData<ProjectObjectModel>("project");
+			ProjectFile file = e.Row.GetExtraData<ProjectFile>("file");
+			if (project != null)
+			{
+				MessageDialog.ShowDialog(String.Format("Opening project properties for {0}", e.Row.RowColumns[0].Value), "Info", MessageDialogButtons.OK);
+			}
+			else if (file != null)
+			{
+				Engine.CurrentEngine.LastWindow.OpenFile(file.SourceFileName);
+			}
+			else
+			{
+				MessageDialog.ShowDialog(String.Format("Activated row {0}", e.Row.RowColumns[0].Value), "Info", MessageDialogButtons.OK);
+			}
+		}
+
 
 		private void mnuContextProjectAddExistingFiles_Click(object sender, EventArgs e)
 		{
@@ -242,6 +313,17 @@ namespace UniversalEditor.UserInterface.Panels
 			MainWindow mw = (Engine.CurrentEngine.LastWindow as MainWindow);
 			if (mw == null) return;
 			mw.NewProject(true);
+		}
+		private void mnuContextSolutionAddExistingProject_Click(object sender, EventArgs e)
+		{
+			MainWindow mw = (Engine.CurrentEngine.LastWindow as MainWindow);
+			if (mw == null) return;
+
+			ProjectObjectModel proj = mw.ShowOpenProjectDialog();
+			if (proj == null) return;
+
+			_Solution.Projects.Add(proj);
+			Solution = _Solution; // update the UI
 		}
 
 		private void tvSolutionExplorer_BeforeContextMenu(object sender, EventArgs e)
