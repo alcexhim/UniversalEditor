@@ -609,6 +609,11 @@ namespace UniversalEditor.UserInterface
 					Accessor fa = accs[0].Create();
 					documents[i] = new Document(fa);
 				}
+				else if (System.IO.File.Exists(fileNames[i]))
+				{
+					FileAccessor fa = new FileAccessor(fileNames[i], true, false, true);
+					documents[i] = new Document(fa);
+				}
 			}
 			OpenFile(documents);
 		}
