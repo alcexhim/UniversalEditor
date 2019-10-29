@@ -32,6 +32,9 @@ namespace UniversalEditor
 	/// </summary>
 	public class Association
 	{
+		/// <summary>
+		/// Defines a collection of <see cref="Association" />s.
+		/// </summary>
 		public class AssociationCollection
 			: System.Collections.ObjectModel.Collection<Association>
 		{
@@ -40,24 +43,42 @@ namespace UniversalEditor
 
 		private static List<Association> _associations = new List<Association>();
 
-
+		/// <summary>
+		/// Registers the specified <see cref="Association" /> if it is not already registered.
+		/// </summary>
+		/// <returns><c>true</c> if the <see cref="Association" /> is not already registered and has been added; <c>false</c> otherwise.</returns>
+		/// <param name="assoc">The <see cref="Association" /> to register.</param>
 		public static bool Register(Association assoc)
 		{
 			if (_associations.Contains(assoc)) return false;
 			_associations.Add(assoc);
 			return true;
 		}
+		/// <summary>
+		/// Unregisters the specified <see cref="Association" /> if it has been registered.
+		/// </summary>
+		/// <returns><c>true</c> if the given <see cref="Association" /> has been unregistered; <c>false</c> if the given <see cref="Association" /> has not been registered.</returns>
+		/// <param name="assoc">The <see cref="Association" /> to unregister.</param>
 		public static bool Unregister(Association assoc)
 		{
 			if (!_associations.Contains(assoc)) return false;
 			_associations.Remove(assoc);
 			return true;
 		}
-
+		/// <summary>
+		/// Returns an array of all known <see cref="Association" />s.
+		/// </summary>
+		/// <returns>The all associations.</returns>
 		public static Association[] GetAllAssociations()
 		{
 			return _associations.ToArray();
 		}
+		/// <summary>
+		/// Gets an array of <see cref="Association" />s that match the given <see cref="ObjectModelReference" /> or <see cref="DataFormatReference" />.
+		/// </summary>
+		/// <returns>An array of <see cref="Association" />s that match the given <see cref="ObjectModelReference" /> or <see cref="DataFormatReference" />.</returns>
+		/// <param name="objectModel">The <see cref="ObjectModelReference" /> to compare.</param>
+		/// <param name="dataFormat">The <see cref="DataformatReference" /> to compare.</param>
 		public static Association[] FromObjectModelOrDataFormat(ObjectModelReference objectModel = null, DataFormatReference dataFormat = null)
 		{
 			Association[] _associations = Association.GetAllAssociations();
@@ -71,11 +92,18 @@ namespace UniversalEditor
 			}
 			return associations.ToArray();
 		}
+		/// <summary>
+		/// Gets an array of <see cref="Association" />s that match the given <see cref="Accessor" /> or file name filters.
+		/// </summary>
+		/// <returns>An array of <see cref="Association" />s that match the given <see cref="Accessor" /> or file name filters.</returns>
+		/// <param name="accessor">The <see cref="Accessor" /> to compare.</param>
+		/// <param name="fileNameFilter">Not implemented.</param>
 		public static Association[] FromAccessor(Accessor accessor = null, string fileNameFilter = null)
 		{
 			Association[] assocs = Association.GetAllAssociations();
 			List<Association> associations = new List<Association>();
 
+			// FIXME: the fileNameFilter parameter is not referenced in this method body
 			// stopwatch diagnostics determined a nested for loop is 0.0547024 ms faster than foreach
 			for (int i = 0; i < assocs.Length; i++)
 			{
@@ -120,6 +148,10 @@ namespace UniversalEditor
 		/// </summary>
 		public DataFormatReference.DataFormatReferenceCollection DataFormats { get { return mvarDataFormats; } }
 
+		/// <summary>
+		/// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:UniversalEditor.Association"/>.
+		/// </summary>
+		/// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:UniversalEditor.Association"/>.</returns>
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -149,6 +181,11 @@ namespace UniversalEditor
 			return sb.ToString();
 		}
 
+		/// <summary>
+		/// Returns an array of <see cref="Association" />s that satisfy the given <see cref="AssociationCriteria" />.
+		/// </summary>
+		/// <returns>An array of <see cref="Association" />s that match the specified criteria.</returns>
+		/// <param name="ac">The <see cref="AssociationCriteria" /> that define the criteria to match when searching for <see cref="Association"/>s.</param>
 		public static Association[] FromCriteria(AssociationCriteria ac)
 		{
 			List<Association> associations = new List<Association>();
