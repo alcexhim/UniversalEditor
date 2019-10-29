@@ -439,38 +439,76 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		private EditorReference DefaultEditor = new EditorReference(typeof(Editors.Binary.BinaryEditor));
+		/// <summary>
+		/// try to determine within a reasonable doubt whether or not <see cref="filename" /> is a "plain text" file (e.g. ASCII, UTF-8, UTF-16lE, UTF-16BE, UTF-32, etc.)
+		/// </summary>
+		/// <returns><c>true</c>, if text was ised, <c>false</c> otherwise.</returns>
+		/// <param name="filename">Filename.</param>
+		private bool isText(string filename)
+		{
+			if (!System.IO.File.Exists(filename))
+				return false;
+
+			int len = 2048;
+			System.IO.FileStream fs = System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
+			byte[] b = fs.ReadBytes(0, len);
+
+			string utf8 = System.Text.Encoding.UTF8.GetString(b);
+
+			// yes I know this isn't the best way to do this
+			if (!utf8.ContainsAny(new char[] { '\r', '\n', ' ', '\t',
+				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+				'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+				'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '_', '+' }))
+			{
+				// no newlines, spaces, or tabs? no regular chars?
+				return false;
+			}
+
+			return true;
+		}
+
+		private EditorReference DefaultBinaryEditor = new EditorReference(typeof(Editors.Binary.BinaryEditor));
+		private EditorReference DefaultTextEditor = new EditorReference(typeof(Editors.Text.Plain.PlainTextEditor));
 		private void OpenDefaultEditor(string filename)
 		{
-			if (DefaultEditor == null) return;
+			if (DefaultBinaryEditor == null || DefaultTextEditor == null) return;
 
-			Editor ed = DefaultEditor.Create();
+			// TODO: determine if file is binary or text, and thus display either plain text or binary editor by default
+			Editor ed = null;
 
-			/*
-			PlainTextObjectModel om1 = new PlainTextObjectModel();
-			if (System.IO.File.Exists(filename))
+			if (isText(filename))
 			{
-				System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-				if (fi.Length < Math.Pow(1024, 2))
+				ed = DefaultTextEditor.Create();
+				PlainTextObjectModel om1 = new PlainTextObjectModel();
+				if (System.IO.File.Exists(filename))
 				{
-					String content = System.IO.File.ReadAllText(filename);
-					om1.Text = content;
+					System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+					if (fi.Length < Math.Pow(1024, 2))
+					{
+						String content = System.IO.File.ReadAllText(filename);
+						om1.Text = content;
+					}
 				}
+				ed.ObjectModel = om1;
 			}
-			ed.ObjectModel = om1;
-			*/
-
-			BinaryObjectModel om1 = new BinaryObjectModel();
-			if (System.IO.File.Exists(filename))
+			else
 			{
-				System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-				if (fi.Length < Math.Pow(1024, 4))
+				ed = DefaultBinaryEditor.Create();
+				BinaryObjectModel om1 = new BinaryObjectModel();
+				if (System.IO.File.Exists(filename))
 				{
-					byte[] content = System.IO.File.ReadAllBytes(filename);
-					om1.Data = content;
+					System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+					if (fi.Length < Math.Pow(1024, 4))
+					{
+						byte[] content = System.IO.File.ReadAllBytes(filename);
+						om1.Data = content;
+					}
 				}
+				ed.ObjectModel = om1;
 			}
-			ed.ObjectModel = om1;
+
+			if (ed == null) return;
 
 			EditorPage page = new EditorPage();
 			page.Controls.Add(ed, new BoxLayout.Constraints(true, true));
