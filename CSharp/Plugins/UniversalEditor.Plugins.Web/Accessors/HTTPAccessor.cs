@@ -123,13 +123,17 @@ namespace UniversalEditor.Accessors
 				// total count of bytes to be read from both buffer and stream
 				long realCount = bufferCount + newCount;
 
-				byte[] newBuffer = new byte[newCount];
-				int readFromStream = mvarStream.Read(newBuffer, 0, (int)newCount);
+				if (newCount > 0)
+				{
+					byte[] newBuffer = new byte[newCount];
+					int readFromStream = mvarStream.Read(newBuffer, 0, (int)newCount);
 
-				Array.Copy(newBuffer, 0, mvarBuffer, (int)(start + bufferCount), newCount);
-
+					Array.Copy(newBuffer, 0, mvarBuffer, (int)(start + bufferCount), newCount);
+				}
 				Array.Copy(mvarBuffer, mvarPosition, buffer, start, realCount);
 
+				mvarActualPosition += newCount;
+				mvarPosition += count;
 				return (int)realCount;
 			}
 			else if (mvarPosition == mvarActualPosition)
