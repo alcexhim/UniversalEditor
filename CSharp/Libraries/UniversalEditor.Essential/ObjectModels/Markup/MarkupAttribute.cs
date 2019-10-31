@@ -9,26 +9,21 @@ namespace UniversalEditor.ObjectModels.Markup
 		public class MarkupAttributeCollection
 			: System.Collections.ObjectModel.Collection<MarkupAttribute>
 		{
+			private Dictionary<string, MarkupAttribute> _itemsByName = new Dictionary<string, MarkupAttribute>();
+
 			public MarkupAttribute this[string fullName]
 			{
 				get
 				{
-					MarkupAttribute result;
-					foreach (MarkupAttribute att in this)
-					{
-						if (att.FullName == fullName)
-						{
-							result = att;
-							return result;
-						}
-					}
-					result = null;
-					return result;
+					if (_itemsByName.ContainsKey(fullName))
+						return _itemsByName[fullName];
+
+					return null;
 				}
 			}
 			public MarkupAttribute Add(string fullName)
 			{
-				return this.Add(fullName, string.Empty);
+				return Add(fullName, string.Empty);
 			}
 			public MarkupAttribute Add(string fullName, string value)
 			{
@@ -65,6 +60,30 @@ namespace UniversalEditor.ObjectModels.Markup
 					result = false;
 				}
 				return result;
+			}
+
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				_itemsByName.Clear();
+			}
+			protected override void InsertItem(int index, MarkupAttribute item)
+			{
+				base.InsertItem(index, item);
+				_itemsByName[item.FullName] = item;
+			}
+			protected override void RemoveItem(int index)
+			{
+				if (_itemsByName.ContainsKey(this[index].FullName))
+					_itemsByName.Remove(this[index].FullName);
+				base.RemoveItem(index);
+			}
+			protected override void SetItem(int index, MarkupAttribute item)
+			{
+				if (_itemsByName.ContainsKey(this[index].FullName))
+					_itemsByName.Remove(this[index].FullName);
+				base.SetItem(index, item);
+				_itemsByName[item.Name] = item;
 			}
 		}
 		private string mvarNamespace = null;
