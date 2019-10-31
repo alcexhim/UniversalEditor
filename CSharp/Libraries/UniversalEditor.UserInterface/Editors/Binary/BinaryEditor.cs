@@ -29,6 +29,9 @@ using MBS.Framework.UserInterface.Controls.HexEditor;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Layouts;
+using System.Collections.Generic;
+using UniversalEditor.Accessors;
+using UniversalEditor.ObjectModels.BinaryGrammar;
 
 namespace UniversalEditor.Editors.Binary
 {
@@ -36,7 +39,6 @@ namespace UniversalEditor.Editors.Binary
 	{
 		public override void UpdateSelections()
 		{
-			throw new NotImplementedException();
 		}
 
 		protected override EditorSelection CreateSelectionInternal(object content)
@@ -289,8 +291,28 @@ namespace UniversalEditor.Editors.Binary
 				return sb.ToString();
 			}, delegate(string input)
 			{
-				// unsupported right now
-				return null;
+				if (input.ToLower().StartsWith("0x"))
+				{
+					input = input.Substring(2);
+				}
+				else if (input.ToLower().StartsWith("&h") && input.ToLower().EndsWith("&"))
+				{
+					input = input.Substring(2, input.Length - 3);
+				}
+				input = input.Replace(" ", String.Empty);
+
+				List<byte> list = new List<byte>();
+				if ((input.Length % 2) == 0)
+				{
+					int nbytes = (input.Length / 2);
+					for (int i = 0; i < nbytes; i++)
+					{
+						string s = input.Substring(i * 2, 2);
+						byte b = Byte.Parse(s, System.Globalization.NumberStyles.HexNumber);
+						list.Add(b);
+					}
+				}
+				return list.ToArray();
 			}, 4),
 			new CONVERSION_DATA(null, "Decimal", delegate(byte[] input)
 			{
@@ -308,8 +330,8 @@ namespace UniversalEditor.Editors.Binary
 				return sb.ToString();
 			}, delegate(string input)
 			{
-				// unsupported right now
-				return null;
+				long b = Int64.Parse(input);
+				return BitConverter.GetBytes(b);
 			}, 4),
 			new CONVERSION_DATA(null, "Octal", delegate(byte[] input)
 			{
@@ -407,7 +429,8 @@ namespace UniversalEditor.Editors.Binary
 			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionEdit", StockType.Edit, tsbFieldDefinitionEdit_Click));
 			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionRemove", StockType.Remove, tsbFieldDefinitionRemove_Click));
 			this.tbFieldDefinitions.Items.Add(new ToolbarItemSeparator());
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionLoadFromDefinition", "Open Definition File", tsbFieldDefinitionLoad_Click));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionLoad", StockType.Open, tsbFieldDefinitionLoad_Click));
+			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionSave", StockType.Save, tsbFieldDefinitionLoad_Click));
 			tabPageFields.Controls.Add(this.tbFieldDefinitions, new BoxLayout.Constraints(false, true));
 
 			this.tmFieldDefinitions = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
@@ -438,7 +461,9 @@ namespace UniversalEditor.Editors.Binary
 				if (converter.DataType == definition.DataType)
 				{
 					byte[] data = new byte[converter.MaximumSize];
-					Array.Copy(hexedit.Data, definition.Offset, data, 0, Math.Min(data.Length, hexedit.Data.Length - definition.Offset));
+					if (definition.Offset < hexedit.Data.Length)
+						Array.Copy(hexedit.Data, definition.Offset, data, 0, Math.Min(data.Length, hexedit.Data.Length - definition.Offset));
+
 					string value = converter.ByteToStringFunc(data);
 					return value;
 				}
@@ -485,6 +510,19 @@ namespace UniversalEditor.Editors.Binary
 		}
 		private void tsbFieldDefinitionLoad_Click(object sender, EventArgs e)
 		{
+			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Open;
+
+			BinaryGrammarObjectModel om = new BinaryGrammarObjectModel();
+			Association[] assocs = Association.FromObjectModelOrDataFormat(om.MakeReference());
+			dlg.AddFileNameFilterFromAssociations("Grammar definition files", assocs);
+
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				FileAccessor fa = new FileAccessor(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1]);
+				DataFormat df = assocs[0].DataFormats[0].Create(); // FIXME: THIS SHOULD BE PROPERLY INFERRED
+				Document.Load(om, df, fa);
+			}
 		}
 
 		void Txt_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
@@ -528,6 +566,12 @@ namespace UniversalEditor.Editors.Binary
 
 				if (data != null)
 				{
+					if (hexedit.SelectionStart + data.Length >= hexedit.Data.Length)
+					{
+						byte[] odata = hexedit.Data;
+						Array.Resize<byte>(ref odata, odata.Length + data.Length);
+						hexedit.Data = odata;
+					}
 					Array.Copy(data, 0, hexedit.Data, hexedit.SelectionStart.ByteIndex, data.Length);
 					Refresh();
 				}

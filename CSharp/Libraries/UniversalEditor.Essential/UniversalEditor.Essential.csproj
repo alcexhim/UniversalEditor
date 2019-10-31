@@ -181,6 +181,13 @@
     <Compile Include="DataFormats\Text\Plain\PlainTextDataFormat.cs" />
     <Compile Include="DataFormats\Shortcut\Linux\LinuxShortcutDataFormat.cs" />
     <Compile Include="ObjectModels\Project\ProjectItem.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\BinaryGrammarObjectModel.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItem.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemStructure.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemStructureReference.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemNumber.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemString.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\FixedValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -202,6 +209,8 @@
     <Folder Include="ObjectModels\JSON\Fields\" />
     <Folder Include="DataFormats\Text\Plain\" />
     <Folder Include="DataFormats\Shortcut\Linux\" />
+    <Folder Include="ObjectModels\BinaryGrammar\" />
+    <Folder Include="ObjectModels\BinaryGrammar\GrammarItems\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
