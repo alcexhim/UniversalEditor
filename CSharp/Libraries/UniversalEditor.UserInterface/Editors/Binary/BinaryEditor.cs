@@ -379,6 +379,7 @@ namespace UniversalEditor.Editors.Binary
 
 			this.hexedit = new HexEditorControl();
 			this.hexedit.SelectionChanged += Hexedit_SelectionChanged;
+			this.hexedit.Changed += hexedit_Changed;
 			this.Controls.Add(hexedit, new BoxLayout.Constraints(true, true));
 
 			this.conversionPanel = new Container();
@@ -448,6 +449,18 @@ namespace UniversalEditor.Editors.Binary
 
 			this.Controls.Add(tabs, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.End));
 		}
+
+		private void hexedit_Changed(object sender, EventArgs e)
+		{
+			foreach (TreeModelRow row in tmFieldDefinitions.Rows)
+			{
+				FieldDefinition def = row.GetExtraData<FieldDefinition>("def");
+				if (def == null) continue;
+
+				row.RowColumns[3].Value = GetFieldValue(def);
+			}
+		}
+
 
 		private void lvFieldDefinitions_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
