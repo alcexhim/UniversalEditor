@@ -47,5 +47,16 @@ namespace UniversalEditor.ObjectModels.Markup
             if (att == null) return defaultValue;
             return att;
         }
-    }
+
+		public MarkupTagElement[] GetElementsByTagName(string tagName)
+		{
+			List<MarkupTagElement> list = new List<MarkupTagElement>();
+			for (int i = 0; i < Elements.Count; i++)
+			{
+				if ((Elements[i] as MarkupTagElement)?.FullName == tagName)
+					list.Add(Elements[i] as MarkupTagElement);
+			}
+			return list.ToArray();
+		}
+	}
 }
