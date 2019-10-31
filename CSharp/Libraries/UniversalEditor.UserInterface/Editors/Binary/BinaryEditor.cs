@@ -469,16 +469,28 @@ namespace UniversalEditor.Editors.Binary
 
 		private string GetFieldValue(FieldDefinition definition)
 		{
-			foreach (CONVERSION_DATA converter in converters)
+			if (definition.DataType == typeof(string))
 			{
-				if (converter.DataType == definition.DataType)
-				{
-					byte[] data = new byte[converter.MaximumSize];
-					if (definition.Offset < hexedit.Data.Length)
-						Array.Copy(hexedit.Data, definition.Offset, data, 0, Math.Min(data.Length, hexedit.Data.Length - definition.Offset));
+				byte[] data = new byte[definition.Length];
+				if (definition.Offset < hexedit.Data.Length)
+					Array.Copy(hexedit.Data, definition.Offset, data, 0, Math.Min(data.Length, hexedit.Data.Length - definition.Offset));
 
-					string value = converter.ByteToStringFunc(data);
-					return value;
+				string value = System.Text.Encoding.UTF8.GetString(data);
+				return value;
+			}
+			else
+			{
+				foreach (CONVERSION_DATA converter in converters)
+				{
+					if (converter.DataType == definition.DataType)
+					{
+						byte[] data = new byte[converter.MaximumSize];
+						if (definition.Offset < hexedit.Data.Length)
+							Array.Copy(hexedit.Data, definition.Offset, data, 0, Math.Min(data.Length, hexedit.Data.Length - definition.Offset));
+
+						string value = converter.ByteToStringFunc(data);
+						return value;
+					}
 				}
 			}
 			return String.Empty;

@@ -36,6 +36,8 @@ namespace UniversalEditor.Editors.Binary
 		private TextBox txtOffset;
 		private Label lblDataType;
 		private ComboBox cboDataType;
+		private Label lblLength;
+		private TextBox txtLength;
 		private Label lblColor;
 		private Button cmdColor;
 
@@ -143,13 +145,20 @@ namespace UniversalEditor.Editors.Binary
 			this.cboDataType.Model = tmDataType;
 			this.Controls.Add(this.cboDataType, new GridLayout.Constraints(2, 1));
 
+			this.lblLength = new Label();
+			this.lblLength.Text = "_Length";
+			this.Controls.Add(this.lblLength, new GridLayout.Constraints(3, 0));
+
+			this.txtLength = new TextBox();
+			this.Controls.Add(this.txtLength, new GridLayout.Constraints(3, 1));
+
 			this.lblColor = new Label();
 			this.lblColor.Text = "_Color";
-			this.Controls.Add(this.lblColor, new GridLayout.Constraints(3, 0));
+			this.Controls.Add(this.lblColor, new GridLayout.Constraints(4, 0));
 
 			this.cmdColor = new Button();
 			this.cmdColor.Click += cmdColor_Click;
-			this.Controls.Add(this.cmdColor, new GridLayout.Constraints(3, 1));
+			this.Controls.Add(this.cmdColor, new GridLayout.Constraints(4, 1));
 
 			this.Buttons.Add(new Button(ButtonStockType.OK));
 			this.Buttons[this.Buttons.Count - 1].Click += cmdOK_Click;
@@ -181,15 +190,30 @@ namespace UniversalEditor.Editors.Binary
 				this.DialogResult = DialogResult.None;
 				return;
 			}
+
 			if (cboDataType.SelectedItem != null)
 			{
 				FieldDefinition.DataType = cboDataType.SelectedItem.GetExtraData<Type>("type");
 			}
-			else 
+			else
 			{
 				MessageDialog.ShowDialog("please select a data type");
 				this.DialogResult = DialogResult.None;
 				return;
+			}
+
+			if (FieldDefinition.DataType == typeof(string))
+			{
+				if (!Int32.TryParse(txtLength.Text, out length))
+				{
+					MessageDialog.ShowDialog("length must be a 32-bit integer for fixed-length string types");
+					this.DialogResult = DialogResult.None;
+					return;
+				}
+				else
+				{
+					FieldDefinition.Length = length;
+				}
 			}
 			FieldDefinition.Color = (cmdColor.BackgroundBrush as SolidBrush).Color;
 			FieldDefinition.Offset = offset;

@@ -27,6 +27,7 @@ namespace UniversalEditor.Editors.Binary
 	{
 		public string Name;
 		public int Offset;
+		public int Length;
 		public Type DataType;
 		public Color Color;
 
@@ -50,6 +51,10 @@ namespace UniversalEditor.Editors.Binary
 				else if (DataType == typeof(long) || DataType == typeof(ulong) || DataType == typeof(double) || DataType == typeof(Guid))
 				{
 					len = 8;
+				}
+				else if (DataType == typeof(string))
+				{
+					len = Length;
 				}
 				return len;
 			}
