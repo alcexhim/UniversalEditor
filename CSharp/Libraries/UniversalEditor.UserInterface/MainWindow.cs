@@ -633,22 +633,8 @@ namespace UniversalEditor.UserInterface
 
 			Association[] projectAssocs = Association.FromObjectModelOrDataFormat((new ProjectObjectModel()).MakeReference());
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			foreach (Association projectAssoc in projectAssocs)
-			{
-				for (int i = 0; i < projectAssoc.Filters.Count; i++)
-				{
-					for (int j = 0; j < projectAssoc.Filters[i].FileNameFilters.Count; j++)
-					{
-						sb.Append(projectAssoc.Filters[i].FileNameFilters[j]);
-						if (j < projectAssoc.Filters[i].FileNameFilters.Count - 1)
-							sb.Append("; ");
-					}
+			dlg.AddFileNameFilterFromAssociations("Project files", projectAssocs);
 
-					if (i < projectAssoc.Filters.Count - 1)
-						sb.Append("; ");
-				}
-			}
-			dlg.FileNameFilters.Add("Project files", sb.ToString());
 			dlg.Text = "Open Project";
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
