@@ -456,15 +456,14 @@ namespace UniversalEditor.UserInterface
 			string utf8 = System.Text.Encoding.UTF8.GetString(b);
 
 			// yes I know this isn't the best way to do this
-			if (!utf8.ContainsAny(new char[] { '\r', '\n', ' ', '\t',
-				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-				'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-				'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '_', '+' }))
+			for (int i = 0; i < utf8.Length; i++)
 			{
-				// no newlines, spaces, or tabs? no regular chars?
-				return false;
+				if (Char.IsControl(utf8[i]) && !Char.IsWhiteSpace(utf8[i]))
+				{
+					// control character, so bail out
+					return false;
+				}
 			}
-
 			return true;
 		}
 
@@ -474,7 +473,6 @@ namespace UniversalEditor.UserInterface
 		{
 			if (DefaultBinaryEditor == null || DefaultTextEditor == null) return;
 
-			// TODO: determine if file is binary or text, and thus display either plain text or binary editor by default
 			Editor ed = null;
 
 			if (isText(filename))
