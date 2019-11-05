@@ -648,7 +648,6 @@
     <Content Include="Configuration\SplashScreen.upl" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.DatabaseEditor\Images\Icons\" />
     <Folder Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Addins\" />
     <Folder Include="Extensions\Microsoft\" />
     <Folder Include="Extensions\Microsoft\Associations\" />
