@@ -69,12 +69,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
                 {
                     int index = ((y * pic.Width) + x) * 3;
 
-                    byte r = uncompressed[index];
-                    byte g = uncompressed[index + 1];
-                    byte b = uncompressed[index + 2];
+					if (uncompressed.Length - index > 2)
+					{
+						byte r = uncompressed[index];
+						byte g = uncompressed[index + 1];
+						byte b = uncompressed[index + 2];
 
-                    Color color = Color.FromRGBAByte(r, g, b);
-                    pic.SetPixel(color, x, y);
+						Color color = Color.FromRGBAByte(r, g, b);
+						pic.SetPixel(color, x, y);
+					}
                 }
             }
         }
