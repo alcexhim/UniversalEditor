@@ -188,6 +188,7 @@
     <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemNumber.cs" />
     <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemString.cs" />
     <Compile Include="ObjectModels\BinaryGrammar\FixedValue.cs" />
+    <Compile Include="DataFormats\Text\Plain\ByteOrderMark.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

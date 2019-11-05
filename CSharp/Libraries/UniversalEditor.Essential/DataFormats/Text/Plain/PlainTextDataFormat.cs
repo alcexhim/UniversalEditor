@@ -37,6 +37,8 @@ namespace UniversalEditor.DataFormats.Text.Plain
 			return _dfr;
 		}
 
+		public ByteOrderMark ByteOrderMark { get; set; } = ByteOrderMark.None;
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PlainTextObjectModel ptom = (objectModel as PlainTextObjectModel);
@@ -44,6 +46,38 @@ namespace UniversalEditor.DataFormats.Text.Plain
 				throw new ObjectModelNotSupportedException();
 
 			Reader reader = Accessor.Reader;
+
+			// determine if we have BOM
+			if (reader.Accessor.Length >= 4)
+			{
+				byte b1 = reader.ReadByte();
+				byte b2 = reader.ReadByte();
+				byte b3 = reader.ReadByte();
+				byte b4 = reader.ReadByte();
+				if (b1 == 0xEF && b2 == 0xBB && b3 == 0xBF)
+				{
+					ByteOrderMark = ByteOrderMark.UTF8;
+					reader.Accessor.Seek(-1, SeekOrigin.Current);
+				}
+				else if ((b1 == 0xFE && b2 == 0xFF) || (b1 == 0xFF && b2 == 0xFE))
+				{
+					if (b1 == 0xFE && b2 == 0xFF)
+					{
+						ByteOrderMark = ByteOrderMark.UTF16LittleEndian;
+					}
+					else
+					{
+						ByteOrderMark = ByteOrderMark.UTF16BigEndian;
+					}
+					reader.Accessor.Seek(-2, SeekOrigin.Current);
+				}
+				else
+				{
+					ByteOrderMark = ByteOrderMark.None;
+					reader.Accessor.Seek(-4, SeekOrigin.Current);
+				}
+			}
+
 			while (!reader.EndOfStream)
 			{
 				string line = reader.ReadLine();
