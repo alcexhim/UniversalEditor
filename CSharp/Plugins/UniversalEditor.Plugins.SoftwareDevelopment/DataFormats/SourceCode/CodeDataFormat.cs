@@ -8,9 +8,12 @@ using UniversalEditor.ObjectModels.SourceCode.CodeElements;
 
 using MBS.Framework.Collections.Generic;
 
+using UniversalEditor.DataFormats.Text.Plain;
+using UniversalEditor.ObjectModels.Text.Plain;
+
 namespace UniversalEditor.DataFormats.SourceCode
 {
-	public abstract class CodeDataFormat : DataFormat
+	public abstract class CodeDataFormat : PlainTextDataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
 		{
@@ -19,12 +22,22 @@ namespace UniversalEditor.DataFormats.SourceCode
 			return dfr;
 		}
 
-		protected override void LoadInternal(ref ObjectModel objectModel)
+		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
-			CodeObjectModel code = (objectModel as CodeObjectModel);
-			if (code == null) return;
+			base.BeforeLoadInternal(objectModels);
+			objectModels.Push(new PlainTextObjectModel());
+		}
+		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
+		{
+			base.AfterLoadInternal(objectModels);
+
+			PlainTextObjectModel ptom = (objectModels.Pop() as PlainTextObjectModel);
+
+			CodeObjectModel code = (objectModels.Pop() as CodeObjectModel);
+			if (code == null) throw new ObjectModelNotSupportedException();
 
 			Reader tr = base.Accessor.Reader;
+
 			string nextToken = String.Empty;
 			while (!tr.EndOfStream)
 			{
@@ -42,10 +55,14 @@ namespace UniversalEditor.DataFormats.SourceCode
 				code.Elements.Add(el);
 			}
 		}
-		protected override void SaveInternal(ObjectModel objectModel)
+		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
-			CodeObjectModel code = (objectModel as CodeObjectModel);
-			if (code == null) return;
+			base.BeforeSaveInternal(objectModels);
+
+			CodeObjectModel code = (objectModels.Pop() as CodeObjectModel);
+			if (code == null) throw new ObjectModelNotSupportedException();
+
+			PlainTextObjectModel ptom = new PlainTextObjectModel();
 
 			Writer tw = base.Accessor.Writer;
 
@@ -59,6 +76,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 			}
 
 			tw.Flush();
+			objectModels.Push(ptom);
 		}
 
 		protected internal string GenerateCode(object obj)
