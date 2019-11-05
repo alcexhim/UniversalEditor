@@ -17,6 +17,8 @@ namespace UniversalEditor.UserInterface
 	/// </summary>
 	public abstract class Editor : MBS.Framework.UserInterface.Container
 	{
+		public EditorContext Context { get; private set; } = null;
+
 		public EditorSelection.EditorSelectionCollection Selections { get; } = new EditorSelection.EditorSelectionCollection();
 		public abstract void UpdateSelections();
 		public EditorSelection[] GetSelections()
@@ -227,6 +229,9 @@ namespace UniversalEditor.UserInterface
 
 		public Editor()
 		{
+			EditorReference er = MakeReference();
+			Context = new EditorContext(er.ID, er.Title, er);
+
 			// mvarLargeImageList.ColorDepth = ColorDepth.Depth32Bit;
 			// mvarLargeImageList.ImageSize = new System.Drawing.Size(32, 32);
 			// mvarLargeImageList.PopulateSystemIcons();

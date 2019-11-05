@@ -126,6 +126,7 @@
     <Compile Include="EditorViewChangingEvent.cs" />
     <Compile Include="EditorViewChangedEvent.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="EditorContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
