@@ -1,4 +1,42 @@
-﻿using System;
+﻿//
+//  ACEDataFormat.cs - provide Universal Editor support for the WinACE archive format
+//
+//  Author:
+//       Mike Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2004 Marcel Lemke <mlemke@winace.com)
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+/*
+
+The public version of UNACE is limited in its functionality:
+
+		* no v2.0 decompression
+		* no EMS/XMS support
+
+		* decompression dictionary limited by the target system;
+
+			this means that the 16bit version has a maximum of 32k only
+        * no decryption
+        * no wildcard-handling
+
+Here's hoping the community can fix these bugs!	
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +45,13 @@ using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.WinAce
 {
-    public class ACEDataFormat : DataFormat
+	/// <summary>
+	/// Provides support for WinACE archives in Universal Editor using code from the unace utility.
+	/// </summary>
+	/// <remarks>
+	/// The unace utility is copyright Marcel Lemke (mlemke@winace.com) and is licensed under the GNU GPLv2.
+	/// </remarks>
+	public class ACEDataFormat : DataFormat
     {
         private static DataFormatReference _dfr = null;
         protected override DataFormatReference MakeReferenceInternal()
@@ -22,7 +66,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            IO.Reader br = base.Accessor.Reader;
+            IO.Reader br = Accessor.Reader;
             if (br.Accessor.Length < 14) throw new InvalidDataFormatException("File must be at least 14 bytes in length");
             br.Accessor.Position = 0;
 
@@ -30,10 +74,10 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
 
             ushort HEAD_CRC = br.ReadUInt16();          // 37941
             ushort HEAD_SIZE = br.ReadUInt16();         // 49
-            
-            #region header
-            byte HEAD_TYPE = br.ReadByte();
-            ACEArchiveFlags HEAD_FLAGS = (ACEArchiveFlags)br.ReadUInt16();     // 36866 - comment, 36864 - normal
+
+			#region header
+			byte HEAD_TYPE = br.ReadByte();
+            ACEHeaderFlags HEAD_FLAGS = (ACEHeaderFlags)br.ReadUInt16();     // 36866 - comment, 36864 - normal
 
             string ACESIGN = br.ReadFixedLengthString(7);
             if (ACESIGN != "**ACE**") throw new InvalidDataFormatException("File does not contain \"**ACE**\" signature");
@@ -49,9 +93,9 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
             byte commenLeng1 = br.ReadByte();
             ushort RES2 = br.ReadUInt16();
             byte AV_SIZE = br.ReadByte();
-            string AV = br.ReadFixedLengthString(AV_SIZE);
+            AuthenticityString = br.ReadFixedLengthString(AV_SIZE);
 
-            if ((HEAD_FLAGS & ACEArchiveFlags.HasComment) == ACEArchiveFlags.HasComment)
+            if ((HEAD_FLAGS & ACEHeaderFlags.HasComment) == ACEHeaderFlags.HasComment)
             {
                 ushort commentSize = br.ReadUInt16();
                 byte[] comment = br.ReadBytes(commentSize);
@@ -61,38 +105,116 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
 
             while (!br.EndOfStream)
             {
-                ushort r0 = br.ReadUInt16();                    // 47000
-                ushort r1 = br.ReadUInt16();                    // 47
-                ushort r2 = br.ReadUInt16();                    // 257
-                byte un1 = br.ReadByte();                       // 128
+                ushort head_crc = br.ReadUInt16();                    // 47000
+                ushort head_size = br.ReadUInt16();                    // 47
+				byte head_type = br.ReadByte();
+                ACEHeaderFlags head_flags = (ACEHeaderFlags)br.ReadUInt16();                    // 257
 
                 uint compressedLength = br.ReadUInt32();
                 uint decompressedLength = br.ReadUInt32();
 
-                uint unknown1 = br.ReadUInt32();                    // 1117044212
-                uint unknown2 = br.ReadUInt32();                    // 32
+                uint ftime = br.ReadUInt32();                    // 1117044212
+                uint attrs = br.ReadUInt32();                    // 32
                 uint file_crc = br.ReadUInt32();                    // 2754832349
-                uint unknown4 = br.ReadUInt32();                    // 656128
-                ushort unknown5 = br.ReadUInt16();                  // 17748
+
+				// TECH
+				byte tech_type = br.ReadByte();			// 2 in norm , max
+				byte tech_qual = br.ReadByte();			//			max: 5, norm: 3
+				ushort tech_parm = br.ReadUInt16();//			max: 10
+
+                ushort reserved = br.ReadUInt16();                  // 17748
                 ushort filenameLength = br.ReadUInt16();
                 string filename = br.ReadFixedLengthString(filenameLength);
-                byte[] compressedData = br.ReadBytes(compressedLength);
 
-                byte[] decompressedData = compressedData;
-                switch (unknown4)
-                {
-                    case 656130:
-                    {
-                        // decompressedData = UniversalEditor.Compression.LZW.LZWStream.Decompress(compressedData);
-                        break;
-                    }
-                }
+				if ((head_flags & ACEHeaderFlags.HasComment) == ACEHeaderFlags.HasComment)
+				{
+					ushort comment_size = br.ReadUInt16();
+					string comment = br.ReadFixedLengthString(comment_size);
+				}
 
-                fsom.Files.Add(filename, decompressedData);
+				File f = fsom.AddFile(filename);
+				f.Size = decompressedLength;
+				f.Properties.Add("offset", Accessor.Position);
+				f.Properties.Add("compressedLength", compressedLength);
+				f.Properties.Add("decompressedLength", decompressedLength);
+				f.Properties.Add("tech_type", tech_type);
+				f.Properties.Add("reader", Accessor.Reader);
+				f.DataRequest += f_DataRequest;
+
+				// skip over the compressed data until we need it
+				Accessor.Seek(compressedLength, IO.SeekOrigin.Current);
             }
-        }
+		}
 
-        /*
+		void f_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (File)sender;
+			long offset = (long)file.Properties["offset"];
+			uint compressedLength = (uint)file.Properties["compressedLength"];
+			uint decompressedLength = (uint)file.Properties["decompressedLength"];
+			byte tech_type = (byte)file.Properties["tech_type"];
+			IO.Reader reader = (IO.Reader)file.Properties["reader"];
+
+			// in newer version, we might close the file once the initial header read is complete
+			// this means subsequent accesses to read the file, the document must be opened again
+
+			reader.Seek(offset, IO.SeekOrigin.Begin);
+			byte[] compressedData = reader.ReadBytes(compressedLength);
+
+			byte[] decompressedData = compressedData;
+			switch (tech_type)
+			{
+				case 1:
+				{
+					decompressedData = Compression.LZW.LZWStream.Decompress(compressedData);
+					break;
+				}
+			}
+
+			e.Data = decompressedData;
+		}
+
+
+		/*
+		void comment_out(ACEHeader head, byte[] top)      // outputs comment if present
+		{
+			int i;
+			int comm_cpr_size = 0;
+			string comm;
+
+			if ((head.flags & ACEHeaderFlags.HasComment) == ACEHeaderFlags.HasComment)
+			{                             // comment present?
+				if (head.type == MAIN_BLK)
+				{                          // get begin and size of comment data
+					comm = MCOMM;
+					comm_cpr_size = MCOMM_SIZE;
+				}
+				else
+				{
+					comm = FCOMM;
+					comm_cpr_size = FCOMM_SIZE;
+				}                          // limit comment size if too big
+				i = sizeof(head) - (INT)(comm - (CHAR*)&head);
+				if (comm_cpr_size > i)
+					comm_cpr_size = i;
+				dcpr_comm(i);              // decompress comment
+
+# ifdef AMIGA
+				{
+					char* p = comm;
+					while (*p)
+					{
+						if (*p == 0x0D)
+							*p = 0x0A;          // Replace ms-dos line termination
+						p++;
+					}
+				}
+#endif
+
+				printf("%s\n\n%s\n\n", top, comm); // output comment
+			}
+		}
+
         private void dcpr_comm_init()
         {
             int i = comm_cpr_size > size_rdb * 4 ? size_rdb * 4 : comm_cpr_size;
@@ -155,7 +277,9 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
 
         */
 
-        protected override void SaveInternal(ObjectModel objectModel)
+		public string AuthenticityString { get; set; } = "*UNREGISTERED VERSION*";
+
+		protected override void SaveInternal(ObjectModel objectModel)
         {
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
             IO.Writer bw = base.Accessor.Writer;
@@ -171,7 +295,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
                 byte HEAD_TYPE = 0;
                 bwh.WriteByte(HEAD_TYPE);
 
-                ACEArchiveFlags HEAD_FLAGS = (ACEArchiveFlags)36864;
+                ACEHeaderFlags HEAD_FLAGS = (ACEHeaderFlags.HasAuthenticityVerification | ACEHeaderFlags.Solid);
                 bwh.WriteUInt16((ushort)HEAD_FLAGS);
 
                 bwh.WriteFixedLengthString("**ACE**");
@@ -188,7 +312,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
                 byte VOL_NUM = 0;                         
                 bwh.WriteByte(VOL_NUM);                       
                                                           
-                uint TIME_CR = 1117062890;                
+                uint TIME_CR = 1117062890;                		
                 bwh.WriteUInt32(TIME_CR);                       
                                                           
                 uint TIME_22 = 2017284461;                
@@ -200,10 +324,8 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
                 ushort RES2 = 0;
                 bwh.WriteUInt16(RES2);
 
-                string AV = "*UNREGISTERED VERSION*";
-                byte AV_SIZE = (byte)AV.Length;
-                bwh.WriteByte(AV_SIZE);
-                bwh.WriteFixedLengthString(AV);
+                bwh.WriteByte((byte)AuthenticityString.Length);
+                bwh.WriteFixedLengthString(AuthenticityString);
                 bwh.Flush();
                 bwh.Close();
 

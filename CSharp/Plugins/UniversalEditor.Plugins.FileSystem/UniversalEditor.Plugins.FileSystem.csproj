@@ -193,7 +193,6 @@
     <Compile Include="DataFormats\FileSystem\Ultra3D\Ultra3DTBVDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\UUEncoding\UUEncodingDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\WAD\WADDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\WinAce\ACEArchiveFlags.cs" />
     <Compile Include="DataFormats\FileSystem\WinAce\ACEDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\RARCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\RARDataFormat.cs" />
@@ -230,6 +229,7 @@
     <Compile Include="DataFormats\FileSystem\VMware\VMDKDiskGeometry.cs" />
     <Compile Include="DataFormats\FileSystem\HA\HADataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\HyperArchiver\HyperArchiverDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\WinAce\ACEHeaderFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
