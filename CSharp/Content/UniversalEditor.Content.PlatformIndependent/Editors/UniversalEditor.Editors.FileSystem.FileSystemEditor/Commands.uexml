@@ -1,6 +1,6 @@
 ﻿<UniversalEditor Version="5.0">
 	<Editors>
-		<Editor TypeName="UniversalEditor.Editors.FileSystem.FileSystemEditor">
+		<Editor ID="{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}" TypeName="UniversalEditor.Editors.FileSystem.FileSystemEditor">
 			<Commands>
 				<Command ID="FileSystemContextMenu_View" />
 				<Command ID="FileSystemContextMenu_Add" />

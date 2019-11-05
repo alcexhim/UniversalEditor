@@ -55,8 +55,6 @@
     <Content Include="Configuration\ObjectModels.uexml" />
     <Content Include="Configuration\StartPage.uexml" />
     <Content Include="Associations\FileSystem.uexml" />
-    <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\Commands.uexml" />
-    <Content Include="Editors\UniversalEditor.UserInterface.WindowsForms.Editors.FileSystemEditor\KeyBindings.uexml" />
     <Content Include="Extensions\AniMiku\Associations\Concert\AniMikuConcert.uexml" />
     <Content Include="Extensions\AniMiku\Associations\FileSystem\AniMikuTexturePackage.uexml" />
     <Content Include="Extensions\AniMiku\Associations\Model\AniMikuPMD.uexml" />
