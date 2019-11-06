@@ -74,12 +74,29 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 		private void ContextMenu_NoteFixedLength_Click(object sender, EventArgs e)
 		{
-			MenuItem mi = (sender as MenuItem);
-			string sValue = mi.Name.Substring("ContextMenu_NoteFixedLength_".Length);
+			Command cmd = (sender as Command);
+			string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_NoteFixedLength_".Length);
 			int iValue = -1;
-			if (sValue != "Off")
+
+			switch (sValue)
 			{
-				iValue = Int32.Parse(sValue);
+				case "Off":
+				{
+					break;
+				}
+				case "Triplet":
+				{
+					break;
+				}
+				case "Dot":
+				{
+					break;
+				}
+				default:
+				{
+					iValue = Int32.Parse(sValue);
+					break;
+				}
 			}
 		}
 
