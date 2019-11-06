@@ -32,68 +32,27 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 {
 	public class PianoRollView : /*View*/ CustomControl
 	{
-		private Menu contextMenu = null;
 		public PianoRollView()
 		{
-			this.contextMenu = new Menu();
-			this.contextMenu.Items.AddRange(new MenuItem[]
-			{
-				new CommandMenuItem("_Arrow", null, ContextMenuArrow_Click),
-				new CommandMenuItem("Dra_w", null, ContextMenuPencil_Click),
-				new CommandMenuItem("_Erase", null, ContextMenuErase_Click),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("_Note Fixed Length", new MenuItem[]	// disables drawing note length, forcing to specified length
-				{
-					new CommandMenuItem("ContextMenu_NoteFixedLength_1", "1/1 [1920]", null, ContextMenu_NoteFixedLength_Click),
-					new CommandMenuItem("ContextMenu_NoteFixedLength_2", "1/2 [960]", null, ContextMenu_NoteFixedLength_Click),
-					new CommandMenuItem("ContextMenu_NoteFixedLength_4", "1/4 [480]", null, ContextMenu_NoteFixedLength_Click),
-					new CommandMenuItem("ContextMenu_NoteFixedLength_8", "1/8 [240]", null, ContextMenu_NoteFixedLength_Click),
-					new CommandMenuItem("ContextMenu_NoteFixedLength_16", "1/16 [120]", null, ContextMenu_NoteFixedLength_Click),
-					new CommandMenuItem("ContextMenu_NoteFixedLength_32", "1/32 [60]", null, ContextMenu_NoteFixedLength_Click),
-					new CommandMenuItem("ContextMenu_NoteFixedLength_64", "1/64 [30]", null, ContextMenu_NoteFixedLength_Click),
-					new CommandMenuItem("ContextMenu_NoteFixedLength_Off", "Off", null, ContextMenu_NoteFixedLength_Click),
-					new SeparatorMenuItem(),
-					new CommandMenuItem("Triplet"),
-					new CommandMenuItem("Dot")
-				}),
-				new CommandMenuItem("_Quantize", new MenuItem[]		// controls the quantize of position when drawing a new note
-				{
-					new CommandMenuItem("1/4"),
-					new CommandMenuItem("1/8"),
-					new CommandMenuItem("1/16"),
-					new CommandMenuItem("1/32"), // default
-					new CommandMenuItem("1/64"),
-					new CommandMenuItem("Off"),
-					new SeparatorMenuItem(),
-					new CommandMenuItem("Triplet")
-				}),
-				new CommandMenuItem("_Length", new MenuItem[]		// controls the quantize of length when drawing a new note
-				{
-					new CommandMenuItem("1/4"),
-					new CommandMenuItem("1/8"),
-					new CommandMenuItem("1/16"),
-					new CommandMenuItem("1/32"), // default
-					new CommandMenuItem("1/64"),
-					new CommandMenuItem("Off"),
-					new SeparatorMenuItem(),
-					new CommandMenuItem("Triplet")
-				}),
-				new CommandMenuItem("_Show Grid Lines", null, ContextMenuToggleGridLines_Click),	// toggles grid lines for quantized positions
-				new  SeparatorMenuItem(),
-				new CommandMenuItem("_Undo"), // should be CommandReferenceCommandItem for EditUndo application-global command
-				new CommandMenuItem("Cu_t"),
-				new CommandMenuItem("_Copy"),
-				new CommandMenuItem("_Paste"),
-				new CommandMenuItem("_Delete"),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Select _All"),
-				new CommandMenuItem("Select All _Events"),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Insert _Lyrics..."),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("P_roperties...", null, ContextMenuProperties_Click) // displays Note Property dialog
-			});
-			this.ContextMenu = contextMenu;
+			this.ContextMenuCommandID = "PianoRollEditor_ContextMenu";
+
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Arrow", ContextMenuArrow_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Draw", ContextMenuPencil_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Erase", ContextMenuErase_Click);
+
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_1", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_2", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_4", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_8", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_16", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_32", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_64", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Off", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Triplet", ContextMenu_NoteFixedLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Dot", ContextMenu_NoteFixedLength_Click);
+
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_ShowGridLines", ContextMenuToggleGridLines_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Properties", ContextMenuProperties_Click);
 		}
 
 		/// <summary>
@@ -128,10 +87,9 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		{
 			base.OnBeforeContextMenu(e);
 
-			contextMenu.Items[10].Visible = (SelectedCommands.Count > 0);
-			contextMenu.Items[11].Visible = (SelectedCommands.Count > 0);
-			contextMenu.Items[12].Visible = (SelectedCommands.Count > 0);
-			contextMenu.Items[13].Visible = (SelectedCommands.Count > 0);
+			this.ContextMenu.Items["EditCut"].Visible = (SelectedCommands.Count > 0);
+			this.ContextMenu.Items["EditCopy"].Visible = (SelectedCommands.Count > 0);
+			this.ContextMenu.Items["EditDelete"].Visible = (SelectedCommands.Count > 0);
 		}
 
 		private void ContextMenuArrow_Click(object sender, EventArgs e)
