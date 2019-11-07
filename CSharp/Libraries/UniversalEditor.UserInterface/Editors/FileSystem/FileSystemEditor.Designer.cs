@@ -32,16 +32,8 @@ namespace UniversalEditor.Editors.FileSystem
 		private ListView tv = null;
 		private DefaultTreeModel tmTreeView = null;
 
-		private Menu contextMenuUnselected = new Menu();
-		private Menu contextMenuSelected = new Menu();
-
-		private CommandMenuItem contextMenuUnselectedPaste = null;
-		private CommandMenuItem contextMenuUnselectedPasteShortcut = new CommandMenuItem("Paste _shortcut");
-
 		private void InitializeComponent()
 		{
-			contextMenuUnselectedPaste = new CommandMenuItem("_Paste", null, contextMenuUnselectedPaste_Click);
-
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
 			this.tmTreeView = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
@@ -51,81 +43,13 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.SelectionMode = SelectionMode.Multiple;
 			this.tv.Model = this.tmTreeView;
 
-			// these need to somehow be loaded from xml
-			contextMenuUnselected.Items.AddRange(new MenuItem[]
-			{
-				new CommandMenuItem("_View", new MenuItem[]
-				{
-					new CommandMenuItem("T_humbnails"),
-					new CommandMenuItem("Tile_s"),
-					new CommandMenuItem("Ico_ns"),
-					new CommandMenuItem("_List"),
-					new CommandMenuItem("_Details")
-				}),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Arrange _Icons by", new MenuItem[]
-				{
-					new CommandMenuItem("_Name"),
-					new CommandMenuItem("_Size"),
-					new CommandMenuItem("_Type"),
-					new CommandMenuItem("_Date modified"),
-					new SeparatorMenuItem(),
-					new CommandMenuItem("Show in _groups"),
-					new CommandMenuItem("_Auto arrange"),
-					new CommandMenuItem("A_lign to grid")
-				}),
-				new CommandMenuItem("R_efresh"),
-				new SeparatorMenuItem(),
-				contextMenuUnselectedPaste,
-				contextMenuUnselectedPasteShortcut,
-				new SeparatorMenuItem(),
-				new CommandMenuItem("A_dd", new MenuItem[]
-				{
-					new CommandMenuItem("Ne_w Item", null, delegate(object sender, EventArgs e) { MessageDialog.ShowDialog("TODO: Implement a way to open a new document editor for an embedded file", "Not Implemented", MessageDialogButtons.OK, MessageDialogIcon.Warning); }),
-					new CommandMenuItem("E_xisting Item...", null, FileAddExistingItem_Click),
-					new SeparatorMenuItem(),
-					new CommandMenuItem("New Fol_der", null, FileNewFolder_Click),
-					new CommandMenuItem("Existin_g Folder...", null, FileAddItemsFromFolder_Click),
-					new SeparatorMenuItem(),
-					new CommandMenuItem("_Files from Folder...", null, FileAddExistingFolder_Click)
-				}),
-				new CommandMenuItem("Ne_w", new MenuItem[]
-				{
-					new CommandMenuItem("_Folder", null, FileNewFolder_Click),
-					new CommandMenuItem("_Shortcut"),
-					new SeparatorMenuItem(),
-					new CommandMenuItem("Briefcase"),
-					new CommandMenuItem("Bitmap image"),
-					new CommandMenuItem("Formatted text document"),
-					new CommandMenuItem("Plain text document"),
-					new CommandMenuItem("Wave sound"),
-					new CommandMenuItem("Compressed (zipped) folder")
-				}),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("P_roperties", null, ContextMenuProperties_Click)
-			});
-
-			contextMenuSelected.Items.AddRange(new MenuItem[]
-			{
-				new CommandMenuItem("_Open"),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Open in New _Tab"),
-				new CommandMenuItem("Open in New _Window"),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Se_nd to"),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Cu_t"),
-				new CommandMenuItem("_Copy"),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Move to..."),
-				new CommandMenuItem("Copy to...", null, ContextMenuCopyTo_Click),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("Create _shortcut"),
-				new CommandMenuItem("_Delete", null, ContextMenuDelete_Click),
-				new CommandMenuItem("Rena_me", null, ContextMenuRename_Click),
-				new SeparatorMenuItem(),
-				new CommandMenuItem("P_roperties", null, ContextMenuProperties_Click)
-			});
+			Application.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingFolder", FileAddExistingFolder_Click);
+			Application.AttachCommandEventHandler("FileSystemContextMenu_Add_FilesFromFolder", FileAddItemsFromFolder_Click);
+			Application.AttachCommandEventHandler("FileSystemContextMenu_New_Folder", FileNewFolder_Click);
+			// Application.AttachCommandEventHandler("EditDelete", ContextMenuDelete_Click);
+			Application.AttachCommandEventHandler("FileSystemContextMenu_Rename", ContextMenuRename_Click);
+			Application.AttachCommandEventHandler("FileSystemContextMenu_CopyTo", ContextMenuCopyTo_Click);
+			// Application.AttachCommandEventHandler("FileProperties", ContextMenuProperties_Click);
 
 			this.tv.BeforeContextMenu += tv_BeforeContextMenu;
 

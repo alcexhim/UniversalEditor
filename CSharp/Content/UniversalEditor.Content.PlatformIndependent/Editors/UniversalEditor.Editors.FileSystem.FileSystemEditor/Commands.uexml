@@ -2,23 +2,73 @@
 	<Editors>
 		<Editor ID="{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}" TypeName="UniversalEditor.Editors.FileSystem.FileSystemEditor">
 			<Commands>
-				<Command ID="FileSystemContextMenu_View" />
-				<Command ID="FileSystemContextMenu_Add" />
-				<Command ID="FileSystemContextMenu_New" />
+				<Command ID="FileSystemContextMenu_View_Thumbnails" Title="T_humbnails" />
+				<Command ID="FileSystemContextMenu_View_Tiles" Title="Tile_s" />
+				<Command ID="FileSystemContextMenu_View_Icons" Title="Ico_ns" />
+				<Command ID="FileSystemContextMenu_View_List" Title="_List" />
+				<Command ID="FileSystemContextMenu_View_Details" Title="_Details" />
 				
-				<Command ID="FileSystemContextMenu_Open" />
-				<Command ID="FileSystemContextMenu_OpenNewTab" />
-				<Command ID="FileSystemContextMenu_OpenNewWindow" />
-				<Command ID="FileSystemContextMenu_SendTo" />
+				<Command ID="FileSystemContextMenu_View" Title="_View">
+					<Items>
+						<CommandReference CommandID="FileSystemContextMenu_View_Thumbnails" />
+						<CommandReference CommandID="FileSystemContextMenu_View_Tiles" />
+						<CommandReference CommandID="FileSystemContextMenu_View_Icons" />
+						<CommandReference CommandID="FileSystemContextMenu_View_List" />
+						<CommandReference CommandID="FileSystemContextMenu_View_Details" />
+					</Items>
+				</Command>
 				
-				<Command ID="FileSystemContextMenu_MoveTo" />
-				<Command ID="FileSystemContextMenu_CopyTo" />
+				<Command ID="FileSystemContextMenu_Add_NewItem" Title="Ne_w item..." />
+				<Command ID="FileSystemContextMenu_Add_ExistingItem" Title="E_xisting item..." />
+				<Command ID="FileSystemContextMenu_Add_NewFolder" Title="New fol_der" />
+				<Command ID="FileSystemContextMenu_Add_ExistingFolder" Title="Existin_g folder..." />
+				<Command ID="FileSystemContextMenu_Add_FilesFromFolder" Title="_Files from folder..." />
+				<Command ID="FileSystemContextMenu_Add" Title="A_dd">
+					<Items>
+						<CommandReference CommandID="FileSystemContextMenu_Add_NewItem" />
+						<CommandReference CommandID="FileSystemContextMenu_Add_ExistingItem" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_Add_NewFolder" />
+						<CommandReference CommandID="FileSystemContextMenu_Add_ExistingFolder" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_Add_FilesFromFolder" />
+					</Items>
+				</Command>
+				
+				<Command ID="FileSystemContextMenu_New_Folder" Title="_Folder" />
+				<Command ID="FileSystemContextMenu_New_Shortcut" Title="_Shortcut" />
+				<Command ID="FileSystemContextMenu_New_Briefcase" Title="Briefcase" />
+				<Command ID="FileSystemContextMenu_New_BitmapImage" Title="Bitmap image" />
+				<Command ID="FileSystemContextMenu_New_FormattedTextDocument" Title="Formatted text document" />
+				<Command ID="FileSystemContextMenu_New_PlainTextDocument" Title="Plain text document" />
+				<Command ID="FileSystemContextMenu_New_WaveSound" Title="Wave sound" />
+				<Command ID="FileSystemContextMenu_New_CompressedFolder" Title="Compressed (zipped) folder" />
+				<Command ID="FileSystemContextMenu_New" Title="Ne_w">
+					<Items>
+						<CommandReference CommandID="FileSystemContextMenu_New_Folder" />
+						<CommandReference CommandID="FileSystemContextMenu_New_Shortcut" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_New_Briefcase" />
+						<CommandReference CommandID="FileSystemContextMenu_New_BitmapImage" />
+						<CommandReference CommandID="FileSystemContextMenu_New_FormattedTextDocument" />
+						<CommandReference CommandID="FileSystemContextMenu_New_PlainTextDocument" />
+						<CommandReference CommandID="FileSystemContextMenu_New_WaveSound" />
+						<CommandReference CommandID="FileSystemContextMenu_New_CompressedFolder" />
+					</Items>
+				</Command>
+				
+				<Command ID="FileSystemContextMenu_Open" Title="_Open" />
+				<Command ID="FileSystemContextMenu_OpenNewTab" Title="Open in New _Tab" />
+				<Command ID="FileSystemContextMenu_OpenNewWindow" Title="Open in New _Window" />
+				<Command ID="FileSystemContextMenu_SendTo" Title="Se_nd to" />
+				
+				<Command ID="FileSystemContextMenu_MoveTo" Title-"Move to..." />
+				<Command ID="FileSystemContextMenu_CopyTo" Title="Copy to..." />
 				
 				<Command ID="FileSystemContextMenu_CreateShortcut" />
 				<Command ID="FileSystemContextMenu_Rename" />
-			</Commands>
-			<Menus>
-				<Menu ID="UniversalEditor.Editors.FileSystem.FileSystemEditor.ContextMenuUnselected">
+				
+				<Command ID="FileSystemContextMenu_Unselected">
 					<Items>
 						<CommandReference CommandID="FileSystemContextMenu_View" />
 						<Separator />
@@ -33,8 +83,8 @@
 						<Separator />
 						<CommandReference CommandID="FileProperties" />
 					</Items>
-				</Menu>
-				<Menu ID="UniversalEditor.Editors.FileSystem.FileSystemEditor.ContextMenuSelected">
+				</Command>
+				<Command ID="FileSystemContextMenu_Selected">
 					<Items>
 						<CommandReference CommandID="FileSystemContextMenu_Open" />
 						<Separator />
@@ -55,8 +105,8 @@
 						<Separator />
 						<CommandReference CommandID="FileProperties" />
 					</Items>
-				</Menu>
-			</Menus>
+				</Command>
+			</Commands>
 		</Editor>
 	</Editors>
 </UniversalEditor>

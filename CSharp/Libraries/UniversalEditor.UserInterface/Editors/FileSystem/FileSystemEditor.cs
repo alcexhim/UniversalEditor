@@ -179,7 +179,18 @@ namespace UniversalEditor.Editors.FileSystem
 			if (fd.ShowDialog() == DialogResult.OK)
 			{
 				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
-				RecursiveAddFolder(f);
+				IFileSystemObject[] files = f.GetContents();
+				foreach (IFileSystemObject fso in files)
+				{
+					if (fso is File)
+					{
+						RecursiveAddFile(fso as File);
+					}
+					else if (fso is Folder)
+					{
+						RecursiveAddFolder(fso as Folder);
+					}
+				}
 			}
 		}
 		private void FileAddExistingFolder_Click(object sender, EventArgs e)
@@ -193,18 +204,7 @@ namespace UniversalEditor.Editors.FileSystem
 			if (fd.ShowDialog() == DialogResult.OK)
 			{
 				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
-				IFileSystemObject[] files = f.GetContents();
-				foreach (IFileSystemObject fso in files)
-				{
-					if (fso is File)
-					{
-						RecursiveAddFile(fso as File);
-					}
-					else if (fso is Folder)
-					{
-						RecursiveAddFolder(fso as Folder);
-					}
-				}
+				RecursiveAddFolder(f);
 			}
 		}
 
@@ -552,17 +552,17 @@ namespace UniversalEditor.Editors.FileSystem
 					row = info.Row;
 			}
 
-			contextMenuUnselectedPaste.Enabled = Clipboard.Default.ContainsFileList;
-			contextMenuUnselectedPasteShortcut.Enabled = Clipboard.Default.ContainsFileList;
-
 			if (row != null)
 			{
-				tv.ContextMenu = contextMenuSelected;
+				tv.ContextMenuCommandID = "FileSystemContextMenu_Selected";
 			}
 			else
 			{
-				tv.ContextMenu = contextMenuUnselected;
+				tv.ContextMenuCommandID = "FileSystemContextMenu_Unselected";
 			}
+
+			Application.Commands["EditPaste"].Enabled = Clipboard.Default.ContainsFileList;
+			// (tv.ContextMenu.Items["FileSystemContextMenu_PasteShortcut"] as CommandMenuItem).Enabled = Clipboard.Default.ContainsFileList;
 		}
 	}
 }
