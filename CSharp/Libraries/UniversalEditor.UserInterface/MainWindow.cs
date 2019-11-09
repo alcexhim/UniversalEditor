@@ -127,6 +127,12 @@ namespace UniversalEditor.UserInterface
 			cmd.Execute();
 		}
 
+		protected override void OnLostFocus(EventArgs e)
+		{
+			base.OnLostFocus(e);
+			UpdateSuperDuperButtonBar();
+		}
+
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
 			// we have to process key shortcuts manually if we do not use a traditional menu bar
@@ -139,6 +145,58 @@ namespace UniversalEditor.UserInterface
 					break;
 				}
 			}
+			UpdateSuperDuperButtonBar(e.KeyAsModifier);
+		}
+		protected override void OnKeyUp(KeyEventArgs e)
+		{
+			base.OnKeyUp(e);
+			UpdateSuperDuperButtonBar(KeyboardModifierKey.None);
+		}
+
+		private void UpdateSuperDuperButtonBar(KeyboardModifierKey modifierKeys = KeyboardModifierKey.None)
+		{
+			for (int i = 0; i < SuperButtons.Length; i++)
+			{
+				SuperButtons[i].Text = ((KeyboardKey)((int)KeyboardKey.F1 + i)).ToString() + "    ";
+				SuperButtons[i].SetExtraData<Command>("command", null);
+			}
+			for (int i = 0; i < Application.Contexts.Count; i++)
+			{
+				for (int j = 0; j < Application.Contexts[i].KeyBindings.Count; j++)
+				{
+					if (((int)Application.Contexts[i].KeyBindings[j].Key >= (int)KeyboardKey.F1 && (int)Application.Contexts[i].KeyBindings[j].Key <= (int)KeyboardKey.F12)
+					&& Application.Contexts[i].KeyBindings[j].ModifierKeys == modifierKeys)
+					{
+						int q = (int)Application.Contexts[i].KeyBindings[j].Key - (int)KeyboardKey.F1;
+						SuperButtons[q].Text = Application.Contexts[i].KeyBindings[j].Key.ToString() + "    " + Application.Contexts[i].KeyBindings[j].Command?.Title;
+						SuperButtons[q].SetExtraData<Command>("command", Application.Contexts[i].KeyBindings[j].Command);
+					}
+				}
+			}
+		}
+
+		private Button[] SuperButtons = new Button[]
+		{
+			new Button("F1    ", SuperButton_Click),
+			new Button("F2    ", SuperButton_Click),
+			new Button("F3    ", SuperButton_Click),
+			new Button("F4    ", SuperButton_Click),
+			new Button("F5    ", SuperButton_Click),
+			new Button("F6    ", SuperButton_Click),
+			new Button("F7    ", SuperButton_Click),
+			new Button("F8    ", SuperButton_Click),
+			new Button("F9    ", SuperButton_Click),
+			new Button("F10   ", SuperButton_Click),
+			new Button("F11   ", SuperButton_Click),
+			new Button("F12   ", SuperButton_Click)
+		};
+
+		private static void SuperButton_Click(object sender, EventArgs e)
+		{
+			Button btn = (Button)sender;
+			Command cmd = btn.GetExtraData<Command>("command");
+			if (cmd != null)
+				Application.ExecuteCommand(cmd.ID);
 		}
 
 		public MainWindow()
@@ -175,7 +233,7 @@ namespace UniversalEditor.UserInterface
 			}
 			dckContainer = new DockingContainer();
 			dckContainer.SelectionChanged += dckContainer_SelectionChanged;
-			Controls.Add (dckContainer, new BoxLayout.Constraints(true, true, 0, BoxLayout.PackType.End));
+			Controls.Add (dckContainer, new BoxLayout.Constraints(true, true, 0, BoxLayout.PackType.Start));
 
 			tbsDocumentTabs = new TabContainer();
 
@@ -189,10 +247,27 @@ namespace UniversalEditor.UserInterface
 
 			AddPanel("Error List", DockingItemPlacement.Bottom, pnlErrorList);
 
+			Container pnlButtons = new Container();
+			pnlButtons.Layout = new BoxLayout(Orientation.Horizontal);
+			for (int i = 0; i < SuperButtons.Length; i++)
+			{
+				pnlButtons.Controls.Add(SuperButtons[i], new BoxLayout.Constraints(true, true));
+			}
+			Controls.Add(pnlButtons, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.Start));
+
 			this.Bounds = new Rectangle(0, 0, 600, 400);
 			this.Size = new Dimension2D(800, 600);
 			this.Text = "Universal Editor";
+
+			Application.ContextAdded += Application_ContextChanged;
+			Application.ContextRemoved += Application_ContextChanged;
 		}
+
+		void Application_ContextChanged(object sender, ContextChangedEventArgs e)
+		{
+			UpdateSuperDuperButtonBar();
+		}
+
 
 		#region Editor Page Events
 		private void page_DocumentEdited(object sender, EventArgs e)
