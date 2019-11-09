@@ -704,6 +704,7 @@
     <None Include="Images\SplashScreen.png" />
     <None Include="Images\SplashScreen.xcf" />
     <None Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Toolbox.uexml" />
+    <None Include="Extensions\SoftwareDeveloper\Associations\BinaryGrammar\SynalysisBinaryGrammarDataFormat.uexml" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
