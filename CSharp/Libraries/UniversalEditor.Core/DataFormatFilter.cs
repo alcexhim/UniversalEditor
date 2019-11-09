@@ -111,11 +111,12 @@ namespace UniversalEditor
 				}
 			}
 
-			if (!caseSensitiveOS) fileName = fileName.ToLower();
+			bool filterCaseSensitive = false;
+			if (!caseSensitiveOS || (caseSensitiveOS && !filterCaseSensitive)) fileName = fileName.ToLower();
 			for (int i = 0; i < mvarFileNameFilters.Count; i++)
 			{
 				string filter = mvarFileNameFilters[i];
-				if (!caseSensitiveOS) filter = filter.ToLower();
+				if (!caseSensitiveOS || (caseSensitiveOS && !filterCaseSensitive)) filter = filter.ToLower();
 
 				if (fileName.Match(mvarFileNameFilters[i]))
 				{
