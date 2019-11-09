@@ -62,11 +62,11 @@
 				<Command ID="FileSystemContextMenu_OpenNewWindow" Title="Open in New _Window" />
 				<Command ID="FileSystemContextMenu_SendTo" Title="Se_nd to" />
 				
-				<Command ID="FileSystemContextMenu_MoveTo" Title-"Move to..." />
+				<Command ID="FileSystemContextMenu_MoveTo" Title="Move to..." />
 				<Command ID="FileSystemContextMenu_CopyTo" Title="Copy to..." />
 				
-				<Command ID="FileSystemContextMenu_CreateShortcut" />
-				<Command ID="FileSystemContextMenu_Rename" />
+				<Command ID="FileSystemContextMenu_CreateShortcut" Title="Create _shortcut" />
+				<Command ID="FileSystemContextMenu_Rename" Title="Rena_me" />
 				
 				<Command ID="FileSystemContextMenu_Unselected">
 					<Items>
