@@ -22,6 +22,7 @@ using System;
 
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Drawing;
 
 using UniversalEditor.ObjectModels.Multimedia.Palette;
@@ -99,6 +100,18 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 		{
 			SelectedEntry = HitTest(e.Location);
 			Refresh();
+		}
+
+		private void cc_MouseDoubleClick(object sender, MBS.Framework.UserInterface.Input.Mouse.MouseEventArgs e)
+		{
+			SelectedEntry = HitTest(e.Location);
+
+			ColorDialog dlg = new ColorDialog();
+			dlg.SelectedColor = SelectedEntry.Color;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				SelectedEntry.Color = dlg.SelectedColor;
+			}
 		}
 
 		public event System.ComponentModel.CancelEventHandler SelectionChanging;

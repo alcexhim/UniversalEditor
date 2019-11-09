@@ -37,6 +37,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 
 			cc = new CustomControl();
 			cc.MouseDown += cc_MouseDown;
+			cc.MouseDoubleClick += cc_MouseDoubleClick;
 			cc.Paint += cc_Paint;
 			this.Controls.Add(cc, new BoxLayout.Constraints(true, true));
 
