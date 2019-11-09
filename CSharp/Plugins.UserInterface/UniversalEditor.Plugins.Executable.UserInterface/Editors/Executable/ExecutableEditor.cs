@@ -60,6 +60,8 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 		private Label lblAssemblyVersion = null;
 		private TextBox txtAssemblyVersion = null;
 
+		private DefaultTreeModel tmOtherInformation = null;
+
 		public ExecutableEditor()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
@@ -77,11 +79,10 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			tbs = new TabContainer();
 			TabPage tabSections = new TabPage("Sections (0)");
 			tabSections.Layout = new BoxLayout(Orientation.Vertical);
-
+			
 			tabSections.Controls.Add(tvSections, new BoxLayout.Constraints(true, true));
 			tbs.TabPages.Add(tabSections);
-
-
+			
 			TabPage tabManagedAssembly = new TabPage("Managed Assembly");
 			tabManagedAssembly.Layout = new BoxLayout(Orientation.Vertical);
 
@@ -107,13 +108,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 			tbs.TabPages.Add(tabManagedAssembly);
 
-
-			this.contextMenuItemSelected = new Menu();
-			this.contextMenuItemSelected.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
-			{
-				new MBS.Framework.UserInterface.CommandMenuItem("_Copy to", null, ContextMenu_CopyTo_Click)
-			});
-
+			Application.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Sections_Selected_CopyTo", ContextMenu_CopyTo_Click);
 
 			this.Controls.Add(tbs, new BoxLayout.Constraints(true, true));
 		}
@@ -149,7 +144,6 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			}
 		}
 
-		private Menu contextMenuItemSelected = null;
 		void tvSections_BeforeContextMenu(object sender, EventArgs e)
 		{
 			bool selected = tvSections.SelectedRows.Count > 0;
@@ -163,11 +157,11 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 			if (selected)
 			{
-				tvSections.ContextMenu = contextMenuItemSelected;
+				tvSections.ContextMenuCommandID = "ExecutableEditor_ContextMenu_Sections_Selected";
 			}
 			else
 			{
-				tvSections.ContextMenu = null;
+				tvSections.ContextMenuCommandID = "ExecutableEditor_ContextMenu_Sections_Unselected";
 			}
 		}
 
