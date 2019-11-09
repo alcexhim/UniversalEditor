@@ -138,6 +138,7 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskGeometry.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskParentLocatorEntry.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\VHDHardDiskType.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\RKV\RKVDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -184,5 +185,6 @@
     <Folder Include="ObjectModels\Text\Formatted\XPS\FixedPage\" />
     <Folder Include="DataFormats\Text\Formatted\DOC\" />
     <Folder Include="DataFormats\FileSystem\Microsoft\VirtualHardDisk\" />
+    <Folder Include="DataFormats\FileSystem\Microsoft\RKV\" />
   </ItemGroup>
 </Project>
