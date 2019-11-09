@@ -356,6 +356,11 @@ namespace UniversalEditor.Editors.FileSystem
 			if (_er == null)
 			{
 				_er = base.MakeReference();
+				_er.KeyBindings.Add(new KeyBinding("FileSystemContextMenu_CopyTo", KeyboardKey.F5, KeyboardModifierKey.None));
+				_er.KeyBindings.Add(new KeyBinding("FileSystemContextMenu_Rename", KeyboardKey.F6, KeyboardModifierKey.None));
+				_er.KeyBindings.Add(new KeyBinding("FileSystemContextMenu_New_Folder", KeyboardKey.F7, KeyboardModifierKey.None));
+				_er.KeyBindings.Add(new KeyBinding("EditDelete", KeyboardKey.F8, KeyboardModifierKey.None));
+
 				_er.SupportedObjectModels.Add(typeof(FileSystemObjectModel));
 			}
 			return _er;
