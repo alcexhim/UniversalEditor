@@ -261,6 +261,8 @@ namespace UniversalEditor.UserInterface
 
 			Application.ContextAdded += Application_ContextChanged;
 			Application.ContextRemoved += Application_ContextChanged;
+
+			UpdateSuperDuperButtonBar();
 		}
 
 		void Application_ContextChanged(object sender, ContextChangedEventArgs e)
