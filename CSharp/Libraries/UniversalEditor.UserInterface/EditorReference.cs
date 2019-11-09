@@ -25,6 +25,7 @@ namespace UniversalEditor.UserInterface
 
 		public CommandBar MenuBar { get; } = new CommandBar();
 		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
+		public KeyBinding.KeyBindingCollection KeyBindings { get; } = new KeyBinding.KeyBindingCollection();
 
 		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();
 

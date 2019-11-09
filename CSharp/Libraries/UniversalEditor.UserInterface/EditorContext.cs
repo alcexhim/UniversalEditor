@@ -43,6 +43,10 @@ namespace UniversalEditor.UserInterface
 			{
 				MenuItems.Add(reference.MenuBar.Items[i]);
 			}
+			for (int i = 0; i < reference.KeyBindings.Count; i++)
+			{
+				KeyBindings.Add(reference.KeyBindings[i]);
+			}
 		}
 	}
 }
