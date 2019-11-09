@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="New World Computing PAL palette">
+					<FileNameFilters>
+						<FileNameFilter>*.pal</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Palette.PaletteObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing.KBPaletteDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

@@ -643,6 +643,7 @@
     <Content Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\MenuBar.uexml" />
     <Content Include="splash.bmp" />
     <Content Include="Editors\Executable\Commands.uexml" />
+    <Content Include="Extensions\GraphicDesigner\Associations\Palette\NewWorldComputingPAL.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
