@@ -23,79 +23,80 @@ namespace UniversalEditor.UserInterface.Common
 {
 	public static class FileInfo
 	{
-		public static string FormatSize(long size)
+		public static string FormatSize(long size, int powBy = 1024)
 		{
 			double dsize = (double)size;
 			double rsize = dsize;
 			string rstr = String.Empty;
 
-			if (dsize > 1024)
+			powBy = 1000; // 1024
+			if (dsize > powBy)
 			{
 				// KB - kilobytes (kibibytes)
-				if (dsize > Math.Pow(1024, 2))
+				if (dsize > Math.Pow(powBy, 2))
 				{
 					// MB - megabytes (mebibytes)
-					if (dsize > Math.Pow(1024, 3))
+					if (dsize > Math.Pow(powBy, 3))
 					{
 						// GB - gigabytes (gibibytes)
-						if (dsize > Math.Pow(1024, 4))
+						if (dsize > Math.Pow(powBy, 4))
 						{
 							// TB - terabytes (tebibytes)
-							if (dsize > Math.Pow(1024, 5))
+							if (dsize > Math.Pow(powBy, 5))
 							{
 								// PB - petabytes (pebibytes)
-								if (dsize > Math.Pow(1024, 6))
+								if (dsize > Math.Pow(powBy, 6))
 								{
 									// EB - exabytes (exbibytes)
-									if (dsize > Math.Pow(1024, 7))
+									if (dsize > Math.Pow(powBy, 7))
 									{
 										// ZB - zettabytes (zebibytes)
-										if (dsize > Math.Pow(1024, 8))
+										if (dsize > Math.Pow(powBy, 8))
 										{
 											// YB - yottabytes (yobibytes)
-											rsize = (dsize / Math.Pow(1024, 8));
-											rstr = "YiB";
+											rsize = (dsize / Math.Pow(powBy, 8));
+											rstr = powBy == 1000 ? "YB" : "YiB";
 										}
 										else
 										{
-											rsize = (dsize / Math.Pow(1024, 7));
-											rstr = "ZiB";
+											rsize = (dsize / Math.Pow(powBy, 7));
+											rstr = powBy == 1000 ? "ZB" : "ZiB";
 										}
 									}
 									else
 									{
-										rsize = (dsize / Math.Pow(1024, 6));
-										rstr = "EiB";
+										rsize = (dsize / Math.Pow(powBy, 6));
+										rstr = powBy == 1000 ? "EB" : "EiB";
 									}
 								}
 								else
 								{
-									rsize = (dsize / Math.Pow(1024, 5));
-									rstr = "PiB";
+									rsize = (dsize / Math.Pow(powBy, 5));
+									rstr = powBy == 1000 ? "PB" : "PiB";
 								}
 							}
 							else
 							{
-								rsize = (dsize / Math.Pow(1024, 4));
-								rstr = "TiB";
+								rsize = (dsize / Math.Pow(powBy, 4));
+								rstr = powBy == 1000 ? "TB" : "TiB";
 							}
 						}
 						else
 						{
-							rsize = (dsize / Math.Pow(1024, 3));
-							rstr = "GiB";
+							rsize = (dsize / Math.Pow(powBy, 3));
+							rstr = powBy == 1000 ? "GB" : "GiB";
 						}
 					}
 					else
 					{
-						rsize = (dsize / Math.Pow(1024, 2));
-						rstr = "MiB";
+						rsize = (dsize / Math.Pow(powBy, 2));
+						rstr = powBy == 1000 ? "MB" : "MiB";
 					}
 				}
 				else
 				{
-					rsize = (dsize / ((double)1024));
-					rstr = "KiB";
+					rsize = (dsize / ((double)powBy));
+					rstr = powBy == 1000 ? "KB" : "KiB";
 				}
 			}
 			else
@@ -104,7 +105,7 @@ namespace UniversalEditor.UserInterface.Common
 				rstr = "bytes";
 			}
 			rsize = Math.Round(rsize, 1);
-			return rsize.ToString() + " " + rstr;
+			return String.Format("{0} {1}", rsize.ToString(), rstr);
 		}
 	}
 }
