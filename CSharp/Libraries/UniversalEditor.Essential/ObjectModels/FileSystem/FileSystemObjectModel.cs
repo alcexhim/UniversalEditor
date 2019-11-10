@@ -101,7 +101,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// </summary>
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-		private string[] mvarPathSeparators = new string[] { System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
+		private string[] mvarPathSeparators = new string[] { "/", "\\" }; // System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
 		public string[] PathSeparators { get { return mvarPathSeparators; } set { mvarPathSeparators = value; } }
 
 		public bool ContainsFile(string path)
