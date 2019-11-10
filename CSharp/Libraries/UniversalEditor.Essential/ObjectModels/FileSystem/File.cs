@@ -161,6 +161,11 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			File clone = new File();
 			clone.Name = mvarName;
 			clone.Source = mvarSource;
+			if (DataRequest != null)
+			{
+				clone.DataRequest += DataRequest;
+			}
+			clone.Source = Source;
 			foreach (KeyValuePair<string, object> kvp in mvarProperties)
 			{
 				clone.Properties.Add(kvp.Key, kvp.Value);
