@@ -43,12 +43,12 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.SelectionMode = SelectionMode.Multiple;
 			this.tv.Model = this.tmTreeView;
 
-			Application.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingFolder", FileAddExistingFolder_Click);
-			Application.AttachCommandEventHandler("FileSystemContextMenu_Add_FilesFromFolder", FileAddItemsFromFolder_Click);
-			Application.AttachCommandEventHandler("FileSystemContextMenu_New_Folder", FileNewFolder_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingFolder", FileAddExistingFolder_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_FilesFromFolder", FileAddItemsFromFolder_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_New_Folder", FileNewFolder_Click);
 			// Application.AttachCommandEventHandler("EditDelete", ContextMenuDelete_Click);
-			Application.AttachCommandEventHandler("FileSystemContextMenu_Rename", ContextMenuRename_Click);
-			Application.AttachCommandEventHandler("FileSystemContextMenu_CopyTo", ContextMenuCopyTo_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Rename", ContextMenuRename_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_CopyTo", ContextMenuCopyTo_Click);
 			// Application.AttachCommandEventHandler("FileProperties", ContextMenuProperties_Click);
 
 			this.tv.BeforeContextMenu += tv_BeforeContextMenu;
