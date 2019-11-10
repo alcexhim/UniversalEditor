@@ -38,9 +38,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.RKV
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Title = "Microsoft XNA RKV archive";
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.ExportOptions.Add(new CustomOptionText("ArchiveName", "Archive _name"));
 			}
 			return _dfr;
 		}
+
+		public string ArchiveName { get; set; } = String.Empty;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -54,7 +57,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.RKV
 				compression type: lzf (type 2)
 			 */
 
-			string NAME = br.ReadFixedLengthString(0x40);
+			ArchiveName = br.ReadFixedLengthString(0x40);
 			long info_off = br.ReadInt64();
 			long files = br.ReadInt64();
 
@@ -63,6 +66,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.RKV
 			for (long i = 0; i < files; i++)
 			{
 				string fileName = br.ReadFixedLengthString(0x40);
+				fileName = fileName.TrimNull();
+
 				long timestamp = br.ReadInt64();
 				long offset = br.ReadInt64();
 				int crc = br.ReadInt32();
@@ -70,38 +75,89 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.RKV
 				int zsize = br.ReadInt32();
 				int zero = br.ReadInt32();
 
-				if (size == zsize)
+				File f = fsom.AddFile(fileName);
+				f.Size = size;
+				f.Properties.Add("reader", br);
+				f.Properties.Add("offset", offset);
+				f.Properties.Add("size", size);
+				f.Properties.Add("zsize", zsize);
+				f.DataRequest += f_DataRequest;
+
+				br.Seek(zsize, SeekOrigin.Current);
+			}
+		}
+
+		void f_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (File)sender;
+			Reader br = (Reader)file.Properties["reader"];
+			long offset = (long)file.Properties["offset"];
+			int size = (int)file.Properties["size"];
+			int zsize = (int)file.Properties["zsize"];
+
+			br.Accessor.Seek(offset, SeekOrigin.Begin);
+			if (size == zsize)
+			{
+				e.Data = br.ReadBytes(size);
+			}
+			else
+			{
+				byte type = br.ReadByte();
+				switch (type)
 				{
-					// log NAME OFFSET SIZE
-				}
-				else
-				{
-					long pos = Accessor.Position;
-					Accessor.Seek(offset, SeekOrigin.Begin);
-					byte type = br.ReadByte();
-					switch (type)
-					{
 					case 2:
 						break;
 					default:
 						Console.WriteLine("RKV: unknown compression method " + type.ToString());
 						break;
-					}
-					Accessor.Seek(pos, SeekOrigin.Begin);
-
-					offset++; // first byte is 0x02
-					zsize--;
-
-					// clog NAME OFFSET ZSIZE SIZE
 				}
-
-				fsom.Files.Add(fileName, new byte[size]);
+				e.Data = br.ReadBytes(zsize - 1); // first byte is 0x02
 			}
+			// clog NAME OFFSET ZSIZE SIZE
 		}
+
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
+
+			Writer bw = Accessor.Writer;
+			bw.Endianness = Endianness.BigEndian;
+
+			/*
+				compression type: lzf (type 2)
+			 */	
+
+			bw.WriteFixedLengthString(ArchiveName, 0x40);
+			long info_off = 0x40 + 8 + 8;
+			bw.WriteInt64(info_off);
+
+			File[] files = fsom.GetAllFiles();
+			bw.WriteInt64(files.Length);
+
+			long offset = info_off + (files.Length * (0x40 + 64));
+
+			for (long i = 0; i < files.Length; i++)
+			{
+				bw.WriteFixedLengthString(files[i].Name, 0x40);
+				bw.WriteInt64(files[i].ModificationTimestamp.ToBinary());
+				bw.WriteInt64(offset);
+				int crc = 0;
+				bw.WriteInt32(crc);
+
+				byte[] decompressedData = files[i].GetData();
+				byte[] compressedData = decompressedData;
+
+				bw.WriteInt32(decompressedData.Length);
+				bw.WriteInt32(compressedData.Length);
+
+				bw.WriteInt32(0);
+
+				bw.WriteBytes(compressedData);
+
+				offset += compressedData.Length;
+			}
 		}
 	}
 }

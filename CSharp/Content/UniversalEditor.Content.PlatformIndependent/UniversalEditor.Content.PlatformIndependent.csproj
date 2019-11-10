@@ -644,6 +644,7 @@
     <Content Include="splash.bmp" />
     <Content Include="Editors\Executable\Commands.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Palette\NewWorldComputingPAL.uexml" />
+    <Content Include="Extensions\Microsoft\Associations\RKV.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
