@@ -71,7 +71,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 						uint unknown6 = br.ReadUInt32();
 						uint compressedLength = br.ReadUInt32();
 						uint decompressedLength = br.ReadUInt32();
-						ushort fileNameLength = br.ReadUInt16();        // oops... had this as Int32
+						ushort fileNameLength = br.ReadUInt16();		// oops... had this as Int32
 						ushort extraFieldLength = br.ReadUInt16();
 						ushort unknown7 = br.ReadUInt16();
 						ushort unknown8 = br.ReadUInt16();
@@ -93,10 +93,14 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 						file.Properties.Add("offset", fileOffset);
 						file.Properties.Add("compressedLength", compressedLength);
 						file.Properties.Add("decompressedLength", decompressedLength);
+						file.Size = decompressedLength;
+						file.DataRequest += File_DataRequest; // file sources are unreliable atm
+						/*
 						file.Source = new CompressedEmbeddedFileSource(br, fileOffset, decompressedLength, compressedLength, new FileSourceTransformation[]
 						{
 							new FileSourceTransformation(FileSourceTransformationType.Output, HandleFileSourceTransformationFunction)
 						});
+						*/
 					}
 					return;
 				}
@@ -184,6 +188,86 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				}
 			}
 		}
+
+		void File_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (sender as File);
+
+			uint decompressedLength = (uint)file.Properties["decompressedLength"];
+			uint compressedLength = (uint)file.Properties["compressedLength"];
+			uint offset = (uint)file.Properties["offset"];
+
+			Reader br = Accessor.Reader;
+			long curpos = Accessor.Position;
+
+			Accessor.Seek(offset, SeekOrigin.Begin);
+
+			byte[] headerSignature = br.ReadBytes(4);
+			if (!headerSignature.Match(new byte[] { 0x50, 0x4B, 0x03, 0x04 }))
+			{
+
+			}
+
+			CompressionMethod method = CompressionMethod.None;
+			short iMinimumVersionNeededToExtract = br.ReadInt16();
+			short iGeneralPurposeBitFlag = br.ReadInt16();
+			short iCompressionMethod = br.ReadInt16();
+			switch (iCompressionMethod)
+			{
+			case 8:
+				{
+					method = CompressionMethod.Deflate;
+					break;
+				}
+			case 9:
+				{
+					method = CompressionMethod.Deflate64;
+					break;
+				}
+			case 12:
+				{
+					method = CompressionMethod.Bzip2;
+					break;
+				}
+			case 14:
+				{
+					method = CompressionMethod.LZMA;
+					break;
+				}
+			}
+			short iFileLastModificationTime = br.ReadInt16();
+			short iFileLastModificationDate = br.ReadInt16();
+			bool isEncrypted = false;
+			int iCRC32 = br.ReadInt32();
+			int packedFileLength = br.ReadInt32();
+			int unpackedFileLength = br.ReadInt32();
+			short local_fileNameLength = br.ReadInt16();
+			short extraFieldLength = br.ReadInt16();
+			string local_fileName = br.ReadFixedLengthString(local_fileNameLength);
+			long local_pos = br.Accessor.Position;
+			while (br.Accessor.Position < (local_pos + extraFieldLength))
+			{
+				short chunkIDCode = br.ReadInt16();
+				short chunkLength = br.ReadInt16();
+				byte[] data = br.ReadBytes(chunkLength);
+			}
+
+
+			byte[] compressedData = br.ReadBytes(compressedLength);
+			br.Accessor.Position = curpos;
+
+			byte[] decompressedData = compressedData;
+			if (compressedLength != decompressedLength)
+			{
+				decompressedData = UniversalEditor.Compression.CompressionModules.Deflate.Decompress(compressedData);
+				if (decompressedData.Length != decompressedLength)
+				{
+					Console.WriteLine("zip: sanity check - decompressed data length (" + decompressedData.Length.ToString() + ") does not match expected value (" + decompressedLength.ToString() + ")");
+				}
+			}
+			e.Data = decompressedData;
+		}
+
 
 		void HandleFileSourceTransformationFunction(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 		{
