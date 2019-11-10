@@ -43,6 +43,7 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.SelectionMode = SelectionMode.Multiple;
 			this.tv.Model = this.tmTreeView;
 
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingItem", FileAddExistingItem_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingFolder", FileAddExistingFolder_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_FilesFromFolder", FileAddItemsFromFolder_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_New_Folder", FileNewFolder_Click);
