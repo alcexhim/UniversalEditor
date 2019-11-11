@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationFramework>
+	<Commands>
+		<Command ID="SolutionExplorer_ContextMenu_Project_BuildProject" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_RebuildProject" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_CleanProject" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_Unload" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_RunProject" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_DebugProject" />
+		
+		<Command ID="SolutionExplorer_ContextMenu_Project_Add_NewFile" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_Add_ExistingFiles" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_Add_NewFolder" />
+		<Command ID="SolutionExplorer_ContextMenu_Project_Add">
+			<Items>
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_Add_NewFile" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_Add_ExistingFiles" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_Add_NewFolder" />
+			</Items>
+		</Command>
+		
+		<Command ID="SolutionExplorer_ContextMenu_Project">
+			<Items>
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_BuildProject" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_RebuildProject" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_CleanProject" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_Unload" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_RunProject" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_DebugProject" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_Add" />
+				<Separator />
+				<CommandReference CommandID="EditCut" />
+				<CommandReference CommandID="EditCopy" />
+				<CommandReference CommandID="EditPaste" />
+				<CommandReference CommandID="EditDelete" />
+				<Separator />
+				<CommandReference CommandID="FileProperties" />
+			</Items>
+		</Command>
+		
+		
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Build" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Rebuild" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Clean" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Unload" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Run" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Debug" />
+		
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Add_NewProject" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Add_ExistingProject" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Add_NewFolder" />
+		<Command ID="SolutionExplorer_ContextMenu_Solution_Add">
+			<Items>
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Add_NewProject" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Add_ExistingProject" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Add_NewFolder" />
+			</Items>
+		</Command>
+		
+		<Command ID="SolutionExplorer_ContextMenu_Solution">
+			<Items>
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Build" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Rebuild" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Clean" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Unload" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Run" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Debug" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Add" />
+				<Separator />
+				<CommandReference CommandID="EditCut" />
+				<CommandReference CommandID="EditCopy" />
+				<CommandReference CommandID="EditPaste" />
+				<CommandReference CommandID="EditDelete" />
+				<Separator />
+				<CommandReference CommandID="FileProperties" />
+			</Items>
+		</Command>
+		
+		<Command ID="SolutionExplorer_ContextMenu_File_Open" />
+		<Command ID="SolutionExplorer_ContextMenu_File_Rename" />
+		<Command ID="SolutionExplorer_ContextMenu_File">
+			<Items>
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_File_Open" />
+				<Separator />
+				<CommandReference CommandID="EditCut" />
+				<CommandReference CommandID="EditCopy" />
+				<CommandReference CommandID="EditPaste" />
+				<CommandReference CommandID="EditDelete" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_File_Rename" />
+				<Separator />
+				<CommandReference CommandID="FileProperties" />
+			</Items>
+		</Command>
+		
+		<Command ID="SolutionExplorer_ContextMenu_Folder_Add_NewFile" />
+		<Command ID="SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles" />
+		<Command ID="SolutionExplorer_ContextMenu_Folder_Add_NewFolder" />
+		<Command ID="SolutionExplorer_ContextMenu_Folder_Add">
+			<Items>
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Folder_Add_NewFile" />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Folder_Add_NewFolder" />
+			</Items>
+		</Command>
+		<Command ID="SolutionExplorer_ContextMenu_Folder_Rename" />
+		<Command ID="SolutionExplorer_ContextMenu_Folder">
+			<Items>
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Folder_Add" />
+				<Separator />
+				<CommandReference CommandID="EditCut" />
+				<CommandReference CommandID="EditCopy" />
+				<CommandReference CommandID="EditPaste" />
+				<CommandReference CommandID="EditDelete" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_Folder_Rename" />
+				<Separator />
+				<CommandReference CommandID="FileProperties" />
+			</Items>
+		</Command>
+	</Commands>
+</ApplicationFramework>

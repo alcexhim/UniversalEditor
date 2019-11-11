@@ -645,6 +645,8 @@
     <Content Include="Editors\Executable\Commands.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Palette\NewWorldComputingPAL.uexml" />
     <Content Include="Extensions\Microsoft\Associations\RKV.uexml" />
+    <Content Include="Panels\SolutionExplorer\Languages\English.uexml" />
+    <Content Include="Panels\SolutionExplorer\Commands.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -665,6 +667,8 @@
     <Folder Include="Editors\Multimedia\Audio\Synthesized\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\" />
     <Folder Include="Editors\Executable\" />
+    <Folder Include="Panels\SolutionExplorer\" />
+    <Folder Include="Panels\SolutionExplorer\Languages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

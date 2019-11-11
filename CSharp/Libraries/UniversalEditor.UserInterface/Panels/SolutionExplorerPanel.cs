@@ -139,11 +139,6 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 		}
 
-		private Menu mnuContextProject = null;
-		private Menu mnuContextSolution = null;
-		private Menu mnuContextFolder = null;
-		private Menu mnuContextFile = null;
-
 		public SolutionExplorerPanel()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
@@ -158,91 +153,15 @@ namespace UniversalEditor.UserInterface.Panels
 
 			this.Controls.Add(tvSolutionExplorer, new BoxLayout.Constraints(true, true));
 
-			mnuContextProject = new Menu();
-			mnuContextProject.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
-			{
-				new MBS.Framework.UserInterface.CommandMenuItem("B_uild Project"),
-				new MBS.Framework.UserInterface.CommandMenuItem("R_ebuild Project"),
-				new MBS.Framework.UserInterface.CommandMenuItem("C_lean Project"),
-				new MBS.Framework.UserInterface.CommandMenuItem("Unload"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Run Pro_ject"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Debug Project"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("A_dd", new MBS.Framework.UserInterface.MenuItem[]
-				{
-					new MBS.Framework.UserInterface.CommandMenuItem("New _File..."),
-					new MBS.Framework.UserInterface.CommandMenuItem("E_xisting File(s)...", null, mnuContextProjectAddExistingFiles_Click)
-				}),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Cu_t"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Copy"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Paste"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Delete"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("P_roperties...")
-			});
-			mnuContextSolution = new Menu();
-			mnuContextSolution.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
-			{
-				new MBS.Framework.UserInterface.CommandMenuItem("B_uild Solution"),
-				new MBS.Framework.UserInterface.CommandMenuItem("R_ebuild Solution"),
-				new MBS.Framework.UserInterface.CommandMenuItem("C_lean Solution"),
-				new MBS.Framework.UserInterface.CommandMenuItem("Unload"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Run Solution"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Debug Solution"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("A_dd", new MBS.Framework.UserInterface.MenuItem[]
-				{
-					new MBS.Framework.UserInterface.CommandMenuItem("New _Project...", null, mnuContextSolutionAddNewProject_Click),
-					new MBS.Framework.UserInterface.CommandMenuItem("E_xisting Project...", null, mnuContextSolutionAddExistingProject_Click),
-					new MBS.Framework.UserInterface.SeparatorMenuItem(),
-					new MBS.Framework.UserInterface.CommandMenuItem("New Fol_der")
-				}),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Cu_t"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Copy"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Paste"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Delete"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("P_roperties...")
-			});
-
-			mnuContextFile = new Menu();
-			mnuContextFile.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
-			{
-				new MBS.Framework.UserInterface.CommandMenuItem("Open", null, mnuContextFileOpen_Click),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Cu_t"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Copy"),
-				// new MBS.Framework.UserInterface.CommandMenuItem("_Paste"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Delete"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Rena_me"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("P_roperties...")
-			});
-			mnuContextFolder = new Menu();
-			mnuContextFolder.Items.AddRange(new MBS.Framework.UserInterface.MenuItem[]
-			{
-				new MBS.Framework.UserInterface.CommandMenuItem("A_dd", new MBS.Framework.UserInterface.MenuItem[]
-				{
-					new MBS.Framework.UserInterface.CommandMenuItem("New _File...", null, mnuContextFolderAddNewFile_Click),
-					new MBS.Framework.UserInterface.CommandMenuItem("E_xisting File...", null, mnuContextFolderAddExistingFile_Click),
-					new MBS.Framework.UserInterface.SeparatorMenuItem(),
-					new MBS.Framework.UserInterface.CommandMenuItem("New Fol_der")
-				}),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Cu_t"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Copy"),
-				// new MBS.Framework.UserInterface.CommandMenuItem("_Paste"),
-				new MBS.Framework.UserInterface.CommandMenuItem("_Delete"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("Rena_me"),
-				new MBS.Framework.UserInterface.SeparatorMenuItem(),
-				new MBS.Framework.UserInterface.CommandMenuItem("P_roperties...")
-			});
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_ExistingFiles", mnuContextProjectAddExistingFiles_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_NewFolder", mnuContextProjectAddNewFolder_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_ExistingFiles", mnuContextSolutionAddExistingProject_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_ExistingProject", mnuContextSolutionAddExistingProject_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_NewProject", mnuContextSolutionAddNewProject_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_File_Open", mnuContextFileOpen_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFile", mnuContextFolderAddNewFile_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles", mnuContextFolderAddExistingFile_Click);
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFolder", mnuContextFolderAddNewFolder_Click);
 		}
 
 		private void mnuContextFileOpen_Click(object sender, EventArgs e)
@@ -255,6 +174,27 @@ namespace UniversalEditor.UserInterface.Panels
 
 		private void mnuContextFolderAddExistingFile_Click(object sender, EventArgs e)
 		{
+			TreeModelRow row = tvSolutionExplorer.LastHitTest.Row;
+			if (row == null) return;
+
+			ProjectFolder fldr = row.GetExtraData<ProjectFolder>("folder");
+			if (fldr == null) return;
+
+			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Open;
+			dlg.MultiSelect = true;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				foreach (string filename in dlg.SelectedFileNames)
+				{
+					ObjectModels.Project.ProjectFile pf = new ObjectModels.Project.ProjectFile();
+					pf.SourceFileName = filename;
+					pf.DestinationFileName = System.IO.Path.GetFileName(filename);
+					fldr.Files.Add(pf);
+				}
+
+				UpdateSolutionExplorer();
+			}
 		}
 
 		void tvSolutionExplorer_RowActivated(object sender, ListViewRowActivatedEventArgs e)
@@ -282,6 +222,43 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 		}
 
+		private void mnuContextProjectAddNewFolder_Click(object sender, EventArgs e)
+		{
+			TreeModelRow row = tvSolutionExplorer.LastHitTest.Row;
+			if (row == null) return;
+
+			ProjectObjectModel proj = row.GetExtraData<ProjectObjectModel>("project");
+			if (proj == null) return;
+
+			string folderName = "New folder";
+			ProjectFolder folder = proj.FileSystem.Folders.Add(folderName);
+
+			TreeModelRow rowFolder = new TreeModelRow();
+			rowFolder.RowColumns.Add(new TreeModelRowColumn(tmSolutionExplorer.Columns[0], folderName));
+			rowFolder.SetExtraData<ProjectFolder>("folder", folder);
+			row.Rows.Add(rowFolder);
+
+			UpdateSolutionExplorer();
+		}
+
+		private void mnuContextFolderAddNewFolder_Click(object sender, EventArgs e)
+		{
+			TreeModelRow row = tvSolutionExplorer.LastHitTest.Row;
+			if (row == null) return;
+
+			ProjectFolder proj = row.GetExtraData<ProjectFolder>("folder");
+			if (proj == null) return;
+
+			string folderName = "New folder";
+			ProjectFolder folder = proj.Folders.Add(folderName);
+
+			TreeModelRow rowFolder = new TreeModelRow();
+			rowFolder.RowColumns.Add(new TreeModelRowColumn(tmSolutionExplorer.Columns[0], folderName));
+			rowFolder.SetExtraData<ProjectFolder>("folder", folder);
+			row.Rows.Add(rowFolder);
+
+			UpdateSolutionExplorer();
+		}
 
 		private void mnuContextProjectAddExistingFiles_Click(object sender, EventArgs e)
 		{
@@ -298,7 +275,7 @@ namespace UniversalEditor.UserInterface.Panels
 			{
 				foreach (string filename in dlg.SelectedFileNames)
 				{
-					ObjectModels.Project.ProjectFile pf = new ObjectModels.Project.ProjectFile();
+					ProjectFile pf = new ProjectFile();
 					pf.SourceFileName = filename;
 					pf.DestinationFileName = System.IO.Path.GetFileName(filename);
 					proj.FileSystem.Files.Add(pf);
@@ -330,26 +307,26 @@ namespace UniversalEditor.UserInterface.Panels
 		{
 			if (tvSolutionExplorer.LastHitTest.Row != null)
 			{
-				ObjectModels.Project.ProjectObjectModel project = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ObjectModels.Project.ProjectObjectModel>("project");
-				ObjectModels.Solution.SolutionObjectModel solution = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ObjectModels.Solution.SolutionObjectModel>("solution");
-				ObjectModels.Project.ProjectFolder folder = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ObjectModels.Project.ProjectFolder>("folder");
-				ObjectModels.Project.ProjectFile file = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ObjectModels.Project.ProjectFile>("file");
+				ProjectObjectModel project = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ProjectObjectModel>("project");
+				SolutionObjectModel solution = tvSolutionExplorer.LastHitTest.Row.GetExtraData<SolutionObjectModel>("solution");
+				ProjectFolder folder = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ProjectFolder>("folder");
+				ProjectFile file = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ProjectFile>("file");
 
 				if (project != null)
 				{
-					tvSolutionExplorer.ContextMenu = mnuContextProject;
+					tvSolutionExplorer.ContextMenuCommandID = "SolutionExplorer_ContextMenu_Project";
 				}
 				else if (solution != null)
 				{
-					tvSolutionExplorer.ContextMenu = mnuContextSolution;
+					tvSolutionExplorer.ContextMenuCommandID = "SolutionExplorer_ContextMenu_Solution";
 				}
 				else if (folder != null)
 				{
-					tvSolutionExplorer.ContextMenu = mnuContextFolder;
+					tvSolutionExplorer.ContextMenuCommandID = "SolutionExplorer_ContextMenu_Folder";
 				}
 				else if (file != null)
 				{
-					tvSolutionExplorer.ContextMenu = mnuContextFile;
+					tvSolutionExplorer.ContextMenuCommandID = "SolutionExplorer_ContextMenu_File";
 				}
 			}
 		}

@@ -1,0 +1,40 @@
+﻿<ApplicationFramework>
+	<Languages>
+		<Language ID="English">
+			<Commands>
+				<Command ID="SolutionExplorer_ContextMenu_Project_BuildProject" Title="B_uild Project" />
+				<Command ID="SolutionExplorer_ContextMenu_Project_RebuildProject" Title="R_ebuild Project" />
+				<Command ID="SolutionExplorer_ContextMenu_Project_CleanProject" Title="C_lean Project" />
+				<Command ID="SolutionExplorer_ContextMenu_Project_Unload" Title="Unload" />
+				<Command ID="SolutionExplorer_ContextMenu_Project_RunProject" Title="Run Pro_ject" />
+				<Command ID="SolutionExplorer_ContextMenu_Project_DebugProject" Title="_Debug Project" />
+				
+				<Command ID="SolutionExplorer_ContextMenu_Project_Add_NewFile" Title="New _File..." />
+				<Command ID="SolutionExplorer_ContextMenu_Project_Add_ExistingFiles" Title="E_xisting File(s)..." />
+				<Command ID="SolutionExplorer_ContextMenu_Project_Add_NewFolder" Title="New Fol_der" />
+				<Command ID="SolutionExplorer_ContextMenu_Project_Add" Title="A_dd" />
+				
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Build" Title="B_uild Solution" />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Rebuild" Title="R_ebuild Solution" />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Clean" Title="C_lean Solution" />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Unload" Title="Unload" />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Run" Title="Run Solution" />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Debug" Title="_Debug Solution" />
+				
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Add_NewProject" Title="New _Project..." />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Add_ExistingProject" Title="E_xisting Project..." />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Add_NewFolder" Title="New Fol_der" />
+				<Command ID="SolutionExplorer_ContextMenu_Solution_Add" Title="A_dd" />
+				
+				<Command ID="SolutionExplorer_ContextMenu_File_Open" Title="_Open" />
+				<Command ID="SolutionExplorer_ContextMenu_File_Rename" Title="Rena_me" />
+				
+				<Command ID="SolutionExplorer_ContextMenu_Folder_Rename" Title="Rena_me" />
+				<Command ID="SolutionExplorer_ContextMenu_Folder_Add_NewFile" Title="New _File..." />
+				<Command ID="SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles" Title="E_xisting File(s)..." />
+				<Command ID="SolutionExplorer_ContextMenu_Folder_Add_NewFolder" Title="New Fol_der..." />
+				<Command ID="SolutionExplorer_ContextMenu_Folder_Add" Title="A_dd" />
+			</Commands>
+		</Language>
+	</Languages>
+</ApplicationFramework>
