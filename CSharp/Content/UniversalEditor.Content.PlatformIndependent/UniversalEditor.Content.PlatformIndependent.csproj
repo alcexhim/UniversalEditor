@@ -647,6 +647,7 @@
     <Content Include="Extensions\Microsoft\Associations\RKV.uexml" />
     <Content Include="Panels\SolutionExplorer\Languages\English.uexml" />
     <Content Include="Panels\SolutionExplorer\Commands.uexml" />
+    <Content Include="ProjectTypes\{B37FAACC-9946-454A-B4DB-4FAB8D044316}.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
