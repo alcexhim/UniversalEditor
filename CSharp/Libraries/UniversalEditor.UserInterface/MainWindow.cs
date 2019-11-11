@@ -492,7 +492,7 @@ namespace UniversalEditor.UserInterface
 		/// <summary>
 		/// try to determine within a reasonable doubt whether or not <see cref="filename" /> is a "plain text" file (e.g. ASCII, UTF-8, UTF-16lE, UTF-16BE, UTF-32, etc.)
 		/// </summary>
-		/// <returns><c>true</c>, if text was ised, <c>false</c> otherwise.</returns>
+		/// <returns><c>true</c>, if the specified file appears to be a text file, <c>false</c> otherwise.</returns>
 		/// <param name="filename">Filename.</param>
 		private bool isText(string filename)
 		{
@@ -500,13 +500,17 @@ namespace UniversalEditor.UserInterface
 				return false;
 
 			int len = 2048;
+			System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+			len = (int)Math.Min(len, fi.Length);
 			System.IO.FileStream fs = System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
 			byte[] b = fs.ReadBytes(0, len);
 
 			string utf8 = System.Text.Encoding.UTF8.GetString(b);
 
 			// yes I know this isn't the best way to do this
-			for (int i = 0; i < utf8.Length; i++)
+			bool isUTF8 = (b.Length >= 3 && b[0] == 0xEF && b[1] == 0xBB && b[2] == 0xBF);
+			int start = isUTF8 ? 3 : 0;
+			for (int i = start; i < utf8.Length; i++)
 			{
 				if (Char.IsControl(utf8[i]) && !Char.IsWhiteSpace(utf8[i]))
 				{
