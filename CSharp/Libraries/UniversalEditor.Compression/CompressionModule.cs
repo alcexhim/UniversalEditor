@@ -32,11 +32,11 @@ namespace UniversalEditor.Compression
 			outputStream.Close();
 			return outputStream.ToArray();
 		}
-		public byte[] Decompress(byte[] inputData)
+		public byte[] Decompress(byte[] inputData, int outputLength = 0)
 		{
 			System.IO.MemoryStream inputStream = new System.IO.MemoryStream(inputData);
 			System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
-			Decompress(inputStream, outputStream);
+			Decompress(inputStream, outputStream, 0, outputLength);
 			outputStream.Close();
 			return outputStream.ToArray();
 		}
