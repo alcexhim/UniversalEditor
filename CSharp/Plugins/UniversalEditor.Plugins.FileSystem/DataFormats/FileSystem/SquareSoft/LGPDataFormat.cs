@@ -50,38 +50,64 @@ namespace UniversalEditor.DataFormats.FileSystem.SquareSoft
 			if (fsom == null)
 				throw new ObjectModelNotSupportedException();
 
-			int i;
-			string fileName;
-			byte[] ww;
-			Reader br = base.Accessor.Reader;
+			Reader br = Accessor.Reader;
 			short twonulls = br.ReadInt16();
 			Creator = br.ReadFixedLengthString(10);
 			int u1 = br.ReadInt32();
-			for (i = 0; i < u1; i++)
+			for (int i = 0; i < u1; i++)
 			{
-				fileName = br.ReadNullTerminatedString(20);
+				string fileName = br.ReadFixedLengthString(20).TrimNull();
 				short u = br.ReadInt16();
 				byte b = br.ReadByte();
-				ww = br.ReadBytes((uint)4);
+				byte[] ww = br.ReadBytes((uint)4);
 				fsom.Files.Add(fileName, new byte[0]);
 			}
 
 			br.Seek((uint)0xE12, SeekOrigin.Current);
 
-			for (i = 0; i < u1; i++)
+			for (int i = 0; i < u1; i++)
 			{
-				fileName = br.ReadNullTerminatedString(20);
+				string fileName = br.ReadFixedLengthString(20).TrimNull();
 				int dataLength = br.ReadInt32();
 
 				fsom.Files[i].Source = new EmbeddedFileSource(br, base.Accessor.Position, dataLength);
 				br.Seek(dataLength, SeekOrigin.Current);
 			}
-			Description = br.ReadFixedLengthString(14);
+			Description = br.ReadFixedLengthString(14).TrimNull();
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null)
+				throw new ObjectModelNotSupportedException();
+
+			Writer bw = Accessor.Writer;
+			bw.WriteInt16(0);
+			bw.WriteFixedLengthString(Creator, 10);
+
+			File[] files = fsom.GetAllFiles();
+			bw.WriteInt32(files.Length);
+
+			for (int i = 0; i < files.Length; i++)
+			{
+				bw.WriteFixedLengthString(files[i].Name, 20);
+				bw.WriteInt16(0);  // u
+				bw.WriteByte(0); // b
+				bw.WriteInt32(0); // ww
+			}
+
+			bw.WriteBytes(new byte[0xE12]); // skip
+
+			for (int i = 0; i < files.Length; i++)
+			{
+				bw.WriteFixedLengthString(files[i].Name, 20);
+				byte[] data = files[i].GetData();
+				bw.WriteInt32(data.Length);
+
+				bw.WriteBytes(data);
+			}
+			bw.WriteFixedLengthString(Description, 14);
 		}
 	}
 }
