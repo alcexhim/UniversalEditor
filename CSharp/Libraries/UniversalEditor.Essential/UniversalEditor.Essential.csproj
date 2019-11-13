@@ -193,6 +193,7 @@
     <Compile Include="ObjectModels\Database\DatabaseRecord.cs" />
     <Compile Include="ObjectModels\Database\DatabaseTable.cs" />
     <Compile Include="ObjectModels\Database\DatabaseObjectModel.cs" />
+    <Compile Include="ObjectModels\Project\IProjectItemContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

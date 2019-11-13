@@ -12,7 +12,7 @@ namespace UniversalEditor.ObjectModels.Project
 			: System.Collections.ObjectModel.Collection<ProjectFile>
 		{
 			private IProjectFileContainer _parent = null;
-			public ProjectFileCollection(ProjectFolder parent = null)
+			public ProjectFileCollection(IProjectFileContainer parent = null)
 			{
 				_parent = parent;
 			}

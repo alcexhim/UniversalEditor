@@ -5,13 +5,13 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Project
 {
-	public class ProjectFolder : IProjectFileContainer, ICloneable
+	public class ProjectFolder : IProjectItemContainer, ICloneable
 	{
 		public class ProjectFolderCollection
 			: System.Collections.ObjectModel.Collection<ProjectFolder>
 		{
-			private ProjectFolder _parent = null;
-			public ProjectFolderCollection(ProjectFolder parent = null)
+			private IProjectItemContainer _parent = null;
+			public ProjectFolderCollection(IProjectItemContainer parent = null)
 			{
 				_parent = parent;
 			}
@@ -77,8 +77,8 @@ namespace UniversalEditor.ObjectModels.Project
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-		private ProjectFolder mvarParent = null;
-		public ProjectFolder Parent { get { return mvarParent; } private set { mvarParent = value; } }
+		private IProjectItemContainer mvarParent = null;
+		public IProjectItemContainer Parent { get { return mvarParent; } private set { mvarParent = value; } }
 
 		private ProjectFolder.ProjectFolderCollection mvarFolders = null;
 		public ProjectFolder.ProjectFolderCollection Folders { get { return mvarFolders; } }

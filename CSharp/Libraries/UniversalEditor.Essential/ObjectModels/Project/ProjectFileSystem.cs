@@ -5,32 +5,36 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Project
 {
-	public class ProjectFileSystem
+	public class ProjectFileSystem : IProjectItemContainer
 	{
-		private ProjectFolder.ProjectFolderCollection mvarFolders = new ProjectFolder.ProjectFolderCollection();
 		/// <summary>
 		/// The collection of folders in this project.
 		/// </summary>
-		public ProjectFolder.ProjectFolderCollection Folders { get { return mvarFolders; } }
+		public ProjectFolder.ProjectFolderCollection Folders { get; private set; } = null;
 
-		private ProjectFile.ProjectFileCollection mvarFiles = new ProjectFile.ProjectFileCollection();
 		/// <summary>
 		/// The collection of files in this project.
 		/// </summary>
-		public ProjectFile.ProjectFileCollection Files { get { return mvarFiles; } }
+		public ProjectFile.ProjectFileCollection Files { get; private set; } = null;
+
+		public ProjectFileSystem()
+		{
+			Files = new ProjectFile.ProjectFileCollection(this);
+			Folders = new ProjectFolder.ProjectFolderCollection(this);
+		}
 
 		public void Clear()
 		{
-			mvarFolders.Clear();
-			mvarFiles.Clear();
+			Folders.Clear();
+			Files.Clear();
 		}
 		public void CopyTo(ProjectFileSystem clone)
 		{
-			foreach (ProjectFile file in mvarFiles)
+			foreach (ProjectFile file in Files)
 			{
 				clone.Files.Add(file.Clone() as ProjectFile);
 			}
-			foreach (ProjectFolder folder in mvarFolders)
+			foreach (ProjectFolder folder in Folders)
 			{
 				clone.Folders.Add(folder.Clone() as ProjectFolder);
 			}
