@@ -232,6 +232,9 @@
     <Compile Include="DataFormats\FileSystem\WinAce\ACEHeaderFlags.cs" />
     <Compile Include="DataFormats\FileSystem\SlightlyMadStudios\BFFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SlightlyMadStudios\BFFCompressionType.cs" />
+    <Compile Include="DataFormats\FileSystem\SEGA\CPK\CPKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\SEGA\CPK\CPKColumnStorageType.cs" />
+    <Compile Include="DataFormats\FileSystem\SEGA\CPK\CPKColumnDataType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
