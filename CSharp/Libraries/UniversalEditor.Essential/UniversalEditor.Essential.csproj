@@ -189,6 +189,10 @@
     <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemString.cs" />
     <Compile Include="ObjectModels\BinaryGrammar\FixedValue.cs" />
     <Compile Include="DataFormats\Text\Plain\ByteOrderMark.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseField.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseRecord.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseTable.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseObjectModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -212,6 +216,7 @@
     <Folder Include="DataFormats\Shortcut\Linux\" />
     <Folder Include="ObjectModels\BinaryGrammar\" />
     <Folder Include="ObjectModels\BinaryGrammar\GrammarItems\" />
+    <Folder Include="ObjectModels\Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
