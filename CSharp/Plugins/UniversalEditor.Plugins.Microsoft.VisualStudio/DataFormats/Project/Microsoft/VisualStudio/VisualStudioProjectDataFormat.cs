@@ -8,6 +8,7 @@ using UniversalEditor.DataFormats.Markup.XML;
 
 using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.PropertyList;
+using UniversalEditor.ObjectModels.Solution;
 
 namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 {
@@ -37,7 +38,22 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			MarkupObjectModel mom = (objectModels.Pop() as MarkupObjectModel);
-			ProjectObjectModel proj = (objectModels.Pop() as ProjectObjectModel);
+			ObjectModel omtarget = objectModels.Pop();
+
+			ProjectObjectModel proj = null;
+			if (omtarget is SolutionObjectModel)
+			{
+				proj = new ProjectObjectModel();
+				(omtarget as SolutionObjectModel).Projects.Add(proj);
+			}
+			else if (omtarget is ProjectObjectModel)
+			{
+				proj = (omtarget as ProjectObjectModel);
+			}
+			else
+			{
+				throw new ObjectModelNotSupportedException();
+			}
 
 			string basePath = System.IO.Path.GetDirectoryName(Accessor.GetFileName());
 
@@ -91,6 +107,11 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 						}
 					}
 				}
+			}
+
+			if (omtarget is SolutionObjectModel && String.IsNullOrEmpty((omtarget as SolutionObjectModel)?.Title))
+			{
+				(omtarget as SolutionObjectModel).Title = proj.Title;
 			}
 
 			foreach (KeyValuePair<string, List<string>> kvp in dependents)
