@@ -19,6 +19,8 @@ using UniversalEditor.UserInterface.Dialogs;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.Drawing;
+using UniversalEditor.UserInterface.Panels;
+using MBS.Framework.UserInterface.Controls;
 
 namespace UniversalEditor.UserInterface
 {
@@ -315,8 +317,18 @@ namespace UniversalEditor.UserInterface
 			Application.AttachCommandEventHandler("EditDelete", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
-				if (editor == null) return;
-				editor.Delete();
+				if (editor != null)
+				{
+					editor.Delete();
+				}
+				else
+				{
+					Control ctl = LastWindow.ActiveControl;
+					if (ctl is ListView && ctl.Parent is SolutionExplorerPanel)
+					{
+						(ctl.Parent as SolutionExplorerPanel).Delete();
+					}
+				}
 			});
 			Application.AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
 			{

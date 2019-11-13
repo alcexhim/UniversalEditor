@@ -208,6 +208,7 @@ namespace UniversalEditor.UserInterface.Panels
 			//		- if it is a special folder named "Properties/Resources", the resource editor shall be shown
 			ProjectObjectModel project = e.Row.GetExtraData<ProjectObjectModel>("project");
 			ProjectFile file = e.Row.GetExtraData<ProjectFile>("file");
+			ProjectFolder folder = e.Row.GetExtraData<ProjectFolder>("folder");
 			if (project != null)
 			{
 				MessageDialog.ShowDialog(String.Format("Opening project properties for {0}", e.Row.RowColumns[0].Value), "Info", MessageDialogButtons.OK);
@@ -215,6 +216,10 @@ namespace UniversalEditor.UserInterface.Panels
 			else if (file != null)
 			{
 				Engine.CurrentEngine.LastWindow.OpenFile(file.SourceFileName);
+			}
+			else if (folder != null)
+			{
+				return;
 			}
 			else
 			{
@@ -331,5 +336,32 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 		}
 
+		/// <summary>
+		/// Deletes the selected item in the Solution Explorer panel.
+		/// </summary>
+		public void Delete()
+		{
+			if (tvSolutionExplorer.SelectedRows.Count > 0)
+			{
+				/*
+				 // does not work - we need to fix this in UWT		
+				while (tvSolutionExplorer.SelectedRows.Count > 0)
+				{
+					tmSolutionExplorer.Rows.Remove(tvSolutionExplorer.SelectedRows[0]);
+				}
+				*/
+				ProjectFolder folder = tvSolutionExplorer.SelectedRows[0].GetExtraData<ProjectFolder>("folder");
+				ProjectFile file = tvSolutionExplorer.SelectedRows[0].GetExtraData<ProjectFile>("file");
+				if (file != null)
+				{
+					file.Parent.Files.Remove(file);
+				}
+				if (folder != null)
+				{
+					folder.Parent.Folders.Remove(folder);
+				}
+				UpdateSolutionExplorer();
+			}
+		}
 	}
 }
