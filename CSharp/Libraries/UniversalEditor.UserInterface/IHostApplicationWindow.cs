@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface
 {
@@ -43,6 +44,8 @@ namespace UniversalEditor.UserInterface
 		void ShowDocumentPropertiesDialog();
 
 		Editor GetCurrentEditor();
+
+		Control ActiveControl { get; }
 
 		bool FullScreen { get; set; }
 
