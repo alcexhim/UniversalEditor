@@ -648,6 +648,7 @@
     <Content Include="Panels\SolutionExplorer\Languages\English.uexml" />
     <Content Include="Panels\SolutionExplorer\Commands.uexml" />
     <Content Include="ProjectTypes\{B37FAACC-9946-454A-B4DB-4FAB8D044316}.uexml" />
+    <Content Include="Extensions\GameDeveloper\Associations\FileSystem\SlightlyMadStudiosBFF.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
