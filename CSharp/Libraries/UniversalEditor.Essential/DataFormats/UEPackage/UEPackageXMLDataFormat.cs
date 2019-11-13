@@ -302,7 +302,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 										if (tag.FullName != "Task") continue;
 
 										ProjectTask task = new ProjectTask();
-										task.Title = tag.Attributes["Title"].Value;
+										task.Title = tag.Attributes["Title"]?.Value;
 
 										MarkupTagElement tagActions = (tag.Elements["Actions"] as MarkupTagElement);
 										if (tagActions != null)
