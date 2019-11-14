@@ -148,16 +148,54 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			}
 		}
 
+		private TextureBrush AlphaBackgroundBrush = null;
+		private void DrawAlphaBackground(Graphics g, Rectangle rect)
+		{
+			/*
+			if (AlphaBackgroundBrush == null)
+			{
+				Image AlphaBackgroundImage = Image.Create(24, 24);
+				Graphics g = Graphics.FromImage(AlphaBackgroundImage);
+				g.FillRectangle(Brushes.White, new Rectangle(0, 0, 24, 24));
+				g.FillRectangle(Brushes.Black, new Rectangle(16, 16, 16, 16));
+
+				AlphaBackgroundBrush = new TextureBrush(AlphaBackgroundImage);
+			}
+			*/
+			int qs = 0;
+			for (int patternY = 0; patternY < rect.Height; patternY += 8)
+			{
+				for (int patternX = qs; patternX < rect.Width - qs; patternX += 8)
+				{
+					g.FillRectangle(Brushes.Black, new Rectangle(rect.X + patternX, rect.Y + patternY, 4, 4));
+				}
+				if (qs == 0)
+				{
+					qs = 8;
+				}
+				else
+				{
+					qs = 0;
+				}
+			}
+			// e.Graphics.FillRectangle(AlphaBackgroundBrush, rect);
+		}
+
 		private void cc_Paint(object sender, PaintEventArgs e)
 		{
 			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
 			if (palette == null) return;
 
 			int x = 0, y = 0, w = 64, h = 24;
-
 			foreach (PaletteEntry entry in palette.Entries)
 			{
-				e.Graphics.FillRectangle(new SolidBrush(entry.Color), new Rectangle(x + 2, y + 2, w - 4, h - 4));
+				Rectangle rect = new Rectangle(x + 2, y + 2, w - 4, h - 4);
+				if (entry.Color.A < 1.0)
+				{
+					// only fill the alpha background if we need to
+					DrawAlphaBackground(e.Graphics, rect);
+				}
+				e.Graphics.FillRectangle(new SolidBrush(entry.Color), rect);
 				if (entry == SelectedEntry)
 				{
 					e.Graphics.DrawRectangle(new Pen(Colors.LightSteelBlue, new Measurement(2, MeasurementUnit.Pixel)), new Rectangle(x, y, w, h));
