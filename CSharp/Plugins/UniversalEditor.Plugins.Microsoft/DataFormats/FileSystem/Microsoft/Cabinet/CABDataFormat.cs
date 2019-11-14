@@ -74,9 +74,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 				Internal.CFFILE cffile = ReadCFFILE(br);
 				File file = fsom.AddFile(cffile.name);
 				file.Size = cffile.decompressedSize;
-				file.Properties.Add("DecompressedSize", cffile.decompressedSize);
-				file.Properties.Add("offset", cffile.offset);
-				file.Properties.Add("folder", folders[cffile.folderIndex]);
+				file.Properties.Add("cffile", cffile);
+				file.Properties.Add("cffolder", folders[cffile.folderIndex]);
 				file.Properties.Add("reader", br);
 				file.DataRequest += file_DataRequest;
 			}
@@ -132,15 +131,15 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 		{
 			Internal.CFFILE cffile = new Internal.CFFILE();
 
-			cffile.decompressedSize = br.ReadUInt32();
-			cffile.offset = br.ReadUInt32();
-			cffile.folderIndex = br.ReadUInt16();
+			cffile.decompressedSize = br.ReadUInt32();		// uncompressed size of this file in bytes
+			cffile.offset = br.ReadUInt32();				// uncompressed offset of this file in the folder
+			cffile.folderIndex = br.ReadUInt16();           // index into the CFFOLDER area
 
-			cffile.date = br.ReadUInt16();
-			cffile.time = br.ReadUInt16();
+			cffile.date = br.ReadUInt16();                  // date stamp for this file
+			cffile.time = br.ReadUInt16();                  // time stamp for this file
 
-			cffile.attribs = br.ReadUInt16();
-			cffile.name = br.ReadNullTerminatedString();
+			cffile.attribs = br.ReadUInt16();               // attribute flags for this file
+			cffile.name = br.ReadNullTerminatedString();    // name of this file
 			return cffile;
 		}
 		private Internal.CFFOLDER ReadCFFOLDER(Reader br, Internal.CFHEADER cfheader)
@@ -169,11 +168,14 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
 			File file = (sender as File);
-			uint decompressedSize = (uint)file.Properties["DecompressedSize"];
-			uint offset = (uint)file.Properties["offset"];
+
+			Internal.CFFILE cffile = (Internal.CFFILE)file.Properties["cffile"];
+			Internal.CFFOLDER cffolder = (Internal.CFFOLDER)file.Properties["cffolder"];
+
+			uint decompressedSize = cffile.decompressedSize;
+			uint offset = cffile.offset;
 			Reader br = (Reader)file.Properties["reader"];
 
-			Internal.CFFOLDER cffolder = (Internal.CFFOLDER)file.Properties["folder"];
 			br.Accessor.Position = cffolder.firstDataBlockOffset;
 
 			byte[] decompressedData = new byte[decompressedSize];
@@ -199,7 +201,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 
 						byte[] rest = br1.ReadToEnd();
 						byte[] decompressedDataLocal = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Deflate).Decompress(rest);
-						Array.Copy(decompressedDataLocal, offset, decompressedData, j, decompressedData.Length);
+						// Array.Copy(decompressedDataLocal, offset, decompressedData, j, decompressedData.Length);
+						// Array.Copy(decompressedDataLocal, j, decompressedData, 0, decompressedDataLocal.Length);
 						j += decompressedDataLocal.Length;
 						break;
 					}
