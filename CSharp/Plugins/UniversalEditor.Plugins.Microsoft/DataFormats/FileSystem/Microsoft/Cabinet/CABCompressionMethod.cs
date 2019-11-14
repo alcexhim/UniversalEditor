@@ -9,6 +9,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
     {
         None = 0,
         MSZIP = 1,
-        LZX = 5379
+        LZX = 5379,
+		Quantum
     }
 }
