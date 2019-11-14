@@ -1,0 +1,13 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.PianoRollEditor">
+			<Toolbox>
+				<Group ID="ToolboxGroup_General" Title="General">
+					<Item ID="ToolboxItem_Select" Title="Select" />
+					<Item ID="ToolboxItem_Insert" Title="Insert" />
+					<Item ID="ToolboxItem_Delete" Title="Delete" />
+				</Group>
+			</Toolbox>
+		</Editor>
+	</Editors>
+</UniversalEditor>
