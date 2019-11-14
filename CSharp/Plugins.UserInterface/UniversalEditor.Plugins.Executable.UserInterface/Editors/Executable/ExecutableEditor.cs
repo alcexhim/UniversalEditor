@@ -83,6 +83,48 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			tabSections.Controls.Add(tvSections, new BoxLayout.Constraints(true, true));
 			tbs.TabPages.Add(tabSections);
 			
+			TabPage tabVersion = new TabPage("Version");
+			tabVersion.Layout = new GridLayout();
+			
+			Label lblFileVersion = new Label();
+			lblFileVersion.Text = "File version:";
+			lblFileVersion.HorizontalAlignment = HorizontalAlignment.Left;
+			tabVersion.Controls.Add(lblFileVersion, new GridLayout.Constraints(0, 0));
+			
+			TextBox txtFileVersion = new TextBox();
+			tabVersion.Controls.Add(txtFileVersion, new GridLayout.Constraints(0, 1, 1, 1, ExpandMode.Horizontal));
+			
+			Label lblDescription = new Label();
+			lblDescription.Text = "Description:";
+			lblDescription.HorizontalAlignment = HorizontalAlignment.Left;
+			tabVersion.Controls.Add(lblDescription, new GridLayout.Constraints(1, 0));
+
+			TextBox txtDescription = new TextBox();
+			tabVersion.Controls.Add(txtDescription, new GridLayout.Constraints(1, 1, 1, 1, ExpandMode.Horizontal));
+
+			Label lblCopyright = new Label();
+			lblCopyright.Text = "Copyright:";
+			lblCopyright.HorizontalAlignment = HorizontalAlignment.Left;
+			tabVersion.Controls.Add(lblCopyright, new GridLayout.Constraints(2, 0));
+
+			TextBox txtCopyright = new TextBox();
+			tabVersion.Controls.Add(txtCopyright, new GridLayout.Constraints(2, 1, 1, 1, ExpandMode.Horizontal));
+
+			Label lblOtherInformationLabel = new Label();
+			lblOtherInformationLabel.Text = "Other version information:";
+			lblOtherInformationLabel.HorizontalAlignment = HorizontalAlignment.Left;
+			tabVersion.Controls.Add(lblOtherInformationLabel, new GridLayout.Constraints(3, 0, 1, 2));
+
+			tmOtherInformation = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });
+
+			ListView lvOtherInformation = new ListView();
+			lvOtherInformation.Model = tmOtherInformation;
+			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[0], "Name"));
+			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[1], "Value"));
+			tabVersion.Controls.Add(lvOtherInformation, new GridLayout.Constraints(4, 0, 1, 2, ExpandMode.Both));
+
+			tbs.TabPages.Add(tabVersion);
+
 			TabPage tabManagedAssembly = new TabPage("Managed Assembly");
 			tabManagedAssembly.Layout = new BoxLayout(Orientation.Vertical);
 
