@@ -1118,7 +1118,8 @@ namespace UniversalEditor.IO
 		public string[] ReadNullTerminatedStringArray(int stringTableSize)
 		{
 			System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
-			while (base.Accessor.Remaining < stringTableSize)
+			long endpos = base.Accessor.Position + stringTableSize;
+			while (base.Accessor.Position < endpos)
 			{
 				list.Add(ReadNullTerminatedString());
 			}
