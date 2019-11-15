@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="SEGA Universal Media Disc CPK archive">
+				<Filter Title="CRI Middleware CPK archive">
 					<FileNameFilters>
 						<FileNameFilter>*.cpk</FileNameFilter>
 					</FileNameFilters>
@@ -18,7 +18,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.SEGA.CPK.CPKDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK.CPKDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>
