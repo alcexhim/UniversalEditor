@@ -36,11 +36,13 @@
     <Compile Include="DataFormats\FileSystem\CPK\CPKColumnDataType.cs" />
     <Compile Include="DataFormats\FileSystem\CPK\CPKColumnStorageType.cs" />
     <Compile Include="DataFormats\FileSystem\CPK\CPKDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\CPK\UTF\UTFDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\" />
     <Folder Include="DataFormats\FileSystem\" />
     <Folder Include="DataFormats\FileSystem\CPK\" />
+    <Folder Include="DataFormats\FileSystem\CPK\UTF\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
