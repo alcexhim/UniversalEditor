@@ -38,17 +38,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 			return _dfr;
 		}
 
-		protected override void LoadInternal(ref ObjectModel objectModel)
+		public AFSFormatVersion FormatVersion { get; set; } = AFSFormatVersion.AFS0;
+
+		private void ReadAFS0(IO.Reader reader, FileSystemObjectModel fsom)
 		{
-			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null)
-				throw new ObjectModelNotSupportedException();
-
-			Reader reader = Accessor.Reader;
-			string afs = reader.ReadFixedLengthString(4);
-			if (afs != "AFS\0")
-				throw new InvalidDataFormatException("file does not begin with \"AFS\\0\"");
-
 			uint fileCount = reader.ReadUInt32();
 			AFSFileInfo[] fileinfos = new AFSFileInfo[fileCount];
 
@@ -89,6 +82,72 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 					f.Size = fileinfos[j].length;
 					f.ModificationTimestamp = fileinfos[j].datetime;
 					f.DataRequest += f_DataRequest;
+				}
+			}
+		}
+
+		private void ReadAFS2(IO.Reader reader, FileSystemObjectModel fsom)
+		{
+			uint unknown1 = reader.ReadUInt32();
+
+			uint fileCount = reader.ReadUInt32();
+			AFSFileInfo[] fileinfos = new AFSFileInfo[fileCount];
+
+			uint unknown2 = reader.ReadUInt32();
+			for (uint i = 0; i < fileCount; i++)
+			{
+				ushort index = reader.ReadUInt16();
+			}
+			for (uint i = 0; i < fileCount; i++)
+			{
+				fileinfos[i].offset = reader.ReadUInt32();
+				fileinfos[i].offset = fileinfos[i].offset.RoundUp(0x10); // does not affect 6 and 1 in v_etc_streamfiles.awb; idk why
+				if (i > 0)
+				{
+					fileinfos[i - 1].length = fileinfos[i].offset - fileinfos[i - 1].offset;
+				}
+			}
+
+			uint totalArchiveSize = reader.ReadUInt32();
+			fileinfos[fileinfos.Length - 1].length = totalArchiveSize - fileinfos[fileinfos.Length - 1].offset;
+
+			ushort unknown4 = reader.ReadUInt16();
+
+			for (uint i = 0; i < fileinfos.Length; i++)
+			{
+				File f = fsom.AddFile(i.ToString().PadLeft(8, '0'));
+				f.Properties.Add("fileinfo", fileinfos[i]);
+				f.DataRequest += f_DataRequest;
+				f.Size = fileinfos[i].length;
+			}
+		}
+
+		protected override void LoadInternal(ref ObjectModel objectModel)
+		{
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null)
+				throw new ObjectModelNotSupportedException();
+
+			Reader reader = Accessor.Reader;
+			string afs = reader.ReadFixedLengthString(4);
+
+			switch (afs)
+			{
+				case "AFS\0":
+				{
+					FormatVersion = AFSFormatVersion.AFS0;
+					ReadAFS0(reader, fsom);
+					break;
+				}
+				case "AFS2":
+				{
+					FormatVersion = AFSFormatVersion.AFS2;
+					ReadAFS2(reader, fsom);
+					break;
+				}
+				default:
+				{
+					throw new InvalidDataFormatException("file does not begin with \"AFS\\0\"");
 				}
 			}
 		}

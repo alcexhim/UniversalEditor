@@ -3,9 +3,10 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="AFS archive">
+				<Filter Title="CRI Middleware AFS/AWB/ACB archive">
 					<FileNameFilters>
 						<FileNameFilter>*.afs</FileNameFilter>
+						<FileNameFilter>*.awb</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>

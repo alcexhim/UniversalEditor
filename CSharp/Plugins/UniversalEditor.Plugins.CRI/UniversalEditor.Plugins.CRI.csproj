@@ -39,6 +39,7 @@
     <Compile Include="DataFormats\FileSystem\CPK\UTF\UTFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\AFS\AFSDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\AFS\AFSFileInfo.cs" />
+    <Compile Include="DataFormats\FileSystem\AFS\AFSFormatVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\" />

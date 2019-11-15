@@ -1,5 +1,5 @@
 ﻿//
-//  AFSFileInfo.cs
+//  AFSFormatVersion.cs
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -21,17 +21,9 @@
 using System;
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
-	public struct AFSFileInfo
+	public enum AFSFormatVersion
 	{
-		public string name;
-		public uint offset;
-		public DateTime datetime;
-		public uint length;
-		public uint maybeChecksum;
-
-		public override string ToString()
-		{
-			return String.Format("{0} : {1} [{2}]", name, offset, length);
-		}
+		AFS0,
+		AFS2
 	}
 }
