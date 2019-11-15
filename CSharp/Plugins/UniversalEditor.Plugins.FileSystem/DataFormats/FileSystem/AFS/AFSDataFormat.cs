@@ -82,7 +82,7 @@ namespace UniversalEditor.DataFormats.FileSystem.AFS
 					ushort minute = reader.ReadUInt16();
 					ushort second = reader.ReadUInt16();
 					fileinfos[j].datetime = new DateTime(year, month, day, hour, minute, second);
-					fileinfos[j].length2 = reader.ReadUInt32();
+					fileinfos[j].maybeChecksum = reader.ReadUInt32();
 
 					File f = fsom.AddFile(fileinfos[j].name);
 					f.Properties.Add("fileinfo", fileinfos[j]);
@@ -105,7 +105,52 @@ namespace UniversalEditor.DataFormats.FileSystem.AFS
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null)
+				throw new ObjectModelNotSupportedException();
+
+			Writer writer = Accessor.Writer;
+			writer.WriteFixedLengthString("AFS\0");
+
+			File[] files = fsom.GetAllFiles();
+
+			uint filecount = (uint)files.LongLength;
+			writer.WriteUInt32(filecount);
+
+			uint offset = 8;
+			offset += (8 * filecount); // offset + size
+			offset += 8; // tocoffset + unknown1
+
+			for (int i = 0; i < filecount; i++)
+			{
+				writer.WriteUInt32(offset);
+				writer.WriteUInt32((uint)files[i].Size);
+				offset += (uint)files[i].Size;
+			}
+
+			uint tocOffset = offset;
+			writer.WriteUInt32(tocOffset);
+			writer.WriteUInt32(0);
+
+			// now we should be at file data
+			for (int i = 0; i < filecount; i++)
+			{
+				writer.WriteBytes(files[i].GetData());
+			}
+
+			// now we should be at the TOC
+			for (int j = 0; j < filecount; j++)
+			{
+				writer.WriteFixedLengthString(files[j].Name, 32);
+
+				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Year);
+				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Month);
+				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Day);
+				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Hour);
+				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Minute);
+				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Second);
+				writer.WriteUInt32(0); // maybe checksum
+			}
 		}
 	}
 }

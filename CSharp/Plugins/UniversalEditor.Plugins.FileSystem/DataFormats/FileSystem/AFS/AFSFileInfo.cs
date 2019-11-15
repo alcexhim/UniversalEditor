@@ -27,6 +27,6 @@ namespace UniversalEditor.DataFormats.FileSystem.AFS
 		public uint offset;
 		public DateTime datetime;
 		public uint length;
-		public uint length2;
+		public uint maybeChecksum;
 	}
 }
