@@ -227,6 +227,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// <returns></returns>
 		public File AddFile(string name, byte[] fileData = null)
 		{
+			if (name == null) name = String.Empty;
 			string[] path = name.Split(mvarPathSeparators, StringSplitOptions.None);
 			Folder parent = null;
 			for (int i = 0; i < path.Length - 1; i++)
