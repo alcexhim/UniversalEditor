@@ -7,7 +7,6 @@ namespace UniversalEditor.ObjectModels.Database
 		public class DatabaseFieldCollection
 			: System.Collections.ObjectModel.Collection<DatabaseField>
 		{
-			private System.Collections.Generic.Dictionary<string, DatabaseField> fieldsByName = new System.Collections.Generic.Dictionary<string, DatabaseField>();
 			public DatabaseField Add(string Name)
 			{
 				return Add(Name, String.Empty);
@@ -26,7 +25,11 @@ namespace UniversalEditor.ObjectModels.Database
 			{
 				get
 				{
-					return fieldsByName[Name];
+					for (int i = 0; i < Count; i++)
+					{
+						if (this[i].Name.Equals(Name)) return this[i];
+					}
+					return null;
 				}
 			}
 		}
@@ -47,6 +50,11 @@ namespace UniversalEditor.ObjectModels.Database
 				clone.Value = Value;
 			}
 			return clone;
+		}
+
+		public override string ToString()
+		{
+			return String.Format("{0} = {1}", Name, Value);
 		}
 	}
 }
