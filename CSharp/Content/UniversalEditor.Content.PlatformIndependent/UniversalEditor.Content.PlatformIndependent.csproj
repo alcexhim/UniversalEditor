@@ -651,6 +651,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\SlightlyMadStudiosBFF.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\SquareSoftLGP.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\CRICPK.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\AFS.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
