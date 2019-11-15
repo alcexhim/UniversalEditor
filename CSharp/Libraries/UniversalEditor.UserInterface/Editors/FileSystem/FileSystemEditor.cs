@@ -288,7 +288,7 @@ namespace UniversalEditor.Editors.FileSystem
 					new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
 					new TreeModelRowColumn(tmTreeView.Columns[1], UserInterface.Common.FileInfo.FormatSize(f.Size)),
 					new TreeModelRowColumn(tmTreeView.Columns[2], "File"),
-					new TreeModelRowColumn(tmTreeView.Columns[3], DateTime.Now.ToString())
+					new TreeModelRowColumn(tmTreeView.Columns[3], f.ModificationTimestamp.ToString())
 				});
 			}
 			r.SetExtraData<IFileSystemObject>("item", fso);
