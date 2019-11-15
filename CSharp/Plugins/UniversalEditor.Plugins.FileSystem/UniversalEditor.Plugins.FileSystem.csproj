@@ -232,8 +232,6 @@
     <Compile Include="DataFormats\FileSystem\WinAce\ACEHeaderFlags.cs" />
     <Compile Include="DataFormats\FileSystem\SlightlyMadStudios\BFFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SlightlyMadStudios\BFFCompressionType.cs" />
-    <Compile Include="DataFormats\FileSystem\AFS\AFSDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\AFS\AFSFileInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -272,7 +270,6 @@
     <Folder Include="DataFormats\FileSystem\HA\" />
     <Folder Include="DataFormats\FileSystem\HyperArchiver\" />
     <Folder Include="DataFormats\FileSystem\SlightlyMadStudios\" />
-    <Folder Include="DataFormats\FileSystem\AFS\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

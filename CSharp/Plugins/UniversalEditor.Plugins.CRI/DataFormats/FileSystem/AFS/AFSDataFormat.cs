@@ -23,7 +23,7 @@ using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.AFS
+namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
 	public class AFSDataFormat : DataFormat
 	{
