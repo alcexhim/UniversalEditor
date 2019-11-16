@@ -845,21 +845,6 @@ namespace UniversalEditor.IO
 			return num;
 		}
 
-		/// <summary>
-		/// Aligns the <see cref="Writer" /> to the specified number of bytes. If the current
-		/// position of the <see cref="Writer" /> is not a multiple of the specified number of bytes,
-		/// the position will be increased by the amount of bytes necessary to bring it to the
-		/// aligned position.
-		/// </summary>
-		/// <param name="alignTo">The number of bytes on which to align the <see cref="Writer"/>.</param>
-		/// <param name="extraPadding">Any additional padding bytes that should be included after aligning to the specified boundary.</param>
-		public void Align(int alignTo, int extraPadding = 0)
-		{
-			long paddingCount = ((alignTo - (base.Accessor.Position % alignTo)) % alignTo);
-			paddingCount += extraPadding;
-			base.Accessor.Position += paddingCount;
-		}
-
 		public void WriteDoubleEndianInt16(short value)
 		{
 			WriteInt16(value);

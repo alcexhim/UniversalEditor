@@ -1506,21 +1506,6 @@ namespace UniversalEditor.IO
 			return buffer2;
 		}
 
-		/// <summary>
-		/// Aligns the <see cref="Reader" /> to the specified number of bytes. If the current
-		/// position of the <see cref="Reader" /> is not a multiple of the specified number of bytes,
-		/// the position will be increased by the amount of bytes necessary to bring it to the
-		/// aligned position.
-		/// </summary>
-		/// <param name="alignTo">The number of bytes on which to align the <see cref="Reader"/>.</param>
-		/// <param name="extraPadding">Any additional padding bytes that should be included after aligning to the specified boundary.</param>
-		public void Align(int alignTo, int extraPadding = 0)
-		{
-			long paddingCount = ((alignTo - (base.Accessor.Position % alignTo)) % alignTo);
-			paddingCount += extraPadding;
-			base.Accessor.Position += paddingCount;
-		}
-
 		public string PeekFixedLengthString(int count)
 		{
 			return PeekFixedLengthString(count, base.Accessor.DefaultEncoding);
