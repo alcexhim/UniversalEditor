@@ -51,12 +51,9 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 				fileinfos[i].length = reader.ReadUInt32();
 			}
 
-			uint tocOffset = 0u;
-			while (Accessor.Position < fileinfos[0].offset && tocOffset == 0)
-			{
-				tocOffset = reader.ReadUInt32();
-				uint num3 = reader.ReadUInt32();
-			}
+			uint tocOffset = reader.ReadUInt32();
+			uint tocLength = reader.ReadUInt32();
+
 			if (tocOffset == 0)
 			{
 				throw new InvalidDataFormatException("table of contents not found");
@@ -75,7 +72,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 					ushort minute = reader.ReadUInt16();
 					ushort second = reader.ReadUInt16();
 					fileinfos[j].datetime = new DateTime(year, month, day, hour, minute, second);
-					fileinfos[j].maybeChecksum = reader.ReadUInt32();
+					fileinfos[j].length2 = reader.ReadUInt32();
 
 					File f = fsom.AddFile(fileinfos[j].name);
 					f.Properties.Add("fileinfo", fileinfos[j]);
@@ -168,47 +165,97 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 			if (fsom == null)
 				throw new ObjectModelNotSupportedException();
 
-			Writer writer = Accessor.Writer;
-			writer.WriteFixedLengthString("AFS\0");
+			if ((Accessor.GetFileName()?.ToLower()?.EndsWith(".awb")).GetValueOrDefault())
+			{
+				FormatVersion = AFSFormatVersion.AFS2;
+			}
 
+			Writer writer = Accessor.Writer;
 			File[] files = fsom.GetAllFiles();
 
-			uint filecount = (uint)files.LongLength;
-			writer.WriteUInt32(filecount);
-
-			uint offset = 8;
-			offset += (8 * filecount); // offset + size
-			offset += 8; // tocoffset + unknown1
-
-			for (int i = 0; i < filecount; i++)
+			if (FormatVersion == AFSFormatVersion.AFS0)
 			{
-				writer.WriteUInt32(offset);
-				writer.WriteUInt32((uint)files[i].Size);
-				offset += (uint)files[i].Size;
+				writer.WriteFixedLengthString("AFS\0");
+
+				uint filecount = (uint)files.LongLength;
+				writer.WriteUInt32(filecount);
+
+				uint offset = 8;
+				offset += (8 * filecount); // offset + size
+				offset += 8; // tocoffset + unknown1
+
+				uint[] offsets = new uint[(filecount * 2) + 1];
+				offsets[0] = filecount;
+
+				for (int i = 0; i < filecount; i++)
+				{
+					offset += ((2048 - (offset % 2048)) % 2048); // align to 2048 byte boundary
+
+					offsets[(i * 2) + 1] = offset;
+					offsets[(i * 2) + 2] = (uint)files[i].Size;
+
+					writer.WriteUInt32(offset);
+					writer.WriteUInt32((uint)files[i].Size);
+
+					offset += (uint)files[i].Size;
+				}
+
+				offset += ((2048 - (offset % 2048)) % 2048); // align to 2048 byte boundary
+				uint tocOffset = offset;
+				uint tocLength = (uint)(48 * files.Length);
+				writer.WriteUInt32(tocOffset);
+				writer.WriteUInt32(tocLength);
+
+				// now we should be at file data
+				for (int i = 0; i < filecount; i++)
+				{
+					writer.Align(2048);
+					writer.WriteBytes(files[i].GetData());
+				}
+
+				// now we should be at the TOC
+				writer.Align(2048);
+				for (int j = 0; j < filecount; j++)
+				{
+					writer.WriteFixedLengthString(files[j].Name, 32);
+
+					writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Year);
+					writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Month);
+					writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Day);
+					writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Hour);
+					writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Minute);
+					writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Second);
+					writer.WriteUInt32((uint)offsets[j]);
+				}
+
+				writer.Align(2048);
 			}
-
-			uint tocOffset = offset;
-			writer.WriteUInt32(tocOffset);
-			writer.WriteUInt32(0);
-
-			// now we should be at file data
-			for (int i = 0; i < filecount; i++)
+			else if (FormatVersion == AFSFormatVersion.AFS2)
 			{
-				writer.WriteBytes(files[i].GetData());
-			}
+				writer.WriteFixedLengthString("AFS2");
 
-			// now we should be at the TOC
-			for (int j = 0; j < filecount; j++)
-			{
-				writer.WriteFixedLengthString(files[j].Name, 32);
+				writer.WriteUInt32(0); //unknown1
+				writer.WriteUInt32((uint)files.Length);
+				writer.WriteUInt32(32); // unknown2
+				for (uint i = 0; i < files.Length; i++)
+				{
+					writer.WriteUInt16((ushort)i);
+				}
 
-				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Year);
-				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Month);
-				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Day);
-				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Hour);
-				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Minute);
-				writer.WriteUInt16((ushort)files[j].ModificationTimestamp.Second);
-				writer.WriteUInt32(0); // maybe checksum
+				uint offset = (uint)(20 + (files.Length * 6));
+				for (uint i = 0; i < files.Length; i++)
+				{
+					writer.WriteUInt32(offset);
+					offset += (uint) files[i].Size;
+				}
+
+				writer.WriteUInt32(offset); // total archive size
+
+				for (uint i = 0; i < files.Length; i++)
+				{
+					writer.Align(16);
+					writer.WriteBytes(files[i].GetData());
+				}
 			}
 		}
 	}

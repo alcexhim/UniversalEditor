@@ -27,7 +27,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 		public uint offset;
 		public DateTime datetime;
 		public uint length;
-		public uint maybeChecksum;
+		public uint length2;
 
 		public override string ToString()
 		{
