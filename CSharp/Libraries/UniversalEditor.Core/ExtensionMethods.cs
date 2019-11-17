@@ -32,7 +32,14 @@ namespace UniversalEditor
 			long offset = 0;
 			for (int i = 0; i < index; i++)
 			{
-				offset += list[i].Length + additionalPadding;
+				if (list[i] == null)
+				{
+					offset += additionalPadding;
+				}
+				else
+				{
+					offset += list[i].Length + additionalPadding;
+				}
 			}
 			return offset;
 		}
