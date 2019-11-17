@@ -39,6 +39,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 			cmdOK.Click += cmdOK_Click;
 			Buttons.Add(cmdOK);
 			Buttons.Add(new Button(ButtonStockType.Cancel));
+
+			Buttons[0].ResponseValue = (int)DialogResult.OK;
+			Buttons[1].ResponseValue = (int)DialogResult.Cancel;
 		}
 
 		public event EventHandler AboutButtonClicked;
