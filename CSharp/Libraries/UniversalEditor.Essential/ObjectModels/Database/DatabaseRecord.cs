@@ -19,6 +19,14 @@ namespace UniversalEditor.ObjectModels.Database
 			}
 		}
 
+		public DatabaseRecord(params DatabaseField[] fields)
+		{
+			for (int i = 0; i < fields.Length; i++)
+			{
+				Fields.Add(fields[i]);
+			}
+		}
+
 		private DatabaseField.DatabaseFieldCollection mvarFields = new DatabaseField.DatabaseFieldCollection ();
 		public DatabaseField.DatabaseFieldCollection Fields
 		{

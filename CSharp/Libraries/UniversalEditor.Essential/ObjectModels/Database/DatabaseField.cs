@@ -34,6 +34,12 @@ namespace UniversalEditor.ObjectModels.Database
 			}
 		}
 
+		public DatabaseField(string name = "", object value = null)
+		{
+			Name = name;
+			Value = value;
+		}
+
 		public string Name { get; set; } = String.Empty;
 		public object Value { get; set; } = null;
 
