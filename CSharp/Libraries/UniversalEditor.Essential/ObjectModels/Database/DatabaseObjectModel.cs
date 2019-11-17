@@ -23,6 +23,18 @@ namespace UniversalEditor.ObjectModels.Database
 {
 	public class DatabaseObjectModel : ObjectModel
 	{
+		private static ObjectModelReference _omr = null;
+		protected override ObjectModelReference MakeReferenceInternal()
+		{
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Title = "Database";
+				_omr.Path = new string[] { "General", "Database" };
+			}
+			return _omr;
+		}
+
 		public DatabaseTable.DatabaseTableCollection Tables { get; } = new DatabaseTable.DatabaseTableCollection();
 
 		public override void Clear()
