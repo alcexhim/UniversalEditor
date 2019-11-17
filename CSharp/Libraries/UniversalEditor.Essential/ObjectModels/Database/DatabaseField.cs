@@ -7,15 +7,12 @@ namespace UniversalEditor.ObjectModels.Database
 		public class DatabaseFieldCollection
 			: System.Collections.ObjectModel.Collection<DatabaseField>
 		{
-			public DatabaseField Add(string Name)
-			{
-				return Add(Name, String.Empty);
-			}
-			public DatabaseField Add(string Name, object Value)
+			public DatabaseField Add(string Name, object Value = null, Type dataType = null)
 			{
 				DatabaseField df = new DatabaseField();
 				df.Name = Name;
 				df.Value = Value;
+				df.DataType = dataType;
 
 				base.Add(df);
 				return df;
@@ -42,6 +39,7 @@ namespace UniversalEditor.ObjectModels.Database
 
 		public string Name { get; set; } = String.Empty;
 		public object Value { get; set; } = null;
+		public Type DataType { get; set; } = null;
 
 		public object Clone()
 		{
