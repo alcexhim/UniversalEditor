@@ -1,5 +1,5 @@
 ﻿//
-//  UTFDataFormat.cs
+//  UTFDataFormat.cs - COMPLETED - Implementation of CRI Middleware UTF table (used in CPK)
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -101,10 +101,16 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			br.Accessor.SavePosition();
 			br.Seek(info.stringTableOffset + 8, IO.SeekOrigin.Begin);
 
+			while (br.PeekByte() == 0)
+			{
+				br.ReadByte();
+			}
+
 			byte[] stringTableData = br.ReadBytes(info.stringTableSize);
 			MemoryAccessor maStringTable = new MemoryAccessor(stringTableData);
 
 			maStringTable.Reader.Seek(info.tableNameStringOffset, IO.SeekOrigin.Begin);
+			dt.Name = maStringTable.Reader.ReadNullTerminatedString();
 			br.Accessor.LoadPosition();
 
 			for (int i = 0; i < info.tableColumns; i++)
@@ -175,8 +181,6 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 
 				dt.Fields.Add("Field" + i.ToString(), constantValue, DataTypeForDataType(dataTypes[i]));
 			}
-
-			dt.Name = maStringTable.Reader.ReadNullTerminatedString();
 
 			for (int i = 0; i < info.tableColumns; i++)
 			{
