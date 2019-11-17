@@ -836,6 +836,10 @@ namespace UniversalEditor.UserInterface
 				using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog ())
 				{
 					dlg.Mode = DocumentPropertiesDialogMode.Save;
+					dlg.ObjectModel = GetCurrentEditorPage().Document.ObjectModel;
+					dlg.DataFormat = GetCurrentEditorPage().Document.DataFormat;
+					dlg.Accessor = GetCurrentEditorPage().Document.Accessor;
+
 					if (dlg.ShowDialog () == DialogResult.OK)
 					{
 						DataFormat df = dlg.DataFormat;

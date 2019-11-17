@@ -66,6 +66,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 					break;
 				}
 			}
+
+			this.txtObjectModel.Text = ObjectModel?.MakeReference().Title;
+			this.txtDataFormat.Text = DataFormat?.MakeReference().Title;
+			this.txtAccessor.Text = Accessor?.GetFileName();
 		}
 		
 		public DocumentPropertiesDialogMode Mode { get; set; } = DocumentPropertiesDialogMode.Open;
