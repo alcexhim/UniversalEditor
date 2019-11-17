@@ -397,61 +397,44 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 
 			int tableSize = 32; // size of entire file
 			tableSize += (5 * dt.Fields.Count);
-			short rowWidth = 0x007e;
+
 			tableSize += (dt.Name.Length + 1);
 			tableSize += 7; // "<NULL>\0".Length
-			for (int i = 0; i < dt.Fields.Count; i++)
-			{
-				tableSize += (dt.Fields[i].Name.Length + 1);
-			}
 
 			int rowsOffset = 24 + (5 * dt.Fields.Count);
 			int stringTableOffset = rowsOffset;
+			short rowWidth = 0;
+			for (int i = 0; i < dt.Fields.Count; i++)
+			{
+				tableSize += (dt.Fields[i].Name.Length + 1);
+				if (columnStorageTypes[i] == UTFColumnStorageType.Constant)
+				{
+					tableSize += GetLengthForDataType(columnDataTypes[i]);
+					stringTableOffset += GetLengthForDataType(columnDataTypes[i]);
+					rowsOffset += GetLengthForDataType(columnDataTypes[i]);
+
+					if (columnDataTypes[i] == UTFColumnDataType.String)
+					{
+						tableSize += ((string)dt.Fields[i].Value).Length + 1;
+					}
+				}
+				else if (columnStorageTypes[i] == UTFColumnStorageType.PerRow)
+				{
+					rowWidth += GetLengthForDataType(columnDataTypes[i]);
+				}
+			}
+
 			for (int i = 0; i < dt.Records.Count; i++)
 			{
 				for (int j = 0; j < dt.Records[i].Fields.Count; j++)
 				{
 					if (columnStorageTypes[j] == UTFColumnStorageType.PerRow)
 					{
-						switch (columnDataTypes[j])
+						tableSize += GetLengthForDataType(columnDataTypes[j]);
+						stringTableOffset += GetLengthForDataType(columnDataTypes[j]);
+						if (columnDataTypes[j] == UTFColumnDataType.String)
 						{
-							case UTFColumnDataType.String:
-							{
-								tableSize += 4;
-								tableSize += ((string)dt.Records[i].Fields[j].Value).Length + 1;
-								stringTableOffset += 4;
-								break;
-							}
-							case UTFColumnDataType.Data:
-							case UTFColumnDataType.Long:
-							case UTFColumnDataType.Long2:
-							{
-								tableSize += 8; // sizeof(long)
-								stringTableOffset += 8;
-								break;
-							}
-							case UTFColumnDataType.Byte:
-							case UTFColumnDataType.Byte2:
-							{
-								tableSize += 1; // sizeof(byte)
-								stringTableOffset += 1;
-								break;
-							}
-							case UTFColumnDataType.Float:
-							case UTFColumnDataType.Int:
-							case UTFColumnDataType.Int2:
-							{
-								tableSize += 4; // sizeof(int)
-								stringTableOffset += 4;
-								break;
-							}
-							case UTFColumnDataType.Short:
-							case UTFColumnDataType.Short2:
-							{
-								tableSize += 2; // sizeof(short)
-								stringTableOffset += 2;
-								break;
-							}
+							tableSize += ((string)dt.Records[i].Fields[j].Value).Length + 1;
 						}
 					}
 				}
@@ -469,7 +452,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			bw.WriteInt16(rowWidth); // 007e
 			bw.WriteInt32(dt.Records.Count); // 00000001
 
-			int columnNameOffset = 8 + dt.Name.Length; // add space for "<NULL>\0" string and dt.Name + 1
+			int columnNameOffset = (int)8 + (int)dt.Name.Length; // add space for "<NULL>\0" string and dt.Name + 1
 
 			List<string> stringTable = new List<string>();
 			stringTable.Add("<NULL>");
@@ -484,6 +467,15 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 
 				columnNameOffset += dt.Fields[i].Name.Length + 1;
 				stringTable.Add(dt.Fields[i].Name);
+
+				if (columnStorageTypes[i] == UTFColumnStorageType.Constant)
+				{
+					WriteValue(bw, dt.Fields[i].Value, columnDataTypes[i], stringTable);
+					if (columnDataTypes[i] == UTFColumnDataType.String)
+					{
+						columnNameOffset += ((string)dt.Fields[i].Value).Length + 1; 
+					}
+				}
 			}
 
 			for (int i = 0; i < dt.Records.Count; i++)
@@ -492,52 +484,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				{
 					if (columnStorageTypes[j] == UTFColumnStorageType.PerRow)
 					{
-						switch (columnDataTypes[j])
-						{
-							case UTFColumnDataType.String:
-							{
-								stringTable.Add((string)dt.Records[i].Fields[j].Value);
-								bw.WriteUInt32((uint)stringTable.GetItemOffset(stringTable.Count - 1, 1));
-								break;
-							}
-							case UTFColumnDataType.Data:
-							{
-								uint varDataOffset = 0;
-								uint varDataSize = 0;
-								bw.WriteUInt32(varDataOffset);
-								bw.WriteUInt32(varDataSize);
-								break;
-							}
-							case UTFColumnDataType.Long:
-							case UTFColumnDataType.Long2:
-							{
-								bw.WriteUInt64((ulong)dt.Records[i].Fields[j].Value);
-								break;
-							}
-							case UTFColumnDataType.Int:
-							case UTFColumnDataType.Int2:
-							{
-								bw.WriteUInt32((uint)dt.Records[i].Fields[j].Value);
-								break;
-							}
-							case UTFColumnDataType.Short:
-							case UTFColumnDataType.Short2:
-							{
-								bw.WriteUInt16((ushort)dt.Records[i].Fields[j].Value);
-								break;
-							}
-							case UTFColumnDataType.Float:
-							{
-								bw.WriteSingle((float)dt.Records[i].Fields[j].Value);
-								break;
-							}
-							case UTFColumnDataType.Byte:
-							case UTFColumnDataType.Byte2:
-							{
-								bw.WriteByte((byte)dt.Records[i].Fields[j].Value);
-								break;
-							}
-						}
+						WriteValue(bw, dt.Records[i].Fields[j].Value, columnDataTypes[j], stringTable);
 					}
 				}
 			}
@@ -548,6 +495,98 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			}
 
 			bw.Align(8);
+		}
+
+		private short GetLengthForDataType(UTFColumnDataType columnDataType)
+		{
+			switch (columnDataType)
+			{
+				case UTFColumnDataType.String:
+				{
+					return 4;
+				}
+				case UTFColumnDataType.Data:
+				case UTFColumnDataType.Long:
+				case UTFColumnDataType.Long2:
+				{
+					return 8;
+				}
+				case UTFColumnDataType.Byte:
+				case UTFColumnDataType.Byte2:
+				{
+					return 1;
+				}
+				case UTFColumnDataType.Float:
+				case UTFColumnDataType.Int:
+				case UTFColumnDataType.Int2:
+				{
+					return 4;
+				}
+				case UTFColumnDataType.Short:
+				case UTFColumnDataType.Short2:
+				{
+					return 2;
+				}
+			}
+			throw new NotImplementedException();
+		}
+
+		private void WriteValue(Writer bw, object value, UTFColumnDataType columnDataType, List<string> stringTable)
+		{
+			switch (columnDataType)
+			{
+				case UTFColumnDataType.String:
+				{
+					string str = (string)value;
+					if (stringTable.Contains(str))
+					{
+						bw.WriteUInt32((uint)stringTable.GetItemOffset(stringTable.IndexOf(str), 1));
+					}
+					else
+					{
+						stringTable.Add(str);
+						bw.WriteUInt32((uint)stringTable.GetItemOffset(stringTable.Count - 1, 1));
+					}
+					break;
+				}
+				case UTFColumnDataType.Data:
+				{
+					uint varDataOffset = 0;
+					uint varDataSize = 0;
+					bw.WriteUInt32(varDataOffset);
+					bw.WriteUInt32(varDataSize);
+					break;
+				}
+				case UTFColumnDataType.Long:
+				case UTFColumnDataType.Long2:
+				{
+					bw.WriteUInt64((ulong)value);
+					break;
+				}
+				case UTFColumnDataType.Int:
+				case UTFColumnDataType.Int2:
+				{
+					bw.WriteUInt32((uint)value);
+					break;
+				}
+				case UTFColumnDataType.Short:
+				case UTFColumnDataType.Short2:
+				{
+					bw.WriteUInt16((ushort)value);
+					break;
+				}
+				case UTFColumnDataType.Float:
+				{
+					bw.WriteSingle((float)value);
+					break;
+				}
+				case UTFColumnDataType.Byte:
+				case UTFColumnDataType.Byte2:
+				{
+					bw.WriteByte((byte)value);
+					break;
+				}
+			}
 		}
 	}
 }
