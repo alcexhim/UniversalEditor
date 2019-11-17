@@ -27,6 +27,16 @@ namespace UniversalEditor
 {
 	public static class ExtensionMethods
 	{
+		public static long GetItemOffset(this List<string> list, int index, int additionalPadding = 0)
+		{
+			long offset = 0;
+			for (int i = 0; i < index; i++)
+			{
+				offset += list[i].Length + additionalPadding;
+			}
+			return offset;
+		}
+
 		public static bool get_EndOfStream(this System.IO.Stream stream)
 		{
 			return (stream.Position == stream.Length);
