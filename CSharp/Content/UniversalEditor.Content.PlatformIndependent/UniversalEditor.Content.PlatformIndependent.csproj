@@ -652,6 +652,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\SquareSoftLGP.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\CRI\AFS.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\CRI\CPK.uexml" />
+    <Content Include="Extensions\GameDeveloper\Associations\Database\CRI\UTF.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -675,6 +676,8 @@
     <Folder Include="Panels\SolutionExplorer\" />
     <Folder Include="Panels\SolutionExplorer\Languages\" />
     <Folder Include="Extensions\GameDeveloper\Associations\FileSystem\CRI\" />
+    <Folder Include="Extensions\GameDeveloper\Associations\Database\" />
+    <Folder Include="Extensions\GameDeveloper\Associations\Database\CRI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

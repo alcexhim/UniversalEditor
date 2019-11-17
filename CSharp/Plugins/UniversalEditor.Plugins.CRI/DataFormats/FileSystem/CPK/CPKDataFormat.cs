@@ -21,6 +21,8 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Database;
 using UniversalEditor.ObjectModels.FileSystem;
 
+using UniversalEditor.Plugins.CRI.DataFormats.Database.UTF;
+
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 {
 	public class CPKDataFormat : DataFormat
@@ -65,7 +67,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				ma.Reader.Seek(-4, IO.SeekOrigin.Current);
 			}
 
-			UTF.UTFDataFormat utf_df = new UTF.UTFDataFormat();
+			UTFDataFormat utf_df = new UTFDataFormat();
 			DatabaseObjectModel utf_om = new DatabaseObjectModel();
 			Document.Load(utf_om, utf_df, ma);
 
@@ -152,6 +154,89 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			}
 
 			e.Data = decompressedData;
+		}
+
+		private DatabaseTable BuildHeaderUTF(FileSystemObjectModel fsom)
+		{
+			File[] files = fsom.GetAllFiles();
+
+			DatabaseTable dt = new DatabaseTable();
+			dt.Fields.Add("UpdateDateTime");
+			dt.Fields.Add("FileSize");
+			dt.Fields.Add("ContentOffset");
+			dt.Fields.Add("ContentSize");
+			dt.Fields.Add("TocOffset");
+			dt.Fields.Add("TocSize");
+			dt.Fields.Add("TocCrc");
+			dt.Fields.Add("EtocOffset");
+			dt.Fields.Add("EtocSize");
+			dt.Fields.Add("ItocOffset");
+			dt.Fields.Add("ItocSize");
+			dt.Fields.Add("ItocCrc");
+			dt.Fields.Add("GtocOffset");
+			dt.Fields.Add("GtocSize");
+			dt.Fields.Add("GtocCrc");
+			dt.Fields.Add("EnabledPackedSize");
+			dt.Fields.Add("EnabledDataSize");
+			dt.Fields.Add("TotalDataSize");
+			dt.Fields.Add("Tocs");
+			dt.Fields.Add("Files");
+			dt.Fields.Add("Groups");
+			dt.Fields.Add("Attrs");
+			dt.Fields.Add("TotalFiles");
+			dt.Fields.Add("Directories");
+			dt.Fields.Add("Updates");
+			dt.Fields.Add("Version");
+			dt.Fields.Add("Revision");
+			dt.Fields.Add("Align");
+			dt.Fields.Add("Sorted");
+			dt.Fields.Add("EID");
+			dt.Fields.Add("CpkMode");
+			dt.Fields.Add("Tvers");
+			dt.Fields.Add("Comment");
+			dt.Fields.Add("Codec");
+			dt.Fields.Add("DpkItoc");
+
+			dt.Records.Add(new DatabaseRecord(new DatabaseField[]
+			{
+				new DatabaseField("UpdateDateTime", (ulong)1),
+				new DatabaseField("FileSize", null),
+				new DatabaseField("ContentOffset", (ulong)153600),
+				new DatabaseField("ContentSize", (ulong)421693440),
+				new DatabaseField("TocOffset", (ulong)2048),
+				new DatabaseField("TocSize", (ulong)117896),
+				new DatabaseField("TocCrc", null),
+				new DatabaseField("EtocOffset", (ulong)421847040),
+				new DatabaseField("EtocSize", (ulong)21768),
+				new DatabaseField("ItocOffset", (ulong)131072),
+				new DatabaseField("ItocSize", (ulong)21744),
+				new DatabaseField("ItocCrc", null),
+				new DatabaseField("GtocOffset", null),
+				new DatabaseField("GtocSize", null),
+				new DatabaseField("GtocCrc", null),
+				new DatabaseField("EnabledPackedSize", (ulong)837335552),
+				new DatabaseField("EnabledDataSize", (ulong)837335552),
+				new DatabaseField("TotalDataSize", null),
+				new DatabaseField("Tocs", null),
+				new DatabaseField("Files", (uint)files.Length),
+				new DatabaseField("Groups", (uint)0),
+				new DatabaseField("Attrs", (uint)0),
+				new DatabaseField("TotalFiles", null),
+				new DatabaseField("Directories", null),
+				new DatabaseField("Updates", null),
+				new DatabaseField("Version", (ushort)7),
+				new DatabaseField("Revision", (ushort)0),
+				new DatabaseField("Align", (ushort)2048),
+				new DatabaseField("Sorted", (ushort)1),
+				new DatabaseField("EID", (ushort)1),
+				new DatabaseField("CpkMode", (uint)2),
+				new DatabaseField("Tvers", "CPKMC2.14.00, DLL2.74.00"),
+				new DatabaseField("Comment", null),
+				new DatabaseField("Codec", (uint)0),
+				new DatabaseField("DpkItoc", (uint)0)
+			}));
+
+			return dt;
 		}
 
 

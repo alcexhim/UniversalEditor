@@ -1,5 +1,5 @@
 ﻿//
-//  CPKColumnStorageType.cs
+//  CPKColumnDataType.cs
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -19,13 +19,21 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
+namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 {
-	enum CPKColumnStorageType : byte
+	public enum UTFColumnDataType : byte
 	{
-		Mask = 0xf0,
-		PerRow = 0x50,
-		Constant = 0x30,
-		Zero = 0x10
+		Mask = 0x0f,
+		Data = 0x0b,
+		String = 0x0a,
+		Float = 0x08,
+		Long2 = 0x07,
+		Long = 0x06,
+		Int2 = 0x05,
+		Int = 0x04,
+		Short2 = 0x03,
+		Short = 0x02,
+		Byte2 = 0x01,
+		Byte = 0x00
 	}
 }
