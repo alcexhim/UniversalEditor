@@ -1,5 +1,5 @@
 ﻿//
-//  AFSDataFormat.cs
+//  AFSDataFormat.cs - COMPLETED - implementation of CRI Middleware AFS archive
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
