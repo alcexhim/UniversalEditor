@@ -488,7 +488,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				{
 					if (columnStorageTypes[j] == UTFColumnStorageType.PerRow)
 					{
-						WriteValue(bw, dt.Records[i].Fields[j].Value, columnDataTypes[j], stringTable);
+						WriteValue(bw, dt.Records[i].Fields[j].Value, stringTable);
 					}
 				}
 			}
@@ -533,6 +533,38 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				}
 			}
 			throw new NotImplementedException();
+		}
+
+		private void WriteValue(Writer bw, object value, List<string> stringTable)
+		{
+			if (value is string)
+			{
+				WriteValue(bw, value, UTFColumnDataType.String, stringTable);
+			}
+			else if (value is byte[])
+			{
+				WriteValue(bw, value, UTFColumnDataType.Data, stringTable);
+			}
+			else if (value is long || value is ulong)
+			{
+				WriteValue(bw, value, UTFColumnDataType.Long, stringTable);
+			}
+			else if (value is int || value is uint)
+			{
+				WriteValue(bw, value, UTFColumnDataType.Int, stringTable);
+			}
+			else if (value is short || value is short)
+			{
+				WriteValue(bw, value, UTFColumnDataType.Short, stringTable);
+			}
+			else if (value is byte || value is byte)
+			{
+				WriteValue(bw, value, UTFColumnDataType.Byte, stringTable);
+			}
+			else if (value is float)
+			{
+				WriteValue(bw, value, UTFColumnDataType.Float, stringTable);
+			}
 		}
 
 		private void WriteValue(Writer bw, object value, UTFColumnDataType columnDataType, List<string> stringTable)
