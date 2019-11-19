@@ -179,7 +179,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 					}
 				}
 
-				dt.Fields.Add("Field" + i.ToString(), constantValue, DataTypeForDataType(dataTypes[i]));
+				dt.Fields.Add("Field" + i.ToString(), constantValue, SystemDataTypeForUTFDataType(dataTypes[i]));
 			}
 
 			for (int i = 0; i < info.tableColumns; i++)
@@ -296,7 +296,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			utf.Tables.Add(dt);
 		}
 
-		private Type DataTypeForDataType(UTFColumnDataType dataType)
+		private Type SystemDataTypeForUTFDataType(UTFColumnDataType dataType)
 		{
 			switch (dataType)
 			{
@@ -335,6 +335,17 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			}
 			return null;
 		}
+		private UTFColumnDataType UTFDataTypeForSystemDataType(Type dataType)
+		{
+			if (dataType == typeof(byte)) return UTFColumnDataType.Byte;
+			else if (dataType == typeof(byte[])) return UTFColumnDataType.Data;
+			else if (dataType == typeof(float)) return UTFColumnDataType.Float;
+			else if (dataType == typeof(int)) return UTFColumnDataType.Int;
+			else if (dataType == typeof(long)) return UTFColumnDataType.Long;
+			else if (dataType == typeof(short)) return UTFColumnDataType.Short;
+			else if (dataType == typeof(string)) return UTFColumnDataType.String;
+			return UTFColumnDataType.Mask;
+		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
@@ -355,34 +366,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			for (int i = 0; i < dt.Fields.Count; i++)
 			{
 				columnStorageTypes[i] = UTFColumnStorageType.Zero;
-				if (dt.Fields[i].DataType == typeof(bool))
-				{
-					columnDataTypes[i] = UTFColumnDataType.Byte;
-				}
-				else if (dt.Fields[i].DataType == typeof(byte[]))
-				{
-					columnDataTypes[i] = UTFColumnDataType.Data;
-				}
-				else if (dt.Fields[i].DataType == typeof(float))
-				{
-					columnDataTypes[i] = UTFColumnDataType.Float;
-				}
-				else if (dt.Fields[i].DataType == typeof(int))
-				{
-					columnDataTypes[i] = UTFColumnDataType.Int;
-				}
-				else if (dt.Fields[i].DataType == typeof(long))
-				{
-					columnDataTypes[i] = UTFColumnDataType.Long;
-				}
-				else if (dt.Fields[i].DataType == typeof(short))
-				{
-					columnDataTypes[i] = UTFColumnDataType.Short;
-				}
-				else if (dt.Fields[i].DataType == typeof(string))
-				{
-					columnDataTypes[i] = UTFColumnDataType.String;
-				}
+				columnDataTypes[i] = UTFDataTypeForSystemDataType(dt.Fields[i].DataType);
 
 				if (dt.Fields[i].Value != null)
 				{
