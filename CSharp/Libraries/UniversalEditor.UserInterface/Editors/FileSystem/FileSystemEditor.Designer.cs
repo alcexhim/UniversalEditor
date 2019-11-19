@@ -47,6 +47,7 @@ namespace UniversalEditor.Editors.FileSystem
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingFolder", FileAddExistingFolder_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_FilesFromFolder", FileAddItemsFromFolder_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_New_Folder", FileNewFolder_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_NewFolder", FileNewFolder_Click);
 			// Application.AttachCommandEventHandler("EditDelete", ContextMenuDelete_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Rename", ContextMenuRename_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_CopyTo", ContextMenuCopyTo_Click);
