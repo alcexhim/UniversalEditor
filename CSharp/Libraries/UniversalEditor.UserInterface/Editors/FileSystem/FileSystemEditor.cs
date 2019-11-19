@@ -123,7 +123,8 @@ namespace UniversalEditor.Editors.FileSystem
 
 		private Folder UIAddEmptyFolder(IFileSystemContainer fsom, string fileTitle)
 		{
-			Folder f = fsom.Folders.Add(fileTitle);
+			Folder f = new Folder();
+			f.Name = fileTitle;
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
 				new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
@@ -133,7 +134,20 @@ namespace UniversalEditor.Editors.FileSystem
 			});
 			row.SetExtraData<IFileSystemObject>("item", f);
 
-			tmTreeView.Rows.Add(row);
+			if (tv.SelectedRows.Count > 0 && tv.LastHitTest.Row != null)
+			{
+				for (int i = 0; i < tv.SelectedRows.Count; i++)
+				{
+					IFileSystemObject item = tv.SelectedRows[i].GetExtraData<IFileSystemObject>("item");
+					AddFolderToItem(f, item);
+					tv.SelectedRows[i].Rows.Add(row);
+				}
+			}
+			else
+			{
+				AddFolderToItem(f, null);
+				tmTreeView.Rows.Add(row);
+			}
 			return f;
 		}
 		private File UIAddExistingFile(IFileSystemContainer fsom, string fileTitle, byte[] data)
@@ -170,10 +184,6 @@ namespace UniversalEditor.Editors.FileSystem
 
 		private void FileAddItemsFromFolder_Click(object sender, EventArgs e)
 		{
-			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
-			if (fsom == null)
-				return;
-
 			FileDialog fd = new FileDialog();
 			fd.Mode = FileDialogMode.SelectFolder;
 			if (fd.ShowDialog() == DialogResult.OK)
@@ -193,6 +203,29 @@ namespace UniversalEditor.Editors.FileSystem
 				}
 			}
 		}
+
+		private void AddFolderToItem(Folder f, IFileSystemObject item)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (fsom == null)
+				return;
+
+			if (item != null)
+			{
+				if (item is File)
+				{
+				}
+				else if (item is Folder)
+				{
+					(item as Folder).Folders.Add(f);
+				}
+			}
+			else
+			{
+				fsom.Folders.Add(f);
+			}
+		}
+
 		private void FileAddExistingFolder_Click(object sender, EventArgs e)
 		{
 			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
@@ -205,6 +238,7 @@ namespace UniversalEditor.Editors.FileSystem
 			{
 				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
 				RecursiveAddFolder(f);
+				AddFolderToItem(f, null);
 			}
 		}
 
@@ -341,7 +375,7 @@ namespace UniversalEditor.Editors.FileSystem
 		public override void UpdateSelections()
 		{
 			Selections.Clear();
-			for (int i = 0;  i < tv.SelectedRows.Count; i++)
+			for (int i = 0; i < tv.SelectedRows.Count; i++)
 			{
 				TreeModelRow row = tv.SelectedRows[i];
 				if (row == null) continue;
