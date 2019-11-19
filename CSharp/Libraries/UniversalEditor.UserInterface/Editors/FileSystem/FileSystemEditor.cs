@@ -559,7 +559,14 @@ namespace UniversalEditor.Editors.FileSystem
 
 			if (row != null)
 			{
-				tv.ContextMenuCommandID = "FileSystemContextMenu_Selected";
+				if (row.GetExtraData<IFileSystemObject>("item") is Folder)
+				{
+					tv.ContextMenuCommandID = "FileSystemContextMenu_Selected_Folder";
+				}
+				else
+				{
+					tv.ContextMenuCommandID = "FileSystemContextMenu_Selected_File";
+				}
 			}
 			else
 			{

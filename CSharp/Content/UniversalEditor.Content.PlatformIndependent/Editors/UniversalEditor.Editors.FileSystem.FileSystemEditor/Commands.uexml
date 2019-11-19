@@ -84,7 +84,7 @@
 						<CommandReference CommandID="FileProperties" />
 					</Items>
 				</Command>
-				<Command ID="FileSystemContextMenu_Selected">
+				<Command ID="FileSystemContextMenu_Selected_File">
 					<Items>
 						<CommandReference CommandID="FileSystemContextMenu_Open" />
 						<Separator />
@@ -92,6 +92,30 @@
 						<CommandReference CommandID="FileSystemContextMenu_OpenNewWindow" />
 						<Separator />
 						<CommandReference CommandID="FileSystemContextMenu_SendTo" />
+						<Separator />
+						<CommandReference CommandID="EditCut" />
+						<CommandReference CommandID="EditCopy" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_MoveTo" />
+						<CommandReference CommandID="FileSystemContextMenu_CopyTo" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_CreateShortcut" />
+						<CommandReference CommandID="EditDelete" />
+						<CommandReference CommandID="FileSystemContextMenu_Rename" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+				<Command ID="FileSystemContextMenu_Selected_Folder">
+					<Items>
+						<CommandReference CommandID="FileSystemContextMenu_Open" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_OpenNewTab" />
+						<CommandReference CommandID="FileSystemContextMenu_OpenNewWindow" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_SendTo" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_Add" />
 						<Separator />
 						<CommandReference CommandID="EditCut" />
 						<CommandReference CommandID="EditCopy" />
