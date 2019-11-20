@@ -26,6 +26,10 @@ namespace UniversalEditor.UserInterface
 {
 	public static class ExtensionMethods
 	{
+		public static void AddFileNameFilterFromAssociations(this FileDialog dialog, string title, Association association)
+		{
+			AddFileNameFilterFromAssociations(dialog, title, new Association[] { association });
+		}
 		public static void AddFileNameFilterFromAssociations(this FileDialog dialog, string title, Association[] associations)
 		{
 			StringBuilder sb = new StringBuilder();
