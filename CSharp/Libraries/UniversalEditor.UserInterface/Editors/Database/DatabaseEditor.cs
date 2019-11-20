@@ -78,7 +78,7 @@ namespace UniversalEditor.Editors.Database
 				foreach (DatabaseField field in table.Fields)
 				{
 					TreeModelRow rowColumn = new TreeModelRow();
-					rowColumn.RowColumns.Add(new TreeModelRowColumn(tmDatabase.Columns[0], String.Format("{0} ({1})", field.Name, field.Value == null ? String.Empty : field.Value.GetType().Name)));
+					rowColumn.RowColumns.Add(new TreeModelRowColumn(tmDatabase.Columns[0], String.Format("{0} ({1}, default {2})", field.Name, field.Value == null ? (field.DataType != null ? field.DataType.Name : String.Empty) : field.Value.GetType().Name, field.Value == null ? "NULL" : field.Value.ToString())));
 					rowColumns.Rows.Add(rowColumn);
 				}
 				rowTable.Rows.Add(rowColumns);
