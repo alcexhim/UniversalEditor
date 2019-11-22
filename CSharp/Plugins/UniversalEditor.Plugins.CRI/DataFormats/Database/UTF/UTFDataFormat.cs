@@ -338,11 +338,15 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 		private UTFColumnDataType UTFDataTypeForSystemDataType(Type dataType)
 		{
 			if (dataType == typeof(byte)) return UTFColumnDataType.Byte;
+			else if (dataType == typeof(sbyte)) return UTFColumnDataType.Byte;
 			else if (dataType == typeof(byte[])) return UTFColumnDataType.Data;
 			else if (dataType == typeof(float)) return UTFColumnDataType.Float;
 			else if (dataType == typeof(int)) return UTFColumnDataType.Int;
+			else if (dataType == typeof(uint)) return UTFColumnDataType.Int;
 			else if (dataType == typeof(long)) return UTFColumnDataType.Long;
+			else if (dataType == typeof(ulong)) return UTFColumnDataType.Long;
 			else if (dataType == typeof(short)) return UTFColumnDataType.Short;
+			else if (dataType == typeof(ushort)) return UTFColumnDataType.Short;
 			else if (dataType == typeof(string)) return UTFColumnDataType.String;
 			return UTFColumnDataType.Mask;
 		}
