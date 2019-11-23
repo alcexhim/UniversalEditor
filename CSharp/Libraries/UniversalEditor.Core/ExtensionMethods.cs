@@ -421,6 +421,20 @@ namespace UniversalEditor
 			}
 			return result;
 		}
+		[CLSCompliant(false)]
+		public static ulong RoundUp(this ulong number, int multiple)
+		{
+			ulong result;
+			if ((ulong)number % (ulong)((long)multiple) == 0uL)
+			{
+				result = number;
+			}
+			else
+			{
+				result = (ulong)((ulong)number + (ulong)((long)multiple - (long)((ulong)number % (ulong)((long)multiple))));
+			}
+			return result;
+		}
 		public static int RoundUp(this int number, int multiple)
 		{
 			int result;
