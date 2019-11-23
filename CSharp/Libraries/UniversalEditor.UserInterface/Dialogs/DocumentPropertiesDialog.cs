@@ -140,12 +140,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 			{
 				if (Accessor != null)
 				{
-					string filename = (Accessor as FileAccessor).FileName;
+					string filename = Accessor.GetFileName();
 					if (!System.IO.File.Exists(filename))
 					{
 						if (mvarInitialAccesor != null)
 						{
-							filename = (mvarInitialAccesor as FileAccessor).FileName;
+							filename = mvarInitialAccesor.GetFileName();
 						}
 					}
 				}
