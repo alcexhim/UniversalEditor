@@ -139,11 +139,12 @@ namespace UniversalEditor.Accessors
 		private int _actualLength = 0;
 		protected internal override int WriteInternal(byte[] buffer, int start, int count)
 		{
-			if (_actualLength + count > _data.Length)
+			if (ptr + count > _data.Length)
 			{
 				ResizeArray(ref _data, _data.Length + BufferAllocationSize);
 			}
-			System.Array.Copy(buffer, start, _data, _actualLength, count);
+			System.Array.Copy(buffer, start, _data, ptr, count);
+			ptr += count;
 			_actualLength += count;
 			return count;
 		}
