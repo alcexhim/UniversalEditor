@@ -296,7 +296,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			utf.Tables.Add(dt);
 		}
 
-		private Type SystemDataTypeForUTFDataType(UTFColumnDataType dataType)
+		public static Type SystemDataTypeForUTFDataType(UTFColumnDataType dataType)
 		{
 			switch (dataType)
 			{
@@ -335,7 +335,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			}
 			return null;
 		}
-		private UTFColumnDataType UTFDataTypeForSystemDataType(Type dataType)
+		public static UTFColumnDataType UTFDataTypeForSystemDataType(Type dataType)
 		{
 			if (dataType == typeof(byte)) return UTFColumnDataType.Byte;
 			else if (dataType == typeof(sbyte)) return UTFColumnDataType.Byte;
@@ -489,7 +489,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			bw.Align(8);
 		}
 
-		private short GetLengthForDataType(UTFColumnDataType columnDataType)
+		public static short GetLengthForDataType(UTFColumnDataType columnDataType)
 		{
 			switch (columnDataType)
 			{
