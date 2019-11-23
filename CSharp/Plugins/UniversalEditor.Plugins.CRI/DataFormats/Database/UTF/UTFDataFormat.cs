@@ -472,7 +472,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 
 			for (int i = 0; i < dt.Records.Count; i++)
 			{
-				for (int j = 0; j < dt.Records[i].Fields.Count; j++)
+				for (int j = 0; j < dt.Fields.Count; j++)
 				{
 					if (columnStorageTypes[j] == UTFColumnStorageType.PerRow)
 					{
