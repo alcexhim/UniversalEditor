@@ -584,19 +584,40 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				case UTFColumnDataType.Long:
 				case UTFColumnDataType.Long2:
 				{
-					bw.WriteUInt64((ulong)value);
+					if (value is ulong)
+					{
+						bw.WriteUInt64((ulong)value);
+					}
+					else
+					{
+						bw.WriteInt64((long)value);
+					}
 					break;
 				}
 				case UTFColumnDataType.Int:
 				case UTFColumnDataType.Int2:
 				{
-					bw.WriteUInt32((uint)value);
+					if (value is uint)
+					{
+						bw.WriteUInt32((uint)value);
+					}
+					else
+					{
+						bw.WriteInt32((int)value);
+					}
 					break;
 				}
 				case UTFColumnDataType.Short:
 				case UTFColumnDataType.Short2:
 				{
-					bw.WriteUInt16((ushort)value);
+					if (value is ushort)
+					{
+						bw.WriteUInt16((ushort)value);
+					}
+					else
+					{
+						bw.WriteInt16((short)value);
+					}
 					break;
 				}
 				case UTFColumnDataType.Float:
@@ -607,7 +628,14 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				case UTFColumnDataType.Byte:
 				case UTFColumnDataType.Byte2:
 				{
-					bw.WriteByte((byte)value);
+					if (value is byte)
+					{
+						bw.WriteByte((byte)value);
+					}
+					else
+					{
+						bw.WriteSByte((sbyte)value);
+					}
 					break;
 				}
 			}
