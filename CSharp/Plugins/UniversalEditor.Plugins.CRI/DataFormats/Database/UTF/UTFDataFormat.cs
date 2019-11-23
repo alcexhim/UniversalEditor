@@ -541,7 +541,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			{
 				WriteValue(bw, value, UTFColumnDataType.Int, stringTable);
 			}
-			else if (value is short || value is short)
+			else if (value is short || value is ushort)
 			{
 				WriteValue(bw, value, UTFColumnDataType.Short, stringTable);
 			}
