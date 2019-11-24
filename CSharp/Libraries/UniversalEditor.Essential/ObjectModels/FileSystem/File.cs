@@ -354,5 +354,15 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			bw.Flush();
 			return count;
 		}
+
+		public T GetProperty<T>(string name, T defaultValue = default(T))
+		{
+			if (Properties.ContainsKey(name))
+			{
+				if (Properties[name] is T)
+					return (T)Properties[name];
+			}
+			return defaultValue;
+		}
 	}
 }
