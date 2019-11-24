@@ -387,7 +387,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				}
 			}
 
-			int tableSize = 32; // size of entire file
+			int tableSize = 28; // size of entire file minus "@UTF" signature
 			tableSize += (5 * dt.Fields.Count);
 
 			tableSize += (dt.Name.Length + 1);
@@ -432,8 +432,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				}
 			}
 
-			tableSize += ((8 - (tableSize % 8)) % 8);
-			tableSize -= 8;
+			tableSize = tableSize.RoundUp(8);
 
 			bw.WriteInt32(tableSize);
 			bw.WriteInt32(rowsOffset);
