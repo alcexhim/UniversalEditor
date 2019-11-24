@@ -314,6 +314,9 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 					return typeof(float);
 				}
 				case UTFColumnDataType.Int:
+				{
+					return typeof(uint);
+				}
 				case UTFColumnDataType.Int2:
 				{
 					return typeof(int);
@@ -341,7 +344,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			else if (dataType == typeof(sbyte)) return UTFColumnDataType.Byte;
 			else if (dataType == typeof(byte[])) return UTFColumnDataType.Data;
 			else if (dataType == typeof(float)) return UTFColumnDataType.Float;
-			else if (dataType == typeof(int)) return UTFColumnDataType.Int;
+			else if (dataType == typeof(int)) return UTFColumnDataType.Int2;
 			else if (dataType == typeof(uint)) return UTFColumnDataType.Int;
 			else if (dataType == typeof(long)) return UTFColumnDataType.Long;
 			else if (dataType == typeof(ulong)) return UTFColumnDataType.Long;
@@ -387,7 +390,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				}
 			}
 
-			int tableSize = 28; // size of entire file minus "@UTF" signature
+			int tableSize = 24; // size of entire file minus "@UTF" signature
 			tableSize += (5 * dt.Fields.Count);
 
 			tableSize += (dt.Name.Length + 1);
