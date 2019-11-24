@@ -339,7 +339,7 @@ namespace UniversalEditor.UserInterface
 
 				Glue.Common.Methods.SendApplicationEvent(ae);
 				*/
-				InitDocTab (page.Title, page);
+				InitDocTab (String.Format("Untitled{0}", iUntitledDocCount), page.Title, page);
 			}
 		}
 
@@ -472,7 +472,7 @@ namespace UniversalEditor.UserInterface
 					page.Document = doc;
 					// page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
 
-					InitDocTab(doc.Title, page);
+					InitDocTab(doc.Accessor.GetFileName(), doc.Title, page);
 
 					editor.ObjectModel = doc.ObjectModel;
 				}
@@ -565,7 +565,7 @@ namespace UniversalEditor.UserInterface
 			EditorPage page = new EditorPage();
 			page.Controls.Add(ed, new BoxLayout.Constraints(true, true));
 
-			InitDocTab(System.IO.Path.GetFileName(filename), page);
+			InitDocTab(filename, System.IO.Path.GetFileName(filename), page);
 		}
 
 		[ContainerLayout("~/Panels/StartPage.glade")]
@@ -579,13 +579,13 @@ namespace UniversalEditor.UserInterface
 			// dlg.ShowDialog();
 
 			StartPagePanel lblStartPage = new StartPagePanel();
-			InitDocTab("Start Page", lblStartPage);
+			InitDocTab("Start Page", "Start Page", lblStartPage);
 		}
 
 		private int documentWindowCount = 0;
-		private void InitDocTab(string title, Control content)
+		private void InitDocTab(string name, string title, Control content)
 		{
-			DockingItem item = new DockingItem(title, content);
+			DockingItem item = new DockingItem(name, title, content);
 			dckContainer.Items.Add(item);
 
 			documentWindowCount++;
