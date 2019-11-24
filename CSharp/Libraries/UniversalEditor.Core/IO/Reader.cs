@@ -771,19 +771,30 @@ namespace UniversalEditor.IO
 		public ulong ReadUInt64()
 		{
 			byte[] buffer = ReadBytes((uint)8);
+			byte[] _buffer = new byte[8];
 			if (base.Endianness == Endianness.LittleEndian)
 			{
-				uint num = (uint)(((buffer[0] | (buffer[1] << 8)) | (buffer[2] << 0x10)) | (buffer[3] << 0x18));
-				uint num2 = (uint)(((buffer[4] | (buffer[5] << 8)) | (buffer[6] << 0x10)) | (buffer[7] << 0x18));
-				return (ulong)(num << 0x20 | num2);
+				_buffer[0] = buffer[0];
+				_buffer[1] = buffer[1];
+				_buffer[2] = buffer[2];
+				_buffer[3] = buffer[3];
+				_buffer[4] = buffer[4];
+				_buffer[5] = buffer[5];
+				_buffer[6] = buffer[6];
+				_buffer[7] = buffer[7];
 			}
 			else if (base.Endianness == Endianness.BigEndian)
 			{
-				uint num = (uint)(((buffer[7] | (buffer[6] << 8)) | (buffer[5] << 0x10)) | (buffer[4] << 0x18));
-				uint num2 = (uint)(((buffer[3] | (buffer[2] << 8)) | (buffer[1] << 0x10)) | (buffer[0] << 0x18));
-				return (ulong)(num << 0x20 | num2);
+				_buffer[0] = buffer[7];
+				_buffer[1] = buffer[6];
+				_buffer[2] = buffer[5];
+				_buffer[3] = buffer[4];
+				_buffer[4] = buffer[3];
+				_buffer[5] = buffer[2];
+				_buffer[6] = buffer[1];
+				_buffer[7] = buffer[0];
 			}
-			throw new InvalidOperationException();
+			return BitConverter.ToUInt64(_buffer, 0);
 		}
 		/// <summary>
 		/// Reads an array of 8-byte unsigned integers from the current stream and advances the current position of the stream by eight bytes times the number of values read.
