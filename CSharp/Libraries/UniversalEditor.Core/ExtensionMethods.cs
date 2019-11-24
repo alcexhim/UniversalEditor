@@ -870,5 +870,31 @@ namespace UniversalEditor
 			}
 		}
 		#endregion
+
+		public static long RoundToNearestPowerOf2(this long input)
+		{
+			long v = input;
+			v--;
+			v |= v >> 1;
+			v |= v >> 2;
+			v |= v >> 4;
+			v |= v >> 8;
+			v |= v >> 16;
+			v++;
+			return v;
+		}
+		[CLSCompliant(false)]
+		public static ulong RoundToNearestPowerOf2(this ulong input)
+		{
+			ulong v = input;
+			v--;
+			v |= v >> 1;
+			v |= v >> 2;
+			v |= v >> 4;
+			v |= v >> 8;
+			v |= v >> 16;
+			v++;
+			return v;
+		}
 	}
 }
