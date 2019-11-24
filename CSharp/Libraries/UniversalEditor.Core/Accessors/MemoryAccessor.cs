@@ -61,7 +61,7 @@ namespace UniversalEditor.Accessors
 		}
 		public override long Length
 		{
-			get { return _data.Length; }
+			get { return _actualLength; }
 			set
 			{
 				// resize the array - coded by hand to compile happily under Cosmos devkit
