@@ -52,6 +52,7 @@ namespace UniversalEditor.UserInterface
 				System.Threading.Thread.Sleep(500);
 			}
 			splasher.Hide();
+			splasher = null;
 
 			AfterInitializationInternal();
 			AfterInitialization();
@@ -122,6 +123,13 @@ namespace UniversalEditor.UserInterface
 
 		void Application_Startup(object sender, EventArgs e)
 		{
+		}
+
+		private void t_threadStart()
+		{
+
+			Application.DoEvents();
+
 			// less do this
 			Application.ShortName = "mbs-editor";
 			// Application.Title = "Universal Editor";
@@ -153,6 +161,20 @@ namespace UniversalEditor.UserInterface
 
 		void Application_Activated(object sender, ApplicationActivatedEventArgs e)
 		{
+			if (e.FirstRun)
+			{
+				ShowSplashScreen();
+
+				System.Threading.Thread t = new System.Threading.Thread(t_threadStart);
+				t.Start();
+
+				while (splasher != null)
+				{
+					Application.DoEvents();
+					System.Threading.Thread.Sleep(500);
+				}
+			}
+
 			Document[] docs = new Document[e.Arguments.Length - 1];
 			if (e.Arguments.Length > 1)
 			{
@@ -1457,7 +1479,6 @@ namespace UniversalEditor.UserInterface
 
 		private void Initialize()
 		{
-			ShowSplashScreen();
 		}
 		protected virtual void InitializeInternal()
 		{
