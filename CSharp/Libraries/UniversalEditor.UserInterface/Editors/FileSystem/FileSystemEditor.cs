@@ -54,6 +54,8 @@ namespace UniversalEditor.Editors.FileSystem
 
 		protected override void OnCreated(EventArgs e)
 		{
+			base.OnCreated(e);
+
 			// FIXME: this is GTK-specific...
 			this.tv.RegisterDragSource(new DragDropTarget[]
 			{
