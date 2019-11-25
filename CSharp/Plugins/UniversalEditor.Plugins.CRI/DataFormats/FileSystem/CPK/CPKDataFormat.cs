@@ -47,19 +47,50 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 		public string VersionString { get; set; } = "CPKMC2.14.00, DLL2.74.00";
 		public int FileAlignment { get; set; } = 2048;
 
+		// these are mainly for the benefit of the CRI Extensions for FileSystemEditor
+
 		private byte[] _HeaderData = null;
+		/// <summary>
+		/// Returns the raw data from the initial "CPK " chunk of this file, or NULL if this chunk does not exist.
+		/// </summary>
+		/// <value>The raw data from the "CPK " chunk.</value>
+		public byte[] HeaderData { get { return _HeaderData; } }
+
 		private byte[] _TocData = null;
+		/// <summary>
+		/// Returns the raw data from the "TOC " chunk of this file, or NULL if this chunk does not exist.
+		/// </summary>
+		/// <value>The raw data from the "TOC " chunk.</value>
+		public byte[] TocData { get { return _TocData; } }
+
 		private byte[] _ITocData = null;
+		/// <summary>
+		/// Returns the raw data from the "ITOC" chunk of this file, or NULL if this chunk does not exist.
+		/// </summary>
+		/// <value>The raw data from the "ITOC" chunk.</value>
+		public byte[] ITocData { get { return _ITocData; } }
+
 		private byte[] _GTocData = null;
+		/// <summary>
+		/// Returns the raw data from the "GTOC" chunk of this file, or NULL if this chunk does not exist.
+		/// </summary>
+		/// <value>The raw data from the "GTOC" chunk.</value>
+		public byte[] GTocData { get { return _GTocData; } }
+
 		private byte[] _ETocData = null;
+		/// <summary>
+		/// Returns the raw data from the final "ETOC" chunk of this file, or NULL if this chunk does not exist.
+		/// </summary>
+		/// <value>The raw data from the "ETOC" chunk.</value>
+		public byte[] ETocData { get { return _ETocData; } }
 
 		protected override void LoadInternal (ref ObjectModel objectModel)
 		{
-			ObjectModels.FileSystem.FileSystemObjectModel fsom = (objectModel as ObjectModels.FileSystem.FileSystemObjectModel);
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			if (fsom == null)
 				throw new ObjectModelNotSupportedException();
 
-			IO.Reader br = Accessor.Reader;
+			Reader br = Accessor.Reader;
 
 			// Rebuilt based on cpk_unpack
 			// Rebuilt AGAIN based on github.com/esperknight/CriPakTools
