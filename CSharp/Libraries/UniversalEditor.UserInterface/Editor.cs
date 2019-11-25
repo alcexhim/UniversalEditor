@@ -33,6 +33,27 @@ namespace UniversalEditor.UserInterface
 			return sels;
 		}
 
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			Plugin[] plugins = Plugin.Get();
+			Type typ = typeof(EditorPlugin);
+			for (int i = 0; i < plugins.Length; i++)
+			{
+				if (plugins[i] is EditorPlugin)
+				{
+					EditorPlugin ep = (plugins[i] as EditorPlugin);
+					if (ep.SupportedEditors.Count > 0 && !ep.SupportedEditors.Contains(this.GetType()))
+						continue;
+
+					typ.GetProperty("Editor", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).SetValue(ep, this, null);
+					typ.GetProperty("Document", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).SetValue(ep, (Parent as Pages.EditorPage)?.Document, null);
+					typ.GetMethod("OnEditorCreated", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(ep, new object[] { EventArgs.Empty });
+				}
+			}
+		}
+
 		private EditorView _CurrentView = null;
 		public EditorView CurrentView
 		{

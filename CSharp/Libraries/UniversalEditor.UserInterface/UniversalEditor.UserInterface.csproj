@@ -129,6 +129,7 @@
     <Compile Include="EditorContext.cs" />
     <Compile Include="Editors\Database\DatabaseEditor.cs" />
     <Compile Include="Editors\Database\DatabaseEditor.Designer.cs" />
+    <Compile Include="EditorPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
