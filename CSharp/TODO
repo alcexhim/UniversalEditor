@@ -1,3 +1,30 @@
+Editor:
+There should be a UEXML file e.g. Extensions/GameDeveloper/Editors/FileSystem/DataFormats/CRI/CPK/CPKFileSystemEditorExtensions.uexml
+
+that contains layout like
+<Editors>
+	<FileSystem>
+		<Commands>
+			<Command ID="CRI_FileSystem_Extensions" Title="CRI Tools">
+				<Items>
+					<CommandReference CommandID="CRI_FileSystem_Extensions_Export_Header" />
+				</Items>
+			</Command>
+			<Command ID="CRI_FileSystem_Extensions_Export_Header" Title="Export Header UTF" />
+			<Command ID="CRI_FileSystem_Extensions_Export_TOC" Title="Export TOC UTF" />
+			<Command ID="CRI_FileSystem_Extensions_Export_ITOC" Title="Export ITOC UTF" />
+			<Command ID="CRI_FileSystem_Extensions_Export_GTOC" Title="Export GTOC UTF" />
+			<Command ID="CRI_FileSystem_Extensions_Export_ETOC" Title="Export ETOC UTF" />
+			
+			<Command ID="FileSystemContextMenu_Unselected">
+				<Items>
+					<CommandReference CommandID="CRI_FileSystem_Extensions_Export_Header" />
+				</Items>
+			</Command>
+		</Commands>
+	</FileSystem>
+</Editors>
+
 Platform:
 * Rewrite Settings (Options, Preferences, etc...) to use UEXML definitions (which we have already)
 	* Newer versions of MSO use settings dialog eerily similar to GNOME3... perhaps a redesign is in order
