@@ -147,6 +147,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Syn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.CRI", "Plugins\UniversalEditor.Plugins.CRI\UniversalEditor.Plugins.CRI.csproj", "{DBA93D1B-01BC-4218-8309-85FA0D5402FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.CRI.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.CRI.UserInterface\UniversalEditor.Plugins.CRI.UserInterface.csproj", "{83709A63-8C43-4C67-80F6-00022986A086}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -423,6 +425,10 @@ Global
 		{DBA93D1B-01BC-4218-8309-85FA0D5402FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA93D1B-01BC-4218-8309-85FA0D5402FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA93D1B-01BC-4218-8309-85FA0D5402FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83709A63-8C43-4C67-80F6-00022986A086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83709A63-8C43-4C67-80F6-00022986A086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83709A63-8C43-4C67-80F6-00022986A086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83709A63-8C43-4C67-80F6-00022986A086}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -491,6 +497,7 @@ Global
 		{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 		{0EEC3646-9749-48AF-848E-0F699247E76F} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{DBA93D1B-01BC-4218-8309-85FA0D5402FC} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{83709A63-8C43-4C67-80F6-00022986A086} = {7B535D74-5496-4802-B809-89ED88274A91}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
