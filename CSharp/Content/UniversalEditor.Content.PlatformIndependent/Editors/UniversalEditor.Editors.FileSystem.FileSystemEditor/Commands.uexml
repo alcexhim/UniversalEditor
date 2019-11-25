@@ -68,7 +68,7 @@
 				<Command ID="FileSystemContextMenu_CreateShortcut" Title="Create _shortcut" />
 				<Command ID="FileSystemContextMenu_Rename" Title="Rena_me" />
 				
-				<Command ID="FileSystemContextMenu_Unselected">
+				<Command ID="FileSystemContextMenu_Unselected" Title="_Document">
 					<Items>
 						<CommandReference CommandID="FileSystemContextMenu_View" />
 						<Separator />
@@ -104,6 +104,8 @@
 						<CommandReference CommandID="FileSystemContextMenu_Rename" />
 						<Separator />
 						<CommandReference CommandID="FileProperties" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_Unselected" />
 					</Items>
 				</Command>
 				<Command ID="FileSystemContextMenu_Selected_Folder">
@@ -128,6 +130,8 @@
 						<CommandReference CommandID="FileSystemContextMenu_Rename" />
 						<Separator />
 						<CommandReference CommandID="FileProperties" />
+						<Separator />
+						<CommandReference CommandID="FileSystemContextMenu_Unselected" />
 					</Items>
 				</Command>
 			</Commands>
