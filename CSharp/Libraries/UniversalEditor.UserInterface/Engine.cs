@@ -56,7 +56,6 @@ namespace UniversalEditor.UserInterface
 			AfterInitializationInternal();
 			AfterInitialization();
 
-			OpenWindow(SelectedFileNames.ToArray<string>());
 			sw.Stop();
 			Console.WriteLine("stopwatch: went from rip to ready in {0}", sw.Elapsed);
 		}
@@ -73,6 +72,8 @@ namespace UniversalEditor.UserInterface
 
 		protected void BeforeInitialization ()
 		{
+			Application.UniqueName = "net.alcetech.UniversalEditor";
+
 			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
 				new TextSetting("_Name"),
 				new TextSetting("_E-mail address")
@@ -113,9 +114,64 @@ namespace UniversalEditor.UserInterface
 
 			// Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
 
+			Application.Startup += Application_Startup;
+			Application.Activated += Application_Activated;
+
 			MBS.Framework.UserInterface.Application.Initialize();
 		}
-		
+
+		void Application_Startup(object sender, EventArgs e)
+		{
+			// less do this
+			Application.ShortName = "mbs-editor";
+			// Application.Title = "Universal Editor";
+
+			// Initialize the XML files before anything else, since this also loads string tables needed
+			// to display the application title
+			Engine.CurrentEngine.InitializeXMLConfiguration();
+
+			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading object models...");
+			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+
+			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading data formats...");
+			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+			// Initialize Recent File Manager
+			Engine.CurrentEngine.RecentFileManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
+			Engine.CurrentEngine.RecentFileManager.Load();
+
+			// Initialize Bookmarks Manager
+			Engine.CurrentEngine.BookmarksManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
+			Engine.CurrentEngine.BookmarksManager.Load();
+
+			// Initialize Session Manager
+			Engine.CurrentEngine.SessionManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
+			Engine.CurrentEngine.SessionManager.Load();
+
+			Engine.CurrentEngine.HideSplashScreen();
+		}
+
+		void Application_Activated(object sender, ApplicationActivatedEventArgs e)
+		{
+			Document[] docs = new Document[e.Arguments.Length - 1];
+			if (e.Arguments.Length > 1)
+			{
+				for (int i = 1; i < e.Arguments.Length; i++)
+				{
+					docs[i - 1] = new Document(new FileAccessor(e.Arguments[i]));
+				}
+			}
+
+			if (LastWindow != null)
+			{
+				LastWindow.OpenFile(docs);
+			}
+			else
+			{
+				OpenWindow(docs);
+			}
+		}
+
 		protected void MainLoop ()
 		{
 			switch (System.Environment.OSVersion.Platform)
@@ -610,7 +666,9 @@ namespace UniversalEditor.UserInterface
 		/// </summary>
 		public void OpenWindow()
 		{
-			OpenWindow(new Document[0]);
+			MainWindow mw = new MainWindow();
+			mw.Show();
+			// OpenWindow(new Document[0]);
 		}
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.

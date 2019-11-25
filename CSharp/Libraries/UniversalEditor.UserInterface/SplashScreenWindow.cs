@@ -65,35 +65,6 @@ namespace UniversalEditor.UserInterface
 			base.OnMapped(e);
 if (created) return;
 created = true;
-			// less do this
-			Application.ShortName = "mbs-editor";
-			// Application.Title = "Universal Editor";
-
-			Application.DoEvents();
-
-			// Initialize the XML files before anything else, since this also loads string tables needed
-			// to display the application title
-			Engine.CurrentEngine.InitializeXMLConfiguration();
-
-			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading object models...");
-			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-
-			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading data formats...");
-			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-
-			// Initialize Recent File Manager
-			Engine.CurrentEngine.RecentFileManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
-			Engine.CurrentEngine.RecentFileManager.Load();
-
-			// Initialize Bookmarks Manager
-			Engine.CurrentEngine.BookmarksManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
-			Engine.CurrentEngine.BookmarksManager.Load();
-
-			// Initialize Session Manager
-			Engine.CurrentEngine.SessionManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
-			Engine.CurrentEngine.SessionManager.Load();
-
-			Engine.CurrentEngine.HideSplashScreen();
 		}
 		public void SetStatus(string message, int progressValue, int progressMinimum, int progressMaximum)
 		{
