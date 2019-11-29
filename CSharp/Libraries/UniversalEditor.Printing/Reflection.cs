@@ -30,8 +30,23 @@ namespace UniversalEditor.Printing
 		public static PrintHandlerReference[] GetAvailablePrintHandlers()
 		{
 			if (_phrs == null)
-				Initialize();
+			{
+				List<PrintHandlerReference> list = new List<PrintHandlerReference>();
+				Type[] types = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(PrintHandler) });
+				foreach (Type type in types)
+				{
+					if (type == null) continue;
 
+					if (type.IsSubclassOf(typeof(PrintHandler)))
+					{
+						PrintHandler ph = (type.Assembly.CreateInstance(type.FullName) as PrintHandler);
+						PrintHandlerReference phr = ph.MakeReference();
+
+						list.Add(phr);
+					}
+				}
+				_phrs = list.ToArray();
+			}
 			return _phrs;
 		}
 
@@ -45,42 +60,6 @@ namespace UniversalEditor.Printing
 					list.Add(phr);
 			}
 			return list.ToArray();
-		}
-
-		private static Assembly[] _asms = null;
-		private static void Initialize()
-		{
-			if (_asms == null)
-			{
-				List<PrintHandlerReference> list = new List<PrintHandlerReference>();
-				_asms = UniversalEditor.Common.Reflection.GetAvailableAssemblies();
-				foreach (Assembly asm in _asms)
-				{
-					Type[] types = null;
-					try
-					{
-						types = asm.GetTypes();
-					}
-					catch (ReflectionTypeLoadException ex)
-					{
-						types = ex.Types;
-					}
-
-					foreach (Type type in types)
-					{
-						if (type == null) continue;
-
-						if (type.IsSubclassOf(typeof(PrintHandler)))
-						{
-							PrintHandler ph = (type.Assembly.CreateInstance(type.FullName) as PrintHandler);
-							PrintHandlerReference phr = ph.MakeReference();
-
-							list.Add(phr);
-						}
-					}
-				}
-				_phrs = list.ToArray();
-			}
 		}
 	}
 }

@@ -30,62 +30,13 @@ namespace UniversalEditor.Common
 			return a.Type.FullName.CompareTo(b.Type.FullName);
 		}
 
-		private static Type[] mvarAvailableTypes = null;
-		public static Type[] GetAvailableTypes(Type[] inheritsFrom = null)
-		{
-			if (mvarAvailableTypes == null)
-			{
-				List<Type> types = new List<Type>();
-				Assembly[] asms = GetAvailableAssemblies();
-				for (int iAsm = 0; iAsm < asms.Length; iAsm++)
-				{
-					Assembly asm = asms[iAsm];
-					Type[] types1 = null;
-					try
-					{
-						types1 = asm.GetTypes();
-					}
-					catch (ReflectionTypeLoadException ex)
-					{
-						Console.Error.WriteLine("ReflectionTypeLoadException(" + ex.LoaderExceptions.Length.ToString() + "): " + asm.FullName);
-						Console.Error.WriteLine(ex.Message);
-
-						types1 = ex.Types;
-					}
-
-					if (types1 == null) continue;
-
-					for (int jTyp = 0; jTyp < types1.Length; jTyp++)
-					{
-						if (types1[jTyp] == null) continue;
-						types.Add(types1[jTyp]);
-					}
-				}
-				mvarAvailableTypes = types.ToArray();
-			}
-
-			if (inheritsFrom != null)
-			{
-				List<Type> retval = new List<Type>();
-				for (int iTyp = 0; iTyp < mvarAvailableTypes.Length; iTyp++)
-				{
-					for (int jInh = 0; jInh < inheritsFrom.Length; jInh++)
-					{
-						if (mvarAvailableTypes[iTyp].IsSubclassOf(inheritsFrom[jInh])) retval.Add(mvarAvailableTypes[iTyp]);
-					}
-				}
-				return retval.ToArray();
-			}
-			return mvarAvailableTypes;
-		}
-
 		#region Initialization
 		private static bool mvarInitialized = false;
 		private static void Initialize()
 		{
 			if (mvarInitialized) return;
 
-			Type[] types = GetAvailableTypes();
+			Type[] types = MBS.Framework.Reflection.GetAvailableTypes();
 			
 			#region Initializing Object Models
 			List<AccessorReference> listAccessors = new List<AccessorReference>();
@@ -634,48 +585,6 @@ namespace UniversalEditor.Common
 				}
 			}
 			return null;
-		}
-		#endregion
-		#region Assemblies
-		private static Assembly[] mvarAvailableAssemblies = null;
-		public static Assembly[] GetAvailableAssemblies()
-		{
-			if (mvarAvailableAssemblies == null)
-			{
-				List<Assembly> list = new List<Assembly>();
-
-				List<string> asmdirs = new List<string>();
-				string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				asmdirs.Add(dir);
-				asmdirs.Add(dir + System.IO.Path.DirectorySeparatorChar.ToString() + "Plugins");
-
-				foreach (string asmdir in asmdirs)
-				{
-					if (!System.IO.Directory.Exists(asmdir)) continue;
-
-					string[] FileNamesEXE = System.IO.Directory.GetFiles(asmdir, "*.exe", System.IO.SearchOption.TopDirectoryOnly);
-					string[] FileNamesDLL = System.IO.Directory.GetFiles(asmdir, "*.dll", System.IO.SearchOption.TopDirectoryOnly);
-
-					string[] FileNames = new string[FileNamesEXE.Length + FileNamesDLL.Length];
-					Array.Copy(FileNamesEXE, 0, FileNames, 0, FileNamesEXE.Length);
-					Array.Copy(FileNamesDLL, 0, FileNames, FileNamesEXE.Length, FileNamesDLL.Length);
-
-					foreach (string FileName in FileNames)
-					{
-						try
-						{
-							Assembly asm = Assembly.LoadFile(FileName);
-							list.Add(asm);
-						}
-						catch
-						{
-						}
-					}
-				}
-
-				mvarAvailableAssemblies = list.ToArray();
-			}
-			return mvarAvailableAssemblies;
 		}
 		#endregion
 

@@ -12,60 +12,44 @@ namespace UniversalEditor.UserInterface.Common
 	{
 		private static void Initialize()
 		{
-			System.Reflection.Assembly[] asms = UniversalEditor.Common.Reflection.GetAvailableAssemblies();
-
 			List<EditorReference> listEditors = new List<EditorReference>();
 
 			if (mvarAvailableEditors == null)
 			{
-				foreach (System.Reflection.Assembly asm in asms)
+				Type[] types = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(Editor) });
+
+				foreach (Type type in types)
 				{
-					Type[] types = null;
-					try
+					if (type == null) continue;
+
+					if (type.IsSubclassOf(typeof(Editor)))
 					{
-						types = asm.GetTypes();
-					}
-					catch (System.Reflection.ReflectionTypeLoadException ex)
-					{
-						Console.Error.WriteLine("ReflectionTypeLoadException(" + ex.LoaderExceptions.Length.ToString() + "): " + asm.FullName);
-						Console.Error.WriteLine(ex.Message);
+						#region Initializing Editors
+						Console.Write("loading editor '" + type.FullName + "'... ");
 						
-						types = ex.Types;
-					}
-
-					foreach (Type type in types)
-					{
-						if (type == null) continue;
-
-						if (type.IsSubclassOf(typeof(Editor)))
+						try
 						{
-							#region Initializing Editors
-							Console.Write("loading editor '" + type.FullName + "'... ");
+							// TODO: see if there is a way we can MakeReference() without having to create all the UI
+							// components of the IEditorImplementation
+							Editor editor = (type.Assembly.CreateInstance(type.FullName) as Editor);
+							listEditors.Add(editor.MakeReference());
 							
-							try
-							{
-								// TODO: see if there is a way we can MakeReference() without having to create all the UI
-								// components of the IEditorImplementation
-								Editor editor = (type.Assembly.CreateInstance(type.FullName) as Editor);
-								listEditors.Add(editor.MakeReference());
-								
-								Console.WriteLine("SUCCESS!");
-							}
-							catch (System.Reflection.TargetInvocationException ex)
-							{
-								Console.WriteLine("FAILURE!");
-								
-								Console.WriteLine("binding error: " + ex.InnerException.Message);
-							}
-							catch (Exception ex)
-							{
-								Console.WriteLine("FAILURE!");
-								
-								Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
-							}
+							Console.WriteLine("SUCCESS!");
 						}
-						#endregion
+						catch (System.Reflection.TargetInvocationException ex)
+						{
+							Console.WriteLine("FAILURE!");
+							
+							Console.WriteLine("binding error: " + ex.InnerException.Message);
+						}
+						catch (Exception ex)
+						{
+							Console.WriteLine("FAILURE!");
+							
+							Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
+						}
 					}
+					#endregion
 				}
 			}
 

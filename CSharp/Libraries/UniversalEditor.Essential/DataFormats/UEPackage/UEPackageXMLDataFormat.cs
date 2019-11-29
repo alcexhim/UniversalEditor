@@ -945,7 +945,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 		{
 			CustomOption co = null;
 
-			Type[] tCustomOptions = UniversalEditor.Common.Reflection.GetAvailableTypes(new Type[] { typeof(CustomOption) });
+			Type[] tCustomOptions = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(CustomOption) });
 			foreach (Type tCustomOption in tCustomOptions)
 			{
 				if (tCustomOption.Name == tag.FullName)

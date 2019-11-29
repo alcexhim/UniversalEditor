@@ -85,10 +85,10 @@ namespace UniversalEditor
 			if (_dict == null)
 			{
 				_dict = new Dictionary<Guid, ProjectTaskActionReference>();
-				Type[] types = Common.Reflection.GetAvailableTypes();
+				Type[] types = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(ProjectTaskAction) });
 				foreach (Type type in types)
 				{
-					if (!type.IsAbstract && type.IsSubclassOf(typeof(ProjectTaskAction)))
+					if (!type.IsAbstract)
 					{
 						ProjectTaskAction action = (ProjectTaskAction)type.Assembly.CreateInstance(type.FullName);
 						ProjectTaskActionReference actionref = action.MakeReference();
