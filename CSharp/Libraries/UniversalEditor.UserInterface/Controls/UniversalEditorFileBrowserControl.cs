@@ -127,21 +127,20 @@ namespace UniversalEditor.UserInterface.Controls
 						dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
 					}
 					*/
-					}
-					else if (ObjectModel != null)
-					{
-						dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(ObjectModel.MakeReference());
-					}
-					else
-					{
-						dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-					}
 				}
-				foreach (DataFormatReference dfr in dfrs)
+				else if (ObjectModel != null)
 				{
-					cboDataFormat.AvailableObjects.Add(dfr);
+					dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(ObjectModel.MakeReference());
 				}
-
+				else
+				{
+					dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+				}
+			}
+			foreach (DataFormatReference dfr in dfrs)
+			{
+				cboDataFormat.AvailableObjects.Add(dfr);
+			}
 
 			_Table = new Container ();
 			_Table.Layout = new BoxLayout (Orientation.Horizontal);
