@@ -536,6 +536,7 @@ Global
 		$4.scope = text/x-csharp
 		$4.IndentSwitchSection = False
 		StartupItem = Applications\UniversalEditor.Bootstrapper\UniversalEditor.Bootstrapper.csproj
+		version = 4.0.2019.12
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

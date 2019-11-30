@@ -8,6 +8,7 @@
     <RootNamespace>UniversalEditor.Plugins.CRI</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.CRI</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
+    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>..\..\..\Output\Debug\Plugins\UniversalEditor.Plugins.CRI.xml</DocumentationFile>

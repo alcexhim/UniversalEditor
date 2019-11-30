@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
+    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
