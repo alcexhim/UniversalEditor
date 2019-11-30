@@ -91,7 +91,7 @@ namespace UniversalEditor.Editors.Database
 				List<Type> list = new List<Type>();
 				for (int i = 0; i < db.Tables[0].Fields.Count; i++)
 				{
-					list.Add(typeof(string));
+					list.Add(db.Tables[0].Fields[i].DataType == null ? typeof(string) : db.Tables[0].Fields[i].DataType);
 				}
 				this.tmResults = new DefaultTreeModel(list.ToArray());
 				for (int i = 0; i < db.Tables[0].Fields.Count; i++)
@@ -103,7 +103,7 @@ namespace UniversalEditor.Editors.Database
 					TreeModelRow row = new TreeModelRow();
 					for (int c = 0;  c < rec.Fields.Count;  c++)
 					{
-						row.RowColumns.Add(new TreeModelRowColumn(tmResults.Columns[c], rec.Fields[c].Value == null ? "NULL" : rec.Fields[c].Value.ToString()));
+						row.RowColumns.Add(new TreeModelRowColumn(tmResults.Columns[c], rec.Fields[c].Value == null ? "NULL" : rec.Fields[c].Value));
 					}
 					tmResults.Rows.Add(row);
 				}
