@@ -42,6 +42,8 @@
     <Compile Include="PictureObjectModelExtensions.cs" />
     <Compile Include="Editors\Multimedia\Palette\PaletteEditor.cs" />
     <Compile Include="Editors\Multimedia\Palette\PaletteEditor.Designer.cs" />
+    <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.cs" />
+    <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -56,6 +58,7 @@
     <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Views\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Dialogs\" />
     <Folder Include="Editors\Multimedia\Palette\" />
+    <Folder Include="Editors\Multimedia\Playlist\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="PlaylistEditor">
+    <property name="can_focus">False</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkTreeView" id="lvPlaylist">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="model"/>
+            <property name="search_column">0</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="colFileName">
+                <property name="resizable">True</property>
+                <property name="title" translatable="yes">File name</property>
+                <property name="clickable">True</property>
+                <property name="reorderable">True</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkTreeStore" id="tmPlaylist">
+    <columns>
+      <!-- column-name File name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+</interface>

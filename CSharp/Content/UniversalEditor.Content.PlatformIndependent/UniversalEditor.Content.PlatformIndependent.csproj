@@ -653,6 +653,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\CRI\AFS.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\CRI\CPK.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\Database\CRI\UTF.uexml" />
+    <Content Include="Editors\Multimedia\Playlist\PlaylistEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
