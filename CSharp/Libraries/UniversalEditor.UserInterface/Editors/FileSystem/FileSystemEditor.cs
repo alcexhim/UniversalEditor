@@ -127,13 +127,16 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			Folder f = new Folder();
 			f.Name = fileTitle;
+			DateTime now = DateTime.Now;
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
 				new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
-				new TreeModelRowColumn(tmTreeView.Columns[1], String.Format("{0} files, {1} folders", f.Files.Count, f.Folders.Count)),
+				new TreeModelRowColumn(tmTreeView.Columns[1], String.Format("{0} items", (f.Files.Count + f.Folders.Count))),
 				new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
-				new TreeModelRowColumn(tmTreeView.Columns[3], DateTime.Now.ToString())
+				new TreeModelRowColumn(tmTreeView.Columns[3], now.ToString())
 			});
+			row.RowColumns[1].RawValue = (f.Folders.Count + f.Files.Count);
+			row.RowColumns[3].RawValue = now.ToBinary();
 			row.SetExtraData<IFileSystemObject>("item", f);
 
 			if (tv.SelectedRows.Count > 0 && tv.LastHitTest.Row != null)
@@ -301,6 +304,8 @@ namespace UniversalEditor.Editors.FileSystem
 					new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
 					new TreeModelRowColumn(tmTreeView.Columns[3], "")
 				});
+				r.RowColumns[1].RawValue = (long)(f.Folders.Count + f.Files.Count);
+				r.RowColumns[3].RawValue = (long)0;
 
 				if (recurse)
 				{
@@ -326,6 +331,8 @@ namespace UniversalEditor.Editors.FileSystem
 					new TreeModelRowColumn(tmTreeView.Columns[2], "File"),
 					new TreeModelRowColumn(tmTreeView.Columns[3], f.ModificationTimestamp.ToString())
 				});
+				r.RowColumns[1].RawValue = f.Size;
+				r.RowColumns[3].RawValue = f.ModificationTimestamp.ToBinary();
 			}
 			r.SetExtraData<IFileSystemObject>("item", fso);
 			return r;
