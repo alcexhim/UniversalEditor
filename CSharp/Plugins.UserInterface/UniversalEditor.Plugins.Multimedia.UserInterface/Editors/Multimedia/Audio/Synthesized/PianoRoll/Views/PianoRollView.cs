@@ -51,6 +51,28 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Triplet", ContextMenu_NoteFixedLength_Click);
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Dot", ContextMenu_NoteFixedLength_Click);
 
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_None", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Major", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_MinorHarmonic", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_MinorMelodic", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Diminished", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_BebopMajor", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_BebopDominant", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Arabic", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Enigmatic", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Neopolitan", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_NeopolitanMinor", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Hungarian", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Dorian", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Phyrogolydian", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Lydian", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Mixolydian", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Aeolian", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Locrian", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Minor", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Chromatic", ContextMenu_Scale_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_HalfWholeDiminished", ContextMenu_Scale_Click);
+
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_ShowGridLines", ContextMenuToggleGridLines_Click);
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Properties", ContextMenuProperties_Click);
 		}
@@ -97,6 +119,39 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 					iValue = Int32.Parse(sValue);
 					break;
 				}
+			}
+		}
+
+		// TODO: make this more user-friendly
+		private static Dictionary<string, int[]> Scales = new Dictionary<string, int[]>();
+		static PianoRollView()
+		{
+			Scales.Add("Major", new int[] { 1, 3, 5, 6, 8, 10, 12 });
+			Scales.Add("MinorHarmonic", new int[] { 1, 3, 4, 6, 7, 10, 12 });
+		}
+
+		private int[] _CurrentScale = null;
+		public int[] CurrentScale
+		{
+			get { return _CurrentScale; }
+			set
+			{
+				_CurrentScale = value;
+				Refresh();
+			}
+		}
+
+		private void ContextMenu_Scale_Click(object sender, EventArgs e)
+		{
+			Command cmd = (sender as Command);
+			string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_Scale_".Length);
+			if (Scales.ContainsKey(sValue))
+			{
+				CurrentScale = Scales[sValue];
+			}
+			else
+			{
+				CurrentScale = null;
 			}
 		}
 
@@ -448,7 +503,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 			}
 		}
-
 		int[] noteValuesBlackKeys = new int[] { 1, 3, 5, 8, 10 };
 
 		private Vector2D Quantize(Vector2D pt)
@@ -527,7 +581,21 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				int noteValue = (int)(((double)i / gridHeight) % 12) + 1;
 				if (Array.IndexOf<int>(noteValuesBlackKeys, noteValue) != -1)
 				{
-					e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xDD, 0xDD, 0xDD)), new Rectangle(gridRect.X, gridRect.Y + i, gridRect.Width, gridHeight));
+					if (CurrentScale != null && (Array.IndexOf<int>(CurrentScale, noteValue) != -1))
+					{
+						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xAA, 0xCC, 0xAA)), new Rectangle(gridRect.X, gridRect.Y + i, gridRect.Width, gridHeight));
+					}
+					else
+					{
+						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xDD, 0xDD, 0xDD)), new Rectangle(gridRect.X, gridRect.Y + i, gridRect.Width, gridHeight));
+					}
+				}
+				else
+				{
+					if (CurrentScale != null && (Array.IndexOf<int>(CurrentScale, noteValue) != -1))
+					{
+						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xAA, 0xDD, 0xAA)), new Rectangle(gridRect.X, gridRect.Y + i, gridRect.Width, gridHeight));
+					}
 				}
 
 				gridPen.Color = Colors.LightGray;

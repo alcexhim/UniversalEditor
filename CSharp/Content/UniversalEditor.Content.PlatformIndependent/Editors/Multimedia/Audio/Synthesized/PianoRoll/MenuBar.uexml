@@ -155,11 +155,65 @@
 				<Command ID="PianoRollEditor_ContextMenu_InsertLyrics" Title="Insert _Lyrics..." />
 				<Command ID="PianoRollEditor_ContextMenu_Properties" Title="P_roperties..." />
 				
+				<Command ID="PianoRollEditor_ContextMenu_Scale_None" Title="_None" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Major" Title="Major" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_MinorHarmonic" Title="Harmonic minor" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_MinorMelodic" Title="Melodic minor" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Diminished" Title="Diminished" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_BebopMajor" Title="Major bebop" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_BebopDominant" Title="Dominant bebop" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Arabic" Title="Arabic" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Enigmatic" Title="Enigmatic" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Neopolitan" Title="Melodic minor" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_NeopolitanMinor" Title="Neopolitan minor" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_HungarianMinor" Title="Hungarian minor" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Dorian" Title="Dorian" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Phyrogolydian" Title="Phyrogolydian" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Lydian" Title="Lydian" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Mixolydian" Title="Mixolydian" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Aeolian" Title="Aeolian" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Locrian" Title="Locrian" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Minor" Title="Minor" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_Chromatic" Title="Chromatic" />
+				<Command ID="PianoRollEditor_ContextMenu_Scale_HalfWholeDiminished" Title="Half-whole diminished" />
+				
+				<Command ID="PianoRollEditor_ContextMenu_Scale" Title="_Scale">
+					<Items>
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_None" />
+						<Separator />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Major" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_MinorHarmonic" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_MinorMelodic" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Diminished" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_BebopMajor" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_BebopDominant" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Arabic" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Enigmatic" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Neopolitan" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_NeopolitanMinor" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_HungarianMinor" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Dorian" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Phyrogolydian" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Lydian" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Mixolydian" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Aeolian" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Locrian" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Minor" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_Chromatic" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_HalfWholeDiminished" />
+					</Items>
+				</Command>
+				
+				<Command ID="PianoRollEditor_ContextMenu_Chord" Title="C_hord" />
+				
 				<Command ID="PianoRollEditor_ContextMenu">
 					<Items>
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Arrow" />
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Draw" />
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Erase" />
+						<Separator />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_Chord" />
 						<Separator />
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteFixedLength" />
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Quantize" />
