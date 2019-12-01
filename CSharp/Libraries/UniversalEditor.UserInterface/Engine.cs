@@ -73,6 +73,8 @@ namespace UniversalEditor.UserInterface
 
 		protected void BeforeInitialization ()
 		{
+			Application.CommandLine.Options.Add("command", '\0', null, CommandLineOptionValueType.Multiple);
+
 			Application.UniqueName = "net.alcetech.UniversalEditor";
 
 			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
@@ -175,12 +177,12 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 
-			Document[] docs = new Document[e.Arguments.Length - 1];
-			if (e.Arguments.Length > 1)
+			Document[] docs = new Document[e.CommandLine.FileNames.Count];
+			if (e.CommandLine.FileNames.Count > 0)
 			{
-				for (int i = 1; i < e.Arguments.Length; i++)
+				for (int i = 0; i < e.CommandLine.FileNames.Count; i++)
 				{
-					docs[i - 1] = new Document(new FileAccessor(e.Arguments[i]));
+					docs[i] = new Document(new FileAccessor(e.CommandLine.FileNames[i]));
 				}
 			}
 
@@ -191,6 +193,15 @@ namespace UniversalEditor.UserInterface
 			else
 			{
 				OpenWindow(docs);
+			}
+
+			List<string> commandsToExecute = (Application.CommandLine.Options.GetValueOrDefault<List<string>>("command", null));
+			if (commandsToExecute != null)
+			{
+				for (int i = 0; i < commandsToExecute.Count; i++)
+				{
+					Application.ExecuteCommand(commandsToExecute[i]);
+				}
 			}
 		}
 
