@@ -42,7 +42,30 @@ namespace UniversalEditor.UserInterface.Controls
 		private ListView lv = null;
 		private DefaultTreeModel tm = null;
 		public Collection<TRef> AvailableObjects { get; } = new Collection<TRef>();
-		public TObj SelectedObject { get; set; } = default(TObj);
+
+		public string DefaultText { get; set; } = null;
+
+		private TObj _SelectedObject = default(TObj);
+		public TObj SelectedObject
+		{
+			get { return _SelectedObject; }
+			set
+			{
+				_SelectedObject = value;
+
+				Text = DefaultText;
+				if (_SelectedObject != null)
+				{
+					TRef _ref = _SelectedObject.MakeReference();
+					if (_ref != null)
+					{
+						string[] deets = _ref.GetDetails();
+						if (deets.Length > 0)
+							Text = deets[0];
+					}
+				}
+			}
+		}
 
 		private TextBox txtSearch = null;
 
@@ -103,9 +126,10 @@ namespace UniversalEditor.UserInterface.Controls
 				}
 			}
 
+			lv.SelectedRows.Clear();
 			if (tm.Rows.Count == 1)
 			{
-				// lv.Items[0].Selected = true;
+				lv.SelectedRows.Add(tm.Rows[0]);
 			}
 			// lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 		}
@@ -139,20 +163,27 @@ namespace UniversalEditor.UserInterface.Controls
 
 		private void txtSearch_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.KeyData == KeyboardKey.Enter)
+			if (e.Key == KeyboardKey.Enter)
 			{
-				if (lv.SelectedRows.Count != 1) return;
+				if (lv.SelectedRows.Count != 1)
+					return;
 
 				SelectedObject = lv.SelectedRows[0].GetExtraData<TRef>("TRef")?.Create();
 				if (SelectionChanged != null) SelectionChanged(this, e);
 
 				CloseDropDown();
 			}
-			else if (e.KeyData == KeyboardKey.Escape)
+			else if (e.Key == KeyboardKey.Escape)
 			{
 				// already handled by GTK? but what about other platforms
 				// Close();
 			}
+		}
+
+		protected override void OnDropDownOpened(EventArgs e)
+		{
+			base.OnDropDownOpened(e);
+			txtSearch.Focus();
 		}
 	}
 }
