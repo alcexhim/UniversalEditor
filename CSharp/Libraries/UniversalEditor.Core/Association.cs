@@ -196,8 +196,18 @@ namespace UniversalEditor
 				{
 					if (assoc.ObjectModels.Contains(ac.ObjectModel))
 					{
-						associations.Add(assoc);
-						continue;
+						if (ac.DataFormat != null)
+						{
+							if (assoc.DataFormats.Contains(ac.DataFormat))
+							{
+								associations.Add(assoc);
+								continue;
+							}
+						}
+						else
+						{
+							associations.Add(assoc);
+						}
 					}
 				}
 				if (ac.DataFormat != null)
