@@ -1,0 +1,28 @@
+[Desktop Entry]
+Version=1.0
+Name=Universal Editor
+GenericName=Modular Document Editor
+Comment=Create, open, edit, and save just about any type of file
+Exec=universal-editor %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=universal-editor
+Categories=Graphics;
+MimeType=text/plain;text/x-csharp;application/x-mds;application/x-mdp;application/x-cmbx;application/x-prjx;application/x-csproj;application/x-vbproj;application/x-sln;application/x-aspx;image/jpeg;image/jpg;image/pjpeg;image/png;image/tiff;image/x-3fr;image/x-adobe-dng;image/x-arw;image/x-bay;image/x-bmp;image/x-canon-cr2;image/x-canon-crw;image/x-cap;image/x-cr2;image/x-crw;image/x-dcr;image/x-dcraw;image/x-dcs;image/x-dng;image/x-drf;image/x-eip;image/x-erf;image/x-fff;image/x-fuji-raf;image/x-iiq;image/x-k25;image/x-kdc;image/x-mef;image/x-minolta-mrw;image/x-mos;image/x-mrw;image/x-nef;image/x-nikon-nef;image/x-nrw;image/x-olympus-orf;image/x-orf;image/x-panasonic-raw;image/x-pef;image/x-pentax-pef;image/x-png;image/x-ptx;image/x-pxn;image/x-r3d;image/x-raf;image/x-raw;image/x-rw2;image/x-rwl;image/x-rwz;image/x-sigma-x3f;image/x-sony-arw;image/x-sony-sr2;image/x-sony-srf;image/x-sr2;image/x-srf;image/x-x3f;application/x-cri-cpk;application/x-cri-afs;application/x-cri-afs2;application/x-cri-utf;application/x-newworldcomputing-agg
+StartupNotify=true
+StartupWMClass=UniversalEditor.exe
+Actions=new-document;new-project;open-document;open-project
+
+[Desktop Action new-document]
+Name=Create a New Document
+Exec=universal-editor --command FileNewDocument
+[Desktop Action new-project]
+Name=Create a New Project
+Exec=universal-editor --command FileNewProject
+[Desktop Action open-document]
+Name=Open an Existing Document
+Exec=universal-editor --command FileOpenDocument
+[Desktop Action open-project]
+Name=Open an Existing Project
+Exec=universal-editor --command FileOpenProject

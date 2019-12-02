@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-newworldcomputing-agg">
+    <comment>New World Computing AGG archive</comment>
+    <glob pattern="*.agg"/>
+    <icon name="application-x-newworldcomputing-agg" />
+    <generic-icon name="package-x-generic" />
+  </mime-type>
+</mime-info>
