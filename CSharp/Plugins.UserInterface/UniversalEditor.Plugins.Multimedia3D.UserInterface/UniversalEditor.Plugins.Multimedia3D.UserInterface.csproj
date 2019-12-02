@@ -67,6 +67,10 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework.Rendering\Engines\OpenGL\MBS.Framework.Rendering.Engines.OpenGL\MBS.Framework.Rendering.Engines.OpenGL.csproj">
+      <Project>{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D}</Project>
+      <Name>MBS.Framework.Rendering.Engines.OpenGL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />

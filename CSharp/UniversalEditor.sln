@@ -155,6 +155,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.Rendering", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Multimedia3D.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Multimedia3D.UserInterface\UniversalEditor.Plugins.Multimedia3D.UserInterface.csproj", "{D18D3E15-6913-4A91-A412-5B1E9BF92487}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.Rendering.Engines.OpenGL", "..\..\MBS.Framework.Rendering\Engines\OpenGL\MBS.Framework.Rendering.Engines.OpenGL\MBS.Framework.Rendering.Engines.OpenGL.csproj", "{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -447,6 +449,10 @@ Global
 		{D18D3E15-6913-4A91-A412-5B1E9BF92487}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D18D3E15-6913-4A91-A412-5B1E9BF92487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D18D3E15-6913-4A91-A412-5B1E9BF92487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -519,6 +525,7 @@ Global
 		{F9854149-5685-4F35-A698-C68F30AAF1B0} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{2A0B4A53-8A3A-478D-80A7-B6FF20B38317} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 		{D18D3E15-6913-4A91-A412-5B1E9BF92487} = {7B535D74-5496-4802-B809-89ED88274A91}
+		{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
