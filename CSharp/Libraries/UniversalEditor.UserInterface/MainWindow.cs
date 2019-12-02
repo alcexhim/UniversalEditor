@@ -38,6 +38,7 @@ namespace UniversalEditor.UserInterface
 
 		private ErrorListPanel pnlErrorList = new ErrorListPanel();
 		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
+		private PropertyListPanel pnlPropertyList = new PropertyListPanel();
 
 		private RibbonTab LoadRibbonBar(CommandBar cb)
 		{
@@ -242,7 +243,7 @@ namespace UniversalEditor.UserInterface
 			AddPanel("Toolbox", DockingItemPlacement.Left);
 
 			AddPanel("Solution Explorer", DockingItemPlacement.Right, pnlSolutionExplorer);
-			AddPanel("Properties", DockingItemPlacement.Right);
+			AddPanel("Properties", DockingItemPlacement.Right, pnlPropertyList);
 
 
 			AddPanel("Error List", DockingItemPlacement.Bottom, pnlErrorList);

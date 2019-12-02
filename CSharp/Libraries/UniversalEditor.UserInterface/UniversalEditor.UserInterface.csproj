@@ -131,6 +131,8 @@
     <Compile Include="Editors\Database\DatabaseEditor.cs" />
     <Compile Include="Editors\Database\DatabaseEditor.Designer.cs" />
     <Compile Include="EditorPlugin.cs" />
+    <Compile Include="Panels\PropertyListPanel.cs" />
+    <Compile Include="Panels\PropertyListPanel.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
