@@ -102,7 +102,8 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 
 			for (ushort i = 0; i < fileCount; i++)
 			{
-				fsom.Files[i].WriteTo(bw);
+				bw.WriteBytes(fsom.Files[i].GetData());
+				// fsom.Files[i].WriteTo(bw);
 			}
 
 			foreach (File file in fsom.Files)
