@@ -207,10 +207,10 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 			#region Parameters
 			for (uint i = 0; i < fieldStringTable_count; i++)
 			{
-				uint param1 = br.ReadUInt32();
+				uint fieldStringTableEntryLength = br.ReadUInt32();
 				uint param2 = br.ReadUInt32();
 				uint param3 = br.ReadUInt32();
-				fieldStringTableParameters.Add(new uint[] { param1, param2, param3 });
+				fieldStringTableParameters.Add(new uint[] { fieldStringTableEntryLength, param2, param3 });
 			}
 			#endregion
 			#region Entries
