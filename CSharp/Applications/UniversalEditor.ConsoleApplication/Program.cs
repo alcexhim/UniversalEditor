@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Text;
 using UniversalEditor.ObjectModels.Text.Formatted.Items;
 
 namespace UniversalEditor.ConsoleApplication
@@ -29,8 +30,46 @@ namespace UniversalEditor.ConsoleApplication
 		{
 			if (args.Length > 0)
 			{
-				Console.WriteLine(args[0]);
-				if (args[0] == "--list-associations")
+				if (args[0] == "update-associations")
+				{
+					StringBuilder sb = new StringBuilder ();
+					sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+					sb.AppendLine("<mime-info xmlns=\"http://www.freedesktop.org/standards/shared-mime-info\">");
+					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+					Association[] assocs = Association.GetAllAssociations();
+					for (int i = 0; i < assocs.Length; i++)
+					{
+						for (int j = 0; j < assocs[i].Filters.Count; j++)
+						{
+							string mimetype = String.Format("application/x-universaleditor-a{0}f{1}", i, j);
+							/*
+							if (assocs[i].Filters[j].MimeType != null)
+							{
+								mimetype = assocs[i].Filters[j].MimeType;
+							}
+							*/
+							sb.AppendLine(String.Format("\t<mime-type type=\"{0}\">", mimetype));
+							sb.AppendLine(String.Format("\t\t<comment>{0}</comment>", assocs[i].Filters[j].Title));
+
+							Console.Write("registering '{0}' extensions... ", assocs[i].Filters[j].Title);
+							for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)
+							{
+								sb.AppendLine(String.Format("\t\t<glob pattern=\"{0}\" />", assocs[i].Filters[j].FileNameFilters[k]));
+
+								Console.Write(assocs[i].Filters[j].FileNameFilters[k]);
+								if (k < assocs[i].Filters[j].FileNameFilters.Count - 1)
+									Console.Write(' ');
+							}
+							Console.WriteLine();
+							sb.AppendLine("\t</mime-type>");
+						}
+					}
+					sb.AppendLine("</mime-info>");
+
+					System.IO.File.WriteAllText("universal-editor.xml", sb.ToString());
+				}
+				else if (args[0] == "--list-associations")
 				{
 					// wake up the UE
 					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
