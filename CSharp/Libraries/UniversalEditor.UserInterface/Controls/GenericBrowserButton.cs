@@ -43,7 +43,7 @@ namespace UniversalEditor.UserInterface.Controls
 		private DefaultTreeModel tm = null;
 		public Collection<TRef> AvailableObjects { get; } = new Collection<TRef>();
 
-		public string DefaultText { get; set; } = null;
+		public string Label { get; set; } = null;
 
 		private TObj _SelectedObject = default(TObj);
 		public TObj SelectedObject
@@ -53,7 +53,7 @@ namespace UniversalEditor.UserInterface.Controls
 			{
 				_SelectedObject = value;
 
-				Text = DefaultText;
+				Text = Label;
 				if (_SelectedObject != null)
 				{
 					TRef _ref = _SelectedObject.MakeReference();
@@ -61,10 +61,19 @@ namespace UniversalEditor.UserInterface.Controls
 					{
 						string[] deets = _ref.GetDetails();
 						if (deets.Length > 0)
-							Text = deets[0];
+							Text = Label + deets[0];
 					}
 				}
+				else
+				{
+					ResetLabel();
+				}
 			}
+		}
+
+		private void ResetLabel()
+		{
+			Text = Label + "(not selected)";
 		}
 
 		private TextBox txtSearch = null;
@@ -95,6 +104,8 @@ namespace UniversalEditor.UserInterface.Controls
 		protected override void OnCreated (EventArgs e)
 		{
 			base.OnCreated (e);
+
+			ResetLabel();
 			UpdateSearch ();
 		}
 
