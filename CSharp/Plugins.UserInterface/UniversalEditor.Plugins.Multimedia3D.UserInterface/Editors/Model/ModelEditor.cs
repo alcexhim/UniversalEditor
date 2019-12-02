@@ -24,6 +24,7 @@ using MBS.Framework.Drawing;
 using MBS.Framework.Rendering;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 using UniversalEditor.UserInterface;
@@ -168,35 +169,68 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 
 		float[] mvp = null;
 
+		private bool fatalError = false; // stop repeating ourselves if we can't find the shader first time around
+
 		void gla_Render(object sender, OpenGLCanvasRenderEventArgs e)
 		{
 			e.Canvas.Clear(Colors.Gray);
 
-			if (p == null)
+			if (p == null && !fatalError)
 			{
 				p = gla.Engine.CreateShaderProgram();
-				Shader vtx = gla.Engine.CreateShaderFromString(ShaderType.Vertex, "#version 150\n\nin vec3 position;\nin vec3 normal;\nin vec3 color;\n\nuniform mat4 mvp;\n\nsmooth out vec4 vertexColor;\n\nvoid main() {\n  gl_Position = mvp * vec4(position, 1.0);\n  vertexColor = vec4(color, 1.0);\n}");
+
+				string vtxFileName = Application.ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_vtx.glsl");
+				if (!System.IO.File.Exists(vtxFileName))
+				{
+					MessageDialog.ShowDialog(String.Format("Vertex shader not found . The rendering will be unavailable.  Check to ensure the file exists and is readable .\n\n{0}", vtxFileName), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+					fatalError = true;
+					p = null;
+					return;
+				}
+
+				Shader vtx = gla.Engine.CreateShaderFromFile(ShaderType.Vertex, vtxFileName);
 				vtx.Compile();
 
-				Shader frg = gla.Engine.CreateShaderFromString(ShaderType.Fragment, "#version 150\n\nsmooth in vec4 vertexColor;\n\nout vec4 outputColor;\n\nvoid main() {\n  outputColor = vertexColor;\n}");
+				string frgFileName = Application.ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_frg.glsl");
+				if (!System.IO.File.Exists(vtxFileName))
+				{
+					MessageDialog.ShowDialog(String.Format("Fragment shader not found . The rendering will be unavailable.  Check to ensure the file exists and is readable .\n\n{0}", frgFileName), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+					fatalError = true;
+					p = null;
+					return;
+				}
+
+				Shader frg = gla.Engine.CreateShaderFromFile(ShaderType.Fragment, frgFileName);
 				frg.Compile();
 
 				p.Shaders.Add(vtx);
 				p.Shaders.Add(frg);
 				p.Link();
 			}
-			e.Canvas.Program = p;
 
-			/* update the "mvp" matrix we use in the shader */
-			p.SetUniformMatrix("mvp", 1, false, mvp);
+			if (p != null)
+			{
+				e.Canvas.Program = p;
+
+				/* update the "mvp" matrix we use in the shader */
+				p.SetUniformMatrix("mvp", 1, false, mvp);
+			}
 
 			/* use the buffers in the VAO */
 			if (vaos != null)
 			{
-				vaos[0].Bind();
+				try
+				{
+					vaos[0].Bind();
 
-				/* draw the three vertices as a triangle */
-				e.Canvas.DrawArrays(RenderMode.Triangles, 0, vertex_data.Length);
+					/* draw the three vertices as a triangle */
+					e.Canvas.DrawArrays(RenderMode.Triangles, 0, vertex_data.Length);
+				}
+				catch (InvalidOperationException ex)
+				{
+					// we might have to recreate the VAO
+					changed = true;
+				}
 			}
 
 			if (changed)
@@ -252,6 +286,11 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 					vertex_data = list.ToArray();
 				}
 
+				if (vaos != null)
+				{
+					gla.Engine.DeleteVertexArray(vaos);
+				}
+
 				// we need to create a VAO to store the other buffers
 				vaos = gla.Engine.CreateVertexArray(1);
 
@@ -263,14 +302,17 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 					buffer.Bind(BufferTarget.ArrayBuffer);
 					buffer.SetData(vertex_data, BufferDataUsage.StaticDraw);
 
-					// enable and set the position attribute
-					buffer.SetVertexAttribute(p.GetAttributeLocation("position"), 3, ElementType.Float, false, 11 * 4, 0);
+					if (p != null)
+					{
+						// enable and set the position attribute
+						buffer.SetVertexAttribute(p.GetAttributeLocation("position"), 3, ElementType.Float, false, 11 * 4, 0);
 
-					// enable and set the normal attribute
-					// buffer.SetVertexAttribute(p.GetAttributeLocation("normal"), 3, ElementType.Float, false, 11 * 4, 3 * 4);
+						// enable and set the normal attribute
+						// buffer.SetVertexAttribute(p.GetAttributeLocation("normal"), 3, ElementType.Float, false, 11 * 4, 3 * 4);
 
-					// enable and set the color attribute
-					buffer.SetVertexAttribute(p.GetAttributeLocation("color"), 3, ElementType.Float, false, 11 * 4, 6 * 4);
+						// enable and set the color attribute
+						buffer.SetVertexAttribute(p.GetAttributeLocation("color"), 3, ElementType.Float, false, 11 * 4, 6 * 4);
+					}
 
 					// reset the state; we will re-enable the VAO when needed
 					buffer.Unbind();
