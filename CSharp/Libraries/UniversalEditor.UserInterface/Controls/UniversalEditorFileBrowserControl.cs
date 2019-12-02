@@ -24,6 +24,8 @@ using MBS.Framework.UserInterface.Layouts;
 using MBS.Framework.UserInterface.Controls.FileBrowser;
 using MBS.Framework.UserInterface.Controls;
 using System.Collections.Generic;
+using MBS.Framework.UserInterface.Dialogs;
+using System.Text;
 
 namespace UniversalEditor.UserInterface.Controls
 {
@@ -51,9 +53,9 @@ namespace UniversalEditor.UserInterface.Controls
 			this.Controls.Add (_Browser, new BoxLayout.Constraints (true, true));
 
 			cboObjectModel = new GenericBrowserButton<ObjectModel, ObjectModelReference> ();
-			// cboObjectModel.SelectedObject = ObjectModel;
-
-			cboObjectModel.Text = "Object _model: (not selected)";
+			cboObjectModel.SelectedObject = ObjectModel;
+			cboObjectModel.SelectionChanged += cboObjectModel_SelectionChanged;
+			cboObjectModel.Label = "Object _model: ";
 
 			ObjectModelReference[] omrs = new ObjectModelReference[0];
 
@@ -88,7 +90,8 @@ namespace UniversalEditor.UserInterface.Controls
 			}
 
 			cboDataFormat = new GenericBrowserButton<DataFormat, DataFormatReference> ();
-			cboDataFormat.Text = "Data _format: (not selected)";
+			cboDataFormat.SelectionChanged += cboDataFormat_SelectionChanged;
+			cboDataFormat.Label = "Data _format: ";
 
 			DataFormatReference[] dfrs = new DataFormatReference[0];
 			if (Mode == FileBrowserMode.Save)
@@ -148,6 +151,38 @@ namespace UniversalEditor.UserInterface.Controls
 			_Table.Controls.Add (cboDataFormat, new BoxLayout.Constraints (true, true));
 			this.Controls.Add (_Table, new BoxLayout.Constraints (false, false));
 		}
+
+		void cboDataFormat_SelectionChanged(object sender, EventArgs e)
+		{
+			_Browser.FileNameFilters.Clear();
+
+			Association[] assocs = Association.FromCriteria(new AssociationCriteria { ObjectModel = cboObjectModel.SelectedObject.MakeReference(), DataFormat = cboDataFormat.SelectedObject.MakeReference() });
+			for (int i = 0; i < assocs.Length; i++)
+			{
+				for (int j = 0; j < assocs[i].Filters.Count; j++)
+				{
+					FileDialogFileNameFilter filter = new FileDialogFileNameFilter();
+					filter.Title = assocs[i].Filters[j].Title;
+
+					StringBuilder sb = new StringBuilder();
+					for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)
+					{
+						sb.Append(assocs[i].Filters[j].FileNameFilters[k]);
+						if (k < assocs[i].Filters[j].FileNameFilters.Count - 1)
+							sb.Append('|');
+					}
+
+					filter.Filter = sb.ToString();
+					_Browser.FileNameFilters.Add(filter);
+				}
+			}
+		}
+
+		void cboObjectModel_SelectionChanged(object sender, EventArgs e)
+		{
+			cboDataFormat.OpenDropDown();
+		}
+
 
 		public event EventHandler ItemActivated;
 		protected virtual void OnItemActivated (EventArgs e)
