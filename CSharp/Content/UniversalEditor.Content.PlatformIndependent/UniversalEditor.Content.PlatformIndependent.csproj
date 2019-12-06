@@ -658,6 +658,7 @@
     <Content Include="Extensions\GameDeveloper\Extensions\Sony\Database\PSFDataFormat.uexml" />
     <Content Include="Editors\Multimedia3D\Model\Shaders\Default\default_vtx.glsl" />
     <Content Include="Editors\Multimedia3D\Model\Shaders\Default\default_frg.glsl" />
+    <Content Include="Extensions\FileSystem\Associations\InstallShield\PKG.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

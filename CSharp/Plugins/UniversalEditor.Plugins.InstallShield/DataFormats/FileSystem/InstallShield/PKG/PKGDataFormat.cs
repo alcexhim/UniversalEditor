@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 			
-			Reader br = base.Accessor.Reader;
+			Reader br = Accessor.Reader;
 			ushort signature = br.ReadUInt16();
 			if (signature != 0xA34A) throw new InvalidDataFormatException("File does not begin with 0xA34A");
 			
@@ -41,28 +41,29 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 			ushort unknown1b = br.ReadUInt16();
 			uint unknown2 = br.ReadUInt32();
 			uint unknown3 = br.ReadUInt32();
+			/*
 			uint unknown4 = br.ReadUInt32();
 			ushort unknown5 = br.ReadUInt16();
 			ushort unknown6 = br.ReadUInt16();
 			ushort unknown7 = br.ReadUInt16();
+			*/
 			ushort fileCount = br.ReadUInt16();
 			for (ushort i = 0; i < fileCount; i++)
 			{
-				string FileName = br.ReadLengthPrefixedString();
+				ushort FileNameLength = br.ReadUInt16();
+				string FileName = br.ReadFixedLengthString(FileNameLength);
+				/*
 				byte unknown8 = br.ReadByte();
 				uint unknown9 = br.ReadUInt32();
 				ushort unknown10 = br.ReadUInt16();
-				
-				File file = new File();
-				file.Name = FileName;
-				file.Size = unknown10;
+				*/
+				ushort unknown8 = br.ReadUInt16();
+				ushort maybeLength = br.ReadUInt16();
+				ushort unknown9 = br.ReadUInt16();
+
+				File file = fsom.AddFile(FileName);
+				file.Size = maybeLength;
 				file.DataRequest += new DataRequestEventHandler(file_DataRequest);
-				fsom.Files.Add(file);
-				
-				if (file.Name == "OP.Z")
-				{
-					
-				}
 			}
 		}
 
@@ -72,7 +73,26 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 		
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) return;
+
+			Writer bw = Accessor.Writer;
+			bw.WriteUInt16(0xA34A);
+			bw.WriteUInt32(10);
+			bw.WriteUInt32(2);
+			bw.WriteUInt32(65536);
+
+			File[] files = fsom.GetAllFiles();
+			bw.WriteUInt16((ushort)files.Length);
+			for (ushort i = 0; i < (ushort)files.Length; i++)
+			{
+				bw.WriteUInt16((ushort)files[i].Name.Length);
+				bw.WriteFixedLengthString(files[i].Name, (ushort)files[i].Name.Length);
+
+				bw.WriteUInt16(2);
+				bw.WriteUInt16((ushort)files[i].Size);
+				bw.WriteUInt16(8);
+			}
 		}
 	}
 }

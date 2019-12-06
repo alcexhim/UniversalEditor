@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
@@ -37,12 +38,24 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Cabinet
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
-			Reader br = base.Accessor.Reader;
+			Reader br = Accessor.Reader;
 			br.Accessor.Seek(0, SeekOrigin.Begin);
 			br.Endianness = Endianness.LittleEndian;
 
 			string ISc_ = br.ReadFixedLengthString(4);
 			if (ISc_ != "ISc(") throw new InvalidDataFormatException();
+
+
+			string hdrfilename = System.IO.Path.ChangeExtension(Accessor.GetFileName(), ".hdr");
+			if (System.IO.File.Exists(hdrfilename))
+			{
+				FileAccessor fa = new FileAccessor(hdrfilename, false, false, true);
+
+				HDRDataFormat hdr = new HDRDataFormat();
+				hdr.IgnoreCabinet = true; // set this because WE are the cabinet
+
+				Document.Load(fsom, hdr, fa);
+			}
 
 			uint version = br.ReadUInt32();
 			int majorVersion = 0;
@@ -79,9 +92,10 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Cabinet
 			uint unknown6 = br.ReadUInt32();
 			uint fileCount = br.ReadUInt32();
 			uint fileTableOffset2 = br.ReadUInt32();
+			return;
 
-			if (br.Accessor.Position != 0x30) throw new InvalidDataFormatException();
-			if (fileTableSize != fileTableSize2) throw new InvalidDataFormatException("File table sizes do not match");
+			// if (br.Accessor.Position != 0x30) throw new InvalidDataFormatException();
+			// if (fileTableSize != fileTableSize2) throw new InvalidDataFormatException("File table sizes do not match");
 
 			uint unknown7 = br.ReadUInt32();
 			uint unknown8 = br.ReadUInt32();
@@ -98,9 +112,6 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Cabinet
 			{
 				componentOffsets[i] = br.ReadUInt32();
 			}
-
-
-
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
