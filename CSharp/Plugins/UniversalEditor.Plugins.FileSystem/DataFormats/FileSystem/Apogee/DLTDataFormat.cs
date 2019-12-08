@@ -2,9 +2,13 @@
 //  DLTDataFormat.cs
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Mike Becker <alcexhim@gmail.com> - Universal Editor port
+//  
+//	Adapted from source published by:
+//       Adam Nielsen <malvineous@shikadi.net>, The_coder, Wormbo (xentax forum)
+//       http://www.shikadi.net/moddingwiki/DLT_Format
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019 Mike Becker and contributors
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -29,6 +33,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Apogee
 {
 	public class DLTDataFormat : DataFormat
 	{
+		/// <summary>
+		/// Universal Editor <see cref="CompressionModule" /> implementation of Apogee's PGBP compression algorithm.
+		/// </summary>
 		private class PGBPCompressionModule : CompressionModule
 		{
 			public override string Name => "Apogee PGBP";
