@@ -40,7 +40,7 @@ namespace UniversalEditor.IO
 		/// </summary>
         BigEndian,
 		/// <summary>
-		/// Little-endian except for bytes in 32-bit values which are stored with the 16-bit halves swapped.
+		/// Little-endian except for bytes in 32-bit values which are stored with the 16-bit halves swapped (also known as middle-endian).
 		/// </summary>
 		PDPEndian
     }
