@@ -659,6 +659,7 @@
     <Content Include="Editors\Multimedia3D\Model\Shaders\Default\default_vtx.glsl" />
     <Content Include="Editors\Multimedia3D\Model\Shaders\Default\default_frg.glsl" />
     <Content Include="Extensions\FileSystem\Associations\InstallShield\PKG.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\Nintendo\Associations\Z64.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -684,6 +685,8 @@
     <Folder Include="Extensions\GameDeveloper\Associations\FileSystem\CRI\" />
     <Folder Include="Extensions\GameDeveloper\Associations\Database\" />
     <Folder Include="Extensions\GameDeveloper\Associations\Database\CRI\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\Nintendo\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\Nintendo\Associations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
