@@ -101,8 +101,25 @@ namespace UniversalEditor.ObjectModels.Executable
 			}
 		}
 
-		private byte[] mvarData = new byte[0];
-		public byte[] Data { get { return mvarData; } set { mvarData = value; } }
+		public event FileSystem.DataRequestEventHandler DataRequest;
+
+		private byte[] mvarData = null;
+		public byte[] Data
+		{
+			get
+			{
+				if (mvarData == null && DataRequest != null)
+				{
+					FileSystem.DataRequestEventArgs e = new FileSystem.DataRequestEventArgs();
+					DataRequest(this, e);
+
+					mvarData = e.Data;
+				}
+				if (mvarData == null) return new byte[0];
+				return mvarData;
+			}
+			set { mvarData = value; }
+		}
 
 		private long mvarPhysicalAddress = 0;
 		public long PhysicalAddress { get { return mvarPhysicalAddress; } set { mvarPhysicalAddress = value; } }
