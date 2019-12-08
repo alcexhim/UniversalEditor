@@ -227,7 +227,28 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 				}
 				br.Accessor.Position = pos;
 			}
+
+
+			for (int i = 0; i < sections.Count; i++)
+			{
+				ExecutableSection sect = new ExecutableSection();
+				sect.PhysicalAddress = sections[i].offset;
+				sect.VirtualSize = sections[i].size;
+				sect.DataRequest += sect_DataRequest;
+				exe.Sections.Add(sect);
+			}
 		}
+
+		private void sect_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			ExecutableSection sect = (sender as ExecutableSection);
+			if (sect == null)
+				return;
+
+			Accessor.Reader.Seek(sect.PhysicalAddress, SeekOrigin.Begin);
+			e.Data = Accessor.Reader.ReadBytes(sect.VirtualSize);
+		}
+
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
