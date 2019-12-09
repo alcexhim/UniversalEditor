@@ -160,8 +160,8 @@ namespace UniversalEditor.ObjectModels.Executable
 			System.IO.File.WriteAllBytes(FileName, mvarData);
 		}
 
-		private uint mvarVirtualSize = 0;
-		public uint VirtualSize { get { return mvarVirtualSize; } set { mvarVirtualSize = value; } }
+		private ulong mvarVirtualSize = 0;
+		public ulong VirtualSize { get { return mvarVirtualSize; } set { mvarVirtualSize = value; } }
 
 		private uint mvarRelocationOffset = 0;
 		public uint RelocationOffset { get { return mvarRelocationOffset; } set { mvarRelocationOffset = value; } }

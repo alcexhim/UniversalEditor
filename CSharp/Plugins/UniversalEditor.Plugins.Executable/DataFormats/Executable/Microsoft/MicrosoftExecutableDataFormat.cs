@@ -740,7 +740,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 					{
 						PESectionHeader pesh = new PESectionHeader();
 						pesh.name = section.Name;
-						pesh.virtualSize = section.VirtualSize;
+						pesh.virtualSize = (uint) section.VirtualSize;
 						pesh.virtualAddress = (uint)offset;
 						pesh.rawDataPtr = (uint)offset;
 						pesh.rawDataSize = (uint)section.Data.Length;

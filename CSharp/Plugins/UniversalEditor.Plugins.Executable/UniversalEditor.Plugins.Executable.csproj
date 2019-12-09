@@ -101,6 +101,7 @@
     <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFDataFormat.cs" />
     <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFAuxilaryHeader.cs" />
     <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFDocumentFlags.cs" />
+    <Compile Include="DataFormats\Executable\ELF\ELFSectionEntry.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

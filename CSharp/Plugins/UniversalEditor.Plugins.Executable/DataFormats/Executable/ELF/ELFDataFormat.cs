@@ -54,72 +54,6 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 				unsigned char = Unsigned 1 byte integer
 		 */
 
-		private struct ELFSectionEntry
-		{
-			public string name;
-			/// <summary>
-			/// This member specifies the name of the section. Its value is an index into
-			/// the section header string table section, giving the location of a
-			/// null-terminated string.
-			/// </summary>
-			public uint nameindex;
-			/// <summary>
-			/// This member categorizes the section’s contents and semantics. Section types
-			/// and their descriptions appear below.
-			/// </summary>
-			public ELFSectionType type;
-			/// <summary>
-			/// Sections support 1-bit flags that describe miscellaneous attributes.
-			/// </summary>
-			public ELFSectionFlags flags;
-			/// <summary>
-			/// If the section will appear in the memory image of a process, this member
-			/// gives the address at which the section’s first byte should reside.
-			/// Otherwise, the member contains 0.
-			/// </summary>
-			public uint addr;
-			/// <summary>
-			/// This member’s value gives the byte offset from the beginning of the file
-			/// to the first byte in the section. One section type, SHT_NOBITS described
-			/// below, occupies no space in the file, and its sh_offset member locates
-			/// the conceptual placement in the file.
-			/// </summary>
-			public uint offset;
-			/// <summary>
-			/// This member gives the section’s size in bytes. Unless the section type is
-			/// SHT_NOBITS, the section occupies sh_size bytes in the file. A section of
-			/// type SHT_NOBITS may have a non-zero size, but it occupies no space in the
-			/// file.
-			/// </summary>
-			public uint size;
-			/// <summary>
-			/// This member holds a section header table index link, whose interpretation
-			/// depends on the section type. A table below describes the values.
-			/// </summary>
-			public uint link;
-			/// <summary>
-			/// This member holds extra information, whose interpretation depends on the
-			/// section type. A table below describes the values.
-			/// </summary>
-			public uint info;
-			/// <summary>
-			/// Some sections have address alignment constraints. For example, if a
-			/// section holds a doubleword, the system must ensure doubleword alignment
-			/// for the entire section. That is, the value of sh_addr must be congruent
-			/// to 0, modulo the value of sh_addralign. Currently, only 0 and positive
-			/// integral powers of two are allowed. Values 0 and 1 mean the section has
-			/// no alignment constraints.
-			/// </summary>
-			public uint addralign;
-			/// <summary>
-			/// Some sections hold a table of fixed-size entries, such as a symbol table.
-			/// For such a section, this member gives the size in bytes of each entry.
-			/// The member contains 0 if the section does not hold a table of fixed-size
-			/// entries.
-			/// </summary>
-			public uint entsize;
-		}
-
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ExecutableObjectModel exe = (objectModel as ExecutableObjectModel);
@@ -146,19 +80,19 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 			mvarObjectFileType = (ELFObjectFileType)br.ReadUInt16();
 			mvarMachine = (ELFMachine)br.ReadUInt16();
 			uint e_version = br.ReadUInt32();
-			
+
 			// This member gives the virtual address to which the system first transfers
 			// control, thus starting the process. If the file has no associated entry
 			// point, this member holds zero.
-			uint e_entry = br.ReadUInt32();
+			ulong e_entry = ReadAddress(br);
 
 			// This member holds the program header table’s file offset in bytes. If the
 			// file has no program header table, this member holds zero.
-			uint e_phoff = br.ReadUInt32();
+			ulong e_phoff = ReadAddress(br);
 
 			// This member holds the section header table’s file offset in bytes. If the
 			// file has no section header table, this member holds zero.
-			uint e_shoff = br.ReadUInt32();
+			ulong e_shoff = ReadAddress(br);
 
 			// This member holds processor-specific flags associated with the file. Flag
 			// names take the form EF_machine_flag. See "Machine Information" for flag
@@ -193,21 +127,21 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 			ushort e_shstrndx = br.ReadUInt16();
 			#endregion
 			#region Section Table
-			br.Accessor.Position = baseoffset + e_shoff;
+			br.Accessor.Position = baseoffset + (long)e_shoff;
 			List<ELFSectionEntry> sections = new List<ELFSectionEntry>();
 			for (ushort i = 0; i < e_shnum; i++)
 			{
 				ELFSectionEntry sh = new ELFSectionEntry();
 				sh.nameindex = br.ReadUInt32();
 				sh.type = (ELFSectionType)br.ReadUInt32();
-				sh.flags = (ELFSectionFlags)br.ReadUInt32();
-				sh.addr = br.ReadUInt32();
+				sh.flags = (ELFSectionFlags)(Capacity == ELFCapacity.elf64Bit ? br.ReadUInt64() : br.ReadUInt32());
+				sh.addr = ReadAddress(br);
 				sh.offset = br.ReadUInt32();
-				sh.size = br.ReadUInt32();
+				sh.size = (Capacity == ELFCapacity.elf64Bit ? br.ReadUInt64() : br.ReadUInt32());
 				sh.link = br.ReadUInt32();
 				sh.info = br.ReadUInt32();
-				sh.addralign = br.ReadUInt32();
-				sh.entsize = br.ReadUInt32();
+				sh.addralign = (Capacity == ELFCapacity.elf64Bit ? br.ReadUInt64() : br.ReadUInt32());
+				sh.entsize = (Capacity == ELFCapacity.elf64Bit ? br.ReadUInt64() : br.ReadUInt32());
 				sections.Add(sh);
 			}
 			#endregion
@@ -237,6 +171,12 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 				sect.DataRequest += sect_DataRequest;
 				exe.Sections.Add(sect);
 			}
+		}
+
+		private ulong ReadAddress(Reader br)
+		{
+			bool is64bit = Capacity == ELFCapacity.elf64Bit;
+			return (is64bit ? br.ReadUInt64() : br.ReadUInt32());
 		}
 
 		private void sect_DataRequest(object sender, DataRequestEventArgs e)
