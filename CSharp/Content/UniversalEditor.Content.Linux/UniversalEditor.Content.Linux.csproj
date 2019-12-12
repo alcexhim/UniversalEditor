@@ -38,9 +38,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="usr\share\applications\universal-editor.desktop">
-      <DeployService.TargetDirectoryId>Linux.DesktopApplications</DeployService.TargetDirectoryId>
-    </Content>
+    <Content Include="usr\share\applications\universal-editor.desktop" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="usr\" />
