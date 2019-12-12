@@ -28,7 +28,7 @@
 				</Task>
 			</Tasks>
 			<Variables>
-				<Variable Name="ProjectTarget" Type="Selection">
+				<Variable Name="ProjectTarget" Title="Project _target: " Type="Selection">
 					<ValidValues>
 						<ValidValue Title="Console Executable" Value="exe" />
 						<ValidValue Title="GUI Executable" Value="winexe" />
@@ -38,8 +38,8 @@
 						<ValidValue Title="Windows Metadata object" Value="winmdobj" />
 					</ValidValues>
 				</Variable>
-				<Variable Name="OutputFileName" Type="FileSave" />
-				<Variable Name="RootNamespace" Type="String" />
+				<Variable Name="OutputFileName" Title="Output _file name: " Type="FileSave" />
+				<Variable Name="RootNamespace" Title="_Root namespace: " Type="String" />
 			</Variables>
 		</ProjectType>
 	</ProjectTypes>
