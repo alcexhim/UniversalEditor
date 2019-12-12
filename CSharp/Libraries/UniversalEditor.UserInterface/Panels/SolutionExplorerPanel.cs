@@ -215,7 +215,14 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 			else if (file != null)
 			{
-				Engine.CurrentEngine.LastWindow.OpenFile(file.SourceFileName);
+				if (String.IsNullOrEmpty(file.SourceFileName))
+				{
+					MessageDialog.ShowDialog("TODO: Implement OpenDocument() call so we can open embedded files (i.e. that do not actually exist as 'files')", "NOT IMPLEMENTED", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				}
+				else
+				{
+					Engine.CurrentEngine.LastWindow.OpenFile(file.SourceFileName);
+				}
 			}
 			else if (folder != null)
 			{
