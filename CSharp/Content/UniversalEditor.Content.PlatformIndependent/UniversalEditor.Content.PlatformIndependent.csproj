@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extensions\SoftwareDeveloper\ProjectTypes\{B4EC64DC-6D44-11DD-AAB0-C9A155D89593}.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Associations\Chunked.uexml" />
