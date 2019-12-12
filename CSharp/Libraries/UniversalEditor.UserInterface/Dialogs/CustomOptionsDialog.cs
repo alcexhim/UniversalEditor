@@ -87,17 +87,19 @@ namespace UniversalEditor.UserInterface.Dialogs
 				{
 					CustomOptionChoice option = (eo as CustomOptionChoice);
 
-					// ComboBox cbo = new ComboBox();
-					// if (option.RequireChoice) cbo.DropDownStyle = ComboBoxStyle.DropDownList;
+					ComboBox cbo = new ComboBox();
+					cbo.ReadOnly = option.RequireChoice;
+					DefaultTreeModel tm = new DefaultTreeModel(new Type[] { typeof(string) });
 					foreach (CustomOptionFieldChoice choice in option.Choices)
 					{
-						// cbo.Items.Add(choice);
+						tm.Rows.Add(new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tm.Columns[0], choice) }));
 					}
+					cbo.Model = tm;
 					// cbo.Dock = DockStyle.Fill;
 
-					// tbl.Controls.Add(cbo);
+					this.Controls.Add(cbo, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
 
-					// CustomOptionControls.Add(eo.PropertyName, cbo);
+					CustomOptionControls.Add(eo.PropertyName, cbo);
 				}
 				else if (eo is CustomOptionNumber)
 				{
