@@ -17,6 +17,7 @@
 						<FileNameFilter>*.vcproj</FileNameFilter>
 						<FileNameFilter>*.vcxproj</FileNameFilter>
 						<FileNameFilter>*.booproj</FileNameFilter>
+						<FileNameFilter>*.ilproj</FileNameFilter>
 					</FileNameFilters>
 				</Filter>
 			</Filters>
