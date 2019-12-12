@@ -565,6 +565,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 							{
 								switch (ptv.Type)
 								{
+									case ProjectTypeVariableType.Text:
+									{
+										CustomOptionText co = new CustomOptionText(ptv.Name, ptv.Title);
+										coll.Add(co);
+										break;
+									}
 									case ProjectTypeVariableType.Choice:
 									{
 										List<CustomOptionFieldChoice> choices = new List<CustomOptionFieldChoice>();
