@@ -482,6 +482,10 @@ namespace UniversalEditor.UserInterface
 			{
 				HostApplication.CurrentWindow.ShowStartPage();
 			});
+			Application.AttachCommandEventHandler("ViewStatusBar", delegate (object sender, EventArgs e)
+			{
+				HostApplication.CurrentWindow.StatusBar.Visible = !HostApplication.CurrentWindow.StatusBar.Visible;
+			});
 
 			#endregion
 			#region Tools

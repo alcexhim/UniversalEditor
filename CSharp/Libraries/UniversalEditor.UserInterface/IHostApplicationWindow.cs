@@ -74,6 +74,8 @@ namespace UniversalEditor.UserInterface
 		/// <param name="visible">True if the window list should be shown; false if the window list should be hidden.</param>
 		/// <param name="modal">True if the window list should be presented as a modal dialog; false if it should be presented as a popup (for example, during a window switch action).</param>
 		void SetWindowListVisible(bool visible, bool modal);
+
+		StatusBar StatusBar { get; }
 	}
 	public class IHostApplicationWindowCollection
 		: System.Collections.ObjectModel.Collection<IHostApplicationWindow>
