@@ -626,6 +626,7 @@ namespace UniversalEditor.UserInterface
 		#region IHostApplicationWindow implementation
 		public void OpenFile()
 		{
+			/*
 			using (DocumentPropertiesDialogV2 dlg = new DocumentPropertiesDialogV2 ())
 			{
 				DialogResult result = dlg.ShowDialog ();
@@ -639,7 +640,7 @@ namespace UniversalEditor.UserInterface
 					OpenFile(doc);
 				}
 			}
-			/*
+			*/
 			using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog())
 			{
 				if (dlg.ShowDialog() == DialogResult.OK)
@@ -648,7 +649,6 @@ namespace UniversalEditor.UserInterface
 					OpenFile(doc);
 				}
 			}
-			*/
 		}
 
 		public void OpenFile(params string[] fileNames)
