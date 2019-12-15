@@ -276,16 +276,16 @@ namespace UniversalEditor.UserInterface
 		private void page_DocumentEdited(object sender, EventArgs e)
 		{
 			Pages.EditorPage page = (sender as Pages.EditorPage);
-			// AwesomeControls.DockingWindows.DockingWindow doc = dcc.Windows[page];
-			// if (doc == null) return;
+			DockingItem di = dckContainer.Items[page];
+			if (di == null) return;
 
 			if (String.IsNullOrEmpty(page.Document.Title))
 			{
-				// doc.Title = "<untitled> (*)";
+				di.Title = "<untitled> (*)";
 			}
 			else
 			{
-				// doc.Title = System.IO.Path.GetFileName(page.Document.Title) + " (*)";
+				di.Title = System.IO.Path.GetFileName(page.Document.Title) + " (*)";
 			}
 			page.Document.IsChanged = true;
 		}
