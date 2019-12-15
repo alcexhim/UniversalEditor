@@ -32,6 +32,7 @@ namespace UniversalEditor
 			: base(propertyName, title, enabled, visible)
 		{
 			mvarDefaultValue = defaultValue;
+			mvarValue = defaultValue;
 		}
 
 		private bool mvarDefaultValue = false;
