@@ -113,6 +113,8 @@ namespace UniversalEditor.Editors.FileSystem
 			fd.MultiSelect = true;
 			if (fd.ShowDialog() == DialogResult.OK)
 			{
+				BeginEdit();
+
 				foreach (string fileName in fd.SelectedFileNames)
 				{
 					string fileTitle = System.IO.Path.GetFileName(fileName);
@@ -120,6 +122,8 @@ namespace UniversalEditor.Editors.FileSystem
 
 					UIAddExistingFile(fsom, fileTitle, data);
 				}
+
+				EndEdit();
 			}
 		}
 
@@ -195,6 +199,8 @@ namespace UniversalEditor.Editors.FileSystem
 			{
 				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
 				IFileSystemObject[] files = f.GetContents();
+
+				BeginEdit();
 				foreach (IFileSystemObject fso in files)
 				{
 					if (fso is File)
@@ -206,6 +212,7 @@ namespace UniversalEditor.Editors.FileSystem
 						RecursiveAddFolder(fso as Folder);
 					}
 				}
+				EndEdit();
 			}
 		}
 
@@ -215,20 +222,16 @@ namespace UniversalEditor.Editors.FileSystem
 			if (fsom == null)
 				return;
 
-			if (item != null)
+			BeginEdit();
+			if (item is Folder)
 			{
-				if (item is File)
-				{
-				}
-				else if (item is Folder)
-				{
-					(item as Folder).Folders.Add(f);
-				}
+				(item as Folder).Folders.Add(f);
 			}
-			else
+			else if (item == null)
 			{
 				fsom.Folders.Add(f);
 			}
+			EndEdit();
 		}
 
 		private void FileAddExistingFolder_Click(object sender, EventArgs e)
@@ -241,9 +244,13 @@ namespace UniversalEditor.Editors.FileSystem
 			fd.Mode = FileDialogMode.SelectFolder;
 			if (fd.ShowDialog() == DialogResult.OK)
 			{
+				BeginEdit();
+
 				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
 				RecursiveAddFolder(f);
 				AddFolderToItem(f, null);
+
+				EndEdit();
 			}
 		}
 

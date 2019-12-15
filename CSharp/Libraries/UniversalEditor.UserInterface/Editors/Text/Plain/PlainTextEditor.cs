@@ -65,7 +65,10 @@ namespace UniversalEditor.Editors.Text.Plain
 		private void txt_Changed(object sender, EventArgs e)
 		{
 			PlainTextObjectModel om = (this.ObjectModel as PlainTextObjectModel);
+
+			BeginEdit();
 			om.Text = txt.Text;
+			EndEdit();
 		}
 
 		public PlainTextEditor ()
