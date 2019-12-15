@@ -485,6 +485,7 @@ namespace UniversalEditor.UserInterface
 			Application.AttachCommandEventHandler("ViewStatusBar", delegate (object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.StatusBar.Visible = !HostApplication.CurrentWindow.StatusBar.Visible;
+				Application.Commands["ViewStatusBar"].Checked = HostApplication.CurrentWindow.StatusBar.Visible;
 			});
 
 			#endregion
