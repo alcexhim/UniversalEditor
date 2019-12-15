@@ -842,7 +842,7 @@ namespace UniversalEditor.UserInterface
 					{
 						df = new BinaryDataFormat();
 					}
-					SaveFileAs(dlg.Accessor.GetFileName(), df, document.ObjectModel);
+					SaveFileAs(dlg.Accessor, df, document.ObjectModel);
 
 					DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
 					if (di != null)
@@ -874,7 +874,7 @@ namespace UniversalEditor.UserInterface
 							df = new BinaryDataFormat();
 						}
 
-						SaveFileAs(dlg.Accessor.GetFileName(), df, currentEditor.ObjectModel);
+						SaveFileAs(dlg.Accessor, df, currentEditor.ObjectModel);
 
 						DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
 						if (di != null)
@@ -887,13 +887,13 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		public void SaveFileAs(string FileName, DataFormat df, ObjectModel om)
+		public void SaveFileAs(Accessor accessor, DataFormat df, ObjectModel om)
 		{
-			Document.Save(om, df, new FileAccessor(FileName, true, true, true));
+			Document.Save(om, df, accessor);
 		}
-		public void SaveFileAs(string FileName, DataFormat df)
+		public void SaveFileAs(Accessor accessor, DataFormat df)
 		{
-			SaveFileAs(FileName, df, GetCurrentEditor()?.ObjectModel);
+			SaveFileAs(accessor, df, GetCurrentEditor()?.ObjectModel);
 		}
 
 		public void SaveProject()

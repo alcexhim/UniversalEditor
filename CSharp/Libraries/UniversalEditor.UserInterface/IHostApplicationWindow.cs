@@ -21,7 +21,7 @@ namespace UniversalEditor.UserInterface
 
 		void SaveFile();
 		void SaveFileAs();
-		void SaveFileAs(string FileName, DataFormat df);
+		void SaveFileAs(Accessor accessor, DataFormat df);
 		
 		void SaveProject();
 		void SaveProjectAs();
