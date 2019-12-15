@@ -145,6 +145,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					CustomOptionBoolean option = (eo as CustomOptionBoolean);
 
 					CheckBox chk = new CheckBox();
+					chk.Checked = option.DefaultValue;
 					chk.Text = option.Title;
 
 					this.Controls.Add(chk, new GridLayout.Constraints(iRow, 0, 1, 2, ExpandMode.Horizontal));
