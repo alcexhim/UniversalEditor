@@ -790,36 +790,18 @@ namespace UniversalEditor.UserInterface
 		{
 			if (document.IsSaved)
 			{
-				if (document.InputAccessor.IsOpen)
+				if (document.InputAccessor != null && document.InputAccessor.IsOpen)
 					document.InputAccessor.Close();
 
-				if (document.Accessor is FileAccessor)
+				document.OutputAccessor.Open();
+				document.Save();
+				document.OutputAccessor.Close();
+
+				DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
+				if (di != null)
 				{
-					(document.OutputAccessor as FileAccessor).AllowWrite = true;
-
-					string oldfilename = (document.OutputAccessor as FileAccessor).FileName;
-					string newfilename = TemporaryFileManager.GetTemporaryFileName();
-					(document.OutputAccessor as FileAccessor).FileName = newfilename;
-					document.OutputAccessor.Open();
-					document.Save();
-					document.OutputAccessor.Close();
-					(document.OutputAccessor as FileAccessor).FileName = oldfilename;
-
-					System.IO.File.Delete(oldfilename);
-					System.IO.File.Copy(newfilename, oldfilename);
-
-					DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
-					if (di != null)
-					{
-						di.Name = oldfilename;
-						di.Title = System.IO.Path.GetFileName(oldfilename);
-					}
-				}
-				else
-				{
-					document.OutputAccessor.Open();
-					document.Save();
-					document.OutputAccessor.Close();
+					di.Name = document.OutputAccessor.GetFileName();
+					di.Title = System.IO.Path.GetFileName(document.OutputAccessor.GetFileName());
 				}
 			}
 			else
@@ -844,12 +826,9 @@ namespace UniversalEditor.UserInterface
 					}
 					SaveFileAs(dlg.Accessor, df, document.ObjectModel);
 
-					DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
-					if (di != null)
-					{
-						di.Name = dlg.Accessor.GetFileName();
-						di.Title = System.IO.Path.GetFileName(dlg.Accessor.GetFileName());
-					}
+					document.OutputAccessor = dlg.Accessor;
+					document.OutputDataFormat = df;
+					document.IsSaved = true;
 				}
 			}
 		}
@@ -875,13 +854,6 @@ namespace UniversalEditor.UserInterface
 						}
 
 						SaveFileAs(dlg.Accessor, df, currentEditor.ObjectModel);
-
-						DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
-						if (di != null)
-						{
-							di.Name = dlg.Accessor.GetFileName();
-							di.Title = System.IO.Path.GetFileName(dlg.Accessor.GetFileName());
-						}
 					}
 				}
 			}
@@ -890,6 +862,13 @@ namespace UniversalEditor.UserInterface
 		public void SaveFileAs(Accessor accessor, DataFormat df, ObjectModel om)
 		{
 			Document.Save(om, df, accessor);
+
+			DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
+			if (di != null)
+			{
+				di.Name = accessor.GetFileName();
+				di.Title = System.IO.Path.GetFileName(accessor.GetFileName());
+			}
 		}
 		public void SaveFileAs(Accessor accessor, DataFormat df)
 		{
