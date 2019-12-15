@@ -281,7 +281,18 @@ namespace UniversalEditor.UserInterface
 
 			if (String.IsNullOrEmpty(page.Document.Title))
 			{
-				di.Title = "<untitled> (*)";
+				if (di.Name.StartsWith("<untitled", StringComparison.Ordinal))
+				{
+					di.Title = di.Name + " (*)";
+				}
+				else if (page.Document.Accessor != null)
+				{
+					di.Title = System.IO.Path.GetFileName(page.Document.Accessor.GetFileName()) + " (*)";
+				}
+				else
+				{
+					di.Title = System.IO.Path.GetFileName(di.Name) + " (*)";
+				}
 			}
 			else
 			{
@@ -340,7 +351,7 @@ namespace UniversalEditor.UserInterface
 
 				Glue.Common.Methods.SendApplicationEvent(ae);
 				*/
-				InitDocTab (String.Format("Untitled{0}", iUntitledDocCount), page.Title, page);
+				InitDocTab(String.Format("<untitled{0}>", iUntitledDocCount), page.Title, page);
 			}
 		}
 
@@ -796,6 +807,13 @@ namespace UniversalEditor.UserInterface
 
 					System.IO.File.Delete(oldfilename);
 					System.IO.File.Copy(newfilename, oldfilename);
+
+					DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
+					if (di != null)
+					{
+						di.Name = oldfilename;
+						di.Title = System.IO.Path.GetFileName(oldfilename);
+					}
 				}
 				else
 				{
@@ -825,6 +843,13 @@ namespace UniversalEditor.UserInterface
 						df = new BinaryDataFormat();
 					}
 					SaveFileAs(dlg.Accessor.GetFileName(), df, document.ObjectModel);
+
+					DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
+					if (di != null)
+					{
+						di.Name = dlg.Accessor.GetFileName();
+						di.Title = System.IO.Path.GetFileName(dlg.Accessor.GetFileName());
+					}
 				}
 			}
 		}
@@ -850,6 +875,13 @@ namespace UniversalEditor.UserInterface
 						}
 
 						SaveFileAs(dlg.Accessor.GetFileName(), df, currentEditor.ObjectModel);
+
+						DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
+						if (di != null)
+						{
+							di.Name = dlg.Accessor.GetFileName();
+							di.Title = System.IO.Path.GetFileName(dlg.Accessor.GetFileName());
+						}
 					}
 				}
 			}
