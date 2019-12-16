@@ -500,6 +500,7 @@ namespace UniversalEditor.UserInterface
 						// no need to open and load file, it's already been done
 					}
 					Editor editor = editors[0].Create();
+
 					EditorPage page = new EditorPage();
 					page.Document = doc;
 					page.DocumentEdited += page_DocumentEdited;
@@ -554,9 +555,19 @@ namespace UniversalEditor.UserInterface
 			return true;
 		}
 
-		public bool ConfirmExit()
+		public bool ConfirmExit(EditorPage page = null)
 		{
-			EditorPage[] pages = GetEditorPages();
+			EditorPage[] pages = null;
+
+			if (page != null)
+			{
+				pages = new EditorPage[] { page };
+			}
+			else
+			{
+				pages = GetEditorPages();
+			}
+
 			if (pages.Length == 0)
 				return true;
 
@@ -1043,6 +1054,13 @@ namespace UniversalEditor.UserInterface
 		{
 			if (dckContainer.CurrentItem != null)
 			{
+				if (dckContainer.CurrentItem.ChildControl is EditorPage)
+				{
+					if (!ConfirmExit(dckContainer.CurrentItem.ChildControl as EditorPage))
+					{
+						return;
+					}
+				}
 				dckContainer.Items.Remove(dckContainer.CurrentItem);
 				documentWindowCount--;
 			}
