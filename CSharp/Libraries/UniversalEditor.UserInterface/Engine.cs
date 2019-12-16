@@ -117,11 +117,28 @@ namespace UniversalEditor.UserInterface
 
 			// Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
 
+			Application.BeforeShutdown += Application_BeforeShutdown;
 			Application.Startup += Application_Startup;
 			Application.Activated += Application_Activated;
 
 			MBS.Framework.UserInterface.Application.Initialize();
 		}
+
+		void Application_BeforeShutdown(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			for (int i = 0; i < Application.Windows.Count; i++)
+			{
+				MainWindow mw = (Application.Windows[i] as MainWindow);
+				if (mw == null) continue;
+
+				if (!mw.ConfirmExit())
+				{
+					e.Cancel = true;
+					break;
+				}
+			}
+		}
+
 
 		void Application_Startup(object sender, EventArgs e)
 		{
@@ -302,12 +319,6 @@ namespace UniversalEditor.UserInterface
 			return true;
 		}
 		#endregion
-
-		protected void StopApplicationInternal ()
-		{
-			MBS.Framework.UserInterface.Application.Stop ();
-		}
-
 
 		private static Engine[] m_AvailableEngines = null;
 		public static Engine[] GetAvailableEngines()
@@ -1565,7 +1576,7 @@ namespace UniversalEditor.UserInterface
 		public void StopApplication()
 		{
 			if (!BeforeStopApplication()) return;
-			StopApplicationInternal();
+			Application.Stop();
 		}
 		protected virtual void RestartApplicationInternal()
 		{

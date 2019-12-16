@@ -533,6 +533,75 @@ namespace UniversalEditor.UserInterface
 			return true;
 		}
 
+		public bool ConfirmExit()
+		{
+			EditorPage[] pages = GetEditorPages();
+			if (pages.Length == 0)
+				return true;
+
+			SaveConfirmationDialog dlg = new SaveConfirmationDialog();
+			List<int> indices = new List<int>();
+			for (int i = 0; i < pages.Length; i++)
+			{
+				if (!pages[i].Document.IsChanged)
+					continue;
+
+				string filename = null;
+				if (pages[i].Document.Accessor != null)
+				{
+					filename = pages[i].Document.Accessor.GetFileName();
+				}
+				else
+				{
+					filename = pages[i].Title;
+				}
+				dlg.FileNames.Add(filename);
+				indices.Add(i);
+			}
+
+			if (dlg.FileNames.Count == 0)
+			{
+				// nothing to save, so we'll just say we're good
+				return true;
+			}
+
+			DialogResult result = dlg.ShowDialog();
+			switch (result)
+			{
+				case DialogResult.Yes:
+				{
+					for (int i = 0; i < dlg.FileNames.Count; i++)
+					{
+						if (dlg.FileNames[i].Selected)
+						{
+							SaveFile(pages[indices[i]].Document);
+						}
+					}
+					break;
+				}
+				case DialogResult.No:
+				{
+					// we don't save
+					break;
+				}
+				case DialogResult.None:
+				case DialogResult.Cancel:
+				{
+					// prevent the window from closing
+					// for some reason GTK gives us 'None' when we hit Escape ... that should be interpreted as 'Cancel'
+					return false;
+				}
+			}
+			return true;
+		}
+		protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+		{
+			base.OnClosing(e);
+
+			if (!ConfirmExit())
+				e.Cancel = true;
+		}
+
 		private EditorReference DefaultBinaryEditor = new EditorReference(typeof(Editors.Binary.BinaryEditor));
 		private EditorReference DefaultTextEditor = new EditorReference(typeof(Editors.Text.Plain.PlainTextEditor));
 		private void OpenDefaultEditor(string filename)
@@ -829,6 +898,7 @@ namespace UniversalEditor.UserInterface
 					document.OutputAccessor = dlg.Accessor;
 					document.OutputDataFormat = df;
 					document.IsSaved = true;
+					document.IsChanged = false;
 				}
 			}
 		}
@@ -1034,6 +1104,18 @@ namespace UniversalEditor.UserInterface
 			if (editorPage == null) return null;
 
 			return editorPage;
+		}
+		public EditorPage[] GetEditorPages()
+		{
+			List<EditorPage> list = new List<EditorPage>();
+			for (int i = 0; i < dckContainer.Items.Count; i++)
+			{
+				if (dckContainer.Items[i].ChildControl is EditorPage)
+				{
+					list.Add(dckContainer.Items[i].ChildControl as EditorPage);
+				}
+			}
+			return list.ToArray();
 		}
 
 		public bool ShowOptionsDialog()
