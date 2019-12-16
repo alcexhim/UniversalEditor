@@ -92,7 +92,11 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
 			{
 				if (SelectedEntry != null)
+				{
+					BeginEdit();
 					SelectedEntry.Name = txtColorName.Text;
+					EndEdit();
+				}
 			}
 		}
 
@@ -110,7 +114,9 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			dlg.SelectedColor = SelectedEntry.Color;
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
+				BeginEdit();
 				SelectedEntry.Color = dlg.SelectedColor;
+				EndEdit();
 			}
 		}
 
