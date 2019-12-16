@@ -399,6 +399,7 @@ namespace UniversalEditor.UserInterface
 			mvarUpdating--;
 		}
 
+		public bool InEdit { get { return mvarEditing > 0; } }
 		public void BeginEdit()
 		{
 			if (mvarUpdating > 0) return;
@@ -423,6 +424,15 @@ namespace UniversalEditor.UserInterface
 
 			// clear out all the redos
 			redo.Clear();
+		}
+		public void ContinueEdit()
+		{
+			if (undo.Count > 0)
+			{
+				EDITINFO edit = undo.Pop();
+				edit.oldValue = mvarObjectModel.Clone() as ObjectModel;
+				undo.Push(edit);
+			}
 		}
 		public void BeginEdit(string PropertyName, object Value = null, object ParentObject = null, Control editingControl = null)
 		{

@@ -26,6 +26,7 @@ using UniversalEditor.UserInterface;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
+using System.ComponentModel;
 
 namespace UniversalEditor.Editors.Text.Plain
 {
@@ -62,18 +63,35 @@ namespace UniversalEditor.Editors.Text.Plain
 			return _er;
 		}
 
+		bool working = false;
+
 		private void txt_Changed(object sender, EventArgs e)
 		{
 			PlainTextObjectModel om = (this.ObjectModel as PlainTextObjectModel);
 
-			BeginEdit();
-			om.Text = txt.Text;
-			EndEdit();
+			if (!working)
+			{
+				if (!InEdit)
+				{
+					BeginEdit();
+				}
+				om.Text = txt.Text;
+				
+				txt.ResetChangedByUser();
+			}
+		}
+
+		protected override void OnObjectModelSaving(CancelEventArgs e)
+		{
+			base.OnObjectModelSaving(e);
+
+			if (InEdit)
+				EndEdit();
 		}
 
 		public PlainTextEditor ()
 		{
-			txt = new TextBox();	
+			txt = new TextBox();
 			txt.Changed += txt_Changed;
 			txt.Multiline = true;
 
@@ -85,12 +103,16 @@ namespace UniversalEditor.Editors.Text.Plain
 		{
 			base.OnObjectModelChanged(e);
 
+			working = true;
 			txt.Text = String.Empty;
+			working = false;
 
 			PlainTextObjectModel om = (this.ObjectModel as PlainTextObjectModel);
 			if (om == null) return;
 
+			working = true;
 			txt.Text = om.Text;
+			working = false;
 		}
 	}
 }
