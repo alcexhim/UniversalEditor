@@ -884,6 +884,9 @@ namespace UniversalEditor.UserInterface
 			Pages.EditorPage currentEditorPage = GetCurrentEditorPage();
 			if (currentEditorPage != null)
 			{
+				if (!GetCurrentEditor().NotifySaving())
+					return;
+
 				SaveFile(currentEditorPage.Document);
 			}
 		}
