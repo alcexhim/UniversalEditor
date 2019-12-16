@@ -418,7 +418,7 @@ namespace UniversalEditor.UserInterface
 			}
 
 			// push the new edit
-			EDITINFO edit = new EDITINFO(null, null, mvarObjectModel);
+			EDITINFO edit = new EDITINFO(null, null, mvarObjectModel.Clone() as ObjectModel);
 			undo.Push(edit);
 
 			// clear out all the redos
