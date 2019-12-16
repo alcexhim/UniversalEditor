@@ -399,7 +399,7 @@ namespace UniversalEditor.UserInterface
 			mvarUpdating--;
 		}
 
-		protected void BeginEdit()
+		public void BeginEdit()
 		{
 			if (mvarUpdating > 0) return;
 
@@ -424,7 +424,7 @@ namespace UniversalEditor.UserInterface
 			// clear out all the redos
 			redo.Clear();
 		}
-		protected void BeginEdit(string PropertyName, object Value = null, object ParentObject = null, Control editingControl = null)
+		public void BeginEdit(string PropertyName, object Value = null, object ParentObject = null, Control editingControl = null)
 		{
 			if (mvarEditing > 0)
 			{
@@ -458,7 +458,7 @@ namespace UniversalEditor.UserInterface
 			// clear out all the redos
 			redo.Clear();
 		}
-		protected void EndEdit()
+		public void EndEdit()
 		{
 			if (mvarUpdating > 0) return;
 
