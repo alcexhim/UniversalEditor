@@ -27,9 +27,10 @@ namespace UniversalEditor.ObjectModels.Multimedia.Palette
 		public override void CopyTo(ObjectModel where)
 		{
 			PaletteObjectModel clone = (where as PaletteObjectModel);
-			foreach (PaletteEntry entry in mvarEntries)
+			clone.Name = (Name.Clone() as string);
+			for (int i = 0; i < mvarEntries.Count; i++)
 			{
-				clone.Entries.Add(entry.Clone() as PaletteEntry);
+				clone.Entries.Add(mvarEntries[i].Clone() as PaletteEntry);
 			}
 		}
 
