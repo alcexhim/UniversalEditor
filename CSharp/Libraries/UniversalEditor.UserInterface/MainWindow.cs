@@ -431,6 +431,7 @@ namespace UniversalEditor.UserInterface
 
 		private void InitEditorPage(Document doc)
 		{
+			bool loaded = false;
 			if (doc.DataFormat == null)
 			{
 				Console.WriteLine("InitEditorPage: DataFormat unspecified for Document");
@@ -457,6 +458,7 @@ namespace UniversalEditor.UserInterface
 							doc.Accessor.Open ();
 							doc.Load ();
 							doc.IsSaved = true;
+							loaded = true;
 						} catch (InvalidDataFormatException ex) {
 							doc.Accessor.Close ();
 							continue;
@@ -478,10 +480,29 @@ namespace UniversalEditor.UserInterface
 				Console.WriteLine("found {0} editors for object model {1}", editors.Length.ToString(), doc.ObjectModel.ToString());
 				if (editors.Length > 0)
 				{
-					// no need to open and load file, it's already been done
+					if (!loaded)
+					{
+						try
+						{
+							doc.Accessor.Open();
+							doc.Load();
+							doc.IsSaved = true;
+							loaded = true;
+						}
+						catch (Exception ex)
+						{
+							MessageDialog.ShowDialog("could not load file: " + ex.GetType().Name + "\r\n" + ex.Message, "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+							return;
+						}
+					}
+					else
+					{
+						// no need to open and load file, it's already been done
+					}
 					Editor editor = editors[0].Create();
 					EditorPage page = new EditorPage();
 					page.Document = doc;
+					page.DocumentEdited += page_DocumentEdited;
 					// page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
 
 					InitDocTab(doc.Accessor.GetFileName(), doc.Title, page);
@@ -645,6 +666,7 @@ namespace UniversalEditor.UserInterface
 
 			EditorPage page = new EditorPage();
 			page.Controls.Add(ed, new BoxLayout.Constraints(true, true));
+			page.DocumentEdited += page_DocumentEdited;
 
 			InitDocTab(filename, System.IO.Path.GetFileName(filename), page);
 		}
