@@ -324,6 +324,9 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\D00DataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\AdlibSoundcard.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\AdlibBlockType.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDIFileFormatType.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDIEventType.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDIMetaEventType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
