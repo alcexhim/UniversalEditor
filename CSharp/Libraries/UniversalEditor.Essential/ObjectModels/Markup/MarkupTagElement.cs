@@ -6,6 +6,23 @@ namespace UniversalEditor.ObjectModels.Markup
 {
 	public class MarkupTagElement : MarkupContainerElement
 	{
+		public override void Combine(MarkupElement el)
+		{
+			base.Combine(el);
+
+			MarkupTagElement tag = (el as MarkupTagElement);
+			if (tag != null)
+			{
+				for (int i = 0; i < tag.Attributes.Count; i++)
+				{
+					if (!this.Attributes.Contains(tag.Attributes[i].FullName))
+					{
+						this.Attributes.Add(tag.Attributes[i].FullName, tag.Attributes[i].Value);
+					}
+				}
+			}
+		}
+
 		private MarkupAttribute.MarkupAttributeCollection mvarAttributes = new MarkupAttribute.MarkupAttributeCollection();
 		public MarkupAttribute.MarkupAttributeCollection Attributes
 		{
