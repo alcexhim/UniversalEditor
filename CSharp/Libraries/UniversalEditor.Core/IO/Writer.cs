@@ -242,6 +242,31 @@ namespace UniversalEditor.IO
 				WriteInt16(values[i]);
 			}
 		}
+
+		/// <summary>
+		/// Writes a variable-length unsigned integer to the current stream and advances the stream position by the number of bytes written.
+		/// </summary>
+		/// <param name="value">The value to write.</param>
+		/// <returns>a <see cref="Int32" /> representing the number of bytes written to the stream for the given <paramref name="value" /></returns>
+		/// <remarks>This code is taken from the answer on StackOverflow https://stackoverflow.com/q/3564685</remarks>
+		public int WriteVariableLengthInt32(int value)
+		{
+			// thx stackoverflow :) https://stackoverflow.com/q/3564685
+			int count = 0;
+			bool first = true;
+			while (first || value > 0)
+			{
+				first = false;
+				byte lower7bits = (byte)(value & 0x7f);
+				value >>= 7;
+				if (value > 0)
+					lower7bits |= 128;
+				WriteByte(lower7bits);
+				count++;
+			}
+			return count;
+		}
+
 		/// <summary>
 		/// Writes a two-byte unsigned integer to the current stream and advances the stream position by two bytes.
 		/// </summary>
