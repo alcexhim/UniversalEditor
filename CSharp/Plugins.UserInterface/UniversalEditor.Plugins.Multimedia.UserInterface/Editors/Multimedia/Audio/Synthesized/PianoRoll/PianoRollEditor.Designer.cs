@@ -67,7 +67,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
-			PianoRoll = new PianoRollView();
+			PianoRoll = new PianoRollView(this);
 			this.Controls.Add(PianoRoll, new BoxLayout.Constraints(true, true));
 		}
 	}

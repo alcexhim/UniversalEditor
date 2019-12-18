@@ -27,12 +27,13 @@ using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Controls
 {
-	public class PianoRollView : /*View*/ CustomControl
+	public class PianoRollView : View
 	{
-		public PianoRollView()
+		public PianoRollView(Editor parentEditor) : base(parentEditor)
 		{
 			this.ContextMenuCommandID = "PianoRollEditor_ContextMenu";
 
@@ -378,6 +379,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 					{
 						Rectangle rectSelection = new Rectangle(cx, cy, dx - cx, dy - cy);
 						SynthesizedAudioCommand[] cmds = HitTest(rectSelection);
+
 						mvarSelectedCommands.Clear();
 						foreach (SynthesizedAudioCommand cmd1 in cmds)
 						{
@@ -442,7 +444,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 						note.Position = (int)drag_OriginalLocation.X;
 						note.Length = (drag_CurrentLocation.X - drag_OriginalLocation.X);
 						note.Frequency = ValueToFrequency((int)drag_OriginalLocation.Y);
+
+						Editor.BeginEdit();
 						mvarCommands.Add(note);
+						Editor.EndEdit();
 
 						mvarSelectedCommands.Clear();
 						mvarSelectedCommands.Add(note);
