@@ -57,6 +57,53 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			InitializeComponent();
 		}
 
+		private void PaletteEditor_ContextMenu_Add_Click(object sender, EventArgs e)
+		{
+			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
+			if (palette == null) return;
+
+			ColorDialog dlg = new ColorDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				BeginEdit();
+				palette.Entries.Add(new PaletteEntry(dlg.SelectedColor));
+				EndEdit();
+			}
+		}
+		private void PaletteEditor_ContextMenu_Change_Click(object sender, EventArgs e)
+		{
+			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
+			if (palette == null || SelectedEntry == null) return;
+
+			ColorDialog dlg = new ColorDialog();
+			dlg.SelectedColor = SelectedEntry.Color;
+
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				BeginEdit();
+				SelectedEntry.Color = dlg.SelectedColor;
+				EndEdit();
+
+				Refresh();
+			}
+		}
+		private void PaletteEditor_ContextMenu_Delete_Click(object sender, EventArgs e)
+		{
+			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
+			if (palette == null || SelectedEntry == null) return;
+
+			if (MessageDialog.ShowDialog("Do you wish to delete the selected color?", "Delete Selected Color", MessageDialogButtons.YesNo, MessageDialogIcon.Warning) == DialogResult.Yes)
+			{
+				BeginEdit();
+				palette.Entries.Remove(SelectedEntry);
+				EndEdit();
+
+				SelectedEntry = null;
+
+				Refresh();
+			}
+		}
+
 		public PaletteEntry HitTest(Vector2D location)
 		{
 			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
@@ -104,19 +151,30 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 		{
 			SelectedEntry = HitTest(e.Location);
 			Refresh();
+
+			if (SelectedEntry != null)
+			{
+				ContextMenuCommandID = "PaletteEditor_ContextMenu_Selected";
+			}
+			else
+			{
+				ContextMenuCommandID = "PaletteEditor_ContextMenu_Unselected";
+			}
 		}
 
 		private void cc_MouseDoubleClick(object sender, MBS.Framework.UserInterface.Input.Mouse.MouseEventArgs e)
 		{
 			SelectedEntry = HitTest(e.Location);
-
-			ColorDialog dlg = new ColorDialog();
-			dlg.SelectedColor = SelectedEntry.Color;
-			if (dlg.ShowDialog() == DialogResult.OK)
+			if (SelectedEntry != null)
 			{
-				BeginEdit();
-				SelectedEntry.Color = dlg.SelectedColor;
-				EndEdit();
+				ColorDialog dlg = new ColorDialog();
+				dlg.SelectedColor = SelectedEntry.Color;
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					BeginEdit();
+					SelectedEntry.Color = dlg.SelectedColor;
+					EndEdit();
+				}
 			}
 		}
 

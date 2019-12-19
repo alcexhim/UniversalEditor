@@ -22,7 +22,13 @@ namespace UniversalEditor.ObjectModels.Multimedia.Palette
             }
         }
 
-        private string mvarName = String.Empty;
+		public PaletteEntry(Color color = default(Color), string name = "")
+		{
+			Name = name;
+			Color = color;
+		}
+
+		private string mvarName = String.Empty;
         public string Name { get { return mvarName; } set { mvarName = value; } }
 
 		public Color Color { get; set; } = Color.Empty;

@@ -45,6 +45,10 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			cInfo.Layout = new BoxLayout(Orientation.Vertical);
 			this.Controls.Add(cInfo, new BoxLayout.Constraints(false, false));
 
+			Context.AttachCommandEventHandler("PaletteEditor_ContextMenu_Add", PaletteEditor_ContextMenu_Add_Click);
+			Context.AttachCommandEventHandler("PaletteEditor_ContextMenu_Change", PaletteEditor_ContextMenu_Change_Click);
+			Context.AttachCommandEventHandler("PaletteEditor_ContextMenu_Delete", PaletteEditor_ContextMenu_Delete_Click);
+
 			txtColorName = new TextBox();
 			txtColorName.KeyDown += txtColorName_KeyDown;
 			cInfo.Controls.Add(txtColorName, new BoxLayout.Constraints(false, true));
