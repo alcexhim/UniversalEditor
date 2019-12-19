@@ -211,6 +211,45 @@ namespace UniversalEditor.UserInterface.Dialogs
 					break;
 				}
 			}
+
+			if (tmObjectModel.Rows.Count == 1)
+			{
+				TreeModelRow row = ExpandSingleChildRows(tmObjectModel.Rows[0]);
+				if (row != null)
+				{
+					tvObjectModel.SelectedRows.Clear();
+					tvObjectModel.SelectedRows.Add(row);
+					tvObjectModel_SelectionChanged(null, EventArgs.Empty);
+				}
+			}
+
+			if (tvTemplate.SelectedRows.Count == 1)
+			{
+				Buttons[0].Enabled = true;
+			}
+			else
+			{
+				Buttons[0].Enabled = false;
+			}
+		}
+
+		/// <summary>
+		/// Recursively detects <see cref="TreeModelRow" /> with a single child row and expands it. If the <see cref="TreeModelRow" /> has zero child rows, returns that <see cref="TreeModelRow" />. Otherwise, if no such row is found, returns null.
+		/// </summary>
+		/// <returns>A <see cref="TreeModelRow" /> which has zero child rows, or null if no such <see cref="TreeModelRow" /> exists.</returns>
+		/// <param name="row">Row.</param>
+		private TreeModelRow ExpandSingleChildRows(TreeModelRow row)
+		{
+			if (row.Rows.Count == 1)
+			{
+				row.Expanded = true;
+				return ExpandSingleChildRows(row.Rows[0]);
+			}
+			else if (row.Rows.Count == 0)
+			{
+				return row;
+			}
+			return null;
 		}
 
 		private void InitializeProjectTemplateTreeView()
@@ -293,19 +332,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 					lvi.SetExtraData<ProjectTemplate>("dt", dt);
 					tmTemplate.Rows.Add(lvi);
 				}
-			}
-
-			if (tmTemplate.Rows.Count > 0)
-			{
-				tvTemplate.SelectedRows.Clear();
-				tvTemplate.Select(tmTemplate.Rows[0]);
-
-				tvTemplate_SelectionChanged(null, EventArgs.Empty);
-				Buttons[0].Enabled = true;
-			}
-			else
-			{
-				Buttons[0].Enabled = false;
 			}
 		}
 
@@ -499,19 +525,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 			}
 
-			if (tmTemplate.Rows.Count > 0)
-			{
-				tvTemplate.SelectedRows.Clear();
-				tvTemplate.Select(tmTemplate.Rows[0]);
-
-				tvTemplate_SelectionChanged(null, EventArgs.Empty);
-				Buttons[0].Enabled = true;
-			}
-			else
-			{
-				Buttons[0].Enabled = false;
-			}
-
 			InitializeObjectModelTreeView();
 		}
 
@@ -694,6 +707,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private void tvObjectModel_SelectionChanged(object sender, EventArgs e)
 		{
 			if (tvObjectModel.SelectedRows.Count < 1) return;
+
+			tmTemplate.Rows.Clear();
+			tvTemplate.SelectedRows.Clear();
+
 			if (Mode == NewDialogMode.File)
 			{
 				RefreshDocumentTemplates(tvObjectModel.SelectedRows[0]);
@@ -701,6 +718,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 			else if (Mode == NewDialogMode.Project)
 			{
 				RefreshProjectTemplates(tvObjectModel.SelectedRows[0]);
+			}
+
+			if (tmTemplate.Rows.Count == 1)
+			{
+				tvTemplate.SelectedRows.Add(tmTemplate.Rows[0]);
 			}
 		}
 	}

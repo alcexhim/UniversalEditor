@@ -48,6 +48,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			
 			this.txtSearch = new TextBox();
 			this.txtSearch.Changed += txtSearch_Changed;
+			this.txtSearch.KeyDown += txtSearch_KeyDown;
 			this.ctSearchAndShowAll.Controls.Add(this.txtSearch, new BoxLayout.Constraints(true, true));
 
 			this.chkShowAll = new CheckBox();

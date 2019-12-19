@@ -94,7 +94,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			if (tm.Rows.Count == 1)
 			{
-				// lv.Items[0].Selected = true;
+				lv.SelectedRows.Clear();
+				lv.SelectedRows.Add(tm.Rows[0]);
 			}
 			// lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 		}
@@ -128,7 +129,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private void txtSearch_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.KeyData == KeyboardKey.Enter)
+			if (e.Key == KeyboardKey.Enter)
 			{
 				if (lv.SelectedRows.Count != 1) return;
 				
@@ -137,7 +138,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				
 				Close();
 			}
-			else if (e.KeyData == KeyboardKey.Escape)
+			else if (e.Key == KeyboardKey.Escape)
 			{
 				// already handled by GTK? but what about other platforms
 				// Close();

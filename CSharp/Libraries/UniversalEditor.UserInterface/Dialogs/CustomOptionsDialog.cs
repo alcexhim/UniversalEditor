@@ -97,7 +97,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					cbo.Model = tm;
 					// cbo.Dock = DockStyle.Fill;
 
-					this.Controls.Add(cbo, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+					this.Controls.Add(cbo, new GridLayout.Constraints(iRow, 1, 1, 2, ExpandMode.Horizontal));
 
 					CustomOptionControls.Add(eo.PropertyName, cbo);
 				}
@@ -124,7 +124,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					}
 					// txt.Value = option.DefaultValue;
 
-					this.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+					this.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 2, ExpandMode.Horizontal));
 
 					CustomOptionControls.Add(eo.PropertyName, txt);
 				}
@@ -136,7 +136,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					txt.Text = option.DefaultValue;
 					if (option.MaximumLength.HasValue) txt.MaxLength = option.MaximumLength.Value;
 
-					this.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+					this.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 2, ExpandMode.Horizontal));
 
 					CustomOptionControls.Add(eo.PropertyName, txt);
 				}
@@ -148,18 +148,25 @@ namespace UniversalEditor.UserInterface.Dialogs
 					chk.Checked = option.DefaultValue;
 					chk.Text = option.Title;
 
-					this.Controls.Add(chk, new GridLayout.Constraints(iRow, 0, 1, 2, ExpandMode.Horizontal));
+					this.Controls.Add(chk, new GridLayout.Constraints(iRow, 0, 1, 3, ExpandMode.Horizontal));
 					CustomOptionControls.Add(eo.PropertyName, chk);
 				}
 				else if (eo is CustomOptionFile)
 				{
 					CustomOptionFile option = (eo as CustomOptionFile);
 
-					TextBox cmd = new TextBox();
-					// AwesomeControls.FileTextBox.FileTextBoxControl cmd = new AwesomeControls.FileTextBox.FileTextBoxControl();
+					Button cmd = new Button();
+					cmd.Text = "_Browse...";
 					cmd.Click += cmdFileBrowse_Click;
-					// cmd.Dock = DockStyle.Fill;
 					cmd.SetExtraData<CustomOption>("eo", eo);
+
+					TextBox txt = new TextBox();
+					cmd.SetExtraData<TextBox>("txt", txt);
+
+					// AwesomeControls.FileTextBox.FileTextBoxControl cmd = new AwesomeControls.FileTextBox.FileTextBoxControl();
+					txt.Click += cmdFileBrowse_Click;
+					// cmd.Dock = DockStyle.Fill;
+					txt.SetExtraData<CustomOption>("eo", eo);
 					switch (option.DialogMode)
 					{
 						case CustomOptionFileDialogMode.Open:
@@ -174,9 +181,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 						}
 					}
 
-					this.Controls.Add(cmd, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+					this.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+					this.Controls.Add(cmd, new GridLayout.Constraints(iRow, 2, 1, 1, ExpandMode.None));
 
-					CustomOptionControls.Add(eo.PropertyName, cmd);
+					CustomOptionControls.Add(eo.PropertyName, txt);
 				}
 
 				// tbl.ColumnCount = 2;
@@ -220,7 +228,14 @@ namespace UniversalEditor.UserInterface.Dialogs
 				fd.Text = "Select File to Open";
 				if (fd.ShowDialog() == DialogResult.OK)
 				{
-					(cmd as TextBox).Text = fd.SelectedFileNames[0];  // SelectedFileName = ofd.FileName;
+					if (cmd is TextBox)
+					{
+						(cmd as TextBox).Text = fd.SelectedFileNames[0];
+					}
+					else
+					{
+						cmd.GetExtraData<TextBox>("txt").Text = fd.SelectedFileNames[0];
+					}
 				}
 			}
 			else if (eo.DialogMode == CustomOptionFileDialogMode.Save)
@@ -229,7 +244,14 @@ namespace UniversalEditor.UserInterface.Dialogs
 				fd.Text = "Select File to Save";
 				if (fd.ShowDialog() == DialogResult.OK)
 				{
-					(cmd as TextBox).Text = fd.SelectedFileNames[0]; // SelectedFileName = sfd.FileName;
+					if (cmd is TextBox)
+					{
+						(cmd as TextBox).Text = fd.SelectedFileNames[0];
+					}
+					else
+					{
+ 						cmd.GetExtraData<TextBox>("txt").Text = fd.SelectedFileNames[0];
+					}
 				}
 			}
 		}
