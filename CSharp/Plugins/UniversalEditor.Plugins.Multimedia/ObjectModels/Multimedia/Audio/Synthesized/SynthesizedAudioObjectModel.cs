@@ -4,12 +4,16 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 {
 	public class SynthesizedAudioObjectModel : AudioObjectModel
 	{
+		private static ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Synthesized audio sequence";
-            omr.Path = new string[] { "Multimedia", "Audio", "Synthesized Audio" };
-			return omr;
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Title = "Synthesized audio sequence";
+				_omr.Path = new string[] { "Multimedia", "Audio", "Synthesized Audio" };
+			}
+			return _omr;
 		}
 
 		private short mvarChannelCount = 2;
