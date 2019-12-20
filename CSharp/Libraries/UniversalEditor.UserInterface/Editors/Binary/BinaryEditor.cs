@@ -126,6 +126,8 @@ namespace UniversalEditor.Editors.Binary
 
 			this.hexedit = new HexEditorControl();
 			this.hexedit.SelectionChanged += Hexedit_SelectionChanged;
+
+			this.hexedit.Changing += hexedit_Changing;
 			this.hexedit.Changed += hexedit_Changed;
 
 			this.conversionPanel = new Container();
@@ -629,9 +631,14 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-
+		private void hexedit_Changing(object sender, EventArgs e)
+		{
+			BeginEdit();
+		}
 		private void hexedit_Changed(object sender, EventArgs e)
 		{
+			EndEdit();
+
 			foreach (TreeModelRow row in tmFieldDefinitions.Rows)
 			{
 				FieldDefinition def = row.GetExtraData<FieldDefinition>("def");
@@ -778,6 +785,7 @@ namespace UniversalEditor.Editors.Binary
 						hexedit.Data = odata;
 					}
 					Array.Copy(data, 0, hexedit.Data, hexedit.SelectionStart.ByteIndex, data.Length);
+
 					Refresh();
 				}
 				else
