@@ -199,6 +199,12 @@ namespace UniversalEditor.UserInterface
 			{
 				for (int i = 0; i < e.CommandLine.FileNames.Count; i++)
 				{
+					if (String.IsNullOrEmpty(e.CommandLine.FileNames[i]))
+					{
+						Console.WriteLine("ue: warning: ignoring empty file name passed to command line");
+						continue;
+					}
+
 					docs[i] = new Document(new FileAccessor(e.CommandLine.FileNames[i]));
 				}
 			}
