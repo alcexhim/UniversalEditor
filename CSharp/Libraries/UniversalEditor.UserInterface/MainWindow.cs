@@ -431,6 +431,8 @@ namespace UniversalEditor.UserInterface
 
 		private void InitEditorPage(Document doc)
 		{
+			if (doc == null) return;
+
 			bool loaded = false;
 			if (doc.DataFormat == null)
 			{
@@ -575,6 +577,9 @@ namespace UniversalEditor.UserInterface
 			List<int> indices = new List<int>();
 			for (int i = 0; i < pages.Length; i++)
 			{
+				if (pages[i].Document == null)
+					continue;
+
 				if (!pages[i].Document.IsChanged)
 					continue;
 
@@ -676,7 +681,12 @@ namespace UniversalEditor.UserInterface
 			if (ed == null) return;
 
 			EditorPage page = new EditorPage();
+			page.Document = new Document(ed.ObjectModel, null, new FileAccessor(filename));
+
+			// HACK til we can properly fix this
+			page.Controls.Clear();
 			page.Controls.Add(ed, new BoxLayout.Constraints(true, true));
+
 			page.DocumentEdited += page_DocumentEdited;
 
 			InitDocTab(filename, System.IO.Path.GetFileName(filename), page);
