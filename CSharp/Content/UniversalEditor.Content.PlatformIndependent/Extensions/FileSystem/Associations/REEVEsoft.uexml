@@ -18,7 +18,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.REEVESoft.Freeze.ICEDataFormt" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.REEVEsoft.Freeze.ICEDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>
