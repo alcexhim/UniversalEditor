@@ -45,6 +45,7 @@
     <Compile Include="Editors\Multimedia\Palette\PaletteEditor.Designer.cs" />
     <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.cs" />
     <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.Designer.cs" />
+    <Compile Include="Editors\Multimedia\Palette\PaletteEntrySelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />

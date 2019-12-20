@@ -38,7 +38,15 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 		}
 		public override void UpdateSelections()
 		{
-			throw new NotImplementedException();
+			if (Selections.Count == 1)
+			{
+				_SelectedEntry = (Selections[0] as PaletteEntrySelection).Value;
+			}
+			else
+			{
+				_SelectedEntry = null;
+			}
+			Refresh();
 		}
 
 		private static EditorReference _er = null;
@@ -204,6 +212,12 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			get { return _SelectedEntry; }
 			set
 			{
+				bool changed = (_SelectedEntry != value);
+				if (!changed) return;
+
+				Selections.Clear();
+				Selections.Add(new PaletteEntrySelection(value));
+
 				System.ComponentModel.CancelEventArgs ce = new System.ComponentModel.CancelEventArgs();
 				OnSelectionChanging(ce);
 				if (ce.Cancel) return;
