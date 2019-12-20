@@ -128,6 +128,13 @@ namespace UniversalEditor.Accessors
 		}
 		protected override void OpenInternal()
 		{
+			string filename = mvarFileName;
+			if (filename.StartsWith("file://"))
+			{
+				Uri uri = new Uri(filename);
+				filename = uri.LocalPath;
+			}
+
 			System.IO.FileShare share = System.IO.FileShare.Read;
 			System.IO.FileMode mode = System.IO.FileMode.OpenOrCreate;
 			System.IO.FileAccess access = System.IO.FileAccess.Read;
@@ -139,7 +146,7 @@ namespace UniversalEditor.Accessors
 					mode = System.IO.FileMode.Create;
 				}
 			}
-			mvarFileStream = System.IO.File.Open(mvarFileName, mode, access, share);
+			mvarFileStream = System.IO.File.Open(filename, mode, access, share);
 		}
 
 		protected override void CloseInternal()
