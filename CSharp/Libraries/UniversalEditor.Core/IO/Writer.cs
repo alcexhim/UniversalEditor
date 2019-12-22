@@ -58,6 +58,7 @@ namespace UniversalEditor.IO
 
 		public void WriteFixedLengthBytes(byte[] data, int count)
 		{
+			if (data == null) data = new byte[0];
 			byte[] realdata = new byte[count];
 			Array.Copy(data, 0, realdata, 0, Math.Min(realdata.Length, count));
 			WriteBytes(realdata);
