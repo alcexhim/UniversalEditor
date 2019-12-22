@@ -85,8 +85,22 @@ namespace UniversalEditor
 		{
 			mvarOutputDataFormat.Accessor = mvarOutputAccessor;
 			mvarObjectModel.Accessor = mvarOutputAccessor;
+
+			bool opened = false;
+			if (!mvarOutputAccessor.IsOpen)
+			{
+				mvarOutputAccessor.Open();
+				opened = true;
+			}
 			mvarOutputDataFormat.Save(mvarObjectModel);
+			if (opened)
+			{
+				mvarOutputAccessor.Close();
+			}
 			mvarLastUsedAccessor = LastUsedAccessor.Output;
+
+			IsSaved = true;
+			IsChanged = false;
 		}
 
 		public Document(ObjectModel objectModel, DataFormat dataFormat) : this(objectModel, dataFormat, null)
