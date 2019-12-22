@@ -33,7 +33,7 @@ namespace UniversalEditor.UserInterface
 {
 	public class MainWindow : Window, IHostApplicationWindow
 	{
-		private DockingContainer dckContainer = null;
+		private DockingContainerControl dckContainer = null;
 		private TabContainer tbsDocumentTabs = new TabContainer();
 
 		private ErrorListPanel pnlErrorList = new ErrorListPanel();
@@ -232,7 +232,7 @@ namespace UniversalEditor.UserInterface
 					this.Controls.Add (LoadCommandBar(cb));
 				}
 			}
-			dckContainer = new DockingContainer();
+			dckContainer = new DockingContainerControl();
 			dckContainer.SelectionChanged += dckContainer_SelectionChanged;
 			Controls.Add (dckContainer, new BoxLayout.Constraints(true, true, 0, BoxLayout.PackType.Start));
 
@@ -240,11 +240,13 @@ namespace UniversalEditor.UserInterface
 
 			InitStartPage();
 
-			AddPanel("Toolbox", DockingItemPlacement.Left);
+			Label lblToolbox = new Label();
+			lblToolbox.Text = "TOOLBOX PLACEHOLDER";
+			AddPanel("Toolbox", DockingItemPlacement.Left, lblToolbox);
 
-			AddPanel("Solution Explorer", DockingItemPlacement.Right, pnlSolutionExplorer);
-			AddPanel("Properties", DockingItemPlacement.Right, pnlPropertyList);
-
+			DockingContainer dcExplorerProperties = AddPanelContainer(DockingItemPlacement.Right, null);
+			AddPanel("Solution Explorer", DockingItemPlacement.Top, pnlSolutionExplorer, dcExplorerProperties);
+			AddPanel("Properties", DockingItemPlacement.Bottom, pnlPropertyList, dcExplorerProperties);
 
 			AddPanel("Error List", DockingItemPlacement.Bottom, pnlErrorList);
 
@@ -276,7 +278,7 @@ namespace UniversalEditor.UserInterface
 		private void page_DocumentEdited(object sender, EventArgs e)
 		{
 			Pages.EditorPage page = (sender as Pages.EditorPage);
-			DockingItem di = dckContainer.Items[page];
+			DockingWindow di = dckContainer.Items[page] as DockingWindow;
 			if (di == null) return;
 
 			if (String.IsNullOrEmpty(page.Document.Title))
@@ -413,9 +415,21 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-
-
-		private void AddPanel(string title, DockingItemPlacement placement, Control control = null)
+		private DockingContainer AddPanelContainer(DockingItemPlacement placement, DockingContainer parent = null)
+		{
+			DockingContainer dc = new DockingContainer();
+			dc.Placement = placement;
+			if (parent != null)
+			{
+				parent.Items.Add(dc);
+			}
+			else
+			{
+				dckContainer.Items.Add(dc);
+			}
+			return dc;
+		}
+		private void AddPanel(string title, DockingItemPlacement placement, Control control = null, DockingContainer parent = null)
 		{
 			if (control == null)
 			{
@@ -423,10 +437,17 @@ namespace UniversalEditor.UserInterface
 				control = lblErrorList;
 			}
 
-			DockingItem dkiErrorList = new DockingItem(title, control);
-			dkiErrorList.Placement = placement;
+			DockingWindow dw = new DockingWindow(title, control);
+			dw.Placement = placement;
 
-			dckContainer.Items.Add(dkiErrorList);
+			if (parent != null)
+			{
+				parent.Items.Add(dw);
+			}
+			else
+			{
+				dckContainer.Items.Add(dw);
+			}
 		}
 
 		private void InitEditorPage(Document doc)
@@ -709,7 +730,8 @@ namespace UniversalEditor.UserInterface
 		private int documentWindowCount = 0;
 		private void InitDocTab(string name, string title, Control content)
 		{
-			DockingItem item = new DockingItem(name, title, content);
+			DockingWindow item = new DockingWindow(name, title, content);
+			item.Placement = DockingItemPlacement.Center;
 			dckContainer.Items.Add(item);
 
 			documentWindowCount++;
@@ -912,7 +934,7 @@ namespace UniversalEditor.UserInterface
 				document.Save();
 				document.OutputAccessor.Close();
 
-				DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
+				DockingWindow di = dckContainer.Items[GetCurrentEditorPage()] as DockingWindow;
 				if (di != null)
 				{
 					di.Name = document.OutputAccessor.GetFileName();
@@ -979,7 +1001,7 @@ namespace UniversalEditor.UserInterface
 		{
 			Document.Save(om, df, accessor);
 
-			DockingItem di = dckContainer.Items[GetCurrentEditorPage()];
+			DockingWindow di = dckContainer.Items[GetCurrentEditorPage()] as DockingWindow;
 			if (di != null)
 			{
 				di.Name = accessor.GetFileName();
@@ -1050,9 +1072,10 @@ namespace UniversalEditor.UserInterface
 		{
 			foreach (DockingItem item in dckContainer.Items)
 			{
-				if (item.ChildControl is EditorPage)
+				if (!(item is DockingWindow)) continue;
+				if ((item as DockingWindow).ChildControl is EditorPage)
 				{
-					SaveFile((item.ChildControl as EditorPage).Document);
+					SaveFile(((item as DockingWindow).ChildControl as EditorPage).Document);
 				}
 			}
 		}
@@ -1065,11 +1088,12 @@ namespace UniversalEditor.UserInterface
 		private System.Collections.Generic.List<Window> Windows = new System.Collections.Generic.List<Window>();
 		public void CloseFile()
 		{
-			if (dckContainer.CurrentItem != null)
+			DockingWindow dw = (dckContainer.CurrentItem as DockingWindow);
+			if (dw != null)
 			{
-				if (dckContainer.CurrentItem.ChildControl is EditorPage)
+				if (dw.ChildControl is EditorPage)
 				{
-					if (!ConfirmExit(dckContainer.CurrentItem.ChildControl as EditorPage))
+					if (!ConfirmExit(dw.ChildControl as EditorPage))
 					{
 						return;
 					}
@@ -1150,7 +1174,7 @@ namespace UniversalEditor.UserInterface
 		}
 		public Pages.EditorPage GetCurrentEditorPage()
 		{
-			DockingItem curitem = dckContainer.CurrentItem;
+			DockingWindow curitem = dckContainer.CurrentItem as DockingWindow;
 			if (curitem == null) return null;
 
 			Pages.EditorPage editorPage = (curitem.ChildControl as Pages.EditorPage);
@@ -1163,9 +1187,12 @@ namespace UniversalEditor.UserInterface
 			List<EditorPage> list = new List<EditorPage>();
 			for (int i = 0; i < dckContainer.Items.Count; i++)
 			{
-				if (dckContainer.Items[i].ChildControl is EditorPage)
+				DockingWindow dw = dckContainer.Items[i] as DockingWindow;
+				if (dw == null) continue;
+
+				if (dw.ChildControl is EditorPage)
 				{
-					list.Add(dckContainer.Items[i].ChildControl as EditorPage);
+					list.Add(dw.ChildControl as EditorPage);
 				}
 			}
 			return list.ToArray();
