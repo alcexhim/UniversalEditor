@@ -635,7 +635,8 @@ namespace UniversalEditor.UserInterface
 					{
 						if (dlg.FileNames[i].Selected)
 						{
-							SaveFile(pages[indices[i]].Document);
+							if (!SaveFile(pages[indices[i]].Document))
+								return false;
 						}
 					}
 					break;
@@ -914,19 +915,20 @@ namespace UniversalEditor.UserInterface
 			CurrentSolution = _CurrentSolution; // to reset the UI
 		}
 
-		public void SaveFile()
+		public bool SaveFile()
 		{
 			Pages.EditorPage currentEditorPage = GetCurrentEditorPage();
 			if (currentEditorPage != null)
 			{
 				if (!GetCurrentEditor().NotifySaving())
-					return;
+					return false;
 
-				SaveFile(currentEditorPage.Document);
+				return SaveFile(currentEditorPage.Document);
 			}
+			return false;
 		}
 
-		public void SaveFile(Document document)
+		public bool SaveFile(Document document)
 		{
 			if (document.IsSaved)
 			{
@@ -943,13 +945,14 @@ namespace UniversalEditor.UserInterface
 					di.Name = document.OutputAccessor.GetFileName();
 					di.Title = System.IO.Path.GetFileName(document.OutputAccessor.GetFileName());
 				}
+				return true;
 			}
 			else
 			{
-				SaveFileAs(document);
+				return SaveFileAs(document);
 			}
 		}
-		public void SaveFileAs(Document document)
+		public bool SaveFileAs(Document document)
 		{
 			using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog())
 			{
@@ -964,17 +967,21 @@ namespace UniversalEditor.UserInterface
 					{
 						df = new BinaryDataFormat();
 					}
-					SaveFileAs(dlg.Accessor, df, document.ObjectModel);
+					bool result = SaveFileAs(dlg.Accessor, df, document.ObjectModel);
+					if (!result)
+						return false;
 
 					document.OutputAccessor = dlg.Accessor;
 					document.OutputDataFormat = df;
 					document.IsSaved = true;
 					document.IsChanged = false;
+					return result;
 				}
+				return false;
 			}
 		}
 
-		public void SaveFileAs()
+		public bool SaveFileAs()
 		{
 			Editor currentEditor = GetCurrentEditor();
 			if (currentEditor != null)
@@ -994,13 +1001,14 @@ namespace UniversalEditor.UserInterface
 							df = new BinaryDataFormat();
 						}
 
-						SaveFileAs(dlg.Accessor, df, currentEditor.ObjectModel);
+						return SaveFileAs(dlg.Accessor, df, currentEditor.ObjectModel);
 					}
 				}
 			}
+			return false;
 		}
 
-		public void SaveFileAs(Accessor accessor, DataFormat df, ObjectModel om)
+		public bool SaveFileAs(Accessor accessor, DataFormat df, ObjectModel om)
 		{
 			Document.Save(om, df, accessor);
 
@@ -1010,10 +1018,11 @@ namespace UniversalEditor.UserInterface
 				di.Name = accessor.GetFileName();
 				di.Title = System.IO.Path.GetFileName(accessor.GetFileName());
 			}
+			return true;
 		}
-		public void SaveFileAs(Accessor accessor, DataFormat df)
+		public bool SaveFileAs(Accessor accessor, DataFormat df)
 		{
-			SaveFileAs(accessor, df, GetCurrentEditor()?.ObjectModel);
+			return SaveFileAs(accessor, df, GetCurrentEditor()?.ObjectModel);
 		}
 
 		public void SaveProject()

@@ -19,9 +19,9 @@ namespace UniversalEditor.UserInterface
 		void OpenProject(bool combineObjects = false);
 		void OpenProject(string FileName, bool combineObjects = false);
 
-		void SaveFile();
-		void SaveFileAs();
-		void SaveFileAs(Accessor accessor, DataFormat df);
+		bool SaveFile();
+		bool SaveFileAs();
+		bool SaveFileAs(Accessor accessor, DataFormat df);
 		
 		void SaveProject();
 		void SaveProjectAs();
