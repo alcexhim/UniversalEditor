@@ -1010,9 +1010,14 @@ namespace UniversalEditor.UserInterface
 
 		public bool SaveFileAs(Accessor accessor, DataFormat df, ObjectModel om)
 		{
-			Document.Save(om, df, accessor);
+			EditorPage page = GetCurrentEditorPage();
+			if (page == null) return false;
 
-			DockingWindow di = dckContainer.Items[GetCurrentEditorPage()] as DockingWindow;
+			Document d = new Document(om, df, accessor);
+			d.Save();
+			page.Document = d;
+
+			DockingWindow di = dckContainer.Items[page] as DockingWindow;
 			if (di != null)
 			{
 				di.Name = accessor.GetFileName();
@@ -1101,18 +1106,15 @@ namespace UniversalEditor.UserInterface
 		public void CloseFile()
 		{
 			DockingWindow dw = (dckContainer.CurrentItem as DockingWindow);
-			if (dw != null)
+			EditorPage ep = (dw?.ChildControl as EditorPage);
+			if (ep != null && !ConfirmExit(ep))
 			{
-				if (dw.ChildControl is EditorPage)
-				{
-					if (!ConfirmExit(dw.ChildControl as EditorPage))
-					{
-						return;
-					}
-				}
-				dckContainer.Items.Remove(dckContainer.CurrentItem);
-				documentWindowCount--;
+				return;
 			}
+
+			dckContainer.Items.Remove(dckContainer.CurrentItem);
+			documentWindowCount--;
+
 			if (documentWindowCount == 0)
 			{
 				CloseWindow ();
