@@ -39,6 +39,7 @@ namespace UniversalEditor.UserInterface
 		private ErrorListPanel pnlErrorList = new ErrorListPanel();
 		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
 		private PropertyListPanel pnlPropertyList = new PropertyListPanel();
+		private DocumentExplorerPanel pnlDocumentExplorer = new DocumentExplorerPanel();
 
 		private RibbonTab LoadRibbonBar(CommandBar cb)
 		{
@@ -243,6 +244,8 @@ namespace UniversalEditor.UserInterface
 			Label lblToolbox = new Label();
 			lblToolbox.Text = "TOOLBOX PLACEHOLDER";
 			AddPanel("Toolbox", DockingItemPlacement.Left, lblToolbox);
+
+			AddPanel("Document Explorer", DockingItemPlacement.Bottom, pnlDocumentExplorer);
 
 			DockingContainer dcExplorerProperties = AddPanelContainer(DockingItemPlacement.Right, null);
 			AddPanel("Solution Explorer", DockingItemPlacement.Top, pnlSolutionExplorer, dcExplorerProperties);
