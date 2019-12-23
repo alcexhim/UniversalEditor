@@ -225,7 +225,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				txtObjectModel.Text = String.Empty;
 			}
 
-			Buttons[0].Enabled = (ObjectModel != null && DataFormat != null && Accessor != null);
+			Buttons[0].Enabled = (Accessor != null && (Mode == DocumentPropertiesDialogMode.Open || (Mode == DocumentPropertiesDialogMode.Save && ObjectModel != null && DataFormat != null)));
 		}
 
 		private string DataFormatReferenceToString(DataFormatReference dfr)
