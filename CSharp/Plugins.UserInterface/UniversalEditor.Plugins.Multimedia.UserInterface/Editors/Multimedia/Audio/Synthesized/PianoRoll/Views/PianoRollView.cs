@@ -213,9 +213,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			}
 		}
 
-		private SynthesizedAudioCommand.SynthesizedAudioCommandCollection mvarCommands = new SynthesizedAudioCommand.SynthesizedAudioCommandCollection();
-		public SynthesizedAudioCommand.SynthesizedAudioCommandCollection Commands { get { return mvarCommands; } }
-
 		private SynthesizedAudioCommand.SynthesizedAudioCommandCollection mvarSelectedCommands = new SynthesizedAudioCommand.SynthesizedAudioCommandCollection();
 		public SynthesizedAudioCommand.SynthesizedAudioCommandCollection SelectedCommands { get { return mvarSelectedCommands; } }
 
@@ -225,7 +222,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		}
 		public SynthesizedAudioCommand HitTest(int x, int y)
 		{
-			foreach (SynthesizedAudioCommand cmd in mvarCommands)
+			if (SelectedTrack == null) return null;
+			foreach (SynthesizedAudioCommand cmd in SelectedTrack.Commands)
 			{
 				Rectangle rect = GetCommandRect(cmd);
 				if (rect.Contains(x, y)) return cmd;
@@ -234,8 +232,9 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		}
 		public SynthesizedAudioCommand[] HitTest(Rectangle rect)
 		{
+			if (SelectedTrack == null) return new SynthesizedAudioCommand[0];
 			List<SynthesizedAudioCommand> list = new List<SynthesizedAudioCommand>();
-			foreach (SynthesizedAudioCommand cmd in mvarCommands)
+			foreach (SynthesizedAudioCommand cmd in SelectedTrack.Commands)
 			{
 				Rectangle rect1 = GetCommandRect(cmd);
 				if (rect.Normalize().IntersectsWith(rect1)) list.Add(cmd);
@@ -292,6 +291,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		{
 			base.OnMouseDown(e);
 
+			if (SelectedTrack == null) return;
+
 			SynthesizedAudioCommand cmd = HitTest(e.Location);
 			if ((e.ModifierKeys == KeyboardModifierKey.None && (cmd != null && !mvarSelectedCommands.Contains(cmd))) || cmd == null)
 			{
@@ -304,13 +305,13 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				{
 					if (mvarSelectedCommands.Count > 0)
 					{
-						int startIndex = mvarCommands.IndexOf(mvarSelectedCommands[mvarSelectedCommands.Count - 1]);
-						int endIndex = mvarCommands.IndexOf(cmd);
+						int startIndex = SelectedTrack.Commands.IndexOf(mvarSelectedCommands[mvarSelectedCommands.Count - 1]);
+						int endIndex = SelectedTrack.Commands.IndexOf(cmd);
 
 						mvarSelectedCommands.Clear();
 						for (int i = startIndex; i < endIndex; i++)
 						{
-							mvarSelectedCommands.Add(mvarCommands[i]);
+							mvarSelectedCommands.Add(SelectedTrack.Commands[i]);
 						}
 					}
 				}
@@ -398,6 +399,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		{
 			base.OnMouseUp(e);
 
+			if (SelectedTrack == null) return;
+
 			if (e.Buttons == MouseButtons.Primary)
 			{
 				SynthesizedAudioCommand cmd = HitTest(e.Location);
@@ -446,7 +449,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 						note.Frequency = ValueToFrequency((int)drag_OriginalLocation.Y);
 
 						Editor.BeginEdit();
-						mvarCommands.Add(note);
+						SelectedTrack.Commands.Add(note);
 						Editor.EndEdit();
 
 						mvarSelectedCommands.Clear();
@@ -634,26 +637,29 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				e.Graphics.DrawLine(gridPen, gridRect.X + i, gridRect.Y, gridRect.X + i, gridRect.Bottom);
 			}
 
-			foreach (SynthesizedAudioCommand cmd in mvarCommands)
+			if (SelectedTrack != null)
 			{
-				if (cmd is SynthesizedAudioCommandNote)
+				foreach (SynthesizedAudioCommand cmd in SelectedTrack.Commands)
 				{
-					SynthesizedAudioCommandNote note = (cmd as SynthesizedAudioCommandNote);
-
-					Rectangle rect = GetNoteRect(note);
-
-					if (mvarSelectedCommands.Contains(cmd))
+					if (cmd is SynthesizedAudioCommandNote)
 					{
-						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xCC, 0xCC, 0xFF)), rect);
-					}
-					else
-					{
-						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xCC, 0xFF, 0xCC)), rect);
-					}
-					e.Graphics.DrawRectangle(new Pen(Colors.DarkGray), rect);
+						SynthesizedAudioCommandNote note = (cmd as SynthesizedAudioCommandNote);
 
-					Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 1, rect.Width - 4, rect.Height - 2);
-					e.Graphics.DrawText(note.Lyric, Font, textRect, new SolidBrush(Colors.Black));
+						Rectangle rect = GetNoteRect(note);
+
+						if (mvarSelectedCommands.Contains(cmd))
+						{
+							e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xCC, 0xCC, 0xFF)), rect);
+						}
+						else
+						{
+							e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xCC, 0xFF, 0xCC)), rect);
+						}
+						e.Graphics.DrawRectangle(new Pen(Colors.DarkGray), rect);
+
+						Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 1, rect.Width - 4, rect.Height - 2);
+						e.Graphics.DrawText(note.Lyric, Font, textRect, new SolidBrush(Colors.Black));
+					}
 				}
 			}
 

@@ -56,13 +56,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 
 		private PianoRollView PianoRoll = null;
 
-		protected override void OnObjectModelChanged(EventArgs e)
-		{
-			base.OnObjectModelChanged(e);
-
-
-		}
-
 		private void InitializeComponent()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);

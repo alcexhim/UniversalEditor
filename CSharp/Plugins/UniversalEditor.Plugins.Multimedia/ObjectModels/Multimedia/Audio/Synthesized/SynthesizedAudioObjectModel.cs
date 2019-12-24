@@ -16,6 +16,13 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 			return _omr;
 		}
 
+		public SynthesizedAudioObjectModel()
+		{
+			// HACK: since we don't have a good way to specify defaults for blank templates.
+			// FIXME: THIS MAY NOT GET CLEARED WHEN OPENING A NEW FILE SINCE WE ASSUME THAT A NEW OBJECT MODEL IS EMPTY!!!
+			Tracks.Add(new SynthesizedAudioTrack());
+		}
+
 		private short mvarChannelCount = 2;
 		public short ChannelCount { get { return mvarChannelCount; } set { mvarChannelCount = value; } }
 		

@@ -30,7 +30,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 			{
 				if (!string.IsNullOrEmpty(item.Name))
 				{
-					this.tracksByID.Add(item.Name, item);
+					this.tracksByID[item.Name] = item;
 				}
 				base.Add(item);
 			}

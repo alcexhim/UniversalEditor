@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
@@ -33,6 +34,19 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 		protected override EditorSelection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
+		}
+
+		protected override void OnObjectModelChanged(EventArgs e)
+		{
+			base.OnObjectModelChanged(e);
+
+			SynthesizedAudioObjectModel om = (ObjectModel as SynthesizedAudioObjectModel);
+			if (om == null) return;
+
+			if (om.Tracks.Count > 0)
+				PianoRoll.SelectedTrack = om.Tracks[0];
+
+			PianoRoll.Refresh();
 		}
 
 		protected override void OnToolboxItemSelected(ToolboxItemEventArgs e)
