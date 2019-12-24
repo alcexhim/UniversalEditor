@@ -68,6 +68,11 @@ namespace UniversalEditor.Editors.Text.Plain
 		private void txt_Changed(object sender, EventArgs e)
 		{
 			PlainTextObjectModel om = (this.ObjectModel as PlainTextObjectModel);
+			if (om == null)
+				return;
+
+			if (!IsCreated)
+				return;
 
 			if (!working)
 			{
@@ -75,9 +80,11 @@ namespace UniversalEditor.Editors.Text.Plain
 				{
 					BeginEdit();
 				}
+
 				om.Text = txt.Text;
-				
 				txt.ResetChangedByUser();
+
+				OnDocumentEdited(EventArgs.Empty);
 			}
 		}
 
