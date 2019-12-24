@@ -27,6 +27,8 @@ using UniversalEditor.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
 using MBS.Framework.UserInterface;
+using UniversalEditor.ObjectModels.Text.Plain;
+using UniversalEditor.ObjectModels.Binary;
 
 namespace UniversalEditor.UserInterface.Pages
 {
@@ -72,6 +74,41 @@ namespace UniversalEditor.UserInterface.Pages
 		}
 		*/
 
+		/// <summary>
+		/// try to determine within a reasonable doubt whether or not <see cref="filename" /> is a "plain text" file (e.g. ASCII, UTF-8, UTF-16lE, UTF-16BE, UTF-32, etc.)
+		/// </summary>
+		/// <returns><c>true</c>, if the specified file appears to be a text file, <c>false</c> otherwise.</returns>
+		/// <param name="filename">Filename.</param>
+		private bool isText(string filename)
+		{
+			if (!System.IO.File.Exists(filename))
+				return false;
+
+			int len = 2048;
+			System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+			len = (int)Math.Min(len, fi.Length);
+			System.IO.FileStream fs = System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
+			byte[] b = fs.ReadBytes(0, len);
+
+			string utf8 = System.Text.Encoding.UTF8.GetString(b);
+
+			// yes I know this isn't the best way to do this
+			bool isUTF8 = (b.Length >= 3 && b[0] == 0xEF && b[1] == 0xBB && b[2] == 0xBF);
+			int start = isUTF8 ? 3 : 0;
+			for (int i = start; i < utf8.Length; i++)
+			{
+				if (Char.IsControl(utf8[i]) && !Char.IsWhiteSpace(utf8[i]))
+				{
+					// control character, so bail out
+					return false;
+				}
+			}
+			return true;
+		}
+
+		private EditorReference DefaultBinaryEditor = new EditorReference(typeof(Editors.Binary.BinaryEditor));
+		private EditorReference DefaultTextEditor = new EditorReference(typeof(Editors.Text.Plain.PlainTextEditor));
+
 		private Document mvarDocument = null;
 		public Document Document
 		{
@@ -87,38 +124,66 @@ namespace UniversalEditor.UserInterface.Pages
 
 		private void RefreshEditor()
 		{
-			/* WinForms crap
-			if (InvokeRequired)
-			{
-				while (!IsHandleCreated)
-				{
-					System.Threading.Thread.Sleep(500);
-				}
-
-				Action _RefreshEditor = new Action(RefreshEditorInternal);
-				Invoke(_RefreshEditor);
-				return;			
-			}
-			*/
-			RefreshEditorInternal();
-		}
-
-		private void RefreshEditorInternal()
-		{
 			if (mvarDocument == null) return;
-			if (mvarDocument.ObjectModel == null) return;
 
 			// pnlLoading.Enabled = true;
 			// pnlLoading.Visible = true;
 
-			ObjectModel om = mvarDocument.ObjectModel;
-			EditorReference[] reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference());
+			ObjectModel om = null;
+			EditorReference[] reditors = new EditorReference[0];
+			if (mvarDocument.ObjectModel != null)
+			{
+				om = mvarDocument.ObjectModel;
+				reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference());
+			}
 			if (reditors.Length == 0)
 			{
 				// errorMessage1.Enabled = true;
 				// errorMessage1.Visible = true;
 
 				// errorMessage1.Details = "Detected object model: " + om.GetType().FullName;
+
+				Editor ed = null;
+				if (mvarDocument.Accessor is FileAccessor)
+				{
+					string filename = ((FileAccessor)mvarDocument.Accessor).GetFileName();
+					if (isText(filename))
+					{
+						ed = DefaultTextEditor.Create();
+						PlainTextObjectModel om1 = new PlainTextObjectModel();
+						if (System.IO.File.Exists(filename))
+						{
+							System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+							if (fi.Length < Math.Pow(1024, 2))
+							{
+								String content = System.IO.File.ReadAllText(filename);
+								om1.Text = content;
+							}
+						}
+						ed.ObjectModel = om1;
+					}
+					else
+					{
+						ed = DefaultBinaryEditor.Create();
+						BinaryObjectModel om1 = new BinaryObjectModel();
+						if (System.IO.File.Exists(filename))
+						{
+							System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+							if (fi.Length < Math.Pow(1024, 4))
+							{
+								byte[] content = System.IO.File.ReadAllBytes(filename);
+								om1.Data = content;
+							}
+						}
+						ed.ObjectModel = om1;
+					}
+
+					if (ed == null) return;
+
+					ed.DocumentEdited += editor_DocumentEdited;
+					mvarDocument.ObjectModel = ed.ObjectModel;
+				}
+				Controls.Add(ed, new BoxLayout.Constraints(true, true));
 			}
 			else
 			{

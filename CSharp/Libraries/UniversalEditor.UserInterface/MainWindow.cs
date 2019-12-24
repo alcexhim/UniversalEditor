@@ -549,38 +549,6 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		/// <summary>
-		/// try to determine within a reasonable doubt whether or not <see cref="filename" /> is a "plain text" file (e.g. ASCII, UTF-8, UTF-16lE, UTF-16BE, UTF-32, etc.)
-		/// </summary>
-		/// <returns><c>true</c>, if the specified file appears to be a text file, <c>false</c> otherwise.</returns>
-		/// <param name="filename">Filename.</param>
-		private bool isText(string filename)
-		{
-			if (!System.IO.File.Exists(filename))
-				return false;
-
-			int len = 2048;
-			System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-			len = (int)Math.Min(len, fi.Length);
-			System.IO.FileStream fs = System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
-			byte[] b = fs.ReadBytes(0, len);
-
-			string utf8 = System.Text.Encoding.UTF8.GetString(b);
-
-			// yes I know this isn't the best way to do this
-			bool isUTF8 = (b.Length >= 3 && b[0] == 0xEF && b[1] == 0xBB && b[2] == 0xBF);
-			int start = isUTF8 ? 3 : 0;
-			for (int i = start; i < utf8.Length; i++)
-			{
-				if (Char.IsControl(utf8[i]) && !Char.IsWhiteSpace(utf8[i]))
-				{
-					// control character, so bail out
-					return false;
-				}
-			}
-			return true;
-		}
-
 		public bool ConfirmExit(EditorPage page = null)
 		{
 			EditorPage[] pages = null;
@@ -664,54 +632,10 @@ namespace UniversalEditor.UserInterface
 				e.Cancel = true;
 		}
 
-		private EditorReference DefaultBinaryEditor = new EditorReference(typeof(Editors.Binary.BinaryEditor));
-		private EditorReference DefaultTextEditor = new EditorReference(typeof(Editors.Text.Plain.PlainTextEditor));
 		private void OpenDefaultEditor(string filename)
 		{
-			if (DefaultBinaryEditor == null || DefaultTextEditor == null) return;
-
-			Editor ed = null;
-
-			if (isText(filename))
-			{
-				ed = DefaultTextEditor.Create();
-				PlainTextObjectModel om1 = new PlainTextObjectModel();
-				if (System.IO.File.Exists(filename))
-				{
-					System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-					if (fi.Length < Math.Pow(1024, 2))
-					{
-						String content = System.IO.File.ReadAllText(filename);
-						om1.Text = content;
-					}
-				}
-				ed.ObjectModel = om1;
-			}
-			else
-			{
-				ed = DefaultBinaryEditor.Create();
-				BinaryObjectModel om1 = new BinaryObjectModel();
-				if (System.IO.File.Exists(filename))
-				{
-					System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-					if (fi.Length < Math.Pow(1024, 4))
-					{
-						byte[] content = System.IO.File.ReadAllBytes(filename);
-						om1.Data = content;
-					}
-				}
-				ed.ObjectModel = om1;
-			}
-
-			if (ed == null) return;
-
 			EditorPage page = new EditorPage();
-			page.Document = new Document(ed.ObjectModel, null, new FileAccessor(filename));
-
-			// HACK til we can properly fix this
-			page.Controls.Clear();
-			page.Controls.Add(ed, new BoxLayout.Constraints(true, true));
-
+			page.Document = new Document(null, null, new FileAccessor(filename));
 			page.DocumentEdited += page_DocumentEdited;
 
 			InitDocTab(filename, System.IO.Path.GetFileName(filename), page);
@@ -737,6 +661,8 @@ namespace UniversalEditor.UserInterface
 			DockingWindow item = new DockingWindow(name, title, content);
 			item.Placement = DockingItemPlacement.Center;
 			dckContainer.Items.Add(item);
+
+			dckContainer.CurrentItem = item;
 
 			documentWindowCount++;
 
