@@ -46,6 +46,17 @@ namespace UniversalEditor.Editors.Binary
 			throw new NotImplementedException();
 		}
 
+		protected override void OnObjectModelSaving(System.ComponentModel.CancelEventArgs e)
+		{
+			base.OnObjectModelSaving(e);
+
+			// flush the current data
+			BinaryObjectModel bom = (ObjectModel as BinaryObjectModel);
+			if (bom == null) return;
+
+			bom.Data = hexedit.Data;
+		}
+
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
 		{
