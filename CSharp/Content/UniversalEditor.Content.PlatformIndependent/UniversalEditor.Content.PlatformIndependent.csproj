@@ -662,6 +662,7 @@
     <Content Include="Extensions\FileSystem\Associations\InstallShield\PKG.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\Nintendo\Associations\Z64.uexml" />
     <Content Include="Editors\Multimedia\Palette\PaletteEditor.uexml" />
+    <Content Include="Associations\Binary.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Binary.BinaryObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Binary.BinaryDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
