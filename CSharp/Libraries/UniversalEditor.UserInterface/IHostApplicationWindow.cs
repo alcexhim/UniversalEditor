@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls.Docking;
 
 namespace UniversalEditor.UserInterface
 {
@@ -35,7 +36,7 @@ namespace UniversalEditor.UserInterface
 		/// <param name="index">The index of the perspective to switch to.</param>
 		void SwitchPerspective(int index);
 
-		void CloseFile();
+		void CloseFile(DockingWindow dw = null);
 		void CloseProject();
 		void CloseWindow();
 

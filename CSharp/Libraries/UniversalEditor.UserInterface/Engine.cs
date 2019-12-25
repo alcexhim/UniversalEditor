@@ -21,6 +21,7 @@ using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.Drawing;
 using UniversalEditor.UserInterface.Panels;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.Docking;
 
 namespace UniversalEditor.UserInterface
 {
@@ -533,6 +534,25 @@ namespace UniversalEditor.UserInterface
 				ShowAboutDialog();
 			});
 			#endregion
+
+
+			Application.AttachCommandEventHandler("DockingContainerContextMenu_Close", delegate (object sender, EventArgs e)
+			{
+				CommandEventArgs ce = (e as CommandEventArgs);
+				if (ce != null)
+				{
+					DockingWindow dw = ce.GetNamedParameter<DockingWindow>("Item");
+					LastWindow?.CloseFile(dw);
+				}
+			});
+			Application.AttachCommandEventHandler("DockingContainerContextMenu_CloseAll", delegate (object sender, EventArgs e)
+			{
+				LastWindow?.CloseWindow();
+			});
+			Application.AttachCommandEventHandler("DockingContainerContextMenu_CloseAllButThis", delegate (object sender, EventArgs e)
+			{
+				MessageDialog.ShowDialog("Not implemented ... yet", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+			});
 
 
 			#region Dynamic Commands

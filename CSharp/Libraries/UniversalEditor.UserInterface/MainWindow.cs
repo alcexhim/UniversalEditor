@@ -1029,16 +1029,18 @@ namespace UniversalEditor.UserInterface
 		}
 
 		private System.Collections.Generic.List<Window> Windows = new System.Collections.Generic.List<Window>();
-		public void CloseFile()
+		public void CloseFile(DockingWindow dw = null)
 		{
-			DockingWindow dw = (dckContainer.CurrentItem as DockingWindow);
+			if (dw == null)
+				dw = (dckContainer.CurrentItem as DockingWindow);
+
 			EditorPage ep = (dw?.ChildControl as EditorPage);
 			if (ep != null && !ConfirmExit(ep))
 			{
 				return;
 			}
 
-			dckContainer.Items.Remove(dckContainer.CurrentItem);
+			dckContainer.Items.Remove(dw);
 			documentWindowCount--;
 
 			if (documentWindowCount == 0)
