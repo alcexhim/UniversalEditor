@@ -93,6 +93,15 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private void cmdObjectModel_Click(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<ObjectModel, ObjectModelReference> popup = new GenericBrowserPopup<ObjectModel, ObjectModelReference>();
+			popup.ResetList += delegate(object s, EventArgs ee)
+			{
+				popup.AvailableObjects.Clear();
+				ObjectModelReference[] _omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+				for (int i = 0; i < _omrs.Length; i++)
+				{
+					popup.AvailableObjects.Add(_omrs[i]);
+				}
+			};
 			popup.SelectedObject = ObjectModel;
 
 			Vector2D loc = ClientToScreenCoordinates(cmdObjectModel.Location);
@@ -136,68 +145,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private void RefreshButtons()
 		{
-			if (Mode == DocumentPropertiesDialogMode.Save)
-			{
-				if (Accessor != null)
-				{
-					string filename = Accessor.GetFileName();
-					if (!System.IO.File.Exists(filename))
-					{
-						if (mvarInitialAccesor != null)
-						{
-							filename = mvarInitialAccesor.GetFileName();
-						}
-					}
-				}
-			}
-			else if (Mode == DocumentPropertiesDialogMode.Open)
-			{
-				if (Accessor is FileAccessor)
-				{
-					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = Accessor });
-					List<DataFormatReference> dfrs = new List<DataFormatReference>();
-					foreach (Association assoc in assocs)
-					{
-						foreach (DataFormatReference dfr in assoc.DataFormats)
-						{
-							dfrs.Add(dfr);
-						}
-					}
-					if (DataFormat == null)
-					{
-						if (dfrs.Count > 0)
-						{
-							DataFormat = dfrs[0].Create();
-						}
-					}
-					else
-					{
-					}
-				}
-				if (ObjectModel == null)
-				{
-					if (DataFormat != null)
-					{
-						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(DataFormat.MakeReference());
-						if (omrs.Length > 0)
-						{
-							ObjectModel = omrs[0].Create();
-						}
-					}
-					else if (Accessor is FileAccessor)
-					{
-						string filename = (Accessor as FileAccessor).FileName;
-						if (String.IsNullOrEmpty(filename)) return;
-
-						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(Accessor);
-						if (omrs.Length == 1)
-						{
-							ObjectModel = omrs[0].Create();
-						}
-					}
-				}
-			}
-
 			if (Accessor != null)
 			{
 				txtAccessor.Text = Accessor.ToString();
@@ -276,6 +223,15 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private void cmdDataFormat_Click(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<DataFormat, DataFormatReference> popup = new GenericBrowserPopup<DataFormat, DataFormatReference>();
+			popup.ResetList += delegate(object s, EventArgs ee)
+			{
+				popup.AvailableObjects.Clear();
+				DataFormatReference[] _dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+				for (int i = 0; i < _dfrs.Length; i++)
+				{
+					popup.AvailableObjects.Add(_dfrs[i]);
+				}
+			};
 			popup.SelectedObject = mvarDataFormat;
 
 			// Vector2D loc = ClientToScreenCoordinates(cmdDataFormat.Location);
@@ -360,7 +316,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private void dlgDataFormat_SelectionChanged(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<DataFormat, DataFormatReference> dlg = (sender as GenericBrowserPopup<DataFormat, DataFormatReference>);
-			mvarDataFormat = dlg.SelectedObject;
+			DataFormat = dlg.SelectedObject;
 			RefreshButtons();
 		}
 		private void dlgAccessor_SelectionChanged(object sender, EventArgs e)
@@ -404,7 +360,57 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 			}
 
-			mvarAccessor = acc;
+			Accessor = acc;
+
+			// pro feature: if we find a better OM/DF, maybe ask the user "do you wish to change object model to ___ ?" before doing so
+			if (Mode == DocumentPropertiesDialogMode.Open)
+			{
+				if (Accessor is FileAccessor)
+				{
+					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = Accessor });
+					List<DataFormatReference> dfrs = new List<DataFormatReference>();
+					foreach (Association assoc in assocs)
+					{
+						foreach (DataFormatReference dfr in assoc.DataFormats)
+						{
+							dfrs.Add(dfr);
+						}
+					}
+					if (DataFormat == null)
+					{
+						if (dfrs.Count > 0)
+						{
+							DataFormat = dfrs[0].Create();
+						}
+					}
+					else
+					{
+					}
+				}
+				if (ObjectModel == null)
+				{
+					if (DataFormat != null)
+					{
+						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(DataFormat.MakeReference());
+						if (omrs.Length > 0)
+						{
+							ObjectModel = omrs[0].Create();
+						}
+					}
+					else if (Accessor is FileAccessor)
+					{
+						string filename = (Accessor as FileAccessor).FileName;
+						if (String.IsNullOrEmpty(filename)) return;
+
+						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(Accessor);
+						if (omrs.Length == 1)
+						{
+							ObjectModel = omrs[0].Create();
+						}
+					}
+				}
+			}
+
 			RefreshButtons();
 
 			dlg.AutoClose = true;

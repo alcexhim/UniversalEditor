@@ -145,16 +145,19 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 		}
 
-		private void chkShowAll_Click(object sender, EventArgs e)
+		public event EventHandler ResetList;
+
+		private void cmdReset_Click(object sender, EventArgs e)
 		{
+			ResetList?.Invoke(this, e);
 			UpdateSearch();
 		}
 
-		private void cmdClear_Click(object sender, EventArgs e)
+		private void cmdNone_Click(object sender, EventArgs e)
 		{
-			// mvarSelectedObject = null;
-			if (SelectionChanged != null) SelectionChanged(this, e);
-			// Close();
+			SelectedObject = null;
+			SelectionChanged?.Invoke(this, e);
+			Close();
 		}
 	}
 }

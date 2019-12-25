@@ -30,7 +30,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 		where TObj : class, References<TRef>
 		where TRef : class, ReferencedBy<TObj>
 	{
-		private CheckBox chkShowAll = null;
+		private Button cmdReset = null;
+		private Button cmdNone = null;
 		private TextBox txtSearch = null;
 		private ListView lv = null;
 
@@ -51,11 +52,16 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.txtSearch.KeyDown += txtSearch_KeyDown;
 			this.ctSearchAndShowAll.Controls.Add(this.txtSearch, new BoxLayout.Constraints(true, true));
 
-			this.chkShowAll = new CheckBox();
-			this.chkShowAll.Text = "Show _all";
-			this.chkShowAll.Click += chkShowAll_Click;
-			this.ctSearchAndShowAll.Controls.Add(this.chkShowAll, new BoxLayout.Constraints(false, false));
-			
+			this.cmdReset = new Button();
+			this.cmdReset.Text = "_Reset";
+			this.cmdReset.Click += cmdReset_Click;
+			this.ctSearchAndShowAll.Controls.Add(this.cmdReset, new BoxLayout.Constraints(false, false));
+
+			this.cmdNone = new Button();
+			this.cmdNone.Text = "_None";
+			this.cmdNone.Click += cmdNone_Click;
+			this.ctSearchAndShowAll.Controls.Add(this.cmdNone, new BoxLayout.Constraints(false, false));
+
 			this.Controls.Add(ctSearchAndShowAll, new BoxLayout.Constraints(false, true));
 
 			this.tm = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });
