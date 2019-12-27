@@ -83,6 +83,7 @@ namespace UniversalEditor.Accessors
 		}
 		public MemoryAccessor(byte[] data, string filename = null)
 		{
+			_actualLength = data.Length;
 			_data = data;
 			mvarFileName = filename;
 		}
