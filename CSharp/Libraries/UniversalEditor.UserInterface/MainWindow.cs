@@ -494,7 +494,7 @@ namespace UniversalEditor.UserInterface
 						break;
 					}
 					if (!found) {
-						OpenDefaultEditor (doc.Accessor.GetFileName ());
+						OpenDefaultEditor (doc.Accessor);
 						return;
 					}
 				}
@@ -539,13 +539,13 @@ namespace UniversalEditor.UserInterface
 				else
 				{
 					Console.Error.WriteLine("Editor not found for object model " + doc.ObjectModel.MakeReference().Title + " ; using default editor");
-					OpenDefaultEditor(doc.Accessor.GetFileName());
+					OpenDefaultEditor(doc.Accessor);
 				}
 			}
 			else
 			{
 				Console.Error.WriteLine("ObjectModel not specified for accessor " + doc.Accessor.ToString() + " ; using default editor");
-				OpenDefaultEditor(doc.Accessor.GetFileName());
+				OpenDefaultEditor(doc.Accessor);
 			}
 		}
 
@@ -632,13 +632,13 @@ namespace UniversalEditor.UserInterface
 				e.Cancel = true;
 		}
 
-		private void OpenDefaultEditor(string filename)
+		private void OpenDefaultEditor(Accessor acc)
 		{
 			EditorPage page = new EditorPage();
-			page.Document = new Document(null, null, new FileAccessor(filename));
+			page.Document = new Document(null, null, acc);
 			page.DocumentEdited += page_DocumentEdited;
 
-			InitDocTab(filename, System.IO.Path.GetFileName(filename), page);
+			InitDocTab(acc.GetFileName(), System.IO.Path.GetFileName(acc.GetFileName()), page);
 		}
 
 		[ContainerLayout("~/Panels/StartPage.glade")]

@@ -79,16 +79,12 @@ namespace UniversalEditor.UserInterface.Pages
 		/// </summary>
 		/// <returns><c>true</c>, if the specified file appears to be a text file, <c>false</c> otherwise.</returns>
 		/// <param name="filename">Filename.</param>
-		private bool isText(string filename)
+		private bool isText(Accessor acc)
 		{
-			if (!System.IO.File.Exists(filename))
-				return false;
-
 			int len = 2048;
-			System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-			len = (int)Math.Min(len, fi.Length);
-			System.IO.FileStream fs = System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
-			byte[] b = fs.ReadBytes(0, len);
+			len = (int)Math.Min(len, acc.Length);
+			byte[] b = acc.Reader.ReadBytes(len);
+			acc.Seek(-len, IO.SeekOrigin.Current);
 
 			string utf8 = System.Text.Encoding.UTF8.GetString(b);
 
@@ -144,45 +140,35 @@ namespace UniversalEditor.UserInterface.Pages
 				// errorMessage1.Details = "Detected object model: " + om.GetType().FullName;
 
 				Editor ed = null;
-				if (mvarDocument.Accessor is FileAccessor)
+				if (isText(mvarDocument.Accessor))
 				{
-					string filename = ((FileAccessor)mvarDocument.Accessor).GetFileName();
-					if (isText(filename))
-					{
-						ed = DefaultTextEditor.Create();
-						PlainTextObjectModel om1 = new PlainTextObjectModel();
-						if (System.IO.File.Exists(filename))
-						{
-							System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-							if (fi.Length < Math.Pow(1024, 2))
-							{
-								String content = System.IO.File.ReadAllText(filename);
-								om1.Text = content;
-							}
-						}
-						ed.ObjectModel = om1;
-					}
-					else
-					{
-						ed = DefaultBinaryEditor.Create();
-						BinaryObjectModel om1 = new BinaryObjectModel();
-						if (System.IO.File.Exists(filename))
-						{
-							System.IO.FileInfo fi = new System.IO.FileInfo(filename);
-							if (fi.Length < Math.Pow(1024, 4))
-							{
-								byte[] content = System.IO.File.ReadAllBytes(filename);
-								om1.Data = content;
-							}
-						}
-						ed.ObjectModel = om1;
-					}
+					ed = DefaultTextEditor.Create();
 
-					if (ed == null) return;
-
-					ed.DocumentEdited += editor_DocumentEdited;
-					mvarDocument.ObjectModel = ed.ObjectModel;
+					PlainTextObjectModel om1 = new PlainTextObjectModel();
+					if (mvarDocument.Accessor.Length < Math.Pow(1024, 2))
+					{
+						string value = mvarDocument.Accessor.Reader.ReadStringToEnd();
+						om1.Text = value;
+					}
+					ed.ObjectModel = om1;
 				}
+				else
+				{
+					ed = DefaultBinaryEditor.Create();
+					BinaryObjectModel om1 = new BinaryObjectModel();
+					if (mvarDocument.Accessor.Length < Math.Pow(1024, 4))
+					{
+						byte[] content = mvarDocument.Accessor.Reader.ReadToEnd();
+						om1.Data = content;
+					}
+					ed.ObjectModel = om1;
+				}
+
+				if (ed == null) return;
+
+				ed.DocumentEdited += editor_DocumentEdited;
+				mvarDocument.ObjectModel = ed.ObjectModel;
+
 				Controls.Add(ed, new BoxLayout.Constraints(true, true));
 			}
 			else
