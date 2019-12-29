@@ -139,6 +139,13 @@ namespace UniversalEditor.UserInterface.Pages
 
 				// errorMessage1.Details = "Detected object model: " + om.GetType().FullName;
 
+				bool requiresOpen = false;
+				if (!mvarDocument.Accessor.IsOpen)
+				{
+					mvarDocument.Accessor.Open();
+					requiresOpen = true;
+				}
+
 				Editor ed = null;
 				if (isText(mvarDocument.Accessor))
 				{
@@ -163,6 +170,9 @@ namespace UniversalEditor.UserInterface.Pages
 					}
 					ed.ObjectModel = om1;
 				}
+
+				if (requiresOpen)
+					mvarDocument.Accessor.Close();
 
 				if (ed == null) return;
 
