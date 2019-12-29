@@ -29,6 +29,7 @@ using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 using UniversalEditor.Editors.FileSystem.Dialogs;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -166,6 +167,25 @@ namespace UniversalEditor.Editors.FileSystem
 			row.SetExtraData<IFileSystemObject>("item", f);
 			tmTreeView.Rows.Add(row);
 			return f;
+		}
+
+		private void FileSystemContextMenu_Open_Click(object sender, EventArgs e)
+		{
+			if (tv.SelectedRows.Count < 1)
+				return;
+
+			for (int i = 0; i < tv.SelectedRows.Count; i++)
+			{
+				IFileSystemObject fso = tv.SelectedRows[i].GetExtraData<IFileSystemObject>("item");
+				if (fso is File)
+				{
+					File f = (fso as File);
+
+					MemoryAccessor ma = new MemoryAccessor(f.GetData(), f.Name);
+					Document doc = new Document(ma);
+					HostApplication.CurrentWindow.OpenFile(doc);
+				}
+			}
 		}
 
 		/// <summary>
