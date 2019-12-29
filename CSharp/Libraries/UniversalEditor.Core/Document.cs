@@ -35,29 +35,22 @@ namespace UniversalEditor
 	/// </summary>
 	public class Document
 	{
-		private Accessor mvarInputAccessor = null;
 		/// <summary>
 		/// The <see cref="Accessor" /> which determines where the data is read from.
 		/// </summary>
-		public Accessor InputAccessor { get { return mvarInputAccessor; } set { mvarInputAccessor = value; } }
-
-		private Accessor mvarOutputAccessor = null;
+		public Accessor InputAccessor { get; set; } = null;
 		/// <summary>
 		/// The <see cref="Accessor" />, which determines where the data is written to.
 		/// </summary>
-		public Accessor OutputAccessor { get { return mvarOutputAccessor; } set { mvarOutputAccessor = value; } }
-
-		private DataFormat mvarInputDataFormat = null;
+		public Accessor OutputAccessor { get; set; } = null;
 		/// <summary>
 		/// The <see cref="DataFormat" /> which determines how the data is read from the accessor.
 		/// </summary>
-		public DataFormat InputDataFormat { get { return mvarInputDataFormat; } set { mvarInputDataFormat = value; } }
-
-		private DataFormat mvarOutputDataFormat = null;
+		public DataFormat InputDataFormat { get; set; } = null;
 		/// <summary>
 		/// The <see cref="DataFormat" /> which determines how the data is written to the accessor.
 		/// </summary>
-		public DataFormat OutputDataFormat { get { return mvarOutputDataFormat; } set { mvarOutputDataFormat = value; } }
+		public DataFormat OutputDataFormat { get; set; } = null;
 
 		private ObjectModel mvarObjectModel = null;
 		/// <summary>
@@ -72,9 +65,9 @@ namespace UniversalEditor
 		[DebuggerNonUserCode()]
 		public void Load()
 		{
-			mvarInputDataFormat.Accessor = mvarInputAccessor;
-			mvarObjectModel.Accessor = mvarInputAccessor;
-			mvarInputDataFormat.Load(ref mvarObjectModel);
+			InputDataFormat.Accessor = InputAccessor;
+			mvarObjectModel.Accessor = InputAccessor;
+			InputDataFormat.Load(ref mvarObjectModel);
 			mvarLastUsedAccessor = LastUsedAccessor.Input;
 		}
 		/// <summary>
@@ -83,19 +76,19 @@ namespace UniversalEditor
 		/// </summary>
 		public void Save()
 		{
-			mvarOutputDataFormat.Accessor = mvarOutputAccessor;
-			mvarObjectModel.Accessor = mvarOutputAccessor;
+			OutputDataFormat.Accessor = OutputAccessor;
+			mvarObjectModel.Accessor = OutputAccessor;
 
 			bool opened = false;
-			if (!mvarOutputAccessor.IsOpen)
+			if (!OutputAccessor.IsOpen)
 			{
-				mvarOutputAccessor.Open();
+				OutputAccessor.Open();
 				opened = true;
 			}
-			mvarOutputDataFormat.Save(mvarObjectModel);
+			OutputDataFormat.Save(mvarObjectModel);
 			if (opened)
 			{
-				mvarOutputAccessor.Close();
+				OutputAccessor.Close();
 			}
 			mvarLastUsedAccessor = LastUsedAccessor.Output;
 
@@ -118,10 +111,10 @@ namespace UniversalEditor
 		public Document(ObjectModel objectModel, DataFormat inputDataFormat, DataFormat outputDataFormat, Accessor inputAccessor, Accessor outputAccessor)
 		{
 			mvarObjectModel = objectModel;
-			mvarInputDataFormat = inputDataFormat;
-			mvarOutputDataFormat = outputDataFormat;
-			mvarInputAccessor = inputAccessor;
-			mvarOutputAccessor = outputAccessor;
+			InputDataFormat = inputDataFormat;
+			OutputDataFormat = outputDataFormat;
+			InputAccessor = inputAccessor;
+			OutputAccessor = outputAccessor;
 		}
 
 		[DebuggerNonUserCode()]
@@ -167,20 +160,20 @@ namespace UniversalEditor
 
 		public void Close()
 		{
-			if (mvarInputAccessor != null)
+			if (InputAccessor != null)
 			{
-				if (mvarInputAccessor.IsOpen)
+				if (InputAccessor.IsOpen)
 				{
-					mvarInputAccessor.Close();
-					mvarTitle = mvarOutputAccessor.GetFileTitle();
+					InputAccessor.Close();
+					mvarTitle = OutputAccessor.GetFileTitle();
 				}
 			}
-			if (mvarOutputAccessor != null)
+			if (OutputAccessor != null)
 			{
-				if (mvarOutputAccessor.IsOpen)
+				if (OutputAccessor.IsOpen)
 				{
-					mvarOutputAccessor.Close();
-					mvarTitle = mvarOutputAccessor.GetFileTitle();
+					OutputAccessor.Close();
+					mvarTitle = OutputAccessor.GetFileTitle();
 				}
 			}
 		}
@@ -194,13 +187,13 @@ namespace UniversalEditor
 		{
 			get
 			{
-				if (mvarLastUsedAccessor == LastUsedAccessor.Input && mvarInputAccessor != null)
+				if (mvarLastUsedAccessor == LastUsedAccessor.Input && InputAccessor != null)
 				{
-					return mvarInputAccessor.GetFileTitle();
+					return InputAccessor.GetFileTitle();
 				}
-				else if (mvarLastUsedAccessor == LastUsedAccessor.Output && mvarOutputAccessor != null)
+				else if (mvarLastUsedAccessor == LastUsedAccessor.Output && OutputAccessor != null)
 				{
-					return mvarOutputAccessor.GetFileTitle();
+					return OutputAccessor.GetFileTitle();
 				}
 				return mvarTitle;
 			}
@@ -221,11 +214,11 @@ namespace UniversalEditor
 				{
 					case LastUsedAccessor.Input:
 					{
-						return mvarInputAccessor;
+						return InputAccessor;
 					}
 					case LastUsedAccessor.Output:
 					{
-						return mvarOutputAccessor;
+						return OutputAccessor;
 					}
 				}
 				return null;
@@ -242,19 +235,19 @@ namespace UniversalEditor
 				{
 					case LastUsedAccessor.Input:
 					{
-						return mvarInputDataFormat;
+						return InputDataFormat;
 					}
 					case LastUsedAccessor.Output:
 					{
-						return mvarOutputDataFormat;
+						return OutputDataFormat;
 					}
 				}
 				return null;
 			}
 			set
 			{
-				mvarInputDataFormat = value;
-				mvarOutputDataFormat = value;
+				InputDataFormat = value;
+				OutputDataFormat = value;
 			}
 		}
 	}
