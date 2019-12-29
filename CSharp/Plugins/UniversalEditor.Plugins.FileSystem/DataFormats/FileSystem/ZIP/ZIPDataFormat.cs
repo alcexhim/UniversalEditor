@@ -23,10 +23,13 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 		private ZIPSettings mvarSettings = new ZIPSettings();
 
 		private static readonly byte[] SIG_CENTRAL_DIRECTORY_ENTRY = new byte[] { 0x50, 0x4B, 0x01, 0x02 };
+		private static readonly byte[] SIG_DIRECTORY_ENTRY = new byte[] { 0x50, 0x4B, 0x03, 0x04 };
 		private static readonly byte[] SIG_END_OF_CENTRAL_DIRECTORY = new byte[] { 0x50, 0x4B, 0x05, 0x06 };
 
 		private string mvarComment = String.Empty;
 		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
+
+		private long _offsetToBeginningOfZIPFile = 0;
 
 		protected override DataFormatReference MakeReferenceInternal()
 		{
@@ -44,6 +47,21 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 
 			IO.Reader br = base.Accessor.Reader;
 
+			br.Accessor.SavePosition();
+			while (!br.EndOfStream)
+			{
+				byte[] siggy = br.ReadBytes(4);
+				if (siggy.Match(SIG_DIRECTORY_ENTRY))
+				{
+					_offsetToBeginningOfZIPFile = br.Accessor.Position - 4;
+					break;
+				}
+				else
+				{
+					br.Seek(-3, SeekOrigin.Current);
+				}
+			}
+			br.Accessor.LoadPosition();
 
 			long eocdOffset = zip_FindEndOfCentralDirectory(br);
 			if (eocdOffset != -1)
@@ -52,7 +70,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				Internal.ZIPCentralDirectoryFooter footer = ReadZIPCentralDirectoryFooter(br);
 				if (footer.centralDirectoryOffset > 0 && footer.centralDirectoryOffset < br.Accessor.Length)
 				{
-					br.Seek(footer.centralDirectoryOffset, SeekOrigin.Begin);
+					br.Seek(_offsetToBeginningOfZIPFile + footer.centralDirectoryOffset, SeekOrigin.Begin);
 					long pos = br.Accessor.Position;
 
 					while (br.Accessor.Position < footer.centralDirectoryLength + pos)
@@ -82,7 +100,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 						string fileName = br.ReadFixedLengthString(fileNameLength);
 
 						long local_pos = br.Accessor.Position;
-						while (br.Accessor.Position < (local_pos + extraFieldLength))
+						while (br.Accessor.Position < (local_pos + extraFieldLength) && br.Accessor.Position < br.Accessor.Length)
 						{
 							short chunkIDCode = br.ReadInt16();
 							short chunkLength = br.ReadInt16();
@@ -196,6 +214,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			uint decompressedLength = (uint)file.Properties["decompressedLength"];
 			uint compressedLength = (uint)file.Properties["compressedLength"];
 			uint offset = (uint)file.Properties["offset"];
+			offset += (uint)_offsetToBeginningOfZIPFile;
 
 			Reader br = Accessor.Reader;
 			long curpos = Accessor.Position;
@@ -696,7 +715,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 		private long zip_FindEndOfCentralDirectory(IO.Reader reader)
 		{
 			reader.Seek(-4, SeekOrigin.End);
-			while (true)
+			while (reader.Accessor.Position > 0)
 			{
 				byte[] test = reader.ReadBytes(4);
 				if (test.Match(SIG_END_OF_CENTRAL_DIRECTORY))
