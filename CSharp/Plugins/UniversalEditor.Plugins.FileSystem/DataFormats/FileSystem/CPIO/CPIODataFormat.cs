@@ -31,13 +31,15 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 		private CPIOEncoding mvarEncoding = CPIOEncoding.BinaryLittleEndian;
 		public CPIOEncoding Encoding { get { return mvarEncoding; } set { mvarEncoding = value; } }
 
+		private static DateTime UNIX_EPOCH { get; } = new DateTime(1970, 01, 01, 00, 00, 00).ToUniversalTime();
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-
+			bool firstone = true;
 			while (!reader.EndOfStream)
 			{
 				byte[] c_magic = reader.ReadBytes(2);
@@ -54,7 +56,11 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 				{
 					base.Accessor.Seek(-2, SeekOrigin.Current);
 					string c_magic_str = reader.ReadFixedLengthString(5);
-					if (!(c_magic_str == "070701" || c_magic_str == "070702")) throw new InvalidDataFormatException("File does not begin with one of either { 0xC7, 0x71 }, { 0x71, 0xC7 }, { '070701' }, or { '070702' }");
+					if (!(c_magic_str == "070701" || c_magic_str == "070702"))
+					{
+						if (firstone)
+							throw new InvalidDataFormatException("File does not begin with one of either { 0xC7, 0x71 }, { 0x71, 0xC7 }, { '070701' }, or { '070702' }");
+					}
 
 					mvarEncoding = CPIOEncoding.ASCII;
 				}
@@ -94,6 +100,9 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 						// an additional NUL byte is added after the pathname.  The file data is then
 						// appended, padded with NUL bytes to an even length.
 						string c_filename = reader.ReadFixedLengthString(c_namesize).TrimNull();
+						if ((c_namesize % 2) != 0)
+							reader.ReadByte();
+
 						reader.Align(2);
 
 						if (c_filename == "TRAILER!!!")
@@ -103,17 +112,22 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 						}
 
 						long offset = base.Accessor.Position;
-					
+						
 						// Hardlinked files are not given special treatment; the full file contents are
 						// included with each copy of the file.
 						File file = fsom.AddFile(c_filename);
+						file.ModificationTimestamp = UNIX_EPOCH.AddSeconds(c_mtime).ToLocalTime();
 						file.Size = c_filesize;
 						file.Source = new EmbeddedFileSource(reader, offset, c_filesize);
 
 						base.Accessor.Seek(c_filesize, SeekOrigin.Current);
+
+						// old version didn't do this (and failed epically); apparently we need to be aligned after skipping file data too
+						reader.Align(2);
 						break;
 					}
 				}
+				firstone = false;
 
 				if (fin) break;
 			}
