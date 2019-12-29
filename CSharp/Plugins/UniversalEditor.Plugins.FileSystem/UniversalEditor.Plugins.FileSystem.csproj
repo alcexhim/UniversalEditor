@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Output\Debug\Plugins\UniversalEditor.Plugins.FileSystem.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -211,7 +212,6 @@
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPInternalFileAttributes.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\FileSystem\VirtualBox\VDIDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPCompressionMethod.cs" />

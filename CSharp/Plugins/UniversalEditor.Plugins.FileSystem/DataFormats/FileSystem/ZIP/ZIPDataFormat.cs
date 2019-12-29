@@ -17,16 +17,20 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 {
 	// TODO: Fix the ZIP data format's saving!!!
 
-
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> to read and write <see cref="FileSystemObjectModel" /> data in the standardized PKWARE ZIP archive file format.
+	/// </summary>
 	public class ZIPDataFormat : DataFormat
 	{
-		private ZIPSettings mvarSettings = new ZIPSettings();
-
 		private static readonly byte[] SIG_CENTRAL_DIRECTORY_ENTRY = new byte[] { 0x50, 0x4B, 0x01, 0x02 };
 		private static readonly byte[] SIG_DIRECTORY_ENTRY = new byte[] { 0x50, 0x4B, 0x03, 0x04 };
 		private static readonly byte[] SIG_END_OF_CENTRAL_DIRECTORY = new byte[] { 0x50, 0x4B, 0x05, 0x06 };
 
 		private string mvarComment = String.Empty;
+		/// <summary>
+		/// Gets or sets the comment written in the header of the ZIP archive.
+		/// </summary>
+		/// <value>The comment to be written in the header of the ZIP archive.</value>
 		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
 
 		private long _offsetToBeginningOfZIPFile = 0;
@@ -40,6 +44,10 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			return dfr;
 		}
 
+		/// <summary>
+		/// Loads the data from the <see cref="Accessor" /> into the given <see cref="FileSystemObjectModel" />.
+		/// </summary>
+		/// <param name="objectModel">A <see cref="FileSystemObjectModel" /> into which to load the data.</param>
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -233,22 +241,22 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			short iCompressionMethod = br.ReadInt16();
 			switch (iCompressionMethod)
 			{
-			case 8:
+				case 8:
 				{
 					method = CompressionMethod.Deflate;
 					break;
 				}
-			case 9:
+				case 9:
 				{
 					method = CompressionMethod.Deflate64;
 					break;
 				}
-			case 12:
+				case 12:
 				{
 					method = CompressionMethod.Bzip2;
 					break;
 				}
-			case 14:
+				case 14:
 				{
 					method = CompressionMethod.LZMA;
 					break;
@@ -406,6 +414,10 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			return true;
 		}
 
+		/// <summary>
+		/// Saves the <see cref="FileSystemObjectModel" /> data to the <see cref="Accessor" />.
+		/// </summary>
+		/// <param name="objectModel">A <see cref="FileSystemObjectModel" /> that contains the data to save.</param>
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -803,8 +815,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			f.SetData(unpackedData);
 			return f;
 		}
-
-		public ZIPSettings Settings { get { return mvarSettings; } }
 	}
 }
 
