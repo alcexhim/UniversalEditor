@@ -21,9 +21,18 @@
 using System;
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
+	/// <summary>
+	/// The version of AFS archive being handled by a <see cref="AFSDataFormat" /> instance.
+	/// </summary>
 	public enum AFSFormatVersion
 	{
+		/// <summary>
+		/// Older version of AFS, which stores file data and TOC information in the same AFS file.
+		/// </summary>
 		AFS0,
+		/// <summary>
+		/// Newer version of AFS, which stores file data in an AWB file and writes the TOC to a separate ACB file.
+		/// </summary>
 		AFS2
 	}
 }

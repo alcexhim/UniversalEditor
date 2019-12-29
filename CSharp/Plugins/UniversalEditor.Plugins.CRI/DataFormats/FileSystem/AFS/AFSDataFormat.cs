@@ -25,9 +25,16 @@ using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
+	/// <summary>
+	/// A <see cref="DataFormat" /> for loading and saving <see cref="FileSystemObjectModel" /> archives in CRI Middleware AFS/AWB/ACB format.
+	/// </summary>
 	public class AFSDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
+		/// <summary>
+		/// Creates a <see cref="DataFormatReference" /> containing metadata about the <see cref="AFSDataFormat" />.
+		/// </summary>
+		/// <returns>The <see cref="DataFormatReference" /> which contains metadata about the <see cref="AFSDataFormat" />.</returns>
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
@@ -38,8 +45,17 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 			return _dfr;
 		}
 
+		/// <summary>
+		/// Gets or sets the version of AFS archive to read or write. Defaults to <see cref="AFSFormatVersion.AFS0" /> ('AFS\0').
+		/// </summary>
+		/// <value>The version of AFS archive to read or write.</value>
 		public AFSFormatVersion FormatVersion { get; set; } = AFSFormatVersion.AFS0;
 
+		/// <summary>
+		/// Reads an AFS format 0 archive (AFS).
+		/// </summary>
+		/// <param name="reader">The <see cref="Reader" /> which reads the data.</param>
+		/// <param name="fsom">The <see cref="FileSystemObjectModel" /> into which to populate archive content.</param>
 		private void ReadAFS0(IO.Reader reader, FileSystemObjectModel fsom)
 		{
 			uint fileCount = reader.ReadUInt32();
@@ -83,6 +99,11 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 			}
 		}
 
+		/// <summary>
+		/// Reads an AFS format 2 archive (AWB/ACB).
+		/// </summary>
+		/// <param name="reader">The <see cref="Reader" /> which reads the data.</param>
+		/// <param name="fsom">The <see cref="FileSystemObjectModel" /> into which to populate archive content.</param>
 		private void ReadAFS2(IO.Reader reader, FileSystemObjectModel fsom)
 		{
 			uint unknown1 = reader.ReadUInt32();
@@ -119,6 +140,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 			}
 		}
 
+		/// <summary>
+		/// Loads the <see cref="ObjectModel" /> data from the input <see cref="Accessor" />.
+		/// </summary>
+		/// <param name="objectModel">A <see cref="FileSystemObjectModel" /> into which to load archive content.</param>
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -158,7 +183,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 			e.Data = Accessor.Reader.ReadBytes(fileinfo.length);
 		}
 
-
+		/// <summary>
+		/// Writes the <see cref="ObjectModel" /> data to the output <see cref="Accessor" />.
+		/// </summary>
+		/// <param name="objectModel">A <see cref="FileSystemObjectModel" /> containing the archive content to write.</param>
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);

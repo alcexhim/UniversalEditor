@@ -29,9 +29,16 @@ using UniversalEditor.Plugins.CRI.DataFormats.Database.UTF;
 
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 {
+	/// <summary>
+	/// A <see cref="DataFormat" /> for loading and saving <see cref="FileSystemObjectModel" /> archives in CRI Middleware CPK format.
+	/// </summary>
 	public class CPKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
+		/// <summary>
+		/// Creates a <see cref="DataFormatReference" /> containing metadata about the <see cref="CPKDataFormat" />.
+		/// </summary>
+		/// <returns>The <see cref="DataFormatReference" /> which contains metadata about the <see cref="CPKDataFormat" />.</returns>
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
@@ -44,8 +51,17 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			return _dfr;
 		}
 
+		/// <summary>
+		/// Gets or sets the version string which contains information about the library which created the archive. The default value is "CPKMC2.14.00, DLL2.74.00" which is the version string that official CRI Middleware CPK tools use.
+		/// </summary>
+		/// <value>The version string.</value>
 		public string VersionString { get; set; } = "CPKMC2.14.00, DLL2.74.00";
-		public int FileAlignment { get; set; } = 2048;
+
+		/// <summary>
+		/// Gets or sets the sector alignment, in bytes, of the CPK archive. The default value is 2048.
+		/// </summary>
+		/// <value>The file alignment.</value>
+		public int SectorAlignment { get; set; } = 2048;
 
 		// these are mainly for the benefit of the CRI Extensions for FileSystemEditor
 
@@ -84,6 +100,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 		/// <value>The raw data from the "ETOC" chunk.</value>
 		public byte[] ETocData { get { return _ETocData; } }
 
+		/// <summary>
+		/// Loads the <see cref="ObjectModel" /> data from the input <see cref="Accessor" />.
+		/// </summary>
+		/// <param name="objectModel">A <see cref="FileSystemObjectModel" /> into which to load archive content.</param>
 		protected override void LoadInternal (ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -300,7 +320,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("FileSize", null),
 				new DatabaseField("ContentOffset", contentOffset), // 18432 , should be 20480
 				new DatabaseField("ContentSize", contentSize),		// 8217472, should be 8564736 (347264 difference!)
-				new DatabaseField("TocOffset", (ulong)FileAlignment),
+				new DatabaseField("TocOffset", (ulong)SectorAlignment),
 				new DatabaseField("TocSize", (ulong)tocsize),
 				new DatabaseField("TocCrc", null),
 				new DatabaseField("EtocOffset", etocOffset),
@@ -323,7 +343,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("Updates", null),
 				new DatabaseField("Version", (ushort)7),
 				new DatabaseField("Revision", (ushort)0),
-				new DatabaseField("Align", (ushort)FileAlignment),
+				new DatabaseField("Align", (ushort)SectorAlignment),
 				new DatabaseField("Sorted", (ushort)1),
 				new DatabaseField("EID", (ushort)1),
 				new DatabaseField("CpkMode", (uint)2),
@@ -384,7 +404,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			dt.Fields.Add("UserString", "<NULL>", typeof(string));
 
 			ulong offset = initialFileOffset;
-			offset -= (ulong) FileAlignment; // idk?
+			offset -= (ulong) SectorAlignment; // idk?
 
 			List<IDOFFSET> offsets = new List<IDOFFSET>(files.Length);
 			for (int i = 0; i < files.Length; i++)
@@ -399,7 +419,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			{
 				offsets[i] = new IDOFFSET(offsets[i].INDEX, offsets[i].ID, offset, offsets[i].SIZE);
 				offset += offsets[i].SIZE;
-				offset = offset.RoundUp(FileAlignment);
+				offset = offset.RoundUp(SectorAlignment);
 			}
 			offsets.Sort((x, y) => x.INDEX.CompareTo(y.INDEX));
 
@@ -483,7 +503,11 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			return db;
 		}
 
-
+		/// <summary>
+		/// Applies a simple cipher to decrypt an encrypted UTF sector.
+		/// </summary>
+		/// <returns>The decrypted data.</returns>
+		/// <param name="input">The data to decrypt.</param>
 		private byte[] DecryptUTF(byte[] input)
 		{
 			byte[] result = new byte[input.Length];
@@ -500,6 +524,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			return result;
 		}
 
+		/// <summary>
+		/// Writes the <see cref="ObjectModel" /> data to the output <see cref="Accessor" />.
+		/// </summary>
+		/// <param name="objectModel">A <see cref="FileSystemObjectModel" /> containing the archive content to write.</param>
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -529,7 +557,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				MemoryAccessor _tmp_ma = new MemoryAccessor();
 				Document.Save(_tmp_om, dfUTF, _tmp_ma);
 				contentOffset += (ulong)_tmp_ma.Length;
-				contentOffset = contentOffset.RoundUp(FileAlignment);
+				contentOffset = contentOffset.RoundUp(SectorAlignment);
 
 				headerLength = (ulong) _tmp_ma.Length;
 
@@ -539,7 +567,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 
 				contentOffset += 16;
 				contentOffset += (ulong)_tmp_ma.Length;
-				contentOffset = contentOffset.RoundUp(FileAlignment);
+				contentOffset = contentOffset.RoundUp(SectorAlignment);
 				tocLength = (ulong) _tmp_ma.Length;
 
 				_tmp_om = BuildItocUTF(sortedOffsets);
@@ -550,7 +578,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 
 				contentOffset += 16;
 				contentOffset += (ulong)_tmp_ma.Length;
-				contentOffset = contentOffset.RoundUp(FileAlignment);
+				contentOffset = contentOffset.RoundUp(SectorAlignment);
 				itocLength = (ulong) _tmp_ma.Length;											// 21728
 
 				_tmp_om = BuildEtocUTF(files);
@@ -572,13 +600,13 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			for (uint i = 0; i < files.Length; i++)
 			{
 				contentSize += (ulong)files[i].Size;
-				contentSize = contentSize.RoundUp(FileAlignment);
+				contentSize = contentSize.RoundUp(SectorAlignment);
 			}
 
 			ulong itocOffset = 16 + headerLength;
-			itocOffset = itocOffset.RoundUp(FileAlignment);
+			itocOffset = itocOffset.RoundUp(SectorAlignment);
 			itocOffset += (16 + tocLength);
-			itocOffset = itocOffset.RoundUp(FileAlignment);
+			itocOffset = itocOffset.RoundUp(SectorAlignment);
 
 			itocOffset = itocOffset.RoundToNearestPowerOf2();
 
@@ -593,7 +621,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			bw.WriteInt64(utfHeader_data.Length);
 			bw.WriteBytes(utfHeader_data);
 
-			bw.Align(FileAlignment);
+			bw.Align(SectorAlignment);
 			bw.Accessor.Seek(-6, SeekOrigin.Current);
 			bw.WriteFixedLengthString("(c)CRI");
 
@@ -603,7 +631,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			bw.WriteInt64(utfTOC_data.Length);
 			bw.WriteBytes(utfTOC_data);
 
-			bw.Align(FileAlignment);
+			bw.Align(SectorAlignment);
 
 			// here comes the ITOC (indexes TOC) UTF table chunk.
 			DatabaseObjectModel utfITOC = BuildItocUTF(sortedOffsets);
@@ -619,11 +647,11 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			bw.WriteBytes(utfITOC_data);
 
 			// here comes the file data. each file is aligned to FileAlignment bytes, apparently.
-			bw.Align(FileAlignment);
+			bw.Align(SectorAlignment);
 			for (uint i = 0; i < sortedOffsets.Length; i++)
 			{
 				bw.WriteBytes(files[sortedOffsets[i].INDEX].GetData());
-				bw.Align(FileAlignment);
+				bw.Align(SectorAlignment);
 			}
 
 			DatabaseObjectModel utfETOC = BuildEtocUTF(files);
@@ -631,7 +659,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			Document.Save(utfETOC, dfUTF, maUTFETOC);
 
 			byte[] utfETOC_data = maUTFETOC.ToArray();
-			bw.Align(FileAlignment);
+			bw.Align(SectorAlignment);
 			bw.WriteFixedLengthString("ETOC");
 			bw.WriteInt32(255);
 			bw.WriteInt64(utfETOC_data.Length);

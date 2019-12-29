@@ -1,5 +1,5 @@
 ﻿//
-//  CPKColumnDataType.cs
+//  UTFColumnDataType.cs - CRI Middleware UTF table column data types
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -21,19 +21,58 @@
 using System;
 namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 {
+	/// <summary>
+	/// The data type for a column in a UTF table.
+	/// </summary>
 	public enum UTFColumnDataType : byte
 	{
+		/// <summary>
+		/// Mask value for combining <see cref="UTFColumnDataType" /> with <see cref="UTFColumnStorageType" />.
+		/// </summary>
 		Mask = 0x0f,
+		/// <summary>
+		/// The column represents a variable-length array of <see cref="System.Byte" /> data.
+		/// </summary>
 		Data = 0x0b,
+		/// <summary>
+		/// The column represents a variable-length <see cref="System.String" />.
+		/// </summary>
 		String = 0x0a,
+		/// <summary>
+		/// The column represents a <see cref="System.Single" /> value.
+		/// </summary>
 		Float = 0x08,
+		/// <summary>
+		/// The column represents a <see cref="System.Int64" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Long2 = 0x07,
+		/// <summary>
+		/// The column represents a <see cref="System.Int64" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Long = 0x06,
+		/// <summary>
+		/// The column represents a <see cref="System.Int32" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Int2 = 0x05,
+		/// <summary>
+		/// The column represents a <see cref="System.Int32" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Int = 0x04,
+		/// <summary>
+		/// The column represents a <see cref="System.Int16" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Short2 = 0x03,
+		/// <summary>
+		/// The column represents a <see cref="System.Int16" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Short = 0x02,
+		/// <summary>
+		/// The column represents a <see cref="System.Byte" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Byte2 = 0x01,
+		/// <summary>
+		/// The column represents a <see cref="System.Byte" /> value. There may or may not be a distinction between signed and unsigned types.
+		/// </summary>
 		Byte = 0x00
 	}
 }

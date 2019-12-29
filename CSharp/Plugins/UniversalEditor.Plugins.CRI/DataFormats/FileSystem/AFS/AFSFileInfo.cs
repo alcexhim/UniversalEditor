@@ -21,7 +21,7 @@
 using System;
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
-	public struct AFSFileInfo
+	internal struct AFSFileInfo
 	{
 		public string name;
 		public uint offset;

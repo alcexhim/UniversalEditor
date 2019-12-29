@@ -1,5 +1,5 @@
 ﻿//
-//  CPKColumnStorageType.cs
+//  UTFColumnStorageType.cs - CRI Middleware UTF table column storage types
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -21,11 +21,26 @@
 using System;
 namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 {
+	/// <summary>
+	/// The storage type for a column in a UTF table.
+	/// </summary>
 	public enum UTFColumnStorageType : byte
 	{
+		/// <summary>
+		/// Mask value for combining <see cref="UTFColumnDataType" /> with <see cref="UTFColumnStorageType" />.
+		/// </summary>
 		Mask = 0xf0,
+		/// <summary>
+		/// Data in this column is stored per row, with a single value written for each ROW in the table.
+		/// </summary>
 		PerRow = 0x50,
+		/// <summary>
+		/// Data in this column is constant regardless of row, with a single value written for each COLUMN in the table.
+		/// </summary>
 		Constant = 0x30,
+		/// <summary>
+		/// Data in this column is declared NULL for all rows in the table. No data is written for this column.
+		/// </summary>
 		Zero = 0x10
 	}
 }
