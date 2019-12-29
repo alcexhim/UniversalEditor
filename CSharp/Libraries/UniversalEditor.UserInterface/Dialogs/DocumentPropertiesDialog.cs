@@ -27,6 +27,7 @@ using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Drawing;
 
 using MBS.Framework.Drawing;
+using System.ComponentModel;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -313,10 +314,41 @@ namespace UniversalEditor.UserInterface.Dialogs
 			dlg.ShowDialog();
 		}
 
+		protected override void OnClosing(CancelEventArgs e)
+		{
+			base.OnClosing(e);
+
+		}
+
 		private void dlgDataFormat_SelectionChanged(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<DataFormat, DataFormatReference> dlg = (sender as GenericBrowserPopup<DataFormat, DataFormatReference>);
-			DataFormat = dlg.SelectedObject;
+
+			DataFormat df = dlg.SelectedObject;
+			if (df != null)
+			{
+				switch (Mode)
+				{
+					case DocumentPropertiesDialogMode.Open:
+					{
+						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
+						{
+							return;
+						}
+						break;
+					}
+					case DocumentPropertiesDialogMode.Save:
+					{
+						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Export))
+						{
+							return;
+						}
+						break;
+					}
+				}
+			}
+			DataFormat = df;
+
 			RefreshButtons();
 		}
 		private void dlgAccessor_SelectionChanged(object sender, EventArgs e)
@@ -362,6 +394,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			Accessor = acc;
 
+			DataFormat df = null;
 			// pro feature: if we find a better OM/DF, maybe ask the user "do you wish to change object model to ___ ?" before doing so
 			if (Mode == DocumentPropertiesDialogMode.Open)
 			{
@@ -380,7 +413,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					{
 						if (dfrs.Count > 0)
 						{
-							DataFormat = dfrs[0].Create();
+							df = dfrs[0].Create();
 						}
 					}
 					else
@@ -389,8 +422,29 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 				if (ObjectModel == null)
 				{
-					if (DataFormat != null)
+					if (df != null)
 					{
+						switch (Mode)
+						{
+							case DocumentPropertiesDialogMode.Open:
+							{
+								if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
+								{
+									return;
+								}
+								break;
+							}
+							case DocumentPropertiesDialogMode.Save:
+							{
+								if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Export))
+								{
+									return;
+								}
+								break;
+							}
+						}
+						DataFormat = df;
+
 						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(DataFormat.MakeReference());
 						if (omrs.Length > 0)
 						{
