@@ -132,7 +132,7 @@ namespace UniversalEditor.ObjectModels.Markup
 					if (attID != null) id = attID.Value;
 				}
 
-                if (Elements.Contains(el1.FullName, id))
+                if (Elements.Contains(el1.FullName, id, (el1 is MarkupTagElement ? (el1 as MarkupTagElement).Attributes : null)))
                 {
                     Elements[el1.FullName].Combine(el1);
                 }

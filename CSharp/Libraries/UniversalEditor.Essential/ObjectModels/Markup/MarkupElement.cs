@@ -82,7 +82,7 @@ namespace UniversalEditor.ObjectModels.Markup
 				item.ParentObjectModel = this._parentObjectModel;
 				base.Add(item);
 			}
-			public bool Contains(string fullName, string id = null)
+			public bool Contains(string fullName, string id = null, MarkupAttribute.MarkupAttributeCollection attributes = null)
 			{
 				MarkupElement el = this[fullName];
 				MarkupTagElement tag = (el as MarkupTagElement);
@@ -91,6 +91,18 @@ namespace UniversalEditor.ObjectModels.Markup
 				{
 					MarkupAttribute attID = tag.Attributes["ID"];
 					if (attID != null) retval &= (id == attID.Value);
+				}
+
+				if (tag != null && attributes != null)
+				{
+					for (int i = 0; i < attributes.Count; i++)
+					{
+						MarkupAttribute att = tag.Attributes[attributes[i].Name];
+						if (att != null && att.Value != attributes[i].Value)
+						{
+							return false;
+						}
+					}
 				}
 				return retval;
 			}
