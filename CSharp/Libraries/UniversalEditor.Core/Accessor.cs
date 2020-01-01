@@ -83,10 +83,11 @@ namespace UniversalEditor
 		/// </summary>
 		/// <returns>The position within the underlying stream</returns>
 		protected abstract long GetPosition();
+
 		/// <summary>
 		/// Gets or sets the position within the underlying stream, if possible.
 		/// </summary>
-		public virtual long Position { get { return GetPosition(); } set { Seek(value, SeekOrigin.Begin); } }
+		public virtual long Position { get { return GetPosition(); } [DebuggerNonUserCode()] set { Seek(value, SeekOrigin.Begin); } }
 
 		/// <summary>
 		/// Determines how many bytes are remaining to be read from the underlying stream, if possible.

@@ -63,7 +63,7 @@ namespace UniversalEditor.Accessors
 			set { mvarBaseStream.SetLength(value); }
 		}
 
-		// [DebuggerNonUserCode()]
+		[DebuggerNonUserCode()]
 		public override void Seek(long offset, SeekOrigin position)
 		{
 			System.IO.SeekOrigin origin = System.IO.SeekOrigin.Begin;
