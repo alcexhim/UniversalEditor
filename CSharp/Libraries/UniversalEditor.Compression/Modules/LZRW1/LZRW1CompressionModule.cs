@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using UniversalEditor.Accessors;
@@ -7,35 +8,35 @@ using UniversalEditor.IO;
 
 namespace UniversalEditor.Compression.Modules.LZRW1
 {
-    public class LZRW1CompressionModule : CompressionModule
-    {
-        /// <summary>
-        /// Number of bytes used by copy flag
-        /// </summary>
-        private const byte FLAG_BYTES = 0x04;
+	public class LZRW1CompressionModule : CompressionModule
+	{
+		/// <summary>
+		/// Number of bytes used by copy flag
+		/// </summary>
+		private const byte FLAG_BYTES = 0x04;
 
-        private const byte FLAG_COMPRESS = 0x00;
-        private const byte FLAG_COPY = 0x01;
+		private const byte FLAG_COMPRESS = 0x00;
+		private const byte FLAG_COPY = 0x01;
 
 
-        public override string Name
-        {
-            get { return "LZRW1"; }
-        }
+		public override string Name
+		{
+			get { return "LZRW1"; }
+		}
 
-        protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
-        {
-            throw new NotImplementedException();
-        }
+		protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
+		{
+			throw new NotImplementedException();
+		}
 
-        protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
-        {
-            StreamAccessor sao = new StreamAccessor(outputStream);
-            StreamAccessor sai = new StreamAccessor(inputStream);
-            Reader br = new Reader(sai);
-            Writer bw = new Writer(sao);
+		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
+		{
+			StreamAccessor sao = new StreamAccessor(outputStream);
+			StreamAccessor sai = new StreamAccessor(inputStream);
+			Reader br = new Reader(sai);
+			Writer bw = new Writer(sao);
 
-            /*
+			/*
             byte *p_src = p_src_first + 4,
             *p_dst = p_dst_first,
                 *p_dst_end = p_dst_first + dst_len;
@@ -43,61 +44,58 @@ namespace UniversalEditor.Compression.Modules.LZRW1
             byte  *p_src_max16 = p_src_first + src_len - (16 * 2);
             */
 
-            uint control = 1;
+			uint control = 1;
 
-            uint flag = br.ReadUInt32();
-            if (flag == FLAG_COPY)
-            {
-                // entire stream is uncompressed, so read it all
-                byte[] data = br.ReadToEnd();
-                bw.WriteBytes(data);
-            }
-            while (!br.EndOfStream)
-            {
-                uint unroll;
-                if (control == 1)
-                {
-                    control = (uint)(0x10000 | br.ReadByte());
-                    control |= (uint)(br.ReadByte() << 8);
-                }
-                unroll = (uint)((br.Accessor.Position <= (br.Accessor.Length - 32)) ? 16 : 1);
-                while (unroll-- != 0)
-                {
-                    if ((control & 1) != 0)
-                    {
-                        byte offsetCalcByte1 = br.ReadByte();
-                        byte offsetCalcByte2 = br.ReadByte();
+			uint flag = br.ReadUInt32();
+			if (flag == FLAG_COPY)
+			{
+				// entire stream is uncompressed, so read it all
+				byte[] data = br.ReadToEnd();
+				bw.WriteBytes(data);
+			}
+			while (!br.EndOfStream)
+			{
+				uint unroll;
+				if (control == 1)
+				{
+					control = (uint)(0x10000 | br.ReadByte());
+					control |= (uint)(br.ReadByte() << 8);
+				}
+				unroll = (uint)((br.Accessor.Position <= (br.Accessor.Length - 32)) ? 16 : 1);
+				while (unroll-- != 0)
+				{
+					if ((control & 1) != 0)
+					{
+						byte offsetCalcByte1 = br.ReadByte();
+						byte offsetCalcByte2 = br.ReadByte();
 
-                        ushort offset = (ushort)(((offsetCalcByte1 & 0xF0) << 4) | offsetCalcByte2);
-                        ushort len = (ushort)(offsetCalcByte1 & 0xF);
+						ushort offset = (ushort)(((offsetCalcByte1 & 0xF0) << 4) | offsetCalcByte2);
+						ushort len = (ushort)(offsetCalcByte1 & 0xF);
 
-                        long oldpos = sao.Position;
-                        sao.Position = sao.Length - offset;
-                        
-                        IO.Reader bro = new Reader(sao);
-                        byte value = bro.ReadByte();
+						long oldpos = sao.Position;
+						sao.Position = sao.Length - offset;
 
-                        sao.Position = oldpos;
+						IO.Reader bro = new Reader(sao);
+						byte value = bro.ReadByte();
 
-                        // if((p_dst + offset) > p_dst_end) return(-1);
+						sao.Position = oldpos;
 
-                        
-                        for (int i = 0; i < len + 3; i++)
-                        {
-                            bw.WriteByte(value);
-                        }
+						// if((p_dst + offset) > p_dst_end) return(-1);
 
-                        System.IO.File.WriteAllBytes(@"C:\Temp\Test.dat", outputStream.ToByteArray());
-                    }
-                    else
-                    {
-                        if (br.EndOfStream) return;
-                        bw.WriteByte(br.ReadByte());
-                        System.IO.File.WriteAllBytes(@"C:\Temp\Test.dat", outputStream.ToByteArray());
-                    }
-                    control >>= 1;
-                }
-            }
-        }
-    }
+
+						for (int i = 0; i < len + 3; i++)
+						{
+							bw.WriteByte(value);
+						}
+					}
+					else
+					{
+						if (br.EndOfStream) return;
+						bw.WriteByte(br.ReadByte());
+					}
+					control >>= 1;
+				}
+			}
+		}
+	}
 }
