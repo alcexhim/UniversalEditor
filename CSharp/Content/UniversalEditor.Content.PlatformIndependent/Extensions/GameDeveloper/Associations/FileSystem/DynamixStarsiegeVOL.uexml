@@ -4,9 +4,6 @@
 		<Association>
 			<Filters>
 				<Filter Title="Dynamix/Starsiege VOL archive">
-					<FileNameFilters>
-						<FileNameFilter>*.vol</FileNameFilter>
-					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
 							<MagicByte Type="String">PVOL</MagicByte>
