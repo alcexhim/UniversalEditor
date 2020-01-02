@@ -62,30 +62,54 @@ namespace UniversalEditor.Compression.Modules.LZRW1
 					control |= (uint)(br.ReadByte() << 8);
 				}
 				unroll = (uint)((br.Accessor.Position <= (br.Accessor.Length - 32)) ? 16 : 1);
-				while (unroll-- != 0)
+				while (unroll-- > 0)
 				{
-					if ((control & 1) != 0)
+					if ((control & 1) == 1)
 					{
-						byte offsetCalcByte1 = br.ReadByte();
+						ushort lenmt = br.ReadByte();
 						byte offsetCalcByte2 = br.ReadByte();
 
-						ushort offset = (ushort)(((offsetCalcByte1 & 0xF0) << 4) | offsetCalcByte2);
-						ushort len = (ushort)(offsetCalcByte1 & 0xF);
+						ushort offset = (ushort)(((lenmt & 0xF0) << 4) | offsetCalcByte2);
 
 						long oldpos = sao.Position;
-						sao.Position = sao.Length - offset;
+						long newpos = sao.Length - offset;
 
 						IO.Reader bro = new Reader(sao);
-						byte value = bro.ReadByte();
-
-						sao.Position = oldpos;
 
 						// if((p_dst + offset) > p_dst_end) return(-1);
 
+						// look I know this is ugly but HOLY FUCK IT WORKS FINALLY OMG!!!
+						// i'll clean it up eventually... I promise. one of these days...
+						sao.Position = newpos;
+						byte value = bro.ReadByte();
+						sao.Position = oldpos;
+						bw.WriteByte(value);
+						newpos++;
+						oldpos++;
 
-						for (int i = 0; i < len + 3; i++)
+						sao.Position = newpos;
+						value = bro.ReadByte();
+						sao.Position = oldpos;
+						bw.WriteByte(value);
+						newpos++;
+						oldpos++;
+
+						sao.Position = newpos;
+						value = bro.ReadByte();
+						sao.Position = oldpos;
+						bw.WriteByte(value);
+						newpos++;
+						oldpos++;
+
+						lenmt &= 0xF;
+						while (lenmt-- > 0)
 						{
+							sao.Position = newpos;
+							value = bro.ReadByte();
+							sao.Position = oldpos;
 							bw.WriteByte(value);
+							newpos++;
+							oldpos++;
 						}
 					}
 					else
