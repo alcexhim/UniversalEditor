@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			if (fsom == null) return;
 
 			Reader br = Accessor.Reader;
-
+			long startOfFile = Accessor.Position;
 			Accessor.Seek(-20, SeekOrigin.End);
 			// 20 byte header at the end of the file
 
@@ -67,10 +67,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 
 			LZRW1CompressionModule module = new LZRW1CompressionModule();
 
-			Accessor.Position = 0;
+			Accessor.Seek(startOfFile, SeekOrigin.Begin);
+
 			while (!br.EndOfStream)
 			{
-				if (br.Remaining == 20)
+				if (br.Remaining <= 20)
 				{
 					// we are done reading the file, because we've encountered the footer!
 					break;
@@ -79,13 +80,12 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 				short CHUNKSIZE = br.ReadInt16();
 
 				byte[] compressed = br.ReadBytes(CHUNKSIZE);
-
 				byte[] decompressed = module.Decompress(compressed);
+
 				bwms.WriteBytes(decompressed);
 
 				if (br.EndOfStream) break;
 			}
-
 			bwms.Flush();
 			
 			ma.Position = 0;
@@ -99,16 +99,17 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			{
 				string fileType = brms.ReadFixedLengthString(260);
 				string fileName = brms.ReadFixedLengthString(292);
+				fileName = fileName.TrimNull();
+
 				int fileSize = brms.ReadInt32();
 				int unknown1 = brms.ReadInt32();
 				int fileOffset = brms.ReadInt32();
 				int unknown2 = brms.ReadInt32();
 				int unknown3 = brms.ReadInt32();
 
-				File file = new File();
+				File file = fsom.AddFile(fileName);
 				file.Size = fileSize;
 				file.Source = new EmbeddedFileSource(brms, fileOffset, fileSize);
-				fsom.Files.Add(file);
 			}
 		}
 
