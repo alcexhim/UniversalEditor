@@ -195,6 +195,7 @@
     <Compile Include="ObjectModels\Database\DatabaseTable.cs" />
     <Compile Include="ObjectModels\Database\DatabaseObjectModel.cs" />
     <Compile Include="ObjectModels\Project\IProjectItemContainer.cs" />
+    <Compile Include="DataFormats\AbstractSyntax\DER\DERTypeTag.cs" />
     <Compile Include="DataFormats\Binary\PEM\PEMDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>

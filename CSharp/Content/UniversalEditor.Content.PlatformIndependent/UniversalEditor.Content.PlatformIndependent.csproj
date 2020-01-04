@@ -663,6 +663,7 @@
     <Content Include="Extensions\GameDeveloper\Extensions\Nintendo\Associations\Z64.uexml" />
     <Content Include="Editors\Multimedia\Palette\PaletteEditor.uexml" />
     <Content Include="Associations\Binary.uexml" />
+    <Content Include="Associations\AbstractSyntax.uexml" />
     <Content Include="Extensions\FileSystem\Associations\TexasInstruments\TIFiles.uexml" />
     <Content Include="Extensions\FileSystem\Associations\TexasInstruments\DSK.uexml" />
   </ItemGroup>

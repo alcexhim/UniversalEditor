@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- Associate the Chunked ObjectModel with the UXT DataFormats and the FileSystem Editor -->
+			<Filters>
+				<Filter Title="Distinguished Encoding Rules">
+					<FileNameFilters>
+						<FileNameFilter>*.der</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.AbstractSyntax.AbstractSyntaxObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.AbstractSyntax.DER.DERDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
