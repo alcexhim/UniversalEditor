@@ -4,9 +4,11 @@
 		<Association>
 			<Filters>
 				<Filter Title="SPIS archive">
+					<!--
 					<FileNameFilters>
 						<FileNameFilter>*.dsk</FileNameFilter>
 					</FileNameFilters>
+					-->
 					<MagicByteSequences>
 						<MagicByteSequence>
 							<MagicByte Type="String">SPIS</MagicByte>
