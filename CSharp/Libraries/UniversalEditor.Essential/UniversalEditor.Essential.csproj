@@ -195,6 +195,7 @@
     <Compile Include="ObjectModels\Database\DatabaseTable.cs" />
     <Compile Include="ObjectModels\Database\DatabaseObjectModel.cs" />
     <Compile Include="ObjectModels\Project\IProjectItemContainer.cs" />
+    <Compile Include="DataFormats\Binary\PEM\PEMDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -219,6 +220,7 @@
     <Folder Include="ObjectModels\BinaryGrammar\" />
     <Folder Include="ObjectModels\BinaryGrammar\GrammarItems\" />
     <Folder Include="ObjectModels\Database\" />
+    <Folder Include="DataFormats\Binary\PEM\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
