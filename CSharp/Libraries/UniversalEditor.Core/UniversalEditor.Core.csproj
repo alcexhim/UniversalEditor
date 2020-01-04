@@ -88,6 +88,7 @@
     <Compile Include="Ptr.cs" />
     <Compile Include="References.cs" />
     <Compile Include="IO\FileNameShortener.cs" />
+    <Compile Include="CustomOptionAttribute.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
