@@ -663,6 +663,8 @@
     <Content Include="Extensions\GameDeveloper\Extensions\Nintendo\Associations\Z64.uexml" />
     <Content Include="Editors\Multimedia\Palette\PaletteEditor.uexml" />
     <Content Include="Associations\Binary.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\TexasInstruments\TIFiles.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\TexasInstruments\DSK.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -691,6 +693,7 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\Nintendo\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\Nintendo\Associations\" />
     <Folder Include="Editors\Multimedia\Palette\" />
+    <Folder Include="Extensions\FileSystem\Associations\TexasInstruments\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
