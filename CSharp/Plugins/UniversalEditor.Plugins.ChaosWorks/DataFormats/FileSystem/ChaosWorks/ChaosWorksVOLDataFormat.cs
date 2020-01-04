@@ -24,9 +24,10 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			}
 			return _dfr;
 		}
-		
-		private bool mvarCompressed = false;
-		public bool Compressed { get { return mvarCompressed; } set { mvarCompressed = value; } }
+
+		static LZRW1CompressionModule lzrw1 = new LZRW1CompressionModule();
+
+		public bool Compressed { get; set; } = true;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -47,13 +48,13 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			// Version check made by client v1.2
 			if (version == 0x42024202)
 			{
-				mvarCompressed = false;
+				Compressed = false;
 				throw new NotSupportedException("Volume is uncompressed (unknown method)");
 			}
 			else if (version == 0x43024202)
 			{
 				// expected version
-				mvarCompressed = true;
+				Compressed = true;
 			}
 			else
 			{
@@ -64,8 +65,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 
 			MemoryAccessor ma = new MemoryAccessor();
 			Writer bwms = new Writer(ma);
-
-			LZRW1CompressionModule module = new LZRW1CompressionModule();
 
 			Accessor.Seek(startOfFile, SeekOrigin.Begin);
 
@@ -78,9 +77,10 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 				}
 
 				short CHUNKSIZE = br.ReadInt16();
+				Console.WriteLine("cwe-vol: reading chunk size {0}", CHUNKSIZE);
 
 				byte[] compressed = br.ReadBytes(CHUNKSIZE);
-				byte[] decompressed = module.Decompress(compressed);
+				byte[] decompressed = lzrw1.Decompress(compressed);
 
 				bwms.WriteBytes(decompressed);
 
@@ -100,8 +100,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 				string fileType = brms.ReadFixedLengthString(260);
 				string fileName = brms.ReadFixedLengthString(292);
 				fileName = fileName.TrimNull();
+                fileType = fileType.TrimNull();
 
-				int fileSize = brms.ReadInt32();
+                Console.WriteLine("cwe-vol: adding file {0} with type {1}", fileName, fileType);
+
+                int fileSize = brms.ReadInt32();
 				int unknown1 = brms.ReadInt32();
 				int fileOffset = brms.ReadInt32();
 				int unknown2 = brms.ReadInt32();
@@ -115,7 +118,34 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null)
+				throw new ObjectModelNotSupportedException();
+
+			Writer writer = Accessor.Writer;
+
+			MemoryAccessor ma = new MemoryAccessor();
+
+			File[] files = fsom.GetAllFiles();
+
+            int fileListOffset = 0;
+            for (int i = 0; i < files.Length; i++)
+            {
+                byte[] filedata = files[i].GetData();
+                ma.Writer.WriteBytes(filedata);
+                fileListOffset += filedata.Length;
+            }
+            ma.Flush();
+
+			byte[] decompressedData = ma.ToArray();
+            byte[] compressedData = lzrw1.Compress(decompressedData);
+			writer.WriteBytes(compressedData);
+
+			writer.WriteInt32(decompressedData.Length);
+			writer.WriteInt32(compressedData.Length);
+			writer.WriteInt32(files.Length);
+			writer.WriteInt32(fileListOffset);
+			writer.WriteInt32(Compressed ? 0x43024202 : 0x42024202);
 		}
 	}
 }
