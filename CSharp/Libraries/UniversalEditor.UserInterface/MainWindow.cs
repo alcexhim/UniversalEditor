@@ -515,10 +515,27 @@ namespace UniversalEditor.UserInterface
 							doc.IsSaved = true;
 							loaded = true;
 						}
+						catch (ObjectModelNotSupportedException ex)
+						{
+							// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
+							DialogResult result = MessageDialog.ShowDialog("The object model you specified is not supported by the selected DataFormat.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
+							if (result == DialogResult.Retry)
+							{
+							}
+							return;
+						}
 						catch (Exception ex)
 						{
-							MessageDialog.ShowDialog("could not load file: " + ex.GetType().Name + "\r\n" + ex.Message, "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
-							return;
+							if (!System.Diagnostics.Debugger.IsAttached)
+							{
+								MessageDialog.ShowDialog("could not load file: " + ex.GetType().Name + "\r\n" + ex.Message, "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+								return;
+							}
+							else
+							{
+								// fk it
+								throw ex;
+							}
 						}
 					}
 					else
@@ -698,7 +715,7 @@ namespace UniversalEditor.UserInterface
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 		}
 
-		#region IHostApplicationWindow implementation
+#region IHostApplicationWindow implementation
 		public void OpenFile()
 		{
 			/*
@@ -1255,7 +1272,7 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		#endregion
+#endregion
 
 
 		public void ShowDocumentPropertiesDialog()
