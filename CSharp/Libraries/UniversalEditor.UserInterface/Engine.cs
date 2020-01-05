@@ -1243,11 +1243,16 @@ namespace UniversalEditor.UserInterface
 
 		private void InitializeLanguage(MarkupTagElement tag)
 		{
-			Language lang = new Language();
-			
 			MarkupAttribute attID = tag.Attributes["ID"];
 			if (attID == null) return;
-			lang.ID = attID.Value;
+
+			Language lang = mvarLanguages[attID.Value];
+			if (lang == null)
+			{
+				lang = new Language();
+				lang.ID = attID.Value;
+				mvarLanguages.Add(lang);
+			}
 
 			MarkupAttribute attTitle = tag.Attributes["Title"];
 			if (attTitle != null)
@@ -1296,8 +1301,6 @@ namespace UniversalEditor.UserInterface
 					lang.SetCommandTitle(attCommandID.Value, attCommandTitle.Value);
 				}
 			}
-
-			mvarLanguages.Add(lang);
 		}
 		
 		private void InitializeCommandBar(MarkupTagElement tag)
