@@ -7,6 +7,7 @@
 			</ObjectModels>
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.Binary.BinaryDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.Binary.PEM.PEMDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>
