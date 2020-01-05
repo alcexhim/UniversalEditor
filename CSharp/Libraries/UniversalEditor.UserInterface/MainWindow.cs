@@ -506,7 +506,7 @@ namespace UniversalEditor.UserInterface
 				Console.WriteLine("found {0} editors for object model {1}", editors.Length.ToString(), doc.ObjectModel.ToString());
 				if (editors.Length > 0)
 				{
-					if (!loaded)
+					while (!loaded)
 					{
 						try
 						{
@@ -521,6 +521,19 @@ namespace UniversalEditor.UserInterface
 							DialogResult result = MessageDialog.ShowDialog("The object model you specified is not supported by the selected DataFormat.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
 							if (result == DialogResult.Retry)
 							{
+								DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+								dlg.DataFormat = doc.DataFormat;
+								dlg.ObjectModel = doc.ObjectModel;
+								dlg.Accessor = doc.Accessor;
+								if (dlg.ShowDialog() == DialogResult.OK)
+								{
+									doc.DataFormat = dlg.DataFormat;
+									doc.ObjectModel = dlg.ObjectModel;
+									doc.Accessor = dlg.Accessor;
+								}
+
+								// try loading it again
+								continue;
 							}
 							return;
 						}
@@ -538,10 +551,7 @@ namespace UniversalEditor.UserInterface
 							}
 						}
 					}
-					else
-					{
-						// no need to open and load file, it's already been done
-					}
+
 					Editor editor = editors[0].Create();
 
 					EditorPage page = new EditorPage();
