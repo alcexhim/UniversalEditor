@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniversalEditor.DataFormats.Executable.Microsoft
+namespace UniversalEditor.DataFormats.Executable.Microsoft.PortableExecutable
 {
     public enum PECompiler
     {

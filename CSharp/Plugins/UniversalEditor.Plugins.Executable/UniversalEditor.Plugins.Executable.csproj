@@ -64,13 +64,6 @@
     <Compile Include="DataFormats\Executable\ELF\ELFSpecialSectionIndex.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\DOSExecutableHeader.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\MicrosoftExecutableDataFormat.cs" />
-    <Compile Include="DataFormats\Executable\Microsoft\PECharacteristics.cs" />
-    <Compile Include="DataFormats\Executable\Microsoft\PECompiler.cs" />
-    <Compile Include="DataFormats\Executable\Microsoft\PEHeader.cs" />
-    <Compile Include="DataFormats\Executable\Microsoft\PEMachineType.cs" />
-    <Compile Include="DataFormats\Executable\Microsoft\PEOptionalHeader.cs" />
-    <Compile Include="DataFormats\Executable\Microsoft\PESectionCharacteristics.cs" />
-    <Compile Include="DataFormats\Executable\Microsoft\PESectionHeader.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\RichHeader.cs" />
     <Compile Include="DataFormats\Executable\RelocatableObject\OBJDataFormat.cs" />
     <Compile Include="DataFormats\Executable\RelocatableObject\OBJRecordType.cs" />
@@ -102,6 +95,13 @@
     <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFAuxilaryHeader.cs" />
     <Compile Include="DataFormats\Executable\IBM\CommonObject\Extended\XCOFFDocumentFlags.cs" />
     <Compile Include="DataFormats\Executable\ELF\ELFSectionEntry.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PECharacteristics.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PECompiler.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PEHeader.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PEMachineType.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PEOptionalHeader.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PESectionCharacteristics.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PESectionHeader.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -113,6 +113,9 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataFormats\Executable\Microsoft\PortableExecutable\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

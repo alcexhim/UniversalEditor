@@ -21,6 +21,8 @@ using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Executable;
 using UniversalEditor.ObjectModels.FileSystem;
 
+using UniversalEditor.DataFormats.Executable.Microsoft.PortableExecutable;
+
 #if EXECUTABLE_LOAD_RESOURCES
 using UniversalEditor.DataFormats.Resource.Microsoft;
 using UniversalEditor.ObjectModels.Resource;
