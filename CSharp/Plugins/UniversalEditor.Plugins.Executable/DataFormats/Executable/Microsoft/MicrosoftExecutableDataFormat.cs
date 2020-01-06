@@ -134,6 +134,9 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			ExecutableObjectModel exec = (objectModel as ExecutableObjectModel);
 			if (fsom == null && exec == null) throw new ObjectModelNotSupportedException("Object model must be a FileSystem or an Executable");
 
+			if (exec == null)
+				exec = new ExecutableObjectModel();
+
 			// try loading as a .NET assembly
 			if (base.Accessor is FileAccessor)
 			{
@@ -149,7 +152,6 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				exec.ManagedAssembly = asm;
 			}
 
-			ExecutableObjectModel exe = new ExecutableObjectModel();
 			DOSExecutableHeader mvarDOSHeader = ReadDOSHeader(reader);
 			exec.SetCustomProperty<DOSExecutableHeader>(MakeReference(), "DOSExecutableHeader", mvarDOSHeader);
 
@@ -177,8 +179,8 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 					PEHeader pe = ReadPEHeader(reader);
 					if (pe.enabled)
 					{
-						exe.TargetMachineType = (ExecutableMachine)pe.machine;
-						exe.Characteristics = (ExecutableCharacteristics)pe.characteristics;
+						exec.TargetMachineType = (ExecutableMachine)pe.machine;
+						exec.Characteristics = (ExecutableCharacteristics)pe.characteristics;
 					}
 
 					// Optional Header
@@ -234,7 +236,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 							sect.Data = reader.ReadBytes(pesh.rawDataSize);
 							reader.Accessor.Position = ofs;
 
-							exe.Sections.Add(sect);
+							exec.Sections.Add(sect);
 						}
 					}
 					#endregion
@@ -337,22 +339,28 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 
 			#region Push out Executable to the ObjectModel
 			{
-				if (exec != null)
-				{
-					exe.CopyTo(exec);
-				}
-				else if (fsom != null)
+				if (fsom != null)
 				{
 					// don't do this again
-					/*
-					foreach (ExecutableSection sect in exe.Sections)
+					for (int i = 0;  i < exec.Sections.Count;  i++)
 					{
-						fsom.Files.Add(sect.Name, sect.Data);
+						// i can't remember the purpose of the ominous warning "don't do this again"
+						// so maybe using DataRequest will be less of a burden on memory
+						// (I really need to benchmark this... especially replacing foreach with for)
+
+						File f = fsom.AddFile(exec.Sections[i].Name);
+						f.Properties.Add("section", exec.Sections[i]);
+						f.DataRequest += f_DataRequest;
 					}
-					*/
 				}
 			}
 			#endregion
+		}
+
+		private void f_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			// copy the data on-demand from the ExecutableSection
+			e.Data = ((ExecutableSection)((File)sender).Properties["section"]).Data;
 		}
 
 		private RichHeader DecodeRichHeader(byte[] richHeader)
