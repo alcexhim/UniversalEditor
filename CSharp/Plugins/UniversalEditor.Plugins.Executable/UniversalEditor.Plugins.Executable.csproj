@@ -102,6 +102,11 @@
     <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PEOptionalHeader.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PESectionCharacteristics.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\PortableExecutable\PESectionHeader.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableHeader.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableProgramFlags.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableApplicationFlags.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableTargetOperatingSystem.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableOS2Flags.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -116,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\Executable\Microsoft\PortableExecutable\" />
+    <Folder Include="DataFormats\Executable\Microsoft\NewExecutable\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

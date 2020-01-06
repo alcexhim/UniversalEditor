@@ -251,37 +251,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 					string NE = reader.ReadFixedLengthString(2);
 					if (NE == "NE")
 					{
-						byte MajLinkerVersion = reader.ReadByte(); ;    //The major linker version
-						byte MinLinkerVersion = reader.ReadByte();    //The minor linker version
-						ushort EntryTableOffset = reader.ReadUInt16();   //Offset of entry table, see below
-						ushort EntryTableLength = reader.ReadUInt16();   //Length of entry table in bytes
-						uint FileLoadCRC = reader.ReadUInt32();        //UNKNOWN - PLEASE ADD INFO
-						byte ProgFlags = reader.ReadByte();           //Program flags, bitmapped
-						byte ApplFlags = reader.ReadByte();           //Application flags, bitmapped
-						byte AutoDataSegIndex = reader.ReadByte();    //The automatic data segment index
-						ushort InitHeapSize = reader.ReadUInt16();       //The intial local heap size
-						ushort InitStackSize = reader.ReadUInt16();      //The inital stack size
-						uint EntryPoint = reader.ReadUInt32();         //CS:IP entry point, CS is index into segment table
-						uint InitStack = reader.ReadUInt32();          //SS:SP inital stack pointer, SS is index into segment table
-						ushort SegCount = reader.ReadUInt16();           //Number of segments in segment table
-						ushort ModRefs = reader.ReadUInt16();            //Number of module references (DLLs)
-						ushort NoResNamesTabSiz = reader.ReadUInt16();   //Size of non-resident names table, in bytes (Please clarify non-resident names table)
-						ushort SegTableOffset = reader.ReadUInt16();     //Offset of Segment table
-						ushort ResTableOffset = reader.ReadUInt16();     //Offset of resources table
-						ushort ResidNamTable = reader.ReadUInt16();      //Offset of resident names table
-						ushort ModRefTable = reader.ReadUInt16();        //Offset of module reference table
-						ushort ImportNameTable = reader.ReadUInt16();    //Offset of imported names table (array of counted strings, terminated with string of length 00h)
-						uint OffStartNonResTab = reader.ReadUInt32();  //Offset from start of file to non-resident names table
-						ushort MovEntryCount = reader.ReadUInt16();      //Count of moveable entry point listed in entry table
-						ushort FileAlnSzShftCnt = reader.ReadUInt16();   //File alligbment size shift count (0=9(default 512 byte pages))
-						ushort nResTabEntries = reader.ReadUInt16();     //Number of resource table entries
-						byte targOS = reader.ReadByte();              //Target OS
-						byte OS2EXEFlags = reader.ReadByte();         //Other OS/2 flags
-						ushort retThunkOffset = reader.ReadUInt16();     //Offset to return thunks or start of gangload area - what is gangload?
-						ushort segrefthunksoff = reader.ReadUInt16();    //Offset to segment reference thunks or size of gangload area
-						ushort mincodeswap = reader.ReadUInt16();        //Minimum code swap area size
-						byte expctwinver_min = reader.ReadByte();      //Expected windows version (minor)
-						byte expctwinver_maj = reader.ReadByte();      //Expected windows version (major)
+						NewExecutable.NewExecutableHeader ne_header = NewExecutable.NewExecutableHeader.Read(reader);
 					}
 					#endregion
 				}

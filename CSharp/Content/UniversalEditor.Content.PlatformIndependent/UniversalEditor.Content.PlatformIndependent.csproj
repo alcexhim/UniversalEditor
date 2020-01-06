@@ -696,6 +696,11 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\Nintendo\Associations\" />
     <Folder Include="Editors\Multimedia\Palette\" />
     <Folder Include="Extensions\FileSystem\Associations\TexasInstruments\" />
+    <Folder Include="Documentation\" />
+    <Folder Include="Documentation\Executable\" />
+    <Folder Include="Documentation\Executable\DataFormats\" />
+    <Folder Include="Documentation\Executable\DataFormats\Executable\" />
+    <Folder Include="Documentation\Executable\DataFormats\Executable\Microsoft\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
@@ -738,6 +743,7 @@
     <None Include="Images\SplashScreen.xcf" />
     <None Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Toolbox.uexml" />
     <None Include="Extensions\SoftwareDeveloper\Associations\BinaryGrammar\SynalysisBinaryGrammarDataFormat.uexml" />
+    <None Include="Documentation\Executable\DataFormats\Executable\Microsoft\ExecutableFormats.txt" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
