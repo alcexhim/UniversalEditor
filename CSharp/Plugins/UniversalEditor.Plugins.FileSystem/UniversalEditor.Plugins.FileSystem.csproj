@@ -233,6 +233,8 @@
     <Compile Include="DataFormats\FileSystem\WinAce\ACEHeaderFlags.cs" />
     <Compile Include="DataFormats\FileSystem\SlightlyMadStudios\BFFDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SlightlyMadStudios\BFFCompressionType.cs" />
+    <Compile Include="DataFormats\FileSystem\AIN\AINDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\AIN\AINCompressionType.cs" />
     <Compile Include="DataFormats\FileSystem\TexasInstruments\TIFiles\TIFilesDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TexasInstruments\TIFiles\TIFilesFlags.cs" />
     <Compile Include="DataFormats\FileSystem\TexasInstruments\DSK\DSKDataFormat.cs" />
@@ -275,6 +277,7 @@
     <Folder Include="DataFormats\FileSystem\HA\" />
     <Folder Include="DataFormats\FileSystem\HyperArchiver\" />
     <Folder Include="DataFormats\FileSystem\SlightlyMadStudios\" />
+    <Folder Include="DataFormats\FileSystem\AIN\" />
     <Folder Include="DataFormats\FileSystem\TexasInstruments\" />
     <Folder Include="DataFormats\FileSystem\TexasInstruments\TIFiles\" />
     <Folder Include="DataFormats\FileSystem\TexasInstruments\DSK\" />

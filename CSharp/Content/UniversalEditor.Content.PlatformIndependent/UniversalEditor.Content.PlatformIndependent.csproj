@@ -666,6 +666,7 @@
     <Content Include="Associations\AbstractSyntax.uexml" />
     <Content Include="Extensions\FileSystem\Associations\TexasInstruments\TIFiles.uexml" />
     <Content Include="Extensions\FileSystem\Associations\TexasInstruments\DSK.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\AIN.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
