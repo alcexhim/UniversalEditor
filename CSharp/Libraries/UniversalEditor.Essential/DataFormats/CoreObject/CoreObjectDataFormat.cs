@@ -7,6 +7,10 @@ using UniversalEditor.ObjectModels.CoreObject;
 
 namespace UniversalEditor.DataFormats.CoreObject
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> that can be used either standalone or as the base class for <see cref="DataFormat"/>s built on the Core Object File Format,
+	/// such as vCard and vCalendar.
+	/// </summary>
 	public class CoreObjectDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
