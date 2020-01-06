@@ -223,6 +223,11 @@ namespace UniversalEditor
 				}
 				return null;
 			}
+			set
+			{
+				InputAccessor = value;
+				OutputAccessor = value;
+			}
 		}
 		/// <summary>
 		/// The <see cref="DataFormat" /> associated with this <see cref="Document" />.
