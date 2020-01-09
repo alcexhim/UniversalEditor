@@ -109,11 +109,42 @@ namespace UniversalEditor.UserInterface
 		{
 			StringBuilder sb = new StringBuilder();
 			EditorSelection[] sels = GetSelections();
+
+			// FIXME: NONE OF THIS SHOULD BE IN THE MAIN EDITOR.CS CODE FILE
+			// > we need to figure out the proper way to format selections for clipboard use
+			// > also, the x-special/nautilus-clipboard is obviously nautilus-only
+			// > > WHAT ABOUT THE POOR WINDOWS PEOPLE
+			if (sels.Length > 0 && sels[0].Content is UniversalEditor.ObjectModels.FileSystem.IFileSystemObject[])
+			{
+				sb.AppendLine("x-special/nautilus-clipboard");
+				sb.AppendLine("copy");
+			}
 			foreach (EditorSelection sel in sels)
 			{
 				if (sel.Content != null)
 				{
-					sb.Append(sel.Content.ToString());
+					UniversalEditor.ObjectModels.FileSystem.IFileSystemObject fso = (sel.Content as UniversalEditor.ObjectModels.FileSystem.IFileSystemObject[])[0];
+					if (fso != null)
+					{
+						if (fso is UniversalEditor.ObjectModels.FileSystem.Folder)
+						{
+							UniversalEditor.ObjectModels.FileSystem.Folder fldr = (fso as UniversalEditor.ObjectModels.FileSystem.Folder);
+							string tempfilename = TemporaryFileManager.CreateTemporaryFolder(fldr.Name, fldr.GetContents());
+							Uri uri = new Uri("file://" + tempfilename);
+							sb.AppendLine(uri.ToString());
+						}
+						else if (fso is UniversalEditor.ObjectModels.FileSystem.File)
+						{
+							UniversalEditor.ObjectModels.FileSystem.File f = (fso as UniversalEditor.ObjectModels.FileSystem.File);
+							string tempfilename = TemporaryFileManager.CreateTemporaryFile(f.Name, f.GetData());
+							Uri uri = new Uri("file://" + tempfilename);
+							sb.AppendLine(uri.ToString());
+						}
+					}
+					else
+					{
+						sb.Append(sel.Content);
+					}
 				}
 			}
 			Clipboard.Default.SetText(sb.ToString());

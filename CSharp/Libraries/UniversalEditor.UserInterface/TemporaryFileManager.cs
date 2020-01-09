@@ -1,4 +1,5 @@
 using System;
+using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.UserInterface
 {
@@ -124,6 +125,45 @@ namespace UniversalEditor.UserInterface
 				System.IO.Directory.Delete(uetmppath);
 			}
 			return true;
+		}
+
+		private static void RecursiveWriteContents(string folderPath, IFileSystemObject[] contents)
+		{
+			if (!System.IO.Directory.Exists(folderPath))
+				System.IO.Directory.CreateDirectory(folderPath);
+
+			for (int i = 0; i < contents.Length; i++)
+			{
+				string fn = SanitizeFileName(contents[i].Name);
+				string filePath = folderPath + System.IO.Path.DirectorySeparatorChar.ToString() + fn;
+				if (contents[i] is File)
+				{
+					System.IO.File.WriteAllBytes(filePath, (contents[i] as File).GetData());
+				}
+				else if (contents[i] is Folder)
+				{
+					RecursiveWriteFolder(filePath, contents[i] as Folder);
+				}
+			}
+		}
+		private static void RecursiveWriteFolder(string filePath, Folder folder)
+		{
+			if (!System.IO.Directory.Exists(filePath))
+				System.IO.Directory.CreateDirectory(filePath);
+
+			IFileSystemObject[] contents = folder.GetContents();
+			RecursiveWriteContents(filePath, contents);
+		}
+
+		public static string CreateTemporaryFolder(string name, IFileSystemObject[] contents)
+		{
+			name = SanitizeFileName(name);
+			name = System.IO.Path.GetFileName(name);
+
+			string folderPath = GetTemporaryDirectory() + System.IO.Path.DirectorySeparatorChar.ToString() + name;
+			RecursiveWriteContents(folderPath, contents);
+			mvarTemporaryFileNames.Add(folderPath);
+			return folderPath;
 		}
 	}
 }
