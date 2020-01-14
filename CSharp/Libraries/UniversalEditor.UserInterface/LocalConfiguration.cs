@@ -17,7 +17,7 @@ namespace UniversalEditor.UserInterface
 		public static string ApplicationShortName { get; set; } = "mbs-editor";
 		public static string CompanyName { get; set; } = "Mike Becker's Software";
 
-		public static SplashScreenSettings SplashScreen { get; } = new SplashScreenSettings();
+		public static MBS.Framework.UserInterface.SplashScreenSettings SplashScreen { get; } = new MBS.Framework.UserInterface.SplashScreenSettings();
 		public static StartPageSettings StartPage { get; } = new StartPageSettings();
 		public static ColorSchemeSettings ColorScheme { get; } = new ColorSchemeSettings();
 

@@ -32,35 +32,6 @@ namespace UniversalEditor.UserInterface
 	public class Engine
 	{
 		private static Engine _TheEngine = new Engine();
-		private SplashScreenWindow splasher = null;
-
-		private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-
-		private void ShowSplashScreen()
-		{
-			sw.Reset();
-			sw.Start();
-			// if (LocalConfiguration.SplashScreen.Enabled)
-			// {
-				splasher = new SplashScreenWindow();
-				splasher.Show();
-			// }
-		}
-		protected internal void HideSplashScreen()
-		{
-			while (splasher == null)
-			{
-				System.Threading.Thread.Sleep(500);
-			}
-			splasher.Hide();
-			splasher = null;
-
-			AfterInitializationInternal();
-			AfterInitialization();
-
-			sw.Stop();
-			Console.WriteLine("stopwatch: went from rip to ready in {0}", sw.Elapsed);
-		}
 
 		#region implemented abstract members of Engine
 		protected void ShowCrashDialog (Exception ex)
@@ -234,8 +205,28 @@ namespace UniversalEditor.UserInterface
 			}
 			#endregion
 
+			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading object models...");
+			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+
+			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading data formats...");
+			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+			// Initialize Recent File Manager
+			Engine.CurrentEngine.RecentFileManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
+			Engine.CurrentEngine.RecentFileManager.Load();
+
+			// Initialize Bookmarks Manager
+			Engine.CurrentEngine.BookmarksManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
+			Engine.CurrentEngine.BookmarksManager.Load();
+
+			// Initialize Session Manager
+			Engine.CurrentEngine.SessionManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
+			Engine.CurrentEngine.SessionManager.Load();
+
 			// load editors into memory so we don't wait 10-15 seconds before opening a file
 			Common.Reflection.GetAvailableEditors();
+
+			AfterInitialization();
 		}
 
 
@@ -259,52 +250,8 @@ namespace UniversalEditor.UserInterface
 		{
 		}
 
-		private void t_threadStart()
-		{
-
-			Application.DoEvents();
-
-			// less do this
-			Application.ShortName = "mbs-editor";
-			// Application.Title = "Universal Editor";
-
-			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading object models...");
-			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-
-			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading data formats...");
-			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-
-			// Initialize Recent File Manager
-			Engine.CurrentEngine.RecentFileManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
-			Engine.CurrentEngine.RecentFileManager.Load();
-
-			// Initialize Bookmarks Manager
-			Engine.CurrentEngine.BookmarksManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
-			Engine.CurrentEngine.BookmarksManager.Load();
-
-			// Initialize Session Manager
-			Engine.CurrentEngine.SessionManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
-			Engine.CurrentEngine.SessionManager.Load();
-
-			Engine.CurrentEngine.HideSplashScreen();
-		}
-
 		void Application_Activated(object sender, ApplicationActivatedEventArgs e)
 		{
-			if (e.FirstRun)
-			{
-				ShowSplashScreen();
-
-				System.Threading.Thread t = new System.Threading.Thread(t_threadStart);
-				t.Start();
-
-				while (splasher != null)
-				{
-					Application.DoEvents();
-					System.Threading.Thread.Sleep(500);
-				}
-			}
-
 			Document[] docs = new Document[e.CommandLine.FileNames.Count];
 			if (e.CommandLine.FileNames.Count > 0)
 			{
@@ -443,11 +390,7 @@ namespace UniversalEditor.UserInterface
 			return new Engine[] { _TheEngine };
 		}
 
-		protected virtual void AfterInitialization()
-		{
-		}
-
-		private void AfterInitializationInternal()
+		private void AfterInitialization()
 		{
 			// Initialize all the commands that are common to UniversalEditor
 			#region File
@@ -1051,31 +994,6 @@ namespace UniversalEditor.UserInterface
 
 		protected internal virtual void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
 		{
-			// most of this is relic from when we had to workaround WinForms
-			// threading issues; these threading issues should be
-			// automagically handled by the UWT WinForms engine
-
-			/*
-			if (LocalConfiguration.SplashScreen.Enabled)
-			{
-				int spins = 0, maxspins = 30;
-				if (splasher == null) return;
-
-				while (splasher == null)
-				{
-					System.Threading.Thread.Sleep(500);
-					if (spins == maxspins) return;
-					spins++;
-				}
-				splasher.InvokeUpdateStatus(message);
-			}
-			*/
-			if (splasher == null)
-				splasher = new SplashScreenWindow();
-
-			if (!splasher.IsDisposed) {
-				splasher.SetStatus (message, progressValue, progressMinimum, progressMaximum);
-			}
 		}
 
 		private void Initialize()

@@ -81,7 +81,6 @@
     <Compile Include="WindowState.cs" />
     <Compile Include="StockCommandType.cs" />
     <Compile Include="MainWindow.cs" />
-    <Compile Include="SplashScreenWindow.cs" />
     <Compile Include="Panels\ErrorListPanel.cs" />
     <Compile Include="Panel.cs" />
     <Compile Include="MenuBar.cs" />
