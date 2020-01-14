@@ -165,15 +165,15 @@ namespace UniversalEditor.UserInterface
 			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
 
 			// Initialize Recent File Manager
-			Engine.CurrentEngine.RecentFileManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
+			Engine.CurrentEngine.RecentFileManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
 			Engine.CurrentEngine.RecentFileManager.Load();
 
 			// Initialize Bookmarks Manager
-			Engine.CurrentEngine.BookmarksManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
+			Engine.CurrentEngine.BookmarksManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
 			Engine.CurrentEngine.BookmarksManager.Load();
 
 			// Initialize Session Manager
-			Engine.CurrentEngine.SessionManager.DataFileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
+			Engine.CurrentEngine.SessionManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
 			Engine.CurrentEngine.SessionManager.Load();
 
 			Engine.CurrentEngine.HideSplashScreen();
@@ -688,27 +688,6 @@ namespace UniversalEditor.UserInterface
 		private System.Collections.ObjectModel.ReadOnlyCollection<string> mvarSelectedFileNames = null;
 		public System.Collections.ObjectModel.ReadOnlyCollection<string> SelectedFileNames { get { return mvarSelectedFileNames; } }
 
-		private string mvarBasePath = String.Empty;
-		public string BasePath { get { return mvarBasePath; } }
-
-		private static string mvarDataPath = null;
-		public static string DataPath
-		{
-			get
-			{
-				if (mvarDataPath == null)
-				{
-					mvarDataPath = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
-					{
-						Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-						"Mike Becker's Software",
-						"Universal Editor"
-					});
-				}
-				return mvarDataPath;
-			}
-		}
-
 		private IHostApplicationWindow mvarLastWindow = null;
 		public IHostApplicationWindow LastWindow { get { return mvarLastWindow; } set { mvarLastWindow = value; } }
 
@@ -802,58 +781,11 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 		}
-
-		private string[] EnumerateDataPaths()
-		{
-			return new string[]
-			{
-				// first look in the application root directory since this will be overridden by everything else
-				mvarBasePath,
-				// then look in /usr/share/universal-editor or C:\ProgramData\Mike Becker's Software\Universal Editor
-				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
-				{
-					System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonApplicationData),
-					"mbs-editor"
-				}),
-				// then look in ~/.local/share/universal-editor or C:\Users\USERNAME\AppData\Local\Mike Becker's Software\Universal Editor
-				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
-				{
-					System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),
-					"mbs-editor"
-				}),
-				// then look in ~/.universal-editor or C:\Users\USERNAME\AppData\Roaming\Mike Becker's Software\Universal Editor
-				String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
-				{
-					System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
-					"mbs-editor"
-				})
-			};
-		}
-		private string[] EnumerateDataFiles(string filter)
-		{
-			List<String> xmlFilesList = new List<String>();
-
-			// TODO: change "universal-editor" string to platform-dependent "universal-editor" on *nix or "Mike Becker's Software/Universal Editor" on Windowds
-			string[] paths = EnumerateDataPaths();
-
-			foreach (string path in paths)
-			{
-				// skip this one if the path doesn't exist
-				if (!System.IO.Directory.Exists(path)) continue;
-
-				string[] xmlfilesPath = System.IO.Directory.GetFiles(path, filter, System.IO.SearchOption.AllDirectories);
-				foreach (string s in xmlfilesPath)
-				{
-					xmlFilesList.Add(s);
-				}
-			}
-			return xmlFilesList.ToArray();
-		}
 		public string ExpandRelativePath(string relativePath)
 		{
 			if (relativePath.StartsWith("~/"))
 			{
-				string[] potentialFileNames = EnumerateDataPaths();
+				string[] potentialFileNames = MBS.Framework.UserInterface.Application.EnumerateDataPaths();
 				for (int i = potentialFileNames.Length - 1; i >= 0; i--)
 				{
 					potentialFileNames[i] = potentialFileNames[i] + '/' + relativePath.Substring(2);
@@ -879,7 +811,7 @@ namespace UniversalEditor.UserInterface
 			string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
 			if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
 
-			string[] xmlfiles = EnumerateDataFiles(configurationFileNameFilter);
+			string[] xmlfiles = MBS.Framework.UserInterface.Application.EnumerateDataFiles(configurationFileNameFilter);
 
 			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
 
@@ -1391,7 +1323,7 @@ namespace UniversalEditor.UserInterface
 			// I don't know why this ever was WindowsFormsEngine-specific...
 
 			// First, attempt to load the branding from Branding.uxt
-			string BrandingFileName = BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Branding.uxt";
+			string BrandingFileName = Application.BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Branding.uxt";
 			if (System.IO.File.Exists(BrandingFileName))
 			{
 				FileSystemObjectModel fsom = new FileSystemObjectModel();
@@ -1441,11 +1373,11 @@ namespace UniversalEditor.UserInterface
 			}
 
 			// Now, determine if we should override any branding details with local copies
-			if (System.IO.Directory.Exists(BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Branding"))
+			if (System.IO.Directory.Exists(Application.BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Branding"))
 			{
 				string SplashScreenImageFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
-					BasePath,
+					Application.BasePath,
 					"Branding",
 					"SplashScreen.png"
 				});
@@ -1453,7 +1385,7 @@ namespace UniversalEditor.UserInterface
 
 				string SplashScreenSoundFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
-					BasePath,
+					Application.BasePath,
 					"Branding",
 					"SplashScreen.wav"
 				});
@@ -1461,7 +1393,7 @@ namespace UniversalEditor.UserInterface
 
 				string MainIconFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
-					BasePath,
+					Application.BasePath,
 					"Branding",
 					"MainIcon.ico"
 				});
@@ -1469,7 +1401,7 @@ namespace UniversalEditor.UserInterface
 
 				string ConfigurationFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 				{
-					BasePath,
+					Application.BasePath,
 					"Branding",
 					"Configuration.upl"
 				});
@@ -1575,10 +1507,6 @@ namespace UniversalEditor.UserInterface
 				selectedFileNames.Add(commandLineArgument);
 			}
 			mvarSelectedFileNames = new System.Collections.ObjectModel.ReadOnlyCollection<string>(selectedFileNames);
-
-			// Set up the base path for the current application. Should this be able to be
-			// overridden with a switch (/basepath:...) ?
-			mvarBasePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
 			TemporaryFileManager.RegisterTemporaryDirectory();
 
