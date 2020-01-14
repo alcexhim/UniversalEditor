@@ -118,12 +118,126 @@ namespace UniversalEditor.UserInterface
 
 			// Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
 
+			Application.ConfigurationFileNameFilter = "*.uexml";
+
 			Application.BeforeShutdown += Application_BeforeShutdown;
+			Application.AfterConfigurationLoaded += Application_AfterConfigurationLoaded;
 			Application.Startup += Application_Startup;
 			Application.Activated += Application_Activated;
 
 			MBS.Framework.UserInterface.Application.Initialize();
 		}
+
+		void Application_AfterConfigurationLoaded(object sender, EventArgs e)
+		{
+			#region Global Configuration
+			{
+				UpdateSplashScreenStatus("Loading global configuration");
+
+				MarkupTagElement tagConfiguration = (Application.RawMarkup.FindElement("UniversalEditor", "Configuration") as MarkupTagElement);
+				if (tagConfiguration != null)
+				{
+					foreach (MarkupElement el in tagConfiguration.Elements)
+					{
+						MarkupTagElement tag = (el as MarkupTagElement);
+						if (tag == null) continue;
+						LoadConfiguration(tag);
+					}
+				}
+			}
+			#endregion
+			#region Editor Configuration
+			{
+				UpdateSplashScreenStatus("Loading editor configuration");
+
+				MarkupTagElement tagEditors = (Application.RawMarkup.FindElement("UniversalEditor", "Editors") as MarkupTagElement);
+				if (tagEditors != null)
+				{
+					foreach (MarkupElement el in tagEditors.Elements)
+					{
+						MarkupTagElement tag = (el as MarkupTagElement);
+						if (tag == null) continue;
+						if (tag.FullName != "Editor") continue;
+
+						switch (System.Environment.OSVersion.Platform)
+						{
+							case PlatformID.MacOSX:
+							case PlatformID.Unix:
+							case PlatformID.Xbox:
+							{
+								// TODO: this fails on Linux and I don't know why
+								Console.WriteLine("skipping load editor configuration on Mac OS X, Unix, or Xbox because it fails on Linux and I don't know why");
+								break;
+							}
+							case PlatformID.Win32NT:
+							case PlatformID.Win32S:
+							case PlatformID.Win32Windows:
+							case PlatformID.WinCE:
+							{
+								EditorReference editor = null;
+								try
+								{
+									Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
+								}
+								catch (Exception ex)
+								{
+									Console.WriteLine("couldn't load editor " + tag.Attributes["ID"].Value);
+								}
+								break;
+							}
+						}
+					}
+				}
+			}
+			#endregion
+			#region Object Model Configuration
+			{
+				UpdateSplashScreenStatus("Loading object model configuration");
+
+				MarkupTagElement tagObjectModels = (Application.RawMarkup.FindElement("UniversalEditor", "ObjectModels") as MarkupTagElement);
+				if (tagObjectModels != null)
+				{
+					MarkupTagElement tagDefault = (tagObjectModels.Elements["Default"] as MarkupTagElement);
+					if (tagDefault != null)
+					{
+						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+						MarkupAttribute attVisible = tagDefault.Attributes["Visible"];
+						foreach (ObjectModelReference omr in omrs)
+						{
+							if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+						}
+					}
+
+					foreach (MarkupElement el in tagObjectModels.Elements)
+					{
+						MarkupTagElement tag = (el as MarkupTagElement);
+						if (tag == null) continue;
+						if (tag.FullName == "ObjectModel")
+						{
+							MarkupAttribute attTypeName = tag.Attributes["TypeName"];
+							MarkupAttribute attID = tag.Attributes["ID"];
+							MarkupAttribute attVisible = tag.Attributes["Visible"];
+
+							if (attTypeName != null)
+							{
+								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByTypeName(attTypeName.Value);
+								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+							}
+							else
+							{
+								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByID(new Guid(attID.Value));
+								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+							}
+						}
+					}
+				}
+			}
+			#endregion
+
+			// load editors into memory so we don't wait 10-15 seconds before opening a file
+			Common.Reflection.GetAvailableEditors();
+		}
+
 
 		void Application_BeforeShutdown(object sender, System.ComponentModel.CancelEventArgs e)
 		{
@@ -153,10 +267,6 @@ namespace UniversalEditor.UserInterface
 			// less do this
 			Application.ShortName = "mbs-editor";
 			// Application.Title = "Universal Editor";
-
-			// Initialize the XML files before anything else, since this also loads string tables needed
-			// to display the application title
-			Engine.CurrentEngine.InitializeXMLConfiguration();
 
 			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading object models...");
 			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
@@ -558,11 +668,11 @@ namespace UniversalEditor.UserInterface
 			#region Dynamic Commands
 			#region View
 			#region Panels
-			for (int i = mvarCommandBars.Count - 1; i >= 0; i--)
+			for (int i = Application.CommandBars.Count - 1; i >= 0; i--)
 			{
 				Command cmdViewToolbarsToolbar = new Command();
 				cmdViewToolbarsToolbar.ID = "ViewToolbars" + i.ToString();
-				cmdViewToolbarsToolbar.Title = mvarCommandBars[i].Title;
+				cmdViewToolbarsToolbar.Title = Application.CommandBars[i].Title;
 				cmdViewToolbarsToolbar.Executed += cmdViewToolbarsToolbar_Executed;
 				Application.Commands.Add(cmdViewToolbarsToolbar);
 				Application.Commands["ViewToolbars"].Items.Insert(0, new CommandReferenceCommandItem(cmdViewToolbarsToolbar.ID));
@@ -585,13 +695,13 @@ namespace UniversalEditor.UserInterface
 			Command helpAboutPlatform = Application.Commands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
 			{
-				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, mvarDefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor"));
+				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, Application.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor"));
 			}
 
 			Command helpLanguage = Application.Commands["HelpLanguage"];
 			if (helpLanguage != null)
 			{
-				foreach (Language lang in mvarLanguages)
+				foreach (Language lang in Application.Languages)
 				{
 					Command cmdLanguage = new Command();
 					cmdLanguage.ID = "HelpLanguage_" + lang.ID;
@@ -656,35 +766,6 @@ namespace UniversalEditor.UserInterface
 			return true;
 		}
 
-		private Language mvarDefaultLanguage = null;
-		/// <summary>
-		/// The default <see cref="Language"/> used to display translatable text in this application.
-		/// </summary>
-		public Language DefaultLanguage { get { return mvarDefaultLanguage; } set { mvarDefaultLanguage = value; } }
-
-		private Language.LanguageCollection mvarLanguages = new Language.LanguageCollection();
-		/// <summary>
-		/// The languages defined for this application. Translations can be added through XML files in the ~/Languages folder.
-		/// </summary>
-		public Language.LanguageCollection Languages { get { return mvarLanguages; } }
-		
-		private EngineMainMenu mvarMainMenu = new EngineMainMenu();
-		/// <summary>
-		/// The main menu of this application, which can hold multiple <see cref="CommandItem"/>s.
-		/// </summary>
-		public EngineMainMenu MainMenu { get { return mvarMainMenu; } }
-
-		private CommandBar.CommandBarCollection mvarCommandBars = new CommandBar.CommandBarCollection();
-		/// <summary>
-		/// The command bars loaded in this application, which can each hold multiple <see cref="CommandItem"/>s.
-		/// </summary>
-		public CommandBar.CommandBarCollection CommandBars { get { return mvarCommandBars; } }
-		
-		/// <summary>
-		/// The aggregated raw markup of all the various XML files loaded in the current search path.
-		/// </summary>
-		private MarkupObjectModel mvarRawMarkup = new MarkupObjectModel();
-		
 		private System.Collections.ObjectModel.ReadOnlyCollection<string> mvarSelectedFileNames = null;
 		public System.Collections.ObjectModel.ReadOnlyCollection<string> SelectedFileNames { get { return mvarSelectedFileNames; } }
 
@@ -804,332 +885,6 @@ namespace UniversalEditor.UserInterface
 			return null;
 		}
 
-		// FIXME: this is the single XML configuration file loader that should be executed at the beginning of engine launch
-		protected internal virtual void InitializeXMLConfiguration()
-		{
-			#region Load the XML files
-			string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
-			if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
-
-			string[] xmlfiles = MBS.Framework.UserInterface.Application.EnumerateDataFiles(configurationFileNameFilter);
-
-			UpdateSplashScreenStatus("Loading XML configuration files", 0, 0, xmlfiles.Length);
-
-			XMLDataFormat xdf = new XMLDataFormat();
-			foreach (string xmlfile in xmlfiles)
-			{
-				MarkupObjectModel markup = new MarkupObjectModel();
-				Document doc = new Document(markup, xdf, new FileAccessor(xmlfile));
-				doc.Accessor.DefaultEncoding = IO.Encoding.UTF8;
-
-				doc.Accessor.Open();
-				doc.Load();
-				doc.Close();
-
-				markup.CopyTo(mvarRawMarkup);
-
-				// UpdateSplashScreenStatus("Loading XML configuration files", Array.IndexOf(xmlfiles, xmlfile) + 1);
-			}
-
-			#endregion
-
-			#region Initialize the configuration with the loaded data
-			#region Commands
-			UpdateSplashScreenStatus("Loading available commands");
-			MarkupTagElement tagCommands = (mvarRawMarkup.FindElement("ApplicationFramework", "Commands") as MarkupTagElement);
-			if (tagCommands != null)
-			{
-				foreach (MarkupElement elCommand in tagCommands.Elements)
-				{
-					MarkupTagElement tagCommand = (elCommand as MarkupTagElement);
-					if (tagCommand == null) continue;
-					if (tagCommand.FullName != "Command") continue;
-
-					MarkupAttribute attID = tagCommand.Attributes["ID"];
-					if (attID == null) continue;
-
-					Command cmd = new Command();
-					cmd.ID = attID.Value;
-
-					MarkupAttribute attDefaultCommandID = tagCommand.Attributes["DefaultCommandID"];
-					if (attDefaultCommandID != null)
-					{
-						cmd.DefaultCommandID = attDefaultCommandID.Value;
-					}
-
-					MarkupAttribute attCommandStockType = tagCommand.Attributes["StockType"];
-					if (attCommandStockType != null)
-					{
-						StockType stockType = StockType.None;
-						string[] names = Enum.GetNames(typeof(StockType));
-						int[] values = (int[]) Enum.GetValues(typeof(StockType));
-						for (int i = 0; i < names.Length; i++)
-						{
-							if (names[i].Equals(attCommandStockType.Value))
-							{
-								stockType = (StockType)values[i];
-								break;
-							}
-						}
-						cmd.StockType = stockType;
-					}
-
-					MarkupAttribute attTitle = tagCommand.Attributes["Title"];
-					if (attTitle != null)
-					{
-						cmd.Title = attTitle.Value;
-					}
-					else
-					{
-						cmd.Title = cmd.ID;
-					}
-
-					MarkupTagElement tagShortcut = (tagCommand.Elements["Shortcut"] as MarkupTagElement);
-					if (tagShortcut != null)
-					{
-						MarkupAttribute attModifiers = tagShortcut.Attributes["Modifiers"];
-						MarkupAttribute attKey = tagShortcut.Attributes["Key"];
-						if (attKey != null)
-						{
-							KeyboardModifierKey modifiers = KeyboardModifierKey.None;
-							if (attModifiers != null)
-							{
-								string[] strModifiers = attModifiers.Value.Split(new char[] { ',' });
-								foreach (string strModifier in strModifiers)
-								{
-									switch (strModifier.Trim().ToLower())
-									{
-										case "alt":
-										{
-											modifiers |= KeyboardModifierKey.Alt;
-											break;
-										}
-										case "control":
-										{
-											modifiers |= KeyboardModifierKey.Control;
-											break;
-										}
-										case "meta":
-										{
-											modifiers |= KeyboardModifierKey.Meta;
-											break;
-										}
-										case "shift":
-										{
-											modifiers |= KeyboardModifierKey.Shift;
-											break;
-										}
-										case "super":
-										{
-											modifiers |= KeyboardModifierKey.Super;
-											break;
-										}
-									}
-								}
-							}
-
-							KeyboardKey value = KeyboardKey.None;
-							if (!Enum.TryParse<KeyboardKey>(attKey.Value, out value))
-							{
-								Console.WriteLine("ue: ui: unable to parse keyboard key '{0}'", attKey.Value);
-							}
-
-							cmd.Shortcut = new Shortcut(value, modifiers);
-						}
-					}
-
-					MarkupTagElement tagItems = (tagCommand.Elements["Items"] as MarkupTagElement);
-					if (tagItems != null)
-					{
-						foreach (MarkupElement el in tagItems.Elements)
-						{
-							MarkupTagElement tag = (el as MarkupTagElement);
-							if (tag == null) continue;
-
-							InitializeCommandBarItem(tag, cmd, null);
-						}
-					}
-
-					Application.Commands.Add(cmd);
-				}
-			}
-			#endregion
-			#region Main Menu Items
-			UpdateSplashScreenStatus("Loading main menu items");
-
-			MarkupTagElement tagMainMenuItems = (mvarRawMarkup.FindElement("ApplicationFramework", "MainMenu", "Items") as MarkupTagElement);
-			if (tagMainMenuItems != null)
-			{
-				foreach (MarkupElement elItem in tagMainMenuItems.Elements)
-				{
-					MarkupTagElement tagItem = (elItem as MarkupTagElement);
-					if (tagItem == null) continue;
-					InitializeCommandBarItem(tagItem, null, null);
-				}
-			}
-
-			UpdateSplashScreenStatus("Loading command bars");
-
-			MarkupTagElement tagCommandBars = (mvarRawMarkup.FindElement("ApplicationFramework", "CommandBars") as MarkupTagElement);
-			if (tagCommandBars != null)
-			{
-				foreach (MarkupElement elCommandBar in tagCommandBars.Elements)
-				{
-					MarkupTagElement tagCommandBar = (elCommandBar as MarkupTagElement);
-					if (tagCommandBar == null) continue;
-					if (tagCommandBar.FullName != "CommandBar") continue;
-					InitializeCommandBar(tagCommandBar);
-				}
-			}
-			#endregion
-			#region Languages
-			UpdateSplashScreenStatus("Loading languages and translations");
-
-			MarkupTagElement tagLanguages = (mvarRawMarkup.FindElement("ApplicationFramework", "Languages") as MarkupTagElement);
-			if (tagLanguages != null)
-			{
-				foreach (MarkupElement elLanguage in tagLanguages.Elements)
-				{
-					MarkupTagElement tagLanguage = (elLanguage as MarkupTagElement);
-					if (tagLanguage == null) continue;
-					if (tagLanguage.FullName != "Language") continue;
-					InitializeLanguage(tagLanguage);
-				}
-
-				MarkupAttribute attDefaultLanguageID = tagLanguages.Attributes["DefaultLanguageID"];
-				if (attDefaultLanguageID != null)
-				{
-					mvarDefaultLanguage = mvarLanguages[attDefaultLanguageID.Value];
-				}
-			}
-
-			UpdateSplashScreenStatus("Setting language");
-
-			if (mvarDefaultLanguage == null)
-			{
-				mvarDefaultLanguage = new Language();
-			}
-			else
-			{
-				foreach (Command cmd in Application.Commands)
-				{
-					cmd.Title = mvarDefaultLanguage.GetCommandTitle(cmd.ID, cmd.ID);
-				}
-			}
-			#endregion
-
-			#region Global Configuration
-			{
-				UpdateSplashScreenStatus("Loading global configuration");
-
-				MarkupTagElement tagConfiguration = (mvarRawMarkup.FindElement("UniversalEditor", "Configuration") as MarkupTagElement);
-				if (tagConfiguration != null)
-				{
-					foreach (MarkupElement el in tagConfiguration.Elements)
-					{
-						MarkupTagElement tag = (el as MarkupTagElement);
-						if (tag == null) continue;
-						LoadConfiguration(tag);
-					}
-				}
-			}
-			#endregion
-			#region Editor Configuration
-			{
-				UpdateSplashScreenStatus("Loading editor configuration");
-
-				MarkupTagElement tagEditors = (mvarRawMarkup.FindElement("UniversalEditor", "Editors") as MarkupTagElement);
-				if (tagEditors != null)
-				{
-					foreach (MarkupElement el in tagEditors.Elements)
-					{
-						MarkupTagElement tag = (el as MarkupTagElement);
-						if (tag == null) continue;
-						if (tag.FullName != "Editor") continue;
-						
-						switch (System.Environment.OSVersion.Platform)
-						{
-							case PlatformID.MacOSX:
-							case PlatformID.Unix:
-							case PlatformID.Xbox:
-							{
-								// TODO: this fails on Linux and I don't know why
-								Console.WriteLine("skipping load editor configuration on Mac OS X, Unix, or Xbox because it fails on Linux and I don't know why");
-								break;
-							}
-							case PlatformID.Win32NT:
-							case PlatformID.Win32S:
-							case PlatformID.Win32Windows:
-							case PlatformID.WinCE:
-							{
-								EditorReference editor = null;
-								try
-								{
-									Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
-								}
-								catch (Exception ex)
-								{
-									Console.WriteLine("couldn't load editor " + tag.Attributes["ID"].Value);
-								}
-								break;
-							}
-						}
-					}
-				}
-			}
-			#endregion
-			#region Object Model Configuration
-			{
-				UpdateSplashScreenStatus("Loading object model configuration");
-
-				MarkupTagElement tagObjectModels = (mvarRawMarkup.FindElement("UniversalEditor", "ObjectModels") as MarkupTagElement);
-				if (tagObjectModels != null)
-				{
-					MarkupTagElement tagDefault = (tagObjectModels.Elements["Default"] as MarkupTagElement);
-					if (tagDefault != null)
-					{
-						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-						MarkupAttribute attVisible = tagDefault.Attributes["Visible"];
-						foreach (ObjectModelReference omr in omrs)
-						{
-							if (attVisible != null) omr.Visible = (attVisible.Value == "true");
-						}
-					}
-
-					foreach (MarkupElement el in tagObjectModels.Elements)
-					{
-						MarkupTagElement tag = (el as MarkupTagElement);
-						if (tag == null) continue;
-						if (tag.FullName == "ObjectModel")
-						{
-							MarkupAttribute attTypeName = tag.Attributes["TypeName"];
-							MarkupAttribute attID = tag.Attributes["ID"];
-							MarkupAttribute attVisible = tag.Attributes["Visible"];
-
-							if (attTypeName != null)
-							{
-								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByTypeName(attTypeName.Value);
-								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
-							}
-							else
-							{
-								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByID(new Guid(attID.Value));
-								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
-							}
-						}
-					}
-				}
-			}
-			#endregion
-
-			// UpdateSplashScreenStatus("Finalizing configuration");
-			// ConfigurationManager.Load();
-			#endregion
-
-			// load editors into memory so we don't wait 10-15 seconds before opening a file
-			Common.Reflection.GetAvailableEditors();
-		}
-
 		private void LoadConfiguration(MarkupTagElement tag, Group group = null)
 		{
 			if (tag.FullName == "Group")
@@ -1173,151 +928,6 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		private void InitializeLanguage(MarkupTagElement tag)
-		{
-			MarkupAttribute attID = tag.Attributes["ID"];
-			if (attID == null) return;
-
-			Language lang = mvarLanguages[attID.Value];
-			if (lang == null)
-			{
-				lang = new Language();
-				lang.ID = attID.Value;
-				mvarLanguages.Add(lang);
-			}
-
-			MarkupAttribute attTitle = tag.Attributes["Title"];
-			if (attTitle != null)
-			{
-				lang.Title = attTitle.Value;
-			}
-			else
-			{
-				lang.Title = lang.ID;
-			}
-
-			MarkupTagElement tagStringTable = (tag.Elements["StringTable"] as MarkupTagElement);
-			if (tagStringTable != null)
-			{
-				foreach (MarkupElement elStringTableEntry in tagStringTable.Elements)
-				{
-					MarkupTagElement tagStringTableEntry = (elStringTableEntry as MarkupTagElement);
-					if (tagStringTableEntry == null) continue;
-					if (tagStringTableEntry.FullName != "StringTableEntry") continue;
-
-					MarkupAttribute attStringTableEntryID = tagStringTableEntry.Attributes["ID"];
-					if (attStringTableEntryID == null) continue;
-
-					MarkupAttribute attStringTableEntryValue = tagStringTableEntry.Attributes["Value"];
-					if (attStringTableEntryValue == null) continue;
-
-					lang.SetStringTableEntry(attStringTableEntryID.Value, attStringTableEntryValue.Value);
-				}
-			}
-
-			MarkupTagElement tagCommands = (tag.Elements["Commands"] as MarkupTagElement);
-			if (tagCommands != null)
-			{
-				foreach (MarkupElement elCommand in tagCommands.Elements)
-				{
-					MarkupTagElement tagCommand = (elCommand as MarkupTagElement);
-					if (tagCommand == null) continue;
-					if (tagCommand.FullName != "Command") continue;
-
-					MarkupAttribute attCommandID = tagCommand.Attributes["ID"];
-					if (attCommandID == null) continue;
-
-					MarkupAttribute attCommandTitle = tagCommand.Attributes["Title"];
-					if (attCommandTitle == null) continue;
-
-					lang.SetCommandTitle(attCommandID.Value, attCommandTitle.Value);
-				}
-			}
-		}
-		
-		private void InitializeCommandBar(MarkupTagElement tag)
-		{
-			MarkupAttribute attID = tag.Attributes["ID"];
-			if (attID == null) return;
-
-			CommandBar cb = new CommandBar();
-			cb.ID = attID.Value;
-
-			MarkupAttribute attTitle = tag.Attributes["Title"];
-			if (attTitle != null)
-			{
-				cb.Title = attTitle.Value;
-			}
-			else
-			{
-				cb.Title = cb.ID;
-			}
-
-			MarkupTagElement tagItems = tag.Elements["Items"] as MarkupTagElement;
-			if (tagItems != null)
-			{
-				foreach (MarkupElement elItem in tagItems.Elements)
-				{
-					MarkupTagElement tagItem = (elItem as MarkupTagElement);
-					if (tagItem == null) continue;
-
-					InitializeCommandBarItem(tagItem, null, cb);
-				}
-			}
-
-			mvarCommandBars.Add(cb);
-		}
-
-		private void InitializeCommandBarItem(MarkupTagElement tag, Command parent, CommandBar parentCommandBar)
-		{
-			CommandItem item = null;
-			switch (tag.FullName)
-			{
-				case "CommandReference":
-				{
-					MarkupAttribute attCommandID = tag.Attributes["CommandID"];
-					if (attCommandID != null)
-					{
-						item = new CommandReferenceCommandItem(attCommandID.Value);
-					}
-					break;
-				}
-				case "CommandPlaceholder":
-				{
-					MarkupAttribute attPlaceholderID = tag.Attributes["PlaceholderID"];
-					if (attPlaceholderID != null)
-					{
-						item = new CommandPlaceholderCommandItem(attPlaceholderID.Value);
-					}
-					break;
-				}
-				case "Separator":
-				{
-					item = new SeparatorCommandItem();
-					break;
-				}
-			}
-			
-			if (item != null)
-			{
-				if (parent == null)
-				{
-					if (parentCommandBar != null)
-					{
-						parentCommandBar.Items.Add(item);
-					}
-					else
-					{
-						mvarMainMenu.Items.Add(item);
-					}
-				}
-				else
-				{
-					parent.Items.Add(item);
-				}
-			}
-		}
-		
 		protected virtual void InitializeBranding()
 		{
 			// I don't know why this ever was WindowsFormsEngine-specific...
@@ -1460,6 +1070,9 @@ namespace UniversalEditor.UserInterface
 				splasher.InvokeUpdateStatus(message);
 			}
 			*/
+			if (splasher == null)
+				splasher = new SplashScreenWindow();
+
 			if (!splasher.IsDisposed) {
 				splasher.SetStatus (message, progressValue, progressMinimum, progressMaximum);
 			}

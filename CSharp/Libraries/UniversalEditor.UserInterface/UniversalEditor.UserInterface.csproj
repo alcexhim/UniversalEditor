@@ -57,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookmarksManager.cs" />
-    <Compile Include="CommandBar.cs" />
     <Compile Include="CommandDisplayStyle.cs" />
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="ConfigurationManager.cs" />
@@ -69,7 +68,6 @@
     <Compile Include="HostApplicationOutputWindow.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="IHostApplicationWindow.cs" />
-    <Compile Include="Language.cs" />
     <Compile Include="ObjectModelChangingEvent.cs" />
     <Compile Include="Perspective.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,7 +80,6 @@
     <Compile Include="UnsavedDocumentOption.cs" />
     <Compile Include="WindowState.cs" />
     <Compile Include="StockCommandType.cs" />
-    <Compile Include="EngineMainMenu.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="SplashScreenWindow.cs" />
     <Compile Include="Panels\ErrorListPanel.cs" />

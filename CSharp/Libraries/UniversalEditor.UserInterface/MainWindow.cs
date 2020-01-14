@@ -208,28 +208,17 @@ namespace UniversalEditor.UserInterface
 
 			this.CommandDisplayMode = CommandDisplayMode.CommandBar;
 
-			foreach (CommandItem ci in Engine.CurrentEngine.MainMenu.Items)
-			{
-				MBS.Framework.UserInterface.MenuItem mi = MBS.Framework.UserInterface.MenuItem.LoadMenuItem(ci, MainWindow_MenuBar_Item_Click);
-				if (mi == null)
-					continue;
-
-				if (mi.Name == "Help")
-				{
-					mi.HorizontalAlignment = MenuItemHorizontalAlignment.Right;
-				}
-				this.MenuBar.Items.Add(mi);
-			}
+			InitializeMainMenu();
 
 			if (this.CommandDisplayMode == CommandDisplayMode.Ribbon || this.CommandDisplayMode == CommandDisplayMode.Both) {
-				foreach (CommandBar cb in Engine.CurrentEngine.CommandBars) {
+				foreach (CommandBar cb in Application.CommandBars) {
 					RibbonTab ribbonTabHome = LoadRibbonBar (cb);
 					ribbonTabHome.Title = "Home";
 					this.Ribbon.Tabs.Add (ribbonTabHome);
 				}
 			}
 			if (this.CommandDisplayMode == CommandDisplayMode.CommandBar || this.CommandDisplayMode == CommandDisplayMode.Both) {
-				foreach (CommandBar cb in Engine.CurrentEngine.CommandBars) {
+				foreach (CommandBar cb in Application.CommandBars) {
 					this.Controls.Add (LoadCommandBar(cb));
 				}
 			}
@@ -695,22 +684,6 @@ namespace UniversalEditor.UserInterface
 
 			// HACK: until we can properly figure out when a docking container has its current window changed
 			dckContainer_SelectionChanged(this, EventArgs.Empty);
-		}
-
-		private void MainWindow_MenuBar_Item_Click(object sender, EventArgs e)
-		{
-			CommandMenuItem mi = (sender as CommandMenuItem);
-			if (mi == null)
-				return;
-
-			Command cmd = Application.Commands[mi.Name];
-			if (cmd == null)
-			{
-				Console.WriteLine("unknown cmd '" + mi.Name + "'");
-				return;
-			}
-
-			cmd.Execute();
 		}
 
 		protected override void OnClosed(EventArgs e)

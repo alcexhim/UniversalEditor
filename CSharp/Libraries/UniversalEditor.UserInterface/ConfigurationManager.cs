@@ -48,7 +48,7 @@ namespace UniversalEditor.UserInterface
 		{
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
 			
-			string FileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
+			string FileName = MBS.Framework.UserInterface.Application.BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
 			if (System.IO.File.Exists(FileName))
 			{
 				Document.Load(mvarLocalConfiguration, xdf, new Accessors.FileAccessor(FileName));
@@ -58,7 +58,7 @@ namespace UniversalEditor.UserInterface
 		public void Save()
 		{
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
-			string FileName = Engine.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
+			string FileName = MBS.Framework.UserInterface.Application.BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
 			string dir = System.IO.Path.GetDirectoryName (FileName);
 			if (!System.IO.Directory.Exists(dir))
 			{
