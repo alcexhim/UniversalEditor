@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{B8F7B746-8F5D-48E3-8977-89EE39362A6A}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{B8F7B746-8F5D-48E3-8977-89EE39362A6A}">
 			<Information>
 				<Title>Meeting Agenda</Title>
 				<IconPath LargeFileName="icon_32x32.png" SmallFileName="icon_16x16.png" />
@@ -57,6 +57,6 @@
 					</Folder>
 				</Folders>
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

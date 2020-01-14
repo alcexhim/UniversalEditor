@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{C70DFF06-DF83-45EB-9891-CEF6BF253C2F}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{C70DFF06-DF83-45EB-9891-CEF6BF253C2F}">
 			<Information>
 				<Title>Tasks</Title>
 				<Description>Track a group of work items that you or your team need to complete.</Description>
 				<IconPath FileName="database.ico" />
-				<CategoryParts>
-					<CategoryPart>Business</CategoryPart>
-				</CategoryParts>
+				<Path>
+					<Part>General</Part>
+					<Part>Database</Part>
+					<Part>Business</Part>
+				</Path>
 			</Information>
-			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+			<Content ObjectModelType="UniversalEditor.ObjectModels.Database.DatabaseObjectModel">
 				
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

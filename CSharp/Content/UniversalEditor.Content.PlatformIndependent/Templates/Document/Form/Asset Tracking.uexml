@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{25CCF4D0-9DBD-40D2-936D-4F0BEA4FCC7D}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{25CCF4D0-9DBD-40D2-936D-4F0BEA4FCC7D}">
 			<Information>
 				<Title>Asset Tracking</Title>
 				<IconPath LargeFileName="icon_32x32.png" SmallFileName="icon_16x16.png" />
@@ -57,6 +57,6 @@
 					</Folder>
 				</Folders>
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

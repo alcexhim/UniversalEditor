@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{58874798-2E63-4C2B-8C93-C31FCFA29AD7}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{58874798-2E63-4C2B-8C93-C31FCFA29AD7}">
 			<Information>
 				<Title>Projects</Title>
 				<Description>Track multiple projects and assign tasks to different people.</Description>
 				<IconPath FileName="database.ico" />
-				<CategoryParts>
-					<CategoryPart>Business</CategoryPart>
-				</CategoryParts>
+				<Path>
+					<Part>General</Part>
+					<Part>Database</Part>
+					<Part>Business</Part>
+				</Path>
 			</Information>
-			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+			<Content ObjectModelType="UniversalEditor.ObjectModels.Database.DatabaseObjectModel">
 				
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

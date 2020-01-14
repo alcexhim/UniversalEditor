@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{3C01AD64-A0C1-4A4E-9952-2E1002DDB206}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{3C01AD64-A0C1-4A4E-9952-2E1002DDB206}">
 			<Information>
 				<Title>Travel Request</Title>
 				<IconPath LargeFileName="icon_32x32.png" SmallFileName="icon_16x16.png" />
@@ -9,6 +9,6 @@
 			<Content ObjectModelType="UniversalEditor.ObjectModels.RIFF.RIFFObjectModel">
 				
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

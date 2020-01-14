@@ -370,8 +370,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 		
 		private void InitializeObjectModelTreeView()
 		{
-			tmObjectModel.Rows.Clear();
-
 			ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
 			foreach (ObjectModelReference omr in omrs)
 			{
@@ -505,7 +503,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					}
 				}
 
-				if (tn == null || tvObjectModel.SelectedRows.Contains(tn))
+				if (tn != null && tvObjectModel.SelectedRows.Contains(tn))
 				{
 					TreeModelRow lvi = new TreeModelRow(new TreeModelRowColumn[]
 					{

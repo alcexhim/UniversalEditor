@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{F63140FB-C539-45b0-8045-506397ADE75B}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{F63140FB-C539-45b0-8045-506397ADE75B}">
 			<Information>
 				<Title>Windows filesystem</Title>
 				<Description>Creates a standard Windows NT file structure.</Description>
@@ -58,6 +58,6 @@
 					</Folder>
 				</Folders>
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

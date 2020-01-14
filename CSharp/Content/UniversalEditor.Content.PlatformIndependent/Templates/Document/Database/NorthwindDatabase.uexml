@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{8A945438-2E6E-4647-8108-CC5960417DF0}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{8A945438-2E6E-4647-8108-CC5960417DF0}">
 			<Information>
 				<Title>Northwind 2007</Title>
 				<Description>Northwind Sample</Description>
 				<IconPath FileName="database.ico" />
-				<CategoryParts>
-					<CategoryPart>Samples</CategoryPart>
-				</CategoryParts>
+				<Path>
+					<Part>General</Part>
+					<Part>Database</Part>
+					<Part>Samples</Part>
+				</Path>
 			</Information>
-			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+			<Content ObjectModelType="UniversalEditor.ObjectModels.Database.DatabaseObjectModel">
 				
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

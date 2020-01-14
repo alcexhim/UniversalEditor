@@ -220,7 +220,7 @@ namespace UniversalEditor
 		{
 			if (mvarType == null && mvarTypeName != null)
 			{
-				mvarType = Type.GetType(mvarTypeName);
+				mvarType = MBS.Framework.Reflection.FindType(mvarTypeName);
 			}
 			if (mvarType != null)
 			{

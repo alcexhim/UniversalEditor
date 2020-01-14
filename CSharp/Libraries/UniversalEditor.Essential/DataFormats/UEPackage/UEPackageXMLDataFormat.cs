@@ -440,6 +440,20 @@ namespace UniversalEditor.DataFormats.UEPackage
 											template.Description = tagInformation.Elements["Description"].Value;
 										}
 
+										MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);
+										if (tagPath != null)
+										{
+											List<string> pathParts = new List<string>();
+											foreach (MarkupElement elPart in tagPath.Elements)
+											{
+												MarkupTagElement tagPart = (elPart as MarkupTagElement);
+												if (tagPart == null) continue;
+												if (tagPart.FullName != "Part") continue;
+												pathParts.Add(tagPart.Value);
+											}
+											template.Path = pathParts.ToArray();
+										}
+
 										MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
 										if (tagIconPath != null)
 										{

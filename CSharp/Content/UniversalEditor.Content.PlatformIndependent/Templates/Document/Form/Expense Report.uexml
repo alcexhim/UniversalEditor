@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{DD66CB5B-9B3F-47CB-B71C-9BB70E7BA5AA}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{DD66CB5B-9B3F-47CB-B71C-9BB70E7BA5AA}">
 			<Information>
 				<Title>Expense Report</Title>
 				<IconPath LargeFileName="icon_32x32.png" SmallFileName="icon_16x16.png" />
@@ -57,6 +57,6 @@
 					</Folder>
 				</Folders>
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>

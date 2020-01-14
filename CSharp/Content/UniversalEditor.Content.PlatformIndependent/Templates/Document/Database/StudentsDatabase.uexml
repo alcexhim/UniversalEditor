@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
-	<Templates>
-		<Template ID="{5A9DF75F-123E-4AF9-96BE-1FC9CF1E0CB9}">
+	<DocumentTemplates>
+		<DocumentTemplate ID="{5A9DF75F-123E-4AF9-96BE-1FC9CF1E0CB9}">
 			<Information>
 				<Title>Students</Title>
 				<Description>Keep track of information about your students, including emergency contacts, medical information, and information about their guardians.</Description>
 				<IconPath FileName="database.ico" />
-				<CategoryParts>
-					<CategoryPart>Education</CategoryPart>
-				</CategoryParts>
+				<Path>
+					<Part>General</Part>
+					<Part>Database</Part>
+					<Part>Education</Part>
+				</Path>
 			</Information>
-			<Content ObjectModelType="UniversalEditor.ObjectModels.DatabaseManagement.DatabaseObjectModel">
+			<Content ObjectModelType="UniversalEditor.ObjectModels.Database.DatabaseObjectModel">
 				
 			</Content>
-		</Template>
-	</Templates>
+		</DocumentTemplate>
+	</DocumentTemplates>
 </UniversalEditor>
