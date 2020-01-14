@@ -194,44 +194,6 @@ namespace UniversalEditor.UserInterface.Common
 			}
 		}
 
-		private static Dictionary<string, Type> TypesByName = new Dictionary<string, Type>();
-		private static Type FindType(string TypeName)
-		{
-			if (!TypesByName.ContainsKey(TypeName))
-			{
-				System.Reflection.Assembly[] asms = GetAvailableAssemblies();
-				bool found = false;
-				foreach (System.Reflection.Assembly asm in asms)
-				{
-					Type[] types = null;
-					try
-					{
-						types = asm.GetTypes();
-					}
-					catch (System.Reflection.ReflectionTypeLoadException ex)
-					{
-						Console.Error.WriteLine("ReflectionTypeLoadException(" + ex.LoaderExceptions.Length.ToString() + "): " + asm.FullName);
-						Console.Error.WriteLine(ex.Message);
-
-						types = ex.Types;
-					}
-					foreach (Type type in types)
-					{
-						if (type == null) continue;
-						if (type.FullName == TypeName)
-						{
-							TypesByName.Add(TypeName, type);
-							found = true;
-							break;
-						}
-					}
-					if (found) break;
-				}
-				if (!found) return null;
-			}
-			return TypesByName[TypeName];
-		}
-
 		private static System.Reflection.Assembly[] mvarAvailableAssemblies = null;
 		private static System.Reflection.Assembly[] GetAvailableAssemblies()
 		{
@@ -338,7 +300,7 @@ namespace UniversalEditor.UserInterface.Common
 			}
 			foreach (EditorReference editor in editors)
 			{
-				if (editor.EditorType == FindType(typeName)) return editor;
+				if (editor.EditorType == MBS.Framework.Reflection.FindType(typeName)) return editor;
 			}
 			return null;
 		}
