@@ -71,20 +71,6 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
 		}
 
-		private void ContextMenuDelete_Click(object sender, EventArgs e)
-		{
-			// forward to EditDelete - this will be unnecessary once we implement these menu item definitions as XML
-			if (Application.Commands["EditDelete"] != null)
-				Application.Commands["EditDelete"].Execute();
-		}
-
-		private void contextMenuUnselectedPaste_Click(object sender, EventArgs e)
-		{
-			// forward to EditPaste - this will be unnecessary once we implement these menu item definitions as XML
-			if (Application.Commands["EditPaste"] != null)
-				Application.Commands["EditPaste"].Execute();
-		}
-
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
 		{
 			if (tv.SelectedRows.Count == 0) return;
