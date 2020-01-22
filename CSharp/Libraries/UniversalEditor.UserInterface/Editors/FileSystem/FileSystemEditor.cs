@@ -30,6 +30,7 @@ using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 using UniversalEditor.Editors.FileSystem.Dialogs;
 using UniversalEditor.Accessors;
+using MBS.Framework.UserInterface.Controls;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -52,6 +53,10 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
+		private void tv_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		{
+			FileSystemContextMenu_Open_Click(sender, e);
+		}
 
 		protected override void OnCreated(EventArgs e)
 		{

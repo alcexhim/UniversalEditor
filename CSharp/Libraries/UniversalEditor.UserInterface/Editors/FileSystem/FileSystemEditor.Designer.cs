@@ -42,6 +42,7 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.Mode = ListViewMode.Detail;
 			this.tv.SelectionMode = SelectionMode.Multiple;
 			this.tv.Model = this.tmTreeView;
+			this.tv.RowActivated += tv_RowActivated;
 
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Open", FileSystemContextMenu_Open_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingItem", FileAddExistingItem_Click);
