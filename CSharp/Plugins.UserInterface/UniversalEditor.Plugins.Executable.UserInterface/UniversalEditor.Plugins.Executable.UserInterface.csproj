@@ -32,10 +32,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Editors\Executable\ExecutableEditor.cs" />
+    <Compile Include="Editors\Executable\ManagedAssemblyPanel.cs" />
+    <Compile Include="Editors\Executable\CodeProvider.cs" />
+    <Compile Include="Editors\Executable\CodeProviders\CSharpCodeProvider.cs" />
+    <Compile Include="Editors\Executable\CodeProviders\VisualBasicCodeProvider.cs" />
+    <Compile Include="Editors\Executable\ILOpcode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
     <Folder Include="Editors\Executable\" />
+    <Folder Include="Editors\Executable\CodeProviders\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

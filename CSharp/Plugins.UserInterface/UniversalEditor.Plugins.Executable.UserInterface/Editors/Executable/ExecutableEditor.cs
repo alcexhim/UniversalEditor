@@ -61,6 +61,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 		private TextBox txtAssemblyVersion = null;
 
 		private DefaultTreeModel tmOtherInformation = null;
+		private ManagedAssemblyPanel pnlManagedAssembly = null;
 
 		public ExecutableEditor()
 		{
@@ -142,11 +143,14 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			pnlMetadata.Layout = new GridLayout();
 
 			pnlMetadata.Controls.Add(lblAssemblyName, new GridLayout.Constraints(0, 0));
-			pnlMetadata.Controls.Add(txtAssemblyName, new GridLayout.Constraints(0, 1));
+			pnlMetadata.Controls.Add(txtAssemblyName, new GridLayout.Constraints(0, 1, 1, 1, ExpandMode.Horizontal));
 			pnlMetadata.Controls.Add(lblAssemblyVersion, new GridLayout.Constraints(1, 0));
-			pnlMetadata.Controls.Add(txtAssemblyVersion, new GridLayout.Constraints(1, 1));
+			pnlMetadata.Controls.Add(txtAssemblyVersion, new GridLayout.Constraints(1, 1, 1, 1, ExpandMode.Horizontal));
 
-			tabManagedAssembly.Controls.Add(pnlMetadata);
+			tabManagedAssembly.Controls.Add(pnlMetadata, new BoxLayout.Constraints(false, true));
+
+			pnlManagedAssembly = new ManagedAssemblyPanel();
+			tabManagedAssembly.Controls.Add(pnlManagedAssembly, new BoxLayout.Constraints(true, true));
 
 			tbs.TabPages.Add(tabManagedAssembly);
 
@@ -241,6 +245,8 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 				txtAssemblyName.Text = executable.ManagedAssembly.GetName().Name;
 				txtAssemblyVersion.Text = executable.ManagedAssembly.GetName().Version.ToString();
+
+				pnlManagedAssembly.Assembly = executable.ManagedAssembly;
 			}
 		}
 	}
