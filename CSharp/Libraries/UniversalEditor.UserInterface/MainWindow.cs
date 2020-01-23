@@ -527,6 +527,28 @@ namespace UniversalEditor.UserInterface
 							}
 							return;
 						}
+						catch (InvalidDataFormatException ex)
+						{
+							// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
+							DialogResult result = MessageDialog.ShowDialog("The data format you specified could not load the file.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
+							if (result == DialogResult.Retry)
+							{
+								DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+								dlg.DataFormat = doc.DataFormat;
+								dlg.ObjectModel = doc.ObjectModel;
+								dlg.Accessor = doc.Accessor;
+								if (dlg.ShowDialog() == DialogResult.OK)
+								{
+									doc.DataFormat = dlg.DataFormat;
+									doc.ObjectModel = dlg.ObjectModel;
+									doc.Accessor = dlg.Accessor;
+								}
+
+								// try loading it again
+								continue;
+							}
+							return;
+						}
 						catch (Exception ex)
 						{
 							if (!System.Diagnostics.Debugger.IsAttached)
