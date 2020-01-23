@@ -5,6 +5,7 @@ using System.Text;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.Accessors;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface.Common
 {
@@ -132,7 +133,7 @@ namespace UniversalEditor.UserInterface.Common
 											string id = tagCommand.Attributes["ID"]?.Value;
 											string title = tagCommand.Attributes["Title"]?.Value;
 
-											MBS.Framework.UserInterface.Command cmd = new MBS.Framework.UserInterface.Command(id, title != null ? title : id);
+											Command cmd = new Command(id, title != null ? title : id);
 											MarkupTagElement tagItems = tagCommand.Elements["Items"] as MarkupTagElement;
 											if (tagItems != null)
 											{
@@ -140,20 +141,10 @@ namespace UniversalEditor.UserInterface.Common
 												{
 													MarkupTagElement tagItem = (elItem as MarkupTagElement);
 													if (tagItem == null) continue;
-													switch (tagItem.Name)
-													{
-														case "CommandReference":
-														{
-															MBS.Framework.UserInterface.CommandReferenceCommandItem crci = new MBS.Framework.UserInterface.CommandReferenceCommandItem(tagItem.Attributes["CommandID"]?.Value);
-															cmd.Items.Add(crci);
-															break;
-														}
-														case "Separator":
-														{
-															cmd.Items.Add(new MBS.Framework.UserInterface.SeparatorCommandItem());
-															break;
-														}
-													}
+
+													CommandItem ci = LoadCommandItem(tagItem);
+													if (ci != null)
+														cmd.Items.Add(ci);
 												}
 											}
 											er.Commands.Add(cmd);
@@ -170,19 +161,11 @@ namespace UniversalEditor.UserInterface.Common
 										{
 											MarkupTagElement tagItem = (elItem as MarkupTagElement);
 											if (tagItem == null) continue;
-											switch (tagItem.Name)
+
+											CommandItem ci = LoadCommandItem(tagItem);
+											if (ci != null)
 											{
-												case "CommandReference":
-												{
-													MBS.Framework.UserInterface.CommandReferenceCommandItem crci = new MBS.Framework.UserInterface.CommandReferenceCommandItem(tagItem.Attributes["CommandID"]?.Value);
-													er.MenuBar.Items.Add(crci);
-													break;
-												}
-												case "Separator":
-												{
-													er.MenuBar.Items.Add(new MBS.Framework.UserInterface.SeparatorCommandItem());
-													break;
-												}
+												er.MenuBar.Items.Add(ci);
 											}
 										}
 									}
@@ -192,6 +175,35 @@ namespace UniversalEditor.UserInterface.Common
 					}
 				}
 			}
+		}
+
+		private static CommandItem LoadCommandItem(MarkupTagElement tagItem)
+		{
+			CommandItem ci = null;
+			MarkupAttribute attInsertBefore = tagItem.Attributes["InsertBefore"];
+			MarkupAttribute attInsertAfter = tagItem.Attributes["InsertAfter"];
+			switch (tagItem.Name)
+			{
+				case "CommandReference":
+				{
+					ci = new CommandReferenceCommandItem(tagItem.Attributes["CommandID"]?.Value);
+					break;
+				}
+				case "Separator":
+				{
+					ci = new SeparatorCommandItem();
+					break;
+				}
+			}
+
+			if (ci != null)
+			{
+				if (attInsertAfter != null)
+					ci.InsertAfterID = attInsertAfter.Value;
+				if (attInsertBefore != null)
+					ci.InsertBeforeID = attInsertBefore.Value;
+			}
+			return ci;
 		}
 
 		private static System.Reflection.Assembly[] mvarAvailableAssemblies = null;

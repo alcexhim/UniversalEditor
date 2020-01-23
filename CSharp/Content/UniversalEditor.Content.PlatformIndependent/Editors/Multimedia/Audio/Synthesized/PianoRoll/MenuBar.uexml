@@ -237,11 +237,11 @@
 			</Commands>
 			<MenuBar>
 				<Items>
-					<CommandReference CommandID="Job" InsertAfterID="View" />
-					<CommandReference CommandID="Track" />
-					<CommandReference CommandID="Part" />
-					<CommandReference CommandID="Lyrics" />
-					<CommandReference CommandID="Transport" />
+					<CommandReference CommandID="Job" InsertAfter="View" />
+					<CommandReference CommandID="Track" InsertAfter="Job" />
+					<CommandReference CommandID="Part" InsertAfter="Track" />
+					<CommandReference CommandID="Lyrics" InsertAfter="Part" />
+					<CommandReference CommandID="Transport" InsertAfter="Lyrics" />
 				</Items>
 			</MenuBar>
 		</Editor>
