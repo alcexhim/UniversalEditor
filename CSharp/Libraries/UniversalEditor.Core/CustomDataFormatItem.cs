@@ -22,6 +22,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework.Logic;
 
 namespace UniversalEditor
 {
@@ -116,5 +117,11 @@ namespace UniversalEditor
 		private string mvarMaximumSize = null;
 		public string MaximumSize { get { return mvarMaximumSize; } set { mvarMaximumSize = value; } }
 
+	}
+	public class CustomDataFormatItemLoop : CustomDataFormatItem
+	{
+		public Expression From { get; set; } = null;
+		public Expression To { get; set; } = null;
+		public Expression Until { get; set; } = null;
 	}
 }

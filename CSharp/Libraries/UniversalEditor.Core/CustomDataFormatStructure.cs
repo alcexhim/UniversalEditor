@@ -47,6 +47,8 @@ namespace UniversalEditor
 		private Guid mvarID = Guid.Empty;
 		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
+		public string Title { get; set; }
+
 		private CustomDataFormatItem.CustomDataFormatItemCollection mvarItems = new CustomDataFormatItem.CustomDataFormatItemCollection();
 		public CustomDataFormatItem.CustomDataFormatItemCollection Items
 		{

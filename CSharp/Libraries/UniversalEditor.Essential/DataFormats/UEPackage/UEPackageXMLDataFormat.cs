@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Logic;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.DataFormats.PropertyList.XML;
 using UniversalEditor.ObjectModels.Markup;
@@ -198,6 +199,21 @@ namespace UniversalEditor.DataFormats.UEPackage
 
 									dfr.ImportOptions.Add(co);
 								}
+							}
+						}
+						#endregion
+						#region Structures
+						MarkupTagElement tagStructures = (tagDataFormat.Elements["Structures"] as MarkupTagElement);
+						if (tagStructures != null)
+						{
+							foreach (MarkupElement elStructure in tagStructures.Elements)
+							{
+								MarkupTagElement tagStructure = (elStructure as MarkupTagElement);
+								if (tagStructure == null) continue;
+								if (tagStructure.FullName != "Structure") continue;
+
+								CustomDataFormatStructure cdfi = CreateStructure(tagStructure, localVariables);
+								if (cdfi != null) dfr.Structures.Add(cdfi);
 							}
 						}
 						#endregion
@@ -955,6 +971,37 @@ namespace UniversalEditor.DataFormats.UEPackage
 			#endregion
 		}
 
+		private CustomDataFormatStructure CreateStructure(MarkupTagElement tag, Dictionary<string, object> localVariables)
+		{
+			MarkupAttribute attID = tag.Attributes["ID"];
+			if (attID == null) return null;
+
+			CustomDataFormatStructure struc = new CustomDataFormatStructure();
+			struc.ID = new Guid(attID.Value);
+
+			MarkupTagElement tagInformation = (tag.Elements["Information"] as MarkupTagElement);
+			if (tagInformation != null)
+			{
+				MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
+				if (tagTitle != null)
+				{
+					struc.Title = tagTitle.Value;
+				}
+			}
+
+			MarkupTagElement tagFormat = (tag.Elements["Format"] as MarkupTagElement);
+			for (int i = 0; i < tagFormat.Elements.Count; i++)
+			{
+				MarkupTagElement tagItem = (tagFormat.Elements[i] as MarkupTagElement);
+				if (tagItem == null) continue;
+				if (tagItem.FullName == "Field")
+				{
+					struc.Items.Add(CreateField(tagItem, localVariables));
+				}
+			}
+			return struc;
+		}
+
 		private CustomOption LoadCustomOption(MarkupTagElement tag)
 		{
 			CustomOption co = null;
@@ -999,11 +1046,21 @@ namespace UniversalEditor.DataFormats.UEPackage
 
 					CustomDataFormatItemField cdfif = new CustomDataFormatItemField();
 					cdfif.DataType = tagField.Attributes["DataType"].Value;
+					if (cdfif.DataType == "Structure")
+					{
+						MarkupAttribute attStructureID = tagField.Attributes["StructureID"];
+						if (attStructureID != null) cdfif.StructureID = new Guid(attStructureID.Value);
+					}
 
 					MarkupAttribute attFieldID = tagField.Attributes["ID"];
 					if (attFieldID != null)
 					{
 						cdfif.Name = attFieldID.Value;
+					}
+					MarkupAttribute attLength = tagField.Attributes["Length"];
+					if (attLength != null)
+					{
+						cdfif.Length = Int32.Parse(attLength.Value);
 					}
 
 					MarkupAttribute attValue = tagField.Attributes["Value"];
@@ -1054,6 +1111,26 @@ namespace UniversalEditor.DataFormats.UEPackage
 					if (tagField.Attributes["MaximumSize"] != null)
 					{
 						cdfif.MaximumSize = tagField.Attributes["MaximumSize"].Value;
+					}
+					return cdfif;
+				}
+				case "Loop":
+				{
+					CustomDataFormatItemLoop cdfif = new CustomDataFormatItemLoop();
+					if (tagField.Attributes["From"] != null)
+					{
+						// FROM is an integer which is the initial value of the loop counter.
+						cdfif.From = Expression.Parse(tagField.Attributes["From"].Value);
+					}
+					if (tagField.Attributes["To"] != null)
+					{
+						// TO is an expression which evaluates to an integer. The loop is stopped when the loop counter equals the value provided by the TO expression.
+						cdfif.To = Expression.Parse(tagField.Attributes["To"].Value);
+					}
+					if (tagField.Attributes["Until"] != null)
+					{
+						// UNTIL is an expression which stops the loop when it is evaluated TRUE.
+						cdfif.Until = Expression.Parse(tagField.Attributes["Until"].Value);
 					}
 					return cdfif;
 				}
