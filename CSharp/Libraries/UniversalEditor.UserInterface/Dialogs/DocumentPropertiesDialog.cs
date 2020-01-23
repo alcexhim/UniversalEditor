@@ -51,6 +51,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 			
 			this.Buttons [0].ResponseValue = (int)DialogResult.OK;
 			this.Buttons [1].ResponseValue = (int)DialogResult.Cancel;
+
+			this.Buttons[0].Enabled = false;
 			
 			switch (Mode)
 			{
