@@ -132,6 +132,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				}
 				else
 				{
+					// try from the beginning of the entire stream
+					br.Accessor.Position = 0;
 					Console.WriteLine("zip: central directory offset " + footer.centralDirectoryOffset.ToString() + " out of bounds for file (" + br.Accessor.Length.ToString() + ")");
 				}
 			}
@@ -148,65 +150,12 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				File file = null;
 				try
 				{
-					zip_ReadFile(br, fsom);
-					/*
-					if (file != null)
-					{
-						if (file.Name.Contains("/"))
-						{
-							// file is a directory entry or has directory entries defined, create the directory if it does not exist
-							string[] dirs = file.Name.Split('/');
+					file = zip_ReadFile(br, fsom);
 
-							Folder currentDir = null;
-							if (String.IsNullOrEmpty(dirs[dirs.Length - 1])) continue;
-
-							foreach (string dir in dirs)
-							{
-								if (Array.IndexOf(dirs, dir) < dirs.Length - 1)
-								{
-									if (currentDir != null)
-									{
-										if (!currentDir.Folders.Contains(dir))
-										{
-											currentDir = currentDir.Folders.Add(dir);
-										}
-										else
-										{
-											currentDir = currentDir.Folders[dir];
-										}
-									}
-									else
-									{
-										if (!fsom.Folders.Contains(dir))
-										{
-											currentDir = fsom.Folders.Add(dir);
-										}
-										else
-										{
-											currentDir = fsom.Folders[dir];
-										}
-									}
-								}
-								else
-								{
-									if (!String.IsNullOrEmpty(dir))
-									{
-										file.Name = dir;
-										currentDir.Files.Add(file);
-									}
-								}
-							}
-						}
-						else
-						{
-							fsom.Files.Add(file);
-						}
-					}
-					else
+					if (file == null)
 					{
 						break;
 					}
-					*/
 				}
 				catch (System.Security.SecurityException)
 				{
