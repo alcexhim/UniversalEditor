@@ -22,5 +22,10 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 			clone.Title = (mvarTitle.Clone() as string);
 			return clone;
 		}
+
+		public override string ToString()
+		{
+			return Title;
+		}
 	}
 }
