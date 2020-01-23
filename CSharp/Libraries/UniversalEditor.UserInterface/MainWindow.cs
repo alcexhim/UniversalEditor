@@ -461,6 +461,7 @@ namespace UniversalEditor.UserInterface
 						ObjectModelReference [] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels (dfr);
 						if (omrs.Length < 1) {
 							Console.WriteLine ("Object model not found for data format " + dfr.Title + " ; using default editor");
+							continue;
 						}
 
 						ObjectModelReference omr = omrs [0];
