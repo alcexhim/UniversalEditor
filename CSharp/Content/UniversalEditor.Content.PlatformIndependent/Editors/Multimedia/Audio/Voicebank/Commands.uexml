@@ -1,0 +1,19 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{B60F77E3-AEA0-46B5-AEB8-8E62D492E30E}" TypeName="UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Voicebank.VoicebankEditor">
+			<Commands>
+				
+				<Command ID="VoicebankEditor_ContextMenu_Samples_Selected_CopyTo" Title="_Copy to..." />
+				
+				<Command ID="VoicebankEditor_ContextMenu_Samples_Selected" Title="Samples (selected)">
+					<Items>
+						<CommandReference CommandID="VoicebankEditor_ContextMenu_Samples_Selected_CopyTo" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+				
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

@@ -46,6 +46,7 @@
     <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.cs" />
     <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.Designer.cs" />
     <Compile Include="Editors\Multimedia\Palette\PaletteEntrySelection.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -61,6 +62,7 @@
     <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Dialogs\" />
     <Folder Include="Editors\Multimedia\Palette\" />
     <Folder Include="Editors\Multimedia\Playlist\" />
+    <Folder Include="Editors\Multimedia\Audio\Voicebank\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
