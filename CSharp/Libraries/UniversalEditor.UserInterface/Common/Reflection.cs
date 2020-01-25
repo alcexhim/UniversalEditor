@@ -61,7 +61,7 @@ namespace UniversalEditor.UserInterface.Common
 
 		private static void InitializeFromXML(ref List<EditorReference> listEditors)
 		{
-			string[] paths = MBS.Framework.UserInterface.Application.EnumerateDataPaths();
+			string[] paths = Application.EnumerateDataPaths();
 			foreach (string path in paths)
 			{
 				if (!System.IO.Directory.Exists(path))
@@ -71,7 +71,16 @@ namespace UniversalEditor.UserInterface.Common
 				if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
 
 				string[] XMLFileNames = null;
-				XMLFileNames = System.IO.Directory.GetFiles(path, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
+				try
+				{
+					XMLFileNames = System.IO.Directory.GetFiles(path, configurationFileNameFilter, System.IO.SearchOption.AllDirectories);
+				}
+				catch (UnauthorizedAccessException ex)
+				{
+					Console.WriteLine("UE: warning: access to data path {0} denied", path);
+					continue;
+				}
+
 				foreach (string fileName in XMLFileNames)
 				{
 					string basePath = System.IO.Path.GetDirectoryName(fileName);
