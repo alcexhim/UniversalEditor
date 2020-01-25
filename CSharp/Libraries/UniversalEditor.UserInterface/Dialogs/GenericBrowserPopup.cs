@@ -131,6 +131,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			if (e.Key == KeyboardKey.Enter)
 			{
+				e.Cancel = true;
 				if (lv.SelectedRows.Count != 1) return;
 				
 				SelectedObject = lv.SelectedRows[0].GetExtraData<TRef>("TRef")?.Create();
@@ -140,8 +141,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 			else if (e.Key == KeyboardKey.Escape)
 			{
+				e.Cancel = true;
+
 				// already handled by GTK? but what about other platforms
-				// Close();
+				Close();
 			}
 		}
 
