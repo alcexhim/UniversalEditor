@@ -1012,6 +1012,7 @@ namespace UniversalEditor.UserInterface
 
 		protected internal virtual void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
 		{
+			Console.WriteLine(message);
 		}
 
 		private void Initialize()
