@@ -74,6 +74,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.Controls.Add(this.lv, new BoxLayout.Constraints(true, true));
 
 			this.MinimumSize = new Dimension2D (300, 200);
+
+			StartPosition = WindowStartPosition.Manual;
 		}
 
 	}
