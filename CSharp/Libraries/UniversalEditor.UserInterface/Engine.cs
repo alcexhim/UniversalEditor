@@ -48,6 +48,7 @@ namespace UniversalEditor.UserInterface
 			Application.CommandLine.Options.Add("command", '\0', null, CommandLineOptionValueType.Multiple);
 
 			Application.UniqueName = "net.alcetech.UniversalEditor";
+			Application.ShortName = "universal-editor";
 
 			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
 				new TextSetting("_Name"),
