@@ -237,9 +237,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 			};
 			popup.SelectedObject = mvarDataFormat;
 
-			// Vector2D loc = ClientToScreenCoordinates(cmdDataFormat.Location);
-			// popup.Location = new Vector2D(loc.X, loc.Y + cmdDataFormat.Size.Height);
-			// popup.Size = new Dimension2D(this.Size.Width, 200);
+			Vector2D loc = ClientToScreenCoordinates(cmdDataFormat.Location);
+			popup.Location = new Vector2D(loc.X, loc.Y + cmdDataFormat.Size.Height);
+			popup.Size = new Dimension2D(this.Size.Width, 200);
 
 			DataFormatReference[] dfrs = new DataFormatReference[0];
 			if (Mode == DocumentPropertiesDialogMode.Save)
@@ -303,8 +303,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 			dlg.SelectedObject = mvarAccessor;
 
 			Vector2D loc = ClientToScreenCoordinates(cmdAccessor.Location);
-			// dlg.Location = new Vector2D(loc.X, loc.Y + cmdAccessor.Size.Height);
-			// dlg.Size = new Dimension2D(this.Size.Width, 200);
+			dlg.Location = new Vector2D(loc.X, loc.Y + cmdAccessor.Size.Height);
+			dlg.Size = new Dimension2D(this.Size.Width, 200);
 
 			AccessorReference[] ars = UniversalEditor.Common.Reflection.GetAvailableAccessors();
 			foreach (AccessorReference ar in ars)
