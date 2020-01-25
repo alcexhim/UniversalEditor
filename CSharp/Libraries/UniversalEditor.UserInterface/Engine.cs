@@ -130,6 +130,9 @@ namespace UniversalEditor.UserInterface
 						if (tag == null) continue;
 						if (tag.FullName != "Editor") continue;
 
+						MarkupAttribute attID = tag.Attributes["ID"];
+						MarkupAttribute attTypeName = tag.Attributes["TypeName"];
+
 						switch (System.Environment.OSVersion.Platform)
 						{
 							case PlatformID.MacOSX:
@@ -148,11 +151,25 @@ namespace UniversalEditor.UserInterface
 								EditorReference editor = null;
 								try
 								{
-									Common.Reflection.GetAvailableEditorByID(new Guid(tag.Attributes["ID"].Value));
+									if (attID != null)
+									{
+										Common.Reflection.GetAvailableEditorByID(new Guid(attID.Value));
+									}
+									else if (attTypeName != null)
+									{
+										Common.Reflection.GetAvailableEditorByTypeName(attTypeName.Value);
+									}
 								}
 								catch (Exception ex)
 								{
-									Console.WriteLine("couldn't load editor " + tag.Attributes["ID"].Value);
+									if (attID != null)
+									{
+										Console.WriteLine("couldn't load editor with ID '{0}'", (new Guid(attID.Value)).ToString("B"));
+									}
+									else if (attTypeName != null)
+									{
+										Console.WriteLine("couldn't load editor with typename '{0}'", attTypeName.Value);
+									}
 								}
 								break;
 							}
