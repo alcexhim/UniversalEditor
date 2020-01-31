@@ -668,6 +668,7 @@
     <Content Include="Extensions\FileSystem\Associations\TexasInstruments\DSK.uexml" />
     <Content Include="Extensions\FileSystem\Associations\AIN.uexml" />
     <Content Include="Editors\Multimedia\Audio\Voicebank\Commands.uexml" />
+    <Content Include="Extensions\GameDeveloper\Associations\FileSystem\KenSilverman\GRP.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -703,6 +704,7 @@
     <Folder Include="Documentation\Executable\DataFormats\Executable\" />
     <Folder Include="Documentation\Executable\DataFormats\Executable\Microsoft\" />
     <Folder Include="Editors\Multimedia\Audio\Voicebank\" />
+    <Folder Include="Extensions\GameDeveloper\Associations\FileSystem\KenSilverman\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

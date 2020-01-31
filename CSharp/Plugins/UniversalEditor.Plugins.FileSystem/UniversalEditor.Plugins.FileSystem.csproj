@@ -239,6 +239,7 @@
     <Compile Include="DataFormats\FileSystem\TexasInstruments\TIFiles\TIFilesFlags.cs" />
     <Compile Include="DataFormats\FileSystem\TexasInstruments\DSK\DSKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TexasInstruments\DSK\DSKFileStatusFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\KenSilverman\KenSilvermanGRPDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -281,6 +282,7 @@
     <Folder Include="DataFormats\FileSystem\TexasInstruments\" />
     <Folder Include="DataFormats\FileSystem\TexasInstruments\TIFiles\" />
     <Folder Include="DataFormats\FileSystem\TexasInstruments\DSK\" />
+    <Folder Include="DataFormats\FileSystem\KenSilverman\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
