@@ -598,7 +598,17 @@ namespace UniversalEditor.UserInterface
 			#region Help
 			Application.AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
 			{
-				MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
+				// MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
+				TaskDialog td = new TaskDialog();
+				td.ButtonStyle = TaskDialogButtonStyle.Commands;
+
+				td.Prompt = "This product has already been activated.";
+				td.Text = "Licensing and Activation";
+				td.Content = "You are using the GNU GPLv3 licensed version of Universal Editor. No activation is necessary.";
+
+				td.Icon = TaskDialogIcon.SecurityOK;
+				td.Parent = (Window)CurrentEngine.LastWindow;
+				td.ShowDialog();
 			});
 			Application.AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
 			{
