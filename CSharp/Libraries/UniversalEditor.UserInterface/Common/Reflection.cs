@@ -151,7 +151,7 @@ namespace UniversalEditor.UserInterface.Common
 													MarkupTagElement tagItem = (elItem as MarkupTagElement);
 													if (tagItem == null) continue;
 
-													CommandItem ci = LoadCommandItem(tagItem);
+													CommandItem ci = CommandItem.FromMarkup(tagItem);
 													if (ci != null)
 														cmd.Items.Add(ci);
 												}
@@ -171,7 +171,7 @@ namespace UniversalEditor.UserInterface.Common
 											MarkupTagElement tagItem = (elItem as MarkupTagElement);
 											if (tagItem == null) continue;
 
-											CommandItem ci = LoadCommandItem(tagItem);
+											CommandItem ci = CommandItem.FromMarkup(tagItem);
 											if (ci != null)
 											{
 												er.MenuBar.Items.Add(ci);
@@ -184,35 +184,6 @@ namespace UniversalEditor.UserInterface.Common
 					}
 				}
 			}
-		}
-
-		private static CommandItem LoadCommandItem(MarkupTagElement tagItem)
-		{
-			CommandItem ci = null;
-			MarkupAttribute attInsertBefore = tagItem.Attributes["InsertBefore"];
-			MarkupAttribute attInsertAfter = tagItem.Attributes["InsertAfter"];
-			switch (tagItem.Name)
-			{
-				case "CommandReference":
-				{
-					ci = new CommandReferenceCommandItem(tagItem.Attributes["CommandID"]?.Value);
-					break;
-				}
-				case "Separator":
-				{
-					ci = new SeparatorCommandItem();
-					break;
-				}
-			}
-
-			if (ci != null)
-			{
-				if (attInsertAfter != null)
-					ci.InsertAfterID = attInsertAfter.Value;
-				if (attInsertBefore != null)
-					ci.InsertBeforeID = attInsertBefore.Value;
-			}
-			return ci;
 		}
 
 		private static System.Reflection.Assembly[] mvarAvailableAssemblies = null;
