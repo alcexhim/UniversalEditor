@@ -95,40 +95,7 @@ namespace UniversalEditor.UserInterface
 			*/
 			return tab;
 		}
-
-		private Toolbar LoadCommandBar(CommandBar cb)
-		{
-			Toolbar tb = new Toolbar();	
-			foreach (CommandItem ci in cb.Items)
-			{
-				if (ci is SeparatorCommandItem)
-				{
-					tb.Items.Add(new ToolbarItemSeparator());
-				}
-				else if (ci is CommandReferenceCommandItem)
-				{
-					CommandReferenceCommandItem crci = (ci as CommandReferenceCommandItem);
-					Command cmd = Application.Commands[crci.CommandID];
-					if (cmd == null) continue;
-					
-					ToolbarItemButton tsb = new ToolbarItemButton(cmd.ID, (StockType)cmd.StockType);
-					tsb.SetExtraData<CommandReferenceCommandItem>("crci", crci);
-					tsb.Click += tsbCommand_Click;
-					tsb.Title = cmd.Title;
-					tb.Items.Add(tsb);
-				}
-			}
-			return tb;
-		}
-
-		private void tsbCommand_Click(object sender, EventArgs e)
-		{
-			ToolbarItemButton tsb = (sender as ToolbarItemButton);
-			CommandReferenceCommandItem crci = tsb.GetExtraData<CommandReferenceCommandItem>("crci");
-			Command cmd = Application.Commands[crci.CommandID];
-			cmd.Execute();
-		}
-
+		
 		protected override void OnLostFocus(EventArgs e)
 		{
 			base.OnLostFocus(e);
@@ -215,11 +182,6 @@ namespace UniversalEditor.UserInterface
 					RibbonTab ribbonTabHome = LoadRibbonBar (cb);
 					ribbonTabHome.Title = "Home";
 					this.Ribbon.Tabs.Add (ribbonTabHome);
-				}
-			}
-			if (this.CommandDisplayMode == CommandDisplayMode.CommandBar || this.CommandDisplayMode == CommandDisplayMode.Both) {
-				foreach (CommandBar cb in Application.CommandBars) {
-					this.Controls.Add (LoadCommandBar(cb));
 				}
 			}
 			dckContainer = new DockingContainerControl();
