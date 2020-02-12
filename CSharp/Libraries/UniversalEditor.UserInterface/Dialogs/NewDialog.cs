@@ -140,7 +140,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		}
 	}
 
-	public partial class NewDialog : Dialog
+	public partial class NewDialog : CustomDialog
 	{
 		public NewDialog()
 		{
@@ -637,6 +637,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 					break;
 				}
 			}
+
+			this.DialogResult = DialogResult.OK;
 			this.Close();
 		}
 
