@@ -4,8 +4,8 @@
 			<Commands>
 				<Command ID="View">
 					<Items>
-						<CommandReference CommandID="ViewTrackOverlay" InsertBeforeID="ViewPanels" />
-						<Separator InsertBeforeID="ViewPanels" />
+						<CommandReference CommandID="ViewTrackOverlay" InsertBefore="ViewPanels" />
+						<Separator InsertBefore="ViewPanels" />
 					</Items>
 				</Command>
 				
@@ -237,11 +237,15 @@
 			</Commands>
 			<MenuBar>
 				<Items>
-					<CommandReference CommandID="Job" InsertAfter="View" />
-					<CommandReference CommandID="Track" InsertAfter="Job" />
-					<CommandReference CommandID="Part" InsertAfter="Track" />
-					<CommandReference CommandID="Lyrics" InsertAfter="Part" />
-					<CommandReference CommandID="Transport" InsertAfter="Lyrics" />
+					<Group InsertAfter="View">
+						<Items>
+							<CommandReference CommandID="Job" />
+							<CommandReference CommandID="Track" />
+							<CommandReference CommandID="Part" />
+							<CommandReference CommandID="Lyrics" />
+							<CommandReference CommandID="Transport" />
+						</Items>
+					</Group>
 				</Items>
 			</MenuBar>
 		</Editor>
