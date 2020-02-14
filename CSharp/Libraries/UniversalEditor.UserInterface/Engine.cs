@@ -596,6 +596,10 @@ namespace UniversalEditor.UserInterface
 			});
 			#endregion
 			#region Help
+			Application.AttachCommandEventHandler("HelpViewHelp", delegate (object sender, EventArgs e)
+			{
+				Application.ShowHelp();
+			});
 			Application.AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
 			{
 				// MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
