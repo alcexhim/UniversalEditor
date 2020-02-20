@@ -3,6 +3,9 @@ UniversalEditor
 
 A free, cross-platform modular data manipulation framework. For more details about a particular edition, if available, visit that edition's particular folder.
 
+**Support my projects** by *donating bitcoin* and letting me know what features are most important to you by *opening issues*!
+Please send donations for Universal Editor to `1MBSn4A58dTAfK9VqmigoKGwgeyrPnBiZ4`.
+
 [C](C)
 -
 A native implementation of the Universal Editor Platform. This is currently not being worked on in favor of the managed CSharp and hosted PHP editions.
