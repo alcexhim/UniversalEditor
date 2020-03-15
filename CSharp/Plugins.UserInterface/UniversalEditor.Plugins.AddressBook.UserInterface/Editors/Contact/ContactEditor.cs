@@ -214,7 +214,7 @@ namespace UniversalEditor.Editors.Contact
 			cboDetail.Text = detailType;
 
 			TextBox txtDetail = new TextBox ();
-			Button btnDelete = new Button (ButtonStockType.Delete);
+			Button btnDelete = new Button (StockType.Delete);
 			ct.Controls.Add (cboDetail, new GridLayout.Constraints (iRow + 1, 0, 1, 1, ExpandMode.None));
 			ct.Controls.Add (txtDetail, new GridLayout.Constraints (iRow + 1, 1, 1, 1, ExpandMode.Horizontal));
 			ct.Controls.Add (btnDelete, new GridLayout.Constraints (iRow + 1, 2, 1, 1, ExpandMode.None));

@@ -97,8 +97,8 @@ namespace UniversalEditor.Editors.FileSystem.Dialogs
 
 			Controls.Add(tbs, new BoxLayout.Constraints(true, true));
 
-			Buttons.Add(new Button(ButtonStockType.OK, DialogResult.OK));
-			Buttons.Add(new Button(ButtonStockType.Cancel, DialogResult.Cancel));
+			Buttons.Add(new Button(StockType.OK, DialogResult.OK));
+			Buttons.Add(new Button(StockType.Cancel, DialogResult.Cancel));
 		}
 	}
 }

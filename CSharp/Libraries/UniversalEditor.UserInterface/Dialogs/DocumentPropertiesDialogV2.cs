@@ -48,13 +48,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 				case DocumentPropertiesDialogMode.Open:
 				{
 					this.Text = "Open Document";
-					this.Buttons [0].StockType = ButtonStockType.Open;
+					this.Buttons [0].StockType = StockType.Open;
 					break;
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
 					this.Text = "Save Document";
-					this.Buttons [0].StockType = ButtonStockType.Save;
+					this.Buttons [0].StockType = StockType.Save;
 					break;
 				}
 			}
@@ -285,9 +285,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 			this.Controls.Add (sidebar, new BoxLayout.Constraints(true, true));
 
-			this.Buttons.Add (new Button (ButtonStockType.OK));
+			this.Buttons.Add (new Button (StockType.OK));
 			this.Buttons [0].ResponseValue = (int)DialogResult.OK;
-			this.Buttons.Add (new Button (ButtonStockType.Cancel));
+			this.Buttons.Add (new Button (StockType.Cancel));
 			this.Buttons [1].ResponseValue = (int)DialogResult.Cancel;
 
 			switch (Mode)
@@ -295,13 +295,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 				case DocumentPropertiesDialogMode.Open:
 				{
 					this.Text = "Open Document";
-					this.Buttons [0].StockType = ButtonStockType.Open;
+					this.Buttons [0].StockType = StockType.Open;
 					break;
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
 					this.Text = "Save Document";
-					this.Buttons [0].StockType = ButtonStockType.Save;
+					this.Buttons [0].StockType = StockType.Save;
 					break;
 				}
 			}

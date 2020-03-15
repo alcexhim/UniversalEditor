@@ -160,11 +160,11 @@ namespace UniversalEditor.Editors.Binary
 			this.cmdColor.Click += cmdColor_Click;
 			this.Controls.Add(this.cmdColor, new GridLayout.Constraints(4, 1));
 
-			this.Buttons.Add(new Button(ButtonStockType.OK));
+			this.Buttons.Add(new Button(StockType.OK));
 			this.Buttons[this.Buttons.Count - 1].Click += cmdOK_Click;
 			this.Buttons[this.Buttons.Count - 1].ResponseValue = (int)DialogResult.OK;
 
-			this.Buttons.Add(new Button(ButtonStockType.Cancel));
+			this.Buttons.Add(new Button(StockType.Cancel));
 			this.Buttons[this.Buttons.Count - 1].ResponseValue = (int)DialogResult.Cancel;
 		}
 

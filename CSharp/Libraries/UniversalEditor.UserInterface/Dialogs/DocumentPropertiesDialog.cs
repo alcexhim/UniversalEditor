@@ -59,13 +59,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 				case DocumentPropertiesDialogMode.Open:
 				{
 					this.Text = "Open Document";
-					this.Buttons [0].StockType = ButtonStockType.Open;
+					this.Buttons [0].StockType = StockType.Open;
 					break;
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
 					this.Text = "Save Document";
-					this.Buttons [0].StockType = ButtonStockType.Save;
+					this.Buttons [0].StockType = StockType.Save;
 					break;
 				}
 			}

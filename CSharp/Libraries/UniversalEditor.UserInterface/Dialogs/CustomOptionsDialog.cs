@@ -35,10 +35,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			this.Layout = new GridLayout();
 
-			Button cmdOK = new Button(ButtonStockType.OK);
+			Button cmdOK = new Button(StockType.OK);
 			cmdOK.Click += cmdOK_Click;
 			Buttons.Add(cmdOK);
-			Buttons.Add(new Button(ButtonStockType.Cancel));
+			Buttons.Add(new Button(StockType.Cancel));
 
 			Buttons[0].ResponseValue = (int)DialogResult.OK;
 			Buttons[1].ResponseValue = (int)DialogResult.Cancel;

@@ -110,10 +110,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.Controls.Add(tableParams, new BoxLayout.Constraints(false, false, 16, BoxLayout.PackType.End));
 
 
-			this.Buttons.Add(new Button(ButtonStockType.New, DialogResult.None));
-			this.Buttons.Add(new Button(ButtonStockType.Cancel, DialogResult.Cancel));
+			this.Buttons.Add(new Button(StockType.New, DialogResult.None));
+			this.Buttons.Add(new Button(StockType.Cancel, DialogResult.Cancel));
 
-			this.Buttons[0].StockType = ButtonStockType.New;
+			this.Buttons[0].StockType = StockType.New;
 			this.Buttons[0].ResponseValue = (int)DialogResult.OK;
 			this.Buttons[0].Click += cmdOK_Click;
 

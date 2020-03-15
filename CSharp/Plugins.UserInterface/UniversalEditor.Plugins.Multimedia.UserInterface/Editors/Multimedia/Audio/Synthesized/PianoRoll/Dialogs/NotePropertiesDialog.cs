@@ -45,8 +45,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs
 
 			this.Controls.Add(p, new BoxLayout.Constraints(true, true));
 
-			this.Buttons.Add(new Button(ButtonStockType.OK, DialogResult.OK));
-			this.Buttons.Add(new Button(ButtonStockType.Cancel, DialogResult.Cancel));
+			this.Buttons.Add(new Button(StockType.OK, DialogResult.OK));
+			this.Buttons.Add(new Button(StockType.Cancel, DialogResult.Cancel));
 		}
 	}
 }
