@@ -197,6 +197,8 @@
     <Compile Include="ObjectModels\Project\IProjectItemContainer.cs" />
     <Compile Include="DataFormats\AbstractSyntax\DER\DERTypeTag.cs" />
     <Compile Include="DataFormats\Binary\PEM\PEMDataFormat.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileAdditionalDetail.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileAdditionalDetailValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

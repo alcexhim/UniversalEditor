@@ -321,7 +321,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				File file = mvarFiles[i];
 				files.Add(file);
 			}
-			for (int i = 0; i < mvarFolders.Count; i++ )
+			for (int i = 0; i < mvarFolders.Count; i++)
 			{
 				Folder folder = mvarFolders[i];
 				GetAllFilesRecursively(folder, ref files, folder.Name, pathSeparator);
@@ -434,5 +434,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		{
 			return FileSystemObjectModel.GetNewFolderName(this);
 		}
+
+		public FileAdditionalDetail.FileAdditionalDetailCollection AdditionalDetails { get; } = new FileAdditionalDetail.FileAdditionalDetailCollection();
 	}
 }

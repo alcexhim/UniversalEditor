@@ -311,6 +311,7 @@ namespace UniversalEditor.Editors.FileSystem
 		/// <param name="fso">Fso.</param>
 		private TreeModelRow UIGetTreeModelRowForFileSystemObject(IFileSystemObject fso, bool recurse = true)
 		{
+			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			TreeModelRow r = null;
 			if (fso is Folder)
 			{
@@ -351,6 +352,11 @@ namespace UniversalEditor.Editors.FileSystem
 				});
 				r.RowColumns[1].RawValue = f.Size;
 				r.RowColumns[3].RawValue = f.ModificationTimestamp.ToBinary();
+
+				for (int i = 0; i < f.AdditionalDetails.Count; i++)
+				{
+					r.RowColumns.Add(new TreeModelRowColumn(tmTreeView.Columns[4 + fsom.AdditionalDetails.IndexOf(f.AdditionalDetails[i].Detail)], f.AdditionalDetails[i].Value));
+				}
 			}
 			r.SetExtraData<IFileSystemObject>("item", fso);
 			return r;
@@ -467,8 +473,19 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			base.OnObjectModelChanged(e);
 
+			for (int i = 4; i < tmTreeView.Columns.Count; i++)
+			{
+				tmTreeView.Columns.RemoveAt(i);
+			}
+
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
+
+			for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
+			{
+				tmTreeView.Columns.Add(new TreeModelColumn(typeof(string)));
+				tv.Columns.Add(new ListViewColumnText(tmTreeView.Columns[tmTreeView.Columns.Count - 1], fsom.AdditionalDetails[i].Title));
+			}
 
 			foreach (Folder f in fsom.Folders)
 			{

@@ -364,5 +364,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 			return defaultValue;
 		}
+
+		public FileAdditionalDetailValue.FileAdditionalDetailValueCollection AdditionalDetails { get; } = new FileAdditionalDetailValue.FileAdditionalDetailValueCollection();
 	}
 }
