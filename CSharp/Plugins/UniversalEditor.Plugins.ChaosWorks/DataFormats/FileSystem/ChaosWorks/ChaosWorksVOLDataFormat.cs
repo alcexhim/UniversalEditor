@@ -34,6 +34,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
+			fsom.AdditionalDetails.Add("ChaosWorks.VOL.Label", "Label");
+
 			Reader br = Accessor.Reader;
 			long startOfFile = Accessor.Position;
 			Accessor.Seek(-20, SeekOrigin.End);
@@ -112,6 +114,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 
 				File file = fsom.AddFile(fileName);
 				file.Size = fileSize;
+				file.AdditionalDetails.Add(fsom.AdditionalDetails["ChaosWorks.VOL.Label"], fileType);
 				file.Source = new EmbeddedFileSource(brms, fileOffset, fileSize);
 			}
 		}
