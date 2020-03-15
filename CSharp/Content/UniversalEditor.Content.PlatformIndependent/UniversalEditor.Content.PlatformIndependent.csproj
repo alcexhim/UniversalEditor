@@ -141,7 +141,6 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\AquarnoidGOB.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\Arcanum.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\BurikoGeneralInterpreter.uexml" />
-    <Content Include="Extensions\GameDeveloper\Associations\FileSystem\ChaosWorksEngine.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\CompressedHunks.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\Kronosaur.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\DoomWAD.uexml" />
@@ -669,6 +668,8 @@
     <Content Include="Extensions\FileSystem\Associations\AIN.uexml" />
     <Content Include="Editors\Multimedia\Audio\Voicebank\Commands.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\KenSilverman\GRP.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\FileSystem\ChaosWorksEngine.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\Palette\SPPDataFormat.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -705,6 +706,11 @@
     <Folder Include="Documentation\Executable\DataFormats\Executable\Microsoft\" />
     <Folder Include="Editors\Multimedia\Audio\Voicebank\" />
     <Folder Include="Extensions\GameDeveloper\Associations\FileSystem\KenSilverman\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\FileSystem\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\Palette\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

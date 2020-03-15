@@ -41,6 +41,7 @@
     <Compile Include="DataFormats\FileSystem\ChaosWorks\ChaosWorksVOLFormatVersion.cs" />
     <Compile Include="DataFormats\FileSystem\ChaosWorks\Internal\ChaosWorksVOLV2FileInfo.cs" />
     <Compile Include="DataFormats\FileSystem\ChaosWorks\Internal\ChaosWorksVOLV2ChunkInfo.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\SPPDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -55,9 +56,19 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\FileSystem\ChaosWorks\Internal\" />
+    <Folder Include="DataFormats\Multimedia\" />
+    <Folder Include="DataFormats\Multimedia\Palette\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
