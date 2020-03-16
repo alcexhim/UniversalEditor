@@ -36,19 +36,40 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 
 			string CWE_sprite = br.ReadNullTerminatedString();
 			if (CWE_sprite != "CWE sprite") throw new InvalidDataFormatException();
-			uint always36 = br.ReadUInt32();        // always the same?
-			uint always12 = br.ReadUInt32();        // always the same?
+
+			uint versionMajor = br.ReadUInt32();        // always the same?
+			uint versionMinor = br.ReadUInt32();        // always the same?
+
+			long SPRHEADERSIZE = 51;
+			bool isSPX = false;
+			if (versionMajor == 36 && versionMinor == 12)
+			{
+				isSPX = false;
+			}
+			else if (versionMajor == 44 && versionMinor == 18)
+			{
+				isSPX = true;
+			}
+
 			uint key = br.ReadUInt32();
 			uint unknown1 = br.ReadUInt32();
 			uint unknown2 = br.ReadUInt32();
 			uint unknown3 = br.ReadUInt32();
 			uint unknown4 = br.ReadUInt32();
 			uint unknown5 = br.ReadUInt32();
+
+			if (isSPX)
+			{
+				uint unknown6 = br.ReadUInt32();
+				uint unknown7 = br.ReadUInt32();
+				SPRHEADERSIZE = 59;
+			}
+
 			uint length = br.ReadUInt32();
 			uint frameCount = br.ReadUInt32();
 
 			br.Accessor.SavePosition();
-			br.Seek(length + 51, IO.SeekOrigin.Begin);
+			br.Seek(length + SPRHEADERSIZE, IO.SeekOrigin.Begin);
 
 			// frame definition data?
 			uint m_frameWidth = 0;
@@ -61,6 +82,13 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 				ushort frameWidth = br.ReadUInt16();
 				ushort frameHeight = br.ReadUInt16();
 
+				ushort c = 0, d = 0;
+				if (isSPX)
+				{
+					c = br.ReadUInt16();
+					d = br.ReadUInt16();
+				}
+
 				PictureObjectModel pic = new PictureObjectModel();
 				pic.Width = frameWidth;
 				pic.Height = frameHeight;
@@ -69,7 +97,7 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 				if (m_frameWidth == 0)
 					m_frameWidth = frameWidth;
 
-				Console.WriteLine("cwe-sprite: added picture for sprite frame {0}\t{1}\t({2}, {3})\t{4}x{5}", a, b, x, y, frameWidth, frameHeight);
+				Console.WriteLine("cwe-sprite: added picture for sprite frame {0}\t{1}\t({2}, {3})\t{4}x{5}  {6}", a, b, x, y, frameWidth, frameHeight, (isSPX ? String.Format("(spx: {0} {1})", c, d) : String.Empty));
 			}
 
 			PaletteObjectModel palette = new PaletteObjectModel();
@@ -88,8 +116,13 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 					byte r = br.ReadByte();
 					byte g = br.ReadByte();
 					byte b = br.ReadByte();
-					byte a = br.ReadByte();
-					a = (byte)(255 - a);
+					byte a = 255;
+
+					if (!isSPX)
+					{
+						a = br.ReadByte();
+						a = (byte)(255 - a);
+					}
 
 					Color color = Color.FromRGBAByte(r, g, b, a);
 					EmbeddedPalette.Entries.Add(color);
@@ -119,36 +152,43 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 
 					for (ushort j = 0; j < chunkFrameCount; j++)
 					{
-						ushort skip_count = br.ReadUInt16();
-						ushort size_count = br.ReadUInt16();
-
-						y += skip_count;
-
-						if ((short)size_count < 0)
+						if (isSPX)
 						{
-							// if it is negative a single byte follows, and is repeated -size_count times
-							size_count = (ushort)(-(short)size_count);
-
-							byte index = br.ReadByte();
-							Color color = palette.Entries[index].Color;
-
-							for (int k = 0; k < size_count; k++)
-							{
-								Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
-								pic.SetPixel(color, y, x);
-								y++;
-							}
+							// TODO: figure this out!
 						}
 						else
 						{
-							for (int k = 0; k < size_count; k++)
+							ushort skip_count = br.ReadUInt16();
+							ushort size_count = br.ReadUInt16();
+
+							y += skip_count;
+
+							if ((short)size_count < 0)
 							{
+								// if it is negative a single byte follows, and is repeated -size_count times
+								size_count = (ushort)(-(short)size_count);
+
 								byte index = br.ReadByte();
 								Color color = palette.Entries[index].Color;
 
-								Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
-								pic.SetPixel(color, y, x);
-								y++;
+								for (int k = 0; k < size_count; k++)
+								{
+									Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
+									pic.SetPixel(color, y, x);
+									y++;
+								}
+							}
+							else
+							{
+								for (int k = 0; k < size_count; k++)
+								{
+									byte index = br.ReadByte();
+									Color color = palette.Entries[index].Color;
+
+									Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
+									pic.SetPixel(color, y, x);
+									y++;
+								}
 							}
 						}
 					}
