@@ -26,6 +26,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
+			dfr.ExportOptions.Add(new CustomOptionChoice("PixelDepth", "Pixel _depth", true, new CustomOptionFieldChoice[]
+			{
+				new CustomOptionFieldChoice("16 colors", BitmapBitsPerPixel.Color16),
+				new CustomOptionFieldChoice("256 colors", BitmapBitsPerPixel.Color256),
+				new CustomOptionFieldChoice("Deep color (-bit R8G8B8)", BitmapBitsPerPixel.DeepColor),
+				new CustomOptionFieldChoice("High color (16-bit R5G5B5)", BitmapBitsPerPixel.HighColor),
+				new CustomOptionFieldChoice("Monochrome", BitmapBitsPerPixel.Monochrome),
+				new CustomOptionFieldChoice("True color (24-bit R8G8B8)", BitmapBitsPerPixel.TrueColor)
+			}));
 			return dfr;
 		}
 
@@ -192,7 +201,17 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			string signature = "BM";
 			bw.WriteFixedLengthString(signature);
 
-			int fileSize = 54 + (pic.Width * pic.Height * 4);
+			int bpp = 4;
+			switch (mvarPixelDepth)
+			{
+				case BitmapBitsPerPixel.TrueColor:
+				{
+					bpp = 3;
+					break;
+				}
+			}
+
+			int fileSize = 54 + (pic.Width * pic.Height * bpp);
 			bw.WriteInt32(fileSize);
 
 			short reserved1 = 0;
@@ -221,7 +240,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 				for (int x = 0; x < pic.Width; x++)
 				{
 					Color color = pic.GetPixel(x, y);
-					byte r = (byte)(color.R * 255), g = (byte)(color.G * 255), b = (byte)(color.B * 255);
+					byte r = (byte)(color.R * 255), g = (byte)(color.G * 255), b = (byte)(color.B * 255), a = (byte)(color.A * 255);
 
 					/*
 					if (bitsPerPixel == 1)
@@ -245,6 +264,14 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 					{
 						case BitmapBitsPerPixel.TrueColor:
 						{
+							bw.WriteByte(b);
+							bw.WriteByte(g);
+							bw.WriteByte(r);
+							break;
+						}
+						case BitmapBitsPerPixel.DeepColor:
+						{
+							bw.WriteByte(a);
 							bw.WriteByte(b);
 							bw.WriteByte(g);
 							bw.WriteByte(r);
