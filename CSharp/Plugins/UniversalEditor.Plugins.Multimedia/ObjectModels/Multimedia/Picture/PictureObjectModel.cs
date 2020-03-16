@@ -31,6 +31,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			SetPixel(color, (int)lastAddedLocation.X, (int)lastAddedLocation.Y);
 			lastAddedLocation.X++;
 		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public void SetPixel(Color color, int x, int y)
 		{
 			if (x >= mvarWidth || y >= mvarHeight)
