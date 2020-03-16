@@ -89,7 +89,6 @@
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Bitmap\BitmapBitsPerPixel.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Bitmap\BitmapCompression.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Bitmap\BitmapInfoHeader.cs" />
-    <Compile Include="DataFormats\Multimedia\Picture\ChaosWorks\CWESpriteDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\CompressedBG\CompressedBGDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\CompressedBG\Internal\NodeCBG.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\GIM\GIMDataFormat.cs" />

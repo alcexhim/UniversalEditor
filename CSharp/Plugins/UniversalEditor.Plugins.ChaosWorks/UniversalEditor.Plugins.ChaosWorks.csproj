@@ -42,6 +42,7 @@
     <Compile Include="DataFormats\FileSystem\ChaosWorks\Internal\ChaosWorksVOLV2FileInfo.cs" />
     <Compile Include="DataFormats\FileSystem\ChaosWorks\Internal\ChaosWorksVOLV2ChunkInfo.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\SPPDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\PictureCollection\CWESpriteDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -69,6 +70,7 @@
     <Folder Include="DataFormats\FileSystem\ChaosWorks\Internal\" />
     <Folder Include="DataFormats\Multimedia\" />
     <Folder Include="DataFormats\Multimedia\Palette\" />
+    <Folder Include="DataFormats\Multimedia\PictureCollection\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

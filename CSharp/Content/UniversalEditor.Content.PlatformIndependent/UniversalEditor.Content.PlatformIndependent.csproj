@@ -207,7 +207,6 @@
     <Content Include="Extensions\GameDeveloper\Associations\Nintendo.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\Picture\AvalancheTBODY.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\Picture\BurikoGeneralInterpreter.uexml" />
-    <Content Include="Extensions\GameDeveloper\Associations\Picture\ChaosWorksSprite.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\Picture\GIM.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\ReflexiveEntertainment\FRM16.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\SynthesizedAudio\PSF.uexml" />
@@ -670,6 +669,7 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\KenSilverman\GRP.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\FileSystem\ChaosWorksEngine.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\Palette\SPPDataFormat.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\PictureCollection\SPXDataFormat.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -711,6 +711,7 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\FileSystem\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\Palette\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ChaosWorks\Associations\Multimedia\PictureCollection\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
