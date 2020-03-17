@@ -11,7 +11,7 @@
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DocumentationFile>..\..\Output\Output\Debug\Plugins\UniversalEditor.Plugins.CRI.xml</DocumentationFile>
+    <DocumentationFile>..\..\Output\Debug\Plugins\UniversalEditor.Plugins.CRI.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
