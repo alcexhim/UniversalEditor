@@ -48,7 +48,6 @@
     <Compile Include="DataFormats\AbstractSyntax\DER\DERDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\UXT\UXTDataFormat.cs" />
     <Compile Include="DataFormats\Markup\EBML\EBMLDataFormat.cs" />
     <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLDataFormat.cs" />
     <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />

@@ -10,7 +10,6 @@ using UniversalEditor.ObjectModels.PropertyList;
 
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Markup;
-using UniversalEditor.DataFormats.FileSystem.UXT;
 using UniversalEditor.DataFormats.PropertyList.UniversalPropertyList;
 
 using MBS.Framework.UserInterface.Dialogs;
@@ -908,6 +907,7 @@ namespace UniversalEditor.UserInterface
 			// I don't know why this ever was WindowsFormsEngine-specific...
 
 			// First, attempt to load the branding from Branding.uxt
+			/*
 			string BrandingFileName = Application.BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Branding.uxt";
 			if (System.IO.File.Exists(BrandingFileName))
 			{
@@ -1004,6 +1004,7 @@ namespace UniversalEditor.UserInterface
 					LocalConfiguration.ColorScheme.LightColor = Color.FromString(plomBranding.GetValue<string>(new string[] { "ColorScheme", "LightColor" }, "#C0C0FF"));
 				}
 			}
+			*/
 		}
 
 		private ConfigurationManager mvarConfigurationManager = new ConfigurationManager();
