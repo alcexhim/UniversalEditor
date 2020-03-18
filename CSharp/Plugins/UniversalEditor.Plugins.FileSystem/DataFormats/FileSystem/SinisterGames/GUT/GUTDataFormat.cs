@@ -17,8 +17,8 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("GameTitle", "Game &title: ", "Shadow Company: Left for Dead"));
-				_dfr.ExportOptions.Add(new CustomOptionText("GameCopyright", "Game &copyright: ", "Copyright 1998 by Sinister Games Inc."));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameTitle), "Game &title: ", "Shadow Company: Left for Dead"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameCopyright), "Game &copyright: ", "Copyright 1998 by Sinister Games Inc."));
 			}
 			return _dfr;
 		}

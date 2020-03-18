@@ -19,10 +19,10 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
         {
             DataFormatReference dfr = base.MakeReferenceInternal();
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            dfr.ExportOptions.Add(new CustomOptionText("ModelTitleJapanese", "&Japanese model title:"));
-            dfr.ExportOptions.Add(new CustomOptionText("ModelTitleEnglish", "&English model title:"));
-            dfr.ExportOptions.Add(new CustomOptionText("ModelCommentJapanese", "Ja&panese model comment:"));
-            dfr.ExportOptions.Add(new CustomOptionText("ModelCommentEnglish", "En&glish model comment:"));
+            dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelTitleJapanese), "&Japanese model title:"));
+            dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelTitleEnglish), "&English model title:"));
+            dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelCommentJapanese), "Ja&panese model comment:"));
+            dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelCommentEnglish), "En&glish model comment:"));
 			return dfr;
         }
 

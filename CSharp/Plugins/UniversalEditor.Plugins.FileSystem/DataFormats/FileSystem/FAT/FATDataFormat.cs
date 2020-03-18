@@ -39,11 +39,11 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("OEMName", "OEM &name:", "MSDOS5.0", 8));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(OEMName), "OEM &name:", "MSDOS5.0", 8));
 				
 				#region Bios Parameter Block
 				{
-					CustomOptionGroup grp = new CustomOptionGroup("BiosParameterBlock", "BIOS parameter block");
+					CustomOptionGroup grp = new CustomOptionGroup(nameof(BiosParameterBlock), "BIOS parameter block");
 					grp.Options.Add(new CustomOptionNumber("BytesPerSector", "&Bytes per sector:", 512, 0, short.MaxValue));
 					grp.Options.Add(new CustomOptionNumber("SectorsPerCluster", "&Sectors per cluster:", 1, 1, 128));
 					grp.Options.Add(new CustomOptionNumber("ReservedSectorCount", "&Reserved sectors:", 32, 0, short.MaxValue));
@@ -74,7 +74,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 				#endregion
 				#region Extended BIOS parameter block
 				{
-					CustomOptionGroup grp = new CustomOptionGroup("ExtendedBiosParameterBlock", "Extended BIOS parameter block");
+					CustomOptionGroup grp = new CustomOptionGroup(nameof(ExtendedBiosParameterBlock), "Extended BIOS parameter block");
 					grp.Options.Add(new CustomOptionNumber("PhysicalDriveNumber", "Physical drive &number:", 0));
 					grp.Options.Add(new CustomOptionMultipleChoice("CheckDiskFlags", "CHKDSK &flags:", new CustomOptionFieldChoice("Dirty", FATCheckDiskFlags.Dirty), new CustomOptionFieldChoice("Error", FATCheckDiskFlags.Error)));
 					grp.Options.Add(new CustomOptionNumber("NumberOfHeads", "Number of heads:", 0));

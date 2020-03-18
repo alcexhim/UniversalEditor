@@ -19,7 +19,7 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureCollectionObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionFile("ExternalPaletteFileName", "External _palette file name"));
+				_dfr.ImportOptions.Add(new CustomOptionFile(nameof(ExternalPaletteFileName), "External _palette file name"));
 			}
 			return _dfr;
 		}

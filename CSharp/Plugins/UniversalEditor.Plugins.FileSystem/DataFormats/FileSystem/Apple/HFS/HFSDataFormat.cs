@@ -21,9 +21,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("VolumeName", "Volume &name"));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("VolumeBackupSequenceNumber", "&Backup sequence number", 0, Int16.MinValue, Int16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("VolumeWriteCount", "Volume &write count"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeName), "Volume &name"));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeBackupSequenceNumber), "&Backup sequence number", 0, Int16.MinValue, Int16.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeWriteCount), "Volume &write count"));
 				_dfr.Sources.Add("https://developer.apple.com/legacy/library/documentation/mac/Files/Files-102.html");
 				_dfr.Sources.Add("http://www.cs.fsu.edu/~baker/devices/lxr/http/source/linux/fs/hfs/hfs.h");
 				_dfr.Sources.Add("www.fenestrated.net/~macman/mirrors/Apple Technotes (As of 2002)/tn/tn1150.html");

@@ -15,7 +15,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Homeworld
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice("Version", "Format &version:", true,
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Version), "Format &version:", true,
 					new CustomOptionFieldChoice("Version \"VCE0\"", (uint)0),
 					new CustomOptionFieldChoice("Version \"WXD1\"", (uint)1)
 				));

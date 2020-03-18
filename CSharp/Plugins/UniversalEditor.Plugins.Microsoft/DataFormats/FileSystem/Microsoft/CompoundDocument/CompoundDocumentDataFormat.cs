@@ -17,9 +17,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionNumber("SectorSize", "&Sector size (in bytes):", 512, 128));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("ShortSectorSize", "S&hort sector size (in bytes):", 64));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("MinimumStandardStreamSize", "&Minimum standard stream size (in bytes):", 4096, 4096));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(SectorSize), "&Sector size (in bytes):", 512, 128));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(ShortSectorSize), "S&hort sector size (in bytes):", 64));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(MinimumStandardStreamSize), "&Minimum standard stream size (in bytes):", 4096, 4096));
 				_dfr.Sources.Add("http://www.openoffice.org/sc/compdocfileformat.pdf");
 			}
 			return _dfr;

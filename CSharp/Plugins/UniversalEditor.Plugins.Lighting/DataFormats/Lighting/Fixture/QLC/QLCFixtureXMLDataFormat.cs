@@ -17,8 +17,8 @@ namespace UniversalEditor.DataFormats.Lighting.Fixture.QLC
 			{
 				_dfr = new DataFormatReference(this.GetType());
 				_dfr.Capabilities.Add(typeof(FixtureObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("CreatorApplication", "&Software:", "Q Light Controller Plus"));
-				_dfr.ExportOptions.Add(new CustomOptionText("Author", "&Author:"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CreatorApplication), "&Software:", "Q Light Controller Plus"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Author), "&Author:"));
 			}
 			return _dfr;
 		}

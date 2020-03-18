@@ -16,7 +16,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("Comment", "&Comment: ", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "&Comment: ", String.Empty, 128));
 			}
 			return _dfr;
 		}

@@ -15,7 +15,7 @@ namespace UniversalEditor.Accessors
 			{
 				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Internet (HTTP)";
-				_ar.ImportOptions.Add(new CustomOptionText("FileName", "File _name: "));
+				_ar.ImportOptions.Add(new CustomOptionText(nameof(FileName), "File _name: "));
 			}
 			return _ar;
 		}

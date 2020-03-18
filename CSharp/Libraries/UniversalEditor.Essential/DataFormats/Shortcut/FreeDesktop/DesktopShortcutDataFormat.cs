@@ -18,11 +18,11 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(ShortcutObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("ApplicationTitle", "&Application title: "));
-				_dfr.ExportOptions.Add(new CustomOptionText("GenericTitle", "&Generic title: "));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean("HideFromMenus", "&Do not display this entry in menus"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean("Deleted", "&Mark this shortcut as being deleted by the user"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean("DBusActivatable", "&Enable DBus activation"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(ApplicationTitle), "&Application title: "));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GenericTitle), "&Generic title: "));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(HideFromMenus), "&Do not display this entry in menus"));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Deleted), "&Mark this shortcut as being deleted by the user"));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(DBusActivatable), "&Enable DBus activation"));
 				_dfr.Sources.Add("http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html");
 			}
 			return _dfr;

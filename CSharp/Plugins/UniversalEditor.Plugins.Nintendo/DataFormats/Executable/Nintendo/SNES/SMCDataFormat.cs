@@ -21,8 +21,8 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ExecutableObjectModel), DataFormatCapabilities.All);
 
-				_dfr.ExportOptions.Add(new CustomOptionText("GameName", "Game &name:", String.Empty, 21));
-				_dfr.ExportOptions.Add(new CustomOptionChoice("CartridgeType", "Cartridge &type:", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameName), "Game &name:", String.Empty, 21));
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(CartridgeType), "Cartridge &type:", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice(SMCCartridgeTypes.ROMOnly, true),
 					new CustomOptionFieldChoice(SMCCartridgeTypes.ROMAndRAM),
@@ -54,10 +54,10 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 					new CustomOptionFieldChoice(SMCMemorySizes.M4),
 				};
 
-				_dfr.ExportOptions.Add(new CustomOptionChoice("ROMSize", "RO&M size:", true, _smcMemorySizes));
-				_dfr.ExportOptions.Add(new CustomOptionChoice("RAMSize", "R&AM size:", true, _smcMemorySizes));
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(ROMSize), "RO&M size:", true, _smcMemorySizes));
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(RAMSize), "R&AM size:", true, _smcMemorySizes));
 
-				_dfr.ExportOptions.Add(new CustomOptionChoice("Region", "&Region:", false, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Region), "&Region:", false, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice(SMCRegions.Japan),
 					new CustomOptionFieldChoice(SMCRegions.NorthAmerica),
@@ -75,7 +75,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 					new CustomOptionFieldChoice(SMCRegions.SouthKorea)
 				}));
 
-				_dfr.ExportOptions.Add(new CustomOptionChoice("Licensee", "&Licensee:", false, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Licensee), "&Licensee:", false, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice(SMCLicensees.None, true),
 					new CustomOptionFieldChoice(SMCLicensees.Nintendo0x01),
@@ -260,7 +260,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 					new CustomOptionFieldChoice(SMCLicensees.Psygnosis),
 					new CustomOptionFieldChoice(SMCLicensees.Davidson),
 				}));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("VersionNumber", "&Version number:", 0, Byte.MinValue, Byte.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VersionNumber), "&Version number:", 0, Byte.MinValue, Byte.MaxValue));
 
 				_dfr.Sources.Add("http://romhack.wikia.com/wiki/SNES_ROM_layout");
 				_dfr.Sources.Add("http://romhack.wikia.com/wiki/SNES_header");

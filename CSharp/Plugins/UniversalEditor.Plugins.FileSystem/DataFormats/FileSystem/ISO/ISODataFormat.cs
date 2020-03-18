@@ -18,17 +18,17 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ContentTypes.Add("application/x-iso9660-image");
 
-				_dfr.ExportOptions.Add(new CustomOptionText("SystemName", "System &name:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText("VolumeName", "&Volume name:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("VolumeSetSize", "Number of volumes in this set:", 1, 0, UInt16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("VolumeSequenceNumber", "Index of this volume in set:", 0, 0, UInt16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionText("VolumeSet", "Volume &set:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText("Publisher", "&Publisher:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText("DataPreparer", "&Data preparer:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText("Application", "&Application:", "Universal Editor", 128));
-				_dfr.ExportOptions.Add(new CustomOptionText("CopyrightFile", "&Copyright file:", String.Empty, 38));
-				_dfr.ExportOptions.Add(new CustomOptionText("AbstractFile", "&Abstract file:", String.Empty, 36));
-				_dfr.ExportOptions.Add(new CustomOptionText("BibliographicFile", "&Bibliographic file:", String.Empty, 37));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(SystemName), "System &name:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeName), "&Volume name:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeSetSize), "Number of volumes in this set:", 1, 0, UInt16.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeSequenceNumber), "Index of this volume in set:", 0, 0, UInt16.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeSet), "Volume &set:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Publisher), "&Publisher:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(DataPreparer), "&Data preparer:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Application), "&Application:", "Universal Editor", 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CopyrightFile), "&Copyright file:", String.Empty, 38));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(AbstractFile), "&Abstract file:", String.Empty, 36));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(BibliographicFile), "&Bibliographic file:", String.Empty, 37));
 			}
 			return _dfr;
 		}

@@ -20,7 +20,7 @@ namespace UniversalEditor.DataFormats.Binary.PEM
 				_dfr.Capabilities.Add(typeof(BinaryObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Title = "Privacy-Enhanced Mail encoding";
-				_dfr.ExportOptions.Add(new CustomOptionText("Signature", "_Signature"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Signature), "_Signature"));
 			}
 			return _dfr;
 		}

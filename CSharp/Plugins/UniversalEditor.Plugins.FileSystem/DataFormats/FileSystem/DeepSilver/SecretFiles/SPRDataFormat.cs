@@ -17,8 +17,8 @@ namespace UniversalEditor.DataFormats.FileSystem.DeepSilver.SecretFiles
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionDomain", "Encryption &domain:", 0xbebe2, Int32.MaxValue, Int32.MinValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("EncryptionSeed", "Encryption &seed:", 0, Int32.MaxValue, Int32.MinValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionDomain), "Encryption &domain:", 0xbebe2, Int32.MaxValue, Int32.MinValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionSeed), "Encryption &seed:", 0, Int32.MaxValue, Int32.MinValue));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Secret_Files:_Tunguska_%28Demo%29_SPR");
 			}
 			return _dfr;

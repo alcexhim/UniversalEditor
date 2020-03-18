@@ -18,7 +18,7 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
-                _dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format version:", true, new CustomOptionFieldChoice("1.0", 1.0f)));
+                _dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format version:", true, new CustomOptionFieldChoice("1.0", 1.0f)));
             }
             return _dfr;
         }

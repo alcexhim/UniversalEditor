@@ -45,8 +45,8 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("VersionString", "_Version string", "CPKMC2.14.00, DLL2.74.00"));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("FileAlignment", "File _alignment", 2048, 0, 2048));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VersionString), "_Version string", "CPKMC2.14.00, DLL2.74.00"));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(SectorAlignment), "Sector _alignment", 2048, 0, 2048));
 			}
 			return _dfr;
 		}

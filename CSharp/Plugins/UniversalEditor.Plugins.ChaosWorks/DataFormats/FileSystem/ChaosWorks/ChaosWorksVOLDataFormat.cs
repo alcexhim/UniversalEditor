@@ -19,8 +19,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "&Compress this archive using the LZRW1 algorithm", true));
-				_dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format &version", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "&Compress this archive using the LZRW1 algorithm", true));
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format &version", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("Version 1 (Fire Fight)", ChaosWorksVOLFormatVersion.V1, true),
 					new CustomOptionFieldChoice("Version 2 (Akimbo, Excessive Speed)", ChaosWorksVOLFormatVersion.V2)

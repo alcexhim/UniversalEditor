@@ -16,7 +16,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Eighting.FPK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionNumber("DataAlignment", "Data &alignment (in bytes): ", 16, 0, UInt32.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(DataAlignment), "Data &alignment (in bytes): ", 16, 0, UInt32.MaxValue));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Bleach_%28PSP%29");
 			}
 			return _dfr;

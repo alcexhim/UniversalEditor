@@ -15,7 +15,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WAD
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.ExportOptions.Add(new CustomOptionBoolean("UserContent", "This archive contains public content (PWAD) rather than internal content (IWAD)"));
+                _dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(UserContent), "This archive contains public content (PWAD) rather than internal content (IWAD)"));
             }
             return _dfr;
         }

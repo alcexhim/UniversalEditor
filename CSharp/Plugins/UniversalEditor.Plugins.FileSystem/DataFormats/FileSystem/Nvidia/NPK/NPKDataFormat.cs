@@ -16,9 +16,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionText("EncryptionKey", "Encryption &key: ", "bogomojo"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));
-                _dfr.ExportOptions.Add(new CustomOptionText("EncryptionKey", "Encryption &key: ", "bogomojo"));
+				_dfr.ImportOptions.Add(new CustomOptionText(nameof(EncryptionKey), "Encryption &key: ", "bogomojo"));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Encrypted), "&Encrypt the data with the specified key"));
+                _dfr.ExportOptions.Add(new CustomOptionText(nameof(EncryptionKey), "Encryption &key: ", "bogomojo"));
             }
             return _dfr;
         }

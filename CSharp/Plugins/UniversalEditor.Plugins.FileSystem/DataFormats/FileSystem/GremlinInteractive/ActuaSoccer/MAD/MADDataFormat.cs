@@ -16,12 +16,12 @@ namespace UniversalEditor.DataFormats.FileSystem.GremlinInteractive.ActuaSoccer.
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format &version:", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format &version:", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("Type 1 (includes file names)", MADFormatVersion.Type1, true),
 					new CustomOptionFieldChoice("Type 2 (does not include file names)", MADFormatVersion.Type2)
 				}));
-				_dfr.ImportOptions.Add(new CustomOptionChoice("FormatVersion", "Format &version:", true, new CustomOptionFieldChoice[]
+				_dfr.ImportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format &version:", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("Type 1 (includes file names)", MADFormatVersion.Type1, true),
 					new CustomOptionFieldChoice("Type 2 (does not include file names)", MADFormatVersion.Type2)

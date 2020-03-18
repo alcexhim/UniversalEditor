@@ -17,7 +17,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice("FormatCode", "&Format code:", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatCode), "&Format code:", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.Revolution),
 					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.Wii, true),
@@ -30,8 +30,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.WiiBackup),
 					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.WiiFitChanInstaller)
 				}));
-				_dfr.ExportOptions.Add(new CustomOptionText("GameCode", "&Game code:", String.Empty, 2));
-				_dfr.ExportOptions.Add(new CustomOptionChoice("RegionCode", "&Region code:", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameCode), "&Game code:", String.Empty, 2));
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(RegionCode), "&Region code:", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.German),
 					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.UnitedStates, true),
@@ -46,13 +46,13 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Australia),
 				}));
 
-				_dfr.ExportOptions.Add(new CustomOptionChoice("SystemType", "&System type:", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(SystemType), "&System type:", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("GameCube", NintendoOpticalDiscSystemType.GameCube),
 					new CustomOptionFieldChoice("Wii", NintendoOpticalDiscSystemType.Wii, true)
 				}));
 
-				_dfr.ExportOptions.Add(new CustomOptionText("GameTitle", "Game &title:", String.Empty, 64));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameTitle), "Game &title:", String.Empty, 64));
 				
 				_dfr.Sources.Add("http://wiibrew.org/wiki/Wii_Disc");
 				_dfr.Sources.Add("http://www.emutalk.net/threads/21512-GCM-file-extension!/page3");

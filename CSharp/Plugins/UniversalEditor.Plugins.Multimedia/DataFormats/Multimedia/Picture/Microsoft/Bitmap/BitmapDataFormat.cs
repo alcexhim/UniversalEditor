@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-			dfr.ExportOptions.Add(new CustomOptionChoice("PixelDepth", "Pixel _depth", true, new CustomOptionFieldChoice[]
+			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelDepth), "Pixel _depth", true, new CustomOptionFieldChoice[]
 			{
 				new CustomOptionFieldChoice("16 colors", BitmapBitsPerPixel.Color16),
 				new CustomOptionFieldChoice("256 colors", BitmapBitsPerPixel.Color256),

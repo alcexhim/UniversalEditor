@@ -17,13 +17,13 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format &version: ", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format &version: ", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("POD1", PODVersion.POD1, true),
 					new CustomOptionFieldChoice("POD2", PODVersion.POD2),
 					new CustomOptionFieldChoice("POD3", PODVersion.POD3)
 				}));
-				_dfr.ExportOptions.Add(new CustomOptionText("Comment", "&Comment: "));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "&Comment: "));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive1");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive2");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive3");

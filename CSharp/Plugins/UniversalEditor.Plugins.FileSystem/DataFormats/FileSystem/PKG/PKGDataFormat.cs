@@ -13,7 +13,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PKG
         {
             if (_dfr == null) _dfr = base.MakeReferenceInternal();
             _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-            _dfr.ExportOptions.Add(new CustomOptionText("GameName", "Game &name:"));
+            _dfr.ExportOptions.Add(new CustomOptionText(nameof(GameName), "Game &name:"));
             return _dfr;
         }
 

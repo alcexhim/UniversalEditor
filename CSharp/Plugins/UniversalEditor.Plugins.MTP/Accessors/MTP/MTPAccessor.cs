@@ -51,6 +51,8 @@ namespace UniversalEditor.Accessors.MTP
 			return 0;
 		}
 
+		public string FileName { get; set; } = null;
+
 		protected override AccessorReference MakeReferenceInternal()
 		{
 			if (_ar == null)
@@ -58,7 +60,7 @@ namespace UniversalEditor.Accessors.MTP
 				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Media Transfer Protocol (MTP)";
 				_ar.Schemas.Add("mtp-disabled");
-				_ar.ImportOptions.Add(new CustomOptionText("FileName", "File _name"));
+				_ar.ImportOptions.Add(new CustomOptionText(nameof(FileName), "File _name"));
 			}
 			return _ar;
 		}

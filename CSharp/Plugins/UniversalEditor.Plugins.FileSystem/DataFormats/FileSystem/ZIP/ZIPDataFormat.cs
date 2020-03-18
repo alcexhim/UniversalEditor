@@ -40,7 +40,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 			dfr.ContentTypes.Add("application/zip");
-			dfr.ExportOptions.Add(new CustomOptionText("Comment", "_Comment: ", String.Empty, Int16.MaxValue));
+			dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "_Comment: ", String.Empty, Int16.MaxValue));
 			return dfr;
 		}
 

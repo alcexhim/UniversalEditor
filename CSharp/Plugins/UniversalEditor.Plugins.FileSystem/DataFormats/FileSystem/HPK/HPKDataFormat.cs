@@ -17,7 +17,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "Compress the file using Zlib", false));
+                _dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "Compress the file using Zlib", false));
             }
             return _dfr;
         }

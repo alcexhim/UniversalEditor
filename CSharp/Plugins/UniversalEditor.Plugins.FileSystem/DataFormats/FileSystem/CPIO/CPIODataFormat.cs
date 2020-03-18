@@ -18,7 +18,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://people.freebsd.org/~kientzle/libarchive/man/cpio.5.txt");
-				_dfr.ExportOptions.Add(new CustomOptionChoice("Encoding", "&Encoding: ", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Encoding), "&Encoding: ", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("Binary (little-endian)", CPIOEncoding.BinaryLittleEndian, true),
 					new CustomOptionFieldChoice("Binary (big-endian)", CPIOEncoding.BinaryBigEndian),

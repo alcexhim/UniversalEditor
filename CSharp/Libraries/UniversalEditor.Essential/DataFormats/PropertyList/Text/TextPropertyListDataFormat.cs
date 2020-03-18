@@ -15,7 +15,6 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText("Title", "&Title: ", "Text Property List"));
 			}
 			return _dfr;
 		}

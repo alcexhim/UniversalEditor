@@ -18,14 +18,14 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice("NumberSize", "Number size:", true,
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(NumberSize), "Number size:", true,
 					new CustomOptionFieldChoice("8-bit, 1 byte per number", 1),
 					new CustomOptionFieldChoice("16-bit, 2 bytes per number", 2),
 					new CustomOptionFieldChoice("24-bit, 3 bytes per number", 3),
 					new CustomOptionFieldChoice("32-bit, 4 bytes per number", 4, true),
 					new CustomOptionFieldChoice("64-bit, 8 bytes per number", 8)));
-				_dfr.ExportOptions.Add(new CustomOptionNumber("AllocationSize", "Allocation size: ", 512));
-				_dfr.ExportOptions.Add(new CustomOptionText("Comment", "Comment: "));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(AllocationSize), "Allocation size: ", 512));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "Comment: "));
 			}
 			return _dfr;
 		}

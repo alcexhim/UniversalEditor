@@ -45,8 +45,8 @@ namespace UniversalEditor.DataFormats.FileSystem.FARC
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 
-                _dfr.ExportOptions.Add(new CustomOptionBoolean("Encrypted", "&Encrypt the data with the specified key"));
-                _dfr.ExportOptions.Add(new CustomOptionBoolean("Compressed", "&Compress the data with the gzip algorithm"));
+                _dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Encrypted), "&Encrypt the data with the specified key"));
+                _dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "&Compress the data with the gzip algorithm"));
             }
             return _dfr;
         }
