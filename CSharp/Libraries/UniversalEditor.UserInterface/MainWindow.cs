@@ -1242,10 +1242,11 @@ namespace UniversalEditor.UserInterface
 
 #endregion
 
-
 		public void ShowDocumentPropertiesDialog()
 		{
-			MessageDialog.ShowDialog("TODO: Implement Document Properties dialog!", "Not Implemented", MessageDialogButtons.OK, MessageDialogIcon.Error);
+			Editor editor = GetCurrentEditor();
+			if (editor != null)
+				editor.ShowDocumentPropertiesDialog();
 		}
 	}
 }

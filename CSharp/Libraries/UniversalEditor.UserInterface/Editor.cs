@@ -9,6 +9,7 @@ using UniversalEditor.ObjectModels.PropertyList;
 
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Input.Keyboard;
+using MBS.Framework.UserInterface.Dialogs;
 
 namespace UniversalEditor.UserInterface
 {
@@ -728,6 +729,48 @@ namespace UniversalEditor.UserInterface
 			Changed = true;
 
 			EndEdit ();
+		}
+
+		protected virtual SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		{
+			return null;
+		}
+
+		/// <summary>
+		/// Shows the document properties dialog. This function can be overridden to display a custom document properties dialog, but offers a
+		/// built-in implementation based on the UWT <see cref="SettingsDialog" /> which is populated with <see cref="SettingsProvider" />s from a call to
+		/// <see cref="GetDocumentPropertiesSettingsProviders" />. It is recommended that subclasses of <see cref="Editor" /> override the
+		/// <see cref="GetDocumentPropertiesSettingsProviders" /> function instead of this one if they do not require a custom dialog layout.
+		/// </summary>
+		/// <returns><c>true</c>, if document properties dialog was shown (regardless of whether it was accepted or not), <c>false</c> otherwise.</returns>
+		protected virtual bool ShowDocumentPropertiesDialogInternal()
+		{
+			SettingsProvider[] providers = GetDocumentPropertiesSettingsProviders();
+			if (providers != null)
+			{
+				SettingsDialog dialog = new SettingsDialog();
+				dialog.Text = "Document Properties";
+				dialog.SettingsProviders.Clear();
+
+				for (int i = 0; i < providers.Length; i++)
+				{
+					dialog.SettingsProviders.Add(providers[i]);
+				}
+
+				if (dialog.ShowDialog() == DialogResult.OK)
+				{
+					// TODO: update settings
+				}
+				return true;
+			}
+			return false;
+		}
+		public void ShowDocumentPropertiesDialog()
+		{
+			if (!ShowDocumentPropertiesDialogInternal())
+			{
+				MessageDialog.ShowDialog(String.Format("TODO: Implement Document Properties dialog for '{0}'!", GetType().Name), "Not Implemented", MessageDialogButtons.OK, MessageDialogIcon.Error);
+			}
 		}
 	}
 }
