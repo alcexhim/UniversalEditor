@@ -105,24 +105,25 @@ namespace UniversalEditor.UserInterface.Dialogs
 				{
 					CustomOptionNumber option = (eo as CustomOptionNumber);
 
-					TextBox txt = new TextBox(); // NumericUpDown txt = new NumericUpDown();
+					// NumericUpDown in WinForms used decimal, UWT uses double... what's the difference? is it bad?
+					NumericTextBox txt = new NumericTextBox(); // NumericUpDown txt = new NumericUpDown();
 					if (option.MaximumValue.HasValue)
 					{
-						// txt.Maximum = option.MaximumValue.Value;
+						txt.Maximum = (double)option.MaximumValue.Value;
 					}
 					else
 					{
-						// txt.Maximum = Decimal.MaxValue;
+						txt.Maximum = Double.MaxValue;
 					}
 					if (option.MinimumValue.HasValue)
 					{
-						// txt.Minimum = option.MinimumValue.Value;
+						txt.Minimum = (double)option.MinimumValue.Value;
 					}
 					else
 					{
-						// txt.Minimum = Decimal.MinValue;
+						txt.Minimum = Double.MinValue;
 					}
-					// txt.Value = option.DefaultValue;
+					txt.Value = (double)option.DefaultValue;
 
 					this.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 2, ExpandMode.Horizontal));
 
@@ -266,13 +267,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 					if (!eo.Visible) continue;
 
 					Control ctl = CustomOptionControls[eo.PropertyName];
-					/*
-					if (ctl is NumericUpDown)
+
+					if (ctl is NumericTextBox)
 					{
-						NumericUpDown itm = (ctl as NumericUpDown);
-						(eo as CustomOptionNumber).Value = itm.Value;
+						NumericTextBox itm = (ctl as NumericTextBox);
+						(eo as CustomOptionNumber).Value = (decimal)itm.Value;
 					}
-					*/
 					if (ctl is CheckBox)
 					{
 						CheckBox itm = (ctl as CheckBox);
