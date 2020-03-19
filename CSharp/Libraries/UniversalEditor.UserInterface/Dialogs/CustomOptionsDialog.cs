@@ -27,7 +27,7 @@ using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
-	public class CustomOptionsDialog : Dialog
+	public class CustomOptionsDialog : CustomDialog
 	{
 		private Dictionary<string, Control> CustomOptionControls = new Dictionary<string, Control>();
 
@@ -40,7 +40,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			Buttons.Add(cmdOK);
 			Buttons.Add(new Button(StockType.Cancel));
 
-			Buttons[0].ResponseValue = (int)DialogResult.OK;
+			// Buttons[0].ResponseValue = (int)DialogResult.OK;
 			Buttons[1].ResponseValue = (int)DialogResult.Cancel;
 		}
 
@@ -266,6 +266,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 					// Do not process invisible CustomOptions; this results in a crash
 					if (!eo.Visible) continue;
 
+					if (!CustomOptionControls.ContainsKey(eo.PropertyName))
+					{
+						continue;
+					}
 					Control ctl = CustomOptionControls[eo.PropertyName];
 
 					if (ctl is NumericTextBox)
@@ -312,7 +316,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				return;
 			}
 
-			// this.DialogResult = DialogResult.OK;
+			this.DialogResult = DialogResult.OK;
 			this.Close();
 		}
 
