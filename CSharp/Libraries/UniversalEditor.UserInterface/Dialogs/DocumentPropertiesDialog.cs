@@ -32,7 +32,7 @@ using System.ComponentModel;
 namespace UniversalEditor.UserInterface.Dialogs
 {
 	[ContainerLayout("~/Dialogs/DocumentPropertiesDialog.glade", "GtkDialog")]
-	public class DocumentPropertiesDialog : Dialog
+	public class DocumentPropertiesDialog : CustomDialog
 	{
 		// **********************************************************
 		// THESE FIELDS ARE FILLED IN BY UWT CONTAINER LAYOUT LOADER
