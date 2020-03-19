@@ -114,7 +114,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.Buttons.Add(new Button(StockType.Cancel, DialogResult.Cancel));
 
 			this.Buttons[0].StockType = StockType.New;
-			this.Buttons[0].ResponseValue = (int)DialogResult.OK;
+			DefaultButton = this.Buttons[0];
 			this.Buttons[0].Click += cmdOK_Click;
 
 			this.Text = "New File";
