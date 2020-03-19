@@ -13,7 +13,21 @@ namespace UniversalEditor.DataFormats.Executable.Apple.PreferredExecutable
 		{
 			Internal.PEFContainerHeader item = new Internal.PEFContainerHeader();
 			item.tag1 = reader.ReadFixedLengthString(4);
-			if (item.tag1 != "Joy!") throw new InvalidDataFormatException("PEF container header does not have 'Joy!' in 'tag1' field");
+			if (item.tag1 != "Joy!")
+			{
+				// PJ95
+				if (item.tag1 == "PJ95")
+				{
+					uint offsetToResourceSegment = reader.ReadUInt32();
+					uint zero1 = reader.ReadUInt32();
+					uint zero2 = reader.ReadUInt32();
+					item.tag1 = reader.ReadFixedLengthString(4);
+				}
+				else
+				{
+					throw new InvalidDataFormatException("PEF container header does not have 'Joy!' in 'tag1' field");
+				}
+			}
 
 			item.tag2 = reader.ReadFixedLengthString(4);
 			if (item.tag2 != "peff") throw new InvalidDataFormatException("PEF container header does not have 'peff' in 'tag2' field");
