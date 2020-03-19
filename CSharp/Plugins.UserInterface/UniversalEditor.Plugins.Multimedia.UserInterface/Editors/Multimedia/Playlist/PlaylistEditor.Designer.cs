@@ -31,9 +31,17 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pl
 		private ListView lvPlaylist = null;
 		private DefaultTreeModel tmPlaylist = null;
 
-		private void InitializeComponent()
+		protected override void OnCreating(EventArgs e)
 		{
+			base.OnCreating(e);
+
 			lvPlaylist.Model = tmPlaylist;
+
+			// fuckkkk
+			for (int i = 0; i < tmPlaylist.Columns.Count; i++)
+			{
+				lvPlaylist.Columns[i].Column = tmPlaylist.Columns[i];
+			}
 		}
 	}
 }

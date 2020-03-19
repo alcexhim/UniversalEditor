@@ -27,17 +27,6 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pl
 {
 	public partial class PlaylistEditor
 	{
-		public PlaylistEditor()
-		{
-			InitializeComponent();
-
-			// fuckkkk
-			for (int i = 0; i < tmPlaylist.Columns.Count; i++)
-			{
-				lvPlaylist.Columns[i].Column = tmPlaylist.Columns[i];
-			}
-		}
-
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
 		{
