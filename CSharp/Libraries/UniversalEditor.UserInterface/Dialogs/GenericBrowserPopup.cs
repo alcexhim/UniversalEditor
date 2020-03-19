@@ -28,7 +28,7 @@ using MBS.Framework.UserInterface.Input.Keyboard;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
-	public partial class GenericBrowserPopup<TObj, TRef> : Dialog
+	public partial class GenericBrowserPopup<TObj, TRef> : CustomDialog
 		where TObj : class, References<TRef>
 		where TRef : class, ReferencedBy<TObj>
 	{
@@ -124,6 +124,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			SelectedObject = e.Row.GetExtraData<TRef>("TRef")?.Create();
 			SelectionChanged?.Invoke(this, e);
+
+			DialogResult = DialogResult.OK;
 			Close();
 		}
 
