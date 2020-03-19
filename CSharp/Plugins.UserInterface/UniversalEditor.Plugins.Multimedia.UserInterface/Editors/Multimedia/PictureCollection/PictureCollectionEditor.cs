@@ -88,7 +88,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			PictureCollectionObjectModel coll = (ObjectModel as PictureCollectionObjectModel);
 			if (coll == null) return;
 			
-			txtFrameIndex.Maximum = coll.Pictures.Count;
+			txtFrameIndex.Maximum = coll.Pictures.Count - 1;
 			cmdSave.Enabled = coll.Pictures.Count > 0;
 			cmdSaveAll.Enabled = coll.Pictures.Count > 0;
 
