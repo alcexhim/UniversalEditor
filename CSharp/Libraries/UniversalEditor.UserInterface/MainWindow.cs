@@ -275,6 +275,7 @@ namespace UniversalEditor.UserInterface
 
 			NewDialog dlg = new NewDialog();
 			dlg.Mode = NewDialogMode.File;
+
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				iUntitledDocCount++;
@@ -511,6 +512,7 @@ namespace UniversalEditor.UserInterface
 							}
 							return;
 						}
+#if !DEBUG
 						catch (Exception ex)
 						{
 							if (!System.Diagnostics.Debugger.IsAttached)
@@ -524,6 +526,7 @@ namespace UniversalEditor.UserInterface
 								throw ex;
 							}
 						}
+#endif
 					}
 
 					Editor editor = editors[0].Create();
