@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationFramework>
+	<Languages DefaultLanguageID="English">
+		<Language ID="English">
+			<Commands>
+				<Command ID="DockingContainerContextMenu_Close" Title="_Close" />
+				<Command ID="DockingContainerContextMenu_CloseAllButThis" Title="Close All _But This" />
+				<Command ID="DockingContainerContextMenu_CloseAll" Title="Close _All" />
+				
+				<Command ID="DockingWindowTabPageContextMenu_Placement_Float" Title="_Float" />
+				<Command ID="DockingWindowTabPageContextMenu_Placement_Dock" Title="Doc_k" />
+				<Command ID="DockingWindowTabPageContextMenu_Placement_DockTabbed" Title="Dock as _Tabbed Document" />
+				<Command ID="DockingWindowTabPageContextMenu_Placement_AutoHide" Title="_Auto Hide" />
+				<Command ID="DockingWindowTabPageContextMenu_Placement_Hide" Title="_Hide" />
+			</Commands>
+		</Language>
+	</Languages>
+</ApplicationFramework>

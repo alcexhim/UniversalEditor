@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationFramework>
+	<Commands>
+		<Command ID="DockingContainerContextMenu_Close" />
+		<Command ID="DockingContainerContextMenu_CloseAllButThis" />
+		<Command ID="DockingContainerContextMenu_CloseAll" />
+
+		<Command ID="DockingWindowTabPageContextMenu_Placement_Float" />
+		<Command ID="DockingWindowTabPageContextMenu_Placement_Dock" />
+		<Command ID="DockingWindowTabPageContextMenu_Placement_DockTabbed" />
+		<Command ID="DockingWindowTabPageContextMenu_Placement_AutoHide" />
+		<Command ID="DockingWindowTabPageContextMenu_Placement_Hide" />
+		
+		<Command ID="DockingWindowTabPageContextMenu">
+			<Items>
+				<CommandReference CommandID="DockingContainerContextMenu_Close" />
+				<CommandReference CommandID="DockingContainerContextMenu_CloseAllButThis" />
+				<Separator />
+				<CommandReference CommandID="DockingContainerContextMenu_CloseAll" />
+				<Separator />
+				<CommandReference CommandID="DockingWindowTabPageContextMenu_Placement_Float" />
+				<CommandReference CommandID="DockingWindowTabPageContextMenu_Placement_Dock" />
+				<CommandReference CommandID="DockingWindowTabPageContextMenu_Placement_DockTabbed" />
+				<CommandReference CommandID="DockingWindowTabPageContextMenu_Placement_AutoHide" />
+				<CommandReference CommandID="DockingWindowTabPageContextMenu_Placement_Hide" />
+			</Items>
+		</Command>
+	</Commands>
+</ApplicationFramework>
