@@ -92,7 +92,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 					DefaultTreeModel tm = new DefaultTreeModel(new Type[] { typeof(string) });
 					foreach (CustomOptionFieldChoice choice in option.Choices)
 					{
-						tm.Rows.Add(new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tm.Columns[0], choice) }));
+						TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tm.Columns[0], choice) });
+						row.SetExtraData<CustomOptionFieldChoice>("choice", choice);
+						tm.Rows.Add(row);
 					}
 					cbo.Model = tm;
 					// cbo.Dock = DockStyle.Fill;
@@ -282,13 +284,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 						CheckBox itm = (ctl as CheckBox);
 						(eo as CustomOptionBoolean).Value = itm.Checked;
 					}
-					/*
 					else if (ctl is ComboBox)
 					{
-						CustomOptionFieldChoice choice = ((ctl as ComboBox).SelectedItem as CustomOptionFieldChoice);
+						CustomOptionFieldChoice choice = (ctl as ComboBox).SelectedItem.GetExtraData<CustomOptionFieldChoice>("choice");
 						(eo as CustomOptionChoice).Value = choice;
 					}
-					*/
 					else if (ctl is TextBox)
 					{
 						TextBox itm = (ctl as TextBox);
