@@ -2,7 +2,7 @@
 	<Languages>
 		<Language ID="Japanese">
 			<StringTable>
-				<StringTableEntry ID="ApplicationTitle" Value="ユニバーサル·エディター" />
+				<StringTableEntry ID="Application.Title" Value="ユニバーサル·エディター" />
 				<StringTableEntry ID="Contributors" Value="貢献者" />
 			</StringTable>
 			<Commands>

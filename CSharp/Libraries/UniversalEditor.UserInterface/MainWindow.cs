@@ -214,7 +214,7 @@ namespace UniversalEditor.UserInterface
 
 			this.Bounds = new Rectangle(0, 0, 600, 400);
 			this.Size = new Dimension2D(800, 600);
-			this.Text = "Universal Editor";
+			this.Text = Application.Title;
 
 			Application.ContextAdded += Application_ContextChanged;
 			Application.ContextRemoved += Application_ContextChanged;
