@@ -35,7 +35,7 @@ namespace UniversalEditor.Editors.Text.Plain
 				new BooleanSetting("Display _overview map"),
 
 				new BooleanSetting("Enable text _wrapping"),
-				new BooleanSetting("Do not _split words over two lines"),
+				new BooleanSetting("Do not s_plit words over two lines"),
 
 				new BooleanSetting("Highlight current _line"),
 				new BooleanSetting("Highlight matching _brackets"),
