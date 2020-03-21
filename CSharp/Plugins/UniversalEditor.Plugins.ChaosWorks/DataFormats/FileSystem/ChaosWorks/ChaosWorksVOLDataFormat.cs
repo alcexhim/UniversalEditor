@@ -282,7 +282,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 				}
 				case ChaosWorksVOLFormatVersion.V2:
 				{
-					SaveInternalV1(fsom);
+					SaveInternalV2(fsom);
 					break;
 				}
 			}
