@@ -1,0 +1,11 @@
+[submodule "Dependencies/MBS.Framework"]
+	path = Dependencies/MBS.Framework
+	url = https://github.com/alcexhim/MBS.Framework.git
+	
+[submodule "Dependencies/MBS.Framework.UserInterface"]
+	path = Dependencies/MBS.Framework.UserInterface
+	url = https://github.com/alcexhim/MBS.Framework.UserInterface.git
+	
+[submodule "Dependencies/MBS.Framework.Rendering"]
+	path = Dependencies/MBS.Framework.Rendering
+	url = https://github.com/alcexhim/MBS.Framework.Rendering.git
