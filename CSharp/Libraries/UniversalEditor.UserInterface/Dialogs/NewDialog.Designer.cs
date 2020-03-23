@@ -71,11 +71,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 			tvTemplate.HeaderStyle = ColumnHeaderStyle.None;
 			tvTemplate.SelectionChanged += tvTemplate_SelectionChanged;
 
-			Container boxTreeViewAndListView = new Container();
-			boxTreeViewAndListView.Layout = new BoxLayout(Orientation.Horizontal);
+			SplitContainer boxTreeViewAndListView = new SplitContainer();
+			boxTreeViewAndListView.Orientation = Orientation.Vertical;
+			boxTreeViewAndListView.Panel1.Layout = new BoxLayout(Orientation.Horizontal);
+			boxTreeViewAndListView.Panel2.Layout = new BoxLayout(Orientation.Horizontal);
 
-			boxTreeViewAndListView.Controls.Add(tvObjectModel, new BoxLayout.Constraints(true, true, 16));
-			boxTreeViewAndListView.Controls.Add(tvTemplate, new BoxLayout.Constraints(true, true, 16, BoxLayout.PackType.End));
+			boxTreeViewAndListView.Panel1.Controls.Add(tvObjectModel, new BoxLayout.Constraints(true, true, 16));
+			boxTreeViewAndListView.Panel2.Controls.Add(tvTemplate, new BoxLayout.Constraints(true, true, 16, BoxLayout.PackType.End));
 
 			this.Controls.Add(boxTreeViewAndListView, new BoxLayout.Constraints(true, true, 16));
 
