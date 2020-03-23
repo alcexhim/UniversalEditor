@@ -134,6 +134,8 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 			// now that we've loaded the frame definitions and embedded color palette,
 			// we can go back and read the pixel data
 			List<List<byte>> lists = new List<List<byte>>();
+			int paletteSelector = 0;
+
 			for (uint i = 0; i < frameCount; i++)
 			{
 				int x = 0, y = 0;
@@ -169,11 +171,11 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 								size_count = (ushort)(-(short)size_count);
 
 								byte index = br.ReadByte();
-								Color color = palette.Entries[index].Color;
+								Color color = palette.Entries[paletteSelector + index].Color;
 
 								for (int k = 0; k < size_count; k++)
 								{
-									Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
+									// Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
 									pic.SetPixel(color, y, x);
 									y++;
 								}
@@ -183,9 +185,9 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 								for (int k = 0; k < size_count; k++)
 								{
 									byte index = br.ReadByte();
-									Color color = palette.Entries[index].Color;
+									Color color = palette.Entries[paletteSelector + index].Color;
 
-									Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
+									// Console.WriteLine("cwe-sprite: setting pixel ({0}, {1}) to color {2}", x, y, color);
 									pic.SetPixel(color, y, x);
 									y++;
 								}
