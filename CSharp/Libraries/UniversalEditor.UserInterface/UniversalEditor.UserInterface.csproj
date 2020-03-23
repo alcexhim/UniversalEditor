@@ -118,7 +118,6 @@
     <Compile Include="Editors\Binary\BinaryEditor.cs" />
     <Compile Include="Editors\Binary\FieldDefinitionPropertiesDialog.cs" />
     <Compile Include="Editors\Binary\FieldDefinition.cs" />
-    <Compile Include="Editors\FileSystem\Dialogs\FilePropertiesDialog.cs" />
     <Compile Include="EditorView.cs" />
     <Compile Include="EditorViewChangingEvent.cs" />
     <Compile Include="EditorViewChangedEvent.cs" />
@@ -131,6 +130,7 @@
     <Compile Include="Panels\PropertyListPanel.Designer.cs" />
     <Compile Include="View.cs" />
     <Compile Include="Panels\DocumentExplorerPanel.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditorDocumentPropertiesSettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -182,7 +182,6 @@
     <Folder Include="Editors\PropertyList\" />
     <Folder Include="Controls\" />
     <Folder Include="Editors\Binary\" />
-    <Folder Include="Editors\FileSystem\Dialogs\" />
     <Folder Include="Editors\Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -28,7 +28,6 @@ using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
-using UniversalEditor.Editors.FileSystem.Dialogs;
 using UniversalEditor.Accessors;
 using MBS.Framework.UserInterface.Controls;
 
@@ -497,23 +496,6 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
-		private void ContextMenuProperties_Click(object sender, EventArgs e)
-		{
-			if (tv.SelectedRows.Count == 1 && tv.LastHitTest.Row != null)
-			{
-				TreeModelRow row = tv.SelectedRows[0];
-				IFileSystemObject fso = row.GetExtraData<IFileSystemObject>("item");
-
-				if (FilePropertiesDialog.ShowDialog(fso) == DialogResult.OK)
-				{
-					row.RowColumns[0].Value = fso.Name;
-				}
-			}
-			else
-			{
-			}
-		}
-
 		/// <summary>
 		/// Prompts the user to choose a filename, and then extracts the selected file in the current <see cref="FileSystemObjectModel" /> to a file on disk with the chosen filename.
 		/// </summary>
@@ -653,6 +635,30 @@ namespace UniversalEditor.Editors.FileSystem
 
 			Application.Commands["EditPaste"].Enabled = Clipboard.Default.ContainsFileList;
 			// (tv.ContextMenu.Items["FileSystemContextMenu_PasteShortcut"] as CommandMenuItem).Enabled = Clipboard.Default.ContainsFileList;
+		}
+
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		{
+			List<SettingsProvider> list = new List<SettingsProvider>();
+
+			FileSystemEditorDocumentPropertiesSettingsProvider docprops = new FileSystemEditorDocumentPropertiesSettingsProvider();
+
+			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
+			docprops.ObjectModel = fsom;
+
+			if (tv.Focused)
+			{
+				if (tv.LastHitTest != null)
+				{
+					if (tv.LastHitTest.Row != null)
+					{
+						docprops.FileSystemObject = tv.LastHitTest.Row.GetExtraData<IFileSystemObject>("item");
+					}
+				}
+			}
+			list.Add(docprops);
+
+			return list.ToArray();
 		}
 	}
 }
