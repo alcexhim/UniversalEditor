@@ -42,6 +42,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				get
 				{
+					if (detail == null)
+						return null;
+
 					if (_itemsByDetail.ContainsKey(detail))
 						return _itemsByDetail[detail];
 					return null;

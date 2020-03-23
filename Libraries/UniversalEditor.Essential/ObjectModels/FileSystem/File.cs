@@ -170,6 +170,10 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				clone.Properties.Add(kvp.Key, kvp.Value);
 			}
+			foreach (KeyValuePair<string, string> kvp in AdditionalDetails)
+			{
+				clone.AdditionalDetails.Add(kvp.Key, kvp.Value);
+			}
 			clone.Parent = mvarParent;
 			return clone;
 		}
@@ -196,14 +200,14 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// <typeparam name="T">The type of <see cref="ObjectModel" /> to save.</typeparam>
 		/// <param name="dataFormat">The <see cref="DataFormat" /> specifying how to save the file data.</param>
 		/// <param name="objectModel">The <see cref="ObjectModel" /> containing the file data to save.</param>
-		public void SetObjectModel<T> (DataFormat dataFormat, T objectModel) where T : ObjectModel
+		public void SetObjectModel<T>(DataFormat dataFormat, T objectModel) where T : ObjectModel
 		{
-			MemoryAccessor ma = new MemoryAccessor ();
+			MemoryAccessor ma = new MemoryAccessor();
 
-			Document.Save (objectModel, dataFormat, ma);
+			Document.Save(objectModel, dataFormat, ma);
 
-			byte [] data = ma.ToArray ();
-			SetData (data);
+			byte[] data = ma.ToArray();
+			SetData(data);
 		}
 
 		public override string ToString()
@@ -226,10 +230,13 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 			catch (Exception ex)
 			{
-				Console.Error.WriteLine ("ue: FileSystem: File: {0}", ex.Message);
-				if (mvarSize != null) {
-					strSize = Size.ToString () + "?";
-				} else {
+				Console.Error.WriteLine("ue: FileSystem: File: {0}", ex.Message);
+				if (mvarSize != null)
+				{
+					strSize = Size.ToString() + "?";
+				}
+				else
+				{
 					strSize = "?";
 				}
 			}
@@ -305,7 +312,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 		public event DataRequestEventHandler DataRequest;
 
-		private Dictionary<string, object> mvarProperties = new Dictionary<string,object>();
+		private Dictionary<string, object> mvarProperties = new Dictionary<string, object>();
 		public Dictionary<string, object> Properties { get { return mvarProperties; } }
 
 		private DateTime mvarModificationTimestamp = DateTime.Now;
@@ -333,14 +340,14 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		{
 			long count = 0;
 			long blockSize = (System.Environment.WorkingSet / BLOCK_FRACTION);
-			
+
 			long offset = 0;
 			double dbl = ((double)mvarSource.GetLength() / (double)blockSize);
 			long blockCount = (long)Math.Ceiling(dbl);
 
 			if (transformations != null)
 			{
-			
+
 			}
 
 			for (long i = 0; i < blockCount; i++)
@@ -365,6 +372,19 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			return defaultValue;
 		}
 
-		public FileAdditionalDetailValue.FileAdditionalDetailValueCollection AdditionalDetails { get; } = new FileAdditionalDetailValue.FileAdditionalDetailValueCollection();
+		private Dictionary<string, string> AdditionalDetails = new Dictionary<string, string>();
+		public void SetAdditionalDetail(string name, string value)
+		{
+			AdditionalDetails[name] = value;
+		}
+		public string GetAdditionalDetail(string name, string defaultValue = "")
+		{
+			if (AdditionalDetails.ContainsKey(name))
+			{
+				string value = AdditionalDetails[name];
+				if (value != null) return value;
+			}
+			return defaultValue;
+		}
 	}
 }

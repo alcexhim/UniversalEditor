@@ -352,9 +352,9 @@ namespace UniversalEditor.Editors.FileSystem
 				r.RowColumns[1].RawValue = f.Size;
 				r.RowColumns[3].RawValue = f.ModificationTimestamp.ToBinary();
 
-				for (int i = 0; i < f.AdditionalDetails.Count; i++)
+				for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
 				{
-					r.RowColumns.Add(new TreeModelRowColumn(tmTreeView.Columns[4 + fsom.AdditionalDetails.IndexOf(f.AdditionalDetails[i].Detail)], f.AdditionalDetails[i].Value));
+					r.RowColumns.Add(new TreeModelRowColumn(tmTreeView.Columns[4 + i], f.GetAdditionalDetail(fsom.AdditionalDetails[i].Name)));
 				}
 			}
 			r.SetExtraData<IFileSystemObject>("item", fso);
