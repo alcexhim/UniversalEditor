@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{62DC7CF9-C608-49E5-8C39-305B2E3E93F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MBS.Framework.UserInterface.Engines.GTK</RootNamespace>
+    <AssemblyName>MBS.Framework.UserInterface.Engines.GTK</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\..\..\Production.snk</AssemblyOriginatorKeyFile>
+    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Output\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Output\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GTKNativeControl.cs" />
+    <Compile Include="GType.cs" />
+    <Compile Include="IntPtrEqualityComparer.cs" />
+    <Compile Include="Marshaller.cs" />
+    <Compile Include="CairoImage.cs" />
+    <Compile Include="GDKPixbufImage.cs" />
+    <Compile Include="GTKClipboard.cs" />
+    <Compile Include="GTKCommandLine.cs" />
+    <Compile Include="GTKCursorInfo.cs" />
+    <Compile Include="GTKEngine.cs" />
+    <Compile Include="GTKNativeImplementation.cs" />
+    <Compile Include="GTKNativeTreeModel.cs" />
+    <Compile Include="NotificationIconInfo.cs" />
+    <Compile Include="Controls\ButtonImplementation.cs" />
+    <Compile Include="Controls\CheckBoxImplementation.cs" />
+    <Compile Include="Controls\ComboBoxImplementation.cs" />
+    <Compile Include="Controls\ContainerImplementation.cs" />
+    <Compile Include="Controls\CustomControlImplementation.cs" />
+    <Compile Include="Controls\DockingContainerImplementation.cs" />
+    <Compile Include="Controls\DropDownButtonImplementation.cs" />
+    <Compile Include="Controls\FileBrowserControlImplementation.cs" />
+    <Compile Include="Controls\LabelImplementation.cs" />
+    <Compile Include="Controls\ListViewImplementation.cs" />
+    <Compile Include="Controls\OpenGLCanvasImplementation.cs" />
+    <Compile Include="Controls\PictureFrameImplementation.cs" />
+    <Compile Include="Controls\PopupWindowImplementation.cs" />
+    <Compile Include="Controls\RibbonControlImplementation.cs" />
+    <Compile Include="Controls\SplitContainerImplementation.cs" />
+    <Compile Include="Controls\StackSidebarImplementation.cs" />
+    <Compile Include="Controls\SyntaxTextBoxImplementation.cs" />
+    <Compile Include="Controls\TabContainerImplementation.cs" />
+    <Compile Include="Controls\TextBoxImplementation.cs" />
+    <Compile Include="Controls\ToolbarImplementation.cs" />
+    <Compile Include="Controls\WindowImplementation.cs" />
+    <Compile Include="Dialogs\PrintDialogImplementation.cs" />
+    <Compile Include="Drawing\GTKGraphics.cs" />
+    <Compile Include="Internal\AppIndicator\Constants.cs" />
+    <Compile Include="Internal\AppIndicator\Methods.cs" />
+    <Compile Include="Internal\Cairo\Constants.cs" />
+    <Compile Include="Internal\Cairo\Methods.cs" />
+    <Compile Include="Internal\Cairo\Structures.cs" />
+    <Compile Include="Internal\GDK\Constants.cs" />
+    <Compile Include="Internal\GDK\Methods.cs" />
+    <Compile Include="Internal\GDK\Structures.cs" />
+    <Compile Include="Internal\GDL\Constants.cs" />
+    <Compile Include="Internal\GDL\Delegates.cs" />
+    <Compile Include="Internal\GDL\Methods.cs" />
+    <Compile Include="Internal\GIO\Constants.cs" />
+    <Compile Include="Internal\GIO\Delegates.cs" />
+    <Compile Include="Internal\GIO\Methods.cs" />
+    <Compile Include="Internal\GIO\Structures.cs" />
+    <Compile Include="Internal\GLib\Constants.cs" />
+    <Compile Include="Internal\GLib\Delegates.cs" />
+    <Compile Include="Internal\GLib\Methods.cs" />
+    <Compile Include="Internal\GLib\Structures.cs" />
+    <Compile Include="Internal\GObject\Constants.cs" />
+    <Compile Include="Internal\GObject\Delegates.cs" />
+    <Compile Include="Internal\GObject\Methods.cs" />
+    <Compile Include="Internal\GTK\Constants.cs" />
+    <Compile Include="Internal\GTK\Delegates.cs" />
+    <Compile Include="Internal\GTK\Methods\Gtk.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkAboutDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkAccelGroup.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkAccelMap.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkAdjustment.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkAppChooserDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkApplication.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkApplicationWindow.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkBin.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkBox.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkButton.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkCellArea.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkCellAreaBox.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkCellRendererCombo.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkCellRendererText.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkCheckButton.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkClipboard.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkColorDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkComboBox.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkContainer.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkCss.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkDragDest.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkDragSource.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkDrawingArea.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkEditable.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkEntry.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFileChooser.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFileChooserDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFileChooserWidget.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFileFilter.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFixed.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFlowBox.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFontChooserDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFontSelection.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkGlArea.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkGrid.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkHandleBox.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkHeaderBar.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkIconTheme.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkIconView.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkImage.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkLabel.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkLayout.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkMenu.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkMenuBar.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkMenuItem.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkMenuShell.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkMessageDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkNotebook.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkPageSetup.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkPaned.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkPopover.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkPrintJob.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkPrintOperation.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkPrintSettings.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkPrintUnixDialog.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkRender.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkScrolledWindow.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSelection.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSeparator.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSeparatorMenuItem.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSeparatorToolItem.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSourceBuffer.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSourceLanguageManager.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSourceView.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkStack.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkStackSidebar.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkStatusBar.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkStock.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkStyleContext.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTable.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTearoffMenuItem.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTextBuffer.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTextIter.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTextTagTable.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTextView.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkToggleButton.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkToggleToolButton.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkToolbar.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkToolButton.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTreeModel.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTreePath.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTreeSelection.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTreeSortable.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTreeStore.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTreeView.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkTreeViewColumn.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkWidget.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkWidgetPath.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkWindow.cs" />
+    <Compile Include="Internal\GTK\Structures.cs" />
+    <Compile Include="Internal\Notify\Methods.cs" />
+    <Compile Include="Internal\Pango\Methods.cs" />
+    <Compile Include="Printing\GTKPrinter.cs" />
+    <Compile Include="Dialogs\FileDialogImplementation.cs" />
+    <Compile Include="GTKDialogImplementation.cs" />
+    <Compile Include="Dialogs\MessageDialogImplementation.cs" />
+    <Compile Include="Dialogs\ColorDialogImplementation.cs" />
+    <Compile Include="Dialogs\FontDialogImplementation.cs" />
+    <Compile Include="Dialogs\GenericDialogImplementation.cs" />
+    <Compile Include="Dialogs\AppChooserDialogImplementation.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkCellRendererToggle.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkEventBox.cs" />
+    <Compile Include="Controls\GroupBoxImplementation.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkFrame.cs" />
+    <Compile Include="Controls\NumericTextBoxImplementation.cs" />
+    <Compile Include="Internal\GTK\Methods\GtkSpinButton.cs" />
+    <Compile Include="Dialogs\TaskDialogImplementation.cs" />
+    <Compile Include="GTKPlugin.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Controls\" />
+    <Folder Include="Dialogs\" />
+    <Folder Include="Drawing\" />
+    <Folder Include="Internal\" />
+    <Folder Include="Printing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\UniversalEditor\CSharp\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\UniversalEditor\CSharp\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>MBS.Framework.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\MBS.Framework.Rendering\Libraries\MBS.Framework.Rendering\MBS.Framework.Rendering.csproj">
+      <Project>{2A0B4A53-8A3A-478D-80A7-B6FF20B38317}</Project>
+      <Name>MBS.Framework.Rendering</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MBS.Framework.UserInterface.Engines.GTK.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

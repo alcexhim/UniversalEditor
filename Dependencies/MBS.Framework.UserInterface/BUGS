@@ -1,0 +1,10 @@
+Dialog signals do not respond after initial creation, destruction, re-creation of dialog
+	See Universal Editor, File->New Document
+		Dialog runs
+		User types into search box - search box works
+		Dialog closes
+		
+		Dialog runs again
+		User types into search box - no response
+		
+

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+  <Theming>
+    <Themes>
+      <Theme ID="{898A65FC-8D08-46F1-BB94-2BF666AC996E}" InheritsThemeID="{8E4D3759-C33C-41FB-83E8-FB8BCAA03153}">
+        <Information>
+          <Title>Visual Studio 2012 Blue</Title>
+        </Information>
+        <Colors>
+          <Color Name="ThemeColorGreen" Value="#008000" />
+          <Color Name="ThemeColorBlue" Value="#0000FF" />
+          <Color Name="ThemeColorRed" Value="#FF0000" />
+          <Color Name="ThemeColorLightBlue" Value="#92CAF4" />
+          <Color Name="ThemeColorLightCyan" Value="#4EC9B0" />
+
+          <Color Name="ThemeColorDarkCyan" Value="#2B91AF" />
+          <Color Name="ThemeColorDarkGray" Value="#808080" />
+          <Color Name="ThemeColorLightGray" Value="#C8C8C8" />
+
+          <Color Name="CommandBarBackground" Value="#CFD6E5" />
+          <Color Name="CommandBarMenuBackground" Value="#D6DBE9" />
+          <Color Name="CommandBarPopupBackground" Value="#EAF0FF" />
+          <Color Name="CommandBarPopupBorder" Value="#9BA7B7" />
+          <Color Name="CommandBarRaftingContainerBackground" Value="@CommandBarMenuBackground" />
+
+          <Color Name="CommandBarItemForeground" Value="#1B293E" />
+          <Color Name="CommandBarItemHoverBackground" Value="#FDF4BF" />
+          <Color Name="CommandBarItemHoverBorder" Value="#E5C365" />
+          <Color Name="CommandBarItemPressedBackground" Value="#FFF29D" />
+          <Color Name="CommandBarItemPressedBorder" Value="@CommandBarItemHoverBorder" />
+
+          <Color Name="CommandBarMenuItemHoverBackground" Value="@CommandBarItemHoverBackground" />
+          <Color Name="CommandBarMenuItemPressedBackground" Value="@CommandBarMenuItemHoverBackground" />
+
+          <Color Name="CommandBarMenuItemHoverBorder" Value="@CommandBarItemHoverBorder" />
+          <Color Name="CommandBarMenuItemPressedBorder" Value="@CommandBarMenuItemHoverBorder" />
+
+          <Color Name="ContentAreaBackground" Value="#293955" />
+
+          <Color Name="DocumentTabNormalBackground" Value="#364E6F" />
+          <Color Name="DocumentTabNormalBorder" Value="@DocumentTabNormalBackground" />
+
+          <Color Name="DocumentTabNormalSelectedBackground" Value="#4D6082" />
+          <Color Name="DocumentTabNormalSelectedBorder" Value="@DocumentTabNormalSelectedBackground" />
+
+          <Color Name="DocumentTabNormalFocusedSelectedBackground" Value="#FFF29D" />
+          <Color Name="DocumentTabNormalFocusedSelectedBorder" Value="@DocumentTabNormalSelectedBackground" />
+
+          <Color Name="DocumentTabHoverBackground" Value="#5B7199" />
+          <Color Name="DocumentTabHoverBorder" Value="@DocumentTabHoverBackground" />
+
+          <Color Name="ListViewBackground" Value="#FFFFFF" />
+
+          <Color Name="ListViewItemNormalBackground" Value="Transparent" />
+          <Color Name="ListViewItemHoverBackground" Value="#FDF4BF" />
+
+          <Color Name="ListViewItemSelectedBackground" Value="#3399FF" />
+
+          <Color Name="ListViewSelectionRectangleBorder" Value="#E5C365" />
+          <Color Name="ListViewSelectionRectangleBackground" Value="#FDF4BF" />
+
+          <Color Name="DockingWindowTabBackground" Value="#2D2D30" />
+          <Color Name="DockingWindowTabBackgroundSelected" Value="#252526" />
+          <Color Name="DockingWindowTabBorderSelected" Value="#3F3F46" />
+          <Color Name="DockingWindowTabForegroundSelected" Value="#0097FB" />
+
+          <Color Name="ScrollbarBackground" Value="#3E3E42" />
+          <Color Name="ScrollbarArrow" Value="#999999" />
+          <Color Name="ScrollbarThumb" Value="#686868" />
+
+          <Color Name="SeparatorDark" Value="#8591A2" />
+          <Color Name="SeparatorLight" Value="#D6DBE9" />
+
+          <Color Name="WindowBackground" Value="#1E1E1E" />
+          <Color Name="WindowForeground" Value="#F1F1F1" />
+		  
+		  <Color Name="WindowActiveBorder" Value="#0D202D" />
+		  <Color Name="WindowInactiveBorder" Value="#525252" />
+		  
+		  <Color Name="WindowTitleBarBackground" Value="#D6DBE9" />
+		  
+		  <Color Name="WindowTitleBarActiveForeground" Value="#000000" />
+		  <Color Name="WindowTitleBarInactiveForeground" Value="#787B83" />
+        </Colors>
+      </Theme>
+    </Themes>
+  </Theming>
+</AwesomeControls>

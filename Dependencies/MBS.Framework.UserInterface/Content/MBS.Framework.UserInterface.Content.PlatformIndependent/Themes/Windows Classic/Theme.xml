@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{59819CAF-6166-448C-92C1-1D19AA6E006D}" Title="Windows Classic">
+				<ColorSchemes Default="{D441E84D-7AEB-48FB-A309-DB81B8F086BF}">
+					<ColorScheme ID="{D441E84D-7AEB-48FB-A309-DB81B8F086BF}" Title="System">
+						<ColorTable>
+						</ColorTable>
+					</ColorScheme>
+				</ColorSchemes>
+				<Metrics>
+				</Metrics>
+				<Properties>
+				</Properties>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>

@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface", "Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj", "{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engines", "Engines", "{019BCA56-9006-43D9-A6A6-0F6FCDC1AC80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Win32", "Win32", "{F9B4E195-FD60-4D68-8F32-D1C7C3EC3E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface.Engines.Win32", "Engines\Win32\MBS.Framework.UserInterface.Engines.Win32\MBS.Framework.UserInterface.Engines.Win32.csproj", "{9380E5B9-3ED1-4A7F-A45F-1755721F7D2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{0488D8F4-FDA7-4C59-8EB2-2AECD3DFB9A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{6546543B-2902-4A5E-9C84-D1054850DAE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface.TestProject", "Applications\MBS.Framework.UserInterface.TestProject\MBS.Framework.UserInterface.TestProject.csproj", "{A5DAA120-961D-46DB-AD14-B1446DE5A9C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{BA7D27E2-1604-43DF-99EB-0DE948B42DD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Core", "..\UniversalEditor\CSharp\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj", "{2D4737E6-6D95-408A-90DB-8DFF38147E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Essential", "..\UniversalEditor\CSharp\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj", "{30467E5C-05BC-4856-AADC-13906EF4CADD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{11272BE5-EF6E-4901-B404-88D211842B1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalWidgetTooklit.Content.PlatformIndependent", "Content\MBS.Framework.UserInterface.Content.PlatformIndependent\UniversalWidgetTooklit.Content.PlatformIndependent.csproj", "{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9380E5B9-3ED1-4A7F-A45F-1755721F7D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9380E5B9-3ED1-4A7F-A45F-1755721F7D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9380E5B9-3ED1-4A7F-A45F-1755721F7D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9380E5B9-3ED1-4A7F-A45F-1755721F7D2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DAA120-961D-46DB-AD14-B1446DE5A9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DAA120-961D-46DB-AD14-B1446DE5A9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DAA120-961D-46DB-AD14-B1446DE5A9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DAA120-961D-46DB-AD14-B1446DE5A9C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30467E5C-05BC-4856-AADC-13906EF4CADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30467E5C-05BC-4856-AADC-13906EF4CADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30467E5C-05BC-4856-AADC-13906EF4CADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30467E5C-05BC-4856-AADC-13906EF4CADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{29E1C1BB-3EA5-4062-B62F-85EEC703FE07} = {0488D8F4-FDA7-4C59-8EB2-2AECD3DFB9A6}
+		{F9B4E195-FD60-4D68-8F32-D1C7C3EC3E39} = {019BCA56-9006-43D9-A6A6-0F6FCDC1AC80}
+		{9380E5B9-3ED1-4A7F-A45F-1755721F7D2A} = {F9B4E195-FD60-4D68-8F32-D1C7C3EC3E39}
+		{A5DAA120-961D-46DB-AD14-B1446DE5A9C3} = {6546543B-2902-4A5E-9C84-D1054850DAE7}
+		{2D4737E6-6D95-408A-90DB-8DFF38147E85} = {BA7D27E2-1604-43DF-99EB-0DE948B42DD7}
+		{30467E5C-05BC-4856-AADC-13906EF4CADD} = {BA7D27E2-1604-43DF-99EB-0DE948B42DD7}
+		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF} = {11272BE5-EF6E-4901-B404-88D211842B1E}
+	EndGlobalSection
+EndGlobal

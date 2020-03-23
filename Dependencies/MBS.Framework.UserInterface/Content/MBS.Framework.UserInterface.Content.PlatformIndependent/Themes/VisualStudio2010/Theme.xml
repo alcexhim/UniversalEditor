@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{0DB6F9DC-27B3-487F-9693-44BDE86FB061}" Title="Visual Studio 2010" Inherits="{96113378-5F51-4845-A96D-E7C47BD9887D}">
+				<ColorSchemes Default="{5AE72CF4-5BD5-4011-B28D-C499007DB490}">
+					<ColorScheme ID="{5AE72CF4-5BD5-4011-B28D-C499007DB490}" Title="Default">
+						<ColorTable>
+						</ColorTable>
+					</ColorScheme>
+				</ColorSchemes>
+				<Metrics>
+				</Metrics>
+				<Properties>
+				</Properties>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8622EBC4-8E20-476E-B284-33D472081F5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor.UserInterface</RootNamespace>
+    <AssemblyName>UniversalEditor.UserInterface</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\Production.snk</AssemblyOriginatorKeyFile>
+    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BookmarksManager.cs" />
+    <Compile Include="CommandDisplayStyle.cs" />
+    <Compile Include="Common\Reflection.cs" />
+    <Compile Include="ConfigurationManager.cs" />
+    <Compile Include="CustomOptionDialogType.cs" />
+    <Compile Include="EditorReference.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="HostApplication.cs" />
+    <Compile Include="HostApplicationMessage.cs" />
+    <Compile Include="HostApplicationOutputWindow.cs" />
+    <Compile Include="Editor.cs" />
+    <Compile Include="IHostApplicationWindow.cs" />
+    <Compile Include="ObjectModelChangingEvent.cs" />
+    <Compile Include="Perspective.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyMapping.cs" />
+    <Compile Include="RecentFileManager.cs" />
+    <Compile Include="SessionManager.cs" />
+    <Compile Include="SingleInstanceManager.cs" />
+    <Compile Include="TemporaryFileManager.cs" />
+    <Compile Include="Toolbox.cs" />
+    <Compile Include="UnsavedDocumentOption.cs" />
+    <Compile Include="WindowState.cs" />
+    <Compile Include="StockCommandType.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="Panels\ErrorListPanel.cs" />
+    <Compile Include="Panel.cs" />
+    <Compile Include="MenuBar.cs" />
+    <Compile Include="LocalConfiguration.cs" />
+    <Compile Include="Tests.cs" />
+    <Compile Include="Dialogs\DataFormatAboutDialog.cs" />
+    <Compile Include="Panels\SolutionExplorerPanel.cs" />
+    <Compile Include="Dialogs\NewDialog.cs" />
+    <Compile Include="Pages\EditorPage.cs" />
+    <Compile Include="Page.cs" />
+    <Compile Include="Pages\FilePage.cs" />
+    <Compile Include="Dialogs\NewDialog.Designer.cs" />
+    <Compile Include="Editors\Text\Plain\PlainTextEditor.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditor.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditor.Designer.cs" />
+    <Compile Include="Common\FileInfo.cs" />
+    <Compile Include="Editors\PropertyList\PropertyListEditor.cs" />
+    <Compile Include="Editors\PropertyList\PropertyListEditor.Designer.cs" />
+    <Compile Include="Dialogs\DocumentPropertiesDialog.cs" />
+    <Compile Include="Dialogs\GenericBrowserPopup.cs" />
+    <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs" />
+    <Compile Include="Dialogs\CustomOptionsDialog.cs" />
+    <Compile Include="Panels\StartPagePanel.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditorSettingsProvider.cs" />
+    <Compile Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.cs" />
+    <Compile Include="Dialogs\DocumentPropertiesDialogMode.cs" />
+    <Compile Include="Dialogs\DocumentPropertiesDialogV2.cs" />
+    <Compile Include="Controls\UniversalEditorFileBrowserControl.cs" />
+    <Compile Include="Controls\GenericBrowserButton.cs" />
+    <Compile Include="Dialogs\AboutDialog.cs" />
+    <Compile Include="EditorSelection.cs" />
+    <Compile Include="Editors\Text\TextEditorSelection.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemSelection.cs" />
+    <Compile Include="Editors\Text\TextEditor.cs" />
+    <Compile Include="Editors\Binary\BinaryEditor.cs" />
+    <Compile Include="Editors\Binary\FieldDefinitionPropertiesDialog.cs" />
+    <Compile Include="Editors\Binary\FieldDefinition.cs" />
+    <Compile Include="EditorView.cs" />
+    <Compile Include="EditorViewChangingEvent.cs" />
+    <Compile Include="EditorViewChangedEvent.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="EditorContext.cs" />
+    <Compile Include="Editors\Database\DatabaseEditor.cs" />
+    <Compile Include="Editors\Database\DatabaseEditor.Designer.cs" />
+    <Compile Include="EditorPlugin.cs" />
+    <Compile Include="Panels\PropertyListPanel.cs" />
+    <Compile Include="Panels\PropertyListPanel.Designer.cs" />
+    <Compile Include="View.cs" />
+    <Compile Include="Panels\DocumentExplorerPanel.cs" />
+    <Compile Include="Editors\FileSystem\FileSystemEditorDocumentPropertiesSettingsProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Printing\UniversalEditor.Printing.csproj">
+      <Project>{868A6888-EDB9-407E-A710-40F297D4EAB8}</Project>
+      <Name>UniversalEditor.Printing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependencies\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>MBS.Framework.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependencies\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Panels\" />
+    <Folder Include="Dialogs\" />
+    <Folder Include="Pages\" />
+    <Folder Include="Editors\" />
+    <Folder Include="Editors\Text\" />
+    <Folder Include="Editors\Text\Plain\" />
+    <Folder Include="Editors\FileSystem\" />
+    <Folder Include="Editors\PropertyList\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Editors\Binary\" />
+    <Folder Include="Editors\Database\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{54CE64B1-2DE3-4147-B499-03F0934AFD37}" InheritsThemeID="{8E4D3759-C33C-41FB-83E8-FB8BCAA03153}">
+				<Information>
+					<Title>Visual Studio 2012 Light</Title>
+				</Information>
+				<Colors>
+					<Color Name="ThemeColorGreen" Value="#608B4E" />
+					<Color Name="ThemeColorBlue" Value="#569CD6" />
+					<Color Name="ThemeColorLightBlue" Value="#92CAF4" />
+					<Color Name="ThemeColorLightCyan" Value="#4EC9B0" />
+
+					<Color Name="ThemeColorDarkGray" Value="#808080" />
+					<Color Name="ThemeColorLightGray" Value="#C8C8C8" />
+
+					<Color Name="CommandBarBackground" Value="#EEEEF2" />
+					<Color Name="CommandBarMenuBackground" Value="@CommandBarBackground" />
+					<Color Name="CommandBarPopupBackground" Value="#F6F6F6" />
+					<Color Name="CommandBarPopupBorder" Value="#CCCEDB" />
+					<Color Name="CommandBarRaftingContainerBackground" Value="@CommandBarBackground" />
+
+					<Color Name="CommandBarItemForeground" Value="#1E1E1E" />
+					<Color Name="CommandBarItemForegroundDisabled" Value="#A2A4A5" />
+					
+					<Color Name="CommandBarItemHoverBackground" Value="#C9DEF5" />
+					<Color Name="CommandBarItemHoverBorder" Value="@CommandBarItemHoverBackground" />
+					<Color Name="CommandBarItemPressedBackground" Value="#007ACC" />
+					<Color Name="CommandBarItemPressedBorder" Value="@CommandBarItemHoverBorder" />
+
+					<Color Name="CommandBarMenuItemHoverBackground" Value="@CommandBarItemHoverBackground" />
+					<Color Name="CommandBarMenuItemPressedBackground" Value="@CommandBarMenuItemHoverBackground" />
+
+					<Color Name="CommandBarMenuItemHoverBorder" Value="@CommandBarMenuItemHoverBackground" />
+					<Color Name="CommandBarMenuItemPressedBorder" Value="@CommandBarMenuItemPressedBackground" />
+
+					<Color Name="ContentAreaBackground" Value="#EEEEF2" />
+
+					<Color Name="DocumentTabNormalBackground" Value="Transparent" />
+					<Color Name="DocumentTabNormalBorder" Value="@DocumentTabNormalBackground" />
+
+					<Color Name="DocumentTabNormalSelectedBackground" Value="#CCCEDB" />
+					<Color Name="DocumentTabNormalSelectedBorder" Value="@DocumentTabNormalSelectedBackground" />
+
+					<Color Name="DocumentTabNormalFocusedSelectedBackground" Value="#007ACC" />
+					<Color Name="DocumentTabNormalFocusedSelectedBorder" Value="@DocumentTabNormalSelectedBackground" />
+
+					<Color Name="DocumentTabHoverBackground" Value="#1C97EA" />
+					<Color Name="DocumentTabHoverBorder" Value="@DocumentTabHoverBackground" />
+
+					<Color Name="ListViewBackground" Value="#F5F5F5" />
+
+					<Color Name="ListViewItemNormalBackground" Value="Transparent" />
+					<Color Name="ListViewItemHoverBackground" Value="#C9DEF5" />
+					<!-- unselected #CCCEDB -->
+					<Color Name="ListViewItemSelectedBackground" Value="#3399FF" />
+
+					<Color Name="ListViewSelectionRectangleBorder" Value="#3399FF" />
+					<Color Name="ListViewSelectionRectangleBackground" Value="#C9DEF5" />
+
+					<Color Name="DockingWindowTabBackground" Value="#2D2D30" />
+					<Color Name="DockingWindowTabForeground" Value="#D0D0D0" />
+					<Color Name="DockingWindowTabBackgroundSelected" Value="#252526" />
+					<Color Name="DockingWindowTabBorderSelected" Value="#3F3F46" />
+					<Color Name="DockingWindowTabForegroundSelected" Value="#0097FB" />
+
+					<Color Name="ScrollbarBackground" Value="#3E3E42" />
+					<Color Name="ScrollbarArrow" Value="#999999" />
+					<Color Name="ScrollbarThumb" Value="#686868" />
+
+					<Color Name="SeparatorDark" Value="#CCCEDB" />
+					<Color Name="SeparatorLight" Value="#F5F5F5" />
+
+					<Color Name="WindowActiveBorder" Value="#9B9FB9" />
+					<Color Name="WindowInactiveBorder" Value="#CCCEDB" />
+
+					<Color Name="WindowTitleBarBackground" Value="@CommandBarBackground" />
+
+					<Color Name="WindowTitleBarActiveForeground" Value="#525252" />
+					<Color Name="WindowTitleBarInactiveForeground" Value="#9B9B9D" />
+
+				</Colors>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>

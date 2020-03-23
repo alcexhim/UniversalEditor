@@ -1,19 +1,53 @@
 UniversalEditor
 ===============
 
-A free, cross-platform modular data manipulation framework. For more details about a particular edition, if available, visit that edition's particular folder.
+A free, cross-platform modular data manipulation framework.
 
-**Support my projects** by *donating bitcoin* and letting me know what features are most important to you by *opening issues*!
-Please send donations for Universal Editor to `1MBSn4A58dTAfK9VqmigoKGwgeyrPnBiZ4`.
+This is Universal Editor 5, which is built using Universal Widget Toolkit to run smoothly on Windows and Linux. Mac OS X support in Universal Widget Toolkit is planned for the distant future.
 
-[C](C)
--
-A native implementation of the Universal Editor Platform. This is currently not being worked on in favor of the managed CSharp and hosted PHP editions.
+Philosophy
+----------
+UniversalEditor 4 has four components:
 
-[CSharp](CSharp)
-------
-The flagship edition of the Universal Editor Platform. Written in C# (of course) it is cross-platform and works well with Windows (on Microsoft .NET Framework) and Linux (on Mono) operating systems.
+* *Editor* is responsible for modifying the content of the ObjectModel from a user's point of view. 
+* *ObjectModel* contains the user-friendly, DataFormat-agnostic representation of the data.
+* *DataFormat* is responsible for converting on-disk representations of data to and from user-friendly ObjectModel representations.
+* *Accessor* is responsible for reading from and writing to actual sources of data using the DataFormat as the translator. Therefore, any Accessor is irrevocably paired with exactly one DataFormat.
 
-[PHP](PHP)
----
-The source code for the hosted edition of the Universal Editor Platform (still a work in progress).
+Prerequisites
+-------------
+* Sanjigen (if building Multimedia3D plugin)
+* MBS.Framework.UserInterface (if building UserInterface)
+
+Glue is no longer a requirement for building UserInterface. Since Universal Editor engines have been removed in favor of Universal Widget Toolkit, AwesomeControls and Surodoine are no longer required. AwesomeControls may be required for building Universal Widget Toolkit Windows Forms Engine until the controls are successfully ported to Universal Widget Toolkit.
+
+Building
+--------
+The solution and dependencies need to be cleaned up before we can write a proper tutorial for building. Keep everything in the same parent directory, *git clone* alcexhim/UniversalEditor, alcexhim/MBS.Framework, alcexhim/MBS.Framework.UserInterface, and (maybe) alcexhim/Auraluminous and its dependencies if you wish to build the associated plugin.
+
+The application *WILL NOT* work properly if the appropriate Universal Widget Toolkit engine, MBS.Framework.UserInterface.(engine).dll, is not in the Output/(configuration) directory! The build process at this time does not automatically copy this file from the MBS.Framework.UserInterface output directory to the Universal Editor output directory.
+
+Currently the most up-to-date User Interface Engine is GTK, but I hope to be bringing the Windows Forms one up to par soon. You might find that the GTK engine only works on Linux. I can't offer any help or support for getting the GTK engine to work on a different operating system. In the future, the Windows Forms engine should be used on Windows.
+
+Customization and Branding
+--------------------------
+To customize Universal Editor, look in the Content folder in the UniversalEditor.Content.PlatformIndependent project. All folders included within this project will be copied to the Output folder upon build.
+
+* The *Branding* folder contains the application icon (on Windows) and image used for the splash screen. In the future the splash screen will have additional customization options, including the ability to modify parts of the splash screen (such as progress bars and status labels) using only configuration files.
+* The *Configuration* folder contains XML files that are used to configure various properties of the software (although XML configuration files are actually read from anywhere in the application Output directory).
+* The *Editors* folder contains editor-specific, platform-independent resources. You should not need to touch these unless you want to change the appearance of a particular editor (for example, providing different icons for folders in the FileSystem editor).
+
+Translating the Software
+------------------------
+The *Languages* folder contains language translation string tables. The easiest way to translate the software is to copy the English.xml, translate all the strings, save it as a new language, and set it as the default language by specifying the DefaultLanguageID attribute on the UniversalEditor/Application/Languages element. Currently there is no way to change/save/load the default language at runtime, but that is trivial to implement and should be arriving shortly.
+
+Project Types and Templates
+---------------------------
+* The *ProjectTypes* folder contains project type definitions. In the future it will be possible to provide project types via compiled assemblies (DLLs) and gain more control over the project process. ProjectTypes usually define build tasks that can be selected for each file in the project (for example, Compile/Content/EmbeddedResource) and provide other customization options.
+* The *Templates* folder contains template definitions.
+
+Future Goals
+------------
+In a future release (originally planned for Universal Editor 5), multiple Accessor/DataFormat pairs can be associated with an ObjectModel. This would allow an ObjectModel to store data simultaneously in one format in one file, and in another format in another file. This is achieved through the use of a new component called an *Endpoint*, which pairs an Accessor and a DataFormat.
+* If more than one Output Endpoint is specified, the resulting data is written to each Accessor using the associated DataFormat.
+* <s>If more than one Input Endpoint is specified, the resulting data gets concatenated to the ObjectModel.</s> Multiple Input Endpoints will not be supported due to concerns about how to handle concatenation of the ObjectModel.

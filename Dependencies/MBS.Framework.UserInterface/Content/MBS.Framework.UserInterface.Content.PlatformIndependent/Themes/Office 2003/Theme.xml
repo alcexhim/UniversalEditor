@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{A88F0EA6-59AB-48D6-BD9A-07096ABBD37F}" Title="Office 2003" Inherits="{F8FD2C26-748A-41C9-84FF-DDF263A9B761}">
+				<ColorSchemes Default="{25044D13-C79E-49E3-9F28-47FCE3CFDFB5}">
+					<ColorScheme ID="{25044D13-C79E-49E3-9F28-47FCE3CFDFB5}" Title="Default">
+						<ColorTable>
+						</ColorTable>
+					</ColorScheme>
+				</ColorSchemes>
+				<Metrics>
+				</Metrics>
+				<Properties>
+				</Properties>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>

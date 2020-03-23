@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{60E12754-A8E6-4096-A176-516DFC8E6F9C}" Title="Visual Studio 2005" Inherits="{A88F0EA6-59AB-48D6-BD9A-07096ABBD37F}">
+				<ColorSchemes Default="{46731D15-E569-496B-AA29-983019AECF8A}">
+					<ColorScheme ID="{46731D15-E569-496B-AA29-983019AECF8A}" Title="Default">
+						<ColorTable>
+						</ColorTable>
+					</ColorScheme>
+				</ColorSchemes>
+				<Metrics>
+				</Metrics>
+				<Properties>
+				</Properties>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>

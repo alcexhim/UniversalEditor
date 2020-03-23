@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{8E4D3759-C33C-41FB-83E8-FB8BCAA03153}" InheritsThemeID="{0DB6F9DC-27B3-487F-9693-44BDE86FB061}" IsAbstract="True">
+				<Information>
+					<Title>Visual Studio 2012 Base</Title>
+				</Information>
+				<Components>
+					<!-- CommandBarMenu -->
+					<Component ID="{92ED06B1-7E08-46FF-B5FF-A44431D32C67}" InheritsComponentID="{8BFF8467-F940-47C9-AE44-CEBB38AE8747}" />
+					<!-- CommandBar -->
+					<Component ID="{8BFF8467-F940-47C9-AE44-CEBB38AE8747}">
+						<Renderings>
+							<Rendering>
+								<!-- This Rendering applies to all states, so the States tag is actually optional -->
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="None" />
+										<Fill Type="Solid" Color="@CommandBarMenuBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- CommandBarItem -->
+					<Component ID="{D83F03AF-EEBE-4EFB-ACDB-7D2952B5D566}">
+						<Renderings>
+							<Rendering>
+								<States>
+									<!-- this rendering will only be activated on the Hover state -->
+									<State ID="{753EF929-00E9-4C9A-BE0E-F897DCA649B8}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarItemHoverBorder" />
+										<Fill Type="Solid" Color="@CommandBarItemHoverBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<States>
+									<!-- this rendering will only be activated on the Pressed state -->
+									<State ID="{962963D7-D209-42D0-94BA-AB022109AB53}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarItemPressedBorder" />
+										<Fill Type="Solid" Color="@CommandBarItemPressedBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- CommandBarSplitItem -->
+					<Component ID="{4F01984B-BA87-4EDB-A759-0698910AE56E}">
+						<Renderings>
+							<Rendering>
+								<States>
+									<!-- this rendering will only be activated on the Hover state -->
+									<State ID="{753EF929-00E9-4C9A-BE0E-F897DCA649B8}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarItemHoverBorder" />
+										<Fill Type="Solid" Color="@CommandBarItemHoverBackground" />
+									</Rectangle>
+									<Line X1="$(Component.ButtonWidth)" Y1="0" X2="$(Component.ButtonWidth)" Y2="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarItemHoverBorder" />
+									</Line>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<States>
+									<!-- this rendering will only be activated on the Pressed state -->
+									<State ID="{962963D7-D209-42D0-94BA-AB022109AB53}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarItemPressedBorder" />
+										<Fill Type="Solid" Color="@CommandBarItemPressedBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- CommandBarMenuItem -->
+					<Component ID="{F064AB35-B3EE-4645-95B9-3DAFE1BD94B7}">
+						<Renderings>
+							<Rendering>
+								<States>
+									<!-- this rendering will only be activated on the Hover state -->
+									<State ID="{753EF929-00E9-4C9A-BE0E-F897DCA649B8}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="None" />
+										<Fill Type="Solid" Color="@CommandBarMenuItemHoverBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<States>
+									<!-- this rendering will only be activated on the Pressed state -->
+									<State ID="{962963D7-D209-42D0-94BA-AB022109AB53}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="None" />
+										<Fill Type="Solid" Color="@CommandBarMenuItemPressedBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- CommandBarTopLevelItem -->
+					<Component ID="{96C8D995-0628-4F0B-98AD-B55B053C481B}" InheritsComponentID="{D83F03AF-EEBE-4EFB-ACDB-7D2952B5D566}">
+						<Renderings>
+							<Rendering>
+								<States>
+									<State ID="{962963D7-D209-42D0-94BA-AB022109AB53}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width) - 1" Height="$(Component.Height) - 1">
+										<Fill Type="Solid" Color="@CommandBarPopupBackground" />
+									</Rectangle>
+									<Line X1="0" Y1="0" X2="$(Component.Width) - 1" Y2="0">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+									</Line>
+									<Line X1="0" Y1="0" X2="0" Y2="$(Component.Height) - 1">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+									</Line>
+									<Line X1="$(Component.Width) - 1" Y1="0" X2="$(Component.Width) - 1" Y2="$(Component.Height) - 1">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+									</Line>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- CommandBarPopup -->
+					<Component ID="{68969627-9C9D-487A-B89A-36AFC4810459}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+										<Fill Type="Solid" Color="@CommandBarPopupBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- CommandBarTopLevelPopup -->
+					<Component ID="{5D5BE8EE-973B-4BC6-A973-3A8AA955A1CC}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="None" />
+										<Fill Type="Solid" Color="@CommandBarPopupBackground" />
+									</Rectangle>
+									<Line X1="$(Component.Parent.Width) - 1" Y1="0" X2="$(Component.Width)" Y2="0">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+									</Line>
+									<Line X1="0" Y1="0" X2="0" Y2="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+									</Line>
+									<Line X1="0" Y1="$(Component.Height) - 1" X2="$(Component.Width)" Y2="$(Component.Height) - 1">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+									</Line>
+									<Line X1="$(Component.Width) - 1" Y1="0" X2="$(Component.Width) - 1" Y2="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+									</Line>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- CommandBarRaftingContainer -->
+					<Component ID="{1FB02962-E290-46CC-B615-8E852EDE9B84}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@CommandBarPopupBorder" />
+										<Fill Type="Solid" Color="@CommandBarRaftingContainerBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+
+					<!-- Content Area -->
+					<Component ID="{2CA5F623-7ECF-4A1A-BBD5-1B57D4EB46C8}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Fill Type="Solid" Color="@ContentAreaBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+
+					<!-- Document Tabs -->
+					<Component ID="{88B2D8F5-B1B5-44B2-BC89-04E107329945}">
+						<Renderings>
+							<Rendering>
+								<States>
+									<State ID="{8DB00426-DE86-4F13-B451-D83602D5585E}" />
+									<State ID="{DEBD7515-DC08-40C0-8BDE-4C988626B0B1}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@DocumentTabNormalBorder" />
+										<Fill Type="Solid" Color="@DocumentTabNormalBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<!-- Normal-Selected -->
+								<States>
+									<State ID="{F0AF167B-A85D-4ACC-8D22-3C63986C120D}" />
+									<State ID="{D6EF73B1-9491-4D98-8039-BCFF6E3A8A51}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@DocumentTabNormalSelectedBorder" />
+										<Fill Type="Solid" Color="@DocumentTabNormalSelectedBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<!-- Normal-Focused-Selected -->
+								<States>
+									<State ID="{0EA7A231-25F9-4B7C-A905-BDF7ED47D56C}" />
+									<State ID="{A37E2383-C075-4497-9CA7-8D7BC41E8C1C}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@DocumentTabNormalFocusedSelectedBorder" />
+										<Fill Type="Solid" Color="@DocumentTabNormalFocusedSelectedBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<!-- Hover-Focused -->
+								<States>
+									<State ID="{753EF929-00E9-4C9A-BE0E-F897DCA649B8}" />
+									<State ID="{F443022D-6CF8-43CF-B456-09C1EA3EAD48}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@DocumentTabHoverBorder" />
+										<Fill Type="Solid" Color="@DocumentTabHoverBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+
+					<!-- List View -->
+					<Component ID="{3176A0F5-A678-4606-8E64-3E64E679BAA7}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Fill Type="Solid" Color="@ListViewBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<!-- List View Item -->
+					<Component ID="{98810A61-0F05-45AD-BFF4-AEEE5565B2C1}">
+						<Renderings>
+							<Rendering>
+								<States>
+									<State ID="{8DB00426-DE86-4F13-B451-D83602D5585E}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@ListViewItemNormalBorder" />
+										<Fill Type="Solid" Color="@ListViewItemNormalBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<States>
+									<State ID="{753EF929-00E9-4C9A-BE0E-F897DCA649B8}" />
+									<State ID="{F443022D-6CF8-43CF-B456-09C1EA3EAD48}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@ListViewItemHoverBorder" />
+										<Fill Type="Solid" Color="@ListViewItemHoverBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<States>
+									<State ID="{0EA7A231-25F9-4B7C-A905-BDF7ED47D56C}" />
+									<State ID="{F0AF167B-A85D-4ACC-8D22-3C63986C120D}" />
+									<State ID="{A37E2383-C075-4497-9CA7-8D7BC41E8C1C}" />
+									<State ID="{D6EF73B1-9491-4D98-8039-BCFF6E3A8A51}" />
+									<State ID="{7CB48046-AA52-4458-A0DC-36479FA395E8}" />
+									<State ID="{7C2EE830-E568-449E-AD55-F826F414DA07}" />
+								</States>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@ListViewItemSelectedBorder" />
+										<Fill Type="Solid" Color="@ListViewItemSelectedBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+
+					<!-- List View Selection Rectangle -->
+					<Component ID="{E7F9B7FE-E761-4086-9815-5DE2B674893A}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@ListViewSelectionRectangleBorder" />
+										<Fill Type="Solid" Color="@ListViewSelectionRectangleBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+
+					<!-- Top-level Window Border -->
+					<Component ID="{69DFC07B-3A05-4BDA-95EF-FD3B487AEF69}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="32">
+										<Fill Type="Solid" Color="@WindowTitleBarBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<States>
+									<State ID="{8DB00426-DE86-4F13-B451-D83602D5585E}" />
+								</States>
+								<Actions>
+									<Text X="42" Y="11" Width="$(Component.Width)" Height="32" Value="$(Window.Title)" Color="@WindowTitleBarInactiveForeground" Font="@TitleBarFont" />
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@WindowInactiveBorder" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+							<Rendering>
+								<States>
+									<State ID="{DEBD7515-DC08-40C0-8BDE-4C988626B0B1}" />
+								</States>
+								<Actions>
+									<Text X="42" Y="11" Width="$(Component.Width)" Height="32" Value="$(Window.Title)" Color="@WindowTitleBarActiveForeground" Font="@TitleBarFont" />
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Outline Type="Solid" Color="@WindowActiveBorder" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+					<Component ID="{AAC316E5-9D9B-40D4-A7E0-C73BD831B80F}">
+						<Renderings>
+							<Rendering>
+								<Actions>
+									<Rectangle X="0" Y="0" Width="$(Component.Width)" Height="$(Component.Height)">
+										<Fill Type="Solid" Color="@StatusBarBackground" />
+									</Rectangle>
+								</Actions>
+							</Rendering>
+						</Renderings>
+					</Component>
+				</Components>
+				<Colors>
+					<Color Name="StatusBarBackgroundOrange" Value="#CA5100" />
+					<Color Name="StatusBarBackgroundBlue" Value="#007ACC" />
+					<Color Name="StatusBarBackgroundDarkBlue" Value="#0E639C" />
+					<Color Name="StatusBarBackgroundPurple" Value="#68217A" />
+					<Color Name="StatusBarBackground" Value="@StatusBarBackgroundPurple" />
+				</Colors>
+				<Fonts>
+					<Font Name="TitleBarFont" Value="CaptionFont" />
+				</Fonts>
+				<Metrics>
+					<PaddingMetric Name="DropDownButtonPadding" Left="0" Top="0" Right="0" Bottom="0" />
+					<PaddingMetric Name="TopLevelWindowFrameMargin" Left="0" Top="48" Right="0" Bottom="0" />
+				</Metrics>
+				<Properties>
+					<Property Name="UseCustomTopLevelWindowFrame" Value="true" />
+
+					<!-- None, Slide, Fade -->
+					<Property Name="CommandBarMenuAnimationType" Value="None" />
+				</Properties>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>

@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{30467E5C-05BC-4856-AADC-13906EF4CADD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor</RootNamespace>
+    <AssemblyName>UniversalEditor.Essential</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\Production.snk</AssemblyOriginatorKeyFile>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Output\Debug\UniversalEditor.Essential.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Reflection.cs" />
+    <Compile Include="Condition.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="DataFormats\AbstractSyntax\DER\DERDataFormat.cs" />
+    <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />
+    <Compile Include="DataFormats\Chunked\RIFF\RIFFDataFormat.cs" />
+    <Compile Include="DataFormats\Markup\EBML\EBMLDataFormat.cs" />
+    <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLDataFormat.cs" />
+    <Compile Include="DataFormats\Markup\XML\XMLDataFormat.cs" />
+    <Compile Include="DataFormats\Markup\XML\XMLDataFormatSettings.cs" />
+    <Compile Include="DataFormats\CoreObject\CoreObjectDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\ExtensibleConfiguration\ExtensibleConfigurationDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\ExtensibleConfiguration\ExtensibleConfigurationSettings.cs" />
+    <Compile Include="DataFormats\PropertyList\Text\TextPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\Text\TextPropertyListSettings.cs" />
+    <Compile Include="DataFormats\PropertyList\UniversalPropertyList\UniversalPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\UniversalPropertyList\VariantType.cs" />
+    <Compile Include="DataFormats\PropertyList\WindowsConfigurationDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\XML\XMLPropertyListDataFormat.cs" />
+    <Compile Include="DataFormats\RichTextMarkup\RTML\RTMLSettings.cs" />
+    <Compile Include="DataFormats\Security\Certificate\DER\DERCertificateDataFormat.cs" />
+    <Compile Include="DataFormats\Security\Key\RSA\RSAKeyAlgorithm.cs" />
+    <Compile Include="DataFormats\Security\Key\RSA\RSAKeyDataFormat.cs" />
+    <Compile Include="DataFormats\Security\Key\RSA\RSAKeyType.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutAction.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutDataFormat.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutStartupNotifyBehavior.cs" />
+    <Compile Include="DataFormats\Shortcut\FreeDesktop\DesktopShortcutType.cs" />
+    <Compile Include="DataFormats\Text\Formatted\RichText\RTFCharacterSet.cs" />
+    <Compile Include="DataFormats\Text\Formatted\RichText\RTFDataFormat.cs" />
+    <Compile Include="DataFormats\Text\Formatted\RichText\RTFGenerator.cs" />
+    <Compile Include="DataFormats\UEPackage\UEPackageXMLDataFormat.cs" />
+    <Compile Include="ExpandedString.cs" />
+    <Compile Include="NameValuePair.cs" />
+    <Compile Include="NameValuePairGroup.cs" />
+    <Compile Include="ObjectModels\AbstractSyntax\AbstractSyntaxObjectModel.cs" />
+    <Compile Include="ObjectModels\Chunked\ChunkedObjectModel.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFDataChunk.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFGroupChunk.cs" />
+    <Compile Include="ObjectModels\Chunked\RIFFMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectModels\CoreObject\CoreObjectAttribute.cs" />
+    <Compile Include="ObjectModels\CoreObject\CoreObjectObjectModel.cs" />
+    <Compile Include="ObjectModels\CoreObject\CoreObjectGroup.cs" />
+    <Compile Include="ObjectModels\CoreObject\CoreObjectProperty.cs" />
+    <Compile Include="ObjectModels\DataLink\DataLinkObjectModel.cs" />
+    <Compile Include="ObjectModels\FileSystem\CompressedFile.cs" />
+    <Compile Include="ObjectModels\FileSystem\DataRequestEvent.cs" />
+    <Compile Include="ObjectModels\FileSystem\File.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileAttributes.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\MemoryFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\PhysicalFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\EmbeddedFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\AccessorFileSource.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSourceTransformation.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSystemObjectModel.cs" />
+    <Compile Include="ObjectModels\FileSystem\Folder.cs" />
+    <Compile Include="ObjectModels\FileSystem\IFileSystemContainer.cs" />
+    <Compile Include="ObjectModels\FileSystem\IFileSystemObject.cs" />
+    <Compile Include="ObjectModels\FileSystem\IFileSystemObjectType.cs" />
+    <Compile Include="ObjectModels\Help\TableOfContents\TableOfContentsObjectModel.cs" />
+    <Compile Include="ObjectModels\Help\TableOfContents\TOCNode.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupAttribute.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupCommentElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupContainerElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupLiteralElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupObjectModel.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupPreprocessorElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupStringElement.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupTagElement.cs" />
+    <Compile Include="ObjectModels\PropertyList\Group.cs" />
+    <Compile Include="ObjectModels\PropertyList\Property.cs" />
+    <Compile Include="ObjectModels\PropertyList\PropertyListObjectModel.cs" />
+    <Compile Include="ObjectModels\PropertyList\PropertyValueType.cs" />
+    <Compile Include="ObjectModels\Project\ProjectObjectModel.cs" />
+    <Compile Include="ObjectModels\Project\ProjectFile.cs" />
+    <Compile Include="ObjectModels\Project\ProjectFileSystem.cs" />
+    <Compile Include="ObjectModels\Project\ProjectFolder.cs" />
+    <Compile Include="ObjectModels\Project\Reference.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItemGroup.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItem.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItemLiteral.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupObjectModel.cs" />
+    <Compile Include="ObjectModels\RichTextMarkup\RichTextMarkupItemTag.cs" />
+    <Compile Include="ObjectModels\Security\Certificate\CertificateObjectModel.cs" />
+    <Compile Include="ObjectModels\Security\Key\RSA\RSAKeyObjectModel.cs" />
+    <Compile Include="ObjectModels\Shortcut\ShortcutObjectModel.cs" />
+    <Compile Include="ObjectModels\Solution\SolutionObjectModel.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextFont.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextFontFamily.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextObjectModel.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextItem.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyle.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\FormattedTextStyleGroup.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\IFormattedTextItemParent.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemBold.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemContainer.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemFontSize.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemHyperlink.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemLiteral.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemParagraph.cs" />
+    <Compile Include="ObjectModels\Text\Plain\PlainTextObjectModel.cs" />
+    <Compile Include="ObjectModels\UEPackage\UEPackageObjectModel.cs" />
+    <Compile Include="ProjectTask.cs" />
+    <Compile Include="ProjectTaskAction.cs" />
+    <Compile Include="ProjectTaskActions\ProjectTaskActionConvert.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProjectTaskActions\ProjectTaskActionExecute.cs" />
+    <Compile Include="ProjectTaskActions\ProjectTaskActionPackage.cs" />
+    <Compile Include="ProjectTaskEvent.cs" />
+    <Compile Include="ProjectType.cs" />
+    <Compile Include="ProjectTypeVariable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Template.cs" />
+    <Compile Include="ObjectModels\Text\Formatted\Items\FormattedTextItemItalic.cs" />
+    <Compile Include="DataFormats\PropertyList\JavaScriptObjectNotation\JSONDataFormat.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\CompressedEmbeddedFileSource.cs" />
+    <Compile Include="ObjectModels\PropertyList\IPropertyListContainer.cs" />
+    <Compile Include="ObjectModels\Binary\BinaryObjectModel.cs" />
+    <Compile Include="DataFormats\Binary\BinaryDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\JSON\JSONDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\JSON\JSONPresetSettings.cs" />
+    <Compile Include="DataFormats\PropertyList\JSON\JSONSettings.cs" />
+    <Compile Include="ObjectModels\JSON\JSONObjectModel.cs" />
+    <Compile Include="ObjectModels\JSON\JSONField.cs" />
+    <Compile Include="ObjectModels\JSON\JSONObject.cs" />
+    <Compile Include="ObjectModels\JSON\Fields\JSONArrayField.cs" />
+    <Compile Include="ObjectModels\JSON\Fields\JSONBooleanField.cs" />
+    <Compile Include="ObjectModels\JSON\Fields\JSONNumberField.cs" />
+    <Compile Include="ObjectModels\JSON\Fields\JSONObjectField.cs" />
+    <Compile Include="ObjectModels\JSON\Fields\JSONStringField.cs" />
+    <Compile Include="DataFormats\Text\Plain\PlainTextDataFormat.cs" />
+    <Compile Include="DataFormats\Shortcut\Linux\LinuxShortcutDataFormat.cs" />
+    <Compile Include="ObjectModels\Project\ProjectItem.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\BinaryGrammarObjectModel.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItem.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemStructure.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemStructureReference.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemNumber.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\GrammarItems\GrammarItemString.cs" />
+    <Compile Include="ObjectModels\BinaryGrammar\FixedValue.cs" />
+    <Compile Include="DataFormats\Text\Plain\ByteOrderMark.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseField.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseRecord.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseTable.cs" />
+    <Compile Include="ObjectModels\Database\DatabaseObjectModel.cs" />
+    <Compile Include="ObjectModels\Project\IProjectItemContainer.cs" />
+    <Compile Include="DataFormats\AbstractSyntax\DER\DERTypeTag.cs" />
+    <Compile Include="DataFormats\Binary\PEM\PEMDataFormat.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileAdditionalDetail.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileAdditionalDetailValue.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependencies\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataFormats\PropertyList\JavaScriptObjectNotation\" />
+    <Folder Include="ObjectModels\Binary\" />
+    <Folder Include="DataFormats\Binary\" />
+    <Folder Include="DataFormats\PropertyList\JSON\" />
+    <Folder Include="ObjectModels\JSON\" />
+    <Folder Include="ObjectModels\JSON\Fields\" />
+    <Folder Include="DataFormats\Text\Plain\" />
+    <Folder Include="DataFormats\Shortcut\Linux\" />
+    <Folder Include="ObjectModels\BinaryGrammar\" />
+    <Folder Include="ObjectModels\BinaryGrammar\GrammarItems\" />
+    <Folder Include="ObjectModels\Database\" />
+    <Folder Include="DataFormats\Binary\PEM\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

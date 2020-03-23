@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{F8FD2C26-748A-41C9-84FF-DDF263A9B761}" Title="Office XP" Inherits="{105843D0-2F26-4CB7-86AB-10A449815C19}">
+				<ColorSchemes Default="{188D3DC5-7919-4719-8BF6-DFDAD0A73E37}">
+					<ColorScheme ID="{188D3DC5-7919-4719-8BF6-DFDAD0A73E37}" Title="Default">
+						<ColorTable>
+						</ColorTable>
+					</ColorScheme>
+				</ColorSchemes>
+				<Metrics>
+				</Metrics>
+				<Properties>
+				</Properties>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>

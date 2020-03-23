@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AwesomeControls>
+	<Theming>
+		<Themes>
+			<Theme ID="{25134C94-B1EB-4C38-9B5B-A2E29FC57AE1}" InheritsThemeID="{8E4D3759-C33C-41FB-83E8-FB8BCAA03153}">
+				<Information>
+					<Title>Visual Studio 2012 Dark</Title>
+				</Information>
+				<Colors>
+					<Color Name="ThemeColorGreen" Value="#608B4E" />
+					<Color Name="ThemeColorBlue" Value="#569CD6" />
+					<Color Name="ThemeColorLightBlue" Value="#92CAF4" />
+					<Color Name="ThemeColorLightCyan" Value="#4EC9B0" />
+
+					<Color Name="ThemeColorDarkGray" Value="#808080" />
+					<Color ID="{6517D097-8649-4905-97AA-A6FE1B39B376}" Name="ThemeColorLightGray" Value="#C8C8C8" />
+
+					<!-- VS2012 Dark theme -->
+					<Color Name="CommandBarBackground" Value="#2D2D30" />
+					<Color Name="CommandBarMenuBackground" Value="@CommandBarBackground" />
+					<Color Name="CommandBarPopupBackground" Value="#1B1B1C" />
+					<Color Name="CommandBarPopupBorder" Value="#333337" />
+					<Color Name="CommandBarRaftingContainerBackground" Value="@CommandBarBackground" />
+
+					<Color Name="CommandBarItemForeground" Value="#F1F1F1" />
+					<Color Name="CommandBarItemHoverBackground" Value="#3E3E40" />
+					<Color Name="CommandBarItemHoverBorder" Value="@CommandBarItemHoverBackground" />
+					<Color Name="CommandBarItemPressedBackground" Value="#007ACC" />
+					<Color Name="CommandBarItemPressedBorder" Value="@CommandBarItemHoverBorder" />
+
+					<Color Name="CommandBarMenuItemHoverBackground" Value="@CommandBarItemHoverBackground" />
+					<Color Name="CommandBarMenuItemPressedBackground" Value="@CommandBarMenuItemHoverBackground" />
+
+					<Color Name="CommandBarMenuItemHoverBorder" Value="@CommandBarMenuItemHoverBackground" />
+					<Color Name="CommandBarMenuItemPressedBorder" Value="@CommandBarMenuItemPressedBackground" />
+
+					<Color Name="ContentAreaBackground" Value="#2D2D30" />
+
+					<Color Name="DocumentTabNormalBackground" Value="Transparent" />
+					<Color Name="DocumentTabNormalBorder" Value="@DocumentTabNormalBackground" />
+
+					<Color Name="DocumentTabNormalSelectedBackground" Value="#3F3F46" />
+					<Color Name="DocumentTabNormalSelectedBorder" Value="@DocumentTabNormalSelectedBackground" />
+
+					<Color Name="DocumentTabNormalFocusedSelectedBackground" Value="#007ACC" />
+					<Color Name="DocumentTabNormalFocusedSelectedBorder" Value="@DocumentTabNormalSelectedBackground" />
+
+					<Color Name="DocumentTabHoverBackground" Value="#1C97EA" />
+					<Color Name="DocumentTabHoverBorder" Value="@DocumentTabHoverBackground" />
+
+					<Color Name="ListViewBackground" Value="#252526" />
+
+					<Color Name="ListViewItemNormalBackground" Value="Transparent" />
+					<Color Name="ListViewItemHoverBackground" Value="#3F3F40" />
+
+					<Color Name="ListViewItemSelectedBackground" Value="#3399FF" />
+
+					<Color Name="ListViewSelectionRectangleBorder" Value="#0097FB" />
+					<Color Name="ListViewSelectionRectangleBackground" Value="#3F3F46" />
+
+					<Color Name="DockingWindowTabBackground" Value="#2D2D30" />
+					<Color Name="DockingWindowTabForeground" Value="#D0D0D0" />
+					<Color Name="DockingWindowTabBackgroundSelected" Value="#252526" />
+					<Color Name="DockingWindowTabBorderSelected" Value="#3F3F46" />
+					<Color Name="DockingWindowTabForegroundSelected" Value="#0097FB" />
+
+					<Color Name="ScrollbarBackground" Value="#3E3E42" />
+					<Color Name="ScrollbarArrow" Value="#999999" />
+					<Color Name="ScrollbarThumb" Value="#686868" />
+
+					<Color Name="SeparatorDark" Value="Transparent" />
+					<Color Name="SeparatorLight" Value="#333337" />
+
+					<Color Name="WindowBackground" Value="#1E1E1E" />
+					<Color Name="WindowForeground" Value="#F1F1F1" />
+
+					<Color Name="WindowActiveBorder" Value="@StatusBarBackground" />
+					<Color Name="WindowInactiveBorder" Value="#424245" />
+
+					<Color Name="WindowTitleBarBackground" Value="#2D2D30" />
+
+					<Color Name="WindowTitleBarActiveForeground" Value="#999999" />
+					<Color Name="WindowTitleBarInactiveForeground" Value="#6E6E6F" />
+				</Colors>
+			</Theme>
+		</Themes>
+	</Theming>
+</AwesomeControls>
