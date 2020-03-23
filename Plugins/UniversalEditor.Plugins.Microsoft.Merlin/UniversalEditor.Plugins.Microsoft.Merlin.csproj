@@ -62,7 +62,7 @@
       <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>

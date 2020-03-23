@@ -59,11 +59,11 @@
       <Project>{CC5C9010-83EF-491D-9262-2CED509D895D}</Project>
       <Name>UniversalEditor.Plugins.SoftwareDevelopment</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
+    <ProjectReference Include="..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>

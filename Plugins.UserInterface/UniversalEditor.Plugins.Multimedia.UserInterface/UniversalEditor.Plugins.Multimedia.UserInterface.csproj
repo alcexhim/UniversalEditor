@@ -83,11 +83,11 @@
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
+    <ProjectReference Include="..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>

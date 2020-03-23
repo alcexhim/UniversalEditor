@@ -340,7 +340,7 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Dependencies\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>

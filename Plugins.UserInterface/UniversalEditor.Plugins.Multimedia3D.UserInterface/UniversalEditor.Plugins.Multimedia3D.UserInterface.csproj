@@ -34,18 +34,6 @@
     <Compile Include="Editors\Model\ModelEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
-      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
-      <Name>MBS.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework.Rendering\Libraries\MBS.Framework.Rendering\MBS.Framework.Rendering.csproj">
-      <Project>{2A0B4A53-8A3A-478D-80A7-B6FF20B38317}</Project>
-      <Name>MBS.Framework.Rendering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
-      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
-      <Name>MBS.Framework.UserInterface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
@@ -66,9 +54,17 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MBS.Framework.Rendering\Engines\OpenGL\MBS.Framework.Rendering.Engines.OpenGL\MBS.Framework.Rendering.Engines.OpenGL.csproj">
-      <Project>{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D}</Project>
-      <Name>MBS.Framework.Rendering.Engines.OpenGL</Name>
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework.Rendering\Libraries\MBS.Framework.Rendering\MBS.Framework.Rendering.csproj">
+      <Project>{2A0B4A53-8A3A-478D-80A7-B6FF20B38317}</Project>
+      <Name>MBS.Framework.Rendering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
