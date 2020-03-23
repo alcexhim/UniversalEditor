@@ -9,6 +9,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 	{
 		private ListView tvComponents;
 
+		public AboutDialog()
+		{
+			Buttons.Add(new Button(StockType.Close, DialogResult.Cancel));
+		}
+
 		protected override void OnCreating (EventArgs e)
 		{
 			base.OnCreating (e);
