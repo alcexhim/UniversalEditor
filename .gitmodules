@@ -1,0 +1,9 @@
+[submodule "CSharp/Dependencies/MBS.Framework"]
+	path = CSharp/Dependencies/MBS.Framework
+	url = git@github.com:alcexhim/MBS.Framework
+[submodule "CSharp/Dependencies/MBS.Framework.Rendering"]
+	path = CSharp/Dependencies/MBS.Framework.Rendering
+	url = git@github.com:alcexhim/MBS.Framework
+[submodule "CSharp/Dependencies/MBS.Framework.UserInterface"]
+	path = CSharp/Dependencies/MBS.Framework.UserInterface
+	url = git@github.com:alcexhim/MBS.Framework
