@@ -342,6 +342,7 @@ namespace UniversalEditor.UserInterface
 			// Application.ThreadException += Application_ThreadException;
 #endif
 
+			Application.Title = "Universal Editor";
 			MBS.Framework.UserInterface.Application.Start();
 
 			// Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
@@ -599,6 +600,23 @@ namespace UniversalEditor.UserInterface
 			{
 				Application.ShowHelp();
 			});
+			Application.AttachCommandEventHandler("HelpCustomerFeedbackOptions", delegate (object sender, EventArgs e)
+			{
+				// MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
+				TaskDialog td = new TaskDialog();
+				td.ButtonStyle = TaskDialogButtonStyle.Commands;
+
+				td.Prompt = "Please open a trouble ticket on GitHub if you need support.";
+				td.Text = "Customer Experience Improvement Program";
+				td.Content = String.Format("You are using the GNU GPLv3 licensed version of {0}. This program comes with ABSOLUTELY NO WARRANTY.\r\n\r\nSupport contracts may be available for purchase; please contact your software distributor.", Application.Title);
+				td.Footer = "<a href=\"GPLLicense\">View the license terms</a>";
+				td.EnableHyperlinks = true;
+				td.HyperlinkClicked += Td_HyperlinkClicked;
+
+				td.Icon = TaskDialogIcon.SecurityOK;
+				td.Parent = (Window)CurrentEngine.LastWindow;
+				td.ShowDialog();
+			});
 			Application.AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
 			{
 				// MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
@@ -607,7 +625,10 @@ namespace UniversalEditor.UserInterface
 
 				td.Prompt = "This product has already been activated.";
 				td.Text = "Licensing and Activation";
-				td.Content = "You are using the GNU GPLv3 licensed version of Universal Editor. No activation is necessary.";
+				td.Content = String.Format("You are using the GNU GPLv3 licensed version of {0}. No activation is necessary.", Application.Title);
+				td.Footer = "<a href=\"GPLLicense\">View the license terms</a>";
+				td.EnableHyperlinks = true;
+				td.HyperlinkClicked += Td_HyperlinkClicked;
 
 				td.Icon = TaskDialogIcon.SecurityOK;
 				td.Parent = (Window)CurrentEngine.LastWindow;
@@ -669,7 +690,7 @@ namespace UniversalEditor.UserInterface
 			Command helpAboutPlatform = Application.Commands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
 			{
-				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, Application.DefaultLanguage.GetStringTableEntry("ApplicationTitle", "Universal Editor"));
+				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, Application.DefaultLanguage.GetStringTableEntry("Application.Title", "Universal Editor"));
 			}
 
 			Command helpLanguage = Application.Commands["HelpLanguage"];
@@ -692,6 +713,12 @@ namespace UniversalEditor.UserInterface
 			#endregion
 			#endregion
 		}
+
+		void Td_HyperlinkClicked(object sender, TaskDialogHyperlinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://www.gnu.org/licenses/gpl-3.0.en.html");
+		}
+
 
 		void cmdViewToolbarsToolbar_Executed(object sender, EventArgs e)
 		{
