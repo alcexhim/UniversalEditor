@@ -19,8 +19,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "&Compress this archive using the LZRW1 algorithm", true));
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format &version", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "_Compress this archive using the LZRW1 algorithm", true));
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("Version 1 (Fire Fight)", ChaosWorksVOLFormatVersion.V1, true),
 					new CustomOptionFieldChoice("Version 2 (Akimbo, Excessive Speed)", ChaosWorksVOLFormatVersion.V2)
@@ -155,7 +155,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 				int unknown3 = brms.ReadInt32();
 
 				File file = fsom.AddFile(fileName);
-				file.AdditionalDetails.Add(fsom.AdditionalDetails["ChaosWorks.VOL.Label"], fileType);
+				file.SetAdditionalDetail("ChaosWorks.VOL.Label", fileType);
 				file.Size = fileSize;
 				file.Source = new EmbeddedFileSource(brms, fileOffset, fileSize);
 			}
@@ -227,7 +227,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 				ma.LoadPosition();
 
 				File f = fsom.AddFile(fileName);
-				f.AdditionalDetails.Add(fsom.AdditionalDetails["ChaosWorks.VOL.Label"], label);
+				f.SetAdditionalDetail("ChaosWorks.VOL.Label", label);
 				f.Properties.Add("reader", reader);
 				f.Properties.Add("fileinfo", fileInfos[fileInfos.Count - 1]);
 				f.Size = fileInfos[fileInfos.Count - 1].FileLength;
@@ -330,8 +330,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			for (int i = 0; i < files.Length; i++)
 			{
 				infos[i].ChunkOffset = chunkOffset;
-				infos[i].FileNameOffset = fileNameOffset;
-				infos[i].LabelOffset = labelOffset;
 				uint written = WriteV2CompressedChunk(writer, files[i].GetData());
 				chunkOffset += written;
 			}
@@ -339,20 +337,39 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			// table of contents
 			MemoryAccessor ma = new MemoryAccessor();
 			Writer maw = new Writer(ma);
-			maw.WriteUInt32((uint)(36 * files.Length)); // offset within this chunk to string table (not including the 8 bytes in this header)
-			maw.WriteInt32(0);
+			maw.WriteUInt32(4 + (uint)(36 * files.Length) - 8); // offset within this chunk to string table (not including the 8 bytes in this header)
+
+			string[] labels = new string[files.Length];
 			for (int i = 0; i < files.Length; i++)
 			{
+				labels[i] = files[i].GetAdditionalDetail("ChaosWorks.VOL.Label");
+				fileNameOffset += (uint)labels[i].Length + 1;
+
+				maw.WriteInt32(0);
 				maw.WriteUInt32(infos[i].ChunkOffset);
-				maw.WriteUInt32(infos[i].LabelOffset);
+				maw.WriteUInt32(labelOffset);
 				maw.WriteUInt32(0xFFFFFFFF);
-				maw.WriteUInt32(infos[i].FileNameOffset);
+				maw.WriteUInt32(fileNameOffset);
+				maw.WriteUInt32((uint)files[i].Size);
 				maw.WriteUInt32(0);
 				maw.WriteUInt32(0);
 				maw.WriteUInt32(0);
-				maw.WriteUInt32(0);
-				maw.WriteUInt32(0);
+
+				string filename = files[i].Name;
+				labelOffset += (uint)labels[i].Length + 1 + (uint)filename.Length + 1;
+				fileNameOffset += (uint)filename.Length + 1;
 			}
+			for (int i = 0; i < files.Length; i++)
+			{
+				maw.WriteNullTerminatedString(labels[i]);
+				maw.WriteNullTerminatedString(files[i].Name);
+			}
+			maw.Flush();
+			maw.Close();
+
+			WriteV2CompressedChunk(writer, ma.ToArray());
+
+			writer.WriteFixedLengthString(" cweVOLF");
 		}
 
 		private uint WriteV2CompressedChunk(Writer writer, byte[] decompressedData)
