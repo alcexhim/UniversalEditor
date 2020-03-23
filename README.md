@@ -16,18 +16,17 @@ UniversalEditor 4 has four components:
 
 Prerequisites
 -------------
-* Sanjigen (if building Multimedia3D plugin)
+* MBS.Framework
+* MBS.Rendering (if building Multimedia3D plugin)
 * MBS.Framework.UserInterface (if building UserInterface)
-
-Glue is no longer a requirement for building UserInterface. Since Universal Editor engines have been removed in favor of Universal Widget Toolkit, AwesomeControls and Surodoine are no longer required. AwesomeControls may be required for building Universal Widget Toolkit Windows Forms Engine until the controls are successfully ported to Universal Widget Toolkit.
 
 Building
 --------
-The solution and dependencies need to be cleaned up before we can write a proper tutorial for building. Keep everything in the same parent directory, *git clone* alcexhim/UniversalEditor, alcexhim/MBS.Framework, alcexhim/MBS.Framework.UserInterface, and (maybe) alcexhim/Auraluminous and its dependencies if you wish to build the associated plugin.
+The solution and dependencies need to be cleaned up before we can write a proper tutorial for building. Keep everything in the same parent directory, *git clone* alcexhim/UniversalEditor, alcexhim/MBS.Framework, and alcexhim/MBS.Framework.UserInterface.
 
-The application *WILL NOT* work properly if the appropriate Universal Widget Toolkit engine, MBS.Framework.UserInterface.(engine).dll, is not in the Output/(configuration) directory! The build process at this time does not automatically copy this file from the MBS.Framework.UserInterface output directory to the Universal Editor output directory.
+The application *WILL NOT* work properly if the appropriate Universal Widget Toolkit engine, MBS.Framework.UserInterface.(engine).dll, is not in the Output/(configuration) directory! The build process at this time does not automatically copy this file from the MBS.Framework.UserInterface output directory to the Universal Editor output directory. You may use the uwt-install-gtk.sh and uwt-install-wf.sh scripts (in bash) to do this.
 
-Currently the most up-to-date User Interface Engine is GTK, but I hope to be bringing the Windows Forms one up to par soon. You might find that the GTK engine only works on Linux. I can't offer any help or support for getting the GTK engine to work on a different operating system. In the future, the Windows Forms engine should be used on Windows.
+Currently the most up-to-date User Interface Engine is GTK, but I have made a lot of progress in bringing the Windows Forms one up to par. You might find that the GTK engine only works on Linux. I can't offer any help or support for getting the GTK engine to work on a different operating system. You should be able to use the Windows Forms engine on the latest version of Windows with minimal trouble.
 
 Customization and Branding
 --------------------------
