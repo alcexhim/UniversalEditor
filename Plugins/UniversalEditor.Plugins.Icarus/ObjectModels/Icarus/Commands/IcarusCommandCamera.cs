@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.Icarus.Expressions;
+using UniversalEditor.ObjectModels.Icarus.Parameters;
 
 namespace UniversalEditor.ObjectModels.Icarus.Commands
 {
@@ -12,16 +14,17 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
             get { return "camera"; }
         }
 
-        private IcarusCameraOperation mvarOperation = IcarusCameraOperation.None;
-        public IcarusCameraOperation Operation { get { return mvarOperation; } set { mvarOperation = value; } }
+        public IcarusCameraOperation Operation { get { return (IcarusCameraOperation)((IcarusConstantExpression)Parameters["Operation"].Value)?.Value; } set { ((IcarusConstantExpression)Parameters["Operation"].Value).Value = value; } }
 
-        private IcarusExpression.IcarusExpressionCollection mvarParameters = new IcarusExpression.IcarusExpressionCollection();
-        public IcarusExpression.IcarusExpressionCollection Parameters { get { return mvarParameters; } }
+		public IcarusCommandCamera()
+		{
+			Parameters.Add(new IcarusChoiceParameter("Operation", new IcarusConstantExpression(IcarusCameraOperation.None)));
+		}
 
         public override object Clone()
         {
             IcarusCommandCamera clone = new IcarusCommandCamera();
-            clone.Operation = mvarOperation;
+            clone.Operation = Operation;
             return clone;
         }
     }

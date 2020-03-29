@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus.IcarusScriptEditor">
+			<Variables>
+				<Variable Name="BasePath" Value="W:\game\base" />>
+				<Variable Name="ScriptsPath" Value="$(BasePath)\scripts\" />
+				<Variable Name="SoundsPath" Value="$(BasePath)\sounds\" />
+				<Variable Name="VideosPath" Value="$(BasePath)\videos\" />
+			</Variables>
+		</Editor>
+	</Editors>
+</UniversalEditor>

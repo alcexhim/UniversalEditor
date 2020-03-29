@@ -5,6 +5,8 @@ using System.Text;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Icarus;
 using UniversalEditor.ObjectModels.Icarus.Commands;
+using UniversalEditor.ObjectModels.Icarus.Expressions;
+using UniversalEditor.ObjectModels.Icarus.Parameters;
 
 namespace UniversalEditor.DataFormats.Icarus
 {
@@ -51,11 +53,11 @@ namespace UniversalEditor.DataFormats.Icarus
 			for (int i = 0; i < parameterCount; i++)
 			{
 				IcarusExpression expr = ReadIBIExpression(br);
-				if (expr.Type == IcarusExpressionType.Get)
+				if (expr is IcarusGetExpression)
 				{
 					parameterCount -= 2;
 				}
-				else if (expr.Type == IcarusExpressionType.Vector)
+				else if (expr is IcarusConstantExpression && (expr as IcarusConstantExpression).DataType == IcarusVariableDataType.Vector)
 				{
 					parameterCount -= 3;
 				}
@@ -72,14 +74,8 @@ namespace UniversalEditor.DataFormats.Icarus
 					IcarusExpression affectType = parameters[1];
 
 					cmd.Target = target;
-					if (affectType.Type == IcarusExpressionType.Float)
-					{
-						cmd.AffectType = new IcarusExpression(IcarusExpressionType.Float, (IcarusAffectType)(float)affectType.Value);
-					}
-					else
-					{
-						cmd.AffectType = affectType;
-					}
+					cmd.AffectType = affectType.Clone() as IcarusExpression;
+
 					command = cmd;
 					break;
 				}
@@ -88,10 +84,13 @@ namespace UniversalEditor.DataFormats.Icarus
 					command = new IcarusCommandCamera();
 
 					IcarusCommandCamera cmd = (command as IcarusCommandCamera);
-					cmd.Operation = (IcarusCameraOperation)((float)(parameters[0].Value));
+					cmd.Operation = (IcarusCameraOperation)((float)((parameters[0] as IcarusConstantExpression).Value));
 					for (int i = 1; i < parameters.Count; i++)
 					{
-						cmd.Parameters.Add(parameters[i]);
+						if (i < cmd.Parameters.Count)
+							cmd.Parameters.Add(new IcarusGenericParameter(String.Format("parm{0}", i)));
+
+						cmd.Parameters[i].Value = parameters[i];
 					}
 					break;
 				}
@@ -102,7 +101,7 @@ namespace UniversalEditor.DataFormats.Icarus
 
 					IcarusCommandControlFlowDo cmd = (command as IcarusCommandControlFlowDo);
 					IcarusExpression target = parameters[0];
-					cmd.Target = target.Value.ToString();
+					cmd.Target = target;
 					break;
 				}
 				case IcarusCommandType.End:
@@ -118,7 +117,7 @@ namespace UniversalEditor.DataFormats.Icarus
 
 					IcarusCommandLoop cmd = (command as IcarusCommandLoop);
 					IcarusExpression loopCount = parameters[0];
-					cmd.Count = (float)(loopCount.Value);
+					cmd.Count = loopCount;
 					break;
 				}
 				case IcarusCommandType.None: break;
@@ -128,7 +127,7 @@ namespace UniversalEditor.DataFormats.Icarus
 
 					IcarusCommandPrint cmd = (command as IcarusCommandPrint);
 					IcarusExpression text = parameters[0];
-					cmd.Text = text.Value.ToString();
+					cmd.Text = text;
 					break;
 				}
 				case IcarusCommandType.Rotate: command = new IcarusCommandRotate(); break;
@@ -140,8 +139,8 @@ namespace UniversalEditor.DataFormats.Icarus
 					IcarusExpression objectName = parameters[0];
 					IcarusExpression value = parameters[1];
 
-					(command as IcarusCommandSet).ObjectName = objectName.Value.ToString();
-					(command as IcarusCommandSet).Value = value.Value.ToString();
+					(command as IcarusCommandSet).ObjectName = objectName;
+					(command as IcarusCommandSet).Value = value;
 					break;
 				}
 				case IcarusCommandType.Signal: command = new IcarusCommandSignal(); break;
@@ -161,23 +160,15 @@ namespace UniversalEditor.DataFormats.Icarus
 					IcarusCommandTask cmd = (command as IcarusCommandTask);
 					
 					IcarusExpression taskName = parameters[0];
-					cmd.TaskName = taskName.Value.ToString();
+					cmd.TaskName = taskName;
 					break;
 				}
 				case IcarusCommandType.Use: command = new IcarusCommandUse(); break;
 				case IcarusCommandType.Wait:
 				{
 					command = new IcarusCommandWait();
-
 					IcarusExpression duration = parameters[0];
-					if (duration.Value is string)
-					{
-						(command as IcarusCommandWait).Target = duration.Value.ToString();
-					}
-					else
-					{
-						(command as IcarusCommandWait).Duration = (float)(duration.Value);
-					}
+					(command as IcarusCommandWait).Duration = duration.Clone() as IcarusExpression;
 					break;
 				}
 				case IcarusCommandType.WaitSignal: command = new IcarusCommandWaitSignal(); break;
@@ -378,19 +369,20 @@ namespace UniversalEditor.DataFormats.Icarus
 					{
 						values[i] = ReadIBIExpression(br);
 					}
-					return new IcarusExpression(IcarusExpressionType.Vector, values);
+					throw new NotImplementedException("whoa wtf");
+					// return new IcarusConstantExpression(values);
 				}
 				case IcarusExpressionType.Float:
 				{
 					int exprSize = br.ReadInt32();
 					float value = br.ReadSingle();
-					return new IcarusExpression(IcarusExpressionType.Float, value);
+					return new IcarusConstantExpression(value);
 				}
 				case IcarusExpressionType.String:
 				case IcarusExpressionType.Enumeration:
 				{
 					string value = ReadIBIString(br);
-					return new IcarusExpression(IcarusExpressionType.String, value);
+					return new IcarusConstantExpression(value);
 				}
 				case IcarusExpressionType.Get:
 				{
@@ -399,8 +391,8 @@ namespace UniversalEditor.DataFormats.Icarus
 					IcarusExpression expr = ReadIBIExpression(br);
 					IcarusExpression expr2 = ReadIBIExpression(br);
 
-					IcarusExpressionType exprType1 = (IcarusExpressionType)((float)expr.Value);
-					return new IcarusExpression(exprType1, expr2.Value);
+					IcarusExpressionType exprType1 = (IcarusExpressionType)((float)(expr as IcarusConstantExpression).Value);
+					return expr2.Clone() as IcarusExpression;
 				}
 			}
 			return null;

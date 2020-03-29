@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus.IcarusScriptEditor">
+			<Configuration>
+				<EnumerationTypes>
+					<EnumerationType Name="File" Type="String">
+						<ValueEditor Type="File" DefaultValue="filename" />
+					</EnumerationType>
+					<EnumerationType Name="Script" Type="File">
+						<ValueEditor Path="$(ScriptsPath)" Filter="*.txt" />
+					</EnumerationType>
+					<EnumerationType Name="Sound" Type="File">
+						<ValueEditor Path="$(SoundsPath)" Filter="*.*" />
+					</EnumerationType>
+					<EnumerationType Name="Video" Type="File">
+						<ValueEditor Path="$(VideosPath)" Filter="*.roq" />
+					</EnumerationType>
+					<EnumerationType Name="Target" Type="String">
+						<ValueEditor Type="String" DefaultValue="targetname" />
+					</EnumerationType>
+					<EnumerationType Name="SaberConfig" Type="String">
+						<ValueEditor Type="String" DefaultValue="none">
+							<ValidValues Required="false">
+								<ValidValue Value="none" />
+							</ValidValues>
+						</ValueEditor>
+					</EnumerationType>
+					<EnumerationType Name="NPC2Config" Type="String">
+						<ValueEditor Type="String" DefaultValue="Kyle" />
+					</EnumerationType>
+					<EnumerationType Name="VehicleConfig" Type="String">
+						<ValueEditor Type="String" DefaultValue="speeder" />
+					</EnumerationType>
+					<EnumerationType Name="Vector">
+						<ValueEditor Type="Vector" DefaultValue="0.000 0.000 0.000" />
+					</EnumerationType>
+					<EnumerationType Name="Float">
+						<ValueEditor Type="Float" DefaultValue="0.000" />
+					</EnumerationType>
+					<EnumerationType Name="Integer">
+						<ValueEditor Type="Integer" DefaultValue="0" />
+					</EnumerationType>
+					<EnumerationType Name="Boolean">
+						<ValueEditor Type="String" DefaultValue="false">
+							<ValidValues Required="true">
+								<ValidValue Value="false" />
+								<ValidValue Value="true" />
+							</ValidValues>
+						</ValueEditor>
+					</EnumerationType>
+				</EnumerationTypes>
+				<Enumerations>
+					<Enumeration Name="SET_TYPES">
+						<EnumerationValues>
+							<Separator Title="Parm strings" />
+							<EnumerationValue Name="SET_PARM1" Description="Set entity parm1" />
+							<EnumerationValue Name="SET_PARM2" Description="Set entity parm2" />
+							<EnumerationValue Name="SET_PARM3" Description="Set entity parm3" />
+							<EnumerationValue Name="SET_PARM4" Description="Set entity parm4" />
+							<EnumerationValue Name="SET_PARM5" Description="Set entity parm5" />
+							<EnumerationValue Name="SET_PARM6" Description="Set entity parm6" />
+							<EnumerationValue Name="SET_PARM7" Description="Set entity parm7" />
+							<EnumerationValue Name="SET_PARM8" Description="Set entity parm8" />
+							<EnumerationValue Name="SET_PARM9" Description="Set entity parm9" />
+							<EnumerationValue Name="SET_PARM10" Description="Set entity parm10" />
+							<EnumerationValue Name="SET_PARM11" Description="Set entity parm11" />
+							<EnumerationValue Name="SET_PARM12" Description="Set entity parm12" />
+							<EnumerationValue Name="SET_PARM13" Description="Set entity parm13" />
+							<EnumerationValue Name="SET_PARM14" Description="Set entity parm14" />
+							<EnumerationValue Name="SET_PARM15" Description="Set entity parm15" />
+							<EnumerationValue Name="SET_PARM16" Description="Set entity parm16" />
+							<!--
+								NOTE!!! If you add any other SET_xxxxxxSCRIPT types, make sure you update the 'case' statements in 
+								ICARUS_InterrogateScript() (game/g_ICARUS.cpp), or the script-precacher won't find them.
+							-->
+							<Separator Title="Scripts and other file paths" />
+							<!-- //0 - do not change these, these are equal to BSET_SPAWN, etc -->
+							<EnumerationValue Type="Script" Name="SET_SPAWNSCRIPT" Description="Script to run when spawned" />
+							<EnumerationValue Type="Script" Name="SET_USESCRIPT" Description="Script to run when used" />
+							<EnumerationValue Type="Script" Name="SET_AWAKESCRIPT" Description="Script to run when startled" />
+							<EnumerationValue Type="Script" Name="SET_ANGERSCRIPT" Description="Script run when find an enemy for the first time" />
+							<EnumerationValue Type="Script" Name="SET_ATTACKSCRIPT" Description="Script to run when you shoot" />
+							<EnumerationValue Type="Script" Name="SET_VICTORYSCRIPT" Description="Script to run when killed someone" />
+							<EnumerationValue Type="Script" Name="SET_LOSTENEMYSCRIPT" Description="Script to run when you can't find your enemy" />
+							<EnumerationValue Type="Script" Name="SET_PAINSCRIPT" Description="Script to run when hit" />
+							<EnumerationValue Type="Script" Name="SET_FLEESCRIPT" Description="Script to run when hit and low health" />
+							<EnumerationValue Type="Script" Name="SET_DEATHSCRIPT" Description="Script to run when killed" />
+							<EnumerationValue Type="Script" Name="SET_DELAYEDSCRIPT" Description="Script to run after a delay" />
+							<EnumerationValue Type="Script" Name="SET_BLOCKEDSCRIPT" Description="Script to run when blocked by teammate" />
+							<EnumerationValue Type="Script" Name="SET_FFIRESCRIPT" Description="Script to run when player has shot own team repeatedly" />
+							<EnumerationValue Type="Script" Name="SET_FFDEATHSCRIPT" Description="Script to run when player kills a teammate" />
+							<EnumerationValue Type="Script" Name="SET_MINDTRICKSCRIPT" Description="Script to run when player kills a teammate" />
+							<EnumerationValue Type="Video" Name="SET_VIDEO_PLAY" Description="Play a video (inGame)" />
+							<EnumerationValue Type="Script" Name="SET_CINEMATIC_SKIPSCRIPT" Description="Script to run when skipping the running cinematic" />
+							<EnumerationValue Type="Target" Name="SET_RAILCENTERTRACKLOCKED" Description="Turn off the centered movers on the given track" />
+							<EnumerationValue Type="Target" Name="SET_RAILCENTERTRACKUNLOCKED" Description="Turn on the centered movers on the given track" />
+							<EnumerationValue Name="SET_SKIN" Description="just blindly sets whatever skin you set!  include full path after &quot;base/&quot;... eg: &quot;models/players/tavion_new/model_possessed.skin&quot;">
+								<ValueEditor Type="String" DefaultValue="models/players/???/model_default.skin" />
+							</EnumerationValue>
+							<Separator Title="Standard strings" />
+							<EnumerationValue Name="SET_ENEMY" Description="Set enemy by targetname" />
+							<EnumerationValue Name="SET_LEADER" Description="Set for BS_FOLLOW_LEADER" />
+							<EnumerationValue Name="SET_NAVGOAL" Description="*Move to this navgoal then continue script" />
+							<EnumerationValue Name="SET_CAPTURE" Description="Set captureGoal by targetname" />
+							<EnumerationValue Name="SET_VIEWTARGET" Description="Set angles toward ent by targetname" />
+							<EnumerationValue Name="SET_WATCHTARGET" Description="Set angles toward ent by targetname, will *continue* to face them... only in BS_CINEMATIC" />
+							<EnumerationValue Name="SET_TARGETNAME" Description="Set/change your targetname" />
+							<EnumerationValue Name="SET_PAINTARGET" Description="Set/change what to use when hit" />
+							<EnumerationValue Name="SET_CAMERA_GROUP" Description="all ents with this cameraGroup will be focused on" />
+							<EnumerationValue Name="SET_CAMERA_GROUP_TAG" Description="What tag on all clients to try to track" />
+							<EnumerationValue Name="SET_LOOK_TARGET" Description="object for NPC to look at" />
+							<EnumerationValue Name="SET_ADDRHANDBOLT_MODEL" Description="object to place on NPC right hand bolt" />
+							<EnumerationValue Name="SET_REMOVERHANDBOLT_MODEL" Description="object to remove from NPC right hand bolt" />
+							<EnumerationValue Name="SET_ADDLHANDBOLT_MODEL" Description="object to place on NPC left hand bolt" />
+							<EnumerationValue Name="SET_REMOVELHANDBOLT_MODEL" Description="object to remove from NPC left hand bolt" />
+							<EnumerationValue Type="Color" Name="SET_CAPTIONTEXTCOLOR" Description="Color of text RED,WHITE,BLUE, YELLOW" />
+							<EnumerationValue Type="Color" Name="SET_CENTERTEXTCOLOR" Description="Color of text RED,WHITE,BLUE, YELLOW" />
+							<EnumerationValue Type="Color" Name="SET_SCROLLTEXTCOLOR" Description="Color of text RED,WHITE,BLUE, YELLOW" />
+							<EnumerationValue Type="Target" Name="SET_COPY_ORIGIN," Description="Copy the origin of the ent with targetname to your origin" />
+							<EnumerationValue Type="Target" Name="SET_DEFEND_TARGET," Description="This NPC will attack the target NPC's enemies" />
+							<EnumerationValue Name="SET_TARGET" Description="Set/change your target" />
+							<EnumerationValue Name="SET_TARGET2" Description="Set/change your target2, on NPC's, this fires when they're knocked out by the red hypo" />
+							<EnumerationValue Name="SET_LOCATION" Description="What trigger_location you're in - Can only be gotten, not set!" />
+							<EnumerationValue Name="SET_REMOVE_TARGET" Description="Target that is fired when someone completes the BS_REMOVE behaviorState" />
+							<EnumerationValue Name="SET_LOADGAME" Description="Load the savegame that was auto-saved when you started the holodeck">
+								<ValueEditor Type="String" DefaultValue="exitholodeck" />
+							</EnumerationValue>
+							<EnumerationValue Name="SET_LOCKYAW" Description="Lock legs to a certain yaw angle (or &quot;off&quot; or &quot;auto&quot; uses current)">
+								<ValueEditor Type="String" DefaultValue="off">
+									<ValidValues Required="false">
+										<ValidValue Value="off" />
+										<ValidValue Value="auto" />
+									</ValidValues>
+								</ValueEditor>
+							</EnumerationValue>
+							<EnumerationValue Name="SET_VIEWENTITY" Description="Make the player look through this ent's eyes - also shunts player movement control to this ent" />
+							<EnumerationValue Type="Sound" Name="SET_LOOPSOUND" Description="Looping sound to play on entity" />
+							<EnumerationValue Name="SET_ICARUS_FREEZE" Description="Specify name of entity to freeze - !!!NOTE!!! since the ent is frozen, you must have some other entity unfreeze it!!!" />
+							<EnumerationValue Name="SET_ICARUS_UNFREEZE" Description="Specify name of entity to unfreeze" />
+							<EnumerationValue Type="SaberConfig" Name="SET_SABER1" Description="Name of a saber in sabers.cfg to use in first hand.  &quot;none&quot; removes current saber" />
+							<EnumerationValue Type="SaberConfig" Name="SET_SABER2" Description="Name of a saber in sabers.cfg to use in second hand.  &quot;none&quot; removes current saber" />
+							<EnumerationValue Type="NPC2Config" Name="SET_PLAYERMODEL" Description="Name of an NPC config in NPC2.cfg to use for this ent" />
+							<EnumerationValue Type="VehicleConfig" Name="SET_VEHICLE" Description="Name of an vehicle config in vehicles.cfg to make this ent drive" />
+							<EnumerationValue Name="SET_SECURITY_KEY" Description="name of a security key to give to the player - don't place one in map, just give the name here and it handles the rest (use &quot;null&quot; to remove their current key)">
+								<ValueEditor Type="String" DefaultValue="keyname" />
+							</EnumerationValue>
+							
+							<EnumerationValue Name="SET_SCROLLTEXT" Description="key of text string to print" />
+							<EnumerationValue Name="SET_LCARSTEXT" Description="key of text string to print in LCARS frame" />
+							<EnumerationValue Name="SET_CENTERTEXT" Description="key of text string to print in center of screen." />
+							
+							<Separator Title="vectors" />
+							<EnumerationValue Type="Vector" Name="SET_ORIGIN" Description="Set origin explicitly or with TAG" />
+							<EnumerationValue Type="Vector" Name="SET_ANGLES" Description="Set angles explicitly or with TAG" />
+							<EnumerationValue Type="Vector" Name="SET_TELEPORT_DEST" Description="Set origin here as soon as the area is clear" />
+							<EnumerationValue Type="Vector" Name="SET_SABER_ORIGIN" Description="Removes this ent's saber from their hand, turns it off, and places it at the specified location" />
+							
+							<Separator Title="floats" />
+							<EnumerationValue Type="Float" Name="SET_XVELOCITY" Description="Velocity along X axis" />
+							<EnumerationValue Type="Float" Name="SET_YVELOCITY" Description="Velocity along Y axis" />
+							<EnumerationValue Type="Float" Name="SET_ZVELOCITY" Description="Velocity along Z axis" />
+							<EnumerationValue Type="Float" Name="SET_Z_OFFSET" Description="Vertical offset from original origin... offset/ent's speed * 1000ms is duration" />
+							<EnumerationValue Type="Float" Name="SET_DPITCH" Description="Pitch for NPC to turn to" />
+							<EnumerationValue Type="Float" Name="SET_DYAW" Description="Yaw for NPC to turn to" />
+							<EnumerationValue Type="Float" Name="SET_TIMESCALE" Description="Speed-up slow down game (0 - 1.0)" />
+							<EnumerationValue Type="String" Name="SET_CAMERA_GROUP_Z_OFS" Description="when following an ent with the camera, apply this z ofs" />
+							<EnumerationValue Type="Float" Name="SET_VISRANGE" Description="How far away NPC can see" />
+							<EnumerationValue Type="Float" Name="SET_EARSHOT" Description="How far an NPC can hear" />
+							<EnumerationValue Type="Float" Name="SET_VIGILANCE" Description="How often to look for enemies (0 - 1.0)" />
+							<EnumerationValue Type="Float" Name="SET_GRAVITY" Description="Change this ent's gravity - 800 default" />
+							<EnumerationValue Type="Float" Name="SET_FACEAUX" Description="Set face to Aux expression for number of seconds" />
+							<EnumerationValue Type="Float" Name="SET_FACEBLINK" Description="Set face to Blink expression for number of seconds" />
+							<EnumerationValue Type="Float" Name="SET_FACEBLINKFROWN" Description="Set face to Blinkfrown expression for number of seconds" />
+							<EnumerationValue Type="Float" Name="SET_FACEFROWN" Description="Set face to Frown expression for number of seconds" />
+							<EnumerationValue Type="Float" Name="SET_FACENORMAL" Description="Set face to Normal expression for number of seconds" />
+							<EnumerationValue Type="Float" Name="SET_FACEEYESCLOSED" Description="Set face to Eyes closed" />
+							<EnumerationValue Type="Float" Name="SET_FACEEYESOPENED" Description="Set face to Eyes open" />
+							<EnumerationValue Type="Float" Name="SET_WAIT" Description="Change an entity's wait field" />
+							<EnumerationValue Type="Float" Name="SET_FOLLOWDIST" Description="How far away to stay from leader in BS_FOLLOW_LEADER" />
+							<EnumerationValue Type="Float" Name="SET_SCALE" Description="Scale the entity model" />
+							<EnumerationValue Type="Float" Name="SET_RENDER_CULL_RADIUS" Description="Used to ensure rendering for entities with geographically sprawling animations (world units)">
+								<ValueEditor DefaultValue="40.000" />
+							</EnumerationValue>
+							<EnumerationValue Type="Float" Name="SET_DISTSQRD_TO_PLAYER" Description="Only to be used in a 'get'. (Distance to player)*(Distance to player)" />
+							
+							<Separator Title="ints" />
+							<EnumerationValue Type="Integer" Name="SET_ANIM_HOLDTIME_LOWER" Description="Hold lower anim for number of milliseconds" />
+							<EnumerationValue Type="Integer" Name="SET_ANIM_HOLDTIME_UPPER" Description="Hold upper anim for number of milliseconds" />
+							<EnumerationValue Type="Integer" Name="SET_ANIM_HOLDTIME_BOTH" Description="Hold lower and upper anims for number of milliseconds" />
+							<EnumerationValue Type="Integer" Name="SET_HEALTH" Description="Change health" />
+							<EnumerationValue Type="Integer" Name="SET_ARMOR" Description="Change armor" />
+							<EnumerationValue Type="Integer" Name="SET_WALKSPEED" Description="Change walkSpeed" />
+							<EnumerationValue Type="Integer" Name="SET_RUNSPEED" Description="Change runSpeed" />
+							<EnumerationValue Type="Integer" Name="SET_YAWSPEED" Description="Change yawSpeed" />
+							<EnumerationValue Type="Integer" Name="SET_AGGRESSION" Description="Change aggression 1-5" />
+							<EnumerationValue Type="Integer" Name="SET_AIM" Description="Change aim 1-5" />
+							<EnumerationValue Type="Integer" Name="SET_FRICTION" Description="Change ent's friction - 6 default" />
+							<EnumerationValue Type="Integer" Name="SET_SHOOTDIST" Description="How far the ent can shoot - 0 uses weapon" />
+							<EnumerationValue Type="Integer" Name="SET_HFOV" Description="Horizontal field of view" />
+							<EnumerationValue Type="Integer" Name="SET_VFOV" Description="Vertical field of view" />
+							<EnumerationValue Type="Integer" Name="SET_DELAYSCRIPTTIME" Description="How many milliseconds to wait before running delayscript" />
+							<EnumerationValue Type="Integer" Name="SET_FORWARDMOVE" Description="NPC move forward -127(back) to 127" />
+							<EnumerationValue Type="Integer" Name="SET_RIGHTMOVE" Description="NPC move right -127(left) to 127" />
+							<EnumerationValue Type="Integer" Name="SET_STARTFRAME" Description="frame to start animation sequence on" />
+							<EnumerationValue Type="Integer" Name="SET_ENDFRAME" Description="frame to end animation sequence on" />
+							<EnumerationValue Type="Integer" Name="SET_ANIMFRAME" Description="frame to set animation sequence to" />
+							<EnumerationValue Type="Integer" Name="SET_COUNT" Description="Change an entity's count field" />
+							<EnumerationValue Type="Integer" Name="SET_SHOT_SPACING" Description="Time between shots for an NPC - reset to defaults when changes weapon">
+								<ValueEditor DefaultValue="1000" />
+							</EnumerationValue>
+							<EnumerationValue Type="Integer" Name="SET_MISSIONSTATUSTIME" Description="Amount of time until Mission Status should be shown after death" />
+							<EnumerationValue Type="Integer" Name="SET_WIDTH" Description="Width of NPC bounding box." />
+							<EnumerationValue Type="Integer" Name="SET_SABER1BLADEON" Description="Activate a specific blade of Saber 1 (0 - (MAX_BLADES - 1))." />
+							<EnumerationValue Type="Integer" Name="SET_SABER1BLADEOFF" Description="Deactivate a specific blade of Saber 1 (0 - (MAX_BLADES - 1))." />
+							<EnumerationValue Type="Integer" Name="SET_SABER2BLADEON" Description="Activate a specific blade of Saber 2 (0 - (MAX_BLADES - 1))." />
+							<EnumerationValue Type="Integer" Name="SET_SABER2BLADEOFF" Description="Deactivate a specific blade of Saber 2 (0 - (MAX_BLADES - 1))." />
+							<EnumerationValue Type="Integer" Name="SET_DAMAGEENTITY" Description="Damage this entity with set amount." />
+							
+							<Separator Title="booleans" />
+							<EnumerationValue Type="Boolean" Name="SET_IGNOREPAIN" Description="Do not react to pain" />
+							<EnumerationValue Type="Boolean" Name="SET_IGNOREENEMIES" Description="Do not acquire enemies" />
+							<EnumerationValue Type="Boolean" Name="SET_IGNOREALERTS" Description="Do not get enemy set by allies in area(ambush)" />
+							<EnumerationValue Type="Boolean" Name="SET_DONTSHOOT" Description="Others won't shoot you" />
+							<EnumerationValue Type="Boolean" Name="SET_NOTARGET" Description="Others won't pick you as enemy" />
+							<EnumerationValue Type="Boolean" Name="SET_DONTFIRE" Description="Don't fire your weapon" />
+							<EnumerationValue Type="Boolean" Name="SET_LOCKED_ENEMY" Description="Keep current enemy until dead" />
+							<EnumerationValue Type="Boolean" Name="SET_CROUCHED" Description="Force NPC to crouch" />
+							<EnumerationValue Type="Boolean" Name="SET_WALKING" Description="Force NPC to move at walkSpeed" />
+							<EnumerationValue Type="Boolean" Name="SET_RUNNING" Description="Force NPC to move at runSpeed" />
+							<EnumerationValue Type="Boolean" Name="SET_CHASE_ENEMIES" Description="NPC will chase after enemies" />
+							<EnumerationValue Type="Boolean" Name="SET_LOOK_FOR_ENEMIES" Description="NPC will be on the lookout for enemies" />
+							<EnumerationValue Type="Boolean" Name="SET_FACE_MOVE_DIR" Description="NPC will face in the direction it's moving" />
+							<EnumerationValue Type="Boolean" Name="SET_DONT_FLEE" Description="NPC will not run from danger" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCED_MARCH" Description="NPC will not move unless you aim at him" />
+							<EnumerationValue Type="Boolean" Name="SET_UNDYING" Description="Can take damage down to 1 but not die" />
+							<EnumerationValue Type="Boolean" Name="SET_NOAVOID" Description="Will not avoid other NPCs or architecture" />
+							<EnumerationValue Type="Boolean" Name="SET_SOLID" Description="Make yourself notsolid or solid" />
+							<EnumerationValue Type="Boolean" Name="SET_PLAYER_USABLE" Description="Can be activateby the player's &quot;use&quot; button" />
+							<EnumerationValue Type="Boolean" Name="SET_LOOP_ANIM" Description="For non-NPCs, loop your animation sequence" />
+							<EnumerationValue Type="Boolean" Name="SET_INTERFACE" Description="Player interface on/off" />
+							<EnumerationValue Type="Boolean" Name="SET_SHIELDS" Description="NPC has no shields (Borg do not adapt)" />
+							<EnumerationValue Type="Boolean" Name="SET_INVISIBLE" Description="Makes an NPC not solid and not visible" />
+							<EnumerationValue Type="Boolean" Name="SET_VAMPIRE" Description="Draws only in mirrors/portals" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_INVINCIBLE" Description="Force Invincibility effect, also godmode" />
+							<EnumerationValue Type="Boolean" Name="SET_GREET_ALLIES" Description="Makes an NPC greet teammates" />
+							<EnumerationValue Type="Boolean" Name="SET_VIDEO_FADE_IN" Description="Makes video playback fade in" />
+							<EnumerationValue Type="Boolean" Name="SET_VIDEO_FADE_OUT" Description="Makes video playback fade out" />
+							<EnumerationValue Type="Boolean" Name="SET_PLAYER_LOCKED" Description="Makes it so player cannot move" />
+							<EnumerationValue Type="Boolean" Name="SET_LOCK_PLAYER_WEAPONS" Description="Makes it so player cannot switch weapons" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_IMPACT_DAMAGE" Description="Stops this ent from taking impact damage" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_KNOCKBACK" Description="Stops this ent from taking knockback from weapons" />
+							<EnumerationValue Type="Boolean" Name="SET_ALT_FIRE" Description="Force NPC to use altfire when shooting" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_RESPONSE" Description="NPCs will do generic responses when this is on (usescripts override generic responses as well)" />
+							<EnumerationValue Type="Boolean" Name="SET_INVINCIBLE" Description="Completely unkillable" />
+							<EnumerationValue Type="Boolean" Name="SET_MISSIONSTATUSACTIVE" Description="Turns on Mission Status Screen" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_COMBAT_TALK" Description="NPCs will not do their combat talking noises when this is on" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_ALERT_TALK" Description="NPCs will not do their combat talking noises when this is on" />
+							<EnumerationValue Type="Boolean" Name="SET_TREASONED" Description="Player has turned on his own- scripts will stop, NPCs will turn on him and level changes load the brig" />
+							<EnumerationValue Type="Boolean" Name="SET_DISABLE_SHADER_ANIM" Description="Allows turning off an animating shader in a script" />
+							<EnumerationValue Type="Boolean" Name="SET_SHADER_ANIM" Description="Sets a shader with an image map to be under frame control" />
+							<EnumerationValue Type="Boolean" Name="SET_SABERACTIVE" Description="Turns saber on/off" />
+							<EnumerationValue Type="Boolean" Name="SET_ADJUST_AREA_PORTALS" Description="Only set this on things you move with script commands that you *want* to open/close area portals.  Default is off." />
+							<EnumerationValue Type="Boolean" Name="SET_DMG_BY_HEAVY_WEAP_ONLY" Description="When true, only a heavy weapon class missile/laser can damage this ent." />
+							<EnumerationValue Type="Boolean" Name="SET_SHIELDED" Description="When true, ion_cannon is shielded from any kind of damage." />
+							<EnumerationValue Type="Boolean" Name="SET_NO_GROUPS" Description="This NPC cannot alert groups or be part of a group" />
+							<EnumerationValue Type="Boolean" Name="SET_FIRE_WEAPON" Description="Makes NPC will hold down the fire button, until this is set to false" />
+							<EnumerationValue Type="Boolean" Name="SET_FIRE_WEAPON_NO_ANIM" Description="NPC will hold down the fire button, but they won't play firing anim" />
+							<EnumerationValue Type="Boolean" Name="SET_SAFE_REMOVE" Description="NPC will remove only when it's safe (Player is not in PVS)" />
+							<EnumerationValue Type="Boolean" Name="SET_BOBA_JET_PACK" Description="Turn on/off Boba Fett's Jet Pack" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_MINDTRICK" Description="Makes NPC immune to jedi mind-trick" />
+							<EnumerationValue Type="Boolean" Name="SET_INACTIVE" Description="in lieu of using a target_activate or target_deactivate" />
+							<EnumerationValue Type="Boolean" Name="SET_FUNC_USABLE_VISIBLE" Description="provides an alternate way of changing func_usable to be visible or not, DOES NOT AFFECT SOLID" />
+							<EnumerationValue Type="Boolean" Name="SET_SECRET_AREA_FOUND" Description="Increment secret areas found counter" />
+							<EnumerationValue Type="Boolean" Name="SET_END_SCREENDISSOLVE" Description="End of game dissolve into star background and credits" />
+							<EnumerationValue Type="Boolean" Name="SET_USE_CP_NEAREST" Description="NPCs will use their closest combat points, not try and find ones next to the player, or flank player" />
+							<EnumerationValue Type="Boolean" Name="SET_MORELIGHT" Description="NPC will have a minlight of 96" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_FORCE" Description="NPC will not be affected by force powers" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_FALLTODEATH" Description="NPC will not scream and tumble and fall to hit death over large drops" />
+							<EnumerationValue Type="Boolean" Name="SET_DISMEMBERABLE" Description="NPC will not be dismemberable if you set this to false (default is true)" />
+							<EnumerationValue Type="Boolean" Name="SET_NO_ACROBATICS" Description="Jedi won't jump, roll or cartwheel" />
+							<EnumerationValue Type="Boolean" Name="SET_USE_SUBTITLES" Description="When true NPC will always display subtitle regardless of subtitle setting" />
+							<EnumerationValue Type="Boolean" Name="SET_CLEAN_DAMAGING_ENTS" Description="Removes entities that could muck up cinematics, explosives, turrets, seekers." />
+							<EnumerationValue Type="Boolean" Name="SET_HUD" Description="Turns on/off HUD" />
+							<!-- //JKA -->
+							<EnumerationValue Type="Boolean" Name="SET_NO_PVS_CULL" Description="This entity will *always* be drawn - use only for special case cinematic NPCs that have anims that cover multiple rooms!!!" />
+							<EnumerationValue Type="Boolean" Name="SET_CLOAK" Description="Set a Saboteur to cloak (true) or un-cloak (false)." />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_HEAL" Description="Causes this ent to start force healing at whatever level of force heal they have" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_SPEED" Description="Causes this ent to start force speeding at whatever level of force speed they have (may not do anything for NPCs?)" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_PUSH" Description="Causes this ent to do a force push at whatever level of force push they have - will not fail" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_PUSH_FAKE" Description="Causes this ent to do a force push anim, sound and effect, will not push anything" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_PULL" Description="Causes this ent to do a force push at whatever level of force push they have - will not fail" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_MIND_TRICK" Description="Causes this ent to do a jedi mind trick at whatever level of mind trick they have (may not do anything for NPCs?)" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_GRIP" Description="Causes this ent to grip their enemy at whatever level of grip they have (will grip until scripted to stop)" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_LIGHTNING" Description="Causes this ent to lightning at whatever level of lightning they have (will lightning until scripted to stop)" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_SABERTHROW" Description="Causes this ent to throw their saber at whatever level of saber throw they have (will throw saber until scripted to stop)" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_RAGE" Description="Causes this ent to go into force rage at whatever level of force rage they have" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_PROTECT" Description="Causes this ent to start a force protect at whatever level of force protect they have" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_ABSORB" Description="Causes this ent to do start a force absorb at whatever level of force absorb they have" />
+							<EnumerationValue Type="Boolean" Name="SET_FORCE_DRAIN" Description="Causes this ent to start force draining their enemy at whatever level of force drain they have (will drain until scripted to stop)" />
+							<EnumerationValue Type="Boolean" Name="SET_WINTER_GEAR" Description="Set the player to wear his/her winter gear (skins torso_g1 and lower_e1), or restore the default skins." />
+							<EnumerationValue Type="Boolean" Name="SET_NO_ANGLES" Description="This NPC/player will not have any bone angle overrides or pitch or roll (should only be used in cinematics)" />
+							
+							<Separator Title="calls" />
+							<EnumerationValue Type="Integer" Name="SET_SKILL" Description="Cannot set this, only get it - valid values are 0 through 3">
+								<ValueEditor ReadOnly="True" />
+							</EnumerationValue>
+							
+							<Separator Title="Special tables" />
+							<EnumerationValue Name="SET_ANIM_UPPER" Enumeration="ANIM_NAMES" Description="Torso and head anim" />
+							<EnumerationValue Name="SET_ANIM_LOWER" Enumeration="ANIM_NAMES" Description="Legs anim" />
+							<EnumerationValue Name="SET_ANIM_BOTH" Enumeration="ANIM_NAMES" Description="Set same anim on torso and legs" />
+							<EnumerationValue Name="SET_PLAYER_TEAM" Enumeration="TEAM_NAMES" Description="Your team" />
+							<EnumerationValue Name="SET_ENEMY_TEAM" Enumeration="TEAM_NAMES" Description="Team in which to look for enemies" />
+							<EnumerationValue Name="SET_BEHAVIOR_STATE" Enumeration="BSTATE_STRINGS" Description="Change current bState" />
+							<EnumerationValue Name="SET_DEFAULT_BSTATE" Enumeration="BSTATE_STRINGS" Description="Change fallback bState" />
+							<EnumerationValue Name="SET_TEMP_BSTATE" Enumeration="BSTATE_STRINGS" Description="Set/Chang a temp bState" />
+							<EnumerationValue Name="SET_EVENT" Enumeration="EVENT_NAMES" Description="Events you can initiate" />
+							<EnumerationValue Name="SET_WEAPON" Enumeration="WEAPON_NAMES" Description="Change/Stow/Drop weapon" />
+							<EnumerationValue Name="SET_ITEM" Enumeration="ITEM_NAMES" Description="Give items" />
+							<EnumerationValue Name="SET_MUSIC_STATE" Enumeration="MUSIC_STATES" Description="Set the state of the dynamic music" />
+							
+							<EnumerationValue Name="SET_FORCE_HEAL_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_JUMP_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_SPEED_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_PUSH_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_PULL_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_MINDTRICK_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_GRIP_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_LIGHTNING_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_SABER_THROW" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_SABER_DEFENSE" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_SABER_OFFENSE" Enumeration="SABER_STYLES" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_RAGE_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_PROTECT_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_ABSORB_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_DRAIN_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_FORCE_SIGHT_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
+							<EnumerationValue Name="SET_SABER1_COLOR1" Enumeration="SABER_COLORS" Description="Set color of first blade of first saber" />
+							<EnumerationValue Name="SET_SABER1_COLOR2" Enumeration="SABER_COLORS" Description="Set color of second blade of first saber" />
+							<EnumerationValue Name="SET_SABER2_COLOR1" Enumeration="SABER_COLORS" Description="Set color of first blade of first saber" />
+							<EnumerationValue Name="SET_SABER2_COLOR2" Enumeration="SABER_COLORS" Description="Set color of second blade of first saber" />
+							<EnumerationValue Name="SET_DISMEMBER_LIMB" Enumeration="HIT_LOCATIONS" Description="Cut off a part of a body and send the limb flying" />
+
+							<EnumerationValue Name="SET_OBJECTIVE_SHOW" Enumeration="OBJECTIVES" Description="Show objective on mission screen" />
+							<EnumerationValue Name="SET_OBJECTIVE_HIDE" Enumeration="OBJECTIVES" Description="Hide objective from mission screen" />
+							<EnumerationValue Name="SET_OBJECTIVE_SUCCEEDED" Enumeration="OBJECTIVES" Description="Mark objective as completed" />
+							<EnumerationValue Name="SET_OBJECTIVE_SUCCEEDED_NO_UPDATE" Enumeration="OBJECTIVES" Description="Mark objective as completed, no update sent to screen" />
+							<EnumerationValue Name="SET_OBJECTIVE_FAILED" Enumeration="OBJECTIVES" Description="Mark objective as failed" />
+
+							<EnumerationValue Name="SET_MISSIONFAILED" Enumeration="MISSIONFAILED" Description="Mission failed screen activates" />
+
+							<EnumerationValue Name="SET_TACTICAL_SHOW" Enumeration="TACTICAL" Description="Show tactical info on mission objectives screen" />
+							<EnumerationValue Name="SET_TACTICAL_HIDE" Enumeration="TACTICAL" Description="Hide tactical info on mission objectives screen" />
+							<EnumerationValue Name="SET_OBJECTIVE_CLEARALL" Description="Force all objectives to be hidden" />
+
+							<EnumerationValue Name="SET_OBJECTIVEFOSTER" />
+	
+							<EnumerationValue Name="SET_OBJECTIVE_LIGHTSIDE" Description="Used to get whether the player has chosen the light (succeeded) or dark (failed) side." />
+	
+							<EnumerationValue Name="SET_MISSIONSTATUSTEXT" Enumeration="STATUSTEXT" Description="Text to appear in mission status screen" />
+							<EnumerationValue Name="SET_MENU_SCREEN" Enumeration="MENUSCREENS" Description="Brings up specified menu screen" />
+	
+							<EnumerationValue Name="SET_CLOSINGCREDITS" Description="Show closing credits" />
+	
+							<!-- in-bhc tables -->
+							<EnumerationValue Name="SET_LEAN" Enumeration="LEAN_TYPES" Description="Lean left, right or stop leaning" />
+						</EnumerationValues>
+					</Enumeration>
+				</Enumerations>
+			</Configuration>
+		</Editor>
+	</Editors>
+</UniversalEditor>
+

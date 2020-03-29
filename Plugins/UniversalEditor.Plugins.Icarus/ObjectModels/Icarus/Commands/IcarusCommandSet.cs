@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.Icarus.Parameters;
 
 namespace UniversalEditor.ObjectModels.Icarus.Commands
 {
     public class IcarusCommandSet : IcarusPredefinedCommand
     {
+		public IcarusCommandSet()
+		{
+			Parameters.Add(new IcarusGenericParameter("ObjectName"));
+			Parameters.Add(new IcarusGenericParameter("Value"));
+		}
+
         public override string Name
         {
             get { return "set"; }
@@ -14,13 +21,13 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 
         public override object Clone()
         {
-            throw new NotImplementedException();
+			IcarusCommandSet clone = new IcarusCommandSet();
+			clone.ObjectName = (ObjectName.Clone() as IcarusExpression);
+			clone.Value = (Value.Clone() as IcarusExpression);
+			return clone;
         }
 
-        private string mvarObjectName = String.Empty;
-        public string ObjectName { get { return mvarObjectName; } set { mvarObjectName = value; } }
-
-        private object mvarValue = null;
-        public object Value { get { return mvarValue; } set { mvarValue = value; } }
+        public IcarusExpression ObjectName { get { return Parameters["ObjectName"].Value; } set { Parameters["ObjectName"].Value = value; } }
+        public IcarusExpression Value { get { return Parameters["Value"].Value; } set { Parameters["Value"].Value = value; } }
     }
 }

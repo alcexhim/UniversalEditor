@@ -1,0 +1,25 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus.IcarusScriptEditor">
+			<Commands>
+				<Command ID="Icarus_ContextMenu_Comment" Title="Comment Selected Items" />
+				<Command ID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" Title="Test E_xpression Editor" />
+				
+				<Command ID="Icarus_ContextMenu">
+					<Items>
+						<CommandReference CommandID="EditCut" />
+						<CommandReference CommandID="EditCopy" />
+						<CommandReference CommandID="EditPaste" />
+						<CommandReference CommandID="EditDelete" />
+						<Separator />
+						<CommandReference CommandID="Icarus_ContextMenu_Comment" />
+						
+						<CommandReference CommandID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

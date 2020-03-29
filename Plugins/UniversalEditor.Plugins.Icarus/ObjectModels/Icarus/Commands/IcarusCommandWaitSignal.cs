@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.Icarus.Parameters;
 
 namespace UniversalEditor.ObjectModels.Icarus.Commands
 {
     public class IcarusCommandWaitSignal : IcarusPredefinedCommand
     {
         public override string Name { get { return "waitsignal"; } }
+        public IcarusExpression Target { get { return Parameters["Target"].Value; } set { Parameters["Target"].Value = value; } }
 
-        private string mvarTarget = String.Empty;
-        public string Target { get { return mvarTarget; } set { mvarTarget = value; } }
+		public IcarusCommandWaitSignal()
+		{
+			Parameters.Add(new IcarusGenericParameter("Target"));
+		}
 
         public override object Clone()
         {
             IcarusCommandWaitSignal clone = new IcarusCommandWaitSignal();
-            clone.Target = (mvarTarget.Clone() as string);
+            clone.Target = (Target.Clone() as IcarusExpression);
             return clone;
         }
     }

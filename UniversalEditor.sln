@@ -157,6 +157,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.Rendering.Eng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Content.Linux", "Content\UniversalEditor.Content.Linux\UniversalEditor.Content.Linux.csproj", "{90945326-FA6C-4A3E-90B9-5E29D7F85DF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.RavenSoftware.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.RavenSoftware.UserInterface\UniversalEditor.Plugins.RavenSoftware.UserInterface.csproj", "{23AC9D59-B206-49C7-99D5-E5A9380973EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -453,6 +455,10 @@ Global
 		{90945326-FA6C-4A3E-90B9-5E29D7F85DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90945326-FA6C-4A3E-90B9-5E29D7F85DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90945326-FA6C-4A3E-90B9-5E29D7F85DF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23AC9D59-B206-49C7-99D5-E5A9380973EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23AC9D59-B206-49C7-99D5-E5A9380973EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23AC9D59-B206-49C7-99D5-E5A9380973EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23AC9D59-B206-49C7-99D5-E5A9380973EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -526,6 +532,7 @@ Global
 		{D18D3E15-6913-4A91-A412-5B1E9BF92487} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{42DDB1E3-20A2-47F8-9AED-ABAAFA6F3C4D} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 		{90945326-FA6C-4A3E-90B9-5E29D7F85DF8} = {4BC75679-085E-45DA-B00A-D9BA89D8748A}
+		{23AC9D59-B206-49C7-99D5-E5A9380973EC} = {7B535D74-5496-4802-B809-89ED88274A91}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

@@ -69,6 +69,18 @@
     <Compile Include="ObjectModels\Icarus\IcarusVariableDataType.cs" />
     <Compile Include="ObjectModels\Icarus\IIcarusContainerCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ObjectModels\Icarus\IcarusParameter.cs" />
+    <Compile Include="ObjectModels\Icarus\Parameters\IcarusGenericParameter.cs" />
+    <Compile Include="ObjectModels\Icarus\Parameters\IcarusChoiceParameter.cs" />
+    <Compile Include="ObjectModels\Icarus\Parameters\IcarusFloatParameter.cs" />
+    <Compile Include="ObjectModels\Icarus\Commands\IcarusCommandMacro.cs" />
+    <Compile Include="ObjectModels\Icarus\Expressions\IcarusConstantExpression.cs" />
+    <Compile Include="ObjectModels\Icarus\Expressions\IcarusGetExpression.cs" />
+    <Compile Include="ObjectModels\Icarus\Expressions\IcarusTagExpression.cs" />
+    <Compile Include="ObjectModels\Icarus\Expressions\IcarusRandomExpression.cs" />
+    <Compile Include="ObjectModels\Icarus\Expressions\IcarusFunctionExpression.cs" />
+    <Compile Include="ObjectModels\Icarus\IcarusTagType.cs" />
+    <Compile Include="ObjectModels\Icarus\Commands\IcarusCommandIf.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -84,5 +96,17 @@
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
+      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
+      <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ObjectModels\Icarus\Parameters\" />
+    <Folder Include="ObjectModels\Icarus\Expressions\" />
   </ItemGroup>
 </Project>

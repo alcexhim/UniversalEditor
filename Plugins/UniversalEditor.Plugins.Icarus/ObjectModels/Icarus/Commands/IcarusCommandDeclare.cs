@@ -2,24 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.ObjectModels.Icarus.Expressions;
+using UniversalEditor.ObjectModels.Icarus.Parameters;
 
 namespace UniversalEditor.ObjectModels.Icarus.Commands
 {
     public class IcarusCommandDeclare : IcarusPredefinedCommand
     {
+		public IcarusCommandDeclare()
+		{
+			Parameters.Add(new IcarusChoiceParameter("DataType", new IcarusConstantExpression("FLOAT"), new IcarusChoiceParameterValue[]
+			{
+				new IcarusChoiceParameterValue("FLOAT", new IcarusConstantExpression(IcarusVariableDataType.Float)),
+				new IcarusChoiceParameterValue("STRING", new IcarusConstantExpression(IcarusVariableDataType.String)),
+				new IcarusChoiceParameterValue("VECTOR", new IcarusConstantExpression(IcarusVariableDataType.Vector))
+			}));
+			Parameters.Add(new IcarusGenericParameter("VariableName", new IcarusConstantExpression("variablename")));
+		}
+
         public override string Name { get { return "declare"; } }
 
-        private string mvarVariableName = String.Empty;
-        public string VariableName { get { return mvarVariableName; } set { mvarVariableName = value; } }
+        public IcarusVariableDataType DataType { get { return (IcarusVariableDataType) ((IcarusConstantExpression)Parameters["DataType"].Value)?.Value; } set { Parameters["DataType"].Value = new IcarusConstantExpression(value); } }
+		public IcarusExpression VariableName { get { return Parameters["VariableName"].Value; } set { Parameters["VariableName"].Value = value; } }
 
-        private IcarusVariableDataType mvarDataType = IcarusVariableDataType.Float;
-        public IcarusVariableDataType DataType { get { return mvarDataType; } set { mvarDataType = value; } }
-
-        public override object Clone()
+		public override object Clone()
         {
             IcarusCommandDeclare clone = new IcarusCommandDeclare();
-            clone.VariableName = (mvarVariableName.Clone() as string);
-            clone.DataType = mvarDataType;
+            clone.VariableName = (VariableName?.Clone() as IcarusExpression);
+            clone.DataType = DataType;
             return clone;
         }
     }

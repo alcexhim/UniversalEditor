@@ -1,0 +1,28 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus.IcarusScriptEditor">
+			<Commands>
+				<Command ID="Icarus_Debug_StartDebugging" Title="_Start Debugging" />
+				<Command ID="Icarus_Debug_BreakExecution" Title="Brea_k Execution" />
+				<Command ID="Icarus_Debug_StopDebugging" Title="Stop D_ebugging" />
+				<Command ID="Icarus_Debug_StepInto" Title="Step _Into" />
+				<Command ID="Icarus_Debug_StepOver" Title="Step _Over" />
+				<Command ID="Icarus_Debug">
+					<Items>
+						<CommandReference CommandID="Icarus_Debug_StartDebugging" />
+						<CommandReference CommandID="Icarus_Debug_BreakExecution" />
+						<CommandReference CommandID="Icarus_Debug_StopDebugging" />
+						<Separator />
+						<CommandReference CommandID="Icarus_Debug_StepInto" />
+						<CommandReference CommandID="Icarus_Debug_StepOver" />
+					</Items>
+				</Command>
+			</Commands>
+			<MenuBar>
+				<Items>
+					<CommandReference CommandID="Icarus_Debug" InsertAfter="Project" />
+				</Items>
+			</MenuBar>
+		</Editor>
+	</Editors>
+</UniversalEditor>
