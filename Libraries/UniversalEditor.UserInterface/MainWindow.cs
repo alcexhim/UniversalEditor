@@ -656,12 +656,15 @@ namespace UniversalEditor.UserInterface
 			}
 			return true;
 		}
-		protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+		protected override void OnClosing(WindowClosingEventArgs e)
 		{
 			base.OnClosing(e);
 
-			if (!ConfirmExit())
-				e.Cancel = true;
+			if (e.CloseReason == WindowCloseReason.UserClosing)
+			{
+				if (!ConfirmExit())
+					e.Cancel = true;
+			}
 		}
 
 		private void OpenDefaultEditor(Accessor acc)

@@ -316,12 +316,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 			dlg.ShowDialog();
 		}
 
-		protected override void OnClosing(CancelEventArgs e)
-		{
-			base.OnClosing(e);
-
-		}
-
 		private void dlgDataFormat_SelectionChanged(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<DataFormat, DataFormatReference> dlg = (sender as GenericBrowserPopup<DataFormat, DataFormatReference>);
