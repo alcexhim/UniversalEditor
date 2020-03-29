@@ -168,6 +168,8 @@ namespace UniversalEditor.UserInterface
 				Application.ExecuteCommand(cmd.ID);
 		}
 
+		private DefaultTreeModel tmToolbox = new DefaultTreeModel(new Type[] { typeof(string) });
+
 		public MainWindow()
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
@@ -192,9 +194,12 @@ namespace UniversalEditor.UserInterface
 
 			InitStartPage();
 
-			Label lblToolbox = new Label();
-			lblToolbox.Text = "TOOLBOX PLACEHOLDER";
-			AddPanel("Toolbox", DockingItemPlacement.Left, lblToolbox);
+			ListView lvToolbox = new ListView();
+			lvToolbox.RowActivated += LvToolbox_RowActivated;
+			lvToolbox.Model = tmToolbox;
+			lvToolbox.Columns.Add(new ListViewColumnText(tmToolbox.Columns[0], "Item"));
+			lvToolbox.HeaderStyle = ColumnHeaderStyle.None;
+			AddPanel("Toolbox", DockingItemPlacement.Left, lvToolbox);
 
 			AddPanel("Document Explorer", DockingItemPlacement.Bottom, pnlDocumentExplorer);
 
@@ -221,6 +226,16 @@ namespace UniversalEditor.UserInterface
 
 			UpdateSuperDuperButtonBar();
 		}
+
+		void LvToolbox_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		{
+			Editor ed = GetCurrentEditor();
+			if (ed != null)
+			{
+				ed.ActivateToolboxItem(e.Row.GetExtraData<ToolboxItem>("item"));
+			}
+		}
+
 
 		void Application_ContextChanged(object sender, ContextChangedEventArgs e)
 		{
@@ -335,6 +350,19 @@ namespace UniversalEditor.UserInterface
 				if (editor != null)
 				{
 					Application.Contexts.Add(editor.Context);
+
+					// initialize toolbox items
+					EditorReference er = editor.MakeReference();
+					for (int i = 0; i < er.Toolbox.Items.Count; i++)
+					{
+						TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tmToolbox.Columns[0], er.Toolbox.Items[i].Name) });
+						row.SetExtraData<ToolboxItem>("item", er.Toolbox.Items[i]);
+						tmToolbox.Rows.Add(row);
+					}
+				}
+				else
+				{
+					tmToolbox.Rows.Clear();
 				}
 			}
 			_prevEditor = editor;

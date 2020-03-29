@@ -20,6 +20,8 @@ namespace UniversalEditor.UserInterface
 		public Type EditorType { get { return mvarEditorType; } set { mvarEditorType = value; } }
 
 		private ObjectModelReference.ObjectModelReferenceCollection mvarSupportedObjectModels = new ObjectModelReference.ObjectModelReferenceCollection();
+		public event EventHandler ConfigurationLoaded;
+
 		public ObjectModelReference.ObjectModelReferenceCollection SupportedObjectModels { get { return mvarSupportedObjectModels; } }
 
 		public MarkupTagElement Configuration { get; set; } = null;
@@ -30,6 +32,15 @@ namespace UniversalEditor.UserInterface
 
 		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();
 		public Variable.VariableCollection Variables { get; } = new Variable.VariableCollection();
+		public Toolbox Toolbox { get; } = new Toolbox();
+
+		private bool _ConfigurationInitialized = false;
+		public void InitializeConfiguration()
+		{
+			if (_ConfigurationInitialized) return;
+			ConfigurationLoaded?.Invoke(this, EventArgs.Empty);
+			_ConfigurationInitialized = true;
+		}
 
 		public EditorReference(Type type)
 		{

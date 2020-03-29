@@ -7,7 +7,9 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface
 {
@@ -16,14 +18,35 @@ namespace UniversalEditor.UserInterface
 	/// </summary>
 	public sealed class Toolbox
 	{
-		private ToolboxItem.ToolboxItemCollection mvarItems = new ToolboxItem.ToolboxItemCollection();
-		public ToolboxItem.ToolboxItemCollection Items { get { return mvarItems; } }
+		public Toolbox()
+		{
+			Items = new ToolboxItem.ToolboxItemCollection(this);
+		}
+
+		public ToolboxItem.ToolboxItemCollection Items { get; private set; } = null;
+
+
+		internal void ClearItems()
+		{
+		}
+		internal void InsertItem(ToolboxItem item)
+		{
+		}
+		internal void RemoveItem(ToolboxItem item)
+		{
+		}
 	}
-	public abstract class ToolboxItem
+	public abstract class ToolboxItem : ISupportsExtraData
 	{
 		public sealed class ToolboxItemCollection
 			: System.Collections.ObjectModel.Collection<ToolboxItem>
 		{
+			private Toolbox _toolbox = null;
+			internal ToolboxItemCollection(Toolbox parent)
+			{
+				_toolbox = parent;
+			}
+
 			public ToolboxCommandItem AddCommand(string name)
 			{
 				return AddCommand(name, name);
@@ -49,6 +72,22 @@ namespace UniversalEditor.UserInterface
 				Add(group);
 				return group;
 			}
+
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				_toolbox.ClearItems();
+			}
+			protected override void InsertItem(int index, ToolboxItem item)
+			{
+				base.InsertItem(index, item);
+				_toolbox.InsertItem(item);
+			}
+			protected override void RemoveItem(int index)
+			{
+				_toolbox.RemoveItem(this[index]);
+				base.RemoveItem(index);
+			}
 		}
 		
 		private string mvarName = String.Empty;
@@ -61,18 +100,44 @@ namespace UniversalEditor.UserInterface
 		{
 			mvarName = name;
 		}
+
+		private Dictionary<string, object> _ExtraData = new Dictionary<string, object>();
+		public T GetExtraData<T>(string key, T defaultValue = default(T))
+		{
+			if (_ExtraData.ContainsKey(key) && _ExtraData[key] is T)
+				return (T)_ExtraData[key];
+			return defaultValue;
+		}
+
+		public void SetExtraData<T>(string key, T value)
+		{
+			_ExtraData[key] = value;
+		}
+
+		public object GetExtraData(string key, object defaultValue = null)
+		{
+			if (_ExtraData.ContainsKey(key))
+				return _ExtraData[key];
+			return defaultValue;
+		}
+
+		public void SetExtraData(string key, object value)
+		{
+			_ExtraData[key] = value;
+		}
 	}
 	public class ToolboxGroupItem : ToolboxItem
 	{
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-		private ToolboxItem.ToolboxItemCollection mvarItems = new ToolboxItem.ToolboxItemCollection();
-		public ToolboxItem.ToolboxItemCollection Items { get { return mvarItems; } }
+		public ToolboxItem.ToolboxItemCollection Items { get; internal set; }
 		
 		public ToolboxGroupItem(string name, string title) : base(name)
 		{
 			mvarTitle = title;
+			Items = new ToolboxItemCollection(null);
+			throw new NotImplementedException();
 		}
 	}
 	public class ToolboxCommandItem : ToolboxItem

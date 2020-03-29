@@ -117,67 +117,6 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 			#endregion
-			#region Editor Configuration
-			{
-				UpdateSplashScreenStatus("Loading editor configuration");
-
-				MarkupTagElement tagEditors = (Application.RawMarkup.FindElement("UniversalEditor", "Editors") as MarkupTagElement);
-				if (tagEditors != null)
-				{
-					foreach (MarkupElement el in tagEditors.Elements)
-					{
-						MarkupTagElement tag = (el as MarkupTagElement);
-						if (tag == null) continue;
-						if (tag.FullName != "Editor") continue;
-
-						MarkupAttribute attID = tag.Attributes["ID"];
-						MarkupAttribute attTypeName = tag.Attributes["TypeName"];
-
-						switch (System.Environment.OSVersion.Platform)
-						{
-							case PlatformID.MacOSX:
-							case PlatformID.Unix:
-							case PlatformID.Xbox:
-							{
-								// TODO: this fails on Linux and I don't know why
-								Console.WriteLine("skipping load editor configuration on Mac OS X, Unix, or Xbox because it fails on Linux and I don't know why");
-								break;
-							}
-							case PlatformID.Win32NT:
-							case PlatformID.Win32S:
-							case PlatformID.Win32Windows:
-							case PlatformID.WinCE:
-							{
-								EditorReference editor = null;
-								try
-								{
-									if (attID != null)
-									{
-										Common.Reflection.GetAvailableEditorByID(new Guid(attID.Value));
-									}
-									else if (attTypeName != null)
-									{
-										Common.Reflection.GetAvailableEditorByTypeName(attTypeName.Value);
-									}
-								}
-								catch (Exception ex)
-								{
-									if (attID != null)
-									{
-										Console.WriteLine("couldn't load editor with ID '{0}'", (new Guid(attID.Value)).ToString("B"));
-									}
-									else if (attTypeName != null)
-									{
-										Console.WriteLine("couldn't load editor with typename '{0}'", attTypeName.Value);
-									}
-								}
-								break;
-							}
-						}
-					}
-				}
-			}
-			#endregion
 			#region Object Model Configuration
 			{
 				UpdateSplashScreenStatus("Loading object model configuration");

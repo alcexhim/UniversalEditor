@@ -57,6 +57,11 @@ namespace UniversalEditor.UserInterface.Common
 
 			InitializeFromXML(ref listEditors);
 
+			for (int i = 0; i < listEditors.Count; i++)
+			{
+				listEditors[i].InitializeConfiguration();
+			}
+
 			if (mvarAvailableEditors == null) mvarAvailableEditors = listEditors.ToArray();
 		}
 
@@ -130,7 +135,14 @@ namespace UniversalEditor.UserInterface.Common
 
 							if (er != null)
 							{
-								er.Configuration = tagEditor;
+								if (er.Configuration == null)
+								{
+									er.Configuration = tagEditor;
+								}
+								else
+								{
+									er.Configuration.Combine(tagEditor);
+								}
 
 								MarkupTagElement tagCommands = (tagEditor.Elements["Commands"] as MarkupTagElement);
 								if (tagCommands != null)

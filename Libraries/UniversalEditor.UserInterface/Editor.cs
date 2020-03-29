@@ -210,8 +210,6 @@ namespace UniversalEditor.UserInterface
 		private bool mvarInhibitUndo = false;
 		protected bool InhibitUndo { get { return mvarInhibitUndo; } set { mvarInhibitUndo = value; } }
 
-		protected Toolbox Toolbox { get; } = new Toolbox();
-
 		// private AwesomeControls.PropertyGrid.PropertyGroup.PropertyGroupCollection mvarPropertyGroups = new AwesomeControls.PropertyGrid.PropertyGroup.PropertyGroupCollection(null);
 		// public AwesomeControls.PropertyGrid.PropertyGroup.PropertyGroupCollection PropertyGroups { get { return mvarPropertyGroups; } }
 
@@ -225,13 +223,22 @@ namespace UniversalEditor.UserInterface
 			if (ToolboxItemSelected != null) ToolboxItemSelected(this, e);
 		}
 		/// <summary>
-		/// The event raised when a toolbox item is added to the Editor. Use this to adjust the content of the ObjectModel
-		/// based on which toolbox item was added.
+		/// The event raised when a toolbox item is activated in the Editor. Use this to adjust the content of the ObjectModel
+		/// based on which toolbox item was activated.
 		/// </summary>
-		public event ToolboxItemEventHandler ToolboxItemAdded;
-		protected virtual void OnToolboxItemAdded(ToolboxItemEventArgs e)
+		public event ToolboxItemEventHandler ToolboxItemActivated;
+		protected virtual void OnToolboxItemActivated(ToolboxItemEventArgs e)
 		{
-			if (ToolboxItemAdded != null) ToolboxItemAdded(this, e);
+			if (ToolboxItemActivated != null) ToolboxItemActivated(this, e);
+		}
+		/// <summary>
+		/// The event raised when a toolbox item is dropped onto the Editor. Use this to adjust the content of the ObjectModel
+		/// based on which toolbox item was dropped.
+		/// </summary>
+		public event ToolboxItemEventHandler ToolboxItemDropped;
+		protected virtual void OnToolboxItemDropped(ToolboxItemEventArgs e)
+		{
+			if (ToolboxItemDropped != null) ToolboxItemDropped(this, e);
 		}
 
 		/// <summary>
@@ -243,6 +250,19 @@ namespace UniversalEditor.UserInterface
 		{
 			ToolboxItemEventArgs e = new ToolboxItemEventArgs(item);
 			OnToolboxItemSelected(e);
+			if (e.Cancel) return false;
+			return true;
+		}
+
+		/// <summary>
+		/// Causes the editor to activate the specified toolbox item.
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns>True if the editor accepted the new selection; false otherwise. Update the toolbox user interface accordingly.</returns>
+		public bool ActivateToolboxItem(ToolboxItem item)
+		{
+			ToolboxItemEventArgs e = new ToolboxItemEventArgs(item);
+			OnToolboxItemActivated(e);
 			if (e.Cancel) return false;
 			return true;
 		}
@@ -262,7 +282,7 @@ namespace UniversalEditor.UserInterface
 			{
 				ToolboxItem item = (e.Data.GetData(typeof(ToolboxItem)) as ToolboxItem);
 				ToolboxItemEventArgs e1 = new ToolboxItemEventArgs(item);
-				OnToolboxItemAdded(e1);
+				OnToolboxItemDropped(e1);
 			}
 		}
 
@@ -344,29 +364,6 @@ namespace UniversalEditor.UserInterface
 				DataPath,
 				"Configuration"
 			});
-
-			// FIXME: refactor this into a single XML configuration file loader at the beginning of engine launch
-			if (System.IO.Directory.Exists(configurationPath))
-			{
-				string configurationFileNameFilter = System.Configuration.ConfigurationManager.AppSettings["UniversalEditor.Configuration.ConfigurationFileNameFilter"];
-				if (configurationFileNameFilter == null) configurationFileNameFilter = "*.uexml";
-
-				string[] fileNames = System.IO.Directory.GetFiles(configurationPath, configurationFileNameFilter);
-				XMLPropertyListDataFormat xmpl = new XMLPropertyListDataFormat();
-
-				foreach (string fileName in fileNames)
-				{
-					try
-					{
-						PropertyListObjectModel plom = new PropertyListObjectModel();
-						Document.Load(plom, xmpl, new FileAccessor(fileName), true);
-						plom.CopyTo(mvarConfiguration);
-					}
-					catch (InvalidDataFormatException ex)
-					{
-					}
-				}
-			}
 		}
 
 		#region Implementation
