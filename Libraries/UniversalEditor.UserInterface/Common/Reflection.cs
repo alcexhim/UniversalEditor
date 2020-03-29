@@ -6,6 +6,7 @@ using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.Accessors;
 using MBS.Framework.UserInterface;
+using MBS.Framework.Logic;
 
 namespace UniversalEditor.UserInterface.Common
 {
@@ -177,6 +178,27 @@ namespace UniversalEditor.UserInterface.Common
 												er.MenuBar.Items.Add(ci);
 											}
 										}
+									}
+								}
+								MarkupTagElement tagVariables = (tagEditor.Elements["Variables"] as MarkupTagElement);
+								if (tagVariables != null)
+								{
+									for (int i = 0; i < tagVariables.Elements.Count; i++)
+									{
+										MarkupTagElement tagVariable = tagVariables.Elements[i] as MarkupTagElement;
+										if (tagVariable == null) continue;
+										if (tagVariable.FullName != "Variable") continue;
+
+										MarkupAttribute attName = tagVariable.Attributes["Name"];
+										if (attName == null) continue;
+
+										MarkupAttribute attValue = tagVariable.Attributes["Value"];
+
+										Variable varr = new MBS.Framework.Logic.Variable(attName.Value);
+										if (attValue != null)
+											varr.Expression = Expression.Parse(attValue.Value);
+
+										er.Variables.Add(varr);
 									}
 								}
 							}

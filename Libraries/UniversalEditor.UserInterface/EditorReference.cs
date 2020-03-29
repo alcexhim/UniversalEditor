@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework.Logic;
 using MBS.Framework.UserInterface;
 using UniversalEditor.ObjectModels.Markup;
 
@@ -28,6 +29,7 @@ namespace UniversalEditor.UserInterface
 		public KeyBinding.KeyBindingCollection KeyBindings { get; } = new KeyBinding.KeyBindingCollection();
 
 		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();
+		public Variable.VariableCollection Variables { get; } = new Variable.VariableCollection();
 
 		public EditorReference(Type type)
 		{
