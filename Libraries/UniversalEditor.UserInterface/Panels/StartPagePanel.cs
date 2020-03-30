@@ -29,8 +29,44 @@ namespace UniversalEditor.UserInterface.Panels
 	[ContainerLayout("~/Panels/StartPage.glade", "GtkWindow")]
 	public class StartPagePanel : Panel
 	{
-		public StartPagePanel()
+		private Button cmdCreateNewProject;
+		private Button cmdOpenExistingProject;
+		private Container ctHeaderImage;
+		private Container ctHeaderText;
+		private PictureFrame imgHeader;
+		private Label lblHeader;
+		private Label lblNewsTitle;
+
+		protected override void OnCreated(EventArgs e)
 		{
+			base.OnCreated(e);
+
+			cmdCreateNewProject.Click += cmdCreateNewProject_Click;
+			cmdOpenExistingProject.Click += cmdOpenExistingProject_Click;
+			lblHeader.Text = String.Format(lblHeader.Text, Application.Title);
+			lblNewsTitle.Text = String.Format(lblNewsTitle.Text, Application.Title);
+
+			string header_bmp = Application.ExpandRelativePath("~/header.bmp");
+			if (System.IO.File.Exists(header_bmp))
+			{
+				imgHeader.Image = MBS.Framework.UserInterface.Drawing.Image.FromFile(header_bmp);
+				ctHeaderImage.Visible = true;
+				ctHeaderText.Visible = false;
+			}
+			else
+			{
+				ctHeaderImage.Visible = false;
+				ctHeaderText.Visible = true;
+			}
+		}
+
+		private void cmdCreateNewProject_Click(object sender, EventArgs e)
+		{
+			HostApplication.CurrentWindow?.NewProject();
+		}
+		private void cmdOpenExistingProject_Click(object sender, EventArgs e)
+		{
+			HostApplication.CurrentWindow?.OpenProject();
 		}
 	}
 }

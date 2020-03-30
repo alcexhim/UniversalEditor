@@ -13,11 +13,11 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkBox" id="ctHeaderText">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkImage">
+              <object class="GtkImage" id="imgIcon">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="pixel_size">64</property>
@@ -32,10 +32,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="lblHeader">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Universal Editor</property>
+                <property name="label" translatable="yes">{0}</property>
                 <property name="xalign">0</property>
                 <attributes>
                   <attribute name="scale" value="2"/>
@@ -53,6 +53,33 @@
             <property name="fill">True</property>
             <property name="padding">24</property>
             <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="ctHeaderImage">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkImage" id="imgHeader">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="pixel_size">64</property>
+                <property name="icon_name">universal-editor</property>
+                <property name="icon_size">6</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="padding">24</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="padding">24</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -82,7 +109,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="cmdCreateNewProject">
                     <property name="label" translatable="yes">Create _new project</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -98,7 +125,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="cmdOpenExistingProject">
                     <property name="label" translatable="yes">_Open existing project</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -171,10 +198,10 @@
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="lblNewsTitle">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Universal Editor News</property>
+                    <property name="label" translatable="yes">{0} News</property>
                     <property name="xalign">0</property>
                     <attributes>
                       <attribute name="scale" value="1.25"/>
@@ -213,7 +240,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
