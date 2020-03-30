@@ -29,6 +29,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ElectronicArts
 			string header = br.ReadFixedLengthString(4);
 			if (header != "BIGF") throw new InvalidDataFormatException("File does not start with BIGF");
 
+			br.Endianness = IO.Endianness.BigEndian;
+
 			uint archiveSize = br.ReadUInt32();
 			uint fileCount = br.ReadUInt32();
 			uint firstFileOffset = br.ReadUInt32();
@@ -41,10 +43,9 @@ namespace UniversalEditor.DataFormats.FileSystem.ElectronicArts
 				uint length = br.ReadUInt32();
 				string filename = br.ReadNullTerminatedString();
 
-				File file = new File();
-				file.Name = filename;
+				File file = fsom.AddFile(filename);
 				file.Source = new EmbeddedFileSource(br, offset, length);
-				fsom.Files.Add(file);
+				file.Size = length;
 			}
 		}
 
