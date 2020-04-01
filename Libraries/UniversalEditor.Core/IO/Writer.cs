@@ -174,7 +174,32 @@ namespace UniversalEditor.IO
 		}
 		public void WriteLengthPrefixedString(string value, Encoding encoding)
 		{
-			throw new NotImplementedException();
+			Write7BitEncodedInt32(value.Length);
+			WriteFixedLengthString(value);
+		}
+
+		public void Write7BitEncodedInt32(int value)
+		{
+			// TODO: verify this actually works
+			uint v = (uint)value;
+			while (v >= 0x80)
+			{
+				WriteByte((byte)(v | 0x80));
+				v >>= 7;
+			}
+			WriteByte((byte)v);
+		}
+		public int Calculate7BitEncodedInt32Size(int value)
+		{
+			// TODO: verify this actually works
+			int size = 1;
+			uint v = (uint)value;
+			while (v >= 0x80)
+			{
+				size++;
+				v >>= 7;
+			}
+			return size;
 		}
 
 		public void WriteNullTerminatedString(string sz)
