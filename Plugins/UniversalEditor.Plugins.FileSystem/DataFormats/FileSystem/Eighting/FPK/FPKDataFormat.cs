@@ -16,7 +16,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Eighting.FPK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(DataAlignment), "Data &alignment (in bytes): ", 16, 0, UInt32.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(DataAlignment), "Data _alignment (in bytes): ", 16, 0, UInt32.MaxValue));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Bleach_%28PSP%29");
 			}
 			return _dfr;
@@ -94,7 +94,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Eighting.FPK
 			long archiveSizePosition = base.Accessor.Position;
 			writer.WriteUInt32(archiveSize);
 
-			uint offset = (uint)(base.Accessor.Position + (48 * files.Length));
+			uint offset = (uint)(16 + (48 * files.Length));
 
 			byte[][] compressedDatas = new byte[files.Length][];
 			bool[] compressed = new bool[files.Length];
@@ -115,7 +115,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Eighting.FPK
 
 				offset += (uint)(compressedData.Length + 1);
 
-				long count = (offset % mvarDataAlignment);
+				long count = writer.CalculateAlignment(offset, mvarDataAlignment); // (offset % mvarDataAlignment);
 				offset += (uint)count;
 			}
 			for (int i = 0; i < files.Length; i++)
