@@ -715,6 +715,8 @@
     <Content Include="Editors\Unreal\Package\UnrealPackageEditor.glade" />
     <Content Include="Editors\Unreal\Package\ContextMenus.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\FileSystem\BIGF.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\RBX.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\TBV.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -763,6 +765,8 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\ElectronicArts\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\FileSystem\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\Ultra3D\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
