@@ -339,7 +339,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public long WriteTo(Writer bw, FileSourceTransformation[] transformations = null)
 		{
 			long count = 0;
-			long blockSize = (System.Environment.WorkingSet / BLOCK_FRACTION);
+			long blockSize = (System.Environment.SystemPageSize / BLOCK_FRACTION);
 
 			long offset = 0;
 			double dbl = ((double)mvarSource.GetLength() / (double)blockSize);
