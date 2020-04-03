@@ -36,8 +36,16 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
 				file.Name = br.ReadFixedLengthString(12).TrimNull();
 
 				uint offset = br.ReadUInt32();
+
+				// ew, do we have to do this?
+				br.Accessor.SavePosition();
+				br.Accessor.Seek(offset, IO.SeekOrigin.Begin);
+				uint length = br.ReadUInt32();
+				br.Accessor.LoadPosition();
+
 				file.Properties.Add("offset", offset);
 				file.Properties.Add("reader", br);
+				file.Size = length;
 
 				file.DataRequest += file_DataRequest;
 				fsom.Files.Add(file);

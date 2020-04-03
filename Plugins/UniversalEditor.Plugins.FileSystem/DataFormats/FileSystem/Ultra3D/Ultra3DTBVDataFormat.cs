@@ -27,9 +27,10 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            if (fsom == null) return;
+            if (fsom == null)
+				throw new ObjectModelNotSupportedException();
 
-            IO.Reader br = base.Accessor.Reader;
+			IO.Reader br = base.Accessor.Reader;
             string header = br.ReadFixedLengthString(8);
             if (header != "TBVolume") throw new InvalidDataFormatException();
 
@@ -53,16 +54,34 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
                 }
 
                 uint length = br.ReadUInt32();
-                byte[] data = br.ReadBytes(length);
+				File file = fsom.AddFile(filename);
+				file.Properties["reader"] = br;
+				file.Properties["length"] = length;
+				file.Properties["offset"] = br.Accessor.Position;
+				file.DataRequest += File_DataRequest;
+				file.Size = length;
 
-                fsom.Files.Add(filename, data);
+				br.Seek(length, SeekOrigin.Current);
             }
-        }
+		}
 
-        protected override void SaveInternal(ObjectModel objectModel)
+		void File_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (File)sender;
+			uint length = (uint)file.Properties["length"];
+			long offset = (long)file.Properties["offset"];
+			Reader br = (Reader)file.Properties["reader"];
+
+			br.Seek(offset, SeekOrigin.Begin);
+			byte[] data = br.ReadBytes(length);
+			e.Data = data;
+		}
+
+		protected override void SaveInternal(ObjectModel objectModel)
         {
             FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            if (fsom == null) return;
+            if (fsom == null)
+            	throw new ObjectModelNotSupportedException();
 
             IO.Writer bw = base.Accessor.Writer;
             bw.WriteFixedLengthString("TBVolume");
