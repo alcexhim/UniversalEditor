@@ -137,6 +137,8 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 			}
 			#endregion
 
+			// data goes here...
+
 			#region Export table
 			{
 				// The export-table is an index for all objects within the package. Every object in
@@ -174,6 +176,7 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 					// Total size of the object
 					entry.Size = br.ReadINDEX();
 
+					entry._acc = Accessor;
 					entry.DataRequest += entry_DataRequest;
 
 					if (entry.Size != 0)
@@ -229,8 +232,8 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 		private void entry_DataRequest(object sender, ObjectModels.FileSystem.DataRequestEventArgs e)
 		{
 			ExportTableEntry entry = (sender as ExportTableEntry);
-			base.Accessor.Seek(entry.Offset, SeekOrigin.Begin);
-			e.Data = base.Accessor.Reader.ReadBytes(entry.Size);
+			(sender as ExportTableEntry)._acc.Seek(entry.Offset, SeekOrigin.Begin);
+			e.Data = (sender as ExportTableEntry)._acc.Reader.ReadBytes(entry.Size);
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -262,19 +265,97 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 			// Number of entries in name-table
 			bw.WriteUInt32((uint)upk.NameTableEntries.Count);
 			// Offset of name-table within the file
-			uint nameTableOffset = 0;
+			uint nameTableOffset = 64;
+			if (mvarPackageVersion >= 512)
+			{
+				nameTableOffset += (uint)(4 + mvarPackageName.Length + 8);
+			}
 			bw.WriteUInt32(nameTableOffset);
+
+			uint nameTableLength = 0;
+			for (uint i = 0; i < upk.NameTableEntries.Count; i++)
+			{
+				string nom = upk.NameTableEntries[(int)i].Name;
+				if (mvarPackageVersion < 64)
+				{
+					nameTableLength += (uint)(nom.Length + 1); // null-terminated string
+				}
+				else if (mvarPackageVersion >= 512)
+				{
+					nameTableLength += (uint)(4 + nom.Length + 1); // length-prefixed null-terminated string
+					nameTableLength += 4; // some unknown number that comes after
+				}
+				else
+				{
+					// Newer packages (>=64, UT engine) prepend the length of the string plus the trailing
+					// zero. Again, "UT2k3" would be now stored as: 0x06 "U" "T" "2" "k" "3" 0x00
+					nameTableLength += (uint)(bw.Calculate7BitEncodedInt32Size(nom.Length + 1) + nom.Length + 1);
+				}
+				nameTableLength += 4; // name table entry flags
+			}
+
+			uint contentLength = 0;
+			for (uint i = 0; i < upk.ExportTableEntries.Count; i++)
+			{
+				contentLength += (uint)upk.ExportTableEntries[(int)i].GetData().Length;
+			}
+
+			uint exportTableLength = 0;
+			for (uint i = 0; i < upk.ExportTableEntries.Count; i++)
+			{
+				ExportTableEntry entry = upk.ExportTableEntries[(int)i];
+
+				// Class of the object, i.e. "Texture" or "Palette" etc; stored as a
+				// ObjectReference
+				if (entry.ObjectClass != null)
+				{
+					exportTableLength += (uint)bw.Calculate7BitEncodedInt32Size(entry.ObjectClass.IndexValue);
+				}
+				else
+				{
+					exportTableLength += (uint)bw.Calculate7BitEncodedInt32Size(0);
+				}
+
+				// Object Parent; again a ObjectReference
+				if (entry.ObjectParent != null)
+				{
+					exportTableLength += (uint)bw.Calculate7BitEncodedInt32Size(entry.ObjectParent.IndexValue);
+				}
+				else
+				{
+					exportTableLength += (uint)bw.Calculate7BitEncodedInt32Size(0);
+				}
+
+				// Internal package/group of the object, i.e. ‘Floor’ for floor-textures;
+				// ObjectReference
+				exportTableLength += 4;
+
+				// The name of the object; an index into the name-table
+				exportTableLength += (uint)bw.Calculate7BitEncodedInt32Size(upk.NameTableEntries.IndexOf(entry.Name));
+
+				// Flags for the object; described in the appendix
+				exportTableLength += 4;
+
+				// Total size of the object
+				exportTableLength += (uint)bw.Calculate7BitEncodedInt32Size(entry.Size);
+
+				if (entry.Size != 0)
+				{
+					// Offset of the object; this field only exists if the SerialSize is larger 0
+					exportTableLength += (uint)bw.Calculate7BitEncodedInt32Size(entry.Offset);
+				}
+			}
 
 			// Number of entries in export-table
 			bw.WriteUInt32((uint)upk.ExportTableEntries.Count);
 			// Offset of export-table within the file
-			uint exportTableOffset = 0;
+			uint exportTableOffset = nameTableOffset + nameTableLength + contentLength;
 			bw.WriteUInt32(exportTableOffset);
 
 			// Number of entries in import-table
 			bw.WriteUInt32((uint)upk.ImportTableEntries.Count);
 			// Offset of import-table within the file
-			uint importTableOffset = 0;
+			uint importTableOffset = exportTableOffset + exportTableLength;
 			bw.WriteUInt32(importTableOffset);
 
 			// After the ImportOffset, the header differs between the versions. The only interesting
@@ -346,6 +427,12 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 				}
 			}
 			#endregion
+
+			for (uint i = 0; i < upk.ExportTableEntries.Count; i++)
+			{
+				byte[] data = upk.ExportTableEntries[(int)i].GetData();
+				bw.WriteBytes(data);
+			}
 
 			#region Export table
 			{

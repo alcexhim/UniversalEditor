@@ -47,11 +47,13 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(mvarName);
+			/*
             if (includeFlags)
             {
                 sb.Append(" : ");
                 sb.Append(mvarFlags.ToString());
             }
+            */
             return sb.ToString();
         }
     }

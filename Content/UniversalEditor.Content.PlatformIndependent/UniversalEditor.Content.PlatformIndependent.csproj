@@ -711,6 +711,9 @@
     <Content Include="Editors\RavenSoftware\Icarus\IcarusCommands.uexml" />
     <Content Include="Editors\RavenSoftware\Icarus\IcarusSetTypes.uexml" />
     <Content Include="Editors\RavenSoftware\Icarus\IcarusConfiguration.uexml" />
+    <Content Include="Editors\Unreal\Package\Dialogs\ObjectPropertiesDialog.glade" />
+    <Content Include="Editors\Unreal\Package\UnrealPackageEditor.glade" />
+    <Content Include="Editors\Unreal\Package\ContextMenus.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\FileSystem\BIGF.uexml" />
   </ItemGroup>
   <ItemGroup>

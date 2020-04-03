@@ -33,7 +33,7 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
                         int index = -mvarIndexValue - 1;
                         if (index >= 0 && index < mvarParent.ImportTableEntries.Count)
                         {
-                            return mvarParent.ImportTableEntries[index].ToString();
+                            return mvarParent.ImportTableEntries[index];
                         }
                     }
                     else if (mvarIndexValue > 0)
@@ -42,7 +42,7 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
                         int index = mvarIndexValue - 1;
                         if (index >= 0 && index < mvarParent.ExportTableEntries.Count)
                         {
-                            return mvarParent.ExportTableEntries[index].ToString();
+                            return mvarParent.ExportTableEntries[index];
                         }
                     }
                 }
@@ -50,7 +50,23 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
             }
         }
 
-        public override string ToString()
+		public NameTableEntry Name
+		{
+			get
+			{
+				if (Value is ExportTableEntry)
+				{
+					return (Value as ExportTableEntry).Name;
+				}
+				else if (Value is ImportTableEntry)
+				{
+					return (Value as ImportTableEntry).ClassName;
+				}
+				return null;
+			}
+		}
+
+		public override string ToString()
         {
             if (mvarIndexValue == 0) return "(null)";
             if (mvarParent != null)

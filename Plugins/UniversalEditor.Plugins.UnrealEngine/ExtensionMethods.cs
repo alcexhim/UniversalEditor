@@ -63,9 +63,10 @@ namespace UniversalEditor.Plugins.UnrealEngine
 			}
             else
             {
-                // Newer packages (>=64, UT engine) prepend the length of the string plus the trailing
-                // zero. Again, "UT2k3" would be now stored as: 0x06 "U" "T" "2" "k" "3" 0x00
-                bw.WriteLengthPrefixedString(value);
+				// Newer packages (>=64, UT engine) prepend the length of the string plus the trailing
+				// zero. Again, "UT2k3" would be now stored as: 0x06 "U" "T" "2" "k" "3" 0x00
+				bw.Write7BitEncodedInt32(value.Length + 1);
+				bw.WriteFixedLengthString(value);
                 bw.WriteByte((byte)0);
             }
         }
@@ -128,7 +129,7 @@ namespace UniversalEditor.Plugins.UnrealEngine
         }
         public static void WriteINDEX(this Writer bw, int value)
         {
-            throw new NotImplementedException();
+			bw.Write7BitEncodedInt32(value);
         }
     }
 }

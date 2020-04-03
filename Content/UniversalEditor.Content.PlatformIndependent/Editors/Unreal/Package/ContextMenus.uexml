@@ -1,0 +1,21 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Package.UnrealPackageEditor">
+			<Commands>
+				<Command ID="UnrealPackageEditor_ExportTreeViewContextMenu">
+					<Items>
+						<CommandReference CommandID="UnrealPackageEditor_ExportTreeViewContextMenu_Export" />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+				<Command ID="UnrealPackageEditor_ImportTreeViewContextMenu">
+					<Items>
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+				
+				<Command ID="UnrealPackageEditor_ExportTreeViewContextMenu_Export" Title="Export..." />
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

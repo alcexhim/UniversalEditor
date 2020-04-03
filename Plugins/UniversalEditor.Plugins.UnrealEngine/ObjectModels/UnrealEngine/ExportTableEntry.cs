@@ -12,6 +12,8 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
         {
         }
 
+		internal Accessor _acc = null;
+
         public event UniversalEditor.ObjectModels.FileSystem.DataRequestEventHandler DataRequest;
         protected virtual void OnDataRequest(UniversalEditor.ObjectModels.FileSystem.DataRequestEventArgs e)
         {
@@ -67,6 +69,7 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
             {
                 sb.Append(mvarName.ToString(false));
             }
+			/*
             if (mvarObjectClass != null)
             {
                 sb.Append(" (");
@@ -78,8 +81,11 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
                 sb.Append(" extends ");
                 sb.Append(mvarObjectParent.ToString());
             }
+            */
+			/*
             sb.Append(" : ");
             sb.Append(mvarFlags.ToString());
+            */		
             return sb.ToString();
         }
     }
