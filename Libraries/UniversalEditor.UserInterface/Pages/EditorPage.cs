@@ -140,6 +140,9 @@ namespace UniversalEditor.UserInterface.Pages
 				// errorMessage1.Details = "Detected object model: " + om.GetType().FullName;
 
 				bool requiresOpen = false;
+				if (mvarDocument.Accessor == null)
+					return;
+
 				if (!mvarDocument.Accessor.IsOpen)
 				{
 					mvarDocument.Accessor.Open();
