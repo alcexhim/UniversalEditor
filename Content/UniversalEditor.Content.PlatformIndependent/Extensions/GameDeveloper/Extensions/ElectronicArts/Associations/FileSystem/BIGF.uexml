@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="3D Ultra RBX archive">
+				<Filter Title="Electronic Arts BIGF archive">
 					<FileNameFilters>
 						<FileNameFilter>*.abg</FileNameFilter>
 						<FileNameFilter>*.ama</FileNameFilter>
@@ -18,11 +18,6 @@
 						<FileNameFilter>*.hog</FileNameFilter>
 						<FileNameFilter>*.viv"</FileNameFilter>
 					</FileNameFilters>
-					<MagicByteSequences>
-						<MagicByteSequence>
-							<MagicByte Type="String">BIGF</MagicByte>
-						</MagicByteSequence>
-					</MagicByteSequences>
 				</Filter>
 			</Filters>
 			<ObjectModels>

@@ -147,7 +147,6 @@
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\DreamfallPAK.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\DynamixStarsiegeVOL.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\Eighting.uexml" />
-    <Content Include="Extensions\GameDeveloper\Associations\FileSystem\ElectronicArtsBIGF.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\FMODSoundBank.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\GainaxLBX.uexml" />
     <Content Include="Extensions\GameDeveloper\Associations\FileSystem\GameProgrammersWiki.uexml" />
@@ -712,6 +711,7 @@
     <Content Include="Editors\RavenSoftware\Icarus\IcarusCommands.uexml" />
     <Content Include="Editors\RavenSoftware\Icarus\IcarusSetTypes.uexml" />
     <Content Include="Editors\RavenSoftware\Icarus\IcarusConfiguration.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\FileSystem\BIGF.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -757,6 +757,9 @@
     <Folder Include="Languages\English\" />
     <Folder Include="Editors\RavenSoftware\" />
     <Folder Include="Editors\RavenSoftware\Icarus\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ElectronicArts\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\FileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

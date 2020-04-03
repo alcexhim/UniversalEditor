@@ -57,6 +57,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ElectronicArts
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("BIGF");
 
+			bw.Endianness = IO.Endianness.BigEndian;
+
 			uint archiveSize = 0;
 			long archiveSizePos = bw.Accessor.Position;
 			bw.WriteUInt32(archiveSize);
@@ -75,10 +77,12 @@ namespace UniversalEditor.DataFormats.FileSystem.ElectronicArts
 				bw.WriteUInt32(offset);
 				bw.WriteUInt32((uint)file.Size);
 				bw.WriteNullTerminatedString(file.Name);
+
+				offset += (uint)file.Size;
 			}
 			foreach (File file in fsom.Files)
 			{
-				file.WriteTo(bw);
+				bw.WriteBytes(file.GetData()); // file.WriteTo(bw);
 			}
 		}
 	}
