@@ -109,5 +109,12 @@ namespace UniversalEditor.IO
 				Accessor.Position += paddingCount;
 			}
 		}
+
+		public long CalculateAlignment(long currentPosition, long alignTo, long extraPadding = 0)
+		{
+			long paddingCount = ((alignTo - (currentPosition % alignTo)) % alignTo);
+			paddingCount += extraPadding;
+			return paddingCount;
+		}
 	}
 }

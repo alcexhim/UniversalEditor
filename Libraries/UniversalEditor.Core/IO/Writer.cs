@@ -168,13 +168,6 @@ namespace UniversalEditor.IO
 			WriteBytes(realData);
 		}
 
-		public long CalculateAlignment(long currentPosition, long alignTo, long extraPadding = 0)
-		{
-			long paddingCount = ((alignTo - (currentPosition % alignTo)) % alignTo);
-			paddingCount += extraPadding;
-			return paddingCount;
-		}
-
 		public void WriteLengthPrefixedString(string value)
 		{
 			WriteLengthPrefixedString(value, base.Accessor.DefaultEncoding);
