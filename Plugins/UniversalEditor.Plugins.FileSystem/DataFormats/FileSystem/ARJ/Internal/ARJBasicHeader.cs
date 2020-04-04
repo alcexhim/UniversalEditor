@@ -40,7 +40,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ.Internal
 		public short FileSpecPosition;
 		public short FileAttributes;
 		public short HostData;
-		public int Unknown1;
+		public int BasicHeaderCRC32;
 		public string OriginalFileName;
 	}
 }

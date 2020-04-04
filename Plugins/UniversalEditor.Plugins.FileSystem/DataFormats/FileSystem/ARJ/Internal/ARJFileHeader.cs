@@ -28,8 +28,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ.Internal
 		public ARJFileType FileType;
 		public byte Reserved;
 		public int Timestamp;
-		public int CompressedSize;
-		public int OriginalSize;
+		public uint CompressedSize;
+		public uint OriginalSize;
 		public int OriginalCRC32;
 		/// <summary>
 		/// Filespec position in filename.

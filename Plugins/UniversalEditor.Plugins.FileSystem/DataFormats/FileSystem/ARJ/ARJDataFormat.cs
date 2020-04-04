@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.ARJ
@@ -15,6 +16,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.Sources.Add("http://www.fileformat.info/format/arj/corion.htm");
 			}
 			return _dfr;
 		}
@@ -26,19 +28,15 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			if (fsom == null) return;
 
 			IO.Reader br = base.Accessor.Reader;
-			
-			byte[] signature = br.ReadBytes(2);														// should be 0x60, 0xEA
-			if (signature[0] != 0x60 || signature[1] != 0xEA) throw new InvalidDataFormatException("File does not begin with { 0x60, 0xEA }");
 
-			short basicHeaderSize = br.ReadInt16(); // Basic header size (0 if end of archive)
+			ushort signature = br.ReadUInt16();
+			if (signature != 0xEA60)
+				throw new InvalidDataFormatException("File does not begin with 0xEA60");
+
+			short basicHeaderSize = br.ReadInt16(); // Basic header size (0 if end of archive) 44 in test
 			Internal.ARJBasicHeader hdr = ReadBasicHeader(br);
 
 			byte nul = br.ReadByte(); // always dual-null-terminated for some reason
-
-			int unknown2 = br.ReadInt32();
-			short unknown3 = br.ReadInt16();
-			byte[] unknown4 = br.ReadBytes(114);
-			int unknown5 = br.ReadInt32();
 
 			while (!br.EndOfStream)
 			{
@@ -47,15 +45,52 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 				// TODO: Fix this ugly hack.
 				if (fileheader.FileName == String.Empty) break;
 
-				byte[] OriginalData = fileheader.CompressedData;
+				File f = fsom.AddFile(fileheader.FileName);
+				f.Size = fileheader.OriginalSize;
+				f.Properties["reader"] = br;
+				f.Properties["offset"] = br.Accessor.Position;
+				f.Properties["CompressionMethod"] = fileheader.CompressionMethod;
+				f.Properties["CompressedLength"] = fileheader.CompressedSize;
+				f.Properties["DecompressedLength"] = fileheader.OriginalSize;
+				f.DataRequest += F_DataRequest;
 
-				fsom.Files.Add(fileheader.FileName, OriginalData);
+				// skip over file data
+				br.Seek(fileheader.CompressedSize, IO.SeekOrigin.Current);
 			}
 		}
+
+		void F_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File f = (File)sender;
+
+			Reader br = (Reader)f.Properties["reader"];
+			long offset = (long)f.Properties["offset"];
+			ARJCompressionMethod compressionMethod = (ARJCompressionMethod) f.Properties["CompressionMethod"];
+			uint compressedLength = (uint)f.Properties["CompressedLength"];
+			uint decompressedLength = (uint)f.Properties["DecompressedLength"];
+
+			br.Seek(offset, SeekOrigin.Begin);
+
+			byte[] unk = br.ReadBytes(6);
+
+			byte[] compressedData = br.ReadBytes(compressedLength);
+			byte[] decompressedData = compressedData;
+			e.Data = decompressedData;
+		}
+
 
 		private Internal.ARJFileHeader ReadFileHeader(IO.Reader br)
 		{
 			Internal.ARJFileHeader fileheader = new Internal.ARJFileHeader();
+
+			byte[] junk = br.ReadBytes(6); // idek
+
+			ushort sig = br.ReadUInt16();
+			if (sig != 0xEA60)
+				throw new InvalidDataFormatException("file header does not begin with 0xEA60");
+
+			ushort headerSz = br.ReadUInt16();
+
 			fileheader.HeaderSize = br.ReadByte();														// Size of header including extra data
 			fileheader.VersionNumber = br.ReadByte();												// Archiver version number
 			fileheader.MinimumRequiredVersion = br.ReadByte();									// Minimum version needed to extract
@@ -65,28 +100,22 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			fileheader.FileType = (ARJFileType)br.ReadByte();
 			fileheader.Reserved = br.ReadByte();
 			fileheader.Timestamp = br.ReadInt32();
-			fileheader.CompressedSize = br.ReadInt32();
-			fileheader.OriginalSize = br.ReadInt32();
+			fileheader.CompressedSize = br.ReadUInt32();
+			fileheader.OriginalSize = br.ReadUInt32();
 			fileheader.OriginalCRC32 = br.ReadInt32();
 			fileheader.FileSpecPosition = br.ReadInt16(); // Filespec position in filename
 			fileheader.FileAttributes = br.ReadInt16();
 			fileheader.HostData = br.ReadInt16();
 
-			fileheader.Unknown1 = br.ReadInt32();
-			fileheader.Unknown2 = br.ReadInt32();
-			fileheader.Unknown3 = br.ReadInt32();
-			fileheader.Unknown4 = br.ReadInt32();
+			if ((fileheader.InternalFlags & ARJInternalFlags.StartPositionFieldAvailable) == ARJInternalFlags.StartPositionFieldAvailable)
+			{
+				uint extFieStartPos = br.ReadUInt32();
+			}
+
+			byte[] unknown = br.ReadBytes(16);
 
 			fileheader.FileName = br.ReadNullTerminatedString();
-
-			byte nul1 = br.ReadByte();
-
-			short unknown13 = br.ReadInt16();
-			short unknown14 = br.ReadInt16();
-			short unknown15 = br.ReadInt16();
-			fileheader.CompressedData = br.ReadBytes(fileheader.CompressedSize);
-			int unknown16 = br.ReadInt32();
-
+			byte nul = br.ReadByte();
 			return fileheader;
 		}
 		private Internal.ARJBasicHeader ReadBasicHeader(IO.Reader br)
@@ -94,10 +123,12 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			Internal.ARJBasicHeader header = new Internal.ARJBasicHeader();
 			int basicHeaderSizeWithoutFileName = 36;
 
-			header.HeaderSize = br.ReadByte();														// Size of header including extra data
+			header.HeaderSize = br.ReadByte(); // Size of header including extra data, not including original filename
+
 			header.VersionNumber = br.ReadByte();												// Archiver version number
 			header.MinimumRequiredVersion = br.ReadByte();									// Minimum version needed to extract
 			header.HostOperatingSystem = (ARJHostOperatingSystem)br.ReadByte();		// Host OS (see table 0002)
+
 			header.InternalFlags = (ARJInternalFlags)br.ReadByte();
 			header.CompressionMethod = (ARJCompressionMethod)br.ReadByte();
 			header.FileType = (ARJFileType)br.ReadByte();
@@ -122,7 +153,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 				br.Accessor.Position = pos;
 			}
 
-			header.Unknown1 = br.ReadInt32();
+			header.BasicHeaderCRC32 = br.ReadInt32();
 			header.OriginalFileName = br.ReadNullTerminatedString();
 			return header;
 		}
@@ -134,60 +165,27 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			if (fsom == null) return;
 
 			IO.Writer bw = base.Accessor.Writer;
-			bw.WriteBytes(new byte[] { 0x60, 0xEA });
+			bw.WriteUInt16(0xEA60);
 
-			short basicHeaderSize = 45;
-			bw.WriteInt16(basicHeaderSize);																// Basic header size (0 if end of archive)
+			string filename = System.IO.Path.GetFileName(Accessor.GetFileName());
+			ushort basicHeaderSize = (ushort)(34 + filename.Length + 2);
+			bw.WriteUInt16(basicHeaderSize);																// Basic header size (0 if end of archive)
 
 			Internal.ARJBasicHeader basicHeader = new Internal.ARJBasicHeader();
 			basicHeader.HeaderSize = 34;
 			basicHeader.VersionNumber = 11;
 			basicHeader.MinimumRequiredVersion = 1;
-			#region Host Operating System
-			switch (Environment.OSVersion.Platform)
-			{
-				case PlatformID.MacOSX:
-				{
-					basicHeader.HostOperatingSystem = ARJHostOperatingSystem.MacOS;
-					break;
-				}
-				case PlatformID.Unix:
-				{
-					basicHeader.HostOperatingSystem = ARJHostOperatingSystem.Unix;
-					break;
-				}
-				case PlatformID.Win32Windows:
-				{
-					basicHeader.HostOperatingSystem = ARJHostOperatingSystem.Windows;
-					break;
-				}
-				case PlatformID.Win32NT:
-				{
-					basicHeader.HostOperatingSystem = ARJHostOperatingSystem.Windows;
-					break;
-				}
-				case PlatformID.Win32S:
-				{
-					basicHeader.HostOperatingSystem = ARJHostOperatingSystem.DOS;
-					break;
-				}
-				case PlatformID.WinCE:
-				{
-					basicHeader.HostOperatingSystem = ARJHostOperatingSystem.Windows;
-					break;
-				}
-				case PlatformID.Xbox:
-				{
-					basicHeader.HostOperatingSystem = ARJHostOperatingSystem.Windows;
-					break;
-				}
-			}
-			#endregion
-			basicHeader.InternalFlags = ARJInternalFlags.None;
+			basicHeader.HostOperatingSystem = GetHostOperatingSystem();
+			basicHeader.InternalFlags = ARJInternalFlags.PathTranslation;
 			basicHeader.CompressionMethod = ARJCompressionMethod.Store;
 			basicHeader.FileType = ARJFileType.CommentHeader;
-			
+			basicHeader.Reserved = 0x49;
+			basicHeader.Timestamp = 0x5E885D0A;
+			basicHeader.CompressedSize = 0x5E885D0A;
+			basicHeader.OriginalFileName = filename;
+
 			WriteBasicHeader(bw, basicHeader);
+			bw.WriteBytes(new byte[6]);
 
 			foreach (File file in fsom.Files)
 			{
@@ -195,20 +193,55 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 				fileheader.Timestamp = 0;
 
 				byte[] data = file.GetData();
-				fileheader.CompressedSize = data.Length;
-				fileheader.OriginalSize = data.Length;
+				fileheader.CompressedSize = (uint) data.Length;
+				fileheader.OriginalSize = (uint) data.Length;
 				fileheader.OriginalCRC32 = 0;
 				fileheader.FileSpecPosition = 0;
 				fileheader.FileAttributes = 0;
 				fileheader.HostData = 0;
 				fileheader.FileName = file.Name;
-				fileheader.CompressedData = data;
+				
 				WriteFileHeader(bw, fileheader);
+
+				bw.WriteBytes(new byte[6]);
+				bw.WriteBytes(data);
 			}
+
+			bw.WriteUInt32(0x0000EA60); // terminator (60 EA 00 00)
+		}
+
+		private ARJHostOperatingSystem GetHostOperatingSystem()
+		{
+			switch (Environment.OSVersion.Platform)
+			{
+				case PlatformID.MacOSX:
+				{
+					return ARJHostOperatingSystem.MacOS;
+				}
+				case PlatformID.Unix:
+				{
+					return ARJHostOperatingSystem.Unix;
+				}
+				case PlatformID.Win32Windows:
+				case PlatformID.Win32NT:
+				case PlatformID.WinCE:
+				case PlatformID.Xbox:
+				{
+					return ARJHostOperatingSystem.Windows;
+				}
+				case PlatformID.Win32S:
+				{
+					return ARJHostOperatingSystem.DOS;
+				}
+			}
+			return ARJHostOperatingSystem.DOS;
 		}
 
 		private void WriteFileHeader(IO.Writer bw, Internal.ARJFileHeader fileheader)
 		{
+			bw.WriteUInt16(0xEA60);
+			bw.WriteUInt16((ushort)(fileheader.HeaderSize + fileheader.FileName.Length + 2));
+
 			bw.WriteByte(fileheader.HeaderSize);
 			bw.WriteByte(fileheader.VersionNumber);
 			bw.WriteByte(fileheader.MinimumRequiredVersion);
@@ -218,27 +251,20 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			bw.WriteByte((byte)fileheader.FileType);
 			bw.WriteByte((byte)fileheader.Reserved);
 			bw.WriteInt32(fileheader.Timestamp);
-			bw.WriteInt32(fileheader.CompressedSize);
-			bw.WriteInt32(fileheader.OriginalSize);
+			bw.WriteUInt32(fileheader.CompressedSize);
+			bw.WriteUInt32(fileheader.OriginalSize);
 			bw.WriteInt32(fileheader.OriginalCRC32);
 			bw.WriteInt16(fileheader.FileSpecPosition);
 			bw.WriteInt16(fileheader.FileAttributes);
 			bw.WriteInt16(fileheader.HostData);
-			bw.WriteInt32(fileheader.Unknown1);
-			bw.WriteInt32(fileheader.Unknown2);
-			bw.WriteInt32(fileheader.Unknown3);
-			bw.WriteInt32(fileheader.Unknown4);
+
+			bw.WriteUInt32(0);
+			bw.WriteUInt32(0);
+			bw.WriteUInt32(0);
+			bw.WriteUInt32(0);
+
 			bw.WriteNullTerminatedString(fileheader.FileName);
 			bw.WriteByte((byte)0);
-			short unknown13 = 0;
-			short unknown14 = 0;
-			short unknown15 = 0;
-			bw.WriteInt16(unknown13);
-			bw.WriteInt16(unknown14);
-			bw.WriteInt16(unknown15);
-			bw.WriteBytes(fileheader.CompressedData);
-			int unknown16 = 0;
-			bw.WriteInt32(unknown16);
 		}
 		private void WriteBasicHeader(IO.Writer bw, Internal.ARJBasicHeader header)
 		{
@@ -271,8 +297,9 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 				// br.Accessor.Position = pos;
 			}
 
-			bw.WriteInt32(header.Unknown1);
+			bw.WriteInt32(header.BasicHeaderCRC32);
 			bw.WriteNullTerminatedString(header.OriginalFileName);
+			bw.WriteByte(0);
 		}
 		#endregion
 	}
