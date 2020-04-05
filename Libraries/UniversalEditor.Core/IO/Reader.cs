@@ -97,6 +97,9 @@ namespace UniversalEditor.IO
 		{
 			return (sbyte)(ReadBytes(1)[0]);
 		}
+
+		private int xorkey_index = 0;
+
 		[CLSCompliant(false)]
 		public byte[] ReadBytes(uint length)
 		{
@@ -110,6 +113,11 @@ namespace UniversalEditor.IO
 
 				Array.Copy(buf2, 0, buf, lastct, buf2.Length);
 				lastct += (uint)ct;
+			}
+
+			for (int i = 0; i < Transformations.Count; i++)
+			{
+				buf = Transformations[i].Transform(buf);
 			}
 			return buf;
 		}

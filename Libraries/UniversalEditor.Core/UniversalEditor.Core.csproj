@@ -89,6 +89,8 @@
     <Compile Include="References.cs" />
     <Compile Include="IO\FileNameShortener.cs" />
     <Compile Include="CustomOptionAttribute.cs" />
+    <Compile Include="IO\Transformations\XorTransformation.cs" />
+    <Compile Include="IO\Transformation.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -96,6 +98,9 @@
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IO\Transformations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

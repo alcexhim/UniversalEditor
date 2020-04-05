@@ -50,9 +50,16 @@ namespace UniversalEditor.IO
 		{
 			WriteBytes(new byte[] { (byte)value });
 		}
+
+		private int xorkey_index = 0;
 		public void WriteBytes(byte[] data)
 		{
 			if (data == null) return;
+
+			for (int i = 0; i < Transformations.Count; i++)
+			{
+				data = Transformations[i].Transform(data);
+			}
 			Write(data, 0, data.Length);
 		}
 
@@ -204,21 +211,12 @@ namespace UniversalEditor.IO
 
 		public void WriteNullTerminatedString(string sz)
 		{
-			if (sz != null)
-			{
-				for (int i = 0; i < sz.Length; i++)
-				{
-					WriteChar(sz[i]);
-				}
-			}
-			WriteChar('\0');
+			WriteNullTerminatedString(sz, Encoding.UTF8);
 		}
 		public void WriteNullTerminatedString(string sz, Encoding encoding)
 		{
-			byte[] values = encoding.GetBytes(sz);
-
+			byte[] values = encoding.GetBytes(sz + '\0');
 			WriteBytes(values);
-			WriteInt16(0);
 		}
 		public void WriteNullTerminatedString(string sz, int length)
 		{
