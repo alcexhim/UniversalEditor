@@ -717,6 +717,7 @@
     <Content Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\FileSystem\BIGF.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\RBX.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\TBV.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\Webfoot\Associations\DAT.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -767,6 +768,8 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\ElectronicArts\Associations\FileSystem\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\Ultra3D\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\Webfoot\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\Webfoot\Associations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
