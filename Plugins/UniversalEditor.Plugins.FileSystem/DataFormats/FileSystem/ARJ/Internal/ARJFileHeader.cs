@@ -37,10 +37,6 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ.Internal
 		public short FileSpecPosition;
 		public short FileAttributes;
 		public short HostData;
-		public int Unknown1;
-		public int Unknown2;
-		public int Unknown3;
-		public int Unknown4;
 		public string FileName;
 		public byte[] CompressedData;
 	}

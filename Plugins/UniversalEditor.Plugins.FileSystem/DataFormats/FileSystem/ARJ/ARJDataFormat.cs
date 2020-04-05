@@ -21,6 +21,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 			return _dfr;
 		}
 
+		private Checksum.Modules.CRC32.CRC32ChecksumModule crc = new Checksum.Modules.CRC32.CRC32ChecksumModule();
+
 		#region Loading
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -193,9 +195,18 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 				fileheader.Timestamp = 0;
 
 				byte[] data = file.GetData();
+				fileheader.HeaderSize = 46;
+				fileheader.VersionNumber = 11;
+				fileheader.MinimumRequiredVersion = 1;
+				fileheader.HostOperatingSystem = GetHostOperatingSystem();
+				fileheader.InternalFlags = ARJInternalFlags.PathTranslation;
+				fileheader.CompressionMethod = ARJCompressionMethod.Store;
+				fileheader.FileType = ARJFileType.Binary;
+				fileheader.Reserved = 0x49;
+				fileheader.Timestamp = 0x5E885D0A;
 				fileheader.CompressedSize = (uint) data.Length;
 				fileheader.OriginalSize = (uint) data.Length;
-				fileheader.OriginalCRC32 = 0;
+				fileheader.OriginalCRC32 = (int) crc.Calculate(data);
 				fileheader.FileSpecPosition = 0;
 				fileheader.FileAttributes = 0;
 				fileheader.HostData = 0;
