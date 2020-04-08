@@ -28,6 +28,23 @@ namespace UniversalEditor.UserInterface
 		{
 		}
 
+		protected EditorSelection(Editor editor)
+		{
+			Editor = editor;
+		}
+		public Editor Editor { get; private set; }
+
 		public abstract object Content { get; set; }
+
+		protected abstract void DeleteInternal();
+
+		/// <summary>
+		/// Removes the selected content represented by this <see cref="EditorSelection" /> from the <see cref="ObjectModel" />.
+		/// </summary>
+		public void Delete()
+		{
+			DeleteInternal();
+			Content = null;
+		}
 	}
 }

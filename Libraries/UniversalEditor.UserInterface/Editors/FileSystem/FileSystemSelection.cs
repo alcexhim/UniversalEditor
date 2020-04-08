@@ -32,21 +32,25 @@ namespace UniversalEditor.Editors.FileSystem
 			set
 			{
 				if (value == null)
-					_parent.ClearSelectionContent(this);
+					(Editor as FileSystemEditor).ClearSelectionContent(this);
 
 				Items = (value is IFileSystemObject[] ? (value as IFileSystemObject[]) : null);
 			}
 		}
 
-		private FileSystemEditor _parent = null;
-		internal FileSystemSelection(FileSystemEditor parent, IFileSystemObject item)
+		protected override void DeleteInternal()
 		{
-			_parent = parent;
+			(Editor as FileSystemEditor).ClearSelectionContent(this);
+		}
+
+		internal FileSystemSelection(FileSystemEditor parent, IFileSystemObject item)
+			: base(parent)
+		{
 			Items = new IFileSystemObject[] { item };
 		}
 		internal FileSystemSelection(FileSystemEditor parent, IFileSystemObject[] items)
+			: base(parent)
 		{
-			_parent = parent;
 			Items = items;
 		}
 	}

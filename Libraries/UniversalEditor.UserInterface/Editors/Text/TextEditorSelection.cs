@@ -38,20 +38,25 @@ namespace UniversalEditor.Editors.Text
 				if (mvarContent == null)
 				{
 					Length = 0;
-					_parent.ClearSelectedText();
+					(Editor as TextEditor).ClearSelectedText();
 				}
 			}
 		}
 
-		private TextEditor _parent = null;
-		internal TextEditorSelection(TextEditor parent, string text)
+		protected override void DeleteInternal()
 		{
-			_parent = parent;
+			Length = 0;
+			(Editor as TextEditor).ClearSelectedText();
+		}
+
+		internal TextEditorSelection(TextEditor parent, string text)
+			: base(parent)
+		{
 			mvarContent = text;
 		}
 		internal TextEditorSelection(TextEditor parent, string text, int start, int length)
+			: base(parent)
 		{
-			_parent = parent;
 			mvarContent = text;
 			Start = start;
 			Length = length;

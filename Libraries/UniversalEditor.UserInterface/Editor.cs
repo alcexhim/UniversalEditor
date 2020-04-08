@@ -162,11 +162,13 @@ namespace UniversalEditor.UserInterface
 		}
 		public void Delete()
 		{
+			BeginEdit();
 			EditorSelection[] sels = GetSelections();
 			foreach (EditorSelection sel in sels)
 			{
-				sel.Content = null;
+				sel.Delete();
 			}
+			EndEdit();
 		}
 
 		#region IEditorImplementation Members
