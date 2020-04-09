@@ -449,7 +449,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 				e.Graphics.FillRectangle(new SolidBrush(entry.Color), rect);
 				if (entry == SelectedEntry)
 				{
-					e.Graphics.DrawRectangle(new Pen(Colors.LightSteelBlue, new Measurement(2, MeasurementUnit.Pixel)), new Rectangle(x, y, w, h));
+					e.Graphics.DrawRectangle(new Pen(SystemColors.HighlightBackground, new Measurement(2, MeasurementUnit.Pixel)), new Rectangle(x, y, w, h));
 				}
 				zcount++;
 				x += w;
