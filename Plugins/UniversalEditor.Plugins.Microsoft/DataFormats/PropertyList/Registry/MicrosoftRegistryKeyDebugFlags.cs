@@ -1,10 +1,10 @@
 ﻿//
-//  MicrosoftRegistryKeyDebugFlags.cs
+//  MicrosoftRegistryKeyDebugFlags.cs - indicates the attributes used for debugging a Microsoft registry file when a checked Windows kernel is in use
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,13 +18,13 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace UniversalEditor.DataFormats.PropertyList.Registry
 {
 	/// <summary>
-	/// When the CmpRegDebugBreakEnabled kernel variable is set to 1, a checked Windows
-	/// kernel will execute the int 3 instruction on various events according to the bit
-	/// mask in the Debug field. A retail Windows kernel has this feature disabled.
+	/// Indicates the attributes used for debugging a Microsoft registry file when a checked Windows kernel is in use. When the CmpRegDebugBreakEnabled
+	/// kernel variable is set to 1, a checked Windows kernel will execute the int 3 instruction on various events according to the bit mask in the
+	/// Debug field. A retail Windows kernel has this feature disabled.
 	/// </summary>
 	public enum MicrosoftRegistryKeyDebugFlags
 	{

@@ -1,63 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  ModelJoint.cs - represents a bone joint in a 3D model
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 {
-    public class ModelJoint : ICloneable
-    {
-        public class ModelJointCollection
-            : System.Collections.ObjectModel.Collection<ModelJoint>
-        {
-        }
+	/// <summary>
+	/// Represents a bone joint in a 3D model.
+	/// </summary>
+	public class ModelJoint : ICloneable
+	{
+		public class ModelJointCollection
+			: System.Collections.ObjectModel.Collection<ModelJoint>
+		{
+		}
 
-        private string mvarName = String.Empty;
-        public string Name { get { return mvarName; } set { mvarName = value; } }
+		/// <summary>
+		/// Gets or sets the name of this <see cref="ModelJoint" />.
+		/// </summary>
+		/// <value>The name of this <see cref="ModelJoint" />.</value>
+		public string Name { get; set; } = String.Empty;
+		/// <summary>
+		/// Gets or sets the position of this <see cref="ModelJoint" />.
+		/// </summary>
+		/// <value>The position of this <see cref="ModelJoint" />.</value>
+		public PositionVector3 Position { get; set; } = new PositionVector3(0, 0, 0);
+		/// <summary>
+		/// Gets or sets the rotation of this <see cref="ModelJoint" />.
+		/// </summary>
+		/// <value>The rotation of this <see cref="ModelJoint" />.</value>
+		public PositionVector3 Rotation { get; set; } = new PositionVector3(0, 0, 0);
+		/// <summary>
+		/// Gets or sets the lower limit for the <see cref="Position" /> property on this <see cref="ModelJoint" />.
+		/// </summary>
+		/// <value>The lower limit for the <see cref="Position" /> property on this <see cref="ModelJoint" />.</value>
+		public PositionVector3 LimitMoveLow { get; set; } = new PositionVector3(0, 0, 0);
+		/// <summary>
+		/// Gets or sets the upper limit for the <see cref="Position" /> property on this <see cref="ModelJoint" />.
+		/// </summary>
+		/// <value>The upper limit for the <see cref="Position" /> property on this <see cref="ModelJoint" />.</value>
+		public PositionVector3 LimitMoveHigh { get; set; } = new PositionVector3(0, 0, 0);
+		/// <summary>
+		/// Gets or sets the lower limit for the <see cref="Rotation" /> property on this <see cref="ModelJoint" />.
+		/// </summary>
+		/// <value>The lower limit for the <see cref="Rotation" /> property on this <see cref="ModelJoint" />.</value>
+		public PositionVector3 LimitAngleLow { get; set; } = new PositionVector3(0, 0, 0);
+		/// <summary>
+		/// Gets or sets the upper limit for the <see cref="Rotation" /> property on this <see cref="ModelJoint" />.
+		/// </summary>
+		/// <value>The upper limit for the <see cref="Rotation" /> property on this <see cref="ModelJoint" />.</value>
+		public PositionVector3 LimitAngleHigh { get; set; } = new PositionVector3(0, 0, 0);
+		/// <summary>
+		/// Movement stiffness for spring constraint.
+		/// </summary>
+		public PositionVector3 SpringConstraintMovementStiffness { get; set; } = new PositionVector3(0, 0, 0);
+		/// <summary>
+		/// Rotation stiffness for spring constraint.
+		/// </summary>
+		public PositionVector3 SpringConstraintRotationStiffness { get; set; } = new PositionVector3(0, 0, 0);
 
-        private PositionVector3 mvarPosition = new PositionVector3(0, 0, 0);
-        public PositionVector3 Position { get { return mvarPosition; } set { mvarPosition = value; } }
-
-        private PositionVector3 mvarRotation = new PositionVector3(0, 0, 0);
-        public PositionVector3 Rotation { get { return mvarRotation; } set { mvarRotation = value; } }
-
-        private PositionVector3 mvarLimitMoveLow = new PositionVector3(0, 0, 0);
-        public PositionVector3 LimitMoveLow { get { return mvarLimitMoveLow; } set { mvarLimitMoveLow = value; } }
-
-        private PositionVector3 mvarLimitMoveHigh = new PositionVector3(0, 0, 0);
-        public PositionVector3 LimitMoveHigh { get { return mvarLimitMoveHigh; } set { mvarLimitMoveHigh = value; } }
-        
-        private PositionVector3 mvarLimitAngleLow = new PositionVector3(0, 0, 0);
-        public PositionVector3 LimitAngleLow { get { return mvarLimitAngleLow; } set { mvarLimitAngleLow = value; } }
-
-        private PositionVector3 mvarLimitAngleHigh = new PositionVector3(0, 0, 0);
-        public PositionVector3 LimitAngleHigh { get { return mvarLimitAngleHigh; } set { mvarLimitAngleHigh = value; } }
-        
-        private PositionVector3 mvarSpringConstraintMovementStiffness = new PositionVector3(0, 0, 0);
-        /// <summary>
-        /// Movement stiffness for spring constraint.
-        /// </summary>
-        public PositionVector3 SpringConstraintMovementStiffness { get { return mvarSpringConstraintMovementStiffness; } set { mvarSpringConstraintMovementStiffness = value; } }
-
-        private PositionVector3 mvarSpringConstraintRotationStiffness = new PositionVector3(0, 0, 0);
-        /// <summary>
-        /// Rotation stiffness for spring constraint.
-        /// </summary>
-        public PositionVector3 SpringConstraintRotationStiffness { get { return mvarSpringConstraintRotationStiffness; } set { mvarSpringConstraintRotationStiffness = value; } }
-
-        public object Clone()
-        {
-            ModelJoint clone = new ModelJoint();
-            clone.LimitAngleHigh = (PositionVector3)(mvarLimitAngleHigh.Clone());
-            clone.LimitAngleLow = (PositionVector3)(mvarLimitAngleLow.Clone());
-            clone.LimitMoveHigh = (PositionVector3)(mvarLimitMoveHigh.Clone());
-            clone.LimitMoveLow = (PositionVector3)(mvarLimitMoveLow.Clone());
-            clone.Name = mvarName.Clone() as string;
-            clone.Position = ((PositionVector3)mvarPosition.Clone());
-            clone.Rotation = ((PositionVector3)mvarRotation.Clone());
-            clone.SpringConstraintMovementStiffness = ((PositionVector3)mvarSpringConstraintMovementStiffness.Clone());
-            clone.SpringConstraintRotationStiffness = ((PositionVector3)mvarSpringConstraintRotationStiffness.Clone());
-            return clone;
-        }
-    }
+		public object Clone()
+		{
+			ModelJoint clone = new ModelJoint();
+			clone.LimitAngleHigh = (PositionVector3)(LimitAngleHigh.Clone());
+			clone.LimitAngleLow = (PositionVector3)(LimitAngleLow.Clone());
+			clone.LimitMoveHigh = (PositionVector3)(LimitMoveHigh.Clone());
+			clone.LimitMoveLow = (PositionVector3)(LimitMoveLow.Clone());
+			clone.Name = Name.Clone() as string;
+			clone.Position = ((PositionVector3)Position.Clone());
+			clone.Rotation = ((PositionVector3)Rotation.Clone());
+			clone.SpringConstraintMovementStiffness = ((PositionVector3)SpringConstraintMovementStiffness.Clone());
+			clone.SpringConstraintRotationStiffness = ((PositionVector3)SpringConstraintRotationStiffness.Clone());
+			return clone;
+		}
+	}
 }

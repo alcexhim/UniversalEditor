@@ -1,10 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  ShortcutObjectModel.cs - provides an ObjectModel for manipulating a shortcut or symbolic link to a file on a file system
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.Shortcut
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating a shortcut or symbolic link to a file on a file system.
+	/// </summary>
 	public class ShortcutObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
@@ -22,57 +43,54 @@ namespace UniversalEditor.ObjectModels.Shortcut
 
 		public override void Clear()
 		{
-			mvarComment = String.Empty;
-			mvarExecutableArguments.Clear();
-			mvarExecutableFileName = String.Empty;
-			mvarIconFileName = String.Empty;
-			mvarRunInTerminal = false;
-			mvarWorkingDirectory = String.Empty;
+			Comment = String.Empty;
+			ExecutableArguments.Clear();
+			ExecutableFileName = String.Empty;
+			IconFileName = String.Empty;
+			RunInTerminal = false;
+			WorkingDirectory = String.Empty;
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
 			ShortcutObjectModel shortcut = (where as ShortcutObjectModel);
-			shortcut.Comment = (mvarComment.Clone() as string);
-			foreach (string s in mvarExecutableArguments)
+			shortcut.Comment = (Comment.Clone() as string);
+			foreach (string s in ExecutableArguments)
 			{
 				shortcut.ExecutableArguments.Add(s.Clone() as string);
 			}
-			shortcut.ExecutableFileName = (mvarExecutableFileName.Clone() as string);
-			shortcut.IconFileName = (mvarIconFileName.Clone() as string);
-			shortcut.RunInTerminal = mvarRunInTerminal;
-			shortcut.WorkingDirectory = (mvarWorkingDirectory.Clone() as string);
+			shortcut.ExecutableFileName = (ExecutableFileName.Clone() as string);
+			shortcut.IconFileName = (IconFileName.Clone() as string);
+			shortcut.RunInTerminal = RunInTerminal;
+			shortcut.WorkingDirectory = (WorkingDirectory.Clone() as string);
 		}
 
-		private string mvarComment = String.Empty;
 		/// <summary>
 		/// Tooltip for the entry, for example "View sites on the Internet". The value should not
 		/// be redundant with the shortcut title.
 		/// </summary>
-		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
-
-		private string mvarIconFileName = String.Empty;
+		public string Comment { get; set; } = String.Empty;
 		/// <summary>
 		/// File name or known icon name of the icon to display in the file manager, menus, etc.
 		/// </summary>
-		public string IconFileName { get { return mvarIconFileName; } set { mvarIconFileName = value; } }
-
-		private string mvarExecutableFileName = String.Empty;
-		public string ExecutableFileName { get { return mvarExecutableFileName; } set { mvarExecutableFileName = value; } }
-
-		private System.Collections.Specialized.StringCollection mvarExecutableArguments = new System.Collections.Specialized.StringCollection();
-		public System.Collections.Specialized.StringCollection ExecutableArguments { get { return mvarExecutableArguments; } }
-
-		private string mvarWorkingDirectory = String.Empty;
+		public string IconFileName { get; set; } = String.Empty;
+		/// <summary>
+		/// Gets or sets the full path to the program file pointed to by this <see cref="ShortcutObjectModel" />.
+		/// </summary>
+		/// <value>The full path to the program file pointed to by this <see cref="ShortcutObjectModel" />.</value>
+		public string ExecutableFileName { get; set; } = String.Empty;
+		/// <summary>
+		/// Gets a collection of <see cref="string" /> instances representing the arguments passed into the command line when executing the program.
+		/// </summary>
+		/// <value>The arguments passed into the command line when executing the program.</value>
+		public System.Collections.Specialized.StringCollection ExecutableArguments { get; } = new System.Collections.Specialized.StringCollection();
 		/// <summary>
 		/// The directory in which to run the program, if different than the program's location.
 		/// </summary>
-		public string WorkingDirectory { get { return mvarWorkingDirectory; } set { mvarWorkingDirectory = value; } }
-
-		private bool mvarRunInTerminal = false;
+		public string WorkingDirectory { get; set; } = String.Empty;
 		/// <summary>
 		/// Whether the program runs in a terminal window.
 		/// </summary>
-		public bool RunInTerminal { get { return mvarRunInTerminal; } set { mvarRunInTerminal = value; } }
+		public bool RunInTerminal { get; set; } = false;
 	}
 }

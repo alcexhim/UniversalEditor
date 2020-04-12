@@ -1,11 +1,37 @@
-﻿using System;
+﻿//
+//  MarkupTagElement.cs - represents a tag element in a MarkupObjectModel
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.Collections.Generic;
-using System.Text;
 
 namespace UniversalEditor.ObjectModels.Markup
 {
+	/// <summary>
+	/// Represents a tag element in a <see cref="MarkupObjectModel" />.
+	/// </summary>
 	public class MarkupTagElement : MarkupContainerElement
 	{
+		/// <summary>
+		/// Combines the attributes and child elements of this <see cref="MarkupTagElement" /> with the given <see cref="MarkupElement" />.
+		/// </summary>
+		/// <param name="el">The <see cref="MarkupElement" /> to combine. This must be an instance of <see cref="MarkupTagElement" />.</param>
 		public override void Combine(MarkupElement el)
 		{
 			base.Combine(el);
@@ -23,14 +49,12 @@ namespace UniversalEditor.ObjectModels.Markup
 			}
 		}
 
-		private MarkupAttribute.MarkupAttributeCollection mvarAttributes = new MarkupAttribute.MarkupAttributeCollection();
-		public MarkupAttribute.MarkupAttributeCollection Attributes
-		{
-			get
-			{
-				return this.mvarAttributes;
-			}
-		}
+		/// <summary>
+		/// Gets a collection of <see cref="MarkupAttribute" /> instances representing the attributes of this <see cref="MarkupTagElement" />.
+		/// </summary>
+		/// <value>The attributes of this <see cref="MarkupTagElement" />.</value>
+		public MarkupAttribute.MarkupAttributeCollection Attributes { get; } = new MarkupAttribute.MarkupAttributeCollection();
+
 		public override object Clone()
 		{
 			MarkupTagElement clone = new MarkupTagElement();
@@ -38,32 +62,32 @@ namespace UniversalEditor.ObjectModels.Markup
 			{
 				clone.Elements.Add(el.Clone() as MarkupElement);
 			}
-            foreach (MarkupAttribute att in mvarAttributes)
-            {
-                clone.Attributes.Add(att.Clone() as MarkupAttribute);
-            }
+			foreach (MarkupAttribute att in Attributes)
+			{
+				clone.Attributes.Add(att.Clone() as MarkupAttribute);
+			}
 			clone.Name = base.Name;
 			clone.Namespace = base.Namespace;
 			clone.Value = base.Value;
 			return clone;
 		}
 
-        public MarkupAttribute FindAttribute(string Name)
-        {
-            return FindAttribute(Name, (MarkupAttribute)null);
-        }
-        public string FindAttribute(string Name, string DefaultValue)
-        {
-            MarkupAttribute att = FindAttribute(Name);
-            if (att == null) return DefaultValue;
-            return att.Value;
-        }
-        public MarkupAttribute FindAttribute(string Name, MarkupAttribute defaultValue)
-        {
-            MarkupAttribute att = mvarAttributes[Name];
-            if (att == null) return defaultValue;
-            return att;
-        }
+		public MarkupAttribute FindAttribute(string Name)
+		{
+			return FindAttribute(Name, (MarkupAttribute)null);
+		}
+		public string FindAttribute(string Name, string DefaultValue)
+		{
+			MarkupAttribute att = FindAttribute(Name);
+			if (att == null) return DefaultValue;
+			return att.Value;
+		}
+		public MarkupAttribute FindAttribute(string Name, MarkupAttribute defaultValue)
+		{
+			MarkupAttribute att = Attributes[Name];
+			if (att == null) return defaultValue;
+			return att;
+		}
 
 		public MarkupTagElement[] GetElementsByTagName(string tagName)
 		{

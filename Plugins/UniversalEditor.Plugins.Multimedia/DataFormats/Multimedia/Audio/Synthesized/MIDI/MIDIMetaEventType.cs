@@ -1,10 +1,10 @@
 ﻿//
-//  MIDIMetaEventType.cs
+//  MIDIMetaEventType.cs - indicates the type of MIDI meta event
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,9 +18,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 {
+	/// <summary>
+	/// Indicates the type of MIDI meta event.
+	/// </summary>
 	public enum MIDIMetaEventType : byte
 	{
 		SequenceNumber = 0x00,

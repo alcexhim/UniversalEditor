@@ -1,10 +1,10 @@
 ﻿//
-//  VDIDataFormat.cs
+//  VDIDataFormat.cs - provides a DataFormat for manipulating disk images in VirtualBox VDI format
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -25,6 +26,9 @@ using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.VirtualBox
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating disk images in VirtualBox VDI format.
+	/// </summary>
 	public class VDIDataFormat : DataFormat
 	{
 		/*
@@ -89,7 +93,7 @@ namespace UniversalEditor.DataFormats.FileSystem.VirtualBox
 			long dataLength = reader.Accessor.Length - dataOffset;
 
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			File f = new File(); 
+			File f = new File();
 			f.Name = System.IO.Path.ChangeExtension(System.IO.Path.GetFileName(Accessor.GetFileName()), "img");
 			f.Source = new EmbeddedFileSource(reader, dataOffset, dataLength);
 			fsom.Files.Add(f);

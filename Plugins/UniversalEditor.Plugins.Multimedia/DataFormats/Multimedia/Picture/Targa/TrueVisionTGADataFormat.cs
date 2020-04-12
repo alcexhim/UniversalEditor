@@ -1,13 +1,37 @@
-﻿	using System;
+﻿//
+//  TrueVisionTGADataFormat.cs - implements a DataFormat for manipulating images in TrueVision Targa (TGA) format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using MBS.Framework.Drawing;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 {
+	/// <summary>
+	/// Implements a <see cref="DataFormat" /> for manipulating images in TrueVision Targa (TGA) format.
+	/// </summary>
 	public class TrueVisionTGADataFormat : DataFormat
 	{
 		private const int HEADER_BYTE_LENGTH = 18;
@@ -20,8 +44,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 		private const int EXTENSION_AREA_SOFTWARE_VERSION_LETTER_LENGTH = 1;
 		private const int EXTENSION_AREA_COLOR_CORRECTION_TABLE_VALUE_LENGTH = 41;
 
-		private TargaExtensionArea mvarExtensionArea = new TargaExtensionArea();
-		public TargaExtensionArea ExtensionArea { get { return mvarExtensionArea; } }
+		public TargaExtensionArea ExtensionArea { get; } = new TargaExtensionArea();
 
 		protected override DataFormatReference MakeReferenceInternal()
 		{
@@ -31,9 +54,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			dfr.ContentTypes.Add("image/x-tga");
 			return dfr;
 		}
-
-		private int mvarFormatVersion = 100; // ORIGINAL_TGA
-		public int FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
+		public int FormatVersion { get; set; } = 100; // ORIGINAL_TGA
 
 		private int GetImageDataOffset(int colorMapLength, byte imageIDLength, byte colorMapEntrySize)
 		{
@@ -50,17 +71,21 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			switch (colorMapEntrySize)
 			{
 				case 15:
-					Bytes = 2;
-					break;
 				case 16:
+				{
 					Bytes = 2;
 					break;
+				}
 				case 24:
+				{
 					Bytes = 3;
 					break;
+				}
 				case 32:
+				{
 					Bytes = 4;
 					break;
+				}
 			}
 
 			// add the length of the color map
@@ -69,33 +94,25 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			// return result
 			return intImageDataOffset;
 		}
-
-		private byte mvarPixelDepth = 0;
-		public byte PixelDepth { get { return mvarPixelDepth; } set { mvarPixelDepth = value; } }
+		public byte PixelDepth { get; set; } = 0;
 
 
 		public int BytesPerPixel
 		{
-			get { return (int)(mvarPixelDepth / 8); }
+			get { return (int)(PixelDepth / 8); }
 			set
 			{
 				if ((value * 8) > 255)
 				{
 					throw new ArgumentOutOfRangeException("Bytes per pixel exceeds maximum allowed bits per pixel depth of 255");
 				}
-				mvarPixelDepth = (byte)(value * 8);
+				PixelDepth = (byte)(value * 8);
 			}
 		}
 
 
 		private int mvarPadding = 0;
-
-		private TargaImageType mvarImageType = TargaImageType.None;
-		public TargaImageType ImageType
-		{
-			get { return mvarImageType; }
-			set { mvarImageType = value; }
-		}
+		public TargaImageType ImageType { get; set; } = TargaImageType.None;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -124,7 +141,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				if (Signature == "TRUEVISION-XFILE")
 				{
 					// this is a NEW targa file.
-					mvarFormatVersion = 200;
+					FormatVersion = 200;
 
 					// set cursor to beginning of footer info
 					br.Accessor.Seek((-1 * FOOTER_BYTE_LENGTH), SeekOrigin.End);
@@ -147,7 +164,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				else
 				{
 					// this is not an ORIGINAL targa file.
-					mvarFormatVersion = 100;
+					FormatVersion = 100;
 				}
 			}
 			#endregion
@@ -159,7 +176,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// read the header properties from the file
 				byte imageIDLength = br.ReadByte();
 				bool colorMapEnabled = br.ReadBoolean();
-				mvarImageType = (TargaImageType)br.ReadByte();
+				ImageType = (TargaImageType)br.ReadByte();
 
 				short colorMapFirstEntryIndex = br.ReadInt16();
 				short colorMapLength = br.ReadInt16();
@@ -173,16 +190,20 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				pic.Width = imageWidth;
 				pic.Height = imageHeight;
 
-				mvarPixelDepth = br.ReadByte();
-				switch (mvarPixelDepth)
+				PixelDepth = br.ReadByte();
+				switch (PixelDepth)
 				{
 					case 8:
 					case 16:
 					case 24:
 					case 32:
+					{
 						break;
+					}
 					default:
+					{
 						throw new InvalidOperationException("Targa image file format only supports 8, 16, 24, or 32 bit pixel depths");
+					}
 				}
 
 
@@ -207,7 +228,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					// image types. If color map is included for other file types we can ignore it.
 					if (colorMapEnabled)
 					{
-						if (mvarImageType == TargaImageType.UncompressedIndexed || mvarImageType == TargaImageType.CompressedIndexed)
+						if (ImageType == TargaImageType.UncompressedIndexed || ImageType == TargaImageType.CompressedIndexed)
 						{
 							if (colorMapLength > 0)
 							{
@@ -252,7 +273,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 											pic.ColorMap.Add(Color.FromRGBAInt32(a, r, g, b));
 											break;
 										}
-										default:
+									default:
 										{
 											throw new ArgumentOutOfRangeException("TargaImage only supports ColorMap Entry Sizes of 15, 16, 24 or 32 bits.");
 										}
@@ -271,7 +292,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					}
 					else
 					{
-						if (mvarImageType == TargaImageType.UncompressedIndexed || mvarImageType == TargaImageType.CompressedIndexed)
+						if (ImageType == TargaImageType.UncompressedIndexed || ImageType == TargaImageType.CompressedIndexed)
 						{
 							throw new InvalidOperationException("Indexed image type requires a colormap and there was not a colormap included in the file.");
 						}
@@ -285,7 +306,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// is there an Extension Area in file
 				if (!br.EndOfStream && (extensionAreaOffset > 0))
 				{
-					mvarExtensionArea.Enabled = true;
+					ExtensionArea.Enabled = true;
 
 					// set the cursor at the beginning of the Extension Area using ExtensionAreaOffset.
 					br.Accessor.Seek(extensionAreaOffset, SeekOrigin.Begin);
@@ -309,7 +330,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					strStamp += iHour.ToString() + @":" + iMinute.ToString() + @":" + iSecond.ToString();
 					if (DateTime.TryParse(strStamp, out dtstamp) == true)
 					{
-						mvarExtensionArea.DateCreated = dtstamp;
+						ExtensionArea.DateCreated = dtstamp;
 					}
 
 
@@ -321,10 +342,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					iMinute = br.ReadInt16();
 					iSecond = br.ReadInt16();
 					TimeSpan ts = new TimeSpan((int)iHour, (int)iMinute, (int)iSecond);
-					mvarExtensionArea.JobTime = ts;
+					ExtensionArea.JobTime = ts;
 
 					string softwareID = br.ReadNullTerminatedString(EXTENSION_AREA_SOFTWARE_ID_LENGTH);
-					mvarExtensionArea.SoftwareID = softwareID;
+					ExtensionArea.SoftwareID = softwareID;
 
 
 					// get the version number and letter from file
@@ -333,7 +354,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 					string strVersionLetter = br.ReadNullTerminatedString(EXTENSION_AREA_SOFTWARE_VERSION_LETTER_LENGTH);
 
-					mvarExtensionArea.VersionString = (iVersionNumber.ToString(@"F2") + strVersionLetter);
+					ExtensionArea.VersionString = (iVersionNumber.ToString(@"F2") + strVersionLetter);
 
 
 					// get the color key of the file
@@ -341,18 +362,18 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					int r = (int)br.ReadByte();
 					int b = (int)br.ReadByte();
 					int g = (int)br.ReadByte();
-					mvarExtensionArea.ColorKey = (Color.FromRGBAInt32(r, g, b, a));
+					ExtensionArea.ColorKey = (Color.FromRGBAInt32(r, g, b, a));
 
 
-					mvarExtensionArea.PixelAspectRatioNumerator = (int)br.ReadInt16();
-					mvarExtensionArea.PixelAspectRatioDenominator = (int)br.ReadInt16();
-					mvarExtensionArea.GammaNumerator = (int)br.ReadInt16();
-					mvarExtensionArea.GammaDenominator = (int)br.ReadInt16();
-					
+					ExtensionArea.PixelAspectRatioNumerator = (int)br.ReadInt16();
+					ExtensionArea.PixelAspectRatioDenominator = (int)br.ReadInt16();
+					ExtensionArea.GammaNumerator = (int)br.ReadInt16();
+					ExtensionArea.GammaDenominator = (int)br.ReadInt16();
+
 					int extensionAreaColorCorrectionOffset = br.ReadInt32();
 					int extensionAreaPostageStampOffset = br.ReadInt32();
 					int extensionAreaScanLineOffset = br.ReadInt32();
-					mvarExtensionArea.AttributesType = (int)br.ReadByte();
+					ExtensionArea.AttributesType = (int)br.ReadByte();
 
 
 					// load Scan Line Table from file if any
@@ -361,7 +382,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 						br.Accessor.Seek(extensionAreaScanLineOffset, SeekOrigin.Begin);
 						for (int i = 0; i < imageHeight; i++)
 						{
-							mvarExtensionArea.ScanLineTable.Add(br.ReadInt32());
+							ExtensionArea.ScanLineTable.Add(br.ReadInt32());
 						}
 					}
 
@@ -376,7 +397,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 							r = (int)br.ReadInt16();
 							b = (int)br.ReadInt16();
 							g = (int)br.ReadInt16();
-							mvarExtensionArea.ColorCorrectionTable.Add(Color.FromRGBAInt32(r, g, b, a));
+							ExtensionArea.ColorCorrectionTable.Add(Color.FromRGBAInt32(r, g, b, a));
 						}
 					}
 				}
@@ -390,12 +411,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// In your loop, you copy the pixels one scanline at a time and take into
 				// consideration the amount of padding that occurs due to memory alignment.
 				// calculate the stride, in bytes, of the image (32bit aligned width of each image row)
-				int intStride = (((int)imageWidth * (int)mvarPixelDepth + 31) & ~31) >> 3; // width in bytes
+				int intStride = (((int)imageWidth * (int)PixelDepth + 31) & ~31) >> 3; // width in bytes
 
 				// calculate the padding, in bytes, of the image 
 				// number of bytes to add to make each row a 32bit aligned row
 				// padding in bytes
-				mvarPadding = intStride - ((((int)imageWidth * (int)mvarPixelDepth) + 7) / 8);
+				mvarPadding = intStride - ((((int)imageWidth * (int)PixelDepth) + 7) / 8);
 
 				// get the image data bytes
 				byte[] bimagedata = null;
@@ -427,7 +448,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 					// is this a RLE compressed image type
 					#region COMPRESSED
-					if (mvarImageType == TargaImageType.CompressedGrayscale || mvarImageType == TargaImageType.CompressedIndexed || mvarImageType == TargaImageType.CompressedTrueColor)
+					if (ImageType == TargaImageType.CompressedGrayscale || ImageType == TargaImageType.CompressedIndexed || ImageType == TargaImageType.CompressedTrueColor)
 					{
 						// RLE Packet info
 						byte bRLEPacket = 0;
@@ -514,7 +535,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 						for (int i = 0; i < (int)imageHeight; i++)
 						{
 							// create a new row
-							System.Collections.Generic.List<byte> row = new System.Collections.Generic.List<byte>();
+							List<byte> row = new List<byte>();
 
 							// loop through each byte in the row
 							for (int j = 0; j < intImageRowByteSize; j++)
@@ -604,7 +625,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 							int b = data[z];
 							int a = 255;
 
-							if (mvarPixelDepth == 32)
+							if (PixelDepth == 32)
 							{
 								a = data[z + 3];
 								z++;

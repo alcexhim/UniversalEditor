@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿//
+//  PCKDataFormat.cs - provides a DataFormat for manipulating archives in Roxor In the Groove PCK format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in Roxor In the Groove PCK format.
+	/// </summary>
 	public class PCKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -16,13 +38,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "&Comment: ", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "_Comment: ", String.Empty, 128));
 			}
 			return _dfr;
 		}
 
-		private string mvarComment = String.Empty;
-		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
+		public string Comment { get; set; } = String.Empty;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -33,8 +54,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 			string signature = reader.ReadFixedLengthString(4);
 			if (signature != "PCKF") throw new InvalidDataFormatException("File does not begin with 'PCKF'");
 
-			mvarComment = reader.ReadFixedLengthString(128, Encoding.Windows1252);
-			mvarComment = mvarComment.TrimNull();
+			Comment = reader.ReadFixedLengthString(128, Encoding.Windows1252);
+			Comment = Comment.TrimNull();
 
 			uint fileCount = reader.ReadUInt32();
 			for (uint i = 0; i < fileCount; i++)
@@ -44,9 +65,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 				uint offset = reader.ReadUInt32();
 				uint fileNameLength = reader.ReadUInt32();
 				bool compressed = (reader.ReadUInt32() != 0);
-				
+
 				string fileName = reader.ReadFixedLengthString(fileNameLength, Encoding.Windows1252);
-				
+
 				File file = fsom.AddFile(fileName);
 				file.Size = decompressedLength;
 				file.Properties.Add("reader", reader);
@@ -85,7 +106,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Roxor.PCK
 
 			Writer writer = base.Accessor.Writer;
 			writer.WriteFixedLengthString("PCKF");
-			writer.WriteFixedLengthString(mvarComment, Encoding.Windows1252, 128);
+			writer.WriteFixedLengthString(Comment, Encoding.Windows1252, 128);
 
 			File[] files = fsom.GetAllFiles();
 			writer.WriteUInt32((uint)files.Length);

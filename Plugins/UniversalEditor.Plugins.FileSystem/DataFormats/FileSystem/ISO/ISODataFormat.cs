@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  ISODataFormat.cs - provides a DataFormat for manipulating file systems in ISO format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.ISO
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating file systems in ISO format.
+	/// </summary>
 	public class ISODataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -18,56 +40,33 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ContentTypes.Add("application/x-iso9660-image");
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(SystemName), "System &name:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeName), "&Volume name:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(SystemName), "System _name:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeName), "_Volume name:", String.Empty, 128));
 				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeSetSize), "Number of volumes in this set:", 1, 0, UInt16.MaxValue));
 				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeSequenceNumber), "Index of this volume in set:", 0, 0, UInt16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeSet), "Volume &set:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Publisher), "&Publisher:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(DataPreparer), "&Data preparer:", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Application), "&Application:", "Universal Editor", 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CopyrightFile), "&Copyright file:", String.Empty, 38));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(AbstractFile), "&Abstract file:", String.Empty, 36));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(BibliographicFile), "&Bibliographic file:", String.Empty, 37));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeSet), "Volume _set:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Publisher), "_Publisher:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(DataPreparer), "_Data preparer:", String.Empty, 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Application), "_Application:", "Universal Editor", 128));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CopyrightFile), "_Copyright file:", String.Empty, 38));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(AbstractFile), "Abs_tract file:", String.Empty, 36));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(BibliographicFile), "_Bibliographic file:", String.Empty, 37));
 			}
 			return _dfr;
 		}
 
-		private string mvarSystemName = String.Empty;
-		public string SystemName { get { return mvarSystemName; } set { mvarSystemName = value; } }
-
-		private string mvarVolumeName = String.Empty;
-		public string VolumeName { get { return mvarVolumeName; } set { mvarVolumeName = value; } }
-
-		private ushort mvarVolumeSetSize = 0;
-		public ushort VolumeSetSize { get { return mvarVolumeSetSize; } set { mvarVolumeSetSize = value; } }
-
-		private ushort mvarVolumeSequenceNumber = 0;
-		public ushort VolumeSequenceNumber { get { return mvarVolumeSequenceNumber; } set { mvarVolumeSequenceNumber = value; } }
-
-		private ushort mvarLogicalBlockSize = 2048;
-		public ushort LogicalBlockSize { get { return mvarLogicalBlockSize; } set { mvarLogicalBlockSize = value; } }
-
-		private string mvarVolumeSet = String.Empty;
-		public string VolumeSet { get { return mvarVolumeSet; } set { mvarVolumeSet = value; } }
-
-		private string mvarPublisher = String.Empty;
-		public string Publisher { get { return mvarPublisher; } set { mvarPublisher = value; } }
-
-		private string mvarDataPreparer = String.Empty;
-		public string DataPreparer { get { return mvarDataPreparer; } set { mvarDataPreparer = value; } }
-
-		private string mvarApplication = String.Empty;
-		public string Application { get { return mvarApplication; } set { mvarApplication = value; } }
-
-		private string mvarCopyrightFile = String.Empty;
-		public string CopyrightFile { get { return mvarCopyrightFile; } set { mvarCopyrightFile = value; } }
-
-		private string mvarAbstractFile = String.Empty;
-		public string AbstractFile { get { return mvarAbstractFile; } set { mvarAbstractFile = value; } }
-
-		private string mvarBibliographicFile = String.Empty;
-		public string BibliographicFile { get { return mvarBibliographicFile; } set { mvarBibliographicFile = value; } }
+		public string SystemName { get; set; } = String.Empty;
+		public string VolumeName { get; set; } = String.Empty;
+		public ushort VolumeSetSize { get; set; } = 0;
+		public ushort VolumeSequenceNumber { get; set; } = 0;
+		public ushort LogicalBlockSize { get; set; } = 2048;
+		public string VolumeSet { get; set; } = String.Empty;
+		public string Publisher { get; set; } = String.Empty;
+		public string DataPreparer { get; set; } = String.Empty;
+		public string Application { get; set; } = String.Empty;
+		public string CopyrightFile { get; set; } = String.Empty;
+		public string AbstractFile { get; set; } = String.Empty;
+		public string BibliographicFile { get; set; } = String.Empty;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -88,59 +87,59 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 
 				switch (type)
 				{
-					case ISOVolumeDescriptorType.BootRecord:
+				case ISOVolumeDescriptorType.BootRecord:
 					{
 						break;
 					}
-					case ISOVolumeDescriptorType.Primary:
+				case ISOVolumeDescriptorType.Primary:
 					{
 						Internal.PrimaryVolumeDescriptor descriptor = ReadPrimaryVolumeDescriptor(br);
-						mvarSystemName = descriptor.systemName;
-						mvarVolumeName = descriptor.volumeName;
-						mvarVolumeSetSize = descriptor.volumeSetSize;
-						mvarVolumeSequenceNumber = descriptor.volumeSequenceNumber;
-						mvarLogicalBlockSize = descriptor.logicalBlockSize;
-						mvarVolumeSet = descriptor.volumeSet;
-						mvarPublisher = descriptor.publisher;
-						mvarDataPreparer = descriptor.dataPreparer;
-						mvarApplication = descriptor.application;
-						mvarCopyrightFile = descriptor.copyrightFile;
-						mvarAbstractFile = descriptor.abstractFile;
-						mvarBibliographicFile = descriptor.bibliographicFile;
+						SystemName = descriptor.systemName;
+						VolumeName = descriptor.volumeName;
+						VolumeSetSize = descriptor.volumeSetSize;
+						VolumeSequenceNumber = descriptor.volumeSequenceNumber;
+						LogicalBlockSize = descriptor.logicalBlockSize;
+						VolumeSet = descriptor.volumeSet;
+						Publisher = descriptor.publisher;
+						DataPreparer = descriptor.dataPreparer;
+						Application = descriptor.application;
+						CopyrightFile = descriptor.copyrightFile;
+						AbstractFile = descriptor.abstractFile;
+						BibliographicFile = descriptor.bibliographicFile;
 						pathTableLocationTypeL = descriptor.pathTableLocationTypeL;
 						pathTableLocationTypeM = descriptor.pathTableLocationTypeM;
 						break;
 					}
-					case ISOVolumeDescriptorType.Supplementary:
+				case ISOVolumeDescriptorType.Supplementary:
 					{
 						ushort unknown1 = br.ReadUInt16();
 						string unknown2 = br.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian);
 						break;
 					}
-					case ISOVolumeDescriptorType.Terminator:
+				case ISOVolumeDescriptorType.Terminator:
 					{
 						break;
 					}
-					default:
-						{
-							br.Accessor.Seek(2041, SeekOrigin.Current);
-							break;
-						}
+				default:
+					{
+						br.Accessor.Seek(2041, SeekOrigin.Current);
+						break;
+					}
 				}
 				if (type == ISOVolumeDescriptorType.Terminator) break;
 			}
 
 			// go to the little-endian path table sector and read it
-			br.Accessor.Seek(mvarLogicalBlockSize * pathTableLocationTypeL, SeekOrigin.Begin);
+			br.Accessor.Seek(LogicalBlockSize * pathTableLocationTypeL, SeekOrigin.Begin);
 
 			// go to the big-endian path table sector and read it
-			br.Accessor.Seek(mvarLogicalBlockSize * pathTableLocationTypeM, SeekOrigin.Begin);
+			br.Accessor.Seek(LogicalBlockSize * pathTableLocationTypeM, SeekOrigin.Begin);
 
 
 
 			// our test file (C:\TEMP\ISOTEST\test-one-file-noextensions.iso) has file table in the
 			// sector right after pathTableLocationTypeM
-			br.Accessor.Seek(mvarLogicalBlockSize * 20, SeekOrigin.Begin);
+			br.Accessor.Seek(LogicalBlockSize * 20, SeekOrigin.Begin);
 
 			for (int i = 0; i < 2; i++)
 			{
@@ -154,24 +153,24 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			}
 
 			while (true)
-			{														// file 1		file 2
-				// length of this record entry
-				ushort recordLength = br.ReadUInt16();				// 48			42
+			{                                                       // file 1		file 2
+																	// length of this record entry
+				ushort recordLength = br.ReadUInt16();              // 48			42
 				if (recordLength == 0) break;
-				
+
 				// index of first sector (offset is firstSector * mvarLogicalBlockSize
-				uint firstSector = br.ReadDoubleEndianUInt32();		// 21			22
+				uint firstSector = br.ReadDoubleEndianUInt32();     // 21			22
 
 				// actual size of the file
-				uint dataLength = br.ReadDoubleEndianUInt32();		// 44			20
+				uint dataLength = br.ReadDoubleEndianUInt32();      // 44			20
 
-				ulong unknown4 = br.ReadUInt64();					// ...			
-				ushort unknown5 = br.ReadUInt16();					// 0			0
-				ushort unknown6 = br.ReadUInt16();					// 1			1
-				ushort unknown7 = br.ReadUInt16();					// 256			256
+				ulong unknown4 = br.ReadUInt64();                   // ...			
+				ushort unknown5 = br.ReadUInt16();                  // 0			0
+				ushort unknown6 = br.ReadUInt16();                  // 1			1
+				ushort unknown7 = br.ReadUInt16();                  // 256			256
 
 				string fileName = br.ReadLengthPrefixedString();
-				
+
 				// align the reader to a multiple of 2 bytes
 				br.Align(2);
 
@@ -191,7 +190,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			uint sector = (uint)file.Properties["sector"];
 			uint length = (uint)file.Properties["length"];
 
-			reader.Seek((long)(mvarLogicalBlockSize * sector), SeekOrigin.Begin);
+			reader.Seek((long)(LogicalBlockSize * sector), SeekOrigin.Begin);
 			e.Data = reader.ReadBytes(length);
 		}
 
@@ -255,7 +254,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			string szHour = br.ReadFixedLengthString(2);              // Hour from 0 to 23.
 			string szMinute = br.ReadFixedLengthString(2);            // Minute from 0 to 59.
 			string szSecond = br.ReadFixedLengthString(2);            // Second from 0 to 59.
-			string szHundredSeconds=  br.ReadFixedLengthString(2);    // Hundredths of a second from 0 to 99.
+			string szHundredSeconds = br.ReadFixedLengthString(2);    // Hundredths of a second from 0 to 99.
 
 			// Time zone offset from GMT in 15 minute intervals, starting at interval -48 (west) and running up to
 			// interval 52 (east). So value 0 indicates interval -48 which equals GMT-12 hours, and value 100
@@ -317,11 +316,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			bw.Accessor.Seek(32768, SeekOrigin.Current);
 
 			Internal.PrimaryVolumeDescriptor descriptor = new Internal.PrimaryVolumeDescriptor();
-			descriptor.systemName = mvarSystemName; // The name of the system that can act upon sectors 0x00-0x0F for the volume.
-			descriptor.volumeName = mvarVolumeName; // Identification of this volume.
-			descriptor.volumeSetSize = mvarVolumeSetSize;
-			descriptor.volumeSequenceNumber = mvarVolumeSequenceNumber;
-			descriptor.logicalBlockSize = mvarLogicalBlockSize;
+			descriptor.systemName = SystemName; // The name of the system that can act upon sectors 0x00-0x0F for the volume.
+			descriptor.volumeName = VolumeName; // Identification of this volume.
+			descriptor.volumeSetSize = VolumeSetSize;
+			descriptor.volumeSequenceNumber = VolumeSequenceNumber;
+			descriptor.logicalBlockSize = LogicalBlockSize;
 			WritePrimaryVolumeDescriptor(bw, descriptor);
 
 			bw.Flush();

@@ -1,12 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  DirectDrawSurfaceDataFormat.cs - provides a DataFormat for manipulating images in DirectDraw Surface (DDS) format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using MBS.Framework.Drawing;
+
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating images in DirectDraw Surface (DDS) format.
+	/// </summary>
 	public class DirectDrawSurfaceDataFormat : DataFormat
 	{
 		public const uint DDS_MAGIC = 0x20534444;
@@ -76,7 +99,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 			{
 				Internal.DirectDrawSurfaceCaps1 dwCaps1 = (Internal.DirectDrawSurfaceCaps1)br.ReadUInt32();
 				Internal.DirectDrawSurfaceCaps2 dwCaps2 = (Internal.DirectDrawSurfaceCaps2)br.ReadUInt32();
-				uint dwCaps3 = br.ReadUInt32();	// reserved
+				uint dwCaps3 = br.ReadUInt32(); // reserved
 				uint dwCaps4 = br.ReadUInt32(); // reserved
 				uint dwReserved2 = br.ReadUInt32(); // reserved
 			}
@@ -167,7 +190,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 			#region Load the images
 			uint width = dwWidth, height = dwHeight;
 			uint mipMapCount = ((dwHeaderFlags & Internal.DirectDrawSurfaceHeaderFlags.MipMapCount) == Internal.DirectDrawSurfaceHeaderFlags.MipMapCount) ? dwMipMapCount : 1;
-			
+
 			if (li.Compressed)
 			{
 				uint size = Math.Max(li.DivSize, width) / li.DivSize * Math.Max(li.DivSize, height) / li.DivSize * li.BlockBytes;
@@ -231,10 +254,10 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 				{
 					palette[i] = br.ReadUInt32();
 				}
-				for (uint ix = 0; ix < mipMapCount; ++ix )
+				for (uint ix = 0; ix < mipMapCount; ++ix)
 				{
 					data = br.ReadBytes(size);
-					for(uint zz = 0; zz < size; ++zz )
+					for (uint zz = 0; zz < size; ++zz)
 					{
 						unpacked[zz] = palette[data[zz]];
 					}
@@ -261,74 +284,74 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
 				for (uint ix = 0; ix < mipMapCount; ++ix )
 				{
 				*/
-					uint y = 0;
+				uint y = 0;
 
-					for (uint x = 0; x <= width; x++)
+				for (uint x = 0; x <= width; x++)
+				{
+					if (x + 1 > width)
 					{
-						if (x + 1 > width)
-						{
-							x = 0;
-							y++;
-						}
-						if (y + 1 >= height)
-						{
-							break;
-						}
-
-						byte r = 0, g = 0, b = 0, a = 255;
-						switch (li.Format)
-						{
-							case Internal.DirectDrawSurfaceFormat.R3G3B2:
-							{
-								// despite it saying R8G8B8, it is actually stored in the file as BGR!!!
-								byte rgb = br.ReadByte();
-								b = (byte)rgb.GetBits(0, 2);
-								g = (byte)rgb.GetBits(2, 3);
-								r = (byte)rgb.GetBits(5, 3);
-								break;
-							}
-							case Internal.DirectDrawSurfaceFormat.A8R8G8B8:
-							{
-								// this is A8R8G8B8, in Grand Chase Cursor0.dds it is stored as RGBA
-								r = br.ReadByte();
-								g = br.ReadByte();
-								b = br.ReadByte();
-								a = br.ReadByte();
-								break;
-							}
-							case Internal.DirectDrawSurfaceFormat.A8B8G8R8:
-							{
-								// despite it saying R8G8B8, it is actually stored in the file as BGR!!!
-								a = br.ReadByte();
-								b = br.ReadByte();
-								g = br.ReadByte();
-								r = br.ReadByte();
-								break;
-							}
-							case Internal.DirectDrawSurfaceFormat.R8G8B8:
-							{
-								// despite it saying R8G8B8, it is actually stored in the file as BGR!!!
-								b = br.ReadByte();
-								g = br.ReadByte();
-								r = br.ReadByte();
-								break;
-							}
-							case Internal.DirectDrawSurfaceFormat.G16R16F:
-							{
-								float g0 = br.ReadHalf();
-								float r0 = br.ReadHalf();
-
-								throw new NotImplementedException();
-								break;
-							}
-						}
-
-						Color color = Color.FromRGBAByte(a, r, g, b);
-						pic.SetPixel(color, (int)x, (int)y);
+						x = 0;
+						y++;
+					}
+					if (y + 1 >= height)
+					{
+						break;
 					}
 
-					width = (width + 1) >> 1;
-					height = (height + 1) >> 1;
+					byte r = 0, g = 0, b = 0, a = 255;
+					switch (li.Format)
+					{
+						case Internal.DirectDrawSurfaceFormat.R3G3B2:
+						{
+							// despite it saying R8G8B8, it is actually stored in the file as BGR!!!
+							byte rgb = br.ReadByte();
+							b = (byte)rgb.GetBits(0, 2);
+							g = (byte)rgb.GetBits(2, 3);
+							r = (byte)rgb.GetBits(5, 3);
+							break;
+						}
+						case Internal.DirectDrawSurfaceFormat.A8R8G8B8:
+						{
+							// this is A8R8G8B8, in Grand Chase Cursor0.dds it is stored as RGBA
+							r = br.ReadByte();
+							g = br.ReadByte();
+							b = br.ReadByte();
+							a = br.ReadByte();
+							break;
+						}
+						case Internal.DirectDrawSurfaceFormat.A8B8G8R8:
+						{
+							// despite it saying R8G8B8, it is actually stored in the file as BGR!!!
+							a = br.ReadByte();
+							b = br.ReadByte();
+							g = br.ReadByte();
+							r = br.ReadByte();
+							break;
+						}
+						case Internal.DirectDrawSurfaceFormat.R8G8B8:
+						{
+							// despite it saying R8G8B8, it is actually stored in the file as BGR!!!
+							b = br.ReadByte();
+							g = br.ReadByte();
+							r = br.ReadByte();
+							break;
+						}
+						case Internal.DirectDrawSurfaceFormat.G16R16F:
+						{
+							float g0 = br.ReadHalf();
+							float r0 = br.ReadHalf();
+
+							throw new NotImplementedException();
+							break;
+						}
+					}
+
+					Color color = Color.FromRGBAByte(a, r, g, b);
+					pic.SetPixel(color, (int)x, (int)y);
+				}
+
+				width = (width + 1) >> 1;
+				height = (height + 1) >> 1;
 				/*
 				}
 				*/

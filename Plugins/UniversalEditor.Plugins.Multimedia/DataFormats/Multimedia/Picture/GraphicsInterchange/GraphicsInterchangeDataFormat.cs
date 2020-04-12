@@ -1,9 +1,36 @@
+//
+//  GraphicsInterchangeDataFormat.cs - provides a DataFormat for manipulating images in CompuServe GIF format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
+
 using MBS.Framework.Drawing;
+
 using UniversalEditor.ObjectModels.Multimedia.Picture;
+
 namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating images in CompuServe GIF format.
+	/// </summary>
 	public class GraphicsInterchangeDataFormat : DataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
@@ -13,11 +40,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 			return dfr;
 		}
 
-		private GraphicsInterchangeExtensionBlock.GraphicsInterchangeExtensionBlockCollection mvarExtensions = new GraphicsInterchangeExtensionBlock.GraphicsInterchangeExtensionBlockCollection();
-		public GraphicsInterchangeExtensionBlock.GraphicsInterchangeExtensionBlockCollection Extensions
-		{
-			get { return mvarExtensions; }
-		}
+		/// <summary>
+		/// Gets a collection of <see cref="GraphicsInterchangeExtensionBlock" /> instances representing the extensions to the GIF format used in this image.
+		/// </summary>
+		/// <value>The extensions to the GIF format used in this image.</value>
+		public GraphicsInterchangeExtensionBlock.GraphicsInterchangeExtensionBlockCollection Extensions { get; } = new GraphicsInterchangeExtensionBlock.GraphicsInterchangeExtensionBlockCollection();
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -50,8 +77,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 				switch (sentinel)
 				{
 					case 0x2C: // ',' image
+					{
 						break;
+					}
 					case 0x21: // '!' extension
+					{
 						GraphicsInterchangeExtensionBlock extension = new GraphicsInterchangeExtensionBlock();
 						extension.ID = br.ReadByte();
 
@@ -68,10 +98,13 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GraphicsInterchange
 							extension.DataBlocks.Add(extData);
 						}
 
-						mvarExtensions.Add(extension);
+						Extensions.Add(extension);
 						break;
+					}
 					case 0x3B: // ';' end of file
+					{
 						return;
+					}
 				}
 			}
 		}

@@ -1,10 +1,10 @@
 ﻿//
-//  PictureCollectionEditor.cs
+//  PictureCollectionEditor.cs - provides a UWT-based Editor for PictureCollectionObjectModel
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2020 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
@@ -31,6 +32,9 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.PictureCollection
 {
+	/// <summary>
+	/// Provides a UWT-based Editor for <see cref="PictureCollectionObjectModel"/>.
+	/// </summary>
 	public class PictureCollectionEditor : Editor
 	{
 		private static EditorReference _er = null;
@@ -87,7 +91,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 
 			PictureCollectionObjectModel coll = (ObjectModel as PictureCollectionObjectModel);
 			if (coll == null) return;
-			
+
 			txtFrameIndex.Maximum = coll.Pictures.Count - 1;
 			cmdSave.Enabled = coll.Pictures.Count > 0;
 			cmdSaveAll.Enabled = coll.Pictures.Count > 0;
@@ -100,7 +104,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 		{
 			get
 			{
-				return (int) txtFrameIndex.Value;
+				return (int)txtFrameIndex.Value;
 			}
 		}
 
@@ -164,6 +168,6 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			return null;
 		}
 
-		
+
 	}
 }

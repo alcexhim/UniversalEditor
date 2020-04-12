@@ -1,10 +1,10 @@
 ﻿//
-//  N64MediaFormat.cs
+//  N64MediaFormat.cs - indicates the media format for a Nintendo 64 media
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,9 +18,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace UniversalEditor.DataFormats.Executable.Nintendo.N64
 {
+	/// <summary>
+	/// Indicates the media format for a Nintendo 64 media.
+	/// </summary>
 	public enum N64MediaFormat : uint
 	{
 		CartridgeExpandable = 67,

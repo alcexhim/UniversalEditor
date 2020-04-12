@@ -1,49 +1,49 @@
-﻿using System;
+﻿//
+//  TargaExtensionArea.cs - represents an extension area in a TrueVision Targa (TGA) image file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using MBS.Framework.Drawing;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 {
+	/// <summary>
+	/// Represents an extension area in a TrueVision Targa (TGA) image file.
+	/// </summary>
 	public class TargaExtensionArea
 	{
-		private bool mvarEnabled = false;
-		public bool Enabled { get { return mvarEnabled; } set { mvarEnabled = value; } }
-
-		private DateTime mvarDateCreated = DateTime.Now;
-		public DateTime DateCreated { get { return mvarDateCreated; } set { mvarDateCreated = value; } }
-
-		private TimeSpan mvarJobTime = TimeSpan.Zero;
-		public TimeSpan JobTime { get { return mvarJobTime; } set { mvarJobTime = value; } }
-
-		private string mvarSoftwareID = String.Empty;
-		public string SoftwareID { get { return mvarSoftwareID; } set { mvarSoftwareID = value; } }
-
-		private string mvarVersionString = String.Empty;
-		public string VersionString { get { return mvarVersionString; } set { mvarVersionString = value; } }
+		public bool Enabled { get; set; } = false;
+		public DateTime DateCreated { get; set; } = DateTime.Now;
+		public TimeSpan JobTime { get; set; } = TimeSpan.Zero;
+		public string SoftwareID { get; set; } = String.Empty;
+		public string VersionString { get; set; } = String.Empty;
 
 		public Color ColorKey { get; set; } = Color.Empty;
-
-		private int mvarPixelAspectRatioNumerator = 0;
-		public int PixelAspectRatioNumerator { get { return mvarPixelAspectRatioNumerator; } set { mvarPixelAspectRatioNumerator = value; } }
-
-		private int mvarPixelAspectRatioDenominator = 0;
-		public int PixelAspectRatioDenominator { get { return mvarPixelAspectRatioDenominator; } set { mvarPixelAspectRatioDenominator = value; } }
-
-		private int mvarGammaNumerator = 0;
-		public int GammaNumerator { get { return mvarGammaNumerator; } set { mvarGammaNumerator = value; } }
-
-		private int mvarGammaDenominator = 0;
-		public int GammaDenominator { get { return mvarGammaDenominator; } set { mvarGammaDenominator = value; } }
-
-		private List<int> mvarScanLineTable = new List<int>();
-		public List<int> ScanLineTable { get { return mvarScanLineTable; } }
-
-		private List<Color> mvarColorCorrectionTable = new List<Color>();
-		public List<Color> ColorCorrectionTable { get { return mvarColorCorrectionTable; } }
-
-		private int mvarAttributesType = 0;
-		public int AttributesType { get { return mvarAttributesType; } set { mvarAttributesType = value; } }
+		public int PixelAspectRatioNumerator { get; set; } = 0;
+		public int PixelAspectRatioDenominator { get; set; } = 0;
+		public int GammaNumerator { get; set; } = 0;
+		public int GammaDenominator { get; set; } = 0;
+		public List<int> ScanLineTable { get; } = new List<int>();
+		public List<Color> ColorCorrectionTable { get; } = new List<Color>();
+		public int AttributesType { get; set; } = 0;
 	}
 }

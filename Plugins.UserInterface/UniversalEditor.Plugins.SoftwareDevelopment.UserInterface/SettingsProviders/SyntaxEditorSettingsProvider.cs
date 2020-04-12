@@ -1,10 +1,10 @@
 ﻿//
-//  MyClass.cs
+//  SyntaxEditorSettingsProvider.cs - provides a SettingsProvider containing settings for a SyntaxEditor
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,14 +18,17 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.SettingsProviders
 {
+	/// <summary>
+	/// Provides a <see cref="SettingsProvider" /> containing settings for a <see cref="Plugins.SoftwareDevelopment.UserInterface.Editors.Syntax.SyntaxEditor" />.
+	/// </summary>
 	public class SyntaxEditorSettingsProvider : ApplicationSettingsProvider
 	{
-		public SyntaxEditorSettingsProvider ()
+		public SyntaxEditorSettingsProvider()
 		{
 			SettingsGroups.Add(new SettingsGroup("Editors:Syntax", new Setting[]
 			{
@@ -46,7 +49,8 @@ namespace UniversalEditor.SettingsProviders
 
 			// for each language...
 			System.Collections.Generic.Dictionary<string, Setting[]> languageOptions = new System.Collections.Generic.Dictionary<string, Setting[]>();
-			languageOptions.Add ("Basic:General", new Setting[] {
+			languageOptions.Add("Basic:General", new Setting[]
+			{
 				new BooleanSetting("Auto list _members"),
 				new BooleanSetting("_Hide advanced members"),
 				new BooleanSetting("_Parameter information"),
@@ -55,7 +59,9 @@ namespace UniversalEditor.SettingsProviders
 				new BooleanSetting("_Show visual glyphs for word wrap"),
 
 			});
-			foreach (System.Collections.Generic.KeyValuePair<string, Setting[]> kvp in languageOptions) {
+
+			foreach (System.Collections.Generic.KeyValuePair<string, Setting[]> kvp in languageOptions)
+			{
 				SettingsGroups.Add(new SettingsGroup("Editors:Syntax:Languages:" + kvp.Key, kvp.Value));
 			}
 		}

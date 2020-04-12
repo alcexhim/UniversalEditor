@@ -1,13 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  UnrealPackageDataFormat.cs - provides a DataFormat to manipulate Unreal Engine package files (utx, u, etc.)
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.UnrealEngine;
 using UniversalEditor.Plugins.UnrealEngine;
 
 namespace UniversalEditor.DataFormats.UnrealEngine.Package
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> to manipulate Unreal Engine package files (utx, u, etc.).
+	/// </summary>
 	public class UnrealPackageDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -30,14 +51,14 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 		/// quite a few packages are in use with UT that have Unreal1 versions.
 		/// </summary>
 		public ushort PackageVersion { get { return mvarPackageVersion; } set { mvarPackageVersion = value; } }
-		
+
 		private string mvarPackageName = String.Empty;
 		public string PackageName { get { return mvarPackageName; } set { mvarPackageName = value; } }
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			Reader br = base.Accessor.Reader;
-			
+
 			UnrealPackageObjectModel upk = (objectModel as UnrealPackageObjectModel);
 			#region Header
 
@@ -239,13 +260,13 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			Writer bw = base.Accessor.Writer;
-			
+
 			UnrealPackageObjectModel upk = (objectModel as UnrealPackageObjectModel);
 			#region Header
 
 			// Always "0x9E2A83C1"; use this to verify that you indeed try to read an Unreal-Package
 			bw.WriteUInt32((uint)0x9E2A83C1);
-			
+
 			bw.WriteUInt16(mvarPackageVersion);
 			bw.WriteUInt16(upk.LicenseeNumber);
 			bw.WriteUInt32((uint)upk.PackageFlags); // 1949392
@@ -254,10 +275,10 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 			{
 				bw.WriteUInt32((uint)mvarPackageName.Length);
 				bw.WriteFixedLengthString(mvarPackageName);
-				
+
 				uint unknown1 = 0;
 				bw.WriteUInt32(unknown1);
-				
+
 				uint unknown2 = 0;
 				bw.WriteUInt32(unknown2);
 			}
@@ -387,7 +408,7 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 					upk.PackageGUIDs.Add(guid);
 					bw.WriteGuid(guid);
 				}
-				
+
 				if (mvarPackageVersion < 512)
 				{
 					bw.WriteUInt32((uint)upk.Generations.Count);
@@ -412,7 +433,7 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 				// be considered an index of all unique names used for objects and references within the
 				// file. Later on, you'll often find indexes into this table instead of a string
 				// containing the object-name.
-				
+
 				// TODO: navigate to the name table offset
 				// br.BaseStream.Position = nameTableOffset;
 				for (uint i = 0; i < upk.NameTableEntries.Count; i++)
@@ -441,7 +462,7 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 				// offset within the file etc.
 				// br.BaseStream.Position = exportTableOffset;
 				// TODO: navigate to export table offset
-				
+
 				for (uint i = 0; i < upk.ExportTableEntries.Count; i++)
 				{
 					ExportTableEntry entry = upk.ExportTableEntries[(int)i];
@@ -477,10 +498,10 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 					{
 						bw.WriteInt32((int)0);
 					}
-					
+
 					// The name of the object; an index into the name-table
 					bw.WriteINDEX(upk.NameTableEntries.IndexOf(entry.Name));
-					
+
 					// Flags for the object; described in the appendix
 					bw.WriteInt32((int)entry.Flags);
 

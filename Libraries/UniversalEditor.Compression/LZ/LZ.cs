@@ -1,20 +1,35 @@
-﻿// QuickLZ data compression library
-// Copyright (C) 2006-2011 Lasse Mikkel Reinhold
-// lar@quicklz.com
+﻿//
+//  LZ.cs - QuickLZ data compression library
 //
-// QuickLZ can be used for free under the GPL 1, 2 or 3 license (where anything 
-// released into public must be open source) or under a commercial license if such 
-// has been acquired (see http://www.quicklz.com/order.html). The commercial license 
-// does not cover derived or ported versions created by third parties under GPL.
+//  Author:
+//       Lasse Mikkel Reinhold <lar@quicklz.com>
 //
-// Only a subset of the C library has been ported, namely level 1 and 3 not in 
-// streaming mode. 
+//  Copyright (c) 2006-2011 Lasse Mikkel Reinhold
 //
-// Version: 1.5.0 final
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+//  QuickLZ can be used for free under the GPL 1, 2 or 3 license (where anything 
+//  released into public must be open source) or under a commercial license if such 
+//  has been acquired (see http://www.quicklz.com/order.html). The commercial license 
+//  does not cover derived or ported versions created by third parties under GPL.
+//  
+//  Only a subset of the C library has been ported, namely level 1 and 3 not in 
+//  streaming mode. 
+//  
+//  Version: 1.5.0 final
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UniversalEditor.Compression.LZ
 {

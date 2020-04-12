@@ -1,10 +1,10 @@
 ﻿//
-//  LGPDataFormat.cs
+//  LGPDataFormat.cs - provides a DataFormat for manipulating archives in SquareSoft LGP format
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2010-2019 Mike Becker
+//  Copyright (c) 2010-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -25,6 +26,9 @@ using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.SquareSoft
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in SquareSoft LGP format.
+	/// </summary>
 	public class LGPDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;

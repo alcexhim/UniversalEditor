@@ -1,10 +1,10 @@
 ﻿//
-//  IcarusGetExpression.cs
+//  IcarusGetExpression.cs - represents an ICARUS "get()" function expression
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2020 Mike Becker
+//  Copyright (c) 2011-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,9 +18,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace UniversalEditor.ObjectModels.Icarus.Expressions
 {
+	/// <summary>
+	/// Represents an ICARUS "get()" function expression.
+	/// </summary>
 	public class IcarusGetExpression : IcarusFunctionExpression
 	{
 		public IcarusGetExpression(IcarusVariableDataType dataType, string variableName)

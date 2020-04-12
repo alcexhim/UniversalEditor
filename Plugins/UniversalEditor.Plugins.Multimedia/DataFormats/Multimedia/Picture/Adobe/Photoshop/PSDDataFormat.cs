@@ -1,10 +1,10 @@
 ﻿//
-//  PSDDataFormat.cs
+//  PSDDataFormat.cs - provides a DataFormat for manipulating images in Adobe Photoshop PSD format
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
@@ -28,6 +29,9 @@ using MBS.Framework.Drawing;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Adobe.Photoshop
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating images in Adobe Photoshop PSD format.
+	/// </summary>
 	public class PSDDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -414,7 +418,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Adobe.Photoshop
 					int enclosingLayerMaskRight = reader.ReadInt32();
 
 					byte defaultColor = reader.ReadByte(); // 0 or 255
-					PSDLayerMaskFlags maskFlags = (PSDLayerMaskFlags) reader.ReadByte();
+					PSDLayerMaskFlags maskFlags = (PSDLayerMaskFlags)reader.ReadByte();
 
 					if ((maskFlags & PSDLayerMaskFlags.ContainsParameter) == PSDLayerMaskFlags.ContainsParameter)
 					{
@@ -467,7 +471,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Adobe.Photoshop
 			{
 				PSDLayer layer = layers[i];
 				// Image data.
-				PSDLayerCompressionMode compressionMode = (PSDLayerCompressionMode) reader.ReadInt16();
+				PSDLayerCompressionMode compressionMode = (PSDLayerCompressionMode)reader.ReadInt16();
 				switch (compressionMode)
 				{
 					case PSDLayerCompressionMode.Raw:

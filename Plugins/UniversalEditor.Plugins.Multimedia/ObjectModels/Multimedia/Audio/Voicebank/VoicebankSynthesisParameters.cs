@@ -1,30 +1,44 @@
-using System;
+//
+//  VoicebankSynthesisParameters.cs - represents parameters for vocal synthesis in a synthesizer voicebank file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 {
+	/// <summary>
+	/// Represents parameters for vocal synthesis in a synthesizer voicebank file.
+	/// </summary>
 	public class VoicebankSynthesisParameters
 	{
-		private byte mvarBreathiness = 0;
-		public byte Breathiness { get { return mvarBreathiness; } set { mvarBreathiness = value; } }
-        
-        private byte mvarBrightness = 0;
-        public byte Brightness { get { return mvarBrightness; } set { mvarBrightness = value; } }
-        
-        private byte mvarClearness = 0;
-        public byte Clearness { get { return mvarClearness; } set { mvarClearness = value; } }
-        
-        private byte mvarGenderFactor = 0;
-        public byte GenderFactor { get { return mvarGenderFactor; } set { mvarGenderFactor = value; } }
-        
-        private byte mvarOpenness = 0;
-        public byte Openness { get { return mvarOpenness; } set { mvarOpenness = value; } }
+		public byte Breathiness { get; set; } = 0;
+		public byte Brightness { get; set; } = 0;
+		public byte Clearness { get; set; } = 0;
+		public byte GenderFactor { get; set; } = 0;
+		public byte Openness { get; set; } = 0;
 
-        public void Clear()
+		public void Clear()
         {
-            mvarBreathiness = 0;
-            mvarBrightness = 0;
-            mvarClearness = 0;
-            mvarGenderFactor = 0;
-            mvarOpenness = 0;
+			Breathiness = 0;
+			Brightness = 0;
+			Clearness = 0;
+			GenderFactor = 0;
+			Openness = 0;
         }
     }
 }

@@ -4,7 +4,7 @@
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2010-2019 Mike Becker
+//  Copyright (c) 2010-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by

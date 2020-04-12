@@ -1,10 +1,10 @@
 ﻿//
-//  ELFSectionEntry.cs
+//  ELFSectionEntry.cs - represents a section entry in an Executable and Linkable Forma(E
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2011-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace UniversalEditor.DataFormats.Executable.ELF
 {
 	public struct ELFSectionEntry

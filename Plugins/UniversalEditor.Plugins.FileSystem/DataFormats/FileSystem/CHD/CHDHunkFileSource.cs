@@ -1,38 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  CHDHunkFileSource.cs - provides a FileSource for accessing data within a CHD archive
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.CHD
 {
+	/// <summary>
+	/// Provides a <see cref="FileSource" /> for accessing data within a CHD archive.
+	/// </summary>
 	public class CHDHunkFileSource : FileSource
 	{
-		private Reader mvarReader = null;
-		public Reader Reader { get { return mvarReader; } set { mvarReader = value; } }
-
-		private uint mvarHunkId = 0;
-		public uint HunkId { get { return mvarHunkId; } set { mvarHunkId = value; } }
-
-		private long mvarRawMapOffset = 0;
-		public long RawMapOffset { get { return mvarRawMapOffset; } set { mvarRawMapOffset = value; } }
-
-		private uint mvarHunkSize = 0;
-		public uint HunkSize { get { return mvarHunkSize; } set { mvarHunkSize = value; } }
+		public Reader Reader { get; set; } = null;
+		public uint HunkId { get; set; } = 0;
+		public long RawMapOffset { get; set; } = 0;
+		public uint HunkSize { get; set; } = 0;
 
 		public CHDHunkFileSource(Reader reader, uint hunkID, long rawMapOffset, uint hunkSize)
 		{
-			mvarReader = reader;
-			mvarHunkId = hunkID;
-			mvarRawMapOffset = rawMapOffset;
-			mvarHunkSize = hunkSize;
+			Reader = reader;
+			HunkId = hunkID;
+			RawMapOffset = rawMapOffset;
+			HunkSize = hunkSize;
 		}
 
 		public override byte[] GetData(long offset, long length)
 		{
-			return ReadHunk(mvarReader, mvarHunkId, offset, length);
+			return ReadHunk(Reader, HunkId, offset, length);
 		}
 
 
@@ -40,10 +55,10 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 		{
 			new Compression.Modules.Deflate.DeflateCompressionModule()
 		};
-		
+
 		private byte[] ReadHunk(IO.Reader br, ulong hunkid, long offset, long length)
 		{
-			uint hunkRawMapOffset = (uint)((ulong)mvarRawMapOffset + (16 * hunkid));
+			uint hunkRawMapOffset = (uint)((ulong)RawMapOffset + (16 * hunkid));
 
 			br.Accessor.Position = hunkRawMapOffset;
 			ulong blockOffset = br.ReadUInt64();
@@ -67,7 +82,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 					compressedData = br.ReadBytes(blockLength);
 
 					byte[] decompressedData = compressedData; // UniversalEditor.Compression.Zlib.ZlibStream.Decompress(compressedData);
-					
+
 					// no, this is not Zlib, this is plain old Deflate...?
 					decompressedData = compressionModules[0].Decompress(compressedData);
 
@@ -79,7 +94,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 				case CHDEntryType.Uncompressed:
 				{
 					byte[] buffer = new byte[0];
-					br.Read(buffer, (int)blockOffset, (int)mvarHunkSize);
+					br.Read(buffer, (int)blockOffset, (int)HunkSize);
 					// if (!noCRC && crc32_creator::simple(dest, m_hunkbytes) != blockcrc)
 					// throw CHDERR_DECOMPRESSION_ERROR;
 					return buffer;
@@ -90,12 +105,12 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 					IO.Writer bw = new IO.Writer(ma);
 					bw.Endianness = IO.Endianness.BigEndian;
 					bw.WriteUInt64((ulong)blockOffset);
-					bw.WriteBytes(new byte[mvarHunkSize - 8]);
+					bw.WriteBytes(new byte[HunkSize - 8]);
 					bw.Flush();
 					bw.Close();
 					byte[] buffer = ma.ToArray();
 
-					for (uint bytes = 8; bytes < mvarHunkSize; bytes++)
+					for (uint bytes = 8; bytes < HunkSize; bytes++)
 					{
 						buffer[bytes] = buffer[bytes - 8];
 					}

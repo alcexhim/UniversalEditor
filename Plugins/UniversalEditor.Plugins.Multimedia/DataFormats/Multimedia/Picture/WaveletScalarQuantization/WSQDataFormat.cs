@@ -1,12 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  WSQDataFormat.cs - provides a DataFormat for manipulating images in Wavelet Scalar Quantization (WSQ) format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using MBS.Framework.Drawing;
+
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantization
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating images in Wavelet Scalar Quantization (WSQ) format.
+	/// </summary>
 	public class WSQDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -899,7 +922,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 				JoinLets(fdata, fdataTemp, fdataBse, 0, WSQData.wtree[node].leny, WSQData.wtree[node].lenx, width, 1, WSQData.tableDTT.hifilt, WSQData.tableDTT.hisz, WSQData.tableDTT.lofilt, WSQData.tableDTT.losz, WSQData.wtree[node].invrw);
 			}
 		}
-		
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			IO.Reader br = base.Accessor.Reader;
@@ -986,7 +1009,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 			short software = br.ReadInt16();
 
 			#endregion
-			
+
 			int ppi = -1;
 			#region WSQ Decomposition Trees
 			// Build a W-TREE structure for the image
@@ -1547,8 +1570,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 		}
 		private HuffCode[] BuildHuffmanSizes(int[] huffbits, int maxHuffcounts)
 		{
-			HuffCode[] huffcodeTable;	// table of huffman codes and sizes
-			int numberOfCodes = 1;		// the number codes for a given code size
+			HuffCode[] huffcodeTable;   // table of huffman codes and sizes
+			int numberOfCodes = 1;      // the number codes for a given code size
 
 			huffcodeTable = new HuffCode[maxHuffcounts + 1];
 

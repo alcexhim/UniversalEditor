@@ -1,13 +1,36 @@
-﻿using System;
+﻿//
+//  ContactDataFormat.cs - provides a DataFormat for manipulating contact information in Microsoft XML contact format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Contact;
 using UniversalEditor.ObjectModels.Markup;
 
 namespace UniversalEditor.DataFormats.Contact.Microsoft
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating contact information in Microsoft XML contact format.
+	/// </summary>
 	public class ContactDataFormat : XMLDataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -88,7 +111,7 @@ namespace UniversalEditor.DataFormats.Contact.Microsoft
 							MarkupAttribute attType = tag.Attributes["c:type"];
 							MarkupAttribute attContentType = tag.Attributes["c:ContentType"];
 							MarkupAttribute attVersion = tag.Attributes["c:Version"];
-							
+
 							if (attContentType != null)
 							{
 								switch (attContentType.Value.ToLower())
@@ -121,7 +144,7 @@ namespace UniversalEditor.DataFormats.Contact.Microsoft
 
 					ContactIdentifier id = new ContactIdentifier();
 					LoadContactComplexType(tag, id);
-					
+
 					MarkupTagElement tagValue = (tag.Elements["c:Value"] as MarkupTagElement);
 					id.Value = new Guid(tagValue.Value);
 

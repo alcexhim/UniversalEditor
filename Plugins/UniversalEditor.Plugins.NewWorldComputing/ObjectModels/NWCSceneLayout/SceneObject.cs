@@ -1,35 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  SceneObject.cs - represents an object in a New World Computing (Heroes of Might and Magic II) dialog
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.NWCSceneLayout
 {
-    public abstract class SceneObject : IComparable<SceneObject>
-    {
-        public class SceneObjectCollection
-            : System.Collections.ObjectModel.Collection<SceneObject>
-        {
-        }
+	/// <summary>
+	/// Represents an object in a New World Computing (Heroes of Might and Magic II) dialog.
+	/// </summary>
+	public abstract class SceneObject : IComparable<SceneObject>
+	{
+		public class SceneObjectCollection
+			: System.Collections.ObjectModel.Collection<SceneObject>
+		{
+		}
 
-        private ushort mvarDisplayIndex = 0;
-        public ushort DisplayIndex { get { return mvarDisplayIndex; } set { mvarDisplayIndex = value; } }
+		public ushort DisplayIndex { get; set; } = 0;
 
-        private ushort mvarLeft = 0;
-        public ushort Left { get { return mvarLeft; } set { mvarLeft = value; } }
+		public ushort Left { get; set; } = 0;
+		public ushort Top { get; set; } = 0;
+		public ushort Width { get; set; } = 0;
+		public ushort Height { get; set; } = 0;
 
-        private ushort mvarTop = 0;
-        public ushort Top { get { return mvarTop; } set { mvarTop = value; } }
-
-        private ushort mvarWidth = 0;
-        public ushort Width { get { return mvarWidth; } set { mvarWidth = value; } }
-
-        private ushort mvarHeight = 0;
-        public ushort Height { get { return mvarHeight; } set { mvarHeight = value; } }
-
-        public int CompareTo(SceneObject other)
-        {
-            return mvarDisplayIndex.CompareTo(other.DisplayIndex);
-        }
-    }
+		public int CompareTo(SceneObject other)
+		{
+			return DisplayIndex.CompareTo(other.DisplayIndex);
+		}
+	}
 }

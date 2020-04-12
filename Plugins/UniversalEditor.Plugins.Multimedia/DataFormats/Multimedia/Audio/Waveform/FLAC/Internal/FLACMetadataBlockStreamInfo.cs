@@ -1,115 +1,39 @@
-using System;
+//
+//  FLACMetadataBlockStreamInfo.cs - provides stream information about the FLAC file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.FLAC.Internal
 {
+	/// <summary>
+	/// Provides stream information about the FLAC file.
+	/// </summary>
 	public class FLACMetadataBlockStreamInfo : FLACMetadataBlock
 	{
-		private short mvarMinimumBlockSize = 0;
-		private short mvarMaximumBlockSize = 0;
-		private int mvarMinimumFrameSize = 0;
-		private int mvarMaximumFrameSize = 0;
-		private int mvarSampleRate = 0;
-		private byte mvarChannelCount = 0;
-		private byte mvarBitsPerSample = 0;
-		private long mvarTotalSamplesInStream = 0L;
-		private short mvarMD5Signature = 0;
-		public short MinimumBlockSize
-		{
-			get
-			{
-				return this.mvarMinimumBlockSize;
-			}
-			set
-			{
-				this.mvarMinimumBlockSize = value;
-			}
-		}
-		public short MaximumBlockSize
-		{
-			get
-			{
-				return this.mvarMaximumBlockSize;
-			}
-			set
-			{
-				this.mvarMaximumBlockSize = value;
-			}
-		}
-		public int MinimumFrameSize
-		{
-			get
-			{
-				return this.mvarMinimumFrameSize;
-			}
-			set
-			{
-				this.mvarMinimumFrameSize = value;
-			}
-		}
-		public int MaximumFrameSize
-		{
-			get
-			{
-				return this.mvarMaximumFrameSize;
-			}
-			set
-			{
-				this.mvarMaximumFrameSize = value;
-			}
-		}
-		public int SampleRate
-		{
-			get
-			{
-				return this.mvarSampleRate;
-			}
-			set
-			{
-				this.mvarSampleRate = value;
-			}
-		}
-		public byte ChannelCount
-		{
-			get
-			{
-				return this.mvarChannelCount;
-			}
-			set
-			{
-				this.mvarChannelCount = value;
-			}
-		}
-		public byte BitsPerSample
-		{
-			get
-			{
-				return this.mvarBitsPerSample;
-			}
-			set
-			{
-				this.mvarBitsPerSample = value;
-			}
-		}
-		public long TotalSamplesInStream
-		{
-			get
-			{
-				return this.mvarTotalSamplesInStream;
-			}
-			set
-			{
-				this.mvarTotalSamplesInStream = value;
-			}
-		}
-		public short MD5Signature
-		{
-			get
-			{
-				return this.mvarMD5Signature;
-			}
-			set
-			{
-				this.mvarMD5Signature = value;
-			}
-		}
+		public short MinimumBlockSize { get; set; } = 0;
+		public short MaximumBlockSize { get; set; } = 0;
+		public int MinimumFrameSize { get; set; } = 0;
+		public int MaximumFrameSize { get; set; } = 0;
+		public int SampleRate { get; set; } = 0;
+		public byte ChannelCount { get; set; } = 0;
+		public byte BitsPerSample { get; set; } = 0;
+		public long TotalSamplesInStream { get; set; } = 0L;
+		public short MD5Signature { get; set; } = 0;
 	}
 }

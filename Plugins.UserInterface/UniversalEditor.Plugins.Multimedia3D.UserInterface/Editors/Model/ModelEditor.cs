@@ -1,10 +1,10 @@
 ﻿//
-//  ModelEditor.cs
+//  ModelEditor.cs - provides a UWT-based Editor for a ModelObjectModel
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,19 +18,25 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
+
 using MBS.Framework.Drawing;
 using MBS.Framework.Rendering;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
+
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 {
+	/// <summary>
+	/// Provides a UWT-based <see cref="Editor" /> for a <see cref="ModelObjectModel" />.
+	/// </summary>
 	public class ModelEditor : Editor
 	{
 		private static EditorReference _er = null;
@@ -105,9 +111,9 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 		private static VERTEX[] vertex_data = new VERTEX[]
 		{
 			//          x   ,  y      , z       nx,		ny,	nz			   ,  r,  g ,  b ,           u,    v
-			new VERTEX(0.0f,  0.500f, 0.0f,		0.0f, 0.0f, 0.0f, 		   1.0f, 0.0f, 0.0f,         0.0f, 0.0f),
-  			new VERTEX(0.5f, -0.366f, 0.0f, 	0.0f, 0.0f, 0.0f,			0.0f, 1.0f, 0.0f,         0.0f, 0.0f),
-  			new VERTEX(-0.5f, -0.366f, 0.0f,	0.0f, 0.0f, 0.0f,			0.0f, 0.0f, 1.0f,         0.0f, 0.0f)
+			new VERTEX(0.0f,  0.500f, 0.0f,     0.0f, 0.0f, 0.0f,          1.0f, 0.0f, 0.0f,         0.0f, 0.0f),
+  			new VERTEX(0.5f, -0.366f, 0.0f,     0.0f, 0.0f, 0.0f,           0.0f, 1.0f, 0.0f,         0.0f, 0.0f),
+  			new VERTEX(-0.5f, -0.366f, 0.0f,    0.0f, 0.0f, 0.0f,           0.0f, 0.0f, 1.0f,         0.0f, 0.0f)
 		};
 
 		VertexArray[] vaos = null;
@@ -119,10 +125,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 		/// <param name="angleX">Angle X axis (phi).</param>
 		/// <param name="angleY">Angle Y axis (theta).</param>
 		/// <param name="angleZ">Angle Z axis (psi).</param>
-		static void compute_mvp(ref float[] matrix,
-			 float angleX,
-			 float angleY,
-			 float angleZ)
+		static void compute_mvp(ref float[] matrix, float angleX, float angleY, float angleZ)
 		{
 			// holy balls
 			float x = (float)(angleX * (Math.PI / 180.0f));

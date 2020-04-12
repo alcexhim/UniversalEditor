@@ -1,50 +1,61 @@
+//
+//  ModelSkin.cs - represents a skin for a 3D model
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.ObjectModel;
+
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 {
+	/// <summary>
+	/// Represents a skin for a 3D model.
+	/// </summary>
 	public class ModelSkin : ICloneable
 	{
 		public class ModelSkinCollection : Collection<ModelSkin>
 		{
 		}
-		private string mvarName = string.Empty;
-		private byte mvarCategory = 0;
-		private ModelSkinVertex.ModelSkinVertexCollection mvarVertices = new ModelSkinVertex.ModelSkinVertexCollection();
-		public string Name
-		{
-			get
-			{
-				return this.mvarName;
-			}
-			set
-			{
-				this.mvarName = value;
-			}
-		}
-		public byte Category
-		{
-			get
-			{
-				return this.mvarCategory;
-			}
-			set
-			{
-				this.mvarCategory = value;
-			}
-		}
-		public ModelSkinVertex.ModelSkinVertexCollection Vertices
-		{
-			get
-			{
-				return this.mvarVertices;
-			}
-		}
+
+		/// <summary>
+		/// Gets or sets the name of the skin.
+		/// </summary>
+		/// <value>The name of the skin.</value>
+		public string Name { get; set; } = string.Empty;
+		/// <summary>
+		/// Gets or sets a value indicating the category of the skin.
+		/// </summary>
+		/// <value>The category of the skin.</value>
+		public byte Category { get; set; } = 0;
+
+		/// <summary>
+		/// Gets a collection of <see cref="ModelSkinVertex" /> instances representing the vertices associated with this skin.
+		/// </summary>
+		/// <value>The vertices associated with this skin.</value>
+		public ModelSkinVertex.ModelSkinVertexCollection Vertices { get; } = new ModelSkinVertex.ModelSkinVertexCollection();
+
 		public object Clone()
 		{
 			ModelSkin clone = new ModelSkin();
-			clone.Name = this.mvarName;
-			clone.Category = this.mvarCategory;
-			foreach (ModelSkinVertex vtx in this.mvarVertices)
+			clone.Name = this.Name;
+			clone.Category = this.Category;
+			foreach (ModelSkinVertex vtx in this.Vertices)
 			{
 				clone.Vertices.Add(vtx.Clone() as ModelSkinVertex);
 			}

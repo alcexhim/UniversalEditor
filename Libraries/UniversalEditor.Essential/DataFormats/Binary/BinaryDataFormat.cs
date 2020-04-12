@@ -1,10 +1,10 @@
 ﻿//
-//  BinaryDataFormat.cs
+//  BinaryDataFormat.cs - provides a DataFormat for manipulating raw binary data
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,12 +18,19 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Binary;
 
 namespace UniversalEditor.DataFormats.Binary
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating raw binary data.
+	/// </summary>
+	/// <remarks>
+	/// This is really only here because we need a corresponding <see cref="DataFormat" /> so we can edit raw binary data with the BinaryEditor. Ideally we
+	/// could just tell Universal Editor to open a file with the BinaryEditor (not specifying a <see cref="DataFormat" />) and it would do so, just like Eclipse.
+	/// </remarks>
 	public class BinaryDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;

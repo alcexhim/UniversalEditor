@@ -1,34 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  DirectDrawSurfacePixelFormat.cs - internal structure representing a DirectDraw Surface pixel format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw.Internal
 {
+	/// <summary>
+	/// Internal structure representing a DirectDraw Surface pixel format.
+	/// </summary>
 	internal struct DirectDrawSurfacePixelFormat
 	{
-		private uint mvarPixelFormatSize;
-		public uint PixelFormatSize { get { return mvarPixelFormatSize; } set { mvarPixelFormatSize = value; } }
-
-		private DirectDrawSurfacePixelFormatFlags mvarFlags;
-		public DirectDrawSurfacePixelFormatFlags Flags { get { return mvarFlags; } set { mvarFlags = value; } }
-
-		private string mvarFourCC;
-		public string FourCC { get { return mvarFourCC; } set { mvarFourCC = value; } }
-
-		private uint mvarRGBBitCount;
-		public uint RGBBitCount { get { return mvarRGBBitCount; } set { mvarRGBBitCount = value; } }
-
-		private uint mvarRBitMask;
-		public uint RBitMask { get { return mvarRBitMask; } set { mvarRBitMask = value; } }
-
-		private uint mvarGBitMask;
-		public uint GBitMask { get { return mvarGBitMask; } set { mvarGBitMask = value; } }
-
-		private uint mvarBBitMask;
-		public uint BBitMask { get { return mvarBBitMask; } set { mvarBBitMask = value; } }
-
-		private uint mvarAlphaBitMask;
-		public uint AlphaBitMask { get { return mvarAlphaBitMask; } set { mvarAlphaBitMask = value; } }
+		public uint PixelFormatSize { get; set; }
+		public DirectDrawSurfacePixelFormatFlags Flags { get; set; }
+		public string FourCC { get; set; }
+		public uint RGBBitCount { get; set; }
+		public uint RBitMask { get; set; }
+		public uint GBitMask { get; set; }
+		public uint BBitMask { get; set; }
+		public uint AlphaBitMask { get; set; }
 	}
 }

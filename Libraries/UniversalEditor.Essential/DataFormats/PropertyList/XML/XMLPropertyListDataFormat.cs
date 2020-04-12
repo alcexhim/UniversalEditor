@@ -1,6 +1,26 @@
-﻿using System;
+﻿//
+//  XMLPropertyListDataFormat.cs - provides a DataFormat for manipulating property lists in Universal Editor's XML Configuration format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Markup;
@@ -8,6 +28,9 @@ using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor.DataFormats.PropertyList.XML
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating property lists in Universal Editor's XML Configuration format.
+	/// </summary>
 	public class XMLPropertyListDataFormat : XMLDataFormat
 	{
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
@@ -56,8 +79,11 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 			return _dfr;
 		}
 
-		private static Version mvarFormatVersion = new Version(2, 0);
-		public static Version FormatVersion { get { return mvarFormatVersion; } }
+		/// <summary>
+		/// Gets the format version of this <see cref="XMLPropertyListDataFormat" />.
+		/// </summary>
+		/// <value>The format version of this <see cref="XMLPropertyListDataFormat" />.</value>
+		public static Version FormatVersion { get; } = new Version(2, 0);
 
 		public static void LoadMarkup(MarkupTagElement tagConfiguration, ref PropertyListObjectModel plom)
 		{
@@ -274,7 +300,7 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 		public static void SaveMarkup(ref MarkupTagElement tagConfiguration, PropertyListObjectModel plom)
 		{
 			tagConfiguration.FullName = "Configuration";
-			tagConfiguration.Attributes.Add("Version", mvarFormatVersion.ToString(2));
+			tagConfiguration.Attributes.Add("Version", FormatVersion.ToString(2));
 			if (plom.Properties.Count > 0)
 			{
 				MarkupTagElement tagProperties = new MarkupTagElement();

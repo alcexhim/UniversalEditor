@@ -1,10 +1,10 @@
 ﻿//
-//  MyClass.cs
+//  FileSystemEditorExtensions.cs - provide extensions to the FileSystemEditor for CRI CPK archives
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using MBS.Framework.UserInterface;
 using UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK;
@@ -25,6 +26,9 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.CRI.UserInterface
 {
+	/// <summary>
+	/// Provide extensions to the <see cref="Editors.FileSystem.FileSystemEditor" /> for CRI CPK archives.
+	/// </summary>
 	public class FileSystemEditorExtensions : EditorPlugin
 	{
 		public FileSystemEditorExtensions()

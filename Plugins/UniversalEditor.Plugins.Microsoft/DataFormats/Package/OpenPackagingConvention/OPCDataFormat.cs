@@ -1,4 +1,25 @@
-﻿using System.Collections.Generic;
+﻿//
+//  OPCDataFormat.cs - provides a DataFormat for manipulating Microsoft Open Packaging Convention documents
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System.Collections.Generic;
 
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.DataFormats.FileSystem.ZIP;
@@ -12,6 +33,10 @@ using UniversalEditor.DataFormats.Package.ContentTypes;
 
 namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating Microsoft Open Packaging Convention documents. This <see cref="DataFormat" /> may be inherited
+	/// to implement <see cref="DataFormat" />s which handle file types based on the Microsoft Open Packaging Convention, such as DOCX, XLSX, and PPTX.
+	/// </summary>
 	public class OPCDataFormat : ZIPDataFormat
 	{
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)

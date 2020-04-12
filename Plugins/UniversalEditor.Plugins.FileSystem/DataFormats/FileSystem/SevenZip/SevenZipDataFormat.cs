@@ -1,39 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  SevenZipDataFormat.cs - provides a DataFormat for manipulating archives in 7-Zip 7z format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.SevenZip
 {
-    public class SevenZipDataFormat : DataFormat
-    {
-        private static DataFormatReference _dfr = null;
-        protected override DataFormatReference MakeReferenceInternal()
-        {
-            if (_dfr == null)
-            {
-                _dfr = base.MakeReferenceInternal();
-                _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.ContentTypes.Add("application/x-7z-compressed");
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in 7-Zip 7z format.
+	/// </summary>
+	public class SevenZipDataFormat : DataFormat
+	{
+		private static DataFormatReference _dfr = null;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.ContentTypes.Add("application/x-7z-compressed");
 				_dfr.Sources.Add("http://cpansearch.perl.org/src/BJOERN/Compress-Deflate7-1.0/7zip/DOC/7zFormat.txt");
-            }
-            return _dfr;
-        }
+			}
+			return _dfr;
+		}
 
-        protected override void LoadInternal(ref ObjectModel objectModel)
-        {
-            FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-            if (fsom == null) return;
+		protected override void LoadInternal(ref ObjectModel objectModel)
+		{
+			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) return;
 
-            IO.Reader br = base.Accessor.Reader;
-            br.Accessor.Position = 0;
+			IO.Reader br = base.Accessor.Reader;
+			br.Accessor.Position = 0;
 
-            string signature1 = br.ReadFixedLengthString(2); // 7z
-            if (signature1 != "7z") throw new InvalidDataFormatException("File does not begin with 7z");
+			string signature1 = br.ReadFixedLengthString(2); // 7z
+			if (signature1 != "7z") throw new InvalidDataFormatException("File does not begin with 7z");
 
-            int signature2 = br.ReadInt32();
-            if (signature2 != 0x1C27AFBC) throw new InvalidDataFormatException("File does not begin with LE: 0x1C27AFBC");
+			int signature2 = br.ReadInt32();
+			if (signature2 != 0x1C27AFBC) throw new InvalidDataFormatException("File does not begin with LE: 0x1C27AFBC");
 
 			byte formatVersionMajor = br.ReadByte();
 			byte formatVersionMinor = br.ReadByte();
@@ -64,20 +86,20 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
 				}
 			}
 
-            short u1a = br.ReadInt16();					// 1024		1024
-            int u1b = br.ReadInt16();					// 25464	-6047
-            short u2a = br.ReadInt16();					// 24321	7104
-            short compressedSize = br.ReadInt16();		// 58		240 - this is not compressed size
+			short u1a = br.ReadInt16();                 // 1024		1024
+			int u1b = br.ReadInt16();                   // 25464	-6047
+			short u2a = br.ReadInt16();                 // 24321	7104
+			short compressedSize = br.ReadInt16();      // 58		240 - this is not compressed size
 
-            int u3 = br.ReadInt32();
+			int u3 = br.ReadInt32();
 
-            short u4a = br.ReadInt16();
-            short u4b = br.ReadInt16();
+			short u4a = br.ReadInt16();
+			short u4b = br.ReadInt16();
 
-            int u5 = br.ReadInt32();
-            short u6 = br.ReadInt16();
-            short u7 = br.ReadInt16();
-            short u8 = br.ReadInt16();
+			int u5 = br.ReadInt32();
+			short u6 = br.ReadInt16();
+			short u7 = br.ReadInt16();
+			short u8 = br.ReadInt16();
 
 			// byte[] compressedData = br.ReadBytes(compressedSize);
 
@@ -85,7 +107,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
 			int u10 = br.ReadInt32();
 			int u11 = br.ReadInt32();
 			int u12 = br.ReadInt32();
-			
+
 			short decompressedSize = br.ReadInt16();
 
 			short u14 = br.ReadInt16();
@@ -108,7 +130,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
 			short u25 = br.ReadInt16();
 			short u26 = br.ReadInt16();
 			int u27 = br.ReadInt32();
-        }
+		}
 
 		private SevenZipHeader ReadEncodedHeader(IO.Reader br)
 		{
@@ -257,7 +279,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
 		private ulong ReadNumber(IO.Reader br)
 		{
 			if (br.EndOfStream) throw new System.IO.EndOfStreamException();
-			
+
 			byte firstByte = br.ReadByte();
 			byte mask = 0x80;
 			ulong value = 0;
@@ -276,9 +298,9 @@ namespace UniversalEditor.DataFormats.FileSystem.SevenZip
 			return value;
 		}
 
-        protected override void SaveInternal(ObjectModel objectModel)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		protected override void SaveInternal(ObjectModel objectModel)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

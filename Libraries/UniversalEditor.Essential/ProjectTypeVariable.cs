@@ -1,7 +1,26 @@
-﻿using System;
+﻿//
+//  ProjectTypeVariable.cs - represents a variable for a ProjectType
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace UniversalEditor
 {
@@ -12,6 +31,9 @@ namespace UniversalEditor
 		FileOpen,
 		FileSave
 	}
+	/// <summary>
+	/// Represents a variable for a <see cref="ProjectType" />.
+	/// </summary>
 	public class ProjectTypeVariable
 	{
 
@@ -21,20 +43,10 @@ namespace UniversalEditor
 
 		}
 
-		private string mvarName = String.Empty;
-		public string Name { get { return mvarName; } set { mvarName = value; } }
-
-		private string mvarTitle = String.Empty;
-		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
-
-		private ProjectTypeVariableType mvarType = ProjectTypeVariableType.Text;
-		public ProjectTypeVariableType Type { get { return mvarType; } set { mvarType = value; } }
-
-		private object mvarDefaultValue = null;
-		public object DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
-
-		private Dictionary<string, object> mvarValidValues = new Dictionary<string, object>();
-		public Dictionary<string, object> ValidValues { get { return mvarValidValues; } }
-
+		public string Name { get; set; } = String.Empty;
+		public string Title { get; set; } = String.Empty;
+		public ProjectTypeVariableType Type { get; set; } = ProjectTypeVariableType.Text;
+		public object DefaultValue { get; set; } = null;
+		public Dictionary<string, object> ValidValues { get; } = new Dictionary<string, object>();
 	}
 }

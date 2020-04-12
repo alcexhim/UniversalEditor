@@ -1,58 +1,46 @@
-using System;
+//
+//  ModelIndexSizes.cs - indicates the index sizes for a 3D model
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 {
+	/// <summary>
+	/// Indicates the index sizes for a 3D model.
+	/// </summary>
 	public class ModelIndexSizes
 	{
-		private byte mvarVertex = 0;
-		public byte Vertex
-		{
-			get { return mvarVertex; }
-            set { mvarVertex = value; }
-		}
+		public byte Vertex { get; set; } = 0;
+		public byte Texture { get; set; } = 0;
+		public byte Material { get; set; } = 0;
+		public byte Bone { get; set; } = 0;
+		public byte Morph { get; set; } = 0;
+		public byte RigidBody { get; set; } = 0;
 
-        private byte mvarTexture = 0;
-        public byte Texture
+		public void Clear()
 		{
-			get { return mvarTexture; }
-			set { mvarTexture = value; }
+			Vertex = 0;
+			Texture = 0;
+			Material = 0;
+			Bone = 0;
+			Morph = 0;
+			RigidBody = 0;
 		}
-
-        private byte mvarMaterial = 0;
-        public byte Material
-		{
-			get { return mvarMaterial; }
-			set { mvarMaterial = value; }
-		}
-
-        private byte mvarBone = 0;
-        public byte Bone
-		{
-			get { return mvarBone; }
-			set { mvarBone = value; }
-		}
-        
-        private byte mvarMorph = 0;
-        public byte Morph
-		{
-			get { return mvarMorph; }
-			set { mvarMorph = value; }
-		}
-
-        private byte mvarRigidBody = 0;
-        public byte RigidBody
-		{
-			get { return mvarRigidBody; }
-			set { mvarRigidBody = value; }
-		}
-
-        public void Clear()
-        {
-            mvarVertex = 0;
-            mvarTexture = 0;
-            mvarMaterial = 0;
-            mvarBone = 0;
-            mvarMorph = 0;
-            mvarRigidBody = 0;
-        }
-    }
+	}
 }

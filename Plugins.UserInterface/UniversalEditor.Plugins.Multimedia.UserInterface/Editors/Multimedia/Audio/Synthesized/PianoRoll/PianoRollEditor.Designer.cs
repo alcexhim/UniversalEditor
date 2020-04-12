@@ -1,10 +1,10 @@
 ﻿//
-//  PianoRollEditor.Designer.cs
+//  PianoRollEditor.Designer.cs - UWT designer initialization for PianoRollEditor
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,10 +18,8 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 
 using MBS.Framework.UserInterface;
-using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
 
 using UniversalEditor.UserInterface;
@@ -29,7 +27,6 @@ using UniversalEditor.UserInterface;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
 using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Controls;
-using UniversalEditor.ObjectModels.Markup;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 {
@@ -56,6 +53,12 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 
 		private PianoRollView PianoRoll = null;
 
+		/// <summary>
+		/// UWT designer initialization for <see cref="PianoRollEditor" />.
+		/// </summary>
+		/// <remarks>
+		/// UWT designer initialization in code is deprecated; continue improving the cross-platform Glade XML parser for <see cref="ContainerLayoutAttribute" />!
+		/// </remarks>
 		private void InitializeComponent()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);

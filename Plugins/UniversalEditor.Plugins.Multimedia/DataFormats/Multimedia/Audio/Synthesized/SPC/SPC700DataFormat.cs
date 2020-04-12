@@ -1,19 +1,23 @@
-// Universal Editor DataFormat for loading SPC700 synthesized audio files
-// Copyright (C) 2014  Mike Becker's Software
-// 
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//
+//  SPC700DataFormat.cs - provides a DataFormat for manipulating synthesized audio in SPC700 format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2014-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using UniversalEditor.IO;
@@ -21,13 +25,16 @@ using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating synthesized audio in SPC700 format.
+	/// </summary>
 	public class SPC700DataFormat : DataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
-			
+
 			dfr.ExportOptions.Add(new CustomOptionChoice("Generator", "&Generator:", true,
 				new CustomOptionFieldChoice("Unknown", SPC700Emulator.Unknown, true),
 				new CustomOptionFieldChoice("ZSNES", SPC700Emulator.ZSNES),
@@ -37,21 +44,17 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 			return dfr;
 		}
 
-		private byte[] mvarID666Reserved = new byte[45];
-		public byte[] ID666Reserved { get { return mvarID666Reserved; } set { mvarID666Reserved = value; } }
-		private byte mvarID666DefaultChannelDisables = 0;
-		public byte ID666DefaultChannelDisables { get { return mvarID666DefaultChannelDisables; } set { mvarID666DefaultChannelDisables = value; } }
-
-		private SPC700Emulator mvarGenerator = SPC700Emulator.Unknown;
+		public byte[] ID666Reserved { get; set; } = new byte[45];
+		public byte ID666DefaultChannelDisables { get; set; } = 0;
 		/// <summary>
 		/// The emulator that generated this file.
 		/// </summary>
-		public SPC700Emulator Generator { get { return mvarGenerator; } set { mvarGenerator = value; } }
+		public SPC700Emulator Generator { get; set; } = SPC700Emulator.Unknown;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			SynthesizedAudioObjectModel au = (objectModel as SynthesizedAudioObjectModel);
-			
+
 			Reader br = base.Accessor.Reader;
 			string fileHeader = br.ReadFixedLengthString(33);
 			if (!fileHeader.StartsWith("SNES-SPC700 Sound File Data")) throw new InvalidDataFormatException("File does not begin with \"SNES-SPC700 Sound File Data\"");
@@ -78,10 +81,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 				au.Information.FadeOutDelay = int.Parse(br.ReadNullTerminatedString(3));
 				au.Information.FadeOutLength = int.Parse(br.ReadNullTerminatedString(5));
 				au.Information.SongArtist = br.ReadNullTerminatedString(32);
-				this.mvarID666DefaultChannelDisables = br.ReadByte();
-				mvarGenerator = (SPC700Emulator)br.ReadByte();
+				this.ID666DefaultChannelDisables = br.ReadByte();
+				Generator = (SPC700Emulator)br.ReadByte();
 				byte[] id666Reserved = br.ReadBytes(45u);
-				this.mvarID666Reserved = id666Reserved;
+				this.ID666Reserved = id666Reserved;
 			}
 			byte[] regRAM = br.ReadBytes(65536u);
 			byte[] regDSP = br.ReadBytes(128u);
@@ -134,10 +137,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 				num = au.Information.FadeOutLength;
 				arg_17A_0.WriteFixedLengthString(num.ToString(), 5);
 				bw.WriteFixedLengthString(au.Information.SongArtist, 32);
-				bw.WriteByte(mvarID666DefaultChannelDisables);
-				bw.WriteByte((byte)mvarGenerator);
+				bw.WriteByte(ID666DefaultChannelDisables);
+				bw.WriteByte((byte)Generator);
 
-				bw.WriteFixedLengthBytes(this.mvarID666Reserved, 45);
+				bw.WriteFixedLengthBytes(this.ID666Reserved, 45);
 			}
 			byte[] regRAM = new byte[65536];
 			bw.WriteBytes(regRAM);

@@ -1,10 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  RSAKeyObjectModel.cs - provides an ObjectModel for manipulating an RSA cryptographic key
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace UniversalEditor.ObjectModels.Security.Key.RSA
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating an RSA cryptographic key.
+	/// </summary>
 	public class RSAKeyObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
@@ -19,48 +38,36 @@ namespace UniversalEditor.ObjectModels.Security.Key.RSA
 			return _omr;
 		}
 
-		private byte[] mvarP = new byte[0];
-		public byte[] P { get { return mvarP; } set { mvarP = value; } }
-		private byte[] mvarQ = new byte[0];
-		public byte[] Q { get { return mvarQ; } set { mvarQ = value; } }
-		private byte[] mvarDP = new byte[0];
-		public byte[] DP { get { return mvarDP; } set { mvarDP = value; } }
-		private byte[] mvarDQ = new byte[0];
-		public byte[] DQ { get { return mvarDQ; } set { mvarDQ = value; } }
-		private byte[] mvarIQ = new byte[0];
-		public byte[] IQ { get { return mvarIQ; } set { mvarIQ = value; } }
-		private byte[] mvarD = new byte[0];
-		public byte[] D { get { return mvarD; } set { mvarD = value; } }
-
-		private int mvarBitLength = 0;
+		public byte[] P { get; set; } = new byte[0];
+		public byte[] Q { get; set; } = new byte[0];
+		public byte[] DP { get; set; } = new byte[0];
+		public byte[] DQ { get; set; } = new byte[0];
+		public byte[] IQ { get; set; } = new byte[0];
+		public byte[] D { get; set; } = new byte[0];
 		/// <summary>
 		/// The bit length of the private key components.
 		/// </summary>
-		public int BitLength { get { return mvarBitLength; } set { mvarBitLength = value; } }
-
-		private int mvarPublicExponent = 0;
+		public int BitLength { get; set; } = 0;
 		/// <summary>
 		/// The exponent of the public key.
 		/// </summary>
-		public int PublicExponent { get { return mvarPublicExponent; } set { mvarPublicExponent = value; } }
-
-		private byte[] mvarModulus = new byte[0];
+		public int PublicExponent { get; set; } = 0;
 		/// <summary>
 		/// The RSA modulus.
 		/// </summary>
-		public byte[] Modulus { get { return mvarModulus; } set { mvarModulus = value; } }
+		public byte[] Modulus { get; set; } = new byte[0];
 
 		public override void Clear()
 		{
-			mvarBitLength = 0;
-			mvarD = new byte[0];
-			mvarDP = new byte[0];
-			mvarDQ = new byte[0];
-			mvarIQ = new byte[0];
-			mvarModulus = new byte[0];
-			mvarP = new byte[0];
-			mvarPublicExponent = 0;
-			mvarQ = new byte[0];
+			BitLength = 0;
+			D = new byte[0];
+			DP = new byte[0];
+			DQ = new byte[0];
+			IQ = new byte[0];
+			Modulus = new byte[0];
+			P = new byte[0];
+			PublicExponent = 0;
+			Q = new byte[0];
 		}
 
 		public override void CopyTo(ObjectModel where)
@@ -68,15 +75,15 @@ namespace UniversalEditor.ObjectModels.Security.Key.RSA
 			RSAKeyObjectModel clone = (where as RSAKeyObjectModel);
 			if (clone == null) throw new ObjectModelNotSupportedException();
 
-			clone.BitLength = mvarBitLength;
-			clone.D = mvarD;
-			clone.DP = mvarDP;
-			clone.DQ = mvarDQ;
-			clone.IQ = mvarIQ;
-			clone.Modulus = mvarModulus;
-			clone.P = mvarP;
-			clone.PublicExponent = mvarPublicExponent;
-			clone.Q = mvarQ;
+			clone.BitLength = BitLength;
+			clone.D = D;
+			clone.DP = DP;
+			clone.DQ = DQ;
+			clone.IQ = IQ;
+			clone.Modulus = Modulus;
+			clone.P = P;
+			clone.PublicExponent = PublicExponent;
+			clone.Q = Q;
 		}
 	}
 }

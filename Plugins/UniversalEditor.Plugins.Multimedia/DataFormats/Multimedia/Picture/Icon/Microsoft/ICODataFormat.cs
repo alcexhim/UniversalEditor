@@ -1,15 +1,39 @@
+//
+//  ICODataFormat.cs - provides a DataFormat for manipulating images in Windows icon (ICO) format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Icon.Microsoft
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating images in Windows icon (ICO) format.
+	/// </summary>
 	public class ICODataFormat : DataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
+			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
 
@@ -31,19 +55,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Icon.Microsoft
 				// icon image in the file, providing details about its location in the file, size and color
 				// depth. The ICONDIRENTRY structure is defined as:
 
-				byte bWidth = br.ReadByte();			// Width, in pixels, of the image
-				byte bHeight = br.ReadByte();			// Height, in pixels, of the image
-				byte bColorCount = br.ReadByte();		// Number of colors in image (0 if >=8bpp)
-				byte bReserved = br.ReadByte();			// Reserved ( must be 0)
-				short wPlanes = br.ReadInt16();			// Color Planes
-				short wBitCount = br.ReadInt16();		// Bits per pixel
-				int dwBytesInRes = br.ReadInt32();		// How many bytes in this resource?
-				int dwImageOffset = br.ReadInt32();		// Where in the file is this image?
+				byte bWidth = br.ReadByte();            // Width, in pixels, of the image
+				byte bHeight = br.ReadByte();           // Height, in pixels, of the image
+				byte bColorCount = br.ReadByte();       // Number of colors in image (0 if >=8bpp)
+				byte bReserved = br.ReadByte();         // Reserved ( must be 0)
+				short wPlanes = br.ReadInt16();         // Color Planes
+				short wBitCount = br.ReadInt16();       // Bits per pixel
+				int dwBytesInRes = br.ReadInt32();      // How many bytes in this resource?
+				int dwImageOffset = br.ReadInt32();     // Where in the file is this image?
 
 				// The dwBytesInRes member indicates the size of the image data. This image data can be found
 				// dwImageOffset bytes from the beginning of the file, and is stored in the following format:
 				BitmapInfoHeader icHeader = BitmapInfoHeader.Load(br);      // DIB header
-				
+
 				// RGBQUAD         icColors[1];   // Color table
 				// BYTE            icXOR[1];      // DIB bits for XOR mask
 				// BYTE            icAND[1];      // DIB bits for AND mask

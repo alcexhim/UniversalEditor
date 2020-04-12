@@ -1,20 +1,37 @@
-﻿using System;
+﻿//
+//  Reflection.cs - common reflection methods for the Universal Editor platform
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 
-using UniversalEditor.ObjectModels.Markup;
-using UniversalEditor.DataFormats.Markup.XML;
-using UniversalEditor.ObjectModels.Solution;
 using UniversalEditor.Accessors;
-using UniversalEditor.ObjectModels.PropertyList;
-using UniversalEditor.DataFormats.PropertyList.XML;
-using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.UEPackage;
 using UniversalEditor.DataFormats.UEPackage;
 
 namespace UniversalEditor.Common
 {
+	/// <summary>
+	/// Common reflection methods for the Universal Editor platform.
+	/// </summary>
 	public static class Reflection
 	{
 		private static int _ObjectModelReferenceComparer(ObjectModelReference a, ObjectModelReference b)
@@ -37,7 +54,7 @@ namespace UniversalEditor.Common
 			if (mvarInitialized) return;
 
 			Type[] types = MBS.Framework.Reflection.GetAvailableTypes();
-			
+
 			#region Initializing Object Models
 			List<AccessorReference> listAccessors = new List<AccessorReference>();
 			List<ObjectModelReference> listObjectModels = new List<ObjectModelReference>();
@@ -138,7 +155,7 @@ namespace UniversalEditor.Common
 			if (mvarAvailableProjectTemplates == null) mvarAvailableProjectTemplates = listProjectTemplates.ToArray();
 			if (mvarAvailableAccessors == null) mvarAvailableAccessors = listAccessors.ToArray();
 		}
-		
+
 		private static int _DataFormatReferenceComparer(DataFormatReference dfr1, DataFormatReference dfr2)
 		{
 			if (dfr1.Type.IsAbstract)
@@ -206,26 +223,26 @@ namespace UniversalEditor.Common
 					try
 					{
 #endif
-						string basePath = System.IO.Path.GetDirectoryName(fileName);
+					string basePath = System.IO.Path.GetDirectoryName(fileName);
 
-						UEPackageObjectModel mom = new UEPackageObjectModel();
-						UEPackageXMLDataFormat xdf = new UEPackageXMLDataFormat();
-						xdf.IncludeTemplates = false;
-						ObjectModel om = mom;
+					UEPackageObjectModel mom = new UEPackageObjectModel();
+					UEPackageXMLDataFormat xdf = new UEPackageXMLDataFormat();
+					xdf.IncludeTemplates = false;
+					ObjectModel om = mom;
 
-						try
-						{
-							Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
-						}
-						catch (InvalidDataFormatException ex)
-						{
-							// ignore it
-						}
+					try
+					{
+						Document.Load(om, xdf, new FileAccessor(fileName, false, false, false), true);
+					}
+					catch (InvalidDataFormatException ex)
+					{
+						// ignore it
+					}
 
-						foreach (ProjectType projtype in mom.ProjectTypes)
-						{
-							listProjectTypes.Add(projtype);
-						}
+					foreach (ProjectType projtype in mom.ProjectTypes)
+					{
+						listProjectTypes.Add(projtype);
+					}
 #if !DEBUG
 					}
 					catch
@@ -296,7 +313,7 @@ namespace UniversalEditor.Common
 				ObjectModelReference omr = om.MakeReference();
 
 				DataFormatReference[] dfrs = GetAvailableDataFormats(omr);
-				
+
 				for (int i = 0; i < dfrs.Length; i++)
 				{
 					DataFormatReference dfr = dfrs[i];
@@ -308,12 +325,12 @@ namespace UniversalEditor.Common
 					}
 					catch (InvalidDataFormatException ex)
 					{
-						accessor.Close ();
+						accessor.Close();
 						continue;
 					}
 					catch (NotImplementedException ex)
 					{
-						accessor.Close ();
+						accessor.Close();
 						continue;
 					}
 				}
@@ -546,7 +563,7 @@ namespace UniversalEditor.Common
 			}
 			return list.ToArray();
 		}
-		
+
 		public static DataFormatReference[] GetAvailableDataFormats(ObjectModelReference objectModelReference)
 		{
 			List<DataFormatReference> list = new List<DataFormatReference>();

@@ -1,8 +1,31 @@
-using System;
+//
+//  SunAuDataFormat.cs - provides a DataFormat for manipulating audio in Sun .au format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.SunAu
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating audio in Sun .au format.
+	/// </summary>
 	public class SunAuDataFormat : DataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
@@ -255,8 +278,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.SunAu
 			return result;
 		}
 
-		private SunAuEncoding mvarEncoding = SunAuEncoding.Unknown;
-		public SunAuEncoding Encoding { get { return mvarEncoding; } set { mvarEncoding = value; } }
+		/// <summary>
+		/// Gets or sets a value indicating the encoding of this Sun .au file.
+		/// </summary>
+		/// <value>The encoding of this Sun .au file.</value>
+		public SunAuEncoding Encoding { get; set; } = SunAuEncoding.Unknown;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -266,7 +292,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.SunAu
 			int dataOffset = br.ReadInt32();
 			uint dataSize = br.ReadUInt32();
 			int encoding = br.ReadInt32();
-			mvarEncoding = Int32ToSunAuEncoding(encoding);
+			Encoding = Int32ToSunAuEncoding(encoding);
 			int sampleRate = br.ReadInt32();
 			int channels = br.ReadInt32();
 		}
@@ -279,7 +305,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.SunAu
 			bw.WriteInt32(dataOffset);
 			uint dataSize = 4294967295u;
 			bw.WriteUInt32(dataSize);
-			int encoding = SunAuEncodingToInt32(mvarEncoding);
+			int encoding = SunAuEncodingToInt32(Encoding);
 			bw.WriteInt32(encoding);
 			int sampleRate = 0;
 			bw.WriteInt32(sampleRate);

@@ -1,10 +1,10 @@
 ﻿//
-//  ExecutableEditor.cs
+//  ExecutableEditor.cs - provides an Editor for the ExecutableObjectModel
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.ObjectModels.Executable;
 using UniversalEditor.UserInterface;
@@ -29,6 +30,9 @@ using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 {
+	/// <summary>
+	/// Provides an <see cref="Editor" /> for the <see cref="ExecutableObjectModel" />.
+	/// </summary>
 	public class ExecutableEditor : Editor
 	{
 		private static EditorReference _er = null;

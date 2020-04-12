@@ -1,10 +1,10 @@
 //
-//  ADXVersion.cs
+//  ADXVersion.cs - indicates the version of the ADX codec in use
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2010-2019 Mike Becker
+//  Copyright (c) 2010-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,17 +19,16 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.CRI.ADX
 {
-    public enum ADXVersion : byte
-    {
-        ADXVersion3DifferentDecoder = 0x02,
-        ADXVersion3 = 0x03,
-        ADXVersion4 = 0x04,
-        ADXVersion4WithoutLooping = 0x05
-    }
+	/// <summary>
+	/// Indicates the version of the ADX codec in use.
+	/// </summary>
+	public enum ADXVersion : byte
+	{
+		ADXVersion3DifferentDecoder = 0x02,
+		ADXVersion3 = 0x03,
+		ADXVersion4 = 0x04,
+		ADXVersion4WithoutLooping = 0x05
+	}
 }

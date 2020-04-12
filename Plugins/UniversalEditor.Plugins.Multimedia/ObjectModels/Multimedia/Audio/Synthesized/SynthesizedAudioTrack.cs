@@ -1,10 +1,37 @@
+//
+//  SynthesizedAudioTrack.cs - represents a track in a synthesized audio file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
 using MBS.Framework.Drawing;
+
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
+
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 {
+	/// <summary>
+	/// Represents a track in a synthesized audio file.
+	/// </summary>
 	public class SynthesizedAudioTrack : ICloneable
 	{
 		public class SynthesizedAudioTrackCollection : Collection<SynthesizedAudioTrack>
@@ -35,119 +62,25 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 				base.Add(item);
 			}
 		}
-		private string mvarID = string.Empty;
-		private string mvarName = string.Empty;
-		private string mvarComment = string.Empty;
-		private SynthesizedAudioCommand.SynthesizedAudioCommandCollection mvarCommands = new SynthesizedAudioCommand.SynthesizedAudioCommandCollection();
-		private VoicebankObjectModel mvarSynthesizer = null;
-		private bool mvarIsMuted = false;
-		private bool mvarIsSolo = false;
-		private byte mvarPanpot = 64;
-		private byte mvarVolume = 0;
-		public string ID
-		{
-			get
-			{
-				return this.mvarID;
-			}
-			set
-			{
-				this.mvarID = value;
-			}
-		}
-		public string Name
-		{
-			get
-			{
-				return this.mvarName;
-			}
-			set
-			{
-				this.mvarName = value;
-			}
-		}
-		public string Comment
-		{
-			get
-			{
-				return this.mvarComment;
-			}
-			set
-			{
-				this.mvarComment = value;
-			}
-		}
-		public SynthesizedAudioCommand.SynthesizedAudioCommandCollection Commands
-		{
-			get
-			{
-				return this.mvarCommands;
-			}
-		}
-		public VoicebankObjectModel Synthesizer
-		{
-			get
-			{
-				return this.mvarSynthesizer;
-			}
-			set
-			{
-				this.mvarSynthesizer = value;
-			}
-		}
-		public bool IsMuted
-		{
-			get
-			{
-				return this.mvarIsMuted;
-			}
-			set
-			{
-				this.mvarIsMuted = value;
-			}
-		}
-		public bool IsSolo
-		{
-			get
-			{
-				return this.mvarIsSolo;
-			}
-			set
-			{
-				this.mvarIsSolo = value;
-			}
-		}
-		public byte Panpot
-		{
-			get
-			{
-				return this.mvarPanpot;
-			}
-			set
-			{
-				this.mvarPanpot = value;
-			}
-		}
-		public byte Volume
-		{
-			get
-			{
-				return this.mvarVolume;
-			}
-			set
-			{
-				this.mvarVolume = value;
-			}
-		}
+
+		public string ID { get; set; } = string.Empty;
+		public string Name { get; set; } = string.Empty;
+		public string Comment { get; set; } = string.Empty;
+		public SynthesizedAudioCommand.SynthesizedAudioCommandCollection Commands { get; } = new SynthesizedAudioCommand.SynthesizedAudioCommandCollection();
+		public VoicebankObjectModel Synthesizer { get; set; } = null;
+		public bool IsMuted { get; set; } = false;
+		public bool IsSolo { get; set; } = false;
+		public byte Panpot { get; set; } = 64;
+		public byte Volume { get; set; } = 0;
 		public object Clone()
 		{
 			SynthesizedAudioTrack clone = new SynthesizedAudioTrack();
-			foreach (SynthesizedAudioCommand command in this.mvarCommands)
+			foreach (SynthesizedAudioCommand command in this.Commands)
 			{
 				clone.Commands.Add(command.Clone() as SynthesizedAudioCommand);
 			}
-			clone.ID = (this.mvarID.Clone() as string);
-			clone.Name = (this.mvarName.Clone() as string);
+			clone.ID = (this.ID.Clone() as string);
+			clone.Name = (this.Name.Clone() as string);
 			return clone;
 		}
 

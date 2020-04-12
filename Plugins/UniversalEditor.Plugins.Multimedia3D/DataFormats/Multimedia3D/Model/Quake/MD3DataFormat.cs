@@ -1,3 +1,24 @@
+//
+//  MD3DataFormat.cs - provides a DataFormat for manipulating 3D models in id software MD3 format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 
@@ -8,6 +29,9 @@ using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating 3D models in id software MD3 format.
+	/// </summary>
 	public class MD3DataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -21,12 +45,12 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 			return _dfr;
 		}
 
-		private int mvarVersion = 15;
-		public int Version
-		{
-			get { return mvarVersion; }
-			set { mvarVersion = value; }
-		}
+		/// <summary>
+		/// Gets or sets the format version of the MD3 file.
+		/// </summary>
+		/// <value>The format version of the MD3 file.</value>
+		public int Version { get; set; } = 15;
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
@@ -34,8 +58,8 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 
 			Reader br = base.Accessor.Reader;
 			string IDP3 = br.ReadFixedLengthString(4);
-			this.mvarVersion = br.ReadInt32();
-			
+			this.Version = br.ReadInt32();
+
 			string modelName = br.ReadNullTerminatedString(64);
 			if (!model.StringTable.ContainsKey(1033))
 			{
@@ -264,7 +288,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 				//      z <- cos ( lat )
 				double lat = (double)((double)normalZenith * (2 * Math.PI) / 255);
 				double lng = (double)((double)normalAzimuth * (2 * Math.PI) / 255);
-				
+
 				double normalX = Math.Cos(lng) * Math.Sin(lat);
 				double normalY = Math.Sin(lng) * Math.Sin(lat);
 				double normalZ = Math.Cos(lat);
@@ -281,7 +305,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 			Writer bw = base.Accessor.Writer;
 			ModelObjectModel model = objectModel as ModelObjectModel;
 			bw.WriteFixedLengthString("IDP3");
-			bw.WriteInt32(mvarVersion);
+			bw.WriteInt32(Version);
 			string modelTitle = String.Empty;
 			if (model.StringTable.ContainsKey(1033))
 			{
@@ -290,7 +314,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 			else
 			{
 				// get the first string table in the list
-				foreach (System.Collections.Generic.KeyValuePair<int, ModelStringTableExtension> kvp in model.StringTable)
+				foreach (KeyValuePair<int, ModelStringTableExtension> kvp in model.StringTable)
 				{
 					modelTitle = kvp.Value.Title;
 					break;

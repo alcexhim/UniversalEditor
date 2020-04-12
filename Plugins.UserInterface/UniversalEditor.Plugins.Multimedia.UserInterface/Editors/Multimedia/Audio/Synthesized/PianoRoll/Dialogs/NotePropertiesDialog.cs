@@ -1,10 +1,10 @@
 ﻿//
-//  NotePropertiesDialog.cs
+//  NotePropertiesDialog.cs - provides a UWT Dialog that modifies the properties of a SynthesizedAudioCommandNote
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,14 +18,17 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs
 {
-	public class NotePropertiesDialog : Dialog
+	/// <summary>
+	/// Provides a UWT <see cref="CustomDialog" /> that modifies the properties of a <see cref="ObjectModels.Multimedia.Audio.Synthesized.SynthesizedAudioCommandNote" />.
+	/// </summary>
+	public class NotePropertiesDialog : CustomDialog
 	{
 		private Label lblNoteValue = null;
 		private TextBox txtNoteValue = null;

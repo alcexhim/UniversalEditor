@@ -1,14 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  BoxDataFormat.cs - provides a DataFormat for manipulating archives in BOX format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.Accessors;
-using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.Box
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in BOX format.
+	/// </summary>
 	public class BoxDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -30,15 +51,14 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			return _dfr;
 		}
 
-		private byte mvarNumberSize = 4;
 		/// <summary>
 		/// The size of an SNUM or a UNUM field.
 		/// </summary>
-		public byte NumberSize { get { return mvarNumberSize; } set { mvarNumberSize = value; } }
+		public byte NumberSize { get; set; } = 4;
 
 		public ulong ReadUNum(IO.Reader br)
 		{
-			switch (mvarNumberSize)
+			switch (NumberSize)
 			{
 				case 1: return br.ReadByte();
 				case 2: return br.ReadUInt16();
@@ -46,11 +66,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 				case 4: return br.ReadUInt32();
 				case 8: return br.ReadUInt64();
 			}
-			throw new InvalidOperationException("Invalid number size (" + mvarNumberSize.ToString() + ")");
+			throw new InvalidOperationException("Invalid number size (" + NumberSize.ToString() + ")");
 		}
 		public long ReadSNum(IO.Reader br)
 		{
-			switch (mvarNumberSize)
+			switch (NumberSize)
 			{
 				case 1: return br.ReadSByte();
 				case 2: return br.ReadInt16();
@@ -58,12 +78,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 				case 4: return br.ReadInt32();
 				case 8: return br.ReadInt64();
 			}
-			throw new InvalidOperationException("Invalid number size (" + mvarNumberSize.ToString() + ")");
+			throw new InvalidOperationException("Invalid number size (" + NumberSize.ToString() + ")");
 		}
 
 		public void WriteUNum(IO.Writer bw, ulong value)
 		{
-			switch (mvarNumberSize)
+			switch (NumberSize)
 			{
 				case 1: bw.WriteByte((byte)value); return;
 				case 2: bw.WriteUInt16((ushort)value); return;
@@ -71,11 +91,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 				case 4: bw.WriteUInt32((uint)value); return;
 				case 8: bw.WriteUInt64((ulong)value); return;
 			}
-			throw new InvalidOperationException("Invalid number size (" + mvarNumberSize.ToString() + ")");
+			throw new InvalidOperationException("Invalid number size (" + NumberSize.ToString() + ")");
 		}
 		public void WriteSNum(IO.Writer bw, long value)
 		{
-			switch (mvarNumberSize)
+			switch (NumberSize)
 			{
 				case 1: bw.WriteSByte((sbyte)value); return;
 				case 2: bw.WriteInt16((short)value); return;
@@ -83,17 +103,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 				case 4: bw.WriteInt32((int)value); return;
 				case 8: bw.WriteInt64((long)value); return;
 			}
-			throw new InvalidOperationException("Invalid number size (" + mvarNumberSize.ToString() + ")");
+			throw new InvalidOperationException("Invalid number size (" + NumberSize.ToString() + ")");
 		}
 
-		private ulong mvarAllocationSize = 512;
-		public ulong AllocationSize { get { return mvarAllocationSize; } set { mvarAllocationSize = value; } }
-
-		private string mvarComment = String.Empty;
-		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
-
-		private bool mvarExternal = false;
-		public bool External { get { return mvarExternal; } set { mvarExternal = value; } }
+		public ulong AllocationSize { get; set; } = 512;
+		public string Comment { get; set; } = String.Empty;
+		public bool External { get; set; } = false;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -109,8 +124,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			// and efficient on any type of system. therefore we use NUMBER everywhere.
 
 			byte numsize = brf.ReadByte();
-			mvarExternal = brf.ReadBoolean();
-			if (mvarExternal)
+			External = brf.ReadBoolean();
+			if (External)
 			{
 				string FileName = null;
 				if (Accessor is FileAccessor) FileName = (Accessor as FileAccessor).FileName;
@@ -129,10 +144,10 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			// its primary purpose is not to store files, but to store sections. this is similar to
 			// the Versatile Container file format.
 			ulong sectionCount = ReadUNum(br);
-			mvarAllocationSize = ReadUNum(br);
+			AllocationSize = ReadUNum(br);
 
 			// comment can store arbitrary text data relating to this box
-			mvarComment = br.ReadFixedLengthString(64);
+			Comment = br.ReadFixedLengthString(64);
 
 			// sections are named with a 64-byte name, followed by an offset and virtual size. this
 			// means that theoretically sections can be located anywhere in the file.
@@ -156,17 +171,17 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			IO.Writer bw = base.Accessor.Writer;
 
 			bw.WriteFixedLengthString("BOX FILE");
-			bw.WriteByte(mvarNumberSize);
-			bw.WriteBoolean(mvarExternal);
-			if (mvarExternal)
+			bw.WriteByte(NumberSize);
+			bw.WriteBoolean(External);
+			if (External)
 			{
 			}
 
 			WriteUNum(bw, (ulong)fsom.Files.Count);
-			WriteUNum(bw, mvarAllocationSize);
-			bw.WriteFixedLengthString(mvarComment, 64);
+			WriteUNum(bw, AllocationSize);
+			bw.WriteFixedLengthString(Comment, 64);
 
-			ulong sectionOffset = (ulong)(bw.Accessor.Position + (fsom.Files.Count * (64 + (2 * mvarNumberSize))));
+			ulong sectionOffset = (ulong)(bw.Accessor.Position + (fsom.Files.Count * (64 + (2 * NumberSize))));
 			foreach (File file in fsom.Files)
 			{
 				bw.WriteFixedLengthString(file.Name, 64);
@@ -179,8 +194,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			{
 				file.WriteTo(bw);
 
-				ulong allocationPadding = ((ulong)file.Size / mvarAllocationSize);
-				ulong rem = allocationPadding * mvarAllocationSize;
+				ulong allocationPadding = ((ulong)file.Size / AllocationSize);
+				ulong rem = allocationPadding * AllocationSize;
 				ulong r = (ulong)file.Size - rem;
 				bw.WriteBytes(new byte[r]);
 			}

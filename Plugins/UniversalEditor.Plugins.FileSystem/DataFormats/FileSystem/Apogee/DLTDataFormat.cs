@@ -1,5 +1,5 @@
 ﻿//
-//  DLTDataFormat.cs
+//  DLTDataFormat.cs - provides a DataFormat for manipulating archives in Apogee DLT format
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com> - Universal Editor port
@@ -8,7 +8,7 @@
 //       Adam Nielsen <malvineous@shikadi.net>, The_coder, Wormbo (xentax forum)
 //       http://www.shikadi.net/moddingwiki/DLT_Format
 //
-//  Copyright (c) 2019 Mike Becker and contributors
+//  Copyright (c) 2019-2020 Mike Becker's Software and contributors
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Diagnostics;
 using UniversalEditor.Accessors;
@@ -31,6 +32,9 @@ using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.Apogee
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in Apogee DLT format.
+	/// </summary>
 	public class DLTDataFormat : DataFormat
 	{
 		/// <summary>
@@ -107,68 +111,80 @@ namespace UniversalEditor.DataFormats.FileSystem.Apogee
 				byte[] tableA = new byte[256], tableB = new byte[256];
 				uint inpos = 0;
 				uint outpos = 0;
-			 
-				while (outpos < expanded_size) {
+
+				while (outpos < expanded_size)
+				{
 					// Initialise the dictionary so that no bytes are codewords (or if you
 					// prefer, each byte expands to itself only.)
-					for (int i = 0; i< 256; i++) tableA[i] = (byte)i;
-			 
+					for (int i = 0; i < 256; i++) tableA[i] = (byte)i;
+
 					//
 					// Read in the dictionary
 					//
 					byte code;
 					uint tablepos = 0;
-					do {
+					do
+					{
 						code = _in[inpos++];
-			 
+
 						// If the code has the high bit set, the lower 7 bits plus one is the
 						// number of codewords that will be skipped from the dictionary.  (Those
 						// codewords were initialised to expand to themselves in the loop above.)
-						if (code > 127) {
+						if (code > 127)
+						{
 							tablepos += (uint)(code - 127);
 							code = 0;
 						}
 						if (tablepos == 256) break;
-			 
+
 						// Read in the indicated number of codewords.
-						for (int i = 0; i <= code; i++) {
+						for (int i = 0; i <= code; i++)
+						{
 							Debug.Assert(tablepos < 256);
 							byte data = _in[inpos++];
 							tableA[tablepos] = data;
-							if (tablepos != data) {
+							if (tablepos != data)
+							{
 								// If this codeword didn't expand to itself, store the second byte
 								// of the expansion pair.
 								tableB[tablepos] = _in[inpos++];
 							}
-				tablepos++;
+							tablepos++;
 						}
-					} while (tablepos< 256);
-			 
+					} while (tablepos < 256);
+
 					// Read the length of the data encoded with this dictionary
 					int len = _in[inpos++];
 					len |= _in[inpos++] << 8;
-			 
+
 					//
 					// Decompress the data
 					//
-			 
+
 					int expbufpos = 0;
 					// This is the maximum number of bytes a single codeword can expand to.
 					byte[] expbuf = new byte[32];
-					while (true) {
-						if (expbufpos != 0) {
+					while (true)
+					{
+						if (expbufpos != 0)
+						{
 							// There is data in the expansion buffer, use that
 							code = expbuf[--expbufpos];
-						} else {
+						}
+						else
+						{
 							// There is no data in the expansion buffer, use the input data
 							if (--len == -1) break; // no more input data
 							code = _in[inpos++];
 						}
-			 
-						if (code == tableA[code]) {
+
+						if (code == tableA[code])
+						{
 							// This byte is itself, write this to the output
 							_out[outpos++] = code;
-						} else {
+						}
+						else
+						{
 							// This byte is actually a codeword, expand it into the expansion buffer
 							Debug.Assert(expbufpos < expbuf.Length - 2);
 

@@ -1,15 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UniversalEditor.IO;
+﻿//
+//  RTMLDataFormat.cs - provides a DataFormat for manipulating markup in Rich Text Format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Text;
+
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.RichTextMarkup;
 
 namespace UniversalEditor.DataFormats.RichTextMarkup.RTML
 {
 	/// <summary>
-	/// Data format for expressing Rich Text Format files as MarkupObjectModel.
+	/// Provides a <see cref="DataFormat" /> for manipulating markup in Rich Text Format.
 	/// </summary>
 	public class RTMLDataFormat : DataFormat
 	{
@@ -26,13 +44,16 @@ namespace UniversalEditor.DataFormats.RichTextMarkup.RTML
 
 		public RTMLDataFormat()
 		{
-			mvarSettings.GroupBeginChar = '{';
-			mvarSettings.GroupEndChar = '}';
-			mvarSettings.TagBeginChar = '\\';
+			Settings.GroupBeginChar = '{';
+			Settings.GroupEndChar = '}';
+			Settings.TagBeginChar = '\\';
 		}
 
-		private RTMLSettings mvarSettings = new RTMLSettings();
-		public RTMLSettings Settings { get { return mvarSettings; } }
+		/// <summary>
+		/// Represents settings for the <see cref="RTMLDataFormat" /> parser.
+		/// </summary>
+		/// <value>The settings for the <see cref="RTMLDataFormat" /> parser.</value>
+		public RTMLSettings Settings { get; } = new RTMLSettings();
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -49,10 +70,10 @@ namespace UniversalEditor.DataFormats.RichTextMarkup.RTML
 				char c = reader.ReadChar();
 				if (c == ' ')
 				{
-					string content = reader.ReadStringUntilAny(new char[] { mvarSettings.TagBeginChar, mvarSettings.GroupBeginChar, mvarSettings.GroupEndChar });
+					string content = reader.ReadStringUntilAny(new char[] { Settings.TagBeginChar, Settings.GroupBeginChar, Settings.GroupEndChar });
 					rtml.Items.Add(new RichTextMarkupItemLiteral(content));
 				}
-				else if (c == mvarSettings.GroupBeginChar)
+				else if (c == Settings.GroupBeginChar)
 				{
 					if (currentGroup == null)
 					{
@@ -67,15 +88,15 @@ namespace UniversalEditor.DataFormats.RichTextMarkup.RTML
 						currentGroup = group;
 					}
 				}
-				else if (c == mvarSettings.GroupEndChar)
+				else if (c == Settings.GroupEndChar)
 				{
 					if (currentGroup == null) throw new InvalidDataFormatException("Attempted to close RTML group when none was opened");
 
 					currentGroup = currentGroup.Parent;
 				}
-				else if (c == mvarSettings.TagBeginChar)
+				else if (c == Settings.TagBeginChar)
 				{
-					string name = reader.ReadStringUntilAny(new char[] { mvarSettings.TagBeginChar, ' ', mvarSettings.GroupBeginChar, mvarSettings.GroupEndChar });
+					string name = reader.ReadStringUntilAny(new char[] { Settings.TagBeginChar, ' ', Settings.GroupBeginChar, Settings.GroupEndChar });
 					if (currentGroup == null)
 					{
 						rtml.Items.Add(new RichTextMarkupItemTag(name));

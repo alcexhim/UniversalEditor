@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  ARJDataFormat.cs - provides a DataFormat for manipulating archives in ARJ format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.ARJ
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in ARJ format.
+	/// </summary>
 	public class ARJDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -67,7 +89,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 
 			Reader br = (Reader)f.Properties["reader"];
 			long offset = (long)f.Properties["offset"];
-			ARJCompressionMethod compressionMethod = (ARJCompressionMethod) f.Properties["CompressionMethod"];
+			ARJCompressionMethod compressionMethod = (ARJCompressionMethod)f.Properties["CompressionMethod"];
 			uint compressedLength = (uint)f.Properties["CompressedLength"];
 			uint decompressedLength = (uint)f.Properties["DecompressedLength"];
 
@@ -93,10 +115,10 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 
 			ushort headerSz = br.ReadUInt16();
 
-			fileheader.HeaderSize = br.ReadByte();														// Size of header including extra data
-			fileheader.VersionNumber = br.ReadByte();												// Archiver version number
-			fileheader.MinimumRequiredVersion = br.ReadByte();									// Minimum version needed to extract
-			fileheader.HostOperatingSystem = (ARJHostOperatingSystem)br.ReadByte();		// Host OS (see table 0002)
+			fileheader.HeaderSize = br.ReadByte();                                                      // Size of header including extra data
+			fileheader.VersionNumber = br.ReadByte();                                               // Archiver version number
+			fileheader.MinimumRequiredVersion = br.ReadByte();                                  // Minimum version needed to extract
+			fileheader.HostOperatingSystem = (ARJHostOperatingSystem)br.ReadByte();     // Host OS (see table 0002)
 			fileheader.InternalFlags = (ARJInternalFlags)br.ReadByte();
 			fileheader.CompressionMethod = (ARJCompressionMethod)br.ReadByte();
 			fileheader.FileType = (ARJFileType)br.ReadByte();
@@ -127,15 +149,15 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 
 			header.HeaderSize = br.ReadByte(); // Size of header including extra data, not including original filename
 
-			header.VersionNumber = br.ReadByte();												// Archiver version number
-			header.MinimumRequiredVersion = br.ReadByte();									// Minimum version needed to extract
-			header.HostOperatingSystem = (ARJHostOperatingSystem)br.ReadByte();		// Host OS (see table 0002)
+			header.VersionNumber = br.ReadByte();                                               // Archiver version number
+			header.MinimumRequiredVersion = br.ReadByte();                                  // Minimum version needed to extract
+			header.HostOperatingSystem = (ARJHostOperatingSystem)br.ReadByte();     // Host OS (see table 0002)
 
 			header.InternalFlags = (ARJInternalFlags)br.ReadByte();
 			header.CompressionMethod = (ARJCompressionMethod)br.ReadByte();
 			header.FileType = (ARJFileType)br.ReadByte();
 			header.Reserved = br.ReadByte();
-			header.Timestamp = br.ReadInt32();															// Date/Time of original file in MS-DOS format
+			header.Timestamp = br.ReadInt32();                                                          // Date/Time of original file in MS-DOS format
 			header.CompressedSize = br.ReadInt32();
 			header.OriginalSize = br.ReadInt32();
 			header.OriginalCRC32 = br.ReadInt32();
@@ -171,7 +193,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 
 			string filename = System.IO.Path.GetFileName(Accessor.GetFileName());
 			ushort basicHeaderSize = (ushort)(34 + filename.Length + 2);
-			bw.WriteUInt16(basicHeaderSize);																// Basic header size (0 if end of archive)
+			bw.WriteUInt16(basicHeaderSize);                                                                // Basic header size (0 if end of archive)
 
 			Internal.ARJBasicHeader basicHeader = new Internal.ARJBasicHeader();
 			basicHeader.HeaderSize = 34;
@@ -204,14 +226,14 @@ namespace UniversalEditor.DataFormats.FileSystem.ARJ
 				fileheader.FileType = ARJFileType.Binary;
 				fileheader.Reserved = 0x49;
 				fileheader.Timestamp = 0x5E885D0A;
-				fileheader.CompressedSize = (uint) data.Length;
-				fileheader.OriginalSize = (uint) data.Length;
-				fileheader.OriginalCRC32 = (int) crc.Calculate(data);
+				fileheader.CompressedSize = (uint)data.Length;
+				fileheader.OriginalSize = (uint)data.Length;
+				fileheader.OriginalCRC32 = (int)crc.Calculate(data);
 				fileheader.FileSpecPosition = 0;
 				fileheader.FileAttributes = 0;
 				fileheader.HostData = 0;
 				fileheader.FileName = file.Name;
-				
+
 				WriteFileHeader(bw, fileheader);
 
 				bw.WriteBytes(new byte[6]);

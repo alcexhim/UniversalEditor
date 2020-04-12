@@ -1,14 +1,34 @@
-﻿using System;
+﻿//
+//  DERDataFormat.cs - provides a DataFormat for manipulating AbstractSyntaxObjectModel data in Distinguished Encoding Rules (DER) format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.AbstractSyntax;
 
 namespace UniversalEditor.DataFormats.AbstractSyntax.DER
 {
 	/// <summary>
-	/// Provides a representation of <see cref="AbstractSyntaxObjectModel" /> data in Distinguished Encoding Rules (DER) format.
+	/// Provides a DataFormat for manipulating <see cref="AbstractSyntaxObjectModel" /> data in Distinguished Encoding Rules (DER) format.
 	/// </summary>
 	public class DERDataFormat : DataFormat
 	{
@@ -78,12 +98,12 @@ namespace UniversalEditor.DataFormats.AbstractSyntax.DER
 				{
 					switch (valueLen)
 					{
-						case 1: return reader.ReadByte();
-						case 2: return reader.ReadInt16();
-						case 3: return reader.ReadInt24();
-						case 4: return reader.ReadInt32();
-						case 8: return reader.ReadInt64();
-						default: throw new NotSupportedException(String.Format("DER: cannot read Integer with length {0}", valueLen));
+					case 1: return reader.ReadByte();
+					case 2: return reader.ReadInt16();
+					case 3: return reader.ReadInt24();
+					case 4: return reader.ReadInt32();
+					case 8: return reader.ReadInt64();
+					default: throw new NotSupportedException(String.Format("DER: cannot read Integer with length {0}", valueLen));
 					}
 					break;
 				}

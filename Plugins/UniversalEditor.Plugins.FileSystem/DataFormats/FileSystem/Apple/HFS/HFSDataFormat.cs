@@ -1,7 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  HFSDataFormat.cs - provides a DataFormat for manipulating file systems in HFS/HFS+ format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 using UniversalEditor.IO;
 
@@ -12,6 +30,9 @@ using UniversalEditor.DataFormats.FileSystem.Apple.HFS.Internal.CatalogRecords;
 
 namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating file systems in HFS/HFS+ format.
+	/// </summary>
 	public class HFSDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -31,14 +52,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 			return _dfr;
 		}
 
-		private string mvarVolumeName = String.Empty;
-		public string VolumeName { get { return mvarVolumeName; } set { mvarVolumeName = value; } }
-
-		private short mvarVolumeBackupSequenceNumber = 0;
-		public short VolumeBackupSequenceNumber { get { return mvarVolumeBackupSequenceNumber; } set { mvarVolumeBackupSequenceNumber = value; } }
-
-		private int mvarVolumeWriteCount = 0;
-		public int VolumeWriteCount { get { return mvarVolumeWriteCount; } set { mvarVolumeWriteCount = value; } }
+		public string VolumeName { get; set; } = String.Empty;
+		public short VolumeBackupSequenceNumber { get; set; } = 0;
+		public int VolumeWriteCount { get; set; } = 0;
 
 		private const int LOGICAL_BLOCK_SIZE = 512;
 		public void SeekToLogicalBlock(long index)
@@ -98,7 +114,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 				_mdb.nextAllocationSearchStart = reader.ReadInt16();
 				_mdb.allocationBlockCount = reader.ReadUInt16();
 				_mdb.allocationBlockSize = reader.ReadInt32();
-				
+
 				// allocation block sanity check - must be a multiple of 512 bytes
 				if ((_mdb.allocationBlockSize % 512) != 0) throw new InvalidDataFormatException("Allocation block size is not a multiple of 512");
 
@@ -107,16 +123,16 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 				_mdb.nextUnusedCatalogNodeID = reader.ReadInt32();
 				_mdb.unusedAllocationBlockCount = reader.ReadUInt16();
 
-				mvarVolumeName = ReadHFSName(reader, 27);
+				VolumeName = ReadHFSName(reader, 27);
 
 				_mdb.lastBackupTimestamp = reader.ReadInt32();
-				mvarVolumeBackupSequenceNumber = reader.ReadInt16();
-				mvarVolumeWriteCount = reader.ReadInt32();
+				VolumeBackupSequenceNumber = reader.ReadInt16();
+				VolumeWriteCount = reader.ReadInt32();
 				_mdb.clumpSizeForExtentsOverflowFile = reader.ReadInt32();
 				_mdb.clumpSizeForCatalogFile = reader.ReadInt32();
 				_mdb.rootDirectoryDirectoryCount = reader.ReadUInt16();
 				_mdb.totalFileCount = reader.ReadInt32();
-				_mdb.totalDirectoryCount =reader.ReadInt32();
+				_mdb.totalDirectoryCount = reader.ReadInt32();
 				_mdb.finderInfo = reader.ReadInt32Array(8); // information used by the Finder
 				_mdb.volumeCacheBlockCount = reader.ReadUInt16();
 				_mdb.volumeBitmapCacheBlockCount = reader.ReadUInt16();
@@ -125,7 +141,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 				// ExtDataRec: ARRAY[3] of ExtDescriptor
 				int extentsOverflowFileSize = reader.ReadInt32();
 				_mdb.extentRecordsForExtentsOverflowFile = ReadHFSExtentDescriptorArray(reader, 3);
-				
+
 				int catalogFileSize = reader.ReadInt32();
 				_mdb.extentRecordsForCatalogFile = ReadHFSExtentDescriptorArray(reader, 3);
 
@@ -140,7 +156,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 			#region Volume bitmap
 			{
 				SeekToLogicalBlock(_mdb.volumeBitmapFirstBlockIndex);
-				
+
 			}
 			#endregion
 			#region 
@@ -163,7 +179,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 		private HFSCatalogRecord ReadHFSCatalogRecord(Reader reader)
 		{
 			HFSCatalogRecordType type = (HFSCatalogRecordType)reader.ReadInt16();
-			
+
 			switch (type)
 			{
 				case HFSCatalogRecordType.Directory:
@@ -171,7 +187,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 				{
 					HFSCatalogDirectoryRecord rec = new HFSCatalogDirectoryRecord();
 					rec.type = type;
-					
+
 					rec.flags = (HFSDirectoryFlags)reader.ReadInt16();
 					if (type == HFSCatalogRecordType.ExtendedDirectory)
 					{

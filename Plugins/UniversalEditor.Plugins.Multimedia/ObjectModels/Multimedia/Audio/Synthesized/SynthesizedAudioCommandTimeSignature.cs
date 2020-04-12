@@ -1,86 +1,66 @@
-using System;
+//
+//  SynthesizedAudioCommandTimeSignature.cs - represents a time signature change command in a synthesized audio file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 {
+	/// <summary>
+	/// Represents a time signature change command in a synthesized audio file.
+	/// </summary>
 	public class SynthesizedAudioCommandTimeSignature : SynthesizedAudioCommand
 	{
-		private byte mvarNumerator = 0;
-		private byte mvarDenominator = 0;
-		private byte mvarTicksPerMetronomeClick = 0;
-		private byte mvarNumberOf32ndNotesPerQuarterNote = 0;
-		public byte Numerator
-		{
-			get
-			{
-				return this.mvarNumerator;
-			}
-			set
-			{
-				this.mvarNumerator = value;
-			}
-		}
-		public byte Denominator
-		{
-			get
-			{
-				return this.mvarDenominator;
-			}
-			set
-			{
-				this.mvarDenominator = value;
-			}
-		}
-		public byte TicksPerMetronomeClick
-		{
-			get
-			{
-				return this.mvarTicksPerMetronomeClick;
-			}
-			set
-			{
-				this.mvarTicksPerMetronomeClick = value;
-			}
-		}
-		public byte NumberOf32ndNotesPerQuarterNote
-		{
-			get
-			{
-				return this.mvarNumberOf32ndNotesPerQuarterNote;
-			}
-			set
-			{
-				this.mvarNumberOf32ndNotesPerQuarterNote = value;
-			}
-		}
+		public byte Numerator { get; set; } = 0;
+		public byte Denominator { get; set; } = 0;
+		public byte TicksPerMetronomeClick { get; set; } = 0;
+		public byte NumberOf32ndNotesPerQuarterNote { get; set; } = 0;
+
 		public SynthesizedAudioCommandTimeSignature()
 		{
 		}
 		public SynthesizedAudioCommandTimeSignature(byte numerator, byte denominator, byte ticksPerMetronomeClick, byte numberOf32ndNotesPerQuarterNote)
 		{
-			this.mvarNumerator = numerator;
-			this.mvarDenominator = denominator;
-			this.mvarTicksPerMetronomeClick = ticksPerMetronomeClick;
-			this.mvarNumberOf32ndNotesPerQuarterNote = numberOf32ndNotesPerQuarterNote;
+			this.Numerator = numerator;
+			this.Denominator = denominator;
+			this.TicksPerMetronomeClick = ticksPerMetronomeClick;
+			this.NumberOf32ndNotesPerQuarterNote = numberOf32ndNotesPerQuarterNote;
 		}
 		public override string ToString()
 		{
 			return string.Concat(new string[]
 			{
-				"TS = ", 
-				this.mvarNumerator.ToString(), 
-				"/", 
-				this.mvarDenominator.ToString(), 
-				"; ♪ = ", 
-				this.mvarNumberOf32ndNotesPerQuarterNote.ToString()
+				"TS = ",
+				this.Numerator.ToString(),
+				"/",
+				this.Denominator.ToString(),
+				"; ♪ = ",
+				this.NumberOf32ndNotesPerQuarterNote.ToString()
 			});
 		}
 		public override object Clone()
 		{
 			return new SynthesizedAudioCommandTimeSignature
 			{
-				Denominator = this.mvarDenominator, 
-				NumberOf32ndNotesPerQuarterNote = this.mvarNumberOf32ndNotesPerQuarterNote, 
-				Numerator = this.mvarNumerator, 
-				TicksPerMetronomeClick = this.mvarTicksPerMetronomeClick
+				Denominator = this.Denominator,
+				NumberOf32ndNotesPerQuarterNote = this.NumberOf32ndNotesPerQuarterNote,
+				Numerator = this.Numerator,
+				TicksPerMetronomeClick = this.TicksPerMetronomeClick
 			};
 		}
 	}

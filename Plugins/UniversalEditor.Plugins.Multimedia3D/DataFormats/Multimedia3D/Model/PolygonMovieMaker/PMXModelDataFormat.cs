@@ -1,40 +1,68 @@
+//
+//  PMXModelDataFormat.cs - provides a DataFormat for manipulating 3D models in Polygon Movie Maker/MikuMikuDance PMX format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
+
 using MBS.Framework.Drawing;
+
 using UniversalEditor.IO;
-using UniversalEditor.ObjectModels.Multimedia3D;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 using UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating 3D models in Polygon Movie Maker/MikuMikuDance PMX format./
+	/// </summary>
 	public class PMXModelDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
-        protected override DataFormatReference MakeReferenceInternal()
-        {
+		protected override DataFormatReference MakeReferenceInternal()
+		{
 			if (_dfr == null)
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 			}
-            return _dfr;
-        }
-		
-        private float mvarVersion = 0f;
-		public float Version { get { return mvarVersion; } set { mvarVersion = value; } }
+			return _dfr;
+		}
 
-        protected override void LoadInternal(ref ObjectModel objectModel)
+		/// <summary>
+		/// Gets or sets the format version of this PMX file.
+		/// </summary>
+		/// <value>The format version of this PMX file.</value>
+		public float Version { get; set; } = 0f;
+
+		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-            if (model == null) return;
+			if (model == null) return;
 
 			IO.Reader br = base.Accessor.Reader;
 			string PMDKey = br.ReadFixedLengthString(4);
-            if (PMDKey != "PMX ") throw new InvalidDataFormatException("File does not begin with \"PMX \"");
+			if (PMDKey != "PMX ") throw new InvalidDataFormatException("File does not begin with \"PMX \"");
 
-            ModelSurface surf = new ModelSurface();
-            model.Surfaces.Add(surf);
+			ModelSurface surf = new ModelSurface();
+			model.Surfaces.Add(surf);
 
 			float version = br.ReadSingle();
 			if (version == 2.0f)
@@ -99,11 +127,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 				japaneseInformation.Comments = modelComment;
 				englishInformation.Comments = br.ReadInt32String(encoding);
 
-                #region Vertices
-                int vertexCount = br.ReadInt32();
+				#region Vertices
+				int vertexCount = br.ReadInt32();
 
-                int[] vertexBone0Indices = new int[vertexCount];
-                int[] vertexBone1Indices = new int[vertexCount];
+				int[] vertexBone0Indices = new int[vertexCount];
+				int[] vertexBone1Indices = new int[vertexCount];
 
 				for (int i = 0; i < vertexCount; i++)
 				{
@@ -112,13 +140,13 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					float vertexPosY = br.ReadSingle();
 					float vertexPosZ = br.ReadSingle();
 					vertex.Position = new PositionVector3(vertexPosX, vertexPosY, vertexPosZ);
-                    vertex.OriginalPosition = new PositionVector3(vertexPosX, vertexPosY, vertexPosZ);
+					vertex.OriginalPosition = new PositionVector3(vertexPosX, vertexPosY, vertexPosZ);
 
 					float vertexNormalX = br.ReadSingle();
 					float vertexNormalY = br.ReadSingle();
 					float vertexNormalZ = br.ReadSingle();
 					vertex.Normal = new PositionVector3(vertexNormalX, vertexNormalY, vertexNormalZ);
-                    vertex.OriginalNormal = new PositionVector3(vertexNormalX, vertexNormalY, vertexNormalZ);
+					vertex.OriginalNormal = new PositionVector3(vertexNormalX, vertexNormalY, vertexNormalZ);
 
 					float vertexTextureU = br.ReadSingle();
 					float vertexTextureV = br.ReadSingle();
@@ -139,13 +167,13 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 							case 2:
 							{
 								short vertexBoneIndex2 = br.ReadInt16();
-                                vertexBone0Indices[i] = vertexBoneIndex2;
+								vertexBone0Indices[i] = vertexBoneIndex2;
 								break;
 							}
 							case 4:
 							{
 								int vertexBoneIndex3 = br.ReadInt32();
-                                vertexBone0Indices[i] = vertexBoneIndex3;
+								vertexBone0Indices[i] = vertexBoneIndex3;
 								break;
 							}
 						}
@@ -186,13 +214,13 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 								case 2:
 								{
 									short vertexBoneIndex2 = br.ReadInt16();
-                                    vertexBone1Indices[i] = vertexBoneIndex2;
+									vertexBone1Indices[i] = vertexBoneIndex2;
 									break;
 								}
 								case 4:
 								{
 									int vertexBoneIndex3 = br.ReadInt32();
-                                    vertexBone1Indices[i] = vertexBoneIndex3;
+									vertexBone1Indices[i] = vertexBoneIndex3;
 									break;
 								}
 							}
@@ -208,13 +236,13 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 									case 1:
 									{
 										byte vertexBoneIndex = br.ReadByte();
-                                        vertexBone0Indices[i] = (ushort)vertexBoneIndex;
+										vertexBone0Indices[i] = (ushort)vertexBoneIndex;
 										break;
 									}
 									case 2:
 									{
 										short vertexBoneIndex2 = br.ReadInt16();
-                                        vertexBone0Indices[i] = (ushort)vertexBoneIndex2;
+										vertexBone0Indices[i] = (ushort)vertexBoneIndex2;
 										break;
 									}
 									case 4:
@@ -229,49 +257,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 									case 1:
 									{
 										byte vertexBoneIndex = br.ReadByte();
-                                        vertexBone1Indices[i] = (ushort)vertexBoneIndex;
-										break;
-									}
-									case 2:
-									{
-										short vertexBoneIndex2 = br.ReadInt16();
-                                        vertexBone1Indices[i] = (ushort)vertexBoneIndex2;
-										break;
-									}
-									case 4:
-									{
-										int vertexBoneIndex3 = br.ReadInt32();
-                                        vertexBone1Indices[i] = (ushort)vertexBoneIndex3;
-										break;
-									}
-								}
-								switch (model.IndexSizes.Bone)
-								{
-									case 1:
-									{
-										byte vertexBoneIndex = br.ReadByte();
-                                        vertexBone0Indices[i] = (ushort)vertexBoneIndex;
-										break;
-									}
-									case 2:
-									{
-										short vertexBoneIndex2 = br.ReadInt16();
-                                        vertexBone0Indices[i] = (ushort)vertexBoneIndex2;
-										break;
-									}
-									case 4:
-									{
-										int vertexBoneIndex3 = br.ReadInt32();
-                                        vertexBone0Indices[i] = (ushort)vertexBoneIndex3;
-										break;
-									}
-								}
-								switch (model.IndexSizes.Bone)
-								{
-									case 1:
-									{
-										byte vertexBoneIndex = br.ReadByte();
-                                        vertexBone1Indices[i] = (ushort)vertexBoneIndex;
+										vertexBone1Indices[i] = (ushort)vertexBoneIndex;
 										break;
 									}
 									case 2:
@@ -283,7 +269,49 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 									case 4:
 									{
 										int vertexBoneIndex3 = br.ReadInt32();
-                                        vertexBone1Indices[i] = (ushort)vertexBoneIndex3;
+										vertexBone1Indices[i] = (ushort)vertexBoneIndex3;
+										break;
+									}
+								}
+								switch (model.IndexSizes.Bone)
+								{
+									case 1:
+									{
+										byte vertexBoneIndex = br.ReadByte();
+										vertexBone0Indices[i] = (ushort)vertexBoneIndex;
+										break;
+									}
+									case 2:
+									{
+										short vertexBoneIndex2 = br.ReadInt16();
+										vertexBone0Indices[i] = (ushort)vertexBoneIndex2;
+										break;
+									}
+									case 4:
+									{
+										int vertexBoneIndex3 = br.ReadInt32();
+										vertexBone0Indices[i] = (ushort)vertexBoneIndex3;
+										break;
+									}
+								}
+								switch (model.IndexSizes.Bone)
+								{
+									case 1:
+									{
+										byte vertexBoneIndex = br.ReadByte();
+										vertexBone1Indices[i] = (ushort)vertexBoneIndex;
+										break;
+									}
+									case 2:
+									{
+										short vertexBoneIndex2 = br.ReadInt16();
+										vertexBone1Indices[i] = (ushort)vertexBoneIndex2;
+										break;
+									}
+									case 4:
+									{
+										int vertexBoneIndex3 = br.ReadInt32();
+										vertexBone1Indices[i] = (ushort)vertexBoneIndex3;
 										break;
 									}
 								}
@@ -305,19 +333,19 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 										case 1:
 										{
 											byte vertexBoneIndex = br.ReadByte();
-                                            vertexBone0Indices[i] = (ushort)vertexBoneIndex;
+											vertexBone0Indices[i] = (ushort)vertexBoneIndex;
 											break;
 										}
 										case 2:
 										{
 											short vertexBoneIndex2 = br.ReadInt16();
-                                            vertexBone0Indices[i] = (ushort)vertexBoneIndex2;
+											vertexBone0Indices[i] = (ushort)vertexBoneIndex2;
 											break;
 										}
 										case 4:
 										{
 											int vertexBoneIndex3 = br.ReadInt32();
-                                            vertexBone0Indices[i] = (ushort)vertexBoneIndex3;
+											vertexBone0Indices[i] = (ushort)vertexBoneIndex3;
 											break;
 										}
 									}
@@ -326,19 +354,19 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 										case 1:
 										{
 											byte vertexBoneIndex = br.ReadByte();
-                                            vertexBone1Indices[i] = (ushort)vertexBoneIndex;
+											vertexBone1Indices[i] = (ushort)vertexBoneIndex;
 											break;
 										}
 										case 2:
 										{
 											short vertexBoneIndex2 = br.ReadInt16();
-                                            vertexBone1Indices[i] = (ushort)vertexBoneIndex2;
+											vertexBone1Indices[i] = (ushort)vertexBoneIndex2;
 											break;
 										}
 										case 4:
 										{
 											int vertexBoneIndex3 = br.ReadInt32();
-                                            vertexBone1Indices[i] = (ushort)vertexBoneIndex3;
+											vertexBone1Indices[i] = (ushort)vertexBoneIndex3;
 											break;
 										}
 									}
@@ -358,10 +386,10 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					}
 					float edgeFactor = br.ReadSingle();
 					surf.Vertices.Add(vertex);
-                }
-                #endregion
-                #region Indices
-                int indexCountOrig = br.ReadInt32();
+				}
+				#endregion
+				#region Indices
+				int indexCountOrig = br.ReadInt32();
 				int indexCount = (int)(indexCountOrig / 3);
 				for (int i = 0; i < indexCount; i++)
 				{
@@ -430,93 +458,93 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 						}
 					}
 					surf.Triangles.Add(face);
-                }
-                #endregion
-                #region Textures
-                int textureCount = br.ReadInt32();
+				}
+				#endregion
+				#region Textures
+				int textureCount = br.ReadInt32();
 				List<string> TextureNames = new List<string>();
 				for (int i = 0; i < textureCount; i++)
 				{
-                    string textureName = br.ReadInt32String(encoding);
+					string textureName = br.ReadInt32String(encoding);
 					TextureNames.Add(textureName);
-                }
-                #endregion
-                #region Materials
-                int materialCount = br.ReadInt32();
+				}
+				#endregion
+				#region Materials
+				int materialCount = br.ReadInt32();
 				for (int i = 0; i < materialCount; i++)
 				{
 					ModelMaterial material = new ModelMaterial();
 					material.Name = br.ReadInt32String(encoding);
 					string EnglishName = br.ReadInt32String(encoding);
-                    #region Diffuse Color
-                    float diffuseR = br.ReadSingle();
+					#region Diffuse Color
+					float diffuseR = br.ReadSingle();
 					float diffuseG = br.ReadSingle();
 					float diffuseB = br.ReadSingle();
 					float diffuseA = br.ReadSingle();
 					material.DiffuseColor = Color.FromRGBAInt32((int)(diffuseA * 255f), (int)(diffuseR * 255f), (int)(diffuseG * 255f), (int)(diffuseB * 255f));
-                    #endregion
-                    #region Specular Color
-                    float specularR = br.ReadSingle();
+					#endregion
+					#region Specular Color
+					float specularR = br.ReadSingle();
 					float specularG = br.ReadSingle();
 					float specularB = br.ReadSingle();
 					float specularCoefficient = br.ReadSingle();
 					material.SpecularColor = Color.FromRGBAInt32((int)(specularR * 255f), (int)(specularG * 255f), (int)(specularB * 255f));
-                    #endregion
-                    #region Ambient Color
-                    float ambientR = br.ReadSingle();
+					#endregion
+					#region Ambient Color
+					float ambientR = br.ReadSingle();
 					float ambientG = br.ReadSingle();
 					float ambientB = br.ReadSingle();
 					material.AmbientColor = Color.FromRGBAInt32((int)(ambientR * 255f), (int)(ambientG * 255f), (int)(ambientB * 255f));
-                    #endregion
-                    byte flag = br.ReadByte();
-                    #region EdgeColor
-                    float edgeR = br.ReadSingle();
+					#endregion
+					byte flag = br.ReadByte();
+					#region EdgeColor
+					float edgeR = br.ReadSingle();
 					float edgeG = br.ReadSingle();
 					float edgeB = br.ReadSingle();
 					float edgeA = br.ReadSingle();
 					material.EdgeColor = Color.FromRGBAInt32((int)(edgeA * 255f), (int)(edgeR * 255f), (int)(edgeG * 255f), (int)(edgeB * 255f));
-                    #endregion
-                    material.EdgeSize = br.ReadSingle();
-                    switch (model.IndexSizes.Texture)
+					#endregion
+					material.EdgeSize = br.ReadSingle();
+					switch (model.IndexSizes.Texture)
 					{
 						case 1:
 						{
-                            byte textureIndex = br.ReadByte();
-                            byte sphereTextureIndex = br.ReadByte();
+							byte textureIndex = br.ReadByte();
+							byte sphereTextureIndex = br.ReadByte();
 							break;
 						}
 						case 2:
 						{
-                            short textureIndex2 = br.ReadInt16();
-                            short sphereTextureIndex2 = br.ReadInt16();
+							short textureIndex2 = br.ReadInt16();
+							short sphereTextureIndex2 = br.ReadInt16();
 							break;
 						}
 						case 3:
 						{
-                            int textureIndex = br.ReadInt24();
+							int textureIndex = br.ReadInt24();
 							break;
 						}
 						case 4:
 						{
-                            int textureIndex3 = br.ReadInt32();
-                            int sphereTextureIndex3 = br.ReadInt32();
+							int textureIndex3 = br.ReadInt32();
+							int sphereTextureIndex3 = br.ReadInt32();
 							break;
 						}
-                        case 8:
-                        {
-                            long textureIndex4 = br.ReadInt64();
-                            long sphereTextureIndex4 = br.ReadInt64();
-                            break;
+						case 8:
+						{
+							long textureIndex4 = br.ReadInt64();
+							long sphereTextureIndex4 = br.ReadInt64();
+							break;
 						}
 					}
-                    byte b = br.ReadByte();
+					byte b = br.ReadByte();
 					switch (b)
 					{
 					}
 					byte toonSharingFlag = br.ReadByte();
 					if (toonSharingFlag == 0)
 					{
-                        switch (model.IndexSizes.Texture)
+						switch (model.IndexSizes.Texture)
 						{
 							case 1:
 							{
@@ -554,53 +582,53 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					material.Comment = br.ReadInt32String(encoding);
 					int materialVertexCount = br.ReadInt32();
 
-                    string texturePath = TextureNames[i];
-                    string textureImageFileName = null;
-                    string mapImageFileName = null;
+					string texturePath = TextureNames[i];
+					string textureImageFileName = null;
+					string mapImageFileName = null;
 
-                    ModelTextureFlags texflags = ModelTextureFlags.None;
-                    if (texturePath.Contains("*"))
-                    {
-                        string[] texturePaths = texturePath.Split(new char[] { '*' });
-                        textureImageFileName = texturePaths[0];
-                        mapImageFileName = texturePaths[1];
+					ModelTextureFlags texflags = ModelTextureFlags.None;
+					if (texturePath.Contains("*"))
+					{
+						string[] texturePaths = texturePath.Split(new char[] { '*' });
+						textureImageFileName = texturePaths[0];
+						mapImageFileName = texturePaths[1];
 
-                        if (mapImageFileName.EndsWith(".sph"))
-                        {
-                            texflags |= ModelTextureFlags.Map;
-                        }
-                        else if (mapImageFileName.EndsWith(".spa"))
-                        {
-                            texflags |= ModelTextureFlags.AddMap;
-                        }
-                        texflags |= ModelTextureFlags.Texture;
-                    }
-                    else if (texturePath.EndsWith(".sph") || texturePath.EndsWith(".spa"))
-                    {
-                        textureImageFileName = null;
-                        mapImageFileName = texturePath;
+						if (mapImageFileName.EndsWith(".sph"))
+						{
+							texflags |= ModelTextureFlags.Map;
+						}
+						else if (mapImageFileName.EndsWith(".spa"))
+						{
+							texflags |= ModelTextureFlags.AddMap;
+						}
+						texflags |= ModelTextureFlags.Texture;
+					}
+					else if (texturePath.EndsWith(".sph") || texturePath.EndsWith(".spa"))
+					{
+						textureImageFileName = null;
+						mapImageFileName = texturePath;
 
-                        if (mapImageFileName.EndsWith(".sph"))
-                        {
-                            texflags |= ModelTextureFlags.Map;
-                        }
-                        else if (mapImageFileName.EndsWith(".spa"))
-                        {
-                            texflags |= ModelTextureFlags.AddMap;
-                        }
-                    }
-                    else
-                    {
-                        textureImageFileName = texturePath;
-                        mapImageFileName = null;
-                        texflags |= ModelTextureFlags.Texture;
-                    }
+						if (mapImageFileName.EndsWith(".sph"))
+						{
+							texflags |= ModelTextureFlags.Map;
+						}
+						else if (mapImageFileName.EndsWith(".spa"))
+						{
+							texflags |= ModelTextureFlags.AddMap;
+						}
+					}
+					else
+					{
+						textureImageFileName = texturePath;
+						mapImageFileName = null;
+						texflags |= ModelTextureFlags.Texture;
+					}
 					material.Textures.Add(textureImageFileName, mapImageFileName, texflags);
 					model.Materials.Add(material);
-                }
-                #endregion
-                #region Bones
-                int boneCount = br.ReadInt32();
+				}
+				#endregion
+				#region Bones
+				int boneCount = br.ReadInt32();
 				for (int i = 0; i < boneCount; i++)
 				{
 					ModelBone bone = new ModelBone();
@@ -610,8 +638,8 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					float positionY = br.ReadSingle();
 					float positionZ = br.ReadSingle();
 					bone.Position = new PositionVector3(positionX, positionY, positionZ);
-                    bone.OriginalPosition = new PositionVector3(positionX, positionY, positionZ);
-                    bone.OriginalRotation = new PositionVector4(0, 0, 0, 1);
+					bone.OriginalPosition = new PositionVector3(positionX, positionY, positionZ);
+					bone.OriginalRotation = new PositionVector4(0, 0, 0, 1);
 
 					if (model.IndexSizes.Bone == 1)
 					{
@@ -811,30 +839,30 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 							bool angleLimitEnabled = br.ReadBoolean();
 							if (angleLimitEnabled)
 							{
-                                bone.AngleLimit.Enabled = true;
+								bone.AngleLimit.Enabled = true;
 								float angleLimitLowerX = br.ReadSingle();
 								float angleLimitLowerY = br.ReadSingle();
 								float angleLimitLowerZ = br.ReadSingle();
-                                bone.AngleLimit.Lower = new PositionVector3(angleLimitLowerX, angleLimitLowerY, angleLimitLowerZ);
+								bone.AngleLimit.Lower = new PositionVector3(angleLimitLowerX, angleLimitLowerY, angleLimitLowerZ);
 
 								float angleLimitUpperX = br.ReadSingle();
 								float angleLimitUpperY = br.ReadSingle();
 								float angleLimitUpperZ = br.ReadSingle();
-                                bone.AngleLimit.Upper = new PositionVector3(angleLimitUpperX, angleLimitUpperY, angleLimitUpperZ);
+								bone.AngleLimit.Upper = new PositionVector3(angleLimitUpperX, angleLimitUpperY, angleLimitUpperZ);
 							}
 						}
 					}
 					model.Bones.Add(bone);
-                }
+				}
 
-                for (int i = 0; i < vertexCount; i++)
-                {
-                    surf.Vertices[i].Bone0 = model.Bones[vertexBone0Indices[i]];
-                    surf.Vertices[i].Bone1 = model.Bones[vertexBone1Indices[i]];
-                }
-                #endregion
-                #region Morphs
-                int morphCount = br.ReadInt32();
+				for (int i = 0; i < vertexCount; i++)
+				{
+					surf.Vertices[i].Bone0 = model.Bones[vertexBone0Indices[i]];
+					surf.Vertices[i].Bone1 = model.Bones[vertexBone1Indices[i]];
+				}
+				#endregion
+				#region Morphs
+				int morphCount = br.ReadInt32();
 				for (int i = 0; i < morphCount; i++)
 				{
 					string morphName = br.ReadInt32String(encoding);
@@ -1099,11 +1127,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 							break;
 						}
 					}
-                }
-                #endregion
+				}
+				#endregion
 
 
-                /*
+				/*
                 #region PMA for PMX
                 if (!br.EndOfStream)
 				{
@@ -1150,7 +1178,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
                 }
                 #endregion
                 */
-            }
+			}
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{

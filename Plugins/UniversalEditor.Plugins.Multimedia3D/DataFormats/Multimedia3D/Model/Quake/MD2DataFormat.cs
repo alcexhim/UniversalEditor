@@ -1,8 +1,32 @@
-using System;
+//
+//  MD2DataFormat.cs - provides a DataFormat for manipulating 3D models in id software MD2 format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
+
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating 3D models in id software MD2 format.
+	/// </summary>
 	public class MD2DataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -14,12 +38,13 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 			}
 			return _dfr;
 		}
-		private int mvarVersion = 8;
-		public int Version
-		{
-			get { return mvarVersion; }
-			set { mvarVersion = value; }
-		}
+
+		/// <summary>
+		/// Gets or sets the format version for this MD2 file.
+		/// </summary>
+		/// <value>The format version for this MD2 file.</value>
+		public int Version { get; set; } = 8;
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			Reader br = base.Accessor.Reader;
@@ -27,7 +52,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 			string IDP2 = br.ReadFixedLengthString(4);
 			if (IDP2 != "IDP2") throw new InvalidDataFormatException("File does not begin with 'IDP2'");
 
-			this.mvarVersion = br.ReadInt32();
+			this.Version = br.ReadInt32();
 			int skinwidth = br.ReadInt32();
 			int skinheight = br.ReadInt32();
 			int framesize = br.ReadInt32();
@@ -49,7 +74,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 			Writer bw = base.Accessor.Writer;
 			ModelObjectModel mom = objectModel as ModelObjectModel;
 			bw.WriteFixedLengthString("IDP2");
-			bw.WriteInt32(mvarVersion);
+			bw.WriteInt32(Version);
 			int skinwidth = 128;
 			int skinheight = 128;
 			bw.WriteInt32(skinwidth);

@@ -1,11 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿//
+//  PMAXAdvancedTextureBlockChunk.cs - represents an advanced texture block chunk in a PMAX patch file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using UniversalEditor.IO;
 
 namespace UniversalEditor.ObjectModels.PMAXPatch.Chunks
 {
+	/// <summary>
+	/// Represents an advanced texture block chunk in a PMAX patch file.
+	/// </summary>
 	public class PMAXAdvancedTextureBlockChunk : PMAXPatchChunk
 	{
 		private string mvarName = "TEXA";
@@ -14,9 +34,7 @@ namespace UniversalEditor.ObjectModels.PMAXPatch.Chunks
 			get { return mvarName; }
 		}
 
-		private PMAXAdvancedTextureBlock.PMAXAdvancedTextureBlockCollection mvarAdvancedTextureBlocks = new PMAXAdvancedTextureBlock.PMAXAdvancedTextureBlockCollection();
-		public PMAXAdvancedTextureBlock.PMAXAdvancedTextureBlockCollection AdvancedTextureBlocks { get { return mvarAdvancedTextureBlocks; } }
-
+		public PMAXAdvancedTextureBlock.PMAXAdvancedTextureBlockCollection AdvancedTextureBlocks { get; } = new PMAXAdvancedTextureBlock.PMAXAdvancedTextureBlockCollection();
 
 		public override void LoadInternal(Accessor accessor)
 		{
@@ -45,14 +63,14 @@ namespace UniversalEditor.ObjectModels.PMAXPatch.Chunks
 					image.TextureFlags = (UniversalEditor.ObjectModels.Multimedia3D.Model.ModelTextureFlags)reader.ReadInt32();
 					block.Images.Add(image);
 				}
-				mvarAdvancedTextureBlocks.Add(block);
+				AdvancedTextureBlocks.Add(block);
 			}
 		}
 		public override void SaveInternal(Accessor accessor)
 		{
 			Writer writer = new Writer(accessor);
-			writer.WriteInt32(mvarAdvancedTextureBlocks.Count);
-			foreach (PMAXAdvancedTextureBlock block in mvarAdvancedTextureBlocks)
+			writer.WriteInt32(AdvancedTextureBlocks.Count);
+			foreach (PMAXAdvancedTextureBlock block in AdvancedTextureBlocks)
 			{
 				writer.WriteInt32(block.MaterialID);
 
@@ -82,7 +100,7 @@ namespace UniversalEditor.ObjectModels.PMAXPatch.Chunks
 		public override object Clone()
 		{
 			PMAXAdvancedTextureBlockChunk clone = new PMAXAdvancedTextureBlockChunk();
-			foreach (PMAXAdvancedTextureBlock block in mvarAdvancedTextureBlocks)
+			foreach (PMAXAdvancedTextureBlock block in AdvancedTextureBlocks)
 			{
 				clone.AdvancedTextureBlocks.Add(block.Clone() as PMAXAdvancedTextureBlock);
 			}

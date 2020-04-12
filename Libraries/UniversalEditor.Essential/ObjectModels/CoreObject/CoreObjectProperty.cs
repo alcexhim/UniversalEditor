@@ -1,10 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿//
+//  CoreObjectProperty.cs - represents a property in a CoreObjectObjectModel
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Text;
 
 namespace UniversalEditor.ObjectModels.CoreObject
 {
+	/// <summary>
+	/// Represents a property in a <see cref="CoreObjectObjectModel" />.
+	/// </summary>
 	public class CoreObjectProperty : ICloneable
 	{
 		public class CoreObjectPropertyCollection
@@ -80,34 +102,21 @@ namespace UniversalEditor.ObjectModels.CoreObject
 
 		}
 
-		private string mvarName = String.Empty;
-		public string Name { get { return mvarName; } set { mvarName = value; } }
+		public string Name { get; set; } = String.Empty;
+		public CoreObjectGroup ParentGroup { get; internal set; } = null;
 
-		private CoreObjectGroup mvarParentGroup = null;
-		public CoreObjectGroup ParentGroup
-		{
-			get { return mvarParentGroup; }
-			internal set
-			{
-				mvarParentGroup = value;
-			}
-		}
-
-		private CoreObjectAttribute.CoreObjectAttributeCollection mvarAttributes = new CoreObjectAttribute.CoreObjectAttributeCollection();
-		public CoreObjectAttribute.CoreObjectAttributeCollection Attributes { get { return mvarAttributes; } }
-
-		private System.Collections.Specialized.StringCollection mvarValues = new System.Collections.Specialized.StringCollection();
-		public System.Collections.Specialized.StringCollection Values { get { return mvarValues; } }
+		public CoreObjectAttribute.CoreObjectAttributeCollection Attributes { get; } = new CoreObjectAttribute.CoreObjectAttributeCollection();
+		public System.Collections.Specialized.StringCollection Values { get; } = new System.Collections.Specialized.StringCollection();
 
 		public object Clone()
 		{
 			CoreObjectProperty clone = new CoreObjectProperty();
-			clone.Name = (mvarName.Clone() as string);
-			foreach (CoreObjectAttribute item in mvarAttributes)
+			clone.Name = (Name.Clone() as string);
+			foreach (CoreObjectAttribute item in Attributes)
 			{
 				clone.Attributes.Add(item.Clone() as CoreObjectAttribute);
 			}
-			foreach (string item in mvarValues)
+			foreach (string item in Values)
 			{
 				clone.Values.Add(item);
 			}
@@ -117,13 +126,13 @@ namespace UniversalEditor.ObjectModels.CoreObject
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.Append(mvarName);
-			if (mvarAttributes.Count > 0)
+			sb.Append(Name);
+			if (Attributes.Count > 0)
 			{
 				sb.Append(";");
-				for (int i = 0; i < mvarAttributes.Count; i++)
+				for (int i = 0; i < Attributes.Count; i++)
 				{
-					CoreObjectAttribute att = mvarAttributes[i];
+					CoreObjectAttribute att = Attributes[i];
 					sb.Append(att.Name);
 					if (att.Values.Count > 0)
 					{
@@ -134,15 +143,15 @@ namespace UniversalEditor.ObjectModels.CoreObject
 							if (j < att.Values.Count - 1) sb.Append(',');
 						}
 					}
-					if (i < mvarAttributes.Count - 1) sb.Append(";");
+					if (i < Attributes.Count - 1) sb.Append(";");
 				}
-				if (mvarValues.Count > 0)
+				if (Values.Count > 0)
 				{
 					sb.Append(":");
-					for (int i = 0; i < mvarValues.Count; i++)
+					for (int i = 0; i < Values.Count; i++)
 					{
-						sb.Append(mvarValues[i]);
-						if (i < mvarValues.Count - 1) sb.Append(";");
+						sb.Append(Values[i]);
+						if (i < Values.Count - 1) sb.Append(";");
 					}
 				}
 			}

@@ -1,10 +1,10 @@
 ﻿//
-//  JSONObjectModel.cs
+//  JSONObjectModel.cs - provides an ObjectModel for manipulating data in JavaScript Object Notation (JSON) format
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,13 +18,19 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace UniversalEditor.ObjectModels.JSON
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating data in JavaScript Object Notation (JSON) format.
+	/// </summary>
 	public class JSONObjectModel : ObjectModel
 	{
-		private JSONObject.JSONObjectCollection mvarObjects = new JSONObject.JSONObjectCollection();
-		public JSONObject.JSONObjectCollection Objects { get { return mvarObjects; } }
+		/// <summary>
+		/// Gets a collection of <see cref="JSONObject" /> instances representing the objects in this <see cref="JSONObjectModel" /> document.
+		/// </summary>
+		/// <value>The objects.</value>
+		public JSONObject.JSONObjectCollection Objects { get; } = new JSONObject.JSONObjectCollection();
 
 		public override void Clear()
 		{

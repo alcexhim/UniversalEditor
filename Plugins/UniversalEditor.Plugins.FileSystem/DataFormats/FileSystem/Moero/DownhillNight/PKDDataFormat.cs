@@ -1,13 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  PKDDataFormat.cs - provides a DataFormat for manipulating archives in Moero Downhill Night PKD format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in Moero Downhill Night PKD format.
+	/// </summary>
 	public class PKDDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -17,17 +37,16 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.ImportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key:", 0xC5, 0, 255));
-                _dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key:", 0xC5, 0, 255));
+				_dfr.ImportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key:", 0xC5, 0, 255));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key:", 0xC5, 0, 255));
 			}
 			return _dfr;
 		}
 
-        private byte mvarEncryptionKey = 0xC5;
-        /// <summary>
-        /// The single-byte encryption key XORed with the file data.
-        /// </summary>
-        public byte EncryptionKey { get { return mvarEncryptionKey; } set { mvarEncryptionKey = value; } }
+		/// <summary>
+		/// The single-byte encryption key XORed with the file data.
+		/// </summary>
+		public byte EncryptionKey { get; set; } = 0xC5;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -41,7 +60,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			byte[] encryptedData = br.ReadToEnd();
 			for (int i = 0; i < encryptedData.Length; i++)
 			{
-				encryptedData[i] = (byte)(encryptedData[i] ^ mvarEncryptionKey);
+				encryptedData[i] = (byte)(encryptedData[i] ^ EncryptionKey);
 			}
 
 			br = new IO.Reader(new MemoryAccessor(encryptedData));
@@ -61,7 +80,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 				file.Size = length;
 			}
 
-            br.Close();
+			br.Close();
 		}
 
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
@@ -81,12 +100,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			// create a Writer in memory for the unencrypted data
-            MemoryAccessor ma = new MemoryAccessor();
+			MemoryAccessor ma = new MemoryAccessor();
 			IO.Writer bw = new IO.Writer(ma);
 
 
 			File[] files = fsom.GetAllFiles();
-			
+
 			uint offset = 4;
 			foreach (File file in files)
 			{
@@ -110,7 +129,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			byte[] data = ma.ToArray();
 			for (int i = 0; i < data.Length; i++)
 			{
-				data[i] = (byte)(data[i] ^ mvarEncryptionKey);
+				data[i] = (byte)(data[i] ^ EncryptionKey);
 			}
 			bw.WriteBytes(data);
 			bw.Flush();

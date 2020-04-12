@@ -1,10 +1,10 @@
 ﻿//
-//  AFSFormatVersion.cs
+//  AFSFormatVersion.cs - the version of AFS archive being handled by an AFSDataFormat instance
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,11 +18,11 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
 	/// <summary>
-	/// The version of AFS archive being handled by a <see cref="AFSDataFormat" /> instance.
+	/// The version of AFS archive being handled by an <see cref="AFSDataFormat" /> instance.
 	/// </summary>
 	public enum AFSFormatVersion
 	{

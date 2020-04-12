@@ -1,134 +1,66 @@
+//
+//  AudioObjectModelInformation.cs - describes general document properties for an audio file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
+
 using UniversalEditor.ObjectModels.PropertyList;
+
 namespace UniversalEditor.ObjectModels.Multimedia.Audio
 {
+	/// <summary>
+	/// Describes general document properties for an audio file.
+	/// </summary>
 	public class AudioObjectModelInformation
 	{
-		private string mvarSongTitle = string.Empty;
-		private string mvarAlbumTitle = string.Empty;
-		private string mvarCreator = string.Empty;
-		private string mvarComments = string.Empty;
-		private DateTime mvarDateCreated = DateTime.Now;
-		private int mvarFadeOutDelay = 0;
-		private int mvarFadeOutLength = 0;
-		private string mvarSongArtist = string.Empty;
 		private string mvarGeneratorTitle = string.Empty;
 		private string mvarGeneratorAuthor = string.Empty;
 		private Version mvarGeneratorVersion = new Version(1, 0, 0, 0);
-		public string SongTitle
-		{
-			get
-			{
-				return this.mvarSongTitle;
-			}
-			set
-			{
-				this.mvarSongTitle = value;
-			}
-		}
-		public string AlbumTitle
-		{
-			get
-			{
-				return this.mvarAlbumTitle;
-			}
-			set
-			{
-				this.mvarAlbumTitle = value;
-			}
-		}
-		public string Creator
-		{
-			get
-			{
-				return this.mvarCreator;
-			}
-			set
-			{
-				this.mvarCreator = value;
-			}
-		}
-		public string Comments
-		{
-			get
-			{
-				return this.mvarComments;
-			}
-			set
-			{
-				this.mvarComments = value;
-			}
-		}
-		public DateTime DateCreated
-		{
-			get
-			{
-				return this.mvarDateCreated;
-			}
-			set
-			{
-				this.mvarDateCreated = value;
-			}
-		}
-		public int FadeOutDelay
-		{
-			get
-			{
-				return this.mvarFadeOutDelay;
-			}
-			set
-			{
-				this.mvarFadeOutDelay = value;
-			}
-		}
-		public int FadeOutLength
-		{
-			get
-			{
-				return this.mvarFadeOutLength;
-			}
-			set
-			{
-				this.mvarFadeOutLength = value;
-			}
-		}
-		public string SongArtist
-		{
-			get
-			{
-				return this.mvarSongArtist;
-			}
-			set
-			{
-				this.mvarSongArtist = value;
-			}
-		}
-
-		private string mvarGenre = String.Empty;
-		public string Genre { get { return mvarGenre; } set { mvarGenre = value; } }
-
-		private int mvarTrackNumber = -1;
-		public int TrackNumber { get { return mvarTrackNumber; } set { mvarTrackNumber = value; } }
-
-		private Property.PropertyCollection mvarCustomProperties = new Property.PropertyCollection();
-		public Property.PropertyCollection CustomProperties { get { return mvarCustomProperties; } }
+		public string SongTitle { get; set; } = string.Empty;
+		public string AlbumTitle { get; set; } = string.Empty;
+		public string Creator { get; set; } = string.Empty;
+		public string Comments { get; set; } = string.Empty;
+		public DateTime DateCreated { get; set; } = DateTime.Now;
+		public int FadeOutDelay { get; set; } = 0;
+		public int FadeOutLength { get; set; } = 0;
+		public string SongArtist { get; set; } = string.Empty;
+		public string Genre { get; set; } = String.Empty;
+		public int TrackNumber { get; set; } = -1;
+		public Property.PropertyCollection CustomProperties { get; } = new Property.PropertyCollection();
 
 		public void Clear()
 		{
-			mvarAlbumTitle = String.Empty;
-			mvarComments = String.Empty;
-			mvarCreator = String.Empty;
-			mvarCustomProperties.Clear();
-			mvarDateCreated = DateTime.Now;
-			mvarFadeOutDelay = 0;
-			mvarFadeOutLength = 0;
+			AlbumTitle = String.Empty;
+			Comments = String.Empty;
+			Creator = String.Empty;
+			CustomProperties.Clear();
+			DateCreated = DateTime.Now;
+			FadeOutDelay = 0;
+			FadeOutLength = 0;
 			mvarGeneratorAuthor = String.Empty;
 			mvarGeneratorTitle = String.Empty;
 			mvarGeneratorVersion = new Version(1, 0, 0, 0);
-			mvarGenre = String.Empty;
-			mvarSongArtist = String.Empty;
-			mvarSongTitle = String.Empty;
-			mvarTrackNumber = -1;
+			Genre = String.Empty;
+			SongArtist = String.Empty;
+			SongTitle = String.Empty;
+			TrackNumber = -1;
 		}
 	}
 }

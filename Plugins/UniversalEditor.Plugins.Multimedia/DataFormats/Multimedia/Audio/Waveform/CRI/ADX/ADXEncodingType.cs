@@ -1,10 +1,10 @@
 //
-//  ADXEncodingType.cs
+//  ADXEncodingType.cs - indicates the encoding type for the ADX codec
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2010-2019 Mike Becker
+//  Copyright (c) 2010-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,17 +19,16 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.CRI.ADX
 {
-    public enum ADXEncodingType : byte
-    {
-        StandardADX = 0x03,
-        ADXWithExponentialScale = 0x04,
-        AHX10 = 0x10,
-        AHX11 = 0x11
-    }
+	/// <summary>
+	/// Indicates the encoding type for the ADX codec.
+	/// </summary>
+	public enum ADXEncodingType : byte
+	{
+		StandardADX = 0x03,
+		ADXWithExponentialScale = 0x04,
+		AHX10 = 0x10,
+		AHX11 = 0x11
+	}
 }

@@ -1,12 +1,34 @@
-﻿using System;
+﻿//
+//  FATDataFormat.cs - provides a DataFormat for manipulating a filesystem in FAT format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.FAT
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating a filesystem in FAT format.
+	/// </summary>
 	public class FATDataFormat : DataFormat
 	{
 		#region Data Format-specific
@@ -40,7 +62,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ExportOptions.Add(new CustomOptionText(nameof(OEMName), "OEM &name:", "MSDOS5.0", 8));
-				
+
 				#region Bios Parameter Block
 				{
 					CustomOptionGroup grp = new CustomOptionGroup(nameof(BiosParameterBlock), "BIOS parameter block");
@@ -63,7 +85,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						new CustomOptionFieldChoice("5.25\" or 8\" single-sided, 40 tracks per side, 8 sectors per track (160K)", FATMediaDescriptor.MediaDescriptor7),
 						new CustomOptionFieldChoice("5.25\" double-sided, 40 tracks per side, 8 sectors per track (320K)", FATMediaDescriptor.MediaDescriptor8)
 					));
-					
+
 					grp.Options.Add(new CustomOptionNumber("SectorsPerFAT16", "Sectors per allocation table:", 0));
 					grp.Options.Add(new CustomOptionNumber("SectorsPerTrack", "Sectors per track:", 0));
 					grp.Options.Add(new CustomOptionNumber("NumberOfHeads", "Number of heads:", 0));
@@ -103,7 +125,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
-			
+
 			mvarJumpInstruction = br.ReadBytes(3);
 
 			mvarOEMName = br.ReadFixedLengthString(8);
@@ -138,7 +160,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 				}
 				else
 				{
-					mvarBiosParameterBlock.TotalSectors = totalLogicalSectors32; 
+					mvarBiosParameterBlock.TotalSectors = totalLogicalSectors32;
 				}
 			}
 			#endregion
@@ -218,7 +240,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			long numBytesBeforeRootDir = (long)mvarBiosParameterBlock.BytesPerSector * numBlocksBeforeRootDir;
 
 			int bytesOccupiedByRootDirEntries = (mvarBiosParameterBlock.MaximumRootDirectoryEntryCount * 32);
-			
+
 			br.Accessor.Position = numBytesBeforeRootDir;
 
 			List<FATFileInfo> fileInfos = new List<FATFileInfo>();
@@ -292,7 +314,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						short LFN_FirstCluster = br.ReadInt16();
 						byte[] LFN_UnicodeNamePart3 = br.ReadBytes(4);
 						byte[] LFN_UnicodeNameBytes = new byte[26];
-						
+
 						Array.Copy(LFN_UnicodeNamePart1, 0, LFN_UnicodeNameBytes, 0, LFN_UnicodeNamePart1.Length);
 						Array.Copy(LFN_UnicodeNamePart2, 0, LFN_UnicodeNameBytes, LFN_UnicodeNamePart1.Length, LFN_UnicodeNamePart2.Length);
 						Array.Copy(LFN_UnicodeNamePart3, 0, LFN_UnicodeNameBytes, LFN_UnicodeNamePart1.Length + LFN_UnicodeNamePart2.Length, LFN_UnicodeNamePart3.Length);
@@ -566,7 +588,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						if (LFN_FileName != String.Empty)
 						{
 							LFN_FileName = LFN_FileName.TrimNull();
-							
+
 							fi.LongFileName = LFN_FileName;
 							fi.ShortFileName = fileName + "." + fileExt;
 
@@ -589,7 +611,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 							long firstSectorOffset = (long)numBytesBeforeRootDir + bytesOccupiedByRootDirEntries;
 							int realSectorIndex = fi.Offset - 2; //  2;
 							long fileOffset = (firstSectorOffset + (realSectorIndex * mvarBiosParameterBlock.BytesPerSector));
-					
+
 							long pos = br.Accessor.Position;
 							br.Accessor.Position = fileOffset;
 
@@ -613,7 +635,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					long firstSectorOffset = (long)numBytesBeforeRootDir + bytesOccupiedByRootDirEntries;
 					int realSectorIndex = fi.Offset - 2; //  2;
 					long fileOffset = (firstSectorOffset + (realSectorIndex * mvarBiosParameterBlock.BytesPerSector));
-					
+
 					File file = new File();
 					file.Name = fi.LongFileName;
 

@@ -1,12 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  Shaiya3DCDataFormat.cs - provides a DataFormat for manipulating 3D models in Shaiya 3DC format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Shaiya
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating 3D models in Shaiya 3DC format.
+	/// </summary>
 	public class Shaiya3DCDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -23,7 +42,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Shaiya
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			
+
 			IO.Reader br = base.Accessor.Reader;
 			uint constant00 = br.ReadUInt32();
 			uint boneCount = br.ReadUInt32();

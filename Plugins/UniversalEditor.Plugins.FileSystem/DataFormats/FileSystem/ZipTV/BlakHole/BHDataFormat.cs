@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  BHDataFormat.cs - provides a DataFormat for manipulating archives in ZipTV BlakHole format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in ZipTV BlakHole format.
+	/// </summary>
 	public class BHDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -35,23 +57,23 @@ namespace UniversalEditor.DataFormats.FileSystem.ZipTV.BlakHole
 					continue;
 				}
 
-															//	uncompressed	deflate		fuse	bzip2-ultra	bzip2-normal
-				byte unknown1 = reader.ReadByte();			//	5
-				byte unknown2 = reader.ReadByte();			//	7
-				BHEncryptionMethod encryptionMethod = (BHEncryptionMethod)reader.ReadUInt16();		// 49
-				ushort unknown4 = reader.ReadUInt16();		// 55845
-				ushort windowSize = reader.ReadUInt16();		// 4				516			4		516			4
-				BHCompressionMethod compressionMethod = (BHCompressionMethod)reader.ReadByte();			// 0				8			3		12			12
+				//	uncompressed	deflate		fuse	bzip2-ultra	bzip2-normal
+				byte unknown1 = reader.ReadByte();          //	5
+				byte unknown2 = reader.ReadByte();          //	7
+				BHEncryptionMethod encryptionMethod = (BHEncryptionMethod)reader.ReadUInt16();      // 49
+				ushort unknown4 = reader.ReadUInt16();      // 55845
+				ushort windowSize = reader.ReadUInt16();        // 4				516			4		516			4
+				BHCompressionMethod compressionMethod = (BHCompressionMethod)reader.ReadByte();         // 0				8			3		12			12
 
 				// TODO: figure out how dates are encoded
 				uint modifiedDate = reader.ReadUInt32();
 
 				uint compressedSize = reader.ReadUInt32();
 				uint decompressedSize = reader.ReadUInt32();
-				
+
 				uint crc = reader.ReadUInt32();
-				
-				uint unknown8 = reader.ReadUInt32();		// 32
+
+				uint unknown8 = reader.ReadUInt32();        // 32
 				ushort unknown9 = reader.ReadUInt16();
 
 				uint fileNameLength = reader.ReadUInt32();

@@ -1,4 +1,25 @@
-﻿using System;
+﻿//
+//  ManagedAssemblyPanel.cs - provides a UWT Container with controls to edit managed assembly information for an ExecutableObjectModel
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2019-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Reflection;
 using System.Text;
 using MBS.Framework.UserInterface;
@@ -8,6 +29,9 @@ using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 {
+	/// <summary>
+	/// Provides a UWT Container with controls to edit managed assembly information for an <see cref="ObjectModels.Executable.ExecutableObjectModel" />.
+	/// </summary>
 	public class ManagedAssemblyPanel : Container
 	{
 		private TextBox txtSearch = null;
@@ -17,8 +41,8 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 		private ComboBox cboLanguage = null;
 
-		private System.Reflection.Assembly _Assembly = null;
-		public System.Reflection.Assembly Assembly
+		private Assembly _Assembly = null;
+		public Assembly Assembly
 		{
 			get { return _Assembly; }
 			set
@@ -37,7 +61,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			{
 				types = _Assembly.GetTypes();
 			}
-			catch (System.Reflection.ReflectionTypeLoadException ex)
+			catch (ReflectionTypeLoadException ex)
 			{
 				types = ex.Types;
 			}
@@ -77,7 +101,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 		{
 			row.SetExtraData<Type>("item", type);
 
-			System.Reflection.BindingFlags bindingFlags = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static | BindingFlags.DeclaredOnly;
+			BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
 
 			TreeModelRow rowBaseTypes = new TreeModelRow(new TreeModelRowColumn[]
 			{
@@ -102,7 +126,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			});
 			row.Rows.Add(rowDerivedTypes);
 
-			System.Reflection.FieldInfo[] fields = type.GetFields(bindingFlags);
+			FieldInfo[] fields = type.GetFields(bindingFlags);
 			for (int j = 0; j < fields.Length; j++)
 			{
 				TreeModelRow row2 = new TreeModelRow(new TreeModelRowColumn[]
@@ -110,11 +134,11 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 					new TreeModelRowColumn(tmTypes.Columns[0], fields[j]),
 					new TreeModelRowColumn(tmTypes.Columns[1], "Field")
 				});
-				row2.SetExtraData<System.Reflection.FieldInfo>("item", fields[j]);
+				row2.SetExtraData<FieldInfo>("item", fields[j]);
 				row.Rows.Add(row2);
 			}
 
-			System.Reflection.EventInfo[] events = type.GetEvents(bindingFlags);
+			EventInfo[] events = type.GetEvents(bindingFlags);
 			for (int j = 0; j < events.Length; j++)
 			{
 				TreeModelRow row2 = new TreeModelRow(new TreeModelRowColumn[]
@@ -122,11 +146,11 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 					new TreeModelRowColumn(tmTypes.Columns[0], events[j]),
 					new TreeModelRowColumn(tmTypes.Columns[1], "Event")
 				});
-				row2.SetExtraData<System.Reflection.EventInfo>("item", events[j]);
+				row2.SetExtraData<EventInfo>("item", events[j]);
 				row.Rows.Add(row2);
 			}
 
-			System.Reflection.PropertyInfo[] props = type.GetProperties(bindingFlags);
+			PropertyInfo[] props = type.GetProperties(bindingFlags);
 			for (int j = 0; j < props.Length; j++)
 			{
 				TreeModelRow row2 = new TreeModelRow(new TreeModelRowColumn[]
@@ -134,11 +158,11 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 						new TreeModelRowColumn(tmTypes.Columns[0], props[j]),
 						new TreeModelRowColumn(tmTypes.Columns[1], "Property")
 				});
-				row2.SetExtraData<System.Reflection.PropertyInfo>("item", props[j]);
+				row2.SetExtraData<PropertyInfo>("item", props[j]);
 				row.Rows.Add(row2);
 			}
 
-			System.Reflection.MethodInfo[] meths = type.GetMethods(bindingFlags);
+			MethodInfo[] meths = type.GetMethods(bindingFlags);
 			for (int j = 0; j < meths.Length; j++)
 			{
 				if (meths[j].IsSpecialName && (meths[j].Name.StartsWith("set_", StringComparison.OrdinalIgnoreCase) || meths[j].Name.StartsWith("get_", StringComparison.OrdinalIgnoreCase)))
@@ -153,7 +177,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 						new TreeModelRowColumn(tmTypes.Columns[0], GetMethodTitle(meths[j])),
 						new TreeModelRowColumn(tmTypes.Columns[1], "Method")
 				});
-				row2.SetExtraData<System.Reflection.MethodInfo>("item", meths[j]);
+				row2.SetExtraData<MethodInfo>("item", meths[j]);
 				row.Rows.Add(row2);
 			}
 		}
@@ -263,16 +287,16 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 				tvTypes_SelectionChanged(this, EventArgs.Empty);
 			}
 		}
-		
-		private string GetAccessModifiersSourceCode(System.Reflection.PropertyInfo mi)
+
+		private string GetAccessModifiersSourceCode(PropertyInfo mi)
 		{
 			return Language.GetAccessModifiers(mi);
 		}
-		private string GetAccessModifiersSourceCode(System.Reflection.MethodInfo mi)
+		private string GetAccessModifiersSourceCode(MethodInfo mi)
 		{
 			return Language.GetAccessModifiers(mi);
 		}
-		private string GetAccessModifiersSourceCode(System.Reflection.FieldInfo mi)
+		private string GetAccessModifiersSourceCode(FieldInfo mi)
 		{
 			return Language.GetAccessModifiers(mi);
 		}
@@ -281,7 +305,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			return Language.GetAccessModifiers(mi);
 		}
 
-		private string GetMethodTitle(System.Reflection.MethodInfo mi)
+		private string GetMethodTitle(MethodInfo mi)
 		{
 			StringBuilder sb = new StringBuilder();
 			string typeName = Language.GetTypeName(mi.ReturnType);
@@ -304,9 +328,9 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 				Type typ = (item as Type);
 				txtSource.Text = Language.GetSourceCode(typ, 0);
 			}
-			else if (item is System.Reflection.MethodInfo)
+			else if (item is MethodInfo)
 			{
-				txtSource.Text = Language.GetSourceCode(item as System.Reflection.MethodInfo, 0);
+				txtSource.Text = Language.GetSourceCode(item as MethodInfo, 0);
 			}
 		}
 

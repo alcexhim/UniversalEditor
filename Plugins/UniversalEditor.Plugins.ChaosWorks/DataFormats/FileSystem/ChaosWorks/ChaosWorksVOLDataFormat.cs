@@ -1,7 +1,26 @@
-﻿using System;
+﻿//
+//  ChaosWorksVOLDataFormat.cs - provides a DataFormat for manipulating archives in Chaos Works VOL format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2019-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.Compression.Modules.LZRW1;
 using UniversalEditor.IO;
@@ -10,6 +29,9 @@ using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in Chaos Works VOL format.
+	/// </summary>
 	public class ChaosWorksVOLDataFormat : DataFormat
 	{
 		DataFormatReference _dfr = null;
@@ -177,7 +199,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 					break;
 				}
 
-				ChaosWorksVOLV2CompressionFlag flag = (ChaosWorksVOLV2CompressionFlag) reader.ReadUInt16();
+				ChaosWorksVOLV2CompressionFlag flag = (ChaosWorksVOLV2CompressionFlag)reader.ReadUInt16();
 
 				uint compressedLength = reader.ReadUInt32();
 				uint decompressedLength = reader.ReadUInt32();

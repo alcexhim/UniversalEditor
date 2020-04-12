@@ -1,10 +1,10 @@
 ﻿//
-//  SingingStyleDefaultsOptionProvider.cs
+//  SingingStyleDefaultsOptionProvider.cs - provides a SettingsProvider for managing singing style defaults for SynthesizedAudioEditor
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,11 +18,15 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.SettingsProviders
 {
+	/// <summary>
+	/// Provides a <see cref="SettingsProvider" /> for managing singing style defaults for SynthesizedAudioEditor.
+	/// </summary>
 	public class SingingStyleDefaultsSettingsProvider : ApplicationSettingsProvider
 	{
 		public SingingStyleDefaultsSettingsProvider ()

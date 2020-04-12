@@ -1,11 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  SynthesizedAudioCollectionTrack.cs - represents a track in a synthesized audio collection
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
 namespace UniversalEditor.ObjectModels.Multimedia.AudioCollection.Synthesized
 {
+	/// <summary>
+	/// Represents a track in a synthesized audio collection.
+	/// </summary>
 	public class SynthesizedAudioCollectionTrack : ICloneable
 	{
 		public class SynthesizedAudioCollectionTrackCollection
@@ -13,48 +35,29 @@ namespace UniversalEditor.ObjectModels.Multimedia.AudioCollection.Synthesized
 		{
 
 		}
-
-		private string mvarSongTitle = String.Empty;
-		public string SongTitle { get { return mvarSongTitle; } set { mvarSongTitle = value; } }
-
-		private string mvarGameTitle = String.Empty;
-		public string GameTitle { get { return mvarGameTitle; } set { mvarGameTitle = value; } }
-
-		private string mvarArtistName = String.Empty;
-		public string ArtistName { get { return mvarArtistName; } set { mvarArtistName = value; } }
-
-		private string mvarDumperName = String.Empty;
-		public string DumperName { get { return mvarDumperName; } set { mvarDumperName = value; } }
-
-		private string mvarComments = String.Empty;
-		public string Comments { get { return mvarComments; } set { mvarComments = value; } }
-
-		private string mvarAlbumTitle = String.Empty;
-		public string AlbumTitle { get { return mvarAlbumTitle; } set { mvarAlbumTitle = value; } }
-
-		private string mvarPublisherName = String.Empty;
-		public string PublisherName { get { return mvarPublisherName; } set { mvarPublisherName = value; } }
-
-		private string mvarOriginalFileName = String.Empty;
-		public string OriginalFileName { get { return mvarOriginalFileName; } set { mvarOriginalFileName = value; } }
-
-		private SynthesizedAudioObjectModel mvarObjectModel = null;
-		public SynthesizedAudioObjectModel ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; } }
+		public string SongTitle { get; set; } = String.Empty;
+		public string GameTitle { get; set; } = String.Empty;
+		public string ArtistName { get; set; } = String.Empty;
+		public string DumperName { get; set; } = String.Empty;
+		public string Comments { get; set; } = String.Empty;
+		public string AlbumTitle { get; set; } = String.Empty;
+		public string PublisherName { get; set; } = String.Empty;
+		public string OriginalFileName { get; set; } = String.Empty;
+		public SynthesizedAudioObjectModel ObjectModel { get; set; } = null;
 
 		public object Clone()
 		{
 			SynthesizedAudioCollectionTrack clone = new SynthesizedAudioCollectionTrack();
-			clone.AlbumTitle = (mvarAlbumTitle.Clone() as string);
-			clone.ArtistName = (mvarArtistName.Clone() as string);
-			clone.Comments = (mvarComments.Clone() as string);
-			clone.DumperName = (mvarDumperName.Clone() as string);
-			clone.GameTitle = (mvarGameTitle.Clone() as string);
-			clone.ObjectModel = (mvarObjectModel.Clone() as SynthesizedAudioObjectModel);
-			clone.OriginalFileName = (mvarOriginalFileName.Clone() as string);
-			clone.PublisherName = (mvarPublisherName.Clone() as string);
-			clone.SongTitle = (mvarSongTitle.Clone() as string);
+			clone.AlbumTitle = (AlbumTitle.Clone() as string);
+			clone.ArtistName = (ArtistName.Clone() as string);
+			clone.Comments = (Comments.Clone() as string);
+			clone.DumperName = (DumperName.Clone() as string);
+			clone.GameTitle = (GameTitle.Clone() as string);
+			clone.ObjectModel = (ObjectModel.Clone() as SynthesizedAudioObjectModel);
+			clone.OriginalFileName = (OriginalFileName.Clone() as string);
+			clone.PublisherName = (PublisherName.Clone() as string);
+			clone.SongTitle = (SongTitle.Clone() as string);
 			return clone;
 		}
-
 	}
 }

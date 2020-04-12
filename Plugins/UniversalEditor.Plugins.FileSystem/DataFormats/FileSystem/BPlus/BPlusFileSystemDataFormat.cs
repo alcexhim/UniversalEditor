@@ -1,16 +1,36 @@
-﻿using System;
+﻿//
+//  BPlusFileSystemDataFormat.cs - provides a DataFormat for manipulating the underlying BPlus tree-based file system in a Microsoft WinHelp (HLP) format file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.BPlus
 {
 	/// <summary>
-	/// A DataFormat to parse Microsoft WinHelp (HLP) documentation files.
+	/// Provides a <see cref="DataFormat" /> for manipulating the underlying BPlus tree-based file system in a Microsoft WinHelp (HLP) format file.
 	/// </summary>
-	/// <remarks>Based on documentation contributed by M. Winterhoff, Pete Davis, Holger Haase, and Bent Lynggaard.</remarks>
+	/// <remarks>
+	/// Based on documentation contributed by M. Winterhoff, Pete Davis, Holger Haase, and Bent Lynggaard.
+	/// </remarks>
 	public class BPlusFileSystemDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -36,7 +56,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 
 			int magic = br.ReadInt32();
 			if (magic != 0x00035F3F) throw new InvalidDataFormatException("File does not begin with 0x00035F3F");
-			
+
 			int directoryStart = br.ReadInt32(); // offset of FILEHEADER of internal directory
 			int firstFreeBlock = br.ReadInt32(); // offset of FREEHEADER or -1L if no free list
 			int entireFileSize = br.ReadInt32(); // size of entire help file in bytes
@@ -115,11 +135,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			}
 			#endregion
 
-			
+
 			foreach (Internal.DIRECTORYLEAFENTRY entry in entries)
 			{
 				br.Accessor.Position = entry.FileOffset;
-				
+
 				Internal.FILEHEADER fileHeader = ReadFileHeader(br);
 
 				File file = new File();

@@ -1,11 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  TextPropertyListDataFormat.cs - provides a DataFormat for manipulating property lists in Universal Editor's Text Property List format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor.DataFormats.PropertyList.Text
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating property lists in Universal Editor's Text Property List format.
+	/// </summary>
 	public class TextPropertyListDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -19,8 +41,11 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 			return _dfr;
 		}
 
-		private TextPropertyListSettings mvarSettings = new TextPropertyListSettings();
-		public TextPropertyListSettings Settings { get { return mvarSettings; } }
+		/// <summary>
+		/// Represents settings for the <see cref="TextPropertyListDataFormat" /> parser.
+		/// </summary>
+		/// <value>The settings for the <see cref="TextPropertyListDataFormat" /> parser.</value>
+		public TextPropertyListSettings Settings { get; } = new TextPropertyListSettings();
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -76,7 +101,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 				}
 				else
 				{
-					string[] splits = line.Split(Settings.PropertyNameValueSeparators, mvarSettings.IgnoreBegin, mvarSettings.IgnoreEnd, StringSplitOptions.RemoveEmptyEntries, 2, true);
+					string[] splits = line.Split(Settings.PropertyNameValueSeparators, Settings.IgnoreBegin, Settings.IgnoreEnd, StringSplitOptions.RemoveEmptyEntries, 2, true);
 					string name = splits[0].Trim();
 					string value = null;
 					if (splits.Length > 1) value = splits[1];
@@ -97,7 +122,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 		private string TrimComments(string line)
 		{
 			string line2 = (line.Clone() as string);
-			foreach (string comment in mvarSettings.CommentSignals)
+			foreach (string comment in Settings.CommentSignals)
 			{
 				int indexof = line2.IndexOf(comment);
 				if (indexof > -1)

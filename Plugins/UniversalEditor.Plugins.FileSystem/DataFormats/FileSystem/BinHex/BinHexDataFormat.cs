@@ -1,12 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//
+//  BinHexDataFormat.cs - provides a DataFormat for manipulating archives in BinHex format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Linq;
-using System.Text;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.BinHex
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in BinHex format.
+	/// </summary>
 	public class BinHexDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -20,15 +43,16 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 			return _dfr;
 		}
 
-		private bool mvarRequireWarningComment = true;
 		/// <summary>
 		/// Determines if the "This file must be converted with BinHex" message is written to the
 		/// output file. This message is required by RFC-1741.
 		/// </summary>
-		public bool RequireWarningComment { get { return mvarRequireWarningComment; } set { mvarRequireWarningComment = value; } }
-
-		private Version mvarFormatVersion = new Version(4, 0);
-		public Version FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
+		public bool RequireWarningComment { get; set; } = true;
+		/// <summary>
+		/// Gets or sets the format version of the BinHex file.
+		/// </summary>
+		/// <value>The format version of the BinHex file.</value>
+		public Version FormatVersion { get; set; } = new Version(4, 0);
 
 		private string mvarCharacterTable = "!\"#$%&'()*+,-012345689@ABCDEFGHIJKLMNPQRSTUVXYZ[`abcdefhijklmpqr";
 
@@ -50,18 +74,18 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 
 			Reader reader = base.Accessor.Reader;
 			base.Accessor.SavePosition();
-			
+
 			string line = reader.ReadLine();
 			if (!(line.StartsWith("(This file must be converted with BinHex ") && line.EndsWith(")")))
 			{
-				if (mvarRequireWarningComment) throw new InvalidDataFormatException("File does not begin with BinHex warning comment");
+				if (RequireWarningComment) throw new InvalidDataFormatException("File does not begin with BinHex warning comment");
 				base.Accessor.LoadPosition();
 			}
 			else
 			{
 				line = line.Substring("(This file must be converted with BinHex ".Length);
 				line = line.Substring(0, line.Length - 1);
-				mvarFormatVersion = new Version(line);
+				FormatVersion = new Version(line);
 			}
 			base.Accessor.ClearLastPosition();
 
@@ -105,13 +129,13 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 
 				Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor();
 				Writer bw = new Writer(ma);
-				
+
 				for (int i = 0; i < input.Length; i++)
 				{
 					if (i == input.Length - 1) break;
 
 					int chr = input[i];
-					
+
 					int v = -1, c = chr & 0x7f;
 					if (chr == 0x90)
 					{
@@ -153,7 +177,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 			byte fileNameLength = rdr1.ReadByte();
 			string fileName = rdr1.ReadFixedLengthString(fileNameLength);
 			byte nul1 = rdr1.ReadByte();
-			
+
 			rdr1.Endianness = Endianness.BigEndian;
 
 			string FOURCC_type = rdr1.ReadFixedLengthString(4);
@@ -187,9 +211,9 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 
 			Writer writer = base.Accessor.Writer;
 			writer.NewLineSequence = NewLineSequence.CarriageReturn;
-			if (mvarRequireWarningComment)
+			if (RequireWarningComment)
 			{
-				writer.WriteLine("(This file must be converted with BinHex " + mvarFormatVersion.ToString() + ")");
+				writer.WriteLine("(This file must be converted with BinHex " + FormatVersion.ToString() + ")");
 				writer.WriteLine();
 			}
 

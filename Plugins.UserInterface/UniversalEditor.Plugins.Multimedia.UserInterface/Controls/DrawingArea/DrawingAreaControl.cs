@@ -1,10 +1,10 @@
 ﻿//
-//  DrawingAreaControl.cs
+//  DrawingAreaControl.cs - provides a UWT CustomControl that facilitates drawing and other image manipulation operations
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,11 +18,10 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Drawing;
-
-using MBS.Framework.Drawing;
 
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
@@ -30,6 +29,9 @@ using UniversalEditor.Plugins.Multimedia.UserInterface;
 
 namespace UniversalEditor.Controls.DrawingArea
 {
+	/// <summary>
+	/// Provides a UWT <see cref="CustomControl" /> that facilitates drawing and other image manipulation operations.
+	/// </summary>
 	public class DrawingAreaControl : CustomControl
 	{
 		private PictureObjectModel mvarPicture = null;

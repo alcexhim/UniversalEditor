@@ -1,10 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  ContactName.cs - represents a name in a ContactObjectModel
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.Contact
 {
+	/// <summary>
+	/// Represents a name in a <see cref="ContactObjectModel" />.
+	/// </summary>
 	public class ContactName : ICloneable, IContactComplexType
 	{
 		public class ContactNameCollection
@@ -14,46 +35,30 @@ namespace UniversalEditor.ObjectModels.Contact
 		}
 
 		#region IContactComplexType members
-		private bool mvarIsEmpty = false;
-		public bool IsEmpty { get { return mvarIsEmpty; } set { mvarIsEmpty = value; } }
-
-		private Guid mvarElementID = Guid.Empty;
-		public Guid ElementID { get { return mvarElementID; } set { mvarElementID = value; } }
-
-		private DateTime? mvarModificationDate = null;
-		public DateTime? ModificationDate { get { return mvarModificationDate; } set { mvarModificationDate = value; } }
+		public bool IsEmpty { get; set; } = false;
+		public Guid ElementID { get; set; } = Guid.Empty;
+		public DateTime? ModificationDate { get; set; } = null;
 		#endregion
 
-		private string mvarNickname = String.Empty;
-		public string Nickname { get { return mvarNickname; } set { mvarNickname = value; } }
-
-		private string mvarTitle = String.Empty;
-		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
-
-		private string mvarFormattedName = String.Empty;
-		public string FormattedName { get { return mvarFormattedName; } set { mvarFormattedName = value; } }
-
-		private string mvarFamilyName = String.Empty;
-		public string FamilyName { get { return mvarFamilyName; } set { mvarFamilyName = value; } }
-
-		private string mvarMiddleName = String.Empty;
-		public string MiddleName { get { return mvarMiddleName; } set { mvarMiddleName = value; } }
-
-		private string mvarGivenName = String.Empty;
-		public string GivenName { get { return mvarGivenName; } set { mvarGivenName = value; } }
+		public string Nickname { get; set; } = String.Empty;
+		public string Title { get; set; } = String.Empty;
+		public string FormattedName { get; set; } = String.Empty;
+		public string FamilyName { get; set; } = String.Empty;
+		public string MiddleName { get; set; } = String.Empty;
+		public string GivenName { get; set; } = String.Empty;
 
 		public object Clone()
 		{
 			ContactName clone = new ContactName();
-			clone.IsEmpty = mvarIsEmpty;
-			clone.ModificationDate = mvarModificationDate;
-			clone.ElementID = mvarElementID;
-			clone.FamilyName = (mvarFamilyName.Clone() as string);
-			clone.FormattedName = (mvarFormattedName.Clone() as string);
-			clone.GivenName = (mvarGivenName.Clone() as string);
-			clone.MiddleName = (mvarMiddleName.Clone() as string);
-			clone.Nickname = (mvarNickname.Clone() as string);
-			clone.Title = (mvarTitle.Clone() as string);
+			clone.IsEmpty = IsEmpty;
+			clone.ModificationDate = ModificationDate;
+			clone.ElementID = ElementID;
+			clone.FamilyName = (FamilyName.Clone() as string);
+			clone.FormattedName = (FormattedName.Clone() as string);
+			clone.GivenName = (GivenName.Clone() as string);
+			clone.MiddleName = (MiddleName.Clone() as string);
+			clone.Nickname = (Nickname.Clone() as string);
+			clone.Title = (Title.Clone() as string);
 			return clone;
 		}
 	}

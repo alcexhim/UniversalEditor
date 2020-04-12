@@ -1,10 +1,34 @@
+//
+//  MIDIDataFormat.cs - provides a DataFormat for manipulating synthesized audio files in MIDI format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2019-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
-using System.Collections.Generic;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
+
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating synthesized audio files in MIDI format.
+	/// </summary>
 	public class MIDIDataFormat : DataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
@@ -29,17 +53,17 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 			{
 				string MTrk = br.ReadFixedLengthString(4);
 				if (MTrk != "MTrk") throw new InvalidDataFormatException("Could not read track " + (trackCount + 1).ToString() + " - does not begin with \"MTrk\"");
-				
+
 				int trackLength = br.ReadInt32();
 				SynthesizedAudioTrack track = new SynthesizedAudioTrack();
 				long position = br.Accessor.Position;
 				while (br.Accessor.Position - position < (long)trackLength)
 				{
 					int deltaTime = br.ReadVariableLengthInt32();
-					MIDIEventType command = (MIDIEventType) br.ReadByte();
+					MIDIEventType command = (MIDIEventType)br.ReadByte();
 					if (command == MIDIEventType.Meta)
 					{
-						MIDIMetaEventType metaEventType = (MIDIMetaEventType) br.ReadByte();
+						MIDIMetaEventType metaEventType = (MIDIMetaEventType)br.ReadByte();
 						byte length = br.ReadByte();
 						switch (metaEventType)
 						{
@@ -93,7 +117,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 				}
 			}
 		}
-		
+
 		/*
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
@@ -154,7 +178,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 
 			bw.WriteInt16((short)syn.Tracks.Count);
 
-			short ticksPerQuarterNote = 0;		// if MSB is 1, bits 0-7 are ticks / frame and bits 8-14 are frames / second
+			short ticksPerQuarterNote = 0;      // if MSB is 1, bits 0-7 are ticks / frame and bits 8-14 are frames / second
 			bw.WriteInt16(ticksPerQuarterNote);
 
 			for (short i = 0; i < syn.Tracks.Count; i += 1)

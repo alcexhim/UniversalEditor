@@ -1,11 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  SubtitleObjectModel.cs - provides an ObjectModel for manipulating subtitle files
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating subtitle files.
+	/// </summary>
 	public class SubtitleObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
@@ -21,18 +41,18 @@ namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
 
 		public override void Clear()
 		{
-			mvarStyles.Clear();
-			mvarStyles.Add(mvarDefaultStyle);
+			Styles.Clear();
+			Styles.Add(mvarDefaultStyle);
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
 			SubtitleObjectModel clone = (where as SubtitleObjectModel);
-			foreach (Style style in mvarStyles)
+			foreach (Style style in Styles)
 			{
 				clone.Styles.Add(style.Clone() as Style);
 			}
-			foreach (Event evt in mvarEvents)
+			foreach (Event evt in Events)
 			{
 				clone.Events.Add(evt.Clone() as Event);
 			}
@@ -65,14 +85,8 @@ namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
 			mvarDefaultStyle.MarginVertical = 10;
 			mvarDefaultStyle.Encoding = 1;
 		}
-
-		private Actor.ActorCollection mvarActors = new Actor.ActorCollection();
-		public Actor.ActorCollection Actors { get { return mvarActors; } }
-
-		private Style.StyleCollection mvarStyles = new Style.StyleCollection();
-		public Style.StyleCollection Styles { get { return mvarStyles; } }
-
-		private Event.EventCollection mvarEvents = new Event.EventCollection();
-		public Event.EventCollection Events { get { return mvarEvents; } }
+		public Actor.ActorCollection Actors { get; } = new Actor.ActorCollection();
+		public Style.StyleCollection Styles { get; } = new Style.StyleCollection();
+		public Event.EventCollection Events { get; } = new Event.EventCollection();
 	}
 }

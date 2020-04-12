@@ -1,34 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//
+//  BezierCurve.cs - describes points for a Bezier curve
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace Neo
 {
-    public class BezierCurve
-    {
-        public class BezierCurveCollection
-            : System.Collections.ObjectModel.Collection<BezierCurve>
-        {
-        }
+	/// <summary>
+	/// Describes points for a Bezier curve.
+	/// </summary>
+	public class BezierCurve
+	{
+		public class BezierCurveCollection
+			: System.Collections.ObjectModel.Collection<BezierCurve>
+		{
+		}
 
-        private string mvarName = String.Empty;
-        public string Name { get { return mvarName; } set { mvarName = value; } }
+		public string Name { get; set; } = String.Empty;
+		public byte X1 { get; set; } = 0;
+		public byte X2 { get; set; } = 0;
+		public byte Y1 { get; set; } = 0;
+		public byte Y2 { get; set; } = 0;
 
-        private byte mvarX1 = 0;
-        public byte X1 { get { return mvarX1; } set { mvarX1 = value; } }
-
-        private byte mvarX2 = 0;
-        public byte X2 { get { return mvarX2; } set { mvarX2 = value; } }
-
-        private byte mvarY1 = 0;
-        public byte Y1 { get { return mvarY1; } set { mvarY1 = value; } }
-
-        private byte mvarY2 = 0;
-        public byte Y2 { get { return mvarY2; } set { mvarY2 = value; } }
-
-        public override string ToString()
-        {
-            return mvarName + ": (" + mvarX1.ToString() + ", " + mvarY1.ToString() + ")-(" + mvarX2.ToString() + ", " + mvarY2.ToString();
-        }
-    }
+		public override string ToString()
+		{
+			return Name + ": (" + X1.ToString() + ", " + Y1.ToString() + ")-(" + X2.ToString() + ", " + Y2.ToString();
+		}
+	}
 }

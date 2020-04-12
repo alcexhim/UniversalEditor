@@ -1,16 +1,33 @@
+//
+//  ZIPDataFormat.cs - provides a DataFormat for manipulating archives in the standardized PKWARE ZIP format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-using UniversalEditor;
 using UniversalEditor.ObjectModels.FileSystem;
 
-using UniversalEditor.Common;
 using UniversalEditor.Compression;
 using UniversalEditor.IO;
 using UniversalEditor.UserInterface;
 
-using UniversalEditor.ObjectModels.FileSystem.FileSources;
 using UniversalEditor.DataFormats.FileSystem.ZIP.ExtraDataFields;
 
 namespace UniversalEditor.DataFormats.FileSystem.ZIP
@@ -18,7 +35,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 	// TODO: Fix the ZIP data format's saving!!!
 
 	/// <summary>
-	/// Provides a <see cref="DataFormat" /> to read and write <see cref="FileSystemObjectModel" /> data in the standardized PKWARE ZIP archive file format.
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in the standardized PKWARE ZIP format.
 	/// </summary>
 	public class ZIPDataFormat : DataFormat
 	{
@@ -26,12 +43,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 		private static readonly byte[] SIG_DIRECTORY_ENTRY = new byte[] { 0x50, 0x4B, 0x03, 0x04 };
 		private static readonly byte[] SIG_END_OF_CENTRAL_DIRECTORY = new byte[] { 0x50, 0x4B, 0x05, 0x06 };
 
-		private string mvarComment = String.Empty;
 		/// <summary>
 		/// Gets or sets the comment written in the header of the ZIP archive.
 		/// </summary>
 		/// <value>The comment to be written in the header of the ZIP archive.</value>
-		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
+		public string Comment { get; set; } = String.Empty;
 
 		private long _offsetToBeginningOfZIPFile = 0;
 
@@ -97,7 +113,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 						uint unknown6 = br.ReadUInt32();
 						uint compressedLength = br.ReadUInt32();
 						uint decompressedLength = br.ReadUInt32();
-						ushort fileNameLength = br.ReadUInt16();		// oops... had this as Int32
+						ushort fileNameLength = br.ReadUInt16();        // oops... had this as Int32
 						ushort extraFieldLength = br.ReadUInt16();
 						ushort unknown7 = br.ReadUInt16();
 						ushort unknown8 = br.ReadUInt16();
@@ -143,7 +159,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			{
 				throw new InvalidDataFormatException();
 			}
-			br.Accessor.Seek((long) firstFile, SeekOrigin.Begin);
+			br.Accessor.Seek((long)firstFile, SeekOrigin.Begin);
 
 			while (!br.EndOfStream)
 			{
@@ -342,7 +358,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			{
 				return false;
 			}
-			br.Accessor.Seek((long) ctdir, SeekOrigin.Begin);
+			br.Accessor.Seek((long)ctdir, SeekOrigin.Begin);
 			byte[] siggy = br.ReadBytes(4);
 			short s1 = br.ReadInt16();
 			short s2 = br.ReadInt16();
@@ -379,17 +395,17 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			foreach (File file in files)
 			{
 				relativeOffsetsOfLocalHeaders.Add(file, (int)bw.Accessor.Position);
-				WriteLocalFileEntry (bw, file);
+				WriteLocalFileEntry(bw, file);
 			}
 
 			long ofs = bw.Accessor.Position;
 			// write the central directory
 			foreach (File file in files)
 			{
-				WriteCentralFileEntry (bw, file, relativeOffsetsOfLocalHeaders);
+				WriteCentralFileEntry(bw, file, relativeOffsetsOfLocalHeaders);
 			}
 			long centralDirectoryLength = (bw.Accessor.Position - ofs);
-			WriteCentralDirectoryFooter (bw, 0, 0, files.Length, files.Length, centralDirectoryLength, ofs, mvarComment.Length, mvarComment);
+			WriteCentralDirectoryFooter(bw, 0, 0, files.Length, files.Length, centralDirectoryLength, ofs, Comment.Length, Comment);
 		}
 
 		/// <summary>
@@ -404,50 +420,50 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 		/// <param name="centralDirectoryOffset">Central directory offset.</param>
 		/// <param name="commentLength">Comment length.</param>
 		/// <param name="comment">Comment.</param>
-		private void WriteCentralDirectoryFooter (Writer bw, short centralDirectoryEndDiskNumber, short centralDirectoryStartDiskNumber, int diskCentralDirectoryFileCount, int totalFileCount, long centralDirectoryLength, long centralDirectoryOffset, int commentLength, string comment)
+		private void WriteCentralDirectoryFooter(Writer bw, short centralDirectoryEndDiskNumber, short centralDirectoryStartDiskNumber, int diskCentralDirectoryFileCount, int totalFileCount, long centralDirectoryLength, long centralDirectoryOffset, int commentLength, string comment)
 		{
-			bw.WriteBytes (new byte [] { 0x50, 0x4B, 0x05, 0x06 });
+			bw.WriteBytes(new byte[] { 0x50, 0x4B, 0x05, 0x06 });
 
 			// The number of this disk (containing the end of central
 			// directory record)
-			bw.WriteInt16 (centralDirectoryEndDiskNumber);
+			bw.WriteInt16(centralDirectoryEndDiskNumber);
 
 			// Number of the disk on which the central directory starts
-			bw.WriteInt16 (centralDirectoryStartDiskNumber);
+			bw.WriteInt16(centralDirectoryStartDiskNumber);
 
 			// The number of central directory entries on this disk
-			bw.WriteInt16 ((short)diskCentralDirectoryFileCount);
+			bw.WriteInt16((short)diskCentralDirectoryFileCount);
 
 			// Total number of entries in the central directory. 
-			bw.WriteInt16 ((short)totalFileCount);
+			bw.WriteInt16((short)totalFileCount);
 
 			// Size of the central directory in bytes
-			bw.WriteInt32 ((int)centralDirectoryLength);
+			bw.WriteInt32((int)centralDirectoryLength);
 
 			// Offset of the start of the central directory on the disk on
 			// which the central directory starts
-			bw.WriteInt32 ((int)centralDirectoryOffset);
+			bw.WriteInt32((int)centralDirectoryOffset);
 
 			// The length of the following comment field
-			bw.WriteInt16 ((short)mvarComment.Length);
+			bw.WriteInt16((short)Comment.Length);
 
 			// Optional comment for the Zip file
-			bw.WriteFixedLengthString (mvarComment);
+			bw.WriteFixedLengthString(Comment);
 		}
 
-		private void WriteCentralFileEntry (Writer bw, File file, Dictionary<File, int> relativeOffsetsOfLocalHeaders)
+		private void WriteCentralFileEntry(Writer bw, File file, Dictionary<File, int> relativeOffsetsOfLocalHeaders)
 		{
-			bw.WriteBytes (new byte [] { (byte)'P', (byte)'K', 0x01, 0x02 });
+			bw.WriteBytes(new byte[] { (byte)'P', (byte)'K', 0x01, 0x02 });
 
 			ZIPCreationPlatform creationPlatform = ZIPCreationPlatform.WindowsNTFS; // Windows NTFS
 			byte formatVersion = 0x3F;
-			short u = BitConverter.ToInt16 (new byte [] { (byte)creationPlatform, formatVersion }, 0);
-			bw.WriteInt16 (u);
+			short u = BitConverter.ToInt16(new byte[] { (byte)creationPlatform, formatVersion }, 0);
+			bw.WriteInt16(u);
 
 			short iMinimumVersionNeededToExtract = 0x14;
-			bw.WriteInt16 (iMinimumVersionNeededToExtract);
+			bw.WriteInt16(iMinimumVersionNeededToExtract);
 			ZIPGeneralPurposeFlags iGeneralPurposeBitFlag = ZIPGeneralPurposeFlags.None;
-			bw.WriteInt16 ((short)iGeneralPurposeBitFlag);
+			bw.WriteInt16((short)iGeneralPurposeBitFlag);
 
 			short compressionMethod = 0;
 			CompressionMethod _compressionMethod = CompressionMethod.None;
@@ -458,22 +474,22 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				case CompressionMethod.Bzip2: compressionMethod = 12; break;
 				case CompressionMethod.LZMA: compressionMethod = 14; break;
 			}
-			bw.WriteInt16 (compressionMethod);
+			bw.WriteInt16(compressionMethod);
 
-			bw.WriteDOSFileTime (DateTime.Now);
+			bw.WriteDOSFileTime(DateTime.Now);
 
 			bool isEncrypted = false;
-			byte [] uncompressedData = file.GetData ();
-			int iCRC32 = (int)(new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule ()).Calculate (uncompressedData);
-			bw.WriteInt32 (iCRC32);
+			byte[] uncompressedData = file.GetData();
+			int iCRC32 = (int)(new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule()).Calculate(uncompressedData);
+			bw.WriteInt32(iCRC32);
 
-			byte [] compressedData = CompressionModule.FromKnownCompressionMethod (_compressionMethod).Compress (file.GetData ());
-			bw.WriteInt32 ((int)compressedData.Length);
-			bw.WriteInt32 ((int)uncompressedData.Length);
+			byte[] compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(file.GetData());
+			bw.WriteInt32((int)compressedData.Length);
+			bw.WriteInt32((int)uncompressedData.Length);
 
 			short fileNameLength = (short)file.Name.Length;
 
-			ZIPExtraDataField [] edfs = new ZIPExtraDataField []
+			ZIPExtraDataField[] edfs = new ZIPExtraDataField[]
 			{
 				new ZIPExtraDataFieldExtendedTimestamp(DateTime.Now, DateTime.Now, DateTime.Now)
 			};
@@ -484,51 +500,51 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				extraFieldLength += (short)(4 + edf.CentralData.Length);
 			}
 
-			bw.WriteInt16 (fileNameLength);
-			bw.WriteInt16 (extraFieldLength);
+			bw.WriteInt16(fileNameLength);
+			bw.WriteInt16(extraFieldLength);
 
 			string fileComment = String.Empty;
 
-			bw.WriteInt16 ((short)fileComment.Length);
+			bw.WriteInt16((short)fileComment.Length);
 			short diskNumber = 0;
-			bw.WriteInt16 (diskNumber);
+			bw.WriteInt16(diskNumber);
 			ZIPInternalFileAttributes internalFileAttributes = ZIPInternalFileAttributes.None;
-			bw.WriteInt16 ((short)internalFileAttributes);
+			bw.WriteInt16((short)internalFileAttributes);
 
 			int externalFileAttributes = 0;
-			bw.WriteInt32 (externalFileAttributes);
+			bw.WriteInt32(externalFileAttributes);
 
-			bw.WriteInt32 (relativeOffsetsOfLocalHeaders [file]);
+			bw.WriteInt32(relativeOffsetsOfLocalHeaders[file]);
 
-			bw.WriteFixedLengthString (file.Name.Replace ("\\", "/"), fileNameLength);
+			bw.WriteFixedLengthString(file.Name.Replace("\\", "/"), fileNameLength);
 
 			foreach (ZIPExtraDataField edf in edfs)
 			{
-				bw.WriteInt16 (edf.TypeCode);
-				bw.WriteInt16 ((short) edf.CentralData.Length);
-				bw.WriteBytes (edf.CentralData);
+				bw.WriteInt16(edf.TypeCode);
+				bw.WriteInt16((short)edf.CentralData.Length);
+				bw.WriteBytes(edf.CentralData);
 			}
 
-			bw.WriteFixedLengthString (fileComment);
+			bw.WriteFixedLengthString(fileComment);
 		}
 
-		private void WriteLocalFileEntry (Writer bw, IFileSystemObject item)
+		private void WriteLocalFileEntry(Writer bw, IFileSystemObject item)
 		{
 			// signature first
-			bw.WriteBytes (new byte [] { 0x50, 0x4b, 3, 4 });
+			bw.WriteBytes(new byte[] { 0x50, 0x4b, 3, 4 });
 
 			short iMinimumVersionNeededToExtract = 0x14;
-			bw.WriteInt16 (iMinimumVersionNeededToExtract);
+			bw.WriteInt16(iMinimumVersionNeededToExtract);
 
 			ZIPGeneralPurposeFlags iGeneralPurposeBitFlag = ZIPGeneralPurposeFlags.None;
-			bw.WriteInt16 ((short)iGeneralPurposeBitFlag);
+			bw.WriteInt16((short)iGeneralPurposeBitFlag);
 
 			// If bit 3 (0x08) of the general-purpose flags field is set, then the CRC-32 and file sizes are not known when the header is written.
 			// The fields in the local header are filled with zero, and the CRC-32 and size are appended in a 12-byte structure (optionally preceded
 			// by a 4-byte signature) immediately after the compressed data:
 
 			ZIPCompressionMethod compressionMethod = ZIPCompressionMethod.None; // 0 - also indicates "directory entry"
-			
+
 			CompressionMethod _compressionMethod = CompressionMethod.None; // FIXME: for some reason Deflate does not work on Mono...
 			if (item is File)
 			{
@@ -540,36 +556,37 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 					case CompressionMethod.LZMA: compressionMethod = ZIPCompressionMethod.LZMA; break;
 				}
 			}
-			bw.WriteInt16 ((short)compressionMethod);
+			bw.WriteInt16((short)compressionMethod);
 
-			bw.WriteDOSFileTime (DateTime.Now);
+			bw.WriteDOSFileTime(DateTime.Now);
 
 			bool isEncrypted = false;
 
-			byte [] compressedData = null;
-			byte [] uncompressedData = null;
+			byte[] compressedData = null;
+			byte[] uncompressedData = null;
 
- 			if (item is File) {
+			if (item is File)
+			{
 				File file = (item as File);
 
-				uncompressedData = file.GetData ();
+				uncompressedData = file.GetData();
 
-				int iCRC32 = (int)(new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule ()).Calculate (uncompressedData);
-				bw.WriteInt32 (iCRC32);
+				int iCRC32 = (int)(new UniversalEditor.Checksum.Modules.CRC32.CRC32ChecksumModule()).Calculate(uncompressedData);
+				bw.WriteInt32(iCRC32);
 
-				compressedData = CompressionModule.FromKnownCompressionMethod (_compressionMethod).Compress (uncompressedData);
-				bw.WriteInt32 ((int)compressedData.Length);
-				bw.WriteInt32 ((int)uncompressedData.Length);
+				compressedData = CompressionModule.FromKnownCompressionMethod(_compressionMethod).Compress(uncompressedData);
+				bw.WriteInt32((int)compressedData.Length);
+				bw.WriteInt32((int)uncompressedData.Length);
 			}
 			else if (item is Folder)
 			{
 				Folder fldr = (item as Folder);
-				bw.WriteInt32 (0);
-				bw.WriteInt32 (0);
-				bw.WriteInt32 (0);
+				bw.WriteInt32(0);
+				bw.WriteInt32(0);
+				bw.WriteInt32(0);
 			}
 
-			ZIPExtraDataField [] edfs = new ZIPExtraDataField []
+			ZIPExtraDataField[] edfs = new ZIPExtraDataField[]
 			{
 				new ZIPExtraDataFieldExtendedTimestamp(DateTime.Now, DateTime.Now, DateTime.Now)
 			};
@@ -581,43 +598,43 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				extraFieldLength += (short)(4 + edf.LocalData.Length);
 			}
 
-			bw.WriteInt16 (fileNameLength);
-			bw.WriteInt16 (extraFieldLength);
-			bw.WriteFixedLengthString (item.Name, fileNameLength);
+			bw.WriteInt16(fileNameLength);
+			bw.WriteInt16(extraFieldLength);
+			bw.WriteFixedLengthString(item.Name, fileNameLength);
 
 			foreach (ZIPExtraDataField edf in edfs)
 			{
-				bw.WriteInt16 (edf.TypeCode);
-				bw.WriteInt16 ((short) edf.LocalData.Length);
-				bw.WriteBytes (edf.LocalData);
+				bw.WriteInt16(edf.TypeCode);
+				bw.WriteInt16((short)edf.LocalData.Length);
+				bw.WriteBytes(edf.LocalData);
 			}
 
 			if (item is File)
 			{
-				bw.WriteBytes (compressedData);
+				bw.WriteBytes(compressedData);
 				if (isEncrypted)
 				{
-					throw new System.Security.SecurityException ("File is encrypted");
+					throw new System.Security.SecurityException("File is encrypted");
 				}
 
 				// local file entry footer
-				bw.WriteBytes (new byte [] { (byte)'P', (byte)'K', (byte)0x07, (byte)0x08 });
-				bw.WriteBytes (new byte [] { 0xE8, 0xD0, 0x01, 0x23 });
-				bw.WriteInt32 (compressedData.Length);
-				bw.WriteInt32 (uncompressedData.Length);
+				bw.WriteBytes(new byte[] { (byte)'P', (byte)'K', (byte)0x07, (byte)0x08 });
+				bw.WriteBytes(new byte[] { 0xE8, 0xD0, 0x01, 0x23 });
+				bw.WriteInt32(compressedData.Length);
+				bw.WriteInt32(uncompressedData.Length);
 			}
 		}
 
-		private void WriteDate (Writer bw, DateTime date)
+		private void WriteDate(Writer bw, DateTime date)
 		{
-			short iFileLastModificationTime = (short)(date.ToFileTime ());
-			bw.WriteInt16 (iFileLastModificationTime);
+			short iFileLastModificationTime = (short)(date.ToFileTime());
+			bw.WriteInt16(iFileLastModificationTime);
 
-			short iFileLastModificationDate = (short)(date.ToFileTime () >> 2);
-			bw.WriteInt16 (iFileLastModificationDate);
+			short iFileLastModificationDate = (short)(date.ToFileTime() >> 2);
+			bw.WriteInt16(iFileLastModificationDate);
 		}
 
-		private void RecursiveLoadFolder (Folder folder, ref Dictionary<string, File> files, string parentFolderName)
+		private void RecursiveLoadFolder(Folder folder, ref Dictionary<string, File> files, string parentFolderName)
 		{
 			foreach (Folder folder1 in folder.Folders)
 			{
@@ -649,7 +666,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			byte[] siggy = new byte[4];
 			for (int l = 0; l < (br.Accessor.Length - 4L); l++)
 			{
-				br.Seek((long) l, SeekOrigin.Begin);
+				br.Seek((long)l, SeekOrigin.Begin);
 				br.Read(siggy, 0, 4);
 				if (signature.Match(siggy))
 				{
@@ -672,7 +689,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			}
 			return -1;
 		}
-		
+
 		private long zip_FindEndOfCentralDirectory(IO.Reader reader)
 		{
 			reader.Seek(-4, SeekOrigin.End);
@@ -694,7 +711,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			CompressionMethod method = CompressionMethod.Deflate;
 			byte[] vaLocalFileHeaderSignatureCmp = new byte[] { 80, 0x4b, 3, 4 };
 			if (br.Remaining < 4) return null;
-			
+
 			byte[] vaLocalFileHeaderSignatureCmp1 = br.ReadBytes(4);
 			if (!vaLocalFileHeaderSignatureCmp1.Match(vaLocalFileHeaderSignatureCmp))
 			{
@@ -752,7 +769,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			}
 			else
 			{
-				unpackedData = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(method).Decompress(packedData);
+				unpackedData = CompressionModule.FromKnownCompressionMethod(method).Decompress(packedData);
 			}
 
 			if (unpackedData.Length != unpackedFileLength)
@@ -766,4 +783,3 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 		}
 	}
 }
-

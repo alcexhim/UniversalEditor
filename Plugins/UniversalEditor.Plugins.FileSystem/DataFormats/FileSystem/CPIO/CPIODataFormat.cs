@@ -1,13 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  CPIODataFormat.cs - provides a DataFormat for manipulating archives in CPIO format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.CPIO
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in CPIO format.
+	/// </summary>
 	public class CPIODataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -28,8 +50,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 			return _dfr;
 		}
 
-		private CPIOEncoding mvarEncoding = CPIOEncoding.BinaryLittleEndian;
-		public CPIOEncoding Encoding { get { return mvarEncoding; } set { mvarEncoding = value; } }
+		public CPIOEncoding Encoding { get; set; } = CPIOEncoding.BinaryLittleEndian;
 
 		private static DateTime UNIX_EPOCH { get; } = new DateTime(1970, 01, 01, 00, 00, 00).ToUniversalTime();
 
@@ -45,11 +66,11 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 				byte[] c_magic = reader.ReadBytes(2);
 				if (c_magic[0] == 0xC7 && c_magic[1] == 0x71)
 				{
-					mvarEncoding = CPIOEncoding.BinaryLittleEndian;
+					Encoding = CPIOEncoding.BinaryLittleEndian;
 				}
 				else if (c_magic[0] == 0x71 && c_magic[1] == 0xC7)
 				{
-					mvarEncoding = CPIOEncoding.BinaryBigEndian;
+					Encoding = CPIOEncoding.BinaryBigEndian;
 					reader.Endianness = Endianness.BigEndian;
 				}
 				else
@@ -62,12 +83,12 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 							throw new InvalidDataFormatException("File does not begin with one of either { 0xC7, 0x71 }, { 0x71, 0xC7 }, { '070701' }, or { '070702' }");
 					}
 
-					mvarEncoding = CPIOEncoding.ASCII;
+					Encoding = CPIOEncoding.ASCII;
 				}
 
 				bool fin = false;
 
-				switch (mvarEncoding)
+				switch (Encoding)
 				{
 					case CPIOEncoding.BinaryBigEndian:
 					case CPIOEncoding.BinaryLittleEndian:
@@ -79,7 +100,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 						ushort c_gid = reader.ReadUInt16();
 						ushort c_nlink = reader.ReadUInt16();
 						ushort c_rdev = reader.ReadUInt16();
-					
+
 						// Modification time of the file, indicated as the number of seconds since the
 						// start of the epoch, 00:00:00 UTC January 1, 1970.  The four-byte integer is
 						// stored with the most-significant 16 bits first followed by the
@@ -112,7 +133,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 						}
 
 						long offset = base.Accessor.Position;
-						
+
 						// Hardlinked files are not given special treatment; the full file contents are
 						// included with each copy of the file.
 						File file = fsom.AddFile(c_filename);

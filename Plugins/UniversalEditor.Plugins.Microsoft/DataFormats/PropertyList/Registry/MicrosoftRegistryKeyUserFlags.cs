@@ -1,10 +1,10 @@
 ﻿//
-//  MicrosoftRegistryKeyUserFlags.cs
+//  MicrosoftRegistryKeyUserFlags.cs - indicates user attributes on a registry key in a Microsoft registry file
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,9 +18,14 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
+
 namespace UniversalEditor.DataFormats.PropertyList.Registry
 {
+	/// <summary>
+	/// Indicates user attributes on a registry key in a Microsoft registry file.
+	/// </summary>
 	[Flags()]
 	public enum MicrosoftRegistryKeyUserFlags
 	{

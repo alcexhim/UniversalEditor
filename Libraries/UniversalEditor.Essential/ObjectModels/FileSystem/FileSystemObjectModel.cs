@@ -1,10 +1,34 @@
-﻿using System;
+﻿//
+//  FileSystemObjectModel.cs - provides an ObjectModel for manipulating files or block devices which contain other files, such as archives, file systems, and disk images
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
-using System.Text;
+
 using UniversalEditor.Accessors;
 
 namespace UniversalEditor.ObjectModels.FileSystem
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating files which contain other files, such as archives, file systems, and disk images.
+	/// </summary>
 	public class FileSystemObjectModel : ObjectModel, IFileSystemContainer
 	{
 		private ObjectModelReference _omr = null;
@@ -20,24 +44,24 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		}
 		public override void Clear()
 		{
-			mvarFiles.Clear();
-			mvarFolders.Clear();
-			mvarID = Guid.Empty;
-			mvarTitle = String.Empty;
+			Files.Clear();
+			Folders.Clear();
+			ID = Guid.Empty;
+			Title = String.Empty;
 			mvarPathSeparators = new string[] { System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
 		}
 		public override void CopyTo(ObjectModel where)
 		{
 			FileSystemObjectModel clone = (where as FileSystemObjectModel);
-			clone.ID = mvarID;
-			for (int i = 0; i < mvarFiles.Count; i++)
+			clone.ID = ID;
+			for (int i = 0; i < Files.Count; i++)
 			{
-				File file = mvarFiles[i];
+				File file = Files[i];
 				clone.Files.Add(file.Clone() as File);
 			}
-			for (int i = 0; i < mvarFolders.Count; i++)
+			for (int i = 0; i < Folders.Count; i++)
 			{
-				Folder folder = mvarFolders[i];
+				Folder folder = Folders[i];
 				clone.Folders.Add(folder.Clone() as Folder);
 			}
 		}
@@ -84,22 +108,17 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			// return FromFiles(files);
 		}
 
-		private File.FileCollection mvarFiles = new File.FileCollection();
-		public File.FileCollection Files { get { return mvarFiles; } }
-		private Folder.FolderCollection mvarFolders = new Folder.FolderCollection();
-		public Folder.FolderCollection Folders { get { return mvarFolders; } }
+		public File.FileCollection Files { get; } = new File.FileCollection();
+		public Folder.FolderCollection Folders { get; } = new Folder.FolderCollection();
 
-		private Guid mvarID = Guid.Empty;
 		/// <summary>
-		/// The unique ID associated with this file system. Not supported by all data formats.
+		/// The unique ID associated with this file system. Not supported by all <see cref="DataFormat" />s.
 		/// </summary>
-		public Guid ID { get { return mvarID; } set { mvarID = value; } }
-
-		private string mvarTitle = String.Empty;
+		public Guid ID { get; set; } = Guid.Empty;
 		/// <summary>
-		/// The title associated with this file system.  Not supported by all data formats.
+		/// The title associated with this file system.  Not supported by all <see cref="DataFormat" />s.
 		/// </summary>
-		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+		public string Title { get; set; } = String.Empty;
 
 		private string[] mvarPathSeparators = new string[] { "/", "\\" }; // System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
 		public string[] PathSeparators { get { return mvarPathSeparators; } set { mvarPathSeparators = value; } }
@@ -114,12 +133,12 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			string[] pathParts = path.Split(new char[] { System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar });
 			if (pathParts.Length == 1)
 			{
-				File file = mvarFiles[pathParts[0]];
+				File file = Files[pathParts[0]];
 				if (file != null) return file;
 			}
 			else
 			{
-				Folder parentFolder = mvarFolders[pathParts[0]];
+				Folder parentFolder = Folders[pathParts[0]];
 				if (parentFolder == null) return null;
 
 				for (int i = 1; i < pathParts.Length; i++)
@@ -146,7 +165,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				if (parent == null)
 				{
-					parent = mvarFolders[path[i]];
+					parent = Folders[path[i]];
 				}
 				else
 				{
@@ -156,7 +175,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			if (parent == null)
 			{
-				return mvarFolders[path[path.Length - 1]];
+				return Folders[path[path.Length - 1]];
 			}
 			else
 			{
@@ -172,7 +191,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				if (parent == null)
 				{
-					parent = mvarFolders[path[i]];
+					parent = Folders[path[i]];
 				}
 				else
 				{
@@ -182,8 +201,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			if (parent == null)
 			{
-				File file = mvarFiles[path[path.Length - 1]];
-				Folder folder = mvarFolders[path[path.Length - 1]];
+				File file = Files[path[path.Length - 1]];
+				Folder folder = Folders[path[path.Length - 1]];
 				if (folder == null) return file;
 				return folder;
 			}
@@ -204,7 +223,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				if (parent == null)
 				{
-					parent = mvarFolders[path[i]];
+					parent = Folders[path[i]];
 				}
 				else
 				{
@@ -214,7 +233,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 			if (parent == null)
 			{
-				return mvarFolders.Add(path[path.Length - 1]);
+				return Folders.Add(path[path.Length - 1]);
 			}
 			return parent.Folders.Add(path[path.Length - 1]);
 		}
@@ -234,13 +253,13 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				if (parent == null)
 				{
-					if (mvarFolders.Contains(path[i]))
+					if (Folders.Contains(path[i]))
 					{
-						parent = mvarFolders[path[i]];
+						parent = Folders[path[i]];
 					}
 					else
 					{
-						parent = mvarFolders.Add(path[i]);
+						parent = Folders.Add(path[i]);
 					}
 				}
 				else
@@ -269,7 +288,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 			if (parent == null)
 			{
-				mvarFiles.Add(file);
+				Files.Add(file);
 			}
 			else
 			{
@@ -291,16 +310,16 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			if (pathSeparator == null) pathSeparator = "/";
 
 			List<File> files = new List<File>();
-			for (int i = 0; i < mvarFiles.Count; i++)
+			for (int i = 0; i < Files.Count; i++)
 			{
-				File file = mvarFiles[i];
+				File file = Files[i];
 				if (searchPattern != null && !file.Name.Match(searchPattern)) continue;
 
 				files.Add(file);
 			}
-			for (int i = 0; i < mvarFolders.Count; i++)
+			for (int i = 0; i < Folders.Count; i++)
 			{
-				Folder folder = mvarFolders[i];
+				Folder folder = Folders[i];
 				GetAllFilesRecursively(folder, ref files, folder.Name, pathSeparator, searchPattern);
 			}
 			return files.ToArray();
@@ -316,14 +335,14 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			if (pathSeparator == null) pathSeparator = "/";
 
 			List<File> files = new List<File>();
-			for (int i = 0; i < mvarFiles.Count; i++)
+			for (int i = 0; i < Files.Count; i++)
 			{
-				File file = mvarFiles[i];
+				File file = Files[i];
 				files.Add(file);
 			}
-			for (int i = 0; i < mvarFolders.Count; i++)
+			for (int i = 0; i < Folders.Count; i++)
 			{
-				Folder folder = mvarFolders[i];
+				Folder folder = Folders[i];
 				GetAllFilesRecursively(folder, ref files, folder.Name, pathSeparator);
 			}
 			return files.ToArray();
@@ -354,15 +373,15 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			List<IFileSystemObject> files = new List<IFileSystemObject>();
 			if ((objectTypes & IFileSystemObjectType.File) == IFileSystemObjectType.File)
 			{
-				for (int i = 0; i < mvarFiles.Count; i++)
+				for (int i = 0; i < Files.Count; i++)
 				{
-					File file = mvarFiles[i];
+					File file = Files[i];
 					files.Add(file);
 				}
 			}
-			for (int i = 0; i < mvarFolders.Count; i++)
+			for (int i = 0; i < Folders.Count; i++)
 			{
-				Folder folder = mvarFolders[i];
+				Folder folder = Folders[i];
 				if ((objectTypes & IFileSystemObjectType.Folder) == IFileSystemObjectType.Folder)
 				{
 					files.Add(folder);

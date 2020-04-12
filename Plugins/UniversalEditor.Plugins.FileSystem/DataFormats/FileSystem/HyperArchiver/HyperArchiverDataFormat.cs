@@ -1,10 +1,10 @@
 ﻿//
-//  HyperArchiverDataFormat.cs
+//  HyperArchiverDataFormat.cs - provides a DataFormat for manipulating archives in HyperArchiver format
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,13 +18,15 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
-using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.HyperArchiver
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in HyperArchiver format.
+	/// </summary>
 	public class HyperArchiverDataFormat : DataFormat
 	{
 		protected override void LoadInternal(ref ObjectModel objectModel)

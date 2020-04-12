@@ -1,12 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//
+//  ExtensibleConfigurationDataFormat.cs - provides a DataFormat for manipulating data in Mike Becker's Software Extensible Configuration (XNI) format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.IO;
 
 namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating data in Mike Becker's Software Extensible Configuration (XNI) format.
+	/// </summary>
+	/// <remarks>
+	/// I first wrote the code for parsing a nested group configuration file in Visual Basic 6 back in middle school. This arguably was the first DataFormat
+	/// that the original version of Universal Editor supported (way back before it was called Universal Editor). It's designed to allow multiple syntactically-
+	/// nested groups in a plain text file similar to an INI file but with C-like brace syntax for indicating start and end groups.
+	/// </remarks>
 	public class ExtensibleConfigurationDataFormat : DataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
@@ -15,12 +42,14 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
-		
-		private int mvarIndentLength = 4;
-		public int IndentLength { get { return this.mvarIndentLength; } set { this.mvarIndentLength = value; } }
 
-		private ExtensibleConfigurationSettings mvarSettings = new ExtensibleConfigurationSettings();
-		protected ExtensibleConfigurationSettings Settings { get { return mvarSettings; } }
+		public int IndentLength { get; set; } = 4;
+
+		/// <summary>
+		/// Represents settings for the <see cref="ExtensibleConfigurationDataFormat" /> parser.
+		/// </summary>
+		/// <value>The settings for the <see cref="ExtensibleConfigurationDataFormat" /> parser.</value>
+		protected ExtensibleConfigurationSettings Settings { get; } = new ExtensibleConfigurationSettings();
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -37,14 +66,14 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 
 			while (!tr.EndOfStream)
 			{
-				if (nextString.StartsWith(mvarSettings.SingleLineCommentStart))
+				if (nextString.StartsWith(Settings.SingleLineCommentStart))
 				{
 					string comment = tr.ReadLine();
 				}
-				if (nextString.StartsWith(mvarSettings.MultiLineCommentStart))
+				if (nextString.StartsWith(Settings.MultiLineCommentStart))
 				{
-					string comment = tr.ReadUntil(mvarSettings.MultiLineCommentEnd);
-					string cmntend = tr.ReadFixedLengthString(mvarSettings.MultiLineCommentEnd.Length);
+					string comment = tr.ReadUntil(Settings.MultiLineCommentEnd);
+					string cmntend = tr.ReadFixedLengthString(Settings.MultiLineCommentEnd.Length);
 					nextString = String.Empty;
 					continue;
 				}
@@ -95,13 +124,13 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 						insideQuotedString = !insideQuotedString;
 						continue;
 					}
-					else if (cw == mvarSettings.PropertyNameValueSeparator && (mvarSettings.AllowTopLevelProperties || nextGroup != null))
+					else if (cw == Settings.PropertyNameValueSeparator && (Settings.AllowTopLevelProperties || nextGroup != null))
 					{
 						nextPropertyName = nextString;
 						nextString = string.Empty;
 						foundRealChar = false;
 					}
-					else if (cw == mvarSettings.PropertySeparator && (mvarSettings.AllowTopLevelProperties || nextGroup != null))
+					else if (cw == Settings.PropertySeparator && (Settings.AllowTopLevelProperties || nextGroup != null))
 					{
 						if (nextPropertyName != null)
 						{
@@ -121,7 +150,7 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 						nextString = string.Empty;
 						foundRealChar = false;
 					}
-					else if (cw == mvarSettings.GroupStart)
+					else if (cw == Settings.GroupStart)
 					{
 						Group group = new Group();
 						group.Name = nextString.Trim();
@@ -136,7 +165,7 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 						}
 						nextGroup = group;
 					}
-					else if (cw == mvarSettings.GroupEnd)
+					else if (cw == Settings.GroupEnd)
 					{
 						if (nextGroup != null)
 						{
@@ -157,13 +186,13 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 			Writer tw = base.Accessor.Writer;
 			foreach (Property p in plom.Properties)
 			{
-				tw.Write(mvarSettings.PropertyNamePrefix);
+				tw.Write(Settings.PropertyNamePrefix);
 				tw.Write(p.Name);
-				tw.Write(mvarSettings.PropertyNameSuffix);
-				tw.Write(mvarSettings.PropertyNameValueSeparator);
-				tw.Write(mvarSettings.PropertyValuePrefix);
+				tw.Write(Settings.PropertyNameSuffix);
+				tw.Write(Settings.PropertyNameValueSeparator);
+				tw.Write(Settings.PropertyValuePrefix);
 				tw.WriteFixedLengthString(p.Value.ToString());
-				tw.Write(mvarSettings.PropertyValueSuffix);
+				tw.Write(Settings.PropertyValueSuffix);
 			}
 			foreach (Group g in plom.Groups)
 			{
@@ -174,38 +203,38 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 		}
 		private void WriteGroup(Writer tw, Group group, int indent)
 		{
-			string indents = new string(' ', indent * this.mvarIndentLength);
+			string indents = new string(' ', indent * this.IndentLength);
 			tw.Write(indents + group.Name);
-			if (mvarSettings.InlineGroupStart)
+			if (Settings.InlineGroupStart)
 			{
 				tw.Write(' ');
-				tw.Write(mvarSettings.GroupStart);
+				tw.Write(Settings.GroupStart);
 				tw.WriteLine();
 			}
 			else
 			{
 				tw.WriteLine();
-				tw.WriteLine(indents + mvarSettings.GroupStart);
+				tw.WriteLine(indents + Settings.GroupStart);
 			}
 			foreach (Property p in group.Properties)
 			{
 				tw.WriteLine(string.Concat(new object[]
 				{
-					indents, 
-					new string(' ', this.mvarIndentLength), 
+					indents,
+					new string(' ', this.IndentLength),
 					p.Name,
-					mvarSettings.PropertyNameValueSeparator,
-					mvarSettings.PropertyValuePrefix,
-					p.Value, 
-					mvarSettings.PropertyValueSuffix,
-					mvarSettings.PropertySeparator
+					Settings.PropertyNameValueSeparator,
+					Settings.PropertyValuePrefix,
+					p.Value,
+					Settings.PropertyValueSuffix,
+					Settings.PropertySeparator
 				}));
 			}
 			foreach (Group g in group.Groups)
 			{
 				this.WriteGroup(tw, g, indent + 1);
 			}
-			tw.WriteLine(indents + mvarSettings.GroupEnd);
+			tw.WriteLine(indents + Settings.GroupEnd);
 		}
 	}
 }

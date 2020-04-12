@@ -1,10 +1,10 @@
 ﻿//
-//  PianoRollEditor.cs
+//  PianoRollEditor.cs - provides a UWT-based piano roll-style Editor for a SynthesizedAudioObjectModel
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,12 +18,16 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 {
+	/// <summary>
+	/// Provides a UWT-based piano roll-style <see cref="Editor" /> for a <see cref="SynthesizedAudioObjectModel" />.
+	/// </summary>
 	public partial class PianoRollEditor
 	{
 		public override void UpdateSelections()
@@ -57,12 +61,12 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 			{
 				case "ToolboxItem_Select":
 				{
-					this.PianoRoll.SelectionMode = PianoRollSelectionMode.Select;
+					PianoRoll.SelectionMode = PianoRollSelectionMode.Select;
 					break;
 				}
 				case "ToolboxItem_Insert":
 				{
-					this.PianoRoll.SelectionMode = PianoRollSelectionMode.Insert;
+					PianoRoll.SelectionMode = PianoRollSelectionMode.Insert;
 					break;
 				}
 			}

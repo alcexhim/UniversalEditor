@@ -1,15 +1,52 @@
+//
+//  ModelTexture.cs - represents a texture image for a 3D model
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
+
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 {
+	/// <summary>
+	/// Indicates attributes for a texture.
+	/// </summary>
 	[Flags()]
 	public enum ModelTextureFlags : int
 	{
 		None = 0,
+		/// <summary>
+		/// The texture is a regular texture.
+		/// </summary>
 		Texture = 1,
+		/// <summary>
+		/// The texture is a sphere map.
+		/// </summary>
 		Map = 2,
+		/// <summary>
+		/// The texture is an additive sphere map.
+		/// </summary>
 		AddMap = 4
 	}
+	/// <summary>
+	/// Represents a texture image for a 3D model.
+	/// </summary>
 	public class ModelTexture : ICloneable
 	{
 		public class ModelTextureCollection
@@ -26,42 +63,55 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 				return tex;
 			}
 		}
-
-		private uint? mvarTextureID = null;
-		public uint? TextureID { get { return mvarTextureID; } set { mvarTextureID = value; } }
-		private uint? mvarMapID = null;
-		public uint? MapID { get { return mvarMapID; } set { mvarMapID = value; } }
-
-		private string mvarMapFileName = null;
-		public string MapFileName { get { return mvarMapFileName; } set { mvarMapFileName = value; } }
-
-		private string mvarTextureFileName = null;
-		public string TextureFileName { get { return mvarTextureFileName; } set { mvarTextureFileName = value; } }
-
-		private ModelTextureFlags mvarFlags = ModelTextureFlags.None;
-		public ModelTextureFlags Flags { get { return mvarFlags; } set { mvarFlags = value; } }
-
-		private int mvarDuration = 100;
+		/// <summary>
+		/// Gets or sets the OpenGL index of the texture.
+		/// </summary>
+		/// <value>The OpenGL index of the texture.</value>
+		public uint? TextureID { get; set; } = null;
+		/// <summary>
+		/// Gets or sets the OpenGL index of the sphere map texture.
+		/// </summary>
+		/// <value>The OpenGL index of the sphere map texture.</value>
+		public uint? MapID { get; set; } = null;
+		/// <summary>
+		/// Gets or sets the full path to the sphere map image file.
+		/// </summary>
+		/// <value>The full path to the sphere map image file.</value>
+		public string MapFileName { get; set; } = null;
+		/// <summary>
+		/// Gets or sets the full path to the texture image file.
+		/// </summary>
+		/// <value>The full path to the texture image file.</value>
+		public string TextureFileName { get; set; } = null;
+		/// <summary>
+		/// Gets or sets the attributes associated with this texture.
+		/// </summary>
+		/// <value>The attributes associated with this texture.</value>
+		public ModelTextureFlags Flags { get; set; } = ModelTextureFlags.None;
 		/// <summary>
 		/// How long this texture image frame will appear on the associated material, in milliseconds.
 		/// </summary>
-		public int Duration { get { return mvarDuration; } set { mvarDuration = value; } }
+		public int Duration { get; set; } = 100;
 
 		public object Clone()
 		{
 			ModelTexture texture = new ModelTexture();
-			texture.MapFileName = mvarMapFileName;
-			texture.TextureFileName = mvarTextureFileName;
-			texture.Flags = mvarFlags;
-			texture.MapID = mvarMapID;
-			texture.TextureID = mvarTextureID;
+			texture.MapFileName = MapFileName;
+			texture.TextureFileName = TextureFileName;
+			texture.Flags = Flags;
+			texture.MapID = MapID;
+			texture.TextureID = TextureID;
 			return texture;
 		}
-
-		private PictureObjectModel mvarTexturePicture = null;
-		public PictureObjectModel TexturePicture { get { return mvarTexturePicture; } set { mvarTexturePicture = value; } }
-
-		private PictureObjectModel mvarMapPicture = null;
-		public PictureObjectModel MapPicture { get { return mvarMapPicture; } set { mvarMapPicture = value; } }
+		/// <summary>
+		/// Gets or sets the <see cref="PictureObjectModel" /> representing the image to use for the texture image of this texture.
+		/// </summary>
+		/// <value>The image to use for the texture image of this texture.</value>
+		public PictureObjectModel TexturePicture { get; set; } = null;
+		/// <summary>
+		/// Gets or sets the <see cref="PictureObjectModel" /> representing the image to use for the sphere map of this texture.
+		/// </summary>
+		/// <value>The image to use for the sphere map of this texture.</value>
+		public PictureObjectModel MapPicture { get; set; } = null;
 	}
 }

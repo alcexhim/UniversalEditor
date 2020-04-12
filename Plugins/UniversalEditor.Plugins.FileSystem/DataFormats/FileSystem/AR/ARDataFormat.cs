@@ -1,7 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  ARDataFormat.cs - provides a DataFormat for manipulating archives in AR format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -9,6 +28,9 @@ using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.AR
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in AR format.
+	/// </summary>
 	public class ARDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -57,7 +79,7 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
 				string ownerID = reader.ReadFixedLengthString(6).Trim();
 				string groupID = reader.ReadFixedLengthString(6).Trim();
 				string fileMode = reader.ReadFixedLengthString(8).Trim();
-				
+
 				string szFileSize = reader.ReadFixedLengthString(10).Trim();
 				int fileSize = Int32.Parse(szFileSize);
 

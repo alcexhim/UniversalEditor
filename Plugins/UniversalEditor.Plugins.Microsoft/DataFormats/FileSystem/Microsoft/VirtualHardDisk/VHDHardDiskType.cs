@@ -1,10 +1,10 @@
 ﻿//
-//  VHDHardDiskType.cs
+//  VHDHardDiskType.cs - indicates the type of virtual hard disk represented by the VHD file
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2010-2019 Mike Becker
+//  Copyright (c) 2010-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ using System;
 namespace UniversalEditor.DataFormats.FileSystem.Microsoft.VirtualHardDisk
 {
 	/// <summary>
-	/// Description of VHDHardDiskType.
+	/// Indicates the type of virtual hard disk represented by the VHD file.
 	/// </summary>
 	public enum VHDHardDiskType
 	{

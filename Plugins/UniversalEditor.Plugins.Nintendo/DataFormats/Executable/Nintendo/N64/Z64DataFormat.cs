@@ -1,10 +1,10 @@
 ﻿//
-//  Z64DataFormat.cs
+//  Z64DataFormat.cs - provides a DataFormat for manipulating Nintendo 64 game dump files in Z64 format
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,12 +18,16 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Executable;
 
 namespace UniversalEditor.DataFormats.Executable.Nintendo.N64
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating Nintendo 64 game dump files in Z64 format.
+	/// </summary>
 	public class Z64DataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -64,9 +68,9 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.N64
 			ulong unknown1 = reader.ReadUInt64(); // zero
 			string imageName = reader.ReadFixedLengthString(20).TrimNull().Trim();
 			uint unknown2 = reader.ReadUInt32(); // zero
-			N64MediaFormat mediaformat = (N64MediaFormat) reader.ReadUInt32();
+			N64MediaFormat mediaformat = (N64MediaFormat)reader.ReadUInt32();
 			string cartridgeID = reader.ReadFixedLengthString(2);
-			N64CountryCode countryCode = (N64CountryCode) reader.ReadByte();
+			N64CountryCode countryCode = (N64CountryCode)reader.ReadByte();
 			byte version = reader.ReadByte();
 
 			byte[] bootloader = reader.ReadBytes(4032);

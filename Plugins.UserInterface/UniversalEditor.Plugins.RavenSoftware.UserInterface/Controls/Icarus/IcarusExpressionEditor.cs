@@ -1,10 +1,10 @@
 ﻿//
-//  IcarusExpressionEditor.cs
+//  IcarusExpressionEditor.cs - provides a UWT-based Container with controls for editing an expression in an Icarus script
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2020 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,14 +18,20 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
+
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
+
 using UniversalEditor.ObjectModels.Icarus;
 
 namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 {
+	/// <summary>
+	/// Provides a UWT-based <see cref="Container" /> with controls for editing an expression in an Icarus script.
+	/// </summary>
 	[ContainerLayout("~/Editors/RavenSoftware/Icarus/Controls/ExpressionEditor.glade")]
 	public class IcarusExpressionEditor : Container
 	{

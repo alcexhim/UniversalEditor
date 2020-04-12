@@ -1,10 +1,10 @@
 ﻿//
-//  PictureObjectModelExtensions.cs
+//  PictureObjectModelExtensions.cs - UWT extensions to PictureObjectModel
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,15 +18,23 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface.Drawing;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface
 {
+	/// <summary>
+	/// UWT extensions to <see cref="PictureObjectModel" />.
+	/// </summary>
 	public static class PictureObjectModelExtensions
 	{
+		/// <summary>
+		/// Converts the image data stored in the <see cref="PictureObjectModel" /> to a UWT <see cref="Image" /> that can be displayed onscreen.
+		/// </summary>
+		/// <returns>A UWT <see cref="Image" /> that can be displayed onscreen.</returns>
+		/// <param name="pic">The <see cref="PictureObjectModel" /> containing the image data to convert.</param>
 		public static Image ToImage(this PictureObjectModel pic)
 		{
 			Image image = Image.Create(pic.Width, pic.Height);

@@ -1,23 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  PositionVector2.cs - provides a tuple indicating X and Y position
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor
 {
-    public struct PositionVector2 : ICloneable
-    {
-		private double mvarX;
-		private double mvarY;
-
-        private bool mvarIsEmpty;
-        public bool IsEmpty { get { return mvarIsEmpty; } }
+	/// <summary>
+	/// Provides a tuple indicating X and Y position.
+	/// </summary>
+	public struct PositionVector2 : ICloneable
+	{
+		public bool IsEmpty { get; }
 
         private PositionVector2(bool empty)
         {
-            mvarX = 0;
-            mvarY = 0;
-            mvarIsEmpty = empty;
+			X = 0;
+			Y = 0;
+			IsEmpty = empty;
         }
 
         /// <summary>
@@ -25,29 +42,29 @@ namespace UniversalEditor
         /// </summary>
         public static readonly PositionVector2 Empty = new PositionVector2(true);
 
-        public double X { get { return mvarX; } set { mvarX = value; } }
-        public double Y { get { return mvarY; } set { mvarY = value; } }
-		
-        public PositionVector2(float x, float y)
+        public double X { get; set; }
+        public double Y { get; set; }
+
+		public PositionVector2(float x, float y)
 		{
-			mvarX = x;
-			mvarY = y;
-            mvarIsEmpty = false;
+			X = x;
+			Y = y;
+			IsEmpty = false;
 		}
         public PositionVector2(double x, double y)
         {
-            mvarX = x;
-            mvarY = y;
-            mvarIsEmpty = false;
+			X = x;
+			Y = y;
+			IsEmpty = false;
         }
 
         public double[] ToDoubleArray()
         {
-            return new double[] { mvarX, mvarY };
+            return new double[] { X, Y };
         }
         public float[] ToFloatArray()
         {
-            return new float[] { (float)mvarX, (float)mvarY };
+            return new float[] { (float)X, (float)Y };
         }
 
         public static PositionVector2 operator +(PositionVector2 left, PositionVector2 right)
@@ -78,9 +95,9 @@ namespace UniversalEditor
             {
                 sb.Append(encloseStart);
             }
-            sb.Append(String.Format("{0:0.0#####################}", mvarX));
+            sb.Append(String.Format("{0:0.0#####################}", X));
             sb.Append(separator);
-            sb.Append(String.Format("{0:0.0#####################}", mvarY));
+            sb.Append(String.Format("{0:0.0#####################}", Y));
             if (encloseEnd != null)
             {
                 sb.Append(encloseEnd);
@@ -91,15 +108,15 @@ namespace UniversalEditor
         public object Clone()
         {
             PositionVector2 clone = new PositionVector2();
-            clone.X = mvarX;
-            clone.Y = mvarY;
+            clone.X = X;
+            clone.Y = Y;
             return clone;
         }
 
         public double GetLargestComponentValue()
         {
-            if (mvarX > mvarY) return mvarX;
-            if (mvarY > mvarX) return mvarY;
+            if (X > Y) return X;
+            if (Y > X) return Y;
             return 0.0;
         }
     }

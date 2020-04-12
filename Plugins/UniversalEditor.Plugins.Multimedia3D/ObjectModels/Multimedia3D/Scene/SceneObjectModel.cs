@@ -1,42 +1,53 @@
-using System;
+//
+//  SceneObjectModel.cs - provides an ObjectModel for manipulating 3D scene graphs
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
 namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating 3D scene graphs.
+	/// </summary>
 	public class SceneObjectModel : ObjectModel
 	{
-        protected override ObjectModelReference MakeReferenceInternal()
-        {
-            ObjectModelReference omr = base.MakeReferenceInternal();
-            omr.Title = "Animation scene";
-            omr.Path = new string[] { "Multimedia", "3D Multimedia", "3D Scene" };
-            omr.Description = "Stores model settings and camera settings for an animated or static scene in 3D space.";
-            return omr;
-        }
+		protected override ObjectModelReference MakeReferenceInternal()
+		{
+			ObjectModelReference omr = base.MakeReferenceInternal();
+			omr.Title = "Animation scene";
+			omr.Path = new string[] { "Multimedia", "3D Multimedia", "3D Scene" };
+			omr.Description = "Stores model settings and camera settings for an animated or static scene in 3D space.";
+			return omr;
+		}
 
-        private uint mvarImageWidth = 512;
-        public uint ImageWidth { get { return mvarImageWidth; } set { mvarImageWidth = value; } }
-        private uint mvarImageHeight = 384;
-        public uint ImageHeight { get { return mvarImageHeight; } set { mvarImageHeight = value; } }
+		public uint ImageWidth { get; set; } = 512;
+		public uint ImageHeight { get; set; } = 384;
 
-        #region Application Settings
-        private bool mvarFPSVisible = false;
-        public bool FPSVisible { get { return mvarFPSVisible; } set { mvarFPSVisible = value; } }
-        private bool mvarCoordinateAxisVisible = true;
-        public bool CoordinateAxisVisible { get { return mvarCoordinateAxisVisible; } set { mvarCoordinateAxisVisible = value; } }
-        private bool mvarGroundShadowVisible = true;
-        public bool GroundShadowVisible { get { return mvarGroundShadowVisible; } set { mvarGroundShadowVisible = value; } }
-        private bool mvarGroundShadowTransparent = false;
-        public bool GroundShadowTransparent { get { return mvarGroundShadowTransparent; } set { mvarGroundShadowTransparent = value; } }
-        private SceneScreenCaptureMode mvarScreenCaptureMode = SceneScreenCaptureMode.None;
-        public SceneScreenCaptureMode ScreenCaptureMode { get { return mvarScreenCaptureMode; } set { mvarScreenCaptureMode = value; } }
-        private float mvarGroundShadowBrightness = 1.0f;
-        public float GroundShadowBrightness { get { return mvarGroundShadowBrightness; } set { mvarGroundShadowBrightness = value; } }
-        #endregion
+		public bool FPSVisible { get; set; } = false;
+		public bool CoordinateAxisVisible { get; set; } = true;
+		public bool GroundShadowVisible { get; set; } = true;
+		public bool GroundShadowTransparent { get; set; } = false;
+		public SceneScreenCaptureMode ScreenCaptureMode { get; set; } = SceneScreenCaptureMode.None;
+		public float GroundShadowBrightness { get; set; } = 1.0f;
 
-        private SceneModelReference.SceneModelReferenceCollection mvarModels = new SceneModelReference.SceneModelReferenceCollection();
-        public SceneModelReference.SceneModelReferenceCollection Models { get { return mvarModels; } }
-
+		public SceneModelReference.SceneModelReferenceCollection Models { get; } = new SceneModelReference.SceneModelReferenceCollection();
 		public SceneBrush.SceneBrushCollection Brushes { get; } = new SceneBrush.SceneBrushCollection();
 		public ModelVertex.ModelVertexCollection Vertices { get; } = new ModelVertex.ModelVertexCollection();
 
@@ -50,26 +61,26 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
 		public override void CopyTo(ObjectModel destination)
 		{
 			SceneObjectModel clone = destination as SceneObjectModel;
-			foreach (SceneModelReference smr in this.mvarModels)
+			foreach (SceneModelReference smr in this.Models)
 			{
 				clone.Models.Add(smr.Clone() as SceneModelReference);
 			}
 
-            clone.ImageWidth = mvarImageWidth;
-            clone.ImageHeight = mvarImageHeight;
+			clone.ImageWidth = ImageWidth;
+			clone.ImageHeight = ImageHeight;
 		}
 		public override void Clear()
 		{
-			mvarModels.Clear();
+			Models.Clear();
 
-            mvarImageWidth = 512;
-            mvarImageHeight = 384;
+			ImageWidth = 512;
+			ImageHeight = 384;
 		}
 
-        private float mvarFPSLimit = 60.0f;
-        /// <summary>
-        /// The frame rate limit 
-        /// </summary>
-        public float FPSLimit { get { return mvarFPSLimit; } set { mvarFPSLimit = value; } }
+		/// <summary>
+		/// Gets or sets the frame rate limit.
+		/// </summary>
+		/// <value>The frame rate limit.</value>
+		public float FPSLimit { get; set; } = 60.0f;
 	}
 }

@@ -1,10 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  Character.cs - represents a character in a Universe
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.StoryWriter.Story
 {
+	/// <summary>
+	/// Represents a character in a <see cref="Universe" />.
+	/// </summary>
 	public class Character : ICloneable
 	{
 		public class CharacterCollection
@@ -13,23 +34,30 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 
 		}
 
-		private Guid mvarID = Guid.Empty;
-		public Guid ID { get { return mvarID; } set { mvarID = value; } }
-
-		private PersonalName mvarName = null;
-		public PersonalName Name { get { return mvarName; } set { mvarName = value; } }
-
-		private Gender mvarGender = null;
-		public Gender Gender { get { return mvarGender; } set { mvarGender = value; } }
+		/// <summary>
+		/// Gets or sets the globally-unique identifier for this <see cref="Character" />.
+		/// </summary>
+		/// <value>The globally-unique identifier for this <see cref="Character" />.</value>
+		public Guid ID { get; set; } = Guid.Empty;
+		/// <summary>
+		/// Gets or sets the personal name of this <see cref="Character" />.
+		/// </summary>
+		/// <value>The personal name of this <see cref="Character" />.</value>
+		public PersonalName Name { get; set; } = null;
+		/// <summary>
+		/// Gets or sets the gender of this <see cref="Character" />.
+		/// </summary>
+		/// <value>The gender of this <see cref="Character" />.</value>
+		public Gender Gender { get; set; } = null;
 
 		public object Clone()
 		{
 			Character clone = new Character();
-			if (mvarName != null)
+			if (Name != null)
 			{
-				clone.Name = (mvarName.Clone() as PersonalName);
+				clone.Name = (Name.Clone() as PersonalName);
 			}
-			clone.Gender = mvarGender;
+			clone.Gender = Gender;
 			return clone;
 		}
 	}

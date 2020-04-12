@@ -1,10 +1,10 @@
 ﻿//
-//  ContactEditor.cs - a UWT editor for ContactObjectModel
+//  ContactEditor.cs - provides a UWT-based Editor for ContactObjectModel
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.UserInterface;
 
@@ -26,15 +27,17 @@ using MBS.Framework.UserInterface.Layouts;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.Drawing;
-using System.Text;
 
 namespace UniversalEditor.Editors.Contact
 {
+	/// <summary>
+	/// Provides a UWT-based <see cref="Editor" /> for <see cref="ContactObjectModel" />.
+	/// </summary>
 	public class ContactEditor : Editor
 	{
-		public ContactEditor ()
+		public ContactEditor()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
 		private DropDownButton btnName;
@@ -52,206 +55,209 @@ namespace UniversalEditor.Editors.Contact
 
 		private void InitializeComponent()
 		{
-			this.Layout = new BoxLayout (Orientation.Vertical);
-			this.Padding = new Padding (26);
+			this.Layout = new BoxLayout(Orientation.Vertical);
+			this.Padding = new Padding(26);
 
-			StackSidebar sidebar = new StackSidebar ();
+			StackSidebar sidebar = new StackSidebar();
 
 			#region Summary Panel
 			{
-				ct = new Container ();
+				ct = new Container();
 				ct.Name = "ctSummary";
 				ct.Text = "Summary";
-				ct.Layout = new GridLayout ();
+				ct.Layout = new GridLayout();
 
-				btnPhoto = new Button ();
-				btnPhoto.Size = new Dimension2D (128, 128);
-				ct.Controls.Add (btnPhoto, new GridLayout.Constraints (0, 0, 1, 1, ExpandMode.None));
+				btnPhoto = new Button();
+				btnPhoto.Size = new Dimension2D(128, 128);
+				ct.Controls.Add(btnPhoto, new GridLayout.Constraints(0, 0, 1, 1, ExpandMode.None));
 
-				ctName = new Container ();
-				ctName.Layout = new GridLayout ();
+				ctName = new Container();
+				ctName.Layout = new GridLayout();
 
-				Label lblGivenName = new Label ();
+				Label lblGivenName = new Label();
 				lblGivenName.Text = "_Given";
-				lblGivenName.Attributes.Add ("scale", 0.8);
-				txtGivenName = new TextBox ();
-				txtGivenName.SetExtraData<string> ("PropertyObject", "Name");
-				txtGivenName.SetExtraData<string> ("PropertyName", "GivenName");
+				lblGivenName.Attributes.Add("scale", 0.8);
+				txtGivenName = new TextBox();
+				txtGivenName.SetExtraData<string>("PropertyObject", "Name");
+				txtGivenName.SetExtraData<string>("PropertyName", "GivenName");
 				txtGivenName.Changed += TextBox_Changed;
 				txtGivenName.LostFocus += TextBox_LostFocus;
-				ctName.Controls.Add (txtGivenName, new GridLayout.Constraints (0, 0, 1, 1, ExpandMode.Both));
-				ctName.Controls.Add (lblGivenName, new GridLayout.Constraints (1, 0, 1, 1));
+				ctName.Controls.Add(txtGivenName, new GridLayout.Constraints(0, 0, 1, 1, ExpandMode.Both));
+				ctName.Controls.Add(lblGivenName, new GridLayout.Constraints(1, 0, 1, 1));
 
-				Label lblMiddleName = new Label ();
+				Label lblMiddleName = new Label();
 				lblMiddleName.Text = "_Middle";
-				lblMiddleName.Attributes.Add ("scale", 0.8);
-				txtMiddleName = new TextBox ();
-				txtMiddleName.SetExtraData<string> ("PropertyObject", "Name");
-				txtMiddleName.SetExtraData<string> ("PropertyName", "MiddleName");
+				lblMiddleName.Attributes.Add("scale", 0.8);
+				txtMiddleName = new TextBox();
+				txtMiddleName.SetExtraData<string>("PropertyObject", "Name");
+				txtMiddleName.SetExtraData<string>("PropertyName", "MiddleName");
 				txtMiddleName.Changed += TextBox_Changed;
 				txtMiddleName.LostFocus += TextBox_LostFocus;
-				ctName.Controls.Add (txtMiddleName, new GridLayout.Constraints (0, 1, 1, 1, ExpandMode.Both));
-				ctName.Controls.Add (lblMiddleName, new GridLayout.Constraints (1, 1, 1, 1));
+				ctName.Controls.Add(txtMiddleName, new GridLayout.Constraints(0, 1, 1, 1, ExpandMode.Both));
+				ctName.Controls.Add(lblMiddleName, new GridLayout.Constraints(1, 1, 1, 1));
 
-				Label lblFamilyName = new Label ();
+				Label lblFamilyName = new Label();
 				lblFamilyName.Text = "_Family";
-				lblFamilyName.Attributes.Add ("scale", 0.8);
-				txtFamilyName = new TextBox ();
+				lblFamilyName.Attributes.Add("scale", 0.8);
+				txtFamilyName = new TextBox();
 				txtFamilyName.Changed += TextBox_Changed;
-				txtFamilyName.SetExtraData<string> ("PropertyObject", "Name");
-				txtFamilyName.SetExtraData<string> ("PropertyName", "FamilyName");
+				txtFamilyName.SetExtraData<string>("PropertyObject", "Name");
+				txtFamilyName.SetExtraData<string>("PropertyName", "FamilyName");
 				txtFamilyName.LostFocus += TextBox_LostFocus;
-				ctName.Controls.Add (txtFamilyName, new GridLayout.Constraints (0, 2, 1, 1, ExpandMode.Both));
-				ctName.Controls.Add (lblFamilyName, new GridLayout.Constraints (1, 2, 1, 1));
+				ctName.Controls.Add(txtFamilyName, new GridLayout.Constraints(0, 2, 1, 1, ExpandMode.Both));
+				ctName.Controls.Add(lblFamilyName, new GridLayout.Constraints(1, 2, 1, 1));
 
-				TextBox txtJobTitle = new TextBox ();
+				TextBox txtJobTitle = new TextBox();
 				txtJobTitle.Changed += TextBox_Changed;
-				txtJobTitle.SetExtraData<string> ("PropertyObject", "Job");
-				txtJobTitle.SetExtraData<string> ("PropertyName", "JobTitle");
+				txtJobTitle.SetExtraData<string>("PropertyObject", "Job");
+				txtJobTitle.SetExtraData<string>("PropertyName", "JobTitle");
 				txtJobTitle.LostFocus += TextBox_LostFocus;
-				Label lblJobTitle = new Label ();
+				Label lblJobTitle = new Label();
 				lblJobTitle.Text = "_Job title";
-				lblJobTitle.Attributes.Add ("scale", 0.8);
-				ctName.Controls.Add (txtJobTitle, new GridLayout.Constraints (2, 0, 1, 2, ExpandMode.Both));
-				ctName.Controls.Add (lblJobTitle, new GridLayout.Constraints (3, 0, 1, 2, ExpandMode.Both));
+				lblJobTitle.Attributes.Add("scale", 0.8);
+				ctName.Controls.Add(txtJobTitle, new GridLayout.Constraints(2, 0, 1, 2, ExpandMode.Both));
+				ctName.Controls.Add(lblJobTitle, new GridLayout.Constraints(3, 0, 1, 2, ExpandMode.Both));
 
-				TextBox txtCompany = new TextBox ();
+				TextBox txtCompany = new TextBox();
 				txtCompany.Changed += TextBox_Changed;
-				txtCompany.SetExtraData<string> ("PropertyObject", "Job");
-				txtCompany.SetExtraData<string> ("PropertyName", "Company");
+				txtCompany.SetExtraData<string>("PropertyObject", "Job");
+				txtCompany.SetExtraData<string>("PropertyName", "Company");
 				txtCompany.LostFocus += TextBox_LostFocus;
-				Label lblCompany = new Label ();
+				Label lblCompany = new Label();
 				lblCompany.Text = "_Company";
-				lblCompany.Attributes.Add ("scale", 0.8);
-				ctName.Controls.Add (txtCompany, new GridLayout.Constraints (2, 2, 1, 1, ExpandMode.Both));
-				ctName.Controls.Add (lblCompany, new GridLayout.Constraints (3, 2, 1, 1, ExpandMode.Both));
+				lblCompany.Attributes.Add("scale", 0.8);
+				ctName.Controls.Add(txtCompany, new GridLayout.Constraints(2, 2, 1, 1, ExpandMode.Both));
+				ctName.Controls.Add(lblCompany, new GridLayout.Constraints(3, 2, 1, 1, ExpandMode.Both));
 
-				ct.Controls.Add (ctName, new GridLayout.Constraints (0, 1, 2, 1, ExpandMode.None));
+				ct.Controls.Add(ctName, new GridLayout.Constraints(0, 1, 2, 1, ExpandMode.None));
 
-				StackSidebarPanel panel = new StackSidebarPanel ();
+				StackSidebarPanel panel = new StackSidebarPanel();
 				panel.Control = ct;
-				sidebar.Items.Add (panel);
+				sidebar.Items.Add(panel);
 			}
 			#endregion
 			#region Addresses
 			{
-				Container ct = new Container ();
+				Container ct = new Container();
 				ct.Name = "ctAddresses";
 				ct.Text = "Addresses";
-				ct.Layout = new BoxLayout (Orientation.Vertical);
+				ct.Layout = new BoxLayout(Orientation.Vertical);
 
-				tmAddresses = new DefaultTreeModel (new Type [] { typeof (string) });
+				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
-				lvPhysicalAddresses = new ListView ();
-				lvPhysicalAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
+				lvPhysicalAddresses = new ListView();
+				lvPhysicalAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
 				lvPhysicalAddresses.Model = tmAddresses;
-				ct.Controls.Add (lvPhysicalAddresses, new BoxLayout.Constraints (true, true));
+				ct.Controls.Add(lvPhysicalAddresses, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel ();
+				StackSidebarPanel panel = new StackSidebarPanel();
 				panel.Control = ct;
-				sidebar.Items.Add (panel);
+				sidebar.Items.Add(panel);
 			}
 			#endregion
 			#region Family
 			{
-				Container ct = new Container ();
+				Container ct = new Container();
 				ct.Name = "ctFamily";
 				ct.Text = "Family and Relationships";
-				ct.Layout = new BoxLayout (Orientation.Vertical);
+				ct.Layout = new BoxLayout(Orientation.Vertical);
 
-				tmAddresses = new DefaultTreeModel (new Type [] { typeof (string) });
+				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
-				ListView lvAddresses = new ListView ();
-				lvAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
-				ct.Controls.Add (lvAddresses, new BoxLayout.Constraints (true, true));
+				ListView lvAddresses = new ListView();
+				lvAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
+				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel ();
+				StackSidebarPanel panel = new StackSidebarPanel();
 				panel.Control = ct;
-				sidebar.Items.Add (panel);
+				sidebar.Items.Add(panel);
 			}
 			#endregion
 			#region Digital IDs
 			{
-				Container ct = new Container ();
+				Container ct = new Container();
 				ct.Name = "ctDigitalIDs";
 				ct.Text = "Digital IDs";
-				ct.Layout = new BoxLayout (Orientation.Vertical);
+				ct.Layout = new BoxLayout(Orientation.Vertical);
 
-				tmAddresses = new DefaultTreeModel (new Type [] { typeof (string) });
+				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
-				ListView lvAddresses = new ListView ();
-				lvAddresses.Columns.Add (new ListViewColumnText (tmAddresses.Columns [0], "Address"));
-				ct.Controls.Add (lvAddresses, new BoxLayout.Constraints (true, true));
+				ListView lvAddresses = new ListView();
+				lvAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
+				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel ();
+				StackSidebarPanel panel = new StackSidebarPanel();
 				panel.Control = ct;
-				sidebar.Items.Add (panel);
+				sidebar.Items.Add(panel);
 			}
 			#endregion
 			#region Notes
 			{
-				Container ct = new Container ();
+				Container ct = new Container();
 				ct.Name = "ctNotes";
 				ct.Text = "Notes";
-				ct.Layout = new BoxLayout (Orientation.Vertical);
+				ct.Layout = new BoxLayout(Orientation.Vertical);
 
-				TextBox txtNotes = new TextBox ();
+				TextBox txtNotes = new TextBox();
 				txtNotes.Multiline = true;
-				ct.Controls.Add (txtNotes, new BoxLayout.Constraints (true, true));
+				ct.Controls.Add(txtNotes, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel ();
+				StackSidebarPanel panel = new StackSidebarPanel();
 				panel.Control = ct;
-				sidebar.Items.Add (panel);
+				sidebar.Items.Add(panel);
 			}
 			#endregion
 
-			this.Controls.Add (sidebar, new BoxLayout.Constraints(true, true));
+			this.Controls.Add(sidebar, new BoxLayout.Constraints(true, true));
 		}
 
-		private void AddDetailRow (int iRow, string detailType, string value)
+		private void AddDetailRow(int iRow, string detailType, string value)
 		{
-			ComboBox cboDetail = new ComboBox ();
+			ComboBox cboDetail = new ComboBox();
 			cboDetail.Text = detailType;
 
-			TextBox txtDetail = new TextBox ();
-			Button btnDelete = new Button (StockType.Delete);
-			ct.Controls.Add (cboDetail, new GridLayout.Constraints (iRow + 1, 0, 1, 1, ExpandMode.None));
-			ct.Controls.Add (txtDetail, new GridLayout.Constraints (iRow + 1, 1, 1, 1, ExpandMode.Horizontal));
-			ct.Controls.Add (btnDelete, new GridLayout.Constraints (iRow + 1, 2, 1, 1, ExpandMode.None));
+			TextBox txtDetail = new TextBox();
+			Button btnDelete = new Button(StockType.Delete);
+			ct.Controls.Add(cboDetail, new GridLayout.Constraints(iRow + 1, 0, 1, 1, ExpandMode.None));
+			ct.Controls.Add(txtDetail, new GridLayout.Constraints(iRow + 1, 1, 1, 1, ExpandMode.Horizontal));
+			ct.Controls.Add(btnDelete, new GridLayout.Constraints(iRow + 1, 2, 1, 1, ExpandMode.None));
 		}
 
 		private static EditorReference _er = null;
-		public override EditorReference MakeReference ()
+		public override EditorReference MakeReference()
 		{
-			if (_er == null) {
-				_er = base.MakeReference ();
+			if (_er == null)
+			{
+				_er = base.MakeReference();
 			}
-			_er.SupportedObjectModels.Add (typeof(ContactObjectModel));
+			_er.SupportedObjectModels.Add(typeof(ContactObjectModel));
 			return _er;
 		}
 
-		protected override void OnObjectModelChanged (EventArgs e)
+		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			txtGivenName.Text = String.Empty;
 			txtMiddleName.Text = String.Empty;
 			txtFamilyName.Text = String.Empty;
 
-			tmAddresses.Rows.Clear ();
+			tmAddresses.Rows.Clear();
 
-			base.OnObjectModelChanged (e);
+			base.OnObjectModelChanged(e);
 
 			ContactObjectModel contact = (ObjectModel as ContactObjectModel);
-			if (contact.Names.Count > 0) {
-				txtGivenName.Text = contact.Names [0].GivenName;
-				txtMiddleName.Text = contact.Names [0].MiddleName;
-				txtFamilyName.Text = contact.Names [0].FamilyName;
+			if (contact.Names.Count > 0)
+			{
+				txtGivenName.Text = contact.Names[0].GivenName;
+				txtMiddleName.Text = contact.Names[0].MiddleName;
+				txtFamilyName.Text = contact.Names[0].FamilyName;
 			}
 
-			foreach (ContactPhysicalAddress address in contact.PhysicalAddresses) {
+			foreach (ContactPhysicalAddress address in contact.PhysicalAddresses)
+			{
 				if (address.IsEmpty) continue;
 
-				string addr = address.ToString ();
-				tmAddresses.Rows.Add (new TreeModelRow (new TreeModelRowColumn [] { new TreeModelRowColumn (tmAddresses.Columns [0], addr) }));
+				string addr = address.ToString();
+				tmAddresses.Rows.Add(new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tmAddresses.Columns[0], addr) }));
 			}
 			lvPhysicalAddresses.Model = tmAddresses;
 
@@ -277,8 +283,8 @@ namespace UniversalEditor.Editors.Contact
 			if (ProcessingUndoRedo)
 				return;
 
-			string propertyObject = txt.GetExtraData<string> ("PropertyObject");
-			string propertyName = txt.GetExtraData<string> ("PropertyName");
+			string propertyObject = txt.GetExtraData<string>("PropertyObject");
+			string propertyName = txt.GetExtraData<string>("PropertyName");
 
 			ContactObjectModel contact = (ObjectModel as ContactObjectModel);
 
@@ -286,10 +292,11 @@ namespace UniversalEditor.Editors.Contact
 			{
 				case "Name":
 				{
-					if (contact.Names.Count == 0) {
-						contact.Names.Add (new ContactName ());
+					if (contact.Names.Count == 0)
+					{
+						contact.Names.Add(new ContactName());
 					}
-					SetProperty<string> (propertyName, txt.Text, contact.Names[0], txt);
+					SetProperty<string>(propertyName, txt.Text, contact.Names[0], txt);
 					break;
 				}
 				case "Job":
@@ -310,4 +317,3 @@ namespace UniversalEditor.Editors.Contact
 		}
 	}
 }
-

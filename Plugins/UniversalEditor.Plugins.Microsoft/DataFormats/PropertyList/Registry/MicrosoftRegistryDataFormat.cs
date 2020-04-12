@@ -1,10 +1,10 @@
 ﻿//
-//  MicrosoftRegistryDataFormat.cs
+//  MicrosoftRegistryDataFormat.cs - provides a DataFormat to manipulate Microsoft registry files
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -26,6 +26,9 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.DataFormats.PropertyList.Registry
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> to manipulate Microsoft registry files.
+	/// </summary>
 	public class MicrosoftRegistryDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;

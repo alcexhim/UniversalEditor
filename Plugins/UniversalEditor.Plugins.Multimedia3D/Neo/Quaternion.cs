@@ -1,14 +1,35 @@
+//
+//  Quaternion.cs - represents a tuple containing X, Y, Z, and W coordinates
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 
 namespace Neo
 {
 	public struct Quaternion : ICloneable
 	{
-        private double mvarX;
-        private double mvarY;
-        private double mvarZ;
-        private double mvarW;
-        public double X
+		private double mvarX;
+		private double mvarY;
+		private double mvarZ;
+		private double mvarW;
+		public double X
 		{
 			get
 			{
@@ -19,7 +40,7 @@ namespace Neo
 				this.mvarX = value;
 			}
 		}
-        public double Y
+		public double Y
 		{
 			get
 			{
@@ -30,7 +51,7 @@ namespace Neo
 				this.mvarY = value;
 			}
 		}
-        public double Z
+		public double Z
 		{
 			get
 			{
@@ -41,7 +62,7 @@ namespace Neo
 				this.mvarZ = value;
 			}
 		}
-        public double W
+		public double W
 		{
 			get
 			{
@@ -53,8 +74,8 @@ namespace Neo
 			}
 		}
 
-        public Quaternion(float x, float y, float z) : this(x, y, z, 1.0f) { }
-        public Quaternion(double x, double y, double z) : this(x, y, z, 1.0) { }
+		public Quaternion(float x, float y, float z) : this(x, y, z, 1.0f) { }
+		public Quaternion(double x, double y, double z) : this(x, y, z, 1.0) { }
 		public Quaternion(float x, float y, float z, float w)
 		{
 			mvarX = x;
@@ -62,123 +83,123 @@ namespace Neo
 			mvarZ = z;
 			mvarW = w;
 		}
-        public Quaternion(double x, double y, double z, double w)
-        {
-            mvarX = x;
-            mvarY = y;
-            mvarZ = z;
-            mvarW = w;
-        }
-        public override string ToString()
-        {
-            return ToString(", ", "(", ")", 4);
-        }
-        public string ToString(string separator, string encloseStart, string encloseEnd)
-        {
-            return ToString(separator, encloseStart, encloseEnd, 4);
-        }
-        public string ToString(string separator, string encloseStart, string encloseEnd, int maxCount)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            if (encloseStart != null)
-            {
-                sb.Append(encloseStart);
-            }
-            if (maxCount >= 1)
-            {
-                sb.Append(String.Format("{0:0.0#####################}", mvarX));
-            }
-            if (maxCount >= 2)
-            {
-                sb.Append(separator);
-                sb.Append(String.Format("{0:0.0#####################}", mvarY));
-            }
-            if (maxCount >= 3)
-            {
-                sb.Append(separator);
-                sb.Append(String.Format("{0:0.0#####################}", mvarZ));
-            }
-            if (maxCount >= 4)
-            {
-                sb.Append(separator);
-                sb.Append(String.Format("{0:0.0#####################}", mvarW));
-            }
-            if (encloseEnd != null)
-            {
-                sb.Append(encloseEnd);
-            }
-            return sb.ToString();
-        }
+		public Quaternion(double x, double y, double z, double w)
+		{
+			mvarX = x;
+			mvarY = y;
+			mvarZ = z;
+			mvarW = w;
+		}
+		public override string ToString()
+		{
+			return ToString(", ", "(", ")", 4);
+		}
+		public string ToString(string separator, string encloseStart, string encloseEnd)
+		{
+			return ToString(separator, encloseStart, encloseEnd, 4);
+		}
+		public string ToString(string separator, string encloseStart, string encloseEnd, int maxCount)
+		{
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+			if (encloseStart != null)
+			{
+				sb.Append(encloseStart);
+			}
+			if (maxCount >= 1)
+			{
+				sb.Append(String.Format("{0:0.0#####################}", mvarX));
+			}
+			if (maxCount >= 2)
+			{
+				sb.Append(separator);
+				sb.Append(String.Format("{0:0.0#####################}", mvarY));
+			}
+			if (maxCount >= 3)
+			{
+				sb.Append(separator);
+				sb.Append(String.Format("{0:0.0#####################}", mvarZ));
+			}
+			if (maxCount >= 4)
+			{
+				sb.Append(separator);
+				sb.Append(String.Format("{0:0.0#####################}", mvarW));
+			}
+			if (encloseEnd != null)
+			{
+				sb.Append(encloseEnd);
+			}
+			return sb.ToString();
+		}
 
-        public static Quaternion operator +(Quaternion left, Quaternion right)
-        {
-            return new Quaternion(left.X + right.X, left.Y + right.Y, left.Z + right.Z, left.W + right.W);
-        }
-        public static Quaternion operator -(Quaternion left, Quaternion right)
-        {
-            return new Quaternion(left.X - right.X, left.Y - right.Y, left.Z - right.Z, left.W - right.W);
-        }
-        public static Quaternion operator *(Quaternion left, Quaternion right)
-        {
-            return new Quaternion(left.X * right.X, left.Y * right.Y, left.Z * right.Z, left.W * right.W);
-        }
-        public static Quaternion operator /(Quaternion left, Quaternion right)
-        {
-            return new Quaternion(left.X / right.X, left.Y / right.Y, left.Z / right.Z, left.W / right.W);
-        }
+		public static Quaternion operator +(Quaternion left, Quaternion right)
+		{
+			return new Quaternion(left.X + right.X, left.Y + right.Y, left.Z + right.Z, left.W + right.W);
+		}
+		public static Quaternion operator -(Quaternion left, Quaternion right)
+		{
+			return new Quaternion(left.X - right.X, left.Y - right.Y, left.Z - right.Z, left.W - right.W);
+		}
+		public static Quaternion operator *(Quaternion left, Quaternion right)
+		{
+			return new Quaternion(left.X * right.X, left.Y * right.Y, left.Z * right.Z, left.W * right.W);
+		}
+		public static Quaternion operator /(Quaternion left, Quaternion right)
+		{
+			return new Quaternion(left.X / right.X, left.Y / right.Y, left.Z / right.Z, left.W / right.W);
+		}
 
-        public double[] ToDoubleArray()
-        {
-            return new double[] { mvarX, mvarY, mvarZ, mvarW };
-        }
-        public float[] ToFloatArray()
-        {
-            return new float[] { (float)mvarX, (float)mvarY, (float)mvarZ, (float)mvarW };
-        }
+		public double[] ToDoubleArray()
+		{
+			return new double[] { mvarX, mvarY, mvarZ, mvarW };
+		}
+		public float[] ToFloatArray()
+		{
+			return new float[] { (float)mvarX, (float)mvarY, (float)mvarZ, (float)mvarW };
+		}
 
 		public Matrix ToMatrix()
 		{
-            Matrix matrix = new Matrix(4, 4);
+			Matrix matrix = new Matrix(4, 4);
 
-            double x2 = mvarX * mvarX * 2.0f;
-            double y2 = mvarY * mvarY * 2.0f;
-            double z2 = mvarZ * mvarZ * 2.0f;
-            double xy = mvarX * mvarY * 2.0f;
-            double yz = mvarY * mvarZ * 2.0f;
-            double zx = mvarZ * mvarX * 2.0f;
-            double xw = mvarX * mvarW * 2.0f;
-            double yw = mvarY * mvarW * 2.0f;
-            double zw = mvarZ * mvarW * 2.0f;
+			double x2 = mvarX * mvarX * 2.0f;
+			double y2 = mvarY * mvarY * 2.0f;
+			double z2 = mvarZ * mvarZ * 2.0f;
+			double xy = mvarX * mvarY * 2.0f;
+			double yz = mvarY * mvarZ * 2.0f;
+			double zx = mvarZ * mvarX * 2.0f;
+			double xw = mvarX * mvarW * 2.0f;
+			double yw = mvarY * mvarW * 2.0f;
+			double zw = mvarZ * mvarW * 2.0f;
 
-            matrix[0, 0] = 1.0f - y2 - z2;
-            matrix[0, 1] = xy + zw;
-            matrix[0, 2] = zx - yw;
-            matrix[1, 0] = xy - zw;
-            matrix[1, 1] = 1.0f - z2 - x2;
-            matrix[1, 2] = yz + xw;
-            matrix[2, 0] = zx + yw;
-            matrix[2, 1] = yz - xw;
-            matrix[2, 2] = 1.0f - x2 - y2;
+			matrix[0, 0] = 1.0f - y2 - z2;
+			matrix[0, 1] = xy + zw;
+			matrix[0, 2] = zx - yw;
+			matrix[1, 0] = xy - zw;
+			matrix[1, 1] = 1.0f - z2 - x2;
+			matrix[1, 2] = yz + xw;
+			matrix[2, 0] = zx + yw;
+			matrix[2, 1] = yz - xw;
+			matrix[2, 2] = 1.0f - x2 - y2;
 
-            matrix[0, 3] = 0.0f;
-            matrix[1, 3] = 0.0f;
-            matrix[2, 3] = 0.0f;
-            matrix[3, 0] = 0.0f;
-            matrix[3, 1] = 0.0f;
-            matrix[3, 2] = 0.0f;
-            matrix[3, 3] = 1.0f;
-            return matrix;
+			matrix[0, 3] = 0.0f;
+			matrix[1, 3] = 0.0f;
+			matrix[2, 3] = 0.0f;
+			matrix[3, 0] = 0.0f;
+			matrix[3, 1] = 0.0f;
+			matrix[3, 2] = 0.0f;
+			matrix[3, 3] = 1.0f;
+			return matrix;
 		}
 
 		public Quaternion Slerp(Quaternion pvec4Src2, float fLerpValue)
 		{
 			// Slerp
-			float	dot = (float)((mvarX * pvec4Src2.X) + (mvarY * pvec4Src2.Y) + (mvarZ * pvec4Src2.Z) + (mvarW * pvec4Src2.W));
+			float dot = (float)((mvarX * pvec4Src2.X) + (mvarY * pvec4Src2.Y) + (mvarZ * pvec4Src2.Z) + (mvarW * pvec4Src2.W));
 
 			// îΩì]èàóù
-			Quaternion	vec4CorrectTarget;
+			Quaternion vec4CorrectTarget;
 
-			if(dot < 0.0f)
+			if (dot < 0.0f)
 			{
 				double correctTargetX = -pvec4Src2.X;
 				double correctTargetY = -pvec4Src2.Y;
@@ -194,7 +215,7 @@ namespace Neo
 			}
 
 			// åÎç∑ëŒçÙ
-			if(dot >= 1.0f){ dot = 1.0f; }
+			if (dot >= 1.0f) { dot = 1.0f; }
 			float radian = (float)Math.Acos(dot);
 
 			if (Math.Abs(radian) < 0.0000000001f) { return vec4CorrectTarget; }
@@ -251,10 +272,10 @@ namespace Neo
 			return new Quaternion(x, y, z, w);
 		}
 
-        public object Clone()
-        {
-            Quaternion clone = new Quaternion(mvarX, mvarY, mvarZ, mvarW);
-            return clone;
-        }
-    }
+		public object Clone()
+		{
+			Quaternion clone = new Quaternion(mvarX, mvarY, mvarZ, mvarW);
+			return clone;
+		}
+	}
 }

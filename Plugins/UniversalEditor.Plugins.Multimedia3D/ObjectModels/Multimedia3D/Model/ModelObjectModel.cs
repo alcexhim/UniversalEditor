@@ -1,11 +1,34 @@
-﻿using System;
+﻿//
+//  ModelObjectModel.cs - provides an ObjectModel for manipulating 3D models
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing;
-using Neo;
 
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating 3D models.
+	/// </summary>
 	public class ModelObjectModel : ObjectModel
 	{
 		public ModelObjectModel()
@@ -39,7 +62,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
 		private ModelBoneGroup.ModelBoneGroupCollection mvarBoneGroups = null;
 		public ModelBoneGroup.ModelBoneGroupCollection BoneGroups { get { return mvarBoneGroups; } }
-		
+
 		private List<ushort> mvarExpressions = new List<ushort>();
 		public List<ushort> Expressions
 		{
@@ -48,7 +71,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
 		private StringCollection mvarNodeNames = new StringCollection();
 		public StringCollection NodeNames { get { return mvarNodeNames; } }
-		
+
 		private ModelSkin.ModelSkinCollection mvarSkins = new ModelSkin.ModelSkinCollection();
 		public ModelSkin.ModelSkinCollection Skins { get { return mvarSkins; } }
 
@@ -57,13 +80,13 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
 		private ModelMaterial.ModelMaterialCollection mvarMaterials = new ModelMaterial.ModelMaterialCollection();
 		public ModelMaterial.ModelMaterialCollection Materials { get { return mvarMaterials; } }
-		
+
 		private ModelBone.ModelBoneCollection mvarBones = null;
 		public ModelBone.ModelBoneCollection Bones { get { return mvarBones; } }
-		
+
 		private ModelIK.ModelIKCollection mvarIK = null;
 		public ModelIK.ModelIKCollection IK { get { return mvarIK; } }
-		
+
 		private ModelRigidBody.ModelRigidBodyCollection mvarRigidBodies = new ModelRigidBody.ModelRigidBodyCollection();
 		public ModelRigidBody.ModelRigidBodyCollection RigidBodies { get { return mvarRigidBodies; } }
 
@@ -72,10 +95,10 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
 		private ModelTexture.ModelTextureCollection mvarTextures = new ModelTexture.ModelTextureCollection();
 		public ModelTexture.ModelTextureCollection Textures { get { return mvarTextures; } }
-		
+
 		private ModelMorph.ModelMorphCollection mvarMorphs = new ModelMorph.ModelMorphCollection();
 		public ModelMorph.ModelMorphCollection Morphs { get { return mvarMorphs; } }
-		
+
 		private Dictionary<int, ModelStringTableExtension> mvarStringTable = new Dictionary<int, ModelStringTableExtension>();
 		public Dictionary<int, ModelStringTableExtension> StringTable { get { return mvarStringTable; } }
 
@@ -245,7 +268,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 		{
 			if (mvarUpdating) return;
 			mvarUpdating = true;
-			
+
 			//SkinningMatrix = -BoneInitialPosition * LocalRotationMatrix * (BoneInitialPosition + UserMove) * ParentMatrix
 
 			// 物理演算反映

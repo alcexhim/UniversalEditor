@@ -1,12 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  GLBDataFormat.cs - provides a DataFormat for manipulating 3D models in Ultimate Stunts GLB format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using MBS.Framework.Drawing;
+
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating 3D models in Ultimate Stunts GLB format.
+	/// </summary>
+	/// <remarks>
+	/// This is NOT the same format as the OpenGL Transmission Format (glTF) which has the same file extension.
+	/// </remarks>
 	public class GLBDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -20,11 +46,16 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 			return _dfr;
 		}
 
-        private string mvarObjectName = String.Empty;
-        public string ObjectName { get { return mvarObjectName; } set { mvarObjectName = value; } }
-
-        private GLBObjectType mvarObjectType = GLBObjectType.GeometryObjectData0_5_0;
-        public GLBObjectType ObjectType { get { return mvarObjectType; } set { mvarObjectType = value; } }
+		/// <summary>
+		/// Gets or sets the name of the object represented by this model.
+		/// </summary>
+		/// <value>The name of the object represented by this model.</value>
+		public string ObjectName { get; set; } = String.Empty;
+		/// <summary>
+		/// Gets or sets the format version of this model file.
+		/// </summary>
+		/// <value>The format version of this model file.</value>
+		public GLBObjectType ObjectType { get; set; } = GLBObjectType.GeometryObjectData0_5_0;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -36,9 +67,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 			if (magic != "\0GLB") throw new InvalidDataFormatException("File does not begin with 0, 'GLB'");
 
 			GLBObjectType objectType = (GLBObjectType)br.ReadInt32();
-			
-            int objectNameSize = br.ReadInt32();
-            mvarObjectName = br.ReadFixedLengthString(objectNameSize).TrimNull();
+
+			int objectNameSize = br.ReadInt32();
+			ObjectName = br.ReadFixedLengthString(objectNameSize).TrimNull();
 
 			int objectDataSize = br.ReadInt32();
 
@@ -76,7 +107,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 							Color color = Color.FromRGBAByte(r, g, b, a);
 						}
 						#endregion
-						
+
 						byte lodFlags = br.ReadByte();
 						byte reflectance = br.ReadByte();
 						byte emissivity = br.ReadByte();
@@ -99,7 +130,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 					#endregion
 					break;
 				}
-                case GLBObjectType.GeometryObjectData0_5_1: // Geometry object data 0.5
+				case GLBObjectType.GeometryObjectData0_5_1: // Geometry object data 0.5
 				{
 					// This object type is used in Ultimate Stunts prior to version 0.7.0. It is
 					// still supported, but its use is discouraged. Please use the Geometry object data
@@ -110,12 +141,12 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-            IO.Writer bw = base.Accessor.Writer;
-            bw.WriteFixedLengthString("\0GLB");
-            bw.WriteInt32((int)mvarObjectType);
+			IO.Writer bw = base.Accessor.Writer;
+			bw.WriteFixedLengthString("\0GLB");
+			bw.WriteInt32((int)ObjectType);
 
-            bw.WriteInt32((int)mvarObjectName.Length);
-            bw.WriteFixedLengthString(mvarObjectName);
+			bw.WriteInt32((int)ObjectName.Length);
+			bw.WriteFixedLengthString(ObjectName);
 		}
 	}
 }

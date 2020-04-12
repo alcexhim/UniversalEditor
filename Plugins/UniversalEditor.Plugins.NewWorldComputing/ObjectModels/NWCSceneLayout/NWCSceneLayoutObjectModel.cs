@@ -1,34 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  NWCSceneLayoutObjectModel.cs - provides an ObjectModel for manipulating New World Computing game dialogs
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.NWCSceneLayout
 {
-    public class NWCSceneLayoutObjectModel : ObjectModel
-    {
-        public override void Clear()
-        {
-            mvarObjects.Clear();
-        }
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating New World Computing game dialogs.
+	/// </summary>
+	public class NWCSceneLayoutObjectModel : ObjectModel
+	{
+		public override void Clear()
+		{
+			Objects.Clear();
+		}
 
-        public override void CopyTo(ObjectModel where)
-        {
-            throw new NotImplementedException();
-        }
+		public override void CopyTo(ObjectModel where)
+		{
+			throw new NotImplementedException();
+		}
 
-        private ushort mvarWidth = 0;
-        public ushort Width { get { return mvarWidth; } set { mvarWidth = value; } }
-        private ushort mvarHeight = 0;
-        public ushort Height { get { return mvarHeight; } set { mvarHeight = value; } }
+		public ushort Width { get; set; } = 0;
+		public ushort Height { get; set; } = 0;
 
-        private SceneObject.SceneObjectCollection mvarObjects = new SceneObject.SceneObjectCollection();
-        public SceneObject.SceneObjectCollection Objects { get { return mvarObjects; } set { mvarObjects = value; } }
+		public SceneObject.SceneObjectCollection Objects { get; } = new SceneObject.SceneObjectCollection();
 
-        private string mvarBackgroundImageFileName = String.Empty;
-        public string BackgroundImageFileName { get { return mvarBackgroundImageFileName; } set { mvarBackgroundImageFileName = value; } }
-
-        private int mvarBackgroundImageIndex = 0;
-        public int BackgroundImageIndex { get { return mvarBackgroundImageIndex; } set { mvarBackgroundImageIndex = value; } }
-    }
+		public string BackgroundImageFileName { get; set; } = String.Empty;
+		public int BackgroundImageIndex { get; set; } = 0;
+	}
 }

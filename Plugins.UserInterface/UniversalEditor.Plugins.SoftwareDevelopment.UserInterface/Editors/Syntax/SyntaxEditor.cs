@@ -1,10 +1,10 @@
 ﻿//
-//  SyntaxEditor.cs
+//  SyntaxEditor.cs - provides a UWT-based Editor for text-based editing of a CodeObjectModel
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.UserInterface;
 using MBS.Framework.UserInterface.Controls;
@@ -27,36 +28,40 @@ using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Syntax
 {
+	/// <summary>
+	/// Provides a UWT-based <see cref="Editor" /> for text-based editing of a <see cref="CodeObjectModel" />.
+	/// </summary>
 	public class SyntaxEditor : Editor
 	{
 		SyntaxTextBox txt = null;
 
-		public SyntaxEditor ()
+		public SyntaxEditor()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
 		private static EditorReference _er = null;
-		public override EditorReference MakeReference ()
+		public override EditorReference MakeReference()
 		{
-			if (_er == null) {
-				_er = base.MakeReference ();
-				_er.SupportedObjectModels.Add (typeof(CodeObjectModel));
+			if (_er == null)
+			{
+				_er = base.MakeReference();
+				_er.SupportedObjectModels.Add(typeof(CodeObjectModel));
 			}
 			return _er;
 		}
 
-		protected override void OnObjectModelChanged (EventArgs e)
+		protected override void OnObjectModelChanged(EventArgs e)
 		{
-			base.OnObjectModelChanged (e);
+			base.OnObjectModelChanged(e);
 		}
 
 		private void InitializeComponent()
 		{
-			Layout = new BoxLayout (Orientation.Vertical);
+			Layout = new BoxLayout(Orientation.Vertical);
 
-			txt = new SyntaxTextBox ();
-			Controls.Add (txt, new BoxLayout.Constraints (true, true));
+			txt = new SyntaxTextBox();
+			Controls.Add(txt, new BoxLayout.Constraints(true, true));
 		}
 
 		public override void UpdateSelections()
@@ -70,4 +75,3 @@ namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Synt
 		}
 	}
 }
-

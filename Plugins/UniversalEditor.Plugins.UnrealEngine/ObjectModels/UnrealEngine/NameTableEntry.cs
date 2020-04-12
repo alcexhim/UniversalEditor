@@ -1,52 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿//
+//  NameTableEntry.cs - represents an entry in the name table of an Unreal Engine package file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Text;
 
 namespace UniversalEditor.ObjectModels.UnrealEngine
 {
-    [Flags()]
-    public enum NameTableEntryFlags
-    {
-        None = 0
-    }
-    public class NameTableEntry : ICloneable
-    {
-        public class NameTableEntryCollection
-            : System.Collections.ObjectModel.Collection<NameTableEntry>
-        {
-            public NameTableEntry Add(string name, NameTableEntryFlags flags = NameTableEntryFlags.None)
-            {
-                NameTableEntry entry = new NameTableEntry();
-                entry.Name = name;
-                entry.Flags = flags;
-                Add(entry);
-                return entry;
-            }
-        }
+	/// <summary>
+	/// Indicates attributes for this <see cref="NameTableEntry" />.
+	/// </summary>
+	[Flags()]
+	public enum NameTableEntryFlags
+	{
+		None = 0
+	}
+	/// <summary>
+	/// Represents an entry in the name table of an Unreal Engine package file.
+	/// </summary>
+	public class NameTableEntry : ICloneable
+	{
+		public class NameTableEntryCollection
+			: System.Collections.ObjectModel.Collection<NameTableEntry>
+		{
+			public NameTableEntry Add(string name, NameTableEntryFlags flags = NameTableEntryFlags.None)
+			{
+				NameTableEntry entry = new NameTableEntry();
+				entry.Name = name;
+				entry.Flags = flags;
+				Add(entry);
+				return entry;
+			}
+		}
 
-        private string mvarName = String.Empty;
-        public string Name { get { return mvarName; } set { mvarName = value; } }
+		/// <summary>
+		/// Gets or sets the name (value) of this <see cref="NameTableEntry" />.
+		/// </summary>
+		/// <value>The name (value) of this <see cref="NameTableEntry" />.</value>
+		public string Name { get; set; } = String.Empty;
+		/// <summary>
+		/// Gets or sets the attributes for this <see cref="NameTableEntry" />.
+		/// </summary>
+		/// <value>The attributes for this <see cref="NameTableEntry" />.</value>
+		public NameTableEntryFlags Flags { get; set; } = NameTableEntryFlags.None;
 
-        private NameTableEntryFlags mvarFlags = NameTableEntryFlags.None;
-        public NameTableEntryFlags Flags { get { return mvarFlags; } set { mvarFlags = value; } }
+		public object Clone()
+		{
+			NameTableEntry entry = new NameTableEntry();
+			entry.Name = (Name.Clone() as string);
+			entry.Flags = Flags;
+			return entry;
+		}
 
-        public object Clone()
-        {
-            NameTableEntry entry = new NameTableEntry();
-            entry.Name = (mvarName.Clone() as string);
-            entry.Flags = mvarFlags;
-            return entry;
-        }
-
-        public override string ToString()
-        {
-            return ToString(true);
-        }
-        public string ToString(bool includeFlags)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(mvarName);
+		public override string ToString()
+		{
+			return ToString(true);
+		}
+		public string ToString(bool includeFlags)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append(Name);
 			/*
             if (includeFlags)
             {
@@ -54,7 +84,7 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
                 sb.Append(mvarFlags.ToString());
             }
             */
-            return sb.ToString();
-        }
-    }
+			return sb.ToString();
+		}
+	}
 }

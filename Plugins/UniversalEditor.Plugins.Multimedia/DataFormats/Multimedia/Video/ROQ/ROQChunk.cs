@@ -1,47 +1,38 @@
-using System;
+//
+//  ROQChunk.cs - represents a chunk in a ROQ video file
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.Collections.ObjectModel;
 namespace UniversalEditor.DataFormats.Multimedia.Video.ROQ
 {
+	/// <summary>
+	/// Represents a chunk in a ROQ video file.
+	/// </summary>
 	public class ROQChunk
 	{
 		public class ROQChunkCollection : Collection<ROQChunk>
 		{
 		}
-		private short mvarID = 0;
-		private short mvarArgument = 0;
-		private byte[] mvarData = new byte[0];
-		public short ID
-		{
-			get
-			{
-				return this.mvarID;
-			}
-			set
-			{
-				this.mvarID = value;
-			}
-		}
-		public short Argument
-		{
-			get
-			{
-				return this.mvarArgument;
-			}
-			set
-			{
-				this.mvarArgument = value;
-			}
-		}
-		public byte[] Data
-		{
-			get
-			{
-				return this.mvarData;
-			}
-			set
-			{
-				this.mvarData = value;
-			}
-		}
+
+		public short ID { get; set; } = 0;
+		public short Argument { get; set; } = 0;
+		public byte[] Data { get; set; } = new byte[0];
 	}
 }

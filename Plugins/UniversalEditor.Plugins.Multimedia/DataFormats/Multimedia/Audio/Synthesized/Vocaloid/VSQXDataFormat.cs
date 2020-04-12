@@ -1,22 +1,52 @@
+//
+//  VSQXDataFormat.cs - provides a DataFormat for manipulating synthesized audio in the XML-based Vocaloid VSQX format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
 using UniversalEditor.ObjectModels.Markup;
+
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating synthesized audio in the XML-based Vocaloid VSQX format.
+	/// </summary>
 	public class VSQXDataFormat : XMLDataFormat
 	{
-        private string mvarProductVendor = String.Empty;
-        public string ProductVendor { get { return mvarProductVendor; } set { mvarProductVendor = value; } }
-
-        private Version mvarProductVersion = new Version(1, 0);
-        public Version ProductVersion { get { return mvarProductVersion; } set { mvarProductVersion = value; } }
+		/// <summary>
+		/// Gets or sets the name of the vendor for the product that created this VSQX file.
+		/// </summary>
+		/// <value>The name of the vendor for the product that created this VSQX file.</value>
+		public string ProductVendor { get; set; } = String.Empty;
+		/// <summary>
+		/// Gets or sets the version of the product that created this VSQX file.
+		/// </summary>
+		/// <value>The version of the product that created this VSQX file.</value>
+		public Version ProductVersion { get; set; } = new Version(1, 0);
 
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-            DataFormatReference dfr = new DataFormatReference(this.GetType());
+			DataFormatReference dfr = new DataFormatReference(this.GetType());
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
@@ -28,7 +58,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 		{
 			MarkupObjectModel mom = objectModels.Pop() as MarkupObjectModel;
 			SynthesizedAudioObjectModel au = (objectModels.Pop() as SynthesizedAudioObjectModel);
-            if (au == null) throw new ObjectModelNotSupportedException();
+			if (au == null) throw new ObjectModelNotSupportedException();
 
 			MarkupTagElement tagVSQ3 = mom.Elements["vsq3"] as MarkupTagElement;
 			if (tagVSQ3 != null)
@@ -243,12 +273,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 																								{
 																									MarkupTagElement tagPosNrm = tagAttr.FindElement(new string[]
 																									{
-																										"elem", 
+																										"elem",
 																										"posNrm"
 																									}) as MarkupTagElement;
 																									MarkupTagElement tagElv = tagAttr.FindElement(new string[]
 																									{
-																										"elem", 
+																										"elem",
 																										"elv"
 																									}) as MarkupTagElement;
 																									if (tagPosNrm != null)
@@ -267,12 +297,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 																							{
 																								MarkupTagElement tagPosNrm = tagAttr.FindElement(new string[]
 																								{
-																									"elem", 
+																									"elem",
 																									"posNrm"
 																								}) as MarkupTagElement;
 																								MarkupTagElement tagElv = tagAttr.FindElement(new string[]
 																								{
-																									"elem", 
+																									"elem",
 																									"elv"
 																								}) as MarkupTagElement;
 																								if (tagPosNrm != null)
@@ -351,7 +381,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 									MarkupStringElement tagCDATA = tag.Elements[0] as MarkupStringElement;
 									if (tagCDATA != null)
 									{
-										mvarProductVersion = new Version(tagCDATA.Value);
+										ProductVersion = new Version(tagCDATA.Value);
 									}
 								}
 							}
@@ -360,7 +390,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 								MarkupStringElement tagCDATA = tag.Elements[0] as MarkupStringElement;
 								if (tagCDATA != null)
 								{
-									mvarProductVendor = tagCDATA.Value;
+									ProductVendor = tagCDATA.Value;
 								}
 							}
 						}
@@ -384,14 +414,14 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 			tagVender.FullName = "vender";
 			MarkupStringElement tagVenderCDATA = new MarkupStringElement();
 			tagVenderCDATA.Name = "CDATA";
-            tagVenderCDATA.Value = mvarProductVendor;
+			tagVenderCDATA.Value = ProductVendor;
 			tagVender.Elements.Add(tagVenderCDATA);
 			tagVSQ3.Elements.Add(tagVender);
 			MarkupTagElement tagVersion = new MarkupTagElement();
 			tagVersion.FullName = "version";
 			MarkupStringElement tagVersionCDATA = new MarkupStringElement();
 			tagVersionCDATA.Name = "CDATA";
-			tagVersionCDATA.Value = mvarProductVersion.ToString();
+			tagVersionCDATA.Value = ProductVersion.ToString();
 			tagVersion.Elements.Add(tagVersionCDATA);
 			tagVSQ3.Elements.Add(tagVersion);
 			MarkupTagElement tagvVoiceTable = new MarkupTagElement();

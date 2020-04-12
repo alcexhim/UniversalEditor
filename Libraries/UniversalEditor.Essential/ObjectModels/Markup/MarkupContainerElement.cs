@@ -1,17 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//
+//  MarkupContainerElement.cs - the abstract base class from which MarkupElements which can contain other MarkupElements derive
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.Markup
 {
+	/// <summary>
+	/// The abstract base class from which <see cref="MarkupElement" />s which can contain other <see cref="MarkupElement" />s derive.
+	/// </summary>
 	public abstract class MarkupContainerElement : MarkupElement
 	{
-		private MarkupElement.MarkupElementCollection mvarElements = null;
-		public MarkupElement.MarkupElementCollection Elements { get { return mvarElements; } }
+		/// <summary>
+		/// Gets a collection of <see cref="MarkupElement" /> instances representing the elements contained within this <see cref="MarkupContainerElement" />.
+		/// </summary>
+		/// <value>The elements contained within this <see cref="MarkupContainerElement" />.</value>
+		public MarkupElement.MarkupElementCollection Elements { get; } = null;
 
 		public MarkupContainerElement()
 		{
-			this.mvarElements = new MarkupElement.MarkupElementCollection(this, this.ParentObjectModel);
+			this.Elements = new MarkupElement.MarkupElementCollection(this, this.ParentObjectModel);
 		}
 		public MarkupElement FindElement(params string[] fullNames)
 		{
@@ -22,7 +47,7 @@ namespace UniversalEditor.ObjectModels.Markup
 			}
 			else
 			{
-				MarkupElement e = this.mvarElements[fullNames[0]];
+				MarkupElement e = this.Elements[fullNames[0]];
 				for (int i = 1; i < fullNames.Length; i++)
 				{
 					if (e != null && e is MarkupContainerElement)

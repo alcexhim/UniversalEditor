@@ -1,3 +1,24 @@
+//
+//  VMDMotionDataFormat.cs - provides a DataFormat for manipulating animation data in MikuMikuDance "Vocaloid Motion Data" (VMD) format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D.Motion;
@@ -5,7 +26,7 @@ using UniversalEditor.ObjectModels.Multimedia3D.Motion;
 namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 {
 	/// <summary>
-	/// Motion data loads from and saves to MikuMikuDance "Vocaloid Motion Data" (VMD) file format.
+	/// Provides a <see cref="DataFormat" /> for manipulating animation data in MikuMikuDance "Vocaloid Motion Data" (VMD) format.
 	/// </summary>
 	public class VMDMotionDataFormat : DataFormat
 	{
@@ -19,8 +40,12 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 			}
 			return _dfr;
 		}
-		private Version mvarVersion = new Version(1, 0);
-		public Version Version { get { return mvarVersion; } set { mvarVersion = value; } }
+
+		/// <summary>
+		/// Gets or sets the format version of this VMD file.
+		/// </summary>
+		/// <value>The format version of this VMD file.</value>
+		public Version Version { get; set; } = new Version(1, 0);
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -33,15 +58,15 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 			string signature = br.ReadFixedLengthString(30);
 			if (signature == "Vocaloid Motion Data file\0\0\0\0\0")
 			{
-				mvarVersion = new Version(1, 0);
+				Version = new Version(1, 0);
 			}
 			else if (signature == "Vocaloid Motion Data 0002\0\0\0\0\0")
 			{
-				mvarVersion = new Version(2, 0);
+				Version = new Version(2, 0);
 			}
 			else if (signature.TrimNull() == "Vocaloid Motion Data 0002")
 			{
-				mvarVersion = new Version(2, 0);
+				Version = new Version(2, 0);
 			}
 			else
 			{
@@ -49,11 +74,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 			}
 
 			int modelNameSize = 10;
-			if (mvarVersion.Major == 1)
+			if (Version.Major == 1)
 			{
 				modelNameSize = 10;
 			}
-			else if (mvarVersion.Major == 2)
+			else if (Version.Major == 2)
 			{
 				modelNameSize = 20;
 			}
@@ -129,7 +154,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 				rawFrame.Interpolation2.YAxis.Y2 = br.ReadByte();      // Y-axis interpolation bezier curve: P2y
 				rawFrame.Interpolation2.ZAxis.Y2 = br.ReadByte();      // Z-axis interpolation bezier curve: P2y
 				rawFrame.Interpolation2.Rotation.Y2 = br.ReadByte();   // Rotation interpolation bezier curve: P2y
-				
+
 				byte unknown1_01 = br.ReadByte();
 
 				rawFrame.Interpolation3.ZAxis.X1 = br.ReadByte();      // Z-axis interpolation bezier curve: P1x
@@ -305,7 +330,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 			base.Accessor.DefaultEncoding = Encoding.ShiftJIS;
 			Writer bw = base.Accessor.Writer;
 			int modelNameLength = 10;
-			switch (mvarVersion.Major)
+			switch (Version.Major)
 			{
 				case 1:
 				{
@@ -321,7 +346,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 				}
 				default:
 				{
-					throw new NotSupportedException("The version " + mvarVersion.ToString() + " is not supported");
+					throw new NotSupportedException("The version " + Version.ToString() + " is not supported");
 				}
 			}
 
@@ -346,7 +371,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 						rawFrame.BoneName = repos.BoneName;
 						rawFrame.Position = repos.Position;
 						rawFrame.Rotation = repos.Rotation;
-						
+
 						#region Interpolation Data
 						rawFrame.Interpolation.XAxis.X1 = repos.Interpolation.XAxis.X1;
 						rawFrame.Interpolation.XAxis.X2 = repos.Interpolation.XAxis.X2;

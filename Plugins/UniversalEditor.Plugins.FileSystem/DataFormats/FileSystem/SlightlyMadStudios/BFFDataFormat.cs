@@ -1,11 +1,11 @@
 ﻿//
-//  BFFDataFormat.cs - Slightly Mad Studios BFF archive (transcribed from BMS 0.2.5)
+//  BFFDataFormat.cs - provides a DataFormat for manipulating archives in Slightly Mad Studios BFF format (transcribed from BMS 0.2.5)
 //  Used in Need for Speed: Shift 1 and 2, Project Cars, Project Cars 2, Test Drive: Ferrari Racing Legends, etc.
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
@@ -26,6 +27,9 @@ using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.SlightlyMadStudios
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in Slightly Mad Studios BFF format.
+	/// </summary>
 	public class BFFDataFormat : DataFormat
 	{
 		int PCARS_ERROR = 0;
@@ -171,7 +175,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SlightlyMadStudios
 				int size = ma_file1.Reader.ReadInt32();
 				int dummy3 = ma_file1.Reader.ReadInt32();
 				int dummy4 = ma_file1.Reader.ReadInt32();
-				BFFCompressionType TYPE = (BFFCompressionType) ma_file1.Reader.ReadByte();
+				BFFCompressionType TYPE = (BFFCompressionType)ma_file1.Reader.ReadByte();
 				byte dummy5 = ma_file1.Reader.ReadByte();
 				int crc = ma_file1.Reader.ReadInt32();
 				string FILEEXT = ma_file1.Reader.ReadFixedLengthString(4);
@@ -223,30 +227,30 @@ namespace UniversalEditor.DataFormats.FileSystem.SlightlyMadStudios
 
 			switch (TYPE)
 			{
-				case BFFCompressionType.None:
+			case BFFCompressionType.None:
 				{
 					break;
 				}
-				case BFFCompressionType.Zlib:
+			case BFFCompressionType.Zlib:
 				{
 					// comtype zlib;
 					// clog NAME OFFSET ZSIZE SIZE;
 					break;
 				}
-				case BFFCompressionType.XMemDecompress:
+			case BFFCompressionType.XMemDecompress:
 				{
 					// comtype XMemDecompress
 					// clog NAME OFFSET ZSIZE SIZE
 					decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.XMemLZX).Decompress(compressedData, size);
 					break;
 				}
-				case BFFCompressionType.Oodle:
+			case BFFCompressionType.Oodle:
 				{
 					// comtype oodle
 					// clog NAME OFFSET ZSIZE SIZE
 					break;
 				}
-				default:
+			default:
 				{
 					throw new NotSupportedException(String.Format("compression type {0} not supported", TYPE));
 				}
@@ -321,7 +325,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SlightlyMadStudios
 			{
 				throw new NotSupportedException(String.Format("unavailable key for key set {0}", PCARS_KEY_SET));
 			}
-		
+
 			int PCARS_OFF = PCARS_NUM;
 			PCARS_OFF *= 0x1b;
 
@@ -348,7 +352,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SlightlyMadStudios
 					// reverse short
 					int j = PCARS_OFF;
 
-					for (int x = PCARS_KEYSZ; x > 1; x-=2)
+					for (int x = PCARS_KEYSZ; x > 1; x -= 2)
 					{
 						// getvarchr TMP MEMORY_FILE3 j short
 

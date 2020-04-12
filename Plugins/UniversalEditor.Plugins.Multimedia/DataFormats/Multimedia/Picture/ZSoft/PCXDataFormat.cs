@@ -1,10 +1,10 @@
 ﻿//
-//  PCXDataFormat.cs
+//  PCXDataFormat.cs - provides a DataFormat for manipulating images in PC Paintbrush PCX format
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using MBS.Framework.Drawing;
 using UniversalEditor.IO;
@@ -26,6 +27,9 @@ using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.ZSoft
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating images in PC Paintbrush PCX format.
+	/// </summary>
 	public class PCXDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;

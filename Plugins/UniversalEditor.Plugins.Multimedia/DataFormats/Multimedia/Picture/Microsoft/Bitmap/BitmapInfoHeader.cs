@@ -1,60 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  BitmapInfoHeader.cs - internal structure representing the BITMAPINFOHEADER for a Windows bitmap image
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using UniversalEditor.IO;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 {
+	/// <summary>
+	/// Internal structure representing the BITMAPINFOHEADER for a Windows bitmap image.
+	/// </summary>
 	public struct BitmapInfoHeader
 	{
-		private int mvarWidth;
 		/// <summary>
 		/// The width of the bitmap, in pixels. If biCompression is JPEG or PNG, the biWidth member specifies the
 		/// width of the decompressed JPEG or PNG image file, respectively.
 		/// </summary>
-		public int Width { get { return mvarWidth; } set { mvarWidth = value; } }
-
-        private int mvarHeaderSize;
-        public int HeaderSize { get { return mvarHeaderSize; } set { mvarHeaderSize = value; } }
-
-		private int mvarHeight;
-		public int Height { get { return mvarHeight; } set { mvarHeight = value; } }
-
-		private short mvarPlanes;
+		public int Width { get; set; }
+		/// <summary>
+		/// Gets or sets the size of the BITMAPINFOHEADER structure.
+		/// </summary>
+		/// <value>The size of the BITMAPINFOHEADER structure.</value>
+		public int HeaderSize { get; set; }
+		/// <summary>
+		/// The height of the bitmap, in pixels. If biCompression is JPEG or PNG, the biHeight member specifies the
+		/// height of the decompressed JPEG or PNG image file, respectively.
+		/// </summary>
+		public int Height { get; set; }
 		/// <summary>
 		/// The number of planes for the target device. This value must be set to 1.
 		/// </summary>
-		public short Planes { get { return mvarPlanes; } set { mvarPlanes = value; } }
-
-		private BitmapCompression mvarCompression;
+		public short Planes { get; set; }
 		/// <summary>
 		/// The type of compression for a compressed bottom-up bitmap (top-down DIBs cannot be compressed).
 		/// </summary>
-		public BitmapCompression Compression { get { return mvarCompression; } set { mvarCompression = value; } }
-
-		private int mvarImageSize;
+		public BitmapCompression Compression { get; set; }
 		/// <summary>
 		/// The size, in bytes, of the image. This may be set to zero for Uncompressed bitmaps. If biCompression is
 		/// JPEG or PNG, biSizeImage indicates the size of the JPEG or PNG image buffer, respectively.
 		/// </summary>
-		public int ImageSize { get { return mvarImageSize; } set { mvarImageSize = value; } }
-
-		private int mvarPelsPerMeterX;
+		public int ImageSize { get; set; }
 		/// <summary>
 		/// The horizontal resolution, in pixels-per-meter, of the target device for the bitmap. An application
 		/// can use this value to select a bitmap from a resource group that best matches the characteristics of
 		/// the current device.
 		/// </summary>
-		public int PelsPerMeterX { get { return mvarPelsPerMeterX; } set { mvarPelsPerMeterX = value; } }
-
-		private int mvarPelsPerMeterY;
+		public int PelsPerMeterX { get; set; }
 		/// <summary>
 		/// The vertical resolution, in pixels-per-meter, of the target device for the bitmap.
 		/// </summary>
-		public int PelsPerMeterY { get { return mvarPelsPerMeterY; } set { mvarPelsPerMeterY = value; } }
-
-		private int mvarUsedColorIndexCount;
+		public int PelsPerMeterY { get; set; }
 		/// <summary>
 		///		<para>
 		///			The number of color indexes in the color table that are actually used by the bitmap. If this
@@ -74,23 +85,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		///			be either zero or the actual size of the color table.
 		///		</para>
 		/// </summary>
-		public int UsedColorIndexCount { get { return mvarUsedColorIndexCount; } set { mvarUsedColorIndexCount = value; } }
-
-		private int mvarRequiredColorIndexCount;
+		public int UsedColorIndexCount { get; set; }
 		/// <summary>
 		/// The number of color indexes that are required for displaying the bitmap. If this value is zero, all
 		/// colors are required.
 		/// </summary>
-		public int RequiredColorIndexCount { get { return mvarRequiredColorIndexCount; } set { mvarRequiredColorIndexCount = value; } }
-
-		private BitmapBitsPerPixel mvarPixelDepth;
-		public BitmapBitsPerPixel PixelDepth { get { return mvarPixelDepth; } set { mvarPixelDepth = value; } }
+		public int RequiredColorIndexCount { get; set; }
+		public BitmapBitsPerPixel PixelDepth { get; set; }
 
 		public static BitmapInfoHeader Load(IO.Reader br)
 		{
 			BitmapInfoHeader header = new BitmapInfoHeader();
 			header.HeaderSize = br.ReadInt32();                            // 40       vs. 56
-            header.Width = br.ReadInt32();                              
+			header.Width = br.ReadInt32();
 			header.Height = br.ReadInt32();
 			header.Planes = br.ReadInt16();                             // 1
 			header.PixelDepth = (BitmapBitsPerPixel)br.ReadInt16();
@@ -101,10 +108,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			header.UsedColorIndexCount = br.ReadInt32();
 			header.RequiredColorIndexCount = br.ReadInt32();
 
-            if (header.HeaderSize < 56)
-            {
-                br.Seek(56 - header.HeaderSize, SeekOrigin.Current);
-            }
+			if (header.HeaderSize < 56)
+			{
+				br.Seek(56 - header.HeaderSize, SeekOrigin.Current);
+			}
 			return header;
 		}
 		public static void Save(IO.Writer bw, BitmapInfoHeader header)

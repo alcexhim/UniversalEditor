@@ -1,10 +1,10 @@
 ﻿//
-//  AFSFileInfo.cs
+//  AFSFileInfo.cs - internal structure representing metadata for files in an AFS archive
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -21,6 +21,9 @@
 using System;
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
+	/// <summary>
+	/// Internal structure representing metadata for files in an AFS archive.
+	/// </summary>
 	internal struct AFSFileInfo
 	{
 		public string name;

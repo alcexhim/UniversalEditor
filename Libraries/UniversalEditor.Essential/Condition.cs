@@ -1,3 +1,24 @@
+//
+//  Condition.cs - provides logical condition functionality (deprecated in favor of MBS.Framework.Logic)
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 
 namespace UniversalEditor
@@ -29,7 +50,7 @@ namespace UniversalEditor
 		/// </summary>
 		Not = 16
 	}
-	
+
 	/// <summary>
 	/// The type of combination applied to a series of conditional statements.
 	/// </summary>
@@ -45,7 +66,7 @@ namespace UniversalEditor
 		Or,
 		Xor
 	}
-	
+
 	/// <summary>
 	/// Defines the minimum functionality required to implement a conditional statement (either a
 	/// <see cref="Condition" /> itself or a <see cref="ConditionGroup" /> of multiple
@@ -70,7 +91,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="value">The value against which to evaluate the conditional statement.</param>
 		/// <returns>True if the conditions are satisfied; false otherwise.</returns>
-		bool Test (object value);
+		bool Test(object value);
 	}
 
 	/// <summary>
@@ -79,17 +100,17 @@ namespace UniversalEditor
 	public class ConditionalStatementCollection
 		: System.Collections.ObjectModel.Collection<IConditionalStatement>
 	{
-		
+
 	}
 
 	/// <summary>
-	/// A group of <see cref="IConditionalStatement" />s joined by a <see cref="ConditionalCombination" />.
+	/// A group of <see cref="IConditionalStatement" />s joined by a <see cref="ConditionCombination" />.
 	/// </summary>
 	public class ConditionGroup : IConditionalStatement
 	{
 		/// <summary>
 		/// Creates a new <see cref="ConditionGroup" /> with no conditional statements specified and a
-		/// default <see cref="ConditionalCombination" /> of <see cref="ConditionalCombination.And" />.
+		/// default <see cref="ConditionCombination" /> of <see cref="ConditionCombination.And" />.
 		/// </summary>
 		public ConditionGroup()
 		{
@@ -109,10 +130,10 @@ namespace UniversalEditor
 			mvarCombination = combination;
 			for (int i = 0; i < statements.Length; i++)
 			{
-				mvarConditions.Add (statements[i]);
+				mvarConditions.Add(statements[i]);
 			}
 		}
-		
+
 		private ConditionalStatementCollection mvarConditions = new ConditionalStatementCollection();
 		/// <summary>
 		/// Gets all <see cref="IConditionalStatement" />s in this <see cref="ConditionGroup" />.
@@ -121,7 +142,7 @@ namespace UniversalEditor
 		{
 			get { return mvarConditions; }
 		}
-		
+
 		private ConditionCombination mvarCombination = ConditionCombination.And;
 		/// <summary>
 		/// The type of combination used to join the <see cref="Condition" />s in this
@@ -138,7 +159,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="propertyValues">The set of values against which to evaluate the conditional statement.</param>
 		/// <returns>True if the conditions are satisfied; false otherwise.</returns>
-		public bool Test (params System.Collections.Generic.KeyValuePair<string, object>[] propertyValues)
+		public bool Test(params System.Collections.Generic.KeyValuePair<string, object>[] propertyValues)
 		{
 			bool retval = false;
 			if (mvarCombination == ConditionCombination.And)
@@ -149,15 +170,21 @@ namespace UniversalEditor
 			{
 				switch (mvarCombination)
 				{
-				case ConditionCombination.And:
-					retval &= mvarConditions[i].Test (propertyValues);
-					break;
-				case ConditionCombination.Or:
-					retval |= mvarConditions[i].Test (propertyValues);
-					break;
-				case ConditionCombination.Xor:
-					retval ^= mvarConditions[i].Test (propertyValues);
-					break;
+					case ConditionCombination.And:
+					{
+						retval &= mvarConditions[i].Test(propertyValues);
+						break;
+					}
+					case ConditionCombination.Or:
+					{
+						retval |= mvarConditions[i].Test(propertyValues);
+						break;
+					}
+					case ConditionCombination.Xor:
+					{
+						retval ^= mvarConditions[i].Test(propertyValues);
+						break;
+					}
 				}
 			}
 			return retval;
@@ -179,14 +206,20 @@ namespace UniversalEditor
 				switch (mvarCombination)
 				{
 					case ConditionCombination.And:
+					{
 						retval &= mvarConditions[i].Test(propertyValues);
 						break;
+					}
 					case ConditionCombination.Or:
+					{
 						retval |= mvarConditions[i].Test(propertyValues);
 						break;
+					}
 					case ConditionCombination.Xor:
+					{
 						retval ^= mvarConditions[i].Test(propertyValues);
 						break;
+					}
 				}
 			}
 			return retval;
@@ -197,22 +230,22 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="value">The value against which to evaluate the conditional statement.</param>
 		/// <returns>True if the conditions are satisfied; false otherwise.</returns>
-		public bool Test (object value)
+		public bool Test(object value)
 		{
 			bool retval = true;
-			
+
 			for (int i = 0; i < mvarConditions.Count; i++)
 			{
 				switch (mvarCombination)
 				{
 				case ConditionCombination.And:
-					retval &= mvarConditions[i].Test (value);
+					retval &= mvarConditions[i].Test(value);
 					break;
 				case ConditionCombination.Or:
-					retval |= mvarConditions[i].Test (value);
+					retval |= mvarConditions[i].Test(value);
 					break;
 				case ConditionCombination.Xor:
-					retval ^= mvarConditions[i].Test (value);
+					retval ^= mvarConditions[i].Test(value);
 					break;
 				}
 			}
@@ -231,7 +264,7 @@ namespace UniversalEditor
 			get { return mvarPropertyName; }
 			set { mvarPropertyName = value; }
 		}
-		
+
 		private ConditionComparison mvarComparison = ConditionComparison.Equal;
 		/// <summary>
 		/// The type of comparison to use when testing this <see cref="Condition" />.
@@ -241,7 +274,7 @@ namespace UniversalEditor
 			get { return mvarComparison; }
 			set { mvarComparison = value; }
 		}
-		
+
 		private object mvarValue = null;
 		/// <summary>
 		/// The value against which to test when the <see cref="Test" /> method is called.
@@ -251,7 +284,7 @@ namespace UniversalEditor
 			get { return mvarValue; }
 			set { mvarValue = value; }
 		}
-		
+
 		/// <summary>
 		/// Creates a <see cref="Condition" /> with the specified property name, comparison, and value.
 		/// </summary>
@@ -304,7 +337,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="value">The value against which to evaluate the conditional statement.</param>
 		/// <returns>True if the conditions are satisfied; false otherwise.</returns>
-		public bool Test (object propertyValue)
+		public bool Test(object propertyValue)
 		{
 			// would you like meatballs with your spaghetti code?
 			bool returnValue = false;

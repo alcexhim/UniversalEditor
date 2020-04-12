@@ -1,8 +1,31 @@
-using System;
+//
+//  RealAudioDataFormat.cs - provides a DataFormat for manipulating waveform audio in RealPlayer .ra format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating waveform audio in RealPlayer .ra format.
+	/// </summary>
 	public class RealAudioDataFormat : DataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
@@ -11,16 +34,20 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 			dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
-		private short mvarVersion = 3;
-		public short Version { get { return mvarVersion; } }
+
+		/// <summary>
+		/// Gets the format version supported by this <see cref="DataFormat" />.
+		/// </summary>
+		/// <value>The format version supported by this <see cref="DataFormat" />.</value>
+		public short Version { get; private set; } = 3;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			Reader br = base.Accessor.Reader;
 			br.Endianness = Endianness.BigEndian;
 			byte[] signature = br.ReadBytes(4u);
-			this.mvarVersion = br.ReadInt16();
-			if (this.mvarVersion == 3)
+			this.Version = br.ReadInt16();
+			if (this.Version == 3)
 			{
 				short headerSize = br.ReadInt16();
 				byte[] unknown = br.ReadBytes(10u);
@@ -51,7 +78,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 			}
 			else
 			{
-				if (this.mvarVersion == 4)
+				if (this.Version == 4)
 				{
 					short unused = br.ReadInt16();
 					string ra4signature = br.ReadFixedLengthString(4);
@@ -95,14 +122,14 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 				bw.Endianness = Endianness.BigEndian;
 				byte[] signature = new byte[]
 				{
-					46, 
-					114, 
-					97, 
+					46,
+					114,
+					97,
 					253
 				};
 				bw.WriteBytes(signature);
-				bw.WriteInt16(mvarVersion);
-				switch (mvarVersion)
+				bw.WriteInt16(Version);
+				switch (Version)
 				{
 					case 3:
 					{
@@ -149,7 +176,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.RealAudio
 						byte copyrightStringLength = (byte)copyrightString.Length;
 						string commentString = wave.Information.Comments;
 						byte commentStringLength = (byte)commentString.Length;
-						bw.WriteInt16(mvarVersion);
+						bw.WriteInt16(Version);
 						int headerSize2 = 16;
 						bw.WriteInt32(headerSize2);
 						short codecFlavor = 0;

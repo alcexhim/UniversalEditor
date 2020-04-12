@@ -1,39 +1,49 @@
-using System;
+//
+//  ModelMorphUV.cs - represents a 3D model morph that controls a texture UV offset
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2013-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 {
+	/// <summary>
+	/// Represents a 3D model morph that controls a texture UV offset.
+	/// </summary>
 	public class ModelMorphUV : ModelMorph
 	{
-		private long mvarVertexIndex = 0L;
-		private PositionVector4 mvarUVOffset = default(PositionVector4);
-		public long VertexIndex
-		{
-			get
-			{
-				return this.mvarVertexIndex;
-			}
-			set
-			{
-				this.mvarVertexIndex = value;
-			}
-		}
-		public PositionVector4 UVOffset
-		{
-			get
-			{
-				return this.mvarUVOffset;
-			}
-			set
-			{
-				this.mvarUVOffset = value;
-			}
-		}
+		/// <summary>
+		/// Gets or sets the index of the vertex affected by this morph.
+		/// </summary>
+		/// <value>The index of the vertex affected by this morph.</value>
+		public long VertexIndex { get; set; } = 0L;
+		/// <summary>
+		/// Gets or sets the UV offset to apply to the vertex.
+		/// </summary>
+		/// <value>The UV offset to apply to the vertex.</value>
+		public PositionVector4 UVOffset { get; set; } = default(PositionVector4);
+
 		public override object Clone()
 		{
 			return new ModelMorphUV
 			{
-				Name = base.Name, 
-				UVOffset = this.mvarUVOffset, 
-				VertexIndex = this.mvarVertexIndex
+				Name = base.Name,
+				UVOffset = this.UVOffset,
+				VertexIndex = this.VertexIndex
 			};
 		}
 	}

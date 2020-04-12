@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  RSAKeyDataFormat.cs - provides a DataFormat for manipulating RSA key files in binary format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Security.Key.RSA;
 
 namespace UniversalEditor.DataFormats.Security.Key.RSA
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating RSA key files in binary format.
+	/// </summary>
 	public class RSAKeyDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -29,7 +51,7 @@ namespace UniversalEditor.DataFormats.Security.Key.RSA
 			if (key == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-			
+
 			// ---- read the BLOBHEADER struct ------
 			bool dotnetkey = false;
 			RSAKeyType btype = (RSAKeyType)reader.ReadByte();
@@ -53,7 +75,7 @@ namespace UniversalEditor.DataFormats.Security.Key.RSA
 
 			ushort reserved = reader.ReadUInt16();
 			RSAKeyAlgorithm algorithm = (RSAKeyAlgorithm)reader.ReadUInt32();
-			if (algorithm != RSAKeyAlgorithm.KeyX  && algorithm != RSAKeyAlgorithm.Sign)
+			if (algorithm != RSAKeyAlgorithm.KeyX && algorithm != RSAKeyAlgorithm.Sign)
 			{
 				throw new InvalidDataFormatException("Unknown algorithm " + algorithm.ToString());
 			}
@@ -77,7 +99,7 @@ namespace UniversalEditor.DataFormats.Security.Key.RSA
 			byte[] RSAmodulus = reader.ReadBytes(bitlen / 8);
 			Array.Reverse(RSAmodulus);
 			key.Modulus = RSAmodulus;
-			
+
 			//-- if this is a valid unencrypted PRIVATEKEYBLOB, read RSA private key properties
 			if (btype == RSAKeyType.PrivateKeyBlob)
 			{

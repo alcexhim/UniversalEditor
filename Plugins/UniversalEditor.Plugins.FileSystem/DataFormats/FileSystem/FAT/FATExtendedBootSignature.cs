@@ -1,25 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  FATExtendedBootSignature.cs - represents an extended boot signature block in a FAT filesystem
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.DataFormats.FileSystem.FAT
 {
-    public class FATExtendedBootSignature
-    {
-        private bool mvarEnabled = true;
-        public bool Enabled { get { return mvarEnabled; } set { mvarEnabled = value; } }
-
-        private bool mvarHasPartitonLabelAndFSType = true;
-        public bool HasPartitonLabelAndFSType { get { return mvarHasPartitonLabelAndFSType; } set { mvarHasPartitonLabelAndFSType = value; } }
-
-        private int mvarVolumeSerialNumber = 0;
-        public int VolumeSerialNumber { get { return mvarVolumeSerialNumber; } set { mvarVolumeSerialNumber = value; } }
-
-        private string mvarPartitionVolumeLabel = String.Empty;
-        public string PartitionVolumeLabel { get { return mvarPartitionVolumeLabel; } set { mvarPartitionVolumeLabel = value; } }
-
-        private string mvarFileSystemType = String.Empty;
-        public string FileSystemType { get { return mvarFileSystemType; } set { mvarFileSystemType = value; } }
-    }
+	/// <summary>
+	/// Represents an extended boot signature block in a FAT filesystem.
+	/// </summary>
+	public class FATExtendedBootSignature
+	{
+		public bool Enabled { get; set; } = true;
+		public bool HasPartitonLabelAndFSType { get; set; } = true;
+		public int VolumeSerialNumber { get; set; } = 0;
+		public string PartitionVolumeLabel { get; set; } = String.Empty;
+		public string FileSystemType { get; set; } = String.Empty;
+	}
 }

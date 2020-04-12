@@ -264,7 +264,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataFormats\FileSystem\Box\Internal\" />
     <Folder Include="DataFormats\FileSystem\VirtualBox\" />
     <Folder Include="DataFormats\FileSystem\ZIP\ExtraDataFields\" />
     <Folder Include="DataFormats\FileSystem\Apogee\" />

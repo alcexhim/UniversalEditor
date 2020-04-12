@@ -1,12 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  PMAXPatchChunk.cs - the abstract base class from which all Concertroid PMAX patch chunks are derived
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using UniversalEditor.IO;
+using System;
 
 namespace UniversalEditor.ObjectModels.PMAXPatch
 {
+	/// <summary>
+	/// The abstract base class from which all Concertroid PMAX patch chunks are derived.
+	/// </summary>
 	public abstract class PMAXPatchChunk : ICloneable
 	{
 		/// <summary>
@@ -19,12 +38,7 @@ namespace UniversalEditor.ObjectModels.PMAXPatch
 
 		public abstract object Clone();
 
-		private int mvarSize = 0;
-		public int Size
-		{
-			get { return mvarSize; }
-			set { mvarSize = value; }
-		}
+		public int Size { get; set; } = 0;
 
 		public class PMAXPatchChunkCollection
 			: System.Collections.ObjectModel.Collection<PMAXPatchChunk>

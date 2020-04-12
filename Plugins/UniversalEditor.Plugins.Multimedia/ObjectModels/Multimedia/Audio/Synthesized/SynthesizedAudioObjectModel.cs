@@ -1,7 +1,31 @@
-using System;
+//
+//  SynthesizedAudioObjectModel.cs - provides an ObjectModel for manipulating synthesized audio files (e.g. MIDI, VSQ, etc.)
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
+
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating synthesized audio files (e.g. MIDI, VSQ, etc.).
+	/// </summary>
 	public class SynthesizedAudioObjectModel : AudioObjectModel
 	{
 		private static ObjectModelReference _omr = null;
@@ -23,36 +47,30 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 			Tracks.Add(new SynthesizedAudioTrack());
 		}
 
-		private short mvarChannelCount = 2;
-		public short ChannelCount { get { return mvarChannelCount; } set { mvarChannelCount = value; } }
-		
-		private string mvarName = string.Empty;
-		public string Name { get { return mvarName; } set { mvarName = value; } }
+		public short ChannelCount { get; set; } = 2;
 
-		private double mvarTempo = 120.0;
-		public double Tempo { get { return mvarTempo; } set { mvarTempo = value; } }
+		public string Name { get; set; } = string.Empty;
 
-		private SynthesizedAudioTrack.SynthesizedAudioTrackCollection mvarTracks = new SynthesizedAudioTrack.SynthesizedAudioTrackCollection();
-		public SynthesizedAudioTrack.SynthesizedAudioTrackCollection Tracks { get { return mvarTracks; } }
+		public double Tempo { get; set; } = 120.0;
 
-		private VoicebankObjectModel.VoicebankObjectModelCollection mvarVoices = new VoicebankObjectModel.VoicebankObjectModelCollection();
-		public VoicebankObjectModel.VoicebankObjectModelCollection Voices { get { return mvarVoices; } }
+		public SynthesizedAudioTrack.SynthesizedAudioTrackCollection Tracks { get; } = new SynthesizedAudioTrack.SynthesizedAudioTrackCollection();
+		public VoicebankObjectModel.VoicebankObjectModelCollection Voices { get; } = new VoicebankObjectModel.VoicebankObjectModelCollection();
 
 		public override void CopyTo(ObjectModel destination)
 		{
 			SynthesizedAudioObjectModel clone = destination as SynthesizedAudioObjectModel;
-			clone.Name = (this.mvarName.Clone() as string);
-			clone.Tempo = this.mvarTempo;
-			foreach (SynthesizedAudioTrack track in this.mvarTracks)
+			clone.Name = (this.Name.Clone() as string);
+			clone.Tempo = this.Tempo;
+			foreach (SynthesizedAudioTrack track in this.Tracks)
 			{
 				clone.Tracks.Add(track.Clone() as SynthesizedAudioTrack);
 			}
 		}
 		public override void Clear()
 		{
-			this.mvarName = string.Empty;
-			this.mvarTempo = 120.0;
-			this.mvarTracks.Clear();
+			this.Name = string.Empty;
+			this.Tempo = 120.0;
+			this.Tracks.Clear();
 		}
 	}
 }

@@ -1,13 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  PODDataFormat.cs - provides a DataFormat for manipulating archives in Terminal Reality POD format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in Terminal Reality POD format.
+	/// </summary>
 	public class PODDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -17,13 +39,13 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format &version: ", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version: ", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("POD1", PODVersion.POD1, true),
 					new CustomOptionFieldChoice("POD2", PODVersion.POD2),
 					new CustomOptionFieldChoice("POD3", PODVersion.POD3)
 				}));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "&Comment: "));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "_Comment: "));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive1");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive2");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive3");
@@ -31,11 +53,8 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 			return _dfr;
 		}
 
-		private PODVersion mvarFormatVersion = PODVersion.POD1;
-		public PODVersion FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
-
-		private string mvarComment = String.Empty;
-		public string Comment { get { return mvarComment; } set { mvarComment = value; } }
+		public PODVersion FormatVersion { get; set; } = PODVersion.POD1;
+		public string Comment { get; set; } = String.Empty;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -46,33 +65,33 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 			string signatureV2 = reader.ReadFixedLengthString(4);
 			if (signatureV2 == "POD2")
 			{
-				mvarFormatVersion = PODVersion.POD2;
+				FormatVersion = PODVersion.POD2;
 			}
 			else if (signatureV2 == "POD3")
 			{
-				mvarFormatVersion = PODVersion.POD3;
+				FormatVersion = PODVersion.POD3;
 			}
 			else
 			{
 				base.Accessor.Seek(-4, SeekOrigin.Current);
 			}
 
-			if (mvarFormatVersion >= PODVersion.POD2)
+			if (FormatVersion >= PODVersion.POD2)
 			{
 				uint checksum = reader.ReadUInt32();
 			}
 
-			mvarComment = reader.ReadFixedLengthString(80);
-			mvarComment = mvarComment.TrimNull();
+			Comment = reader.ReadFixedLengthString(80);
+			Comment = Comment.TrimNull();
 			uint fileCount = reader.ReadUInt32();
 			uint trailCount = 0;
 
-			if (mvarFormatVersion >= PODVersion.POD2)
+			if (FormatVersion >= PODVersion.POD2)
 			{
 				trailCount = reader.ReadUInt32();
 			}
 
-			switch (mvarFormatVersion)
+			switch (FormatVersion)
 			{
 				case PODVersion.POD1:
 				{
@@ -107,7 +126,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 					for (uint i = 0; i < fileCount; i++)
 					{
 						string fileName = reader.ReadNullTerminatedString();
-						
+
 						File file = fsom.AddFile(fileName);
 						file.Size = lengths[i];
 						file.Source = new EmbeddedFileSource(reader, offsets[i], lengths[i]);
@@ -168,27 +187,27 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Writer writer = base.Accessor.Writer;
-			if (mvarFormatVersion == PODVersion.POD2)
+			if (FormatVersion == PODVersion.POD2)
 			{
 				writer.WriteFixedLengthString("POD2");
 				writer.WriteUInt32(0);
 			}
-			else if (mvarFormatVersion == PODVersion.POD3)
+			else if (FormatVersion == PODVersion.POD3)
 			{
 				writer.WriteFixedLengthString("POD3");
 				writer.WriteUInt32(0);
 			}
-			writer.WriteFixedLengthString(mvarComment, 80);
+			writer.WriteFixedLengthString(Comment, 80);
 
 			File[] files = fsom.GetAllFiles();
 			writer.WriteUInt32((uint)files.Length);
 
-			if (mvarFormatVersion >= PODVersion.POD2)
+			if (FormatVersion >= PODVersion.POD2)
 			{
 				writer.WriteUInt32(0); // trail count
 			}
 
-			switch (mvarFormatVersion)
+			switch (FormatVersion)
 			{
 				case PODVersion.POD1:
 				{

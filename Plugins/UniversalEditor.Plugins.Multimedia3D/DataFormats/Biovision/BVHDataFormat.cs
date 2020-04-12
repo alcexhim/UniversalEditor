@@ -8,7 +8,7 @@ using UniversalEditor.Plugins.Multimedia3D.ObjectModels.Motion;
 namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.Biovision
 {
     /// <summary>
-    /// Provides a DataFormat for BioVision Hierarchy (BVH) and QAvimator (AVM) files.
+    /// Provides a <see cref="DataFormat" /> for BioVision Hierarchy (BVH) and QAvimator (AVM) files.
     /// </summary>
     public class BVHDataFormat : TextDataFormat
     {

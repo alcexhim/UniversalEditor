@@ -1,10 +1,10 @@
 //
-//  ADXBlock.cs
+//  ADXBlock.cs - provides metadata information for a block in an ADX-encoded audio file
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2010-2019 Mike Becker
+//  Copyright (c) 2010-2020 Mike Becker
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,18 +19,16 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.CRI.ADX
 {
-    public class ADXBlock
-    {
-        private ushort mvarScale = 0;
-        /// <summary>
-        /// The scale is a 16bit unsigned integer (big-endian like the header) which is essentially the amplification of all the samples in that block.
-        /// </summary>
-        public ushort Scale { get { return mvarScale; } set { mvarScale = value; } }
-    }
+	/// <summary>
+	/// Provides metadata information for a block in an ADX-encoded audio file.
+	/// </summary>
+	public class ADXBlock
+	{
+		/// <summary>
+		/// The scale is a 16bit unsigned integer (big-endian like the header) which is essentially the amplification of all the samples in that block.
+		/// </summary>
+		public ushort Scale { get; set; } = 0;
+	}
 }

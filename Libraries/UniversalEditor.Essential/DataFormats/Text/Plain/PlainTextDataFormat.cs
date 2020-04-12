@@ -1,10 +1,10 @@
 ﻿//
-//  PlainTextDataFormat.cs
+//  PlainTextDataFormat.cs - provides a DataFormat for manipulating unformatted plain text files
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,12 +18,15 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Text.Plain;
 
 namespace UniversalEditor.DataFormats.Text.Plain
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating unformatted plain text files.
+	/// </summary>
 	public class PlainTextDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;

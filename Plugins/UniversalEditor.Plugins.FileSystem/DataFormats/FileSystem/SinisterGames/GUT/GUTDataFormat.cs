@@ -1,13 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿//
+//  GUTDataFormat.cs - provides a DataFormat for manipulating archives in Sinister Games GUT format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Text;
+
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> for manipulating archives in Sinister Games GUT format.
+	/// </summary>
 	public class GUTDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr = null;
@@ -17,20 +40,15 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameTitle), "Game &title: ", "Shadow Company: Left for Dead"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameCopyright), "Game &copyright: ", "Copyright 1998 by Sinister Games Inc."));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameTitle), "Game _title: ", "Shadow Company: Left for Dead"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameCopyright), "Game _copyright: ", "Copyright 1998 by Sinister Games Inc."));
 			}
 			return _dfr;
 		}
 
-		private string mvarGameTitle = "Shadow Company: Left for Dead";
-		public string GameTitle { get { return mvarGameTitle; } set { mvarGameTitle = value; } }
-
-		private string mvarGameCopyright = "Copyright 1998 by Sinister Games Inc.";
-		public string GameCopyright { get { return mvarGameCopyright; } set { mvarGameCopyright = value; } }
-
-		private DateTime mvarCreationTimestamp = DateTime.Now;
-		public DateTime CreationTimestamp { get { return mvarCreationTimestamp; } set { mvarCreationTimestamp = value; } }
+		public string GameTitle { get; set; } = "Shadow Company: Left for Dead";
+		public string GameCopyright { get; set; } = "Copyright 1998 by Sinister Games Inc.";
+		public DateTime CreationTimestamp { get; set; } = DateTime.Now;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -44,7 +62,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 			signature = reader.ReadLine();
 			if (!signature.StartsWith("** ")) throw new InvalidDataFormatException();
 
-			mvarGameTitle = signature.Substring(3);
+			GameTitle = signature.Substring(3);
 
 			signature = reader.ReadLine();
 			if (!signature.StartsWith("**")) throw new InvalidDataFormatException();
@@ -54,14 +72,14 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 
 			signature = reader.ReadLine();
 			if (!signature.StartsWith("** ")) throw new InvalidDataFormatException();
-			mvarGameCopyright = signature.Substring(3);
+			GameCopyright = signature.Substring(3);
 
 			signature = reader.ReadLine();
 			if (!signature.StartsWith("**")) throw new InvalidDataFormatException();
 
 			signature = reader.ReadLine();
 			if (!signature.StartsWith("**")) throw new InvalidDataFormatException();
-			
+
 			signature = reader.ReadLine();
 			if (!signature.StartsWith("**")) throw new InvalidDataFormatException();
 
@@ -101,13 +119,13 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 			}
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine("*************************************************************");
-			sb.AppendLine("** " + mvarGameTitle);
+			sb.AppendLine("** " + GameTitle);
 			sb.AppendLine("**");
 			sb.AppendLine("** [" + archiveFileName + "] : GUT resource file");
-			sb.AppendLine("** " + mvarGameCopyright);
+			sb.AppendLine("** " + GameCopyright);
 			sb.AppendLine("**");
 			sb.AppendLine("** [gut_tool.exe] Build date: 17:58:56, Aug 24 1999");
-			sb.AppendLine("** [" + archiveFileName + "] Created: " + mvarCreationTimestamp.Hour.ToString().PadLeft(2, '0') + ":" + mvarCreationTimestamp.Minute.ToString().PadLeft(2, '0') + ":" + mvarCreationTimestamp.Second.ToString().PadLeft(2, '0') + ", " + mvarCreationTimestamp.Month.ToString() + "/" + mvarCreationTimestamp.Day.ToString().PadLeft(2, '0') + "/" + mvarCreationTimestamp.Year.ToString().PadLeft(4, '0'));
+			sb.AppendLine("** [" + archiveFileName + "] Created: " + CreationTimestamp.Hour.ToString().PadLeft(2, '0') + ":" + CreationTimestamp.Minute.ToString().PadLeft(2, '0') + ":" + CreationTimestamp.Second.ToString().PadLeft(2, '0') + ", " + CreationTimestamp.Month.ToString() + "/" + CreationTimestamp.Day.ToString().PadLeft(2, '0') + "/" + CreationTimestamp.Year.ToString().PadLeft(4, '0'));
 			sb.AppendLine("*************************************************************");
 
 			writer.WriteFixedLengthString(sb.ToString());

@@ -1,4 +1,25 @@
-﻿using System;
+﻿//
+//  DesktopShortcutDataFormat.cs - provides a DataFormat for manipulating desktop shortcut files in FreeDesktop XML format
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,32 +39,24 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(ShortcutObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(ApplicationTitle), "&Application title: "));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GenericTitle), "&Generic title: "));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(HideFromMenus), "&Do not display this entry in menus"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Deleted), "&Mark this shortcut as being deleted by the user"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(DBusActivatable), "&Enable DBus activation"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(ApplicationTitle), "_Application title: "));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GenericTitle), "_Generic title: "));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(HideFromMenus), "_Do not display this entry in menus"));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Deleted), "_Mark this shortcut as being deleted by the user"));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(DBusActivatable), "_Enable DBus activation"));
 				_dfr.Sources.Add("http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html");
 			}
 			return _dfr;
 		}
-
-		private string mvarApplicationTitle = String.Empty;
 		/// <summary>
 		/// Specific name of the application, for example "Mozilla". 
 		/// </summary>
-		public string ApplicationTitle { get { return mvarApplicationTitle; } set { mvarApplicationTitle = value; } }
-
-		private string mvarGenericTitle = String.Empty;
+		public string ApplicationTitle { get; set; } = String.Empty;
 		/// <summary>
 		/// Generic name of the application, for example "Web Browser". 
 		/// </summary>
-		public string GenericTitle { get { return mvarGenericTitle; } set { mvarGenericTitle = value; } }
-
-		private DesktopShortcutType mvarType = DesktopShortcutType.Application;
-		public DesktopShortcutType Type { get { return mvarType; } set { mvarType = value; } }
-
-		private bool mvarHideFromMenus = false;
+		public string GenericTitle { get; set; } = String.Empty;
+		public DesktopShortcutType Type { get; set; } = DesktopShortcutType.Application;
 		/// <summary>
 		/// NoDisplay means "this application exists, but don't display it in the menus". This
 		/// can be useful to e.g. associate this application with MIME types, so that it gets
@@ -51,9 +64,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// (there are tons of good reasons for this, including e.g. the netscape -remote, or
 		/// kfmclient openURL kind of stuff).
 		/// </summary>
-		public bool HideFromMenus { get { return mvarHideFromMenus; } set { mvarHideFromMenus = value; } }
-
-		private bool mvarDeleted = false;
+		public bool HideFromMenus { get; set; } = false;
 		/// <summary>
 		/// Hidden should have been called Deleted. It means the user deleted (at his level)
 		/// something that was present (at an upper level, e.g. in the system dirs). It's strictly
@@ -61,9 +72,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// This can also be used to "uninstall" existing files (e.g. due to a renaming) - by
 		/// letting make install install a file with Hidden=true in it.
 		/// </summary>
-		public bool Deleted { get { return mvarDeleted; } set { mvarDeleted = value; } }
-
-		private System.Collections.Specialized.StringCollection mvarRestrictedEnvironments = new System.Collections.Specialized.StringCollection();
+		public bool Deleted { get; set; } = false;
 		/// <summary>
 		/// <para>
 		/// A list of strings identifying the desktop environments that should display/not
@@ -84,9 +93,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// The same desktop name may not appear in both OnlyShowIn and NotShowIn of a group. 
 		/// </para>
 		/// </summary>
-		public System.Collections.Specialized.StringCollection RestrictedEnvironments { get { return mvarRestrictedEnvironments; } }
-
-		private System.Collections.Specialized.StringCollection mvarExcludedEnvironments = new System.Collections.Specialized.StringCollection();
+		public System.Collections.Specialized.StringCollection RestrictedEnvironments { get; } = new System.Collections.Specialized.StringCollection();
 		/// <summary>
 		/// <para>
 		/// A list of strings identifying the desktop environments that should display/not
@@ -107,9 +114,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// The same desktop name may not appear in both OnlyShowIn and NotShowIn of a group. 
 		/// </para>
 		/// </summary>
-		public System.Collections.Specialized.StringCollection ExcludedEnvironments { get { return mvarExcludedEnvironments; } }
-
-		private bool mvarDBusActivatable = false;
+		public System.Collections.Specialized.StringCollection ExcludedEnvironments { get; } = new System.Collections.Specialized.StringCollection();
 		/// <summary>
 		/// A boolean value specifying if D-Bus activation is supported for this application. If
 		/// this key is missing, the default value is false. If the value is true then
@@ -118,47 +123,35 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// Applications should still include Exec= lines in their desktop files for
 		/// compatibility with implementations that do not understand the DBusActivatable key.
 		/// </summary>
-		public bool DBusActivatable { get { return mvarDBusActivatable; } set { mvarDBusActivatable = value; } }
-
-		private string mvarTryExec = String.Empty;
+		public bool DBusActivatable { get; set; } = false;
 		/// <summary>
 		/// Path to an executable file on disk used to determine if the program is actually
 		/// installed. If the path is not an absolute path, the file is looked up in the $PATH
 		/// environment variable. If the file is not present or if it is not executable, the entry
 		/// may be ignored (not be used in menus, for example).
 		/// </summary>
-		public string TryExec { get { return mvarTryExec; } set { mvarTryExec = value; } }
-
-		private DesktopShortcutAction.DesktopShortcutActionCollection mvarActions = new DesktopShortcutAction.DesktopShortcutActionCollection();
+		public string TryExec { get; set; } = String.Empty;
 		/// <summary>
 		/// Identifiers for application actions. This can be used to tell the application to make
 		/// a specific action, different from the default behavior. The Application actions
 		/// section describes how actions work.
 		/// </summary>
-		public DesktopShortcutAction.DesktopShortcutActionCollection Actions { get { return mvarActions; } }
-
-		private System.Collections.Specialized.StringCollection mvarSupportedMimeTypes = new System.Collections.Specialized.StringCollection();
+		public DesktopShortcutAction.DesktopShortcutActionCollection Actions { get; } = new DesktopShortcutAction.DesktopShortcutActionCollection();
 		/// <summary>
 		/// The MIME type(s) supported by this application.
 		/// </summary>
-		public System.Collections.Specialized.StringCollection SupportedMimeTypes { get { return mvarSupportedMimeTypes; } }
-
-		private System.Collections.Specialized.StringCollection mvarCategories = new System.Collections.Specialized.StringCollection();
+		public System.Collections.Specialized.StringCollection SupportedMimeTypes { get; } = new System.Collections.Specialized.StringCollection();
 		/// <summary>
 		/// Categories in which the entry should be shown in a menu (for possible values see the Desktop Menu Specification).
 		/// </summary>
-		public System.Collections.Specialized.StringCollection Categories { get { return mvarCategories; } }
-
-		private System.Collections.Specialized.StringCollection mvarKeywords = new System.Collections.Specialized.StringCollection();
+		public System.Collections.Specialized.StringCollection Categories { get; } = new System.Collections.Specialized.StringCollection();
 		/// <summary>
 		/// A list of strings which may be used in addition to other metadata to describe this
 		/// entry. This can be useful e.g. to facilitate searching through entries. The values
 		/// are not meant for display, and should not be redundant with the values of Name or
 		/// GenericName.
 		/// </summary>
-		public System.Collections.Specialized.StringCollection Keywords { get { return mvarKeywords; } }
-
-		private DesktopShortcutStartupNotifyBehavior mvarStartupNotify = DesktopShortcutStartupNotifyBehavior.Disabled;
+		public System.Collections.Specialized.StringCollection Keywords { get; } = new System.Collections.Specialized.StringCollection();
 		/// <summary>
 		/// If set to <see cref="DesktopShortcutStartupNotifyBehavior.Supported" />, it is KNOWN
 		/// that the application will send a "remove" message when started with the
@@ -170,15 +163,13 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// up to implementations (assuming false, using StartupWMClass, etc.). (See the Startup
 		/// Notification Protocol Specification for more details).
 		/// </summary>
-		public DesktopShortcutStartupNotifyBehavior StartupNotify { get { return mvarStartupNotify; } set { mvarStartupNotify = value; } }
-
-		private string mvarStartupWindowClass = String.Empty;
+		public DesktopShortcutStartupNotifyBehavior StartupNotify { get; set; } = DesktopShortcutStartupNotifyBehavior.Disabled;
 		/// <summary>
 		/// If specified, it is known that the application will map at least one window with the
 		/// given string as its WM class or WM name hint (see the Startup Notification Protocol
 		/// Specification for more details).
 		/// </summary>
-		public string StartupWindowClass { get { return mvarStartupWindowClass; } set { mvarStartupWindowClass = value; } }
+		public string StartupWindowClass { get; set; } = String.Empty;
 
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
@@ -209,15 +200,15 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 				// 1.0. Note that the version field is not required to be present.
 				group.Properties.Add("Version", "1.0");
 
-				if (!String.IsNullOrEmpty(mvarApplicationTitle))
+				if (!String.IsNullOrEmpty(ApplicationTitle))
 				{
-					group.Properties.Add("Name", mvarApplicationTitle);
+					group.Properties.Add("Name", ApplicationTitle);
 				}
-				if (!String.IsNullOrEmpty(mvarGenericTitle))
+				if (!String.IsNullOrEmpty(GenericTitle))
 				{
-					group.Properties.Add("GenericName", mvarGenericTitle);
+					group.Properties.Add("GenericName", GenericTitle);
 				}
-				if (mvarHideFromMenus)
+				if (HideFromMenus)
 				{
 					group.Properties.Add("NoDisplay", "true");
 				}
@@ -233,30 +224,30 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					// the icon.
 					group.Properties.Add("Icon", shortcut.IconFileName);
 				}
-				if (mvarDeleted)
+				if (Deleted)
 				{
 					group.Properties.Add("Hidden", true);
 				}
-				if (mvarRestrictedEnvironments.Count > 0)
+				if (RestrictedEnvironments.Count > 0)
 				{
 					StringBuilder sb = new StringBuilder();
-					foreach (string s in mvarRestrictedEnvironments)
+					foreach (string s in RestrictedEnvironments)
 					{
 						sb.Append(s);
-						if (mvarRestrictedEnvironments.IndexOf(s) < mvarRestrictedEnvironments.Count - 1)
+						if (RestrictedEnvironments.IndexOf(s) < RestrictedEnvironments.Count - 1)
 						{
 							sb.Append(":");
 						}
 					}
 					group.Properties.Add("OnlyShowIn", sb.ToString());
 				}
-				if (mvarExcludedEnvironments.Count > 0)
+				if (ExcludedEnvironments.Count > 0)
 				{
 					StringBuilder sb = new StringBuilder();
-					foreach (string s in mvarExcludedEnvironments)
+					foreach (string s in ExcludedEnvironments)
 					{
 						sb.Append(s);
-						if (mvarExcludedEnvironments.IndexOf(s) < mvarExcludedEnvironments.Count - 1)
+						if (ExcludedEnvironments.IndexOf(s) < ExcludedEnvironments.Count - 1)
 						{
 							sb.Append(":");
 						}
@@ -264,14 +255,14 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					group.Properties.Add("NotShowIn", sb.ToString());
 				}
 
-				if (mvarDBusActivatable)
+				if (DBusActivatable)
 				{
 					group.Properties.Add("DBusActivatable", true);
 				}
 
-				if (!String.IsNullOrEmpty(mvarTryExec))
+				if (!String.IsNullOrEmpty(TryExec))
 				{
-					group.Properties.Add("TryExec", mvarTryExec);
+					group.Properties.Add("TryExec", TryExec);
 				}
 				if (!String.IsNullOrEmpty(shortcut.ExecutableFileName))
 				{
@@ -306,7 +297,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					// application to make a specific action, different from the default
 					// behavior. The Application actions section describes how actions work.
 					StringBuilder sb = new StringBuilder();
-					foreach (DesktopShortcutAction action in mvarActions)
+					foreach (DesktopShortcutAction action in Actions)
 					{
 						sb.Append(action.Name);
 						sb.Append(";");
@@ -315,30 +306,30 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 				}
 				#endregion
 
-				if (mvarSupportedMimeTypes.Count > 0)
+				if (SupportedMimeTypes.Count > 0)
 				{
 					StringBuilder sb = new StringBuilder();
-					foreach (string s in mvarSupportedMimeTypes)
+					foreach (string s in SupportedMimeTypes)
 					{
 						sb.Append(s);
 						sb.Append(";");
 					}
 					group.Properties.Add("MimeType", sb.ToString());
 				}
-				if (mvarCategories.Count > 0)
+				if (Categories.Count > 0)
 				{
 					StringBuilder sb = new StringBuilder();
-					foreach (string s in mvarCategories)
+					foreach (string s in Categories)
 					{
 						sb.Append(s);
 						sb.Append(";");
 					}
 					group.Properties.Add("Categories", sb.ToString());
 				}
-				if (mvarKeywords.Count > 0)
+				if (Keywords.Count > 0)
 				{
 					StringBuilder sb = new StringBuilder();
-					foreach (string s in mvarKeywords)
+					foreach (string s in Keywords)
 					{
 						sb.Append(s);
 						sb.Append(";");
@@ -346,7 +337,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					group.Properties.Add("Keywords", sb.ToString());
 				}
 
-				switch (mvarStartupNotify)
+				switch (StartupNotify)
 				{
 					case DesktopShortcutStartupNotifyBehavior.Disabled:
 					{
@@ -364,12 +355,12 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					}
 				}
 
-				if (!String.IsNullOrEmpty(mvarStartupWindowClass))
+				if (!String.IsNullOrEmpty(StartupWindowClass))
 				{
-					group.Properties.Add("StartupWMClass", mvarStartupWindowClass);
+					group.Properties.Add("StartupWMClass", StartupWindowClass);
 				}
 
-				if (mvarType == DesktopShortcutType.InternetLink)
+				if (Type == DesktopShortcutType.InternetLink)
 				{
 					group.Properties.Add("URL", shortcut.ExecutableFileName);
 				}
@@ -388,7 +379,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					// Identifiers for application actions. This can be used to tell the
 					// application to make a specific action, different from the default
 					// behavior. The Application actions section describes how actions work.
-					foreach (DesktopShortcutAction action in mvarActions)
+					foreach (DesktopShortcutAction action in Actions)
 					{
 						Group group1 = new Group("Desktop Action " + action.Name);
 

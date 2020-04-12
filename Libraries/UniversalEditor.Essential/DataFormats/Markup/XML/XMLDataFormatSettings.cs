@@ -1,152 +1,115 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//
+//  XMLDataFormatSettings.cs - represents settings for the XMLDataFormat parser
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using MBS.Framework.Collections.Generic;
 
 namespace UniversalEditor.DataFormats.Markup.XML
 {
+	/// <summary>
+	/// Represents settings for the <see cref="XMLDataFormat" /> parser.
+	/// </summary>
 	public class XMLDataFormatSettings
 	{
-		private char mvarTagBeginChar = '<';
-		private char mvarTagSpecialDeclarationStartChar = '!';
-		private string mvarTagSpecialDeclarationCommentStart = "--";
-		private char mvarTagEndChar = '>';
-		private char mvarTagCloseChar = '/';
-		private char mvarPreprocessorChar = '?';
-		private char mvarTagNamespaceSeparatorChar = ':';
-		private char mvarAttributeNameValueSeparatorChar = '=';
-		private char mvarEntityBeginChar = '&';
-		private char mvarEntityEndChar = ';';
-		public char TagBeginChar
-		{
-			get
-			{
-				return this.mvarTagBeginChar;
-			}
-			set
-			{
-				this.mvarTagBeginChar = value;
-			}
-		}
-		public char TagSpecialDeclarationStartChar
-		{
-			get
-			{
-				return this.mvarTagSpecialDeclarationStartChar;
-			}
-			set
-			{
-				this.mvarTagSpecialDeclarationStartChar = value;
-			}
-		}
-		public string TagSpecialDeclarationCommentStart
-		{
-			get
-			{
-				return this.mvarTagSpecialDeclarationCommentStart;
-			}
-			set
-			{
-				this.mvarTagSpecialDeclarationCommentStart = value;
-			}
-		}
-		public char TagEndChar
-		{
-			get
-			{
-				return this.mvarTagEndChar;
-			}
-			set
-			{
-				this.mvarTagEndChar = value;
-			}
-		}
-		public char TagCloseChar
-		{
-			get
-			{
-				return this.mvarTagCloseChar;
-			}
-			set
-			{
-				this.mvarTagCloseChar = value;
-			}
-		}
-		public char PreprocessorChar
-		{
-			get
-			{
-				return this.mvarPreprocessorChar;
-			}
-			set
-			{
-				this.mvarPreprocessorChar = value;
-			}
-		}
-		public char TagNamespaceSeparatorChar
-		{
-			get
-			{
-				return this.mvarTagNamespaceSeparatorChar;
-			}
-			set
-			{
-				this.mvarTagNamespaceSeparatorChar = value;
-			}
-		}
-		public char AttributeNameValueSeparatorChar
-		{
-			get
-			{
-				return this.mvarAttributeNameValueSeparatorChar;
-			}
-			set
-			{
-				this.mvarAttributeNameValueSeparatorChar = value;
-			}
-		}
-		public char EntityBeginChar
-		{
-			get
-			{
-				return this.mvarEntityBeginChar;
-			}
-			set
-			{
-				this.mvarEntityBeginChar = value;
-			}
-		}
-		public char EntityEndChar
-		{
-			get
-			{
-				return this.mvarEntityEndChar;
-			}
-			set
-			{
-				this.mvarEntityEndChar = value;
-			}
-		}
+		/// <summary>
+		/// Gets or sets the character used to indicate the beginning of a tag.
+		/// </summary>
+		/// <value>The character used to indicate the beginning of a tag.</value>
+		public char TagBeginChar { get; set; } = '<';
+		/// <summary>
+		/// Gets or sets the character used to indicate the beginning of a special declaration tag name.
+		/// </summary>
+		/// <value>The character used to indicate the beginning of a special declaration tag name.</value>
+		public char TagSpecialDeclarationStartChar { get; set; } = '!';
+		/// <summary>
+		/// Gets or sets the character used to indicate the beginning and ending of a comment special declaration tag.
+		/// </summary>
+		/// <value>The character used to indicate the beginning and ending of a comment special declaration tag.</value>
+		public string TagSpecialDeclarationCommentStart { get; set; } = "--";
+		/// <summary>
+		/// Gets or sets the character used to indicate the end of a tag.
+		/// </summary>
+		/// <value>The character used to indicate the end of a tag.</value>
+		public char TagEndChar { get; set; } = '>';
+		/// <summary>
+		/// Gets or sets the character placed before the tag name used to indicate the closing of a tag.
+		/// </summary>
+		/// <value>The character placed before the tag name used to indicate the closing of a tag.</value>
+		public char TagCloseChar { get; set; } = '/';
+		/// <summary>
+		/// Gets or sets the character used to indicate a preprocessor tag.
+		/// </summary>
+		/// <value>The character used to indicate a preprocessor tag.</value>
+		public char PreprocessorChar { get; set; } = '?';
+		/// <summary>
+		/// Gets or sets the character used to separate a tag namespace from a tag name.
+		/// </summary>
+		/// <value>The character used to separate a tag namespace from a tag name.</value>
+		public char TagNamespaceSeparatorChar { get; set; } = ':';
+		/// <summary>
+		/// Gets or sets the character used to separate an attribute value from an attribute name.
+		/// </summary>
+		/// <value>The character used to separate an attribute value from an attribute name.</value>
+		public char AttributeNameValueSeparatorChar { get; set; } = '=';
+		/// <summary>
+		/// Gets or sets the character used to indicate the beginning of an entity reference.
+		/// </summary>
+		/// <value>The character used to indicate the beginning of an entity reference.</value>
+		public char EntityBeginChar { get; set; } = '&';
+		/// <summary>
+		/// Gets or sets the character used to indicate the end of an entity reference.
+		/// </summary>
+		/// <value>The character used to indicate the end of an entity reference.</value>
+		public char EntityEndChar { get; set; } = ';';
 
-		private bool mvarIsStandalone = false;
-		public bool IsStandalone { get { return mvarIsStandalone; } set { mvarIsStandalone = value; } }
+		/// <summary>
+		/// Gets or sets a value indicating whether this
+		/// <see cref="T:UniversalEditor.DataFormats.Markup.XML.XMLDataFormatSettings"/> is standalone.
+		/// </summary>
+		/// <value><c>true</c> if is standalone; otherwise, <c>false</c>.</value>
+		public bool IsStandalone { get; set; } = false;
+		/// <summary>
+		/// Gets a collection of <see cref="string" />s that represent names of tags that do not require an ending tag in order to be closed.
+		/// </summary>
+		/// <value>The names of tags that do not require an ending tag in order to be closed.</value>
+		public System.Collections.Specialized.StringCollection AutoCloseTagNames { get; } = new System.Collections.Specialized.StringCollection();
+		/// <summary>
+		/// Gets a collection of <see cref="string" />s that represent translations from entity names to text values.
+		/// </summary>
+		/// <value>The translations from entity names to text values.</value>
+		public BidirectionalDictionary<string, string> Entities { get; } = new BidirectionalDictionary<string, string>();
 
-		private System.Collections.Specialized.StringCollection mvarAutoCloseTagNames = new System.Collections.Specialized.StringCollection();
-		public System.Collections.Specialized.StringCollection AutoCloseTagNames { get { return mvarAutoCloseTagNames; } }
+		/// <summary>
+		/// Gets or sets the character used to indicate the beginning of a CDATA section.
+		/// </summary>
+		/// <value>The character used to indicate the beginning of a CDATA section.</value>
+		public char CDataBeginChar { get; set; } = '[';
+		/// <summary>
+		/// Gets or sets the character used to indicate the end of a CDATA section.
+		/// </summary>
+		/// <value>The character used to indicate the end of a CDATA section.</value>
+		public char CDataEndChar { get; set; } = ']';
 
-		private BidirectionalDictionary<string, string> mvarEntities = new BidirectionalDictionary<string, string>();
-		public BidirectionalDictionary<string, string> Entities { get { return mvarEntities; } }
-
-		private char mvarCDataBeginChar = '[';
-		public char CDataBeginChar { get { return mvarCDataBeginChar; } set { mvarCDataBeginChar = value; } }
-		private char mvarCDataEndChar = ']';
-		public char CDataEndChar { get { return mvarCDataEndChar; } set { mvarCDataEndChar = value; } }
-
-		private bool mvarPrettyPrint = true;
 		/// <summary>
 		/// Determines whether to insert tabs and spaces to "pretty-print" the output XML.
 		/// </summary>
-		public bool PrettyPrint { get { return mvarPrettyPrint; } set { mvarPrettyPrint = value; } }
+		public bool PrettyPrint { get; set; } = true;
 	}
 }

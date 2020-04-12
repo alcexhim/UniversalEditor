@@ -1,10 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//
+//  ContactObjectModel.cs - provides an ObjectModel for manipulating contact information
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2011-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 
 namespace UniversalEditor.ObjectModels.Contact
 {
+	/// <summary>
+	/// Provides an <see cref="ObjectModel" /> for manipulating contact information.
+	/// </summary>
 	public class ContactObjectModel : ObjectModel
 	{
 		public class ContactObjectModelCollection
@@ -24,106 +45,81 @@ namespace UniversalEditor.ObjectModels.Contact
 			return _omr;
 		}
 
-		private ContactNotes mvarNotes = new ContactNotes();
-		public ContactNotes Notes { get { return mvarNotes; } }
-
-		private ContactGender mvarGender = ContactGender.Unspecified;
-		public ContactGender Gender { get { return mvarGender; } set { mvarGender = value; } }
-
-		private DateTime mvarCreationDate = DateTime.Now;
-		public DateTime CreationDate { get { return mvarCreationDate; } set { mvarCreationDate = value; } }
-
-		private ContactIdentifier.ContactIdentifierCollection mvarIdentifiers = new ContactIdentifier.ContactIdentifierCollection();
-		public ContactIdentifier.ContactIdentifierCollection Identifiers { get { return mvarIdentifiers; } }
-
-		private ContactEmailAddress.ContactEmailAddressCollection mvarEmailAddresses = new ContactEmailAddress.ContactEmailAddressCollection();
-		public ContactEmailAddress.ContactEmailAddressCollection EmailAddresses { get { return mvarEmailAddresses; } }
-
-		private ContactName.ContactNameCollection mvarNames = new ContactName.ContactNameCollection();
-		public ContactName.ContactNameCollection Names { get { return mvarNames; } }
-
-		private ContactPhysicalAddress.ContactPhysicalAddressCollection mvarPhysicalAddresses = new ContactPhysicalAddress.ContactPhysicalAddressCollection();
-		public ContactPhysicalAddress.ContactPhysicalAddressCollection PhysicalAddresses { get { return mvarPhysicalAddresses; } }
-
-		private ContactPhoneNumber.ContactPhoneNumberCollection mvarPhoneNumbers = new ContactPhoneNumber.ContactPhoneNumberCollection();
-		public ContactPhoneNumber.ContactPhoneNumberCollection PhoneNumbers { get { return mvarPhoneNumbers; } }
-
-		private ContactRelationship.ContactRelationshipCollection mvarRelationships = new ContactRelationship.ContactRelationshipCollection();
-		public ContactRelationship.ContactRelationshipCollection Relationships { get { return mvarRelationships; } }
-
-		private ContactPhoto.ContactPhotoCollection mvarPhotos = new ContactPhoto.ContactPhotoCollection();
-		public ContactPhoto.ContactPhotoCollection Photos { get { return mvarPhotos; } }
-
-		private ContactDate.ContactDateCollection mvarDates = new ContactDate.ContactDateCollection();
-		public ContactDate.ContactDateCollection Dates { get { return mvarDates; } }
-
-		private ContactPosition.ContactPositionCollection mvarPositions = new ContactPosition.ContactPositionCollection();
-		public ContactPosition.ContactPositionCollection Positions { get { return mvarPositions; } }
-
-		private ContactUrl.ContactUrlCollection mvarUrls = new ContactUrl.ContactUrlCollection();
-		public ContactUrl.ContactUrlCollection Urls { get { return mvarUrls; } }
+		public ContactNotes Notes { get; private set; } = new ContactNotes();
+		public ContactGender Gender { get; set; } = ContactGender.Unspecified;
+		public DateTime CreationDate { get; set; } = DateTime.Now;
+		public ContactIdentifier.ContactIdentifierCollection Identifiers { get; } = new ContactIdentifier.ContactIdentifierCollection();
+		public ContactEmailAddress.ContactEmailAddressCollection EmailAddresses { get; } = new ContactEmailAddress.ContactEmailAddressCollection();
+		public ContactName.ContactNameCollection Names { get; } = new ContactName.ContactNameCollection();
+		public ContactPhysicalAddress.ContactPhysicalAddressCollection PhysicalAddresses { get; } = new ContactPhysicalAddress.ContactPhysicalAddressCollection();
+		public ContactPhoneNumber.ContactPhoneNumberCollection PhoneNumbers { get; } = new ContactPhoneNumber.ContactPhoneNumberCollection();
+		public ContactRelationship.ContactRelationshipCollection Relationships { get; } = new ContactRelationship.ContactRelationshipCollection();
+		public ContactPhoto.ContactPhotoCollection Photos { get; } = new ContactPhoto.ContactPhotoCollection();
+		public ContactDate.ContactDateCollection Dates { get; } = new ContactDate.ContactDateCollection();
+		public ContactPosition.ContactPositionCollection Positions { get; } = new ContactPosition.ContactPositionCollection();
+		public ContactUrl.ContactUrlCollection Urls { get; } = new ContactUrl.ContactUrlCollection();
 
 		public override void Clear()
 		{
-			mvarNotes = new ContactNotes();
-			mvarGender = ContactGender.Unspecified;
-			mvarCreationDate = DateTime.Now;
-			mvarIdentifiers.Clear();
-			mvarEmailAddresses.Clear();
-			mvarNames.Clear();
-			mvarPhysicalAddresses.Clear();
-			mvarPhoneNumbers.Clear();
-			mvarRelationships.Clear();
-			mvarPhotos.Clear();
-			mvarDates.Clear();
-			mvarPositions.Clear();
-			mvarUrls.Clear();
+			Notes = new ContactNotes();
+			Gender = ContactGender.Unspecified;
+			CreationDate = DateTime.Now;
+			Identifiers.Clear();
+			EmailAddresses.Clear();
+			Names.Clear();
+			PhysicalAddresses.Clear();
+			PhoneNumbers.Clear();
+			Relationships.Clear();
+			Photos.Clear();
+			Dates.Clear();
+			Positions.Clear();
+			Urls.Clear();
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
 			ContactObjectModel clone = (where as ContactObjectModel);
-			clone.Notes.Content = (mvarNotes.Content.Clone() as string);
-			clone.Notes.ModificationDate = mvarNotes.ModificationDate;
-			clone.Gender = mvarGender;
-			clone.CreationDate = mvarCreationDate;
-			foreach (ContactIdentifier item in mvarIdentifiers)
+			clone.Notes.Content = (Notes.Content.Clone() as string);
+			clone.Notes.ModificationDate = Notes.ModificationDate;
+			clone.Gender = Gender;
+			clone.CreationDate = CreationDate;
+			foreach (ContactIdentifier item in Identifiers)
 			{
 				clone.Identifiers.Add(item.Clone() as ContactIdentifier);
 			}
-			foreach (ContactEmailAddress item in mvarEmailAddresses)
+			foreach (ContactEmailAddress item in EmailAddresses)
 			{
 				clone.EmailAddresses.Add(item.Clone() as ContactEmailAddress);
 			}
-			foreach (ContactName item in mvarNames)
+			foreach (ContactName item in Names)
 			{
 				clone.Names.Add(item.Clone() as ContactName);
 			}
-			foreach (ContactPhysicalAddress item in mvarPhysicalAddresses)
+			foreach (ContactPhysicalAddress item in PhysicalAddresses)
 			{
 				clone.PhysicalAddresses.Add(item.Clone() as ContactPhysicalAddress);
 			}
-			foreach (ContactPhoneNumber item in mvarPhoneNumbers)
+			foreach (ContactPhoneNumber item in PhoneNumbers)
 			{
 				clone.PhoneNumbers.Add(item.Clone() as ContactPhoneNumber);
 			}
-			foreach (ContactRelationship item in mvarRelationships)
+			foreach (ContactRelationship item in Relationships)
 			{
 				clone.Relationships.Add(item.Clone() as ContactRelationship);
 			}
-			foreach (ContactPhoto item in mvarPhotos)
+			foreach (ContactPhoto item in Photos)
 			{
 				clone.Photos.Add(item.Clone() as ContactPhoto);
 			}
-			foreach (ContactDate item in mvarDates)
+			foreach (ContactDate item in Dates)
 			{
 				clone.Dates.Add(item.Clone() as ContactDate);
 			}
-			foreach (ContactPosition item in mvarPositions)
+			foreach (ContactPosition item in Positions)
 			{
 				clone.Positions.Add(item.Clone() as ContactPosition);
 			}
-			foreach (ContactUrl item in mvarUrls)
+			foreach (ContactUrl item in Urls)
 			{
 				clone.Urls.Add(item.Clone() as ContactUrl);
 			}
