@@ -56,20 +56,6 @@ namespace UniversalEditor.Plugins.CRI.UserInterface
 			if (!(Document.DataFormat is CPKDataFormat))
 				return;
 
-			Application.Commands.Add(new Command("CRI_FileSystem_Extensions", "CRI Tools", new CommandItem[]
-			{
-				new CommandReferenceCommandItem("CRI_FileSystem_Extensions_Export_Header"),
-				new CommandReferenceCommandItem("CRI_FileSystem_Extensions_Export_TOC"),
-				new CommandReferenceCommandItem("CRI_FileSystem_Extensions_Export_ITOC"),
-				new CommandReferenceCommandItem("CRI_FileSystem_Extensions_Export_GTOC"),
-				new CommandReferenceCommandItem("CRI_FileSystem_Extensions_Export_ETOC")
-			}));
-			Application.Commands.Add(new Command("CRI_FileSystem_Extensions_Export_Header", "Export Header UTF"));
-			Application.Commands.Add(new Command("CRI_FileSystem_Extensions_Export_TOC", "Export TOC UTF"));
-			Application.Commands.Add(new Command("CRI_FileSystem_Extensions_Export_ITOC", "Export ITOC UTF"));
-			Application.Commands.Add(new Command("CRI_FileSystem_Extensions_Export_GTOC", "Export GTOC UTF"));
-			Application.Commands.Add(new Command("CRI_FileSystem_Extensions_Export_ETOC", "Export ETOC UTF"));
-
 			er.Commands["FileSystemContextMenu_Unselected"].Items.Add(new SeparatorCommandItem());
 			er.Commands["FileSystemContextMenu_Unselected"].Items.Add(new CommandReferenceCommandItem("CRI_FileSystem_Extensions"));
 

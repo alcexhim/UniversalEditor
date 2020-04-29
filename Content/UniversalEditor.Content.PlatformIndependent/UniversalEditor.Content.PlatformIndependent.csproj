@@ -718,6 +718,7 @@
     <Content Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\RBX.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\TBV.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\Webfoot\Associations\DAT.uexml" />
+    <Content Include="Extensions\GameDeveloper\Extensions\CRI\CRIFileSystemEditorExtensions.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -770,6 +771,7 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\Webfoot\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\Webfoot\Associations\" />
+    <Folder Include="Extensions\GameDeveloper\Extensions\CRI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
