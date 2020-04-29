@@ -39,8 +39,5 @@ namespace UniversalEditor.Localization
 
 		private static string mvarErrorObjectModelNull = "The object model must not be null.";
 		public static string ErrorObjectModelNull { get { return mvarErrorObjectModelNull; } set { mvarErrorObjectModelNull = value; } }
-
-		private static string mvarErrorDataFormatInvalid = "The data format is invalid.";
-		public static string ErrorDataFormatInvalid { get { return mvarErrorDataFormatInvalid; } set { mvarErrorDataFormatInvalid = value; } }
 	}
 }

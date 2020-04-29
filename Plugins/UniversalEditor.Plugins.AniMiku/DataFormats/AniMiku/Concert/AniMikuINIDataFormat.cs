@@ -58,7 +58,7 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 			objectModels.Push(new PropertyListObjectModel());
 			
 			string magic = base.Accessor.Reader.ReadLine();
-			if (magic != "AMPV2") throw new DataFormatException(UniversalEditor.Localization.StringTable.ErrorDataFormatInvalid);
+			if (magic != "AMPV2") throw new InvalidDataFormatException();
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
@@ -68,10 +68,10 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 			ConcertObjectModel concert = (objectModels.Pop() as ConcertObjectModel);
 
 			Group grpPERF = plom.Groups["PERF"];
-			if (grpPERF == null) throw new DataFormatException(UniversalEditor.Localization.StringTable.ErrorDataFormatInvalid);
+			if (grpPERF == null) throw new InvalidDataFormatException();
 
 			Property prpPERFnum = grpPERF.Properties["num"];
-			if (prpPERFnum == null) throw new DataFormatException(UniversalEditor.Localization.StringTable.ErrorDataFormatInvalid);
+			if (prpPERFnum == null) throw new InvalidDataFormatException();
 
 			int perfNum = Int32.Parse(prpPERFnum.Value.ToString());
 
