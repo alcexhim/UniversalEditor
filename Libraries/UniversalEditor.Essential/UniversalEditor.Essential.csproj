@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Reflection.cs" />
-    <Compile Include="Condition.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="DataFormats\AbstractSyntax\DER\DERDataFormat.cs" />
     <Compile Include="DataFormats\Chunked\REV\REVDataFormat.cs" />

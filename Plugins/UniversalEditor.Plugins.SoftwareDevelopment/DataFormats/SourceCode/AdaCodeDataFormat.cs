@@ -22,6 +22,8 @@
 using System;
 using System.Text;
 
+using MBS.Framework.Logic.Conditional;
+
 using UniversalEditor.ObjectModels.SourceCode;
 using UniversalEditor.ObjectModels.SourceCode.CodeElements;
 using UniversalEditor.ObjectModels.SourceCode.CodeElements.CodeLoopActionElements;
