@@ -719,6 +719,7 @@
     <Content Include="Extensions\GameDeveloper\Extensions\Ultra3D\Associations\TBV.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\Webfoot\Associations\DAT.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\CRI\CRIFileSystemEditorExtensions.uexml" />
+    <Content Include="Editors\PropertyList\PropertyListEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

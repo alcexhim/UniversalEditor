@@ -1,10 +1,10 @@
 ﻿//
-//  PropertyListEditor.cs
+//  PropertyListEditor.cs - cross-platform (UWT) property list editor for Universal Editor
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,17 +18,22 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
+
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.UserInterface;
+
 namespace UniversalEditor.Editors.PropertyList
 {
-	public partial class PropertyListEditor : Editor
+	[ContainerLayout("~/Editors/PropertyList/PropertyListEditor.glade")]
+	public class PropertyListEditor : Editor
 	{
-		public PropertyListEditor()
-		{
-			this.InitializeComponent();
-		}
+		private ListView tv = null;
+		private DefaultTreeModel tm = null;
 
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
@@ -50,9 +55,72 @@ namespace UniversalEditor.Editors.PropertyList
 			throw new NotImplementedException();
 		}
 
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+			OnObjectModelChanged(EventArgs.Empty);
+		}
+
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);
+
+			if (!IsCreated) return;
+
+			PropertyListObjectModel plom = (ObjectModel as PropertyListObjectModel);
+			for (int i = 0; i < plom.Properties.Count; i++)
+			{
+				RecursiveAddProperty(plom.Properties[i], null);
+			}
+			for (int i = 0; i < plom.Groups.Count; i++)
+			{
+				RecursiveAddGroup(plom.Groups[i], null);
+			}
+		}
+
+		private void RecursiveAddProperty(Property p, TreeModelRow parent = null)
+		{
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tm.Columns[0], p.Name),
+				new TreeModelRowColumn(tm.Columns[1], p.Value)
+			});
+
+			if (parent == null)
+			{
+				tm.Rows.Add(row);
+			}
+			else
+			{
+				parent.Rows.Add(row);
+			}
+			row.SetExtraData<Property>("property", p);
+		}
+		private void RecursiveAddGroup(Group g, TreeModelRow parent = null)
+		{
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tm.Columns[0], g.Name)
+			});
+
+			if (parent == null)
+			{
+				tm.Rows.Add(row);
+			}
+			else
+			{
+				parent.Rows.Add(row);
+			}
+
+			for (int i = 0; i < g.Properties.Count; i++)
+			{
+				RecursiveAddProperty(g.Properties[i], row);
+			}
+			for (int i = 0; i < g.Groups.Count; i++)
+			{
+				RecursiveAddGroup(g.Groups[i], row);
+			}
+			row.SetExtraData<Group>("group", g);
 		}
 	}
 }

@@ -98,7 +98,6 @@
     <Compile Include="Editors\FileSystem\FileSystemEditor.Designer.cs" />
     <Compile Include="Common\FileInfo.cs" />
     <Compile Include="Editors\PropertyList\PropertyListEditor.cs" />
-    <Compile Include="Editors\PropertyList\PropertyListEditor.Designer.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialog.cs" />
     <Compile Include="Dialogs\GenericBrowserPopup.cs" />
     <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs" />
