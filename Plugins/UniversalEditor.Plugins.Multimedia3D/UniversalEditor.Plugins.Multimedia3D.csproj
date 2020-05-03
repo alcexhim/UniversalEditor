@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFormats\Multimedia3D\Accessory\QAvimator\PRPAccessoryDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia3D\Model\Auth3D\ASCII\A3DADataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Auth3D\Compiled\A3DCDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\GLB\GLBObjectType.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Inivis\AC3DDataFormat.cs" />

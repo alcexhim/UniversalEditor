@@ -3,22 +3,22 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Auth3D model (compiled)">
+				<Filter Title="Sega A3DA configuration file">
 					<FileNameFilters>
-						<FileNameFilter>*.a3d</FileNameFilter>
+						<FileNameFilter>*.a3da</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
-							<MagicByte Type="String">#A3DC__________</MagicByte>
+							<MagicByte Type="String">#A3DA__________</MagicByte>
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Model.ModelObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Model.Auth3D.Compiled.A3DCDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.Sega.DataFormats.PropertyList.A3DA.A3DADataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

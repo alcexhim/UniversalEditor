@@ -33,12 +33,15 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\FileSystem\Sega\FARC\FARCDataFormat.cs" />
+    <Compile Include="DataFormats\PropertyList\A3DA\A3DADataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\" />
     <Folder Include="DataFormats\FileSystem\" />
     <Folder Include="DataFormats\FileSystem\Sega\" />
     <Folder Include="DataFormats\FileSystem\Sega\FARC\" />
+    <Folder Include="DataFormats\PropertyList\" />
+    <Folder Include="DataFormats\PropertyList\A3DA\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
