@@ -254,7 +254,7 @@ namespace UniversalEditor.IO
 			return new DateTime(nYear, nMonth, nDay, nHour + gmtOffset, nMinute, nSecond, nSecondHundredths, DateTimeKind.Utc);
 		}
 
-		protected internal int Read7BitEncodedInt()
+		public int Read7BitEncodedInt()
 		{
 			int num = 0;
 			int num2 = 0;
