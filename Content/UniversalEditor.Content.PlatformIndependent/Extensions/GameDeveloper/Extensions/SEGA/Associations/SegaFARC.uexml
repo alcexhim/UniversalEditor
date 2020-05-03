@@ -25,7 +25,7 @@
 			</ObjectModels>
 			<DataFormats>
 				<!-- <DataFormat ID="{F9970625-4147-424A-81FB-FF470F2AA67D}" /> -->
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.FARC.FARCDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC.FARCDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

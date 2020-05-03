@@ -26,7 +26,7 @@ using System.Security.Cryptography;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.FARC
+namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating archives in Sega FARC format.
@@ -233,7 +233,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FARC
 				}
 				if (!foundMatch)
 				{
-					UniversalEditor.UserInterface.HostApplication.Messages.Add(UserInterface.HostApplicationMessageSeverity.Warning, "No valid encryption keys were available to process this file", file.Name);
+					UserInterface.HostApplication.Messages.Add(UserInterface.HostApplicationMessageSeverity.Warning, "No valid encryption keys were available to process this file", file.Name);
 					return;
 				}
 
@@ -248,7 +248,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FARC
 				int decompressedLength = (int)file.Properties["decompressedLength"];
 
 				byte[] compressedData = reader.ReadBytes(compressedLength);
-				e.Data = UniversalEditor.Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(compressedData);
+				e.Data = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(compressedData);
 			}
 			else if (!Compressed && !Encrypted)
 			{
