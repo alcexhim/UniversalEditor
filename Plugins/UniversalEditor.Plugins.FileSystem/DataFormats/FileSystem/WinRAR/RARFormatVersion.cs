@@ -1,5 +1,5 @@
 ﻿//
-//  RARHeaderType.cs - indicates the type of header in a RAR file
+//  RARFormatVersion.cs - indicates the format version for a RAR archive
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -22,18 +22,21 @@
 namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 {
 	/// <summary>
-	/// Indicates the type of header in a RAR file.
+	/// Indicates the format version for a RAR archive.
 	/// </summary>
-	public enum RARHeaderType : byte
+	public enum RARFormatVersion
 	{
-		Marker = 0x72,
-		Archive = 0x73,
-		File = 0x74,
-		OldComment = 0x75,
-		OldAuthenticity = 0x76,
-		OldSubblock = 0x77,
-		OldRecoveryRecord = 0x78,
-		OldAuthenticity2 = 0x79,
-		Subblock = 0x7A
+		/// <summary>
+		/// The ancient RAR format beginning with "RE~".
+		/// </summary>
+		Ancient,
+		/// <summary>
+		/// The modern RAR format beginning with "Rar!".
+		/// </summary>
+		Modern,
+		/// <summary>
+		/// The modern RAR format beginning with "Rar!" and containing a V5 archive header signal.
+		/// </summary>
+		Enhanced
 	}
 }

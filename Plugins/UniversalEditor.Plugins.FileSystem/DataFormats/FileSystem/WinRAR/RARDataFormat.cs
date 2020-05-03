@@ -19,8 +19,9 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
+using System.Collections.Generic;
+using UniversalEditor.DataFormats.FileSystem.WinRAR.Blocks;
+using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.WinRAR
@@ -33,7 +34,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 	/// published unrar source in the development of this <see cref="DataFormat" />. It may end up that this <see cref="DataFormat" /> is only able
 	/// to handle uncompressed (i.e. stored) RAR files, and until there exists a better solution to the unrar licensing problem, it will have to do.
 	/// </remarks>
-	public class RARDataFormat : DataFormat
+	public class RARDataFormat : RARBlockDataFormat
 	{
 		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
@@ -46,92 +47,83 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 			return _dfr;
 		}
 
-		protected override void LoadInternal(ref ObjectModel objectModel)
+		void F_DataRequest(object sender, DataRequestEventArgs e)
 		{
-			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			File f = (File)sender;
+			Reader reader = (Reader)f.Properties["reader"];
+			long offset = (long)f.Properties["offset"];
+			long CompressedLength = (long)f.Properties["CompressedLength"];
+			long DecompressedLength = (long)f.Properties["DecompressedLength"];
 
-			IO.Reader br = base.Accessor.Reader;
-			br.Accessor.Position = 0;
-
-			#region marker block
-			string Rar = br.ReadFixedLengthString(4);
-			if (Rar != "Rar!") throw new InvalidDataFormatException("File does not begin with \"Rar!\"");
-
-			ushort a10 = br.ReadUInt16();
-			byte a11 = br.ReadByte();
-			if (a10 != 0x071A || a11 != 0x00) throw new InvalidDataFormatException("Invalid block header");
-			#endregion
-
-			#region archive header
-			{
-				ushort head_crc = br.ReadUInt16();
-				RARHeaderType head_type = (RARHeaderType)br.ReadByte();
-				RARHeaderFlags head_flags = (RARHeaderFlags)br.ReadUInt16();
-
-				ushort head_size = br.ReadUInt16();
-				ushort reserved1 = br.ReadUInt16();
-				uint reserved2 = br.ReadUInt32();
-			}
-			#endregion
-
-			#region File Entry
-			while (br.Accessor.Position + 3 < br.Accessor.Length)
-			{
-				ushort head_crc = br.ReadUInt16();
-				RARHeaderType head_type = (RARHeaderType)br.ReadByte();
-				RARFileHeaderFlags head_flags = (RARFileHeaderFlags)br.ReadUInt16();
-
-				ushort head_size = br.ReadUInt16();
-
-				if (br.EndOfStream) break;
-
-				uint compressedSize = br.ReadUInt32();
-				uint decompressedSize = br.ReadUInt32();
-				RARHostOperatingSystem hostOS = (RARHostOperatingSystem)br.ReadByte();
-				uint fileCRC = br.ReadUInt32();
-				uint dateTimeDOS = br.ReadUInt32();
-
-				// Version number is encoded as 10 * Major version + minor version.
-				byte requiredVersionToUnpack = br.ReadByte();
-
-				RARCompressionMethod compressionMethod = (RARCompressionMethod)br.ReadByte();
-				ushort fileNameSize = br.ReadUInt16();
-				uint fileAttributes = br.ReadUInt32();
-
-				if ((head_flags & RARFileHeaderFlags.SupportLargeFiles) == RARFileHeaderFlags.SupportLargeFiles)
-				{
-					// High 4 bytes of 64 bit value of compressed file size.
-					uint highPackSize = br.ReadUInt32();
-					// High 4 bytes of 64 bit value of uncompressed file size.
-					uint highUnpackSize = br.ReadUInt32();
-				}
-
-				string filename = br.ReadFixedLengthString(fileNameSize);
-				byte nul = br.ReadByte();
-
-				if ((head_flags & RARFileHeaderFlags.EncryptionSaltPresent) == RARFileHeaderFlags.EncryptionSaltPresent)
-				{
-					long salt = br.ReadInt64();
-				}
-
-				if ((head_flags & RARFileHeaderFlags.ExtendedTimeFieldPresent) == RARFileHeaderFlags.ExtendedTimeFieldPresent)
-				{
-					uint exttime = br.ReadUInt32();
-
-				}
-
-				byte[] compressedData = br.ReadBytes(compressedSize);
-
-				byte[] decompressedData = compressedData;
-
-				fsom.Files.Add(filename, decompressedData);
-			}
-			#endregion
+			reader.Seek(offset, SeekOrigin.Begin);
+			byte[] compressedData = reader.ReadBytes(CompressedLength);
+			byte[] decompressedData = compressedData;
+			e.Data = decompressedData;
 		}
 
-		protected override void SaveInternal(ObjectModel objectModel)
+		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
-			throw new NotImplementedException();
+			base.BeforeLoadInternal(objectModels);
+			objectModels.Push(new RARBlockObjectModel());
+		}
+		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
+		{
+			base.AfterLoadInternal(objectModels);
+
+			RARBlockObjectModel bom = objectModels.Pop() as RARBlockObjectModel;
+
+			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
+			if (fsom == null)
+				throw new ObjectModelNotSupportedException();
+
+			Reader reader = Accessor.Reader;
+
+			bool endOfArchiveReached = false;
+			for (int i = 0; i < bom.Blocks.Count; i++)
+			{
+				RARBlock header = bom.Blocks[i];
+				if (header is RARFileBlock fh)
+				{
+					if (fh.headerType == RARBlockType.File)
+					{
+						File f = fsom.AddFile(fh.fileName);
+						f.Properties["reader"] = reader;
+						f.Properties["offset"] = fh.dataOffset;
+						f.Properties["CompressedLength"] = fh.dataSize;
+						f.Properties["DecompressedLength"] = fh.unpackedSize;
+						f.Size = fh.unpackedSize;
+						f.DataRequest += F_DataRequest;
+					}
+					else if (fh.headerType == RARBlockType.Service)
+					{
+						if (fh.fileName == "CMT")
+						{
+
+						}
+						else if (fh.fileName == "QO")
+						{
+
+						}
+					}
+				}
+				else if (header is RAREndBlock eh)
+				{
+					endOfArchiveReached = true;
+				}
+			}
+
+			if (!endOfArchiveReached)
+			{
+				UserInterface.HostApplication.Messages.Add(UserInterface.HostApplicationMessageSeverity.Warning, "end of file reached before end of archive marker", Accessor.GetFileName());
+			}
+		}
+
+		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
+		{
+			base.BeforeSaveInternal(objectModels);
+
+			RARBlockObjectModel bom = new RARBlockObjectModel();
+			objectModels.Push(bom);
 		}
 	}
 }

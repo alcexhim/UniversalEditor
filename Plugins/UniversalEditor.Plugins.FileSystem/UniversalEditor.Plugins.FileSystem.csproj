@@ -199,8 +199,6 @@
     <Compile Include="DataFormats\FileSystem\WinRAR\RARCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\RARDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\RARFileHeaderFlags.cs" />
-    <Compile Include="DataFormats\FileSystem\WinRAR\RARHeaderFlags.cs" />
-    <Compile Include="DataFormats\FileSystem\WinRAR\RARHeaderType.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\RARHostOperatingSystem.cs" />
     <Compile Include="DataFormats\FileSystem\YZ1\YZ1DataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZipTV\BlakHole\BHCompressionMethod.cs" />
@@ -240,6 +238,28 @@
     <Compile Include="DataFormats\FileSystem\TexasInstruments\DSK\DSKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TexasInstruments\DSK\DSKFileStatusFlags.cs" />
     <Compile Include="DataFormats\FileSystem\KenSilverman\KenSilvermanGRPDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARFormatVersion.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\V5\RARBlockTypeV5.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\V5\RAREndBlockFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\V5\RARArchiveBlockFlagsV5.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\V5\RARFileAttributes.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\V5\RARFileBlockFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARBlockType.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\V4\RARArchiveBlockFlagsV4.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\V4\RARBlockTypeV4.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARBlockObjectModel.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARBlock.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\Blocks\RARArchiveBlock.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\Blocks\RAREndBlock.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\Blocks\RARFileBlock.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARBlockDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\RARBlockFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\VM\RARVM.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\VM\RAROpcodeType.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\VM\RAROpcode.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\VM\RARVMFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\VM\RAROpcodeFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\WinRAR\VM\RARVMFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -282,6 +302,10 @@
     <Folder Include="DataFormats\FileSystem\TexasInstruments\TIFiles\" />
     <Folder Include="DataFormats\FileSystem\TexasInstruments\DSK\" />
     <Folder Include="DataFormats\FileSystem\KenSilverman\" />
+    <Folder Include="DataFormats\FileSystem\WinRAR\V5\" />
+    <Folder Include="DataFormats\FileSystem\WinRAR\V4\" />
+    <Folder Include="DataFormats\FileSystem\WinRAR\Blocks\" />
+    <Folder Include="DataFormats\FileSystem\WinRAR\VM\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -21,13 +21,13 @@
 
 using System;
 
-namespace UniversalEditor.DataFormats.FileSystem.WinRAR
+namespace UniversalEditor.DataFormats.FileSystem.WinRAR.V4
 {
 	/// <summary>
 	/// Indicates header attributes for a RAR archive.
 	/// </summary>
 	[Flags()]
-	public enum RARHeaderFlags
+	public enum RARArchiveBlockFlagsV4
 	{
 		ArchiveVolume = 0x0001,
 		/// <summary>
