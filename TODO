@@ -1,5 +1,19 @@
+Syntax Editor:
+	CSS: MonoDevelop does not squiggle-highlight invalid CSS property names. This should be a feature.
+
+Compression:
+	CompressionModule.FromKnownCompressionMethod should use reflection to determine the CompressionModule to create and return
+
+FormattedText:
+	not all FormattedTextItems should contain text literals; move Text property to FormattedTextLiteral
+
+Platform:
+	Migrate UniversalEditor.ExpandedString to MBS.Framework
+	Determine whether to remove ProjectTypeVariable in favor of using existing functionality like CustomOptions
+
 Editor:
-There should be a UEXML file e.g. Extensions/GameDeveloper/Editors/FileSystem/DataFormats/CRI/CPK/CPKFileSystemEditorExtensions.uexml
+	* I think we did this. Check to make sure?
+	There should be a UEXML file e.g. Extensions/GameDeveloper/Editors/FileSystem/DataFormats/CRI/CPK/CPKFileSystemEditorExtensions.uexml
 
 that contains layout like
 <Editors>
