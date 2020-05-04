@@ -608,7 +608,7 @@
     <Content Include="Extensions\FileSystem\Associations\Apogee\DLT.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\PCX.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\PSD.uexml" />
-    <Content Include="Editors\UniversalEditor.Editors.FileSystem.FileSystemEditor\Commands.uexml" />
+    <Content Include="Editors\FileSystem\Commands.uexml" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\MenuBar.uexml" />
     <Content Include="splash.bmp" />
     <Content Include="Editors\Executable\Commands.uexml" />
@@ -721,6 +721,7 @@
     <Content Include="Extensions\GameDeveloper\Extensions\CRI\CRIFileSystemEditorExtensions.uexml" />
     <Content Include="Extensions\GameDeveloper\Extensions\SEGA\Associations\SegaA3DA.uexml" />
     <Content Include="Editors\PropertyList\PropertyListEditor.glade" />
+    <Content Include="Editors\FileSystem\FileSystemEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -735,7 +736,7 @@
     <Folder Include="Extensions\FileSystem\Associations\NewWorldComputing\" />
     <Folder Include="Extensions\FileSystem\Associations\Apogee\" />
     <Folder Include="Accessors\" />
-    <Folder Include="Editors\UniversalEditor.Editors.FileSystem.FileSystemEditor\" />
+    <Folder Include="Editors\FileSystem\" />
     <Folder Include="Editors\Multimedia\" />
     <Folder Include="Editors\Multimedia\Audio\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\" />

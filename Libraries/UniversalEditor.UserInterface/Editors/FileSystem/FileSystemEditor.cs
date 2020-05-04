@@ -18,27 +18,28 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
+
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
 
 using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
-using UniversalEditor.Accessors;
-using MBS.Framework.UserInterface.Controls;
 
 namespace UniversalEditor.Editors.FileSystem
 {
-	public partial class FileSystemEditor : Editor
+	[ContainerLayout("~/Editors/FileSystem/FileSystemEditor.glade")]
+	public class FileSystemEditor : Editor
 	{
-		public FileSystemEditor()
-		{
-			this.InitializeComponent();
-		}
+		private ListView tv = null;
+		private DefaultTreeModel tm = null;
 
 		internal void ClearSelectionContent(FileSystemSelection sel)
 		{
@@ -46,7 +47,7 @@ namespace UniversalEditor.Editors.FileSystem
 			{
 				if (tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") == sel.Items[0])
 				{
-					tmTreeView.Rows.Remove(tv.SelectedRows[0]);
+					tm.Rows.Remove(tv.SelectedRows[0]);
 					break;
 				}
 			}
@@ -61,6 +62,21 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			base.OnCreated(e);
 
+			tv.SelectionMode = SelectionMode.Multiple;
+			tv.BeforeContextMenu += tv_BeforeContextMenu;
+			tv.RowActivated += tv_RowActivated;
+
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Open", FileSystemContextMenu_Open_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingItem", FileAddExistingItem_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingFolder", FileAddExistingFolder_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_FilesFromFolder", FileAddItemsFromFolder_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_New_Folder", FileNewFolder_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_NewFolder", FileNewFolder_Click);
+			// Application.AttachCommandEventHandler("EditDelete", ContextMenuDelete_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Rename", ContextMenuRename_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_CopyTo", ContextMenuCopyTo_Click);
+			// Application.AttachCommandEventHandler("FileProperties", ContextMenuProperties_Click);
+
 			// FIXME: this is GTK-specific...
 			this.tv.RegisterDragSource(new DragDropTarget[]
 			{
@@ -68,6 +84,8 @@ namespace UniversalEditor.Editors.FileSystem
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 
 			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
+
+			OnObjectModelChanged(EventArgs.Empty);
 		}
 
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
@@ -125,10 +143,10 @@ namespace UniversalEditor.Editors.FileSystem
 			DateTime now = DateTime.Now;
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
-				new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
-				new TreeModelRowColumn(tmTreeView.Columns[1], String.Format("{0} items", (f.Files.Count + f.Folders.Count))),
-				new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
-				new TreeModelRowColumn(tmTreeView.Columns[3], now.ToString())
+				new TreeModelRowColumn(tm.Columns[0], f.Name),
+				new TreeModelRowColumn(tm.Columns[1], String.Format("{0} items", (f.Files.Count + f.Folders.Count))),
+				new TreeModelRowColumn(tm.Columns[2], "Folder"),
+				new TreeModelRowColumn(tm.Columns[3], now.ToString())
 			});
 			row.RowColumns[1].RawValue = (f.Folders.Count + f.Files.Count);
 			row.RowColumns[3].RawValue = now.ToBinary();
@@ -146,7 +164,7 @@ namespace UniversalEditor.Editors.FileSystem
 			else
 			{
 				AddFolderToItem(f, null);
-				tmTreeView.Rows.Add(row);
+				tm.Rows.Add(row);
 			}
 			return f;
 		}
@@ -155,7 +173,7 @@ namespace UniversalEditor.Editors.FileSystem
 			File f = fsom.AddFile(fileTitle, data);
 			TreeModelRow row = UIGetTreeModelRowForFileSystemObject(f);
 			row.SetExtraData<IFileSystemObject>("item", f);
-			tmTreeView.Rows.Add(row);
+			tm.Rows.Add(row);
 			return f;
 		}
 
@@ -292,7 +310,7 @@ namespace UniversalEditor.Editors.FileSystem
 								continue;
 
 							TreeModelRow row = UIGetTreeModelRowForFileSystemObject(fso);
-							tmTreeView.Rows.Add(row);
+							tm.Rows.Add(row);
 
 							fileList.Add(fso);
 						}
@@ -317,10 +335,10 @@ namespace UniversalEditor.Editors.FileSystem
 				Folder f = (fso as Folder);
 				r = new TreeModelRow(new TreeModelRowColumn[]
 				{
-					new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
-					new TreeModelRowColumn(tmTreeView.Columns[1], (f.Folders.Count + f.Files.Count).ToString() + " items"),
-					new TreeModelRowColumn(tmTreeView.Columns[2], "Folder"),
-					new TreeModelRowColumn(tmTreeView.Columns[3], "")
+					new TreeModelRowColumn(tm.Columns[0], f.Name),
+					new TreeModelRowColumn(tm.Columns[1], (f.Folders.Count + f.Files.Count).ToString() + " items"),
+					new TreeModelRowColumn(tm.Columns[2], "Folder"),
+					new TreeModelRowColumn(tm.Columns[3], "")
 				});
 				r.RowColumns[1].RawValue = (long)(f.Folders.Count + f.Files.Count);
 				r.RowColumns[3].RawValue = (long)0;
@@ -344,17 +362,17 @@ namespace UniversalEditor.Editors.FileSystem
 				File f = (fso as File);
 				r = new TreeModelRow(new TreeModelRowColumn[]
 				{
-					new TreeModelRowColumn(tmTreeView.Columns[0], f.Name),
-					new TreeModelRowColumn(tmTreeView.Columns[1], UserInterface.Common.FileInfo.FormatSize(f.Size)),
-					new TreeModelRowColumn(tmTreeView.Columns[2], "File"),
-					new TreeModelRowColumn(tmTreeView.Columns[3], f.ModificationTimestamp.ToString())
+					new TreeModelRowColumn(tm.Columns[0], f.Name),
+					new TreeModelRowColumn(tm.Columns[1], UserInterface.Common.FileInfo.FormatSize(f.Size)),
+					new TreeModelRowColumn(tm.Columns[2], "File"),
+					new TreeModelRowColumn(tm.Columns[3], f.ModificationTimestamp.ToString())
 				});
 				r.RowColumns[1].RawValue = f.Size;
 				r.RowColumns[3].RawValue = f.ModificationTimestamp.ToBinary();
 
 				for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
 				{
-					r.RowColumns.Add(new TreeModelRowColumn(tmTreeView.Columns[4 + i], f.GetAdditionalDetail(fsom.AdditionalDetails[i].Name)));
+					r.RowColumns.Add(new TreeModelRowColumn(tm.Columns[4 + i], f.GetAdditionalDetail(fsom.AdditionalDetails[i].Name)));
 				}
 			}
 			r.SetExtraData<IFileSystemObject>("item", fso);
@@ -446,7 +464,7 @@ namespace UniversalEditor.Editors.FileSystem
 
 			if (parent == null)
 			{
-				tmTreeView.Rows.Add(r);
+				tm.Rows.Add(r);
 			}
 			else
 			{
@@ -460,7 +478,7 @@ namespace UniversalEditor.Editors.FileSystem
 
 			if (parent == null)
 			{
-				tmTreeView.Rows.Add(r);
+				tm.Rows.Add(r);
 			}
 			else
 			{
@@ -472,9 +490,11 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			base.OnObjectModelChanged(e);
 
-			for (int i = 4; i < tmTreeView.Columns.Count; i++)
+			if (!IsCreated) return;
+
+			for (int i = 4; i < tm.Columns.Count; i++)
 			{
-				tmTreeView.Columns.RemoveAt(i);
+				tm.Columns.RemoveAt(i);
 			}
 
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
@@ -482,8 +502,8 @@ namespace UniversalEditor.Editors.FileSystem
 
 			for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
 			{
-				tmTreeView.Columns.Add(new TreeModelColumn(typeof(string)));
-				tv.Columns.Add(new ListViewColumnText(tmTreeView.Columns[tmTreeView.Columns.Count - 1], fsom.AdditionalDetails[i].Title));
+				tm.Columns.Add(new TreeModelColumn(typeof(string)));
+				tv.Columns.Add(new ListViewColumnText(tm.Columns[tm.Columns.Count - 1], fsom.AdditionalDetails[i].Title));
 			}
 
 			foreach (Folder f in fsom.Folders)

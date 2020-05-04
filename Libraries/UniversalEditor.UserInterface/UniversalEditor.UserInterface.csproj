@@ -95,7 +95,6 @@
     <Compile Include="Dialogs\NewDialog.Designer.cs" />
     <Compile Include="Editors\Text\Plain\PlainTextEditor.cs" />
     <Compile Include="Editors\FileSystem\FileSystemEditor.cs" />
-    <Compile Include="Editors\FileSystem\FileSystemEditor.Designer.cs" />
     <Compile Include="Common\FileInfo.cs" />
     <Compile Include="Editors\PropertyList\PropertyListEditor.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialog.cs" />
