@@ -95,95 +95,65 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 
 			string FArC = reader.ReadFixedLengthString(4);
 			int directorySize = reader.ReadInt32();
-			int dummy = reader.ReadInt32();
+			uint flags = reader.ReadUInt32();
 
-			switch (FArC)
+			// so there is no way to determine whether the file header is encrypted or not by looking at unencrypted flags...
+
+			if (FArC == "FArC" || FArC == "FArc" || FArC == "FARC")
 			{
-				case "FArC":
+				Compressed = (FArC == "FArC" || FArC == "FARC");
+				Encrypted = (FArC == "FARC");
+
+				if (Encrypted)
 				{
-					Compressed = true;
-					Encrypted = false;
-
-					while (reader.Accessor.Position < directorySize)
-					{
-						string FileName = reader.ReadNullTerminatedString();
-						int offset = reader.ReadInt32();
-						int compressedSize = reader.ReadInt32();
-						int decompressedSize = reader.ReadInt32();
-
-						File file = fsom.AddFile(FileName);
-						if (decompressedSize == 0)
-						{
-							decompressedSize = compressedSize;
-						}
-						file.Size = decompressedSize;
-
-						file.Properties.Add("reader", reader);
-						file.Properties.Add("offset", offset);
-						file.Properties.Add("CompressedSize", compressedSize);
-						file.Properties.Add("DecompressedSize", compressedSize);
-						file.DataRequest += file_DataRequest;
-					}
-					break;
-				}
-				case "FArc":
-				{
-					Compressed = false;
-					Encrypted = false;
-
-					// uncompressed, unencrypted
-					while (reader.Accessor.Position - 12 < directorySize - 4)
-					{
-						string FileName = reader.ReadNullTerminatedString();
-						int offset = reader.ReadInt32();
-						int length = reader.ReadInt32();
-
-						File file = fsom.AddFile(FileName);
-						file.Size = length;
-
-						file.Properties.Add("reader", reader);
-						file.Properties.Add("offset", offset);
-						file.Properties.Add("length", length);
-						file.DataRequest += file_DataRequest;
-					}
-					break;
-				}
-				case "FARC":
-				{
-					Compressed = true;
-					Encrypted = true;
-
-					// Encrypted, compressed
-
 					uint flag0 = reader.ReadUInt32();
 					uint flag1 = reader.ReadUInt32();
 					uint flag2 = reader.ReadUInt32();
 					uint flag3 = reader.ReadUInt32();
-
-					while (reader.Accessor.Position < directorySize + 8)
-					{
-						string FileName = reader.ReadNullTerminatedString();
-						int offset = reader.ReadInt32();
-						int compressedSize = reader.ReadInt32();
-						int decompressedSize = reader.ReadInt32();
-
-						File file = fsom.AddFile(FileName);
-						file.Size = compressedSize;
-
-						file.Properties.Add("reader", reader);
-						file.Properties.Add("compressedLength", compressedSize);
-						file.Properties.Add("decompressedLength", decompressedSize);
-						file.Properties.Add("offset", offset);
-						file.DataRequest += file_DataRequest;
-					}
-					break;
+					uint flag4 = reader.ReadUInt32();
 				}
-				default:
+				
+				while (reader.Accessor.Position < directorySize)
 				{
-					throw new InvalidDataFormatException("Unrecognized FARC signature: \"" + FArC + "\"");
+					string FileName = reader.ReadNullTerminatedString();
+					int offset = reader.ReadInt32();
+					int compressedSize = reader.ReadInt32();
+					int decompressedSize = compressedSize;
+					if (Compressed)
+					{
+						decompressedSize = reader.ReadInt32();
+					}
+
+					if (Encrypted)
+					{
+						int flag = reader.ReadInt32();
+					}
+
+					File file = fsom.AddFile(FileName);
+					if (decompressedSize == 0)
+					{
+						decompressedSize = compressedSize;
+					}
+					file.Size = decompressedSize;
+
+					file.Properties.Add("reader", reader);
+					file.Properties.Add("offset", offset);
+					if (Compressed)
+					{
+						file.Properties.Add("compressedLength", compressedSize);
+						file.Properties.Add("decompressedLength", compressedSize);
+					}
+					else
+					{
+						file.Properties.Add("length", compressedSize);
+					}
+					file.DataRequest += file_DataRequest;
 				}
 			}
-
+			else
+			{
+				throw new InvalidDataFormatException("Unrecognized FARC signature: \"" + FArC + "\"");
+			}
 		}
 
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
@@ -200,6 +170,7 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 				int decompressedLength = (int)file.Properties["decompressedLength"];
 
 				byte[] compressedData = reader.ReadBytes(compressedLength);
+				e.Data = compressedData;
 
 				// data encrypted? we have to decrypt it
 				byte[][] keys =
@@ -239,7 +210,6 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 
 				// FIXME:   Project DIVA F key seems to work (without throwing an invalid padding error) but is not in a known compression
 				//          method...
-				System.IO.File.WriteAllBytes(@"C:\Temp\test.dat", encryptedData);
 				e.Data = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(encryptedData);
 			}
 			else if (Compressed && !Encrypted)
@@ -311,15 +281,17 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 			Writer writer = base.Accessor.Writer;
 			writer.Endianness = Endianness.BigEndian;
 
+			writer.WriteFixedLengthString("FA");
+			writer.WriteFixedLengthString(Encrypted ? "R" : "r");
+			writer.WriteFixedLengthString(Compressed ? "C" : "c");
+
 			if (Compressed && Encrypted)
 			{
-				writer.WriteFixedLengthString("FARC");
+				Console.WriteLine("ue: Sega.FARC: Compressed AND encrypted FARC not supported yet");
 			}
 			else if (Compressed && !Encrypted)
 			{
-				writer.WriteFixedLengthString("FArC");
-
-				int directorySize = 0;
+				int directorySize = 4;
 				int dummy = 32;
 
 				int offset = 8;
@@ -354,7 +326,6 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 			}
 			else if (!Compressed && !Encrypted)
 			{
-				writer.WriteFixedLengthString("FArc");
 				int directorySize = 4;
 				int dummy = 32;
 				foreach (File file in files)
