@@ -46,6 +46,7 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.PropertyList.A3DA
 				throw new ObjectModelNotSupportedException();
 
 			Reader reader = Accessor.Reader;
+			Accessor.DefaultEncoding = Encoding.UTF8;
 
 			string signature = reader.ReadLine();
 			if (signature != "#A3DA__________")
