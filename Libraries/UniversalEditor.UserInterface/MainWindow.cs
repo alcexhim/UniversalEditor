@@ -1130,6 +1130,43 @@ namespace UniversalEditor.UserInterface
 				return (page.Controls[0] as Editor);
 			return null;
 		}
+
+		/// <summary>
+		/// Gets the <see cref="Page" />s (center-docked <see cref="DockingWindow" />s) contained within the specified <see cref="IDockingItemContainer" />.
+		/// </summary>
+		/// <returns>The <see cref="Page" />s contained within the specified <see cref="IDockingItemContainer" />.</returns>
+		/// <param name="parent">The <see cref="IDockingItemContainer" /> in which to search for <see cref="Page" />s.</param>
+		private Page[] GetPages(IDockingItemContainer parent)
+		{
+			List<Page> list = new List<Page>();
+			for (int i = 0; i < parent.Items.Count; i++)
+			{
+				if (parent.Items[i] is DockingWindow)
+				{
+					DockingWindow dw = (parent.Items[i] as DockingWindow);
+					if (dw.ChildControl is Page)
+					{
+						list.Add(dw.ChildControl as Page);
+					}
+				}
+				else if (parent.Items[i] is DockingContainer)
+				{
+					Page[] pages = GetPages(parent.Items[i] as DockingContainer);
+					list.AddRange(pages);
+				}
+			}
+			return list.ToArray();
+		}
+		/// <summary>
+		/// Gets the <see cref="Page" />s (center-docked <see cref="DockingWindow" />s) contained within all <see cref="DockingContainer" />s in this
+		/// <see cref="MainWindow" />.
+		/// </summary>
+		/// <returns>The <see cref="Page" />s contained within all <see cref="DockingContainer" />s in this <see cref="MainWindow" />.</returns>
+		public Page[] GetPages()
+		{
+			return GetPages(dckContainer);
+		}
+
 		public Pages.EditorPage GetCurrentEditorPage()
 		{
 			DockingWindow curitem = dckContainer.CurrentItem as DockingWindow;

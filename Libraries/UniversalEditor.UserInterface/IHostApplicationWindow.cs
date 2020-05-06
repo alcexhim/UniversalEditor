@@ -44,6 +44,13 @@ namespace UniversalEditor.UserInterface
 
 		void ShowDocumentPropertiesDialog();
 
+		/// <summary>
+		/// Gets the <see cref="Page" />s (center-docked <see cref="DockingWindow" />s) contained within all <see cref="DockingContainer" />s in this
+		/// <see cref="IHostApplicationWindow" />.
+		/// </summary>
+		/// <returns>The <see cref="Page" />s contained within all <see cref="DockingContainer" />s in this <see cref="IHostApplicationWindow" />.</returns>
+		Page[] GetPages();
+
 		Editor GetCurrentEditor();
 
 		Control ActiveControl { get; }
