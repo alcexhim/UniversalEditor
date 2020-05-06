@@ -722,6 +722,7 @@
     <Content Include="Extensions\GameDeveloper\Extensions\SEGA\Associations\SegaA3DA.uexml" />
     <Content Include="Editors\PropertyList\PropertyListEditor.glade" />
     <Content Include="Editors\FileSystem\FileSystemEditor.glade" />
+    <Content Include="Dialogs\ManageBookmarksDialog.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

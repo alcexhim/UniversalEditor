@@ -347,8 +347,27 @@ namespace UniversalEditor.UserInterface
 			return new Engine[] { _TheEngine };
 		}
 
+		private void Bookmarks_Bookmark_Click(object sender, EventArgs e)
+		{
+			Command cmd = (Command)sender;
+			int i = Int32.Parse(cmd.ID.Substring("Bookmarks_Bookmark".Length));
+			LastWindow.OpenFile(BookmarksManager.FileNames[i]);
+		}
+
 		private void AfterInitialization()
 		{
+			if (Engine.CurrentEngine.BookmarksManager.FileNames.Count > 0)
+			{
+				Application.Commands["Bookmarks"].Items.Add(new SeparatorCommandItem());
+				for (int i = 0; i < Engine.CurrentEngine.BookmarksManager.FileNames.Count; i++)
+				{
+					Application.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", i.ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[i]).Replace("_", "__")));
+					Application.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", i.ToString())));
+
+					Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", i.ToString()), Bookmarks_Bookmark_Click);
+				}
+			}
+
 			// Initialize all the commands that are common to UniversalEditor
 			#region File
 			Application.AttachCommandEventHandler("FileNewDocument", delegate(object sender, EventArgs e)
@@ -516,6 +535,63 @@ namespace UniversalEditor.UserInterface
 				Application.Commands["ViewStatusBar"].Checked = HostApplication.CurrentWindow.StatusBar.Visible;
 			});
 
+			#endregion
+			#region Bookmarks
+			Application.AttachCommandEventHandler("BookmarksAdd", delegate (object sender, EventArgs e)
+			{
+				Editor ed = LastWindow.GetCurrentEditor();
+				if (ed == null) return;
+
+				// FIXME: BookmarksAdd copypasta
+				string filename = ed.ObjectModel.Accessor.GetFileName();
+				BookmarksManager.FileNames.Add(filename);
+
+				Command cmdBookmarks = Application.Commands["Bookmarks"];
+				if (cmdBookmarks.Items.Count == 4)
+				{
+					cmdBookmarks.Items.Add(new SeparatorCommandItem());
+				}
+
+				Application.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
+				Application.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
+
+				Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+			});
+			Application.AttachCommandEventHandler("BookmarksAddAll", delegate (object sender, EventArgs e)
+			{
+				Page[] pages = CurrentEngine.LastWindow.GetPages();
+				for (int i = 0; i < pages.Length; i++)
+				{
+					if (pages[i] is Pages.EditorPage)
+					{
+						Pages.EditorPage ep = (pages[i] as Pages.EditorPage);
+						Editor ed = (ep.Controls[0] as Editor);
+
+						// FIXME: BookmarksAdd copypasta
+						string filename = ed.ObjectModel.Accessor.GetFileName();
+						BookmarksManager.FileNames.Add(filename);
+
+						Command cmdBookmarks = Application.Commands["Bookmarks"];
+						if (cmdBookmarks.Items.Count == 4)
+						{
+							cmdBookmarks.Items.Add(new SeparatorCommandItem());
+						}
+
+						Application.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
+						Application.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
+
+						Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+					}
+				}
+			});
+			Application.AttachCommandEventHandler("BookmarksManage", delegate (object sender, EventArgs e)
+			{
+				ManageBookmarksDialog dlg = new ManageBookmarksDialog();
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					// saving the BookmarksManager state is handled by the ManageBookmarksDialog
+				}
+			});
 			#endregion
 			#region Tools
 			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
