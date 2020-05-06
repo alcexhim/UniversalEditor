@@ -34,7 +34,6 @@ namespace UniversalEditor.UserInterface
 	public class MainWindow : Window, IHostApplicationWindow
 	{
 		private DockingContainerControl dckContainer = null;
-		private TabContainer tbsDocumentTabs = new TabContainer();
 
 		private ErrorListPanel pnlErrorList = new ErrorListPanel();
 		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
@@ -189,8 +188,6 @@ namespace UniversalEditor.UserInterface
 			dckContainer = new DockingContainerControl();
 			dckContainer.SelectionChanged += dckContainer_SelectionChanged;
 			Controls.Add (dckContainer, new BoxLayout.Constraints(true, true, 0, BoxLayout.PackType.Start));
-
-			tbsDocumentTabs = new TabContainer();
 
 			InitStartPage();
 
@@ -420,7 +417,7 @@ namespace UniversalEditor.UserInterface
 				control = lblErrorList;
 			}
 
-			DockingWindow dw = new DockingWindow(title, control);
+			DockingWindow dw = new DockingWindow(title.Replace("_", "__"), control);
 			dw.Placement = placement;
 
 			if (parent != null)
@@ -693,7 +690,7 @@ namespace UniversalEditor.UserInterface
 		private int documentWindowCount = 0;
 		private void InitDocTab(string name, string title, Control content)
 		{
-			DockingWindow item = new DockingWindow(name, title, content);
+			DockingWindow item = new DockingWindow(name, title.Replace("_", "__"), content);
 			item.Placement = DockingItemPlacement.Center;
 			dckContainer.Items.Add(item);
 
