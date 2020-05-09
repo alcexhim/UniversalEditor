@@ -46,11 +46,14 @@
     <Folder Include="usr\share\applications\" />
     <Folder Include="usr\share\mime\" />
     <Folder Include="usr\share\mime\packages\" />
+    <Folder Include="usr\share\glib-2.0\" />
+    <Folder Include="usr\share\glib-2.0\schemas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="usr\share\mime\packages\universaleditor-cri.xml" />
     <None Include="usr\share\mime\packages\universaleditor-newworldcomputing.xml" />
     <None Include="usr\share\mime\packages\universaleditor-sega.xml" />
+    <None Include="usr\share\glib-2.0\schemas\net.alcetech.universal-editor.gschema.xml" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
