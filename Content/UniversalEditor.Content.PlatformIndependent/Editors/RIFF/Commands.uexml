@@ -1,0 +1,34 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{217A8EF5-BD32-4AC9-8A33-E14AFD290213}" TypeName="UniversalEditor.Editors.RIFF.RIFFEditor">
+			<Commands>
+				<Command ID="RIFFEditorContextMenu_Add_NewDataChunk" Title="New _Data Chunk..." />
+				<Command ID="RIFFEditorContextMenu_Add_ExistingFile" Title="Data Chunk from E_xisting File..." />
+				<Command ID="RIFFEditorContextMenu_Add_NewGroupChunk" Title="New _Group Chunk..." />
+				<Command ID="RIFFEditorContextMenu_Add" Title="A_dd">
+					<Items>
+						<CommandReference CommandID="RIFFEditorContextMenu_Add_NewDataChunk" />
+						<CommandReference CommandID="RIFFEditorContextMenu_Add_ExistingFile" />
+						<Separator />
+						<CommandReference CommandID="RIFFEditorContextMenu_Add_NewGroupChunk" />
+					</Items>
+				</Command>
+				<Command ID="RIFFEditorContextMenu_Export" Title="E_xport..." />
+				
+				<Command ID="RIFFEditorContextMenu">
+					<Items>
+						<CommandReference CommandID="RIFFEditorContextMenu_Add" />
+						<CommandReference CommandID="RIFFEditorContextMenu_Export" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+			</Commands>
+			<Layout FileName="RIFFEditor.glade">
+				<Controls>
+					<Control ID="tv" ContextMenuCommandID="RIFFEditorContextMenu" />
+				</Controls>
+			</Layout>
+		</Editor>
+	</Editors>
+</UniversalEditor>

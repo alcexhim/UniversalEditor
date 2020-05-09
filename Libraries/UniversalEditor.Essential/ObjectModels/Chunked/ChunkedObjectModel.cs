@@ -24,7 +24,7 @@ namespace UniversalEditor.ObjectModels.Chunked
 	/// <summary>
 	/// Provides an <see cref="ObjectModel" /> for manipulating chunked binary files (such as RIFF).
 	/// </summary>
-	public class ChunkedObjectModel : ObjectModel
+	public class ChunkedObjectModel : ObjectModel, IChunkContainer
 	{
 		private ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()
@@ -44,19 +44,23 @@ namespace UniversalEditor.ObjectModels.Chunked
         public RIFFMetadataItem.RIFFMetadataItemCollection Information { get { return mvarInformation; } }
 
 #endif
-		
-		private RIFFChunk.RIFFChunkCollection mvarChunks = new RIFFChunk.RIFFChunkCollection();
-		public RIFFChunk.RIFFChunkCollection Chunks { get { return mvarChunks; } }
+
+		public ChunkedObjectModel()
+		{
+			Chunks = new RIFFChunk.RIFFChunkCollection(this);
+		}
+
+		public RIFFChunk.RIFFChunkCollection Chunks { get; private set; } = null;
 
 		public override void Clear()
 		{
-			mvarChunks.Clear();
+			Chunks.Clear();
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
 			ChunkedObjectModel clone = where as ChunkedObjectModel;
-			foreach (RIFFChunk chunk in mvarChunks)
+			foreach (RIFFChunk chunk in Chunks)
 			{
 				clone.Chunks.Add(chunk.Clone() as RIFFChunk);
 			}

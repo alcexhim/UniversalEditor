@@ -197,6 +197,7 @@
     <Compile Include="DataFormats\Binary\PEM\PEMDataFormat.cs" />
     <Compile Include="ObjectModels\FileSystem\FileAdditionalDetail.cs" />
     <Compile Include="ObjectModels\FileSystem\FileAdditionalDetailValue.cs" />
+    <Compile Include="ObjectModels\Chunked\IChunkContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

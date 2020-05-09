@@ -130,6 +130,8 @@
     <Compile Include="Panels\DocumentExplorerPanel.cs" />
     <Compile Include="Editors\FileSystem\FileSystemEditorDocumentPropertiesSettingsProvider.cs" />
     <Compile Include="Dialogs\ManageBookmarksDialog.cs" />
+    <Compile Include="Editors\RIFF\RIFFEditor.cs" />
+    <Compile Include="Editors\RIFF\Dialogs\RIFFChunkPropertiesDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -182,6 +184,8 @@
     <Folder Include="Controls\" />
     <Folder Include="Editors\Binary\" />
     <Folder Include="Editors\Database\" />
+    <Folder Include="Editors\RIFF\" />
+    <Folder Include="Editors\RIFF\Dialogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

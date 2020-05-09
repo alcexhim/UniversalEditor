@@ -26,16 +26,19 @@ namespace UniversalEditor.ObjectModels.Chunked
 	/// <summary>
 	/// Represents a group chunk (which can contain subchunks) in a Resource Interchange File Format file.
 	/// </summary>
-	public class RIFFGroupChunk : RIFFChunk
+	public class RIFFGroupChunk : RIFFChunk, IChunkContainer
 	{
-		private RIFFChunkCollection mvarChunks = new RIFFChunkCollection();
-		public RIFFChunkCollection Chunks { get { return mvarChunks; } }
+		public RIFFChunkCollection Chunks { get; private set; } = null;
+		public RIFFGroupChunk()
+		{
+			Chunks = new RIFFChunkCollection(this);
+		}
 
 		public override object Clone()
 		{
 			RIFFGroupChunk clone = new RIFFGroupChunk();
 			clone.ID = base.ID;
-			foreach (RIFFChunk chunk in mvarChunks)
+			foreach (RIFFChunk chunk in Chunks)
 			{
 				clone.Chunks.Add(chunk.Clone() as RIFFChunk);
 			}
@@ -47,7 +50,7 @@ namespace UniversalEditor.ObjectModels.Chunked
             get
             {
                 int size = base.Size;
-                foreach (RIFFChunk chunk in mvarChunks)
+                foreach (RIFFChunk chunk in Chunks)
                 {
                     size += chunk.Size;
                 }

@@ -723,6 +723,9 @@
     <Content Include="Editors\PropertyList\PropertyListEditor.glade" />
     <Content Include="Editors\FileSystem\FileSystemEditor.glade" />
     <Content Include="Dialogs\ManageBookmarksDialog.glade" />
+    <Content Include="Editors\RIFF\RIFFEditor.glade" />
+    <Content Include="Editors\RIFF\Commands.uexml" />
+    <Content Include="Editors\RIFF\Dialogs\RIFFChunkPropertiesDialog.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -776,6 +779,7 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\Webfoot\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\Webfoot\Associations\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\CRI\" />
+    <Folder Include="Editors\RIFF\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

@@ -28,8 +28,16 @@ namespace UniversalEditor.ObjectModels.Chunked
 	/// </summary>
 	public abstract class RIFFChunk : ICloneable
 	{
+		public IChunkContainer Parent { get; private set; } = null;
+
 		public class RIFFChunkCollection : System.Collections.ObjectModel.Collection<RIFFChunk>
 		{
+			private IChunkContainer _parent = null;
+			public RIFFChunkCollection(IChunkContainer parent)
+			{
+				_parent = parent;
+			}
+
 			public RIFFChunk this[string Name]
 			{
 				get
@@ -58,6 +66,31 @@ namespace UniversalEditor.ObjectModels.Chunked
 				chunk.Data = Data;
 				base.Add(chunk);
 				return chunk;
+			}
+
+			protected override void InsertItem(int index, RIFFChunk item)
+			{
+				base.InsertItem(index, item);
+				item.Parent = _parent;
+			}
+			protected override void RemoveItem(int index)
+			{
+				this[index].Parent = null;
+				base.RemoveItem(index);
+			}
+			protected override void SetItem(int index, RIFFChunk item)
+			{
+				this[index].Parent = null;
+				base.SetItem(index, item);
+				item.Parent = _parent;
+			}
+			protected override void ClearItems()
+			{
+				for (int i = 0; i < Count; i++)
+				{
+					this[i].Parent = null;
+				}
+				base.ClearItems();
 			}
 		}
 
