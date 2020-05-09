@@ -92,7 +92,6 @@
     <Compile Include="Pages\EditorPage.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Pages\FilePage.cs" />
-    <Compile Include="Dialogs\NewDialog.Designer.cs" />
     <Compile Include="Editors\Text\Plain\PlainTextEditor.cs" />
     <Compile Include="Editors\FileSystem\FileSystemEditor.cs" />
     <Compile Include="Common\FileInfo.cs" />

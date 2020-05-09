@@ -1,10 +1,10 @@
 ﻿//
-//  NewFileDialog.cs
+//  NewDialog.cs - provides a UWT ContainerLayout-based CustomDialog for creating a new Document or Project in Universal Editor
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,12 +18,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
-using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -33,414 +33,33 @@ namespace UniversalEditor.UserInterface.Dialogs
 		Project
 	}
 
+	/// <summary>
+	/// Provides a UWT <see cref="ContainerLayoutAttribute" />-based <see cref="CustomDialog" /> for creating a new Document or Project in Universal Editor.
+	/// </summary>
 	[ContainerLayout("~/Dialogs/NewDialog.glade", "GtkDialog")]
-	public class NewDialog2 : Dialog
+	public class NewDialog : Dialog
 	{
-		private TextBox txtFileName = null;
-		private TextBox txtFilePath = null;
+		private TextBox txtFileName;
+		private TextBox txtFilePath;
 
-		private CheckBox chkAddToSolution = null;
-		private TextBox txtSolutionName = null;
+		private CheckBox chkAddToSolution;
+		private TextBox txtSolutionName;
 
-		private ListView tvObjectModel = new ListView();
-		private DefaultTreeModel tmObjectModel = null;
+		private ListView tvObjectModel;
+		private DefaultTreeModel tmObjectModel;
 
-		private ListView tvTemplate = new ListView();
-		private DefaultTreeModel tmTemplate = null;
-		private TextBox txtSearch = null;
+		private ListView tvTemplate;
+		private DefaultTreeModel tmTemplate;
+		private TextBox txtSearch;
 
-		public NewDialog2()
+		protected override void OnCreated(EventArgs e)
 		{
-			tmObjectModel = new DefaultTreeModel(new Type[] { typeof(string) });
-			tmTemplate = new DefaultTreeModel(new Type[] { typeof(string) });
+			base.OnCreated(e);
 
-			tvObjectModel.Model = tmObjectModel;
-			tvTemplate.Model = tmTemplate;
+			this.InitializeTreeView();
 
-			tvObjectModel.Columns.Add(new ListViewColumnText(tmObjectModel.Columns[0], "Name"));
-			tvObjectModel.HeaderStyle = ColumnHeaderStyle.None;
-
-			tvTemplate.Columns.Add(new ListViewColumnText(tmTemplate.Columns[0], "Name"));
-			tvTemplate.HeaderStyle = ColumnHeaderStyle.None;
-
-			this.InitializeObjectModelTreeView();
 			Buttons[0].Enabled = false;
 		}
-
-		public NewDialogMode Mode { get; set; }
-		public Template SelectedItem { get; set; }
-		public bool CombineObjects { get; set; } = false;
-
-		public string SolutionTitle { get; set; }
-		public string ProjectTitle { get; set; }
-
-		private void InitializeObjectModelTreeView()
-		{
-			ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-			foreach (ObjectModelReference omr in omrs)
-			{
-				if (omr.Path == null) continue;
-			}
-		}
-		private void InitializeObjectModelTreeViewRow(DefaultTreeModel tm, TreeModelRow rp, string[] path, int index)
-		{
-			if (index > path.Length - 1) return;
-
-			TreeModelRow row = null;
-			if (rp == null)
-			{
-				if (tm.Rows.Contains(path[index]))
-				{
-					row = tm.Rows[path[index]];
-				}
-				else
-				{
-					row = new TreeModelRow(new TreeModelRowColumn[]
-					{
-						new TreeModelRowColumn(tmObjectModel.Columns[0], path[index])
-					});
-					row.Name = path[index];
-					tm.Rows.Add(row);
-				}
-			}
-			else
-			{
-				if (rp.Rows.Contains(path[index]))
-				{
-					row = rp.Rows[path[index]];
-				}
-				else
-				{
-					row = new TreeModelRow(new TreeModelRowColumn[]
-					{
-						new TreeModelRowColumn(tmObjectModel.Columns[0], path[index])
-					});
-					row.Name = path[index];
-					rp.Rows.Add(row);
-				}
-			}
-
-			InitializeObjectModelTreeViewRow(tm, row, path, index + 1);
-		}
-
-		[EventHandler("cmdOK", "Click")]
-		private void cmdOK_Click(object sender, EventArgs e)
-		{
-			// holy crapola this actually works!...
-			if (String.IsNullOrEmpty(this.txtFileName.Text))
-			{
-				MessageDialog.ShowDialog("Please enter a file name", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
-
-				// ... but without DialogResult, something gets
-				// corrupted, and with DialogResult, there is no
-				// way to cancel the dialog close event... what do?
-				return;
-			}
-			this.Destroy();
-		}
-	}
-
-	public partial class NewDialog : CustomDialog
-	{
-		public NewDialog()
-		{
-			this.InitializeComponent();
-		}
-
-		public NewDialogMode Mode { get; set; }
-		public Template SelectedItem { get; set; }
-		public bool CombineObjects { get; set; } = false;
-
-		public string SolutionTitle { get; set; }
-		public string ProjectTitle { get; set; }
-
-
-		private void txtFileName_Changed(object sender, EventArgs e)
-		{
-			if (!txtSolutionName.IsChangedByUser)
-			{
-				txtSolutionName.Text = txtFileName.Text;
-			}
-		}
-
-		protected override void OnCreating(EventArgs e)
-		{
-			base.OnCreating(e);
-
-			switch (Mode)
-			{
-				case NewDialogMode.File:
-				{
-					this.Text = "New File";
-					this.lblProjectName.Text = "Project na_me:";
-					this.chkAddToSolution.Visible = true;
-					break;
-				}
-				case NewDialogMode.Project:
-				{
-					this.Text = "New Project";
-					this.lblProjectName.Text = "Solution na_me:";
-					this.chkAddToSolution.Visible = false;
-					break;
-				}
-			}
-
-			tvTemplate.RowActivated += tvTemplate_RowActivated;
-
-			InitializeTreeView();
-		}
-
-		private void tvTemplate_RowActivated (object sender, ListViewRowActivatedEventArgs e)
-		{
-			cmdOK_Click (sender, e);
-		}
-
-
-		private void InitializeTreeView()
-		{
-			switch (this.Mode)
-			{
-				case NewDialogMode.File:
-				{
-					InitializeDocumentTemplateTreeView();
-					break;
-				}
-				case NewDialogMode.Project:
-				{
-					InitializeProjectTemplateTreeView();
-					break;
-				}
-			}
-
-			if (tmObjectModel.Rows.Count == 1)
-			{
-				TreeModelRow row = ExpandSingleChildRows(tmObjectModel.Rows[0]);
-				if (row != null)
-				{
-					tvObjectModel.SelectedRows.Clear();
-					tvObjectModel.SelectedRows.Add(row);
-					tvObjectModel_SelectionChanged(null, EventArgs.Empty);
-				}
-			}
-
-			if (tvTemplate.SelectedRows.Count == 1)
-			{
-				Buttons[0].Enabled = true;
-			}
-			else
-			{
-				Buttons[0].Enabled = false;
-			}
-		}
-
-		/// <summary>
-		/// Recursively detects <see cref="TreeModelRow" /> with a single child row and expands it. If the <see cref="TreeModelRow" /> has zero child rows, returns that <see cref="TreeModelRow" />. Otherwise, if no such row is found, returns null.
-		/// </summary>
-		/// <returns>A <see cref="TreeModelRow" /> which has zero child rows, or null if no such <see cref="TreeModelRow" /> exists.</returns>
-		/// <param name="row">Row.</param>
-		private TreeModelRow ExpandSingleChildRows(TreeModelRow row)
-		{
-			if (row.Rows.Count == 1)
-			{
-				row.Expanded = true;
-				return ExpandSingleChildRows(row.Rows[0]);
-			}
-			else if (row.Rows.Count == 0)
-			{
-				return row;
-			}
-			return null;
-		}
-
-		private void InitializeProjectTemplateTreeView()
-		{
-			tmObjectModel.Rows.Clear();
-
-			ProjectTemplate[] templates = UniversalEditor.Common.Reflection.GetAvailableProjectTemplates();
-			foreach (ProjectTemplate dt in templates)
-			{
-				TreeModelRow tn = null;
-				if (dt.Path != null)
-				{
-					string strPath = String.Join("/", dt.Path);
-					if (!(String.IsNullOrEmpty(txtSearch.Text) || strPath.ToLower().Contains(txtSearch.Text.ToLower()))) continue;
-					for (int i = 0; i < dt.Path.Length; i++)
-					{
-						if (tn == null)
-						{
-							if (tmObjectModel.Rows.Contains(dt.Path[i]))
-							{
-								tn = tmObjectModel.Rows[dt.Path[i]];
-							}
-							else
-							{
-								tn = new TreeModelRow(new TreeModelRowColumn[]
-								{
-									new TreeModelRowColumn(tmObjectModel.Columns[0], dt.Path[i])
-								});
-								tn.Name = dt.Path[i];
-								tmObjectModel.Rows.Add(tn);
-							}
-						}
-						else
-						{
-							if (tn.Rows.Contains(dt.Path[i]))
-							{
-								tn = tn.Rows[dt.Path[i]];
-							}
-							else
-							{
-								TreeModelRow tn1 = new TreeModelRow(new TreeModelRowColumn[]
-								{
-									new TreeModelRowColumn(tmObjectModel.Columns[0], dt.Path[i])
-								});
-								tn1.Name = dt.Path[i];
-								tn.Rows.Add(tn1);
-								tn = tn1;
-							}
-						}
-						if (i == dt.Path.Length - 1 && tn != null)
-						{
-							// last one, let's add all the templates
-							List<ProjectTemplate> dts = (List<ProjectTemplate>)tn.GetExtraData<List<ProjectTemplate>>("dts", null);
-							if (dts == null)
-							{
-								Console.WriteLine("ue: templates debug: creating a new project template list for " + String.Join("/", dt.Path));
-								dts = new List<ProjectTemplate>();
-								tn.SetExtraData<List<ProjectTemplate>>("dts", dts);
-							}
-							dts.Add(dt);
-						}
-					}
-				}
-
-				if (tn == null || tvObjectModel.SelectedRows.Contains(tn))
-				{
-					TreeModelRow lvi = new TreeModelRow(new TreeModelRowColumn[]
-					{
-						new TreeModelRowColumn(tmTemplate.Columns[0], dt.Title),
-						new TreeModelRowColumn(tmTemplate.Columns[1], dt.Description)
-					});
-					if (!String.IsNullOrEmpty(dt.LargeIconImageFileName))
-					{
-						// lvi.Image = MBS.Framework.UserInterface.Drawing.Image.FromFile(dt.LargeIconImageFileName);
-					}
-					else
-					{
-						Console.Error.WriteLine("Large icon image not specified for template \"" + dt.Title + "\"");
-					}
-					lvi.SetExtraData<ProjectTemplate>("dt", dt);
-					tmTemplate.Rows.Add(lvi);
-				}
-			}
-		}
-
-		private void tvTemplate_SelectionChanged(object sender, EventArgs e)
-		{
-			Buttons[0].Enabled = (tvTemplate.SelectedRows.Count > 0);
-			if (tvTemplate.SelectedRows.Count != 1) return;
-
-			if (Mode == NewDialogMode.Project)
-			{
-				ProjectTemplate pt = (tvTemplate.SelectedRows[0].GetExtraData<ProjectTemplate>("dt"));
-				if (pt == null) return;
-
-				if (!txtFileName.IsChangedByUser)
-				{
-					string projectNamePrefix = pt.ProjectNamePrefix;
-					if (String.IsNullOrEmpty(projectNamePrefix))
-					{
-						projectNamePrefix = pt.Title.Replace(" ", String.Empty);
-						// projectNamePrefix = "Project";
-					}
-					txtFileName.Text = projectNamePrefix + "1";
-				}
-			}
-			else if (Mode == NewDialogMode.File)
-			{
-				DocumentTemplate pt = (tvTemplate.SelectedRows[0].GetExtraData<DocumentTemplate>("dt"));
-				if (pt == null) return;
-
-				if (!txtFileName.IsChangedByUser)
-				{
-					// txtFileName.Text = projectNamePrefix + "1";
-				}
-			}
-		}
-		
-		private void InitializeObjectModelTreeView()
-		{
-			ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
-			foreach (ObjectModelReference omr in omrs)
-			{
-				if (omr.Path == null) continue;
-
-				string strPath = String.Join("/", omr.Path);
-				if (String.IsNullOrEmpty(txtSearch.Text) || strPath.ToLower().Contains(txtSearch.Text.ToLower()))
-				{
-					InitializeObjectModelTreeViewRow(tmObjectModel, null, omr, 0);
-				}
-			}
-		}
-		private void InitializeObjectModelTreeViewRow(DefaultTreeModel tm, TreeModelRow rp, ObjectModelReference omr, int index)
-		{
-			string[] path = omr.Path;
-			if (index > path.Length - 1) return;
-
-			TreeModelRow row = null;
-			if (rp == null)
-			{
-				if (tm.Rows.Contains(path[index]))
-				{
-					row = tm.Rows[path[index]];
-				}
-				else
-				{
-					row = new TreeModelRow(new TreeModelRowColumn[]
-					{
-						new TreeModelRowColumn(tmObjectModel.Columns[0], path[index])
-					});
-					row.Name = path[index];
-					tm.Rows.Add(row);
-				}
-			}
-			else
-			{
-				if (rp.Rows.Contains(path[index]))
-				{
-					row = rp.Rows[path[index]];
-				}
-				else
-				{
-					row = new TreeModelRow(new TreeModelRowColumn[]
-					{
-						new TreeModelRowColumn(tmObjectModel.Columns[0], path[index])
-					});
-					row.Name = path[index];
-					rp.Rows.Add(row);
-				}
-			}
-
-			if (index == path.Length - 1 && row != null)
-			{
-				// last one, let's add all the templates
-				List<DocumentTemplate> dts = (List<DocumentTemplate>)row.GetExtraData<List<DocumentTemplate>>("dts", null);
-				if (dts == null)
-				{
-					Console.WriteLine("ue: templates debug: creating a new document template list for " + String.Join("/", path));
-					dts = new List<DocumentTemplate>();
-					row.SetExtraData<List<DocumentTemplate>>("dts", dts);
-				}
-
-				DocumentTemplate dtEmpty = new DocumentTemplate();
-				dtEmpty.ObjectModelReference = omr;
-				dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
-				dts.Add(dtEmpty);
-			}
-
-			InitializeObjectModelTreeViewRow(tm, row, omr, index + 1);
-		}
-
 		private void InitializeDocumentTemplateTreeView()
 		{
 			tmObjectModel.Rows.Clear();
@@ -526,8 +145,88 @@ namespace UniversalEditor.UserInterface.Dialogs
 			InitializeObjectModelTreeView();
 		}
 
-		
 
+		public NewDialogMode Mode { get; set; }
+		public Template SelectedItem { get; set; }
+		public bool CombineObjects { get; set; } = false;
+
+		public string SolutionTitle { get; set; }
+		public string ProjectTitle { get; set; }
+
+		private void InitializeObjectModelTreeView()
+		{
+			ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels();
+			foreach (ObjectModelReference omr in omrs)
+			{
+				if (omr.Path == null) continue;
+
+				string strPath = String.Join("/", omr.Path);
+				if (String.IsNullOrEmpty(txtSearch.Text) || strPath.ToLower().Contains(txtSearch.Text.ToLower()))
+				{
+					InitializeObjectModelTreeViewRow(tmObjectModel, null, omr, 0);
+				}
+			}
+		}
+		private void InitializeObjectModelTreeViewRow(DefaultTreeModel tm, TreeModelRow rp, ObjectModelReference omr, int index)
+		{
+			string[] path = omr.Path;
+			if (index > path.Length - 1) return;
+
+			TreeModelRow row = null;
+			if (rp == null)
+			{
+				if (tm.Rows.Contains(path[index]))
+				{
+					row = tm.Rows[path[index]];
+				}
+				else
+				{
+					row = new TreeModelRow(new TreeModelRowColumn[]
+					{
+						new TreeModelRowColumn(tmObjectModel.Columns[0], path[index])
+					});
+					row.Name = path[index];
+					tm.Rows.Add(row);
+				}
+			}
+			else
+			{
+				if (rp.Rows.Contains(path[index]))
+				{
+					row = rp.Rows[path[index]];
+				}
+				else
+				{
+					row = new TreeModelRow(new TreeModelRowColumn[]
+					{
+						new TreeModelRowColumn(tmObjectModel.Columns[0], path[index])
+					});
+					row.Name = path[index];
+					rp.Rows.Add(row);
+				}
+			}
+
+			if (index == path.Length - 1 && row != null)
+			{
+				// last one, let's add all the templates
+				List<DocumentTemplate> dts = (List<DocumentTemplate>)row.GetExtraData<List<DocumentTemplate>>("dts", null);
+				if (dts == null)
+				{
+					Console.WriteLine("ue: templates debug: creating a new document template list for " + String.Join("/", path));
+					dts = new List<DocumentTemplate>();
+					row.SetExtraData<List<DocumentTemplate>>("dts", dts);
+				}
+
+				DocumentTemplate dtEmpty = new DocumentTemplate();
+				dtEmpty.ObjectModelReference = omr;
+				dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
+				dts.Add(dtEmpty);
+			}
+
+			InitializeObjectModelTreeViewRow(tm, row, omr, index + 1);
+		}
+
+		[EventHandler("cmdOK", "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
 			SolutionTitle = txtSolutionName.Text;
@@ -566,7 +265,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 				case NewDialogMode.Project:
 				{
-					ProjectTemplate template =  tvTemplate.SelectedRows[0].GetExtraData<ProjectTemplate>("dt");
+					ProjectTemplate template = tvTemplate.SelectedRows[0].GetExtraData<ProjectTemplate>("dt");
 					if (template.ProjectType != null)
 					{
 						if (template.ProjectType.Variables.Count > 0)
@@ -641,6 +340,211 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.DialogResult = DialogResult.OK;
 			this.Close();
 		}
+		/// <summary>
+		/// Recursively detects <see cref="TreeModelRow" /> with a single child row and expands it. If the <see cref="TreeModelRow" /> has zero child rows, returns that <see cref="TreeModelRow" />. Otherwise, if no such row is found, returns null.
+		/// </summary>
+		/// <returns>A <see cref="TreeModelRow" /> which has zero child rows, or null if no such <see cref="TreeModelRow" /> exists.</returns>
+		/// <param name="row">Row.</param>
+		private TreeModelRow ExpandSingleChildRows(TreeModelRow row)
+		{
+			if (row.Rows.Count == 1)
+			{
+				row.Expanded = true;
+				return ExpandSingleChildRows(row.Rows[0]);
+			}
+			else if (row.Rows.Count == 0)
+			{
+				return row;
+			}
+			return null;
+		}
+
+		[EventHandler("txtSearch", "Changed")]
+		private void txtSearch_Changed(object sender, EventArgs e)
+		{
+			InitializeTreeView();
+		}
+
+		private void InitializeTreeView()
+		{
+			switch (this.Mode)
+			{
+				case NewDialogMode.File:
+				{
+					InitializeDocumentTemplateTreeView();
+					break;
+				}
+				case NewDialogMode.Project:
+				{
+					InitializeProjectTemplateTreeView();
+					break;
+				}
+			}
+
+			if (tmObjectModel.Rows.Count == 1)
+			{
+				TreeModelRow row = ExpandSingleChildRows(tmObjectModel.Rows[0]);
+				if (row != null)
+				{
+					tvObjectModel.SelectedRows.Clear();
+					tvObjectModel.SelectedRows.Add(row);
+					tvObjectModel_SelectionChanged(null, EventArgs.Empty);
+				}
+			}
+
+			if (tvTemplate.SelectedRows.Count == 1)
+			{
+				Buttons[0].Enabled = true;
+			}
+			else
+			{
+				Buttons[0].Enabled = false;
+			}
+		}
+		private void InitializeProjectTemplateTreeView()
+		{
+			tmObjectModel.Rows.Clear();
+
+			ProjectTemplate[] templates = UniversalEditor.Common.Reflection.GetAvailableProjectTemplates();
+			foreach (ProjectTemplate dt in templates)
+			{
+				TreeModelRow tn = null;
+				if (dt.Path != null)
+				{
+					string strPath = String.Join("/", dt.Path);
+					if (!(String.IsNullOrEmpty(txtSearch.Text) || strPath.ToLower().Contains(txtSearch.Text.ToLower()))) continue;
+					for (int i = 0; i < dt.Path.Length; i++)
+					{
+						if (tn == null)
+						{
+							if (tmObjectModel.Rows.Contains(dt.Path[i]))
+							{
+								tn = tmObjectModel.Rows[dt.Path[i]];
+							}
+							else
+							{
+								tn = new TreeModelRow(new TreeModelRowColumn[]
+								{
+									new TreeModelRowColumn(tmObjectModel.Columns[0], dt.Path[i])
+								});
+								tn.Name = dt.Path[i];
+								tmObjectModel.Rows.Add(tn);
+							}
+						}
+						else
+						{
+							if (tn.Rows.Contains(dt.Path[i]))
+							{
+								tn = tn.Rows[dt.Path[i]];
+							}
+							else
+							{
+								TreeModelRow tn1 = new TreeModelRow(new TreeModelRowColumn[]
+								{
+									new TreeModelRowColumn(tmObjectModel.Columns[0], dt.Path[i])
+								});
+								tn1.Name = dt.Path[i];
+								tn.Rows.Add(tn1);
+								tn = tn1;
+							}
+						}
+						if (i == dt.Path.Length - 1 && tn != null)
+						{
+							// last one, let's add all the templates
+							List<ProjectTemplate> dts = (List<ProjectTemplate>)tn.GetExtraData<List<ProjectTemplate>>("dts", null);
+							if (dts == null)
+							{
+								Console.WriteLine("ue: templates debug: creating a new project template list for " + String.Join("/", dt.Path));
+								dts = new List<ProjectTemplate>();
+								tn.SetExtraData<List<ProjectTemplate>>("dts", dts);
+							}
+							dts.Add(dt);
+						}
+					}
+				}
+
+				if (tn == null || tvObjectModel.SelectedRows.Contains(tn))
+				{
+					TreeModelRow lvi = new TreeModelRow(new TreeModelRowColumn[]
+					{
+						new TreeModelRowColumn(tmTemplate.Columns[0], dt.Title),
+						new TreeModelRowColumn(tmTemplate.Columns[1], dt.Description)
+					});
+					if (!String.IsNullOrEmpty(dt.LargeIconImageFileName))
+					{
+						// lvi.Image = MBS.Framework.UserInterface.Drawing.Image.FromFile(dt.LargeIconImageFileName);
+					}
+					else
+					{
+						Console.Error.WriteLine("Large icon image not specified for template \"" + dt.Title + "\"");
+					}
+					lvi.SetExtraData<ProjectTemplate>("dt", dt);
+					tmTemplate.Rows.Add(lvi);
+				}
+			}
+		}
+
+		[EventHandler("tvObjectModel", "SelectionChanged")]
+		private void tvObjectModel_SelectionChanged(object sender, EventArgs e)
+		{
+			if (tvObjectModel.SelectedRows.Count < 1) return;
+
+			tmTemplate.Rows.Clear();
+			tvTemplate.SelectedRows.Clear();
+
+			if (Mode == NewDialogMode.File)
+			{
+				RefreshDocumentTemplates(tvObjectModel.SelectedRows[0]);
+			}
+			else if (Mode == NewDialogMode.Project)
+			{
+				RefreshProjectTemplates(tvObjectModel.SelectedRows[0]);
+			}
+
+			if (tmTemplate.Rows.Count == 1)
+			{
+				tvTemplate.SelectedRows.Add(tmTemplate.Rows[0]);
+			}
+		}
+
+		[EventHandler("tvTemplate", "SelectionChanged")]
+		private void tvTemplate_SelectionChanged(object sender, EventArgs e)
+		{
+			Buttons[0].Enabled = (tvTemplate.SelectedRows.Count > 0);
+			if (tvTemplate.SelectedRows.Count != 1) return;
+
+			if (Mode == NewDialogMode.Project)
+			{
+				ProjectTemplate pt = (tvTemplate.SelectedRows[0].GetExtraData<ProjectTemplate>("dt"));
+				if (pt == null) return;
+
+				if (!txtFileName.IsChangedByUser)
+				{
+					string projectNamePrefix = pt.ProjectNamePrefix;
+					if (String.IsNullOrEmpty(projectNamePrefix))
+					{
+						projectNamePrefix = pt.Title.Replace(" ", String.Empty);
+						// projectNamePrefix = "Project";
+					}
+					txtFileName.Text = projectNamePrefix + "1";
+				}
+			}
+			else if (Mode == NewDialogMode.File)
+			{
+				DocumentTemplate pt = (tvTemplate.SelectedRows[0].GetExtraData<DocumentTemplate>("dt"));
+				if (pt == null) return;
+				if (!txtFileName.IsChangedByUser)
+				{
+					// txtFileName.Text = projectNamePrefix + "1";
+				}
+			}
+		}
+		[EventHandler("tvTemplate", "RowActivated")]
+		private void tvTemplate_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		{
+			cmdOK_Click(sender, e);
+		}
+
 
 		private void RefreshProjectTemplates(TreeModelRow row)
 		{
@@ -679,7 +583,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				foreach (DocumentTemplate dt in list)
 				{
 					if (dt == null) continue;
-					
+
 					TreeModelRow lvi = new TreeModelRow(new TreeModelRowColumn[]
 					{
 						new TreeModelRowColumn(tmTemplate.Columns[0], dt.Title),
@@ -696,33 +600,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 					lvi.SetExtraData<DocumentTemplate>("dt", dt);
 					tmTemplate.Rows.Add(lvi);
 				}
-			}
-		}
-
-		private void txtSearch_Changed(object sender, EventArgs e)
-		{
-			InitializeTreeView();
-		}
-
-		private void tvObjectModel_SelectionChanged(object sender, EventArgs e)
-		{
-			if (tvObjectModel.SelectedRows.Count < 1) return;
-
-			tmTemplate.Rows.Clear();
-			tvTemplate.SelectedRows.Clear();
-
-			if (Mode == NewDialogMode.File)
-			{
-				RefreshDocumentTemplates(tvObjectModel.SelectedRows[0]);
-			}
-			else if (Mode == NewDialogMode.Project)
-			{
-				RefreshProjectTemplates(tvObjectModel.SelectedRows[0]);
-			}
-
-			if (tmTemplate.Rows.Count == 1)
-			{
-				tvTemplate.SelectedRows.Add(tmTemplate.Rows[0]);
 			}
 		}
 	}

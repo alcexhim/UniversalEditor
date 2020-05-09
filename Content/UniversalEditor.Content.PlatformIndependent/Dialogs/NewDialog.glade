@@ -24,8 +24,26 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
   <!-- interface-license-type gplv3 -->
   <!-- interface-name Universal Editor -->
   <!-- interface-copyright 2019 Michael Becker -->
+  <object class="GtkTreeStore" id="tmObjectModel">
+    <columns>
+      <!-- column-name colObjectModelName -->
+      <column type="gchararray"/>
+      <!-- column-name colObjectModelDescription -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkTreeStore" id="tmTemplate">
+    <columns>
+      <!-- column-name colTemplateName -->
+      <column type="gchararray"/>
+      <!-- column-name colTemplateDescription -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkDialog">
     <property name="can_focus">False</property>
+    <property name="default_width">600</property>
+    <property name="default_height">400</property>
     <property name="type_hint">dialog</property>
     <child>
       <placeholder/>
@@ -40,7 +58,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="cmdOK">
                 <property name="label">gtk-new</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -54,7 +72,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="cmdCancel">
                 <property name="label">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -75,7 +93,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
           </packing>
         </child>
         <child>
-          <object class="GtkSearchEntry">
+          <object class="GtkSearchEntry" id="txtSearch">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="primary_icon_name">edit-find-symbolic</property>
@@ -92,33 +110,84 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
           <object class="GtkPaned">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="position">92</property>
+            <property name="position">250</property>
+            <property name="position_set">True</property>
+            <property name="wide_handle">True</property>
             <child>
-              <object class="GtkTreeView" id="tvObjectModel">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="headers_visible">False</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
-                </child>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkTreeViewColumn" id="chObjectModelName">
-                    <property name="title" translatable="yes">Name</property>
+                  <object class="GtkTreeView" id="tvObjectModel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">tmObjectModel</property>
+                    <property name="headers_visible">False</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="chObjectModelName">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Name</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <child>
+                          <object class="GtkCellRendererText"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
                   </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
               </object>
               <packing>
-                <property name="resize">True</property>
+                <property name="resize">False</property>
                 <property name="shrink">True</property>
               </packing>
             </child>
             <child>
-              <object class="GtkIconView" id="tvTemplate">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="margin">6</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkCellRendererText" id="chTemplateName"/>
+                  <object class="GtkTreeView" id="tvTemplate">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">tmTemplate</property>
+                    <property name="headers_visible">False</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="tvcTemplateName">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Template</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <child>
+                          <object class="GtkCellRendererText"/>
+                          <attributes>
+                            <attribute name="markup">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
               </object>
               <packing>
