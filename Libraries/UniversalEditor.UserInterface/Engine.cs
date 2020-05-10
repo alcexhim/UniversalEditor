@@ -542,6 +542,9 @@ namespace UniversalEditor.UserInterface
 				Editor ed = LastWindow.GetCurrentEditor();
 				if (ed == null) return;
 
+				// we cannot yet bookmark a file that does not yet exist. (this would be akin to creating a shortcut to a template I guess...?)
+				if (ed.ObjectModel.Accessor == null) return;
+
 				// FIXME: BookmarksAdd copypasta
 				string filename = ed.ObjectModel.Accessor.GetFileName();
 				BookmarksManager.FileNames.Add(filename);
