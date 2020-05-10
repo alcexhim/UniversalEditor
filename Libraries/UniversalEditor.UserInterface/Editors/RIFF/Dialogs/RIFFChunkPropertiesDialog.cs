@@ -37,6 +37,7 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 		private Label lblGroupID;
 		private ComboBox cboTypeID;
 		private HexEditorControl hexData;
+		private Disclosure dscData;
 
 		public RIFFChunk Chunk { get; set; } = null;
 
@@ -48,6 +49,7 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 
 			Buttons[0].ResponseValue = (int)DialogResult.None;
 			Buttons[0].Click += cmdOK_Click;
+			DefaultButton = Buttons[0];
 
 			if (Chunk != null)
 			{
@@ -93,12 +95,14 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 				// Data
 				cboTypeID.Visible = false;
 				lblGroupID.Visible = false;
+				dscData.Visible = true;
 			}
 			else if (cboChunkType.SelectedItem == (cboChunkType.Model as DefaultTreeModel).Rows[1])
 			{
 				// Group
 				cboTypeID.Visible = true;
 				lblGroupID.Visible = true;
+				dscData.Visible = false;
 			}
 		}
 

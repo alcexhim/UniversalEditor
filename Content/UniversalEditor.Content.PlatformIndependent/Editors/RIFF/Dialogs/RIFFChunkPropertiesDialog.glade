@@ -16,6 +16,29 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="tmChunkTypeIDs">
+    <columns>
+      <!-- column-name colChunkID -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">RIFF</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RIFX</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">FORM</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">LIST</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">CAT </col>
+      </row>
+    </data>
+  </object>
   <object class="GtkDialog" id="RIFFChunkPropertiesDialog">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">RIFF Chunk Properties</property>
@@ -39,6 +62,9 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -134,9 +160,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkExpander">
+              <object class="GtkExpander" id="dscData">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
                 <property name="expanded">True</property>
                 <property name="label_fill">True</property>
                 <property name="resize_toplevel">True</property>
@@ -144,6 +172,8 @@
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkBox">
@@ -179,8 +209,8 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
@@ -218,6 +248,7 @@
               <object class="GtkComboBox" id="cboTypeID">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
                 <property name="model">tmChunkTypeIDs</property>
                 <property name="has_entry">True</property>
                 <property name="entry_text_column">0</property>
@@ -237,6 +268,7 @@
               <object class="GtkEntry" id="txtChunkID">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -256,28 +288,5 @@
     <action-widgets>
       <action-widget response="-6">button1</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkListStore" id="tmChunkTypeIDs">
-    <columns>
-      <!-- column-name colChunkID -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">RIFF</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RIFX</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">FORM</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">LIST</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">CAT </col>
-      </row>
-    </data>
   </object>
 </interface>
