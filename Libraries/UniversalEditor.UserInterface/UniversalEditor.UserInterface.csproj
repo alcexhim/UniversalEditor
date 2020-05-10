@@ -121,7 +121,6 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="EditorContext.cs" />
     <Compile Include="Editors\Database\DatabaseEditor.cs" />
-    <Compile Include="Editors\Database\DatabaseEditor.Designer.cs" />
     <Compile Include="EditorPlugin.cs" />
     <Compile Include="Panels\PropertyListPanel.cs" />
     <Compile Include="Panels\PropertyListPanel.Designer.cs" />

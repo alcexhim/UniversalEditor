@@ -1,10 +1,10 @@
 ﻿//
-//  DatabaseEditor.cs
+//  DatabaseEditor.cs - provides a UWT-based Editor for manipulating database files
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,21 +18,29 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
+
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+
 using UniversalEditor.ObjectModels.Database;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Database
 {
-	public partial class DatabaseEditor
+	/// <summary>
+	/// Provides a UWT-based <see cref="Editor" /> for manipulating database files.
+	/// </summary>
+	[ContainerLayout("~/Editors/Database/DatabaseEditor.glade")]
+	public class DatabaseEditor : Editor
 	{
-		public DatabaseEditor()
-		{
-			InitializeComponent();
-		}
+		private SyntaxTextBox txtQuery;
+		private ListView lvResults;
+
+		private DefaultTreeModel tmDatabase;
+		private ListView tvDatabase;
 
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
@@ -55,9 +63,17 @@ namespace UniversalEditor.Editors.Database
 			throw new NotImplementedException();
 		}
 
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+			OnObjectModelChanged(EventArgs.Empty);
+		}
+
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);
+
+			if (!IsCreated) return;
 
 			tmDatabase.Rows.Clear();
 
@@ -93,10 +109,10 @@ namespace UniversalEditor.Editors.Database
 				{
 					list.Add(db.Tables[0].Fields[i].DataType == null ? typeof(string) : db.Tables[0].Fields[i].DataType);
 				}
-				this.tmResults = new DefaultTreeModel(list.ToArray());
+				DefaultTreeModel tmResults = new DefaultTreeModel(list.ToArray());
 				for (int i = 0; i < db.Tables[0].Fields.Count; i++)
 				{
-					lvResults.Columns.Add(new ListViewColumnText(this.tmResults.Columns[i], db.Tables[0].Fields[i].Name));
+					lvResults.Columns.Add(new ListViewColumnText(tmResults.Columns[i], db.Tables[0].Fields[i].Name));
 				}
 				foreach (DatabaseRecord rec in db.Tables[0].Records)
 				{

@@ -728,6 +728,7 @@
     <Content Include="Editors\RIFF\Dialogs\RIFFChunkPropertiesDialog.glade" />
     <Content Include="Editors\Binary\Dialogs\FieldDefinitionPropertiesDialog.glade" />
     <Content Include="Editors\Binary\BinaryEditor.glade" />
+    <Content Include="Editors\Database\DatabaseEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
