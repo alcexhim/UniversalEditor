@@ -24,6 +24,7 @@ using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.HexEditor;
+using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Chunked;
 
 namespace UniversalEditor.Editors.RIFF.Dialogs
@@ -44,8 +45,6 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 		protected override void OnCreated(EventArgs e)
 		{
 			base.OnCreated(e);
-
-			cboChunkType.Changed += cboChunkType_Changed;
 
 			Buttons[0].ResponseValue = (int)DialogResult.None;
 			Buttons[0].Click += cmdOK_Click;
@@ -88,7 +87,8 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 			this.Close();
 		}
 
-		void cboChunkType_Changed(object sender, EventArgs e)
+		[EventHandler("cboChunkType", "Changed")]
+		private void cboChunkType_Changed(object sender, EventArgs e)
 		{
 			if (cboChunkType.SelectedItem == (cboChunkType.Model as DefaultTreeModel).Rows[0])
 			{
@@ -103,6 +103,29 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 				cboTypeID.Visible = true;
 				lblGroupID.Visible = true;
 				dscData.Visible = false;
+			}
+		}
+
+		[EventHandler("cmdImportData", "Click")]
+		private void cmdImportData_Click(object sender, EventArgs e)
+		{
+			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Open;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				hexData.Data = System.IO.File.ReadAllBytes(dlg.SelectedFileName);
+			}
+		}
+
+		[EventHandler("cmdExportData", "Click")]
+		private void cmdExportData_Click(object sender, EventArgs e)
+		{
+			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Save;
+			dlg.SelectedFileName = txtChunkID.Text;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				System.IO.File.WriteAllBytes(dlg.SelectedFileName, hexData.Data);
 			}
 		}
 
