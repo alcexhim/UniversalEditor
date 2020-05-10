@@ -28,6 +28,104 @@ using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Editors.Binary
 {
+	[ContainerLayout("~/Editors/Binary/Dialogs/FieldDefinitionPropertiesDialog.glade", "GtkDialog")]
+	public class FieldDefinitionPropertiesDialog2 : Dialog
+	{
+		private TextBox txtName;
+		private NumericTextBox txtOffset;
+		private ComboBox cboDataType;
+		private DefaultTreeModel tmDataType;
+		private Label lblLength;
+		private NumericTextBox txtLength;
+		private Button cmdColor;
+
+		public FieldDefinition FieldDefinition { get; set; } = new FieldDefinition();
+
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			DefaultButton = Buttons[0];
+
+			txtName.Text = FieldDefinition.Name;
+			cmdColor.BackgroundBrush = new SolidBrush(FieldDefinition.Color);
+			txtOffset.Value = FieldDefinition.Offset;
+			txtLength.Value = FieldDefinition.Length;
+
+			// TODO: perhaps we should put this in 
+			for (int i = 0; i < tmDataType.Rows.Count; i++)
+			{
+				string dataTypeName = tmDataType.Rows[i].RowColumns[1].Value?.ToString();
+				Type type = MBS.Framework.Reflection.FindType(dataTypeName);
+				tmDataType.Rows[i].SetExtraData<Type>("type", type);
+
+				if (type == FieldDefinition.DataType)
+				{
+					cboDataType.SelectedItem = tmDataType.Rows[i];
+				}
+			}
+		}
+
+		[EventHandler("cboDataType", "Changed")]
+		private void cboDataType_Changed(object sender, EventArgs e)
+		{
+			if (cboDataType.SelectedItem == null) return;
+
+			Type type = cboDataType.SelectedItem.GetExtraData<Type>("type");
+			if (type == null) return;
+
+			if (type == typeof(string) || type == typeof(byte[]))
+			{
+				lblLength.Visible = true;
+				txtLength.Visible = true;
+			}
+			else
+			{
+				lblLength.Visible = false;
+				txtLength.Visible = false;
+			}
+		}
+
+		[EventHandler("cmdColor", "Click")]
+		private void cmdColor_Click(object sender, EventArgs e)
+		{
+			ColorDialog dlg = new ColorDialog();
+			dlg.SelectedColor = (cmdColor.BackgroundBrush as SolidBrush).Color;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				cmdColor.BackgroundBrush = new SolidBrush(dlg.SelectedColor);
+			}
+		}
+
+		[EventHandler("cmdOK", "Click")]
+		private void cmdOK_Click(object sender, EventArgs e)
+		{	
+			FieldDefinition.Name = txtName.Text;
+
+			if (cboDataType.SelectedItem != null)
+			{
+				FieldDefinition.DataType = cboDataType.SelectedItem.GetExtraData<Type>("type");
+			}
+			else
+			{
+				MessageDialog.ShowDialog("please select a data type");
+				this.DialogResult = DialogResult.None;
+				return;
+			}
+
+			if (FieldDefinition.DataType == typeof(string))
+			{
+				FieldDefinition.Length = (int)txtLength.Value;
+			}
+			FieldDefinition.Color = (cmdColor.BackgroundBrush as SolidBrush).Color;
+			FieldDefinition.Offset = (int)txtOffset.Value;
+
+			this.DialogResult = DialogResult.OK;
+			this.Close();
+		}
+
+	}
+
 	public class FieldDefinitionPropertiesDialog : Dialog
 	{
 		private Label lblName;

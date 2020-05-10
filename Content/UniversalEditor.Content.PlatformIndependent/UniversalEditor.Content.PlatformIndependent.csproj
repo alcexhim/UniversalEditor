@@ -726,6 +726,7 @@
     <Content Include="Editors\RIFF\RIFFEditor.glade" />
     <Content Include="Editors\RIFF\Commands.uexml" />
     <Content Include="Editors\RIFF\Dialogs\RIFFChunkPropertiesDialog.glade" />
+    <Content Include="Editors\Binary\Dialogs\FieldDefinitionPropertiesDialog.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -780,6 +781,7 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\Webfoot\Associations\" />
     <Folder Include="Extensions\GameDeveloper\Extensions\CRI\" />
     <Folder Include="Editors\RIFF\" />
+    <Folder Include="Editors\Binary\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

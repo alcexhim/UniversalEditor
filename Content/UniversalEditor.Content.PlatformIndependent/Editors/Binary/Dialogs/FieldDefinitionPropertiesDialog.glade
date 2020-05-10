@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkListStore" id="tmDataType">
+    <columns>
+      <!-- column-name colDataTypeName -->
+      <column type="gchararray"/>
+      <!-- column-name colDataTypeFullyQualifiedTypeName -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Signed 8-bit integer (SByte)</col>
+        <col id="1" translatable="yes">System.SByte</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Unsigned 8-bit integer (Byte)</col>
+        <col id="1" translatable="yes">System.Byte</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Signed 16-bit integer (Short)</col>
+        <col id="1" translatable="yes">System.Int16</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Unsigned 16-bit integer (UShort)</col>
+        <col id="1" translatable="yes">System.UInt16</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Signed 32-bit integer (Int)</col>
+        <col id="1" translatable="yes">System.Int32</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Unsigned 32-bit integer (UInt)</col>
+        <col id="1" translatable="yes">System.UInt32</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Signed 64-bit integer (Long)</col>
+        <col id="1" translatable="yes">System.Int64</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Unsigned 64-bit integer (ULong)</col>
+        <col id="1" translatable="yes">System.UInt64</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">32-bit floating point (Float/Single)</col>
+        <col id="1" translatable="yes">System.Single</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">64-bit floating point (Double)</col>
+        <col id="1" translatable="yes">System.Double</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Fixed-length string</col>
+        <col id="1" translatable="yes">System.String</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Length-prefixed string</col>
+        <col id="1" translatable="yes">System.String</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Raw byte array</col>
+        <col id="1" translatable="yes">System.Byte[]</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkDialog">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Field Definition Properties</property>
+    <property name="type_hint">dialog</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="cmdOK">
+                <property name="label">gtk-ok</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">16</property>
+            <property name="margin_right">16</property>
+            <property name="margin_top">16</property>
+            <property name="margin_bottom">16</property>
+            <property name="row_spacing">8</property>
+            <property name="column_spacing">8</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">_Name</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">_Offset</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">_Data type</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="lblLength">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">_Length</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">_Color</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="txtName">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="txtOffset">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="txtLength">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="cboDataType">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="model">tmDataType</property>
+                <property name="active">0</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="cmdColor">
+                <property name="label" translatable="yes">button</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="hexpand">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">4</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-6">button1</action-widget>
+    </action-widgets>
+  </object>
+</interface>

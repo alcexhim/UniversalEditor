@@ -709,7 +709,7 @@ namespace UniversalEditor.Editors.Binary
 
 		private void tsbFieldDefinitionAdd_Click(object sender, EventArgs e)
 		{
-			FieldDefinitionPropertiesDialog dlg = new FieldDefinitionPropertiesDialog();
+			FieldDefinitionPropertiesDialog2 dlg = new FieldDefinitionPropertiesDialog2();
 			dlg.FieldDefinition.Offset = hexedit.SelectionStart;
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
@@ -731,13 +731,25 @@ namespace UniversalEditor.Editors.Binary
 				return;
 
 			FieldDefinition def = lvFieldDefinitions.SelectedRows[0].GetExtraData<FieldDefinition>("def");
+			int highlightAreaIndex = hexedit.HighlightAreas.IndexOf(hexedit.HighlightAreas[def.Name]);
+
 			if (def != null)
 			{
-				FieldDefinitionPropertiesDialog dlg = new FieldDefinitionPropertiesDialog();
+				FieldDefinitionPropertiesDialog2 dlg = new FieldDefinitionPropertiesDialog2();
 				dlg.FieldDefinition = def;
 				if (dlg.ShowDialog() == DialogResult.OK)
 				{
 					def = dlg.FieldDefinition;
+
+					hexedit.HighlightAreas[highlightAreaIndex].Name = def.Name;
+					hexedit.HighlightAreas[highlightAreaIndex].BackColor = dlg.FieldDefinition.Color;
+					hexedit.HighlightAreas[highlightAreaIndex].Start = def.Offset;
+					hexedit.HighlightAreas[highlightAreaIndex].Length = def.DataTypeSize;
+
+					lvFieldDefinitions.SelectedRows[0].RowColumns[0].Value = def.Name;
+					lvFieldDefinitions.SelectedRows[0].RowColumns[1].Value = def.Offset;
+					lvFieldDefinitions.SelectedRows[0].RowColumns[2].Value = def.DataType?.Name + " [" + dlg.FieldDefinition.DataTypeSizeString + "]";
+					lvFieldDefinitions.SelectedRows[0].RowColumns[3].Value = GetFieldValue(def);
 				}
 			}
 		}
