@@ -1,10 +1,10 @@
 ﻿//
-//  BinaryEditor.cs
+//  BinaryEditor.cs - provides a UWT-based hex Editor for manipulating binary data
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2019-2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,23 +18,28 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
+using System.Collections.Generic;
 using System.Text;
+
 using MBS.Framework.Drawing;
-using UniversalEditor.ObjectModels.Binary;
-using UniversalEditor.UserInterface;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.HexEditor;
 using MBS.Framework.UserInterface.Dialogs;
-using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Layouts;
-using System.Collections.Generic;
+
 using UniversalEditor.Accessors;
+using UniversalEditor.ObjectModels.Binary;
 using UniversalEditor.ObjectModels.BinaryGrammar;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Binary
 {
+	/// <summary>
+	/// Provides a UWT-based hex <see cref="Editor" /> for manipulating binary data.
+	/// </summary>
 	public class BinaryEditor : Editor
 	{
 		public override void UpdateSelections()
@@ -445,6 +450,10 @@ namespace UniversalEditor.Editors.Binary
 						input = input.Substring(2);
 						ns |= System.Globalization.NumberStyles.HexNumber;
 					}
+					else
+					{
+						ns |= System.Globalization.NumberStyles.AllowDecimalPoint;
+					}
 
 					float b = Single.Parse(input, ns);
 					return BitConverter.GetBytes(b);
@@ -470,6 +479,10 @@ namespace UniversalEditor.Editors.Binary
 					{
 						input = input.Substring(2);
 						ns |= System.Globalization.NumberStyles.HexNumber;
+					}
+					else
+					{
+						ns |= System.Globalization.NumberStyles.AllowDecimalPoint;
 					}
 					double b = Double.Parse(input, ns);
 					return BitConverter.GetBytes(b);
@@ -704,7 +717,7 @@ namespace UniversalEditor.Editors.Binary
 				{
 					new TreeModelRowColumn(tmFieldDefinitions.Columns[0], dlg.FieldDefinition.Name),
 					new TreeModelRowColumn(tmFieldDefinitions.Columns[1], dlg.FieldDefinition.Offset),
-					new TreeModelRowColumn(tmFieldDefinitions.Columns[2], dlg.FieldDefinition.DataType.Name + " [" + dlg.FieldDefinition.DataTypeSizeString + "]"),
+					new TreeModelRowColumn(tmFieldDefinitions.Columns[2], dlg.FieldDefinition.DataType?.Name + " [" + dlg.FieldDefinition.DataTypeSizeString + "]"),
 					new TreeModelRowColumn(tmFieldDefinitions.Columns[3], GetFieldValue(dlg.FieldDefinition))
 				}));
 				tmFieldDefinitions.Rows[tmFieldDefinitions.Rows.Count - 1].SetExtraData<FieldDefinition>("def", dlg.FieldDefinition);
@@ -770,6 +783,11 @@ namespace UniversalEditor.Editors.Binary
 
 						System.Reflection.FieldInfo fiMaxValue = converter.DataType.GetField("MaxValue");
 						System.Reflection.FieldInfo fiMinValue = converter.DataType.GetField("MinValue");
+						if (fiMaxValue != null && fiMinValue != null)
+						{
+							minValue = fiMinValue.GetValue(null);
+							maxValue = fiMaxValue.GetValue(null);
+						}
 
 						if (!(ex is OverflowException) || (fiMinValue == null || fiMaxValue == null))
 						{
@@ -829,7 +847,8 @@ namespace UniversalEditor.Editors.Binary
 
 			area.Start = hexedit.SelectionStart.ByteIndex;
 			area.Length = converter.MaximumSize;
-			area.Color = Colors.LightGray;
+			area.BackColor = Colors.LightGray;
+			area.ForeColor = Colors.Black;
 			hexedit.HighlightAreas["conversion"] = area;
 		}
 

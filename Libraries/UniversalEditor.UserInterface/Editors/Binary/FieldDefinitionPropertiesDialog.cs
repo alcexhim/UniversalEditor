@@ -162,7 +162,7 @@ namespace UniversalEditor.Editors.Binary
 
 			this.Buttons.Add(new Button(StockType.OK));
 			this.Buttons[this.Buttons.Count - 1].Click += cmdOK_Click;
-			this.Buttons[this.Buttons.Count - 1].ResponseValue = (int)DialogResult.OK;
+			this.DefaultButton = this.Buttons[this.Buttons.Count - 1];
 
 			this.Buttons.Add(new Button(StockType.Cancel));
 			this.Buttons[this.Buttons.Count - 1].ResponseValue = (int)DialogResult.Cancel;
@@ -217,6 +217,9 @@ namespace UniversalEditor.Editors.Binary
 			}
 			FieldDefinition.Color = (cmdColor.BackgroundBrush as SolidBrush).Color;
 			FieldDefinition.Offset = offset;
+
+			this.DialogResult = DialogResult.OK;
+			this.Close();
 		}
 
 	}
