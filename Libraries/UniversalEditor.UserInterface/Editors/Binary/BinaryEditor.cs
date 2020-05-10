@@ -40,8 +40,21 @@ namespace UniversalEditor.Editors.Binary
 	/// <summary>
 	/// Provides a UWT-based hex <see cref="Editor" /> for manipulating binary data.
 	/// </summary>
+	[ContainerLayout("~/Editors/Binary/BinaryEditor.glade")]
 	public class BinaryEditor : Editor
 	{
+		private HexEditorControl hexedit = null;
+		private TabContainer tabs = null;
+
+		private Toolbar tbFieldDefinitions;
+		private ListView lvFieldDefinitions;
+		private DefaultTreeModel tmFieldDefinitions;
+
+		private ComboBox cboEndianness;
+		private NumericTextBox txtStart;
+		private NumericTextBox txtEnd;
+		private NumericTextBox txtLength;
+
 		public override void UpdateSelections()
 		{
 		}
@@ -72,24 +85,6 @@ namespace UniversalEditor.Editors.Binary
 			}
 			return _er;
 		}
-
-		private HexEditorControl hexedit = null;
-		private Container conversionPanel = null;
-		private TabContainer tabs = null;
-
-		private Toolbar tbFieldDefinitions;
-		private ListView lvFieldDefinitions;
-		private DefaultTreeModel tmFieldDefinitions;
-
-		private Container pnlSettings;
-		private Label lblEndianness;
-		private ComboBox cboEndianness;
-		private Label lblStart;
-		private TextBox txtStart;
-		private Label lblEnd;
-		private TextBox txtEnd;
-		private Label lblLength;
-		private TextBox txtLength;
 
 		private struct CONVERSION_DATA
 		{
@@ -138,18 +133,18 @@ namespace UniversalEditor.Editors.Binary
 
 		public BinaryEditor()
 		{
-			this.Layout = new BoxLayout(MBS.Framework.UserInterface.Orientation.Vertical);
-
-			this.hexedit = new HexEditorControl();
-			this.hexedit.SelectionChanged += Hexedit_SelectionChanged;
-
-			this.hexedit.Changing += hexedit_Changing;
-			this.hexedit.Changed += hexedit_Changed;
-
-			this.conversionPanel = new Container();
-			this.conversionPanel.Layout = new GridLayout();
-
 			InitializeConverters();
+		}
+
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			// HACK: needed until we can fetch ToolbarItems as child controls (they are not Controls)
+			(tbFieldDefinitions.Items[0] as ToolbarItemButton).Click += tsbFieldDefinitionAdd_Click;
+			(tbFieldDefinitions.Items[1] as ToolbarItemButton).Click += tsbFieldDefinitionEdit_Click;
+			(tbFieldDefinitions.Items[2] as ToolbarItemButton).Click += tsbFieldDefinitionRemove_Click;
+			(tbFieldDefinitions.Items[4] as ToolbarItemButton).Click += tsbFieldDefinitionLoad_Click;
 
 			int r = 0, c = 0;
 			for (int i = 0; i < converters.Length; i++)
@@ -157,14 +152,14 @@ namespace UniversalEditor.Editors.Binary
 				Label lbl = new Label();
 				lbl.Text = converters[i].Label;
 				lbl.HorizontalAlignment = HorizontalAlignment.Right;
-				this.conversionPanel.Controls.Add(lbl, new GridLayout.Constraints(r, c));
+				tabs.TabPages[0].Controls.Add(lbl, new GridLayout.Constraints(r, c));
 
 				TextBox txt = new TextBox();
 				txt.GotFocus += Txt_GotFocus;
 				txt.LostFocus += Txt_LostFocus;
 				txt.KeyDown += Txt_KeyDown;
 				txt.Text = "---";
-				this.conversionPanel.Controls.Add(txt, new GridLayout.Constraints(r, c + 1));
+				tabs.TabPages[0].Controls.Add(txt, new GridLayout.Constraints(r, c + 1));
 				converters[i].TextBox = txt;
 				txt.SetExtraData<CONVERSION_DATA>("converter", converters[i]);
 
@@ -179,98 +174,7 @@ namespace UniversalEditor.Editors.Binary
 				}
 			}
 
-			this.pnlSettings = new Container();
-			this.pnlSettings.Layout = new BoxLayout(Orientation.Horizontal);
-
-			this.lblEndianness = new Label();
-			this.lblEndianness.Text = "_Endianness: ";
-			this.pnlSettings.Controls.Add(this.lblEndianness, new BoxLayout.Constraints(false, false));
-			this.cboEndianness = new ComboBox();
-			this.cboEndianness.ReadOnly = true;
-
-			DefaultTreeModel tmEndianness = new DefaultTreeModel(new Type[] { typeof(string) });
-			tmEndianness.Rows.AddRange(new TreeModelRow[]
-			{
-				new TreeModelRow(new TreeModelRowColumn[]
-				{
-					new TreeModelRowColumn(tmEndianness.Columns[0], "Little-endian")
-				}),
-				new TreeModelRow(new TreeModelRowColumn[]
-				{
-					new TreeModelRowColumn(tmEndianness.Columns[0], "Big-endian")
-				})
-			});
-			tmEndianness.Rows[0].SetExtraData<IO.Endianness>("value", IO.Endianness.LittleEndian);
-			tmEndianness.Rows[1].SetExtraData<IO.Endianness>("value", IO.Endianness.BigEndian);
-
-			this.cboEndianness.Model = tmEndianness;
-			this.cboEndianness.SelectedItem = tmEndianness.Rows[0];
-			this.cboEndianness.Changed += cboEndianness_Changed;
-
-			this.pnlSettings.Controls.Add(this.cboEndianness, new BoxLayout.Constraints(false, false));
-
-
-			this.lblStart = new Label();
-			this.lblStart.Text = "_Start: ";
-			this.pnlSettings.Controls.Add(this.lblStart, new BoxLayout.Constraints(false, false));
-
-			this.txtStart = new TextBox();
-			this.txtStart.KeyDown += txtStart_KeyDown;
-			this.pnlSettings.Controls.Add(this.txtStart, new BoxLayout.Constraints(false, false));
-
-			this.lblEnd = new Label();
-			this.lblEnd.Text = "_End: ";
-			this.pnlSettings.Controls.Add(this.lblEnd, new BoxLayout.Constraints(false, false));
-
-			this.txtEnd = new TextBox();
-			this.txtEnd.KeyDown += txtEnd_KeyDown;
-			this.pnlSettings.Controls.Add(this.txtEnd, new BoxLayout.Constraints(false, false));
-
-			this.lblLength = new Label();
-			this.lblLength.Text = "_Length: ";
-			this.pnlSettings.Controls.Add(this.lblLength, new BoxLayout.Constraints(false, false));
-
-			this.txtLength = new TextBox();
-			this.txtLength.KeyDown += txtLength_KeyDown;
-			this.pnlSettings.Controls.Add(this.txtLength, new BoxLayout.Constraints(false, false));
-
-			this.tabs = new TabContainer();
-
-			TabPage tabPageConverters = new TabPage();
-			tabPageConverters.Layout = new BoxLayout(Orientation.Vertical);
-			tabPageConverters.Text = "Numeric Conversion";
-			tabPageConverters.Controls.Add(this.conversionPanel);
-			this.tabs.TabPages.Add(tabPageConverters);
-
-			TabPage tabPageFields = new TabPage();
-			tabPageFields.Layout = new BoxLayout(Orientation.Vertical);
-			tabPageFields.Text = "Field Definitions";
-
-			this.tbFieldDefinitions = new Toolbar();
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionAdd", StockType.Add, tsbFieldDefinitionAdd_Click));
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionEdit", StockType.Edit, tsbFieldDefinitionEdit_Click));
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionRemove", StockType.Remove, tsbFieldDefinitionRemove_Click));
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemSeparator());
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionLoad", StockType.Open, tsbFieldDefinitionLoad_Click));
-			this.tbFieldDefinitions.Items.Add(new ToolbarItemButton("tsbFieldDefinitionSave", StockType.Save, tsbFieldDefinitionLoad_Click));
-			tabPageFields.Controls.Add(this.tbFieldDefinitions, new BoxLayout.Constraints(false, true));
-
-			this.tmFieldDefinitions = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
-
-			this.lvFieldDefinitions = new ListView();
-			this.lvFieldDefinitions.Model = tmFieldDefinitions;
-			this.lvFieldDefinitions.RowActivated += lvFieldDefinitions_RowActivated;
-			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[0], "Name"));
-			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[1], "Offset"));
-			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[2], "Data Type [Size]"));
-			this.lvFieldDefinitions.Columns.Add(new ListViewColumnText(tmFieldDefinitions.Columns[3], "Value"));
-			tabPageFields.Controls.Add(this.lvFieldDefinitions, new BoxLayout.Constraints(true, true));
-			this.tabs.TabPages.Add(tabPageFields);
-
-
-			this.Controls.Add(pnlSettings, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.Start));
-			this.Controls.Add(hexedit, new BoxLayout.Constraints(true, true));
-			this.Controls.Add(tabs, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.End));
+			OnObjectModelChanged(EventArgs.Empty);
 		}
 
 		private void InitializeConverters()
@@ -598,67 +502,34 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-		void cboEndianness_Changed(object sender, EventArgs e)
+		[EventHandler("cboEndianness", "Changed")]
+		private void cboEndianness_Changed(object sender, EventArgs e)
 		{
 			Endianness = cboEndianness.SelectedItem.GetExtraData<IO.Endianness>("value", IO.Endianness.LittleEndian);
 		}
 
-		void txtStart_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
+		[EventHandler("txtStart", "Changed")]
+		private void txtStart_Changed(object sender, EventArgs e)
 		{
-			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
-			{
-				if (Int32.TryParse(txtStart.Text, out int val))
-				{
-					hexedit.SelectionStart = new HexEditorPosition(val, 0);
-				}
-				else
-				{
-					if (MessageDialog.ShowDialog("Invalid value for Int32", "error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error) == DialogResult.Cancel)
-					{
-						txtStart.Text = hexedit.SelectionStart.ByteIndex.ToString();
-					}
-				}
-			}
+			hexedit.SelectionStart = new HexEditorPosition((int)txtStart.Value, 0);
 		}
-		void txtEnd_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
+		[EventHandler("txtEnd", "Changed")]
+		private void txtEnd_Changed(object sender, EventArgs e)
 		{
-			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
-			{
-				if (Int32.TryParse(txtEnd.Text, out int val))
-				{
-					hexedit.SelectionLength = new HexEditorPosition(val - hexedit.SelectionStart, 0);
-				}
-				else
-				{
-					if (MessageDialog.ShowDialog("Invalid value for Int32", "error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error) == DialogResult.Cancel)
-					{
-						txtEnd.Text = (hexedit.SelectionStart.ByteIndex + hexedit.SelectionLength.ByteIndex).ToString();
-					}
-				}
-			}
+			hexedit.SelectionLength = new HexEditorPosition((int)txtEnd.Value - hexedit.SelectionStart, 0);
 		}
-		void txtLength_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
+		[EventHandler("txtLength", "Changed")]
+		private void txtLength_Changed(object sender, EventArgs e)
 		{
-			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
-			{
-				if (Int32.TryParse(txtLength.Text, out int val))
-				{
-					hexedit.SelectionLength = new HexEditorPosition(val, 0);
-				}
-				else
-				{
-					if (MessageDialog.ShowDialog("Invalid value for Int32", "error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error) == DialogResult.Cancel)
-					{
-						txtEnd.Text = hexedit.SelectionLength.ByteIndex.ToString();
-					}
-				}
-			}
+			hexedit.SelectionLength = new HexEditorPosition((int)txtLength.Value, 0);
 		}
 
-		private void hexedit_Changing(object sender, EventArgs e)
+		[EventHandler("hexedit", "Changing")]
+		private void hexedit_Changing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			BeginEdit();
 		}
+		[EventHandler("hexedit", "Changed")]
 		private void hexedit_Changed(object sender, EventArgs e)
 		{
 			EndEdit();
@@ -673,6 +544,7 @@ namespace UniversalEditor.Editors.Binary
 		}
 
 
+		[EventHandler("lvFieldDefinitions", "RowActivated")]
 		private void lvFieldDefinitions_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			tsbFieldDefinitionEdit_Click(sender, e);
@@ -707,6 +579,7 @@ namespace UniversalEditor.Editors.Binary
 			return String.Empty;
 		}
 
+		[EventHandler("tsbFieldDefinitionAdd", "Click")]
 		private void tsbFieldDefinitionAdd_Click(object sender, EventArgs e)
 		{
 			FieldDefinitionPropertiesDialog2 dlg = new FieldDefinitionPropertiesDialog2();
@@ -725,6 +598,7 @@ namespace UniversalEditor.Editors.Binary
 				hexedit.HighlightAreas.Add(new HexEditorHighlightArea(dlg.FieldDefinition.Name, dlg.FieldDefinition.Name, dlg.FieldDefinition.Offset, dlg.FieldDefinition.DataTypeSize, dlg.FieldDefinition.Color));
 			}
 		}
+		[EventHandler("tsbFieldDefinitionEdit", "Click")]
 		private void tsbFieldDefinitionEdit_Click(object sender, EventArgs e)
 		{
 			if (lvFieldDefinitions.SelectedRows.Count != 1)
@@ -753,9 +627,11 @@ namespace UniversalEditor.Editors.Binary
 				}
 			}
 		}
+		[EventHandler("tsbFieldDefinitionRemove", "Click")]
 		private void tsbFieldDefinitionRemove_Click(object sender, EventArgs e)
 		{
 		}
+		[EventHandler("tsbFieldDefinitionLoad", "Click")]
 		private void tsbFieldDefinitionLoad_Click(object sender, EventArgs e)
 		{
 			FileDialog dlg = new FileDialog();
@@ -864,7 +740,7 @@ namespace UniversalEditor.Editors.Binary
 			hexedit.HighlightAreas["conversion"] = area;
 		}
 
-
+		[EventHandler("hexedit", "SelectionChanged")]
 		private void Hexedit_SelectionChanged(object sender, EventArgs e)
 		{
 			// this actually worked on the very first try. holy crap.
@@ -901,6 +777,8 @@ namespace UniversalEditor.Editors.Binary
 
 			BinaryObjectModel om = (ObjectModel as BinaryObjectModel);
 			if (om == null) return;
+
+			if (!IsCreated) return;
 
 			hexedit.Data = om.Data;
 		}
