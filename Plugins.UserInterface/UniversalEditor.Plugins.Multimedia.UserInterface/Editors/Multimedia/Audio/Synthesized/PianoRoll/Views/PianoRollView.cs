@@ -255,8 +255,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		private Pen pGrid = new Pen(Colors.LightGray);
 		private Pen pGridAlt = new Pen(Colors.Gray);
 
-		private Pen pSelectionBorder = new Pen(Colors.SteelBlue);
-		private SolidBrush bSelectionFill = new SolidBrush(Color.FromRGBADouble(Colors.SteelBlue.R, Colors.SteelBlue.G, Colors.SteelBlue.B, 0.5));
+		private Pen pSelectionBorder = new Pen(SystemColors.HighlightBackground);
+		private SolidBrush bSelectionFill = new SolidBrush(Color.FromRGBADouble(SystemColors.HighlightBackground.R, SystemColors.HighlightBackground.G, SystemColors.HighlightBackground.B, 0.5));
 
 		private Pen pSelectionBorderDrawing = new Pen(Colors.DarkGray);
 		private SolidBrush bSelectionFillDrawing = new SolidBrush(Color.FromRGBADouble(Colors.DarkGray.R, Colors.DarkGray.G, Colors.DarkGray.B, 0.5));
@@ -649,7 +649,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 						if (mvarSelectedCommands.Contains(cmd))
 						{
-							e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xCC, 0xCC, 0xFF)), rect);
+							e.Graphics.FillRectangle(new SolidBrush(SystemColors.HighlightBackground), rect);
 						}
 						else
 						{
