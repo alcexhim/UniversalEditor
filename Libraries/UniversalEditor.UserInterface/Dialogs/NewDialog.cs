@@ -59,6 +59,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.InitializeTreeView();
 
 			Buttons[0].Enabled = false;
+			DefaultButton = Buttons[0];
 		}
 		private void InitializeDocumentTemplateTreeView()
 		{

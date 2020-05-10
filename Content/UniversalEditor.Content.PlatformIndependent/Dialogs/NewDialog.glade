@@ -64,6 +64,9 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -110,7 +113,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
           <object class="GtkPaned">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="position">250</property>
+            <property name="position">150</property>
             <property name="position_set">True</property>
             <property name="wide_handle">True</property>
             <child>
@@ -177,7 +180,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
                         <child>
                           <object class="GtkCellRendererText"/>
                           <attributes>
-                            <attribute name="markup">0</attribute>
+                            <attribute name="text">0</attribute>
                           </attributes>
                         </child>
                       </object>
