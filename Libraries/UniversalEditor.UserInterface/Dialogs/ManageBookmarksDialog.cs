@@ -42,9 +42,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			base.OnCreated(e);
 
-			tv.KeyDown += tv_KeyDown;
-			tv.RowActivated += tv_RowActivated;
-
 			for (int i = 0; i < Engine.CurrentEngine.BookmarksManager.FileNames.Count; i++)
 			{
 				_FileNames.Add(Engine.CurrentEngine.BookmarksManager.FileNames[i]);
@@ -60,11 +57,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 				tm.Rows[tm.Rows.Count - 1].SetExtraData<int>("index", i);
 			}
 
-			Buttons[0].Click += cmdOK_Click;
 			DefaultButton = Buttons[0];
 		}
 
-		void cmdOK_Click(object sender, EventArgs e)
+		[EventHandler("cmdOK", "Click")]
+		private void cmdOK_Click(object sender, EventArgs e)
 		{
 			Engine.CurrentEngine.BookmarksManager.FileNames.Clear();
 			for (int i = 0; i < _FileNames.Count; i++)
@@ -74,27 +71,38 @@ namespace UniversalEditor.UserInterface.Dialogs
 			Close();
 		}
 
-		void tv_KeyDown(object sender, KeyEventArgs e)
+		[EventHandler("tv", "KeyDown")]
+		private void tv_KeyDown(object sender, KeyEventArgs e)
 		{
 			switch (e.Key)
 			{
 				case KeyboardKey.Delete:
 				{
-					int index = tv.SelectedRows[0].GetExtraData<int>("index");
-					string filetitle = System.IO.Path.GetFileName(_FileNames[index]);
+					if (tv.SelectedRows.Count == 1)
+					{
+						int index = tv.Model.Rows.IndexOf(tv.SelectedRows[0]);
+						string filetitle = System.IO.Path.GetFileName(_FileNames[index]);
 
-					if (MessageDialog.ShowDialog(String.Format("Remove '{0}' from the list of bookmarks?", filetitle), "Remove Bookmark", MessageDialogButtons.YesNo, MessageDialogIcon.Warning) == DialogResult.No)
-						return;
+						if (MessageDialog.ShowDialog(String.Format("Remove '{0}' from the list of bookmarks?", filetitle), "Remove Bookmark", MessageDialogButtons.YesNo, MessageDialogIcon.Warning) == DialogResult.No)
+							return;
 
-					_FileNames.RemoveAt(index);
-					tm.Rows.Remove(tv.SelectedRows[0]);
+						_FileNames.RemoveAt(index);
+						tm.Rows.Remove(tv.SelectedRows[0]);
+					}
+					else if (tv.SelectedRows.Count > 1)
+					{
+						if (MessageDialog.ShowDialog(String.Format("Remove {0} items from the list of bookmarks?", tv.SelectedRows.Count), "Remove Bookmark", MessageDialogButtons.YesNo, MessageDialogIcon.Warning) == DialogResult.No)
+							return;
+
+						MessageDialog.ShowDialog("Not implemented", "error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+					}
 					break;
 				}
 			}
 		}
 
-
-		void tv_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		[EventHandler("tv", "RowActivated")]
+		private void tv_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			int index = e.Row.GetExtraData<int>("index");
 
