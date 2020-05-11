@@ -559,6 +559,7 @@ namespace UniversalEditor.UserInterface
 				Application.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
 
 				Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+				ShowBookmarksManagerDialog();
 			});
 			Application.AttachCommandEventHandler("BookmarksAddAll", delegate (object sender, EventArgs e)
 			{
@@ -586,14 +587,12 @@ namespace UniversalEditor.UserInterface
 						Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
 					}
 				}
+
+				ShowBookmarksManagerDialog();
 			});
 			Application.AttachCommandEventHandler("BookmarksManage", delegate (object sender, EventArgs e)
 			{
-				ManageBookmarksDialog dlg = new ManageBookmarksDialog();
-				if (dlg.ShowDialog() == DialogResult.OK)
-				{
-					// saving the BookmarksManager state is handled by the ManageBookmarksDialog
-				}
+				ShowBookmarksManagerDialog();
 			});
 			#endregion
 			#region Tools
@@ -742,6 +741,15 @@ namespace UniversalEditor.UserInterface
 		{
 			Command cmd = (sender as Command);
 			
+		}
+
+		private void ShowBookmarksManagerDialog()
+		{
+			ManageBookmarksDialog dlg = new ManageBookmarksDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				// saving the BookmarksManager state is handled by the ManageBookmarksDialog
+			}
 		}
 
 		private IHostApplicationWindowCollection mvarWindows = new IHostApplicationWindowCollection();
