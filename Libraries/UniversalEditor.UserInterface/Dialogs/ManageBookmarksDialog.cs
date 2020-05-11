@@ -35,6 +35,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 	{
 		private ListView tv;
 		private DefaultTreeModel tm;
+		private Button cmdOK;
 
 		private System.Collections.Specialized.StringCollection _FileNames = new System.Collections.Specialized.StringCollection();
 
@@ -60,7 +61,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			DefaultButton = Buttons[0];
 		}
 
-		[EventHandler("cmdOK", "Click")]
+		[EventHandler(nameof(cmdOK), "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
 			Engine.CurrentEngine.BookmarksManager.FileNames.Clear();
@@ -71,7 +72,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			Close();
 		}
 
-		[EventHandler("tv", "KeyDown")]
+		[EventHandler(nameof(tv), "KeyDown")]
 		private void tv_KeyDown(object sender, KeyEventArgs e)
 		{
 			switch (e.Key)
@@ -101,7 +102,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 		}
 
-		[EventHandler("tv", "RowActivated")]
+		[EventHandler(nameof(tv), "RowActivated")]
 		private void tv_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			int index = e.Row.GetExtraData<int>("index");

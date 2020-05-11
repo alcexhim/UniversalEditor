@@ -38,6 +38,7 @@ namespace UniversalEditor.Editors.Binary
 		private Label lblLength;
 		private NumericTextBox txtLength;
 		private Button cmdColor;
+		// private Button cmdOK;
 
 		public FieldDefinition FieldDefinition { get; set; } = new FieldDefinition();
 
@@ -66,7 +67,7 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-		[EventHandler("cboDataType", "Changed")]
+		[EventHandler(nameof(cboDataType), "Changed")]
 		private void cboDataType_Changed(object sender, EventArgs e)
 		{
 			if (cboDataType.SelectedItem == null) return;
@@ -86,7 +87,7 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-		[EventHandler("cmdColor", "Click")]
+		[EventHandler(nameof(cmdColor), "Click")]
 		private void cmdColor_Click(object sender, EventArgs e)
 		{
 			ColorDialog dlg = new ColorDialog();
@@ -97,7 +98,7 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-		[EventHandler("cmdOK", "Click")]
+		// [EventHandler(nameof(cmdOK), "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
 		{	
 			FieldDefinition.Name = txtName.Text;

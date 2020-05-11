@@ -39,6 +39,8 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 		private ComboBox cboTypeID;
 		private HexEditorControl hexData;
 		private Disclosure dscData;
+		private Button cmdImportData;
+		private Button cmdExportData;
 
 		public RIFFChunk Chunk { get; set; } = null;
 
@@ -87,7 +89,7 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 			this.Close();
 		}
 
-		[EventHandler("cboChunkType", "Changed")]
+		[EventHandler(nameof(cboChunkType), "Changed")]
 		private void cboChunkType_Changed(object sender, EventArgs e)
 		{
 			if (cboChunkType.SelectedItem == (cboChunkType.Model as DefaultTreeModel).Rows[0])
@@ -106,7 +108,7 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 			}
 		}
 
-		[EventHandler("cmdImportData", "Click")]
+		[EventHandler(nameof(cmdImportData), "Click")]
 		private void cmdImportData_Click(object sender, EventArgs e)
 		{
 			FileDialog dlg = new FileDialog();
@@ -117,7 +119,7 @@ namespace UniversalEditor.Editors.RIFF.Dialogs
 			}
 		}
 
-		[EventHandler("cmdExportData", "Click")]
+		[EventHandler(nameof(cmdExportData), "Click")]
 		private void cmdExportData_Click(object sender, EventArgs e)
 		{
 			FileDialog dlg = new FileDialog();

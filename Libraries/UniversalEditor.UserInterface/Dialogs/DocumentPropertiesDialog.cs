@@ -92,7 +92,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private Accessor mvarAccessor = null;
 		public Accessor Accessor { get { return mvarAccessor; } set { mvarAccessor = value; mvarInitialAccesor = value; } }
 
-		[EventHandler("cmdObjectModel", "Click")]
+		[EventHandler(nameof(cmdObjectModel), "Click")]
 		private void cmdObjectModel_Click(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<ObjectModel, ObjectModelReference> popup = new GenericBrowserPopup<ObjectModel, ObjectModelReference>();
@@ -222,7 +222,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			RefreshButtons();
 		}
 
-		[EventHandler("cmdDataFormat", "Click")]
+		[EventHandler(nameof(cmdDataFormat), "Click")]
 		private void cmdDataFormat_Click(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<DataFormat, DataFormatReference> popup = new GenericBrowserPopup<DataFormat, DataFormatReference>();
@@ -296,7 +296,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			popup.ShowDialog();
 		}
 
-		[EventHandler("cmdAccessor", "Click")]
+		[EventHandler(nameof(cmdAccessor), "Click")]
 		private void cmdAccessor_Click(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<Accessor, AccessorReference> dlg = new GenericBrowserPopup<Accessor, AccessorReference>();

@@ -502,34 +502,34 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-		[EventHandler("cboEndianness", "Changed")]
+		[EventHandler(nameof(cboEndianness), "Changed")]
 		private void cboEndianness_Changed(object sender, EventArgs e)
 		{
 			Endianness = cboEndianness.SelectedItem.GetExtraData<IO.Endianness>("value", IO.Endianness.LittleEndian);
 		}
 
-		[EventHandler("txtStart", "Changed")]
+		[EventHandler(nameof(txtStart), "Changed")]
 		private void txtStart_Changed(object sender, EventArgs e)
 		{
 			hexedit.SelectionStart = new HexEditorPosition((int)txtStart.Value, 0);
 		}
-		[EventHandler("txtEnd", "Changed")]
+		[EventHandler(nameof(txtEnd), "Changed")]
 		private void txtEnd_Changed(object sender, EventArgs e)
 		{
 			hexedit.SelectionLength = new HexEditorPosition((int)txtEnd.Value - hexedit.SelectionStart, 0);
 		}
-		[EventHandler("txtLength", "Changed")]
+		[EventHandler(nameof(txtLength), "Changed")]
 		private void txtLength_Changed(object sender, EventArgs e)
 		{
 			hexedit.SelectionLength = new HexEditorPosition((int)txtLength.Value, 0);
 		}
 
-		[EventHandler("hexedit", "Changing")]
+		[EventHandler(nameof(hexedit), "Changing")]
 		private void hexedit_Changing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			BeginEdit();
 		}
-		[EventHandler("hexedit", "Changed")]
+		[EventHandler(nameof(hexedit), "Changed")]
 		private void hexedit_Changed(object sender, EventArgs e)
 		{
 			EndEdit();
@@ -544,7 +544,7 @@ namespace UniversalEditor.Editors.Binary
 		}
 
 
-		[EventHandler("lvFieldDefinitions", "RowActivated")]
+		[EventHandler(nameof(lvFieldDefinitions), "RowActivated")]
 		private void lvFieldDefinitions_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			tsbFieldDefinitionEdit_Click(sender, e);
@@ -579,7 +579,7 @@ namespace UniversalEditor.Editors.Binary
 			return String.Empty;
 		}
 
-		[EventHandler("tsbFieldDefinitionAdd", "Click")]
+		// [EventHandler(nameof(tsbFieldDefinitionAdd), "Click")]
 		private void tsbFieldDefinitionAdd_Click(object sender, EventArgs e)
 		{
 			FieldDefinitionPropertiesDialog2 dlg = new FieldDefinitionPropertiesDialog2();
@@ -598,7 +598,7 @@ namespace UniversalEditor.Editors.Binary
 				hexedit.HighlightAreas.Add(new HexEditorHighlightArea(dlg.FieldDefinition.Name, dlg.FieldDefinition.Name, dlg.FieldDefinition.Offset, dlg.FieldDefinition.DataTypeSize, dlg.FieldDefinition.Color));
 			}
 		}
-		[EventHandler("tsbFieldDefinitionEdit", "Click")]
+		// [EventHandler(nameof(tsbFieldDefinitionEdit), "Click")]
 		private void tsbFieldDefinitionEdit_Click(object sender, EventArgs e)
 		{
 			if (lvFieldDefinitions.SelectedRows.Count != 1)
@@ -627,11 +627,11 @@ namespace UniversalEditor.Editors.Binary
 				}
 			}
 		}
-		[EventHandler("tsbFieldDefinitionRemove", "Click")]
+		// [EventHandler(nameof(tsbFieldDefinitionRemove), "Click")]
 		private void tsbFieldDefinitionRemove_Click(object sender, EventArgs e)
 		{
 		}
-		[EventHandler("tsbFieldDefinitionLoad", "Click")]
+		// [EventHandler(nameof(tsbFieldDefinitionLoad), "Click")]
 		private void tsbFieldDefinitionLoad_Click(object sender, EventArgs e)
 		{
 			FileDialog dlg = new FileDialog();
@@ -649,7 +649,7 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-		void Txt_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
+		private void Txt_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
 		{
 			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
 			{
@@ -717,7 +717,7 @@ namespace UniversalEditor.Editors.Binary
 		}
 
 
-		void Txt_LostFocus(object sender, EventArgs e)
+		private void Txt_LostFocus(object sender, EventArgs e)
 		{
 			HexEditorHighlightArea area = hexedit.HighlightAreas["conversion"];
 			if (area != null)
@@ -725,7 +725,7 @@ namespace UniversalEditor.Editors.Binary
 		}
 
 
-		void Txt_GotFocus(object sender, EventArgs e)
+		private void Txt_GotFocus(object sender, EventArgs e)
 		{
 			TextBox ctl = sender as TextBox;
 			CONVERSION_DATA converter = ctl.GetExtraData<CONVERSION_DATA>("converter");
@@ -740,7 +740,7 @@ namespace UniversalEditor.Editors.Binary
 			hexedit.HighlightAreas["conversion"] = area;
 		}
 
-		[EventHandler("hexedit", "SelectionChanged")]
+		[EventHandler(nameof(hexedit), "SelectionChanged")]
 		private void Hexedit_SelectionChanged(object sender, EventArgs e)
 		{
 			// this actually worked on the very first try. holy crap.

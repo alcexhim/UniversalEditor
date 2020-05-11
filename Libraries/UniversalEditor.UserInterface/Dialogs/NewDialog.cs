@@ -39,6 +39,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 	[ContainerLayout("~/Dialogs/NewDialog.glade", "GtkDialog")]
 	public class NewDialog : Dialog
 	{
+		private Button cmdOK;
+
 		private TextBox txtFileName;
 		private TextBox txtFilePath;
 
@@ -227,7 +229,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			InitializeObjectModelTreeViewRow(tm, row, omr, index + 1);
 		}
 
-		[EventHandler("cmdOK", "Click")]
+		[EventHandler(nameof(cmdOK), "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
 			SolutionTitle = txtSolutionName.Text;
@@ -360,7 +362,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			return null;
 		}
 
-		[EventHandler("txtSearch", "Changed")]
+		[EventHandler(nameof(txtSearch), "Changed")]
 		private void txtSearch_Changed(object sender, EventArgs e)
 		{
 			InitializeTreeView();
@@ -485,7 +487,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 		}
 
-		[EventHandler("tvObjectModel", "SelectionChanged")]
+		[EventHandler(nameof(tvObjectModel), "SelectionChanged")]
 		private void tvObjectModel_SelectionChanged(object sender, EventArgs e)
 		{
 			if (tvObjectModel.SelectedRows.Count < 1) return;
@@ -508,7 +510,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 		}
 
-		[EventHandler("tvTemplate", "SelectionChanged")]
+		[EventHandler(nameof(tvTemplate), "SelectionChanged")]
 		private void tvTemplate_SelectionChanged(object sender, EventArgs e)
 		{
 			Buttons[0].Enabled = (tvTemplate.SelectedRows.Count > 0);
@@ -540,7 +542,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 			}
 		}
-		[EventHandler("tvTemplate", "RowActivated")]
+		[EventHandler(nameof(tvTemplate), "RowActivated")]
 		private void tvTemplate_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			cmdOK_Click(sender, e);
