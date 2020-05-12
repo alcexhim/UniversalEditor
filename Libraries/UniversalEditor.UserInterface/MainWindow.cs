@@ -213,6 +213,7 @@ namespace UniversalEditor.UserInterface
 			{
 				pnlButtons.Controls.Add(SuperButtons[i], new BoxLayout.Constraints(true, true));
 			}
+			pnlButtons.Visible = false;
 			Controls.Add(pnlButtons, new BoxLayout.Constraints(false, false, 0, BoxLayout.PackType.Start));
 
 			this.Bounds = new Rectangle(0, 0, 600, 400);
