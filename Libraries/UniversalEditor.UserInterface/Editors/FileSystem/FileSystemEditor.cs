@@ -497,6 +497,8 @@ namespace UniversalEditor.Editors.FileSystem
 				tm.Columns.RemoveAt(i);
 			}
 
+			tm.Rows.Clear();
+
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
