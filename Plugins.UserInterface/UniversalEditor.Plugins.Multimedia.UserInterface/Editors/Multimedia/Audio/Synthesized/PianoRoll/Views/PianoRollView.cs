@@ -127,8 +127,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		private static Dictionary<string, int[]> Scales = new Dictionary<string, int[]>();
 		static PianoRollView()
 		{
-			Scales.Add("Major", new int[] { 1, 3, 5, 6, 8, 10, 12 });
-			Scales.Add("MinorHarmonic", new int[] { 1, 3, 4, 6, 7, 10, 12 });
+			Scales.Add("Major", new int[] { 1, 3, 5, 6, 8, 10, 11 });
+			Scales.Add("MinorHarmonic", new int[] { 1, 3, 4, 6, 7, 10, 11 });
 		}
 
 		private int[] _CurrentScale = null;
@@ -254,9 +254,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 		private Pen pGrid = new Pen(Colors.LightGray);
 		private Pen pGridAlt = new Pen(Colors.Gray);
-
-		private Pen pSelectionBorder = new Pen(SystemColors.HighlightBackground);
-		private SolidBrush bSelectionFill = new SolidBrush(Color.FromRGBADouble(SystemColors.HighlightBackground.R, SystemColors.HighlightBackground.G, SystemColors.HighlightBackground.B, 0.5));
 
 		private Pen pSelectionBorderDrawing = new Pen(Colors.DarkGray);
 		private SolidBrush bSelectionFillDrawing = new SolidBrush(Color.FromRGBADouble(Colors.DarkGray.R, Colors.DarkGray.G, Colors.DarkGray.B, 0.5));
@@ -511,7 +508,11 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 			}
 		}
-		int[] noteValuesBlackKeys = new int[] { 1, 3, 5, 8, 10 };
+
+		string[] noteNames = new string[]
+		{
+			"A#", "A", "G#", "G", "F#", "F", "E", "D#", "D", "C#", "C", "B"
+		};
 
 		private Vector2D Quantize(Vector2D pt)
 		{
@@ -573,6 +574,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint(e);
+
 			int gridWidth = (int)(mvarQuarterNoteWidth * mvarZoomFactor);
 			int gridHeight = (int)(mvarNoteHeight * mvarZoomFactor);
 
@@ -582,57 +584,56 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				DrawKeyboard(e.Graphics);
 			}
 
-			Pen gridPen = new Pen(Colors.LightGray);
+			Pen gridPen = new Pen(Colors.Gray.Alpha(0.25));
+
+			Pen pSelectionBorder = new Pen(SystemColors.HighlightBackground);
+			SolidBrush bSelectionFill = new SolidBrush(Color.FromRGBADouble(SystemColors.HighlightBackground.R, SystemColors.HighlightBackground.G, SystemColors.HighlightBackground.B, 0.5));
+
+			SolidBrush sbScaleHighlight = new SolidBrush(SystemColors.HighlightBackground.Alpha(0.25));
+			SolidBrush sbBlackKeyHighlight = new SolidBrush(Colors.Gray.Alpha(0.125));
 
 			for (int i = 0; i < Size.Height; i += gridHeight)
 			{
-				int noteValue = (int)(((double)i / gridHeight) % 12) + 1;
-				if (Array.IndexOf<int>(noteValuesBlackKeys, noteValue) != -1)
+				int noteValue = (int)(((double)i / gridHeight) % 12);
+				string noteName = noteNames[noteValue];
+
+				if (CurrentScale != null && (Array.IndexOf<int>(CurrentScale, noteValue) != -1))
+				{
+					e.Graphics.FillRectangle(sbScaleHighlight, new Rectangle(gridRect.X, gridRect.Y + i - gridHeight, gridRect.Width, gridHeight));
+				}
+				if (noteName.EndsWith("#") || noteName.EndsWith("b"))
 				{
 					if (CurrentScale != null && (Array.IndexOf<int>(CurrentScale, noteValue) != -1))
 					{
-						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xAA, 0xCC, 0xAA)), new Rectangle(gridRect.X, gridRect.Y + i, gridRect.Width, gridHeight));
+						e.Graphics.FillRectangle(new SolidBrush(Colors.Black.Alpha(0.125)), new Rectangle(gridRect.X, gridRect.Y + i - gridHeight, gridRect.Width, gridHeight));
 					}
 					else
 					{
-						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xDD, 0xDD, 0xDD)), new Rectangle(gridRect.X, gridRect.Y + i, gridRect.Width, gridHeight));
-					}
-				}
-				else
-				{
-					if (CurrentScale != null && (Array.IndexOf<int>(CurrentScale, noteValue) != -1))
-					{
-						e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xAA, 0xDD, 0xAA)), new Rectangle(gridRect.X, gridRect.Y + i, gridRect.Width, gridHeight));
+						e.Graphics.FillRectangle(sbBlackKeyHighlight, new Rectangle(gridRect.X, gridRect.Y + i - gridHeight, gridRect.Width, gridHeight));
 					}
 				}
 
-				gridPen.Color = Colors.LightGray;
+				gridPen.Color = Colors.Gray.Alpha(0.25);
 				e.Graphics.DrawLine(gridPen, gridRect.X, gridRect.Y + i, gridRect.Right, gridRect.Y + i);
 
-				string[] noteNames = new string[]
+				if (noteValue >= 0 && noteValue < noteNames.Length)
 				{
-					"A#", "A", "G#", "G", "F#", "F", "E", "D#", "D", "C#", "C", "B"
-				};
-				if ((noteValue - 1) >= 0 && (noteValue - 1) < noteNames.Length)
-				{
-					string noteName = noteNames[noteValue - 1];
-					if (noteName.EndsWith("#")) continue;
+					// if (noteName.EndsWith("#")) continue;
 					if (!noteName.Equals("C")) continue;
 
 					e.Graphics.DrawText(noteName, Font, new Vector2D(mvarKeyboardWidth - 24, i + 1), new SolidBrush(noteName.Equals("C") ? Colors.DarkGray : Colors.LightGray));
+					e.Graphics.DrawText(noteValue.ToString(), Font, new Vector2D(0, i), new SolidBrush(Colors.Red));
 				}
-
-				e.Graphics.DrawText(noteValue.ToString(), Font, new Vector2D(0, i), new SolidBrush(Colors.Red));
 			}
 			for (int i = 0; i < Size.Width; i += (ShowGridLines ? (gridWidth / 2) : gridWidth))
 			{
 				if ((i % (mvarQuarterNoteWidth * 4)) == 0)
 				{
-					gridPen.Color = Colors.DarkGray;
+					gridPen.Color = Colors.Gray.Alpha(0.50);
 				}
 				else
 				{
-					gridPen.Color = Colors.LightGray;
+					gridPen.Color = Colors.Gray.Alpha(0.25);
 				}
 				e.Graphics.DrawLine(gridPen, gridRect.X + i, gridRect.Y, gridRect.X + i, gridRect.Bottom);
 			}
@@ -653,9 +654,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 						}
 						else
 						{
-							e.Graphics.FillRectangle(new SolidBrush(Color.FromRGBAByte(0xCC, 0xFF, 0xCC)), rect);
+							e.Graphics.FillRectangle(new SolidBrush(SystemColors.WindowBackground), rect);
+							e.Graphics.FillRectangle(new SolidBrush(Colors.Green.Alpha(0.3)), rect);
 						}
-						e.Graphics.DrawRectangle(new Pen(Colors.DarkGray), rect);
+						e.Graphics.DrawRectangle(new Pen(Colors.Green.Alpha(0.5)), rect);
 
 						Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 1, rect.Width - 4, rect.Height - 2);
 						e.Graphics.DrawText(note.Lyric, Font, textRect, new SolidBrush(Colors.Black));
@@ -729,13 +731,13 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			Rectangle keyboardRect = GetKeyboardRect();
 			for (int i = 0; i < keyboardRect.Height; i += gridHeight)
 			{
-				int noteValue = (int)(((double)i / gridHeight) % 12) + 1;
+				int noteValue = (int)(((double)i / gridHeight) % 12);
 				g.DrawLine(new Pen(Colors.LightGray), keyboardRect.X, i, keyboardRect.Right, i);
 
-				if (Array.IndexOf<int>(noteValuesBlackKeys, noteValue) != -1)
+				if (noteNames[noteValue].EndsWith("#") || noteNames[noteValue].EndsWith("b"))
 				{
 					// has a black key
-					g.FillRectangle(new SolidBrush(Colors.DarkGray), keyboardRect.X, i, (int)((double)keyboardRect.Width / 2), gridHeight);
+					g.FillRectangle(new SolidBrush(Colors.DarkGray), keyboardRect.X, i - gridHeight, (int)((double)keyboardRect.Width / 2), gridHeight);
 				}
 			}
 		}
