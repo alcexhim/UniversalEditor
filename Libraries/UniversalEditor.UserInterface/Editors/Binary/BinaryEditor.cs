@@ -584,6 +584,8 @@ namespace UniversalEditor.Editors.Binary
 		{
 			FieldDefinitionPropertiesDialog2 dlg = new FieldDefinitionPropertiesDialog2();
 			dlg.FieldDefinition.Offset = hexedit.SelectionStart;
+			dlg.FieldDefinition.Length = hexedit.SelectionLength;
+
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				tmFieldDefinitions.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
