@@ -208,28 +208,13 @@ namespace UniversalEditor.UserInterface
 
 		void Application_Activated(object sender, ApplicationActivatedEventArgs e)
 		{
-			Document[] docs = new Document[e.CommandLine.FileNames.Count];
-			if (e.CommandLine.FileNames.Count > 0)
-			{
-				for (int i = 0; i < e.CommandLine.FileNames.Count; i++)
-				{
-					if (String.IsNullOrEmpty(e.CommandLine.FileNames[i]))
-					{
-						Console.WriteLine("ue: warning: ignoring empty file name passed to command line");
-						continue;
-					}
-
-					docs[i] = new Document(new FileAccessor(e.CommandLine.FileNames[i]));
-				}
-			}
-
 			if (LastWindow != null)
 			{
-				LastWindow.OpenFile(docs);
+				LastWindow.OpenFile(e.CommandLine.FileNames.ToArray());
 			}
 			else
 			{
-				OpenWindow(docs);
+				OpenWindow(e.CommandLine.FileNames.ToArray());
 			}
 
 			List<string> commandsToExecute = (Application.CommandLine.Options.GetValueOrDefault<List<string>>("command", null));
@@ -287,22 +272,6 @@ namespace UniversalEditor.UserInterface
 			// Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
 		}
 
-		/// <summary>
-		/// Opens a new window, optionally loading the specified documents.
-		/// </summary>
-		/// <param name="documents">The document model(s) of the document(s) to load.</param>
-		/// <returns>An <see cref="IHostApplicationWindow"/> representing the window that was created.</returns>
-		protected IHostApplicationWindow OpenWindowInternal (params Document[] documents)
-		{
-			MainWindow mw = new MainWindow ();
-			LastWindow = mw;
-			if (documents.Length > 0)
-			{
-				mw.OpenFile(documents);
-			}
-			mw.Show ();
- 			return mw;
-		}
 		public void ShowAboutDialog (DataFormatReference dfr)
 		{
 			if (dfr == null)
@@ -752,13 +721,12 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		private IHostApplicationWindowCollection mvarWindows = new IHostApplicationWindowCollection();
-		public IHostApplicationWindowCollection Windows { get { return mvarWindows; } }
+		public IHostApplicationWindowCollection Windows { get; } = new IHostApplicationWindowCollection();
 
 		public void CloseAllWindows()
 		{
 			List<IHostApplicationWindow> windowsToClose = new List<IHostApplicationWindow>();
-			foreach (IHostApplicationWindow window in mvarWindows)
+			foreach (IHostApplicationWindow window in Windows)
 			{
 				windowsToClose.Add(window);
 			}
@@ -830,7 +798,6 @@ namespace UniversalEditor.UserInterface
 		{
 			MainWindow mw = new MainWindow();
 			mw.Show();
-			// OpenWindow(new Document[0]);
 		}
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.
@@ -838,24 +805,10 @@ namespace UniversalEditor.UserInterface
 		/// <param name="fileNames">The file name(s) of the document(s) to load.</param>
 		public void OpenWindow(params string[] fileNames)
 		{
-			List<Document> loadedDocuments = new List<Document>();
-			for (int i = 0; i < fileNames.Length; i++)
-			{
-				AccessorReference[] accs = UniversalEditor.Common.Reflection.GetAvailableAccessors(fileNames[i]);
-				if (accs.Length > 0)
-				{
-					Accessor fa = accs[0].Create();
-					fa.OriginalUri = new Uri(fileNames[i]);
-					Document document = new Document(fa);
-					loadedDocuments.Add(document);
-				}
-				else
-				{
-					Console.Error.WriteLine("ue: accessor not found for path " + fileNames[i] + "; assuming local file");
-					loadedDocuments.Add(new Document(new FileAccessor(fileNames[i])));
-				}
-			}
-			OpenWindow(loadedDocuments.ToArray());
+			MainWindow mw = new MainWindow();
+			mw.Show();
+
+			mw.OpenFile(fileNames);
 		}
 		/// <summary>
 		/// Opens a new window, optionally loading the specified documents.
@@ -863,12 +816,10 @@ namespace UniversalEditor.UserInterface
 		/// <param name="documents">The document model(s) of the document(s) to load.</param>
 		public void OpenWindow(params Document[] documents)
 		{
-			IHostApplicationWindow window = OpenWindowInternal(documents);
-			window.WindowClosed += delegate(object sender, EventArgs e)
-			{
-				mvarWindows.Remove(window);
-			};
-			mvarWindows.Add(window);
+			MainWindow mw = new MainWindow();
+			mw.Show();
+
+			mw.OpenFile(documents);
 		}
 
 		// UniversalDataStorage.Editor.WindowsForms.Program

@@ -28,6 +28,7 @@ using UniversalEditor.UserInterface.Pages;
 using UniversalEditor.ObjectModels.Binary;
 using UniversalEditor.DataFormats.Binary;
 using System.Collections.Generic;
+using System.Text;
 
 namespace UniversalEditor.UserInterface
 {
@@ -704,7 +705,11 @@ namespace UniversalEditor.UserInterface
 
 		protected override void OnClosed(EventArgs e)
 		{
-			MBS.Framework.UserInterface.Application.Stop();
+			Engine.CurrentEngine.Windows.Remove(this);
+			if (Engine.CurrentEngine.Windows.Count <= 0)
+			{
+				MBS.Framework.UserInterface.Application.Stop();
+			}
 		}
 		protected override void OnCreated(EventArgs e)
 		{
@@ -712,9 +717,18 @@ namespace UniversalEditor.UserInterface
 			{
 				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
+
+			Engine.CurrentEngine.Windows.Add(this);
+			Engine.CurrentEngine.LastWindow = this;
 		}
 
-#region IHostApplicationWindow implementation
+		protected override void OnGotFocus(EventArgs e)
+		{
+			base.OnGotFocus(e);
+			Engine.CurrentEngine.LastWindow = this;
+		}
+
+		#region IHostApplicationWindow implementation
 		public void OpenFile()
 		{
 			/*
@@ -745,6 +759,8 @@ namespace UniversalEditor.UserInterface
 		public void OpenFile(params string[] fileNames)
 		{
 			Document[] documents = new Document[fileNames.Length];
+
+			List<string> failedFiles = new List<string>();
 			for (int i = 0; i < documents.Length; i++)
 			{
 				AccessorReference[] accs = UniversalEditor.Common.Reflection.GetAvailableAccessors(fileNames[i]);
@@ -758,6 +774,29 @@ namespace UniversalEditor.UserInterface
 					FileAccessor fa = new FileAccessor(fileNames[i], true, false, true);
 					documents[i] = new Document(fa);
 				}
+				else
+				{
+					failedFiles.Add(fileNames[i]);
+				}
+			}
+			if (failedFiles.Count > 0)
+			{
+				StringBuilder sb = new StringBuilder();
+				if (failedFiles.Count == 1)
+				{
+					sb.Append(String.Format("The file '{0}' could not be found.", failedFiles[0]));
+				}
+				else
+				{
+					sb.AppendLine("The following files could not be found:");
+					sb.AppendLine();
+					for (int i = 0; i < failedFiles.Count; i++)
+					{
+						sb.AppendLine(failedFiles[i]);
+					}
+				}
+
+				MessageDialog.ShowDialog(sb.ToString(), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
 			}
 			OpenFile(documents);
 		}
