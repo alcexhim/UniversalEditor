@@ -41,6 +41,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			Buttons.Add(new Button(StockType.Cancel));
 
 			// Buttons[0].ResponseValue = (int)DialogResult.OK;
+			DefaultButton = Buttons[0];
 			Buttons[1].ResponseValue = (int)DialogResult.Cancel;
 		}
 
