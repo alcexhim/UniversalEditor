@@ -277,6 +277,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		private double cx = 0, cy = 0;
 		private double dx = 0, dy = 0;
 
+		private Vector2D note_OriginalLocation = new Vector2D(0, 0);
 		private Vector2D drag_OriginalLocation = new Vector2D(0, 0);
 		private Vector2D drag_CurrentLocation = new Vector2D(0, 0);
 
@@ -343,6 +344,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				m_selecting = true;
 
 				drag_OriginalLocation = Quantize(new Vector2D(cx, cy));
+				if (cmd is SynthesizedAudioCommandNote)
+				{
+					note_OriginalLocation = Quantize(GetNoteRect(cmd as SynthesizedAudioCommandNote).Location);
+				}
 				drag_CurrentLocation = drag_OriginalLocation;
 			}
 			Refresh();
@@ -671,7 +676,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				{
 					Rectangle origNoteRect = GetNoteRect(draggingCommand as SynthesizedAudioCommandNote);
 					Rectangle newNoteRect = GetNoteRect(draggingCommand as SynthesizedAudioCommandNote);
-					newNoteRect.Location = Unquantize(drag_CurrentLocation);
+					newNoteRect.Location = Unquantize(new Vector2D(note_OriginalLocation.X + (drag_CurrentLocation.X - drag_OriginalLocation.X), note_OriginalLocation.Y + (drag_CurrentLocation.Y - drag_OriginalLocation.Y)));
 
 					Vector2D diff = new Vector2D(newNoteRect.X - origNoteRect.X, newNoteRect.Y - origNoteRect.Y);
 					foreach (SynthesizedAudioCommand cmd in mvarSelectedCommands)
