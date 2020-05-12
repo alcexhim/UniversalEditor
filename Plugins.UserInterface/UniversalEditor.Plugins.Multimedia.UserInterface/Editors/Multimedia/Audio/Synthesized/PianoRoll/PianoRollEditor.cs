@@ -47,8 +47,13 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 			SynthesizedAudioObjectModel om = (ObjectModel as SynthesizedAudioObjectModel);
 			if (om == null) return;
 
-			if (om.Tracks.Count > 0)
-				PianoRoll.SelectedTrack = om.Tracks[0];
+			if (om.Tracks.Count == 0)
+			{
+				// HACK: since we don't have a good way to specify defaults for blank templates.
+				// this fixes the fixme in SynthesizedAudioObjectModel.cs so we don't have an extra empty track when we open a new file
+				om.Tracks.Add(new SynthesizedAudioTrack());
+			}
+			PianoRoll.SelectedTrack = om.Tracks[0];
 
 			PianoRoll.Refresh();
 		}
