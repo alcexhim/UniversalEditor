@@ -186,42 +186,74 @@ namespace UniversalEditor.UserInterface.Pages
 			}
 			else
 			{
-				// errorMessage1.Enabled = false;
-				// errorMessage1.Visible = false;
-
-				Controls.Clear();
-				// Controls.Add(pnlLoading);
-
-				Container tbEditorsAndViews = new Container();
-				tbEditorsAndViews.Layout = new GridLayout();
-				for (int i = 0; i < reditors.Length; i++)
+				// this MIGHT or MIGHT NOT be a performance improvement, but it comes about as a rather ugly hack
+				// to deal with deficiencies currently present in TreeModels/GtkTreeView and control collection management
+				bool changed = false;
+				if (Controls.Count - 1 == reditors.Length)
 				{
-					EditorReference reditor = reditors[i];
-					Editor editor = reditor.Create();
-
-					// editor.Dock = DockStyle.Fill;
-					editor.ObjectModel = om;
-					editor.DocumentEdited += editor_DocumentEdited;
-
-					for (int j = 0; j < reditor.Views.Count; j++)
+					for (int i = 0; i < Controls.Count - 1; i++)
 					{
-						EditorView view = reditor.Views[j];
-						Button btn = new Button();
-						btn.BorderStyle = ButtonBorderStyle.None;
-						btn.Text = view.Title;
-						btn.Click += tibEditorView_Click;
-						btn.SetExtraData<Editor>("editor", editor);
-						btn.SetExtraData<EditorView>("view", view);
-						btn.HorizontalAlignment = HorizontalAlignment.Left;
-						// btn.DisplayStyle = ToolbarItemDisplayStyle.ImageAndText;
-						tbEditorsAndViews.Controls.Add(btn, new GridLayout.Constraints(0, i + j));
+						if (reditors[i].EditorType != Controls[i].GetType())
+						{
+							// if one of our editors doesn't match what we currently have, we've obviously changed editors
+							changed = true;
+							break;
+						}
 					}
-					Controls.Add(editor, new BoxLayout.Constraints(true, true));
 				}
-				Controls.Add(tbEditorsAndViews, new BoxLayout.Constraints(false, false));
+				else
+				{
+					// if we have more or less editors than currently present in the control, we've obviously changed editors
+					changed = true;
+				}
 
-				// pnlLoading.Visible = false;
-				// pnlLoading.Enabled = false;
+				if (changed)
+				{
+					// only re-create the control collection if we've actually had a change
+					// otherwise, this causes an exact replica of the original editor to be loaded, and sometimes breaks things
+					// (e.g. FileSystemEditor does not work properly)
+
+					// this is definitely an underlying bug in the UWT implementation tracking GtkTreeView and GtkTreeModel handles, but we can sweep it under the rug
+					// for the moment by only refreshing the control collection if we REALLY need a different Editor (in which case, since it's a different Editor, the
+					// problem no longer manifests itself)
+					Controls.Clear();
+
+					Container tbEditorsAndViews = new Container();
+					tbEditorsAndViews.Layout = new GridLayout();
+					for (int i = 0; i < reditors.Length; i++)
+					{
+						EditorReference reditor = reditors[i];
+						Editor editor = reditor.Create();
+
+						// editor.Dock = DockStyle.Fill;
+						editor.ObjectModel = om;
+						editor.DocumentEdited += editor_DocumentEdited;
+
+						for (int j = 0; j < reditor.Views.Count; j++)
+						{
+							EditorView view = reditor.Views[j];
+							Button btn = new Button();
+							btn.BorderStyle = ButtonBorderStyle.None;
+							btn.Text = view.Title;
+							btn.Click += tibEditorView_Click;
+							btn.SetExtraData<Editor>("editor", editor);
+							btn.SetExtraData<EditorView>("view", view);
+							btn.HorizontalAlignment = HorizontalAlignment.Left;
+							// btn.DisplayStyle = ToolbarItemDisplayStyle.ImageAndText;
+							tbEditorsAndViews.Controls.Add(btn, new GridLayout.Constraints(0, i + j));
+						}
+						Controls.Add(editor, new BoxLayout.Constraints(true, true));
+					}
+					Controls.Add(tbEditorsAndViews, new BoxLayout.Constraints(false, false));
+				}
+				else
+				{
+					// the Editors are all the same, so just update them with the new ObjectModel
+					for (int i = 0; i < Controls.Count - 1; i++)
+					{
+						(Controls[i] as Editor).ObjectModel = om;
+					}
+				}
 			}
 		}
 
