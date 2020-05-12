@@ -102,230 +102,30 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 											if (tag2 != null)
 											{
 												text = tag2.FullName;
+
+												switch (tag2.FullName)
+												{
+													case "musicalPart":
+													{
+														for (int j = 0; j < tag2.Elements.Count; j++)
+														{
+															MarkupTagElement tag3 = tag2.Elements[j] as MarkupTagElement;
+															if (tag3 == null) continue;
+
+															SynthesizedAudioCommand cmd = SynthesizedAudioCommandFromTag(tag3);
+															if (cmd != null)
+															{
+																track.Commands.Add(cmd);
+															}
+														}
+														break;
+													}
+												}
+
 												if (text != null)
 												{
 													if (!(text == "stylePlugin"))
 													{
-														if (text == "note")
-														{
-															SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
-															MarkupTagElement tagPosTick = tag2.Elements["posTick"] as MarkupTagElement;
-															if (tagPosTick != null)
-															{
-																int posTick = 0;
-																if (int.TryParse(tagPosTick.Value, out posTick))
-																{
-																	note.Position = posTick;
-																}
-															}
-															MarkupTagElement tagDurTick = tag2.Elements["durTick"] as MarkupTagElement;
-															if (tagDurTick != null)
-															{
-																int durTick = 0;
-																if (int.TryParse(tagDurTick.Value, out durTick))
-																{
-																	note.Length = durTick;
-																}
-															}
-															MarkupTagElement tagNoteNum = tag2.Elements["noteNum"] as MarkupTagElement;
-															if (tagNoteNum != null)
-															{
-																int noteNum = 0;
-																if (int.TryParse(tagNoteNum.Value, out noteNum))
-																{
-																	note.Frequency = noteNum;
-																}
-															}
-															MarkupTagElement tagVelocity = tag2.Elements["velocity"] as MarkupTagElement;
-															if (tagVelocity != null)
-															{
-																int velocity = 0;
-																if (int.TryParse(tagVelocity.Value, out velocity))
-																{
-																	note.Intensity = velocity;
-																}
-															}
-															MarkupTagElement tagLyric = tag2.Elements["lyric"] as MarkupTagElement;
-															if (tagLyric != null)
-															{
-																MarkupStringElement tagLyricCDATA = tagLyric.Elements[0] as MarkupStringElement;
-																if (tagLyricCDATA != null)
-																{
-																	note.Lyric = tagLyricCDATA.Value;
-																}
-															}
-															MarkupTagElement tagPhoneme = tag2.Elements["phnms"] as MarkupTagElement;
-															if (tagPhoneme != null)
-															{
-																MarkupStringElement tagPhonemeCDATA = tagPhoneme.Elements[0] as MarkupStringElement;
-																if (tagPhonemeCDATA != null)
-																{
-																	note.Phoneme = tagPhonemeCDATA.Value;
-																}
-															}
-															MarkupTagElement tagNoteStyle = tag2.Elements["noteStyle"] as MarkupTagElement;
-															if (tagNoteStyle != null)
-															{
-																foreach (MarkupElement elAttr in tagNoteStyle.Elements)
-																{
-																	MarkupTagElement tagAttr = elAttr as MarkupTagElement;
-																	if (tagAttr != null)
-																	{
-																		if (tagAttr.Attributes["id"] != null)
-																		{
-																			if (tagAttr.Name == "attr")
-																			{
-																				text = tagAttr.Attributes["id"].Value;
-																				switch (text)
-																				{
-																					case "accent":
-																					{
-																						string value = tagAttr.Value;
-																						int realValue = 50;
-																						int.TryParse(value, out realValue);
-																						note.Accent = realValue;
-																						break;
-																					}
-																					case "bendDep":
-																					{
-																						string value = tagAttr.Value;
-																						int realValue = 8;
-																						int.TryParse(value, out realValue);
-																						note.PitchBendDepth = realValue;
-																						break;
-																					}
-																					case "bendLen":
-																					{
-																						string value = tagAttr.Value;
-																						int realValue = 0;
-																						int.TryParse(value, out realValue);
-																						note.PitchBendLength = realValue;
-																						break;
-																					}
-																					case "decay":
-																					{
-																						string value = tagAttr.Value;
-																						int realValue = 50;
-																						int.TryParse(value, out realValue);
-																						note.Decay = realValue;
-																						break;
-																					}
-																					case "fallPort":
-																					{
-																						string value = tagAttr.Value;
-																						bool realValue2 = false;
-																						bool.TryParse(value, out realValue2);
-																						note.PortamentoFalling = realValue2;
-																						break;
-																					}
-																					case "opening":
-																					{
-																						string value = tagAttr.Value;
-																						int realValue = 127;
-																						int.TryParse(value, out realValue);
-																						note.Opening = realValue;
-																						break;
-																					}
-																					case "risePort":
-																					{
-																						string value = tagAttr.Value;
-																						bool realValue2 = false;
-																						bool.TryParse(value, out realValue2);
-																						note.PortamentoRising = realValue2;
-																						break;
-																					}
-																					case "vibLen":
-																					{
-																						string value = tagAttr.Value;
-																						int realValue = 66;
-																						int.TryParse(value, out realValue);
-																						note.VibratoLength = realValue;
-																						break;
-																					}
-																					case "vibType":
-																					{
-																						string value = tagAttr.Value;
-																						SynthesizedAudioVibratoType realValue3 = SynthesizedAudioVibratoType.None;
-																						try
-																						{
-																							realValue3 = (SynthesizedAudioVibratoType)Enum.Parse(typeof(SynthesizedAudioVibratoType), value);
-																						}
-																						catch
-																						{
-																						}
-																						note.VibratoType = realValue3;
-																						break;
-																					}
-																				}
-																			}
-																			else
-																			{
-																				if (tagAttr.FullName == "seqAttr")
-																				{
-																					if (tagAttr.Attributes["id"] != null)
-																					{
-																						text = tagAttr.Attributes["id"].Value;
-																						if (text != null)
-																						{
-																							if (!(text == "vibDep"))
-																							{
-																								if (text == "vibRate")
-																								{
-																									MarkupTagElement tagPosNrm = tagAttr.FindElement(new string[]
-																									{
-																										"elem",
-																										"posNrm"
-																									}) as MarkupTagElement;
-																									MarkupTagElement tagElv = tagAttr.FindElement(new string[]
-																									{
-																										"elem",
-																										"elv"
-																									}) as MarkupTagElement;
-																									if (tagPosNrm != null)
-																									{
-																										int posNrm = 0;
-																										int.TryParse(tagPosNrm.Value, out posNrm);
-																									}
-																									if (tagElv != null)
-																									{
-																										int elv = 0;
-																										int.TryParse(tagElv.Value, out elv);
-																									}
-																								}
-																							}
-																							else
-																							{
-																								MarkupTagElement tagPosNrm = tagAttr.FindElement(new string[]
-																								{
-																									"elem",
-																									"posNrm"
-																								}) as MarkupTagElement;
-																								MarkupTagElement tagElv = tagAttr.FindElement(new string[]
-																								{
-																									"elem",
-																									"elv"
-																								}) as MarkupTagElement;
-																								if (tagPosNrm != null)
-																								{
-																									int posNrm = 0;
-																									int.TryParse(tagPosNrm.Value, out posNrm);
-																								}
-																								if (tagElv != null)
-																								{
-																									int elv = 0;
-																									int.TryParse(tagElv.Value, out elv);
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-															track.Commands.Add(note);
-														}
 													}
 													else
 													{
@@ -398,6 +198,232 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 				}
 			}
 		}
+
+		private SynthesizedAudioCommand SynthesizedAudioCommandFromTag(MarkupTagElement tag3)
+		{
+			switch (tag3.FullName)
+			{
+				case "note":
+				{
+					SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
+					MarkupTagElement tagPosTick = tag3.Elements["posTick"] as MarkupTagElement;
+					if (tagPosTick != null)
+					{
+						int posTick = 0;
+						if (int.TryParse(tagPosTick.Value, out posTick))
+						{
+							note.Position = posTick;
+						}
+					}
+					MarkupTagElement tagDurTick = tag3.Elements["durTick"] as MarkupTagElement;
+					if (tagDurTick != null)
+					{
+						int durTick = 0;
+						if (int.TryParse(tagDurTick.Value, out durTick))
+						{
+							note.Length = durTick;
+						}
+					}
+					MarkupTagElement tagNoteNum = tag3.Elements["noteNum"] as MarkupTagElement;
+					if (tagNoteNum != null)
+					{
+						int noteNum = 0;
+						if (int.TryParse(tagNoteNum.Value, out noteNum))
+						{
+							note.Frequency = noteNum;
+						}
+					}
+					MarkupTagElement tagVelocity = tag3.Elements["velocity"] as MarkupTagElement;
+					if (tagVelocity != null)
+					{
+						int velocity = 0;
+						if (int.TryParse(tagVelocity.Value, out velocity))
+						{
+							note.Intensity = velocity;
+						}
+					}
+					MarkupTagElement tagLyric = tag3.Elements["lyric"] as MarkupTagElement;
+					if (tagLyric != null)
+					{
+						MarkupStringElement tagLyricCDATA = tagLyric.Elements[0] as MarkupStringElement;
+						if (tagLyricCDATA != null)
+						{
+							note.Lyric = tagLyricCDATA.Value;
+						}
+					}
+					MarkupTagElement tagPhoneme = tag3.Elements["phnms"] as MarkupTagElement;
+					if (tagPhoneme != null)
+					{
+						MarkupStringElement tagPhonemeCDATA = tagPhoneme.Elements[0] as MarkupStringElement;
+						if (tagPhonemeCDATA != null)
+						{
+							note.Phoneme = tagPhonemeCDATA.Value;
+						}
+					}
+					MarkupTagElement tagNoteStyle = tag3.Elements["noteStyle"] as MarkupTagElement;
+					if (tagNoteStyle != null)
+					{
+						foreach (MarkupElement elAttr in tagNoteStyle.Elements)
+						{
+							MarkupTagElement tagAttr = elAttr as MarkupTagElement;
+							if (tagAttr != null)
+							{
+								if (tagAttr.Attributes["id"] != null)
+								{
+									if (tagAttr.Name == "attr")
+									{
+										switch (tagAttr.Attributes["id"].Value)
+										{
+											case "accent":
+											{
+												string value = tagAttr.Value;
+												int realValue = 50;
+												int.TryParse(value, out realValue);
+												note.Accent = realValue;
+												break;
+											}
+											case "bendDep":
+											{
+												string value = tagAttr.Value;
+												int realValue = 8;
+												int.TryParse(value, out realValue);
+												note.PitchBendDepth = realValue;
+												break;
+											}
+											case "bendLen":
+											{
+												string value = tagAttr.Value;
+												int realValue = 0;
+												int.TryParse(value, out realValue);
+												note.PitchBendLength = realValue;
+												break;
+											}
+											case "decay":
+											{
+												string value = tagAttr.Value;
+												int realValue = 50;
+												int.TryParse(value, out realValue);
+												note.Decay = realValue;
+												break;
+											}
+											case "fallPort":
+											{
+												string value = tagAttr.Value;
+												bool realValue2 = false;
+												bool.TryParse(value, out realValue2);
+												note.PortamentoFalling = realValue2;
+												break;
+											}
+											case "opening":
+											{
+												string value = tagAttr.Value;
+												int realValue = 127;
+												int.TryParse(value, out realValue);
+												note.Opening = realValue;
+												break;
+											}
+											case "risePort":
+											{
+												string value = tagAttr.Value;
+												bool realValue2 = false;
+												bool.TryParse(value, out realValue2);
+												note.PortamentoRising = realValue2;
+												break;
+											}
+											case "vibLen":
+											{
+												string value = tagAttr.Value;
+												int realValue = 66;
+												int.TryParse(value, out realValue);
+												note.VibratoLength = realValue;
+												break;
+											}
+											case "vibType":
+											{
+												string value = tagAttr.Value;
+												SynthesizedAudioVibratoType realValue3 = SynthesizedAudioVibratoType.None;
+												try
+												{
+													realValue3 = (SynthesizedAudioVibratoType)Enum.Parse(typeof(SynthesizedAudioVibratoType), value);
+												}
+												catch
+												{
+												}
+												note.VibratoType = realValue3;
+												break;
+											}
+										}
+									}
+									else
+									{
+										if (tagAttr.FullName == "seqAttr")
+										{
+											if (tagAttr.Attributes["id"] != null)
+											{
+												switch (tagAttr.Attributes["id"].Value)
+												{
+													case "vibRate":
+													{
+														MarkupTagElement tagPosNrm = tagAttr.FindElement(new string[]
+														{
+																									"elem",
+																									"posNrm"
+														}) as MarkupTagElement;
+														MarkupTagElement tagElv = tagAttr.FindElement(new string[]
+														{
+																									"elem",
+																									"elv"
+														}) as MarkupTagElement;
+														if (tagPosNrm != null)
+														{
+															int posNrm = 0;
+															int.TryParse(tagPosNrm.Value, out posNrm);
+														}
+														if (tagElv != null)
+														{
+															int elv = 0;
+															int.TryParse(tagElv.Value, out elv);
+														}
+														break;
+													}
+													case "vibDep":
+													{
+														MarkupTagElement tagPosNrm = tagAttr.FindElement(new string[]
+														{
+																								"elem",
+																								"posNrm"
+														}) as MarkupTagElement;
+														MarkupTagElement tagElv = tagAttr.FindElement(new string[]
+														{
+																								"elem",
+																								"elv"
+														}) as MarkupTagElement;
+														if (tagPosNrm != null)
+														{
+															int posNrm = 0;
+															int.TryParse(tagPosNrm.Value, out posNrm);
+														}
+														if (tagElv != null)
+														{
+															int elv = 0;
+															int.TryParse(tagElv.Value, out elv);
+														}
+														break;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					return note;
+				}
+			}
+			return null;
+		}
+
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
 			SynthesizedAudioObjectModel au = objectModels.Pop() as SynthesizedAudioObjectModel;
@@ -407,6 +433,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 			xml.Value = "version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"";
 			mom.Elements.Add(xml);
 			MarkupTagElement tagVSQ3 = new MarkupTagElement();
+			tagVSQ3.Name = "vsq3";
 			tagVSQ3.Attributes.Add("xmlns", "http://www.yamaha.co.jp/vocaloid/schema/vsq3/");
 			tagVSQ3.Attributes.Add("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
 			tagVSQ3.Attributes.Add("xsi:schemaLocation", "http://www.yamaha.co.jp/vocaloid/schema/vsq3/vsq3.xsd");
@@ -725,20 +752,26 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 						MarkupElement arg_EB7_0 = tagVelocity;
 						arg_EB7_0.Value = note.Frequency.ToString();
 						tagNote.Elements.Add(tagVelocity);
-						MarkupTagElement tagLyric = new MarkupTagElement();
-						tagLyric.FullName = "lyric";
-						MarkupStringElement tagLyricCDATA = new MarkupStringElement();
-						tagLyricCDATA.Name = "CDATA";
-						tagLyricCDATA.Value = note.Lyric.ToString();
-						tagLyric.Elements.Add(tagLyricCDATA);
-						tagNote.Elements.Add(tagLyric);
-						MarkupTagElement tagPhoneme = new MarkupTagElement();
-						tagPhoneme.FullName = "phnms";
-						MarkupStringElement tagPhonemeCDATA = new MarkupStringElement();
-						tagPhonemeCDATA.Name = "CDATA";
-						tagPhonemeCDATA.Value = note.Phoneme.ToString();
-						tagPhoneme.Elements.Add(tagPhonemeCDATA);
-						tagNote.Elements.Add(tagPhoneme);
+						if (note.Lyric != null)
+						{
+							MarkupTagElement tagLyric = new MarkupTagElement();
+							tagLyric.FullName = "lyric";
+							MarkupStringElement tagLyricCDATA = new MarkupStringElement();
+							tagLyricCDATA.Name = "CDATA";
+							tagLyricCDATA.Value = note.Lyric.ToString();
+							tagLyric.Elements.Add(tagLyricCDATA);
+							tagNote.Elements.Add(tagLyric);
+						}
+						if (note.Phoneme != null)
+						{
+							MarkupTagElement tagPhoneme = new MarkupTagElement();
+							tagPhoneme.FullName = "phnms";
+							MarkupStringElement tagPhonemeCDATA = new MarkupStringElement();
+							tagPhonemeCDATA.Name = "CDATA";
+							tagPhonemeCDATA.Value = note.Phoneme.ToString();
+							tagPhoneme.Elements.Add(tagPhonemeCDATA);
+							tagNote.Elements.Add(tagPhoneme);
+						}
 						MarkupTagElement tagNoteStyle = new MarkupTagElement();
 						tagNoteStyle.FullName = "noteStyle";
 						MarkupTagElement tagNoteStyleAccent = new MarkupTagElement();

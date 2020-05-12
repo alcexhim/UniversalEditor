@@ -76,6 +76,32 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 				OnItemsChanged(EventArgs.Empty);
 			}
 
+			public T PreviousOfType<T>(T item) where T : SynthesizedAudioCommand
+			{
+				int index = IndexOf(item);
+				if (index < 0) index = Count - 1;
+				if (index > Count - 1) index = Count - 1;
+
+				for (int i = index - 1; i >= 0; i--)
+				{
+					if (this[i] is T)
+						return (T)this[i];
+				}
+				return (T)this[Count - 1];
+			}
+			public T NextOfType<T>(T item) where T : SynthesizedAudioCommand
+			{
+				int index = IndexOf(item);
+				if (index < 0) index = 0;
+				if (index > Count - 1) index = 0;
+
+				for (int i = index + 1; i < Count; i++)
+				{
+					if (this[i] is T)
+						return (T)this[i];
+				}
+				return (T)this[0];
+			}
 		}
 
 		public virtual object Clone()

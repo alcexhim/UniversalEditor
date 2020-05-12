@@ -729,6 +729,7 @@
     <Content Include="Editors\Binary\Dialogs\FieldDefinitionPropertiesDialog.glade" />
     <Content Include="Editors\Binary\BinaryEditor.glade" />
     <Content Include="Editors\Database\DatabaseEditor.glade" />
+    <Content Include="Editors\Multimedia\Synthesized\Dialogs\NotePropertiesDialog.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

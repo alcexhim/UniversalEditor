@@ -19,37 +19,55 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
+using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs
 {
 	/// <summary>
-	/// Provides a UWT <see cref="CustomDialog" /> that modifies the properties of a <see cref="ObjectModels.Multimedia.Audio.Synthesized.SynthesizedAudioCommandNote" />.
+	/// Provides a UWT <see cref="ContainerLayoutAttribute" />-based <see cref="CustomDialog" /> that modifies the properties of a
+	/// <see cref="ObjectModels.Multimedia.Audio.Synthesized.SynthesizedAudioCommandNote" />.
 	/// </summary>
+	[ContainerLayout("~/Editors/Multimedia/Synthesized/Dialogs/NotePropertiesDialog.glade")]
 	public class NotePropertiesDialog : CustomDialog
 	{
-		private Label lblNoteValue = null;
-		private TextBox txtNoteValue = null;
+		private TextBox txtNoteValue;
+		private TextBox txtLyric;
+		private TextBox txtPhoneme;
+		private NumericTextBox txtNoteOn;
+		private NumericTextBox txtNoteOff;
 
-		public NotePropertiesDialog()
+		private Button cmdOK;
+
+		public string Lyric { get; set; } = null;
+		public string Phoneme { get; set; } = null;
+		public double NoteOn { get; set; } = 0.0;
+		public double NoteOff { get; set; } = 0.0;
+
+		protected override void OnCreated(EventArgs e)
 		{
-			Layout = new BoxLayout(Orientation.Vertical);
+			base.OnCreated(e);
+			DefaultButton = cmdOK;
 
-			Container p = new Container();
-			p.Layout = new GridLayout();
+			txtLyric.Text = Lyric;
+			txtPhoneme.Text = Phoneme;
+			txtNoteOn.Value = NoteOn;
+			txtNoteOff.Value = NoteOff;
+		}
 
-			lblNoteValue = new Label();
-			lblNoteValue.Text = "Note _value:";
-			p.Controls.Add(lblNoteValue, new GridLayout.Constraints(0, 0));
-			txtNoteValue = new TextBox();
-			p.Controls.Add(txtNoteValue, new GridLayout.Constraints(0, 1));
+		[EventHandler(nameof(cmdOK), "Click")]
+		private void cmdOK_Click(object sender, EventArgs e)
+		{
+			Lyric = txtLyric.Text;
+			Phoneme = txtPhoneme.Text;
+			NoteOn = txtNoteOn.Value;
+			NoteOff = txtNoteOff.Value;
 
-			this.Controls.Add(p, new BoxLayout.Constraints(true, true));
-
-			this.Buttons.Add(new Button(StockType.OK, DialogResult.OK));
-			this.Buttons.Add(new Button(StockType.Cancel, DialogResult.Cancel));
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }
