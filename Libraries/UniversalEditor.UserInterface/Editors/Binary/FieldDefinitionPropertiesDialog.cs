@@ -38,7 +38,7 @@ namespace UniversalEditor.Editors.Binary
 		private Label lblLength;
 		private NumericTextBox txtLength;
 		private Button cmdColor;
-		// private Button cmdOK;
+		private Button cmdOK;
 
 		public FieldDefinition FieldDefinition { get; set; } = new FieldDefinition();
 
@@ -98,7 +98,7 @@ namespace UniversalEditor.Editors.Binary
 			}
 		}
 
-		// [EventHandler(nameof(cmdOK), "Click")]
+		[EventHandler(nameof(cmdOK), "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
 		{	
 			FieldDefinition.Name = txtName.Text;
