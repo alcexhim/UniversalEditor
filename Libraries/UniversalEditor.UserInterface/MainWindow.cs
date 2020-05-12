@@ -917,6 +917,12 @@ namespace UniversalEditor.UserInterface
 				if (document.InputAccessor != null && document.InputAccessor.IsOpen)
 					document.InputAccessor.Close();
 
+				if (document.OutputAccessor is FileAccessor)
+				{
+					// FIXME: ewww
+					(document.OutputAccessor as FileAccessor).AllowWrite = true;
+					(document.OutputAccessor as FileAccessor).ForceOverwrite = true;
+				}
 				document.OutputAccessor.Open();
 				document.Save();
 				document.OutputAccessor.Close();
