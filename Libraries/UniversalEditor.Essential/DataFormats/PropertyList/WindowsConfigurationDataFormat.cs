@@ -72,6 +72,8 @@ namespace UniversalEditor.DataFormats.PropertyList
 			while (!tr.EndOfStream)
 			{
 				string line = tr.ReadLine();
+				line = line.Trim();
+
 				if (String.IsNullOrEmpty(line)) continue;
 
 				if (!line.StartsWith(";") && !line.StartsWith("#"))
