@@ -21,7 +21,7 @@
 
 using System.Text;
 
-namespace UniversalEditor.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid
+namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid
 {
 	/// <summary>
 	/// Provides information about a parameter in a DDI voicebank index file.

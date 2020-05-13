@@ -76,11 +76,8 @@
     <Content Include="Extensions\AudioWorkstation\Associations\SynthesizedAudio\MusicXML.uexml" />
     <Content Include="Extensions\AudioWorkstation\Associations\SynthesizedAudio\NIFF.uexml" />
     <Content Include="Extensions\AudioWorkstation\Associations\SynthesizedAudio\UST.uexml" />
-    <Content Include="Extensions\AudioWorkstation\Associations\SynthesizedAudio\Vocaloid.uexml" />
     <Content Include="Extensions\AudioWorkstation\Associations\SynthesizedAudio\XMI.uexml" />
-    <Content Include="Extensions\AudioWorkstation\Associations\VoicebankIndex\Vocaloid.uexml" />
     <Content Include="Extensions\AudioWorkstation\Associations\Voicebank\DirectWave.uexml" />
-    <Content Include="Extensions\AudioWorkstation\Associations\Voicebank\Vocaloid.uexml" />
     <Content Include="Extensions\AudioWorkstation\Associations\WaveformAudio\AdvancedAudioCodec.uexml" />
     <Content Include="Extensions\AudioWorkstation\Associations\WaveformAudio\FLAC.uexml" />
     <Content Include="Extensions\AudioWorkstation\Associations\WaveformAudio\MicrosoftWave.uexml" />
@@ -730,6 +727,9 @@
     <Content Include="Editors\Binary\BinaryEditor.glade" />
     <Content Include="Editors\Database\DatabaseEditor.glade" />
     <Content Include="Editors\Multimedia\Synthesized\Dialogs\NotePropertiesDialog.glade" />
+    <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\Voicebank\Vocaloid.uexml" />
+    <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\Vocaloid.uexml" />
+    <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\VoicebankIndex\Vocaloid.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -785,6 +785,12 @@
     <Folder Include="Extensions\GameDeveloper\Extensions\CRI\" />
     <Folder Include="Editors\RIFF\" />
     <Folder Include="Editors\Binary\Dialogs\" />
+    <Folder Include="Extensions\AudioWorkstation\Extensions\" />
+    <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\" />
+    <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\" />
+    <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\Voicebank\" />
+    <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\" />
+    <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\VoicebankIndex\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

@@ -20,12 +20,14 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+
+using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.PropertyList;
 using UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.PropertyList;
-using UniversalEditor.Accessors;
-namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
+
+namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating synthesized audio in the MIDI-based Vocaloid VSQ format.

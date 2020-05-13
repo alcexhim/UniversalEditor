@@ -22,7 +22,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank.VoicebankObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.Vocaloid.VocaloidVoicebankDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Voicebank.Vocaloid.VocaloidVoicebankDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

@@ -25,7 +25,7 @@ using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.Accessors;
 
-namespace UniversalEditor.DataFormats.Multimedia.Audio.Voicebank.Vocaloid
+namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Voicebank.Vocaloid
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating synthesized audio voicebank data in Vocaloid DDB format.

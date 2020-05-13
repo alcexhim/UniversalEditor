@@ -13,7 +13,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized.SynthesizedAudioObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid.VSQDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid.VSQDataFormat" />
 			</DataFormats>
 		</Association>
 		<Association>
@@ -28,7 +28,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized.SynthesizedAudioObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid.VSQXDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid.VSQXDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

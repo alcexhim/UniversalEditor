@@ -19,7 +19,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankIndex.VoicebankIndexObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid.VocaloidIndexDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid.VocaloidIndexDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

@@ -20,12 +20,13 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
 using UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankIndex;
 
-namespace UniversalEditor.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid
+namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.VoicebankIndex.Vocaloid
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating synthesized audio voicebank index in Vocaloid DDI format.

@@ -77,10 +77,7 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700ID666Tag.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Memory.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Registers.cs" />
-    <Compile Include="DataFormats\Multimedia\Audio\VoicebankIndex\Vocaloid\DDIParameter.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryXMLDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Audio\VoicebankIndex\Vocaloid\DDIDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Audio\Voicebank\Vocaloid\VocaloidVoicebankDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACODataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ASEDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\GIMP\GPLDataFormat.cs" />
@@ -257,8 +254,6 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\NIFF\NIFFDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700DataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\UTAU\USTDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\Vocaloid\VSQDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\Vocaloid\VSQXDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Voicebank\DirectWave\DirectWavePatchDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Waveform\AdvancedAudioCodec\AACDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Waveform\BRSTM\BRSTMDataFormat.cs" />

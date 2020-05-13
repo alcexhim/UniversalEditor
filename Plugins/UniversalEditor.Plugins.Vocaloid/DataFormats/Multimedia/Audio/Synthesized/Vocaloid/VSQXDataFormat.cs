@@ -21,12 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
 using UniversalEditor.ObjectModels.Markup;
 
-namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
+namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating synthesized audio in the XML-based Vocaloid VSQX format.
