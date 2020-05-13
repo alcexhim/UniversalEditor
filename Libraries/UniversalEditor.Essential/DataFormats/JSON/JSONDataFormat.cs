@@ -28,7 +28,7 @@ using UniversalEditor.ObjectModels.JSON;
 using UniversalEditor.ObjectModels.JSON.Fields;
 using UniversalEditor.ObjectModels.Text.Plain;
 
-namespace UniversalEditor.DataFormats.PropertyList.JSON
+namespace UniversalEditor.DataFormats.JSON
 {
 
 	/// <summary>

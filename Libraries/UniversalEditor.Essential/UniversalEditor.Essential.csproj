@@ -166,9 +166,6 @@
     <Compile Include="ObjectModels\PropertyList\IPropertyListContainer.cs" />
     <Compile Include="ObjectModels\Binary\BinaryObjectModel.cs" />
     <Compile Include="DataFormats\Binary\BinaryDataFormat.cs" />
-    <Compile Include="DataFormats\PropertyList\JSON\JSONDataFormat.cs" />
-    <Compile Include="DataFormats\PropertyList\JSON\JSONPresetSettings.cs" />
-    <Compile Include="DataFormats\PropertyList\JSON\JSONSettings.cs" />
     <Compile Include="ObjectModels\JSON\JSONObjectModel.cs" />
     <Compile Include="ObjectModels\JSON\JSONField.cs" />
     <Compile Include="ObjectModels\JSON\JSONObject.cs" />
@@ -198,6 +195,9 @@
     <Compile Include="ObjectModels\FileSystem\FileAdditionalDetail.cs" />
     <Compile Include="ObjectModels\FileSystem\FileAdditionalDetailValue.cs" />
     <Compile Include="ObjectModels\Chunked\IChunkContainer.cs" />
+    <Compile Include="DataFormats\JSON\JSONDataFormat.cs" />
+    <Compile Include="DataFormats\JSON\JSONPresetSettings.cs" />
+    <Compile Include="DataFormats\JSON\JSONSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -214,7 +214,6 @@
     <Folder Include="DataFormats\PropertyList\JavaScriptObjectNotation\" />
     <Folder Include="ObjectModels\Binary\" />
     <Folder Include="DataFormats\Binary\" />
-    <Folder Include="DataFormats\PropertyList\JSON\" />
     <Folder Include="ObjectModels\JSON\" />
     <Folder Include="ObjectModels\JSON\Fields\" />
     <Folder Include="DataFormats\Text\Plain\" />
@@ -223,6 +222,7 @@
     <Folder Include="ObjectModels\BinaryGrammar\GrammarItems\" />
     <Folder Include="ObjectModels\Database\" />
     <Folder Include="DataFormats\Binary\PEM\" />
+    <Folder Include="DataFormats\JSON\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

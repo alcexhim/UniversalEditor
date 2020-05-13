@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace UniversalEditor.DataFormats.PropertyList.JSON
+namespace UniversalEditor.DataFormats.JSON
 {
 	/// <summary>
 	/// Indicates the preset settings to use for <see cref="JSONSettings" /> for a <see cref="JSONDataFormat" />.
