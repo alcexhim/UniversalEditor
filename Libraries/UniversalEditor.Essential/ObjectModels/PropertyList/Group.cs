@@ -208,17 +208,28 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			{
 				return (T)value;
 			}
+
+			if (String.IsNullOrEmpty((string)value))
+				return defaultValue;
 			
 			Type t = typeof(T);
 			System.Reflection.MethodInfo miParse = t.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[]
 			{
 				typeof(string)
 			}, null);
-			object retvalobj = miParse.Invoke(null, new object[]
+
+			try
 			{
-				value
-			});
-			return (T)retvalobj;
+				object retvalobj = miParse.Invoke(null, new object[]
+				{
+					value
+				});
+				return (T)retvalobj;
+			}
+			catch
+			{
+				return defaultValue;
+			}
 		}
 
 		/// <summary>
