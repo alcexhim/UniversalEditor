@@ -20,7 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 
@@ -68,13 +69,16 @@ namespace UniversalEditor.Editors.PropertyList
 			if (!IsCreated) return;
 
 			PropertyListObjectModel plom = (ObjectModel as PropertyListObjectModel);
-			for (int i = 0; i < plom.Properties.Count; i++)
+			for (int i = 0; i < plom.Items.Count; i++)
 			{
-				RecursiveAddProperty(plom.Properties[i], null);
-			}
-			for (int i = 0; i < plom.Groups.Count; i++)
-			{
-				RecursiveAddGroup(plom.Groups[i], null);
+				if (plom.Items[i] is Property)
+				{
+					RecursiveAddProperty(plom.Items[i] as Property, null);
+				}
+				else if (plom.Items[i] is Group)
+				{
+					RecursiveAddGroup(plom.Items[i] as Group, null);
+				}
 			}
 		}
 
@@ -112,13 +116,16 @@ namespace UniversalEditor.Editors.PropertyList
 				parent.Rows.Add(row);
 			}
 
-			for (int i = 0; i < g.Properties.Count; i++)
+			for (int i = 0; i < g.Items.Count; i++)
 			{
-				RecursiveAddProperty(g.Properties[i], row);
-			}
-			for (int i = 0; i < g.Groups.Count; i++)
-			{
-				RecursiveAddGroup(g.Groups[i], row);
+				if (g.Items[i] is Property)
+				{
+					RecursiveAddProperty(g.Items[i] as Property, row);
+				}
+				else if (g.Items[i] is Group)
+				{
+					RecursiveAddGroup(g.Items[i] as Group, row);
+				}
 			}
 			row.SetExtraData<Group>("group", g);
 		}

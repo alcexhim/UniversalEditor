@@ -28,6 +28,7 @@ using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Solution;
+using System.Linq;
 
 namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 {
@@ -247,7 +248,7 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 					MarkupTagElement tagCompile = new MarkupTagElement();
 					tagCompile.FullName = "Compile";
 					tagCompile.Attributes.Add("Include", file.DestinationFileName);
-					foreach (Property p in file.Configuration.Properties)
+					foreach (Property p in file.Configuration.Items.OfType<Property>())
 					{
 						MarkupTagElement tagProperty = new MarkupTagElement();
 						tagProperty.Name = p.Name;

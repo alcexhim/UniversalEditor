@@ -20,13 +20,14 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 
 namespace UniversalEditor.ObjectModels.PropertyList
 {
 	/// <summary>
 	/// Represents a group in a <see cref="PropertyListObjectModel" /> which can contain <see cref="Property" /> instances and other <see cref="Group" />s.
 	/// </summary>
-	public class Group : ICloneable, IPropertyListContainer
+	public class Group : PropertyListItem, ICloneable, IPropertyListContainer
 	{
 		public class GroupCollection : System.Collections.ObjectModel.Collection<Group>
 		{
@@ -93,26 +94,15 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				}
 				else
 				{
-					foreach (Group grp2 in grp.Groups)
+					foreach (PropertyListItem item in grp.Items)
 					{
-						if (parent.Groups.Contains(grp2.Name))
+						if (parent.Items.Contains(item.Name))
 						{
-							parent.Groups.Append(grp2);
+							parent.Items[item.Name].Combine(item);
 						}
 						else
 						{
-							parent.Groups.Add(grp2);
-						}
-					}
-					foreach (Property prp in grp.Properties)
-					{
-						if (parent.Properties.Contains(prp.Name))
-						{
-							parent.Properties[prp.Name].Value = prp.Value;
-						}
-						else
-						{
-							parent.Properties.Add(prp.Name, prp.Value);
+							parent.Items.Add(item);
 						}
 					}
 				}
@@ -139,49 +129,42 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			}
 		}
 		/// <summary>
-		/// The name of this <see cref="Group"/>.
+		/// The children <see cref="PropertyListItem"/>s that are contained within this group.
 		/// </summary>
-		public string Name { get; set; } = string.Empty;
-		/// <summary>
-		/// The <see cref="Group" /> that contains this group as a child.
-		/// </summary>
-		public Group Parent { get; private set; } = null;
-		/// <summary>
-		/// The children <see cref="Group"/>s that are contained within this group.
-		/// </summary>
-		public Group.GroupCollection Groups { get; } = new Group.GroupCollection();
-		/// <summary>
-		/// The children <see cref="Property" />s that are contained within this group.
-		/// </summary>
-		public Property.PropertyCollection Properties { get; } = null;
+		public PropertyListItem.PropertyListItemCollection Items { get; private set; } = null;
 
 		public Group() : this(null, String.Empty)
 		{
+			Items = new PropertyListItemCollection(this);
 		}
 		public Group(Group parent) : this(parent, String.Empty)
 		{
+			Items = new PropertyListItemCollection(this);
 		}
 		public Group(string Name) : this(null, Name)
 		{
+			Items = new PropertyListItemCollection(this);
 		}
 		public Group(Group parent, string Name)
 		{
 			this.Name = Name;
+			Items = new PropertyListItemCollection(this);
 			Parent = parent;
-			Properties = new Property.PropertyCollection(this);
-			Groups = new Group.GroupCollection(this);
+		}
+		public Group(string name, PropertyListItem[] items)
+		{
+			Name = name;
+			Items = new PropertyListItemCollection(this);
+			if (items != null)
+				Items.AddRange(items);
 		}
 
-		public object Clone()
+		public override object Clone()
 		{
 			Group clone = new Group();
-			foreach (Group g in this.Groups)
+			foreach (PropertyListItem item in Items)
 			{
-				clone.Groups.Add(g.Clone() as Group);
-			}
-			foreach (Property p in this.Properties)
-			{
-				clone.Properties.Add(p.Clone() as Property);
+				clone.Items.Add(item.Clone() as PropertyListItem);
 			}
 			clone.IsDefined = IsDefined;
 			clone.CommentBefore = (CommentBefore.Clone() as string);
@@ -196,15 +179,14 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			get
 			{
 				if (mvarIsEmpty != null) return mvarIsEmpty.Value;
-				return (!(Groups.Count > 0 || Properties.Count > 0));
+				return (Items.Count == 0);
 			}
 			set { mvarIsEmpty = value; }
 		}
 
 		public void Clear()
 		{
-			Groups.Clear();
-			Properties.Clear();
+			Items.Clear();
 			IsDefined = true;
 			CommentBefore = String.Empty;
 			CommentAfter = String.Empty;
@@ -214,6 +196,29 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		public void ResetEmpty()
 		{
 			mvarIsEmpty = null;
+		}
+
+		public T GetPropertyValue<T>(string name, T defaultValue = default(T))
+		{
+			object value = Items.OfType<Property>(name)?.Value?.ToString();
+			if (value == null)
+				return defaultValue;
+
+			if (typeof(T) == typeof(string))
+			{
+				return (T)value;
+			}
+			
+			Type t = typeof(T);
+			System.Reflection.MethodInfo miParse = t.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[]
+			{
+				typeof(string)
+			}, null);
+			object retvalobj = miParse.Invoke(null, new object[]
+			{
+				value
+			});
+			return (T)retvalobj;
 		}
 
 		/// <summary>
@@ -233,7 +238,32 @@ namespace UniversalEditor.ObjectModels.PropertyList
 
 		public override string ToString()
 		{
-			return Name + " [" + Groups.Count.ToString() + " groups, " + Properties.Count.ToString() + " properties]";
+			return Name + " [" + Items.OfType<Group>().Count().ToString() + " groups, " + Items.OfType<Property>().Count().ToString() + " properties]";
+		}
+
+		public override void Combine(PropertyListItem item)
+		{
+			if (!(item is Group))
+			{
+				Console.WriteLine("cannot combine a Group with a {0}", item?.GetType());
+				return;
+			}
+
+			if (item.Name == Name)
+			{
+				Group grp = (item as Group);
+				for (int i = 0; i < grp.Items.Count; i++)
+				{
+					if (Items.Contains(grp.Items[i].Name))
+					{
+						Items[grp.Items[i].Name].Combine(grp.Items[i]);
+					}
+					else
+					{
+						Items.Add(grp.Items[i]);
+					}
+				}
+			}
 		}
 	}
 }

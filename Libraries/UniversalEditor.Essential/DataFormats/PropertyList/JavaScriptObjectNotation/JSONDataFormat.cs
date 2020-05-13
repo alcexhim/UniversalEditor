@@ -125,11 +125,11 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				object obj = ReadNextObject(ctx, r);
 				if (obj is Group)
 				{
-					plom.Groups.Add(obj as Group);
+					plom.Items.Add(obj as Group);
 				}
 				else if (obj is Property)
 				{
-					plom.Properties.Add(obj as Property);
+					plom.Items.Add(obj as Property);
 				}
 				else if (obj is Array)
 				{
@@ -137,7 +137,7 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 					foreach (object item in array)
 					{
 						Group g = (item as Group);
-						plom.Groups.Add(g);
+						plom.Items.Add(g);
 					}
 				}
 			}
@@ -282,7 +282,7 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 					object obj = ReadNextObject(ctx, r);
 
 					Property p = new Property(propertyName, obj);
-					g.Properties.Add(p);
+					g.Items.Add(p);
 				}
 			}
 			return g;
@@ -372,13 +372,16 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 			Writer w = base.Accessor.Writer;
 			w.Write("{");
 
-			foreach (Group g in plom.Groups)
+			foreach (PropertyListItem g in plom.Items)
 			{
-				w.Write(GroupToString(g, plom.Groups.IndexOf(g) < plom.Groups.Count - 1));
-			}
-			foreach (Property p in plom.Properties)
-			{
-				w.Write(PropertyToString(p, plom.Properties.IndexOf(p) < plom.Properties.Count - 1));
+				if (g is Group)
+				{
+					w.Write(GroupToString(g as Group, plom.Items.IndexOf(g) < plom.Items.Count - 1));
+				}
+				else if (g is Property)
+				{
+					w.Write(PropertyToString(g as Property, plom.Items.IndexOf(g) < plom.Items.Count - 1));
+				}
 			}
 
 			w.Write("}");
@@ -388,13 +391,16 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append("{");
-			foreach (Group g in group.Groups)
+			foreach (PropertyListItem g in group.Items)
 			{
-				sb.Append(GroupToString(g, group.Groups.IndexOf(g) < group.Groups.Count - 1));
-			}
-			foreach (Property p in group.Properties)
-			{
-				sb.Append(PropertyToString(p, group.Properties.IndexOf(p) < group.Properties.Count - 1));
+				if (g is Group)
+				{
+					sb.Append(GroupToString(g as Group, group.Items.IndexOf(g) < group.Items.Count - 1));
+				}
+				else if (g is Property)
+				{
+					sb.Append(PropertyToString(g as Property, group.Items.IndexOf(g) < group.Items.Count - 1));
+				}
 			}
 			sb.Append("}");
 			if (more) sb.Append(',');

@@ -26,7 +26,6 @@ namespace UniversalEditor.ObjectModels.PropertyList
 	/// </summary>
 	public interface IPropertyListContainer
 	{
-		Group.GroupCollection Groups { get; }
-		Property.PropertyCollection Properties { get; }
+		PropertyListItem.PropertyListItemCollection Items { get; }
 	}
 }

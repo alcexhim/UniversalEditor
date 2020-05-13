@@ -60,9 +60,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.QuickSub
 			SubtitleObjectModel subtitle = (objectModels.Pop() as SubtitleObjectModel);
 			if (subtitle == null) throw new ObjectModelNotSupportedException();
 
-			Group grpEvents = plom.Groups["Events"];
-			foreach (Property property in grpEvents.Properties)
+			Group grpEvents = plom.Items.OfType<Group>("Events");
+			foreach (PropertyListItem pli in grpEvents.Items)
 			{
+				Property property = pli as Property;
+				if (property == null) continue;
+
 				if (property.Value == null || property.Name == "-")
 				{
 					// get the previous event

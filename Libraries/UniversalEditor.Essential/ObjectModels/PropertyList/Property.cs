@@ -26,7 +26,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 	/// <summary>
 	/// Represents a property in a <see cref="PropertyListObjectModel" /> which associates a name with a value.
 	/// </summary>
-	public class Property : ICloneable
+	public class Property : PropertyListItem, ICloneable
 	{
 		public class PropertyCollection : System.Collections.ObjectModel.Collection<Property>
 		{
@@ -69,7 +69,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				Property p = new Property();
 				p.Name = name;
 				p.Value = value;
-				p.mvarParent = this.mvarParent;
+				p.Parent = this.mvarParent;
 				p.Type = type;
 				base.Add(p);
 				return p;
@@ -105,62 +105,41 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				}
 			}
 		}
-		private string mvarName = "";
-		private object mvarValue = null;
-		private Group mvarParent = null;
-		public string Name
-		{
-			get
-			{
-				return this.mvarName;
-			}
-			set
-			{
-				this.mvarName = value;
-			}
-		}
-		public object Value
-		{
-			get
-			{
-				return this.mvarValue;
-			}
-			set
-			{
-				this.mvarValue = value;
-			}
-		}
-		public Group Parent
-		{
-			get
-			{
-				return this.mvarParent;
-			}
-		}
-		public object Clone()
+
+		public object Value { get; set; } = null;
+		public override object Clone()
 		{
 			return new Property
 			{
-				Name = this.mvarName,
-				Value = this.mvarValue
+				Name = Name.Clone() as string,
+				Value = (Value is ICloneable) ? (Value as ICloneable).Clone() : Value
 			};
+		}
+		public override void Combine(PropertyListItem item)
+		{
+			if (!(item is Property))
+			{
+				Console.WriteLine("cannot combine a Property with a {0}", item?.GetType());
+				return;
+			}
+			if (item.Name == Name) Value = (item as Property).Value;
 		}
 		public override string ToString()
 		{
 			string sValue = String.Empty;
-			if (mvarValue == null)
+			if (Value == null)
 			{
 				sValue = "null";
 			}
-			else if (mvarValue is string)
+			else if (Value is string)
 			{
-				sValue = "\"" + mvarValue.ToString() + "\"";
+				sValue = "\"" + Value.ToString() + "\"";
 			}
 			else
 			{
-				sValue = mvarValue.ToString();
+				sValue = Value.ToString();
 			}
-			return String.Format("{0} = {1}", mvarName, sValue);
+			return String.Format("{0} = {1}", Name, sValue);
 		}
 
 		public Property()
@@ -168,8 +147,8 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		}
 		public Property(string name, object value = null)
 		{
-			mvarName = name;
-			mvarValue = value;
+			Name = name;
+			Value = value;
 		}
 
 		public PropertyValueType Type { get; set; } = PropertyValueType.Unknown;

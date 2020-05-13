@@ -139,11 +139,11 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 
 							if (nextGroup != null)
 							{
-								nextGroup.Properties.Add(nextPropertyName, nextString);
+								nextGroup.Items.AddProperty(nextPropertyName, nextString);
 							}
 							else
 							{
-								plom.Properties.Add(nextPropertyName, nextString);
+								plom.Items.AddProperty(nextPropertyName, nextString);
 							}
 						}
 						nextPropertyName = string.Empty;
@@ -157,11 +157,11 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 						nextString = string.Empty;
 						if (nextGroup != null)
 						{
-							nextGroup.Groups.Add(group);
+							nextGroup.Items.Add(group);
 						}
 						else
 						{
-							plom.Groups.Add(group);
+							plom.Items.Add(group);
 						}
 						nextGroup = group;
 					}
@@ -184,19 +184,22 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 		{
 			PropertyListObjectModel plom = objectModel as PropertyListObjectModel;
 			Writer tw = base.Accessor.Writer;
-			foreach (Property p in plom.Properties)
+			foreach (PropertyListItem p in plom.Items)
 			{
-				tw.Write(Settings.PropertyNamePrefix);
-				tw.Write(p.Name);
-				tw.Write(Settings.PropertyNameSuffix);
-				tw.Write(Settings.PropertyNameValueSeparator);
-				tw.Write(Settings.PropertyValuePrefix);
-				tw.WriteFixedLengthString(p.Value.ToString());
-				tw.Write(Settings.PropertyValueSuffix);
-			}
-			foreach (Group g in plom.Groups)
-			{
-				this.WriteGroup(tw, g, 0);
+				if (p is Property)
+				{
+					tw.Write(Settings.PropertyNamePrefix);
+					tw.Write(p.Name);
+					tw.Write(Settings.PropertyNameSuffix);
+					tw.Write(Settings.PropertyNameValueSeparator);
+					tw.Write(Settings.PropertyValuePrefix);
+					tw.WriteFixedLengthString((p as Property).Value.ToString());
+					tw.Write(Settings.PropertyValueSuffix);
+				}
+				else if (p is Group)
+				{
+					this.WriteGroup(tw, (p as Group), 0);
+				}
 			}
 			tw.Flush();
 			tw.Close();
@@ -216,23 +219,26 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 				tw.WriteLine();
 				tw.WriteLine(indents + Settings.GroupStart);
 			}
-			foreach (Property p in group.Properties)
+			foreach (PropertyListItem p in group.Items)
 			{
-				tw.WriteLine(string.Concat(new object[]
+				if (p is Property)
 				{
+					tw.WriteLine(string.Concat(new object[]
+					{
 					indents,
 					new string(' ', this.IndentLength),
 					p.Name,
 					Settings.PropertyNameValueSeparator,
 					Settings.PropertyValuePrefix,
-					p.Value,
+					(p as Property).Value,
 					Settings.PropertyValueSuffix,
 					Settings.PropertySeparator
-				}));
-			}
-			foreach (Group g in group.Groups)
-			{
-				this.WriteGroup(tw, g, indent + 1);
+					}));
+				}
+				else if (p is Group)
+				{
+					this.WriteGroup(tw, p as Group, indent + 1);
+				}
 			}
 			tw.WriteLine(indents + Settings.GroupEnd);
 		}

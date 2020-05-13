@@ -29,6 +29,7 @@ using UniversalEditor.ObjectModels.Solution;
 
 using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.DataFormats.Project.Microsoft.VisualStudio;
+using System.Linq;
 
 namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 {
@@ -214,7 +215,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			}
 			writer.WriteLine("\tEndGlobalSection");
 			writer.WriteLine("\tGlobalSection(SolutionProperties) = preSolution");
-			foreach (Property prop in sol.Configuration.Properties)
+			foreach (Property prop in sol.Configuration.Items.OfType<Property>())
 			{
 				writer.WriteLine("\t\t" + prop.Name + " = " + prop.Value);
 			}

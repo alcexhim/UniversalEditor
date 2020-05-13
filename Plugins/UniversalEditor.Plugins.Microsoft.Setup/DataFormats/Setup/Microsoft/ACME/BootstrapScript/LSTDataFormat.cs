@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniversalEditor.DataFormats.PropertyList;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript;
@@ -61,7 +62,7 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 			BootstrapScriptObjectModel script = (objectModels.Pop() as BootstrapScriptObjectModel);
 
-			foreach (Group grp in plom.Groups)
+			foreach (Group grp in plom.Items.OfType<Group>())
 			{
 				BootstrapOperatingSystem operatingSystem = null;
 				
@@ -77,16 +78,16 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 						operatingSystem = script.OperatingSystems.AddOrRetrieve(operatingSystemName);
 					}
 
-					if (grp.Properties.Contains("WndTitle")) operatingSystem.WindowTitle = grp.Properties["WndTitle"].Value.ToString();
-					if (grp.Properties.Contains("WndMess")) operatingSystem.WindowMessage = grp.Properties["WndMess"].Value.ToString();
-					if (grp.Properties.Contains("TmpDirSize")) operatingSystem.TemporaryDirectorySize = Int32.Parse(grp.Properties["TmpDirSize"].Value.ToString());
-					if (grp.Properties.Contains("TmpDirName")) operatingSystem.TemporaryDirectoryName = grp.Properties["TmpDirName"].Value.ToString();
-					if (grp.Properties.Contains("CmdLine")) operatingSystem.CommandLine = grp.Properties["CmdLine"].Value.ToString();
-					if (grp.Properties.Contains("DrvWinClass")) operatingSystem.WindowClassName = grp.Properties["DrvWinClass"].Value.ToString();
-					if (grp.Properties.Contains("Require31"))
+					operatingSystem.WindowTitle = grp.GetPropertyValue<string>("WndTitle");
+					operatingSystem.WindowMessage = grp.GetPropertyValue<string>("WndMess");
+					operatingSystem.TemporaryDirectorySize = grp.GetPropertyValue<int>("TmpDirSize");
+					operatingSystem.TemporaryDirectoryName = grp.GetPropertyValue<string>("TmpDirName");
+					operatingSystem.CommandLine = grp.GetPropertyValue<string>("CmdLine");
+					operatingSystem.WindowClassName = grp.GetPropertyValue<string>("DrvWinClass");
+					if (grp.Items.Contains<Property>("Require31"))
 					{
 						operatingSystem.Require31Enabled = true;
-						operatingSystem.Require31Message = grp.Properties["Require31"].Value.ToString();
+						operatingSystem.Require31Message = grp.GetPropertyValue<string>("Require31");
 					}
 				}
 				else if (grp.Name == "Files" || grp.Name.EndsWith(" Files"))
@@ -100,7 +101,7 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 						string operatingSystemName = grp.Name.Substring(0, grp.Name.Length - " Files".Length);
 						operatingSystem = script.OperatingSystems.AddOrRetrieve(operatingSystemName);
 					}
-					foreach (Property p in grp.Properties)
+					foreach (Property p in grp.Items.OfType<Property>())
 					{
 						operatingSystem.Files.Add(p.Name, p.Value.ToString());
 					}
@@ -125,25 +126,27 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 					filesGroupName = item.Name = " Files";
 				}
 
-				Group grpParams = new Group(paramsGroupName);
-				grpParams.Properties.Add("WndTitle", item.WindowTitle);
-				grpParams.Properties.Add("WndMess", item.WindowMessage);
-				grpParams.Properties.Add("TmpDirSize", item.TemporaryDirectorySize.ToString());
-				grpParams.Properties.Add("TmpDirName", item.TemporaryDirectoryName);
-				grpParams.Properties.Add("CmdLine", item.CommandLine);
-				grpParams.Properties.Add("DrvWinClass", item.WindowClassName);
+				Group grpParams = new Group(paramsGroupName, new PropertyListItem[]
+				{
+					new Property("WndTitle", item.WindowTitle),
+					new Property("WndMess", item.WindowMessage),
+					new Property("TmpDirSize", item.TemporaryDirectorySize.ToString()),
+					new Property("TmpDirName", item.TemporaryDirectoryName),
+					new Property("CmdLine", item.CommandLine),
+					new Property("DrvWinClass", item.WindowClassName)
+				});
 				if (item.Require31Enabled)
 				{
-					grpParams.Properties.Add("Require31", item.Require31Message);
+					grpParams.Items.AddProperty("Require31", item.Require31Message);
 				}
-				plom.Groups.Add(grpParams);
+				plom.Items.Add(grpParams);
 
 				Group grpFiles = new Group(filesGroupName);
 				foreach (BootstrapFile file in item.Files)
 				{
-					grpFiles.Properties.Add(file.SourceFileName, file.DestinationFileName);
+					grpFiles.Items.AddProperty(file.SourceFileName, file.DestinationFileName);
 				}
-				plom.Groups.Add(grpFiles);
+				plom.Items.Add(grpFiles);
 			}
 
 			objectModels.Push(plom);

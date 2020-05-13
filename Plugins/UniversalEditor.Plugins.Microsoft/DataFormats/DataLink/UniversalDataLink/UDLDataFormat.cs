@@ -56,11 +56,11 @@ namespace UniversalEditor.DataFormats.DataLink.UniversalDataLink
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 			DataLinkObjectModel data = (objectModels.Pop() as DataLinkObjectModel);
 
-			Group oledb = plom.Groups["oledb"];
+			Group oledb = plom.Items.OfType<Group>("oledb");
 			if (oledb == null) throw new InvalidDataFormatException("File does not contain a [oledb] group");
 			// if (oledb.CommentAfter != "Everything after this line is an OLE DB initstring") throw new InvalidDataFormatException("File does not contain the magic comment string \"Everything after this line is an OLE DB initstring\"");
 
-			Property provider = oledb.Properties["Provider"];
+			Property provider = oledb.Items.OfType<Property>("Provider");
 			if (provider == null) throw new InvalidDataFormatException("File does not contain a \"Provider\" property in the \"oledb\" group");
 
 			string connstr = provider.Value.ToString();
@@ -194,9 +194,9 @@ namespace UniversalEditor.DataFormats.DataLink.UniversalDataLink
 				connstr.Append(prop.Value.ToString());
 			}
 
-			oledb.Properties.Add("Provider", connstr.ToString());
+			oledb.Items.AddProperty("Provider", connstr.ToString());
 
-			plom.Groups.Add(oledb);
+			plom.Items.Add(oledb);
 
 			objectModels.Push(plom);
 		}

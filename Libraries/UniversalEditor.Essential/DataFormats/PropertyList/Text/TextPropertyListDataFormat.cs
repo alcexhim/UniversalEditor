@@ -75,11 +75,11 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 					group.Name = blockName;
 					if (parentGroup != null)
 					{
-						parentGroup.Groups.Add(group);
+						parentGroup.Items.Add(group);
 					}
 					else
 					{
-						plom.Groups.Add(group);
+						plom.Items.Add(group);
 					}
 					parentGroup = group;
 				}
@@ -109,11 +109,11 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 					Property property = new Property(name, value);
 					if (parentGroup != null)
 					{
-						parentGroup.Properties.Add(property);
+						parentGroup.Items.Add(property);
 					}
 					else
 					{
-						plom.Properties.Add(property);
+						plom.Items.Add(property);
 					}
 				}
 			}
@@ -142,13 +142,16 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 			IO.Writer tw = new IO.Writer(base.Accessor);
 			tw.WriteLine("#TPL-1.0 " + plom.Title);
 
-			foreach (Group group in plom.Groups)
+			foreach (PropertyListItem item in plom.Items)
 			{
-				WriteGroup(tw, group);
-			}
-			foreach (Property property in plom.Properties)
-			{
-				WriteProperty(tw, property);
+				if (item is Group)
+				{
+					WriteGroup(tw, item as Group);
+				}
+				else if (item is Property)
+				{
+					WriteProperty(tw, item as Property);
+				}
 			}
 
 			tw.Flush();
@@ -158,13 +161,16 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 		{
 			string indentStr = new string('\t', indent);
 			tw.WriteLine(indentStr + "Begin " + group.Name);
-			foreach (Group group1 in group.Groups)
+			foreach (PropertyListItem item in group.Items)
 			{
-				WriteGroup(tw, group1, indent + 1);
-			}
-			foreach (Property property in group.Properties)
-			{
-				WriteProperty(tw, property, indent);
+				if (item is Group)
+				{
+					WriteGroup(tw, item as Group, indent + 1);
+				}
+				else if (item is Property)
+				{
+					WriteProperty(tw, item as Property, indent + 1);
+				}
 			}
 			tw.WriteLine(indentStr + "End " + group.Name);
 		}

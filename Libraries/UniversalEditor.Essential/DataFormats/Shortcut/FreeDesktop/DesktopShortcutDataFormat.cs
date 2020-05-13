@@ -198,23 +198,23 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 				// Version of the Desktop Entry Specification that the desktop entry conforms
 				// with. Entries that confirm with this version of the specification should use
 				// 1.0. Note that the version field is not required to be present.
-				group.Properties.Add("Version", "1.0");
+				group.Items.AddProperty("Version", "1.0");
 
 				if (!String.IsNullOrEmpty(ApplicationTitle))
 				{
-					group.Properties.Add("Name", ApplicationTitle);
+					group.Items.AddProperty("Name", ApplicationTitle);
 				}
 				if (!String.IsNullOrEmpty(GenericTitle))
 				{
-					group.Properties.Add("GenericName", GenericTitle);
+					group.Items.AddProperty("GenericName", GenericTitle);
 				}
 				if (HideFromMenus)
 				{
-					group.Properties.Add("NoDisplay", "true");
+					group.Items.AddProperty("NoDisplay", "true");
 				}
 				if (!String.IsNullOrEmpty(shortcut.Comment))
 				{
-					group.Properties.Add("Comment", shortcut.Comment);
+					group.Items.AddProperty("Comment", shortcut.Comment);
 				}
 				if (!String.IsNullOrEmpty(shortcut.IconFileName))
 				{
@@ -222,11 +222,11 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					// path, the given file will be used. If the name is not an absolute path, the
 					// algorithm described in the Icon Theme Specification will be used to locate
 					// the icon.
-					group.Properties.Add("Icon", shortcut.IconFileName);
+					group.Items.AddProperty("Icon", shortcut.IconFileName);
 				}
 				if (Deleted)
 				{
-					group.Properties.Add("Hidden", true);
+					group.Items.AddProperty("Hidden", true);
 				}
 				if (RestrictedEnvironments.Count > 0)
 				{
@@ -239,7 +239,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 							sb.Append(":");
 						}
 					}
-					group.Properties.Add("OnlyShowIn", sb.ToString());
+					group.Items.AddProperty("OnlyShowIn", sb.ToString());
 				}
 				if (ExcludedEnvironments.Count > 0)
 				{
@@ -252,17 +252,17 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 							sb.Append(":");
 						}
 					}
-					group.Properties.Add("NotShowIn", sb.ToString());
+					group.Items.AddProperty("NotShowIn", sb.ToString());
 				}
 
 				if (DBusActivatable)
 				{
-					group.Properties.Add("DBusActivatable", true);
+					group.Items.AddProperty("DBusActivatable", true);
 				}
 
 				if (!String.IsNullOrEmpty(TryExec))
 				{
-					group.Properties.Add("TryExec", TryExec);
+					group.Items.AddProperty("TryExec", TryExec);
 				}
 				if (!String.IsNullOrEmpty(shortcut.ExecutableFileName))
 				{
@@ -278,18 +278,18 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 						sb.Append(" ");
 						sb.Append(arg);
 					}
-					group.Properties.Add("Exec", sb.ToString());
+					group.Items.AddProperty("Exec", sb.ToString());
 				}
 				if (!String.IsNullOrEmpty(shortcut.WorkingDirectory))
 				{
 					// If entry is of type Application, the working directory in which to run the
 					// program.
-					group.Properties.Add("Path", shortcut.WorkingDirectory);
+					group.Items.AddProperty("Path", shortcut.WorkingDirectory);
 				}
 				if (shortcut.RunInTerminal)
 				{
 					// Whether the program runs in a terminal window. 
-					group.Properties.Add("Terminal", true);
+					group.Items.AddProperty("Terminal", true);
 				}
 				#region Desktop Actions
 				{
@@ -302,7 +302,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 						sb.Append(action.Name);
 						sb.Append(";");
 					}
-					group.Properties.Add("Actions", sb.ToString());
+					group.Items.AddProperty("Actions", sb.ToString());
 				}
 				#endregion
 
@@ -314,7 +314,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 						sb.Append(s);
 						sb.Append(";");
 					}
-					group.Properties.Add("MimeType", sb.ToString());
+					group.Items.AddProperty("MimeType", sb.ToString());
 				}
 				if (Categories.Count > 0)
 				{
@@ -324,7 +324,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 						sb.Append(s);
 						sb.Append(";");
 					}
-					group.Properties.Add("Categories", sb.ToString());
+					group.Items.AddProperty("Categories", sb.ToString());
 				}
 				if (Keywords.Count > 0)
 				{
@@ -334,7 +334,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 						sb.Append(s);
 						sb.Append(";");
 					}
-					group.Properties.Add("Keywords", sb.ToString());
+					group.Items.AddProperty("Keywords", sb.ToString());
 				}
 
 				switch (StartupNotify)
@@ -345,33 +345,33 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 					}
 					case DesktopShortcutStartupNotifyBehavior.Supported:
 					{
-						group.Properties.Add("StartupNotify", true);
+						group.Items.AddProperty("StartupNotify", true);
 						break;
 					}
 					case DesktopShortcutStartupNotifyBehavior.Unsupported:
 					{
-						group.Properties.Add("StartupNotify", false);
+						group.Items.AddProperty("StartupNotify", false);
 						break;
 					}
 				}
 
 				if (!String.IsNullOrEmpty(StartupWindowClass))
 				{
-					group.Properties.Add("StartupWMClass", StartupWindowClass);
+					group.Items.AddProperty("StartupWMClass", StartupWindowClass);
 				}
 
 				if (Type == DesktopShortcutType.InternetLink)
 				{
-					group.Properties.Add("URL", shortcut.ExecutableFileName);
+					group.Items.AddProperty("URL", shortcut.ExecutableFileName);
 				}
 
 
 				// This specification defines 3 types of desktop entries: Application (type 1),
 				// Link (type 2) and Directory (type 3). To allow the addition of new types in the
 				// future, implementations should ignore desktop entries with an unknown type.
-				// group.Properties.Add("Type");
+				// group.Items.AddProperty("Type");
 
-				plom.Groups.Add(group);
+				plom.Items.Add(group);
 
 
 				#region Desktop Actions
@@ -390,12 +390,12 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 							sb.Append(" ");
 							sb.Append(s);
 						}
-						group1.Properties.Add("Exec", sb.ToString());
+						group1.Items.AddProperty("Exec", sb.ToString());
 
-						group1.Properties.Add("Name", action.Title);
-						group1.Properties.Add("Icon", action.IconFileName);
+						group1.Items.AddProperty("Name", action.Title);
+						group1.Items.AddProperty("Icon", action.IconFileName);
 
-						plom.Groups.Add(group1);
+						plom.Items.Add(group1);
 					}
 				}
 				#endregion

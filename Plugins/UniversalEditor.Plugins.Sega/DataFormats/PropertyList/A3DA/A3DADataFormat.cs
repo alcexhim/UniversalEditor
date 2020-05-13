@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Linq;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.PropertyList;
 
@@ -72,17 +73,17 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.PropertyList.A3DA
 				{
 					if (parent == null)
 					{
-						Group ng = plom.Groups[paths[i]];
+						Group ng = plom.Items.OfType<Group>(paths[i]);
 						if (ng == null)
-							ng = plom.Groups.Add(paths[i]);
+							ng = plom.Items.AddGroup(paths[i]);
 
 						parent = ng;
 					}
 					else
 					{
-						Group ng = parent.Groups[paths[i]];
+						Group ng = parent.Items.OfType<Group>(paths[i]);
 						if (ng == null)
-							ng = parent.Groups.Add(paths[i]);
+							ng = parent.Items.AddGroup(paths[i]);
 
 						parent = ng;
 					}
@@ -90,11 +91,11 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.PropertyList.A3DA
 
 				if (parent != null)
 				{
-					parent.Properties.Add(paths[paths.Length - 1], value);
+					parent.Items.AddProperty(paths[paths.Length - 1], value);
 				}
 				else
 				{
-					plom.Properties.Add(paths[paths.Length - 1], value);
+					plom.Items.AddProperty(paths[paths.Length - 1], value);
 				}
 			}
 		}
@@ -111,25 +112,25 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.PropertyList.A3DA
 			writer.WriteLine("_.converter.version=20050823");
 			writer.WriteLine(String.Format("_.file_name={0}", OriginalFileName == null ? System.IO.Path.GetFileName(Accessor.GetFileName()) : OriginalFileName));
 			writer.WriteLine("_.property.version=20050706");
-			for (int i = 0; i < plom.Groups.Count; i++)
+			foreach (Group g in plom.Items.OfType<Group>())
 			{
-				WriteGroupRecursive(writer, plom.Groups[i]);
+				WriteGroupRecursive(writer, g);
 			}
-			for (int i = 0; i < plom.Properties.Count; i++)
+			foreach (Property p in plom.Items.OfType<Property>())
 			{
-				WritePropertyRecursive(writer, plom.Properties[i]);
+				WritePropertyRecursive(writer, p);
 			}
 		}
 
 		private void WriteGroupRecursive(Writer writer, Group group, string prefix = "")
 		{
-			for (int i = 0; i < group.Groups.Count; i++)
+			foreach (Group g in group.Items.OfType<Group>())
 			{
-				WriteGroupRecursive(writer, group.Groups[i], prefix + group.Name + '.');
+				WriteGroupRecursive(writer, g);
 			}
-			for (int i = 0; i < group.Properties.Count; i++)
+			foreach (Property p in group.Items.OfType<Property>())
 			{
-				WritePropertyRecursive(writer, group.Properties[i], prefix + group.Name + '.');
+				WritePropertyRecursive(writer, p);
 			}
 		}
 

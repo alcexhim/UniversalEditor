@@ -23,6 +23,8 @@ using System;
 
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace UniversalEditor.DataFormats.PropertyList
 {
@@ -77,7 +79,7 @@ namespace UniversalEditor.DataFormats.PropertyList
 					if (line.StartsWith("[") && line.EndsWith("]"))
 					{
 						string groupName = line.Substring(1, line.Length - 2);
-						CurrentGroup = plom.Groups.Add(groupName);
+						CurrentGroup = plom.Items.AddGroup(groupName);
 					}
 					else
 					{
@@ -106,11 +108,11 @@ namespace UniversalEditor.DataFormats.PropertyList
 							}
 							if (CurrentGroup != null)
 							{
-								CurrentGroup.Properties.Add(propertyName, propertyValue);
+								CurrentGroup.Items.AddProperty(propertyName, propertyValue);
 							}
 							else
 							{
-								plom.Properties.Add(propertyName, propertyValue);
+								plom.Items.AddProperty(propertyName, propertyValue);
 							}
 						}
 					}
@@ -124,48 +126,49 @@ namespace UniversalEditor.DataFormats.PropertyList
 			if (objectModel is PropertyListObjectModel)
 			{
 				PropertyListObjectModel objm = objectModel as PropertyListObjectModel;
-				foreach (Property p in objm.Properties)
+				foreach (PropertyListItem p in objm.Items)
 				{
-					tw.Write(p.Name + "=");
-					tw.Write(this.PropertyValuePrefix);
-					if (p.Value != null)
+					if (p is Property)
 					{
-						tw.Write(p.Value.ToString());
+						WriteProperty(tw, p as Property, objm.Items.IndexOf(p) < objm.Items.Count - 1);
 					}
-					tw.Write(this.PropertyValueSuffix);
-					if (objm.Properties.IndexOf(p) < objm.Properties.Count - 1)
+					else if (p is Group)
 					{
-						tw.WriteLine();
-					}
-				}
-				if (objm.Groups.Count > 0 && objm.Properties.Count > 0)
-				{
-					tw.WriteLine();
-				}
-				foreach (Group g in objm.Groups)
-				{
-					tw.WriteLine("[" + g.Name + "]");
-					foreach (Property p in g.Properties)
-					{
-						tw.Write(p.Name + "=");
-						tw.Write(this.PropertyValuePrefix);
-						if (p.Value != null)
-						{
-							tw.Write(p.Value.ToString());
-						}
-						tw.Write(this.PropertyValueSuffix);
-						if (g.Properties.IndexOf(p) < g.Properties.Count - 1)
-						{
-							tw.WriteLine();
-						}
-					}
-					if (objm.Groups.IndexOf(g) < objm.Groups.Count - 1)
-					{
-						tw.WriteLine();
+						WriteGroup(tw, p as Group, objm.Items.IndexOf(p) < objm.Items.Count - 1);
 					}
 				}
 			}
 			tw.Flush();
+		}
+
+		private void WriteGroup(Writer tw, Group g, bool endline)
+		{
+			tw.WriteLine("[" + g.Name + "]");
+
+			IEnumerable<Property> properties = g.Items.OfType<Property>();
+			foreach (Property p in properties)
+			{
+				WriteProperty(tw, p, g.Items.IndexOf(p) < g.Items.Count - 1);
+			}
+			if (endline)
+			{
+				tw.WriteLine();
+			}
+		}
+
+		private void WriteProperty(Writer tw, Property p, bool endline)
+		{
+			tw.Write(p.Name + "=");
+			tw.Write(this.PropertyValuePrefix);
+			if (p.Value != null)
+			{
+				tw.Write(p.Value.ToString());
+			}
+			tw.Write(this.PropertyValueSuffix);
+			if (endline)
+			{
+				tw.WriteLine();
+			}
 		}
 	}
 }

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.PropertyList;
@@ -97,7 +97,7 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 					if (tag.FullName != "Property") continue;
 
 					Property p = LoadPropertyListProperty(tag);
-					if (p != null) plom.Properties.Add(p);
+					if (p != null) plom.Items.Add(p);
 				}
 			}
 			MarkupTagElement tagGroups = (tagConfiguration.Elements["Groups"] as MarkupTagElement);
@@ -110,7 +110,7 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 					if (tag.FullName != "Group") continue;
 
 					Group g = LoadPropertyListGroup(tag);
-					if (g != null) plom.Groups.Add(g);
+					if (g != null) plom.Items.Add(g);
 				}
 			}
 		}
@@ -275,7 +275,7 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 					if (tag1.Name != "Property") continue;
 
 					Property p = LoadPropertyListProperty(tag1);
-					if (p != null) group.Properties.Add(p);
+					if (p != null) group.Items.Add(p);
 				}
 			}
 
@@ -289,7 +289,7 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 					if (tag1.Name != "Group") continue;
 
 					Group g = LoadPropertyListGroup(tag1);
-					if (g != null) group.Groups.Add(g);
+					if (g != null) group.Items.Add(g);
 				}
 			}
 
@@ -301,21 +301,25 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 		{
 			tagConfiguration.FullName = "Configuration";
 			tagConfiguration.Attributes.Add("Version", FormatVersion.ToString(2));
-			if (plom.Properties.Count > 0)
+
+			IEnumerable<Property> properties = plom.Items.OfType<Property>();
+			if (properties.Count() > 0)
 			{
 				MarkupTagElement tagProperties = new MarkupTagElement();
 				tagProperties.FullName = "Properties";
-				foreach (Property property in plom.Properties)
+				foreach (Property property in properties)
 				{
 					RecursiveSaveObject(property, tagProperties);
 				}
 				tagConfiguration.Elements.Add(tagProperties);
 			}
-			if (plom.Groups.Count > 0)
+
+			IEnumerable<Group> groups = plom.Items.OfType<Group>();
+			if (groups.Count() > 0)
 			{
 				MarkupTagElement tagGroups = new MarkupTagElement();
 				tagGroups.FullName = "Groups";
-				foreach (Group group in plom.Groups)
+				foreach (Group group in groups)
 				{
 					RecursiveSaveObject(group, tagGroups);
 				}
@@ -353,21 +357,25 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 			MarkupTagElement tagGroup = new MarkupTagElement();
 			tagGroup.FullName = "Group";
 			tagGroup.Attributes.Add("ID", item.Name);
-			if (item.Properties.Count > 0)
+
+			IEnumerable<Property> properties = item.Items.OfType<Property>();
+			if (properties.Count() > 0)
 			{
 				MarkupTagElement tagProperties = new MarkupTagElement();
 				tagProperties.FullName = "Properties";
-				foreach (Property property in item.Properties)
+				foreach (Property property in properties)
 				{
 					RecursiveSaveObject(property, tagProperties);
 				}
 				tagGroup.Elements.Add(tagProperties);
 			}
-			if (item.Groups.Count > 0)
+
+			IEnumerable<Group> groups = item.Items.OfType<Group>();
+			if (groups.Count() > 0)
 			{
 				MarkupTagElement tagGroups = new MarkupTagElement();
 				tagGroups.FullName = "Groups";
-				foreach (Group group in item.Groups)
+				foreach (Group group in groups)
 				{
 					RecursiveSaveObject(group, tagGroups);
 				}

@@ -28,6 +28,7 @@ using UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration;
 using UniversalEditor.ObjectModels.RebelSoftware.InstallationScript;
 using UniversalEditor.ObjectModels.RebelSoftware.InstallationScript.Dialogs;
 using UniversalEditor.ObjectModels.RebelSoftware.InstallationScript.Actions;
+using System.Linq;
 
 namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 {
@@ -76,13 +77,13 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 			InstallationScriptObjectModel script = (objectModels.Pop() as InstallationScriptObjectModel);
 
-			foreach (Group group in plom.Groups)
+			foreach (Group group in plom.Items.OfType<Group>())
 			{
 				switch (group.Name)
 				{
 					case "IA_Globals":
 					{
-						if (group.Properties["version"] != null) script.ProductVersion = new Version(group.Properties["version"].Value.ToString());
+						if (group.Items.OfType<Property>("version") != null) script.ProductVersion = new Version(group.Items.OfType<Property>("version").Value.ToString());
 						break;
 					}
 					case "IA_WelcomeDialog":
@@ -129,14 +130,14 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 			PropertyListObjectModel plom = new PropertyListObjectModel();
 
 			Group IA_Globals = new Group("IA_Globals");
-			IA_Globals.Properties.Add("name", script.ProductName);
-			IA_Globals.Properties.Add("version", script.ProductVersion.ToString());
-			IA_Globals.Properties.Add("diskspace", "60"); // not sure what this is
+			IA_Globals.Items.AddProperty("name", script.ProductName);
+			IA_Globals.Items.AddProperty("version", script.ProductVersion.ToString());
+			IA_Globals.Items.AddProperty("diskspace", "60"); // not sure what this is
 			if (!String.IsNullOrEmpty(script.BackgroundImageFileName))
 			{
-				IA_Globals.Properties.Add("bgbitmap", script.BackgroundImageFileName);
+				IA_Globals.Items.AddProperty("bgbitmap", script.BackgroundImageFileName);
 			}
-			plom.Groups.Add(IA_Globals);
+			plom.Items.Add(IA_Globals);
 
 			foreach (Dialog dialog in script.Dialogs)
 			{
@@ -153,13 +154,13 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 				{
 					LicenseDialog dlg = (dialog as LicenseDialog);
 					IA_Dialog.Name = "IA_LicenseDialog";
-					IA_Dialog.Properties.Add("file", dlg.LicenseFileName);
+					IA_Dialog.Items.AddProperty("file", dlg.LicenseFileName);
 				}
 				else if (dialog is DestinationDialog)
 				{
 					DestinationDialog dlg = (dialog as DestinationDialog);
 					IA_Dialog.Name = "IA_DestinationDialog";
-					IA_Dialog.Properties.Add("defaultdir", dlg.DefaultDirectory);
+					IA_Dialog.Items.AddProperty("defaultdir", dlg.DefaultDirectory);
 				}
 				else if (dialog is StartCopyingDialog)
 				{
@@ -174,7 +175,7 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 						if (action is UnzipAction)
 						{
 							UnzipAction act = (action as UnzipAction);
-							IA_Dialog.Properties.Add("unzip", act.FileName);
+							IA_Dialog.Items.AddProperty("unzip", act.FileName);
 						}
 					}
 				}
@@ -184,28 +185,28 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 					IA_Dialog.Name = "IA_FinishDialog";
 					if (!String.IsNullOrEmpty(dlg.ReadmeFileName))
 					{
-						IA_Dialog.Properties.Add("readme", dlg.ReadmeFileName);
+						IA_Dialog.Items.AddProperty("readme", dlg.ReadmeFileName);
 					}
 					if (dlg.RequireReboot)
 					{
-						IA_Dialog.Properties.Add("reboot", "yes");
+						IA_Dialog.Items.AddProperty("reboot", "yes");
 					}
 					if (!String.IsNullOrEmpty(dlg.ExecutableFileName))
 					{
-						IA_Dialog.Properties.Add("exe", dlg.ExecutableFileName);
+						IA_Dialog.Items.AddProperty("exe", dlg.ExecutableFileName);
 					}
 					if (!String.IsNullOrEmpty(dlg.ExecutableWorkingDirectory))
 					{
-						IA_Dialog.Properties.Add("exeworkdir", dlg.ExecutableWorkingDirectory);
+						IA_Dialog.Items.AddProperty("exeworkdir", dlg.ExecutableWorkingDirectory);
 					}
 				}
 
-				plom.Groups.Add(IA_Dialog);
+				plom.Items.Add(IA_Dialog);
 			}
 
 			Group IA_StartMenu = new Group("IA_StartMenu");
-			IA_StartMenu.Properties.Add("name", script.StartMenuDirectoryName);
-			plom.Groups.Add(IA_StartMenu);
+			IA_StartMenu.Items.AddProperty("name", script.StartMenuDirectoryName);
+			plom.Items.Add(IA_StartMenu);
 
 			objectModels.Push(plom);
 		}

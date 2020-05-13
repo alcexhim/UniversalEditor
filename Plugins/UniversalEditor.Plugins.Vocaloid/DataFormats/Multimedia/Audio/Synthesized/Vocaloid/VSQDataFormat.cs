@@ -26,6 +26,7 @@ using UniversalEditor.DataFormats.PropertyList;
 using UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.PropertyList;
+using System.Linq;
 
 namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 {
@@ -68,7 +69,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 
 				Document.Load(om, ini, new StringAccessor(text), true);
 
-				foreach (Group grp in plom.Groups)
+				foreach (Group grp in plom.Items.OfType<Group>())
 				{
 					string text2 = grp.Name;
 					switch (text2)
@@ -81,24 +82,24 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 						}
 						case "EventList":
 						{
-							foreach (Property prop in grp.Properties)
+							foreach (Property prop in grp.Items.OfType<Property>())
 							{
 								string eventName = prop.Name;
 								string eventValue = prop.Value.ToString();
 								int thisNotePosition = int.Parse(eventName);
 								if (eventValue.StartsWith("ID#"))
 								{
-									Group eventGroup = plom.Groups[eventValue];
-									text2 = eventGroup.Properties["Type"].Value.ToString();
+									Group eventGroup = plom.Items.OfType<Group>(eventValue);
+									text2 = eventGroup.Items.OfType<Property>("Type").Value.ToString();
 									switch (text2)
 									{
 										case "Anote":
 										{
 											SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
-											Group lyricInfo = plom.Groups[eventGroup.Properties["LyricHandle"].Value.ToString()];
-											string phonemeInfo = lyricInfo.Properties["L0"].Value.ToString();
-											int length = int.Parse(eventGroup.Properties["Length"].Value.ToString());
-											int noteNumber = int.Parse(eventGroup.Properties["Note#"].Value.ToString());
+											Group lyricInfo = plom.Items.OfType<Group>(eventGroup.GetPropertyValue<string>("LyricHandle"));
+											string phonemeInfo = lyricInfo.GetPropertyValue<string>("L0");
+											int length = eventGroup.GetPropertyValue<int>("Length");
+											int noteNumber = eventGroup.GetPropertyValue<int>("Note#");
 											string[] phonemeInfos = phonemeInfo.Split(new char[]
 											{
 												','
@@ -108,9 +109,9 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 											note.Length = length;
 											note.Frequency = 128 - noteNumber;
 											track.Commands.Add(note);
-											if (grp.Properties.IndexOf(prop) < grp.Properties.Count - 1)
+											if (grp.Items.IndexOf(prop) < grp.Items.Count - 1)
 											{
-												int nextNotePosition = int.Parse(grp.Properties[grp.Properties.IndexOf(prop) + 1].Name);
+												int nextNotePosition = int.Parse(grp.Items[grp.Items.IndexOf(prop) + 1].Name);
 												if (thisNotePosition + note.Length < nextNotePosition)
 												{
 													int restLength = nextNotePosition - thisNotePosition;
@@ -123,9 +124,9 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 										}
 										case "Singer":
 										{
-											Group singerInfo = plom.Groups[eventGroup.Properties["IconHandle"].Value.ToString()];
-											string singerName = singerInfo.Properties["IDS"].Value.ToString();
-											int programChange = int.Parse(singerInfo.Properties["Program"].Value.ToString());
+											Group singerInfo = plom.Items.OfType<Group>(eventGroup.GetPropertyValue<string>("IconHandle"));
+											string singerName = singerInfo.GetPropertyValue<string>("IDS");
+											int programChange = singerInfo.GetPropertyValue<int>("Program");
 											break;
 										}
 									}

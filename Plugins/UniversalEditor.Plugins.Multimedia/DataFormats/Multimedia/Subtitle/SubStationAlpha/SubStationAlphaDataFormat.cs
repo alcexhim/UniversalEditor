@@ -70,33 +70,38 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
 
 			PropertyListObjectModel plom = new PropertyListObjectModel();
 
-			Group grpScriptInfo = plom.Groups.Add("Script Info");
-			grpScriptInfo.Properties.Add("Title", Title);
-			grpScriptInfo.Properties.Add("ScriptType", "v4.00+");
-			grpScriptInfo.Properties.Add("WrapStyle", "0");
-			grpScriptInfo.Properties.Add("ScaledBorderAndShadow", "yes");
-			grpScriptInfo.Properties.Add("Collisions", "Normal");
-			grpScriptInfo.Properties.Add("PlayResX", "1280");
-			grpScriptInfo.Properties.Add("PlayResY", "720");
-			grpScriptInfo.Properties.Add("Scroll Position", "0");
-			grpScriptInfo.Properties.Add("Active Line", "0");
-			grpScriptInfo.Properties.Add("Video Zoom Percent", "0.5");
-			grpScriptInfo.Properties.Add("Video File", VideoFileName);
-			grpScriptInfo.Properties.Add("Video Aspect Ratio", "c1.77778");
-			grpScriptInfo.Properties.Add("Video Position", "0");
-			grpScriptInfo.Properties.Add("Last Style Storage", "Default");
-			grpScriptInfo.Properties.Add("Export Encoding", "Unicode (UTF-8)");
-			grpScriptInfo.Properties.Add("YCbCr Matrix", "TV.601");
-
-			Group grpV4Styles = plom.Groups.Add("V4+ Styles");
-			grpV4Styles.Properties.Add("Format", "Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding");
+			Group grpScriptInfo = plom.Items.AddGroup("Script Info", new PropertyListItem[]
+			{
+				new Property("Title", Title),
+				new Property("ScriptType", "v4.00+"),
+				new Property("WrapStyle", "0"),
+				new Property("ScaledBorderAndShadow", "yes"),
+				new Property("Collisions", "Normal"),
+				new Property("PlayResX", "1280"),
+				new Property("PlayResY", "720"),
+				new Property("Scroll Position", "0"),
+				new Property("Active Line", "0"),
+				new Property("Video Zoom Percent", "0.5"),
+				new Property("Video File", VideoFileName),
+				new Property("Video Aspect Ratio", "c1.77778"),
+				new Property("Video Position", "0"),
+				new Property("Last Style Storage", "Default"),
+				new Property("Export Encoding", "Unicode (UTF-8)"),
+				new Property("YCbCr Matrix", "TV.601")
+			});
+			Group grpV4Styles = plom.Items.AddGroup("V4+ Styles", new PropertyListItem[]
+			{
+				new Property("Format", "Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding")
+			});
 			foreach (Style style in subtitle.Styles)
 			{
-				grpV4Styles.Properties.Add("Style", style.Name + "," + style.FontName + "," + style.FontSize + "," + style.PrimaryColor.ToHexadecimalVB() + "," + style.SecondaryColor.ToHexadecimalVB() + "," + style.OutlineColor.ToHexadecimalVB() + "," + style.BackgroundColor.ToHexadecimalVB() + "," + (style.Bold ? "1" : "0") + (style.Italic ? "1" : "0") + (style.Underline ? "1" : "0") + (style.Strikethrough ? "1" : "0") + "," + (style.ScaleX * 100).ToString() + ",100,0,0,1,2,2,2,10,10,10,1");
+				grpV4Styles.Items.AddProperty("Style", style.Name + "," + style.FontName + "," + style.FontSize + "," + style.PrimaryColor.ToHexadecimalVB() + "," + style.SecondaryColor.ToHexadecimalVB() + "," + style.OutlineColor.ToHexadecimalVB() + "," + style.BackgroundColor.ToHexadecimalVB() + "," + (style.Bold ? "1" : "0") + (style.Italic ? "1" : "0") + (style.Underline ? "1" : "0") + (style.Strikethrough ? "1" : "0") + "," + (style.ScaleX * 100).ToString() + ",100,0,0,1,2,2,2,10,10,10,1");
 			}
 
-			Group grpEvents = plom.Groups.Add("Events");
-			grpEvents.Properties.Add("Format", "Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text");
+			Group grpEvents = plom.Items.AddGroup("Events", new PropertyListItem[]
+			{
+				new Property("Format", "Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text")
+			});
 			foreach (Event evt in subtitle.Events)
 			{
 				StringBuilder sb = new StringBuilder();
@@ -118,7 +123,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
 				string actorName = String.Empty;
 				if (evt.Actor != null) actorName = evt.Actor.Name;
 
-				grpEvents.Properties.Add("Dialogue", "0," + evt.StartTimestamp.ToString("H:MM:SS.TT") + "," + evt.EndTimestamp.ToString("H:MM:SS.TT") + "," + styleName + "," + actorName + "," + "0,0,0,," + sb.ToString());
+				grpEvents.Items.AddProperty("Dialogue", "0," + evt.StartTimestamp.ToString("H:MM:SS.TT") + "," + evt.EndTimestamp.ToString("H:MM:SS.TT") + "," + styleName + "," + actorName + "," + "0,0,0,," + sb.ToString());
 			}
 
 			objectModels.Push(plom);

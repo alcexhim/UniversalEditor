@@ -198,6 +198,7 @@
     <Compile Include="DataFormats\JSON\JSONDataFormat.cs" />
     <Compile Include="DataFormats\JSON\JSONPresetSettings.cs" />
     <Compile Include="DataFormats\JSON\JSONSettings.cs" />
+    <Compile Include="ObjectModels\PropertyList\PropertyListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

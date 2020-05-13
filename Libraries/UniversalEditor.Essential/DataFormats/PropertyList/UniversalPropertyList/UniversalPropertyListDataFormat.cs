@@ -20,7 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.PropertyList;
 
@@ -71,12 +72,12 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 			for (int i = 0; i < propertyCount; i++)
 			{
 				Property property = ReadProperty(br);
-				plom.Properties.Add(property);
+				plom.Items.Add(property);
 			}
 			for (int i = 0; i < groupCount; i++)
 			{
 				Group group = ReadGroup(br);
-				plom.Groups.Add(group);
+				plom.Items.Add(group);
 			}
 		}
 
@@ -237,12 +238,12 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 			for (int i = 0; i < propertyCount; i++)
 			{
 				Property p = ReadProperty(br);
-				group.Properties.Add(p);
+				group.Items.Add(p);
 			}
 			for (int i = 0; i < groupCount; i++)
 			{
 				Group g = ReadGroup(br);
-				group.Groups.Add(g);
+				group.Items.Add(g);
 			}
 			return group;
 		}
@@ -259,26 +260,31 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 			int filesize = 0;
 			filesize += HEADER_SIZE;
 			filesize += (plom.Title.Length + 1);
-			foreach (Property p in plom.Properties)
+			foreach (PropertyListItem p in plom.Items)
 			{
-				filesize += GetPropertySize(p);
-			}
-			foreach (Group g in plom.Groups)
-			{
-				filesize += GetGroupSize(g);
+				if (p is Property)
+				{
+					filesize += GetPropertySize(p as Property);
+				}
+				else if (p is Group)
+				{
+					filesize += GetGroupSize(p as Group);
+				}
 			}
 
 			bw.WriteInt32(filesize);
 			bw.WriteNullTerminatedString(plom.Title);
 
-			bw.WriteInt32(plom.Properties.Count);
-			bw.WriteInt32(plom.Groups.Count);
+			IEnumerable<Property> properties = plom.Items.OfType<Property>();
+			IEnumerable<Group> groups = plom.Items.OfType<Group>();
+			bw.WriteInt32(properties.Count());
+			bw.WriteInt32(groups.Count());
 
-			foreach (Property p in plom.Properties)
+			foreach (Property p in properties)
 			{
 				WriteProperty(bw, p);
 			}
-			foreach (Group g in plom.Groups)
+			foreach (Group g in groups)
 			{
 				WriteGroup(bw, g);
 			}
@@ -295,8 +301,11 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 		{
 			int groupsize = 0;
 			groupsize += (g.Name.Length + 1) + 8;
-			foreach (Property p1 in g.Properties) groupsize += GetPropertySize(p1);
-			foreach (Group g1 in g.Groups) groupsize += GetGroupSize(g1);
+			foreach (PropertyListItem item in g.Items)
+			{
+				if (item is Property) groupsize += GetPropertySize(item as Property);
+				if (item is Group) groupsize += GetGroupSize(item as Group);
+			}
 			return groupsize;
 		}
 
@@ -364,14 +373,18 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 		private void WriteGroup(Writer bw, Group g)
 		{
 			bw.WriteNullTerminatedString(g.Name);
-			bw.WriteInt32(g.Properties.Count);
-			bw.WriteInt32(g.Groups.Count);
 
-			foreach (Property p1 in g.Properties)
+			IEnumerable<Property> properties = g.Items.OfType<Property>();
+			bw.WriteInt32(properties.Count());
+
+			IEnumerable<Group> groups = g.Items.OfType<Group>();
+			bw.WriteInt32(groups.Count());
+
+			foreach (Property p1 in properties)
 			{
 				WriteProperty(bw, p1);
 			}
-			foreach (Group g1 in g.Groups)
+			foreach (Group g1 in groups)
 			{
 				WriteGroup(bw, g1);
 			}

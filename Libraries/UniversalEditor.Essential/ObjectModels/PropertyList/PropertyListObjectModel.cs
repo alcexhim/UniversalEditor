@@ -38,62 +38,18 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			return omr;
 		}
 
-		private Group.GroupCollection mvarGroups = new Group.GroupCollection();
-		private Property.PropertyCollection mvarProperties = new Property.PropertyCollection();
-		public Group.GroupCollection Groups
-		{
-			get
-			{
-				return this.mvarGroups;
-			}
-		}
-		public Property.PropertyCollection Properties
-		{
-			get
-			{
-				return this.mvarProperties;
-			}
-		}
-		public int Count
-		{
-			get
-			{
-				return this.mvarProperties.Count + this.mvarGroups.Count;
-			}
-		}
+		public PropertyListItem.PropertyListItemCollection Items { get; set; } = new PropertyListItem.PropertyListItemCollection(null);
+
 		public override void Clear()
 		{
-			this.mvarGroups.Clear();
-			this.mvarProperties.Clear();
+			Items.Clear();
 		}
 		public override void CopyTo(ObjectModel objectModel)
 		{
 			PropertyListObjectModel omb = objectModel as PropertyListObjectModel;
-			if (omb != null)
-			{
-				foreach (Group grp in mvarGroups)
-				{
-					if (omb.Groups.Contains(grp.Name))
-					{
-						omb.Groups.Append(grp);
-					}
-					else
-					{
-						omb.Groups.Add(grp);
-					}
-				}
-				foreach (Property prp in mvarProperties)
-				{
-					if (omb.Properties.Contains(prp.Name))
-					{
-						omb.Properties[prp.Name].Value = prp.Value;
-					}
-					else
-					{
-						omb.Properties.Add(prp.Name, prp.Value);
-					}
-				}
-			}
+			if (omb == null) throw new ObjectModelNotSupportedException();
+
+			// omb.Combine(this);
 		}
 		public T GetValue<T>(string propertyName)
 		{
@@ -146,7 +102,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			{
 				if (propertyPath.Length == 1)
 				{
-					Property p = mvarProperties[propertyPath[0]];
+					Property p = Items.OfType<Property>(propertyPath[0]);
 					if (p != null)
 					{
 						result = (T)p.Value;
@@ -158,7 +114,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				}
 				else
 				{
-					Group parent = this.mvarGroups[propertyPath[0]];
+					Group parent = Items.OfType<Group>(propertyPath[0]);
 					for (int i = 1; i < propertyPath.Length - 1; i++)
 					{
 						if (parent == null)
@@ -166,7 +122,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 							result = defaultValue;
 							return result;
 						}
-						parent = parent.Groups[propertyPath[i]];
+						parent = parent.Items.OfType<Group>(propertyPath[i]);
 					}
 					if (parent == null)
 					{
@@ -174,12 +130,12 @@ namespace UniversalEditor.ObjectModels.PropertyList
 					}
 					else
 					{
-						Property p = parent.Properties[propertyPath[propertyPath.Length - 1]];
+						Property p = parent.Items.OfType<Property>(propertyPath[propertyPath.Length - 1]);
 						if (p == null || p.Value == null)
 						{
 							result = defaultValue;
 						}
-						else if (p.Value.GetType() != typeof(T) && p.Value.GetType() == typeof(String))
+						else if (!(p.Value is T) && p.Value is string)
 						{
 							Type t = typeof(T);
 							MethodInfo miParse = t.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public, null, new Type[]
@@ -188,7 +144,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 							}, null);
 							object retvalobj = miParse.Invoke(null, new object[]
 							{
-								parent.Properties[propertyPath[propertyPath.Length - 1]].Value
+								parent.Items.OfType<Property>(propertyPath[propertyPath.Length - 1]).Value
 							});
 							result = (T)retvalobj;
 						}
@@ -196,7 +152,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 						{
 							try
 							{
-								result = (T)parent.Properties[propertyPath[propertyPath.Length - 1]].Value;
+								result = (T)parent.Items.OfType<Property>(propertyPath[propertyPath.Length - 1]).Value;
 							}
 							catch (NullReferenceException)
 							{
@@ -211,7 +167,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 								}, null);
 								object retvalobj = miParse.Invoke(null, new object[]
 								{
-									parent.Properties[propertyPath[propertyPath.Length - 1]].Value
+									parent.Items.OfType<Property>(propertyPath[propertyPath.Length - 1]).Value
 								});
 								result = (T)retvalobj;
 							}
@@ -235,21 +191,21 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			{
 				if (group == null)
 				{
-					group = mvarGroups[names[i]];
+					group = Items.OfType<Group>(names[i]);
 				}
 				else
 				{
-					group = group.Groups[names[i]];
+					group = group.Items.OfType<Group>(names[i]);
 				}
 			}
 
 			if (group == null)
 			{
-				return mvarProperties[names[names.Length - 1]];
+				return Items.OfType<Property>(names[names.Length - 1]);
 			}
 			else
 			{
-				return group.Properties[names[names.Length - 1]];
+				return group.Items.OfType<Property>(names[names.Length - 1]);
 			}
 		}
 
@@ -267,14 +223,14 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			{
 				if (group == null)
 				{
-					Group newgroup = mvarGroups[propertyName[i]];
-					if (newgroup == null) newgroup = mvarGroups.Add(propertyName[i]);
+					Group newgroup = Items.OfType<Group>(propertyName[i]);
+					if (newgroup == null) newgroup = Items.AddGroup(propertyName[i]);
 					group = newgroup;
 				}
 				else
 				{
-					Group newgroup = group.Groups[propertyName[i]];
-					if (newgroup == null) newgroup = group.Groups.Add(propertyName[i]);
+					Group newgroup = group.Items.OfType<Group>(propertyName[i]);
+					if (newgroup == null) newgroup = group.Items.AddGroup(propertyName[i]);
 					group = newgroup;
 				}
 			}
@@ -282,15 +238,15 @@ namespace UniversalEditor.ObjectModels.PropertyList
 			if (group == null)
 			{
 				string propName = propertyName[propertyName.Length - 1];
-				Property prop = mvarProperties[propName];
-				if (prop == null) prop = mvarProperties.Add(propName, defaultValue);
+				Property prop = Items.OfType<Property>(propName);
+				if (prop == null) prop = Items.AddProperty(propName, defaultValue);
 				return prop;
 			}
 			else
 			{
 				string propName = propertyName[propertyName.Length - 1];
-				Property prop = group.Properties[propName];
-				if (prop == null) prop = group.Properties.Add(propName, defaultValue);
+				Property prop = group.Items.OfType<Property>(propName);
+				if (prop == null) prop = group.Items.AddProperty(propName, defaultValue);
 				return prop;
 			}
 		}

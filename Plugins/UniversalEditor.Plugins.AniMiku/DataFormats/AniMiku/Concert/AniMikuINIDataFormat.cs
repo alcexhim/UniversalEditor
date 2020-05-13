@@ -67,41 +67,41 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 			ConcertObjectModel concert = (objectModels.Pop() as ConcertObjectModel);
 
-			Group grpPERF = plom.Groups["PERF"];
+			Group grpPERF = plom.Items.OfType<Group>("PERF");
 			if (grpPERF == null) throw new InvalidDataFormatException();
 
-			Property prpPERFnum = grpPERF.Properties["num"];
+			Property prpPERFnum = grpPERF.Items.OfType<Property>("num");
 			if (prpPERFnum == null) throw new InvalidDataFormatException();
 
 			int perfNum = Int32.Parse(prpPERFnum.Value.ToString());
 
 			for (int i = 0; i < perfNum; i++)
 			{
-				Group grp = plom.Groups["CHP-" + i.ToString()];
+				Group grp = plom.Items.OfType<Group>("CHP-" + i.ToString());
 
 				Performance perf = new Performance();
 
 				// The title of the song used in this performance.
-				Property prpName = grp.Properties["name"];
+				Property prpName = grp.Items.OfType<Property>("name");
 				perf.Title = prpName.Value.ToString();
 				
 				// File name of the motion data files associated with characters 1 and 2.
-				Property prpVmd1 = grp.Properties["vmd1"];
-				Property prpVmd2 = grp.Properties["vmd2"];
+				Property prpVmd1 = grp.Items.OfType<Property>("vmd1");
+				Property prpVmd2 = grp.Items.OfType<Property>("vmd2");
 
 				// Background audio to play during the performance, and delay in milliseconds between
 				// start of animation and start of audio.
-				Property prpSound = grp.Properties["sound"];
-				Property prpDelay = grp.Properties["delay"];
+				Property prpSound = grp.Items.OfType<Property>("sound");
+				Property prpDelay = grp.Items.OfType<Property>("delay");
 
 				// File name of the model data files associated with characters 1 and 2.
-				Property prpModel1 = grp.Properties["model1"];
-				Property prpModel2 = grp.Properties["model2"];
+				Property prpModel1 = grp.Items.OfType<Property>("model1");
+				Property prpModel2 = grp.Items.OfType<Property>("model2");
 
 				// Offset of the model along the X axis. Currently AMP does not support offsetting the
 				// model along the Y axis.
-				Property prpOffset1 = grp.Properties["offset1"];
-				Property prpOffset2 = grp.Properties["offset2"];
+				Property prpOffset1 = grp.Items.OfType<Property>("offset1");
+				Property prpOffset2 = grp.Items.OfType<Property>("offset2");
 
 				#region Performer 1
 				{

@@ -130,7 +130,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 		public File FindFile(string path)
 		{
-			string[] pathParts = path.Split(new char[] { System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar });
+			string[] pathParts = path.Split(PathSeparators);
 			if (pathParts.Length == 1)
 			{
 				File file = Files[pathParts[0]];

@@ -882,7 +882,7 @@ namespace UniversalEditor.UserInterface
 				}
 				else
 				{
-					group.Groups.Add(group1);
+					group.Items.Add(group1);
 				}
 			}
 			else if (tag.FullName == "Property")
@@ -901,7 +901,7 @@ namespace UniversalEditor.UserInterface
 				}
 				else
 				{
-					group.Properties.Add(property);
+					group.Items.Add(property);
 				}
 			}
 		}

@@ -26,6 +26,7 @@ using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration;
 
 using UniversalEditor.ObjectModels.Web.StyleSheet;
+using System.Linq;
 
 namespace UniversalEditor.DataFormats.Web.StyleSheet
 {
@@ -68,8 +69,11 @@ namespace UniversalEditor.DataFormats.Web.StyleSheet
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 			StyleSheetObjectModel style = (objectModels.Pop() as StyleSheetObjectModel);
 
-			foreach (Group group in plom.Groups)
+			foreach (PropertyListItem item in plom.Items)
 			{
+				Group group = (item as Group);
+				if (group == null) continue;
+
 				// TODO: figure out how to parse preprocessor non-groups (@import...) and
 				// groups (@media { ... }) at the same time, in base ExtensibleConfiguration
 
@@ -108,7 +112,8 @@ namespace UniversalEditor.DataFormats.Web.StyleSheet
 					}
 				}
 
-				foreach (Property prop in group.Properties)
+				IEnumerable<Property> properties = group.Items.OfType<Property>();
+				foreach (Property prop in properties)
 				{
 					rule.Properties.Add(new StyleSheetProperty(prop.Name, prop.Value.ToString()));
 				}

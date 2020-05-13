@@ -993,13 +993,16 @@ namespace UniversalEditor.DataFormats.Markup.XML
 					tw.Write(this.Settings.TagEndChar.ToString());
 					if (mvarSettings.PrettyPrint) tw.WriteLine();
 
-					for (int i = 0; i < plom.Groups.Count; i++)
+					for (int i = 0; i < plom.Items.Count; i++)
 					{
-						this.WriteXMLPropertyGroup(tw, plom.Groups[i], 1);
-					}
-					for (int i = 0; i < plom.Properties.Count; i++)
-					{
-						this.WriteXMLProperty(tw, plom.Properties[i], 1);
+						if (plom.Items[i] is Property)
+						{
+							this.WriteXMLProperty(tw, plom.Items[i] as Property, 1);
+						}
+						else if (plom.Items[i] is Group)
+						{
+							this.WriteXMLPropertyGroup(tw, plom.Items[i] as Group, 1);
+						}
 					}
 
 					tw.Write(this.Settings.TagBeginChar.ToString());
@@ -1021,13 +1024,16 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			tw.Write(arg_37_0 + arg_37_1 + c.ToString());
 			if (mvarSettings.PrettyPrint) tw.WriteLine();
 
-			for (int i = 0; i < g.Groups.Count; i++)
+			for (int i = 0; i < g.Items.Count; i++)
 			{
-				this.WriteXMLPropertyGroup(tw, g.Groups[i], indentLevel + 1);
-			}
-			for (int i = 0; i < g.Properties.Count; i++)
-			{
-				this.WriteXMLProperty(tw, g.Properties[i], indentLevel + 1);
+				if (g.Items[i] is Group)
+				{
+					this.WriteXMLPropertyGroup(tw, g.Items[i] as Group, indentLevel + 1);
+				}
+				else if (g.Items[i] is Property)
+				{
+					this.WriteXMLProperty(tw, g.Items[i] as Property, indentLevel + 1);
+				}
 			}
 			c = this.Settings.TagBeginChar;
 			string arg_116_0 = c.ToString();

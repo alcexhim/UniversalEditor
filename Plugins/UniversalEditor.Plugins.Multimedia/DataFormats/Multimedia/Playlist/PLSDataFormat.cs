@@ -60,31 +60,39 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 			base.AfterLoadInternal(objectModels);
 			PropertyListObjectModel plom = objectModels.Pop() as PropertyListObjectModel;
 			PlaylistObjectModel pom = objectModels.Pop() as PlaylistObjectModel;
-			if (plom.Groups["playlist"] != null && plom.Groups["playlist"].Properties["NumberOfEntries"] != null)
+
+			Group gPlaylist = plom.Items.OfType<Group>("playlist");
+			if (gPlaylist == null) throw new InvalidDataFormatException();
+
+			Property pNumEntrie = gPlaylist.Items.OfType<Property>("NumberOfEntries");
+			if (pNumEntrie == null) throw new InvalidDataFormatException();
+
+			Property pVersion = gPlaylist.Items.OfType<Property>("Version");
+			if (pVersion != null)
+				mvarVersion = int.Parse(pVersion.Value.ToString());
+
+			int numberOfEntries = int.Parse(pNumEntrie.Value.ToString());
+			for (int i = 1; i <= numberOfEntries; i++)
 			{
-				if (plom.Groups["playlist"].Properties["Version"] == null)
+				Property pFile = gPlaylist.Items.OfType<Property>("File" + i.ToString());
+				if (pFile == null) continue;
+
+				string FileName = pFile.Value.ToString();
+				PlaylistEntry entry = new PlaylistEntry();
+				entry.FileName = FileName;
+
+				Property pTitle = gPlaylist.Items.OfType<Property>("Title" + i.ToString());
+				if (pTitle != null)
 				{
-					this.mvarVersion = int.Parse(plom.Groups["playlist"].Properties["Version"].Value.ToString());
+					entry.Title = pTitle.Value.ToString();
 				}
-				int numberOfEntries = int.Parse(plom.Groups["playlist"].Properties["NumberOfEntries"].Value.ToString());
-				for (int i = 1; i <= numberOfEntries; i++)
+
+				Property pLength = gPlaylist.Items.OfType<Property>("Length" + i.ToString());
+				if (pLength != null)
 				{
-					if (plom.Groups["playlist"].Properties["File" + i.ToString()] != null)
-					{
-						string FileName = plom.Groups["playlist"].Properties["File" + i.ToString()].Value.ToString();
-						PlaylistEntry entry = new PlaylistEntry();
-						entry.FileName = FileName;
-						if (plom.Groups["playlist"].Properties["Title" + i.ToString()] != null)
-						{
-							entry.Title = plom.Groups["playlist"].Properties["Title" + i.ToString()].Value.ToString();
-						}
-						if (plom.Groups["playlist"].Properties["Length" + i.ToString()] != null)
-						{
-							entry.Length = long.Parse(plom.Groups["playlist"].Properties["Length" + i.ToString()].Value.ToString());
-						}
-						pom.Entries.Add(entry);
-					}
+					entry.Length = long.Parse(pLength.Value.ToString());
 				}
+				pom.Entries.Add(entry);
 			}
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
@@ -92,21 +100,22 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist
 			base.BeforeSaveInternal(objectModels);
 			PlaylistObjectModel pom = objectModels.Pop() as PlaylistObjectModel;
 			PropertyListObjectModel plom = new PropertyListObjectModel();
-			Group grpPlaylist = new Group();
-			grpPlaylist.Name = "playlist";
-			grpPlaylist.Properties.Add("NumberOfEntries", pom.Entries.Count);
-			grpPlaylist.Properties.Add("Version", mvarVersion);
+			Group grpPlaylist = new Group("playlist", new PropertyListItem[]
+			{
+				new Property("NumberOfEntries", pom.Entries.Count),
+				new Property("Version", mvarVersion)
+			});
 			foreach (PlaylistEntry entry in pom.Entries)
 			{
 				int i = pom.Entries.IndexOf(entry) + 1;
-				grpPlaylist.Properties.Add("File" + i.ToString(), entry.FileName);
+				grpPlaylist.Items.AddProperty("File" + i.ToString(), entry.FileName);
 				if (!String.IsNullOrEmpty(entry.Title))
 				{
-					grpPlaylist.Properties.Add("Title" + i.ToString(), entry.Title);
+					grpPlaylist.Items.AddProperty("Title" + i.ToString(), entry.Title);
 				}
-				grpPlaylist.Properties.Add("Length" + i.ToString(), entry.Length);
+				grpPlaylist.Items.AddProperty("Length" + i.ToString(), entry.Length);
 			}
-			plom.Groups.Add(grpPlaylist);
+			plom.Items.Add(grpPlaylist);
 			objectModels.Push(plom);
 		}
 	}

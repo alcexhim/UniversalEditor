@@ -73,12 +73,12 @@ namespace UniversalEditor.UserInterface
 			{
 				case ConfigurationManagerPropertyScope.Global:
 				{
-					mvarGlobalConfiguration.Properties.Add(property);
+					mvarGlobalConfiguration.Items.Add(property);
 					break;
 				}
 				case ConfigurationManagerPropertyScope.Local:
 				{
-					mvarLocalConfiguration.Properties.Add(property);
+					mvarLocalConfiguration.Items.Add(property);
 					break;
 				}
 			}
@@ -89,12 +89,12 @@ namespace UniversalEditor.UserInterface
 			{
 				case ConfigurationManagerPropertyScope.Global:
 				{
-					mvarGlobalConfiguration.Groups.Add(group);
+					mvarGlobalConfiguration.Items.Add(group);
 					break;
 				}
 				case ConfigurationManagerPropertyScope.Local:
 				{
-					mvarLocalConfiguration.Groups.Add(group);
+					mvarLocalConfiguration.Items.Add(group);
 					break;
 				}
 			}
