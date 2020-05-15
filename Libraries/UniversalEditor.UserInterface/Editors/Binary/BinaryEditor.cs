@@ -532,6 +532,8 @@ namespace UniversalEditor.Editors.Binary
 		[EventHandler(nameof(hexedit), "Changed")]
 		private void hexedit_Changed(object sender, EventArgs e)
 		{
+			(ObjectModel as BinaryObjectModel).Data = hexedit.Data;
+
 			EndEdit();
 
 			foreach (TreeModelRow row in tmFieldDefinitions.Rows)
