@@ -37,6 +37,8 @@
     <Compile Include="DataFormats\Multimedia\Audio\Voicebank\Vocaloid\VocaloidVoicebankDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\VoicebankIndex\Vocaloid\DDIDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\VoicebankIndex\Vocaloid\DDIParameter.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\Vocaloid\VPR\VPRSequenceJSONDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Synthesized\Vocaloid\VPR\VPRProjectZIPDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\" />
@@ -47,6 +49,7 @@
     <Folder Include="DataFormats\Multimedia\Audio\Voicebank\" />
     <Folder Include="DataFormats\Multimedia\Audio\Voicebank\Vocaloid\" />
     <Folder Include="DataFormats\Multimedia\Audio\VoicebankIndex\" />
+    <Folder Include="DataFormats\Multimedia\Audio\Synthesized\Vocaloid\VPR\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -60,6 +63,10 @@
     <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
       <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.FileSystem\UniversalEditor.Plugins.FileSystem.csproj">
+      <Project>{76FD1306-9CA4-428F-993B-B7E4EEEACBF3}</Project>
+      <Name>UniversalEditor.Plugins.FileSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

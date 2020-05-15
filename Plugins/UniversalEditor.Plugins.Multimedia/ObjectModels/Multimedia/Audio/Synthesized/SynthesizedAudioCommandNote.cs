@@ -66,6 +66,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 				PortamentoRising = this.PortamentoRising,
 				PreUtterance = this.PreUtterance,
 				Protected = this.Protected,
+				Position = this.Position,
 				Frequency = this.Frequency,
 				VBR = this.VBR.Clone() as double[],
 				VoiceOverlap = this.VoiceOverlap

@@ -32,7 +32,16 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 	{
 		public override void UpdateSelections()
 		{
-			throw new NotImplementedException();
+			Selections.Clear();
+			if (PianoRoll.SelectedCommands.Count > 0)
+			{
+				PianoRollEditorSelection sel = new PianoRollEditorSelection(this, PianoRoll);
+				for (int i = 0; i < PianoRoll.SelectedCommands.Count; i++)
+				{
+					sel.Commands.Add(PianoRoll.SelectedCommands[i]);
+				}
+				Selections.Add(sel);
+			}
 		}
 
 		protected override EditorSelection CreateSelectionInternal(object content)
@@ -40,6 +49,11 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 			throw new NotImplementedException();
 		}
 
+		protected override void OnDocumentEdited(EventArgs e)
+		{
+			base.OnDocumentEdited(e);
+			PianoRoll.Refresh();
+		}
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);

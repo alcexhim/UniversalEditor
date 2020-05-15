@@ -72,27 +72,27 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 			InitializePhonemeDictionary();
 		}
 
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Clear();
-
-			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.Bootstrap);
-			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal(objectModels);
-
-			// base.Accessor.DefaultEncoding = IO.Encoding.GetRuntimeEncoding(System.Text.Encoding.GetEncoding("shift-jis"));
-			throw new NotImplementedException();
+			base.Accessor.DefaultEncoding = IO.Encoding.ShiftJIS;
 
 			objectModels.Push(new PropertyListObjectModel());
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
+
 			PropertyListObjectModel plom = objectModels.Pop() as PropertyListObjectModel;
 			SynthesizedAudioObjectModel sa = objectModels.Pop() as SynthesizedAudioObjectModel;
 
@@ -105,6 +105,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 			{
 				SynthesizedAudioTrack track = new SynthesizedAudioTrack();
 				Group grp = plom.Items[groupStart] as Group;
+
+				int position = 0;
 				while (grp.Name != "#TRACKEND")
 				{
 					SynthesizedAudioCommandNote note = null;
@@ -116,6 +118,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 					{
 						note = new SynthesizedAudioCommandNote();
 					}
+					note.Position = position;
 					note.Length = int.Parse(grp.Items.OfType<Property>("Length").Value.ToString());
 					note.Lyric = grp.Items.OfType<Property>("Lyric").Value.ToString();
 					note.Phoneme = LyricToPhoneme(note.Lyric);
@@ -126,25 +129,82 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 					note.Intensity = grp.GetPropertyValue<int>("Intensity");
 					note.Modulation = grp.GetPropertyValue<int>("Moduration");
 					note.PBType = grp.GetPropertyValue<int>("PBType");
-					note.Pitches = grp.GetPropertyValue<string>("Pitches").Split<double>(new char[] { ',' });
-					note.Envelope = grp.GetPropertyValue<string>("Envelope").Split(new char[] { ',' });
-					note.VBR = grp.GetPropertyValue<string>("VBR").Split<double>(new char[] { ',' });
+					note.Pitches = grp.GetPropertyValue<string>("Pitches", String.Empty).Split<double>(new char[] { ',' });
+					note.Envelope = grp.GetPropertyValue<string>("Envelope", String.Empty).Split(new char[] { ',' });
+					note.VBR = grp.GetPropertyValue<string>("VBR", String.Empty).Split<double>(new char[] { ',' });
 
 					track.Commands.Add(note);
 					groupStart++;
 					grp = plom.Items[groupStart] as Group;
+
+					position += (int)note.Length;
 				}
 				sa.Tracks.Add(track);
 			}
+		}
+
+		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
+		{
+			base.BeforeSaveInternal(objectModels);
+
+			SynthesizedAudioObjectModel sa = objectModels.Pop() as SynthesizedAudioObjectModel;
+			PropertyListObjectModel plom = new PropertyListObjectModel();
+
+			plom.Items.Add(new Group("#SETTING", new PropertyListItem[]
+			{
+				new Property("Tempo", sa.Tempo),
+				new Property("Tracks", sa.Tracks.Count.ToString()),
+				new Property("ProjectName", sa.Name),
+				new Property("VoiceDir", "%VOICE%"),
+				new Property("OutFile", System.IO.Path.ChangeExtension(System.IO.Path.GetFileName(Accessor.GetFileName()), ".wav")),
+				new Property("CacheDir", ".cache"),
+				new Property("Tool1", "wavtool.exe"),
+				new Property("Tool2", "resampler.exe"),
+				new Property("Mode2", true),
+				new Property("Flags", "g8BRE10H10")
+			}));
+
+			for (int i = 0; i < sa.Tracks.Count; i++)
+			{
+				for (int k = 0; k < sa.Tracks[i].Commands.Count; k++)
+				{
+					if (sa.Tracks[i].Commands[k] is SynthesizedAudioCommandNote)
+					{
+						SynthesizedAudioCommandNote note = sa.Tracks[i].Commands[k] as SynthesizedAudioCommandNote;
+
+						Group gNote = new Group(String.Format("#{0}", i.ToString().PadLeft(4, '0')), new PropertyListItem[]
+						{
+							new Property("Length", note.Length),
+							new Property("Lyric", note.Lyric),
+							new Property("NoteNum", note.Frequency),
+							new Property("PreUtterance", note.PreUtterance),
+							new Property("VoiceOverlap", note.VoiceOverlap),
+							new Property("Intensity", note.Intensity),
+							new Property("Moduration", note.Modulation),
+							new Property("Envelope", String.Join(",", note.Envelope))
+						});
+						plom.Items.Add(gNote);
+					}
+				}
+				plom.Items.Add(new Group("#TRACKEND"));
+			}
+
+			objectModels.Push(plom);
 		}
 
 		private string LyricToPhoneme(string lyric)
 		{
 			// Use PhonemeDictionary.xml lookup table to find the phoneme that corresponds to the
 			// lyric
-			Phoneme p = mvarPhonemeDictionary.PhonemeLists[0].GetPhonemeFromMapping(lyric);
-			if (p == null) return null;
-			return p.Value;
+			if (mvarPhonemeDictionary.PhonemeLists.Count > 0)
+			{
+				for (int i = 0; i < mvarPhonemeDictionary.PhonemeLists.Count; i++)
+				{
+					Phoneme p = mvarPhonemeDictionary.PhonemeLists[i].GetPhonemeFromMapping(lyric);
+					if (p != null) return p.Value;
+				}
+			}
+			return null;
 		}
 	}
 }

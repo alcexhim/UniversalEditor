@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
@@ -34,7 +35,7 @@ using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Controls
+namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 {
 	/// <summary>
 	/// Provides a UWT-based <see cref="View" /> for manipulating <see cref="SynthesizedAudioCommand" />s in a piano roll style.
@@ -59,6 +60,23 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Arrow", ContextMenuArrow_Click);
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Draw", ContextMenuPencil_Click);
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Erase", ContextMenuErase_Click);
+
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_4", ContextMenu_Quantize_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_8", ContextMenu_Quantize_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_16", ContextMenu_Quantize_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_32", ContextMenu_Quantize_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_64", ContextMenu_Quantize_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_Off", ContextMenu_Quantize_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_Triplet", ContextMenu_Quantize_Click);
+
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_4", ContextMenu_NoteLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_8", ContextMenu_NoteLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_16", ContextMenu_NoteLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_32", ContextMenu_NoteLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_64", ContextMenu_NoteLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Off", ContextMenu_NoteLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Default", ContextMenu_NoteLength_Click);
+			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Triplet", ContextMenu_NoteLength_Click);
 
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_1", ContextMenu_NoteFixedLength_Click);
 			Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_2", ContextMenu_NoteFixedLength_Click);
@@ -152,17 +170,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		/// <value>The length of a newly-created note.</value>
 		public int FixedNoteLength { get; set; } = -1;
 
-		private int _PositionQuantization = -1;
-		public int PositionQuantization
-		{
-			get { return _PositionQuantization; }
-			set
-			{
-				_PositionQuantization = value;
-				Refresh();
-			}
-		}
-
 		private void ContextMenu_NoteFixedLength_Click(object sender, EventArgs e)
 		{
 			Command cmd = (sender as Command);
@@ -189,6 +196,65 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 					break;
 				}
 			}
+		}
+		private void ContextMenu_Quantize_Click(object sender, EventArgs e)
+		{
+			Command cmd = (sender as Command);
+			string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_Quantize_".Length);
+			int iValue = 4;  //-1;
+
+			switch (sValue)
+			{
+				case "Off":
+				{
+					break;
+				}
+				case "Triplet":
+				{
+					break;
+				}
+				case "Dot":
+				{
+					break;
+				}
+				default:
+				{
+					iValue = Int32.Parse(sValue);
+					break;
+				}
+			}
+
+			PositionQuantization = (int)((double)1920 / iValue);
+		}
+		private void ContextMenu_NoteLength_Click(object sender, EventArgs e)
+		{
+			Command cmd = (sender as Command);
+			string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_NoteLength_".Length);
+			int iValue = 4;  //-1;
+
+			switch (sValue)
+			{
+				case "Off":
+				{
+					break;
+				}
+				case "Triplet":
+				{
+					break;
+				}
+				case "Default":
+				{
+					iValue = -1;
+					break;
+				}
+				default:
+				{
+					iValue = Int32.Parse(sValue);
+					break;
+				}
+			}
+
+			LengthQuantization = (int)((double)1920 / iValue);
 		}
 
 		// TODO: make this more user-friendly
@@ -317,7 +383,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			set { _SelectedTrack = value; Refresh(); }
 		}
 
-		public int GridSize { get; set; } = 4;
 		public Dimension2D NoteSize { get; set; } = new Dimension2D(12, 16);
 
 		private Pen pGrid = new Pen(Colors.LightGray);
@@ -327,19 +392,53 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		private SolidBrush bSelectionFillDrawing = new SolidBrush(Color.FromRGBADouble(Colors.DarkGray.R, Colors.DarkGray.G, Colors.DarkGray.B, 0.5));
 
 		private bool mvarShowKeyboard = true;
+		/// <summary>
+		/// Gets or sets a value indicating whether the virtual keyboard should be shown on this <see cref="PianoRollView" />.
+		/// </summary>
+		/// <value><c>true</c> if the virtual keyboard should be shown; otherwise, <c>false</c>.</value>
 		public bool ShowKeyboard { get { return mvarShowKeyboard; } set { mvarShowKeyboard = value; Invalidate(); } }
 
 		private int mvarKeyboardWidth = 64;
 		public int KeyboardWidth { get { return mvarKeyboardWidth; } set { mvarKeyboardWidth = value; Invalidate(); } }
 
-		private int mvarQuarterNoteWidth = 48;
-		private int mvarNoteHeight = 22;
+		private int _LengthQuantization = -1;
+		/// <summary>
+		/// Gets or sets the quantization for note length (i.e., the width of a quarter note on the grid). All quantization operations are relative to this value.
+		/// </summary>
+		/// <value>The quantization for note length (i.e., the width of a quarter note on the grid).</value>
+		public int LengthQuantization { get { return _LengthQuantization; } set { _LengthQuantization = value; Invalidate(); } }
+		/// <summary>
+		/// Gets or sets the quantization for note positioning.
+		/// </summary>
+		/// <value>The quantization for note positioning.</value>
+		public int PositionQuantization { get; set; } = 60;
+
+		private int GetLengthQuantization()
+		{
+			if (LengthQuantization == -1)
+				return PositionQuantization;
+			return LengthQuantization;
+		}
+
+		private int _GridWidth = 120;
+		public int GridWidth { get { return _GridWidth;  }set { _GridWidth = value;  Invalidate(); } }
+
+		private int _NoteHeight = 22;
+		/// <summary>
+		/// Gets or sets the height of a note on the grid.
+		/// </summary>
+		/// <value>The height of a note on the grid.</value>
+		public int NoteHeight { get { return _NoteHeight; } set { _NoteHeight = value;  Invalidate(); } }
+
+		private bool _HighlightOverlappingNotes = true;
+		/// <summary>
+		/// Gets or sets a value indicating whether overlapping notes on this <see cref="PianoRollView" /> grid are highlighted.
+		/// </summary>
+		/// <value><c>true</c> if overlapping notes should be highlighted; otherwise, <c>false</c>.</value>
+		public bool HighlightOverlappingNotes { get { return _HighlightOverlappingNotes; } set { _HighlightOverlappingNotes = value;  Invalidate(); } }
 
 		private double mvarZoomFactor = 1.0;
 		public double ZoomFactor { get { return mvarZoomFactor; } set { mvarZoomFactor = value; Invalidate(); } }
-
-		private Dimension2D mvarQuantizationSize = new Dimension2D(16, 16);
-		public Dimension2D QuantizationSize { get { return mvarQuantizationSize; } set { mvarQuantizationSize = value; Invalidate(); } }
 
 		private bool m_selecting = false;
 		private double cx = 0, cy = 0;
@@ -356,6 +455,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
 			base.OnMouseDown(e);
+			Focus();
 
 			if (SelectedTrack == null) return;
 
@@ -411,10 +511,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				dy = e.Y;
 				m_selecting = true;
 
-				drag_OriginalLocation = Quantize(new Vector2D(cx, cy));
+				drag_OriginalLocation = Quantize(new Vector2D(cx, cy), QuantizationMode.Position);
 				if (cmd is SynthesizedAudioCommandNote)
 				{
-					note_OriginalLocation = Quantize(GetNoteRect(cmd as SynthesizedAudioCommandNote).Location);
+					note_OriginalLocation = Quantize(GetNoteRect(cmd as SynthesizedAudioCommandNote).Location, QuantizationMode.Position);
 				}
 				drag_CurrentLocation = drag_OriginalLocation;
 			}
@@ -447,7 +547,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 				if (draggingCommand == null && (SelectionMode == PianoRollSelectionMode.Select || SelectionMode == PianoRollSelectionMode.Insert))
 				{
-					drag_CurrentLocation = Quantize(new Vector2D(dx, drag_OriginalLocation.Y));
+					drag_CurrentLocation = Quantize(new Vector2D(dx, drag_OriginalLocation.Y), QuantizationMode.Length);
 					if (SelectionMode == PianoRollSelectionMode.Select)
 					{
 						Rectangle rectSelection = new Rectangle(cx, cy, dx - cx, dy - cy);
@@ -462,7 +562,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				}
 				else
 				{
-					drag_CurrentLocation = Quantize(new Vector2D(dx, dy));
+					drag_CurrentLocation = Quantize(new Vector2D(dx, dy), QuantizationMode.Length);
 				}
 				Refresh();
 			}
@@ -497,11 +597,21 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 								double y = drag_CurrentLocation.Y - drag_OriginalLocation.Y;
 
 								Rectangle origNoteRect = GetNoteRect(note);
-								Vector2D v = Quantize(origNoteRect.Location);
+								Vector2D v = Quantize(origNoteRect.Location, QuantizationMode.Position);
 								v.X += x;
 								v.Y += y;
 
-								ApplyNoteRect(ref note, v);
+								if ((e.ModifierKeys & KeyboardModifierKey.Control) == KeyboardModifierKey.Control)
+								{
+									// copy the note to the current location
+									SynthesizedAudioCommandNote note2 = note.Clone() as SynthesizedAudioCommandNote;
+									ApplyNoteRect(ref note2, v);
+									SelectedTrack.Commands.Add(note2);
+								}
+								else
+								{
+									ApplyNoteRect(ref note, v);
+								}
 							}
 						}
 
@@ -526,8 +636,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 						SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
 
-						note.Position = (int)drag_OriginalLocation.X;
-						note.Length = (drag_CurrentLocation.X - drag_OriginalLocation.X);
+						note.Position = LocationToNotePosition((int)drag_OriginalLocation.X, QuantizationMode.Position) * 4;
+						note.Length = LocationToNotePosition((int)(drag_CurrentLocation.X - drag_OriginalLocation.X), QuantizationMode.Length) * 4;
 						note.Frequency = ValueToFrequency((int)drag_OriginalLocation.Y);
 
 						Editor.BeginEdit();
@@ -547,9 +657,18 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			}
 		}
 
+		private int LocationToNotePosition(int x, QuantizationMode mode)
+		{
+			return (int)Unquantize(new MBS.Framework.Drawing.Vector2D(x, 0), mode).X;
+		}
+		private int NotePositionToLocation(double x)
+		{
+			return (int)(x / 4);
+		}
+
 		private void ApplyNoteRect(ref SynthesizedAudioCommandNote note, Vector2D quantized)
 		{
-			note.Position = (int)quantized.X;
+			note.Position = LocationToNotePosition((int)quantized.X, QuantizationMode.Position) * 4;
 			note.Frequency = ValueToFrequency((int)quantized.Y);
 		}
 
@@ -625,19 +744,31 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			"A#", "A", "G#", "G", "F#", "F", "E", "D#", "D", "C#", "C", "B"
 		};
 
-		private Vector2D Quantize(Vector2D pt)
+		private Vector2D Quantize(Vector2D pt, QuantizationMode mode)
 		{
 			if (mvarShowKeyboard)
 				pt.X -= mvarKeyboardWidth;
 
-			int qX = (int)((double)(pt.X / mvarQuarterNoteWidth));
-			int qY = (int)((double)((pt.Y / mvarNoteHeight)));
+			int quant;
+			if (mode == QuantizationMode.Length)
+				quant = GetLengthQuantization();
+			else
+				quant = PositionQuantization;
+
+			int qX = (int)((double)(pt.X / (quant * ZoomFactor)));
+			int qY = (int)((double)((pt.Y / NoteHeight)));
 			return new Vector2D(qX, qY);
 		}
-		private Vector2D Unquantize(Vector2D pt)
+		private Vector2D Unquantize(Vector2D pt, QuantizationMode mode)
 		{
-			int uqX = (int)(pt.X * mvarQuarterNoteWidth);
-			int uqY = (int)(pt.Y * mvarNoteHeight);
+			int quant;
+			if (mode == QuantizationMode.Length)
+				quant = GetLengthQuantization();
+			else
+				quant = PositionQuantization;
+
+			int uqX = (int)(pt.X * (quant * ZoomFactor));
+			int uqY = (int)(pt.Y * NoteHeight);
 			return new Vector2D(uqX, uqY);
 		}
 
@@ -668,26 +799,46 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 		private Rectangle GetNoteRect(SynthesizedAudioCommandNote note)
 		{
 			Rectangle gridRect = GetGridRect();
-			Vector2D pt1 = Unquantize(new Vector2D((int)(note.Position), FrequencyToValue(note.Frequency)));
-			Vector2D pt2 = Unquantize(new Vector2D((int)note.Length, FrequencyToValue(note.Frequency)));
-			return new Rectangle(gridRect.X + pt1.X + 1, gridRect.Y + pt1.Y + 1, pt2.X - 1, mvarNoteHeight - 1);
+
+			int x = (int)NotePositionToLocation(note.Position);
+			int y = FrequencyToValue(note.Frequency);
+			int width = (int)NotePositionToLocation((int)note.Length);
+			int height = NoteHeight;
+
+			return new Rectangle(gridRect.X + x + 1, gridRect.Y + y + 1, width - 1, height - 1);
 		}
 
 		private double ValueToFrequency(int value)
 		{
-			return value;
+			return (81 - value);
 		}
 		private int FrequencyToValue(double frequency)
 		{
-			return (int)frequency;
+			return (int)((81 - frequency) * NoteHeight);
+		}
+
+		private bool _scrollBoundsChanged = true;
+		private void RecalcScrollBounds()
+		{
+			for (int i = 0; i < SelectedTrack.Commands.Count; i++)
+			{
+
+			}
+
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint(e);
 
-			int gridWidth = (int)(mvarQuarterNoteWidth * mvarZoomFactor);
-			int gridHeight = (int)(mvarNoteHeight * mvarZoomFactor);
+			int gridWidth = (int)(GridWidth * mvarZoomFactor);
+			int gridHeight = (int)(NoteHeight * mvarZoomFactor);
+
+			if (_scrollBoundsChanged)
+			{
+				RecalcScrollBounds();
+				_scrollBoundsChanged = false;
+			}
 
 			Rectangle gridRect = GetGridRect();
 			if (mvarShowKeyboard)
@@ -738,7 +889,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			}
 			for (int i = 0; i < Size.Width; i += (ShowGridLines ? (gridWidth / 2) : gridWidth))
 			{
-				if ((i % (mvarQuarterNoteWidth * 4)) == 0)
+				if ((i % GetLengthQuantization()) == 0)
 				{
 					gridPen.Color = Colors.Gray.Alpha(0.50);
 				}
@@ -758,24 +909,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 						SynthesizedAudioCommandNote note = (cmd as SynthesizedAudioCommandNote);
 
 						Rectangle rect = GetNoteRect(note);
-
-						if (mvarSelectedCommands.Contains(cmd))
-						{
-							e.Graphics.FillRectangle(new SolidBrush(SystemColors.HighlightBackground), rect);
-						}
-						else
-						{
-							e.Graphics.FillRectangle(new SolidBrush(SystemColors.WindowBackground), rect);
-							e.Graphics.FillRectangle(new SolidBrush(Colors.Green.Alpha(0.3)), rect);
-						}
-						e.Graphics.DrawRectangle(new Pen(Colors.Green.Alpha(0.5)), rect);
-
-						Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 10, rect.Width - 4, rect.Height - 2);
-
-						if (!(txt.Visible && _EditingNote == cmd))
-						{
-							e.Graphics.DrawText(String.Format("{0}        [ {1} ]", note.Lyric, note.Phoneme), Font, textRect, new SolidBrush(mvarSelectedCommands.Contains(cmd) ? SystemColors.HighlightForeground : SystemColors.WindowForeground));
-						}
+						bool overlaps = false;
+						if (HighlightOverlappingNotes) overlaps = NoteOverlaps(note);
+						if (!DrawNote(e.Graphics, rect, note.Lyric, note.Phoneme, mvarSelectedCommands.Contains(cmd), _EditingNote == note, overlaps))
+							break;
 					}
 				}
 			}
@@ -786,7 +923,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				{
 					Rectangle origNoteRect = GetNoteRect(draggingCommand as SynthesizedAudioCommandNote);
 					Rectangle newNoteRect = GetNoteRect(draggingCommand as SynthesizedAudioCommandNote);
-					newNoteRect.Location = Unquantize(new Vector2D(note_OriginalLocation.X + (drag_CurrentLocation.X - drag_OriginalLocation.X), note_OriginalLocation.Y + (drag_CurrentLocation.Y - drag_OriginalLocation.Y)));
+					newNoteRect.Location = Unquantize(new Vector2D(note_OriginalLocation.X + (drag_CurrentLocation.X - drag_OriginalLocation.X), note_OriginalLocation.Y + (drag_CurrentLocation.Y - drag_OriginalLocation.Y)), QuantizationMode.Position);
 
 					Vector2D diff = new Vector2D(newNoteRect.X - origNoteRect.X, newNoteRect.Y - origNoteRect.Y);
 					foreach (SynthesizedAudioCommand cmd in mvarSelectedCommands)
@@ -812,7 +949,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 				}
 				else if (SelectionMode == PianoRollSelectionMode.Insert)
 				{
-					Rectangle dragrect = new Rectangle(drag_OriginalLocation.X * mvarQuarterNoteWidth, drag_OriginalLocation.Y * mvarNoteHeight, (drag_CurrentLocation.X * mvarQuarterNoteWidth) - (drag_OriginalLocation.X * mvarQuarterNoteWidth), mvarNoteHeight);
+					Rectangle dragrect = new Rectangle(drag_OriginalLocation.X * PositionQuantization, drag_OriginalLocation.Y * NoteHeight, (drag_CurrentLocation.X * GetLengthQuantization()) - (drag_OriginalLocation.X * GetLengthQuantization()), NoteHeight);
 					if (mvarShowKeyboard)
 					{
 						dragrect.X += mvarKeyboardWidth;
@@ -837,11 +974,58 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 			}
 			*/
 		}
+		private bool NoteOverlaps(SynthesizedAudioCommandNote note)
+		{
+			Rectangle rect = GetNoteRect(note);
+
+			for (int i = 0; i < SelectedTrack.Commands.Count; i++)
+			{
+				SynthesizedAudioCommandNote note2 = SelectedTrack.Commands[i] as SynthesizedAudioCommandNote;
+				if (note2 == null) continue;
+				if (note2 == note) continue;
+
+				Rectangle rect2 = GetNoteRect(note2);
+				if ((rect.X >= rect2.X && rect.X <= rect2.Right) || (rect2.X >= rect.X & rect2.X <= rect.Right))
+					return true;
+			}
+			return false;
+		}
+
+		private bool DrawNote(Graphics graphics, Rectangle rect, string lyric, string phoneme, bool selected, bool editing, bool overlaps)
+		{
+			if (rect.X > Size.Width)
+				return false; // no need to continue since we've reached the end of the visible area
+
+			Color noteColor = SystemColors.HighlightBackground.Darken(0.1);
+			if (overlaps)
+			{
+				noteColor = Colors.DarkGray;
+			}
+
+			if (selected)
+			{
+				graphics.FillRectangle(new SolidBrush(SystemColors.HighlightBackground), rect);
+			}
+			else
+			{
+				graphics.FillRectangle(new SolidBrush(SystemColors.WindowBackground), rect);
+				graphics.FillRectangle(new SolidBrush(noteColor.Alpha(0.3)), rect);
+			}
+			graphics.DrawRectangle(new Pen(noteColor.Alpha(0.5)), rect);
+
+			Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 10, rect.Width - 4, rect.Height - 2);
+
+			if (!(txt.Visible && editing))
+			{
+				graphics.DrawText(String.Format("{0}        [ {1} ]", lyric, phoneme), Font, textRect, new SolidBrush(selected ? SystemColors.HighlightForeground : SystemColors.WindowForeground));
+			}
+			return true;
+		}
 
 		private void DrawKeyboard(Graphics g)
 		{
-			int gridWidth = (int)(mvarQuarterNoteWidth * mvarZoomFactor);
-			int gridHeight = (int)(mvarNoteHeight * mvarZoomFactor);
+			int gridWidth = (int)(GetLengthQuantization() * mvarZoomFactor);
+			int gridHeight = (int)(NoteHeight * mvarZoomFactor);
 
 			Rectangle keyboardRect = GetKeyboardRect();
 			for (int i = 0; i < keyboardRect.Height; i += gridHeight)
@@ -864,11 +1048,11 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Control
 
 		private int QuantizeHeight(int cy)
 		{
-			return (int)((double)cy / mvarNoteHeight);
+			return (int)((double)cy / NoteHeight);
 		}
 		private int QuantizeWidth(int cy)
 		{
-			return (int)((double)cy / mvarQuarterNoteWidth);
+			return (int)((double)cy / GetLengthQuantization());
 		}
 	}
 }

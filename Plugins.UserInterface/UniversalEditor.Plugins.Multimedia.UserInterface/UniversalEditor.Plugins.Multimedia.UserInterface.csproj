@@ -48,6 +48,8 @@
     <Compile Include="Editors\Multimedia\Palette\PaletteEntrySelection.cs" />
     <Compile Include="Editors\Multimedia\Audio\Voicebank\VoicebankEditor.cs" />
     <Compile Include="Editors\Multimedia\PictureCollection\PictureCollectionEditor.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\QuantizationMode.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\PianoRollEditorSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />

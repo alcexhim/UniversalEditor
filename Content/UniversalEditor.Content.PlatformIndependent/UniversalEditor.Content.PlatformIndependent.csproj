@@ -728,8 +728,10 @@
     <Content Include="Editors\Database\DatabaseEditor.glade" />
     <Content Include="Editors\Multimedia\Synthesized\Dialogs\NotePropertiesDialog.glade" />
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\Voicebank\Vocaloid.uexml" />
-    <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\Vocaloid.uexml" />
+    <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VSQ.uexml" />
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\VoicebankIndex\Vocaloid.uexml" />
+    <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VSQX.uexml" />
+    <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VPR.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

@@ -45,7 +45,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			SynthesizedAudioObjectModel audio = objectModels.Pop() as SynthesizedAudioObjectModel;
-			for (int i = 1; i < audio.Tracks.Count; i++)
+			for (int i = 0; i < audio.Tracks.Count; i++)
 			{
 				SynthesizedAudioTrack track = audio.Tracks[i];
 				string text = string.Empty;
@@ -108,7 +108,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 											note.Phoneme = phonemeInfos[1];
 											note.Length = length;
 											note.Frequency = 128 - noteNumber;
-											track.Commands.Add(note);
+											note.Position = thisNotePosition;
 											if (grp.Items.IndexOf(prop) < grp.Items.Count - 1)
 											{
 												int nextNotePosition = int.Parse(grp.Items[grp.Items.IndexOf(prop) + 1].Name);
@@ -120,6 +120,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 													track.Commands.Add(rest);
 												}
 											}
+											track.Commands.Add(note);
 											break;
 										}
 										case "Singer":

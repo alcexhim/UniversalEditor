@@ -129,24 +129,26 @@
 					</Items>
 				</Command>
 				
-				<!-- Length : controls the quantize of length when drawing a new note -->
-				<Command ID="PianoRollEditor_ContextMenu_Length_4" Title="1/4 [480]" />
-				<Command ID="PianoRollEditor_ContextMenu_Length_8" Title="1/8 [240]" />
-				<Command ID="PianoRollEditor_ContextMenu_Length_16" Title="1/16 [120]" />
-				<Command ID="PianoRollEditor_ContextMenu_Length_32" Title="1/32 [60]" />
-				<Command ID="PianoRollEditor_ContextMenu_Length_64" Title="1/64 [30]" />
-				<Command ID="PianoRollEditor_ContextMenu_Length_Off" Title="Off" />
-				<Command ID="PianoRollEditor_ContextMenu_Length_Triplet" Title="Triplet" />
-				<Command ID="PianoRollEditor_ContextMenu_Length" Title="_Length">
+				<!-- NoteLength : controls the quantize of length when drawing a new note -->
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_4" Title="1/4 [480]" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_8" Title="1/8 [240]" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_16" Title="1/16 [120]" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_32" Title="1/32 [60]" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_64" Title="1/64 [30]" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_Off" Title="Off" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_Default" Title="Default" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength_Triplet" Title="Triplet" />
+				<Command ID="PianoRollEditor_ContextMenu_NoteLength" Title="Note _Length">
 					<Items>
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length_4" />
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length_8" />
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length_16" />
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length_32" /> <!-- default -->
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length_64" />
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length_Off" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_4" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_8" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_16" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_32" /> <!-- default -->
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_64" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_Off" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_Default" />
 						<Separator />
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length_Triplet" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_Triplet" />
 					</Items>
 				</Command>
 				
@@ -215,9 +217,9 @@
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale" />
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Chord" />
 						<Separator />
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteFixedLength" />
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Quantize" />
-						<CommandReference CommandID="PianoRollEditor_ContextMenu_Length" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength" />
+						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteFixedLength" />
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_ShowGridLines" />
 						<Separator />
 						<CommandReference CommandID="EditUndo" />

@@ -26,7 +26,7 @@ using UniversalEditor.UserInterface;
 
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
-using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Controls;
+using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 {
