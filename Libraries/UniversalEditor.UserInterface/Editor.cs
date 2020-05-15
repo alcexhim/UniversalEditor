@@ -431,42 +431,10 @@ namespace UniversalEditor.UserInterface
 		}
 
 		public bool InEdit { get { return mvarEditing > 0; } }
-		public void BeginEdit()
+		public void BeginEdit(string PropertyName = null, object Value = null, object ParentObject = null, Control editingControl = null)
 		{
 			if (mvarUpdating > 0) return;
 
-			if (mvarEditing > 0)
-			{
-				mvarEditing++;
-				return;
-			}
-			mvarEditing++;
-
-			// check to see if this property has been edited before
-			if (undo.Count > 0)
-			{
-				EDITINFO oldedit = undo.Pop();
-				if (oldedit.closed) undo.Push(oldedit);
-			}
-
-			// push the new edit
-			EDITINFO edit = new EDITINFO(null, null, mvarObjectModel.Clone() as ObjectModel);
-			undo.Push(edit);
-
-			// clear out all the redos
-			redo.Clear();
-		}
-		public void ContinueEdit()
-		{
-			if (undo.Count > 0)
-			{
-				EDITINFO edit = undo.Pop();
-				edit.oldValue = mvarObjectModel.Clone() as ObjectModel;
-				undo.Push(edit);
-			}
-		}
-		public void BeginEdit(string PropertyName, object Value = null, object ParentObject = null, Control editingControl = null)
-		{
 			if (mvarEditing > 0)
 			{
 				mvarEditing++;
@@ -480,24 +448,40 @@ namespace UniversalEditor.UserInterface
 			if (undo.Count > 0)
 			{
 				EDITINFO oldedit = undo.Pop();
-				if (oldedit.propertyName != PropertyName || oldedit.closed) undo.Push(oldedit);
+				if ((PropertyName != null && oldedit.propertyName != PropertyName) || oldedit.closed) undo.Push(oldedit);
 			}
 
 			// push the new edit
-			if (Value == null)
+			if (PropertyName != null)
 			{
-				System.Reflection.PropertyInfo pi = ParentObject.GetType().GetProperty(PropertyName);
-				if (pi != null)
+				if (Value == null)
 				{
-					Value = ParentObject.GetType().GetProperty(PropertyName).GetValue(ParentObject, null);
+					System.Reflection.PropertyInfo pi = ParentObject.GetType().GetProperty(PropertyName);
+					if (pi != null)
+					{
+						Value = ParentObject.GetType().GetProperty(PropertyName).GetValue(ParentObject, null);
+					}
 				}
 			}
 
 			EDITINFO edit = new EDITINFO(ParentObject, PropertyName, Value, editingControl);
+			if (PropertyName == null)
+			{
+				edit.oldValue = mvarObjectModel.Clone() as ObjectModel;
+			}
 			undo.Push(edit);
 
 			// clear out all the redos
 			redo.Clear();
+		}
+		public void ContinueEdit()
+		{
+			if (undo.Count > 0)
+			{
+				EDITINFO edit = undo.Pop();
+				edit.oldValue = mvarObjectModel.Clone() as ObjectModel;
+				undo.Push(edit);
+			}
 		}
 		public void EndEdit()
 		{
