@@ -511,11 +511,13 @@ namespace UniversalEditor.UserInterface
 				Editor ed = LastWindow.GetCurrentEditor();
 				if (ed == null) return;
 
+				Accessor acc = ed.ObjectModel?.Accessor ?? (ed.Parent as Pages.EditorPage)?.Document?.Accessor;
+
 				// we cannot yet bookmark a file that does not yet exist. (this would be akin to creating a shortcut to a template I guess...?)
-				if (ed.ObjectModel.Accessor == null) return;
+				if (acc == null) return;
 
 				// FIXME: BookmarksAdd copypasta
-				string filename = ed.ObjectModel.Accessor.GetFileName();
+				string filename = acc.GetFileName();
 				BookmarksManager.FileNames.Add(filename);
 
 				Command cmdBookmarks = Application.Commands["Bookmarks"];
