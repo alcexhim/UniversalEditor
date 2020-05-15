@@ -754,9 +754,9 @@ namespace UniversalEditor.Editors.Binary
 				if (converters[i].TextBox != null)
 					converters[i].TextBox.Text = converters[i].ByteToStringFunc(data);
 			}
-			txtStart.Text = hexedit.SelectionStart.ByteIndex.ToString();
-			txtEnd.Text = (hexedit.SelectionStart.ByteIndex + hexedit.SelectionLength.ByteIndex).ToString();
-			txtLength.Text = hexedit.SelectionLength.ByteIndex.ToString();
+			txtStart.Value = hexedit.SelectionStart.ByteIndex;
+			txtEnd.Value = (hexedit.SelectionStart.ByteIndex + hexedit.SelectionLength.ByteIndex);
+			txtLength.Value = hexedit.SelectionLength.ByteIndex;
 
 			UpdateFieldDefinitions();
 		}
