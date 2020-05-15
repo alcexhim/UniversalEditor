@@ -511,17 +511,20 @@ namespace UniversalEditor.Editors.Binary
 		[EventHandler(nameof(txtStart), "Changed")]
 		private void txtStart_Changed(object sender, EventArgs e)
 		{
-			hexedit.SelectionStart = new HexEditorPosition((int)txtStart.Value, 0);
+			if (hexedit.SelectionStart.ByteIndex != (int)txtStart.Value)
+				hexedit.SelectionStart = new HexEditorPosition((int)txtStart.Value, 0);
 		}
 		[EventHandler(nameof(txtEnd), "Changed")]
 		private void txtEnd_Changed(object sender, EventArgs e)
 		{
-			hexedit.SelectionLength = new HexEditorPosition((int)txtEnd.Value - hexedit.SelectionStart, 0);
+			if (hexedit.SelectionLength.ByteIndex != (int)txtEnd.Value - hexedit.SelectionStart)
+				hexedit.SelectionLength = new HexEditorPosition((int)txtEnd.Value - hexedit.SelectionStart, 0);
 		}
 		[EventHandler(nameof(txtLength), "Changed")]
 		private void txtLength_Changed(object sender, EventArgs e)
 		{
-			hexedit.SelectionLength = new HexEditorPosition((int)txtLength.Value, 0);
+			if (hexedit.SelectionLength.ByteIndex != (int)txtLength.Value)
+				hexedit.SelectionLength = new HexEditorPosition((int)txtLength.Value, 0);
 		}
 
 		[EventHandler(nameof(hexedit), "Changing")]
