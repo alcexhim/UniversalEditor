@@ -142,7 +142,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 					}
 					if ((e.ModifierKeys & KeyboardModifierKey.Shift) == KeyboardModifierKey.Shift)
 					{
-						LyricEditNote(SelectedTrack.Commands.PreviousOfType<SynthesizedAudioCommandNote>(_EditingNote));
+						LyricEditNote(SelectedTrack.Commands.NextOfType<SynthesizedAudioCommandNote>(_EditingNote, MBS.Framework.SeekDirection.Backward));
 					}
 					else
 					{
@@ -154,6 +154,40 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 			else if (e.Key == KeyboardKey.Escape)
 			{
 				txt.Visible = false;
+			}
+		}
+
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			base.OnKeyDown(e);
+
+			switch (e.Key)
+			{
+				case KeyboardKey.Tab:
+				{
+					if (SelectedCommands.Count > 0)
+					{
+						int ct = 0;
+
+						MBS.Framework.SeekDirection seekdir = (e.ModifierKeys & KeyboardModifierKey.Shift) == KeyboardModifierKey.Shift ? MBS.Framework.SeekDirection.Backward : MBS.Framework.SeekDirection.Forward;
+						SynthesizedAudioCommandNote nextNote = SelectedTrack.Commands.NextOfType<SynthesizedAudioCommandNote>(SelectedCommands[SelectedCommands.Count - 1] as SynthesizedAudioCommandNote, seekdir);
+						while (nextNote != null && (nextNote is SynthesizedAudioCommandRest))
+						{
+							nextNote = SelectedTrack.Commands.NextOfType<SynthesizedAudioCommandNote>(nextNote, seekdir);
+
+							// prevent infinite loop if all the commands are SynthesizedAudioCommandRest
+							ct++;
+							if (ct > SelectedTrack.Commands.Count)
+								break;
+						}
+						SelectedCommands.Clear();
+						SelectedCommands.Add(nextNote);
+
+						e.Cancel = true;
+						Refresh();
+					}
+					break;
+				}
 			}
 		}
 
@@ -780,7 +814,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 		}
 		private Rectangle GetGridRect()
 		{
-			Rectangle gridRect = new Rectangle(0, 0, Size.Width, Size.Height); // ClientRectangle;
+			Rectangle gridRect = new Rectangle(0, 0, Size.Width + HorizontalAdjustment.Value, Size.Height); // ClientRectangle;
 			if (mvarShowKeyboard)
 			{
 				Rectangle keyboardRect = GetKeyboardRect();
@@ -808,23 +842,33 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 			return new Rectangle(gridRect.X + x + 1, gridRect.Y + y + 1, width - 1, height - 1);
 		}
 
+		private int GetMaxWidth()
+		{
+			int height = NoteHeight;
+			int width = 0;
+			for (int i = 0; i < SelectedTrack.Commands.Count; i++)
+			{
+				SynthesizedAudioCommandNote note = (SelectedTrack.Commands[i] as SynthesizedAudioCommandNote);
+				if (note == null) continue;
+
+				int cx = (int)NotePositionToLocation(note.Position);
+				int cy = FrequencyToValue(note.Frequency);
+				int cw = (int)NotePositionToLocation((int)note.Length);
+
+				if (cx > width)
+					width += cx + cw;
+			}
+			return width;
+		}
+
 		private double ValueToFrequency(int value)
 		{
 			return (81 - value);
 		}
+
 		private int FrequencyToValue(double frequency)
 		{
 			return (int)((81 - frequency) * NoteHeight);
-		}
-
-		private bool _scrollBoundsChanged = true;
-		private void RecalcScrollBounds()
-		{
-			for (int i = 0; i < SelectedTrack.Commands.Count; i++)
-			{
-
-			}
-
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
@@ -833,12 +877,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 
 			int gridWidth = (int)(GridWidth * mvarZoomFactor);
 			int gridHeight = (int)(NoteHeight * mvarZoomFactor);
-
-			if (_scrollBoundsChanged)
-			{
-				RecalcScrollBounds();
-				_scrollBoundsChanged = false;
-			}
 
 			Rectangle gridRect = GetGridRect();
 			if (mvarShowKeyboard)
@@ -887,9 +925,9 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 					e.Graphics.DrawText(noteValue.ToString(), Font, new Vector2D(0, i), new SolidBrush(Colors.Red));
 				}
 			}
-			for (int i = 0; i < Size.Width; i += (ShowGridLines ? (gridWidth / 2) : gridWidth))
+			for (int i = (int)HorizontalAdjustment.Value; i < HorizontalAdjustment.Value + Size.Width; i += (ShowGridLines ? (gridWidth / 2) : gridWidth))
 			{
-				if ((i % GetLengthQuantization()) == 0)
+				if (((i - (int)HorizontalAdjustment.Value) % GetLengthQuantization()) == 0)
 				{
 					gridPen.Color = Colors.Gray.Alpha(0.50);
 				}
@@ -906,13 +944,21 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 				{
 					if (cmd is SynthesizedAudioCommandNote)
 					{
+						if (cmd is SynthesizedAudioCommandRest)
+							continue;
+
 						SynthesizedAudioCommandNote note = (cmd as SynthesizedAudioCommandNote);
 
 						Rectangle rect = GetNoteRect(note);
+						if (rect.X > HorizontalAdjustment.Value + Size.Width)
+						{
+							Console.WriteLine("note {0} outside of scroll boundary", SelectedTrack.Commands.IndexOf(note));
+							continue; // don't bother doing this one since it's past the visible area
+						}
+
 						bool overlaps = false;
 						if (HighlightOverlappingNotes) overlaps = NoteOverlaps(note);
-						if (!DrawNote(e.Graphics, rect, note.Lyric, note.Phoneme, mvarSelectedCommands.Contains(cmd), _EditingNote == note, overlaps))
-							break;
+						DrawNote(e.Graphics, rect, note.Lyric, note.Phoneme, mvarSelectedCommands.Contains(cmd), _EditingNote == note, overlaps);
 					}
 				}
 			}
@@ -960,6 +1006,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 				}
 			}
 
+			ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), 0);
 			/*
 			// draw grids
 			for (int i = 0; i < Size.Width; i += (int) NoteSize.Width)
@@ -993,7 +1040,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 
 		private bool DrawNote(Graphics graphics, Rectangle rect, string lyric, string phoneme, bool selected, bool editing, bool overlaps)
 		{
-			if (rect.X > Size.Width)
+			if (rect.X > HorizontalAdjustment.Value + Size.Width)
 				return false; // no need to continue since we've reached the end of the visible area
 
 			Color noteColor = SystemColors.HighlightBackground.Darken(0.1);
