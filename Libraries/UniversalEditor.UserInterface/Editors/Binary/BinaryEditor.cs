@@ -134,6 +134,7 @@ namespace UniversalEditor.Editors.Binary
 		public BinaryEditor()
 		{
 			InitializeConverters();
+			ContextMenuCommandID = "BinaryEditorContextMenu";
 		}
 
 		protected override void OnCreated(EventArgs e)

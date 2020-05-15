@@ -732,6 +732,7 @@
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\VoicebankIndex\Vocaloid.uexml" />
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VSQX.uexml" />
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VPR.uexml" />
+    <Content Include="Editors\Binary\Commands.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
