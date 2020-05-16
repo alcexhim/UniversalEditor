@@ -460,14 +460,27 @@ namespace UniversalEditor.UserInterface
 						doc.DataFormat = dfr.Create ();
 						doc.ObjectModel = om;
 
-						try {
+						try
+						{
 							doc.Accessor.Open ();
 							doc.Load ();
 							doc.IsSaved = true;
 							loaded = true;
-						} catch (InvalidDataFormatException ex) {
+						}
+						catch (InvalidDataFormatException ex)
+						{
 							doc.Accessor.Close ();
 							continue;
+						}
+						catch (UnauthorizedAccessException ex)
+						{
+							if (doc.Accessor is FileAccessor)
+							{
+								(doc.Accessor as FileAccessor).AllowWrite = false;
+								doc.Load();
+								doc.IsSaved = true;
+								loaded = true;
+							}
 						}
 
 						found = true;
@@ -772,7 +785,7 @@ namespace UniversalEditor.UserInterface
 				}
 				else if (System.IO.File.Exists(fileNames[i]))
 				{
-					FileAccessor fa = new FileAccessor(fileNames[i], true, false, true);
+					FileAccessor fa = new FileAccessor(fileNames[i], false, false, false);
 					documents[i] = new Document(fa);
 				}
 				else
