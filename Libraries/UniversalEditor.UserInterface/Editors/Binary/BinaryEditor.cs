@@ -147,6 +147,10 @@ namespace UniversalEditor.Editors.Binary
 			(tbFieldDefinitions.Items[2] as ToolbarItemButton).Click += tsbFieldDefinitionRemove_Click;
 			(tbFieldDefinitions.Items[4] as ToolbarItemButton).Click += tsbFieldDefinitionLoad_Click;
 
+			(cboEndianness.Model as DefaultTreeModel).Rows[0].SetExtraData<IO.Endianness>("value", IO.Endianness.LittleEndian);
+			(cboEndianness.Model as DefaultTreeModel).Rows[1].SetExtraData<IO.Endianness>("value", IO.Endianness.BigEndian);
+			(cboEndianness.Model as DefaultTreeModel).Rows[2].SetExtraData<IO.Endianness>("value", IO.Endianness.PDPEndian);
+
 			int r = 0, c = 0;
 			for (int i = 0; i < converters.Length; i++)
 			{
