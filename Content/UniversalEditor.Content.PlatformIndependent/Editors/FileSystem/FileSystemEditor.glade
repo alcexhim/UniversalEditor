@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkTreeStore" id="tm">
@@ -16,7 +16,7 @@
   </object>
   <object class="GtkWindow">
     <property name="can_focus">False</property>
-    <child>
+    <child type="titlebar">
       <placeholder/>
     </child>
     <child>
@@ -25,7 +25,9 @@
         <property name="can_focus">True</property>
         <property name="model">tm</property>
         <child internal-child="selection">
-          <object class="GtkTreeSelection"/>
+          <object class="GtkTreeSelection">
+            <property name="mode">multiple</property>
+          </object>
         </child>
         <child>
           <object class="GtkTreeViewColumn" id="tvcFileName">
