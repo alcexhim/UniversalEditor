@@ -21,6 +21,8 @@
 
 using System;
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.ObjectModels.Designer
 {
 	/// <summary>
@@ -31,7 +33,8 @@ namespace UniversalEditor.ObjectModels.Designer
 
 		public override void Clear()
 		{
-			throw new NotImplementedException();
+			Designs.Clear();
+			Libraries.Clear();
 		}
 
 		public override void CopyTo(ObjectModel where)

@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Designer
 {
@@ -32,6 +33,22 @@ namespace UniversalEditor.ObjectModels.Designer
 			: System.Collections.ObjectModel.Collection<ComponentInstance>
 		{
 
+		}
+
+		public ComponentInstance(Component component, Rectangle rectangle, PropertyValue[] propertyValues = null)
+		{
+			Component = component;
+			X = new Measurement(rectangle.X, MeasurementUnit.Pixel);
+			Y = new Measurement(rectangle.Y, MeasurementUnit.Pixel);
+			Width = new Measurement(rectangle.Width, MeasurementUnit.Pixel);
+			Height = new Measurement(rectangle.Height, MeasurementUnit.Pixel);
+			if (propertyValues != null)
+			{
+				for (int i = 0; i < propertyValues.Length; i++)
+				{
+					PropertyValues.Add(propertyValues[i]);
+				}
+			}
 		}
 
 		/// <summary>

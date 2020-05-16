@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.ObjectModels.Designer
 {
 	/// <summary>
@@ -38,5 +40,6 @@ namespace UniversalEditor.ObjectModels.Designer
 		/// <value>The instances of components in this component designer layout.</value>
 		public ComponentInstance.ComponentInstanceCollection ComponentInstances { get; } = new ComponentInstance.ComponentInstanceCollection();
 
+		public Dimension2D Size { get; set; } = new Dimension2D(600, 400);
 	}
 }

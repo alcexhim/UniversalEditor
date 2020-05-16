@@ -733,6 +733,7 @@
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VSQX.uexml" />
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VPR.uexml" />
     <Content Include="Editors\Binary\Commands.uexml" />
+    <Content Include="Editors\Designer\DesignerEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

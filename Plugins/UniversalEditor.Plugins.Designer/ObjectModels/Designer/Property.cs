@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace UniversalEditor.ObjectModels.Designer
 {
 	/// <summary>
@@ -29,6 +31,29 @@ namespace UniversalEditor.ObjectModels.Designer
 		public class PropertyCollection
 			: System.Collections.ObjectModel.Collection<Property>
 		{
+			public Property this[Guid id]
+			{
+				get
+				{
+					for (int i = 0; i < Count; i++)
+					{
+						if (this[i].ID == id)
+							return this[i];
+					}
+					return null;
+				}
+			}
+		}
+
+		public Guid ID { get; private set; } = Guid.Empty;
+		public string Title { get; set; } = String.Empty;
+		public object DefaultValue { get; set; } = null;
+
+		public Property(Guid id, string title, object defaultValue = null)
+		{
+			ID = id;
+			Title = title;
+			DefaultValue = defaultValue;
 		}
 	}
 }

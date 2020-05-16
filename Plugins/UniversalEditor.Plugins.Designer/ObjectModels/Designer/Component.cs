@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Designer
 {
@@ -31,7 +32,31 @@ namespace UniversalEditor.ObjectModels.Designer
 		public class ComponentCollection
 			: System.Collections.ObjectModel.Collection<Component>
 		{
+			public Component this[Guid id]
+			{
+				get
+				{
+					for (int i = 0; i < Count; i++)
+					{
+						if (this[i].ID == id)
+							return this[i];
+					}
+					return null;
+				}
+			}
+		}
 
+		public Component(Guid id, string title, Property[] properties = null, Action<ComponentInstance, MBS.Framework.UserInterface.PaintEventArgs, Rectangle> renderDelegate = null)
+		{
+			ID = id;
+			Title = title;
+			if (properties != null)
+			{
+				for (int i = 0; i < properties.Length; i++)
+					Properties.Add(properties[i]);
+			}
+			if (renderDelegate != null)
+				RenderDelegate += renderDelegate;
 		}
 
 		/// <summary>
@@ -44,6 +69,14 @@ namespace UniversalEditor.ObjectModels.Designer
 		/// </summary>
 		/// <value>The title of this <see cref="Component" />.</value>
 		public string Title { get; set; } = String.Empty;
+
+		public event Action<ComponentInstance, MBS.Framework.UserInterface.PaintEventArgs, Rectangle> RenderDelegate = null;
+
+		public void Render(ComponentInstance instance, MBS.Framework.UserInterface.PaintEventArgs e, Rectangle bounds)
+		{
+			RenderDelegate?.Invoke(instance, e, bounds);
+		}
+
 		/// <summary>
 		/// Gets a collection of <see cref="Property" /> instances representing properties associated with this <see cref="Component" />.
 		/// </summary>

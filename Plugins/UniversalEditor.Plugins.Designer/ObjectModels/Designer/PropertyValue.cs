@@ -29,7 +29,25 @@ namespace UniversalEditor.ObjectModels.Designer
 		public class PropertyValueCollection
 			: System.Collections.ObjectModel.Collection<PropertyValue>
 		{
+			public PropertyValue this[Property property]
+			{
+				get
+				{
+					for (int i = 0; i < Count; i++)
+					{
+						if (this[i].Property == property)
+							return this[i];
+					}
+					return null;
+				}
+			}
 
+		}
+
+		public PropertyValue(Property property, object value = null)
+		{
+			Property = property;
+			Value = value;
 		}
 
 		/// <summary>

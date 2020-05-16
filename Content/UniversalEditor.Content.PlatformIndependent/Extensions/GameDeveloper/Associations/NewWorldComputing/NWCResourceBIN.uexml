@@ -10,7 +10,7 @@
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.NWCSceneLayout.NWCSceneLayoutObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Designer.DesignerObjectModel" />
 			</ObjectModels>
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN.BINDataFormat" />
