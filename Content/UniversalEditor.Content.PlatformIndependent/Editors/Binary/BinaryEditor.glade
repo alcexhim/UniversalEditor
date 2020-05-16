@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkListStore" id="tmEndianness">
@@ -14,11 +14,26 @@
       <row>
         <col id="0" translatable="yes">Big-endian</col>
       </row>
+      <row>
+        <col id="0" translatable="yes">Middle-endian (PDP)</col>
+      </row>
     </data>
+  </object>
+  <object class="GtkTreeStore" id="tmFieldDefinitions">
+    <columns>
+      <!-- column-name colFieldDefinitionName -->
+      <column type="gchararray"/>
+      <!-- column-name colFieldDefinitionOffset -->
+      <column type="gchararray"/>
+      <!-- column-name colFieldDefinitionSize -->
+      <column type="gchararray"/>
+      <!-- column-name colFieldDefinitionValue -->
+      <column type="gchararray"/>
+    </columns>
   </object>
   <object class="GtkWindow">
     <property name="can_focus">False</property>
-    <child>
+    <child type="titlebar">
       <placeholder/>
     </child>
     <child>
@@ -160,51 +175,6 @@
               <object class="GtkGrid" id="conversionPanel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
                 <child>
                   <placeholder/>
                 </child>
@@ -448,17 +418,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkTreeStore" id="tmFieldDefinitions">
-    <columns>
-      <!-- column-name colFieldDefinitionName -->
-      <column type="gchararray"/>
-      <!-- column-name colFieldDefinitionOffset -->
-      <column type="gchararray"/>
-      <!-- column-name colFieldDefinitionSize -->
-      <column type="gchararray"/>
-      <!-- column-name colFieldDefinitionValue -->
-      <column type="gchararray"/>
-    </columns>
   </object>
 </interface>
