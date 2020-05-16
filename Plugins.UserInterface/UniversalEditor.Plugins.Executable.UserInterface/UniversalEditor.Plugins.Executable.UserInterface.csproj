@@ -32,7 +32,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Editors\Executable\ExecutableEditor.cs" />
-    <Compile Include="Editors\Executable\ManagedAssemblyPanel.cs" />
     <Compile Include="Editors\Executable\CodeProvider.cs" />
     <Compile Include="Editors\Executable\CodeProviders\CSharpCodeProvider.cs" />
     <Compile Include="Editors\Executable\CodeProviders\VisualBasicCodeProvider.cs" />

@@ -735,6 +735,7 @@
     <Content Include="Editors\Binary\Commands.uexml" />
     <Content Include="Extensions\Amiga\Associations\FileSystem\ADFDiskImage.uexml" />
     <Content Include="Editors\Designer\DesignerEditor.glade" />
+    <Content Include="Editors\Executable\ExecutableEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

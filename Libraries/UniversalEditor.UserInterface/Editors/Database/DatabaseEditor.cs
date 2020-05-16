@@ -39,9 +39,6 @@ namespace UniversalEditor.Editors.Database
 		private SyntaxTextBox txtQuery;
 		private ListView lvResults;
 
-		private DefaultTreeModel tmDatabase;
-		private ListView tvDatabase;
-
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
 		{
@@ -75,32 +72,31 @@ namespace UniversalEditor.Editors.Database
 
 			if (!IsCreated) return;
 
-			tmDatabase.Rows.Clear();
-
 			DatabaseObjectModel db = (ObjectModel as DatabaseObjectModel);
 			if (db == null)
 				return;
 
-			TreeModelRow rowTables = new TreeModelRow();
-			rowTables.RowColumns.Add(new TreeModelRowColumn(tmDatabase.Columns[0], String.Format("Tables ({0})", db.Tables.Count)));
+			EditorDocumentExplorerNode nodeTables = new EditorDocumentExplorerNode("Tables");
 
 			foreach (DatabaseTable table in db.Tables)
 			{
-				TreeModelRow rowTable = new TreeModelRow();
-				rowTable.RowColumns.Add(new TreeModelRowColumn(tmDatabase.Columns[0], table.Name));
+				EditorDocumentExplorerNode nodeTable = new EditorDocumentExplorerNode(table.Name);
+				nodeTable.SetExtraData<DatabaseTable>("table", table);
 
-				TreeModelRow rowColumns = new TreeModelRow();
-				rowColumns.RowColumns.Add(new TreeModelRowColumn(tmDatabase.Columns[0], "Columns"));
+				EditorDocumentExplorerNode nodeColumns = new EditorDocumentExplorerNode("Columns");
 				foreach (DatabaseField field in table.Fields)
 				{
-					TreeModelRow rowColumn = new TreeModelRow();
-					rowColumn.RowColumns.Add(new TreeModelRowColumn(tmDatabase.Columns[0], String.Format("{0} ({1}, default {2})", field.Name, field.Value == null ? (field.DataType != null ? field.DataType.Name : String.Empty) : field.Value.GetType().Name, field.Value == null ? "NULL" : field.Value.ToString())));
-					rowColumns.Rows.Add(rowColumn);
-				}
-				rowTable.Rows.Add(rowColumns);
+					EditorDocumentExplorerNode nodeColumn = new EditorDocumentExplorerNode(String.Format("{0} ({1}, default {2})", field.Name, field.Value == null ? (field.DataType != null ? field.DataType.Name : String.Empty) : field.Value.GetType().Name, field.Value == null ? "NULL" : field.Value.ToString()));
 
-				rowTables.Rows.Add(rowTable);
+					nodeColumn.SetExtraData<DatabaseField>("column", field);
+					nodeColumns.Nodes.Add(nodeColumn);
+				}
+
+				nodeTable.Nodes.Add(nodeColumns);
+				nodeTables.Nodes.Add(nodeTable);
 			}
+
+			DocumentExplorer.Nodes.Add(nodeTables);
 
 			if (db.Tables.Count > 0)
 			{
@@ -126,8 +122,6 @@ namespace UniversalEditor.Editors.Database
 				lvResults.Model = tmResults;
 				this.txtQuery.Text = "SELECT * FROM '" + db.Tables[0].Name + "'";
 			}
-
-			tmDatabase.Rows.Add(rowTables);
 		}
 	}
 }

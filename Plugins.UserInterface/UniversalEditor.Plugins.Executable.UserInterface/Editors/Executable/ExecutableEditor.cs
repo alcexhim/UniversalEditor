@@ -26,15 +26,37 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Input.Mouse;
-using MBS.Framework.UserInterface.Layouts;
+using System.Reflection;
+using System.Text;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 {
 	/// <summary>
 	/// Provides an <see cref="Editor" /> for the <see cref="ExecutableObjectModel" />.
 	/// </summary>
+	[ContainerLayout("~/Editors/Executable/ExecutableEditor.glade")]
 	public class ExecutableEditor : Editor
 	{
+		private ListView tvSections = null;
+		private DefaultTreeModel tmSections = null;
+		private DefaultTreeModel lsManagedDisassemblyLanguage;
+
+		private TabContainer tbs = null;
+
+		private TextBox txtAssemblyName = null;
+		private TextBox txtAssemblyVersion = null;
+		private SyntaxTextBox txtManagedAssemblySource = null;
+
+		private DefaultTreeModel tmOtherInformation = null;
+
+		// managed assembly panel
+		private Button cmdManagedDisassemblySave;
+		private TextBox txtManagedAssemblySearch;
+		private ComboBox cboManagedDisassemblyLanguage;
+		private ListView tvManagedDisassemblyTypes;
+		private DefaultTreeModel tmManagedDisassemblyTypes;
+		private TextBox txtManagedDisassemblySource;
+
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
 		{
@@ -55,112 +77,9 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			throw new NotImplementedException();
 		}
 
-		private ListView tvSections = null;
-		private DefaultTreeModel tmSections = null;
-		private TabContainer tbs = null;
-
-		private Label lblAssemblyName = null;
-		private TextBox txtAssemblyName = null;
-		private Label lblAssemblyVersion = null;
-		private TextBox txtAssemblyVersion = null;
-
-		private DefaultTreeModel tmOtherInformation = null;
-		private ManagedAssemblyPanel pnlManagedAssembly = null;
-
 		public ExecutableEditor()
 		{
-			this.Layout = new BoxLayout(Orientation.Vertical);
-
-			tmSections = new DefaultTreeModel(new Type[] { typeof(string),typeof(string),typeof(string), typeof(string) });
-			tvSections = new ListView();
-			tvSections.Model = tmSections;
-
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[0], "Name"));
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[1], "Physical address"));
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[2], "Virtual address"));
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[3], "Size"));
-			tvSections.BeforeContextMenu += tvSections_BeforeContextMenu;
-
-			tbs = new TabContainer();
-			TabPage tabSections = new TabPage("Sections (0)");
-			tabSections.Layout = new BoxLayout(Orientation.Vertical);
-			
-			tabSections.Controls.Add(tvSections, new BoxLayout.Constraints(true, true));
-			tbs.TabPages.Add(tabSections);
-			
-			TabPage tabVersion = new TabPage("Version");
-			tabVersion.Layout = new GridLayout();
-			
-			Label lblFileVersion = new Label();
-			lblFileVersion.Text = "File version:";
-			lblFileVersion.HorizontalAlignment = HorizontalAlignment.Left;
-			tabVersion.Controls.Add(lblFileVersion, new GridLayout.Constraints(0, 0));
-			
-			TextBox txtFileVersion = new TextBox();
-			tabVersion.Controls.Add(txtFileVersion, new GridLayout.Constraints(0, 1, 1, 1, ExpandMode.Horizontal));
-			
-			Label lblDescription = new Label();
-			lblDescription.Text = "Description:";
-			lblDescription.HorizontalAlignment = HorizontalAlignment.Left;
-			tabVersion.Controls.Add(lblDescription, new GridLayout.Constraints(1, 0));
-
-			TextBox txtDescription = new TextBox();
-			tabVersion.Controls.Add(txtDescription, new GridLayout.Constraints(1, 1, 1, 1, ExpandMode.Horizontal));
-
-			Label lblCopyright = new Label();
-			lblCopyright.Text = "Copyright:";
-			lblCopyright.HorizontalAlignment = HorizontalAlignment.Left;
-			tabVersion.Controls.Add(lblCopyright, new GridLayout.Constraints(2, 0));
-
-			TextBox txtCopyright = new TextBox();
-			tabVersion.Controls.Add(txtCopyright, new GridLayout.Constraints(2, 1, 1, 1, ExpandMode.Horizontal));
-
-			Label lblOtherInformationLabel = new Label();
-			lblOtherInformationLabel.Text = "Other version information:";
-			lblOtherInformationLabel.HorizontalAlignment = HorizontalAlignment.Left;
-			tabVersion.Controls.Add(lblOtherInformationLabel, new GridLayout.Constraints(3, 0, 1, 2));
-
-			tmOtherInformation = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });
-
-			ListView lvOtherInformation = new ListView();
-			lvOtherInformation.Model = tmOtherInformation;
-			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[0], "Name"));
-			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[1], "Value"));
-			tabVersion.Controls.Add(lvOtherInformation, new GridLayout.Constraints(4, 0, 1, 2, ExpandMode.Both));
-
-			tbs.TabPages.Add(tabVersion);
-
-			TabPage tabManagedAssembly = new TabPage("Managed Assembly");
-			tabManagedAssembly.Layout = new BoxLayout(Orientation.Vertical);
-
-			lblAssemblyName = new Label("Assembly name: ");
-			lblAssemblyName.HorizontalAlignment = HorizontalAlignment.Left;
-
-			txtAssemblyName = new TextBox();
-
-			lblAssemblyVersion = new Label("Assembly version: ");
-			lblAssemblyVersion.HorizontalAlignment = HorizontalAlignment.Left;
-
-			txtAssemblyVersion = new TextBox();
-
-			Container pnlMetadata = new Container();
-			pnlMetadata.Layout = new GridLayout();
-
-			pnlMetadata.Controls.Add(lblAssemblyName, new GridLayout.Constraints(0, 0));
-			pnlMetadata.Controls.Add(txtAssemblyName, new GridLayout.Constraints(0, 1, 1, 1, ExpandMode.Horizontal));
-			pnlMetadata.Controls.Add(lblAssemblyVersion, new GridLayout.Constraints(1, 0));
-			pnlMetadata.Controls.Add(txtAssemblyVersion, new GridLayout.Constraints(1, 1, 1, 1, ExpandMode.Horizontal));
-
-			tabManagedAssembly.Controls.Add(pnlMetadata, new BoxLayout.Constraints(false, true));
-
-			pnlManagedAssembly = new ManagedAssemblyPanel();
-			tabManagedAssembly.Controls.Add(pnlManagedAssembly, new BoxLayout.Constraints(true, true));
-
-			tbs.TabPages.Add(tabManagedAssembly);
-
 			Application.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Sections_Selected_CopyTo", ContextMenu_CopyTo_Click);
-
-			this.Controls.Add(tbs, new BoxLayout.Constraints(true, true));
 		}
 
 		private void ContextMenu_CopyTo_Click(object sender, EventArgs e)
@@ -194,7 +113,8 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			}
 		}
 
-		void tvSections_BeforeContextMenu(object sender, EventArgs e)
+		[EventHandler(nameof(tvSections), "BeforeContextMenu")]
+		private void tvSections_BeforeContextMenu(object sender, EventArgs e)
 		{
 			bool selected = tvSections.SelectedRows.Count > 0;
 			if (e is MouseEventArgs)
@@ -215,10 +135,37 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			}
 		}
 
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			Type[] codeProviders = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(CodeProvider) });
+			for (int i = 0; i < codeProviders.Length; i++)
+			{
+				CodeProvider codeProvider = (codeProviders[i].Assembly.CreateInstance(codeProviders[i].FullName) as CodeProvider);
+				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(lsManagedDisassemblyLanguage.Columns[0], codeProvider.Title)
+				});
+				row.SetExtraData<CodeProvider>("provider", codeProvider);
+				lsManagedDisassemblyLanguage.Rows.Add(row);
+			}
+			cboManagedDisassemblyLanguage.ReadOnly = true;
+			if (lsManagedDisassemblyLanguage.Rows.Count > 0)
+			{
+				cboManagedDisassemblyLanguage.SelectedItem = lsManagedDisassemblyLanguage.Rows[0];
+			}
+
+			OnObjectModelChanged(EventArgs.Empty);
+		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);
+
+			if (!IsCreated) return;
+
+			tmSections.Rows.Clear();
 
 			// tv.Nodes.Clear();
 			// lvSections.Items.Clear();
@@ -250,7 +197,237 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 				txtAssemblyName.Text = executable.ManagedAssembly.GetName().Name;
 				txtAssemblyVersion.Text = executable.ManagedAssembly.GetName().Version.ToString();
 
-				pnlManagedAssembly.Assembly = executable.ManagedAssembly;
+				// pnlManagedAssembly.Assembly = executable.ManagedAssembly;
+				// UpdateTypeList();
+				tmManagedDisassemblyTypes.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], "Test")
+
+				}));
+			}
+		}
+
+
+		private void UpdateTypeList()
+		{
+			// FIXME: this doesn't crash .NET, but the app disappears when we select the Managed Assembly tab... if we call this function
+			tmManagedDisassemblyTypes.Rows.Clear();
+
+			ExecutableObjectModel executable = (ObjectModel as ExecutableObjectModel);
+			if (executable == null)
+				return;
+
+			Type[] types = null;
+			try
+			{
+				types = executable.ManagedAssembly.GetTypes();
+			}
+			catch (ReflectionTypeLoadException ex)
+			{
+				types = ex.Types;
+			}
+
+			for (int i = 0; i < types.Length; i++)
+			{
+				if (types[i] == null)
+					continue;
+
+				string[] nameParts = types[i].FullName.Split(new char[] { '.' });
+				bool nestedClass = false;
+				while (nameParts[nameParts.Length - 1].Contains("+"))
+				{
+					// handle the case of nested classes
+					nestedClass = true;
+					Array.Resize<string>(ref nameParts, nameParts.Length + 1);
+					string[] p = nameParts[nameParts.Length - 2].Split(new char[] { '+' });
+					nameParts[nameParts.Length - 2] = p[0];
+					nameParts[nameParts.Length - 1] = p[1];
+				}
+
+				TreeModelRow row = tmManagedDisassemblyTypes.RecursiveCreateTreeModelRow(tmManagedDisassemblyTypes.Columns[0], nameParts, new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[1], "Namespace")
+				});
+
+				if (nestedClass)
+					row.ParentRow.RowColumns[1].Value = "Class";
+
+				row.RowColumns.Add(new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[1], "Class"));
+
+				SetupTypeTreeModelRow(row, types[i]);
+			}
+		}
+
+		private void SetupTypeTreeModelRow(TreeModelRow row, Type type)
+		{
+			row.SetExtraData<Type>("item", type);
+
+			BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
+
+			TreeModelRow rowBaseTypes = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], "Base Types")
+			});
+
+			if (type.BaseType != null)
+			{
+				TreeModelRow rowBaseType = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], type.BaseType.FullName)
+				});
+				SetupTypeTreeModelRow(rowBaseType, type.BaseType);
+				rowBaseTypes.Rows.Add(rowBaseType);
+			}
+
+			row.Rows.Add(rowBaseTypes);
+
+			TreeModelRow rowDerivedTypes = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], "Derived Types")
+			});
+			row.Rows.Add(rowDerivedTypes);
+
+			FieldInfo[] fields = type.GetFields(bindingFlags);
+			for (int j = 0; j < fields.Length; j++)
+			{
+				TreeModelRow row2 = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], fields[j]),
+					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[1], "Field")
+				});
+				row2.SetExtraData<FieldInfo>("item", fields[j]);
+				row.Rows.Add(row2);
+			}
+
+			EventInfo[] events = type.GetEvents(bindingFlags);
+			for (int j = 0; j < events.Length; j++)
+			{
+				TreeModelRow row2 = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], events[j]),
+					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[1], "Event")
+				});
+				row2.SetExtraData<EventInfo>("item", events[j]);
+				row.Rows.Add(row2);
+			}
+
+			PropertyInfo[] props = type.GetProperties(bindingFlags);
+			for (int j = 0; j < props.Length; j++)
+			{
+				TreeModelRow row2 = new TreeModelRow(new TreeModelRowColumn[]
+				{
+						new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], props[j]),
+						new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[1], "Property")
+				});
+				row2.SetExtraData<PropertyInfo>("item", props[j]);
+				row.Rows.Add(row2);
+			}
+
+			MethodInfo[] meths = type.GetMethods(bindingFlags);
+			for (int j = 0; j < meths.Length; j++)
+			{
+				if (meths[j].IsSpecialName && (meths[j].Name.StartsWith("set_", StringComparison.OrdinalIgnoreCase) || meths[j].Name.StartsWith("get_", StringComparison.OrdinalIgnoreCase)))
+				{
+					// we can be REASONABLY sure that this is a property setter / getter,
+					// and as we've already gotten all the properties, ignore it
+					continue;
+				}
+
+				TreeModelRow row2 = new TreeModelRow(new TreeModelRowColumn[]
+				{
+						new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], GetMethodTitle(meths[j])),
+						new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[1], "Method")
+				});
+				row2.SetExtraData<MethodInfo>("item", meths[j]);
+				row.Rows.Add(row2);
+			}
+		}
+
+		private void tsbILSave_Click(object sender, EventArgs e)
+		{
+			MemberInfo t = tvManagedDisassemblyTypes.SelectedRows[0].GetExtraData<MemberInfo>("item");
+			if (t == null)
+				return;
+
+			FileDialog dlg = new FileDialog();
+			dlg.Text = "Save Code File";
+
+			dlg.SelectedFileNames.Clear();
+
+			dlg.SelectedFileNames.Add(t.Name + Language.CodeFileExtension);
+
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+
+			}
+		}
+
+		[EventHandler(nameof(cboManagedDisassemblyLanguage), "Changed")]
+		void cboLanguage_Changed(object sender, EventArgs e)
+		{
+			CodeProvider provider = cboManagedDisassemblyLanguage.SelectedItem.GetExtraData<CodeProvider>("provider");
+			Language = provider;
+		}
+
+
+		private CodeProvider _Language = CodeProvider.CSharp;
+		public CodeProvider Language
+		{
+			get { return _Language; }
+			set
+			{
+				_Language = value;
+				tvTypes_SelectionChanged(this, EventArgs.Empty);
+			}
+		}
+
+		private string GetAccessModifiersSourceCode(PropertyInfo mi)
+		{
+			return Language.GetAccessModifiers(mi);
+		}
+		private string GetAccessModifiersSourceCode(MethodInfo mi)
+		{
+			return Language.GetAccessModifiers(mi);
+		}
+		private string GetAccessModifiersSourceCode(FieldInfo mi)
+		{
+			return Language.GetAccessModifiers(mi);
+		}
+		private string GetAccessModifiersSourceCode(Type mi)
+		{
+			return Language.GetAccessModifiers(mi);
+		}
+
+
+		private string GetMethodTitle(MethodInfo mi)
+		{
+			StringBuilder sb = new StringBuilder();
+			if (Language == null) Language = cboManagedDisassemblyLanguage.SelectedItem.GetExtraData<CodeProvider>("provider");
+
+			string typeName = Language.GetTypeName(mi.ReturnType);
+			sb.Append(mi.Name);
+			sb.Append('(');
+			sb.Append(')');
+			sb.Append(" : ");
+			sb.Append(typeName);
+			return sb.ToString();
+		}
+
+		[EventHandler(nameof(tvManagedDisassemblyTypes), "SelectionChanged")]
+		private void tvTypes_SelectionChanged(object sender, EventArgs e)
+		{
+			if (tvManagedDisassemblyTypes.SelectedRows.Count == 0)
+				return;
+
+			object item = tvManagedDisassemblyTypes.SelectedRows[0].GetExtraData("item");
+			if (item is Type)
+			{
+				Type typ = (item as Type);
+				txtManagedAssemblySource.Text = Language.GetSourceCode(typ, 0);
+			}
+			else if (item is MethodInfo)
+			{
+				txtManagedAssemblySource.Text = Language.GetSourceCode(item as MethodInfo, 0);
 			}
 		}
 	}

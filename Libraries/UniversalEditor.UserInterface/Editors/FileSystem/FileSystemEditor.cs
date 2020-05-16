@@ -450,9 +450,94 @@ namespace UniversalEditor.Editors.FileSystem
 			return _er;
 		}
 
+		private Folder _CurrentFolder = null;
+		public Folder CurrentFolder
+		{
+			get { return _CurrentFolder; }
+			set
+			{
+				bool changed = (_CurrentFolder != value);
+				_CurrentFolder = value;
+
+				if (!changed) return;
+
+				UpdateList();
+			}
+		}
+
+		private void UpdateList()
+		{
+			tm.Rows.Clear();
+
+			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
+			if (fsom == null) return;
+
+			for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
+			{
+				tm.Columns.Add(new TreeModelColumn(typeof(string)));
+				tv.Columns.Add(new ListViewColumnText(tm.Columns[tm.Columns.Count - 1], fsom.AdditionalDetails[i].Title));
+			}
+
+			if (_CurrentFolder == null)
+			{
+				foreach (Folder f in fsom.Folders)
+				{
+					RecursiveAddFolder(f, null);
+				}
+				foreach (File f in fsom.Files)
+				{
+					RecursiveAddFile(f, null);
+				}
+			}
+			else
+			{
+				foreach (Folder f in _CurrentFolder.Folders)
+				{
+					RecursiveAddFolder(f, null);
+				}
+				foreach (File f in _CurrentFolder.Files)
+				{
+					RecursiveAddFile(f, null);
+				}
+			}
+		}
+
+		private void RecursiveAddFolderDExplore(Folder f, EditorDocumentExplorerNode parent)
+		{
+			EditorDocumentExplorerNode dexpnode1 = new EditorDocumentExplorerNode(f.Name);
+			dexpnode1.SetExtraData("item", f);
+			foreach (Folder f1 in f.Folders)
+			{
+				RecursiveAddFolderDExplore(f1, dexpnode1);
+			}
+			if (parent == null)
+			{
+				DocumentExplorer.Nodes.Add(dexpnode1);
+			}
+			else
+			{
+				parent.Nodes.Add(dexpnode1);
+			}
+		}
+
+		protected internal override void OnDocumentExplorerSelectionChanged(EditorDocumentExplorerSelectionChangedEventArgs e)
+		{
+			base.OnDocumentExplorerSelectionChanged(e);
+
+			if (e.Node == null)
+			{
+				CurrentFolder = null;
+				return;
+			}
+
+			Folder item = e.Node.GetExtraData<Folder>("item");
+			CurrentFolder = item;
+		}
+
 		private void RecursiveAddFolder(Folder f, TreeModelRow parent = null)
 		{
 			TreeModelRow r = UIGetTreeModelRowForFileSystemObject(f, false);
+
 			foreach (Folder f2 in f.Folders)
 			{
 				RecursiveAddFolder(f2, r);
@@ -490,6 +575,8 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			base.OnObjectModelChanged(e);
 
+			DocumentExplorer.Nodes.Clear();
+
 			if (!IsCreated) return;
 
 			for (int i = 4; i < tm.Columns.Count; i++)
@@ -497,25 +584,16 @@ namespace UniversalEditor.Editors.FileSystem
 				tm.Columns.RemoveAt(i);
 			}
 
-			tm.Rows.Clear();
-
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
-			for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
-			{
-				tm.Columns.Add(new TreeModelColumn(typeof(string)));
-				tv.Columns.Add(new ListViewColumnText(tm.Columns[tm.Columns.Count - 1], fsom.AdditionalDetails[i].Title));
-			}
-
+			// add folders to Document Explorer window ONCE PER DOCUMENT
 			foreach (Folder f in fsom.Folders)
 			{
-				RecursiveAddFolder(f, null);
+				RecursiveAddFolderDExplore(f, null);
 			}
-			foreach (File f in fsom.Files)
-			{
-				RecursiveAddFile(f, null);
-			}
+
+			UpdateList();
 		}
 
 		/// <summary>

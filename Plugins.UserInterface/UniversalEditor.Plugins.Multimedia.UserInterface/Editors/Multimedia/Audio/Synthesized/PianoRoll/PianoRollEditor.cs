@@ -58,6 +58,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 		{
 			base.OnObjectModelChanged(e);
 
+			DocumentExplorer.Nodes.Clear();
+
 			SynthesizedAudioObjectModel om = (ObjectModel as SynthesizedAudioObjectModel);
 			if (om == null) return;
 
@@ -69,7 +71,28 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 			}
 			PianoRoll.SelectedTrack = om.Tracks[0];
 
+			EditorDocumentExplorerNode nodeTracks = DocumentExplorer.Nodes.Add("Tracks");
+			for (int i = 0; i < om.Tracks.Count; i++)
+			{
+				EditorDocumentExplorerNode nodeTrack = new EditorDocumentExplorerNode(om.Tracks[i].Name);
+				nodeTrack.SetExtraData<SynthesizedAudioTrack>("track", om.Tracks[i]);
+				nodeTracks.Nodes.Add(nodeTrack);
+			}
+
 			PianoRoll.Refresh();
+		}
+
+		protected override void OnDocumentExplorerSelectionChanged(EditorDocumentExplorerSelectionChangedEventArgs e)
+		{
+			base.OnDocumentExplorerSelectionChanged(e);
+
+			if (e.Node == null) return;
+
+			SynthesizedAudioTrack track = e.Node.GetExtraData<SynthesizedAudioTrack>("track");
+			if (track != null)
+			{
+				PianoRoll.SelectedTrack = track;
+			}
 		}
 
 		protected override void OnToolboxItemSelected(ToolboxItemEventArgs e)
