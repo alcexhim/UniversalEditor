@@ -130,6 +130,9 @@
     <Compile Include="Dialogs\ManageBookmarksDialog.cs" />
     <Compile Include="Editors\RIFF\RIFFEditor.cs" />
     <Compile Include="Editors\RIFF\Dialogs\RIFFChunkPropertiesDialog.cs" />
+    <Compile Include="EditorDocumentExplorer.cs" />
+    <Compile Include="EditorDocumentExplorerNode.cs" />
+    <Compile Include="EditorDocumentExplorerSelectionChangedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

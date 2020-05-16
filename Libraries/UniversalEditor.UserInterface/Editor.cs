@@ -1,11 +1,28 @@
-﻿using System;
+﻿//
+//  Editor.cs - the base class for document editor implementations built on the Universal Widget Toolkit
+//
+//  Author:
+//       Michael Becker <alcexhim@gmail.com>
+//
+//  Copyright (c) 2019-2020 Mike Becker's Software
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using System.Threading.Tasks;
-using UniversalEditor.Accessors;
-using UniversalEditor.DataFormats.PropertyList.XML;
-using UniversalEditor.ObjectModels.PropertyList;
 
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Input.Keyboard;
@@ -14,11 +31,22 @@ using MBS.Framework.UserInterface.Dialogs;
 namespace UniversalEditor.UserInterface
 {
 	/// <summary>
-	/// Provides an interface for custom editor implementations not using the Universal Widget Toolkit.
+	/// The base class for document editor implementations built on the Universal Widget Toolkit.
 	/// </summary>
 	public abstract class Editor : MBS.Framework.UserInterface.Container
 	{
 		public EditorContext Context { get; private set; } = null;
+
+		private EditorDocumentExplorer _EditorDocumentExplorer = null;
+		public EditorDocumentExplorer DocumentExplorer
+		{
+			get
+			{
+				if (_EditorDocumentExplorer == null)
+					_EditorDocumentExplorer = new EditorDocumentExplorer(this);
+				return _EditorDocumentExplorer;
+			}
+		}
 
 		public EditorSelection.EditorSelectionCollection Selections { get; } = new EditorSelection.EditorSelectionCollection();
 		public abstract void UpdateSelections();
@@ -32,6 +60,12 @@ namespace UniversalEditor.UserInterface
 				sels[i] = Selections[i];
 			}
 			return sels;
+		}
+
+		public event EditorDocumentExplorerSelectionChangedEventHandler DocumentExplorerSelectionChanged;
+		protected internal virtual void OnDocumentExplorerSelectionChanged(EditorDocumentExplorerSelectionChangedEventArgs e)
+		{
+			DocumentExplorerSelectionChanged?.Invoke(this, e);
 		}
 
 		protected override void OnCreated(EventArgs e)

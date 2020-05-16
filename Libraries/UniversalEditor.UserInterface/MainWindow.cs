@@ -358,6 +358,7 @@ namespace UniversalEditor.UserInterface
 						row.SetExtraData<ToolboxItem>("item", er.Toolbox.Items[i]);
 						tmToolbox.Rows.Add(row);
 					}
+					pnlDocumentExplorer.CurrentEditor = editor;
 				}
 				else
 				{
