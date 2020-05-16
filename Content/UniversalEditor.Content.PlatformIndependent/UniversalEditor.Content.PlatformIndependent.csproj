@@ -733,6 +733,7 @@
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VSQX.uexml" />
     <Content Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\VPR.uexml" />
     <Content Include="Editors\Binary\Commands.uexml" />
+    <Content Include="Extensions\Amiga\Associations\FileSystem\ADFDiskImage.uexml" />
     <Content Include="Editors\Designer\DesignerEditor.glade" />
   </ItemGroup>
   <ItemGroup>
@@ -795,6 +796,9 @@
     <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\Voicebank\" />
     <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\SynthesizedAudio\" />
     <Folder Include="Extensions\AudioWorkstation\Extensions\Vocaloid\Associations\VoicebankIndex\" />
+    <Folder Include="Extensions\Amiga\" />
+    <Folder Include="Extensions\Amiga\Associations\" />
+    <Folder Include="Extensions\Amiga\Associations\FileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

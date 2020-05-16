@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Amiga Disk Format (ADF) disk image">
+					<FileNameFilters>
+						<FileNameFilter>*.adf</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Amiga.DataFormats.FileSystem.ADF.ADFDiskImageDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

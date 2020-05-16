@@ -167,6 +167,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Ado
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Vocaloid", "Plugins\UniversalEditor.Plugins.Vocaloid\UniversalEditor.Plugins.Vocaloid.csproj", "{C8953DB2-AE48-4F04-87EC-549E6A3E30D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Amiga", "Plugins\UniversalEditor.Plugins.Amiga\UniversalEditor.Plugins.Amiga.csproj", "{BCEB66A6-24E3-4877-B8D4-83FCF8EC748B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Designer.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Designer.UserInterface\UniversalEditor.Plugins.Designer.UserInterface.csproj", "{08168BEA-E652-4493-8D89-5AB72B225841}"
 EndProject
 Global
@@ -485,6 +487,10 @@ Global
 		{C8953DB2-AE48-4F04-87EC-549E6A3E30D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8953DB2-AE48-4F04-87EC-549E6A3E30D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8953DB2-AE48-4F04-87EC-549E6A3E30D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCEB66A6-24E3-4877-B8D4-83FCF8EC748B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCEB66A6-24E3-4877-B8D4-83FCF8EC748B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCEB66A6-24E3-4877-B8D4-83FCF8EC748B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCEB66A6-24E3-4877-B8D4-83FCF8EC748B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08168BEA-E652-4493-8D89-5AB72B225841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{08168BEA-E652-4493-8D89-5AB72B225841}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08168BEA-E652-4493-8D89-5AB72B225841}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -567,6 +573,7 @@ Global
 		{553DFD37-805C-4553-980A-D5696D88241A} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{FD46EA8D-7711-4BAF-A486-719D754504F8} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{C8953DB2-AE48-4F04-87EC-549E6A3E30D8} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{BCEB66A6-24E3-4877-B8D4-83FCF8EC748B} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{08168BEA-E652-4493-8D89-5AB72B225841} = {7B535D74-5496-4802-B809-89ED88274A91}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
