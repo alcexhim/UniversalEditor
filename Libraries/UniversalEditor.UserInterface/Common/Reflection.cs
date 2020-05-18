@@ -23,6 +23,7 @@ namespace UniversalEditor.UserInterface.Common
 				foreach (Type type in types)
 				{
 					if (type == null) continue;
+					if (type.IsAbstract) continue;
 
 					if (type.IsSubclassOf(typeof(Editor)))
 					{
