@@ -198,12 +198,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 				txtAssemblyVersion.Text = executable.ManagedAssembly.GetName().Version.ToString();
 
 				// pnlManagedAssembly.Assembly = executable.ManagedAssembly;
-				// UpdateTypeList();
-				tmManagedDisassemblyTypes.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
-				{
-					new TreeModelRowColumn(tmManagedDisassemblyTypes.Columns[0], "Test")
-
-				}));
+				UpdateTypeList();
 			}
 		}
 
