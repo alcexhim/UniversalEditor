@@ -819,9 +819,6 @@
     <Content Include="Extensions\GameDeveloper\Extensions\SEGA\DataFormats\SegaFARC.uexml.exclude" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Extensions\FileSystem\Associations\Microsoft\POD.uexml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Extensions\FileSystem\Associations\PVM.uexml" />
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,7 @@
 
 using System;
 
-namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw.Internal
+namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.DirectDraw.Internal
 {
 	/// <summary>
 	/// Algorithms for DirectDraw decompression, translated to C# for use in Universal Editor.

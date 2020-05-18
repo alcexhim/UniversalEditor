@@ -28,28 +28,20 @@ namespace UniversalEditor.UserInterface.Common
 					if (type.IsSubclassOf(typeof(Editor)))
 					{
 						#region Initializing Editors
-						Console.Write("loading editor '" + type.FullName + "'... ");
-						
 						try
 						{
 							// TODO: see if there is a way we can MakeReference() without having to create all the UI
 							// components of the IEditorImplementation
 							Editor editor = (type.Assembly.CreateInstance(type.FullName) as Editor);
 							listEditors.Add(editor.MakeReference());
-							
-							Console.WriteLine("SUCCESS!");
 						}
 						catch (System.Reflection.TargetInvocationException ex)
 						{
-							Console.WriteLine("FAILURE!");
-							
-							Console.WriteLine("binding error: " + ex.InnerException.Message);
+							Console.WriteLine("binding error while loading editor '{0}': {1}", type.FullName, ex.InnerException.Message);
 						}
 						catch (Exception ex)
 						{
-							Console.WriteLine("FAILURE!");
-							
-							Console.WriteLine("error while loading editor '" + type.FullName + "': " + ex.Message);
+							Console.WriteLine("error while loading editor '{0}': {1}", type.FullName, ex.Message);
 						}
 					}
 					#endregion

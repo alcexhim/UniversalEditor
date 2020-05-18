@@ -13,7 +13,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.KensLabyrinth.KZPDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.KensLabyrinth.KZP.KZPDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

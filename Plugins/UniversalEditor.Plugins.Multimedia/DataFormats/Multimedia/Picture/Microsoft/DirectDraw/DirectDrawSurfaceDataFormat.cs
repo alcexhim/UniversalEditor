@@ -25,7 +25,7 @@ using MBS.Framework.Drawing;
 
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
-namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw
+namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.DirectDraw
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating images in DirectDraw Surface (DDS) format.

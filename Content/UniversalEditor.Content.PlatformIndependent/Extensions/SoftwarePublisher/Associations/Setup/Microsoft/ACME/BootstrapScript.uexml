@@ -10,10 +10,10 @@
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.SoftwareInstallation.Microsoft.ACME.BootstrapScript.BootstrapScriptObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript.BootstrapScriptObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.SoftwareInstallation.Microsoft.ACME.BootstrapScript.LSTDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript.LSTDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

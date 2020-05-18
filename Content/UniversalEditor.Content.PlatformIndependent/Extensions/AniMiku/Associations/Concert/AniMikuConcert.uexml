@@ -6,7 +6,7 @@
 				<Filter Title="AniMiku concert">
 					<FileNameFilters>
 						<FileNameFilter>*.amp</FileNameFilter>
-					</FileNameFilters
+					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
 							<MagicByte Type="String">AMPV2\r\n</MagicByte>

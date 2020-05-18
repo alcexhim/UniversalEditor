@@ -13,7 +13,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.MFD.MFDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.MFD.MFDDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

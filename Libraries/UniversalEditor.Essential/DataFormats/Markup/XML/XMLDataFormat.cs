@@ -563,6 +563,11 @@ namespace UniversalEditor.DataFormats.Markup.XML
 								}
 								else
 								{
+									// FIXME
+									if (c == Settings.TagCloseChar)
+									{
+
+									}
 									currentString += c;
 								}
 							}
@@ -827,7 +832,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												specialSectionName = specialSectionName.Substring(0, specialSectionName.Length);
 												tr.Accessor.Seek(1, IO.SeekOrigin.Current);
 
-												string specialSectionContent = tr.ReadUntil(this.Settings.CDataEndChar.ToString());
+												string endseq = this.Settings.CDataEndChar.ToString() + this.Settings.CDataEndChar.ToString() + this.Settings.TagEndChar.ToString();
+												string specialSectionContent = tr.ReadUntil(endseq);
 												if (specialSectionContent.Length > 0)
 												{
 													specialSectionContent = specialSectionContent.Substring(0, specialSectionContent.Length);
@@ -847,7 +853,14 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												}
 
 												char padNext = tr.ReadChar();
+												if (padNext != ']')
+													throw new InvalidDataFormatException("CDATA block does not end with ]]>");
 												padNext = tr.ReadChar();
+												if (padNext != ']')
+													throw new InvalidDataFormatException("CDATA block does not end with ]]>");
+												padNext = tr.ReadChar();
+												if (padNext != '>')
+													throw new InvalidDataFormatException("CDATA block does not end with ]]>");
 
 												// insideSpecialDeclaration = false;
 												continue;

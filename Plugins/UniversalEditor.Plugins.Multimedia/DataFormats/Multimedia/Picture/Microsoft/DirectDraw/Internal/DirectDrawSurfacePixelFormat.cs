@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw.Internal
+namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.DirectDraw.Internal
 {
 	/// <summary>
 	/// Internal structure representing a DirectDraw Surface pixel format.

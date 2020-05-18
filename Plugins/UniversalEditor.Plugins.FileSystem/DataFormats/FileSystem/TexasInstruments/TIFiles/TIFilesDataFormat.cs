@@ -23,7 +23,7 @@ using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.TexasInstruments
+namespace UniversalEditor.DataFormats.FileSystem.TexasInstruments.TIFiles
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating disk images in TIFILES format.

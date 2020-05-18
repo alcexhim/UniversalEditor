@@ -30,10 +30,10 @@
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.SecurityCertificate.SecurityCertificateObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Security.Certificate.CertificateObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.SecurityCertificate.DER.DERCertificateDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.Security.Certificate.DER.DERCertificateDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

@@ -25,7 +25,7 @@ using UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.PropertyList;
 
-namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
+namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid.VPR
 {
 	public class VPRSequenceJSONDataFormat : JSONDataFormat
 	{

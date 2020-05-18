@@ -12,27 +12,6 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Universal Editor eXtension">
-					<FileNameFilters>
-						<FileNameFilter>*.uxt</FileNameFilter>
-					</FileNameFilters>
-					<MagicByteSequences>
-						<MagicByteSequence>
-							<MagicByte Type="String">Universal Editor extension file</MagicByte>
-							<MagicByte Type="HexString">00</MagicByte>
-						</MagicByteSequence>
-					</MagicByteSequences>
-				</Filter>
-			</Filters>
-			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
-			</ObjectModels>
-			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.UXT.UXTDataFormat" />
-			</DataFormats>
-		</Association>
-		<Association>
-			<Filters>
 				<Filter Title="VirtualBox disk image">
 					<FileNameFilters>
 						<FileNameFilter>*.vdi</FileNameFilter>

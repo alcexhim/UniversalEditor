@@ -15,10 +15,10 @@
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.FamilyTree.FamilyTreeObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree.FamilyTreeObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FamilyTreeMaker.Windows.FTWDataFormat" />
+				<DataFormat TypeName="UniversalEditor.Plugins.Genealogy.DataFormats.FamilyTreeMaker.Windows.FTWDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

@@ -29,10 +29,10 @@
 				</Filter>
 			</Filters>
 			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.CoreObject.CoreObjectObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.PropertyList.CoreObject.CoreObjectDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.CoreObject.CoreObjectDataFormat" />
 			</DataFormats>
 		</Association>
 		<Association>

@@ -34,6 +34,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 		{
 			if (_dfr == null)
 			{
+				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;
