@@ -76,8 +76,9 @@ namespace UniversalEditor.Common
 						{
 							tmp = (type.Assembly.CreateInstance(type.FullName) as ObjectModel);
 						}
-						catch (TargetInvocationException)
+						catch (TargetInvocationException ex)
 						{
+							Console.WriteLine("ObjectModel could not be loaded ({0}): {1}", type.FullName, ex.Message);
 							continue;
 						}
 
@@ -98,8 +99,9 @@ namespace UniversalEditor.Common
 									listAccessors.Add(ar);
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+							Console.WriteLine("Accessor could not be loaded ({0}): {1}", type.FullName, ex.Message);
 						}
 					}
 					else if (mvarAvailableDataFormats == null && (type.IsSubclassOf(typeof(DataFormat)) && !type.IsAbstract))
@@ -114,8 +116,9 @@ namespace UniversalEditor.Common
 									listDataFormats.Add(dfr);
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+							Console.WriteLine("DataFormat could not be loaded ({0}): {1}", type.FullName, ex.Message);
 						}
 					}
 					else if (mvarAvailableDocumentTemplates == null && (type.IsSubclassOf(typeof(DocumentTemplate)) && !type.IsAbstract))
@@ -219,6 +222,7 @@ namespace UniversalEditor.Common
 				for (int jFileName = 0; jFileName < XMLFileNames.Length; jFileName++)
 				{
 					string fileName = XMLFileNames[jFileName];
+					Console.WriteLine("loading XML configuration file: {0} ", fileName);
 #if !DEBUG
 					try
 					{
