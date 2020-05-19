@@ -32,5 +32,20 @@
 				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN.ICNDataFormat" />
 			</DataFormats>
 		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Heroes of Might and Magic TIL sprite">
+					<FileNameFilters>
+						<FileNameFilter>*.til</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.PictureCollection.PictureCollectionObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.TIL.TILDataFormat" />
+			</DataFormats>
+		</Association>
 	</Associations>
 </UniversalEditor>
