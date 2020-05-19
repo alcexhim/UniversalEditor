@@ -37,17 +37,21 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface
 		/// <param name="pic">The <see cref="PictureObjectModel" /> containing the image data to convert.</param>
 		public static Image ToImage(this PictureObjectModel pic)
 		{
-			Image image = Image.Create(pic.Width, pic.Height);
-			Graphics g = Graphics.FromImage(image);
-
-			for (int x = 0; x < pic.Width; x++)
+			byte[] input = pic.ToByteArray();
+			byte[] output = new byte[input.Length];
+			for (int i = 0; i < input.Length; i += 4)
 			{
-				for (int y = 0; y < pic.Height; y++)
-				{
-					Color c = pic.GetPixel(x, y);
-					g.DrawLine(new Pen(c), x, y, x + 1, y + 1);
-				}
+				byte b = input[i];
+				byte g = input[i + 1];
+				byte r = input[i + 2];
+				byte a = input[i + 3];
+
+				output[i] = r;
+				output[i + 1] = g;
+				output[i + 2] = b;
+				output[i + 3] = a;
 			}
+			Image image = Image.FromBytes(output, pic.Width, pic.Height, pic.Stride);
 			return image;
 		}
 	}
