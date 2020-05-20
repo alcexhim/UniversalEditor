@@ -48,6 +48,27 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 
 		public List<Color> ColorMap { get; } = new List<Color>();
 
+		/// <summary>
+		/// Generates a color map as a <see cref="List{T}" /> of the <see cref="Color"/>s used in this <see cref="PictureObjectModel" />.
+		/// </summary>
+		/// <returns>The color map of colors used in this <see cref="PictureObjectModel" />.</returns>
+		public List<Color> GenerateColorMap()
+		{
+			List<Color> colorMap = new List<MBS.Framework.Drawing.Color>();
+			for (int index = 0; index < bitmapData.Length; index += 4)
+			{
+				byte a = bitmapData[index + 0];
+				byte r = bitmapData[index + 1];
+				byte g = bitmapData[index + 2];
+				byte b = bitmapData[index + 3];
+
+				Color color = Color.FromRGBAByte(a, r, g, b);
+				if (!colorMap.Contains(color))
+					colorMap.Add(color);
+			}
+			return colorMap;
+		}
+
 		public void SetPixel(Color color)
 		{
 			if (lastAddedLocation.X >= mvarWidth && lastAddedLocation.Y >= mvarHeight)
