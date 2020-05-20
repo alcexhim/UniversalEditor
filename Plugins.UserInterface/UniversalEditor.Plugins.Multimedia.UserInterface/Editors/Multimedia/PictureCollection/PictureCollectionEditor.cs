@@ -89,8 +89,17 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			cmdSave.Enabled = false;
 			cmdSaveAll.Enabled = false;
 
+			DocumentExplorer.Nodes.Clear();
+
 			PictureCollectionObjectModel coll = (ObjectModel as PictureCollectionObjectModel);
 			if (coll == null) return;
+
+			EditorDocumentExplorerNode nodeFrames = DocumentExplorer.Nodes.Add("Frames");
+			for (int i = 0; i < coll.Pictures.Count; i++)
+			{
+				nodeFrames.Nodes.Add(String.Format("Frame {0}", (i + 1).ToString()));
+				nodeFrames.Nodes[i].SetExtraData("index", i);
+			}
 
 			txtFrameIndex.Maximum = coll.Pictures.Count - 1;
 			cmdSave.Enabled = coll.Pictures.Count > 0;
@@ -100,12 +109,20 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 				picFrame.Image = coll.Pictures[0].ToImage();
 		}
 
+		protected override void OnDocumentExplorerSelectionChanged(EditorDocumentExplorerSelectionChangedEventArgs e)
+		{
+			base.OnDocumentExplorerSelectionChanged(e);
+
+			if (e.Node == null) return;
+
+			int index = e.Node.GetExtraData<int>("index");
+			SelectedFrameIndex = index;
+		}
+
 		public int SelectedFrameIndex
 		{
-			get
-			{
-				return (int)txtFrameIndex.Value;
-			}
+			get { return (int)txtFrameIndex.Value; }
+			set { txtFrameIndex.Value = value; Refresh(); }
 		}
 
 		private PictureFrame picFrame = null;
