@@ -1,6 +1,6 @@
 ﻿<UniversalEditor Version="5.0">
 	<Editors>
-		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.PianoRollEditor">
+		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.SynthesizedAudioEditor">
 			<Commands>
 				<Command ID="View">
 					<Items>

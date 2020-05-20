@@ -18,17 +18,16 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll;
+
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 {
-	public class PianoRollEditorSelection : EditorSelection
+	public class SynthesizedAudioEditorSelection : EditorSelection
 	{
-		private PianoRoll.Views.PianoRollView _parent = null;
-		internal PianoRollEditorSelection(Editor editor, PianoRoll.Views.PianoRollView parent) : base(editor)
+		private Views.PianoRoll.PianoRollView _parent = null;
+		internal SynthesizedAudioEditorSelection(Editor editor, Views.PianoRoll.PianoRollView parent) : base(editor)
 		{
 			_parent = parent;
 		}

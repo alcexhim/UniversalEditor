@@ -1,6 +1,6 @@
 ﻿<UniversalEditor Version="5.0">
 	<Editors>
-		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.PianoRollEditor">
+		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.SynthesizedAudioEditor">
 			<Toolbox>
 				<Group ID="ToolboxGroup_General" Title="General">
 					<Item ID="ToolboxItem_Select" Title="Select" />

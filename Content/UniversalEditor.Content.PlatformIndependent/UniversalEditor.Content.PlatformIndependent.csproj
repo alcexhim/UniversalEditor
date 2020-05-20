@@ -606,7 +606,6 @@
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\PCX.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\PSD.uexml" />
     <Content Include="Editors\FileSystem\Commands.uexml" />
-    <Content Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\MenuBar.uexml" />
     <Content Include="splash.bmp" />
     <Content Include="Editors\Executable\Commands.uexml" />
     <Content Include="Extensions\GraphicDesigner\Associations\Palette\NewWorldComputingPAL.uexml" />
@@ -736,6 +735,8 @@
     <Content Include="Extensions\Amiga\Associations\FileSystem\ADFDiskImage.uexml" />
     <Content Include="Editors\Designer\DesignerEditor.glade" />
     <Content Include="Editors\Executable\ExecutableEditor.glade" />
+    <Content Include="Editors\Multimedia\Audio\Synthesized\MenuBar.uexml" />
+    <Content Include="Editors\Multimedia\Audio\Synthesized\Toolbox.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -754,7 +755,6 @@
     <Folder Include="Editors\Multimedia\" />
     <Folder Include="Editors\Multimedia\Audio\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\" />
-    <Folder Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\" />
     <Folder Include="Editors\Executable\" />
     <Folder Include="Panels\SolutionExplorer\" />
     <Folder Include="Panels\SolutionExplorer\Languages\" />
@@ -837,7 +837,6 @@
     <None Include="Accessors\File.uexml" />
     <None Include="Images\SplashScreen.png" />
     <None Include="Images\SplashScreen.xcf" />
-    <None Include="Editors\Multimedia\Audio\Synthesized\PianoRoll\Toolbox.uexml" />
     <None Include="Extensions\SoftwareDeveloper\Associations\BinaryGrammar\SynalysisBinaryGrammarDataFormat.uexml" />
     <None Include="Documentation\Executable\DataFormats\Executable\Microsoft\ExecutableFormats.txt" />
   </ItemGroup>

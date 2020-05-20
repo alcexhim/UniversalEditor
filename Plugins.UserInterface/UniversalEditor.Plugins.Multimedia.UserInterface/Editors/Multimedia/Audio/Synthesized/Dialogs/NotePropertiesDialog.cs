@@ -25,7 +25,7 @@ using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
-namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs
+namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Dialogs
 {
 	/// <summary>
 	/// Provides a UWT <see cref="ContainerLayoutAttribute" />-based <see cref="CustomDialog" /> that modifies the properties of a

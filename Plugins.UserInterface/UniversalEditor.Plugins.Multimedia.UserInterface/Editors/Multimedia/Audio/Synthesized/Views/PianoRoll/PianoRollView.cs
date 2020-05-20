@@ -31,11 +31,11 @@ using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 using MBS.Framework.UserInterface.Layouts;
 
-using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Dialogs;
+using UniversalEditor.Editors.Multimedia.Audio.Synthesized.Dialogs;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
+namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 {
 	/// <summary>
 	/// Provides a UWT-based <see cref="View" /> for manipulating <see cref="SynthesizedAudioCommand" />s in a piano roll style.
@@ -44,6 +44,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 	{
 		private TextBox txt = null;
 		private SynthesizedAudioCommandNote _EditingNote = null;
+
+		private const double MAXSCROLLHEIGHT = 4096;
 
 		public PianoRollView(Editor parentEditor) : base(parentEditor)
 		{
@@ -335,15 +337,15 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 
 		private void ContextMenuArrow_Click(object sender, EventArgs e)
 		{
-			SelectionMode = PianoRollSelectionMode.Select;
+			SelectionMode = PianoRollViewSelectionMode.Select;
 		}
 		private void ContextMenuPencil_Click(object sender, EventArgs e)
 		{
-			SelectionMode = PianoRollSelectionMode.Insert;
+			SelectionMode = PianoRollViewSelectionMode.Insert;
 		}
 		private void ContextMenuErase_Click(object sender, EventArgs e)
 		{
-			SelectionMode = PianoRollSelectionMode.Delete;
+			SelectionMode = PianoRollViewSelectionMode.Delete;
 		}
 		private void ContextMenuToggleGridLines_Click(object sender, EventArgs e)
 		{
@@ -353,8 +355,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 		private bool _ShowGridLines = false;
 		public bool ShowGridLines { get { return _ShowGridLines; } set { _ShowGridLines = value; Refresh(); } }
 
-		private PianoRollSelectionMode _SelectionMode;
-		public PianoRollSelectionMode SelectionMode
+		private PianoRollViewSelectionMode _SelectionMode;
+		public PianoRollViewSelectionMode SelectionMode
 		{
 			get { return _SelectionMode; }
 			set
@@ -362,17 +364,17 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 				_SelectionMode = value;
 				switch (_SelectionMode)
 				{
-					case PianoRollSelectionMode.Insert:
+					case PianoRollViewSelectionMode.Insert:
 					{
 						Cursor = Cursors.Pencil;
 						break;
 					}
-					case PianoRollSelectionMode.Select:
+					case PianoRollViewSelectionMode.Select:
 					{
 						Cursor = Cursors.Default;
 						break;
 					}
-					case PianoRollSelectionMode.Delete:
+					case PianoRollViewSelectionMode.Delete:
 					{
 						Cursor = Cursors.Eraser;
 						break;
@@ -414,7 +416,26 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 		public SynthesizedAudioTrack SelectedTrack
 		{
 			get { return _SelectedTrack; }
-			set { _SelectedTrack = value; Refresh(); }
+			set
+			{
+				_SelectedTrack = value;
+
+				if (IsCreated)
+				{
+					ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), MAXSCROLLHEIGHT);
+					VerticalAdjustment.Value = MAXSCROLLHEIGHT / 2;
+				}
+
+				Refresh();
+			}
+		}
+
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), MAXSCROLLHEIGHT);
+			VerticalAdjustment.Value = MAXSCROLLHEIGHT / 2;
 		}
 
 		public Dimension2D NoteSize { get; set; } = new Dimension2D(12, 16);
@@ -565,7 +586,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 			{
 				Cursor = Cursors.Default;
 			}
-			else if (SelectionMode == PianoRollSelectionMode.Insert)
+			else if (SelectionMode == PianoRollViewSelectionMode.Insert)
 			{
 				Cursor = Cursors.Pencil;
 			}
@@ -579,10 +600,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 				if (ShowKeyboard && dx < KeyboardWidth)
 					dx = KeyboardWidth;
 
-				if (draggingCommand == null && (SelectionMode == PianoRollSelectionMode.Select || SelectionMode == PianoRollSelectionMode.Insert))
+				if (draggingCommand == null && (SelectionMode == PianoRollViewSelectionMode.Select || SelectionMode == PianoRollViewSelectionMode.Insert))
 				{
 					drag_CurrentLocation = Quantize(new Vector2D(dx, drag_OriginalLocation.Y), QuantizationMode.Length);
-					if (SelectionMode == PianoRollSelectionMode.Select)
+					if (SelectionMode == PianoRollViewSelectionMode.Select)
 					{
 						Rectangle rectSelection = new Rectangle(cx, cy, dx - cx, dy - cy);
 						SynthesizedAudioCommand[] cmds = HitTest(rectSelection);
@@ -662,7 +683,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 					*/
 					draggingCommand = null;
 				}
-				else if (SelectionMode == PianoRollSelectionMode.Insert)
+				else if (SelectionMode == PianoRollViewSelectionMode.Insert)
 				{
 					if (drag_CurrentLocation.X - drag_OriginalLocation.X > 0)
 					{
@@ -808,13 +829,12 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 
 		private Rectangle GetKeyboardRect()
 		{
-			Rectangle keyboardRect = new Rectangle(0, 0, Size.Width, Size.Height); // ClientRectangle
-			keyboardRect.Width = mvarKeyboardWidth;
+			Rectangle keyboardRect = new Rectangle(0, 0, mvarKeyboardWidth, ScrollBounds.Height); // ClientRectangle
 			return keyboardRect;
 		}
 		private Rectangle GetGridRect()
 		{
-			Rectangle gridRect = new Rectangle(0, 0, Size.Width + HorizontalAdjustment.Value, Size.Height); // ClientRectangle;
+			Rectangle gridRect = new Rectangle(0, 0, Size.Width + HorizontalAdjustment.Value, ScrollBounds.Height); // ClientRectangle;
 			if (mvarShowKeyboard)
 			{
 				Rectangle keyboardRect = GetKeyboardRect();
@@ -858,6 +878,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 				if (cx > width)
 					width += cx + cw;
 			}
+			if (width < HorizontalAdjustment.Value + Size.Width)
+			{
+				width = (int)(HorizontalAdjustment.Value + (Size.Width * 2));
+			}
 			return width;
 		}
 
@@ -892,7 +916,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 			SolidBrush sbScaleHighlight = new SolidBrush(SystemColors.HighlightBackground.Alpha(0.25));
 			SolidBrush sbBlackKeyHighlight = new SolidBrush(Colors.Gray.Alpha(0.125));
 
-			for (int i = 0; i < Size.Height; i += gridHeight)
+			for (int i = 0; i < ScrollBounds.Height; i += gridHeight)
 			{
 				int noteValue = (int)(((double)i / gridHeight) % 12);
 				string noteName = noteNames[noteValue];
@@ -988,12 +1012,12 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 			}
 			else if (m_selecting)
 			{
-				if (SelectionMode == PianoRollSelectionMode.Select)
+				if (SelectionMode == PianoRollViewSelectionMode.Select)
 				{
 					e.Graphics.DrawRectangle(pSelectionBorder, new Rectangle(cx, cy, dx - cx, dy - cy));
 					e.Graphics.FillRectangle(bSelectionFill, new Rectangle(cx, cy, dx - cx, dy - cy));
 				}
-				else if (SelectionMode == PianoRollSelectionMode.Insert)
+				else if (SelectionMode == PianoRollViewSelectionMode.Insert)
 				{
 					Rectangle dragrect = new Rectangle(drag_OriginalLocation.X * PositionQuantization, drag_OriginalLocation.Y * NoteHeight, (drag_CurrentLocation.X * GetLengthQuantization()) - (drag_OriginalLocation.X * GetLengthQuantization()), NoteHeight);
 					if (mvarShowKeyboard)
@@ -1006,7 +1030,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views
 				}
 			}
 
-			ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), 0);
+			ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), MAXSCROLLHEIGHT);
 			/*
 			// draw grids
 			for (int i = 0; i < Size.Width; i += (int) NoteSize.Width)

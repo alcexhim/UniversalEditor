@@ -23,19 +23,19 @@ using System;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
+namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 {
 	/// <summary>
 	/// Provides a UWT-based piano roll-style <see cref="Editor" /> for a <see cref="SynthesizedAudioObjectModel" />.
 	/// </summary>
-	public partial class PianoRollEditor
+	public partial class SynthesizedAudioEditor
 	{
 		public override void UpdateSelections()
 		{
 			Selections.Clear();
 			if (PianoRoll.SelectedCommands.Count > 0)
 			{
-				PianoRollEditorSelection sel = new PianoRollEditorSelection(this, PianoRoll);
+				SynthesizedAudioEditorSelection sel = new SynthesizedAudioEditorSelection(this, PianoRoll);
 				for (int i = 0; i < PianoRoll.SelectedCommands.Count; i++)
 				{
 					sel.Commands.Add(PianoRoll.SelectedCommands[i]);
@@ -103,12 +103,12 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 			{
 				case "ToolboxItem_Select":
 				{
-					PianoRoll.SelectionMode = PianoRollSelectionMode.Select;
+					PianoRoll.SelectionMode = Views.PianoRoll.PianoRollViewSelectionMode.Select;
 					break;
 				}
 				case "ToolboxItem_Insert":
 				{
-					PianoRoll.SelectionMode = PianoRollSelectionMode.Insert;
+					PianoRoll.SelectionMode = Views.PianoRoll.PianoRollViewSelectionMode.Insert;
 					break;
 				}
 			}

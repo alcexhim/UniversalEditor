@@ -26,13 +26,11 @@ using UniversalEditor.UserInterface;
 
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
-using UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll.Views;
-
-namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
+namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 {
-	partial class PianoRollEditor : Editor
+	partial class SynthesizedAudioEditor : Editor
 	{
-		public PianoRollEditor()
+		public SynthesizedAudioEditor()
 		{
 			InitializeComponent();
 		}
@@ -51,10 +49,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 			return _er;
 		}
 
-		private PianoRollView PianoRoll = null;
+		private Views.PianoRoll.PianoRollView PianoRoll = null;
 
 		/// <summary>
-		/// UWT designer initialization for <see cref="PianoRollEditor" />.
+		/// UWT designer initialization for <see cref="SynthesizedAudioEditor" />.
 		/// </summary>
 		/// <remarks>
 		/// UWT designer initialization in code is deprecated; continue improving the cross-platform Glade XML parser for <see cref="ContainerLayoutAttribute" />!
@@ -63,7 +61,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.PianoRoll
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
-			PianoRoll = new PianoRollView(this);
+			PianoRoll = new Views.PianoRoll.PianoRollView(this);
 			this.Controls.Add(PianoRoll, new BoxLayout.Constraints(true, true));
 		}
 	}
