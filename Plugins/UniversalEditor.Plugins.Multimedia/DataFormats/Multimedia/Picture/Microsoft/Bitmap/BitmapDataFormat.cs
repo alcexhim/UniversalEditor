@@ -33,13 +33,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 	public class BitmapDataFormat : DataFormat
 	{
 		public const int BITMAP_HEADER_SIZE = (2 + 6 * 4 + 2 * 2 + 6 * 4);
-		public const int BITMAP_PALETTE_ENTRY_SIZE = 4;
+
+		public const int BITMAP_PALETTE_ENTRY_SIZE_24BIT = 3;
+		public const int BITMAP_PALETTE_ENTRY_SIZE_32BIT = 4;
 
 		/// <summary>
 		/// The number of bits-per-pixel. The biBitCount member of the BITMAPINFOHEADER structure determines the
 		/// number of bits that define each pixel and the maximum number of colors in the bitmap.
 		/// </summary>
-		public BitmapBitsPerPixel PixelDepth { get; set; } = BitmapBitsPerPixel.TrueColor;
+		public BitmapBitsPerPixel PixelDepth { get; set; } = BitmapBitsPerPixel.DeepColor;
 
 		protected override DataFormatReference MakeReferenceInternal()
 		{
@@ -56,6 +58,21 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			}));
 			return dfr;
 		}
+
+		/// <summary>
+		/// The horizontal resolution, in pixels-per-meter, of the target device for the bitmap. An application
+		/// can use this value to select a bitmap from a resource group that best matches the characteristics of
+		/// the current device.
+		/// </summary>
+		/// <value>The horizontal resolution, in pixels-per-meter, of the target device for the bitmap.</value>
+		public int HorizontalResolution { get; set; } = 0;
+		/// <summary>
+		/// The vertical resolution, in pixels-per-meter, of the target device for the bitmap. An application
+		/// can use this value to select a bitmap from a resource group that best matches the characteristics of
+		/// the current device.
+		/// </summary>
+		/// <value>The vertical resolution, in pixels-per-meter, of the target device for the bitmap.</value>
+		public int VerticalResolution { get; set; } = 0;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -82,13 +99,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 				}
 			}
 
-			int fileSize = br.ReadInt32();
+			int fileSize = br.ReadInt32();                  // 4522
 			short reserved1 = br.ReadInt16();
 			short reserved2 = br.ReadInt16();
-			int offset = br.ReadInt32();
+			int offset = br.ReadInt32();                    // 122
 
 			BitmapInfoHeader header = BitmapInfoHeader.Load(br);
-			PixelDepth = header.PixelDepth;
+			HorizontalResolution = header.PelsPerMeterX;
+			VerticalResolution = header.PelsPerMeterY;
+			PixelDepth = header.PixelDepth;                 // TrueColor
 
 			pic.Width = header.Width;
 			pic.Height = header.Height;
@@ -101,14 +120,62 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			// there is a palette
 			// To read the palette, we can simply read in a block of bytes
 			// since our array elements are guaranteed to be contiguous and in row-major order.
-			int paletteSize = offset - header.HeaderSize;
-			int numPaletteEntries = paletteSize / BITMAP_PALETTE_ENTRY_SIZE;
+			int paletteSize = offset - header.HeaderSize;                                           // 122 - 108 = 14
+			int bitmapPaletteEntrySize = 0;
+
+			switch (PixelDepth)
+			{
+				case BitmapBitsPerPixel.Color256:
+				{
+					bitmapPaletteEntrySize = 4;
+					break;
+				}
+				case BitmapBitsPerPixel.TrueColor:
+				{
+					bitmapPaletteEntrySize = BITMAP_PALETTE_ENTRY_SIZE_24BIT;
+					break;
+				}
+				case BitmapBitsPerPixel.DeepColor:
+				{
+					bitmapPaletteEntrySize = BITMAP_PALETTE_ENTRY_SIZE_32BIT;
+					break;
+				}
+			}
+			int numPaletteEntries = paletteSize / bitmapPaletteEntrySize;                        // 14 / 4 = 3
+
+			if (header.UsedColorIndexCount > 0)
+				numPaletteEntries = header.UsedColorIndexCount; // use this, it's more accurate if available
+
 			for (int i = 0; i < numPaletteEntries; i++)
 			{
-				byte b = br.ReadByte();
-				byte g = br.ReadByte();
-				byte r = br.ReadByte();
-				byte a = br.ReadByte();
+				byte b = 0, g = 0, r = 0, a = 255;
+				switch (PixelDepth)
+				{
+					case BitmapBitsPerPixel.TrueColor:
+					{
+						b = br.ReadByte();
+						g = br.ReadByte();
+						r = br.ReadByte();
+						break;
+					}
+					case BitmapBitsPerPixel.Color256:
+					{
+						b = br.ReadByte();
+						g = br.ReadByte();
+						r = br.ReadByte();
+						a = br.ReadByte();
+						a = 255;
+						break;
+					}
+					case BitmapBitsPerPixel.DeepColor:
+					{
+						b = br.ReadByte();
+						g = br.ReadByte();
+						r = br.ReadByte();
+						a = br.ReadByte();
+						break;
+					}
+				}
 				palette.Add(Color.FromRGBAByte(r, g, b, a));
 			}
 
@@ -178,6 +245,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 						}
 						case BitmapBitsPerPixel.TrueColor:
 						{
+							// The 24-bit pixel (24bpp) format supports 16,777,216 distinct colors and stores 1 pixel value per 3 bytes. Each pixel value defines the red, green and blue samples of the pixel (8.8.8.0.0 in RGBAX notation). Specifically, in the order: blue, green and red (8 bits per each sample).
 							b = br.ReadByte(); // (2,2) B 204
 							g = br.ReadByte(); // (2,2) G 72
 							r = br.ReadByte(); // (2,2) R 63
@@ -189,10 +257,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 							{
 								// this is really black magic going on here. these aren't bitfields at all..
 
-								a = br.ReadByte(); // (2,2) R 63
+								// a = br.ReadByte(); // (2,2) R 63
 								b = br.ReadByte(); // (2,2) B 204
 								g = br.ReadByte(); // (2,2) B 204
 								r = br.ReadByte(); // (2,2) G 72
+								a = br.ReadByte();
 								a = 255;
 							}
 							else
@@ -210,6 +279,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 					Color color = Color.FromRGBAByte(r, g, b, a);
 					pic.SetPixel(color, x, y);
 				}
+				br.Align(4);
 			}
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -223,14 +293,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			int bpp = 4;
 			switch (PixelDepth)
 			{
-			case BitmapBitsPerPixel.TrueColor:
+				case BitmapBitsPerPixel.TrueColor:
 				{
 					bpp = 3;
 					break;
 				}
 			}
 
-			int fileSize = 54 + (pic.Width * pic.Height * bpp);
+			int imageSize = (pic.Width * pic.Height * bpp) + pic.Height;
+			int fileSize = 54 + imageSize;
 			bw.WriteInt32(fileSize);
 
 			short reserved1 = 0;
@@ -247,9 +318,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			header.Planes = 1;
 			header.PixelDepth = PixelDepth;
 			header.Compression = BitmapCompression.None;
-			header.ImageSize = 0;
-			header.PelsPerMeterX = 0;
-			header.PelsPerMeterY = 0;
+			header.ImageSize = imageSize;
+			header.PelsPerMeterX = HorizontalResolution;
+			header.PelsPerMeterY = VerticalResolution;
 			header.UsedColorIndexCount = 0;
 			header.RequiredColorIndexCount = 0;
 			BitmapInfoHeader.Save(bw, header);
@@ -290,17 +361,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 						}
 						case BitmapBitsPerPixel.DeepColor:
 						{
-							bw.WriteByte(a);
 							bw.WriteByte(b);
 							bw.WriteByte(g);
 							bw.WriteByte(r);
+							bw.WriteByte(a);
 							break;
 						}
 					}
 				}
 			}
-
-			bw.Flush();
 		}
 	}
 }

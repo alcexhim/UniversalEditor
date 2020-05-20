@@ -95,6 +95,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 
 		public static BitmapInfoHeader Load(IO.Reader br)
 		{
+			long start = br.Accessor.Position;
+
 			BitmapInfoHeader header = new BitmapInfoHeader();
 			header.HeaderSize = br.ReadInt32();                            // 40       vs. 56
 			header.Width = br.ReadInt32();
@@ -102,15 +104,21 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			header.Planes = br.ReadInt16();                             // 1
 			header.PixelDepth = (BitmapBitsPerPixel)br.ReadInt16();
 			header.Compression = (BitmapCompression)br.ReadInt32();
-			header.ImageSize = br.ReadInt32();
-			header.PelsPerMeterX = br.ReadInt32();
-			header.PelsPerMeterY = br.ReadInt32();
+			header.ImageSize = br.ReadInt32();								// 4400
+			header.PelsPerMeterX = br.ReadInt32();                          // 11811
+			header.PelsPerMeterY = br.ReadInt32();                          // 11811
 			header.UsedColorIndexCount = br.ReadInt32();
 			header.RequiredColorIndexCount = br.ReadInt32();
 
 			if (header.HeaderSize < 56)
 			{
 				br.Seek(56 - header.HeaderSize, SeekOrigin.Current);
+			}
+
+			if (br.Accessor.Position != (start + header.HeaderSize))
+			{
+				long offset = (start + header.HeaderSize) - br.Accessor.Position;
+				br.Seek(offset, SeekOrigin.Current);
 			}
 			return header;
 		}
