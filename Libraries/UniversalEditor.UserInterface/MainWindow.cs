@@ -570,16 +570,10 @@ namespace UniversalEditor.UserInterface
 #endif
 					}
 
-					Editor editor = editors[0].Create();
-
 					EditorPage page = new EditorPage();
 					page.Document = doc;
 					page.DocumentEdited += page_DocumentEdited;
-					// page.Controls.Add(editor, new BoxLayout.Constraints(true, true));
-
 					InitDocTab(doc.Accessor.GetFileName(), doc.Title, page);
-
-					editor.ObjectModel = doc.ObjectModel;
 				}
 				else
 				{
