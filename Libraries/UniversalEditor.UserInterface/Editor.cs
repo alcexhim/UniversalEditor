@@ -206,7 +206,7 @@ namespace UniversalEditor.UserInterface
 		}
 
 		#region IEditorImplementation Members
-		public virtual string Title { get { return String.Empty; } }
+		public string Title { get; set; }
 
 		private ObjectModel mvarObjectModel = null;
 		public ObjectModel ObjectModel

@@ -125,6 +125,8 @@ namespace UniversalEditor.UserInterface.Pages
 			// pnlLoading.Enabled = true;
 			// pnlLoading.Visible = true;
 
+			string title = String.IsNullOrEmpty(Title) ? Document.Title : Title;
+
 			ObjectModel om = null;
 			EditorReference[] reditors = new EditorReference[0];
 			if (mvarDocument.ObjectModel != null)
@@ -178,7 +180,7 @@ namespace UniversalEditor.UserInterface.Pages
 					mvarDocument.Accessor.Close();
 
 				if (ed == null) return;
-
+				ed.Title = title;
 				ed.DocumentEdited += editor_DocumentEdited;
 				mvarDocument.ObjectModel = ed.ObjectModel;
 
@@ -228,7 +230,7 @@ namespace UniversalEditor.UserInterface.Pages
 						// editor.Dock = DockStyle.Fill;
 						editor.ObjectModel = om;
 						editor.DocumentEdited += editor_DocumentEdited;
-
+						editor.Title = title;
 						for (int j = 0; j < reditor.Views.Count; j++)
 						{
 							EditorView view = reditor.Views[j];
@@ -252,6 +254,7 @@ namespace UniversalEditor.UserInterface.Pages
 					for (int i = 0; i < Controls.Count - 1; i++)
 					{
 						(Controls[i] as Editor).ObjectModel = om;
+						(Controls[i] as Editor).Title = title;
 					}
 				}
 			}
