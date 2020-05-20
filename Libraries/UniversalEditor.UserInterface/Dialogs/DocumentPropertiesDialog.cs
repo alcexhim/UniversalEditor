@@ -367,6 +367,15 @@ namespace UniversalEditor.UserInterface.Dialogs
 					}
 				}
 			}
+			else
+			{
+				if (acc is FileAccessor)
+				{
+					AccessorReference accref = acc.MakeReference();
+					(accref.ImportOptions[0] as CustomOptionFile).Filter = "All files|*";
+					(accref.ExportOptions[0] as CustomOptionFile).Filter = "All files|*";
+				}
+			}
 
 			switch (Mode)
 			{
