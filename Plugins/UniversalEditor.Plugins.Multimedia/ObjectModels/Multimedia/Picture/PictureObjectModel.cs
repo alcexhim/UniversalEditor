@@ -42,12 +42,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			get
 			{
 				// thanks https://stackoverflow.com/questions/2185944/why-must-stride-in-the-system-drawing-bitmap-constructor-be-a-multiple-of-4
-
-				// this calculation is CORRECT (at least on gdkpixbuf) so ***DON'T TOUCH IT***
-				int bitsPerPixel = 32; // ((int)format & 0xff00) >> 8;
-				int bytesPerPixel = 4; // (bitsPerPixel + 7) / 8; // wtf???
-				int stride = 4 * ((Width * bytesPerPixel + 3) / 4);
-				return stride;
+				return GetStride(32);
 			}
 		}
 
@@ -234,6 +229,14 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 				}
 			}
 			return pic;
+		}
+
+		public int GetStride(int bitsPerPixel)
+		{
+			// this calculation is CORRECT (at least on gdkpixbuf) so ***DON'T TOUCH IT***
+			int bytesPerPixel = (int)((double)bitsPerPixel / 8); // (bitsPerPixel + 7) / 8; // wtf???
+			int stride = 4 * ((Width * bytesPerPixel + 3) / 4);
+			return stride;
 		}
 	}
 }
