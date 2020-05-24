@@ -92,6 +92,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		/// </summary>
 		public int RequiredColorIndexCount { get; set; }
 		public BitmapBitsPerPixel PixelDepth { get; set; }
+		public uint[] Bitfields;
 
 		public static BitmapInfoHeader Load(IO.Reader br)
 		{
@@ -109,6 +110,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			header.PelsPerMeterY = br.ReadInt32();                          // 11811
 			header.UsedColorIndexCount = br.ReadInt32();
 			header.RequiredColorIndexCount = br.ReadInt32();
+
+			if (header.Compression == BitmapCompression.Bitfields)
+			{
+				uint bitfieldR = br.ReadUInt32();
+				uint bitfieldG = br.ReadUInt32();
+				uint bitfieldB = br.ReadUInt32();
+				uint bitfieldA = br.ReadUInt32();
+				header.Bitfields = new uint[] { bitfieldR, bitfieldG, bitfieldB, bitfieldA };
+			}
 
 			if (header.HeaderSize < 56)
 			{
@@ -135,6 +145,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 			bw.WriteInt32(header.PelsPerMeterY);
 			bw.WriteInt32(header.UsedColorIndexCount);
 			bw.WriteInt32(header.RequiredColorIndexCount);
+			if (header.Compression == BitmapCompression.Bitfields)
+			{
+				bw.WriteUInt32Array(header.Bitfields);
+			}
 		}
 	}
 }

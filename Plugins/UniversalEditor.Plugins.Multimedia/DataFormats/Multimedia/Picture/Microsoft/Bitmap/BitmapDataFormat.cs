@@ -169,10 +169,21 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 					}
 					case BitmapBitsPerPixel.DeepColor:
 					{
-						b = br.ReadByte();
-						g = br.ReadByte();
-						r = br.ReadByte();
-						a = br.ReadByte();
+						if (header.Compression == BitmapCompression.Bitfields)
+						{
+							uint value = br.ReadUInt32();
+							b = (byte)(value & header.Bitfields[0]); // R
+							g = (byte)(value & header.Bitfields[1]); // R
+							r = (byte)(value & header.Bitfields[2]); // R
+							a = (byte)(value & header.Bitfields[3]); // R
+						}
+						else
+						{
+							b = br.ReadByte();
+							g = br.ReadByte();
+							r = br.ReadByte();
+							a = br.ReadByte();
+						}
 						break;
 					}
 				}
