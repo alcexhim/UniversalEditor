@@ -49,7 +49,29 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 			return _er;
 		}
 
+		protected override void OnViewChanged(EditorViewChangedEventArgs e)
+		{
+			base.OnViewChanged(e);
+
+			switch (e.NewView.Title)
+			{
+				case "Piano Roll":
+				{
+					PianoRoll.Visible = true;
+					MIDIEvents.Visible = false;
+					break;
+				}
+				case "MIDI Events":
+				{
+					PianoRoll.Visible = false;
+					MIDIEvents.Visible = true;
+					break;
+				}
+			}
+		}
+
 		private Views.PianoRoll.PianoRollView PianoRoll = null;
+		private Views.MIDIEvents.MIDIEventsView MIDIEvents = null;
 
 		/// <summary>
 		/// UWT designer initialization for <see cref="SynthesizedAudioEditor" />.
@@ -61,8 +83,13 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
-			PianoRoll = new Views.PianoRoll.PianoRollView(this);
+			PianoRoll = new Views.PianoRoll.PianoRollView();
 			this.Controls.Add(PianoRoll, new BoxLayout.Constraints(true, true));
+
+			MIDIEvents = new Views.MIDIEvents.MIDIEventsView();
+			this.Controls.Add(MIDIEvents, new BoxLayout.Constraints(true, true));
+
+			MIDIEvents.Visible = false;
 		}
 	}
 }

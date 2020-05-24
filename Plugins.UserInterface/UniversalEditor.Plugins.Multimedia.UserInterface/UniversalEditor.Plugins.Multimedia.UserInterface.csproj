@@ -50,6 +50,7 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Dialogs\NotePropertiesDialog.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\PianoRollView.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\PianoRollViewSelectionMode.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -67,6 +68,7 @@
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Dialogs\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\" />
+    <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

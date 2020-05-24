@@ -49,8 +49,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 			short fileFormat = br.ReadInt16();
 			short trackCount = br.ReadInt16();
 			short ticksPerQuarterNote = br.ReadInt16();
+
+			System.Collections.Generic.Dictionary<int, SynthesizedAudioCommandNote> notesForNoteNumber = new System.Collections.Generic.Dictionary<int, SynthesizedAudioCommandNote>();
 			for (short i = 0; i < trackCount; i += 1)
 			{
+				int ofs = 0;
+
 				string MTrk = br.ReadFixedLengthString(4);
 				if (MTrk != "MTrk") throw new InvalidDataFormatException("Could not read track " + (trackCount + 1).ToString() + " - does not begin with \"MTrk\"");
 
@@ -61,6 +65,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 				{
 					int deltaTime = br.ReadVariableLengthInt32();
 					MIDIEventType command = (MIDIEventType)br.ReadByte();
+					byte channel = (byte)((byte)command & (byte)MIDIEventType.MIDIChannelMask);
+
+					MIDIEventType commandWithoutChannel = (MIDIEventType)((byte)command >> 4);
+
 					if (command == MIDIEventType.Meta)
 					{
 						MIDIMetaEventType metaEventType = (MIDIMetaEventType)br.ReadByte();
@@ -69,7 +77,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 						{
 							case MIDIMetaEventType.Text:
 							{
-								string text = br.ReadFixedLengthString(length);
+								string text = br.ReadFixedLengthString(length).TrimNull();
 								track.Commands.Add(new SynthesizedAudioCommandText(text));
 								break;
 							}
@@ -79,8 +87,18 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 							}
 							case MIDIMetaEventType.SequenceName:
 							{
-								string text = br.ReadFixedLengthString(length);
+								string text = br.ReadFixedLengthString(length).TrimNull();
 								track.Name = text;
+								break;
+							}
+							case MIDIMetaEventType.ProgramName:
+							{
+								string text = br.ReadFixedLengthString(length).TrimNull();
+								break;
+							}
+							case MIDIMetaEventType.DeviceName:
+							{
+								string text = br.ReadFixedLengthString(length).TrimNull();
 								break;
 							}
 							case MIDIMetaEventType.EndOfTrack:
@@ -90,9 +108,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 							}
 							case MIDIMetaEventType.TimeSignature:
 							{
-								byte zero4 = br.ReadByte();
 								byte numerator = br.ReadByte();
-								byte denominator = (byte)Math.Pow(2.0, (double)br.ReadByte());
+								byte denominatorPower = br.ReadByte();
+								byte denominator = (byte)Math.Pow(2.0, denominatorPower);
 								byte ticksPerMetronomeClick = br.ReadByte();
 								byte numberOf32ndNotesPerQuarterNote = br.ReadByte();
 								track.Commands.Add(new SynthesizedAudioCommandTimeSignature(numerator, denominator, ticksPerMetronomeClick, numberOf32ndNotesPerQuarterNote));
@@ -100,16 +118,84 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 							}
 							case MIDIMetaEventType.SetTempo:
 							{
-								byte zero5 = br.ReadByte();
 								int tempo = (int)br.ReadInt16();
 								int tempo2 = (int)br.ReadByte();
 								int tempo3 = tempo + tempo2;
 								track.Commands.Add(new SynthesizedAudioCommandTempo((double)tempo3));
 								break;
 							}
+							case MIDIMetaEventType.KeySignature:
+							{
+								byte sf = br.ReadByte(); // -7 = 7 flats, -1 = 1 flat, 0 = none (key of C), 1 = 
+								bool minorKey = br.ReadBoolean();
+								break;
+							}
 							default:
 							{
 								Console.WriteLine("ue: MIDI: warning: meta event type {0} ({1}) [{2} bytes] unhandled", metaEventType, (byte)metaEventType, length);
+								Accessor.Seek(length, SeekOrigin.Current);
+								break;
+							}
+						}
+					}
+					else
+					{
+						switch (commandWithoutChannel)
+						{
+							case MIDIEventType.ProgramChange:
+							{
+								byte programNumber = br.ReadByte();
+								break;
+							}
+							case MIDIEventType.NoteOn:
+							{
+								byte noteNumber = br.ReadByte();
+								byte velocity = br.ReadByte();
+
+								if (!notesForNoteNumber.ContainsKey(noteNumber))
+								{
+									notesForNoteNumber[noteNumber] = new SynthesizedAudioCommandNote();
+								}
+								SynthesizedAudioCommandNote note = notesForNoteNumber[noteNumber];
+								note.Frequency = noteNumber;
+								note.Position = deltaTime + ofs;
+								note.Intensity = velocity;
+								ofs += deltaTime;
+								track.Commands.Add(note);
+								break;
+							}
+							case MIDIEventType.NoteOff:
+							{
+								byte noteNumber = br.ReadByte();
+								byte velocity = br.ReadByte();
+
+								if (notesForNoteNumber.ContainsKey(noteNumber))
+								{
+									notesForNoteNumber[noteNumber].Length = deltaTime;
+									notesForNoteNumber.Remove(noteNumber);
+								}
+								break;
+							}
+							case MIDIEventType.ControlChange:
+							{
+								byte controllerNumber = br.ReadByte();
+								byte value = br.ReadByte();
+								break;
+							}
+							case MIDIEventType.PolyphonicKeyPressureAftertouch:
+							{
+								byte noteNumber = br.ReadByte();
+								byte pressure = br.ReadByte();
+								break;
+							}
+							case MIDIEventType.ChannelPressureAftertouch:
+							{
+								byte pressure = br.ReadByte();
+								break;
+							}
+							case MIDIEventType.PitchWheelChange:
+							{
+								short value = br.ReadInt16();
 								break;
 							}
 						}
@@ -191,12 +277,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 				SynthesizedAudioTrack track = syn.Tracks[i];
 
 				// track name
-				WriteMIDIEvent(bw, 0, MIDIMetaEventType.SequenceName, track.Name);
+				if (!String.IsNullOrEmpty(track.Name))
+				{
+					WriteMIDIEvent(bw, 0, MIDIMetaEventType.SequenceName, track.Name);
+				}
+
+				int deltaTime = 0;
 
 				for (int j = 0; j < syn.Tracks[i].Commands.Count; j++)
 				{
-					int deltaTime = 0;
-
 					if (syn.Tracks[i].Commands[j] is SynthesizedAudioCommandText)
 					{
 						SynthesizedAudioCommandText cmd = (syn.Tracks[i].Commands[j] as SynthesizedAudioCommandText);
@@ -205,12 +294,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 					else if (syn.Tracks[i].Commands[j] is SynthesizedAudioCommandTimeSignature)
 					{
 						SynthesizedAudioCommandTimeSignature cmd = (syn.Tracks[i].Commands[j] as SynthesizedAudioCommandTimeSignature);
-
-						byte numerator = 4;
-						byte denom = 4;
+						byte numerator = cmd.Numerator;
+						byte denom = cmd.Denominator;
 						byte denominator = (byte)(Math.Sqrt(denom) / Math.Sqrt(2));
-						byte ticksPerMetronomeClick = 0;
-						byte numberOf32ndNotesPerQuarterNote = 0;
+						byte ticksPerMetronomeClick = cmd.TicksPerMetronomeClick;
+						byte numberOf32ndNotesPerQuarterNote = cmd.NumberOf32ndNotesPerQuarterNote;
 						WriteMIDIEvent(bw, deltaTime, MIDIMetaEventType.TimeSignature, new byte[] { numerator, denominator, ticksPerMetronomeClick, numberOf32ndNotesPerQuarterNote });
 					}
 					else if (syn.Tracks[i].Commands[j] is SynthesizedAudioCommandTempo)
@@ -219,6 +307,16 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 						MemoryAccessor ma = new MemoryAccessor();
 						ma.Writer.WriteInt24((int)cmd.Tempo);
 						WriteMIDIEvent(bw, deltaTime, MIDIMetaEventType.SetTempo, ma.ToArray());
+					}
+					else if (syn.Tracks[i].Commands[j] is SynthesizedAudioCommandNote)
+					{
+						SynthesizedAudioCommandNote cmd = (syn.Tracks[i].Commands[j] as SynthesizedAudioCommandNote);
+						MemoryAccessor ma = new MemoryAccessor();
+						ma.Writer.WriteByte((byte)cmd.Frequency);
+						ma.Writer.WriteByte((byte)cmd.Intensity);
+						WriteMIDIEvent(bw, deltaTime, MIDIEventType.NoteOn, ma.ToArray());
+						WriteMIDIEvent(bw, (int)(deltaTime + cmd.Length), MIDIEventType.NoteOff, ma.ToArray());
+						deltaTime = (int)(deltaTime + cmd.Length);
 					}
 				}
 

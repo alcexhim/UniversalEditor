@@ -30,6 +30,18 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 	/// </summary>
 	public partial class SynthesizedAudioEditor
 	{
+		// This is the first real implementation of an Editor with multiple Views.
+
+		// My original intent was rather than have multiple Editors copying ObjectModels back and forth when they're switched,
+		// the single Editor would reference a single ObjectModel which all Views would draw from to display their content.
+		// 
+		// Unfortunately maintaining all of this state ourselves rather defeats the purpose of using a "Universal" Editor platform.
+		// The platform itself should handle most of the heavy lifting and we should not have to worry about synchronizing things
+		// like ObjectModel content and selections and whatever between multiple Views.
+
+		private SynthesizedAudioTrack _SelectedTrack = null;
+		public SynthesizedAudioTrack SelectedTrack { get { return _SelectedTrack; } set { _SelectedTrack = value; PianoRoll.Refresh(); MIDIEvents.UpdateView(); } }
+
 		public override void UpdateSelections()
 		{
 			Selections.Clear();
@@ -69,7 +81,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 				// this fixes the fixme in SynthesizedAudioObjectModel.cs so we don't have an extra empty track when we open a new file
 				om.Tracks.Add(new SynthesizedAudioTrack());
 			}
-			PianoRoll.SelectedTrack = om.Tracks[0];
+			SelectedTrack = om.Tracks[0];
 
 			EditorDocumentExplorerNode nodeTracks = DocumentExplorer.Nodes.Add("Tracks");
 			for (int i = 0; i < om.Tracks.Count; i++)
@@ -91,7 +103,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 			SynthesizedAudioTrack track = e.Node.GetExtraData<SynthesizedAudioTrack>("track");
 			if (track != null)
 			{
-				PianoRoll.SelectedTrack = track;
+				SelectedTrack = track;
 			}
 		}
 

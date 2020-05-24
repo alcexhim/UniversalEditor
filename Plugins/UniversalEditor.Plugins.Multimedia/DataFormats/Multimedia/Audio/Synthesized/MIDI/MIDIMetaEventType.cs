@@ -34,6 +34,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 		Lyric = 0x05,
 		Marker = 0x06,
 		CuePoint = 0x07,
+		ProgramName = 0x08,
+		DeviceName = 0x09,
 		ChannelPrefix = 0x20,
 		EndOfTrack = 0x2F,
 		SetTempo = 0x51,

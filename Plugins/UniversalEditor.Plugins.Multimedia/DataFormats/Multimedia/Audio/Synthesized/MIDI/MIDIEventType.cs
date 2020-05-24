@@ -26,6 +26,20 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 	/// </summary>
 	public enum MIDIEventType : byte
 	{
+		None,
+
+		MIDIChannelMask = 0x0F,
+		MIDIEventMask = 0xF0,
+
+		NoteOff = 0x8,
+		NoteOn = 0x9,
+		PolyphonicKeyPressureAftertouch = 0xA,
+		ControlChange = 0xB,
+		ProgramChange = 0xC,
+		ChannelPressureAftertouch = 0xD,
+		PitchWheelChange = 0xE,
+
+
 		SysEx = 0xF0,
 		Escape = 0xF7,
 		Meta = 0xFF

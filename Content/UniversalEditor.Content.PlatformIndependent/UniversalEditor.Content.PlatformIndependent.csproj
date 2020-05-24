@@ -737,6 +737,7 @@
     <Content Include="Editors\Executable\ExecutableEditor.glade" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\MenuBar.uexml" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\Toolbox.uexml" />
+    <Content Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

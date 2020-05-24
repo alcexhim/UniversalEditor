@@ -37,12 +37,12 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 
 		protected override void DeleteInternal()
 		{
-			_parent.Editor.BeginEdit();
+			(_parent.Parent.Parent as Editor).BeginEdit();
 			for (int i = 0; i < Commands.Count; i++)
 			{
-				_parent.SelectedTrack.Commands.Remove(Commands[i]);
+				(_parent.Parent.Parent as SynthesizedAudioEditor).SelectedTrack.Commands.Remove(Commands[i]);
 			}
-			_parent.Editor.EndEdit();
+			(_parent.Parent.Parent as Editor).EndEdit();
 		}
 	}
 }
