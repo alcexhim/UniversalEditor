@@ -50,6 +50,10 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Dialogs\NotePropertiesDialog.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\PianoRollView.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\PianoRollViewSelectionMode.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditor.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackControlPanel.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrack.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackWaveform.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +72,8 @@
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Dialogs\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\" />
+    <Folder Include="Editors\Multimedia\Audio\Waveform\" />
+    <Folder Include="Editors\Multimedia\Audio\Waveform\Controls\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\" />
   </ItemGroup>
   <ItemGroup>
