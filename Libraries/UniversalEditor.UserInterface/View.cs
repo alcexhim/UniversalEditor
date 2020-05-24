@@ -23,13 +23,7 @@ using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface
 {
-	public abstract class View : CustomControl
+	public abstract class View : Container
 	{
-		public Editor Editor { get; private set; } = null;
-
-		public View(Editor parentEditor)
-		{
-			Editor = parentEditor;
-		}
 	}
 }
