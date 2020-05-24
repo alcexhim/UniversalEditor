@@ -550,15 +550,17 @@ namespace UniversalEditor.Common
 			}
 
 			Association[] associations = Association.FromCriteria(new AssociationCriteria() { Accessor = accessor });
+			List<Association> listAssocs = new List<Association>(associations);
+			listAssocs.Sort();
+
 			List<DataFormatReference> list = new List<DataFormatReference>();
-			foreach (Association association in associations)
+			foreach (Association association in listAssocs)
 			{
 				for (int i = 0; i < association.DataFormats.Count; i++)
 				{
 					list.Add(association.DataFormats[i]);
 				}
 			}
-			list.Sort(new Comparison<DataFormatReference>(_DataFormatReferenceComparer));
 
 			if (needsOpen)
 			{

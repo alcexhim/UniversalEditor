@@ -28,7 +28,7 @@ namespace UniversalEditor
 	/// <summary>
 	/// Associates <see cref="ObjectModel" />s, <see cref="DataFormat" />s, and other related Universal Editor objects.
 	/// </summary>
-	public class Association
+	public class Association : IComparable<Association>
 	{
 		/// <summary>
 		/// Defines a collection of <see cref="Association" />s.
@@ -232,6 +232,25 @@ namespace UniversalEditor
 				}
 			}
 			return associations.ToArray();
+		}
+
+		public int CompareTo(Association other)
+		{
+			int nFileFormatFilters = 0, nMagicBytes = 0;
+			foreach (DataFormatFilter filter in Filters)
+			{
+				nFileFormatFilters += filter.FileNameFilters.Count;
+				nMagicBytes += filter.MagicBytes.Count;
+			}
+
+			int nFileFormatFiltersOther = 0, nMagicBytesOther = 0;
+			foreach (DataFormatFilter filter in other.Filters)
+			{
+				nFileFormatFiltersOther += filter.FileNameFilters.Count;
+				nMagicBytesOther += filter.MagicBytes.Count;
+			}
+
+			return (nFileFormatFilters + nMagicBytes).CompareTo(nFileFormatFiltersOther + nMagicBytesOther);
 		}
 	}
 }
