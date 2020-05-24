@@ -24,9 +24,14 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 	public enum BINComponentType
 	{
 		None = 0x00,
-		Image = 0x01,
-		Unknown0x02 = 0x02,
+		Border = 0x01,
+		Button = 0x02,
 		Label = 0x08,
-		Unknown0x10 = 0x10
+		Image = 0x10,
+
+		TextBox = 0x0201,
+		DropDownList = 0x0203,
+		TextBox2 = 0x0204,
+		ListBox = 0x0205
 	}
 }

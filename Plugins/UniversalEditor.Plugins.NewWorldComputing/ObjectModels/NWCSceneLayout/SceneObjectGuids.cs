@@ -26,5 +26,7 @@ namespace UniversalEditor.ObjectModels.NWCSceneLayout
 		public static Guid Button { get; } = new Guid("{621e6323-5b10-4fb4-843b-9aa607751a7b}");
 		public static Guid Image { get; } = new Guid("{6f8d562e-8473-4872-be57-9fc04e575e9b}");
 		public static Guid Label { get; } = new Guid("{061ded85-99fd-43b0-b23d-e31c904ba397}");
+		public static Guid DropDownList { get; } = new Guid("{0fef5a86-c4e9-47b7-9d19-3e6d4e5b8d63}");
+		public static Guid ListBox { get; } = new Guid("{b9eb1120-5326-46b3-81a7-741f9b19d74f}");
 	}
 }

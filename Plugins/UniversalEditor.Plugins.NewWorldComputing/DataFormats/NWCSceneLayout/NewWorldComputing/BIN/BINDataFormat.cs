@@ -67,9 +67,53 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 				new Property(ScenePropertyGuids.Label.Text, "Text"),
 				new Property(ScenePropertyGuids.Label.FontFileName, "Font file name")
 			}, Label_Render));
+			NWCSceneLayoutLibrary.Components.Add(new Component(SceneObjectGuids.DropDownList, "Drop-down list", new Property[]
+			{
+				new Property(ScenePropertyGuids.DropDownList.BackgroundImageFileName, "Background image file name"),
+				new Property(ScenePropertyGuids.DropDownList.BackgroundImageIndex, "Background image index")
+			}, DropDownList_Render));
+			NWCSceneLayoutLibrary.Components.Add(new Component(SceneObjectGuids.ListBox, "List box", new Property[]
+			{
+				new Property(ScenePropertyGuids.DropDownList.BackgroundImageFileName, "Background image file name"),
+				new Property(ScenePropertyGuids.DropDownList.BackgroundImageIndex, "Background image index")
+			}, ListBox_Render));
 		}
 
 		static void Button_Render(ComponentInstance instance, PaintEventArgs e, Rectangle bounds)
+		{
+			Property propBackgroundImage = NWCSceneLayoutLibrary.Components[DesignerObjectGuids.Common].Properties[DesignerPropertyGuids.Common.BackgroundImage];
+			if (propBackgroundImage != null)
+			{
+				PropertyValue propVal = instance.PropertyValues[propBackgroundImage];
+				if (propVal != null)
+				{
+					PictureObjectModel pic = propVal.Value as PictureObjectModel;
+					if (pic != null)
+					{
+						e.Graphics.DrawImage(pic.ToImage(), bounds.X, bounds.Y);
+					}
+				}
+			}
+
+		}
+		static void ListBox_Render(ComponentInstance instance, PaintEventArgs e, Rectangle bounds)
+		{
+			Property propBackgroundImage = NWCSceneLayoutLibrary.Components[DesignerObjectGuids.Common].Properties[DesignerPropertyGuids.Common.BackgroundImage];
+			if (propBackgroundImage != null)
+			{
+				PropertyValue propVal = instance.PropertyValues[propBackgroundImage];
+				if (propVal != null)
+				{
+					PictureObjectModel pic = propVal.Value as PictureObjectModel;
+					if (pic != null)
+					{
+						e.Graphics.DrawImage(pic.ToImage(), bounds.X, bounds.Y);
+					}
+				}
+			}
+
+		}
+		static void DropDownList_Render(ComponentInstance instance, PaintEventArgs e, Rectangle bounds)
 		{
 			Property propBackgroundImage = NWCSceneLayoutLibrary.Components[DesignerObjectGuids.Common].Properties[DesignerPropertyGuids.Common.BackgroundImage];
 			if (propBackgroundImage != null)
@@ -140,16 +184,6 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 			ushort canvasHeight = reader.ReadUInt16();
 			designer.Designs[0].Size = new MBS.Framework.Drawing.Dimension2D(canvasWidth, canvasHeight);
 
-			string icnDataDir = ICNDataDirectory;
-			if (icnDataDir == null)
-			{
-				string fn = Accessor.GetFileName();
-				if (fn != null)
-				{
-					icnDataDir = System.IO.Path.GetDirectoryName(fn);
-				}
-			}
-
 			ushort componentCount = reader.ReadUInt16();
 			bool breakout = false;
 			while (!reader.EndOfStream && !breakout)
@@ -163,30 +197,98 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 
 				switch (componentType)
 				{
-					case BINComponentType.Image:
+					case BINComponentType.TextBox:
+					case BINComponentType.TextBox2:
+					{
+						ushort textLength = reader.ReadUInt16();
+						string text = reader.ReadFixedLengthString(textLength).TrimNull();
+
+						string fntname = reader.ReadFixedLengthString(13).TrimNull();
+
+						ushort u01 = reader.ReadUInt16();
+						ushort u02 = reader.ReadUInt16();
+
+						string icnFileName = reader.ReadFixedLengthString(13).TrimNull();
+
+						ushort lx = reader.ReadUInt16();
+						ushort ly = reader.ReadUInt16();
+						ushort lwidth = reader.ReadUInt16();
+						ushort lheight = reader.ReadUInt16();
+
+						ushort u1 = reader.ReadUInt16();
+						ushort u2 = reader.ReadUInt16();
+						ushort u3 = reader.ReadUInt16();
+						ushort u4 = reader.ReadUInt16();
+						ushort u5 = reader.ReadUInt16();
+
+						if (componentType == BINComponentType.TextBox2)
+						{
+							string w = reader.ReadFixedLengthString(u5).TrimNull();
+							string fntFileName = reader.ReadFixedLengthString(13).TrimNull();
+
+							ushort u1a = reader.ReadUInt16();
+							ushort u2a = reader.ReadUInt16();
+							ushort u3a = reader.ReadUInt16();
+							ushort u4a = reader.ReadUInt16();
+						}
+						break;
+					}
+					case BINComponentType.ListBox:
+					{
+						string fntFileName = reader.ReadFixedLengthString(13).TrimNull();
+						string icnFileName = reader.ReadFixedLengthString(13).TrimNull();
+
+						ushort lx = reader.ReadUInt16();
+						ushort ly = reader.ReadUInt16();
+						ushort lwidth = reader.ReadUInt16();
+						ushort lheight = reader.ReadUInt16();
+
+						ushort u1 = reader.ReadUInt16();
+						PictureObjectModel pic = LoadICN(icnFileName, 0);
+
+						designer.Designs[0].ComponentInstances.Add(new ComponentInstance(NWCSceneLayoutLibrary.Components[SceneObjectGuids.ListBox], new Rectangle(x, y, width, height), new PropertyValue[]
+						{
+							new PropertyValue(NWCSceneLayoutLibrary.Components[SceneObjectGuids.Image].Properties[ScenePropertyGuids.Image.BackgroundImageFileName], icnFileName),
+							new PropertyValue(NWCSceneLayoutLibrary.Components[DesignerObjectGuids.Common].Properties[DesignerPropertyGuids.Common.BackgroundImage], pic)
+						}));
+						break;
+					}
+					case BINComponentType.DropDownList:
+					{
+						string fntFileName = reader.ReadFixedLengthString(13).TrimNull();
+						string icnFileName = reader.ReadFixedLengthString(13).TrimNull();
+
+						ushort lx = reader.ReadUInt16();
+						ushort ly = reader.ReadUInt16();
+						ushort lwidth = reader.ReadUInt16();
+						ushort lheight = reader.ReadUInt16();
+
+						ushort u1 = reader.ReadUInt16();
+						ushort u2 = reader.ReadUInt16();
+						ushort u3 = reader.ReadUInt16();
+						ushort u4 = reader.ReadUInt16();
+						ushort u5 = reader.ReadUInt16();
+						ushort u6 = reader.ReadUInt16();
+
+						PictureObjectModel pic = LoadICN(icnFileName, 0);
+
+						designer.Designs[0].ComponentInstances.Add(new ComponentInstance(NWCSceneLayoutLibrary.Components[SceneObjectGuids.DropDownList], new Rectangle(x, y, width, height), new PropertyValue[]
+						{
+							new PropertyValue(NWCSceneLayoutLibrary.Components[SceneObjectGuids.Image].Properties[ScenePropertyGuids.Image.BackgroundImageFileName], icnFileName),
+							new PropertyValue(NWCSceneLayoutLibrary.Components[DesignerObjectGuids.Common].Properties[DesignerPropertyGuids.Common.BackgroundImage], pic)
+						}));
+						break;
+					}
+					case BINComponentType.Border:
 					{
 						ushort i1 = reader.ReadUInt16();                            // 65535
+
 						BINComponentFlags flags = (BINComponentFlags)reader.ReadUInt16();                            // 2049
 						if ((flags & BINComponentFlags.HasICN) == BINComponentFlags.HasICN)
 						{
 							string icnFileName = reader.ReadFixedLengthString(13).TrimNull();      // qwikhero.icn
 
-							PictureObjectModel pic = null;
-
-							string icnFullyQualifiedPath = MBS.Framework.IO.File.Find(System.IO.Path.Combine(new string[] { icnDataDir, icnFileName }), MBS.Framework.IO.CaseSensitiveHandling.CaseInsensitive);
-							if (System.IO.File.Exists(icnFullyQualifiedPath))
-							{
-								PictureCollectionObjectModel pcom = new PictureCollectionObjectModel();
-								try
-								{
-									Document.Load(pcom, icndf, new FileAccessor(icnFullyQualifiedPath));
-									pic = pcom.Pictures[0];
-								}
-								catch
-								{
-
-								}
-							}
+							PictureObjectModel pic = LoadICN(icnFileName, 0);
 
 							designer.Designs[0].ComponentInstances.Add(new ComponentInstance(NWCSceneLayoutLibrary.Components[SceneObjectGuids.Image], new Rectangle(x, y, width, height), new PropertyValue[]
 							{
@@ -204,7 +306,7 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 					{
 						ushort textLength = reader.ReadUInt16();
 						string text = reader.ReadFixedLengthString(textLength).TrimNull();
-						string fontFileName = reader.ReadFixedLengthString(13);
+						string fontFileName = reader.ReadFixedLengthString(13).TrimNull();
 
 						ushort b01 = reader.ReadUInt16();
 						ushort b02 = reader.ReadUInt16();
@@ -217,7 +319,7 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 						}));
 						break;
 					}
-					case BINComponentType.Unknown0x10:
+					case BINComponentType.Image:
 					{
 						// this is the background and shadow images
 						string icnFileName = reader.ReadFixedLengthString(13).TrimNull();
@@ -227,22 +329,7 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 						ushort b04 = reader.ReadUInt16();   // 16		16
 						ushort b05 = reader.ReadUInt16();   // 0		0
 
-						PictureObjectModel pic = null;
-
-						string icnFullyQualifiedPath = MBS.Framework.IO.File.Find(System.IO.Path.Combine(new string[] { icnDataDir, icnFileName }), MBS.Framework.IO.CaseSensitiveHandling.CaseInsensitive);
-						if (icnFullyQualifiedPath != null)
-						{
-							PictureCollectionObjectModel pcom = new PictureCollectionObjectModel();
-							try
-							{
-								Document.Load(pcom, icndf, new FileAccessor(icnFullyQualifiedPath));
-								pic = pcom.Pictures[icnIndex];
-							}
-							catch
-							{
-
-							}
-						}
+						PictureObjectModel pic = LoadICN(icnFileName, icnIndex);
 
 						designer.Designs[0].ComponentInstances.Add(new ComponentInstance(NWCSceneLayoutLibrary.Components[SceneObjectGuids.Image], new Rectangle(x, y, width, height), new PropertyValue[]
 						{
@@ -251,7 +338,7 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 						}));
 						break;
 					}
-					case BINComponentType.Unknown0x02:
+					case BINComponentType.Button:
 					{
 						string icnFileName = reader.ReadFixedLengthString(13).TrimNull();
 						ushort icnIndexStateNormal = reader.ReadUInt16();
@@ -261,22 +348,7 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 						ushort b05 = reader.ReadUInt16();
 						ushort b06 = reader.ReadUInt16();
 
-						PictureObjectModel pic = null;
-
-						string icnFullyQualifiedPath = MBS.Framework.IO.File.Find(System.IO.Path.Combine(new string[] { icnDataDir, icnFileName }), MBS.Framework.IO.CaseSensitiveHandling.CaseInsensitive);
-						if (icnFullyQualifiedPath != null)
-						{
-							PictureCollectionObjectModel pcom = new PictureCollectionObjectModel();
-							try
-							{
-								Document.Load(pcom, icndf, new FileAccessor(icnFullyQualifiedPath));
-								pic = pcom.Pictures[icnIndexStateNormal];
-							}
-							catch
-							{
-
-							}
-						}
+						PictureObjectModel pic = LoadICN(icnFileName, icnIndexStateNormal);
 
 						designer.Designs[0].ComponentInstances.Add(new ComponentInstance(NWCSceneLayoutLibrary.Components[SceneObjectGuids.Button], new Rectangle(x, y, width, height), new PropertyValue[]
 						{
@@ -296,6 +368,41 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 					}
 				}
 			}
+		}
+
+		private string icnDataDir = null;
+
+		private PictureObjectModel LoadICN(string icnFileName, int icnIndex)
+		{
+			if (icnDataDir == null)
+			{
+				icnDataDir = ICNDataDirectory;
+				if (icnDataDir == null)
+				{
+					string fn = Accessor.GetFileName();
+					if (fn != null)
+					{
+						icnDataDir = System.IO.Path.GetDirectoryName(fn);
+					}
+				}
+			}
+
+			PictureObjectModel pic = null;
+			string icnFullyQualifiedPath = MBS.Framework.IO.File.Find(System.IO.Path.Combine(new string[] { icnDataDir, icnFileName }), MBS.Framework.IO.CaseSensitiveHandling.CaseInsensitive);
+			if (System.IO.File.Exists(icnFullyQualifiedPath))
+			{
+				PictureCollectionObjectModel pcom = new PictureCollectionObjectModel();
+				try
+				{
+					Document.Load(pcom, icndf, new FileAccessor(icnFullyQualifiedPath));
+					pic = pcom.Pictures[icnIndex];
+				}
+				catch
+				{
+
+				}
+			}
+			return pic;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

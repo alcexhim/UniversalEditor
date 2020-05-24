@@ -38,5 +38,10 @@ namespace UniversalEditor.ObjectModels.NWCSceneLayout
 			public static Guid Text { get; } = new Guid("{25abbdfa-5b9d-491c-9b96-33dc0fd25156}");
 			public static Guid FontFileName { get; } = new Guid("{eca4baa1-9f92-4c80-82fa-490a758083d0}");
 		}
+		public static class DropDownList
+		{
+			public static Guid BackgroundImageFileName { get; } = new Guid("{df3a8c45-a6bf-44d3-bf46-d8569e78bc71}");
+			public static Guid BackgroundImageIndex { get; } = new Guid("{e4226ed5-0ffa-468a-972f-146c934b0aa2}");
+		}
 	}
 }
