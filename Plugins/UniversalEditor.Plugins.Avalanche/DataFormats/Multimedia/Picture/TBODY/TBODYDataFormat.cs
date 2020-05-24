@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 using UniversalEditor.ObjectModels.Multimedia.Picture;
-using UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw;
+using UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.DirectDraw;
 using UniversalEditor.Accessors;
-using UniversalEditor.DataFormats.Multimedia3D.Picture.Microsoft.DirectDraw.Internal;
+using UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.DirectDraw.Internal;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.TBODY
 {
@@ -69,11 +69,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TBODY
 			byte[] data1 = ma.ToArray();
 			ma = new MemoryAccessor(data1);
 
-			DirectDrawSurfaceDataFormat dds = new DirectDrawSurfaceDataFormat();
-			Document doc = new Document(objectModel, new DirectDrawSurfaceDataFormat(), ma);
-			doc.InputAccessor.Open();
-			doc.Load();
-			doc.InputAccessor.Close();
+			ContinueLoading(ref objectModel, new DirectDrawSurfaceDataFormat());
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
