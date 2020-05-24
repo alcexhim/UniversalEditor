@@ -53,6 +53,7 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 		private ComponentInstance dragging = null;
 		private double cx = 0, cy = 0;
 		private double dx = 0, dy = 0;
+		private double _tmpDragX = 0, _tmpDragY = 0;
 
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
@@ -70,6 +71,9 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 					if (e.Buttons == MouseButtons.Primary)
 					{
 						dragging = hit;
+						_tmpDragX = hit.X.Value;
+						_tmpDragY = hit.Y.Value;
+
 						cx = e.X;
 						cy = e.Y;
 						dx = hit.X.Value;
@@ -88,8 +92,8 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 
 			if (e.Buttons == MouseButtons.Primary && dragging != null)
 			{
-				dragging.X = new ObjectModels.Designer.Measurement(dx + (e.X - cx), ObjectModels.Designer.MeasurementUnit.Pixel);
-				dragging.Y = new ObjectModels.Designer.Measurement(dy + (e.Y - cy), ObjectModels.Designer.MeasurementUnit.Pixel);
+				_tmpDragX = dx + (e.X - cx);
+				_tmpDragY = dy + (e.Y - cy);
 				Refresh();
 			}
 			else
@@ -105,6 +109,18 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 				}
 			}
 		}
+		protected override void OnMouseUp(MouseEventArgs e)
+		{
+			base.OnMouseUp(e);
+			if (dragging != null)
+			{
+				(Parent as DesignerEditor).BeginEdit();
+				dragging.X = new ObjectModels.Designer.Measurement(dx + (e.X - cx), ObjectModels.Designer.MeasurementUnit.Pixel);
+				dragging.Y = new ObjectModels.Designer.Measurement(dy + (e.Y - cy), ObjectModels.Designer.MeasurementUnit.Pixel);
+				dragging = null;
+				(Parent as DesignerEditor).EndEdit();
+			}
+		}
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
@@ -118,6 +134,11 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 			{
 				ComponentInstance inst = SelectedDesign.ComponentInstances[i];
 				Rectangle componentRect = new MBS.Framework.Drawing.Rectangle(margin_x + inst.X.Value, margin_y + inst.Y.Value, inst.Width.Value, inst.Height.Value);
+				if (inst == dragging)
+				{
+					componentRect = new MBS.Framework.Drawing.Rectangle(margin_x + _tmpDragX, margin_y + _tmpDragY, inst.Width.Value, inst.Height.Value);
+				}
+
 				inst.Component.Render(inst, e, componentRect);
 
 				if (SelectedComponents.Contains(inst))

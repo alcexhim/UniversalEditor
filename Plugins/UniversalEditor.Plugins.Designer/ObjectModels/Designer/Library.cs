@@ -26,12 +26,20 @@ namespace UniversalEditor.ObjectModels.Designer
 	/// <summary>
 	/// Represents a collection of existing <see cref="Component" />s referenced by a component designer layout.
 	/// </summary>
-	public class Library
+	public class Library : ICloneable
 	{
 		public class LibraryCollection
 			: System.Collections.ObjectModel.Collection<Library>
 		{
 
+		}
+
+		public Library()
+		{
+			Components.Add(new Component(DesignerObjectGuids.Common, "Common", new Property[]
+			{
+				new Property(DesignerPropertyGuids.Common.BackgroundImage, "Background image")
+			}));
 		}
 
 		/// <summary>
@@ -49,5 +57,17 @@ namespace UniversalEditor.ObjectModels.Designer
 		/// </summary>
 		/// <value>The component designer components provided by this <see cref="Library" />.</value>
 		public Component.ComponentCollection Components { get; set; } = new Component.ComponentCollection();
+
+		public object Clone()
+		{
+			Library clone = new Library();
+			clone.ID = ID;
+			clone.Title = (Title.Clone() as string);
+			for (int i = 0; i < Components.Count; i++)
+			{
+				clone.Components.Add(Components[i].Clone() as Component);
+			}
+			return clone;
+		}
 	}
 }

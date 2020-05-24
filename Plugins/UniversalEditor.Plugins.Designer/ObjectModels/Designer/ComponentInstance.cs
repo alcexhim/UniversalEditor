@@ -27,7 +27,7 @@ namespace UniversalEditor.ObjectModels.Designer
 	/// <summary>
 	/// Represents an instance of a <see cref="Component" /> in a component designer layout.
 	/// </summary>
-	public class ComponentInstance
+	public class ComponentInstance : ICloneable
 	{
 		public class ComponentInstanceCollection
 			: System.Collections.ObjectModel.Collection<ComponentInstance>
@@ -49,6 +49,24 @@ namespace UniversalEditor.ObjectModels.Designer
 					PropertyValues.Add(propertyValues[i]);
 				}
 			}
+		}
+
+		public object Clone()
+		{
+			ComponentInstance clone = new ComponentInstance(Component, new Rectangle(X.Value, Y.Value, Width.Value, Height.Value));
+			clone.ID = ID;
+			clone.Component = Component;
+			for (int i = 0; i < PropertyValues.Count; i++)
+			{
+				clone.PropertyValues.Add(PropertyValues[i].Clone() as PropertyValue);
+			}
+			clone.X = X;
+			clone.Y = Y;
+			clone.Z = Z;
+			clone.Width = Width;
+			clone.Height = Height;
+			clone.Depth = Depth;
+			return clone;
 		}
 
 		/// <summary>

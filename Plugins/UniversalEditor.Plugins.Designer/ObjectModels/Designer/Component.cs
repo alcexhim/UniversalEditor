@@ -21,13 +21,16 @@
 
 using System;
 using MBS.Framework.Drawing;
+using UniversalEditor.ObjectModels.Multimedia.Picture;
+
+using UniversalEditor.Plugins.Multimedia.UserInterface;
 
 namespace UniversalEditor.ObjectModels.Designer
 {
 	/// <summary>
 	/// Represents a component in a component designer layout.
 	/// </summary>
-	public class Component
+	public class Component : ICloneable
 	{
 		public class ComponentCollection
 			: System.Collections.ObjectModel.Collection<Component>
@@ -82,5 +85,12 @@ namespace UniversalEditor.ObjectModels.Designer
 		/// </summary>
 		/// <value>The properties associated with this <see cref="Component" />.</value>
 		public Property.PropertyCollection Properties { get; } = new Property.PropertyCollection();
+
+		public object Clone()
+		{
+			Component clone = new Component(ID, (Title.Clone() as string));
+			clone.RenderDelegate = RenderDelegate;
+			return clone;
+		}
 	}
 }

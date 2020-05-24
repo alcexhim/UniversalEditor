@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using MBS.Framework.Drawing;
 
 namespace UniversalEditor.ObjectModels.Designer
@@ -26,7 +27,7 @@ namespace UniversalEditor.ObjectModels.Designer
 	/// <summary>
 	/// Represents a component designer layout in a <see cref="DesignerObjectModel" />.
 	/// </summary>
-	public class Design
+	public class Design : ICloneable
 	{
 		public class DesignCollection
 			: System.Collections.ObjectModel.Collection<Design>
@@ -41,5 +42,16 @@ namespace UniversalEditor.ObjectModels.Designer
 		public ComponentInstance.ComponentInstanceCollection ComponentInstances { get; } = new ComponentInstance.ComponentInstanceCollection();
 
 		public Dimension2D Size { get; set; } = new Dimension2D(600, 400);
+
+		public object Clone()
+		{
+			Design clone = new Design();
+			for (int i = 0; i < ComponentInstances.Count; i++)
+			{
+				clone.ComponentInstances.Add(ComponentInstances[i].Clone() as ComponentInstance);
+			}
+			clone.Size = Size;
+			return clone;
+		}
 	}
 }

@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace UniversalEditor.ObjectModels.Designer
 {
 	/// <summary>
@@ -66,5 +68,17 @@ namespace UniversalEditor.ObjectModels.Designer
 		/// </summary>
 		/// <value>The value of the property.</value>
 		public object Value { get; set; } = null;
+
+		public object Clone()
+		{
+			object value = Value;
+			if (Value is ICloneable)
+			{
+				value = (Value as ICloneable).Clone();
+			}
+
+			PropertyValue clone = new PropertyValue(Property, value);
+			return clone;
+		}
 	}
 }

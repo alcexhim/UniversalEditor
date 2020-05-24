@@ -84,6 +84,7 @@
     <Compile Include="DataFormats\NWCSceneLayout\NewWorldComputing\BIN\BINDataFormat.cs" />
     <Compile Include="DataFormats\NWCSceneLayout\NewWorldComputing\BIN\BINComponentType.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\NewWorldComputing\TIL\TILDataFormat.cs" />
+    <Compile Include="DataFormats\NWCSceneLayout\NewWorldComputing\BIN\BINComponentFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -113,6 +114,10 @@
     <ProjectReference Include="..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins.UserInterface\UniversalEditor.Plugins.Multimedia.UserInterface\UniversalEditor.Plugins.Multimedia.UserInterface.csproj">
+      <Project>{D9D5AC3B-9AC0-4D4E-B295-2134FDCF166C}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

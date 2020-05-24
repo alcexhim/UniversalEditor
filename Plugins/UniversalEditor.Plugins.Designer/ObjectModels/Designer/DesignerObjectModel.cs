@@ -39,7 +39,17 @@ namespace UniversalEditor.ObjectModels.Designer
 
 		public override void CopyTo(ObjectModel where)
 		{
-			throw new NotImplementedException();
+			DesignerObjectModel clone = (where as DesignerObjectModel);
+			if (clone == null) throw new ObjectModelNotSupportedException();
+
+			for (int i = 0; i < Designs.Count; i++)
+			{
+				clone.Designs.Add(Designs[i].Clone() as Design);
+			}
+			for (int i = 0; i < Libraries.Count; i++)
+			{
+				clone.Libraries.Add(Libraries[i].Clone() as Library);
+			}
 		}
 
 		private static ObjectModelReference _omr = null;
