@@ -55,6 +55,7 @@
     <Compile Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrack.cs" />
     <Compile Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackWaveform.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditorSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />

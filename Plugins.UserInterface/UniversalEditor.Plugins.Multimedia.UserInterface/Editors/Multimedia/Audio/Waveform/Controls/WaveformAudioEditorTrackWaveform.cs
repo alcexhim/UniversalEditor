@@ -48,9 +48,19 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 		public double ScaleFactorY { get; set; } = 0.5;// 1.0;
 
 		private int origStart = 0;
+		private bool appendSelection = false;
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
 			base.OnMouseDown(e);
+
+			if ((e.ModifierKeys & MBS.Framework.UserInterface.Input.Keyboard.KeyboardModifierKey.Control) == MBS.Framework.UserInterface.Input.Keyboard.KeyboardModifierKey.Control)
+			{
+				appendSelection = true;
+			}
+			else
+			{
+				(Parent.Parent as WaveformAudioEditor).Selections.Clear();
+			}
 
 			origStart = (int)e.X;
 			_SelectionStart = (int)e.X;
@@ -76,6 +86,17 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 				Refresh();
 			}
 		}
+		protected override void OnMouseUp(MouseEventArgs e)
+		{
+			base.OnMouseUp(e);
+
+			WaveformAudioEditorSelection sel = new WaveformAudioEditorSelection((Parent.Parent as WaveformAudioEditor), SelectionStart, SelectionLength);
+			if (!appendSelection)
+			{
+				(Parent.Parent as WaveformAudioEditor).Selections.Clear();
+			}
+			(Parent.Parent as WaveformAudioEditor).Selections.Add(sel);
+		}
 
 		private const int WAVEFORM_MIDPOINT = 128;
 
@@ -92,12 +113,25 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			Pen pen = new Pen(SystemColors.HighlightBackground);
 			Pen pen2 = new Pen(SystemColors.HighlightForeground);
 
+			// draw the existing selections backgrounds
+			WaveformAudioEditor ed = (Parent.Parent as WaveformAudioEditor);
+			for (int i = 0; i < ed.Selections.Count; i++)
+			{
+				if ((ed.Selections[i] as WaveformAudioEditorSelection).SelectionLength > 0)
+				{
+					e.Graphics.FillRectangle(new SolidBrush(SystemColors.HighlightBackground), new Rectangle((ed.Selections[i] as WaveformAudioEditorSelection).SelectionStart, 0, (ed.Selections[i] as WaveformAudioEditorSelection).SelectionLength, Size.Height));
+				}
+			}
+
+			// draw the currently active selection background
 			if (SelectionLength > 0)
 			{
 				e.Graphics.FillRectangle(new SolidBrush(SystemColors.HighlightBackground), new Rectangle(SelectionStart, 0, SelectionLength, Size.Height));
 			}
 
+			// draw the midpoint line
 			e.Graphics.DrawLine(new Pen(Colors.Black), 0, WAVEFORM_MIDPOINT * ScaleFactorY, HorizontalAdjustment.Value + Size.Width, WAVEFORM_MIDPOINT * ScaleFactorY);
+			// draw the currently active selection start line
 			e.Graphics.DrawLine(new Pen(Colors.White), SelectionStart, 0, SelectionStart, Size.Height);
 
 			for (int i = 0; i < wave.RawSamples.Length; i++)
@@ -111,7 +145,19 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 				}
 				else
 				{
-					e.Graphics.DrawLine(pen, lastPoint.X, lastPoint.Y, x, y);
+					bool drawn = false;
+					for (int j = 0; j < ed.Selections.Count; j++)
+					{
+						if (x >= (ed.Selections[j] as WaveformAudioEditorSelection).SelectionStart && x <= (((ed.Selections[j] as WaveformAudioEditorSelection).SelectionLength) + (ed.Selections[j] as WaveformAudioEditorSelection).SelectionLength))
+						{
+							e.Graphics.DrawLine(pen2, lastPoint.X, lastPoint.Y, x, y);
+							drawn = true;
+							break;
+						}
+					}
+
+					if (!drawn)
+						e.Graphics.DrawLine(pen, lastPoint.X, lastPoint.Y, x, y);
 				}
 				lastPoint = new Vector2D(x, y);
 			}
