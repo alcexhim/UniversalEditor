@@ -35,8 +35,13 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 	/// <summary>
 	/// Provides a UWT-based Editor for <see cref="PictureCollectionObjectModel"/>.
 	/// </summary>
+	[ContainerLayout("~/Editors/Multimedia/PictureCollection/PictureCollectionEditor.glade")]
 	public class PictureCollectionEditor : Editor
 	{
+		private Button cmdSave;
+		private Button cmdSaveAll;
+		private NumericTextBox txtFrameIndex;
+
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
 		{
@@ -48,29 +53,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			return _er;
 		}
 
-		private Button cmdSave = null;
-		private Button cmdSaveAll = null;
-		private NumericTextBox txtFrameIndex = new NumericTextBox();
-
-		public PictureCollectionEditor()
-		{
-			Layout = new BoxLayout(Orientation.Vertical);
-
-			txtFrameIndex.Changed += txtFrameIndex_Changed;
-			Controls.Add(txtFrameIndex, new BoxLayout.Constraints(false, false));
-
-			cmdSave = new Button(StockType.Save);
-			cmdSave.Click += CmdSave_Click;
-			Controls.Add(cmdSave, new BoxLayout.Constraints(false, false));
-
-			cmdSaveAll = new Button("Save All");
-			cmdSaveAll.Click += CmdSaveAll_Click;
-			Controls.Add(cmdSaveAll, new BoxLayout.Constraints(false, false));
-
-			picFrame = new PictureFrame();
-			Controls.Add(picFrame, new BoxLayout.Constraints(false, false));
-		}
-
+		[EventHandler(nameof(txtFrameIndex), "Changed")]
 		private void txtFrameIndex_Changed(object sender, EventArgs e)
 		{
 			PictureCollectionObjectModel coll = (ObjectModel as PictureCollectionObjectModel);
@@ -82,9 +65,18 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 				picFrame.Image = coll.Pictures[(int)txtFrameIndex.Value].ToImage();
 		}
 
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			OnObjectModelChanged(e);
+		}
+
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);
+
+			if (!IsCreated) return;
 
 			cmdSave.Enabled = false;
 			cmdSaveAll.Enabled = false;
@@ -127,6 +119,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 
 		private PictureFrame picFrame = null;
 
+		[EventHandler(nameof(cmdSave), "Click")]
 		void CmdSave_Click(object sender, EventArgs e)
 		{
 			PictureCollectionObjectModel coll = ObjectModel as PictureCollectionObjectModel;
@@ -147,6 +140,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 				Document.Save(pic, bmp, fa, true);
 			}
 		}
+		[EventHandler(nameof(cmdSaveAll), "Click")]
 		void CmdSaveAll_Click(object sender, EventArgs e)
 		{
 			FileDialog dlg = new FileDialog();

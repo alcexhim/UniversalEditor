@@ -740,6 +740,7 @@
     <Content Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackControlPanel.glade" />
     <Content Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrack.glade" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.glade" />
+    <Content Include="Editors\Multimedia\PictureCollection\PictureCollectionEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
