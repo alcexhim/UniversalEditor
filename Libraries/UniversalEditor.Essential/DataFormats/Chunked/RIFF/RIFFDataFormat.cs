@@ -69,7 +69,7 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ChunkedObjectModel riff = objectModel as ChunkedObjectModel;
-			if (riff == null) return;
+			if (riff == null) throw new ObjectModelNotSupportedException();
 
 			Reader br = base.Accessor.Reader;
 			string tagRIFF = br.ReadFixedLengthString(4);
@@ -134,7 +134,7 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 						string id = br.ReadFixedLengthString(4);
 						chunk.ID = id;
 
-						long chunkPos = 0;
+						long chunkPos = 12;
 						while (chunkPos < length)
 						{
 							int l = 0;
