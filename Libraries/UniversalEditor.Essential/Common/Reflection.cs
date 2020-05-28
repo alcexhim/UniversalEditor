@@ -366,6 +366,14 @@ namespace UniversalEditor.Common
 							}
 							doc.InputAccessor.Close();
 						}
+						catch (ObjectModelNotSupportedException ex)
+						{
+							if (!(Array.IndexOf(dfrs, df) < dfrs.Length - 1))
+							{
+								throw ex;
+							}
+							doc.InputAccessor.Close();
+						}
 					}
 					return (T)om;
 				}
