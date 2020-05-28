@@ -32,7 +32,7 @@ using System.Text;
 
 namespace UniversalEditor.UserInterface
 {
-	public class MainWindow : Window, IHostApplicationWindow
+	public class MainWindow : MBS.Framework.UserInterface.MainWindow, IHostApplicationWindow
 	{
 		private DockingContainerControl dckContainer = null;
 
