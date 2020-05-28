@@ -56,6 +56,7 @@
     <Compile Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackWaveform.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.cs" />
     <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditorSelection.cs" />
+    <Compile Include="Editors\Multimedia\PictureCollection\Dialogs\AnimationPropertiesDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -76,6 +77,7 @@
     <Folder Include="Editors\Multimedia\Audio\Waveform\" />
     <Folder Include="Editors\Multimedia\Audio\Waveform\Controls\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\" />
+    <Folder Include="Editors\Multimedia\PictureCollection\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

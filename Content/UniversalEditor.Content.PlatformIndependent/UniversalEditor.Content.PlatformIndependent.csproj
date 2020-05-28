@@ -741,6 +741,7 @@
     <Content Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrack.glade" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.glade" />
     <Content Include="Editors\Multimedia\PictureCollection\PictureCollectionEditor.glade" />
+    <Content Include="Editors\Multimedia\PictureCollection\Dialogs\AnimationPropertiesDialog.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
