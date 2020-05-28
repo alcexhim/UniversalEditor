@@ -734,6 +734,7 @@
     <Content Include="Extensions\Amiga\Associations\FileSystem\ADFDiskImage.uexml" />
     <Content Include="Editors\Designer\DesignerEditor.glade" />
     <Content Include="Editors\Executable\ExecutableEditor.glade" />
+    <Content Include="Extensions\GraphicDesigner\Associations\Picture\XPM.uexml" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\MenuBar.uexml" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\Toolbox.uexml" />
     <Content Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackControlPanel.glade" />

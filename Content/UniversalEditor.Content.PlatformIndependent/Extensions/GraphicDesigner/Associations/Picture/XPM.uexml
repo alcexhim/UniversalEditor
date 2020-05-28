@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="X PixMap (XBM/XPM) image">
+					<FileNameFilters>
+						<FileNameFilter>*.xbm</FileNameFilter>
+						<FileNameFilter>*.xpm</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.XPM.XPMDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

@@ -321,6 +321,8 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDIFileFormatType.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDIEventType.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\MIDI\MIDIMetaEventType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\XPM\XPMDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\XPM\XPMFormatVersion.cs" />
     <Compile Include="ObjectModels\Multimedia\SpriteAnimationCollection\SpriteAnimationCollectionObjectModel.cs" />
     <Compile Include="ObjectModels\Multimedia\SpriteAnimationCollection\SpriteAnimation.cs" />
   </ItemGroup>
@@ -373,6 +375,7 @@
     <Folder Include="DataFormats\Multimedia\Audio\Waveform\CRI\" />
     <Folder Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\" />
     <Folder Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\" />
+    <Folder Include="DataFormats\Multimedia\Picture\XPM\" />
     <Folder Include="ObjectModels\Multimedia\SpriteAnimationCollection\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
