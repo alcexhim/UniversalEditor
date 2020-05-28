@@ -1,10 +1,10 @@
 ﻿//
-//  Heroes3GameType.cs - indicates the game campaign type supported by a Heroes of Might and Magic III game map
+//  MonsterFragment.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2011-2020 Mike Becker's Software
+//  Copyright (c) 2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,17 +18,22 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+using UniversalEditor.IO;
+using UniversalEditor.ObjectModels.NewWorldComputing.Map;
 
-namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes3
+namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes2
 {
-	/// <summary>
-	/// Indicates the game campaign type supported by a Heroes of Might and Magic III game map.
-	/// </summary>
-	public enum Heroes3GameType
+	public class MonsterFragment : DataFormatFragment<MapArmyMonster>
 	{
-		RestorationOfErathia = 0x0000000E,
-		ArmageddonsBlade = 0x00000015,
-		ShadowOfDeath = 0x0000001C,
-		WakeOfGods = 0x00000033
+		protected override MapArmyMonster ReadInternal(Reader reader)
+		{
+			MapArmyMonster item = null;  //new MapArmyMonster();
+			return item;
+		}
+		protected override void WriteInternal(Writer writer, MapArmyMonster value)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

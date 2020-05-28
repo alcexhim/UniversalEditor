@@ -38,7 +38,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.NewWorldComputing.Map.MapObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes2.Heroes2MapDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes2.Heroes2MapDataFormat" />
 			</DataFormats>
 		</Association>
 		<Association>
@@ -67,7 +67,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.NewWorldComputing.Map.MapObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes3.Heroes3MapDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes3.Heroes3MapDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

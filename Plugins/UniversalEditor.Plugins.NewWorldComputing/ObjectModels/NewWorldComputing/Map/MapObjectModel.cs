@@ -64,6 +64,9 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 		/// <value>The win conditions.</value>
 		public MapWinCondition WinConditions { get; set; } = MapWinCondition.None;
 
+		public MapWinCondition ComputerAlsoWins { get; set; } = MapWinCondition.None;
+		public bool AllowNormalVictory { get; set; } = false;
+
 		/// <summary>
 		/// Indicates the condition(s) required to lose a game using this map.
 		/// </summary>
@@ -74,5 +77,8 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 		public string Description { get; set; } = String.Empty;
 
 		public MapTile.MapTileCollection Tiles { get; } = new MapTile.MapTileCollection();
+		public MapItem.MapItemCollection Items { get; } = new MapItem.MapItemCollection();
+
+		public byte ObeliskCount { get; set; } = 0;
 	}
 }

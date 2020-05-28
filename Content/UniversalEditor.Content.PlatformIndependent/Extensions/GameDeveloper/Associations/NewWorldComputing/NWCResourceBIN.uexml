@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="New World Computing general resources file">
+				<Filter Title="New World Computing window layout file">
 					<FileNameFilters>
 						<FileNameFilter>*.bin</FileNameFilter>
 					</FileNameFilters>
@@ -14,6 +14,21 @@
 			</ObjectModels>
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN.BINDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="New World Computing animation definition file">
+					<FileNameFilters>
+						<FileNameFilter>*.bin</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.SpriteAnimationCollection.SpriteAnimationCollectionObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.NewWorldComputing.Animation.BINDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

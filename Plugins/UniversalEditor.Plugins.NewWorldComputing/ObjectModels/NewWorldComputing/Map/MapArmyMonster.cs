@@ -24,9 +24,21 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 	/// <summary>
 	/// Represents an army monster placed on a Heroes of Might and Magic map.
 	/// </summary>
-	public class MapArmyMonster
+	public class MapArmyMonster : MapItem
     {
+		public class MapArmyMonsterCollection
+			: System.Collections.ObjectModel.Collection<MapArmyMonster>
+		{
+
+		}
+
 		public ushort Amount { get; set; } = 0;
 		public MapMonsterType MonsterType { get; set; } = MapMonsterType.Unknown;
-    }
+
+		public MapArmyMonster(MapMonsterType monsterType, ushort amount)
+		{
+			MonsterType = monsterType;
+			Amount = amount;
+		}
+	}
 }

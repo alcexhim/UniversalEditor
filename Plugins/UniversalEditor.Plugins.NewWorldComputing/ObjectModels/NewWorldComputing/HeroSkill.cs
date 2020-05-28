@@ -1,10 +1,10 @@
 ﻿//
-//  Heroes3GameType.cs - indicates the game campaign type supported by a Heroes of Might and Magic III game map
+//  HeroSkill.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2011-2020 Mike Becker's Software
+//  Copyright (c) 2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,17 +18,24 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes3
+using System;
+namespace UniversalEditor.ObjectModels.NewWorldComputing
 {
-	/// <summary>
-	/// Indicates the game campaign type supported by a Heroes of Might and Magic III game map.
-	/// </summary>
-	public enum Heroes3GameType
+	public class HeroSkill
 	{
-		RestorationOfErathia = 0x0000000E,
-		ArmageddonsBlade = 0x00000015,
-		ShadowOfDeath = 0x0000001C,
-		WakeOfGods = 0x00000033
+		public class HeroSkillCollection
+			: System.Collections.ObjectModel.Collection<HeroSkill>
+		{
+
+		}
+
+		public HeroSkillType Type { get; set; }
+		public HeroSkillLevel Level { get; set; } = HeroSkillLevel.Basic;
+
+		public HeroSkill(HeroSkillType type, HeroSkillLevel level)
+		{
+			Type = type;
+			Level = level;
+		}
 	}
 }

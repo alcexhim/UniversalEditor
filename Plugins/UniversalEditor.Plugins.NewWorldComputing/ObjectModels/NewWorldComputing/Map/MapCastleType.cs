@@ -26,12 +26,14 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 	/// </summary>
 	public enum MapCastleType : byte
 	{
+		Unknown = 0xFF,
 		Knight = 0,
 		Barbarian = 1,
 		Sorceress = 2,
 		Warlock = 3,
 		Wizard = 4,
 		Necroman = 5,
-		Unknown = 6
+		Multiple = 6,
+		Random = 7
 	}
 }

@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="New World Computing palette">
+				<Filter Title="New World Computing KB palette">
 					<FileNameFilters>
 						<FileNameFilter>*.pal</FileNameFilter>
 					</FileNameFilters>
@@ -14,6 +14,27 @@
 			</ObjectModels>
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing.KBPaletteDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="New World Computing RIFF palette">
+					<FileNameFilters>
+						<FileNameFilter>*.pal</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">RIFF</MagicByte>
+							<MagicByte Type="String" Offset="8">PAL </MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Palette.PaletteObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing.RIFFPaletteDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

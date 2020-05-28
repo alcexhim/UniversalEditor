@@ -85,6 +85,25 @@
     <Compile Include="DataFormats\NWCSceneLayout\NewWorldComputing\BIN\BINComponentType.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\NewWorldComputing\TIL\TILDataFormat.cs" />
     <Compile Include="DataFormats\NWCSceneLayout\NewWorldComputing\BIN\BINComponentFlags.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\Map\MapEvent.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\Map\MapItemType.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\Map\MapItem.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\Map\MapHero.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\Map\MapArtifact.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\Map\MapArtifactType.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\HeroSkill.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\HeroSkillLevel.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\HeroSkillType.cs" />
+    <Compile Include="ObjectModels\NewWorldComputing\Map\MapResourceType.cs" />
+    <Compile Include="DataFormats\NewWorldComputing\WorldMap2D\NewWorldComputing\Heroes2\CastleFragment.cs" />
+    <Compile Include="DataFormats\NewWorldComputing\WorldMap2D\NewWorldComputing\Heroes2\MonsterFragment.cs" />
+    <Compile Include="DataFormats\NewWorldComputing\WorldMap2D\NewWorldComputing\Heroes2\HeroFragment.cs" />
+    <Compile Include="DataFormats\NewWorldComputing\WorldMap2D\NewWorldComputing\Heroes2\TileFragment.cs" />
+    <Compile Include="DataFormats\NewWorldComputing\WorldMap2D\NewWorldComputing\Heroes2\EventFragment.cs" />
+    <Compile Include="DataFormats\NewWorldComputing\Animation\BINDataFormat.cs" />
+    <Compile Include="DataFormats\NewWorldComputing\Animation\BINAnimationType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\NewWorldComputing\PCX\PCXDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\NewWorldComputing\RIFFPaletteDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -126,6 +145,8 @@
   <ItemGroup>
     <Folder Include="DataFormats\NWCSceneLayout\NewWorldComputing\BIN\" />
     <Folder Include="DataFormats\Multimedia\Picture\NewWorldComputing\TIL\" />
+    <Folder Include="DataFormats\NewWorldComputing\Animation\" />
+    <Folder Include="DataFormats\Multimedia\Picture\NewWorldComputing\PCX\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

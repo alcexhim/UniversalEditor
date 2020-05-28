@@ -26,7 +26,7 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 	/// <summary>
 	/// Defines characteristics related to a castle placed on a map.
 	/// </summary>
-	public class MapCastle
+	public class MapCastle : MapItem
 	{
 		private MapCastleColor mvarColor = MapCastleColor.Unknown;
 		public MapCastleColor Color { get { return mvarColor; } set { mvarColor = value; } }

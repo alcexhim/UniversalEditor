@@ -608,7 +608,6 @@
     <Content Include="Editors\FileSystem\Commands.uexml" />
     <Content Include="splash.bmp" />
     <Content Include="Editors\Executable\Commands.uexml" />
-    <Content Include="Extensions\GraphicDesigner\Associations\Palette\NewWorldComputingPAL.uexml" />
     <Content Include="Extensions\Microsoft\Associations\RKV.uexml" />
     <Content Include="Panels\SolutionExplorer\Languages\English.uexml" />
     <Content Include="Panels\SolutionExplorer\Commands.uexml" />

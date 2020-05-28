@@ -22,7 +22,7 @@
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.NewWorldComputing.Map;
 
-namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes3
+namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes3
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating Heroes of Might and Magic III map files.

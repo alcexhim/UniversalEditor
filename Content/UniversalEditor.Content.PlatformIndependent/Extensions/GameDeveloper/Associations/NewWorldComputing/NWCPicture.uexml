@@ -47,5 +47,20 @@
 				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.TIL.TILDataFormat" />
 			</DataFormats>
 		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Heroes of Might and Magic PCX image">
+					<FileNameFilters>
+						<FileNameFilter>*.pcx</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.PCX.PCXDataFormat" />
+			</DataFormats>
+		</Association>
 	</Associations>
 </UniversalEditor>

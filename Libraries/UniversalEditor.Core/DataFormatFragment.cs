@@ -1,10 +1,10 @@
 ﻿//
-//  Heroes3GameType.cs - indicates the game campaign type supported by a Heroes of Might and Magic III game map
+//  DataFormatFragment.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2011-2020 Mike Becker's Software
+//  Copyright (c) 2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,16 +19,23 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes3
+using System;
+using UniversalEditor.IO;
+
+namespace UniversalEditor
 {
-	/// <summary>
-	/// Indicates the game campaign type supported by a Heroes of Might and Magic III game map.
-	/// </summary>
-	public enum Heroes3GameType
+	public abstract class DataFormatFragment<T>
 	{
-		RestorationOfErathia = 0x0000000E,
-		ArmageddonsBlade = 0x00000015,
-		ShadowOfDeath = 0x0000001C,
-		WakeOfGods = 0x00000033
+		protected abstract T ReadInternal(IO.Reader reader);
+		protected abstract void WriteInternal(IO.Writer writer, T value);
+
+		public T Read(IO.Reader reader)
+		{
+			return ReadInternal(reader);
+		}
+		public void Write(IO.Writer writer, T value)
+		{
+			WriteInternal(writer, value);
+		}
 	}
 }

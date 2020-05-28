@@ -173,6 +173,12 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 			if (designer == null)
 				throw new ObjectModelNotSupportedException();
 
+			// HACK: because there simply is no better way to differentiate between window layout BINs and animation BINs (except maybe filename ending in FRM.BIN)
+			if (Accessor.Length == 821 && Accessor.GetFileName().EndsWith("FRM.BIN"))
+			{
+				throw new InvalidDataFormatException(); // to kick it to the *other* BIN format
+			}
+
 			if (!designer.Libraries.Contains(NWCSceneLayoutLibrary))
 				designer.Libraries.Add(NWCSceneLayoutLibrary);
 

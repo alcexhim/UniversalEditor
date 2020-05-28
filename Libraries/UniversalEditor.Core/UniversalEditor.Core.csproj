@@ -91,6 +91,7 @@
     <Compile Include="CustomOptionAttribute.cs" />
     <Compile Include="IO\Transformations\XorTransformation.cs" />
     <Compile Include="IO\Transformation.cs" />
+    <Compile Include="DataFormatFragment.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

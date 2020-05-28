@@ -36,5 +36,16 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 		/// </summary>
 		/// <value>The type of the ground.</value>
 		public MapGroundType GroundType { get; set; } = MapGroundType.Unknown;
-    }
+		public byte ObjectName1 { get; set; }
+		public byte IndexName1 { get; set; }
+		public byte Quantity1 { get; set; }
+		public byte Quantity2 { get; set; }
+		public byte ObjectName2 { get; set; }
+		public byte IndexName2 { get; set; }
+		public byte Shape { get; set; }
+		public byte GeneralObject { get; set; }
+		public ushort IndexAddon { get; set; }
+		public uint UniqNumber1 { get; set; }
+		public uint UniqNumber2 { get; set; }
+	}
 }

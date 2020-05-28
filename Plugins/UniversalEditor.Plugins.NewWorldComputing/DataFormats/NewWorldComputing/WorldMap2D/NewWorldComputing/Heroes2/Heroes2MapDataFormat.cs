@@ -20,9 +20,11 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using UniversalEditor.IO;
+using UniversalEditor.ObjectModels.NewWorldComputing;
 using UniversalEditor.ObjectModels.NewWorldComputing.Map;
 
-namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes2
+namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldComputing.Heroes2
 {
 	/// <summary>
 	/// Pprovides a <see cref="DataFormat" /> for manipulating Heroes of Might and Magic II map files.
@@ -119,138 +121,173 @@ namespace UniversalEditor.DataFormats.Gaming.WorldMap2D.NewWorldComputing.Heroes
 			#endregion
 
 			// kingdom count
-			br.Accessor.Seek(0x1A, IO.SeekOrigin.Begin);
 			byte kingdomCount = br.ReadByte();
+			byte nCount1 = br.ReadByte(); // idk?
+			byte nCount2 = br.ReadByte(); // idk?
 
-			br.Accessor.Seek(0x1D, IO.SeekOrigin.Begin);
 			map.WinConditions = (MapWinCondition)br.ReadByte();
+			map.ComputerAlsoWins = (MapWinCondition)br.ReadByte();
+			map.AllowNormalVictory = br.ReadBoolean();
 
-			byte wins1 = br.ReadByte();
-			byte wins2 = br.ReadByte();
 			ushort wins3 = br.ReadUInt16();
-			br.Accessor.Seek(0x2C, IO.SeekOrigin.Begin);
-			ushort wins4 = br.ReadUInt16();
 
-			br.Accessor.Seek(0x22, IO.SeekOrigin.Begin);
 			map.LoseConditions = (MapLoseCondition)br.ReadByte();
-
-			ushort loss1 = br.ReadUInt16();
-			br.Accessor.Seek(0x2E, IO.SeekOrigin.Begin);
-			ushort loss2 = br.ReadUInt16();
+			ushort u2 = br.ReadUInt16();
 
 			// starting hero
-			br.Accessor.Seek(0x25, IO.SeekOrigin.Begin);
 			byte startingHero = br.ReadByte();
 			bool withHeroes = (startingHero == 0);
 
-			byte[] races = br.ReadBytes(5);
+			byte[] races = br.ReadBytes(6);
 
-			// name 
+			ushort wins2 = br.ReadUInt16();
+			ushort loss2 = br.ReadUInt16();
+
+			// map name
 			br.Accessor.Seek(0x3A, IO.SeekOrigin.Begin);
-			map.Name = br.ReadFixedLengthString(16);
-			map.Name = map.Name.TrimNull();
-			// name 
+			map.Name = br.ReadFixedLengthString(16).TrimNull();
+
+			// map description
 			br.Accessor.Seek(0x76, IO.SeekOrigin.Begin);
-			map.Description = br.ReadFixedLengthString(143);
-			map.Description = map.Description.TrimNull();
+			map.Description = br.ReadFixedLengthString(143).TrimNull();
 
 			byte[] unknown = br.ReadBytes(157);
 
-			ushort unknown2 = br.ReadUInt16();
+			ushort nObjects = br.ReadUInt16();
 
-			// 33044 bytes between here and there - tiles (36 * 36 * 25 bytes per tile)
+			// 33044 bytes between here and there - tiles (width * height * 20 bytes per tile)
+			uint width = br.ReadUInt32();
+			uint height = br.ReadUInt32();
 
-			long pos = br.Accessor.Position;
-			br.Accessor.Position = pos;
-
-			for (ushort i = 0; i < unknown2; i++)
-			{
-				MapTile tile = ReadTile(br);
-			}
+			TileFragment fragTile = new TileFragment();
 
 			for (int y = 0; y < map.Height; y++)
 			{
 				for (int x = 0; x < map.Width; x++)
 				{
-					MapTile tile = ReadTile(br);
+					MapTile tile = fragTile.Read(br);
 					map.Tiles.Add(tile);
 				}
 			}
 
-			#region Castle
-			for (byte i = 0; i < kingdomCount; i++)
+			// addons
+			uint nAddons = br.ReadUInt32();
+			for (uint i = 0; i < nAddons; i++)
 			{
-				MapCastle castle = ReadCastle(br);
+				ushort indexAddon = br.ReadUInt16();
+				byte objectNameN1 = br.ReadByte();
+				objectNameN1 *= 2; // idk
+				byte indexNameN1 = br.ReadByte();
+				byte quantityN = br.ReadByte();
+				byte objectNameN2 = br.ReadByte();
+				byte indexNameN2 = br.ReadByte();
+				uint uniqNumberN1 = br.ReadUInt32();
+				uint uniqNumberN2 = br.ReadUInt32();
 			}
-			#endregion
+
+			for (int i = 0; i < 72; i++)
+			{
+				// castle coordinates
+				// 72 x 3 byte (cx, cy, id)
+				byte cx = br.ReadByte();
+				byte cy = br.ReadByte();
+				byte id = br.ReadByte();
+
+				if (cx == 0xFF && cy == 0xFF)
+					continue;
+
+				bool isCastle = false;
+				if ((id & 0x80) == 0x80)
+				{
+					isCastle = true;
+					id = (byte)(id & ~0x80);
+				}
+
+				MapCastleType castleType = (MapCastleType)id;
+				// map.Castles.Add(new MapCastle(castleType, cx, cy, isCastle));
+			}
+
+			// kingdom resource coordinates
+			for (int i = 0; i < 144; i++)
+			{
+				byte cx = br.ReadByte();
+				byte cy = br.ReadByte();
+				byte id = br.ReadByte();
+
+				if (cx == 0xFF && cy == 0xFF)
+					continue;
+
+				MapResourceType resourceType = (MapResourceType)id;
+
+			}
+
+			map.ObeliskCount = br.ReadByte();
+			return;
+
+			// idk wtf this is
+			uint countBlock = 0;
+			while (!br.EndOfStream)
+			{
+				byte l = br.ReadByte();
+				byte h = br.ReadByte();
+				if (l == 0 && h == 0)
+					break;
+				countBlock = (uint)(256 * (h + l) - 1); // wtf
+			}
+
+			MonsterFragment fragMonster = new MonsterFragment();
+			CastleFragment fragCastle = new CastleFragment();
+			HeroFragment fragHero = new HeroFragment();
+			EventFragment fragEvent = new EventFragment();
+
+			for (ushort i = 0; i < countBlock; i++)
+			{
+				ushort blockSize = br.ReadUInt16();
+
+				MapTile tile = FindObject(map, i);
+				switch ((MapItemType)blockSize)
+				{
+					case MapItemType.Monster:
+					{
+						MapArmyMonster item = fragMonster.Read(br);
+						map.Items.Add(item);
+						break;
+					}
+					case MapItemType.Castle:
+					{
+						MapCastle castle = fragCastle.Read(br);
+						map.Items.Add(castle);
+						break;
+					}
+					case MapItemType.Hero:
+					{
+						MapHero hero = fragHero.Read(br);
+						map.Items.Add(hero);
+						break;
+					}
+				}
+			}
 		}
 
-		private MapTile ReadTile(IO.Reader br)
+		private MapTile FindObject(MapObjectModel map, ushort i)
 		{
-			MapTile tile = new MapTile();
-			tile.GroundType = (MapGroundType)br.ReadUInt16();       // tile (ocean, grass, snow, swamp, lava, desert, dirt, wasteland, beach)
-			byte objectName1 = br.ReadByte();       // level 1.0
-			byte indexName1 = br.ReadByte();        // index level 1.0 or 0xFF
-			byte quantity1 = br.ReadByte();         // count
-			byte quantity2 = br.ReadByte();         // count
-			byte objectName2 = br.ReadByte();       // level 2.0
-			byte indexName2 = br.ReadByte();        // index level 2.0 or 0xFF
-			byte shape = br.ReadByte();             // shape reflect % 4, 0 none, 1 vertical, 2 horizontal, 3 any
-			byte generalObject = br.ReadByte();     // zero or object
-			ushort indexAddon = br.ReadUInt16();    // zero or index addons_t
-			uint uniqNumber1 = br.ReadUInt32();     // level 1.0
-			uint uniqNumber2 = br.ReadUInt32();     // level 2.0
-
-			byte[] unknown = br.ReadBytes(5);
-			// 259229
-			return tile;
-
-			ushort indexAddonN = br.ReadUInt16();   // zero or next addons_t
-			byte objectNameN1 = br.ReadByte();  // level 1.N
-			byte indexNameN1 = br.ReadByte();   // level 1.N or 0xFF
-			byte quantityN = br.ReadByte(); //
-			byte objectNameN2 = br.ReadByte();  // level 2.N
-			byte indexNameN2 = br.ReadByte();   // level 1.N or 0xFF
-			uint uniqNumberN1 = br.ReadUInt32();    // level 1.N
-			uint uniqNumberN2 = br.ReadUInt32();    // level 2.N
-
-			return tile;
-		}
-
-		private MapCastle ReadCastle(IO.Reader br)
-		{
-			MapCastle castle = new MapCastle();
-
-			ushort signal = br.ReadUInt16();
-
-			castle.Color = (MapCastleColor)br.ReadByte();
-			castle.HasCustomBuilding = br.ReadBoolean();
-			castle.Buildings = (MapBuildingType)br.ReadUInt16();
-			castle.Dwellings = (MapDwellingType)br.ReadUInt16();
-			castle.MageGuildLevel = (MapMageGuildLevel)br.ReadByte();
-			castle.HasCustomTroops = br.ReadBoolean();
-
-			for (int i = 0; i < 5; i++)
+			int findobject = -1;
+			for (int it_index = 0; it_index < map.Tiles.Count && findobject < 0; ++it_index)
 			{
-				castle.Monsters[i] = new MapArmyMonster();
-				castle.Monsters[i].MonsterType = (MapMonsterType)br.ReadByte();
+				MapTile tile = map.Tiles[it_index];
+
+				// orders(quantity2, quantity1)
+				int orders = tile.Quantity2;  // (tile.GetQuantity2() ? tile.GetQuantity2() : 0);
+				orders <<= 8;
+				orders |= tile.Quantity1; // tile.GetQuantity1();
+
+				if ((orders != 0) && !((orders % 0x08) != 0) && (i + 1 == orders / 0x08))
+					findobject = it_index;
 			}
-			for (int i = 0; i < 5; i++)
-			{
-				castle.Monsters[i].Amount = br.ReadUInt16();
-			}
+			if (findobject == -1)
+				return null;
 
-			castle.HasCaptain = br.ReadBoolean();
-			castle.HasCustomName = br.ReadBoolean();
-			castle.Name = br.ReadFixedLengthString(13);
-			castle.Name = castle.Name.TrimNull();
-			castle.Type = (MapCastleType)br.ReadByte();
-			castle.IsCastle = br.ReadBoolean();
-			castle.IsUpgradable = br.ReadBoolean(); // 00 TRUE, 01 FALSE
-
-			byte[] unknown = br.ReadBytes(29);
-
-			return castle;
+			return map.Tiles[findobject];
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
