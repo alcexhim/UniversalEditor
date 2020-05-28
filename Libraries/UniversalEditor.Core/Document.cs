@@ -30,7 +30,7 @@ namespace UniversalEditor
 	/// to, the DataFormat determines HOW the data is written, and the ObjectModel contains the actual data in a format-
 	/// agnostic representation.
 	/// </summary>
-	public class Document
+	public class Document : IDisposable
 	{
 		/// <summary>
 		/// The <see cref="Accessor" /> which determines where the data is read from.
@@ -54,6 +54,11 @@ namespace UniversalEditor
 		/// The <see cref="ObjectModel" />, which stores the actual data in a format-agnostic representation.
 		/// </summary>
 		public ObjectModel ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; } }
+
+		public void Dispose()
+		{
+			Close();
+		}
 
 		/// <summary>
 		/// Reads data into the current <see cref="ObjectModel" /> from the <see cref="Accessor" /> using the
