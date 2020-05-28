@@ -38,6 +38,15 @@ namespace UniversalEditor.UserInterface.Common
 						catch (System.Reflection.TargetInvocationException ex)
 						{
 							Console.WriteLine("binding error while loading editor '{0}': {1}", type.FullName, ex.InnerException.Message);
+							if (ex.InnerException.InnerException != null)
+							{
+								Console.WriteLine("^--- {0}", ex.InnerException.InnerException.Message);
+								Console.WriteLine();
+								Console.WriteLine(" *** STACK TRACE *** "); 
+								Console.WriteLine(ex.StackTrace);
+								Console.WriteLine(" ******************* ");
+								Console.WriteLine();
+							}
 						}
 						catch (Exception ex)
 						{
