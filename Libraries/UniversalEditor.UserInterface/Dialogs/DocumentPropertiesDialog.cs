@@ -28,6 +28,7 @@ using MBS.Framework.UserInterface.Drawing;
 
 using MBS.Framework.Drawing;
 using System.ComponentModel;
+using MBS.Framework.UserInterface.Dialogs;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -405,6 +406,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 			{
 				if (Accessor is FileAccessor)
 				{
+					if (!System.IO.File.Exists(Accessor.GetFileName()))
+					{
+						// prevents the FileAccessor from "helpfully" creating an empty file with the given name if it doesn't exist
+						MessageDialog.ShowDialog("The file you selected does not exist.", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+						return;
+					}
+
 					Association[] assocs = Association.FromCriteria(new AssociationCriteria() { Accessor = Accessor });
 					List<DataFormatReference> dfrs = new List<DataFormatReference>();
 					foreach (Association assoc in assocs)
