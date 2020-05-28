@@ -61,8 +61,21 @@ namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Synt
 			Layout = new BoxLayout(Orientation.Vertical);
 
 			txt = new SyntaxTextBox();
+			txt.Changed += txt_Changed;
 			Controls.Add(txt, new BoxLayout.Constraints(true, true));
 		}
+
+		void txt_Changed(object sender, EventArgs e)
+		{
+			BeginEdit();
+
+			// FIXME: implement something like this...
+			// CodeObjectModel code = (ObjectModel as CodeObjectModel);
+			// code.Append(txt.Text, CurrentLanguage);
+
+			EndEdit();
+		}
+
 
 		public override void UpdateSelections()
 		{
