@@ -54,6 +54,7 @@ namespace UniversalEditor.Controls.DrawingArea
 			else
 			{
 				Console.WriteLine("new picture dimensions {0}x{1}", mvarPicture.Width, mvarPicture.Height);
+				if (mvarPicture.Width == 0 || mvarPicture.Height == 0) return;
 
 				Image image = mvarPicture.ToImage();
 				e.Graphics.DrawImage(image, 0, 0);
