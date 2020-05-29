@@ -57,6 +57,12 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 				new Property(ScenePropertyGuids.Button.BackgroundImageFileName, "Background image file name"),
 				new Property(ScenePropertyGuids.Button.BackgroundImageIndex, "Background image index")
 			}, Button_Render));
+			NWCSceneLayoutLibrary.Components.Add(new Component(SceneObjectGuids.TextBox, "Text box", new Property[]
+			{
+				new Property(ScenePropertyGuids.TextBox.BackgroundImageFileName, "Background image file name"),
+				new Property(ScenePropertyGuids.TextBox.BackgroundImageIndex, "Background image index"),
+				new Property(ScenePropertyGuids.TextBox.Text, "Text")
+			}, TextBox_Render));
 			NWCSceneLayoutLibrary.Components.Add(new Component(SceneObjectGuids.Image, "Image", new Property[]
 			{
 				new Property(ScenePropertyGuids.Image.BackgroundImageFileName, "Background image file name"),
@@ -95,6 +101,25 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 				}
 			}
 
+		}
+		static void TextBox_Render(ComponentInstance instance, PaintEventArgs e, Rectangle bounds)
+		{
+			Property propBackgroundImage = NWCSceneLayoutLibrary.Components[DesignerObjectGuids.Common].Properties[DesignerPropertyGuids.Common.BackgroundImage];
+			if (propBackgroundImage != null)
+			{
+				PropertyValue propVal = instance.PropertyValues[propBackgroundImage];
+				if (propVal != null)
+				{
+					PictureObjectModel pic = propVal.Value as PictureObjectModel;
+					if (pic != null)
+					{
+						e.Graphics.DrawImage(pic.ToImage(), bounds.X, bounds.Y);
+					}
+				}
+			}
+
+			PropertyValue pv = instance.PropertyValues[NWCSceneLayoutLibrary.Components[SceneObjectGuids.TextBox].Properties[ScenePropertyGuids.TextBox.Text]];
+			e.Graphics.DrawText(pv?.Value?.ToString(), null, bounds.Location, new MBS.Framework.UserInterface.Drawing.SolidBrush(MBS.Framework.UserInterface.SystemColors.WindowForeground));
 		}
 		static void ListBox_Render(ComponentInstance instance, PaintEventArgs e, Rectangle bounds)
 		{
@@ -237,6 +262,14 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 							ushort u3a = reader.ReadUInt16();
 							ushort u4a = reader.ReadUInt16();
 						}
+						PictureObjectModel pic = LoadICN(icnFileName, 0);
+
+						designer.Designs[0].ComponentInstances.Add(new ComponentInstance(NWCSceneLayoutLibrary.Components[SceneObjectGuids.TextBox], new Rectangle(x, y, width, height), new PropertyValue[]
+						{
+							new PropertyValue(NWCSceneLayoutLibrary.Components[SceneObjectGuids.TextBox].Properties[ScenePropertyGuids.TextBox.Text], text),
+							new PropertyValue(NWCSceneLayoutLibrary.Components[SceneObjectGuids.TextBox].Properties[ScenePropertyGuids.TextBox.BackgroundImageFileName], icnFileName),
+							new PropertyValue(NWCSceneLayoutLibrary.Components[DesignerObjectGuids.Common].Properties[DesignerPropertyGuids.Common.BackgroundImage], pic)
+						}));
 						break;
 					}
 					case BINComponentType.ListBox:

@@ -43,5 +43,11 @@ namespace UniversalEditor.ObjectModels.NWCSceneLayout
 			public static Guid BackgroundImageFileName { get; } = new Guid("{df3a8c45-a6bf-44d3-bf46-d8569e78bc71}");
 			public static Guid BackgroundImageIndex { get; } = new Guid("{e4226ed5-0ffa-468a-972f-146c934b0aa2}");
 		}
+		public static class TextBox
+		{
+			public static Guid BackgroundImageFileName { get; } = new Guid("{df3a8c45-a6bf-44d3-bf46-d8569e78bc71}");
+			public static Guid BackgroundImageIndex { get; } = new Guid("{e4226ed5-0ffa-468a-972f-146c934b0aa2}");
+			public static Guid Text { get; } = new Guid("{e8aeb0d6-a0fd-4f96-93b4-4a955953ce03}");
+		}
 	}
 }
