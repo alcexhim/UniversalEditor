@@ -119,8 +119,17 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 				dragging.Y = new ObjectModels.Designer.Measurement(dy + (e.Y - cy), ObjectModels.Designer.MeasurementUnit.Pixel);
 				dragging = null;
 				(Parent as DesignerEditor).EndEdit();
+
+				Refresh();
 			}
 		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether the contents of a <see cref="ComponentInstance" /> on this <see cref="DesignerControl"/> will be shown while a drag operation
+		/// is in progress. If <c>false</c>, a border outline will be drawn at the current drag location instead of the contents of the associated <see cref="Component" />.
+		/// </summary>
+		/// <value><c>true</c> if show contents while dragging; otherwise, <c>false</c>.</value>
+		public bool ShowContentsWhileDragging { get; set; } = true;
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
@@ -134,9 +143,15 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 			{
 				ComponentInstance inst = SelectedDesign.ComponentInstances[i];
 				Rectangle componentRect = new MBS.Framework.Drawing.Rectangle(margin_x + inst.X.Value, margin_y + inst.Y.Value, inst.Width.Value, inst.Height.Value);
-				if (inst == dragging)
+
+				MBS.Framework.Drawing.Rectangle dragBounds = new MBS.Framework.Drawing.Rectangle(margin_x + _tmpDragX, margin_y + _tmpDragY, inst.Width.Value, inst.Height.Value);
+				if (inst == dragging && ShowContentsWhileDragging)
 				{
-					componentRect = new MBS.Framework.Drawing.Rectangle(margin_x + _tmpDragX, margin_y + _tmpDragY, inst.Width.Value, inst.Height.Value);
+					componentRect = dragBounds;
+				}
+				else if (inst == dragging)
+				{
+					e.Graphics.DrawRectangle(new Pen(SystemColors.HighlightBackground), dragBounds);
 				}
 
 				inst.Component.Render(inst, e, componentRect);
