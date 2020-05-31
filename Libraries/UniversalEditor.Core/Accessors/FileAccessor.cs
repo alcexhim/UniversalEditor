@@ -161,5 +161,24 @@ namespace UniversalEditor.Accessors
 			sb.Append(mvarFileName);
 			return sb.ToString();
 		}
+
+		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
+		{
+			if (prefix == null)
+			{
+				string fn = GetFileName();
+				if (fn != null)
+				{
+					prefix = System.IO.Path.GetDirectoryName(fn);
+				}
+			}
+
+			string fullyQualifiedPath = MBS.Framework.IO.File.Find(System.IO.Path.Combine(new string[] { prefix, filename }), MBS.Framework.IO.CaseSensitiveHandling.CaseInsensitive);
+			if (System.IO.File.Exists(fullyQualifiedPath))
+			{
+				return new FileAccessor(fullyQualifiedPath);
+			}
+			return null;
+		}
 	}
 }

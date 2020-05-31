@@ -66,6 +66,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 		}
 
+		public FileSystemObjectModel FileSystem { get { return this; } }
+
 		public static FileSystemObjectModel FromFiles(string[] fileNames)
 		{
 			// TODO: This doesn't work because GetAvailableObjectModel returns an
@@ -108,8 +110,14 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			// return FromFiles(files);
 		}
 
-		public File.FileCollection Files { get; } = new File.FileCollection();
-		public Folder.FolderCollection Folders { get; } = new Folder.FolderCollection();
+		public FileSystemObjectModel()
+		{
+			Files = new File.FileCollection(this);
+			Folders = new Folder.FolderCollection(this);
+		}
+
+		public File.FileCollection Files { get; private set; } = null;
+		public Folder.FolderCollection Folders { get; private set; } = null;
 
 		/// <summary>
 		/// The unique ID associated with this file system. Not supported by all <see cref="DataFormat" />s.
@@ -128,29 +136,29 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			return (FindFile(path) != null);
 		}
 
-		public File FindFile(string path)
+		public File FindFile(string path, MBS.Framework.IO.CaseSensitiveHandling caseSensitiveHandling = MBS.Framework.IO.CaseSensitiveHandling.System)
 		{
 			string[] pathParts = path.Split(PathSeparators);
 			if (pathParts.Length == 1)
 			{
-				File file = Files[pathParts[0]];
+				File file = Files[pathParts[0], caseSensitiveHandling];
 				if (file != null) return file;
 			}
 			else
 			{
-				Folder parentFolder = Folders[pathParts[0]];
+				Folder parentFolder = Folders[pathParts[0], caseSensitiveHandling];
 				if (parentFolder == null) return null;
 
 				for (int i = 1; i < pathParts.Length; i++)
 				{
 					if (i < pathParts.Length - 1)
 					{
-						parentFolder = parentFolder.Folders[pathParts[i]];
+						parentFolder = parentFolder.Folders[pathParts[i], caseSensitiveHandling];
 						if (parentFolder == null) return null;
 					}
 					else
 					{
-						return parentFolder.Files[pathParts[i]];
+						return parentFolder.Files[pathParts[i], caseSensitiveHandling];
 					}
 				}
 			}

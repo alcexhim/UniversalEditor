@@ -174,5 +174,11 @@ namespace UniversalEditor.Accessors
 			if (mvarFileName != null) return System.IO.Path.GetFileName(mvarFileName);
 			return base.GetFileTitle();
 		}
+
+		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
+		{
+			// default implementation is unavailable because there is no parent for a MemoryAccessor
+			return null;
+		}
 	}
 }

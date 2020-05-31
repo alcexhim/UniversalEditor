@@ -81,13 +81,14 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 #endif
 
-			public File this[string Name]
+			public File this[string Name, MBS.Framework.IO.CaseSensitiveHandling caseSensitiveHandling = MBS.Framework.IO.CaseSensitiveHandling.System]
 			{
 				get
 				{
+					bool caseSensitive = (caseSensitiveHandling == MBS.Framework.IO.CaseSensitiveHandling.CaseSensitive || (caseSensitiveHandling == MBS.Framework.IO.CaseSensitiveHandling.System && System.Environment.OSVersion.Platform == PlatformID.Unix));
 					foreach (File file in this)
 					{
-						if (file.Name == Name)
+						if ((caseSensitive && file.Name == Name) || (!caseSensitive && file.Name.ToUpper() == Name.ToUpper()))
 						{
 							return file;
 						}
@@ -101,8 +102,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				return (this[Name] != null);
 			}
 
-			private Folder mvarParent = null;
-			public FileCollection(Folder parent = null)
+			private IFileSystemContainer mvarParent = null;
+			public FileCollection(IFileSystemContainer parent = null)
 			{
 				mvarParent = parent;
 			}
@@ -111,6 +112,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				base.InsertItem(index, item);
 				item.Parent = mvarParent;
+				item.FileSystem = mvarParent.FileSystem;
 			}
 			protected override void RemoveItem(int index)
 			{
@@ -348,8 +350,10 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// </summary>
 		public FileSource Source { get { return mvarSource; } set { mvarSource = value; } }
 
-		private Folder mvarParent = null;
-		public Folder Parent { get { return mvarParent; } internal set { mvarParent = value; } }
+		private IFileSystemContainer mvarParent = null;
+		public IFileSystemContainer Parent { get { return mvarParent; } internal set { mvarParent = value; } }
+
+		public FileSystemObjectModel FileSystem { get; private set; } = null;
 
 		// The amount of working set to allocate to each block.
 		public const int BLOCK_FRACTION = 4;
