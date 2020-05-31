@@ -31,5 +31,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		string GetNewFolderName();
 
 		File AddFile(string name, byte[] fileData = null);
+
+		FileSystemObjectModel FileSystem { get; }
 	}
 }

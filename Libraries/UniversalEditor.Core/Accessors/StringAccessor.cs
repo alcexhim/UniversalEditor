@@ -145,5 +145,11 @@ namespace UniversalEditor.Accessors
 		protected override void CloseInternal()
 		{
 		}
+
+		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
+		{
+			// FIXME: not implemented
+			return null;
+		}
 	}
 }

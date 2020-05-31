@@ -413,27 +413,16 @@ namespace UniversalEditor.DataFormats.NWCSceneLayout.NewWorldComputing.BIN
 
 		private PictureObjectModel LoadICN(string icnFileName, int icnIndex)
 		{
-			if (icnDataDir == null)
-			{
-				icnDataDir = ICNDataDirectory;
-				if (icnDataDir == null)
-				{
-					string fn = Accessor.GetFileName();
-					if (fn != null)
-					{
-						icnDataDir = System.IO.Path.GetDirectoryName(fn);
-					}
-				}
-			}
-
+			// TODO: figure out how to access the parent file system of a given Accessor to load files adjacent to the current file in the current folder
+			// i.e. somefile.bin > somefile.icn regardless of whether the file is in the local file system (This code here) or being loaded directly from the FileSystemEditor
+			Accessor icnRelated = Accessor.GetRelative(icnFileName, icnDataDir);
 			PictureObjectModel pic = null;
-			string icnFullyQualifiedPath = MBS.Framework.IO.File.Find(System.IO.Path.Combine(new string[] { icnDataDir, icnFileName }), MBS.Framework.IO.CaseSensitiveHandling.CaseInsensitive);
-			if (System.IO.File.Exists(icnFullyQualifiedPath))
+			if (icnRelated != null)
 			{
 				PictureCollectionObjectModel pcom = new PictureCollectionObjectModel();
 				try
 				{
-					Document.Load(pcom, icndf, new FileAccessor(icnFullyQualifiedPath));
+					Document.Load(pcom, icndf, icnRelated);
 					pic = pcom.Pictures[icnIndex];
 				}
 				catch

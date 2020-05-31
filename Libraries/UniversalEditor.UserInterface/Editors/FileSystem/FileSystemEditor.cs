@@ -189,7 +189,7 @@ namespace UniversalEditor.Editors.FileSystem
 				{
 					File f = (fso as File);
 
-					MemoryAccessor ma = new MemoryAccessor(f.GetData(), f.Name);
+					EmbeddedFileAccessor ma = new EmbeddedFileAccessor(f);
 					Document doc = new Document(ma);
 					HostApplication.CurrentWindow.OpenFile(doc);
 				}

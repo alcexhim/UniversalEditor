@@ -27,6 +27,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 	public interface IFileSystemObject
 	{
 		string Name { get; set; }
+
+		FileSystemObjectModel FileSystem { get; }
 	}
 	/// <summary>
 	/// Represents a <see cref="System.Collections.ObjectModel.Collection{IFileSystemObject}" /> of <see cref="IFileSystemObject" />s.

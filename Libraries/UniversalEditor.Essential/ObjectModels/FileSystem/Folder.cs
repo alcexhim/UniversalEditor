@@ -32,8 +32,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public class FolderCollection
 			: System.Collections.ObjectModel.Collection<Folder>
 		{
-			private Folder mvarParent = null;
-			public FolderCollection(Folder parent = null)
+			private IFileSystemContainer mvarParent = null;
+			public FolderCollection(IFileSystemContainer parent)
 			{
 				mvarParent = parent;
 			}
@@ -46,13 +46,15 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				return folder;
 			}
 
-			public Folder this[string Name]
+			public Folder this[string Name, MBS.Framework.IO.CaseSensitiveHandling caseSensitiveHandling = MBS.Framework.IO.CaseSensitiveHandling.System]
 			{
 				get
 				{
+					bool caseSensitive = (caseSensitiveHandling == MBS.Framework.IO.CaseSensitiveHandling.CaseSensitive || (caseSensitiveHandling == MBS.Framework.IO.CaseSensitiveHandling.System && System.Environment.OSVersion.Platform == PlatformID.Unix));
 					for (int i = 0; i < Count; i++)
 					{
-						if (this[i].Name.Equals(Name)) return this[i];
+						if ((caseSensitive && this[i].Name.Equals(Name)) || (!caseSensitive && this[i].Name.ToUpper() == Name.ToUpper()))
+							return this[i];
 					}
 					return null;
 				}
@@ -84,6 +86,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				base.InsertItem(index, item);
 				item.Parent = mvarParent;
+				item.FileSystem = mvarParent?.FileSystem;
 			}
 			protected override void RemoveItem(int index)
 			{
@@ -103,13 +106,15 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			mvarFiles = new File.FileCollection(this);
 		}
 
+		public FileSystemObjectModel FileSystem { get; private set; } = null;
+
 		private FolderCollection _parentCollection = null;
 
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-		private Folder mvarParent = null;
-		public Folder Parent { get { return mvarParent; } private set { mvarParent = value; } }
+		private IFileSystemContainer mvarParent = null;
+		public IFileSystemContainer Parent { get { return mvarParent; } private set { mvarParent = value; } }
 
 		private FolderCollection mvarFolders = null;
 		public FolderCollection Folders { get { return mvarFolders; } }

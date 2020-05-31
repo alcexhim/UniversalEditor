@@ -257,6 +257,12 @@ namespace UniversalEditor
 		{
 			if (_positions.Count > 0) _positions.Clear();
 		}
+
+		protected abstract Accessor GetRelativeInternal(string filename, string prefix = null);
+		public Accessor GetRelative(string filename, string prefix = null)
+		{
+			return GetRelativeInternal(filename, prefix);
+		}
 		#endregion
 	}
 }

@@ -103,5 +103,10 @@ namespace UniversalEditor.Accessors.MTP
 		{
 			throw new NotImplementedException();
 		}
+
+		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
+		{
+			return null;
+		}
 	}
 }
