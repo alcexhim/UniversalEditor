@@ -41,12 +41,32 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 
 		public override void Clear()
 		{
-			throw new NotImplementedException();
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
-			throw new NotImplementedException();
+			MapObjectModel clone = (where as MapObjectModel);
+			clone.AllowedComputerPlayerColors = AllowedComputerPlayerColors;
+			clone.AllowedHumanPlayerColors = AllowedHumanPlayerColors;
+			clone.AllowedKingdomColors = AllowedKingdomColors;
+			clone.AllowNormalVictory = AllowNormalVictory;
+			clone.ComputerAlsoWins = ComputerAlsoWins;
+			clone.Description = (Description?.Clone() as string);
+			clone.Difficulty = Difficulty;
+			clone.Height = Height;
+			for (int i = 0; i < Items.Count; i++)
+			{
+				clone.Items.Add(Items[i]/*.Clone() as MapItem*/);
+			}
+			clone.LoseConditions = LoseConditions;
+			clone.Name = (Name?.Clone() as string);
+			clone.ObeliskCount = ObeliskCount;
+			for (int i = 0; i < Tiles.Count; i++)
+			{
+				clone.Tiles.Add(Tiles[i]/*.Clone() as MapTile*/);
+			}
+			clone.Width = Width;
+			clone.WinConditions = WinConditions;
 		}
 
 		public MapDifficulty Difficulty { get; set; } = MapDifficulty.Easy;
