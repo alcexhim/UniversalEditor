@@ -69,6 +69,16 @@ namespace UniversalEditor.Plugins.NewWorldComputing.UserInterface.Editors.NewWor
 			mapView.Refresh();
 		}
 
+		private MapDocumentPropertiesSettingsProvider _mpds = null;
+		public MapEditor()
+		{
+			_mpds = new MapDocumentPropertiesSettingsProvider(this);
+		}
+
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		{
+			return new SettingsProvider[] { _mpds };
+		}
 
 	}
 }
