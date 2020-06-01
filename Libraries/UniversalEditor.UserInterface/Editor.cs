@@ -771,12 +771,18 @@ namespace UniversalEditor.UserInterface
 
 				for (int i = 0; i < providers.Length; i++)
 				{
+					providers[i].LoadSettings();
 					dialog.SettingsProviders.Add(providers[i]);
 				}
 
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					// TODO: update settings
+					BeginEdit();
+					for (int i = 0; i < providers.Length; i++)
+					{
+						providers[i].SaveSettings();
+					}
+					EndEdit();
 				}
 				return true;
 			}
