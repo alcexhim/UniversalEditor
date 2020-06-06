@@ -29,6 +29,12 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 {
 	public class DesignerControl : CustomControl
 	{
+		private DragManager drag = new DragManager();
+		public DesignerControl()
+		{
+			drag.Register(this);
+		}
+
 		private DesignerObjectModel m_ObjectModel = null;
 		public DesignerObjectModel ObjectModel { get { return m_ObjectModel; } set { m_ObjectModel = value; Refresh(); } }
 
@@ -41,6 +47,9 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 
 		public ComponentInstance HitTest(Vector2D location)
 		{
+			if (SelectedDesign == null)
+				return null;
+
 			for (int i = SelectedDesign.ComponentInstances.Count - 1; i >= 0; i--)
 			{
 				ComponentInstance inst = SelectedDesign.ComponentInstances[i];
@@ -84,6 +93,7 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 				{
 					dragging = null;
 				}
+				drag.Enabled = (dragging == null);
 			}
 		}
 		protected override void OnMouseMove(MouseEventArgs e)
@@ -131,40 +141,53 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 		/// <value><c>true</c> if show contents while dragging; otherwise, <c>false</c>.</value>
 		public bool ShowContentsWhileDragging { get; set; } = true;
 
+		public event PaintEventHandler BeforePaint;
+		protected virtual void OnBeforePaint(PaintEventArgs e)
+		{
+			BeforePaint?.Invoke(this, e);
+		}
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			if (m_ObjectModel == null) return;
-			if (_SelectedDesign == null && m_ObjectModel.Designs.Count > 0) _SelectedDesign = m_ObjectModel.Designs[0];
-			if (_SelectedDesign == null) return;
+			OnBeforePaint(e);
 
-			e.Graphics.DrawRectangle(new Pen(Colors.DarkGray), new Rectangle(margin_x, margin_y, _SelectedDesign.Size.Width - margin_x - margin_r, _SelectedDesign.Size.Height - margin_y - margin_b));
-
-			for (int i = 0; i < SelectedDesign.ComponentInstances.Count; i++)
+			if (m_ObjectModel != null)
 			{
-				ComponentInstance inst = SelectedDesign.ComponentInstances[i];
-				Rectangle componentRect = new MBS.Framework.Drawing.Rectangle(margin_x + inst.X.Value, margin_y + inst.Y.Value, inst.Width.Value, inst.Height.Value);
+				if (_SelectedDesign == null && m_ObjectModel.Designs.Count > 0) _SelectedDesign = m_ObjectModel.Designs[0];
 
-				MBS.Framework.Drawing.Rectangle dragBounds = new MBS.Framework.Drawing.Rectangle(margin_x + _tmpDragX, margin_y + _tmpDragY, inst.Width.Value, inst.Height.Value);
-				if (inst == dragging && ShowContentsWhileDragging)
+				if (_SelectedDesign != null)
 				{
-					componentRect = dragBounds;
-				}
-				else if (inst == dragging)
-				{
-					e.Graphics.DrawRectangle(new Pen(SystemColors.HighlightBackground), dragBounds);
-				}
+					e.Graphics.DrawRectangle(new Pen(Colors.DarkGray), new Rectangle(margin_x, margin_y, _SelectedDesign.Size.Width - margin_x - margin_r, _SelectedDesign.Size.Height - margin_y - margin_b));
 
-				inst.Component.Render(inst, e, componentRect);
+					for (int i = 0; i < SelectedDesign.ComponentInstances.Count; i++)
+					{
+						ComponentInstance inst = SelectedDesign.ComponentInstances[i];
+						Rectangle componentRect = new MBS.Framework.Drawing.Rectangle(margin_x + inst.X.Value, margin_y + inst.Y.Value, inst.Width.Value, inst.Height.Value);
 
-				if (SelectedComponents.Contains(inst))
-				{
-					e.Graphics.DrawRectangle(new Pen(SystemColors.HighlightBackground), componentRect);
-				}
-				else
-				{
-					e.Graphics.DrawRectangle(new Pen(Colors.DarkGray), componentRect);
+						MBS.Framework.Drawing.Rectangle dragBounds = new MBS.Framework.Drawing.Rectangle(margin_x + _tmpDragX, margin_y + _tmpDragY, inst.Width.Value, inst.Height.Value);
+						if (inst == dragging && ShowContentsWhileDragging)
+						{
+							componentRect = dragBounds;
+						}
+						else if (inst == dragging)
+						{
+							e.Graphics.DrawRectangle(new Pen(SystemColors.HighlightBackground), dragBounds);
+						}
+
+						inst.Component.Render(inst, e, componentRect);
+
+						if (SelectedComponents.Contains(inst))
+						{
+							e.Graphics.DrawRectangle(new Pen(SystemColors.HighlightBackground), componentRect);
+						}
+						else
+						{
+							e.Graphics.DrawRectangle(new Pen(Colors.DarkGray), componentRect);
+						}
+					}
 				}
 			}
+
 			base.OnPaint(e);
 		}
 	}
