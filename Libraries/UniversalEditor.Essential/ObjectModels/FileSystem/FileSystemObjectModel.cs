@@ -127,6 +127,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// The title associated with this file system.  Not supported by all <see cref="DataFormat" />s.
 		/// </summary>
 		public string Title { get; set; } = String.Empty;
+		public string Name { get; set; } = String.Empty;
 
 		private string[] mvarPathSeparators = new string[] { "/", "\\" }; // System.IO.Path.DirectorySeparatorChar.ToString(), System.IO.Path.AltDirectorySeparatorChar.ToString() };
 		public string[] PathSeparators { get { return mvarPathSeparators; } set { mvarPathSeparators = value; } }
