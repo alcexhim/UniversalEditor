@@ -764,6 +764,14 @@ namespace UniversalEditor.IO
 			}
 			WriteBytes(_buffer);
 		}
+		public void WriteSingleArray(float[] value)
+		{
+			for (int i = 0; i < value.Length; i++)
+			{
+				WriteSingle(value[i]);
+			}
+		}
+
 		/// <summary>
 		/// Writes an eight-byte floating-point value to the current stream and advances the stream position by eight bytes.
 		/// </summary>
