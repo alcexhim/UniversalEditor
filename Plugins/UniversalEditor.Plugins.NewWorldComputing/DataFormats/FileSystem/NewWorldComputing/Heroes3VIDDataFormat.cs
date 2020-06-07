@@ -47,23 +47,30 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
 
 			IO.Reader reader = base.Accessor.Reader;
 			uint fileCount = reader.ReadUInt32();
-			uint offset = 0;
+			uint lastOffset = 0;
 			for (uint i = 0; i < fileCount; i++)
 			{
 				File file = new File();
 				file.Name = reader.ReadNullTerminatedString(40);
 
-				uint length = reader.ReadUInt32();
+				uint offset = reader.ReadUInt32();
+				if (i > 0)
+				{
+					uint length = (uint)(offset - lastOffset);
+					fsom.Files[(int)(i - 1)].Properties.Add("length", length);
+					fsom.Files[(int)(i - 1)].Size = length;
+				}
+				lastOffset = offset;
 
 				file.DataRequest += file_DataRequest;
-				file.Size = length;
                 file.Properties.Add("offset", offset);
-                file.Properties.Add("length", length);
-                file.Properties.Add("reader", reader);
+				file.Properties.Add("reader", reader);
 				fsom.Files.Add(file);
-
-				offset += length;
 			}
+
+			uint final_length = (uint)(Accessor.Length - (uint)(fsom.Files[(int)fileCount - 1].Properties["offset"]));
+			fsom.Files[(int)fileCount - 1].Properties.Add("length", final_length);
+			fsom.Files[(int)fileCount - 1].Size = final_length;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
