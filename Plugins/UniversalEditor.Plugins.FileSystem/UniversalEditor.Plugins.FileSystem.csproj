@@ -281,6 +281,10 @@
       <Project>{0F7D5BD4-7970-412F-ABD7-0A098BB01ACE}</Project>
       <Name>UniversalEditor.Checksum</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\FileSystem\VirtualBox\" />
