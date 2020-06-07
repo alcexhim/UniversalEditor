@@ -83,6 +83,8 @@ namespace UniversalEditor.UserInterface.Pages
 		{
 			int len = 2048;
 			len = (int)Math.Min(len, acc.Length);
+
+			acc.Seek(0, IO.SeekOrigin.Begin);
 			byte[] b = acc.Reader.ReadBytes(len);
 			acc.Seek(-len, IO.SeekOrigin.Current);
 
