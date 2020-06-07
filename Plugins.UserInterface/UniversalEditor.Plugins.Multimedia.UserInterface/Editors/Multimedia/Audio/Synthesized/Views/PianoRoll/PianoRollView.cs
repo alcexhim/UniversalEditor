@@ -167,7 +167,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 				switch (e.Key)
 				{
-				case KeyboardKey.Tab:
+					case KeyboardKey.Tab:
 					{
 						if (SelectedCommands.Count > 0)
 						{
@@ -216,19 +216,19 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 				switch (sValue)
 				{
-				case "Off":
+					case "Off":
 					{
 						break;
 					}
-				case "Triplet":
+					case "Triplet":
 					{
 						break;
 					}
-				case "Dot":
+					case "Dot":
 					{
 						break;
 					}
-				default:
+					default:
 					{
 						iValue = Int32.Parse(sValue);
 						break;
