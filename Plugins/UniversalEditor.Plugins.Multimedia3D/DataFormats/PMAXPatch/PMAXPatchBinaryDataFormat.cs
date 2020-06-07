@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.PMAXPatch
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PMAXPatchObjectModel patches = (objectModel as PMAXPatchObjectModel);
-			if (patches == null) return;
+			if (patches == null) throw new ObjectModelNotSupportedException();
 
 			UniversalEditor.ObjectModels.PMAXPatch.PMAXPatch patch = new UniversalEditor.ObjectModels.PMAXPatch.PMAXPatch();
 
@@ -95,7 +95,7 @@ namespace UniversalEditor.DataFormats.PMAXPatch
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			PMAXPatchObjectModel patches = (objectModel as PMAXPatchObjectModel);
-			if (patches == null) return;
+			if (patches == null) throw new ObjectModelNotSupportedException();
 			if (patches.Patches.Count < 1) return;
 
 			UniversalEditor.ObjectModels.PMAXPatch.PMAXPatch patch = patches.Patches[0];

@@ -82,7 +82,7 @@ namespace UniversalEditor.DataFormats.Text.MHTML
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PlainTextObjectModel text = (objectModel as PlainTextObjectModel);
-			if (text == null) return;
+			if (text == null) throw new ObjectModelNotSupportedException();
 
 			Reader tr = base.Accessor.Reader;
 			string content = String.Empty;

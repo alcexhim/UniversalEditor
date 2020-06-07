@@ -46,7 +46,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.I16
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			if (pic == null) return;
+			if (pic == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			ushort u1 = br.ReadUInt16();

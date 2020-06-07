@@ -55,7 +55,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			if (model == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			string PMDKey = br.ReadFixedLengthString(4);
@@ -1182,6 +1182,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
+			ModelObjectModel model = (objectModel as ModelObjectModel);
+			if (model == null) throw new ObjectModelNotSupportedException();
+
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.SMD
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			SMDObjectModel smd = (objectModel as SMDObjectModel);
-			if (smd == null) return;
+			if (smd == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader tr = base.Accessor.Reader;
 			string version = tr.ReadLine();

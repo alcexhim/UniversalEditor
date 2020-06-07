@@ -46,7 +46,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.TriangleEditor
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			if (model == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 

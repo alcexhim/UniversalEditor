@@ -118,7 +118,7 @@ namespace UniversalEditor.DataFormats.FileSystem.UUEncoding
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader tr = base.Accessor.Reader;
 

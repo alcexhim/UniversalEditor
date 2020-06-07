@@ -36,7 +36,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader reader = base.Accessor.Reader;
 			string magic = reader.ReadFixedLengthString(4); // LOD\0

@@ -44,7 +44,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			uint fileCount = br.ReadUInt32();
@@ -87,7 +87,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteUInt32((uint)fsom.Files.Count);

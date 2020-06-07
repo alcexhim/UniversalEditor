@@ -38,7 +38,7 @@ namespace UniversalEditor.ObjectModelExtensions.Multimedia3D.Model
         public override void CopyTo(ObjectModelExtension where)
         {
             PMAModelObjectModelExtension clone = (where as PMAModelObjectModelExtension);
-            if (clone == null) return;
+            if (clone == null) throw new ObjectModelNotSupportedException();
 
             clone.Enabled = mvarEnabled;
             clone.Version = (mvarVersion.Clone() as Version);

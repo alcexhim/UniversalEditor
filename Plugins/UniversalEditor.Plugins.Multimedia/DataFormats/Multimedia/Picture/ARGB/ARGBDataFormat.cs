@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			if (pic == null) return;
+			if (pic == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(4);
@@ -73,7 +73,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ARGB
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			if (pic == null) return;
+			if (pic == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("BGRA");

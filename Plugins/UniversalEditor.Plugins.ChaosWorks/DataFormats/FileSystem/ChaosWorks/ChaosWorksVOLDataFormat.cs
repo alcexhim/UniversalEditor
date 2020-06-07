@@ -62,7 +62,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			fsom.AdditionalDetails.Add("ChaosWorks.VOL.Label", "Label");
 
@@ -292,8 +292,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null)
-				throw new ObjectModelNotSupportedException();
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			switch (FormatVersion)
 			{

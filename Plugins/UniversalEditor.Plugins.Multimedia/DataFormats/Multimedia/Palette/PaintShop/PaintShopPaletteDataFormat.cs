@@ -44,7 +44,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.PaintShop
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PaletteObjectModel palette = (objectModel as PaletteObjectModel);
-			if (palette == null) return;
+			if (palette == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader tr = base.Accessor.Reader;
 			string signature = tr.ReadLine();

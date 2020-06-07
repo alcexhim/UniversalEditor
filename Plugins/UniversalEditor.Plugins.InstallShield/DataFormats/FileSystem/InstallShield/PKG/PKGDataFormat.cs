@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 			
 			Reader br = Accessor.Reader;
 			ushort signature = br.ReadUInt16();
@@ -86,7 +86,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Writer bw = Accessor.Writer;
 			bw.WriteUInt16(0xA34A);

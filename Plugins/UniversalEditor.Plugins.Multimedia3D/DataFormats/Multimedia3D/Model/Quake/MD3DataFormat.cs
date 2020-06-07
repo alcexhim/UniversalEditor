@@ -54,7 +54,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			if (model == null) throw new ObjectModelNotSupportedException();
 
 			Reader br = base.Accessor.Reader;
 			string IDP3 = br.ReadFixedLengthString(4);
@@ -302,8 +302,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			Writer bw = base.Accessor.Writer;
 			ModelObjectModel model = objectModel as ModelObjectModel;
+			if (model == null) throw new ObjectModelNotSupportedException();
+
+			Writer bw = base.Accessor.Writer;
+
 			bw.WriteFixedLengthString("IDP3");
 			bw.WriteInt32(Version);
 			string modelTitle = String.Empty;

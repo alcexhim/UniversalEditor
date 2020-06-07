@@ -45,7 +45,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			string PackFile____ = br.ReadFixedLengthString(12);
@@ -75,6 +75,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BurikoGeneralInterpreter
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("PackFile    ");

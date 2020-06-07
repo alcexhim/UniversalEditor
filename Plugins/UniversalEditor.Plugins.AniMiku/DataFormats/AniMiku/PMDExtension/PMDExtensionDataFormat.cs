@@ -49,7 +49,7 @@ namespace UniversalEditor.DataFormats.AniMiku.PMDExtension
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PMDExtensionObjectModel pmdo = (objectModel as PMDExtensionObjectModel);
-			if (pmdo == null) return;
+			if (pmdo == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			foreach (ModelMaterial mat in mvarModel.Materials)

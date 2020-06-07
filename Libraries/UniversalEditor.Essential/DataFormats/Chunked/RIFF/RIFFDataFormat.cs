@@ -169,7 +169,7 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			ChunkedObjectModel riff = (objectModel as ChunkedObjectModel);
-			if (riff == null) return;
+			if (riff == null) throw new ObjectModelNotSupportedException();
 
 			Writer bw = base.Accessor.Writer;
 

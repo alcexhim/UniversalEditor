@@ -41,7 +41,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 			IO.Reader br = base.Accessor.Reader;
 
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			if (model == null) throw new ObjectModelNotSupportedException();
 
 			string signature = br.ReadFixedLengthString(4);
 			if (signature != "2LGM") throw new InvalidDataFormatException("File does not begin with '2LGM'");

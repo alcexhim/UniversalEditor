@@ -88,7 +88,7 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
 			reader.Endianness = IO.Endianness.BigEndian;

@@ -42,14 +42,14 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Inivis
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			if (model == null) throw new ObjectModelNotSupportedException();
 
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			if (model == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer tw = base.Accessor.Writer;
 			tw.WriteLine("AC3Db");

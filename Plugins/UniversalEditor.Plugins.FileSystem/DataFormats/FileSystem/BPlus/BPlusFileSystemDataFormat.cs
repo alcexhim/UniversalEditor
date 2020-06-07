@@ -50,7 +50,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 
@@ -196,7 +196,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer _bw = base.Accessor.Writer;
 			#region Header

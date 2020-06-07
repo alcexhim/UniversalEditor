@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Scene.PolygonMovieMaker
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			SceneObjectModel som = (objectModel as SceneObjectModel);
-			if (som == null) return;
+			if (som == null) throw new ObjectModelNotSupportedException();
 
 			Reader br = base.Accessor.Reader;
 			Encoding encoding = Encoding.ShiftJIS;

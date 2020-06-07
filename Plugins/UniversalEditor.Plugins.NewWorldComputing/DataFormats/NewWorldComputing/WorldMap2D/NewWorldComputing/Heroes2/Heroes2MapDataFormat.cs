@@ -45,8 +45,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldCompu
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			MapObjectModel map = (objectModel as MapObjectModel);
-			if (map == null) return;
-
+			if (map == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			uint magic = br.ReadUInt32();

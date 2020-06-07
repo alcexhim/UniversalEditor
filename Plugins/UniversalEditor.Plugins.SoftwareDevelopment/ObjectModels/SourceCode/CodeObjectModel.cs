@@ -51,7 +51,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 		public override void CopyTo(ObjectModel destination)
 		{
 			CodeObjectModel clone = (destination as CodeObjectModel);
-			if (clone == null) return;
+			if (clone == null) throw new ObjectModelNotSupportedException();
 
 			foreach (CodeElement element in mvarElements)
 			{

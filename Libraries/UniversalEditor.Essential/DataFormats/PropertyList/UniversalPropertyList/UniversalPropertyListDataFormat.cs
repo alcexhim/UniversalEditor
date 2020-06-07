@@ -55,7 +55,7 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PropertyListObjectModel plom = (objectModel as PropertyListObjectModel);
-			if (plom == null) return;
+			if (plom == null) throw new ObjectModelNotSupportedException();
 
 			Reader br = base.Accessor.Reader;
 			string UPLF = br.ReadFixedLengthString(4);
@@ -251,7 +251,7 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			PropertyListObjectModel plom = (objectModel as PropertyListObjectModel);
-			if (plom == null) return;
+			if (plom == null) throw new ObjectModelNotSupportedException();
 
 			Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("UPLF");

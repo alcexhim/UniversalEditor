@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			VersatileContainerObjectModel vcom = (objectModel as VersatileContainerObjectModel);
-			if (vcom == null) return;
+			if (vcom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(30);    // Versatile Container file 0002
@@ -125,7 +125,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			VersatileContainerObjectModel vcom = (objectModel as VersatileContainerObjectModel);
-			if (vcom == null) return;
+			if (vcom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteNullTerminatedString("Versatile Container file 0002");

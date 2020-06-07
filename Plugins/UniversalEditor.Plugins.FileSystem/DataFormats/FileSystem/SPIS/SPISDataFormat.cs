@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SPIS
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			while (!br.EndOfStream)
@@ -80,7 +80,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SPIS
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			foreach (File file in fsom.Files)

@@ -51,7 +51,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			ushort fileCount = br.ReadUInt16();
@@ -101,7 +101,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			ushort fileCount = (ushort)fsom.Files.Count;

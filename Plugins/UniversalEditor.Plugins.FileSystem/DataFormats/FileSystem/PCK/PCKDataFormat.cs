@@ -62,7 +62,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PCK
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			string signature = br.ReadFixedLengthString(4);
@@ -106,7 +106,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PCK
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("2NBF");

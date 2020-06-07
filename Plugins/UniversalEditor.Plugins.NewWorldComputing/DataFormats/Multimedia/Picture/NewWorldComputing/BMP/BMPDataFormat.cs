@@ -44,7 +44,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.BMP
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			if (pic == null) return;
+			if (pic == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			br.Accessor.Position = 0;

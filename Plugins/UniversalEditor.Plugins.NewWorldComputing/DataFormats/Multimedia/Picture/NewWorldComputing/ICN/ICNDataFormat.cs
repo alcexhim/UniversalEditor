@@ -157,7 +157,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN
 		{
 			PictureCollectionObjectModel coll = (objectModel as PictureCollectionObjectModel);
 			PictureObjectModel picret = (objectModel as PictureObjectModel);
-			if (coll == null && picret == null) return;
+			if (coll == null && picret == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			#region header

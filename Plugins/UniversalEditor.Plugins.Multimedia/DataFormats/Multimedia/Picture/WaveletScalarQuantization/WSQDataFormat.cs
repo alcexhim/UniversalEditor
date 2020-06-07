@@ -927,7 +927,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 		{
 			IO.Reader br = base.Accessor.Reader;
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
-			if (pic == null) return;
+			if (pic == null) throw new ObjectModelNotSupportedException();
 
 			br.Endianness = IO.Endianness.BigEndian;
 

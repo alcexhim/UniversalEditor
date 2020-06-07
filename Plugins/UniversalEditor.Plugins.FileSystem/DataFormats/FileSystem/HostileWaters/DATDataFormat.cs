@@ -52,7 +52,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			if (!(base.Accessor is FileAccessor) && MBXFileName == null) throw new InvalidOperationException("Requires a file reference or known MBX file path");
 
@@ -82,7 +82,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteUInt32((uint)fsom.Files.Count);

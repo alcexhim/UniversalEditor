@@ -50,7 +50,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			MotionObjectModel motion = (objectModel as MotionObjectModel);
-			if (motion == null) return;
+			if (motion == null) throw new ObjectModelNotSupportedException();
 
 			base.Accessor.DefaultEncoding = Encoding.ShiftJIS;
 			Reader br = base.Accessor.Reader;
@@ -325,7 +325,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			MotionObjectModel motion = (objectModel as MotionObjectModel);
-			if (motion == null) return;
+			if (motion == null) throw new ObjectModelNotSupportedException();
 
 			base.Accessor.DefaultEncoding = Encoding.ShiftJIS;
 			Writer bw = base.Accessor.Writer;

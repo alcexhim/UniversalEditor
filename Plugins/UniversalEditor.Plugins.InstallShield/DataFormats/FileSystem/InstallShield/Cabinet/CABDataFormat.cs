@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Cabinet
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Reader br = Accessor.Reader;
 			br.Accessor.Seek(0, SeekOrigin.Begin);
@@ -137,7 +137,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Cabinet
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("ISc(");

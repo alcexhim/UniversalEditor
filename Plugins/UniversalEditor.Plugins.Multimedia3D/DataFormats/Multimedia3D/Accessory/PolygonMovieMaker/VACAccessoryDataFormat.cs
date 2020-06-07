@@ -44,7 +44,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Accessory.PolygonMovieMaker
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			AccessoryObjectModel accs = (objectModel as AccessoryObjectModel);
-			if (accs == null) return;
+			if (accs == null) throw new ObjectModelNotSupportedException();
 
 			base.Accessor.DefaultEncoding = Encoding.ShiftJIS;
 			Reader tr = new Reader(base.Accessor);
@@ -104,7 +104,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Accessory.PolygonMovieMaker
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			AccessoryObjectModel accs = (objectModel as AccessoryObjectModel);
-			if (accs == null) return;
+			if (accs == null) throw new ObjectModelNotSupportedException();
 
 			base.Accessor.DefaultEncoding = Encoding.ShiftJIS;
 			Writer tw = new Writer(base.Accessor);

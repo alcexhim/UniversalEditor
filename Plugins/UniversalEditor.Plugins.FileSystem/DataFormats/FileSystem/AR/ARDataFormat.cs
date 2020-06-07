@@ -46,7 +46,7 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader reader = base.Accessor.Reader;
 			string sig_arch = reader.ReadFixedLengthString(7);
@@ -113,7 +113,7 @@ namespace UniversalEditor.DataFormats.FileSystem.AR
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("!<arch>");

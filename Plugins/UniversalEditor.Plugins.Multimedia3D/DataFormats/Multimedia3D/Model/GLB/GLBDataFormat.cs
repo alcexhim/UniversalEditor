@@ -60,7 +60,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			if (model == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			string magic = br.ReadFixedLengthString(4); // "\0GLB"
@@ -141,6 +141,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
+			ModelObjectModel model = (objectModel as ModelObjectModel);
+			if (model == null) throw new ObjectModelNotSupportedException();
+
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteFixedLengthString("\0GLB");
 			bw.WriteInt32((int)ObjectType);

@@ -44,7 +44,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.MotionVectorData
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			MotionObjectModel motion = (objectModel as MotionObjectModel);
-			if (motion == null) return;
+			if (motion == null) throw new ObjectModelNotSupportedException();
 
 			System.Text.Encoding encoding = System.Text.Encoding.UTF8;
 

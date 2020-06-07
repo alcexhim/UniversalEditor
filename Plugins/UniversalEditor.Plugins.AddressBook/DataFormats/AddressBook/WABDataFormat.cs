@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.AddressBook
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			AddressBookObjectModel ab = (objectModel as AddressBookObjectModel);
-			if (ab == null) return;
+			if (ab == null) throw new ObjectModelNotSupportedException();
 
 			Reader br = base.Accessor.Reader;
 

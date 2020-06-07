@@ -41,7 +41,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARC
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = base.Accessor.Reader;
 			br.Endianness = IO.Endianness.LittleEndian;
@@ -91,7 +91,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ARC
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			if (fsom == null) return;
+			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			IO.Writer bw = base.Accessor.Writer;
 			bw.WriteByte((byte)0x1a);
