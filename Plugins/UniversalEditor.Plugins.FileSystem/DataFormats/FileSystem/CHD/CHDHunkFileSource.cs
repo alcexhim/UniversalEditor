@@ -45,7 +45,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 			HunkSize = hunkSize;
 		}
 
-		public override byte[] GetData(long offset, long length)
+		public override byte[] GetDataInternal(long offset, long length)
 		{
 			return ReadHunk(Reader, HunkId, offset, length);
 		}

@@ -34,7 +34,7 @@ namespace UniversalEditor.ObjectModels.FileSystem.FileSources
 			mvarAccessor = accessor;
 		}
 
-		public override byte[] GetData(long offset, long length)
+		public override byte[] GetDataInternal(long offset, long length)
 		{
 			mvarAccessor.Seek(offset, IO.SeekOrigin.Begin);
 			byte[] data = mvarAccessor.Reader.ReadBytes(length);

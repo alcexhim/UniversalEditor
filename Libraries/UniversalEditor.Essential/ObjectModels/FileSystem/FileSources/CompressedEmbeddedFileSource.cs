@@ -36,7 +36,7 @@ namespace UniversalEditor.ObjectModels.FileSystem.FileSources
 		public long DecompressedLength { get; private set; }
 		public long CompressedLength { get; private set; }
 
-		public override byte[] GetData(long offset, long length)
+		public override byte[] GetDataInternal(long offset, long length)
 		{
 			Reader.Seek(Offset, SeekOrigin.Begin);
 			byte[] sourceData = Reader.ReadBytes(DecompressedLength);

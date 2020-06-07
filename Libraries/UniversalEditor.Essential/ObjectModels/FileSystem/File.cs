@@ -156,7 +156,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 		public byte[] GetData(long offset, long length)
 		{
-			if (mvarSource != null) return mvarSource.GetData(offset, length);
+			if (mvarSource != null) return mvarSource.GetDataInternal(offset, length);
 
 			Console.WriteLine("DataRequest: " + mvarName + ": No source associated with this file");
 			return new byte[length];
@@ -380,7 +380,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			for (long i = 0; i < blockCount; i++)
 			{
-				byte[] data = mvarSource.GetData(offset, blockSize);
+				byte[] data = mvarSource.GetDataInternal(offset, blockSize);
 				offset += blockSize;
 
 				bw.WriteBytes(data);

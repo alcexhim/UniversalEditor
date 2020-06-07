@@ -36,7 +36,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HostileWaters
 
 		private Reader mbxReader = null;
 
-		public override byte[] GetData(long offset, long length)
+		public override byte[] GetDataInternal(long offset, long length)
 		{
 			if (mbxReader == null)
 			{

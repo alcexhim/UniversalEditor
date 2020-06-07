@@ -31,8 +31,20 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public FileSourceTransformation.FileSourceTransformationCollection Transformations { get { return mvarTransformations; } }
 
 		public byte[] GetData() { return GetData(0, GetLength()); }
+		public byte[] GetData(long offset, long length)
+		{
+			byte[] data = GetDataInternal(offset, length);
+			System.IO.MemoryStream msInput = new System.IO.MemoryStream(data);
+			for (int i = 0; i < Transformations.Count; i++)
+			{
+				System.IO.MemoryStream msOutput = new System.IO.MemoryStream();
+				Transformations[i].Function(this, msInput, msOutput);
+				msInput = msOutput;
+			}
+			return msInput.ToArray();
+		}
 
-		public abstract byte[] GetData(long offset, long length);
+		public abstract byte[] GetDataInternal(long offset, long length);
 		public abstract long GetLength();
 	}
 }

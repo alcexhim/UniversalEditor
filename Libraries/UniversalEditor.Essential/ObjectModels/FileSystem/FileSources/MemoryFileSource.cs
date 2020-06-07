@@ -36,7 +36,7 @@ namespace UniversalEditor.ObjectModels.FileSystem.FileSources
 			mvarData = data;
 		}
 
-		public override byte[] GetData(long offset, long length)
+		public override byte[] GetDataInternal(long offset, long length)
 		{
 			long realLength = Math.Min(length, mvarData.Length);
 			byte[] data = new byte[realLength];

@@ -39,7 +39,7 @@ namespace UniversalEditor.ObjectModels.FileSystem.FileSources
 		private long mvarLength = 0;
 		public long Length { get { return mvarLength; } set { mvarLength = value; } }
 
-		public override byte[] GetData(long offset, long length)
+		public override byte[] GetDataInternal(long offset, long length)
 		{
 			mvarReader.Seek(mvarOffset, SeekOrigin.Begin);
 			byte[] sourceData = mvarReader.ReadBytes(mvarLength);

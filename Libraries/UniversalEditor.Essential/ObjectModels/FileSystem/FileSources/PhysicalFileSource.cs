@@ -31,7 +31,7 @@ namespace UniversalEditor.ObjectModels.FileSystem.FileSources
 		private string mvarFileName = String.Empty;
 		public string FileName { get { return mvarFileName; } set { mvarFileName = value; } }
 
-		public override byte[] GetData(long offset, long length)
+		public override byte[] GetDataInternal(long offset, long length)
 		{
 			byte[] sourceData = System.IO.File.ReadAllBytes(mvarFileName);
 			long realLength = Math.Min(length, sourceData.Length);
