@@ -825,23 +825,6 @@ namespace UniversalEditor.UserInterface
 		}
 
 		// UniversalDataStorage.Editor.WindowsForms.Program
-		private void SingleInstanceManager_Callback(object sender, SingleInstanceManager.InstanceCallbackEventArgs e)
-		{
-			if (!e.IsFirstInstance)
-			{
-				if (LastWindow != null)
-				{
-					Document[] documents = new Document[e.CommandLineArgs.Length - 1];
-					for (int i = 1; i < e.CommandLineArgs.Length; i++)
-					{
-						documents[i - 1] = new Document(null, null, new FileAccessor(e.CommandLineArgs[i]));
-					}
-
-					LastWindow.OpenFile(documents);
-					LastWindow.ActivateWindow();
-				}
-			}
-		}
 		public string ExpandRelativePath(string relativePath)
 		{
 			if (relativePath.StartsWith("~/"))
@@ -1050,14 +1033,6 @@ namespace UniversalEditor.UserInterface
 		{
 			Engine.mvarCurrentEngine = this;
 			mvarRunning = true;
-
-			string INSTANCEID = GetType().FullName + "$2d429aa3371c421fb63b42525e51a50c$92751853175891031214292357218181357901238$";
-			if (ConfigurationManager.GetValue<bool>("SingleInstanceUniquePerDirectory", true))
-			{
-				// The single instance should be unique per directory
-				INSTANCEID += System.Reflection.Assembly.GetEntryAssembly().Location;
-			}
-			if (!SingleInstanceManager.CreateSingleInstance(INSTANCEID, new EventHandler<SingleInstanceManager.InstanceCallbackEventArgs>(SingleInstanceManager_Callback))) return;
 
 			string[] args1 = Environment.GetCommandLineArgs();
 			string[] args = new string[args1.Length - 1];
