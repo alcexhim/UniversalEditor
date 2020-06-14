@@ -8,18 +8,6 @@ BUGS:
 	after showing a dialog, then closing it
 	dialogs stop responding with GTK_IS_WINDOW assertion failed
 
- 2019-09-19
-
- bug still exists in the case where
-	User open file dialog
-	user cancel file dialog
-	
-	user open new dialog
-	
-		-> textbox does not update treeview
-		
-The case where NEW DIALOG has been opened, closed, then re-opened has been FIXED.
-
 
  2019-09-10
  
