@@ -234,10 +234,26 @@ namespace UniversalEditor.Editors.FileSystem
 					if (fso is File)
 					{
 						RecursiveAddFile(fso as File);
+						if (CurrentFolder != null)
+						{
+							CurrentFolder.Files.Add(fso as File);
+						}
+						else
+						{
+							(ObjectModel as FileSystemObjectModel).Files.Add(fso as File);
+						}
 					}
 					else if (fso is Folder)
 					{
 						RecursiveAddFolder(fso as Folder);
+						if (CurrentFolder != null)
+						{
+							CurrentFolder.Folders.Add(fso as Folder);
+						}
+						else
+						{
+							(ObjectModel as FileSystemObjectModel).Folders.Add(fso as Folder);
+						}
 					}
 				}
 				EndEdit();
