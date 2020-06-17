@@ -1,3 +1,9 @@
+Platform:
+	Batch Find / Replace:
+		I implemented this back in 2009 for my high school business class Inventory Management System, Starware IMS (source code has since disappeared).
+		The Universal Editor implementation should be an Editor-level API that returns search results in the form of an array of EditorSelection instances.
+		This way the platform can handle the heavy lifting of searching through the ObjectModel, and just pass in the array of EditorSelection to the Editor for it to highlight.
+
 Syntax Editor:
 	CSS: MonoDevelop does not squiggle-highlight invalid CSS property names. This should be a feature.
 
@@ -9,35 +15,7 @@ FormattedText:
 
 Platform:
 	Migrate UniversalEditor.ExpandedString to MBS.Framework
-	Determine whether to remove ProjectTypeVariable in favor of using existing functionality like CustomOptions
-
-Editor:
-	* I think we did this. Check to make sure?
-	There should be a UEXML file e.g. Extensions/GameDeveloper/Editors/FileSystem/DataFormats/CRI/CPK/CPKFileSystemEditorExtensions.uexml
-
-that contains layout like
-<Editors>
-	<FileSystem>
-		<Commands>
-			<Command ID="CRI_FileSystem_Extensions" Title="CRI Tools">
-				<Items>
-					<CommandReference CommandID="CRI_FileSystem_Extensions_Export_Header" />
-				</Items>
-			</Command>
-			<Command ID="CRI_FileSystem_Extensions_Export_Header" Title="Export Header UTF" />
-			<Command ID="CRI_FileSystem_Extensions_Export_TOC" Title="Export TOC UTF" />
-			<Command ID="CRI_FileSystem_Extensions_Export_ITOC" Title="Export ITOC UTF" />
-			<Command ID="CRI_FileSystem_Extensions_Export_GTOC" Title="Export GTOC UTF" />
-			<Command ID="CRI_FileSystem_Extensions_Export_ETOC" Title="Export ETOC UTF" />
-			
-			<Command ID="FileSystemContextMenu_Unselected">
-				<Items>
-					<CommandReference CommandID="CRI_FileSystem_Extensions_Export_Header" />
-				</Items>
-			</Command>
-		</Commands>
-	</FileSystem>
-</Editors>
+	[#1] Determine whether to remove ProjectTypeVariable in favor of using existing functionality like CustomOptions
 
 Platform:
 * Rewrite Settings (Options, Preferences, etc...) to use UEXML definitions (which we have already)
