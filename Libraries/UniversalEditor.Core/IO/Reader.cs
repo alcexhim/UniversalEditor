@@ -141,6 +141,13 @@ namespace UniversalEditor.IO
 			return buffer;
 		}
 
+		[CLSCompliant(false)]
+		public sbyte[] ReadSBytes(long length)
+		{
+			byte[] buffer = ReadBytes(length);
+			return (sbyte[])(Array)buffer;
+		}
+
 		public int ReadCompactInt32()
 		{
 			int multiplier = 1;

@@ -62,6 +62,21 @@ namespace UniversalEditor.IO
 			Write(data, 0, data.Length);
 		}
 
+		[CLSCompliant(false)]
+		public void WriteSBytes(sbyte[] data)
+		{
+			if (data == null) return;
+
+			// thanks https://stackoverflow.com/questions/829983/how-to-convert-a-sbyte-to-byte-in-c
+			byte[] realdata = (byte[])(Array)data;
+
+			for (int i = 0; i < Transformations.Count; i++)
+			{
+				realdata = Transformations[i].Transform(realdata);
+			}
+			Write(realdata, 0, realdata.Length);
+		}
+
 		public void WriteFixedLengthBytes(byte[] data, int count)
 		{
 			if (data == null) data = new byte[0];
