@@ -587,5 +587,15 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				tv.SelectedRows[0].RowColumns[0].Value = GetCommandText(tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd"));
 			}
 		}
+
+		protected override bool ShowDocumentPropertiesDialogInternal()
+		{
+			if (tv.Focused && tv.SelectedRows.Count > 0)
+			{
+				tv_RowActivated(this, new ListViewRowActivatedEventArgs(tv.SelectedRows[0]));
+				return true;
+			}
+			return base.ShowDocumentPropertiesDialogInternal();
+		}
 	}
 }
