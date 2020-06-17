@@ -79,6 +79,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					// lbl.AutoSize = true;
 					// lbl.Dock = DockStyle.None;
 					// lbl.Anchor = AnchorStyles.Left;
+					lbl.HorizontalAlignment = HorizontalAlignment.Left;
 					lbl.UseMnemonic = true;
 					lbl.Text = eo.Title; // .Replace("_", "&"); // only for WinForms
 					this.Controls.Add(lbl, new GridLayout.Constraints(iRow, 0, 1, 1, ExpandMode.None));
