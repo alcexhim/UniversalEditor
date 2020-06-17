@@ -827,7 +827,14 @@ namespace UniversalEditor.UserInterface
 		{
 			foreach (Document doc in documents)
 			{
-				InitEditorPage(doc);
+				try
+				{
+					InitEditorPage(doc);
+				}
+				catch (System.UnauthorizedAccessException ex)
+				{
+					MessageDialog.ShowDialog(ex.Message, "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				}
 			}
 		}
 
