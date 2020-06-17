@@ -437,6 +437,9 @@ namespace UniversalEditor.UserInterface
 		{
 			if (doc == null) return;
 
+			long initpos = 0;
+			bool first = true;
+
 			bool loaded = false;
 			if (doc.DataFormat == null)
 			{
@@ -463,7 +466,17 @@ namespace UniversalEditor.UserInterface
 
 						try
 						{
-							doc.Accessor.Open ();
+							doc.Accessor.Open();
+							if (first)
+							{
+								initpos = doc.Accessor.Position;
+								first = false;
+							}
+							else
+							{
+								doc.Accessor.Position = initpos;
+							}
+
 							doc.Load ();
 							doc.IsSaved = true;
 							loaded = true;
