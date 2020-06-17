@@ -737,7 +737,7 @@ namespace UniversalEditor.UserInterface
 		{
 			this.RegisterDropTarget(new DragDropTarget[]
 			{
-				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
+				new DragDropTarget(DragDropTargetTypes.FileList, DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 
 			Engine.CurrentEngine.Windows.Add(this);

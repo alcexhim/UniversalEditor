@@ -80,7 +80,7 @@ namespace UniversalEditor.Editors.FileSystem
 			// FIXME: this is GTK-specific...
 			this.tv.RegisterDragSource(new DragDropTarget[]
 			{
-				new DragDropTarget("text/uri-list", DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x0)
+				new DragDropTarget(DragDropTargetTypes.FileList, DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x0)
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 
 			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
