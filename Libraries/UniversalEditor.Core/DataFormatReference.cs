@@ -54,7 +54,23 @@ namespace UniversalEditor
 		}
 
 		private Type mvarType = null;
-		public Type Type { get { return mvarType; } }
+		public Type Type
+		{
+			get { return mvarType; }
+			set
+			{
+				if (!value.IsSubclassOf(typeof(DataFormat)))
+				{
+					throw new InvalidCastException("Cannot create a data format reference to a non-DataFormat type");
+				}
+				else if (value.IsAbstract)
+				{
+					throw new InvalidOperationException("Cannot create a data format reference to an abstract type");
+				}
+
+				mvarType = value;
+			}
+		}
 
 		private string mvarTypeName = null;
 		public string TypeName { get { return mvarTypeName; } set { mvarTypeName = value; } }
@@ -123,16 +139,7 @@ namespace UniversalEditor
 		}
 		public DataFormatReference(Type dataFormatType)
 		{
-			if (!dataFormatType.IsSubclassOf(typeof(DataFormat)))
-			{
-				throw new InvalidCastException("Cannot create a data format reference to a non-DataFormat type");
-			}
-			else if (dataFormatType.IsAbstract)
-			{
-				throw new InvalidOperationException("Cannot create a data format reference to an abstract type");
-			}
-
-			mvarType = dataFormatType;
+			Type = dataFormatType;
 		}
 
 		private Guid mvarID = Guid.Empty;
