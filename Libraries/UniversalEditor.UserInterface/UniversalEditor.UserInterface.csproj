@@ -131,6 +131,7 @@
     <Compile Include="EditorDocumentExplorer.cs" />
     <Compile Include="EditorDocumentExplorerNode.cs" />
     <Compile Include="EditorDocumentExplorerSelectionChangedEvent.cs" />
+    <Compile Include="Editors\Markup\MarkupEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -185,6 +186,7 @@
     <Folder Include="Editors\Database\" />
     <Folder Include="Editors\RIFF\" />
     <Folder Include="Editors\RIFF\Dialogs\" />
+    <Folder Include="Editors\Markup\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

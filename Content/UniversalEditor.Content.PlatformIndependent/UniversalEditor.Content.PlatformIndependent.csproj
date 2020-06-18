@@ -743,6 +743,7 @@
     <Content Include="Editors\NewWorldComputing\Map\MapEditor.glade" />
     <Content Include="Editors\Multimedia\PictureCollection\PictureCollectionEditor.glade" />
     <Content Include="Editors\Multimedia\PictureCollection\Dialogs\AnimationPropertiesDialog.glade" />
+    <Content Include="Editors\Markup\MarkupEditor.glade" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\TIFF.uexml" />
   </ItemGroup>
   <ItemGroup>
