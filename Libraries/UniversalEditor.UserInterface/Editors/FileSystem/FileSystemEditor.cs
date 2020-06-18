@@ -65,6 +65,7 @@ namespace UniversalEditor.Editors.FileSystem
 			tv.SelectionMode = SelectionMode.Multiple;
 			tv.BeforeContextMenu += tv_BeforeContextMenu;
 			tv.RowActivated += tv_RowActivated;
+			tv.SortContainerRowsFirst = true;
 
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Open", FileSystemContextMenu_Open_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingItem", FileAddExistingItem_Click);
