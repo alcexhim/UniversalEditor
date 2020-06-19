@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using MBS.Framework.UserInterface.Controls;
+
 namespace UniversalEditor.UserInterface
 {
 	public class EditorDocumentExplorer
@@ -31,5 +33,24 @@ namespace UniversalEditor.UserInterface
 		}
 
 		public EditorDocumentExplorerNode.EditorDocumentExplorerNodeCollection Nodes { get; private set; } = null;
+		public EditorDocumentExplorerNode SelectedNode
+		{
+			get
+			{
+				ListView lv = ((MainWindow)HostApplication.CurrentWindow).DocumentExplorerPanel.ListView;
+				if (lv.SelectedRows.Count > 0)
+				{
+					return lv.SelectedRows[0].GetExtraData<EditorDocumentExplorerNode>("node");
+				}
+				return null;
+			}
+		}
+
+		public event EditorDocumentExplorerBeforeContextMenuEventHandler BeforeContextMenu;
+
+		internal void FireBeforeContextMenu(EditorDocumentExplorerBeforeContextMenuEventArgs e)
+		{
+			BeforeContextMenu?.Invoke(this, e);
+		}
 	}
 }

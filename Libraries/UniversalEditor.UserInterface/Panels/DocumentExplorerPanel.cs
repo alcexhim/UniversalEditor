@@ -8,12 +8,15 @@ namespace UniversalEditor.UserInterface.Panels
 	public class DocumentExplorerPanel : Panel
 	{
 		private ListView lv = null;
+		public ListView ListView { get { return lv; } }
+
 		private DefaultTreeModel tm = null;
 
 		public DocumentExplorerPanel()
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
 			lv = new ListView();
+			lv.BeforeContextMenu += lv_BeforeContextMenu;
 			lv.SelectionChanged += lv_SelectionChanged;
 
 			tm = new DefaultTreeModel(new Type[] { typeof(string) });
@@ -22,6 +25,19 @@ namespace UniversalEditor.UserInterface.Panels
 			lv.Columns.Add(new ListViewColumnText(tm.Columns[0], "Item"));
 
 			Controls.Add(lv, new BoxLayout.Constraints(true, true));
+		}
+
+		private void lv_BeforeContextMenu(object sender, EventArgs e)
+		{
+			if (lv.SelectedRows.Count == 0)
+				return;
+
+			EditorDocumentExplorerNode node = lv.SelectedRows[0].GetExtraData<EditorDocumentExplorerNode>("node");
+			EditorDocumentExplorerBeforeContextMenuEventArgs ee = new EditorDocumentExplorerBeforeContextMenuEventArgs(node);
+
+			CurrentEditor.DocumentExplorer.FireBeforeContextMenu(ee);
+
+			lv.ContextMenuCommandID = ee.ContextMenuCommandID;
 		}
 
 		private void lv_SelectionChanged(object sender, EventArgs e)

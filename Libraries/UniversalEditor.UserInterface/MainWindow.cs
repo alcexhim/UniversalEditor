@@ -40,6 +40,7 @@ namespace UniversalEditor.UserInterface
 		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
 		private PropertyListPanel pnlPropertyList = new PropertyListPanel();
 		private DocumentExplorerPanel pnlDocumentExplorer = new DocumentExplorerPanel();
+		public DocumentExplorerPanel DocumentExplorerPanel { get { return pnlDocumentExplorer; } }
 
 		private RibbonTab LoadRibbonBar(CommandBar cb)
 		{

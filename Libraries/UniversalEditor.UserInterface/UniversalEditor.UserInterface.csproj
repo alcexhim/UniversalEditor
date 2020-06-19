@@ -132,6 +132,7 @@
     <Compile Include="EditorDocumentExplorerNode.cs" />
     <Compile Include="EditorDocumentExplorerSelectionChangedEvent.cs" />
     <Compile Include="Editors\Markup\MarkupEditor.cs" />
+    <Compile Include="EditorDocumentExplorerBeforeContextMenuEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
