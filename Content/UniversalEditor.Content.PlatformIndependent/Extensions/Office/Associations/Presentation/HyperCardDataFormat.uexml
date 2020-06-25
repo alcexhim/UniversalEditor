@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="HyperCard stack">
+					<FileNameFilters>
+						<FileNameFilter>*.wild</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.Plugins.Office.ObjectModels.Presentation.PresentationObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Office.DataFormats.Presentation.HyperCard.HyperCardDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

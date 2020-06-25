@@ -173,6 +173,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Des
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.NewWorldComputing.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.NewWorldComputing.UserInterface\UniversalEditor.Plugins.NewWorldComputing.UserInterface.csproj", "{03B0D6C8-1C3C-4972-B102-3350FB628C5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Office", "Plugins\UniversalEditor.Plugins.Office\UniversalEditor.Plugins.Office.csproj", "{5D62192C-EB3E-4E73-A440-C53579B6EB47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Office.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Office.UserInterface\UniversalEditor.Plugins.Office.UserInterface.csproj", "{317CDFBC-9B41-4157-B2C0-D37E2BCEB42B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -501,6 +505,14 @@ Global
 		{03B0D6C8-1C3C-4972-B102-3350FB628C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03B0D6C8-1C3C-4972-B102-3350FB628C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03B0D6C8-1C3C-4972-B102-3350FB628C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D62192C-EB3E-4E73-A440-C53579B6EB47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D62192C-EB3E-4E73-A440-C53579B6EB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D62192C-EB3E-4E73-A440-C53579B6EB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D62192C-EB3E-4E73-A440-C53579B6EB47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{317CDFBC-9B41-4157-B2C0-D37E2BCEB42B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317CDFBC-9B41-4157-B2C0-D37E2BCEB42B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317CDFBC-9B41-4157-B2C0-D37E2BCEB42B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317CDFBC-9B41-4157-B2C0-D37E2BCEB42B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -582,6 +594,8 @@ Global
 		{BCEB66A6-24E3-4877-B8D4-83FCF8EC748B} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{08168BEA-E652-4493-8D89-5AB72B225841} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{03B0D6C8-1C3C-4972-B102-3350FB628C5D} = {7B535D74-5496-4802-B809-89ED88274A91}
+		{5D62192C-EB3E-4E73-A440-C53579B6EB47} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{317CDFBC-9B41-4157-B2C0-D37E2BCEB42B} = {7B535D74-5496-4802-B809-89ED88274A91}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -589,6 +603,7 @@ Global
 		$1.NoTabsAfterNonTabs = True
 		$1.scope = text/plain
 		$1.FileWidth = 80
+		$1.EolMarker = Unix
 		$0.DotNetNamingPolicy = $2
 		$2.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$0.TextStylePolicy = $3

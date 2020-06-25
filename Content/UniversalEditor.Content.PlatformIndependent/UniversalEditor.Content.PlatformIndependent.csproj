@@ -743,6 +743,7 @@
     <Content Include="Editors\NewWorldComputing\Map\MapEditor.glade" />
     <Content Include="Editors\Multimedia\PictureCollection\PictureCollectionEditor.glade" />
     <Content Include="Editors\Multimedia\PictureCollection\Dialogs\AnimationPropertiesDialog.glade" />
+    <Content Include="Extensions\Office\Associations\Presentation\HyperCardDataFormat.uexml" />
     <Content Include="Editors\Markup\MarkupEditor.glade" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\TIFF.uexml" />
   </ItemGroup>
@@ -808,6 +809,9 @@
     <Folder Include="Extensions\Amiga\" />
     <Folder Include="Extensions\Amiga\Associations\" />
     <Folder Include="Extensions\Amiga\Associations\FileSystem\" />
+    <Folder Include="Extensions\Office\" />
+    <Folder Include="Extensions\Office\Associations\" />
+    <Folder Include="Extensions\Office\Associations\Presentation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />
