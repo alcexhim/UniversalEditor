@@ -52,7 +52,6 @@
     <Compile Include="Association.cs" />
     <Compile Include="AssociationCriteria.cs" />
     <Compile Include="Common\Path.cs" />
-    <Compile Include="Common\Strings.cs" />
     <Compile Include="CustomDataFormat.cs" />
     <Compile Include="CustomDataFormatFieldCondition.cs" />
     <Compile Include="CustomDataFormatItem.cs" />
