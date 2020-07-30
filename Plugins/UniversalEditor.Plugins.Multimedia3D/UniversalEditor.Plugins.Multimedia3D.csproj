@@ -163,6 +163,8 @@
     <Compile Include="TextureVector2.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Metasequoia\MQOTextDataFormat.cs" />
     <Compile Include="ObjectModels\Multimedia3D\Scene\SceneBrush.cs" />
+    <Compile Include="DataFormats\Multimedia3D\Model\Milkshape3D\MS3DDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia3D\Model\Milkshape3D\MS3DObjectFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -202,6 +204,7 @@
   <ItemGroup>
     <Folder Include="DataFormats\Multimedia3D\Model\Collada\" />
     <Folder Include="DataFormats\Multimedia3D\Model\Keyhole\" />
+    <Folder Include="DataFormats\Multimedia3D\Model\Milkshape3D\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
