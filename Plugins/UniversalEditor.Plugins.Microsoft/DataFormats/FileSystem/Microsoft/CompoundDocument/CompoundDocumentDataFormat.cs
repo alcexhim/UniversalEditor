@@ -41,9 +41,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(SectorSize), "&Sector size (in bytes):", 512, 128));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(ShortSectorSize), "S&hort sector size (in bytes):", 64));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(MinimumStandardStreamSize), "&Minimum standard stream size (in bytes):", 4096, 4096));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(SectorSize), "_Sector size (in bytes):", 512, 128));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(ShortSectorSize), "S_hort sector size (in bytes):", 64));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(MinimumStandardStreamSize), "_Minimum standard stream size (in bytes):", 4096, 4096));
 				_dfr.Sources.Add("http://www.openoffice.org/sc/compdocfileformat.pdf");
 			}
 			return _dfr;
@@ -321,8 +321,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 						i += sectorData.Length;
 					}
 					mvarShortSectorContainerStreamData = shortStreamContainerStreamData;
-
-					System.IO.File.WriteAllBytes("/tmp/test.ue/shrtstrm.dat", shortStreamContainerStreamData);
 					#endregion
 				}
 				else if (storageType == CompoundDocumentStorageType.UserStorage)
