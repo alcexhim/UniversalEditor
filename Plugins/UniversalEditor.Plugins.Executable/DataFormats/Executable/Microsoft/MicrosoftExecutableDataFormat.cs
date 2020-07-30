@@ -650,10 +650,13 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 				bw.WriteBytes(richHeaderDecryptionKey);
 			}
 
-			int sizeOfPadding = 96 - sizeOfRich;
+			if (sizeOfRich > 0) // HACK : not sure if this is correct or not
+			{
+				int sizeOfPadding = 96 - sizeOfRich;
 
-			byte[] unknown = new byte[sizeOfPadding];
-			bw.WriteBytes(unknown);
+				byte[] unknown = new byte[sizeOfPadding];
+				bw.WriteBytes(unknown);
+			}
 
 			#region PE header
 			PEHeader pe = new PEHeader();
@@ -668,18 +671,16 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			}
 			// pe.characteristics = ExecutableCharacteristicsToPECharacteristics(exe.Characteristics);
 			// pe.sizeOfOptionalHeader = 240;
-			pe.sizeOfOptionalHeader = 224;		// 240???
-			pe.machine = PEMachineType.Intel386;
-			pe.characteristics = PECharacteristics.RelocationInformationStripped | PECharacteristics.ExecutableImage | PECharacteristics.UpdateObject;
+			pe.sizeOfOptionalHeader = 224;      // 240???
+			pe.machine = (PEMachineType)exe.TargetMachineType;
+			pe.characteristics = (PECharacteristics)exe.Characteristics;
 
-			bw.Flush();
 			WritePEHeader(bw, pe);
-			bw.Flush();
 
 			#endregion
 			#region PE Optional Header
 			long peohOffset = bw.Accessor.Position;
-			peohOffset += 8;
+			// peohOffset += 8;
 			bw.Accessor.Seek(peohOffset, SeekOrigin.Begin);
 
 			PEOptionalHeader peoh = new PEOptionalHeader();
