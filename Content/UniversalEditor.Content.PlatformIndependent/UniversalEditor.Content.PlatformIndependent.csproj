@@ -746,6 +746,8 @@
     <Content Include="Extensions\Office\Associations\Presentation\HyperCardDataFormat.uexml" />
     <Content Include="Editors\Markup\MarkupEditor.glade" />
     <Content Include="Extensions\GraphicDesigner\Associations\Picture\TIFF.uexml" />
+    <Content Include="Extensions\Microsoft\Associations\OLE1.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\Microsoft\NTFS.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
