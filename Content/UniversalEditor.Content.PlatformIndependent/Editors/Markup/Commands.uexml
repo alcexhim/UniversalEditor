@@ -1,0 +1,26 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{4F56A826-32B4-4347-B2D5-379717EA57D4}" TypeName="UniversalEditor.Editors.Markup.MarkupEditor">
+			<Commands>
+				<Command ID="MarkupEditor_DocumentExplorer_ContextMenu_Add_Tag" Title="Tag" />
+				<Command ID="MarkupEditor_DocumentExplorer_ContextMenu_Add_Preprocessor" Title="Preprocessor" />
+				<Command ID="MarkupEditor_DocumentExplorer_ContextMenu_Add_Comment" Title="Comment" />
+				<Command ID="MarkupEditor_DocumentExplorer_ContextMenu_Add" Title="A_dd">
+					<Items>
+						<CommandReference CommandID="MarkupEditor_DocumentExplorer_ContextMenu_Add_Tag" />
+						<CommandReference CommandID="MarkupEditor_DocumentExplorer_ContextMenu_Add_Preprocessor" />
+						<CommandReference CommandID="MarkupEditor_DocumentExplorer_ContextMenu_Add_Comment" />
+					</Items>
+				</Command>
+				
+				<Command ID="MarkupEditor_DocumentExplorer_ContextMenu">
+					<Items>
+						<CommandReference CommandID="MarkupEditor_DocumentExplorer_ContextMenu_Add" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

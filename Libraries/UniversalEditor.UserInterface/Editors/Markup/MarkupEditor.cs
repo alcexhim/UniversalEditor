@@ -48,6 +48,22 @@ namespace UniversalEditor.Editors.Markup
 			return _er;
 		}
 
+		public MarkupEditor()
+		{
+			DocumentExplorer.BeforeContextMenu += DocumentExplorer_BeforeContextMenu;
+		}
+
+		private void DocumentExplorer_BeforeContextMenu(object sender, EditorDocumentExplorerBeforeContextMenuEventArgs e)
+		{
+			MarkupElement elParent = null;
+			if (e.Node != null)
+			{
+				elParent = e.Node.GetExtraData<MarkupElement>("el");
+			}
+			e.ContextMenuCommandID = "MarkupEditor_DocumentExplorer_ContextMenu";
+		}
+
+
 		public override void UpdateSelections()
 		{
 		}
@@ -61,6 +77,61 @@ namespace UniversalEditor.Editors.Markup
 		{
 			base.OnCreated(e);
 			OnObjectModelChanged(e);
+
+			Context.AttachCommandEventHandler("MarkupEditor_DocumentExplorer_ContextMenu_Add_Tag", MarkupEditor_DocumentExplorer_ContextMenu_Add_Tag);
+			Context.AttachCommandEventHandler("MarkupEditor_DocumentExplorer_ContextMenu_Add_Preprocessor", MarkupEditor_DocumentExplorer_ContextMenu_Add_Preprocessor);
+			Context.AttachCommandEventHandler("MarkupEditor_DocumentExplorer_ContextMenu_Add_Comment", MarkupEditor_DocumentExplorer_ContextMenu_Add_Comment);
+		}
+
+		private void MarkupEditor_DocumentExplorer_ContextMenu_Add_Tag(object sender, EventArgs e)
+		{
+			MarkupObjectModel mom = (ObjectModel as MarkupObjectModel);
+			if (mom == null) return;
+
+			MarkupTagElement tag = new MarkupTagElement();
+			tag.FullName = "untitled";
+
+			if (DocumentExplorer.SelectedNode != null)
+			{
+				MarkupElement el = DocumentExplorer.SelectedNode.GetExtraData<MarkupElement>("el");
+				RecursiveLoadDocumentExplorer(tag, DocumentExplorer.SelectedNode);
+			}
+			else
+			{
+				RecursiveLoadDocumentExplorer(tag, null);
+			}
+		}
+		private void MarkupEditor_DocumentExplorer_ContextMenu_Add_Preprocessor(object sender, EventArgs e)
+		{
+			MarkupObjectModel mom = (ObjectModel as MarkupObjectModel);
+			if (mom == null) return;
+
+			if (DocumentExplorer.SelectedNode != null)
+			{
+				MarkupElement el = DocumentExplorer.SelectedNode.GetExtraData<MarkupElement>("el");
+				if (el is MarkupTagElement)
+				{
+					MarkupPreprocessorElement tag = new MarkupPreprocessorElement();
+					(el as MarkupTagElement).Elements.Add(tag);
+					RecursiveLoadDocumentExplorer(tag, DocumentExplorer.SelectedNode);
+				}
+			}
+		}
+		private void MarkupEditor_DocumentExplorer_ContextMenu_Add_Comment(object sender, EventArgs e)
+		{
+			MarkupObjectModel mom = (ObjectModel as MarkupObjectModel);
+			if (mom == null) return;
+
+			if (DocumentExplorer.SelectedNode != null)
+			{
+				MarkupElement el = DocumentExplorer.SelectedNode.GetExtraData<MarkupElement>("el");
+				if (el is MarkupTagElement)
+				{
+					MarkupCommentElement tag = new MarkupCommentElement();
+					(el as MarkupTagElement).Elements.Add(tag);
+					RecursiveLoadDocumentExplorer(tag, DocumentExplorer.SelectedNode);
+				}
+			}
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
@@ -207,5 +278,39 @@ namespace UniversalEditor.Editors.Markup
 				parent.Rows.Add(row);
 			}
 		}
+
+		private CustomSettingsProvider _spMarkupProvider = null;
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		{
+			if (_spMarkupProvider == null)
+			{
+				_spMarkupProvider = new CustomSettingsProvider();
+				_spMarkupProvider.SettingsLoaded += _spMarkupProvider_SettingsLoaded;
+				_spMarkupProvider.SettingsSaved += _spMarkupProvider_SettingsSaved;
+				_spMarkupProvider.SettingsGroups.Add(new SettingsGroup("General", new Setting[]
+				{
+					new ChoiceSetting("Version", null, new ChoiceSetting.ChoiceSettingValue[]
+					{
+						new ChoiceSetting.ChoiceSettingValue("1.0", 1.0)
+					}),
+					new ChoiceSetting("Encoding", null, new ChoiceSetting.ChoiceSettingValue[]
+					{
+						new ChoiceSetting.ChoiceSettingValue("UTF-8", "utf-8")
+					}),
+					new BooleanSetting("Standalone", false)
+				}));
+			}
+			return new SettingsProvider[] { _spMarkupProvider };
+		}
+
+		void _spMarkupProvider_SettingsLoaded(object sender, EventArgs e)
+		{
+		}
+
+
+		void _spMarkupProvider_SettingsSaved(object sender, EventArgs e)
+		{
+		}
+
 	}
 }
