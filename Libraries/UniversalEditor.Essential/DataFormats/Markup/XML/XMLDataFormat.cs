@@ -349,7 +349,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			tr.Accessor.Seek(-1, IO.SeekOrigin.Current);
 
 			bool seenBeginChar = false;
-
+			bool seenWhitespace = false;
 			while (!tr.EndOfStream)
 			{
 				c = tr.ReadChar();
@@ -360,6 +360,22 @@ namespace UniversalEditor.DataFormats.Markup.XML
 				else
 				{
 					loaded = true;
+				}
+
+				if (char.IsWhiteSpace(c))
+				{
+					if (insideString == 0 && !seenWhitespace)
+					{
+						seenWhitespace = true;
+					}
+					else if (insideString == 0)
+					{
+						continue;
+					}
+				}
+				else
+				{
+					seenWhitespace = false;
 				}
 
 				if (c == this.Settings.TagEndChar && !seenBeginChar)
@@ -604,7 +620,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												char c2 = this.Settings.AttributeNameValueSeparatorChar;
 												if (arg_6A8_0.Contains(c2.ToString()))
 												{
-													int l = nnn.IndexOf(' ');
+													int l = nnn.IndexOfAny(new char[] { ' ', '\r', '\n' });
 													value = nnn.Substring(0, l);
 													string nnnn = nnn.Substring(value.Length).Trim();
 													string nnnnAttributeName = string.Empty;
