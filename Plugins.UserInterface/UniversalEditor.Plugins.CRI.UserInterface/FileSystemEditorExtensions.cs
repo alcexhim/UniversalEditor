@@ -65,7 +65,21 @@ namespace UniversalEditor.Plugins.CRI.UserInterface
 			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_GTOC", CRI_FileSystem_Extensions_Export_GTOC_Click);
 			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ETOC", CRI_FileSystem_Extensions_Export_ETOC_Click);
 
+			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_View_Info", CRI_FileSystem_Extensions_View_Info_Click);
+
 			_initOnce = true;
+		}
+
+		private void CRI_FileSystem_Extensions_View_Info_Click(object sender, EventArgs e)
+		{
+			CPKDataFormat cpk = (Document.DataFormat as CPKDataFormat);
+			if (cpk == null)
+				return;
+
+			CPKFileInfoDialog dlg = new CPKFileInfoDialog();
+			dlg.Accessor = Document.Accessor;
+			dlg.DataFormat = cpk;
+			dlg.ShowDialog();
 		}
 
 		private void CRI_FileSystem_Extensions_Export_Header_Click(object sender, EventArgs e)

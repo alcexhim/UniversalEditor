@@ -7,13 +7,22 @@
 				<Command ID="CRI_FileSystem_Extensions_Export_ITOC" Title="Export _ITOC UTF" />
 				<Command ID="CRI_FileSystem_Extensions_Export_GTOC" Title="Export _GTOC UTF" />
 				<Command ID="CRI_FileSystem_Extensions_Export_ETOC" Title="Export _ETOC UTF" />
-				<Command ID="CRI_FileSystem_Extensions" Title="CRI Tools">
+				
+				<Command ID="CRI_FileSystem_Extensions_Export_UTFTable" Title="Export _UTF Table">
 					<Items>
 						<CommandReference CommandID="CRI_FileSystem_Extensions_Export_Header" />
 						<CommandReference CommandID="CRI_FileSystem_Extensions_Export_TOC" />
 						<CommandReference CommandID="CRI_FileSystem_Extensions_Export_ITOC" />
 						<CommandReference CommandID="CRI_FileSystem_Extensions_Export_GTOC" />
 						<CommandReference CommandID="CRI_FileSystem_Extensions_Export_ETOC" />
+					</Items>
+				</Command>
+				<Command ID="CRI_FileSystem_Extensions_View_Info" Title="View CPK _Info" />
+				
+				<Command ID="CRI_FileSystem_Extensions" Title="CRI Tools">
+					<Items>
+						<CommandReference CommandID="CRI_FileSystem_Extensions_Export_UTFTable" />
+						<CommandReference CommandID="CRI_FileSystem_Extensions_View_Info" />
 					</Items>
 				</Command>
 			</Commands>
