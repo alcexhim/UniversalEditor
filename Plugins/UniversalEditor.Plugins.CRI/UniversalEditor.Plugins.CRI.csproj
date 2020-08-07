@@ -41,6 +41,8 @@
     <Compile Include="DataFormats\Database\UTF\UTFDataFormat.cs" />
     <Compile Include="DataFormats\Database\UTF\UTFColumnDataType.cs" />
     <Compile Include="DataFormats\Database\UTF\UTFColumnStorageType.cs" />
+    <Compile Include="DataFormats\FileSystem\CPK\CPKFileMode.cs" />
+    <Compile Include="DataFormats\FileSystem\CPK\Internal\IDOFFSET.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\" />
@@ -49,6 +51,7 @@
     <Folder Include="DataFormats\FileSystem\AFS\" />
     <Folder Include="DataFormats\Database\" />
     <Folder Include="DataFormats\Database\UTF\" />
+    <Folder Include="DataFormats\FileSystem\CPK\Internal\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
