@@ -91,6 +91,7 @@ namespace UniversalEditor.Compression
 				case CompressionMethod.Deflate: return new Modules.Deflate.DeflateCompressionModule();
 				case CompressionMethod.Gzip: return new Modules.Gzip.GzipCompressionModule();
 				case CompressionMethod.LZSS: return new Modules.LZSS.LZSSCompressionModule();
+				case CompressionMethod.LZRW1: return new Modules.LZRW1.LZRW1CompressionModule();
 				case CompressionMethod.LZX: return new Modules.LZX.LZXCompressionModule();
 				case CompressionMethod.XMemLZX: return new Modules.XMemLZX.XMemLZXCompressionModule();
 				case CompressionMethod.Zlib: return new Modules.Zlib.ZlibCompressionModule();

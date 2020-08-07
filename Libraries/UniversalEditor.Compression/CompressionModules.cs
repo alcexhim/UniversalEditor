@@ -46,5 +46,10 @@ namespace UniversalEditor.Compression
 		/// </summary>
 		/// <value>A <see cref="CompressionModule" /> for handling zlib compression.</value>
 		public static Modules.Zlib.ZlibCompressionModule Zlib { get; } = new Modules.Zlib.ZlibCompressionModule();
+		/// <summary>
+		/// Gets a <see cref="CompressionModule" /> for handling LZRW1 compression.
+		/// </summary>
+		/// <value>A <see cref="CompressionModule" /> for handling LZRW1 compression.</value>
+		public static Modules.LZRW1.LZRW1CompressionModule LZRW1 { get; } = new Modules.LZRW1.LZRW1CompressionModule();
 	}
 }

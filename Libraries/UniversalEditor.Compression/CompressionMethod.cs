@@ -27,7 +27,7 @@ namespace UniversalEditor.Compression
 	public enum CompressionMethod : sbyte
 	{
 		Unknown = -1,
-		None,
+		None = 0,
 		Bzip2,
 		Bzip2Solid,
 		Deflate,
@@ -37,6 +37,7 @@ namespace UniversalEditor.Compression
 		LZMASolid,
 		LZSS,
 		LZH,
+		LZRW1,
 		LZW,
 		LZX,
 		PPPMd,
