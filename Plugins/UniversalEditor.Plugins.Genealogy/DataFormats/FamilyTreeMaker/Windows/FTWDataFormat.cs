@@ -22,6 +22,9 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.FamilyTreeMaker.Windows
 			File IND_DB = fsom.Files["IND.DB"];
 			File INDGROUPS = fsom.Files["QEDIT0.DB"];
 
+			if (IND_DB == null)
+				throw new InvalidDataFormatException("IND.DB not found");
+
 			INDDBObjectModel objm = IND_DB.GetObjectModel<INDDBObjectModel>(new INDDBDataFormat());
 
 			int maxNameLength = 0;
