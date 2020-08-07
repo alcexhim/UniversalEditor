@@ -749,6 +749,7 @@
     <Content Include="Editors\Markup\Commands.uexml" />
     <Content Include="Extensions\Microsoft\Associations\OLE1.uexml" />
     <Content Include="Extensions\FileSystem\Associations\Microsoft\NTFS.uexml" />
+    <Content Include="Editors\Setup\BootstrapScript\BootstrapScriptEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -815,6 +816,8 @@
     <Folder Include="Extensions\Office\" />
     <Folder Include="Extensions\Office\Associations\" />
     <Folder Include="Extensions\Office\Associations\Presentation\" />
+    <Folder Include="Editors\Setup\" />
+    <Folder Include="Editors\Setup\BootstrapScript\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\SoftwareDeveloper\Templates\Project\Software Development\Arduino\Images\Blink.xcf" />

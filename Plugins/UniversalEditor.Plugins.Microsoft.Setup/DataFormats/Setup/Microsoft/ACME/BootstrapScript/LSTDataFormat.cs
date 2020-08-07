@@ -60,7 +60,9 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 			base.AfterLoadInternal(objectModels);
 
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
+
 			BootstrapScriptObjectModel script = (objectModels.Pop() as BootstrapScriptObjectModel);
+			if (script == null) throw new ObjectModelNotSupportedException();
 
 			foreach (Group grp in plom.Items.OfType<Group>())
 			{
@@ -88,6 +90,10 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 					{
 						operatingSystem.Require31Enabled = true;
 						operatingSystem.Require31Message = grp.GetPropertyValue<string>("Require31");
+					}
+					if (grp.Items.Contains<Property>("DrvModName"))
+					{
+						operatingSystem.DriverModuleName = grp.GetPropertyValue<string>("DrvModName");
 					}
 				}
 				else if (grp.Name == "Files" || grp.Name.EndsWith(" Files"))

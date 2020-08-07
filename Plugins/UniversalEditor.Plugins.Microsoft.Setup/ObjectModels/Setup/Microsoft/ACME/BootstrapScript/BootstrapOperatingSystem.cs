@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 
 namespace UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript
 {
@@ -73,43 +74,43 @@ namespace UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript
 		/// <summary>
 		/// The title of the setup initialization dialog.
 		/// </summary>
-		public string WindowTitle { get { return mvarWindowTitle; } set { mvarWindowTitle = value; } }
+		public string WindowTitle { get { return Parameters.ContainsKey("WndTitle") ? Parameters["WndTitle"]  : mvarWindowTitle; } set { mvarWindowTitle = value; Parameters["WndTitle"] = value; } }
 
 		private string mvarWindowMessage = "Initializing Setup...";
 		/// <summary>
 		/// The message to display inside the setup initialization dialog.
 		/// </summary>
-		public string WindowMessage { get { return mvarWindowMessage; } set { mvarWindowMessage = value; } }
+		public string WindowMessage { get { return Parameters.ContainsKey("WndMess") ? Parameters["WndMess"] : mvarWindowMessage; } set { mvarWindowMessage = value; Parameters["WndMess"] = value; } }
 
 		private int mvarTemporaryDirectorySize = 3200;
 		/// <summary>
 		/// The size of the directory in which to place the bootstrapped files.
 		/// </summary>
-		public int TemporaryDirectorySize { get { return mvarTemporaryDirectorySize; } set { mvarTemporaryDirectorySize = value; } }
+		public int TemporaryDirectorySize { get { return Parameters.ContainsKey("TmpDirSize") ? Int32.Parse(Parameters["TmpDirSize"]) : mvarTemporaryDirectorySize; } set { mvarTemporaryDirectorySize = value; Parameters["TmpDirSize"] = value.ToString(); } }
 
 		private string mvarTemporaryDirectoryName = "~msstfqf.t";
 		/// <summary>
 		/// The name of the directory in which to place the bootstrapped files.
 		/// </summary>
-		public string TemporaryDirectoryName { get { return mvarTemporaryDirectoryName; } set { mvarTemporaryDirectoryName = value; } }
+		public string TemporaryDirectoryName { get { return Parameters.ContainsKey("TmpDirName") ? Parameters["TmpDirName"] : mvarTemporaryDirectoryName; } set { mvarTemporaryDirectoryName = value; Parameters["TmpDirName"] = value; } }
 
 		private string mvarCommandLine = String.Empty;
 		/// <summary>
 		/// The command to execute after bootstrapping, including any arguments.
 		/// </summary>
-		public string CommandLine { get { return mvarCommandLine; } set { mvarCommandLine = value; } }
+		public string CommandLine { get { return Parameters.ContainsKey("CmdLine") ? Parameters["CmdLine"] : mvarCommandLine; } set { mvarCommandLine = value; Parameters["CmdLine"] = value; } }
 
 		private string mvarWindowClassName = "Stuff-Shell";
 		/// <summary>
 		/// The name of the window class to register for the setup initialization dialog.
 		/// </summary>
-		public string WindowClassName { get { return mvarWindowClassName; } set { mvarWindowClassName = value; } }
+		public string WindowClassName { get { return Parameters.ContainsKey("DrvWinClass") ? Parameters["DrvWinClass"] : mvarWindowClassName; } set { mvarWindowClassName = value; Parameters["DrvWinClass"] = value; } }
 
 		private string mvarRequire31Message = "This application requires a newer version of Microsoft Windows.";
 		/// <summary>
 		/// The message to display when a newer version of Microsoft Windows is required.
 		/// </summary>
-		public string Require31Message { get { return mvarRequire31Message; } set { mvarRequire31Message = value; } }
+		public string Require31Message { get { return Parameters.ContainsKey("Require31") ? Parameters["Require31"] : mvarRequire31Message; } set { mvarRequire31Message = value; Parameters["Require31"] = value; } }
 
 		private bool mvarRequire31Enabled = false;
 		/// <summary>
@@ -117,20 +118,19 @@ namespace UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript
 		/// </summary>
 		public bool Require31Enabled { get { return mvarRequire31Enabled; } set { mvarRequire31Enabled = value; } }
 
+		private string mvarDriverModuleName = null;
+		public string DriverModuleName { get { return Parameters.ContainsKey("DrvModName") ? Parameters["DrvModName"] : mvarDriverModuleName; } set { mvarDriverModuleName = value; Parameters["DrvModName"] = value; } }
+
 		private BootstrapFile.BootstrapFileCollection mvarFiles = new BootstrapFile.BootstrapFileCollection();
 		public BootstrapFile.BootstrapFileCollection Files { get { return mvarFiles; } }
 
 		public object Clone()
 		{
 			BootstrapOperatingSystem clone = new BootstrapOperatingSystem();
-			clone.WindowTitle = (mvarWindowTitle.Clone() as string);
-			clone.WindowMessage = (mvarWindowMessage.Clone() as string);
-			clone.TemporaryDirectorySize = mvarTemporaryDirectorySize;
-			clone.TemporaryDirectoryName = (mvarTemporaryDirectoryName.Clone() as string);
-			clone.CommandLine = (mvarCommandLine.Clone() as string);
-			clone.WindowClassName = (mvarWindowClassName.Clone() as string);
-			clone.Require31Message = (mvarRequire31Message.Clone() as string);
-			clone.Require31Enabled = mvarRequire31Enabled;
+			foreach (KeyValuePair<string, string> kvp in Parameters)
+			{
+				clone.Parameters.Add(kvp.Key, kvp.Value);
+			}
 			foreach (BootstrapFile file in mvarFiles)
 			{
 				clone.Files.Add(file.Clone() as BootstrapFile);
@@ -143,6 +143,8 @@ namespace UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript
 		/// Gets the platform-independent <see cref="BootstrapOperatingSystem" /> definition.
 		/// </summary>
 		public static BootstrapOperatingSystem PlatformIndependent { get { return mvarPlatformIndependent; } }
+
+		public Dictionary<string, string> Parameters { get; } = new Dictionary<string, string>();
 
 		public override string ToString()
 		{
