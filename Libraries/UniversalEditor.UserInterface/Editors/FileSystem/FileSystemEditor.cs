@@ -489,11 +489,16 @@ namespace UniversalEditor.Editors.FileSystem
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
+			for (int i = 4; i < tv.Columns.Count; i++)
+			{
+				tv.Columns.Remove(tv.Columns[i]);
+			}
 			for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
 			{
 				tm.Columns.Add(new TreeModelColumn(typeof(string)));
 				tv.Columns.Add(new ListViewColumnText(tm.Columns[tm.Columns.Count - 1], fsom.AdditionalDetails[i].Title));
 			}
+			tv.Model = tm;
 
 			if (_CurrentFolder == null)
 			{
