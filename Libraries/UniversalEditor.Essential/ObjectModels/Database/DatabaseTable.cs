@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 
 namespace UniversalEditor.ObjectModels.Database
 {
@@ -31,6 +32,33 @@ namespace UniversalEditor.ObjectModels.Database
 		public class DatabaseTableCollection
 			: System.Collections.ObjectModel.Collection<DatabaseTable>
 		{
+			public DatabaseTable this[string name]
+			{
+				get
+				{
+					if (_itemsByName.ContainsKey(name))
+						return _itemsByName[name];
+					return null;
+				}
+			}
+
+			private Dictionary<string, DatabaseTable> _itemsByName = new Dictionary<string, DatabaseTable>();
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				_itemsByName.Clear();
+			}
+			protected override void InsertItem(int index, DatabaseTable item)
+			{
+				base.InsertItem(index, item);
+				_itemsByName[item.Name] = item;
+			}
+			protected override void RemoveItem(int index)
+			{
+				if (_itemsByName.ContainsKey(this[index].Name))
+					_itemsByName.Remove(this[index].Name);
+				base.RemoveItem(index);
+			}
 		}
 
 		/// <summary>
