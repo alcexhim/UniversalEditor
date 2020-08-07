@@ -27,7 +27,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.SevenZip.SevenZipDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed.MSCompressedDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>
