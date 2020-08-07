@@ -109,7 +109,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 
 			ScrollBounds = new MBS.Framework.Drawing.Dimension2D(wave.RawSamples.Length, 0);
 
-			Vector2D lastPoint = new Vector2D(0, WAVEFORM_MIDPOINT);
+			Vector2D lastPoint = new Vector2D(0, WAVEFORM_MIDPOINT / 2);
 			Pen pen = new Pen(SystemColors.HighlightBackground);
 			Pen pen2 = new Pen(SystemColors.HighlightForeground);
 
@@ -137,7 +137,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			for (int i = 0; i < wave.RawSamples.Length; i++)
 			{
 				double x = i;
-				double y = (ScaleFactorY * wave.RawSamples[i]);
+				double y = WAVEFORM_MIDPOINT - (ScaleFactorY * wave.RawSamples[i]);
 
 				if (x >= SelectionStart && x <= (SelectionStart + SelectionLength))
 				{
