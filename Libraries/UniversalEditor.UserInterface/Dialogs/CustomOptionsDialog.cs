@@ -328,7 +328,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 			if (aboutButtonClicked != null) dlg.AboutButtonClicked += aboutButtonClicked;
 			dlg.CustomOptions = coll;
 			dlg.Text = title;
-			if (dlg.ShowDialog() == DialogResult.Cancel)
+
+			DialogResult result = dlg.ShowDialog();
+
+			// FIXME: (in UWT) on GTK, closing dialog with 'esc' key results in DialogResult.None, NOT DialogResult.Cancel as on Windows!
+			if (result == DialogResult.Cancel || result == DialogResult.None)
 			{
 				return DialogResult.Cancel;
 			}
