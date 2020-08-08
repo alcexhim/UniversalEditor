@@ -241,7 +241,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 										byte[] value = br.ReadBytes(varDataSize);
 										br.Accessor.LoadPosition();
 										*/
-										byte[] value = new byte[0];									
+										byte[] value = new byte[0];
 										record.Fields.Add(dt.Fields[j].Name, value);
 
 										// Is the data in another table??
@@ -418,7 +418,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				}
 			}
 
-			int tableSize = 24; // size of entire file minus "@UTF" signature
+			int tableSize = 24 - 4; // size of entire file minus "@UTF" signature
 			tableSize += (5 * dt.Fields.Count);
 
 			tableSize += (dt.Name.Length + 1);
@@ -495,7 +495,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 					WriteValue(bw, dt.Fields[i].Value, columnDataTypes[i], stringTable);
 					if (columnDataTypes[i] == UTFColumnDataType.String)
 					{
-						columnNameOffset += ((string)dt.Fields[i].Value).Length + 1; 
+						columnNameOffset += ((string)dt.Fields[i].Value).Length + 1;
 					}
 				}
 			}
