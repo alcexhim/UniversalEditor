@@ -83,245 +83,229 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				throw new ObjectModelNotSupportedException();
 
 			Reader br = base.Accessor.Reader;
+			string utf_signature = br.ReadFixedLengthString(4);
 
-			while (!br.EndOfStream)
+			if (utf_signature != "@UTF")
+				throw new InvalidDataFormatException(); // we are assuming passed in decrypted UTF from the CPK
+
+			DatabaseTable dt = new DatabaseTable();
+
+			br.Endianness = IO.Endianness.BigEndian;
+
+			UTFTABLEINFO info = ReadUTFTableInfo(br);
+
+			int[] columnNameOffsets = new int[info.tableColumns];
+			long[] constantOffsets = new long[info.tableColumns];
+			UTFColumnStorageType[] storageTypes = new UTFColumnStorageType[info.tableColumns];
+			UTFColumnDataType[] dataTypes = new UTFColumnDataType[info.tableColumns];
+
+			// Read string table - remember, this is relative to UTF data WITH the "@UTF" signature
+			br.Accessor.SavePosition();
+			br.Seek(info.utfOffset + info.stringTableOffset + 4, IO.SeekOrigin.Begin);
+
+			while (br.PeekByte() == 0)
 			{
-				string utf_signature = br.ReadFixedLengthString(4);
-				if (utf_signature != "@UTF")
-					throw new InvalidDataFormatException(); // we are assuming passed in decrypted UTF from the CPK
-
-				DatabaseTable dt = new DatabaseTable();
-
-				br.Endianness = IO.Endianness.BigEndian;
-
-				UTFTABLEINFO info = ReadUTFTableInfo(br);
-
-				int[] columnNameOffsets = new int[info.tableColumns];
-				long[] constantOffsets = new long[info.tableColumns];
-				UTFColumnStorageType[] storageTypes = new UTFColumnStorageType[info.tableColumns];
-				UTFColumnDataType[] dataTypes = new UTFColumnDataType[info.tableColumns];
-
-				// Read string table - remember, this is relative to UTF data WITH the "@UTF" signature
-				br.Accessor.SavePosition();
-				br.Seek(info.utfOffset + info.stringTableOffset + 4, IO.SeekOrigin.Begin);
-
-				while (br.PeekByte() == 0)
-				{
-					br.ReadByte();
-				}
-
-				byte[] stringTableData = br.ReadBytes(info.stringTableSize);
-				MemoryAccessor maStringTable = new MemoryAccessor(stringTableData);
-
-				maStringTable.Reader.Seek(info.tableNameStringOffset, IO.SeekOrigin.Begin);
-				dt.Name = maStringTable.Reader.ReadNullTerminatedString();
-				br.Accessor.LoadPosition();
-
-				for (int i = 0; i < info.tableColumns; i++)
-				{
-					byte schema = br.ReadByte();
-					/*// wtf is this?
-					if (schema == 0)
-					{
-						br.Accessor.Seek(3, SeekOrigin.Current);
-						column.flags = br.ReadByte();
-					}
-					*/
-					columnNameOffsets[i] = br.ReadInt32();
-
-					storageTypes[i] = (UTFColumnStorageType)(schema & (byte)UTFColumnStorageType.Mask);
-					dataTypes[i] = (UTFColumnDataType)(schema & (byte)UTFColumnDataType.Mask);
-
-					object constantValue = null;
-					if (storageTypes[i] == UTFColumnStorageType.Constant)
-					{
-						constantOffsets[i] = br.Accessor.Position;
-						switch (dataTypes[i])
-						{
-							case UTFColumnDataType.Long:
-							case UTFColumnDataType.Long2:
-							case UTFColumnDataType.Data:
-							{
-								constantValue = br.ReadInt64();
-								break;
-							}
-							case UTFColumnDataType.Float:
-							{
-								constantValue = br.ReadSingle();
-								break;
-							}
-							case UTFColumnDataType.String:
-							{
-								int valueOffset = br.ReadInt32();
-								maStringTable.Reader.Seek(valueOffset, IO.SeekOrigin.Begin);
-								constantValue = maStringTable.Reader.ReadNullTerminatedString();
-								break;
-							}
-							case UTFColumnDataType.Int:
-							case UTFColumnDataType.Int2:
-							{
-								constantValue = br.ReadInt32();
-								break;
-							}
-							case UTFColumnDataType.Short:
-							case UTFColumnDataType.Short2:
-							{
-								constantValue = br.ReadInt16();
-								break;
-							}
-							case UTFColumnDataType.Byte:
-							case UTFColumnDataType.Byte2:
-							{
-								constantValue = br.ReadByte();
-								break;
-							}
-							default:
-							{
-								Console.WriteLine("cpk: ReadUTFTable: unknown data type for column " + i.ToString());
-								break;
-							}
-						}
-					}
-
-					dt.Fields.Add("Field" + i.ToString(), constantValue, SystemDataTypeForUTFDataType(dataTypes[i]));
-				}
-
-				for (int i = 0; i < info.tableColumns; i++)
-				{
-					maStringTable.Reader.Seek(columnNameOffsets[i], IO.SeekOrigin.Begin);
-					dt.Fields[i].Name = maStringTable.Reader.ReadNullTerminatedString();
-				}
-
-				for (int i = 0; i < info.tableRows; i++)
-				{
-					uint rowOffset = (uint)(info.utfOffset + 4 + info.rowsOffset + (i * info.rowWidth));
-					uint rowStartOffset = rowOffset;
-					br.Accessor.Seek(rowOffset, SeekOrigin.Begin);
-
-					DatabaseRecord record = new DatabaseRecord();
-
-					for (int j = 0; j < info.tableColumns; j++)
-					{
-						UTFColumnStorageType storageType = storageTypes[j];
-						UTFColumnDataType dataType = dataTypes[j];
-						long constantOffset = constantOffsets[j] - 11;
-
-						switch (storageType)
-						{
-							case UTFColumnStorageType.PerRow:
-							{
-								switch (dataType)
-								{
-									case UTFColumnDataType.String:
-									{
-										string value = null;
-										if (storageType == UTFColumnStorageType.Constant)
-										{
-											value = (dt.Fields[j].Value as string);
-										}
-										else
-										{
-											uint stringOffset = br.ReadUInt32();
-											if (stringOffset < stringTableData.Length)
-											{
-												maStringTable.Reader.Seek(stringOffset, IO.SeekOrigin.Begin);
-												value = maStringTable.Reader.ReadNullTerminatedString();
-											}
-										}
-										record.Fields.Add(dt.Fields[j].Name, value);
-										break;
-									}
-									case UTFColumnDataType.Data:
-									{
-										uint varDataOffset = br.ReadUInt32();
-										uint varDataSize = br.ReadUInt32();
-										/*
-										br.Accessor.SavePosition();
-										br.Seek(varDataOffset, SeekOrigin.Begin);
-										byte[] value = br.ReadBytes(varDataSize);
-										br.Accessor.LoadPosition();
-										*/
-										byte[] value = new byte[0];
-										record.Fields.Add(dt.Fields[j].Name, value);
-
-										// Is the data in another table??
-										// ReadUTFTable(br);
-										break;
-									}
-									case UTFColumnDataType.Long:
-									case UTFColumnDataType.Long2:
-									{
-										ulong value = br.ReadUInt64();
-										record.Fields.Add(dt.Fields[j].Name, value);
-
-										break;
-									}
-									case UTFColumnDataType.Int:
-									case UTFColumnDataType.Int2:
-									{
-										uint value = br.ReadUInt32();
-										record.Fields.Add(dt.Fields[j].Name, value);
-
-										break;
-									}
-									case UTFColumnDataType.Short:
-									case UTFColumnDataType.Short2:
-									{
-										ushort value = br.ReadUInt16();
-										record.Fields.Add(dt.Fields[j].Name, value);
-										break;
-									}
-									case UTFColumnDataType.Float:
-									{
-										float value = br.ReadSingle();
-										record.Fields.Add(dt.Fields[j].Name, value);
-										break;
-									}
-									case UTFColumnDataType.Byte:
-									case UTFColumnDataType.Byte2:
-									{
-										byte value = br.ReadByte();
-										record.Fields.Add(dt.Fields[j].Name, value);
-										break;
-									}
-								}
-								break;
-							}
-							case UTFColumnStorageType.Constant:
-							{
-								record.Fields.Add(dt.Fields[j].Name, dt.Fields[j].Value);
-								continue;
-							}
-							case UTFColumnStorageType.Zero:
-							{
-								record.Fields.Add(dt.Fields[j].Name, null);
-								continue;
-							}
-						}
-					}
-
-					dt.Records.Add(record);
-				}
-				utf.Tables.Add(dt);
-
-				br.Seek(maStringTable.Length, SeekOrigin.Current);
-
-				string sig = br.ReadFixedLengthString(4);
-				br.Seek(-4, SeekOrigin.Current);
-				if (sig == "@UTF")
-				{
-					continue;
-				}
-
-				if (br.Accessor.Position + 8 < br.Accessor.Length)
-				{
-					br.Seek(8, SeekOrigin.Current);
-				}
-				else
-				{
-					break;
-				}
+				br.ReadByte();
 			}
+
+			byte[] stringTableData = br.ReadBytes(info.stringTableSize);
+			MemoryAccessor maStringTable = new MemoryAccessor(stringTableData);
+
+			maStringTable.Reader.Seek(info.tableNameStringOffset, IO.SeekOrigin.Begin);
+			dt.Name = maStringTable.Reader.ReadNullTerminatedString();
+			br.Accessor.LoadPosition();
+
+			for (int i = 0; i < info.tableColumns; i++)
+			{
+				byte schema = br.ReadByte();
+				/*// wtf is this?
+				if (schema == 0)
+				{
+					br.Accessor.Seek(3, SeekOrigin.Current);
+					column.flags = br.ReadByte();
+				}
+				*/
+				columnNameOffsets[i] = br.ReadInt32();
+
+				storageTypes[i] = (UTFColumnStorageType)(schema & (byte)UTFColumnStorageType.Mask);
+				dataTypes[i] = (UTFColumnDataType)(schema & (byte)UTFColumnDataType.Mask);
+
+				object constantValue = null;
+				if (storageTypes[i] == UTFColumnStorageType.Constant)
+				{
+					constantOffsets[i] = br.Accessor.Position;
+					switch (dataTypes[i])
+					{
+						case UTFColumnDataType.Long:
+						case UTFColumnDataType.Long2:
+						case UTFColumnDataType.Data:
+						{
+							constantValue = br.ReadInt64();
+							break;
+						}
+						case UTFColumnDataType.Float:
+						{
+							constantValue = br.ReadSingle();
+							break;
+						}
+						case UTFColumnDataType.String:
+						{
+							int valueOffset = br.ReadInt32();
+							maStringTable.Reader.Seek(valueOffset, IO.SeekOrigin.Begin);
+							constantValue = maStringTable.Reader.ReadNullTerminatedString();
+							break;
+						}
+						case UTFColumnDataType.Int:
+						case UTFColumnDataType.Int2:
+						{
+							constantValue = br.ReadInt32();
+							break;
+						}
+						case UTFColumnDataType.Short:
+						case UTFColumnDataType.Short2:
+						{
+							constantValue = br.ReadInt16();
+							break;
+						}
+						case UTFColumnDataType.Byte:
+						case UTFColumnDataType.Byte2:
+						{
+							constantValue = br.ReadByte();
+							break;
+						}
+						default:
+						{
+							Console.WriteLine("cpk: ReadUTFTable: unknown data type for column " + i.ToString());
+							break;
+						}
+					}
+				}
+
+				dt.Fields.Add("Field" + i.ToString(), constantValue, SystemDataTypeForUTFDataType(dataTypes[i]));
+			}
+
+			for (int i = 0; i < info.tableColumns; i++)
+			{
+				maStringTable.Reader.Seek(columnNameOffsets[i], IO.SeekOrigin.Begin);
+				dt.Fields[i].Name = maStringTable.Reader.ReadNullTerminatedString();
+			}
+
+			for (int i = 0; i < info.tableRows; i++)
+			{
+				uint rowOffset = (uint)(info.utfOffset + 4 + info.rowsOffset + (i * info.rowWidth));
+				uint rowStartOffset = rowOffset;
+				br.Accessor.Seek(rowOffset, SeekOrigin.Begin);
+
+				DatabaseRecord record = new DatabaseRecord();
+
+				for (int j = 0; j < info.tableColumns; j++)
+				{
+					UTFColumnStorageType storageType = storageTypes[j];
+					UTFColumnDataType dataType = dataTypes[j];
+					long constantOffset = constantOffsets[j] - 11;
+
+					switch (storageType)
+					{
+						case UTFColumnStorageType.PerRow:
+						{
+							switch (dataType)
+							{
+								case UTFColumnDataType.String:
+								{
+									string value = null;
+									if (storageType == UTFColumnStorageType.Constant)
+									{
+										value = (dt.Fields[j].Value as string);
+									}
+									else
+									{
+										uint stringOffset = br.ReadUInt32();
+										if (stringOffset < stringTableData.Length)
+										{
+											maStringTable.Reader.Seek(stringOffset, IO.SeekOrigin.Begin);
+											value = maStringTable.Reader.ReadNullTerminatedString();
+										}
+									}
+									record.Fields.Add(dt.Fields[j].Name, value);
+									break;
+								}
+								case UTFColumnDataType.Data:
+								{
+									uint varDataOffset = br.ReadUInt32();
+									uint varDataSize = br.ReadUInt32();
+
+									byte[] value = null;
+									if (varDataOffset == 0 && varDataSize == 0)
+									{
+										value = null;
+									}
+									else
+									{
+										long realOffset = info.dataOffset + 8 + varDataOffset;
+										br.Accessor.SavePosition();
+										br.Seek(realOffset, SeekOrigin.Begin);
+										byte[] tableData = br.ReadBytes(varDataSize);
+										br.Accessor.LoadPosition();
+										value = tableData;
+									}
+									record.Fields.Add(dt.Fields[j].Name, value);
+									break;
+								}
+								case UTFColumnDataType.Long:
+								case UTFColumnDataType.Long2:
+								{
+									ulong value = br.ReadUInt64();
+									record.Fields.Add(dt.Fields[j].Name, value);
+
+									break;
+								}
+								case UTFColumnDataType.Int:
+								case UTFColumnDataType.Int2:
+								{
+									uint value = br.ReadUInt32();
+									record.Fields.Add(dt.Fields[j].Name, value);
+
+									break;
+								}
+								case UTFColumnDataType.Short:
+								case UTFColumnDataType.Short2:
+								{
+									ushort value = br.ReadUInt16();
+									record.Fields.Add(dt.Fields[j].Name, value);
+									break;
+								}
+								case UTFColumnDataType.Float:
+								{
+									float value = br.ReadSingle();
+									record.Fields.Add(dt.Fields[j].Name, value);
+									break;
+								}
+								case UTFColumnDataType.Byte:
+								case UTFColumnDataType.Byte2:
+								{
+									byte value = br.ReadByte();
+									record.Fields.Add(dt.Fields[j].Name, value);
+									break;
+								}
+							}
+							break;
+						}
+						case UTFColumnStorageType.Constant:
+						{
+							record.Fields.Add(dt.Fields[j].Name, dt.Fields[j].Value);
+							continue;
+						}
+						case UTFColumnStorageType.Zero:
+						{
+							record.Fields.Add(dt.Fields[j].Name, null);
+							continue;
+						}
+					}
+				}
+
+				dt.Records.Add(record);
+			}
+			utf.Tables.Add(dt);
 		}
 
 		public static Type SystemDataTypeForUTFDataType(UTFColumnDataType dataType)
