@@ -228,7 +228,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 						{
 							uint id = (uint)dtUTFTOC.Records[i].Fields["ID"].Value;
 							f.Properties.Add("ID", id);
-							f.SetAdditionalDetail("CRI.CPK.FileID", id.ToString());
+							f.SetAdditionalDetail("CRI.CPK.FileID", id);
 						}
 
 						f.Properties.Add("DecompressedLength", decompressedLength);
@@ -257,7 +257,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 
 						ushort id = (ushort)dtUTFITOC_L.Records[i].Fields["ID"].Value;
 						f.Name = id.ToString();
-						f.SetAdditionalDetail("CRI.CPK.FileID", id.ToString());
+						f.SetAdditionalDetail("CRI.CPK.FileID", id);
 
 						f.Properties.Add("ID", id);
 						f.Properties.Add("DecompressedLength", (uint)decompressedLength);
@@ -280,7 +280,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 
 						ushort id = (ushort)dtUTFITOC_H.Records[i].Fields["ID"].Value;
 						f.Name = id.ToString();
-						f.SetAdditionalDetail("CRI.CPK.FileID", id.ToString());
+						f.SetAdditionalDetail("CRI.CPK.FileID", id);
 
 						f.Properties.Add("ID", id);
 						f.Properties.Add("DecompressedLength", decompressedLength);

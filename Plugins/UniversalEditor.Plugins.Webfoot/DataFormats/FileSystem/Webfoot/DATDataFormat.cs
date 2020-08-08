@@ -138,7 +138,7 @@ namespace UniversalEditor.Plugins.Webfoot.DataFormats.FileSystem.Webfoot
 
 			for (uint i = 0; i < files.Length; i++)
 			{
-				byte key = Byte.Parse(files[i].GetAdditionalDetail("Webfoot.FileKey", "00"), System.Globalization.NumberStyles.HexNumber);
+				byte key = Byte.Parse(files[i].GetAdditionalDetail("Webfoot.FileKey", "00") as string, System.Globalization.NumberStyles.HexNumber);
 				xort.XorKey = new byte[] { key };
 
 				byte[] filedata = files[i].GetData();
@@ -153,7 +153,7 @@ namespace UniversalEditor.Plugins.Webfoot.DataFormats.FileSystem.Webfoot
 			uint offset = 0;
 			for (int i = 0; i < files.Length; i++)
 			{
-				byte key = Byte.Parse(files[i].GetAdditionalDetail("Webfoot.FileKey", "00"), System.Globalization.NumberStyles.HexNumber);
+				byte key = Byte.Parse(files[i].GetAdditionalDetail("Webfoot.FileKey", "00") as string, System.Globalization.NumberStyles.HexNumber);
 				uint length = (uint)files[i].GetData().Length;
 
 				// must be reset after each call to GetData because the DataRequest twiddles it

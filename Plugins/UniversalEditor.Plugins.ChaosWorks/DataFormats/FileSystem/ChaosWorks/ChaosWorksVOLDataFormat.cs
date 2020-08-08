@@ -363,7 +363,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			string[] labels = new string[files.Length];
 			for (int i = 0; i < files.Length; i++)
 			{
-				labels[i] = files[i].GetAdditionalDetail("ChaosWorks.VOL.Label");
+				labels[i] = files[i].GetAdditionalDetail("ChaosWorks.VOL.Label") as string;
 				fileNameOffset += (uint)labels[i].Length + 1;
 
 				maw.WriteInt32(0);

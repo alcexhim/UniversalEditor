@@ -196,7 +196,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				clone.Properties.Add(kvp.Key, kvp.Value);
 			}
-			foreach (KeyValuePair<string, string> kvp in AdditionalDetails)
+			foreach (KeyValuePair<string, object> kvp in AdditionalDetails)
 			{
 				clone.AdditionalDetails.Add(kvp.Key, kvp.Value);
 			}
@@ -400,16 +400,16 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			return defaultValue;
 		}
 
-		private Dictionary<string, string> AdditionalDetails = new Dictionary<string, string>();
-		public void SetAdditionalDetail(string name, string value)
+		private Dictionary<string, object> AdditionalDetails = new Dictionary<string, object>();
+		public void SetAdditionalDetail(string name, object value)
 		{
 			AdditionalDetails[name] = value;
 		}
-		public string GetAdditionalDetail(string name, string defaultValue = "")
+		public object GetAdditionalDetail(string name, object defaultValue = null)
 		{
 			if (AdditionalDetails.ContainsKey(name))
 			{
-				string value = AdditionalDetails[name];
+				object value = AdditionalDetails[name];
 				if (value != null) return value;
 			}
 			return defaultValue;
