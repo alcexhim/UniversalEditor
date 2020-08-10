@@ -199,6 +199,7 @@ namespace UniversalEditor
 				}
 				return mvarTitle;
 			}
+			set { mvarTitle = value; }
 		}
 
 		/// <summary>

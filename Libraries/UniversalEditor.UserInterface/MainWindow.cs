@@ -516,57 +516,60 @@ namespace UniversalEditor.UserInterface
 				{
 					while (!loaded)
 					{
-						try
+						if (doc.Accessor != null)
 						{
-							doc.Accessor.Open();
-							doc.Load();
-							doc.IsSaved = true;
-							loaded = true;
-						}
-						catch (ObjectModelNotSupportedException ex)
-						{
-							// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
-							DialogResult result = MessageDialog.ShowDialog("The object model you specified is not supported by the selected DataFormat.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
-							if (result == DialogResult.Retry)
+							try
 							{
-								DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
-								dlg.DataFormat = doc.DataFormat;
-								dlg.ObjectModel = doc.ObjectModel;
-								dlg.Accessor = doc.Accessor;
-								if (dlg.ShowDialog() == DialogResult.OK)
-								{
-									doc.DataFormat = dlg.DataFormat;
-									doc.ObjectModel = dlg.ObjectModel;
-									doc.Accessor = dlg.Accessor;
-								}
-
-								// try loading it again
-								continue;
+								doc.Accessor.Open();
+								doc.Load();
+								doc.IsSaved = true;
+								loaded = true;
 							}
-							return;
-						}
-						catch (InvalidDataFormatException ex)
-						{
-							// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
-							DialogResult result = MessageDialog.ShowDialog("The data format you specified could not load the file.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
-							if (result == DialogResult.Retry)
+							catch (ObjectModelNotSupportedException ex)
 							{
-								DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
-								dlg.DataFormat = doc.DataFormat;
-								dlg.ObjectModel = doc.ObjectModel;
-								dlg.Accessor = doc.Accessor;
-								if (dlg.ShowDialog() == DialogResult.OK)
+								// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
+								DialogResult result = MessageDialog.ShowDialog("The object model you specified is not supported by the selected DataFormat.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
+								if (result == DialogResult.Retry)
 								{
-									doc.DataFormat = dlg.DataFormat;
-									doc.ObjectModel = dlg.ObjectModel;
-									doc.Accessor = dlg.Accessor;
-								}
+									DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+									dlg.DataFormat = doc.DataFormat;
+									dlg.ObjectModel = doc.ObjectModel;
+									dlg.Accessor = doc.Accessor;
+									if (dlg.ShowDialog() == DialogResult.OK)
+									{
+										doc.DataFormat = dlg.DataFormat;
+										doc.ObjectModel = dlg.ObjectModel;
+										doc.Accessor = dlg.Accessor;
+									}
 
-								// try loading it again
-								continue;
+									// try loading it again
+									continue;
+								}
+								return;
 							}
-							return;
-						}
+							catch (InvalidDataFormatException ex)
+							{
+								// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
+								// TODO: For DataFormats that support it (i.e. Layout-based) we should be able to "debug" the DataFormat to find out exactly where it failed
+								DialogResult result = MessageDialog.ShowDialog("The data format you specified could not load the file.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
+								if (result == DialogResult.Retry)
+								{
+									DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+									dlg.DataFormat = doc.DataFormat;
+									dlg.ObjectModel = doc.ObjectModel;
+									dlg.Accessor = doc.Accessor;
+									if (dlg.ShowDialog() == DialogResult.OK)
+									{
+										doc.DataFormat = dlg.DataFormat;
+										doc.ObjectModel = dlg.ObjectModel;
+										doc.Accessor = dlg.Accessor;
+									}
+
+									// try loading it again
+									continue;
+								}
+								return;
+							}
 #if !DEBUG
 						catch (Exception ex)
 						{
@@ -582,12 +585,20 @@ namespace UniversalEditor.UserInterface
 							}
 						}
 #endif
+						}
+						else
+						{
+							loaded = true;
+						}
 					}
 
 					EditorPage page = new EditorPage();
 					page.Document = doc;
 					page.DocumentEdited += page_DocumentEdited;
-					InitDocTab(doc.Accessor.GetFileName(), doc.Title, page);
+
+					string filename = doc.Accessor?.GetFileName();
+					if (filename == null) filename = doc.Title;
+					InitDocTab(filename, doc.Title, page);
 				}
 				else
 				{
