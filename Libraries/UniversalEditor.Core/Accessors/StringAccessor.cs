@@ -26,7 +26,7 @@ using UniversalEditor.IO;
 
 namespace UniversalEditor.Accessors
 {
-	public class StringAccessor : Accessor
+	public class StringAccessor : MemoryAccessor
 	{
 		private static AccessorReference _ar = null;
 		protected override AccessorReference MakeReferenceInternal()
@@ -39,117 +39,22 @@ namespace UniversalEditor.Accessors
 			return _ar;
 		}
 
-		private char[] _data = new char[0];
+		public StringAccessor(string value)
+			: this(value, System.Text.Encoding.UTF8)
+		{
 
-		private long ptr = 0;
-		protected override long GetPosition()
-		{
-			return ptr;
-		}
-		public override long Length
-		{
-			get { return _data.Length; }
-			set
-			{
-				// resize the array - coded by hand to compile happily under Cosmos devkit
-				ResizeArray(ref _data, value);
-			}
 		}
 
-		private void ResizeArray(ref char[] _data, long value)
+		public StringAccessor(string value, IO.Encoding encoding)
+			: base(encoding.GetBytes(value))
 		{
-			char[] newdata = new char[value];
-			System.Array.Copy(_data, 0, newdata, 0, System.Math.Min(_data.Length, newdata.Length));
-			_data = newdata;
+
 		}
 
-		public StringAccessor()
+		public StringAccessor(string value, System.Text.Encoding encoding)
+			: base(encoding.GetBytes(value))
 		{
-		}
-		public StringAccessor(string data)
-		{
-			_data = data.ToCharArray();
-		}
-		public StringAccessor(char[] data)
-		{
-			_data = data;
-		}
 
-		public override void Seek(long length, SeekOrigin position)
-		{
-			long start = 0;
-			switch (position)
-			{
-				case SeekOrigin.Begin:
-				{
-					start = length;
-					break;
-				}
-				case SeekOrigin.Current:
-				{
-					start = ptr + length;
-					break;
-				}
-				case SeekOrigin.End:
-				{
-					start = _data.LongLength - length;
-					break;
-				}
-			}
-			if (start >= 0 /* && start < _data.Length */)
-			{
-				ptr = start;
-			}
-			/*
-			else
-			{
-				throw new EndOfStreamException();
-			}
-			*/
-		}
-
-		public char[] ToArray()
-		{
-			char[] data = new char[_data.Length];
-			System.Array.Copy(_data, 0, data, 0, data.Length);
-			return data;
-		}
-		public override string ToString()
-		{
-			return new System.String(ToArray());
-		}
-
-		protected internal override int ReadInternal(byte[] buffer, int start, int count)
-		{
-			byte[] bytes = this.DefaultEncoding.GetBytes(_data, (int)ptr, 1);
-			count = System.Math.Min(bytes.Length, count);
-			System.Array.Copy(bytes, 0, buffer, start, count);
-			ptr += count;
-			return count;
-		}
-		protected internal override int WriteInternal(byte[] buffer, int start, int count)
-		{
-			string value = DefaultEncoding.GetString(buffer);
-			int j = _data.Length;
-			ResizeArray(ref _data, _data.Length + value.Length);
-			for (int i = 0; i < value.Length; i++)
-			{
-				_data[j + i] = value[i];
-			}
-			return count;
-		}
-
-		protected override void OpenInternal()
-		{
-		}
-		protected override void CloseInternal()
-		{
-		}
-
-		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
-		{
-			// FIXME: not implemented
-			return null;
 		}
 	}
 }
