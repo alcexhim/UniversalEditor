@@ -21,6 +21,7 @@
 
 using System;
 using MBS.Framework.UserInterface;
+using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK;
 using UniversalEditor.UserInterface;
 
@@ -59,15 +60,95 @@ namespace UniversalEditor.Plugins.CRI.UserInterface
 			er.Commands["FileSystemContextMenu_Unselected"].Items.Add(new SeparatorCommandItem());
 			er.Commands["FileSystemContextMenu_Unselected"].Items.Add(new CommandReferenceCommandItem("CRI_FileSystem_Extensions"));
 
-			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_Header", CRI_FileSystem_Extensions_Export_Header_Click);
-			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_TOC", CRI_FileSystem_Extensions_Export_TOC_Click);
-			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ITOC", CRI_FileSystem_Extensions_Export_ITOC_Click);
-			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_GTOC", CRI_FileSystem_Extensions_Export_GTOC_Click);
-			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ETOC", CRI_FileSystem_Extensions_Export_ETOC_Click);
+			if (Context != null)
+			{
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_Header", CRI_FileSystem_Extensions_Export_Header_Click);
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_TOC", CRI_FileSystem_Extensions_Export_TOC_Click);
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ITOC", CRI_FileSystem_Extensions_Export_ITOC_Click);
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_GTOC", CRI_FileSystem_Extensions_Export_GTOC_Click);
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ETOC", CRI_FileSystem_Extensions_Export_ETOC_Click);
 
-			Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_View_Info", CRI_FileSystem_Extensions_View_Info_Click);
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_View_Info", CRI_FileSystem_Extensions_View_Info_Click);
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_CSV", CRI_FileSystem_Extensions_Export_CSV_Click);
+				Context.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_All", CRI_FileSystem_Extensions_Export_All_Click);
+			}
+			else
+			{
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_Header", CRI_FileSystem_Extensions_Export_Header_Click);
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_TOC", CRI_FileSystem_Extensions_Export_TOC_Click);
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ITOC", CRI_FileSystem_Extensions_Export_ITOC_Click);
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_GTOC", CRI_FileSystem_Extensions_Export_GTOC_Click);
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ETOC", CRI_FileSystem_Extensions_Export_ETOC_Click);
+
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_View_Info", CRI_FileSystem_Extensions_View_Info_Click);
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_CSV", CRI_FileSystem_Extensions_Export_CSV_Click);
+				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_All", CRI_FileSystem_Extensions_Export_All_Click);
+			}
 
 			_initOnce = true;
+		}
+
+		private void CRI_FileSystem_Extensions_Export_All_Click(object sender, EventArgs e)
+		{
+			CPKDataFormat cpk = (Document.DataFormat as CPKDataFormat);
+			if (cpk == null)
+				return;
+
+			MBS.Framework.UserInterface.Dialogs.FileDialog dlg = new MBS.Framework.UserInterface.Dialogs.FileDialog();
+			dlg.Text = "Export all UTF tables";
+			dlg.Mode = MBS.Framework.UserInterface.Dialogs.FileDialogMode.SelectFolder;
+			dlg.FileNameFilters.Add("CRI Middleware UTF table", "*.utf");
+			if (dlg.ShowDialog() == MBS.Framework.UserInterface.DialogResult.OK)
+			{
+				if (cpk.HeaderData != null)
+				{
+					System.IO.File.WriteAllBytes(System.IO.Path.Combine(new string[] { dlg.SelectedFileName, cpk.HeaderTable.Name + ".utf" }), cpk.HeaderData);
+				}
+				if (cpk.TocData != null)
+				{
+					System.IO.File.WriteAllBytes(System.IO.Path.Combine(new string[] { dlg.SelectedFileName, "CpkTocInfo.utf" }), cpk.TocData);
+				}
+				if (cpk.ETocData != null)
+				{
+					System.IO.File.WriteAllBytes(System.IO.Path.Combine(new string[] { dlg.SelectedFileName, "CpkETocInfo.utf" }), cpk.ETocData);
+				}
+				if (cpk.GTocData != null)
+				{
+					System.IO.File.WriteAllBytes(System.IO.Path.Combine(new string[] { dlg.SelectedFileName, "CpkGTocInfo.utf" }), cpk.GTocData);
+				}
+				if (cpk.ITocData != null)
+				{
+					System.IO.File.WriteAllBytes(System.IO.Path.Combine(new string[] { dlg.SelectedFileName, "CpkExtendId.utf" }), cpk.ITocData);
+				}
+			}
+		}
+
+		private void CRI_FileSystem_Extensions_Export_CSV_Click(object sender, EventArgs e)
+		{
+			CPKDataFormat cpk = (Document.DataFormat as CPKDataFormat);
+			if (cpk == null)
+				return;
+
+			FileSystemObjectModel fsom = (Document.ObjectModel as FileSystemObjectModel);
+			if (fsom == null)
+				return;
+
+			File[] files = fsom.GetAllFiles();
+
+			MBS.Framework.UserInterface.Dialogs.FileDialog dlg = new MBS.Framework.UserInterface.Dialogs.FileDialog();
+			dlg.Mode = MBS.Framework.UserInterface.Dialogs.FileDialogMode.Save;
+			dlg.FileNameFilters.Add("Comma-separated values", "*.csv");
+			dlg.Text = "Export CSV";
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				System.Text.StringBuilder sb = new System.Text.StringBuilder();
+				for (int i = 0; i < files.Length; i++)
+				{
+					// /pv_01_easy.dsc,0,32272,32272,100.00,,,2010/04/12 10:56:10,20480,/pv_01_easy.dsc
+					sb.AppendLine(String.Format("/{0},{1},{2},{3},{4},,,{5},{6},/{0}", files[i].Name, files[i].GetAdditionalDetail("CRI.CPK.FileID"), files[i].Size, files[i].Size, "100.00", files[i].ModificationTimestamp.ToString(), 20480));
+				}
+				System.IO.File.WriteAllText(dlg.SelectedFileName, sb.ToString());
+			}
 		}
 
 		private void CRI_FileSystem_Extensions_View_Info_Click(object sender, EventArgs e)
