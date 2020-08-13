@@ -200,6 +200,12 @@
     <Compile Include="DataFormats\JSON\JSONSettings.cs" />
     <Compile Include="ObjectModels\PropertyList\PropertyListItem.cs" />
     <Compile Include="Accessors\EmbeddedFileAccessor.cs" />
+    <Compile Include="ObjectModels\Package\ContentTypes\ContentTypesObjectModel.cs" />
+    <Compile Include="ObjectModels\Package\ContentTypes\DefaultDefinition.cs" />
+    <Compile Include="ObjectModels\Package\ContentTypes\OverrideDefinition.cs" />
+    <Compile Include="ObjectModels\Package\PackageObjectModel.cs" />
+    <Compile Include="ObjectModels\Package\Relationships\Relationship.cs" />
+    <Compile Include="ObjectModels\Package\Relationships\RelationshipsObjectModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -226,6 +232,7 @@
     <Folder Include="DataFormats\Binary\PEM\" />
     <Folder Include="DataFormats\JSON\" />
     <Folder Include="Accessors\" />
+    <Folder Include="ObjectModels\Package\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
