@@ -1,10 +1,10 @@
 ﻿//
-//  View.cs
+//  ScriptTableTo.cs
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,30 +19,13 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using MBS.Framework.UserInterface;
-
-namespace UniversalEditor.UserInterface
+namespace UniversalEditor.Editors.Database
 {
-	public abstract class View : Container
+	public enum ScriptTableTo
 	{
-		public Editor Editor { get; set; }
-
-		private ObjectModel _ObjectModel = null;
-		public ObjectModel ObjectModel
-		{
-			get { return _ObjectModel; }
-			set
-			{
-				if (_ObjectModel == value) return;
-
-				_ObjectModel = value;
-				OnObjectModelChanged(EventArgs.Empty);
-			}
-		}
-
-		protected virtual void OnObjectModelChanged(EventArgs e)
-		{
-
-		}
+		Window,
+		File,
+		Clipboard,
+		Job
 	}
 }

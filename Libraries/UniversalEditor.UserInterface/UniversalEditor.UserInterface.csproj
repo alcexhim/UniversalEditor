@@ -133,6 +133,10 @@
     <Compile Include="EditorDocumentExplorerSelectionChangedEvent.cs" />
     <Compile Include="Editors\Markup\MarkupEditor.cs" />
     <Compile Include="EditorDocumentExplorerBeforeContextMenuEvent.cs" />
+    <Compile Include="Editors\Database\ScriptTableTo.cs" />
+    <Compile Include="Editors\Database\ScriptTableMode.cs" />
+    <Compile Include="Editors\Database\Views\ScriptView.cs" />
+    <Compile Include="Editors\Database\Views\DesignView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -188,6 +192,7 @@
     <Folder Include="Editors\RIFF\" />
     <Folder Include="Editors\RIFF\Dialogs\" />
     <Folder Include="Editors\Markup\" />
+    <Folder Include="Editors\Database\Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

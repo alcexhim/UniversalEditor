@@ -1,0 +1,198 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{2E873BD5-6F63-4ED8-9C33-C43A08919E29}" TypeName="UniversalEditor.Editors.Database.DatabaseEditor">
+			<Commands>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create" Title="_CREATE To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Create_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Create_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Create_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Create_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter" Title="_ALTER To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Alter_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Alter_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Alter_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Alter_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop" Title="D_ROP To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Drop_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Drop_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Drop_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Drop_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate" Title="D_ROP And CREATE To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select" Title="_SELECT To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Select_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Select_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Select_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Select_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert" Title="_INSERT To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Insert_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Insert_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Insert_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Insert_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update" Title="_UPDATE To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Update_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Update_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Update_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Update_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete" Title="DE_LETE To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Delete_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Delete_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Delete_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Delete_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute_NewWindow" Title="New Query Editor _Window" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute_File" Title="_File ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute_Clipboard" Title="_Clipboard" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute_Job" Title="Agent _Job ..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute" Title="E_XECUTE To">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Execute_NewWindow" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Execute_File" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Execute_Clipboard" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Execute_Job" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_Script" Title="_Script Table as">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Create" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Alter" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Drop" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_DropCreate" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Select" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Insert" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Update" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Delete" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Execute" />
+					</Items>
+				</Command>
+				<Command ID="DatabaseEditor_ContextMenu_Table_Encrypt" Title="E_ncrypt Columns..." />
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table_NewTable" Title="_New Table..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Import" Title="_Import Table..." />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Design" Title="Desig_n" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Select" Title="_Select Top 1000 Rows" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Edit" Title="_Edit Top 200 Rows" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Rename" Title="Rena_me" />
+				<Command ID="DatabaseEditor_ContextMenu_Table_Delete" Title="_Delete" />
+				
+				<Command ID="DatabaseEditor_ContextMenu_Table">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_NewTable" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Import" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Design" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Select" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Edit" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Encrypt" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Rename" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Delete" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Query_Snippet_Insert" Title="_Insert Snippet..." />
+				<Command ID="DatabaseEditor_ContextMenu_Query_Snippet_Surround" Title="_Surround With..." />
+				
+				<Command ID="DatabaseEditor_ContextMenu_Query_Execute" Title="E_xecute" />
+				<Command ID="DatabaseEditor_ContextMenu_Query_Plan" Title="Display Estimated Execution Plan" />
+				<Command ID="DatabaseEditor_ContextMenu_Query_Trace" Title="Trace Query in Profiler" />
+				<Command ID="DatabaseEditor_ContextMenu_Query_Design" Title="_Design Query in Editor..." />
+				<Command ID="DatabaseEditor_ContextMenu_Query">
+					<Items>
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Query_Snippet_Insert" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Query_Snippet_Surround" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Query_Execute" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Query_Plan" />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Query_Trace" />
+						<Separator />
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Query_Design" />
+					</Items>
+				</Command>
+				
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>
