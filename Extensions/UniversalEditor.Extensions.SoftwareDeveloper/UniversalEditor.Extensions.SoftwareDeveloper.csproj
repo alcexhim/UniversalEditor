@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8A0618F6-4FE6-4BA2-81DE-87C222235FBE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversalEditor.Content.SoftwareDeveloper</RootNamespace>
+    <AssemblyName>UniversalEditor.Content.SoftwareDeveloper</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
+    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProjectTypes\{B4EC64DC-6D44-11DD-AAB0-C9A155D89593}.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Associations\" />
+    <Folder Include="ProjectTypes\" />
+    <Folder Include="Templates\" />
+    <Folder Include="Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Associations\BinaryGrammar\SynalysisBinaryGrammarDataFormat.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Associations\CodeObjectModel\Ada.uexml" />
+    <Compile Include="Associations\CodeObjectModel\Boo.uexml" />
+    <Compile Include="Associations\CodeObjectModel\COBOL.uexml" />
+    <Compile Include="Associations\CodeObjectModel\CSharp.uexml" />
+    <Compile Include="Associations\CodeObjectModel\FORTRAN.uexml" />
+    <Compile Include="Associations\CodeObjectModel\FSharp.uexml" />
+    <Compile Include="Associations\CodeObjectModel\Go.uexml" />
+    <Compile Include="Associations\CodeObjectModel\Java.uexml" />
+    <Compile Include="Associations\CodeObjectModel\VisualBasicNET.uexml" />
+    <Compile Include="Associations\ExecutableObjectModel\AppleMachO.uexml" />
+    <Compile Include="Associations\ExecutableObjectModel\ApplePreferredExecutable.uexml" />
+    <Compile Include="Associations\ExecutableObjectModel\ELF.uexml" />
+    <Compile Include="Associations\ExecutableObjectModel\MZ.uexml" />
+    <Compile Include="Associations\ExecutableObjectModel\RelocatableObject.uexml" />
+    <Compile Include="Associations\Project\VisualStudio.uexml" />
+    <Compile Include="Associations\PropertyList\VisualStudio.uexml" />
+    <Compile Include="Associations\Solution\VisualStudio.uexml" />
+    <Compile Include="ProjectTypes\{8891C1AE-6699-45DA-8B22-13BCEBB63364}.uexml" />
+    <Compile Include="ProjectTypes\{F184B08F-C81C-45F6-A57F-5ABD9991F28F}.uexml" />
+    <Compile Include="ProjectTypes\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Adobe\AIR\Basic Project.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Adobe\AIR\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Adobe\AIR\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\BlankProject.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Blink.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Images\Blank.ico" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Images\Blank_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Images\Blank_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Images\Blink.ico" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Images\Blink.xcf" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Images\Blink_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Arduino\Images\Blink_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\C\GTK+ Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Class Library.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Console Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Database.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Blank_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Blank_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\COBOL.xcf" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Console_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Console_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\ControlLibrary_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\ControlLibrary_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Database_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Database_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Library_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Library_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Service_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Service_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Silverlight_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Images\Silverlight_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Silverlight.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\COBOL\Windows Forms Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Class Library.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Console Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Database.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Application.ico" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Application.xcf" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Blank.ico" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Blank.xcf" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Blank_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Blank_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Console.ico" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Console.xcf" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Console_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Console_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\ControlLibrary_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\ControlLibrary_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Database_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Database_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Library.ico" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Library.xcf" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Library_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Library_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Silverlight_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Silverlight_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Test_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Images\Test_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Silverlight.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\CSharp\Windows Forms Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Console Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Blank_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Blank_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Console_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Console_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Library_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Images\Library_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Native Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\IronPython\Windows Forms Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Console Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Blank_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Blank_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Console_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Console_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\ControlLibrary_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\ControlLibrary_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Library_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Images\Library_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\JSharp\Windows Forms Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Class Library.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Console Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Database.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Blank_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Blank_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Console_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Console_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\ControlLibrary_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\ControlLibrary_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Database_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Database_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Library_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Library_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Service_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Service_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\SliverlightApplication_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\SliverlightApplication_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Test_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Images\Test_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Silverlight.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Common Language Runtime\VisualBasic\Windows Forms Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Extensibility\Images\MSOfficeAddin_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Extensibility\Images\MSOfficeAddin_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Extensibility\Images\UniversalEditorAddin_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Extensibility\Images\UniversalEditorAddin_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Blank Project.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Class Library.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Console Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\GUI Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Blank_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Blank_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Console_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Console_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Library_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Pascal\Images\Library_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\ActiveX Application.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Blank Project.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Class Library.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Control Library.uexml" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\ActiveXApplication_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\ActiveXApplication_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\Application_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\Application_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\BlankProject_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\BlankProject_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\ControlLibrary_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\ControlLibrary_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\Library_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\Library_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\Wizard_16x16.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Images\Wizard_32x32.png" />
+    <Compile Include="Templates\Project\SoftwareDevelopment\Visual Basic 6.0\Standard Application.uexml" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\ProjectTypes\32x32\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Class Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Console Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Empty Project.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Server Control.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Web Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Web Site.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Windows Forms Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Windows Forms Control Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\Windows Service.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\WPF Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\WPF Browser Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\WPF Custom Control Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\16x16\WPF User Control Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Class Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Console Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Empty Project.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Server Control.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Web Site.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Windows Forms Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Windows Forms Control Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\Windows Service.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\WPF Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\WPF Browser Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\WPF Custom Control Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\CSharp\32x32\WPF User Control Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\16x16\Class Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\16x16\Console Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\16x16\Silverlight Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\16x16\Tutorial.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\32x32\Class Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\32x32\Console Application.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\32x32\Silverlight Library.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\FSharp\32x32\Tutorial.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\16x16\Extension.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\16x16\Windows Forms Toolbox Control.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\16x16\WPF Toolbox Control.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\32x32\Extension.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\32x32\Windows Forms Toolbox Control.png" />
+    <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\32x32\WPF Toolbox Control.png" />
+  </ItemGroup>
+  <Import Project="..\..\UniversalEditor.Compiler.targets" />
+  <Target Name="Build">
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="Clean">
+    <Delete Files="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build">
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
