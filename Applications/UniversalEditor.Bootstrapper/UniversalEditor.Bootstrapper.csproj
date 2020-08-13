@@ -42,7 +42,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -84,7 +83,7 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\UniversalWidgetToolkit\Libraries\UniversalWidgetToolkit\UniversalWidgetToolkit.csproj">
+    <ProjectReference Include="..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>

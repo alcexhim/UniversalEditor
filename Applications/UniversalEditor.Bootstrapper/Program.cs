@@ -20,9 +20,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Windows.Forms;
+
+using MBS.Framework.UserInterface.Dialogs;
+
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Bootstrapper
@@ -46,7 +47,7 @@ namespace UniversalEditor.Bootstrapper
 			}
 			catch
 			{
-				MessageBox.Show("The file 'UniversalEditor.UserInterface.dll' is required for this software to run, but is either missing or corrupted.  Please re-install the software and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageDialog.ShowDialog("The file 'UniversalEditor.UserInterface.dll' is required for this software to run, but is either missing or corrupted.  Please re-install the software and try again.", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
 				return;
 			}
 
@@ -63,7 +64,7 @@ namespace UniversalEditor.Bootstrapper
 			{
 				if (!Engine.Execute())
 				{
-					MessageBox.Show("No engines are available to launch this application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageDialog.ShowDialog("No engines are available to launch this application.", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
 					return;
 				}
 			}
