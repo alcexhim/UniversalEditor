@@ -7,8 +7,8 @@
     <ProjectGuid>{8A0618F6-4FE6-4BA2-81DE-87C222235FBE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UniversalEditor.Content.SoftwareDeveloper</RootNamespace>
-    <AssemblyName>UniversalEditor.Content.SoftwareDeveloper</AssemblyName>
+    <RootNamespace>UniversalEditor.Extensions.SoftwareDeveloper</RootNamespace>
+    <AssemblyName>UniversalEditor.Extensions.SoftwareDeveloper</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -253,14 +253,6 @@
     <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\32x32\WPF Toolbox Control.png" />
   </ItemGroup>
   <Import Project="..\..\UniversalEditor.Compiler.targets" />
-  <Target Name="Build">
-    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
-  </Target>
-  <Target Name="Clean">
-    <Delete Files="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
-  </Target>
-  <Target Name="Rebuild" DependsOnTargets="Clean;Build">
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

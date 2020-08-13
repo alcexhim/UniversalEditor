@@ -206,6 +206,8 @@
     <Compile Include="ObjectModels\Package\PackageObjectModel.cs" />
     <Compile Include="ObjectModels\Package\Relationships\Relationship.cs" />
     <Compile Include="ObjectModels\Package\Relationships\RelationshipsObjectModel.cs" />
+    <Compile Include="DataFormats\UEPackage\Binary\UEPackageBinaryDataFormat.cs" />
+    <Compile Include="DataFormats\Package\OpenDocument\OpenDocumentDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ExtraDataFields\ZIPExtraDataFieldExtendedTimestamp.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\Internal\ZIPCentralDirectoryFooter.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPCompressionMethod.cs" />
@@ -225,6 +227,14 @@
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
+      <Project>{3F664673-7E22-4486-9AD0-FC81861D0B78}</Project>
+      <Name>UniversalEditor.Compression</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Checksum\UniversalEditor.Checksum.csproj">
+      <Project>{0F7D5BD4-7970-412F-ABD7-0A098BB01ACE}</Project>
+      <Name>UniversalEditor.Checksum</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -242,6 +252,9 @@
     <Folder Include="DataFormats\JSON\" />
     <Folder Include="Accessors\" />
     <Folder Include="ObjectModels\Package\" />
+    <Folder Include="DataFormats\UEPackage\Binary\" />
+    <Folder Include="DataFormats\Package\" />
+    <Folder Include="DataFormats\Package\OpenDocument\" />
     <Folder Include="DataFormats\FileSystem\" />
     <Folder Include="DataFormats\FileSystem\ZIP\" />
   </ItemGroup>

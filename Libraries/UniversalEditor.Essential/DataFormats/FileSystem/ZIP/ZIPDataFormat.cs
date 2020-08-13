@@ -26,7 +26,6 @@ using UniversalEditor.ObjectModels.FileSystem;
 
 using UniversalEditor.Compression;
 using UniversalEditor.IO;
-using UniversalEditor.UserInterface;
 
 using UniversalEditor.DataFormats.FileSystem.ZIP.ExtraDataFields;
 
@@ -774,7 +773,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 
 			if (unpackedData.Length != unpackedFileLength)
 			{
-				HostApplication.Messages.Add(HostApplicationMessageSeverity.Error, "File size mismatch, source archive may be corrupted", fileName);
+				// HostApplication.Messages.Add(HostApplicationMessageSeverity.Error, "File size mismatch, source archive may be corrupted", fileName);
 			}
 
 			File f = fsom.AddFile(fileName);

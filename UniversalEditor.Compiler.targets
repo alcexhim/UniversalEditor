@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+***********************************************************************************************
+Mocha.Compiler.targets
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+This file defines the steps in the standard build process specific for Mocha Class Library
+projects. For example, it contains the step that actually calls the XML-to-MCL compiler.  The
+remainder of the build process is defined in Microsoft.Common.targets, which is imported by
+this file.
+
+Mocha portions Copyright (C) 2020 Mike Becker's Software.
+MSBuild portions Copyright (C) Microsoft Corporation. All rights reserved.
+***********************************************************************************************
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="$(MSBuildToolsPath)\Microsoft.Common.CurrentVersion.targets" />
+	<UsingTask AssemblyFile="UniversalEditor.MSBuild.Tasks.dll" TaskName="UEcc" />
+
+	<!--
+	I don't really care about MSBuild and Visual Studio compatibility because this isn't C# anymore
+	-->
+	<Target Name="Clean" >
+	</Target>
+	<Target
+		Name="Build"
+		Inputs="$(MSBuildAllProjects);
+			@(Compile);
+			@(_CoreCompileResourceInputs);
+			$(ApplicationIcon);
+			$(AssemblyOriginatorKeyFile);
+			@(ReferencePathWithRefAssemblies);
+			@(CompiledLicenseFile);
+			@(LinkResource);
+			@(EmbeddedDocumentation);
+			$(Win32Resource);
+			$(Win32Manifest);
+			@(CustomAdditionalCompileInputs);
+			$(ResolvedCodeAnalysisRuleSet);
+			@(AdditionalFiles);
+			@(EmbeddedFiles);
+			@(EditorConfigFiles)"
+
+		Outputs="@(OutputPath);
+			@(IntermediateAssembly);
+			@(IntermediateRefAssembly);
+			@(_DebugSymbolsIntermediatePath);
+			$(NonExistentFile);
+			@(CustomAdditionalCompileOutputs)"
+		
+		Returns="@(CscCommandLineArgs)"
+		DependsOnTargets="$(CoreCompileDependsOn)"
+	>
+		<UEcc Condition="'%(_CoreCompileResourceInputs.WithCulture)' != 'true'"
+			OutputAssembly="$(OutputPath)$(TargetName).uex"
+			 Sources="@(Compile)"
+		>
+		</UEcc>
+
+		<CallTarget Targets="$(TargetsTriggeredByCompilation)" Condition="'$(TargetsTriggeredByCompilation)' != ''" />
+	</Target>
+</Project>
