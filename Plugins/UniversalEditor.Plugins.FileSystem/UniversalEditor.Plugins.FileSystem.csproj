@@ -204,17 +204,8 @@
     <Compile Include="DataFormats\FileSystem\ZipTV\BlakHole\BHDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\ZipTV\BlakHole\BHEncryptDecrypt.cs" />
     <Compile Include="DataFormats\FileSystem\ZipTV\BlakHole\BHEncryptionMethod.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\Internal\ZIPCentralDirectoryFooter.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPCreationPlatform.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPInternalFileAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataFormats\FileSystem\VirtualBox\VDIDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPCompressionMethod.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPExtraDataField.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ExtraDataFields\ZIPExtraDataFieldExtendedTimestamp.cs" />
-    <Compile Include="DataFormats\FileSystem\ZIP\ZIPExtraDataFieldType.cs" />
     <Compile Include="DataFormats\FileSystem\Apogee\DLTDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\PAC\PACDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\MechCommander\MechCommanderDataFormat.cs" />
@@ -288,7 +279,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\FileSystem\VirtualBox\" />
-    <Folder Include="DataFormats\FileSystem\ZIP\ExtraDataFields\" />
     <Folder Include="DataFormats\FileSystem\Apogee\" />
     <Folder Include="DataFormats\FileSystem\PAC\" />
     <Folder Include="DataFormats\FileSystem\MechCommander\" />

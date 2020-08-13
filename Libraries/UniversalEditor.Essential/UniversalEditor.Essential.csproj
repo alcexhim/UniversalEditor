@@ -206,6 +206,15 @@
     <Compile Include="ObjectModels\Package\PackageObjectModel.cs" />
     <Compile Include="ObjectModels\Package\Relationships\Relationship.cs" />
     <Compile Include="ObjectModels\Package\Relationships\RelationshipsObjectModel.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ExtraDataFields\ZIPExtraDataFieldExtendedTimestamp.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\Internal\ZIPCentralDirectoryFooter.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPCompressionMethod.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPCreationPlatform.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPExtraDataField.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPExtraDataFieldType.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\ZIP\ZIPInternalFileAttributes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -233,6 +242,8 @@
     <Folder Include="DataFormats\JSON\" />
     <Folder Include="Accessors\" />
     <Folder Include="ObjectModels\Package\" />
+    <Folder Include="DataFormats\FileSystem\" />
+    <Folder Include="DataFormats\FileSystem\ZIP\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
