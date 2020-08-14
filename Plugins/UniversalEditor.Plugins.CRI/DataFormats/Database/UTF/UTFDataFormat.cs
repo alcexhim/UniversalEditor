@@ -118,15 +118,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			for (int i = 0; i < info.tableColumns; i++)
 			{
 				byte schema = br.ReadByte();
-				/*// wtf is this?
-				if (schema == 0)
-				{
-					br.Accessor.Seek(3, SeekOrigin.Current);
-					column.flags = br.ReadByte();
-				}
-				*/
 				columnNameOffsets[i] = br.ReadInt32();
-
 				storageTypes[i] = (UTFColumnStorageType)(schema & (byte)UTFColumnStorageType.Mask);
 				dataTypes[i] = (UTFColumnDataType)(schema & (byte)UTFColumnDataType.Mask);
 
@@ -402,11 +394,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				}
 			}
 
-			int tableSize = 24 - 4; // size of entire file minus "@UTF" signature
-			tableSize += (5 * dt.Fields.Count);
-
-			tableSize += (dt.Name.Length + 1);
-			tableSize += 7; // "<NULL>\0".Length
+			int tableSize = 24; // size of entire file = 32 - "@UTF".Length(4) - (size of table size field:4) = 32 - 8 = 24
+			tableSize += (5 * dt.Fields.Count); // 5 * 36 = 204		5 * 35 = 195
+			tableSize += (dt.Name.Length + 1); // 204 + "CpkHeader".Length + 1 = 214
+			tableSize += 7; // "<NULL>\0".Length // 214 + 7 = 221
 
 			int rowsOffset = 24 + (5 * dt.Fields.Count);
 			int stringTableOffset = rowsOffset;
@@ -416,9 +407,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				tableSize += (dt.Fields[i].Name.Length + 1);
 				if (columnStorageTypes[i] == UTFColumnStorageType.Constant)
 				{
-					tableSize += GetLengthForDataType(columnDataTypes[i]);
-					stringTableOffset += GetLengthForDataType(columnDataTypes[i]);
-					rowsOffset += GetLengthForDataType(columnDataTypes[i]);
+					int l = GetLengthForDataType(columnDataTypes[i]);
+					tableSize += l;
+					stringTableOffset += l;
+					rowsOffset += l;
 
 					if (columnDataTypes[i] == UTFColumnDataType.String)
 					{
@@ -447,6 +439,8 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 				}
 			}
 
+			// this is off... always at the same offset too (CpkTocInfo - 0x818 in cpk files)
+			// tableSize += 8;		// this is correct, but, CpkFileBuilder chokes, unless it is omitted
 			tableSize = tableSize.RoundUp(8);
 
 			bw.WriteInt32(tableSize);
