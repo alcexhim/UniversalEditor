@@ -13,6 +13,16 @@
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>
+				<Filter Title="Microsoft Media Viewer book">
+					<FileNameFilters>
+						<FileNameFilter>*.mvb</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">3F5F0300</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
 			</Filters>
 			<ObjectModels>
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Help.Compiled.CompiledHelpObjectModel" />
@@ -21,6 +31,23 @@
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.Help.Compiled.WinHelp.HLPDataFormat" />
 				<!-- <DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.BPlus.BPlusFileSystemDataFormat" /> -->
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft WinHelp B+ FileSystem">
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">3F5F0300</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.BPlus.BPlusFileSystemDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

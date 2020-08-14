@@ -107,6 +107,7 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 				{
 					// help file title follows SYSTEMHEADER
 					string helpFileTitle = readerSystem.ReadNullTerminatedString();
+					help.Title = helpFileTitle;
 				}
 				else
 				{

@@ -250,6 +250,7 @@
     <Compile Include="DataFormats\FileSystem\WinRAR\VM\RARVMFlags.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\VM\RAROpcodeFlags.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\VM\RARVMFunctions.cs" />
+    <Compile Include="DataFormats\FileSystem\BPlus\BPlusFileFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

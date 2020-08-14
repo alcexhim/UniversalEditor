@@ -60,6 +60,9 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			int directoryStart = br.ReadInt32(); // offset of FILEHEADER of internal directory
 			int firstFreeBlock = br.ReadInt32(); // offset of FREEHEADER or -1L if no free list
 			int entireFileSize = br.ReadInt32(); // size of entire help file in bytes
+			if (Accessor.Length != entireFileSize)
+			{
+			}
 
 			// At offset DirectoryStart the FILEHEADER of the internal directory is located
 			br.Accessor.Position = directoryStart;
@@ -82,9 +85,9 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			ushort magic1 = brFile.ReadUInt16();
 			if (magic1 != 0x293B) throw new InvalidDataFormatException("Could not read internal directory file");
 
-			ushort flags = brFile.ReadUInt16();                         // bit 0x0002 always 1, bit 0x0400 1 if directory
-			bool bit0x0002 = ((flags & 0x0002) == 0x0002);
-			bool bit0x0400 = ((flags & 0x0400) == 0x0400);
+			BPlusFileFlags flags = (BPlusFileFlags)brFile.ReadUInt16();                         // bit 0x0002 always 1, bit 0x0400 1 if directory
+			bool bit0x0002 = ((flags & BPlusFileFlags.Default) == BPlusFileFlags.Default);
+			bool bit0x0400 = ((flags & BPlusFileFlags.Directory) == BPlusFileFlags.Directory);
 
 			ushort PageSize = brFile.ReadUInt16();                      // 0x0400=1k if directory, 0x0800=2k else, or 4k
 			string Structure = brFile.ReadFixedLengthString(16);        // string describing format of data
@@ -97,6 +100,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			short NLevels = brFile.ReadInt16();                         // number of levels of B+ tree
 			int TotalBPlusTreeEntries = brFile.ReadInt32();             // number of entries in B+ tree
 
+			Internal.DIRECTORYINDEXENTRY[][] directoryIndexEntries = new Internal.DIRECTORYINDEXENTRY[NLevels - 1][];
 			for (int i = 0; i < NLevels - 1; i++)
 			{
 				#region Index page
@@ -110,10 +114,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 				// at FileName, but less than the next FileName. PreviousPage gets you to the
 				// next page if the desired FileName is lexically before the first FileName.
 				Internal.BTREEINDEXHEADER indexHeader = ReadBTreeIndexHeader(brFile);
+				directoryIndexEntries[i] = new Internal.DIRECTORYINDEXENTRY[indexHeader.PageEntriesCount];
 				for (short j = 0; j < indexHeader.PageEntriesCount; j++)
 				{
 					// this is the structure of directory index-pages
-					Internal.DIRECTORYINDEXENTRY entry = ReadDirectoryIndexEntry(brFile);
+					directoryIndexEntries[i][j] = ReadDirectoryIndexEntry(brFile);
 				}
 				#endregion
 			}
@@ -131,6 +136,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			{
 				// this is the structure of directory index-pages
 				Internal.DIRECTORYLEAFENTRY entry = ReadDirectoryLeafEntry(brFile);
+
+				// HACK: prevent crashing because we're running out of @#*$
+				if (entry.FileOffset == 0)
+					break;
+
 				entries.Add(entry);
 			}
 			#endregion
@@ -156,7 +166,11 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 			int UsedSpace = br.ReadInt32();
 			fileHeader.FileFlags = br.ReadByte();
 			fileHeader.FileContent = br.ReadBytes(UsedSpace);
-			fileHeader.FreeSpace = new byte[fileHeader.ReservedSpace - UsedSpace - 9];
+
+			int t = fileHeader.ReservedSpace - UsedSpace - 9;
+			if (t < 0) t = 0;
+
+			fileHeader.FreeSpace = new byte[t];
 			return fileHeader;
 		}
 		private Internal.DIRECTORYLEAFENTRY ReadDirectoryLeafEntry(IO.Reader br)
@@ -178,6 +192,10 @@ namespace UniversalEditor.DataFormats.FileSystem.BPlus
 		private Internal.DIRECTORYINDEXENTRY ReadDirectoryIndexEntry(IO.Reader br)
 		{
 			Internal.DIRECTORYINDEXENTRY entry = new Internal.DIRECTORYINDEXENTRY();
+
+			// HACK: see if we really need this or not???
+			ushort unknown1 = br.ReadUInt16();
+
 			entry.FileName = br.ReadNullTerminatedString();
 			entry.PageNumber = br.ReadInt16();
 			return entry;
