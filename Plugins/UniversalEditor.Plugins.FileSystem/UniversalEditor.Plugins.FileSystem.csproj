@@ -251,6 +251,7 @@
     <Compile Include="DataFormats\FileSystem\WinRAR\VM\RAROpcodeFlags.cs" />
     <Compile Include="DataFormats\FileSystem\WinRAR\VM\RARVMFunctions.cs" />
     <Compile Include="DataFormats\FileSystem\BPlus\BPlusFileFlags.cs" />
+    <Compile Include="DataFormats\FileSystem\ARCV\ARCVDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -300,6 +301,7 @@
     <Folder Include="DataFormats\FileSystem\WinRAR\V4\" />
     <Folder Include="DataFormats\FileSystem\WinRAR\Blocks\" />
     <Folder Include="DataFormats\FileSystem\WinRAR\VM\" />
+    <Folder Include="DataFormats\FileSystem\ARCV\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

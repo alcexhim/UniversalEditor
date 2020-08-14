@@ -575,6 +575,7 @@
     <Content Include="Editors\Markup\Commands.uexml" />
     <Content Include="Extensions\Microsoft\Associations\OLE1.uexml" />
     <Content Include="Extensions\FileSystem\Associations\Microsoft\NTFS.uexml" />
+    <Content Include="Extensions\FileSystem\Associations\ARCV.uexml" />
     <Content Include="Editors\Setup\BootstrapScript\BootstrapScriptEditor.glade" />
     <Content Include="Editors\Database\Commands.uexml" />
     <Content Include="Editors\Database\Views\ScriptView.glade" />
