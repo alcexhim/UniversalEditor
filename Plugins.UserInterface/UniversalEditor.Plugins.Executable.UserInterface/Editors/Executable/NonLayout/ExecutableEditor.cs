@@ -27,6 +27,7 @@ using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Input.Mouse;
 using MBS.Framework.UserInterface.Layouts;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 {
@@ -55,7 +56,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			throw new NotImplementedException();
 		}
 
-		private ListView tvSections = null;
+		private ListViewControl tvSections = null;
 		private DefaultTreeModel tmSections = null;
 		private TabContainer tbs = null;
 
@@ -72,7 +73,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
 			tmSections = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
-			tvSections = new ListView();
+			tvSections = new ListViewControl();
 			tvSections.Model = tmSections;
 
 			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[0], "Name"));
@@ -122,7 +123,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 			tmOtherInformation = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });
 
-			ListView lvOtherInformation = new ListView();
+			ListViewControl lvOtherInformation = new ListViewControl();
 			lvOtherInformation.Model = tmOtherInformation;
 			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[0], "Name"));
 			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[1], "Value"));

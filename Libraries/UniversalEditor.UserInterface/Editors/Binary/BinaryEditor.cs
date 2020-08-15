@@ -27,6 +27,7 @@ using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.HexEditor;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
 
@@ -47,7 +48,7 @@ namespace UniversalEditor.Editors.Binary
 		private TabContainer tabs = null;
 
 		private Toolbar tbFieldDefinitions;
-		private ListView lvFieldDefinitions;
+		private ListViewControl lvFieldDefinitions;
 		private DefaultTreeModel tmFieldDefinitions;
 
 		private ComboBox cboEndianness;

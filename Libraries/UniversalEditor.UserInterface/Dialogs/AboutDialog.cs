@@ -23,6 +23,7 @@ using System;
 
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -33,7 +34,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 	[ContainerLayout("~/Dialogs/AboutDialog.glade", "GtkDialog")]
 	public class AboutDialog : Dialog
 	{
-		private ListView tvComponents;
+		private ListViewControl tvComponents;
 		private DefaultTreeModel tmComponents;
 
 		public AboutDialog()

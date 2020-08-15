@@ -27,7 +27,7 @@ using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
 
 using MBS.Framework.UserInterface;
-using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
@@ -38,7 +38,7 @@ namespace UniversalEditor.Editors.FileSystem
 	[ContainerLayout("~/Editors/FileSystem/FileSystemEditor.glade")]
 	public class FileSystemEditor : Editor
 	{
-		private ListView tv = null;
+		private ListViewControl tv = null;
 		private DefaultTreeModel tm = null;
 
 		internal void ClearSelectionContent(FileSystemSelection sel)

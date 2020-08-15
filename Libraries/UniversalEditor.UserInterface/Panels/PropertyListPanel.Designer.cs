@@ -21,6 +21,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.UserInterface.Panels
@@ -29,7 +30,7 @@ namespace UniversalEditor.UserInterface.Panels
 	{
 		private ComboBox cboObject = null;
 		private SplitContainer scPropertiesDescription = null;
-		private ListView lvPropertyGrid = null;
+		private ListViewControl lvPropertyGrid = null;
 		private TextBox txtCommands = null;
 		private TextBox txtDescription = null;
 		private DefaultTreeModel tmPropertyGrid = null;
@@ -56,7 +57,7 @@ namespace UniversalEditor.UserInterface.Panels
 
 			tmPropertyGrid = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });
 
-			lvPropertyGrid = new ListView();
+			lvPropertyGrid = new ListViewControl();
 			lvPropertyGrid.SelectionChanged += lvPropertyGrid_SelectionChanged; ;
 			lvPropertyGrid.Model = tmPropertyGrid;
 			lvPropertyGrid.Columns.Add(new ListViewColumnText(tmPropertyGrid.Columns[0], "Name"));

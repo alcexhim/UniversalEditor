@@ -23,6 +23,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
 using MBS.Framework.Drawing;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -33,7 +34,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private Button cmdReset = null;
 		private Button cmdNone = null;
 		private TextBox txtSearch = null;
-		private ListView lv = null;
+		private ListViewControl lv = null;
 
 		private Container ctSearchAndShowAll = null;
 		private DefaultTreeModel tm = null;
@@ -66,7 +67,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			this.tm = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });
 
-			this.lv = new ListView();
+			this.lv = new ListViewControl();
 			lv.Columns.Add(new ListViewColumnText(tm.Columns[0], "Name"));
 			lv.Columns.Add(new ListViewColumnText(tm.Columns[1], "Description"));
 			lv.RowActivated += this.lv_RowActivated;

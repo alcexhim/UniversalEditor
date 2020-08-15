@@ -27,6 +27,7 @@ using MBS.Framework.UserInterface.Layouts;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.Drawing;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.Editors.Contact
 {
@@ -49,7 +50,7 @@ namespace UniversalEditor.Editors.Contact
 
 		private DefaultTreeModel tmAddresses;
 
-		private ListView lvPhysicalAddresses;
+		private ListViewControl lvPhysicalAddresses;
 		private Container ct;
 		private Container ctName;
 
@@ -145,7 +146,7 @@ namespace UniversalEditor.Editors.Contact
 
 				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
-				lvPhysicalAddresses = new ListView();
+				lvPhysicalAddresses = new ListViewControl();
 				lvPhysicalAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
 				lvPhysicalAddresses.Model = tmAddresses;
 				ct.Controls.Add(lvPhysicalAddresses, new BoxLayout.Constraints(true, true));
@@ -164,7 +165,7 @@ namespace UniversalEditor.Editors.Contact
 
 				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
-				ListView lvAddresses = new ListView();
+				ListViewControl lvAddresses = new ListViewControl();
 				lvAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
 				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 
@@ -182,7 +183,7 @@ namespace UniversalEditor.Editors.Contact
 
 				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
-				ListView lvAddresses = new ListView();
+				ListViewControl lvAddresses = new ListViewControl();
 				lvAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
 				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 

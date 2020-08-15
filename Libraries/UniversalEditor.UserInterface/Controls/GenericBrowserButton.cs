@@ -25,6 +25,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Layouts;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.UserInterface.Controls
 {
@@ -39,7 +40,7 @@ namespace UniversalEditor.UserInterface.Controls
 
 		public event EventHandler SelectionChanged;
 
-		private ListView lv = null;
+		private ListViewControl lv = null;
 		private DefaultTreeModel tm = null;
 		public Collection<TRef> AvailableObjects { get; } = new Collection<TRef>();
 
@@ -91,7 +92,7 @@ namespace UniversalEditor.UserInterface.Controls
 
 			tm = new DefaultTreeModel (new Type[] { typeof(string), typeof(string) });
 
-			lv = new ListView ();
+			lv = new ListViewControl();
 			lv.Model = tm;
 			lv.Columns.Add (new ListViewColumnText (lv.Model.Columns [0], "Name"));
 			lv.Columns.Add (new ListViewColumnText (lv.Model.Columns [1], "Description"));

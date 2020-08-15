@@ -22,7 +22,7 @@
 using System;
 
 using MBS.Framework.UserInterface;
-using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Chunked;
 using UniversalEditor.UserInterface;
@@ -33,7 +33,7 @@ namespace UniversalEditor.Editors.RIFF
 	[ContainerLayout("~/Editors/RIFF/RIFFEditor.glade")]
 	public class RIFFEditor : Editor
 	{
-		private ListView tv;
+		private ListViewControl tv;
 		private DefaultTreeModel tm;
 
 		public override void UpdateSelections()

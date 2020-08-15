@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript;
 using UniversalEditor.UserInterface;
@@ -32,9 +33,9 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 	[ContainerLayout("~/Editors/Setup/BootstrapScript/BootstrapScriptEditor.glade")]
 	public class BootstrapScriptEditor : Editor
 	{
-		private ListView tvPlatforms;
-		private ListView tvParameters;
-		private ListView tvFiles;
+		private ListViewControl tvPlatforms;
+		private ListViewControl tvParameters;
+		private ListViewControl tvFiles;
 
 		private Toolbar tbPlatforms;
 		private Toolbar tbParameters;

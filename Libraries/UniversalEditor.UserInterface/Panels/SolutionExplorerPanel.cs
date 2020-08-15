@@ -22,6 +22,7 @@ using System;
 
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.ObjectModels.Project;
@@ -32,7 +33,7 @@ namespace UniversalEditor.UserInterface.Panels
 	public class SolutionExplorerPanel : Panel
 	{
 		private DefaultTreeModel tmSolutionExplorer = null;
-		private ListView tvSolutionExplorer = new ListView();
+		private ListViewControl tvSolutionExplorer = new ListViewControl();
 
 		private SolutionObjectModel _Solution = null;
 		public SolutionObjectModel Solution

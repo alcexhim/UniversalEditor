@@ -41,6 +41,12 @@ namespace UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Contro
 		private Design _SelectedDesign = null;
 		public Design SelectedDesign { get { return _SelectedDesign; } set { _SelectedDesign = value;  Refresh(); } }
 
+		/// <summary>
+		/// Gets a collection of <see cref="Library" /> instances representing the libraries to load into this <see cref="DesignerControl" />.
+		/// </summary>
+		/// <value>The libraries.</value>
+		public Library.LibraryCollection Libraries { get; } = new Library.LibraryCollection();
+
 		public ComponentInstance.ComponentInstanceCollection SelectedComponents { get; } = new ComponentInstance.ComponentInstanceCollection();
 
 		private int margin_x = 13, margin_y = 13, margin_r = 13, margin_b = 13;

@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Text;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
 
@@ -35,7 +36,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 	public class ManagedAssemblyPanel : Container
 	{
 		private TextBox txtSearch = null;
-		private ListView tvTypes = null;
+		private ListViewControl tvTypes = null;
 		private DefaultTreeModel tmTypes = null;
 		private TextBox txtSource = null;
 
@@ -252,7 +253,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			scLeftRight.Panel1.Layout = new BoxLayout(Orientation.Vertical);
 			scLeftRight.Panel1.Controls.Add(txtSearch, new BoxLayout.Constraints(false, true));
 
-			tvTypes = new ListView();
+			tvTypes = new ListViewControl();
 			tvTypes.SelectionChanged += tvTypes_SelectionChanged;
 
 			tmTypes = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });

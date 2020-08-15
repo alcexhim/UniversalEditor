@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Input.Keyboard;
 
@@ -33,7 +34,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 	[ContainerLayout("~/Dialogs/ManageBookmarksDialog.glade")]
 	public class ManageBookmarksDialog : CustomDialog
 	{
-		private ListView tv;
+		private ListViewControl tv;
 		private DefaultTreeModel tm;
 		private Button cmdOK;
 

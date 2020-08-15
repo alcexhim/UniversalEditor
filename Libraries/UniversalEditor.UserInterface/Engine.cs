@@ -21,6 +21,7 @@ using MBS.Framework.Drawing;
 using UniversalEditor.UserInterface.Panels;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.Docking;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.UserInterface
 {
@@ -429,7 +430,7 @@ namespace UniversalEditor.UserInterface
 				else
 				{
 					Control ctl = LastWindow.ActiveControl;
-					if (ctl is ListView && ctl.Parent is SolutionExplorerPanel)
+					if (ctl is ListViewControl && ctl.Parent is SolutionExplorerPanel)
 					{
 						(ctl.Parent as SolutionExplorerPanel).Delete();
 					}

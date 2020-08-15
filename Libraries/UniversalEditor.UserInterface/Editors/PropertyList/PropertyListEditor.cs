@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MBS.Framework.UserInterface;
-using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.UserInterface;
@@ -33,7 +33,7 @@ namespace UniversalEditor.Editors.PropertyList
 	[ContainerLayout("~/Editors/PropertyList/PropertyListEditor.glade")]
 	public class PropertyListEditor : Editor
 	{
-		private ListView tv = null;
+		private ListViewControl tv = null;
 		private DefaultTreeModel tm = null;
 
 		private static EditorReference _er = null;

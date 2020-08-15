@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 
 namespace UniversalEditor.UserInterface.Dialogs
@@ -47,10 +48,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private CheckBox chkAddToSolution;
 		private TextBox txtSolutionName;
 
-		private ListView tvObjectModel;
+		private ListViewControl tvObjectModel;
 		private DefaultTreeModel tmObjectModel;
 
-		private ListView tvTemplate;
+		private ListViewControl tvTemplate;
 		private DefaultTreeModel tmTemplate;
 		private TextBox txtSearch;
 

@@ -32,7 +32,7 @@ namespace UniversalEditor.Editors.Database.Views
 		private TextBox txtName;
 		private TextBox txtDescription;
 		private Toolbar tbColumns;
-		private ListView tvColumns;
+		private MBS.Framework.UserInterface.Controls.ListView.ListViewControl tvColumns;
 
 		private DatabaseTable _Table = null;
 		public DatabaseTable Table { get { return _Table; } set { _Table = value; Update(); } }

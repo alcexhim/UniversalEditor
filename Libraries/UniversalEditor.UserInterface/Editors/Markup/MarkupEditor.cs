@@ -23,6 +23,7 @@ using System;
 using System.Text;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.UserInterface;
@@ -32,7 +33,7 @@ namespace UniversalEditor.Editors.Markup
 	[ContainerLayout("~/Editors/Markup/MarkupEditor.glade")]
 	public class MarkupEditor : Editor
 	{
-		private ListView tv;
+		private ListViewControl tv;
 		private DefaultTreeModel tm;
 		private TextBox txtValue;
 		private SplitContainer scAttributesValue;

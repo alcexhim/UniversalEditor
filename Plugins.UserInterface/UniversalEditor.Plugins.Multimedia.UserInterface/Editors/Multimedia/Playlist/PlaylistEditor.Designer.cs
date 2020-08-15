@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Playlist
@@ -29,7 +30,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pl
 	[ContainerLayout("~/Editors/Multimedia/Playlist/PlaylistEditor.glade", "GtkWindow")]
 	partial class PlaylistEditor : Editor
 	{
-		private ListView lvPlaylist = null;
+		private ListViewControl lvPlaylist = null;
 		private DefaultTreeModel tmPlaylist = null;
 
 		/// <summary>

@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.UnrealEngine;
 using UniversalEditor.Plugins.UnrealEngine.UserInterface.Dialogs.Unreal.Package;
@@ -35,8 +36,8 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 	[ContainerLayout("~/Editors/Unreal/Package/UnrealPackageEditor.glade")]
 	public class UnrealPackageEditor : Editor
 	{
-		private ListView tvImports;
-		private ListView tvExports;
+		private ListViewControl tvImports;
+		private ListViewControl tvExports;
 
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()

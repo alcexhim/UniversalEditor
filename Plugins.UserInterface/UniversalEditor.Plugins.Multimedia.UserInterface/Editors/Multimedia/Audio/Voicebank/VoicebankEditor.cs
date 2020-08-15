@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
@@ -35,7 +36,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 	public class VoicebankEditor : Editor
 	{
 		private DefaultTreeModel tmSamples = null;
-		private ListView lvSamples = null;
+		private ListViewControl lvSamples = null;
 
 		public VoicebankEditor()
 		{
@@ -43,7 +44,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 
 			tmSamples = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
 
-			lvSamples = new ListView();
+			lvSamples = new ListViewControl();
 			lvSamples.SelectionMode = SelectionMode.Multiple;
 			lvSamples.BeforeContextMenu += lvSamples_BeforeContextMenu;
 			lvSamples.Columns.Add(new ListViewColumnText(tmSamples.Columns[0], "Name"));

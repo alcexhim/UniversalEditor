@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.UserInterface
 {
@@ -37,7 +38,7 @@ namespace UniversalEditor.UserInterface
 		{
 			get
 			{
-				ListView lv = ((MainWindow)HostApplication.CurrentWindow).DocumentExplorerPanel.ListView;
+				ListViewControl lv = ((MainWindow)HostApplication.CurrentWindow).DocumentExplorerPanel.ListView;
 				if (lv.SelectedRows.Count > 0)
 				{
 					return lv.SelectedRows[0].GetExtraData<EditorDocumentExplorerNode>("node");

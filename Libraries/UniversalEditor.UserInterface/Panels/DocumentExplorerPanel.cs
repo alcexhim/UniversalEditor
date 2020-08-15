@@ -1,21 +1,22 @@
 ﻿using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.UserInterface.Panels
 {
 	public class DocumentExplorerPanel : Panel
 	{
-		private ListView lv = null;
-		public ListView ListView { get { return lv; } }
+		private ListViewControl lv = null;
+		public ListViewControl ListView { get { return lv; } }
 
 		private DefaultTreeModel tm = null;
 
 		public DocumentExplorerPanel()
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
-			lv = new ListView();
+			lv = new ListViewControl();
 			lv.BeforeContextMenu += lv_BeforeContextMenu;
 			lv.SelectionChanged += lv_SelectionChanged;
 

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Multimedia.Picture.Collection;
 
@@ -33,7 +34,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 	{
 		private TextBox txtAnimationName;
 		private Toolbar tbAnimationFrames;
-		private ListView tvAnimationFrames;
+		private ListViewControl tvAnimationFrames;
 		private DefaultTreeModel tmAnimationFrames;
 
 		private Button cmdOK;

@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.Accessors;
@@ -52,7 +53,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 
 		private Toolbar tbAnimations;
 
-		private ListView tvAnimations;
+		private ListViewControl tvAnimations;
 		private DefaultTreeModel tmAnimations;
 
 		private static EditorReference _er = null;

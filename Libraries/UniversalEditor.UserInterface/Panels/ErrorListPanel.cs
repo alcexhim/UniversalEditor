@@ -21,6 +21,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.UserInterface.Panels
@@ -28,7 +29,7 @@ namespace UniversalEditor.UserInterface.Panels
 	public class ErrorListPanel : Panel
 	{
 		private Toolbar tbErrorList = new Toolbar();
-		private ListView tvErrorList = new ListView();
+		private ListViewControl tvErrorList = new ListViewControl();
 
 		private DefaultTreeModel tm = new DefaultTreeModel(new Type[] { typeof(int), typeof(string), typeof(string), typeof(string), typeof(string), typeof(string) });
 		   

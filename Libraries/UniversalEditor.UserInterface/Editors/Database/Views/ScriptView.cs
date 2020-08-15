@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Database;
 using UniversalEditor.UserInterface;
@@ -32,7 +33,7 @@ namespace UniversalEditor.Editors.Database.Views
 	public class ScriptView : View
 	{
 		private SyntaxTextBox txtQuery;
-		private ListView lvResults;
+		private ListViewControl lvResults;
 		
 		private string ScriptTable(DatabaseTable dt, ScriptTableMode mode)
 		{

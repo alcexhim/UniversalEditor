@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
@@ -40,7 +41,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 
 			this.tm = new DefaultTreeModel(new Type[] { typeof(string) });
 
-			this.tv = new ListView();
+			this.tv = new ListViewControl();
 			this.tv.ContextMenuCommandID = "Icarus_ContextMenu";
 			this.tv.Model = this.tm;
 			this.tv.Columns.Add(new ListViewColumnText(this.tm.Columns[0], "Command"));
@@ -49,6 +50,6 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 		}
 
 		private DefaultTreeModel tm;
-		private ListView tv;
+		private ListViewControl tv;
 	}
 }
