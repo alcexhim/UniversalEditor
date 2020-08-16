@@ -32,12 +32,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Editors\PresentationEditor.cs" />
-    <Compile Include="Controls\PresentationSlideControl.cs" />
+    <Compile Include="Editors\Presentation\PresentationEditor.cs" />
+    <Compile Include="Editors\Presentation\Controls\PresentationSlideControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
-    <Folder Include="Controls\" />
+    <Folder Include="Editors\Presentation\" />
+    <Folder Include="Editors\Presentation\Controls\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">

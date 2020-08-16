@@ -25,7 +25,7 @@ using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Input.Mouse;
 using UniversalEditor.Plugins.Designer.UserInterface.Editors.Designer.Controls;
 
-namespace UniversalEditor.Plugins.Office.UserInterface.Controls
+namespace UniversalEditor.Plugins.Office.UserInterface.Editors.Presentation.Controls
 {
 	public class PresentationSlideControl : DesignerControl
 	{

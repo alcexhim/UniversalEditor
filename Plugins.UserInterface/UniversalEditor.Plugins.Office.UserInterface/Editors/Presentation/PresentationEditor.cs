@@ -23,10 +23,10 @@ using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.Plugins.Office.ObjectModels.Presentation;
-using UniversalEditor.Plugins.Office.UserInterface.Controls;
+using UniversalEditor.Plugins.Office.UserInterface.Editors.Presentation.Controls;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Plugins.Office.UserInterface.Editors
+namespace UniversalEditor.Plugins.Office.UserInterface.Editors.Presentation
 {
 	public class PresentationEditor : Editor
 	{
