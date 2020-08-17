@@ -29,6 +29,7 @@ using UniversalEditor.ObjectModels.Binary;
 using UniversalEditor.DataFormats.Binary;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.UserInterface
 {
@@ -193,7 +194,7 @@ namespace UniversalEditor.UserInterface
 
 			InitStartPage();
 
-			ListView lvToolbox = new ListView();
+			ListViewControl lvToolbox = new ListViewControl();
 			lvToolbox.RowActivated += LvToolbox_RowActivated;
 			lvToolbox.Model = tmToolbox;
 			lvToolbox.Columns.Add(new ListViewColumnText(tmToolbox.Columns[0], "Item"));
