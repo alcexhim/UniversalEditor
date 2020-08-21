@@ -60,9 +60,58 @@ namespace UniversalEditor.Editors.Binary
 		{
 		}
 
+		protected override void PlaceSelection(EditorSelection selection)
+		{
+			if (selection is BinarySelection)
+			{
+				byte[] data = ((BinarySelection)selection).Content as byte[];
+				hexedit.Data = data;
+			}
+		}
+
+		private byte[] ParseBinaryBytes(string content)
+		{
+			string ct = content?.ToUpper();
+			if (ct == null) return null;
+			if (ct.Length < 2) return null;
+
+			List<byte> list = new List<byte>();
+			for (int i = 0; i < ct.Length; i += 2)
+			{
+				if ((((int)ct[i] >= (int)'0' && (int)ct[i] <= (int)'9') || ((int)ct[i] >= (int)'A' && (int)ct[i] <= (int)'F'))
+					&& (((int)ct[i + 1] >= (int)'0' && (int)ct[i + 1] <= (int)'9') || ((int)ct[i + 1] >= (int)'A' && (int)ct[i + 1] <= (int)'F')))
+				{
+					list.Add(Byte.Parse(ct[i].ToString() + ct[i + 1], System.Globalization.NumberStyles.HexNumber));
+				}
+				else if (Char.IsWhiteSpace(ct[i]))
+				{
+					i--;
+					continue;
+				}
+				else
+				{
+					return null;
+				}
+			}
+			return list.ToArray();
+		}
+
 		protected override EditorSelection CreateSelectionInternal(object content)
 		{
-			throw new NotImplementedException();
+			if (content == null) return null;
+			if (content is string)
+			{
+				/*
+				byte[] data = ParseBinaryBytes(content?.ToString());
+				if (data == null)
+				{
+					return null;
+				}
+				*/
+				byte[] data = System.Text.Encoding.UTF8.GetBytes(content as string);
+				return new BinarySelection(this, data);
+			}
+			return null;
 		}
 
 		protected override void OnObjectModelSaving(System.ComponentModel.CancelEventArgs e)
@@ -179,6 +228,13 @@ namespace UniversalEditor.Editors.Binary
 					r++;
 				}
 			}
+
+			Context.AttachCommandEventHandler("EditPasteBinary", delegate (object sender, EventArgs ee)
+			{
+				string content = Clipboard.Default.GetText();
+				byte[] data = ParseBinaryBytes(content);
+				hexedit.Data = data;
+			});
 
 			OnObjectModelChanged(EventArgs.Empty);
 		}

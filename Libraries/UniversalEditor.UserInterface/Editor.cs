@@ -121,6 +121,14 @@ namespace UniversalEditor.UserInterface
 		}
 
 		/// <summary>
+		/// Places the specified <see cref="EditorSelection" /> at the current insertion point.
+		/// </summary>
+		/// <param name="selection">The <see cref="EditorSelection" /> to place.</param>
+		protected virtual void PlaceSelection(EditorSelection selection)
+		{
+		}
+
+		/// <summary>
 		/// Copies the content of all selections to the system clipboard, and then clears the content.
 		/// </summary>
 		public void Cut()
@@ -192,7 +200,12 @@ namespace UniversalEditor.UserInterface
 			Selections.Clear();
 
 			string clipboardText = Clipboard.Default.GetText();
-			Selections.Add(CreateSelection(clipboardText));
+
+			EditorSelection selection = CreateSelection(clipboardText);
+			if (selection == null) return;
+
+			Selections.Add(selection);
+			PlaceSelection(selection);
 		}
 		public void Delete()
 		{

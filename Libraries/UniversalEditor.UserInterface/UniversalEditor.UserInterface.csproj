@@ -137,6 +137,7 @@
     <Compile Include="Editors\Database\ScriptTableMode.cs" />
     <Compile Include="Editors\Database\Views\ScriptView.cs" />
     <Compile Include="Editors\Database\Views\DesignView.cs" />
+    <Compile Include="Editors\Binary\BinarySelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

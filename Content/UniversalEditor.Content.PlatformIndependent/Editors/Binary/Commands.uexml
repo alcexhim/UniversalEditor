@@ -2,12 +2,20 @@
 	<Editors>
 		<Editor ID="{3EFF1E24-766C-4A1C-8DB3-C186B9AD4CB9}" TypeName="UniversalEditor.Editors.Binary.BinaryEditor">
 			<Commands>
+				<Command ID="EditPasteBinary" Title="Paste _Binary" />
+				
 				<Command ID="BinaryEditorContextMenu">
 					<Items>
 						<CommandReference CommandID="EditCut" />
 						<CommandReference CommandID="EditCopy" />
 						<CommandReference CommandID="EditPaste" />
+						<CommandReference CommandID="EditPasteBinary" />
 						<CommandReference CommandID="EditDelete" />
+					</Items>
+				</Command>
+				<Command ID="Edit">
+					<Items>
+						<CommandReference CommandID="EditPasteBinary" InsertAfterID="EditPaste" />
 					</Items>
 				</Command>
 			</Commands>
