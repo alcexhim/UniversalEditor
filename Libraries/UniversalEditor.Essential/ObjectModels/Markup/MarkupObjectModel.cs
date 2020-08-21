@@ -163,9 +163,17 @@ namespace UniversalEditor.ObjectModels.Markup
 			return tag.Value;
 		}
 
+		public string DefaultSchema { get; set; } = null;
+
 		public MarkupElement FindElementUsingSchema(string schema, string name)
 		{
 			string tagPrefix = null;
+			string defaultSchema = null;
+
+			if (DefaultSchema != null && DefaultSchema == schema)
+			{
+				return FindElement(name);
+			}
 
 			for (int i = 0; i < this.Elements.Count; i++) {
 				MarkupTagElement tagTopLevel = (this.Elements [i] as MarkupTagElement);
@@ -175,10 +183,27 @@ namespace UniversalEditor.ObjectModels.Markup
 
 							if (tagTopLevel.Attributes [j].Value.Equals (schema)) {
 								tagPrefix = tagTopLevel.Attributes [j].Name;
+
+								MarkupAttribute attXMLNS = tagTopLevel.Attributes["xmlns"];
+								if (attXMLNS != null)
+								{
+									defaultSchema = attXMLNS.Value;
+								}
 								break;
 							}
 
 						}
+
+						// BEGIN: added 2020-08-20 by beckermj - for xmlns without namespace
+						else if (tagTopLevel.Attributes[j].Name == "xmlns")
+						{
+							if (tagTopLevel.Attributes[j].Value.Equals(schema))
+							{
+								defaultSchema = schema;
+								return tagTopLevel;
+							}
+						}
+						// END: added 2020-08-20 by beckermj - for xmlns without namespace
 					}
 				}
 			}
@@ -186,6 +211,13 @@ namespace UniversalEditor.ObjectModels.Markup
 			if (tagPrefix == null) {
 				Console.WriteLine ("ue: MarkupObjectModel: tag prefix for schema '" + schema + "' not found");
 				return null;
+			}
+
+			DefaultSchema = defaultSchema;
+			if (DefaultSchema != null && DefaultSchema == schema)
+			{
+				MarkupElement el = FindElement(name);
+				if (el != null) return el;
 			}
 
 			string fullName = tagPrefix + ":" + name;
