@@ -40,6 +40,20 @@ namespace UniversalEditor.ObjectModels.Multimedia.Palette
 			return _omr;
 		}
 
+		public PaletteObjectModel()
+		{
+		}
+		public PaletteObjectModel(PaletteEntry[] entries)
+		{
+			if (entries != null)
+			{
+				for (int i = 0; i < entries.Length; i++)
+				{
+					Entries.Add(entries[i]);
+				}
+			}
+		}
+
 		public override void Clear()
 		{
 			Entries.Clear();
