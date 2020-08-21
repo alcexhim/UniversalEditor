@@ -162,10 +162,10 @@ namespace UniversalEditor.UserInterface
 			}
 			#endregion
 
-			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading object models...");
+			UpdateSplashScreenStatus("Loading object models...");
 			UniversalEditor.Common.Reflection.GetAvailableObjectModels();
 
-			Engine.CurrentEngine.UpdateSplashScreenStatus("Loading data formats...");
+			UpdateSplashScreenStatus("Loading data formats...");
 			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
 
 			// Initialize Recent File Manager
@@ -1015,8 +1015,14 @@ namespace UniversalEditor.UserInterface
 		private Perspective.PerspectiveCollection mvarPerspectives = new Perspective.PerspectiveCollection();
 		public Perspective.PerspectiveCollection Perspectives { get { return mvarPerspectives; } }
 
-		protected internal virtual void UpdateSplashScreenStatus(string message, int progressValue = -1, int progressMinimum = 0, int progressMaximum = 100)
+		protected internal virtual void UpdateSplashScreenStatus(string message)
 		{
+			Application.UpdateSplashScreenStatus(message);
+			Console.WriteLine(message);
+		}
+		protected internal virtual void UpdateSplashScreenStatus(string message, int progressValue = 0, int progressMinimum = 0, int progressMaximum = 100)
+		{
+			Application.UpdateSplashScreenStatus(message, progressValue, progressMinimum, progressMaximum);
 			Console.WriteLine(message);
 		}
 
