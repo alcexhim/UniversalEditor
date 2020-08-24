@@ -25,12 +25,11 @@ using UniversalEditor.UserInterface;
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Palette
 {
 	/// <summary>
-	/// Provides an <see cref="EditorSelection" /> for manipulating the current selection in a <see cref="PaletteObjectModel" />.
+	/// Provides an <see cref="Selection" /> for manipulating the current selection in a <see cref="PaletteObjectModel" />.
 	/// </summary>
-	public class PaletteEntrySelection : EditorSelection
+	public class PaletteEntrySelection : Selection
 	{
-		public PaletteEntrySelection(PaletteEditor editor, PaletteEntry value)
-			: base(editor)
+		public PaletteEntrySelection(PaletteEntry value)
 		{
 			Value = value;
 		}
@@ -40,11 +39,6 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 
 		protected override void DeleteInternal()
 		{
-			PaletteObjectModel palette = (Editor.ObjectModel as PaletteObjectModel);
-			if (Value != null)
-			{
-				palette.Entries.Remove(Value);
-			}
 		}
 	}
 }

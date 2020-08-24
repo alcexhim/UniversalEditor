@@ -436,6 +436,17 @@ namespace UniversalEditor.UserInterface
 					}
 				}
 			});
+			Application.AttachCommandEventHandler("EditBatchFindReplace", delegate (object sender, EventArgs e)
+			{
+				if (LastWindow == null) return;
+
+				Editor ed = LastWindow.GetCurrentEditor();
+				if (ed == null) return;
+
+				BatchFindReplaceWindow dlg = new BatchFindReplaceWindow();
+				dlg.Editor = ed;
+				dlg.Show();
+			});
 			Application.AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();

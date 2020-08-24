@@ -19,22 +19,45 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using UniversalEditor.UserInterface;
+using System.Text;
 
-namespace UniversalEditor.Editors.Binary
+namespace UniversalEditor.ObjectModels.Binary
 {
-	public class BinarySelection : EditorSelection
+	public class BinarySelection : Selection
 	{
-		public BinarySelection(Editor editor) : base(editor)
+		public BinarySelection()
 		{
 		}
-		public BinarySelection(Editor editor, byte[] content) : base(editor)
+		public BinarySelection(byte[] content, int start = 0, int length = 0)
 		{
 			Content = content;
+			Start = start;
+			Length = length;
 		}
+
+		public int Start { get; set; } = 0;
+		public int Length { get; set; } = 0;
 
 		private object _Content = null;
 		public override object Content { get => _Content; set => _Content = value; }
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+			if (Content is byte[])
+			{
+				byte[] data = (byte[])Content;
+				for (int i = 0; i < data.Length; i++)
+				{
+					sb.Append(data[i].ToString("x").PadRight(2, '0'));
+					if (i < data.Length - 1)
+					{
+						sb.Append(' ');
+					}
+				}
+			}
+			return sb.ToString();
+		}
 
 		protected override void DeleteInternal()
 		{

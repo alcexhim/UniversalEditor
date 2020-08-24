@@ -37,7 +37,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 	/// </summary>
 	public partial class PaletteEditor : Editor
 	{
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}
@@ -362,7 +362,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 				}
 
 				Selections.Clear();
-				Selections.Add(new PaletteEntrySelection(this, value));
+				Selections.Add(new PaletteEntrySelection(value));
 
 				System.ComponentModel.CancelEventArgs ce = new System.ComponentModel.CancelEventArgs();
 				OnSelectionChanging(ce);

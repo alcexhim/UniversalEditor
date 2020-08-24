@@ -88,6 +88,16 @@ namespace UniversalEditor
 			if (!append) where.Clear();
 			CopyTo(where);
 		}
+
+		protected virtual CriteriaResult[] FindInternal(CriteriaQuery query)
+		{
+			return null;
+		}
+		public CriteriaResult[] Find(CriteriaQuery query)
+		{
+			return FindInternal(query);
+		}
+
 		/// <summary>
 		/// Copies all data from the given <see cref="ObjectModel" /> into this <see cref="ObjectModel" />.
 		/// </summary>
@@ -203,6 +213,17 @@ namespace UniversalEditor
 		public void SetCustomProperty(DataFormatReference dfr, string name, object value)
 		{
 			SetCustomProperty<object>(dfr, name, value);
+		}
+
+
+
+		protected virtual CriteriaObject[] GetCriteriaObjectsInternal()
+		{
+			return new CriteriaObject[0];
+		}
+		public CriteriaObject[] GetCriteriaObjects()
+		{
+			return GetCriteriaObjectsInternal();
 		}
 	}
 }

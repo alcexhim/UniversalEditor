@@ -1,5 +1,5 @@
 ﻿//
-//  WaveformAudioEditorSelection.cs
+//  CriteriaObject.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -18,27 +18,30 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-using UniversalEditor.UserInterface;
-
-namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform
+using System;
+namespace UniversalEditor
 {
-	public class WaveformAudioEditorSelection : Selection
+	public class CriteriaObject
 	{
-		public WaveformAudioEditorSelection(int selectionStart, int selectionLength)
+		public class CriteriaObjectCollection
+			: System.Collections.ObjectModel.Collection<CriteriaObject>
 		{
-			SelectionStart = selectionStart;
-			SelectionLength = selectionLength;
+
 		}
 
-		public int SelectionStart { get; set; } = 0;
-		public int SelectionLength { get; set; } = 0;
+		public string Name { get; set; } = null;
+		public CriteriaProperty.CriteriaPropertyCollection Properties { get; } = new CriteriaProperty.CriteriaPropertyCollection();
 
-		private object _Content = null;
-		public override object Content { get => _Content; set => _Content = value; }
-
-		protected override void DeleteInternal()
+		public CriteriaObject(string name = null, CriteriaProperty[] properties = null)
 		{
+			Name = name;
+			if (properties != null)
+			{
+				for (int i = 0; i < properties.Length; i++)
+				{
+					Properties.Add(properties[i]);
+				}
+			}
 		}
 	}
 }

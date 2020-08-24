@@ -106,7 +106,6 @@
     <Compile Include="Controls\UniversalEditorFileBrowserControl.cs" />
     <Compile Include="Controls\GenericBrowserButton.cs" />
     <Compile Include="Dialogs\AboutDialog.cs" />
-    <Compile Include="EditorSelection.cs" />
     <Compile Include="Editors\Text\TextEditorSelection.cs" />
     <Compile Include="Editors\FileSystem\FileSystemSelection.cs" />
     <Compile Include="Editors\Text\TextEditor.cs" />
@@ -137,7 +136,8 @@
     <Compile Include="Editors\Database\ScriptTableMode.cs" />
     <Compile Include="Editors\Database\Views\ScriptView.cs" />
     <Compile Include="Editors\Database\Views\DesignView.cs" />
-    <Compile Include="Editors\Binary\BinarySelection.cs" />
+    <Compile Include="Dialogs\BatchFindReplaceCriteriaPropertiesDialog.cs" />
+    <Compile Include="Dialogs\BatchFindReplaceWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -203,6 +203,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+	<!--
   <Target Name="AfterBuild">
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.GTK.dll" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' != 'Windows_NT' " />
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.GTK.pdb" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' != 'Windows_NT' " />
@@ -213,4 +214,5 @@
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.WindowsForms.pdb" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' == 'Windows_NT' " />
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.WindowsForms.xml" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' == 'Windows_NT' " />
   </Target>
+	-->
 </Project>

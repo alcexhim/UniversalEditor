@@ -19,6 +19,9 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.Collections.Generic;
+
 namespace UniversalEditor.ObjectModels.Binary
 {
 	/// <summary>
@@ -51,6 +54,39 @@ namespace UniversalEditor.ObjectModels.Binary
 			if (clone == null) throw new ObjectModelNotSupportedException();
 
 			clone.Data = (Data.Clone() as byte[]);
+		}
+
+		protected override CriteriaResult[] FindInternal(CriteriaQuery query)
+		{
+			List<CriteriaResult> list = new List<CriteriaResult>();
+			for (int i = 0; i < Data.Length; i++)
+			{
+				if ((i < Data.Length - 1) && (query.Check(_CriteriaObjects[0].Properties[0], BitConverter.ToUInt16(Data, i))))
+				{
+					list.Add(new CriteriaResult(new BinarySelection(new byte[] { Data[i], Data[i + 1] }, i, 2)));
+				}
+			}
+			return list.ToArray();
+		}
+
+		private CriteriaObject[] _CriteriaObjects = null;
+		protected override CriteriaObject[] GetCriteriaObjectsInternal()
+		{
+			if (_CriteriaObjects == null)
+			{
+				_CriteriaObjects = new CriteriaObject[]
+				{
+					new CriteriaObject("Data", new CriteriaProperty[]
+					{
+						new CriteriaProperty("Unsigned short", typeof(ushort)),
+						new CriteriaProperty("Unsigned integer", typeof(uint)),
+						new CriteriaProperty("Unsigned long", typeof(ulong)),
+						new CriteriaProperty("String", typeof(string)),
+						new CriteriaProperty("HexString", typeof(string))
+					}),
+				};
+			}
+			return _CriteriaObjects;
 		}
 	}
 }

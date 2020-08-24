@@ -57,7 +57,7 @@ namespace UniversalEditor.Editors.Multimedia.Picture
 			throw new NotImplementedException();
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}

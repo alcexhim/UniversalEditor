@@ -47,7 +47,7 @@ namespace UniversalEditor.Editors.PropertyList
 			return _er;
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}

@@ -190,7 +190,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			}
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			return null;
 		}

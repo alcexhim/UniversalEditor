@@ -32,7 +32,7 @@ namespace UniversalEditor.Editors.Text.Plain
 {
 	public class PlainTextEditor : TextEditor
 	{
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			if (content is string)
 			{

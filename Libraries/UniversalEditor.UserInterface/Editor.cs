@@ -48,13 +48,24 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		public EditorSelection.EditorSelectionCollection Selections { get; } = new EditorSelection.EditorSelectionCollection();
+		protected virtual void OnSelectionsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+		}
+
+		private void Selections_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			OnSelectionsChanged(e);
+		}
+
+
+		public Selection.SelectionCollection Selections { get; } = new Selection.SelectionCollection();
+
 		public abstract void UpdateSelections();
-		public EditorSelection[] GetSelections()
+		public Selection[] GetSelections()
 		{
 			UpdateSelections();
 
-			EditorSelection[] sels = new EditorSelection[Selections.Count];
+			Selection[] sels = new Selection[Selections.Count];
 			for (int i = 0; i < Selections.Count; i++)
 			{
 				sels[i] = Selections[i];
@@ -114,17 +125,17 @@ namespace UniversalEditor.UserInterface
 			ViewChanged?.Invoke(this, e);
 		}
 
-		protected abstract EditorSelection CreateSelectionInternal(object content);
-		public EditorSelection CreateSelection(object content)
+		protected abstract Selection CreateSelectionInternal(object content);
+		public Selection CreateSelection(object content)
 		{
 			return CreateSelectionInternal(content);
 		}
 
 		/// <summary>
-		/// Places the specified <see cref="EditorSelection" /> at the current insertion point.
+		/// Places the specified <see cref="Selection" /> at the current insertion point.
 		/// </summary>
-		/// <param name="selection">The <see cref="EditorSelection" /> to place.</param>
-		protected virtual void PlaceSelection(EditorSelection selection)
+		/// <param name="selection">The <see cref="Selection" /> to place.</param>
+		protected virtual void PlaceSelection(Selection selection)
 		{
 		}
 
@@ -134,8 +145,8 @@ namespace UniversalEditor.UserInterface
 		public void Cut()
 		{
 			StringBuilder sb = new StringBuilder();
-			EditorSelection[] sels = GetSelections();
-			foreach (EditorSelection sel in sels)
+			Selection[] sels = GetSelections();
+			foreach (Selection sel in sels)
 			{
 				if (sel.Content != null)
 				{
@@ -151,7 +162,7 @@ namespace UniversalEditor.UserInterface
 		public void Copy()
 		{
 			StringBuilder sb = new StringBuilder();
-			EditorSelection[] sels = GetSelections();
+			Selection[] sels = GetSelections();
 
 			// FIXME: NONE OF THIS SHOULD BE IN THE MAIN EDITOR.CS CODE FILE
 			// > we need to figure out the proper way to format selections for clipboard use
@@ -162,7 +173,7 @@ namespace UniversalEditor.UserInterface
 				sb.AppendLine("x-special/nautilus-clipboard");
 				sb.AppendLine("copy");
 			}
-			foreach (EditorSelection sel in sels)
+			foreach (Selection sel in sels)
 			{
 				if (sel.Content != null)
 				{
@@ -201,7 +212,7 @@ namespace UniversalEditor.UserInterface
 
 			string clipboardText = Clipboard.Default.GetText();
 
-			EditorSelection selection = CreateSelection(clipboardText);
+			Selection selection = CreateSelection(clipboardText);
 			if (selection == null) return;
 
 			Selections.Add(selection);
@@ -210,8 +221,8 @@ namespace UniversalEditor.UserInterface
 		public void Delete()
 		{
 			BeginEdit();
-			EditorSelection[] sels = GetSelections();
-			foreach (EditorSelection sel in sels)
+			Selection[] sels = GetSelections();
+			foreach (Selection sel in sels)
 			{
 				sel.Delete();
 			}
@@ -351,6 +362,8 @@ namespace UniversalEditor.UserInterface
 
 		public Editor()
 		{
+			Selections.CollectionChanged += Selections_CollectionChanged;
+
 			EditorReference er = MakeReference();
 			Context = new EditorContext(er.ID, er.Title, er);
 

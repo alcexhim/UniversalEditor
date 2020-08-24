@@ -82,7 +82,7 @@ namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Synt
 			throw new NotImplementedException();
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}

@@ -1,5 +1,5 @@
 ﻿//
-//  WaveformAudioEditorSelection.cs
+//  CriteriaResult.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -18,27 +18,16 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-using UniversalEditor.UserInterface;
-
-namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform
+using System;
+namespace UniversalEditor
 {
-	public class WaveformAudioEditorSelection : Selection
+	public class CriteriaResult
 	{
-		public WaveformAudioEditorSelection(int selectionStart, int selectionLength)
+		public object Value { get; set; } = null;
+
+		public CriteriaResult(object value)
 		{
-			SelectionStart = selectionStart;
-			SelectionLength = selectionLength;
-		}
-
-		public int SelectionStart { get; set; } = 0;
-		public int SelectionLength { get; set; } = 0;
-
-		private object _Content = null;
-		public override object Content { get => _Content; set => _Content = value; }
-
-		protected override void DeleteInternal()
-		{
+			Value = value;
 		}
 	}
 }

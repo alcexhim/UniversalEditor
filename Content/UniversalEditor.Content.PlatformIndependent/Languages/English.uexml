@@ -90,6 +90,7 @@
 				<Command ID="EditSelectAll" Title="Select _All" />
 				<Command ID="EditInvertSelection" Title="_Invert Selection" />
 				<Command ID="EditFindReplace" Title="_Find/Replace..." />
+				<Command ID="EditBatchFindReplace" Title="Batch Find/_Replace..." />
 				<Command ID="EditGoTo" Title="_Go To..." />
 				
 				<!-- View -->

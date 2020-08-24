@@ -129,6 +129,8 @@
 				<CommandReference CommandID="EditInvertSelection" />
 				<Separator />
 				<CommandReference CommandID="EditFindReplace" />
+				<CommandReference CommandID="EditBatchFindReplace" />
+				<Separator />
 				<CommandReference CommandID="EditGoTo" />
 			</Items>
 		</Command>
@@ -158,6 +160,9 @@
 		</Command>
 		<Command ID="EditFindReplace" StockType="FindAndReplace">
 			<Shortcut Modifiers="Control" Key="F" />
+		</Command>
+		<Command ID="EditBatchFindReplace" StockType="FindAndReplace">
+			<Shortcut Modifiers="Control" Key="H" />
 		</Command>
 		<Command ID="EditGoTo" StockType="GoTo">
 			<Shortcut Modifiers="Control" Key="G" />

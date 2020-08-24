@@ -54,7 +54,7 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 		{
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			return null;
 		}

@@ -1,5 +1,5 @@
 ﻿//
-//  TextEditorSelection.cs
+//  EditorSelection.cs
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com>
@@ -19,39 +19,26 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using UniversalEditor.UserInterface;
-
-namespace UniversalEditor.Editors.Text
+namespace UniversalEditor
 {
-	public class TextEditorSelection : Selection
+	public abstract class Selection
 	{
-		public int Start { get; set; } = -1;
-		public int Length { get; set; } = -1;
-
-		private string mvarContent = null;
-		public override object Content
+		public class SelectionCollection
+			: System.Collections.ObjectModel.ObservableCollection<Selection>
 		{
-			get => mvarContent;
-			set
-			{
-				mvarContent = (value is string ? (string)value : null);
-			}
 		}
 
-		protected override void DeleteInternal()
-		{
-			Length = 0;
-		}
+		public abstract object Content { get; set; }
 
-		internal TextEditorSelection(TextEditor parent, string text)
+		protected abstract void DeleteInternal();
+
+		/// <summary>
+		/// Removes the selected content represented by this <see cref="Selection" /> from the <see cref="ObjectModel" />.
+		/// </summary>
+		public void Delete()
 		{
-			mvarContent = text;
-		}
-		internal TextEditorSelection(TextEditor parent, string text, int start, int length)
-		{
-			mvarContent = text;
-			Start = start;
-			Length = length;
+			DeleteInternal();
+			Content = null;
 		}
 	}
 }

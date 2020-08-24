@@ -90,7 +90,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 		{
 			base.OnMouseUp(e);
 
-			WaveformAudioEditorSelection sel = new WaveformAudioEditorSelection((Parent.Parent as WaveformAudioEditor), SelectionStart, SelectionLength);
+			WaveformAudioEditorSelection sel = new WaveformAudioEditorSelection(SelectionStart, SelectionLength);
 			if (!appendSelection)
 			{
 				(Parent.Parent as WaveformAudioEditor).Selections.Clear();

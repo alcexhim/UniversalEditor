@@ -32,6 +32,7 @@ using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
+using System.Collections.Specialized;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -299,7 +300,7 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return null;
@@ -334,6 +335,28 @@ namespace UniversalEditor.Editors.FileSystem
 						return new FileSystemSelection(this, fileList.ToArray());
 					}
 				}
+			}
+			else if (content is IFileSystemObject)
+			{
+				return new FileSystemSelection(this, content as IFileSystemObject);
+			}
+			else if (content is IFileSystemObject[])
+			{
+				IFileSystemObject[] items = (IFileSystemObject[])content;
+				return new FileSystemSelection(this, items);
+				/*
+				tv.SelectedRows.Clear();
+				for (int i = 0; i < tv.Model.Rows.Count; i++)
+				{
+					for (int j = 0; j < items.Length; j++)
+					{
+						if (tv.Model.Rows[i].GetExtraData<IFileSystemObject>("item") == items[j])
+						{
+							tv.SelectedRows.Add(tv.Model.Rows[i]);
+						}
+					}
+				}
+				*/
 			}
 			return null;
 		}
@@ -437,6 +460,39 @@ namespace UniversalEditor.Editors.FileSystem
 				f.Files.Add(FileFromPath(file));
 			}
 			return f;
+		}
+
+		protected override void OnSelectionsChanged(NotifyCollectionChangedEventArgs e)
+		{
+			base.OnSelectionsChanged(e);
+
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+				{
+					// this works, but seems unnecessarily hairy
+					for (int i = 0; i < e.NewItems.Count; i++)
+					{
+						FileSystemSelection sel = (e.NewItems[i] as FileSystemSelection);
+						IFileSystemObject[] objs = (sel.Content as IFileSystemObject[]);
+
+						for (int j = 0; j < tv.Model.Rows.Count; j++)
+						{
+							for (int k = 0; k < objs.Length; k++)
+							{
+								IFileSystemObject item = tv.Model.Rows[j].GetExtraData<IFileSystemObject>("item");
+								if (item == objs[k])
+									tv.SelectedRows.Add(tv.Model.Rows[j]);
+							}
+						}
+					}
+					break;
+				}
+				case NotifyCollectionChangedAction.Remove:
+				{
+					break;
+				}
+			}
 		}
 
 		public override void UpdateSelections()

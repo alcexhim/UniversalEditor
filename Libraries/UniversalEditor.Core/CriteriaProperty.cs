@@ -1,10 +1,10 @@
 ﻿//
-//  EditorSelection.cs
+//  BatchFindReplaceCriteriaProperty.cs
 //
 //  Author:
-//       Mike Becker <alcexhim@gmail.com>
+//       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 Mike Becker
+//  Copyright (c) 2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,32 +19,23 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-namespace UniversalEditor.UserInterface
+namespace UniversalEditor
 {
-	public abstract class EditorSelection
+	public class CriteriaProperty
 	{
-		public class EditorSelectionCollection
-			: System.Collections.ObjectModel.Collection<EditorSelection>
+		public class CriteriaPropertyCollection
+			: System.Collections.ObjectModel.Collection<CriteriaProperty>
 		{
+
 		}
 
-		protected EditorSelection(Editor editor)
+		public string Name { get; set; }
+		public Type DataType { get; set; } = null;
+
+		public CriteriaProperty(string name, Type dataType)
 		{
-			Editor = editor;
-		}
-		public Editor Editor { get; private set; }
-
-		public abstract object Content { get; set; }
-
-		protected abstract void DeleteInternal();
-
-		/// <summary>
-		/// Removes the selected content represented by this <see cref="EditorSelection" /> from the <see cref="ObjectModel" />.
-		/// </summary>
-		public void Delete()
-		{
-			DeleteInternal();
-			Content = null;
+			Name = name;
+			DataType = dataType;
 		}
 	}
 }

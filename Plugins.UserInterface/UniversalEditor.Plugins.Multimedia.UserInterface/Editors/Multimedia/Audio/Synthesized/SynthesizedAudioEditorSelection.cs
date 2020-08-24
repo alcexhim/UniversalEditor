@@ -24,10 +24,10 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 {
-	public class SynthesizedAudioEditorSelection : EditorSelection
+	public class SynthesizedAudioEditorSelection : Selection
 	{
 		private Views.PianoRoll.PianoRollView _parent = null;
-		internal SynthesizedAudioEditorSelection(Editor editor, Views.PianoRoll.PianoRollView parent) : base(editor)
+		internal SynthesizedAudioEditorSelection(Views.PianoRoll.PianoRollView parent)
 		{
 			_parent = parent;
 		}

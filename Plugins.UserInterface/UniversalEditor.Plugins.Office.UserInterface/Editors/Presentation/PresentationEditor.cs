@@ -45,7 +45,7 @@ namespace UniversalEditor.Plugins.Office.UserInterface.Editors.Presentation
 		{
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			return null;
 		}

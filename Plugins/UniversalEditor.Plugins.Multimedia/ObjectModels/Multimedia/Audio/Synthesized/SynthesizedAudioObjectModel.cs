@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
@@ -48,6 +49,42 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 
 		public SynthesizedAudioTrack.SynthesizedAudioTrackCollection Tracks { get; } = new SynthesizedAudioTrack.SynthesizedAudioTrackCollection();
 		public VoicebankObjectModel.VoicebankObjectModelCollection Voices { get; } = new VoicebankObjectModel.VoicebankObjectModelCollection();
+
+		private CriteriaObject[] _CriteriaObjects = null;
+
+		private CriteriaProperty PROPERTY_LYRIC = new CriteriaProperty("Lyric", typeof(string));
+		protected override CriteriaObject[] GetCriteriaObjectsInternal()
+		{
+			if (_CriteriaObjects == null)
+			{
+				_CriteriaObjects = new CriteriaObject[]
+				{
+					new CriteriaObject("Note", new CriteriaProperty[]
+					{
+						PROPERTY_LYRIC
+					})
+				};
+			}
+			return _CriteriaObjects;
+		}
+		protected override CriteriaResult[] FindInternal(CriteriaQuery query)
+		{
+			List<CriteriaResult> list = new List<CriteriaResult>();
+			for (int i = 0; i < Tracks.Count; i++)
+			{
+				for (int j = 0; j < Tracks[i].Commands.Count; j++)
+				{
+					if (Tracks[i].Commands[j] is SynthesizedAudioCommandNote)
+					{
+						if (query.Check(PROPERTY_LYRIC, (Tracks[i].Commands[j] as SynthesizedAudioCommandNote).Lyric))
+						{
+							list.Add(new CriteriaResult(Tracks[i].Commands[j]));
+						}
+					}
+				}
+			}
+			return list.ToArray();
+		}
 
 		public override void CopyTo(ObjectModel destination)
 		{

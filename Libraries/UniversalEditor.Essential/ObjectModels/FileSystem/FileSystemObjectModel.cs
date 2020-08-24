@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Logic.Conditional;
 using UniversalEditor.Accessors;
 
 namespace UniversalEditor.ObjectModels.FileSystem
@@ -464,5 +464,75 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		}
 
 		public FileAdditionalDetail.FileAdditionalDetailCollection AdditionalDetails { get; } = new FileAdditionalDetail.FileAdditionalDetailCollection();
+
+		protected override CriteriaResult[] FindInternal(CriteriaQuery query)
+		{
+			List<CriteriaResult> list = new List<CriteriaResult>();
+			File[] files = GetAllFiles();
+			for (int i = 0; i < files.Length; i++)
+			{
+				if (MatchesCriteria(files[i], query))
+				{
+					list.Add(new CriteriaResult(files[i]));
+				}
+			}
+			return list.ToArray();
+		}
+
+		private bool MatchesCriteria(File file, CriteriaQuery query)
+		{
+			bool ret = false;
+			for (int i = 0; i < query.Criteria.Count; i++)
+			{
+				if (query.Criteria[i].Property == CriteriaProperty_File_Name)
+				{
+					switch (query.Criteria[i].Comparison)
+					{
+						case ConditionComparison.Equal:
+						{
+							ret |= (query.Criteria[i].Value?.ToString() == file.Name);
+							break;
+						}
+						case ConditionComparison.StartsWith:
+						{
+							ret |= file.Name.StartsWith(query.Criteria[i].Value?.ToString());
+							break;
+						}
+						case ConditionComparison.EndsWith:
+						{
+							ret |= file.Name.EndsWith(query.Criteria[i].Value?.ToString());
+							break;
+						}
+						case ConditionComparison.Contains:
+						{
+							ret |= file.Name.Contains(query.Criteria[i].Value?.ToString());
+							break;
+						}
+					}
+				}
+			}
+			return ret;
+		}
+
+		private CriteriaProperty CriteriaProperty_File_Name = new CriteriaProperty("Name", typeof(string));
+
+		private CriteriaObject[] _CriteriaObjects = null;
+		protected override CriteriaObject[] GetCriteriaObjectsInternal()
+		{
+			if (_CriteriaObjects == null)
+			{
+				_CriteriaObjects = new CriteriaObject[]
+				{
+					new CriteriaObject("File", new CriteriaProperty[]
+					{
+						CriteriaProperty_File_Name,
+						new CriteriaProperty("Type", typeof(string)),
+						new CriteriaProperty("Size", typeof(long)),
+						new CriteriaProperty("Date modified", typeof(string))
+					})
+				};
+			}
+			return _CriteriaObjects;
+		}
 	}
 }

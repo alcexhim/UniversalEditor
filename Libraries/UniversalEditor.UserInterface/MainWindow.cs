@@ -1344,11 +1344,6 @@ namespace UniversalEditor.UserInterface
 			throw new NotImplementedException();
 		}
 
-		public void ActivateWindow()
-		{
-			throw new NotImplementedException();
-		}
-
 		public void ShowStartPage()
 		{
 			InitStartPage();

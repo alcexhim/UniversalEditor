@@ -1,5 +1,5 @@
 ﻿//
-//  WaveformAudioEditorSelection.cs
+//  Criterion.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -18,27 +18,30 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+using MBS.Framework.Logic.Conditional;
 
-using UniversalEditor.UserInterface;
-
-namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform
+namespace UniversalEditor
 {
-	public class WaveformAudioEditorSelection : Selection
+	public class Criterion
 	{
-		public WaveformAudioEditorSelection(int selectionStart, int selectionLength)
+		public class CriterionCollection
+			: System.Collections.ObjectModel.Collection<Criterion>
 		{
-			SelectionStart = selectionStart;
-			SelectionLength = selectionLength;
+
 		}
 
-		public int SelectionStart { get; set; } = 0;
-		public int SelectionLength { get; set; } = 0;
+		public CriteriaObject Object { get; set; } = null;
+		public CriteriaProperty Property { get; set; } = null;
+		public ConditionComparison Comparison { get; set; }
+		public object Value { get; set; } = null;
 
-		private object _Content = null;
-		public override object Content { get => _Content; set => _Content = value; }
-
-		protected override void DeleteInternal()
+		public Criterion(CriteriaObject obj, CriteriaProperty prop, ConditionComparison comparison, object value)
 		{
+			Object = obj;
+			Property = prop;
+			Comparison = comparison;
+			Value = value;
 		}
 	}
 }

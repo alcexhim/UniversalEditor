@@ -55,7 +55,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 			throw new NotImplementedException();
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}

@@ -47,7 +47,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			return _er;
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}

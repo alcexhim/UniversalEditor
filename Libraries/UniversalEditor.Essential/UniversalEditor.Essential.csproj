@@ -217,6 +217,7 @@
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPExtraDataFieldType.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPInternalFileAttributes.cs" />
+    <Compile Include="ObjectModels\Binary\BinarySelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

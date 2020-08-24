@@ -72,7 +72,7 @@ namespace UniversalEditor.UserInterface
 		void UpdateProgress(bool visible);
 		void UpdateProgress(int minimum, int maximium, int value);
 
-		void ActivateWindow();
+		void Present(DateTime timestamp = default(DateTime));
 
 		void ShowStartPage();
 

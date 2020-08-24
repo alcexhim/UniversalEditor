@@ -47,7 +47,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 			Selections.Clear();
 			if (PianoRoll.SelectedCommands.Count > 0)
 			{
-				SynthesizedAudioEditorSelection sel = new SynthesizedAudioEditorSelection(this, PianoRoll);
+				SynthesizedAudioEditorSelection sel = new SynthesizedAudioEditorSelection(PianoRoll);
 				for (int i = 0; i < PianoRoll.SelectedCommands.Count; i++)
 				{
 					sel.Commands.Add(PianoRoll.SelectedCommands[i]);
@@ -56,7 +56,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 			}
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}

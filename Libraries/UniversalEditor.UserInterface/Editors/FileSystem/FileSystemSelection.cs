@@ -23,7 +23,7 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Editors.FileSystem
 {
-	internal class FileSystemSelection : EditorSelection
+	internal class FileSystemSelection : Selection
 	{
 		public IFileSystemObject[] Items { get; set; } = null;
 		public override object Content
@@ -31,25 +31,19 @@ namespace UniversalEditor.Editors.FileSystem
 			get => Items;
 			set
 			{
-				if (value == null)
-					(Editor as FileSystemEditor).ClearSelectionContent(this);
-
 				Items = (value is IFileSystemObject[] ? (value as IFileSystemObject[]) : null);
 			}
 		}
 
 		protected override void DeleteInternal()
 		{
-			(Editor as FileSystemEditor).ClearSelectionContent(this);
 		}
 
 		internal FileSystemSelection(FileSystemEditor parent, IFileSystemObject item)
-			: base(parent)
 		{
 			Items = new IFileSystemObject[] { item };
 		}
 		internal FileSystemSelection(FileSystemEditor parent, IFileSystemObject[] items)
-			: base(parent)
 		{
 			Items = items;
 		}

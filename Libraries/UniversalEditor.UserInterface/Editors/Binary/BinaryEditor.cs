@@ -60,7 +60,7 @@ namespace UniversalEditor.Editors.Binary
 		{
 		}
 
-		protected override void PlaceSelection(EditorSelection selection)
+		protected override void PlaceSelection(Selection selection)
 		{
 			if (selection is BinarySelection)
 			{
@@ -96,7 +96,7 @@ namespace UniversalEditor.Editors.Binary
 			return list.ToArray();
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			if (content == null) return null;
 			if (content is string)
@@ -109,7 +109,7 @@ namespace UniversalEditor.Editors.Binary
 				}
 				*/
 				byte[] data = System.Text.Encoding.UTF8.GetBytes(content as string);
-				return new BinarySelection(this, data);
+				return new BinarySelection(data);
 			}
 			return null;
 		}
