@@ -133,6 +133,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				throw new ObjectModelNotSupportedException();
 
 			fsom.AdditionalDetails.Add("CRI.CPK.FileID", "ID");
+			fsom.AdditionalDetails.Add("CRI.CPK.CRC", "CRC");
 
 			Reader br = Accessor.Reader;
 
@@ -149,9 +150,17 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 
 			DatabaseTable dtUTFTOC = null, dtUTFITOC = null, dtUTFITOC_L = null, dtUTFITOC_H = null, dtUTFETOC = null;
 
+			if (dtUTF.Records[0].Fields["CpkMode"]?.Value != null)
+			{
+				Mode = (CPKFileMode)(uint)(dtUTF.Records[0].Fields["CpkMode"].Value);
+			}
 			if (dtUTF.Records[0].Fields["Tvers"].Value != null)
 			{
 				VersionString = dtUTF.Records[0].Fields["Tvers"].Value.ToString();
+			}
+			if (dtUTF.Records[0].Fields["CrcTable"]?.Value != null)
+			{
+
 			}
 
 			// UTF table parsing works now, so no need to hardcode toc offset - WOOHOO!!!
@@ -173,8 +182,24 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				utf_om = ReadUTF("ITOC", br, out _ITocData);
 
 				dtUTFITOC = utf_om.Tables[0];
-				dtUTFITOC_L = utf_om.Tables["CpkItocL"];
-				dtUTFITOC_H = utf_om.Tables["CpkItocH"];
+
+				byte[] dtUTFITOC_L_data = (dtUTFITOC.Records[0].Fields["DataL"]?.Value as byte[]);
+				byte[] dtUTFITOC_H_data = (dtUTFITOC.Records[0].Fields["DataH"]?.Value as byte[]);
+
+				if (dtUTFITOC_L_data != null)
+				{
+					DatabaseObjectModel _lutfom = new DatabaseObjectModel();
+					UTFDataFormat _lutfdf = new UTFDataFormat();
+					Document.Load(_lutfom, _lutfdf, new MemoryAccessor(dtUTFITOC_L_data));
+					dtUTFITOC_L = _lutfom.Tables[0];
+				}
+				if (dtUTFITOC_H_data != null)
+				{
+					DatabaseObjectModel _lutfom = new DatabaseObjectModel();
+					UTFDataFormat _lutfdf = new UTFDataFormat();
+					Document.Load(_lutfom, _lutfdf, new MemoryAccessor(dtUTFITOC_H_data));
+					dtUTFITOC_H = _lutfom.Tables[0];
+				}
 			}
 			if (dtUTF.Records[0].Fields["GtocOffset"].Value != null)
 			{
@@ -229,6 +254,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 							uint id = (uint)dtUTFTOC.Records[i].Fields["ID"].Value;
 							f.Properties.Add("ID", id);
 							f.SetAdditionalDetail("CRI.CPK.FileID", id);
+						}
+						if (dtUTFTOC.Records[i].Fields["CRC"] != null)
+						{
+							f.SetAdditionalDetail("CRI.CPK.CRC", ((uint)dtUTFTOC.Records[i].Fields["CRC"].Value).ToString("x"));
 						}
 
 						f.Properties.Add("DecompressedLength", decompressedLength);
@@ -359,8 +388,8 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			int unknown1 = br.ReadInt32();
 
 			// UTF table for TOC
-			long utf_size = br.ReadInt64(); // size of UTF not including "@UTF"
-			byte[] utf_data = br.ReadBytes(utf_size + 8);
+			long utf_size = br.ReadInt64(); // size of UTF including "@UTF"
+			byte[] utf_data = br.ReadBytes(utf_size);
 
 			MemoryAccessor ma = new MemoryAccessor(utf_data);
 			string utf_signature = ma.Reader.ReadFixedLengthString(4);
@@ -423,8 +452,8 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			dt.Fields.Add("TocCrc", null, typeof(uint));
 
 			// added in newer version CpkFileBuilder
-			dt.Fields.Add("HtocOffset", null, typeof(Int64));
-			dt.Fields.Add("HtocSize", null, typeof(Int64));
+			// dt.Fields.Add("HtocOffset", null, typeof(Int64));
+			// dt.Fields.Add("HtocSize", null, typeof(Int64));
 
 			dt.Fields.Add("EtocOffset", null, typeof(Int64));
 			dt.Fields.Add("EtocSize", null, typeof(Int64));
@@ -436,8 +465,8 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			dt.Fields.Add("GtocCrc", null, typeof(uint));
 
 			// added in newer version CpkFileBuilder
-			dt.Fields.Add("HgtocOffset", null, typeof(Int64));
-			dt.Fields.Add("HgtocSize", null, typeof(Int64));
+			// dt.Fields.Add("HgtocOffset", null, typeof(Int64));
+			// dt.Fields.Add("HgtocSize", null, typeof(Int64));
 
 			dt.Fields.Add("EnabledPackedSize", null, typeof(Int64));
 			dt.Fields.Add("EnabledDataSize", null, typeof(Int64));
@@ -455,7 +484,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			dt.Fields.Add("Sorted", null, typeof(Int16));
 
 			// added in newer version CpkFileBuilder
-			dt.Fields.Add("EnableFileName", null, typeof(Int16));
+			// dt.Fields.Add("EnableFileName", null, typeof(Int16));
 
 			dt.Fields.Add("EID", null, typeof(Int16));
 			dt.Fields.Add("CpkMode", null, typeof(uint));
@@ -465,10 +494,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			dt.Fields.Add("DpkItoc", null, typeof(uint));
 
 			//added in newer version CpkFileBuilder
-			dt.Fields.Add("EnableTocCrc", null, typeof(Int16));
-			dt.Fields.Add("EnableFileCrc", null, typeof(Int16));
-			dt.Fields.Add("CrcMode", null, typeof(uint));
-			dt.Fields.Add("CrcTable", null, typeof(byte[]));
+			// dt.Fields.Add("EnableTocCrc", null, typeof(Int16));
+			// dt.Fields.Add("EnableFileCrc", null, typeof(Int16));
+			// dt.Fields.Add("CrcMode", null, typeof(uint));
+			// dt.Fields.Add("CrcTable", null, typeof(byte[]));
 
 			// cri, go home, you're drunk
 			ulong enabledPackedSize = 0;
@@ -491,8 +520,8 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("TocCrc", null),
 				
 				// added in newer version CpkFileBuilder
-				new DatabaseField("HtocOffset", 0),
-				new DatabaseField("HtocSize", 0),
+				// new DatabaseField("HtocOffset", 0),
+				// new DatabaseField("HtocSize", 0),
 
 				new DatabaseField("EtocOffset", etocOffset),
 				new DatabaseField("EtocSize", etocLength),
@@ -504,8 +533,8 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("GtocCrc", null),
 
 				// added in newer version CpkFileBuilder
-				new DatabaseField("HgtocOffset", null),
-				new DatabaseField("HgtocSize", null),
+				// new DatabaseField("HgtocOffset", null),
+				// new DatabaseField("HgtocSize", null),
 
 				new DatabaseField("EnabledPackedSize", enabledPackedSize),		//16434944 in diva2script.cpk
 				new DatabaseField("EnabledDataSize", enabledDataSize),
@@ -523,7 +552,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("Sorted", (ushort)1),
 				
 				// added in newer version CpkFileBuilder
-				new DatabaseField("EnableFileName", (ushort)0),
+				// new DatabaseField("EnableFileName", (ushort)0),
 
 				new DatabaseField("EID", (ushort)1),
 				new DatabaseField("CpkMode", (uint)Mode),
@@ -533,10 +562,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("DpkItoc", (uint)0),
 
 				// added in newer version CpkFileBuilder
-				new DatabaseField("EnableTocCrc", (short)0),
-				new DatabaseField("EnableFileCrc", (short)0),
-				new DatabaseField("CrcMode", (uint)0),
-				new DatabaseField("CrcTable", null)
+				// new DatabaseField("EnableTocCrc", (short)0),
+				// new DatabaseField("EnableFileCrc", (short)0),
+				// new DatabaseField("CrcMode", (uint)0),
+				// new DatabaseField("CrcTable", null)
 			}));
 
 			DatabaseObjectModel db = new DatabaseObjectModel();
@@ -740,7 +769,6 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				contentOffset = contentOffset.RoundUp(SectorAlignment);
 				tocLength = (ulong) _tmp_ma.Length;
 
-				/*
 				_tmp_om = BuildItocUTF(sortedOffsets);
 				_tmp_ma = new MemoryAccessor();
 				Document.Save(_tmp_om, dfUTF, _tmp_ma);
@@ -751,7 +779,6 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				contentOffset += (ulong)_tmp_ma.Length;
 				contentOffset = contentOffset.RoundUp(SectorAlignment);
 				itocLength = (ulong) _tmp_ma.Length;											// 21728
-				*/			
 
 				_tmp_om = BuildEtocUTF(files);
 				_tmp_ma = new MemoryAccessor();
@@ -785,7 +812,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			ulong etocOffset = 0;
 			etocOffset = contentOffset + contentSize;
 
-			DatabaseObjectModel utfHeader = BuildHeaderUTF(fsom, utfTOC_data.Length + 16 /*includes 16-byte 'TOC ' header from CPK*/, contentOffset, contentSize, etocOffset, etocLength + 16, null, null);  // itocOffset, itocLength + 16);
+			DatabaseObjectModel utfHeader = BuildHeaderUTF(fsom, utfTOC_data.Length + 16 /*includes 16-byte 'TOC ' header from CPK*/, contentOffset, contentSize, etocOffset, etocLength + 16, itocOffset, itocLength + 16);
 			MemoryAccessor maUTFHeader = new MemoryAccessor();
 			Document.Save(utfHeader, dfUTF, maUTFHeader);
 
@@ -800,15 +827,9 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			bw.Accessor.Seek(-6, SeekOrigin.Current);
 			bw.WriteFixedLengthString("(c)CRI");
 
-			bw.WriteFixedLengthString("TOC ");
-			bw.WriteInt32(255); // unknown1
-
-			bw.WriteInt64(utfTOC_data.Length);
-			bw.WriteBytes(utfTOC_data);
-
+			WriteChunk(bw, "TOC ", utfTOC_data);
 			bw.Align(SectorAlignment);
 
-			/*
 			// here comes the ITOC (indexes TOC) UTF table chunk.
 			DatabaseObjectModel utfITOC = BuildItocUTF(sortedOffsets);
 			MemoryAccessor maUTFITOC = new MemoryAccessor();
@@ -817,14 +838,10 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			byte[] utfITOC_data = maUTFITOC.ToArray();
 			bw.Accessor.Seek(bw.Accessor.Position.RoundToNearestPowerOf2(), SeekOrigin.Begin);
 
-			bw.WriteFixedLengthString("ITOC");
-			bw.WriteInt32(255);
-			bw.WriteInt64(utfITOC_data.Length);
-			bw.WriteBytes(utfITOC_data);
-			*/
+			WriteChunk(bw, "ITOC", utfITOC_data);
+			bw.Align(SectorAlignment);
 
 			// here comes the file data. each file is aligned to FileAlignment bytes, apparently.
-			bw.Align(SectorAlignment);
 			for (uint i = 0; i < sortedOffsets.Length; i++)
 			{
 				bw.WriteBytes(files[sortedOffsets[i].INDEX].GetData());
@@ -837,10 +854,15 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 
 			byte[] utfETOC_data = maUTFETOC.ToArray();
 			bw.Align(SectorAlignment);
-			bw.WriteFixedLengthString("ETOC");
-			bw.WriteInt32(255);
-			bw.WriteInt64(utfETOC_data.Length);
-			bw.WriteBytes(utfETOC_data);
+			WriteChunk(bw, "ETOC", utfETOC_data);
+		}
+
+		private void WriteChunk(Writer writer, string chunkID, byte[] chunkData)
+		{
+			writer.WriteFixedLengthString(chunkID);
+			writer.WriteInt32(255);
+			writer.WriteInt64(chunkData.Length);
+			writer.WriteBytes(chunkData);
 		}
 	}
 }
