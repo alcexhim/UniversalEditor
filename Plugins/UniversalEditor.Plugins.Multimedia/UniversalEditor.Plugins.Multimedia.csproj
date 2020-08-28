@@ -337,6 +337,10 @@
     <Compile Include="DataFormats\Multimedia\Picture\TIFF\TIFFExtraSamplesType.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\TIFF\TIFFFillOrder.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\TIFF\TIFFImageFileDirectory.cs" />
+    <Compile Include="ObjectModels\Multimedia\VectorImage\VectorItem.cs" />
+    <Compile Include="ObjectModels\Multimedia\VectorImage\VectorItems\PolygonVectorItem.cs" />
+    <Compile Include="ObjectModels\Multimedia\VectorImage\VectorImageStyle.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\SVG\SVGDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -390,6 +394,8 @@
     <Folder Include="DataFormats\Multimedia\Picture\XPM\" />
     <Folder Include="ObjectModels\Multimedia\SpriteAnimationCollection\" />
     <Folder Include="DataFormats\Multimedia\Picture\TIFF\" />
+    <Folder Include="ObjectModels\Multimedia\VectorImage\VectorItems\" />
+    <Folder Include="DataFormats\Multimedia\VectorImage\SVG\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

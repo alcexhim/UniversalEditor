@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Scalable Vector Graphics">
+					<FileNameFilters>
+						<FileNameFilter>*.svg</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.VectorImage.VectorImageObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.VectorImage.SVG.SVGDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

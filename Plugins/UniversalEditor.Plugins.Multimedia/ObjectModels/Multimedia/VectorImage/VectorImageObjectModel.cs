@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.ObjectModels.Multimedia.VectorImage
 {
 	/// <summary>
@@ -27,6 +29,14 @@ namespace UniversalEditor.ObjectModels.Multimedia.VectorImage
 	public class VectorImageObjectModel : ObjectModel
 	{
 		private static ObjectModelReference _omr = null;
+
+		public int Width { get; set; } = 0;
+		public int Height { get; set; } = 0;
+
+		public Rectangle ViewBox { get; set; } = Rectangle.Empty;
+
+		public VectorItem.VectorItemCollection Items { get; } = new VectorItem.VectorItemCollection();
+
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null)
@@ -40,10 +50,18 @@ namespace UniversalEditor.ObjectModels.Multimedia.VectorImage
 
 		public override void Clear()
 		{
+			Items.Clear();
 		}
 
 		public override void CopyTo(ObjectModel where)
 		{
+			VectorImageObjectModel clone = (where as VectorImageObjectModel);
+			if (clone == null) return;
+
+			for (int i = 0; i < Items.Count; i++)
+			{
+				clone.Items.Add(Items[i].Clone() as VectorItem);
+			}
 		}
 	}
 }

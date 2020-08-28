@@ -583,6 +583,9 @@
     <Content Include="Editors\Database\Views\ScriptView.glade" />
     <Content Include="Editors\Database\Views\DesignView.glade" />
     <Content Include="Editors\Documentation\DocumentationEditor.glade" />
+    <Content Include="Editors\Multimedia\VectorImage\VectorImageEditor.glade" />
+    <Content Include="Extensions\Amiga\Associations\VectorImage\AmigaKickstartVectorImage.uexml" />
+    <Content Include="Extensions\GraphicDesigner\Associations\VectorImage\SVG.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -651,6 +654,7 @@
     <Folder Include="Editors\Setup\" />
     <Folder Include="Editors\Setup\BootstrapScript\" />
     <Folder Include="Editors\Database\Views\" />
+    <Folder Include="Extensions\Amiga\Associations\VectorImage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensions\WebsiteDeveloper\Templates\Document\Web\TravelRequest.xsn" />

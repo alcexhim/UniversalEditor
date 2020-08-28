@@ -57,6 +57,8 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.cs" />
     <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditorSelection.cs" />
     <Compile Include="Editors\Multimedia\PictureCollection\Dialogs\AnimationPropertiesDialog.cs" />
+    <Compile Include="Editors\Multimedia\VectorImage\VectorImageEditor.cs" />
+    <Compile Include="Editors\Multimedia\VectorImage\Controls\VectorImageControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -78,6 +80,8 @@
     <Folder Include="Editors\Multimedia\Audio\Waveform\Controls\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\" />
     <Folder Include="Editors\Multimedia\PictureCollection\Dialogs\" />
+    <Folder Include="Editors\Multimedia\VectorImage\" />
+    <Folder Include="Editors\Multimedia\VectorImage\Controls\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
