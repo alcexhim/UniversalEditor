@@ -60,6 +60,43 @@ namespace UniversalEditor.Plugins.NewWorldComputing.UserInterface.Editors.NewWor
 					new ChoiceSetting.ChoiceSettingValue("Run out of time", 3)
 				})
 			}));
+			SettingsGroups.Add(new SettingsGroup("Rumors and Events", new Setting[]
+			{
+				new CollectionSetting("Rumors", new SettingsGroup("Rumors Settings Group", new Setting[]
+				{
+					new TextSetting("Rumor Detail")
+				})),
+				new CollectionSetting("Events", new SettingsGroup("Event Settings Group", new Setting[]
+				{
+					new TextSetting("Message Text"),
+					new GroupSetting("Resources to give or take", new Setting[]
+					{
+						new RangeSetting("Wood", 0, -9999, 99999),
+						new RangeSetting("Mercury", 0, -9999, 99999),
+						new RangeSetting("Ore", 0, -9999, 99999),
+						new RangeSetting("Sulfur", 0, -9999, 99999),
+						new RangeSetting("Crystal", 0, -9999, 99999),
+						new RangeSetting("Gems", 0, -9999, 99999),
+						new RangeSetting("Gold", 0, -9999, 99999)
+					}),
+					new RangeSetting("Day of first occurrence"),
+					new ChoiceSetting("Subsequent occurrences", null, new ChoiceSetting.ChoiceSettingValue[]
+					{
+						new ChoiceSetting.ChoiceSettingValue("Never", 0),
+						new ChoiceSetting.ChoiceSettingValue("Every Day", 1),
+						new ChoiceSetting.ChoiceSettingValue("Every 2 Days", 2),
+						new ChoiceSetting.ChoiceSettingValue("Every 3 Days", 3),
+						new ChoiceSetting.ChoiceSettingValue("Every 4 Days", 4),
+						new ChoiceSetting.ChoiceSettingValue("Every 5 Days", 5),
+						new ChoiceSetting.ChoiceSettingValue("Every 6 Days", 6),
+						new ChoiceSetting.ChoiceSettingValue("Every 7 Days", 7),
+						new ChoiceSetting.ChoiceSettingValue("Every 14 Days", 14),
+						new ChoiceSetting.ChoiceSettingValue("Every 21 Days", 21),
+						new ChoiceSetting.ChoiceSettingValue("Every 28 Days", 28)
+					}),
+					new BooleanSetting("Allow computer to get event")
+				}))
+			}));
 		}
 
 		protected override void LoadSettingsInternal()
