@@ -40,6 +40,12 @@
     <Compile Include="DataFormats\Presentation\HyperCard\HyperCardDataFormat.cs" />
     <Compile Include="DataFormats\Presentation\HyperCard\HyperCardScript.cs" />
     <Compile Include="DataFormats\Presentation\HyperCard\HyperCardUserLevel.cs" />
+    <Compile Include="ObjectModels\Spreadsheet\SpreadsheetObjectModel.cs" />
+    <Compile Include="ObjectModels\Spreadsheet\Cell.cs" />
+    <Compile Include="ObjectModels\Spreadsheet\CellIndex.cs" />
+    <Compile Include="ObjectModels\Spreadsheet\Column.cs" />
+    <Compile Include="ObjectModels\Spreadsheet\Row.cs" />
+    <Compile Include="ObjectModels\Spreadsheet\Sheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectModels\" />
@@ -49,6 +55,7 @@
     <Folder Include="DataFormats\Presentation\HyperCard\" />
     <Folder Include="DataFormats\Presentation\HyperCard\Internal\" />
     <Folder Include="DataFormats\Presentation\HyperCard\Internal\STAK\" />
+    <Folder Include="ObjectModels\Spreadsheet\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

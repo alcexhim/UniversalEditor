@@ -34,11 +34,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Editors\Presentation\PresentationEditor.cs" />
     <Compile Include="Editors\Presentation\Controls\PresentationSlideControl.cs" />
+    <Compile Include="Editors\Spreadsheet\SpreadsheetEditor.cs" />
+    <Compile Include="Editors\Spreadsheet\Controls\SheetControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
     <Folder Include="Editors\Presentation\" />
     <Folder Include="Editors\Presentation\Controls\" />
+    <Folder Include="Editors\Spreadsheet\" />
+    <Folder Include="Editors\Spreadsheet\Controls\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
