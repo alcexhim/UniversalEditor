@@ -45,6 +45,8 @@
     <Compile Include="ObjectModels\VersatileContainer\VersatileContainerProperty.cs" />
     <Compile Include="ObjectModels\VersatileContainer\VersatileContainerSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFormats\VersatileContainer\VersatileContainerV3DataFormat.cs" />
+    <Compile Include="DataFormats\VersatileContainer\VSCTChunkType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ObjectModels\VersatileContainer\Sections\VersatileContainerContentSection.cs" />
