@@ -21,14 +21,41 @@
 
 namespace UniversalEditor
 {
+	/// <summary>
+	/// Indicates how to determine the priority of a <see cref="DataFormat" /> when guessing based on an <see cref="Accessor" />.
+	/// </summary>
 	public enum DataFormatHintComparison
 	{
+		/// <summary>
+		/// The hint comparison is unspecified for this <see cref="DataFormat" />.
+		/// </summary>
 		Unspecified = -1,
+		/// <summary>
+		/// Never return this <see cref="DataFormat" /> as a result for the given <see cref="Association" />.
+		/// </summary>
 		Never = 0,
+		/// <summary>
+		/// Return this <see cref="DataFormat" /> if and only if the file name filters listed in the <see cref="Association" /> match the file name of the <see cref="Accessor" />.
+		/// </summary>
 		FilterOnly = 1,
+		/// <summary>
+		/// Return this <see cref="DataFormat" /> if and only if the magic bytes listed in the <see cref="Association" /> match the magic bytes of the <see cref="Accessor" />.
+		/// </summary>
 		MagicOnly = 2,
+		/// <summary>
+		/// Return this <see cref="DataFormat" /> if the file name filters listed in the <see cref="Association" /> match the file name of the <see cref="Accessor" />. If no match
+		/// is found, then return this <see cref="DataFormat" /> if the magic bytes listed in the <see cref="Association" /> match the magic bytes of the <see cref="Accessor" />.
+		/// </summary>
 		FilterThenMagic = 3,
+		/// <summary>
+		/// Return this <see cref="DataFormat" /> if the magic bytes listed in the <see cref="Association" /> match the magic bytes of the <see cref="Accessor" />. If no match
+		/// is found, then return this <see cref="DataFormat" /> if the file name filters listed in the <see cref="Association" /> match the file name of the
+		/// <see cref="Accessor" />.
+		/// </summary>
 		MagicThenFilter = 4,
+		/// <summary>
+		/// Always return this <see cref="DataFormat" /> as a result for the given <see cref="Association" />.
+		/// </summary>
 		Always = 5
 	}
 }
