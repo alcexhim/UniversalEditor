@@ -30,9 +30,9 @@ namespace UniversalEditor.ConsoleApplication
 		{
 			if (args.Length > 0)
 			{
-				if (args[0] == "update-associations")
+				if (args[0] == "--update-associations")
 				{
-					StringBuilder sb = new StringBuilder ();
+					StringBuilder sb = new StringBuilder();
 					sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 					sb.AppendLine("<mime-info xmlns=\"http://www.freedesktop.org/standards/shared-mime-info\">");
 					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
@@ -89,6 +89,48 @@ namespace UniversalEditor.ConsoleApplication
 						Console.WriteLine(dfr.ToString());
 					}
 					return;
+				}
+				else if (args[0] == "--find-checksum")
+				{
+					if (args.Length > 0)
+					{
+						Console.WriteLine("looking for {0}", args[1]);
+						Checksum.Modules.Adler32.Adler32 adlr = new Checksum.Modules.Adler32.Adler32();
+
+						string[] files = new string[args.Length - 2];
+						for (int i = 2; i <args.Length; i++)
+						{
+							files[i - 2] = args[i];
+						}
+
+						Type[] types = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(Checksum.ChecksumModule) });
+						for (int i = 0; i < types.Length; i++)
+						{
+							Checksum.ChecksumModule module = (types[i].Assembly.CreateInstance(types[i].FullName) as Checksum.ChecksumModule);
+							if (module == null) continue;
+
+							Console.WriteLine("=== {0} ===", module.GetType().Name);
+
+							for (int j = 0; j < files.Length; j++)
+							{
+								Console.Write(System.IO.Path.GetFileName(files[j]).PadRight(30));
+
+								if (System.IO.File.Exists(files[j]))
+								{
+									long calc = module.Calculate(System.IO.File.ReadAllBytes(files[j]));
+									calc = (int)(calc);
+									Console.Write(calc.ToString());
+								}
+								else
+								{
+									Console.Write("NOT FOUND");
+								}
+								// Console.Write(calc.ToString("x"));
+								Console.WriteLine();
+							}
+							Console.WriteLine();
+						}
+					}
 				}
 			}
 
