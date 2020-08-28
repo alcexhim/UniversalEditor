@@ -66,9 +66,6 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 			DefaultTreeModel tmExports = (tvExports.Model as DefaultTreeModel);
 			DefaultTreeModel tmImports = (tvImports.Model as DefaultTreeModel);
 
-			tvExports.RowActivated += tvExports_RowActivated;
-			tvImports.RowActivated += tvImports_RowActivated;
-
 			tvExports.ContextMenuCommandID = "UnrealPackageEditor_ExportTreeViewContextMenu";
 			tvImports.ContextMenuCommandID = "UnrealPackageEditor_ImportTreeViewContextMenu";
 
@@ -87,7 +84,8 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 
 			FileDialog sfd = new FileDialog
 			{
-				Mode = FileDialogMode.Save
+				Mode = FileDialogMode.Save,
+				SelectedFileName = String.Format("{0}{1}{2}", item.Group?.Name?.Name, item.Group == null ? String.Empty : ".", item.Name?.Name)
 			};
 			if (sfd.ShowDialog() == DialogResult.OK)
 			{
@@ -95,16 +93,25 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 			}
 		}
 
+		[EventHandler(nameof(tvExports), "RowActivated")]
 		void tvExports_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			ExportTableEntry item = e.Row.GetExtraData<ExportTableEntry>("item");
+
+			UnrealPackageEntryPropertiesDialog dlg = new UnrealPackageEntryPropertiesDialog();
+			dlg.ExportTableEntry = item;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+			}
 		}
 
+		[EventHandler(nameof(tvImports), "RowActivated")]
 		void tvImports_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			ImportTableEntry item = e.Row.GetExtraData<ImportTableEntry>("item");
 
-			UnrealPackageImportPropertiesDialog dlg = new UnrealPackageImportPropertiesDialog();
+			UnrealPackageEntryPropertiesDialog dlg = new UnrealPackageEntryPropertiesDialog();
+			dlg.ImportTableEntry = item;
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 			}
