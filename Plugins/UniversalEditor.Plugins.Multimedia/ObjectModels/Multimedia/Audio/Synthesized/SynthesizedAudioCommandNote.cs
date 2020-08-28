@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 {
 	/// <summary>
@@ -71,6 +73,11 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 				VBR = this.VBR.Clone() as double[],
 				VoiceOverlap = this.VoiceOverlap
 			};
+		}
+
+		public override string ToString()
+		{
+			return String.Format("{0} [{1}] <{2}, {3}>", Lyric, Phoneme, Position, Length);
 		}
 	}
 }
