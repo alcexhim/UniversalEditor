@@ -117,7 +117,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 							List<DocumentTemplate> dts = (List<DocumentTemplate>)tn.GetExtraData<List<DocumentTemplate>>("dts", null);
 							if (dts == null)
 							{
-								Console.WriteLine("ue: templates debug: creating a new document template list for " + String.Join("/", dt.Path));
 								dts = new List<DocumentTemplate>();
 								tn.SetExtraData<List<DocumentTemplate>>("dts", dts);
 							}
@@ -216,7 +215,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 				List<DocumentTemplate> dts = (List<DocumentTemplate>)row.GetExtraData<List<DocumentTemplate>>("dts", null);
 				if (dts == null)
 				{
-					Console.WriteLine("ue: templates debug: creating a new document template list for " + String.Join("/", path));
 					dts = new List<DocumentTemplate>();
 					row.SetExtraData<List<DocumentTemplate>>("dts", dts);
 				}
@@ -458,7 +456,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 							List<ProjectTemplate> dts = (List<ProjectTemplate>)tn.GetExtraData<List<ProjectTemplate>>("dts", null);
 							if (dts == null)
 							{
-								Console.WriteLine("ue: templates debug: creating a new project template list for " + String.Join("/", dt.Path));
 								dts = new List<ProjectTemplate>();
 								tn.SetExtraData<List<ProjectTemplate>>("dts", dts);
 							}
