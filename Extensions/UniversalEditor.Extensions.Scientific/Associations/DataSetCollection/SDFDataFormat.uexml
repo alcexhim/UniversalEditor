@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Simple Data Format">
+					<FileNameFilters>
+						<FileNameFilter>*.sdf</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.Plugins.Scientific.ObjectModels.DataSetCollection.DataSetCollectionObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Scientific.DataFormats.SDF.SDFDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
