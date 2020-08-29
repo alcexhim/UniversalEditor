@@ -302,6 +302,7 @@
     <Content Include="Editors\Database\Views\ScriptView.glade" />
     <Content Include="Editors\Database\Views\DesignView.glade" />
     <Content Include="Editors\Documentation\DocumentationEditor.glade" />
+    <Content Include="Extensions\Microsoft\Extensions\Xaml\Associations\BAML.uexml" />
     <Content Include="Editors\Multimedia\VectorImage\VectorImageEditor.glade" />
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +332,10 @@
     <Folder Include="Editors\Setup\" />
     <Folder Include="Editors\Setup\BootstrapScript\" />
     <Folder Include="Editors\Database\Views\" />
+    <Folder Include="Extensions\Microsoft\Extensions\" />
+    <Folder Include="Extensions\Microsoft\Extensions\Xaml\" />
+    <Folder Include="Extensions\Microsoft\Extensions\Xaml\Associations\" />
+    <Folder Include="Extensions\Amiga\Associations\VectorImage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />
