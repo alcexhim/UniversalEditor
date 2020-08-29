@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<universal-editor version="4.0"
+				  xmlns="urn:net.alcetech.schemas.UniversalEditor"
+				  xmlns:uwt="urn:net.alcetech.schemas.Framework.UserInterface"
+				  xmlns:dc="http://purl.org/dc/elements/1.1/">
+	
+	<dataFormats>
+		<dataFormat id="{0ce0f87b-ae2d-4999-ad31-c0fc6f1edde4}" typeName="UniversalEditor.Plugins.Abomination.DataFormats.FileSystem.AWFDataFormat" onBeforeSaveInternal="__beforeSaveInternal">
+			<metadata>
+				<dc:title>Abomination AWF archive</dc:title>
+				<dc:author>Michael Becker</dc:author>
+			</metadata>
+			<exportOptions>
+				<uwt:customOptionBoolean propertyName="Compressed" title="_Compress the data with the gzip algorithm" />
+				<uwt:customOptionBoolean propertyName="Encrypted" title="_Encrypt the data with the specified key" />
+			</exportOptions>
+			<structures>
+				<structure id="{8964EB0B-3666-4866-B72F-5B11BB1597DD}">
+					<metadata>
+						<dc:title>Compressed file entry</dc:title>
+					</metadata>
+					<format>
+						<field dataType="TerminatedString" id="FileName" />
+						<field dataType="Int32" id="Offset" />
+						<field dataType="Int32" id="CompressedSize" />
+						<field dataType="Int32" id="DecompressedSize" />
+					</format>
+				</structure>
+				<structure ID="{A5945008-DB97-4314-BE99-6A3A383064FF}">
+					<information>
+						<title>File entry</title>
+					</information>
+					<format>
+						<field dataType="TerminatedString" id="FileName" />
+						<field dataType="Int32" id="Offset" />
+						<field dataType="Int32" id="Length" />
+					</format>
+				</structure>
+			</structures>
+			<scripts>
+				<script id="__beforeSaveInternal">
+					<!-- This script is run before the document is saved. -->
+					<variables>
+						<variable id="m_TotalObjects" value="$(ObjectModel:GetAllFiles())" />
+						<variable id="m_DirectorySize">
+							<value>
+								<!--
+									for each file:
+									directorySize += (fileName.length + 1 + 4 + 4 + 4)
+									
+									TODO: Figure out how to represent this!
+								-->
+								<loop variable="I" from="0" to="$(Count:$(m_TotalObjects))">
+									<add value="$(TotalObjects[$(I)].Name.Length)" />
+									<add value="1" />
+									<add value="4" />
+									<add value="4" />
+									<add value="4" />
+								</loop>
+							</value>
+						</variable>
+					</variables>
+				</script>
+			</scripts>
+			<format>
+				<!-- signature field -->
+				<field dataType="FixedString" id="Signature" length="2" value="FA" />
+				<!--
+					Conditional properties within a Field behave like so:
+					
+					During a LOAD operation, if the FieldCondition is satisfied (i.e., current field value matches 'TrueResult'), the 'Variable' is set to the given 'Value'.
+					
+					During a SAVE operation, if the FieldCondition is satisfied (i.e, 'Variable' matches 'Value'), the 'TrueResult' is written as the value of the field;
+					otherwise, the 'FalseResult' is written.
+				-->
+				<field dataType="FixedString" id="EncryptionFlag" length="1">
+					<conditions>
+						<condition variable="$(CustomOption:Encrypted)" value="true">
+							<trueResult><literal value="R" /></trueResult>
+							<falseResult><literal value="r" /></falseResult>
+						</condition>
+					</conditions>
+				</field>
+				<field dataType="FixedString" id="CompressionFlag" length="1">
+					<value>
+						<conditionalStatement>
+							<conditions>
+								<condition variable="$(CustomOption:Compressed)" comparison="Equal" value="true" />
+							</conditions>
+							<trueResult>
+								<literal value="C" />
+							</trueResult>
+							<falseResult>
+								<literal value="c" />
+							</falseResult>
+						</conditionalStatement>
+					</value>
+				</field>
+				
+				<field DataType="Int32" ID="DirectorySize" Value="$(m_DirectorySize)" />
+				<field DataType="Int32" ID="Reserved1" />
+				
+				<conditional>
+					<conditions>
+						<condition variable="$(CustomOption:Compressed)" comparison="Equal" value="true" />
+					</conditions>
+					<trueResult>
+						<array dataType="Structure" id="Files" structureID="{8964EB0B-3666-4866-B72F-5B11BB1597DD}" maximumSize="$(Field:DirectorySize)" />
+					</trueResult>
+					<falseResult>
+						<array dataType="Structure" id="Files" structureID="{A5945008-DB97-4314-BE99-6A3A383064FF}" maximumSize="$(Field:DirectorySize)" />
+					</falseResult>
+				</conditional>
+			</format>
+		</dataFormat>
+	</dataFormats>
+</universal-editor>

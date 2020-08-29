@@ -195,6 +195,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Sci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Extensions.Scientific", "Extensions\UniversalEditor.Extensions.Scientific\UniversalEditor.Extensions.Scientific.csproj", "{D46D9232-F585-4552-B3CA-6B0F284B746A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Extensions.Abomination", "Extensions\UniversalEditor.Extensions.Abomination\UniversalEditor.Extensions.Abomination.csproj", "{D1FB19C4-025E-4D4A-8532-4196AFCC8813}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -563,6 +565,10 @@ Global
 		{D46D9232-F585-4552-B3CA-6B0F284B746A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D46D9232-F585-4552-B3CA-6B0F284B746A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D46D9232-F585-4552-B3CA-6B0F284B746A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1FB19C4-025E-4D4A-8532-4196AFCC8813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1FB19C4-025E-4D4A-8532-4196AFCC8813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1FB19C4-025E-4D4A-8532-4196AFCC8813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1FB19C4-025E-4D4A-8532-4196AFCC8813}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -654,6 +660,7 @@ Global
 		{5F7935DF-55DF-44AC-8B0F-A395658AD7E0} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{B9E4DD2F-A059-476F-823A-1AA8C1970663} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{D46D9232-F585-4552-B3CA-6B0F284B746A} = {5E4765D1-3959-4433-8E9C-992E26D7BE62}
+		{D1FB19C4-025E-4D4A-8532-4196AFCC8813} = {5E4765D1-3959-4433-8E9C-992E26D7BE62}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
