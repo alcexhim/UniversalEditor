@@ -71,6 +71,45 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Associations\" />
+    <Folder Include="ProjectTypes\" />
+    <Folder Include="Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\AddressBook.uexml" />
+    <EmbeddedResource Include="Associations\CascadingStyleSheet.uexml" />
+    <EmbeddedResource Include="Associations\HTML.uexml" />
+    <EmbeddedResource Include="Associations\MimeHTML.uexml" />
+    <EmbeddedResource Include="Associations\WebServiceDescription.uexml" />
+    <EmbeddedResource Include="ProjectTypes\{A0786B88-2ADB-4C21-ABE8-AA2D79766269}.uexml" />
+    <EmbeddedResource Include="ProjectTypes\{AB211699-2C6A-4FCC-97FB-F629B1023277}.uexml" />
+    <EmbeddedResource Include="Templates\Document\Web\HTMLPage.ico" />
+    <EmbeddedResource Include="Templates\Document\Web\HTMLPage.uexml" />
+    <EmbeddedResource Include="Templates\Document\Web\MasterPage.ico" />
+    <EmbeddedResource Include="Templates\Document\Web\MasterPage.uexml" />
+    <EmbeddedResource Include="Templates\Document\Web\TravelRequest.xsn" />
+    <EmbeddedResource Include="Templates\Document\Web\WebForm.ico" />
+    <EmbeddedResource Include="Templates\Document\Web\WebForm.uexml" />
+    <EmbeddedResource Include="Templates\Document\Web\WebService.ico" />
+    <EmbeddedResource Include="Templates\Document\Web\WebService.uexml" />
+    <EmbeddedResource Include="Templates\Document\Web\WebUserControl.ico" />
+    <EmbeddedResource Include="Templates\Document\Web\WebUserControl.uexml" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ASP.NET\IronPython\Images\Website_16x16.png" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ASP.NET\IronPython\Images\Website_32x32.png" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ASP.NET\IronPython\IronPython Web Project.uexml" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ColdFusion\ColdFusion Project.uexml" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ColdFusion\Images\Project.ico" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ColdFusion\Images\Project.xcf" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ColdFusion\Images\Project_16x16.png" />
+    <EmbeddedResource Include="Templates\Project\Website Development\ColdFusion\Images\Project_32x32.png" />
+    <EmbeddedResource Include="Templates\Project\Website Development\PHP\MainIcon.ico" />
+    <EmbeddedResource Include="Templates\Project\Website Development\PHP\MainIcon.xcf" />
+    <EmbeddedResource Include="Templates\Project\Website Development\PHP\MainIcon_16x16.png" />
+    <EmbeddedResource Include="Templates\Project\Website Development\PHP\MainIcon_32x32.png" />
+    <EmbeddedResource Include="Templates\Project\Website Development\PHP\PHP Web Project.uexml" />
+    <EmbeddedResource Include="Accessors\HTTPAccessor.uexml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

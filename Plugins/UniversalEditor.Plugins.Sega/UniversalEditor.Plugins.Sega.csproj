@@ -42,6 +42,7 @@
     <Folder Include="DataFormats\FileSystem\Sega\FARC\" />
     <Folder Include="DataFormats\PropertyList\" />
     <Folder Include="DataFormats\PropertyList\A3DA\" />
+    <Folder Include="Associations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -60,6 +61,13 @@
       <Project>{3F664673-7E22-4486-9AD0-FC81861D0B78}</Project>
       <Name>UniversalEditor.Compression</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataFormats\FileSystem\Sega\FARC\FARCDataFormat.uexml.exclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\SegaA3DA.uexml" />
+    <EmbeddedResource Include="Associations\SegaFARC.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

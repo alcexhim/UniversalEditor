@@ -48,6 +48,7 @@
     <Folder Include="ObjectModels\FamilyTree\" />
     <Folder Include="DataFormats\GEDCOM\" />
     <Folder Include="ObjectModels\GEDCOM\" />
+    <Folder Include="Associations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -74,6 +75,9 @@
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\FamilyTreeMaker\FTW.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

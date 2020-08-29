@@ -67,6 +67,15 @@
       <Name>UniversalEditor.Plugins.Concertroid</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\Concert\AniMikuConcert.uexml" />
+    <EmbeddedResource Include="Associations\FileSystem\AniMikuTexturePackage.uexml" />
+    <EmbeddedResource Include="Associations\Model\AniMikuPMD.uexml" />
+    <EmbeddedResource Include="Associations\Motion\AniMikuMotion.uexml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

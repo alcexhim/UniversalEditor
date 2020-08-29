@@ -71,6 +71,12 @@
     <Folder Include="DataFormats\Multimedia\" />
     <Folder Include="DataFormats\Multimedia\Palette\" />
     <Folder Include="DataFormats\Multimedia\PictureCollection\" />
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\FileSystem\ChaosWorksEngine.uexml" />
+    <EmbeddedResource Include="Associations\Multimedia\Palette\SPPDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\Multimedia\PictureCollection\SPXDataFormat.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

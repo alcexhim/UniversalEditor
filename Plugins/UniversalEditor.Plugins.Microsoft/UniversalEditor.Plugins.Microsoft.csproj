@@ -199,5 +199,13 @@
     <Folder Include="DataFormats\FileSystem\Microsoft\NTFS\" />
     <Folder Include="DataFormats\FileSystem\Microsoft\NTFS\Attributes\" />
     <Folder Include="DataFormats\FileSystem\Microsoft\MSCompressed\Internal\" />
+    <Folder Include="Associations\" />
+    <Folder Include="Associations\Help\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\Help\WinHelp.uexml" />
+    <EmbeddedResource Include="Associations\OLE1.uexml" />
+    <EmbeddedResource Include="Associations\Registry.uexml" />
+    <EmbeddedResource Include="Associations\RKV.uexml" />
   </ItemGroup>
 </Project>

@@ -205,6 +205,31 @@
     <Folder Include="DataFormats\Multimedia3D\Model\Collada\" />
     <Folder Include="DataFormats\Multimedia3D\Model\Keyhole\" />
     <Folder Include="DataFormats\Multimedia3D\Model\Milkshape3D\" />
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\Accessory\PolygonMovieMaker.uexml" />
+    <EmbeddedResource Include="Associations\Accessory\QAvimator.uexml" />
+    <EmbeddedResource Include="Associations\Model\Blender.uexml" />
+    <EmbeddedResource Include="Associations\Model\InivisAC3D.uexml" />
+    <EmbeddedResource Include="Associations\Model\Metasequoia.uexml" />
+    <EmbeddedResource Include="Associations\Model\PolygonMovieMaker.uexml" />
+    <EmbeddedResource Include="Associations\Model\Super6.uexml" />
+    <EmbeddedResource Include="Associations\Model\ThreeDStudioMax.uexml" />
+    <EmbeddedResource Include="Associations\Model\TriangleEditor.uexml" />
+    <EmbeddedResource Include="Associations\Model\WavefrontOBJ.uexml" />
+    <EmbeddedResource Include="Associations\Motion\BiovisionHierarchy.uexml" />
+    <EmbeddedResource Include="Associations\Motion\PolygonMovieMaker.uexml" />
+    <EmbeddedResource Include="Associations\Pose\PolygonMovieMaker.uexml" />
+    <EmbeddedResource Include="Associations\Scene\Cinema4D.uexml" />
+    <EmbeddedResource Include="Associations\Scene\PolygonMovieMaker.uexml" />
+    <EmbeddedResource Include="Associations\Model\IDSoftware.uexml" />
+    <EmbeddedResource Include="Associations\Model\AvalancheVBUF.uexml" />
+    <EmbeddedResource Include="Associations\Model\HalfLife2SMD.uexml" />
+    <EmbeddedResource Include="Associations\Model\SegaAuth3D.uexml" />
+    <EmbeddedResource Include="Associations\Model\ShaiyaOnline3DC.uexml" />
+    <EmbeddedResource Include="Associations\Model\UltimateStuntsGLB.uexml" />
+    <EmbeddedResource Include="Associations\Scene\IDSoftware.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

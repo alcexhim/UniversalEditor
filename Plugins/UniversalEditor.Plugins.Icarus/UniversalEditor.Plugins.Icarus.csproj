@@ -108,5 +108,10 @@
   <ItemGroup>
     <Folder Include="ObjectModels\Icarus\Parameters\" />
     <Folder Include="ObjectModels\Icarus\Expressions\" />
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\IcarusBinaryDataFormatAssociation.uexml" />
+    <EmbeddedResource Include="Associations\IcarusTextDataFormatAssociation.uexml" />
   </ItemGroup>
 </Project>

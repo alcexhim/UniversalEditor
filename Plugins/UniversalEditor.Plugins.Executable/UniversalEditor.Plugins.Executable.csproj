@@ -122,6 +122,14 @@
   <ItemGroup>
     <Folder Include="DataFormats\Executable\Microsoft\PortableExecutable\" />
     <Folder Include="DataFormats\Executable\Microsoft\NewExecutable\" />
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\AppleMachO.uexml" />
+    <EmbeddedResource Include="Associations\ApplePreferredExecutable.uexml" />
+    <EmbeddedResource Include="Associations\ELF.uexml" />
+    <EmbeddedResource Include="Associations\MZ.uexml" />
+    <EmbeddedResource Include="Associations\RelocatableObject.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

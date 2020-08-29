@@ -89,16 +89,31 @@ namespace UniversalEditor.UserInterface.Common
 					continue;
 				}
 
-				foreach (string fileName in XMLFileNames)
+				// HACK: QUICK AND DIRTY!! make this more efficient before UE5 release
+				List<Accessor> accs = new List<Accessor>();
+				for (int i = 0; i < XMLFileNames.Length; i++)
 				{
-					string basePath = System.IO.Path.GetDirectoryName(fileName);
+					accs.Add(new FileAccessor(XMLFileNames[i], false, false, false));
+				}
 
+				MBS.Framework.Reflection.ManifestResourceStream[] streams = MBS.Framework.Reflection.GetAvailableManifestResourceStreams();
+				for (int j = 0; j < streams.Length; j++)
+				{
+					if (streams[j].Name.EndsWith(".uexml"))
+					{
+						StreamAccessor sa = new StreamAccessor(streams[j].Stream);
+						accs.Add(sa);
+					}
+				}
+
+				for (int i = 0; i < accs.Count; i++)
+				{
 					MarkupObjectModel mom = new MarkupObjectModel();
 					XMLDataFormat xdf = new XMLDataFormat();
 
 					try
 					{
-						Document.Load(mom, xdf, new FileAccessor(fileName, false, false, false), true);
+						Document.Load(mom, xdf, accs[i], true);
 					}
 					catch (InvalidDataFormatException ex)
 					{
@@ -197,9 +212,9 @@ namespace UniversalEditor.UserInterface.Common
 								MarkupTagElement tagVariables = (tagEditor.Elements["Variables"] as MarkupTagElement);
 								if (tagVariables != null)
 								{
-									for (int i = 0; i < tagVariables.Elements.Count; i++)
+									for (int j = 0; j < tagVariables.Elements.Count; j++)
 									{
-										MarkupTagElement tagVariable = tagVariables.Elements[i] as MarkupTagElement;
+										MarkupTagElement tagVariable = tagVariables.Elements[j] as MarkupTagElement;
 										if (tagVariable == null) continue;
 										if (tagVariable.FullName != "Variable") continue;
 

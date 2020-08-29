@@ -36,6 +36,7 @@
   <ItemGroup>
     <Folder Include="DataFormats\" />
     <Folder Include="DataFormats\XMLBinaryGrammar\" />
+    <Folder Include="Associations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -46,6 +47,9 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\SynalysisBinaryGrammarDataFormat.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

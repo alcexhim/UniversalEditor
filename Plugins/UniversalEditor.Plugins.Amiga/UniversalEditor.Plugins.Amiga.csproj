@@ -45,6 +45,7 @@
     <Folder Include="DataFormats\FileSystem\ADF\" />
     <Folder Include="DataFormats\FileSystem\ADF\Internal\" />
     <Folder Include="DataFormats\VectorImage\" />
+    <Folder Include="Associations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -67,6 +68,10 @@
       <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\FileSystem\ADFDiskImage.uexml" />
+    <EmbeddedResource Include="Associations\VectorImage\AmigaKickstartVectorImage.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

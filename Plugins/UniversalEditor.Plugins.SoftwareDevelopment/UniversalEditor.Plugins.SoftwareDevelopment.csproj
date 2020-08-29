@@ -95,6 +95,20 @@
       <Name>MBS.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\Ada.uexml" />
+    <EmbeddedResource Include="Associations\Boo.uexml" />
+    <EmbeddedResource Include="Associations\COBOL.uexml" />
+    <EmbeddedResource Include="Associations\CSharp.uexml" />
+    <EmbeddedResource Include="Associations\FORTRAN.uexml" />
+    <EmbeddedResource Include="Associations\FSharp.uexml" />
+    <EmbeddedResource Include="Associations\Go.uexml" />
+    <EmbeddedResource Include="Associations\Java.uexml" />
+    <EmbeddedResource Include="Associations\VisualBasicNET.uexml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

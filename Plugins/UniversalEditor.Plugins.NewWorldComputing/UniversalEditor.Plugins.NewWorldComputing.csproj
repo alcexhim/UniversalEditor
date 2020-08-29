@@ -147,6 +147,19 @@
     <Folder Include="DataFormats\Multimedia\Picture\NewWorldComputing\TIL\" />
     <Folder Include="DataFormats\NewWorldComputing\Animation\" />
     <Folder Include="DataFormats\Multimedia\Picture\NewWorldComputing\PCX\" />
+    <Folder Include="Associations\" />
+    <Folder Include="Associations\NewWorldComputing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCCampaign.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCFileSystem.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCFont.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCGameSave.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCMap.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCPalette.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCPicture.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCResourceBIN.uexml" />
+    <EmbeddedResource Include="Associations\NewWorldComputing\NWCSound.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

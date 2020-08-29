@@ -147,6 +147,7 @@ namespace UniversalEditor.Common
 			#endregion
 
 			InitializeFromXML(ref listObjectModels, ref listDataFormats, ref listProjectTypes, ref listDocumentTemplates, ref listProjectTemplates);
+			InitializeFromEmbeddedXML(ref listObjectModels, ref listDataFormats, ref listProjectTypes, ref listDocumentTemplates, ref listProjectTemplates);
 			mvarInitialized = true;
 
 			if (mvarAvailableObjectModels == null) mvarAvailableObjectModels = listObjectModels.ToArray();
@@ -199,6 +200,36 @@ namespace UniversalEditor.Common
 					"universal-editor"
 				})
 			};
+		}
+
+		private static void InitializeFromEmbeddedXML(ref List<ObjectModelReference> listObjectModels, ref List<DataFormatReference> listDataFormats, ref List<ProjectType> listProjectTypes, ref List<DocumentTemplate> listDocumentTemplates, ref List<ProjectTemplate> listProjectTemplates)
+		{
+			MBS.Framework.Reflection.ManifestResourceStream[] streams = MBS.Framework.Reflection.GetAvailableManifestResourceStreams();
+			for (int j = 0; j < streams.Length; j++)
+			{
+				if (streams[j].Name.EndsWith(".uexml"))
+				{
+					StreamAccessor sa = new StreamAccessor(streams[j].Stream);
+					UEPackageObjectModel mom = new UEPackageObjectModel();
+					UEPackageXMLDataFormat xdf = new UEPackageXMLDataFormat();
+					xdf.IncludeTemplates = false;
+					ObjectModel om = mom;
+
+					try
+					{
+						Document.Load(om, xdf, sa, true);
+					}
+					catch (InvalidDataFormatException ex)
+					{
+						// ignore it
+					}
+
+					for (int kAssoc = 0; kAssoc < mom.Associations.Count; kAssoc++)
+					{
+						Association.Register(mom.Associations[kAssoc]);
+					}
+				}
+			}
 		}
 
 		// FIXME: refactor this into a single XML configuration file loader at the beginning of engine launch

@@ -71,6 +71,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\Executable\Nintendo\N64\" />
+    <Folder Include="Associations\" />
+    <Folder Include="Associations\Optical\" />
+    <Folder Include="Associations\Video\" />
+    <Folder Include="Associations\Executable\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\Optical\NintendoOpticalDisc.uexml" />
+    <EmbeddedResource Include="Associations\Nintendo.uexml" />
+    <EmbeddedResource Include="Associations\Video\NintendoGameCubeTHP.uexml" />
+    <EmbeddedResource Include="Associations\Executable\Z64.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

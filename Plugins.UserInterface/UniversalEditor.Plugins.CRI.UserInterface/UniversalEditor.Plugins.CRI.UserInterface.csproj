@@ -60,5 +60,8 @@
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FileSystemEditorExtensions.uexml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

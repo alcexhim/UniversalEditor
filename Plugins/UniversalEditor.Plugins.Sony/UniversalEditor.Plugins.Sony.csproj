@@ -38,6 +38,9 @@
   <ItemGroup>
     <Folder Include="DataFormats\" />
     <Folder Include="DataFormats\Database\" />
+    <Folder Include="Associations\" />
+    <Folder Include="Associations\PlayStation\" />
+    <Folder Include="Associations\Database\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -48,6 +51,11 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\PlayStation\PKG.uexml" />
+    <EmbeddedResource Include="Associations\PlayStation\GIM.uexml" />
+    <EmbeddedResource Include="Associations\Database\PSFDataFormat.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

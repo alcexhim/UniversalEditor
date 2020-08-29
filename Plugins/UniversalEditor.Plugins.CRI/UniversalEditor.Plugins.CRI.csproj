@@ -52,6 +52,9 @@
     <Folder Include="DataFormats\Database\" />
     <Folder Include="DataFormats\Database\UTF\" />
     <Folder Include="DataFormats\FileSystem\CPK\Internal\" />
+    <Folder Include="Associations\" />
+    <Folder Include="Associations\Database\" />
+    <Folder Include="Associations\FileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -66,6 +69,11 @@
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\Database\UTF.uexml" />
+    <EmbeddedResource Include="Associations\FileSystem\AFS.uexml" />
+    <EmbeddedResource Include="Associations\FileSystem\CPK.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

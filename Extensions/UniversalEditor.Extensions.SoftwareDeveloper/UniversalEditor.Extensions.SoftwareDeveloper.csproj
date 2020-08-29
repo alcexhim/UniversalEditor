@@ -39,32 +39,11 @@
     <Compile Include="ProjectTypes\{B4EC64DC-6D44-11DD-AAB0-C9A155D89593}.uexml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Associations\" />
     <Folder Include="ProjectTypes\" />
     <Folder Include="Templates\" />
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Associations\BinaryGrammar\SynalysisBinaryGrammarDataFormat.uexml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Associations\CodeObjectModel\Ada.uexml" />
-    <Compile Include="Associations\CodeObjectModel\Boo.uexml" />
-    <Compile Include="Associations\CodeObjectModel\COBOL.uexml" />
-    <Compile Include="Associations\CodeObjectModel\CSharp.uexml" />
-    <Compile Include="Associations\CodeObjectModel\FORTRAN.uexml" />
-    <Compile Include="Associations\CodeObjectModel\FSharp.uexml" />
-    <Compile Include="Associations\CodeObjectModel\Go.uexml" />
-    <Compile Include="Associations\CodeObjectModel\Java.uexml" />
-    <Compile Include="Associations\CodeObjectModel\VisualBasicNET.uexml" />
-    <Compile Include="Associations\ExecutableObjectModel\AppleMachO.uexml" />
-    <Compile Include="Associations\ExecutableObjectModel\ApplePreferredExecutable.uexml" />
-    <Compile Include="Associations\ExecutableObjectModel\ELF.uexml" />
-    <Compile Include="Associations\ExecutableObjectModel\MZ.uexml" />
-    <Compile Include="Associations\ExecutableObjectModel\RelocatableObject.uexml" />
-    <Compile Include="Associations\Project\VisualStudio.uexml" />
-    <Compile Include="Associations\PropertyList\VisualStudio.uexml" />
-    <Compile Include="Associations\Solution\VisualStudio.uexml" />
     <Compile Include="ProjectTypes\{8891C1AE-6699-45DA-8B22-13BCEBB63364}.uexml" />
     <Compile Include="ProjectTypes\{F184B08F-C81C-45F6-A57F-5ABD9991F28F}.uexml" />
     <Compile Include="ProjectTypes\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.uexml" />

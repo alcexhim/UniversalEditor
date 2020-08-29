@@ -73,6 +73,10 @@
   <ItemGroup>
     <Folder Include="DataFormats\AddressBook\Microsoft\" />
     <Folder Include="DataFormats\AddressBook\Microsoft\ContactGroup\" />
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\Contact.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Accessors>
+		<Accessor Title="Internet (HTTP)" TypeName="UniversalEditor.Accessors.HTTPAccessor">
+			<Schemas>
+				<Schema Title="Internet (HTTP)" Value="http" />
+				<Schema Title="Internet (HTTPS)" Value="https" />
+			</Schemas>
+		</Accessor>
+	</Accessors>
+</UniversalEditor>

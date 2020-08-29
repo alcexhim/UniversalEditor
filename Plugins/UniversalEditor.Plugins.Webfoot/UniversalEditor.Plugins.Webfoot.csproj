@@ -38,6 +38,7 @@
     <Folder Include="DataFormats\" />
     <Folder Include="DataFormats\FileSystem\" />
     <Folder Include="DataFormats\FileSystem\Webfoot\" />
+    <Folder Include="Associations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -52,6 +53,9 @@
       <Project>{0F7D5BD4-7970-412F-ABD7-0A098BB01ACE}</Project>
       <Name>UniversalEditor.Checksum</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\DAT.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
