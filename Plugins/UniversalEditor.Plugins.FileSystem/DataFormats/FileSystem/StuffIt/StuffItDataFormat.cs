@@ -38,6 +38,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StuffIt
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.Title = "StuffIt archive";
 			}
 			return _dfr;
 		}

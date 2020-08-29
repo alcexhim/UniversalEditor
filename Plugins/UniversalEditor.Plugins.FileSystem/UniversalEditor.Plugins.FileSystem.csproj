@@ -400,6 +400,7 @@
     <EmbeddedResource Include="Associations\ElectronicArts\BIGF.uexml" />
     <EmbeddedResource Include="Associations\Ultra3D\RBX.uexml" />
     <EmbeddedResource Include="Associations\Ultra3D\TBV.uexml" />
+    <EmbeddedResource Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,9 @@
+﻿<UniversalEditor Version="4.0">
+	<DataFormats>
+		<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.StuffIt.StuffItDataFormat">
+			<Information>
+				<Title>StuffIt archive</Title>
+			</Information>
+		</DataFormat>
+	</DataFormats>
+</UniversalEditor>
