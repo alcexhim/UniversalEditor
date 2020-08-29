@@ -315,7 +315,6 @@
     <EmbeddedResource Include="Associations\Apple\HFS\HFSDataFormat.uexml" />
     <EmbeddedResource Include="Associations\AR.uexml" />
     <EmbeddedResource Include="Associations\ARC.uexml" />
-    <EmbeddedResource Include="Associations\Archive.uexml" />
     <EmbeddedResource Include="Associations\ARCV.uexml" />
     <EmbeddedResource Include="Associations\ARJ.uexml" />
     <EmbeddedResource Include="Associations\BinHex.uexml" />
