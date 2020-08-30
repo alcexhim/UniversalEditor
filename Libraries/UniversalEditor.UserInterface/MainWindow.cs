@@ -361,9 +361,11 @@ namespace UniversalEditor.UserInterface
 						tmToolbox.Rows.Add(row);
 					}
 					pnlDocumentExplorer.CurrentEditor = editor;
+					DocumentFileName = dckContainer.CurrentItem.Name;
 				}
 				else
 				{
+					DocumentFileName = null;
 					tmToolbox.Rows.Clear();
 				}
 			}
