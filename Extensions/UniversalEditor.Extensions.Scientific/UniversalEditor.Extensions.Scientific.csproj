@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Associations\DataSetCollection\SDFDataFormat.uexml" />
-    <Content Include="Editors\Scientific\DataSet\DataSetEditor.glade" />
+    <Compile Include="Associations\DataSetCollection\SDFDataFormat.uexml" />
+    <Compile Include="Editors\Scientific\DataSet\DataSetEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Associations\" />
