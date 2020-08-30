@@ -1,0 +1,10 @@
+﻿<ApplicationFramework>
+	<QuickAccessToolbar>
+		<Items>
+			<CommandReference CommandID="FileOpenDocument" />
+			<CommandReference CommandID="FileSaveDocument" />
+			<CommandReference CommandID="EditUndo" />
+			<CommandReference CommandID="EditRedo" />
+		</Items>
+	</QuickAccessToolbar>
+</ApplicationFramework>

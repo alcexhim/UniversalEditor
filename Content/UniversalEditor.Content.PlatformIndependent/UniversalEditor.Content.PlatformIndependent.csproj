@@ -303,6 +303,7 @@
     <Content Include="Editors\Database\Views\DesignView.glade" />
     <Content Include="Editors\Documentation\DocumentationEditor.glade" />
     <Content Include="Editors\Multimedia\VectorImage\VectorImageEditor.glade" />
+    <Content Include="Configuration\QuickAccessToolbar.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
