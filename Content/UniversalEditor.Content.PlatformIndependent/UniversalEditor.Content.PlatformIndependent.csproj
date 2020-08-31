@@ -304,6 +304,8 @@
     <Content Include="Editors\Documentation\DocumentationEditor.glade" />
     <Content Include="Editors\Multimedia\VectorImage\VectorImageEditor.glade" />
     <Content Include="Configuration\QuickAccessToolbar.uexml" />
+    <Content Include="Editors\RavenSoftware\Icarus\IcarusScriptEditor.glade" />
+    <Content Include="Editors\RavenSoftware\Icarus\Dialogs\IcarusExpressionHelperDialog.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

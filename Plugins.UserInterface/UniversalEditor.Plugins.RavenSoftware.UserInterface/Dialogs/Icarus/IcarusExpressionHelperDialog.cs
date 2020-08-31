@@ -20,8 +20,11 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+
 using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
+
 using UniversalEditor.ObjectModels.Icarus;
 using UniversalEditor.ObjectModels.Icarus.Expressions;
 using UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus;
@@ -31,11 +34,33 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Dialogs.Icarus
 	/// <summary>
 	/// Provides a UWT-based <see cref="CustomDialog" /> with controls for editing an expression in an Icarus script.
 	/// </summary>
+	[ContainerLayout("~/Editors/RavenSoftware/Icarus/Dialogs/IcarusExpressionHelperDialog.glade")]
 	public partial class IcarusExpressionHelperDialog : CustomDialog
 	{
-		public IcarusExpressionHelperDialog()
+		private Button cmdOK;
+		private Button cmdCancel;
+
+		private Container ct;
+
+		protected override void OnCreated(EventArgs e)
 		{
-			InitializeComponent();
+			base.OnCreated(e);
+
+			DefaultButton = cmdOK;
+			UpdateCommandParameters();
+		}
+
+		private void UpdateCommandParameters()
+		{
+			if (!IsCreated) return;
+
+			ct.Controls.Clear();
+			for (int i = 0; i < _Command.Parameters.Count; i++)
+			{
+				IcarusExpressionEditor ed = new IcarusExpressionEditor();
+				ed.Parameter = _Command.Parameters[i];
+				ct.Controls.Add(ed, new BoxLayout.Constraints(true, true));
+			}
 		}
 
 		private IcarusCommand _Command = null;
@@ -45,22 +70,16 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Dialogs.Icarus
 			set
 			{
 				_Command = value;
-
-				this.Controls.Clear();
-				for (int i = 0; i < _Command.Parameters.Count; i++)
-				{
-					IcarusExpressionEditor ed = new IcarusExpressionEditor();
-					ed.Parameter = _Command.Parameters[i];
-					this.Controls.Add(ed, new BoxLayout.Constraints(true, true));
-				}
+				UpdateCommandParameters();
 			}
 		}
 
+		[EventHandler(nameof(cmdOK), "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
 			for (int i = 0; i < _Command.Parameters.Count; i++)
 			{
-				IcarusExpressionEditor ed = Controls[i] as IcarusExpressionEditor;
+				IcarusExpressionEditor ed = ct.Controls[i] as IcarusExpressionEditor;
 				if (ed.cboExpressionType.SelectedItem == (ed.cboExpressionType.Model as DefaultTreeModel).Rows[0])
 				{
 					// constant

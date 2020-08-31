@@ -81,6 +81,7 @@
     <Compile Include="ObjectModels\Icarus\Expressions\IcarusFunctionExpression.cs" />
     <Compile Include="ObjectModels\Icarus\IcarusTagType.cs" />
     <Compile Include="ObjectModels\Icarus\Commands\IcarusCommandIf.cs" />
+    <Compile Include="ObjectModels\Icarus\Commands\IcarusCommandPlay.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

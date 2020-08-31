@@ -42,8 +42,11 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 	/// <summary>
 	/// Provides a UWT-based <see cref="Editor" /> for an <see cref="IcarusScriptObjectModel" />.
 	/// </summary>
-	public partial class IcarusScriptEditor : Editor
+	[ContainerLayout("~/Editors/RavenSoftware/Icarus/IcarusScriptEditor.glade")]
+	public class IcarusScriptEditor : Editor
 	{
+		private ListViewControl tv;
+
 		public static IcarusScriptEditorConfiguration IcarusConfiguration { get; } = new IcarusScriptEditorConfiguration();
 
 		private static EditorReference _er = null;
@@ -58,11 +61,22 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			return _er;
 		}
 
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			tv.ContextMenuCommandID = "Icarus_ContextMenu";
+			OnObjectModelChanged(EventArgs.Empty);
+		}
+
 		protected override void OnToolboxItemActivated(ToolboxItemEventArgs e)
 		{
 			base.OnToolboxItemActivated(e);
 			IcarusScriptEditorCommand cmd = e.Item.GetExtraData<IcarusScriptEditorCommand>("command");
+
+			BeginEdit();
 			RecursiveAddCommand(ScriptEditorCommandToOMCommand(cmd));
+			EndEdit();
 		}
 
 		private IcarusCommand ScriptEditorCommandToOMCommand(IcarusScriptEditorCommand cmd)
@@ -200,7 +214,6 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 
 		public IcarusScriptEditor()
 		{
-			InitializeComponent();
 			// mnuContextRun.Font = new Font(mnuContextRun.Font, FontStyle.Bold);
 			// mnuContextRun.IsDefault = true;
 
@@ -477,16 +490,20 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 		{
 			base.OnObjectModelChanged(e);
 
+			if (!IsCreated) return;
+
 			tv.Model.Rows.Clear();
 			treeNodesForCommands.Clear();
 
 			IcarusScriptObjectModel script = (ObjectModel as IcarusScriptObjectModel);
 			if (script == null) return;
 
+			BeginEdit();
 			foreach (IcarusCommand command in script.Commands)
 			{
 				RecursiveAddCommand(command);
 			}
+			EndEdit();
 		}
 
 		private void RecursiveAddCommand(IcarusCommand command, TreeModelRow parent = null)
@@ -561,6 +578,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			return sb.ToString();
 		}
 
+		[EventHandler(nameof(tv), "RowActivated")]
 		private void tv_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			if (e.Row != null)

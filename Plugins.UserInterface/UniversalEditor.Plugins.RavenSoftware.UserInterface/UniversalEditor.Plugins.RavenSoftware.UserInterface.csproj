@@ -32,9 +32,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dialogs\Icarus\IcarusExpressionHelperDialog.cs" />
-    <Compile Include="Dialogs\Icarus\IcarusExpressionHelperDialog.Designer.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditor.cs" />
-    <Compile Include="Editors\Icarus\IcarusScriptEditor.Designer.cs" />
     <Compile Include="Controls\Icarus\IcarusExpressionEditor.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditorEnumeration.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditorConfiguration.cs" />
