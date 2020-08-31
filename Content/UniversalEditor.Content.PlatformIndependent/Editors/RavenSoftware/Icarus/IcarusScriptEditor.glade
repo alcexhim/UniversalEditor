@@ -29,7 +29,9 @@
                 <property name="can_focus">True</property>
                 <property name="model">tm</property>
                 <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
+                  <object class="GtkTreeSelection">
+                    <property name="mode">multiple</property>
+                  </object>
                 </child>
                 <child>
                   <object class="GtkTreeViewColumn" id="tvcCommand">

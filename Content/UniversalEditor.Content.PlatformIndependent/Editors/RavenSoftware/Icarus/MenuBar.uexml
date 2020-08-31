@@ -7,7 +7,7 @@
 				<Command ID="Icarus_Debug_StopDebugging" Title="Stop D_ebugging" />
 				<Command ID="Icarus_Debug_StepInto" Title="Step _Into" />
 				<Command ID="Icarus_Debug_StepOver" Title="Step _Over" />
-				<Command ID="Icarus_Debug">
+				<Command ID="Icarus_Debug" Title="_Debug">
 					<Items>
 						<CommandReference CommandID="Icarus_Debug_StartDebugging" />
 						<CommandReference CommandID="Icarus_Debug_BreakExecution" />

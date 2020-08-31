@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using UniversalEditor.ObjectModels.Icarus.Expressions;
 
 namespace UniversalEditor.ObjectModels.Icarus
 {
@@ -42,6 +43,37 @@ namespace UniversalEditor.ObjectModels.Icarus
 			bool ret = GetValueInternal(ref val);
 			if (ret) return (T)val;
 			return defaultValue;
+		}
+
+		public static IcarusExpression Parse(string parm)
+		{
+			if (parm.StartsWith("\"") && parm.EndsWith("\""))
+			{
+				return new IcarusConstantExpression(parm.Substring(1, parm.Length - 2));
+			}
+			else if (parm.StartsWith("$") && parm.EndsWith("$"))
+			{
+				return new IcarusConstantExpression(parm);
+			}
+			else
+			{
+				switch (parm)
+				{
+					case "FLOAT":
+					{
+						return new IcarusConstantExpression(IcarusVariableDataType.Float);
+					}
+					case "STRING":
+					{
+						return new IcarusConstantExpression(IcarusVariableDataType.String);
+					}
+					case "VECTOR":
+					{
+						return new IcarusConstantExpression(IcarusVariableDataType.Vector);
+					}
+				}
+			}
+			return null;
 		}
 	}
 }

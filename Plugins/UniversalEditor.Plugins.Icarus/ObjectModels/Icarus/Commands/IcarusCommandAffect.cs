@@ -41,8 +41,8 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 			}));
 		}
 
-        public IcarusExpression Target { get { return Parameters["Target"].Value; } set { Parameters["Target"].Value = value; } }
-        public IcarusExpression AffectType { get { return Parameters["AffectType"].Value; } set { Parameters["AffectType"].Value = value; } }
+        public IcarusExpression Target { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
+        public IcarusExpression AffectType { get { return Parameters[1].Value; } set { Parameters[1].Value = value; } }
 
         public override object Clone()
         {

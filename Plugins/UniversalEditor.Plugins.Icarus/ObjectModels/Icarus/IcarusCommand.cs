@@ -36,7 +36,14 @@ namespace UniversalEditor.ObjectModels.Icarus
 
 		public IcarusParameter.IcarusParameterCollection Parameters { get; } = new IcarusParameter.IcarusParameterCollection();
 
-        public abstract object Clone();
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="IcarusCommand" /> is commented by the graphical editor (e.g. UniversalEditor or
+		/// BehavEd).
+		/// </summary>
+		/// <value><c>true</c> if is commented; otherwise, <c>false</c>.</value>
+		public bool IsCommented { get; set; } = false;
+
+		public abstract object Clone();
 
 		private static Dictionary<string, Type> _cmdsByName = null;
 		public static IcarusCommand CreateFromName(string funcName)

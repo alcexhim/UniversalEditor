@@ -1,10 +1,10 @@
 ﻿//
-//  IcarusCommandIf.cs - represents the ICARUS "if" command
+//  IcarusCommandRem.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2011-2020 Mike Becker's Software
+//  Copyright (c) 2020 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,35 +18,30 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+using System;
+using UniversalEditor.ObjectModels.Icarus.Expressions;
 using UniversalEditor.ObjectModels.Icarus.Parameters;
 
 namespace UniversalEditor.ObjectModels.Icarus.Commands
 {
-	/// <summary>
-	/// Represents the ICARUS "if" command.
-	/// </summary>
-	public class IcarusCommandIf : IcarusPredefinedContainerCommand
+	public class IcarusCommandRem : IcarusPredefinedCommand
 	{
-		public IcarusExpression Source { get; set; } = null;
-		public IcarusExpression Comparison { get; set; } = null;
-		public IcarusExpression Target { get; set; } = null;
-
-		public override string Name => "if";
-
-		public IcarusCommandIf()
+		public IcarusCommandRem() : this(String.Empty)
 		{
-			Parameters.Add(new IcarusGenericParameter("Source"));
-			Parameters.Add(new IcarusGenericParameter("Comparison"));
-			Parameters.Add(new IcarusGenericParameter("Target"));
 		}
+		public IcarusCommandRem(string comment)
+		{
+			Parameters.Add(new IcarusGenericParameter("comment", null, new IcarusConstantExpression(comment)));
+		}
+
+		public IcarusExpression Comment { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
+
+		public override string Name => "rem";
 
 		public override object Clone()
 		{
-			IcarusCommandIf clone = new IcarusCommandIf();
-			clone.Source = (Source?.Clone() as IcarusExpression);
-			clone.Comparison = (Comparison?.Clone() as IcarusExpression);
-			clone.Target = (Target?.Clone() as IcarusExpression);
+			IcarusCommandRem clone = new IcarusCommandRem();
+			clone.Comment = (Comment?.Clone() as IcarusExpression);
 			return clone;
 		}
 	}

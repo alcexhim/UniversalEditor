@@ -37,11 +37,13 @@
     <Compile Include="Editors\Icarus\IcarusScriptEditorEnumeration.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditorConfiguration.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditorCommand.cs" />
+    <Compile Include="SettingsProviders\IcarusSettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Dialogs\" />
     <Folder Include="Editors\" />
+    <Folder Include="SettingsProviders\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
