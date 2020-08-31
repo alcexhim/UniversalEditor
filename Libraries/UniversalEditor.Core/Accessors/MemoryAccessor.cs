@@ -106,7 +106,7 @@ namespace UniversalEditor.Accessors
 				}
 				case SeekOrigin.End:
 				{
-					start = _data.LongLength - length;
+					start = _data.LongLength + length;
 					break;
 				}
 			}
