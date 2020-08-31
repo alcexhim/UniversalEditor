@@ -59,7 +59,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Fil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Gainax", "Plugins\UniversalEditor.Plugins.Gainax\UniversalEditor.Plugins.Gainax.csproj", "{7BB04C9F-DC3F-448A-8FD3-9A6BB52BC886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Icarus", "Plugins\UniversalEditor.Plugins.Icarus\UniversalEditor.Plugins.Icarus.csproj", "{B2DFA94A-A468-48A1-AB31-04EE432E7B2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.RavenSoftware", "Plugins\UniversalEditor.Plugins.RavenSoftware\UniversalEditor.Plugins.RavenSoftware.csproj", "{B2DFA94A-A468-48A1-AB31-04EE432E7B2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Illusion", "Plugins\UniversalEditor.Plugins.Illusion\UniversalEditor.Plugins.Illusion.csproj", "{A968C097-44CE-42BA-B66C-CB3A871EE117}"
 EndProject

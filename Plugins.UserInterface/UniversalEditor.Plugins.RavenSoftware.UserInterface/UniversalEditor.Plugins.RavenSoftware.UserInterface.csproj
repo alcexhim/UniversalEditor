@@ -54,10 +54,6 @@
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Icarus\UniversalEditor.Plugins.Icarus.csproj">
-      <Project>{B2DFA94A-A468-48A1-AB31-04EE432E7B2B}</Project>
-      <Name>UniversalEditor.Plugins.Icarus</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
       <Name>UniversalEditor.Core</Name>
@@ -69,6 +65,10 @@
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
       <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
       <Name>UniversalEditor.UserInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.RavenSoftware\UniversalEditor.Plugins.RavenSoftware.csproj">
+      <Project>{B2DFA94A-A468-48A1-AB31-04EE432E7B2B}</Project>
+      <Name>UniversalEditor.Plugins.RavenSoftware</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
