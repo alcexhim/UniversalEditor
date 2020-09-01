@@ -1706,6 +1706,8 @@ namespace UniversalEditor.IO
 		{
 			string line = ReadUntil(GetNewLineSequence());
 			ReadBytes(GetNewLineSequence().Length);
+			if (line.EndsWith("\r"))
+				line = line.Substring(0, line.Length - 1);
 			return line;
 		}
 
