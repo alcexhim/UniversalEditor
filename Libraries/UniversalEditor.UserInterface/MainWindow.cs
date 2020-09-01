@@ -552,6 +552,8 @@ namespace UniversalEditor.UserInterface
 							}
 							catch (InvalidDataFormatException ex)
 							{
+								doc.Accessor.Close();
+
 								// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
 								// TODO: For DataFormats that support it (i.e. Layout-based) we should be able to "debug" the DataFormat to find out exactly where it failed
 								DialogResult result = MessageDialog.ShowDialog("The data format you specified could not load the file.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
@@ -561,6 +563,7 @@ namespace UniversalEditor.UserInterface
 									dlg.DataFormat = doc.DataFormat;
 									dlg.ObjectModel = doc.ObjectModel;
 									dlg.Accessor = doc.Accessor;
+
 									if (dlg.ShowDialog() == DialogResult.OK)
 									{
 										doc.DataFormat = dlg.DataFormat;
