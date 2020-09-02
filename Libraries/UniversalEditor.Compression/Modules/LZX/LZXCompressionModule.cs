@@ -105,7 +105,7 @@ namespace UniversalEditor.Compression.Modules.LZX
 			m_state.header_read = 0;
 			m_state.frames_read = 0;
 			m_state.block_remaining = 0;
-			m_state.block_type = Constants.BLOCKTYPE.INVALID;
+			m_state.block_type = LZXBlockType.Invalid;
 			m_state.intel_curpos = 0;
 			m_state.intel_started = 0;
 
@@ -168,28 +168,28 @@ namespace UniversalEditor.Compression.Modules.LZX
                 if (m_state.block_remaining == 0)
                 {
                     // TODO may screw something up here
-                    if (m_state.block_type == Constants.BLOCKTYPE.UNCOMPRESSED)
+                    if (m_state.block_type == LZXBlockType.Uncompressed)
                     {
                         if ((m_state.block_length & 1) == 1) inputStream.ReadByte(); /* realign bitstream to word */
                         bitbuf.InitBitStream();
                     }
 
-                    m_state.block_type = (Constants.BLOCKTYPE)bitbuf.ReadBits(3); ;
+                    m_state.block_type = (LZXBlockType)bitbuf.ReadBits(3); ;
                     i = bitbuf.ReadBits(16);
                     j = bitbuf.ReadBits(8);
                     m_state.block_remaining = m_state.block_length = (uint)((i << 8) | j);
 
                     switch (m_state.block_type)
                     {
-                        case Constants.BLOCKTYPE.ALIGNED:
+                        case LZXBlockType.Aligned:
                         {
                             for (i = 0, j = 0; i < 8; i++) { j = bitbuf.ReadBits(3); m_state.ALIGNED_len[i] = (byte)j; }
                             MakeDecodeTable(Constants.ALIGNED_MAXSYMBOLS, Constants.ALIGNED_TABLEBITS,
                                             m_state.ALIGNED_len, m_state.ALIGNED_table);
                             /* rest of aligned header is same as verbatim */
-                            goto case Constants.BLOCKTYPE.VERBATIM;
+                            goto case LZXBlockType.Verbatim;
                         }
-                        case Constants.BLOCKTYPE.VERBATIM:
+                        case LZXBlockType.Verbatim:
                         {
                             ReadLengths(m_state.MAINTREE_len, 0, 256, bitbuf);
                             ReadLengths(m_state.MAINTREE_len, 256, m_state.main_elements, bitbuf);
@@ -202,7 +202,7 @@ namespace UniversalEditor.Compression.Modules.LZX
                                             m_state.LENGTH_len, m_state.LENGTH_table);
                             break;
                         }
-                        case Constants.BLOCKTYPE.UNCOMPRESSED:
+                        case LZXBlockType.Uncompressed:
                         {
                             m_state.intel_started = 1; /* because we can't assume otherwise */
                             bitbuf.EnsureBits(16); /* get up to 16 pad bits into the buffer */
@@ -256,7 +256,7 @@ namespace UniversalEditor.Compression.Modules.LZX
 
                     switch (m_state.block_type)
                     {
-                        case Constants.BLOCKTYPE.VERBATIM:
+                        case LZXBlockType.Verbatim:
                         {
                             while (this_run > 0)
                             {
@@ -347,7 +347,7 @@ namespace UniversalEditor.Compression.Modules.LZX
                             }
                             break;
                         }
-                        case Constants.BLOCKTYPE.ALIGNED:
+                        case LZXBlockType.Aligned:
                         {
                             while (this_run > 0)
                             {
@@ -461,7 +461,7 @@ namespace UniversalEditor.Compression.Modules.LZX
                             }
                             break;
                         }
-                        case Constants.BLOCKTYPE.UNCOMPRESSED:
+                        case LZXBlockType.Uncompressed:
                         {
                             if ((inputStream.Position + this_run) > endpos) throw new EndOfStreamException();
 
@@ -742,7 +742,7 @@ namespace UniversalEditor.Compression.Modules.LZX
             public uint R0, R1, R2;			/* for the LRU offset system				*/
             public ushort main_elements;		/* number of main tree elements				*/
             public int header_read;		/* have we started decoding at all yet? 	*/
-            public Constants.BLOCKTYPE block_type;			/* type of this block						*/
+            public LZXBlockType block_type;			/* type of this block						*/
             public uint block_length;		/* uncompressed length of this block 		*/
             public uint block_remaining;	/* uncompressed bytes still left to decode	*/
             public uint frames_read;		/* the number of CFDATA blocks processed	*/

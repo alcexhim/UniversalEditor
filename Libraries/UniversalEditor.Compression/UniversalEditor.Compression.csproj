@@ -126,6 +126,7 @@
     <Compile Include="Modules\Zlib\Internal\ZStream.cs" />
     <Compile Include="Modules\Zlib\Internal\ZStreamException.cs" />
     <Compile Include="Modules\Store\StoreCompressionModule.cs" />
+    <Compile Include="Modules\LZX\LZXBlockType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

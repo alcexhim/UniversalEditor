@@ -25,10 +25,6 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 			private const int LZX_MIN_MATCH = 2;
 			private const int LZX_MAX_MATCH = 257;
 			private const int LZX_NUM_CHARS = 256;
-			private const int LZX_BLOCKTYPE_INVALID = 0;         /* also blocktypes 4-7 invalid */
-			private const int LZX_BLOCKTYPE_VERBATIM = 1;
-			private const int LZX_BLOCKTYPE_ALIGNED = 2;
-			private const int LZX_BLOCKTYPE_UNCOMPRESSED = 3;
 			private const int LZX_PRETREE_NUM_ELEMENTS = 20;
 			private const int LZX_ALIGNED_NUM_ELEMENTS = 8;      /* aligned offset tree #elements */
 			private const int LZX_NUM_PRIMARY_LENGTHS = 7;       /* this one missing from spec! */
@@ -57,7 +53,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 				public ULONG R0, R1, R2;      /* for the LRU offset system               */
 				public UWORD main_elements;   /* number of main tree elements            */
 				public int header_read;       /* have we started decoding at all yet?    */
-				public ULONG block_type;      /* type of this block                      */
+				public LZX.LZXBlockType block_type;      /* type of this block                      */
 				public ULONG block_length;    /* uncompressed length of this block       */
 				public ULONG block_remaining; /* uncompressed bytes still left to decode */
 				public ULONG frames_read;     /* the number of CFDATA blocks processed   */
@@ -181,7 +177,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 				pState.header_read = 0;
 				pState.frames_read = 0;
 				pState.block_remaining = 0;
-				pState.block_type = LZX_BLOCKTYPE_INVALID;
+				pState.block_type = LZX.LZXBlockType.Invalid;
 				pState.intel_curpos = 0;
 				pState.intel_started = 0;
 				pState.window_posn = 0;
@@ -206,7 +202,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 				pState.header_read = 0;
 				pState.frames_read = 0;
 				pState.block_remaining = 0;
-				pState.block_type = LZX_BLOCKTYPE_INVALID;
+				pState.block_type = LZX.LZXBlockType.Invalid;
 				pState.intel_curpos = 0;
 				pState.intel_started = 0;
 				pState.window_posn = 0;
@@ -550,20 +546,23 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 					/* last block finished, new block expected */
 					if (pState.block_remaining == 0)
 					{
-						if (pState.block_type == LZX_BLOCKTYPE_UNCOMPRESSED)
+						if (pState.block_type == LZX.LZXBlockType.Uncompressed)
 						{
 							if (Convert.ToBoolean(pState.block_length & 1)) inpos++; /* realign bitstream to word */
 							INIT_BITSTREAM(ref bitsleft, ref bitbuf);
 						}
 
-						READ_BITS(ref pState.block_type, 3, ref bitbuf, ref bitsleft, ref ip, ref inpos);
+						ULONG ulBlockType = (ULONG)pState.block_type;
+						READ_BITS(ref ulBlockType, 3, ref bitbuf, ref bitsleft, ref ip, ref inpos);
+						pState.block_type = (LZX.LZXBlockType)ulBlockType;
+
 						READ_BITS(ref i, 16, ref bitbuf, ref bitsleft, ref ip, ref inpos);
 						READ_BITS(ref j, 8, ref bitbuf, ref bitsleft, ref ip, ref inpos);
 						pState.block_remaining = pState.block_length = (i << 8) | j;
 
 						switch (pState.block_type)
 						{
-						case LZX_BLOCKTYPE_ALIGNED:
+						case LZX.LZXBlockType.Aligned:
 							for (i = 0; i < 8; i++)
 							{
 								READ_BITS(ref j, 3, ref bitbuf, ref bitsleft, ref ip, ref inpos);
@@ -573,9 +572,9 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 									LZX_ALIGNED_TABLEBITS, LZX_ALIGNED_MAXSYMBOLS))
 								throw new InvalidOperationException("BUILD_TABLE failed");
 							/* rest of aligned header is same as verbatim */
-							goto case LZX_BLOCKTYPE_VERBATIM;
+							goto case LZX.LZXBlockType.Verbatim;
 
-						case LZX_BLOCKTYPE_VERBATIM:
+						case LZX.LZXBlockType.Verbatim:
 							if (!READ_LENGTHS(0, 256, lb, ref bitbuf, ref bitsleft, ref ip, ref inpos,
 									pState, ref pState.MAINTREE_len))
 								throw new InvalidOperationException("READ_LENGTHS failed");
@@ -595,7 +594,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 								throw new InvalidOperationException("BUILD_TABLE failed");
 							break;
 
-						case LZX_BLOCKTYPE_UNCOMPRESSED:
+						case LZX.LZXBlockType.Uncompressed:
 							pState.intel_started = 1; /* because we can't assume otherwise */
 							ENSURE_BITS(ref bitsleft, ref bitbuf, ref ip, ref inpos, 16); /* get up to 16 pad bits into the buffer */
 							if (bitsleft > 16) inpos -= 2; /* and align the bitstream! */
@@ -639,7 +638,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 						switch (pState.block_type)
 						{
 
-						case LZX_BLOCKTYPE_VERBATIM:
+						case LZX.LZXBlockType.Verbatim:
 							while (this_run > 0)
 							{
 								hr = READ_HUFFSYM(ref pState.MAINTREE_table, ref hufftbl, ref bitsleft,
@@ -724,7 +723,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 							}
 							break;
 
-						case LZX_BLOCKTYPE_ALIGNED:
+						case LZX.LZXBlockType.Aligned:
 							while (this_run > 0)
 							{
 								hr = READ_HUFFSYM(ref pState.MAINTREE_table, ref hufftbl, ref bitsleft,
@@ -836,7 +835,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 							}
 							break;
 
-						case LZX_BLOCKTYPE_UNCOMPRESSED:
+						case LZX.LZXBlockType.Uncompressed:
 							if ((inpos + this_run) > endinp) throw new InvalidOperationException("eieio");;
 							Array.Copy(ip, inpos, window, window_posn, this_run);
 							inpos += this_run; window_posn += (ULONG)this_run;

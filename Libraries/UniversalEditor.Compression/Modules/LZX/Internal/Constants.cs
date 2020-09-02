@@ -11,14 +11,6 @@ namespace UniversalEditor.Compression.Modules.LZX.Internal
         public const ushort MAX_MATCH = 257;
         public const ushort NUM_CHARS = 256;
 
-        public enum BLOCKTYPE
-        {
-            INVALID = 0,
-            VERBATIM = 1,
-            ALIGNED = 2,
-            UNCOMPRESSED = 3
-        }
-
         public const ushort PRETREE_NUM_ELEMENTS = 20;
         public const ushort ALIGNED_NUM_ELEMENTS = 8;
         public const ushort NUM_PRIMARY_LENGTHS = 7;
