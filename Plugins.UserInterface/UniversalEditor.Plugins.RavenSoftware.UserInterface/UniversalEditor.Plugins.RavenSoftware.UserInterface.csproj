@@ -38,12 +38,16 @@
     <Compile Include="Editors\Icarus\IcarusScriptEditorConfiguration.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditorCommand.cs" />
     <Compile Include="SettingsProviders\IcarusSettingsProvider.cs" />
+    <Compile Include="Editors\Carcass\CarcassEditor.cs" />
+    <Compile Include="Editors\Carcass\Dialogs\ModelReferencePropertiesDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Dialogs\" />
     <Folder Include="Editors\" />
     <Folder Include="SettingsProviders\" />
+    <Folder Include="Editors\Carcass\" />
+    <Folder Include="Editors\Carcass\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
@@ -69,6 +73,14 @@
     <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.RavenSoftware\UniversalEditor.Plugins.RavenSoftware.csproj">
       <Project>{B2DFA94A-A468-48A1-AB31-04EE432E7B2B}</Project>
       <Name>UniversalEditor.Plugins.RavenSoftware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Multimedia3D\UniversalEditor.Plugins.Multimedia3D.csproj">
+      <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia3D</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

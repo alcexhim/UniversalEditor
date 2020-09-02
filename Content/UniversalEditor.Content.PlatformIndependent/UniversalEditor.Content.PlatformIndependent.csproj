@@ -306,6 +306,8 @@
     <Content Include="Configuration\QuickAccessToolbar.uexml" />
     <Content Include="Editors\RavenSoftware\Icarus\IcarusScriptEditor.glade" />
     <Content Include="Editors\RavenSoftware\Icarus\Dialogs\IcarusExpressionHelperDialog.glade" />
+    <Content Include="Editors\RavenSoftware\Carcass\CarcassEditor.glade" />
+    <Content Include="Editors\RavenSoftware\Carcass\Dialogs\ModelReferencePropertiesDialog.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -335,6 +337,7 @@
     <Folder Include="Editors\Setup\BootstrapScript\" />
     <Folder Include="Editors\Database\Views\" />
     <Folder Include="Extensions\Amiga\Associations\VectorImage\" />
+    <Folder Include="Editors\RavenSoftware\Carcass\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />

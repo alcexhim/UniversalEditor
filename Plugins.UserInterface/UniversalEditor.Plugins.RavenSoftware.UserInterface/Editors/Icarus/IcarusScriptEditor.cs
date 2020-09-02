@@ -28,7 +28,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
-
+using UniversalEditor.DataFormats.Icarus;
 using UniversalEditor.ObjectModels.Icarus;
 using UniversalEditor.ObjectModels.Icarus.Commands;
 using UniversalEditor.ObjectModels.Icarus.Expressions;
@@ -344,7 +344,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				IcarusScriptObjectModel script = (ObjectModel as IcarusScriptObjectModel);
 
 				IcarusScriptObjectModel icarus = new IcarusScriptObjectModel();
-				DataFormats.Icarus.IcarusTextDataFormat ictxt = new DataFormats.Icarus.IcarusTextDataFormat();
+				IcarusTextDataFormat ictxt = new IcarusTextDataFormat();
 				Document.Load(icarus, ictxt, new Accessors.FileAccessor(dlg.SelectedFileName));
 
 				int start = script.Commands.Count;

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Assimilate/Carcass text script">
+					<FileNameFilters>
+						<FileNameFilter>*.car</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">$aseanimgrabinit</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.Plugins.RavenSoftware.ObjectModels.Carcass.CarcassObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.RavenSoftware.DataFormats.Carcass.Text.CarcassTextDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
