@@ -160,7 +160,6 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Carcass
 
 		private void tsbModelFileAdd_Click(object sender, EventArgs e)
 		{
-			ModelReference mr = lvModelFiles.SelectedRows[0].GetExtraData<ModelReference>("model");
 			ModelReferencePropertiesDialog dlg = new ModelReferencePropertiesDialog();
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
