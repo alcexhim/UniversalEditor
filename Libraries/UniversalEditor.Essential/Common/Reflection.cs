@@ -101,7 +101,7 @@ namespace UniversalEditor.Common
 						}
 						catch (Exception ex)
 						{
-							Console.WriteLine("Accessor could not be loaded ({0}): {1}", type.FullName, ex.Message);
+							// Console.WriteLine("Accessor could not be loaded ({0}): {1}", type.FullName, ex.Message);
 						}
 					}
 					else if (mvarAvailableDataFormats == null && (type.IsSubclassOf(typeof(DataFormat)) && !type.IsAbstract))
@@ -118,7 +118,7 @@ namespace UniversalEditor.Common
 						}
 						catch (Exception ex)
 						{
-							Console.WriteLine("DataFormat could not be loaded ({0}): {1}", type.FullName, ex.Message);
+							// Console.WriteLine("DataFormat could not be loaded ({0}): {1}", type.FullName, ex.Message);
 						}
 					}
 					else if (mvarAvailableDocumentTemplates == null && (type.IsSubclassOf(typeof(DocumentTemplate)) && !type.IsAbstract))
@@ -241,7 +241,7 @@ namespace UniversalEditor.Common
 				string path = paths[iPath];
 				if (!System.IO.Directory.Exists(path))
 				{
-					Console.WriteLine("skipping nonexistent directory {0}", path);
+					// Console.WriteLine("skipping nonexistent directory {0}", path);
 					continue;
 				}
 
@@ -253,7 +253,7 @@ namespace UniversalEditor.Common
 				for (int jFileName = 0; jFileName < XMLFileNames.Length; jFileName++)
 				{
 					string fileName = XMLFileNames[jFileName];
-					Console.WriteLine("loading XML configuration file: {0} ", fileName);
+					// Console.WriteLine("loading XML configuration file: {0} ", fileName);
 #if !DEBUG
 					try
 					{
