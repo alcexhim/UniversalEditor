@@ -16,7 +16,7 @@
 						<FileNameFilter>*.swa</FileNameFilter>
 						<FileNameFilter>*.uka</FileNameFilter>
 						<FileNameFilter>*.hog</FileNameFilter>
-						<FileNameFilter>*.viv"</FileNameFilter>
+						<FileNameFilter>*.viv</FileNameFilter>
 					</FileNameFilters>
 				</Filter>
 			</Filters>
