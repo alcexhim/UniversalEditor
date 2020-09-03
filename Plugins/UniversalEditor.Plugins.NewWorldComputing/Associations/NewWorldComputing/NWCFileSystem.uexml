@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic II AGG archive">
+				<Filter Title="Heroes of Might and Magic II AGG archive" ContentType="application/x-newworldcomputing-agg">
 					<FileNameFilters>
 						<FileNameFilter>*.agg</FileNameFilter>
 					</FileNameFilters>
@@ -18,7 +18,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic III VID archive">
+				<Filter Title="Heroes of Might and Magic III VID archive" ContentType="application/x-newworldcomputing-vid">
 					<FileNameFilters>
 						<FileNameFilter>*.vid</FileNameFilter>
 					</FileNameFilters>
@@ -33,7 +33,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic III SND archive">
+				<Filter Title="Heroes of Might and Magic III SND archive" ContentType="application/x-newworldcomputing-snd">
 					<FileNameFilters>
 						<FileNameFilter>*.snd</FileNameFilter>
 					</FileNameFilters>
@@ -48,7 +48,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic III LOD archive">
+				<Filter Title="Heroes of Might and Magic III LOD archive" ContentType="application/x-newworldcomputing-lod">
 					<FileNameFilters>
 						<FileNameFilter>*.lod</FileNameFilter>
 					</FileNameFilters>
@@ -68,7 +68,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Might and Magic CC archive">
+				<Filter Title="Might and Magic CC archive" ContentType="application/x-newworldcomputing-cc">
 					<FileNameFilters>
 						<FileNameFilter>*.cc</FileNameFilter>
 					</FileNameFilters>

@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic BMP sprite">
+				<Filter Title="Heroes of Might and Magic BMP sprite" ContentType="image/x-newworldcomputing-bmp">
 					<FileNameFilters>
 						<FileNameFilter>*.bmp</FileNameFilter>
 					</FileNameFilters>
@@ -18,7 +18,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic ICN picture">
+				<Filter Title="Heroes of Might and Magic ICN picture" ContentType="image/x-newworldcomputing-icn">
 					<FileNameFilters>
 						<FileNameFilter>*.icn</FileNameFilter>
 					</FileNameFilters>
@@ -34,7 +34,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic TIL sprite">
+				<Filter Title="Heroes of Might and Magic TIL sprite" ContentType="image/x-newworldcomputing-til">
 					<FileNameFilters>
 						<FileNameFilter>*.til</FileNameFilter>
 					</FileNameFilters>
@@ -49,7 +49,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic PCX image">
+				<Filter Title="Heroes of Might and Magic PCX image" ContentType="image/x-newworldcomputing-pcx">
 					<FileNameFilters>
 						<FileNameFilter>*.pcx</FileNameFilter>
 					</FileNameFilters>

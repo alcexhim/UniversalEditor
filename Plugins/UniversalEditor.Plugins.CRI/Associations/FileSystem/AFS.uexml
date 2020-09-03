@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="CRI Middleware AFS/AWB/ACB archive">
+				<Filter Title="CRI Middleware AFS/AWB/ACB archive" ContentType="application/x-cri-afs">
 					<FileNameFilters>
 						<FileNameFilter>*.afs</FileNameFilter>
 						<FileNameFilter>*.awb</FileNameFilter>

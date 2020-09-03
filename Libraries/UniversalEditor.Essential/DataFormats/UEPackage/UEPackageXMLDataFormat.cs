@@ -817,11 +817,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 								{
 									if (attTypeName != null)
 									{
-										Console.WriteLine("DataFormat could not be associated: " + attTypeName.Value);
+										// Console.WriteLine("DataFormat could not be associated: " + attTypeName.Value);
 									}
 									else if (attID != null)
 									{
-										Console.WriteLine("DataFormat could not be associated: " + attID.Value);
+										// Console.WriteLine("DataFormat could not be associated: " + attID.Value);
 									}
 								}
 							}
@@ -841,6 +841,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 								if (attTitle != null)
 								{
 									filter.Title = attTitle.Value;
+								}
+								MarkupAttribute attContentType = tagFilter.Attributes["ContentType"];
+								if (attContentType != null)
+								{
+									filter.ContentType = attContentType.Value;
 								}
 
 								MarkupAttribute attHintComparison = tagFilter.Attributes["HintComparison"];

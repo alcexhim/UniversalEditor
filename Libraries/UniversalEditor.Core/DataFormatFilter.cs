@@ -218,6 +218,8 @@ namespace UniversalEditor
 
 		private int[] mvarMagicByteOffsets = new int[0];
 		public int[] MagicByteOffsets { get { return mvarMagicByteOffsets; } set { mvarMagicByteOffsets = value; } }
+
+		public string ContentType { get; set; } = null;
 	}
 	public class DataFormatCapabilityCollection
 	{
