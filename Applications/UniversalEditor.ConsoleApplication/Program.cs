@@ -30,44 +30,44 @@ namespace UniversalEditor.ConsoleApplication
 		{
 			if (args.Length > 0)
 			{
-				if (args[0] == "--update-associations")
+				if (args[0] == "--generate-associations")
 				{
-					StringBuilder sb = new StringBuilder();
-					sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-					sb.AppendLine("<mime-info xmlns=\"http://www.freedesktop.org/standards/shared-mime-info\">");
-					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-
-					Association[] assocs = Association.GetAllAssociations();
-					for (int i = 0; i < assocs.Length; i++)
+					string assocs = null;
+					if (args.Length > 1)
 					{
-						for (int j = 0; j < assocs[i].Filters.Count; j++)
+						if (args[1] == "--reg")
 						{
-							string mimetype = String.Format("application/x-universaleditor-a{0}f{1}", i, j);
-							/*
-							if (assocs[i].Filters[j].MimeType != null)
-							{
-								mimetype = assocs[i].Filters[j].MimeType;
-							}
-							*/
-							sb.AppendLine(String.Format("\t<mime-type type=\"{0}\">", mimetype));
-							sb.AppendLine(String.Format("\t\t<comment>{0}</comment>", assocs[i].Filters[j].Title));
-
-							Console.Write("registering '{0}' extensions... ", assocs[i].Filters[j].Title);
-							for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)
-							{
-								sb.AppendLine(String.Format("\t\t<glob pattern=\"{0}\" />", assocs[i].Filters[j].FileNameFilters[k]));
-
-								Console.Write(assocs[i].Filters[j].FileNameFilters[k]);
-								if (k < assocs[i].Filters[j].FileNameFilters.Count - 1)
-									Console.Write(' ');
-							}
-							Console.WriteLine();
-							sb.AppendLine("\t</mime-type>");
+							assocs = GenerateAssociationsREG();
 						}
 					}
-					sb.AppendLine("</mime-info>");
 
-					System.IO.File.WriteAllText("universal-editor.xml", sb.ToString());
+					if (assocs == null)
+						assocs = GenerateAssociations();
+
+					Console.WriteLine(assocs);
+				}
+				else if (args[0] == "--update-associations")
+				{
+					if (System.Environment.OSVersion.Platform == PlatformID.Unix)
+					{
+						string filename = "/usr/share/mime/packages/universal-editor.xml";
+						string assocs = GenerateAssociations();
+						try
+						{
+							System.IO.File.WriteAllText(filename, assocs);
+							System.Diagnostics.Process.Start("update-mime-database", "/usr/share/mime");
+							System.Environment.Exit(0);
+						}
+						catch (UnauthorizedAccessException ex)
+						{
+							Console.WriteLine("ue: {0}: Permission denied", filename);
+							System.Environment.Exit(1);
+						}
+					}
+					else if (System.Environment.OSVersion.Platform == PlatformID.Win32NT)
+					{
+
+					}
 				}
 				else if (args[0] == "--list-associations")
 				{
@@ -164,6 +164,73 @@ namespace UniversalEditor.ConsoleApplication
 
 				byte[] output = ma.ToArray();
 			stout.Write(output, 0, output.Length);
+		}
+
+		private static string GenerateAssociations()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			sb.AppendLine("<mime-info xmlns=\"http://www.freedesktop.org/standards/shared-mime-info\">");
+			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+			Association[] assocs = Association.GetAllAssociations();
+			for (int i = 0; i < assocs.Length; i++)
+			{
+				for (int j = 0; j < assocs[i].Filters.Count; j++)
+				{
+					string mimetype = String.Format("application/x-universaleditor-a{0}f{1}", i, j);
+					if (assocs[i].Filters[j].ContentType != null)
+					{
+						mimetype = assocs[i].Filters[j].ContentType;
+					}
+					sb.AppendLine(String.Format("\t<mime-type type=\"{0}\">", mimetype));
+					sb.AppendLine(String.Format("\t\t<comment>{0}</comment>", assocs[i].Filters[j].Title));
+
+					// Console.Write("registering '{0}' extensions... ", assocs[i].Filters[j].Title);
+					for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)
+					{
+						sb.AppendLine(String.Format("\t\t<glob pattern=\"{0}\" />", assocs[i].Filters[j].FileNameFilters[k]));
+					}
+					sb.AppendLine("\t</mime-type>");
+				}
+			}
+			sb.Append("</mime-info>");
+			return sb.ToString();
+		}
+		private static string GenerateAssociationsREG()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("Windows Registry Editor Version 5.00");
+
+			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+			Association[] assocs = Association.GetAllAssociations();
+			for (int i = 0; i < assocs.Length; i++)
+			{
+				for (int j = 0; j < assocs[i].Filters.Count; j++)
+				{
+					for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)
+					{
+						string ext = assocs[i].Filters[j].FileNameFilters[k];
+						if (ext.StartsWith("*."))
+						{
+							ext = ext.Substring(1);
+						}
+
+						sb.AppendLine(String.Format("[HKEY_CLASSES_ROOT\\{0}{1}]", "UniversalEditor", ext));
+
+						sb.AppendLine(String.Format("[HKEY_CLASSES_ROOT\\{0}{1}\\DefaultIcon]", "UniversalEditor", ext));
+						sb.AppendLine("@=\"universal-editor.ico\"");
+
+						sb.AppendLine(String.Format("[HKEY_CLASSES_ROOT\\{0}{1}\\Shell\\Open\\command]", "UniversalEditor", ext));
+						sb.AppendLine("@=UniversalEditor.exe \"%1\"");
+
+						sb.AppendLine(String.Format("[HKEY_CLASSES_ROOT\\{0}]", ext));
+						sb.AppendLine(String.Format("@=\"{0}{1}\"", "UniversalEditor", ext));
+					}
+				}
+			}
+			return sb.ToString();
 		}
 	}
 }
