@@ -179,7 +179,7 @@ namespace UniversalEditor.ObjectModels.Markup
 				MarkupTagElement tagTopLevel = (this.Elements [i] as MarkupTagElement);
 				if (tagTopLevel != null) {
 					for (int j = 0; j < tagTopLevel.Attributes.Count; j++) {
-						if (tagTopLevel.Attributes [j].Namespace.Equals ("xmlns")) {
+						if ("xmlns".Equals(tagTopLevel.Attributes [j].Namespace)) {
 
 							if (tagTopLevel.Attributes [j].Value.Equals (schema)) {
 								tagPrefix = tagTopLevel.Attributes [j].Name;
