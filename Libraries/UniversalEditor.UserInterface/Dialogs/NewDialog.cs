@@ -46,6 +46,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private TextBox txtFilePath;
 
 		private CheckBox chkAddToSolution;
+		private Label lblSolutionName;
 		private TextBox txtSolutionName;
 
 		private ListViewControl tvObjectModel;
@@ -146,6 +147,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 
 			InitializeObjectModelTreeView();
+		}
+
+		[EventHandler(nameof(chkAddToSolution), "Changed")]
+		private void chkAddToSolution_Changed(object sender, EventArgs e)
+		{
+			txtSolutionName.Enabled = chkAddToSolution.Checked;
+			lblSolutionName.Enabled = chkAddToSolution.Checked;
 		}
 
 

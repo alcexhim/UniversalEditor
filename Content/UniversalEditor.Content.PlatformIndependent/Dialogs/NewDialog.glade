@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 
+<!-- Generated with glade 3.22.2 
 
 Copyright (C) 2019 Michael Becker
 
@@ -45,7 +45,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
     <property name="default_width">600</property>
     <property name="default_height">400</property>
     <property name="type_hint">dialog</property>
-    <child>
+    <child type="titlebar">
       <placeholder/>
     </child>
     <child internal-child="vbox">
@@ -209,11 +209,17 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_left">16</property>
+            <property name="margin_right">16</property>
+            <property name="margin_top">16</property>
+            <property name="margin_bottom">16</property>
             <property name="row_homogeneous">True</property>
             <child>
               <object class="GtkEntry" id="txtFileName">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="margin_top">4</property>
+                <property name="margin_bottom">4</property>
                 <property name="hexpand">True</property>
               </object>
               <packing>
@@ -225,6 +231,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
               <object class="GtkLabel" id="lblFileName">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_right">16</property>
                 <property name="label" translatable="yes">_Name</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
@@ -238,6 +245,7 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
               <object class="GtkLabel" id="lblFilePath">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_right">16</property>
                 <property name="label" translatable="yes">_Location</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
@@ -251,6 +259,8 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
               <object class="GtkEntry" id="txtFilePath">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="margin_top">4</property>
+                <property name="margin_bottom">4</property>
                 <property name="hexpand">True</property>
               </object>
               <packing>
@@ -264,6 +274,8 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="margin_top">4</property>
+                <property name="margin_bottom">4</property>
                 <property name="hexpand">True</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
@@ -278,7 +290,9 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
             <child>
               <object class="GtkLabel" id="lblSolutionName">
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">False</property>
+                <property name="margin_right">16</property>
                 <property name="label" translatable="yes">Project na_me</property>
                 <property name="use_underline">True</property>
               </object>
@@ -290,7 +304,10 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
             <child>
               <object class="GtkEntry" id="txtSolutionName">
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
+                <property name="margin_top">4</property>
+                <property name="margin_bottom">4</property>
                 <property name="hexpand">True</property>
               </object>
               <packing>

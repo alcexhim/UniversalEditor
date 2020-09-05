@@ -22,7 +22,9 @@ Prerequisites
 
 Building
 --------
-The solution and dependencies need to be cleaned up before we can write a proper tutorial for building. Keep everything in the same parent directory, *git clone* alcexhim/UniversalEditor, alcexhim/MBS.Framework, and alcexhim/MBS.Framework.UserInterface.
+The solution and dependencies need to be cleaned up before we can write a proper tutorial for building. Keep everything in the same parent directory, *git clone* alcexhim/UniversalEditor, alcexhim/MBS.Framework, and alcexhim/MBS.Framework.UserInterface. For 3D rendering support it is also necessary to clone alcexhim/MBS.Framework.Rendering as well as the appropriate rendering engine (e.g. MBS.Framework.Rendering.Engines.OpenGL).
+
+In a terminal window, navigate to the UniversalEditor directory that you just cloned, type "msbuild" (or "MSBuild.exe" on Windows), and press ENTER. This should take care of compiling UniversalEditor and any associated dependencies.
 
 The application *WILL NOT* work properly if the appropriate Universal Widget Toolkit engine, MBS.Framework.UserInterface.(engine).dll, is not in the Output/(configuration) directory! The build process at this time does not automatically copy this file from the MBS.Framework.UserInterface output directory to the Universal Editor output directory. You may use the uwt-install-gtk.sh and uwt-install-wf.sh scripts (in bash) to do this.
 
