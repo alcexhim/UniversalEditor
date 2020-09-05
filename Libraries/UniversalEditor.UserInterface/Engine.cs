@@ -51,8 +51,8 @@ namespace UniversalEditor.UserInterface
 			Application.ShortName = "universal-editor";
 
 			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
-				new TextSetting("_Name"),
-				new TextSetting("_E-mail address")
+				new TextSetting("Name", "_Name"),
+				new TextSetting("EmailAddress", "_E-mail address")
 			});
 			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Documents", new Setting[] {
 			});
@@ -303,11 +303,69 @@ namespace UniversalEditor.UserInterface
 		}
 		public bool ShowCustomOptionDialog (ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null)
 		{
-			if (CustomOptionsDialog.ShowDialog(ref customOptions, title, aboutButtonClicked) == DialogResult.Cancel)
+			SettingsDialog dlg = new SettingsDialog();
+			dlg.Text = title ?? "Options";
+			dlg.SettingsProfiles.Clear();
+
+			CustomSettingsProvider csp = new CustomSettingsProvider();
+			dlg.SettingsProviders.Clear();
+			dlg.SettingsProviders.Add(csp);
+
+			SettingsGroup sg = new SettingsGroup();
+			csp.SettingsGroups.Add(sg);
+
+			foreach (CustomOption eo in customOptions)
 			{
-				return false;
+				// do not render the CustomOption if it's supposed to be invisible
+				if (!eo.Visible) continue;
+
+				if (eo is CustomOptionChoice)
+				{
+					CustomOptionChoice option = (eo as CustomOptionChoice);
+
+					List<ChoiceSetting.ChoiceSettingValue> choices = new List<ChoiceSetting.ChoiceSettingValue>();
+					foreach (CustomOptionFieldChoice choice in option.Choices)
+					{
+						choices.Add(new ChoiceSetting.ChoiceSettingValue(choice.Title, choice.Title, choice.Value));
+					}
+					sg.Settings.Add(new ChoiceSetting(option.PropertyName, option.Title, null, choices.ToArray()));
+				}
+				else if (eo is CustomOptionNumber)
+				{
+					CustomOptionNumber option = (eo as CustomOptionNumber);
+					sg.Settings.Add(new RangeSetting(option.PropertyName, option.Title, (double)option.DefaultValue, (double)option.MinimumValue, (double)option.MaximumValue));
+				}
+				else if (eo is CustomOptionText)
+				{
+					CustomOptionText option = (eo as CustomOptionText);
+					sg.Settings.Add(new TextSetting(option.PropertyName, option.Title, option.DefaultValue));
+				}
+				else if (eo is CustomOptionBoolean)
+				{
+					CustomOptionBoolean option = (eo as CustomOptionBoolean);
+					sg.Settings.Add(new BooleanSetting(option.PropertyName, option.Title, option.DefaultValue));
+				}
+				else if (eo is CustomOptionFile)
+				{
+					CustomOptionFile option = (eo as CustomOptionFile);
+					// sg.Settings.Add(new FileSetting(option.Title, option.DefaultValue));
+					sg.Settings.Add(new TextSetting(option.PropertyName, option.Title, option.DefaultValue));
+				}
 			}
-			return true;
+
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				int i = 0;
+				for (int j = 0; j < customOptions.Count; j++)
+				{
+					if (!customOptions[j].Visible) continue;
+
+					customOptions[j].SetValue(sg.Settings[i].GetValue());
+					i++;
+				}
+				return true;
+			}
+			return false;
 		}
 		#endregion
 

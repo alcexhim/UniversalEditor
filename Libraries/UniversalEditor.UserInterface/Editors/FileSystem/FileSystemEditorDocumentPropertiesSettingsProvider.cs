@@ -52,10 +52,10 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			SettingsGroups.Add(new SettingsGroup("General", new Setting[]
 			{
-				new TextSetting("_Name"),
-				new TextSetting("_Size"),
-				new TextSetting("_Type"),
-				new TextSetting("_Date modified")
+				new TextSetting("FileName", "_Name"),
+				new TextSetting("FileSize", "_Size"),
+				new TextSetting("FileType", "_Type"),
+				new TextSetting("FileDateModified", "_Date modified")
 			}));
 		}
 

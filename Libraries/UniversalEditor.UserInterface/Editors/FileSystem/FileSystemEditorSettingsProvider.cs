@@ -25,33 +25,32 @@ namespace UniversalEditor.Editors.FileSystem
 {
 	public class FileSystemEditorSettingsProvider : ApplicationSettingsProvider
 	{
-		public FileSystemEditorSettingsProvider ()
+		public FileSystemEditorSettingsProvider()
 		{
-			SettingsGroups.Add (new SettingsGroup ("Editors:File System:Views", new Setting[]
+			SettingsGroups.Add(new SettingsGroup("Editors:File System:Views", new Setting[]
 			{
-				new BooleanSetting ("Sort _folders before files"),
-				new BooleanSetting ("Allow folders to be _expanded")
+				new BooleanSetting("SortFoldersBeforeFiles", "Sort _folders before files"),
+				new BooleanSetting("AllowExpandFolders", "Allow folders to be _expanded")
 			}));
-			SettingsGroups.Add (new SettingsGroup ("Editors:File System:Behavior", new Setting[]
+			SettingsGroups.Add(new SettingsGroup("Editors:File System:Behavior", new Setting[]
 			{
-				new BooleanSetting ("_Single-click to open items"),
-				new BooleanSetting ("Show action to create symbolic _links"),
-				new ChoiceSetting ("Default option for _executable text files", null, new ChoiceSetting.ChoiceSettingValue[]
+				new BooleanSetting("SingleClickToOpenItems", "_Single-click to open items"),
+				new BooleanSetting("EnableCreateSymbolicLinks", "Show action to create symbolic _links"),
+				new ChoiceSetting("DefaultExecutableTextOption", "Default option for _executable text files", null, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new ChoiceSetting.ChoiceSettingValue ("Display them in text editor", 1),
-					new ChoiceSetting.ChoiceSettingValue ("Run them as executable", 2),
-					new ChoiceSetting.ChoiceSettingValue ("Ask me what to do", 3)
+					new ChoiceSetting.ChoiceSettingValue("Display", "Display them in text editor", 1),
+					new ChoiceSetting.ChoiceSettingValue("Run", "Run them as executable", 2),
+					new ChoiceSetting.ChoiceSettingValue("Ask", "Ask me what to do", 3)
 				}),
-				new BooleanSetting ("Ask before _emptying the Trash/Recycle Bin"),
-				new BooleanSetting ("Show action to _permanently delete files and folders")
+				new BooleanSetting("AskBeforeEmptyingTrash", "Ask before _emptying the Trash/Recycle Bin"),
+				new BooleanSetting("EnablePermanentDeletion", "Show action to _permanently delete files and folders")
 			}));
-			SettingsGroups.Add (new SettingsGroup ("Editors:File System:List Columns", new Setting[]
+			SettingsGroups.Add(new SettingsGroup("Editors:File System:List Columns", new Setting[]
 			{
 			}));
-			SettingsGroups.Add (new SettingsGroup ("Editors:File System:Search and Preview", new Setting[]
+			SettingsGroups.Add(new SettingsGroup("Editors:File System:Search and Preview", new Setting[]
 			{
 			}));
 		}
 	}
 }
-

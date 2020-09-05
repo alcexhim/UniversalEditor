@@ -32,31 +32,31 @@ namespace UniversalEditor.SettingsProviders
 		{
 			SettingsGroups.Add(new SettingsGroup("Editors:Syntax", new Setting[]
 			{
-				new BooleanSetting("D_rag and drop text editing"),
-				new BooleanSetting("A_utomatic delimiter highlighting"),
-				new BooleanSetting("_Track changes"),
-				new BooleanSetting("Auto-_detect UTF-8 encoding without signature"),
-				new BooleanSetting("Display _selection margin"),
-				new BooleanSetting("Display indicator _margin"),
-				new BooleanSetting("Highlight _current line")
+				new BooleanSetting("DragDropTextEditing", "D_rag and drop text editing"),
+				new BooleanSetting("AutomaticDelimiterHighlighting", "A_utomatic delimiter highlighting"),
+				new BooleanSetting("TrackChanges", "_Track changes"),
+				new BooleanSetting("AutoDetectUTF8Encoding", "Auto-_detect UTF-8 encoding without signature"),
+				new BooleanSetting("DisplaySelectionMargin", "Display _selection margin"),
+				new BooleanSetting("DisplayIndicatorMargin", "Display indicator _margin"),
+				new BooleanSetting("HighlightCurrentLine", "Highlight _current line")
 			}));
 
 			SettingsGroups.Add(new SettingsGroup("Editors:Syntax:Languages", new Setting[]
 			{
-				new BooleanSetting("_Map extensionless files to"),
-				new ChoiceSetting("Default language"),
+				new BooleanSetting("MapExtensionlessFilesDefault", "_Map extensionless files to"),
+				new ChoiceSetting("DefaultLanguage", "Default language"),
 			}));
 
 			// for each language...
 			System.Collections.Generic.Dictionary<string, Setting[]> languageOptions = new System.Collections.Generic.Dictionary<string, Setting[]>();
 			languageOptions.Add("Basic:General", new Setting[]
 			{
-				new BooleanSetting("Auto list _members"),
-				new BooleanSetting("_Hide advanced members"),
-				new BooleanSetting("_Parameter information"),
-				new BooleanSetting("Enable _virtual space"),
-				new BooleanSetting("_Word wrap"),
-				new BooleanSetting("_Show visual glyphs for word wrap"),
+				new BooleanSetting("AutoListMembers", "Auto list _members"),
+				new BooleanSetting("HideAdvancedMembers", "_Hide advanced members"),
+				new BooleanSetting("ParameterInformation", "_Parameter information"),
+				new BooleanSetting("EnableVirtualSpace", "Enable _virtual space"),
+				new BooleanSetting("WordWrap", "_Word wrap"),
+				new BooleanSetting("ShowVisualGlyphsForWordWrap", "_Show visual glyphs for word wrap"),
 
 			});
 

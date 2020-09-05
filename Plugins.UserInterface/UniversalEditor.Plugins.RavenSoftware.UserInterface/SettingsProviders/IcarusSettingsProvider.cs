@@ -33,19 +33,19 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.SettingsProviders
 		{
 			SettingsGroups.Add("Editors:Raven Software:ICARUS Scripting:General", new Setting[]
 			{
-				new BooleanSetting("Re-open last file at startup"), // UE Platform Setting
-				new BooleanSetting("_Alphabetically-sort edit pulldowns"),
-				new BooleanSetting("Enable _SourceSafe functions"),
-				new BooleanSetting("_Warn before opening BehavEd-incompatible ICARUS script"),
+				new BooleanSetting("ReopenLastFileAtStartup", "Re-open last file at startup"), // UE Platform Setting
+				new BooleanSetting("AlphabeticallySortEditPulldowns", "_Alphabetically-sort edit pulldowns"),
+				new BooleanSetting("EnableSourceSafeFunctions", "Enable _SourceSafe functions"),
+				new BooleanSetting("WarnBeforeOpeningIncompatibleScript", "_Warn before opening BehavEd-incompatible ICARUS script"),
 			});
 			SettingsGroups.Add("Editors:Raven Software:ICARUS Scripting:Directories", new Setting[]
 			{
-				new TextSetting("Script path"),
-				new TextSetting("SourceSafe script path"),
-				new TextSetting("SourceSafe configuration location"),
-				new TextSetting("Location of ICARUS compiler (IBIZE)"),
-				new TextSetting("Command description file (BehavEd.bhc)"),
-				new TextSetting("Source files path"),
+				new TextSetting("ScriptPath", "Script path"),
+				new TextSetting("SourceSafeScriptPath", "SourceSafe script path"),
+				new TextSetting("SourceSafeConfigurationLocation", "SourceSafe configuration location"),
+				new TextSetting("IcarusCompilerPath", "Location of ICARUS compiler (IBIZE)"),
+				new TextSetting("CommandDescriptionFile", "Command description file (BehavEd.bhc)"),
+				new TextSetting("SourceFilesPath", "Source files path"),
 			});
 		}
 	}

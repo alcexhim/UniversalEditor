@@ -29,57 +29,57 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.SettingsProviders
 	/// </summary>
 	public class SingingStyleDefaultsSettingsProvider : ApplicationSettingsProvider
 	{
-		public SingingStyleDefaultsSettingsProvider ()
+		public SingingStyleDefaultsSettingsProvider()
 		{
-			SettingsGroups.Add ("Editors:Synthesized Audio:External Programs", new Setting[]
+			SettingsGroups.Add("Editors:Synthesized Audio:External Programs", new Setting[]
 			{
-				new BooleanSetting("Use external _wavefile manipulation tool"),
-				new TextSetting("Path"),
-				new BooleanSetting("Use external _resampling tool"),
-				new TextSetting("Path"),
-				new TextSetting("Voicebank _directory")
+				new BooleanSetting("ExternalWavefileManipulationToolEnabled", "Use external _wavefile manipulation tool"),
+				new TextSetting("ExternalWavefileManipulationToolFileName", "Path"),
+				new BooleanSetting("ExternalResamplingToolEnabled", "Use external _resampling tool"),
+				new TextSetting("ExternalResamplingToolFileName", "Path"),
+				new TextSetting("VoicebankDirectory", "Voicebank _directory")
 			});
-			SettingsGroups.Add ("Editors:Synthesized Audio:MIDI Settings", new Setting[]
+			SettingsGroups.Add("Editors:Synthesized Audio:MIDI Settings", new Setting[]
 			{
-				new GroupSetting("MIDI Devices", new Setting[]
+				new GroupSetting("MIDIDevices", "MIDI Devices", new Setting[]
 				{
-					new ChoiceSetting("_Input device"),
-					new ChoiceSetting("_Output device")
+					new ChoiceSetting("MIDIInputDeviceName", "_Input device"),
+					new ChoiceSetting("MIDIOutputDeviceName", "_Output device")
 				}),
-				new BooleanSetting("Play notes through MIDI output upon _selection"),
-				new BooleanSetting("Send _Program Change for the following program before continuing"),
-				new ChoiceSetting(String.Empty)
+				new BooleanSetting("MIDIPlayOnSelection", "Play notes through MIDI output upon _selection"),
+				new BooleanSetting("MIDIProgramChangeEnabled", "Send _Program Change for the following program before continuing"),
+				new ChoiceSetting("MIDIProgramChangeProgram", String.Empty)
 			});
-			SettingsGroups.Add ("Editors:Synthesized Audio:Phoneme Dictionary", new Setting[]
+			SettingsGroups.Add("Editors:Synthesized Audio:Phoneme Dictionary", new Setting[]
 			{
 			});
-			SettingsGroups.Add ("Editors:Synthesized Audio:Synthesizers", new Setting[]
+			SettingsGroups.Add("Editors:Synthesized Audio:Synthesizers", new Setting[]
 			{
 			});
 			SettingsGroups.Add("Editors:Synthesized Audio:Singing Style Defaults", new Setting[]
 			{
 				// new CommandOption("_Load settings from VOCALOID2"),
 				// 2q22wnew CommandOption("_Save settings from VOCALOID2"),
-				new ChoiceSetting("_Template", null, new ChoiceSetting.ChoiceSettingValue[]
+				new ChoiceSetting("Template", "_Template", null, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new ChoiceSetting.ChoiceSettingValue("(Custom)", "custom"),
-					new ChoiceSetting.ChoiceSettingValue("Normal", "normal"),
-					new ChoiceSetting.ChoiceSettingValue("Accent", "accent"),
-					new ChoiceSetting.ChoiceSettingValue("Strong Accent", "strongaccent"),
-					new ChoiceSetting.ChoiceSettingValue("Legato", "legato"),
-					new ChoiceSetting.ChoiceSettingValue("Slow Legato", "slowlegato"),
+					new ChoiceSetting.ChoiceSettingValue("custom", "(Custom)", "custom"),
+					new ChoiceSetting.ChoiceSettingValue("normal", "Normal", "normal"),
+					new ChoiceSetting.ChoiceSettingValue("accent", "Accent", "accent"),
+					new ChoiceSetting.ChoiceSettingValue("strongaccent", "Strong Accent", "strongaccent"),
+					new ChoiceSetting.ChoiceSettingValue("legato", "Legato", "legato"),
+					new ChoiceSetting.ChoiceSettingValue("slowlegato", "Slow Legato", "slowlegato"),
 				}),
-				new GroupSetting("Pitch control", new Setting[]
+				new GroupSetting("PitchControl", "Pitch control", new Setting[]
 				{
-					new RangeSetting("_Bend depth", 8, 0, 100),
-					new RangeSetting("Bend _length", 0, 0, 100),
-					new BooleanSetting("Add portamento in _rising movement"),
-					new BooleanSetting("Add portamento in _falling movement")
+					new RangeSetting("BendDepth", "_Bend depth", 8, 0, 100),
+					new RangeSetting("BendLength", "Bend _length", 0, 0, 100),
+					new BooleanSetting("AddPortamentoRising", "Add portamento in _rising movement"),
+					new BooleanSetting("AddPortamentoFalling", "Add portamento in _falling movement")
 				}),
-				new GroupSetting("Dynamics control", new Setting[]
+				new GroupSetting("DynamicsControl", "Dynamics control", new Setting[]
 				{
-					new RangeSetting("_Decay", 50, 0, 100),
-					new RangeSetting("_Accent", 50, 0, 100)
+					new RangeSetting("Decay", "_Decay", 50, 0, 100),
+					new RangeSetting("Accent", "_Accent", 50, 0, 100)
 				})
 			});
 		}

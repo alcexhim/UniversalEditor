@@ -97,7 +97,6 @@
     <Compile Include="Dialogs\DocumentPropertiesDialog.cs" />
     <Compile Include="Dialogs\GenericBrowserPopup.cs" />
     <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs" />
-    <Compile Include="Dialogs\CustomOptionsDialog.cs" />
     <Compile Include="Panels\StartPagePanel.cs" />
     <Compile Include="Editors\FileSystem\FileSystemEditorSettingsProvider.cs" />
     <Compile Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.cs" />
