@@ -37,9 +37,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Valve.GCF
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionVersion(nameof(FormatVersion), "Format &version: "));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(CacheID), "&Cache ID: "));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(LastVersionPlayed), "&Last version played: "));
+				_dfr.ExportOptions.Add(new CustomOptionVersion(nameof(FormatVersion), "Format _version"));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(CacheID), "_Cache ID"));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(LastVersionPlayed), "_Last version played"));
 			}
 			return _dfr;
 		}

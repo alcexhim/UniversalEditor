@@ -46,7 +46,7 @@ namespace UniversalEditor.DataFormats.Text.HTML
 				_dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Title), "&Title: "));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Title), "_Title"));
 			}
 			return _dfr;
 		}

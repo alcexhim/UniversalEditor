@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TapeArchive
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(IsUnixStandardTAR), "Create a UNIX standard tape archive (ustar)", true));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(IsUnixStandardTAR), "Create a _UNIX standard tape archive (ustar)", true));
 			}
 			return _dfr;
 		}

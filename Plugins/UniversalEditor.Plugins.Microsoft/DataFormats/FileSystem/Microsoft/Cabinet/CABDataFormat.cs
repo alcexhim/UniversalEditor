@@ -19,14 +19,14 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://msdn.microsoft.com/en-us/library/bb267310.aspx#struct_spec");
 
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(CabinetReservedAreaSize), "Per-&cabinet reserved area size:", 0, 0, UInt16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(FolderReservedAreaSize), "Per-&folder reserved area size:", 0, 0, Byte.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(DatablockReservedAreaSize), "Per-&datablock reserved area size:", 0, 0, Byte.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(CabinetReservedAreaSize), "Per-_cabinet reserved area size", 0, 0, UInt16.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(FolderReservedAreaSize), "Per-_folder reserved area size", 0, 0, Byte.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(DatablockReservedAreaSize), "Per-_datablock reserved area size", 0, 0, Byte.MaxValue));
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(NextCabinetName), "&Next cabinet file name:"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(NextDiskName), "Ne&xt cabinet disk name:"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PreviousCabinetName), "&Previous cabinet file name:"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PreviousDiskName), "Pre&vious cabinet disk name:"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(NextCabinetName), "_Next cabinet file name"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(NextDiskName), "Ne_xt cabinet disk name"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PreviousCabinetName), "_Previous cabinet file name"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PreviousDiskName), "Pre_vious cabinet disk name"));
 			}
 			return _dfr;
 		}

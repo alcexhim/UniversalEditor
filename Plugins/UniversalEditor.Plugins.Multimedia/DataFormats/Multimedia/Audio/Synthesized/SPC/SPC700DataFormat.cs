@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 
-			dfr.ExportOptions.Add(new CustomOptionChoice("Generator", "&Generator:", true,
+			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Generator), "_Generator", true,
 				new CustomOptionFieldChoice("Unknown", SPC700Emulator.Unknown, true),
 				new CustomOptionFieldChoice("ZSNES", SPC700Emulator.ZSNES),
 				new CustomOptionFieldChoice("Snes9x", SPC700Emulator.Snes9x)
