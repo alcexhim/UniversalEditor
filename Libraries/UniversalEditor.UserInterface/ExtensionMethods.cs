@@ -85,7 +85,7 @@ namespace UniversalEditor.UserInterface
 			{
 				CustomOptionFile option = (eo as CustomOptionFile);
 				// sg.Settings.Add(new FileSetting(option.Title, option.DefaultValue));
-				sg.Settings.Add(new TextSetting(option.PropertyName, option.Title, (string)option.GetValue()));
+				sg.Settings.Add(new FileSetting(option.PropertyName, option.Title, (string)option.GetValue()));
 			}
 			else if (eo is CustomOptionGroup)
 			{
