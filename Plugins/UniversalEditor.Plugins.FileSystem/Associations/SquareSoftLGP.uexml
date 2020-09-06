@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="SquareSoft LGP archive">
+				<Filter Title="SquareSoft LGP archive" ContentType="application/x-squaresoft-lgp">
 					<FileNameFilters>
 						<FileNameFilter>*.lgp</FileNameFilter>
 					</FileNameFilters>
