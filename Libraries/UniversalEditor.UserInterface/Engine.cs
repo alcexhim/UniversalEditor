@@ -312,15 +312,11 @@ namespace UniversalEditor.UserInterface
 			dlg.SettingsProviders.Add(csp);
 
 			SettingsGroup sg = new SettingsGroup();
+			sg.Priority = 0;
+			sg.Path = new string[] { "General" };
 			csp.SettingsGroups.Add(sg);
 
-			foreach (CustomOption eo in customOptions)
-			{
-				// do not render the CustomOption if it's supposed to be invisible
-				if (!eo.Visible) continue;
-
-				AddCustomOptionToSettingsGroup(csp, eo, sg);
-			}
+			sg.AddCustomOptions(customOptions, csp);
 
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
@@ -335,64 +331,6 @@ namespace UniversalEditor.UserInterface
 				return true;
 			}
 			return false;
-		}
-
-		private void AddCustomOptionToSettingsGroup(CustomSettingsProvider csp, CustomOption eo, SettingsGroup sg, string[] path = null)
-		{
-			if (eo is CustomOptionChoice)
-			{
-				CustomOptionChoice option = (eo as CustomOptionChoice);
-
-				List<ChoiceSetting.ChoiceSettingValue> choices = new List<ChoiceSetting.ChoiceSettingValue>();
-				foreach (CustomOptionFieldChoice choice in option.Choices)
-				{
-					choices.Add(new ChoiceSetting.ChoiceSettingValue(choice.Title, choice.Title, choice.Value));
-				}
-				sg.Settings.Add(new ChoiceSetting(option.PropertyName, option.Title, null, choices.ToArray()));
-			}
-			else if (eo is CustomOptionNumber)
-			{
-				CustomOptionNumber option = (eo as CustomOptionNumber);
-				sg.Settings.Add(new RangeSetting(option.PropertyName, option.Title, option.DefaultValue, option.MinimumValue, option.MaximumValue));
-			}
-			else if (eo is CustomOptionText)
-			{
-				CustomOptionText option = (eo as CustomOptionText);
-				sg.Settings.Add(new TextSetting(option.PropertyName, option.Title, option.DefaultValue));
-			}
-			else if (eo is CustomOptionBoolean)
-			{
-				CustomOptionBoolean option = (eo as CustomOptionBoolean);
-				sg.Settings.Add(new BooleanSetting(option.PropertyName, option.Title, option.DefaultValue));
-			}
-			else if (eo is CustomOptionFile)
-			{
-				CustomOptionFile option = (eo as CustomOptionFile);
-				// sg.Settings.Add(new FileSetting(option.Title, option.DefaultValue));
-				sg.Settings.Add(new TextSetting(option.PropertyName, option.Title, option.DefaultValue));
-			}
-			else if (eo is CustomOptionGroup)
-			{
-				CustomOptionGroup cogrp = (eo as CustomOptionGroup);
-				SettingsGroup sg1 = new SettingsGroup();
-				if (path == null)
-				{
-					path = new string[] { cogrp.Title };
-				}
-				else
-				{
-					string[] path2 = new string[path.Length + 1];
-					Array.Copy(path, 0, path2, 0, path.Length);
-					path2[path2.Length - 1] = cogrp.Title;
-					path = path2;
-				}
-				sg1.Path = path;
-				for (int j = 0; j < cogrp.Options.Count; j++)
-				{
-					AddCustomOptionToSettingsGroup(csp, cogrp.Options[j], sg1, path);
-				}
-				csp.SettingsGroups.Add(sg1);
-			}
 		}
 		#endregion
 

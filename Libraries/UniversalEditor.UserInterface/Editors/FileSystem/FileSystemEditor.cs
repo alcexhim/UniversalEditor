@@ -815,7 +815,7 @@ namespace UniversalEditor.Editors.FileSystem
 			// (tv.ContextMenu.Items["FileSystemContextMenu_PasteShortcut"] as CommandMenuItem).Enabled = Clipboard.Default.ContainsFileList;
 		}
 
-		protected override SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProvidersInternal()
 		{
 			List<SettingsProvider> list = new List<SettingsProvider>();
 

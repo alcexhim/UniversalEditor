@@ -281,7 +281,7 @@ namespace UniversalEditor.Editors.Markup
 		}
 
 		private CustomSettingsProvider _spMarkupProvider = null;
-		protected override SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProvidersInternal()
 		{
 			if (_spMarkupProvider == null)
 			{

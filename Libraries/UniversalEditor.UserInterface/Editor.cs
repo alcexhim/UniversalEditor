@@ -232,6 +232,8 @@ namespace UniversalEditor.UserInterface
 		#region IEditorImplementation Members
 		public string Title { get; set; }
 
+		public Document Document { get; set; } = null;
+
 		private ObjectModel mvarObjectModel = null;
 		public ObjectModel ObjectModel
 		{
@@ -774,16 +776,56 @@ namespace UniversalEditor.UserInterface
 			EndEdit ();
 		}
 
-		protected virtual SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		protected virtual SettingsProvider[] GetDocumentPropertiesSettingsProvidersInternal()
 		{
 			return null;
+		}
+
+		protected SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		{
+			SettingsProvider[] customs = GetDocumentPropertiesSettingsProvidersInternal();
+
+			List<SettingsProvider> list = null;
+			if (customs == null)
+			{
+				list = new List<SettingsProvider>();
+			}
+			else
+			{
+				list = new List<SettingsProvider>(customs);
+			}
+
+			if (Document != null)
+			{
+				if (Document.DataFormat != null)
+				{
+					List<CustomOption> listOptions = new List<CustomOption>();
+					DataFormatReference dfr = Document.DataFormat.MakeReference();
+					for (int i = 0; i < dfr.ExportOptions.Count; i++)
+					{
+						if (!dfr.ExportOptions[i].Visible) continue;
+						listOptions.Add(dfr.ExportOptions[i]);
+					}
+					if (listOptions.Count > 0)
+					{
+						CustomSettingsProvider csp = new CustomSettingsProvider();
+						SettingsGroup sg = new SettingsGroup();
+						sg.Path = new string[] { dfr.Title };
+						csp.SettingsGroups.Add(sg);
+
+						sg.AddCustomOptions(listOptions, csp);
+						list.Add(csp);
+					}
+				}
+			}
+			return list.ToArray();
 		}
 
 		/// <summary>
 		/// Shows the document properties dialog. This function can be overridden to display a custom document properties dialog, but offers a
 		/// built-in implementation based on the UWT <see cref="SettingsDialog" /> which is populated with <see cref="SettingsProvider" />s from a call to
 		/// <see cref="GetDocumentPropertiesSettingsProviders" />. It is recommended that subclasses of <see cref="Editor" /> override the
-		/// <see cref="GetDocumentPropertiesSettingsProviders" /> function instead of this one if they do not require a custom dialog layout.
+		/// <see cref="GetDocumentPropertiesSettingsProvidersInternal" /> function instead of this one if they do not require a custom dialog layout.
 		/// </summary>
 		/// <returns><c>true</c>, if document properties dialog was shown (regardless of whether it was accepted or not), <c>false</c> otherwise.</returns>
 		protected virtual bool ShowDocumentPropertiesDialogInternal()

@@ -177,6 +177,7 @@ namespace UniversalEditor.UserInterface.Pages
 					}
 					ed.ObjectModel = om1;
 				}
+				ed.Document = Document;
 
 				if (requiresOpen)
 					mvarDocument.Accessor.Close();

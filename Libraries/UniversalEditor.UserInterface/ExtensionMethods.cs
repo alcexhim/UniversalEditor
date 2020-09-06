@@ -19,7 +19,9 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
 using System.Text;
+using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Dialogs;
 
 namespace UniversalEditor.UserInterface
@@ -49,6 +51,75 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 			dialog.FileNameFilters.Add(title, sb.ToString());
+		}
+
+		private static void AddCustomOptionToSettingsGroup(CustomSettingsProvider csp, CustomOption eo, SettingsGroup sg, string[] path = null)
+		{
+			if (eo is CustomOptionChoice)
+			{
+				CustomOptionChoice option = (eo as CustomOptionChoice);
+
+				List<ChoiceSetting.ChoiceSettingValue> choices = new List<ChoiceSetting.ChoiceSettingValue>();
+				foreach (CustomOptionFieldChoice choice in option.Choices)
+				{
+					choices.Add(new ChoiceSetting.ChoiceSettingValue(choice.Title, choice.Title, choice.Value));
+				}
+				sg.Settings.Add(new ChoiceSetting(option.PropertyName, option.Title, option.Value == null ? null : new ChoiceSetting.ChoiceSettingValue(option.Value.Title, option.Value.Title, option.Value.Value), choices.ToArray()));
+			}
+			else if (eo is CustomOptionNumber)
+			{
+				CustomOptionNumber option = (eo as CustomOptionNumber);
+				sg.Settings.Add(new RangeSetting(option.PropertyName, option.Title, (decimal)option.GetValue(), option.MinimumValue, option.MaximumValue));
+			}
+			else if (eo is CustomOptionText)
+			{
+				CustomOptionText option = (eo as CustomOptionText);
+				sg.Settings.Add(new TextSetting(option.PropertyName, option.Title, (string)option.GetValue()));
+			}
+			else if (eo is CustomOptionBoolean)
+			{
+				CustomOptionBoolean option = (eo as CustomOptionBoolean);
+				sg.Settings.Add(new BooleanSetting(option.PropertyName, option.Title, (bool)option.GetValue()));
+			}
+			else if (eo is CustomOptionFile)
+			{
+				CustomOptionFile option = (eo as CustomOptionFile);
+				// sg.Settings.Add(new FileSetting(option.Title, option.DefaultValue));
+				sg.Settings.Add(new TextSetting(option.PropertyName, option.Title, (string)option.GetValue()));
+			}
+			else if (eo is CustomOptionGroup)
+			{
+				CustomOptionGroup cogrp = (eo as CustomOptionGroup);
+				SettingsGroup sg1 = new SettingsGroup();
+				if (path == null)
+				{
+					path = new string[] { cogrp.Title };
+				}
+				else
+				{
+					string[] path2 = new string[path.Length + 1];
+					Array.Copy(path, 0, path2, 0, path.Length);
+					path2[path2.Length - 1] = cogrp.Title;
+					path = path2;
+				}
+				sg1.Path = path;
+				for (int j = 0; j < cogrp.Options.Count; j++)
+				{
+					AddCustomOptionToSettingsGroup(csp, cogrp.Options[j], sg1, path);
+				}
+				csp.SettingsGroups.Add(sg1);
+			}
+		}
+
+		public static void AddCustomOptions(this SettingsGroup sg, IEnumerable<CustomOption> options, CustomSettingsProvider csp)
+		{
+			foreach (CustomOption eo in options)
+			{
+				// do not render the CustomOption if it's supposed to be invisible
+				if (!eo.Visible) continue;
+
+				AddCustomOptionToSettingsGroup(csp, eo, sg);
+			}
 		}
 	}
 }
