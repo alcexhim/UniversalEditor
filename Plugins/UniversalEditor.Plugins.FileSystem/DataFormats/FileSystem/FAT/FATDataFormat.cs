@@ -61,17 +61,17 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(OEMName), "OEM &name:", "MSDOS5.0", 8));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(OEMName), "OEM _name", "MSDOS5.0", 8));
 
 				#region Bios Parameter Block
 				{
 					CustomOptionGroup grp = new CustomOptionGroup(nameof(BiosParameterBlock), "BIOS parameter block");
-					grp.Options.Add(new CustomOptionNumber("BytesPerSector", "&Bytes per sector:", 512, 0, short.MaxValue));
-					grp.Options.Add(new CustomOptionNumber("SectorsPerCluster", "&Sectors per cluster:", 1, 1, 128));
-					grp.Options.Add(new CustomOptionNumber("ReservedSectorCount", "&Reserved sectors:", 32, 0, short.MaxValue));
-					grp.Options.Add(new CustomOptionNumber("FileAllocationTableCount", "Number of &file allocation tables:", 2, 0, byte.MaxValue));
-					grp.Options.Add(new CustomOptionNumber("MaximumRootDirectoryEntryCount", "Maximum number of &root directory entries:", 0, 0, short.MaxValue));
-					grp.Options.Add(new CustomOptionChoice("MediaDescriptor", "Media &descriptor:", true,
+					grp.Options.Add(new CustomOptionNumber("BytesPerSector", "_Bytes per sector", 512, 0, short.MaxValue));
+					grp.Options.Add(new CustomOptionNumber("SectorsPerCluster", "_Sectors per cluster", 1, 1, 128));
+					grp.Options.Add(new CustomOptionNumber("ReservedSectorCount", "_Reserved sectors", 32, 0, short.MaxValue));
+					grp.Options.Add(new CustomOptionNumber("FileAllocationTableCount", "Number of _file allocation tables", 2, 0, byte.MaxValue));
+					grp.Options.Add(new CustomOptionNumber("MaximumRootDirectoryEntryCount", "Maximum number of _root directory entries", 0, 0, short.MaxValue));
+					grp.Options.Add(new CustomOptionChoice("MediaDescriptor", "Media _descriptor", true,
 						new CustomOptionFieldChoice("Unknown", FATMediaDescriptor.Unknown),
 						new CustomOptionFieldChoice("3.5\" double-sided, 80 tracks per side, 18 or 36 sectors per track (1.44MB or 2.88MB)", FATMediaDescriptor.MediaDescriptor0),
 						new CustomOptionFieldChoice("5.25\" double-sided, 80 tracks per side, 15 sectors per track (1.2MB)", FATMediaDescriptor.MediaDescriptor0),
@@ -86,29 +86,29 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						new CustomOptionFieldChoice("5.25\" double-sided, 40 tracks per side, 8 sectors per track (320K)", FATMediaDescriptor.MediaDescriptor8)
 					));
 
-					grp.Options.Add(new CustomOptionNumber("SectorsPerFAT16", "Sectors per allocation table:", 0));
-					grp.Options.Add(new CustomOptionNumber("SectorsPerTrack", "Sectors per track:", 0));
-					grp.Options.Add(new CustomOptionNumber("NumberOfHeads", "Number of heads:", 0));
-					grp.Options.Add(new CustomOptionNumber("HiddenSectorCount", "Number of &hidden sectors:", 0));
-					grp.Options.Add(new CustomOptionNumber("TotalSectors", "Number of &total sectors:", 0));
+					grp.Options.Add(new CustomOptionNumber("SectorsPerFAT16", "Sectors per allocation table", 0));
+					grp.Options.Add(new CustomOptionNumber("SectorsPerTrack", "Sectors per track", 0));
+					grp.Options.Add(new CustomOptionNumber("NumberOfHeads", "Number of heads", 0));
+					grp.Options.Add(new CustomOptionNumber("HiddenSectorCount", "Number of _hidden sectors", 0));
+					grp.Options.Add(new CustomOptionNumber("TotalSectors", "Number of _total sectors", 0));
 					_dfr.ExportOptions.Add(grp);
 				}
 				#endregion
 				#region Extended BIOS parameter block
 				{
 					CustomOptionGroup grp = new CustomOptionGroup(nameof(ExtendedBiosParameterBlock), "Extended BIOS parameter block");
-					grp.Options.Add(new CustomOptionNumber("PhysicalDriveNumber", "Physical drive &number:", 0));
-					grp.Options.Add(new CustomOptionMultipleChoice("CheckDiskFlags", "CHKDSK &flags:", new CustomOptionFieldChoice("Dirty", FATCheckDiskFlags.Dirty), new CustomOptionFieldChoice("Error", FATCheckDiskFlags.Error)));
-					grp.Options.Add(new CustomOptionNumber("NumberOfHeads", "Number of heads:", 0));
-					grp.Options.Add(new CustomOptionNumber("HiddenSectorCount", "Number of &hidden sectors:", 0));
-					grp.Options.Add(new CustomOptionNumber("TotalSectors", "Number of &total sectors:", 0));
+					grp.Options.Add(new CustomOptionNumber("PhysicalDriveNumber", "Physical drive _number", 0));
+					grp.Options.Add(new CustomOptionMultipleChoice("CheckDiskFlags", "CHKDSK _flags", new CustomOptionFieldChoice("Dirty", FATCheckDiskFlags.Dirty), new CustomOptionFieldChoice("Error", FATCheckDiskFlags.Error)));
+					grp.Options.Add(new CustomOptionNumber("NumberOfHeads", "Number of heads", 0));
+					grp.Options.Add(new CustomOptionNumber("HiddenSectorCount", "Number of _hidden sectors", 0));
+					grp.Options.Add(new CustomOptionNumber("TotalSectors", "Number of _total sectors", 0));
 					#region Extended Boot Signature
 					{
 						CustomOptionGroup grp1 = new CustomOptionGroup("ExtendedBootSignature", "Extended Boot Signature");
-						grp1.Options.Add(new CustomOptionBoolean("Enabled", "Include extended boot signature", true));
-						grp1.Options.Add(new CustomOptionNumber("VolumeSerialNumber", "Volume &serial number:", 0));
-						grp1.Options.Add(new CustomOptionText("PartitionVolumeLabel", "Partition &volume label:", String.Empty));
-						grp1.Options.Add(new CustomOptionText("FileSystemType", "File system &type:", String.Empty));
+						grp1.Options.Add(new CustomOptionBoolean("Enabled", "_Include extended boot signature", true));
+						grp1.Options.Add(new CustomOptionNumber("VolumeSerialNumber", "Volume _serial number", 0));
+						grp1.Options.Add(new CustomOptionText("PartitionVolumeLabel", "Partition _volume label", String.Empty));
+						grp1.Options.Add(new CustomOptionText("FileSystemType", "File system _type", String.Empty));
 						grp.Options.Add(grp1);
 					}
 					#endregion

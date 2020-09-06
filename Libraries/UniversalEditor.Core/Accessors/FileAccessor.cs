@@ -41,11 +41,11 @@ namespace UniversalEditor.Accessors
 				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Local file";
 
-				_ar.ImportOptions.Add(new CustomOptionFile(nameof(FileName), "_File name:"));
+				_ar.ImportOptions.Add(new CustomOptionFile(nameof(FileName), "_File name"));
 				_ar.ImportOptions.Add(new CustomOptionBoolean(nameof(ForceOverwrite), "Force over_write if file exists", false, false, false));
 				_ar.ImportOptions.Add(new CustomOptionBoolean(nameof(AllowWrite), "Open file for writing", false, false, false));
 
-				CustomOptionFile cofExportFileName = new CustomOptionFile(nameof(FileName), "_File name:");
+				CustomOptionFile cofExportFileName = new CustomOptionFile(nameof(FileName), "_File name");
 				cofExportFileName.DialogMode = CustomOptionFileDialogMode.Save;
 				_ar.ExportOptions.Add(cofExportFileName);
 

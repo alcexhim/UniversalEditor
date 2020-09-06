@@ -26,7 +26,6 @@ using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript;
 using UniversalEditor.UserInterface;
-using UniversalEditor.UserInterface.Dialogs;
 
 namespace UniversalEditor.Plugins.Setup.UserInterface
 {
@@ -96,11 +95,19 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			BootstrapScriptObjectModel setup = (ObjectModel as BootstrapScriptObjectModel);
 			if (setup == null) return;
 
-			CustomOptionsDialog dlg = new CustomOptionsDialog();
-			dlg.CustomOptions.Add(new CustomOptionText("Name", "Platform _name"));
+			SettingsDialog dlg = new SettingsDialog(new SettingsProvider[]
+			{
+				new CustomSettingsProvider(new SettingsGroup[]
+				{
+					new SettingsGroup(String.Empty, new Setting[]
+					{
+						new TextSetting("Name", "Platform _name")
+					})
+				})
+			});
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				string platformName = dlg.CustomOptions[0].GetValue()?.ToString();
+				string platformName = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
 
 				BootstrapOperatingSystem os = new BootstrapOperatingSystem();
 				os.Name = platformName;
@@ -128,11 +135,20 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			BootstrapOperatingSystem os = tvPlatforms.SelectedRows[0].GetExtraData<BootstrapOperatingSystem>("item");
 			if (os == null) return;
 
-			CustomOptionsDialog dlg = new CustomOptionsDialog();
-			dlg.CustomOptions.Add(new CustomOptionText("Name", "Platform _name", os.Name));
+			SettingsDialog dlg = new SettingsDialog(new SettingsProvider[]
+			{
+				new CustomSettingsProvider(new SettingsGroup[]
+				{
+					new SettingsGroup(String.Empty, new Setting[]
+					{
+						new TextSetting("Name", "Platform _name")
+					})
+				})
+			});
+			dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].SetValue(os.Name);
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				string platformName = dlg.CustomOptions[0].GetValue()?.ToString();
+				string platformName = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
 
 				BeginEdit();
 				os.Name = platformName;
@@ -179,13 +195,21 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			BootstrapOperatingSystem os = tvPlatforms.SelectedRows[0].GetExtraData<BootstrapOperatingSystem>("item");
 			if (os == null) return;
 
-			CustomOptionsDialog dlg = new CustomOptionsDialog();
-			dlg.CustomOptions.Add(new CustomOptionText("Name", "Parameter _name"));
-			dlg.CustomOptions.Add(new CustomOptionText("Value", "_Value"));
+			SettingsDialog dlg = new SettingsDialog(new SettingsProvider[]
+			{
+				new CustomSettingsProvider(new SettingsGroup[]
+				{
+					new SettingsGroup(String.Empty, new Setting[]
+					{
+						new TextSetting("Name", "Parameter _name"),
+						new TextSetting("Value", "_Value")
+					})
+				})
+			});
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				string name = dlg.CustomOptions[0].GetValue()?.ToString();
-				string value = dlg.CustomOptions[1].GetValue()?.ToString();
+				string name = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
+				string value = dlg.SettingsProviders[0].SettingsGroups[0].Settings[1].GetValue()?.ToString();
 
 				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 				{
@@ -213,13 +237,23 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 
 			string oldname = tvParameters.SelectedRows[0].GetExtraData<KeyValuePair<string, string>>("item").Key;
 
-			CustomOptionsDialog dlg = new CustomOptionsDialog();
-			dlg.CustomOptions.Add(new CustomOptionText("Name", "Parameter _name", oldname));
-			dlg.CustomOptions.Add(new CustomOptionText("Value", "_Value", os.Parameters[oldname]));
+			SettingsDialog dlg = new SettingsDialog(new SettingsProvider[]
+			{
+				new CustomSettingsProvider(new SettingsGroup[]
+				{
+					new SettingsGroup(String.Empty, new Setting[]
+					{
+						new TextSetting("Name", "Parameter _name"),
+						new TextSetting("Value", "_Value")
+					})
+				})
+			});
+			dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].SetValue(oldname);
+			dlg.SettingsProviders[0].SettingsGroups[0].Settings[1].SetValue(os.Parameters[oldname]);
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				string name = dlg.CustomOptions[0].GetValue()?.ToString();
-				string value = dlg.CustomOptions[1].GetValue()?.ToString();
+				string name = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
+				string value = dlg.SettingsProviders[0].SettingsGroups[0].Settings[1].GetValue()?.ToString();
 
 				if (os.Parameters.ContainsKey(oldname))
 				{
@@ -274,13 +308,20 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			BootstrapOperatingSystem os = tvPlatforms.SelectedRows[0].GetExtraData<BootstrapOperatingSystem>("item");
 			if (os == null) return;
 
-			CustomOptionsDialog dlg = new CustomOptionsDialog();
-			dlg.CustomOptions.Add(new CustomOptionText("SourceFileName", "_Source"));
-			dlg.CustomOptions.Add(new CustomOptionText("DestinationFileName", "_Destination"));
+			SettingsDialog dlg = new SettingsDialog();
+			dlg.SettingsProviders.Clear();
+			dlg.SettingsProviders.Add(new CustomSettingsProvider(new SettingsGroup[]
+			{
+				new SettingsGroup(String.Empty, new Setting[]
+				{
+					new TextSetting("SourceFileName", "_Source"),
+					new TextSetting("DestinationFileName", "_Destination")
+				})
+			}));
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				string name = dlg.CustomOptions[0].GetValue()?.ToString();
-				string value = dlg.CustomOptions[1].GetValue()?.ToString();
+				string name = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
+				string value = dlg.SettingsProviders[0].SettingsGroups[0].Settings[1].GetValue()?.ToString();
 
 				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 				{
@@ -314,13 +355,20 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 
 			BootstrapFile file = tvFiles.SelectedRows[0].GetExtraData<BootstrapFile>("item");
 
-			CustomOptionsDialog dlg = new CustomOptionsDialog();
-			dlg.CustomOptions.Add(new CustomOptionText("Name", "_Source", file.SourceFileName));
-			dlg.CustomOptions.Add(new CustomOptionText("Value", "_Destination", file.DestinationFileName));
+			SettingsDialog dlg = new SettingsDialog();
+			dlg.SettingsProviders.Clear();
+			dlg.SettingsProviders.Add(new CustomSettingsProvider(new SettingsGroup[]
+			{
+				new SettingsGroup(String.Empty, new Setting[]
+				{
+					new TextSetting("SourceFileName", "_Source"),
+					new TextSetting("DestinationFileName", "_Destination")
+				})
+			}));
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				string name = dlg.CustomOptions[0].GetValue()?.ToString();
-				string value = dlg.CustomOptions[1].GetValue()?.ToString();
+				string name = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
+				string value = dlg.SettingsProviders[0].SettingsGroups[0].Settings[1].GetValue()?.ToString();
 
 				BeginEdit();
 				file.SourceFileName = name;

@@ -281,7 +281,7 @@ namespace UniversalEditor.Editors.Markup
 		}
 
 		private CustomSettingsProvider _spMarkupProvider = null;
-		protected override SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProvidersInternal()
 		{
 			if (_spMarkupProvider == null)
 			{
@@ -290,15 +290,15 @@ namespace UniversalEditor.Editors.Markup
 				_spMarkupProvider.SettingsSaved += _spMarkupProvider_SettingsSaved;
 				_spMarkupProvider.SettingsGroups.Add(new SettingsGroup("General", new Setting[]
 				{
-					new ChoiceSetting("Version", null, new ChoiceSetting.ChoiceSettingValue[]
+					new ChoiceSetting("Version", "_Version", null, new ChoiceSetting.ChoiceSettingValue[]
 					{
-						new ChoiceSetting.ChoiceSettingValue("1.0", 1.0)
+						new ChoiceSetting.ChoiceSettingValue("1.0", "1.0", 1.0)
 					}),
-					new ChoiceSetting("Encoding", null, new ChoiceSetting.ChoiceSettingValue[]
+					new ChoiceSetting("Encoding", "_Encoding", null, new ChoiceSetting.ChoiceSettingValue[]
 					{
-						new ChoiceSetting.ChoiceSettingValue("UTF-8", "utf-8")
+						new ChoiceSetting.ChoiceSettingValue("UTF-8", "UTF-8", "utf-8")
 					}),
-					new BooleanSetting("Standalone", false)
+					new BooleanSetting("Standalone", "_Standalone", false)
 				}));
 			}
 			return new SettingsProvider[] { _spMarkupProvider };

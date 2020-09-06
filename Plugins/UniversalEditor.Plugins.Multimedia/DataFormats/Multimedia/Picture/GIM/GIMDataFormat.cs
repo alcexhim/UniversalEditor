@@ -43,12 +43,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://pspdum.my.land.to/psp/gim.html");
 
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Endianness), "&Endianness:", true,
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Endianness), "_Endianness", true,
 					new CustomOptionFieldChoice("Big-Endian", IO.Endianness.BigEndian),
 					new CustomOptionFieldChoice("Little-Endian", IO.Endianness.LittleEndian, true)
 				));
 
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(ImageFormat), "&Image format:", true,
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(ImageFormat), "_Image format", true,
 					new CustomOptionFieldChoice("Indexed (4-bit)", GIMImageFormat.Index4),
 					new CustomOptionFieldChoice("Indexed (8-bit)", GIMImageFormat.Index8),
 					new CustomOptionFieldChoice("Indexed (16-bit)", GIMImageFormat.Index16),
@@ -58,20 +58,20 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 					new CustomOptionFieldChoice("Bitmap (R5-G6-B5-A0)", GIMImageFormat.RGBA5650),
 					new CustomOptionFieldChoice("Bitmap (R8-G8-B8-A8)", GIMImageFormat.RGBA8888, true)
 				));
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PaletteFormat), "&Palette format:", true,
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PaletteFormat), "_Palette format", true,
 					new CustomOptionFieldChoice("Bitmap (R4-G4-B4-A4)", GIMPaletteFormat.RGBA4444),
 					new CustomOptionFieldChoice("Bitmap (R5-G5-B5-A1)", GIMPaletteFormat.RGBA5551),
 					new CustomOptionFieldChoice("Bitmap (R5-G6-B5-A0)", GIMPaletteFormat.RGBA5650),
 					new CustomOptionFieldChoice("Bitmap (R8-G8-B8-A8)", GIMPaletteFormat.RGBA8888, true)
 				));
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelOrder), "Pixel &order:", true,
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelOrder), "Pixel _order", true,
 					new CustomOptionFieldChoice("Normal", GIMPixelOrder.Normal, true),
 					new CustomOptionFieldChoice("Faster", GIMPixelOrder.Faster)
 				));
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(OriginalFileName), "Original &filename:"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CreationUserName), "Creation &user:"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CreationApplication), "&Application name:", "Universal Editor"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(OriginalFileName), "Original _filename"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CreationUserName), "Creation _user"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CreationApplication), "_Application name", "Universal Editor"));
 			}
 			return _dfr;
 		}

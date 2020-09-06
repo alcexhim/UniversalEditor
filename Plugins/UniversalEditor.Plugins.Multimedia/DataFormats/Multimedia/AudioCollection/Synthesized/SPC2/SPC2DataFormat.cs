@@ -39,8 +39,8 @@ namespace UniversalEditor.DataFormats.Multimedia.AudioCollection.Synthesized.SPC
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(SynthesizedAudioCollectionObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionBoolean(nameof(UseID666TagInformationIfAvailable), "Use &ID666 tag information if available"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(UseID666TagInformationIfAvailable), "Include &ID666 tag information in output file"));
+				_dfr.ImportOptions.Add(new CustomOptionBoolean(nameof(UseID666TagInformationIfAvailable), "Use _ID666 tag information if available"));
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(UseID666TagInformationIfAvailable), "Include _ID666 tag information in output file"));
 				_dfr.Sources.Add("http://blog.kevtris.org/blogfiles/spc2_file_specification_v1.txt");
 			}
 			return _dfr;

@@ -36,7 +36,7 @@ namespace UniversalEditor.Plugins.Monolith.DataFormats.FileSystem.Monolith.REZ
             {
                 _dfr = base.MakeReferenceInternal();
                 _dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-                _dfr.ExportOptions.Add(new CustomOptionText(nameof(Description), "&Description:", String.Empty, 127));
+                _dfr.ExportOptions.Add(new CustomOptionText(nameof(Description), "_Description", String.Empty, 127));
                 _dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Monolith_REZ");
                 // _dfr.Filters.Add("Monolith Productions REZ archive", new string[] { "*.rez" });
             }

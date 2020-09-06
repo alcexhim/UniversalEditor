@@ -49,8 +49,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(SubtitleObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Title), "_Title:"));
-				_dfr.ExportOptions.Add(new CustomOptionFile(nameof(VideoFileName), "_Video file name:", String.Empty, "*.asf;*.avi;*.avs;*.d2v;*.m2ts;*.m4v;*.mkv;*.mov;*.mp4;*.mpeg;*.mpg;*.ogm;*.webm;*.wmv;*.ts;*.y4m;*.yuv"));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Title), "_Title"));
+				_dfr.ExportOptions.Add(new CustomOptionFile(nameof(VideoFileName), "_Video file name", String.Empty, "*.asf;*.avi;*.avs;*.d2v;*.m2ts;*.m4v;*.mkv;*.mov;*.mp4;*.mpeg;*.mpg;*.ogm;*.webm;*.wmv;*.ts;*.y4m;*.yuv"));
 			}
 			return _dfr;
 		}

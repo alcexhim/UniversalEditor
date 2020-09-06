@@ -979,6 +979,8 @@ namespace UniversalEditor.UserInterface
 					di.Name = document.OutputAccessor.GetFileName();
 					di.Title = System.IO.Path.GetFileName(document.OutputAccessor.GetFileName());
 				}
+
+				GetCurrentEditor().Document = document;
 				return true;
 			}
 			else
@@ -1009,6 +1011,7 @@ namespace UniversalEditor.UserInterface
 					document.OutputDataFormat = df;
 					document.IsSaved = true;
 					document.IsChanged = false;
+
 					return result;
 				}
 				return false;
@@ -1050,6 +1053,7 @@ namespace UniversalEditor.UserInterface
 			Document d = new Document(om, df, accessor);
 			d.Save();
 			page.Document = d;
+			GetCurrentEditor().Document = d;
 
 			DockingWindow di = dckContainer.Items[page] as DockingWindow;
 			if (di != null)

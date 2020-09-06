@@ -40,7 +40,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://www.nomodes.com/aco.html");
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(Version), "&Version:", 1, 1, ushort.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(Version), "_Version", 1, 1, ushort.MaxValue));
 			}
 			return _dfr;
 		}

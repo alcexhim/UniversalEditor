@@ -38,8 +38,8 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(UnrealPackageObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PackageName), "Package &name:"));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(PackageVersion), "Package &version:", 0, UInt16.MinValue, UInt16.MaxValue));
+				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PackageName), "Package _name"));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(PackageVersion), "Package _version", 0, UInt16.MinValue, UInt16.MaxValue));
 				_dfr.Sources.Add("http://wiki.beyondunreal.com/Legacy:Package_File_Format");
 			}
 			return _dfr;

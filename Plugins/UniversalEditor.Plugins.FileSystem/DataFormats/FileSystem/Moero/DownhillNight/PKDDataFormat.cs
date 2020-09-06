@@ -37,8 +37,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key:", 0xC5, 0, 255));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key:", 0xC5, 0, 255));
+				_dfr.ImportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key", 0xC5, 0, 255));
+				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key", 0xC5, 0, 255));
 			}
 			return _dfr;
 		}

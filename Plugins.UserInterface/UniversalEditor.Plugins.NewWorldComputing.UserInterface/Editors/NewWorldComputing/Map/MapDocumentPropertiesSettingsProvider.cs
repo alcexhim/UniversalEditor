@@ -33,68 +33,68 @@ namespace UniversalEditor.Plugins.NewWorldComputing.UserInterface.Editors.NewWor
 			Editor = editor;
 			SettingsGroups.Add(new SettingsGroup("General", new Setting[]
 			{
-				new TextSetting("Map name"),
-				new TextSetting("Map description"),
-				new ChoiceSetting("Difficulty", null, new ChoiceSetting.ChoiceSettingValue[]
+				new TextSetting("Name", "Map name"),
+				new TextSetting("Description", "Map description"),
+				new ChoiceSetting("Difficulty", "Difficulty", null, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new ChoiceSetting.ChoiceSettingValue("Easy", MapDifficulty.Easy),
-					new ChoiceSetting.ChoiceSettingValue("Normal", MapDifficulty.Normal),
-					new ChoiceSetting.ChoiceSettingValue("Hard", MapDifficulty.Hard),
-					new ChoiceSetting.ChoiceSettingValue("Expert", MapDifficulty.Expert)
+					new ChoiceSetting.ChoiceSettingValue("easy", "Easy", MapDifficulty.Easy),
+					new ChoiceSetting.ChoiceSettingValue("normal", "Normal", MapDifficulty.Normal),
+					new ChoiceSetting.ChoiceSettingValue("hard", "Hard", MapDifficulty.Hard),
+					new ChoiceSetting.ChoiceSettingValue("expert", "Expert", MapDifficulty.Expert)
 				}),
-				new BooleanSetting("Start with hero in each player's castle", true),
-				new ChoiceSetting("Special victory condition", null, new ChoiceSetting.ChoiceSettingValue[]
+				new BooleanSetting("StartWithHeroInEachCastle", "Start with hero in each player's castle", true),
+				new ChoiceSetting("SpecialVictoryCondition", "Special victory condition", null, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new ChoiceSetting.ChoiceSettingValue("None", 0),
-					new ChoiceSetting.ChoiceSettingValue("Capture a particular castle", 1),
-					new ChoiceSetting.ChoiceSettingValue("Defeat a particular hero", 2),
-					new ChoiceSetting.ChoiceSettingValue("Find a particular artifact", 3),
-					new ChoiceSetting.ChoiceSettingValue("One side defeats another", 4),
-					new ChoiceSetting.ChoiceSettingValue("Accumulate gold", 5)
+					new ChoiceSetting.ChoiceSettingValue("none", "None", 0),
+					new ChoiceSetting.ChoiceSettingValue("capture-castle", "Capture a particular castle", 1),
+					new ChoiceSetting.ChoiceSettingValue("defeat-hero", "Defeat a particular hero", 2),
+					new ChoiceSetting.ChoiceSettingValue("find-artifact", "Find a particular artifact", 3),
+					new ChoiceSetting.ChoiceSettingValue("defeat-other", "One side defeats another", 4),
+					new ChoiceSetting.ChoiceSettingValue("accumulate-gold", "Accumulate gold", 5)
 				}),
-				new ChoiceSetting("Special loss condition", null, new ChoiceSetting.ChoiceSettingValue[]
+				new ChoiceSetting("SpecialLossCondition", "Special loss condition", null, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new ChoiceSetting.ChoiceSettingValue("None", 0),
-					new ChoiceSetting.ChoiceSettingValue("Lose a particular castle", 1),
-					new ChoiceSetting.ChoiceSettingValue("Lose a particular hero", 2),
-					new ChoiceSetting.ChoiceSettingValue("Run out of time", 3)
+					new ChoiceSetting.ChoiceSettingValue("none", "None", 0),
+					new ChoiceSetting.ChoiceSettingValue("lose-castle", "Lose a particular castle", 1),
+					new ChoiceSetting.ChoiceSettingValue("lose-hero", "Lose a particular hero", 2),
+					new ChoiceSetting.ChoiceSettingValue("time", "Run out of time", 3)
 				})
 			}));
 			SettingsGroups.Add(new SettingsGroup("Rumors and Events", new Setting[]
 			{
-				new CollectionSetting("Rumors", new SettingsGroup("Rumors Settings Group", new Setting[]
+				new CollectionSetting("Rumors", "Rumors", new SettingsGroup("Rumors Settings Group", new Setting[]
 				{
-					new TextSetting("Rumor Detail")
+					new TextSetting("Detail", "Rumor Detail")
 				})),
-				new CollectionSetting("Events", new SettingsGroup("Event Settings Group", new Setting[]
+				new CollectionSetting("Events", "Events", new SettingsGroup("Event Settings Group", new Setting[]
 				{
-					new TextSetting("Message Text"),
-					new GroupSetting("Resources to give or take", new Setting[]
+					new TextSetting("Message", "Message Text"),
+					new GroupSetting("Resources", "Resources to give or take", new Setting[]
 					{
-						new RangeSetting("Wood", 0, -9999, 99999),
-						new RangeSetting("Mercury", 0, -9999, 99999),
-						new RangeSetting("Ore", 0, -9999, 99999),
-						new RangeSetting("Sulfur", 0, -9999, 99999),
-						new RangeSetting("Crystal", 0, -9999, 99999),
-						new RangeSetting("Gems", 0, -9999, 99999),
-						new RangeSetting("Gold", 0, -9999, 99999)
+						new RangeSetting("Wood", "Wood", 0, -9999, 99999),
+						new RangeSetting("Mercury", "Mercury", 0, -9999, 99999),
+						new RangeSetting("Ore", "Ore", 0, -9999, 99999),
+						new RangeSetting("Sulfur", "Sulfur", 0, -9999, 99999),
+						new RangeSetting("Crystal", "Crystal", 0, -9999, 99999),
+						new RangeSetting("Gems", "Gems", 0, -9999, 99999),
+						new RangeSetting("Gold", "Gold", 0, -9999, 99999)
 					}),
-					new RangeSetting("Day of first occurrence"),
-					new ChoiceSetting("Subsequent occurrences", null, new ChoiceSetting.ChoiceSettingValue[]
+					new RangeSetting("FirstOccurrenceDay", "Day of first occurrence"),
+					new ChoiceSetting("SubsequentOccurrences", "Subsequent occurrences", null, new ChoiceSetting.ChoiceSettingValue[]
 					{
-						new ChoiceSetting.ChoiceSettingValue("Never", 0),
-						new ChoiceSetting.ChoiceSettingValue("Every Day", 1),
-						new ChoiceSetting.ChoiceSettingValue("Every 2 Days", 2),
-						new ChoiceSetting.ChoiceSettingValue("Every 3 Days", 3),
-						new ChoiceSetting.ChoiceSettingValue("Every 4 Days", 4),
-						new ChoiceSetting.ChoiceSettingValue("Every 5 Days", 5),
-						new ChoiceSetting.ChoiceSettingValue("Every 6 Days", 6),
-						new ChoiceSetting.ChoiceSettingValue("Every 7 Days", 7),
-						new ChoiceSetting.ChoiceSettingValue("Every 14 Days", 14),
-						new ChoiceSetting.ChoiceSettingValue("Every 21 Days", 21),
-						new ChoiceSetting.ChoiceSettingValue("Every 28 Days", 28)
+						new ChoiceSetting.ChoiceSettingValue("0", "Never", 0),
+						new ChoiceSetting.ChoiceSettingValue("1", "Every Day", 1),
+						new ChoiceSetting.ChoiceSettingValue("2", "Every 2 Days", 2),
+						new ChoiceSetting.ChoiceSettingValue("3", "Every 3 Days", 3),
+						new ChoiceSetting.ChoiceSettingValue("4", "Every 4 Days", 4),
+						new ChoiceSetting.ChoiceSettingValue("5", "Every 5 Days", 5),
+						new ChoiceSetting.ChoiceSettingValue("6", "Every 6 Days", 6),
+						new ChoiceSetting.ChoiceSettingValue("7", "Every 7 Days", 7),
+						new ChoiceSetting.ChoiceSettingValue("14", "Every 14 Days", 14),
+						new ChoiceSetting.ChoiceSettingValue("21", "Every 21 Days", 21),
+						new ChoiceSetting.ChoiceSettingValue("28", "Every 28 Days", 28)
 					}),
-					new BooleanSetting("Allow computer to get event")
+					new BooleanSetting("AllowComputer", "Allow computer to get event")
 				}))
 			}));
 		}

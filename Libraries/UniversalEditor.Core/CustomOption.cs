@@ -42,6 +42,10 @@ namespace UniversalEditor
 		{
 			return mvarValue;
 		}
+		public override void SetValue(object value)
+		{
+			mvarValue = (bool)value;
+		}
 	}
 	public class CustomOptionGroup : CustomOption
 	{
@@ -62,6 +66,9 @@ namespace UniversalEditor
 		public override object GetValue()
 		{
 			return null;
+		}
+		public override void SetValue(object value)
+		{
 		}
 	}
 
@@ -163,6 +170,7 @@ namespace UniversalEditor
 		}
 
 		public abstract object GetValue();
+		public abstract void SetValue(object v);
 	}
 
 	public class CustomOptionText : CustomOption
@@ -190,6 +198,10 @@ namespace UniversalEditor
 		public override object GetValue()
 		{
 			return mvarValue;
+		}
+		public override void SetValue(object value)
+		{
+			mvarValue = value?.ToString();
 		}
 	}
 	public class CustomOptionChoice : CustomOption
@@ -259,6 +271,10 @@ namespace UniversalEditor
 			if (mvarValue == null) return null;
 			return mvarValue.Value;
 		}
+		public override void SetValue(object value)
+		{
+			mvarValue = (value as CustomOptionFieldChoice);
+		}
 	}
 
 	public class DataFormatOptionNumberSuggestedValue
@@ -314,6 +330,17 @@ namespace UniversalEditor
 		{
 			return mvarValue;
 		}
+		public override void SetValue(object value)
+		{
+			if (value is double)
+			{
+				mvarValue = (decimal)(double)value;
+			}
+			else if (value is decimal)
+			{
+				mvarValue = (decimal)value;
+			}
+		}
 	}
 	public class CustomOptionMultipleChoice : CustomOption
 	{
@@ -331,6 +358,9 @@ namespace UniversalEditor
 		public override object GetValue()
 		{
 			return null;
+		}
+		public override void SetValue(object value)
+		{
 		}
 	}
 
@@ -364,6 +394,10 @@ namespace UniversalEditor
 		{
 			return mvarValue;
 		}
+		public override void SetValue(object value)
+		{
+			mvarValue = value?.ToString();
+		}
 	}
 	public class CustomOptionVersion : CustomOption
 	{
@@ -379,6 +413,10 @@ namespace UniversalEditor
 		public override object GetValue()
 		{
 			return mvarValue;
+		}
+		public override void SetValue(object value)
+		{
+			mvarValue = (Version)value;
 		}
 	}
 }

@@ -51,8 +51,8 @@ namespace UniversalEditor.UserInterface
 			Application.ShortName = "universal-editor";
 
 			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
-				new TextSetting("_Name"),
-				new TextSetting("_E-mail address")
+				new TextSetting("Name", "_Name"),
+				new TextSetting("EmailAddress", "_E-mail address")
 			});
 			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Documents", new Setting[] {
 			});
@@ -303,11 +303,34 @@ namespace UniversalEditor.UserInterface
 		}
 		public bool ShowCustomOptionDialog (ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null)
 		{
-			if (CustomOptionsDialog.ShowDialog(ref customOptions, title, aboutButtonClicked) == DialogResult.Cancel)
+			SettingsDialog dlg = new SettingsDialog();
+			dlg.Text = title ?? "Options";
+			dlg.SettingsProfiles.Clear();
+
+			CustomSettingsProvider csp = new CustomSettingsProvider();
+			dlg.SettingsProviders.Clear();
+			dlg.SettingsProviders.Add(csp);
+
+			SettingsGroup sg = new SettingsGroup();
+			sg.Priority = 0;
+			sg.Path = new string[] { "General" };
+			csp.SettingsGroups.Add(sg);
+
+			sg.AddCustomOptions(customOptions, csp);
+
+			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				return false;
+				int i = 0;
+				for (int j = 0; j < customOptions.Count; j++)
+				{
+					if (!customOptions[j].Visible) continue;
+
+					customOptions[j].SetValue(sg.Settings[i].GetValue());
+					i++;
+				}
+				return true;
 			}
-			return true;
+			return false;
 		}
 		#endregion
 

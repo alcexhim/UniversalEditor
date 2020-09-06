@@ -29,20 +29,20 @@ namespace UniversalEditor.Editors.Text.Plain
 		{
 			SettingsGroups.Add(new SettingsGroup("Editors:Plain Text Editor", new Setting[]
 			{
-				new BooleanSetting("_Display line numbers"),
-				new BooleanSetting("_Display right margin"),
-				new TextSetting("Right margin at _column"),
-				new BooleanSetting("Display _overview map"),
+				new BooleanSetting("DisplayLineNumbers", "_Display line numbers"),
+				new BooleanSetting("DisplayRightMargin", "_Display right margin"),
+				new TextSetting("RightMarginColumn", "Right margin at _column"),
+				new BooleanSetting("DisplayOverviewMap", "Display _overview map"),
 
-				new BooleanSetting("Enable text _wrapping"),
-				new BooleanSetting("Do not s_plit words over two lines"),
+				new BooleanSetting("EnableTextWrapping", "Enable text _wrapping"),
+				new BooleanSetting("DoNotSplitWordsOverTwoLines", "Do not s_plit words over two lines"),
 
-				new BooleanSetting("Highlight current _line"),
-				new BooleanSetting("Highlight matching _brackets"),
+				new BooleanSetting("HighlightCurrentLine", "Highlight current _line"),
+				new BooleanSetting("HighlightMatchingBrackets", "Highlight matching _brackets"),
 				
-				new RangeSetting("_Tab width", 8, 1, 24),
-				new BooleanSetting("Insert _spaces instead of tabs"),
-				new BooleanSetting("_Enable automatic indentation", true)
+				new RangeSetting("TabWidth", "_Tab width", 8, 1, 24),
+				new BooleanSetting("InsertSpacesInsteadOfTabs", "Insert _spaces instead of tabs"),
+				new BooleanSetting("EnableAutomaticIndentation", "_Enable automatic indentation", true)
 			}));
 		}
 	}

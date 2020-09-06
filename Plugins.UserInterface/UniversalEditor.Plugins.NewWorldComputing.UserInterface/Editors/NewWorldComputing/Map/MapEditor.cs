@@ -75,7 +75,7 @@ namespace UniversalEditor.Plugins.NewWorldComputing.UserInterface.Editors.NewWor
 			_mpds = new MapDocumentPropertiesSettingsProvider(this);
 		}
 
-		protected override SettingsProvider[] GetDocumentPropertiesSettingsProviders()
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProvidersInternal()
 		{
 			return new SettingsProvider[] { _mpds };
 		}
