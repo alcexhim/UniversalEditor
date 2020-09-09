@@ -20,33 +20,38 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.ObjectModels.FileSystem.FileSources
 {
 	/// <summary>
-	/// Provides a <see cref="FileSource" /> for retrieving file data from a <see cref="byte" /> array.
+	/// Provides a <see cref="FileSource" /> for retrieving file data from a <see cref="MemoryAccessor" />.
 	/// </summary>
 	public class MemoryFileSource : FileSource
 	{
-		private byte[] mvarData = null;
-		public byte[] Data { get { return mvarData; } set { mvarData = value; } }
+		public MemoryAccessor Data { get; set; } = null;
 
 		public MemoryFileSource(byte[] data)
 		{
-			mvarData = data;
+			Data = new MemoryAccessor(data);
+		}
+		public MemoryFileSource(MemoryAccessor data)
+		{
+			Data = data;
 		}
 
 		public override byte[] GetDataInternal(long offset, long length)
 		{
-			long realLength = Math.Min(length, mvarData.Length);
+			long realLength = Math.Min(length, Data.Length);
+			byte[] realData = Data.ToArray();
 			byte[] data = new byte[realLength];
-			Array.Copy(mvarData, offset, data, 0, realLength);
+			Array.Copy(realData, offset, data, 0, realLength);
 			return data;
 		}
 
 		public override long GetLength()
 		{
-			return mvarData.Length;
+			return Data.Length;
 		}
 	}
 }
