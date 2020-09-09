@@ -33,6 +33,7 @@ using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 using System.Collections.Specialized;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -69,6 +70,7 @@ namespace UniversalEditor.Editors.FileSystem
 			tv.SortContainerRowsFirst = true;
 
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Open", FileSystemContextMenu_Open_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_NewItem", FileAddNewItem_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingItem", FileAddExistingItem_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_ExistingFolder", FileAddExistingFolder_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Add_FilesFromFolder", FileAddItemsFromFolder_Click);
@@ -106,6 +108,29 @@ namespace UniversalEditor.Editors.FileSystem
 				}
 			}
 			e.Data = list.ToArray();
+		}
+
+		/// <summary>
+		/// Prompts the user to create a new item as an embedded <see cref="File" /> inside the currently-loaded <see cref="FileSystemObjectModel" />.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="e">E.</param>
+		private void FileAddNewItem_Click(object sender, EventArgs e)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (fsom == null)
+				return;
+
+			Document d = HostApplication.CurrentWindow.NewFile();
+			if (d != null)
+			{
+				File file = fsom.AddFile(d.Title.Replace("<", String.Empty).Replace(">", String.Empty));
+				RecursiveAddFile(file);
+
+				EmbeddedFileAccessor efa = new EmbeddedFileAccessor(file);
+				d.Accessor = efa;
+				file.Source = new MemoryFileSource(efa);
+			}
 		}
 
 		/// <summary>
@@ -193,9 +218,16 @@ namespace UniversalEditor.Editors.FileSystem
 
 					EmbeddedFileAccessor ma = new EmbeddedFileAccessor(f);
 					Document doc = new Document(ma);
+					doc.Saved += doc_Saved;
 					HostApplication.CurrentWindow.OpenFile(doc);
 				}
 			}
+		}
+
+		private void doc_Saved(object sender, EventArgs e)
+		{
+			BeginEdit();
+			EndEdit();
 		}
 
 		/// <summary>

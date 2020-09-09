@@ -96,6 +96,7 @@ namespace UniversalEditor
 
 			IsSaved = true;
 			IsChanged = false;
+			OnSaved(EventArgs.Empty);
 		}
 
 		public Document(ObjectModel objectModel, DataFormat dataFormat) : this(objectModel, dataFormat, null)
@@ -257,6 +258,12 @@ namespace UniversalEditor
 				InputDataFormat = value;
 				OutputDataFormat = value;
 			}
+		}
+
+		public event EventHandler Saved;
+		protected virtual void OnSaved(EventArgs e)
+		{
+			Saved?.Invoke(this, e);
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace UniversalEditor.UserInterface
 	{
 		event EventHandler WindowClosed;
 
-		void NewFile();
+		Document NewFile();
 		void NewProject(bool combineObjects = false);
 
 		void OpenFile();

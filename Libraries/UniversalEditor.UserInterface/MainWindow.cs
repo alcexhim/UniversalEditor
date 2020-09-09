@@ -282,7 +282,7 @@ namespace UniversalEditor.UserInterface
 
 		private int iUntitledDocCount = 0;
 
-		public void NewFile()
+		public Document NewFile()
 		{
 			/*
 			NewDialog2 dlg2 = new NewDialog2();
@@ -297,7 +297,7 @@ namespace UniversalEditor.UserInterface
 				iUntitledDocCount++;
 
 				DocumentTemplate template = (dlg.SelectedItem as DocumentTemplate);
-				if (template == null) return;
+				if (template == null) return null;
 
 				Pages.EditorPage page = new Pages.EditorPage();
 				page.DocumentEdited += page_DocumentEdited;
@@ -307,10 +307,12 @@ namespace UniversalEditor.UserInterface
 				if (objm == null)
 				{
 					MessageDialog.ShowDialog("Failed to create an ObjectModel for the type \"" + template.ObjectModelReference.TypeName + "\"", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
-					return;
+					return null;
 				}
 
 				page.Document = new Document(objm, null, null);
+				page.Document.Title = String.Format("<untitled{0}>", iUntitledDocCount);
+
 				/*
 				DockingWindow dwNewDocument = dcc.Windows.Add("<untitled>", "<untitled>", page);
 				dwNewDocument.Behavior = DockBehavior.Dock;
@@ -325,7 +327,9 @@ namespace UniversalEditor.UserInterface
 				Glue.Common.Methods.SendApplicationEvent(ae);
 				*/
 				InitDocTab(String.Format("<untitled{0}>", iUntitledDocCount), page.Title, page);
+				return page.Document;
 			}
+			return null;
 		}
 
 		private Editor _prevEditor = null;
@@ -505,7 +509,7 @@ namespace UniversalEditor.UserInterface
 						break;
 					}
 					if (!found) {
-						OpenDefaultEditor (doc.Accessor);
+						OpenDefaultEditor(doc);
 						return;
 					}
 				}
@@ -531,7 +535,7 @@ namespace UniversalEditor.UserInterface
 							catch (ObjectModelNotSupportedException ex)
 							{
 								// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
-								DialogResult result = MessageDialog.ShowDialog("The object model you specified is not supported by the selected DataFormat.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
+								DialogResult result = MessageDialog.ShowDialog(String.Format("The object model you specified is not supported by the selected DataFormat.\r\n\r\n{0}", ex.Message), "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
 								if (result == DialogResult.Retry)
 								{
 									DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
@@ -556,7 +560,7 @@ namespace UniversalEditor.UserInterface
 
 								// we're catching this one because there's nothing anyone (not even the developer) can do about it if the DF throws ObjectModelNotSupported
 								// TODO: For DataFormats that support it (i.e. Layout-based) we should be able to "debug" the DataFormat to find out exactly where it failed
-								DialogResult result = MessageDialog.ShowDialog("The data format you specified could not load the file.", "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
+								DialogResult result = MessageDialog.ShowDialog(String.Format("The data format you specified could not load the file.\r\n\r\n{0}", ex.Message), "Error", MessageDialogButtons.RetryCancel, MessageDialogIcon.Error);
 								if (result == DialogResult.Retry)
 								{
 									DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
@@ -609,13 +613,13 @@ namespace UniversalEditor.UserInterface
 				else
 				{
 					Console.Error.WriteLine("Editor not found for object model " + doc.ObjectModel.MakeReference().Title + " ; using default editor");
-					OpenDefaultEditor(doc.Accessor);
+					OpenDefaultEditor(doc);
 				}
 			}
 			else
 			{
 				Console.Error.WriteLine("ObjectModel not specified for accessor " + doc.Accessor.ToString() + " ; using default editor");
-				OpenDefaultEditor(doc.Accessor);
+				OpenDefaultEditor(doc);
 			}
 		}
 
@@ -705,13 +709,13 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		private void OpenDefaultEditor(Accessor acc)
+		private void OpenDefaultEditor(Document doc)
 		{
 			EditorPage page = new EditorPage();
-			page.Document = new Document(null, null, acc);
+			page.Document = doc;
 			page.DocumentEdited += page_DocumentEdited;
 
-			InitDocTab(acc.GetFileName(), System.IO.Path.GetFileName(acc.GetFileName()), page);
+			InitDocTab(doc.Accessor.GetFileName(), System.IO.Path.GetFileName(doc.Accessor.GetFileName()), page);
 		}
 
 		[ContainerLayout("~/Panels/StartPage.glade")]
@@ -1050,10 +1054,18 @@ namespace UniversalEditor.UserInterface
 			EditorPage page = GetCurrentEditorPage();
 			if (page == null) return false;
 
-			Document d = new Document(om, df, accessor);
-			d.Save();
-			page.Document = d;
-			GetCurrentEditor().Document = d;
+			if (page.Document == null)
+			{
+				page.Document = new Document(om, df, accessor);
+			}
+			else
+			{
+				page.Document.ObjectModel = om;
+				page.Document.DataFormat = df;
+				page.Document.Accessor = accessor;
+			}
+			page.Document.Save();
+			GetCurrentEditor().Document = page.Document;
 
 			DockingWindow di = dckContainer.Items[page] as DockingWindow;
 			if (di != null)
