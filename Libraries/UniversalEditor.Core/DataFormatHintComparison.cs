@@ -54,8 +54,14 @@ namespace UniversalEditor
 		/// </summary>
 		MagicThenFilter = 4,
 		/// <summary>
+		/// Return this <see cref="DataFormat" /> if both the magic bytes listed in the <see cref="Association" /> match the magic bytes of the
+		/// <see cref="Accessor" /> AND the file name filters listed in the <see cref="Association" /> match the file name of the
+		/// <see cref="Accessor" />.
+		/// </summary>
+		Both = 5,
+		/// <summary>
 		/// Always return this <see cref="DataFormat" /> as a result for the given <see cref="Association" />.
 		/// </summary>
-		Always = 5
+		Always = 6
 	}
 }

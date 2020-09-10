@@ -63,7 +63,7 @@ namespace UniversalEditor
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
-		private DataFormatHintComparison mvarHintComparison = DataFormatHintComparison.Unspecified;
+		private DataFormatHintComparison mvarHintComparison = DataFormatHintComparison.Both;
 		public DataFormatHintComparison HintComparison { get { return mvarHintComparison; } set { mvarHintComparison = value; } }
 
 		private System.Collections.Specialized.StringCollection mvarFileNameFilters = new System.Collections.Specialized.StringCollection();
@@ -111,6 +111,7 @@ namespace UniversalEditor
 
 			bool filterCaseSensitive = false;
 			if (!caseSensitiveOS || (caseSensitiveOS && !filterCaseSensitive)) fileName = fileName.ToLower();
+
 			for (int i = 0; i < mvarFileNameFilters.Count; i++)
 			{
 				string filter = mvarFileNameFilters[i];
@@ -211,6 +212,10 @@ namespace UniversalEditor
 				{
 					if (!basedOnMagic) return basedOnFilter;
 					return basedOnMagic;
+				}
+				case DataFormatHintComparison.Both:
+				{
+					return basedOnFilter && basedOnMagic;
 				}
 			}
 			return false;

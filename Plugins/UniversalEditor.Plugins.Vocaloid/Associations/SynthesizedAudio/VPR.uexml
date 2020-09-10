@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="VOCALOID5 project (JSON/ZIP)">
+				<Filter Title="VOCALOID5 project (JSON/ZIP)" HintComparison="Both">
 					<FileNameFilters>
 						<FileNameFilter>*.vpr</FileNameFilter>
 					</FileNameFilters>

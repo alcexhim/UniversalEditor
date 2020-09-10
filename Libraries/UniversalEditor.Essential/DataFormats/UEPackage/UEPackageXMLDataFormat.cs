@@ -883,6 +883,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 											filter.HintComparison = DataFormatHintComparison.Never;
 											break;
 										}
+										case "both":
+										{
+											filter.HintComparison = DataFormatHintComparison.Both;
+											break;
+										}
 										default:
 										{
 											filter.HintComparison = DataFormatHintComparison.Unspecified;
