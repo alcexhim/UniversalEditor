@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="PKWARE ZIP archive">
+				<Filter Title="PKWARE ZIP archive" ContentType="application/zip" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.zip</FileNameFilter>
 						<FileNameFilter>*.zipx</FileNameFilter>

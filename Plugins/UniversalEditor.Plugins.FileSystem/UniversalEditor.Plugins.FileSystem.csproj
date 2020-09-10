@@ -321,9 +321,6 @@
     <EmbeddedResource Include="Associations\CFL.uexml" />
     <EmbeddedResource Include="Associations\CPIO.uexml" />
     <EmbeddedResource Include="Associations\FAT.uexml" />
-    <EmbeddedResource Include="Associations\InstallShield\Cabinet.uexml" />
-    <EmbeddedResource Include="Associations\InstallShield\PKG.uexml" />
-    <EmbeddedResource Include="Associations\InstallShield\Z.uexml" />
     <EmbeddedResource Include="Associations\ISO9660.uexml" />
     <EmbeddedResource Include="Associations\IZArc.uexml" />
     <EmbeddedResource Include="Associations\LHA.uexml" />
@@ -350,7 +347,6 @@
     <EmbeddedResource Include="Associations\KenSilverman\GRP.uexml" />
     <EmbeddedResource Include="Associations\187RideOrDie.uexml" />
     <EmbeddedResource Include="Associations\2NBFPCK.uexml" />
-    <EmbeddedResource Include="Associations\Abomination.uexml" />
     <EmbeddedResource Include="Associations\AlienNationsGD.uexml" />
     <EmbeddedResource Include="Associations\AquarnoidGOB.uexml" />
     <EmbeddedResource Include="Associations\Arcanum.uexml" />

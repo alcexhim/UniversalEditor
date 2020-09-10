@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Sony PSF (PARAM.SFO) database">
+				<Filter Title="Sony PSF (PARAM.SFO) database" ContentType="application/x-sony-sfo">
 					<FileNameFilters>
 						<FileNameFilter>*.sfo</FileNameFilter>
 					</FileNameFilters>

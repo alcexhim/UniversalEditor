@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="InstallShield compiled script (INS)">
+				<Filter Title="InstallShield compiled script (INS)" ContentType="application/x-installshield-ins">
 					<FileNameFilters>
 						<FileNameFilter>*.ins</FileNameFilter>
 					</FileNameFilters>
@@ -25,7 +25,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="InstallShield compiled script (INX)">
+				<Filter Title="InstallShield compiled script (INX)" ContentType="application/x-installshield-inx">
 					<FileNameFilters>
 						<FileNameFilter>*.inx</FileNameFilter>
 					</FileNameFilters>
@@ -41,26 +41,6 @@
 			</ObjectModels>
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.InstallShield.Script.InstallShieldScriptV2DataFormat" />
-			</DataFormats>
-		</Association>
-		<Association>
-			<Filters>
-				<Filter Title="InstallShield installation package">
-					<FileNameFilters>
-						<FileNameFilter>*.pkg</FileNameFilter>
-					</FileNameFilters>
-					<MagicByteSequences>
-						<MagicByteSequence>
-							<MagicByte Type="HexString">4AA3</MagicByte>
-						</MagicByteSequence>
-					</MagicByteSequences>
-				</Filter>
-			</Filters>
-			<ObjectModels>
-				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
-			</ObjectModels>
-			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.InstallShield.PKG.PKGDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

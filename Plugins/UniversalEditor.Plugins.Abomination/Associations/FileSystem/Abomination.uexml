@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Abomination: The Nemesis Project AWF archive">
+				<Filter Title="Abomination: The Nemesis Project AWF archive" ContentType="application/x-abomination-awf">
 					<FileNameFilters>
 						<FileNameFilter>*.awf</FileNameFilter>
 					</FileNameFilters>
@@ -18,7 +18,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Abomination: The Nemesis Project CLT archive">
+				<Filter Title="Abomination: The Nemesis Project CLT archive" ContentType="application/x-abomination-clt">
 					<FileNameFilters>
 						<FileNameFilter>*.clt</FileNameFilter>
 					</FileNameFilters>

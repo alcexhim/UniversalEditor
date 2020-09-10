@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Synalysis XML grammar definition">
+				<Filter Title="Synalysis XML grammar definition" ContentType="text/x-synalysis-grammar+xml">
 					<FileNameFilters>
 						<FileNameFilter>*.grammar</FileNameFilter>
 					</FileNameFilters>

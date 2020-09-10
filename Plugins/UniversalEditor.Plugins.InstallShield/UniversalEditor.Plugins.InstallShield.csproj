@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\InstallShieldScript.uexml" />
+    <EmbeddedResource Include="Associations\Cabinet.uexml" />
+    <EmbeddedResource Include="Associations\PKG.uexml" />
+    <EmbeddedResource Include="Associations\Z.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

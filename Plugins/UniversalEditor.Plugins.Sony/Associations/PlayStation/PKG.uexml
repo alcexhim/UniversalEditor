@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="PlayStation Network package">
+				<Filter Title="PlayStation Network package" ContentType="application/x-sony-pkg">
 					<FileNameFilters>
 						<FileNameFilter>*.pkg</FileNameFilter>
 					</FileNameFilters>

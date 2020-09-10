@@ -3,13 +3,13 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="InstallShield archive">
+				<Filter Title="InstallShield archive index" ContentType="application/x-installshield-pkg">
 					<FileNameFilters>
-						<FileNameFilter>*.z</FileNameFilter>
+						<FileNameFilter>*.pkg</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
-							<MagicByte Type="HexString">135D658C3A010200</MagicByte>
+							<MagicByte Type="HexString">4AA3</MagicByte>
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>
@@ -18,7 +18,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.InstallShield.Z.ZDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.InstallShield.PKG.PKGDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

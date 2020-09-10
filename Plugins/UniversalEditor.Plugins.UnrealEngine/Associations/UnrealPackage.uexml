@@ -3,11 +3,15 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Unreal Engine package">
+				<Filter Title="Unreal Engine package" ContentType="application/x-unreal-package">
 					<FileNameFilters>
 						<FileNameFilter>*.u</FileNameFilter>
 						<FileNameFilter>*.utx</FileNameFilter>
 						<FileNameFilter>*.upk</FileNameFilter>
+						<FileNameFilter>*.usx</FileNameFilter>
+						<FileNameFilter>*.uax</FileNameFilter>
+						<FileNameFilter>*.unr</FileNameFilter>
+						<FileNameFilter>*.ukx</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>

@@ -258,6 +258,10 @@
     <Folder Include="DataFormats\Package\OpenDocument\" />
     <Folder Include="DataFormats\FileSystem\" />
     <Folder Include="DataFormats\FileSystem\ZIP\" />
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\PlainText.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

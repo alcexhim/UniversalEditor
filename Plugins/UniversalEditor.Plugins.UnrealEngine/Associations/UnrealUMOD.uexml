@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Unreal Engine UMOD installer">
+				<Filter Title="Unreal Engine UMOD installer" ContentType="application/x-unreal-umod">
 					<FileNameFilters>
 						<FileNameFilter>*.umod</FileNameFilter>
 					</FileNameFilters>

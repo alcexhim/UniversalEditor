@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Kronosaur/Neurohack Transcendence TDB archive">
+				<Filter Title="Kronosaur/Neurohack Transcendence TDB archive" ContentType="application/x-kronosaur-tdb">
 					<FileNameFilters>
 						<FileNameFilter>*.tdb</FileNameFilter>
 					</FileNameFilters>

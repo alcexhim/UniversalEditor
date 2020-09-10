@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="InstallShield cabinet">
+				<Filter Title="InstallShield cabinet" ContentType="application/x-installshield-cab">
 					<FileNameFilters>
 						<FileNameFilter>*.cab</FileNameFilter>
 					</FileNameFilters>
@@ -23,7 +23,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="InstallShield cabinet header">
+				<Filter Title="InstallShield cabinet header" ContentType="application/x-installshield-hdr">
 					<FileNameFilters>
 						<FileNameFilter>*.hdr</FileNameFilter>
 					</FileNameFilters>
