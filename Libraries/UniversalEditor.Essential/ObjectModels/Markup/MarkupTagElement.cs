@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 
 namespace UniversalEditor.ObjectModels.Markup
@@ -98,6 +99,20 @@ namespace UniversalEditor.ObjectModels.Markup
 					list.Add(Elements[i] as MarkupTagElement);
 			}
 			return list.ToArray();
+		}
+
+		public MarkupAttribute FindAttributeUsingSchema(string schema, string name)
+		{
+			string tagPrefix = FindSchemaTagPrefix(schema);
+			if (tagPrefix != null)
+			{
+				for (int i = 0; i < Attributes.Count; i++)
+				{
+					if (Attributes[i].Namespace == tagPrefix && Attributes[i].Name == name)
+						return Attributes[i];
+				}
+			}
+			return null;
 		}
 	}
 }

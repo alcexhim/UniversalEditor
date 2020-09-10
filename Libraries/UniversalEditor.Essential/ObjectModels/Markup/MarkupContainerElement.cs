@@ -113,25 +113,33 @@ namespace UniversalEditor.ObjectModels.Markup
 			}
 		}
 
-		public MarkupElement FindElementUsingSchema(string schema, string name)
+		protected string FindSchemaTagPrefix(string schema)
 		{
-			string tagPrefix = null;
 			for (int i = 0; i < this.ParentObjectModel.Elements.Count; i++)
 			{
-				MarkupTagElement tagTopLevel = (this.ParentObjectModel.Elements [i] as MarkupTagElement);
-				if (tagTopLevel != null) {
-					for (int j = 0; j < tagTopLevel.Attributes.Count; j++) {
-						if (tagTopLevel.Attributes [j].Namespace.Equals ("xmlns")) {
+				MarkupTagElement tagTopLevel = (this.ParentObjectModel.Elements[i] as MarkupTagElement);
+				if (tagTopLevel != null)
+				{
+					for (int j = 0; j < tagTopLevel.Attributes.Count; j++)
+					{
+						if (tagTopLevel.Attributes[j].Namespace.Equals("xmlns"))
+						{
 
-							if (tagTopLevel.Attributes [j].Value.Equals (schema)) {
-								tagPrefix = tagTopLevel.Attributes [j].Name;
-								break;
+							if (tagTopLevel.Attributes[j].Value.Equals(schema))
+							{
+								return tagTopLevel.Attributes[j].Name;
 							}
 
 						}
 					}
 				}
 			}
+			return null;
+		}
+
+		public MarkupElement FindElementUsingSchema(string schema, string name)
+		{
+			string tagPrefix = FindSchemaTagPrefix(schema);
 
 			if (tagPrefix == null) {
 				Console.WriteLine ("ue: MarkupObjectModel: tag prefix for schema '" + schema + "' not found");
