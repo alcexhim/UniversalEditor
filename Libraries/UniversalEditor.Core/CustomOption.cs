@@ -35,12 +35,15 @@ namespace UniversalEditor
 		private bool mvarDefaultValue = false;
 		public bool DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
 
-		private bool mvarValue = false;
-		public bool Value { get { return mvarValue; } set { mvarValue = value; } }
+		private bool? mvarValue = null;
+		public bool? Value { get { return mvarValue; } set { mvarValue = value; } }
 
 		public override object GetValue()
 		{
-			return mvarValue;
+			if (mvarValue == null)
+				return DefaultValue;
+
+			return mvarValue.Value;
 		}
 		public override void SetValue(object value)
 		{
@@ -192,11 +195,14 @@ namespace UniversalEditor
 		private string mvarDefaultValue = String.Empty;
 		public string DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
 
-		private string mvarValue = String.Empty;
+		private string mvarValue = null;
 		public string Value { get { return mvarValue; } set { mvarValue = value; } }
 
 		public override object GetValue()
 		{
+			if (mvarValue == null)
+				return DefaultValue;
+
 			return mvarValue;
 		}
 		public override void SetValue(object value)
@@ -268,7 +274,9 @@ namespace UniversalEditor
 
 		public override object GetValue()
 		{
-			if (mvarValue == null) return null;
+			if (mvarValue == null)
+				return DefaultValue;
+
 			return mvarValue.Value;
 		}
 		public override void SetValue(object value)
@@ -315,8 +323,8 @@ namespace UniversalEditor
 		private decimal mvarDefaultValue = 0;
 		public decimal DefaultValue { get { return mvarDefaultValue; } set { mvarDefaultValue = value; } }
 
-		private decimal mvarValue = 0;
-		public decimal Value { get { return mvarValue; } set { mvarValue = value; } }
+		private decimal? mvarValue = null;
+		public decimal? Value { get { return mvarValue; } set { mvarValue = value; } }
 
 		public CustomOptionNumber(string propertyName, string title, decimal defaultValue = 0, decimal? minimumValue = null, decimal? maximumValue = null, bool enabled = true, bool visible = true)
 			: base(propertyName, title, enabled, visible)
@@ -328,7 +336,10 @@ namespace UniversalEditor
 
 		public override object GetValue()
 		{
-			return mvarValue;
+			if (mvarValue == null)
+				return DefaultValue;
+
+			return mvarValue.Value;
 		}
 		public override void SetValue(object value)
 		{
@@ -392,6 +403,9 @@ namespace UniversalEditor
 
 		public override object GetValue()
 		{
+			if (mvarValue == null)
+				return DefaultValue;
+
 			return mvarValue;
 		}
 		public override void SetValue(object value)
@@ -404,6 +418,8 @@ namespace UniversalEditor
 		private Version mvarValue = null;
 		public Version Value { get { return mvarValue; } set { mvarValue = value; } }
 
+		public Version DefaultValue { get; set; } = null;
+
 		public CustomOptionVersion(string propertyName, string title, Version value = null, bool enabled = true, bool visible = true)
 			: base(propertyName, title, enabled, visible)
 		{
@@ -412,6 +428,9 @@ namespace UniversalEditor
 
 		public override object GetValue()
 		{
+			if (mvarValue == null)
+				return DefaultValue;
+
 			return mvarValue;
 		}
 		public override void SetValue(object value)
