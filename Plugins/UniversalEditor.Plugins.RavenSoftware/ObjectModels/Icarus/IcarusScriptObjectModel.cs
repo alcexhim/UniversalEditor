@@ -46,7 +46,6 @@ namespace UniversalEditor.ObjectModels.Icarus
         protected override ObjectModelReference MakeReferenceInternal()
         {
             ObjectModelReference omr = base.MakeReferenceInternal();
-            omr.Title = "ICARUS engine script";
             omr.Path = new string[] { "Game development", "ICARUS engine script" };
             return omr;
         }

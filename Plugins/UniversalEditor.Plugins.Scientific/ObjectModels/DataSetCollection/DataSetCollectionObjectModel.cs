@@ -29,7 +29,7 @@ namespace UniversalEditor.Plugins.Scientific.ObjectModels.DataSetCollection
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Data set collection";
+				_omr.Path = new string[] { "Scientific", "Data set collection" };
 			}
 			return _omr;
 		}

@@ -35,7 +35,6 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Unreal Engine package";
 				_omr.Path = new string[] { "Game development", "Unreal Engine", "Package" };
 			}
 			return _omr;

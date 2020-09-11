@@ -32,7 +32,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankPhonemeDictiona
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Phoneme dictionary";
+				_omr.Path = new string[] { "Multimedia", "Audio", "Synthesized", "Phoneme dictionary" };
 			}
 			return _omr;
 		}

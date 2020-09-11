@@ -13,7 +13,6 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Fixture";
 				_omr.Path = new string[] { "Lighting", "Fixture" };
 			}
 			return _omr;

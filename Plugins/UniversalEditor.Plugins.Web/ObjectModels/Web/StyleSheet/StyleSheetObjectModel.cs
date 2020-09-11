@@ -40,7 +40,6 @@ namespace UniversalEditor.ObjectModels.Web.StyleSheet
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Style sheet";
 				_omr.Path = new string[] { "Software development", "Web", "Style sheet" };
 				_omr.Description = "A cascading style sheet used for rich HTML style definitions.";
 			}

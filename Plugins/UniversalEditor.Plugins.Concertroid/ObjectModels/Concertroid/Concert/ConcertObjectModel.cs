@@ -34,7 +34,6 @@ namespace UniversalEditor.ObjectModels.Concertroid.Concert
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Concert";
 				_omr.Path = new string[] { "Concertroid", "Concert" };
 			}
 			return _omr;

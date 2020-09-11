@@ -34,7 +34,7 @@ namespace UniversalEditor.ObjectModels.Moosta.MotionPack
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Motion Pack";
+				_omr.Path = new string[] { "Multimedia", "3D Multimedia", "Animation Pack" };
 			}
 			return _omr;
 		}

@@ -56,7 +56,7 @@ namespace UniversalEditor.ObjectModels.AbstractSyntax
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Abstract Syntax Notation";
+				_omr.Path = new string[] { "General", "Abstract Syntax Notation" };
 			}
 			return _omr;
 		}

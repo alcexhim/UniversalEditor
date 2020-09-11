@@ -42,8 +42,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.VectorImage
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Vector image";
-				_omr.Path = new string[] { "Multimedia", "Picture" };
+				_omr.Path = new string[] { "Multimedia", "Picture", "Vector image" };
 			}
 			return _omr;
 		}

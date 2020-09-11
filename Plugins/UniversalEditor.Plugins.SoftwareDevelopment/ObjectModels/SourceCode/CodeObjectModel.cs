@@ -37,8 +37,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Path = new string[] { "Programming", "Code File" };
-				_omr.Title = "Source code";
+				_omr.Path = new string[] { "Programming", "Source Code" };
 			}
 			return _omr;
 		}

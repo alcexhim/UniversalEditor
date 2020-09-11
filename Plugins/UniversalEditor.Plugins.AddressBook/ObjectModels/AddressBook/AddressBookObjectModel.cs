@@ -52,7 +52,7 @@ namespace UniversalEditor.ObjectModels.AddressBook
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Address book";
+				_omr.Path = new string[] { "General", "Address book" };
 				_omr.Description = "Stores names and contact information for people";
 			}
 			return _omr;

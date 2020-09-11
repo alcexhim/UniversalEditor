@@ -58,7 +58,7 @@ namespace UniversalEditor.ObjectModels.Designer
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Designer";
+				_omr.Path = new string[] { "General", "Designer" };
 			}
 			return _omr;
 		}

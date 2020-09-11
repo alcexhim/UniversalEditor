@@ -32,8 +32,7 @@ namespace UniversalEditor.ObjectModels.Text.Formatted
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Formatted Text Document";
-				_omr.Path = new string[] { "General", "Text", "Formatted" };
+				_omr.Path = new string[] { "General", "Text", "Formatted text document" };
 			}
 			return _omr;
 		}

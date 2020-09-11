@@ -34,8 +34,7 @@ namespace UniversalEditor.ObjectModels.Text.Plain
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Text Document";
-				_omr.Path = new string[] { "General", "Text", "Plain" };
+				_omr.Path = new string[] { "General", "Text", "Plain", "Plain text document" };
 			}
 			return _omr;
 		}

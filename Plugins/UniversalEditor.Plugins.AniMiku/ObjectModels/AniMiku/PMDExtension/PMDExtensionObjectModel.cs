@@ -32,7 +32,7 @@ namespace UniversalEditor.ObjectModels.AniMiku.PMDExtension
             if (_omr == null)
             {
                 _omr = base.MakeReferenceInternal();
-                _omr.Title = "AniMiku PMD model extension";
+                _omr.Path = new string[] { "Multimedia", "3D Multimedia", "AniMiku", "PMD model extension" };
             }
             return _omr;
         }

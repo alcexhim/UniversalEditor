@@ -34,7 +34,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Subtitle
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Subtitle";
+				_omr.Path = new string[] { "Multimedia", "Subtitle" };
 			}
 			return _omr;
 		}

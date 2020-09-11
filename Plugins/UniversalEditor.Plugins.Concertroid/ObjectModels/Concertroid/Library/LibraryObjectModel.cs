@@ -43,7 +43,6 @@ namespace UniversalEditor.ObjectModels.Concertroid.Library
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Asset library";
 				_omr.Path = new string[] { "Concertroid", "Asset library" };
 				_omr.Description = "A container to hold various Concertroid assets, such as songs, musicians, producers, characters, costumes, and animations.";
 			}

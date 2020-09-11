@@ -34,7 +34,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Palette
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Color palette";
 				_omr.Path = new string[] { "Multimedia", "Color palette" };
 			}
 			return _omr;

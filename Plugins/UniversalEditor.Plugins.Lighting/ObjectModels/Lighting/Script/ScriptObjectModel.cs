@@ -13,7 +13,7 @@ namespace UniversalEditor.ObjectModels.Lighting.Script
             if (_omr == null)
             {
                 _omr = base.MakeReferenceInternal();
-                _omr.Title = "Lighting script";
+				_omr.Path = new string[] { "Lighting", "Show script" };
             }
             return _omr;
         }

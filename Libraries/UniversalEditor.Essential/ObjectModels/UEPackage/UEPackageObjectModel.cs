@@ -32,8 +32,7 @@ namespace UniversalEditor.ObjectModels.UEPackage
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Universal Editor Package";
-				_omr.Path = new string[] { "Extensibility" };
+				_omr.Path = new string[] { "Extensibility", "Universal Editor package" };
 			}
 			return _omr;
 		}

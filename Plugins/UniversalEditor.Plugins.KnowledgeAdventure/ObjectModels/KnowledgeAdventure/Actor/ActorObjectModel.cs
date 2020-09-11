@@ -34,8 +34,7 @@ namespace UniversalEditor.ObjectModels.KnowledgeAdventure.Actor
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Actor";
-				_omr.Path = new string[] { "Knowledge Adventure" };
+				_omr.Path = new string[] { "Knowledge Adventure", "Actor" };
 			}
 			return _omr;
 		}

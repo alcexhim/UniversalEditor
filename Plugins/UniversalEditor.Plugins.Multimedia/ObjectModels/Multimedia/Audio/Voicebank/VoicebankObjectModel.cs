@@ -39,7 +39,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Synthesized audio voice bank";
 				_omr.Path = new string[] { "Multimedia", "Audio", "Voicebank" };
 			}
 			return _omr;

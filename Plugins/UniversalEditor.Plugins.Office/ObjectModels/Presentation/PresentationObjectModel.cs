@@ -31,8 +31,7 @@ namespace UniversalEditor.Plugins.Office.ObjectModels.Presentation
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Presentation";
-				_omr.Path = new string[] { "General", "Office", "Presentation" };
+				_omr.Path = new string[] { "Office", "Presentation" };
 			}
 			return _omr;
 		}

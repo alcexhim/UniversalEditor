@@ -32,8 +32,7 @@ namespace UniversalEditor.ObjectModels.Security.Key.RSA
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "RSA cryptography key";
-				_omr.Path = new string[] { "Security", "Key" };
+				_omr.Path = new string[] { "Security", "Key", "RSA cryptography key" };
 			}
 			return _omr;
 		}

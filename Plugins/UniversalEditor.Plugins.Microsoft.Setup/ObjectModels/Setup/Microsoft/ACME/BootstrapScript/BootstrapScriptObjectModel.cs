@@ -32,13 +32,7 @@ namespace UniversalEditor.ObjectModels.Setup.Microsoft.ACME.BootstrapScript
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Microsoft ACME Setup Bootstrapper Script";
-				_omr.Path = new string[]
-				{
-					"Setup",
-					"Microsoft",
-					"ACME Setup"
-				};
+				_omr.Path = new string[] { "Setup", "Microsoft", "ACME Setup", "Bootstrap Script" };
 			}
 			return _omr;
 		}

@@ -15,7 +15,7 @@
 		{
 			if (_omr == null) {
 				_omr = base.MakeReferenceInternal ();
-				_omr.Title = "Family Tree";
+				_omr.Path = new string[] { "Genealogy", "Family Tree" };
 			}
 			return _omr;
 		}

@@ -82,7 +82,6 @@ namespace UniversalEditor.ObjectModels.Executable
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Executable";
 			omr.Path = new string[] { "Software Development", "Executable" };
 			return omr;
 		}

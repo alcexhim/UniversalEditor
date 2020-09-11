@@ -39,7 +39,6 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Accessory
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Accessory";
 				_omr.Path = new string[] { "Multimedia", "3D Multimedia", "Accessory" };
 				_omr.Description = "Defines a 3D model that can be attached to another 3D model that supports the attachment of accessories";
 			}

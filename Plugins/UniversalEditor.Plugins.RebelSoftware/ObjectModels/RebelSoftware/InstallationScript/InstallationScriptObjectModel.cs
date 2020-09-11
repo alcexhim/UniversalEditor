@@ -34,12 +34,7 @@ namespace UniversalEditor.ObjectModels.RebelSoftware.InstallationScript
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Installation Script";
-				_omr.Path = new string[]
-				{
-					"Setup",
-					"Rebel Software"
-				};
+				_omr.Path = new string[] { "Setup", "Rebel Software", "Installation Script" };
 			}
 			return _omr;
 		}

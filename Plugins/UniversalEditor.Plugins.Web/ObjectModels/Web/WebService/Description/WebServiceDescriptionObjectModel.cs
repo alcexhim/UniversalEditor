@@ -34,7 +34,6 @@ namespace UniversalEditor.ObjectModels.Web.WebService.Description
             if (_omr == null)
             {
                 _omr = base.MakeReferenceInternal();
-                _omr.Title = "Web Service Description";
                 _omr.Path = new string[] { "Web", "Services", "Web Service Description" };
             }
             return _omr;

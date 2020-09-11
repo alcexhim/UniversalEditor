@@ -32,7 +32,6 @@ namespace UniversalEditor.ObjectModels.Help.TableOfContents
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Table of Contents";
 				_omr.Path = new string[] { "Help", "Table of Contents" };
 			}
 			return _omr;

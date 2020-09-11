@@ -32,7 +32,7 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Save
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			if (_omr == null) _omr = base.MakeReferenceInternal();
-			_omr.Title = "New World Computing save game";
+			_omr.Path = new string[] { "Gaming", "New World Computing", "Save game" };
 			return _omr;
 		}
 

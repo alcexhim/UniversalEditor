@@ -34,7 +34,7 @@ namespace UniversalEditor.ObjectModels.DataLink
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Data Link";
+				_omr.Path = new string[] { "General", "Data Link" };
 			}
 			return _omr;
 		}

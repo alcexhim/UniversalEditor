@@ -45,7 +45,7 @@ namespace UniversalEditor.ObjectModels.SMD
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "SMD";
+				_omr.Path = new string[] { "Multimedia", "3D Multimedia", "Model", "StudioMDL container" };
 			}
 			return _omr;
 		}

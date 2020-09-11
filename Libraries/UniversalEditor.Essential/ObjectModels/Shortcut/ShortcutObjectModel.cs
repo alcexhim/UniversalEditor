@@ -34,7 +34,6 @@ namespace UniversalEditor.ObjectModels.Shortcut
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Shortcut";
 				_omr.Description = "Allows the user to find a file or resource located in a different directory or folder from the place where the shortcut is located.";
 				_omr.Path = new string[] { "General", "Shortcut" };
 			}

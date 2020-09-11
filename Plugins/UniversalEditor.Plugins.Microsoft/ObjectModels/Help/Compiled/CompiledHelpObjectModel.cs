@@ -34,8 +34,7 @@ namespace UniversalEditor.ObjectModels.Help.Compiled
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "WinHelp compiled documentation file";
-				_omr.Path = new string[] { "Documentation Writer", "Compiled Documentation" };
+				_omr.Path = new string[] { "Documentation Writer", "Compiled Documentation", "WinHelp compiled documentation file" };
 			}
 			return _omr;
 		}

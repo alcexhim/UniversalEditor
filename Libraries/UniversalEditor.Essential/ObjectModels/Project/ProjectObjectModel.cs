@@ -41,7 +41,7 @@ namespace UniversalEditor.ObjectModels.Project
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Project";
+				_omr.Path = new string[] { "General", "Project" };
 				_omr.Description = "Stores a set of related files and folders with an accompanying configuration.";
 			}
 			return _omr;

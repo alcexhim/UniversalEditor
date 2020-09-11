@@ -31,7 +31,6 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Pose
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Pose";
 			omr.Path = new string[] { "Multimedia", "3D Multimedia", "Pose" };
 			omr.Description = "A pose that can be applied to a model in 3D space.";
 			return omr;

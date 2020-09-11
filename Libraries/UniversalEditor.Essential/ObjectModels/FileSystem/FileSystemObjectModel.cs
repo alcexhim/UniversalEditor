@@ -37,7 +37,6 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			if (_omr == null)
 			{
 				_omr = new ObjectModelReference(GetType(), new Guid("{A23026E9-DFE1-4090-AF35-8B916D3F1FCD}"));
-				_omr.Title = "File system/archive";
 				_omr.Path = new string[] { "General", "File system/archive" };
 			}
 			return _omr;

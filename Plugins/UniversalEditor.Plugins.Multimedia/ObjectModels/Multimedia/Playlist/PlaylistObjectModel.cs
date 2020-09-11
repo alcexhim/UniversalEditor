@@ -31,7 +31,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Playlist
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Multimedia playlist";
 			omr.Path = new string[] { "Multimedia", "Playlist" };
 			return omr;
 		}

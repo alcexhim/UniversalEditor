@@ -34,7 +34,7 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Campaign
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "New World Computing campaign";
+				_omr.Path = new string[] { "Gaming", "New World Computing", "Heroes of Might and Magic", "Campaign" };
 			}
 			return _omr;
 		}

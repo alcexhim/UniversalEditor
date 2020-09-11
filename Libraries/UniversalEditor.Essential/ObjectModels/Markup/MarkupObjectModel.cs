@@ -31,7 +31,6 @@ namespace UniversalEditor.ObjectModels.Markup
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Markup";
 			omr.Path = new string[] { "General", "Markup" };
 			return omr;
 		}

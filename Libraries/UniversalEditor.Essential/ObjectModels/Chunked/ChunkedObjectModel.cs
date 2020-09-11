@@ -32,7 +32,6 @@ namespace UniversalEditor.ObjectModels.Chunked
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Resource Interchange File Format (RIFF)";
 				_omr.Path = new string[] { "Software Development", "Resource Interchange File Format (RIFF)" };
 			}
 			return _omr;

@@ -34,8 +34,7 @@ namespace UniversalEditor.ObjectModels.Setup.ArkAngles
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Setup Script";
-				_omr.Path = new string[] { "Setup", "Ark Angles" };
+				_omr.Path = new string[] { "Setup", "Ark Angles", "Installation script" };
 			}
 			return _omr;
 		}

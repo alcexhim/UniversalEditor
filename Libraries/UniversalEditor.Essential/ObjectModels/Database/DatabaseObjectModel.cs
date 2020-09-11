@@ -32,7 +32,6 @@ namespace UniversalEditor.ObjectModels.Database
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Database";
 				_omr.Path = new string[] { "General", "Database" };
 			}
 			return _omr;

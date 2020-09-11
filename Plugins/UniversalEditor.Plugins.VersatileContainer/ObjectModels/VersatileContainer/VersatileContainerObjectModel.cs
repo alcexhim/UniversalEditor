@@ -12,7 +12,7 @@ namespace UniversalEditor.ObjectModels.VersatileContainer
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Versatile Container";
+				_omr.Path = new string[] { "General", "Versatile Container" };
 			}
 			return _omr;
 		}

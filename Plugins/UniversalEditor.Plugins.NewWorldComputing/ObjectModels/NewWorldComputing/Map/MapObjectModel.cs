@@ -34,7 +34,7 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Heroes of Might and Magic map file";
+				_omr.Path = new string[] { "Gaming", "New World Computing", "Heroes of Might and Magic", "Map file" };
 			}
 			return _omr;
 		}

@@ -36,7 +36,7 @@ namespace UniversalEditor.ObjectModels.Solution
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Solution";
+				_omr.Path = new string[] { "General", "Solution" };
 			}
 			return _omr;
 		}

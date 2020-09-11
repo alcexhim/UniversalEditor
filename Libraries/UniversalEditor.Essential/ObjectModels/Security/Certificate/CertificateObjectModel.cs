@@ -32,7 +32,6 @@ namespace UniversalEditor.ObjectModels.Security.Certificate
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Security certificate";
 				_omr.Path = new string[] { "Security", "Certificate" };
 			}
 			return _omr;

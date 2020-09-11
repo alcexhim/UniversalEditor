@@ -32,9 +32,8 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "StoryWriter story";
 				_omr.Description = "Tracks characters, locations, and other components of large fictional universes";
-				_omr.Path = new string[] { "StoryWriter" };
+				_omr.Path = new string[] { "StoryWriter", "Story" };
 			}
 			return _omr;
 		}

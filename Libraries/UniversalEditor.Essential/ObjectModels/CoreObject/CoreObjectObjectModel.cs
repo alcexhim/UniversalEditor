@@ -32,7 +32,7 @@ namespace UniversalEditor.ObjectModels.CoreObject
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Core Object";
+				_omr.Path = new string[] { "General", "Core Object" };
 			}
 			return _omr;
 		}

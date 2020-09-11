@@ -47,7 +47,6 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Model";
 				_omr.Path = new string[] { "Multimedia", "3D Multimedia", "3D Model" };
 				_omr.Description = "A model that can be manipulated in 3D space.";
 			}

@@ -29,7 +29,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Video
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Video";
 			omr.Path = new string[] { "Multimedia", "Video" };
 			return omr;
 		}

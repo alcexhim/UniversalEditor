@@ -35,7 +35,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Synthesized audio sequence";
 				_omr.Path = new string[] { "Multimedia", "Audio", "Synthesized Audio" };
 			}
 			return _omr;

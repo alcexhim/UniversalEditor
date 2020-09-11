@@ -39,7 +39,6 @@ namespace UniversalEditor.ObjectModels.Contact
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Contact";
 				_omr.Path = new string[] { "General", "Contact" };
 			}
 			return _omr;

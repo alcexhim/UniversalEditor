@@ -37,7 +37,6 @@ namespace UniversalEditor.ObjectModels.Binary
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Binary";
 				_omr.Path = new string[] { "General", "Binary" };
 				_omr.Description = "Edits raw binary data";
 			}

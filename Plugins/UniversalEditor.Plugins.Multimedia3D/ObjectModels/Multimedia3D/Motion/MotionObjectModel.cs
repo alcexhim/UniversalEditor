@@ -35,8 +35,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Motion
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Motion capture data";
-			omr.Path = new string[] { "Multimedia", "3D Multimedia", "Motion Capture Data" };
+			omr.Path = new string[] { "Multimedia", "3D Multimedia", "Motion capture data" };
 			omr.Description = "Motion capture data that can be used to animate a model in 3D space.";
 			return omr;
 		}

@@ -45,7 +45,7 @@ namespace UniversalEditor.ObjectModels.Spreadsheet
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Spreadsheet";
+				_omr.Path = new string[] { "Office", "Spreadsheet" };
 			}
 			return _omr;
 		}

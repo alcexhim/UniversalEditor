@@ -37,7 +37,6 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankIndex
 			{
 				_omr = base.MakeReferenceInternal();
 				_omr.Path = new string[] { "Multimedia", "Audio", "Voicebank index" };
-				_omr.Title = "Voicebank index";
 			}
 			return _omr;
 		}

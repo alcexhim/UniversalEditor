@@ -34,8 +34,7 @@ namespace UniversalEditor.ObjectModels.Catalog.ArkAngles
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Catalog";
-				_omr.Path = new string[] { "Catalog", "Ark Angles" };
+				_omr.Path = new string[] { "Catalog", "Ark Angles", "Catalog" };
 			}
 			return _omr;
 		}

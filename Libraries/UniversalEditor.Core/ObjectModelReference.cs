@@ -138,7 +138,7 @@ namespace UniversalEditor
 
 		public string[] GetDetails()
 		{
-			return new string[] { mvarTitle, mvarDescription };
+			return new string[] { Title, mvarDescription };
 		}
 
 		private Type mvarType = null;
@@ -147,12 +147,11 @@ namespace UniversalEditor
 		private Guid mvarID = Guid.Empty;
 		public Guid ID { get { return mvarID; } }
 
-		private string mvarTitle = null;
-		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+		public string Title { get { return Path[Path.Length - 1]; } }
 
 		public string GetTitle()
 		{
-			if (mvarTitle != null) return mvarTitle;
+			if (Title != null) return Title;
 			if (mvarType != null) return mvarType.FullName;
 			return mvarID.ToString("B");
 		}
@@ -165,10 +164,6 @@ namespace UniversalEditor
 				if (mvarPath == null && mvarType != null)
 				{
 					string[] sz = mvarType.FullName.Split(new char[] { '.' });
-					if (mvarTitle != null)
-					{
-						sz[sz.Length - 1] = mvarTitle;
-					}
 					return sz;
 				}
 				return mvarPath;

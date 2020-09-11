@@ -32,9 +32,8 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture.Collection
 			if (_omr == null)
 			{
 				_omr = base.MakeReferenceInternal();
-				_omr.Title = "Picture collection";
 				_omr.Description = "Store multiple pictures in a single file";
-				_omr.Path = new string[] { "Multimedia", "Picture", "Picture Collection" };
+				_omr.Path = new string[] { "Multimedia", "Picture", "Picture collection" };
 			}
 			return _omr;
 		}

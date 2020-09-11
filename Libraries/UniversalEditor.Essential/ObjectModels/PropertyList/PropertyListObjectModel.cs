@@ -32,7 +32,6 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-			omr.Title = "Property List";
 			omr.Path = new string[] { "General", "Property List" };
 
 			return omr;
