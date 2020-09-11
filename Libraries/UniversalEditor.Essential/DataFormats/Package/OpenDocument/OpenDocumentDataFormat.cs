@@ -52,7 +52,9 @@ namespace UniversalEditor.DataFormats.Package.OpenDocument
 
 			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
 			PackageObjectModel package = (objectModels.Pop() as PackageObjectModel);
+			package.FileSystem.CopyFrom(fsom);
 
+			objectModels.Push(package);
 		}
 
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
