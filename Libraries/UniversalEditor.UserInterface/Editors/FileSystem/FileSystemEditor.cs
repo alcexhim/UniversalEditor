@@ -124,14 +124,31 @@ namespace UniversalEditor.Editors.FileSystem
 			Document d = HostApplication.CurrentWindow.NewFile();
 			if (d != null)
 			{
+				BeginEdit();
 				File file = fsom.AddFile(d.Title.Replace("<", String.Empty).Replace(">", String.Empty));
-				RecursiveAddFile(file);
+				EndEdit();
+
+				TreeModelRow row = RecursiveAddFile(file);
+				file.Properties["row"] = row;
 
 				EmbeddedFileAccessor efa = new EmbeddedFileAccessor(file);
 				d.Accessor = efa;
+				d.Saved += D_Saved;
 				file.Source = new MemoryFileSource(efa);
 			}
 		}
+
+		void D_Saved(object sender, EventArgs e)
+		{
+			Document d = (sender as Document);
+			EmbeddedFileAccessor efa = (d.Accessor as EmbeddedFileAccessor);
+			File f = efa.File;
+
+			TreeModelRow row = (TreeModelRow)f.Properties["row"];
+			row.RowColumns[1].Value = UniversalEditor.UserInterface.Common.FileInfo.FormatSize(f.Size);
+			row.RowColumns[2].Value = d.DataFormat?.MakeReference().Title;
+		}
+
 
 		/// <summary>
 		/// Prompts the user to select an existing file to add to the currently-loaded <see cref="FileSystemObjectModel"/>.
@@ -666,7 +683,7 @@ namespace UniversalEditor.Editors.FileSystem
 				parent.Rows.Add(r);
 			}
 		}
-		private void RecursiveAddFile(File f, TreeModelRow parent = null)
+		private TreeModelRow RecursiveAddFile(File f, TreeModelRow parent = null)
 		{
 			TreeModelRow r = UIGetTreeModelRowForFileSystemObject(f);
 			r.SetExtraData<IFileSystemObject>("item", f);
@@ -679,6 +696,7 @@ namespace UniversalEditor.Editors.FileSystem
 			{
 				parent.Rows.Add(r);
 			}
+			return r;
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
