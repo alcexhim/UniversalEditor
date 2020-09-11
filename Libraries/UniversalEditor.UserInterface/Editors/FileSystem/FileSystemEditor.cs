@@ -125,10 +125,10 @@ namespace UniversalEditor.Editors.FileSystem
 			if (d != null)
 			{
 				BeginEdit();
-				File file = fsom.AddFile(d.Title.Replace("<", String.Empty).Replace(">", String.Empty));
+				File file = GetCurrentFileSystemContainer().AddFile(d.Title.Replace("<", String.Empty).Replace(">", String.Empty));
 				EndEdit();
 
-				TreeModelRow row = RecursiveAddFile(file);
+				TreeModelRow row = RecursiveAddFile(file, tv.SelectedRows.Count == 1 ? tv.SelectedRows[0] : null);
 				file.Properties["row"] = row;
 
 				EmbeddedFileAccessor efa = new EmbeddedFileAccessor(file);
@@ -173,7 +173,7 @@ namespace UniversalEditor.Editors.FileSystem
 					string fileTitle = System.IO.Path.GetFileName(fileName);
 					byte[] data = System.IO.File.ReadAllBytes(fileName);
 
-					UIAddExistingFile(fsom, fileTitle, data);
+					UIAddExistingFile(GetCurrentFileSystemContainer(), fileTitle, data);
 				}
 
 				EndEdit();
@@ -200,7 +200,10 @@ namespace UniversalEditor.Editors.FileSystem
 			{
 				for (int i = 0; i < tv.SelectedRows.Count; i++)
 				{
-					IFileSystemObject item = tv.SelectedRows[i].GetExtraData<IFileSystemObject>("item");
+					IFileSystemContainer item = tv.SelectedRows[i].GetExtraData<IFileSystemObject>("item") as IFileSystemContainer;
+					if (item == null)
+						continue;
+
 					AddFolderToItem(f, item);
 					tv.SelectedRows[i].Rows.Add(row);
 				}
@@ -258,8 +261,10 @@ namespace UniversalEditor.Editors.FileSystem
 			if (fsom == null)
 				return;
 
+			IFileSystemContainer fsct = GetCurrentFileSystemContainer();
+
 			int iNewFolderCt = 0;
-			foreach (Folder ef in fsom.Folders)
+			foreach (Folder ef in fsct.Folders)
 			{
 				if (ef.Name.Equals("New folder") || ef.Name.StartsWith("New folder "))
 				{
@@ -267,7 +272,20 @@ namespace UniversalEditor.Editors.FileSystem
 				}
 			}
 
-			UIAddEmptyFolder(fsom, String.Format("New folder{0}", ((iNewFolderCt > 0) ? " (" + (iNewFolderCt + 1).ToString() + ")" : String.Empty)));
+			UIAddEmptyFolder(fsct, String.Format("New folder{0}", ((iNewFolderCt > 0) ? " (" + (iNewFolderCt + 1).ToString() + ")" : String.Empty)));
+		}
+
+		private IFileSystemContainer GetCurrentFileSystemContainer()
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			IFileSystemContainer fsct = fsom;
+			if (tv.SelectedRows.Count == 1)
+			{
+				Folder fldr = tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") as Folder;
+				if (fldr != null)
+					fsct = fldr;
+			}
+			return fsct;
 		}
 
 		private void FileAddItemsFromFolder_Click(object sender, EventArgs e)
@@ -311,21 +329,18 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
-		private void AddFolderToItem(Folder f, IFileSystemObject item)
+		private void AddFolderToItem(Folder f, IFileSystemContainer item)
 		{
 			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
 			if (fsom == null)
 				return;
 
 			BeginEdit();
-			if (item is Folder)
+			if (item == null)
 			{
-				(item as Folder).Folders.Add(f);
+				item = fsom;
 			}
-			else if (item == null)
-			{
-				fsom.Folders.Add(f);
-			}
+			item.Folders.Add(f);
 			EndEdit();
 		}
 
@@ -342,8 +357,8 @@ namespace UniversalEditor.Editors.FileSystem
 				BeginEdit();
 
 				Folder f = FolderFromPath(fd.SelectedFileNames[fd.SelectedFileNames.Count - 1]);
-				RecursiveAddFolder(f);
-				AddFolderToItem(f, null);
+				RecursiveAddFolder(f, tv.SelectedRows.Count == 1 ? tv.SelectedRows[0] : null);
+				AddFolderToItem(f, GetCurrentFileSystemContainer());
 
 				EndEdit();
 			}
