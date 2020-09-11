@@ -299,9 +299,15 @@ namespace UniversalEditor.UserInterface
 				DocumentTemplate template = (dlg.SelectedItem as DocumentTemplate);
 				if (template == null) return null;
 
+				string filename = "<untitled{0}>";
+				if (!String.IsNullOrEmpty(dlg.ProjectTitle))
+				{
+					filename = dlg.ProjectTitle;
+				}
+
 				Pages.EditorPage page = new Pages.EditorPage();
 				page.DocumentEdited += page_DocumentEdited;
-				page.Title = String.Format("<untitled{0}>", iUntitledDocCount);
+				page.Title = String.Format(filename, iUntitledDocCount);
 
 				ObjectModel objm = template.ObjectModelReference.Create();
 				if (objm == null)
@@ -311,7 +317,7 @@ namespace UniversalEditor.UserInterface
 				}
 
 				page.Document = new Document(objm, null, null);
-				page.Document.Title = String.Format("<untitled{0}>", iUntitledDocCount);
+				page.Document.Title = String.Format(filename, iUntitledDocCount);
 
 				/*
 				DockingWindow dwNewDocument = dcc.Windows.Add("<untitled>", "<untitled>", page);
@@ -326,7 +332,7 @@ namespace UniversalEditor.UserInterface
 
 				Glue.Common.Methods.SendApplicationEvent(ae);
 				*/
-				InitDocTab(String.Format("<untitled{0}>", iUntitledDocCount), page.Title, page);
+				InitDocTab(String.Format(filename, iUntitledDocCount), page.Title, page);
 				return page.Document;
 			}
 			return null;
