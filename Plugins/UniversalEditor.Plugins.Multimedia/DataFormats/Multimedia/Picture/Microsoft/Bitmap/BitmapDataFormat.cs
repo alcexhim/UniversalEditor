@@ -125,6 +125,13 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 
 			switch (PixelDepth)
 			{
+				case BitmapBitsPerPixel.Monochrome:
+				{
+					// HACK: i have no idea what I'm doing
+					bitmapPaletteEntrySize = 3;
+					paletteSize = 6;
+					break;
+				}
 				case BitmapBitsPerPixel.Color256:
 				{
 					bitmapPaletteEntrySize = 4;
@@ -141,7 +148,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 					break;
 				}
 			}
-			int numPaletteEntries = paletteSize / bitmapPaletteEntrySize;                        // 14 / 4 = 3
+			int numPaletteEntries = 0;
+			if (bitmapPaletteEntrySize > 0)
+			{
+				numPaletteEntries = paletteSize / bitmapPaletteEntrySize;                        // 14 / 4 = 3
+			}
 
 			if (header.UsedColorIndexCount > 0)
 				numPaletteEntries = header.UsedColorIndexCount; // use this, it's more accurate if available
@@ -151,6 +162,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 				byte b = 0, g = 0, r = 0, a = 255;
 				switch (PixelDepth)
 				{
+					case BitmapBitsPerPixel.Monochrome:
+					{
+						b = br.ReadByte();
+						g = br.ReadByte();
+						r = br.ReadByte();
+						a = br.ReadByte();
+						a = 255;
+						break;
+					}
 					case BitmapBitsPerPixel.TrueColor:
 					{
 						b = br.ReadByte();
@@ -207,13 +227,16 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 						case BitmapBitsPerPixel.Monochrome:
 						{
 							// TODO: Figure out how to read this bitmap
-							if (bitsRead == 0) bitRead = br.ReadByte();
+							if (bitsRead == 0)
+							{
+								bitRead = br.ReadByte();
+							}
 
-							b = (byte)(bitRead << (bitsRead));
-							g = (byte)(bitRead << (bitsRead + 1));
-							r = (byte)(bitRead << (bitsRead + 2));
-
-							bitsRead += 3;
+							byte w = (byte)bitRead.GetBits(bitsRead, 1);
+							r = (byte)(palette[w].R * 255);
+							g = (byte)(palette[w].G * 255);
+							b = (byte)(palette[w].B * 255);
+							bitsRead++;
 							if (bitsRead == 8)
 							{
 								bitsRead = 0;
