@@ -3,10 +3,16 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Kronosaur/Neurohack Transcendence TDB archive" ContentType="application/x-kronosaur-tdb">
+				<Filter Title="Kronosaur/Neurohack Transcendence TDB archive" ContentType="application/x-kronosaur-tdb" HintComparison="Both">
 					<FileNameFilters>
 						<FileNameFilter>*.tdb</FileNameFilter>
+						<FileNameFilter>*.sav</FileNameFilter>
 					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">FDLA</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
 				</Filter>
 			</Filters>
 			<ObjectModels>
