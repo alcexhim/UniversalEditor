@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Microsoft waveform audio">
+				<Filter Title="Microsoft waveform audio" ContentType="audio/wave" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.wav</FileNameFilter>
 						<FileNameFilter>*.wave</FileNameFilter>
