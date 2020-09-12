@@ -54,11 +54,10 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 		private const int FREE_ENTRY			=	-1;
 		private const int INVALID_ENTRY			=	-1;
 
-		private int mvarFormatVersion = 2;
-		public int FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
+		public int FormatVersion { get; set; } = 2;
+		public int BlockSize { get; set; } = 4096;
 
-		private int mvarBlockSize = 4096;
-		public int BlockSize { get { return mvarBlockSize; } set { mvarBlockSize = value; } }
+		private static CompressionModule zlib = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib);
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -70,9 +69,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 			string signature = reader.ReadFixedLengthString(4);
 			if (signature != "FDLA") throw new InvalidDataFormatException("File does not begin with 'FDLA'");
 
-			mvarFormatVersion = reader.ReadInt32();
+			FormatVersion = reader.ReadInt32();
 
-			mvarBlockSize = reader.ReadInt32();
+			BlockSize = reader.ReadInt32();
 			int blockCount = reader.ReadInt32();
 			int entryTableCount = reader.ReadInt32();
 			int entryTableOffset = reader.ReadInt32();
@@ -93,35 +92,69 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 			SeekToBlock(reader, defaultEntry.dwBlock, true);
 
 			ResourceTableObjectModel trobj = new ResourceTableObjectModel();
-			Document.Load(trobj, new TRDBDataFormat(), reader.Accessor, false);
-
-			CompressionModule zlib = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib);
-
-			foreach (ResourceTableEntry entry in trobj.Entries)
+			try
 			{
-				ALDFEntryStruct entry1 = entries[entry.EntryID];
-				File file = fsom.AddFile(entry.Name);
-				file.Source = new EmbeddedFileSource(reader, GetLogicalOffsetFromBlockOffset(entry1.dwBlock, true), entry1.dwSize, new FileSourceTransformation[] { new FileSourceTransformation(FileSourceTransformationType.Input, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
+				Document.Load(trobj, new TRDBDataFormat(), reader.Accessor, false);
+
+				foreach (ResourceTableEntry entry in trobj.Entries)
 				{
-					if ((entry.Flags & ResourceTableEntryFlags.CompressZlib) == ResourceTableEntryFlags.CompressZlib)
+					ALDFEntryStruct entry1 = entries[entry.EntryID];
+					File file = fsom.AddFile(entry.Name);
+					file.Source = new EmbeddedFileSource(reader, GetLogicalOffsetFromBlockOffset(entry1.dwBlock, true), entry1.dwSize, new FileSourceTransformation[] { new FileSourceTransformation(FileSourceTransformationType.Input, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 					{
 						Reader br = new Reader(new StreamAccessor(inputStream));
 						Writer bw = new Writer(new StreamAccessor(outputStream));
 
 						byte[] compressedData = br.ReadToEnd();
-						byte[] decompressedData = zlib.Decompress(compressedData);
+						byte[] decompressedData = null;
+
+						if ((entry.Flags & ResourceTableEntryFlags.CompressZlib) == ResourceTableEntryFlags.CompressZlib)
+						{
+							decompressedData = zlib.Decompress(compressedData);
+						}
+						else
+						{
+							decompressedData = compressedData;
+						}
 						bw.WriteBytes(decompressedData);
 						bw.Flush();
-					}
-				}) });
+					}) });
 
-				file.Size = entry1.dwSize;
+					file.Size = entry1.dwSize;
+				}
+			}
+			catch (InvalidDataFormatException ex)
+			{
+				for (int i = 0; i < entries.Count; i++)
+				{
+					File file = fsom.AddFile(i.ToString().PadLeft(8, '0'));
+					file.Size = entries[i].dwSize;
+					ALDFEntryFlags flags = entries[i].dwFlags;
+					file.Source = new EmbeddedFileSource(reader, GetLogicalOffsetFromBlockOffset(entries[i].dwBlock, true), entries[i].dwSize, new FileSourceTransformation[] { new FileSourceTransformation(FileSourceTransformationType.Input, delegate(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
+					{
+						Reader br = new Reader(new StreamAccessor(inputStream));
+						Writer bw = new Writer(new StreamAccessor(outputStream));
+						byte[] compressedData = br.ReadToEnd();
+						byte[] decompressedData = null;
+
+						if (compressedData.Length > 2 && (compressedData[0] == 0x78 && compressedData[1] == 0x9C))
+						{
+							decompressedData = zlib.Decompress(compressedData);
+						}
+						else
+						{
+							decompressedData = compressedData;
+						}
+						bw.WriteBytes(decompressedData);
+						bw.Flush();
+					}) });
+				}
 			}
 		}
 
 		private long GetLogicalOffsetFromBlockOffset(int blockIndex, bool includeHeaderSize = false)
 		{
-			return (blockIndex * mvarBlockSize) + (includeHeaderSize ? HEADERSIZE : 0);
+			return (blockIndex * BlockSize) + (includeHeaderSize ? HEADERSIZE : 0);
 		}
 
 		private void SeekToBlock(Reader reader, int blockIndex, bool includeHeaderSize = false)
@@ -150,7 +183,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 
 			// Write the header
 			writer.WriteFixedLengthString("ALDF");
-			writer.WriteInt32(mvarFormatVersion);
+			writer.WriteInt32(FormatVersion);
 			writer.WriteInt32(iBlockSize);
 			writer.WriteInt32(iBlockCount);
 			writer.WriteInt32(iEntryTableCount);
