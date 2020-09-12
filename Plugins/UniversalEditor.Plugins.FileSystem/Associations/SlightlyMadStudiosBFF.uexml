@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Slightly Mad Studios BFF archive">
+				<Filter Title="Slightly Mad Studios BFF archive" ContentType="application/x-slightlymadstudios-bff" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.bff</FileNameFilter>
 					</FileNameFilters>
