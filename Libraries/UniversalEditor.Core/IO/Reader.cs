@@ -1762,7 +1762,9 @@ namespace UniversalEditor.IO
 		{
 			long paddingCount = ((alignTo - (Accessor.Position % alignTo)) % alignTo);
 			paddingCount += extraPadding;
-			Accessor.Position += paddingCount;
+
+			if (Accessor.Position + paddingCount < Accessor.Length)
+				Accessor.Position += paddingCount;
 		}
 
 		public string ReadStringUntilAny(char[] anyOf)
