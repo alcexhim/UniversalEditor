@@ -118,6 +118,12 @@ namespace UniversalEditor.Accessors
 			mvarBaseStream.Flush();
 		}
 
+		public string FileName { get; set; } = null;
+		public override string GetFileName()
+		{
+			return FileName;
+		}
+
 		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
 		{
 			// FIXME: not implemented
