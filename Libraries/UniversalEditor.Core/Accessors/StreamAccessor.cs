@@ -92,15 +92,18 @@ namespace UniversalEditor.Accessors
 		{
 			// TODO: will ct ever be != count? should we add ct to Position instead of count??
 			int ct = mvarBaseStream.Read(buffer, start, count);
-			// Position += count;
-			return count;
+
+			// --->: apparently, ct sometimes DOES != count, and it's important here to return ct
+			//       instead of count to prevent freezing on certain streams
+			return ct;
 		}
 
 		protected internal override int WriteInternal(byte[] buffer, int start, int count)
 		{
+			long oldpos = Position;
 			mvarBaseStream.Write(buffer, start, count);
 			// Position += count;
-			return count;
+			return (int)(Position - oldpos);
 		}
 
 		protected override void OpenInternal()
