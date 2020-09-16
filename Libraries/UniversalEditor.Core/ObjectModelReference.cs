@@ -95,6 +95,16 @@ namespace UniversalEditor
 			/// <returns>True if an <see cref="ObjectModelReference" /> with the specified ID exists in the collection; false otherwise.</returns>
 			public bool Contains(Guid ID)
 			{
+				if (refsByID.Count == 0)
+				{
+					foreach (ObjectModelReference omr in this)
+					{
+						if (omr.ID != Guid.Empty)
+						{
+							refsByID.Add(omr.ID, omr);
+						}
+					}
+				}
 				return (refsByID.ContainsKey(ID));
 			}
 			/// <summary>
