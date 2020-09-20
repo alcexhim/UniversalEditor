@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls.Docking;
+using UniversalEditor.ObjectModels.Project;
+using UniversalEditor.ObjectModels.Solution;
 
 namespace UniversalEditor.UserInterface
 {
@@ -82,6 +84,9 @@ namespace UniversalEditor.UserInterface
 		void SetWindowListVisible(bool visible, bool modal);
 
 		StatusBar StatusBar { get; }
+
+		ProjectObjectModel CurrentProject { get; set; }
+		SolutionObjectModel CurrentSolution { get; set; }
 	}
 	public class IHostApplicationWindowCollection
 		: System.Collections.ObjectModel.Collection<IHostApplicationWindow>

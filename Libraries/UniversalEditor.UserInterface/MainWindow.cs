@@ -1412,8 +1412,21 @@ namespace UniversalEditor.UserInterface
 				pnlSolutionExplorer.Solution = value;
 			}
 		}
+		public ProjectObjectModel CurrentProject
+		{
+			get
+			{
+				if (pnlSolutionExplorer.Project != null)
+					return pnlSolutionExplorer.Project;
+				return null;
+			}
+			set
+			{
+				pnlSolutionExplorer.Project = value;
+			}
+		}
 
-#endregion
+		#endregion
 
 		public void ShowDocumentPropertiesDialog()
 		{

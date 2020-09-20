@@ -46,6 +46,40 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 		}
 
+		public ProjectObjectModel Project
+		{
+			get
+			{
+				if (tvSolutionExplorer.SelectedRows.Count > 0)
+				{
+					TreeModelRow row = tvSolutionExplorer.SelectedRows[0];
+					while (row != null)
+					{
+						ProjectObjectModel proj = row.GetExtraData<ProjectObjectModel>("project");
+						if (proj != null)
+							return proj;
+
+						row = row.ParentRow;
+					}
+				}
+				else
+				{
+					if (Solution != null)
+					{
+						if (Solution.Projects.Count > 0)
+						{
+							return Solution.Projects[0];
+						}
+					}
+				}
+				return null;
+			}
+			set
+			{
+
+			}
+		}
+
 		private TreeModelRow LoadSolutionExplorerFolder(ObjectModels.Project.ProjectFolder fold)
 		{
 			TreeModelRow rowFolder = new TreeModelRow(new TreeModelRowColumn[]
