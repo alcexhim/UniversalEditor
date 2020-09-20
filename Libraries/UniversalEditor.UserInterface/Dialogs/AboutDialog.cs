@@ -34,6 +34,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 	[ContainerLayout("~/Dialogs/AboutDialog.glade", "GtkDialog")]
 	public class AboutDialog : Dialog
 	{
+		private Label lblApplicationTitle;
+		private Label lblApplicationVersion;
+		private Label lblApplicationCopyright;
+		private TextBox txtLicense;
 		private ListViewControl tvComponents;
 		private DefaultTreeModel tmComponents;
 
@@ -46,6 +50,15 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			base.OnCreated(e);
 
+			Text = String.Format(Text, Application.Title);
+			lblApplicationTitle.Text = Application.Title;
+			lblApplicationVersion.Text = String.Format("Version {0}", System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
+
+			object[] atts = System.Reflection.Assembly.GetEntryAssembly().GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);
+			if (atts.Length > 0)
+			{
+				lblApplicationCopyright.Text = (atts[0] as System.Reflection.AssemblyCopyrightAttribute).Copyright;
+			}
 			InitializeInstalledComponentsTab();
 		}
 
