@@ -1190,7 +1190,8 @@ namespace UniversalEditor.UserInterface
 		public void PrintDocument()
 		{
 			Editor editor = GetCurrentEditor ();
-			if (editor != null) {
+			if (editor != null)
+			{
 				PrintHandlerReference[] phrs = UniversalEditor.Printing.Reflection.GetAvailablePrintHandlers(editor.ObjectModel);
 				if (phrs.Length > 0)
 				{
@@ -1209,6 +1210,10 @@ namespace UniversalEditor.UserInterface
 							job.Send();
 						}
 					}
+				}
+				else
+				{
+					MessageDialog.ShowDialog(String.Format("No print handlers are associated with the ObjectModel.\r\n\r\n{0}", editor.ObjectModel?.GetType()?.FullName ?? "(null)"), "Print Document", MessageDialogButtons.OK, MessageDialogIcon.Error);
 				}
 			}
 		}
