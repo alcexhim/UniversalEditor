@@ -158,6 +158,8 @@ namespace UniversalEditor
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
+		public string Description { get; set; } = null;
+
 		private bool mvarEnabled = true;
 		public bool Enabled { get { return mvarEnabled; } set { mvarEnabled = value; } }
 

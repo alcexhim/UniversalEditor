@@ -46,7 +46,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Mode), "File _mode", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Mode), "File access _method", true, new CustomOptionFieldChoice[]
 				{
 					new CustomOptionFieldChoice("ID only", CPKFileMode.IDOnly),
 					new CustomOptionFieldChoice("Filename only", CPKFileMode.FilenameOnly),
@@ -55,10 +55,28 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 					new CustomOptionFieldChoice("ID + Group (Attribute)", CPKFileMode.IDGroup),
 					new CustomOptionFieldChoice("Filename + ID + Group (Attribute)", CPKFileMode.FilenameIDGroup)
 				}));
+				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Choose the method by which files should be accessed in the resulting archive.";
 				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VersionString), "_Version string", "CPKMC2.14.00, DLL2.74.00"));
+				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Override the version string written by the creator program.";
 				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(SectorAlignment), "Sector _alignment", 2048, 0, 2048));
+				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Choose the alignment for each file in the resulting archive (between 1 and 2048 in powers of 2).";
 				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(ScrambleDirectoryInformation), "_Scramble directory information"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(ForceCompression), "Force _compression"));
+				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Encrypt the directory information in the resulting archive (contents are NOT encrypted).";
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(ForceCompression), "_Force compression"));
+				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Attempt to compress all files in the archive regardless of individual file compression setting.";
+				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(ForceCompression), "Include _CRC information"));
+				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Generate CRC checksum information (about 4 additional bytes per file) for each file.";
+
+				CustomOptionGroup grp = new CustomOptionGroup("", "CPK File Setting");
+				grp.Options.Add(new CustomOptionBoolean("TopTocInformation", "Write TOC at beginning of file", false));
+				grp.Options[grp.Options.Count - 1].Description = "Media with slow seek time may be able to load the information fast, but may take up more space.";
+				grp.Options.Add(new CustomOptionBoolean("RandomDataPadding", "_Random data padding", false));
+				grp.Options[grp.Options.Count - 1].Description = "Pad file contents with random data instead of zero byte.";
+				grp.Options.Add(new CustomOptionBoolean("RemoveLocalInfo", "Do not write _local filename information", false));
+				grp.Options[grp.Options.Count - 1].Description = "When enabled, new files cannot be added.";
+				grp.Options.Add(new CustomOptionBoolean("RemoveTimestampInfo", "Do not write _timestamp information", false));
+				grp.Options[grp.Options.Count - 1].Description = "When enabled, data cannot be added.";
+				_dfr.ExportOptions.Add(grp);
 			}
 			return _dfr;
 		}

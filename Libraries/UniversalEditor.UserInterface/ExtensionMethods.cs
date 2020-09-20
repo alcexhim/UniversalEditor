@@ -109,6 +109,7 @@ namespace UniversalEditor.UserInterface
 				}
 				csp.SettingsGroups.Add(sg1);
 			}
+			sg.Settings[sg.Settings.Count - 1].Description = eo.Description;
 		}
 
 		public static void AddCustomOptions(this SettingsGroup sg, IEnumerable<CustomOption> options, CustomSettingsProvider csp)
