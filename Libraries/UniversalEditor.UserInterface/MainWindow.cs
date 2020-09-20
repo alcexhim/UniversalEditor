@@ -731,9 +731,6 @@ namespace UniversalEditor.UserInterface
 
 		private void InitStartPage()
 		{
-			// StartPageDialog dlg = new StartPageDialog();
-			// dlg.ShowDialog();
-
 			StartPagePanel lblStartPage = new StartPagePanel();
 			InitDocTab("Start Page", "Start Page", lblStartPage);
 		}
@@ -761,6 +758,7 @@ namespace UniversalEditor.UserInterface
 				MBS.Framework.UserInterface.Application.Stop();
 			}
 		}
+
 		protected override void OnCreated(EventArgs e)
 		{
 			this.RegisterDropTarget(new DragDropTarget[]
@@ -1395,8 +1393,6 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 		}
-
-		public event EventHandler WindowClosed;
 
 		public bool FullScreen { get; set; }
 

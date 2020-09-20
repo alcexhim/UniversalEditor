@@ -9,8 +9,6 @@ namespace UniversalEditor.UserInterface
 {
 	public interface IHostApplicationWindow
 	{
-		event EventHandler WindowClosed;
-
 		Document NewFile();
 		void NewProject(bool combineObjects = false);
 
