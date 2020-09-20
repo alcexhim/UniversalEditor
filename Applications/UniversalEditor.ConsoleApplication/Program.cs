@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Text;
+using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Text.Formatted.Items;
 
 namespace UniversalEditor.ConsoleApplication
@@ -185,6 +186,10 @@ namespace UniversalEditor.ConsoleApplication
 					}
 					sb.AppendLine(String.Format("\t<mime-type type=\"{0}\">", mimetype));
 					sb.AppendLine(String.Format("\t\t<comment>{0}</comment>", assocs[i].Filters[j].Title));
+					if (assocs[i].ObjectModels.Contains(new Guid("{a23026e9-dfe1-4090-af35-8b916d3f1fcd}")))
+					{
+						sb.AppendLine(String.Format("\t\t<generic-icon name=\"package-x-generic\"/>"));
+					}
 
 					// Console.Write("registering '{0}' extensions... ", assocs[i].Filters[j].Title);
 					for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)

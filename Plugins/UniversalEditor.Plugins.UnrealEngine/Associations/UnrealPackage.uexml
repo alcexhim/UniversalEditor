@@ -22,6 +22,7 @@
 			</Filters>
 			<ObjectModels>
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.UnrealEngine.UnrealPackageObjectModel" />
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
 				<DataFormat TypeName="UniversalEditor.DataFormats.UnrealEngine.Package.UnrealPackageDataFormat" />
