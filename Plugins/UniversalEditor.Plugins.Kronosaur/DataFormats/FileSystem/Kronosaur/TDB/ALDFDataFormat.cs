@@ -81,11 +81,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 			// read the entry table
 			reader.Seek(entryTableOffset, SeekOrigin.Begin);
 
-			List<ALDFEntryStruct> entries = new List<ALDFEntryStruct>();
+			ALDFEntryStruct[] entries = new ALDFEntryStruct[entryTableCount];
 			for (int i = 0; i < entryTableCount; i++)
 			{
 				ALDFEntryStruct entry = ReadALDFEntryStruct(reader);
-				entries.Add(entry);
+				entries[i] = entry;
 			}
 
 			ALDFEntryStruct defaultEntry = entries[defaultEntryIndex];
@@ -125,7 +125,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 			}
 			catch (InvalidDataFormatException ex)
 			{
-				for (int i = 0; i < entries.Count; i++)
+				for (int i = 0; i < entries.Length; i++)
 				{
 					File file = fsom.AddFile(i.ToString().PadLeft(8, '0'));
 					file.Size = entries[i].dwSize;
