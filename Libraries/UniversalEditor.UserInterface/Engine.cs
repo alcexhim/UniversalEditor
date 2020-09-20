@@ -194,7 +194,7 @@ namespace UniversalEditor.UserInterface
 				MainWindow mw = (Application.Windows[i] as MainWindow);
 				if (mw == null) continue;
 
-				if (!mw.ConfirmExit())
+				if (!mw.Close())
 				{
 					e.Cancel = true;
 					break;

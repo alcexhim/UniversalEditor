@@ -704,14 +704,27 @@ namespace UniversalEditor.UserInterface
 			}
 			return true;
 		}
+
+		private bool _UserClosed = false;
 		protected override void OnClosing(WindowClosingEventArgs e)
 		{
 			base.OnClosing(e);
 
-			if (e.CloseReason == WindowCloseReason.UserClosing)
+			if (e.CloseReason == WindowCloseReason.UserClosing || e.CloseReason == WindowCloseReason.ApplicationStop)
 			{
+				if (e.CloseReason == WindowCloseReason.UserClosing)
+				{
+					_UserClosed = true;
+				}
+				else if (e.CloseReason == WindowCloseReason.ApplicationStop && _UserClosed)
+				{
+					return;
+				}
 				if (!ConfirmExit())
+				{
+					_UserClosed = false;
 					e.Cancel = true;
+				}
 			}
 		}
 
