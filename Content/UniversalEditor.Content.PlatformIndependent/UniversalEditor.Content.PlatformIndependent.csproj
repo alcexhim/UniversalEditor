@@ -308,6 +308,7 @@
     <Content Include="Editors\RavenSoftware\Icarus\Dialogs\IcarusExpressionHelperDialog.glade" />
     <Content Include="Editors\RavenSoftware\Carcass\CarcassEditor.glade" />
     <Content Include="Editors\RavenSoftware\Carcass\Dialogs\ModelReferencePropertiesDialog.glade" />
+    <Content Include="Editors\Blockchain\BlockchainEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

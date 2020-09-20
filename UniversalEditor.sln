@@ -201,6 +201,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{63E2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface.Content.PlatformIndependent", "..\MBS.Framework.UserInterface\Content\MBS.Framework.UserInterface.Content.PlatformIndependent\MBS.Framework.UserInterface.Content.PlatformIndependent.csproj", "{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Blockchain", "Plugins\UniversalEditor.Plugins.Blockchain\UniversalEditor.Plugins.Blockchain.csproj", "{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Blockchain.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Blockchain.UserInterface\UniversalEditor.Plugins.Blockchain.UserInterface.csproj", "{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -577,6 +581,14 @@ Global
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -671,6 +683,8 @@ Global
 		{D1FB19C4-025E-4D4A-8532-4196AFCC8813} = {5E4765D1-3959-4433-8E9C-992E26D7BE62}
 		{63E2F10F-27A6-4BAA-BF4A-4422D0934E91} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF} = {63E2F10F-27A6-4BAA-BF4A-4422D0934E91}
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3} = {7B535D74-5496-4802-B809-89ED88274A91}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

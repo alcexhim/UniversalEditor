@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkTreeStore" id="tm">
+    <columns>
+      <!-- column-name colVersion -->
+      <column type="gchararray"/>
+      <!-- column-name colPreviousBlockHash -->
+      <column type="gchararray"/>
+      <!-- column-name colMerkelRoot -->
+      <column type="gchararray"/>
+      <!-- column-name colTimestamp -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkWindow">
+    <property name="can_focus">False</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTreeView" id="tv">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="model">tm</property>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection"/>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="tvcVersion">
+                    <property name="resizable">True</property>
+                    <property name="title" translatable="yes">Version</property>
+                    <property name="clickable">True</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="tvcPreviousBlockHash">
+                    <property name="resizable">True</property>
+                    <property name="title" translatable="yes">Previous Block Hash</property>
+                    <property name="clickable">True</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText"/>
+                      <attributes>
+                        <attribute name="text">1</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="tvcMerkelRoot">
+                    <property name="resizable">True</property>
+                    <property name="title" translatable="yes">Merkel Root</property>
+                    <property name="clickable">True</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText"/>
+                      <attributes>
+                        <attribute name="text">2</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="tvcTimestamp">
+                    <property name="resizable">True</property>
+                    <property name="title" translatable="yes">Timestamp</property>
+                    <property name="clickable">True</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText"/>
+                      <attributes>
+                        <attribute name="text">3</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
