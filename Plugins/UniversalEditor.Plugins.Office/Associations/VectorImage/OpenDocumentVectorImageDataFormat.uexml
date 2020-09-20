@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="OpenDocument Drawing vector image">
+					<FileNameFilters>
+						<FileNameFilter>*.odg</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">PK</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.VectorImage.VectorImageObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Office.DataFormats.VectorImage.OpenDocument.OpenDocumentVectorImageDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

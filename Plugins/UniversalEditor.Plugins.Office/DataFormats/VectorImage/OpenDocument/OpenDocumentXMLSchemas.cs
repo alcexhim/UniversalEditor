@@ -1,5 +1,5 @@
 ﻿//
-//  Polygon.cs
+//  OpenDocumentSchemas.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -19,25 +19,12 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using MBS.Framework.Drawing;
-
-namespace UniversalEditor.ObjectModels.Multimedia.VectorImage.VectorItems
+namespace UniversalEditor.Plugins.Office.DataFormats.VectorImage.OpenDocument
 {
-	public class PolygonVectorItem : VectorItem
+	public static class OpenDocumentXMLSchemas
 	{
-		public List<PositionVector2> Points { get; } = new List<PositionVector2>();
-
-		public override object Clone()
-		{
-			PolygonVectorItem clone = new PolygonVectorItem();
-			clone.Bounds = Bounds;
-			clone.Style = Style.Clone() as VectorImageStyle;
-			for (int i = 0; i < Points.Count; i++)
-			{
-				clone.Points.Add((PositionVector2)Points[i].Clone());
-			}
-			return clone;
-		}
+		public const string Office = "urn:oasis:names:tc:opendocument:xmlns:office:1.0";
+		public const string Draw = "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0";
+		public const string Svg = "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0";
 	}
 }

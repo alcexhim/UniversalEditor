@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using MBS.Framework.Drawing;
+
 namespace UniversalEditor.ObjectModels.Multimedia.VectorImage
 {
 	public abstract class VectorItem : ICloneable
@@ -28,6 +30,18 @@ namespace UniversalEditor.ObjectModels.Multimedia.VectorImage
 
 		}
 
+		public Rectangle Bounds { get; set; } = Rectangle.Empty;
+		public VectorImageStyle Style { get; set; } = new VectorImageStyle();
+
 		public abstract object Clone();
+
+		protected virtual bool ContainsInternal(Vector2D point)
+		{
+			return Bounds.Contains(point);
+		}
+		public bool Contains(Vector2D point)
+		{
+			return ContainsInternal(point);
+		}
 	}
 }

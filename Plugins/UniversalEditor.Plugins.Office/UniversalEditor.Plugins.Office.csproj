@@ -46,6 +46,8 @@
     <Compile Include="ObjectModels\Spreadsheet\Column.cs" />
     <Compile Include="ObjectModels\Spreadsheet\Row.cs" />
     <Compile Include="ObjectModels\Spreadsheet\Sheet.cs" />
+    <Compile Include="DataFormats\VectorImage\OpenDocument\OpenDocumentVectorImageDataFormat.cs" />
+    <Compile Include="DataFormats\VectorImage\OpenDocument\OpenDocumentXMLSchemas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectModels\" />
@@ -57,6 +59,9 @@
     <Folder Include="DataFormats\Presentation\HyperCard\Internal\STAK\" />
     <Folder Include="Associations\" />
     <Folder Include="ObjectModels\Spreadsheet\" />
+    <Folder Include="DataFormats\VectorImage\" />
+    <Folder Include="DataFormats\VectorImage\OpenDocument\" />
+    <Folder Include="Associations\VectorImage\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -67,9 +72,18 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Presentation\HyperCardDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\VectorImage\OpenDocumentVectorImageDataFormat.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
