@@ -370,7 +370,6 @@ namespace UniversalEditor.UserInterface
 						row.SetExtraData<ToolboxItem>("item", er.Toolbox.Items[i]);
 						tmToolbox.Rows.Add(row);
 					}
-					pnlDocumentExplorer.CurrentEditor = editor;
 					DocumentFileName = dckContainer.CurrentItem.Name;
 				}
 				else
@@ -378,6 +377,7 @@ namespace UniversalEditor.UserInterface
 					DocumentFileName = null;
 					tmToolbox.Rows.Clear();
 				}
+				pnlDocumentExplorer.CurrentEditor = editor;
 			}
 			_prevEditor = editor;
 		}

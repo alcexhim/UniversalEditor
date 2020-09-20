@@ -79,6 +79,9 @@ namespace UniversalEditor.UserInterface.Panels
 		{
 			tm.Rows.Clear();
 
+			if (CurrentEditor == null)
+				return;
+
 			TreeModelRow rowDocument = new TreeModelRow(new TreeModelRowColumn[]
 			{
 				new TreeModelRowColumn(tm.Columns[0], CurrentEditor.Title)
