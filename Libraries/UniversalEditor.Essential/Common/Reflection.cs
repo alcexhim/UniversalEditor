@@ -82,10 +82,18 @@ namespace UniversalEditor.Common
 							continue;
 						}
 
-						ObjectModelReference omr = tmp.MakeReference();
+						try
+						{
+							ObjectModelReference omr = tmp.MakeReference();
 
-						if (!listObjectModels.Contains(omr))
-							listObjectModels.Add(omr);
+							if (!listObjectModels.Contains(omr))
+								listObjectModels.Add(omr);
+						}
+						catch (Exception ex)
+						{
+							Console.WriteLine("ObjectModel ({0}) was loaded, but could not be referenced: {1}", type.FullName, ex.Message);
+							continue;
+						}
 					}
 					else if (mvarAvailableAccessors == null && (type.IsSubclassOf(typeof(Accessor)) && !type.IsAbstract))
 					{
