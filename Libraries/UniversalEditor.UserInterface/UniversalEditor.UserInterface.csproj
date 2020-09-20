@@ -137,6 +137,7 @@
     <Compile Include="Editors\Database\Views\DesignView.cs" />
     <Compile Include="Dialogs\BatchFindReplaceCriteriaPropertiesDialog.cs" />
     <Compile Include="Dialogs\BatchFindReplaceWindow.cs" />
+    <Compile Include="PrintHandlers\FileSystemPrintHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -193,6 +194,7 @@
     <Folder Include="Editors\RIFF\Dialogs\" />
     <Folder Include="Editors\Markup\" />
     <Folder Include="Editors\Database\Views\" />
+    <Folder Include="PrintHandlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
