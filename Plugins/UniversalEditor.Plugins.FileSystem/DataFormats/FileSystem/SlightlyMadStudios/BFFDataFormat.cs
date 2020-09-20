@@ -227,30 +227,30 @@ namespace UniversalEditor.DataFormats.FileSystem.SlightlyMadStudios
 
 			switch (TYPE)
 			{
-			case BFFCompressionType.None:
+				case BFFCompressionType.None:
 				{
 					break;
 				}
-			case BFFCompressionType.Zlib:
+				case BFFCompressionType.Zlib:
 				{
 					// comtype zlib;
 					// clog NAME OFFSET ZSIZE SIZE;
 					break;
 				}
-			case BFFCompressionType.XMemDecompress:
+				case BFFCompressionType.XMemDecompress:
 				{
 					// comtype XMemDecompress
 					// clog NAME OFFSET ZSIZE SIZE
 					decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.XMemLZX).Decompress(compressedData, size);
 					break;
 				}
-			case BFFCompressionType.Oodle:
+				case BFFCompressionType.Oodle:
 				{
 					// comtype oodle
 					// clog NAME OFFSET ZSIZE SIZE
 					break;
 				}
-			default:
+				default:
 				{
 					throw new NotSupportedException(String.Format("compression type {0} not supported", TYPE));
 				}
