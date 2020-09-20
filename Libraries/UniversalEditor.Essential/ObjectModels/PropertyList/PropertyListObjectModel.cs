@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace UniversalEditor.ObjectModels.PropertyList
@@ -263,5 +264,36 @@ namespace UniversalEditor.ObjectModels.PropertyList
 
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
+
+		private CriteriaObject[] _CriteriaObjects = null;
+		private CriteriaProperty propName = new CriteriaProperty("Name", typeof(string));
+		protected override CriteriaObject[] GetCriteriaObjectsInternal()
+		{
+			if (_CriteriaObjects == null)
+			{
+				_CriteriaObjects = new CriteriaObject[]
+				{
+					new CriteriaObject("Property", new CriteriaProperty[]
+					{
+						propName,
+						new CriteriaProperty("Value", typeof(string))
+					})
+				};
+			}
+			return _CriteriaObjects;
+		}
+		protected override CriteriaResult[] FindInternal(CriteriaQuery query)
+		{
+			List<CriteriaResult> list = new List<CriteriaResult>();
+			for (int i = 0; i < this.Items.Count; i++)
+			{
+				if (query.Check(propName, this.Items[i].Name))
+				{
+					list.Add(new CriteriaResult(this.Items[i]));
+					break;
+				}
+			}
+			return list.ToArray();
+		}
 	}
 }
