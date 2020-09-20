@@ -3,20 +3,21 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Chaos Works Engine sprite (low-resolution)">
+				<Filter Title="Chaos Works Engine sprite" ContentType="image/x-cwe-sprite" HintComparison="MagicThenFilter">
 					<FileNameFilters>
+						<!-- low-resolution -->
 						<FileNameFilter>*.spl</FileNameFilter>
-					</FileNameFilters>
-				</Filter>
-				<Filter Title="Chaos Works Engine sprite (high-resolution)">
-					<FileNameFilters>
+						<!-- high-resolution -->
 						<FileNameFilter>*.sph</FileNameFilter>
-					</FileNameFilters>
-				</Filter>
-				<Filter Title="Chaos Works Engine sprite (XCOLOR)">
-					<FileNameFilters>
+						<!-- XCOLOR -->
 						<FileNameFilter>*.spx</FileNameFilter>
 					</FileNameFilters>
+					<MagicByteSequences>
+						<!-- format version 1 -->
+						<MagicByteSequence>
+							<MagicByte Type="String">CWE sprite</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
 				</Filter>
 			</Filters>
 			<ObjectModels>

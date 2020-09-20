@@ -3,17 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Chaos Works Engine volume archive, format version 1">
-					<FileNameFilters>
-						<FileNameFilter>*.vol</FileNameFilter>
-					</FileNameFilters>
-					<MagicByteSequences>
-						<MagicByteSequence Offset="-4">
-							<MagicByte Type="HexString">02420243</MagicByte>
-						</MagicByteSequence>
-					</MagicByteSequences>
-				</Filter>
-				<Filter Title="Chaos Works Engine volume archive, format version 2">
+				<Filter Title="Chaos Works Engine volume archive" ContentType="application/x-cwe-vol" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.vol</FileNameFilter>
 						<FileNameFilter>*.v01</FileNameFilter>
@@ -28,6 +18,11 @@
 						<FileNameFilter>*.v10</FileNameFilter>
 					</FileNameFilters>
 					<MagicByteSequences>
+						<!-- format version 1 -->
+						<MagicByteSequence Offset="-4">
+							<MagicByte Type="HexString">02420243</MagicByte>
+						</MagicByteSequence>
+						<!-- format version 2 -->
 						<MagicByteSequence Offset="-8">
 							<MagicByte Type="String"> cweVOLF</MagicByte>
 						</MagicByteSequence>
