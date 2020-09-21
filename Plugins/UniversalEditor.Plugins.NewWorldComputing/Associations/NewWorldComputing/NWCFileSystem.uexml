@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic II AGG archive" ContentType="application/x-newworldcomputing-agg">
+				<Filter Title="Heroes of Might and Magic II AGG archive" ContentType="application/x-newworldcomputing-agg" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.agg</FileNameFilter>
 					</FileNameFilters>
@@ -18,7 +18,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic III VID archive" ContentType="application/x-newworldcomputing-vid">
+				<Filter Title="Heroes of Might and Magic III VID archive" ContentType="application/x-newworldcomputing-vid" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.vid</FileNameFilter>
 					</FileNameFilters>
@@ -33,7 +33,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic III SND archive" ContentType="application/x-newworldcomputing-snd">
+				<Filter Title="Heroes of Might and Magic III SND archive" ContentType="application/x-newworldcomputing-snd" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.snd</FileNameFilter>
 					</FileNameFilters>
@@ -48,7 +48,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic III LOD archive" ContentType="application/x-newworldcomputing-lod">
+				<Filter Title="Heroes of Might and Magic III LOD archive" ContentType="application/x-newworldcomputing-lod" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.lod</FileNameFilter>
 					</FileNameFilters>
@@ -68,7 +68,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Might and Magic CC archive" ContentType="application/x-newworldcomputing-cc">
+				<Filter Title="Might and Magic CC archive" ContentType="application/x-newworldcomputing-cc" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.cc</FileNameFilter>
 					</FileNameFilters>

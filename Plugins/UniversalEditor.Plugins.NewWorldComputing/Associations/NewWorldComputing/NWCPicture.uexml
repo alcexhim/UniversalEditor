@@ -18,7 +18,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic ICN picture" ContentType="image/x-newworldcomputing-icn">
+				<Filter Title="Heroes of Might and Magic ICN picture" ContentType="image/x-newworldcomputing-icn" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.icn</FileNameFilter>
 					</FileNameFilters>
@@ -34,7 +34,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic TIL sprite" ContentType="image/x-newworldcomputing-til">
+				<Filter Title="Heroes of Might and Magic TIL sprite" ContentType="image/x-newworldcomputing-til" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.til</FileNameFilter>
 					</FileNameFilters>
