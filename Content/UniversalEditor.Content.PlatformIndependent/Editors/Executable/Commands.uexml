@@ -12,7 +12,7 @@
 					</Items>
 				</Command>
 				
-				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_MoveTo" Title-"Move to..." />
+				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_MoveTo" Title="Move to..." />
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_CopyTo" Title="_Copy to..." />
 				
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_Open" Title="_Open" />
