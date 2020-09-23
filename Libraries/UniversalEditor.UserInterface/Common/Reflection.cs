@@ -172,7 +172,13 @@ namespace UniversalEditor.UserInterface.Common
 											string id = tagCommand.Attributes["ID"]?.Value;
 											string title = tagCommand.Attributes["Title"]?.Value;
 
-											Command cmd = new Command(id, title != null ? title : id);
+											Command cmd = er.Commands[id];
+											if (cmd == null)
+											{
+												cmd = new Command(id, title != null ? title : id);
+												er.Commands.Add(cmd);
+											}
+
 											MarkupTagElement tagItems = tagCommand.Elements["Items"] as MarkupTagElement;
 											if (tagItems != null)
 											{
@@ -182,11 +188,9 @@ namespace UniversalEditor.UserInterface.Common
 													if (tagItem == null) continue;
 
 													CommandItem ci = CommandItem.FromMarkup(tagItem);
-													if (ci != null)
-														cmd.Items.Add(ci);
+													CommandItem.AddToCommandBar(ci, cmd, null);
 												}
 											}
-											er.Commands.Add(cmd);
 										}
 									}
 								}
