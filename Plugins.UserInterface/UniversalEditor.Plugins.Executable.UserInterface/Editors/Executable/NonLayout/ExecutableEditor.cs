@@ -159,9 +159,54 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 			tbs.TabPages.Add(tabManagedAssembly);
 
-			Application.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Sections_Selected_CopyTo", ContextMenu_CopyTo_Click);
-
 			this.Controls.Add(tbs, new BoxLayout.Constraints(true, true));
+		}
+
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			Context.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Sections_Selected_CopyTo", ContextMenu_CopyTo_Click);
+			Context.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Sections_Selected_Add_ExistingItem", ContextMenu_Sections_Selected_Add_ExistingItem_Click);
+		}
+
+		private void ContextMenu_Sections_Selected_Add_ExistingItem_Click(object sender, EventArgs e)
+		{
+			ExecutableObjectModel exe = (ObjectModel as ExecutableObjectModel);
+			if (exe == null)
+			{
+				return;
+			}
+
+			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Open;
+			dlg.MultiSelect = true;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				BeginEdit();
+				for (int i = 0; i < dlg.SelectedFileNames.Count; i++)
+				{
+					string fn = dlg.SelectedFileNames[i];
+					if (!System.IO.File.Exists(fn))
+						continue;
+
+					ExecutableSection section = new ExecutableSection();
+					section.Name = System.IO.Path.GetFileName(fn);
+					section.Data = System.IO.File.ReadAllBytes(fn);
+					exe.Sections.Add(section);
+
+					TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+					{
+						new TreeModelRowColumn(tmSections.Columns[0], section.Name),
+						new TreeModelRowColumn(tmSections.Columns[1], section.PhysicalAddress.ToString()),
+						new TreeModelRowColumn(tmSections.Columns[2], section.VirtualAddress.ToString()),
+						new TreeModelRowColumn(tmSections.Columns[3], section.VirtualSize.ToString())
+					});
+					row.SetExtraData<ExecutableSection>("section", section);
+					tmSections.Rows.Add(row);
+				}
+				EndEdit();
+			}
 		}
 
 		private void ContextMenu_CopyTo_Click(object sender, EventArgs e)
@@ -234,14 +279,15 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 			foreach (ExecutableSection section in executable.Sections)
 			{
-				tmSections.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
+				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 				{
 					new TreeModelRowColumn(tmSections.Columns[0], section.Name),
 					new TreeModelRowColumn(tmSections.Columns[1], section.PhysicalAddress.ToString()),
 					new TreeModelRowColumn(tmSections.Columns[2], section.VirtualAddress.ToString()),
 					new TreeModelRowColumn(tmSections.Columns[3], section.VirtualSize.ToString())
-				}));
-				tmSections.Rows[tmSections.Rows.Count - 1].SetExtraData<ExecutableSection>("section", section);
+				});
+				row.SetExtraData<ExecutableSection>("section", section);
+				tmSections.Rows.Add(row);
 			}
 
 			if (executable.ManagedAssembly != null)
