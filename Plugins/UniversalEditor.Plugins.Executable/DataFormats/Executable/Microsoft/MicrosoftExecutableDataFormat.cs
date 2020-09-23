@@ -74,6 +74,8 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft
 			}
 		}
 
+		public byte[] StubProgram { get; set; } = new byte[] { 0x0E, 0x1F, 0xBA, 0x0E, 0x00, 0xB4, 0x09, 0xCD, 0x21, 0xB8, 0x01, 0x4C, 0xCD, 0x21, 0x54, 0x68, 0x69, 0x73, 0x20, 0x70, 0x72, 0x6F, 0x67, 0x72, 0x61, 0x6D, 0x20, 0x63, 0x61, 0x6E, 0x6E, 0x6F, 0x74, 0x20, 0x62, 0x65, 0x20, 0x72, 0x75, 0x6E, 0x20, 0x69, 0x6E, 0x20, 0x44, 0x4F, 0x53, 0x20, 0x6D, 0x6F, 0x64, 0x65, 0x2E, 0x0D, 0x0D, 0x0A, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
 		/*
 			C++ Name Mangling
 Compiler						void h(int)				void h(int, char)		void h(void)
@@ -160,6 +162,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 
 			byte[] stubProgram = reader.ReadBytes(64);
 			exec.SetCustomProperty<byte[]>(MakeReference(), "StubProgram", stubProgram);
+			StubProgram = stubProgram;
 
 			byte[] richHeaderDataEncrypted = null;
 			byte[] richHeaderDataDecrypted = null;
@@ -612,7 +615,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			int e_lfanew = (int)(bw.Accessor.Position + 4);
 			bw.WriteInt32(e_lfanew);
 
-			byte[] stubProgram = exe.GetCustomProperty<byte[]>(MakeReference(), "StubProgram", new byte[64]);
+			byte[] stubProgram = exe.GetCustomProperty<byte[]>(MakeReference(), "StubProgram", StubProgram);
 			bw.WriteBytes(stubProgram);
 
 			int sizeOfRich = 0;
