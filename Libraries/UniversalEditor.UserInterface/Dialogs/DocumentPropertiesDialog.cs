@@ -44,29 +44,31 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private TextBox txtObjectModel = null;
 		private TextBox txtDataFormat = null;
 		private TextBox txtAccessor = null;
+		private Button cmdDataFormatOptions = null;
+		private Button cmdAccessorOptions = null;
 		// **********************************************************
-		
+
 		protected override void OnCreating(EventArgs e)
 		{
 			base.OnCreating(e);
-			
-			this.Buttons [0].ResponseValue = (int)DialogResult.OK;
-			this.Buttons [1].ResponseValue = (int)DialogResult.Cancel;
+
+			this.Buttons[0].ResponseValue = (int)DialogResult.OK;
+			this.Buttons[1].ResponseValue = (int)DialogResult.Cancel;
 
 			this.Buttons[0].Enabled = false;
-			
+
 			switch (Mode)
 			{
 				case DocumentPropertiesDialogMode.Open:
 				{
 					this.Text = "Open Document";
-					this.Buttons [0].StockType = StockType.Open;
+					this.Buttons[0].StockType = StockType.Open;
 					break;
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
 					this.Text = "Save Document";
-					this.Buttons [0].StockType = StockType.Save;
+					this.Buttons[0].StockType = StockType.Save;
 					break;
 				}
 			}
@@ -160,7 +162,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			if (DataFormat != null)
 			{
 				DataFormatReference dfr = DataFormat.MakeReference();
-				txtDataFormat.Text = dfr.ToString(); // DataFormatReferenceToString(dfr);
+				txtDataFormat.Text = DataFormat?.MakeReference().Title;
 			}
 			else
 			{
@@ -332,6 +334,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 						{
 							return;
 						}
+						cmdDataFormatOptions.Enabled = (df.MakeReference().ImportOptions.Count > 0);
 						break;
 					}
 					case DocumentPropertiesDialogMode.Save:
@@ -340,6 +343,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 						{
 							return;
 						}
+						cmdDataFormatOptions.Enabled = (df.MakeReference().ExportOptions.Count > 0);
 						break;
 					}
 				}
@@ -386,6 +390,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					{
 						return;
 					}
+					cmdAccessorOptions.Enabled = (acc.MakeReference().ImportOptions.Count > 0);
 					break;
 				}
 				case DocumentPropertiesDialogMode.Save:
@@ -394,6 +399,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					{
 						return;
 					}
+					cmdAccessorOptions.Enabled = (acc.MakeReference().ExportOptions.Count > 0);
 					break;
 				}
 			}
@@ -481,6 +487,29 @@ namespace UniversalEditor.UserInterface.Dialogs
 			RefreshButtons();
 
 			dlg.AutoClose = true;
+		}
+
+		[EventHandler(nameof(cmdDataFormatOptions), "Click")]
+		private void cmdDataFormatOptions_Click(object sender, EventArgs e)
+		{
+			DataFormat df = DataFormat;
+			if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, Mode == DocumentPropertiesDialogMode.Open ? CustomOptionDialogType.Import : CustomOptionDialogType.Export))
+			{
+				return;
+			}
+			DataFormat = df;
+		}
+
+		[EventHandler(nameof(cmdAccessorOptions), "Click")]
+		private void cmdAccessorOptions_Click(object sender, EventArgs e)
+		{
+			Accessor acc = Accessor;
+			if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref acc, Mode == DocumentPropertiesDialogMode.Open ? CustomOptionDialogType.Import : CustomOptionDialogType.Export))
+			{
+				return;
+			}
+			Accessor = acc;
+			this.txtAccessor.Text = Accessor?.GetFileName();
 		}
 	}
 }
