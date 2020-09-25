@@ -46,7 +46,6 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\SynthesizedAudioEditor.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\SynthesizedAudioEditor.Designer.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\QuantizationMode.cs" />
-    <Compile Include="Editors\Multimedia\Audio\Synthesized\Dialogs\NotePropertiesDialog.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\PianoRollView.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\PianoRollViewSelectionMode.cs" />
     <Compile Include="Editors\Multimedia\Audio\Waveform\WaveformAudioEditor.cs" />
@@ -72,7 +71,6 @@
     <Folder Include="Editors\Multimedia\Playlist\" />
     <Folder Include="Editors\Multimedia\Audio\Voicebank\" />
     <Folder Include="Editors\Multimedia\PictureCollection\" />
-    <Folder Include="Editors\Multimedia\Audio\Synthesized\Dialogs\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\" />
     <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\" />
     <Folder Include="Editors\Multimedia\Audio\Waveform\" />

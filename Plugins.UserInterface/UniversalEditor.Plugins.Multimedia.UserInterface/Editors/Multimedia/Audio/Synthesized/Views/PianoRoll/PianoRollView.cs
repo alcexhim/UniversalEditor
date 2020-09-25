@@ -26,12 +26,12 @@ using System.Linq;
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 using MBS.Framework.UserInterface.Layouts;
 
-using UniversalEditor.Editors.Multimedia.Audio.Synthesized.Dialogs;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
@@ -739,18 +739,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 					{
 						SynthesizedAudioCommandNote note = (cmd as SynthesizedAudioCommandNote);
 						LyricEditNote(note);
-
-						// ShowNotePropertiesDialog(note);
-						/*
-						txtLyric.Location = rect.Location;
-						txtLyric.Size = rect.Size;
-						txtLyric.Text = note.Lyric;
-
-						txtLyric.Enabled = true;
-						txtLyric.Visible = true;
-
-						txtLyric.Focus();
-						*/
 					}
 				}
 			}
@@ -777,20 +765,27 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				if (note == null)
 					return;
 
-				// FIXME: ParentWindow is null, probably because this isn't a "normal" parented control but rather it's inside a DockingWindow...
-				NotePropertiesDialog dlg = new NotePropertiesDialog();
-				dlg.Lyric = note.Lyric;
-				dlg.Phoneme = note.Phoneme;
-				dlg.NoteOn = (double)note.Position;
-				dlg.NoteOff = note.Position + note.Length;
+				SettingsDialog dlg = new SettingsDialog(new SettingsProvider[]
+				{
+					new CustomSettingsProvider(new SettingsGroup[]
+					{
+						new SettingsGroup("General", new Setting[]
+						{
+							new TextSetting("Lyric", "_Lyric", note.Lyric),
+							new TextSetting("Phoneme", "_Phoneme", note.Phoneme),
+							new RangeSetting("NoteOn", "Note o_n", note.Position),
+							new RangeSetting("NoteOff", "Note o_ff", (decimal)(note.Position + note.Length))
+						})
+					})
+				});
 				if (dlg.ShowDialog(ParentWindow) == DialogResult.OK)
 				{
 					((Parent as PianoRollView).Parent as Editor).BeginEdit();
 
-					note.Lyric = dlg.Lyric;
-					note.Phoneme = dlg.Phoneme;
-					note.Position = (int)dlg.NoteOn;
-					note.Length = dlg.NoteOff - dlg.NoteOn;
+					note.Lyric = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue<string>();
+					note.Phoneme = dlg.SettingsProviders[0].SettingsGroups[0].Settings[1].GetValue<string>();
+					note.Position = (int)dlg.SettingsProviders[0].SettingsGroups[0].Settings[2].GetValue<decimal>();
+					note.Length = (double)(dlg.SettingsProviders[0].SettingsGroups[0].Settings[3].GetValue<decimal>() - dlg.SettingsProviders[0].SettingsGroups[0].Settings[2].GetValue<decimal>());
 
 					((Parent as PianoRollView).Parent as Editor).EndEdit();
 				}
