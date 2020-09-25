@@ -1325,12 +1325,7 @@ namespace UniversalEditor.UserInterface
 
 		public bool ShowOptionsDialog()
 		{
-			SettingsDialog dlg = new SettingsDialog();
-			if (dlg.ShowDialog() == DialogResult.OK)
-			{
-				return true;
-			}
-			return false;
+			return Application.ShowSettingsDialog();
 		}
 
 		public void ToggleMenuItemEnabled(string menuItemName, bool enabled)
