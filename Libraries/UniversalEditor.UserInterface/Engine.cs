@@ -594,6 +594,10 @@ namespace UniversalEditor.UserInterface
 			{
 				LastWindow.ShowOptionsDialog();
 			});
+			Application.AttachCommandEventHandler("ToolsCustomize", delegate (object sender, EventArgs e)
+			{
+				Application.ShowSettingsDialog(new string[] { "Application", "Command Bars" });
+			});
 			#endregion
 			#region Window
 			Application.AttachCommandEventHandler("WindowNewWindow", delegate(object sender, EventArgs e)
