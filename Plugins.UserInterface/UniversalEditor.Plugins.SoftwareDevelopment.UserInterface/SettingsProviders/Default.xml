@@ -1,0 +1,50 @@
+﻿<ApplicationFramework>
+	<SettingsProviders>
+		<SettingsProvider ID="{B2788699-0059-4F08-BB49-1A6A90F0632B}">
+			<!-- Syntax Editor -->
+			<SettingsGroup ID="{0652F438-4180-49E8-8D5D-645200770978}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Syntax</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{B816DB14-2FC5-47AF-A08B-7C4340A5647A}" Name="DragDropTextEditing" Title="D_rag and drop text editing" />
+					<BooleanSetting ID="{F561C8D7-1A81-4931-8312-213D5E99ADB6}" Name="AutomaticDelimiterHighlighting" Title="A_utomatic delimiter highlighting" />
+					<BooleanSetting ID="{EE8F2578-91E0-4817-9ACA-13428EE01115}" Name="TrackChanges" Title="_Track changes" />
+					<BooleanSetting ID="{65936B34-27E5-406D-989A-E0276920D7A4}" Name="AutoDetectUTF8Encoding" Title="Auto-_detect UTF-8 encoding without signature" />
+					<BooleanSetting ID="{C7343602-3B1A-455C-BA53-CF32EC511FCC}" Name="DisplaySelectionMargin" Title="Display _selection margin" />
+					<BooleanSetting ID="{5BFA77B4-89A3-45E4-ADD3-12661253BB68}" Name="DisplayIndicatorMargin" Title="Display indicator _margin" />
+					<BooleanSetting ID="{E47FACE6-EBA8-4C48-9610-96E67C112BA9}" Name="HighlightCurrentLine" Title="Highlight _current line" />
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{2F451BC3-11C5-41AC-BF47-8FC4EAF29D5A}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Syntax</Part>
+					<Part>Languages</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{6F53CEF3-532E-41FA-B06D-C71AE1D833B2}" Name="MapExtensionlessFilesDefault" Title="_Map extensionless files to" />
+					<ChoiceSetting ID="{50D1F8A7-19C8-41B3-A786-09CAE37A5C0A}" Name="DefaultLanguage" Title="Default language" />
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{3F31F5BF-36D6-46CD-9891-FC5542A9E82A}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Syntax</Part>
+					<Part>Languages</Part>
+					<Part>Basic</Part>
+					<Part>General</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{A2AF7ED3-5594-434B-BD6F-5680BA6DC4E4}" Name="AutoListMembers" Title="Auto list _members" />
+					<BooleanSetting ID="{7C150D0F-589B-43DB-8095-6F38E8DDD3EF}" Name="HideAdvancedMembers" Title="_Hide advanced members" />
+					<BooleanSetting ID="{14387D11-817E-4C72-B7B4-9EECB8C12692}" Name="ParameterInformation" Title="_Parameter information" />
+					<BooleanSetting ID="{08F484B1-E611-47BC-A482-BA0A29836AE5}" Name="EnableVirtualSpace" Title="Enable _virtual space" />
+					<BooleanSetting ID="{8A1B5564-6F2A-4B69-A0B3-76DD8557E136}" Name="WordWrap" Title="_Word wrap" />
+					<BooleanSetting ID="{CEF2F7D1-2AE4-4BF2-A70D-ADF27D342B59}" Name="ShowVisualGlyphsForWordWrap" Title="_Show visual glyphs for word wrap" />
+				</Settings>
+			</SettingsGroup>
+		</SettingsProvider>
+	</SettingsProviders>
+</ApplicationFramework>

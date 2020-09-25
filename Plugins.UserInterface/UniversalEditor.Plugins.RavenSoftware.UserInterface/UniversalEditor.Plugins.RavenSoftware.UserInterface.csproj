@@ -37,7 +37,6 @@
     <Compile Include="Editors\Icarus\IcarusScriptEditorEnumeration.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditorConfiguration.cs" />
     <Compile Include="Editors\Icarus\IcarusScriptEditorCommand.cs" />
-    <Compile Include="SettingsProviders\IcarusSettingsProvider.cs" />
     <Compile Include="Editors\Carcass\CarcassEditor.cs" />
     <Compile Include="Editors\Carcass\Dialogs\ModelReferencePropertiesDialog.cs" />
   </ItemGroup>
@@ -82,6 +81,9 @@
       <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia3D</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SettingsProviders\IcarusSettingsProvider.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -98,8 +98,6 @@
     <Compile Include="Dialogs\GenericBrowserPopup.cs" />
     <Compile Include="Dialogs\GenericBrowserPopup.Designer.cs" />
     <Compile Include="Panels\StartPagePanel.cs" />
-    <Compile Include="Editors\FileSystem\FileSystemEditorSettingsProvider.cs" />
-    <Compile Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialogMode.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialogV2.cs" />
     <Compile Include="Controls\UniversalEditorFileBrowserControl.cs" />
@@ -195,6 +193,12 @@
     <Folder Include="Editors\Markup\" />
     <Folder Include="Editors\Database\Views\" />
     <Folder Include="PrintHandlers\" />
+    <Folder Include="SettingsProviders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SettingsProviders\DefaultSettingsProvider.xml" />
+    <EmbeddedResource Include="Editors\FileSystem\FileSystemEditorSettingsProvider.xml" />
+    <EmbeddedResource Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

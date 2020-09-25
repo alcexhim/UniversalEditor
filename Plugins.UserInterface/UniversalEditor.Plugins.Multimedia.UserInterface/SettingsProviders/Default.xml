@@ -1,0 +1,98 @@
+﻿<ApplicationFramework>
+	<SettingsProviders>
+		<SettingsProvider ID="{1A6C7465-5ED3-46EE-880C-C79DE62219EF}">
+			<!-- Singing Style Defaults -->
+			<SettingsGroup ID="{F7CB5F45-DB74-4664-89A9-3C3D4C54947E}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Synthesized Audio</Part>
+					<Part>External Programs</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{0E6E0470-FE8C-48C4-B092-EC55ADE95AAC}" Name="ExternalWavefileManipulationToolEnabled" Title="Use external _wavefile manipulation tool" />
+					<FileSetting ID="{EFD6B334-F276-4BCF-A8E3-2AFDDB75C6CD}" Name="ExternalWavefileManipulationToolFileName" Title="Path" />
+					<BooleanSetting ID="{CD1B5854-9268-4917-86AD-C0F973D4C620}" Name="ExternalResamplingToolEnabled" Title="Use external _resampling tool" />
+					<FileSetting ID="{430494FA-1832-4F79-8764-7BB1AAA14DDE}" Name="ExternalResamplingToolFileName" Title="Path" />
+					<FileSetting ID="{3A5733FF-036D-4334-9551-85C2770B5B16}" Name="VoicebankDirectory" Title="Voicebank _directory" Mode="SelectFolder" />
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{F7CB5F45-DB74-4664-89A9-3C3D4C54947E}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Synthesized Audio</Part>
+					<Part>External Programs</Part>
+				</Path>
+				<Settings>
+					<GroupSetting ID="{A64C4A48-DAE3-4119-BB33-BDC24C5F246E}" Name="MIDIDevices" Title="MIDI Devices">
+						<Settings>
+							<ChoiceSetting ID="{38DA2418-635C-40AB-8FBD-4679667480F8}" Name="MIDIInputDeviceName" Title="_Input device" />
+							<ChoiceSetting ID="{97DC1AA6-4D78-4668-A9FA-9820C1EA9385}" Name="MIDIOutputDeviceName" Title="_Output device" />
+						</Settings>
+					</GroupSetting>
+					<BooleanSetting ID="{1D72CC22-E6D0-4BD2-9BE1-802FA5B7097F}" Name="MIDIPlayOnSelection" Title="Play notes through MIDI output upon _selection" />
+					<BooleanSetting ID="{915F6E98-E6A8-4EE8-BDCD-361A331D80D9}" Name="MIDIProgramChangeEnabled" Title="Send _Program Change for the following program before continuing" />
+					<ChoiceSetting ID="{63BBFB3C-8FEE-4542-A8DB-5436A16881D7}" Name="MIDIProgramChangeProgram" />
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{86C0825D-EAA1-4EA8-B78A-17A7AC89687A}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Synthesized Audio</Part>
+					<Part>Phoneme Dictionary</Part>
+				</Path>
+				<Settings>
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{EC475943-DBB4-4861-8F65-BF21EE12B86C}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Synthesized Audio</Part>
+					<Part>Synthesizers</Part>
+				</Path>
+				<Settings>
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{E6FFDE4E-3B5E-4468-935F-09593D7A8D4F}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Synthesized Audio</Part>
+					<Part>Singing Style Defaults</Part>
+				</Path>
+				<Settings>
+					<!--
+					<GroupSetting ID="{4C560594-7398-4DC1-98D7-95B52A0867F2}" Title="VOCALOID2 Import/Export">
+						<Settings>
+							<CommandSetting ID="{7F27CF86-A8A4-4509-B03F-055FA435093E}" Name="LoadVOCALOID2" Title="_Load settings from VOCALOID2" CommandID="SynthesizedAudioEditor_LoadVOCALOID2" />
+							<CommandSetting ID="{1D010F84-1BA6-4508-89A8-72C5C88B8CA7}" Name="SaveVOCALOID2" Title="_Save settings to VOCALOID2" CommandID="SynthesizedAudioEditor_SaveToVOCALOID2" />
+						</Settings>
+					</GroupSetting>
+					-->
+					<ChoiceSetting ID="{D4554BD6-AAB1-498A-A8DC-0CE6B6E8AC41}" Name="Template" Title="_Template">
+						<Choices>
+							<Choice ID="{825DBD39-CAA4-480A-AF59-CEE32AAE00B7}" Name="custom" Title="(Custom)" Value="custom" />
+							<Choice ID="{683A9F34-26E1-4CC1-AC65-FE50F0EF4628}" Name="normal" Title="Normal" Value="normal" />
+							<Choice ID="{69B523F8-CBA1-43CC-A9D8-3D5EDB8300A2}" Name="accent" Title="Accent" Value="accent" />
+							<Choice ID="{4E2679CD-D3C8-4508-8031-5D09F81F5544}" Name="strongaccent" Title="Strong accent" Value="strongaccent" />
+							<Choice ID="{67083E27-F127-4C17-8626-06B04CB36E93}" Name="legato" Title="Legato" Value="legato" />
+							<Choice ID="{E0FC85DE-B884-475B-81C3-077340CFA6DA}" Name="slowlegato" Title="Slow legato" Value="slowlegato" />
+						</Choices>
+					</ChoiceSetting>
+					<GroupSetting ID="{137C1431-0126-4FE2-9213-D6529801E8E9}" Name="PitchControl" Title="Pitch control">
+						<Settings>
+							<RangeSetting ID="{70710DD3-3BC6-402C-BB6B-4BF92BC71AD4}" Name="BendDepth" Title="_Bend depth" DefaultValue="8" MinimumValue="0" MaximumValue="100" />
+							<RangeSetting ID="{1E54DB49-8623-41D2-846C-3D6E92BEFD36}" Name="BendLength" Title="Bend _length" DefaultValue="0" MinimumValue="0" MaximumValue="100" />
+							<BooleanSetting ID="{9D76702B-4473-4B11-B1F5-99FBAA50F227}" Name="AddPortamentoRising" Title="Add portamento in _rising movement" />
+							<BooleanSetting ID="{332A85E4-B2BD-4F98-ABCA-6F2C1F4E3630}" Name="AddPortamentoFalling" Title="Add portamento in _falling movement" />
+						</Settings>
+					</GroupSetting>
+					<GroupSetting ID="{ADA885EF-7E01-49F8-AB54-21D88ED0B7CE}" Name="DynamicsControl" Title="Dynamics control">
+						<Settings>
+							<RangeSetting ID="{0808ACB6-04AF-4EFA-A2F3-35367D9E088E}" Name="Decay" Title="_Decay" DefaultValue="50" MinimumValue="0" MaximumValue="100" />
+							<RangeSetting ID="{81DB43F9-AB5E-4675-B8C8-497057E01639}" Name="Accent" Title="_Accent" DefaultValue="50" MinimumValue="0" MaximumValue="100" />
+						</Settings>
+					</GroupSetting>
+				</Settings>
+			</SettingsGroup>
+		</SettingsProvider>
+	</SettingsProviders>
+</ApplicationFramework>

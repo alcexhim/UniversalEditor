@@ -50,19 +50,6 @@ namespace UniversalEditor.UserInterface
 			Application.UniqueName = "net.alcetech.UniversalEditor";
 			Application.ShortName = "universal-editor";
 
-			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Author Information", new Setting[] {
-				new TextSetting("Name", "_Name"),
-				new TextSetting("EmailAddress", "_E-mail address")
-			});
-			Application.DefaultSettingsProvider.SettingsGroups.Add ("Application:Documents", new Setting[] {
-			});
-			Application.DefaultSettingsProvider.SettingsGroups.Add("Application:Projects and Solutions", new Setting[]
-			{
-			});
-			Application.DefaultSettingsProvider.SettingsGroups.Add("Source Control", new Setting[]
-			{
-			});
-
 			// Application.EnableVisualStyles();
 			// Application.SetCompatibleTextRenderingDefault(false);
 

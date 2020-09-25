@@ -1,0 +1,52 @@
+﻿<ApplicationFramework>
+	<SettingsProviders>
+		<SettingsProvider ID="{0F45E06D-6FE2-41C4-B519-3DCBAE890E46}">
+			<!-- Singing Style Defaults -->
+			<SettingsGroup ID="{3E3688E7-9D8C-46BB-BCBB-40A2002436FA}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>File System</Part>
+					<Part>Views</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{7E78DDF7-EB2D-409D-B3A5-703CF33105AB}" Name="SortFoldersBeforeFiles" Title="Sort _folders before files" />
+					<BooleanSetting ID="{FA8A5FE3-5EC2-4EC3-98E6-6548380EC846}" Name="AllowExpandFolders" Title="Allow folders to be _expanded" />
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{FCE129B2-6752-430E-A267-1144EAA38259}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>File System</Part>
+					<Part>Behavior</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{409C4308-BA99-489F-BD33-4122E430709D}" Name="SingleClickToOpenItems" Title="_Single-click to open items" />
+					<BooleanSetting ID="{2944051F-9529-421C-A88B-F600E0B7FC48}" Name="EnableCreateSymbolicLinks" Title="Show action to create symbolic _links" />
+					<ChoiceSetting ID="{C4C23FC3-FC9B-49D5-99BD-559F22D20679}" Name="DefaultExecutableTextOption" Title="Default option for _executable text files">
+						<Choices>
+							<Choice ID="{FFCEABC8-04C8-4BE3-AF59-086BCE32E014}" Name="Display" Title="Display them in text editor" Value="1" />
+							<Choice ID="{17F69A2B-A6C3-4BB9-958A-E686A075F114}" Name="Run" Title="Run them as executable" Value="2" />
+							<Choice ID="{CB70E212-620F-481C-87CA-AF08B2367BA9}" Name="Ask" Title="Ask me what to do" Value="3" />
+						</Choices>
+					</ChoiceSetting>
+					<BooleanSetting ID="{AE95F2D3-A073-489E-8CB3-0375E53D6C50}" Name="AskBeforeEmptyingTrash" Title="Ask before _emptying the Trash/Recycle Bin" />
+					<BooleanSetting ID="{E4FF6B98-C062-4021-ADB1-E7BDC5943017}" Name="EnablePermanentDeletion" Title="Show action to _permanently delete files and folders" />
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{28F23410-FC5D-4DCF-BD8D-1CF733C94038}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>File System</Part>
+					<Part>List Columns</Part>
+				</Path>
+			</SettingsGroup>
+			<SettingsGroup ID="{03F211DF-0852-49EC-B405-5A7D983D93EC}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>File System</Part>
+					<Part>Search and Preview</Part>
+				</Path>
+			</SettingsGroup>
+		</SettingsProvider>
+	</SettingsProviders>
+</ApplicationFramework>

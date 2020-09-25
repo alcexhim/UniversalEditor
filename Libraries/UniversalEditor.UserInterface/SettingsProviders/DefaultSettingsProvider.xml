@@ -1,0 +1,40 @@
+﻿<ApplicationFramework>
+	<SettingsProviders>
+		<SettingsProvider ID="{82F60386-C0A4-4ECA-96B2-D5D3C36743D1}">
+			<SettingsGroup ID="{A94E2585-C2EA-48B7-9E97-0CE2B9200182}">
+				<Path>
+					<Part>Application</Part>
+					<Part>Author Information</Part>
+				</Path>
+				<Settings>
+					<TextSetting ID="{5E09C88D-E52B-41FA-94DB-A98BED29B08F}" Name="Name" Title="_Name" />
+					<TextSetting ID="{E45C0422-5870-4C40-B459-3669EC6AE621}" Name="EmailAddress" Title="_E-mail address" />
+					<!-- magic to keep from loading "emailaddress" setting twice -->
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{B49CAF6B-51F5-4925-B4AA-4DEF655E8627}">
+				<Path>
+					<Part>Application</Part>
+					<Part>Documents</Part>
+				</Path>
+				<Settings>
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{07870863-C0E0-4835-B584-84FC87F1C68B}">
+				<Path>
+					<Part>Application</Part>
+					<Part>Projects and Solutions</Part>
+				</Path>
+				<Settings>
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{2F0B1AC3-7F75-47C0-8BF7-FDD7C33215D9}">
+				<Path>
+					<Part>Source Control</Part>
+				</Path>
+				<Settings>
+				</Settings>
+			</SettingsGroup>
+		</SettingsProvider>
+	</SettingsProviders>
+</ApplicationFramework>

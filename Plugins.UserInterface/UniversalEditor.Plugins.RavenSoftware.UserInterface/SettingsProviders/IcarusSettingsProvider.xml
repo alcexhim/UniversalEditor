@@ -1,0 +1,39 @@
+﻿<ApplicationFramework>
+	<SettingsProviders>
+		<SettingsProvider ID="{3B72848B-7DA4-4697-8053-3C6BA41663D9}">
+			<!-- IcarusSettingsProvider -->
+			<SettingsGroup ID="{A99E9350-0609-4C64-80C8-BB0DC1246701}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Raven Software</Part>
+					<Part>ICARUS Scripting</Part>
+					<Part>General</Part>
+				</Path>
+				<Settings>
+					<!-- this should be a UE Platform setting -->
+					<BooleanSetting ID="{D97197D3-2797-4644-859F-759AC9011407}" Name="ReopenLastFileAtStartup" Title="Re-open last file at startup" />
+					<BooleanSetting ID="{1DC9D3AC-5B8E-4D28-AAD5-91281818120D}" Name="AlphabeticallySortEditPulldowns" Title="_Alphabetically-sort edit pulldowns" />
+					<BooleanSetting ID="{80816F37-33DC-4779-8503-28D6E49B82E3}" Name="EnableSourceSafeFunctions" Title="Enable _SourceSafe functions" />
+					<BooleanSetting ID="{C450ADFB-8ED0-45F6-8DE7-6ECB822CDE6A}" Name="WarnBeforeOpeningIncompatibleScript" Title="_Warn before opening BehavEd-incompatible ICARUS script" />
+				</Settings>
+			</SettingsGroup>
+			<SettingsGroup ID="{A99E9350-0609-4C64-80C8-BB0DC1246701}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Raven Software</Part>
+					<Part>ICARUS Scripting</Part>
+					<Part>Directories</Part>
+				</Path>
+				<Settings>
+					<!-- this should be a UE Platform setting -->
+					<TextSetting ID="{4CE2424F-44E5-4F6D-8B8E-F3B30755D0B3}" Name="ScriptPath" Title="Sc_ript path" />
+					<TextSetting ID="{7DC347F3-BAC0-4E9B-B863-DB40E68D91A6}" Name="SourceSafeScriptPath" Title="SourceSa_fe script path" />
+					<TextSetting ID="{16B50546-7AE5-43EA-8AAC-F94671861B3C}" Name="SourceSafeConfigurationLocation" Title="SourceSafe _configuration location" />
+					<TextSetting ID="{B4F76E28-1468-44F6-B05E-C9BC2FAB0D02}" Name="IcarusCompilerPath" Title="Location of _ICARUS compiler (IBIZE)" />
+					<TextSetting ID="{11A8BAD2-C793-4BCB-B1B4-1B86EA6D9960}" Name="CommandDescriptionFile" Title="Command _description file (BehavEd.bhc)" />
+					<TextSetting ID="{B5EB988C-5F88-4343-9D27-3C8021CF03BE}" Name="SourceFilesPath" Title="_Source files path" />
+				</Settings>
+			</SettingsGroup>
+		</SettingsProvider>
+	</SettingsProviders>
+</ApplicationFramework>

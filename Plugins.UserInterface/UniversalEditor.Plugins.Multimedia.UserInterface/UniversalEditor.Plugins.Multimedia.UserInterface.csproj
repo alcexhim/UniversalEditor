@@ -34,7 +34,6 @@
     <Compile Include="Editors\Multimedia\Picture\PictureEditor.cs" />
     <Compile Include="Editors\Multimedia\Picture\PictureEditor.Designer.cs" />
     <Compile Include="Controls\DrawingArea\DrawingAreaControl.cs" />
-    <Compile Include="SettingsProviders\SingingStyleDefaultsSettingsProvider.cs" />
     <Compile Include="PictureObjectModelExtensions.cs" />
     <Compile Include="Editors\Multimedia\Palette\PaletteEditor.cs" />
     <Compile Include="Editors\Multimedia\Palette\PaletteEditor.Designer.cs" />
@@ -108,6 +107,9 @@
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SettingsProviders\Default.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

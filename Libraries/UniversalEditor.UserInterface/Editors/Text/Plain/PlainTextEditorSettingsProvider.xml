@@ -1,0 +1,30 @@
+﻿<ApplicationFramework>
+	<SettingsProviders>
+		<SettingsProvider ID="{63E95EE0-1D15-44B3-B1C2-0F72E4869526}">
+			<!-- Plain Text Editor -->
+			<SettingsGroup ID="{7AEB0AD3-5A1F-4DE1-BD1C-20C948363A16}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Text</Part>
+					<Part>Plain</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{5BDCD5E1-140A-494C-A024-6199F60CBE89}" Name="DisplayLineNumbers" Title="_Display line numbers" />
+					<BooleanSetting ID="{873DDB03-0562-4ADE-B053-5E3EB8234E26}" Name="DisplayRightMargin" Title="_Display right margin" />
+					<TextSetting ID="{C27BA051-DF0A-4BDE-927E-339543CAD203}" Name="RightMarginColumn" Title="Right margin at _column" />
+					<BooleanSetting ID="{9F9436F1-04F2-40D7-B7AC-63DAEDE89A93}" Name="DisplayOverviewMap" Title="Display _overview map" />
+					
+					<BooleanSetting ID="{C5BDEB15-0196-43BF-B356-617FF5E03AF4}" Name="EnableTextWrapping" Title="Enable text _wrapping" />
+					<BooleanSetting ID="{63064236-FECA-45EA-BCDF-ED05CA329424}" Name="DoNotSplitWordsOverTwoLines" Title="Do not s_plit words over two lines" />
+					
+					<BooleanSetting ID="{093C9BE7-B91E-4FEC-A033-A74217F5C76C}" Name="HighlightCurrentLine" Title="Highlight current _line" />
+					<BooleanSetting ID="{5C3060CA-990E-4C2E-8FF9-4BE066D509AB}" Name="HighlightMatchingBrackets" Title="Highlight matching _brackets" />
+					
+					<RangeSetting ID="{059F9424-53A0-4749-B680-F848A60FA678}" Name="TabWidth" Title="_Tab width" DefaultValue="8" MinimumValue="1" MaximumValue="24" />
+					<BooleanSetting ID="{32A52388-E9B6-46ED-96E8-A70E1584D6AC}" Name="InsertSpacesInsteadOfTabs" Title="Insert _spaces instead of tabs" />
+					<BooleanSetting ID="{75F0AC35-C634-4499-BB2F-192574D8D7BF}" Name="EnableAutomaticIndentation" Title="_Enable automatic indentation" DefaultValue="True" />
+				</Settings>
+			</SettingsGroup>
+		</SettingsProvider>
+	</SettingsProviders>
+</ApplicationFramework>
