@@ -333,127 +333,84 @@ namespace UniversalEditor.Common
 
 		#region Object Models
 		private static ObjectModelReference[] mvarAvailableObjectModels = null;
-		public static ObjectModelReference[] GetAvailableObjectModels()
+		public static ObjectModelReference[] GetAvailableObjectModels(Accessor accessor = null)
 		{
 			if (mvarAvailableObjectModels == null) Initialize();
-			return mvarAvailableObjectModels;
+			if (accessor == null)
+			{
+				return mvarAvailableObjectModels;
+			}
+			List<ObjectModelReference> list = new List<ObjectModelReference>();
+			Association[] assocs = GetAvailableAssociations(accessor);
+			for (int i = 0; i < assocs.Length; i++)
+			{
+				for (int j = 0; j < assocs[i].ObjectModels.Count; j++)
+				{
+					if (list.Contains(assocs[i].ObjectModels[j]))
+						continue;
+					list.Add(assocs[i].ObjectModels[j]);
+				}
+			}
+			return list.ToArray();
 		}
 
-		public static T GetAvailableObjectModel<T>(string filename) where T : ObjectModel
+		public static T GetAvailableObjectModel<T>(string filename) where T : ObjectModel, new()
 		{
 			return GetAvailableObjectModel<T>(new FileAccessor(filename));
 		}
-		public static T GetAvailableObjectModel<T>(Accessor accessor) where T : ObjectModel
+		public static T GetAvailableObjectModel<T>(Accessor accessor) where T : ObjectModel, new()
 		{
-			ObjectModelReference[] omrs = GetAvailableObjectModels(accessor);
-			if (omrs.Length == 0)
+			if (GetAvailableObjectModel<T>(accessor, out T objectToFill))
+				return objectToFill;
+			return null;
+		}
+		public static bool GetAvailableObjectModel<T>(string filename, out T objectToFill) where T : ObjectModel, new()
+		{
+			return GetAvailableObjectModel<T>(new FileAccessor(filename), out objectToFill);
+		}
+		public static bool GetAvailableObjectModel<T>(Accessor accessor, out T objectToFill) where T : ObjectModel, new()
+		{
+			Initialize();
+
+			Association[] assocs = GetAvailableAssociations(accessor);
+			if (assocs.Length == 0)
 			{
-				// we failed to find an object model from the accessor, so let's try and
-				// force the loading of the object model we're told to load in the first place
-
-				Type type = typeof(T);
-				ObjectModel om = (ObjectModel)type.Assembly.CreateInstance(type.FullName);
-				ObjectModelReference omr = om.MakeReference();
-
-				DataFormatReference[] dfrs = GetAvailableDataFormats(omr);
-
-				for (int i = 0; i < dfrs.Length; i++)
-				{
-					DataFormatReference dfr = dfrs[i];
-					try
-					{
-						DataFormat df = dfr.Create();
-						Document.Load(om, df, accessor);
-						break;
-					}
-					catch (InvalidDataFormatException ex)
-					{
-						accessor.Close();
-						continue;
-					}
-					catch (NotImplementedException ex)
-					{
-						accessor.Close();
-						continue;
-					}
-				}
-				return (T)om;
+				objectToFill = null;
+				return false;
 			}
-			foreach (ObjectModelReference omr in omrs)
-			{
-				if (omr.Type == typeof(T))
-				{
-					ObjectModel om = (T)omr.Create();
 
-					DataFormatReference[] dfrs = GetAvailableDataFormats(accessor, omr);
-					foreach (DataFormatReference dfr in dfrs)
+			ObjectModel om = new T();
+
+			for (int i = 0; i < assocs.Length; i++)
+			{
+				if (assocs[i].ObjectModels.Contains(om.GetType()) || assocs[i].ObjectModels.Contains(om.MakeReference().ID))
+				{
+					if (assocs[i].DataFormats.Count > 0)
 					{
-						DataFormat df = dfr.Create();
+						DataFormat df = assocs[i].DataFormats[0].Create();
 						Document doc = new Document(om, df, accessor);
 						try
 						{
 							doc.InputAccessor.Open();
 							doc.Load();
 							doc.InputAccessor.Close();
-							break;
+
+							objectToFill = (T)doc.ObjectModel;
+							return true;
 						}
-						catch (InvalidDataFormatException ex)
+						catch (DataFormatException)
 						{
-							if (!(Array.IndexOf(dfrs, df) < dfrs.Length - 1))
-							{
-								throw ex;
-							}
 							doc.InputAccessor.Close();
 						}
-						catch (ObjectModelNotSupportedException ex)
+						catch (NotSupportedException)
 						{
-							if (!(Array.IndexOf(dfrs, df) < dfrs.Length - 1))
-							{
-								throw ex;
-							}
 							doc.InputAccessor.Close();
 						}
 					}
-					return (T)om;
 				}
 			}
-			return null;
-		}
-		public static bool GetAvailableObjectModel<T>(string filename, ref T objectToFill) where T : ObjectModel
-		{
-			return GetAvailableObjectModel<T>(new FileAccessor(filename), ref objectToFill);
-		}
-		public static bool GetAvailableObjectModel<T>(Accessor accessor, ref T objectToFill) where T : ObjectModel
-		{
-			ObjectModel om = (T)objectToFill;
-			DataFormatReference[] dfrs = GetAvailableDataFormats(accessor);
-			if (dfrs.Length == 0)
-			{
-				return false;
-			}
-
-			for (int i = 0; i < dfrs.Length; i++)
-			{
-				DataFormat df = dfrs[i].Create();
-				Document doc = new Document(om, df, accessor);
-				try
-				{
-					doc.InputAccessor.Open();
-					doc.Load();
-					doc.InputAccessor.Close();
-
-					return true;
-				}
-				catch (DataFormatException)
-				{
-					doc.InputAccessor.Close();
-				}
-				catch (NotSupportedException)
-				{
-					doc.InputAccessor.Close();
-				}
-			}
-			return true;
+			objectToFill = null;
+			return false;
 		}
 
 		public static ObjectModelReference[] GetAvailableObjectModels(DataFormatReference dfr)
@@ -470,28 +427,6 @@ namespace UniversalEditor.Common
 				if ((dfr.Capabilities[om.Type] & capabilities) == capabilities)
 				{
 					list.Add(om);
-				}
-			}
-			return list.ToArray();
-		}
-		public static ObjectModelReference[] GetAvailableObjectModels(Accessor accessor, DataFormatCapabilities capabilities = DataFormatCapabilities.All)
-		{
-			ObjectModelReference[] array = GetAvailableObjectModels();
-			DataFormatReference[] dfs = GetAvailableDataFormats(accessor);
-			List<ObjectModelReference> list = new List<ObjectModelReference>();
-			if (dfs.Length == 0) return list.ToArray();
-
-			foreach (ObjectModelReference om in array)
-			{
-				if (om == null) continue;
-
-				foreach (DataFormatReference df in dfs)
-				{
-					if (df == null) continue;
-					if ((df.Capabilities[om.Type] & capabilities) == capabilities)
-					{
-						list.Add(om);
-					}
 				}
 			}
 			return list.ToArray();
@@ -566,27 +501,28 @@ namespace UniversalEditor.Common
 		#endregion
 		#region Data Formats
 		private static DataFormatReference[] mvarAvailableDataFormats = null;
-		public static DataFormatReference[] GetAvailableDataFormats()
+		public static DataFormatReference[] GetAvailableDataFormats(Accessor accessor = null)
 		{
 			if (mvarAvailableDataFormats == null) Initialize();
-			return mvarAvailableDataFormats;
-		}
-
-		public static DataFormatReference[] GetAvailableDataFormats(string filename)
-		{
-			Association[] associations = Association.FromCriteria(new AssociationCriteria() { FileName = filename });
-			List<DataFormatReference> list = new List<DataFormatReference>();
-			foreach (Association association in associations)
+			if (accessor == null)
 			{
-				for (int i = 0; i < association.DataFormats.Count; i++)
+				return mvarAvailableDataFormats;
+			}
+			List<DataFormatReference> list = new List<DataFormatReference>();
+			Association[] assocs = GetAvailableAssociations(accessor);
+			for (int i = 0; i < assocs.Length; i++)
+			{
+				for (int j = 0; j < assocs[i].DataFormats.Count; j++)
 				{
-					list.Add(association.DataFormats[i]);
+					if (list.Contains(assocs[i].DataFormats[j]))
+						continue;
+					list.Add(assocs[i].DataFormats[j]);
 				}
 			}
-			list.Sort(new Comparison<DataFormatReference>(_DataFormatReferenceComparer));
 			return list.ToArray();
 		}
-		public static DataFormatReference[] GetAvailableDataFormats(Accessor accessor)
+
+		public static Association[] GetAvailableAssociations(Accessor accessor)
 		{
 			bool needsOpen = false;
 			if (!accessor.IsOpen)
@@ -600,21 +536,12 @@ namespace UniversalEditor.Common
 			List<Association> listAssocs = new List<Association>(associations);
 			listAssocs.Sort();
 
-			List<DataFormatReference> list = new List<DataFormatReference>();
-			foreach (Association association in listAssocs)
-			{
-				for (int i = 0; i < association.DataFormats.Count; i++)
-				{
-					list.Add(association.DataFormats[i]);
-				}
-			}
-
 			if (needsOpen)
 			{
 				// close the accessor since we're done with it
 				accessor.Close();
 			}
-			return list.ToArray();
+			return listAssocs.ToArray();
 		}
 
 		public static DataFormatReference[] GetAvailableDataFormats(ObjectModelReference objectModelReference)
@@ -724,41 +651,5 @@ namespace UniversalEditor.Common
 		}
 #endif
 
-		public static ObjectModel GetAvailableObjectModel(byte[] data, string filename, string ObjectModelTypeName)
-		{
-			return GetAvailableObjectModel(new MemoryAccessor(data, filename), ObjectModelTypeName);
-		}
-		public static ObjectModel GetAvailableObjectModel(Accessor accessor, string ObjectModelTypeName)
-		{
-			long resetpos = accessor.Position;
-
-			DataFormatReference[] dfrs = GetAvailableDataFormats(accessor);
-			foreach (DataFormatReference dfr in dfrs)
-			{
-				ObjectModelReference[] omrs = GetAvailableObjectModels(dfr);
-				foreach (ObjectModelReference omr in omrs)
-				{
-					if (omr.Type.FullName == ObjectModelTypeName)
-					{
-						ObjectModel om = omr.Create();
-						if (om == null) return null;
-
-						DataFormat df = dfr.Create();
-						try
-						{
-							Document.Load(om, df, accessor);
-						}
-						catch (InvalidDataFormatException)
-						{
-							accessor.Position = resetpos;
-							break;
-						}
-
-						return om;
-					}
-				}
-			}
-			return null;
-		}
 	}
 }

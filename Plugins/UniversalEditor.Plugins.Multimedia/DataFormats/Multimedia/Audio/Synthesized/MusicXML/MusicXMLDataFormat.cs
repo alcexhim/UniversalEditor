@@ -161,7 +161,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MusicXML
 																			if (file.FileName != null)
 																			{
 																				string fileName = Path.MakeAbsolutePath(tag_elTagScorePartChild.Attributes["href"].Value, System.IO.Path.GetDirectoryName(file.FileName));
-																				track.Synthesizer = Reflection.GetAvailableObjectModel<VoicebankObjectModel>(new FileAccessor(fileName));
+																				if (Reflection.GetAvailableObjectModel<VoicebankObjectModel>(new FileAccessor(fileName), out VoicebankObjectModel synth))
+																				{
+																					track.Synthesizer = synth;
+																				}
 																			}
 																		}
 																	}

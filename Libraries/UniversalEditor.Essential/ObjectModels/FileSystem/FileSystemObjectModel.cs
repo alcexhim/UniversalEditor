@@ -80,10 +80,10 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			foreach (string fileName in fileNames)
 			{
 				FileAccessor accessor = new FileAccessor(fileName);
-				FileSystemObjectModel fsom1 = UniversalEditor.Common.Reflection.GetAvailableObjectModel<FileSystemObjectModel>(accessor);
-				if (fsom1 == null) continue;
-
-				fsom1.CopyTo(fsom);
+				if (UniversalEditor.Common.Reflection.GetAvailableObjectModel<FileSystemObjectModel>(accessor, out FileSystemObjectModel fsom1))
+				{
+					fsom1.CopyTo(fsom);
+				}
 			}
 			return fsom;
 		}

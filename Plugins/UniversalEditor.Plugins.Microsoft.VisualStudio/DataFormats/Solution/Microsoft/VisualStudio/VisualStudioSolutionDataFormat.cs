@@ -120,10 +120,12 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 						projectFileName = projectFileName.Replace('\\', System.IO.Path.DirectorySeparatorChar);
 						if (System.IO.File.Exists(projectFileName))
 						{
-							ProjectObjectModel project = UniversalEditor.Common.Reflection.GetAvailableObjectModel<ProjectObjectModel>(projectFileName);
-							project.Title = projectTitle;
-							sol.Projects.Add(project);
-							lastProject = project;
+							if (UniversalEditor.Common.Reflection.GetAvailableObjectModel<ProjectObjectModel>(projectFileName, out ProjectObjectModel project))
+							{
+								project.Title = projectTitle;
+								sol.Projects.Add(project);
+								lastProject = project;
+							}
 						}
 						else
 						{

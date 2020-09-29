@@ -76,10 +76,12 @@ namespace UniversalEditor.ObjectModels.Concertroid
 					string[] fileNames = System.IO.Directory.GetFiles(ConfigurationPath, "*.library", System.IO.SearchOption.AllDirectories);
 					foreach (string fileName in fileNames)
 					{
-						LibraryObjectModel library = UniversalEditor.Common.Reflection.GetAvailableObjectModel<LibraryObjectModel>(fileName);
-						foreach (Producer p in library.Producers)
+						if (UniversalEditor.Common.Reflection.GetAvailableObjectModel<LibraryObjectModel>(fileName, out LibraryObjectModel library))
 						{
-							list.Add(p);
+							foreach (Producer p in library.Producers)
+							{
+								list.Add(p);
+							}
 						}
 					}
 				}
