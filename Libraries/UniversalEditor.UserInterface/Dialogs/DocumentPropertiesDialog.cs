@@ -77,7 +77,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 			this.txtDataFormat.Text = DataFormat?.MakeReference().Title;
 			this.txtAccessor.Text = Accessor?.GetFileName();
 		}
-		
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+			RefreshButtons();
+		}
+
 		public DocumentPropertiesDialogMode Mode { get; set; } = DocumentPropertiesDialogMode.Open;
 
 		private ObjectModel mvarInitialObjectModel = null;
@@ -179,6 +184,22 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 
 			Buttons[0].Enabled = (Accessor != null && (Mode == DocumentPropertiesDialogMode.Open || (Mode == DocumentPropertiesDialogMode.Save && ObjectModel != null && DataFormat != null)));
+			
+			switch (Mode)
+			{
+				case DocumentPropertiesDialogMode.Open:
+				{
+					cmdDataFormatOptions.Enabled = (DataFormat?.MakeReference().ImportOptions.Count > 0);
+					cmdAccessorOptions.Enabled = (Accessor?.MakeReference().ImportOptions.Count > 0);
+					break;
+				}
+				case DocumentPropertiesDialogMode.Save:
+				{
+					cmdDataFormatOptions.Enabled = (DataFormat?.MakeReference().ExportOptions.Count > 0);
+					cmdAccessorOptions.Enabled = (Accessor?.MakeReference().ExportOptions.Count > 0);
+					break;
+				}
+			}
 		}
 
 		private string DataFormatReferenceToString(DataFormatReference dfr)
