@@ -7,6 +7,42 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 {
 	public class FixtureObjectModel : ObjectModel
 	{
+		public class FixtureObjectModelCollection
+			: System.Collections.ObjectModel.Collection<FixtureObjectModel>
+		{
+
+			private Dictionary<Guid, FixtureObjectModel> fixturesByID = new Dictionary<Guid, FixtureObjectModel>();
+
+			public FixtureObjectModel this[Guid typeID]
+			{
+				get
+				{
+					if (fixturesByID.ContainsKey(typeID))
+						return fixturesByID[typeID];
+					return null;
+				}
+			}
+
+			protected override void InsertItem(int index, FixtureObjectModel item)
+			{
+				base.InsertItem(index, item);
+				fixturesByID[item.ID] = item;
+			}
+			protected override void RemoveItem(int index)
+			{
+				if (fixturesByID.ContainsKey(this[index].ID))
+				{
+					fixturesByID.Remove(this[index].ID);
+				}
+				base.RemoveItem(index);
+			}
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				fixturesByID.Clear();
+			}
+		}
+
 		private ObjectModelReference _omr = null;
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
