@@ -179,8 +179,6 @@ namespace UniversalEditor.UserInterface
 
 			this.CommandDisplayMode = CommandDisplayMode.CommandBar;
 
-			InitializeMainMenu();
-
 			if (this.CommandDisplayMode == CommandDisplayMode.Ribbon || this.CommandDisplayMode == CommandDisplayMode.Both) {
 				foreach (CommandBar cb in Application.CommandBars) {
 					RibbonTab ribbonTabHome = LoadRibbonBar (cb);
