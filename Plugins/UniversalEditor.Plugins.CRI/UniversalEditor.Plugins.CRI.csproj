@@ -43,6 +43,10 @@
     <Compile Include="DataFormats\Database\UTF\UTFColumnStorageType.cs" />
     <Compile Include="DataFormats\FileSystem\CPK\CPKFileMode.cs" />
     <Compile Include="DataFormats\FileSystem\CPK\Internal\IDOFFSET.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXBlock.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXEncodingType.cs" />
+    <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\" />
@@ -55,6 +59,13 @@
     <Folder Include="Associations\" />
     <Folder Include="Associations\Database\" />
     <Folder Include="Associations\FileSystem\" />
+    <Folder Include="DataFormats\Multimedia\" />
+    <Folder Include="DataFormats\Multimedia\Audio\" />
+    <Folder Include="DataFormats\Multimedia\Audio\Waveform\" />
+    <Folder Include="DataFormats\Multimedia\Audio\Waveform\CRI\" />
+    <Folder Include="Associations\Multimedia\" />
+    <Folder Include="Associations\Multimedia\Audio\" />
+    <Folder Include="Associations\Multimedia\Audio\Waveform\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -74,6 +85,7 @@
     <EmbeddedResource Include="Associations\Database\UTF.uexml" />
     <EmbeddedResource Include="Associations\FileSystem\AFS.uexml" />
     <EmbeddedResource Include="Associations\FileSystem\CPK.uexml" />
+    <EmbeddedResource Include="Associations\Multimedia\Audio\Waveform\ADX.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
