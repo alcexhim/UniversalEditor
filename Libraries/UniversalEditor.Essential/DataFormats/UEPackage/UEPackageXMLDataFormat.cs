@@ -655,6 +655,24 @@ namespace UniversalEditor.DataFormats.UEPackage
 										{
 											template.ObjectModelReference = new ObjectModelReference(tagContent.Attributes["ObjectModelType"].Value);
 										}
+
+										if (tagContent.Attributes["FileName"] != null)
+										{
+											// TODO: load the specified file as the given ObjectModel type
+										}
+										else
+										{
+											if (template.ObjectModelReference.Type != null)
+											{
+												System.Reflection.ParameterModifier pmodType = new System.Reflection.ParameterModifier();
+												System.Reflection.MethodInfo miFromMarkup = template.ObjectModelReference.Type.GetMethod("FromMarkup", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static, null, new Type[] { typeof(MarkupTagElement) }, new System.Reflection.ParameterModifier[] { pmodType });
+												if (miFromMarkup != null)
+												{
+													ObjectModel om = (miFromMarkup.Invoke(null, new object[] { tagContent }) as ObjectModel);
+													template.ObjectModel = om;
+												}
+											}
+										}
 										template.TemplateContent.Elements.Add(tagContent);
 									}
 								}

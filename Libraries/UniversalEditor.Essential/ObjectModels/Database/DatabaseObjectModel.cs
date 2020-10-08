@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using UniversalEditor.ObjectModels.Markup;
+
 namespace UniversalEditor.ObjectModels.Database
 {
 	/// <summary>
@@ -37,6 +39,7 @@ namespace UniversalEditor.ObjectModels.Database
 			return _omr;
 		}
 
+		public string Name { get; set; } = null;
 		public DatabaseTable.DatabaseTableCollection Tables { get; } = new DatabaseTable.DatabaseTableCollection();
 
 		public override void Clear()
@@ -53,6 +56,33 @@ namespace UniversalEditor.ObjectModels.Database
 			{
 				clone.Tables.Add(Tables[i].Clone() as DatabaseTable);
 			}
+		}
+
+		public static DatabaseObjectModel FromMarkup(MarkupTagElement tag)
+		{
+			DatabaseObjectModel db = new DatabaseObjectModel();
+			for (int i = 0; i < tag.Elements.Count; i++)
+			{
+				MarkupTagElement tag2 = (tag.Elements[i] as MarkupTagElement);
+				if (tag2 == null) continue;
+				if (tag2.FullName == "Tables")
+				{
+					foreach (MarkupElement elTable in tag2.Elements )
+					{
+						MarkupTagElement tagTable = (elTable as MarkupTagElement);
+						if (tagTable == null) continue;
+						if (tagTable.FullName != "Table") continue;
+
+						MarkupAttribute attName = tag2.Attributes["Name"];
+						if (attName == null) continue;
+
+						DatabaseTable dt = new DatabaseTable();
+						dt.Name = attName.Value;
+						db.Tables.Add(dt);
+					}
+				}
+			}
+			return db;
 		}
 	}
 }

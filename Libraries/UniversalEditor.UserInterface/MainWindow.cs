@@ -314,6 +314,10 @@ namespace UniversalEditor.UserInterface
 					return null;
 				}
 
+				if (template.ObjectModel != null)
+				{
+					template.ObjectModel.CopyTo(objm);
+				}
 				page.Document = new Document(objm, null, null);
 				page.Document.Title = String.Format(filename, iUntitledDocCount);
 

@@ -116,6 +116,7 @@ namespace UniversalEditor
 				if (mvarObjectModel == null) Create();
 				return mvarObjectModel;
 			}
+			set { mvarObjectModel = value; }
 		}
 
 		private ObjectModelReference mvarObjectModelReference = null;

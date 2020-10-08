@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using MBS.Framework.Logic.Conditional;
 using UniversalEditor.Accessors;
+using UniversalEditor.ObjectModels.Markup;
 
 namespace UniversalEditor.ObjectModels.FileSystem
 {
@@ -532,6 +533,56 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				};
 			}
 			return _CriteriaObjects;
+		}
+
+		public static ObjectModel FromMarkup(MarkupTagElement tagContent)
+		{
+			FileSystemObjectModel fsom = new FileSystemObjectModel();
+			InitFileSystemFromMarkup(fsom, tagContent);
+			return fsom;
+		}
+
+		private static void InitFileSystemFromMarkup(IFileSystemContainer fsom, MarkupTagElement tagContent)
+		{
+			MarkupTagElement tagFolders = tagContent.Elements["Folders"] as MarkupTagElement;
+			MarkupTagElement tagFiles = tagContent.Elements["Files"] as MarkupTagElement;
+			if (tagFolders != null)
+			{
+				for (int i = 0; i < tagFolders.Elements.Count; i++)
+				{
+					MarkupTagElement tagFolder = (tagFolders.Elements[i] as MarkupTagElement);
+					if (tagFolder == null) continue;
+					if (tagFolder.FullName != "Folder") continue;
+
+					MarkupAttribute attName = tagFolder.Attributes["Name"];
+
+					Folder item = new Folder();
+					if (attName != null)
+					{
+						item.Name = attName.Value;
+					}
+					InitFileSystemFromMarkup(item, tagFolder);
+					fsom.Folders.Add(item);
+				}
+			}
+			if (tagFiles != null)
+			{
+				for (int i = 0; i < tagFiles.Elements.Count; i++)
+				{
+					MarkupTagElement tagFile = (tagFiles.Elements[i] as MarkupTagElement);
+					if (tagFile == null) continue;
+					if (tagFile.FullName != "File") continue;
+
+					MarkupAttribute attName = tagFile.Attributes["Name"];
+
+					File item = new File();
+					if (attName != null)
+					{
+						item.Name = attName.Value;
+					}
+					fsom.Files.Add(item);
+				}
+			}
 		}
 	}
 }

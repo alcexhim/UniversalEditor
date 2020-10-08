@@ -6,6 +6,10 @@
 				<Title>Windows filesystem</Title>
 				<Description>Creates a standard Windows NT file structure.</Description>
 				<IconPath LargeFileName="windows_32x32.png" SmallFileName="windows_16x16.png" />
+				<Path>
+					<Part>General</Part>
+					<Part>File system/archive</Part>
+				</Path>
 			</Information>
 			<Content ObjectModelType="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel">
 				<Folders>
