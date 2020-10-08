@@ -1071,7 +1071,7 @@ namespace UniversalEditor.IO
 		{
 			return ReadUntil(sequence, base.Accessor.DefaultEncoding);
 		}
-		public byte[] ReadUntil(string sequence, bool includeSequence)
+		public string ReadUntil(string sequence, bool includeSequence)
 		{
 			return ReadUntil(sequence, base.Accessor.DefaultEncoding, includeSequence);
 		}
@@ -1079,15 +1079,15 @@ namespace UniversalEditor.IO
 		{
 			return encoding.GetString(ReadUntil(sequence.ToCharArray(), encoding));
 		}
-		public byte[] ReadUntil(string sequence, Encoding encoding, bool includeSequence)
+		public string ReadUntil(string sequence, Encoding encoding, bool includeSequence)
 		{
-			return ReadUntil(sequence.ToCharArray(), encoding, includeSequence);
+			return new string(ReadUntil(sequence.ToCharArray(), encoding, includeSequence));
 		}
 		public byte[] ReadUntil(char[] sequence)
 		{
 			return this.ReadUntil(sequence, base.Accessor.DefaultEncoding);
 		}
-		public byte[] ReadUntil(char[] sequence, bool includeSequence)
+		public char[] ReadUntil(char[] sequence, bool includeSequence)
 		{
 			return this.ReadUntil(sequence, base.Accessor.DefaultEncoding, includeSequence);
 		}
@@ -1095,9 +1095,9 @@ namespace UniversalEditor.IO
 		{
 			return this.ReadUntil(encoding.GetBytes(sequence));
 		}
-		public byte[] ReadUntil(char[] sequence, Encoding encoding, bool includeSequence)
+		public char[] ReadUntil(char[] sequence, Encoding encoding, bool includeSequence)
 		{
-			return this.ReadUntil(encoding.GetBytes(sequence), includeSequence);
+			return encoding.GetChars(this.ReadUntil(encoding.GetBytes(sequence), includeSequence));
 		}
 		public string ReadStringUntil(string sequence)
 		{
@@ -1625,13 +1625,19 @@ namespace UniversalEditor.IO
 
 		public string ReadUntil(string[] until)
 		{
-			return ReadUntil(until, null, null);
+			string rest = null;
+			return ReadUntil(until, out rest);
+		}
+		public string ReadUntil(string[] until, out string rest)
+		{
+			return ReadUntil(until, null, null, out rest);
 		}
 		public string ReadUntil(string until, string ignoreBegin, string ignoreEnd)
 		{
-			return ReadUntil(new string[] { until }, ignoreBegin, ignoreEnd);
+			string rest = null;
+			return ReadUntil(new string[] { until }, ignoreBegin, ignoreEnd, out rest);
 		}
-		public string ReadUntil(string[] until, string ignoreBegin, string ignoreEnd)
+		public string ReadUntil(string[] until, string ignoreBegin, string ignoreEnd, out string rest)
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
@@ -1644,7 +1650,9 @@ namespace UniversalEditor.IO
 					if (sb.ToString().EndsWith(s))
 					{
 						string w = sb.ToString();
-						return w.Substring(0, w.Length - 1);
+						string retval = w.Substring(0, w.Length - 1);
+						rest = w.Substring(w.Length - 1);
+						return retval;
 					}
 				}
 
@@ -1667,6 +1675,7 @@ namespace UniversalEditor.IO
 				sb.Append(w);
 				*/
 			}
+			rest = null;
 			return sb.ToString();
 		}
 
