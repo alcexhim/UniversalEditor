@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Heroes of Might and Magic II wave sound">
+				<Filter Title="Heroes of Might and Magic II wave sound" ContentType="audio/x-newworldcomputing-82m" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.82m</FileNameFilter>
 					</FileNameFilters>
