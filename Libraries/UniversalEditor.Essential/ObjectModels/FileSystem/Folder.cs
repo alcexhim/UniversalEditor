@@ -134,6 +134,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public object Clone()
 		{
 			Folder clone = new Folder();
+			clone.Name = (Name.Clone() as string);
 			for (int i = 0; i < mvarFiles.Count; i++)
 			{
 				File file = mvarFiles[i];
@@ -144,7 +145,6 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				Folder folder = mvarFolders[i];
 				clone.Folders.Add(folder.Clone() as Folder);
 			}
-			clone.Name = mvarName;
 			return clone;
 		}
 
