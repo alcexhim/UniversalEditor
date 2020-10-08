@@ -57,11 +57,11 @@ namespace UniversalEditor.Accessors
 
 		public override string GetFileTitle()
 		{
-			return System.IO.Path.GetFileName(mvarFileName);
+			return System.IO.Path.GetFileName(FileName);
 		}
 		public override string GetFileName()
 		{
-			return mvarFileName;
+			return FileName;
 		}
 		protected override long GetPosition()
 		{
@@ -103,8 +103,19 @@ namespace UniversalEditor.Accessors
 		private bool mvarForceOverwrite = false;
 		public bool ForceOverwrite { get { return mvarForceOverwrite; } set { mvarForceOverwrite = value; } }
 
-		private string mvarFileName = String.Empty;
-		public string FileName { get { return mvarFileName; } set { mvarFileName = value; } }
+		private string mvarFileName = null;
+		public string FileName
+		{
+			get
+			{
+				if (mvarFileName == null && OriginalUri != null)
+				{
+					return OriginalUri.LocalPath;
+				}
+				return mvarFileName;
+			}
+			set { mvarFileName = value; }
+		}
 
 		public FileAccessor()
 		{
@@ -128,7 +139,7 @@ namespace UniversalEditor.Accessors
 		}
 		protected override void OpenInternal()
 		{
-			string filename = mvarFileName;
+			string filename = FileName;
 			if (filename.StartsWith("file://"))
 			{
 				Uri uri = new Uri(filename);
@@ -157,8 +168,7 @@ namespace UniversalEditor.Accessors
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
-			// sb.Append("file:///");
-			sb.Append(mvarFileName);
+			sb.Append(FileName);
 			return sb.ToString();
 		}
 

@@ -826,6 +826,7 @@ namespace UniversalEditor.UserInterface
 				if (accs.Length > 0)
 				{
 					Accessor fa = accs[0].Create();
+					fa.OriginalUri = new Uri(fileNames[i]);
 					documents[i] = new Document(fa);
 				}
 				else if (System.IO.File.Exists(fileNames[i]))
@@ -873,6 +874,7 @@ namespace UniversalEditor.UserInterface
 					MessageDialog.ShowDialog(ex.Message, "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
 				}
 			}
+			Present(DateTime.Now);
 		}
 
 		public ProjectObjectModel ShowOpenProjectDialog()

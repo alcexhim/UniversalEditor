@@ -95,7 +95,6 @@ namespace UniversalEditor.DataFormats.UEPackage
 			objectModels.Push(new MarkupObjectModel());
 		}
 
-		[DebuggerNonUserCode()]
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
@@ -106,6 +105,59 @@ namespace UniversalEditor.DataFormats.UEPackage
 			MarkupTagElement tagUniversalEditor = (mom.Elements["UniversalEditor"] as MarkupTagElement);
 			if (tagUniversalEditor == null) throw new InvalidDataFormatException("Top-level tag 'UniversalEditor' not found");
 
+			#region Accssors
+			{
+				MarkupTagElement tagAccessors = (tagUniversalEditor.Elements["Accessors"] as MarkupTagElement);
+				if (tagAccessors != null)
+				{
+					foreach (MarkupElement elAccessor in tagAccessors.Elements)
+					{
+						MarkupTagElement tagAccessor = (elAccessor as MarkupTagElement);
+						if (tagAccessor == null) continue;
+
+						AccessorReference accref = null;
+						MarkupAttribute attTypeName = tagAccessor.Attributes["TypeName"];
+						if (attTypeName != null)
+						{
+							Type type = MBS.Framework.Reflection.FindType(attTypeName.Value);
+							if (type != null)
+							{
+								Accessor acc = (type.Assembly.CreateInstance(type.FullName) as Accessor);
+								if (acc != null)
+								{
+									accref = acc.MakeReference();
+								}
+							}
+						}
+
+						if (accref != null)
+						{
+							MarkupTagElement tagSchemas = tagAccessor.Elements["Schemas"] as MarkupTagElement;
+							if (tagSchemas != null)
+							{
+								foreach (MarkupElement elSchema in tagSchemas.Elements)
+								{
+									MarkupTagElement tagSchema = (elSchema as MarkupTagElement);
+									if (tagSchema == null) continue;
+
+									MarkupAttribute attSchemaValue = tagSchema.Attributes["Value"];
+									if (attSchemaValue == null) continue;
+
+									accref.Schemas.Add(attSchemaValue.Value);
+
+									MarkupAttribute attSchemaTitle = tagSchema.Attributes["Title"];
+									if (attSchemaTitle != null)
+									{
+
+									}
+								}
+							}
+						}
+					}
+				}
+
+			}
+			#endregion
 			#region Data Formats
 			{
 				MarkupTagElement tagDataFormats = (tagUniversalEditor.Elements["DataFormats"] as MarkupTagElement);
