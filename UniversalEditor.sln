@@ -203,6 +203,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Lighting.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Lighting.UserInterface\UniversalEditor.Plugins.Lighting.UserInterface.csproj", "{77C96685-268E-4CAD-867E-C19BBBEB1F3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Database", "Plugins\UniversalEditor.Plugins.Database\UniversalEditor.Plugins.Database.csproj", "{2EDA483D-E413-4CC5-A944-EBB898611268}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surodoine", "..\Surodoine\Surodoine\Surodoine.csproj", "{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}"
 EndProject
 Global
@@ -585,6 +587,10 @@ Global
 		{77C96685-268E-4CAD-867E-C19BBBEB1F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77C96685-268E-4CAD-867E-C19BBBEB1F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77C96685-268E-4CAD-867E-C19BBBEB1F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EDA483D-E413-4CC5-A944-EBB898611268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EDA483D-E413-4CC5-A944-EBB898611268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EDA483D-E413-4CC5-A944-EBB898611268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EDA483D-E413-4CC5-A944-EBB898611268}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -684,6 +690,7 @@ Global
 		{63E2F10F-27A6-4BAA-BF4A-4422D0934E91} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 		{FAE48F29-DB35-4CD6-8A55-6C1FDDFBE6AF} = {63E2F10F-27A6-4BAA-BF4A-4422D0934E91}
 		{77C96685-268E-4CAD-867E-C19BBBEB1F3F} = {7B535D74-5496-4802-B809-89ED88274A91}
+		{2EDA483D-E413-4CC5-A944-EBB898611268} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
