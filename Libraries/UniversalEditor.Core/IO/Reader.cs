@@ -1634,8 +1634,12 @@ namespace UniversalEditor.IO
 		}
 		public string ReadUntil(string until, string ignoreBegin, string ignoreEnd)
 		{
+			return ReadUntil(new string[] { until }, ignoreBegin, ignoreEnd);
+		}
+		public string ReadUntil(string[] until, string ignoreBegin, string ignoreEnd)
+		{
 			string rest = null;
-			return ReadUntil(new string[] { until }, ignoreBegin, ignoreEnd, out rest);
+			return ReadUntil(until, ignoreBegin, ignoreEnd, out rest);
 		}
 		public string ReadUntil(string[] until, string ignoreBegin, string ignoreEnd, out string rest)
 		{

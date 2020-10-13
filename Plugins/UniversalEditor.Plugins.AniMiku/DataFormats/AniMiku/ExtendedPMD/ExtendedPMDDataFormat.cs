@@ -61,7 +61,7 @@ namespace UniversalEditor.DataFormats.AniMiku.ExtendedPMD
 			// attempt to load more
 			IO.Reader br = base.Accessor.Reader;
 			if (br.EndOfStream) return;
-			byte[] datas = br.ReadUntil("END", false);
+			byte[] datas = br.ReadUntil(Encoding.ASCII.GetBytes("END"), false);
 
 			PMDExtensionObjectModel pmdo = new PMDExtensionObjectModel();
 			PMDExtensionDataFormat pmdf = new PMDExtensionDataFormat();
