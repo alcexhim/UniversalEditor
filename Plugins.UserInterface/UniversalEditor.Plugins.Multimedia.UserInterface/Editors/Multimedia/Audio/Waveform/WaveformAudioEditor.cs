@@ -61,6 +61,19 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			this.Controls.Add(new WaveformAudioEditorTrack(wave), cc);
 		}
 
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+			Context.AttachCommandEventHandler("WaveformAudioEditor_ContextMenu_Playback_Play", delegate (object sender, EventArgs ee)
+			{
+				WaveformAudioObjectModel wave = (ObjectModel as WaveformAudioObjectModel);
+				if (wave == null) return;
+
+				Surodoine.AudioPlayer player = new Surodoine.AudioPlayer();
+				player.Play(wave);
+			});
+		}
+
 		public override void UpdateSelections()
 		{
 			throw new System.NotImplementedException();

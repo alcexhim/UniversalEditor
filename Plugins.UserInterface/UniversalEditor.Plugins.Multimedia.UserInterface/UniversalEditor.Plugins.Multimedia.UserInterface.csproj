@@ -105,9 +105,15 @@
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Surodoine\Surodoine\Surodoine.csproj">
+      <Project>{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}</Project>
+      <Name>Surodoine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SettingsProviders\Default.xml" />
+    <EmbeddedResource Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrack.glade" />
+    <EmbeddedResource Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackControlPanel.glade" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

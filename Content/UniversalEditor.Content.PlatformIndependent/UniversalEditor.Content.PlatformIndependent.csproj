@@ -289,8 +289,6 @@
     <Content Include="Editors\Multimedia\Audio\Synthesized\Toolbox.uexml" />
     <Content Include="Dialogs\BatchFindReplaceDialog.glade" />
     <Content Include="Dialogs\BatchFindReplaceCriteriaPropertiesDialog.glade" />
-    <Content Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackControlPanel.glade" />
-    <Content Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrack.glade" />
     <Content Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\MIDIEventsView.glade" />
     <Content Include="Editors\NewWorldComputing\Map\MapEditor.glade" />
     <Content Include="Editors\Multimedia\PictureCollection\PictureCollectionEditor.glade" />
@@ -308,6 +306,7 @@
     <Content Include="Editors\RavenSoftware\Icarus\Dialogs\IcarusExpressionHelperDialog.glade" />
     <Content Include="Editors\RavenSoftware\Carcass\CarcassEditor.glade" />
     <Content Include="Editors\RavenSoftware\Carcass\Dialogs\ModelReferencePropertiesDialog.glade" />
+    <Content Include="Editors\Multimedia\Audio\Waveform\Commands.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -338,6 +337,7 @@
     <Folder Include="Editors\Database\Views\" />
     <Folder Include="Extensions\Amiga\Associations\VectorImage\" />
     <Folder Include="Editors\RavenSoftware\Carcass\Dialogs\" />
+    <Folder Include="Editors\Multimedia\Audio\Waveform\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />

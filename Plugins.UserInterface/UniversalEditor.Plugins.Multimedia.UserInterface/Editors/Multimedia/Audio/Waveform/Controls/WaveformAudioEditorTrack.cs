@@ -25,7 +25,7 @@ using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.Controls
 {
-	[ContainerLayout("~/Editors/Multimedia/Audio/Waveform/Controls/WaveformAudioEditorTrack.glade")]
+	[ContainerLayout(typeof(WaveformAudioEditorTrack), "UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.Controls.WaveformAudioEditorTrack.glade")]
 	public class WaveformAudioEditorTrack : Container
 	{
 		private WaveformAudioEditorTrackControlPanel ctTrackControlPanel;

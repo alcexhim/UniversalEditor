@@ -134,7 +134,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			// draw the currently active selection start line
 			e.Graphics.DrawLine(new Pen(Colors.White), SelectionStart, 0, SelectionStart, Size.Height);
 
-			for (int i = 0; i < wave.RawSamples.Length; i++)
+			for (int i = (int)HorizontalAdjustment.Value; i < wave.RawSamples.Length; i++)
 			{
 				double x = i;
 				double y = WAVEFORM_MIDPOINT - (ScaleFactorY * wave.RawSamples[i]);
@@ -160,6 +160,11 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 						e.Graphics.DrawLine(pen, lastPoint.X, lastPoint.Y, x, y);
 				}
 				lastPoint = new Vector2D(x, y);
+
+				if (x >= HorizontalAdjustment.Value + Size.Width)
+				{
+					break;
+				}
 			}
 		}
 

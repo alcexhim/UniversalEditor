@@ -25,7 +25,7 @@ using MBS.Framework.UserInterface.Controls;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.Controls
 {
-	[ContainerLayout("~/Editors/Multimedia/Audio/Waveform/Controls/WaveformAudioEditorTrackControlPanel.glade")]
+	[ContainerLayout(typeof(WaveformAudioEditorTrackControlPanel), "UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.Controls.WaveformAudioEditorTrackControlPanel.glade")]
 	public class WaveformAudioEditorTrackControlPanel : Container
 	{
 		private Button cmdDelete;
