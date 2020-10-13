@@ -80,6 +80,10 @@
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Database\UTF.uexml" />
