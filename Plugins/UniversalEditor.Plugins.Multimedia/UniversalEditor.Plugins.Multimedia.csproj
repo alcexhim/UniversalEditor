@@ -338,6 +338,9 @@
     <Compile Include="ObjectModels\Multimedia\VectorImage\VectorImageStyle.cs" />
     <Compile Include="DataFormats\Multimedia\VectorImage\SVG\SVGDataFormat.cs" />
     <Compile Include="ObjectModels\Multimedia\VectorImage\VectorItems\LineVectorItem.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioSampleRequestEvent.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioSamples.cs" />
+    <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioSampleLengthRequestEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">

@@ -103,7 +103,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 					}
 				}
 			}
-			RIFFDataChunk dataChunk = (waveChunk.Chunks["data"] as RIFFDataChunk);
+			dataChunk = (waveChunk.Chunks["data"] as RIFFDataChunk);
             if (dataChunk == null)
             {
                 // TODO: FIX THIS UGLY HACK!!!
@@ -113,15 +113,37 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
                     dataChunk = (infoChunk.Chunks["data"] as RIFFDataChunk);
                 }
             }
-			br = new IO.Reader(new MemoryAccessor(dataChunk.Data));
-			short[] dataa = new short[dataChunk.Data.Length / 2];
-			for (int i = 0; i < dataa.Length; i++)
+			wave.RawData = dataChunk.Data;
+
+			wave.RawSamples = new WaveformAudioSamples(wave);
+			wave.SampleLengthRequest += wave_SampleLengthRequest;
+			wave.SampleRequest += wave_SampleRequest;
+		}
+
+		private void wave_SampleLengthRequest(object sender, WaveformAudioSampleLengthRequestEventArgs e)
+		{
+			if (dataChunk == null) return;
+			e.Length = dataChunk.Data.Length / 2;
+		}
+
+
+		private RIFFDataChunk dataChunk = null;
+
+		private void wave_SampleRequest(object sender, WaveformAudioSampleRequestEventArgs e)
+		{
+			if (dataChunk == null) return;
+
+			IO.Reader br = new IO.Reader(new MemoryAccessor(dataChunk.Data));
+			br.Seek(e.Offset, IO.SeekOrigin.Begin);
+
+			short[] dataa = new short[e.Length];
+			for (int i = 0; i < e.Length; i++)
 			{
 				dataa[i] = br.ReadInt16();
 			}
-			wave.RawData = dataChunk.Data;
-			wave.RawSamples = dataa;
+			e.Samples = dataa;
 		}
+
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeSaveInternal(objectModels);
@@ -159,7 +181,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 			{
 				MemoryStream ms2 = new MemoryStream();
 				IO.Writer bw2 = new IO.Writer(new StreamAccessor(ms2));
-				short[] rawSamples = wave.RawSamples;
+				WaveformAudioSamples rawSamples = wave.RawSamples;
 				for (int i = 0; i < rawSamples.Length; i++)
 				{
 					short s = rawSamples[i];

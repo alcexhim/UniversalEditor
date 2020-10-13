@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using UniversalEditor.Accessors;
+using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
@@ -49,6 +50,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 			{
 				this.mvarRawData = value;
 
+				/*
 				// FIXME: this is extremely immature and can be optimized with a simple for() loop...
 				IO.Reader br = new IO.Reader(new MemoryAccessor(value));
 				List<short> samples = new List<short>();
@@ -81,10 +83,51 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 						break;
 					}
 				}
-				RawSamples = samples.ToArray();
+				RawSamples = new WaveformAudioSamples(samples.ToArray());
+				*/
+				RawSamples = new WaveformAudioSamples(this);
 			}
 		}
-		public short[] RawSamples { get; set; } = new short[0];
+		public WaveformAudioSamples RawSamples { get; set; } = null;
+
+		protected internal virtual void OnSampleRequest(WaveformAudioSampleRequestEventArgs e)
+		{
+			if (mvarRawData != null)
+			{
+				if (this.Header.BitsPerSample == 8)
+				{
+					short[] samples = new short[e.Length];
+					for (int i = e.Offset; i < e.Offset + e.Length; i++)
+					{
+						samples[i - e.Offset] = (short)mvarRawData[i];
+					}
+					e.Samples = samples;
+				}
+				else if (this.Header.BitsPerSample == 16)
+				{
+					short[] samples = new short[e.Length];
+					for (int i = e.Offset; i < e.Length; i++)
+					{
+						short u = BitConverter.ToInt16(new byte[] { mvarRawData[(i * 2)], mvarRawData[(i * 2) + 1] }, 0);
+						samples[i] = u;
+					}
+					e.Samples = samples;
+				}
+			}
+			SampleRequest?.Invoke(this, e);
+		}
+		public event EventHandler<WaveformAudioSampleRequestEventArgs> SampleRequest;
+
+		protected internal void OnSampleLengthRequest(WaveformAudioSampleLengthRequestEventArgs e)
+		{
+			if (mvarRawData != null)
+			{
+				e.Length = mvarRawData.Length;
+			}
+			SampleLengthRequest?.Invoke(this, e);
+		}
+		public event EventHandler<WaveformAudioSampleLengthRequestEventArgs> SampleLengthRequest;
+
 		public override void CopyTo(ObjectModel destination)
 		{
 			WaveformAudioObjectModel clone = destination as WaveformAudioObjectModel;
@@ -99,7 +142,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 			clone.Header.FormatTag = this.Header.FormatTag;
 			clone.Header.SampleRate = this.Header.SampleRate;
 			clone.RawData = (this.mvarRawData.Clone() as byte[]);
-			clone.RawSamples = (this.RawSamples.Clone() as short[]);
+			clone.RawSamples = (this.RawSamples.Clone() as WaveformAudioSamples);
 
 			clone.Information.AlbumTitle = (Information.AlbumTitle.Clone() as string);
 			clone.Information.Comments = (Information.Comments.Clone() as string);
@@ -124,7 +167,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 
 			Information.Clear();
 
-			RawSamples = new short[0];
+			RawSamples = new WaveformAudioSamples(new short[0]);
 		}
 	}
 }
