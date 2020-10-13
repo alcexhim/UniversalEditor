@@ -798,6 +798,9 @@ namespace UniversalEditor
 		}
 		public static bool Match(this string input, string filter)
 		{
+			if (filter == null)
+				return false;
+
 			string wildcardToRegex = "^" + System.Text.RegularExpressions.Regex.Escape(filter).Replace("\\*", ".*").Replace("\\?", ".") + "$";
 			return new System.Text.RegularExpressions.Regex(wildcardToRegex).IsMatch(input);
 		}
