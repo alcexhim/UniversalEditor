@@ -234,6 +234,7 @@ namespace UniversalEditor.UserInterface.Pages
 						editor.ObjectModel = om;
 						editor.DocumentEdited += editor_DocumentEdited;
 						editor.Title = title;
+						editor.Document = Document;
 						for (int j = 0; j < reditor.Views.Count; j++)
 						{
 							EditorView view = reditor.Views[j];
