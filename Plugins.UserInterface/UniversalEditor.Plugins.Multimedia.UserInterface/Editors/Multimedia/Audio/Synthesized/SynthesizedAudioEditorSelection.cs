@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework.Drawing;
+using UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.UserInterface;
 
@@ -37,12 +39,16 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 
 		protected override void DeleteInternal()
 		{
-			(_parent.Parent.Parent as Editor).BeginEdit();
+			(_parent.Parent as Editor).BeginEdit();
 			for (int i = 0; i < Commands.Count; i++)
 			{
-				(_parent.Parent.Parent as SynthesizedAudioEditor).SelectedTrack.Commands.Remove(Commands[i]);
+				SynthesizedAudioCommand cmd = Commands[i];
+				Rectangle bounds = (_parent.Parent as SynthesizedAudioEditor).PianoRoll.GetCommandBounds(cmd);
+
+				(_parent.Parent as SynthesizedAudioEditor).SelectedTrack.Commands.Remove(cmd);
+				(_parent.Parent as SynthesizedAudioEditor).PianoRoll.OnNoteDeleted(new NoteEventArgs(cmd, bounds));
 			}
-			(_parent.Parent.Parent as Editor).EndEdit();
+			(_parent.Parent as Editor).EndEdit();
 		}
 	}
 }

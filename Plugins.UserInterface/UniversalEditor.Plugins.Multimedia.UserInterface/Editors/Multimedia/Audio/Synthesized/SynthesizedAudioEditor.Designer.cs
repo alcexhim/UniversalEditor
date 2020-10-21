@@ -70,7 +70,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 			}
 		}
 
-		private Views.PianoRoll.PianoRollView PianoRoll = null;
+		public Views.PianoRoll.PianoRollView PianoRoll = null;
 		private Views.MIDIEvents.MIDIEventsView MIDIEvents = null;
 
 		/// <summary>

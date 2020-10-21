@@ -44,7 +44,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 	{
 		private class _VP : CustomControl
 		{
-			private TextBox txt = null;
+			public TextBox txt = null;
 			private SynthesizedAudioCommandNote _EditingNote = null;
 
 			private const double MAXSCROLLHEIGHT = 4096;
@@ -167,7 +167,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 				switch (e.Key)
 				{
-					case KeyboardKey.Tab:
+				case KeyboardKey.Tab:
 					{
 						if (SelectedCommands.Count > 0)
 						{
@@ -666,6 +666,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 										SynthesizedAudioCommandNote note2 = note.Clone() as SynthesizedAudioCommandNote;
 										ApplyNoteRect(ref note2, v);
 										((Parent as PianoRollView).Parent as SynthesizedAudioEditor).SelectedTrack.Commands.Add(note2);
+
+										(Parent as PianoRollView).OnNoteInserted(new NoteEventArgs(note2, GetNoteRect(note2)));
 									}
 									else
 									{
@@ -700,6 +702,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 							note.Frequency = ValueToFrequency((int)drag_OriginalLocation.Y);
 
 							((Parent as PianoRollView).Parent as SynthesizedAudioEditor).SelectedTrack.Commands.Add(note);
+							(Parent as PianoRollView).OnNoteInserted(new NoteEventArgs(note, GetNoteRect(note)));
 
 							mvarSelectedCommands.Clear();
 							mvarSelectedCommands.Add(note);
@@ -839,7 +842,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				}
 				return gridRect;
 			}
-			private Rectangle GetCommandRect(SynthesizedAudioCommand cmd)
+			public Rectangle GetCommandRect(SynthesizedAudioCommand cmd)
 			{
 				if (cmd is SynthesizedAudioCommandNote)
 				{
@@ -979,7 +982,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 							bool overlaps = false;
 							if (HighlightOverlappingNotes) overlaps = NoteOverlaps(note);
-							DrawNote(e.Graphics, rect, note.Lyric, note.Phoneme, mvarSelectedCommands.Contains(cmd), _EditingNote == note, overlaps);
+							(Parent as PianoRollView).DrawNote(e.Graphics, rect, note, mvarSelectedCommands.Contains(cmd), _EditingNote == note, overlaps);
 						}
 					}
 				}
@@ -1041,6 +1044,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 					e.Graphics.DrawLine(pGrid, 0, i, Size.Width, i);
 				}
 				*/
+
+				(Parent as PianoRollView).OnPaint(e);
 			}
 			private bool NoteOverlaps(SynthesizedAudioCommandNote note)
 			{
@@ -1057,37 +1062,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 						return true;
 				}
 				return false;
-			}
-
-			private bool DrawNote(Graphics graphics, Rectangle rect, string lyric, string phoneme, bool selected, bool editing, bool overlaps)
-			{
-				if (rect.X > HorizontalAdjustment.Value + Size.Width)
-					return false; // no need to continue since we've reached the end of the visible area
-
-				Color noteColor = SystemColors.HighlightBackground.Darken(0.1);
-				if (overlaps)
-				{
-					noteColor = Colors.DarkGray;
-				}
-
-				if (selected)
-				{
-					graphics.FillRectangle(new SolidBrush(SystemColors.HighlightBackground), rect);
-				}
-				else
-				{
-					graphics.FillRectangle(new SolidBrush(SystemColors.WindowBackground), rect);
-					graphics.FillRectangle(new SolidBrush(noteColor.Alpha(0.3)), rect);
-				}
-				graphics.DrawRectangle(new Pen(noteColor.Alpha(0.5)), rect);
-
-				Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 10, rect.Width - 4, rect.Height - 2);
-
-				if (!(txt.Visible && editing))
-				{
-					graphics.DrawText(String.Format("{0}        [ {1} ]", lyric, phoneme), Font, textRect, new SolidBrush(selected ? SystemColors.HighlightForeground : SystemColors.WindowForeground));
-				}
-				return true;
 			}
 
 			private void DrawKeyboard(Graphics g)
@@ -1128,6 +1102,61 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 		public PianoRollViewSelectionMode SelectionMode { get { return vp.SelectionMode; } set { vp.SelectionMode = value; } }
 
 		private _VP vp = new _VP();
+		public bool DrawNote(Graphics graphics, Rectangle rect, SynthesizedAudioCommandNote note, bool selected, bool editing, bool overlaps)
+		{
+			if (rect.X > HorizontalAdjustment.Value + Size.Width)
+				return false; // no need to continue since we've reached the end of the visible area
+
+			Color noteColor = SystemColors.HighlightBackground.Darken(0.1);
+			if (overlaps)
+			{
+				noteColor = Colors.DarkGray;
+			}
+
+			if (selected)
+			{
+				graphics.FillRectangle(new SolidBrush(SystemColors.HighlightBackground), rect);
+			}
+			else
+			{
+				graphics.FillRectangle(new SolidBrush(SystemColors.WindowBackground), rect);
+				graphics.FillRectangle(new SolidBrush(noteColor.Alpha(0.3)), rect);
+			}
+			graphics.DrawRectangle(new Pen(noteColor.Alpha(0.5)), rect);
+
+			Rectangle textRect = new Rectangle(rect.X + 2, rect.Y + 10, rect.Width - 4, rect.Height - 2);
+
+			if (!(vp.txt.Visible && editing))
+			{
+				graphics.DrawText(String.Format("{0}        [ {1} ]", note.Lyric, note.Phoneme), Font, textRect, new SolidBrush(selected ? SystemColors.HighlightForeground : SystemColors.WindowForeground));
+			}
+
+			OnNoteRendered(new NoteRenderedEventArgs(graphics, rect, note, selected, editing, overlaps));
+			return true;
+		}
+
+		public Rectangle GetCommandBounds(SynthesizedAudioCommand command)
+		{
+			return vp.GetCommandRect(command);
+		}
+
+		public event EventHandler<NoteRenderedEventArgs> NoteRendered;
+		protected virtual void OnNoteRendered(NoteRenderedEventArgs e)
+		{
+			NoteRendered?.Invoke(this, e);
+		}
+
+		public event EventHandler<NoteEventArgs> NoteInserted;
+		protected virtual void OnNoteInserted(NoteEventArgs e)
+		{
+			NoteInserted?.Invoke(this, e);
+		}
+
+		public event EventHandler<NoteEventArgs> NoteDeleted;
+		protected internal virtual void OnNoteDeleted(NoteEventArgs e)
+		{
+			NoteDeleted?.Invoke(this, e);
+		}
 
 		public PianoRollView()
 		{

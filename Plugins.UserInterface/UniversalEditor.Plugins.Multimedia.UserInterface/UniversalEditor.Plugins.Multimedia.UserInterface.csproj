@@ -57,6 +57,8 @@
     <Compile Include="Editors\Multimedia\PictureCollection\Dialogs\AnimationPropertiesDialog.cs" />
     <Compile Include="Editors\Multimedia\VectorImage\VectorImageEditor.cs" />
     <Compile Include="Editors\Multimedia\VectorImage\Controls\VectorImageControl.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\NoteRenderedEvent.cs" />
+    <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\NoteEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
