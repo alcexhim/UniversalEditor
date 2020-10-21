@@ -282,11 +282,6 @@ namespace UniversalEditor.UserInterface
 
 		public Document NewFile()
 		{
-			/*
-			NewDialog2 dlg2 = new NewDialog2();
-			dlg2.ShowDialog();
-			*/
-
 			NewDialog dlg = new NewDialog();
 			dlg.Mode = NewDialogMode.File;
 
