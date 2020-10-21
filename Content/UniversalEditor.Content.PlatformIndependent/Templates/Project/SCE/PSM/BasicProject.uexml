@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<ProjectTemplates>
+		<ProjectTemplate ID="{BF876842-64CA-4832-A562-DBA6970C691A}" TypeID="{33C51321-C18B-409C-A7D0-BEF65BFEFC9A}">
+			<Information>
+				<Title>Basic PlayStation(R) Mobile Project</Title>
+				<ProjectNamePrefix>PsmApp</ProjectNamePrefix>
+				<Description>Creates a basic PlayStation Mobile app for developing on PlayStation Vita and PlayStation 3.</Description>
+				<IconPath LargeFileName="Images/Psm_32x32.png" SmallFileName="Images/Psm_16x16.png" />
+				<Path>
+					<Part>Sony</Part>
+					<Part>PlayStation</Part>
+				</Path>
+			</Information>
+			<FileSystem CopyFrom="content" />
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>
