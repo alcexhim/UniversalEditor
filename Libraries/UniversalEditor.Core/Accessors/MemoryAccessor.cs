@@ -180,5 +180,10 @@ namespace UniversalEditor.Accessors
 			// default implementation is unavailable because there is no parent for a MemoryAccessor
 			return null;
 		}
+
+		protected override Accessor CloneInternal()
+		{
+			return new MemoryAccessor(this._data, GetFileName());
+		}
 	}
 }

@@ -33,7 +33,7 @@ namespace UniversalEditor
 	/// parameters.
 	/// </summary>
 	[DebuggerNonUserCode()]
-	public abstract class Accessor : References<AccessorReference>
+	public abstract class Accessor : References<AccessorReference>, ICloneable
 	{
 		protected bool Initialized { get; private set; } = false;
 		protected void Initialize()
@@ -264,5 +264,14 @@ namespace UniversalEditor
 			return GetRelativeInternal(filename, prefix);
 		}
 		#endregion
+
+		protected virtual Accessor CloneInternal()
+		{
+			return this;
+		}
+		public object Clone()
+		{
+			return CloneInternal();
+		}
 	}
 }
