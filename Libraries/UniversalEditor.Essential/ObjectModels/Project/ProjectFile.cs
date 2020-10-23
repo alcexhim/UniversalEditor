@@ -108,6 +108,8 @@ namespace UniversalEditor.ObjectModels.Project
 		/// </summary>
 		public string SourceFileName { get { return mvarSourceFileName; } set { mvarSourceFileName = value; } }
 
+		public Accessor SourceFileAccessor { get; set; } = null;
+
 		private string mvarDestinationFileName = String.Empty;
 		/// <summary>
 		/// The name of the project file in the project itself, which can be different from the file name of the file on disk.
@@ -127,7 +129,8 @@ namespace UniversalEditor.ObjectModels.Project
 		{
 			ProjectFile clone = new ProjectFile();
 			clone.DestinationFileName = (mvarDestinationFileName.Clone() as string);
-			clone.SourceFileName = (mvarSourceFileName.Clone() as string);
+			clone.SourceFileName = (mvarSourceFileName?.Clone() as string);
+			clone.SourceFileAccessor = SourceFileAccessor?.Clone() as Accessor;
 			clone.Configuration = (mvarConfiguration.Clone() as PropertyListObjectModel);
 			return clone;
 		}

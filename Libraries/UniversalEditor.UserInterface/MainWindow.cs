@@ -201,8 +201,8 @@ namespace UniversalEditor.UserInterface
 
 			AddPanel("Document Explorer", DockingItemPlacement.Bottom, pnlDocumentExplorer);
 
-			DockingContainer dcExplorerProperties = AddPanelContainer(DockingItemPlacement.Right, null);
-			AddPanel("Solution Explorer", DockingItemPlacement.Top, pnlSolutionExplorer, dcExplorerProperties);
+			DockingContainer dcExplorerProperties = null; // AddPanelContainer(DockingItemPlacement.Right, null);
+			AddPanel("Solution Explorer", DockingItemPlacement.Left, pnlSolutionExplorer, dcExplorerProperties);
 			AddPanel("Properties", DockingItemPlacement.Bottom, pnlPropertyList, dcExplorerProperties);
 
 			AddPanel("Error List", DockingItemPlacement.Bottom, pnlErrorList);
@@ -403,6 +403,12 @@ namespace UniversalEditor.UserInterface
 				ProjectObjectModel project = pjt.Create();
 				project.ID = Guid.NewGuid();
 				project.Title = dlg.ProjectTitle;
+
+				// go through and update all referenced variables
+				foreach (ProjectFile pf in project.FileSystem.Files)
+				{
+					pf.DestinationFileName = pf.DestinationFileName.Replace("$(Project.Title)", project.Title);
+				}
 				solution.Projects.Add(project);
 
 				CurrentSolution = solution;
@@ -1139,16 +1145,18 @@ namespace UniversalEditor.UserInterface
 
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				_CurrentSolutionDocument = new Document(CurrentSolution, df, new FileAccessor(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1], true, true));
-				_CurrentSolutionDocument.Accessor.Open();
-				_CurrentSolutionDocument.Save();
-				_CurrentSolutionDocument.Accessor.Close();
+				SaveProjectAs(dlg.SelectedFileName, df);
 			}
 		}
 
 		public void SaveProjectAs(string FileName, DataFormat df)
 		{
-			throw new NotImplementedException();
+			_CurrentSolutionDocument = new Document(CurrentSolution, df, new FileAccessor(FileName, true, true));
+			_CurrentSolutionDocument.Accessor.Open();
+			_CurrentSolutionDocument.Save();
+			_CurrentSolutionDocument.Accessor.Close();
+
+			CurrentSolution.BasePath = System.IO.Path.GetDirectoryName(FileName);
 		}
 
 		public void SaveAll()

@@ -29,6 +29,7 @@ using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Solution;
 using System.Linq;
+using System.Text;
 
 namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 {
@@ -183,7 +184,7 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 
 				MarkupTagElement tagProjectGUID = new MarkupTagElement();
 				tagProjectGUID.FullName = "ProjectGuid";
-				tagProjectGUID.Value = proj.ID.ToString("D");
+				tagProjectGUID.Value = proj.ID.ToString("B").ToUpper();
 				tagPropertyGroup.Elements.Add(tagProjectGUID);
 
 				MarkupTagElement tagOutputType = new MarkupTagElement();
@@ -198,7 +199,17 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 
 				MarkupTagElement tagProjectTypeGUIDs = new MarkupTagElement();
 				tagProjectTypeGUIDs.FullName = "ProjectTypeGuids";
-				tagProjectTypeGUIDs.Value = proj.ProjectType.ID.ToString("B");
+
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < proj.ProjectTypes.Count; i++)
+				{
+					sb.Append(proj.ProjectTypes[i].ID.ToString("B").ToUpper());
+					if (i < proj.ProjectTypes.Count - 1)
+					{
+						sb.Append(";");
+					}
+				}
+				tagProjectTypeGUIDs.Value = sb.ToString();
 				tagPropertyGroup.Elements.Add(tagProjectTypeGUIDs);
 
 				MarkupTagElement tagAssemblyName = new MarkupTagElement();

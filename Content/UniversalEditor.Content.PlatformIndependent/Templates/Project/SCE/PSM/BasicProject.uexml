@@ -1,7 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="2.0">
 	<ProjectTemplates>
-		<ProjectTemplate ID="{BF876842-64CA-4832-A562-DBA6970C691A}" TypeID="{33C51321-C18B-409C-A7D0-BEF65BFEFC9A}">
+		<ProjectTemplate ID="{BF876842-64CA-4832-A562-DBA6970C691A}" TypeID="{69878862-DA7D-4DC6-B0A1-50D8FAB4242F}">
+			<ProjectTypes>
+				<!-- These are also called 'natures' in Eclipse -->
+				<!-- SCE.PSM.projecttype -->
+				<ProjectType ID="{69878862-DA7D-4DC6-B0A1-50D8FAB4242F}" />
+				<!-- Microsoft.CSharp.projecttype -->
+				<ProjectType ID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}" />
+			</ProjectTypes>
 			<Information>
 				<Title>Basic PlayStation(R) Mobile Project</Title>
 				<ProjectNamePrefix>PsmApp</ProjectNamePrefix>

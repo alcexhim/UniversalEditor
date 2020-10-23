@@ -57,6 +57,8 @@ namespace UniversalEditor
 
 		private ProjectTypeVariable.ProjectTypeVariableCollection mvarVariables = new ProjectTypeVariable.ProjectTypeVariableCollection();
 		public ProjectTypeVariable.ProjectTypeVariableCollection Variables { get { return mvarVariables; } }
+
+		public string ProjectFileExtension { get; set; } = null;
 	}
 	/// <summary>
 	/// A shortcut placed in the "Add New Item" menu when the project is selected. When

@@ -237,22 +237,28 @@ namespace UniversalEditor.UserInterface.Panels
 			// TODO: implement what happens when we activate a row in the solution explorer list
 
 			// typically:
-			//		- if it is a ProjectFile we want to open the respective file in a new document tab
-			// 		- if it is a ProjectFolder we just want to expand/collapse tree (default action)
+			//		- if it is a ProjectFile we want to open the respective file in a new document tab - DONE
+			// 		- if it is a ProjectFolder we just want to expand/collapse tree (default action) - DONE
 			//		- if it is a special folder named "Properties", or the project item itself, it should display the special project properties dialog
 			//		- if it is a special folder named "Properties/Resources", the resource editor shall be shown
+
+			// these last two conditions can be simplified by simply having the Properties folder open the project file in an editor, and implementing
+			// an editor for ProjectObjectModel which is essentially the "project properties" window (a la VS)
 			ProjectObjectModel project = e.Row.GetExtraData<ProjectObjectModel>("project");
 			ProjectFile file = e.Row.GetExtraData<ProjectFile>("file");
 			ProjectFolder folder = e.Row.GetExtraData<ProjectFolder>("folder");
 			if (project != null)
 			{
-				MessageDialog.ShowDialog(String.Format("Opening project properties for {0}", e.Row.RowColumns[0].Value), "Info", MessageDialogButtons.OK);
+				Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(new byte[0], String.Format("{0} Properties", project.Title));
+				Document d = new Document(project, null, ma);
+				d.Title = String.Format("{0} Properties", project.Title);
+				HostApplication.CurrentWindow.OpenFile(d);
 			}
 			else if (file != null)
 			{
-				if (String.IsNullOrEmpty(file.SourceFileName))
+				if (file.SourceFileAccessor != null)
 				{
-					MessageDialog.ShowDialog("TODO: Implement OpenDocument() call so we can open embedded files (i.e. that do not actually exist as 'files')", "NOT IMPLEMENTED", MessageDialogButtons.OK, MessageDialogIcon.Error);
+					Engine.CurrentEngine.LastWindow.OpenFile(new Document(file.SourceFileAccessor));
 				}
 				else
 				{

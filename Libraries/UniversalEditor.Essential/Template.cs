@@ -229,8 +229,7 @@ namespace UniversalEditor
 		/// </summary>
 		public string[] Path { get { return mvarPath; } set { mvarPath = value; } }
 
-		private ProjectType mvarProjectType = null;
-		public ProjectType ProjectType { get { return mvarProjectType; } set { mvarProjectType = value; } }
+		public ProjectType.ProjectTypeCollection ProjectTypes { get; } = new ProjectType.ProjectTypeCollection();
 
 		private string mvarProjectNamePrefix = String.Empty;
 		public string ProjectNamePrefix { get { return mvarProjectNamePrefix; } set { mvarProjectNamePrefix = value; } }
@@ -248,10 +247,12 @@ namespace UniversalEditor
 		public ProjectObjectModel Create()
 		{
 			ProjectObjectModel p = new ProjectObjectModel();
-			p.ProjectType = mvarProjectType;
+			for (int i = 0; i < ProjectTypes.Count; i++)
+			{
+				p.ProjectTypes.Add(ProjectTypes[i]);
+			}
 			mvarFileSystem.CopyTo(p.FileSystem);
 			mvarConfiguration.CopyTo(p.Configuration);
-			
 			return p;
 		}
 

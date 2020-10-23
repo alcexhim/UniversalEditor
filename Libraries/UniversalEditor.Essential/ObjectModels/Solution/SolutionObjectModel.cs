@@ -59,6 +59,8 @@ namespace UniversalEditor.ObjectModels.Solution
 			Configuration.CopyTo(solution.Configuration);
 		}
 
+		public string BasePath { get; set; } = null;
+
 		/// <summary>
 		/// Gets a collection of <see cref="ProjectObjectModel" /> instances representing the projects contained within this solution.
 		/// </summary>

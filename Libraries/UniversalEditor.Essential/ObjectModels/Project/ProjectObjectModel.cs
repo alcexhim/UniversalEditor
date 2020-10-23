@@ -52,7 +52,7 @@ namespace UniversalEditor.ObjectModels.Project
 			Configuration.Clear();
 			FileSystem.Clear();
 			ID = Guid.Empty;
-			ProjectType = null;
+			ProjectTypes.Clear();
 			References.Clear();
 			RelativeFileName = String.Empty;
 			Title = String.Empty;
@@ -64,7 +64,10 @@ namespace UniversalEditor.ObjectModels.Project
 			Configuration.CopyTo(clone.Configuration);
 			FileSystem.CopyTo(clone.FileSystem);
 			clone.ID = ID;
-			clone.ProjectType = ProjectType;
+			for (int i = 0; i < ProjectTypes.Count; i++)
+			{
+				clone.ProjectTypes.Add(ProjectTypes[i]);
+			}
 			foreach (Reference _ref in References)
 			{
 				clone.References.Add(_ref);
@@ -72,6 +75,8 @@ namespace UniversalEditor.ObjectModels.Project
 			clone.RelativeFileName = (RelativeFileName.Clone() as string);
 			clone.Title = (Title.Clone() as string);
 		}
+
+		public string BasePath { get; set; } = null;
 
 		/// <summary>
 		/// Gets or sets the globally-unique identifier (GUID) for this <see cref="ProjectObjectModel" />.
@@ -99,10 +104,12 @@ namespace UniversalEditor.ObjectModels.Project
 		/// <value>The file system containing the <see cref="ProjectFile" />s and <see cref="ProjectFolder" />s referenced by this <see cref="ProjectObjectModel" />.</value>
 		public ProjectFileSystem FileSystem { get; } = new ProjectFileSystem();
 		/// <summary>
-		/// Gets or sets a <see cref="ProjectType" /> containing common settings and build actions shared between multiple projects of the same <see cref="ProjectType" />.
+		/// Gets a collection of <see cref="ProjectType" />s containing common settings and build actions shared between multiple projects of the
+		/// same <see cref="ProjectType" />.
 		/// </summary>
-		/// <value>The <see cref="ProjectType" /> containing common settings and build actions shared between multiple projects of the same <see cref="ProjectType" />.</value>
-		public ProjectType ProjectType { get; set; } = null;
+		/// <value>A collection of <see cref="ProjectType" />s containing common settings and build actions shared between multiple projects of the
+		/// same <see cref="ProjectType" />.</value>
+		public ProjectType.ProjectTypeCollection ProjectTypes { get; } = new ProjectType.ProjectTypeCollection();
 		/// <summary>
 		/// Gets or sets the relative path to the <see cref="ProjectObjectModel" />.
 		/// </summary>

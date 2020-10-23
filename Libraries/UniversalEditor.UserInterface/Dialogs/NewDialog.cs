@@ -276,60 +276,71 @@ namespace UniversalEditor.UserInterface.Dialogs
 				case NewDialogMode.Project:
 				{
 					ProjectTemplate template = tvTemplate.SelectedRows[0].GetExtraData<ProjectTemplate>("dt");
-					if (template.ProjectType != null)
+					if (template.ProjectTypes.Count > 0)
 					{
-						if (template.ProjectType.Variables.Count > 0)
-						{
-							CustomOption.CustomOptionCollection coll = new CustomOption.CustomOptionCollection();
-							foreach (ProjectTypeVariable ptv in template.ProjectType.Variables)
-							{
-								switch (ptv.Type)
-								{
-									case ProjectTypeVariableType.Text:
-									{
-										CustomOptionText co = new CustomOptionText(ptv.Name, ptv.Title);
-										coll.Add(co);
-										break;
-									}
-									case ProjectTypeVariableType.Choice:
-									{
-										List<CustomOptionFieldChoice> choices = new List<CustomOptionFieldChoice>();
-										foreach (KeyValuePair<string, object> kvp in ptv.ValidValues)
-										{
-											choices.Add(new CustomOptionFieldChoice(kvp.Key, kvp.Value, kvp.Value == ptv.DefaultValue));
-										}
+						CustomSettingsProvider csp = new CustomSettingsProvider();
 
-										CustomOptionChoice co = new CustomOptionChoice(ptv.Name, ptv.Title, true, choices.ToArray());
-										coll.Add(co);
-										break;
-									}
-									case ProjectTypeVariableType.FileOpen:
+						for (int i = 0; i < template.ProjectTypes.Count; i++)
+						{
+							SettingsGroup sg = new SettingsGroup(template.ProjectTypes[i].Title);
+							if (template.ProjectTypes[i].Variables.Count > 0)
+							{
+								foreach (ProjectTypeVariable ptv in template.ProjectTypes[i].Variables)
+								{
+									switch (ptv.Type)
 									{
-										CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
-										co.DialogMode = CustomOptionFileDialogMode.Open;
-										coll.Add(co);
-										break;
-									}
-									case ProjectTypeVariableType.FileSave:
-									{
-										CustomOptionFile co = new CustomOptionFile(ptv.Name, ptv.Title);
-										co.DialogMode = CustomOptionFileDialogMode.Save;
-										coll.Add(co);
-										break;
+										case ProjectTypeVariableType.Text:
+										{
+											sg.Settings.Add(new TextSetting(ptv.Name, ptv.Title));
+											break;
+										}
+										case ProjectTypeVariableType.Choice:
+										{
+											List<ChoiceSetting.ChoiceSettingValue> choices = new List<ChoiceSetting.ChoiceSettingValue>();
+											foreach (KeyValuePair<string, object> kvp in ptv.ValidValues)
+											{
+												choices.Add(new ChoiceSetting.ChoiceSettingValue(kvp.Key, kvp.Key, kvp.Value));
+											}
+											sg.Settings.Add(new ChoiceSetting(ptv.Name, ptv.Title, null, choices.ToArray()));
+											break;
+										}
+										case ProjectTypeVariableType.FileOpen:
+										{
+											FileSetting co = new FileSetting(ptv.Name, ptv.Title);
+											co.Mode = FileDialogMode.Open;
+											sg.Settings.Add(co);
+											break;
+										}
+										case ProjectTypeVariableType.FileSave:
+										{
+											FileSetting co = new FileSetting(ptv.Name, ptv.Title);
+											co.Mode = FileDialogMode.Save;
+											sg.Settings.Add(co);
+											break;
+										}
 									}
 								}
 							}
 
-							if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref coll, template.ProjectType.Title + " properties"))
+							// template.ProjectType.Variables[co.PropertyName].Value = co.GetValue().ToString();
+							// TODO: Figure out how to assign variable values to the newly
+							// created project from the template
+							if (sg.Settings.Count > 0)
+							{
+								// only add the SettingsGroup if there are settings to be displayed
+								csp.SettingsGroups.Add(sg);
+							}
+						}
+
+						SettingsDialog dlg = new SettingsDialog();
+						dlg.SettingsProviders.Clear();
+						dlg.SettingsProviders.Add(csp);
+
+						if (csp.SettingsGroups.Count > 0)
+						{
+							if (dlg.ShowDialog() != DialogResult.OK)
 							{
 								return;
-							}
-
-							foreach (CustomOption co in coll)
-							{
-								// template.ProjectType.Variables[co.PropertyName].Value = co.GetValue().ToString();
-								// TODO: Figure out how to assign variable values to the newly
-								// created project from the template
 							}
 						}
 					}

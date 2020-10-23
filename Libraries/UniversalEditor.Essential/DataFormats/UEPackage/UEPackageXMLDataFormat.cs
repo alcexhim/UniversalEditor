@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 using MBS.Framework.Logic;
-
+using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.DataFormats.PropertyList.XML;
 using UniversalEditor.ObjectModels.Markup;
@@ -336,6 +336,10 @@ namespace UniversalEditor.DataFormats.UEPackage
 							{
 								MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
 								if (tagTitle != null) projtype.Title = tagTitle.Value;
+
+								MarkupTagElement tagProjectFileExtension = (tagInformation.Elements["ProjectFileExtension"] as MarkupTagElement);
+								if (tagProjectFileExtension != null) projtype.ProjectFileExtension = tagProjectFileExtension.Value;
+
 								MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
 								if (tagIconPath != null)
 								{
@@ -702,7 +706,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 								{
 									try
 									{
-										template.ProjectType = Common.Reflection.GetProjectTypeByTypeID(new Guid(attTypeID.Value));
+										ProjectType projectType = Common.Reflection.GetProjectTypeByTypeID(new Guid(attTypeID.Value));
+										if (projectType != null)
+										{
+											template.ProjectTypes.Add(projectType);
+										}
 									}
 									catch
 									{
@@ -780,16 +788,36 @@ namespace UniversalEditor.DataFormats.UEPackage
 									MarkupTagElement tagFileSystem = (tagTemplate.Elements["FileSystem"] as MarkupTagElement);
 									if (tagFileSystem != null)
 									{
-										MarkupTagElement tagFiles = (tagFileSystem.Elements["Files"] as MarkupTagElement);
-										if (tagFiles != null)
+										MarkupAttribute attCopyFrom = tagFileSystem.Attributes["CopyFrom"];
+										if (attCopyFrom != null)
 										{
-											foreach (MarkupElement elFile in tagFiles.Elements)
+											string dir = System.IO.Path.GetDirectoryName(Accessor.GetFileName());
+											string copyFrom = System.IO.Path.Combine(new string[] { dir, attCopyFrom.Value });
+											if (System.IO.Directory.Exists(copyFrom))
 											{
-												MarkupTagElement tagFile = (elFile as MarkupTagElement);
-												if (tagFile == null) continue;
-												if (tagFile.FullName != "File") continue;
+												string[] files = System.IO.Directory.GetFiles(copyFrom, "*", System.IO.SearchOption.AllDirectories);
+												for (int i = 0; i < files.Length; i++)
+												{
+													ProjectFile pf = new ProjectFile();
+													pf.SourceFileAccessor = new MemoryAccessor(System.IO.File.ReadAllBytes(files[i]), System.IO.Path.GetFileName(files[i]));
+													pf.DestinationFileName = files[i].Substring(copyFrom.Length + 1);
+													template.FileSystem.Files.Add(pf);
+												}
+											}
+										}
+										else
+										{
+											MarkupTagElement tagFiles = (tagFileSystem.Elements["Files"] as MarkupTagElement);
+											if (tagFiles != null)
+											{
+												foreach (MarkupElement elFile in tagFiles.Elements)
+												{
+													MarkupTagElement tagFile = (elFile as MarkupTagElement);
+													if (tagFile == null) continue;
+													if (tagFile.FullName != "File") continue;
 
-												LoadProjectFile(tagFile, template.FileSystem.Files);
+													LoadProjectFile(tagFile, template.FileSystem.Files);
+												}
 											}
 										}
 									}
