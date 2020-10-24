@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ApplicationFramework>
 	<Commands>
+		<Command ID="SolutionExplorer_ContextMenu_OpenContainingFolder" />
+		
 		<Command ID="SolutionExplorer_ContextMenu_Project_BuildProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_RebuildProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_CleanProject" />
@@ -31,6 +33,8 @@
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_DebugProject" />
 				<Separator />
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_Add" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_OpenContainingFolder" />
 				<Separator />
 				<CommandReference CommandID="EditCut" />
 				<CommandReference CommandID="EditCopy" />
@@ -73,6 +77,8 @@
 				<Separator />
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Add" />
 				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_OpenContainingFolder" />
+				<Separator />
 				<CommandReference CommandID="EditCut" />
 				<CommandReference CommandID="EditCopy" />
 				<CommandReference CommandID="EditPaste" />
@@ -87,6 +93,8 @@
 		<Command ID="SolutionExplorer_ContextMenu_File">
 			<Items>
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_File_Open" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_OpenContainingFolder" />
 				<Separator />
 				<CommandReference CommandID="EditCut" />
 				<CommandReference CommandID="EditCopy" />
@@ -114,6 +122,8 @@
 		<Command ID="SolutionExplorer_ContextMenu_Folder">
 			<Items>
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Folder_Add" />
+				<Separator />
+				<CommandReference CommandID="SolutionExplorer_ContextMenu_OpenContainingFolder" />
 				<Separator />
 				<CommandReference CommandID="EditCut" />
 				<CommandReference CommandID="EditCopy" />

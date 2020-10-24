@@ -2,6 +2,8 @@
 	<Languages>
 		<Language ID="English">
 			<Commands>
+				<Command ID="SolutionExplorer_ContextMenu_OpenContainingFolder" Title="Open Containing _Folder" />
+				
 				<Command ID="SolutionExplorer_ContextMenu_Project_BuildProject" Title="B_uild Project" />
 				<Command ID="SolutionExplorer_ContextMenu_Project_RebuildProject" Title="R_ebuild Project" />
 				<Command ID="SolutionExplorer_ContextMenu_Project_CleanProject" Title="C_lean Project" />

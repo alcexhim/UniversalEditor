@@ -188,6 +188,55 @@ namespace UniversalEditor.UserInterface.Panels
 
 			this.Controls.Add(tvSolutionExplorer, new BoxLayout.Constraints(true, true));
 
+			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_OpenContainingFolder", delegate(object sender, EventArgs e)
+			{
+				if (tvSolutionExplorer.SelectedRows.Count != 1) return;
+
+				ProjectObjectModel project = tvSolutionExplorer.SelectedRows[0].GetExtraData<ProjectObjectModel>("project");
+				ProjectFile file = tvSolutionExplorer.SelectedRows[0].GetExtraData<ProjectFile>("file");
+				ProjectFolder folder = tvSolutionExplorer.SelectedRows[0].GetExtraData<ProjectFolder>("folder");
+
+				TreeModelRow prow = tvSolutionExplorer.SelectedRows[0].ParentRow;
+				while (project == null && prow != null)
+				{
+					project = prow.GetExtraData<ProjectObjectModel>("project");
+					prow = prow.ParentRow;
+				}
+
+				if (project != null)
+				{
+					if (project.BasePath != null)
+					{
+						string fullpath = System.IO.Path.Combine(project.BasePath, tvSolutionExplorer.SelectedRows[0].RowColumns[0].Value.ToString());
+						if (file == null && folder == null)
+						{
+							fullpath = fullpath + ".ueproj";
+						}
+
+						// not sure if this should be made into a UWT convenience function or not...
+						try
+						{
+							if (Environment.OSVersion.Platform == PlatformID.Unix)
+							{
+								Application.Launch("nautilus", String.Format("-s \"{0}\"", fullpath));
+							}
+							else if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
+							{
+								Application.Launch("explorer", String.Format("/select \"{0}\"", fullpath));
+							}
+							else
+							{
+								Application.Launch(System.IO.Path.GetDirectoryName(fullpath));
+							}
+						}
+						catch (Exception ex)
+						{
+							// not using nautilus, just launch the folder
+							Application.Launch(System.IO.Path.GetDirectoryName(fullpath));
+						}
+					}
+				}
+			});
 			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_ExistingFiles", mnuContextProjectAddExistingFiles_Click);
 			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_NewFolder", mnuContextProjectAddNewFolder_Click);
 			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_ExistingFiles", mnuContextSolutionAddExistingProject_Click);
