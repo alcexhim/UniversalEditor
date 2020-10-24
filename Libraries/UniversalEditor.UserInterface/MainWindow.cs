@@ -1448,11 +1448,27 @@ namespace UniversalEditor.UserInterface
 
 		#endregion
 
+		public IDocumentPropertiesProvider FindDocumentPropertiesProvider(IControl control)
+		{
+			IControl parent = control;
+			while (parent != null)
+			{
+				if (parent is IDocumentPropertiesProviderControl)
+				{
+					return parent as IDocumentPropertiesProviderControl;
+				}
+				parent = parent.Parent;
+			}
+			return null;
+		}
+
 		public void ShowDocumentPropertiesDialog()
 		{
-			Editor editor = GetCurrentEditor();
-			if (editor != null)
-				editor.ShowDocumentPropertiesDialog();
+			IDocumentPropertiesProvider dpp = FindDocumentPropertiesProvider(ActiveControl);
+			if (dpp != null)
+			{
+				dpp.ShowDocumentPropertiesDialog();
+			}
 		}
 	}
 }

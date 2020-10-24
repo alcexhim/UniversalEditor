@@ -30,7 +30,7 @@ using UniversalEditor.ObjectModels.Solution;
 
 namespace UniversalEditor.UserInterface.Panels
 {
-	public class SolutionExplorerPanel : Panel
+	public class SolutionExplorerPanel : Panel, IDocumentPropertiesProviderControl
 	{
 		private DefaultTreeModel tmSolutionExplorer = null;
 		private ListViewControl tvSolutionExplorer = new ListViewControl();
@@ -459,6 +459,35 @@ namespace UniversalEditor.UserInterface.Panels
 				}
 				UpdateSolutionExplorer();
 			}
+		}
+
+		void IDocumentPropertiesProvider.ShowDocumentPropertiesDialog()
+		{
+			if (tvSolutionExplorer.SelectedRows.Count == 1)
+			{
+				TreeModelRow row = tvSolutionExplorer.SelectedRows[0];
+				ProjectObjectModel project = row.GetExtraData<ProjectObjectModel>("project");
+				ProjectFile file = row.GetExtraData<ProjectFile>("file");
+				ProjectFolder folder = row.GetExtraData<ProjectFolder>("folder");
+
+				if (project != null)
+				{
+					SettingsDialog dlg = new SettingsDialog();
+					dlg.SettingsProviders.Clear();
+					dlg.Text = String.Format("{0} Properties", project.Title);
+
+					if (dlg.ShowDialog() == DialogResult.OK)
+					{
+
+					}
+					return;
+				}
+				if (file != null)
+				{
+
+				}
+			}
+
 		}
 	}
 }

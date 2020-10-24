@@ -33,7 +33,7 @@ namespace UniversalEditor.UserInterface
 	/// <summary>
 	/// The base class for document editor implementations built on the Universal Widget Toolkit.
 	/// </summary>
-	public abstract class Editor : MBS.Framework.UserInterface.Container
+	public abstract class Editor : MBS.Framework.UserInterface.Container, IDocumentPropertiesProviderControl
 	{
 		public EditorContext Context { get; private set; } = null;
 

@@ -136,6 +136,7 @@
     <Compile Include="Dialogs\BatchFindReplaceCriteriaPropertiesDialog.cs" />
     <Compile Include="Dialogs\BatchFindReplaceWindow.cs" />
     <Compile Include="PrintHandlers\FileSystemPrintHandler.cs" />
+    <Compile Include="IDocumentPropertiesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
