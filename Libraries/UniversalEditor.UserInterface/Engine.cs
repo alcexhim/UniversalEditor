@@ -38,6 +38,7 @@ namespace UniversalEditor.UserInterface
 		{
 			Application.CommandLine.Options.Add("command", '\0', null, CommandLineOptionValueType.Multiple);
 
+			Application.ID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
 			Application.UniqueName = "net.alcetech.UniversalEditor";
 			Application.ShortName = "universal-editor";
 
@@ -66,8 +67,6 @@ namespace UniversalEditor.UserInterface
 
 			// AwesomeControls.Theming.Theme.CurrentTheme.Properties["UseAllCapsMenus"] = false;
 
-			// Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
-
 			Application.ConfigurationFileNameFilter = "*.uexml";
 
 			Application.BeforeShutdown += Application_BeforeShutdown;
@@ -75,7 +74,7 @@ namespace UniversalEditor.UserInterface
 			Application.Startup += Application_Startup;
 			Application.Activated += Application_Activated;
 
-			MBS.Framework.UserInterface.Application.Initialize();
+			Application.Initialize();
 		}
 
 		void Application_AfterConfigurationLoaded(object sender, EventArgs e)
