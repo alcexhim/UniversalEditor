@@ -34,15 +34,6 @@ namespace UniversalEditor.UserInterface
 		private static Engine _TheEngine = new Engine();
 
 		#region implemented abstract members of Engine
-		protected void ShowCrashDialog (Exception ex)
-		{
-			Console.WriteLine (ex.ToString ());
-
-			// Dialogs.CrashDialog dlg = new Dialogs.CrashDialog();
-			// dlg.Exception = ex;
-			// dlg.ShowDialog();
-		}
-
 		protected void BeforeInitialization ()
 		{
 			Application.CommandLine.Options.Add("command", '\0', null, CommandLineOptionValueType.Multiple);
