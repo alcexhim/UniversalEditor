@@ -26,7 +26,7 @@ namespace UniversalEditor.UserInterface
 	/// <summary>
 	/// Represents a <see cref="MBS.Framework.UserInterface.Context" /> associated with an <see cref="Editor" />.
 	/// </summary>
-	public class EditorContext : Context
+	public class EditorContext : UIContext
 	{
 		public EditorReference Reference { get; private set; } = null;
 

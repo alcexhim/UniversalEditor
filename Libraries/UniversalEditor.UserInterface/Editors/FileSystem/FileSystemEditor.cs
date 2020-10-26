@@ -34,6 +34,7 @@ using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 using System.Collections.Specialized;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
+using MBS.Framework;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -876,7 +877,7 @@ namespace UniversalEditor.Editors.FileSystem
 				tv.ContextMenuCommandID = "FileSystemContextMenu_Unselected";
 			}
 
-			Application.Commands["EditPaste"].Enabled = Clipboard.Default.ContainsFileList;
+			((UIApplication)Application.Instance).Commands["EditPaste"].Enabled = Clipboard.Default.ContainsFileList;
 			// (tv.ContextMenu.Items["FileSystemContextMenu_PasteShortcut"] as CommandMenuItem).Enabled = Clipboard.Default.ContainsFileList;
 		}
 

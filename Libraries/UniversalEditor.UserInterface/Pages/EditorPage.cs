@@ -29,6 +29,7 @@ using MBS.Framework.UserInterface.Layouts;
 using MBS.Framework.UserInterface;
 using UniversalEditor.ObjectModels.Text.Plain;
 using UniversalEditor.ObjectModels.Binary;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface.Pages
 {
@@ -271,7 +272,7 @@ namespace UniversalEditor.UserInterface.Pages
 			EditorView view = tib.GetExtraData<EditorView>("view");
 			editor.CurrentView = view;
 
-			Console.WriteLine("Switching to view '" + view.Title + "'");
+			Application.Instance.Log(this, 274, String.Format("Switching to view '{0}'", view.Title));
 		}
 
 

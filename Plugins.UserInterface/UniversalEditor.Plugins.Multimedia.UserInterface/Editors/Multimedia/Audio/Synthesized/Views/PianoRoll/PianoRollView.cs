@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using MBS.Framework;
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
@@ -60,63 +60,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				Controls.Add(txt, new AbsoluteLayout.Constraints(0, 0, 128, 18));
 
 				this.ContextMenuCommandID = "PianoRollEditor_ContextMenu";
-
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Arrow", ContextMenuArrow_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Draw", ContextMenuPencil_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Erase", ContextMenuErase_Click);
-
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_4", ContextMenu_Quantize_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_8", ContextMenu_Quantize_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_16", ContextMenu_Quantize_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_32", ContextMenu_Quantize_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_64", ContextMenu_Quantize_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_Off", ContextMenu_Quantize_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_Triplet", ContextMenu_Quantize_Click);
-
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_4", ContextMenu_NoteLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_8", ContextMenu_NoteLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_16", ContextMenu_NoteLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_32", ContextMenu_NoteLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_64", ContextMenu_NoteLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Off", ContextMenu_NoteLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Default", ContextMenu_NoteLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Triplet", ContextMenu_NoteLength_Click);
-
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_1", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_2", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_4", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_8", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_16", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_32", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_64", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Off", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Triplet", ContextMenu_NoteFixedLength_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Dot", ContextMenu_NoteFixedLength_Click);
-
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_None", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Major", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_MinorHarmonic", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_MinorMelodic", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Diminished", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_BebopMajor", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_BebopDominant", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Arabic", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Enigmatic", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Neopolitan", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_NeopolitanMinor", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Hungarian", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Dorian", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Phyrogolydian", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Lydian", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Mixolydian", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Aeolian", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Locrian", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Minor", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Chromatic", ContextMenu_Scale_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_HalfWholeDiminished", ContextMenu_Scale_Click);
-
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_ShowGridLines", ContextMenuToggleGridLines_Click);
-				Application.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Properties", ContextMenuProperties_Click);
 			}
 
 			private void txt_KeyDown(object sender, KeyEventArgs e)
@@ -167,7 +110,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 				switch (e.Key)
 				{
-				case KeyboardKey.Tab:
+					case KeyboardKey.Tab:
 					{
 						if (SelectedCommands.Count > 0)
 						{
@@ -440,6 +383,63 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 				ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), MAXSCROLLHEIGHT);
 				VerticalAdjustment.Value = MAXSCROLLHEIGHT / 2;
+
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Arrow", ContextMenuArrow_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Draw", ContextMenuPencil_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Erase", ContextMenuErase_Click);
+
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_4", ContextMenu_Quantize_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_8", ContextMenu_Quantize_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_16", ContextMenu_Quantize_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_32", ContextMenu_Quantize_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_64", ContextMenu_Quantize_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_Off", ContextMenu_Quantize_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Quantize_Triplet", ContextMenu_Quantize_Click);
+
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_4", ContextMenu_NoteLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_8", ContextMenu_NoteLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_16", ContextMenu_NoteLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_32", ContextMenu_NoteLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_64", ContextMenu_NoteLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Off", ContextMenu_NoteLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Default", ContextMenu_NoteLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteLength_Triplet", ContextMenu_NoteLength_Click);
+
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_1", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_2", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_4", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_8", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_16", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_32", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_64", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Off", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Triplet", ContextMenu_NoteFixedLength_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_NoteFixedLength_Dot", ContextMenu_NoteFixedLength_Click);
+
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_None", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Major", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_MinorHarmonic", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_MinorMelodic", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Diminished", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_BebopMajor", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_BebopDominant", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Arabic", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Enigmatic", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Neopolitan", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_NeopolitanMinor", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Hungarian", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Dorian", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Phyrogolydian", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Lydian", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Mixolydian", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Aeolian", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Locrian", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Minor", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_Chromatic", ContextMenu_Scale_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Scale_HalfWholeDiminished", ContextMenu_Scale_Click);
+
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_ShowGridLines", ContextMenuToggleGridLines_Click);
+				(Parent.Parent as Editor).Context.AttachCommandEventHandler("PianoRollEditor_ContextMenu_Properties", ContextMenuProperties_Click);
 			}
 
 			public Dimension2D NoteSize { get; set; } = new Dimension2D(12, 16);

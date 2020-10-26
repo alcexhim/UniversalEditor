@@ -30,6 +30,7 @@ using UniversalEditor.DataFormats.Binary;
 using System.Collections.Generic;
 using System.Text;
 using MBS.Framework.UserInterface.Controls.ListView;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface
 {
@@ -107,13 +108,18 @@ namespace UniversalEditor.UserInterface
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
 			// we have to process key shortcuts manually if we do not use a traditional menu bar
-			foreach (Command cmd in Application.Commands) {
-				if (cmd.Shortcut == null) continue;
+			foreach (Command cmd in ((UIApplication)Application.Instance).Commands)
+			{
+				if (cmd is UICommand)
+				{
+					if (((UICommand)cmd).Shortcut == null) continue;
 
-				if (cmd.Shortcut.Key == e.Key && cmd.Shortcut.ModifierKeys == e.ModifierKeys) {
-					Application.ExecuteCommand (cmd.ID);
-					e.Cancel = true;
-					break;
+					if (((UICommand)cmd).Shortcut.Key == e.Key && ((UICommand)cmd).Shortcut.ModifierKeys == e.ModifierKeys)
+					{
+						((UIApplication)Application.Instance).ExecuteCommand(cmd.ID);
+						e.Cancel = true;
+						break;
+					}
 				}
 			}
 			UpdateSuperDuperButtonBar(e.KeyAsModifier);
@@ -131,16 +137,21 @@ namespace UniversalEditor.UserInterface
 				SuperButtons[i].Text = ((KeyboardKey)((int)KeyboardKey.F1 + i)).ToString() + "    ";
 				SuperButtons[i].SetExtraData<Command>("command", null);
 			}
-			for (int i = 0; i < Application.Contexts.Count; i++)
+			for (int i = 0; i < Application.Instance.Contexts.Count; i++)
 			{
-				for (int j = 0; j < Application.Contexts[i].KeyBindings.Count; j++)
+				if (Application.Instance.Contexts[i] is UIContext)
 				{
-					if (((int)Application.Contexts[i].KeyBindings[j].Key >= (int)KeyboardKey.F1 && (int)Application.Contexts[i].KeyBindings[j].Key <= (int)KeyboardKey.F12)
-					&& Application.Contexts[i].KeyBindings[j].ModifierKeys == modifierKeys)
+					for (int j = 0; j < ((UIContext)Application.Instance.Contexts[i]).KeyBindings.Count; j++)
 					{
-						int q = (int)Application.Contexts[i].KeyBindings[j].Key - (int)KeyboardKey.F1;
-						SuperButtons[q].Text = Application.Contexts[i].KeyBindings[j].Key.ToString() + "    " + Application.Contexts[i].KeyBindings[j].Command?.Title;
-						SuperButtons[q].SetExtraData<Command>("command", Application.Contexts[i].KeyBindings[j].Command);
+						KeyBinding keyb = ((UIContext)Application.Instance.Contexts[i]).KeyBindings[j];
+
+						if (((int)(keyb.Key) >= (int)KeyboardKey.F1 && (int)(keyb).Key <= (int)KeyboardKey.F12)
+						&& keyb.ModifierKeys == modifierKeys)
+						{
+							int q = (int)keyb.Key - (int)KeyboardKey.F1;
+							SuperButtons[q].Text = keyb.Key.ToString() + "    " + keyb.Command?.Title;
+							SuperButtons[q].SetExtraData<Command>("command", keyb.Command);
+						}
 					}
 				}
 			}
@@ -167,7 +178,7 @@ namespace UniversalEditor.UserInterface
 			Button btn = (Button)sender;
 			Command cmd = btn.GetExtraData<Command>("command");
 			if (cmd != null)
-				Application.ExecuteCommand(cmd.ID);
+				((UIApplication)Application.Instance).ExecuteCommand(cmd.ID);
 		}
 
 		private DefaultTreeModel tmToolbox = new DefaultTreeModel(new Type[] { typeof(string) });
@@ -180,7 +191,7 @@ namespace UniversalEditor.UserInterface
 			this.CommandDisplayMode = CommandDisplayMode.CommandBar;
 
 			if (this.CommandDisplayMode == CommandDisplayMode.Ribbon || this.CommandDisplayMode == CommandDisplayMode.Both) {
-				foreach (CommandBar cb in Application.CommandBars) {
+				foreach (CommandBar cb in ((UIApplication)Application.Instance).CommandBars) {
 					RibbonTab ribbonTabHome = LoadRibbonBar (cb);
 					ribbonTabHome.Title = "Home";
 					this.Ribbon.Tabs.Add (ribbonTabHome);
@@ -218,10 +229,10 @@ namespace UniversalEditor.UserInterface
 
 			this.Bounds = new Rectangle(0, 0, 600, 400);
 			this.Size = new Dimension2D(800, 600);
-			this.Text = Application.Title;
+			this.Text = Application.Instance.Title;
 
-			Application.ContextAdded += Application_ContextChanged;
-			Application.ContextRemoved += Application_ContextChanged;
+			Application.Instance.ContextAdded += Application_ContextChanged;
+			Application.Instance.ContextRemoved += Application_ContextChanged;
 
 			UpdateSuperDuperButtonBar();
 		}
@@ -353,11 +364,11 @@ namespace UniversalEditor.UserInterface
 			if (editor != _prevEditor)
 			{
 				if (_prevEditor != null)
-					Application.Contexts.Remove(_prevEditor.Context);
+					Application.Instance.Contexts.Remove(_prevEditor.Context);
 
 				if (editor != null)
 				{
-					Application.Contexts.Add(editor.Context);
+					Application.Instance.Contexts.Add(editor.Context);
 
 					// initialize toolbox items
 					EditorReference er = editor.MakeReference();
@@ -771,7 +782,7 @@ namespace UniversalEditor.UserInterface
 			Engine.CurrentEngine.Windows.Remove(this);
 			if (Engine.CurrentEngine.Windows.Count <= 0)
 			{
-				MBS.Framework.UserInterface.Application.Stop();
+				Application.Instance.Stop();
 			}
 		}
 
@@ -1332,7 +1343,7 @@ namespace UniversalEditor.UserInterface
 
 		public bool ShowOptionsDialog()
 		{
-			return Application.ShowSettingsDialog();
+			return ((UIApplication)Application.Instance).ShowSettingsDialog();
 		}
 
 		public void ToggleMenuItemEnabled(string menuItemName, bool enabled)
@@ -1347,27 +1358,27 @@ namespace UniversalEditor.UserInterface
 
 		private void AddRecentMenuItem(string FileName)
 		{
-			Command mnuFileRecentFiles = Application.Commands["FileRecentFiles"];
+			Command mnuFileRecentFiles = ((UIApplication)Application.Instance).Commands["FileRecentFiles"];
 
 			Command mnuFileRecentFile = new Command();
 			mnuFileRecentFile.ID = "FileRecentFile_" + FileName;
 			mnuFileRecentFile.Title = System.IO.Path.GetFileName(FileName);
 			// mnuFileRecentFile.ToolTipText = FileName;
-			Application.Commands.Add(mnuFileRecentFile);
+			((UIApplication)Application.Instance).Commands.Add(mnuFileRecentFile);
 
 			CommandReferenceCommandItem tsmi = new CommandReferenceCommandItem("FileRecentFile_" + FileName);
 			mnuFileRecentFiles.Items.Add(tsmi);
 		}
 		private void RefreshRecentFilesList()
 		{
-			Command mnuFileRecentFiles = Application.Commands["FileRecentFiles"];
+			Command mnuFileRecentFiles = ((UIApplication)Application.Instance).Commands["FileRecentFiles"];
 			mnuFileRecentFiles.Items.Clear();
 			foreach (string fileName in Engine.CurrentEngine.RecentFileManager.FileNames)
 			{
 				AddRecentMenuItem(fileName);
 			}
 
-			Command mnuFileRecentProjects = Application.Commands["FileRecentProjects"];
+			Command mnuFileRecentProjects = ((UIApplication)Application.Instance).Commands["FileRecentProjects"];
 
 			mnuFileRecentFiles.Visible = (mnuFileRecentFiles.Items.Count > 0);
 			mnuFileRecentProjects.Visible = (mnuFileRecentProjects.Items.Count > 0);

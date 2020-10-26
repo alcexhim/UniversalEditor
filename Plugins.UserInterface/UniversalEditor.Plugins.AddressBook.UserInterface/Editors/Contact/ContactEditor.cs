@@ -28,6 +28,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface.Controls.ListView;
+using MBS.Framework;
 
 namespace UniversalEditor.Editors.Contact
 {

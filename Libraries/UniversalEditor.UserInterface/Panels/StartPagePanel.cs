@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
@@ -43,10 +43,10 @@ namespace UniversalEditor.UserInterface.Panels
 
 			cmdCreateNewProject.Click += cmdCreateNewProject_Click;
 			cmdOpenExistingProject.Click += cmdOpenExistingProject_Click;
-			lblHeader.Text = String.Format(lblHeader.Text, Application.Title);
-			lblNewsTitle.Text = String.Format(lblNewsTitle.Text, Application.Title);
+			lblHeader.Text = String.Format(lblHeader.Text, Application.Instance.Title);
+			lblNewsTitle.Text = String.Format(lblNewsTitle.Text, Application.Instance.Title);
 
-			string header_bmp = Application.ExpandRelativePath("~/header.bmp");
+			string header_bmp = ((UIApplication)Application.Instance).ExpandRelativePath("~/header.bmp");
 			if (System.IO.File.Exists(header_bmp))
 			{
 				imgHeader.Image = MBS.Framework.UserInterface.Drawing.Image.FromFile(header_bmp);

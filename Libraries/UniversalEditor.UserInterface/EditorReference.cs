@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework;
 using MBS.Framework.Logic;
 using MBS.Framework.UserInterface;
 using UniversalEditor.ObjectModels.Markup;

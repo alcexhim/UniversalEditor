@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
@@ -188,7 +188,7 @@ namespace UniversalEditor.UserInterface.Panels
 
 			this.Controls.Add(tvSolutionExplorer, new BoxLayout.Constraints(true, true));
 
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_OpenContainingFolder", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_OpenContainingFolder", delegate(object sender, EventArgs e)
 			{
 				if (tvSolutionExplorer.SelectedRows.Count != 1) return;
 
@@ -218,34 +218,34 @@ namespace UniversalEditor.UserInterface.Panels
 						{
 							if (Environment.OSVersion.Platform == PlatformID.Unix)
 							{
-								Application.Launch("nautilus", String.Format("-s \"{0}\"", fullpath));
+								((UIApplication)Application.Instance).Launch("nautilus", String.Format("-s \"{0}\"", fullpath));
 							}
 							else if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
 							{
-								Application.Launch("explorer", String.Format("/select \"{0}\"", fullpath));
+								((UIApplication)Application.Instance).Launch("explorer", String.Format("/select \"{0}\"", fullpath));
 							}
 							else
 							{
-								Application.Launch(System.IO.Path.GetDirectoryName(fullpath));
+								((UIApplication)Application.Instance).Launch(System.IO.Path.GetDirectoryName(fullpath));
 							}
 						}
 						catch (Exception ex)
 						{
 							// not using nautilus, just launch the folder
-							Application.Launch(System.IO.Path.GetDirectoryName(fullpath));
+							((UIApplication)Application.Instance).Launch(System.IO.Path.GetDirectoryName(fullpath));
 						}
 					}
 				}
 			});
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_ExistingFiles", mnuContextProjectAddExistingFiles_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_NewFolder", mnuContextProjectAddNewFolder_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_ExistingFiles", mnuContextSolutionAddExistingProject_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_ExistingProject", mnuContextSolutionAddExistingProject_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_NewProject", mnuContextSolutionAddNewProject_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_File_Open", mnuContextFileOpen_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFile", mnuContextFolderAddNewFile_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles", mnuContextFolderAddExistingFile_Click);
-			Application.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFolder", mnuContextFolderAddNewFolder_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_ExistingFiles", mnuContextProjectAddExistingFiles_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Project_Add_NewFolder", mnuContextProjectAddNewFolder_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_ExistingFiles", mnuContextSolutionAddExistingProject_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_ExistingProject", mnuContextSolutionAddExistingProject_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Solution_Add_NewProject", mnuContextSolutionAddNewProject_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_File_Open", mnuContextFileOpen_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFile", mnuContextFolderAddNewFile_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles", mnuContextFolderAddExistingFile_Click);
+			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFolder", mnuContextFolderAddNewFolder_Click);
 		}
 
 		private void mnuContextFileOpen_Click(object sender, EventArgs e)

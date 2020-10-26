@@ -20,13 +20,14 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Collaboration
 {
-	public class CollaborationPlugin : Plugin
+	public class CollaborationPlugin : UserInterfacePlugin
 	{
 		private Dictionary<Document, CollaborationSettings> _CollaborationSettings = new Dictionary<Document, CollaborationSettings>();
 		public CollaborationSettings GetCollaborationSettings(Document document = null)
@@ -46,7 +47,7 @@ namespace UniversalEditor.Plugins.Collaboration
 		public CollaborationPlugin()
 		{
 			ID = new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}");
-			Context = new Context(ID, "Collaboration Plugin");
+			Context = new UIContext(ID, "Collaboration Plugin");
 			Context.AttachCommandEventHandler("Collaboration_Tracking_Track", delegate (object sender, EventArgs e)
 			{
 				Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();

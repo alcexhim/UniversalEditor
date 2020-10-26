@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK;
@@ -39,7 +40,7 @@ namespace UniversalEditor.Plugins.CRI.UserInterface
 
 		protected override void InitializeInternal()
 		{
-			Context = new Context(new Guid("{7A5A7675-529E-46B1-A4FF-0786956DAE47}"), "CRI Extensions for FileSystemEditor");
+			Context = new UIContext(new Guid("{7A5A7675-529E-46B1-A4FF-0786956DAE47}"), "CRI Extensions for FileSystemEditor");
 		}
 
 		private bool _initOnce = false;
@@ -74,15 +75,15 @@ namespace UniversalEditor.Plugins.CRI.UserInterface
 			}
 			else
 			{
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_Header", CRI_FileSystem_Extensions_Export_Header_Click);
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_TOC", CRI_FileSystem_Extensions_Export_TOC_Click);
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ITOC", CRI_FileSystem_Extensions_Export_ITOC_Click);
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_GTOC", CRI_FileSystem_Extensions_Export_GTOC_Click);
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ETOC", CRI_FileSystem_Extensions_Export_ETOC_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_Header", CRI_FileSystem_Extensions_Export_Header_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_TOC", CRI_FileSystem_Extensions_Export_TOC_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ITOC", CRI_FileSystem_Extensions_Export_ITOC_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_GTOC", CRI_FileSystem_Extensions_Export_GTOC_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_ETOC", CRI_FileSystem_Extensions_Export_ETOC_Click);
 
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_View_Info", CRI_FileSystem_Extensions_View_Info_Click);
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_CSV", CRI_FileSystem_Extensions_Export_CSV_Click);
-				Application.AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_All", CRI_FileSystem_Extensions_Export_All_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_View_Info", CRI_FileSystem_Extensions_View_Info_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_CSV", CRI_FileSystem_Extensions_Export_CSV_Click);
+				((UIApplication)Application.Instance).AttachCommandEventHandler("CRI_FileSystem_Extensions_Export_All", CRI_FileSystem_Extensions_Export_All_Click);
 			}
 
 			_initOnce = true;

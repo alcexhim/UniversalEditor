@@ -25,9 +25,9 @@ using MBS.Framework.UserInterface;
 namespace UniversalEditor.UserInterface
 {
 	/// <summary>
-	/// Provides a <see cref="Plugin" /> subclass for a Universal Editor plugin which has access to documents.
+	/// Provides a <see cref="UserInterfacePlugin" /> subclass for a Universal Editor plugin which has access to documents.
 	/// </summary>
-	public class EditorPlugin : Plugin
+	public class EditorPlugin : UserInterfacePlugin
 	{
 		public Editor Editor { get; private set; }
 		public Document Document { get; private set; }
