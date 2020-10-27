@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>UniversalEditor.Plugins.Scientific.UserInterface</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.Scientific.UserInterface</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
