@@ -945,6 +945,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 								{
 									filter.ContentType = attContentType.Value;
 								}
+								MarkupAttribute attPerceivedType = tagFilter.Attributes["PerceivedType"];
+								if (attPerceivedType != null)
+								{
+									filter.PerceivedType = attPerceivedType.Value;
+								}
 
 								MarkupAttribute attHintComparison = tagFilter.Attributes["HintComparison"];
 								if (attHintComparison != null)

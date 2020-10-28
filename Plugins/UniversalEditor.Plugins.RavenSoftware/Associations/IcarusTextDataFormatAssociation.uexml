@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="ICARUS text script">
+				<Filter Title="ICARUS text script" ContentType="text/x-ravensoftware-icarus-script" PerceivedType="text/plain">
 					<FileNameFilters>
 						<FileNameFilter>*.icarus</FileNameFilter>
 					</FileNameFilters>
