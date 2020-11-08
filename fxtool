@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+#  fxtool - simple script to install or remove the UWT engines
+#
+#  Author:
+#       Michael Becker <alcexhim@gmail.com>
+#
+#  Copyright (c) 2020 Mike Becker's Software
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+######## DEFINITIONS
+APP="MBS.Framework.UserInterface"
+USAGE_STATEMENT="Usage: $0 {install|remove} {gtk|wf}"
+EC_INVALID_CHOICE=1
+
+######## IMPLEMENTATION
+case "$1" in
+  install)
+    case "$2" in
+      gtk)
+        for ext in dll dll.config pdb xml; do
+          cp "../$APP/Output/Debug/$APP.Engines.GTK.$ext" "Output/Debug/"
+        done
+      ;;
+      wf)
+        for ext in dll dll.config pdb xml; do
+          cp "../$APP/Output/Debug/$APP.Engines.WindowsForms.$ext" "Output/Debug/"
+        done
+      ;;
+      *)
+        echo $USAGE_STATEMENT; exit $EC_INVALID_CHOICE
+      ;;
+    esac
+  ;;
+  remove)
+    case "$2" in
+      gtk)
+        for ext in dll dll.config pdb xml; do
+          rm "Output/Debug/$APP.Engines.GTK.$ext"
+        done
+      ;;
+      wf)
+        for ext in dll dll.config pdb xml; do
+          rm "Output/Debug/$APP.Engines.WindowsForms.$ext"
+        done
+      ;;
+      *)
+        echo $USAGE_STATEMENT; exit $EC_INVALID_CHOICE
+      ;;
+    esac
+  ;;
+  *)
+    echo $USAGE_STATEMENT; exit $EC_INVALID_CHOICE
+  ;;
+esac
