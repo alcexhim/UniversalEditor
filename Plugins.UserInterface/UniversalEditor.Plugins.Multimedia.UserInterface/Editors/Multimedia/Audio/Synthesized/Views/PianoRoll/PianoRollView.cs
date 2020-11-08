@@ -21,12 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using MBS.Framework;
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.Dragging;
 using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
@@ -60,7 +61,80 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				Controls.Add(txt, new AbsoluteLayout.Constraints(0, 0, 128, 18));
 
 				this.ContextMenuCommandID = "PianoRollEditor_ContextMenu";
+
+				dm = new DragManager();
+				dm.BeforeControlPaint += Dm_BeforeControlPaint;
+				dm.DragStarting += Dm_DragStarting;
+				dm.DragMoving += Dm_DragMoving;
+				dm.DragComplete += Dm_DragComplete;
+				dm.Register(this);
 			}
+
+			private void Dm_DragStarting(object sender, DragManagerDragEventArgs e)
+			{
+				if (draggingCommand != null)
+				{
+					e.FillColor = Colors.Transparent;
+					e.BorderColor = SystemColors.HighlightBackground;
+				}
+				else
+				{
+					if (SelectionMode == PianoRollViewSelectionMode.Select)
+					{
+						e.FillColor = Color.FromRGBADouble(SystemColors.HighlightBackground.R, SystemColors.HighlightBackground.G, SystemColors.HighlightBackground.B, 0.5);
+						e.BorderColor = SystemColors.HighlightBackground;
+					}
+					else if (SelectionMode == PianoRollViewSelectionMode.Insert)
+					{
+						e.FillColor = Color.FromRGBADouble(Colors.DarkGray.R, Colors.DarkGray.G, Colors.DarkGray.B, 0.5);
+						e.BorderColor = Colors.DarkGray;
+					}
+				}
+			}
+
+			private void Dm_DragMoving(object sender, DragManagerDragEventArgs e)
+			{
+				if (e.Dragging)
+				{
+					if (draggingCommand == null)
+					{
+						if (SelectionMode == PianoRollViewSelectionMode.Insert)
+						{
+							int keybWidth = 0;
+							if (mvarShowKeyboard)
+								keybWidth = mvarKeyboardWidth;
+
+							e.SelectionRectangle = new Rectangle(keybWidth + FloorWidth((int)e.StartX - keybWidth), FloorHeight((int)e.StartY), FloorWidth((int)(e.EndX - e.StartX)), NoteHeight);
+						}
+					}
+				}
+
+				if (draggingCommand != null)
+				{
+					dm.DrawSelection = false;
+					Rectangle rect = GetNoteRect(draggingCommand as SynthesizedAudioCommandNote);
+					rect.Location = FloorPoint(e.EndPoint);
+					e.ObjectRectangle = rect;
+				}
+				else
+				{
+					dm.DrawSelection = true;
+					e.ObjectRectangle = Rectangle.Empty;
+					SynthesizedAudioCommandNote cmdhit = HitTest(e.EndPoint) as SynthesizedAudioCommandNote;
+					if (cmdhit != null)
+					{
+						e.Resizable = DragResizable.Horizontal;
+						e.ObjectRectangle = GetNoteRect(cmdhit);
+					}
+				}
+			}
+
+			private void Dm_DragComplete(object sender, DragManagerDragEventArgs e)
+			{
+			}
+
+
+			private DragManager dm = new DragManager();
 
 			private void txt_KeyDown(object sender, KeyEventArgs e)
 			{
@@ -447,9 +521,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 			private Pen pGrid = new Pen(Colors.LightGray);
 			private Pen pGridAlt = new Pen(Colors.Gray);
 
-			private Pen pSelectionBorderDrawing = new Pen(Colors.DarkGray);
-			private SolidBrush bSelectionFillDrawing = new SolidBrush(Color.FromRGBADouble(Colors.DarkGray.R, Colors.DarkGray.G, Colors.DarkGray.B, 0.5));
-
 			private bool mvarShowKeyboard = true;
 			/// <summary>
 			/// Gets or sets a value indicating whether the virtual keyboard should be shown on this <see cref="PianoRollView" />.
@@ -500,8 +571,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 			public double ZoomFactor { get { return mvarZoomFactor; } set { mvarZoomFactor = value; Invalidate(); } }
 
 			private bool m_selecting = false;
-			private double cx = 0, cy = 0;
-			private double dx = 0, dy = 0;
 
 			private Vector2D note_OriginalLocation = new Vector2D(0, 0);
 			private Vector2D drag_OriginalLocation = new Vector2D(0, 0);
@@ -564,13 +633,9 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 						return;
 					}
 
-					cx = e.X;
-					cy = e.Y;
-					dx = e.X;
-					dy = e.Y;
 					m_selecting = true;
 
-					drag_OriginalLocation = Quantize(new Vector2D(cx, cy), QuantizationMode.Position);
+					drag_OriginalLocation = Quantize(new Vector2D(dm.InitialX, dm.InitialY), QuantizationMode.Position);
 					if (cmd is SynthesizedAudioCommandNote)
 					{
 						note_OriginalLocation = Quantize(GetNoteRect(cmd as SynthesizedAudioCommandNote).Location, QuantizationMode.Position);
@@ -588,28 +653,26 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				SynthesizedAudioCommand cmd = HitTest(e.Location);
 				if (ShowKeyboard && e.X < KeyboardWidth || cmd != null)
 				{
-					Cursor = Cursors.Default;
+					// Cursor = Cursors.Default;
 				}
 				else if (SelectionMode == PianoRollViewSelectionMode.Insert)
 				{
-					Cursor = Cursors.Pencil;
+					// Cursor = Cursors.Pencil;
 				}
 
 				if (e.Buttons == MouseButtons.Primary)
 				{
 					moved = true;
-					dx = e.X;
-					dy = e.Y;
 
-					if (ShowKeyboard && dx < KeyboardWidth)
-						dx = KeyboardWidth;
+					if (ShowKeyboard && dm.CurrentX < KeyboardWidth)
+						dm.CurrentX = KeyboardWidth;
 
 					if (draggingCommand == null && (SelectionMode == PianoRollViewSelectionMode.Select || SelectionMode == PianoRollViewSelectionMode.Insert))
 					{
-						drag_CurrentLocation = Quantize(new Vector2D(dx, drag_OriginalLocation.Y), QuantizationMode.Length);
+						drag_CurrentLocation = Quantize(new Vector2D(dm.CurrentX, drag_OriginalLocation.Y), QuantizationMode.Length);
 						if (SelectionMode == PianoRollViewSelectionMode.Select)
 						{
-							Rectangle rectSelection = new Rectangle(cx, cy, dx - cx, dy - cy);
+							Rectangle rectSelection = new Rectangle(dm.InitialX, dm.InitialY, dm.DeltaX, dm.DeltaY);
 							SynthesizedAudioCommand[] cmds = HitTest(rectSelection);
 
 							mvarSelectedCommands.Clear();
@@ -621,7 +684,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 					}
 					else
 					{
-						drag_CurrentLocation = Quantize(new Vector2D(dx, dy), QuantizationMode.Length);
+						drag_CurrentLocation = Quantize(new Vector2D(dm.CurrentX, dm.CurrentY), QuantizationMode.Length);
 					}
 					Refresh();
 				}
@@ -895,10 +958,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				return (int)((81 - frequency) * NoteHeight);
 			}
 
-			protected override void OnPaint(PaintEventArgs e)
+			private void Dm_BeforeControlPaint(object sender, PaintEventArgs e)
 			{
-				base.OnPaint(e);
-
 				int gridWidth = (int)(GridWidth * mvarZoomFactor);
 				int gridHeight = (int)(NoteHeight * mvarZoomFactor);
 
@@ -987,6 +1048,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 					}
 				}
 
+				/*
 				if (draggingCommand != null)
 				{
 					if (draggingCommand is SynthesizedAudioCommandNote)
@@ -1012,23 +1074,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				}
 				else if (m_selecting)
 				{
-					if (SelectionMode == PianoRollViewSelectionMode.Select)
-					{
-						e.Graphics.DrawRectangle(pSelectionBorder, new Rectangle(cx, cy, dx - cx, dy - cy));
-						e.Graphics.FillRectangle(bSelectionFill, new Rectangle(cx, cy, dx - cx, dy - cy));
-					}
-					else if (SelectionMode == PianoRollViewSelectionMode.Insert)
-					{
-						Rectangle dragrect = new Rectangle(drag_OriginalLocation.X * PositionQuantization, drag_OriginalLocation.Y * NoteHeight, (drag_CurrentLocation.X * GetLengthQuantization()) - (drag_OriginalLocation.X * GetLengthQuantization()), NoteHeight);
-						if (mvarShowKeyboard)
-						{
-							dragrect.X += mvarKeyboardWidth;
-						}
-
-						e.Graphics.DrawRectangle(pSelectionBorderDrawing, dragrect);
-						e.Graphics.FillRectangle(bSelectionFillDrawing, dragrect);
-					}
 				}
+				*/			
 
 				ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), MAXSCROLLHEIGHT);
 				/*
@@ -1095,6 +1142,19 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 			private int QuantizeWidth(int cy)
 			{
 				return (int)((double)cy / GetLengthQuantization());
+			}
+
+			private int FloorHeight(int y)
+			{
+				return ((int)((double)y / NoteHeight) * NoteHeight);
+			}
+			private int FloorWidth(int x)
+			{
+				return ((int)((double)x / GetLengthQuantization()) * GetLengthQuantization());
+			}
+			private Vector2D FloorPoint(Vector2D point)
+			{
+				return new Vector2D(FloorWidth((int)point.X), FloorHeight((int)point.Y));
 			}
 		}
 
