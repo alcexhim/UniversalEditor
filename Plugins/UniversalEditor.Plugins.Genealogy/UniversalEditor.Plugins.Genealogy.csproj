@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{74A835FD-93B8-4268-B120-1ACAA128AC7B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>UniversalEditor.Plugins.FamilyTreeMaker</RootNamespace>
+    <RootNamespace>UniversalEditor.Plugins.Genealogy</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.FamilyTreeMaker</AssemblyName>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
@@ -39,6 +39,28 @@
     <Compile Include="DataFormats\GEDCOM\GEDCOMChunkedDataFormat.cs" />
     <Compile Include="ObjectModels\GEDCOM\GEDCOMChunkedObjectModel.cs" />
     <Compile Include="ObjectModels\GEDCOM\GEDCOMChunk.cs" />
+    <Compile Include="ObjectModels\FamilyTree\Person.cs" />
+    <Compile Include="ObjectModels\FamilyTree\Surname.cs" />
+    <Compile Include="ObjectModels\FamilyTree\SurnameOrigin.cs" />
+    <Compile Include="ObjectModels\FamilyTree\PersonName.cs" />
+    <Compile Include="ObjectModels\FamilyTree\PersonNameType.cs" />
+    <Compile Include="ObjectModels\FamilyTree\PersonNameFormatter.cs" />
+    <Compile Include="ObjectModels\FamilyTree\StringFormatting\FormattingParts\LiteralStringFormattingPart.cs" />
+    <Compile Include="ObjectModels\FamilyTree\StringFormatting\StringFormattingPart.cs" />
+    <Compile Include="ObjectModels\FamilyTree\StringFormatting\StringFormatter.cs" />
+    <Compile Include="ObjectModels\FamilyTree\StringFormatting\FormattingParts\PropertyStringFormattingPart.cs" />
+    <Compile Include="DataFormats\Gramps\XML\GrampsXMLDataFormat.cs" />
+    <Compile Include="ObjectModels\FamilyTree\Event.cs" />
+    <Compile Include="ObjectModels\FamilyTree\DatabaseObject.cs" />
+    <Compile Include="ObjectModels\FamilyTree\DateReference.cs" />
+    <Compile Include="ObjectModels\FamilyTree\Date.cs" />
+    <Compile Include="ObjectModels\FamilyTree\DateType.cs" />
+    <Compile Include="ObjectModels\FamilyTree\Place.cs" />
+    <Compile Include="ObjectModels\FamilyTree\Citation.cs" />
+    <Compile Include="ObjectModels\FamilyTree\DatabaseAttribute.cs" />
+    <Compile Include="ObjectModels\FamilyTree\CitableDatabaseObject.cs" />
+    <Compile Include="ObjectModels\FamilyTree\Gender.cs" />
+    <Compile Include="ObjectModels\FamilyTree\PlaceName.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\" />
@@ -49,6 +71,11 @@
     <Folder Include="DataFormats\GEDCOM\" />
     <Folder Include="ObjectModels\GEDCOM\" />
     <Folder Include="Associations\" />
+    <Folder Include="ObjectModels\FamilyTree\StringFormatting\" />
+    <Folder Include="ObjectModels\FamilyTree\StringFormatting\FormattingParts\" />
+    <Folder Include="DataFormats\Gramps\" />
+    <Folder Include="DataFormats\Gramps\XML\" />
+    <Folder Include="Associations\Gramps\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -78,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\FamilyTreeMaker\FTW.uexml" />
+    <EmbeddedResource Include="Associations\Gramps\Gramps.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
