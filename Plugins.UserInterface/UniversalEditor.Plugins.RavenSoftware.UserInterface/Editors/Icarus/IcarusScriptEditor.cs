@@ -243,11 +243,13 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			// tv.ImageList = SmallImageList;
 
 			// TODO: figure out why menutiems have to use Application.AttachCommand... and context menus have to use Context
-			Application.AttachCommandEventHandler("Icarus_Debug_StartDebugging", mnuDebugStart_Click);
-			Application.AttachCommandEventHandler("Icarus_Debug_BreakExecution", mnuDebugBreak_Click);
-			Application.AttachCommandEventHandler("Icarus_Debug_StopDebugging", mnuDebugStop_Click);
-			Application.AttachCommandEventHandler("Icarus_Debug_StepInto", mnuDebugStepInto_Click);
-			Application.AttachCommandEventHandler("Icarus_Debug_StepOver", mnuDebugStepOver_Click);
+			// FIXME: correct me if I'm wrong - maybe because we weren't calling the universal Application.ExecuteCommand() from the menu item handler, but we were in context?
+			// ----> this should be fixed!
+			Context.AttachCommandEventHandler("Icarus_Debug_StartDebugging", mnuDebugStart_Click);
+			Context.AttachCommandEventHandler("Icarus_Debug_BreakExecution", mnuDebugBreak_Click);
+			Context.AttachCommandEventHandler("Icarus_Debug_StopDebugging", mnuDebugStop_Click);
+			Context.AttachCommandEventHandler("Icarus_Debug_StepInto", mnuDebugStepInto_Click);
+			Context.AttachCommandEventHandler("Icarus_Debug_StepOver", mnuDebugStepOver_Click);
 
 			Context.AttachCommandEventHandler("Icarus_ContextMenu_Comment", Icarus_ContextMenu_Comment);
 			Context.AttachCommandEventHandler("Icarus_ContextMenu_TEST_EXPRESSION_EDITOR", TestExpressionEditor);
