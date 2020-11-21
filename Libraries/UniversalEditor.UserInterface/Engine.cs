@@ -302,8 +302,14 @@ namespace UniversalEditor.UserInterface
 				{
 					if (!customOptions[j].Visible) continue;
 
-					customOptions[j].SetValue(sg.Settings[i].GetValue());
-					i++;
+					if (customOptions[j] is CustomOptionGroup)
+					{
+					}
+					else
+					{
+						customOptions[j].SetValue(sg.Settings[i].GetValue());
+						i++;
+					}
 				}
 				return true;
 			}
