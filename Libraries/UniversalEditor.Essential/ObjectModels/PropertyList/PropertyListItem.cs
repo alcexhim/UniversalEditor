@@ -22,6 +22,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using MBS.Framework.Collections.Generic;
+
 namespace UniversalEditor.ObjectModels.PropertyList
 {
 	public abstract class PropertyListItem : ICloneable
@@ -48,12 +50,14 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				}
 			}
 
+			private Dictionary<Type, System.Collections.IList> cacheOfT = new Dictionary<Type, System.Collections.IList>();
 			public T OfType<T>(string name) where T : PropertyListItem
 			{
-				for (int i = 0; i < Count; i++)
+				T[] items = this.OfType<T>();
+				for (int i = 0; i < items.Length; i++)
 				{
-					if (this[i].Name == name && this[i] is T)
-						return (T)this[i];
+					if (items[i].Name == name)
+						return items[i];
 				}
 				return null;
 			}
