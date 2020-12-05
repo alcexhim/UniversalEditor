@@ -89,6 +89,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 			}
 		}
 		public WaveformAudioSamples RawSamples { get; set; } = null;
+		public double Duration { get { return (double)RawSamples.Length / (Header.BitsPerSample / 8) / Header.SampleRate; } }
 
 		protected internal virtual void OnSampleRequest(WaveformAudioSampleRequestEventArgs e)
 		{
@@ -99,6 +100,16 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 					short[] samples = new short[e.Length];
 					for (int i = e.Offset; i < e.Offset + e.Length; i++)
 					{
+						if (i >= mvarRawData.Length)
+						{
+							Console.WriteLine("wave: requested {0} raw data outside of range {1}", i, mvarRawData.Length);
+							continue;
+						}
+						else if (i - e.Offset >= samples.Length)
+						{
+							Console.WriteLine("wave: requested {0} samples outside of range {1}", i - e.Offset, samples.Length);
+							continue;
+						}
 						samples[i - e.Offset] = (short)mvarRawData[i];
 					}
 					e.Samples = samples;
