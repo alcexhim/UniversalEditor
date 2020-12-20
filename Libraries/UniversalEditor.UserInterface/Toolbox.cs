@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using MBS.Framework.UserInterface;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface
 {
