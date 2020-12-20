@@ -1,4 +1,13 @@
 Platform:
+	Auto Save:
+		Every n seconds (where n is an Application Setting defined by user),
+		the platform should automatically save the current document in the
+		user's profile settings folder. Upon a successful exit of the
+		program, these temporary ocuments should be deleted. If there are any
+		documents in this folder the next time the application starts up,
+		prompt the user to either recover them or delete them. (An "Ask Me
+		Later" option would simply leave the documents in the folder and
+		flag them for no-deletion / prompt again upon application exit)
 	Batch Find / Replace:
 		I implemented this back in 2009 for my high school business class Inventory Management System, Starware IMS (source code has since disappeared).
 		The Universal Editor implementation should be an Editor-level API that returns search results in the form of an array of EditorSelection instances.
