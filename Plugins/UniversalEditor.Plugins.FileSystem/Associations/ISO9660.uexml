@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="ISO 9660 optical disc image">
+				<Filter Title="ISO 9660 optical disc image" ContentType="application/x-iso9660-image" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.iso</FileNameFilter>
 					</FileNameFilters>

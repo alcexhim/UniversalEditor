@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Nero Burning ROM disc image">
+				<Filter Title="Nero Burning ROM disc image" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.nrb</FileNameFilter>
 						<FileNameFilter>*.nri</FileNameFilter>
