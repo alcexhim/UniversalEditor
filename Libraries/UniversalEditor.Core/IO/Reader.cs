@@ -52,21 +52,24 @@ namespace UniversalEditor.IO
 		string charBuffer = null;
 		int charBufferIndex = 0;
 
-		public char ReadChar()
+		public char ReadChar(Encoding encoding = null)
 		{
+			if (encoding == null)
+				encoding = Accessor.DefaultEncoding;
+
 			charBuffer = null;
 			if (charBuffer == null)
 			{
-				int maxByteCount = base.Accessor.DefaultEncoding.GetMaxByteCount(1);
+				int maxByteCount = encoding.GetMaxByteCount(1);
 				byte[] bytes = PeekBytes(maxByteCount);
-				charBuffer = base.Accessor.DefaultEncoding.GetString(bytes);
+				charBuffer = encoding.GetString(bytes);
 				charBufferIndex = 0;
 			}
 
 			char c = charBuffer[charBufferIndex];
 			charBufferIndex++;
 
-			int ct = base.Accessor.DefaultEncoding.GetByteCount(c);
+			int ct = encoding.GetByteCount(c);
 			Seek(ct, SeekOrigin.Current);
 
 			if (charBufferIndex + 1 > charBuffer.Length)
@@ -276,6 +279,32 @@ namespace UniversalEditor.IO
 				}
 			}
 			throw new ArgumentOutOfRangeException("Invalid 7-bit encoded Int32");
+		}
+
+		public string ReadFixedLengthUTF16EndianString(int byteCount, Encoding encoding = null)
+		{
+			if (byteCount % 2 != 0)
+			{
+				throw new ArgumentException("byteCount must be an even number");
+			}
+
+			if (encoding == null)
+				encoding = Accessor.DefaultEncoding;
+
+			byte[] data = ReadBytes(byteCount);
+
+			// swap endians
+			if (Endianness == Endianness.BigEndian)
+			{
+				for (int i = 0; i < data.Length; i += 2)
+				{
+					byte tmp = data[i + 1];
+					data[i + 1] = data[i];
+					data[i] = tmp;
+				}
+			}
+
+			return encoding.GetString(data);
 		}
 
 		/// <summary>

@@ -79,7 +79,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			uint pathTableLocationTypeL = 0;
 			uint pathTableLocationTypeM = 0;
 
-			while (true)
+			bool ok = true;
+			while (ok)
 			{
 				ISOVolumeDescriptorType type = (ISOVolumeDescriptorType)br.ReadByte();
 				string identifier = br.ReadFixedLengthString(5);
@@ -87,11 +88,11 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 
 				switch (type)
 				{
-				case ISOVolumeDescriptorType.BootRecord:
+					case ISOVolumeDescriptorType.BootRecord:
 					{
 						break;
 					}
-				case ISOVolumeDescriptorType.Primary:
+					case ISOVolumeDescriptorType.Primary:
 					{
 						Internal.PrimaryVolumeDescriptor descriptor = ReadPrimaryVolumeDescriptor(br);
 						SystemName = descriptor.systemName;
@@ -110,19 +111,35 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 						pathTableLocationTypeM = descriptor.pathTableLocationTypeM;
 						break;
 					}
-				case ISOVolumeDescriptorType.Supplementary:
+					case ISOVolumeDescriptorType.Supplementary:
 					{
-						ushort unknown1 = br.ReadUInt16();
-						string unknown2 = br.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian);
+						Internal.PrimaryVolumeDescriptor descriptor = ReadPrimaryVolumeDescriptor(br, true);
+						SystemName = descriptor.systemName;
+						VolumeName = descriptor.volumeName;
+						VolumeSetSize = descriptor.volumeSetSize;
+						VolumeSequenceNumber = descriptor.volumeSequenceNumber;
+						LogicalBlockSize = descriptor.logicalBlockSize;
+						VolumeSet = descriptor.volumeSet;
+						Publisher = descriptor.publisher;
+						DataPreparer = descriptor.dataPreparer;
+						Application = descriptor.application;
+						CopyrightFile = descriptor.copyrightFile;
+						AbstractFile = descriptor.abstractFile;
+						BibliographicFile = descriptor.bibliographicFile;
+						pathTableLocationTypeL = descriptor.pathTableLocationTypeL;
+						pathTableLocationTypeM = descriptor.pathTableLocationTypeM;
+
+						// ushort unknown1 = br.ReadUInt16();
+						// string unknown2 = br.ReadFixedLengthString(64, IO.Encoding.UTF16LittleEndian);
 						break;
 					}
-				case ISOVolumeDescriptorType.Terminator:
+					case ISOVolumeDescriptorType.Terminator:
 					{
 						break;
 					}
-				default:
+					default:
 					{
-						br.Accessor.Seek(2041, SeekOrigin.Current);
+						ok = false;
 						break;
 					}
 				}
@@ -194,10 +211,19 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			e.Data = reader.ReadBytes(length);
 		}
 
-		private Internal.PrimaryVolumeDescriptor ReadPrimaryVolumeDescriptor(IO.Reader br)
+		private Internal.PrimaryVolumeDescriptor ReadPrimaryVolumeDescriptor(IO.Reader br, bool secondary = false)
 		{
 			Internal.PrimaryVolumeDescriptor descriptor = new Internal.PrimaryVolumeDescriptor();
+
+			Encoding old = Accessor.DefaultEncoding;
+			if (secondary)
+			{
+				Accessor.DefaultEncoding = Encoding.UTF16BigEndian;
+			}
+
 			descriptor.unused1 = br.ReadByte(); // Always 0x00.
+			br.Endianness = Endianness.BigEndian;
+
 			descriptor.systemName = br.ReadFixedLengthString(32); // The name of the system that can act upon sectors 0x00-0x0F for the volume.
 			descriptor.volumeName = br.ReadFixedLengthString(32); // Identification of this volume.
 			descriptor.unused2 = br.ReadUInt64(); // All zeroes.
@@ -243,6 +269,8 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 			descriptor.unused4 = br.ReadByte();
 			descriptor.applicationSpecific = br.ReadBytes(512);
 			descriptor.reserved = br.ReadBytes(653);
+
+			Accessor.DefaultEncoding = old;
 			return descriptor;
 		}
 
