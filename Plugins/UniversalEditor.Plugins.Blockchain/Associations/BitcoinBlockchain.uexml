@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Bitcoin blockchain data">
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">F9BEB4D9</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.Plugins.Blockchain.Bitcoin.ObjectModels.BitcoinBlockchainObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Blockchain.Bitcoin.DataFormats.BitcoinBlockchainDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

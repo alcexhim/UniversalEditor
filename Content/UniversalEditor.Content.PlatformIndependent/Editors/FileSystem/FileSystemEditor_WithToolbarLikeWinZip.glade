@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="icoAdd">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-add</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoEncrypt">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-dialog-authentication</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoExtract">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-save-as</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoFavorites">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-directory</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoInstall">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-execute</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoNew">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-new</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoOpen">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-open</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoView">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-find</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkImage" id="icoWizard">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">8</property>
+    <property name="margin_right">8</property>
+    <property name="margin_top">8</property>
+    <property name="margin_bottom">8</property>
+    <property name="stock">gtk-preferences</property>
+    <property name="icon_size">6</property>
+  </object>
+  <object class="GtkWindow">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">New</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoNew</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Open</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoOpen</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Favorites</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoFavorites</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Add</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoAdd</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Extract</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoExtract</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Encrypt</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoEncrypt</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">View</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoView</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Install</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoInstall</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">7</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Wizard</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">icoWizard</property>
+                <property name="relief">none</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">8</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="padding">16</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTreeView" id="tv">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="model">tm</property>
+            <property name="search_column">0</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="tvcFileName">
+                <property name="resizable">True</property>
+                <property name="title" translatable="yes">Name</property>
+                <property name="clickable">True</property>
+                <property name="reorderable">True</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="tvcFileSize">
+                <property name="resizable">True</property>
+                <property name="title" translatable="yes">Size</property>
+                <property name="clickable">True</property>
+                <property name="reorderable">True</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="tvcFileType">
+                <property name="resizable">True</property>
+                <property name="title" translatable="yes">Type</property>
+                <property name="clickable">True</property>
+                <property name="reorderable">True</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">2</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="tvcFileDateModified">
+                <property name="resizable">True</property>
+                <property name="title" translatable="yes">Date modified</property>
+                <property name="clickable">True</property>
+                <property name="reorderable">True</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">3</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkTreeStore" id="tm">
+    <columns>
+      <!-- column-name colFileName -->
+      <column type="gchararray"/>
+      <!-- column-name colFileSize -->
+      <column type="gchararray"/>
+      <!-- column-name colFileType -->
+      <column type="gchararray"/>
+      <!-- column-name colFileDateModified -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+</interface>

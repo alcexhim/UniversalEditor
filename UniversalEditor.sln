@@ -211,6 +211,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Mul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Audio", "..\MBS.Audio\MBS.Audio\MBS.Audio.csproj", "{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Blockchain", "Plugins\UniversalEditor.Plugins.Blockchain\UniversalEditor.Plugins.Blockchain.csproj", "{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Blockchain.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Blockchain.UserInterface\UniversalEditor.Plugins.Blockchain.UserInterface.csproj", "{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -607,6 +611,14 @@ Global
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -706,6 +718,8 @@ Global
 		{37504ECC-D87F-4E93-8E08-89C03BAAA6D9} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{75C99631-122C-4880-806E-646FCB021730} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{E0897B7B-617A-4709-A4C6-FC0F6B441B2A} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
+		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3} = {7B535D74-5496-4802-B809-89ED88274A91}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
