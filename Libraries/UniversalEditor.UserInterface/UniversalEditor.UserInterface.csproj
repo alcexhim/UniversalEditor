@@ -62,7 +62,6 @@
     <Compile Include="CustomOptionDialogType.cs" />
     <Compile Include="EditorReference.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="HostApplication.cs" />
     <Compile Include="HostApplicationMessage.cs" />
     <Compile Include="HostApplicationOutputWindow.cs" />
     <Compile Include="Editor.cs" />
@@ -136,6 +135,8 @@
     <Compile Include="Dialogs\BatchFindReplaceWindow.cs" />
     <Compile Include="PrintHandlers\FileSystemPrintHandler.cs" />
     <Compile Include="IDocumentPropertiesProvider.cs" />
+    <Compile Include="EditorApplication.cs" />
+    <Compile Include="IHostApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

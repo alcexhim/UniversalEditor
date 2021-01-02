@@ -122,7 +122,7 @@ namespace UniversalEditor.Editors.FileSystem
 			if (fsom == null)
 				return;
 
-			Document d = HostApplication.CurrentWindow.NewFile();
+			Document d = (Application.Instance as IHostApplication).CurrentWindow.NewFile();
 			if (d != null)
 			{
 				BeginEdit();
@@ -240,7 +240,7 @@ namespace UniversalEditor.Editors.FileSystem
 					EmbeddedFileAccessor ma = new EmbeddedFileAccessor(f);
 					Document doc = new Document(ma);
 					doc.Saved += doc_Saved;
-					HostApplication.CurrentWindow.OpenFile(doc);
+					(Application.Instance as IHostApplication).CurrentWindow.OpenFile(doc);
 				}
 			}
 		}

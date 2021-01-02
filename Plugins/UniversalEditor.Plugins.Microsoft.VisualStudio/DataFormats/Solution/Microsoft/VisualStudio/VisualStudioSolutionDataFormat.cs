@@ -31,6 +31,7 @@ using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.DataFormats.Project.Microsoft.VisualStudio;
 using System.Linq;
 using System.Collections.Generic;
+using MBS.Framework;
 
 namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 {
@@ -96,7 +97,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				{
 					if (!line.Contains("="))
 					{
-						HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, "Invalid Project declaration in solution file");
+						(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "Invalid Project declaration in solution file");
 						continue;
 					}
 
@@ -151,7 +152,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 				}
 				else
 				{
-					HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, "Ignoring unknown solution directive \"" + line + "\"");
+					(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "Ignoring unknown solution directive \"" + line + "\"");
 					continue;
 				}
 			}

@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using MBS.Framework;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -75,7 +76,7 @@ namespace UniversalEditor.Plugins.Amiga.DataFormats.FileSystem.ADF
 			uint checksumVerify = CalculateChecksum(diskType, flags, rootblock, bootblock);
 			if (checksumVerify != checksum)
 			{
-				HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, "boot block checksum mismatch", Accessor.GetFileName());
+				(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "boot block checksum mismatch", Accessor.GetFileName());
 			}
 
 			reader.Seek(CalculateSectorOffset(rootblock), SeekOrigin.Begin);

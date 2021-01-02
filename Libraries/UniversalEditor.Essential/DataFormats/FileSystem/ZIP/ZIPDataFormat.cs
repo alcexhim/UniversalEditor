@@ -1,4 +1,4 @@
-//
+﻿//
 //  ZIPDataFormat.cs - provides a DataFormat for manipulating archives in the standardized PKWARE ZIP format
 //
 //  Author:
@@ -773,7 +773,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 
 			if (unpackedData.Length != unpackedFileLength)
 			{
-				// HostApplication.Messages.Add(HostApplicationMessageSeverity.Error, "File size mismatch, source archive may be corrupted", fileName);
+				// (Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Error, "File size mismatch, source archive may be corrupted", fileName);
 			}
 
 			File f = fsom.AddFile(fileName);

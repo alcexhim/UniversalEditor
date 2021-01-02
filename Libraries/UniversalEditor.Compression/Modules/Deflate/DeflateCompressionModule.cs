@@ -46,7 +46,7 @@ namespace UniversalEditor.Compression.Modules.Deflate
 				{
 					// This is the ONLY line in the entire code that
 					// references UniversalEditor.UserInterface...
-					// HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, ex.GetType().Name + ": " + ex.Message);
+					// (Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, ex.GetType().Name + ": " + ex.Message);
 					break;
 				}
 				outputStream.Write(buffer, 0, read);

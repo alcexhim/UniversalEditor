@@ -20,9 +20,11 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using MBS.Framework;
 using UniversalEditor.DataFormats.FileSystem.WinRAR.Blocks;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 {
@@ -114,7 +116,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 
 			if (!endOfArchiveReached)
 			{
-				UserInterface.HostApplication.Messages.Add(UserInterface.HostApplicationMessageSeverity.Warning, "end of file reached before end of archive marker", Accessor.GetFileName());
+				(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "end of file reached before end of archive marker", Accessor.GetFileName());
 			}
 		}
 

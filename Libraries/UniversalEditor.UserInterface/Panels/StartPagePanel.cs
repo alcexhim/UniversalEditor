@@ -62,11 +62,11 @@ namespace UniversalEditor.UserInterface.Panels
 
 		private void cmdCreateNewProject_Click(object sender, EventArgs e)
 		{
-			HostApplication.CurrentWindow?.NewProject();
+			(Application.Instance as IHostApplication).CurrentWindow?.NewProject();
 		}
 		private void cmdOpenExistingProject_Click(object sender, EventArgs e)
 		{
-			HostApplication.CurrentWindow?.OpenProject();
+			(Application.Instance as IHostApplication).CurrentWindow?.OpenProject();
 		}
 	}
 }

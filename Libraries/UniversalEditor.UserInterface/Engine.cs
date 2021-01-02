@@ -470,50 +470,50 @@ namespace UniversalEditor.UserInterface
 			#region Perspective
 			Application.Instance.AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(1);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(1);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective2", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(2);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(2);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective3", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(3);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(3);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective4", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(4);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(4);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective5", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(5);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(5);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective6", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(6);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(6);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective7", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(7);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(7);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective8", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(8);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(8);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective9", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.SwitchPerspective(9);
+				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(9);
 			});
 			#endregion
 
 			Application.Instance.AttachCommandEventHandler("ViewStartPage", delegate(object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.ShowStartPage();
+				(Application.Instance as IHostApplication).CurrentWindow.ShowStartPage();
 			});
 			Application.Instance.AttachCommandEventHandler("ViewStatusBar", delegate (object sender, EventArgs e)
 			{
-				HostApplication.CurrentWindow.StatusBar.Visible = !HostApplication.CurrentWindow.StatusBar.Visible;
-				Application.Instance.Commands["ViewStatusBar"].Checked = HostApplication.CurrentWindow.StatusBar.Visible;
+				(Application.Instance as IHostApplication).CurrentWindow.StatusBar.Visible = !(Application.Instance as IHostApplication).CurrentWindow.StatusBar.Visible;
+				Application.Instance.Commands["ViewStatusBar"].Checked = (Application.Instance as IHostApplication).CurrentWindow.StatusBar.Visible;
 			});
 
 			#endregion
@@ -707,7 +707,7 @@ namespace UniversalEditor.UserInterface
 					cmdLanguage.Title = lang.Title;
 					cmdLanguage.Executed += delegate (object sender, EventArgs e)
 					{
-						HostApplication.Messages.Add(HostApplicationMessageSeverity.Notice, "Clicked language " + lang.ID);
+						(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Notice, "Clicked language " + lang.ID);
 					};
 					Application.Instance.Commands.Add(cmdLanguage);
 
@@ -1042,7 +1042,7 @@ namespace UniversalEditor.UserInterface
 
 		public void StartApplication()
 		{
-			Application.Instance = new UIApplication();
+			Application.Instance = new EditorApplication();
 			Application.Instance.Title = "Universal Editor";
 
 			mvarRunning = true;

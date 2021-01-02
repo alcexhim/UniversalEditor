@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using MBS.Framework;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
 
@@ -38,7 +39,7 @@ namespace UniversalEditor.UserInterface
 		{
 			get
 			{
-				ListViewControl lv = ((MainWindow)HostApplication.CurrentWindow).DocumentExplorerPanel.ListView;
+				ListViewControl lv = ((MainWindow)(Application.Instance as IHostApplication).CurrentWindow).DocumentExplorerPanel.ListView;
 				if (lv.SelectedRows.Count > 0)
 				{
 					return lv.SelectedRows[0].GetExtraData<EditorDocumentExplorerNode>("node");

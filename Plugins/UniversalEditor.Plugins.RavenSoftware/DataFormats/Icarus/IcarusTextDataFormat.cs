@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Icarus;
 using UniversalEditor.ObjectModels.Icarus.Commands;
@@ -57,7 +58,7 @@ namespace UniversalEditor.DataFormats.Icarus
 			{
 				// we may or may not wish to throw InvalidDataFormatException here;
 				// since it's plain text we could still continue reading it like normal but all hell could break loose if we encounter something weird
-				HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, "This file has NOT ben written by a BehavEd-compatible program! This can mess up big-style if you load a programmer-script with nested statements, etc.", Accessor.GetFileName());
+				(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "This file has NOT ben written by a BehavEd-compatible program! This can mess up big-style if you load a programmer-script with nested statements, etc.", Accessor.GetFileName());
 			}
 
 			while (!reader.EndOfStream)

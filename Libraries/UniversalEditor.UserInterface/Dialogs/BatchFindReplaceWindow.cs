@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework;
 using MBS.Framework.Logic.Conditional;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
@@ -148,12 +149,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 			CriteriaResult result = e.Row.GetExtraData<CriteriaResult>("result");
 			if (result == null) return;
 
-			Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
+			Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
 			if (editor == null) return;
 
 			editor.Selections.Add(editor.CreateSelection(result.Value));
 
-			HostApplication.CurrentWindow.Present(DateTime.Now);
+			(Application.Instance as IHostApplication).CurrentWindow.Present(DateTime.Now);
 		}
 
 		protected override void OnKeyDown(KeyEventArgs e)

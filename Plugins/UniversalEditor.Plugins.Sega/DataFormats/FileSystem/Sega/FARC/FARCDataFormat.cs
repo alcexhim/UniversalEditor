@@ -22,9 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-
+using MBS.Framework;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 {
@@ -204,7 +205,7 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 				}
 				if (!foundMatch)
 				{
-					UserInterface.HostApplication.Messages.Add(UserInterface.HostApplicationMessageSeverity.Warning, "No valid encryption keys were available to process this file", file.Name);
+					(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "No valid encryption keys were available to process this file", file.Name);
 					return;
 				}
 

@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.UserInterface;
@@ -65,7 +66,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Registry
 			if (primarySequenceNumber != secondarySequenceNumber)
 			{
 				// do we wnnt to handle this as a fatal error?
-				HostApplication.Messages.Add(HostApplicationMessageSeverity.Warning, "Primary and secondary sequence number mismatch", base.Accessor.GetFileName());
+				(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "Primary and secondary sequence number mismatch", base.Accessor.GetFileName());
 			}
 
 			DateTime lastModifiedTimestamp = reader.ReadDateTime64(); // FILETIME

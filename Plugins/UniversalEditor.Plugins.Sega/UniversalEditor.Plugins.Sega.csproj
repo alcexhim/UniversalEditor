@@ -61,6 +61,10 @@
       <Project>{3F664673-7E22-4486-9AD0-FC81861D0B78}</Project>
       <Name>UniversalEditor.Compression</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="DataFormats\FileSystem\Sega\FARC\FARCDataFormat.uexml.exclude" />

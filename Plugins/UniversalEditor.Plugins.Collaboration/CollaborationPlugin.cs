@@ -34,7 +34,7 @@ namespace UniversalEditor.Plugins.Collaboration
 		{
 			if (document == null)
 			{
-				document = HostApplication.CurrentWindow?.GetCurrentEditor()?.Document;
+				document = (Application.Instance as IHostApplication).CurrentWindow?.GetCurrentEditor()?.Document;
 			}
 
 			if (!_CollaborationSettings.ContainsKey(document))
@@ -50,7 +50,7 @@ namespace UniversalEditor.Plugins.Collaboration
 			Context = new UIContext(ID, "Collaboration Plugin");
 			Context.AttachCommandEventHandler("Collaboration_Tracking_Track", delegate (object sender, EventArgs e)
 			{
-				Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
+				Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
 				Document d = editor?.Document;
 				if (d != null)
 				{

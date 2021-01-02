@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface
 {
@@ -126,7 +127,7 @@ namespace UniversalEditor.UserInterface
 				mvarEnabled = value;
 				foreach (object NativeControl in mvarNativeControls)
 				{
-					HostApplication.CurrentWindow.RefreshCommand(NativeControl);
+					(Application.Instance as IHostApplication).CurrentWindow.RefreshCommand(NativeControl);
 				}
 			}
 		}
@@ -138,7 +139,7 @@ namespace UniversalEditor.UserInterface
 				mvarVisible = value;
 				foreach (object NativeControl in mvarNativeControls)
 				{
-					HostApplication.CurrentWindow.RefreshCommand(NativeControl);
+					(Application.Instance as IHostApplication).CurrentWindow.RefreshCommand(NativeControl);
 				}
 			}
 		}

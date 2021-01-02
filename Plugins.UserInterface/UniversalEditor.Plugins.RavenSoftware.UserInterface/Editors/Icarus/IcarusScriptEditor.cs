@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
@@ -408,11 +408,11 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 
 		private void LogOutputWindow(string text)
 		{
-			HostApplication.OutputWindow.WriteLine(text);
+			(Application.Instance as IHostApplication).OutputWindow.WriteLine(text);
 		}
 		private void ClearOutputWindow()
 		{
-			HostApplication.OutputWindow.Clear();
+			(Application.Instance as IHostApplication).OutputWindow.Clear();
 		}
 
 		private Dictionary<IcarusCommand, TreeModelRow> treeNodesForCommands = new Dictionary<IcarusCommand, TreeModelRow>();

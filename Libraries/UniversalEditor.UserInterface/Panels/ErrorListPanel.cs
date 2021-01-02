@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
@@ -59,7 +60,7 @@ namespace UniversalEditor.UserInterface.Panels
 			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[4], "Path"));
 			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[5], "Category"));
 
-			HostApplication.Messages.MessageAdded += (sender, e) =>
+			(Application.Instance as IHostApplication).Messages.MessageAdded += (sender, e) =>
 			{
 				HostApplicationMessage message = e.Message;
 				tm.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
@@ -72,7 +73,7 @@ namespace UniversalEditor.UserInterface.Panels
 					new TreeModelRowColumn(tm.Columns[5], message.Severity)
 				}));
 			};
-			HostApplication.Messages.MessageRemoved += (sender, e) =>
+			(Application.Instance as IHostApplication).Messages.MessageRemoved += (sender, e) =>
 			{
 
 			};
@@ -93,7 +94,7 @@ namespace UniversalEditor.UserInterface.Panels
 		{
 			tm.Rows.Clear();
 
-			foreach (HostApplicationMessage message in HostApplication.Messages)
+			foreach (HostApplicationMessage message in (Application.Instance as IHostApplication).Messages)
 			{
 				tm.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
 				{
