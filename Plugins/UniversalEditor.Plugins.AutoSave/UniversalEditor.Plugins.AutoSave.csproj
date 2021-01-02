@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3}</ProjectGuid>
+    <ProjectGuid>{385AB5A6-3EB6-4DF6-A7BF-DF9FFE43F192}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>UniversalEditor.Plugins.Blockchain.UserInterface</RootNamespace>
-    <AssemblyName>UniversalEditor.Plugins.Blockchain.UserInterface</AssemblyName>
+    <RootNamespace>UniversalEditor.Plugins.AutoSave</RootNamespace>
+    <AssemblyName>UniversalEditor.Plugins.AutoSave</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
@@ -31,22 +31,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockchainEditor.cs" />
+    <Compile Include="AutoSavePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
-      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
-      <Name>UniversalEditor.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
-      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
-      <Name>UniversalEditor.Essential</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
-      <Project>{8622EBC4-8E20-476E-B284-33D472081F5C}</Project>
-      <Name>UniversalEditor.UserInterface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
       <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
       <Name>MBS.Framework</Name>
@@ -54,10 +42,6 @@
     <ProjectReference Include="..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\UniversalEditor.Plugins.Blockchain\UniversalEditor.Plugins.Blockchain.csproj">
-      <Project>{C54F6BCD-60CD-4603-B0C9-CD0864455CB1}</Project>
-      <Name>UniversalEditor.Plugins.Blockchain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
