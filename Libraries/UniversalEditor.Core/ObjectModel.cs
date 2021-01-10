@@ -64,7 +64,7 @@ namespace UniversalEditor
 		/// The <see cref="Accessor" /> that was last used to read or write this <see cref="ObjectModel" />.
 		/// </summary>
 		/// <value>The accessor.</value>
-		[Obsolete("ObjectModels should be Accessor-agnostic and not rely on being able to communicate with the Accessor")]
+		[Obsolete("ObjectModels should be Accessor-agnostic and not rely on being able to communicate with the Accessor"), NonSerializedProperty]
 		public Accessor Accessor { get; internal set; }
 
 		/// <summary>
