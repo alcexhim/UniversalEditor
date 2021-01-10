@@ -13,7 +13,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 		private Version mvarFormatVersion = new Version(2, 0);
 		public Version FormatVersion { get { return mvarFormatVersion; } set { mvarFormatVersion = value; } }
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

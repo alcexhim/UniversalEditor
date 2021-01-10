@@ -40,7 +40,7 @@ namespace UniversalEditor.DataFormats.AniMiku.ExtendedPMD
 	/// </summary>
 	public class ExtendedPMDDataFormat : PMDModelDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

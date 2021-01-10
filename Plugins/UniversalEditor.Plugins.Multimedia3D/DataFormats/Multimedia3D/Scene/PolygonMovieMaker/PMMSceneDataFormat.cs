@@ -1,4 +1,4 @@
-//
+﻿//
 //  PMMSceneDataFormat.cs - provides a DataFormat for manipulating scene graph in Polygon Movie Maker/MikuMikuDance (PMM) format
 //
 //  Author:
@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Scene.PolygonMovieMaker
 	/// </summary>
 	public class PMMSceneDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

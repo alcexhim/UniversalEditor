@@ -1,4 +1,4 @@
-//
+﻿//
 //  MQOTextDataFormat.cs - provides a DataFormat for manipulating 3D models in Metasequoia (MQO) text format
 //
 //  Author:
@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Metasequoia
 	/// </summary>
 	public class MQOTextDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

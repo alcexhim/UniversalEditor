@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.LOD
 	/// </summary>
 	public class Heroes3LODDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

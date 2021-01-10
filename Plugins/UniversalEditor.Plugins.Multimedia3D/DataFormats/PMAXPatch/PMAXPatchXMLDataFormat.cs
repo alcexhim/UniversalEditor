@@ -38,7 +38,7 @@ namespace UniversalEditor.DataFormats.PMAXPatch
 	/// </remarks>
 	public class PMAXPatchXMLDataFormat : XMLDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Web.StyleSheet
 	/// </summary>
 	public class CSSDataFormat : ExtensibleConfigurationDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

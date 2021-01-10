@@ -34,25 +34,25 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 		/// <summary>
 		/// CRC32 of header data starting from Header size field and up to and including the optional extra area.
 		/// </summary>
-		public uint crc;
+		public uint CRC;
 		/// <summary>
 		/// Size of header data starting from Header type field and up to and including the optional extra area. This field must not be longer than 3 bytes in
 		/// current implementation, resulting in 2 MB maximum header size.
 		/// </summary>
-		public long size;
+		public long Size;
 		/// <summary>
 		/// Type of archive header.
 		/// </summary>
-		public RARBlockType headerType;
-		public RARBlockFlags headerFlags;
+		public RARBlockType HeaderType;
+		public RARBlockFlags HeaderFlags;
 		/// <summary>
 		/// Size of extra area. Optional field, present only if 0x0001 header flag is set.
 		/// </summary>
-		public long extraAreaSize;
+		public long ExtraAreaSize;
 		/// <summary>
 		/// Size of data area.Optional field, present only if 0x0002 header flag is set.
 		/// </summary>
-		public long dataSize;
+		public long DataSize;
 		
 		public abstract object Clone();
 	}

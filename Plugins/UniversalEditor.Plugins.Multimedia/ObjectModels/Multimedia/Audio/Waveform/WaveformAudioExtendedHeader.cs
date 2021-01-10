@@ -28,9 +28,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 	/// </summary>
 	public class WaveformAudioExtendedHeader
 	{
-		public bool Enabled { get; set; } = false;
-		public short ValidBitsPerSample { get; set; } = 0;
-		public int ChannelMask { get; set; } = 0;
-		public Guid SubFormatGUID { get; set; } = Guid.Empty;
+		public bool Enabled { get; set; }
+		public short ValidBitsPerSample { get; set; }
+		public int ChannelMask { get; set; }
+		public Guid SubFormatGUID { get; set; }
 	}
 }

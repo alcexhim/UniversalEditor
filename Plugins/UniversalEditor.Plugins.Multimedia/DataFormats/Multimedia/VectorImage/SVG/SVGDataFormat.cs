@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Multimedia.VectorImage.SVG
 	{
 		private const string SCHEMA_SVG = "http://www.w3.org/2000/svg";
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

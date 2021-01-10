@@ -10,7 +10,7 @@ namespace UniversalEditor.DataFormats.Lighting.Fixture.Concertroid.FXT
 {
     public class FXTDataFormat : DataFormat
     {
-        private static DataFormatReference _dfr = null;
+        private static DataFormatReference _dfr;
         protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)

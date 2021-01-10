@@ -26,7 +26,7 @@ namespace UniversalEditor.Plugins.Office.DataFormats.Presentation.HyperCard.Inte
 {
 	public class HyperCardChunkedDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

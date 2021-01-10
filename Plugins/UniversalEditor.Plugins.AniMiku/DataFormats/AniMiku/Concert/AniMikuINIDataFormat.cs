@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 	/// </summary>
 	public class AniMikuINIDataFormat : WindowsConfigurationDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

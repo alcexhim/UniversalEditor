@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Text
 	/// </summary>
 	public class TextPropertyListDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.Biovision
 	/// </summary>
 	public class BVHDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

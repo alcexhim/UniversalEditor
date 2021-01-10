@@ -48,7 +48,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 
 		private byte mvarCompressionMode = 0;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

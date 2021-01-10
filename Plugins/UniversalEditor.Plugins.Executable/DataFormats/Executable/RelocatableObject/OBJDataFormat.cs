@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Executable.RelocatableObject
 	/// </summary>
 	public class OBJDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

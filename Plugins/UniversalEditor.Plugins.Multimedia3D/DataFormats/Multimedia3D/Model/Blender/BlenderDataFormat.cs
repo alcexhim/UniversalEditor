@@ -1,4 +1,4 @@
-//
+﻿//
 //  BlenderDataFormat.cs - provides a DataFormat for manipulating 3D models in Blender format
 //
 //  Author:
@@ -29,7 +29,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Blender
 	/// </summary>
 	public class BlenderDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Paint
 	/// </summary>
 	public class MSPDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

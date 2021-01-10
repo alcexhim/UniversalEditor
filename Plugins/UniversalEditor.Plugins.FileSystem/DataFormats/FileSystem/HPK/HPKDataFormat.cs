@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
 	/// </summary>
 	public class HPKDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
@@ -131,63 +131,58 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
 		private void LoadEntry(IO.Reader br, FileSystemObjectModel fsom, EntryInfo entry, List<FileInfo> fis, ref int i)
 		{
 			FileInfo fi = fis[i];
-			switch (entry.Type)
+			if (entry.Type == EntryType.Folder)
 			{
-				case EntryType.Folder:
+				Folder folder = new Folder();
+				folder.Name = entry.Name;
+
+				long pos = br.Accessor.Position;
+				br.Accessor.Position = fi.offset;
+				byte[] folderData = br.ReadBytes(fi.length);
+				br.Accessor.Position = pos;
+
+				IO.Reader brf = new IO.Reader(new MemoryAccessor(folderData));
+
+				int j = 1;
+				while (!brf.EndOfStream)
 				{
-					Folder folder = new Folder();
-					folder.Name = entry.Name;
+					EntryInfo ei = ReadEntry(brf);
 
-					long pos = br.Accessor.Position;
-					br.Accessor.Position = fi.offset;
-					byte[] folderData = br.ReadBytes(fi.length);
-					br.Accessor.Position = pos;
+					// map this file entry to a folder
+					folderSequenceEntries.Add(ei.SequenceNumber, folder);
 
-					IO.Reader brf = new IO.Reader(new MemoryAccessor(folderData));
+					i += 1;
+					LoadEntry(br, fsom, ei, fis, ref i);
 
-					int j = 1;
-					while (!brf.EndOfStream)
-					{
-						EntryInfo ei = ReadEntry(brf);
-
-						// map this file entry to a folder
-						folderSequenceEntries.Add(ei.SequenceNumber, folder);
-
-						i += 1;
-						LoadEntry(br, fsom, ei, fis, ref i);
-
-						j++;
-					}
-
-					if (folderSequenceEntries.ContainsKey(entry.SequenceNumber))
-					{
-						folderSequenceEntries[entry.SequenceNumber].Folders.Add(folder);
-					}
-					else
-					{
-						fsom.Folders.Add(folder);
-					}
-					break;
+					j++;
 				}
-				case EntryType.File:
-				{
-					File file = new File();
-					file.Name = entry.Name;
-					file.Size = fi.length;
-					file.Properties.Add("offset", fi.offset);
-					file.Properties.Add("length", fi.length);
-					file.Properties.Add("reader", br);
-					file.DataRequest += file_DataRequest;
 
-					if (folderSequenceEntries.ContainsKey(entry.SequenceNumber))
-					{
-						folderSequenceEntries[entry.SequenceNumber].Files.Add(file);
-					}
-					else
-					{
-						fsom.Files.Add(file);
-					}
-					break;
+				if (folderSequenceEntries.ContainsKey(entry.SequenceNumber))
+				{
+					folderSequenceEntries[entry.SequenceNumber].Folders.Add(folder);
+				}
+				else
+				{
+					fsom.Folders.Add(folder);
+				}
+			}
+			else if (entry.Type == EntryType.File)
+			{
+				File file = new File();
+				file.Name = entry.Name;
+				file.Size = fi.length;
+				file.Properties.Add("offset", fi.offset);
+				file.Properties.Add("length", fi.length);
+				file.Properties.Add("reader", br);
+				file.DataRequest += file_DataRequest;
+
+				if (folderSequenceEntries.ContainsKey(entry.SequenceNumber))
+				{
+					folderSequenceEntries[entry.SequenceNumber].Files.Add(file);
+				}
+				else
+				{
+					fsom.Files.Add(file);
 				}
 			}
 		}

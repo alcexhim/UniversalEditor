@@ -42,7 +42,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
 			PropertyValueSuffix = String.Empty;
 		}
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

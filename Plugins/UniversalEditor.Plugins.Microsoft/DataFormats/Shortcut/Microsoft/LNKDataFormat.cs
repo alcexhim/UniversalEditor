@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Shortcut.Microsoft
 	{
 		private static readonly Guid LNK_CLASSID = new Guid("{00021401-0000-0000-00c0-000000000046}");
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

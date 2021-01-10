@@ -9,7 +9,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
 {
 	public class VBUFDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		public override DataFormatReference MakeReference()
 		{
 			if (_dfr == null)

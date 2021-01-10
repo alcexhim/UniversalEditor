@@ -43,19 +43,19 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
 		/// <summary>
 		/// Package file in which the class of the object is defined
 		/// </summary>
-		public NameTableEntry PackageName { get; set; } = null;
+		public NameTableEntry PackageName { get; set; }
 		/// <summary>
 		/// Class of the object, i.e. "Texture", "Palette", "Package", etc.
 		/// </summary>
-		public NameTableEntry ClassName { get; set; } = null;
+		public NameTableEntry ClassName { get; set; }
 		/// <summary>
 		/// Reference where the object resides
 		/// </summary>
-		public ObjectReference Package { get; set; } = null;
+		public ObjectReference Package { get; set; }
 		/// <summary>
 		/// The name of the object
 		/// </summary>
-		public NameTableEntry ObjectName { get; set; } = null;
+		public NameTableEntry ObjectName { get; set; }
 
 		public override string ToString()
 		{

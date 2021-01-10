@@ -30,7 +30,7 @@ namespace UniversalEditor.Plugins.Amiga.DataFormats.FileSystem.ADF
 {
 	public class ADFDiskImageDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

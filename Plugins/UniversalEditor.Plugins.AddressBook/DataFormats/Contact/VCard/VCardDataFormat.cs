@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Contact.VCard
 	/// </summary>
 	public class VCardDataFormat : CoreObjectDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

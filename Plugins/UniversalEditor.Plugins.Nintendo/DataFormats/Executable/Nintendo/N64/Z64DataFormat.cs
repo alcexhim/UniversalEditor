@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.N64
 	/// </summary>
 	public class Z64DataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

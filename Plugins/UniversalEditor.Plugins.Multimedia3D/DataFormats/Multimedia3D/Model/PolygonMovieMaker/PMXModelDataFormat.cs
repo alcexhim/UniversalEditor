@@ -1,4 +1,4 @@
-//
+﻿//
 //  PMXModelDataFormat.cs - provides a DataFormat for manipulating 3D models in Polygon Movie Maker/MikuMikuDance PMX format
 //
 //  Author:
@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 	/// </summary>
 	public class PMXModelDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

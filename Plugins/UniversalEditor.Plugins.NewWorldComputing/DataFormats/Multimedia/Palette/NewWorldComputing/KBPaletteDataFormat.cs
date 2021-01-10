@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.NewWorldComputing
 	/// </summary>
 	public class KBPaletteDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

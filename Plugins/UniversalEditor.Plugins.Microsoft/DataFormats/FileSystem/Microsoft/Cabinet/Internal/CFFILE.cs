@@ -54,5 +54,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet.Internal
         /// name of this file
         /// </summary>
         public string name;
-    }
+
+		public UniversalEditor.ObjectModels.FileSystem.File file { get; set; }
+	}
 }

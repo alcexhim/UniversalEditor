@@ -36,7 +36,7 @@ namespace UniversalEditor.DataFormats.Text.HTML
 	/// </summary>
 	public class HTMLDataFormat : XMLDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

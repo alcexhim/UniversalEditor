@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft
 		public NameValuePair<int>.NameValuePairCollection ImportTable { get; } = new NameValuePair<int>.NameValuePairCollection();
 		public System.Reflection.Assembly CLRAssembly { get; private set; } = null;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

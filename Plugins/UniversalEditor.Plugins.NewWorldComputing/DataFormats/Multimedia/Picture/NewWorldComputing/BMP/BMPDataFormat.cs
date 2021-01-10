@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.BMP
 	/// </summary>
 	public class BMPDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

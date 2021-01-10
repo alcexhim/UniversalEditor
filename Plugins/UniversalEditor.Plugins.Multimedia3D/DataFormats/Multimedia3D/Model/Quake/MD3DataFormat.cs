@@ -1,4 +1,4 @@
-//
+﻿//
 //  MD3DataFormat.cs - provides a DataFormat for manipulating 3D models in id software MD3 format
 //
 //  Author:
@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake
 	/// </summary>
 	public class MD3DataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

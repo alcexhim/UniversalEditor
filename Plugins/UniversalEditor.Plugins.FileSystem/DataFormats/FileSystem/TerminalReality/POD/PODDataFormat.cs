@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 	/// </summary>
 	public class PODDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

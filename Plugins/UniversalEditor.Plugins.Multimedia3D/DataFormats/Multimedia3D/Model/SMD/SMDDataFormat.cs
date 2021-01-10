@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.SMD
 	/// </summary>
 	public class SMDDataFormat : SMDBaseDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

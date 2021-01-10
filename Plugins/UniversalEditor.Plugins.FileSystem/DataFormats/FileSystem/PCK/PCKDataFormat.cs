@@ -48,7 +48,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PCK
         next i
         */
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

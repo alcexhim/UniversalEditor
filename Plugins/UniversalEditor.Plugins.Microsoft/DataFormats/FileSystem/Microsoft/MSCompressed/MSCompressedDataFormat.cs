@@ -40,7 +40,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 		private readonly byte?[] SZDDsignal = new byte?[] { (byte)'S', (byte)'Z', (byte)'D', (byte)'D', (byte)0x88, (byte)0xF0, (byte)0x27, (byte)0x33 };
 		private readonly byte?[] SZsignal = new byte?[] { (byte)'S', (byte)'Z', (byte)' ', (byte)0x88, (byte)0xF0, (byte)0x27, (byte)0x33, (byte)0xD1 };
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

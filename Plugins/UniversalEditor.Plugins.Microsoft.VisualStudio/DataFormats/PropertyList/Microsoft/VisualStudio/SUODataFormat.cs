@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Microsoft.VisualStudio
 	/// </summary>
 	public class SUODataFormat : CompoundDocumentDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

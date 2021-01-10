@@ -38,7 +38,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.QuickSub
 			Settings.PropertyNameValueSeparators = new string[] { "\t" };
 		}
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

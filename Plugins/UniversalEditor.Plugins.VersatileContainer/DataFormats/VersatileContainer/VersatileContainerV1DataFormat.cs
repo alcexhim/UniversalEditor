@@ -11,7 +11,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
 {
 	public class VersatileContainerV1DataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			_dfr = base.MakeReferenceInternal();

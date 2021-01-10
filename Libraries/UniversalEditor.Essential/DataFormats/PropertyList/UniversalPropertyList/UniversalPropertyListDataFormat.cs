@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 	{
 		private const int HEADER_SIZE = 20;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

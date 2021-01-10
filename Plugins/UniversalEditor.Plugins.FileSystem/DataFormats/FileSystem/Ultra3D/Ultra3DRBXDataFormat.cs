@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Ultra3D
 	/// </summary>
 	public class Ultra3DRBXDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

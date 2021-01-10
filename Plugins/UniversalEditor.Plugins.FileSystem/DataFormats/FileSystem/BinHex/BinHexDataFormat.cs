@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BinHex
 	/// </summary>
 	public class BinHexDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

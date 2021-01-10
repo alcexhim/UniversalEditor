@@ -1,4 +1,4 @@
-//
+﻿//
 //  ThreeDSMaxDataFormat.cs - provides a DataFormat for manipulating 3D models in AutoDesk 3DS Max format
 //
 //  Author:
@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.ThreeDStudio
 	/// </summary>
 	public class ThreeDSMaxDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

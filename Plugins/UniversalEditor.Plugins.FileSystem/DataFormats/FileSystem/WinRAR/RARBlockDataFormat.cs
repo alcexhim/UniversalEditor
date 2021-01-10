@@ -102,9 +102,9 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 							case V4.RARBlockTypeV4.Archive:
 							{
 								RARArchiveBlock block = new RARArchiveBlock();
-								block.crc = head_crc;
-								block.headerType = RARBlockTypeV4ToRARBlockType(headerType);
-								block.size = head_size;
+								block.CRC = head_crc;
+								block.HeaderType = RARBlockTypeV4ToRARBlockType(headerType);
+								block.Size = head_size;
 
 								ushort reserved1 = reader.ReadUInt16();
 								uint reserved2 = reader.ReadUInt32();
@@ -115,11 +115,11 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 							case V4.RARBlockTypeV4.File:
 							{
 								RARFileBlock block = new RARFileBlock();
-								block.crc = head_crc;
-								block.headerType = RARBlockTypeV4ToRARBlockType(headerType);
-								block.size = head_size;
+								block.CRC = head_crc;
+								block.HeaderType = RARBlockTypeV4ToRARBlockType(headerType);
+								block.Size = head_size;
 
-								block.dataSize = reader.ReadUInt32();
+								block.DataSize = reader.ReadUInt32();
 								block.unpackedSize = reader.ReadUInt32();
 								block.hostOperatingSystem = (RARHostOperatingSystem)reader.ReadByte();
 								block.dataCrc = reader.ReadUInt32();
@@ -157,9 +157,9 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 								long offset = reader.Accessor.Position;
 								block.dataOffset = offset;
 
-								reader.Seek(block.dataSize, SeekOrigin.Current);
+								reader.Seek(block.DataSize, SeekOrigin.Current);
 
-								if (!(block.unpackedSize == 0 && block.dataSize == 0))
+								if (!(block.unpackedSize == 0 && block.DataSize == 0))
 								{
 									// if both these fields are zero, we don't care - it's a folder record
 									// otherwise, it's a file record and we need to add it
@@ -194,12 +194,12 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 							case V5.RARBlockTypeV5.Main:
 							{
 								RARArchiveBlock header = new RARArchiveBlock();
-								header.crc = crc;
-								header.size = size;
-								header.headerType = RARBlockTypeV5ToRARBlockType(headerType);
-								header.headerFlags = headerFlags;
-								header.extraAreaSize = extraAreaSize;
-								header.dataSize = dataSize;
+								header.CRC = crc;
+								header.Size = size;
+								header.HeaderType = RARBlockTypeV5ToRARBlockType(headerType);
+								header.HeaderFlags = headerFlags;
+								header.ExtraAreaSize = extraAreaSize;
+								header.DataSize = dataSize;
 
 								((RARArchiveBlock)header).archiveFlags = (V5.RARArchiveBlockFlagsV5)reader.Read7BitEncodedInt();
 								if ((((RARArchiveBlock)header).archiveFlags & V5.RARArchiveBlockFlagsV5.VolumeNumberFieldPresent) == V5.RARArchiveBlockFlagsV5.VolumeNumberFieldPresent)
@@ -214,12 +214,12 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 							case V5.RARBlockTypeV5.Service:
 							{
 								RARFileBlock header = new RARFileBlock();
-								header.crc = crc;
-								header.size = size;
-								header.headerType = RARBlockTypeV5ToRARBlockType(headerType);
-								header.headerFlags = headerFlags;
-								header.extraAreaSize = extraAreaSize;
-								header.dataSize = dataSize;
+								header.CRC = crc;
+								header.Size = size;
+								header.HeaderType = RARBlockTypeV5ToRARBlockType(headerType);
+								header.HeaderFlags = headerFlags;
+								header.ExtraAreaSize = extraAreaSize;
+								header.DataSize = dataSize;
 
 								((RARFileBlock)header).fileFlags = (V5.RARFileBlockFlags)reader.Read7BitEncodedInt();
 								((RARFileBlock)header).unpackedSize = reader.Read7BitEncodedInt();
@@ -244,13 +244,13 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 							case V5.RARBlockTypeV5.End:
 							{
 								RAREndBlock header = new RAREndBlock();
-								header.crc = crc;
-								header.size = size;
-								header.headerType = RARBlockTypeV5ToRARBlockType(headerType);
-								header.headerFlags = headerFlags;
-								((RAREndBlock)header).endOfArchiveFlags = (V5.RAREndBlockFlags)reader.Read7BitEncodedInt();
-								header.extraAreaSize = extraAreaSize;
-								header.dataSize = dataSize;
+								header.CRC = crc;
+								header.Size = size;
+								header.HeaderType = RARBlockTypeV5ToRARBlockType(headerType);
+								header.HeaderFlags = headerFlags;
+								((RAREndBlock)header).EndOfArchiveFlags = (V5.RAREndBlockFlags)reader.Read7BitEncodedInt();
+								header.ExtraAreaSize = extraAreaSize;
+								header.DataSize = dataSize;
 
 								bom.Blocks.Add(header);
 								break;

@@ -1,4 +1,4 @@
-//
+﻿//
 //  XPSDataFormat.cs - provides a DataFormat to manipulate Microsoft XML Paper Specification (XPS) documents
 //
 //  Author:
@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 	/// </summary>
 	public class XPSDataFormat : OPCDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Super6
 	/// </summary>
 	public class Super6DataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

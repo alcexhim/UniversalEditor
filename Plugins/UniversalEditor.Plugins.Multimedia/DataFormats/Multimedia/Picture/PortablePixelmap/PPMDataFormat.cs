@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortablePixelmap
 	/// </summary>
 	public class PPMDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

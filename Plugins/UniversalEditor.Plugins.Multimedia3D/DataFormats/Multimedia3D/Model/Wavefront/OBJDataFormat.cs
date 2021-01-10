@@ -1,4 +1,4 @@
-//
+﻿//
 //  OBJDataFormat.cs - provides a DataFormat for manipulating 3D models in Wavefront OBJ text format
 //
 //  Author:
@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Wavefront
 	/// </summary>
 	public class OBJDataFormat : PlainTextDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

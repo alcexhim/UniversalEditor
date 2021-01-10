@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 	/// </remarks>
 	public class GLBDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

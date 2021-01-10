@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 	/// </summary>
 	public class CCDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
@@ -45,11 +45,10 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 			return _dfr;
 		}
 
-		private byte mvarKey = 0x35;
 		/// <summary>
 		/// The key to use to encrypt the data.
 		/// </summary>
-		public byte Key { get { return mvarKey; } set { mvarKey = value; } }
+		public byte Key { get; set; } = 0x35;
 
 		#region File name table
 		private string[] possibleFileNames = new string[]
@@ -97,7 +96,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 		};
 		#endregion
 
-		private Dictionary<ushort, string> HashFileNames = new Dictionary<ushort, string>();
+		private readonly Dictionary<ushort, string> HashFileNames = new Dictionary<ushort, string>();
 		public CCDataFormat()
 		{
 			try
@@ -185,7 +184,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 						while (!reader.EndOfStream)
 						{
 							byte data = reader.ReadByte();
-							data ^= mvarKey;
+							data ^= Key;
 							writer.WriteByte(data);
 						}
 					})

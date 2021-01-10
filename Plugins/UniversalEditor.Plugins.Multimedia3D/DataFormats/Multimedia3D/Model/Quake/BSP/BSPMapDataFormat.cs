@@ -1,4 +1,4 @@
-//
+﻿//
 //  BSPMapDataFormat.cs - provides a DataFormat for manipulating Binary Space Partitioning (BSP) game maps
 //
 //  Author:
@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Quake.BSP
 	/// </summary>
 	public class BSPMapDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

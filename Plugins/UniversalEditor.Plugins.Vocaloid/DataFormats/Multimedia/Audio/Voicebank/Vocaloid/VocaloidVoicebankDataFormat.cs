@@ -1,4 +1,4 @@
-//
+﻿//
 //  VocaloidVoicebankDataFormat.cs - provides a DataFormat for manipulating synthesized audio voicebank data in Vocaloid DDB format
 //
 //  Author:
@@ -32,7 +32,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Voiceban
 	/// </summary>
 	public class VocaloidVoicebankDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

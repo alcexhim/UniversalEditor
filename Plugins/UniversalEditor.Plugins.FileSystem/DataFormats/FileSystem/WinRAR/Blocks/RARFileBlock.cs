@@ -38,12 +38,12 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR.Blocks
 		public override object Clone()
 		{
 			RARFileBlock clone = new RARFileBlock();
-			clone.crc = crc;
-			clone.size = size;
-			clone.headerType = headerType;
-			clone.headerFlags = headerFlags;
-			clone.extraAreaSize = extraAreaSize;
-			clone.dataSize = dataSize;
+			clone.CRC = CRC;
+			clone.Size = Size;
+			clone.HeaderType = HeaderType;
+			clone.HeaderFlags = HeaderFlags;
+			clone.ExtraAreaSize = ExtraAreaSize;
+			clone.DataSize = DataSize;
 
 			clone.fileFlags = fileFlags;
 			clone.unpackedSize = unpackedSize;

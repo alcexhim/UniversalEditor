@@ -1,4 +1,4 @@
-//
+﻿//
 //  VMDMotionDataFormat.cs - provides a DataFormat for manipulating animation data in MikuMikuDance "Vocaloid Motion Data" (VMD) format
 //
 //  Author:
@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.PolygonMovieMaker
 	/// </summary>
 	public class VMDMotionDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -38,7 +38,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 	/// </remarks>
 	public class RARDataFormat : RARBlockDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
@@ -86,17 +86,17 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 				RARBlock header = bom.Blocks[i];
 				if (header is RARFileBlock fh)
 				{
-					if (fh.headerType == RARBlockType.File)
+					if (fh.HeaderType == RARBlockType.File)
 					{
 						File f = fsom.AddFile(fh.fileName);
 						f.Properties["reader"] = reader;
 						f.Properties["offset"] = fh.dataOffset;
-						f.Properties["CompressedLength"] = fh.dataSize;
+						f.Properties["CompressedLength"] = fh.DataSize;
 						f.Properties["DecompressedLength"] = fh.unpackedSize;
 						f.Size = fh.unpackedSize;
 						f.DataRequest += F_DataRequest;
 					}
-					else if (fh.headerType == RARBlockType.Service)
+					else if (fh.HeaderType == RARBlockType.Service)
 					{
 						if (fh.fileName == "CMT")
 						{

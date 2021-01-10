@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Concertroid
 	/// </summary>
 	public class MDLDataFormat : ZIPDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

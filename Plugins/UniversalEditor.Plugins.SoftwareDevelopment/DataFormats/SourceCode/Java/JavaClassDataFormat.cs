@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.SourceCode.Java
 	/// </summary>
 	public class JavaClassDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

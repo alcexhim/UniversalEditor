@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.RichText
 	/// </summary>
 	public class RTFDataFormat : RTMLDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

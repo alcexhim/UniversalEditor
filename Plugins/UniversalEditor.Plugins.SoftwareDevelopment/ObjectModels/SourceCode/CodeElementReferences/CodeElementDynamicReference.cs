@@ -30,7 +30,12 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElementReferences
 	/// </summary>
 	public class CodeElementDynamicReference : CodeElementReference
 	{
-		public CodeElementDynamicReference(string name, string[] objectName = null)
+		public CodeElementDynamicReference(string name)
+			: this(name, null)
+		{
+
+		}
+		public CodeElementDynamicReference(string name, string[] objectName)
 		{
 			Name = name;
 			ObjectName = objectName;

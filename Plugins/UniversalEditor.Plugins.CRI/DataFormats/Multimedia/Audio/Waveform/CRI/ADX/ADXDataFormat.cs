@@ -1,4 +1,4 @@
-//
+﻿//
 //  ADXDataFormat.cs - provides a DataFormat for manipulating audio files in ADX format
 //
 //  Author:
@@ -177,7 +177,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.CRI.ADX
 			return samples_needed;
 		}
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

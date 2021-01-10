@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Binary.PEM
 		public string Signature { get; set; } = null;
 		public int MaximumLineLength { get; set; } = 64;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

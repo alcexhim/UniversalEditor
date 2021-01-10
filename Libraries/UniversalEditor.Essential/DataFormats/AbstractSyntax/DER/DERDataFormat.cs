@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.AbstractSyntax.DER
 	/// </summary>
 	public class DERDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		/// <summary>
 		/// Creates a new <see cref="DataFormatReference" /> containing the appropriate metadata for this <see cref="DERDataFormat" /> and caches it, returning the cached instance.
 		/// </summary>

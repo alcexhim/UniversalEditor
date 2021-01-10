@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Animation
 		public const byte PROJECTILE_ANGLE_MAX = 12;
 		public const byte FRAME_MAX = 16;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

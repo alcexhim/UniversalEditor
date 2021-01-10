@@ -29,7 +29,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.LEAD
 	/// </summary>
 	public class CMPDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

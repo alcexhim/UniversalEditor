@@ -51,7 +51,10 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.VoicebankPhonemeDictiona
 		{
 			foreach (Phoneme p in Phonemes)
 			{
-				if (p.Mappings.Contains(mapping.ToLower())) return p;
+				if (p.Mappings.Contains(mapping.ToLower()))
+				{
+					return p;
+				}
 			}
 			return null;
 		}

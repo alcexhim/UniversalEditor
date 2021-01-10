@@ -1,4 +1,4 @@
-//
+﻿//
 //  CPKDataFormat.cs - implementation of CRI Middleware CPK archive
 //
 //  Author:
@@ -35,7 +35,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 	/// </summary>
 	public class CPKDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		/// <summary>
 		/// Creates a <see cref="DataFormatReference" /> containing metadata about the <see cref="CPKDataFormat" />.
 		/// </summary>

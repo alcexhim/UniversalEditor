@@ -37,7 +37,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.AGG
 			public string name;
 		}
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

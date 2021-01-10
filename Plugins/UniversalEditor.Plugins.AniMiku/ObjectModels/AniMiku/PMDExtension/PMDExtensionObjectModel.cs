@@ -51,8 +51,8 @@ namespace UniversalEditor.ObjectModels.AniMiku.PMDExtension
             }
         }
 
-        private PMDExtensionTextureGroup.PMDExtensionArchiveFileCollection mvarArchiveFiles = new PMDExtensionTextureGroup.PMDExtensionArchiveFileCollection();
-        public PMDExtensionTextureGroup.PMDExtensionArchiveFileCollection ArchiveFiles
+        private PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection mvarArchiveFiles = new PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection();
+        public PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection ArchiveFiles
         {
             get { return mvarArchiveFiles; }
         }

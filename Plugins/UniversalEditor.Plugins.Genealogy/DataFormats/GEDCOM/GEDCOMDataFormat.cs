@@ -8,7 +8,7 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.GEDCOM
 {
 	public class GEDCOMDataFormat : GEDCOMChunkedDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 	/// </summary>
 	public class CompoundDocumentDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

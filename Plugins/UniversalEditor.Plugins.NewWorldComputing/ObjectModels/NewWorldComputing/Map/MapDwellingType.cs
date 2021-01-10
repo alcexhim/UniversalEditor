@@ -26,7 +26,7 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 	/// <summary>
 	/// Indicates the type of dwelling placed on the map.
 	/// </summary>
-	[Flags()]
+	[Flags]
 	public enum MapDwellingType
 	{
 		None = 0,

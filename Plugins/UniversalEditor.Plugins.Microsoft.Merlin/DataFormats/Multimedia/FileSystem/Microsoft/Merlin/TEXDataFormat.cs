@@ -18,7 +18,7 @@ namespace UniversalEditor.DataFormats.Multimedia.FileSystem.Microsoft.Merlin
 	/// </summary>
 	public class TEXDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

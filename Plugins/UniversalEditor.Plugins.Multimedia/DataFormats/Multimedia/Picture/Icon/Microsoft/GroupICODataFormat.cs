@@ -1,4 +1,4 @@
-//
+﻿//
 //  GroupICODataFormat.cs - provides a DataFormat for manipulating images in Windows icon (ICO) format
 //
 //  Author:
@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Icon.Microsoft
 	/// </summary>
 	public class GroupICODataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ALTools.ALZ
 	{
 		private const byte MAX_VERSION = 1;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldCompu
 	/// </summary>
 	public class Heroes2MapDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

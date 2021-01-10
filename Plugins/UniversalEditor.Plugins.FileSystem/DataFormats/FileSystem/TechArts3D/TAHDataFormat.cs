@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.FileSystem.TechArts3D
 	/// </summary>
 	public class TAHDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

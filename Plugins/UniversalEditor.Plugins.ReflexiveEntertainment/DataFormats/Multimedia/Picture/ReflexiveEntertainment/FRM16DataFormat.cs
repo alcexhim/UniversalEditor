@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
 	/// </summary>
 	public class FRM16DataFormat : DataFormat
     {
-        private static DataFormatReference _dfr = null;
+        private static DataFormatReference _dfr;
         protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)

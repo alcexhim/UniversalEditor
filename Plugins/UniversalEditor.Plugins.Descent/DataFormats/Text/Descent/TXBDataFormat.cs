@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Text.Descent
 	/// </summary>
 	public class TXBDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

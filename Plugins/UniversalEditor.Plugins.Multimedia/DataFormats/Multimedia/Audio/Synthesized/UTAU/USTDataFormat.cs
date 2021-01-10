@@ -1,4 +1,4 @@
-//
+﻿//
 //  USTDataFormat.cs - provides a DataFormat for manipulating synthesized audio in Utau UST format
 //
 //  Author:
@@ -49,7 +49,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 		}
 		public static void InitializePhonemeDictionary(string FileName)
 		{
-			if (mvarPhonemeDictionary != null) return;
+			if (mvarPhonemeDictionary != null)
+			{
+				return;
+			}
 
 			mvarPhonemeDictionary = new PhonemeDictionaryObjectModel();
 			ObjectModel om = mvarPhonemeDictionary;
@@ -72,7 +75,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 			InitializePhonemeDictionary();
 		}
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

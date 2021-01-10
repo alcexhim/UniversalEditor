@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.TriangleEditor
 	/// </summary>
 	public class TEDDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

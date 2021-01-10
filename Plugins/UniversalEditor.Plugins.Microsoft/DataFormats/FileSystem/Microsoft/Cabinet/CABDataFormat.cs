@@ -10,7 +10,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 {
 	public class CABDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
@@ -238,6 +238,32 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 			return (ushort)((value.Hour << 11) + (value.Minute << 5) + (value.Second / 2));
 		}
 
+		private int CalculateHeaderSize(Internal.CFHEADER cfheader)
+		{
+			int cbsize = 36;
+			if ((cfheader.flags & CABFlags.HasReservedArea) == CABFlags.HasReservedArea)
+			{
+				cbsize += 4 + cfheader.cabinetReservedAreaSize;
+			}
+			if ((cfheader.flags & CABFlags.HasPreviousCabinet) == CABFlags.HasPreviousCabinet)
+			{
+				cbsize += (cfheader.previousCabinetName?.Length).GetValueOrDefault(0) + 1 + (cfheader.previousDiskName?.Length).GetValueOrDefault(0) + 1;
+			}
+			if ((cfheader.flags & CABFlags.HasNextCabinet) == CABFlags.HasNextCabinet)
+			{
+				cbsize += (cfheader.nextCabinetName?.Length).GetValueOrDefault(0) + 1 + (cfheader.nextDiskName?.Length).GetValueOrDefault(0) + 1;
+			}
+			return cbsize;
+		}
+		private int CalculateHeaderSize(Internal.CFFOLDER cffolder)
+		{
+			return 8 + (cffolder.reservedArea?.Length).GetValueOrDefault(0);
+		}
+		private int CalculateHeaderSize(Internal.CFFILE cffile)
+		{
+			return 16 + (cffile.name?.Length).GetValueOrDefault(0) + 1;
+		}
+
 
 		private void WriteCFHEADER(Writer bw, Internal.CFHEADER cfheader)
 		{
@@ -315,8 +341,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 			
 			Internal.CFHEADER cfheader = new Internal.CFHEADER();
 			cfheader.signature = "MSCF";
-			cfheader.cabinetFileSize = 0;
 
+			long totalDataSize = 0;
 			foreach (File file in files)
 			{
 				Internal.CFFILE cffile = new Internal.CFFILE();
@@ -325,6 +351,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 				cffile.offset = 0; // TODO: how to get the offset of the file?
 				cffile.folderIndex = 0;
 				cfheader.cabinetFileSize += cffile.decompressedSize;
+				cffile.file = file;
+				totalDataSize += file.GetData().Length;
 				cffiles.Add(cffile);
 			}
 
@@ -362,15 +390,44 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 			if (!String.IsNullOrEmpty(cfheader.nextCabinetName) || !String.IsNullOrEmpty(cfheader.nextDiskName)) cfheader.flags |= CABFlags.HasNextCabinet;
 			if (!String.IsNullOrEmpty(cfheader.previousCabinetName) || !String.IsNullOrEmpty(cfheader.previousCabinetName)) cfheader.flags |= CABFlags.HasPreviousCabinet;
 
+			long cabinetFileSize = CalculateHeaderSize(cfheader);
+			for (int i = 0; i < cffolders.Count; i++)
+			{
+				cabinetFileSize += CalculateHeaderSize(cffolders[i]);
+			}
+			for (int i = 0; i < cffiles.Count; i++)
+			{
+				cabinetFileSize += CalculateHeaderSize(cffiles[i]);
+			}
+			cabinetFileSize += totalDataSize;
+			cfheader.cabinetFileSize = (uint)cabinetFileSize;
+
 			WriteCFHEADER(bw, cfheader);
 
-			foreach (Internal.CFFOLDER cffolder in cffolders)
+			long offset = Accessor.Position;
+			for (int i = 0; i < cffolders.Count; i++)
 			{
-				WriteCFFOLDER(bw, cffolder, cfheader);
+				offset += CalculateHeaderSize(cffolders[i]);
 			}
-			foreach (Internal.CFFILE cffile in cffiles)
+			for (int i = 0; i < cffiles.Count; i++)
 			{
+				offset += CalculateHeaderSize(cffiles[i]);
+			}
+
+			for (int i = 0; i < cffolders.Count; i++)
+			{
+				WriteCFFOLDER(bw, cffolders[i], cfheader);
+			}
+			for (int i = 0;  i < cffiles.Count;  i++)
+			{
+				Internal.CFFILE cffile = cffiles[i];
+				cffile.offset = (uint)offset;
 				WriteCFFILE(bw, cffile);
+			}
+			for (int i = 0; i < cffiles.Count; i++)
+			{
+				byte[] data = cffiles[i].file.GetData();
+				bw.WriteBytes(data);
 			}
 		}
 		#endregion

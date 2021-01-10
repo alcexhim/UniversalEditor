@@ -34,7 +34,7 @@ namespace UniversalEditor.Plugins.Synalysis.DataFormats.XMLBinaryGrammar
 	/// </summary>
 	public class XMLBinaryGrammarDataFormat : XMLDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

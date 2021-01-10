@@ -29,7 +29,7 @@ namespace UniversalEditor.DataFormats.FileSystem.REEVEsoft.Freeze
 	/// </summary>
 	public class ICEDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

@@ -42,7 +42,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
 
-			tmSamples = new DefaultTreeModel(new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
+			tmSamples = new DefaultTreeModel(new [] { typeof(string), typeof(string), typeof(string), typeof(string) });
 
 			lvSamples = new ListViewControl();
 			lvSamples.SelectionMode = SelectionMode.Multiple;
@@ -125,7 +125,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 
 			for (int i = 0; i < vo.Samples.Count; i++)
 			{
-				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+				TreeModelRow row = new TreeModelRow(new []
 				{
 					new TreeModelRowColumn(tmSamples.Columns[0], vo.Samples[i].Name),
 					new TreeModelRowColumn(tmSamples.Columns[1], vo.Samples[i].Frequency.ToString()),

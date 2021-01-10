@@ -30,7 +30,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 	/// </summary>
 	public class AFSDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		/// <summary>
 		/// Creates a <see cref="DataFormatReference" /> containing metadata about the <see cref="AFSDataFormat" />.
 		/// </summary>

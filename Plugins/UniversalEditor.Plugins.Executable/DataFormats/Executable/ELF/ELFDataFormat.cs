@@ -37,7 +37,7 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 	{
 		private const byte EV_CURRENT = 1;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

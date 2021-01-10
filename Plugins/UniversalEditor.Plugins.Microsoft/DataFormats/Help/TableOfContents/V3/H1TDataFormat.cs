@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.Help.TableOfContents.V3
 	/// </summary>
 	public class H1TDataFormat : XMLDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

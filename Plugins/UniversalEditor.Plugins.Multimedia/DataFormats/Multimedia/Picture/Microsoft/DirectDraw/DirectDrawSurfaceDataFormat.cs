@@ -34,7 +34,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.DirectDraw
 	{
 		public const uint DDS_MAGIC = 0x20534444;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null) _dfr = base.MakeReferenceInternal();

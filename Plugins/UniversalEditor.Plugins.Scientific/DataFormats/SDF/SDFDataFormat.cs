@@ -29,7 +29,7 @@ namespace UniversalEditor.Plugins.Scientific.DataFormats.SDF
 	/// </summary>
 	public class SDFDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

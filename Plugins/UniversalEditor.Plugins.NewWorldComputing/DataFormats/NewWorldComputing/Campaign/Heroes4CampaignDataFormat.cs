@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Campaign
 	/// </summary>
 	public class Heroes4CampaignDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null) _dfr = base.MakeReferenceInternal();

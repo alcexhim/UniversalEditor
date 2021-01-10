@@ -33,7 +33,7 @@ namespace UniversalEditor.ObjectModels.AniMiku.PMDExtension
 	/// </summary>
 	public class PMDExtensionTextureGroup : ICloneable
 	{
-		public class PMDExtensionArchiveFileCollection
+		public class PMDExtensionTextureGroupCollection
 			: System.Collections.ObjectModel.Collection<PMDExtensionTextureGroup>
 		{
 		}

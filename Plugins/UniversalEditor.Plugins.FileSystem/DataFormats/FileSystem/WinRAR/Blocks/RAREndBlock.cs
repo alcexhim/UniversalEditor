@@ -23,19 +23,20 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR.Blocks
 {
 	public class RAREndBlock : RARBlock
 	{
-		public V5.RAREndBlockFlags endOfArchiveFlags;
+		public V5.RAREndBlockFlags EndOfArchiveFlags { get; set; }
 
 		public override object Clone()
 		{
-			RAREndBlock clone = new RAREndBlock();
-			clone.crc = crc;
-			clone.size = size;
-			clone.headerType = headerType;
-			clone.headerFlags = headerFlags;
-			clone.extraAreaSize = extraAreaSize;
-			clone.dataSize = dataSize;
-
-			clone.endOfArchiveFlags = endOfArchiveFlags;
+			RAREndBlock clone = new RAREndBlock
+			{
+				CRC = CRC,
+				Size = Size,
+				HeaderType = HeaderType,
+				HeaderFlags = HeaderFlags,
+				ExtraAreaSize = ExtraAreaSize,
+				DataSize = DataSize,
+				EndOfArchiveFlags = EndOfArchiveFlags
+			};
 			return clone;
 		}
 	}

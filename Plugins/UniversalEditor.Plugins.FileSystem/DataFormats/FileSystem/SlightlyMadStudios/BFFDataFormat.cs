@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SlightlyMadStudios
 
 		public int FormatVersion { get; set; } = 0;
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

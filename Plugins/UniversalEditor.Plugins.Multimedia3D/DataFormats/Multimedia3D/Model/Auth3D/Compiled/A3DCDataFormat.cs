@@ -9,7 +9,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Auth3D.Compiled
 {
     public class A3DCDataFormat : DataFormat
     {
-        private static DataFormatReference _dfr = null;
+        private static DataFormatReference _dfr;
         protected override DataFormatReference MakeReferenceInternal()
         {
             if (_dfr == null)

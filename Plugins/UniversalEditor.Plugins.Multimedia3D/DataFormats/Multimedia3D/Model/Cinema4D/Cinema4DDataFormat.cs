@@ -1,4 +1,4 @@
-//
+﻿//
 //  Cinema4DDataFormat.cs - provides a DataFormat for manipulating 3D models in Cinema 4D format
 //
 //  Author:
@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Cinema4D
 	/// </summary>
 	public class Cinema4DDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

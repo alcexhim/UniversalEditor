@@ -121,7 +121,6 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			if (blocks != null)
 				blocks.free(z);
 			blocks = null;
-			//    ZFREE(z, z->state);
 			return Z_OK;
 		}
 		
@@ -164,7 +163,6 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			r = Z_BUF_ERROR;
 			while (true)
 			{
-				//System.out.println("mode: "+z.istate.mode);
 				switch (z.istate.mode)
 				{
 					

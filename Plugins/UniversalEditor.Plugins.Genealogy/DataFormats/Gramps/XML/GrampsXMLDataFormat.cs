@@ -29,7 +29,7 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.Gramps.XML
 {
 	public class GrampsXMLDataFormat : XMLDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

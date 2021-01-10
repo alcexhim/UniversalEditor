@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HighwayPursuit
 	/// </summary>
 	public class HighwayPursuitDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

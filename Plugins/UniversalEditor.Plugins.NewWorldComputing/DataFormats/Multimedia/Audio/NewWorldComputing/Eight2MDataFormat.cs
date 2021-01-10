@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.NewWorldComputing
 	/// </remarks>
 	public class Eight2MDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null) _dfr = base.MakeReferenceInternal();

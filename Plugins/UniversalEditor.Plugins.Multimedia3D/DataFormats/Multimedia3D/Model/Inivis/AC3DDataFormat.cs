@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Inivis
 	/// </summary>
 	public class AC3DDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

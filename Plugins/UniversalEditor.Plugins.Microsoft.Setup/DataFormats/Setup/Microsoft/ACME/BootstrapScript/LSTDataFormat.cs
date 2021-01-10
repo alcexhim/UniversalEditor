@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 	/// </summary>
 	public class LSTDataFormat : WindowsConfigurationDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

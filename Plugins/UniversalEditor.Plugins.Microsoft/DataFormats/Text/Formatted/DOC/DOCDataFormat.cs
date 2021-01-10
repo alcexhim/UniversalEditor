@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.DOC
 	/// </summary>
 	public class DOCDataFormat : CompoundDocumentDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

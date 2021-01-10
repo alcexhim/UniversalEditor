@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
 	/// </summary>
 	public class Heroes3SNDDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

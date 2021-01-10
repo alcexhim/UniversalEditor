@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CHD
 	/// </summary>
 	public class CHDDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

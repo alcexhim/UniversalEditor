@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PRF
 	/// </summary>
 	public class PRFDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

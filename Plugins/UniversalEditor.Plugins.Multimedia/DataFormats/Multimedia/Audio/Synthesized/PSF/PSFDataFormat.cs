@@ -30,7 +30,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.PSF
 	/// </summary>
 	public class PSFDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

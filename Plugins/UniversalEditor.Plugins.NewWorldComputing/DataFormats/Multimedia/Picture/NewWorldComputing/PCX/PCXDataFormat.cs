@@ -27,7 +27,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.PCX
 {
 	public class PCXDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

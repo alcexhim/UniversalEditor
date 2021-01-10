@@ -33,7 +33,7 @@ namespace UniversalEditor.DataFormats.Contact.Microsoft
 	/// </summary>
 	public class ContactDataFormat : XMLDataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

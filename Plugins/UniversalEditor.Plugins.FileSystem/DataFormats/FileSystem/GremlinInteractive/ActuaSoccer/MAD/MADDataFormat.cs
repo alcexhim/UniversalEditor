@@ -29,7 +29,7 @@ namespace UniversalEditor.DataFormats.FileSystem.GremlinInteractive.ActuaSoccer.
 	/// </summary>
 	public class MADDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

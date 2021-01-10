@@ -31,7 +31,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.WindowsImage
 	/// </summary>
 	public class WIMDataFormat : DataFormat
 	{
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)

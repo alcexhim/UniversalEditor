@@ -35,7 +35,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 		private string mvarNamespaceSeparator = ".";
 		public string NamespaceSeparator { get { return mvarNamespaceSeparator; } set { mvarNamespaceSeparator = value; } }
 
-		private static DataFormatReference _dfr = null;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
