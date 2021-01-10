@@ -40,6 +40,7 @@ namespace UniversalEditor.ObjectModels.Icarus
 
             foreach (IcarusCommand cmd in mvarCommands)
             {
+                if (cmd == null) continue;
                 clone.Commands.Add(cmd.Clone() as IcarusCommand);
             }
         }
