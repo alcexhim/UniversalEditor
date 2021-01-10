@@ -35,6 +35,9 @@ using MBS.Framework.UserInterface.Input.Mouse;
 using System.Collections.Specialized;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
 using MBS.Framework;
+using MBS.Framework.UserInterface.Controls;
+using System.Text;
+using System.Diagnostics.Contracts;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -43,6 +46,97 @@ namespace UniversalEditor.Editors.FileSystem
 	{
 		private ListViewControl tv = null;
 		private DefaultTreeModel tm = null;
+		private TextBox txtPath;
+
+		[EventHandler(nameof(txtPath), "KeyDown")]
+		private void txtPath_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == KeyboardKey.Enter)
+			{
+				IFileSystemObject fso = (ObjectModel as FileSystemObjectModel).FindObject(txtPath.Text);
+				if (fso != null)
+				{
+					NavigateToObject(fso);
+				}
+				else
+				{
+					if (txtPath.Text == "/")
+					{
+						CurrentFolder = null;
+						return;
+					}
+					MessageDialog.ShowDialog(String.Format("Could not find the path {0}.", txtPath.Text), "File System Editor", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				}
+			}
+		}
+
+		private void NavigateToObject(IFileSystemObject[] fsos)
+		{
+			if (fsos.Length == 1)
+			{
+				NavigateToObject(fsos[0]);
+			}
+			else
+			{
+				for (int i = 0; i < fsos.Length; i++)
+				{
+					if (fsos[i] is Folder)
+					{
+						// nautilus does the equivalent of 'CurrentFolder = ...' except opens in multiple tabs
+						// which... we don't really have the ability to do multiple tabs for the same document at the moment
+						tv.SelectedRows[i].Expanded = true;
+					}
+					else
+					{
+						NavigateToObject(fsos[i]);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Navigates to the specified <see cref="IFileSystemObject" />.
+		/// </summary>
+		/// <param name="fso">Fso.</param>
+		private void NavigateToObject(IFileSystemObject fso)
+		{
+			Contract.Requires(fso != null);
+
+			if (fso is File)
+			{
+				File f = (fso as File);
+
+				EmbeddedFileAccessor ma = new EmbeddedFileAccessor(f);
+				Document doc = new Document(ma);
+				doc.Saved += doc_Saved;
+				(Application.Instance as IHostApplication).CurrentWindow.OpenFile(doc);
+			}
+			else if (fso is Folder)
+			{
+				CurrentFolder = (fso as Folder);
+			}
+		}
+
+		private EditorDocumentExplorerNode FindDocumentExplorerNode(Folder folder, EditorDocumentExplorerNode parent = null)
+		{
+			EditorDocumentExplorerNode.EditorDocumentExplorerNodeCollection coll = DocumentExplorer.Nodes;
+			if (parent != null)
+			{
+				coll = parent.Nodes;
+			}
+			foreach (EditorDocumentExplorerNode node in coll)
+			{
+				if (node.GetExtraData<IFileSystemObject>("item") == folder)
+				{
+					return node;
+				}
+
+				EditorDocumentExplorerNode node2 = FindDocumentExplorerNode(folder, node);
+				if (node2 != null)
+					return node2;
+			}
+			return null;
+		}
 
 		internal void ClearSelectionContent(FileSystemSelection sel)
 		{
@@ -56,6 +150,7 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
+		[EventHandler(nameof(tv), nameof(ListViewControl.RowActivated))]
 		private void tv_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
 			FileSystemContextMenu_Open_Click(sender, e);
@@ -66,8 +161,6 @@ namespace UniversalEditor.Editors.FileSystem
 			base.OnCreated(e);
 
 			tv.SelectionMode = SelectionMode.Multiple;
-			tv.BeforeContextMenu += tv_BeforeContextMenu;
-			tv.RowActivated += tv_RowActivated;
 			tv.SortContainerRowsFirst = true;
 
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Open", FileSystemContextMenu_Open_Click);
@@ -91,6 +184,8 @@ namespace UniversalEditor.Editors.FileSystem
 			this.tv.DragDropDataRequest += tv_DragDropDataRequest;
 
 			OnObjectModelChanged(EventArgs.Empty);
+
+			txtPath.Text = GetPath(CurrentFolder);
 		}
 
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
@@ -230,19 +325,23 @@ namespace UniversalEditor.Editors.FileSystem
 			if (tv.SelectedRows.Count < 1)
 				return;
 
+			if (tv.SelectedRows.Count == 1)
+			{
+				IFileSystemObject fso = (tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item"));
+				if (fso is Folder)
+				{
+					CurrentFolder = (fso as Folder);
+					return;
+				}
+			}
+
+			List<IFileSystemObject> list = new List<IFileSystemObject>();
 			for (int i = 0; i < tv.SelectedRows.Count; i++)
 			{
 				IFileSystemObject fso = tv.SelectedRows[i].GetExtraData<IFileSystemObject>("item");
-				if (fso is File)
-				{
-					File f = (fso as File);
-
-					EmbeddedFileAccessor ma = new EmbeddedFileAccessor(f);
-					Document doc = new Document(ma);
-					doc.Saved += doc_Saved;
-					(Application.Instance as IHostApplication).CurrentWindow.OpenFile(doc);
-				}
+				list.Add(fso);
 			}
+			NavigateToObject(list.ToArray());
 		}
 
 		private void doc_Saved(object sender, EventArgs e)
@@ -588,17 +687,17 @@ namespace UniversalEditor.Editors.FileSystem
 			return _er;
 		}
 
-		private Folder _CurrentFolder = null;
-		public Folder CurrentFolder
+		private IFileSystemContainer _CurrentFolder = null;
+		public IFileSystemContainer CurrentFolder
 		{
 			get { return _CurrentFolder; }
 			set
 			{
 				bool changed = (_CurrentFolder != value);
-				_CurrentFolder = value;
-
 				if (!changed) return;
 
+				_CurrentFolder = value;
+				txtPath.Text = GetPath(_CurrentFolder);
 				UpdateList();
 			}
 		}
@@ -675,6 +774,38 @@ namespace UniversalEditor.Editors.FileSystem
 
 			Folder item = e.Node.GetExtraData<Folder>("item");
 			CurrentFolder = item;
+
+			if (txtPath != null)
+			{
+				txtPath.Text = GetPath(item);
+			}
+		}
+
+		/// <summary>
+		/// Returns the fully-qualified path, separated by a forward slash (/) 
+		/// </summary>
+		/// <returns>The path.</returns>
+		/// <param name="item">Item.</param>
+		private string GetPath(IFileSystemObject item)
+		{
+			List<string> list = new List<string>();
+			if (item != null)
+			{
+				IFileSystemContainer parent = item.Parent;
+				list.Add(item.Name);
+				while (parent != null)
+				{
+					list.Add(parent.Name);
+					parent = parent.Parent;
+				}
+
+				list.Reverse();
+			}
+
+			if (list.Count == 0)
+				return "/";
+
+			return String.Join("/", list);
 		}
 
 		private void RecursiveAddFolder(Folder f, TreeModelRow parent = null)
@@ -850,7 +981,24 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
-		void tv_BeforeContextMenu(object sender, EventArgs e)
+		[EventHandler(nameof(tv), nameof(ListViewControl.KeyDown))]
+		private void tv_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == KeyboardKey.Back)
+			{
+				if (CurrentFolder == null)
+				{
+					(Application.Instance as UIApplication).PlaySystemSound(SystemSound.Beep);
+					return;
+				}
+
+				Folder parent = (CurrentFolder.Parent as Folder);
+				CurrentFolder = parent;
+			}
+		}
+
+		[EventHandler(nameof(tv), nameof(ListViewControl.BeforeContextMenu))]
+		private void tv_BeforeContextMenu(object sender, EventArgs e)
 		{
 			TreeModelRow row = null;
 			if (e is MouseEventArgs)

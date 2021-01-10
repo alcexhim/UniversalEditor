@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using MBS.Framework;
+using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
 
@@ -46,6 +47,39 @@ namespace UniversalEditor.UserInterface
 				}
 				return null;
 			}
+			set
+			{
+				TreeModelRow row = FindRow(value);
+				if (row != null)
+				{
+					ListViewControl lv = ((MainWindow)(Application.Instance as IHostApplication).CurrentWindow).DocumentExplorerPanel.ListView;
+					lv.SelectedRows.Clear();
+					lv.SelectedRows.Add(row);
+
+					Parent.OnDocumentExplorerSelectionChanged(new EditorDocumentExplorerSelectionChangedEventArgs(value));
+				}
+			}
+		}
+
+		private TreeModelRow FindRow(EditorDocumentExplorerNode node, TreeModelRow parent = null)
+		{
+			ListViewControl lv = ((MainWindow)(Application.Instance as IHostApplication).CurrentWindow).DocumentExplorerPanel.ListView;
+
+			TreeModelRow.TreeModelRowCollection coll = lv.Model.Rows;
+			if (parent != null)
+			{
+				coll = parent.Rows;
+			}
+			foreach (TreeModelRow row in coll)
+			{
+				if (row.GetExtraData<EditorDocumentExplorerNode>("node") == node)
+					return row;
+
+				TreeModelRow row2 = FindRow(node, row);
+				if (row2 != null)
+					return row2;
+			}
+			return null;
 		}
 
 		public event EditorDocumentExplorerBeforeContextMenuEventHandler BeforeContextMenu;
