@@ -53,5 +53,5 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet.Internal
 
         public string nextCabinetName;
         public string nextDiskName;
-    }
+	}
 }

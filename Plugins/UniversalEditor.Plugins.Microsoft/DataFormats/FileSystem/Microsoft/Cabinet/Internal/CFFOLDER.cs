@@ -42,5 +42,5 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet.Internal
         /// (optional) per-folder reserved area
         /// </summary>
         public byte[] reservedArea;
-    }
+	}
 }
