@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkTreeStore" id="tmFiles">
+    <columns>
+      <!-- column-name colFileFileName -->
+      <column type="gchararray"/>
+      <!-- column-name colFileLastModificationDateTime -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkDialog">
+    <property name="can_focus">False</property>
+    <property name="default_width">600</property>
+    <property name="default_height">400</property>
+    <property name="type_hint">dialog</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="cmdOK">
+                <property name="label">gtk-ok</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="cmdCancel">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">16</property>
+                <property name="margin_right">16</property>
+                <property name="margin_top">16</property>
+                <property name="margin_bottom">16</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_right">16</property>
+                    <property name="stock">gtk-dialog-info</property>
+                    <property name="icon_size">6</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lblPrompt">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">${Application.Title} has recovered the following files. Save the ones you wish to keep.</property>
+                    <property name="wrap">True</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTreeView" id="lv">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">tmFiles</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="chFileFileName">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">File name</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <child>
+                          <object class="GtkCellRendererText"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="chFileLastModificationDateTime">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Last modified</property>
+                        <property name="clickable">True</property>
+                        <child>
+                          <object class="GtkCellRendererText"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

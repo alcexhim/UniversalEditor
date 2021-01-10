@@ -1,10 +1,10 @@
 ﻿//
-//  IFileSystemContainer.cs - the interface which defines the base functionality for an object which contains Files and Folders
+//  AutoSaveObjectModel.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2011-2020 Mike Becker's Software
+//  Copyright (c) 2021 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,18 +18,22 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-namespace UniversalEditor.ObjectModels.FileSystem
+using System;
+namespace UniversalEditor.Plugins.AutoSave
 {
-	/// <summary>
-	/// The interface which defines the base functionality for an object which contains <see cref="File" />s and <see cref="Folder" />s.
-	/// </summary>
-	public interface IFileSystemContainer : IFileSystemObject
+	public class AutoSaveObjectModel : ObjectModel
 	{
-		File.FileCollection Files { get; }
-		Folder.FolderCollection Folders { get; }
-		string GetNewFolderName();
+		public ObjectModel ObjectModel { get; set; } = null;
 
-		File AddFile(string name, byte[] fileData = null);
+		public string OriginalFileName { get; set; } = null;
+		public DateTime LastUpdateDateTime { get; set; } = DateTime.Now;
+
+		public override void Clear()
+		{
+		}
+
+		public override void CopyTo(ObjectModel where)
+		{
+		}
 	}
 }

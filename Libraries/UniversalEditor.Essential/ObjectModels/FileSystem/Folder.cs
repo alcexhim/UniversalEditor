@@ -106,6 +106,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			mvarFiles = new File.FileCollection(this);
 		}
 
+		[NonSerializedProperty]
 		public FileSystemObjectModel FileSystem { get; private set; } = null;
 
 		private FolderCollection _parentCollection = null;
@@ -113,8 +114,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-		private IFileSystemContainer mvarParent = null;
-		public IFileSystemContainer Parent { get { return mvarParent; } private set { mvarParent = value; } }
+		[NonSerializedProperty]
+		public IFileSystemContainer Parent { get; private set; } = null;
 
 		private FolderCollection mvarFolders = null;
 		public FolderCollection Folders { get { return mvarFolders; } }

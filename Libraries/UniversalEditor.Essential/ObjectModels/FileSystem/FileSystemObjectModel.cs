@@ -66,7 +66,10 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 		}
 
+		[NonSerializedProperty]
 		public FileSystemObjectModel FileSystem { get { return this; } }
+		[NonSerializedProperty]
+		public IFileSystemContainer Parent { get { return null; } }
 
 		public static FileSystemObjectModel FromFiles(string[] fileNames)
 		{
@@ -192,9 +195,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 		}
 
-		public object FindObject(string name)
+		public IFileSystemObject FindObject(string name)
 		{
-			string[] path = name.Split(new char[] { '/' });
+			string[] path = name.Split(new char[] { '/', '\\' });
 			Folder parent = null;
 			for (int i = 0; i < path.Length - 1; i++)
 			{

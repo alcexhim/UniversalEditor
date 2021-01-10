@@ -126,23 +126,20 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			}
 		}
 
-		private FileAttributes mvarAttributes = FileAttributes.None;
-		public FileAttributes Attributes { get { return mvarAttributes; } set { mvarAttributes = value; } }
-
-		private string mvarName = String.Empty;
+		public FileAttributes Attributes { get; set; } = FileAttributes.None;
 		/// <summary>
 		/// The name of this file.
 		/// </summary>
-		public string Name { get { return mvarName; } set { mvarName = value; } }
+		public string Name { get; set; } = String.Empty;
 
 		public void SetData(byte[] data)
 		{
-			mvarSource = new MemoryFileSource(data);
+			Source = new MemoryFileSource(data);
 		}
 
 		public byte[] GetData()
 		{
-			if (mvarSource != null) return mvarSource.GetData();
+			if (Source != null) return Source.GetData();
 			if (DataRequest != null)
 			{
 				DataRequestEventArgs e = new DataRequestEventArgs();
@@ -150,15 +147,15 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				return e.Data;
 			}
 
-			Console.WriteLine("DataRequest: " + mvarName + ": No source associated with this file");
+			Console.WriteLine("DataRequest: " + Name + ": No source associated with this file");
 			return new byte[0];
 		}
 
 		public byte[] GetData(long offset, long length)
 		{
-			if (mvarSource != null) return mvarSource.GetDataInternal(offset, length);
+			if (Source != null) return Source.GetDataInternal(offset, length);
 
-			Console.WriteLine("DataRequest: " + mvarName + ": No source associated with this file");
+			Console.WriteLine("DataRequest: " + Name + ": No source associated with this file");
 			return new byte[length];
 		}
 
@@ -170,7 +167,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		}
 		public void SetData(System.IO.Stream stream)
 		{
-			mvarSource = new AccessorFileSource(new StreamAccessor(stream));
+			Source = new AccessorFileSource(new StreamAccessor(stream));
 		}
 
 		public void SetData(string value)
@@ -185,14 +182,14 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public object Clone()
 		{
 			File clone = new File();
-			clone.Name = mvarName;
-			clone.Source = mvarSource;
+			clone.Name = Name;
+			clone.Source = Source;
 			if (DataRequest != null)
 			{
 				clone.DataRequest += DataRequest;
 			}
 			clone.Source = Source;
-			foreach (KeyValuePair<string, object> kvp in mvarProperties)
+			foreach (KeyValuePair<string, object> kvp in Properties)
 			{
 				clone.Properties.Add(kvp.Key, kvp.Value);
 			}
@@ -200,7 +197,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			{
 				clone.AdditionalDetails.Add(kvp.Key, kvp.Value);
 			}
-			clone.Parent = mvarParent;
+			clone.Parent = Parent;
 			return clone;
 		}
 
@@ -266,7 +263,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 					strSize = "?";
 				}
 			}
-			return mvarName + " [" + strSize + "]";
+			return Name + " [" + strSize + "]";
 		}
 
 		public void Save()
@@ -281,7 +278,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				System.IO.Directory.CreateDirectory(FileDirectory);
 			}
 
-			FileSource source = mvarSource;
+			FileSource source = Source;
 			long blockSize = (System.Environment.WorkingSet / 8);
 			long blockCount = (blockSize / source.GetLength());
 			long offset = 0;
@@ -310,9 +307,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				}
 				else
 				{
-					if (mvarSource != null)
+					if (Source != null)
 					{
-						return mvarSource.GetLength();
+						return Source.GetLength();
 					}
 					return 0;
 				}
@@ -328,31 +325,23 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			mvarSize = null;
 		}
 
-		#region Metadata
-		private string mvarTitle = null;
-		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
-
-		private string mvarDescription = null;
-		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
-		#endregion
+		public string Title { get; set; } = null;
+		public string Description { get; set; } = null;
 
 		public event DataRequestEventHandler DataRequest;
 
-		private Dictionary<string, object> mvarProperties = new Dictionary<string, object>();
-		public Dictionary<string, object> Properties { get { return mvarProperties; } }
+		public Dictionary<string, object> Properties { get; } = new Dictionary<string, object>();
+		public DateTime ModificationTimestamp { get; set; } = DateTime.Now;
 
-		private DateTime mvarModificationTimestamp = DateTime.Now;
-		public DateTime ModificationTimestamp { get { return mvarModificationTimestamp; } set { mvarModificationTimestamp = value; } }
-
-		private FileSource mvarSource = null;
 		/// <summary>
 		/// Determines where this <see cref="File" /> gets its data from.
 		/// </summary>
-		public FileSource Source { get { return mvarSource; } set { mvarSource = value; } }
+		public FileSource Source { get; set; } = null;
 
-		private IFileSystemContainer mvarParent = null;
-		public IFileSystemContainer Parent { get { return mvarParent; } internal set { mvarParent = value; } }
+		[NonSerializedProperty]
+		public IFileSystemContainer Parent { get; internal set; } = null;
 
+		[NonSerializedProperty]
 		public FileSystemObjectModel FileSystem { get; private set; } = null;
 
 		// The amount of working set to allocate to each block.
@@ -370,7 +359,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 			long blockSize = (System.Environment.SystemPageSize / BLOCK_FRACTION);
 
 			long offset = 0;
-			double dbl = ((double)mvarSource.GetLength() / (double)blockSize);
+			double dbl = ((double)Source.GetLength() / (double)blockSize);
 			long blockCount = (long)Math.Ceiling(dbl);
 
 			if (transformations != null)
@@ -380,7 +369,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			for (long i = 0; i < blockCount; i++)
 			{
-				byte[] data = mvarSource.GetDataInternal(offset, blockSize);
+				byte[] data = Source.GetDataInternal(offset, blockSize);
 				offset += blockSize;
 
 				bw.WriteBytes(data);

@@ -1,5 +1,5 @@
 ﻿//
-//  IFileSystemObject.cs - the interface which defines the base functionality for a File or a Folder
+//  NonSerializedPropertyAttribute.cs - indicates that a particular property should not be serialized
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -19,23 +19,17 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace UniversalEditor.ObjectModels.FileSystem
+using System;
+
+namespace UniversalEditor
 {
 	/// <summary>
-	/// The interface which defines the base functionality for a <see cref="File" /> or a <see cref="Folder" />.
+	/// Indicates that a particular property should not be serialized. Used in
+	/// place of <see cref="NonSerializedAttribute" /> because that does
+	/// not allow use on property declarations.
 	/// </summary>
-	public interface IFileSystemObject
-	{
-		string Name { get; set; }
-
-		FileSystemObjectModel FileSystem { get; }
-		IFileSystemContainer Parent { get; }
-	}
-	/// <summary>
-	/// Represents a <see cref="System.Collections.ObjectModel.Collection{IFileSystemObject}" /> of <see cref="IFileSystemObject" />s.
-	/// </summary>
-	public class IFileSystemObjectCollection
-		: System.Collections.ObjectModel.Collection<IFileSystemObject>
+	[AttributeUsage(AttributeTargets.Property)]
+	public class NonSerializedPropertyAttribute : Attribute
 	{
 
 	}
