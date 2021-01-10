@@ -14,7 +14,8 @@
     <AssemblyOriginatorKeyFile>..\..\..\Production.snk</AssemblyOriginatorKeyFile>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+    <ReleaseVersion>4.0.2020.01</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -97,6 +98,7 @@
     <Compile Include="CriteriaResult.cs" />
     <Compile Include="Criterion.cs" />
     <Compile Include="Selection.cs" />
+    <Compile Include="NonSerializedPropertyAttribute.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
