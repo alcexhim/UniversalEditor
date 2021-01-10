@@ -129,7 +129,10 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 			cmdTAG.Click += cmdTAG_Click;
 			cmdRND.Click += cmdRND_Click;
 			cboExpressionType.Changed += cboExpressionType_Changed;
-			cboExpressionType.SelectedItem = (cboExpressionType.Model as DefaultTreeModel).Rows[0];
+			if (cboExpressionType.Model != null)
+			{
+				cboExpressionType.SelectedItem = (cboExpressionType.Model as DefaultTreeModel).Rows[0];
+			}
 			cmdBrowse.Click += cmdBrowse_Click;
 			cmdExecute.Click += cmdExecute_Click;
 

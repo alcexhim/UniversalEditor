@@ -277,7 +277,7 @@ namespace UniversalEditor.UserInterface
 			}
 			else
 			{
-				di.Title = System.IO.Path.GetFileName(page.Document.Title) + " (*)";
+				di.Title = String.Format("{0} (*)", page.Document.Title);
 			}
 			page.Document.IsChanged = true;
 		}
