@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
@@ -50,8 +50,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			base.OnCreated(e);
 
-			Text = String.Format(Text, Application.Title);
-			lblApplicationTitle.Text = Application.Title;
+			Text = String.Format(Text, Application.Instance.Title);
+			lblApplicationTitle.Text = Application.Instance.Title;
 			lblApplicationVersion.Text = String.Format("Version {0}", System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
 
 			object[] atts = System.Reflection.Assembly.GetEntryAssembly().GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);

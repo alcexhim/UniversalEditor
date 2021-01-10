@@ -9,7 +9,6 @@
 				<Settings>
 					<TextSetting ID="{5E09C88D-E52B-41FA-94DB-A98BED29B08F}" Name="Name" Title="_Name" />
 					<TextSetting ID="{E45C0422-5870-4C40-B459-3669EC6AE621}" Name="EmailAddress" Title="_E-mail address" />
-					<!-- magic to keep from loading "emailaddress" setting twice -->
 				</Settings>
 			</SettingsGroup>
 			<SettingsGroup ID="{B49CAF6B-51F5-4925-B4AA-4DEF655E8627}">

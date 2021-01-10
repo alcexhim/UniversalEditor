@@ -185,6 +185,10 @@ namespace UniversalEditor.ConsoleApplication
 						mimetype = assocs[i].Filters[j].ContentType;
 					}
 					sb.AppendLine(String.Format("\t<mime-type type=\"{0}\">", mimetype));
+					if (assocs[i].Filters[j].PerceivedType != null)
+					{
+						sb.AppendLine(String.Format("\t\t<sub-class-of type=\"{0}\"/>", assocs[i].Filters[j].PerceivedType));
+					}
 					sb.AppendLine(String.Format("\t\t<comment>{0}</comment>", assocs[i].Filters[j].Title));
 					if (assocs[i].ObjectModels.Contains(new Guid("{a23026e9-dfe1-4090-af35-8b916d3f1fcd}")))
 					{

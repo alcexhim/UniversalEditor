@@ -54,6 +54,62 @@ namespace UniversalEditor.Editors.FamilyTree
 			base.OnObjectModelChanged (e);
 
 			FamilyTreeObjectModel ftom = (ObjectModel as FamilyTreeObjectModel);
+
+			EditorDocumentExplorerNode nodeDashboard = new EditorDocumentExplorerNode("Dashboard");
+			DocumentExplorer.Nodes.Add(nodeDashboard);
+
+			EditorDocumentExplorerNode nodePeople = new EditorDocumentExplorerNode("People");
+
+			foreach (Person item in ftom.Persons)
+			{
+				EditorDocumentExplorerNode node = new EditorDocumentExplorerNode(item.ToString());
+				nodePeople.Nodes.Add(node);
+			}
+
+			DocumentExplorer.Nodes.Add(nodePeople);
+
+			EditorDocumentExplorerNode nodeRelationships = new EditorDocumentExplorerNode("Relationships");
+			DocumentExplorer.Nodes.Add(nodeRelationships);
+
+			EditorDocumentExplorerNode nodeFamilies = new EditorDocumentExplorerNode("Families");
+			DocumentExplorer.Nodes.Add(nodeFamilies);
+
+			EditorDocumentExplorerNode nodeCharts = new EditorDocumentExplorerNode("Charts");
+			DocumentExplorer.Nodes.Add(nodeCharts);
+
+			EditorDocumentExplorerNode nodeEvents = new EditorDocumentExplorerNode("Events");
+			foreach (Event item in ftom.Events)
+			{
+				EditorDocumentExplorerNode node = new EditorDocumentExplorerNode(item.ToString());
+				nodeEvents.Nodes.Add(node);
+			}
+			DocumentExplorer.Nodes.Add(nodeEvents);
+
+			EditorDocumentExplorerNode nodePlaces = new EditorDocumentExplorerNode("Places");
+			foreach (Place item in ftom.Places)
+			{
+				EditorDocumentExplorerNode node = new EditorDocumentExplorerNode(item.ToString());
+				nodePlaces.Nodes.Add(node);
+			}
+			DocumentExplorer.Nodes.Add(nodePlaces);
+
+			EditorDocumentExplorerNode nodeGeography = new EditorDocumentExplorerNode("Geography");
+			DocumentExplorer.Nodes.Add(nodeGeography);
+
+			EditorDocumentExplorerNode nodeSources = new EditorDocumentExplorerNode("Sources");
+			DocumentExplorer.Nodes.Add(nodeSources);
+
+			EditorDocumentExplorerNode nodeCitations = new EditorDocumentExplorerNode("Citations");
+			DocumentExplorer.Nodes.Add(nodeCitations);
+
+			EditorDocumentExplorerNode nodeRepositories = new EditorDocumentExplorerNode("Repositories");
+			DocumentExplorer.Nodes.Add(nodeRepositories);
+
+			EditorDocumentExplorerNode nodeMedia = new EditorDocumentExplorerNode("Media");
+			DocumentExplorer.Nodes.Add(nodeMedia);
+
+			EditorDocumentExplorerNode nodeNotes = new EditorDocumentExplorerNode("Notes");
+			DocumentExplorer.Nodes.Add(nodeNotes);
 		}
 	}
 }

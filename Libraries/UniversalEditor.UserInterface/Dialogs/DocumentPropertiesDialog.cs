@@ -29,6 +29,7 @@ using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.Drawing;
 using System.ComponentModel;
 using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {

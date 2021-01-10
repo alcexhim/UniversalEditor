@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Gramps database (gzipped)" HintComparison="MagicThenFilter">
+					<FileNameFilters>
+						<FileNameFilter>*.gramps</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">1F8B</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+				<Filter Title="Gramps database (uncompressed)" HintComparison="MagicThenFilter">
+					<FileNameFilters>
+						<FileNameFilter>*.gramps</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">&lt;?xml </MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree.FamilyTreeObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Genealogy.DataFormats.Gramps.XML.GrampsXMLDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

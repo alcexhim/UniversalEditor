@@ -27,6 +27,7 @@ using System.Text;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface
 {
@@ -83,7 +84,7 @@ namespace UniversalEditor.UserInterface
 		{
 			base.OnCreated(e);
 
-			Plugin[] plugins = Plugin.Get();
+			UserInterfacePlugin[] plugins = UserInterfacePlugin.Get();
 			Type typ = typeof(EditorPlugin);
 			for (int i = 0; i < plugins.Length; i++)
 			{
@@ -684,9 +685,7 @@ namespace UniversalEditor.UserInterface
 		}
 
 		public string DataPath { get { return String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[] { "Editors", this.GetType().FullName }); } }
-
-		private Command.CommandCollection mvarCommands = new Command.CommandCollection();
-		public Command.CommandCollection Commands { get { return mvarCommands; } }
+		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
 
 		/*
 		protected override bool ProcessKeyPreview(ref Message m)
@@ -702,7 +701,7 @@ namespace UniversalEditor.UserInterface
 			base.OnKeyDown(e);
 
 			// look at this editor's configuration to see if we have any registered keybindings
-			foreach (Command cmd in mvarCommands)
+			foreach (Command cmd in Commands)
 			{
 				/*
 				if (cmd.Shortcut.CompareTo(e.KeyData))

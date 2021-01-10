@@ -12,17 +12,14 @@ namespace UniversalEditor.UserInterface
 {
 	public class BookmarksManager
 	{
-		private System.Collections.Specialized.StringCollection mvarFileNames = new System.Collections.Specialized.StringCollection();
-		public System.Collections.Specialized.StringCollection FileNames { get { return mvarFileNames; } }
-
-		private string mvarDataFileName = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
+		public System.Collections.Specialized.StringCollection FileNames { get; } = new System.Collections.Specialized.StringCollection();
+		public string DataFileName { get; set; } = String.Join(System.IO.Path.DirectorySeparatorChar.ToString(), new string[]
 		{
 			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
 			"Mike Becker's Software",
 			"Universal Editor",
 			"Bookmarks.xml"
 		});
-		public string DataFileName { get { return mvarDataFileName; } set { mvarDataFileName = value; } }
 
 		private Version mvarFormatVersion = new Version(1, 0);
 
@@ -31,9 +28,9 @@ namespace UniversalEditor.UserInterface
 			MarkupObjectModel mom = new MarkupObjectModel();
 			XMLDataFormat xml = new XMLDataFormat();
 
-			if (!System.IO.File.Exists(mvarDataFileName)) return;
+			if (!System.IO.File.Exists(DataFileName)) return;
 
-			Document.Load(mom, xml, new FileAccessor(mvarDataFileName), true);
+			Document.Load(mom, xml, new FileAccessor(DataFileName), true);
 
 			MarkupTagElement tagBookmarks = (mom.Elements["Bookmarks"] as MarkupTagElement);
 			if (tagBookmarks == null) return;
@@ -53,7 +50,7 @@ namespace UniversalEditor.UserInterface
 				MarkupAttribute attFileName = tagBookmark.Attributes["FileName"];
 				if (attFileName == null) continue;
 
-				mvarFileNames.Add(attFileName.Value);
+				FileNames.Add(attFileName.Value);
 			}
 		}
 		public void Save()
@@ -72,9 +69,9 @@ namespace UniversalEditor.UserInterface
 
 			mom.Elements.Add(tagBookmarks);
 
-			if (mvarFileNames.Count > 0)
+			if (FileNames.Count > 0)
 			{
-				foreach (string fileName in mvarFileNames)
+				foreach (string fileName in FileNames)
 				{
 					MarkupTagElement tagBookmark = new MarkupTagElement();
 					tagBookmark.FullName = "Bookmark";
@@ -83,13 +80,13 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 
-			string dir = System.IO.Path.GetDirectoryName (mvarDataFileName);
+			string dir = System.IO.Path.GetDirectoryName(DataFileName);
 			if (!System.IO.Directory.Exists (dir))
 			{
 				System.IO.Directory.CreateDirectory (dir);
 			}
 			
-			Document.Save(mom, xml, new FileAccessor(mvarDataFileName, true, true), true);
+			Document.Save(mom, xml, new FileAccessor(DataFileName, true, true), true);
 		}
 	}
 }

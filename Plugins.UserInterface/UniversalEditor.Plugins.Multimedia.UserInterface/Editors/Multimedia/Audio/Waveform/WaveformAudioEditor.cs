@@ -20,6 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Audio;
+using MBS.Audio.PortAudio;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
@@ -69,7 +71,10 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 				WaveformAudioObjectModel wave = (ObjectModel as WaveformAudioObjectModel);
 				if (wave == null) return;
 
-				Surodoine.AudioPlayer player = new Surodoine.AudioPlayer();
+				// get the setting "Editors -> Audio -> Waveform -> Audio engine
+
+				// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
+				AudioPlayer player = new AudioPlayer();
 				player.Play(wave);
 			});
 		}

@@ -84,8 +84,13 @@ namespace UniversalEditor.UserInterface
 			else if (eo is CustomOptionFile)
 			{
 				CustomOptionFile option = (eo as CustomOptionFile);
-				// sg.Settings.Add(new FileSetting(option.Title, option.DefaultValue));
-				sg.Settings.Add(new FileSetting(option.PropertyName, option.Title, (string)option.GetValue()));
+				FileSetting fs = new FileSetting(option.PropertyName, option.Title, (string)option.GetValue());
+				switch (option.DialogMode)
+				{
+					case CustomOptionFileDialogMode.Open: fs.Mode = FileDialogMode.Open; break;
+					case CustomOptionFileDialogMode.Save: fs.Mode = FileDialogMode.Save; break;
+				}
+				sg.Settings.Add(fs);
 			}
 			else if (eo is CustomOptionGroup)
 			{

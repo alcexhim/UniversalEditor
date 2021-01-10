@@ -7,6 +7,7 @@ using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.Accessors;
 using MBS.Framework.UserInterface;
 using MBS.Framework.Logic;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface.Common
 {
@@ -69,7 +70,7 @@ namespace UniversalEditor.UserInterface.Common
 
 		private static void InitializeFromXML(ref List<EditorReference> listEditors)
 		{
-			string[] paths = Application.EnumerateDataPaths();
+			string[] paths = ((UIApplication)Application.Instance).EnumerateDataPaths();
 			foreach (string path in paths)
 			{
 				if (!System.IO.Directory.Exists(path))
@@ -187,8 +188,8 @@ namespace UniversalEditor.UserInterface.Common
 													MarkupTagElement tagItem = (elItem as MarkupTagElement);
 													if (tagItem == null) continue;
 
-													CommandItem ci = CommandItem.FromMarkup(tagItem);
-													CommandItem.AddToCommandBar(ci, cmd, null);
+													CommandItem ci = CommandItemLoader.FromMarkup(tagItem);
+													ci.AddToCommandBar(cmd, null);
 												}
 											}
 										}
@@ -205,7 +206,7 @@ namespace UniversalEditor.UserInterface.Common
 											MarkupTagElement tagItem = (elItem as MarkupTagElement);
 											if (tagItem == null) continue;
 
-											CommandItem ci = CommandItem.FromMarkup(tagItem);
+											CommandItem ci = CommandItemLoader.FromMarkup(tagItem);
 											if (ci != null)
 											{
 												er.MenuBar.Items.Add(ci);

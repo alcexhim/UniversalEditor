@@ -31,11 +31,11 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 {
-	public class MultimediaCollaborationPlugin : Plugin
+	public class MultimediaCollaborationPlugin : UserInterfacePlugin
 	{
 		public MultimediaCollaborationPlugin()
 		{
-			Context = new Context(new Guid("{262a622c-c9e3-458b-8fbb-49cf9258b05d}"), "Multimedia Collaboration Plugin");
+			Context = new UIContext(new Guid("{262a622c-c9e3-458b-8fbb-49cf9258b05d}"), "Multimedia Collaboration Plugin");
 			Context.AttachCommandEventHandler("Collaboration_Tracking_Track", delegate (object sender, EventArgs e)
 			{
 				Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
@@ -161,7 +161,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 			if (!_initted(d))
 				return null;
 
-			CollaborationPlugin plugin = (Plugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
+			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings(d);
 
 			SynthesizedAudioCommandChange.SynthesizedAudioCommandChangeCollection list = collab.GetExtraData<SynthesizedAudioCommandChange.SynthesizedAudioCommandChangeCollection>("TrackedChanges", new SynthesizedAudioCommandChange.SynthesizedAudioCommandChangeCollection());
@@ -173,7 +173,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 		{
 			Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
 			Document d = editor?.Document;
-			CollaborationPlugin plugin = (Plugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
+			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings(d);
 
 			if (collab.TrackChangesEnabled)
@@ -190,7 +190,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 		{
 			Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
 			Document d = editor?.Document;
-			CollaborationPlugin plugin = (Plugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
+			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings(d);
 
 			if (collab.TrackChangesEnabled)
@@ -216,7 +216,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 			{
 				Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
 				Document d = editor?.Document;
-				CollaborationPlugin plugin = (Plugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
+				CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 				CollaborationSettings collab = plugin.GetCollaborationSettings(d);
 				return collab.GetExtraData<int>("SelectedChangeIndex", -1);
 			}
@@ -224,7 +224,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 			{
 				Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
 				Document d = editor?.Document;
-				CollaborationPlugin plugin = (Plugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
+				CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 				CollaborationSettings collab = plugin.GetCollaborationSettings(d);
 				collab.SetExtraData<int>("SelectedChangeIndex", value);
 			}
@@ -234,7 +234,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 		{
 			// painting is handled by PianoRoll._vp, not PianoRollView!!!
 			SynthesizedAudioEditor editor = HostApplication.CurrentWindow.GetCurrentEditor() as SynthesizedAudioEditor;
-			CollaborationPlugin plugin = (Plugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
+			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings();
 
 			if (collab.TrackChangesEnabled)
@@ -255,7 +255,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 		{
 			Editor editor = HostApplication.CurrentWindow.GetCurrentEditor();
 			Document d = editor?.Document;
-			CollaborationPlugin plugin = (Plugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
+			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings(d);
 
 			if (collab.TrackChangesEnabled)

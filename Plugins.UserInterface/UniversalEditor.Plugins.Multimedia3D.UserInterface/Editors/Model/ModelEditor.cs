@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework;
 using MBS.Framework.Drawing;
 using MBS.Framework.Rendering;
 using MBS.Framework.UserInterface;
@@ -182,7 +182,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 			{
 				p = gla.Engine.CreateShaderProgram();
 
-				string vtxFileName = Application.ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_vtx.glsl");
+				string vtxFileName = ((UIApplication)Application.Instance).ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_vtx.glsl");
 				if (!System.IO.File.Exists(vtxFileName))
 				{
 					MessageDialog.ShowDialog(String.Format("Vertex shader not found . The rendering will be unavailable.  Check to ensure the file exists and is readable .\n\n{0}", vtxFileName), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
@@ -194,7 +194,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 				Shader vtx = gla.Engine.CreateShaderFromFile(ShaderType.Vertex, vtxFileName);
 				vtx.Compile();
 
-				string frgFileName = Application.ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_frg.glsl");
+				string frgFileName = ((UIApplication)Application.Instance).ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_frg.glsl");
 				if (!System.IO.File.Exists(vtxFileName))
 				{
 					MessageDialog.ShowDialog(String.Format("Fragment shader not found . The rendering will be unavailable.  Check to ensure the file exists and is readable .\n\n{0}", frgFileName), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);

@@ -22,6 +22,7 @@ using UniversalEditor.UserInterface.Panels;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.Docking;
 using MBS.Framework.UserInterface.Controls.ListView;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface
 {
@@ -31,24 +32,17 @@ namespace UniversalEditor.UserInterface
 
 	public class Engine
 	{
-		private static Engine _TheEngine = new Engine();
+		public static Engine CurrentEngine { get; } = new Engine();
 
 		#region implemented abstract members of Engine
-		protected void ShowCrashDialog (Exception ex)
-		{
-			Console.WriteLine (ex.ToString ());
-
-			// Dialogs.CrashDialog dlg = new Dialogs.CrashDialog();
-			// dlg.Exception = ex;
-			// dlg.ShowDialog();
-		}
-
 		protected void BeforeInitialization ()
 		{
-			Application.CommandLine.Options.Add("command", '\0', null, CommandLineOptionValueType.Multiple);
+			Application app = (UIApplication)Application.Instance;
+			app.CommandLine.Options.Add("command", '\0', null, CommandLineOptionValueType.Multiple);
 
-			Application.UniqueName = "net.alcetech.UniversalEditor";
-			Application.ShortName = "universal-editor";
+			app.ID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
+			app.UniqueName = "net.alcetech.UniversalEditor";
+			app.ShortName = "universal-editor";
 
 			// Application.EnableVisualStyles();
 			// Application.SetCompatibleTextRenderingDefault(false);
@@ -75,16 +69,14 @@ namespace UniversalEditor.UserInterface
 
 			// AwesomeControls.Theming.Theme.CurrentTheme.Properties["UseAllCapsMenus"] = false;
 
-			// Glue.ApplicationInformation.ApplicationID = new Guid("{b359fe9a-080a-43fc-ae38-00ba7ac1703e}");
+			((UIApplication)Application.Instance).ConfigurationFileNameFilter = "*.uexml";
 
-			Application.ConfigurationFileNameFilter = "*.uexml";
+			((UIApplication)Application.Instance).BeforeShutdown += Application_BeforeShutdown;
+			((UIApplication)Application.Instance).AfterConfigurationLoaded += Application_AfterConfigurationLoaded;
+			((UIApplication)Application.Instance).Startup += Application_Startup;
+			((UIApplication)Application.Instance).Activated += Application_Activated;
 
-			Application.BeforeShutdown += Application_BeforeShutdown;
-			Application.AfterConfigurationLoaded += Application_AfterConfigurationLoaded;
-			Application.Startup += Application_Startup;
-			Application.Activated += Application_Activated;
-
-			MBS.Framework.UserInterface.Application.Initialize();
+			app.Initialize();
 		}
 
 		void Application_AfterConfigurationLoaded(object sender, EventArgs e)
@@ -93,7 +85,7 @@ namespace UniversalEditor.UserInterface
 			{
 				UpdateSplashScreenStatus("Loading global configuration");
 
-				MarkupTagElement tagConfiguration = (Application.RawMarkup.FindElement("UniversalEditor", "Configuration") as MarkupTagElement);
+				MarkupTagElement tagConfiguration = (((UIApplication)Application.Instance).RawMarkup.FindElement("UniversalEditor", "Configuration") as MarkupTagElement);
 				if (tagConfiguration != null)
 				{
 					foreach (MarkupElement el in tagConfiguration.Elements)
@@ -109,7 +101,7 @@ namespace UniversalEditor.UserInterface
 			{
 				UpdateSplashScreenStatus("Loading object model configuration");
 
-				MarkupTagElement tagObjectModels = (Application.RawMarkup.FindElement("UniversalEditor", "ObjectModels") as MarkupTagElement);
+				MarkupTagElement tagObjectModels = (((UIApplication)Application.Instance).RawMarkup.FindElement("UniversalEditor", "ObjectModels") as MarkupTagElement);
 				if (tagObjectModels != null)
 				{
 					MarkupTagElement tagDefault = (tagObjectModels.Elements["Default"] as MarkupTagElement);
@@ -156,15 +148,15 @@ namespace UniversalEditor.UserInterface
 			UniversalEditor.Common.Reflection.GetAvailableDataFormats();
 
 			// Initialize Recent File Manager
-			Engine.CurrentEngine.RecentFileManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
+			Engine.CurrentEngine.RecentFileManager.DataFileName = ((UIApplication)Application.Instance).DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
 			Engine.CurrentEngine.RecentFileManager.Load();
 
 			// Initialize Bookmarks Manager
-			Engine.CurrentEngine.BookmarksManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
+			Engine.CurrentEngine.BookmarksManager.DataFileName = ((UIApplication)Application.Instance).DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
 			Engine.CurrentEngine.BookmarksManager.Load();
 
 			// Initialize Session Manager
-			Engine.CurrentEngine.SessionManager.DataFileName = Application.DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
+			Engine.CurrentEngine.SessionManager.DataFileName = ((UIApplication)Application.Instance).DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Sessions.xml";
 			Engine.CurrentEngine.SessionManager.Load();
 
 			// load editors into memory so we don't wait 10-15 seconds before opening a file
@@ -176,9 +168,9 @@ namespace UniversalEditor.UserInterface
 
 		void Application_BeforeShutdown(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			for (int i = 0; i < Application.Windows.Count; i++)
+			for (int i = 0; i < ((UIApplication)Application.Instance).Windows.Count; i++)
 			{
-				MainWindow mw = (Application.Windows[i] as MainWindow);
+				MainWindow mw = (((UIApplication)Application.Instance).Windows[i] as MainWindow);
 				if (mw == null) continue;
 
 				if (!mw.Close())
@@ -205,12 +197,12 @@ namespace UniversalEditor.UserInterface
 				OpenWindow(e.CommandLine.FileNames.ToArray());
 			}
 
-			List<string> commandsToExecute = (Application.CommandLine.Options.GetValueOrDefault<List<string>>("command", null));
+			List<string> commandsToExecute = (((UIApplication)Application.Instance).CommandLine.Options.GetValueOrDefault<List<string>>("command", null));
 			if (commandsToExecute != null)
 			{
 				for (int i = 0; i < commandsToExecute.Count; i++)
 				{
-					Application.ExecuteCommand(commandsToExecute[i]);
+					((UIApplication)Application.Instance).ExecuteCommand(commandsToExecute[i]);
 				}
 			}
 		}
@@ -253,9 +245,7 @@ namespace UniversalEditor.UserInterface
 #if !DEBUG
 			// Application.ThreadException += Application_ThreadException;
 #endif
-
-			Application.Title = "Universal Editor";
-			MBS.Framework.UserInterface.Application.Start();
+			Application.Instance.Start();
 
 			// Glue.Common.Methods.SendApplicationEvent(new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.ApplicationStop));
 		}
@@ -312,20 +302,20 @@ namespace UniversalEditor.UserInterface
 				{
 					if (!customOptions[j].Visible) continue;
 
-					customOptions[j].SetValue(sg.Settings[i].GetValue());
-					i++;
+					if (customOptions[j] is CustomOptionGroup)
+					{
+					}
+					else
+					{
+						customOptions[j].SetValue(sg.Settings[i].GetValue());
+						i++;
+					}
 				}
 				return true;
 			}
 			return false;
 		}
 		#endregion
-
-		private static Engine[] m_AvailableEngines = null;
-		public static Engine[] GetAvailableEngines()
-		{
-			return new Engine[] { _TheEngine };
-		}
 
 		private void Bookmarks_Bookmark_Click(object sender, EventArgs e)
 		{
@@ -338,99 +328,99 @@ namespace UniversalEditor.UserInterface
 		{
 			if (Engine.CurrentEngine.BookmarksManager.FileNames.Count > 0)
 			{
-				Application.Commands["Bookmarks"].Items.Add(new SeparatorCommandItem());
+				Application.Instance.Commands["Bookmarks"].Items.Add(new SeparatorCommandItem());
 				for (int i = 0; i < Engine.CurrentEngine.BookmarksManager.FileNames.Count; i++)
 				{
-					Application.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", i.ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[i]).Replace("_", "__")));
-					Application.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", i.ToString())));
+					Application.Instance.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", i.ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[i]).Replace("_", "__")));
+					Application.Instance.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", i.ToString())));
 
-					Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", i.ToString()), Bookmarks_Bookmark_Click);
+					Application.Instance.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", i.ToString()), Bookmarks_Bookmark_Click);
 				}
 			}
 
 			// Initialize all the commands that are common to UniversalEditor
 			#region File
-			Application.AttachCommandEventHandler("FileNewDocument", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileNewDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.NewFile();
 			});
-			Application.AttachCommandEventHandler("FileNewProject", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileNewProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.NewProject();
 			});
-			Application.AttachCommandEventHandler("FileOpenDocument", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileOpenDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.OpenFile();
 			});
-			Application.AttachCommandEventHandler("FileOpenProject", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileOpenProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.OpenProject();
 			});
-			Application.AttachCommandEventHandler("FileSaveDocument", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileSaveDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveFile();
 			});
-			Application.AttachCommandEventHandler("FileSaveDocumentAs", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileSaveDocumentAs", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveFileAs();
 			});
-			Application.AttachCommandEventHandler("FileSaveProject", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileSaveProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveProject();
 			});
-			Application.AttachCommandEventHandler("FileSaveProjectAs", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileSaveProjectAs", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveProjectAs();
 			});
-			Application.AttachCommandEventHandler("FileSaveAll", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileSaveAll", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SaveAll();
 			});
-			Application.AttachCommandEventHandler("FileCloseDocument", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileCloseDocument", delegate(object sender, EventArgs e)
 			{
 				LastWindow.CloseFile();
 			});
-			Application.AttachCommandEventHandler("FileCloseProject", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileCloseProject", delegate(object sender, EventArgs e)
 			{
 				LastWindow.CloseProject();
 			});
-			Application.AttachCommandEventHandler("FilePrint", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FilePrint", delegate(object sender, EventArgs e)
 			{
 				LastWindow.PrintDocument();
 			});
-			Application.AttachCommandEventHandler("FileProperties", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileProperties", delegate (object sender, EventArgs e)
 			{
 				LastWindow.ShowDocumentPropertiesDialog();
 			});
-			Application.AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileRestart", delegate(object sender, EventArgs e)
 			{
 				RestartApplication();
 			});
-			Application.AttachCommandEventHandler("FileExit", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("FileExit", delegate(object sender, EventArgs e)
 			{
 				StopApplication();
 			});
 			#endregion
 			#region Edit
-			Application.AttachCommandEventHandler("EditCut", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("EditCut", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Cut();
 			});
-			Application.AttachCommandEventHandler("EditCopy", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("EditCopy", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Copy();
 			});
-			Application.AttachCommandEventHandler("EditPaste", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("EditPaste", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Paste();
 			});
-			Application.AttachCommandEventHandler("EditDelete", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("EditDelete", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor != null)
@@ -446,7 +436,7 @@ namespace UniversalEditor.UserInterface
 					}
 				}
 			});
-			Application.AttachCommandEventHandler("EditBatchFindReplace", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("EditBatchFindReplace", delegate (object sender, EventArgs e)
 			{
 				if (LastWindow == null) return;
 
@@ -457,13 +447,13 @@ namespace UniversalEditor.UserInterface
 				dlg.Editor = ed;
 				dlg.Show();
 			});
-			Application.AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("EditUndo", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
 				editor.Undo();
 			});
-			Application.AttachCommandEventHandler("EditRedo", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("EditRedo", delegate(object sender, EventArgs e)
 			{
 				Editor editor = LastWindow.GetCurrentEditor();
 				if (editor == null) return;
@@ -471,64 +461,64 @@ namespace UniversalEditor.UserInterface
 			});
 			#endregion
 			#region View
-			Application.AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
 			{
 				Command cmd = (sender as Command);
 				LastWindow.FullScreen = !LastWindow.FullScreen;
 				cmd.Checked = LastWindow.FullScreen;
 			});
 			#region Perspective
-			Application.AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(1);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective2", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective2", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(2);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective3", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective3", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(3);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective4", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective4", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(4);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective5", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective5", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(5);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective6", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective6", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(6);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective7", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective7", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(7);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective8", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective8", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(8);
 			});
-			Application.AttachCommandEventHandler("ViewPerspective9", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewPerspective9", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.SwitchPerspective(9);
 			});
 			#endregion
 
-			Application.AttachCommandEventHandler("ViewStartPage", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewStartPage", delegate(object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.ShowStartPage();
 			});
-			Application.AttachCommandEventHandler("ViewStatusBar", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ViewStatusBar", delegate (object sender, EventArgs e)
 			{
 				HostApplication.CurrentWindow.StatusBar.Visible = !HostApplication.CurrentWindow.StatusBar.Visible;
-				Application.Commands["ViewStatusBar"].Checked = HostApplication.CurrentWindow.StatusBar.Visible;
+				Application.Instance.Commands["ViewStatusBar"].Checked = HostApplication.CurrentWindow.StatusBar.Visible;
 			});
 
 			#endregion
 			#region Bookmarks
-			Application.AttachCommandEventHandler("BookmarksAdd", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("BookmarksAdd", delegate (object sender, EventArgs e)
 			{
 				Editor ed = LastWindow.GetCurrentEditor();
 				if (ed == null) return;
@@ -542,19 +532,19 @@ namespace UniversalEditor.UserInterface
 				string filename = acc.GetFileName();
 				BookmarksManager.FileNames.Add(filename);
 
-				Command cmdBookmarks = Application.Commands["Bookmarks"];
+				Command cmdBookmarks = Application.Instance.Commands["Bookmarks"];
 				if (cmdBookmarks.Items.Count == 4)
 				{
 					cmdBookmarks.Items.Add(new SeparatorCommandItem());
 				}
 
-				Application.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
-				Application.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
+				((UIApplication)Application.Instance).Commands.Add(new Command(String.Format("{0}", (Engine.CurrentEngine.BookmarksManager.FileNames.Count - 1).ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
+				((UIApplication)Application.Instance).Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
 
-				Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+				Application.Instance.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (Engine.CurrentEngine.BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
 				ShowBookmarksManagerDialog();
 			});
-			Application.AttachCommandEventHandler("BookmarksAddAll", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("BookmarksAddAll", delegate (object sender, EventArgs e)
 			{
 				Page[] pages = CurrentEngine.LastWindow.GetPages();
 				for (int i = 0; i < pages.Length; i++)
@@ -566,55 +556,55 @@ namespace UniversalEditor.UserInterface
 
 						// FIXME: BookmarksAdd copypasta
 						string filename = ed.ObjectModel.Accessor.GetFileName();
-						BookmarksManager.FileNames.Add(filename);
+						Engine.CurrentEngine.BookmarksManager.FileNames.Add(filename);
 
-						Command cmdBookmarks = Application.Commands["Bookmarks"];
+						Command cmdBookmarks = ((UIApplication)Application.Instance).Commands["Bookmarks"];
 						if (cmdBookmarks.Items.Count == 4)
 						{
 							cmdBookmarks.Items.Add(new SeparatorCommandItem());
 						}
 
-						Application.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
-						Application.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
+						Application.Instance.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", (Engine.CurrentEngine.BookmarksManager.FileNames.Count - 1)), System.IO.Path.GetFileName(Engine.CurrentEngine.BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
+						Application.Instance.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", Engine.CurrentEngine.BookmarksManager.FileNames.Count - 1)));
 
-						Application.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+						Application.Instance.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (Engine.CurrentEngine.BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
 					}
 				}
 
 				ShowBookmarksManagerDialog();
 			});
-			Application.AttachCommandEventHandler("BookmarksManage", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("BookmarksManage", delegate (object sender, EventArgs e)
 			{
 				ShowBookmarksManagerDialog();
 			});
 			#endregion
 			#region Tools
 			// ToolsOptions should actually be under the Edit menu as "Preferences" on Linux systems
-			Application.AttachCommandEventHandler("ToolsOptions", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ToolsOptions", delegate(object sender, EventArgs e)
 			{
 				LastWindow.ShowOptionsDialog();
 			});
-			Application.AttachCommandEventHandler("ToolsCustomize", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("ToolsCustomize", delegate (object sender, EventArgs e)
 			{
-				Application.ShowSettingsDialog(new string[] { "Application", "Command Bars" });
+				((UIApplication)Application.Instance).ShowSettingsDialog(new string[] { "Application", "Command Bars" });
 			});
 			#endregion
 			#region Window
-			Application.AttachCommandEventHandler("WindowNewWindow", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("WindowNewWindow", delegate(object sender, EventArgs e)
 			{
 				OpenWindow();
 			});
-			Application.AttachCommandEventHandler("WindowWindows", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("WindowWindows", delegate(object sender, EventArgs e)
 			{
 				LastWindow.SetWindowListVisible(true, true);
 			});
 			#endregion
 			#region Help
-			Application.AttachCommandEventHandler("HelpViewHelp", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("HelpViewHelp", delegate (object sender, EventArgs e)
 			{
-				Application.ShowHelp();
+				((UIApplication)Application.Instance).ShowHelp();
 			});
-			Application.AttachCommandEventHandler("HelpCustomerFeedbackOptions", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("HelpCustomerFeedbackOptions", delegate (object sender, EventArgs e)
 			{
 				// MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
 				TaskDialog td = new TaskDialog();
@@ -622,7 +612,7 @@ namespace UniversalEditor.UserInterface
 
 				td.Prompt = "Please open a trouble ticket on GitHub if you need support.";
 				td.Text = "Customer Experience Improvement Program";
-				td.Content = String.Format("You are using the GNU GPLv3 licensed version of {0}. This program comes with ABSOLUTELY NO WARRANTY.\r\n\r\nSupport contracts may be available for purchase; please contact your software distributor.", Application.Title);
+				td.Content = String.Format("You are using the GNU GPLv3 licensed version of {0}. This program comes with ABSOLUTELY NO WARRANTY.\r\n\r\nSupport contracts may be available for purchase; please contact your software distributor.", Application.Instance.Title);
 				td.Footer = "<a href=\"GPLLicense\">View the license terms</a>";
 				td.EnableHyperlinks = true;
 				td.HyperlinkClicked += Td_HyperlinkClicked;
@@ -631,7 +621,7 @@ namespace UniversalEditor.UserInterface
 				td.Parent = (Window)CurrentEngine.LastWindow;
 				td.ShowDialog();
 			});
-			Application.AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("HelpLicensingAndActivation", delegate (object sender, EventArgs e)
 			{
 				// MessageDialog.ShowDialog("This product has already been activated.", "Licensing and Activation", MessageDialogButtons.OK, MessageDialogIcon.Information);
 				TaskDialog td = new TaskDialog();
@@ -639,7 +629,7 @@ namespace UniversalEditor.UserInterface
 
 				td.Prompt = "This product has already been activated.";
 				td.Text = "Licensing and Activation";
-				td.Content = String.Format("You are using the GNU GPLv3 licensed version of {0}. No activation is necessary.", Application.Title);
+				td.Content = String.Format("You are using the GNU GPLv3 licensed version of {0}. No activation is necessary.", Application.Instance.Title);
 				td.Footer = "<a href=\"GPLLicense\">View the license terms</a>";
 				td.EnableHyperlinks = true;
 				td.HyperlinkClicked += Td_HyperlinkClicked;
@@ -648,14 +638,14 @@ namespace UniversalEditor.UserInterface
 				td.Parent = (Window)CurrentEngine.LastWindow;
 				td.ShowDialog();
 			});
-			Application.AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
 			{
 				ShowAboutDialog();
 			});
 			#endregion
 
 
-			Application.AttachCommandEventHandler("DockingContainerContextMenu_Close", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("DockingContainerContextMenu_Close", delegate (object sender, EventArgs e)
 			{
 				CommandEventArgs ce = (e as CommandEventArgs);
 				if (ce != null)
@@ -664,11 +654,11 @@ namespace UniversalEditor.UserInterface
 					LastWindow?.CloseFile(dw);
 				}
 			});
-			Application.AttachCommandEventHandler("DockingContainerContextMenu_CloseAll", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("DockingContainerContextMenu_CloseAll", delegate (object sender, EventArgs e)
 			{
 				LastWindow?.CloseWindow();
 			});
-			Application.AttachCommandEventHandler("DockingContainerContextMenu_CloseAllButThis", delegate (object sender, EventArgs e)
+			Application.Instance.AttachCommandEventHandler("DockingContainerContextMenu_CloseAllButThis", delegate (object sender, EventArgs e)
 			{
 				MessageDialog.ShowDialog("Not implemented ... yet", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
 			});
@@ -677,23 +667,23 @@ namespace UniversalEditor.UserInterface
 			#region Dynamic Commands
 			#region View
 			#region Panels
-			for (int i = Application.CommandBars.Count - 1; i >= 0; i--)
+			for (int i = ((UIApplication)Application.Instance).CommandBars.Count - 1; i >= 0; i--)
 			{
 				Command cmdViewToolbarsToolbar = new Command();
 				cmdViewToolbarsToolbar.ID = "ViewToolbars" + i.ToString();
-				cmdViewToolbarsToolbar.Title = Application.CommandBars[i].Title;
+				cmdViewToolbarsToolbar.Title = ((UIApplication)Application.Instance).CommandBars[i].Title;
 				cmdViewToolbarsToolbar.Executed += cmdViewToolbarsToolbar_Executed;
-				Application.Commands.Add(cmdViewToolbarsToolbar);
-				Application.Commands["ViewToolbars"].Items.Insert(0, new CommandReferenceCommandItem(cmdViewToolbarsToolbar.ID));
+				Application.Instance.Commands.Add(cmdViewToolbarsToolbar); 
+				Application.Instance.Commands["ViewToolbars"].Items.Insert(0, new CommandReferenceCommandItem(cmdViewToolbarsToolbar.ID));
 			}
 			#endregion
 			#region Panels
-			if (Application.Commands["ViewPanels"] != null)
+			if (Application.Instance.Commands["ViewPanels"] != null)
 			{
 				Command cmdViewPanels1 = new Command();
 				cmdViewPanels1.ID = "ViewPanels1";
-				Application.Commands.Add(cmdViewPanels1);
-				Application.Commands["ViewPanels"].Items.Add(new CommandReferenceCommandItem("ViewPanels1"));
+				Application.Instance.Commands.Add(cmdViewPanels1);
+				((UIApplication)Application.Instance).Commands["ViewPanels"].Items.Add(new CommandReferenceCommandItem("ViewPanels1"));
 			}
 			#endregion
 			#endregion
@@ -701,27 +691,27 @@ namespace UniversalEditor.UserInterface
 
 			#region Language Strings
 			#region Help
-			Command helpAboutPlatform = Application.Commands["HelpAboutPlatform"];
+			Command helpAboutPlatform = Application.Instance.Commands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
 			{
-				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, Application.DefaultLanguage.GetStringTableEntry("Application.Title", "Universal Editor"));
+				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, ((UIApplication)Application.Instance).DefaultLanguage.GetStringTableEntry("Application.Title", "Universal Editor"));
 			}
 
-			Command helpLanguage = Application.Commands["HelpLanguage"];
+			Command helpLanguage = Application.Instance.Commands["HelpLanguage"];
 			if (helpLanguage != null)
 			{
-				foreach (Language lang in Application.Languages)
+				foreach (Language lang in ((UIApplication)Application.Instance).Languages)
 				{
 					Command cmdLanguage = new Command();
-					cmdLanguage.ID = "HelpLanguage_" + lang.ID;
+					cmdLanguage.ID = String.Format("HelpLanguage_{0}", lang.ID);
 					cmdLanguage.Title = lang.Title;
-					cmdLanguage.Executed += delegate(object sender, EventArgs e)
+					cmdLanguage.Executed += delegate (object sender, EventArgs e)
 					{
 						HostApplication.Messages.Add(HostApplicationMessageSeverity.Notice, "Clicked language " + lang.ID);
 					};
-					Application.Commands.Add(cmdLanguage);
+					Application.Instance.Commands.Add(cmdLanguage);
 
-					helpLanguage.Items.Add(new CommandReferenceCommandItem("HelpLanguage_" + lang.ID));
+					helpLanguage.Items.Add(new CommandReferenceCommandItem(cmdLanguage.ID));
 				}
 			}
 			#endregion
@@ -766,19 +756,11 @@ namespace UniversalEditor.UserInterface
 
 		public static bool Execute()
 		{
-			Console.WriteLine(" *** There is only UWT *** ");
-			mvarCurrentEngine = _TheEngine;
-
-			if (mvarCurrentEngine != null)
-			{
-				Console.WriteLine("Using engine " + mvarCurrentEngine.GetType().FullName);
-			}
-
 #if !DEBUG
 			try
 			{
 #endif
-				mvarCurrentEngine.StartApplication();
+				CurrentEngine.StartApplication();
 #if !DEBUG
 			}
 			catch (Exception ex)
@@ -855,7 +837,7 @@ namespace UniversalEditor.UserInterface
 		{
 			if (relativePath.StartsWith("~/"))
 			{
-				string[] potentialFileNames = MBS.Framework.UserInterface.Application.EnumerateDataPaths();
+				string[] potentialFileNames = ((UIApplication)Application.Instance).EnumerateDataPaths();
 				for (int i = potentialFileNames.Length - 1; i >= 0; i--)
 				{
 					potentialFileNames[i] = potentialFileNames[i] + '/' + relativePath.Substring(2);
@@ -1034,20 +1016,17 @@ namespace UniversalEditor.UserInterface
 		private SessionManager mvarSessionManager = new SessionManager();
 		public SessionManager SessionManager { get { return mvarSessionManager; } set { mvarSessionManager = value; } }
 
-		private static Engine mvarCurrentEngine = null;
-		public static Engine CurrentEngine { get { return mvarCurrentEngine; } }
-
 		private Perspective.PerspectiveCollection mvarPerspectives = new Perspective.PerspectiveCollection();
 		public Perspective.PerspectiveCollection Perspectives { get { return mvarPerspectives; } }
 
 		protected internal virtual void UpdateSplashScreenStatus(string message)
 		{
-			Application.UpdateSplashScreenStatus(message);
+			((UIApplication)Application.Instance).UpdateSplashScreenStatus(message);
 			Console.WriteLine(message);
 		}
 		protected internal virtual void UpdateSplashScreenStatus(string message, int progressValue = 0, int progressMinimum = 0, int progressMaximum = 100)
 		{
-			Application.UpdateSplashScreenStatus(message, progressValue, progressMinimum, progressMaximum);
+			((UIApplication)Application.Instance).UpdateSplashScreenStatus(message, progressValue, progressMinimum, progressMaximum);
 			Console.WriteLine(message);
 		}
 
@@ -1063,7 +1042,9 @@ namespace UniversalEditor.UserInterface
 
 		public void StartApplication()
 		{
-			Engine.mvarCurrentEngine = this;
+			Application.Instance = new UIApplication();
+			Application.Instance.Title = "Universal Editor";
+
 			mvarRunning = true;
 
 			string[] args1 = Environment.GetCommandLineArgs();
@@ -1111,7 +1092,7 @@ namespace UniversalEditor.UserInterface
 		public void StopApplication()
 		{
 			if (!BeforeStopApplication()) return;
-			Application.Stop();
+			Application.Instance.Stop();
 		}
 		protected virtual void RestartApplicationInternal()
 		{

@@ -77,8 +77,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 
 			if (om.Tracks.Count == 0)
 			{
-				// HACK: since we don't have a good way to specify defaults for blank templates.
-				// this fixes the fixme in SynthesizedAudioObjectModel.cs so we don't have an extra empty track when we open a new file
+				// HACK: since we don't have a good way to specify defaults for blank templates (yet).
+				// this fixes the fixme in SynthesizedAudioObjectModel.cs so we don't have an extra empty track when we open an existing file
 				om.Tracks.Add(new SynthesizedAudioTrack());
 			}
 			SelectedTrack = om.Tracks[0];

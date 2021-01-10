@@ -26,6 +26,7 @@ using MBS.Framework.UserInterface.Layouts;
 using MBS.Framework.UserInterface.Controls.FileBrowser;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.UserInterface.Controls;
+using MBS.Framework;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
