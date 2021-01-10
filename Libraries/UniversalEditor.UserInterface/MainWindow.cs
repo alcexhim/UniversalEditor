@@ -1457,6 +1457,42 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
+		public Document.ReadOnlyDocumentCollection Documents
+		{
+			get
+			{
+				// retrieve all documents currently loaded in this window
+				EditorPage[] pages = GetEditorPages();
+				List<Document> list = new List<Document>();
+				for (int i = 0; i < pages.Length; i++)
+				{
+					list.Add(pages[i].Document);
+				}
+				return new Document.ReadOnlyDocumentCollection(list);
+			}
+		}
+
+		public Editor.ReadOnlyEditorCollection Editors
+		{
+			get
+			{
+				// retrieve all editors currently loaded in this window
+				EditorPage[] pages = GetEditorPages();
+				List<Editor> list = new List<Editor>();
+				for (int i = 0; i < pages.Length; i++)
+				{
+					for (int j = 0; j < pages[i].Controls.Count; j++)
+					{
+						if (pages[i].Controls[j] is Editor)
+						{
+							list.Add(pages[i].Controls[j] as Editor);
+						}
+					}
+				}
+				return new Editor.ReadOnlyEditorCollection(list);
+			}
+		}
+
 		#endregion
 
 		public IDocumentPropertiesProvider FindDocumentPropertiesProvider(IControl control)

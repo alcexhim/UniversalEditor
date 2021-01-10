@@ -87,6 +87,9 @@ namespace UniversalEditor.UserInterface
 
 		ProjectObjectModel CurrentProject { get; set; }
 		SolutionObjectModel CurrentSolution { get; set; }
+
+		Document.ReadOnlyDocumentCollection Documents { get; }
+		Editor.ReadOnlyEditorCollection Editors { get; }
 	}
 	public class IHostApplicationWindowCollection
 		: System.Collections.ObjectModel.Collection<IHostApplicationWindow>

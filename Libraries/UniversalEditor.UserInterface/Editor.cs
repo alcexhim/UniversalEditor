@@ -36,6 +36,14 @@ namespace UniversalEditor.UserInterface
 	/// </summary>
 	public abstract class Editor : MBS.Framework.UserInterface.Container, IDocumentPropertiesProviderControl
 	{
+		public class ReadOnlyEditorCollection
+			: System.Collections.ObjectModel.ReadOnlyCollection<Editor>
+		{
+			public ReadOnlyEditorCollection(IList<Editor> list) : base(list)
+			{
+			}
+		}
+
 		public EditorContext Context { get; private set; } = null;
 
 		private EditorDocumentExplorer _EditorDocumentExplorer = null;

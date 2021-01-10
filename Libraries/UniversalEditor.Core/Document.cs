@@ -32,6 +32,15 @@ namespace UniversalEditor
 	/// </summary>
 	public class Document : IDisposable
 	{
+		public class ReadOnlyDocumentCollection : System.Collections.ObjectModel.ReadOnlyCollection<Document>
+		{
+			public ReadOnlyDocumentCollection(System.Collections.Generic.IList<Document> list)
+				: base(list)
+			{
+
+			}
+		}
+
 		/// <summary>
 		/// The <see cref="Accessor" /> which determines where the data is read from.
 		/// </summary>
