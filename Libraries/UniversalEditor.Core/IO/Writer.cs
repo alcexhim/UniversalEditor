@@ -60,7 +60,12 @@ namespace UniversalEditor.IO
 				data = Transformations[i].Transform(data);
 			}
 			Write(data, 0, data.Length);
+
+			if (AutoFlush)
+				Flush();
 		}
+
+		public bool AutoFlush { get; set; } = false;
 
 		[CLSCompliant(false)]
 		public void WriteSBytes(sbyte[] data)
@@ -637,7 +642,7 @@ namespace UniversalEditor.IO
 			}
 			else if (objectType == typeof(Char[]))
 			{
-				// WriteCharArray((char[])value);
+				WriteCharArray((char[])value);
 				return;
 			}
 			else if (objectType == typeof(Single))
