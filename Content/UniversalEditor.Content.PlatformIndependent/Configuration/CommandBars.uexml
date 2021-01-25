@@ -15,7 +15,7 @@
 				<CommandReference CommandID="EditUndo" />
 				<CommandReference CommandID="EditRedo" />
 				<Separator />
-				<CommandReference CommandID="Help" />
+				<CommandReference CommandID="HelpViewHelp" />
 			</Items>
 		</CommandBar>
 	</CommandBars>
