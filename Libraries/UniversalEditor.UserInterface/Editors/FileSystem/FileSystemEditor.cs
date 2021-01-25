@@ -224,7 +224,7 @@ namespace UniversalEditor.Editors.FileSystem
 				File file = GetCurrentFileSystemContainer().AddFile(d.Title.Replace("<", String.Empty).Replace(">", String.Empty));
 				EndEdit();
 
-				TreeModelRow row = RecursiveAddFile(file, tv.SelectedRows.Count == 1 ? tv.SelectedRows[0] : null);
+				TreeModelRow row = RecursiveAddFile(file, GetCurrentTreeModelRow());
 				file.Properties["row"] = row;
 
 				EmbeddedFileAccessor efa = new EmbeddedFileAccessor(file);
@@ -232,6 +232,11 @@ namespace UniversalEditor.Editors.FileSystem
 				d.Saved += D_Saved;
 				file.Source = new MemoryFileSource(efa);
 			}
+		}
+
+		private TreeModelRow GetCurrentTreeModelRow()
+		{
+			return tv.SelectedRows.Count == 1 ? tv.SelectedRows[0] : null;
 		}
 
 		void D_Saved(object sender, EventArgs e)
@@ -316,7 +321,16 @@ namespace UniversalEditor.Editors.FileSystem
 			File f = fsom.AddFile(fileTitle, data);
 			TreeModelRow row = UIGetTreeModelRowForFileSystemObject(f);
 			row.SetExtraData<IFileSystemObject>("item", f);
-			tm.Rows.Add(row);
+
+			TreeModelRow rowParent = GetCurrentTreeModelRow();
+			if (rowParent == null)
+			{
+				tm.Rows.Add(row);
+			}
+			else
+			{
+				rowParent.Rows.Add(row);
+			}
 			return f;
 		}
 
@@ -384,6 +398,10 @@ namespace UniversalEditor.Editors.FileSystem
 				Folder fldr = tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") as Folder;
 				if (fldr != null)
 					fsct = fldr;
+			}
+			else if (CurrentFolder != null)
+			{
+				return CurrentFolder;
 			}
 			return fsct;
 		}
