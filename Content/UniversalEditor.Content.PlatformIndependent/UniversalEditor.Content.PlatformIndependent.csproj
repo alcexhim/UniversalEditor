@@ -316,6 +316,7 @@
     <Content Include="ProjectTypes\{69878862-DA7D-4DC6-B0A1-50D8FAB4242F}.uexml" />
     <Content Include="ProjectTypes\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.uexml" />
     <Content Include="Editors\Blockchain\BlockchainEditor.glade" />
+    <Content Include="Panels\PropertyList\PropertyListPanel.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -349,6 +350,7 @@
     <Folder Include="Editors\Multimedia\Audio\Waveform\" />
     <Folder Include="Templates\Project\SCE\" />
     <Folder Include="Templates\Project\SCE\PSM\" />
+    <Folder Include="Panels\PropertyList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />

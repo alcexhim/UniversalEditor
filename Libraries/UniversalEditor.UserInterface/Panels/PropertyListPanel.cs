@@ -21,6 +21,8 @@
 using System;
 using System.Collections.Generic;
 using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 
 namespace UniversalEditor.UserInterface.Panels
 {
@@ -114,42 +116,62 @@ namespace UniversalEditor.UserInterface.Panels
 		}
 	}
 
+	[ContainerLayout("~/Panels/PropertyList/PropertyListPanel.glade")]
 	partial class PropertyListPanel : Panel
 	{
+		private ComboBox cboObject;
+		private SplitContainer scDescriptionCommands;
+		private ListViewControl lvPropertyGrid;
+
 		public PropertyPanelObject.PropertyPanelObjectCollection Objects { get; private set; } = null;
 
 		public PropertyListPanel()
 		{
-			InitializeComponent();
-
 			Objects = new PropertyPanelObject.PropertyPanelObjectCollection(this);
+		}
+
+		[EventHandler(nameof(cboObject), nameof(ComboBox.KeyDown))]
+		void cboObject_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
+		{
+			// this don't work, Gtk blocks keyboard input (probably cause it's technically a text box)
+			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
+			{
+				if (cboObject.Model != null)
+				{
+					TreeModelRow row = cboObject.Model.Find(cboObject.Text);
+					if (row != null)
+					{
+						cboObject.SelectedItem = row;
+					}
+				}
+			}
 		}
 
 		internal void ClearPropertyPanelObjects()
 		{
-			tmObject.Rows.Clear();
+			(cboObject.Model as DefaultTreeModel).Rows.Clear();
 		}
 		internal void AddPropertyPanelObject(PropertyPanelObject item)
 		{
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
-				new TreeModelRowColumn(tmObject.Columns[0], item.Name),
-				new TreeModelRowColumn(tmObject.Columns[1], item.ObjectClass?.Name)
+				new TreeModelRowColumn((cboObject.Model as DefaultTreeModel).Columns[0], item.Name),
+				new TreeModelRowColumn((cboObject.Model as DefaultTreeModel).Columns[1], item.ObjectClass?.Name)
 			});
 			row.SetExtraData<PropertyPanelObject>("obj", item);
 			_rowsByObject[item] = row;
 
-			tmObject.Rows.Add(row);
+			(cboObject.Model as DefaultTreeModel).Rows.Add(row);
 		}
 		private Dictionary<PropertyPanelObject, TreeModelRow> _rowsByObject = new Dictionary<PropertyPanelObject, TreeModelRow>();
 		internal void RemovePropertyPanelObject(PropertyPanelObject item)
 		{
 			if (!_rowsByObject.ContainsKey(item)) return;
-			tmObject.Rows.Remove(_rowsByObject[item]);
+			(cboObject.Model as DefaultTreeModel).Rows.Remove(_rowsByObject[item]);
 		}
 		internal void RefreshList()
 		{
-			tmObject.Rows.Clear();
+			(cboObject.Model as DefaultTreeModel).Rows.Clear();
 			for (int i = 0; i < Objects.Count; i++)
 			{
 				AddPropertyPanelObject(Objects[i]);
@@ -164,7 +186,7 @@ namespace UniversalEditor.UserInterface.Panels
 			{
 				_SelectedObject = value;
 
-				tmPropertyGrid.Rows.Clear();
+				lvPropertyGrid.Model.Rows.Clear();
 				if (_SelectedObject != null)
 				{
 					if (SelectedObject.ObjectClass != null)
@@ -186,8 +208,8 @@ namespace UniversalEditor.UserInterface.Panels
 		{
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
-				new TreeModelRowColumn(tmPropertyGrid.Columns[0], property.Name),
-				new TreeModelRowColumn(tmPropertyGrid.Columns[1], property.Value == null ? String.Empty : property.Value.ToString())
+				new TreeModelRowColumn(lvPropertyGrid.Model.Columns[0], property.Name),
+				new TreeModelRowColumn(lvPropertyGrid.Model.Columns[1], property.Value == null ? String.Empty : property.Value.ToString())
 			});
 
 			for (int i = 0; i < property.Properties.Count; i++)
@@ -201,15 +223,17 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 			else
 			{
-				tmPropertyGrid.Rows.Add(row);
+				lvPropertyGrid.Model.Rows.Add(row);
 			}
 		}
 
+		[EventHandler(nameof(cboObject), nameof(ComboBox.Changed))]
 		void cboObject_Changed(object sender, EventArgs e)
 		{
 			SelectedObject = cboObject.SelectedItem?.GetExtraData<PropertyPanelObject>("obj");
 		}
 
+		[EventHandler(nameof(lvPropertyGrid), nameof(ListViewControl.SelectionChanged))]
 		private void lvPropertyGrid_SelectionChanged(object sender, EventArgs e)
 		{
 
