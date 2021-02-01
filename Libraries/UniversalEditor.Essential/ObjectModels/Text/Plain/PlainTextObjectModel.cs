@@ -58,7 +58,7 @@ namespace UniversalEditor.ObjectModels.Text.Plain
 		public System.Collections.Specialized.StringCollection Lines { get { return mvarLines; } }
 
 		private string mvarText = String.Empty;
-		public string Text { get { return mvarText; } set { mvarText = value; RebuildLines(); } }
+		public string Text { get { return String.Join(LineTerminator, Lines); } set { mvarText = value; RebuildLines(); } }
 
 		private string mvarLineTerminator = System.Environment.NewLine;
 		public string LineTerminator { get { return mvarLineTerminator; } set { mvarLineTerminator = value; RebuildLines(); } }
