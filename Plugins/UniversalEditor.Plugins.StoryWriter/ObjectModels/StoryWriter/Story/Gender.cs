@@ -56,61 +56,47 @@ namespace UniversalEditor.ObjectModels.StoryWriter.Story
 		}
 		public Gender(Guid id, string name)
 		{
-			mvarID = id;
-			mvarName = name;
+			ID = id;
+			Name = name;
 		}
 		public Gender(Guid id, string name, string singularSubject, string pluralSubject, string singularPossessive, string pluralPossessive, string singularObject, string pluralObject)
 		{
-			mvarID = id;
-			mvarName = name;
-			mvarSingularSubject = singularSubject;
-			mvarSingularPossessive = singularPossessive;
-			mvarSingularObject = singularObject;
-			mvarPluralSubject = pluralSubject;
-			mvarPluralPossessive = pluralPossessive;
-			mvarPluralObject = pluralObject;
+			ID = id;
+			Name = name;
+			SingularSubject = singularSubject;
+			SingularPossessive = singularPossessive;
+			SingularObject = singularObject;
+			PluralSubject = pluralSubject;
+			PluralPossessive = pluralPossessive;
+			PluralObject = pluralObject;
 		}
 
-		private Guid mvarID = Guid.Empty;
-		public Guid ID { get { return mvarID; } set { mvarID = value; } }
+		public Guid ID { get; set; } = Guid.Empty;
+		public string Name { get; set; } = String.Empty;
 
-		private string mvarName = String.Empty;
-		public string Name { get { return mvarName; } set { mvarName = value; } }
-
-		private string mvarSingularSubject = String.Empty;
 		/// <summary>
 		/// He, she, it.
 		/// </summary>
-		public string SingularSubject { get { return mvarSingularSubject; } set { mvarSingularSubject = value; } }
-
-		private string mvarPluralSubject = String.Empty;
+		public string SingularSubject { get; set; } = String.Empty;
 		/// <summary>
 		/// they
 		/// </summary>
-		public string PluralSubject { get { return mvarPluralSubject; } set { mvarPluralSubject = value; } }
-
-		private string mvarSingularPossessive = String.Empty;
+		public string PluralSubject { get; set; } = String.Empty;
 		/// <summary>
 		/// His, hers, its.
 		/// </summary>
-		public string SingularPossessive { get { return mvarSingularPossessive; } set { mvarSingularPossessive = value; } }
-
-		private string mvarPluralPossessive = String.Empty;
+		public string SingularPossessive { get; set; } = String.Empty;
 		/// <summary>
 		/// Theirs
 		/// </summary>
-		public string PluralPossessive { get { return mvarPluralPossessive; } set { mvarPluralPossessive = value; } }
-
-		private string mvarSingularObject = String.Empty;
+		public string PluralPossessive { get; set; } = String.Empty;
 		/// <summary>
 		/// Him, her, it.
 		/// </summary>
-		public string SingularObject { get { return mvarSingularObject; } set { mvarSingularObject = value; } }
-
-		private string mvarPluralObject = String.Empty;
+		public string SingularObject { get; set; } = String.Empty;
 		/// <summary>
 		/// Them
 		/// </summary>
-		public string PluralObject { get { return mvarPluralObject; } set { mvarPluralObject = value; } }
+		public string PluralObject { get; set; } = String.Empty;
 	}
 }
