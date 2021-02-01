@@ -76,7 +76,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			cmdSave.Enabled = (SelectedFrameIndex >= 0 && SelectedFrameIndex < coll.Pictures.Count);
 
 			if (txtFrameIndex.Value >= 0 && txtFrameIndex.Value < coll.Pictures.Count)
-				picFrame.Image = coll.Pictures[(int)txtFrameIndex.Value].ToImage();
+				picFrame.ObjectModel = coll.Pictures[(int)txtFrameIndex.Value];
 		}
 
 		protected override void OnCreated(EventArgs e)
@@ -257,7 +257,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			cmdSaveAll.Enabled = coll.Pictures.Count > 0;
 
 			if (coll.Pictures.Count > 0)
-				picFrame.Image = coll.Pictures[0].ToImage();
+				picFrame.ObjectModel = coll.Pictures[0];
 		}
 
 		protected override void OnDocumentExplorerSelectionChanged(EditorDocumentExplorerSelectionChangedEventArgs e)
@@ -276,7 +276,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			set { txtFrameIndex.Value = value; Refresh(); }
 		}
 
-		private PictureFrame picFrame = null;
+		private UniversalEditor.Editors.Multimedia.Picture.PictureEditor picFrame = null;
 
 		[EventHandler(nameof(cmdSave), "Click")]
 		void CmdSave_Click(object sender, EventArgs e)
