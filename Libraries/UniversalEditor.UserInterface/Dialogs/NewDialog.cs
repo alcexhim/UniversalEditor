@@ -21,6 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+
+using MBS.Framework;
+using MBS.Framework.Settings;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
@@ -307,14 +310,14 @@ namespace UniversalEditor.UserInterface.Dialogs
 										case ProjectTypeVariableType.FileOpen:
 										{
 											FileSetting co = new FileSetting(ptv.Name, ptv.Title);
-											co.Mode = FileDialogMode.Open;
+											co.Mode = FileSettingMode.Open;
 											sg.Settings.Add(co);
 											break;
 										}
 										case ProjectTypeVariableType.FileSave:
 										{
 											FileSetting co = new FileSetting(ptv.Name, ptv.Title);
-											co.Mode = FileDialogMode.Save;
+											co.Mode = FileSettingMode.Save;
 											sg.Settings.Add(co);
 											break;
 										}

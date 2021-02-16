@@ -21,6 +21,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
+using MBS.Framework;
+using MBS.Framework.Settings;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Dialogs;
 
@@ -87,8 +90,8 @@ namespace UniversalEditor.UserInterface
 				FileSetting fs = new FileSetting(option.PropertyName, option.Title, (string)option.GetValue());
 				switch (option.DialogMode)
 				{
-					case CustomOptionFileDialogMode.Open: fs.Mode = FileDialogMode.Open; break;
-					case CustomOptionFileDialogMode.Save: fs.Mode = FileDialogMode.Save; break;
+					case CustomOptionFileDialogMode.Open: fs.Mode = FileSettingMode.Open; break;
+					case CustomOptionFileDialogMode.Save: fs.Mode = FileSettingMode.Save; break;
 				}
 				sg.Settings.Add(fs);
 			}

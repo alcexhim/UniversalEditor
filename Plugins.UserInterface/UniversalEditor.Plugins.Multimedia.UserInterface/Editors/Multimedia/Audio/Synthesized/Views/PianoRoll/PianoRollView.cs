@@ -24,6 +24,7 @@ using System.Collections.Generic;
 
 using MBS.Framework;
 using MBS.Framework.Drawing;
+using MBS.Framework.Settings;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
