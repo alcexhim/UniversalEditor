@@ -75,7 +75,6 @@
     <Compile Include="TemporaryFileManager.cs" />
     <Compile Include="Toolbox.cs" />
     <Compile Include="UnsavedDocumentOption.cs" />
-    <Compile Include="WindowState.cs" />
     <Compile Include="StockCommandType.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="Panels\ErrorListPanel.cs" />

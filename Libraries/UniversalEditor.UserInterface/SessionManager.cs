@@ -7,6 +7,7 @@ using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.Accessors;
 using UniversalEditor;
+using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface
 {
