@@ -669,9 +669,6 @@ namespace UniversalEditor.UserInterface
 		}
 		#endregion
 
-		private MenuBar mvarMenuBar = new MenuBar();
-		public MenuBar MenuBar { get { return mvarMenuBar; } }
-
 		private CommandBar.CommandBarCollection mvarToolbars = new CommandBar.CommandBarCollection();
 		public CommandBar.CommandBarCollection Toolbars { get { return mvarToolbars; } }
 

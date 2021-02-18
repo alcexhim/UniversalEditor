@@ -63,9 +63,6 @@ namespace UniversalEditor.UserInterface
 		/// </summary>
 		/// <returns>True if the user accepted the dialog; false otherwise.</returns>
 		bool ShowOptionsDialog();
-		
-		void ToggleMenuItemEnabled(string menuItemName, bool enabled);
-		void RefreshCommand(object nativeCommandObject);
 
 		void UpdateStatus(string statusText);
 		

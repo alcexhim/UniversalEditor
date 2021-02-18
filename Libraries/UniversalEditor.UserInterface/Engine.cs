@@ -1264,18 +1264,5 @@ namespace UniversalEditor.UserInterface
 				}
 			}
 		}
-
-		public virtual ActionMenuItem[] CreateMenuItemsFromPlaceholder(PlaceholderMenuItem pmi)
-		{
-			List<ActionMenuItem> list = new List<ActionMenuItem>();
-			switch (pmi.PlaceholderID)
-			{
-				case "RecentFiles":
-				{
-					break;
-				}
-			}
-			return list.ToArray();
-		}
 	}
 }

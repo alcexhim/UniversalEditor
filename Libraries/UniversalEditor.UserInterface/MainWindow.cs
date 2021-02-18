@@ -1346,16 +1346,6 @@ namespace UniversalEditor.UserInterface
 			return ((UIApplication)Application.Instance).ShowSettingsDialog();
 		}
 
-		public void ToggleMenuItemEnabled(string menuItemName, bool enabled)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void RefreshCommand(object nativeCommandObject)
-		{
-			throw new NotImplementedException();
-		}
-
 		private void AddRecentMenuItem(string FileName)
 		{
 			Command mnuFileRecentFiles = ((UIApplication)Application.Instance).Commands["FileRecentFiles"];
@@ -1447,9 +1437,7 @@ namespace UniversalEditor.UserInterface
 		{
 			get
 			{
-				if (pnlSolutionExplorer.Project != null)
-					return pnlSolutionExplorer.Project;
-				return null;
+				return pnlSolutionExplorer.Project;
 			}
 			set
 			{

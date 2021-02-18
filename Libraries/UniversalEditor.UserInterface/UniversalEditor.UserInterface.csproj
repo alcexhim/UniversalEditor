@@ -79,7 +79,6 @@
     <Compile Include="MainWindow.cs" />
     <Compile Include="Panels\ErrorListPanel.cs" />
     <Compile Include="Panel.cs" />
-    <Compile Include="MenuBar.cs" />
     <Compile Include="LocalConfiguration.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Dialogs\DataFormatAboutDialog.cs" />
