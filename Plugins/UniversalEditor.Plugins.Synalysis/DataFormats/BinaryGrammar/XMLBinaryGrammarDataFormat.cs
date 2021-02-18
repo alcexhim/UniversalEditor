@@ -27,7 +27,7 @@ using UniversalEditor.ObjectModels.BinaryGrammar;
 using UniversalEditor.ObjectModels.BinaryGrammar.GrammarItems;
 using UniversalEditor.ObjectModels.Markup;
 
-namespace UniversalEditor.Plugins.Synalysis.DataFormats.XMLBinaryGrammar
+namespace UniversalEditor.Plugins.Synalysis.DataFormats.BinaryGrammar
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating Synalysis binary grammar definition files in XML format.
