@@ -61,5 +61,25 @@ namespace UniversalEditor.Plugins.Collaboration
 				}
 			});
 		}
+
+		protected override void UpdateMenuItemsInternal()
+		{
+			base.UpdateMenuItemsInternal();
+
+			Editor ed = (Application.Instance as IHostApplication).CurrentWindow?.GetCurrentEditor();
+
+			// not sure why this is registered (in Plugins/UniversalEditor.Plugins.Collaboration/Commands/Review.uexml) as a global command, but whatever
+			Application.Instance.Commands["Collaboration_Comments_New"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Comments_Delete"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Comments_Previous"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Comments_Next"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Comments_ShowHideComments"].Enabled = ed != null;
+
+			Application.Instance.Commands["Collaboration_Tracking_Track"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Tracking_PreviousChange"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Tracking_NextChange"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Tracking_Lock"].Enabled = ed != null;
+			Application.Instance.Commands["Collaboration_Tracking_AcceptAll"].Enabled = ed != null;
+		}
 	}
 }

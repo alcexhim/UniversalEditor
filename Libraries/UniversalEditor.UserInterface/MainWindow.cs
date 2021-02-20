@@ -110,6 +110,9 @@ namespace UniversalEditor.UserInterface
 			// we have to process key shortcuts manually if we do not use a traditional menu bar
 			foreach (Command cmd in ((UIApplication)Application.Instance).Commands)
 			{
+				if (!cmd.Enabled)
+					continue;
+
 				if (cmd is UICommand)
 				{
 					if (((UICommand)cmd).Shortcut == null) continue;
@@ -386,8 +389,93 @@ namespace UniversalEditor.UserInterface
 					tmToolbox.Rows.Clear();
 				}
 				pnlDocumentExplorer.CurrentEditor = editor;
+
+				UpdateMenuItems();
 			}
 			_prevEditor = editor;
+		}
+
+		private void UpdateMenuItems()
+		{
+			Editor editor = GetCurrentEditor();
+			bool hasEditor = (editor != null);
+			bool hasProject = CurrentProject != null;
+			KeyValuePair<string, object>[] kvps = new KeyValuePair<string, object>[]
+			{
+				new KeyValuePair<string, object>("Document.Title", editor?.Title),
+				new KeyValuePair<string, object>("Application.Title", Application.Instance.Title)
+			};
+
+			Application.Instance.Commands["FileSaveDocument"].Enabled = hasEditor;
+			Application.Instance.Commands["FileSaveDocumentAs"].Enabled = hasEditor;
+			Application.Instance.Commands["FileSaveProject"].Enabled = hasProject;
+			Application.Instance.Commands["FileSaveProjectAs"].Enabled = hasProject;
+			Application.Instance.Commands["FilePrint"].Enabled = hasEditor;
+			Application.Instance.Commands["FileCloseDocument"].Enabled = hasEditor;
+			Application.Instance.Commands["FileCloseProject"].Enabled = hasProject;
+
+			Application.Instance.Commands["ProjectAddNew"].Enabled = hasProject;
+			Application.Instance.Commands["ProjectAddExisting"].Enabled = hasProject;
+			Application.Instance.Commands["ProjectExclude"].Enabled = hasProject;
+			Application.Instance.Commands["ProjectShowAllFiles"].Enabled = hasProject;
+			Application.Instance.Commands["ProjectProperties"].Enabled = hasProject;
+
+			Application.Instance.Commands["BookmarksAddAll"].Enabled = GetEditorPages().Length > 0;
+			if (editor != null)
+			{
+				Application.Instance.Commands["FileProperties"].Enabled = editor.Selections.Count > 0;
+
+				Application.Instance.Commands["EditUndo"].Enabled = editor.UndoItemCount > 0;
+				Application.Instance.Commands["EditRedo"].Enabled = editor.RedoItemCount > 0;
+
+				Application.Instance.Commands["EditCut"].Enabled = editor.Selections.Count > 0;
+				Application.Instance.Commands["EditCopy"].Enabled = editor.Selections.Count > 0;
+				Application.Instance.Commands["EditPaste"].Enabled = true; // TODO: figure out whether the clipboard has a supported format
+				Application.Instance.Commands["EditDelete"].Enabled = editor.Selections.Count > 0;
+
+				Application.Instance.Commands["EditSelectAll"].Enabled = true;
+				Application.Instance.Commands["EditInvertSelection"].Enabled = editor.Selections.Count > 0;
+
+				Application.Instance.Commands["EditFindReplace"].Enabled = true;
+				Application.Instance.Commands["EditBatchFindReplace"].Enabled = true;
+
+				Application.Instance.Commands["EditGoTo"].Enabled = true;
+
+				Application.Instance.Commands["BookmarksAdd"].Enabled = true;
+
+				string fmt = "$(Document.Title) - $(Application.Title)"; // FIXME: replace with call to get main window title with document
+				Text = fmt.ReplaceVariables(kvps);
+			}
+			else
+			{
+				Application.Instance.Commands["FileProperties"].Enabled = false;
+
+				Application.Instance.Commands["EditUndo"].Enabled = false;
+				Application.Instance.Commands["EditRedo"].Enabled = false;
+
+				Application.Instance.Commands["EditCut"].Enabled = false;
+				Application.Instance.Commands["EditCopy"].Enabled = false;
+				Application.Instance.Commands["EditPaste"].Enabled = false;
+				Application.Instance.Commands["EditDelete"].Enabled = false;
+
+				Application.Instance.Commands["EditSelectAll"].Enabled = false;
+				Application.Instance.Commands["EditInvertSelection"].Enabled = false;
+
+				Application.Instance.Commands["EditFindReplace"].Enabled = false;
+				Application.Instance.Commands["EditBatchFindReplace"].Enabled = false;
+
+				Application.Instance.Commands["EditGoTo"].Enabled = false;
+
+				Application.Instance.Commands["BookmarksAdd"].Enabled = false;
+
+				string fmt = "$(Application.Title)"; // FIXME: replace with call to get main window title without document
+				Text = fmt.ReplaceVariables(kvps);
+			}
+
+			foreach (UserInterfacePlugin pl in UserInterfacePlugin.Get())
+			{
+				pl.UpdateMenuItems();
+			}
 		}
 
 		public void NewProject(bool combineObjects = false)
@@ -795,6 +883,8 @@ namespace UniversalEditor.UserInterface
 
 			Engine.CurrentEngine.Windows.Add(this);
 			Engine.CurrentEngine.LastWindow = this;
+
+			UpdateMenuItems();
 		}
 
 		protected override void OnGotFocus(EventArgs e)
@@ -1442,6 +1532,7 @@ namespace UniversalEditor.UserInterface
 			set
 			{
 				pnlSolutionExplorer.Project = value;
+				UpdateMenuItems();
 			}
 		}
 
