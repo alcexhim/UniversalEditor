@@ -478,8 +478,16 @@ namespace UniversalEditor.UserInterface
 		}
 
 		private Stack<EDITINFO> undo = new Stack<EDITINFO>();
+		/// <summary>
+		/// Gets the number of items currently in this <see cref="Editor" />'s undo stack.
+		/// </summary>
+		/// <value>The number of items currently in this <see cref="Editor" />'s undo stack.</value>
 		public int UndoItemCount { get { return undo.Count; } }
 		private Stack<EDITINFO> redo = new Stack<EDITINFO>();
+		/// <summary>
+		/// Gets the number of items currently in this <see cref="Editor" />'s redo stack.
+		/// </summary>
+		/// <value>The number of items currently in this <see cref="Editor" />'s redo stack.</value>
 		public int RedoItemCount { get { return redo.Count; } }
 
 		public event EventHandler DocumentEdited;
