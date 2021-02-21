@@ -134,6 +134,7 @@
     <Compile Include="IDocumentPropertiesProvider.cs" />
     <Compile Include="EditorApplication.cs" />
     <Compile Include="IHostApplication.cs" />
+    <Compile Include="Controls\PrintDialogOptionsTabPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -197,6 +198,7 @@
     <EmbeddedResource Include="SettingsProviders\DefaultSettingsProvider.xml" />
     <EmbeddedResource Include="Editors\FileSystem\FileSystemEditorSettingsProvider.xml" />
     <EmbeddedResource Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.xml" />
+    <EmbeddedResource Include="Controls\PrintDialogOptionsTabPage.glade" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

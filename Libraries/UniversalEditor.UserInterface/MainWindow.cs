@@ -31,6 +31,8 @@ using System.Collections.Generic;
 using System.Text;
 using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework;
+using UniversalEditor.UserInterface.Controls;
+using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor.UserInterface
 {
@@ -1317,7 +1319,52 @@ namespace UniversalEditor.UserInterface
 				if (phrs.Length > 0)
 				{
 					PrintDialog dlg = new PrintDialog();
-					if (dlg.ShowDialog(this) == DialogResult.OK)
+					dlg.EnablePreview = true;
+
+					PrintDialogOptionsTabPage tab1 = new PrintDialogOptionsTabPage();
+					tab1.SelectedPrintHandler = phrs[0];
+					tab1.PrintHandlers = phrs;
+
+					dlg.TabPages.Add(tab1);
+
+					DialogResult result = dlg.ShowDialog(this);
+
+					switch (result)
+					{
+						case DialogResult.Apply:
+						{
+							// do print preview
+
+							FileAccessor faINI = new FileAccessor(TemporaryFileManager.GetTemporaryFileName(), true, true, true);
+							PropertyListObjectModel omINI = new PropertyListObjectModel();
+							DataFormats.PropertyList.WindowsConfigurationDataFormat dfINI = new DataFormats.PropertyList.WindowsConfigurationDataFormat();
+
+							omINI.Items.Add(new Group("Print Settings", new PropertyListItem[]
+							{
+							}));
+							omINI.Items.Add(new Group("Page Setup", new PropertyListItem[]
+							{
+								new Property("PPDName", "Letter")
+							}));
+							omINI.Items.Add(new Group("Print Job", new PropertyListItem[]
+							{
+								new Property("title", "Universal Editor Print Preview Test")
+							}));
+
+							// we do not need to quote property values here
+							dfINI.PropertyValuePrefix = String.Empty;
+							dfINI.PropertyValueSuffix = String.Empty;
+
+							Document.Save(omINI, dfINI, faINI);
+
+							string pdfFileName = TemporaryFileManager.GetTemporaryFileName();
+							System.IO.File.Copy("/tmp/1940.pdf", pdfFileName);
+
+							(Application.Instance as UIApplication).Launch("evince-previewer", String.Format("--print-settings {0} --unlink-tempfile {1}", faINI.FileName, pdfFileName));
+							break;
+						}
+					}
+					if (result == DialogResult.OK)
 					{
 						PrintHandler ph = phrs[0].Create();
 						if (ph != null)
@@ -1337,6 +1384,11 @@ namespace UniversalEditor.UserInterface
 					MessageDialog.ShowDialog(String.Format("No print handlers are associated with the ObjectModel.\r\n\r\n{0}", editor.ObjectModel?.GetType()?.FullName ?? "(null)"), "Print Document", MessageDialogButtons.OK, MessageDialogIcon.Error);
 				}
 			}
+		}
+
+		void Job_Preview(object sender, PrintPreviewEventArgs e)
+		{
+			e.Handled = true;
 		}
 
 		void Job_DrawPage(object sender, PrintEventArgs e)
