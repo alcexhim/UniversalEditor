@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Drawing;
+using MBS.Framework.UserInterface.Input.Mouse;
 
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
@@ -44,6 +45,14 @@ namespace UniversalEditor.Controls.DrawingArea
 				this.Refresh();
 			}
 		}
+
+		protected override void OnMouseDown(MouseEventArgs e)
+		{
+			base.OnMouseDown(e);
+
+			Focus();
+		}
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint(e);
@@ -58,6 +67,11 @@ namespace UniversalEditor.Controls.DrawingArea
 
 				Image image = mvarPicture.ToImage();
 				e.Graphics.DrawImage(image, 0, 0);
+			}
+
+			if (Focused)
+			{
+				e.Graphics.DrawFocus(0, 0, Size.Width, Size.Height);
 			}
 		}
 	}
