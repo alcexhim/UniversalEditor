@@ -188,6 +188,16 @@ namespace UniversalEditor.Editors.FileSystem
 			txtPath.Text = GetPath(CurrentFolder);
 		}
 
+		protected override void OnMouseDown(MouseEventArgs e)
+		{
+			base.OnMouseDown(e);
+
+			if (e.Buttons == MouseButtons.XButton1)
+			{
+				GoUp();
+			}
+		}
+
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
 		{
 			if (tv.SelectedRows.Count == 0) return;
@@ -1004,15 +1014,21 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			if (e.Key == KeyboardKey.Back)
 			{
-				if (CurrentFolder == null)
-				{
-					(Application.Instance as UIApplication).PlaySystemSound(SystemSound.Beep);
-					return;
-				}
-
-				Folder parent = (CurrentFolder.Parent as Folder);
-				CurrentFolder = parent;
+				// FIXME:  this should be a keyboard key binding in UWT Settings
+				GoUp();
 			}
+		}
+
+		private void GoUp()
+		{
+			if (CurrentFolder == null)
+			{
+				(Application.Instance as UIApplication).PlaySystemSound(SystemSound.Beep);
+				return;
+			}
+
+			Folder parent = (CurrentFolder.Parent as Folder);
+			CurrentFolder = parent;
 		}
 
 		[EventHandler(nameof(tv), nameof(ListViewControl.BeforeContextMenu))]
