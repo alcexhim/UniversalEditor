@@ -196,6 +196,7 @@ namespace UniversalEditor.Editors.Binary
 			(tbFieldDefinitions.Items[1] as ToolbarItemButton).Click += tsbFieldDefinitionEdit_Click;
 			(tbFieldDefinitions.Items[2] as ToolbarItemButton).Click += tsbFieldDefinitionRemove_Click;
 			(tbFieldDefinitions.Items[4] as ToolbarItemButton).Click += tsbFieldDefinitionLoad_Click;
+			(tbFieldDefinitions.Items[5] as ToolbarItemButton).Click += tsbFieldDefinitionSave_Click;
 
 			(cboEndianness.Model as DefaultTreeModel).Rows[0].SetExtraData<IO.Endianness>("value", IO.Endianness.LittleEndian);
 			(cboEndianness.Model as DefaultTreeModel).Rows[1].SetExtraData<IO.Endianness>("value", IO.Endianness.BigEndian);
@@ -235,6 +236,9 @@ namespace UniversalEditor.Editors.Binary
 				byte[] data = ParseBinaryBytes(content);
 				hexedit.Data = data;
 			});
+
+			Context.AttachCommandEventHandler("ContextMenu_FieldDefinitions_Add", tsbFieldDefinitionAdd_Click);
+			Context.AttachCommandEventHandler("ContextMenu_FieldDefinitions_Edit", tsbFieldDefinitionEdit_Click);
 
 			OnObjectModelChanged(EventArgs.Empty);
 		}
@@ -715,6 +719,23 @@ namespace UniversalEditor.Editors.Binary
 				FileAccessor fa = new FileAccessor(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1]);
 				DataFormat df = assocs[0].DataFormats[0].Create(); // FIXME: THIS SHOULD BE PROPERLY INFERRED
 				Document.Load(om, df, fa);
+			}
+		}
+		// [EventHandler(nameof(tsbFieldDefinitionSave), "Click")]
+		private void tsbFieldDefinitionSave_Click(object sender, EventArgs e)
+		{
+			FileDialog dlg = new FileDialog();
+			dlg.Mode = FileDialogMode.Save;
+
+			BinaryGrammarObjectModel om = new BinaryGrammarObjectModel();
+			Association[] assocs = Association.FromObjectModelOrDataFormat(om.MakeReference());
+			dlg.AddFileNameFilterFromAssociations("Grammar definition files", assocs);
+
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				FileAccessor fa = new FileAccessor(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1]);
+				DataFormat df = assocs[0].DataFormats[0].Create(); // FIXME: THIS SHOULD BE PROPERLY INFERRED
+				Document.Save(om, df, fa);
 			}
 		}
 

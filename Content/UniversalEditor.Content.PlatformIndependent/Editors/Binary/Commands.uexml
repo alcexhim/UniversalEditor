@@ -2,10 +2,33 @@
 	<Editors>
 		<Editor ID="{3EFF1E24-766C-4A1C-8DB3-C186B9AD4CB9}" TypeName="UniversalEditor.Editors.Binary.BinaryEditor">
 			<Commands>
+				<Command ID="ContextMenu_Mode_Insert" Title="_Insert" />
+				<Command ID="ContextMenu_Mode_Append" Title="_Append" />
+				<Command ID="ContextMenu_Mode" Title="_Mode">
+					<Items>
+						<CommandReference CommandID="ContextMenu_Mode_Insert" />
+						<CommandReference CommandID="ContextMenu_Mode_Append" />
+					</Items>
+				</Command>
+				
+				<Command ID="ContextMenu_FieldDefinitions_Add" Title="_Add..." />
+				<Command ID="ContextMenu_FieldDefinitions_Edit" Title="_Edit..." />
+				<Command ID="ContextMenu_FieldDefinitions" Title="_Field Definitions">
+					<Items>
+						<CommandReference CommandID="ContextMenu_FieldDefinitions_Add" />
+						<CommandReference CommandID="ContextMenu_FieldDefinitions_Edit" />
+					</Items>
+				</Command>
+				
 				<Command ID="EditPasteBinary" Title="Paste _Binary" />
 				
 				<Command ID="BinaryEditorContextMenu">
 					<Items>
+						<CommandReference CommandID="ContextMenu_Mode" />
+						<CommandReference CommandID="ContextMenu_FieldDefinitions" />
+						<Separator />
+						<CommandReference CommandID="EditGoto" />
+						<Separator />
 						<CommandReference CommandID="EditCut" />
 						<CommandReference CommandID="EditCopy" />
 						<CommandReference CommandID="EditPaste" />

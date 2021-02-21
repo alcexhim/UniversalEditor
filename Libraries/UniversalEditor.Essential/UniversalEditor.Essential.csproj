@@ -218,6 +218,7 @@
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPGeneralPurposeFlags.cs" />
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPInternalFileAttributes.cs" />
     <Compile Include="ObjectModels\Binary\BinarySelection.cs" />
+    <Compile Include="DataFormats\BinaryGrammar\WxHexEditor\WxHexEditorXMLBinaryGrammar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -259,6 +260,8 @@
     <Folder Include="DataFormats\FileSystem\" />
     <Folder Include="DataFormats\FileSystem\ZIP\" />
     <Folder Include="Associations\" />
+    <Folder Include="DataFormats\BinaryGrammar\" />
+    <Folder Include="DataFormats\BinaryGrammar\WxHexEditor\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\PlainText.uexml" />
