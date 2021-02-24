@@ -162,6 +162,12 @@ namespace UniversalEditor.UserInterface.Common
 									er.Configuration.Combine(tagEditor);
 								}
 
+								MarkupAttribute attTitle = tagEditor.Attributes["Title"];
+								if (attTitle != null)
+								{
+									er.Title = attTitle.Value;
+								}
+
 								MarkupTagElement tagCommands = (tagEditor.Elements["Commands"] as MarkupTagElement);
 								if (tagCommands != null)
 								{
@@ -195,6 +201,43 @@ namespace UniversalEditor.UserInterface.Common
 										}
 									}
 								}
+
+								MarkupTagElement tagCommandBindings = (tagEditor.Elements["CommandBindings"] as MarkupTagElement);
+								if (tagCommandBindings != null)
+								{
+									foreach (MarkupElement elCommandBinding in tagCommandBindings.Elements)
+									{
+										CommandBinding cb = CommandBinding.FromXML(elCommandBinding as MarkupTagElement);
+										if (cb == null) continue;
+
+										(Application.Instance as UIApplication).CommandBindings.Add(cb);
+									}
+								}
+
+								MarkupTagElement tagContexts = (tagEditor.Elements["Contexts"] as MarkupTagElement);
+								if (tagContexts != null)
+								{
+									// load the contexts defined by this editor
+									// these are NOT contexts that will automatically be added to the application when the editor is focused!
+
+									// these are for advertising Editor-specific contexts that aren't loaded by the rest of the application
+									// so that we can associate settings with them
+
+									foreach (MarkupElement elContext in tagContexts.Elements)
+									{
+										MarkupTagElement tagContext = elContext as MarkupTagElement;
+										if (tagContext == null) continue;
+										if (tagContext.FullName != "Context") continue;
+
+										MarkupAttribute attContextID = tagContext.Attributes["ID"];
+										MarkupAttribute attContextName = tagContext.Attributes["Name"];
+										if (attContextID == null || attContextName == null) continue;
+
+										Context ctx = new Context(new Guid(attContextID.Value), attContextName.Value);
+										er.Contexts.Add(ctx);
+									}
+								}
+
 								MarkupTagElement tagMenuBar = (tagEditor.Elements["MenuBar"] as MarkupTagElement);
 								if (tagMenuBar != null)
 								{

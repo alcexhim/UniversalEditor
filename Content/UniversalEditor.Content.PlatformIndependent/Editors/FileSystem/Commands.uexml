@@ -1,7 +1,21 @@
-﻿<UniversalEditor Version="5.0">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="5.0">
 	<Editors>
-		<Editor ID="{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}" TypeName="UniversalEditor.Editors.FileSystem.FileSystemEditor">
+		<Editor ID="{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}" TypeName="UniversalEditor.Editors.FileSystem.FileSystemEditor" Title="File System Editor">
+			<Contexts>
+				<Context ID="{ce094932-77fb-418f-bd98-e3734a670fad}" Name="Tree View - File System Editor" />
+			</Contexts>
+			<CommandBindings>
+				<!-- set up the default command bindings for this editor context -->
+				<CommandBinding Key="F5" CommandID="FileSystemContextMenu_CopyTo" />
+				<CommandBinding Key="F6" CommandID="FileSystemContextMenu_Rename" />
+				<CommandBinding Key="F7" CommandID="FileSystemContextMenu_New_Folder" />
+				<CommandBinding Key="F8" CommandID="EditDelete" />
+			</CommandBindings>
 			<Commands>
+				<Command ID="FileSystemEditor_GoUp" Title="Go Up" />
+				<Command ID="FileSystemEditor_OpenSelection" Title="Open Selection in Current Tab" />
+			
 				<Command ID="FileSystemContextMenu_View_Thumbnails" Title="T_humbnails" />
 				<Command ID="FileSystemContextMenu_View_Tiles" Title="Tile_s" />
 				<Command ID="FileSystemContextMenu_View_Icons" Title="Ico_ns" />

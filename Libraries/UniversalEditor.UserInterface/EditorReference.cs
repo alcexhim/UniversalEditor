@@ -17,6 +17,8 @@ namespace UniversalEditor.UserInterface
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
+		public Context.ContextCollection Contexts { get; } = new Context.ContextCollection();
+
 		private Type mvarEditorType = null;
 		public Type EditorType { get { return mvarEditorType; } set { mvarEditorType = value; } }
 
@@ -29,7 +31,6 @@ namespace UniversalEditor.UserInterface
 
 		public CommandBar MenuBar { get; } = new CommandBar();
 		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
-		public KeyBinding.KeyBindingCollection KeyBindings { get; } = new KeyBinding.KeyBindingCollection();
 
 		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();
 		public Variable.VariableCollection Variables { get; } = new Variable.VariableCollection();

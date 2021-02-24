@@ -28,6 +28,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework;
+using MBS.Framework.UserInterface.Input.Mouse;
 
 namespace UniversalEditor.UserInterface
 {
@@ -709,19 +710,23 @@ namespace UniversalEditor.UserInterface
 			return base.ProcessKeyPreview(ref m);
 		}
 		*/
-		protected override void OnKeyDown(KeyEventArgs e)
-		{
-			base.OnKeyDown(e);
 
-			// look at this editor's configuration to see if we have any registered keybindings
-			foreach (Command cmd in Commands)
+		protected override void OnMouseDown(MouseEventArgs e)
+		{
+			base.OnMouseDown(e);
+
+			// FIXME: this should be sorted by contextID
+			foreach (CommandBinding binding in (Application.Instance as UIApplication).CommandBindings)
 			{
-				/*
-				if (cmd.Shortcut.CompareTo(e.KeyData))
+				if (binding.Match(e))
 				{
-					cmd.Execute();
+					if (binding.ContextID == null || Application.Instance.Contexts.Contains(binding.ContextID.Value))
+					{
+						Application.Instance.ExecuteCommand(binding.CommandID);
+						e.Cancel = true;
+						break;
+					}
 				}
-				*/
 			}
 		}
 
@@ -874,6 +879,10 @@ namespace UniversalEditor.UserInterface
 			{
 				MessageDialog.ShowDialog(String.Format("TODO: Implement Document Properties dialog for '{0}'!", GetType().Name), "Not Implemented", MessageDialogButtons.OK, MessageDialogIcon.Error);
 			}
+		}
+		public bool HasDocumentProperties
+		{
+			get { return GetDocumentPropertiesSettingsProviders().Length > 0; }
 		}
 	}
 }

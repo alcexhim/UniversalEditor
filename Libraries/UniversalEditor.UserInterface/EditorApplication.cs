@@ -1,4 +1,6 @@
 ﻿
+using System;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 
 namespace UniversalEditor.UserInterface
@@ -17,5 +19,26 @@ namespace UniversalEditor.UserInterface
 		/// A collection of messages to display in the Error List panel.
 		/// </summary>
 		public HostApplicationMessage.HostApplicationMessageCollection Messages { get; } = new HostApplicationMessage.HostApplicationMessageCollection();
+
+		protected override Command FindCommandInternal(string commandID)
+		{
+			EditorReference[] editors = Common.Reflection.GetAvailableEditors();
+			foreach (EditorReference er in editors)
+			{
+				Command cmd = er.Commands[commandID];
+				if (cmd != null) return cmd;
+			}
+			return base.FindCommandInternal(commandID);
+		}
+		protected override Context FindContextInternal(Guid contextID)
+		{
+			EditorReference[] editors = Common.Reflection.GetAvailableEditors();
+			foreach (EditorReference er in editors)
+			{
+				Context ctx = er.Contexts[contextID];
+				if (ctx != null) return ctx;
+			}
+			return base.FindContextInternal(contextID);
+		}
 	}
 }

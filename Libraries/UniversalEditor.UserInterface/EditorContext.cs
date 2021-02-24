@@ -30,6 +30,11 @@ namespace UniversalEditor.UserInterface
 	{
 		public EditorReference Reference { get; private set; } = null;
 
+		public override string ToString()
+		{
+			return String.Format("[Editor] {0}", Name);
+		}
+
 		public EditorContext(Guid id, string name, EditorReference reference)
 			: base(id, name)
 		{
@@ -42,10 +47,6 @@ namespace UniversalEditor.UserInterface
 			for (int i = 0; i < reference.MenuBar.Items.Count; i++)
 			{
 				MenuItems.Add(reference.MenuBar.Items[i]);
-			}
-			for (int i = 0; i < reference.KeyBindings.Count; i++)
-			{
-				KeyBindings.Add(reference.KeyBindings[i]);
 			}
 		}
 	}

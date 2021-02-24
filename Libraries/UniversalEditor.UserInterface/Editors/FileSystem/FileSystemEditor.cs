@@ -94,6 +94,24 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
+		private Context ctxTreeView = null;
+		protected override void OnCreating(EventArgs e)
+		{
+			base.OnCreating(e);
+			ctxTreeView = MakeReference().Contexts[new Guid("{ce094932-77fb-418f-bd98-e3734a670fad}")];
+		}
+
+		[EventHandler(nameof(tv), nameof(ListViewControl.GotFocus))]
+		private void tv_GotFocus(object sender, EventArgs e)
+		{
+			Application.Instance.Contexts.Add(ctxTreeView);
+		}
+		[EventHandler(nameof(tv), nameof(ListViewControl.LostFocus))]
+		private void tv_LostFocus(object sender, EventArgs e)
+		{
+			Application.Instance.Contexts.Remove(ctxTreeView);
+		}
+
 		/// <summary>
 		/// Navigates to the specified <see cref="IFileSystemObject" />.
 		/// </summary>
@@ -175,6 +193,8 @@ namespace UniversalEditor.Editors.FileSystem
 			Context.AttachCommandEventHandler("FileSystemContextMenu_CopyTo", ContextMenuCopyTo_Click);
 			// Application.AttachCommandEventHandler("FileProperties", ContextMenuProperties_Click);
 
+			Context.AttachCommandEventHandler("FileSystemEditor_GoUp", FileSystemEditor_GoUp);
+
 			// FIXME: this is GTK-specific...
 			this.tv.RegisterDragSource(new DragDropTarget[]
 			{
@@ -186,16 +206,6 @@ namespace UniversalEditor.Editors.FileSystem
 			OnObjectModelChanged(EventArgs.Empty);
 
 			txtPath.Text = GetPath(CurrentFolder);
-		}
-
-		protected override void OnMouseDown(MouseEventArgs e)
-		{
-			base.OnMouseDown(e);
-
-			if (e.Buttons == MouseButtons.XButton1)
-			{
-				GoUp();
-			}
 		}
 
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)
@@ -321,7 +331,7 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 			else
 			{
-				AddFolderToItem(f, null);
+				AddFolderToItem(f, fsom);
 				tm.Rows.Add(row);
 			}
 			return f;
@@ -705,11 +715,7 @@ namespace UniversalEditor.Editors.FileSystem
 			if (_er == null)
 			{
 				_er = base.MakeReference();
-				_er.KeyBindings.Add(new KeyBinding("FileSystemContextMenu_CopyTo", KeyboardKey.F5, KeyboardModifierKey.None));
-				_er.KeyBindings.Add(new KeyBinding("FileSystemContextMenu_Rename", KeyboardKey.F6, KeyboardModifierKey.None));
-				_er.KeyBindings.Add(new KeyBinding("FileSystemContextMenu_New_Folder", KeyboardKey.F7, KeyboardModifierKey.None));
-				_er.KeyBindings.Add(new KeyBinding("EditDelete", KeyboardKey.F8, KeyboardModifierKey.None));
-
+				_er.ID = new Guid("{1B5B1E8D-442A-4AC0-8EFD-03AADFF3CAD2}");
 				_er.SupportedObjectModels.Add(typeof(FileSystemObjectModel));
 			}
 			return _er;
@@ -1009,17 +1015,7 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 		}
 
-		[EventHandler(nameof(tv), nameof(ListViewControl.KeyDown))]
-		private void tv_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == KeyboardKey.Back)
-			{
-				// FIXME:  this should be a keyboard key binding in UWT Settings
-				GoUp();
-			}
-		}
-
-		private void GoUp()
+		private void FileSystemEditor_GoUp(object sender, EventArgs e)
 		{
 			if (CurrentFolder == null)
 			{

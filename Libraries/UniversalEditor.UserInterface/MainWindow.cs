@@ -109,6 +109,9 @@ namespace UniversalEditor.UserInterface
 
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
+			base.OnKeyDown(e);
+
+			/*
 			// we have to process key shortcuts manually if we do not use a traditional menu bar
 			foreach (Command cmd in ((UIApplication)Application.Instance).Commands)
 			{
@@ -127,6 +130,7 @@ namespace UniversalEditor.UserInterface
 					}
 				}
 			}
+			*/
 			UpdateSuperDuperButtonBar(e.KeyAsModifier);
 		}
 		protected override void OnKeyUp(KeyEventArgs e)
@@ -425,7 +429,7 @@ namespace UniversalEditor.UserInterface
 			Application.Instance.Commands["BookmarksAddAll"].Enabled = GetEditorPages().Length > 0;
 			if (editor != null)
 			{
-				Application.Instance.Commands["FileProperties"].Enabled = editor.Selections.Count > 0;
+				Application.Instance.Commands["FileProperties"].Enabled = editor.Selections.Count > 0 || editor.HasDocumentProperties;
 
 				Application.Instance.Commands["EditUndo"].Enabled = editor.UndoItemCount > 0;
 				Application.Instance.Commands["EditRedo"].Enabled = editor.RedoItemCount > 0;
