@@ -44,7 +44,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 		public List<byte> AnimationFrames { get; } = new List<byte>();
 
 		private NumericTextBox txtFrameIndex;
-		private PictureFrame pic;
+		private ImageView pic;
 
 		public PictureCollectionObjectModel PictureCollection { get; set; } = null;
 

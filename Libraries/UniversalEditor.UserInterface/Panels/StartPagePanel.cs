@@ -33,7 +33,7 @@ namespace UniversalEditor.UserInterface.Panels
 		private Button cmdOpenExistingProject;
 		private Container ctHeaderImage;
 		private Container ctHeaderText;
-		private PictureFrame imgHeader;
+		private ImageView imgHeader;
 		private Label lblHeader;
 		private Label lblNewsTitle;
 
