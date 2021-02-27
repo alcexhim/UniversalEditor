@@ -285,39 +285,14 @@ namespace UniversalEditor.UserInterface.Common
 			}
 		}
 
-		private static System.Reflection.Assembly[] mvarAvailableAssemblies = null;
-		private static System.Reflection.Assembly[] GetAvailableAssemblies()
-		{
-			if (mvarAvailableAssemblies == null)
-			{
-				List<System.Reflection.Assembly> list = new List<System.Reflection.Assembly>();
-				string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-				string[] dllfiles = System.IO.Directory.GetFiles(dir, "*.dll", System.IO.SearchOption.AllDirectories);
-				// string[] exefiles = System.IO.Directory.GetFiles(dir, "*.exe", System.IO.SearchOption.AllDirectories);
-
-				foreach (string dllfile in dllfiles)
-				{
-					try
-					{
-						System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFile(dllfile);
-						list.Add(asm);
-					}
-					catch
-					{
-					}
-				}
-				mvarAvailableAssemblies = list.ToArray();
-			}
-			return mvarAvailableAssemblies;
-		}
-
-
 		private static EditorReference[] mvarAvailableEditors = null;
 		public static EditorReference[] GetAvailableEditors()
 		{
 			if (mvarAvailableEditors == null) Initialize();
 			return mvarAvailableEditors;
 		}
+
+		public static bool Initialized { get { return mvarAvailableEditors != null; } }
 
 		/*
 		private static Dictionary<Type, IEditorImplementation[]> editorsByObjectModelType = new Dictionary<Type, IEditorImplementation[]>();
