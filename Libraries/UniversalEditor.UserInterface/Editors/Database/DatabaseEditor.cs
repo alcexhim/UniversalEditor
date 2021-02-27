@@ -26,10 +26,11 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
+using UniversalEditor.UserInterface.Editors.Database.Dialogs;
 using UniversalEditor.ObjectModels.Database;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Editors.Database
+namespace UniversalEditor.UserInterface.Editors.Database
 {
 	/// <summary>
 	/// Provides a UWT-based <see cref="Editor" /> for manipulating database files.
@@ -158,12 +159,23 @@ namespace UniversalEditor.Editors.Database
 			}
 		}
 
+		private void DatabaseEditor_ContextMenu_Columns_Add(object sender, EventArgs e)
+		{
+			ColumnPropertiesDialog dlg = new ColumnPropertiesDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+
+			}
+		}
+
 		protected override void OnCreated(EventArgs e)
 		{
 			base.OnCreated(e);
 
 			DocumentExplorer.BeforeContextMenu += DocumentExplorer_BeforeContextMenu;
 			OnObjectModelChanged(EventArgs.Empty);
+
+			Context.AttachCommandEventHandler("DatabaseEditor_ContextMenu_Columns_Add", DatabaseEditor_ContextMenu_Columns_Add);
 
 			Context.AttachCommandEventHandler("DatabaseEditor_ContextMenu_Table_NewTable", delegate (object sender, EventArgs ee)
 			{

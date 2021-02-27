@@ -64,6 +64,10 @@ namespace UniversalEditor.UserInterface
 
 		private void Selections_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
+			Application.Instance.Commands["EditCut"].Enabled = (Selections.Count > 0);
+			Application.Instance.Commands["EditCopy"].Enabled = (Selections.Count > 0);
+			Application.Instance.Commands["EditDelete"].Enabled = (Selections.Count > 0);
+
 			OnSelectionsChanged(e);
 		}
 
@@ -583,6 +587,9 @@ namespace UniversalEditor.UserInterface
 			OnDocumentEdited(EventArgs.Empty);
 
 			mvarEditing--;
+
+			Application.Instance.Commands["EditUndo"].Enabled = undo.Count > 0;
+			Application.Instance.Commands["EditRedo"].Enabled = redo.Count > 0;
 		}
 
 		/// <summary>
@@ -632,6 +639,9 @@ namespace UniversalEditor.UserInterface
 			redo.Push(newedi);
 
 			ProcessingUndoRedo = false;
+
+			Application.Instance.Commands["EditUndo"].Enabled = undo.Count > 0;
+			Application.Instance.Commands["EditRedo"].Enabled = redo.Count > 0;
 		}
 
 		/// <summary>
@@ -675,6 +685,9 @@ namespace UniversalEditor.UserInterface
 			undo.Push(newedi);
 
 			ProcessingUndoRedo = false;
+
+			Application.Instance.Commands["EditUndo"].Enabled = undo.Count > 0;
+			Application.Instance.Commands["EditRedo"].Enabled = redo.Count > 0;
 		}
 		#endregion
 

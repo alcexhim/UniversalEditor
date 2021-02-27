@@ -135,6 +135,7 @@
     <Compile Include="EditorApplication.cs" />
     <Compile Include="IHostApplication.cs" />
     <Compile Include="Controls\PrintDialogOptionsTabPage.cs" />
+    <Compile Include="Editors\Database\Dialogs\ColumnPropertiesDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -193,12 +194,14 @@
     <Folder Include="Editors\Database\Views\" />
     <Folder Include="PrintHandlers\" />
     <Folder Include="SettingsProviders\" />
+    <Folder Include="Editors\Database\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SettingsProviders\DefaultSettingsProvider.xml" />
     <EmbeddedResource Include="Editors\FileSystem\FileSystemEditorSettingsProvider.xml" />
     <EmbeddedResource Include="Editors\Text\Plain\PlainTextEditorSettingsProvider.xml" />
     <EmbeddedResource Include="Controls\PrintDialogOptionsTabPage.glade" />
+    <EmbeddedResource Include="Editors\Database\Dialogs\ColumnPropertiesDialog.glade" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

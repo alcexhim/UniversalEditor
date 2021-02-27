@@ -111,6 +111,28 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			Application.Instance.Contexts.Remove(ctxTreeView);
 		}
+		[EventHandler(nameof(tv), nameof(ListViewControl.SelectionChanged))]
+		private void tv_SelectionChanged(object sender, EventArgs e)
+		{
+			Selections.Clear();
+
+			IFileSystemObject[] sels = GetSelectedItems();
+			if (sels.Length > 0)
+			{
+				Selections.Add(new FileSystemSelection(this, GetSelectedItems()));
+			}
+		}
+
+		private IFileSystemObject[] GetSelectedItems()
+		{
+			List<IFileSystemObject> list = new List<IFileSystemObject>();
+			for (int i = 0; i < tv.SelectedRows.Count; i++)
+			{
+				IFileSystemObject fso = tv.SelectedRows[i].GetExtraData<IFileSystemObject>("item");
+				list.Add(fso);
+			}
+			return list.ToArray();
+		}
 
 		/// <summary>
 		/// Navigates to the specified <see cref="IFileSystemObject" />.

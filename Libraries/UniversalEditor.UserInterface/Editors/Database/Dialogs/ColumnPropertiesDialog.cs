@@ -1,10 +1,10 @@
 ﻿//
-//  ScriptTableMode.cs
+//  ColumnPropertiesDialog.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2020 Mike Becker's Software
+//  Copyright (c) 2021 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,20 +19,25 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-namespace UniversalEditor.UserInterface.Editors.Database
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
+
+namespace UniversalEditor.UserInterface.Editors.Database.Dialogs
 {
-	public enum ScriptTableMode
+	[ContainerLayout(typeof(ColumnPropertiesDialog), "UniversalEditor.UserInterface.Editors.Database.Dialogs.ColumnPropertiesDialog.glade")]
+	public class ColumnPropertiesDialog : CustomDialog
 	{
-		Create,
-		Alter,
-		Drop,
-		DropCreate,
+		private Button cmdOK;
+		private Button cmdCancel;
+		private TextBox txtColumnName;
+		private ComboBox cboDataType;
+		private TextBox txtDescription;
+		private GroupBox fraDataTypeSpecificProperties;
 
-		Select,
-		Insert,
-		Update,
-		Delete,
-
-		Execute
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+			DefaultButton = cmdOK;
+		}
 	}
 }

@@ -1,0 +1,15 @@
+﻿<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{2E873BD5-6F63-4ED8-9C33-C43A08919E29}" TypeName="UniversalEditor.UserInterface.Editors.Database.DatabaseEditor">
+			<Commands>
+				<Command ID="DatabaseEditor_ContextMenu_Columns" Title="Columns Context Menu">
+					<Items>
+						<CommandReference CommandID="DatabaseEditor_ContextMenu_Columns_Add" />
+					</Items>
+				</Command>
+				
+				<Command ID="DatabaseEditor_ContextMenu_Columns_Add" Title="_Add Column" />
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

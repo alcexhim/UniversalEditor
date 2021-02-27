@@ -105,8 +105,8 @@ namespace UniversalEditor.UserInterface.Pages
 			return true;
 		}
 
-		private EditorReference DefaultBinaryEditor = new EditorReference(typeof(Editors.Binary.BinaryEditor));
-		private EditorReference DefaultTextEditor = new EditorReference(typeof(Editors.Text.Plain.PlainTextEditor));
+		private EditorReference DefaultBinaryEditor = new EditorReference(typeof(UniversalEditor.Editors.Binary.BinaryEditor));
+		private EditorReference DefaultTextEditor = new EditorReference(typeof(UniversalEditor.Editors.Text.Plain.PlainTextEditor));
 
 		private Document mvarDocument = null;
 		public Document Document

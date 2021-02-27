@@ -24,7 +24,7 @@ using MBS.Framework.UserInterface.Controls;
 using UniversalEditor.ObjectModels.Database;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Editors.Database.Views
+namespace UniversalEditor.UserInterface.Editors.Database.Views
 {
 	[ContainerLayout("~/Editors/Database/Views/DesignView.glade")]
 	public class DesignView : View
@@ -39,7 +39,7 @@ namespace UniversalEditor.Editors.Database.Views
 
 		private bool _InhibitEditing = false;
 
-		[EventHandler(nameof(txtName), "Changed")]
+		[EventHandler(nameof(txtName), nameof(TextBox.Changed))]
 		private void txtName_Changed(object sender, EventArgs e)
 		{
 			if (_InhibitEditing) return;
@@ -50,6 +50,12 @@ namespace UniversalEditor.Editors.Database.Views
 			Table.Name = txtName.Text;
 
 			Editor.EndEdit();
+		}
+
+		[EventHandler(nameof(tvColumns), nameof(Control.BeforeContextMenu))]
+		private void tvColumns_BeforeContextMenu(object sender, EventArgs e)
+		{
+			tvColumns.ContextMenuCommandID = "DatabaseEditor_ContextMenu_Columns";
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)

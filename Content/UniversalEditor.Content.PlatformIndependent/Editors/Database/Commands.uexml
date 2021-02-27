@@ -1,6 +1,6 @@
 ﻿<UniversalEditor Version="5.0">
 	<Editors>
-		<Editor ID="{2E873BD5-6F63-4ED8-9C33-C43A08919E29}" TypeName="UniversalEditor.Editors.Database.DatabaseEditor">
+		<Editor ID="{2E873BD5-6F63-4ED8-9C33-C43A08919E29}" TypeName="UniversalEditor.UserInterface.Editors.Database.DatabaseEditor">
 			<Commands>
 				
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_NewWindow" Title="New Query Editor _Window" />

@@ -28,7 +28,7 @@ using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Database;
 using UniversalEditor.UserInterface;
 
-namespace UniversalEditor.Editors.Database.Views
+namespace UniversalEditor.UserInterface.Editors.Database.Views
 {
 	[ContainerLayout("~/Editors/Database/Views/ScriptView.glade")]
 	public class ScriptView : View

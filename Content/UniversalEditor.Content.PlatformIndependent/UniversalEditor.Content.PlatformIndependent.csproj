@@ -317,6 +317,7 @@
     <Content Include="ProjectTypes\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.uexml" />
     <Content Include="Editors\Blockchain\BlockchainEditor.glade" />
     <Content Include="Panels\PropertyList\PropertyListPanel.glade" />
+    <Content Include="Editors\Database\ContextMenu_Columns.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
