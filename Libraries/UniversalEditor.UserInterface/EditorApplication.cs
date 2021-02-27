@@ -22,6 +22,12 @@ namespace UniversalEditor.UserInterface
 
 		protected override Command FindCommandInternal(string commandID)
 		{
+			if (!Common.Reflection.Initialized)
+			{
+				// hack around an infinite loop we inadvertently created
+				return base.FindCommandInternal(commandID);
+			}
+
 			EditorReference[] editors = Common.Reflection.GetAvailableEditors();
 			foreach (EditorReference er in editors)
 			{
