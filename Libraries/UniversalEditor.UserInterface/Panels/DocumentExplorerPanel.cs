@@ -46,6 +46,9 @@ namespace UniversalEditor.UserInterface.Panels
 			if (lv.SelectedRows.Count == 0)
 				return;
 
+			if (CurrentEditor == null)
+				return;
+
 			EditorDocumentExplorerNode node = lv.SelectedRows[0].GetExtraData<EditorDocumentExplorerNode>("node");
 			CurrentEditor.OnDocumentExplorerSelectionChanged(new EditorDocumentExplorerSelectionChangedEventArgs(node));
 		}
