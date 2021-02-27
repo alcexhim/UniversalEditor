@@ -852,7 +852,7 @@ namespace UniversalEditor.UserInterface
 
 		private void InitStartPage()
 		{
-			StartPagePanel lblStartPage = new StartPagePanel();
+			StartPage lblStartPage = new StartPage();
 			InitDocTab("Start Page", "Start Page", lblStartPage);
 		}
 

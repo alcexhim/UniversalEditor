@@ -1,10 +1,10 @@
 ﻿//
-//  SolutionExplorerPanel.cs
+//  StartPage.cs - the initial Page the user sees at application startup
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019-2021 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ using MBS.Framework.UserInterface.Layouts;
 namespace UniversalEditor.UserInterface.Panels
 {
 	[ContainerLayout("~/Panels/StartPage.glade", "GtkWindow")]
-	public class StartPagePanel : Panel
+	public class StartPage : Page
 	{
 		private Button cmdCreateNewProject;
 		private Button cmdOpenExistingProject;
@@ -36,6 +36,11 @@ namespace UniversalEditor.UserInterface.Panels
 		private ImageView imgHeader;
 		private Label lblHeader;
 		private Label lblNewsTitle;
+
+		public StartPage()
+		{
+			Title = "Start Page";
+		}
 
 		protected override void OnCreated(EventArgs e)
 		{

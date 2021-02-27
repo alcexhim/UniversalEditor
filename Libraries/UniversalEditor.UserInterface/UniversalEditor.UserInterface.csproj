@@ -93,7 +93,6 @@
     <Compile Include="Editors\PropertyList\PropertyListEditor.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialog.cs" />
     <Compile Include="Dialogs\GenericBrowserPopup.cs" />
-    <Compile Include="Panels\StartPagePanel.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialogMode.cs" />
     <Compile Include="Dialogs\DocumentPropertiesDialogV2.cs" />
     <Compile Include="Controls\UniversalEditorFileBrowserControl.cs" />
@@ -136,6 +135,7 @@
     <Compile Include="IHostApplication.cs" />
     <Compile Include="Controls\PrintDialogOptionsTabPage.cs" />
     <Compile Include="Editors\Database\Dialogs\ColumnPropertiesDialog.cs" />
+    <Compile Include="Pages\StartPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
