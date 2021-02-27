@@ -406,9 +406,11 @@ namespace UniversalEditor.UserInterface
 			Editor editor = GetCurrentEditor();
 			bool hasEditor = (editor != null);
 			bool hasProject = CurrentProject != null;
+
+			Page pg = GetCurrentPage();
 			KeyValuePair<string, object>[] kvps = new KeyValuePair<string, object>[]
 			{
-				new KeyValuePair<string, object>("Document.Title", editor?.Title),
+				new KeyValuePair<string, object>("Document.Title", pg?.Title),
 				new KeyValuePair<string, object>("Application.Title", Application.Instance.Title)
 			};
 
@@ -427,6 +429,18 @@ namespace UniversalEditor.UserInterface
 			Application.Instance.Commands["ProjectProperties"].Enabled = hasProject;
 
 			Application.Instance.Commands["BookmarksAddAll"].Enabled = GetEditorPages().Length > 0;
+
+			if (pg != null)
+			{
+				string fmt = "$(Document.Title) - $(Application.Title)"; // FIXME: replace with call to get main window title with document
+				Text = fmt.ReplaceVariables(kvps);
+			}
+			else
+			{
+				string fmt = "$(Application.Title)"; // FIXME: replace with call to get main window title without document
+				Text = fmt.ReplaceVariables(kvps);
+			}
+
 			if (editor != null)
 			{
 				Application.Instance.Commands["FileProperties"].Enabled = editor.Selections.Count > 0 || editor.HasDocumentProperties;
@@ -448,9 +462,6 @@ namespace UniversalEditor.UserInterface
 				Application.Instance.Commands["EditGoTo"].Enabled = true;
 
 				Application.Instance.Commands["BookmarksAdd"].Enabled = true;
-
-				string fmt = "$(Document.Title) - $(Application.Title)"; // FIXME: replace with call to get main window title with document
-				Text = fmt.ReplaceVariables(kvps);
 			}
 			else
 			{
@@ -473,9 +484,6 @@ namespace UniversalEditor.UserInterface
 				Application.Instance.Commands["EditGoTo"].Enabled = false;
 
 				Application.Instance.Commands["BookmarksAdd"].Enabled = false;
-
-				string fmt = "$(Application.Title)"; // FIXME: replace with call to get main window title without document
-				Text = fmt.ReplaceVariables(kvps);
 			}
 
 			foreach (UserInterfacePlugin pl in UserInterfacePlugin.Get())
@@ -1461,15 +1469,26 @@ namespace UniversalEditor.UserInterface
 			return GetPages(dckContainer);
 		}
 
-		public Pages.EditorPage GetCurrentEditorPage()
+		public Page GetCurrentPage()
 		{
 			DockingWindow curitem = dckContainer.CurrentItem as DockingWindow;
 			if (curitem == null) return null;
 
-			Pages.EditorPage editorPage = (curitem.ChildControl as Pages.EditorPage);
-			if (editorPage == null) return null;
-
-			return editorPage;
+			Page pg = curitem.ChildControl as Page;
+			if (pg == null)
+			{
+				Control[] ctls = dckContainer.GetAllControls();
+				for (int i = 0; i < ctls.Length; i++)
+				{
+					if (ctls[i] is Page)
+						return ctls[i] as Page;
+				}
+			}
+			return pg;
+		}
+		public EditorPage GetCurrentEditorPage()
+		{
+			return GetCurrentPage() as EditorPage;
 		}
 		public EditorPage[] GetEditorPages()
 		{
