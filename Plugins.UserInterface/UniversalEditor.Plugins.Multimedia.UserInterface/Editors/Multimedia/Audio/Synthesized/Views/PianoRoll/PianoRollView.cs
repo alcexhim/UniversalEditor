@@ -61,8 +61,6 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				txt.KeyDown += txt_KeyDown;
 				Controls.Add(txt, new AbsoluteLayout.Constraints(0, 0, 128, 18));
 
-				this.ContextMenuCommandID = "PianoRollEditor_ContextMenu";
-
 				dm = new DragManager();
 				dm.BeforeControlPaint += Dm_BeforeControlPaint;
 				dm.DragStarting += Dm_DragStarting;
@@ -349,6 +347,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 			protected override void OnBeforeContextMenu(EventArgs e)
 			{
 				base.OnBeforeContextMenu(e);
+
+				this.ContextMenuCommandID = "PianoRollEditor_ContextMenu";
 
 				this.ContextMenu.Items["EditCut"].Visible = (SelectedCommands.Count > 0);
 				this.ContextMenu.Items["EditCopy"].Visible = (SelectedCommands.Count > 0);
