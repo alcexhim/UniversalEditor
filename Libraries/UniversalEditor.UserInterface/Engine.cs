@@ -638,6 +638,11 @@ namespace UniversalEditor.UserInterface
 				td.Parent = (Window)CurrentEngine.LastWindow;
 				td.ShowDialog();
 			});
+			Application.Instance.AttachCommandEventHandler("HelpSoftwareManager", delegate(object sender, EventArgs e)
+			{
+				// FIXME: launch the software manager to add or remove plugins for Universal Editor
+				MessageDialog.ShowDialog("FIXME: launch the software manager to add or remove plugins for Universal Editor", "Not Implemented", MessageDialogButtons.OK, MessageDialogIcon.Error);
+			});
 			Application.Instance.AttachCommandEventHandler("HelpAboutPlatform", delegate(object sender, EventArgs e)
 			{
 				ShowAboutDialog();
