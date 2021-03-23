@@ -21,15 +21,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UniversalEditor.Accessors;
+using MBS.Framework;
+using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
-using MBS.Framework.UserInterface.Drawing;
-
-using MBS.Framework.Drawing;
-using System.ComponentModel;
 using MBS.Framework.UserInterface.Dialogs;
-using MBS.Framework;
+using UniversalEditor.Accessors;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -372,6 +369,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 			DataFormat = df;
 
+			RefreshODA(false);
+
 			RefreshButtons();
 		}
 		private void dlgAccessor_SelectionChanged(object sender, EventArgs e)
@@ -428,11 +427,20 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			Accessor = acc;
 
+			RefreshODA();
+
+			RefreshButtons();
+
+			dlg.AutoClose = true;
+		}
+
+		private void RefreshODA(bool checkAccessor = true)
+		{
 			DataFormat df = null;
 			// pro feature: if we find a better OM/DF, maybe ask the user "do you wish to change object model to ___ ?" before doing so
 			if (Mode == DocumentPropertiesDialogMode.Open)
 			{
-				if (Accessor is FileAccessor)
+				if (checkAccessor && Accessor is FileAccessor)
 				{
 					if (!System.IO.File.Exists(Accessor.GetFileName()))
 					{
@@ -461,9 +469,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 					{
 					}
 				}
+
 				if (ObjectModel == null)
 				{
-					if (df != null)
+					if (checkAccessor && df != null)
 					{
 						switch (Mode)
 						{
@@ -485,7 +494,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 							}
 						}
 						DataFormat = df;
+					}
 
+					if (DataFormat != null)
+					{
 						ObjectModelReference[] omrs = UniversalEditor.Common.Reflection.GetAvailableObjectModels(DataFormat.MakeReference());
 						if (omrs.Length > 0)
 						{
@@ -505,10 +517,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 					}
 				}
 			}
-
-			RefreshButtons();
-
-			dlg.AutoClose = true;
 		}
 
 		[EventHandler(nameof(cmdDataFormatOptions), "Click")]
