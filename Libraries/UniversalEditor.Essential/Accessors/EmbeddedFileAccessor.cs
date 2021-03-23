@@ -32,6 +32,11 @@ namespace UniversalEditor.Accessors
 			File = file;
 		}
 
+		public override string GetFileName()
+		{
+			return String.Format("{0}|{1}", File.FileSystem.Accessor?.GetFileName(), File.Path);
+		}
+
 		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
 		{
 			if (File.Parent != null)

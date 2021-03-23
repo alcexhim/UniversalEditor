@@ -339,6 +339,25 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		public FileSource Source { get; set; } = null;
 
 		[NonSerializedProperty]
+		public string Path
+		{
+			get
+			{
+				List<string> list = new List<string>();
+				IFileSystemContainer parent = Parent;
+				list.Add(Name);
+				while (parent != null)
+				{
+					list.Add(parent.Name);
+					parent = parent.Parent;
+				}
+				list.Reverse();
+
+				return String.Join("/", list.ToArray());
+			}
+		}
+
+		[NonSerializedProperty]
 		public IFileSystemContainer Parent { get; internal set; } = null;
 
 		[NonSerializedProperty]
