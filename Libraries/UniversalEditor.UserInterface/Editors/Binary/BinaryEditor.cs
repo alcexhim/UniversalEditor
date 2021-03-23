@@ -513,8 +513,14 @@ namespace UniversalEditor.Editors.Binary
 					return sb.ToString();
 				}, delegate(string input)
 				{
-					long b = Int64.Parse(input);
-					return BitConverter.GetBytes(b);
+					string[] pieces = input.Split(new char[] { ' ' });
+					byte[] bytes = new byte[pieces.Length];
+					for (int i = 0; i < pieces.Length; i++)
+					{
+						bytes[i] = Byte.Parse(pieces[i]);
+					}
+
+					return bytes;
 				}, 4),
 				new CONVERSION_DATA(null, "Octal", delegate(byte[] input)
 				{
@@ -779,6 +785,11 @@ namespace UniversalEditor.Editors.Binary
 							maxValue = fiMaxValue.GetValue(null);
 							sb.AppendLine(String.Format("Value for {0} must be between {1} and {2}", converter.DataType.Name, minValue, maxValue));
 						}
+					}
+					else
+					{
+						// byte array
+
 					}
 					MessageDialog.ShowDialog(sb.ToString(), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
 				}
