@@ -58,7 +58,18 @@ namespace UniversalEditor.ObjectModels.Text.Plain
 		public System.Collections.Specialized.StringCollection Lines { get { return mvarLines; } }
 
 		private string mvarText = String.Empty;
-		public string Text { get { return String.Join(LineTerminator, Lines); } set { mvarText = value; RebuildLines(); } }
+		public string Text { get { return GetLines(); } set { mvarText = value; RebuildLines(); } }
+
+		private string GetLines()
+		{
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+			foreach (string l in Lines)
+			{
+				sb.Append(l);
+				sb.Append(LineTerminator);
+			}
+			return sb.ToString();
+		}
 
 		private string mvarLineTerminator = System.Environment.NewLine;
 		public string LineTerminator { get { return mvarLineTerminator; } set { mvarLineTerminator = value; RebuildLines(); } }
