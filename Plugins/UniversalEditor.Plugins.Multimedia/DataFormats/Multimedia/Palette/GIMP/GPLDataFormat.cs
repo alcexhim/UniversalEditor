@@ -84,20 +84,14 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.GIMP
 				}
 				else
 				{
-					string[] colors = line.Split(new char[] { ' ' }, 3, StringSplitOptions.RemoveEmptyEntries);
+					string[] colors = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 					if (colors.Length >= 3)
 					{
 						string colorName = String.Empty;
 						int r = Int32.Parse(colors[0]);
 						int g = Int32.Parse(colors[1]);
-
-						if (colors[2].Contains("\t"))
-						{
-							string[] w = colors[2].Split(new char[] { '\t' });
-							colors[2] = w[0];
-							colorName = w[1];
-						}
 						int b = Int32.Parse(colors[2]);
+
 						if (colors.Length >= 4)
 						{
 							colorName = colors[3];
