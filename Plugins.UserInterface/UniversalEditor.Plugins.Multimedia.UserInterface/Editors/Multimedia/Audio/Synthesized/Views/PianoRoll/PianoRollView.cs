@@ -387,16 +387,19 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 						case PianoRollViewSelectionMode.Insert:
 						{
 							Cursor = Cursors.Pencil;
+							dm.DefaultCursor = Cursors.Pencil;
 							break;
 						}
 						case PianoRollViewSelectionMode.Select:
 						{
 							Cursor = Cursors.Default;
+							dm.DefaultCursor = Cursors.Default;
 							break;
 						}
 						case PianoRollViewSelectionMode.Delete:
 						{
 							Cursor = Cursors.Eraser;
+							dm.DefaultCursor = Cursors.Eraser;
 							break;
 						}
 					}
@@ -845,6 +848,9 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 						})
 					})
 				});
+				dlg.Text = "Note Properties";
+				dlg.EnableProfiles = false;
+
 				if (dlg.ShowDialog(ParentWindow) == DialogResult.OK)
 				{
 					((Parent as PianoRollView).Parent as Editor).BeginEdit();
