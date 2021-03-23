@@ -43,14 +43,14 @@ namespace UniversalEditor.Plugins.AutoSave
 		{
 			Console.WriteLine("autosave: looking for dirty documents...");
 
-			IHostApplication ha = (Application.Instance as IHostApplication);
+			UIApplication ha = (Application.Instance as UIApplication);
 
 			string path = System.IO.Path.Combine(new string[] { GetAutosavePath(), DateTime.Now.ToString("yyyyMMdd") });
 			Console.WriteLine("autosave: saving dirty documents in /tmp/autosave/universal-editor/...");
 
-			for (int i = 0; i < ha.CurrentWindow.Editors.Count; i++)
+			for (int i = 0; i < (ha.CurrentWindow as IHostApplicationWindow).Editors.Count; i++)
 			{
-				Editor ed = ha.CurrentWindow.Editors[i];
+				Editor ed = (ha.CurrentWindow as IHostApplicationWindow).Editors[i];
 				if (ed.Changed || !ed.Document.IsSaved)
 				{
 					string filename = System.IO.Path.Combine(new string[] { path, String.Format("{0}{1}.tmp", DateTime.Now.ToString("HHmmss"), i.ToString().PadLeft(2, '0')) });

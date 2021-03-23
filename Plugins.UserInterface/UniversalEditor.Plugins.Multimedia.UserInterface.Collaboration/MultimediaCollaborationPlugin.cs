@@ -39,7 +39,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 			Context = new UIContext(new Guid("{262a622c-c9e3-458b-8fbb-49cf9258b05d}"), "Multimedia Collaboration Plugin");
 			Context.AttachCommandEventHandler("Collaboration_Tracking_Track", delegate (object sender, EventArgs e)
 			{
-				Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+				Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 				Document d = editor?.Document;
 				if (d != null)
 				{
@@ -74,7 +74,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 			});
 			Context.AttachCommandEventHandler("Collaboration_Tracking_PreviousChange", delegate (object sender, EventArgs e)
 			{
-				Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+				Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 				Document d = editor?.Document;
 				if (d == null)
 					return;
@@ -113,7 +113,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 			});
 			Context.AttachCommandEventHandler("Collaboration_Tracking_NextChange", delegate (object sender, EventArgs e)
 			{
-				Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+				Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 				Document d = editor?.Document;
 				if (d == null)
 					return;
@@ -154,7 +154,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 
 		private SynthesizedAudioCommandChange.SynthesizedAudioCommandChangeCollection GetChangedCommandsList()
 		{
-			Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+			Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 			Document d = editor?.Document;
 			if (d == null)
 				return null;
@@ -172,7 +172,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 
 		private void ed_PianoRoll_NoteInserted(object sender, NoteEventArgs e)
 		{
-			Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+			Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 			Document d = editor?.Document;
 			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings(d);
@@ -189,7 +189,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 
 		private void ed_PianoRoll_NoteDeleted(object sender, NoteEventArgs e)
 		{
-			Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+			Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 			Document d = editor?.Document;
 			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings(d);
@@ -215,7 +215,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 		{
 			get
 			{
-				Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+				Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 				Document d = editor?.Document;
 				CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 				CollaborationSettings collab = plugin.GetCollaborationSettings(d);
@@ -223,7 +223,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 			}
 			set
 			{
-				Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+				Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 				Document d = editor?.Document;
 				CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 				CollaborationSettings collab = plugin.GetCollaborationSettings(d);
@@ -234,7 +234,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 		private void ed_PianoRoll_Paint(object sender, PaintEventArgs e)
 		{
 			// painting is handled by PianoRoll._vp, not PianoRollView!!!
-			SynthesizedAudioEditor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor() as SynthesizedAudioEditor;
+			SynthesizedAudioEditor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor() as SynthesizedAudioEditor;
 			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings();
 
@@ -254,7 +254,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Collaboration
 
 		private void ed_PianoRoll_NoteRendered(object sender, NoteRenderedEventArgs e)
 		{
-			Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+			Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 			Document d = editor?.Document;
 			CollaborationPlugin plugin = (UserInterfacePlugin.Get(new Guid("{981d54ae-dee6-47c7-bea6-20890b3baa23}")) as CollaborationPlugin);
 			CollaborationSettings collab = plugin.GetCollaborationSettings(d);

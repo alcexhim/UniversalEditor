@@ -28,6 +28,8 @@ using UniversalEditor.Compression;
 using UniversalEditor.IO;
 
 using UniversalEditor.DataFormats.FileSystem.ZIP.ExtraDataFields;
+using MBS.Framework;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.DataFormats.FileSystem.ZIP
 {
@@ -701,6 +703,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 				}
 				reader.Seek(-5, SeekOrigin.Current);
 			}
+			((IHostApplication)Application.Instance).Messages.Add(HostApplicationMessageSeverity.Warning, "end of central directory signature not found", Accessor.GetFileName());
 			return -1;
 		}
 

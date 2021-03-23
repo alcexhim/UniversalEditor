@@ -34,7 +34,7 @@ namespace UniversalEditor.Plugins.Collaboration
 		{
 			if (document == null)
 			{
-				document = (Application.Instance as IHostApplication).CurrentWindow?.GetCurrentEditor()?.Document;
+				document = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor()?.Document;
 			}
 
 			if (!_CollaborationSettings.ContainsKey(document))
@@ -50,7 +50,7 @@ namespace UniversalEditor.Plugins.Collaboration
 			Context = new UIContext(ID, "Collaboration Plugin");
 			Context.AttachCommandEventHandler("Collaboration_Tracking_Track", delegate (object sender, EventArgs e)
 			{
-				Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+				Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 				Document d = editor?.Document;
 				if (d != null)
 				{
@@ -66,7 +66,7 @@ namespace UniversalEditor.Plugins.Collaboration
 		{
 			base.UpdateMenuItemsInternal();
 
-			Editor ed = (Application.Instance as IHostApplication).CurrentWindow?.GetCurrentEditor();
+			Editor ed = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.GetCurrentEditor();
 
 			// not sure why this is registered (in Plugins/UniversalEditor.Plugins.Collaboration/Commands/Review.uexml) as a global command, but whatever
 			Application.Instance.Commands["Collaboration_Comments_New"].Enabled = ed != null;

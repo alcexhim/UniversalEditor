@@ -470,50 +470,50 @@ namespace UniversalEditor.UserInterface
 			#region Perspective
 			Application.Instance.AttachCommandEventHandler("ViewPerspective1", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(1);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(1);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective2", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(2);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(2);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective3", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(3);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(3);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective4", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(4);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(4);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective5", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(5);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(5);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective6", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(6);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(6);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective7", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(7);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(7);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective8", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(8);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(8);
 			});
 			Application.Instance.AttachCommandEventHandler("ViewPerspective9", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.SwitchPerspective(9);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.SwitchPerspective(9);
 			});
 			#endregion
 
 			Application.Instance.AttachCommandEventHandler("ViewStartPage", delegate(object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.ShowStartPage();
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow)?.ShowStartPage();
 			});
 			Application.Instance.AttachCommandEventHandler("ViewStatusBar", delegate (object sender, EventArgs e)
 			{
-				(Application.Instance as IHostApplication).CurrentWindow.StatusBar.Visible = !(Application.Instance as IHostApplication).CurrentWindow.StatusBar.Visible;
-				Application.Instance.Commands["ViewStatusBar"].Checked = (Application.Instance as IHostApplication).CurrentWindow.StatusBar.Visible;
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).StatusBar.Visible = !((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).StatusBar.Visible;
+				Application.Instance.Commands["ViewStatusBar"].Checked = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).StatusBar.Visible;
 			});
 
 			#endregion

@@ -99,6 +99,9 @@
     <Compile Include="Criterion.cs" />
     <Compile Include="Selection.cs" />
     <Compile Include="NonSerializedPropertyAttribute.cs" />
+    <Compile Include="UserInterface\IHostApplication.cs" />
+    <Compile Include="UserInterface\HostApplicationMessage.cs" />
+    <Compile Include="UserInterface\HostApplicationOutputWindow.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -109,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IO\Transformations\" />
+    <Folder Include="UserInterface\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Accessors\FileAccessor.uexml" />

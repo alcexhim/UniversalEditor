@@ -200,7 +200,7 @@ namespace UniversalEditor.UserInterface.Editors.Database.Views
 					d.IsSaved = false;
 					d.IsChanged = true;
 					d.Title = "New Query";
-					(Application.Instance as IHostApplication).CurrentWindow.OpenFile(new Document[]
+					((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).OpenFile(new Document[]
 					{
 						d
 					});

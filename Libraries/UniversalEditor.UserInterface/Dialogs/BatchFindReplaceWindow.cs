@@ -149,12 +149,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 			CriteriaResult result = e.Row.GetExtraData<CriteriaResult>("result");
 			if (result == null) return;
 
-			Editor editor = (Application.Instance as IHostApplication).CurrentWindow.GetCurrentEditor();
+			Editor editor = ((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).GetCurrentEditor();
 			if (editor == null) return;
 
 			editor.Selections.Add(editor.CreateSelection(result.Value));
 
-			(Application.Instance as IHostApplication).CurrentWindow.Present(DateTime.Now);
+			((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).Present(DateTime.Now);
 		}
 
 		protected override void OnKeyDown(KeyEventArgs e)

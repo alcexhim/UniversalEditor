@@ -301,7 +301,7 @@ namespace UniversalEditor.UserInterface.Panels
 				Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(new byte[0], String.Format("{0} Properties", project.Title));
 				Document d = new Document(project, null, ma);
 				d.Title = String.Format("{0} Properties", project.Title);
-				(Application.Instance as IHostApplication).CurrentWindow.OpenFile(d);
+				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).OpenFile(d);
 			}
 			else if (file != null)
 			{

@@ -62,10 +62,7 @@
     <Compile Include="CustomOptionDialogType.cs" />
     <Compile Include="EditorReference.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="HostApplicationMessage.cs" />
-    <Compile Include="HostApplicationOutputWindow.cs" />
     <Compile Include="Editor.cs" />
-    <Compile Include="IHostApplicationWindow.cs" />
     <Compile Include="ObjectModelChangingEvent.cs" />
     <Compile Include="Perspective.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,10 +129,10 @@
     <Compile Include="PrintHandlers\FileSystemPrintHandler.cs" />
     <Compile Include="IDocumentPropertiesProvider.cs" />
     <Compile Include="EditorApplication.cs" />
-    <Compile Include="IHostApplication.cs" />
     <Compile Include="Controls\PrintDialogOptionsTabPage.cs" />
     <Compile Include="Editors\Database\Dialogs\ColumnPropertiesDialog.cs" />
     <Compile Include="Pages\StartPage.cs" />
+    <Compile Include="IHostApplicationWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
