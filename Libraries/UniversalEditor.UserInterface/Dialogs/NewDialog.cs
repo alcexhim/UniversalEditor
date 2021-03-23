@@ -391,16 +391,19 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private void InitializeTreeView()
 		{
+			// setting Text does not work because the ControlImplementation is not a WindowImplementation
 			switch (this.Mode)
 			{
 				case NewDialogMode.File:
 				{
 					InitializeDocumentTemplateTreeView();
+					Text = "Create New Document";
 					break;
 				}
 				case NewDialogMode.Project:
 				{
 					InitializeProjectTemplateTreeView();
+					Text = "Create New Project";
 					break;
 				}
 			}
