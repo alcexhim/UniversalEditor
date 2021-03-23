@@ -950,6 +950,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 								{
 									filter.PerceivedType = attPerceivedType.Value;
 								}
+								MarkupAttribute attIconName = tagFilter.Attributes["IconName"];
+								if (attIconName != null)
+								{
+									filter.IconName = attIconName.Value;
+								}
 
 								MarkupAttribute attHintComparison = tagFilter.Attributes["HintComparison"];
 								if (attHintComparison != null)

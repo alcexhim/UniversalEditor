@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Adobe Swatch Exchange color palette">
+				<Filter Title="Adobe Swatch Exchange color palette" ContentType="application/x-adobe-swatchexchange" IconName="gnome-color-manager">
 					<FileNameFilters>
 						<FileNameFilter>*.ase</FileNameFilter>
 					</FileNameFilters>

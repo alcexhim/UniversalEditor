@@ -43,7 +43,10 @@ namespace UniversalEditor.ConsoleApplication
 					}
 
 					if (assocs == null)
-						assocs = GenerateAssociations();
+					{
+						string desktop_mime_types = null;
+						GenerateAssociations(out assocs, out desktop_mime_types);
+					}
 
 					Console.WriteLine(assocs);
 				}
@@ -52,11 +55,49 @@ namespace UniversalEditor.ConsoleApplication
 					if (System.Environment.OSVersion.Platform == PlatformID.Unix)
 					{
 						string filename = "/usr/share/mime/packages/universal-editor.xml";
-						string assocs = GenerateAssociations();
+						GenerateAssociations(out string assocs, out string desktop_mime_types);
 						try
 						{
+							Console.Write("updating MIME types...    ");
+
 							System.IO.File.WriteAllText(filename, assocs);
 							System.Diagnostics.Process.Start("update-mime-database", "/usr/share/mime");
+
+							Console.WriteLine("[OK]");
+
+
+							Console.Write("updating desktop database...    ");
+
+							StringBuilder sbDesktop = new StringBuilder();
+							sbDesktop.AppendLine("[Desktop Entry]");
+							sbDesktop.AppendLine("Version=1.0");
+							sbDesktop.AppendLine("Name=Universal Editor");
+							sbDesktop.AppendLine("Comment=Open and edit any document");
+							sbDesktop.AppendLine("GenericName=Document Editor");
+							sbDesktop.AppendLine("Keywords=Text;Editor");
+							sbDesktop.AppendLine("Exec=universal-editor %F");
+							sbDesktop.AppendLine("Terminal=false");
+							sbDesktop.AppendLine("X-MultipleArgs=true");
+							sbDesktop.AppendLine("Type=Application");
+							sbDesktop.AppendLine("Icon=universal-editor");
+							sbDesktop.AppendLine("Categories=GTK;Development;IDE");
+							sbDesktop.AppendLine(String.Format("MimeType={0}", desktop_mime_types));
+							sbDesktop.AppendLine("StartupNotify=true");
+							sbDesktop.AppendLine("WMClass=UniversalEditor.exe");
+							sbDesktop.AppendLine("Actions=create-project;");
+							sbDesktop.AppendLine("X-Desktop-File-Install-Version=0.24");
+							sbDesktop.AppendLine();
+							sbDesktop.AppendLine("[Desktop Action create-project]");
+							sbDesktop.AppendLine("Name=Create a New Project");
+							sbDesktop.AppendLine("Exec=universal-editor /command:FileNewProject");
+							sbDesktop.AppendLine();
+
+							System.IO.File.WriteAllText("/usr/share/applications/net.alcetech.UniversalEditor.desktop", sbDesktop.ToString());
+
+							System.Diagnostics.Process.Start("update-desktop-database");
+
+							Console.WriteLine("[OK]");
+
 							System.Environment.Exit(0);
 						}
 						catch (UnauthorizedAccessException ex)
@@ -167,11 +208,13 @@ namespace UniversalEditor.ConsoleApplication
 			stout.Write(output, 0, output.Length);
 		}
 
-		private static string GenerateAssociations()
+		private static void GenerateAssociations(out string mime_info, out string desktop_mime_types)
 		{
-			StringBuilder sb = new StringBuilder();
-			sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-			sb.AppendLine("<mime-info xmlns=\"http://www.freedesktop.org/standards/shared-mime-info\">");
+			StringBuilder sb_mime_info = new StringBuilder();
+			StringBuilder sb_mime_types = new StringBuilder();
+
+			sb_mime_info.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			sb_mime_info.AppendLine("<mime-info xmlns=\"http://www.freedesktop.org/standards/shared-mime-info\">");
 			DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
 
 			Association[] assocs = Association.GetAllAssociations();
@@ -183,28 +226,35 @@ namespace UniversalEditor.ConsoleApplication
 					if (assocs[i].Filters[j].ContentType != null)
 					{
 						mimetype = assocs[i].Filters[j].ContentType;
+						sb_mime_types.Append(mimetype);
+						sb_mime_types.Append(';');
 					}
-					sb.AppendLine(String.Format("\t<mime-type type=\"{0}\">", mimetype));
+					sb_mime_info.AppendLine(String.Format("\t<mime-type type=\"{0}\">", mimetype));
 					if (assocs[i].Filters[j].PerceivedType != null)
 					{
-						sb.AppendLine(String.Format("\t\t<sub-class-of type=\"{0}\"/>", assocs[i].Filters[j].PerceivedType));
+						sb_mime_info.AppendLine(String.Format("\t\t<sub-class-of type=\"{0}\"/>", assocs[i].Filters[j].PerceivedType));
 					}
-					sb.AppendLine(String.Format("\t\t<comment>{0}</comment>", assocs[i].Filters[j].Title));
+					sb_mime_info.AppendLine(String.Format("\t\t<comment>{0}</comment>", assocs[i].Filters[j].Title));
 					if (assocs[i].ObjectModels.Contains(new Guid("{a23026e9-dfe1-4090-af35-8b916d3f1fcd}")))
 					{
-						sb.AppendLine(String.Format("\t\t<generic-icon name=\"package-x-generic\"/>"));
+						sb_mime_info.AppendLine(String.Format("\t\t<generic-icon name=\"package-x-generic\"/>"));
 					}
 
 					// Console.Write("registering '{0}' extensions... ", assocs[i].Filters[j].Title);
 					for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)
 					{
-						sb.AppendLine(String.Format("\t\t<glob pattern=\"{0}\" />", assocs[i].Filters[j].FileNameFilters[k]));
+						sb_mime_info.AppendLine(String.Format("\t\t<glob pattern=\"{0}\" />", assocs[i].Filters[j].FileNameFilters[k]));
 					}
-					sb.AppendLine("\t</mime-type>");
+					if (assocs[i].Filters[j].IconName != null)
+					{
+						sb_mime_info.AppendLine(String.Format("\t\t<icon name=\"{0}\" />", assocs[i].Filters[j].IconName));
+					}
+					sb_mime_info.AppendLine("\t</mime-type>");
 				}
 			}
-			sb.Append("</mime-info>");
-			return sb.ToString();
+			sb_mime_info.Append("</mime-info>");
+			mime_info = sb_mime_info.ToString();
+			desktop_mime_types = sb_mime_types.ToString();
 		}
 		private static string GenerateAssociationsREG()
 		{

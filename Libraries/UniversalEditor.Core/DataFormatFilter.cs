@@ -225,7 +225,8 @@ namespace UniversalEditor
 		public int[] MagicByteOffsets { get { return mvarMagicByteOffsets; } set { mvarMagicByteOffsets = value; } }
 
 		public string ContentType { get; set; } = null;
-		public object PerceivedType { get; set; }
+		public string PerceivedType { get; set; }
+		public string IconName { get; set; }
 	}
 	public class DataFormatCapabilityCollection
 	{

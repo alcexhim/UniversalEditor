@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Adobe color palette">
+				<Filter Title="Adobe color palette" ContentType="application/x-adobe-palette" IconName="gnome-color-manager">
 					<FileNameFilters>
 						<FileNameFilter>*.aco</FileNameFilter>
 					</FileNameFilters>

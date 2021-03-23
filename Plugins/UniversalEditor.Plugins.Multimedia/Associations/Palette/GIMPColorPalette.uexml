@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="GIMP color palette">
+				<Filter Title="GIMP color palette" ContentType="application/x-gimp-palette" IconName="gnome-color-manager">
 					<FileNameFilters>
 						<FileNameFilter>*.gpl</FileNameFilter>
 					</FileNameFilters>

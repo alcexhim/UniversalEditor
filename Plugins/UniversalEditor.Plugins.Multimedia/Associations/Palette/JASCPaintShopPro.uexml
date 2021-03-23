@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="JASC Paint Shop color palette">
+				<Filter Title="JASC Paint Shop color palette" ContentType="application/x-jasc-paintshoppro-palette" IconName="gnome-color-manager">
 					<FileNameFilters>
 						<FileNameFilter>*.pal</FileNameFilter>
 					</FileNameFilters>
