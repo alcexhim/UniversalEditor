@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="VOCALOID3 voice sequence (XML)">
+				<Filter Title="VOCALOID3 voice sequence (XML)" ContentType="application/x-vocaloid-vsqx+xml">
 					<FileNameFilters>
 						<FileNameFilter>*.vsqx</FileNameFilter>
 					</FileNameFilters>

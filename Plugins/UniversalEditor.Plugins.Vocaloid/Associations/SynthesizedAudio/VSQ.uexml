@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="VOCALOID2 voice sequence (MIDI)">
+				<Filter Title="VOCALOID2 voice sequence (MIDI)" ContentType="application/x-vocaloid-vsq">
 					<FileNameFilters>
 						<FileNameFilter>*.vsq</FileNameFilter>
 					</FileNameFilters>

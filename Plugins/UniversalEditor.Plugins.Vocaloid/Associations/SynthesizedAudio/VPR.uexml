@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="VOCALOID5 project (JSON/ZIP)" HintComparison="Both">
+				<Filter Title="VOCALOID5 project (JSON/ZIP)" HintComparison="Both" ContentType="application/x-vocaloid-vpr">
 					<FileNameFilters>
 						<FileNameFilter>*.vpr</FileNameFilter>
 					</FileNameFilters>
@@ -23,7 +23,7 @@
 		</Association>
 		<Association>
 			<Filters>
-				<Filter Title="VOCALOID5 voice sequence (JSON)">
+				<Filter Title="VOCALOID5 voice sequence (JSON)" ContentType="application/x-vocaloid-vpr-sequence">
 					<FileNameFilters>
 						<FileNameFilter>sequence.json</FileNameFilter>
 					</FileNameFilters>
