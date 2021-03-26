@@ -359,6 +359,60 @@ namespace UniversalEditor.UserInterface
 		private List<Command> _editorScopedCommands = new List<Command>();
 		private List<MBS.Framework.UserInterface.MenuItem> _editorScopedMenuItems = new List<MBS.Framework.UserInterface.MenuItem>();
 
+		public event EventHandler<EditorChangingEventArgs> EditorChanging;
+		protected virtual void OnEditorChanging(EditorChangingEventArgs e)
+		{
+			EditorChanging?.Invoke(this, e);
+		}
+		public event EventHandler<EditorChangedEventArgs> EditorChanged;
+		protected virtual void OnEditorChanged(EditorChangedEventArgs e)
+		{
+			EditorChanged?.Invoke(this, e);
+		}
+
+		private bool _OnEditorChanging(EditorChangingEventArgs e)
+		{
+			EditorChangingEventArgs ee = new EditorChangingEventArgs(this, e.PreviousEditor, e.CurrentEditor);
+			OnEditorChanging(ee);
+			if (ee.Cancel)
+				return false;
+
+			((EditorApplication)Application.Instance).OnEditorChanging(ee);
+			if (ee.Cancel)
+				return false;
+
+			return true;
+		}
+		private void _OnEditorChanged(EditorChangedEventArgs e)
+		{
+			if (e.CurrentEditor != null)
+			{
+				// initialize toolbox items
+				EditorReference er = e.CurrentEditor.MakeReference();
+				for (int i = 0; i < er.Toolbox.Items.Count; i++)
+				{
+					TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tmToolbox.Columns[0], er.Toolbox.Items[i].Name) });
+					row.SetExtraData<ToolboxItem>("item", er.Toolbox.Items[i]);
+					tmToolbox.Rows.Add(row);
+				}
+				DocumentFileName = dckContainer.CurrentItem.Name;
+			}
+			else
+			{
+				DocumentFileName = null;
+				tmToolbox.Rows.Clear();
+			}
+			pnlDocumentExplorer.CurrentEditor = e.CurrentEditor;
+
+			UpdateMenuItems();
+
+			// forward to window event handler
+			OnEditorChanged(e);
+
+			// forward to application event handler
+			((EditorApplication)Application.Instance).OnEditorChanged(e);
+		}
+
 		private void dckContainer_SelectionChanged(object sender, EventArgs e)
 		{
 			Editor editor = null;
@@ -372,31 +426,21 @@ namespace UniversalEditor.UserInterface
 
 			if (editor != _prevEditor)
 			{
-				if (_prevEditor != null)
-					Application.Instance.Contexts.Remove(_prevEditor.Context);
+				if (!_OnEditorChanging(new EditorChangingEventArgs(this, _prevEditor, editor)))
+				{
+					// FIXME: reset to previous Editor if possible
+					return;
+				}
 
+				if (_prevEditor != null)
+				{
+					Application.Instance.Contexts.Remove(_prevEditor.Context);
+				}
 				if (editor != null)
 				{
 					Application.Instance.Contexts.Add(editor.Context);
-
-					// initialize toolbox items
-					EditorReference er = editor.MakeReference();
-					for (int i = 0; i < er.Toolbox.Items.Count; i++)
-					{
-						TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tmToolbox.Columns[0], er.Toolbox.Items[i].Name) });
-						row.SetExtraData<ToolboxItem>("item", er.Toolbox.Items[i]);
-						tmToolbox.Rows.Add(row);
-					}
-					DocumentFileName = dckContainer.CurrentItem.Name;
 				}
-				else
-				{
-					DocumentFileName = null;
-					tmToolbox.Rows.Clear();
-				}
-				pnlDocumentExplorer.CurrentEditor = editor;
-
-				UpdateMenuItems();
+				_OnEditorChanged(new EditorChangedEventArgs(this, _prevEditor, editor));
 			}
 			_prevEditor = editor;
 		}

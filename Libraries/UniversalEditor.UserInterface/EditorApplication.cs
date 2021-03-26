@@ -20,6 +20,17 @@ namespace UniversalEditor.UserInterface
 		/// </summary>
 		public HostApplicationMessage.HostApplicationMessageCollection Messages { get; } = new HostApplicationMessage.HostApplicationMessageCollection();
 
+		public event EventHandler<EditorChangingEventArgs> EditorChanging;
+		protected internal virtual void OnEditorChanging(EditorChangingEventArgs e)
+		{
+			EditorChanging?.Invoke(this, e);
+		}
+		public event EventHandler<EditorChangedEventArgs> EditorChanged;
+		protected internal virtual void OnEditorChanged(EditorChangedEventArgs e)
+		{
+			EditorChanged?.Invoke(this, e);
+		}
+
 		protected override Command FindCommandInternal(string commandID)
 		{
 			if (!Common.Reflection.Initialized)
