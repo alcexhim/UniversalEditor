@@ -1048,6 +1048,16 @@ namespace UniversalEditor.UserInterface
 				try
 				{
 					InitEditorPage(doc);
+
+					if (doc.Accessor is FileAccessor)
+					{
+						// FIXME: support Accessors other than FileAccessor
+						string fileName = (doc.Accessor as FileAccessor).FileName;
+						if (!Engine.CurrentEngine.RecentFileManager.FileNames.Contains(fileName))
+						{
+							Engine.CurrentEngine.RecentFileManager.FileNames.Add(fileName);
+						}
+					}
 				}
 				catch (System.UnauthorizedAccessException ex)
 				{
@@ -1569,35 +1579,6 @@ namespace UniversalEditor.UserInterface
 		public bool ShowOptionsDialog()
 		{
 			return ((UIApplication)Application.Instance).ShowSettingsDialog();
-		}
-
-		private void AddRecentMenuItem(string FileName)
-		{
-			Command mnuFileRecentFiles = ((UIApplication)Application.Instance).Commands["FileRecentFiles"];
-
-			Command mnuFileRecentFile = new Command();
-			mnuFileRecentFile.ID = "FileRecentFile_" + FileName;
-			mnuFileRecentFile.Title = System.IO.Path.GetFileName(FileName);
-			// mnuFileRecentFile.ToolTipText = FileName;
-			((UIApplication)Application.Instance).Commands.Add(mnuFileRecentFile);
-
-			CommandReferenceCommandItem tsmi = new CommandReferenceCommandItem("FileRecentFile_" + FileName);
-			mnuFileRecentFiles.Items.Add(tsmi);
-		}
-		private void RefreshRecentFilesList()
-		{
-			Command mnuFileRecentFiles = ((UIApplication)Application.Instance).Commands["FileRecentFiles"];
-			mnuFileRecentFiles.Items.Clear();
-			foreach (string fileName in Engine.CurrentEngine.RecentFileManager.FileNames)
-			{
-				AddRecentMenuItem(fileName);
-			}
-
-			Command mnuFileRecentProjects = ((UIApplication)Application.Instance).Commands["FileRecentProjects"];
-
-			mnuFileRecentFiles.Visible = (mnuFileRecentFiles.Items.Count > 0);
-			mnuFileRecentProjects.Visible = (mnuFileRecentProjects.Items.Count > 0);
-			// mnuFileSep3.Visible = ((mnuFileRecentFiles.DropDownItems.Count > 0) || (mnuFileRecentProjects.DropDownItems.Count > 0));
 		}
 
 		public void UpdateStatus(string statusText)

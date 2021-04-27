@@ -22,6 +22,7 @@ using System;
 using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.UserInterface.Panels
@@ -36,6 +37,7 @@ namespace UniversalEditor.UserInterface.Panels
 		private ImageView imgHeader;
 		private Label lblHeader;
 		private Label lblNewsTitle;
+		private ListViewControl tvRecentDocuments;
 
 		public StartPage()
 		{
@@ -62,6 +64,29 @@ namespace UniversalEditor.UserInterface.Panels
 			{
 				ctHeaderImage.Visible = false;
 				ctHeaderText.Visible = true;
+			}
+
+			foreach (string fileName in Engine.CurrentEngine.RecentFileManager.FileNames)
+			{
+				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tvRecentDocuments.Model.Columns[0], System.IO.Path.GetFileName(fileName))
+				});
+				row.SetExtraData<string>("FileName", fileName);
+				tvRecentDocuments.Model.Rows.Add(row);
+			}
+		}
+
+		[EventHandler(nameof(tvRecentDocuments), nameof(ListViewControl.RowActivated))]
+		private void tvRecentDocuments_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		{
+			if (e.Row != null)
+			{
+				string fileName = e.Row.GetExtraData<string>("FileName");
+				if (fileName != null)
+				{
+					(ParentWindow as MainWindow).OpenFile(fileName);
+				}
 			}
 		}
 

@@ -36,7 +36,7 @@ namespace UniversalEditor.UserInterface
 
 			if (!System.IO.File.Exists(mvarDataFileName)) return;
 
-			Document doc = new Document(mom, xml, new FileAccessor(mvarDataFileName));
+			Document.Load(mom, xml, new FileAccessor(mvarDataFileName, false, false, true));
 
 			MarkupTagElement tagRecentItems = (mom.Elements["RecentItems"] as MarkupTagElement);
 			if (tagRecentItems == null) return;

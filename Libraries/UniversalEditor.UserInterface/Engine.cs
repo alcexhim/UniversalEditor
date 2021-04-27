@@ -150,6 +150,7 @@ namespace UniversalEditor.UserInterface
 			// Initialize Recent File Manager
 			Engine.CurrentEngine.RecentFileManager.DataFileName = ((UIApplication)Application.Instance).DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "RecentItems.xml";
 			Engine.CurrentEngine.RecentFileManager.Load();
+			RefreshRecentFilesList();
 
 			// Initialize Bookmarks Manager
 			Engine.CurrentEngine.BookmarksManager.DataFileName = ((UIApplication)Application.Instance).DataPath + System.IO.Path.DirectorySeparatorChar.ToString() + "Bookmarks.xml";
@@ -165,6 +166,35 @@ namespace UniversalEditor.UserInterface
 			AfterInitialization();
 		}
 
+
+		private void AddRecentMenuItem(string FileName)
+		{
+			Command mnuFileRecentFiles = ((UIApplication)Application.Instance).Commands["FileRecentFiles"];
+
+			Command mnuFileRecentFile = new Command();
+			mnuFileRecentFile.ID = "FileRecentFile_" + FileName;
+			mnuFileRecentFile.Title = System.IO.Path.GetFileName(FileName);
+			// mnuFileRecentFile.ToolTipText = FileName;
+			((UIApplication)Application.Instance).Commands.Add(mnuFileRecentFile);
+
+			CommandReferenceCommandItem tsmi = new CommandReferenceCommandItem("FileRecentFile_" + FileName);
+			mnuFileRecentFiles.Items.Add(tsmi);
+		}
+		private void RefreshRecentFilesList()
+		{
+			Command mnuFileRecentFiles = ((UIApplication)Application.Instance).Commands["FileRecentFiles"];
+			mnuFileRecentFiles.Items.Clear();
+			foreach (string fileName in Engine.CurrentEngine.RecentFileManager.FileNames)
+			{
+				AddRecentMenuItem(fileName);
+			}
+
+			Command mnuFileRecentProjects = ((UIApplication)Application.Instance).Commands["FileRecentProjects"];
+
+			mnuFileRecentFiles.Visible = (mnuFileRecentFiles.Items.Count > 0);
+			mnuFileRecentProjects.Visible = (mnuFileRecentProjects.Items.Count > 0);
+			// mnuFileSep3.Visible = ((mnuFileRecentFiles.DropDownItems.Count > 0) || (mnuFileRecentProjects.DropDownItems.Count > 0));
+		}
 
 		void Application_BeforeShutdown(object sender, System.ComponentModel.CancelEventArgs e)
 		{
@@ -906,6 +936,20 @@ namespace UniversalEditor.UserInterface
 
 		protected virtual void InitializeBranding()
 		{
+			// FIXME: Possible race condition bug, if there is a MessageDialog popped while another thread is fucking around, 
+			// it 
+			NotificationPopup nip = new NotificationPopup();
+			nip.Actions.Add(new ActionCommandItem("id1", "Ignore", delegate(object sender, EventArgs e)
+			{
+			}));
+			nip.Actions.Add(new ActionCommandItem("id2", "Show Message Dialog", delegate (object sender, EventArgs e)
+			{
+				MessageDialog.ShowDialog("This message dialog being displayed will crash the program. Wait for it...\r\n\r\n Closing the message dialog before the end will avoid this issue.");
+			}));
+			nip.Content = "please fix this race condition as soon as possible. if there is a MessageDialog present while another thread is running calling Application.DoEvents may crash the program";
+			nip.Summary = "race warning : click button to demonstrate";
+			nip.Show();
+
 			// I don't know why this ever was WindowsFormsEngine-specific...
 
 			// First, attempt to load the branding from Branding.uxt
