@@ -26,7 +26,7 @@ using MBS.Framework.Drawing;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
-namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
+namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe.SwatchExchange
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating color palettes in Adobe ASE format.
@@ -128,7 +128,33 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			PaletteObjectModel palette = (objectModel as PaletteObjectModel);
+			if (palette == null) throw new ObjectModelNotSupportedException();
+
+			IO.Writer writer = base.Accessor.Writer;
+			writer.Endianness = IO.Endianness.BigEndian;
+			writer.Accessor.DefaultEncoding = Encoding.UTF8;
+			writer.WriteFixedLengthString("ASEF");
+
+			writer.WriteInt16(1);
+			writer.WriteInt16(0);
+
+			writer.WriteInt32(palette.Entries.Count);
+			foreach (PaletteEntry entry in palette.Entries)
+			{
+				writer.WriteUInt16(0x0001);
+				writer.WriteInt32(16 + entry.Name.Length); // colorName.Length + colorModel.Length + R G B
+				writer.WriteUInt16((ushort)entry.Name.Length);
+				writer.WriteFixedLengthString(entry.Name);
+
+				// only RGB supported right now
+				writer.WriteFixedLengthString("RGB ");
+				writer.WriteSingle((float)entry.Color.R);
+				writer.WriteSingle((float)entry.Color.G);
+				writer.WriteSingle((float)entry.Color.B);
+
+				writer.WriteUInt16(2); // colorType = Normal
+			}
 		}
 	}
 }

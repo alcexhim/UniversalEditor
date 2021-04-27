@@ -41,11 +41,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 				_dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://www.nomodes.com/aco.html");
 				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(Version), "_Version", 1, 1, ushort.MaxValue));
+				/*
+				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(ColorSpace), "Color _space", true, new CustomOptionFieldChoice[]
+				{
+					new CustomOptionFieldChoice("RGB", ACOColorSpace.RGB, true),
+					new CustomOptionFieldChoice("CMYK", ACOColorSpace.CMYK)
+				}));
+				*/
 			}
 			return _dfr;
 		}
 
 		public ushort Version { get; set; } = 1;
+		// public ACOColorSpace ColorSpace { get; set; } = ACOColorSpace.RGB;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -61,7 +69,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 			// occupies five words:
 			for (ushort i = 0; i < colorCount; i++)
 			{
-				ushort colorSpace = br.ReadUInt16();
+				ACOColorSpace colorSpace = (ACOColorSpace)br.ReadUInt16();
 				ushort w = br.ReadUInt16();
 				ushort x = br.ReadUInt16();
 				ushort y = br.ReadUInt16();
@@ -76,15 +84,44 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 
 				switch (colorSpace)
 				{
-					case 0:
+					case ACOColorSpace.RGB:
 					{
-						// RGB
 						int R = (w / 256);
 						int G = (x / 256);
 						int B = (y / 256);
 
 						PaletteEntry entry = new PaletteEntry();
 						entry.Color = Color.FromRGBAInt32(R, G, B);
+						palette.Entries.Add(entry);
+						break;
+					}
+					case ACOColorSpace.HSB:
+					{
+						// The first three values in the color data are hue,
+						// saturation, and brightness. They are full unsigned
+						// 16-bit values as in Apple's HSVColor data structure.
+						// Pure red = 0,65535, 65535.
+						double H = ((double)w / 256);
+						double S = ((double)x / 256);
+						double B = ((double)y / 256);
+
+						PaletteEntry entry = new PaletteEntry();
+						entry.Color = Color.FromHSL(H, S, B);
+						palette.Entries.Add(entry);
+						break;
+					}
+					case ACOColorSpace.CMYK:
+					{
+						// The four values in the color data are cyan, magenta,
+						// yellow, and black. They are full unsigned 16-bit
+						// values.
+						double C = ((double)(UInt16.MaxValue - w) / 256);
+						double M = ((double)(UInt16.MaxValue - x) / 256);
+						double Y = ((double)(UInt16.MaxValue - y) / 256);
+						double K = ((double)(UInt16.MaxValue - z) / 256);
+
+						PaletteEntry entry = new PaletteEntry();
+						entry.Color = Color.FromCMYKDouble(C, M, Y, K);
 						palette.Entries.Add(entry);
 						break;
 					}
@@ -107,16 +144,16 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 			// occupies five words:
 			foreach (PaletteEntry color in palette.Entries)
 			{
-				ushort colorSpace = 0; // RGB
-				bw.WriteUInt16(colorSpace);
+				ACOColorSpace colorSpace = ACOColorSpace.RGB;
+				bw.WriteUInt16((ushort)colorSpace);
 
 				switch (colorSpace)
 				{
-					case 0:
+					case ACOColorSpace.RGB:
 					{
-						ushort w = (ushort)((color.Color.R * 255) * 256);
-						ushort x = (ushort)((color.Color.G * 255) * 256);
-						ushort y = (ushort)((color.Color.B * 255) * 256);
+						ushort w = (ushort)(color.Color.GetRedByte() * 256);
+						ushort x = (ushort)(color.Color.GetGreenByte() * 256);
+						ushort y = (ushort)(color.Color.GetBlueByte() * 256);
 						ushort z = 0;
 
 						bw.WriteUInt16(w);
