@@ -42,7 +42,7 @@ namespace UniversalEditor.UserInterface
 
 		private ErrorListPanel pnlErrorList = new ErrorListPanel();
 		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
-		private PropertyListPanel pnlPropertyList = new PropertyListPanel();
+		internal PropertyListPanel pnlPropertyList = new PropertyListPanel();
 		private DocumentExplorerPanel pnlDocumentExplorer = new DocumentExplorerPanel();
 		public DocumentExplorerPanel DocumentExplorerPanel { get { return pnlDocumentExplorer; } }
 
@@ -405,12 +405,28 @@ namespace UniversalEditor.UserInterface
 			pnlDocumentExplorer.CurrentEditor = e.CurrentEditor;
 
 			UpdateMenuItems();
+			UpdatePropertyPanel();
 
 			// forward to window event handler
 			OnEditorChanged(e);
 
 			// forward to application event handler
 			((EditorApplication)Application.Instance).OnEditorChanged(e);
+		}
+
+		private void UpdatePropertyPanel()
+		{
+			pnlPropertyList.Objects.Clear();
+
+			Editor editor = GetCurrentEditor();
+			if (editor == null) return;
+
+			foreach (PropertyPanelObject obj in editor.PropertiesPanel.Objects)
+			{
+				pnlPropertyList.Objects.Add(obj);
+			}
+
+			pnlPropertyList.cboObject.Visible = editor.PropertiesPanel.ShowObjectSelector;
 		}
 
 		private void dckContainer_SelectionChanged(object sender, EventArgs e)

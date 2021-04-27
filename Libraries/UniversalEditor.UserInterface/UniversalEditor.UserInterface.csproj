@@ -135,6 +135,7 @@
     <Compile Include="IHostApplicationWindow.cs" />
     <Compile Include="EditorChangedEvent.cs" />
     <Compile Include="EditorChangingEvent.cs" />
+    <Compile Include="EditorPropertiesPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

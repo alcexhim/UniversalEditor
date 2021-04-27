@@ -29,6 +29,7 @@ using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework;
 using MBS.Framework.UserInterface.Input.Mouse;
+using UniversalEditor.UserInterface.Panels;
 
 namespace UniversalEditor.UserInterface
 {
@@ -67,11 +68,36 @@ namespace UniversalEditor.UserInterface
 			Application.Instance.Commands["EditCut"].Enabled = (Selections.Count > 0);
 			Application.Instance.Commands["EditCopy"].Enabled = (Selections.Count > 0);
 			Application.Instance.Commands["EditDelete"].Enabled = (Selections.Count > 0);
+			
+			switch (e.Action)
+			{
+				case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+				{
+					if (e.NewItems.Count == 1)
+					{
+						Selection sel = (Selection) e.NewItems[0];
+						foreach (PropertyPanelObject obj in PropertiesPanel.Objects)
+						{
+							if (obj.GetExtraData<object>("content") == sel.Content)
+							{
+								PropertiesPanel.SelectedObject = obj;
+								break;
+							}
+						}
+					}
+					break;
+				}
+				case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+				{
+					PropertiesPanel.SelectedObject = null;
+					break;
+				}
+			}
 
 			OnSelectionsChanged(e);
 		}
 
-
+		public EditorPropertiesPanel PropertiesPanel { get; } = null;
 		public Selection.SelectionCollection Selections { get; } = new Selection.SelectionCollection();
 
 		public abstract void UpdateSelections();
@@ -379,6 +405,8 @@ namespace UniversalEditor.UserInterface
 		public Editor()
 		{
 			Selections.CollectionChanged += Selections_CollectionChanged;
+
+			PropertiesPanel = new EditorPropertiesPanel(this);
 
 			EditorReference er = MakeReference();
 			Context = new EditorContext(er.ID, er.Title, er);

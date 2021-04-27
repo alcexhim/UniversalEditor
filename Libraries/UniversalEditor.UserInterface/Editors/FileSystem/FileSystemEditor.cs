@@ -217,6 +217,8 @@ namespace UniversalEditor.Editors.FileSystem
 
 			Context.AttachCommandEventHandler("FileSystemEditor_GoUp", FileSystemEditor_GoUp);
 
+			PropertiesPanel.ShowObjectSelector = false;
+
 			// FIXME: this is GTK-specific...
 			this.tv.RegisterDragSource(new DragDropTarget[]
 			{
@@ -901,6 +903,9 @@ namespace UniversalEditor.Editors.FileSystem
 			}
 			return r;
 		}
+
+		UserInterface.Panels.PropertyPanelClass cFile = new UserInterface.Panels.PropertyPanelClass("File");
+		UserInterface.Panels.PropertyPanelClass cFolder = new UserInterface.Panels.PropertyPanelClass("Folder");
 
 		protected override void OnObjectModelChanged(EventArgs e)
 		{

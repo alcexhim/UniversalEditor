@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
@@ -75,7 +76,7 @@ namespace UniversalEditor.UserInterface.Panels
 			}
 		}
 	}
-	public class PropertyPanelObject
+	public class PropertyPanelObject : ISupportsExtraData
 	{
 		public class PropertyPanelObjectCollection
 			: System.Collections.ObjectModel.Collection<PropertyPanelObject>
@@ -89,16 +90,16 @@ namespace UniversalEditor.UserInterface.Panels
 			protected override void ClearItems()
 			{
 				base.ClearItems();
-				_parent.ClearPropertyPanelObjects();
+				_parent?.ClearPropertyPanelObjects();
 			}
 			protected override void InsertItem(int index, PropertyPanelObject item)
 			{
 				base.InsertItem(index, item);
-				_parent.AddPropertyPanelObject(item);
+				_parent?.AddPropertyPanelObject(item);
 			}
 			protected override void RemoveItem(int index)
 			{
-				_parent.RemovePropertyPanelObject(this[index]);
+				_parent?.RemovePropertyPanelObject(this[index]);
 				base.RemoveItem(index);
 			}
 
@@ -114,12 +115,33 @@ namespace UniversalEditor.UserInterface.Panels
 			Name = name;
 			ObjectClass = clas;
 		}
+
+		#region ISupportsExtraData members
+		private Dictionary<string, object> _ExtraData = new Dictionary<string, object>();
+		public T GetExtraData<T>(string key, T defaultValue = default(T))
+		{
+			if (_ExtraData.ContainsKey(key)) return (T)_ExtraData[key];
+			return defaultValue;
+		}
+		public object GetExtraData(string key, object defaultValue = null)
+		{
+			return GetExtraData<object>(key, defaultValue);
+		}
+		public void SetExtraData<T>(string key, T value)
+		{
+			_ExtraData[key] = value;
+		}
+		public void SetExtraData(string key, object value)
+		{
+			SetExtraData<object>(key, value);
+		}
+		#endregion
 	}
 
 	[ContainerLayout("~/Panels/PropertyList/PropertyListPanel.glade")]
 	partial class PropertyListPanel : Panel
 	{
-		private ComboBox cboObject;
+		internal ComboBox cboObject;
 		private SplitContainer scDescriptionCommands;
 		private ListViewControl lvPropertyGrid;
 
