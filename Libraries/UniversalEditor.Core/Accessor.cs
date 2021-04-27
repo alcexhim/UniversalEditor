@@ -33,7 +33,7 @@ namespace UniversalEditor
 	/// parameters.
 	/// </summary>
 	[DebuggerNonUserCode()]
-	public abstract class Accessor : References<AccessorReference>, ICloneable
+	public abstract class Accessor : References<AccessorReference>, ICloneable, IDisposable
 	{
 		protected bool Initialized { get; private set; } = false;
 		protected void Initialize()
@@ -272,6 +272,33 @@ namespace UniversalEditor
 		public object Clone()
 		{
 			return CloneInternal();
+		}
+
+		private bool isDisposed;
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (isDisposed) return;
+
+			if (disposing)
+			{
+				// free managed resources
+				Close();
+			}
+
+			// free native resources if there are any.
+
+			isDisposed = true;
+		}
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		~Accessor()
+		{
+			Dispose(false);
 		}
 	}
 }
