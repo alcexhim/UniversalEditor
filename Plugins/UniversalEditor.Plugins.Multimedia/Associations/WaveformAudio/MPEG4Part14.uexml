@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="MPEG-4 part 14 audio/video">
+				<Filter Title="MPEG-4 part 14 audio/video" ContentType="video/mp4">
 					<FileNameFilters>
 						<FileNameFilter>*.mp4</FileNameFilter>
 						<FileNameFilter>*.m4a</FileNameFilter>
