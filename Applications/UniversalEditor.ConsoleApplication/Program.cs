@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
 using System.Text;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Text.Formatted.Items;
@@ -245,6 +246,24 @@ namespace UniversalEditor.ConsoleApplication
 					{
 						sb_mime_info.AppendLine(String.Format("\t\t<glob pattern=\"{0}\" />", assocs[i].Filters[j].FileNameFilters[k]));
 					}
+
+					// FIXME: this doesn't work!
+					bool includeMagicBytes = true;
+
+					if (includeMagicBytes && assocs[i].Filters[j].MagicBytes.Count > 0)
+					{
+						for (int k = 0; k < assocs[i].Filters[j].MagicBytes.Count; k++)
+						{
+							string mbcs = GetMagicByteString(assocs[i].Filters[j].MagicBytes[k], assocs[i].Filters[j].MagicByteOffsets[k]);
+							if (!String.IsNullOrEmpty(mbcs))
+							{
+								sb_mime_info.AppendLine("\t\t<magic>");
+								sb_mime_info.AppendLine(mbcs);
+								sb_mime_info.AppendLine("\t\t</magic>");
+							}
+						}
+					}
+
 					if (assocs[i].Filters[j].IconName != null)
 					{
 						sb_mime_info.AppendLine(String.Format("\t\t<icon name=\"{0}\" />", assocs[i].Filters[j].IconName));
@@ -256,6 +275,83 @@ namespace UniversalEditor.ConsoleApplication
 			mime_info = sb_mime_info.ToString();
 			desktop_mime_types = sb_mime_types.ToString();
 		}
+
+		private static string GetMagicByteString(byte?[] magicBytes, int offset)
+		{
+			StringBuilder sb = new StringBuilder();
+
+			int length = magicBytes.Length;
+			if (length % 2 != 0)
+			{
+				// length not divisible by 2, so match one less character
+				length--;
+			}
+
+			List<string> mgbstrings = new List<string>();
+			string lastString = String.Empty;
+			for (int i = 0; i < magicBytes.Length; i++)
+			{
+				lastString = magicBytes[i].GetValueOrDefault().ToString("x").PadRight(2, '0') + lastString;
+				if ((i + 1) % 4 == 0)
+				{
+					mgbstrings.Add(lastString);
+					lastString = String.Empty;
+				}
+			}
+
+			if (!String.IsNullOrEmpty(lastString))
+				mgbstrings.Add(lastString);
+
+			if (mgbstrings.Count > 0)
+			{
+				int opened = 0;
+				int ofs = 0;
+				int ct = 0;
+				for (int i = 0; i < mgbstrings.Count; i++)
+				{
+					string type = String.Empty;
+					if (mgbstrings[i].Length == 4)
+					{
+						type = "little16";
+						ofs = 2;
+					}
+					else if (mgbstrings[i].Length == 8)
+					{
+						type = "little32";
+						ofs = 4;
+					}
+
+					if (type == String.Empty)
+						continue;
+
+					ct++;
+					sb.Append("<match type=\"");
+					sb.Append(type);
+					sb.Append("\" offset=\"");
+					sb.Append(offset);
+					sb.Append("\" value=\"0x");
+					sb.Append(mgbstrings[i]);
+					sb.Append("\"");
+					if (i < mgbstrings.Count - 1)
+					{
+						opened++;
+						sb.Append(">");
+					}
+					offset += ofs;
+				}
+				if (ct > 0)
+				{
+					sb.Append(" />");
+					for (int i = 0; i < opened; i++)
+					{
+						sb.Append("</match>");
+					}
+				}
+			}
+
+			return sb.ToString();
+		}
+
 		private static string GenerateAssociationsREG()
 		{
 			StringBuilder sb = new StringBuilder();
