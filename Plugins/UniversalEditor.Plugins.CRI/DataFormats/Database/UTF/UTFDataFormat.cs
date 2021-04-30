@@ -102,12 +102,12 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.Database.UTF
 			// Read string table - remember, this is relative to UTF data WITH the "@UTF" signature
 			br.Accessor.SavePosition();
 			br.Seek(info.utfOffset + info.stringTableOffset + 4, IO.SeekOrigin.Begin);
-
+			/*
 			while (br.PeekByte() == 0)
 			{
 				br.ReadByte();
 			}
-
+			*/
 			byte[] stringTableData = br.ReadBytes(info.stringTableSize);
 			MemoryAccessor maStringTable = new MemoryAccessor(stringTableData);
 
