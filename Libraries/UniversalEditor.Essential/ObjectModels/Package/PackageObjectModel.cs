@@ -34,15 +34,13 @@ namespace UniversalEditor.ObjectModels.Package
 	{
 		public DefaultDefinition.DefaultDefinitionCollection DefaultContentTypes { get; } = new DefaultDefinition.DefaultDefinitionCollection ();
 		public OverrideDefinition.OverrideDefinitionCollection OverrideContentTypes { get; } = new OverrideDefinition.OverrideDefinitionCollection ();
-
-		private Relationship.RelationshipCollection mvarRelationships = new Relationship.RelationshipCollection();
-		public Relationship.RelationshipCollection Relationships { get { return mvarRelationships; } }
+		public Relationship.RelationshipCollection Relationships { get; } = new Relationship.RelationshipCollection();
 
 		public override void Clear()
 		{
 			DefaultContentTypes.Clear();
 			OverrideContentTypes.Clear ();
-			mvarRelationships.Clear();
+			Relationships.Clear();
 		}
 
 		public override void CopyTo(ObjectModel where)
@@ -58,7 +56,7 @@ namespace UniversalEditor.ObjectModels.Package
 			{
 				clone.OverrideContentTypes.Add(item.Clone() as OverrideDefinition);
 			}
-			foreach (Relationship item in mvarRelationships)
+			foreach (Relationship item in Relationships)
 			{
 				clone.Relationships.Add(item.Clone() as Relationship);
 			}
@@ -70,7 +68,7 @@ namespace UniversalEditor.ObjectModels.Package
 		public File[] GetFilesBySchema(string schema, string relationshipSource = null)
 		{
 			List<File> files = new List<File>();
-			Relationship[] rels = mvarRelationships.GetBySchema(schema, relationshipSource);
+			Relationship[] rels = Relationships.GetBySchema(schema, relationshipSource);
 			foreach (Relationship rel in rels)
 			{
 				if (rel.Target.StartsWith("/"))
