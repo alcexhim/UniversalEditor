@@ -9,10 +9,7 @@
 					</FileNameFilters>
 					<MagicByteSequences>
 						<MagicByteSequence>
-							<MagicByte Type="Byte">102</MagicByte>
-							<MagicByte Type="Byte">76</MagicByte>
-							<MagicByte Type="Byte">97</MagicByte>
-							<MagicByte Type="Byte">67</MagicByte>
+							<MagicByte Type="String">fLaC</MagicByte>
 						</MagicByteSequence>
 					</MagicByteSequences>
 				</Filter>
