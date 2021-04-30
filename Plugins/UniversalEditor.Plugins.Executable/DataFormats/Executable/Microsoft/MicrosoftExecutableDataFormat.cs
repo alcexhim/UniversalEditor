@@ -187,77 +187,74 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 					{
 						exec.TargetMachineType = (ExecutableMachine)pe.machine;
 						exec.Characteristics = (ExecutableCharacteristics)pe.characteristics;
-					}
 
-					// Optional Header
-					long peohOffset = reader.Accessor.Position;
-					PEOptionalHeader peoh = new PEOptionalHeader();
-					peoh = ReadPEOptionalHeader(reader, pe);
+						// Optional Header
+						long peohOffset = reader.Accessor.Position;
+						PEOptionalHeader peoh = new PEOptionalHeader();
+						peoh = ReadPEOptionalHeader(reader, pe);
 
-					#region Data Directories
-					{
-						for (int i = 0; i < peoh.rvaCount; i++)
+						#region Data Directories
 						{
-							uint dataDirectoryOffset = reader.ReadUInt32();
-							uint dataDirectoryLength = reader.ReadUInt32();
-						}
-					}
-					#endregion
-					#region Sections Table
-					{
-						// offset: 0x138
-						if (peoh.enabled)
-						{
-							reader.Accessor.Seek(peohOffset + pe.sizeOfOptionalHeader, SeekOrigin.Begin);
-						}
-
-						uint lastRawDataPtr = 0;
-						for (short i = 0; i < pe.sectionCount; i++)
-						{
-							PESectionHeader pesh = ReadPESectionHeader(reader);
-
-							if (fsom != null)
+							for (int i = 0; i < peoh.rvaCount; i++)
 							{
-								File file = new File();
-								file.Name = pesh.name;
-								file.Properties.Add("reader", reader);
-								file.Properties.Add("offset", pesh.rawDataPtr);
-								file.Properties.Add("length", pesh.rawDataSize);
-
-								file.Size = pesh.rawDataSize;
-								file.DataRequest += file_DataRequest;
-								fsom.Files.Add(file);
+								uint dataDirectoryOffset = reader.ReadUInt32();
+								uint dataDirectoryLength = reader.ReadUInt32();
 							}
-
-							ExecutableSection sect = new ExecutableSection();
-							sect.Name = pesh.name;
-							// sect.DataRequest += sect_DataRequest;
-							sect.VirtualSize = pesh.virtualSize;
-							sect.VirtualAddress = pesh.virtualAddress;
-							sect.PhysicalAddress = pesh.rawDataPtr;
-							sect.Characteristics = (ExecutableSectionCharacteristics)pesh.characteristics;
-
-							long ofs = reader.Accessor.Position;
-							reader.Accessor.Position = pesh.rawDataPtr;
-							sect.Data = reader.ReadBytes(pesh.rawDataSize);
-							reader.Accessor.Position = ofs;
-
-							exec.Sections.Add(sect);
 						}
+						#endregion
+						#region Sections Table
+						{
+							// offset: 0x138
+							reader.Accessor.Seek(peohOffset + pe.sizeOfOptionalHeader, SeekOrigin.Begin);
+
+							uint lastRawDataPtr = 0;
+							for (short i = 0; i < pe.sectionCount; i++)
+							{
+								PESectionHeader pesh = ReadPESectionHeader(reader);
+
+								if (fsom != null)
+								{
+									File file = new File();
+									file.Name = pesh.name;
+									file.Properties.Add("reader", reader);
+									file.Properties.Add("offset", pesh.rawDataPtr);
+									file.Properties.Add("length", pesh.rawDataSize);
+
+									file.Size = pesh.rawDataSize;
+									file.DataRequest += file_DataRequest;
+									fsom.Files.Add(file);
+								}
+
+								ExecutableSection sect = new ExecutableSection();
+								sect.Name = pesh.name;
+								// sect.DataRequest += sect_DataRequest;
+								sect.VirtualSize = pesh.virtualSize;
+								sect.VirtualAddress = pesh.virtualAddress;
+								sect.PhysicalAddress = pesh.rawDataPtr;
+								sect.Characteristics = (ExecutableSectionCharacteristics)pesh.characteristics;
+
+								long ofs = reader.Accessor.Position;
+								reader.Accessor.Position = pesh.rawDataPtr;
+								sect.Data = reader.ReadBytes(pesh.rawDataSize);
+								reader.Accessor.Position = ofs;
+
+								exec.Sections.Add(sect);
+							}
+						}
+						#endregion
 					}
-					#endregion
-				}
-				else
-				{
-					#region New Executable
-					// not a PE file, try NE?
-					reader.Accessor.Position = 128;
-					string NE = reader.ReadFixedLengthString(2);
-					if (NE == "NE")
+					else
 					{
-						NewExecutable.NewExecutableHeader ne_header = NewExecutable.NewExecutableHeader.Read(reader);
+						#region New Executable
+						// not a PE file, try NE?
+						reader.Accessor.Position = mvarDOSHeader.NewEXEHeaderOffset;
+						string NE = reader.ReadFixedLengthString(2);
+						if (NE == "NE")
+						{
+							NewExecutable.NewExecutableHeader ne_header = NewExecutable.NewExecutableHeader.Read(reader);
+						}
+						#endregion
 					}
-					#endregion
 				}
 			}
 			#endregion

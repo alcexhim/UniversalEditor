@@ -30,12 +30,30 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft.NewExecutable
 	{
 		None = 0x00,
 		/// <summary>
-		/// DGROUP type: single shared
+		/// DGROUP type: single shared.  An executable file with this format
+		/// contains one data segment. This bit is set if the file is a
+		/// dynamic-link library (DLL).
 		/// </summary>
+		/// <remarks>
+		/// If neither <see cref="SingleSharedDGROUP" /> nor
+		/// <see cref="MultipleUnsharedDGROUP" /> is set, the
+		/// executable-file format is NOAUTODATA. An
+		/// executable file with this format does not contain
+		/// an automatic data segment.
+		/// </remarks>
 		SingleSharedDGROUP = 0x01,
 		/// <summary>
-		/// DGROUP type: multiple (unshared)
+		/// DGROUP type: multiple (unshared). An executable file with 
+		/// this format contains multiple data segments. This
+		/// bit is set if the file is a Windows application. 
 		/// </summary>
+		/// <remarks>
+		/// If neither <see cref="SingleSharedDGROUP" /> nor
+		/// <see cref="MultipleUnsharedDGROUP" /> is set, the
+		/// executable-file format is NOAUTODATA. An
+		/// executable file with this format does not contain
+		/// an automatic data segment.
+		/// </remarks>
 		MultipleUnsharedDGROUP = 0x02,
 		/// <summary>
 		/// Global initialization.

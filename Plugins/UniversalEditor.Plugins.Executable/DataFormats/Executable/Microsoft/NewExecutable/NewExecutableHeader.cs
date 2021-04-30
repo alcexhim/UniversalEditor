@@ -46,7 +46,7 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft.NewExecutable
 		public ushort EntryTableLength;
 		public uint FileLoadCRC;
 		/// <summary>
-		/// Program flags
+		/// Specifies flags that describe the contents of the executable file.
 		/// </summary>
 		public NewExecutableProgramFlags ProgramFlags;
 		/// <summary>
