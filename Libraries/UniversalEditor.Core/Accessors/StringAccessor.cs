@@ -19,10 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UniversalEditor.IO;
+﻿using System;
 
 namespace UniversalEditor.Accessors
 {
@@ -39,6 +36,10 @@ namespace UniversalEditor.Accessors
 			return _ar;
 		}
 
+		public StringAccessor() : this(String.Empty)
+		{
+
+		}
 		public StringAccessor(string value)
 			: this(value, System.Text.Encoding.UTF8)
 		{
