@@ -230,6 +230,8 @@ namespace UniversalEditor.Editors.FileSystem
 			OnObjectModelChanged(EventArgs.Empty);
 
 			txtPath.Text = GetPath(CurrentFolder);
+
+			tv.SingleClickActivation = (Application.Instance as UIApplication).GetSetting<bool>(FileSystemEditorSettingsGuids.SingleClickToOpenItems);
 		}
 
 		private void tv_DragDropDataRequest(object sender, DragDropDataRequestEventArgs e)

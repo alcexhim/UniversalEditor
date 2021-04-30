@@ -17,7 +17,7 @@
 					<BooleanSetting ID="{C450ADFB-8ED0-45F6-8DE7-6ECB822CDE6A}" Name="WarnBeforeOpeningIncompatibleScript" Title="_Warn before opening BehavEd-incompatible ICARUS script" />
 				</Settings>
 			</SettingsGroup>
-			<SettingsGroup ID="{A99E9350-0609-4C64-80C8-BB0DC1246701}">
+			<SettingsGroup ID="{8E1B592E-08E3-4AAF-A556-0ADDF3CBE949}">
 				<Path>
 					<Part>Editors</Part>
 					<Part>Raven Software</Part>
