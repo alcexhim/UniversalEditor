@@ -29,6 +29,8 @@ using UniversalEditor.DataFormats.Markup.XML;
 
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank;
+using System.Linq;
+using System;
 
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MusicXML
 {
@@ -59,127 +61,163 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MusicXML
 			MarkupTagElement score_partwise = (mom.FindElement("score-partwise") as MarkupTagElement);
 			if (score_partwise != null)
 			{
-				foreach (MarkupElement el in score_partwise.Elements)
+				MarkupTagElement tagPartList = score_partwise.Elements["part-list"] as MarkupTagElement;
+				if (tagPartList == null)
 				{
-					MarkupTagElement tag = el as MarkupTagElement;
-					if (tag != null)
+					throw new InvalidDataFormatException("MusicXML score-partwise has no part-list tag");
+				}
+
+				foreach (MarkupTagElement tagScorePart in tagPartList.Elements.OfType<MarkupTagElement>())
+				{
+					SynthesizedAudioTrack track = new SynthesizedAudioTrack();
+					if (tagScorePart.Attributes["id"] != null)
 					{
-						SynthesizedAudioTrack currentTrack = null;
-						string text = tag.Name;
-						if (text != null)
+						track.ID = tagScorePart.Attributes["id"].Value;
+					}
+					foreach (MarkupTagElement tagScorePartChild in tagScorePart.Elements.OfType<MarkupTagElement>())
+					{
+						switch (tagScorePartChild.Name)
 						{
-							if (!(text == "part-list"))
+							case "link":
 							{
-								if (text == "part")
+								string rel = tagScorePartChild.Attributes["rel"]?.Value;
+								switch (rel)
 								{
-									if (tag.Attributes["id"] != null)
+									case "synthesizer":
 									{
-										currentTrack = au.Tracks[tag.Attributes["id"].Value];
-										if (currentTrack != null)
+										if (Accessor is FileAccessor)
 										{
-											foreach (MarkupElement el2 in tag.Elements)
+											FileAccessor file = (Accessor as FileAccessor);
+											if (file.FileName != null)
 											{
-												MarkupTagElement tag2 = el2 as MarkupTagElement;
-												if (tag2.Name == "measure")
+												string fileName = Path.MakeAbsolutePath(tagScorePartChild.Attributes["href"].Value, System.IO.Path.GetDirectoryName(file.FileName));
+												if (Reflection.GetAvailableObjectModel<VoicebankObjectModel>(new FileAccessor(fileName), out VoicebankObjectModel synth))
 												{
-													foreach (MarkupElement elMeasureItem in tag2.Elements)
-													{
-														MarkupTagElement tagMeasureItem = elMeasureItem as MarkupTagElement;
-														if (tagMeasureItem != null)
-														{
-															text = tagMeasureItem.Name;
-															if (text != null)
-															{
-																if (!(text == "attributes"))
-																{
-																	if (text == "note")
-																	{
-																		SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
-																		foreach (MarkupElement elNoteItem in tagMeasureItem.Elements)
-																		{
-																			MarkupTagElement tagNoteItem = elNoteItem as MarkupTagElement;
-																			if (tagNoteItem != null)
-																			{
-																				MarkupElement elPhoneme = tagNoteItem.FindElement("sing", "phoneme");
-																				MarkupElement elLyric = tagNoteItem.FindElement("sing", "lyric");
-																				if (elPhoneme != null)
-																				{
-																					note.Phoneme = elPhoneme.Value;
-																				}
-																				if (elLyric != null)
-																				{
-																					note.Lyric = elLyric.Value;
-																				}
-																			}
-																		}
-																		currentTrack.Commands.Add(note);
-																	}
-																}
-															}
-														}
-													}
+													track.Synthesizer = synth;
 												}
 											}
 										}
+										break;
 									}
 								}
+								break;
 							}
-							else
+							case "part-name":
 							{
-								foreach (MarkupElement elScorePart in tag.Elements)
+								track.Name = tagScorePartChild.Value;
+								break;
+							}
+							case "score-instrument":
+							{
+								// instrument-name
+								break;
+							}
+							case "midi-instrument":
+							{
+								// midi-channel, midi-program, volume, pan
+								break;
+							}
+						}
+					}
+					au.Tracks.Add(track);
+				}
+
+				MarkupTagElement[] tagParts = score_partwise.GetElementsByTagName("part");
+				foreach (MarkupTagElement tag in tagParts)
+				{
+					if (tag.Attributes["id"] != null)
+					{
+						SynthesizedAudioTrack currentTrack = au.Tracks[tag.Attributes["id"].Value];
+						if (currentTrack != null)
+						{
+							double ntpos = 0;
+							foreach (MarkupElement el2 in tag.Elements)
+							{
+								MarkupTagElement tag2 = el2 as MarkupTagElement;
+								if (tag2.Name == "measure")
 								{
-									if (elScorePart is MarkupTagElement)
+									foreach (MarkupElement elMeasureItem in tag2.Elements)
 									{
-										MarkupTagElement tagScorePart = elScorePart as MarkupTagElement;
-										SynthesizedAudioTrack track = new SynthesizedAudioTrack();
-										if (tagScorePart.Attributes["id"] != null)
+										MarkupTagElement tagMeasureItem = elMeasureItem as MarkupTagElement;
+										if (tagMeasureItem != null)
 										{
-											track.ID = tagScorePart.Attributes["id"].Value;
-										}
-										foreach (MarkupElement elTagScorePartChild in tagScorePart.Elements)
-										{
-											if (elTagScorePartChild is MarkupTagElement)
+											switch (tagMeasureItem.Name)
 											{
-												MarkupTagElement tag_elTagScorePartChild = elTagScorePartChild as MarkupTagElement;
-												text = tag_elTagScorePartChild.Name;
-												if (text != null)
+												case "note":
 												{
-													if (!(text == "part-name"))
+													MarkupTagElement tagRest = tagMeasureItem.Elements["rest"] as MarkupTagElement;
+													SynthesizedAudioCommand note = null;
+													if (tagRest != null)
 													{
-														if (text == "link")
-														{
-															if (tag_elTagScorePartChild.Attributes["rel"] != null)
-															{
-																text = tag_elTagScorePartChild.Attributes["rel"].Value;
-																if (text != null)
-																{
-																	if (text == "synthesizer")
-																	{
-																		if (Accessor is FileAccessor)
-																		{
-																			FileAccessor file = (Accessor as FileAccessor);
-																			if (file.FileName != null)
-																			{
-																				string fileName = Path.MakeAbsolutePath(tag_elTagScorePartChild.Attributes["href"].Value, System.IO.Path.GetDirectoryName(file.FileName));
-																				if (Reflection.GetAvailableObjectModel<VoicebankObjectModel>(new FileAccessor(fileName), out VoicebankObjectModel synth))
-																				{
-																					track.Synthesizer = synth;
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
+														note = new SynthesizedAudioCommandRest();
 													}
 													else
 													{
-														track.Name = tag_elTagScorePartChild.Value;
+														note = new SynthesizedAudioCommandNote();
+
+														MarkupTagElement tagPitch = tagMeasureItem.Elements["pitch"] as MarkupTagElement;
+														if (tagPitch != null)
+														{
+															MarkupTagElement tagStep = tagPitch.Elements["step"] as MarkupTagElement;
+															MarkupTagElement tagOctave = tagPitch.Elements["octave"] as MarkupTagElement;
+
+															(note as SynthesizedAudioCommandNote).Frequency = PitchToFrequency(tagStep.Value, int.Parse(tagOctave.Value));
+														}
+
+														foreach (MarkupElement elNoteItem in tagMeasureItem.Elements)
+														{
+															MarkupTagElement tagNoteItem = elNoteItem as MarkupTagElement;
+															if (tagNoteItem != null)
+															{
+																MarkupElement elPhoneme = tagNoteItem.FindElement("sing", "phoneme");
+																MarkupElement elLyric = tagNoteItem.FindElement("sing", "lyric");
+																if (elPhoneme != null)
+																{
+																	(note as SynthesizedAudioCommandNote).Phoneme = elPhoneme.Value;
+																}
+																if (elLyric != null)
+																{
+																	(note as SynthesizedAudioCommandNote).Lyric = elLyric.Value;
+																}
+																else
+																{
+																	elLyric = tagNoteItem.FindElement("lyric");
+																	if (elLyric != null)
+																	{
+																		MarkupTagElement tagLyric = (elLyric as MarkupTagElement);
+
+																		MarkupTagElement tagSyllabic = tagLyric.Elements["syllabic"] as MarkupTagElement;
+																		MarkupTagElement tagText = tagLyric.Elements["text"] as MarkupTagElement;
+																		(note as SynthesizedAudioCommandNote).Lyric = tagText.Value;
+																	}
+																}
+															}
+														}
 													}
+
+													MarkupTagElement tagDuration = tagMeasureItem.Elements["duration"] as MarkupTagElement;
+													MarkupTagElement tagVoice = tagMeasureItem.Elements["voice"] as MarkupTagElement;
+													if (tagDuration != null)
+													{
+														// FIXME: 100 is BPM of a quarter note?
+														(note as SynthesizedAudioCommandNote).Length = double.Parse(tagDuration.Value) * 100;
+													}
+
+													(note as SynthesizedAudioCommandNote).Position = (int)ntpos;
+													ntpos += (note as SynthesizedAudioCommandNote).Length;
+
+													if (note != null)
+													{
+														currentTrack.Commands.Add(note);
+													}
+													break;
+												}
+												case "attributes":
+												{
+													break;
 												}
 											}
 										}
-										au.Tracks.Add(track);
 									}
 								}
 							}
@@ -187,6 +225,43 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MusicXML
 					}
 				}
 			}
+		}
+
+		// thanks https://stackoverflow.com/questions/38838145
+		static int FastBinarySearch<T>(T[] arr, T i) where T : IComparable
+		{
+			int low = 0, high = arr.Length - 1, mid;
+
+			while (low <= high)
+			{
+				mid = (low + high) / 2;
+
+				if (i.CompareTo(arr[mid]) < 0)
+					high = mid - 1;
+
+				else if (i.CompareTo(arr[mid]) > 0)
+					low = mid + 1;
+
+				else
+					return mid;
+			}
+			return -1;
+		}
+
+		private double PitchToFrequency(string note, int octave)
+		{
+			string[] noteNames = new string[]
+			{
+				"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"
+			};
+			int noteNameIndex = FastBinarySearch<string>(noteNames, note);
+
+			double factor = 1.059463094;
+			double initialFrequency = 55.0;
+			double freqOctave = initialFrequency * Math.Pow(2, octave - 1);
+			double freqNote = freqOctave * Math.Pow(2, ((double)noteNameIndex / 12));
+
+			return freqNote;
 		}
 	}
 }
