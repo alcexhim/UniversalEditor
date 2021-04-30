@@ -22,13 +22,15 @@
 using System;
 using System.Reflection;
 using System.Text;
+using UniversalEditor.Accessors;
+using UniversalEditor.IO;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable.CodeProviders
 {
 	/// <summary>
 	/// Provides a <see cref="CodeProvider" /> that translates MSIL code into VB.NET.
 	/// </summary>
-	public class VisualBasicCodeProvider : CodeProvider
+	public class VisualBasicCodeProvider : ILCodeProvider
 	{
 		public override string Title => "VB.NET";
 		public override string CodeFileExtension => ".vb";
@@ -185,7 +187,62 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable.Co
 		}
 		protected override string GetSourceCodeInternal(MethodInfo mi, int indentLevel)
 		{
-			throw new NotImplementedException();
+			StringBuilder sb = new StringBuilder();
+			string indentStr = new string('\t', indentLevel);
+			sb.Append(indentStr);
+			sb.Append(GetMethodSignature(mi));
+
+			MethodBody mb = mi.GetMethodBody();
+			if (mb != null)
+			{
+				sb.AppendLine();
+				sb.Append(GetBeginBlock(mi, indentLevel));
+				sb.AppendLine();
+
+				for (int i = 0; i < mb.LocalVariables.Count; i++)
+				{
+					sb.Append(new string('\t', indentLevel + 1));
+					sb.Append("Dim ");
+					sb.Append(GetVariableName(mi, mb.LocalVariables[i]));
+					sb.Append(" As ");
+					sb.Append(GetTypeName(mb.LocalVariables[i].LocalType));
+					sb.AppendLine();
+				}
+
+				if (mb.LocalVariables.Count > 0)
+					sb.AppendLine();
+
+				byte[] bytecode = mb.GetILAsByteArray();
+				MemoryAccessor ma = new MemoryAccessor(bytecode);
+				Reader r = new Reader(ma);
+				while (!r.EndOfStream)
+				{
+					int sz = 0;
+					ILOpcode opcode = ReadOpcode(r, out sz);
+					ILOpcode opcode2 = PeekOpcode(r);
+
+					sb.Append(new string('\t', indentLevel + 1));
+
+
+					if (opcode2 == ILOpcode.NewArr)
+					{
+						int? lit = OpcodeToLiteralInt(opcode);
+						sb.Append(String.Format("Dim X As **TYPE**() = New X({0})", lit.GetValueOrDefault(0)));
+					}
+					else
+					{
+						sb.AppendLine(GetILOpcodeStr(opcode));
+						continue;
+					}
+				}
+
+				sb.Append(GetEndBlock(mi, indentLevel));
+			}
+			else
+			{
+				sb.Append(';');
+			}
+			return sb.ToString();
 		}
 
 		protected override string GetMethodSignatureInternal(MethodInfo mi)

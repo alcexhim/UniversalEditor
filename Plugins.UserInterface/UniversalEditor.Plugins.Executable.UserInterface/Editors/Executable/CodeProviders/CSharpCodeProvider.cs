@@ -31,7 +31,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable.Co
 	/// <summary>
 	/// Provides a <see cref="CodeProvider" /> that translates MSIL code into C#.
 	/// </summary>
-	public class CSharpCodeProvider : CodeProvider
+	public class CSharpCodeProvider : ILCodeProvider
 	{
 		public override string Title => "C#";
 		public override string CodeFileExtension => ".cs";
@@ -189,84 +189,6 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable.Co
 				sb.Append(';');
 			}
 			return sb.ToString();
-		}
-
-		private int? OpcodeToLiteralInt(ILOpcode opcode)
-		{
-			switch (opcode)
-			{
-				case ILOpcode.LdCI4_0:
-				{
-					return 0;
-				}
-				case ILOpcode.LdCI4_1:
-				{
-					return 1;
-				}
-				case ILOpcode.LdCI4_2:
-				{
-					return 2;
-				}
-				case ILOpcode.LdCI4_3:
-				{
-					return 3;
-				}
-				case ILOpcode.LdCI4_4:
-				{
-					return 4;
-				}
-				case ILOpcode.LdCI4_5:
-				{
-					return 5;
-				}
-				case ILOpcode.LdCI4_6:
-				{
-					return 6;
-				}
-				case ILOpcode.LdCI4_7:
-				{
-					return 7;
-				}
-				case ILOpcode.LdCI4_8:
-				{
-					return 8;
-				}
-				case ILOpcode.LdCI4_M1:
-				{
-					return -1;
-				}
-			}
-			return null;
-		}
-
-		private ILOpcode PeekOpcode(Reader r)
-		{
-			int sz = 0;
-			ILOpcode opcode = ReadOpcode(r, out sz);
-			if (sz == 0)
-				return opcode;
-
-			r.Seek(-sz, SeekOrigin.Current);
-			return opcode;
-		}
-		private ILOpcode ReadOpcode(Reader r, out int size)
-		{
-			if (r.EndOfStream)
-			{
-				size = 0;
-				return ILOpcode.Nop;
-			}
-
-			byte bytecode_b = r.ReadByte();
-			short bytecode_s = bytecode_b;
-			size = 1;
-
-			if (bytecode_s == 0xFE)
-			{
-				bytecode_s = BitConverter.ToInt16(new byte[] { bytecode_b, r.ReadByte() }, 0);
-				size = 2;
-			}
-			return (ILOpcode)bytecode_s;
 		}
 
 		protected override string GetSourceCodeInternal(FieldInfo fi, int indentLevel)

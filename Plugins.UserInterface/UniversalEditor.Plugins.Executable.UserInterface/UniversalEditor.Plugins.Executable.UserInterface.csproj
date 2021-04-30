@@ -37,6 +37,7 @@
     <Compile Include="Editors\Executable\ILOpcode.cs" />
     <Compile Include="Editors\Executable\NonLayout\ExecutableEditor.cs" />
     <Compile Include="Editors\Executable\NonLayout\ManagedAssemblyPanel.cs" />
+    <Compile Include="Editors\Executable\CodeProviders\ILCodeProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
