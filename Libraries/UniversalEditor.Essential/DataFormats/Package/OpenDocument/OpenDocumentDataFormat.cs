@@ -65,7 +65,11 @@ namespace UniversalEditor.DataFormats.Package.OpenDocument
 			FileSystemObjectModel fsom = (package.FileSystem.Clone() as FileSystemObjectModel);
 			{
 				MemoryAccessor ma = new MemoryAccessor();
-				ma.Writer.WriteFixedLengthString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\" xmlns:loext=\"urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0\">\n <manifest:file-entry manifest:full-path=\"/\" manifest:version=\"1.2\" manifest:media-type=\"application/vnd.oasis.opendocument.presentation\"/>\n <manifest:file-entry manifest:full-path=\"Configurations2/\" manifest:media-type=\"application/vnd.sun.xml.ui.configuration\"/>\n <manifest:file-entry manifest:full-path=\"styles.xml\" manifest:media-type=\"text/xml\"/>\n <manifest:file-entry manifest:full-path=\"Pictures/100002010000042200000098867BFA9F3EB7C7AD.png\" manifest:media-type=\"image/png\"/>\n <manifest:file-entry manifest:full-path=\"Pictures/1000020100000422000000B2B43F3309F5F5EA0B.png\" manifest:media-type=\"image/png\"/>\n <manifest:file-entry manifest:full-path=\"Pictures/1000020100000422000000A2277504F30A810755.png\" manifest:media-type=\"image/png\"/>\n <manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/>\n <manifest:file-entry manifest:full-path=\"settings.xml\" manifest:media-type=\"text/xml\"/>\n <manifest:file-entry manifest:full-path=\"Thumbnails/thumbnail.png\" manifest:media-type=\"image/png\"/>\n <manifest:file-entry manifest:full-path=\"meta.xml\" manifest:media-type=\"text/xml\"/>\n</manifest:manifest>");
+				Internal.ManifestXML.ManifestXMLDataFormat xml = new Internal.ManifestXML.ManifestXMLDataFormat();
+				Internal.ManifestXML.ManifestXMLObjectModel manifest = new Internal.ManifestXML.ManifestXMLObjectModel();
+				manifest.FileEntries.Add(new Internal.ManifestXML.ManifestFileEntry("/", "application/vnd.oasis.opendocument.text", "1.3"));
+				Document.Save(manifest, xml, ma);
+
 				fsom.AddFile("META-INF/manifest.xml", ma.ToArray());
 			}
 

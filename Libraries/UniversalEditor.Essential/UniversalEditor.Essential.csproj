@@ -219,6 +219,10 @@
     <Compile Include="DataFormats\FileSystem\ZIP\ZIPInternalFileAttributes.cs" />
     <Compile Include="ObjectModels\Binary\BinarySelection.cs" />
     <Compile Include="DataFormats\BinaryGrammar\WxHexEditor\WxHexEditorXMLBinaryGrammar.cs" />
+    <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\ManifestXMLDataFormat.cs" />
+    <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\ManifestXMLObjectModel.cs" />
+    <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\ManifestFileEntry.cs" />
+    <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\XMLSchemas.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -262,6 +266,8 @@
     <Folder Include="Associations\" />
     <Folder Include="DataFormats\BinaryGrammar\" />
     <Folder Include="DataFormats\BinaryGrammar\WxHexEditor\" />
+    <Folder Include="DataFormats\Package\OpenDocument\Internal\" />
+    <Folder Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\PlainText.uexml" />
