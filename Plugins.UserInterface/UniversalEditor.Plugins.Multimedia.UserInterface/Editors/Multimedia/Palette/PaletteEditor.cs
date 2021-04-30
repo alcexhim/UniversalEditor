@@ -20,23 +20,97 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using System.Collections.Specialized;
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Input.Keyboard;
 
 using UniversalEditor.ObjectModels.Multimedia.Palette;
+using UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Palette.Dialogs;
 using UniversalEditor.UserInterface;
+using UniversalEditor.UserInterface.Panels;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Palette
 {
 	/// <summary>
 	/// Provides a UWT-based <see cref="Editor" /> for a <see cref="PaletteObjectModel" />.
 	/// </summary>
-	public partial class PaletteEditor : Editor
+	[ContainerLayout(typeof(PaletteEditor), "UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Palette.PaletteEditor.glade")]
+	public class PaletteEditor : Editor
 	{
+		private Toolbar tb;
+		private Container pnlNoColors;
+		private Controls.ColorPalette.ColorPaletteControl cc;
+		private Container pnlColorInfo;
+		private TextBox txtColorName;
+		private Button cmdAddColor;
+
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			Context.AttachCommandEventHandler("PaletteEditor_ContextMenu_Add", PaletteEditor_ContextMenu_Add_Click);
+			Context.AttachCommandEventHandler("PaletteEditor_ContextMenu_Change", PaletteEditor_ContextMenu_Change_Click);
+			Context.AttachCommandEventHandler("PaletteEditor_ContextMenu_Delete", PaletteEditor_ContextMenu_Delete_Click);
+			Context.AttachCommandEventHandler("PaletteEditor_CalculateNeighboringColors", PaletteEditor_CalculateNeighboringColors_Click);
+
+			cc.Visible = false;
+			pnlNoColors.Visible = true;
+			pnlColorInfo.Visible = false;
+
+			(tb.Items["tsbColorAdd"] as ToolbarItemButton).Click += tsbColorAdd_Click;
+			(tb.Items["tsbColorEdit"] as ToolbarItemButton).Click += tsbColorEdit_Click;
+			(tb.Items["tsbColorRemove"] as ToolbarItemButton).Click += tsbColorRemove_Click;
+
+			ContextMenuCommandID = "PaletteEditor_ContextMenu_Unselected";
+
+			OnObjectModelChanged(e);
+		}
+
+		private void PaletteEditor_CalculateNeighboringColors_Click(object sender, EventArgs e)
+		{
+			if (SelectedEntry == null)
+			{
+				MessageDialog.ShowDialog("Please select a palette entry.", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				return;
+			}
+
+			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
+			if (palette == null) return;
+
+			CalculateNeighboringColorsDialog dlg = new CalculateNeighboringColorsDialog();
+			dlg.SelectedColor = SelectedEntry.Color;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				int index = palette.Entries.IndexOf(SelectedEntry);
+
+				for (int i = 0; i < dlg.Colors.Length; i++)
+				{
+					PaletteEntry entry = new PaletteEntry();
+					entry.Color = dlg.Colors[i];
+
+					palette.Entries.Insert(index, entry);
+					cc.Entries.Insert(index, entry);
+				}
+			}
+		}
+
+		private void tsbColorAdd_Click(object sender, EventArgs e)
+		{
+			PaletteEditor_ContextMenu_Add_Click(sender, e);
+		}
+		private void tsbColorEdit_Click(object sender, EventArgs e)
+		{
+			PaletteEditor_ContextMenu_Change_Click(sender, e);
+		}
+		private void tsbColorRemove_Click(object sender, EventArgs e)
+		{
+			PaletteEditor_ContextMenu_Delete_Click(sender, e);
+		}
+
 		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
@@ -65,10 +139,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			return _er;
 		}
 
-		public PaletteEditor()
-		{
-			InitializeComponent();
-		}
+		private PropertyPanelClass ppclasColor = new PropertyPanelClass("Color", new PropertyPanelProperty[] { new PropertyPanelProperty("Color", typeof(Color)) });
 
 		private void PaletteEditor_ContextMenu_Add_Click(object sender, EventArgs e)
 		{
@@ -79,8 +150,24 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				BeginEdit();
-				palette.Entries.Add(new PaletteEntry(dlg.SelectedColor));
+
+				PaletteEntry entry = new PaletteEntry(dlg.SelectedColor);
+				palette.Entries.Add(entry);
+				cc.Entries.Add(entry);
+
+				PropertyPanelObject ppobj = new PropertyPanelObject(entry.Name, ppclasColor);
+				ppobj.SetExtraData<PaletteEntry>("content", entry);
+				ppobj.Properties.Add(new PropertyPanelProperty("Color", typeof(Color), entry.Color));
+				PropertiesPanel.Objects.Add(ppobj);
+
+
 				EndEdit();
+
+				pnlNoColors.Visible = false;
+				pnlColorInfo.Visible = true;
+				cc.Visible = true;
+
+				cc.Refresh();
 			}
 		}
 		private void PaletteEditor_ContextMenu_Change_Click(object sender, EventArgs e)
@@ -108,71 +195,43 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			if (MessageDialog.ShowDialog("Do you wish to delete the selected color?", "Delete Selected Color", MessageDialogButtons.YesNo, MessageDialogIcon.Warning) == DialogResult.Yes)
 			{
 				BeginEdit();
+
 				palette.Entries.Remove(SelectedEntry);
+				cc.Entries.Remove(SelectedEntry);
+
 				EndEdit();
 
 				SelectedEntry = null;
 
 				cc.Refresh();
+
+				if (palette.Entries.Count == 0)
+				{
+					cc.Visible = false;
+					pnlNoColors.Visible = true;
+					pnlColorInfo.Visible = false;
+				}
+				else
+				{
+					cc.Visible = true;
+					pnlNoColors.Visible = false;
+					pnlColorInfo.Visible = true;
+				}
 			}
 		}
 
 		private int paletteEntryWidth = 64;
 		private int paletteEntryHeight = 24;
 
-		private double _ZoomFactor = 1.0;
 		public double ZoomFactor
 		{
-			get
-			{
-				return _ZoomFactor;
-			}
-			set
-			{
-				_ZoomFactor = value;
-				cc.Refresh();
-			}
+			get { return cc.ZoomFactor; }
+			set { cc.ZoomFactor = value; }
 		}
 
-		public PaletteEntry HitTest(Vector2D location)
+		void txtColorName_KeyDown(object sender, KeyEventArgs e)
 		{
-			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
-			if (palette == null) return null;
-
-			int x = 0, y = 0, w = (int)(paletteEntryWidth * ZoomFactor), h = (int)(paletteEntryHeight * ZoomFactor);
-			y = (int)cc.VerticalAdjustment.Value;
-
-
-			int startIndex = (int)(cc.VerticalAdjustment.Value / h) * GetLineWidth(), endIndex = palette.Entries.Count - 1;
-			int startLine = startIndex / w;
-			y = (int)cc.VerticalAdjustment.Value;
-
-			int zcount = 0;
-			for (int i = startIndex; i <= endIndex; i++)
-			{
-				if (x > (int)(cc.Size.Width - w))
-				{
-					x = 0;
-					y += h;
-				}
-
-				Rectangle rect = new Rectangle(x + paletteSpacingX, y + paletteSpacingY, w - paletteSpacingX - paletteSpacingX, h - paletteSpacingY - paletteSpacingY);
-
-				if (rect.Contains(location))
-					return palette.Entries[i];
-
-				x += w;
-			}
-			return null;
-		}
-		public PaletteEntry HitTest(double x, double y)
-		{
-			return HitTest(new Vector2D(x, y));
-		}
-
-		void txtColorName_KeyDown(object sender, MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs e)
-		{
-			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Enter)
+			if (e.Key == KeyboardKey.Enter)
 			{
 				if (SelectedEntry != null)
 				{
@@ -183,17 +242,20 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 			}
 		}
 
-		private void cc_MouseDown(object sender, MBS.Framework.UserInterface.Input.Mouse.MouseEventArgs e)
+		[EventHandler(nameof(cc), nameof(UserInterface.Controls.ColorPalette.ColorPaletteControl.SelectionChanged))]
+		private void cc_SelectionChanged(object sender, EventArgs e)
 		{
-			cc.Focus();
+			SelectedEntry = cc.SelectedEntry;
 
-			PaletteEntry entry = HitTest(e.Location);
-			if (entry != null)
+			Selections.Clear();
+			if (cc.SelectedEntry != null)
 			{
-				SelectedEntry = entry;
+				Selections.Add(new PaletteEntrySelection(cc.SelectedEntry));
 			}
 		}
 
+		/*
+		[EventHandler(nameof(cc), nameof(Control.KeyDown))]
 		private void cc_KeyDown(object sender, KeyEventArgs e)
 		{
 			switch (e.Key)
@@ -293,19 +355,22 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 				}
 			}
 		}
+		*/
 
-		private int GetLineWidth()
-		{
-			return (int)((double)cc.Size.Width / (paletteEntryWidth * ZoomFactor));
-		}
-
+		[EventHandler(nameof(cc), nameof(Control.MouseDoubleClick))]
 		private void cc_MouseDoubleClick(object sender, MBS.Framework.UserInterface.Input.Mouse.MouseEventArgs e)
 		{
-			SelectedEntry = HitTest(e.Location);
+			SelectedEntry = cc.HitTest(e.Location);
 			if (SelectedEntry != null)
 			{
 				DisplayEntryProperties(SelectedEntry);
 			}
+		}
+
+		[EventHandler(nameof(cmdAddColor), nameof(Control.Click))]
+		private void cmdAddColor_Click(object sender, EventArgs e)
+		{
+			PaletteEditor_ContextMenu_Add_Click(sender, e);
 		}
 
 		public void DisplayEntryProperties(PaletteEntry entry)
@@ -352,7 +417,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 				bool changed = (_SelectedEntry != value);
 				if (!changed) return;
 
-				if (SelectedEntry != null)
+				if (value != null)
 				{
 					ContextMenuCommandID = "PaletteEditor_ContextMenu_Selected";
 				}
@@ -362,108 +427,52 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pa
 				}
 
 				Selections.Clear();
-				Selections.Add(new PaletteEntrySelection(value));
+
+				if (value != null)
+				{
+					Selections.Add(new PaletteEntrySelection(value));
+				}
 
 				System.ComponentModel.CancelEventArgs ce = new System.ComponentModel.CancelEventArgs();
 				OnSelectionChanging(ce);
 				if (ce.Cancel) return;
 
 				_SelectedEntry = value;
+				cc.SelectedEntry = _SelectedEntry;
 				OnSelectionChanged(EventArgs.Empty);
 				cc.Refresh();
 			}
 		}
 
-		private TextureBrush AlphaBackgroundBrush = null;
-		private void DrawAlphaBackground(Graphics g, Rectangle rect)
-		{
-			// this is too slow for now, do absolutely nothing
-			return;
-
-			/*
-			if (AlphaBackgroundBrush == null)
-			{
-				Image AlphaBackgroundImage = Image.Create(24, 24);
-				Graphics g = Graphics.FromImage(AlphaBackgroundImage);
-				g.FillRectangle(Brushes.White, new Rectangle(0, 0, 24, 24));
-				g.FillRectangle(Brushes.Black, new Rectangle(16, 16, 16, 16));
-
-				AlphaBackgroundBrush = new TextureBrush(AlphaBackgroundImage);
-			}
-			*/
-			int qs = 0;
-			for (int patternY = 0; patternY < rect.Height; patternY += 8)
-			{
-				for (int patternX = qs; patternX < rect.Width - qs; patternX += 8)
-				{
-					g.FillRectangle(Brushes.Black, new Rectangle(rect.X + patternX, rect.Y + patternY, 4, 4));
-				}
-				if (qs == 0)
-				{
-					qs = 8;
-				}
-				else
-				{
-					qs = 0;
-				}
-			}
-			// e.Graphics.FillRectangle(AlphaBackgroundBrush, rect);
-		}
-
-		int paletteSpacingX = 2;
-		int paletteSpacingY = 2;
-
-		private void cc_Paint(object sender, PaintEventArgs e)
-		{
-			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
-			if (palette == null) return;
-
-			int x = 0, y = 0, w = (int)(paletteEntryWidth * ZoomFactor), h = (int)(paletteEntryHeight * ZoomFactor);
-
-			double shscrh = palette.Entries.Count / GetLineWidth();
-			cc.ScrollBounds = new Dimension2D(0, (shscrh * h) + h);
-
-			int startIndex = (int)(cc.VerticalAdjustment.Value / h) * GetLineWidth(), endIndex = palette.Entries.Count - 1;
-			int startLine = startIndex / w;
-			y = (int)cc.VerticalAdjustment.Value;
-
-			int zcount = 0;
-			for (int i = startIndex; i <= endIndex; i++)
-			{
-				if (x > (int)(cc.Size.Width - w))
-				{
-					x = 0;
-					y += h;
-				}
-
-				if (y > (int)(cc.VerticalAdjustment.Value + cc.Size.Height + h + h))
-				{
-					// we're done for now
-					return;
-				}
-
-				Rectangle rect = new Rectangle(x + paletteSpacingX, y + paletteSpacingY, w - paletteSpacingX - paletteSpacingX, h - paletteSpacingY - paletteSpacingY);
-
-				PaletteEntry entry = palette.Entries[i];
-				if (entry.Color.A < 1.0)
-				{
-					// only fill the alpha background if we need to
-					DrawAlphaBackground(e.Graphics, rect);
-				}
-				e.Graphics.FillRectangle(new SolidBrush(entry.Color), rect);
-				if (entry == SelectedEntry)
-				{
-					e.Graphics.DrawRectangle(new Pen(SystemColors.HighlightBackground, new Measurement(2, MeasurementUnit.Pixel)), new Rectangle(x, y, w, h));
-				}
-				zcount++;
-				x += w;
-			}
-		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
-			base.OnObjectModelChanged(e);
-			Refresh();
+			if (!IsCreated) return;
+
+			cc.Entries.Clear();
+
+			PaletteObjectModel palette = (ObjectModel as PaletteObjectModel);
+			if (palette == null) return;
+
+			if (palette.Entries.Count > 0)
+			{
+				pnlNoColors.Visible = false;
+				pnlColorInfo.Visible = true;
+				cc.Visible = true;
+			}
+			else
+			{
+				pnlNoColors.Visible = true;
+				pnlColorInfo.Visible = false;
+				cc.Visible = false;
+			}
+
+			foreach (PaletteEntry entry in palette.Entries)
+			{
+				cc.Entries.Add(entry);
+			}
+
+			cc.Refresh();
 		}
 
 

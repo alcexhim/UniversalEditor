@@ -36,7 +36,6 @@
     <Compile Include="Controls\DrawingArea\DrawingAreaControl.cs" />
     <Compile Include="PictureObjectModelExtensions.cs" />
     <Compile Include="Editors\Multimedia\Palette\PaletteEditor.cs" />
-    <Compile Include="Editors\Multimedia\Palette\PaletteEditor.Designer.cs" />
     <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.cs" />
     <Compile Include="Editors\Multimedia\Playlist\PlaylistEditor.Designer.cs" />
     <Compile Include="Editors\Multimedia\Palette\PaletteEntrySelection.cs" />
@@ -59,6 +58,8 @@
     <Compile Include="Editors\Multimedia\VectorImage\Controls\VectorImageControl.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\NoteRenderedEvent.cs" />
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\NoteEvent.cs" />
+    <Compile Include="Controls\ColorPalette\ColorPaletteControl.cs" />
+    <Compile Include="Editors\Multimedia\Palette\Dialogs\CalculateNeighboringColorsDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -81,6 +82,7 @@
     <Folder Include="Editors\Multimedia\PictureCollection\Dialogs\" />
     <Folder Include="Editors\Multimedia\VectorImage\" />
     <Folder Include="Editors\Multimedia\VectorImage\Controls\" />
+    <Folder Include="Controls\ColorPalette\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -116,6 +118,8 @@
     <EmbeddedResource Include="SettingsProviders\Default.xml" />
     <EmbeddedResource Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrack.glade" />
     <EmbeddedResource Include="Editors\Multimedia\Audio\Waveform\Controls\WaveformAudioEditorTrackControlPanel.glade" />
+    <EmbeddedResource Include="Editors\Multimedia\Palette\PaletteEditor.glade" />
+    <EmbeddedResource Include="Editors\Multimedia\Palette\Dialogs\CalculateNeighboringColorsDialog.glade" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

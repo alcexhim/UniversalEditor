@@ -18,7 +18,7 @@
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Palette.PaletteObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Palette.Adobe.ASEDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Palette.Adobe.SwatchExchange.ASEDataFormat" />
 			</DataFormats>
 		</Association>
 	</Associations>

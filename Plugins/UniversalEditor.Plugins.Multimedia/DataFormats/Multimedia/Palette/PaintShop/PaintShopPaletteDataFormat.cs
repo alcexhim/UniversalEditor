@@ -70,7 +70,18 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.PaintShop
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
-			throw new NotImplementedException();
+			PaletteObjectModel palette = (objectModel as PaletteObjectModel);
+			if (palette == null) throw new ObjectModelNotSupportedException();
+
+			IO.Writer tw = base.Accessor.Writer;
+			tw.WriteLine("JASC-PAL");
+
+			tw.WriteLine();
+			tw.WriteLine(palette.Entries.Count.ToString());
+			foreach (PaletteEntry entry in palette.Entries)
+			{
+				tw.WriteLine(String.Format("{0} {1} {2}", entry.Color.GetRedByte(), entry.Color.GetGreenByte(), entry.Color.GetBlueByte()));
+			}
 		}
 	}
 }

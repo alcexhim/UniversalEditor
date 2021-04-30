@@ -78,8 +78,6 @@
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Memory.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\SPC\SPC700Registers.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\VoicebankPhonemeDictionary\PhonemeDictionaryXMLDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACODataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Palette\Adobe\ASEDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\GIMP\GPLDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\PaintShop\PaintShopPaletteDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\ARGB\ARGBDataFormat.cs" />
@@ -341,6 +339,10 @@
     <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioSampleRequestEvent.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioSamples.cs" />
     <Compile Include="ObjectModels\Multimedia\Audio\Waveform\WaveformAudioSampleLengthRequestEvent.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACO\ACOColorSpace.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACO\ACODataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACT\ACTDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\Adobe\SwatchExchange\ASEDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -403,6 +405,9 @@
     <Folder Include="Associations\Video\" />
     <Folder Include="Associations\AudioCollection\" />
     <Folder Include="Associations\AudioCollection\Synthesized\" />
+    <Folder Include="DataFormats\Multimedia\Palette\Adobe\ACO\" />
+    <Folder Include="DataFormats\Multimedia\Palette\Adobe\ACT\" />
+    <Folder Include="DataFormats\Multimedia\Palette\Adobe\SwatchExchange\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Playlist\ASX.uexml" />
@@ -474,6 +479,8 @@
     <EmbeddedResource Include="Associations\WaveformAudio\OSLib.uexml" />
     <EmbeddedResource Include="Associations\SynthesizedAudio\PSF.uexml" />
     <EmbeddedResource Include="Associations\SynthesizedAudio\SPC.uexml" />
+    <EmbeddedResource Include="Associations\Palette\Adobe\ACTColorPalette.uexml" />
+    <EmbeddedResource Include="Associations\Palette\RIFFPalette.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

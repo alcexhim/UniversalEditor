@@ -48,6 +48,8 @@
     <Compile Include="ObjectModels\Spreadsheet\Sheet.cs" />
     <Compile Include="DataFormats\VectorImage\OpenDocument\OpenDocumentVectorImageDataFormat.cs" />
     <Compile Include="DataFormats\VectorImage\OpenDocument\OpenDocumentXMLSchemas.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\OpenDocument\OpenDocumentSOCPaletteDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\OpenDocument\OpenDocumentXMLSchemas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectModels\" />
@@ -62,6 +64,8 @@
     <Folder Include="DataFormats\VectorImage\" />
     <Folder Include="DataFormats\VectorImage\OpenDocument\" />
     <Folder Include="Associations\VectorImage\" />
+    <Folder Include="DataFormats\Multimedia\" />
+    <Folder Include="Associations\Palette\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -84,6 +88,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Associations\Presentation\HyperCardDataFormat.uexml" />
     <EmbeddedResource Include="Associations\VectorImage\OpenDocumentVectorImageDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\Palette\OpenDocumentPalette.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

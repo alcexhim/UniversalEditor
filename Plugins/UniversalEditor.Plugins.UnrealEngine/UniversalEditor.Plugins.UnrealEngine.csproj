@@ -52,6 +52,7 @@
     <Compile Include="ObjectModels\UnrealEngine\PropertyType.cs" />
     <Compile Include="ObjectModels\UnrealEngine\UnrealPackageObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\Unreal\UnrealPaletteDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -62,13 +63,26 @@
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
       <Name>UniversalEditor.Essential</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalEditor.Plugins.Multimedia\UniversalEditor.Plugins.Multimedia.csproj">
+      <Project>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</Project>
+      <Name>UniversalEditor.Plugins.Multimedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Associations\" />
+    <Folder Include="Associations\Palette\" />
+    <Folder Include="DataFormats\Multimedia\" />
+    <Folder Include="DataFormats\Multimedia\Palette\" />
+    <Folder Include="DataFormats\Multimedia\Palette\Unreal\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\UnrealPackage.uexml" />
     <EmbeddedResource Include="Associations\UnrealUMOD.uexml" />
+    <EmbeddedResource Include="Associations\Palette\UnrealPalette.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
