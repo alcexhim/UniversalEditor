@@ -4,17 +4,24 @@
 			<Commands>
 				<Command ID="UnrealPackageEditor_ExportTreeViewContextMenu">
 					<Items>
+						<CommandReference CommandID="UnrealPackageEditor_ExportTreeViewContextMenu_Add_Existing" />
+						<Separator />
 						<CommandReference CommandID="UnrealPackageEditor_ExportTreeViewContextMenu_Export" />
 						<CommandReference CommandID="FileProperties" />
 					</Items>
 				</Command>
 				<Command ID="UnrealPackageEditor_ImportTreeViewContextMenu">
 					<Items>
+						<CommandReference CommandID="UnrealPackageEditor_ImportTreeViewContextMenu_Add_Existing" />
+						<Separator />
 						<CommandReference CommandID="FileProperties" />
 					</Items>
 				</Command>
 				
-				<Command ID="UnrealPackageEditor_ExportTreeViewContextMenu_Export" Title="Export..." />
+				<Command ID="UnrealPackageEditor_ExportTreeViewContextMenu_Add_Existing" Title="Add E_xisting Item..." />
+				<Command ID="UnrealPackageEditor_ImportTreeViewContextMenu_Add_Existing" Title="Add E_xisting Item..." />
+				
+				<Command ID="UnrealPackageEditor_ExportTreeViewContextMenu_Export" Title="_Export..." />
 			</Commands>
 		</Editor>
 	</Editors>

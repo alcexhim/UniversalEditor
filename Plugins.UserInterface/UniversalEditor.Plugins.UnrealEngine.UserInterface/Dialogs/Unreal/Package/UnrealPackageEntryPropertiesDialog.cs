@@ -22,6 +22,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.UnrealEngine;
 
 namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Dialogs.Unreal.Package
@@ -35,7 +36,11 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Dialogs.Unreal.Pack
 		private TextBox txtObjectName;
 		private ComboBox cboClassName;
 		private ComboBox cboPackageName;
+
+		private Label lblSourceData;
 		private TextBox txtSourceData;
+
+		private Button cmdOK;
 		private Button cmdSourceDataBrowse;
 
 		private GroupBox fraFlags;
@@ -49,11 +54,16 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Dialogs.Unreal.Pack
 		{
 			base.OnCreated(e);
 
+			DefaultButton = cmdOK;
 			if (ImportTableEntry != null)
 			{
-				txtObjectName.Text = ImportTableEntry.ObjectName.Name;
-				cboClassName.Text = ImportTableEntry.ClassName.Name;
-				cboPackageName.Text = ImportTableEntry.PackageName.Name;
+				txtObjectName.Text = ImportTableEntry.ObjectName?.Name;
+				cboClassName.Text = ImportTableEntry.ClassName?.Name;
+				cboPackageName.Text = ImportTableEntry.PackageName?.Name;
+
+				lblSourceData.Visible = false;
+				txtSourceData.Visible = false;
+				cmdSourceDataBrowse.Visible = false;
 
 				fraFlags.Visible = false;
 
@@ -64,6 +74,12 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Dialogs.Unreal.Pack
 				txtObjectName.Text = ExportTableEntry.Name?.Name;
 				cboClassName.Text = ExportTableEntry.ObjectClass?.Name?.Name;
 				cboPackageName.Text = ExportTableEntry.ObjectParent?.Name?.Name;
+
+				lblSourceData.Visible = true;
+				txtSourceData.Visible = true;
+				cmdSourceDataBrowse.Visible = true;
+
+				txtSourceData.Text = String.Format("({0})", UniversalEditor.UserInterface.Common.FileInfo.FormatSize(ExportTableEntry.GetDataLength()));
 
 				fraFlags.Visible = true;
 				chkFlagTransactional.Checked = ((ExportTableEntry.Flags & ObjectFlags.Transactional) == ObjectFlags.Transactional);
@@ -80,6 +96,59 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Dialogs.Unreal.Pack
 
 				Text = "Export Table Entry Properties";
 			}
+		}
+
+		[EventHandler(nameof(cmdSourceDataBrowse), nameof(Control.Click))]
+		private void cmdSourceDataBrowse_Click(object sender, EventArgs e)
+		{
+			FileDialog dlg = new FileDialog();
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				ExportTableEntry.SetData(System.IO.File.ReadAllBytes(dlg.SelectedFileName));
+			}
+		}
+
+		[EventHandler(nameof(cmdOK), nameof(Control.Click))]
+		private void cmdOK_Click(object sender, EventArgs e)
+		{
+			if (ImportTableEntry != null)
+			{
+				ImportTableEntry.ObjectName = new NameTableEntry();
+				ImportTableEntry.ObjectName.Name = txtObjectName.Text;
+
+				ImportTableEntry.ClassName = new NameTableEntry();
+				ImportTableEntry.ClassName.Name = cboClassName.Text;
+
+				ImportTableEntry.PackageName = new NameTableEntry();
+				ImportTableEntry.PackageName.Name = cboPackageName.Text;
+			}
+			else if (ExportTableEntry != null)
+			{
+				ExportTableEntry.Name = new NameTableEntry();
+				ExportTableEntry.Name.Name = txtObjectName.Text;
+
+				/*
+				ExportTableEntry.ObjectClass = new ObjectReference();
+
+				cboClassName.Text = ExportTableEntry.ObjectClass?.Name?.Name;
+				cboPackageName.Text = ExportTableEntry.ObjectParent?.Name?.Name;
+				*/
+
+				if (chkFlagTransactional.Checked) ExportTableEntry.Flags |= ObjectFlags.Transactional;
+				if (chkFlagUnreachable.Checked) ExportTableEntry.Flags |= ObjectFlags.Unreachable;
+				if (chkFlagPublic.Checked) ExportTableEntry.Flags |= ObjectFlags.Public;
+				if (chkFlagSourceModified.Checked) ExportTableEntry.Flags |= ObjectFlags.SourceModified;
+				if (chkFlagGarbageCollect.Checked) ExportTableEntry.Flags |= ObjectFlags.GarbageCollect;
+				if (chkFlagImporting.Checked) ExportTableEntry.Flags |= ObjectFlags.Importing;
+				if (chkFlagExporting.Checked) ExportTableEntry.Flags |= ObjectFlags.Exporting;
+				if (chkFlagRequireLoad.Checked) ExportTableEntry.Flags |= ObjectFlags.RequireLoad;
+				if (chkFlagHighlightNameEliminateObject.Checked) ExportTableEntry.Flags |= ObjectFlags.HighlightedName;
+				if (chkFlagRemappedNameSingularFunction.Checked) ExportTableEntry.Flags |= ObjectFlags.RemappedName;
+				if (chkFlagSuppressedStateChanged.Checked) ExportTableEntry.Flags |= ObjectFlags.Suppressed;
+			}
+
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

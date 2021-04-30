@@ -71,6 +71,9 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 
 			Context.AttachCommandEventHandler("UnrealPackageEditor_ExportTreeViewContextMenu_Export", UnrealPackageEditor_ExportTreeViewContextMenu_Export);
 
+			Context.AttachCommandEventHandler("UnrealPackageEditor_ImportTreeViewContextMenu_Add_Existing", UnrealPackageEditor_ImportTreeViewContextMenu_Add_Existing);
+			Context.AttachCommandEventHandler("UnrealPackageEditor_ExportTreeViewContextMenu_Add_Existing", UnrealPackageEditor_ExportTreeViewContextMenu_Add_Existing);
+
 			OnObjectModelChanged(e);
 		}
 
@@ -92,6 +95,40 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 				System.IO.File.WriteAllBytes(sfd.SelectedFileName, data);
 			}
 		}
+		private void UnrealPackageEditor_ExportTreeViewContextMenu_Add_Existing(object sender, EventArgs e)
+		{
+			ExportTableEntry item = new ExportTableEntry();
+
+			FileDialog ofd = new FileDialog
+			{
+				Mode = FileDialogMode.Open
+			};
+			if (ofd.ShowDialog() == DialogResult.OK)
+			{
+				item.Name = new NameTableEntry();
+				item.Name.Name = System.IO.Path.GetFileNameWithoutExtension(ofd.SelectedFileName);
+
+				item.SetData(System.IO.File.ReadAllBytes(ofd.SelectedFileName));
+
+				UnrealPackageEntryPropertiesDialog dlg = new UnrealPackageEntryPropertiesDialog();
+				dlg.ExportTableEntry = item;
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					UIAddExport(item);
+				}
+			}
+		}
+		private void UnrealPackageEditor_ImportTreeViewContextMenu_Add_Existing(object sender, EventArgs e)
+		{
+			ImportTableEntry item = new ImportTableEntry();
+
+			UnrealPackageEntryPropertiesDialog dlg = new UnrealPackageEntryPropertiesDialog();
+			dlg.ImportTableEntry = item;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				UIAddImport(item);
+			}
+		}
 
 		[EventHandler(nameof(tvExports), "RowActivated")]
 		void tvExports_RowActivated(object sender, ListViewRowActivatedEventArgs e)
@@ -102,6 +139,7 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 			dlg.ExportTableEntry = item;
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
+				UIUpdateExport(item, e.Row);
 			}
 		}
 
@@ -114,6 +152,7 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 			dlg.ImportTableEntry = item;
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
+				UIUpdateImport(item, e.Row);
 			}
 		}
 
@@ -123,17 +162,15 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 
 			if (!IsCreated) return;
 
-			DefaultTreeModel tmExports = (tvExports.Model as DefaultTreeModel);
-			DefaultTreeModel tmImports = (tvImports.Model as DefaultTreeModel);
-
-			tmExports.Rows.Clear();
-			tmImports.Rows.Clear();
+			tvExports.Model.Rows.Clear();
+			tvImports.Model.Rows.Clear();
 
 			UnrealPackageObjectModel package = (ObjectModel as UnrealPackageObjectModel);
 			if (package == null) return;
 
 			for (int i = 0; i < package.ExportTableEntries.Count; i++)
 			{
+				UIAddExport(package.ExportTableEntries[i]);
 				/*
 				string rowName = package.ExportTableEntries[i].Group?.Name?.ToString() ?? String.Empty;
 				TreeModelRow rowParent = tmExports.Rows[rowName];
@@ -159,44 +196,69 @@ namespace UniversalEditor.Plugins.UnrealEngine.UserInterface.Editors.Unreal.Pack
 					rowParent.Rows.Add(rowParent2);
 				}
 				*/
-				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
-				{
-					new TreeModelRowColumn(tmExports.Columns[0], package.ExportTableEntries[i].Group?.Name),
-					new TreeModelRowColumn(tmExports.Columns[1], package.ExportTableEntries[i].ObjectClass),
-					new TreeModelRowColumn(tmExports.Columns[2], package.ExportTableEntries[i].ObjectParent),
-					new TreeModelRowColumn(tmExports.Columns[3], package.ExportTableEntries[i].Name?.Name),
-					new TreeModelRowColumn(tmExports.Columns[4], package.ExportTableEntries[i].Flags),
-					new TreeModelRowColumn(tmExports.Columns[5], package.ExportTableEntries[i].Size),
-					new TreeModelRowColumn(tmExports.Columns[6], package.ExportTableEntries[i].Offset)
-				});
-				row.SetExtraData<ExportTableEntry>("item", package.ExportTableEntries[i]);
-				// rowParent2.Rows.Add(row);
-				tmExports.Rows.Add(row);
 			}
 			for (int i = 0; i < package.ImportTableEntries.Count; i++)
 			{
-				string rowName = package.ImportTableEntries[i].Package?.Name?.ToString() ?? String.Empty;
-				TreeModelRow rowParent = tmImports.Rows[rowName];
-				if (rowParent == null)
-				{
-					rowParent = new TreeModelRow(new TreeModelRowColumn[]
-					{
-						new TreeModelRowColumn(tmImports.Columns[0], rowName)
-					});
-					rowParent.Name = rowName;
-					tmImports.Rows.Add(rowParent);
-				}
-
-				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
-				{
-					new TreeModelRowColumn(tmImports.Columns[0], package.ImportTableEntries[i].Package),
-					new TreeModelRowColumn(tmImports.Columns[1], package.ImportTableEntries[i].ClassName),
-					new TreeModelRowColumn(tmImports.Columns[2], package.ImportTableEntries[i].PackageName),
-					new TreeModelRowColumn(tmImports.Columns[3], package.ImportTableEntries[i].ObjectName)
-				});
-				row.SetExtraData<ImportTableEntry>("item", package.ImportTableEntries[i]);
-				rowParent.Rows.Add(row);
+				UIAddImport(package.ImportTableEntries[i]);
 			}
+		}
+
+		private void UIAddImport(ImportTableEntry item)
+		{
+			string rowName = item.Package?.Name?.ToString() ?? String.Empty;
+			TreeModelRow rowParent = tvImports.Model.Rows[rowName];
+			if (rowParent == null)
+			{
+				rowParent = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tvImports.Model.Columns[0], rowName)
+				});
+				rowParent.Name = rowName;
+				tvImports.Model.Rows.Add(rowParent);
+			}
+
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tvImports.Model.Columns[0], item.Package),
+				new TreeModelRowColumn(tvImports.Model.Columns[1], item.ClassName),
+				new TreeModelRowColumn(tvImports.Model.Columns[2], item.PackageName),
+				new TreeModelRowColumn(tvImports.Model.Columns[3], item.ObjectName)
+			});
+			row.SetExtraData<ImportTableEntry>("item", item);
+			rowParent.Rows.Add(row);
+		}
+		private void UIUpdateImport(ImportTableEntry item, TreeModelRow row)
+		{
+			row.RowColumns[0].Value = item.Package;
+			row.RowColumns[1].Value = item.ClassName;
+			row.RowColumns[2].Value = item.PackageName;
+			row.RowColumns[3].Value = item.ObjectName;
+		}
+		private void UIAddExport(ExportTableEntry item)
+		{
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tvExports.Model.Columns[0], item.Group?.Name),
+				new TreeModelRowColumn(tvExports.Model.Columns[1], item.ObjectClass),
+				new TreeModelRowColumn(tvExports.Model.Columns[2], item.ObjectParent),
+				new TreeModelRowColumn(tvExports.Model.Columns[3], item.Name?.Name),
+				new TreeModelRowColumn(tvExports.Model.Columns[4], item.Flags),
+				new TreeModelRowColumn(tvExports.Model.Columns[5], item.Size),
+				new TreeModelRowColumn(tvExports.Model.Columns[6], item.Offset)
+			});
+			row.SetExtraData<ExportTableEntry>("item", item);
+			// rowParent2.Rows.Add(row);
+			tvExports.Model.Rows.Add(row);
+		}
+		private void UIUpdateExport(ExportTableEntry item, TreeModelRow row)
+		{
+			row.RowColumns[0].Value = item.Group?.Name;
+			row.RowColumns[1].Value = item.ObjectClass;
+			row.RowColumns[2].Value = item.ObjectParent;
+			row.RowColumns[3].Value = item.Name?.Name;
+			row.RowColumns[4].Value = item.Flags;
+			row.RowColumns[5].Value = item.Size;
+			row.RowColumns[6].Value = item.Offset;
 		}
 	}
 }

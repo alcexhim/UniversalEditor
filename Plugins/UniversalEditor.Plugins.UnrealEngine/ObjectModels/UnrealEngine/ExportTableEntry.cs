@@ -42,8 +42,16 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
 			DataRequest?.Invoke(this, e);
 		}
 
+		private byte[] _Data = null;
+		public void SetData(byte[] data)
+		{
+			_Data = data;
+		}
+
 		public byte[] GetData()
 		{
+			if (_Data != null) return _Data;
+
 			FileSystem.DataRequestEventArgs e = new FileSystem.DataRequestEventArgs();
 			OnDataRequest(e);
 			return e.Data;
@@ -69,6 +77,14 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
 		/// </summary>
 		/// <value>The group of the object exported by this <see cref="ExportTableEntry" />.</value>
 		public ObjectReference Group { get; set; } = null;
+
+		public long GetDataLength()
+		{
+			if (_Data != null)
+				return _Data.Length;
+			return (GetData()?.Length).GetValueOrDefault(0);
+		}
+
 		/// <summary>
 		/// Gets or sets the attributes for the object exported by this <see cref="ExportTableEntry" />.
 		/// </summary>
