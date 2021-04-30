@@ -6,6 +6,8 @@
     <columns>
       <!-- column-name colObjectName -->
       <column type="gchararray"/>
+      <!-- column-name colObjectClass -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkTreeStore" id="tmProperties">
@@ -35,6 +37,12 @@
               <object class="GtkCellRendererText"/>
               <attributes>
                 <attribute name="text">0</attribute>
+              </attributes>
+            </child>
+            <child>
+              <object class="GtkCellRendererText"/>
+              <attributes>
+                <attribute name="text">1</attribute>
               </attributes>
             </child>
           </object>
