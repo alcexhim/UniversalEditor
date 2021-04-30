@@ -53,13 +53,25 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 					return result;
 				}
 			}
-			public new void Add(SynthesizedAudioTrack item)
+
+			protected override void InsertItem(int index, SynthesizedAudioTrack item)
 			{
-				if (!string.IsNullOrEmpty(item.Name))
-				{
-					this.tracksByID[item.Name] = item;
-				}
-				base.Add(item);
+				base.InsertItem(index, item);
+
+				if (!string.IsNullOrEmpty(item.ID))
+					tracksByID[item.ID] = item;
+			}
+			protected override void RemoveItem(int index)
+			{
+				if (!string.IsNullOrEmpty(this[index].ID))
+					tracksByID.Remove(this[index].ID);
+
+				base.RemoveItem(index);
+			}
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				tracksByID.Clear();
 			}
 		}
 
