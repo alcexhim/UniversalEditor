@@ -50,6 +50,8 @@ namespace UniversalEditor
 				{
 					dff.FileNameFilters.Add(FileNameFilter);
 				}
+
+				dff.MagicByteOffsets = new int[MagicBytes.Length];
 				foreach (byte?[] magicBytes in MagicBytes)
 				{
 					dff.MagicBytes.Add(magicBytes);

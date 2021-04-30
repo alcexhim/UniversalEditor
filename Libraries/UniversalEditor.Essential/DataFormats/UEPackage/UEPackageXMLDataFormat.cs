@@ -1020,6 +1020,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 								MarkupTagElement tagMagicByteSequences = (tagFilter.Elements["MagicByteSequences"] as MarkupTagElement);
 								if (tagMagicByteSequences != null)
 								{
+									List<int> magicByteOffsets = new List<int>();
 									foreach (MarkupElement elMagicByteSequence in tagMagicByteSequences.Elements)
 									{
 										MarkupTagElement tagMagicByteSequence = (elMagicByteSequence as MarkupTagElement);
@@ -1055,10 +1056,10 @@ namespace UniversalEditor.DataFormats.UEPackage
 												}
 												case "string":
 												{
-													string value = tagMagicByte.Value;
+													byte[] value = System.Text.Encoding.ASCII.GetBytes(tagMagicByte.Value);
 													for (int i = 0; i < value.Length; i++)
 													{
-														magicByteSequence.Add((byte)value[i]);
+														magicByteSequence.Add(value[i]);
 													}
 													break;
 												}
@@ -1098,8 +1099,10 @@ namespace UniversalEditor.DataFormats.UEPackage
 											}
 										}
 
+										magicByteOffsets.Add(0);
 										filter.MagicBytes.Add(magicByteSequence.ToArray());
 									}
+									filter.MagicByteOffsets = magicByteOffsets.ToArray();
 								}
 
 								association.Filters.Add(filter);
