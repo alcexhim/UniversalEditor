@@ -20,34 +20,41 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+WD=$(pwd)
 
 # ================ INSTALL PACKAGE DEPENDENCIES FROM OFFICIAL REPOSITORY ================
 sudo apt install libcairo2 libgdl-3-5
 
-
 # ================ INSTALL LATEST MONO-COMPLETE FROM OFFICIAL REPOSITORY ================
-MONO_REPO="ubuntu"
-MONO_FLAVOR="stable-focal"
-MONO_SUBFLAVOR="main"
+if ! command -v msbuild
+then
+	whiptail --title "Update Mono from official repository?" --backtitle "Universal Editor Configure Script" --yesno "The version of Mono installed by default on this system does not ship msbuild or the required targets files to complete the build process.  Can I install the appropriate files from the Mono official repository?\n\nThis will add the Mono repository to your sources.list.d and install the mono-complete package." 15 60
+	if [ $? -eq 1 ]; then
+		exit
+	fi
+	
+	MONO_REPO="ubuntu"
+	MONO_FLAVOR="stable-focal"
+	MONO_SUBFLAVOR="main"
 
-echo "installing prerequisites"
-sudo apt install gnupg ca-certificates
+	echo "installing prerequisites"
+	sudo apt install gnupg ca-certificates
 
-echo "receiving public key"
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+	echo "receiving public key"
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 
-echo "adding repository to source list"
-echo "deb https://download.mono-project.com/repo/$MONO_REPO $MONO_FLAVOR $MONO_SUBFLAVOR" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-sudo apt update
+	echo "adding repository to source list"
+	echo "deb https://download.mono-project.com/repo/$MONO_REPO $MONO_FLAVOR $MONO_SUBFLAVOR" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+	sudo apt update
 
-sudo apt install mono-complete
-
+	sudo apt install mono-complete
+fi
 
 # ================ CLONE DEPENDENT PROJECTS FROM AUTHORS REPOSITORY ================
 echo "fetching dependent projects from author repository"
 
-GIT_USE_PUBKEY=false
-if [ "$GIT_USE_PUBKEY" == "true" ]; then
+GIT_USE_PUBKEY="false"
+if [ "$GIT_USE_PUBKEY" = "true" ]; then
 	GIT_PREFIX=git@github.com
 else
 	GIT_PREFIX=git://github.com
@@ -55,8 +62,6 @@ fi
 
 GIT_USERNAME=alcexhim
 GIT_PROJECT_NAMES="MBS.Framework MBS.Framework.UserInterface MBS.Audio MBS.Framework.Rendering"
-
-WD=${pwd}
 
 cd ..
 
@@ -67,11 +72,18 @@ for projName in ${GIT_PROJECT_NAMES}; do
 done
 
 # generate strong name key file
-sn -k Production.snk
+if [ -e Production.snk ]; then
+	whiptail --title "Generate new strong name key file?" --backtitle "Universal Editor Configure Script" --yesno "A strong name key file Production.snk already exists.  Do you want to overwrite it?  (If you don't know, you should probably say NO)" 15 60
+	if [ $? -eq 0 ]; then
+		sn -k Production.snk
+	else
+		echo "user skipped generating a strong name key file"
+	fi
+fi
 
 cd $WD
 
-# install othr junk
+# install other junk
 sudo cp MainIcon.png /usr/share/icons/universal-editor.png
 sudo cp net.alcetech.UniversalEditor.desktop /usr/share/applications
 
