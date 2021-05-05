@@ -5,6 +5,13 @@ A free, cross-platform modular data manipulation framework.
 
 This is Universal Editor 5, which is built using Universal Widget Toolkit to run smoothly on Windows and Linux. Mac OS X support in Universal Widget Toolkit is planned for the distant future.
 
+TL;DR - Tested Working on Ubuntu 20.10
+--------------------------------------
+* Clone the repository.
+* Open a terminal in the directory where you downloaded the repository.
+* Run ./firstrun.sh to fetch dependencies and related projects.
+* Type ./universal-editor to run the program in Debug mode from the repository folder.
+
 Philosophy
 ----------
 UniversalEditor 4 has four components:
