@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version=1.0
+Name=Universal Editor
+Comment=Open and edit any document
+GenericName=Document Editor
+Keywords=Text;Editor
+Exec=universal-editor %F
+Terminal=false
+X-MultipleArgs=true
+Type=Application
+Icon=universal-editor
+Categories=GTK;Development;IDE
+MimeType=audio/wave;video/mp4;application/x-adobe-palette;application/x-adobe-swatchexchange;application/x-gimp-palette;application/x-jasc-paintshoppro-palette;application/x-adobe-colortable;application/x-microsoft-devstudio-palette;audio/wave;video/mp4;application/x-adobe-palette;application/x-adobe-swatchexchange;application/x-gimp-palette;application/x-jasc-paintshoppro-palette;application/x-adobe-colortable;application/x-microsoft-devstudio-palette;application/x-vocaloid-vpr;application/x-vocaloid-vpr-sequence;application/x-vocaloid-vsq;application/x-vocaloid-vsqx+xml;application/x-kronosaur-tdb;application/x-opendocument-palette;application/x-cri-utf;application/x-cri-afs;application/x-cri-cpk;application/x-cri-adx;application/x-installshield-ins;application/x-installshield-inx;application/x-installshield-cab;application/x-installshield-hdr;application/x-installshield-pkg;application/x-installshield-z;text/x-synalysis-grammar+xml;application/x-unreal-package;application/x-unreal-umod;application/x-unreal-palette;text/x-ravensoftware-icarus-script;application/x-iso9660-image;application/zip;application/x-slightlymadstudios-bff;application/x-squaresoft-lgp;application/x-newworldcomputing-agg;application/x-newworldcomputing-vid;application/x-newworldcomputing-snd;application/x-newworldcomputing-lod;application/x-newworldcomputing-cc;image/x-newworldcomputing-bmp;image/x-newworldcomputing-icn;image/x-newworldcomputing-til;image/x-newworldcomputing-pcx;audio/x-newworldcomputing-82m;application/x-abomination-awf;application/x-abomination-clt;application/sql;application/x-sony-pkg;application/x-sony-gim;application/x-sony-sfo;application/x-cwe-vol;image/x-cwe-sprite;application/x-sega-a3da;application/x-sega-farc;
+StartupNotify=true
+WMClass=UniversalEditor.exe
+Actions=create-project;
+X-Desktop-File-Install-Version=0.24
+
+[Desktop Action create-project]
+Name=Create a New Project
+Exec=universal-editor /command:FileNewProject
+
