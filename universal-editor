@@ -1,0 +1,6 @@
+#!/bin/sh
+FLAVOR=Debug
+APPNAME=UniversalEditor
+
+cd Output/$FLAVOR
+mono $APPNAME.exe
