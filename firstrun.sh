@@ -72,6 +72,8 @@ for projName in ${GIT_PROJECT_NAMES}; do
 
 done
 
+cd $WD
+
 # generate strong name key file
 if [ -e Production.snk ]; then
 	whiptail --title "Generate new strong name key file?" --backtitle "Universal Editor Configure Script" --yesno "A strong name key file Production.snk already exists.  Do you want to overwrite it?  (If you don't know, you should probably say NO)" 15 60
@@ -80,9 +82,9 @@ if [ -e Production.snk ]; then
 	else
 		echo "user skipped generating a strong name key file"
 	fi
+else
+	sn -k Production.snk
 fi
-
-cd $WD
 
 # install other junk
 sudo cp MainIcon.png /usr/share/icons/universal-editor.png
