@@ -30,6 +30,7 @@ if ! command -v msbuild
 then
 	whiptail --title "Update Mono from official repository?" --backtitle "Universal Editor Configure Script" --yesno "The version of Mono installed by default on this system does not ship msbuild or the required targets files to complete the build process.  Can I install the appropriate files from the Mono official repository?\n\nThis will add the Mono repository to your sources.list.d and install the mono-complete package." 15 60
 	if [ $? -eq 1 ]; then
+		echo "user skipped installing updated mono-complete; cannot continue"
 		exit
 	fi
 	
