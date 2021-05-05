@@ -3,4 +3,4 @@ FLAVOR=Debug
 APPNAME=UniversalEditor
 
 cd Output/$FLAVOR
-mono $APPNAME.exe
+mono $APPNAME.exe ${1+"$@"}

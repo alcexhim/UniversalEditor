@@ -88,7 +88,6 @@ cd $WD
 
 # install other junk
 sudo cp MainIcon.png /usr/share/icons/universal-editor.png
-sudo cp net.alcetech.UniversalEditor.desktop /usr/share/applications
 
 # start the build
 msbuild
