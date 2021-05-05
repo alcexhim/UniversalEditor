@@ -32,7 +32,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.RavenSoftw
 		{
 			MessageBox.Show("RavenTech Stripper (Translation Strip Editor)\r\nCopyright (c)2013 Mike Becker's Software\r\nLicensed under the GNU General Public License\r\n\r\nDesigned for use with the RavenTech game engine and Raven Software's customized Jedi Knight II/Jedi Academy engine.", "RavenTech Stripper", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
-		
+
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);

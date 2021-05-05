@@ -47,7 +47,7 @@ namespace UniversalEditor.Compression.Puyo.Internal.CompressionDictionaries
 					{
 						array2 = new int[]
 						{
-							num2, 
+							num2,
 							num3
 						};
 						if (num3 == this.MaxMatchAmount)

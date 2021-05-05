@@ -463,7 +463,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="newdata"></param>
 		/// <param name="olddata"></param>

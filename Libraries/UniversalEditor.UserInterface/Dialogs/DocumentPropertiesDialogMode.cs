@@ -28,4 +28,3 @@ namespace UniversalEditor.UserInterface.Dialogs
 		Save
 	}
 }
-

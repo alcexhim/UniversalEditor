@@ -149,7 +149,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.CRI.ADX
                         // Seek to the sample offset, read and sign extend it to a 32bit integer
                         // Implementing sign extension is left as an exercise for the reader
                         // The sign extension will also need to include a endian adjustment if there are more than 8 bits
-                        
+
                         // br.Seek( started_at + mvarSampleBitDepth * sample_offset + mvarBlockSize * 8 * i );
                         // int sample_error = br.Read( mvarSampleBitDepth );
                         // sample_error = sign_extend( sample_error, mvarSampleBitDepth);
@@ -196,7 +196,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.CRI.ADX
 			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
 			if (wave == null)
 				throw new ObjectModelNotSupportedException();
-			
+
 			Reader reader = base.Accessor.Reader;
 
 			throw new NotImplementedException();
@@ -206,7 +206,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.CRI.ADX
 			WaveformAudioObjectModel wave = (objectModel as WaveformAudioObjectModel);
 			if (wave == null)
 				throw new ObjectModelNotSupportedException();
-			
+
 			Writer bw = base.Accessor.Writer;
             bw.WriteBytes(mvarSignature);
             bw.WriteUInt16(CopyrightOffset);

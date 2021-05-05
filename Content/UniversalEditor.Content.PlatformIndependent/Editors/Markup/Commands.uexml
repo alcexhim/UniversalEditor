@@ -12,7 +12,7 @@
 						<CommandReference CommandID="MarkupEditor_DocumentExplorer_ContextMenu_Add_Comment" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="MarkupEditor_DocumentExplorer_ContextMenu">
 					<Items>
 						<CommandReference CommandID="MarkupEditor_DocumentExplorer_ContextMenu_Add" />

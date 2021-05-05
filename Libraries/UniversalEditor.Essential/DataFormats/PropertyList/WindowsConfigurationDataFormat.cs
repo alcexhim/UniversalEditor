@@ -68,7 +68,7 @@ namespace UniversalEditor.DataFormats.PropertyList
 
 			Reader tr = base.Accessor.Reader;
 			Group CurrentGroup = null;
-            
+
 			while (!tr.EndOfStream)
 			{
 				string line = tr.ReadLine();

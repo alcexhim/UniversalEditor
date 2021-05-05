@@ -57,16 +57,16 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker
 						float posZ = br.ReadSingle();
 						vtx.Position = new PositionVector3(posX, posY, posZ);
                         vtx.OriginalPosition = new PositionVector3(posX, posY, posZ);
-						
+
                         float normalX = br.ReadSingle();
 						float normalY = br.ReadSingle();
 						float normalZ = br.ReadSingle();
 						vtx.Normal = new PositionVector3(normalX, normalY, normalZ);
-						
+
                         float textureU = br.ReadSingle();
 						float textureV = br.ReadSingle();
 						vtx.Texture = new TextureVector2(textureU, textureV);
-						
+
                         ushort bone0 = br.ReadUInt16();
 						ushort bone1 = br.ReadUInt16();
                         vertexBone0Indices[i] = bone0;

@@ -40,9 +40,9 @@ using System.Web.Services;
 
 [WebService(Namespace = "$(Namespace)")]
 [WebServiceBinding(ConformsTo = WsiProfiles.$(ConformsTo))]
-// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 // [System.Web.Script.Services.ScriptService]
-public class WebService1 : System.Web.Services.WebService 
+public class WebService1 : System.Web.Services.WebService
 {
     public WebService1()
     {

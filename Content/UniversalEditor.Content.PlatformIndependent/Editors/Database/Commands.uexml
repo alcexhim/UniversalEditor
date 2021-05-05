@@ -2,7 +2,7 @@
 	<Editors>
 		<Editor ID="{2E873BD5-6F63-4ED8-9C33-C43A08919E29}" TypeName="UniversalEditor.UserInterface.Editors.Database.DatabaseEditor">
 			<Commands>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Create_Clipboard" Title="_Clipboard" />
@@ -16,7 +16,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Create_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Alter_Clipboard" Title="_Clipboard" />
@@ -30,7 +30,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Alter_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Drop_Clipboard" Title="_Clipboard" />
@@ -44,7 +44,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Drop_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_Clipboard" Title="_Clipboard" />
@@ -58,7 +58,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_DropCreate_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Select_Clipboard" Title="_Clipboard" />
@@ -72,7 +72,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Select_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Insert_Clipboard" Title="_Clipboard" />
@@ -86,7 +86,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Insert_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Update_Clipboard" Title="_Clipboard" />
@@ -100,7 +100,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Update_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Delete_Clipboard" Title="_Clipboard" />
@@ -114,7 +114,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Delete_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute_NewWindow" Title="New Query Editor _Window" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute_File" Title="_File ..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script_Execute_Clipboard" Title="_Clipboard" />
@@ -128,7 +128,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Execute_Job" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_Script" Title="_Script Table as">
 					<Items>
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Script_Create" />
@@ -145,7 +145,7 @@
 					</Items>
 				</Command>
 				<Command ID="DatabaseEditor_ContextMenu_Table_Encrypt" Title="E_ncrypt Columns..." />
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table_NewTable" Title="_New Table..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Import" Title="_Import Table..." />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Design" Title="Desig_n" />
@@ -153,7 +153,7 @@
 				<Command ID="DatabaseEditor_ContextMenu_Table_Edit" Title="_Edit Top 200 Rows" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Rename" Title="Rena_me" />
 				<Command ID="DatabaseEditor_ContextMenu_Table_Delete" Title="_Delete" />
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Table">
 					<Items>
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_NewTable" />
@@ -170,10 +170,10 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Table_Delete" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Query_Snippet_Insert" Title="_Insert Snippet..." />
 				<Command ID="DatabaseEditor_ContextMenu_Query_Snippet_Surround" Title="_Surround With..." />
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Query_Execute" Title="E_xecute" />
 				<Command ID="DatabaseEditor_ContextMenu_Query_Plan" Title="Display Estimated Execution Plan" />
 				<Command ID="DatabaseEditor_ContextMenu_Query_Trace" Title="Trace Query in Profiler" />
@@ -191,7 +191,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Query_Design" />
 					</Items>
 				</Command>
-				
+
 			</Commands>
 		</Editor>
 	</Editors>

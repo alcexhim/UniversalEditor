@@ -13,3 +13,6 @@ echo "#!/bin/sh
 cd /usr/lib/universal-editor
 ./universal-editor ${1+\"$@\"}
 " > /usr/bin/universal-editor
+
+chmod a+x /usr/bin/universal-editor
+chmod a+x /usr/share/applications/net.alcetech.UniversalEditor.desktop

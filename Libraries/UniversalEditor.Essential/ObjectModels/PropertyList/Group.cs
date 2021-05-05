@@ -211,7 +211,7 @@ namespace UniversalEditor.ObjectModels.PropertyList
 
 			if (String.IsNullOrEmpty((string)value))
 				return defaultValue;
-			
+
 			Type t = typeof(T);
 			System.Reflection.MethodInfo miParse = t.GetMethod("Parse", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, new Type[]
 			{

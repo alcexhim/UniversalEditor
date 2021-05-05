@@ -66,9 +66,9 @@ namespace UniversalEditor.DataFormats.AniMiku.ExtendedPMD
 			PMDExtensionObjectModel pmdo = new PMDExtensionObjectModel();
 			PMDExtensionDataFormat pmdf = new PMDExtensionDataFormat();
 			pmdf.Model = model;
-			
+
 			Document.Load(pmdo, pmdf, new MemoryAccessor(datas), true);
-			
+
 			foreach (PMDExtensionTextureGroup file in pmdo.ArchiveFiles)
 			{
 				foreach (string fileName in file.TextureImageFileNames)

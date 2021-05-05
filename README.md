@@ -16,7 +16,7 @@ Philosophy
 ----------
 UniversalEditor 4 has four components:
 
-* *Editor* is responsible for modifying the content of the ObjectModel from a user's point of view. 
+* *Editor* is responsible for modifying the content of the ObjectModel from a user's point of view.
 * *ObjectModel* contains the user-friendly, DataFormat-agnostic representation of the data.
 * *DataFormat* is responsible for converting on-disk representations of data to and from user-friendly ObjectModel representations.
 * *Accessor* is responsible for reading from and writing to actual sources of data using the DataFormat as the translator. Therefore, any Accessor is irrevocably paired with exactly one DataFormat.

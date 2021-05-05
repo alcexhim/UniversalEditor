@@ -74,7 +74,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				CustomOption eo = (ctl.GetExtraData ("eo") as CustomOption);
 				if (eo == null)
 					continue;
-				
+
 				if (ctl is CheckBox) {
 					CheckBox itm = (ctl as CheckBox);
 					(eo as CustomOptionBoolean).Value = itm.Checked;
@@ -312,4 +312,3 @@ namespace UniversalEditor.UserInterface.Dialogs
 		}
 	}
 }
-

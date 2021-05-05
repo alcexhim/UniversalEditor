@@ -181,7 +181,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 				// actual size of the file
 				uint dataLength = br.ReadDoubleEndianUInt32();      // 44			20
 
-				ulong unknown4 = br.ReadUInt64();                   // ...			
+				ulong unknown4 = br.ReadUInt64();                   // ...
 				ushort unknown5 = br.ReadUInt16();                  // 0			0
 				ushort unknown6 = br.ReadUInt16();                  // 1			1
 				ushort unknown7 = br.ReadUInt16();                  // 256			256

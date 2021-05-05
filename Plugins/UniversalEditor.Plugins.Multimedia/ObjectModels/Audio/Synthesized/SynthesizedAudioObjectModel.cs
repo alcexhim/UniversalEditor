@@ -14,7 +14,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 
 		private short mvarChannelCount = 2;
 		public short ChannelCount { get { return mvarChannelCount; } set { mvarChannelCount = value; } }
-		
+
 		private string mvarName = string.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
 

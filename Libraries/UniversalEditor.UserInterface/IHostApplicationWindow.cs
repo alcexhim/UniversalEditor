@@ -23,7 +23,7 @@ namespace UniversalEditor.UserInterface
 		bool SaveFile();
 		bool SaveFileAs();
 		bool SaveFileAs(Accessor accessor, DataFormat df);
-		
+
 		void SaveProject();
 		void SaveProjectAs();
 		void SaveProjectAs(string FileName, DataFormat df);
@@ -65,7 +65,7 @@ namespace UniversalEditor.UserInterface
 		bool ShowOptionsDialog();
 
 		void UpdateStatus(string statusText);
-		
+
 		void UpdateProgress(bool visible);
 		void UpdateProgress(int minimum, int maximium, int value);
 

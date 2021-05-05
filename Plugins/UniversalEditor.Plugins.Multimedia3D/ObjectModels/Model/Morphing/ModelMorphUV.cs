@@ -31,8 +31,8 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 		{
 			return new ModelMorphUV
 			{
-				Name = base.Name, 
-				UVOffset = this.mvarUVOffset, 
+				Name = base.Name,
+				UVOffset = this.mvarUVOffset,
 				VertexIndex = this.mvarVertexIndex
 			};
 		}

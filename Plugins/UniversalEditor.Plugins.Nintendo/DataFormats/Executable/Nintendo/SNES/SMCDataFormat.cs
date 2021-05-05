@@ -446,7 +446,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 			mvarRegion = SMCRegion.FromCode(countryCode);
 
 			// Licensee code. If this value is $33, then the ROM has an extended header with ID at
-			// $ffb2..$ffb5. 
+			// $ffb2..$ffb5.
 			byte licenseeCode = reader.ReadByte();
 			mvarLicensee = SMCLicensee.FromCode(licenseeCode);
 

@@ -87,4 +87,3 @@ namespace UniversalEditor.ObjectModels.Database
 		}
 	}
 }
-

@@ -6,4 +6,3 @@ namespace UniversalEditor.UserInterface
 		None
 	}
 }
-

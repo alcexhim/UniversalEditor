@@ -10,7 +10,7 @@
 		<Command ID="DockingWindowTabPageContextMenu_Placement_DockTabbed" />
 		<Command ID="DockingWindowTabPageContextMenu_Placement_AutoHide" />
 		<Command ID="DockingWindowTabPageContextMenu_Placement_Hide" />
-		
+
 		<Command ID="DockingWindowTabPageContextMenu">
 			<Items>
 				<CommandReference CommandID="DockingContainerContextMenu_Close" />

@@ -39,7 +39,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
 		private ModelBoneGroup.ModelBoneGroupCollection mvarBoneGroups = null;
 		public ModelBoneGroup.ModelBoneGroupCollection BoneGroups { get { return mvarBoneGroups; } }
-        
+
         private List<ushort> mvarExpressions = new List<ushort>();
         public List<ushort> Expressions
 		{
@@ -48,7 +48,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
         private StringCollection mvarNodeNames = new StringCollection();
         public StringCollection NodeNames { get { return mvarNodeNames; } }
-        
+
         private ModelSkin.ModelSkinCollection mvarSkins = new ModelSkin.ModelSkinCollection();
         public ModelSkin.ModelSkinCollection Skins { get { return mvarSkins; } }
 
@@ -57,23 +57,23 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
         private ModelMaterial.ModelMaterialCollection mvarMaterials = new ModelMaterial.ModelMaterialCollection();
         public ModelMaterial.ModelMaterialCollection Materials { get { return mvarMaterials; } }
-        
+
         private ModelBone.ModelBoneCollection mvarBones = null;
         public ModelBone.ModelBoneCollection Bones { get { return mvarBones; } }
-        
+
         private ModelIK.ModelIKCollection mvarIK = null;
         public ModelIK.ModelIKCollection IK { get { return mvarIK; } }
-        
+
         private ModelRigidBody.ModelRigidBodyCollection mvarRigidBodies = new ModelRigidBody.ModelRigidBodyCollection();
         public ModelRigidBody.ModelRigidBodyCollection RigidBodies { get { return mvarRigidBodies; } }
 
         private ModelJoint.ModelJointCollection mvarJoints = new ModelJoint.ModelJointCollection();
         public ModelJoint.ModelJointCollection Joints { get { return mvarJoints; } }
 
-        
+
         private ModelMorph.ModelMorphCollection mvarMorphs = new ModelMorph.ModelMorphCollection();
         public ModelMorph.ModelMorphCollection Morphs { get { return mvarMorphs; } }
-        
+
         private Dictionary<int, ModelStringTableExtension> mvarStringTable = new Dictionary<int, ModelStringTableExtension>();
         public Dictionary<int, ModelStringTableExtension> StringTable { get { return mvarStringTable; } }
 
@@ -246,7 +246,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 		{
 			if (mvarUpdating) return;
 			mvarUpdating = true;
-			
+
 			//SkinningMatrix = -BoneInitialPosition * LocalRotationMatrix * (BoneInitialPosition + UserMove) * ParentMatrix
 
 			// ï®óùââéZîΩâf

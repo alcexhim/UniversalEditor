@@ -58,7 +58,7 @@ namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 			if (entry == null || (entry.Attributes & BALDirectoryEntryAttributes.Directory) == BALDirectoryEntryAttributes.Directory)
 			{
 				List<BALDirectoryEntry> entries = new List<BALDirectoryEntry>();
-				
+
 				int count = reader.ReadInt32();
 				for (int i = 0; i < count; i++)
 				{
@@ -145,7 +145,7 @@ namespace UniversalEditor.DataFormats.FileSystem.KnowledgeAdventure.BAL
 
 			// each folder including the root has a 20-byte directory entry
 			int totalSize = (20 * totalFolderCountIncludingRoot);
-			
+
 			// each actual folder including the root also has 4 bytes for the count of files and 4 bytes for the name table size
 			totalSize += (8 * totalFolderCountIncludingRoot);
 

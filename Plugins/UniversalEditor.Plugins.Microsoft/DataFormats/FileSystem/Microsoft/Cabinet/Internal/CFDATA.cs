@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet.Internal
         /// </summary>
         public byte[] reservedArea;
         /// <summary>
-        /// compressed data bytes 
+        /// compressed data bytes
         /// </summary>
         public byte[] data;
     }

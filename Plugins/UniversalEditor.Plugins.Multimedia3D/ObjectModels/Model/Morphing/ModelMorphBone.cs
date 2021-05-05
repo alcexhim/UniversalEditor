@@ -43,9 +43,9 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 		{
 			return new ModelMorphBone
 			{
-				BoneIndex = this.mvarBoneIndex, 
-				Name = base.Name, 
-				Rotation = new PositionVector4(this.mvarRotation.X, this.mvarRotation.Y, this.mvarRotation.Z, this.mvarRotation.W), 
+				BoneIndex = this.mvarBoneIndex,
+				Name = base.Name,
+				Rotation = new PositionVector4(this.mvarRotation.X, this.mvarRotation.Y, this.mvarRotation.Z, this.mvarRotation.W),
 				TravelDistance = new PositionVector3(this.mvarTravelDistance.X, this.mvarRotation.Y, this.mvarRotation.Z)
 			};
 		}

@@ -100,7 +100,7 @@ namespace UniversalEditor.DataFormats.VersatileContainer
                     {
                         sectionDataSizes.Add(0);
                         uint sectionIndex = br.ReadUInt32();
-                        
+
                         VersatileContainerReferenceSection sect = new VersatileContainerReferenceSection();
                         sect.Target = vcom.Sections[(int)sectionIndex];
                         vcom.Sections.Add(sect);

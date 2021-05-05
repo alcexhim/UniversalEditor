@@ -43,7 +43,7 @@ namespace UniversalEditor.UserInterface.Common
 							{
 								Console.WriteLine("^--- {0}", ex.InnerException.InnerException.Message);
 								Console.WriteLine();
-								Console.WriteLine(" *** STACK TRACE *** "); 
+								Console.WriteLine(" *** STACK TRACE *** ");
 								Console.WriteLine(ex.StackTrace);
 								Console.WriteLine(" ******************* ");
 								Console.WriteLine();
@@ -318,7 +318,7 @@ namespace UniversalEditor.UserInterface.Common
 			return editorsByObjectModelType[objectModelReference.ObjectModelType];
 		}
 		*/
-		
+
 		public static EditorReference[] GetAvailableEditors(ObjectModelReference objectModelReference)
 		{
 			List<EditorReference> list = new List<EditorReference>();
@@ -327,7 +327,7 @@ namespace UniversalEditor.UserInterface.Common
 			{
 				if (list.Contains (editor))
 					continue;
-				
+
 				if (editor.SupportedObjectModels.Contains(objectModelReference.Type) || editor.SupportedObjectModels.Contains(objectModelReference.ID))
 				{
 					list.Add(editor);

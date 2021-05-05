@@ -38,7 +38,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
             this.DirEntry.StgColor = StgColor.Black;
 
             sectorManager.InsertNewDirectoryEntry(this.DirEntry);
-            
+
         }
 
         internal CFStream(CompoundFile sectorManager, IDirectoryEntry dirEntry)
@@ -86,7 +86,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// </example>
         /// <param name="data">Data bytes to append to this stream</param>
         /// <remarks>
-        /// This method allows user to create stream with more than 2GB of data, 
+        /// This method allows user to create stream with more than 2GB of data,
         /// appending data to the end of existing ones.
         /// Large streams (>2GB) are only supported by CFS version 4.
         /// Append data can also be invoked on streams with no data in order
@@ -137,7 +137,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// CFStream st = cf.RootStorage.GetStream("MyStream");
         /// int count = 8;
         /// // The stream is supposed to have a length greater than offset + count
-        /// byte[] data = st.GetData(20, ref count);  
+        /// byte[] data = st.GetData(20, ref count);
         /// cf.Close();
         /// </code>
         /// </example>

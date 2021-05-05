@@ -15,7 +15,7 @@ namespace UniversalEditor.Compression.Modules.Zlib
 		protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
 		{
 			Internal.ZOutputStream zout = new Internal.ZOutputStream(outputStream, 5);
-			
+
 			byte[] buffer = new byte[2048];
 			while (!inputStream.get_EndOfStream())
 			{

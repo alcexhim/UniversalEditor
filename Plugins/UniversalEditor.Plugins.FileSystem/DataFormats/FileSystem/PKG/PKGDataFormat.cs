@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PKG
 			int unknown2 = br.ReadInt32();          // unknown
 			long fileSize = br.ReadInt64();         // Size of file
 			long unknown3 = br.ReadInt64();
-			long dataSize = br.ReadInt64();         // Size of data @ 0x100 minus 0x80 byte Unknown block. 
+			long dataSize = br.ReadInt64();         // Size of data @ 0x100 minus 0x80 byte Unknown block.
 
 			string gameID = br.ReadFixedLengthString(48);
 			GameName = gameID.TrimNull();

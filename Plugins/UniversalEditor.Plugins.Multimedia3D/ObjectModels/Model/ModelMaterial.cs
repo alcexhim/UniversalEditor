@@ -121,7 +121,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 				this.mvarIndexCount = value;
 			}
 		}
-		
+
         public string Comment
 		{
 			get

@@ -111,4 +111,3 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		}
     }
 }
-

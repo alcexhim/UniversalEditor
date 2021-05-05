@@ -52,7 +52,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 				this.mvarBlockAlignment = value;
 			}
 		}
-		
+
 		private short mvarBitsPerSample = 16;
 		public short BitsPerSample { get { return mvarBitsPerSample; } set { mvarBitsPerSample = value; } }
 	}

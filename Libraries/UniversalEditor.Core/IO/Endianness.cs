@@ -45,4 +45,3 @@ namespace UniversalEditor.IO
 		PDPEndian
     }
 }
-

@@ -19,7 +19,7 @@
 				<Group ID="Compilation">
 					<Property ID="OutputFileName" Value="Output/Debug" />
 					<Property ID="OutputType" Value="GraphicalApplication" />
-					
+
 					<Property ID="IncludePaths">
 						<Value>$(GtkPath)/include</Value>
 						<Value>$(GtkPath)/include/atk-1.0</Value>

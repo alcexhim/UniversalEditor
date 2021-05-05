@@ -92,7 +92,7 @@ namespace UniversalEditor.Plugins.Amiga.DataFormats.FileSystem.ADF
 		ulong	1	parent_dir	unused (value = 0)
 BSIZE-  8/-0x08	ulong	1	extension	FFS: first directory cache block,
 						0 otherwise
-BSIZE-  4/-0x04	ulong	1	sec_type	block secondary type = ST_ROOT 
+BSIZE-  4/-0x04	ulong	1	sec_type	block secondary type = ST_ROOT
 						(value 1)
 						*/
 				LoadDirectory(reader, block, fsom);

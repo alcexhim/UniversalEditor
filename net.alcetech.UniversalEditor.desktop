@@ -19,4 +19,3 @@ X-Desktop-File-Install-Version=0.24
 [Desktop Action create-project]
 Name=Create a New Project
 Exec=universal-editor /command:FileNewProject
-

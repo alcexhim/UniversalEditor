@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 	{
 		/// <summary>
 		/// Single track (format 0). Consists of a header-chunk and a single track-chunk. The single track chunk will contain all the
-		/// note and tempo information. 
+		/// note and tempo information.
 		/// </summary>
 		SingleTrack = 0,
 		/// <summary>

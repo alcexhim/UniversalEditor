@@ -1082,7 +1082,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 				else if (m_selecting)
 				{
 				}
-				*/			
+				*/
 
 				ScrollBounds = new MBS.Framework.Drawing.Dimension2D(GetMaxWidth(), MAXSCROLLHEIGHT);
 				/*

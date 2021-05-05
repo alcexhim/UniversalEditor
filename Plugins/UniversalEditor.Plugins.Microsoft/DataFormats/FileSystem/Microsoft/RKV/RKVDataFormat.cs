@@ -127,7 +127,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.RKV
 
 			/*
 				compression type: lzf (type 2)
-			 */	
+			 */
 
 			bw.WriteFixedLengthString(ArchiveName, 0x40);
 			long info_off = 0x40 + 8 + 8;

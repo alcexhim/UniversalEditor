@@ -40,7 +40,7 @@ namespace UniversalEditor
 		/// The <see cref="ObjectModelReference" /> which points to the <see cref="ObjectModel" /> to search for.
 		/// </summary>
 		public ObjectModelReference ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; } }
-		
+
 		private string mvarFileName = null;
 		public string FileName { get { return mvarFileName; } set { mvarFileName = value; } }
 	}

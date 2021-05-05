@@ -174,7 +174,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 
 			IO.BinaryReader br = base.Stream.BinaryReader;
 
-			
+
 			#region Header
 			uint head01 = br.ReadUInt32();
 			uint entries_count = br.ReadUInt32();
@@ -426,7 +426,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 					uint list_type = test_type; // 0x17, 0x2E
 					uint list_unk1 = br.ReadUInt32(); // 0x01
 					uint list_elem = br.ReadUInt32(); // 0x01, 0x02
-   
+
 					// read a list of lengths
 					List<uint> lengths = new List<uint>();
 					for(uint i = 0; i < list_elem; i++)
@@ -434,7 +434,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 						uint n = br.ReadUInt32();
 						lengths.Add(n);
 					}
-   
+
 					// read a list of strings
 					List<string> items = new List<string>();
 					for(int i = 0; i < list_elem; i++)
@@ -443,11 +443,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 						item = item.TrimNull();
 						items.Add(item);
 					}
-   
+
 					// read type string table properties
 					uint typetable_type = br.ReadUInt32(); // 0x0239
 					uint typetable_elem = br.ReadUInt32(); // number of strings
-   
+
 					// read type string table
 					List<string> typeStringTableEntries = new List<string>();
 					for(uint i = 0; i < typetable_elem; i++)
@@ -529,7 +529,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 			}
 			// read entry table size
 			uint entryTableSize = br.ReadUInt32();
-			
+
 			// read number of elements
 			uint entryTableCount = br.ReadUInt32();
 
@@ -564,7 +564,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
                         if(NT_index >= nodes.Count) throw new IndexOutOfRangeException("Invalid node index.");
 
                         igBase ig = nodes[(int)NT_index];
-                        
+
                         // read chunk header
                         uint chunktype = br.ReadUInt32();
                         uint chunksize = br.ReadUInt32();
@@ -582,7 +582,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
                         {
                             throw new ArgumentOutOfRangeException("chunksize", chunksize, "Invalid " + ig.TypeName + " chunk. Chunksize not divisible by four.");
                         }
-           
+
                         // read chunk data
                         uint attrsize = chunksize - 0x08;
                         byte[] attrdata = br.ReadBytes(attrsize);

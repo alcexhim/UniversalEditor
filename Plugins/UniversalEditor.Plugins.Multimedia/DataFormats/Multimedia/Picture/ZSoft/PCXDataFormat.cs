@@ -229,13 +229,13 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ZSoft
 				LoadPCXScanLine(reader, scan_line);
 				if (header.BitsPerPixel == 24)
 				{
-				    put_pixels_24 (pic, scan_line, y, header);               
+				    put_pixels_24 (pic, scan_line, y, header);
 				}
 			   else
 			   {
 			       if (header.BitsPerPixel == 8)
 			       {
-			           put_pixels_8 (pic, scan_line, y, header, palette); 
+			           put_pixels_8 (pic, scan_line, y, header, palette);
 			       }
 			       else
 			       {
@@ -302,7 +302,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ZSoft
 				for (int i = 0; i < bytes_in_line; i++)
 				{
 					byte _byte = scan_line[k++];
-					for(int j = 7; j >= 0; j--) 
+					for(int j = 7; j >= 0; j--)
 					{
 						byte bit = (byte)((_byte >> j) & 1);
 						/* skip padding bits */

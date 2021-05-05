@@ -58,7 +58,7 @@ namespace UniversalEditor
 
 		private ProjectTaskAction.ProjectTaskActionCollection mvarActions = new ProjectTaskAction.ProjectTaskActionCollection();
 		public ProjectTaskAction.ProjectTaskActionCollection Actions { get { return mvarActions; } }
-		
+
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 

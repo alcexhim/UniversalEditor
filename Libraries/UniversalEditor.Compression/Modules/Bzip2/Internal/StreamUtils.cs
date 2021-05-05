@@ -20,7 +20,7 @@
 // making a combined work based on this library.  Thus, the terms and
 // conditions of the GNU General Public License cover the whole
 // combination.
-// 
+//
 // As a special exception, the copyright holders of this library give you
 // permission to link this library with independent modules to produce an
 // executable, regardless of the license terms of these independent
@@ -165,7 +165,7 @@ namespace ICSharpCode.SharpZipLib.Core
 		/// <remarks>This form is specialised for use within #Zip to support events during archive operations.</remarks>
 		static public void Copy(Stream source, Stream destination,
 			byte[] buffer,
-            ProgressEventHandler progressHandler, TimeSpan updateInterval, 
+            ProgressEventHandler progressHandler, TimeSpan updateInterval,
 			object sender, string name, long fixedTarget)
 		{
 			if (source == null) {

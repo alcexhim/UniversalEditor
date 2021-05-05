@@ -176,10 +176,10 @@ namespace UniversalEditor.Plugins.Multimedia.Dialogs.Audio
 			this.cboSourceEngine.FormattingEnabled = true;
 			this.cboSourceEngine.Items.AddRange(new object[]
 			{
-				"General MIDI", 
-				"VOCALOID", 
-				"VOCALOID2", 
-				"Synthaloid", 
+				"General MIDI",
+				"VOCALOID",
+				"VOCALOID2",
+				"Synthaloid",
 				"Voxroid"
 			});
 			this.cboSourceEngine.Location = new Point(108, 19);

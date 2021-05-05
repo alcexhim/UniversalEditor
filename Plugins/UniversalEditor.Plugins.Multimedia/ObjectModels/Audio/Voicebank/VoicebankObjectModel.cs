@@ -32,7 +32,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 
 		private int mvarBankSelect = 0;
 		public int BankSelect { get { return mvarBankSelect; } set { mvarBankSelect = value; } }
-		
+
 		private int mvarProgramChange = 0;
 		public int ProgramChange { get { return mvarProgramChange; } set { mvarProgramChange = value; } }
 

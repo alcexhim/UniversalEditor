@@ -42,10 +42,10 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 		// FArC         Load
 
 
-		// this was mentioned on 
+		// this was mentioned on
 		// http://forum.xentax.com/viewtopic.php?f=10&t=9639
 		// could this mean anything? -v-
-		// PS : for each files same header (0x10 bytes - maybe key for decrypt??) - 6D4A249C8529DE62C8E3893931C9E0BC 
+		// PS : for each files same header (0x10 bytes - maybe key for decrypt??) - 6D4A249C8529DE62C8E3893931C9E0BC
 		// The files from Project Diva F are the same way, except they have a different header -- 69173ED8F50714439F6240AA7466C37A
 
 		// EDAT v4
@@ -113,7 +113,7 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 					uint flag3 = reader.ReadUInt32();
 					uint flag4 = reader.ReadUInt32();
 				}
-				
+
 				while (reader.Accessor.Position < directorySize)
 				{
 					string FileName = reader.ReadNullTerminatedString();

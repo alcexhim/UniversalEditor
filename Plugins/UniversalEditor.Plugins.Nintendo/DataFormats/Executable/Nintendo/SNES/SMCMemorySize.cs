@@ -50,7 +50,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 		public static SMCMemorySize FromCode(byte value)
 		{
 			Type t = typeof(SMCMemorySizes);
-			
+
 			MethodAttributes methodAttributes = MethodAttributes.Public | MethodAttributes.Static;
 			PropertyInfo[] properties = t.GetProperties();
 			for (int i = 0; i < properties.Length; i++)

@@ -142,7 +142,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 				vtx.Bone0Weight = (float)((float)weight / 100);
 
 				// Edge Flag (Determines if this vertex should be used to draw the edge line
-				// around the model) 
+				// around the model)
 				vtx.EdgeFlag = br.ReadBoolean();
 
 				surf.Vertices.Add(vtx);
@@ -425,7 +425,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 			{
 				// Index in the bone list representing which bone to display
 				nBoneID[j] = br.ReadUInt16();
-				// Index in the list of bone groups representing which group to place this bone in 
+				// Index in the list of bone groups representing which group to place this bone in
 				nNodeID[j] = br.ReadByte();
 			}
 
@@ -530,9 +530,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					ModelJoint joint = new ModelJoint();
 					joint.Name = br.ReadFixedLengthString(20, encoding);
 
-					// Index in the list of rigid bodies of the first body affected by this constraint 
+					// Index in the list of rigid bodies of the first body affected by this constraint
 					int bodyA = br.ReadInt32();
-					// Index in the list of rigid bodies of the second body affected by this constraint 
+					// Index in the list of rigid bodies of the second body affected by this constraint
 					int bodyB = br.ReadInt32();
 
 					joint.Position = br.ReadPositionVector3x32();

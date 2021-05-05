@@ -192,7 +192,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 	//    private byte[] pixels;
 	//    private int length;
 
-	//    public Bitmap(byte[] pixels, int width, int height, int ppi, int depth, int lossyflag) 
+	//    public Bitmap(byte[] pixels, int width, int height, int ppi, int depth, int lossyflag)
 	//    {
 	//        this.pixels = pixels;
 	//        this.length = pixels != null ? pixels.Length : 0;
@@ -205,37 +205,37 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WaveletScalarQuantizati
 	//    }
 
 
-	//    public int getWidth() 
+	//    public int getWidth()
 	//    {
 	//        return width;
 	//    }
 
-	//    public int getHeight() 
+	//    public int getHeight()
 	//    {
 	//        return height;
 	//    }
 
-	//    public int getPpi() 
+	//    public int getPpi()
 	//    {
 	//        return ppi;
 	//    }
 
-	//    public byte[] getPixels() 
+	//    public byte[] getPixels()
 	//    {
 	//        return pixels;
 	//    }
 
-	//    public int getLength() 
+	//    public int getLength()
 	//    {
 	//        return length;
 	//    }
 
-	//    public int getDepth() 
+	//    public int getDepth()
 	//    {
 	//        return depth;
 	//    }
 
-	//    public int getLossyflag() 
+	//    public int getLossyflag()
 	//    {
 	//        return lossyflag;
 	//    }

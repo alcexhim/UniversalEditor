@@ -65,7 +65,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SPIS
 				uint unknown4 = br.ReadUInt32();
 				uint decompressedSize1 = br.ReadUInt32();
 				uint compressedSize = br.ReadUInt32();
-				byte unknown5 = br.ReadByte(); // 2 
+				byte unknown5 = br.ReadByte(); // 2
 				uint unknown6 = br.ReadUInt32();
 				uint unknown7 = br.ReadUInt32(); // 0
 				string filename = br.ReadNullTerminatedString();
@@ -114,7 +114,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SPIS
 
 				bw.WriteUInt32((uint)compressedData.Length);
 
-				byte unknown5 = 2; // 2 
+				byte unknown5 = 2; // 2
 				bw.WriteByte(unknown5);
 
 				uint unknown6 = 0;

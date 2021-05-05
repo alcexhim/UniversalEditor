@@ -176,7 +176,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Voiceban
 
 
 			uint unknown7 = reader.ReadUInt32();		// 4
-			
+
 			uint phonemeCount = reader.ReadUInt32();	// 32
 			for (uint i = 0; i < phonemeCount; i++)
 			{
@@ -220,7 +220,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Voiceban
 			base.Accessor.Seek(offsetToGuid, SeekOrigin.Begin);
 
 			dbse.Title = reader.ReadFixedLengthString(260).TrimNull();
-			
+
 			uint unknown10 = reader.ReadUInt32();
 			uint unknown11 = reader.ReadUInt32();
 			uint unknown12 = reader.ReadUInt32();
@@ -229,7 +229,7 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Voiceban
 			uint unknown13 = reader.ReadUInt32();	// 0
 			uint unknown14 = reader.ReadUInt32();	// 1
 			uint unknown15 = reader.ReadUInt32();	// 0
-			
+
 			uint chunkCountTMM = reader.ReadUInt32();
 			uint unknown16 = reader.ReadUInt32();
 			uint unknown17 = reader.ReadUInt32();

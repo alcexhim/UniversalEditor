@@ -425,7 +425,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 					if (CurrentEnumElement.Values.Count > 0)
 					{
 						value = CurrentEnumElement.Values.Last().Value + 1;
-						
+
 						CodeEnumerationValue cev = new CodeEnumerationValue();
 						if (lastToken.Contains("="))
 						{
@@ -754,7 +754,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 				sb.AppendLine ();
 				sb.Append (indent);
 				sb.AppendLine ("{");
-				
+
 				sb.Append (GetIndentString (indentCount + 1));
 
 				bool generatedMethod = false;
@@ -865,7 +865,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 				sb.Append (indent);
 				sb.Append ("}");
 			}
-			else if (obj is CodeReturnElement) 
+			else if (obj is CodeReturnElement)
 			{
 				sb.Append (indent);
 				sb.Append ("return ");

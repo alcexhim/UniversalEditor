@@ -2,7 +2,7 @@
 <ApplicationFramework>
 	<Commands>
 		<Command ID="Collaboration_SignIn" />
-		
+
 		<Command ID="Collaboration_Comments_New" />
 		<Command ID="Collaboration_Comments_Delete" />
 		<Command ID="Collaboration_Comments_Previous" />
@@ -19,7 +19,7 @@
 				<CommandReference CommandID="Collaboration_Comments_ShowHideComments" />
 			</Items>
 		</Command>
-		
+
 		<Command ID="Collaboration_Tracking_Track" />
 		<Command ID="Collaboration_Tracking_PreviousChange" />
 		<Command ID="Collaboration_Tracking_NextChange" />
@@ -36,7 +36,7 @@
 				<CommandReference CommandID="Collaboration_Tracking_AcceptAll" />
 			</Items>
 		</Command>
-		
+
 		<Command ID="Collaboration">
 			<Items>
 				<CommandReference CommandID="Collaboration_SignIn" />
@@ -54,18 +54,18 @@
 				<Command ID="Collaboration_Comments_Previous" Title="_Previous Comment" />
 				<Command ID="Collaboration_Comments_Next" Title="_Next Comment" />
 				<Command ID="Collaboration_Comments_ShowHideComments" Title="_Show Comments" />
-				
+
 				<Command ID="Collaboration" Title="_Collaborate" />
 				<Command ID="Collaboration_SignIn" Title="_Sign In" />
-				
+
 				<Command ID="Collaboration_Tracking" Title="_Tracking" />
-				
+
 				<Command ID="Collaboration_Tracking_Track" Title="_Track Changes" />
 				<Command ID="Collaboration_Tracking_PreviousChange" Title="_Previous Change" />
 				<Command ID="Collaboration_Tracking_NextChange" Title="_Next Change" />
 				<Command ID="Collaboration_Tracking_Lock" Title="_Lock Tracking" />
 				<Command ID="Collaboration_Tracking_AcceptAll" Title="_Accept All Changes" />
-				
+
 				<Command ID="Collaboration_Comments" Title="_Comments" />
 			</Commands>
 		</Language>

@@ -38,7 +38,7 @@ namespace UniversalEditor.DataFormats.FileSystem.SidMeier.Pirates.FPK
 			{
 				int fileNameLength = br.ReadInt32();
 				string fileName = br.ReadFixedLengthString(fileNameLength);
-				
+
 				StringBuilder sb = new StringBuilder();
 				int k = 0;
 				for (int j = 0; j < fileName.Length; j++)

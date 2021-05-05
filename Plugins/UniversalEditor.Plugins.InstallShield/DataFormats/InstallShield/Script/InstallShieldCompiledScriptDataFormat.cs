@@ -64,7 +64,7 @@ namespace UniversalEditor.DataFormats.InstallShield.Script
             for (short i = 0; i < variableCount; i++)
             {
                 short variableIndex = br.ReadInt16();
-                
+
                 short variableNameLength = br.ReadInt16();
                 string variableName = br.ReadFixedLengthString(variableNameLength);
                 variableNames1.Add(variableName);

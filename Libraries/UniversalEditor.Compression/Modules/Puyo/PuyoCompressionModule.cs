@@ -94,7 +94,7 @@ namespace UniversalEditor.Compression.Puyo
 						}
 						result = new int[]
 						{
-							num4, 
+							num4,
 							list[0]
 						};
 					}

@@ -62,8 +62,8 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
     {
         /// <summary>
         /// ReadOnly update mode prevents overwriting
-        /// of the opened file. 
-        /// Data changes are allowed but they have to be 
+        /// of the opened file.
+        /// Data changes are allowed but they have to be
         /// persisted on a different file when required.
         /// </summary>
         ReadOnly,
@@ -78,7 +78,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
 
     /// <summary>
     /// Standard Microsoft&#169; Compound File implementation.
-    /// It is also known as OLE/COM structured storage 
+    /// It is also known as OLE/COM structured storage
     /// and contains a hierarchy of storage and stream objects providing
     /// efficent storage of multiple kinds of documents in a single file.
     /// Version 3 and 4 of specifications are supported.
@@ -152,12 +152,12 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
 
         /// <summary>
         /// Create a blank, version 3 compound file.
-        /// Sector recycle is turned off to achieve the best reading/writing 
+        /// Sector recycle is turned off to achieve the best reading/writing
         /// performance in most common scenarios.
         /// </summary>
         /// <example>
         /// <code>
-        /// 
+        ///
         ///     byte[] b = new byte[10000];
         ///     for (int i = 0; i &lt; 10000; i++)
         ///     {
@@ -171,7 +171,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         ///     myStream.SetData(b);
         ///     cf.Save("MyCompoundFile.cfs");
         ///     cf.Close();
-        ///     
+        ///
         /// </code>
         /// </example>
         public CompoundFile()
@@ -185,7 +185,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
             DIFAT_SECTOR_FAT_ENTRIES_COUNT = (GetSectorSize() / 4) - 1;
             FAT_SECTOR_ENTRIES_COUNT = (GetSectorSize() / 4);
 
-            //Root -- 
+            //Root --
             rootStorage = new CFStorage(this);
 
             rootStorage.DirEntry.SetEntryName("Root Entry");
@@ -215,7 +215,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// <param name="eraseFreeSectors">If true, unallocated sectors will be overwritten with zeros</param>
         /// <example>
         /// <code>
-        /// 
+        ///
         ///     byte[] b = new byte[10000];
         ///     for (int i = 0; i &lt; 10000; i++)
         ///     {
@@ -229,7 +229,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         ///     myStream.SetData(b);
         ///     cf.Save("MyCompoundFile.cfs");
         ///     cf.Close();
-        ///     
+        ///
         /// </code>
         /// </example>
         /// <remarks>
@@ -245,7 +245,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
             DIFAT_SECTOR_FAT_ENTRIES_COUNT = (GetSectorSize() / 4) - 1;
             FAT_SECTOR_ENTRIES_COUNT = (GetSectorSize() / 4);
 
-            //Root -- 
+            //Root --
             rootStorage = new CFStorage(this);
 
             rootStorage.DirEntry.SetEntryName("Root Entry");
@@ -277,7 +277,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// </example>
         /// <remarks>
         /// File will be open in read-only mode: it has to be saved
-        /// with a different filename. A wrapping implementation has to be provided 
+        /// with a different filename. A wrapping implementation has to be provided
         /// in order to remove/substitute an existing file. Version will be
         /// automatically recognized from the file. Sector recycle is turned off
         /// to achieve the best reading/writing performance in most common scenarios.
@@ -304,7 +304,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// <example>
         /// <code>
         /// String srcFilename = "data_YOU_CAN_CHANGE.xls";
-        /// 
+        ///
         /// CompoundFile cf = new CompoundFile(srcFilename, UpdateMode.Update, true, true);
         ///
         /// Random r = new Random();
@@ -312,7 +312,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// byte[] buffer = GetBuffer(r.Next(3, 4095), 0x0A);
         ///
         /// cf.RootStorage.AddStream("MyStream").SetData(buffer);
-        /// 
+        ///
         /// //This will persist data to the underlying media.
         /// cf.Commit();
         /// cf.Close();
@@ -340,9 +340,9 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// <param name="eraseFreeSectors">If true, overwrite with zeros unallocated sectors</param>
         /// <example>
         /// <code>
-        /// 
+        ///
         /// String filename = "reportREAD.xls";
-        ///   
+        ///
         /// FileStream fs = new FileStream(filename, FileMode.Open);
         /// CompoundFile cf = new CompoundFile(fs, UpdateMode.ReadOnly, false, false);
         /// CFStream foundStream = cf.RootStorage.GetStream("Workbook");
@@ -377,9 +377,9 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// <param name="stream">Streamed compound file</param>
         /// <example>
         /// <code>
-        /// 
+        ///
         /// String filename = "reportREAD.xls";
-        ///   
+        ///
         /// FileStream fs = new FileStream(filename, FileMode.Open);
         /// CompoundFile cf = new CompoundFile(fs);
         /// CFStream foundStream = cf.RootStorage.GetStream("Workbook");
@@ -413,7 +413,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// </summary>
         /// <remarks>
         /// This method can be used
-        /// only if the supporting stream has been opened in 
+        /// only if the supporting stream has been opened in
         /// <see cref="T:OpenMcdf.UpdateMode">Update mode</see>.
         /// </remarks>
         public void Commit()
@@ -433,8 +433,8 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// </summary>
         /// <param name="releaseMemory">If true, release loaded sectors to limit memory usage but reduces following read operations performance</param>
         /// <remarks>
-        /// This method can be used only if 
-        /// the supporting stream has been opened in 
+        /// This method can be used only if
+        /// the supporting stream has been opened in
         /// <see cref="T:OpenMcdf.UpdateMode">Update mode</see>.
         /// </remarks>
         public void Commit(bool releaseMemory)
@@ -464,7 +464,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
             CommitDirectory();
 
             bool gap = true;
-            
+
 
             for (int i = 0; i < sectors.Count; i++)
             {
@@ -504,7 +504,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
 
 
 #else
-               
+
 
                 Sector s = sectors[i] as Sector;
 
@@ -550,7 +550,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
                     sourceStream.Seek(((long)sSize + (long)sId * (long)sSize), SeekOrigin.Begin);
                     sourceStream.Write(buffer, 0, sCount * sSize);
 
-               
+
 
                     //Console.WriteLine("W - " + (int)(sCount * sSize ));
 
@@ -670,7 +670,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         }
 
         /// <summary>
-        /// Return true if this compound file has been 
+        /// Return true if this compound file has been
         /// loaded from an existing file or stream
         /// </summary>
         public bool HasSourceStream
@@ -1124,7 +1124,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
 
                     // Strictly speaking, the following condition is not correct from
                     // a specification point of view:
-                    // only ENDOFCHAIN should break DIFAT chain but 
+                    // only ENDOFCHAIN should break DIFAT chain but
                     // a lot of existing compound files use FREESECT as DIFAT chain termination
                     if (nextSecID == Sector.FREESECT || nextSecID == Sector.ENDOFCHAIN) break;
 
@@ -1357,13 +1357,13 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         private CFStorage rootStorage;
 
         /// <summary>
-        /// The entry point object that represents the 
+        /// The entry point object that represents the
         /// root of the structures tree to get or set storage or
         /// stream data.
         /// </summary>
         /// <example>
         /// <code>
-        /// 
+        ///
         ///    //Create a compound file
         ///    string FILENAME = "MyFileName.cfs";
         ///    CompoundFile ncf = new CompoundFile();
@@ -1657,7 +1657,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
 
         /// <summary>
         /// Saves the in-memory image of Compound File to a stream.
-        /// </summary>        
+        /// </summary>
         /// <remarks>
         /// Destination Stream must be seekable.
         /// </remarks>
@@ -1704,9 +1704,9 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
                     if (s == null)
                     {
                         // Load source (unmodified) sectors
-                        // Here we have to ignore "Dirty flag" of 
+                        // Here we have to ignore "Dirty flag" of
                         // sectors because we are NOT modifying the source
-                        // in a differential way but ALL sectors need to be 
+                        // in a differential way but ALL sectors need to be
                         // persisted on the destination stream
                         s = new Sector(sSize, sourceStream);
                         s.Id = i;
@@ -2145,7 +2145,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         ///    try
         ///    {
         ///        byte[] temp = st.GetStream("MyStream").GetData();
-        ///        
+        ///
         ///        // The following line will fail because back-end object has been closed
         ///        Assert.Fail("Stream without media");
         ///    }
@@ -2272,7 +2272,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// </summary>
         /// <param name="entryName">Name of entries to retrive</param>
         /// <returns>A list of name-matching entries</returns>
-        /// <remarks>This function is aimed to speed up entity lookup in 
+        /// <remarks>This function is aimed to speed up entity lookup in
         /// flat-structure files (only one or little more known entries)
         /// without the performance penalty related to entities hierarchy constraints.
         /// There is no implied hierarchy in the returned list.
@@ -2303,9 +2303,9 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// </remarks>
         /// <example>
         /// <code>
-        /// 
+        ///
         ///  //This code has been extracted from unit test
-        ///  
+        ///
         ///    String FILENAME = "MultipleStorage3.cfs";
         ///
         ///    FileInfo srcFile = new FileInfo(FILENAME);
@@ -2316,7 +2316,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         ///
         ///    CFStorage st = cf.RootStorage.GetStorage("MyStorage");
         ///    st = st.GetStorage("AnotherStorage");
-        ///    
+        ///
         ///    Assert.IsNotNull(st);
         ///    st.Delete("Another2Stream"); //17Kb
         ///    cf.Commit();
@@ -2371,9 +2371,9 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// </remarks>
         /// <example>
         /// <code>
-        /// 
+        ///
         ///  //This code has been extracted from unit test
-        ///  
+        ///
         ///    String FILENAME = "MultipleStorage3.cfs";
         ///
         ///    FileInfo srcFile = new FileInfo(FILENAME);
@@ -2384,7 +2384,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         ///
         ///    CFStorage st = cf.RootStorage.GetStorage("MyStorage");
         ///    st = st.GetStorage("AnotherStorage");
-        ///    
+        ///
         ///    Assert.IsNotNull(st);
         ///    st.Delete("Another2Stream"); //17Kb
         ///    cf.Commit();

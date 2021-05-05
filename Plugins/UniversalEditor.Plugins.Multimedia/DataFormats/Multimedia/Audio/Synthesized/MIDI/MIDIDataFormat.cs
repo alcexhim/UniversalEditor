@@ -126,7 +126,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI
 							}
 							case MIDIMetaEventType.KeySignature:
 							{
-								byte sf = br.ReadByte(); // -7 = 7 flats, -1 = 1 flat, 0 = none (key of C), 1 = 
+								byte sf = br.ReadByte(); // -7 = 7 flats, -1 = 1 flat, 0 = none (key of C), 1 =
 								bool minorKey = br.ReadBoolean();
 								break;
 							}

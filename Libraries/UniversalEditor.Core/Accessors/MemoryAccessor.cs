@@ -4,7 +4,7 @@
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
@@ -153,7 +153,7 @@ namespace UniversalEditor.Accessors
 		protected override void FlushInternal()
 		{
 			base.FlushInternal();
-			
+
 			ResizeArray(ref _data, _actualLength);
 		}
 

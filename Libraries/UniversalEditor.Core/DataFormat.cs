@@ -33,7 +33,7 @@ namespace UniversalEditor
 		/// <summary>
 		/// Represents a collection of <see cref="DataFormat" /> objects.
 		/// </summary>
-		public class DataFormatCollection 
+		public class DataFormatCollection
 			: System.Collections.ObjectModel.Collection<DataFormat>
 		{
 
@@ -215,7 +215,7 @@ namespace UniversalEditor
 		/// <example>
 		/// BaseObjectModel bom = (objectModels.Pop() as BaseObjectModel); // base object model comes first
 		/// MyVerySpecificObjectModel myOM = (objectModels.Pop() as MyVerySpecificObjectModel);
-		/// 
+		///
 		/// // populate MyVerySpecificObjectModel... and we're done. nothing else needs to be pushed back onto the stack.
 		/// </example>
 		/// <param name="objectModels">The stack of <see cref="ObjectModel"/>s used by this <see cref="DataFormat" />.</param>
@@ -235,9 +235,9 @@ namespace UniversalEditor
 		/// <example>
 		/// MyVerySpecificObjectModel myOM = (objectModels.Pop() as MyVerySpecificObjectModel);
 		/// BaseObjectModel bom = new BaseObjectModel();
-		/// 
+		///
 		/// // populate BaseObjectModel...
-		/// 
+		///
 		/// objectModels.Push(bom); // aaand we're done
 		/// </example>
 		/// <param name="objectModels">The stack of <see cref="ObjectModel"/>s used by this <see cref="DataFormat" />.</param>

@@ -87,7 +87,7 @@ namespace UniversalEditor.Plugins.Office.DataFormats.Presentation.HyperCard.Inte
 			writer.WriteUInt16((ushort)stak.UserLevel);
 
 			writer.WriteUInt16(0);  // unknown3
-			ushort flags = 0; 
+			ushort flags = 0;
 			writer.WriteUInt16(flags); // Bit 10 is cantPeek, 11 is cantAbort, 13 is privateAccess, 14 is cantDelete, 15 is cantModify
 
 			writer.WriteBytes(new byte[18]); // unknown4

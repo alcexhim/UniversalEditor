@@ -77,7 +77,7 @@ namespace UniversalEditor.DataFormats.FileSystem.CFL
 					{
 						Reader reader1 = new Reader(new StreamAccessor(inputStream));
 						uint compressedSize = reader1.ReadUInt32();
-						
+
 						// uh... continue?
 					})
 				});

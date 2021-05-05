@@ -113,7 +113,7 @@
 		<Command ID="FileExit" StockType="Quit">
 			<Shortcut Modifiers="Control" Key="Q" />
 		</Command>
-		
+
 		<!-- Edit -->
 		<Command ID="Edit">
 			<Items>
@@ -167,7 +167,7 @@
 		<Command ID="EditGoTo" StockType="GoTo">
 			<Shortcut Modifiers="Control" Key="G" />
 		</Command>
-		
+
 		<!-- View -->
 		<Command ID="View">
 			<Items>
@@ -235,12 +235,12 @@
 			<Shortcut Key="TopRow9" Modifiers="Control,Alt" />
 		</Command>
 		<Command ID="ViewPerspectiveCustomize" />
-		
+
 		<Command ID="ViewStartPage" />
 		<Command ID="ViewFullScreen">
 			<Shortcut Key="F11" />
 		</Command>
-		
+
 		<!-- Project -->
 		<Command ID="Project">
 			<Items>
@@ -262,7 +262,7 @@
 		<Command ID="ProjectExclude" />
 		<Command ID="ProjectShowAllFiles" />
 		<Command ID="ProjectProperties" />
-		
+
 		<Command ID="Bookmarks">
 			<Items>
 				<CommandReference CommandID="BookmarksAdd" />
@@ -278,7 +278,7 @@
 			<Shortcut Modifiers="Control,Shift" Key="D" />
 		</Command>
 		<Command ID="BookmarksManage" />
-		
+
 		<Command ID="Tools">
 			<Items>
 				<CommandReference CommandID="ToolsSessionManager" />
@@ -298,10 +298,10 @@
 			</Items>
 		</Command>
 		<Command ID="ToolsExternalToolsCustomize" />
-		
+
 		<Command ID="ToolsCustomize" />
 		<Command ID="ToolsOptions" />
-		
+
 		<Command ID="Window">
 			<Items>
 				<CommandReference CommandID="WindowNewWindow" />
@@ -338,7 +338,7 @@
 		<Command ID="WindowCloseAllDocuments" />
 		<Command ID="WindowResetWindowLayout" />
 		<Command ID="WindowWindows" />
-		
+
 		<Command ID="Help" DefaultCommandID="HelpViewHelp" StockType="Help">
 			<Items>
 				<CommandReference CommandID="HelpViewHelp" />

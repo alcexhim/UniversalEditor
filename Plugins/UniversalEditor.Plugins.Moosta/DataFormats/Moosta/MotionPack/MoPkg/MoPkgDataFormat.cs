@@ -69,7 +69,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 
 			string signature = br.ReadFixedLengthString(5);
 			if (signature != "MoPkg") throw new InvalidDataFormatException("File does not begin with \"MoPkg\"");
-			
+
 			float formatVersion = br.ReadSingle();
 			if (formatVersion > FormatVersion) throw new InvalidDataFormatException("Format version " + formatVersion.ToString() + " invalid");
 
@@ -104,7 +104,7 @@ namespace UniversalEditor.DataFormats.Moosta.MotionPack.MoPkg
 			}
 
 			mvarIsRemovable = br.ReadBoolean();
-			
+
 			int thumbnailWidth = br.ReadInt32();
 			int thumbnailHeight = br.ReadInt32();
 			if (thumbnailWidth != 0 && thumbnailHeight != 0)

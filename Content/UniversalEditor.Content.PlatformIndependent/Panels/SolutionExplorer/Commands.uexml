@@ -2,14 +2,14 @@
 <ApplicationFramework>
 	<Commands>
 		<Command ID="SolutionExplorer_ContextMenu_OpenContainingFolder" />
-		
+
 		<Command ID="SolutionExplorer_ContextMenu_Project_BuildProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_RebuildProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_CleanProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_Unload" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_RunProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_DebugProject" />
-		
+
 		<Command ID="SolutionExplorer_ContextMenu_Project_Add_NewFile" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_Add_ExistingFiles" />
 		<Command ID="SolutionExplorer_ContextMenu_Project_Add_NewFolder" />
@@ -21,7 +21,7 @@
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_Add_NewFolder" />
 			</Items>
 		</Command>
-		
+
 		<Command ID="SolutionExplorer_ContextMenu_Project">
 			<Items>
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Project_BuildProject" />
@@ -44,15 +44,15 @@
 				<CommandReference CommandID="FileProperties" />
 			</Items>
 		</Command>
-		
-		
+
+
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Build" />
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Rebuild" />
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Clean" />
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Unload" />
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Run" />
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Debug" />
-		
+
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Add_NewProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Add_ExistingProject" />
 		<Command ID="SolutionExplorer_ContextMenu_Solution_Add_NewFolder" />
@@ -64,7 +64,7 @@
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Add_NewFolder" />
 			</Items>
 		</Command>
-		
+
 		<Command ID="SolutionExplorer_ContextMenu_Solution">
 			<Items>
 				<CommandReference CommandID="SolutionExplorer_ContextMenu_Solution_Build" />
@@ -87,7 +87,7 @@
 				<CommandReference CommandID="FileProperties" />
 			</Items>
 		</Command>
-		
+
 		<Command ID="SolutionExplorer_ContextMenu_File_Open" />
 		<Command ID="SolutionExplorer_ContextMenu_File_Rename" />
 		<Command ID="SolutionExplorer_ContextMenu_File">
@@ -106,7 +106,7 @@
 				<CommandReference CommandID="FileProperties" />
 			</Items>
 		</Command>
-		
+
 		<Command ID="SolutionExplorer_ContextMenu_Folder_Add_NewFile" />
 		<Command ID="SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles" />
 		<Command ID="SolutionExplorer_ContextMenu_Folder_Add_NewFolder" />

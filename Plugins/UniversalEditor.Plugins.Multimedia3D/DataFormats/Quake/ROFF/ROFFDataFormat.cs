@@ -52,7 +52,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.Quake.ROFF
 				//whatever - always the same though
 				int unknown3 = br.ReadInt32(); // -1?
 				int unknown4 = br.ReadInt32(); // 0?
-				
+
 				motion.Frames.Add(frame);
 			}
 		}

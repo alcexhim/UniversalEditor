@@ -79,7 +79,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.ThreeDStudio
 					}
 					case 0x4000: // C_OBJECT
 					{
-						// string name = 
+						// string name =
 						ProcessString(child);
 
 						Entity e = ProcessObjectChunk(child);

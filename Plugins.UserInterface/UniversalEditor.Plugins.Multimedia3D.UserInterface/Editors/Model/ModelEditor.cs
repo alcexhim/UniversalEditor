@@ -119,7 +119,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 		VertexArray[] vaos = null;
 
 		/// <summary>
-		/// Computes the modelview projection 
+		/// Computes the modelview projection
 		/// </summary>
 		/// <param name="matrix">the matrix to update.</param>
 		/// <param name="angleX">Angle X axis (phi).</param>

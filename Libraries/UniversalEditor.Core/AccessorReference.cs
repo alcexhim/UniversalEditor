@@ -51,7 +51,7 @@ namespace UniversalEditor
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
 		public StringCollection Schemas { get; } = new StringCollection();
-        
+
         /// <summary>
         /// Gets the detail fields that are shown in lists of this <see cref="ReferencedBy" /> object in details view.
         /// </summary>

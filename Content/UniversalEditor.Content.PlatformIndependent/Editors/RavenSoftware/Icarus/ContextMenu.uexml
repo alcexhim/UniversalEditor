@@ -4,9 +4,9 @@
 			<Commands>
 				<Command ID="Icarus_ContextMenu_Comment" Title="Comment Selected Items" />
 				<Command ID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" Title="Test E_xpression Editor" />
-				
+
 				<Command ID="Icarus_ContextMenu_Insert_From_File" Title="Insert Commands from File..." />
-				
+
 				<Command ID="Icarus_ContextMenu">
 					<Items>
 						<CommandReference CommandID="EditCut" />
@@ -17,7 +17,7 @@
 						<CommandReference CommandID="Icarus_ContextMenu_Insert_From_File" />
 						<Separator />
 						<CommandReference CommandID="Icarus_ContextMenu_Comment" />
-						
+
 						<CommandReference CommandID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" />
 						<Separator />
 						<CommandReference CommandID="FileProperties" />

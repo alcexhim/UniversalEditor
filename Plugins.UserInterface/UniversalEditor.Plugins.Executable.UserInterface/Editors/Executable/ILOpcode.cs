@@ -90,7 +90,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 		/// bgt.un.s &lt;int8 (target)&gt; Branch to target if greater than (unsigned or unordered), short form.
 		/// </summary>
 		BgtUnS = 0x35,
-		
+
 		/// <summary>
 		/// ble &lt;int32 (target)&gt; Branch to target if less than or equal to.
 		/// </summary>
@@ -411,7 +411,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 		/// </summary>
 		InitObj = 0x15FE,
 		/// <summary>
-		/// isinst &lt;class&gt; - Test if obj is an instance of class, returning null or an instance of that class or interface. 
+		/// isinst &lt;class&gt; - Test if obj is an instance of class, returning null or an instance of that class or interface.
 		/// </summary>
 		IsInst = 0x75,
 		/// <summary>

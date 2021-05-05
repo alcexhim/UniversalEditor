@@ -7,7 +7,7 @@
 						<CommandReference CommandID="DatabaseEditor_ContextMenu_Columns_Add" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="DatabaseEditor_ContextMenu_Columns_Add" Title="_Add Column" />
 			</Commands>
 		</Editor>

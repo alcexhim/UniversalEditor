@@ -56,7 +56,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
 
         private float mvarFPSLimit = 60.0f;
         /// <summary>
-        /// The frame rate limit 
+        /// The frame rate limit
         /// </summary>
         public float FPSLimit { get { return mvarFPSLimit; } set { mvarFPSLimit = value; } }
     }

@@ -173,7 +173,7 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 		PA_RISC_730 = 0x202,
 		PA_RISC_750 = 0x201,
 
-		/* 
+		/*
 		 * 	Acorn subtypes - Acorn Risc Machine port done by
 		 *		Olivetti System Software Laboratory
 		 */

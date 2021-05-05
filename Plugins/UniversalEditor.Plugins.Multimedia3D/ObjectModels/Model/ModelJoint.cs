@@ -27,13 +27,13 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
         private PositionVector3 mvarLimitMoveHigh = new PositionVector3(0, 0, 0);
         public PositionVector3 LimitMoveHigh { get { return mvarLimitMoveHigh; } set { mvarLimitMoveHigh = value; } }
-        
+
         private PositionVector3 mvarLimitAngleLow = new PositionVector3(0, 0, 0);
         public PositionVector3 LimitAngleLow { get { return mvarLimitAngleLow; } set { mvarLimitAngleLow = value; } }
 
         private PositionVector3 mvarLimitAngleHigh = new PositionVector3(0, 0, 0);
         public PositionVector3 LimitAngleHigh { get { return mvarLimitAngleHigh; } set { mvarLimitAngleHigh = value; } }
-        
+
         private PositionVector3 mvarSPConstMove = new PositionVector3(0, 0, 0);
         public PositionVector3 SPConstMove { get { return mvarSPConstMove; } set { mvarSPConstMove = value; } }
 

@@ -101,7 +101,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
                     vtx.Weight = (float)weight;
 
                     // Edge Flag (Determines if this vertex should be used to draw the edge line
-                    // around the model) 
+                    // around the model)
                     vtx.EdgeFlag = br.ReadBoolean();
 
                     surf.Vertices.Add(vtx);
@@ -333,7 +333,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
                         float maxPosZ = br.ReadSingle();
 
                         ModelSkinVertex svtx = new ModelSkinVertex();
-						
+
 						svtx.MaximumPosition = new PositionVector3(maxPosX, maxPosY, maxPosZ);
 						svtx.TargetVertex = targetVertex;
 
@@ -378,7 +378,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
                 {
                     // Index in the bone list representing which bone to display
                     nBoneID[j] = br.ReadUInt16();
-                    // Index in the list of bone groups representing which group to place this bone in 
+                    // Index in the list of bone groups representing which group to place this bone in
                     nNodeID[j] = br.ReadByte();
                 }
                 for (ushort j = 0; j < nBoneGroupCount; j++)
@@ -619,7 +619,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
 				for (int i = 0; i < surf.Vertices.Count; i++)
 				{
 					ModelVertex vtx = surf.Vertices[i];
-					
+
 					PositionVector3 vec = vtx.Position;
 					bw.Write((float)vec.X);
                     bw.Write((float)vec.Y);
@@ -651,7 +651,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
 					ushort vertex1Index = (ushort)(surf.Vertices.IndexOf(face.Vertex1));
 					ushort vertex2Index = (ushort)(surf.Vertices.IndexOf(face.Vertex2));
 					ushort vertex3Index = (ushort)(surf.Vertices.IndexOf(face.Vertex3));
-					
+
 					bw.Write(vertex1Index);
 					bw.Write(vertex2Index);
 					bw.Write(vertex3Index);
@@ -666,12 +666,12 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
 					bw.Write((float)color.B / 255f);
 					bw.Write((float)color.A / 255f);
 					bw.Write(material.Shininess);
-					
+
                     color = material.SpecularColor;
 					bw.Write((float)color.R / 255f);
 					bw.Write((float)color.G / 255f);
 					bw.Write((float)color.B / 255f);
-					
+
                     color = material.AmbientColor;
 					bw.Write((float)color.R / 255f);
 					bw.Write((float)color.G / 255f);
@@ -774,7 +774,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
 				if (model.StringTable.ContainsKey(1033))
 				{
 					bw.Write(true);
-					
+
                     ModelStringTableExtension englishInformation = model.StringTable[1033];
 					bw.WriteNullTerminatedString(englishInformation.Title, 20);
 					bw.WriteNullTerminatedString(englishInformation.Comments, 256);

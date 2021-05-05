@@ -427,7 +427,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.RIFFExtensibleModel
         protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
         {
             base.AfterLoadInternal(objectModels);
-            
+
             RIFFObjectModel riff = (objectModels.Pop() as RIFFObjectModel);
             ModelObjectModel model = (objectModels.Pop() as ModelObjectModel);
 

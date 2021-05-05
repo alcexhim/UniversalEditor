@@ -55,7 +55,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
-			
+
 			Reader br = base.Accessor.Reader;
 
 			Internal.CFHEADER cfheader = ReadCFHEADER(br);
@@ -102,7 +102,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 			cfheader.fileCount = br.ReadUInt16(); // number of CFFILE entries in this cabinet
 
 			cfheader.flags = (CABFlags)br.ReadUInt16(); // cabinet file option indicators:
-			
+
 			cfheader.setID = br.ReadUInt16(); // must be the same for all cabinets in a set
 			cfheader.iCabinet = br.ReadUInt16(); // number of this cabinet file in a set
 
@@ -150,7 +150,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 			cffolder.compressionMethod = (CABCompressionMethod)br.ReadUInt16(); // compression type indicator
 			if ((cfheader.flags & CABFlags.HasReservedArea) == CABFlags.HasReservedArea)
 			{
-				cffolder.reservedArea = br.ReadBytes(mvarFolderReservedAreaSize);   // (optional) per-folder reserved area           
+				cffolder.reservedArea = br.ReadBytes(mvarFolderReservedAreaSize);   // (optional) per-folder reserved area
 			}
 			return cffolder;
 		}
@@ -271,7 +271,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 
 			bw.WriteUInt32(cfheader.reserved1); // reserved
 			bw.WriteUInt32(cfheader.cabinetFileSize); // size of this cabinet file in bytes
-			
+
 			bw.WriteUInt32(cfheader.reserved2); // reserved
 			bw.WriteUInt32(cfheader.firstFileOffset); // offset of the first CFFILE entry
 			bw.WriteUInt32(cfheader.reserved3); // reserved
@@ -338,7 +338,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 
 			List<Internal.CFFILE> cffiles = new List<Internal.CFFILE>();
 			List<Internal.CFFOLDER> cffolders = new List<Internal.CFFOLDER>();
-			
+
 			Internal.CFHEADER cfheader = new Internal.CFHEADER();
 			cfheader.signature = "MSCF";
 

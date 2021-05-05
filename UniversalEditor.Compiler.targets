@@ -51,7 +51,7 @@ MSBuild portions Copyright (C) Microsoft Corporation. All rights reserved.
 			@(_DebugSymbolsIntermediatePath);
 			$(NonExistentFile);
 			@(CustomAdditionalCompileOutputs)"
-		
+
 		Returns="@(CscCommandLineArgs)"
 		DependsOnTargets="$(CoreCompileDependsOn)"
 	>

@@ -708,7 +708,7 @@ namespace UniversalEditor.UserInterface
 				cmdViewToolbarsToolbar.ID = "ViewToolbars" + i.ToString();
 				cmdViewToolbarsToolbar.Title = ((UIApplication)Application.Instance).CommandBars[i].Title;
 				cmdViewToolbarsToolbar.Executed += cmdViewToolbarsToolbar_Executed;
-				Application.Instance.Commands.Add(cmdViewToolbarsToolbar); 
+				Application.Instance.Commands.Add(cmdViewToolbarsToolbar);
 				Application.Instance.Commands["ViewToolbars"].Items.Insert(0, new CommandReferenceCommandItem(cmdViewToolbarsToolbar.ID));
 			}
 			#endregion
@@ -762,7 +762,7 @@ namespace UniversalEditor.UserInterface
 		void cmdViewToolbarsToolbar_Executed(object sender, EventArgs e)
 		{
 			Command cmd = (sender as Command);
-			
+
 		}
 
 		private void ShowBookmarksManagerDialog()
@@ -936,8 +936,8 @@ namespace UniversalEditor.UserInterface
 
 		protected virtual void InitializeBranding()
 		{
-			// FIXME: Possible race condition bug, if there is a MessageDialog popped while another thread is fucking around, 
-			// it 
+			// FIXME: Possible race condition bug, if there is a MessageDialog popped while another thread is fucking around,
+			// it
 			NotificationPopup nip = new NotificationPopup();
 			nip.Actions.Add(new ActionCommandItem("id1", "Ignore", delegate(object sender, EventArgs e)
 			{
@@ -1085,7 +1085,7 @@ namespace UniversalEditor.UserInterface
 		protected virtual void InitializeInternal()
 		{
 		}
-		
+
 		private bool mvarRunning = false;
 		public bool Running { get { return mvarRunning; } }
 

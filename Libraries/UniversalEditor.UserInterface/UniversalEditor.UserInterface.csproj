@@ -205,7 +205,7 @@
     <EmbeddedResource Include="Editors\Database\Dialogs\ColumnPropertiesDialog.glade" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
@@ -218,7 +218,7 @@
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.GTK.pdb" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' != 'Windows_NT' " />
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.GTK.xml" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' != 'Windows_NT' " />
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.GTK.dll.config" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' != 'Windows_NT' " />
-	  
+
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.WindowsForms.dll" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' == 'Windows_NT' " />
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.WindowsForms.pdb" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' == 'Windows_NT' " />
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.WindowsForms.xml" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' == 'Windows_NT' " />

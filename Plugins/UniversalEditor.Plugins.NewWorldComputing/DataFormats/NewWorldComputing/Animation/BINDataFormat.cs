@@ -99,7 +99,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Animation
 				short projectileOffsetY = reader.ReadInt16();
 			}
 
-			// describes how to rotate the projectile when 
+			// describes how to rotate the projectile when
 			byte projectileAngleCount = reader.ReadByte();
 			for (byte i = 0; i < PROJECTILE_ANGLE_MAX; i++)
 			{

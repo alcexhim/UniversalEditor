@@ -3,14 +3,14 @@ BUGS:
      MagicByteOffset never ACTUALLY GETS SET ANYWHERE
 
  2019-10-13
- 
+
  TODO: Figure out why
 	after showing a dialog, then closing it
 	dialogs stop responding with GTK_IS_WINDOW assertion failed
 
 
  2019-09-10
- 
+
 1. When opening a file over MTP via command line
 
 	System.IO.DirectoryNotFoundException: Could not find a part of the path "/home/beckermj/Documents/Projects/UniversalEditor/CSharp/Output/Debug/mtp:/KYOCERA_KYOCERA_Android_524700024001/Internal%20shared%20storage/Android/data/com.android.providers.media/albumthumbs/1556075497435".
@@ -19,11 +19,11 @@ BUGS:
 
 
 2. When opening an existing file via command line,
-	
+
 	System.NullReferenceException: Object reference not set to an instance of an object
   at UniversalWidgetToolkit.Engines.GTK.Controls.DockingContainerImplementation.GetCurrentItem () [0x00007] in <a7977898437a4b3195fc97fa96d57331>:0
-  
- 
+
+
 The following had to be removed from UE v4.0c to compile with IL2CPU...
 
 
@@ -52,23 +52,23 @@ The following had to be removed from UE v4.0c to compile with IL2CPU...
 			}
 			return ts.ToArray ();
 		}
-		
+
 		// TODO: ReadStruct needs to be fixed. It has a lot of problems.
-		
+
 		public T ReadStruct<T> () where T : struct
 		{
 			Type objectType = typeof(T);
 			object value = objectType.Assembly.CreateInstance (objectType.FullName);
-			
+
 			System.Reflection.FieldInfo[] fis = (objectType.GetFields (System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
 			foreach (System.Reflection.FieldInfo fi in fis)
 			{
 				Type fieldType = fi.FieldType;
 				object fieldValue = ReadObject (fieldType);
-				
+
 				fi.SetValue (value, fieldValue);
 			}
-			
+
 			return (T)value;
 		}
 		public T ReadObject<T> () where T : class
@@ -81,10 +81,10 @@ The following had to be removed from UE v4.0c to compile with IL2CPU...
 			{
 				Type fieldType = fi.FieldType;
 				object fieldValue = ReadObject(fieldType);
-				
+
 				fi.SetValue (value, fieldValue);
 			}
-			
+
 			return value;
 		}
 		public object ReadObject(Type objectType)
@@ -107,7 +107,7 @@ The following had to be removed from UE v4.0c to compile with IL2CPU...
 			}
 			else if (objectType == typeof(Char[]))
 			{
-			
+
 			}
 			else if (objectType == typeof(Single))
 			{
@@ -145,17 +145,17 @@ The following had to be removed from UE v4.0c to compile with IL2CPU...
 			{
 				return ReadDateTime();
 			}
-			
+
 			object value = objectType.Assembly.CreateInstance (objectType.FullName);
-			
+
 			System.Reflection.FieldInfo[] fis = (objectType.GetFields (System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
 			foreach (System.Reflection.FieldInfo fi in fis)
 			{
 				Type fieldType = fi.FieldType;
 				object fieldValue = ReadObject (fieldType);
-				
+
 				fi.SetValue (value, fieldValue);
 			}
-			
+
 			return value;
 		}

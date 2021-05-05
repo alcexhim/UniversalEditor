@@ -54,7 +54,7 @@ namespace UniversalEditor.DataFormats.Executable.Atari
 			}
 			return _dfr;
 		}
-		
+
 		public bool IsGEMGuiEnabled
 		{
 			get
@@ -63,19 +63,19 @@ namespace UniversalEditor.DataFormats.Executable.Atari
 				return (ext != ".tos") && (ext != ".ttp");
 			}
 		}
-		
+
 		private byte[] mvarTextSegment = new byte[] { };
 		public byte[] TextSegment { get { return mvarTextSegment; } set { mvarTextSegment = value; } }
-		
+
 		private byte[] mvarDataSegment = new byte[] { };
 		public byte[] DataSegment { get { return mvarDataSegment; } set { mvarDataSegment = value; } }
-		
+
 		private byte[] mvarBssSegment = new byte[] { };
 		public byte[] BssSegment { get { return mvarBssSegment; } set { mvarBssSegment = value; } }
-		
+
 		private byte[] mvarSymbolTableSegment = new byte[] { };
 		public byte[] SymbolTableSegment { get { return mvarSymbolTableSegment; } set { mvarSymbolTableSegment = value; } }
-		
+
 		private bool mvarNeedsRelocation = false;
 		public bool NeedsRelocation { get { return mvarNeedsRelocation; } set { mvarNeedsRelocation = value; } }
 

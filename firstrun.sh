@@ -33,7 +33,7 @@ then
 		echo "user skipped installing updated mono-complete; cannot continue"
 		exit
 	fi
-	
+
 	MONO_REPO="ubuntu"
 	MONO_FLAVOR="stable-focal"
 	MONO_SUBFLAVOR="main"
@@ -98,4 +98,3 @@ msbuild
 echo "Build finished! Now type ./universal-editor to"
 echo "run the program, or type ./install.sh to install to your local"
 echo "machine."
-

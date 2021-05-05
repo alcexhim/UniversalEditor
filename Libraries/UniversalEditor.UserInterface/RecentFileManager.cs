@@ -95,7 +95,7 @@ namespace UniversalEditor.UserInterface
 				}
 				tagRecentItems.Elements.Add(tagDocuments);
 			}
-			
+
 			string dir = System.IO.Path.GetDirectoryName (mvarDataFileName);
 			if (!System.IO.Directory.Exists (dir))
 			{

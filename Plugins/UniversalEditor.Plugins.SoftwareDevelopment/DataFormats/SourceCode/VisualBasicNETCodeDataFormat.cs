@@ -700,7 +700,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 					string[] objectName = param.Split(new string[] { mvarNamespaceSeparator });
 					string[] objectNames = new string[objectName.Length - 1];
 					Array.Copy(objectName, 0, objectNames, 0, objectNames.Length);
-					
+
 					string name = objectName[objectName.Length - 1];
 
 					dataType = CodeDataType.Empty;

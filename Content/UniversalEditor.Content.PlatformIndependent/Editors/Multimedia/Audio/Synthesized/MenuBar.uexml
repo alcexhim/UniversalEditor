@@ -8,17 +8,17 @@
 						<Separator InsertBefore="ViewPanels" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="JobNormalizeNotes" Title="_Normalize Overlapping Notes..." />
 				<Command ID="JobInsertBars" Title="_Insert Measures..." />
 				<Command ID="JobDeleteBars" Title="_Delete Measures..." />
-				
+
 				<Command ID="JobRandomize" Title="Insert _Random Notes..." />
 				<Command ID="JobConnect" Title="_Connect Notes..." />
-				
+
 				<Command ID="JobInsertLyrics" Title="Insert _Lyrics..." />
 				<Command ID="JobImportTempo" Title="Import External DAW _Tempo..." />
-				
+
 				<Command ID="Job" Title="_Job">
 					<Items>
 						<CommandReference CommandID="JobNormalizeNotes" />
@@ -33,18 +33,18 @@
 						<CommandReference CommandID="JobImportTempo" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="TrackEnable" Title="Enable Trac_k" />
-				
+
 				<Command ID="TrackAdd" Title="_Add Track" />
 				<Command ID="TrackDuplicate" Title="Dupli_cate Track" />
 				<Command ID="TrackRename" Title="_Rename Track" />
 				<Command ID="TrackDelete" Title="_Delete Track" />
-				
+
 				<Command ID="TrackRenderCurrent" Title="Render Current _Track" />
 				<Command ID="TrackRenderAll" Title="Render All Track_s" />
 				<Command ID="TrackOverlay" Title="_Overlay" />
-				
+
 				<Command ID="Track" Title="Trac_k">
 					<Items>
 						<CommandReference CommandID="TrackEnable" />
@@ -60,9 +60,9 @@
 						<CommandReference CommandID="TrackOverlay" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="Part" Title="Pa_rt" />
-				
+
 				<Command ID="LyricsNoteProperty" Title="Not_e Property..." />
 				<Command ID="LyricsPhonemeTransformation" Title="Phoneme _Transformation..." />
 				<Command ID="LyricsUserWordDictionary" Title="User Word Di_ctionary..." />
@@ -73,14 +73,14 @@
 						<CommandReference CommandID="LyricsUserWordDictionary" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="Transport" Title="Tra_nsport" />
-				
+
 				<!-- Context Menu -->
 				<Command ID="PianoRollEditor_ContextMenu_Arrow" Title="_Arrow" />
 				<Command ID="PianoRollEditor_ContextMenu_Draw" Title="Dra_w" />
 				<Command ID="PianoRollEditor_ContextMenu_Erase" Title="_Erase" />
-				
+
 				<!-- Note Fixed Length : disables drawing note length, forcing to specified length -->
 				<Command ID="PianoRollEditor_ContextMenu_NoteFixedLength_1" Title="1/1 [1920]" />
 				<Command ID="PianoRollEditor_ContextMenu_NoteFixedLength_2" Title="1/2 [968]" />
@@ -107,7 +107,7 @@
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteFixedLength_Dot" />
 					</Items>
 				</Command>
-				
+
 				<!-- Quantize : controls the quantize of position when drawing a new note -->
 				<Command ID="PianoRollEditor_ContextMenu_Quantize_4" Title="1/4 [480]" />
 				<Command ID="PianoRollEditor_ContextMenu_Quantize_8" Title="1/8 [240]" />
@@ -128,7 +128,7 @@
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Quantize_Triplet" />
 					</Items>
 				</Command>
-				
+
 				<!-- NoteLength : controls the quantize of length when drawing a new note -->
 				<Command ID="PianoRollEditor_ContextMenu_NoteLength_4" Title="1/4 [480]" />
 				<Command ID="PianoRollEditor_ContextMenu_NoteLength_8" Title="1/8 [240]" />
@@ -151,12 +151,12 @@
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_NoteLength_Triplet" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="PianoRollEditor_ContextMenu_ShowGridLines" Title="_Show Grid Lines" />
 				<Command ID="PianoRollEditor_ContextMenu_SelectAllEvents" Title="Select All _Events" />
 				<Command ID="PianoRollEditor_ContextMenu_InsertLyrics" Title="Insert _Lyrics..." />
 				<Command ID="PianoRollEditor_ContextMenu_Properties" Title="P_roperties..." />
-				
+
 				<Command ID="PianoRollEditor_ContextMenu_Scale_None" Title="_None" />
 				<Command ID="PianoRollEditor_ContextMenu_Scale_Major" Title="Major" />
 				<Command ID="PianoRollEditor_ContextMenu_Scale_MinorHarmonic" Title="Harmonic minor" />
@@ -178,7 +178,7 @@
 				<Command ID="PianoRollEditor_ContextMenu_Scale_Minor" Title="Minor" />
 				<Command ID="PianoRollEditor_ContextMenu_Scale_Chromatic" Title="Chromatic" />
 				<Command ID="PianoRollEditor_ContextMenu_Scale_HalfWholeDiminished" Title="Half-whole diminished" />
-				
+
 				<Command ID="PianoRollEditor_ContextMenu_Scale" Title="_Scale">
 					<Items>
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_None" />
@@ -205,9 +205,9 @@
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Scale_HalfWholeDiminished" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="PianoRollEditor_ContextMenu_Chord" Title="C_hord" />
-				
+
 				<Command ID="PianoRollEditor_ContextMenu">
 					<Items>
 						<CommandReference CommandID="PianoRollEditor_ContextMenu_Arrow" />

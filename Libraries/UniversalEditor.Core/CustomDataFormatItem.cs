@@ -46,7 +46,7 @@ namespace UniversalEditor
 			: System.Collections.ObjectModel.ReadOnlyCollection<CustomDataFormatItem>
 		{
 			public CustomDataFormatItemReadOnlyCollection(IList<CustomDataFormatItem> list) : base(list) { }
-			
+
 			public CustomDataFormatItem this[string name]
 			{
 				get

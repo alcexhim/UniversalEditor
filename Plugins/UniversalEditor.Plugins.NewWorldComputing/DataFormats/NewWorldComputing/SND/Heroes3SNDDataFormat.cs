@@ -54,7 +54,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.SND
             {
                 FileName = (Accessor as FileAccessor).FileName;
             }
-            
+
             IO.BinaryReader br = new IO.BinaryReader(System.IO.File.Open(FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read));
             File send = (sender as File);
             br.BaseStream.Position = offsets[send];

@@ -36,7 +36,7 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
         public override string Name { get { return "wait"; } }
 
         public IcarusExpression Duration { get { return Parameters["Duration"].Value; } set { Parameters["Duration"].Value = value; } }
-        
+
         public override object Clone()
         {
             IcarusCommandWait clone = new IcarusCommandWait();

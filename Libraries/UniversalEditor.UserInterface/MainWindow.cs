@@ -100,7 +100,7 @@ namespace UniversalEditor.UserInterface
 			*/
 			return tab;
 		}
-		
+
 		protected override void OnLostFocus(EventArgs e)
 		{
 			base.OnLostFocus(e);
@@ -634,10 +634,10 @@ namespace UniversalEditor.UserInterface
 			if (doc.DataFormat == null)
 			{
 				Console.WriteLine("InitEditorPage: DataFormat unspecified for Document");
-				
+
 				DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats(doc.Accessor);
 				Console.WriteLine("found {0} DataFormats for Accessor {1}", dfrs.Length.ToString(), doc.Accessor.ToString());
-				
+
 				if (dfrs.Length > 0)
 				{
 					bool found = false;
@@ -1714,4 +1714,3 @@ namespace UniversalEditor.UserInterface
 		}
 	}
 }
-	

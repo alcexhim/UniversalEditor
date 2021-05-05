@@ -43,15 +43,15 @@ namespace UniversalEditor.Compression.Modules.Explode
 		/* blast.c
 		* Copyright (C) 2003 Mark Adler
 		* version 1.1, 16 Feb 2003
-		* 
+		*
 		* This software is provided 'as-is', without any express or implied
 		* warranty.  In no event will the author be held liable for any damages
 		* arising from the use of this software.
-		* 
+		*
 		* Permission is granted to anyone to use this software for any purpose,
 		* including commercial applications, and to alter it and redistribute it
 		* freely, subject to the following restrictions:
-		* 
+		*
 		* 1. The origin of this software must not be misrepresented; you must not
 		*    claim that you wrote the original software. If you use this software
 		*    in a product, an acknowledgment in the product documentation would be
@@ -59,7 +59,7 @@ namespace UniversalEditor.Compression.Modules.Explode
 		* 2. Altered source versions must be plainly marked as such, and must not be
 		*    misrepresented as being the original software.
 		* 3. This notice may not be removed or altered from any source distribution.
-		* 
+		*
 		* Mark Adler    madler@alumni.caltech.edu
 		*
 		* blast.c decompresses data compressed by the PKWare Compression Library.
@@ -315,7 +315,7 @@ namespace UniversalEditor.Compression.Modules.Explode
 								lensym = new short[16];					// lencode memory
 		private static short[]	distcnt = new short[MAXBITS + 1],
 								distsym = new short[64];				// distcode memory
-		
+
 		/// <summary>
 		/// Literal code
 		/// </summary>
@@ -341,7 +341,7 @@ namespace UniversalEditor.Compression.Modules.Explode
 			count = new Ptr<short>(distcnt),
 			symbol = new Ptr<short>(distsym)
 		};
-		
+
 		// bit lengths of literal codes
 		private static readonly byte[] litlen = new byte[]
 		{
@@ -368,7 +368,7 @@ namespace UniversalEditor.Compression.Modules.Explode
 		/// Extra bits for length codes
 		/// </summary>
 		private static readonly byte[] extra = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		
+
 		/*
 		 * Format notes:
 		 *
@@ -422,7 +422,7 @@ namespace UniversalEditor.Compression.Modules.Explode
 			int dist;           /* distance for copy */
 			int copy;           /* copy counter */
 			Ptr<byte> from, to;   /* copy pointers */
-			
+
 			// set up decoding tables (once--might not be thread-safe)
 			lock (virginity)
 			{
@@ -509,7 +509,7 @@ namespace UniversalEditor.Compression.Modules.Explode
 		void blast(System.IO.Stream inputStream, System.IO.Stream outputStream, Ptr<byte> outdata, int outsz)
 		{
 			ExplodeState s = new ExplodeState(); // input/output state
-			
+
 			// initialize input state
 			s.inputStream = inputStream;
 			s.left = 0;

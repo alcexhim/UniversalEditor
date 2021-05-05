@@ -159,7 +159,7 @@ namespace UniversalEditor.UserInterface.Controls
 				columns.Add(new TreeModelRowColumn(tm.Columns[i], str));
 			}
 
-			TreeModelRow lvi = new TreeModelRow(columns.ToArray()); 
+			TreeModelRow lvi = new TreeModelRow(columns.ToArray());
 			lvi.SetExtraData<TRef>("TRef", itmr);
 			tm.Rows.Add(lvi);
 		}
@@ -199,4 +199,3 @@ namespace UniversalEditor.UserInterface.Controls
 		}
 	}
 }
-

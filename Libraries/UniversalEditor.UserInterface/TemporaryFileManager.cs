@@ -21,7 +21,7 @@ namespace UniversalEditor.UserInterface
 			{
 				FileName = FileName.Replace(invalidCharacter, "_");
 			}
-			
+
 			// Check twice because we might have encountered a filename consisting solely of invalid chars (weird, but possible)
 			if (String.IsNullOrEmpty(FileName)) return "_";
 			return FileName;

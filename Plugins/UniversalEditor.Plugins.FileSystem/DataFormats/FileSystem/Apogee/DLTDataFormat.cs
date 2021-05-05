@@ -3,7 +3,7 @@
 //
 //  Author:
 //       Mike Becker <alcexhim@gmail.com> - Universal Editor port
-//  
+//
 //	Adapted from source published by:
 //       Adam Nielsen <malvineous@shikadi.net>, The_coder, Wormbo (xentax forum)
 //       http://www.shikadi.net/moddingwiki/DLT_Format

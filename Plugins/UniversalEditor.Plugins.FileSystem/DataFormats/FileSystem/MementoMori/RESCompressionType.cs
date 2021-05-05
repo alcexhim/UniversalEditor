@@ -26,7 +26,7 @@ namespace UniversalEditor.DataFormats.FileSystem.MementoMori
 	/// </summary>
 	/// <remarks>
 	/// The compression type field is known to have the values 0 (uncompressed data) or 2 (ZLib
-	/// compression), in which case the data size field specifies the compressed size of the file. 
+	/// compression), in which case the data size field specifies the compressed size of the file.
 	/// </remarks>
 	public enum RESCompressionType : uint
 	{

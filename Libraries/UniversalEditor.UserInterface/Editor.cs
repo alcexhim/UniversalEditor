@@ -68,7 +68,7 @@ namespace UniversalEditor.UserInterface
 			Application.Instance.Commands["EditCut"].Enabled = (Selections.Count > 0);
 			Application.Instance.Commands["EditCopy"].Enabled = (Selections.Count > 0);
 			Application.Instance.Commands["EditDelete"].Enabled = (Selections.Count > 0);
-			
+
 			switch (e.Action)
 			{
 				case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
@@ -786,7 +786,7 @@ namespace UniversalEditor.UserInterface
 		public bool Changed { get; private set; } = false;
 
 		/// <summary>
-		/// Gets the value of the non-indexed public property named <see cref="Name" /> on this <see cref="ObjectModel" />. 
+		/// Gets the value of the non-indexed public property named <see cref="Name" /> on this <see cref="ObjectModel" />.
 		/// </summary>
 		/// <param name="name">The name of the public property whose value should be retrieved.</param>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
@@ -821,7 +821,7 @@ namespace UniversalEditor.UserInterface
 
 			if (childObject == null) // ???
 				return;
-			
+
 			Type t = childObject.GetType ();
 			System.Reflection.PropertyInfo pi = t.GetProperty (name);
 

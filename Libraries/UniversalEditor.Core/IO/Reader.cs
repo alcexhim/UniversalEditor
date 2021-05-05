@@ -1369,7 +1369,7 @@ namespace UniversalEditor.IO
 							dict.Add(key, value);
 						}
 
-						// Read the final 'e' 
+						// Read the final 'e'
 						w = ReadChar();
 
 						return dict;
@@ -1452,7 +1452,7 @@ namespace UniversalEditor.IO
 		}
 
 		/// <summary>
-		/// Reads a <see cref="Version" /> from the 
+		/// Reads a <see cref="Version" /> from the
 		/// </summary>
 		/// <returns></returns>
 		public Version ReadVersion()
@@ -1832,4 +1832,3 @@ namespace UniversalEditor.IO
 		}
 	}
 }
-

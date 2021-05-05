@@ -14,7 +14,7 @@
 					</Items>
 				</Command>
 				<Command ID="RIFFEditorContextMenu_Export" Title="E_xport..." />
-				
+
 				<Command ID="RIFFEditorContextMenu">
 					<Items>
 						<CommandReference CommandID="RIFFEditorContextMenu_Add" />

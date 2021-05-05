@@ -11,7 +11,7 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.GEDCOM
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			GEDCOMChunkedObjectModel chunked = (objectModel as GEDCOMChunkedObjectModel);
-			
+
 			Reader r = base.Accessor.Reader;
 			int lineIndex = 0; // for debugging porpoises
 

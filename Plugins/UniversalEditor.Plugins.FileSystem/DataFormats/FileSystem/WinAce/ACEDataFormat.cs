@@ -33,7 +33,7 @@ The public version of UNACE is limited in its functionality:
         * no decryption
         * no wildcard-handling
 
-Here's hoping the community can fix these bugs!	
+Here's hoping the community can fix these bugs!
 
 */
 
@@ -228,7 +228,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
         {
             short[] hash = new short[comm_cpr_hf(255 + 255) + 1];
             int dpos = 0, c, pos, len, hs;
-    
+
             if (comm_cpr_size != 0)
             {
                 dcpr_comm_init();

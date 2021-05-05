@@ -31,8 +31,8 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 		{
 			return new ModelMorphVertex
 			{
-				Name = base.Name, 
-				Offset = this.mvarOffset, 
+				Name = base.Name,
+				Offset = this.mvarOffset,
 				TopIndex = this.mvarTopIndex
 			};
 		}

@@ -43,9 +43,9 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft.NewExecutable
 		/// </remarks>
 		SingleSharedDGROUP = 0x01,
 		/// <summary>
-		/// DGROUP type: multiple (unshared). An executable file with 
+		/// DGROUP type: multiple (unshared). An executable file with
 		/// this format contains multiple data segments. This
-		/// bit is set if the file is a Windows application. 
+		/// bit is set if the file is a Windows application.
 		/// </summary>
 		/// <remarks>
 		/// If neither <see cref="SingleSharedDGROUP" /> nor

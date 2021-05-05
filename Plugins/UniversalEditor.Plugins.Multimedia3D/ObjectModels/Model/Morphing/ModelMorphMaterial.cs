@@ -128,16 +128,16 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 		{
 			return new ModelMorphMaterial
 			{
-				AmbientColor = this.mvarAmbientColor, 
-				DiffuseColor = this.mvarDiffuseColor, 
-				EdgeColor = this.mvarEdgeColor, 
-				EdgeSize = this.mvarEdgeSize, 
-				MaterialIndex = this.mvarMaterialIndex, 
-				Name = base.Name, 
-				SpecularCoefficient = this.mvarSpecularCoefficient, 
-				SpecularColor = this.mvarSpecularColor, 
-				SphereCoefficient = this.mvarSphereCoefficient, 
-				TextureCoefficient = this.mvarTextureCoefficient, 
+				AmbientColor = this.mvarAmbientColor,
+				DiffuseColor = this.mvarDiffuseColor,
+				EdgeColor = this.mvarEdgeColor,
+				EdgeSize = this.mvarEdgeSize,
+				MaterialIndex = this.mvarMaterialIndex,
+				Name = base.Name,
+				SpecularCoefficient = this.mvarSpecularCoefficient,
+				SpecularColor = this.mvarSpecularColor,
+				SphereCoefficient = this.mvarSphereCoefficient,
+				TextureCoefficient = this.mvarTextureCoefficient,
 				ToonTextureCoefficient = this.mvarToonTextureCoefficient
 			};
 		}

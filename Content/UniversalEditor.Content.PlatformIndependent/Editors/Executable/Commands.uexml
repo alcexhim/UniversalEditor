@@ -2,7 +2,7 @@
 	<Editors>
 		<Editor ID="{A97649A7-3A5E-49BE-BC62-117EE92CE4B5}" TypeName="UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable.ExecutableEditor">
 			<Commands>
-				
+
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_Add_NewItem" Title="Ne_w section..." />
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_Add_ExistingItem" Title="E_xisting section..." />
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_Add" Title="A_dd">
@@ -11,17 +11,17 @@
 						<CommandReference CommandID="ExecutableEditor_ContextMenu_Sections_Selected_Add_ExistingItem" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_MoveTo" Title="Move to..." />
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_CopyTo" Title="_Copy to..." />
-				
+
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_Open" Title="_Open" />
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_OpenNewTab" Title="Open in New _Tab" />
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_OpenNewWindow" Title="Open in New _Window" />
-				
+
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected_Rename" Title="Rena_me" />
-				
-				
+
+
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Selected" Title="Section (selected)">
 					<Items>
 						<CommandReference CommandID="ExecutableEditor_ContextMenu_Sections_Selected_Open" />
@@ -40,7 +40,7 @@
 						<CommandReference CommandID="FileProperties" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="ExecutableEditor_ContextMenu_Sections_Unselected" Title="Section (unselected)">
 					<Items>
 						<CommandReference CommandID="ExecutableEditor_ContextMenu_Sections_Selected_Add" />
@@ -50,7 +50,7 @@
 						<CommandReference CommandID="FileProperties" />
 					</Items>
 				</Command>
-				
+
 			</Commands>
 		</Editor>
 	</Editors>

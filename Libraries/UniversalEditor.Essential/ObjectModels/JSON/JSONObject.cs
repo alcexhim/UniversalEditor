@@ -30,10 +30,10 @@ namespace UniversalEditor.ObjectModels.JSON
 	{
 		private string mvarName = "";
 		public string Name { get { return mvarName; } set { mvarName = value; } }
-		
+
 		private JSONField.JSONFieldCollection mvarFields = new JSONField.JSONFieldCollection();
 		public JSONField.JSONFieldCollection Fields { get { return mvarFields; } }
-		
+
 		public class JSONObjectCollection
 			: System.Collections.ObjectModel.Collection<JSONObject>
 		{
@@ -48,7 +48,7 @@ namespace UniversalEditor.ObjectModels.JSON
 				base.Add(o);
 				return o;
 			}
-			
+
 			public JSONObject this[string Name]
 			{
 				get

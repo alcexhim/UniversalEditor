@@ -65,11 +65,11 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 		{
 			return string.Concat(new string[]
 			{
-				"TS = ", 
-				this.mvarNumerator.ToString(), 
-				"/", 
-				this.mvarDenominator.ToString(), 
-				"; ♪ = ", 
+				"TS = ",
+				this.mvarNumerator.ToString(),
+				"/",
+				this.mvarDenominator.ToString(),
+				"; ♪ = ",
 				this.mvarNumberOf32ndNotesPerQuarterNote.ToString()
 			});
 		}
@@ -77,9 +77,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 		{
 			return new SynthesizedAudioCommandTimeSignature
 			{
-				Denominator = this.mvarDenominator, 
-				NumberOf32ndNotesPerQuarterNote = this.mvarNumberOf32ndNotesPerQuarterNote, 
-				Numerator = this.mvarNumerator, 
+				Denominator = this.mvarDenominator,
+				NumberOf32ndNotesPerQuarterNote = this.mvarNumberOf32ndNotesPerQuarterNote,
+				Numerator = this.mvarNumerator,
 				TicksPerMetronomeClick = this.mvarTicksPerMetronomeClick
 			};
 		}

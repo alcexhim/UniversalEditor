@@ -1,5 +1,5 @@
 ﻿//
-//  OLE1PresentationObjectHeader.cs - 
+//  OLE1PresentationObjectHeader.cs -
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>

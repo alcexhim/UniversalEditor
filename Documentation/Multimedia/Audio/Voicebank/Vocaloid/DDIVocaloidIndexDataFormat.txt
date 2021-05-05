@@ -26,7 +26,7 @@ for each group
 {
 	UInt32			group name length
 	FixedString[]	group name
-	
+
 	UInt32			phoneme count
 	for each phoneme
 	{
@@ -34,7 +34,6 @@ for each group
 		UInt32			phoneme name length
 		FixedString[]	phoneme name
 	}
-	
+
 	UInt32			unknown (0)
 }
-

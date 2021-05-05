@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing.CC
 			"adlib.drv", "archer.mon", "award.bin", "back.raw", "ballface.mon", "bank.icn", "bank.m",
 			"bank.out", "bank2.icn", "barbaran.mon", "bat.brd", "bat.mon", "beetle.mon", "beholder.mon",
 			"blaster.drv", "blknight.mon", "bublman.mon", "bugeye.mon", "buy.icn", "candle.mon", "cast.icn",
-			"castle.til", "cataplr.mon", "cave.til", "caves.m", "charpow.icn", "city.m", "cleric.mon", "cobra.mon", 
+			"castle.til", "cataplr.mon", "cave.til", "caves.m", "charpow.icn", "city.m", "cleric.mon", "cobra.mon",
 			"combat.icn", "combat.m", "comet.vga", "comf1.vga", "comf2.vga", "comf3.vga", "comf4.vga", "comf5.vga",
 			"computer.raw", "confirm.icn", "confirm2.icn", "control.raw", "corak.bin", "covox.drv", "cpanel.icn", "cr1.vga",
 			"cr2.vga", "cr3.vga", "cr4.vga", "cr5.vga", "create.icn", "create.raw", "cris.mon", "cyber.m", "cyclop.mon",

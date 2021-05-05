@@ -2,20 +2,20 @@
 	<Editors>
 		<Editor ID="{0EE62532-88BF-4A4A-9DA3-43E79F015DF1}" TypeName="UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.WaveformAudioEditor">
 			<Commands>
-				
+
 				<Command ID="WaveformAudioEditor_ContextMenu_Playback_Play" Title="_Play" />
 				<Command ID="WaveformAudioEditor_ContextMenu_Playback">
 					<Items>
 						<CommandReference CommandID="WaveformAudioEditor_ContextMenu_Playback_Play" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="WaveformAudioEditor_Playback" Title="P_layback">
 					<Items>
 						<CommandReference CommandID="WaveformAudioEditor_ContextMenu_Playback_Play" />
 					</Items>
 				</Command>
-				
+
 			</Commands>
 			<MenuBar>
 				<Items>

@@ -58,7 +58,7 @@ namespace UniversalEditor.DataFormats.FileSystem.PRF
 			if (header != "PRF\0") throw new InvalidDataFormatException("File does not begin with \"PRF\", 0");
 
 			uint unknown1 = br.ReadUInt32(); // 2?
-			uint unknown2 = br.ReadUInt32(); // 64? 
+			uint unknown2 = br.ReadUInt32(); // 64?
 			uint directorySize = br.ReadUInt32();
 			uint directoryOffset = br.ReadUInt32(); // +24
 

@@ -27,7 +27,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
     /// <param name="item">Currently visited <see cref="T:OpenMcdf.CFItem">item</see></param>
     /// <example>
     /// <code>
-    /// 
+    ///
     /// //We assume that xls file should be a valid OLE compound file
     /// const String STORAGE_NAME = "report.xls";
     /// CompoundFile cf = new CompoundFile(STORAGE_NAME);
@@ -124,7 +124,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// <exception cref="T:OpenMcdf.CFException">Raised when adding a stream with null or empty name</exception>
         /// <example>
         /// <code>
-        /// 
+        ///
         ///  String filename = "A_NEW_COMPOUND_FILE_YOU_CAN_WRITE_TO.cfs";
         ///
         ///  CompoundFile cf = new CompoundFile();
@@ -135,7 +135,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         ///  sm.SetData(b);
         ///
         ///  cf.Save(filename);
-        ///  
+        ///
         /// </code>
         /// </example>
         public CFStream AddStream(String streamName)
@@ -228,7 +228,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// <exception cref="T:OpenMcdf.CFItemNotFound">Raised if item to delete is not found</exception>
         /// <example>
         /// <code>
-        /// 
+        ///
         /// String FILENAME = "MultipleStorage2.cfs";
         /// CompoundFile cf = new CompoundFile(FILENAME, UpdateMode.ReadOnly, false, false);
         ///
@@ -266,7 +266,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         /// <exception cref="T:OpenMcdf.CFException">Raised when adding a storage with null or empty name</exception>
         /// <example>
         /// <code>
-        /// 
+        ///
         ///  String filename = "A_NEW_COMPOUND_FILE_YOU_CAN_WRITE_TO.cfs";
         ///
         ///  CompoundFile cf = new CompoundFile();
@@ -277,7 +277,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         ///  sm.SetData(b);
         ///
         ///  cf.Save(filename);
-        ///  
+        ///
         /// </code>
         /// </example>
         public CFStorage AddStorage(String storageName)
@@ -484,7 +484,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
             //    if( ((IDirectoryEntry)target).SID>foundObj.SID )
             //    {
             //        ((IDirectoryEntry)target).SID--;
-            //    }                   
+            //    }
 
 
             //    ((IDirectoryEntry)target).LeftSibling--;

@@ -277,20 +277,20 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 		{
 			return new SynthesizedAudioCommandNote
 			{
-				Envelope = this.mvarEnvelope.Clone() as string[], 
-				Intensity = this.mvarIntensity, 
-				Length = this.mvarLength, 
-				Lyric = this.mvarLyric, 
-				Modulation = this.mvarModulation, 
-				PBType = this.mvarPBType, 
-				Phoneme = this.mvarPhoneme, 
-				Pitches = this.mvarPitches.Clone() as double[], 
-				PortamentoFalling = this.mvarPortamentoFalling, 
-				PortamentoRising = this.mvarPortamentoRising, 
-				PreUtterance = this.mvarPreUtterance, 
-				Protected = this.mvarProtected, 
-				Frequency = this.mvarFrequency, 
-				VBR = this.mvarVBR.Clone() as double[], 
+				Envelope = this.mvarEnvelope.Clone() as string[],
+				Intensity = this.mvarIntensity,
+				Length = this.mvarLength,
+				Lyric = this.mvarLyric,
+				Modulation = this.mvarModulation,
+				PBType = this.mvarPBType,
+				Phoneme = this.mvarPhoneme,
+				Pitches = this.mvarPitches.Clone() as double[],
+				PortamentoFalling = this.mvarPortamentoFalling,
+				PortamentoRising = this.mvarPortamentoRising,
+				PreUtterance = this.mvarPreUtterance,
+				Protected = this.mvarProtected,
+				Frequency = this.mvarFrequency,
+				VBR = this.mvarVBR.Clone() as double[],
 				VoiceOverlap = this.mvarVoiceOverlap
 			};
 		}

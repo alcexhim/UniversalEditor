@@ -21,7 +21,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
         private ModelVertex.ModelVertexCollection mvarVertices = new ModelVertex.ModelVertexCollection();
         public ModelVertex.ModelVertexCollection Vertices { get { return mvarVertices; } }
-        
+
         public object Clone()
         {
             ModelSurface surface = new ModelSurface();

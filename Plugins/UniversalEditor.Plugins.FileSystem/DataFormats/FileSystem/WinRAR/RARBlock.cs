@@ -53,7 +53,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 		/// Size of data area.Optional field, present only if 0x0002 header flag is set.
 		/// </summary>
 		public long DataSize;
-		
+
 		public abstract object Clone();
 	}
 }

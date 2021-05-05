@@ -507,7 +507,7 @@ namespace Mtp
 		// int LIBMTP_Detect_Descriptor (uint16_t *, uint16_t *);
 		/*
                 void     LIBMTP_Dump_Device_Info (LIBMTP_mtpdevice_t *)
-                
+
                 char *     LIBMTP_Get_Syncpartner (LIBMTP_mtpdevice_t *)
                 int     LIBMTP_Set_Syncpartner (LIBMTP_mtpdevice_t *, char const *const)
                 int     LIBMTP_Get_Secure_Time (LIBMTP_mtpdevice_t *, char **const)

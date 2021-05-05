@@ -6,7 +6,7 @@ namespace UniversalEditor.Collections.Generic
 	public class KeyValuePairList<TKey, TValue> : List<KeyValuePair<TKey, TValue>>
 	{
 		private Dictionary<TKey, KeyValuePair<TKey, TValue>> valuesByKey = new Dictionary<TKey, KeyValuePair<TKey, TValue>>();
-		
+
 		public KeyValuePair<TKey, TValue> Add(TKey key, TValue value)
 		{
 			KeyValuePair<TKey, TValue> item = new KeyValuePair<TKey, TValue>(key, value);

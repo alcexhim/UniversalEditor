@@ -71,7 +71,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.WorldMap2D.NewWorldCompu
 			writer.WriteInt32(value.AmountGems);
 			writer.WriteInt32(value.AmountGold);
 
-			short nArtifact = 0; 
+			short nArtifact = 0;
 			writer.WriteInt16(nArtifact);
 			// evt.Artifact = (MapArtifact)nArtifact;
 

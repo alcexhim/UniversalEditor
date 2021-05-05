@@ -91,7 +91,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BAG
 				// "LZAR"	LZARI encoded (LZSS + Huffman)
 				// "WCOD"	Word coded -- text only
 				// If no signature is found it is assumed to be raw data.
-				// 
+				//
 				// The word coding compression is as follows:
 				// * Initalize dictionary (max. size FFFF)
 				// * Loop until end-of-file
@@ -140,7 +140,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BAG
 
 				byte fileNameLength = (byte)file.Name.Length;
 				bw.WriteByte(fileNameLength);
-				
+
 				string fileName = file.Name;
 				if (fileName.Length > fileNameLength) fileName = fileName.Substring(0, fileNameLength);
 				bw.WriteFixedLengthString(fileName);

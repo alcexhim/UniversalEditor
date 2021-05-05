@@ -18,7 +18,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mod
             dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
             return dfr;
         }
-		
+
         private float mvarVersion = 0f;
 		public float Version { get { return mvarVersion; } set { mvarVersion = value; } }
 

@@ -18,12 +18,12 @@
 
 						<!-- Control Panel DLL -->
 						<FileNameFilter>*.cpl</FileNameFilter>
-						
+
 						<!-- ActiveX control -->
 						<FileNameFilter>*.ocx</FileNameFilter>
 						<!-- ActiveX control (Visual Basic) -->
 						<FileNameFilter>*.vbx</FileNameFilter>
-						
+
 						<!-- found on Win95 OSR2 CD-ROM -->
 						<FileNameFilter>*.mpd</FileNameFilter>
 						<FileNameFilter>*.pdr</FileNameFilter>
@@ -32,10 +32,10 @@
 
 						<!-- unimdm.tsp on Win95 OSR2 CD-ROM -->
 						<FileNameFilter>*.tsp</FileNameFilter>
-						
+
 						<!-- found in C:\Config.Msi on Windows 10 -->
 						<FileNameFilter>*.rbf</FileNameFilter>
-						
+
 						<!-- found in BiosCheck on a Dell Inspiron 5000 series -->
 						<FileNameFilter>*.pkms</FileNameFilter>
 					</FileNameFilters>

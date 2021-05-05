@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
 
             short anchorX = reader.ReadInt16();
             short anchorY = reader.ReadInt16();
-            
+
             short width = reader.ReadInt16();
             short height = reader.ReadInt16();
             pict.Width = width;
@@ -70,10 +70,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
             int bitmapSizeLayer2 = reader.ReadInt32(); // Bitmap size for the 2nd layer, unused
             int bitmapSizeLayer3 = reader.ReadInt32(); // Bitmap size for the 3rd layer, unused
             int bitmapSizeLayer4 = reader.ReadInt32(); // Bitmap size for the 4th layer, alpha
-            int bitmapSizeLayer5 = reader.ReadInt32(); // Bitmap size for the 5th layer, RGB 
+            int bitmapSizeLayer5 = reader.ReadInt32(); // Bitmap size for the 5th layer, RGB
 
             // Each layer consists of a bitmap and a scanline lookup table (LUT).
-            
+
             // Pixel color is encoded as a 16bit word, with a 5-6-5 RGB encoding.
             // FIXME: How are fully transparent pixels encoded?
 
@@ -84,7 +84,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
             // pixel runs. The RLE scheme uses two highest bits in the first byte of each run. If bit 7 is set,
             // bits 0-6 contain number of pixels to skip in the resulting image. If bit 7 is clear and bit 6 is
             // set, bits 0-5 contain number of 16bit pixels which follow. If both bits 7 and 6 are cleared, bits
-            // 0-5 contain a number of repetitions of the following 16 bit pixel. 
+            // 0-5 contain a number of repetitions of the following 16 bit pixel.
 
             for (short x = 0; x < width; x++)
             {

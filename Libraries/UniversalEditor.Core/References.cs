@@ -46,7 +46,7 @@ namespace UniversalEditor
         /// </summary>
 		/// <returns>An instance of this <see cref="T:ReferencedBy`1" /> object created from the <see cref="Type" /> described in the associated <see cref="T:References`1" /> object.</returns>
 		TObj Create();
-        
+
         /// <summary>
 		/// Gets the detail fields that are shown in lists of this <see cref="T:ReferencedBy`1" /> object in details view.
         /// </summary>

@@ -29,7 +29,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Acc
                 if (String.IsNullOrEmpty(title) || title.StartsWith("//")) return;
 
                 UniversalEditor.Plugins.Multimedia3D.ObjectModels.Accessory.AccessoryItem acc = new UniversalEditor.Plugins.Multimedia3D.ObjectModels.Accessory.AccessoryItem();
-                
+
                 acc.Title = title;
                 acc.ModelFileName = tr.ReadLine();
 

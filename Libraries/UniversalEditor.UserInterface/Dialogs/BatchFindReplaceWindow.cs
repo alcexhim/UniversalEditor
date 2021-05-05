@@ -114,7 +114,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			if (MessageDialog.ShowDialog("Are you sure you want to remove the selected criteria?", "Remove Criteria", MessageDialogButtons.YesNo, MessageDialogIcon.Question) == DialogResult.No)
 				return;
-				
+
 
 		}
 

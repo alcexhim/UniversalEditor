@@ -51,7 +51,7 @@ namespace UniversalEditor.DataFormats.Web.WebService.Description.WSDL
         protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
         {
             base.AfterLoadInternal(objectModels);
-            
+
             MarkupObjectModel mom = (objectModels.Pop() as MarkupObjectModel);
             WebServiceDescriptionObjectModel wsdl = (objectModels.Pop() as WebServiceDescriptionObjectModel);
             if (wsdl == null) throw new ObjectModelNotSupportedException();

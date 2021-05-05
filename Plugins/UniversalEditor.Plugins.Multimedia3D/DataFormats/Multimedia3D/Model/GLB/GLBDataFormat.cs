@@ -134,7 +134,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 				{
 					// This object type is used in Ultimate Stunts prior to version 0.7.0. It is
 					// still supported, but its use is discouraged. Please use the Geometry object data
-					// 0.7 instead. 
+					// 0.7 instead.
 					break;
 				}
 			}

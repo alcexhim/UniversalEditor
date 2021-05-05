@@ -11,28 +11,28 @@
 				<Command ID="FileNew" Title="新しい(_N)" />
 				<Command ID="FileNewDocument" Title="ドキュメント(_D)" />
 				<Command ID="FileNewProject" Title="プロジェクト／ソリューション(_P)" />
-				
+
 				<Command ID="FileOpen" Title="オープン(_O)" />
 				<Command ID="FileOpenDocument" Title="ドキュメント(_D)" />
 				<Command ID="FileOpenProject" Title="プロジェクト／ソリューション(_P)" />
-				
+
 				<Command ID="FileSave" Title="保存(_S)" />
 				<Command ID="FileSaveDocument" Title="ドキュメント(_D)" />
 				<Command ID="FileSaveDocumentAs" Title="文書としての保存(_A)" />
 				<Command ID="FileSaveProject" Title="プロジェクト／ソリューション(_P)" />
 				<Command ID="FileSaveProjectAs" Title="プロジェクト／ソリューションとしての保存(_J)" />
 				<Command ID="FileSaveAll" Title="すべての保存(_L)" />
-				
+
 				<Command ID="FileClose" Title="クローズ(_C)" />
 				<Command ID="FileCloseDocument" Title="ドキュメント(_D)" />
 				<Command ID="FileCloseProject" Title="プロジェクト／ソリューション(_P)" />
 				<Command ID="FileCloseWindow" Title="ウィンドウ(_W)" />
-				
+
 				<Command ID="FilePrint" Title="印刷(_P)" />
 
 				<Command ID="FileRestart" Title="リスタート(_R)" />
 				<Command ID="FileExit" Title="出口(_X)" />
-				
+
 				<!-- Edit -->
 				<Command ID="Edit" Title="編集(_E)" />
 				<Command ID="EditUndo" Title="取り消す(_U)" />
@@ -45,7 +45,7 @@
 				<Command ID="EditInvertSelection" Title="_Invert Selection" />
 				<Command ID="EditFindReplace" Title="検索と置換(_F)" />
 				<Command ID="EditGoTo" Title="に行く(_G)" />
-				
+
 				<!-- View -->
 				<Command ID="View" Title="_View" />
 				<Command ID="ViewToolbars" Title="_Toolbars" />
@@ -64,10 +64,10 @@
 				<Command ID="ViewPerspective8" Title="_8 Perspective 8" />
 				<Command ID="ViewPerspective9" Title="_9 Perspective 9" />
 				<Command ID="ViewPerspectiveCustomize" Title="C_ustomize..." />
-				
+
 				<Command ID="ViewStartPage" Title="Start Pa_ge" />
 				<Command ID="ViewFullScreen" Title="F_ull Screen" />
-				
+
 				<!-- Project -->
 				<Command ID="Project" Title="_Project" />
 				<Command ID="ProjectAddNew" Title="Add Ne_w Item..." />
@@ -75,13 +75,13 @@
 				<Command ID="ProjectExclude" Title="Exclude from Pro_ject" />
 				<Command ID="ProjectShowAllFiles" Title="Sh_ow All Files" />
 				<Command ID="ProjectProperties" Title="Project _Properties..." />
-				
+
 				<!-- Bookmarks -->
 				<Command ID="Bookmarks" Title="Book_marks" />
 				<Command ID="BookmarksAdd" Title="Add to Boo_kmarks" />
 				<Command ID="BookmarksAddAll" Title="Add _All to Bookmarks" />
 				<Command ID="BookmarksManage" Title="_Manage Bookmarks..." />
-				
+
 				<!-- Tools -->
 				<Command ID="Tools" Title="_Tools" />
 				<Command ID="ToolsSessionManager" Title="_Session Manager..." />
@@ -89,7 +89,7 @@
 				<Command ID="ToolsExternalToolsCustomize" Title="_Customize..." />
 				<Command ID="ToolsCustomize" Title="_Customize..." />
 				<Command ID="ToolsOptions" Title="_Options..." />
-				
+
 				<!-- Window -->
 				<Command ID="Window" Title="_Window" />
 				<Command ID="WindowNewWindow" Title="_New Window" />
@@ -106,7 +106,7 @@
 				<Command ID="WindowCloseAllDocuments" Title="Close A_ll Documents" />
 				<Command ID="WindowResetWindowLayout" Title="_Reset Window Layout" />
 				<Command ID="WindowWindows" Title="_Windows..." />
-				
+
 				<!-- Help -->
 				<Command ID="Help" Title="_Help" />
 				<Command ID="HelpViewHelp" Title="View _Help" />

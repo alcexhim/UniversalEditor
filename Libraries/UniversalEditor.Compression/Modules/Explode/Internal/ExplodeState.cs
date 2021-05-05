@@ -16,7 +16,7 @@ namespace UniversalEditor.Compression.Modules.Explode.Internal
 		/// </summary>
 		public System.IO.Stream inputStream;
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public Ptr<byte> indata;
 		/// <summary>

@@ -69,11 +69,11 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 		private string mvarCreator = String.Empty;
 		public string Creator
 		{
-			get { return mvarCreator; } 
-			set 
+			get { return mvarCreator; }
+			set
 			{
 				if (value.Length > 8) throw new ArgumentOutOfRangeException("Value must be less than or equal to 8 characters in length");
-				mvarCreator = value; 
+				mvarCreator = value;
 			}
 		}
 	}

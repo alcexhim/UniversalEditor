@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 			base.BeforeLoadInternal(objectModels);
 
 			objectModels.Push(new PropertyListObjectModel());
-			
+
 			string magic = base.Accessor.Reader.ReadLine();
 			if (magic != "AMPV2") throw new InvalidDataFormatException();
 		}
@@ -84,7 +84,7 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 				// The title of the song used in this performance.
 				Property prpName = grp.Items.OfType<Property>("name");
 				perf.Title = prpName.Value.ToString();
-				
+
 				// File name of the motion data files associated with characters 1 and 2.
 				Property prpVmd1 = grp.Items.OfType<Property>("vmd1");
 				Property prpVmd2 = grp.Items.OfType<Property>("vmd2");
@@ -148,4 +148,3 @@ namespace UniversalEditor.DataFormats.AniMiku.Concert
 		}
 	}
 }
-

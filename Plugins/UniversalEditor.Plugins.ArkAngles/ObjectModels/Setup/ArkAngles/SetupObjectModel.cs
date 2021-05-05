@@ -71,7 +71,7 @@ namespace UniversalEditor.ObjectModels.Setup.ArkAngles
 
 		private string mvarDocumentationFileName = String.Empty;
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public string DocumentationFileName { get { return mvarDocumentationFileName; } set { mvarDocumentationFileName = value; } }
 

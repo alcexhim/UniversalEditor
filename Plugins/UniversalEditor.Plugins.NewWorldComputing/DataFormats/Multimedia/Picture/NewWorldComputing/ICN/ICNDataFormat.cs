@@ -67,11 +67,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN
 			// index *= 3;
 			return HoMM2Palette.ColorTable[index];
 		}
-		
+
 		private void SpriteDrawICN(ref PictureObjectModel pic, SpriteHeader head, ref byte[] data, bool debug)
 		{
 			if (data == null || data.Length == 0) return;
-		
+
 			byte c = 0;
 			ushort x = 0, y = 0;
 

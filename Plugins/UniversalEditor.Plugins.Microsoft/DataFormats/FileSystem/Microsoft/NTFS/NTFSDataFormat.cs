@@ -82,7 +82,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS
 			byte bytesOrClustersPerIndexBuffer = reader.ReadByte();
 
 			byte[] reserved8 = reader.ReadBytes(3);
-			long volumeSerialNumber = reader.ReadInt64(); // A unique random number assigned to this partition, to keep things organized. 
+			long volumeSerialNumber = reader.ReadInt64(); // A unique random number assigned to this partition, to keep things organized.
 
 			int checksum = reader.ReadInt32(); // checksum
 
@@ -334,7 +334,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS
 
 			writer.WriteInt32(0); // Checksum, unused
 
-			byte[] bootstrapCodeBlock = new byte[426]; // The code that loads the rest of the operating system. This is pointed to by the first 3 bytes of this sector. 
+			byte[] bootstrapCodeBlock = new byte[426]; // The code that loads the rest of the operating system. This is pointed to by the first 3 bytes of this sector.
 			writer.WriteBytes(bootstrapCodeBlock);
 
 			writer.WriteUInt16(0xAA55); // end-of-sector marker

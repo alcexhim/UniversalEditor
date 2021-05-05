@@ -9,7 +9,7 @@ namespace Flame.ObjectModels.ProgrammingLanguage
 			get { return mvarName; }
 			set { mvarName = value; }
 		}
-		
+
 		private Sequence mvarBeginningSequence = new Sequence();
 		public Sequence BeginningSequence
 		{
@@ -20,7 +20,7 @@ namespace Flame.ObjectModels.ProgrammingLanguage
 		{
 			get { return mvarEndingSequence; }
 		}
-		
+
 		public override string ToString ()
 		{
 			if (mvarName != null)
@@ -33,12 +33,12 @@ namespace Flame.ObjectModels.ProgrammingLanguage
 			}
 		}
 
-		
+
 		public class BlockCollection
 			: System.Collections.ObjectModel.Collection<Block>
 		{
 			private System.Collections.Generic.Dictionary<string, Block> blocksByName = new System.Collections.Generic.Dictionary<string, Block>();
-			
+
 			public new void Add (Block item)
 			{
 				blocksByName.Add (item.Name, item);
@@ -48,11 +48,11 @@ namespace Flame.ObjectModels.ProgrammingLanguage
 			{
 				Block block = new Block ();
 				block.Name = Name;
-				
+
 				Add (block);
 				return block;
 			}
-			
+
 			public Block this[string Name]
 			{
 				get
@@ -63,4 +63,3 @@ namespace Flame.ObjectModels.ProgrammingLanguage
 		}
 	}
 }
-

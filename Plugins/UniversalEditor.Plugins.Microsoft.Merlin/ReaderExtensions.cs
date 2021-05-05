@@ -14,7 +14,7 @@ namespace UniversalEditor
 		const UInt32 BigClassTag = 0x80000000;
 		const UInt16 BigObjectTag = 0x7fff;
 		const UInt32 MaxMapCountTag = 0x3ffffffe;
-		
+
 		private static MfcClassRegistry _classRegistry;
 		private static List<MfcClass> _loadedClasses;
 		private static List<MfcObject> _loadedObjects;
@@ -127,7 +127,7 @@ namespace UniversalEditor
 
 			return _loadedClasses[(int)classIndex];
 		}
-		
+
 		public static T ReadMfcObject<T>(this Reader reader) where T : MfcObject
 		{
 			uint objectTag;

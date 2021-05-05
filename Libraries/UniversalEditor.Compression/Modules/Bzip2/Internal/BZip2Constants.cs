@@ -19,7 +19,7 @@
 // making a combined work based on this library.  Thus, the terms and
 // conditions of the GNU General Public License cover the whole
 // combination.
-// 
+//
 // As a special exception, the copyright holders of this library give you
 // permission to link this library with independent modules to produce an
 // executable, regardless of the license terms of these independent
@@ -32,9 +32,9 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
-namespace ICSharpCode.SharpZipLib.BZip2 
+namespace ICSharpCode.SharpZipLib.BZip2
 {
-	
+
 	/// <summary>
 	/// Defines internal values for both compression and decompression
 	/// </summary>
@@ -101,86 +101,86 @@ namespace ICSharpCode.SharpZipLib.BZip2
 		/// <summary>
 		/// When multiplied by compression parameter (1-9) gives the block size for compression
 		/// 9 gives the best compression but uses the most memory.
-		/// </summary>		
+		/// </summary>
 		public const int BaseBlockSize = 100000;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int MaximumAlphaSize = 258;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int MaximumCodeLength = 23;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int RunA = 0;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int RunB = 1;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int GroupCount = 6;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int GroupSize = 50;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int NumberOfIterations = 4;
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int MaximumSelectors = (2 + (900000 / GroupSize));
-		
+
 		/// <summary>
 		/// Backend constant
 		/// </summary>
 		public const int OvershootBytes = 20;
-		
+
 		private BZip2Constants()
 		{
 		}
 	}
 }
-	
+
 /* This file was derived from a file containing this license:
- * 
+ *
  * This file is a part of bzip2 and/or libbzip2, a program and
  * library for lossless, block-sorting data compression.
- * 
+ *
  * Copyright (C) 1996-1998 Julian R Seward.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- * 
- * 2. The origin of this software must not be misrepresented; you must 
- * not claim that you wrote the original software.  If you use this 
- * software in a product, an acknowledgment in the product 
+ *
+ * 2. The origin of this software must not be misrepresented; you must
+ * not claim that you wrote the original software.  If you use this
+ * software in a product, an acknowledgment in the product
  * documentation would be appreciated but is not required.
- * 
+ *
  * 3. Altered source versions must be plainly marked as such, and must
  * not be misrepresented as being the original software.
- * 
- * 4. The name of the author may not be used to endorse or promote 
- * products derived from this software without specific prior written 
+ *
+ * 4. The name of the author may not be used to endorse or promote
+ * products derived from this software without specific prior written
  * permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -192,6 +192,6 @@ namespace ICSharpCode.SharpZipLib.BZip2
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  * Java version ported by Keiron Liddle, Aftex Software <keiron@aftexsw.com> 1999-2001
  */

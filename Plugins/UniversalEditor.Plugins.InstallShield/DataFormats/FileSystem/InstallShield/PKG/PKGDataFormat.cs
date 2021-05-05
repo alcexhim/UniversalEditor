@@ -39,16 +39,16 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 			}
 			return _dfr;
 		}
-		
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			if (fsom == null) throw new ObjectModelNotSupportedException();
-			
+
 			Reader br = Accessor.Reader;
 			ushort signature = br.ReadUInt16();
 			if (signature != 0xA34A) throw new InvalidDataFormatException("File does not begin with 0xA34A");
-			
+
 			ushort unknown1a = br.ReadUInt16();
 			ushort unknown1b = br.ReadUInt16();
 			uint unknown2 = br.ReadUInt32();
@@ -82,7 +82,7 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.PKG
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
 		}
-		
+
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);

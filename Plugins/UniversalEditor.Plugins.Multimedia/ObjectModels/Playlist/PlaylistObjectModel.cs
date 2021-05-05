@@ -18,7 +18,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Playlist
 		private string mvarAbstract = string.Empty;
 		private string mvarCopyright = string.Empty;
 		private PlaylistEntry.PlaylistEntryCollection mvarEntries = new PlaylistEntry.PlaylistEntryCollection();
-		
+
 		public Guid ID
 		{
 			get

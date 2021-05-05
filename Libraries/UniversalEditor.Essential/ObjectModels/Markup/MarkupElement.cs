@@ -238,12 +238,12 @@ namespace UniversalEditor.ObjectModels.Markup
 			{
 				result = string.Concat(new string[]
 				{
-					"<", 
-					this.FullName, 
-					">", 
-					this.mvarValue, 
-					"</", 
-					this.FullName, 
+					"<",
+					this.FullName,
+					">",
+					this.mvarValue,
+					"</",
+					this.FullName,
 					">"
 				});
 			}

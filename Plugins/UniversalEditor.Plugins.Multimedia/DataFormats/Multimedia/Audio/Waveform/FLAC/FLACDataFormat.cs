@@ -63,8 +63,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.FLAC
 		{
 			this.SaveMetadataBlockHeader(bw, new FLACMetadataBlockHeader
 			{
-				IsLastMetadataBlock = this.MetadataBlocks.Count == 0, 
-				BlockType = FLACMetadataBlockType.StreamInfo, 
+				IsLastMetadataBlock = this.MetadataBlocks.Count == 0,
+				BlockType = FLACMetadataBlockType.StreamInfo,
 				ContentLength = 0
 			});
 		}

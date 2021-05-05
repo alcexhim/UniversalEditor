@@ -125,7 +125,7 @@ namespace UniversalEditor.ObjectModels.Executable.ResourceBlocks
 	public enum VersionOperatingSystem : uint
 	{
 		/// <summary>
-		/// The operating system for which the file was designed is unknown to Windows. 
+		/// The operating system for which the file was designed is unknown to Windows.
 		/// </summary>
 		Unknown = 0x00000000,
 		/// <summary>
@@ -238,7 +238,7 @@ namespace UniversalEditor.ObjectModels.Executable.ResourceBlocks
 
 		private VersionOperatingSystem mvarOperatingSystem = VersionOperatingSystem.Unknown;
 		/// <summary>
-		/// Specifies the operating system for which this file was designed. 
+		/// Specifies the operating system for which this file was designed.
 		/// </summary>
 		public VersionOperatingSystem OperatingSystem { get { return mvarOperatingSystem; } set { mvarOperatingSystem = value; } }
 
@@ -260,7 +260,7 @@ namespace UniversalEditor.ObjectModels.Executable.ResourceBlocks
 		private DateTime mvarFileDate = DateTime.Now;
 		public DateTime FileDate { get { return mvarFileDate; } set { mvarFileDate = value; } }
 	}
-	
+
 	public class VersionResourceStringFileInfoBlockLanguage
 	{
 		public class VersionResourceStringFileInfoBlockEntryCollection

@@ -89,13 +89,13 @@ namespace UniversalEditor.DataFormats.Security.Key.RSA
 			int bitlen = reader.ReadInt32();   //get RSA bit length
 			key.BitLength = bitlen;
 
-			//---- read RSA public exponent ------ 
+			//---- read RSA public exponent ------
 			reader.Endianness = Endianness.BigEndian;
 			uint pubexp = reader.ReadUInt32();   //get public exponent
 			key.PublicExponent = (int)pubexp;
 
 			//---- read RSA modulus -----------
-			//Reverse byte array for little-endian to big-endian conversion 
+			//Reverse byte array for little-endian to big-endian conversion
 			byte[] RSAmodulus = reader.ReadBytes(bitlen / 8);
 			Array.Reverse(RSAmodulus);
 			key.Modulus = RSAmodulus;

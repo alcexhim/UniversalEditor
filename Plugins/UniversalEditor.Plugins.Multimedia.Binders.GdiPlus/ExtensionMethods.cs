@@ -9,7 +9,7 @@ namespace UniversalEditor
     {
         public static System.Drawing.Bitmap ToBitmap(this PictureObjectModel pic, bool useCompatibilityMode = true)
         {
-            
+
 #if UE_PLUGIN_MM_PICTURE_COMPATIBILITY_SUPPORTED
             if (useCompatibilityMode)
             {
@@ -68,7 +68,7 @@ namespace UniversalEditor
             Array.Copy(imageByteArray, 0, newImageByteArray, 0, imageByteArray.Length);
 
             // since the Bitmap constructor requires a pointer to an array of image bytes
-            // we have to pin down the memory used by the byte array and use the pointer 
+            // we have to pin down the memory used by the byte array and use the pointer
             // of this pinned memory to create the Bitmap.
             // This tells the Garbage Collector to leave the memory alone and DO NOT touch it.
             System.Runtime.InteropServices.GCHandle imageByteGCHandle = System.Runtime.InteropServices.GCHandle.Alloc(newImageByteArray, System.Runtime.InteropServices.GCHandleType.Pinned);

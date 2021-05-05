@@ -455,7 +455,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Milkshape3D
 			//
 			for (uint i = 0; i < nNumGroupComments; i++)
 			{
-				int index = 0; 
+				int index = 0;
 				writer.WriteInt32(index);                                          // index of group, material or joint
 				string comment = String.Empty;
 				writer.WriteInt32(comment.Length); // length of comment (terminating '\0' is not saved), "MC" has comment length of 2 (not 3)

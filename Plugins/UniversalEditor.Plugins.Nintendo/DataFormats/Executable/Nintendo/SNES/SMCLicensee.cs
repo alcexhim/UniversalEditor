@@ -50,7 +50,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 		public static SMCLicensee FromCode(byte value)
 		{
 			Type t = typeof(SMCLicensees);
-			
+
 			MethodAttributes methodAttributes = MethodAttributes.Public | MethodAttributes.Static;
 			PropertyInfo[] properties = t.GetProperties();
 			for (int i = 0; i < properties.Length; i++)
@@ -138,8 +138,8 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 		/// Gets the <see cref="SMCLicensee" /> representing "Falcom".
 		/// </summary>
 		public static SMCLicensee Falcom { get { return mvarFalcom; } }
-		
-		
+
+
 		// UNK, 0x07
 
 		private static SMCLicensee mvarCapcom = new SMCLicensee("Capcom", 0x08);
@@ -907,7 +907,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 		/// Gets the <see cref="SMCLicensee" /> representing "K.Amusement Leasing Co.".
 		/// </summary>
 		public static SMCLicensee KAmusementLeasingCo { get { return mvarKAmusementLeasingCo; } }
-		
+
 		// UNK 0xA6
 
 		private static SMCLicensee mvarTakara0xA7 = new SMCLicensee("Takara", 0xA7);
@@ -1165,7 +1165,7 @@ namespace UniversalEditor.DataFormats.Executable.Nintendo.SNES
 		/// Gets the <see cref="SMCLicensee" /> representing "Acclaim" with a code of 0xDB.
 		/// </summary>
 		public static SMCLicensee Acclaim0xDB { get { return mvarAcclaim0xDB; } }
-		
+
 		// UNK 0xDC
 
 		private static SMCLicensee mvarNCS = new SMCLicensee("NCS", 0xDD);

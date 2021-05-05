@@ -31,15 +31,15 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.VirtualHardDisk
 		/// This field stores the cylinder value for the hard disk.
 		/// </summary>
 		public short Cylinders { get { return mvarCylinders; } set { mvarCylinders = value; } }
-		
+
 		private byte mvarHeads = 0;
 		/// <summary>
-		/// This field stores the heads value for the hard disk. 
+		/// This field stores the heads value for the hard disk.
 		/// </summary>
 		public byte Heads { get { return mvarHeads; } set { mvarHeads = value; } }
 		private byte mvarSectors = 0;
 		/// <summary>
-		/// This field stores the sectors per track value for the hard disk. 
+		/// This field stores the sectors per track value for the hard disk.
 		/// </summary>
 		public byte Sectors { get { return mvarSectors; } set { mvarSectors = value; } }
 	}

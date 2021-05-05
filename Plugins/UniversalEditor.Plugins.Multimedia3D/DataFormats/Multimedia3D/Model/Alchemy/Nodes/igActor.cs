@@ -9,7 +9,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
     {
         private string mvarName = String.Empty;
         public string Name { get { return mvarName; } set { mvarName = value; } }
-        
+
         private uint mvarFlags = 0;
         public uint Flags { get { return mvarFlags; } set { mvarFlags = value; } }
 

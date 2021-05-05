@@ -19,7 +19,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Map
             }
             return _dfr;
         }
-        
+
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             MapObjectModel map = (objectModel as MapObjectModel);
@@ -104,7 +104,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Map
 
             br.BaseStream.Seek(0x1D, System.IO.SeekOrigin.Begin);
             map.WinConditions = (MapWinCondition)br.ReadByte();
-            
+
             byte wins1 = br.ReadByte();
             byte wins2 = br.ReadByte();
             ushort wins3 = br.ReadUInt16();
@@ -125,11 +125,11 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Map
 
             byte[] races = br.ReadBytes(5);
 
-            // name 
+            // name
             br.BaseStream.Seek(0x3A, System.IO.SeekOrigin.Begin);
             map.Name = br.ReadFixedLengthString(16);
             map.Name = map.Name.TrimNull();
-            // name 
+            // name
             br.BaseStream.Seek(0x76, System.IO.SeekOrigin.Begin);
             map.Description = br.ReadFixedLengthString(143);
             map.Description = map.Description.TrimNull();
@@ -200,7 +200,7 @@ namespace UniversalEditor.DataFormats.NewWorldComputing.Map
         private MapCastle ReadCastle(IO.BinaryReader br)
         {
             MapCastle castle = new MapCastle();
-            
+
             ushort signal = br.ReadUInt16();
 
             castle.Color = (MapCastleColor)br.ReadByte();

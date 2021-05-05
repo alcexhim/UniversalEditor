@@ -46,7 +46,7 @@ namespace UniversalEditor.DataFormats.KnowledgeAdventure.Actor
 			if (actor == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-			
+
 			string signature = reader.ReadFixedLengthString(5);
 			if (signature != "ATR11") throw new InvalidDataFormatException("File does not begin with 'ATR11'");
 

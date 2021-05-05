@@ -73,16 +73,16 @@ namespace UniversalEditor.DataFormats.Multimedia.Playlist.CDDA
 			bw.WriteUInt32(CDATrackLengthHSG);
 			bw.WriteBytes(new byte[]
 			{
-				CDATrackStartRBFFrame, 
-				CDATrackStartRBFSecond, 
-				CDATrackStartRBFMinute, 
+				CDATrackStartRBFFrame,
+				CDATrackStartRBFSecond,
+				CDATrackStartRBFMinute,
 				CDATrackStartRBFUnused
 			});
 			bw.WriteBytes(new byte[]
 			{
-				CDATrackLengthRBFFrame, 
-				CDATrackLengthRBFSecond, 
-				CDATrackLengthRBFMinute, 
+				CDATrackLengthRBFFrame,
+				CDATrackLengthRBFSecond,
+				CDATrackLengthRBFMinute,
 				CDATrackLengthRBFUnused
 			});
 			ms.Close();

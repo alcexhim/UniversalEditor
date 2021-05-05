@@ -22,7 +22,7 @@
 // making a combined work based on this library.  Thus, the terms and
 // conditions of the GNU General Public License cover the whole
 // combination.
-// 
+//
 // As a special exception, the copyright holders of this library give you
 // permission to link this library with independent modules to produce an
 // executable, regardless of the license terms of these independent
@@ -132,7 +132,7 @@ namespace UniversalEditor.Checksum.Modules.CRC32
 		{
 			return (uint)(CrcTable[(oldCrc ^ value) & 0xFF] ^ (oldCrc >> 8));
 		}
-		
+
 		/// <summary>
 		/// The crc data checksum so far.
 		/// </summary>

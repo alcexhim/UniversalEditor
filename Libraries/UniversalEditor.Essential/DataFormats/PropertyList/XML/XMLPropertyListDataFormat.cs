@@ -54,7 +54,7 @@ namespace UniversalEditor.DataFormats.PropertyList.XML
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeSaveInternal(objectModels);
-			
+
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 			MarkupObjectModel mom = new MarkupObjectModel();
 

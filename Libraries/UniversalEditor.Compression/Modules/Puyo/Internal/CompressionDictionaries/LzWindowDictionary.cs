@@ -45,7 +45,7 @@ namespace UniversalEditor.Compression.Puyo.Internal.CompressionDictionaries
 					{
 						array2 = new int[]
 						{
-							(int)((ulong)offset - (ulong)((long)num)), 
+							(int)((ulong)offset - (ulong)((long)num)),
 							num2
 						};
 						if (num2 == this.MaxMatchAmount)

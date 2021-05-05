@@ -21,7 +21,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
 			}
 			return _dfr;
 		}
-		
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			ModelObjectModel model = (objectModel as ModelObjectModel);
@@ -68,7 +68,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Avalanche
 				float nz = br.ReadSingle();
 				nz *= -1;
 				float un = br.ReadSingle();
-				
+
 				surf.Vertices[x].Normal = new PositionVector3(nx, ny, nz);
 				surf.Vertices[x].OriginalNormal = new PositionVector3(nx, ny, nz);
 

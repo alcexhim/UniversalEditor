@@ -91,11 +91,11 @@ namespace UniversalEditor.ObjectModels.Multimedia.Video
 		{
 			return new VideoTrack
 			{
-				Name = this.mvarName, 
-				Height = this.mvarHeight, 
-				Width = this.mvarWidth, 
-				BlockDimension = this.mvarBlockDimension, 
-				FrameRate = this.mvarFrameRate, 
+				Name = this.mvarName,
+				Height = this.mvarHeight,
+				Width = this.mvarWidth,
+				BlockDimension = this.mvarBlockDimension,
+				FrameRate = this.mvarFrameRate,
 				SubBlockDimension = this.mvarSubBlockDimension
 			};
 		}

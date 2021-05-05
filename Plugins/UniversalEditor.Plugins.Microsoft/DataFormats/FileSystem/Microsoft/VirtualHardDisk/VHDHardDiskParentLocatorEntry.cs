@@ -38,25 +38,25 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.VirtualHardDisk
 		/// MacX: 0x4D616358 A file URL with UTF-8 encoding conforming to RFC 2396.
 		/// </summary>
 		public uint PlatformCode { get { return mvarPlatformCode; } set { mvarPlatformCode = value; } }
-		
+
 		private uint mvarPlatformDataSpace = 0;
 		/// <summary>
 		/// This field stores the number of 512-byte sectors needed to store the parent hard disk locator.
 		/// </summary>
 		public uint PlatformDataSpace { get { return mvarPlatformDataSpace; } set { mvarPlatformDataSpace = value; } }
-		
+
 		private uint mvarPlatformDataLength = 0;
 		/// <summary>
 		/// This field stores the actual length of the parent hard disk locator in bytes.
 		/// </summary>
 		public uint PlatformDataLength { get { return mvarPlatformDataLength; } set { mvarPlatformDataLength = value; } }
-		
+
 		private uint mvarReserved = 0;
 		/// <summary>
 		/// This field must be set to zero.
 		/// </summary>
 		public uint Reserved { get { return mvarReserved; } set { mvarReserved = value; } }
-		
+
 		private ulong mvarPlatformDataOffset = 0;
 		/// <summary>
 		/// This field stores the absolute file offset in bytes where the platform specific file locator data is stored.

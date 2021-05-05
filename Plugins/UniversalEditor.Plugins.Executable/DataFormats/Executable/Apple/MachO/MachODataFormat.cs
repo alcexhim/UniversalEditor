@@ -66,7 +66,7 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 			if (exe == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-			
+
 			// An integer containing a value identifying this file as a 32-bit Mach-O file. Use the
 			// constant MH_MAGIC if the file is intended for use on a CPU with the same endianness
 			// as the computer on which the compiler is running. The constant MH_CIGAM can be used
@@ -170,7 +170,7 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 			section.sectname = reader.ReadFixedLengthString(16).TrimNull();
 			section.segname = reader.ReadFixedLengthString(16).TrimNull();
 			section.addr = reader.ReadUInt32();
-			section.size = reader.ReadUInt32();  
+			section.size = reader.ReadUInt32();
 			section.offset = reader.ReadUInt32();
 			section.align = reader.ReadUInt32();
 			section.reloff = reader.ReadUInt32();

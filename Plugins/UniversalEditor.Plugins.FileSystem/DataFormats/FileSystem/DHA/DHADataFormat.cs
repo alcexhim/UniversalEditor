@@ -68,7 +68,7 @@ namespace UniversalEditor.DataFormats.FileSystem.DHA
 
             // file starts with a 64-byte string
             fsom.Title = br.ReadFixedLengthString(mvarCommentLength);
-            
+
             int folderCount = br.ReadInt32();
             int fileCount = br.ReadInt32();
 
@@ -159,7 +159,7 @@ namespace UniversalEditor.DataFormats.FileSystem.DHA
 
             int FolderCount = br.ReadInt32();
             int FileCount = br.ReadInt32();
-            
+
             folder.Folders = new List<DHAFOLDER>();
             for (int i = 0; i < FolderCount; i++)
             {

@@ -58,7 +58,7 @@ namespace UniversalEditor.DataFormats.Text.HTML
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
-			
+
 			MarkupObjectModel html = (objectModels.Pop() as MarkupObjectModel);
 			ObjectModel objectModel = objectModels.Pop();
 
@@ -109,7 +109,7 @@ namespace UniversalEditor.DataFormats.Text.HTML
 			ObjectModel objectModel = objectModels.Pop();
 
 			MarkupObjectModel html = new MarkupObjectModel();
-			
+
 			#region Html
 			{
 				MarkupTagElement tagHTML = new MarkupTagElement();

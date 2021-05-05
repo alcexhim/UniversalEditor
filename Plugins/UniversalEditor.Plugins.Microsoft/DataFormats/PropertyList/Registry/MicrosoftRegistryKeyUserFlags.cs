@@ -50,7 +50,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Registry
 		/// In the old location of the User flags field: Execute the int 3 instruction on
 		/// an access to this key (both retail and checked Windows kernels); this bit was
 		/// superseded by the Debug field (see below).
-		/// 
+		///
 		/// In the new location of the User flags field: disable registry reflection for
 		/// this key if a corresponding key exists in another view and it wasn't created by
 		/// a caller (see below)

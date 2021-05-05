@@ -413,7 +413,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// calculate the stride, in bytes, of the image (32bit aligned width of each image row)
 				int intStride = (((int)imageWidth * (int)PixelDepth + 31) & ~31) >> 3; // width in bytes
 
-				// calculate the padding, in bytes, of the image 
+				// calculate the padding, in bytes, of the image
 				// number of bytes to add to make each row a 32bit aligned row
 				// padding in bytes
 				mvarPadding = intStride - ((((int)imageWidth * (int)PixelDepth) + 7) / 8);
@@ -426,7 +426,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 					// read the image data into a byte array
 					// take into account stride has to be a multiple of 4
-					// use padding to make sure multiple of 4    
+					// use padding to make sure multiple of 4
 
 					byte[] data = null;
 
@@ -556,7 +556,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					// flag that states whether or not to reverse the bytes in each row.
 					bool blnEachRowReverse = false;
 
-					// use FirstPixelDestination to determine the alignment of the 
+					// use FirstPixelDestination to determine the alignment of the
 					// image data byte
 					switch (GetFirstPixelDestination(verticalTransferOrder, horizontalTransferOrder))
 					{
@@ -587,7 +587,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 						}
 					}
 
-					// write the bytes from each row into a memory stream and get the 
+					// write the bytes from each row into a memory stream and get the
 					// resulting byte array
 					using (msData = new System.IO.MemoryStream())
 					{
@@ -851,7 +851,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				#endregion
 			}
 			#endregion
-			
+
 			#region Targa image
 			{
 				// **************  NOTE  *******************
@@ -862,7 +862,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// calculate the stride, in bytes, of the image (32bit aligned width of each image row)
 				int intStride = (((int)pic.Width * (int)mvarPixelDepth + 31) & ~31) >> 3; // width in bytes
 
-				// calculate the padding, in bytes, of the image 
+				// calculate the padding, in bytes, of the image
 				// number of bytes to add to make each row a 32bit aligned row
 				// padding in bytes
 				mvarPadding = intStride - ((((int)pic.Width * (int)mvarPixelDepth) + 7) / 8);
@@ -875,7 +875,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 					// read the image data into a byte array
 					// take into account stride has to be a multiple of 4
-					// use padding to make sure multiple of 4    
+					// use padding to make sure multiple of 4
 
 					byte[] data = null;
 
@@ -1001,7 +1001,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					// flag that states whether or not to reverse the bytes in each row.
 					bool blnEachRowReverse = false;
 
-					// use FirstPixelDestination to determine the alignment of the 
+					// use FirstPixelDestination to determine the alignment of the
 					// image data byte
 					switch (GetFirstPixelDestination(verticalTransferOrder, horizontalTransferOrder))
 					{
@@ -1032,7 +1032,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 						}
 					}
 
-					// write the bytes from each row into a memory stream and get the 
+					// write the bytes from each row into a memory stream and get the
 					// resulting byte array
 					using (msData = new System.IO.MemoryStream())
 					{

@@ -50,7 +50,7 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 
 			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
 			PackageObjectModel package = (objectModels.Pop() as PackageObjectModel);
-			
+
 			File[] files = fsom.GetAllFiles();
 			foreach (File file in files)
 			{
@@ -105,7 +105,7 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 		{
 			PackageObjectModel package = (objectModels.Pop() as PackageObjectModel);
 			FileSystemObjectModel fsom = (package.FileSystem.Clone() as FileSystemObjectModel);
-			
+
 			#region _rels
 			{
 				Folder fldr = new Folder();

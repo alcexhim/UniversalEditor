@@ -4,7 +4,7 @@
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -182,7 +182,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 
 			Buttons[0].Enabled = (Accessor != null && (Mode == DocumentPropertiesDialogMode.Open || (Mode == DocumentPropertiesDialogMode.Save && ObjectModel != null && DataFormat != null)));
-			
+
 			switch (Mode)
 			{
 				case DocumentPropertiesDialogMode.Open:
@@ -376,7 +376,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private void dlgAccessor_SelectionChanged(object sender, EventArgs e)
 		{
 			GenericBrowserPopup<Accessor, AccessorReference> dlg = (sender as GenericBrowserPopup<Accessor, AccessorReference>);
-			
+
 			Accessor acc = dlg.SelectedObject;
 			dlg.AutoClose = false;
 

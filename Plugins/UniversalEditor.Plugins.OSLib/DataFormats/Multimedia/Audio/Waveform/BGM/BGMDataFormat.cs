@@ -47,7 +47,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.BGM
 			if (wave == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-			
+
 			string header = reader.ReadFixedLengthString(11);
 			if (header != "OSLBGM v01\0") throw new InvalidDataFormatException();
 
@@ -59,7 +59,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.BGM
 			byte unknown2 = reader.ReadByte();
 
 			byte[] sampleData = reader.ReadToEnd();
-			
+
 			OSLCompressionModule ocm = new OSLCompressionModule();
 			sampleData = ocm.Decompress(sampleData);
 

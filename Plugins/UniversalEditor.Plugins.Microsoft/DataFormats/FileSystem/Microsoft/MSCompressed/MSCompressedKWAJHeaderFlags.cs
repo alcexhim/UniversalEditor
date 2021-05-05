@@ -54,7 +54,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
         /// </summary>
         HasFileExtension = 0x00000010,
         /// <summary>
-        /// 2 bytes: length of data, followed by that many bytes of (arbitrary text) data 
+        /// 2 bytes: length of data, followed by that many bytes of (arbitrary text) data
         /// </summary>
         HasExtraText = 0x00000011
     }

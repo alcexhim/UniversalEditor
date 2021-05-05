@@ -218,7 +218,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			// //(BHVD)
 			// (command text)
 			// ...
-			// 
+			//
 
 
 		}
@@ -265,7 +265,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			// we loop twice here because of the way BehavEd handles the "comment" feature -
 			// if at least one item is commented, it uncomments ALL selected lines; otherwise, it comments all selected lines.
 
-			// TODO: determine if we should follow original BehavEd warning 
+			// TODO: determine if we should follow original BehavEd warning
 
 			bool uncomment = false;
 			for (int i = 0; i < tv.SelectedRows.Count; i++)

@@ -26,11 +26,11 @@
 							<MagicByte Type="String">CI</MagicByte>
 						</MagicByteSequence>
 						<!--
-						
+
 						TODO: Figure out how to prevent this from colliding with CPK files that start with "CP"
 						("CPK"):
 							dfr.Filters[0].HintComparison = DataFormatHintComparison.FilterOnly;
-						
+
 						TODO: Sort list of data formats by length of magic byte requirement during the sniffing
 						process? ;)
 

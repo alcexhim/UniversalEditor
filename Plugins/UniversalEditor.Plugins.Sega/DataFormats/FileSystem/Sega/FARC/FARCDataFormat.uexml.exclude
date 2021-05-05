@@ -39,7 +39,7 @@
 						<!--
 							for each file:
 							directorySize += (fileName.length + 1 + 4 + 4 + 4)
-							
+
 							TODO: Figure out how to represent this!
 						-->
 						<Loop Variable="I" From="0" To="$(Count:$(m_TotalObjects))">
@@ -57,7 +57,7 @@
 				<Field DataType="FixedString" ID="Signature" Length="2" Value="FA" />
 				<!--
 					Conditional properties within a Field behave like so:
-						
+
 					During a LOAD operation, if the FieldCondition is satisfied (i.e., current field value matches 'TrueResult'), the 'Variable' is set to the given 'Value'.
 					During a SAVE operation, if the FieldCondition is satisfied (i.e, 'Variable' matches 'Value'), the 'TrueResult' is written as the value of the field; otherwise, the 'FalseResult' is written.
 				-->
@@ -65,10 +65,10 @@
 					   Conditional-Variable="$(CustomOption:Encrypted)" Conditional-Value="true" Conditional-TrueResult="R" Conditional-FalseResult="r" />
 				<Field DataType="FixedString" ID="CompressionFlag" Length="1"
 					   Conditional-Variable="$(CustomOption:Compressed)" Conditional-Value="true" Conditional-TrueResult="C" Conditional-FalseResult="c" />
-				
+
 				<Field DataType="Int32" ID="DirectorySize" Value="$(m_DirectorySize)" />
 				<Field DataType="Int32" ID="Reserved1" />
-				
+
 				<ConditionalStatement>
 					<Conditions>
 						<Condition Variable="$(CustomOption:Compressed)" Comparison="Equal" Value="true" />

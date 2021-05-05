@@ -6,7 +6,7 @@
 				<Command ID="DockingContainerContextMenu_Close" Title="_Close" />
 				<Command ID="DockingContainerContextMenu_CloseAllButThis" Title="Close All _But This" />
 				<Command ID="DockingContainerContextMenu_CloseAll" Title="Close _All" />
-				
+
 				<Command ID="DockingWindowTabPageContextMenu_Placement_Float" Title="_Float" />
 				<Command ID="DockingWindowTabPageContextMenu_Placement_Dock" Title="Doc_k" />
 				<Command ID="DockingWindowTabPageContextMenu_Placement_DockTabbed" Title="Dock as _Tabbed Document" />

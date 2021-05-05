@@ -36,7 +36,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Video
 		{
 			return new AudioTrack
 			{
-				Name = this.mvarName, 
+				Name = this.mvarName,
 				ObjectModel = this.mvarObjectModel.Clone() as WaveformAudioObjectModel
 			};
 		}

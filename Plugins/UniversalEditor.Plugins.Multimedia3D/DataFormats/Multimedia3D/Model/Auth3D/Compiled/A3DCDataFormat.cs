@@ -52,7 +52,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Auth3D.Compiled
             short u23 = br.ReadInt16();      // 0
 
             string textData = br.ReadFixedLengthString(textSize);
-            
+
             br.Accessor.Seek(offsetToBinaryData, SeekOrigin.Begin);
 
         }

@@ -371,7 +371,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Moosta.Character
 						}
 						texture.TexturePicture = picture;
 					}
-					
+
 					model.Textures.Add(texture);
 				}
 			}

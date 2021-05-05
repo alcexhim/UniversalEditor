@@ -130,7 +130,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			}
 			return sb.ToString();
 		}
-		
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			Reader reader = base.Accessor.Reader;
@@ -174,7 +174,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			exec.SetCustomProperty<byte[]>(MakeReference(), "RichHeaderDataEncrypted", richHeaderDataEncrypted);
 			exec.SetCustomProperty<byte[]>(MakeReference(), "RichHeaderDataDecrypted", richHeaderDataDecrypted);
 			exec.SetCustomProperty<byte[]>(MakeReference(), "RichHeaderDecryptionKey", richHeaderDecryptionKey);
-			
+
 			#region Portable Executable
 			{
 				if (mvarDOSHeader.NewEXEHeaderOffset != 0)
@@ -342,7 +342,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 
 			RichHeader rich = new RichHeader();
 			Reader reader = new Reader(new MemoryAccessor(richHeader));
-			
+
 			string signature = reader.ReadFixedLengthString(4);
 			if (signature != "DanS") throw new InvalidDataFormatException("Rich header does not begin with 'DanS'");
 
@@ -539,7 +539,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			e.Data = br.ReadBytes(length);
 		}
 
-		private static DOSExecutableHeader ReadDOSHeader(Reader reader)	
+		private static DOSExecutableHeader ReadDOSHeader(Reader reader)
 		{
 			DOSExecutableHeader value = new DOSExecutableHeader();
 
@@ -697,7 +697,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			peoh.rvaCount = 16;
 			peoh.rvas1 = new uint[16];
 			peoh.rvas2 = new uint[16];
-			
+
 			if (peoh.enabled)
 			{
 				WritePEOptionalHeader(bw, peoh);
@@ -800,7 +800,7 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 			bw.WriteUInt32((uint)peoh.unknown17);		// loader flags
 			bw.WriteUInt32((uint)peoh.rvaCount);
 			// 96 + 128 = 224
-			
+
 			// write the RVA values
 			for (uint i = 0; i < peoh.rvaCount; i++)
 			{

@@ -15,9 +15,9 @@ using UniversalEditor.Compression.Modules.LZX.Internal;
  *
  * This source file is Dual licensed; meaning the end-user of this source file
  * may redistribute/modify it under the LGPL 2.1 or MS-PL licenses.
- * 
+ *
  * Adapted into a Universal Editor Compression Module by Michael Becker.
- * 
+ *
  * Original source code:
  * https://code.google.com/p/monoxna/source/browse/trunk/src/Microsoft.Xna.Framework/HelperCode/LzxDecoder.cs
 */
@@ -130,7 +130,7 @@ namespace UniversalEditor.Compression.Modules.LZX
 		protected override void DecompressInternal(Stream inputStream, Stream outputStream, int inputLength, int outputLength)
         {
             BitBuffer bitbuf = new BitBuffer(inputStream);
-            
+
             long startpos = inputStream.Position;
             long endpos = inputStream.Position + inputLength;
 
@@ -510,7 +510,7 @@ namespace UniversalEditor.Compression.Modules.LZX
                     while (outputStream.Position < dataend)
                     {
                         if (outputStream.ReadByte() != 0xE8) { curpos++; continue; }
-                        //abs_off = 
+                        //abs_off =
                     }
                 }
                 throw new NotImplementedException("intel e8 decoding not finished");
@@ -521,7 +521,7 @@ namespace UniversalEditor.Compression.Modules.LZX
         // READ_LENGTHS(table, first, last)
         // if(lzx_read_lens(LENTABLE(table), first, last, bitsleft))
         //   return ERROR (ILLEGAL_DATA)
-        // 
+        //
 
         // TODO make returns throw exceptions
         private int MakeDecodeTable(uint nsyms, uint nbits, byte[] length, ushort[] table)

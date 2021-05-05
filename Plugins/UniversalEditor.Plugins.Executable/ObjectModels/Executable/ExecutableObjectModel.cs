@@ -39,7 +39,7 @@ namespace UniversalEditor.ObjectModels.Executable
 
 		private ExecutableFunctionCall.ExecutableFunctionCallCollection mvarFunctionCalls = new ExecutableFunctionCall.ExecutableFunctionCallCollection();
 		public ExecutableFunctionCall.ExecutableFunctionCallCollection FunctionCalls { get { return mvarFunctionCalls; } }
-		
+
 		#region Object Model Methods
 		public override void Clear()
 		{

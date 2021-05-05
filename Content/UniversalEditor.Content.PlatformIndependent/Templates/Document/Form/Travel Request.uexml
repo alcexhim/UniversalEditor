@@ -7,7 +7,7 @@
 				<IconPath LargeFileName="icon_32x32.png" SmallFileName="icon_16x16.png" />
 			</Information>
 			<Content ObjectModelType="UniversalEditor.ObjectModels.RIFF.RIFFObjectModel">
-				
+
 			</Content>
 		</DocumentTemplate>
 	</DocumentTemplates>

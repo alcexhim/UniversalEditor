@@ -115,7 +115,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Registry
 			}
 			else
 			{
-				// back up four bytes... 
+				// back up four bytes...
 				reader.Seek(-4, SeekOrigin.Current);
 				// ... and read the last reorganized timestamp
 				DateTime ftLastReorganizedTimestamp = reader.ReadDateTime64();

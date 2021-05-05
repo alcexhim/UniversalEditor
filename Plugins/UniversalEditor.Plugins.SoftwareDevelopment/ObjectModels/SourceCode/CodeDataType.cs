@@ -34,28 +34,28 @@ namespace UniversalEditor.ObjectModels.SourceCode
 			get { return mvarNames; }
 			set { mvarNames = value; }
 		}
-		
+
 		private bool mvarIsArray;
 		public bool IsArray
 		{
 			get { return mvarIsArray; }
 			set { mvarIsArray = value; }
 		}
-		
+
 		private int mvarArrayLength;
 		public int ArrayLength
 		{
 			get { return mvarArrayLength; }
 			set { mvarArrayLength = value; }
 		}
-		
+
 		private bool mvarIsArrayLengthDefined;
 		public bool IsArrayLengthDefined
 		{
 			get { return mvarIsArrayLengthDefined; }
 			set { mvarIsArrayLengthDefined = value; }
 		}
-		
+
 		public CodeDataType(params string[] names)
 		{
 			mvarNames = names;
@@ -77,7 +77,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 			mvarIsArrayLengthDefined = true;
 			mvarArrayLength = arrayLength;
 		}
-		
+
 		public static readonly CodeDataType Empty = new CodeDataType(null);
         public static readonly CodeDataType Void = new CodeDataType("System", "Void");
         public static readonly CodeDataType Boolean = new CodeDataType("System", "Boolean");
@@ -94,11 +94,11 @@ namespace UniversalEditor.ObjectModels.SourceCode
         public static readonly CodeDataType DateTime = new CodeDataType("System", "DateTime");
         public static readonly CodeDataType Char = new CodeDataType("System", "Char");
         public static readonly CodeDataType String = new CodeDataType("System", "String");
-		
+
 		#region Equals and GetHashCode implementation
 		// The code in this region is useful if you want to use this structure in collections.
 		// If you don't need it, you can just remove the region and the ": IEquatable<DataType>" declaration.
-		
+
 		public override bool Equals(object obj)
 		{
 			if (obj is CodeDataType)
@@ -106,7 +106,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 			else
 				return false;
 		}
-		
+
 		public bool Equals(CodeDataType other)
 		{
 			// add comparisions for all members here
@@ -118,7 +118,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 				&& (this.IsArrayLengthDefined == other.IsArrayLengthDefined)
 			);
 		}
-		
+
 		public override int GetHashCode()
 		{
 			// combine the hash codes of all members here (e.g. with XOR operator ^)
@@ -135,7 +135,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
         {
             return System.String.Join(separator, this.Names);
         }
-		
+
 		public override string ToString()
 		{
 			if (mvarNames == null)
@@ -156,17 +156,17 @@ namespace UniversalEditor.ObjectModels.SourceCode
 			return sb.ToString();
 		}
 
-		
+
 		public static bool operator ==(CodeDataType left, CodeDataType right)
 		{
 			return left.Equals(right);
 		}
-		
+
 		public static bool operator !=(CodeDataType left, CodeDataType right)
 		{
 			return !left.Equals(right);
 		}
-		
+
 		public static implicit operator CodeDataType(string value)
 		{
 			return new CodeDataType(value);

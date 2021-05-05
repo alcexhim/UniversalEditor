@@ -44,7 +44,7 @@ namespace UniversalEditor.DataFormats.InstallShield.Script
         protected override void LoadInternal(ref ObjectModel objectModel)
         {
             Reader br = base.Accessor.Reader;
-            
+
             string aLuZ = br.ReadFixedLengthString(4);
             if (aLuZ != "aLuZ") throw new InvalidDataFormatException("File does not begin with \"aLuZ\"");
 
@@ -69,7 +69,7 @@ namespace UniversalEditor.DataFormats.InstallShield.Script
             bw.WriteInt16(0);
             bw.WriteFixedLengthString(mvarComment, 98);
 
-            
+
         }
         #endregion
 
@@ -82,6 +82,6 @@ namespace UniversalEditor.DataFormats.InstallShield.Script
             get { return mvarComment; }
             set { mvarComment = value; }
         }
-        
+
     }
 }

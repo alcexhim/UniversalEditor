@@ -52,7 +52,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
 		private string mvarName = String.Empty;
         public string Name { get { return mvarName; } set { mvarName = value; } }
-        
+
         private ModelBone mvarParentBone = null;
 		private ModelBone mvarChildBone = null;
         private byte mvarCBRigidType = 0;
@@ -73,7 +73,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 				this.mvarOffset = value;
 			}
 		}
-		
+
         public ModelBone ParentBone { get { return mvarParentBone; } set { mvarParentBone = value; RecalculateOffset(); } }
 		public ModelBone ChildBone { get { return mvarChildBone; } set { mvarChildBone = value; } }
 
@@ -137,7 +137,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 		private Matrix mvarLocalMatrix = new Matrix(4, 4);
 		private Matrix mvarSkinningMatrix = new Matrix(4, 4);
 		private Matrix mvarInvTransformMatrix = new Matrix(4, 4);
-		
+
 		public Matrix GetLocalMatrix()
 		{
             UpdateLocalMatrix();
@@ -163,7 +163,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
             mvarLocalMatrix[3, 0] = mvarPosition.X + mvarOffset.X;
             mvarLocalMatrix[3, 1] = mvarPosition.Y + mvarOffset.Y;
             mvarLocalMatrix[3, 2] = mvarPosition.Z + mvarOffset.Z;
-            
+
 			// 親があるなら親の回転を受け継ぐE
 			// Inherit the rotation of the parent if there is a parent
 			if (mvarParentBone != null)
@@ -180,7 +180,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 
             mvarSkinningMatrix = mvarInvTransformMatrix * GetLocalMatrix();
 		}
-        
+
         public void Reset()
         {
             mvarPosition = mvarOriginalPosition;

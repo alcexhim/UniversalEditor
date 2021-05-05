@@ -32,7 +32,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Playlist
 		public class PlaylistEntryCollection : Collection<PlaylistEntry>
 		{
 		}
-		
+
 		private string mvarCopyright = string.Empty;
 		private long mvarOffset = 0L;
 		private long mvarLength = 0L;

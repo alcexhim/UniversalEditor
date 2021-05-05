@@ -195,7 +195,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 
 			WAVE.Chunks.Add(fmtChunk);
 			WAVE.Chunks.Add(dataChunk);
-			
+
 			riff.Chunks.Add(WAVE);
 			objectModels.Push(riff);
 		}

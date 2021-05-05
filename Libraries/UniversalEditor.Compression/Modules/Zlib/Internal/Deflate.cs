@@ -4,9 +4,9 @@
 
 // Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-// Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
-// Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. 
-// Neither the name of ComponentAce nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. 
+// Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+// Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+// Neither the name of ComponentAce nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*
@@ -18,8 +18,8 @@ modification, are permitted provided that the following conditions are met:
 1. Redistributions of source code must retain the above copyright notice,
 this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright 
-notice, this list of conditions and the following disclaimer in 
+2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in
 the documentation and/or other materials provided with the distribution.
 
 3. The names of the authors may not be used to endorse or promote products
@@ -44,17 +44,17 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 namespace UniversalEditor.Compression.Modules.Zlib.Internal
 {
-	
+
 	public sealed class Deflate
 	{
-		
+
 		private const int MAX_MEM_LEVEL = 9;
-		
+
 		private const int Z_DEFAULT_COMPRESSION = - 1;
-		
+
 		private const int MAX_WBITS = 15; // 32K LZ77 window
 		private const int DEF_MEM_LEVEL = 8;
-		
+
 		internal class Config
 		{
 			internal int good_length; // reduce lazy search above this match length
@@ -71,39 +71,39 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				this.func = func;
 			}
 		}
-		
+
 		private const int STORED = 0;
 		private const int FAST = 1;
 		private const int SLOW = 2;
 		private static Config[] config_table;
-				
+
 		private static readonly System.String[] z_errmsg = new System.String[]{"need dictionary", "stream end", "", "file error", "stream error", "data error", "insufficient memory", "buffer error", "incompatible version", ""};
-		
+
 		// block not completed, need more input or more output
 		private const int NeedMore = 0;
-		
+
 		// block flush performed
 		private const int BlockDone = 1;
-		
+
 		// finish started, need only more output at next deflate
 		private const int FinishStarted = 2;
-		
+
 		// finish done, accept no more input or output
 		private const int FinishDone = 3;
-		
+
 		// preset dictionary flag in zlib header
 		private const int PRESET_DICT = 0x20;
-		
+
 		private const int Z_FILTERED = 1;
 		private const int Z_HUFFMAN_ONLY = 2;
 		private const int Z_DEFAULT_STRATEGY = 0;
-		
+
 		private const int Z_NO_FLUSH = 0;
 		private const int Z_PARTIAL_FLUSH = 1;
 		private const int Z_SYNC_FLUSH = 2;
 		private const int Z_FULL_FLUSH = 3;
 		private const int Z_FINISH = 4;
-		
+
 		private const int Z_OK = 0;
 		private const int Z_STREAM_END = 1;
 		private const int Z_NEED_DICT = 2;
@@ -113,48 +113,48 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 		private const int Z_MEM_ERROR = - 4;
 		private const int Z_BUF_ERROR = - 5;
 		private const int Z_VERSION_ERROR = - 6;
-		
+
 		private const int INIT_STATE = 42;
 		private const int BUSY_STATE = 113;
 		private const int FINISH_STATE = 666;
-		
+
 		// The deflate compression method
 		private const int Z_DEFLATED = 8;
-		
+
 		private const int STORED_BLOCK = 0;
 		private const int STATIC_TREES = 1;
 		private const int DYN_TREES = 2;
-		
+
 		// The three kinds of block type
 		private const int Z_BINARY = 0;
 		private const int Z_ASCII = 1;
 		private const int Z_UNKNOWN = 2;
-		
+
 		private const int Buf_size = 8 * 2;
-		
+
 		// repeat previous bit length 3-6 times (2 bits of repeat count)
 		private const int REP_3_6 = 16;
-		
+
 		// repeat a zero length 3-10 times  (3 bits of repeat count)
 		private const int REPZ_3_10 = 17;
-		
+
 		// repeat a zero length 11-138 times  (7 bits of repeat count)
 		private const int REPZ_11_138 = 18;
-		
+
 		private const int MIN_MATCH = 3;
-		private const int MAX_MATCH = 258;		
+		private const int MAX_MATCH = 258;
 		private static readonly int MIN_LOOKAHEAD = (MAX_MATCH + MIN_MATCH + 1);
-		
+
 		private const int MAX_BITS = 15;
 		private const int D_CODES = 30;
 		private const int BL_CODES = 19;
 		private const int LENGTH_CODES = 29;
-		private const int LITERALS = 256;		
-		private static readonly int L_CODES = (LITERALS + 1 + LENGTH_CODES);		
+		private const int LITERALS = 256;
+		private static readonly int L_CODES = (LITERALS + 1 + LENGTH_CODES);
 		private static readonly int HEAP_SIZE = (2 * L_CODES + 1);
-		
+
 		private const int END_BLOCK = 256;
-		
+
 		internal ZStream strm; // pointer back to this zlib stream
 		internal int status; // as the name implies
 		internal byte[] pending_buf; // output still pending
@@ -165,11 +165,11 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 		internal byte data_type; // UNKNOWN, BINARY or ASCII
 		internal byte method; // STORED (for zip only) or DEFLATED
 		internal int last_flush; // value of flush param for previous deflate call
-		
+
 		internal int w_size; // LZ77 window size (32K by default)
 		internal int w_bits; // log2(w_size)  (8..16)
 		internal int w_mask; // w_size - 1
-		
+
 		internal byte[] window;
 		// Sliding window. Input bytes are read into the second half of the window,
 		// and move to the first half later to keep a dictionary of at least wSize
@@ -178,91 +178,91 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 		// performed with a length multiple of the block size. Also, it limits
 		// the window size to 64K, which is quite useful on MSDOS.
 		// To do: use the user input buffer as sliding window.
-		
+
 		internal int window_size;
 		// Actual size of window: 2*wSize, except when the user input buffer
 		// is directly used as sliding window.
-		
+
 		internal short[] prev;
 		// Link to older string with same hash index. To limit the size of this
 		// array to 64K, this link is maintained only for the last 32K strings.
 		// An index in this array is thus a window index modulo 32K.
-		
+
 		internal short[] head; // Heads of the hash chains or NIL.
-		
+
 		internal int ins_h; // hash index of string to be inserted
 		internal int hash_size; // number of elements in hash table
 		internal int hash_bits; // log2(hash_size)
 		internal int hash_mask; // hash_size-1
-		
+
 		// Number of bits by which ins_h must be shifted at each input
 		// step. It must be such that after MIN_MATCH steps, the oldest
 		// byte no longer takes part in the hash key, that is:
 		// hash_shift * MIN_MATCH >= hash_bits
 		internal int hash_shift;
-		
+
 		// Window position at the beginning of the current output block. Gets
 		// negative when the window is moved backwards.
-		
+
 		internal int block_start;
-		
+
 		internal int match_length; // length of best match
 		internal int prev_match; // previous match
 		internal int match_available; // set if previous match exists
 		internal int strstart; // start of string to insert
 		internal int match_start; // start of matching string
 		internal int lookahead; // number of valid bytes ahead in window
-		
+
 		// Length of the best match at previous step. Matches not greater than this
 		// are discarded. This is used in the lazy match evaluation.
 		internal int prev_length;
-		
+
 		// To speed up deflation, hash chains are never searched beyond this
 		// length.  A higher limit improves compression ratio but degrades the speed.
 		internal int max_chain_length;
-		
+
 		// Attempt to find a better match only when the current match is strictly
 		// smaller than this value. This mechanism is used only for compression
 		// levels >= 4.
 		internal int max_lazy_match;
-		
+
 		// Insert new strings in the hash table only if the match length is not
 		// greater than this length. This saves time but degrades compression.
 		// max_insert_length is used only for compression levels <= 3.
-		
+
 		internal int level; // compression level (1..9)
 		internal int strategy; // favor or force Huffman coding
-		
+
 		// Use a faster search when the previous match is longer than this
 		internal int good_match;
-		
+
 		// Stop searching when current match exceeds this
 		internal int nice_match;
-		
+
 		internal short[] dyn_ltree; // literal and length tree
 		internal short[] dyn_dtree; // distance tree
 		internal short[] bl_tree; // Huffman tree for bit lengths
-		
+
 		internal Tree l_desc = new Tree(); // desc for literal tree
 		internal Tree d_desc = new Tree(); // desc for distance tree
 		internal Tree bl_desc = new Tree(); // desc for bit length tree
-		
+
 		// number of codes at each bit length for an optimal tree
 		internal short[] bl_count = new short[MAX_BITS + 1];
-		
+
 		// heap used to build the Huffman trees
 		internal int[] heap = new int[2 * L_CODES + 1];
-		
+
 		internal int heap_len; // number of elements in the heap
 		internal int heap_max; // element of largest frequency
 		// The sons of heap[n] are heap[2*n] and heap[2*n+1]. heap[0] is not used.
 		// The same heap array is used to build all trees.
-		
+
 		// Depth of each subtree used as tie breaker for trees of equal frequency
 		internal byte[] depth = new byte[2 * L_CODES + 1];
-		
+
 		internal int l_buf; // index for literals or lengths */
-		
+
 		// Size of match buffer for literals/lengths.  There are 4 reasons for
 		// limiting lit_bufsize to 64K:
 		//   - frequencies can be kept in 16 bit counters
@@ -281,51 +281,51 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 		//     trees more frequently.
 		//   - I can't count above 4
 		internal int lit_bufsize;
-		
+
 		internal int last_lit; // running index in l_buf
-		
+
 		// Buffer for distances. To simplify the code, d_buf and l_buf have
 		// the same number of elements. To use different lengths, an extra flag
 		// array would be necessary.
-		
+
 		internal int d_buf; // index of pendig_buf
-		
+
 		internal int opt_len; // bit length of current block with optimal trees
 		internal int static_len; // bit length of current block with static trees
 		internal int matches; // number of string matches in current block
 		internal int last_eob_len; // bit length of EOB code for last block
-		
+
 		// Output buffer. bits are inserted starting at the bottom (least
 		// significant bits).
 		internal short bi_buf;
-		
+
 		// Number of valid bits in bi_buf.  All bits above the last valid bit
 		// are always zero.
 		internal int bi_valid;
-		
+
 		internal Deflate()
 		{
 			dyn_ltree = new short[HEAP_SIZE * 2];
 			dyn_dtree = new short[(2 * D_CODES + 1) * 2]; // distance tree
 			bl_tree = new short[(2 * BL_CODES + 1) * 2]; // Huffman tree for bit lengths
 		}
-		
+
 		internal void  lm_init()
 		{
 			window_size = 2 * w_size;
-			
+
 			head[hash_size - 1] = 0;
 			for (int i = 0; i < hash_size - 1; i++)
 			{
 				head[i] = 0;
 			}
-			
+
 			// Set the default configuration parameters:
 			max_lazy_match = Deflate.config_table[level].max_lazy;
 			good_match = Deflate.config_table[level].good_length;
 			nice_match = Deflate.config_table[level].nice_length;
 			max_chain_length = Deflate.config_table[level].max_chain;
-			
+
 			strstart = 0;
 			block_start = 0;
 			lookahead = 0;
@@ -333,28 +333,28 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			match_available = 0;
 			ins_h = 0;
 		}
-		
+
 		// Initialize the tree data structures for a new zlib stream.
 		internal void  tr_init()
 		{
-			
+
 			l_desc.dyn_tree = dyn_ltree;
 			l_desc.stat_desc = StaticTree.static_l_desc;
-			
+
 			d_desc.dyn_tree = dyn_dtree;
 			d_desc.stat_desc = StaticTree.static_d_desc;
-			
+
 			bl_desc.dyn_tree = bl_tree;
 			bl_desc.stat_desc = StaticTree.static_bl_desc;
-			
+
 			bi_buf = 0;
 			bi_valid = 0;
 			last_eob_len = 8; // enough lookahead for inflate
-			
+
 			// Initialize the first block of the first file:
 			init_block();
 		}
-		
+
 		internal void  init_block()
 		{
 			// Initialize the trees.
@@ -364,12 +364,12 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				dyn_dtree[i * 2] = 0;
 			for (int i = 0; i < BL_CODES; i++)
 				bl_tree[i * 2] = 0;
-			
+
 			dyn_ltree[END_BLOCK * 2] = 1;
 			opt_len = static_len = 0;
 			last_lit = matches = 0;
 		}
-		
+
 		// Restore the heap property by moving down the tree starting at node k,
 		// exchanging a node with the smallest of its two sons if necessary, stopping
 		// when the heap property is re-established (each father smaller than its
@@ -388,7 +388,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				// Exit if v is smaller than both sons
 				if (smaller(tree, v, heap[j], depth))
 					break;
-				
+
 				// Exchange v with the smallest son
 				heap[k] = heap[j]; k = j;
 				// And continue down the tree, setting j to the left son of k
@@ -396,12 +396,12 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			}
 			heap[k] = v;
 		}
-		
+
 		internal static bool smaller(short[] tree, int n, int m, byte[] depth)
 		{
 			return (tree[n * 2] < tree[m * 2] || (tree[n * 2] == tree[m * 2] && depth[n] <= depth[m]));
 		}
-		
+
 		// Scan a literal or distance tree to determine the frequencies of the codes
 		// in the bit length tree.
 		internal void  scan_tree(short[] tree, int max_code)
@@ -413,13 +413,13 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			int count = 0; // repeat count of the current code
 			int max_count = 7; // max repeat count
 			int min_count = 4; // min repeat count
-			
+
 			if (nextlen == 0)
 			{
 				max_count = 138; min_count = 3;
 			}
 			tree[(max_code + 1) * 2 + 1] = (short) SupportClass.Identity(0xffff); // guard
-			
+
 			for (n = 0; n <= max_code; n++)
 			{
 				curlen = nextlen; nextlen = tree[(n + 1) * 2 + 1];
@@ -460,22 +460,22 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				}
 			}
 		}
-		
+
 		// Construct the Huffman tree for the bit lengths and return the index in
 		// bl_order of the last bit length code to send.
 		internal int build_bl_tree()
 		{
 			int max_blindex; // index of last bit length code of non zero freq
-			
+
 			// Determine the bit length frequencies for literal and distance trees
 			scan_tree(dyn_ltree, l_desc.max_code);
 			scan_tree(dyn_dtree, d_desc.max_code);
-			
+
 			// Build the bit length tree:
 			bl_desc.build_tree(this);
 			// opt_len now includes the length of the tree representations, except
 			// the lengths of the bit lengths codes and the 5+5+4 bits for the counts.
-			
+
 			// Determine the number of bit length codes to send. The pkzip format
 			// requires that at least 4 bit length codes be sent. (appnote.txt says
 			// 3 but the actual value used is 4.)
@@ -486,18 +486,18 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			}
 			// Update opt_len to include the bit length tree and counts
 			opt_len += 3 * (max_blindex + 1) + 5 + 5 + 4;
-			
+
 			return max_blindex;
 		}
-		
-		
+
+
 		// Send the header for a block using dynamic Huffman trees: the counts, the
 		// lengths of the bit length codes, the literal tree and the distance tree.
 		// IN assertion: lcodes >= 257, dcodes >= 1, blcodes >= 4.
 		internal void  send_all_trees(int lcodes, int dcodes, int blcodes)
 		{
 			int rank; // index in bl_order
-			
+
 			send_bits(lcodes - 257, 5); // not +255 as stated in appnote.txt
 			send_bits(dcodes - 1, 5);
 			send_bits(blcodes - 4, 4); // not -3 as stated in appnote.txt
@@ -508,7 +508,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			send_tree(dyn_ltree, lcodes - 1); // literal tree
 			send_tree(dyn_dtree, dcodes - 1); // distance tree
 		}
-		
+
 		// Send a literal or distance tree in compressed form, using the codes in
 		// bl_tree.
 		internal void  send_tree(short[] tree, int max_code)
@@ -520,12 +520,12 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			int count = 0; // repeat count of the current code
 			int max_count = 7; // max repeat count
 			int min_count = 4; // min repeat count
-			
+
 			if (nextlen == 0)
 			{
 				max_count = 138; min_count = 3;
 			}
-			
+
 			for (n = 0; n <= max_code; n++)
 			{
 				curlen = nextlen; nextlen = tree[(n + 1) * 2 + 1];
@@ -535,7 +535,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				}
 				else if (count < min_count)
 				{
-					do 
+					do
 					{
 						send_code(curlen, bl_tree);
 					}
@@ -575,7 +575,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				}
 			}
 		}
-		
+
 		// Output a byte on the stream.
 		// IN assertion: there is enough room in pending_buf.
 		internal void  put_byte(byte[] p, int start, int len)
@@ -583,7 +583,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			Array.Copy(p, start, pending_buf, pending, len);
 			pending += len;
 		}
-		
+
 		internal void  put_byte(byte c)
 		{
 			pending_buf[pending++] = c;
@@ -598,12 +598,12 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			put_byte((byte) (b >> 8));
 			put_byte((byte) (b));
 		}
-		
+
 		internal void  send_code(int c, short[] tree)
 		{
 			send_bits((tree[c * 2] & 0xffff), (tree[c * 2 + 1] & 0xffff));
 		}
-		
+
 		internal void  send_bits(int value_Renamed, int length)
 		{
 			int len = length;
@@ -623,7 +623,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				bi_valid += len;
 			}
 		}
-		
+
 		// Send one empty static block to give enough lookahead for inflate.
 		// This takes 10 bits, of which 7 may remain in the bit buffer.
 		// The current inflate code requires 9 bits of lookahead. If the
@@ -637,9 +637,9 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 		{
 			send_bits(STATIC_TREES << 1, 3);
 			send_code(END_BLOCK, StaticTree.static_ltree);
-			
+
 			bi_flush();
-			
+
 			// Of the 10 bits for the empty block, we have already sent
 			// (10 - bi_valid) bits. The lookahead for the last real code (before
 			// the EOB of the previous block) was thus at least one plus the length
@@ -652,18 +652,18 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			}
 			last_eob_len = 7;
 		}
-		
-		
+
+
 		// Save the match info and tally the frequency counts. Return true if
 		// the current block must be flushed.
 		internal bool _tr_tally(int dist, int lc)
 		{
-			
+
 			pending_buf[d_buf + last_lit * 2] = (byte) (SupportClass.URShift(dist, 8));
 			pending_buf[d_buf + last_lit * 2 + 1] = (byte) dist;
-			
+
 			pending_buf[l_buf + last_lit] = (byte) lc; last_lit++;
-			
+
 			if (dist == 0)
 			{
 				// lc is the unmatched char
@@ -677,7 +677,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				dyn_ltree[(Tree._length_code[lc] + LITERALS + 1) * 2]++;
 				dyn_dtree[Tree.d_code(dist) * 2]++;
 			}
-			
+
 			if ((last_lit & 0x1fff) == 0 && level > 2)
 			{
 				// Compute an upper bound for the compressed length
@@ -692,13 +692,13 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				if ((matches < (last_lit / 2)) && out_length < in_length / 2)
 					return true;
 			}
-			
+
 			return (last_lit == lit_bufsize - 1);
 			// We avoid equality with lit_bufsize because of wraparound at 64K
 			// on 16 bit machines and because stored blocks are restricted to
 			// 64K-1 bytes.
 		}
-		
+
 		// Send the block data compressed using the given Huffman trees
 		internal void  compress_block(short[] ltree, short[] dtree)
 		{
@@ -707,14 +707,14 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			int lx = 0; // running index in l_buf
 			int code; // the code to send
 			int extra; // number of extra bits to send
-			
+
 			if (last_lit != 0)
 			{
-				do 
+				do
 				{
 					dist = ((pending_buf[d_buf + lx * 2] << 8) & 0xff00) | (pending_buf[d_buf + lx * 2 + 1] & 0xff);
 					lc = (pending_buf[l_buf + lx]) & 0xff; lx++;
-					
+
 					if (dist == 0)
 					{
 						send_code(lc, ltree); // send a literal byte
@@ -723,7 +723,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					{
 						// Here, lc is the match length - MIN_MATCH
 						code = Tree._length_code[lc];
-						
+
 						send_code(code + LITERALS + 1, ltree); // send the length code
 						extra = Tree.extra_lbits[code];
 						if (extra != 0)
@@ -733,7 +733,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 						}
 						dist--; // dist is now the match distance - 1
 						code = Tree.d_code(dist);
-						
+
 						send_code(code, dtree); // send the distance code
 						extra = Tree.extra_dbits[code];
 						if (extra != 0)
@@ -742,16 +742,16 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 							send_bits(dist, extra); // send the extra distance bits
 						}
 					} // literal or match pair ?
-					
+
 					// Check that the overlay between pending_buf and d_buf+l_buf is ok:
 				}
 				while (lx < last_lit);
 			}
-			
+
 			send_code(END_BLOCK, ltree);
 			last_eob_len = ltree[END_BLOCK * 2 + 1];
 		}
-		
+
 		// Set the data type to ASCII or BINARY, using a crude approximation:
 		// binary if more than 20% of the bytes are <= 6 or >= 128, ascii otherwise.
 		// IN assertion: the fields freq of dyn_ltree are set and the total of all
@@ -775,7 +775,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			}
 			data_type = (byte) (bin_freq > (SupportClass.URShift(ascii_freq, 2))?Z_BINARY:Z_ASCII);
 		}
-		
+
 		// Flush the bit buffer, keeping at most 7 bits in it.
 		internal void  bi_flush()
 		{
@@ -792,7 +792,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				bi_valid -= 8;
 			}
 		}
-		
+
 		// Flush the bit buffer and align the output on a byte boundary
 		internal void  bi_windup()
 		{
@@ -807,35 +807,35 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			bi_buf = 0;
 			bi_valid = 0;
 		}
-		
+
 		// Copy a stored block, storing first the length and its
 		// one's complement if requested.
 		internal void  copy_block(int buf, int len, bool header)
 		{
-			
+
 			bi_windup(); // align on byte boundary
 			last_eob_len = 8; // enough lookahead for inflate
-			
+
 			if (header)
 			{
 				put_short((short) len);
 				put_short((short) ~ len);
 			}
-			
+
 			//  while(len--!=0) {
 			//    put_byte(window[buf+index]);
 			//    index++;
 			//  }
 			put_byte(window, buf, len);
 		}
-		
+
 		internal void  flush_block_only(bool eof)
 		{
 			_tr_flush_block(block_start >= 0?block_start:- 1, strstart - block_start, eof);
 			block_start = strstart;
 			strm.flush_pending();
 		}
-		
+
 		// Copy without compression as much as possible from the input stream, return
 		// the current block state.
 		// This function does not insert new strings in the dictionary since
@@ -847,15 +847,15 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 		{
 			// Stored blocks are limited to 0xffff bytes, pending_buf is limited
 			// to pending_buf_size, and each stored block has a 5 byte header:
-			
+
 			int max_block_size = 0xffff;
 			int max_start;
-			
+
 			if (max_block_size > pending_buf_size - 5)
 			{
 				max_block_size = pending_buf_size - 5;
 			}
-			
+
 			// Copy as much as possible from input to output:
 			while (true)
 			{
@@ -868,10 +868,10 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					if (lookahead == 0)
 						break; // flush the current block
 				}
-				
+
 				strstart += lookahead;
 				lookahead = 0;
-				
+
 				// Emit a stored block if pending_buf will be full:
 				max_start = block_start + max_block_size;
 				if (strstart == 0 || strstart >= max_start)
@@ -879,12 +879,12 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					// strstart == 0 is possible when wraparound on 16-bit machine
 					lookahead = (int) (strstart - max_start);
 					strstart = (int) max_start;
-					
+
 					flush_block_only(false);
 					if (strm.avail_out == 0)
 						return NeedMore;
 				}
-				
+
 				// Flush if we may have to slide, otherwise block_start may become
 				// negative and the data will be gone:
 				if (strstart - block_start >= w_size - MIN_LOOKAHEAD)
@@ -894,51 +894,51 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 						return NeedMore;
 				}
 			}
-			
+
 			flush_block_only(flush == Z_FINISH);
 			if (strm.avail_out == 0)
 				return (flush == Z_FINISH)?FinishStarted:NeedMore;
-			
+
 			return flush == Z_FINISH?FinishDone:BlockDone;
 		}
-		
+
 		// Send a stored block
 		internal void  _tr_stored_block(int buf, int stored_len, bool eof)
 		{
 			send_bits((STORED_BLOCK << 1) + (eof?1:0), 3); // send block type
 			copy_block(buf, stored_len, true); // with header
 		}
-		
+
 		// Determine the best encoding for the current block: dynamic trees, static
 		// trees or store, and output the encoded block to the zip file.
 		internal void  _tr_flush_block(int buf, int stored_len, bool eof)
 		{
 			int opt_lenb, static_lenb; // opt_len and static_len in bytes
 			int max_blindex = 0; // index of last bit length code of non zero freq
-			
+
 			// Build the Huffman trees unless a stored block is forced
 			if (level > 0)
 			{
 				// Check if the file is ascii or binary
 				if (data_type == Z_UNKNOWN)
 					set_data_type();
-				
+
 				// Construct the literal and distance trees
 				l_desc.build_tree(this);
-				
+
 				d_desc.build_tree(this);
-				
+
 				// At this point, opt_len and static_len are the total bit lengths of
 				// the compressed block data, excluding the tree representations.
-				
+
 				// Build the bit length tree for the above two trees, and get the index
 				// in bl_order of the last bit length code to send.
 				max_blindex = build_bl_tree();
-				
+
 				// Determine the best encoding. Compute first the block length in bytes
 				opt_lenb = SupportClass.URShift((opt_len + 3 + 7), 3);
 				static_lenb = SupportClass.URShift((static_len + 3 + 7), 3);
-				
+
 				if (static_lenb <= opt_lenb)
 					opt_lenb = static_lenb;
 			}
@@ -946,7 +946,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			{
 				opt_lenb = static_lenb = stored_len + 5; // force a stored block
 			}
-			
+
 			if (stored_len + 4 <= opt_lenb && buf != - 1)
 			{
 				// 4: two words for the lengths
@@ -968,18 +968,18 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				send_all_trees(l_desc.max_code + 1, d_desc.max_code + 1, max_blindex + 1);
 				compress_block(dyn_ltree, dyn_dtree);
 			}
-			
+
 			// The above check is made mod 2^32, for files larger than 512 MB
 			// and uLong implemented on 32 bits.
-			
+
 			init_block();
-			
+
 			if (eof)
 			{
 				bi_windup();
 			}
 		}
-		
+
 		// Fill the window when the lookahead becomes insufficient.
 		// Updates strstart and lookahead.
 		//
@@ -993,11 +993,11 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			int n, m;
 			int p;
 			int more; // Amount of free space at the end of the window.
-			
-			do 
+
+			do
 			{
 				more = (window_size - lookahead - strstart);
-				
+
 				// Deal with !@#$% 64K limit:
 				if (more == 0 && strstart == 0 && lookahead == 0)
 				{
@@ -1008,7 +1008,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					// Very unlikely, but possible on 16 bit machine if strstart == 0
 					// and lookahead == 1 (input done one byte at time)
 					more--;
-					
+
 					// If the window is almost full and there is insufficient lookahead,
 					// move the upper half to the lower one to make room in the upper half.
 				}
@@ -1018,26 +1018,26 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					match_start -= w_size;
 					strstart -= w_size; // we now have strstart >= MAX_DIST
 					block_start -= w_size;
-					
+
 					// Slide the hash table (could be avoided with 32 bit values
 					// at the expense of memory usage). We slide even when level == 0
 					// to keep the hash table consistent if we switch back to level > 0
 					// later. (Using level 0 permanently is not an optimal usage of
 					// zlib, so we don't care about this pathological case.)
-					
+
 					n = hash_size;
 					p = n;
-					do 
+					do
 					{
 						m = (head[--p] & 0xffff);
 						head[p] = (short)(m >= w_size?(m - w_size):0);
 						//head[p] = (m >= w_size?(short) (m - w_size):0);
 					}
 					while (--n != 0);
-					
+
 					n = w_size;
 					p = n;
-					do 
+					do
 					{
 						m = (prev[--p] & 0xffff);
 						prev[p] = (short)(m >= w_size?(m - w_size):0);
@@ -1048,10 +1048,10 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					while (--n != 0);
 					more += w_size;
 				}
-				
+
 				if (strm.avail_in == 0)
 					return ;
-				
+
 				// If there was no sliding:
 				//    strstart <= WSIZE+MAX_DIST-1 && lookahead <= MIN_LOOKAHEAD - 1 &&
 				//    more == window_size - lookahead - strstart
@@ -1062,10 +1062,10 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				//   strstart + s->lookahead <= input_size => more >= MIN_LOOKAHEAD.
 				// Otherwise, window_size == 2*WSIZE so more >= 2.
 				// If there was sliding, more >= WSIZE. So in all cases, more >= 2.
-				
+
 				n = strm.read_buf(window, strstart + lookahead, more);
 				lookahead += n;
-				
+
 				// Initialize the hash value now that we have some input:
 				if (lookahead >= MIN_MATCH)
 				{
@@ -1077,7 +1077,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			}
 			while (lookahead < MIN_LOOKAHEAD && strm.avail_in != 0);
 		}
-		
+
 		// Compress as much as possible from the input stream, return the current
 		// block state.
 		// This function does not perform lazy evaluation of matches and inserts
@@ -1088,7 +1088,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			//    short hash_head = 0; // head of the hash chain
 			int hash_head = 0; // head of the hash chain
 			bool bflush; // set if current block must be flushed
-			
+
 			while (true)
 			{
 				// Make sure that we always have enough lookahead, except
@@ -1105,22 +1105,22 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					if (lookahead == 0)
 						break; // flush the current block
 				}
-				
+
 				// Insert the string window[strstart .. strstart+2] in the
 				// dictionary, and set hash_head to the head of the hash chain:
 				if (lookahead >= MIN_MATCH)
 				{
 					ins_h = (((ins_h) << hash_shift) ^ (window[(strstart) + (MIN_MATCH - 1)] & 0xff)) & hash_mask;
-					
+
 					//	prev[strstart&w_mask]=hash_head=head[ins_h];
 					hash_head = (head[ins_h] & 0xffff);
 					prev[strstart & w_mask] = head[ins_h];
 					head[ins_h] = (short) strstart;
 				}
-				
+
 				// Find the longest match, discarding those <= prev_length.
 				// At this point we have always match_length < MIN_MATCH
-				
+
 				if (hash_head != 0L && ((strstart - hash_head) & 0xffff) <= w_size - MIN_LOOKAHEAD)
 				{
 					// To simplify the code, we prevent matches with the string
@@ -1135,26 +1135,26 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				if (match_length >= MIN_MATCH)
 				{
 					//        check_match(strstart, match_start, match_length);
-					
+
 					bflush = _tr_tally(strstart - match_start, match_length - MIN_MATCH);
-					
+
 					lookahead -= match_length;
-					
+
 					// Insert new strings in the hash table only if the match length
 					// is not too large. This saves time but degrades compression.
 					if (match_length <= max_lazy_match && lookahead >= MIN_MATCH)
 					{
 						match_length--; // string at strstart already in hash table
-						do 
+						do
 						{
 							strstart++;
-							
+
 							ins_h = ((ins_h << hash_shift) ^ (window[(strstart) + (MIN_MATCH - 1)] & 0xff)) & hash_mask;
 							//	    prev[strstart&w_mask]=hash_head=head[ins_h];
 							hash_head = (head[ins_h] & 0xffff);
 							prev[strstart & w_mask] = head[ins_h];
 							head[ins_h] = (short) strstart;
-							
+
 							// strstart never exceeds WSIZE-MAX_MATCH, so there are
 							// always MIN_MATCH bytes ahead.
 						}
@@ -1166,7 +1166,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 						strstart += match_length;
 						match_length = 0;
 						ins_h = window[strstart] & 0xff;
-						
+
 						ins_h = (((ins_h) << hash_shift) ^ (window[strstart + 1] & 0xff)) & hash_mask;
 						// If lookahead < MIN_MATCH, ins_h is garbage, but it does not
 						// matter since it will be recomputed at next deflate call.
@@ -1175,20 +1175,20 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				else
 				{
 					// No match, output a literal byte
-					
+
 					bflush = _tr_tally(0, window[strstart] & 0xff);
 					lookahead--;
 					strstart++;
 				}
 				if (bflush)
 				{
-					
+
 					flush_block_only(false);
 					if (strm.avail_out == 0)
 						return NeedMore;
 				}
 			}
-			
+
 			flush_block_only(flush == Z_FINISH);
 			if (strm.avail_out == 0)
 			{
@@ -1199,7 +1199,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			}
 			return flush == Z_FINISH?FinishDone:BlockDone;
 		}
-		
+
 		// Same as above, but achieves better compression. We use a lazy
 		// evaluation for matches: a match is finally adopted only if there is
 		// no better match at the next window position.
@@ -1208,7 +1208,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			//    short hash_head = 0;    // head of hash chain
 			int hash_head = 0; // head of hash chain
 			bool bflush; // set if current block must be flushed
-			
+
 			// Process the input block.
 			while (true)
 			{
@@ -1216,7 +1216,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				// at the end of the input file. We need MAX_MATCH bytes
 				// for the next match, plus MIN_MATCH bytes to insert the
 				// string following the next match.
-				
+
 				if (lookahead < MIN_LOOKAHEAD)
 				{
 					fill_window();
@@ -1227,10 +1227,10 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					if (lookahead == 0)
 						break; // flush the current block
 				}
-				
+
 				// Insert the string window[strstart .. strstart+2] in the
 				// dictionary, and set hash_head to the head of the hash chain:
-				
+
 				if (lookahead >= MIN_MATCH)
 				{
 					ins_h = (((ins_h) << hash_shift) ^ (window[(strstart) + (MIN_MATCH - 1)] & 0xff)) & hash_mask;
@@ -1239,50 +1239,50 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					prev[strstart & w_mask] = head[ins_h];
 					head[ins_h] = (short) strstart;
 				}
-				
+
 				// Find the longest match, discarding those <= prev_length.
 				prev_length = match_length; prev_match = match_start;
 				match_length = MIN_MATCH - 1;
-				
+
 				if (hash_head != 0 && prev_length < max_lazy_match && ((strstart - hash_head) & 0xffff) <= w_size - MIN_LOOKAHEAD)
 				{
 					// To simplify the code, we prevent matches with the string
 					// of window index 0 (in particular we have to avoid a match
 					// of the string with itself at the start of the input file).
-					
+
 					if (strategy != Z_HUFFMAN_ONLY)
 					{
 						match_length = longest_match(hash_head);
 					}
 					// longest_match() sets match_start
-					
+
 					if (match_length <= 5 && (strategy == Z_FILTERED || (match_length == MIN_MATCH && strstart - match_start > 4096)))
 					{
-						
+
 						// If prev_match is also MIN_MATCH, match_start is garbage
 						// but we will ignore the current match anyway.
 						match_length = MIN_MATCH - 1;
 					}
 				}
-				
+
 				// If there was a match at the previous step and the current
 				// match is not better, output the previous match:
 				if (prev_length >= MIN_MATCH && match_length <= prev_length)
 				{
 					int max_insert = strstart + lookahead - MIN_MATCH;
 					// Do not insert strings in hash table beyond this.
-					
+
 					//          check_match(strstart-1, prev_match, prev_length);
-					
+
 					bflush = _tr_tally(strstart - 1 - prev_match, prev_length - MIN_MATCH);
-					
+
 					// Insert in hash table all strings up to the end of the match.
 					// strstart-1 and strstart are already inserted. If there is not
 					// enough lookahead, the last two strings are not inserted in
 					// the hash table.
 					lookahead -= (prev_length - 1);
 					prev_length -= 2;
-					do 
+					do
 					{
 						if (++strstart <= max_insert)
 						{
@@ -1297,7 +1297,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					match_available = 0;
 					match_length = MIN_MATCH - 1;
 					strstart++;
-					
+
 					if (bflush)
 					{
 						flush_block_only(false);
@@ -1307,13 +1307,13 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				}
 				else if (match_available != 0)
 				{
-					
+
 					// If there was no match at the previous position, output a
 					// single literal. If there was a match but the current match
 					// is longer, truncate the previous match to a single literal.
-					
+
 					bflush = _tr_tally(0, window[strstart - 1] & 0xff);
-					
+
 					if (bflush)
 					{
 						flush_block_only(false);
@@ -1327,20 +1327,20 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				{
 					// There is no previous match to compare with, wait for
 					// the next step to decide.
-					
+
 					match_available = 1;
 					strstart++;
 					lookahead--;
 				}
 			}
-			
+
 			if (match_available != 0)
 			{
 				bflush = _tr_tally(0, window[strstart - 1] & 0xff);
 				match_available = 0;
 			}
 			flush_block_only(flush == Z_FINISH);
-			
+
 			if (strm.avail_out == 0)
 			{
 				if (flush == Z_FINISH)
@@ -1348,10 +1348,10 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				else
 					return NeedMore;
 			}
-			
+
 			return flush == Z_FINISH?FinishDone:BlockDone;
 		}
-		
+
 		internal int longest_match(int cur_match)
 		{
 			int chain_length = max_chain_length; // max hash chain length
@@ -1361,56 +1361,56 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			int best_len = prev_length; // best match length so far
 			int limit = strstart > (w_size - MIN_LOOKAHEAD)?strstart - (w_size - MIN_LOOKAHEAD):0;
 			int nice_match = this.nice_match;
-			
+
 			// Stop when cur_match becomes <= limit. To simplify the code,
 			// we prevent matches with the string of window index 0.
-			
+
 			int wmask = w_mask;
-			
+
 			int strend = strstart + MAX_MATCH;
 			byte scan_end1 = window[scan + best_len - 1];
 			byte scan_end = window[scan + best_len];
-			
+
 			// The code is optimized for HASH_BITS >= 8 and MAX_MATCH-2 multiple of 16.
 			// It is easy to get rid of this optimization if necessary.
-			
+
 			// Do not waste too much time if we already have a good match:
 			if (prev_length >= good_match)
 			{
 				chain_length >>= 2;
 			}
-			
+
 			// Do not look for matches beyond the end of the input. This is necessary
 			// to make deflate deterministic.
 			if (nice_match > lookahead)
 				nice_match = lookahead;
-			
-			do 
+
+			do
 			{
 				match = cur_match;
-				
+
 				// Skip to next match if the match length cannot increase
 				// or if the match length is less than 2:
 				if (window[match + best_len] != scan_end || window[match + best_len - 1] != scan_end1 || window[match] != window[scan] || window[++match] != window[scan + 1])
 					continue;
-				
+
 				// The check at best_len-1 can be removed because it will be made
 				// again later. (This heuristic is not always a win.)
 				// It is not necessary to compare scan[2] and match[2] since they
 				// are always equal when the other bytes match, given that
 				// the hash keys are equal and that HASH_BITS >= 8.
 				scan += 2; match++;
-				
+
 				// We check for insufficient lookahead only every 8th comparison;
 				// the 256th check will be made at strstart+258.
-				do 
+				do
 				{
 				}
 				while (window[++scan] == window[++match] && window[++scan] == window[++match] && window[++scan] == window[++match] && window[++scan] == window[++match] && window[++scan] == window[++match] && window[++scan] == window[++match] && window[++scan] == window[++match] && window[++scan] == window[++match] && scan < strend);
-				
+
 				len = MAX_MATCH - (int) (strend - scan);
 				scan = strend - MAX_MATCH;
-				
+
 				if (len > best_len)
 				{
 					match_start = cur_match;
@@ -1422,12 +1422,12 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				}
 			}
 			while ((cur_match = (prev[cur_match & wmask] & 0xffff)) > limit && --chain_length != 0);
-			
+
 			if (best_len <= lookahead)
 				return best_len;
 			return lookahead;
 		}
-		
+
 		internal int deflateInit(ZStream strm, int level, int bits)
 		{
 			return deflateInit2(strm, level, Z_DEFLATED, bits, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY);
@@ -1440,89 +1440,89 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 		{
 			int noheader = 0;
 			//    byte[] my_version=ZLIB_VERSION;
-			
+
 			//
 			//  if (version == null || version[0] != my_version[0]
 			//  || stream_size != sizeof(z_stream)) {
 			//  return Z_VERSION_ERROR;
 			//  }
-			
+
 			strm.msg = null;
-			
+
 			if (level == Z_DEFAULT_COMPRESSION)
 				level = 6;
-			
+
 			if (windowBits < 0)
 			{
 				// undocumented feature: suppress zlib header
 				noheader = 1;
 				windowBits = - windowBits;
 			}
-			
+
 			if (memLevel < 1 || memLevel > MAX_MEM_LEVEL || method != Z_DEFLATED || windowBits < 9 || windowBits > 15 || level < 0 || level > 9 || strategy < 0 || strategy > Z_HUFFMAN_ONLY)
 			{
 				return Z_STREAM_ERROR;
 			}
-			
+
 			strm.dstate = (Deflate) this;
-			
+
 			this.noheader = noheader;
 			w_bits = windowBits;
 			w_size = 1 << w_bits;
 			w_mask = w_size - 1;
-			
+
 			hash_bits = memLevel + 7;
 			hash_size = 1 << hash_bits;
 			hash_mask = hash_size - 1;
 			hash_shift = ((hash_bits + MIN_MATCH - 1) / MIN_MATCH);
-			
+
 			window = new byte[w_size * 2];
 			prev = new short[w_size];
 			head = new short[hash_size];
-			
+
 			lit_bufsize = 1 << (memLevel + 6); // 16K elements by default
-			
+
 			// We overlay pending_buf and d_buf+l_buf. This works since the average
 			// output size for (length,distance) codes is <= 24 bits.
 			pending_buf = new byte[lit_bufsize * 4];
 			pending_buf_size = lit_bufsize * 4;
-			
+
 			d_buf = lit_bufsize;
 			l_buf = (1 + 2) * lit_bufsize;
-			
+
 			this.level = level;
-			
+
 			//System.out.println("level="+level);
-			
+
 			this.strategy = strategy;
 			this.method = (byte) method;
-			
+
 			return deflateReset(strm);
 		}
-		
+
 		internal int deflateReset(ZStream strm)
 		{
 			strm.total_in = strm.total_out = 0;
 			strm.msg = null; //
 			strm.data_type = Z_UNKNOWN;
-			
+
 			pending = 0;
 			pending_out = 0;
-			
+
 			if (noheader < 0)
 			{
 				noheader = 0; // was set to -1 by deflate(..., Z_FINISH);
 			}
 			status = (noheader != 0)?BUSY_STATE:INIT_STATE;
 			strm.adler = strm._adler.adler32(0, null, 0, 0);
-			
+
 			last_flush = Z_NO_FLUSH;
-			
+
 			tr_init();
 			lm_init();
 			return Z_OK;
 		}
-		
+
 		internal int deflateEnd()
 		{
 			if (status != INIT_STATE && status != BUSY_STATE && status != FINISH_STATE)
@@ -1538,11 +1538,11 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			// dstate=null;
 			return status == BUSY_STATE?Z_DATA_ERROR:Z_OK;
 		}
-		
+
 		internal int deflateParams(ZStream strm, int _level, int _strategy)
 		{
 			int err = Z_OK;
-			
+
 			if (_level == Z_DEFAULT_COMPRESSION)
 			{
 				_level = 6;
@@ -1551,13 +1551,13 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			{
 				return Z_STREAM_ERROR;
 			}
-			
+
 			if (config_table[level].func != config_table[_level].func && strm.total_in != 0)
 			{
 				// Flush the last buffer:
 				err = strm.deflate(Z_PARTIAL_FLUSH);
 			}
-			
+
 			if (level != _level)
 			{
 				level = _level;
@@ -1569,17 +1569,17 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			strategy = _strategy;
 			return err;
 		}
-		
+
 		internal int deflateSetDictionary(ZStream strm, byte[] dictionary, int dictLength)
 		{
 			int length = dictLength;
 			int index = 0;
-			
+
 			if (dictionary == null || status != INIT_STATE)
 				return Z_STREAM_ERROR;
-			
+
 			strm.adler = strm._adler.adler32(strm.adler, dictionary, 0, dictLength);
-			
+
 			if (length < MIN_MATCH)
 				return Z_OK;
 			if (length > w_size - MIN_LOOKAHEAD)
@@ -1590,14 +1590,14 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			Array.Copy(dictionary, index, window, 0, length);
 			strstart = length;
 			block_start = length;
-			
+
 			// Insert all strings in the hash table (except for the last two bytes).
 			// s->lookahead stays null, so s->ins_h will be recomputed at the next
 			// call of fill_window.
-			
+
 			ins_h = window[0] & 0xff;
 			ins_h = (((ins_h) << hash_shift) ^ (window[1] & 0xff)) & hash_mask;
-			
+
 			for (int n = 0; n <= length - MIN_MATCH; n++)
 			{
 				ins_h = (((ins_h) << hash_shift) ^ (window[(n) + (MIN_MATCH - 1)] & 0xff)) & hash_mask;
@@ -1606,16 +1606,16 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 			}
 			return Z_OK;
 		}
-		
+
 		internal int deflate(ZStream strm, int flush)
 		{
 			int old_flush;
-			
+
 			if (flush > Z_FINISH || flush < 0)
 			{
 				return Z_STREAM_ERROR;
 			}
-			
+
 			if (strm.next_out == null || (strm.next_in == null && strm.avail_in != 0) || (status == FINISH_STATE && flush != Z_FINISH))
 			{
 				strm.msg = z_errmsg[Z_NEED_DICT - (Z_STREAM_ERROR)];
@@ -1626,28 +1626,28 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				strm.msg = z_errmsg[Z_NEED_DICT - (Z_BUF_ERROR)];
 				return Z_BUF_ERROR;
 			}
-			
+
 			this.strm = strm; // just in case
 			old_flush = last_flush;
 			last_flush = flush;
-			
+
 			// Write the zlib header
 			if (status == INIT_STATE)
 			{
 				int header = (Z_DEFLATED + ((w_bits - 8) << 4)) << 8;
 				int level_flags = ((level - 1) & 0xff) >> 1;
-				
+
 				if (level_flags > 3)
 					level_flags = 3;
 				header |= (level_flags << 6);
 				if (strstart != 0)
 					header |= PRESET_DICT;
 				header += 31 - (header % 31);
-				
+
 				status = BUSY_STATE;
 				putShortMSB(header);
-				
-				
+
+
 				// Save the adler32 of the preset dictionary:
 				if (strstart != 0)
 				{
@@ -1656,7 +1656,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				}
 				strm.adler = strm._adler.adler32(0, null, 0, 0);
 			}
-			
+
 			// Flush as much pending output as possible
 			if (pending != 0)
 			{
@@ -1672,7 +1672,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					last_flush = - 1;
 					return Z_OK;
 				}
-				
+
 				// Make sure there is something to do and avoid duplicate consecutive
 				// flushes. For repeated and useless calls with Z_FINISH, we keep
 				// returning Z_STREAM_END instead of Z_BUFF_ERROR.
@@ -1682,38 +1682,38 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				strm.msg = z_errmsg[Z_NEED_DICT - (Z_BUF_ERROR)];
 				return Z_BUF_ERROR;
 			}
-			
+
 			// User must not provide more input after the first FINISH:
 			if (status == FINISH_STATE && strm.avail_in != 0)
 			{
 				strm.msg = z_errmsg[Z_NEED_DICT - (Z_BUF_ERROR)];
 				return Z_BUF_ERROR;
 			}
-			
+
 			// Start a new block or continue the current one.
 			if (strm.avail_in != 0 || lookahead != 0 || (flush != Z_NO_FLUSH && status != FINISH_STATE))
 			{
 				int bstate = - 1;
 				switch (config_table[level].func)
 				{
-					
-					case STORED: 
+
+					case STORED:
 						bstate = deflate_stored(flush);
 						break;
-					
-					case FAST: 
+
+					case FAST:
 						bstate = deflate_fast(flush);
 						break;
-					
-					case SLOW: 
+
+					case SLOW:
 						bstate = deflate_slow(flush);
 						break;
-					
-					default: 
+
+					default:
 						break;
-					
+
 				}
-				
+
 				if (bstate == FinishStarted || bstate == FinishDone)
 				{
 					status = FINISH_STATE;
@@ -1732,7 +1732,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					// ensures that for a very small output buffer, we emit at most
 					// one empty block.
 				}
-				
+
 				if (bstate == BlockDone)
 				{
 					if (flush == Z_PARTIAL_FLUSH)
@@ -1761,17 +1761,17 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 					}
 				}
 			}
-			
+
 			if (flush != Z_FINISH)
 				return Z_OK;
 			if (noheader != 0)
 				return Z_STREAM_END;
-			
+
 			// Write the zlib trailer (adler32)
 			putShortMSB((int) (SupportClass.URShift(strm.adler, 16)));
 			putShortMSB((int) (strm.adler & 0xffff));
 			strm.flush_pending();
-			
+
 			// If avail_out is zero, the application will call deflate again
 			// to flush the rest.
 			noheader = - 1; // write the trailer only once!
@@ -1786,7 +1786,7 @@ namespace UniversalEditor.Compression.Modules.Zlib.Internal
 				config_table[1] = new Config(4, 4, 8, 4, FAST);
 				config_table[2] = new Config(4, 5, 16, 8, FAST);
 				config_table[3] = new Config(4, 6, 32, 32, FAST);
-				
+
 				config_table[4] = new Config(4, 4, 16, 16, SLOW);
 				config_table[5] = new Config(8, 16, 32, 32, SLOW);
 				config_table[6] = new Config(8, 16, 128, 128, SLOW);

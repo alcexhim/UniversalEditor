@@ -61,7 +61,7 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
-			
+
 			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
 			CompiledHelpObjectModel help = (objectModels.Pop() as CompiledHelpObjectModel);
 
@@ -252,7 +252,7 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 							if (topicLink.RecordType == Internal.TopicLinkRecordType.Display31 || topicLink.RecordType == Internal.TopicLinkRecordType.Table31)
 							{
 								int TopicSize = ReadCompressedInt32(reader);
-								
+
 								TopicLength = ReadCompressedUInt16(reader);
 								TopicLength = (ushort)(TopicLength - 1);
 							}
@@ -502,7 +502,7 @@ namespace UniversalEditor.DataFormats.Help.Compiled.WinHelp
 		private Internal.SYSTEMHEADER ReadSYSTEMHEADER(Reader reader)
 		{
 			Internal.SYSTEMHEADER item = new Internal.SYSTEMHEADER();
-			
+
 			short magic = reader.ReadInt16();
 			if (magic != 0x036C) throw new InvalidDataFormatException("|SYSTEM header does not begin with { 0x6C, 0x03 }");
 

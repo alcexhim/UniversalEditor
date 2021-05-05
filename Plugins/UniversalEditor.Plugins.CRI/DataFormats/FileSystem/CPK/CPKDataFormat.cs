@@ -536,7 +536,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("TocOffset", (ulong)SectorAlignment),
 				new DatabaseField("TocSize", (ulong)tocsize),
 				new DatabaseField("TocCrc", null),
-				
+
 				// added in newer version CpkFileBuilder
 				// new DatabaseField("HtocOffset", 0),
 				// new DatabaseField("HtocSize", 0),
@@ -568,7 +568,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				new DatabaseField("Revision", (ushort)0),
 				new DatabaseField("Align", (ushort)SectorAlignment),
 				new DatabaseField("Sorted", (ushort)1),
-				
+
 				// added in newer version CpkFileBuilder
 				// new DatabaseField("EnableFileName", (ushort)0),
 
@@ -752,7 +752,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 				throw new ObjectModelNotSupportedException();
 
 			File[] files = fsom.GetAllFiles();
-			
+
 			IO.Writer bw = Accessor.Writer;
 			bw.WriteFixedLengthString("CPK ");
 
@@ -884,4 +884,3 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 		}
 	}
 }
-

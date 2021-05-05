@@ -239,7 +239,7 @@ namespace UniversalEditor.UserInterface
 					tagSessions.Elements.Add(tagSession);
 				}
 			}
-			
+
 			string dir = System.IO.Path.GetDirectoryName (mvarDataFileName);
 			if (!System.IO.Directory.Exists (dir))
 			{

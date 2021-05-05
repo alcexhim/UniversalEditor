@@ -85,7 +85,7 @@ namespace UniversalEditor.UserInterface
 			{
 				System.IO.Directory.CreateDirectory (dir);
 			}
-			
+
 			Document.Save(mom, xml, new FileAccessor(DataFileName, true, true), true);
 		}
 	}

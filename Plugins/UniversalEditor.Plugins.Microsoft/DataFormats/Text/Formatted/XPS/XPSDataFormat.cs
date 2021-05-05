@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 		}
 
 		public XPSSchemaVersion SchemaVersion { get; set; } = XPSSchemaVersion.OpenXPS;
-		
+
 		protected override void BeforeLoadInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
 		{
 			objectModels.Push(new PackageObjectModel());
@@ -71,20 +71,20 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 
 			// we need to get the FixedRepresentation for the XPS document
 			File[] files = package.GetFilesBySchema(XPSSchemas.GetSchema(SchemaVersion, XPSSchemaType.FixedRepresentation));
-			
+
 			// get the related print tickets
 			File[] printTickets = package.GetFilesBySchema(XPSSchemas.GetSchema(SchemaVersion, XPSSchemaType.PrintTicket), "FixedDocumentSequence.fdseq");
 			PrintTicketObjectModel printTicket = printTickets[0].GetObjectModel<PrintTicketObjectModel>(new PrintTicketXMLDataFormat());
 
 			FixedDocumentSequenceObjectModel fdom = files[0].GetObjectModel<FixedDocumentSequenceObjectModel>(new FDSEQDataFormat());
-			
+
 			File fileFDOC = package.FileSystem.FindFile(fdom.DocumentReferences[0].Source.Substring(1));
 
 			FixedDocumentObjectModel fdoc = fileFDOC.GetObjectModel<FixedDocumentObjectModel>(new FDOCDataFormat(SchemaVersion));
 
 
 		}
-		
+
 		protected override void BeforeSaveInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
 		{
 			FormattedTextObjectModel text = (objectModels.Pop() as FormattedTextObjectModel);
@@ -119,7 +119,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 			FPAGEDataFormat fpageDF = new FPAGEDataFormat();
 			fpageDF.Generator = new XPSGenerator("Universal Editor", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 			fpageDF.SchemaVersion = SchemaVersion;
-			
+
 			objectModels.Push(package);
 		}
 	}

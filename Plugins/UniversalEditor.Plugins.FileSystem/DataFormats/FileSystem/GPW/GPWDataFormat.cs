@@ -66,7 +66,7 @@ namespace UniversalEditor.DataFormats.FileSystem.GPW
 			// The header contains information describing the contents of the resource, and
 			// indicating where the individual files stored within the resource can be located.
 
-			// An int value, indicating how many files are stored within the resource. 
+			// An int value, indicating how many files are stored within the resource.
 			bw.WriteInt32(fsom.Files.Count);
 
 			int offset = 12;
@@ -86,16 +86,16 @@ namespace UniversalEditor.DataFormats.FileSystem.GPW
 				// and the actual file data. Each body entry is pointed to by a header entry, as mentioned
 				// above. What follows is a description of a single body entry.
 
-				// An int value, indicating how many bytes of data the stored file contains. 
+				// An int value, indicating how many bytes of data the stored file contains.
 				bw.WriteInt32((int)file.Size);
 
-				// An int value, indicating how many characters comprise the filename string. 
+				// An int value, indicating how many characters comprise the filename string.
 				bw.WriteInt32(file.Name.Length);
 
-				// Each byte contains a single filename character, where n is the number of characters in the filename string. 
+				// Each byte contains a single filename character, where n is the number of characters in the filename string.
 				bw.WriteFixedLengthString(file.Name);
 
-				// The stored file's data, where n is the file size. 
+				// The stored file's data, where n is the file size.
 				bw.WriteBytes(file.GetData());
 			}
 		}

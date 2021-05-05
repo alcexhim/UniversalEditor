@@ -30,7 +30,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 			get { return mvarBone; }
 			set { mvarBone = value; }
 		}
-        
+
         private byte mvarMorph = 0;
         public byte Morph
 		{

@@ -174,7 +174,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.WindowsImage
 			{
 				item.liHardLink = lastEntryReader.ReadUInt32();
 			}
-			
+
 			ushort wStreamCount = lastEntryReader.ReadUInt16();
 			item.wStreams = new WIMStreamEntry[wStreamCount];
 

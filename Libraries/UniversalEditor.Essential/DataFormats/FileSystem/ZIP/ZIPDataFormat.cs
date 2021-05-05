@@ -435,7 +435,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			// The number of central directory entries on this disk
 			bw.WriteInt16((short)diskCentralDirectoryFileCount);
 
-			// Total number of entries in the central directory. 
+			// Total number of entries in the central directory.
 			bw.WriteInt16((short)totalFileCount);
 
 			// Size of the central directory in bytes

@@ -25,7 +25,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker
 
             bool parentFileNameRead = false;
             bool totalNumberOfBonesRead = false;
-            
+
             bool boneIDAndNameRead = false;
             bool boneTransRead = false;
             bool boneQuaternionRead = false;

@@ -46,7 +46,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized
 
 				Middle C is 9 half steps below A4 and the frequency is:
 				f -9 = 440 * (1.059463..)-9 = 261.6 Hz
-				If you don't have powers on your calculator, remember that the negative sign on the power means you divide instead of multiply. For this example, you divide by (1.059463..) 9 times. 
+				If you don't have powers on your calculator, remember that the negative sign on the power means you divide instead of multiply. For this example, you divide by (1.059463..) 9 times.
 			 */
 
 			double d = Math.Pow(2, (double)1 / 12);

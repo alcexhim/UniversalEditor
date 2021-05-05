@@ -26,7 +26,7 @@ using System.Text;
 namespace Neo
 {
 	/// <summary>
-	/// Provides various matrix operations that work with Matrix objects or two-dimensional double arrays. The 
+	/// Provides various matrix operations that work with Matrix objects or two-dimensional double arrays. The
 	/// '+','-','*' operators are overloaded to work with the Matrix objects.
 	/// </summary>
 	public class Matrix
@@ -250,7 +250,7 @@ namespace Neo
 		}
 
 		/// <summary>
-		/// Returns the summation of two matrices with compatible 
+		/// Returns the summation of two matrices with compatible
 		/// dimensions.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>
@@ -378,16 +378,16 @@ namespace Neo
 		}
 
 		/// <summary>
-		/// Returns the multiplication of two matrices with compatible 
+		/// Returns the multiplication of two matrices with compatible
 		/// dimensions OR the cross-product of two vectors.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Mat1">
-		/// First matrix or vector (i.e: dimension [3,1]) object in 
+		/// First matrix or vector (i.e: dimension [3,1]) object in
 		/// multiplication
 		/// </param>
 		/// <param name="Mat2">
-		/// Second matrix or vector (i.e: dimension [3,1]) object in 
+		/// Second matrix or vector (i.e: dimension [3,1]) object in
 		/// multiplication
 		/// </param>
 		/// <returns>Mat1 multiplied by Mat2 as a Matrix object</returns>
@@ -395,7 +395,7 @@ namespace Neo
 		{
 			/*
 			if ((Mat1.RowCount==3) && (Mat2.RowCount==3) &&
-				(Mat1.ColumnCount==1) && (Mat1.ColumnCount==1)) 
+				(Mat1.ColumnCount==1) && (Mat1.ColumnCount==1))
 			{
 				return new Matrix(CrossProduct(Mat1.m_Array,Mat2.m_Array));
 			}
@@ -491,9 +491,9 @@ namespace Neo
 
 		#region "Inverse of a Matrix"
 		/// <summary>
-		/// Returns the inverse of a matrix with [n,n] dimension 
+		/// Returns the inverse of a matrix with [n,n] dimension
 		/// and whose determinant is not zero.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Mat">
 		/// Array with [n,n] dimension whose inverse is to be found
@@ -566,9 +566,9 @@ namespace Neo
 		}
 
 		/// <summary>
-		/// Returns the inverse of a matrix with [n,n] dimension 
+		/// Returns the inverse of a matrix with [n,n] dimension
 		/// and whose determinant is not zero.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Mat">
 		/// Matrix object with [n,n] dimension whose inverse is to be found
@@ -581,7 +581,7 @@ namespace Neo
 		#region "Transpose of a Matrix"
 		/// <summary>
 		/// Returns the transpose of a matrix.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Mat">Array whose transpose is to be found</param>
 		/// <returns>Transpose of the array as an array</returns>
@@ -603,7 +603,7 @@ namespace Neo
 
 		/// <summary>
 		/// Returns the transpose of a matrix.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Mat">Matrix object whose transpose is to be found</param>
 		/// <returns>Transpose of the Matrix object as a Matrix object</returns>
@@ -613,14 +613,14 @@ namespace Neo
 
 		#region Singular Value Decomposition of a Matrix
 		/// <summary>
-		/// Evaluates the Singular Value Decomposition of a matrix, 
+		/// Evaluates the Singular Value Decomposition of a matrix,
 		/// returns the  matrices S, U and V. Such that a given
 		/// Matrix = U x S x V'.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// Note: This method is based on the 'Singular Value Decomposition'
 		/// section of Numerical Recipes in C by William H. Press,
 		/// Saul A. Teukolsky, William T. Vetterling and Brian P. Flannery,
-		/// University of Cambridge Press 1992.  
+		/// University of Cambridge Press 1992.
 		/// </summary>
 		/// <param name="array">Array whose SVD is to be computed</param>
 		/// <param name="S_">An array where the S matrix is returned</param>
@@ -927,10 +927,10 @@ namespace Neo
 		}
 
 		/// <summary>
-		/// Evaluates the Singular Value Decomposition of a matrix, 
+		/// Evaluates the Singular Value Decomposition of a matrix,
 		/// returns the  matrices S, U and V. Such that a given
 		/// Matrix = U x S x V'.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// Note: This method is based on the 'Singular Value Decomposition'
 		/// section of Numerical Recipes in C by William H. Press,
 		/// Saul A. Teukolsky, William T. Vetterling and Brian P. Flannery,
@@ -952,7 +952,7 @@ namespace Neo
 
 		#region LU Decomposition of a matrix
 		/// <summary>
-		/// Returns the LU Decomposition of a matrix. 
+		/// Returns the LU Decomposition of a matrix.
 		/// the output is: lower triangular matrix L, upper
 		/// triangular matrix U, and permutation matrix P so that
 		///	P*X = L*U.
@@ -960,7 +960,7 @@ namespace Neo
 		/// Note: This method is based on the 'LU Decomposition and Its Applications'
 		/// section of Numerical Recipes in C by William H. Press,
 		/// Saul A. Teukolsky, William T. Vetterling and Brian P. Flannery,
-		/// University of Cambridge Press 1992.  
+		/// University of Cambridge Press 1992.
 		/// </summary>
 		/// <param name="Mat">Array which will be LU Decomposed</param>
 		/// <param name="L">An array where the lower traingular matrix is returned</param>
@@ -1089,15 +1089,15 @@ namespace Neo
 		}
 
 		/// <summary>
-		/// Returns the LU Decomposition of a matrix. 
+		/// Returns the LU Decomposition of a matrix.
 		/// the output is: lower triangular matrix L, upper
 		/// triangular matrix U, and permutation matrix P so that
 		///	P*X = L*U.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// Note: This method is based on the 'LU Decomposition and Its Applications'
 		/// section of Numerical Recipes in C by William H. Press,
 		/// Saul A. Teukolsky, William T. Vetterling and Brian P. Flannery,
-		/// University of Cambridge Press 1992.  
+		/// University of Cambridge Press 1992.
 		/// </summary>
 		/// <param name="Mat">Matrix object which will be LU Decomposed</param>
 		/// <param name="L">A Matrix object where the lower traingular matrix is returned</param>
@@ -1277,7 +1277,7 @@ namespace Neo
 
 		/// <summary>
 		/// Returns the rank of a matrix.
-		/// In case of an error the error is raised as an exception. 
+		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Mat">a Matrix object whose rank is to be found</param>
 		/// <returns>The rank of the Matrix object</returns>
@@ -1514,7 +1514,7 @@ namespace Neo
 
 		#region "Multiply a matrix or a vector with a scalar quantity"
 		/// <summary>
-		/// Returns the multiplication of a matrix or a vector (i.e 
+		/// Returns the multiplication of a matrix or a vector (i.e
 		/// dimension [3,1]) with a scalar quantity.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>
@@ -1538,7 +1538,7 @@ namespace Neo
 		}
 
 		/// <summary>
-		/// Returns the multiplication of a matrix or a vector (i.e 
+		/// Returns the multiplication of a matrix or a vector (i.e
 		/// dimension [3,1]) with a scalar quantity.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>
@@ -1549,28 +1549,28 @@ namespace Neo
 		{ return new Matrix(ScalarMultiply(Value, Mat.m_Array)); }
 
 		/// <summary>
-		/// Returns the multiplication of a matrix or a vector (i.e 
+		/// Returns the multiplication of a matrix or a vector (i.e
 		/// dimension [3,1]) with a scalar quantity.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Mat">Matrix object which is to be multiplied by a scalar</param>
 		/// <param name="Value">The scalar value to multiply the Matrix object</param>
 		/// <returns>
-		/// The multiplication of the scalar and the Matrix object as a 
+		/// The multiplication of the scalar and the Matrix object as a
 		/// Matrix object
 		/// </returns>
 		public static Matrix operator *(Matrix Mat, double Value)
 		{ return new Matrix(ScalarMultiply(Value, Mat.m_Array)); }
 
 		/// <summary>
-		/// Returns the multiplication of a matrix or a vector (i.e 
+		/// Returns the multiplication of a matrix or a vector (i.e
 		/// dimension [3,1]) with a scalar quantity.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>
 		/// <param name="Value">The scalar value to multiply the Matrix object</param>
 		/// <param name="Mat">Matrix object which is to be multiplied by a scalar</param>
 		/// <returns>
-		/// The multiplication of the scalar and the Matrix object as a 
+		/// The multiplication of the scalar and the Matrix object as a
 		/// Matrix object
 		/// </returns>
 		public static Matrix operator *(double Value, Matrix Mat)
@@ -1579,7 +1579,7 @@ namespace Neo
 
 		#region "Divide a matrix or a vector with a scalar quantity"
 		/// <summary>
-		/// Returns the division of a matrix or a vector (i.e 
+		/// Returns the division of a matrix or a vector (i.e
 		/// dimension [3,1]) by a scalar quantity.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>
@@ -1604,7 +1604,7 @@ namespace Neo
 		}
 
 		/// <summary>
-		/// Returns the division of a matrix or a vector (i.e 
+		/// Returns the division of a matrix or a vector (i.e
 		/// dimension [3,1]) by a scalar quantity.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>
@@ -1615,7 +1615,7 @@ namespace Neo
 		{ return new Matrix(ScalarDivide(Value, Mat.m_Array)); }
 
 		/// <summary>
-		/// Returns the division of a matrix or a vector (i.e 
+		/// Returns the division of a matrix or a vector (i.e
 		/// dimension [3,1]) by a scalar quantity.
 		/// In case of an error the error is raised as an exception.
 		/// </summary>

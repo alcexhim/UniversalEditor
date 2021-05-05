@@ -108,7 +108,7 @@ namespace UniversalEditor.DataFormats.Lighting.Fixture.QLC
 									cap.Title = tag1.Value;
 
 									if (attPreset != null)
-									{ 
+									{
 										switch (attPreset.Value)
 										{
 											case "ColorMacro":

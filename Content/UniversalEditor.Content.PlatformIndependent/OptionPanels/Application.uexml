@@ -39,7 +39,7 @@
 						<Number ID="{06913599-E19A-4C85-BD8B-D5BCFFD3C34A}" PropertyID="Application.Documents.RecentlyUsedProjectsMaximum" />
 						<CheckBox ID="{B6772081-4283-4F6A-B248-B4CD310D0BB1}" PropertyID="Application.Documents.MaintainDocumentUndoHistory" />
 						<Number ID="{45E113A5-137C-49EE-8AC5-E1CB652E4B98}" PropertyID="Application.Documents.DocumentUndoHistoryMaximum" />
-						
+
 						<!-- Automatic Recovery -->
 						<CheckBox ID="{10BA02ED-053D-4EF8-8D46-7F268EC5137A}" PropertyID="Application.Documents.AutoRecovery.Enabled" />
 						<Number ID="{14C57DB1-3CD0-4A4B-9CAE-C2F71CCF2E9D}" Indent="1" PropertyID="Application.Documents.AutoRecovery.Interval" />

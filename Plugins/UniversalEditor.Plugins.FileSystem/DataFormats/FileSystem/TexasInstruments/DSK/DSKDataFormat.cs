@@ -104,10 +104,10 @@ namespace UniversalEditor.DataFormats.FileSystem.TexasInstruments.DSK
 			byte[] allocationBitmap = reader.ReadBytes(200); // The map can control up to 1600 256-byte sectors
 
 			// =====  FILE DESCRIPTOR INDEX RECORD, (Sector l) =====
-			// 
+			//
 			// This sector contains up to 127 two-byte entries. Each of these points to a File Descriptor Record, and are alphabetically sorted according
 			// to the file name in the File Descriptor Record. The list starts at the beginning of the block, and ends with a zero entry.
-			// 
+			//
 			// As the file descriptors are alphabetically sorted, a binary search can be used to find any given filename. This limits the maximum number
 			// of searches to 7 if more than 63 files are defined. Generally if between 2 * *(N - 1) and 2 * *n files are defined, a file search will take
 			// at the most N disc searches. To obtain faster directory response times, data blocks are normally allocated in the area above sector 222, the

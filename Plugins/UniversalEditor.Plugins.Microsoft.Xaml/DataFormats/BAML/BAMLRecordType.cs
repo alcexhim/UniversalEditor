@@ -268,7 +268,7 @@ namespace UniversalEditor.Plugins.Microsoft.Xaml.DataFormats.BAML
 		StaticResourceEnd = 49,
 
 		/// <summary>
-		/// BamlRecord that carries an identifier for a StaticResourceExtension 
+		/// BamlRecord that carries an identifier for a StaticResourceExtension
 		/// within the header of a deferred section.
 		/// </summary>
 		StaticResourceId = 50,
@@ -300,7 +300,7 @@ namespace UniversalEditor.Plugins.Microsoft.Xaml.DataFormats.BAML
 		OptimizedStaticResource = 55,
 
 		/// <summary>
-		/// BamlPropertyRecord that carries an identifier for a StaticResourceExtension 
+		/// BamlPropertyRecord that carries an identifier for a StaticResourceExtension
 		/// within the header of a deferred section.
 		/// </summary>
 		PropertyWithStaticResourceId = 56

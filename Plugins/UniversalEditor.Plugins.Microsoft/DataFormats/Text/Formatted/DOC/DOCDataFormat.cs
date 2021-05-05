@@ -58,7 +58,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.DOC
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
 			FormattedTextObjectModel ftom = (objectModels.Pop() as FormattedTextObjectModel);
-			FileSystemObjectModel fsom = new FileSystemObjectModel();	
+			FileSystemObjectModel fsom = new FileSystemObjectModel();
 
 
 

@@ -36,10 +36,10 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 
         private ModeChannel.ModeChannelCollection mvarChannels = new ModeChannel.ModeChannelCollection();
         public ModeChannel.ModeChannelCollection Channels { get { return mvarChannels; } }
-		
+
 		private int mvarBulbLumens = 0;
 		public int BulbLumens { get { return mvarBulbLumens;  } set { mvarBulbLumens = value;} }
-		
+
 		private string mvarBulbType = String.Empty;
 		public string BulbType { get { return mvarBulbType; } set { mvarBulbType = value; } }
 

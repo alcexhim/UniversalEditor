@@ -41,7 +41,7 @@ namespace UniversalEditor
             float specularR = br.ReadSingle();
             float specularG = br.ReadSingle();
             float specularB = br.ReadSingle();
-            
+
             int r = (int)Math.Min(255f, specularR * 255f);
             int g = (int)Math.Min(255f, specularG * 255f);
             int b = (int)Math.Min(255f, specularB * 255f);
@@ -59,7 +59,7 @@ namespace UniversalEditor
             float diffuseG = br.ReadSingle();
             float diffuseB = br.ReadSingle();
             float diffuseA = br.ReadSingle();
-            
+
             int a = (int)Math.Min(255f, diffuseA * 255f);
             int r = (int)Math.Min(255f, diffuseR * 255f);
             int g = (int)Math.Min(255f, diffuseG * 255f);
@@ -85,7 +85,7 @@ namespace UniversalEditor
             int b = (int)Math.Min(255f, diffuseB * 255f);
             return Color.FromRGBAInt32(r, g, b, a);
         }
-		
+
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 4 bits Red, 4 bits Green, 4 bits Blue, and 4 bits Alpha.
 		/// </summary>
@@ -99,11 +99,11 @@ namespace UniversalEditor
 			byte g = (byte)(rgba.GetBits(4, 4));
 			byte b = (byte)(rgba.GetBits(8, 4));
 			byte a = (byte)(rgba.GetBits(12, 4));
-			
+
 			Color color = Color.FromRGBAByte(a, r, g, b);
 			return color;
 		}
-		
+
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 5 bits Red, 6 bits Green, 5 bits Blue, and 0 bits Alpha.
 		/// </summary>
@@ -116,11 +116,11 @@ namespace UniversalEditor
 			byte r = (byte)(rgb.GetBits(0, 5));
 			byte g = (byte)(rgb.GetBits(5, 6));
 			byte b = (byte)(rgb.GetBits(11, 5));
-			
+
 			Color color = Color.FromRGBAByte(r, g, b);
 			return color;
 		}
-		
+
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 8 bits Red, 8 bits Green, 8 bits Blue, and 8 bits Alpha.
 		/// </summary>
@@ -137,7 +137,7 @@ namespace UniversalEditor
 			Color color = Color.FromRGBAByte(a, r, g, b);
 			return color;
 		}
-		
+
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 5 bits Red, 5 bits Green, 5 bits Blue, and 1 bit Alpha.
 		/// </summary>
@@ -150,7 +150,7 @@ namespace UniversalEditor
 			byte g = (byte)(rgba.GetBits(5, 5));
 			byte b = (byte)(rgba.GetBits(10, 5));
 			byte a = (byte)(rgba.GetBits(15, 1));
-			
+
 			Color color = Color.FromRGBAByte(a, r, g, b);
 			return color;
         }
@@ -194,7 +194,7 @@ namespace UniversalEditor
             bw.WriteSingle((float)color.G);
             bw.WriteSingle((float)color.B);
         }
-		
+
 		/// <summary>
         /// Writes a <see cref="Color" /> as 4 bits Red, 4 bits Green, 4 bits Blue, and 4 bits Alpha.
 		/// </summary>
@@ -210,11 +210,11 @@ namespace UniversalEditor
 			byte g = (byte)(rgba.GetBits(4, 4));
 			byte b = (byte)(rgba.GetBits(8, 4));
 			byte a = (byte)(rgba.GetBits(12, 4));
-			
+
 			Color color = Color.FromRGBA(a, r, g, b);
             */
 		}
-		
+
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 5 bits Red, 6 bits Green, 5 bits Blue, and 0 bits Alpha.
 		/// </summary>
@@ -224,7 +224,7 @@ namespace UniversalEditor
 		{
             throw new NotImplementedException();
 		}
-		
+
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 8 bits Red, 8 bits Green, 8 bits Blue, and 8 bits Alpha.
 		/// </summary>
@@ -237,7 +237,7 @@ namespace UniversalEditor
             bw.WriteByte((byte)(color.B * 255));
             bw.WriteByte((byte)(color.A * 255));
 		}
-		
+
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 5 bits Red, 5 bits Green, 5 bits Blue, and 1 bit Alpha.
 		/// </summary>

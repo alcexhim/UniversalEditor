@@ -3,7 +3,7 @@
 				  xmlns="urn:net.alcetech.schemas.UniversalEditor"
 				  xmlns:uwt="urn:net.alcetech.schemas.Framework.UserInterface"
 				  xmlns:dc="http://purl.org/dc/elements/1.1/">
-	
+
 	<dataFormats>
 		<dataFormat id="{0ce0f87b-ae2d-4999-ad31-c0fc6f1edde4}" typeName="UniversalEditor.Plugins.Abomination.DataFormats.FileSystem.AWFDataFormat" onBeforeSaveInternal="__beforeSaveInternal">
 			<metadata>
@@ -47,7 +47,7 @@
 								<!--
 									for each file:
 									directorySize += (fileName.length + 1 + 4 + 4 + 4)
-									
+
 									TODO: Figure out how to represent this!
 								-->
 								<loop variable="I" from="0" to="$(Count:$(m_TotalObjects))">
@@ -67,9 +67,9 @@
 				<field dataType="FixedString" id="Signature" length="2" value="FA" />
 				<!--
 					Conditional properties within a Field behave like so:
-					
+
 					During a LOAD operation, if the FieldCondition is satisfied (i.e., current field value matches 'TrueResult'), the 'Variable' is set to the given 'Value'.
-					
+
 					During a SAVE operation, if the FieldCondition is satisfied (i.e, 'Variable' matches 'Value'), the 'TrueResult' is written as the value of the field;
 					otherwise, the 'FalseResult' is written.
 				-->
@@ -96,10 +96,10 @@
 						</conditionalStatement>
 					</value>
 				</field>
-				
+
 				<field DataType="Int32" ID="DirectorySize" Value="$(m_DirectorySize)" />
 				<field DataType="Int32" ID="Reserved1" />
-				
+
 				<conditional>
 					<conditions>
 						<condition variable="$(CustomOption:Compressed)" comparison="Equal" value="true" />

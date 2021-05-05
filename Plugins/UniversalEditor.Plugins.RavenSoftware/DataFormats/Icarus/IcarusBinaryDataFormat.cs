@@ -169,7 +169,7 @@ namespace UniversalEditor.DataFormats.Icarus
 				case IcarusCommandType.Sound:
 				{
 					command = new IcarusCommandSound();
-					
+
 					IcarusCommandSound cmd = (command as IcarusCommandSound);
 					// cmd.Channel = parameters[0].Value;
 					// cmd.FileName = parameters[1].Value;
@@ -180,7 +180,7 @@ namespace UniversalEditor.DataFormats.Icarus
 					command = new IcarusCommandTask();
 
 					IcarusCommandTask cmd = (command as IcarusCommandTask);
-					
+
 					IcarusExpression taskName = parameters[0];
 					cmd.TaskName = taskName;
 					break;
@@ -246,7 +246,7 @@ namespace UniversalEditor.DataFormats.Icarus
 				{
 					IcarusCommandLoop command = new IcarusCommandLoop();
 					command.Target = ReadIBIExpression(br);
-					
+
 					IcarusCommand child = null;
 					while ((child = ReadCommand(br)) != null)
 					{

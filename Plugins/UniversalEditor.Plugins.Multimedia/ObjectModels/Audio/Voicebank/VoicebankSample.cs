@@ -54,8 +54,8 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 		{
 			return new VoicebankSample
 			{
-				Name = this.mvarName, 
-				FileName = this.mvarFileName, 
+				Name = this.mvarName,
+				FileName = this.mvarFileName,
 				Data = this.mvarData
 			};
 		}

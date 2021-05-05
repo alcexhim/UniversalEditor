@@ -13,7 +13,7 @@ namespace UniversalEditor.Compression.Common
 		private static uint LOWER_MASK = 2147483647u;
 		private static uint[] mag01 = new uint[]
 		{
-			0u, 
+			0u,
 			MT19937ar.MATRIX_A
 		};
 		private static uint[] mt = new uint[(int)MT19937ar.N];

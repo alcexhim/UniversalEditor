@@ -59,7 +59,7 @@ namespace UniversalEditor
 		/// An int value representing the subset of bits.
 		/// </returns>
 		/// <remarks>
-		/// Given -> b = 00110101 
+		/// Given -> b = 00110101
 		/// A call to GetBits(b, 2, 4)
 		/// GetBits looks at the following bits in the byte -> 00{1101}00
 		/// Returns 1101 as an int (13)
@@ -97,7 +97,7 @@ namespace UniversalEditor
 
 			System.Collections.IEnumerator en1 = array1.GetEnumerator();
 			System.Collections.IEnumerator en2 = array2.GetEnumerator();
-			
+
 			en1.MoveNext();
 			en2.MoveNext();
 
@@ -148,7 +148,7 @@ namespace UniversalEditor
 			result = false;
 			return result;
 		}
-		
+
 		public static int IndexOfAny(this string value, params string[] anyOf)
 		{
 			int result;

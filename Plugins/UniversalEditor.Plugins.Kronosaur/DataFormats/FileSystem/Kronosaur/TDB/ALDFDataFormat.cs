@@ -65,7 +65,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 			if (fsom == null) throw new ObjectModelNotSupportedException();
 
 			Reader reader = base.Accessor.Reader;
-			
+
 			string signature = reader.ReadFixedLengthString(4);
 			if (signature != "FDLA") throw new InvalidDataFormatException("File does not begin with 'FDLA'");
 

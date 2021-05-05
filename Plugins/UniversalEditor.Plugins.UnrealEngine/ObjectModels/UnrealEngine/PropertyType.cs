@@ -38,7 +38,7 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
         Struct = 10,
         Vector = 11,
         Rotator = 12,
-        Str = 13, 
+        Str = 13,
         Map = 14,
         FixedArray = 15
     }
@@ -53,8 +53,8 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
 5 = a byte follows with real size
 6 = a word follows with real size
 7 = an integer follows with real size
-     * 
-     * 
+     *
+     *
      * Property value layout:
      * 0x01 (ByteProperty) Value Format
 0x02 (IntegerProperty) BYTE
@@ -63,9 +63,9 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
 0x05 (ObjectProperty) INDEX
 0x06 (NameProperty) INDEX
 0x07 (StringProperty) Unknown
-0x08 (ClassProperty) 
+0x08 (ClassProperty)
 0x09 (ArrayProperty) Unknown
-0x0A (StructProperty) 
+0x0A (StructProperty)
 0x0B (VectorProperty) Unknown
 0x0C (RotatorProperty) Unknown
 0x0D (StrProperty) INDEX length

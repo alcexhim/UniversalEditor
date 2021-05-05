@@ -47,7 +47,7 @@ namespace UniversalEditor.DataFormats.Executable.Apple.MachO
 		/// The default protection for newly created virtual memory
 		/// </summary>
 		Default = (Read | Write | Execute),
-		
+
 		/// <summary>
 		/// Maximum privileges possible, for parameter checking.
 		/// </summary>

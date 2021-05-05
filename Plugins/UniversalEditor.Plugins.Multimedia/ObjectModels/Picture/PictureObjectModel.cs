@@ -6,7 +6,7 @@ namespace UniversalEditor.ObjectModels.Picture
 	public class PictureObjectModel : ObjectModel
 	{
         private System.Drawing.Point lastAddedLocation = new System.Drawing.Point(0, 0);
-        
+
 		private List<System.Drawing.Color> mvarColorMap = new List<System.Drawing.Color>();
 		public List<System.Drawing.Color> ColorMap { get { return mvarColorMap; } }
 
@@ -28,7 +28,7 @@ namespace UniversalEditor.ObjectModels.Picture
 			Array.Copy(imageByteArray, 0, newImageByteArray, 0, imageByteArray.Length);
 
             // since the Bitmap constructor requires a pointer to an array of image bytes
-            // we have to pin down the memory used by the byte array and use the pointer 
+            // we have to pin down the memory used by the byte array and use the pointer
             // of this pinned memory to create the Bitmap.
             // This tells the Garbage Collector to leave the memory alone and DO NOT touch it.
 			System.Runtime.InteropServices.GCHandle imageByteGCHandle = System.Runtime.InteropServices.GCHandle.Alloc(newImageByteArray, System.Runtime.InteropServices.GCHandleType.Pinned);
@@ -90,7 +90,7 @@ namespace UniversalEditor.ObjectModels.Picture
 			*/
 
             return bitmap;
-        }   
+        }
         public void SetPixel(System.Drawing.Color color)
         {
             if (lastAddedLocation.X >= mvarWidth && lastAddedLocation.Y >= mvarHeight)

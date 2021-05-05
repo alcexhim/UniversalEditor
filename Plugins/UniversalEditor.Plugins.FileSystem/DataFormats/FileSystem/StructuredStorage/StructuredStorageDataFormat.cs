@@ -89,7 +89,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
             ushort byteOrder = br.ReadUInt16(); // 0xFFFE
 
             // Size of a sector in the compound document file (➜3.1) in power-of-two (ssz), real sector
-            // size is sec_size = 2ssz bytes (minimum value is 7 which means 128 bytes, most used 
+            // size is sec_size = 2ssz bytes (minimum value is 7 which means 128 bytes, most used
             // value is 9 which means 512 bytes)
             ushort sectorShift = br.ReadUInt16(); // 9
             //  9 when Version = 3, 12 when Version = 4
@@ -101,9 +101,9 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
 
             byte[] unused = br.ReadBytes(6);
 
-            // Total number of sectors used Directory 
+            // Total number of sectors used Directory
             int directorySectorsNumber = br.ReadInt32();
-        
+
             // Total number of sectors used for the sector allocation table (➜5.2)
             int fatSectorsNumber = br.ReadInt32();
 
@@ -127,10 +127,10 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
             // SecID of first sector of the master sector allocation table (➜5.1), or –2 (End Of Chain
             // SecID, ➜3.1) if no additional sectors used
             int firstDIFATSectorID = br.ReadInt32(); // Sector.ENDOFCHAIN
-        
+
 			//72 4 Total number of sectors used for the master sector allocation table (➜5.1)
 			uint difatSectorsNumber = br.ReadUInt32();
-			
+
 			//76 436 First part of the master sector allocation table (➜5.1) containing 109 SecIDs
 			int[] difat = new int[109];
 			for (int i = 0; i < difat.Length; i++)
@@ -156,7 +156,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
             if (fsom == null) return;
 
             BinaryWriter bw = base.Stream.BinaryWriter;
-			
+
 			bw.Write(new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 });
             bw.Write(fsom.ID);
 
@@ -198,14 +198,14 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
             byte[] unused = new byte[6];
 			bw.Write(unused);
 
-            // Total number of sectors used Directory 
+            // Total number of sectors used Directory
             int directorySectorsNumber = 0;
             if (mvarVersion.Major == 4)
             {
                 // directorySectorsNumber = directorySectors.Count;
             }
 			bw.Write(directorySectorsNumber);
-        
+
             // Total number of sectors used for the sector allocation table (➜5.2)
             int fatSectorsNumber = 0;
 			bw.Write(fatSectorsNumber);
@@ -236,11 +236,11 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
             // SecID, ➜3.1) if no additional sectors used
             int firstDIFATSectorID = 0; // Sector.ENDOFCHAIN
 			bw.Write(firstDIFATSectorID);
-        
+
 			//72 4 Total number of sectors used for the master sector allocation table (➜5.1)
 			uint difatSectorsNumber = 0;
 			bw.Write(difatSectorsNumber);
-			
+
 			//76 436 First part of the master sector allocation table (➜5.1) containing 109 SecIDs
 			int[] difat = new int[109];
 			for (int i = 0; i < difat.Length; i++)
@@ -255,7 +255,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
             }
 
             List<StructuredStorageDirectoryEntry> entries = new List<StructuredStorageDirectoryEntry>();
-            
+
             // First add the root directory entry
             StructuredStorageDirectoryEntry entryRootEntry = new StructuredStorageDirectoryEntry("Root Entry", StructuredStorageDirectoryType.Root, UniversalEditor.Common.RBTree.RBTreeColor.Black, -1, -1, (fsom.Folders.Count > 0) ? 1 : -1, Guid.NewGuid(), 0, DateTime.Now, DateTime.Now, -2, 0);
             entries.Add(entryRootEntry);
@@ -293,7 +293,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage
         private void WriteDirectoryEntry(BinaryWriter bw, StructuredStorageDirectoryEntry entry)
         {
             bw.WriteFixedLengthString(entry.Name, Encoding.Unicode, 64);
-            
+
             ushort nameLength = (ushort)((entry.Name.Length * 2) + 2);
             bw.Write(nameLength);
 

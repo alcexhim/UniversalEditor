@@ -67,7 +67,7 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 			foreach (Group grp in plom.Items.OfType<Group>())
 			{
 				BootstrapOperatingSystem operatingSystem = null;
-				
+
 				if (grp.Name == "Params" || grp.Name.EndsWith(" Params"))
 				{
 					if (grp.Name == "Params")

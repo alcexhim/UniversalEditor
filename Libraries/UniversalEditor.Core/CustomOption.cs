@@ -301,7 +301,7 @@ namespace UniversalEditor
 			public DataFormatOptionNumberSuggestedValue Add(decimal value, string title = null)
 			{
 				if (title == null) title = value.ToString();
-				
+
 				DataFormatOptionNumberSuggestedValue item = new DataFormatOptionNumberSuggestedValue();
 				item.Title = title;
 				item.Value = value;
@@ -360,7 +360,7 @@ namespace UniversalEditor
 		public CustomOptionMultipleChoice(string propertyName, string title, params CustomOptionFieldChoice[] choices)
 			: base(propertyName, title)
 		{
-			
+
 		}
 		public CustomOptionMultipleChoice(string propertyName, string title, bool enabled = true, bool visible = true, params CustomOptionFieldChoice[] choices)
 			: base(propertyName, title, enabled, visible)

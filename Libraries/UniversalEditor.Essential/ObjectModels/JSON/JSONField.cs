@@ -32,7 +32,7 @@ namespace UniversalEditor.ObjectModels.JSON
 	{
 		private string mvarName = "";
 		public string Name { get { return mvarName; } set { mvarName = value; } }
-		
+
 		public class JSONFieldCollection
 			: System.Collections.ObjectModel.Collection<JSONField>
 		{

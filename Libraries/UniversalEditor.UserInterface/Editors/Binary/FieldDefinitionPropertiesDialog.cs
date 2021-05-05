@@ -54,7 +54,7 @@ namespace UniversalEditor.Editors.Binary
 			txtOffset.Value = FieldDefinition.Offset;
 			txtLength.Value = FieldDefinition.Length;
 
-			// TODO: perhaps we should put this in 
+			// TODO: perhaps we should put this in
 			for (int i = 0; i < tmDataType.Rows.Count; i++)
 			{
 				string dataTypeName = tmDataType.Rows[i].RowColumns[1].Value?.ToString();
@@ -101,7 +101,7 @@ namespace UniversalEditor.Editors.Binary
 
 		[EventHandler(nameof(cmdOK), "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
-		{	
+		{
 			FieldDefinition.Name = txtName.Text;
 
 			if (cboDataType.SelectedItem != null)

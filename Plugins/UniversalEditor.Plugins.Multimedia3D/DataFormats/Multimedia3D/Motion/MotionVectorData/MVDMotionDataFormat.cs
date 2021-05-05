@@ -102,9 +102,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Motion.MotionVectorData
 			for (int i = 0; i < bones.Count; i++)
 			{
 				ushort us16 = br.ReadUInt16();              // 16   32
-				uint uBoneIndex = br.ReadUInt32();          // 
+				uint uBoneIndex = br.ReadUInt32();          //
 				uint uFrameSize = br.ReadUInt32();          // 56   16
-				uint uFrameCount = br.ReadUInt32();         // 
+				uint uFrameCount = br.ReadUInt32();         //
 
 				uint extraDataLen = br.ReadUInt32();
 				byte[] extraData = br.ReadBytes(extraDataLen);

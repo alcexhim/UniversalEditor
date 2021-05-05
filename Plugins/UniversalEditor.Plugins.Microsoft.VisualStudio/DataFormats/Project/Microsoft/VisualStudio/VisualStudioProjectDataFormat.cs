@@ -225,7 +225,7 @@ namespace UniversalEditor.DataFormats.Project.Microsoft.VisualStudio
 				MarkupTagElement tagPropertyGroup = new MarkupTagElement();
 				tagPropertyGroup.FullName = "PropertyGroup";
 				tagPropertyGroup.Attributes.Add("Condition", " '$(Configuration)' == 'Debug' ");
-				
+
 				MarkupTagElement tagIncludeDebugInformation = new MarkupTagElement();
 				tagIncludeDebugInformation.FullName = "IncludeDebugInformation";
 				tagIncludeDebugInformation.Value = "true";

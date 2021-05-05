@@ -37,4 +37,3 @@ namespace UniversalEditor.ObjectModels.Text.Formatted.Items
 		}
 	}
 }
-

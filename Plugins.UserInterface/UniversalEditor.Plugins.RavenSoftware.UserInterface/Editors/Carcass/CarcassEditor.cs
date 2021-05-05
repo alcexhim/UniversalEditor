@@ -197,7 +197,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Carcass
 		private void tsbModelFileMoveDown_Click(object sender, EventArgs e)
 		{
 
-		}	
+		}
 
 		[EventHandler(nameof(lvModelFiles), "RowActivated")]
 		private void lvModelFiles_RowActivated(object sender, ListViewRowActivatedEventArgs e)

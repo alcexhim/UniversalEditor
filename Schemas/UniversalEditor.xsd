@@ -9,7 +9,7 @@
 			<xs:enumeration value="4.0" />
 		</xs:restriction>
 	</xs:simpleType>
-	
+
 	<xs:element name="project">
 		<xs:complexType>
 			<xs:attribute name="version" type="ueVersion" use="required" />
@@ -31,4 +31,4 @@
 		</xs:complexType>
 	</xs:element>
 
-</xs:schema> 
+</xs:schema>

@@ -171,7 +171,7 @@ namespace UniversalEditor.Accessors
 
 		protected override Accessor GetRelativeInternal(string filename, string prefix = null)
 		{
-			HTTPAccessor acc = new HTTPAccessor(); 
+			HTTPAccessor acc = new HTTPAccessor();
 			acc.FileName = String.Concat(this.GetFileName(), "/../", filename);
 			return acc;
 		}

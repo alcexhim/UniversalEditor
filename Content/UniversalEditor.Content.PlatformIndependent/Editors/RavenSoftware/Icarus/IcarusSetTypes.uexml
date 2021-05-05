@@ -71,7 +71,7 @@
 							<EnumerationValue Name="SET_PARM15" Description="Set entity parm15" />
 							<EnumerationValue Name="SET_PARM16" Description="Set entity parm16" />
 							<!--
-								NOTE!!! If you add any other SET_xxxxxxSCRIPT types, make sure you update the 'case' statements in 
+								NOTE!!! If you add any other SET_xxxxxxSCRIPT types, make sure you update the 'case' statements in
 								ICARUS_InterrogateScript() (game/g_ICARUS.cpp), or the script-precacher won't find them.
 							-->
 							<Separator Title="Scripts and other file paths" />
@@ -145,17 +145,17 @@
 							<EnumerationValue Name="SET_SECURITY_KEY" Description="name of a security key to give to the player - don't place one in map, just give the name here and it handles the rest (use &quot;null&quot; to remove their current key)">
 								<ValueEditor Type="String" DefaultValue="keyname" />
 							</EnumerationValue>
-							
+
 							<EnumerationValue Name="SET_SCROLLTEXT" Description="key of text string to print" />
 							<EnumerationValue Name="SET_LCARSTEXT" Description="key of text string to print in LCARS frame" />
 							<EnumerationValue Name="SET_CENTERTEXT" Description="key of text string to print in center of screen." />
-							
+
 							<Separator Title="vectors" />
 							<EnumerationValue Type="Vector" Name="SET_ORIGIN" Description="Set origin explicitly or with TAG" />
 							<EnumerationValue Type="Vector" Name="SET_ANGLES" Description="Set angles explicitly or with TAG" />
 							<EnumerationValue Type="Vector" Name="SET_TELEPORT_DEST" Description="Set origin here as soon as the area is clear" />
 							<EnumerationValue Type="Vector" Name="SET_SABER_ORIGIN" Description="Removes this ent's saber from their hand, turns it off, and places it at the specified location" />
-							
+
 							<Separator Title="floats" />
 							<EnumerationValue Type="Float" Name="SET_XVELOCITY" Description="Velocity along X axis" />
 							<EnumerationValue Type="Float" Name="SET_YVELOCITY" Description="Velocity along Y axis" />
@@ -183,7 +183,7 @@
 								<ValueEditor DefaultValue="40.000" />
 							</EnumerationValue>
 							<EnumerationValue Type="Float" Name="SET_DISTSQRD_TO_PLAYER" Description="Only to be used in a 'get'. (Distance to player)*(Distance to player)" />
-							
+
 							<Separator Title="ints" />
 							<EnumerationValue Type="Integer" Name="SET_ANIM_HOLDTIME_LOWER" Description="Hold lower anim for number of milliseconds" />
 							<EnumerationValue Type="Integer" Name="SET_ANIM_HOLDTIME_UPPER" Description="Hold upper anim for number of milliseconds" />
@@ -216,7 +216,7 @@
 							<EnumerationValue Type="Integer" Name="SET_SABER2BLADEON" Description="Activate a specific blade of Saber 2 (0 - (MAX_BLADES - 1))." />
 							<EnumerationValue Type="Integer" Name="SET_SABER2BLADEOFF" Description="Deactivate a specific blade of Saber 2 (0 - (MAX_BLADES - 1))." />
 							<EnumerationValue Type="Integer" Name="SET_DAMAGEENTITY" Description="Damage this entity with set amount." />
-							
+
 							<Separator Title="booleans" />
 							<EnumerationValue Type="Boolean" Name="SET_IGNOREPAIN" Description="Do not react to pain" />
 							<EnumerationValue Type="Boolean" Name="SET_IGNOREENEMIES" Description="Do not acquire enemies" />
@@ -300,12 +300,12 @@
 							<EnumerationValue Type="Boolean" Name="SET_FORCE_DRAIN" Description="Causes this ent to start force draining their enemy at whatever level of force drain they have (will drain until scripted to stop)" />
 							<EnumerationValue Type="Boolean" Name="SET_WINTER_GEAR" Description="Set the player to wear his/her winter gear (skins torso_g1 and lower_e1), or restore the default skins." />
 							<EnumerationValue Type="Boolean" Name="SET_NO_ANGLES" Description="This NPC/player will not have any bone angle overrides or pitch or roll (should only be used in cinematics)" />
-							
+
 							<Separator Title="calls" />
 							<EnumerationValue Type="Integer" Name="SET_SKILL" Description="Cannot set this, only get it - valid values are 0 through 3">
 								<ValueEditor ReadOnly="True" />
 							</EnumerationValue>
-							
+
 							<Separator Title="Special tables" />
 							<EnumerationValue Name="SET_ANIM_UPPER" Enumeration="ANIM_NAMES" Description="Torso and head anim" />
 							<EnumerationValue Name="SET_ANIM_LOWER" Enumeration="ANIM_NAMES" Description="Legs anim" />
@@ -319,7 +319,7 @@
 							<EnumerationValue Name="SET_WEAPON" Enumeration="WEAPON_NAMES" Description="Change/Stow/Drop weapon" />
 							<EnumerationValue Name="SET_ITEM" Enumeration="ITEM_NAMES" Description="Give items" />
 							<EnumerationValue Name="SET_MUSIC_STATE" Enumeration="MUSIC_STATES" Description="Set the state of the dynamic music" />
-							
+
 							<EnumerationValue Name="SET_FORCE_HEAL_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
 							<EnumerationValue Name="SET_FORCE_JUMP_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
 							<EnumerationValue Name="SET_FORCE_SPEED_LEVEL" Enumeration="FORCE_LEVELS" Description="Change force power level" />
@@ -355,14 +355,14 @@
 							<EnumerationValue Name="SET_OBJECTIVE_CLEARALL" Description="Force all objectives to be hidden" />
 
 							<EnumerationValue Name="SET_OBJECTIVEFOSTER" />
-	
+
 							<EnumerationValue Name="SET_OBJECTIVE_LIGHTSIDE" Description="Used to get whether the player has chosen the light (succeeded) or dark (failed) side." />
-	
+
 							<EnumerationValue Name="SET_MISSIONSTATUSTEXT" Enumeration="STATUSTEXT" Description="Text to appear in mission status screen" />
 							<EnumerationValue Name="SET_MENU_SCREEN" Enumeration="MENUSCREENS" Description="Brings up specified menu screen" />
-	
+
 							<EnumerationValue Name="SET_CLOSINGCREDITS" Description="Show closing credits" />
-	
+
 							<!-- in-bhc tables -->
 							<EnumerationValue Name="SET_LEAN" Enumeration="LEAN_TYPES" Description="Lean left, right or stop leaning" />
 						</EnumerationValues>
@@ -372,4 +372,3 @@
 		</Editor>
 	</Editors>
 </UniversalEditor>
-

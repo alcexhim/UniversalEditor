@@ -54,7 +54,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 				this.mvarTexture = value;
 			}
 		}
-		
+
         public float Weight
 		{
 			get
@@ -76,12 +76,12 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 		{
 			return new ModelVertex
 			{
-				Bone0 = (mvarBone0.Clone() as ModelBone), 
-				Bone1 = (mvarBone1.Clone() as ModelBone), 
-				EdgeFlag = mvarEdgeFlag, 
-				Normal = mvarNormal, 
-				Position = mvarPosition, 
-				Texture = mvarTexture, 
+				Bone0 = (mvarBone0.Clone() as ModelBone),
+				Bone1 = (mvarBone1.Clone() as ModelBone),
+				EdgeFlag = mvarEdgeFlag,
+				Normal = mvarNormal,
+				Position = mvarPosition,
+				Texture = mvarTexture,
 				Weight = mvarWeight
 			};
 		}

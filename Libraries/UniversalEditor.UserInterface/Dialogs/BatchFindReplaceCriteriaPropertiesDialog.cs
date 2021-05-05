@@ -100,7 +100,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			if (prop == null) return;
 
 			(cboComparisonType.Model as DefaultTreeModel).Rows.Clear();
-			
+
 			(cboComparisonType.Model as DefaultTreeModel).Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
 			{
 				new TreeModelRowColumn(cboComparisonType.Model.Columns[0], "Equal to"),
@@ -125,7 +125,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					new TreeModelRowColumn(cboComparisonType.Model.Columns[1], 128)
 				}));
 			}
-			else if (prop.DataType == typeof(byte) || prop.DataType == typeof(sbyte) || 
+			else if (prop.DataType == typeof(byte) || prop.DataType == typeof(sbyte) ||
 				prop.DataType == typeof(short) || prop.DataType == typeof(ushort) ||
 				prop.DataType == typeof(int) || prop.DataType == typeof(uint) ||
 				prop.DataType == typeof(long) || prop.DataType == typeof(ulong) ||

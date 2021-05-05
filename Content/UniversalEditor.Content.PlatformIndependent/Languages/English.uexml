@@ -52,33 +52,33 @@
 				<Command ID="File" Title="_File" />
 				<Command ID="FileNew" Title="_New" />
 				<Command ID="FileNewDocumentFileSystem" Title="_File System" />
-				
+
 				<Command ID="FileNewDocument" Title="_Document..." />
 				<Command ID="FileNewProject" Title="_Project/Solution..." />
-				
+
 				<Command ID="FileOpen" Title="_Open" />
 				<Command ID="FileOpenDocument" Title="_Document..." />
 				<Command ID="FileOpenProject" Title="_Project/Solution..." />
-				
+
 				<Command ID="FileSave" Title="_Save" />
 				<Command ID="FileSaveDocument" Title="_Document..." />
 				<Command ID="FileSaveDocumentAs" Title="Document with Other N_ame..." />
 				<Command ID="FileSaveProject" Title="_Project/Solution..." />
 				<Command ID="FileSaveProjectAs" Title="Pro_ject/Solution with Other Name..." />
 				<Command ID="FileSaveAll" Title="A_ll Documents and Projects" />
-				
+
 				<Command ID="FileClose" Title="_Close" />
 				<Command ID="FileCloseDocument" Title="_Document" />
 				<Command ID="FileCloseProject" Title="_Project/Solution" />
 				<Command ID="FileCloseWindow" Title="_Window" />
-				
+
 				<Command ID="FilePrint" Title="_Print..." />
-				
+
 				<Command ID="FileProperties" Title="P_roperties..." />
 
 				<Command ID="FileRestart" Title="Restart" />
 				<Command ID="FileExit" Title="E_xit" />
-				
+
 				<!-- Edit -->
 				<Command ID="Edit" Title="_Edit" />
 				<Command ID="EditUndo" Title="_Undo" />
@@ -92,13 +92,13 @@
 				<Command ID="EditFindReplace" Title="_Find/Replace..." />
 				<Command ID="EditBatchFindReplace" Title="Batch Find/_Replace..." />
 				<Command ID="EditGoTo" Title="_Go To..." />
-				
+
 				<!-- View -->
 				<Command ID="View" Title="_View" />
 				<Command ID="ViewToolbars" Title="_Toolbars" />
 				<Command ID="ViewToolbarsCustomize" Title="_Customize..." />
 				<Command ID="ViewStatusBar" Title="Status _Bar" />
-				
+
 				<Command ID="ViewPerspective" Title="P_erspective" />
 				<Command ID="ViewPerspective1" Title="_1 Perspective 1" />
 				<Command ID="ViewPerspective2" Title="_2 Perspective 2" />
@@ -110,11 +110,11 @@
 				<Command ID="ViewPerspective8" Title="_8 Perspective 8" />
 				<Command ID="ViewPerspective9" Title="_9 Perspective 9" />
 				<Command ID="ViewPerspectiveCustomize" Title="C_ustomize..." />
-				
+
 				<Command ID="ViewPanels" Title="_Panels" />
 				<Command ID="ViewStartPage" Title="Start Pa_ge" />
 				<Command ID="ViewFullScreen" Title="F_ull Screen" />
-				
+
 				<!-- Project -->
 				<Command ID="Project" Title="_Project" />
 				<Command ID="ProjectAddNew" Title="Add Ne_w Item..." />
@@ -122,13 +122,13 @@
 				<Command ID="ProjectExclude" Title="Exclude from Pro_ject" />
 				<Command ID="ProjectShowAllFiles" Title="Sh_ow All Files" />
 				<Command ID="ProjectProperties" Title="Project _Properties..." />
-				
+
 				<!-- Bookmarks -->
 				<Command ID="Bookmarks" Title="Book_marks" />
 				<Command ID="BookmarksAdd" Title="Add to Boo_kmarks" />
 				<Command ID="BookmarksAddAll" Title="Add _All to Bookmarks" />
 				<Command ID="BookmarksManage" Title="_Manage Bookmarks..." />
-				
+
 				<!-- Tools -->
 				<Command ID="Tools" Title="_Tools" />
 				<Command ID="ToolsSessionManager" Title="_Session Manager..." />
@@ -136,7 +136,7 @@
 				<Command ID="ToolsExternalToolsCustomize" Title="_Customize..." />
 				<Command ID="ToolsCustomize" Title="_Customize..." />
 				<Command ID="ToolsOptions" Title="_Options..." />
-				
+
 				<!-- Window -->
 				<Command ID="Window" Title="_Window" />
 				<Command ID="WindowNewWindow" Title="_New Window" />
@@ -153,7 +153,7 @@
 				<Command ID="WindowCloseAllDocuments" Title="Close A_ll Documents" />
 				<Command ID="WindowResetWindowLayout" Title="_Reset Window Layout" />
 				<Command ID="WindowWindows" Title="_Windows..." />
-				
+
 				<!-- Help -->
 				<Command ID="Help" Title="_Help" />
 				<Command ID="HelpViewHelp" Title="View _Help" />

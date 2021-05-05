@@ -173,7 +173,7 @@ namespace UniversalEditor
 		public void SetValue(T value, int index = -1)
 		{
 			if (index == -1) index = this.index;
-			
+
 			AutoResizeIfNeeded(index);
 
 			if (index < 0 || index > this.value.Length - 1) throw new IndexOutOfRangeException();

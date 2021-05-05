@@ -31,7 +31,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.Quake
 			BinaryReader br = base.Stream.BinaryReader;
 			string IDP3 = br.ReadFixedLengthString(4);
 			this.mvarVersion = br.ReadInt32();
-            
+
             string modelName = br.ReadNullTerminatedString(64);
             if (!model.StringTable.ContainsKey(1033))
             {
@@ -260,7 +260,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.Quake
                 //      z <- cos ( lat )
                 double lat = (double)((double)normalZenith * (2 * Math.PI) / 255);
                 double lng = (double)((double)normalAzimuth * (2 * Math.PI) / 255);
-                
+
                 double normalX = Math.Cos(lng) * Math.Sin(lat);
                 double normalY = Math.Sin(lng) * Math.Sin(lat);
                 double normalZ = Math.Cos(lat);

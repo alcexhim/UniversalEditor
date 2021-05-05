@@ -27,7 +27,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
     /// </summary>
     /// <example>
     /// <code>
-    /// 
+    ///
     /// const String STORAGE_NAME = "report.xls";
     /// CompoundFile cf = new CompoundFile(STORAGE_NAME);
     ///
@@ -43,7 +43,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
     /// cf.RootStorage.VisitEntries(va, true);
     ///
     /// tw.Close();
-    /// 
+    ///
     /// </code>
     /// </example>
     public abstract class CFItem : IComparable
@@ -89,7 +89,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
 
 
 
-    
+
 
 
 
@@ -155,7 +155,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StructuredStorage.Internal
         }
 
         /// <summary>
-        /// Size in bytes of the item. It has a valid value 
+        /// Size in bytes of the item. It has a valid value
         /// only if entity is a stream, otherwise it is setted to zero.
         /// </summary>
         public long Size

@@ -42,7 +42,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Scene
 		{
 			return new SceneModelReference
 			{
-				FileName = this.mvarFileName, 
+				FileName = this.mvarFileName,
 				ModelName = this.mvarModelName
 			};
 		}

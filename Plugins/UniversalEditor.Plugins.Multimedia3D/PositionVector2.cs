@@ -28,7 +28,7 @@ namespace UniversalEditor
 
         public double X { get { return mvarX; } set { mvarX = value; } }
         public double Y { get { return mvarY; } set { mvarY = value; } }
-		
+
         public PositionVector2(float x, float y)
 		{
 			mvarX = x;

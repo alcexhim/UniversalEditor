@@ -351,7 +351,7 @@ namespace UniversalEditor
 				if (cdfi is CustomDataFormatItemField)
 				{
 					CustomDataFormatItemField fld = (cdfi as CustomDataFormatItemField);
-					
+
 					WriteObject(bw, fld);
 
 					if (fld.Name != null)
@@ -378,7 +378,7 @@ namespace UniversalEditor
 			object value = null;
 
 			if (item is CustomDataFormatItemField)
-			{ 
+			{
 				CustomDataFormatItemField fld = (item as CustomDataFormatItemField);
 				if (fld != null)
 				{
@@ -521,7 +521,7 @@ namespace UniversalEditor
 					{
 						IO.Encoding encoding = IO.Encoding.Default;
 						if (fld.Encoding != null) encoding = fld.Encoding;
-							
+
 						if (fld.Length != null)
 						{
 							writer.WriteFixedLengthString((string)value, encoding, fld.Length.Value);

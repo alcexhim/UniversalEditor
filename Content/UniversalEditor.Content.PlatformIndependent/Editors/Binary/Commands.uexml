@@ -10,7 +10,7 @@
 						<CommandReference CommandID="ContextMenu_Mode_Append" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="ContextMenu_FieldDefinitions_Add" Title="_Add..." />
 				<Command ID="ContextMenu_FieldDefinitions_Edit" Title="_Edit..." />
 				<Command ID="ContextMenu_FieldDefinitions" Title="_Field Definitions">
@@ -19,9 +19,9 @@
 						<CommandReference CommandID="ContextMenu_FieldDefinitions_Edit" />
 					</Items>
 				</Command>
-				
+
 				<Command ID="EditPasteBinary" Title="Paste _Binary" />
-				
+
 				<Command ID="BinaryEditorContextMenu">
 					<Items>
 						<CommandReference CommandID="ContextMenu_Mode" />

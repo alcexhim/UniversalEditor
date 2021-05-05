@@ -126,7 +126,7 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationScript
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
 			InstallationScriptObjectModel script = (objectModels.Pop() as InstallationScriptObjectModel);
-			
+
 			PropertyListObjectModel plom = new PropertyListObjectModel();
 
 			Group IA_Globals = new Group("IA_Globals");

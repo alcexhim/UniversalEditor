@@ -23,7 +23,7 @@
 // making a combined work based on this library.  Thus, the terms and
 // conditions of the GNU General Public License cover the whole
 // combination.
-// 
+//
 // As a special exception, the copyright holders of this library give you
 // permission to link this library with independent modules to produce an
 // executable, regardless of the license terms of these independent
@@ -38,7 +38,7 @@
 
 using System;
 
-namespace UniversalEditor.Checksum.Modules.StrangeCRC 
+namespace UniversalEditor.Checksum.Modules.StrangeCRC
 {
 	/// <summary>
 	/// Bzip2 checksum algorithm
@@ -114,13 +114,13 @@ namespace UniversalEditor.Checksum.Modules.StrangeCRC
 			0xafb010b1, 0xab710d06, 0xa6322bdf, 0xa2f33668,
 			0xbcb4666d, 0xb8757bda, 0xb5365d03, 0xb1f740b4
 		};
-		
+
 		int globalCrc;
 
 		/// <summary>
 		/// Initialise a default instance of <see cref="StrangeCRC"></see>
-		/// </summary>	
-		public StrangeCRCChecksumModule() 
+		/// </summary>
+		public StrangeCRCChecksumModule()
 		{
 			Reset();
 		}
@@ -141,7 +141,7 @@ namespace UniversalEditor.Checksum.Modules.StrangeCRC
 				return ~globalCrc;
 			}
 		}
-		
+
 		/// <summary>
 		/// Update the Crc value.
 		/// </summary>
@@ -166,14 +166,14 @@ namespace UniversalEditor.Checksum.Modules.StrangeCRC
 			if (buffer == null) {
 				throw new ArgumentNullException("buffer");
 			}
-			
+
 			if ( offset < 0 )
 			{
 #if NETCF_1_0
 				throw new ArgumentOutOfRangeException("offset");
 #else
 				throw new ArgumentOutOfRangeException("offset", "cannot be less than zero");
-#endif				
+#endif
 			}
 
 			if ( count < 0 )
@@ -189,7 +189,7 @@ namespace UniversalEditor.Checksum.Modules.StrangeCRC
 			{
 				throw new ArgumentOutOfRangeException("count");
 			}
-			
+
 			for (int i = 0; i < count; ++i) {
 				Update(buffer[offset++]);
 			}

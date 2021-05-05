@@ -28,7 +28,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Concertroid
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
-			
+
 			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
 			ModelObjectModel model = (objectModels.Pop() as ModelObjectModel);
 		}

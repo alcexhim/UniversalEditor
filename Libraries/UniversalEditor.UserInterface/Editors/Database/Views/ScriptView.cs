@@ -35,7 +35,7 @@ namespace UniversalEditor.UserInterface.Editors.Database.Views
 	{
 		private SyntaxTextBox txtQuery;
 		private ListViewControl lvResults;
-		
+
 		private string ScriptTable(DatabaseTable dt, ScriptTableMode mode)
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();

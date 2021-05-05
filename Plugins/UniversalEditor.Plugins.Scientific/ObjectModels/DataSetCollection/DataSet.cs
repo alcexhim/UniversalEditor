@@ -66,7 +66,7 @@ namespace UniversalEditor.Plugins.Scientific.ObjectModels.DataSetCollection
 		}
 		public void SetValue(int nDimension, int nIndex, float? value)
 		{
-			Init(); 
+			Init();
 			fs[nDimension][nIndex] = value;
 		}
 	}

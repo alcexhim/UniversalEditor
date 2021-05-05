@@ -1,5 +1,5 @@
 ﻿//
-//  NoteRenderedEvent.cs - 
+//  NoteRenderedEvent.cs -
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>

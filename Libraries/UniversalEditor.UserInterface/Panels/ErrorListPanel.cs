@@ -4,7 +4,7 @@
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ namespace UniversalEditor.UserInterface.Panels
 		private ListViewControl tvErrorList = new ListViewControl();
 
 		private DefaultTreeModel tm = new DefaultTreeModel(new Type[] { typeof(int), typeof(string), typeof(string), typeof(string), typeof(string), typeof(string) });
-		   
+
 		public ErrorListPanel()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
@@ -44,7 +44,7 @@ namespace UniversalEditor.UserInterface.Panels
 			tsbWarnings.CheckOnClick = true;
 			ToolbarItemButton tsbMessages = new ToolbarItemButton("tsbMessages", "Messages");
 			tsbMessages.CheckOnClick = true;
-			
+
 			tbErrorList.Items.Add(tsbErrors);
 			tbErrorList.Items.Add(tsbWarnings);
 			tbErrorList.Items.Add(tsbMessages);

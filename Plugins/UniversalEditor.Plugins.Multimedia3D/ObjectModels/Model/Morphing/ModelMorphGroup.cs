@@ -19,7 +19,7 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model.Morphing
 		{
 			return new ModelMorphGroup
 			{
-				MorphRate = this.mvarMorphRate, 
+				MorphRate = this.mvarMorphRate,
 				Name = base.Name
 			};
 		}

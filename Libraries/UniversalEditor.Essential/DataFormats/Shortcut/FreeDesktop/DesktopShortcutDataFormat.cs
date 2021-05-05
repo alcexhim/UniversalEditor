@@ -49,11 +49,11 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 			return _dfr;
 		}
 		/// <summary>
-		/// Specific name of the application, for example "Mozilla". 
+		/// Specific name of the application, for example "Mozilla".
 		/// </summary>
 		public string ApplicationTitle { get; set; } = String.Empty;
 		/// <summary>
-		/// Generic name of the application, for example "Web Browser". 
+		/// Generic name of the application, for example "Web Browser".
 		/// </summary>
 		public string GenericTitle { get; set; } = String.Empty;
 		public DesktopShortcutType Type { get; set; } = DesktopShortcutType.Application;
@@ -90,7 +90,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// not shown. If none of the strings match then the default action is taken (as above).
 		/// </para>
 		/// <para>
-		/// The same desktop name may not appear in both OnlyShowIn and NotShowIn of a group. 
+		/// The same desktop name may not appear in both OnlyShowIn and NotShowIn of a group.
 		/// </para>
 		/// </summary>
 		public System.Collections.Specialized.StringCollection RestrictedEnvironments { get; } = new System.Collections.Specialized.StringCollection();
@@ -111,7 +111,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 		/// not shown. If none of the strings match then the default action is taken (as above).
 		/// </para>
 		/// <para>
-		/// The same desktop name may not appear in both OnlyShowIn and NotShowIn of a group. 
+		/// The same desktop name may not appear in both OnlyShowIn and NotShowIn of a group.
 		/// </para>
 		/// </summary>
 		public System.Collections.Specialized.StringCollection ExcludedEnvironments { get; } = new System.Collections.Specialized.StringCollection();
@@ -288,7 +288,7 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 				}
 				if (shortcut.RunInTerminal)
 				{
-					// Whether the program runs in a terminal window. 
+					// Whether the program runs in a terminal window.
 					group.Items.AddProperty("Terminal", true);
 				}
 				#region Desktop Actions

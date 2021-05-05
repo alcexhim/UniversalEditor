@@ -149,7 +149,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StudioALCE.RFS
             IO.BinaryWriter bw = new IO.BinaryWriter(ms);
             bw.WriteNullTerminatedString(file.Name);
             bw.Write(nextDataBlockIndex);
-            
+
             UniversalEditor.Compression.CompressionMethod compressionMethod = Compression.CompressionMethod.Deflate;
 
             // try multiple compression methods
@@ -173,7 +173,7 @@ namespace UniversalEditor.DataFormats.FileSystem.StudioALCE.RFS
 
             compressionMethod = (Compression.CompressionMethod)enumerator.Current.Value;
             file.Properties.Add("CompressionMethod", compressionMethod);
-            
+
             bw.Write((int)compressionMethod);
 
             bw.Close();

@@ -469,7 +469,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 			List<int> sectors = new List<int>();
 			if (storageType != 0x05) // hack: why do we need this?
 			{
-				
+
 			}
 
 			*/
@@ -515,7 +515,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				Array.Copy(data, 0, realdata, 0, realdata.Length);
 			}
 			e.Data = realdata;
-			*/		
+			*/
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)

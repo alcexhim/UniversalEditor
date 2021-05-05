@@ -19,14 +19,14 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-//  QuickLZ can be used for free under the GPL 1, 2 or 3 license (where anything 
-//  released into public must be open source) or under a commercial license if such 
-//  has been acquired (see http://www.quicklz.com/order.html). The commercial license 
+//  QuickLZ can be used for free under the GPL 1, 2 or 3 license (where anything
+//  released into public must be open source) or under a commercial license if such
+//  has been acquired (see http://www.quicklz.com/order.html). The commercial license
 //  does not cover derived or ported versions created by third parties under GPL.
-//  
-//  Only a subset of the C library has been ported, namely level 1 and 3 not in 
-//  streaming mode. 
-//  
+//
+//  Only a subset of the C library has been ported, namely level 1 and 3 not in
+//  streaming mode.
+//
 //  Version: 1.5.0 final
 
 using System;
@@ -86,7 +86,7 @@ namespace UniversalEditor.Compression.LZ
 			fast_write(dst, 5, size_compressed, 4);
 		}
 
-		
+
 
 		private static void fast_write(byte[] a, int i, int value, int numbytes)
 		{
@@ -422,12 +422,12 @@ namespace UniversalEditor.Compression.LZ
 					destination[dst + 0] = destination[offset2 + 0];
 					destination[dst + 1] = destination[offset2 + 1];
 					destination[dst + 2] = destination[offset2 + 2];
-                
+
 					for (int i = 3; i < matchlen; i += 1)
 					{
 						destination[dst + i] = destination[offset2 + i];
 					}
-                
+
 					dst += (int)matchlen;
 
 					if (level == 1)

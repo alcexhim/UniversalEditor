@@ -108,7 +108,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.BGM
 				ima_process_nibble(nibble, ref step_index, ref predictor, ref step);
 				bw.WriteInt16((short)predictor);
 
-				
+
 				nibble = (byte)(next >> 4);
 				ima_process_nibble(nibble, ref step_index, ref predictor, ref step);
 				bw.WriteInt16((short)predictor);

@@ -74,7 +74,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Illusion.PP
 						uint value = BitConverter.ToUInt32(buf, i);
 						value ^= key[i & 7];
 						byte[] bytes = BitConverter.GetBytes(value);
-						
+
 						for (int j = 0; j < 4; j++)
 						{
 							key[i + j] = bytes[j];

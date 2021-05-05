@@ -20,7 +20,7 @@
 // making a combined work based on this library.  Thus, the terms and
 // conditions of the GNU General Public License cover the whole
 // combination.
-// 
+//
 // As a special exception, the copyright holders of this library give you
 // permission to link this library with independent modules to produce an
 // executable, regardless of the license terms of these independent
@@ -46,13 +46,13 @@ namespace ICSharpCode.SharpZipLib.BZip2
 	/// </summary>
 #if !NETCF_1_0 && !NETCF_2_0
 	[Serializable]
-#endif	
+#endif
 	internal class BZip2Exception : Exception
 	{
 
 #if !NETCF_1_0 && !NETCF_2_0
 		/// <summary>
-		/// Deserialization constructor 
+		/// Deserialization constructor
 		/// </summary>
 		/// <param name="info"><see cref="SerializationInfo"/> for this constructor</param>
 		/// <param name="context"><see cref="StreamingContext"/> for this constructor</param>
@@ -68,7 +68,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 		public BZip2Exception()
 		{
 		}
-		
+
 		/// <summary>
 		/// Initialise a new instance of BZip2Exception with its message set to message.
 		/// </summary>

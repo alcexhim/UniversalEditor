@@ -81,7 +81,7 @@ namespace UniversalEditor.DataFormats.Solution.Microsoft.VisualStudio
 			string signature2a = reader.ReadLine();
 			signature2a = signature2a.Trim();
 			if (!String.IsNullOrEmpty(signature2a)) throw new InvalidDataFormatException("Empty line should be present at beginning of file");
-			
+
 			string signature2Verify = "Microsoft Visual Studio Solution File, Format Version ";
 			string signature2 = reader.ReadLine();
 			if (!signature2.StartsWith(signature2Verify)) throw new InvalidDataFormatException("File does not begin with \"" + signature2Verify + "\"");

@@ -90,10 +90,10 @@ namespace UniversalEditor
 
 		private string mvarLargeIconImageFileName = null;
 		public string LargeIconImageFileName { get { return mvarLargeIconImageFileName; } set { mvarLargeIconImageFileName = value; } }
-		
+
 		private string mvarSmallIconImageFileName = null;
 		public string SmallIconImageFileName { get { return mvarSmallIconImageFileName; } set { mvarSmallIconImageFileName = value; } }
-		
+
 		private string mvarPreviewImageFileName = null;
 		public string PreviewImageFileName { get { return mvarPreviewImageFileName; } set { mvarPreviewImageFileName = value; } }
 	}
@@ -133,7 +133,7 @@ namespace UniversalEditor
 
 		private string[] mvarPath = null;
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public string[] Path { get { return mvarPath; } set { mvarPath = value; } }
 
@@ -225,7 +225,7 @@ namespace UniversalEditor
 
 		private string[] mvarPath = null;
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public string[] Path { get { return mvarPath; } set { mvarPath = value; } }
 

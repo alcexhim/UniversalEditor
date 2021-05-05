@@ -2,13 +2,13 @@
 	<Editors>
 		<Editor ID="{A0389580-FbE6-4512-95F0-BCDD51B8B623}" TypeName="UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Palette.PaletteEditor">
 			<Commands>
-				
+
 				<Command ID="PaletteEditor_ContextMenu_Add" Title="_Add entry..." />
-				
+
 				<Command ID="PaletteEditor_ContextMenu_Change" Title="C_hange" />
-				
+
 				<Command ID="PaletteEditor_CalculateNeighboringColors" Title="Calculate _Neighboring Colors..." />
-				
+
 				<Command ID="PaletteEditor_ContextMenu_Unselected">
 					<Items>
 						<CommandReference CommandID="PaletteEditor_ContextMenu_Add" />

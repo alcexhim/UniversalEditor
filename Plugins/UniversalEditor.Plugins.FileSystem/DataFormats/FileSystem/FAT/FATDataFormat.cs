@@ -173,19 +173,19 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 			/*
 			 *	A simple formula translates a volume's given cluster number CN to a logical sector number LSN:
-			 *	
+			 *
 			 *	Determine (once) SSA=RSC+FN×SF+ceil((32×RDE)/SS), where the reserved sector count RSC is stored at
 			 *	offset 0x00E, the FAT number FN at offset 0x010, the sectors per FAT SF at offset 0x016 (FAT12/FAT16)
 			 *	or 0x024 (FAT32), the root directory entries RDE at offset 0x011, the sector size SS at offset 0x00B,
 			 *	and ceil(x) rounds up to a whole number.
-			 *	
+			 *
 			 *	Determine LSN=SSA+(CN-2)×SC, where the sectors per cluster SC are stored at offset 0x00D.
-			 *	
+			 *
 			 *	On unpartitioned media the volume's number of hidden sectors is zero and therefore LSN and LBA
 			 *	addresses become the same for as long as a volume's logical sector size is identical to the
 			 *	underlying medium's physical sector size. Under these conditions, it is also simple to translate
 			 *	between CHS addresses and LSNs as well:
-			 *	
+			 *
 			 *	LSN=SPT×(HN+(NOS×TN))+SN-1, where the sectors per track SPT are stored at offset 0x018, and the
 			 *	number of sides NOS at offset 0x01A. Track number TN, head number HN, and sector number SN
 			 *	correspond to Cylinder-head-sector: the formula gives the known CHS to LBA translation.
@@ -196,7 +196,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 				mvarExtendedBiosParameterBlock.PhysicalDriveNumber = br.ReadByte();
 
 				// windows NT - CHKDSK flags, bits 7-2 always cleared
-				// 0x02: 
+				// 0x02:
 				// 0x01: volume is "dirty" and was not properly unmounted before shutdown, run CHKDSK on next boot
 				byte reserved1 = br.ReadByte();
 				mvarExtendedBiosParameterBlock.CheckDiskFlags = (FATCheckDiskFlags)reserved1;
@@ -263,7 +263,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					else if (fileNameBytes[0] == 0x05)
 					{
 						// Initial character is actually 0xE5. (since DOS 3.0)
-						// 
+						//
 						// Under DR DOS 6.0 and higher, including PalmDOS, Novell DOS and OpenDOS,
 						// 0x05 is also used for pending delete files under DELWATCH. Once they are
 						// removed from the deletion tracking queue, the first character of an erased
@@ -278,7 +278,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						// Entry has been previously erased and is available. File undelete
 						// utilities must replace this character with a regular character as part of
 						// the undeletion process. See also: 0x05.
-						// 
+						//
 						// (The reason, why 0xE5 was chosen for this purpose in 86-DOS is down to the
 						// fact, that 8-inch CP/M floppies came pre-formatted with this value filled
 						// and so could be used to store files out-of-the box.)
@@ -344,16 +344,16 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 					// Windows NT and later versions uses bits 3 and 4 to encode case information (see below);
 					// otherwise 0.
-					
+
 					// DR-DOS 7.0x reserved bits other than 3 and 4 for internal purposes since 1997. The value
 					// should be set to 0 by formating tools and must not be changed by disk tools.
-					
+
 					// On FAT32 volumes under OS/2 and eComStation the third-party FAT32.IFS driver utilizes this
 					// entry as a mark byte to indicate the presence of extra " EA. SF" files holding extended
 					// attributes with parameter /EAS. Version 0.70 to 0.96 used the magic values 0x00 (no EAs),
 					// 0xEA (normal EAs) and 0xEC (critical EAs), whereas version 0.97 and higher since 2003-09 use
 					// 0x00, 0x40 (normal EAs) and 0x80 (critical EAs) as bitflags for compatibility with Windows NT.
-					
+
 					// Bits other than 3 and 4 are utilized by FAT+, a proposal how to store files larger than 4 GB
 					// on FAT32 (and FAT16B) volumes, currently implemented in some versions of EDR-DOS. The value
 					// should be set to 0 by formating tools and must not be changed by disk tools. If some of these
@@ -377,14 +377,14 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// character. S/DOS 1 and PTS-DOS 6.51 and higher also support this feature if enabled with
 					// SAVENAME=ON in CONFIG.SYS. For the same feature in MSX-DOS, see offset 0x0C.
 					char deletedFileFirstCharImplementation2 = (char)implementationSpecificByte2;
-					
+
 					// Create time, fine resolution: 10 ms units, values from 0 to 199 (since DOS 7.0 with VFAT).
 					byte createTime = implementationSpecificByte2;
 
 					// Double usage for create time ms and file char is not conflictive, since the creation time is
 					// no longer important for deleted files.
 
-					
+
 					// Under DR DOS 3.31 and higher including PalmDOS, Novell DOS and OpenDOS as well
 					// as under Concurrent DOS, Multiuser DOS, System Manager, and REAL/32 and
 					// possibly also under FlexOS, 4680 OS, 4690 OS any non-zero value indicates the
@@ -398,7 +398,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// here. A set password will be preserved even if a file is deleted and later
 					// undeleted.
 					short implementationSpecific3 = br.ReadInt16();
-					
+
 					// Create time (since DOS 7.0 with VFAT). The hour, minute and second are encoded
 					// according to the following bitmap:
 					// Bits 	Description
@@ -406,10 +406,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// 15-11 	Hours (0-23)
 					// 10-5 	Minutes (0-59)
 					// 4-0 		Seconds/2 (0-29)
-					// 
+					//
 					// The seconds is recorded only to a 2 second resolution. Finer resolution for
 					// file creation is found at offset 0x0D.
-					// 
+					//
 					// If bits 15-11 > 23 or bits 10-5 > 59 or bits 4-0 > 29 here, or when bits 12-0
 					// at offset 0x14 hold an access bitmap and this is not a FAT32 volume or a
 					// volume using OS/2 Extended Attributes, then this entry actually holds a
@@ -423,12 +423,12 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// (default) or 1, the operating systems assume a record granularity of 1 byte
 					// for the file, for which it will not perform record boundary checks in
 					// read/write operations.
-					// 
+					//
 					// With DELWATCH 2.00 and higher under Novell DOS 7, OpenDOS 7.01 and DR-DOS
 					// 7.02 and higher, this entry is used to store the last modified time stamp for
 					// pending delete files and directories. Cleared when file is undeleted or
 					// purged. See offset 0x0E for a format description.
-					// 
+					//
 					// Create date (since DOS 7.0 with VFAT). The year, month and day are encoded
 					// according to the following bitmap:
 					// Bits 	Description
@@ -437,7 +437,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					//			up to 127 = 2107)
 					// 8-5 		Month (1–12)
 					// 4-0 		Day (1–31)
-					// 
+					//
 					// The usage for creation date for existing files and last modified time for
 					// deleted files is not conflictive because they are never used at the same time.
 					// For the same reason, the usage for the record size of existing files and last
@@ -455,7 +455,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// FlexOS, 4680 OS, 4690 OS, Multiuser DOS, System Manager, REAL/32 and DR DOS
 					// 6.0 and higher with multi-user security enabled use this field to store owner
 					// IDs. Offset 0x12 holds the user ID, 0x13 the group ID of a file's creator.
-					// 
+					//
 					// In multi-user versions, system access requires a logon with account name and
 					// password, and the system assigns group and user IDs to running applications
 					// according to the previously set up and stored authorization info and
@@ -467,15 +467,15 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// always get group ID 2 and user ID 1. When applications create files, the
 					// system will store their user ID and group ID and the required permissions with
 					// the file.
-					// 
+					//
 					// With DELWATCH 2.00 and higher under Novell DOS 7, OpenDOS 7.01 and DR-DOS 7.02
 					// and higher, this entry is used to store the last modified date stamp for
 					// pending delete files and directories. Cleared when file is undeleted or
 					// purged. See [implementationSpecific4] for a format description.
-					// 
+					//
 					// Last access date (since DOS 7.0 if ACCDATE enabled in CONFIG.SYS for the
 					// corresponding drive); see [implementationSpecific4] for a format description.
-					// 
+					//
 					// The usage for the owner IDs of existing files and last modified date stamp for
 					// deleted files is not conflictive because they are never used at the same time.
 					// The usage of the last modified date stamp for deleted files and access date is
@@ -488,7 +488,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// DR DOS 3.31 and higher, including PalmDOS, Novell DOS and OpenDOS, and under
 					// FlexOS, 4680 OS, 4690 OS, Concurrent DOS, Multiuser DOS, System Manager, and
 					// REAL/32.
-					// 
+					//
 					// Typical values stored on a single-user system are 0x0000 (PASSWORD /N for all
 					// access rights "RWED"), 0x0111 (PASSWORD /D for access rights "RW?-"), 0x0555
 					// (PASSWORD /W for access rights "R-?-") and 0x0DDD (PASSWORD /R for files or
@@ -497,7 +497,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// systems other than FlexOS, 4680 OS or 4690 OS, they will be treated similar
 					// to read bits. (Some versions of PASSWORD allow to set passwords on volume
 					// labels (PASSWORD /V) as well.)
-					// 
+					//
 					// Single-user systems calculate the most restrictive rights of the three sets
 					// (DR DOS up to 5.0 used bits 0-3 only) and check if any of the requested file
 					// access types requires a permission and if a file password is stored. If not,
@@ -508,7 +508,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// fail. If one of them matches, the system will grant access (within the limits
 					// of the normal file attributes, that is, a read-only file can still not be
 					// opened for write this way), otherwise fail the request.
-					// 
+					//
 					// Under FlexOS, 4680 OS and 4690 OS the system assigns group and user IDs to
 					// applications when launched. When they request file access, their group and
 					// user IDs are compared with the group and user IDs of the file to be opened.
@@ -524,7 +524,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// have diminishing access levels. Only, if none of the requested access types
 					// require a permission, the operating system will grant access, otherwise it
 					// fails.
-					// 
+					//
 					// If multiuser file / directory password security is enabled the system will not
 					// fail at this stage but perform the password checking mechanism for the
 					// selected permission class similar to the procedure described above. With
@@ -534,7 +534,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					FATFileAccessRightsFlags fileAccess = (FATFileAccessRightsFlags)implementationSpecific6;
 
 					// Last modified time (since DOS 1.1); see offset 0x0E for a format description.
-					// 
+					//
 					// Under Novell DOS, OpenDOS and DR-DOS 7.02 and higher, this entry holds the
 					// deletion time of pending delete files or directories under DELWATCH 2.00 or
 					// higher. The last modified time stamp is copied to 0x10 for possible later
@@ -542,7 +542,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					short implementationSpecific7 = br.ReadInt16();
 
 					// Last modified date; see offset 0x10 for a format description.
-					// 
+					//
 					// Under Novell DOS, OpenDOS and DR-DOS 7.02 and higher, this entry holds the
 					// deletion date of pending delete files or directories under DELWATCH 2.00 or
 					// higher. The last modified date stamp is copied to 0x12 for possible later
@@ -551,10 +551,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 					// Start of file in clusters in FAT12 and FAT16. Low two bytes of first cluster
 					// in FAT32; with the high two bytes stored at offset 0x14.
-					// 
+					//
 					// Entries with the Volume Label flag, subdirectory ".." pointing to FAT12/FAT16
 					// root, and empty files with size 0 should have first cluster 0.
-					// 
+					//
 					// VFAT LFN entries also have this entry set to 0; on FAT12 and FAT16 volumes
 					// this can be used as part of a detection mechanism to distinguish between
 					// pending delete files under DELWATCH and VFAT LFNs; see above.
@@ -562,11 +562,11 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 					// File size in bytes. Entries with the Volume Label or Subdirectory flag set
 					// should have a size of 0.
-					// 
+					//
 					// VFAT LFN entries never store the value 0x00000000 here. This can be used as
 					// part of a detection mechanism to distinguish between pending delete files
 					// under DELWATCH and VFAT LFNs; see above.
-					// 
+					//
 					// For files larger than 4 GB following the FAT+ proposal, this entry only holds
 					// the size of the last chunk of the file (that is bits 31-0). The most
 					// significant bits 37-32 are stored in the entry at offset 0x0C.
@@ -717,19 +717,19 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 			/*
 			 *	A simple formula translates a volume's given cluster number CN to a logical sector number LSN:
-			 *	
+			 *
 			 *	Determine (once) SSA=RSC+FN×SF+ceil((32×RDE)/SS), where the reserved sector count RSC is stored at
 			 *	offset 0x00E, the FAT number FN at offset 0x010, the sectors per FAT SF at offset 0x016 (FAT12/FAT16)
 			 *	or 0x024 (FAT32), the root directory entries RDE at offset 0x011, the sector size SS at offset 0x00B,
 			 *	and ceil(x) rounds up to a whole number.
-			 *	
+			 *
 			 *	Determine LSN=SSA+(CN-2)×SC, where the sectors per cluster SC are stored at offset 0x00D.
-			 *	
+			 *
 			 *	On unpartitioned media the volume's number of hidden sectors is zero and therefore LSN and LBA
 			 *	addresses become the same for as long as a volume's logical sector size is identical to the
 			 *	underlying medium's physical sector size. Under these conditions, it is also simple to translate
 			 *	between CHS addresses and LSNs as well:
-			 *	
+			 *
 			 *	LSN=SPT×(HN+(NOS×TN))+SN-1, where the sectors per track SPT are stored at offset 0x018, and the
 			 *	number of sides NOS at offset 0x01A. Track number TN, head number HN, and sector number SN
 			 *	correspond to Cylinder-head-sector: the formula gives the known CHS to LBA translation.
@@ -810,7 +810,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					else if (fileNameBytes[0] == 0x05)
 					{
 						// Initial character is actually 0xE5. (since DOS 3.0)
-						// 
+						//
 						// Under DR DOS 6.0 and higher, including PalmDOS, Novell DOS and OpenDOS,
 						// 0x05 is also used for pending delete files under DELWATCH. Once they are
 						// removed from the deletion tracking queue, the first character of an erased
@@ -825,7 +825,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						// Entry has been previously erased and is available. File undelete
 						// utilities must replace this character with a regular character as part of
 						// the undeletion process. See also: 0x05.
-						// 
+						//
 						// (The reason, why 0xE5 was chosen for this purpose in 86-DOS is down to the
 						// fact, that 8-inch CP/M floppies came pre-formatted with this value filled
 						// and so could be used to store files out-of-the box.)
@@ -900,16 +900,16 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 					// Windows NT and later versions uses bits 3 and 4 to encode case information (see below);
 					// otherwise 0.
-					
+
 					// DR-DOS 7.0x reserved bits other than 3 and 4 for internal purposes since 1997. The value
 					// should be set to 0 by formating tools and must not be changed by disk tools.
-					
+
 					// On FAT32 volumes under OS/2 and eComStation the third-party FAT32.IFS driver utilizes this
 					// entry as a mark byte to indicate the presence of extra " EA. SF" files holding extended
 					// attributes with parameter /EAS. Version 0.70 to 0.96 used the magic values 0x00 (no EAs),
 					// 0xEA (normal EAs) and 0xEC (critical EAs), whereas version 0.97 and higher since 2003-09 use
 					// 0x00, 0x40 (normal EAs) and 0x80 (critical EAs) as bitflags for compatibility with Windows NT.
-					
+
 					// Bits other than 3 and 4 are utilized by FAT+, a proposal how to store files larger than 4 GB
 					// on FAT32 (and FAT16B) volumes, currently implemented in some versions of EDR-DOS. The value
 					// should be set to 0 by formating tools and must not be changed by disk tools. If some of these
@@ -933,14 +933,14 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// character. S/DOS 1 and PTS-DOS 6.51 and higher also support this feature if enabled with
 					// SAVENAME=ON in CONFIG.SYS. For the same feature in MSX-DOS, see offset 0x0C.
 					char deletedFileFirstCharImplementation2 = (char)implementationSpecificByte2;
-					
+
 					// Create time, fine resolution: 10 ms units, values from 0 to 199 (since DOS 7.0 with VFAT).
 					byte createTime = implementationSpecificByte2;
 
 					// Double usage for create time ms and file char is not conflictive, since the creation time is
 					// no longer important for deleted files.
 
-					
+
 					// Under DR DOS 3.31 and higher including PalmDOS, Novell DOS and OpenDOS as well
 					// as under Concurrent DOS, Multiuser DOS, System Manager, and REAL/32 and
 					// possibly also under FlexOS, 4680 OS, 4690 OS any non-zero value indicates the
@@ -954,7 +954,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// here. A set password will be preserved even if a file is deleted and later
 					// undeleted.
 					short implementationSpecific3 = br.ReadInt16();
-					
+
 					// Create time (since DOS 7.0 with VFAT). The hour, minute and second are encoded
 					// according to the following bitmap:
 					// Bits 	Description
@@ -962,10 +962,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// 15-11 	Hours (0-23)
 					// 10-5 	Minutes (0-59)
 					// 4-0 		Seconds/2 (0-29)
-					// 
+					//
 					// The seconds is recorded only to a 2 second resolution. Finer resolution for
 					// file creation is found at offset 0x0D.
-					// 
+					//
 					// If bits 15-11 > 23 or bits 10-5 > 59 or bits 4-0 > 29 here, or when bits 12-0
 					// at offset 0x14 hold an access bitmap and this is not a FAT32 volume or a
 					// volume using OS/2 Extended Attributes, then this entry actually holds a
@@ -979,12 +979,12 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// (default) or 1, the operating systems assume a record granularity of 1 byte
 					// for the file, for which it will not perform record boundary checks in
 					// read/write operations.
-					// 
+					//
 					// With DELWATCH 2.00 and higher under Novell DOS 7, OpenDOS 7.01 and DR-DOS
 					// 7.02 and higher, this entry is used to store the last modified time stamp for
 					// pending delete files and directories. Cleared when file is undeleted or
 					// purged. See offset 0x0E for a format description.
-					// 
+					//
 					// Create date (since DOS 7.0 with VFAT). The year, month and day are encoded
 					// according to the following bitmap:
 					// Bits 	Description
@@ -993,7 +993,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					//			up to 127 = 2107)
 					// 8-5 		Month (1–12)
 					// 4-0 		Day (1–31)
-					// 
+					//
 					// The usage for creation date for existing files and last modified time for
 					// deleted files is not conflictive because they are never used at the same time.
 					// For the same reason, the usage for the record size of existing files and last
@@ -1011,7 +1011,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// FlexOS, 4680 OS, 4690 OS, Multiuser DOS, System Manager, REAL/32 and DR DOS
 					// 6.0 and higher with multi-user security enabled use this field to store owner
 					// IDs. Offset 0x12 holds the user ID, 0x13 the group ID of a file's creator.
-					// 
+					//
 					// In multi-user versions, system access requires a logon with account name and
 					// password, and the system assigns group and user IDs to running applications
 					// according to the previously set up and stored authorization info and
@@ -1023,15 +1023,15 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// always get group ID 2 and user ID 1. When applications create files, the
 					// system will store their user ID and group ID and the required permissions with
 					// the file.
-					// 
+					//
 					// With DELWATCH 2.00 and higher under Novell DOS 7, OpenDOS 7.01 and DR-DOS 7.02
 					// and higher, this entry is used to store the last modified date stamp for
 					// pending delete files and directories. Cleared when file is undeleted or
 					// purged. See [implementationSpecific4] for a format description.
-					// 
+					//
 					// Last access date (since DOS 7.0 if ACCDATE enabled in CONFIG.SYS for the
 					// corresponding drive); see [implementationSpecific4] for a format description.
-					// 
+					//
 					// The usage for the owner IDs of existing files and last modified date stamp for
 					// deleted files is not conflictive because they are never used at the same time.
 					// The usage of the last modified date stamp for deleted files and access date is
@@ -1044,7 +1044,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// DR DOS 3.31 and higher, including PalmDOS, Novell DOS and OpenDOS, and under
 					// FlexOS, 4680 OS, 4690 OS, Concurrent DOS, Multiuser DOS, System Manager, and
 					// REAL/32.
-					// 
+					//
 					// Typical values stored on a single-user system are 0x0000 (PASSWORD /N for all
 					// access rights "RWED"), 0x0111 (PASSWORD /D for access rights "RW?-"), 0x0555
 					// (PASSWORD /W for access rights "R-?-") and 0x0DDD (PASSWORD /R for files or
@@ -1053,7 +1053,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// systems other than FlexOS, 4680 OS or 4690 OS, they will be treated similar
 					// to read bits. (Some versions of PASSWORD allow to set passwords on volume
 					// labels (PASSWORD /V) as well.)
-					// 
+					//
 					// Single-user systems calculate the most restrictive rights of the three sets
 					// (DR DOS up to 5.0 used bits 0-3 only) and check if any of the requested file
 					// access types requires a permission and if a file password is stored. If not,
@@ -1064,7 +1064,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// fail. If one of them matches, the system will grant access (within the limits
 					// of the normal file attributes, that is, a read-only file can still not be
 					// opened for write this way), otherwise fail the request.
-					// 
+					//
 					// Under FlexOS, 4680 OS and 4690 OS the system assigns group and user IDs to
 					// applications when launched. When they request file access, their group and
 					// user IDs are compared with the group and user IDs of the file to be opened.
@@ -1080,7 +1080,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					// have diminishing access levels. Only, if none of the requested access types
 					// require a permission, the operating system will grant access, otherwise it
 					// fails.
-					// 
+					//
 					// If multiuser file / directory password security is enabled the system will not
 					// fail at this stage but perform the password checking mechanism for the
 					// selected permission class similar to the procedure described above. With
@@ -1090,7 +1090,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					FATFileAccessRightsFlags fileAccess = (FATFileAccessRightsFlags)implementationSpecific6;
 
 					// Last modified time (since DOS 1.1); see offset 0x0E for a format description.
-					// 
+					//
 					// Under Novell DOS, OpenDOS and DR-DOS 7.02 and higher, this entry holds the
 					// deletion time of pending delete files or directories under DELWATCH 2.00 or
 					// higher. The last modified time stamp is copied to 0x10 for possible later
@@ -1098,7 +1098,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					short implementationSpecific7 = br.ReadInt16();
 
 					// Last modified date; see offset 0x10 for a format description.
-					// 
+					//
 					// Under Novell DOS, OpenDOS and DR-DOS 7.02 and higher, this entry holds the
 					// deletion date of pending delete files or directories under DELWATCH 2.00 or
 					// higher. The last modified date stamp is copied to 0x12 for possible later
@@ -1107,10 +1107,10 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 					// Start of file in clusters in FAT12 and FAT16. Low two bytes of first cluster
 					// in FAT32; with the high two bytes stored at offset 0x14.
-					// 
+					//
 					// Entries with the Volume Label flag, subdirectory ".." pointing to FAT12/FAT16
 					// root, and empty files with size 0 should have first cluster 0.
-					// 
+					//
 					// VFAT LFN entries also have this entry set to 0; on FAT12 and FAT16 volumes
 					// this can be used as part of a detection mechanism to distinguish between
 					// pending delete files under DELWATCH and VFAT LFNs; see above.
@@ -1118,11 +1118,11 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 					// File size in bytes. Entries with the Volume Label or Subdirectory flag set
 					// should have a size of 0.
-					// 
+					//
 					// VFAT LFN entries never store the value 0x00000000 here. This can be used as
 					// part of a detection mechanism to distinguish between pending delete files
 					// under DELWATCH and VFAT LFNs; see above.
-					// 
+					//
 					// For files larger than 4 GB following the FAT+ proposal, this entry only holds
 					// the size of the last chunk of the file (that is bits 31-0). The most
 					// significant bits 37-32 are stored in the entry at offset 0x0C.

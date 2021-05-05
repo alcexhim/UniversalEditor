@@ -47,10 +47,10 @@ namespace UniversalEditor.ObjectModels.Markup
 		{
 			return string.Concat(new string[]
 			{
-				"<?", 
-				base.Name, 
-				" ", 
-				base.Value, 
+				"<?",
+				base.Name,
+				" ",
+				base.Value,
 				"?>"
 			});
 		}

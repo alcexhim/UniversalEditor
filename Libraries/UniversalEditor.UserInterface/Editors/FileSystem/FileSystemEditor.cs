@@ -4,7 +4,7 @@
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2019 
+//  Copyright (c) 2019
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -842,7 +842,7 @@ namespace UniversalEditor.Editors.FileSystem
 		}
 
 		/// <summary>
-		/// Returns the fully-qualified path, separated by a forward slash (/) 
+		/// Returns the fully-qualified path, separated by a forward slash (/)
 		/// </summary>
 		/// <returns>The path.</returns>
 		/// <param name="item">Item.</param>

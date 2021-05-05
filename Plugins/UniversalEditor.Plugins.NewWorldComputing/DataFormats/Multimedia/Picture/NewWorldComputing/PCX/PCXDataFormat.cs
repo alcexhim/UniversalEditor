@@ -61,7 +61,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.PCX
 			{
 				// TODO: sanity check?
 			}
-				
+
 			pic.Width = (int)width;
 			pic.Height = (int)height;
 

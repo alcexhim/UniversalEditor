@@ -113,7 +113,7 @@ namespace UniversalEditor.Plugins.Amiga.DataFormats.VectorImage
 					}
 				}
 			}
-			
+
 			if (polyline != null)
 			{
 				// clean up just in case we get incomplete data

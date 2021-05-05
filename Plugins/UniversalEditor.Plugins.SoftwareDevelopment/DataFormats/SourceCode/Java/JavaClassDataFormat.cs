@@ -47,7 +47,7 @@ namespace UniversalEditor.DataFormats.SourceCode.Java
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			CodeObjectModel com = (objectModel as CodeObjectModel);
-			
+
 			CodeClassElement clss = new CodeClassElement();
 
 			Reader br = base.Accessor.Reader;
@@ -88,7 +88,7 @@ namespace UniversalEditor.DataFormats.SourceCode.Java
 							The value of the class_index item must be a valid index into the constant_pool table. The
 							constant_pool entry at that index must be a CONSTANT_Class_info (§4.4.1) structure representing
 							the class or interface type that contains the declaration of the field or method.
-						 
+
 							The class_index item of a CONSTANT_Methodref_info structure must be a class type, not an
 							interface type. The class_index item of a CONSTANT_InterfaceMethodref_info structure must be an
 							interface type. The class_index item of a CONSTANT_Fieldref_info structure may be either a class
@@ -144,7 +144,7 @@ namespace UniversalEditor.DataFormats.SourceCode.Java
 								If bits is 0x7f800000, the float value will be positive infinity.
 								If bits is 0xff800000, the float value will be negative infinity.
 								If bits is in the range 0x7f800001 through 0x7fffffff or in the range 0xff800001 through 0xffffffff, the float value will be NaN.
-								In all other cases, let s, e, and m be three values that might be computed from bits: 
+								In all other cases, let s, e, and m be three values that might be computed from bits:
 
 									int s = ((bits >> 31) == 0) ? 1 : -1;
 									int e = ((bits >> 23) & 0xff);
@@ -230,7 +230,7 @@ namespace UniversalEditor.DataFormats.SourceCode.Java
 									If bits is 0x7ff0000000000000L, the double value will be positive infinity.
 									If bits is 0xfff0000000000000L, the double value will be negative infinity.
 									If bits is in the range 0x7ff0000000000001L through 0x7fffffffffffffffL or in the range 0xfff0000000000001L through 0xffffffffffffffffL, the double value will be NaN.
-									In all other cases, let s, e, and m be three values that might be computed from bits: 
+									In all other cases, let s, e, and m be three values that might be computed from bits:
 
 										int s = ((bits >> 63) == 0) ? 1 : -1;
 										int e = (int)((bits >> 52) & 0x7ffL);

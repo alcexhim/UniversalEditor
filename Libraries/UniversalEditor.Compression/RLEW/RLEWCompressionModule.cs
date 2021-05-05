@@ -26,7 +26,7 @@ namespace UniversalEditor.Compression.RLEW
 	/// <summary>
 	/// Provides a <see cref="CompressionModule" /> for handling RLEW compression.
 	/// </summary>
-	public class RLEWCompressionModule : CompressionModule 
+	public class RLEWCompressionModule : CompressionModule
 	{
 		public override string Name
 		{
@@ -40,7 +40,7 @@ namespace UniversalEditor.Compression.RLEW
 		{
 			IO.Reader br = new IO.Reader(new StreamAccessor(inputStream));
 			IO.Writer bw = new IO.Writer(new StreamAccessor(outputStream));
-			
+
 			short lastWord = 0;
 			short wordCount = 0;
 			bool hasLastWord = false;
@@ -142,7 +142,7 @@ namespace UniversalEditor.Compression.RLEW
 		{
 			IO.Reader br = new IO.Reader(new StreamAccessor(inputStream));
 			IO.Writer bw = new IO.Writer(new StreamAccessor(outputStream));
-			
+
 			while (!br.EndOfStream)
 			{
 				// read one word from compressed block

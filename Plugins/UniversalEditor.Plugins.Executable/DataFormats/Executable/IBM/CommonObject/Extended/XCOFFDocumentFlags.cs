@@ -94,6 +94,6 @@ namespace UniversalEditor.DataFormats.Executable.IBM.CommonObject.Extended
 		/// Reserved.
 		/// </summary>
 		F_RESERVED_8000 = 0x8000
-    
+
 	}
 }

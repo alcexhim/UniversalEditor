@@ -79,7 +79,7 @@ namespace UniversalEditor.DataFormats.Executable.Apple.PreferredExecutable.Inter
 		/// alignment, 1 indicates 2-byte (halfword) alignment, 2 indicates 4-byte (word) alignment, and so on. Note that this field
 		/// does not indicate the alignment of raw data relative to a container. The Code Fragment Manager does not support this field
 		/// under System 7.
-		/// 
+		///
 		/// In System 7, the Code Fragment Manager gives 16-byte alignment to all writable sections. The alignment of read-only
 		/// sections, which are used directly from the container, is dependent on the alignment of the section's contents within the
 		/// container and the overall alignment of the container itself. When the container is not file-mapped, the overall container

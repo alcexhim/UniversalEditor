@@ -159,7 +159,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Apple.HFS
 
 			}
 			#endregion
-			#region 
+			#region
 			#endregion
 
 		}

@@ -72,7 +72,7 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationPackage
 				uint unknown4 = reader.ReadUInt32();
 				uint unknown5a = reader.ReadUInt32();
 				uint decompressedLength = reader.ReadUInt32();
-				
+
 				uint recordLength = reader.ReadUInt32(); // including header size
 
 				string fileName = reader.ReadFixedLengthString(fileNameLength);
@@ -96,7 +96,7 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationPackage
 				file.DataRequest += file_DataRequest;
 				file.Size = decompressedLength;
 			}
-			
+
 			if (reader.Remaining == 4)
 			{
 				// offset to the beginning of the archive file
@@ -122,7 +122,7 @@ namespace UniversalEditor.DataFormats.RebelSoftware.InstallationPackage
 			Array.Copy(compressedData, 2, compressedDataDeflated, 0, compressedDataDeflated.Length);
 
 			decompressedData = UniversalEditor.Compression.CompressionModules.Zlib.Decompress(compressedData);
-			
+
 			e.Data = decompressedData;
 		}
 

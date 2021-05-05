@@ -11,7 +11,7 @@ namespace $(Project.Title)
 	public class AppMain
 	{
 		private static GraphicsContext graphics;
-		
+
 		public static void Main (string[] args)
 		{
 			Initialize ();

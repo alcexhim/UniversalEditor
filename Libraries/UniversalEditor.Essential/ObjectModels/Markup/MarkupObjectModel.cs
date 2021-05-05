@@ -39,7 +39,7 @@ namespace UniversalEditor.ObjectModels.Markup
 			this.mvarElements.Clear();
 		}
 
-		public MarkupObjectModel() 
+		public MarkupObjectModel()
 		{
 			mvarElements = new MarkupElement.MarkupElementCollection (null, this);
 		}

@@ -192,7 +192,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Valve.GCF
 				uint uiFileCount = reader.ReadUInt32();
 				// Always 0x00008000.  Data per checksum?
 				uint uiDummy1 = reader.ReadUInt32();
-				
+
 				// Size of lpGCFDirectoryEntries & lpGCFDirectoryNames &
 				// lpGCFDirectoryInfo1Entries & lpGCFDirectoryInfo2Entries &
 				// lpGCFDirectoryCopyEntries & lpGCFDirectoryLocalEntries in

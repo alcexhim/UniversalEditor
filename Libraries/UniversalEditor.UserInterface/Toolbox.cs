@@ -3,7 +3,7 @@
  * User: Mike Becker
  * Date: 8/18/2013
  * Time: 6:22 PM
- * 
+ *
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
@@ -89,13 +89,13 @@ namespace UniversalEditor.UserInterface
 				base.RemoveItem(index);
 			}
 		}
-		
+
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
-		
+
 		private ToolboxGroupItem mvarParent = null;
 		public ToolboxGroupItem Parent { get { return mvarParent; } set { mvarParent = value; } }
-		
+
 		public ToolboxItem(string name)
 		{
 			mvarName = name;
@@ -132,7 +132,7 @@ namespace UniversalEditor.UserInterface
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
 
 		public ToolboxItem.ToolboxItemCollection Items { get; internal set; }
-		
+
 		public ToolboxGroupItem(string name, string title) : base(name)
 		{
 			mvarTitle = title;
@@ -144,17 +144,17 @@ namespace UniversalEditor.UserInterface
 	{
 		private string mvarTitle = String.Empty;
 		public string Title { get { return mvarTitle; } set { mvarTitle = value; } }
-		
+
 		private string mvarImageFileName = String.Empty;
 		public string ImageFileName { get { return mvarImageFileName; } set { mvarImageFileName = value; } }
-		
+
 		public ToolboxCommandItem(string name, string title, string imageFileName = "") : base(name)
 		{
 			mvarTitle = title;
 			mvarImageFileName = imageFileName;
 		}
 	}
-	
+
 	public delegate void ToolboxItemEventHandler(object sender, ToolboxItemEventArgs e);
 	/// <summary>
 	/// Contains the toolbox item that is responsible for the toolbox item event.
@@ -163,7 +163,7 @@ namespace UniversalEditor.UserInterface
 	{
 		private ToolboxItem mvarItem = null;
 		public ToolboxItem Item { get { return mvarItem; } }
-		
+
 		public ToolboxItemEventArgs(ToolboxItem item)
 		{
 			mvarItem = item;

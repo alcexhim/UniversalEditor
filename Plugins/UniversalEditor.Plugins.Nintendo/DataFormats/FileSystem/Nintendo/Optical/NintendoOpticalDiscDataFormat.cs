@@ -76,7 +76,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 				}));
 
 				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameTitle), "Game _title", String.Empty, 64));
-				
+
 				_dfr.Sources.Add("http://wiibrew.org/wiki/Wii_Disc");
 				_dfr.Sources.Add("http://www.emutalk.net/threads/21512-GCM-file-extension!/page3");
 				_dfr.Sources.Add("http://hitmen.c02.at/files/yagcd/yagcd/chap13.html");

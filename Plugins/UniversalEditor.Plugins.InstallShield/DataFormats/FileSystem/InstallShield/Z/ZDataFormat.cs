@@ -46,18 +46,18 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
 			Reader reader = base.Accessor.Reader;
-			
+
 			uint signature1 = reader.ReadUInt32();
 			uint signature2 = reader.ReadUInt32();
 			if (!(signature1 == 0x8C655D13 && signature2 == 0x0002013A))
 			{
 				throw new InvalidDataFormatException("File does not begin with { 0x13, 0x5D, 0x65, 0x8C, 0x3A, 0x01, 0x02, 0x00 }");
 			}
-				
+
 			uint unknown3 = reader.ReadUInt32();
 			ushort fileCount = reader.ReadUInt16();				//	07 (old)	432 (new)
 			uint unknown4 = reader.ReadUInt32();
-			
+
 			uint archiveLength = reader.ReadUInt32();
 
 			uint something = reader.ReadUInt32();
@@ -85,12 +85,12 @@ namespace UniversalEditor.DataFormats.FileSystem.InstallShield.Z
 
 				uint unknownB1 = reader.ReadUInt32();						// 0
 				byte nul = reader.ReadByte();								// 0
-				
+
 				names.Add(name);											// WIN32
 			}
 
 			byte unknownB1X = reader.ReadByte();							// 0
-			
+
 			for (ushort i = 0; i < fileCount; i++)
 			{
 				ushort folderNameIndex = reader.ReadUInt16();

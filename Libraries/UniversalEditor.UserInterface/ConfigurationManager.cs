@@ -49,7 +49,7 @@ namespace UniversalEditor.UserInterface
 		public void Load()
 		{
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
-			
+
 			string FileName = ((UIApplication)Application.Instance).BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
 			if (System.IO.File.Exists(FileName))
 			{

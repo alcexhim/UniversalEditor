@@ -20,7 +20,7 @@
 // making a combined work based on this library.  Thus, the terms and
 // conditions of the GNU General Public License cover the whole
 // combination.
-// 
+//
 // As a special exception, the copyright holders of this library give you
 // permission to link this library with independent modules to produce an
 // executable, regardless of the license terms of these independent
@@ -40,25 +40,25 @@ using System;
 using System.IO;
 
 namespace ICSharpCode.SharpZipLib.BZip2 {
-	
+
 	/// <summary>
 	/// An example class to demonstrate compression and decompression of BZip2 streams.
 	/// </summary>
 	internal static class BZip2
 	{
 		/// <summary>
-		/// Decompress the <paramref name="inStream">input</paramref> writing 
+		/// Decompress the <paramref name="inStream">input</paramref> writing
 		/// uncompressed data to the <paramref name="outStream">output stream</paramref>
 		/// </summary>
 		/// <param name="inStream">The readable stream containing data to decompress.</param>
 		/// <param name="outStream">The output stream to receive the decompressed data.</param>
 		/// <param name="isStreamOwner">Both streams are closed on completion if true.</param>
-		public static void Decompress(Stream inStream, Stream outStream, bool isStreamOwner) 
+		public static void Decompress(Stream inStream, Stream outStream, bool isStreamOwner)
 		{
 			if (inStream == null || outStream == null) {
 				throw new Exception("Null Stream");
 			}
-			
+
 			try {
 				using (BZip2InputStream bzipInput = new BZip2InputStream(inStream)) {
 					bzipInput.IsStreamOwner = isStreamOwner;
@@ -71,17 +71,17 @@ namespace ICSharpCode.SharpZipLib.BZip2 {
 				}
 			}
 		}
-		
+
 		/// <summary>
-		/// Compress the <paramref name="inStream">input stream</paramref> sending 
+		/// Compress the <paramref name="inStream">input stream</paramref> sending
 		/// result data to <paramref name="outStream">output stream</paramref>
 		/// </summary>
 		/// <param name="inStream">The readable stream to compress.</param>
 		/// <param name="outStream">The output stream to receive the compressed data.</param>
 		/// <param name="isStreamOwner">Both streams are closed on completion if true.</param>
-		/// <param name="level">Block size acts as compression level (1 to 9) with 1 giving 
+		/// <param name="level">Block size acts as compression level (1 to 9) with 1 giving
 		/// the lowest compression and 9 the highest.</param>
-		public static void Compress(Stream inStream, Stream outStream, bool isStreamOwner, int level) 
+		public static void Compress(Stream inStream, Stream outStream, bool isStreamOwner, int level)
 		{
 			if (inStream == null || outStream == null) {
 				throw new Exception("Null Stream");

@@ -1,5 +1,5 @@
 ﻿//
-//  OLE1Chunk.cs - 
+//  OLE1Chunk.cs -
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>

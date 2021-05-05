@@ -34,7 +34,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 
 		// My original intent was rather than have multiple Editors copying ObjectModels back and forth when they're switched,
 		// the single Editor would reference a single ObjectModel which all Views would draw from to display their content.
-		// 
+		//
 		// Unfortunately maintaining all of this state ourselves rather defeats the purpose of using a "Universal" Editor platform.
 		// The platform itself should handle most of the heavy lifting and we should not have to worry about synchronizing things
 		// like ObjectModel content and selections and whatever between multiple Views.

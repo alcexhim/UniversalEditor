@@ -232,7 +232,7 @@
     <Compile Include="Themes\VisualStudio2012\Dark\Images\Templates\Project\Software Development\Common Language Runtime\Generic\32x32\WPF Toolbox Control.png" />
   </ItemGroup>
   <Import Project="..\..\UniversalEditor.Compiler.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

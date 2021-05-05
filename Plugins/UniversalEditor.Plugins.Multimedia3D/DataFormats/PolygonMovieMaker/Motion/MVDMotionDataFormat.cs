@@ -28,7 +28,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
             if (signature != "Motion Vector Data file") throw new DataFormatException(Localization.StringTable.ErrorDataFormatInvalid);
 
             float version = br.ReadSingle();
-            
+
             byte encodingType = br.ReadByte();
             if (encodingType == 0)
             {
@@ -60,7 +60,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
                 Internal.MVDBoneData mvd = new Internal.MVDBoneData();
 
                 mvd.FrameIndex = br.ReadUInt32(); // idk, some index that always seems to be incremented...?
-                
+
                 uint boneNameLength = br.ReadUInt32();
                 byte[] boneNameBytes = br.ReadBytes(boneNameLength);
                 string boneNameInUTF8 = System.Text.Encoding.UTF8.GetString(boneNameBytes);
@@ -76,10 +76,10 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
             for (int i = 0; i < bones.Count; i++)
             {
                 ushort us16 = br.ReadUInt16();              // 16   32
-                uint uBoneIndex = br.ReadUInt32();          // 
+                uint uBoneIndex = br.ReadUInt32();          //
                 uint uFrameSize = br.ReadUInt32();          // 56   16
-                uint uFrameCount = br.ReadUInt32();         // 
-                
+                uint uFrameCount = br.ReadUInt32();         //
+
                 uint extraDataLen = br.ReadUInt32();
                 byte[] extraData = br.ReadBytes(extraDataLen);
 
@@ -91,7 +91,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
                         // Total size of data for each frame in the bone: 56 bytes
 
                         rawFrame.BoneName = bones[(int)uBoneIndex].BoneName;
-                        
+
                         uint u000 = br.ReadUInt32();
 
                         uint uFrameIndex = br.ReadUInt32();
@@ -244,7 +244,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
             byte extraData0003a = br.ReadByte();
             byte[] extraData0004 = br.ReadBytes(n);
             byte extraData0004a = br.ReadByte();
-            
+
             byte nulEnd = br.ReadByte();
             #endregion
         }

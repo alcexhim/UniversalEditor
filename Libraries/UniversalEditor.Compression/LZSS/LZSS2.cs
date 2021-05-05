@@ -186,7 +186,7 @@ namespace UniversalEditor.Compression.LZSS
 					uint DecompressedSize = (uint)DecompressedData.Length;
 
 					System.IO.MemoryStream CompressedData = new System.IO.MemoryStream();
-					
+
 					uint SourcePointer = 0x0;
 					uint DestPointer = 0x4;
 

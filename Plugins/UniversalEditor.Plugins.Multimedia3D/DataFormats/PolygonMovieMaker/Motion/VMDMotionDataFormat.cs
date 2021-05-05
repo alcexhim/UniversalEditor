@@ -122,7 +122,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
                 rawFrame.Interpolation2.YAxis.Y2 = br.ReadByte();      // Y-axis interpolation bezier curve: P2y
                 rawFrame.Interpolation2.ZAxis.Y2 = br.ReadByte();      // Z-axis interpolation bezier curve: P2y
                 rawFrame.Interpolation2.Rotation.Y2 = br.ReadByte();   // Rotation interpolation bezier curve: P2y
-                
+
                 byte unknown1_01 = br.ReadByte();
 
                 rawFrame.Interpolation3.ZAxis.X1 = br.ReadByte();      // Z-axis interpolation bezier curve: P1x
@@ -318,7 +318,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
             }
 
             System.Text.Encoding encoding = System.Text.Encoding.GetEncoding("shift_jis");
-            
+
             string modelName = String.Empty;
             if (motion.CompatibleModelNames.Count > 0)
             {
@@ -340,7 +340,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.DataFormats.PolygonMovieMaker.Mot
                         rawFrame.BoneName = repos.BoneName;
                         rawFrame.Position = repos.Position;
                         rawFrame.Rotation = repos.Rotation;
-                        
+
                         #region Interpolation Data
                         rawFrame.Interpolation.XAxis.X1 = repos.Interpolation.XAxis.X1;
                         rawFrame.Interpolation.XAxis.X2 = repos.Interpolation.XAxis.X2;
