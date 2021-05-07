@@ -156,7 +156,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Milkshape3D
 			// Then comes the subVersion of the comments part, which is not available in older files
 			//
 			int subVersion = reader.ReadInt32(); // subVersion is = 1, 4 bytes
-			// FIXME: figure out if we need to test this part if subVersion != 1
+												 // FIXME: figure out if we need to test this part if subVersion != 1
 
 			// Then comes the numer of group comments
 			uint nNumGroupComments = reader.ReadUInt32(); // 4 bytes
@@ -464,9 +464,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Milkshape3D
 
 			// Then comes the number of material comments
 			uint nNumMaterialComments = 0; // 4 bytes
-										  //
-										  // Then come nNumMaterialComments times material comments, which are dynamic, because the comment can be any length
-										  //
+										   //
+										   // Then come nNumMaterialComments times material comments, which are dynamic, because the comment can be any length
+										   //
 			writer.WriteUInt32(nNumMaterialComments);
 			for (uint i = 0; i < nNumMaterialComments; i++)
 			{
@@ -479,9 +479,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Milkshape3D
 
 			// Then comes the number of joint comments
 			uint nNumJointComments = 0; // 4 bytes
-														//
-														// Then come nNumJointComments times joint comments, which are dynamic, because the comment can be any length
-														//
+										//
+										// Then come nNumJointComments times joint comments, which are dynamic, because the comment can be any length
+										//
 			for (uint i = 0; i < nNumJointComments; i++)
 			{
 				int index = 0;                                          // index of group, material or joint
@@ -493,9 +493,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Milkshape3D
 
 			// Then comes the number of model comments, which is always 0 or 1
 			uint nHasModelComment = 0; // 4 bytes
-													   //
-													   // Then come nHasModelComment times model comments, which are dynamic, because the comment can be any length
-													   //
+									   //
+									   // Then come nHasModelComment times model comments, which are dynamic, because the comment can be any length
+									   //
 			for (uint i = 0; i < nHasModelComment; i++)
 			{
 				int index = 0;                                          // index of group, material or joint

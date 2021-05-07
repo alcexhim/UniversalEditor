@@ -86,7 +86,7 @@ namespace UniversalEditor.Compression.LZSS
 			// Remove old entries
 			private void RemoveOldEntries(byte index)
 			{
-				for (int i = 0; i < OffsetList[index].Count; ) // Don't increment i
+				for (int i = 0; i < OffsetList[index].Count;) // Don't increment i
 				{
 					if (OffsetList[index][i] >= WindowStart)
 						break;
@@ -134,7 +134,7 @@ namespace UniversalEditor.Compression.LZSS
 			{
 				// Compressed & Decompressed Data Information
 				uint CompressedSize = (uint)data.Length;
-				uint DecompressedSize = (uint)(data[0] + data[1]*256);
+				uint DecompressedSize = (uint)(data[0] + data[1] * 256);
 
 				uint SourcePointer = 0x4;
 				uint DestPointer = 0x0;
@@ -163,10 +163,10 @@ namespace UniversalEditor.Compression.LZSS
 							SourcePointer += 2;
 
 							// Copy the data
-                            for (int j = 0; j < Amount; j++)
-                            {
-                                DecompressedData[DestPointer + j] = DecompressedData[DestPointer - Distance + j];
-                            }
+							for (int j = 0; j < Amount; j++)
+							{
+								DecompressedData[DestPointer + j] = DecompressedData[DestPointer - Distance + j];
+							}
 							DestPointer += (uint)Amount;
 						}
 
@@ -264,8 +264,8 @@ namespace UniversalEditor.Compression.LZSS
 				{
 					// Because this can conflict with other compression formats we are going to add a check them too
 					return (data.Length > 1 && data[0] == 0x10); //&&
-						//!Compression.Dictionary[CompressionFormat.PRS].Check(ref data, filename) &&
-						//!Images.Dictionary[GraphicFormat.PVR].Check(ref data, filename));
+																 //!Compression.Dictionary[CompressionFormat.PRS].Check(ref data, filename) &&
+																 //!Images.Dictionary[GraphicFormat.PVR].Check(ref data, filename));
 				}
 				catch
 				{

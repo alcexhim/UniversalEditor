@@ -47,10 +47,10 @@ import System.Runtime.InteropServices.*;
 //
 // Version information for an assembly consists of the following four values:
 //
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
+//	  Major Version
+//	  Minor Version
+//	  Build Number
+//	  Revision
 //
 
 /** @assembly AssemblyVersion("1.0.0.0") */
@@ -116,8 +116,8 @@ public class $(Project.MainFormName) extends System.Windows.Forms.Form
 
 	#region Windows Form Designer generated code
 	/**
-     * Clean up any resources being used.
-     */
+	 * Clean up any resources being used.
+	 */
 	protected void Dispose(boolean disposing)
 	{
 		if (disposing)

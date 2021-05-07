@@ -5,9 +5,9 @@ using System.Text;
 
 namespace UniversalEditor.UserInterface
 {
-    public enum UnsavedDocumentOption
-    {
-        Save,
-        Discard
-    }
+	public enum UnsavedDocumentOption
+	{
+		Save,
+		Discard
+	}
 }

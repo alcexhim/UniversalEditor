@@ -114,12 +114,12 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				File _rels = new File();
 				_rels.Name = ".rels";
 
-				RelationshipsObjectModel rels = new RelationshipsObjectModel ();
+				RelationshipsObjectModel rels = new RelationshipsObjectModel();
 				foreach (Relationship rel in package.Relationships)
 				{
-					rels.Relationships.Add (rel);
+					rels.Relationships.Add(rel);
 				}
-				_rels.SetObjectModel<RelationshipsObjectModel> (new OPCRelationshipsDataFormat (), rels);
+				_rels.SetObjectModel<RelationshipsObjectModel>(new OPCRelationshipsDataFormat(), rels);
 
 				fldr.Files.Add(_rels);
 
@@ -129,10 +129,10 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 
 			#region [Content_Types].xml
 			{
-				File file = new File ();
+				File file = new File();
 				file.Name = "[Content_Types].xml";
 
-				ContentTypesObjectModel contentTypes = new ContentTypesObjectModel ();
+				ContentTypesObjectModel contentTypes = new ContentTypesObjectModel();
 				foreach (DefaultDefinition type in package.DefaultContentTypes)
 				{
 					contentTypes.DefaultDefinitions.Add(type);
@@ -141,9 +141,9 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				{
 					contentTypes.OverrideDefinitions.Add(type);
 				}
- 				file.SetObjectModel<ContentTypesObjectModel>(new OPCContentTypesDataFormat(), contentTypes);
+				file.SetObjectModel<ContentTypesObjectModel>(new OPCContentTypesDataFormat(), contentTypes);
 
-				fsom.Files.Add (file);
+				fsom.Files.Add(file);
 			}
 			#endregion
 

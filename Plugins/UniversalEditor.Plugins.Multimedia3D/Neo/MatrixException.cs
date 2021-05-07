@@ -2,7 +2,7 @@
 //  MatrixException.cs - the exception(s) raised when an error occurs in matrix manipulation
 //
 //  Author:
-//       Michael Becker <alcexhim@gmail.com>
+//	   Michael Becker <alcexhim@gmail.com>
 //
 //  Copyright (c) 2004-2020 Mike Becker's Software
 //
@@ -28,9 +28,9 @@ namespace Neo
 	/// </summary>
 	public class MatrixException : ApplicationException
 	{
-        public MatrixException (string message) : base(message)
-        {
-        }
+		public MatrixException (string message) : base(message)
+		{
+		}
 	}
 	/// <summary>
 	/// The exception raised when a NULL matrix is passed into a function expecting a non-null value.
@@ -58,14 +58,14 @@ namespace Neo
 	/// </summary>
 	public class MatrixDeterminentZeroException : MatrixException
 	{
-        public MatrixDeterminentZeroException() : base("Inverse cannot be found when determinant of matrix equals zero") { }
+		public MatrixDeterminentZeroException() : base("Inverse cannot be found when determinant of matrix equals zero") { }
 	}
 	/// <summary>
 	/// The exception raised when a matrix with unsuitable vector dimensions is passed into a function expecting otherwise.
 	/// </summary>
 	public class MatrixVectorDimensionException : MatrixException
 	{
-        public MatrixVectorDimensionException() : base("Dimension of matrix must be [3 , 1]") { }
+		public MatrixVectorDimensionException() : base("Dimension of matrix must be [3 , 1]") { }
 	}
 	/// <summary>
 	/// The exception raised when a singular matrix is passed into a function expecting a non-singular matrix.

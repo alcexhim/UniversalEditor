@@ -64,7 +64,7 @@ namespace UniversalEditor.DataFormats.PropertyList
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			PropertyListObjectModel plom = (objectModel as PropertyListObjectModel);
-            if (plom == null) throw new ObjectModelNotSupportedException();
+			if (plom == null) throw new ObjectModelNotSupportedException();
 
 			Reader tr = base.Accessor.Reader;
 			Group CurrentGroup = null;
@@ -124,7 +124,7 @@ namespace UniversalEditor.DataFormats.PropertyList
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			Writer tw = base.Accessor.Writer;
-		    // tw.BaseStream.SetLength(0L); // why is this here??
+			// tw.BaseStream.SetLength(0L); // why is this here??
 			if (objectModel is PropertyListObjectModel)
 			{
 				PropertyListObjectModel objm = objectModel as PropertyListObjectModel;

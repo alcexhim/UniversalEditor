@@ -26,17 +26,17 @@ namespace UniversalEditor.ObjectModels.Web.WebService.Description
 	/// <summary>
 	/// WSDL Output
 	/// </summary>
-    public class Output
-    {
-        public class OutputCollection
-            : System.Collections.ObjectModel.Collection<Output>
-        {
-        }
+	public class Output
+	{
+		public class OutputCollection
+			: System.Collections.ObjectModel.Collection<Output>
+		{
+		}
 
-        private string mvarName = String.Empty;
-        public string Name { get { return mvarName; } set { mvarName = value; } }
+		private string mvarName = String.Empty;
+		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-        private Message mvarMessage = null;
-        public Message Message { get { return mvarMessage; } set { mvarMessage = value; } }
-    }
+		private Message mvarMessage = null;
+		public Message Message { get { return mvarMessage; } set { mvarMessage = value; } }
+	}
 }

@@ -28,13 +28,13 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "camera" command.
 	/// </summary>
 	public class IcarusCommandCamera : IcarusPredefinedCommand
-    {
-        public override string Name
-        {
-            get { return "camera"; }
-        }
+	{
+		public override string Name
+		{
+			get { return "camera"; }
+		}
 
-        public IcarusCameraOperation Operation { get { return (IcarusCameraOperation)((IcarusConstantExpression)Parameters["Operation"].Value)?.Value; } set { ((IcarusConstantExpression)Parameters["Operation"].Value).Value = value; } }
+		public IcarusCameraOperation Operation { get { return (IcarusCameraOperation)((IcarusConstantExpression)Parameters["Operation"].Value)?.Value; } set { ((IcarusConstantExpression)Parameters["Operation"].Value).Value = value; } }
 
 		public IcarusCommandCamera()
 		{
@@ -55,11 +55,11 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 			}));
 		}
 
-        public override object Clone()
-        {
-            IcarusCommandCamera clone = new IcarusCommandCamera();
-            clone.Operation = Operation;
-            return clone;
-        }
-    }
+		public override object Clone()
+		{
+			IcarusCommandCamera clone = new IcarusCommandCamera();
+			clone.Operation = Operation;
+			return clone;
+		}
+	}
 }

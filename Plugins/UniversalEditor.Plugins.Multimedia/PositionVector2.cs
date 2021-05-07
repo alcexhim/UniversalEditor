@@ -30,20 +30,20 @@ namespace UniversalEditor
 	{
 		public bool IsEmpty { get; }
 
-        private PositionVector2(bool empty)
-        {
+		private PositionVector2(bool empty)
+		{
 			X = 0;
 			Y = 0;
 			IsEmpty = empty;
-        }
+		}
 
-        /// <summary>
-        /// Represents the empty <see cref="PositionVector2" />. This field is read-only.
-        /// </summary>
-        public static readonly PositionVector2 Empty = new PositionVector2(true);
+		/// <summary>
+		/// Represents the empty <see cref="PositionVector2" />. This field is read-only.
+		/// </summary>
+		public static readonly PositionVector2 Empty = new PositionVector2(true);
 
-        public double X { get; set; }
-        public double Y { get; set; }
+		public double X { get; set; }
+		public double Y { get; set; }
 
 		public PositionVector2(float x, float y)
 		{
@@ -51,73 +51,73 @@ namespace UniversalEditor
 			Y = y;
 			IsEmpty = false;
 		}
-        public PositionVector2(double x, double y)
-        {
+		public PositionVector2(double x, double y)
+		{
 			X = x;
 			Y = y;
 			IsEmpty = false;
-        }
+		}
 
-        public double[] ToDoubleArray()
-        {
-            return new double[] { X, Y };
-        }
-        public float[] ToFloatArray()
-        {
-            return new float[] { (float)X, (float)Y };
-        }
+		public double[] ToDoubleArray()
+		{
+			return new double[] { X, Y };
+		}
+		public float[] ToFloatArray()
+		{
+			return new float[] { (float)X, (float)Y };
+		}
 
-        public static PositionVector2 operator +(PositionVector2 left, PositionVector2 right)
-        {
-            return new PositionVector2(left.X + right.X, left.Y + right.Y);
-        }
-        public static PositionVector2 operator -(PositionVector2 left, PositionVector2 right)
-        {
-            return new PositionVector2(left.X - right.X, left.Y - right.Y);
-        }
-        public static PositionVector2 operator *(PositionVector2 left, PositionVector2 right)
-        {
-            return new PositionVector2(left.X * right.X, left.Y * right.Y);
-        }
-        public static PositionVector2 operator /(PositionVector2 left, PositionVector2 right)
-        {
-            return new PositionVector2(left.X / right.X, left.Y / right.Y);
-        }
+		public static PositionVector2 operator +(PositionVector2 left, PositionVector2 right)
+		{
+			return new PositionVector2(left.X + right.X, left.Y + right.Y);
+		}
+		public static PositionVector2 operator -(PositionVector2 left, PositionVector2 right)
+		{
+			return new PositionVector2(left.X - right.X, left.Y - right.Y);
+		}
+		public static PositionVector2 operator *(PositionVector2 left, PositionVector2 right)
+		{
+			return new PositionVector2(left.X * right.X, left.Y * right.Y);
+		}
+		public static PositionVector2 operator /(PositionVector2 left, PositionVector2 right)
+		{
+			return new PositionVector2(left.X / right.X, left.Y / right.Y);
+		}
 
 		public override string ToString()
 		{
-            return ToString(", ", "(", ")");
+			return ToString(", ", "(", ")");
 		}
-        public string ToString(string separator, string encloseStart, string encloseEnd)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            if (encloseStart != null)
-            {
-                sb.Append(encloseStart);
-            }
-            sb.Append(String.Format("{0:0.0#####################}", X));
-            sb.Append(separator);
-            sb.Append(String.Format("{0:0.0#####################}", Y));
-            if (encloseEnd != null)
-            {
-                sb.Append(encloseEnd);
-            }
-            return sb.ToString();
-        }
+		public string ToString(string separator, string encloseStart, string encloseEnd)
+		{
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+			if (encloseStart != null)
+			{
+				sb.Append(encloseStart);
+			}
+			sb.Append(String.Format("{0:0.0#####################}", X));
+			sb.Append(separator);
+			sb.Append(String.Format("{0:0.0#####################}", Y));
+			if (encloseEnd != null)
+			{
+				sb.Append(encloseEnd);
+			}
+			return sb.ToString();
+		}
 
-        public object Clone()
-        {
-            PositionVector2 clone = new PositionVector2();
-            clone.X = X;
-            clone.Y = Y;
-            return clone;
-        }
+		public object Clone()
+		{
+			PositionVector2 clone = new PositionVector2();
+			clone.X = X;
+			clone.Y = Y;
+			return clone;
+		}
 
-        public double GetLargestComponentValue()
-        {
-            if (X > Y) return X;
-            if (Y > X) return Y;
-            return 0.0;
-        }
-    }
+		public double GetLargestComponentValue()
+		{
+			if (X > Y) return X;
+			if (Y > X) return Y;
+			return 0.0;
+		}
+	}
 }

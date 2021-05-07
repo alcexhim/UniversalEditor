@@ -54,12 +54,12 @@ namespace UniversalEditor.Compression.Modules.LZRW1
 			Writer bw = new Writer(sao);
 
 			/*
-            byte *p_src = p_src_first + 4,
-            *p_dst = p_dst_first,
-                *p_dst_end = p_dst_first + dst_len;
-            byte  *p_src_post = p_src_first + src_len;
-            byte  *p_src_max16 = p_src_first + src_len - (16 * 2);
-            */
+				byte *p_src = p_src_first + 4,
+				*p_dst = p_dst_first,
+				*p_dst_end = p_dst_first + dst_len;
+				byte  *p_src_post = p_src_first + src_len;
+				byte  *p_src_max16 = p_src_first + src_len - (16 * 2);
+			*/
 
 			uint control = 1;
 

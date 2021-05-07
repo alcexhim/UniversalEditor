@@ -95,6 +95,10 @@ msbuild
 # copy engine
 ./fxtool install gtk
 
+# ================ INSTALL PRE-COMMIT HOOKS MANAGER ================
+pip install pre-commit
+pre-commit install
+
 echo "Build finished! Now type ./universal-editor to"
 echo "run the program, or type ./install.sh to install to your local"
 echo "machine."

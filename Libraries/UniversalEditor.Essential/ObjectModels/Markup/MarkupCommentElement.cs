@@ -26,13 +26,13 @@ namespace UniversalEditor.ObjectModels.Markup
 	/// </summary>
 	public class MarkupCommentElement : MarkupElement
 	{
-        public MarkupCommentElement()
-        {
-        }
-        public MarkupCommentElement(string value)
-        {
-            base.Value = value;
-        }
+		public MarkupCommentElement()
+		{
+		}
+		public MarkupCommentElement(string value)
+		{
+			base.Value = value;
+		}
 		public override object Clone()
 		{
 			return new MarkupCommentElement

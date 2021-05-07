@@ -1129,11 +1129,8 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 					}
 				}
 				#endregion
-
-
-				/*
-                #region PMA for PMX
-                if (!br.EndOfStream)
+				#region PMA for PMX
+				if (!br.EndOfStream)
 				{
 					string PMAKey = br.ReadFixedLengthString(3);
 					if (!(PMAKey != "Pma"))
@@ -1142,26 +1139,26 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 						int versionMinor = br.ReadInt32();
 						int versionBuild = br.ReadInt32();
 						int versionRevision = br.ReadInt32();
-						model.PMAExtension.Enabled = true;
-						model.PMAExtension.Version = new Version(versionMajor, versionMinor, versionBuild, versionRevision);
-						model.PMAExtension.TextureFlipping.Enabled = br.ReadBoolean();
-						if (model.PMAExtension.TextureFlipping.Enabled)
+						// model.PMAExtension.Enabled = true;
+						// model.PMAExtension.Version = new Version(versionMajor, versionMinor, versionBuild, versionRevision);
+						// model.PMAExtension.TextureFlipping.Enabled = br.ReadBoolean();
+						if (false) // model.PMAExtension.TextureFlipping.Enabled)
 						{
 							int pmaNumberOfAnimatedBlocks = br.ReadInt32();
 							for (int i = 0; i < pmaNumberOfAnimatedBlocks; i++)
 							{
 								int pmaAnimatedBlockMaterialIndex = br.ReadInt32();
 								int pmaAnimatedBlockNumberOfDifferentTextures = br.ReadInt32();
-								ModelPMAExtension.TextureFlippingBlock tfb = new ModelPMAExtension.TextureFlippingBlock();
-								tfb.Material = model.Materials[pmaAnimatedBlockMaterialIndex];
+								// ModelPMAExtension.TextureFlippingBlock tfb = new ModelPMAExtension.TextureFlippingBlock();
+								// tfb.Material = model.Materials[pmaAnimatedBlockMaterialIndex];
 								for (int j = 0; j < pmaAnimatedBlockNumberOfDifferentTextures; j++)
 								{
-									ModelPMAExtension.TextureFlippingFrame tff = new ModelPMAExtension.TextureFlippingFrame();
-									tff.Timestamp = br.ReadUInt64();
-									tff.FileName = br.ReadNullTerminatedString();
-									tfb.Frames.Add(tff);
+									// ModelPMAExtension.TextureFlippingFrame tff = new ModelPMAExtension.TextureFlippingFrame();
+									// tff.Timestamp = br.ReadUInt64();
+									// tff.FileName = br.ReadNullTerminatedString();
+									// tfb.Frames.Add(tff);
 								}
-								model.PMAExtension.TextureFlipping.Blocks.Add(tfb);
+								// model.PMAExtension.TextureFlipping.Blocks.Add(tfb);
 							}
 						}
 						bool enableEffectPresets = br.ReadBoolean();
@@ -1175,9 +1172,8 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 							}
 						}
 					}
-                }
-                #endregion
-                */
+				}
+				#endregion
 			}
 		}
 		protected override void SaveInternal(ObjectModel objectModel)

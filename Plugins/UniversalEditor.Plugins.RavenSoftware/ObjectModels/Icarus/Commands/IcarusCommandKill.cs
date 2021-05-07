@@ -27,18 +27,18 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "kill" command.
 	/// </summary>
 	public class IcarusCommandKill : IcarusPredefinedCommand
-    {
-        public override string Name
-        {
-            get { return "kill"; }
-        }
+	{
+		public override string Name
+		{
+			get { return "kill"; }
+		}
 
-        private IcarusExpression mvarTarget = null;
-        public IcarusExpression Target { get { return mvarTarget; } set { mvarTarget = value; } }
+		private IcarusExpression mvarTarget = null;
+		public IcarusExpression Target { get { return mvarTarget; } set { mvarTarget = value; } }
 
-        public override object Clone()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public override object Clone()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

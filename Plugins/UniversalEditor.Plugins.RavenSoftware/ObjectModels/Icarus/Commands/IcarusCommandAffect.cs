@@ -28,32 +28,32 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "affect" command.
 	/// </summary>
 	public class IcarusCommandAffect : IcarusPredefinedContainerCommand
-    {
-        public override string Name { get { return "affect"; } }
+	{
+		public override string Name { get { return "affect"; } }
 
 		public IcarusCommandAffect()
 		{
 			Parameters.Add(new IcarusGenericParameter("Target"));
-			Parameters.Add(new IcarusChoiceParameter("AffectType",  new IcarusConstantExpression(IcarusAffectType.Flush), new IcarusChoiceParameterValue[]
+			Parameters.Add(new IcarusChoiceParameter("AffectType", new IcarusConstantExpression(IcarusAffectType.Flush), new IcarusChoiceParameterValue[]
 			{
 				new IcarusChoiceParameterValue("Flush", new IcarusConstantExpression(IcarusAffectType.Flush)),
 				new IcarusChoiceParameterValue("Insert", new IcarusConstantExpression(IcarusAffectType.Insert))
 			}));
 		}
 
-        public IcarusExpression Target { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
-        public IcarusExpression AffectType { get { return Parameters[1].Value; } set { Parameters[1].Value = value; } }
+		public IcarusExpression Target { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
+		public IcarusExpression AffectType { get { return Parameters[1].Value; } set { Parameters[1].Value = value; } }
 
-        public override object Clone()
-        {
-            IcarusCommandAffect clone = new IcarusCommandAffect();
-            clone.Target = (Target.Clone() as IcarusExpression);
-            clone.AffectType = (AffectType.Clone() as IcarusExpression);
-            foreach (IcarusCommand command in Commands)
-            {
-                clone.Commands.Add(command.Clone() as IcarusCommand);
-            }
-            return clone;
-        }
-    }
+		public override object Clone()
+		{
+			IcarusCommandAffect clone = new IcarusCommandAffect();
+			clone.Target = (Target.Clone() as IcarusExpression);
+			clone.AffectType = (AffectType.Clone() as IcarusExpression);
+			foreach (IcarusCommand command in Commands)
+			{
+				clone.Commands.Add(command.Clone() as IcarusCommand);
+			}
+			return clone;
+		}
+	}
 }

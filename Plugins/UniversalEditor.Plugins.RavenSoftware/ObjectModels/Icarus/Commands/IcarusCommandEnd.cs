@@ -25,13 +25,13 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "end" command.
 	/// </summary>
 	public class IcarusCommandEnd : IcarusPredefinedCommand
-    {
-        public override string Name { get { return "end"; } }
+	{
+		public override string Name { get { return "end"; } }
 
-        public override object Clone()
-        {
-            IcarusCommandEnd clone = new IcarusCommandEnd();
-            return clone;
-        }
-    }
+		public override object Clone()
+		{
+			IcarusCommandEnd clone = new IcarusCommandEnd();
+			return clone;
+		}
+	}
 }

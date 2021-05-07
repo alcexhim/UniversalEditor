@@ -25,8 +25,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
 	/// Indicates the type of FRM16 image.
 	/// </summary>
 	public enum FRM16Type
-    {
-        Type64 = 64,
-        Type68 = 68
-    }
+	{
+		Type64 = 64,
+		Type68 = 68
+	}
 }

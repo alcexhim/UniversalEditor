@@ -24,10 +24,10 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// <summary>
 	/// Indicates the data type of an ICARUS variable in a compiled ICARUS binary.
 	/// </summary>
-    public enum IcarusVariableDataType : short
-    {
-        String = 16512,
-        Float = 16576,
-        Vector = 16736
-    }
+	public enum IcarusVariableDataType : short
+	{
+		String = 16512,
+		Float = 16576,
+		Vector = 16736
+	}
 }

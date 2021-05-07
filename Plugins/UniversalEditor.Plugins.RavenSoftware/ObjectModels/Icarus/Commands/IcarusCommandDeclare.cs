@@ -28,7 +28,7 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "declare" command.
 	/// </summary>
 	public class IcarusCommandDeclare : IcarusPredefinedCommand
-    {
+	{
 		public IcarusCommandDeclare()
 		{
 			Parameters.Add(new IcarusChoiceParameter("DataType", new IcarusConstantExpression("FLOAT"), new IcarusChoiceParameterValue[]
@@ -40,17 +40,17 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 			Parameters.Add(new IcarusGenericParameter("VariableName", new IcarusConstantExpression("variablename")));
 		}
 
-        public override string Name { get { return "declare"; } }
+		public override string Name { get { return "declare"; } }
 
-        public IcarusVariableDataType DataType { get { return (IcarusVariableDataType) ((IcarusConstantExpression)Parameters["DataType"].Value)?.Value; } set { Parameters["DataType"].Value = new IcarusConstantExpression(value); } }
+		public IcarusVariableDataType DataType { get { return (IcarusVariableDataType)((IcarusConstantExpression)Parameters["DataType"].Value)?.Value; } set { Parameters["DataType"].Value = new IcarusConstantExpression(value); } }
 		public IcarusExpression VariableName { get { return Parameters["VariableName"].Value; } set { Parameters["VariableName"].Value = value; } }
 
 		public override object Clone()
-        {
-            IcarusCommandDeclare clone = new IcarusCommandDeclare();
-            clone.VariableName = (VariableName?.Clone() as IcarusExpression);
-            clone.DataType = DataType;
-            return clone;
-        }
-    }
+		{
+			IcarusCommandDeclare clone = new IcarusCommandDeclare();
+			clone.VariableName = (VariableName?.Clone() as IcarusExpression);
+			clone.DataType = DataType;
+			return clone;
+		}
+	}
 }

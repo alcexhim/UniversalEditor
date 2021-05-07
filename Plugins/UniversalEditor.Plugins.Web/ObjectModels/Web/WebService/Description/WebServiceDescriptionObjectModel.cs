@@ -27,36 +27,36 @@ namespace UniversalEditor.ObjectModels.Web.WebService.Description
 	/// Provides an <see cref="ObjectModel" /> for storing information about a Web Service.
 	/// </summary>
 	public class WebServiceDescriptionObjectModel : ObjectModel
-    {
-        private static ObjectModelReference _omr = null;
-        protected override ObjectModelReference MakeReferenceInternal()
-        {
-            if (_omr == null)
-            {
-                _omr = base.MakeReferenceInternal();
-                _omr.Path = new string[] { "Web", "Services", "Web Service Description" };
-            }
-            return _omr;
-        }
+	{
+		private static ObjectModelReference _omr = null;
+		protected override ObjectModelReference MakeReferenceInternal()
+		{
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Path = new string[] { "Web", "Services", "Web Service Description" };
+			}
+			return _omr;
+		}
 
-        public override void Clear()
-        {
-        }
+		public override void Clear()
+		{
+		}
 
-        public override void CopyTo(ObjectModel where)
-        {
-        }
+		public override void CopyTo(ObjectModel where)
+		{
+		}
 
-        private string mvarName = String.Empty;
-        public string Name { get { return mvarName; } set { mvarName = value; } }
+		private string mvarName = String.Empty;
+		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-        private string mvarDescription = String.Empty;
-        public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
+		private string mvarDescription = String.Empty;
+		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
 
-        private Message.MessageCollection mvarMessages = new Message.MessageCollection();
-        public Message.MessageCollection Messages { get { return mvarMessages; } }
+		private Message.MessageCollection mvarMessages = new Message.MessageCollection();
+		public Message.MessageCollection Messages { get { return mvarMessages; } }
 
-        private Port.PortCollection mvarPorts = new Port.PortCollection();
-        public Port.PortCollection Ports { get { return mvarPorts; } }
-    }
+		private Port.PortCollection mvarPorts = new Port.PortCollection();
+		public Port.PortCollection Ports { get { return mvarPorts; } }
+	}
 }

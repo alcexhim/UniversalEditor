@@ -9,13 +9,13 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 {
 	public class CXLZ : CompressionModule
 	{
-        public override string Name
-        {
-            get { return "CXLZ"; }
-        }
+		public override string Name
+		{
+			get { return "CXLZ"; }
+		}
 
 		protected override void DecompressInternal(Stream inputStream, Stream outputStream, int inputLength, int outputLength)
-        {
+		{
 			uint num = (uint)inputStream.Length;
 			uint num2 = inputStream.ReadUInt(4L) >> 8;
 			uint num3 = 8u;
@@ -38,12 +38,12 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 						num3 += 2u;
 						for (int j = 0; j < num6; j++)
 						{
-                            long pos = inputStream.Position;
-                            inputStream.Position = (inputStream.Position - num5 + j);
+							long pos = inputStream.Position;
+							inputStream.Position = (inputStream.Position - num5 + j);
 
 							outputStream.WriteByte((byte)inputStream.ReadByte());
 
-                            inputStream.Position = pos;
+							inputStream.Position = pos;
 						}
 					}
 					if (num3 >= num || outputStream.Position >= num2)

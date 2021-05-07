@@ -5,11 +5,11 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.SourceCode.CodeElements
 {
-    public abstract class CodeActionElement : CodeElement
-    {
-        public class CodeActionElementCollection
-            : System.Collections.ObjectModel.Collection<CodeActionElement>
-        {
-        }
-    }
+	public abstract class CodeActionElement : CodeElement
+	{
+		public class CodeActionElementCollection
+			: System.Collections.ObjectModel.Collection<CodeActionElement>
+		{
+		}
+	}
 }

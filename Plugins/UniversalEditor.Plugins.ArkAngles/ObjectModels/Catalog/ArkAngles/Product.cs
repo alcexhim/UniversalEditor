@@ -28,7 +28,7 @@ namespace UniversalEditor.ObjectModels.Catalog.ArkAngles
 	/// Represents a product in an Ark Angles software catalog.
 	/// </summary>
 	public class Product : ICloneable
-    {
+	{
 		/// <summary>
 		/// Represents a collection of <see cref="Product" />s in an Ark Angles software catalog.
 		/// </summary>
@@ -138,5 +138,5 @@ namespace UniversalEditor.ObjectModels.Catalog.ArkAngles
 			clone.Title = (mvarTitle.Clone() as string);
 			return clone;
 		}
-    }
+	}
 }

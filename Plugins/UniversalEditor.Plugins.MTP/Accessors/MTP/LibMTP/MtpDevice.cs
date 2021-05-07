@@ -1,31 +1,31 @@
-﻿/***************************************************************************
- *  MtpDevice.cs
- *
- *  Copyright (C) 2006-2007 Alan McGovern
- *  Authors:
- *  Alan McGovern (alan.mcgovern@gmail.com)
- ****************************************************************************/
+﻿//  **************************************************************************
+//    MtpDevice.cs
+//
+//    Copyright (C) 2006-2007 Alan McGovern
+//    Authors:
+//    Alan McGovern (alan.mcgovern@gmail.com)
+//  ***************************************************************************
 
-/*  THIS FILE IS LICENSED UNDER THE MIT LICENSE AS OUTLINED IMMEDIATELY BELOW:
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a
- *  copy of this software and associated documentation files (the "Software"),
- *  to deal in the Software without restriction, including without limitation
- *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
- *  and/or sell copies of the Software, and to permit persons to whom the
- *  Software is furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- *  DEALINGS IN THE SOFTWARE.
- */
+//  THIS FILE IS LICENSED UNDER THE MIT LICENSE AS OUTLINED IMMEDIATELY BELOW:
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a
+//  copy of this software and associated documentation files (the "Software"),
+//  to deal in the Software without restriction, including without limitation
+//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+//  and/or sell copies of the Software, and to permit persons to whom the
+//  Software is furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//  DEALINGS IN THE SOFTWARE.
+
 
 using System;
 using System.Collections.Generic;
@@ -500,37 +500,23 @@ namespace Mtp
 		[DllImport(LibMtpLibrary, CallingConvention = CallingConvention.Cdecl)]
 		private static extern int LIBMTP_Get_Supported_Filetypes(MtpDeviceHandle handle, ref IntPtr types, ref ushort count); // uint16_t **const
 
-
-		// void LIBMTP_Release_Device_List (LIBMTP_mtpdevice_t *)
-
-
-		// int LIBMTP_Detect_Descriptor (uint16_t *, uint16_t *);
-		/*
-                void     LIBMTP_Dump_Device_Info (LIBMTP_mtpdevice_t *)
-
-                char *     LIBMTP_Get_Syncpartner (LIBMTP_mtpdevice_t *)
-                int     LIBMTP_Set_Syncpartner (LIBMTP_mtpdevice_t *, char const *const)
-                int     LIBMTP_Get_Secure_Time (LIBMTP_mtpdevice_t *, char **const)
-                int     LIBMTP_Get_Device_Certificate (LIBMTP_mtpdevice_t *, char **const)
-         */
-
 		public static string GetMimeTypeFor(FileType type)
 		{
 			switch (type)
 			{
-			case FileType.MP3: return "audio/mpeg";
-			case FileType.OGG: return "audio/ogg";
-			case FileType.WMA: return "audio/x-ms-wma";
-			case FileType.WMV: return "video/x-ms-wmv";
-			case FileType.ASF: return "video/x-ms-asf";
-			case FileType.AAC: return "audio/x-aac";
-			case FileType.MP4: return "video/mp4";
-			case FileType.AVI: return "video/avi";
-			case FileType.WAV: return "audio/x-wav";
-			case FileType.MPEG: return "video/mpeg";
-			case FileType.FLAC: return "audio/flac";
-			case FileType.QT: return "video/quicktime";
-			case FileType.M4A: return "audio/mp4";
+				case FileType.MP3: return "audio/mpeg";
+				case FileType.OGG: return "audio/ogg";
+				case FileType.WMA: return "audio/x-ms-wma";
+				case FileType.WMV: return "video/x-ms-wmv";
+				case FileType.ASF: return "video/x-ms-asf";
+				case FileType.AAC: return "audio/x-aac";
+				case FileType.MP4: return "video/mp4";
+				case FileType.AVI: return "video/avi";
+				case FileType.WAV: return "audio/x-wav";
+				case FileType.MPEG: return "video/mpeg";
+				case FileType.FLAC: return "audio/flac";
+				case FileType.QT: return "video/quicktime";
+				case FileType.M4A: return "audio/mp4";
 			}
 			return null;
 		}

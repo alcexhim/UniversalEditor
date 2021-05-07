@@ -44,11 +44,6 @@ namespace UniversalEditor.DataFormats.FileSystem.REEVEsoft.Freeze
 		public bool CompressSubdirectories { get; set; } = true;
 		public bool IncludeVolumeName { get; set; } = false;
 
-		/*
-        private bool mvarExpandToSubdirectory = false;
-        public bool ExpandToSubdirectory { get { return mvarExpandToSubdirectory; } set { mvarExpandToSubdirectory = value; } }
-        */
-
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -93,19 +88,9 @@ namespace UniversalEditor.DataFormats.FileSystem.REEVEsoft.Freeze
 			byte[] compressedData = br.ReadBytes(compressedSize);
 
 			// this has been identified by aluigi's comtype_scan2 as LZH compression
-			byte[] decompressedData = UniversalEditor.Compression.LZH.LZHStream.Decompress(compressedData);
-			e.Data = decompressedData;
+			// byte[] decompressedData = UniversalEditor.Compression.LZH.LZHStream.Decompress(compressedData);
+			// e.Data = decompressedData;
 		}
-
-		/*
-        private struct FileEntry
-        {
-            public string name;
-            public int decompressedSize;
-            public int compressedSize;
-            public byte[] decompressedData;
-        }
-        */
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{

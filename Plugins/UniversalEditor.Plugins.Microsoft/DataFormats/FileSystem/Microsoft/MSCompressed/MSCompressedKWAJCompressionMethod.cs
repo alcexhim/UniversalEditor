@@ -24,27 +24,27 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 	/// <summary>
 	/// Indicates the compression method used in an MSCompressed KWAJ archive.
 	/// </summary>
-    public enum MSCompressedKWAJCompressionMethod
-    {
-        /// <summary>
-        /// No compression
-        /// </summary>
-        None = 0,
-        /// <summary>
-        /// No compression, data is XORed with byte 0xFF
-        /// </summary>
-        XOR = 1,
-        /// <summary>
-        /// The same compression method as regular SZDD
-        /// </summary>
-        SZDD = 2,
-        /// <summary>
-        /// LZ + Huffman "Jeff Johnson" compression
-        /// </summary>
-        JeffJohnson = 3,
-        /// <summary>
-        /// MS-ZIP
-        /// </summary>
-        MSZIP = 4
-    }
+	public enum MSCompressedKWAJCompressionMethod
+	{
+		/// <summary>
+		/// No compression
+		/// </summary>
+		None = 0,
+		/// <summary>
+		/// No compression, data is XORed with byte 0xFF
+		/// </summary>
+		XOR = 1,
+		/// <summary>
+		/// The same compression method as regular SZDD
+		/// </summary>
+		SZDD = 2,
+		/// <summary>
+		/// LZ + Huffman "Jeff Johnson" compression
+		/// </summary>
+		JeffJohnson = 3,
+		/// <summary>
+		/// MS-ZIP
+		/// </summary>
+		MSZIP = 4
+	}
 }

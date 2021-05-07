@@ -26,17 +26,14 @@ namespace UniversalEditor.ObjectModels.Web.WebService.Description
 	/// <summary>
 	/// WSDL MessagePart
 	/// </summary>
-    public class MessagePart
-    {
-        public class MessagePartCollection
-            : System.Collections.ObjectModel.Collection<MessagePart>
-        {
-        }
+	public class MessagePart
+	{
+		public class MessagePartCollection
+			: System.Collections.ObjectModel.Collection<MessagePart>
+		{
+		}
 
-        private string mvarName = String.Empty;
-        public string Name { get { return mvarName; } set { mvarName = value; } }
-
-        private string mvarElement = String.Empty;
-        public string Element { get { return mvarElement; } set { mvarElement = value; } }
-    }
+		public string Name { get; set; } = String.Empty;
+		public string Element { get; set; } = String.Empty;
+	}
 }

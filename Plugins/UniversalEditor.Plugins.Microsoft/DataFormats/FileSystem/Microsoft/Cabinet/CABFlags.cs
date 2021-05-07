@@ -5,11 +5,11 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 {
-    [Flags()]
-    public enum CABFlags : ushort
-    {
-        HasPreviousCabinet = 0x0001,
-        HasNextCabinet = 0x0002,
-        HasReservedArea = 0x0004
-    }
+	[Flags()]
+	public enum CABFlags : ushort
+	{
+		HasPreviousCabinet = 0x0001,
+		HasNextCabinet = 0x0002,
+		HasReservedArea = 0x0004
+	}
 }

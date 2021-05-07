@@ -123,23 +123,6 @@ namespace UniversalEditor.ObjectModels.UnrealEngine
 			{
 				sb.Append(Name.ToString(false));
 			}
-			/*
-            if (mvarObjectClass != null)
-            {
-                sb.Append(" (");
-                sb.Append(mvarObjectClass.ToString());
-                sb.Append(")");
-            }
-            if (mvarObjectParent != null)
-            {
-                sb.Append(" extends ");
-                sb.Append(mvarObjectParent.ToString());
-            }
-            */
-			/*
-            sb.Append(" : ");
-            sb.Append(mvarFlags.ToString());
-            */
 			return sb.ToString();
 		}
 	}

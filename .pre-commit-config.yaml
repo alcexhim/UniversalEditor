@@ -1,7 +1,16 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v3.4.0
     hooks:
     -   id: check-yaml
+    -   id: check-xml
+    -   id: check-executables-have-shebangs
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
+-   repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 2.1.5
+    hooks:
+    -   id: forbid-space-in-indent
+        language: script
+        exclude: (^.*\.(csproj|glade|resx|svg|yaml|txt|uexml)$)|LICENSE
+        exclude_types: ['binary']

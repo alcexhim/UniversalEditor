@@ -29,25 +29,25 @@ namespace UniversalEditor.DataFormats.Chunked.REV
 	/// Provides a <see cref="DataFormat" /> for manipulating chunked binary data in REV format.
 	/// </summary>
 	public class REVDataFormat : DataFormat
-    {
-        private static DataFormatReference _dfr;
-        protected override DataFormatReference MakeReferenceInternal()
-        {
-            if (_dfr == null)
-            {
-                _dfr = base.MakeReferenceInternal();
-                _dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.All);
-            }
-            return _dfr;
-        }
-        protected override void LoadInternal(ref ObjectModel objectModel)
-        {
-            throw new NotImplementedException();
-        }
+	{
+		private static DataFormatReference _dfr;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
+		}
+		protected override void LoadInternal(ref ObjectModel objectModel)
+		{
+			throw new NotImplementedException();
+		}
 
-        protected override void SaveInternal(ObjectModel objectModel)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		protected override void SaveInternal(ObjectModel objectModel)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

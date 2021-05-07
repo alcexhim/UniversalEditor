@@ -29,24 +29,24 @@ namespace UniversalEditor.DataFormats.FileSystem.PCK
 	public class PCKDataFormat : DataFormat
 	{
 		/*
-        # Game: Lost Heroes [PSP]
-        # by Fatduck     Sept 2012
-        # http://aluigi.org/quickbms.htm
+		# Game: Lost Heroes [PSP]
+		# by Fatduck     Sept 2012
+		# http://aluigi.org/quickbms.htm
 
-        idstring "2NBF"
-        get NUMRES long
-        get OFSBASE long
-        get BLKSIZE long
+		idstring "2NBF"
+		get NUMRES long
+		get OFSBASE long
+		get BLKSIZE long
 
-        for i = 0 < NUMRES
-           getdstring RESNAME 0x80
-           get OFSRES long
-           get NULL long
-           get SIZERES long
-           math OFSRES += OFSBASE
-           log RESNAME OFSRES SIZERES
-        next i
-        */
+		for i = 0 < NUMRES
+			getdstring RESNAME 0x80
+			get OFSRES long
+			get NULL long
+			get SIZERES long
+			math OFSRES += OFSBASE
+			log RESNAME OFSRES SIZERES
+		next i
+		*/
 
 		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()

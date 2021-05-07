@@ -27,6 +27,6 @@ namespace UniversalEditor.Compression
 	/// Exception raised when the given window size is out of range for the <see cref="CompressionModule" />.
 	/// </summary>
 	public class UnsupportedWindowSizeRangeException : Exception
-    {
-    }
+	{
+	}
 }

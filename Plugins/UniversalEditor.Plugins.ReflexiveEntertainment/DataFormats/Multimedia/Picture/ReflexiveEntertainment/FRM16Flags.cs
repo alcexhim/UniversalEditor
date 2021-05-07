@@ -25,8 +25,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.ReflexiveEntertainment
 	/// Indicates attributes of a FRM16 image.
 	/// </summary>
 	public enum FRM16Flags
-    {
-        None = 0,
-        Immediate = 107
-    }
+	{
+		None = 0,
+		Immediate = 107
+	}
 }

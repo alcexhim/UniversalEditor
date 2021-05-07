@@ -36,27 +36,27 @@ namespace UniversalEditor
 	}
 	public class ConverterCapabilityCollection
 	{
-        private List<ConverterCapability> caps = new List<ConverterCapability>();
+		private List<ConverterCapability> caps = new List<ConverterCapability>();
 
-        public void Add(Type from, Type to)
-        {
-            ConverterCapability cap = new ConverterCapability(from, to);
-            caps.Add(cap);
-        }
+		public void Add(Type from, Type to)
+		{
+			ConverterCapability cap = new ConverterCapability(from, to);
+			caps.Add(cap);
+		}
 		public bool Contains(Type from, Type to)
 		{
-            ConverterCapability cap = new ConverterCapability(from, to);
-            return caps.Contains(cap);
+			ConverterCapability cap = new ConverterCapability(from, to);
+			return caps.Contains(cap);
 		}
 		public bool Remove(Type from, Type to)
 		{
-            ConverterCapability cap = new ConverterCapability(from, to);
-            if (caps.Contains(cap))
-            {
-                caps.Remove(cap);
-                return true;
-            }
-            return false;
+			ConverterCapability cap = new ConverterCapability(from, to);
+			if (caps.Contains(cap))
+			{
+				caps.Remove(cap);
+				return true;
+			}
+			return false;
 		}
 	}
 	public class ConverterReference : ReferencedBy<Converter>

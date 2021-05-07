@@ -27,15 +27,15 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "rotate" command.
 	/// </summary>
 	public class IcarusCommandRotate : IcarusPredefinedCommand
-    {
-        public override string Name
-        {
-            get { return "rotate"; }
-        }
+	{
+		public override string Name
+		{
+			get { return "rotate"; }
+		}
 
-        public override object Clone()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public override object Clone()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

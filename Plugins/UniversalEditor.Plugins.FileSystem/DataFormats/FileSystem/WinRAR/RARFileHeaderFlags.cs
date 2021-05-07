@@ -50,17 +50,17 @@ namespace UniversalEditor.DataFormats.FileSystem.WinRAR
 		/// </summary>
 		Solid = 0x10,
 		/*
-                bits 7 6 5 (for RAR 2.0 and later)
+			bits	7 6 5	(for RAR 2.0 and later)
 
-                     0 0 0    - dictionary size   64 KB
-                     0 0 1    - dictionary size  128 KB
-                     0 1 0    - dictionary size  256 KB
-                     0 1 1    - dictionary size  512 KB
-                     1 0 0    - dictionary size 1024 KB
-                     1 0 1    - dictionary size 2048 KB
-                     1 1 0    - dictionary size 4096 KB
-                     1 1 1    - file is directory
-        */
+					0 0 0    - dictionary size   64 KB
+					0 0 1    - dictionary size  128 KB
+					0 1 0    - dictionary size  256 KB
+					0 1 1    - dictionary size  512 KB
+					1 0 0    - dictionary size 1024 KB
+					1 0 1    - dictionary size 2048 KB
+					1 1 0    - dictionary size 4096 KB
+					1 1 1    - file is directory
+		*/
 		/// <summary>
 		/// HIGH_PACK_SIZE and HIGH_UNP_SIZE fields are present. These fields are used to archive only very large
 		/// files (larger than 2Gb), for smaller files these fields are absent.

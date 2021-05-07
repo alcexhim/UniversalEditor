@@ -63,7 +63,7 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
 				lastOffset = offset;
 
 				file.DataRequest += file_DataRequest;
-                file.Properties.Add("offset", offset);
+				file.Properties.Add("offset", offset);
 				file.Properties.Add("reader", reader);
 				fsom.Files.Add(file);
 			}
@@ -101,10 +101,10 @@ namespace UniversalEditor.DataFormats.FileSystem.NewWorldComputing
 				FileName = (Accessor as FileAccessor).FileName;
 			}
 
-            File file = (sender as File);
-            IO.Reader reader = (IO.Reader)file.Properties["reader"];
-            uint offset = (uint)file.Properties["offset"];
-            uint length = (uint)file.Properties["length"];
+			File file = (sender as File);
+			IO.Reader reader = (IO.Reader)file.Properties["reader"];
+			uint offset = (uint)file.Properties["offset"];
+			uint length = (uint)file.Properties["length"];
 			reader.Seek(offset, IO.SeekOrigin.Begin);
 			e.Data = reader.ReadBytes(length);
 		}

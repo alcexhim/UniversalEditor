@@ -14,32 +14,32 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 			{
 				base.InsertItem(index, item);
 				_channelsByName.Add(item.Name, item);
-                _channelsByID.Add(item.ID, item);
+				_channelsByID.Add(item.ID, item);
 				item._parentCollection = this;
 			}
 			protected override void RemoveItem(int index)
 			{
 				_channelsByName.Remove(this[index].Name);
-                _channelsByID.Remove(this[index].ID);
+				_channelsByID.Remove(this[index].ID);
 				this[index]._parentCollection = null;
 				base.RemoveItem(index);
 			}
 			protected override void SetItem(int index, Channel item)
 			{
 				_channelsByName.Remove(this[index].Name);
-                _channelsByID.Remove(this[index].ID);
+				_channelsByID.Remove(this[index].ID);
 				base.SetItem(index, item);
 				_channelsByName.Add(item.Name, item);
-                _channelsByID.Add(item.ID, item);
+				_channelsByID.Add(item.ID, item);
 				item._parentCollection = this;
 			}
 
-            protected override void ClearItems()
-            {
-                _channelsByName.Clear();
-                _channelsByID.Clear();
-                base.ClearItems();
-            }
+			protected override void ClearItems()
+			{
+				_channelsByName.Clear();
+				_channelsByID.Clear();
+				base.ClearItems();
+			}
 
 			private Dictionary<string, Channel> _channelsByName = new Dictionary<string, Channel>();
 			public Channel this[string Name]
@@ -51,15 +51,15 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 				}
 			}
 
-            private Dictionary<Guid, Channel> _channelsByID = new Dictionary<Guid, Channel>();
-            public Channel this[Guid ID]
-            {
-                get
-                {
-                    if (_channelsByID.ContainsKey(ID)) return _channelsByID[ID];
-                    return null;
-                }
-            }
+			private Dictionary<Guid, Channel> _channelsByID = new Dictionary<Guid, Channel>();
+			public Channel this[Guid ID]
+			{
+				get
+				{
+					if (_channelsByID.ContainsKey(ID)) return _channelsByID[ID];
+					return null;
+				}
+			}
 
 			internal void UpdateName(Channel item, string newName)
 			{
@@ -68,24 +68,24 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 			}
 		}
 
-        private Guid mvarID = Guid.Empty;
-        public Guid ID { get { return mvarID; } set { mvarID = value; } }
+		private Guid mvarID = Guid.Empty;
+		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
 		private ChannelCollection _parentCollection = null;
 
 		private string mvarName = String.Empty;
-        public string Name
-        {
-            get { return mvarName; }
-            set
-            {
-                if (_parentCollection != null)
-                {
-                    _parentCollection.UpdateName(this, value);
-                }
-                mvarName = value;
-            }
-        }
+		public string Name
+		{
+			get { return mvarName; }
+			set
+			{
+				if (_parentCollection != null)
+				{
+					_parentCollection.UpdateName(this, value);
+				}
+				mvarName = value;
+			}
+		}
 
 		private string mvarGroup = String.Empty;
 		public string Group { get { return mvarGroup; } set { mvarGroup = value; } }
@@ -93,10 +93,10 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		private Capability.CapabilityCollection mvarCapabilities = new Capability.CapabilityCollection();
 		public Capability.CapabilityCollection Capabilities { get { return mvarCapabilities; } }
 
-        public override string ToString()
-        {
-            return mvarName + " (" + mvarGroup + ")";
-        }
+		public override string ToString()
+		{
+			return mvarName + " (" + mvarGroup + ")";
+		}
 
 		public object Clone()
 		{
@@ -109,5 +109,5 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 			clone.Name = (mvarName.Clone() as string);
 			return clone;
 		}
-    }
+	}
 }

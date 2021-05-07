@@ -10,35 +10,35 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		public class ModeCollection
 			: System.Collections.ObjectModel.Collection<Mode>
 		{
-            public Mode this[Guid ID]
-            {
-                get
-                {
-                    foreach (Mode mode in this)
-                    {
-                        if (mode.ID == ID) return mode;
-                    }
-                    return null;
-                }
-            }
+			public Mode this[Guid ID]
+			{
+				get
+				{
+					foreach (Mode mode in this)
+					{
+						if (mode.ID == ID) return mode;
+					}
+					return null;
+				}
+			}
 		}
 
-        public override string ToString()
-        {
-            return mvarName;
-        }
+		public override string ToString()
+		{
+			return mvarName;
+		}
 
-        private Guid mvarID = Guid.Empty;
-        public Guid ID { get { return mvarID; } set { mvarID = value; } }
+		private Guid mvarID = Guid.Empty;
+		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
 		private string mvarName = String.Empty;
 		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-        private ModeChannel.ModeChannelCollection mvarChannels = new ModeChannel.ModeChannelCollection();
-        public ModeChannel.ModeChannelCollection Channels { get { return mvarChannels; } }
+		private ModeChannel.ModeChannelCollection mvarChannels = new ModeChannel.ModeChannelCollection();
+		public ModeChannel.ModeChannelCollection Channels { get { return mvarChannels; } }
 
 		private int mvarBulbLumens = 0;
-		public int BulbLumens { get { return mvarBulbLumens;  } set { mvarBulbLumens = value;} }
+		public int BulbLumens { get { return mvarBulbLumens; } set { mvarBulbLumens = value; } }
 
 		private string mvarBulbType = String.Empty;
 		public string BulbType { get { return mvarBulbType; } set { mvarBulbType = value; } }
@@ -73,7 +73,7 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		private int mvarFocusTiltMaximum = 0;
 		public int FocusTiltMaximum { get { return mvarFocusTiltMaximum; } set { mvarFocusTiltMaximum = value; } }
 
-		private string mvarFocusType=  String.Empty;
+		private string mvarFocusType = String.Empty;
 		public string FocusType { get { return mvarFocusType; } set { mvarFocusType = value; } }
 
 		private int mvarPowerConsumption = 0;

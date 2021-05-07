@@ -24,6 +24,7 @@ using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
+using MBS.Framework.UserInterface.Controls.SyntaxTextBox;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.ObjectModels.Database;
 using UniversalEditor.UserInterface;
@@ -33,7 +34,7 @@ namespace UniversalEditor.UserInterface.Editors.Database.Views
 	[ContainerLayout("~/Editors/Database/Views/ScriptView.glade")]
 	public class ScriptView : View
 	{
-		private SyntaxTextBox txtQuery;
+		private SyntaxTextBoxControl txtQuery;
 		private ListViewControl lvResults;
 
 		private string ScriptTable(DatabaseTable dt, ScriptTableMode mode)

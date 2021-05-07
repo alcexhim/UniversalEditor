@@ -67,26 +67,32 @@ namespace ICSharpCode.SharpZipLib.Core
 		/// <exception cref="EndOfStreamException">End of stream is encountered before all the data has been read.</exception>
 		static public void ReadFully(Stream stream, byte[] buffer, int offset, int count)
 		{
-			if ( stream == null ) {
+			if (stream == null)
+			{
 				throw new ArgumentNullException("stream");
 			}
 
-			if ( buffer == null ) {
+			if (buffer == null)
+			{
 				throw new ArgumentNullException("buffer");
 			}
 
 			// Offset can equal length when buffer and count are 0.
-			if ( (offset < 0) || (offset > buffer.Length) ) {
+			if ((offset < 0) || (offset > buffer.Length))
+			{
 				throw new ArgumentOutOfRangeException("offset");
 			}
 
-			if ( (count < 0) || (offset + count > buffer.Length) ) {
+			if ((count < 0) || (offset + count > buffer.Length))
+			{
 				throw new ArgumentOutOfRangeException("count");
 			}
 
-			while ( count > 0 ) {
+			while (count > 0)
+			{
 				int readCount = stream.Read(buffer, offset, count);
-				if ( readCount <= 0 ) {
+				if (readCount <= 0)
+				{
 					throw new EndOfStreamException();
 				}
 				offset += readCount;
@@ -102,31 +108,38 @@ namespace ICSharpCode.SharpZipLib.Core
 		/// <param name="buffer">The buffer to use during copying.</param>
 		static public void Copy(Stream source, Stream destination, byte[] buffer)
 		{
-			if (source == null) {
+			if (source == null)
+			{
 				throw new ArgumentNullException("source");
 			}
 
-			if (destination == null) {
+			if (destination == null)
+			{
 				throw new ArgumentNullException("destination");
 			}
 
-			if (buffer == null) {
+			if (buffer == null)
+			{
 				throw new ArgumentNullException("buffer");
 			}
 
 			// Ensure a reasonable size of buffer is used without being prohibitive.
-			if (buffer.Length < 128) {
+			if (buffer.Length < 128)
+			{
 				throw new ArgumentException("Buffer is too small", "buffer");
 			}
 
 			bool copying = true;
 
-			while (copying) {
+			while (copying)
+			{
 				int bytesRead = source.Read(buffer, 0, buffer.Length);
-				if (bytesRead > 0) {
+				if (bytesRead > 0)
+				{
 					destination.Write(buffer, 0, bytesRead);
 				}
-				else {
+				else
+				{
 					destination.Flush();
 					copying = false;
 				}
@@ -165,27 +178,32 @@ namespace ICSharpCode.SharpZipLib.Core
 		/// <remarks>This form is specialised for use within #Zip to support events during archive operations.</remarks>
 		static public void Copy(Stream source, Stream destination,
 			byte[] buffer,
-            ProgressEventHandler progressHandler, TimeSpan updateInterval,
+			ProgressEventHandler progressHandler, TimeSpan updateInterval,
 			object sender, string name, long fixedTarget)
 		{
-			if (source == null) {
+			if (source == null)
+			{
 				throw new ArgumentNullException("source");
 			}
 
-			if (destination == null) {
+			if (destination == null)
+			{
 				throw new ArgumentNullException("destination");
 			}
 
-			if (buffer == null) {
+			if (buffer == null)
+			{
 				throw new ArgumentNullException("buffer");
 			}
 
 			// Ensure a reasonable size of buffer is used without being prohibitive.
-			if (buffer.Length < 128) {
+			if (buffer.Length < 128)
+			{
 				throw new ArgumentException("Buffer is too small", "buffer");
 			}
 
-			if (progressHandler == null) {
+			if (progressHandler == null)
+			{
 				throw new ArgumentNullException("progressHandler");
 			}
 
@@ -195,43 +213,50 @@ namespace ICSharpCode.SharpZipLib.Core
 			long processed = 0;
 			long target = 0;
 
-			if (fixedTarget >= 0) {
+			if (fixedTarget >= 0)
+			{
 				target = fixedTarget;
 			}
-			else if (source.CanSeek) {
+			else if (source.CanSeek)
+			{
 				target = source.Length - source.Position;
 			}
 
 			// Always fire 0% progress..
-            ProgressEventArgs args = new ProgressEventArgs(processed, target, name);
+			ProgressEventArgs args = new ProgressEventArgs(processed, target, name);
 			progressHandler(sender, args);
 
 			bool progressFired = true;
 
-			while (copying) {
+			while (copying)
+			{
 				int bytesRead = source.Read(buffer, 0, buffer.Length);
-				if (bytesRead > 0) {
+				if (bytesRead > 0)
+				{
 					processed += bytesRead;
 					progressFired = false;
 					destination.Write(buffer, 0, bytesRead);
 				}
-				else {
+				else
+				{
 					destination.Flush();
 					copying = false;
 				}
 
-				if (DateTime.Now - marker > updateInterval) {
+				if (DateTime.Now - marker > updateInterval)
+				{
 					progressFired = true;
 					marker = DateTime.Now;
-                    args = new ProgressEventArgs(processed, target, name);
+					args = new ProgressEventArgs(processed, target, name);
 					progressHandler(sender, args);
 
 					copying = !args.Cancel;
 				}
 			}
 
-			if (!progressFired) {
-                args = new ProgressEventArgs(processed, target, name);
+			if (!progressFired)
+			{
+				args = new ProgressEventArgs(processed, target, name);
 				progressHandler(sender, args);
 			}
 		}

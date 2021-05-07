@@ -5,11 +5,11 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 {
-    public enum CABCompressionMethod : ushort
-    {
-        None = 0,
-        MSZIP = 1,
-        LZX = 5379,
+	public enum CABCompressionMethod : ushort
+	{
+		None = 0,
+		MSZIP = 1,
+		LZX = 5379,
 		Quantum
-    }
+	}
 }

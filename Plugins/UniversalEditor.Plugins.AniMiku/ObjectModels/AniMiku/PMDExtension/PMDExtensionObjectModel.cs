@@ -25,36 +25,36 @@ namespace UniversalEditor.ObjectModels.AniMiku.PMDExtension
 	/// Represents an extension to the AniMiku PMD model format.
 	/// </summary>
 	internal class PMDExtensionObjectModel : ObjectModel
-    {
-        private static ObjectModelReference _omr = null;
-        protected override ObjectModelReference MakeReferenceInternal()
-        {
-            if (_omr == null)
-            {
-                _omr = base.MakeReferenceInternal();
-                _omr.Path = new string[] { "Multimedia", "3D Multimedia", "AniMiku", "PMD model extension" };
-            }
-            return _omr;
-        }
-        public override void Clear()
-        {
-            mvarArchiveFiles.Clear();
-        }
-        public override void CopyTo(ObjectModel where)
-        {
-            PMDExtensionObjectModel clone = (where as PMDExtensionObjectModel);
-            if (clone == null) return;
+	{
+		private static ObjectModelReference _omr = null;
+		protected override ObjectModelReference MakeReferenceInternal()
+		{
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Path = new string[] { "Multimedia", "3D Multimedia", "AniMiku", "PMD model extension" };
+			}
+			return _omr;
+		}
+		public override void Clear()
+		{
+			mvarArchiveFiles.Clear();
+		}
+		public override void CopyTo(ObjectModel where)
+		{
+			PMDExtensionObjectModel clone = (where as PMDExtensionObjectModel);
+			if (clone == null) return;
 
-            foreach (PMDExtensionTextureGroup file in mvarArchiveFiles)
-            {
-                clone.ArchiveFiles.Add(file.Clone() as PMDExtensionTextureGroup);
-            }
-        }
+			foreach (PMDExtensionTextureGroup file in mvarArchiveFiles)
+			{
+				clone.ArchiveFiles.Add(file.Clone() as PMDExtensionTextureGroup);
+			}
+		}
 
-        private PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection mvarArchiveFiles = new PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection();
-        public PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection ArchiveFiles
-        {
-            get { return mvarArchiveFiles; }
-        }
-    }
+		private PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection mvarArchiveFiles = new PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection();
+		public PMDExtensionTextureGroup.PMDExtensionTextureGroupCollection ArchiveFiles
+		{
+			get { return mvarArchiveFiles; }
+		}
+	}
 }

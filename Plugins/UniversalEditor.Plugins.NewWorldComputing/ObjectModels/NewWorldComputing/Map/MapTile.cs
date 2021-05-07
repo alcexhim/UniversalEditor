@@ -25,11 +25,11 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 	/// Describes a tile placed on a map.
 	/// </summary>
 	public class MapTile
-    {
-        public class MapTileCollection
-            : System.Collections.ObjectModel.Collection<MapTile>
-        {
-        }
+	{
+		public class MapTileCollection
+			: System.Collections.ObjectModel.Collection<MapTile>
+		{
+		}
 
 		/// <summary>
 		/// Indicates the type of ground for a ground tile placed on a map.

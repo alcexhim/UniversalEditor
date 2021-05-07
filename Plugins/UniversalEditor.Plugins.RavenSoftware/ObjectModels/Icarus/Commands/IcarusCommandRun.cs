@@ -27,17 +27,17 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "run" command.
 	/// </summary>
 	public class IcarusCommandRun : IcarusPredefinedCommand
-    {
-        public override string Name { get { return "run"; } }
+	{
+		public override string Name { get { return "run"; } }
 
-        private string mvarTarget = String.Empty;
-        public string Target { get { return mvarTarget; } set { mvarTarget = value; } }
+		private string mvarTarget = String.Empty;
+		public string Target { get { return mvarTarget; } set { mvarTarget = value; } }
 
-        public override object Clone()
-        {
-            IcarusCommandRun clone = new IcarusCommandRun();
-            clone.Target = (mvarTarget.Clone() as string);
-            return clone;
-        }
-    }
+		public override object Clone()
+		{
+			IcarusCommandRun clone = new IcarusCommandRun();
+			clone.Target = (mvarTarget.Clone() as string);
+			return clone;
+		}
+	}
 }

@@ -25,9 +25,9 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 	/// Specifies whether an Executable and Linkable Format executable file is 32-bit or 64-bit.
 	/// </summary>
 	public enum ELFCapacity : byte
-    {
-        elfInvalid = 0,
-        elf32Bit = 1,
-        elf64Bit = 2
-    }
+	{
+		elfInvalid = 0,
+		elf32Bit = 1,
+		elf64Bit = 2
+	}
 }

@@ -1,33 +1,33 @@
 ﻿namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.RavenSoftware.Strip
 {
-    partial class StripEditor
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class StripEditor
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.lv = new System.Windows.Forms.ListView();
 			this.chGroup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chLanguage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,12 +49,12 @@
 			// lv
 			//
 			this.lv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.lv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chGroup,
-            this.chLanguage,
-            this.chValue});
+			this.chGroup,
+			this.chLanguage,
+			this.chValue});
 			this.lv.FullRowSelect = true;
 			this.lv.GridLines = true;
 			this.lv.HideSelection = false;
@@ -84,8 +84,8 @@
 			// fraList
 			//
 			this.fraList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.fraList.Controls.Add(this.lv);
 			this.fraList.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.fraList.Location = new System.Drawing.Point(3, 3);
@@ -98,7 +98,7 @@
 			// fraEditor
 			//
 			this.fraEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.fraEditor.Controls.Add(this.cmdRemove);
 			this.fraEditor.Controls.Add(this.cmdUpdate);
 			this.fraEditor.Controls.Add(this.txtValue);
@@ -142,8 +142,8 @@
 			// txtValue
 			//
 			this.txtValue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtValue.Location = new System.Drawing.Point(86, 48);
 			this.txtValue.Multiline = true;
 			this.txtValue.Name = "txtValue";
@@ -154,7 +154,7 @@
 			// cboLanguage
 			//
 			this.cboLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.cboLanguage.FormattingEnabled = true;
 			this.cboLanguage.Location = new System.Drawing.Point(273, 19);
 			this.cboLanguage.Name = "cboLanguage";
@@ -184,7 +184,7 @@
 			// cboGroup
 			//
 			this.cboGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.cboGroup.FormattingEnabled = true;
 			this.cboGroup.Location = new System.Drawing.Point(86, 19);
 			this.cboGroup.Name = "cboGroup";
@@ -214,9 +214,9 @@
 			this.fraEditor.PerformLayout();
 			this.ResumeLayout(false);
 
-        }
+		}
 
-        #endregion
+		#endregion
 
 		private System.Windows.Forms.ListView lv;
 		private System.Windows.Forms.ColumnHeader chGroup;
@@ -232,5 +232,5 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.ComboBox cboGroup;
 		private System.Windows.Forms.Label label1;
-    }
+	}
 }

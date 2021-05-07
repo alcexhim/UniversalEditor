@@ -45,18 +45,18 @@ namespace UniversalEditor.ObjectModels.Chunked
 			return clone;
 		}
 
-        public override int Size
-        {
-            get
-            {
-                int size = base.Size;
-                foreach (RIFFChunk chunk in Chunks)
-                {
-                    size += chunk.Size;
-                }
-                return size;
-            }
-        }
+		public override int Size
+		{
+			get
+			{
+				int size = base.Size;
+				foreach (RIFFChunk chunk in Chunks)
+				{
+					size += chunk.Size;
+				}
+				return size;
+			}
+		}
 
 		private string mvarTypeID = String.Empty;
 		public string TypeID { get { return mvarTypeID; } set { mvarTypeID = value; } }

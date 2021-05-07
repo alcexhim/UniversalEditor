@@ -229,9 +229,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				while (sector != -2)
 				{
 					shortSectorAllocationTableSectors.Add(sector);
-					if (sector < sectorAllocationTable.Length - 1) {
-						sector = sectorAllocationTable [sector];
-					} else {
+					if (sector < sectorAllocationTable.Length - 1)
+					{
+						sector = sectorAllocationTable[sector];
+					}
+					else
+					{
 						throw new IndexOutOfRangeException(String.Format("short sector {0} is out of bounds for sector allocation table (length: {1})", sector, sectorAllocationTable.Length));
 					}
 				}
@@ -263,7 +266,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				storageName = storageName.TrimNull();
 				// if (storageName.Length != storageNameLength) throw new InvalidDataFormatException("Sanity check: storage name length is not actual length of storage name");
 
-				CompoundDocumentStorageType storageType = (CompoundDocumentStorageType) directoryReader.ReadByte();
+				CompoundDocumentStorageType storageType = (CompoundDocumentStorageType)directoryReader.ReadByte();
 				byte storageNodeColor = directoryReader.ReadByte();
 
 				int leftChildNodeDirectoryID = directoryReader.ReadInt32();
@@ -286,7 +289,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 				// 0 otherwise
 				int streamLength = directoryReader.ReadInt32();
 
- 				int unused3 = directoryReader.ReadInt32();
+				int unused3 = directoryReader.ReadInt32();
 
 				if (storageType == CompoundDocumentStorageType.RootStorage)
 				{
@@ -536,12 +539,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 
 			switch (Endianness)
 			{
-				case Endianness.LittleEndian:
+			case Endianness.LittleEndian:
 				{
 					writer.WriteBytes(new byte[] { 0xFE, 0xFF });
 					break;
 				}
-				case Endianness.BigEndian:
+			case Endianness.BigEndian:
 				{
 					writer.WriteBytes(new byte[] { 0xFF, 0xFE });
 					break;

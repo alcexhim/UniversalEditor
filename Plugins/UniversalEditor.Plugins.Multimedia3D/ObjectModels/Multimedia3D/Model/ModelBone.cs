@@ -181,10 +181,10 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 			mvarSkinningMatrix = mvarInvTransformMatrix * localMatrix;
 
 			/*
-            mvarSkinningMatrix[3, 0] -= mvarOriginalPosition.X;
-            mvarSkinningMatrix[3, 1] -= mvarOriginalPosition.Y;
-            mvarSkinningMatrix[3, 2] -= mvarOriginalPosition.Z;
-            */
+	        mvarSkinningMatrix[3, 0] -= mvarOriginalPosition.X;
+	        mvarSkinningMatrix[3, 1] -= mvarOriginalPosition.Y;
+	        mvarSkinningMatrix[3, 2] -= mvarOriginalPosition.Z;
+	        */
 		}
 
 		public void Reset()

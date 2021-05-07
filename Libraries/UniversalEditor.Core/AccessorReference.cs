@@ -52,10 +52,10 @@ namespace UniversalEditor
 
 		public StringCollection Schemas { get; } = new StringCollection();
 
-        /// <summary>
-        /// Gets the detail fields that are shown in lists of this <see cref="ReferencedBy" /> object in details view.
-        /// </summary>
-        /// <returns>An array of <see cref="String" />s that are shown in detail columns of lists of this <see cref="ReferencedBy" /> object.</returns>
+		/// <summary>
+		/// Gets the detail fields that are shown in lists of this <see cref="ReferencedBy" /> object in details view.
+		/// </summary>
+		/// <returns>An array of <see cref="String" />s that are shown in detail columns of lists of this <see cref="ReferencedBy" /> object.</returns>
 		public string[] GetDetails()
 		{
 			return new string[] { mvarTitle };
@@ -78,16 +78,16 @@ namespace UniversalEditor
 		public CustomOption.CustomOptionCollection ExportOptions { get { return mvarExportOptions; } }
 
 		private CustomOption.CustomOptionCollection mvarImportOptions = new CustomOption.CustomOptionCollection();
-        /// <summary>
+		/// <summary>
 		/// A collection of <see cref="CustomOption" />s that are applied to the <see cref="Accessor" />
 		/// when it is being used to open or import a file.
 		/// </summary>
 		public CustomOption.CustomOptionCollection ImportOptions { get { return mvarImportOptions; } }
 
-        /// <summary>
-        /// Creates an instance of an <see cref="Accessor" /> from the <see cref="Type" /> described in this <see cref="AccessorReference" />.
-        /// </summary>
-        /// <returns>An <see cref="Accessor" /> instance from the <see cref="Type" /> described in this <see cref="AccessorReference" />.</returns>
+		/// <summary>
+		/// Creates an instance of an <see cref="Accessor" /> from the <see cref="Type" /> described in this <see cref="AccessorReference" />.
+		/// </summary>
+		/// <returns>An <see cref="Accessor" /> instance from the <see cref="Type" /> described in this <see cref="AccessorReference" />.</returns>
 		public Accessor Create()
 		{
 			if (mvarAccessorType == null && mvarAccessorTypeName != null)

@@ -25,26 +25,26 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet.Internal
 	/// Internal structure representing a Microsoft Cabinet data block.
 	/// </summary>
 	internal struct CFDATA
-    {
-        /// <summary>
-        /// checksum of this CFDATA entry
-        /// </summary>
-        public uint checksum;
-        /// <summary>
-        /// number of compressed bytes in this block
-        /// </summary>
-        public ushort compressedLength;
-        /// <summary>
-        /// number of uncompressed bytes in this block
-        /// </summary>
-        public ushort decompressedLength;
-        /// <summary>
-        /// (optional) per-datablock reserved area
-        /// </summary>
-        public byte[] reservedArea;
-        /// <summary>
-        /// compressed data bytes
-        /// </summary>
-        public byte[] data;
-    }
+	{
+		/// <summary>
+		/// checksum of this CFDATA entry
+		/// </summary>
+		public uint checksum;
+		/// <summary>
+		/// number of compressed bytes in this block
+		/// </summary>
+		public ushort compressedLength;
+		/// <summary>
+		/// number of uncompressed bytes in this block
+		/// </summary>
+		public ushort decompressedLength;
+		/// <summary>
+		/// (optional) per-datablock reserved area
+		/// </summary>
+		public byte[] reservedArea;
+		/// <summary>
+		/// compressed data bytes
+		/// </summary>
+		public byte[] data;
+	}
 }

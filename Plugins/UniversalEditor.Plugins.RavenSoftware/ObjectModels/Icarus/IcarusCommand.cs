@@ -28,11 +28,11 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// The abstract base class from which all ICARUS command implementations derive.
 	/// </summary>
 	public abstract class IcarusCommand : ICloneable
-    {
-        public class IcarusCommandCollection
-            : System.Collections.ObjectModel.Collection<IcarusCommand>
-        {
-        }
+	{
+		public class IcarusCommandCollection
+			: System.Collections.ObjectModel.Collection<IcarusCommand>
+		{
+		}
 
 		public IcarusParameter.IcarusParameterCollection Parameters { get; } = new IcarusParameter.IcarusParameterCollection();
 

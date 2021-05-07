@@ -52,10 +52,10 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 				_omr.Path = new string[] { "Lighting", "Fixture" };
 			}
 			return _omr;
-        }
+		}
 
-        private Guid mvarID = Guid.Empty;
-        public Guid ID { get { return mvarID; } set { mvarID = value; } }
+		private Guid mvarID = Guid.Empty;
+		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
 		private string mvarManufacturer = String.Empty;
 		public string Manufacturer { get { return mvarManufacturer; } set { mvarManufacturer = value; } }
@@ -72,21 +72,21 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		private Mode.ModeCollection mvarModes = new Mode.ModeCollection();
 		public Mode.ModeCollection Modes { get { return mvarModes; } }
 
-        private FixtureTask.FixtureTaskCollection mvarTasks = new FixtureTask.FixtureTaskCollection();
-        public FixtureTask.FixtureTaskCollection Tasks { get { return mvarTasks; } }
+		private FixtureTask.FixtureTaskCollection mvarTasks = new FixtureTask.FixtureTaskCollection();
+		public FixtureTask.FixtureTaskCollection Tasks { get { return mvarTasks; } }
 
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(mvarManufacturer);
-            sb.Append(" ");
-            sb.Append(mvarModel);
-            return sb.ToString();
-        }
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append(mvarManufacturer);
+			sb.Append(" ");
+			sb.Append(mvarModel);
+			return sb.ToString();
+		}
 
 		public override void Clear()
 		{
-            mvarID = Guid.Empty;
+			mvarID = Guid.Empty;
 			mvarManufacturer = String.Empty;
 			mvarModel = String.Empty;
 			mvarType = String.Empty;
@@ -97,7 +97,7 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		public override void CopyTo(ObjectModel where)
 		{
 			FixtureObjectModel clone = (where as FixtureObjectModel);
-            clone.ID = mvarID;
+			clone.ID = mvarID;
 			clone.Manufacturer = (mvarManufacturer.Clone() as string);
 			clone.Model = (mvarModel.Clone() as string);
 			clone.Type = (mvarType.Clone() as string);
@@ -110,5 +110,5 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 				clone.Modes.Add(mode.Clone() as Mode);
 			}
 		}
-    }
+	}
 }

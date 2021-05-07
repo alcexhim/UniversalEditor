@@ -26,14 +26,14 @@ namespace UniversalEditor.ObjectModels.Markup
 	/// </summary>
 	public class MarkupPreprocessorElement : MarkupElement
 	{
-        public MarkupPreprocessorElement()
-        {
-        }
-        public MarkupPreprocessorElement(string fullName, string value)
-        {
-            base.FullName = fullName;
-            base.Value = value;
-        }
+		public MarkupPreprocessorElement()
+		{
+		}
+		public MarkupPreprocessorElement(string fullName, string value)
+		{
+			base.FullName = fullName;
+			base.Value = value;
+		}
 		public override object Clone()
 		{
 			return new MarkupPreprocessorElement

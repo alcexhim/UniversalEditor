@@ -145,7 +145,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TIFF
 					reader.Align(4);
 				}
 
- 				picc.Pictures.Add(pic);
+				picc.Pictures.Add(pic);
 			}
 		}
 

@@ -29,7 +29,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Project
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
 			ObjectModelReference omr = base.MakeReferenceInternal();
-            omr.Path = new string[] { "Multimedia", "Audio", "Audio project" };
+			omr.Path = new string[] { "Multimedia", "Audio", "Audio project" };
 			return omr;
 		}
 		public override void Clear()

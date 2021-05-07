@@ -29,27 +29,27 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.CompressedBG
 	// https://github.com/minirop/arc-reader/blob/master/cbg.c
 
 	/*
-    Arc Reader - Reading .arc files from the BGI engine
-    Copyright (C) 2011 Alexander Roper (minirop@peyj.com)
-    Translated from C to C# into a Universal Editor plugin by Michael Becker (alcexhim@gmail.com)
+	Arc Reader - Reading .arc files from the BGI engine
+	Copyright (C) 2011 Alexander Roper (minirop@peyj.com)
+	Translated from C to C# into a Universal Editor plugin by Michael Becker (alcexhim@gmail.com)
 
-    This software is provided 'as-is', without any express or implied warranty.
-    In no event will the authors be held liable for any damages arising from the use of this software.
+	This software is provided 'as-is', without any express or implied warranty.
+	In no event will the authors be held liable for any damages arising from the use of this software.
 
-    Permission is granted to anyone to use this software for any purpose,
-    including commercial applications, and to alter it and redistribute it freely,
-    subject to the following restrictions:
+	Permission is granted to anyone to use this software for any purpose,
+	including commercial applications, and to alter it and redistribute it freely,
+	subject to the following restrictions:
 
-    1. The origin of this software must not be misrepresented;
-       you must not claim that you wrote the original software.
-       If you use this software in a product, an acknowledgment
-       in the product documentation would be appreciated but is not required.
+	1.  The origin of this software must not be misrepresented;
+		you must not claim that you wrote the original software.
+		If you use this software in a product, an acknowledgment
+		in the product documentation would be appreciated but is not required.
 
-    2. Altered source versions must be plainly marked as such,
-       and must not be misrepresented as being the original software.
+	2.  Altered source versions must be plainly marked as such,
+		and must not be misrepresented as being the original software.
 
-    3. This notice may not be removed or altered from any source distribution.
-    */
+	3.  This notice may not be removed or altered from any source distribution.
+	*/
 
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating images in CompressedBG format.

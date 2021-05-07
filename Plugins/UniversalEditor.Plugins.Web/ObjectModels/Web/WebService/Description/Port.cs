@@ -26,20 +26,20 @@ namespace UniversalEditor.ObjectModels.Web.WebService.Description
 	/// <summary>
 	/// WSDL Port
 	/// </summary>
-    public class Port
-    {
-        public class PortCollection
-            : System.Collections.ObjectModel.Collection<Port>
-        {
-        }
+	public class Port
+	{
+		public class PortCollection
+			: System.Collections.ObjectModel.Collection<Port>
+		{
+		}
 
-        private string mvarName = String.Empty;
-        public string Name { get { return mvarName; } set { mvarName = value; } }
+		private string mvarName = String.Empty;
+		public string Name { get { return mvarName; } set { mvarName = value; } }
 
-        private string mvarDescription = String.Empty;
-        public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
+		private string mvarDescription = String.Empty;
+		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
 
-        private Operation.OperationCollection mvarOperations = new Operation.OperationCollection();
-        public Operation.OperationCollection Operations { get { return mvarOperations; } }
-    }
+		private Operation.OperationCollection mvarOperations = new Operation.OperationCollection();
+		public Operation.OperationCollection Operations { get { return mvarOperations; } }
+	}
 }

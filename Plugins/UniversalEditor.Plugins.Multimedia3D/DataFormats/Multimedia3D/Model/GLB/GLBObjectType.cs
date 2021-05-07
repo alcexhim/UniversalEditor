@@ -25,8 +25,8 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.GLB
 	/// Indicates the format version of an Ultimate Stunts GLB model file.
 	/// </summary>
 	public enum GLBObjectType : int
-    {
-        GeometryObjectData0_5_0 = 0x00000000,
-        GeometryObjectData0_5_1 = 0x00000001
-    }
+	{
+		GeometryObjectData0_5_0 = 0x00000000,
+		GeometryObjectData0_5_1 = 0x00000001
+	}
 }

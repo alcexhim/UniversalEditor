@@ -27,19 +27,19 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// Represents a custom ICARUS command.
 	/// </summary>
 	public class IcarusCustomCommand : IcarusCommand
-    {
-        private string mvarName = String.Empty;
-        public new string Name { get { return mvarName; } set { mvarName = value; } }
+	{
+		private string mvarName = String.Empty;
+		public new string Name { get { return mvarName; } set { mvarName = value; } }
 
-        private int mvarCommandType = 0;
-        public int CommandType { get { return mvarCommandType; } set { mvarCommandType = value; } }
+		private int mvarCommandType = 0;
+		public int CommandType { get { return mvarCommandType; } set { mvarCommandType = value; } }
 
-        private IcarusExpression.IcarusExpressionCollection mvarParameters = new IcarusExpression.IcarusExpressionCollection();
-        public IcarusExpression.IcarusExpressionCollection Parameters { get { return mvarParameters; } }
+		private IcarusExpression.IcarusExpressionCollection mvarParameters = new IcarusExpression.IcarusExpressionCollection();
+		public IcarusExpression.IcarusExpressionCollection Parameters { get { return mvarParameters; } }
 
-        public override object Clone()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public override object Clone()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

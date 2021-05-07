@@ -27,25 +27,25 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// <summary>
 	/// Represents the ICARUS "loop" command.
 	/// </summary>
-    public class IcarusCommandLoop : IcarusPredefinedContainerCommand
-    {
+	public class IcarusCommandLoop : IcarusPredefinedContainerCommand
+	{
 		public IcarusCommandLoop()
 		{
 			Parameters.Add(new IcarusGenericParameter("Count", new IcarusConstantExpression((float)0)));
 		}
 
-        public override string Name
-        {
-            get { return "loop"; }
-        }
+		public override string Name
+		{
+			get { return "loop"; }
+		}
 
-        public override object Clone()
-        {
+		public override object Clone()
+		{
 			IcarusCommandLoop clone = new IcarusCommandLoop();
 			clone.Count = (Count.Clone() as IcarusExpression);
 			return clone;
-        }
+		}
 
-        public IcarusExpression Count { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
-    }
+		public IcarusExpression Count { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
+	}
 }

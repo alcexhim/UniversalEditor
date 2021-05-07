@@ -27,21 +27,21 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "use" command.
 	/// </summary>
 	public class IcarusCommandUse : IcarusPredefinedCommand
-    {
+	{
 		public IcarusCommandUse()
 		{
 			Parameters.Add(new IcarusGenericParameter("Target"));
 		}
 
-        public override string Name { get { return "use"; } }
+		public override string Name { get { return "use"; } }
 
-        public IcarusExpression Target { get { return Parameters["Target"].Value; } set { Parameters["Target"].Value = value; } }
+		public IcarusExpression Target { get { return Parameters["Target"].Value; } set { Parameters["Target"].Value = value; } }
 
-        public override object Clone()
-        {
-            IcarusCommandUse command = new IcarusCommandUse();
-            command.Target = (Target.Clone() as IcarusExpression);
-            return command;
-        }
-    }
+		public override object Clone()
+		{
+			IcarusCommandUse command = new IcarusCommandUse();
+			command.Target = (Target.Clone() as IcarusExpression);
+			return command;
+		}
+	}
 }

@@ -6,29 +6,29 @@ using System.Security.Permissions;
 
 namespace UniversalEditor.Compression.Modules.Gzip
 {
-    /// <summary>
-    /// UE wrapper around System.IO.Compression.GZipStream
-    /// </summary>
+	/// <summary>
+	/// UE wrapper around System.IO.Compression.GZipStream
+	/// </summary>
 	public class GzipStream
 	{
 		public static byte[] Compress(byte[] source)
 		{
 			MemoryStream ms = new MemoryStream();
-            System.IO.Compression.GZipStream gst = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Compress);
+			System.IO.Compression.GZipStream gst = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Compress);
 			gst.Write(source, 0, source.Length);
 			gst.Flush();
 			gst.Close();
 			return ms.ToArray();
 		}
-        public static byte[] Decompress(byte[] source)
-        {
-            return Decompress(source, 0);
-        }
+		public static byte[] Decompress(byte[] source)
+		{
+			return Decompress(source, 0);
+		}
 		public static byte[] Decompress(byte[] source, int start)
 		{
 			MemoryStream msDest = new MemoryStream();
 			MemoryStream ms = new MemoryStream(source);
-            System.IO.Compression.GZipStream gst = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Decompress);
+			System.IO.Compression.GZipStream gst = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Decompress);
 			int read;
 			do
 			{
@@ -44,7 +44,7 @@ namespace UniversalEditor.Compression.Modules.Gzip
 		{
 			byte[] dest = new byte[uncompressedLength];
 			MemoryStream ms = new MemoryStream(source);
-            System.IO.Compression.GZipStream gst = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Decompress);
+			System.IO.Compression.GZipStream gst = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Decompress);
 			int read = gst.Read(dest, start, uncompressedLength);
 			gst.Flush();
 			gst.Close();

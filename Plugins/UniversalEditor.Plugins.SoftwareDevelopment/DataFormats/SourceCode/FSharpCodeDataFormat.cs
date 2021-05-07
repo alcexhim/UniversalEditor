@@ -175,20 +175,20 @@ namespace UniversalEditor.DataFormats.SourceCode
 
 				sb.Append(classEl.Name);
 				/*
-                if (classEl.GenericParameters.Count > 0)
-                {
-                    sb.Append("<");
-                    foreach (CodeVariableElement param in classEl.GenericParameters)
-                    {
-                        sb.Append(param.Name);
-                        if (classEl.GenericParameters.IndexOf(param) < classEl.GenericParameters.Count - 1)
-                        {
-                            sb.Append(", ");
-                        }
-                    }
-                    sb.Append(">");
-                }
-                 */
+				if (classEl.GenericParameters.Count > 0)
+				{
+					sb.Append("<");
+					foreach (CodeVariableElement param in classEl.GenericParameters)
+					{
+						sb.Append(param.Name);
+						if (classEl.GenericParameters.IndexOf(param) < classEl.GenericParameters.Count - 1)
+						{
+							sb.Append(", ");
+						}
+					}
+					sb.Append(">");
+				}
+				*/
 				sb.AppendLine();
 				foreach (CodeElement el in classEl.Elements)
 				{

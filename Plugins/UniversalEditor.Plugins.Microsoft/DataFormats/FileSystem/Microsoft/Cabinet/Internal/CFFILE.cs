@@ -25,35 +25,35 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet.Internal
 	/// Internal structure representing a Microsoft Cabinet file entry.
 	/// </summary>
 	internal struct CFFILE
-    {
-        /// <summary>
-        /// uncompressed size of this file in bytes
-        /// </summary>
-        public uint decompressedSize;
-        /// <summary>
-        /// uncompressed offset of this file in the folder
-        /// </summary>
-        public uint offset;
-        /// <summary>
-        /// index into the CFFOLDER area
-        /// </summary>
-        public ushort folderIndex;
-        /// <summary>
-        /// date stamp for this file
-        /// </summary>
-        public ushort date;
-        /// <summary>
-        /// time stamp for this file
-        /// </summary>
-        public ushort time;
-        /// <summary>
-        /// attribute flags for this file
-        /// </summary>
-        public ushort attribs;
-        /// <summary>
-        /// name of this file
-        /// </summary>
-        public string name;
+	{
+		/// <summary>
+		/// uncompressed size of this file in bytes
+		/// </summary>
+		public uint decompressedSize;
+		/// <summary>
+		/// uncompressed offset of this file in the folder
+		/// </summary>
+		public uint offset;
+		/// <summary>
+		/// index into the CFFOLDER area
+		/// </summary>
+		public ushort folderIndex;
+		/// <summary>
+		/// date stamp for this file
+		/// </summary>
+		public ushort date;
+		/// <summary>
+		/// time stamp for this file
+		/// </summary>
+		public ushort time;
+		/// <summary>
+		/// attribute flags for this file
+		/// </summary>
+		public ushort attribs;
+		/// <summary>
+		/// name of this file
+		/// </summary>
+		public string name;
 
 		public UniversalEditor.ObjectModels.FileSystem.File file { get; set; }
 	}

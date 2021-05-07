@@ -25,8 +25,8 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// The abstract base class from which predefined ICARUS commands which can contain other ICARUS commands derive.
 	/// </summary>
 	public abstract class IcarusPredefinedContainerCommand : IcarusPredefinedCommand, IIcarusContainerCommand
-    {
-        private IcarusCommand.IcarusCommandCollection mvarCommands = new IcarusCommandCollection();
-        public IcarusCommand.IcarusCommandCollection Commands { get { return mvarCommands; } }
-    }
+	{
+		private IcarusCommand.IcarusCommandCollection mvarCommands = new IcarusCommandCollection();
+		public IcarusCommand.IcarusCommandCollection Commands { get { return mvarCommands; } }
+	}
 }

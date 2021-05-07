@@ -27,15 +27,15 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "sound" command.
 	/// </summary>
 	public class IcarusCommandSound : IcarusPredefinedCommand
-    {
-        public override string Name
-        {
-            get { return "sound"; }
-        }
+	{
+		public override string Name
+		{
+			get { return "sound"; }
+		}
 
-        public override object Clone()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public override object Clone()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

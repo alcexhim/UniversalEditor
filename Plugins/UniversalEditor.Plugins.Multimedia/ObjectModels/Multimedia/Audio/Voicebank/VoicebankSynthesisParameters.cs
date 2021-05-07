@@ -33,12 +33,12 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Voicebank
 		public byte Openness { get; set; } = 0;
 
 		public void Clear()
-        {
+		{
 			Breathiness = 0;
 			Brightness = 0;
 			Clearness = 0;
 			GenderFactor = 0;
 			Openness = 0;
-        }
-    }
+		}
+	}
 }

@@ -112,8 +112,8 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 		{
 			//          x   ,  y      , z       nx,		ny,	nz			   ,  r,  g ,  b ,           u,    v
 			new VERTEX(0.0f,  0.500f, 0.0f,     0.0f, 0.0f, 0.0f,          1.0f, 0.0f, 0.0f,         0.0f, 0.0f),
-  			new VERTEX(0.5f, -0.366f, 0.0f,     0.0f, 0.0f, 0.0f,           0.0f, 1.0f, 0.0f,         0.0f, 0.0f),
-  			new VERTEX(-0.5f, -0.366f, 0.0f,    0.0f, 0.0f, 0.0f,           0.0f, 0.0f, 1.0f,         0.0f, 0.0f)
+			new VERTEX(0.5f, -0.366f, 0.0f,     0.0f, 0.0f, 0.0f,           0.0f, 1.0f, 0.0f,         0.0f, 0.0f),
+			new VERTEX(-0.5f, -0.366f, 0.0f,    0.0f, 0.0f, 0.0f,           0.0f, 0.0f, 1.0f,         0.0f, 0.0f)
 		};
 
 		VertexArray[] vaos = null;
@@ -148,11 +148,11 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 			float c2c1 = c2 * c1;
 
 			/* apply all three Euler angles rotations using the three matrices:
-			 *
-			 * ⎡  c3 s3 0 ⎤ ⎡ c2  0 -s2 ⎤ ⎡ 1   0  0 ⎤
-			 * ⎢ -s3 c3 0 ⎥ ⎢  0  1   0 ⎥ ⎢ 0  c1 s1 ⎥
-			 * ⎣   0  0 1 ⎦ ⎣ s2  0  c2 ⎦ ⎣ 0 -s1 c1 ⎦
-			 */
+			*
+			* ⎡  c3 s3 0 ⎤ ⎡ c2  0 -s2 ⎤ ⎡ 1   0  0 ⎤
+			* ⎢ -s3 c3 0 ⎥ ⎢  0  1   0 ⎥ ⎢ 0  c1 s1 ⎥
+			* ⎣   0  0 1 ⎦ ⎣ s2  0  c2 ⎦ ⎣ 0 -s1 c1 ⎦
+			*/
 			matrix[0] = c3c2; matrix[4] = s3c1 + c3s2s1; matrix[8] = s3s1 - c3s2c1; matrix[12] = 0.0f;
 			matrix[1] = -s3c2; matrix[5] = c3c1 - s3s2s1; matrix[9] = c3s1 + s3s2c1; matrix[13] = 0.0f;
 			matrix[2] = s2; matrix[6] = -c2s1; matrix[10] = c2c1; matrix[14] = 0.0f;

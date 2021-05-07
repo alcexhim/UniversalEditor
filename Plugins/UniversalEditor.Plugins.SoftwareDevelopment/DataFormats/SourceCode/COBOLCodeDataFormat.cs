@@ -27,19 +27,19 @@ namespace UniversalEditor.DataFormats.SourceCode
 	/// Provides a <see cref="DataFormat" /> for manipulating code files written in the COBOL programming language.
 	/// </summary>
 	public class COBOLCodeDataFormat : CodeDataFormat
-    {
+	{
 		private static DataFormatReference _dfr;
-        protected override DataFormatReference MakeReferenceInternal()
-        {
+		protected override DataFormatReference MakeReferenceInternal()
+		{
 			if (_dfr == null)
 			{
 				_dfr = base.MakeReferenceInternal();
 			}
-            return _dfr;
-        }
-        protected internal override string GenerateCode(object obj, int indentCount)
-        {
-            throw new NotImplementedException();
-        }
-    }
+			return _dfr;
+		}
+		protected internal override string GenerateCode(object obj, int indentCount)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

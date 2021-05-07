@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-  <mime-type type="application/x-cri-cpk">
-    <comment>CRI Middleware FileMajik CPK archive</comment>
-    <glob pattern="*.cpk"/>
-    <icon name="application-x-cri-cpk" />
-    <generic-icon name="package-x-generic" />
-  </mime-type>
-  <mime-type type="application/x-cri-afs">
-    <comment>CRI Middleware FileMajik AFS archive</comment>
-    <glob pattern="*.afs"/>
-    <icon name="application-x-cri-cpk" />
-    <generic-icon name="package-x-generic" />
-  </mime-type>
-  <mime-type type="application/x-cri-afs2">
-    <comment>CRI Middleware FileMajik AWB/ACB archive</comment>
-    <glob pattern="*.awb"/>
-    <icon name="application-x-cri-cpk" />
-    <generic-icon name="package-x-generic" />
-  </mime-type>
-  <mime-type type="application/x-cri-utf">
-    <comment>CRI Middleware UTF database</comment>
-    <glob pattern="*.utf"/>
-    <icon name="application-x-cri-utf" />
-    <generic-icon name="x-office-document" />
-  </mime-type>
+	<mime-type type="application/x-cri-cpk">
+		<comment>CRI Middleware FileMajik CPK archive</comment>
+		<glob pattern="*.cpk"/>
+		<icon name="application-x-cri-cpk" />
+		<generic-icon name="package-x-generic" />
+	</mime-type>
+	<mime-type type="application/x-cri-afs">
+		<comment>CRI Middleware FileMajik AFS archive</comment>
+		<glob pattern="*.afs"/>
+		<icon name="application-x-cri-cpk" />
+		<generic-icon name="package-x-generic" />
+	</mime-type>
+	<mime-type type="application/x-cri-afs2">
+		<comment>CRI Middleware FileMajik AWB/ACB archive</comment>
+		<glob pattern="*.awb"/>
+		<icon name="application-x-cri-cpk" />
+		<generic-icon name="package-x-generic" />
+	</mime-type>
+	<mime-type type="application/x-cri-utf">
+		<comment>CRI Middleware UTF database</comment>
+		<glob pattern="*.utf"/>
+		<icon name="application-x-cri-utf" />
+		<generic-icon name="x-office-document" />
+	</mime-type>
 </mime-info>

@@ -161,13 +161,13 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
 
 					// Array of MD5's
 					/*
-                    byte[] MD5_BlockTable[MD5_DIGEST_SIZE];      // MD5 of the block table before decryption
-                    byte[] MD5_HashTable[MD5_DIGEST_SIZE];       // MD5 of the hash table before decryption
-                    byte[] MD5_HiBlockTable[MD5_DIGEST_SIZE];    // MD5 of the hi-block table
-                    byte[] MD5_BetTable[MD5_DIGEST_SIZE];        // MD5 of the BET table before decryption
-                    byte[] MD5_HetTable[MD5_DIGEST_SIZE];        // MD5 of the HET table before decryption
-                    byte[] MD5_MpqHeader[MD5_DIGEST_SIZE];       // MD5 of the MPQ header from signature to (including) MD5_HetTable
-                     */
+					byte[] MD5_BlockTable[MD5_DIGEST_SIZE];      // MD5 of the block table before decryption
+					byte[] MD5_HashTable[MD5_DIGEST_SIZE];       // MD5 of the hash table before decryption
+					byte[] MD5_HiBlockTable[MD5_DIGEST_SIZE];    // MD5 of the hi-block table
+					byte[] MD5_BetTable[MD5_DIGEST_SIZE];        // MD5 of the BET table before decryption
+					byte[] MD5_HetTable[MD5_DIGEST_SIZE];        // MD5 of the HET table before decryption
+					byte[] MD5_MpqHeader[MD5_DIGEST_SIZE];       // MD5 of the MPQ header from signature to (including) MD5_HetTable
+					*/
 				}
 				#endregion
 				return hdr;

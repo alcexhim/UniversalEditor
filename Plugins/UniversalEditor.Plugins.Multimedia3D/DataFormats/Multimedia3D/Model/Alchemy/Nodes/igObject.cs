@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
 {
-    public class igObject : igBase
-    {
-    }
+	public class igObject : igBase
+	{
+	}
 }

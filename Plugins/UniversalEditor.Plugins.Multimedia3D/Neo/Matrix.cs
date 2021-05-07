@@ -403,7 +403,7 @@ namespace Neo
 			{
 				return new Matrix(Multiply(Mat1.m_Array,Mat2.m_Array));
 			}
-            */
+	        */
 
 			Matrix matrix = new Matrix(Mat1.RowCount, Mat1.ColumnCount);
 

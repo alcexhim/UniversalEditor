@@ -26,16 +26,16 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// <summary>
 	/// Represents the ICARUS "flush" command.
 	/// </summary>
-    public class IcarusCommandFlush : IcarusPredefinedCommand
-    {
-        public override string Name
-        {
-            get { return "flush"; }
-        }
+	public class IcarusCommandFlush : IcarusPredefinedCommand
+	{
+		public override string Name
+		{
+			get { return "flush"; }
+		}
 
-        public override object Clone()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public override object Clone()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

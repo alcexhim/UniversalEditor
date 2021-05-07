@@ -28,21 +28,21 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "print" command.
 	/// </summary>
 	public class IcarusCommandPrint : IcarusPredefinedCommand
-    {
+	{
 		public IcarusCommandPrint()
 		{
 			Parameters.Add(new IcarusGenericParameter("Text", new IcarusConstantExpression("DEFAULT")));
 		}
 
-        public override string Name { get { return "print"; } }
+		public override string Name { get { return "print"; } }
 
-        public IcarusExpression Text { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
+		public IcarusExpression Text { get { return Parameters[0].Value; } set { Parameters[0].Value = value; } }
 
-        public override object Clone()
-        {
-            IcarusCommandPrint clone = new IcarusCommandPrint();
-            clone.Text = (Text.Clone() as IcarusExpression);
-            return clone;
-        }
-    }
+		public override object Clone()
+		{
+			IcarusCommandPrint clone = new IcarusCommandPrint();
+			clone.Text = (Text.Clone() as IcarusExpression);
+			return clone;
+		}
+	}
 }

@@ -35,14 +35,8 @@ namespace UniversalEditor.ObjectModels.Chunked
 				_omr.Path = new string[] { "Software Development", "Resource Interchange File Format (RIFF)" };
 			}
 			return _omr;
-        }
-
-#if UE_CHUNKED_RIFF_INCLUDE_METADATA
-
-        private RIFFMetadataItem.RIFFMetadataItemCollection mvarInformation = new RIFFMetadataItem.RIFFMetadataItemCollection();
-        public RIFFMetadataItem.RIFFMetadataItemCollection Information { get { return mvarInformation; } }
-
-#endif
+		}
+		// public RIFFMetadataItem.RIFFMetadataItemCollection Information { get; } = new RIFFMetadataItem.RIFFMetadataItemCollection();
 
 		public ChunkedObjectModel()
 		{

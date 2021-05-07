@@ -209,85 +209,85 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 			base.BeforeSaveInternal(objectModels);
 
 			/*
-            RIFFObjectModel riff = (objectModels.Pop() as RIFFObjectModel);
-            if (riff.Chunks.Count > 0 && riff.Information.Count > 0)
-            {
-                RIFFGroupChunk chunkInfo = new RIFFGroupChunk();
-                chunkInfo.TypeID = "LIST";
-                chunkInfo.ID = "INFO";
-                foreach (RIFFMetadataItem item in riff.Information)
-                {
-                    RIFFDataChunk chunkData = new RIFFDataChunk();
-                    chunkData.ID = item.Name;
-                    if (item.Value != null)
-                    {
-                        System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                        Writer bw = new Writer(ms);
-                        if (item.Value is string)
-                        {
-                            bw.WriteFixedLengthString((string)item.Value, System.Text.Encoding.UTF8);
-                        }
-                        else if (item.Value is bool)
-                        {
-                            bw.Write((bool)item.Value);
-                        }
-                        else if (item.Value is byte)
-                        {
-                            bw.Write((byte)item.Value);
-                        }
-                        else if (item.Value is byte[])
-                        {
-                            bw.Write((byte[])item.Value);
-                        }
-                        else if (item.Value is short)
-                        {
-                            bw.Write((short)item.Value);
-                        }
-                        else if (item.Value is int)
-                        {
-                            bw.Write((int)item.Value);
-                        }
-                        else if (item.Value is long)
-                        {
-                            bw.Write((long)item.Value);
-                        }
-                        else if (item.Value is ushort)
-                        {
-                            bw.Write((ushort)item.Value);
-                        }
-                        else if (item.Value is uint)
-                        {
-                            bw.Write((uint)item.Value);
-                        }
-                        else if (item.Value is ulong)
-                        {
-                            bw.Write((ulong)item.Value);
-                        }
-                        else if (item.Value is float)
-                        {
-                            bw.Write((float)item.Value);
-                        }
-                        else if (item.Value is double)
-                        {
-                            bw.Write((double)item.Value);
-                        }
-                        else if (item.Value is Guid)
-                        {
-                            bw.Write((Guid)item.Value);
-                        }
-                        else if (item.Value is DateTime)
-                        {
-                            bw.Write((DateTime)item.Value);
-                        }
-                        bw.Close();
-                        chunkData.Data = ms.ToArray();
-                        chunkInfo.Chunks.Add(chunkData);
-                    }
-                }
-                riff.Chunks.Add(chunkInfo);
-            }
-            objectModels.Push(riff);
-            */
+			RIFFObjectModel riff = (objectModels.Pop() as RIFFObjectModel);
+			if (riff.Chunks.Count > 0 && riff.Information.Count > 0)
+			{
+				RIFFGroupChunk chunkInfo = new RIFFGroupChunk();
+				chunkInfo.TypeID = "LIST";
+				chunkInfo.ID = "INFO";
+				foreach (RIFFMetadataItem item in riff.Information)
+				{
+					RIFFDataChunk chunkData = new RIFFDataChunk();
+					chunkData.ID = item.Name;
+					if (item.Value != null)
+					{
+						System.IO.MemoryStream ms = new System.IO.MemoryStream();
+						Writer bw = new Writer(ms);
+						if (item.Value is string)
+						{
+							bw.WriteFixedLengthString((string)item.Value, System.Text.Encoding.UTF8);
+						}
+						else if (item.Value is bool)
+						{
+							bw.Write((bool)item.Value);
+						}
+						else if (item.Value is byte)
+						{
+							bw.Write((byte)item.Value);
+						}
+						else if (item.Value is byte[])
+						{
+							bw.Write((byte[])item.Value);
+						}
+						else if (item.Value is short)
+						{
+							bw.Write((short)item.Value);
+						}
+						else if (item.Value is int)
+						{
+							bw.Write((int)item.Value);
+						}
+						else if (item.Value is long)
+						{
+							bw.Write((long)item.Value);
+						}
+						else if (item.Value is ushort)
+						{
+							bw.Write((ushort)item.Value);
+						}
+						else if (item.Value is uint)
+						{
+							bw.Write((uint)item.Value);
+						}
+						else if (item.Value is ulong)
+						{
+							bw.Write((ulong)item.Value);
+						}
+						else if (item.Value is float)
+						{
+							bw.Write((float)item.Value);
+						}
+						else if (item.Value is double)
+						{
+							bw.Write((double)item.Value);
+						}
+						else if (item.Value is Guid)
+						{
+							bw.Write((Guid)item.Value);
+						}
+						else if (item.Value is DateTime)
+						{
+							bw.Write((DateTime)item.Value);
+						}
+						bw.Close();
+						chunkData.Data = ms.ToArray();
+						chunkInfo.Chunks.Add(chunkData);
+					}
+				}
+				riff.Chunks.Add(chunkInfo);
+			}
+			objectModels.Push(riff);
+			*/
 		}
 
 	}

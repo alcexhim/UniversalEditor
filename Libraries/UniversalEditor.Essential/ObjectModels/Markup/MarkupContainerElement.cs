@@ -90,12 +90,13 @@ namespace UniversalEditor.ObjectModels.Markup
 				if (this.Namespace == null)
 					return null;
 
-				for (int i = 0; i < this.ParentObjectModel.Elements.Count; i++) {
-					MarkupTagElement tagTopLevel = (this.ParentObjectModel.Elements [i] as MarkupTagElement);
+				for (int i = 0; i < this.ParentObjectModel.Elements.Count; i++)
+				{
+					MarkupTagElement tagTopLevel = (this.ParentObjectModel.Elements[i] as MarkupTagElement);
 					if (tagTopLevel == null)
 						continue;
 
-					MarkupAttribute att = tagTopLevel.Attributes ["xmlns:" + this.Namespace];
+					MarkupAttribute att = tagTopLevel.Attributes["xmlns:" + this.Namespace];
 					if (att != null)
 						return att.Value;
 				}
@@ -104,12 +105,13 @@ namespace UniversalEditor.ObjectModels.Markup
 			}
 		}
 
-		protected override void UpdateParentObjectModel ()
+		protected override void UpdateParentObjectModel()
 		{
-			base.UpdateParentObjectModel ();
+			base.UpdateParentObjectModel();
 			this.Elements.ParentObjectModel = this.ParentObjectModel;
-			for (int i = 0; i < this.Elements.Count; i++) {
-				this.Elements [i].ParentObjectModel = this.ParentObjectModel;
+			for (int i = 0; i < this.Elements.Count; i++)
+			{
+				this.Elements[i].ParentObjectModel = this.ParentObjectModel;
 			}
 		}
 
@@ -141,22 +143,23 @@ namespace UniversalEditor.ObjectModels.Markup
 		{
 			string tagPrefix = FindSchemaTagPrefix(schema);
 
-			if (tagPrefix == null) {
-				Console.WriteLine ("ue: MarkupObjectModel: tag prefix for schema '" + schema + "' not found");
+			if (tagPrefix == null)
+			{
+				Console.WriteLine("ue: MarkupObjectModel: tag prefix for schema '" + schema + "' not found");
 				return null;
 			}
 
 			string fullName = tagPrefix + ":" + name;
-			return FindElement (fullName);
+			return FindElement(fullName);
 		}
 
-        public override void Combine(MarkupElement el)
-        {
-            MarkupTagElement tag = (el as MarkupTagElement);
-            if (tag == null) throw new InvalidOperationException("Cannot combine MarkupTagElement with " + el.GetType().Name);
+		public override void Combine(MarkupElement el)
+		{
+			MarkupTagElement tag = (el as MarkupTagElement);
+			if (tag == null) throw new InvalidOperationException("Cannot combine MarkupTagElement with " + el.GetType().Name);
 
-            foreach (MarkupElement el1 in tag.Elements)
-            {
+			foreach (MarkupElement el1 in tag.Elements)
+			{
 				string id = null;
 				MarkupTagElement tag1 = (el1 as MarkupTagElement);
 				if (tag1 != null)
@@ -165,15 +168,15 @@ namespace UniversalEditor.ObjectModels.Markup
 					if (attID != null) id = attID.Value;
 				}
 
-                if (Elements.Contains(el1.FullName, id, (el1 is MarkupTagElement ? (el1 as MarkupTagElement).Attributes : null)))
-                {
-                    Elements[el1.FullName].Combine(el1);
-                }
-                else
-                {
-                    Elements.Add(el1);
-                }
-            }
-        }
+				if (Elements.Contains(el1.FullName, id, (el1 is MarkupTagElement ? (el1 as MarkupTagElement).Attributes : null)))
+				{
+					Elements[el1.FullName].Combine(el1);
+				}
+				else
+				{
+					Elements.Add(el1);
+				}
+			}
+		}
 	}
 }

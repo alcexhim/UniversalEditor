@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- this file should be generated via UWT -->
 <schemalist>
-  <enum id="net.alcetech.framework.user-interface.PreferredEngine">
-    <value nick="gtk" value="0"/>
-    <value nick="winforms" value="1"/>
-  </enum>
-  <schema path="/net/alcetech/framework/user-interface/" id="net.alcetech.framework.user-interface">
-    <key name='engine' enum='net.alcetech.framework.user-interface.PreferredEngine'>
-      <default>'gtk'</default>
-      <summary>Preferred user interface engine</summary>
-      <description>
-        'gtk' = GTK engine, 'winforms' = Windows Forms engine
-      </description>
-    </key>
-  </schema>
-  <schema path="/net/alcetech/universal-editor/" id="net.alcetech.universal-editor">
-    <key name='automatic-updates' type='b'>
-      <default>true</default>
-      <summary>Automatically install updates</summary>
-      <description>
-        If enabled, updates will automatically be downloaded and installed.
-        If disabled, updates will still be downloaded, but the user will be
-        asked to install them manually.
-      </description>
-    </key>
-  </schema>
-  <schema path="/net/alcetech/universal-editor/author/" id="net.alcetech.universal-editor.author">
-    <key name='name' type='s'>
-      <default>''</default>
-      <summary>Author name</summary>
-      <description>
+	<enum id="net.alcetech.framework.user-interface.PreferredEngine">
+		<value nick="gtk" value="0"/>
+		<value nick="winforms" value="1"/>
+	</enum>
+	<schema path="/net/alcetech/framework/user-interface/" id="net.alcetech.framework.user-interface">
+		<key name='engine' enum='net.alcetech.framework.user-interface.PreferredEngine'>
+			<default>'gtk'</default>
+			<summary>Preferred user interface engine</summary>
+			<description>
+				'gtk' = GTK engine, 'winforms' = Windows Forms engine
+			</description>
+		</key>
+	</schema>
+	<schema path="/net/alcetech/universal-editor/" id="net.alcetech.universal-editor">
+		<key name='automatic-updates' type='b'>
+			<default>true</default>
+			<summary>Automatically install updates</summary>
+			<description>
+				If enabled, updates will automatically be downloaded and installed.
+				If disabled, updates will still be downloaded, but the user will be
+				asked to install them manually.
+			</description>
+		</key>
+	</schema>
+	<schema path="/net/alcetech/universal-editor/author/" id="net.alcetech.universal-editor.author">
+		<key name='name' type='s'>
+			<default>''</default>
+			<summary>Author name</summary>
+			<description>
 				The name of the content creator.
-      </description>
-    </key>
-    <key name='email' type='s'>
-      <default>''</default>
-      <summary>E-mail address</summary>
-      <description>
+			</description>
+		</key>
+		<key name='email' type='s'>
+			<default>''</default>
+			<summary>E-mail address</summary>
+			<description>
 				The contact information of the content creator.
-      </description>
-    </key>
-  </schema>
-  <schema path="/net/alcetech/universal-editor/editors/filesystem/" id="net.alcetech.universal-editor.editors.filesystem">
-    <key name='test-setting' type='b'>
-      <default>false</default>
-      <summary>Test setting for FileSystemEditor</summary>
-      <description>
+			</description>
+		</key>
+	</schema>
+	<schema path="/net/alcetech/universal-editor/editors/filesystem/" id="net.alcetech.universal-editor.editors.filesystem">
+		<key name='test-setting' type='b'>
+			<default>false</default>
+			<summary>Test setting for FileSystemEditor</summary>
+			<description>
 				Changes a setting for the FileSystemEditor
-      </description>
-    </key>
-  </schema>
+			</description>
+		</key>
+	</schema>
 </schemalist>

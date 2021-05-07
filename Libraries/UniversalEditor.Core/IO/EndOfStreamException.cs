@@ -23,10 +23,10 @@ using System;
 
 namespace UniversalEditor.IO
 {
-    /// <summary>
-    /// The exception that is thrown when reading is attempted past the end of a stream.
-    /// </summary>
-    public class EndOfStreamException : Exception
-    {
-    }
+	/// <summary>
+	/// The exception that is thrown when reading is attempted past the end of a stream.
+	/// </summary>
+	public class EndOfStreamException : Exception
+	{
+	}
 }

@@ -551,81 +551,81 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 			#endregion
 
 			/*
-            #region PMAX patch
-            if (!br.EndOfStream)
-            {
-                if (br.PeekFixedLengthString(4) != "PMAX") return;
+	        #region PMAX patch
+	        if (!br.EndOfStream)
+	        {
+	            if (br.PeekFixedLengthString(4) != "PMAX") return;
 
-                UniversalEditor.ObjectModels.PMAXPatch.PMAXPatchObjectModel pmax = new UniversalEditor.ObjectModels.PMAXPatch.PMAXPatchObjectModel();
-                UniversalEditor.DataFormats.PMAXPatch.PMAXPatchBinaryDataFormat pmaxbin = new UniversalEditor.DataFormats.PMAXPatch.PMAXPatchBinaryDataFormat();
+	            UniversalEditor.ObjectModels.PMAXPatch.PMAXPatchObjectModel pmax = new UniversalEditor.ObjectModels.PMAXPatch.PMAXPatchObjectModel();
+	            UniversalEditor.DataFormats.PMAXPatch.PMAXPatchBinaryDataFormat pmaxbin = new UniversalEditor.DataFormats.PMAXPatch.PMAXPatchBinaryDataFormat();
 
-                pmaxbin.Open(br.BaseStream);
-                ObjectModel om = pmax;
-                pmaxbin.Load(ref om);
+	            pmaxbin.Open(br.BaseStream);
+	            ObjectModel om = pmax;
+	            pmaxbin.Load(ref om);
 
-                foreach (UniversalEditor.ObjectModels.PMAXPatch.PMAXPatchChunk chunk in pmax.Patches[0].Chunks)
-                {
-                    if (chunk.Name == "TEXA")
-                    {
-                        // Texture animation information
-                        UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXAdvancedTextureBlockChunk TEXA = (chunk as UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXAdvancedTextureBlockChunk);
-                        model.PMAExtension.TextureFlipping.Enabled = true;
-                        foreach (UniversalEditor.ObjectModels.PMAXPatch.PMAXAdvancedTextureBlock block in TEXA.AdvancedTextureBlocks)
-                        {
-                            ModelMaterial material = model.Materials[block.MaterialID];
-                            material.AlwaysLight = block.AlwaysLight;
+	            foreach (UniversalEditor.ObjectModels.PMAXPatch.PMAXPatchChunk chunk in pmax.Patches[0].Chunks)
+	            {
+	                if (chunk.Name == "TEXA")
+	                {
+	                    // Texture animation information
+	                    UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXAdvancedTextureBlockChunk TEXA = (chunk as UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXAdvancedTextureBlockChunk);
+	                    model.PMAExtension.TextureFlipping.Enabled = true;
+	                    foreach (UniversalEditor.ObjectModels.PMAXPatch.PMAXAdvancedTextureBlock block in TEXA.AdvancedTextureBlocks)
+	                    {
+	                        ModelMaterial material = model.Materials[block.MaterialID];
+	                        material.AlwaysLight = block.AlwaysLight;
 
-                            foreach (UniversalEditor.ObjectModels.PMAXPatch.PMAXAdvancedTextureBlockImage image in block.Images)
-                            {
-                                TextureFlippingFrame tff = new TextureFlippingFrame();
-                                long timestamp = image.Timestamp;
+	                        foreach (UniversalEditor.ObjectModels.PMAXPatch.PMAXAdvancedTextureBlockImage image in block.Images)
+	                        {
+	                            TextureFlippingFrame tff = new TextureFlippingFrame();
+	                            long timestamp = image.Timestamp;
 
-                                string texturePath = image.FileName;
-                                string textureImageFileName = null;
-                                string mapImageFileName = null;
+	                            string texturePath = image.FileName;
+	                            string textureImageFileName = null;
+	                            string mapImageFileName = null;
 
-                                if (texturePath.Contains("*"))
-                                {
-                                    string[] texturePaths = texturePath.Split(new char[] { '*' });
-                                    textureImageFileName = texturePaths[0];
-                                    mapImageFileName = texturePaths[1];
-                                }
-                                else if (texturePath.EndsWith(".sph") || texturePath.EndsWith(".spa"))
-                                {
-                                    textureImageFileName = null;
-                                    mapImageFileName = texturePath;
-                                }
-                                else
-                                {
-                                    textureImageFileName = texturePath;
-                                    mapImageFileName = null;
-                                }
-                                material.Textures.Add(textureImageFileName, mapImageFileName, image.TextureFlags);
-                            }
-                        }
-                    }
-                    else if (chunk.Name == "EFXS")
-                    {
-                        // Effects preset information
-                        UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXEffectsScriptChunk EFXS = (chunk as UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXEffectsScriptChunk);
-                        foreach (string effectFileName in EFXS.EffectScriptFileNames)
-                        {
-                            model.ModelEffectScriptFileNames.Add(effectFileName);
-                        }
-                    }
-                    else if (chunk.Name == "MTLN")
-                    {
-                        // Material name information
-                        UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXMaterialNamesChunk MTLN = (chunk as UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXMaterialNamesChunk);
-                        for (int i = 0; i < model.Materials.Count; i++)
-                        {
-                            model.Materials[i].Name = MTLN.MaterialNames[i];
-                        }
-                    }
-                }
-            }
-            #endregion
-            */
+	                            if (texturePath.Contains("*"))
+	                            {
+	                                string[] texturePaths = texturePath.Split(new char[] { '*' });
+	                                textureImageFileName = texturePaths[0];
+	                                mapImageFileName = texturePaths[1];
+	                            }
+	                            else if (texturePath.EndsWith(".sph") || texturePath.EndsWith(".spa"))
+	                            {
+	                                textureImageFileName = null;
+	                                mapImageFileName = texturePath;
+	                            }
+	                            else
+	                            {
+	                                textureImageFileName = texturePath;
+	                                mapImageFileName = null;
+	                            }
+	                            material.Textures.Add(textureImageFileName, mapImageFileName, image.TextureFlags);
+	                        }
+	                    }
+	                }
+	                else if (chunk.Name == "EFXS")
+	                {
+	                    // Effects preset information
+	                    UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXEffectsScriptChunk EFXS = (chunk as UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXEffectsScriptChunk);
+	                    foreach (string effectFileName in EFXS.EffectScriptFileNames)
+	                    {
+	                        model.ModelEffectScriptFileNames.Add(effectFileName);
+	                    }
+	                }
+	                else if (chunk.Name == "MTLN")
+	                {
+	                    // Material name information
+	                    UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXMaterialNamesChunk MTLN = (chunk as UniversalEditor.ObjectModels.PMAXPatch.Chunks.PMAXMaterialNamesChunk);
+	                    for (int i = 0; i < model.Materials.Count; i++)
+	                    {
+	                        model.Materials[i].Name = MTLN.MaterialNames[i];
+	                    }
+	                }
+	            }
+	        }
+	        #endregion
+	        */
 		}
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
@@ -639,28 +639,28 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 			bw.WriteSingle(mvarVersion);
 
 			/*
-            string modelNameJ = String.Empty;
-            if (model.StringTable.ContainsKey(1041))
-            {
-                modelNameJ = model.StringTable[1041].Title;
-            }
-            else
-            {
-                modelNameJ = model.Name;
-            }
-            bw.WriteFixedLengthString(modelNameJ, encoding, 20);
-            */
+	        string modelNameJ = String.Empty;
+	        if (model.StringTable.ContainsKey(1041))
+	        {
+	            modelNameJ = model.StringTable[1041].Title;
+	        }
+	        else
+	        {
+	            modelNameJ = model.Name;
+	        }
+	        bw.WriteFixedLengthString(modelNameJ, encoding, 20);
+	        */
 
 			bw.WriteFixedLengthString(mvarModelTitleJapanese, 20);
 
 			/*
-            string modelCommentJ = String.Empty;
-            if (model.StringTable.ContainsKey(1041))
-            {
-                modelCommentJ = model.StringTable[1041].Comments;
-            }
-            bw.WriteFixedLengthString(modelCommentJ, encoding, 256);
-            */
+	        string modelCommentJ = String.Empty;
+	        if (model.StringTable.ContainsKey(1041))
+	        {
+	            modelCommentJ = model.StringTable[1041].Comments;
+	        }
+	        bw.WriteFixedLengthString(modelCommentJ, encoding, 256);
+	        */
 
 			bw.WriteFixedLengthString(mvarModelCommentJapanese, 256);
 
@@ -836,9 +836,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 
 				ModelStringTableExtension englishInformation = model.StringTable[1033];
 				/*
-                bw.WriteFixedLengthString(englishInformation.Title, 20);
-                bw.WriteFixedLengthString(englishInformation.Comments, 256);
-                */
+	            bw.WriteFixedLengthString(englishInformation.Title, 20);
+	            bw.WriteFixedLengthString(englishInformation.Comments, 256);
+	            */
 
 				bw.WriteFixedLengthString(mvarModelTitleEnglish, 20);
 				bw.WriteFixedLengthString(mvarModelCommentEnglish, 256);

@@ -24,13 +24,13 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 	/// <summary>
 	/// Indicates the compression method used in an MSCompressed archive.
 	/// </summary>
-    public enum MSCompressedCompressionMethod
-    {
-        None,
-        XOR,
-        SZDD,
-        SZ,
-        JeffJohnson,
-        MSZIP
-    }
+	public enum MSCompressedCompressionMethod
+	{
+		None,
+		XOR,
+		SZDD,
+		SZ,
+		JeffJohnson,
+		MSZIP
+	}
 }

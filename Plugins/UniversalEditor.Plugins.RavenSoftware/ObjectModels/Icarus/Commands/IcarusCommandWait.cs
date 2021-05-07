@@ -28,20 +28,20 @@ namespace UniversalEditor.ObjectModels.Icarus.Commands
 	/// Represents the ICARUS "wait" command.
 	/// </summary>
 	public class IcarusCommandWait : IcarusPredefinedCommand
-    {
+	{
 		public IcarusCommandWait()
 		{
 			Parameters.Add(new IcarusFloatParameter("Duration", new IcarusConstantExpression(0.0f)));
 		}
-        public override string Name { get { return "wait"; } }
+		public override string Name { get { return "wait"; } }
 
-        public IcarusExpression Duration { get { return Parameters["Duration"].Value; } set { Parameters["Duration"].Value = value; } }
+		public IcarusExpression Duration { get { return Parameters["Duration"].Value; } set { Parameters["Duration"].Value = value; } }
 
-        public override object Clone()
-        {
-            IcarusCommandWait clone = new IcarusCommandWait();
-            clone.Duration = (Duration.Clone() as IcarusExpression);
-            return clone;
-        }
-    }
+		public override object Clone()
+		{
+			IcarusCommandWait clone = new IcarusCommandWait();
+			clone.Duration = (Duration.Clone() as IcarusExpression);
+			return clone;
+		}
+	}
 }

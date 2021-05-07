@@ -708,7 +708,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 									rundest = window_posn;
 									runsrc = rundest - match_offset;
 									window_posn += (ULONG)match_length;
-									if (window_posn > window_size) throw new InvalidOperationException("eieio");;
+									if (window_posn > window_size) throw new InvalidOperationException("eieio"); ;
 									this_run -= match_length;
 
 									/* copy any wrapped around source data */
@@ -730,7 +730,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 									ref bitbuf, ref ip, ref inpos, ref i, LZX_MAINTREE_TABLEBITS,
 									LZX_MAINTREE_MAXSYMBOLS, ref pState.MAINTREE_len, ref j, ref main_element);
 								if (!hr)
-									throw new InvalidOperationException("eieio");;
+									throw new InvalidOperationException("eieio"); ;
 
 								if (main_element < LZX_NUM_CHARS)
 								{
@@ -750,7 +750,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 											ref bitbuf, ref ip, ref inpos, ref i, LZX_LENGTH_TABLEBITS,
 											LZX_LENGTH_MAXSYMBOLS, ref pState.LENGTH_len, ref j, ref length_footer);
 										if (!hr)
-											throw new InvalidOperationException("eieio");;
+											throw new InvalidOperationException("eieio"); ;
 										match_length += length_footer;
 									}
 									match_length += LZX_MIN_MATCH;
@@ -773,7 +773,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 												ref bitbuf, ref ip, ref inpos, ref i, LZX_ALIGNED_TABLEBITS,
 												LZX_ALIGNED_MAXSYMBOLS, ref pState.ALIGNED_len, ref j, ref aligned_bits);
 											if (!hr)
-												throw new InvalidOperationException("eieio");;
+												throw new InvalidOperationException("eieio"); ;
 											match_offset += (ULONG)aligned_bits;
 										}
 										else if (extra == 3)
@@ -783,7 +783,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 												ref bitbuf, ref ip, ref inpos, ref i, LZX_ALIGNED_TABLEBITS,
 												LZX_ALIGNED_MAXSYMBOLS, ref pState.ALIGNED_len, ref j, ref aligned_bits);
 											if (!hr)
-												throw new InvalidOperationException("eieio");;
+												throw new InvalidOperationException("eieio"); ;
 											match_offset += (ULONG)aligned_bits;
 										}
 										else if (extra > 0)
@@ -820,7 +820,7 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 									rundest = window_posn;
 									runsrc = rundest - match_offset;
 									window_posn += (ULONG)match_length;
-									if (window_posn > window_size) throw new InvalidOperationException("eieio");;
+									if (window_posn > window_size) throw new InvalidOperationException("eieio"); ;
 									this_run -= match_length;
 
 									/* copy any wrapped around source data */
@@ -836,19 +836,19 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 							break;
 
 						case LZX.LZXBlockType.Uncompressed:
-							if ((inpos + this_run) > endinp) throw new InvalidOperationException("eieio");;
+							if ((inpos + this_run) > endinp) throw new InvalidOperationException("eieio"); ;
 							Array.Copy(ip, inpos, window, window_posn, this_run);
 							inpos += this_run; window_posn += (ULONG)this_run;
 							break;
 
 						default:
-							throw new InvalidOperationException("eieio");; /* might as well */
+							throw new InvalidOperationException("eieio"); ; /* might as well */
 						}
 
 					}
 				}
 
-				if (togo != 0) throw new InvalidOperationException("eieio");;
+				if (togo != 0) throw new InvalidOperationException("eieio"); ;
 				Array.Copy(
 					window,
 					(!Convert.ToBoolean(window_posn) ? window_size : window_posn) - outlen,
@@ -916,8 +916,8 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 		}
 	}
 
-    public class DONOTUSE_XMemLZXCompressionModule : CompressionModule
-    {
+	public class DONOTUSE_XMemLZXCompressionModule : CompressionModule
+	{
 		static uint decrunch_method;
 		static uint decrunch_length;
 		static uint last_offset;
@@ -1473,19 +1473,19 @@ namespace UniversalEditor.Compression.Modules.XMemLZX
 
 
 		public override string Name
-        {
-            get { return "XMEMLZX"; }
-        }
+		{
+			get { return "XMEMLZX"; }
+		}
 
 		protected override void CompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream)
-        {
-        }
+		{
+		}
 		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
-        {
+		{
 			unlzx(inputStream, inputLength, outputStream, outputLength);
-        }
+		}
 
 
 
-    }
+	}
 }

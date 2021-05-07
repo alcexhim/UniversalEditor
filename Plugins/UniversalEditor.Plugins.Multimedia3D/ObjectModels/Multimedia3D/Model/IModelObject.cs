@@ -21,7 +21,7 @@
 
 namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 {
-    public interface IModelObject
-    {
-    }
+	public interface IModelObject
+	{
+	}
 }

@@ -79,21 +79,21 @@ namespace UniversalEditor.ObjectModels.SourceCode
 		}
 
 		public static readonly CodeDataType Empty = new CodeDataType(null);
-        public static readonly CodeDataType Void = new CodeDataType("System", "Void");
-        public static readonly CodeDataType Boolean = new CodeDataType("System", "Boolean");
-        public static readonly CodeDataType Object = new CodeDataType("System", "Object");
-        public static readonly CodeDataType Int16 = new CodeDataType("System", "Int16");
-        public static readonly CodeDataType Int32 = new CodeDataType("System", "Int32");
+		public static readonly CodeDataType Void = new CodeDataType("System", "Void");
+		public static readonly CodeDataType Boolean = new CodeDataType("System", "Boolean");
+		public static readonly CodeDataType Object = new CodeDataType("System", "Object");
+		public static readonly CodeDataType Int16 = new CodeDataType("System", "Int16");
+		public static readonly CodeDataType Int32 = new CodeDataType("System", "Int32");
 		public static readonly CodeDataType Int64 = new CodeDataType("System", "Int64");
 		public static readonly CodeDataType UInt16 = new CodeDataType("System", "UInt16");
 		public static readonly CodeDataType UInt32 = new CodeDataType("System", "UInt32");
 		public static readonly CodeDataType UInt64 = new CodeDataType("System", "UInt64");
 		public static readonly CodeDataType Single = new CodeDataType("System", "Single");
-        public static readonly CodeDataType Double = new CodeDataType("System", "Double");
-        public static readonly CodeDataType Decimal = new CodeDataType("System", "Decimal");
-        public static readonly CodeDataType DateTime = new CodeDataType("System", "DateTime");
-        public static readonly CodeDataType Char = new CodeDataType("System", "Char");
-        public static readonly CodeDataType String = new CodeDataType("System", "String");
+		public static readonly CodeDataType Double = new CodeDataType("System", "Double");
+		public static readonly CodeDataType Decimal = new CodeDataType("System", "Decimal");
+		public static readonly CodeDataType DateTime = new CodeDataType("System", "DateTime");
+		public static readonly CodeDataType Char = new CodeDataType("System", "Char");
+		public static readonly CodeDataType String = new CodeDataType("System", "String");
 
 		#region Equals and GetHashCode implementation
 		// The code in this region is useful if you want to use this structure in collections.
@@ -131,10 +131,10 @@ namespace UniversalEditor.ObjectModels.SourceCode
 			);
 		}
 
-        public string GetFullName(string separator = ".")
-        {
-            return System.String.Join(separator, this.Names);
-        }
+		public string GetFullName(string separator = ".")
+		{
+			return System.String.Join(separator, this.Names);
+		}
 
 		public override string ToString()
 		{
@@ -179,7 +179,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 		{
 			return new CodeDataType(value);
 		}
-		public static implicit operator string[](CodeDataType value)
+		public static implicit operator string[] (CodeDataType value)
 		{
 			return value.Names;
 		}

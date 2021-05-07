@@ -25,8 +25,8 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// Indicates the type of "affect" command.
 	/// </summary>
 	public enum IcarusAffectType
-    {
-        Insert = 55,
-        Flush = 56
-    }
+	{
+		Insert = 55,
+		Flush = 56
+	}
 }

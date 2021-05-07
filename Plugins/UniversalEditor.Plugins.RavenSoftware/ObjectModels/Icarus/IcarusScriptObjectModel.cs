@@ -24,31 +24,31 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// <summary>
 	/// Provides an <see cref="ObjectModel" /> for manipulating Raven Software's ICARUS script files.
 	/// </summary>
-    public class IcarusScriptObjectModel : ObjectModel
-    {
-        private IcarusCommand.IcarusCommandCollection mvarCommands = new IcarusCommand.IcarusCommandCollection();
-        public IcarusCommand.IcarusCommandCollection Commands { get { return mvarCommands; } }
+	public class IcarusScriptObjectModel : ObjectModel
+	{
+		private IcarusCommand.IcarusCommandCollection mvarCommands = new IcarusCommand.IcarusCommandCollection();
+		public IcarusCommand.IcarusCommandCollection Commands { get { return mvarCommands; } }
 
-        public override void Clear()
-        {
-            mvarCommands.Clear();
-        }
-        public override void CopyTo(ObjectModel where)
-        {
-            IcarusScriptObjectModel clone = (where as IcarusScriptObjectModel);
-            if (clone == null) return;
+		public override void Clear()
+		{
+			mvarCommands.Clear();
+		}
+		public override void CopyTo(ObjectModel where)
+		{
+			IcarusScriptObjectModel clone = (where as IcarusScriptObjectModel);
+			if (clone == null) return;
 
-            foreach (IcarusCommand cmd in mvarCommands)
-            {
-                if (cmd == null) continue;
-                clone.Commands.Add(cmd.Clone() as IcarusCommand);
-            }
-        }
-        protected override ObjectModelReference MakeReferenceInternal()
-        {
-            ObjectModelReference omr = base.MakeReferenceInternal();
-            omr.Path = new string[] { "Game development", "ICARUS engine script" };
-            return omr;
-        }
-    }
+			foreach (IcarusCommand cmd in mvarCommands)
+			{
+				if (cmd == null) continue;
+				clone.Commands.Add(cmd.Clone() as IcarusCommand);
+			}
+		}
+		protected override ObjectModelReference MakeReferenceInternal()
+		{
+			ObjectModelReference omr = base.MakeReferenceInternal();
+			omr.Path = new string[] { "Game development", "ICARUS engine script" };
+			return omr;
+		}
+	}
 }

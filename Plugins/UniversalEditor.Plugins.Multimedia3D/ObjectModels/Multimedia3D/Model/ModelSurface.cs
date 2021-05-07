@@ -2,7 +2,7 @@
 //  ModelSurface.cs - represents a surface (collection of triangles and vertices) for a 3D model
 //
 //  Author:
-//       Michael Becker <alcexhim@gmail.com>
+//	   Michael Becker <alcexhim@gmail.com>
 //
 //  Copyright (c) 2013-2020 Mike Becker's Software
 //
@@ -85,24 +85,24 @@ namespace UniversalEditor.ObjectModels.Multimedia3D.Model
 				Vertices[i].Normal = new PositionVector3(nx, ny, nz);
 
 				/*
-                if (mvarVertices[i].Bone0Weight == 0.0f)
-                {
-                    mvarVertices[i].Position = PositionVector3.Transform(mvarVertices[i].OriginalPosition, mvarVertices[i].Bone1.GetSkinningMatrix());
-                    mvarVertices[i].Normal = PositionVector3.Rotate(mvarVertices[i].OriginalNormal, mvarVertices[i].Bone1.GetSkinningMatrix());
-                }
-                else if (mvarVertices[i].Bone0Weight >= 1.0f)
-                {
-                    Neo.Matrix matrix = mvarVertices[i].Bone0.GetSkinningMatrix();
-                    mvarVertices[i].Position = PositionVector3.Transform(mvarVertices[i].OriginalPosition, matrix);
-                    mvarVertices[i].Normal = PositionVector3.Rotate(mvarVertices[i].OriginalNormal, matrix);
-                }
-                else
-                {
-                    Matrix matTemp = Matrix.Lerp(mvarVertices[i].Bone0.GetSkinningMatrix(), mvarVertices[i].Bone1.GetSkinningMatrix(), mvarVertices[i].Bone0Weight);
-                    mvarVertices[i].Position = PositionVector3.Transform(mvarVertices[i].OriginalPosition, matTemp);
-                    mvarVertices[i].Normal = PositionVector3.Rotate(mvarVertices[i].OriginalNormal, matTemp);
-                }
-                */
+				if (mvarVertices[i].Bone0Weight == 0.0f)
+				{
+					mvarVertices[i].Position = PositionVector3.Transform(mvarVertices[i].OriginalPosition, mvarVertices[i].Bone1.GetSkinningMatrix());
+					mvarVertices[i].Normal = PositionVector3.Rotate(mvarVertices[i].OriginalNormal, mvarVertices[i].Bone1.GetSkinningMatrix());
+				}
+				else if (mvarVertices[i].Bone0Weight >= 1.0f)
+				{
+					Neo.Matrix matrix = mvarVertices[i].Bone0.GetSkinningMatrix();
+					mvarVertices[i].Position = PositionVector3.Transform(mvarVertices[i].OriginalPosition, matrix);
+					mvarVertices[i].Normal = PositionVector3.Rotate(mvarVertices[i].OriginalNormal, matrix);
+				}
+				else
+				{
+					Matrix matTemp = Matrix.Lerp(mvarVertices[i].Bone0.GetSkinningMatrix(), mvarVertices[i].Bone1.GetSkinningMatrix(), mvarVertices[i].Bone0Weight);
+					mvarVertices[i].Position = PositionVector3.Transform(mvarVertices[i].OriginalPosition, matTemp);
+					mvarVertices[i].Normal = PositionVector3.Rotate(mvarVertices[i].OriginalNormal, matTemp);
+				}
+				*/
 			}
 		}
 

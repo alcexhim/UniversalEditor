@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookmarksManager.cs" />
-    <Compile Include="CommandDisplayStyle.cs" />
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="ConfigurationManager.cs" />
     <Compile Include="CustomOptionDialogType.cs" />

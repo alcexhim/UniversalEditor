@@ -24,8 +24,8 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// <summary>
 	/// Interface implemented by ICARUS commands which can contain other commands.
 	/// </summary>
-    public interface IIcarusContainerCommand
-    {
-        IcarusCommand.IcarusCommandCollection Commands { get; }
-    }
+	public interface IIcarusContainerCommand
+	{
+		IcarusCommand.IcarusCommandCollection Commands { get; }
+	}
 }

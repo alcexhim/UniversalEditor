@@ -25,7 +25,7 @@ namespace UniversalEditor.ObjectModels.NewWorldComputing.Map
 	/// Indicates the type of tile placed on the map.
 	/// </summary>
 	public enum MapTileType : ushort
-    {
+	{
 
-    }
+	}
 }

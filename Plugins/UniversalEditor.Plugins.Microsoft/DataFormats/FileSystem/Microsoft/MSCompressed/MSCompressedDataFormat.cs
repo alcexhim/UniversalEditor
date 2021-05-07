@@ -144,24 +144,23 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 					case MSCompressedKWAJCompressionMethod.JeffJohnson:
 					{
 						int ringBufferPos = 4096 - 17;
-
 						/*
-                        selected table = MATCHLEN
- LOOP:
-     code = read huffman code using selected table (MATCHLEN or MATCHLEN2)
-     if EOF reached, exit loop
-     if code > 0, this is a match:
-         match length = code + 2
-         x = read huffman code using OFFSET table
-         y = read 6 bits
-         match offset = current ring buffer position - (x<<6 | y)
-         copy match as output and into the ring buffer
-         selected table = MATCHLEN
-     if code == 0, this is a run of literals:
-         x = read huffman code using LITLEN table
-         if x != 31, selected table = MATCHLEN2
-         read {x+1} literals using LITERAL huffman table, copy as output and into the ring buffer
-                        */
+						selected table = MATCHLEN
+						LOOP:
+							code = read huffman code using selected table (MATCHLEN or MATCHLEN2)
+							if EOF reached, exit loop
+							if code > 0, this is a match:
+								match length = code + 2
+								x = read huffman code using OFFSET table
+								y = read 6 bits
+								match offset = current ring buffer position - (x<<6 | y)
+								copy match as output and into the ring buffer
+								selected table = MATCHLEN
+							if code == 0, this is a run of literals:
+								x = read huffman code using LITLEN table
+								if x != 31, selected table = MATCHLEN2
+								read {x+1} literals using LITERAL huffman table, copy as output and into the ring buffer
+						*/
 						break;
 					}
 					case MSCompressedKWAJCompressionMethod.MSZIP:
@@ -203,7 +202,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 					Internal.SZDDComp.Decode(msin, msout);
 					bw.WriteBytes(msout.ToArray());
 
-					/*
 					byte[] window = new byte[4096];
 					window.Clear(0x20);
 
@@ -248,7 +246,6 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed
 							}
 						}
 					}
-					*/
 					break;
 				}
 				case MSCompressedCompressionMethod.JeffJohnson:

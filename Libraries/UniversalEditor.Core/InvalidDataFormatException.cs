@@ -2,7 +2,7 @@
 //  InvalidDataFormatException.cs - raised when the DataFormat has problems loading accessor
 //
 //  Author:
-//       Michael Becker <alcexhim@gmail.com>
+//	   Michael Becker <alcexhim@gmail.com>
 //
 //  Copyright (c) 2011-2020 Mike Becker's Software
 //
@@ -27,12 +27,12 @@ namespace UniversalEditor
 	/// The exception that is thrown when a <see cref="DataFormat" /> cannot process a file because the file is
 	/// corrupted or unreadable or the file format is not supported by the given <see cref="DataFormat" />.
 	/// </summary>
-    public class InvalidDataFormatException : DataFormatException
-    {
+	public class InvalidDataFormatException : DataFormatException
+	{
 		/// <summary>
 		/// Creates a new instance of a <see cref="InvalidDataFormatException" /> with the default message.
 		/// </summary>
-        public InvalidDataFormatException() : base("The data format is invalid") { }
+		public InvalidDataFormatException() : base("The data format is invalid") { }
 		/// <summary>
 		/// Creates a new instance of a <see cref="InvalidDataFormatException" /> with the specified message.
 		/// </summary>
@@ -44,7 +44,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="message">The message to display in the exception window.</param>
 		/// <param name="innerException">The <see cref="Exception" /> that is the cause of this <see cref="InvalidDataFormatException" />.</param>
-        public InvalidDataFormatException(string message, Exception innerException) : base(message, innerException) { }
-        public InvalidDataFormatException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
+		public InvalidDataFormatException(string message, Exception innerException) : base(message, innerException) { }
+		public InvalidDataFormatException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+	}
 }

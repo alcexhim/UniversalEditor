@@ -26,16 +26,16 @@ namespace UniversalEditor.ObjectModels.InstallShield
 	/// <summary>
 	/// Provides an <see cref="ObjectModel" /> for storing information related to InstallShield script files.
 	/// </summary>
-    public class InstallShieldScriptObjectModel : ObjectModel
-    {
-        public override void Clear()
-        {
-            throw new NotImplementedException();
-        }
+	public class InstallShieldScriptObjectModel : ObjectModel
+	{
+		public override void Clear()
+		{
+			throw new NotImplementedException();
+		}
 
-        public override void CopyTo(ObjectModel where)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public override void CopyTo(ObjectModel where)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

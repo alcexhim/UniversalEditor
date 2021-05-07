@@ -25,13 +25,13 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 	/// Specifies the type of special section index referred to by an Executable and Linkable Format executable.
 	/// </summary>
 	public enum ELFSpecialSectionIndex
-    {
-        Undefined = 0,
-        ReservedLo = 0xFF00,
-        ProcLo = 0xFF00,
-        ProcHigh = 0xFF1F,
-        Abs = 0xFFF1,
-        Common = 0xFFF2,
-        ReservedHigh = 0xFFFF
-    }
+	{
+		Undefined = 0,
+		ReservedLo = 0xFF00,
+		ProcLo = 0xFF00,
+		ProcHigh = 0xFF1F,
+		Abs = 0xFFF1,
+		Common = 0xFFF2,
+		ReservedHigh = 0xFFFF
+	}
 }

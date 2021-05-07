@@ -27,7 +27,7 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElements
 	/// Represents a <see cref="CodeElement" /> specifying a call to an existing method.
 	/// </summary>
 	public class CodeMethodCallElement : CodeElementContainerElement
-    {
+	{
 		public CodeMethodCallElement()
 		{
 		}
@@ -60,5 +60,5 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElements
 		/// </summary>
 		/// <value>The parameters to pass into the method call.</value>
 		public CodeVariableElement.CodeVariableElementCollection Parameters { get; } = new CodeVariableElement.CodeVariableElementCollection();
-    }
+	}
 }

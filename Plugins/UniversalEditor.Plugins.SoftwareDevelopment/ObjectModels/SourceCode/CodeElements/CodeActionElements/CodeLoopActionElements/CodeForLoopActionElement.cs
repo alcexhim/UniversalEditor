@@ -5,8 +5,8 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.SourceCode.CodeElements.CodeActionElements.CodeLoopActionElements
 {
-    public class CodeForLoopActionElement : CodeLoopActionElement
-    {
+	public class CodeForLoopActionElement : CodeLoopActionElement
+	{
 
-    }
+	}
 }

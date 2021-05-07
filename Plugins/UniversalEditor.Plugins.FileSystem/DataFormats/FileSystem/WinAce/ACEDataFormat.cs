@@ -24,14 +24,14 @@
 
 The public version of UNACE is limited in its functionality:
 
-		* no v2.0 decompression
-		* no EMS/XMS support
+	*	no v2.0 decompression
+	*	no EMS/XMS support
 
-		* decompression dictionary limited by the target system;
+	*	decompression dictionary limited by the target system; this means that the
+		16bit version has a maximum of 32k only
 
-			this means that the 16bit version has a maximum of 32k only
-        * no decryption
-        * no wildcard-handling
+	*	no decryption
+	*	no wildcard-handling
 
 Here's hoping the community can fix these bugs!
 
@@ -171,7 +171,6 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
 			e.Data = decompressedData;
 		}
 
-
 		/*
 		void comment_out(ACEHeader head, byte[] top)      // outputs comment if present
 		{
@@ -212,67 +211,66 @@ namespace UniversalEditor.DataFormats.FileSystem.WinAce
 			}
 		}
 
-        private void dcpr_comm_init()
-        {
-            int i = comm_cpr_size > size_rdb * 4 ? size_rdb * 4 : comm_cpr_size;
-            if (!f_err)
-            {
-                // memcpy(buf_rd, comm, i);
-            }
+		private void dcpr_comm_init()
+		{
+			int i = comm_cpr_size > size_rdb * 4 ? size_rdb * 4 : comm_cpr_size;
+			if (!f_err)
+			{
+				// memcpy(buf_rd, comm, i);
+			}
 
-            code_rd = buf_rd[0];
-            rpos = bits_rd = 0;
-        }
+			code_rd = buf_rd[0];
+			rpos = bits_rd = 0;
+		}
 
-        private void dcpr_comm(int comm_size)
-        {
-            short[] hash = new short[comm_cpr_hf(255 + 255) + 1];
-            int dpos = 0, c, pos, len, hs;
+		private void dcpr_comm(int comm_size)
+		{
+			short[] hash = new short[comm_cpr_hf(255 + 255) + 1];
+			int dpos = 0, c, pos, len, hs;
 
-            if (comm_cpr_size != 0)
-            {
-                dcpr_comm_init();
-                len = code_rd >> (32 - 15);
-                addbits(15);
-                if (len >= comm_size)
-                {
-                    len = comm_size - 1;
-                }
-                if (read_wd(maxwd_mn, dcpr_code_mn, dcpr_wd_mn, max_cd_mn))
-                {
-                    do
-                    {
-                        if (dpos > 1)
-                        {
-                            pos = hash[hs = comm_cpr_hf(comm[dpos - 1], comm[dpos - 2])];
-                            hash[hs] = dpos;
-                        }
-                        addbits(dcpr_wd_mn[(c = dcpr_code_mn[code_rd >> (32 - maxwd_mn)])]);
-                        if (rpos == size_rdb - 3)
-                        {
-                            rpos = 0;
-                        }
-                        if (c > 255)
-                        {
-                            c -= 256;
-                            c += 2;
-                            while (c--)
-                            {
-                                comm[dpos++] = comm[pos++];
-                            }
-                        }
-                        else
-                        {
-                            comm[dpos++] = c;
-                        }
-                    }
-                    while (dpos < len);
-                }
-                comm[len] = 0;
-            }
-        }
-
-        */
+			if (comm_cpr_size != 0)
+			{
+				dcpr_comm_init();
+				len = code_rd >> (32 - 15);
+				addbits(15);
+				if (len >= comm_size)
+				{
+					len = comm_size - 1;
+				}
+				if (read_wd(maxwd_mn, dcpr_code_mn, dcpr_wd_mn, max_cd_mn))
+				{
+					do
+					{
+						if (dpos > 1)
+						{
+							pos = hash[hs = comm_cpr_hf(comm[dpos - 1], comm[dpos - 2])];
+							hash[hs] = dpos;
+						}
+						addbits(dcpr_wd_mn[(c = dcpr_code_mn[code_rd >> (32 - maxwd_mn)])]);
+						if (rpos == size_rdb - 3)
+						{
+							rpos = 0;
+						}
+						if (c > 255)
+						{
+							c -= 256;
+							c += 2;
+							while (c--)
+							{
+								comm[dpos++] = comm[pos++];
+							}
+						}
+						else
+						{
+							comm[dpos++] = c;
+						}
+					}
+					while (dpos < len);
+				}
+				comm[len] = 0;
+			}
+		}
+		*/
 
 		public string AuthenticityString { get; set; } = "*UNREGISTERED VERSION*";
 

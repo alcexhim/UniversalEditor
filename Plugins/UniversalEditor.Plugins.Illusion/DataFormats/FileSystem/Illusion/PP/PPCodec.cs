@@ -25,9 +25,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Illusion.PP
 	/// Indicates the encryption method for Illusion PP archive files.
 	/// </summary>
 	public enum PPCodec
-    {
-        AG3,
-        SB3,
-        SM
-    }
+	{
+		AG3,
+		SB3,
+		SM
+	}
 }

@@ -25,12 +25,12 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Soundfont
 	/// Provides an <see cref="ObjectModel" /> for manipulating synthesizer soundfonts.
 	/// </summary>
 	public class SoundfontObjectModel : ObjectModel
-    {
-        public override void Clear()
-        {
-        }
-        public override void CopyTo(ObjectModel where)
-        {
-        }
-    }
+	{
+		public override void Clear()
+		{
+		}
+		public override void CopyTo(ObjectModel where)
+		{
+		}
+	}
 }

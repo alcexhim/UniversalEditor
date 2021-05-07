@@ -24,10 +24,10 @@ namespace UniversalEditor.DataFormats.Executable.ELF
 	/// <summary>
 	/// Indicates the type of number encoding used in an Executable and Linkable Format (ELF) executable.
 	/// </summary>
-    public enum ELFEncoding
-    {
-        None = 0,
-        TwosComplementLSB = 1,
-        TwosComplementMSB = 2
-    }
+	public enum ELFEncoding
+	{
+		None = 0,
+		TwosComplementLSB = 1,
+		TwosComplementMSB = 2
+	}
 }

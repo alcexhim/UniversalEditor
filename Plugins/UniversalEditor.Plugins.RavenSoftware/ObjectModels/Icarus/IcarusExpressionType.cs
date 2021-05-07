@@ -25,12 +25,12 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// Indicates the data type of an ICARUS expression in a compiled ICARUS binary.
 	/// </summary>
 	public enum IcarusExpressionType
-    {
-        None = 0,
-        String = 4,
-        Float = 6,
-        Enumeration = 7,
-        Vector = 14,
-        Get = 36
-    }
+	{
+		None = 0,
+		String = 4,
+		Float = 6,
+		Enumeration = 7,
+		Vector = 14,
+		Get = 36
+	}
 }

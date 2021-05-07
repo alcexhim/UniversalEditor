@@ -71,8 +71,6 @@
     <Compile Include="DataFormats\Multimedia3D\Model\SMD\SMDDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\Super6\Super6DataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Model\TriangleEditor\TEDDataFormat.cs" />
-    <Compile Include="DataFormats\PMAXPatch\PMAXPatchBinaryDataFormat.cs" />
-    <Compile Include="DataFormats\PMAXPatch\PMAXPatchXMLDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Accessory\PolygonMovieMaker\VACAccessoryDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia3D\Motion\MotionVectorData\Internal\MVDBoneData.cs" />
     <Compile Include="DataFormats\Multimedia3D\Motion\MotionVectorData\MVDMotionDataFormat.cs" />
@@ -141,14 +139,6 @@
     <Compile Include="ObjectModels\Multimedia3D\Motion\MotionFrame.cs" />
     <Compile Include="ObjectModels\Multimedia3D\Motion\MotionInterpolationData.cs" />
     <Compile Include="ObjectModels\Multimedia3D\Motion\MotionObjectModel.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\Chunks\PMAXAdvancedTextureBlockChunk.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\Chunks\PMAXEffectsScriptChunk.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\Chunks\PMAXMaterialNamesChunk.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\PMAXAdvancedTextureBlock.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\PMAXAdvancedTextureBlockImage.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\PMAXPatch.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\PMAXPatchChunk.cs" />
-    <Compile Include="ObjectModels\PMAXPatch\PMAXPatchObjectModel.cs" />
     <Compile Include="ObjectModels\Multimedia3D\Pose\PoseBone.cs" />
     <Compile Include="ObjectModels\Multimedia3D\Pose\PoseObjectModel.cs" />
     <Compile Include="ObjectModels\Multimedia3D\Scene\SceneModelReference.cs" />
@@ -230,6 +220,30 @@
     <EmbeddedResource Include="Associations\Model\ShaiyaOnline3DC.uexml" />
     <EmbeddedResource Include="Associations\Model\UltimateStuntsGLB.uexml" />
     <EmbeddedResource Include="Associations\Scene\IDSoftware.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\IGBNode.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\IntrinsicGraphicsBinaryDataFormat.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\igBase.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\igList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationCombiner.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationCombinerList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationCombinerBoneInfo.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAABox.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationDatabase.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationBinding.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationCombinerBoneInfoList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationModifierList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igActorList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igActorInfo.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimation.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationCombinerBoneInfoListList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igObject.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igActor.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Nodes\igAnimationBindingList.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Internal\IGB_NODE_INFO.cs" />
+    <None Include="DataFormats\Multimedia3D\Model\Alchemy\Internal\IGB_ENTRY.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

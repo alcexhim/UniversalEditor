@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
@@ -9,13 +9,13 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.ThreeDStudio
 {
 	public class ThreeDStudioDataFormat : DataFormat
 	{
-        public override DataFormatReference MakeReference()
-        {
-            DataFormatReference dfr = base.MakeReferenceInternal();
-            dfr.Filters.Add("3D Studio model", new string[] { "*.3ds" });
-            dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-            return dfr;
-        }
+	    public override DataFormatReference MakeReference()
+	    {
+	        DataFormatReference dfr = base.MakeReferenceInternal();
+	        dfr.Filters.Add("3D Studio model", new string[] { "*.3ds" });
+	        dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+	        return dfr;
+	    }
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			// 3ds models can use additional files which are expected in the same directory

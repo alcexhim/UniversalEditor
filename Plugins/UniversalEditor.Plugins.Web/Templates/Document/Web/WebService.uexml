@@ -44,21 +44,21 @@ using System.Web.Services;
 // [System.Web.Script.Services.ScriptService]
 public class WebService1 : System.Web.Services.WebService
 {
-    public WebService1()
-    {
-        //
-        // TODO: Add any constructor code required
-        //
-    }
+	public WebService1()
+	{
+		//
+		// TODO: Add any constructor code required
+		//
+	}
 
-    // WEB SERVICE EXAMPLE
-    // The HelloWorld() example service returns the string Hello World.
+	// WEB SERVICE EXAMPLE
+	// The HelloWorld() example service returns the string Hello World.
 
-    [WebMethod]
-    public string HelloWorld()
-    {
-        return "Hello World";
-    }
+	[WebMethod]
+	public string HelloWorld()
+	{
+		return "Hello World";
+	}
 }
 ]]>
 				</Text>

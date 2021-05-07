@@ -28,9 +28,9 @@ namespace UniversalEditor
 	/// Extension methods for the multimedia plugin.
 	/// </summary>
 	public static class ExtensionMethods
-    {
-        #region Reader
-        /// <summary>
+	{
+		#region Reader
+		/// <summary>
 		/// Reads a series of 3 32-bit Single values as a <see cref="Color" />
 		/// in RGB order.
 		/// </summary>
@@ -38,14 +38,14 @@ namespace UniversalEditor
 		/// <returns></returns>
 		public static Color ReadColorRGBSingle(this IO.Reader br)
 		{
-            float specularR = br.ReadSingle();
-            float specularG = br.ReadSingle();
-            float specularB = br.ReadSingle();
+			float specularR = br.ReadSingle();
+			float specularG = br.ReadSingle();
+			float specularB = br.ReadSingle();
 
-            int r = (int)Math.Min(255f, specularR * 255f);
-            int g = (int)Math.Min(255f, specularG * 255f);
-            int b = (int)Math.Min(255f, specularB * 255f);
-            return Color.FromRGBAInt32(r, g, b);
+			int r = (int)Math.Min(255f, specularR * 255f);
+			int g = (int)Math.Min(255f, specularG * 255f);
+			int b = (int)Math.Min(255f, specularB * 255f);
+			return Color.FromRGBAInt32(r, g, b);
 		}
 		/// <summary>
 		/// Reads a series of 4 32-bit Single values as a <see cref="Color" />
@@ -55,36 +55,36 @@ namespace UniversalEditor
 		/// <returns></returns>
 		public static Color ReadColorRGBASingle(this IO.Reader br)
 		{
-            float diffuseR = br.ReadSingle();
-            float diffuseG = br.ReadSingle();
-            float diffuseB = br.ReadSingle();
-            float diffuseA = br.ReadSingle();
+			float diffuseR = br.ReadSingle();
+			float diffuseG = br.ReadSingle();
+			float diffuseB = br.ReadSingle();
+			float diffuseA = br.ReadSingle();
 
-            int a = (int)Math.Min(255f, diffuseA * 255f);
-            int r = (int)Math.Min(255f, diffuseR * 255f);
-            int g = (int)Math.Min(255f, diffuseG * 255f);
-            int b = (int)Math.Min(255f, diffuseB * 255f);
-            return Color.FromRGBAInt32(r, g, b, a);
+			int a = (int)Math.Min(255f, diffuseA * 255f);
+			int r = (int)Math.Min(255f, diffuseR * 255f);
+			int g = (int)Math.Min(255f, diffuseG * 255f);
+			int b = (int)Math.Min(255f, diffuseB * 255f);
+			return Color.FromRGBAInt32(r, g, b, a);
 		}
-        /// <summary>
-        /// Reads a series of 4 32-bit Single values as a <see cref="Color" />
-        /// in RGBA order.
-        /// </summary>
-        /// <param name="br"></param>
-        /// <returns></returns>
-        public static Color ReadColorARGBSingle(this IO.Reader br)
-        {
-            float diffuseA = br.ReadSingle();
-            float diffuseR = br.ReadSingle();
-            float diffuseG = br.ReadSingle();
-            float diffuseB = br.ReadSingle();
+		/// <summary>
+		/// Reads a series of 4 32-bit Single values as a <see cref="Color" />
+		/// in RGBA order.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <returns></returns>
+		public static Color ReadColorARGBSingle(this IO.Reader br)
+		{
+			float diffuseA = br.ReadSingle();
+			float diffuseR = br.ReadSingle();
+			float diffuseG = br.ReadSingle();
+			float diffuseB = br.ReadSingle();
 
-            int a = (int)Math.Min(255f, diffuseA * 255f);
-            int r = (int)Math.Min(255f, diffuseR * 255f);
-            int g = (int)Math.Min(255f, diffuseG * 255f);
-            int b = (int)Math.Min(255f, diffuseB * 255f);
-            return Color.FromRGBAInt32(r, g, b, a);
-        }
+			int a = (int)Math.Min(255f, diffuseA * 255f);
+			int r = (int)Math.Min(255f, diffuseR * 255f);
+			int g = (int)Math.Min(255f, diffuseG * 255f);
+			int b = (int)Math.Min(255f, diffuseB * 255f);
+			return Color.FromRGBAInt32(r, g, b, a);
+		}
 
 		/// <summary>
 		/// Reads a <see cref="Color" /> as 4 bits Red, 4 bits Green, 4 bits Blue, and 4 bits Alpha.
@@ -153,20 +153,20 @@ namespace UniversalEditor
 
 			Color color = Color.FromRGBAByte(a, r, g, b);
 			return color;
-        }
-        #endregion
-        #region Writer
-        /// <summary>
-        /// Writes a series of 3 32-bit Single values as a <see cref="Color" />
+		}
+		#endregion
+		#region Writer
+		/// <summary>
+		/// Writes a series of 3 32-bit Single values as a <see cref="Color" />
 		/// in RGB order.
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
 		public static void WriteColorRGBSingle(this IO.Writer bw, Color color)
-        {
-            bw.WriteSingle((float)color.R);
-            bw.WriteSingle((float)color.G);
-            bw.WriteSingle((float)color.B);
+		{
+			bw.WriteSingle((float)color.R);
+			bw.WriteSingle((float)color.G);
+			bw.WriteSingle((float)color.B);
 		}
 		/// <summary>
 		/// Writes a series of 4 32-bit Single values as a <see cref="Color" />
@@ -174,36 +174,36 @@ namespace UniversalEditor
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
-        public static void WriteColorRGBASingle(this IO.Writer bw, Color color)
-        {
-            bw.WriteSingle((float)color.R);
-            bw.WriteSingle((float)color.G);
-            bw.WriteSingle((float)color.B);
-            bw.WriteSingle((float)color.A);
+		public static void WriteColorRGBASingle(this IO.Writer bw, Color color)
+		{
+			bw.WriteSingle((float)color.R);
+			bw.WriteSingle((float)color.G);
+			bw.WriteSingle((float)color.B);
+			bw.WriteSingle((float)color.A);
 		}
-        /// <summary>
-        /// Writes a series of 4 32-bit Single values as a <see cref="Color" />
-        /// in ARGB order.
-        /// </summary>
-        /// <param name="br"></param>
-        /// <returns></returns>
-        public static void WriteColorARGBSingle(this IO.Writer bw, Color color)
-        {
-            bw.WriteSingle((float)color.A);
-            bw.WriteSingle((float)color.R);
-            bw.WriteSingle((float)color.G);
-            bw.WriteSingle((float)color.B);
-        }
+		/// <summary>
+		/// Writes a series of 4 32-bit Single values as a <see cref="Color" />
+		/// in ARGB order.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <returns></returns>
+		public static void WriteColorARGBSingle(this IO.Writer bw, Color color)
+		{
+			bw.WriteSingle((float)color.A);
+			bw.WriteSingle((float)color.R);
+			bw.WriteSingle((float)color.G);
+			bw.WriteSingle((float)color.B);
+		}
 
 		/// <summary>
-        /// Writes a <see cref="Color" /> as 4 bits Red, 4 bits Green, 4 bits Blue, and 4 bits Alpha.
+		/// Writes a <see cref="Color" /> as 4 bits Red, 4 bits Green, 4 bits Blue, and 4 bits Alpha.
 		/// </summary>
 		/// <param name="br"></param>
 		/// <returns></returns>
 		public static void WriteColorRGBA4444(this IO.Writer bw, Color color)
 		{
-            throw new NotImplementedException();
-            /*
+			throw new NotImplementedException();
+			/*
 			// 4 bits R, 4 bits G, 4 bits B, 4 bits alpha
 			ushort rgba = br.ReadUInt16();
 			byte r = (byte)(rgba.GetBits(0, 4));
@@ -212,7 +212,7 @@ namespace UniversalEditor
 			byte a = (byte)(rgba.GetBits(12, 4));
 
 			Color color = Color.FromRGBA(a, r, g, b);
-            */
+			*/
 		}
 
 		/// <summary>
@@ -222,7 +222,7 @@ namespace UniversalEditor
 		/// <returns></returns>
 		public static void WriteColorRGBA5650(this IO.Writer bw, Color color)
 		{
-            throw new NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		/// <summary>
@@ -232,10 +232,10 @@ namespace UniversalEditor
 		/// <returns></returns>
 		public static void WriteColorRGBA8888(this IO.Writer bw, Color color)
 		{
-            bw.WriteByte((byte)(color.R * 255));
-            bw.WriteByte((byte)(color.G * 255));
-            bw.WriteByte((byte)(color.B * 255));
-            bw.WriteByte((byte)(color.A * 255));
+			bw.WriteByte((byte)(color.R * 255));
+			bw.WriteByte((byte)(color.G * 255));
+			bw.WriteByte((byte)(color.B * 255));
+			bw.WriteByte((byte)(color.A * 255));
 		}
 
 		/// <summary>
@@ -245,8 +245,8 @@ namespace UniversalEditor
 		/// <returns></returns>
 		public static Color ReadColorRGBA5551(this IO.Writer bw, Color color)
 		{
-            throw new NotImplementedException();
-        }
-        #endregion
-    }
+			throw new NotImplementedException();
+		}
+		#endregion
+	}
 }

@@ -28,7 +28,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 	/// Represents a reference to another <see cref="CodeElement" />.
 	/// </summary>
 	public class CodeElementReference
-    {
+	{
 		public CodeElementReference()
 		{
 		}

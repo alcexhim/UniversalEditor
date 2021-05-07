@@ -3,9 +3,9 @@
 ***********************************************************************************************
 Mocha.Compiler.targets
 
-WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
-          created a backup copy.  Incorrect changes to this file will make it
-          impossible to load or build your projects from the command-line or the IDE.
+WARNING:	DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+			created a backup copy.  Incorrect changes to this file will make it
+			impossible to load or build your projects from the command-line or the IDE.
 
 This file defines the steps in the standard build process specific for Mocha Class Library
 projects. For example, it contains the step that actually calls the XML-to-MCL compiler.  The

@@ -7,20 +7,20 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 {
 	public class CNX : CompressionModule
 	{
-        public override string Name
-        {
-            get { return "CNX"; }
-        }
+		public override string Name
+		{
+			get { return "CNX"; }
+		}
 
-        private string mvarOriginalFileNameExtension = String.Empty;
-        public string OriginalFileNameExtension { get { return mvarOriginalFileNameExtension; } set { mvarOriginalFileNameExtension = value; } }
+		private string mvarOriginalFileNameExtension = String.Empty;
+		public string OriginalFileNameExtension { get { return mvarOriginalFileNameExtension; } set { mvarOriginalFileNameExtension = value; } }
 
 		protected override void DecompressInternal(System.IO.Stream inputStream, System.IO.Stream outputStream, int inputLength, int outputLength)
-        {
-            uint num = inputStream.ReadUInt(8L).SwapEndian() + 16u;
-            uint num2 = inputStream.ReadUInt(12L).SwapEndian();
+		{
+			uint num = inputStream.ReadUInt(8L).SwapEndian() + 16u;
+			uint num2 = inputStream.ReadUInt(12L).SwapEndian();
 			uint num3 = 16u;
-            byte[] array = inputStream.ReadBytes(0L, num);
+			byte[] array = inputStream.ReadBytes(0L, num);
 
 			while (num3 < num && outputStream.Position < num2)
 			{
@@ -30,20 +30,20 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 				{
 					switch (b >> i * 2 & 3)
 					{
-						case 0:
+					case 0:
 						{
 							byte b2 = array[(int)((uint)((UIntPtr)num3))];
 							num3 += (uint)((b2 & 255) + 1);
 							i = 3;
 							break;
 						}
-						case 1:
+					case 1:
 						{
 							outputStream.Write(array[(int)((uint)((UIntPtr)num3))]);
 							num3 += 1u;
 							break;
 						}
-						case 2:
+					case 2:
 						{
 							uint num5 = (uint)BitConverter.ToUInt16(array, (int)num3).SwapEndian();
 							uint num6 = (num5 >> 5) + 1u;
@@ -52,16 +52,16 @@ namespace UniversalEditor.Compression.Puyo.Internal.Compressors
 							int num8 = 0;
 							while ((long)num8 < (long)((ulong)num7))
 							{
-                                long pos = outputStream.Position;
-                                outputStream.Position = pos - num6;
-                                byte val = (byte)outputStream.ReadByte();
-                                outputStream.Position = pos;
-                                outputStream.Write(val);
+								long pos = outputStream.Position;
+								outputStream.Position = pos - num6;
+								byte val = (byte)outputStream.ReadByte();
+								outputStream.Position = pos;
+								outputStream.Write(val);
 								num8++;
 							}
 							break;
 						}
-						case 3:
+					case 3:
 						{
 							byte b3 = array[(int)((uint)((UIntPtr)num3))];
 							num3 += 1u;

@@ -24,9 +24,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Illusion.PP
 	/// <summary>
 	/// Structure holding metadata for the PP archive decrypter.
 	/// </summary>
-    public struct PPFormatInfo
-    {
-        public PPCodec codec;
-        public byte[] key;
-    }
+	public struct PPFormatInfo
+	{
+		public PPCodec codec;
+		public byte[] key;
+	}
 }

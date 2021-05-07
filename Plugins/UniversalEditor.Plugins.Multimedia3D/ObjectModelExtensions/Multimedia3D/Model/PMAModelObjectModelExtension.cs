@@ -1,4 +1,4 @@
-//
+﻿//
 //  PMAModelObjectModelExtension.cs - provides an ObjectModelExtension that extends a ModelObjectModel with additional information pertaining to the Polygon Movie Maker ALCETECH format
 //
 //  Author:
@@ -29,21 +29,21 @@ namespace UniversalEditor.ObjectModelExtensions.Multimedia3D.Model
 	public class PMAModelObjectModelExtension // : ObjectModelExtension
 	{
 		/*
-        public override void Clear()
-        {
-            mvarEnabled = false;
-            mvarVersion = new Version(1, 0, 0, 0);
-            mvarTextureFlipping = new TextureFlippingInformation();
-        }
-        public override void CopyTo(ObjectModelExtension where)
-        {
-            PMAModelObjectModelExtension clone = (where as PMAModelObjectModelExtension);
-            if (clone == null) throw new ObjectModelNotSupportedException();
+	    public override void Clear()
+	    {
+	        mvarEnabled = false;
+	        mvarVersion = new Version(1, 0, 0, 0);
+	        mvarTextureFlipping = new TextureFlippingInformation();
+	    }
+	    public override void CopyTo(ObjectModelExtension where)
+	    {
+	        PMAModelObjectModelExtension clone = (where as PMAModelObjectModelExtension);
+	        if (clone == null) throw new ObjectModelNotSupportedException();
 
-            clone.Enabled = mvarEnabled;
-            clone.Version = (mvarVersion.Clone() as Version);
-            clone.mvarTextureFlipping = (mvarTextureFlipping.Clone() as TextureFlippingInformation);
-        }
+	        clone.Enabled = mvarEnabled;
+	        clone.Version = (mvarVersion.Clone() as Version);
+	        clone.mvarTextureFlipping = (mvarTextureFlipping.Clone() as TextureFlippingInformation);
+	    }
 		*/
 
 		/// <summary>

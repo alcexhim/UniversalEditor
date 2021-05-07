@@ -28,11 +28,11 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// The abstract base class from which all ICARUS expression implementations derive.
 	/// </summary>
 	public abstract class IcarusExpression : ICloneable
-    {
-        public class IcarusExpressionCollection
-            : System.Collections.ObjectModel.Collection<IcarusExpression>
-        {
-        }
+	{
+		public class IcarusExpressionCollection
+			: System.Collections.ObjectModel.Collection<IcarusExpression>
+		{
+		}
 
 		public abstract object Clone();
 

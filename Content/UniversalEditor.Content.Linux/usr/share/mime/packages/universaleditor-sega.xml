@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-  <mime-type type="application/x-sega-farc">
-    <comment>SEGA FARC archive</comment>
-    <glob pattern="*.farc"/>
-    <icon name="application-x-sega-farc" />
-    <generic-icon name="package-x-generic" />
-  </mime-type>
+	<mime-type type="application/x-sega-farc">
+		<comment>SEGA FARC archive</comment>
+		<glob pattern="*.farc"/>
+		<icon name="application-x-sega-farc" />
+		<generic-icon name="package-x-generic" />
+	</mime-type>
 </mime-info>

@@ -71,7 +71,6 @@
     <Compile Include="Modules\Gzip\GzipStream.cs" />
     <Compile Include="Modules\Gzip\Internal\GzipDecoder.cs" />
     <Compile Include="Modules\Gzip\Internal\GzipHeaderState.cs" />
-    <Compile Include="LZH\LZHStream.cs" />
     <Compile Include="LZMA\LZMAStream.cs" />
     <Compile Include="LZPL2\LZPL2CompressionModule.cs" />
     <Compile Include="Modules\LZRW1\LZRW1CompressionModule.cs" />

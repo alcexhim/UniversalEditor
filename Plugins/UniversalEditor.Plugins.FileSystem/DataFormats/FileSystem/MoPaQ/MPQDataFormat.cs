@@ -58,11 +58,11 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
 
 			switch (magic2)
 			{
-			case 0x1B: // MPQ_USERDATA
+				case 0x1B: // MPQ_USERDATA
 				{
 					break;
 				}
-			case 0x1A: // MPQ
+				case 0x1A: // MPQ
 				{
 					hdr = MPQHeader.Read(br);
 					sizeOfEachLogicalSector = (uint)(512 * (Math.Pow(2, hdr.wBlockSize)));
@@ -133,13 +133,13 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
 		private void file_DataRequest(object sender, DataRequestEventArgs e)
 		{
 			/*
-            string name = String.Empty;
-            int hashindex = GetHashIndexFromFileName(name);
-            if (hashindex == -1) return;
+			string name = String.Empty;
+			int hashindex = GetHashIndexFromFileName(name);
+			if (hashindex == -1) return;
 
-            // get the block index
-            // int blockindex = GetBlockIndexFromHashIndex(hashindex);
-            */
+			// get the block index
+			// int blockindex = GetBlockIndexFromHashIndex(hashindex);
+			*/
 
 			// get the block info for this file
 			// ByteBuffer buf = ByteBuffer.wrap(blockTable);
@@ -163,13 +163,13 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
 				encrypted = true;
 
 				/*
-                int idx = name.lastIndexOf('\\');
-                String fname;
-                if (idx == -1)
-                    fname = name;
-                else
-                    fname = name.substring(idx);
-                */
+				int idx = name.lastIndexOf('\\');
+				String fname;
+				if (idx == -1)
+					fname = name;
+				else
+					fname = name.substring(idx);
+				*/
 
 				// compute filekey
 				string fname = String.Empty;
@@ -207,12 +207,12 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
 
 					switch (compressionMethod)
 					{
-					case MPQCompressionType.Deflate:
+						case MPQCompressionType.Deflate:
 						{
 							sectorData = CompressionModules.Deflate.Decompress(sectorData);
 							break;
 						}
-					default:
+						default:
 						{
 							brh.Accessor.Position -= sectorSize;
 							sectorData = brh.ReadBytes(sectorSize);
@@ -227,76 +227,76 @@ namespace UniversalEditor.DataFormats.FileSystem.MoPaQ
 				e.Data = filedata;
 			}
 			/*
-            // if (flags != -2147483136) throw new System.IO.IOException("Requiring compressed file block type, but has " + Integer.toHexString(flags) + "!");
+			// if (flags != -2147483136) throw new System.IO.IOException("Requiring compressed file block type, but has " + Integer.toHexString(flags) + "!");
 
-            // extract the sector table for this file
-            int sectorsize = 512 * (2 << (sectorSizeShift - 1));
-            int numsectors = (int)((decompressedSize + sectorsize - 1) / sectorsize + 1);
-            byte[] sectorTable = new byte[numsectors * 4];
-            br.Accessor.Seek(offset);
-            byte[] sectorTable = br.ReadToEnd();
-            if (encrypted)
-            {
-                sectorTable = MPQEncryption.Decrypt(sectorTable, filekey - 1);
-            }
-            ByteBuffer secbuf = ByteBuffer.wrap(sectorTable);
-            secbuf.order(ByteOrder.LITTLE_ENDIAN);
+			// extract the sector table for this file
+			int sectorsize = 512 * (2 << (sectorSizeShift - 1));
+			int numsectors = (int)((decompressedSize + sectorsize - 1) / sectorsize + 1);
+			byte[] sectorTable = new byte[numsectors * 4];
+			br.Accessor.Seek(offset);
+			byte[] sectorTable = br.ReadToEnd();
+			if (encrypted)
+			{
+				sectorTable = MPQEncryption.Decrypt(sectorTable, filekey - 1);
+			}
+			ByteBuffer secbuf = ByteBuffer.wrap(sectorTable);
+			secbuf.order(ByteOrder.LITTLE_ENDIAN);
 
-            //logger.trace( "numsectors="+numsectors+" * "+sectorsize );
-            //for( int i=0;i<numsectors;++i )
-            //    logger.trace( "sector "+i+" "+secbuf.getInt( i*4 ) );
+			//logger.trace( "numsectors="+numsectors+" * "+sectorsize );
+			//for( int i=0;i<numsectors;++i )
+			//    logger.trace( "sector "+i+" "+secbuf.getInt( i*4 ) );
 
-            // extract the data
-            FileChannel channel = file.getChannel();
-            byte[] data = new byte[filesize];
+			// extract the data
+			FileChannel channel = file.getChannel();
+			byte[] data = new byte[filesize];
 
-            int sectoroffset = 0;
+			int sectoroffset = 0;
 
-            for (int i = 0; i < numsectors - 1; ++i)
-            {
-                int offset = blockoffset + secbuf.getInt(i * 4);
-                int size = secbuf.getInt(i * 4 + 4) - secbuf.getInt(i * 4);
-                ByteBuffer sector = channel.map(FileChannel.MapMode.READ_ONLY, offset, size);
-                sector.order(ByteOrder.LITTLE_ENDIAN);
+			for (int i = 0; i < numsectors - 1; ++i)
+			{
+				int offset = blockoffset + secbuf.getInt(i * 4);
+				int size = secbuf.getInt(i * 4 + 4) - secbuf.getInt(i * 4);
+				ByteBuffer sector = channel.map(FileChannel.MapMode.READ_ONLY, offset, size);
+				sector.order(ByteOrder.LITTLE_ENDIAN);
 
-                byte[] tmpdata = new byte[size];
-                sector.get(tmpdata);
+				byte[] tmpdata = new byte[size];
+				sector.get(tmpdata);
 
-                if (encrypted)
-                    decrypt(tmpdata, 0, tmpdata.length, filekey + i);
+				if (encrypted)
+					decrypt(tmpdata, 0, tmpdata.length, filekey + i);
 
-                byte compressiontype = tmpdata[0];
+				byte compressiontype = tmpdata[0];
 
-                //logger.trace( "size "+size+" "+sectoroffset );
+				//logger.trace( "size "+size+" "+sectoroffset );
 
-                if (compressiontype == 0x02)
-                {
-                    Inflater inflater = new Inflater();
-                    inflater.setInput(tmpdata, 1, tmpdata.length - 1);
+				if (compressiontype == 0x02)
+				{
+					Inflater inflater = new Inflater();
+					inflater.setInput(tmpdata, 1, tmpdata.length - 1);
 
-                    try
-                    {
-                        sectoroffset += inflater.inflate(data, sectoroffset, data.length - sectoroffset);
-                    }
-                    catch (DataFormatException e)
-                    {
-                        throw new IOException("Failed to decompress: " + e);
-                    }
-                }
-                else
-                    if (compressiontype == 0x08)
-                    {
-                        // TODO
-                        SlicedArray input = new SlicedArray(tmpdata, 1, tmpdata.length - 1);
-                        SlicedArray output = new SlicedArray(data, sectoroffset, data.length - sectoroffset);
-                        sectoroffset += Explode.explode(input, output);
-                    }
-                    else
-                        throw new System.IO.IOException("Unknown compression type " + Integer.toHexString((int)compressiontype) + "!");
-                //logger.trace( "deflated "+sectoroffset+" bytes." );
-            }
+					try
+					{
+						sectoroffset += inflater.inflate(data, sectoroffset, data.length - sectoroffset);
+					}
+					catch (DataFormatException e)
+					{
+						throw new IOException("Failed to decompress: " + e);
+					}
+				}
+				else
+					if (compressiontype == 0x08)
+					{
+						// TODO
+						SlicedArray input = new SlicedArray(tmpdata, 1, tmpdata.length - 1);
+						SlicedArray output = new SlicedArray(data, sectoroffset, data.length - sectoroffset);
+						sectoroffset += Explode.explode(input, output);
+					}
+					else
+						throw new System.IO.IOException("Unknown compression type " + Integer.toHexString((int)compressiontype) + "!");
+					//logger.trace( "deflated "+sectoroffset+" bytes." );
+			}
 
-            */
+			*/
 		}
 
 		private int GetHashIndexFromFileName(string name)

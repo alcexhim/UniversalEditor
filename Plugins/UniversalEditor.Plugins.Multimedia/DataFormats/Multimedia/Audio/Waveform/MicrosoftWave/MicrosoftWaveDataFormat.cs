@@ -35,14 +35,14 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 	/// </summary>
 	public class MicrosoftWaveDataFormat : RIFFDataFormat
 	{
-        private static DataFormatReference _dfr;
+		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-            if (_dfr == null)
-            {
-                _dfr = new DataFormatReference(GetType());
-                _dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
-            }
+			if (_dfr == null)
+			{
+				_dfr = new DataFormatReference(GetType());
+				_dfr.Capabilities.Add(typeof(WaveformAudioObjectModel), DataFormatCapabilities.All);
+			}
 			return _dfr;
 		}
 
@@ -79,7 +79,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 			if (wave == null) throw new ObjectModelNotSupportedException();
 
 			RIFFGroupChunk waveChunk = (riff.Chunks["WAVE"] as RIFFGroupChunk);
-            if (waveChunk == null) throw new InvalidDataFormatException("File does not contain a \"WAVE\" chunk");
+			if (waveChunk == null) throw new InvalidDataFormatException("File does not contain a \"WAVE\" chunk");
 
 			RIFFDataChunk fmtChunk = (waveChunk.Chunks["fmt "] as RIFFDataChunk);
 			IO.Reader br = new IO.Reader(new MemoryAccessor(fmtChunk.Data));
@@ -104,15 +104,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Waveform.MicrosoftWave
 				}
 			}
 			dataChunk = (waveChunk.Chunks["data"] as RIFFDataChunk);
-            if (dataChunk == null)
-            {
-                // TODO: FIX THIS UGLY HACK!!!
-                RIFFGroupChunk infoChunk = (waveChunk.Chunks["INFO"] as RIFFGroupChunk);
-                if (infoChunk != null)
-                {
-                    dataChunk = (infoChunk.Chunks["data"] as RIFFDataChunk);
-                }
-            }
+			if (dataChunk == null)
+			{
+				// TODO: FIX THIS UGLY HACK!!!
+				RIFFGroupChunk infoChunk = (waveChunk.Chunks["INFO"] as RIFFGroupChunk);
+				if (infoChunk != null)
+				{
+					dataChunk = (infoChunk.Chunks["data"] as RIFFDataChunk);
+				}
+			}
 			wave.RawData = dataChunk.Data;
 
 			wave.RawSamples = new WaveformAudioSamples(wave);

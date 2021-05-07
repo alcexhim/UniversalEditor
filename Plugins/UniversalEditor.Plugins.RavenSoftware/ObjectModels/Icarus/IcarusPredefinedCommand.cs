@@ -25,7 +25,7 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// The abstract base class from which predefined ICARUS commands derive.
 	/// </summary>
 	public abstract class IcarusPredefinedCommand : IcarusCommand
-    {
-        public abstract string Name { get; }
-    }
+	{
+		public abstract string Name { get; }
+	}
 }

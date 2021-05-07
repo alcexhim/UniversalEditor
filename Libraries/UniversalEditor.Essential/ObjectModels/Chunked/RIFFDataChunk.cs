@@ -61,9 +61,9 @@ namespace UniversalEditor.ObjectModels.Chunked
 			return clone;
 		}
 
-        public override string ToString()
-        {
-            return base.ID + " [" + mvarData.Length.ToString() + "]";
-        }
+		public override string ToString()
+		{
+			return base.ID + " [" + mvarData.Length.ToString() + "]";
+		}
 	}
 }

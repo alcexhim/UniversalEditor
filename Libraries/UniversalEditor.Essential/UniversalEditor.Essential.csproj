@@ -81,9 +81,6 @@
     <Compile Include="ObjectModels\Chunked\RIFFChunk.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFDataChunk.cs" />
     <Compile Include="ObjectModels\Chunked\RIFFGroupChunk.cs" />
-    <Compile Include="ObjectModels\Chunked\RIFFMetadata.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ObjectModels\CoreObject\CoreObjectAttribute.cs" />
     <Compile Include="ObjectModels\CoreObject\CoreObjectObjectModel.cs" />
     <Compile Include="ObjectModels\CoreObject\CoreObjectGroup.cs" />
@@ -271,6 +268,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\PlainText.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ObjectModels\Chunked\RIFFMetadata.cs">
+      <SubType>Code</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

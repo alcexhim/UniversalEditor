@@ -33,35 +33,35 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.WebP
 	/// Provides a <see cref="DataFormat" /> for manipulating images in WebP format.
 	/// </summary>
 	public class WebPDataFormat : RIFFDataFormat
-    {
-        private static DataFormatReference _dfr;
-        protected override DataFormatReference MakeReferenceInternal()
-        {
-            if (_dfr == null)
-            {
-                _dfr = new DataFormatReference(this.GetType());
-                _dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-                _dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.Bootstrap);
-            }
-            return _dfr;
-        }
+	{
+		private static DataFormatReference _dfr;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr = new DataFormatReference(this.GetType());
+				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
+				_dfr.Capabilities.Add(typeof(ChunkedObjectModel), DataFormatCapabilities.Bootstrap);
+			}
+			return _dfr;
+		}
 
-        protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
-        {
-            base.BeforeLoadInternal(objectModels);
-            objectModels.Push(new ChunkedObjectModel());
-        }
-        protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
-        {
-            base.AfterLoadInternal(objectModels);
+		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
+		{
+			base.BeforeLoadInternal(objectModels);
+			objectModels.Push(new ChunkedObjectModel());
+		}
+		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
+		{
+			base.AfterLoadInternal(objectModels);
 
-            ChunkedObjectModel chunked = (objectModels.Pop() as ChunkedObjectModel);
-            PictureObjectModel pic = (objectModels.Pop() as PictureObjectModel);
+			ChunkedObjectModel chunked = (objectModels.Pop() as ChunkedObjectModel);
+			PictureObjectModel pic = (objectModels.Pop() as PictureObjectModel);
 
-            RIFFGroupChunk WEBP = (chunked.Chunks["WEBP"] as RIFFGroupChunk);
-            if (WEBP == null) throw new InvalidDataFormatException("File does not contain a \"WEBP\" chunk");
+			RIFFGroupChunk WEBP = (chunked.Chunks["WEBP"] as RIFFGroupChunk);
+			if (WEBP == null) throw new InvalidDataFormatException("File does not contain a \"WEBP\" chunk");
 
-            throw new NotImplementedException();
-        }
-    }
+			throw new NotImplementedException();
+		}
+	}
 }

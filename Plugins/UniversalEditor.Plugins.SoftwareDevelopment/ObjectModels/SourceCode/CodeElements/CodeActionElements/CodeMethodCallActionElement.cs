@@ -5,8 +5,8 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.SourceCode.CodeElements.CodeActionElements
 {
-    public class CodeMethodCallActionElement : CodeActionElement
-    {
+	public class CodeMethodCallActionElement : CodeActionElement
+	{
 		public CodeMethodCallActionElement()
 		{
 		}
@@ -23,21 +23,21 @@ namespace UniversalEditor.ObjectModels.SourceCode.CodeElements.CodeActionElement
 		}
 
 		private string[] mvarObjectName = new string[0];
-        public string[] ObjectName
-        {
-            get { return mvarObjectName; }
-            set { mvarObjectName = value; }
-        }
-        private string mvarMethodName = String.Empty;
-        public string MethodName
-        {
-            get { return mvarMethodName; }
-            set { mvarMethodName = value; }
-        }
-        private CodeVariableElement.CodeVariableElementCollection mvarVariables = new CodeVariableElement.CodeVariableElementCollection();
-        public CodeVariableElement.CodeVariableElementCollection Parameters
-        {
-            get { return mvarVariables; }
-        }
-    }
+		public string[] ObjectName
+		{
+			get { return mvarObjectName; }
+			set { mvarObjectName = value; }
+		}
+		private string mvarMethodName = String.Empty;
+		public string MethodName
+		{
+			get { return mvarMethodName; }
+			set { mvarMethodName = value; }
+		}
+		private CodeVariableElement.CodeVariableElementCollection mvarVariables = new CodeVariableElement.CodeVariableElementCollection();
+		public CodeVariableElement.CodeVariableElementCollection Parameters
+		{
+			get { return mvarVariables; }
+		}
+	}
 }
