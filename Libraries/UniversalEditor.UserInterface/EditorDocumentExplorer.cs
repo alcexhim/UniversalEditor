@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorDocumentExplorer.cs
 //
 //  Author:

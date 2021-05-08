@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyNodeFlags.cs - indicates the attributes on a registry key node in a Microsoft registry file
 //
 //  Author:

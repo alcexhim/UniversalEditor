@@ -1,4 +1,4 @@
-﻿//
+//
 //  PNGFilterType.cs - indicates the filter type used for a pixel data block in a PNG image file
 //
 //  Author:

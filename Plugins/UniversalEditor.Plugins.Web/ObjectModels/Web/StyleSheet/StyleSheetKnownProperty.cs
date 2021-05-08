@@ -1,4 +1,4 @@
-﻿//
+//
 //  StyleSheetKnownProperty.cs - indicates which of the known style sheet properties are used by a style sheet attribute
 //
 //  Author:

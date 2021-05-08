@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapObjectModel.cs - provides an ObjectModel for manipulating New World Computing (Heroes of Might and Magic II) levels (maps)
 //
 //  Author:

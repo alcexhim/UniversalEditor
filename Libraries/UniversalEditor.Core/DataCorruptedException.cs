@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataCorruptedException.cs - raised when the DF thinks data has been corrupted (e.g. due to a bad checksum)
 //
 //  Author:

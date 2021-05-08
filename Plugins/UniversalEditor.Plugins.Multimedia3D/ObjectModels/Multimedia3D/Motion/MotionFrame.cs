@@ -1,4 +1,4 @@
-﻿//
+//
 //  MotionFrame.cs - describes animation actions for a single frame in a 3D animation
 //
 //  Author:

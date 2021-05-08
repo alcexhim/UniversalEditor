@@ -1,4 +1,4 @@
-﻿//
+//
 //  StoryXMLDataFormat.cs - provides a DataFormat for manipulating stories in StoryWriter XML format
 //
 //  Author:

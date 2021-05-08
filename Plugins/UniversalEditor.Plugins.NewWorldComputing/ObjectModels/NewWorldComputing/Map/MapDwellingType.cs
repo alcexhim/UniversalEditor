@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapDwellingType.cs - indicates the type of dwelling placed on the map
 //
 //  Author:

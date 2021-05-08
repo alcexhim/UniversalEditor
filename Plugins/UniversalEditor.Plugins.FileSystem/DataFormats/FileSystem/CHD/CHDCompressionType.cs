@@ -1,4 +1,4 @@
-﻿//
+//
 //  CHDCompressionType.cs - indicates the compression type of a CHD archive
 //
 //  Author:

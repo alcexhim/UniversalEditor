@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.Plugins.AutoSave
+namespace UniversalEditor.Plugins.AutoSave
 {
 	public enum AutoSaveKnownType
 	{

@@ -1,4 +1,4 @@
-﻿//
+//
 //  TopicLinkDisplay31Opcode.cs - internal enum indicating opcode for topic link display on WinHelp 3.1 systems
 //
 //  Author:

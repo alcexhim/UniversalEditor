@@ -1,4 +1,4 @@
-﻿//
+//
 //  LBXDataFormat.cs - provides a DataFormat for handling the Gainax LBX archive format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEFSectionKind.cs - indicates the type of section in a Preferred Executable file
 //
 //  Author:

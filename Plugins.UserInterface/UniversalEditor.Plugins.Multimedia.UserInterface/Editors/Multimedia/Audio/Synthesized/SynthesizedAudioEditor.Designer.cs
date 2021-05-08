@@ -1,4 +1,4 @@
-﻿//
+//
 //  PianoRollEditor.Designer.cs - UWT designer initialization for PianoRollEditor
 //
 //  Author:

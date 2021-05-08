@@ -1,4 +1,4 @@
-﻿//
+//
 //  TapeArchiveRecordType.cs - indicates the type of record in a TAR archive
 //
 //  Author:

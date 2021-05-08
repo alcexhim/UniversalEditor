@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandRun.cs - represents the ICARUS "run" command
 //
 //  Author:

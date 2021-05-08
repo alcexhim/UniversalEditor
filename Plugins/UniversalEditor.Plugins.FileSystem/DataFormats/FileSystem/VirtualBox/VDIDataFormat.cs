@@ -1,4 +1,4 @@
-﻿//
+//
 //  VDIDataFormat.cs - provides a DataFormat for manipulating disk images in VirtualBox VDI format
 //
 //  Author:

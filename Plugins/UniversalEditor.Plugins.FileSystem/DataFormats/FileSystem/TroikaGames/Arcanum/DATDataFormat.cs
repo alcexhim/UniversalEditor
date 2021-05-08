@@ -1,4 +1,4 @@
-﻿//
+//
 //  DATDataFormat.cs - provides a DataFormat for manipulating archives in Troika Games Arcanum DAT format
 //
 //  Author:

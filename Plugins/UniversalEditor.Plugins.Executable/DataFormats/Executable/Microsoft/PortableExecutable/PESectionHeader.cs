@@ -1,4 +1,4 @@
-﻿//
+//
 //  PESectionHeader.cs - represents a Portable Executable section header
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BootstrapOperatingSystem.cs - provides operating system-specific information for a Microsoft ACME setup bootstrapper
 //
 //  Author:

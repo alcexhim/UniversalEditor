@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactGender.cs - represents a gender in a ContactObjectModel
 //
 //  Author:

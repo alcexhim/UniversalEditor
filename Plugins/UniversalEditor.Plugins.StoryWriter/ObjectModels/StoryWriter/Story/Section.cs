@@ -1,4 +1,4 @@
-﻿//
+//
 //  Section.cs - represents a section or a scene in a Chapter
 //
 //  Author:

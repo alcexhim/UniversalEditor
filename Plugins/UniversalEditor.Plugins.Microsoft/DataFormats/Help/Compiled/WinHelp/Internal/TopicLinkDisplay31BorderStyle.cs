@@ -1,4 +1,4 @@
-﻿//
+//
 //  TopicLinkDisplay31BorderStyle.cs - internal enum indicating the border style for a topic link on WinHelp 3.1 systems
 //
 //  Author:

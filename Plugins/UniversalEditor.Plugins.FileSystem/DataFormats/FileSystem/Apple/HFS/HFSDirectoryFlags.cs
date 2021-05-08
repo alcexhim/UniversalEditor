@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSDirectoryFlags.cs - indicates attributes for a directory in an HFS filesystem
 //
 //  Author:

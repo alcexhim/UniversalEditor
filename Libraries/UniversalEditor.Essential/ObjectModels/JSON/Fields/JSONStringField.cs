@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONStringField.cs - a JSONField representing a string value
 //
 //  Author:

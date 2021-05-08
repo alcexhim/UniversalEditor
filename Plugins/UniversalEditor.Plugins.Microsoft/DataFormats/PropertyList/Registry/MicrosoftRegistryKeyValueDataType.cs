@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyValueDataType.cs - indicates the data type of a registry key value in a Microsoft registry file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapResourceType.cs
 //
 //  Author:

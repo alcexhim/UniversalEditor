@@ -1,4 +1,4 @@
-﻿//
+//
 //  CustomDataFormatStructureInstance.cs - an instance of a structure used in a CDF
 //
 //  Author:

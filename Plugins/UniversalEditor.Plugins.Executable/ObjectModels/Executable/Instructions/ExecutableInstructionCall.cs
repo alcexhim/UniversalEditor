@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableInstructionCall.cs - represents the CALL opcode
 //
 //  Author:

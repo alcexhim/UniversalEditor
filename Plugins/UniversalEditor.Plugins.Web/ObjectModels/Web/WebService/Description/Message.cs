@@ -1,4 +1,4 @@
-﻿//
+//
 //  Message.cs - WSDL Message
 //
 //  Author:

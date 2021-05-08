@@ -1,4 +1,4 @@
-﻿//
+//
 //  BGACompressionMethod.cs - indicates the compression method for a BGA archive
 //
 //  Author:

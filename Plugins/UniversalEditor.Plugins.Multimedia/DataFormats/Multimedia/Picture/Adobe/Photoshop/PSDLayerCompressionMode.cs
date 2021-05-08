@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDLayerCompressionMode.cs - indicates the compression mode for a layer in an Adobe Photoshop PSD image
 //
 //  Author:

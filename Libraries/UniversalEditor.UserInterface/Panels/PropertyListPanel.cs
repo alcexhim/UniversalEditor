@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyListPanel.cs
 //
 //  Author:

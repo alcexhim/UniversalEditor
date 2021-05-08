@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATFileAttributes.cs - indicates attributes for a file in a FAT filesystem
 //
 //  Author:

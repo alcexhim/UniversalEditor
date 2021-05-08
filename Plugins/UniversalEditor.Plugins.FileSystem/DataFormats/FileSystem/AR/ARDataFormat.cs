@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARDataFormat.cs - provides a DataFormat for manipulating archives in AR format
 //
 //  Author:

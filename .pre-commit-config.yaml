@@ -2,10 +2,14 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
     hooks:
+    -   id: no-commit-to-branch
+    -   id: check-case-conflict
+    -   id: check-merge-conflict
     -   id: check-yaml
     -   id: check-xml
     -   id: check-executables-have-shebangs
     -   id: end-of-file-fixer
+    -   id: fix-byte-order-marker
     -   id: trailing-whitespace
 -   repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 2.1.5

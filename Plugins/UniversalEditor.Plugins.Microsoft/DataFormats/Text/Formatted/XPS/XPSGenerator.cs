@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPSGenerator.cs - provides information about the application used to generate an XML Paper Specification (XPS) document
 //
 //  Author:

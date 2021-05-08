@@ -1,4 +1,4 @@
-﻿//
+//
 //  PhonemeDictionaryObjectModel.cs - provides an ObjectModel for manipulating synthesizer voicebank phoneme dictionaries
 //
 //  Author:

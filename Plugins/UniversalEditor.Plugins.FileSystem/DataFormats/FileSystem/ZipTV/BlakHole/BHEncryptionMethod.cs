@@ -1,4 +1,4 @@
-﻿//
+//
 //  BHEncryptionMethod.cs - indicates the encryption method used in a ZipTV BlakHole archive
 //
 //  Author:

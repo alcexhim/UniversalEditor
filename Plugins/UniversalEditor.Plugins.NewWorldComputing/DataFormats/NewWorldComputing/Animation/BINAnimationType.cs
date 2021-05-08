@@ -1,4 +1,4 @@
-﻿//
+//
 //  BINAnimationType.cs
 //
 //  Author:

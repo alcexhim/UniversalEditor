@@ -1,4 +1,4 @@
-﻿//
+//
 //  AFSFormatVersion.cs - the version of AFS archive being handled by an AFSDataFormat instance
 //
 //  Author:

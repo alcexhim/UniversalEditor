@@ -1,4 +1,4 @@
-﻿//
+//
 //  CriteriaQuery.cs
 //
 //  Author:

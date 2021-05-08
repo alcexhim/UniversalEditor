@@ -1,4 +1,4 @@
-﻿//
+//
 //  BINDataFormat.cs
 //
 //  Author:

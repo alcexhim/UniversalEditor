@@ -1,4 +1,4 @@
-﻿//
+//
 //  Eight2MDataFormat.cs - provides a DataFormat for manipulating audio in Heroes of Might and Magic II 82M format
 //
 //  Author:

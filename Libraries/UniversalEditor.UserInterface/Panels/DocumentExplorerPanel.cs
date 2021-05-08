@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;

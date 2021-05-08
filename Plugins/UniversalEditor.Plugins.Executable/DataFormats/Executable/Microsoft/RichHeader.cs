@@ -1,4 +1,4 @@
-﻿//
+//
 //  RichHeader.cs - contains classes to read and manipulate the "Rich!" header included in some Microsoft executables
 //
 //  Author:

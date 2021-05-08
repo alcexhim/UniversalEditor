@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelSurface.cs - represents a surface (collection of triangles and vertices) for a 3D model
 //
 //  Author:

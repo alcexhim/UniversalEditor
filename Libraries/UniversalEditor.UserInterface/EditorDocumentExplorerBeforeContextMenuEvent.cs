@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorDocumentExplorerBeforeContextMenuEvent.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Template.cs - abstract base class providing common functionality for Universal Editor project and file templates
 //
 //  Author:

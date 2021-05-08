@@ -1,4 +1,4 @@
-﻿//
+//
 //  IIcarusContainerCommand.cs - interface implemented by ICARUS commands which can contain other commands
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ActorObjectModel.cs - provides an ObjectModel to store data for Knowledge Adventure actor files
 //
 //  Author:

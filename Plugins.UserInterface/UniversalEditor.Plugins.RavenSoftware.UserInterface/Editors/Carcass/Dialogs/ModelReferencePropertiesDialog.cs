@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelReferencePropertiesDialog.cs
 //
 //  Author:

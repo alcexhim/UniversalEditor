@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandControlFlowDo.cs - represents the ICARUS "do" control flow command
 //
 //  Author:

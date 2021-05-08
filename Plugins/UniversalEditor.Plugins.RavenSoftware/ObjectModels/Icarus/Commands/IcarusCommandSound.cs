@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandSound.cs - represents the ICARUS "sound" command
 //
 //  Author:

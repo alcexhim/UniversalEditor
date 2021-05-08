@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextItemFontSize.cs - represents a FormattedTextItemContainer which affects the font size of all FormattedTextItems it contains
 //
 //  Author:

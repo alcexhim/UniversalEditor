@@ -1,4 +1,4 @@
-﻿//
+//
 //  ShortcutObjectModel.cs - provides an ObjectModel for manipulating a shortcut or symbolic link to a file on a file system
 //
 //  Author:

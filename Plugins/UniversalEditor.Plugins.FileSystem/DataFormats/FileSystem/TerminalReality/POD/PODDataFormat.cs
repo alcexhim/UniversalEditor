@@ -1,4 +1,4 @@
-﻿//
+//
 //  PODDataFormat.cs - provides a DataFormat for manipulating archives in Terminal Reality POD format
 //
 //  Author:

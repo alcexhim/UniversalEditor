@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandAffect.cs - represents the ICARUS "affect" command
 //
 //  Author:

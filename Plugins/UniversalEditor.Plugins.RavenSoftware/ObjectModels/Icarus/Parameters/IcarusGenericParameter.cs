@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusGenericParameter.cs - represents an ICARUS parameter
 //
 //  Author:

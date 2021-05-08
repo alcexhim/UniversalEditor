@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectTypeVariable.cs - represents a variable for a ProjectType
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FixedValue.cs - represents a fixed value definition for a binary grammar field
 //
 //  Author:

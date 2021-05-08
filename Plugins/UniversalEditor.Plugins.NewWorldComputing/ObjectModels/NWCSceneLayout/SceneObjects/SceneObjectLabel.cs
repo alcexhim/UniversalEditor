@@ -1,4 +1,4 @@
-﻿//
+//
 //  SceneObjectLabel.cs - represents a label in a New World Computing (Heroes of Might and Magic II) dialog
 //
 //  Author:

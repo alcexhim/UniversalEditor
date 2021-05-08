@@ -1,4 +1,4 @@
-﻿//
+//
 //  FixedPageObjectModel.cs - provides an ObjectModel for manipulating FixedPage files in an XML Paper Specification (XPS) document
 //
 //  Author:

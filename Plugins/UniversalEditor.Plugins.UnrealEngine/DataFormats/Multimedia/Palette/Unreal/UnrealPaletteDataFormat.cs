@@ -1,4 +1,4 @@
-﻿//
+//
 //  UnrealPaletteDataFormat.cs
 //
 //  Author:

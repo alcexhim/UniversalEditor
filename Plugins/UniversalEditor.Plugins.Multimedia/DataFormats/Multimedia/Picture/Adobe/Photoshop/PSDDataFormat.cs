@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDDataFormat.cs - provides a DataFormat for manipulating images in Adobe Photoshop PSD format
 //
 //  Author:

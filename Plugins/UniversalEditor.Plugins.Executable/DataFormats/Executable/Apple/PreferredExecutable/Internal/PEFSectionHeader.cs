@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEFSectionHeader.cs - represents a header for a Preferred Executable file
 //
 //  Author:

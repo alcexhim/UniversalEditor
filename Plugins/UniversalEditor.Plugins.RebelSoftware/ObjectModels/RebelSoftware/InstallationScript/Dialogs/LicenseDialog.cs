@@ -1,4 +1,4 @@
-﻿//
+//
 //  LicenseDialog.cs - describes the dialog containing the license agreement that must be accepted before the installation process can begin
 //
 //  Author:

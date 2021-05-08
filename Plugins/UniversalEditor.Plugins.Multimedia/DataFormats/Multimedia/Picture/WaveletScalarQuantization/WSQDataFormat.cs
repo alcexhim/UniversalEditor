@@ -1,4 +1,4 @@
-﻿//
+//
 //  WSQDataFormat.cs - provides a DataFormat for manipulating images in Wavelet Scalar Quantization (WSQ) format
 //
 //  Author:

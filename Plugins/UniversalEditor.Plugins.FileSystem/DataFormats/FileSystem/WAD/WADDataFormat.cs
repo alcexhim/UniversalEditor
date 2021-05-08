@@ -1,4 +1,4 @@
-﻿//
+//
 //  WADDataFormat.cs - provides a DataFormat for manipulating archives in Doom WAD format
 //
 //  Author:

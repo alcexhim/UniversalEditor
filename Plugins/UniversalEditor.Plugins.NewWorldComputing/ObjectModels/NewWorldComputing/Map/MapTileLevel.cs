@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapTileLevel.cs - indicates the z-level for a map tile
 //
 //  Author:

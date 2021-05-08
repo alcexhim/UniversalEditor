@@ -1,4 +1,4 @@
-﻿//
+//
 //  TrueVisionTGADataFormat.cs - implements a DataFormat for manipulating images in TrueVision Targa (TGA) format
 //
 //  Author:

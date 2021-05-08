@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeNamespaceElement.cs - represents a CodeElement that defines a namespace
 //
 //  Author:

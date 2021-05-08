@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSPoint.cs - represents a tuple of x and y coordinates for an HFS filesystem
 //
 //  Author:

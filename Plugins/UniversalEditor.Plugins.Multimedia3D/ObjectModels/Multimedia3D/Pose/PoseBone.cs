@@ -1,4 +1,4 @@
-﻿//
+//
 //  PoseBone.cs - describes bone positioning information for a 3D model pose
 //
 //  Author:

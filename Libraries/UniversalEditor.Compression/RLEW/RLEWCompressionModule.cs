@@ -1,4 +1,4 @@
-﻿//
+//
 //  RLEWCompressionModule.cs - provides a CompressionModule for handling RLEW compression
 //
 //  Author:

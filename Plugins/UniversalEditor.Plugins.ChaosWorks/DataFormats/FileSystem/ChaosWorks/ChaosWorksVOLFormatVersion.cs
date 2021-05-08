@@ -1,4 +1,4 @@
-﻿//
+//
 //  ChaosWorksVOLFormatVersion.cs - specifies whether VOL data format is version 1 (fire fight) or version 2 (' cweVOLF', akimbo et al.)
 //
 //  Author:

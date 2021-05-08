@@ -1,4 +1,4 @@
-﻿//
+//
 //  LNKDataFormat.cs - provides a DataFormat to manipulate Microsoft LNK shortcut files.
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapKingdomColor.cs - indicates the banner color for a kingdom
 //
 //  Author:

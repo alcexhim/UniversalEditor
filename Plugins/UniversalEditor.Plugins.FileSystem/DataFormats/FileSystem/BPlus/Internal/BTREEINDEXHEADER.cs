@@ -1,4 +1,4 @@
-﻿//
+//
 //  BTREEINDEXHEADER.cs - internal structure for BTREEINDEXHEADER
 //
 //  Author:

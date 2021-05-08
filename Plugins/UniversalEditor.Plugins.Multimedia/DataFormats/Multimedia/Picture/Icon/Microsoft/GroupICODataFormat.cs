@@ -1,4 +1,4 @@
-﻿//
+//
 //  GroupICODataFormat.cs - provides a DataFormat for manipulating images in Windows icon (ICO) format
 //
 //  Author:

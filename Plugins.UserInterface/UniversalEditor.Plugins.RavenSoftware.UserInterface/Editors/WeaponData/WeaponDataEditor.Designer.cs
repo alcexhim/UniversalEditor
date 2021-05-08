@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.RavenSoftware.WeaponData
+namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.RavenSoftware.WeaponData
 {
 	partial class WeaponDataEditor
 	{

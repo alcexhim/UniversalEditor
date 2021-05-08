@@ -1,4 +1,4 @@
-﻿//
+//
 //  PMDModelDataFormat.cs - provides a DataFormat for manipulating 3D models in Polygon Movie Maker/MikuMikuDance PMD format
 //
 //  Author:

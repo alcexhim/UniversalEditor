@@ -1,4 +1,4 @@
-﻿//
+//
 //  TILDataFormat.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DrawingAreaControl.cs - provides a UWT CustomControl that facilitates drawing and other image manipulation operations
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyFlags.cs - indicates the attributes for properties in an Unreal Engine package file
 //
 //  Author:

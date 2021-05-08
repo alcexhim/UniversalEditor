@@ -1,4 +1,4 @@
-﻿//
+//
 //  BitmapBitsPerPixel.cs - indicates the bit depth of a Windows bitmap image
 //
 //  Author:

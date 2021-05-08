@@ -1,4 +1,4 @@
-﻿//
+//
 //  UniversalEditorFileBrowserControl.cs
 //
 //  Author:

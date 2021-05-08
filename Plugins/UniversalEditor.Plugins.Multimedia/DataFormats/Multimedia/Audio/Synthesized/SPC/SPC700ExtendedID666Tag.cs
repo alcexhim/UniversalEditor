@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPC700ExtendedID666Tag.cs - provides extended ID666 metadata tag information for a synthesized audio file in SPC700 format
 //
 //  Author:

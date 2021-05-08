@@ -1,4 +1,4 @@
-﻿//
+//
 //  Person.cs
 //
 //  Author:

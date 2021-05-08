@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONObject.cs - represents a JSON object which can contain other JSONObjects and JSONFields
 //
 //  Author:

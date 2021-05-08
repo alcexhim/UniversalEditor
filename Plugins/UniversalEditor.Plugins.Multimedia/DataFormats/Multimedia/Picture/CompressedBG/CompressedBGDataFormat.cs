@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompressedBGDataFormat.cs - provides a DataFormat for manipulating images in CompressedBG format
 //
 //  Author:

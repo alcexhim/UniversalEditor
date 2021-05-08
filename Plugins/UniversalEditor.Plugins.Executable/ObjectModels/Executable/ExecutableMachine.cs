@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableMachine.cs - indicates the target CPU type required to run an executable
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormatCapabilities.cs - determines what a DataFormat can do with a supported ObjectModel
 //
 //  Author:

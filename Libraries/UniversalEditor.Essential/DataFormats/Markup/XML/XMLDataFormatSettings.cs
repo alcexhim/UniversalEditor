@@ -1,4 +1,4 @@
-﻿//
+//
 //  XMLDataFormatSettings.cs - represents settings for the XMLDataFormat parser
 //
 //  Author:

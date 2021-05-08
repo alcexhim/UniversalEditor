@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandRem.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PRPAccessoryDataFormat.cs - provides a DataFormat for manipulating accessory models in QAvimator PRP format
 //
 //  Author:

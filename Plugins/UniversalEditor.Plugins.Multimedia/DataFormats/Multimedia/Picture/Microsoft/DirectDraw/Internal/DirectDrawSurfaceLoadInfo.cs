@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfaceLoadInfo.cs - internal structure representing DirectDraw Surface load information
 //
 //  Author:

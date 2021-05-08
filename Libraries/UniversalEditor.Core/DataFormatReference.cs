@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormatReference.cs - stores information (metadata) about a DataFormat
 //
 //  Author:

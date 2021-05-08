@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPExtraDataFieldType.cs - indicates the type of extra data field stored in a ZIP archive
 //
 //  Author:

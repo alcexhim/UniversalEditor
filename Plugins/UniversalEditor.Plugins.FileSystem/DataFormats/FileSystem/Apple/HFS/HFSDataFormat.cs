@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSDataFormat.cs - provides a DataFormat for manipulating file systems in HFS/HFS+ format
 //
 //  Author:

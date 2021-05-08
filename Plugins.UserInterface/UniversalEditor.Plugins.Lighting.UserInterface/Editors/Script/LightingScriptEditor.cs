@@ -1,4 +1,4 @@
-﻿//
+//
 //  LightingScriptEditor.cs
 //
 //  Author:

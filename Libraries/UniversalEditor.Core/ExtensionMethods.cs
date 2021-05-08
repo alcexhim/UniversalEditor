@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExtensionMethods.cs - various useful (maybe?) extension methods
 //
 //  Author:

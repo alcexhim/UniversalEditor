@@ -1,4 +1,4 @@
-﻿//
+//
 //  ChaosWorksVOLDataFormat.cs - provides a DataFormat for manipulating archives in Chaos Works VOL format
 //
 //  Author:

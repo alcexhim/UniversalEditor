@@ -1,4 +1,4 @@
-﻿//
+//
 //  COSDataFormat.cs - provides a DataFormat for manipulating Moosta OMP character costume files
 //
 //  Author:

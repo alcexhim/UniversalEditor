@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandDeclare.cs - represents the ICARUS "declare" command
 //
 //  Author:

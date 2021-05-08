@@ -1,4 +1,4 @@
-﻿//
+//
 //  SetupObjectModel.cs - contains the instructions and data needed to process an Ark Angles software installation
 //
 //  Author:

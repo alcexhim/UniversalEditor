@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEMDataFormat.cs - provides a DataFormat for manipulating data in Privacy-Enhanced Mail (PEM) encoding
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Generation.cs - indicates export count and name count for a generation in an Unreal Engine package file
 //
 //  Author:

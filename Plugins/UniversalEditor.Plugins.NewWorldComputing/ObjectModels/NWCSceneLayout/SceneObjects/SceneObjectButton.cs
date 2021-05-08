@@ -1,4 +1,4 @@
-﻿//
+//
 //  SceneObjectButton.cs - represents a push button control on a New World Computing dialog
 //
 //  Author:

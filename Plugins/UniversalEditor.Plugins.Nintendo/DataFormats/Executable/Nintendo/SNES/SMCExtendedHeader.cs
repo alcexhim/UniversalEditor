@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCExtendedHeader.cs - provides extended header metadata information for a Nintendo SNES game dump file in SMC format
 //
 //  Author:

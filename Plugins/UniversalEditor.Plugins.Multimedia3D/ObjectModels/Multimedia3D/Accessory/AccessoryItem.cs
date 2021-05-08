@@ -1,4 +1,4 @@
-﻿//
+//
 //  AccessoryItem.cs - describes attachment information for a 3D model attached to an existing model as an accessory item
 //
 //  Author:

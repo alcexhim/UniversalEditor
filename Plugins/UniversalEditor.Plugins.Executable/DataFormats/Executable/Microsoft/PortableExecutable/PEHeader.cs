@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEHeader.cs - describes the header of a Portable Executable file
 //
 //  Author:

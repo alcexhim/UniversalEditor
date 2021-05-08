@@ -1,4 +1,4 @@
-﻿//
+//
 //  UnrealPackageImportPropertiesDialog.cs - provides a UWT-based CustomDialog for editing the properties of an import in an Unreal Engine package
 //
 //  Author:

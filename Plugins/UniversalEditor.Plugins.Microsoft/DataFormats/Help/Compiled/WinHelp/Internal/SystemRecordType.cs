@@ -1,4 +1,4 @@
-﻿//
+//
 //  SystemRecordType.cs - internal enum specifying the type of SYSTEMRECORD present in a WinHelp file
 //
 //  Author:

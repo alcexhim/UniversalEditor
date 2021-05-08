@@ -1,4 +1,4 @@
-﻿//
+//
 //  N2MDataFormat.cs - provides a DataFormat for manipulating archives in N2M format
 //
 //  Author:

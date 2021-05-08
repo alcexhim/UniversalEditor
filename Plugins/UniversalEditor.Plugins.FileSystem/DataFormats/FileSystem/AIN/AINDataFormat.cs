@@ -1,4 +1,4 @@
-﻿//
+//
 //  AINDataFormat.cs - provides a DataFormat for manipulating archives in AIN format
 //
 //  Author:

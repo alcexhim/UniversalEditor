@@ -1,4 +1,4 @@
-﻿//
+//
 //  ChaosWorksVOLV2CompressionFlag.cs - indicates whether a version 2 VOL archive is compressed
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BSPMapDataFormat.cs - provides a DataFormat for manipulating Binary Space Partitioning (BSP) game maps
 //
 //  Author:

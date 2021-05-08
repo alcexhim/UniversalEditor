@@ -1,4 +1,4 @@
-﻿//
+//
 //  MD2DataFormat.cs - provides a DataFormat for manipulating 3D models in id software MD2 format
 //
 //  Author:

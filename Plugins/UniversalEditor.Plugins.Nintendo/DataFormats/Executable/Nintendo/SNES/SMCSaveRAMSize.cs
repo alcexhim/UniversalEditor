@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCSaveRAMSize.cs - indicates the size of the save RAM in an SMC dump file
 //
 //  Author:

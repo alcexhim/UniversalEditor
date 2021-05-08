@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATCheckDiskFlags.cs - indicates flags written by CHKDSK to a FAT filesystem
 //
 //  Author:

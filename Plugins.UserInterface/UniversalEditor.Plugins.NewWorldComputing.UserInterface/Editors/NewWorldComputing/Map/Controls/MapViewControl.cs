@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapViewControl.cs
 //
 //  Author:

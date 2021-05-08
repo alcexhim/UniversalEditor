@@ -1,4 +1,4 @@
-﻿//
+//
 //  UnrealPackageEditor.cs - provides a UWT-based Editor for an UnrealPackageObjectModel
 //
 //  Author:

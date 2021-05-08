@@ -1,4 +1,4 @@
-﻿//
+//
 //  VisualBasicNETCodeDataFormat.cs - provides a DataFormat for manipulating code files written in the VB.NET programming language
 //
 //  Author:

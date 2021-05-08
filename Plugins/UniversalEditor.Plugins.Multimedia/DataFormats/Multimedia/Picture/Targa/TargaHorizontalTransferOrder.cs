@@ -1,4 +1,4 @@
-﻿//
+//
 //  TargaHorizontalTransferOrder.cs - the left-to-right ordering in which pixel data is transferred from the file to the screen
 //
 //  Author:

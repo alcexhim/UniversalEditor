@@ -1,4 +1,4 @@
-﻿//
+//
 //  MHTMLHeader.cs - represents an HTTP header in an MHTML document
 //
 //  Author:

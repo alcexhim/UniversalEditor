@@ -1,4 +1,4 @@
-﻿//
+//
 //  CarcassFrame.cs
 //
 //  Author:

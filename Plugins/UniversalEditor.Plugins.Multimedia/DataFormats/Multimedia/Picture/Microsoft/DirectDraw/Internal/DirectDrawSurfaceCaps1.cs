@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfaceCaps1.cs - specifies the complexity of the surfaces stored
 //
 //  Author:

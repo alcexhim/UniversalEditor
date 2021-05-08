@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeCommentElement.cs - represents a CodeElement that is ignored by the compiler
 //
 //  Author:

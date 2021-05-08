@@ -1,4 +1,4 @@
-﻿//
+//
 //  RSAKeyAlgorithm.cs - indicates the type of key algorithm used in an RSA implementation
 //
 //  Author:

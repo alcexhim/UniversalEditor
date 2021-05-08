@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument;
 using UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree;

@@ -1,4 +1,4 @@
-﻿//
+//
 //  STAKObjectModel.cs
 //
 //  Author:

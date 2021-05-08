@@ -1,4 +1,4 @@
-﻿//
+//
 //  PrintHandler.cs - the abstract base class from which all print handlers derive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusVariableDataType.cs - indicates the data type of an ICARUS variable in a compiled ICARUS binary
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CSSDataFormat.cs - provides a DataFormat for reading and writing Cascading Style Sheets (CSS) files
 //
 //  Author:

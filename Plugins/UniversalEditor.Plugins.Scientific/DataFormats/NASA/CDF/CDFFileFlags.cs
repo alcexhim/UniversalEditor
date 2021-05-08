@@ -1,4 +1,4 @@
-﻿//
+//
 //  CDFFileFlags.cs - flags describing the various aspects of a CDF file
 //
 //  Author:

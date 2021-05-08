@@ -1,4 +1,4 @@
-﻿//
+//
 //  MSCompressedKWAJHeaderFlags.cs - indicates attributes for a MSCompressed KWAJ archive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Shaiya3DCDataFormat.cs - provides a DataFormat for manipulating 3D models in Shaiya 3DC format
 //
 //  Author:

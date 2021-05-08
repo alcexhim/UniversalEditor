@@ -1,4 +1,4 @@
-﻿//
+//
 //  ADFDiskImageBlockSecondaryType.cs
 //
 //  Author:

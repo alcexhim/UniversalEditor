@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyNode.cs - describes a registry key node in a Microsoft registry file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOSegmentFlags.cs - indicates attributes of a segment of an Apple Mach-O executable file
 //
 //  Author:

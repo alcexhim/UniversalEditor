@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectTaskActionPackage.cs - represents a ProjectTaskAction that packages multiple files into a single FileSystemObjectModel
 //
 //  Author:

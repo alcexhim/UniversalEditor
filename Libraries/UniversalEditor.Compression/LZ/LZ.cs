@@ -1,4 +1,4 @@
-﻿//
+//
 //  LZ.cs - QuickLZ data compression library
 //
 //  Author:

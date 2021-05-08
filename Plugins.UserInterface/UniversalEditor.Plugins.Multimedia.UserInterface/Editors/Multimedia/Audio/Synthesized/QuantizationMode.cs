@@ -1,4 +1,4 @@
-﻿//
+//
 //  QuantizationMode.cs
 //
 //  Author:

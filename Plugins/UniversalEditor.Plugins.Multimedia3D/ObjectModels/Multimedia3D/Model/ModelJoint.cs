@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelJoint.cs - represents a bone joint in a 3D model
 //
 //  Author:

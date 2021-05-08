@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandLoop.cs - represents the ICARUS "loop" command
 //
 //  Author:

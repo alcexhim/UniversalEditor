@@ -1,4 +1,4 @@
-﻿//
+//
 //  NintendoOpticalDiscSystemType.cs - indicates the intended system type for a Nintendo optical disc
 //
 //  Author:

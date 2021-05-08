@@ -1,4 +1,4 @@
-﻿//
+//
 //  PlainTextDataFormat.cs - provides a DataFormat for manipulating unformatted plain text files
 //
 //  Author:

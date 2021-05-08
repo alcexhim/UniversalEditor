@@ -1,4 +1,4 @@
-﻿//
+//
 //  BAMLDataFormat.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusBinaryDataFormat.cs - provides a DataFormat for handling ICARUS script files in compiled binary format
 //
 //  Author:

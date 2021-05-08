@@ -1,4 +1,4 @@
-﻿//
+//
 //  NintendoOpticalDiscRegionCode.cs - provides metadata information about region codes for Nintendo optical disc images
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandType.cs - indicates the type of ICARUS command in a compiled ICARUS binary
 //
 //  Author:

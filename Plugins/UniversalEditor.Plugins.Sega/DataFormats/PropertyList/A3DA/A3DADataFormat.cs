@@ -1,4 +1,4 @@
-﻿//
+//
 //  A3DADataFormat.cs
 //
 //  Author:

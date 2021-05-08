@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCLicensee.cs - provides metadata information for companies that have licensed the use of the Nintendo SNES game console for development
 //
 //  Author:

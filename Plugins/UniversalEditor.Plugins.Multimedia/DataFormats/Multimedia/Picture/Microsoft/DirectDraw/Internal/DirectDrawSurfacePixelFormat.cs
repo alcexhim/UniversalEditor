@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfacePixelFormat.cs - internal structure representing a DirectDraw Surface pixel format
 //
 //  Author:

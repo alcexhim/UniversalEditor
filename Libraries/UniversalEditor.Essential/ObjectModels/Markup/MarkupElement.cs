@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupElement.cs - the abstract base class from which all elements in a MarkupObjectModel derive
 //
 //  Author:

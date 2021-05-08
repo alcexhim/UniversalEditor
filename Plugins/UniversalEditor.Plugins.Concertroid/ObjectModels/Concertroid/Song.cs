@@ -1,4 +1,4 @@
-﻿//
+//
 //  Song.cs - represents a song performed as part of a Concertroid Performance
 //
 //  Author:

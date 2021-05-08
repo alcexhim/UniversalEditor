@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachODataFormat.cs - provides a DataFormat to read and write Apple Mach-O executable files
 //
 //  Author:

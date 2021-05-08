@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandPlay.cs - represents the ICARUS 'play' command
 //
 //  Author:

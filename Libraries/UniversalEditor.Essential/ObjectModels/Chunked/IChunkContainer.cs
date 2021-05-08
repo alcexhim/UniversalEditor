@@ -1,4 +1,4 @@
-﻿//
+//
 //  IChunkContainer.cs
 //
 //  Author:

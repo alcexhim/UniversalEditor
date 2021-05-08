@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextItemBold.cs - represents a FormattedTextItemContainer command which styles the contained FormattedTextItems in a bold style (weight 700)
 //
 //  Author:

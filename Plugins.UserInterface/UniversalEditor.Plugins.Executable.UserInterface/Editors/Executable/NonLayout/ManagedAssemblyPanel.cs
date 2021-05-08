@@ -1,4 +1,4 @@
-﻿//
+//
 //  ManagedAssemblyPanel.cs - provides a UWT Container with controls to edit managed assembly information for an ExecutableObjectModel
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ALZipFileAttributeFlags.cs - indicates attributes for a file in an ALZip archive
 //
 //  Author:

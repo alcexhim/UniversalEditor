@@ -1,4 +1,4 @@
-﻿//
+//
 //  GOBDataFormat.cs - provides a DataFormat for manipulating archives in GOB format
 //
 //  Author:

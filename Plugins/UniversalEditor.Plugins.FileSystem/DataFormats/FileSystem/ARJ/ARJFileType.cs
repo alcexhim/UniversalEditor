@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARJFileType.cs - indicates the type of file in an ARJ archive
 //
 //  Author:

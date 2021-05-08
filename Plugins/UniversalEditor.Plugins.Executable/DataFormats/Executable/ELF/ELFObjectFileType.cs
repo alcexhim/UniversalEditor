@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFObjectFileType.cs - identifies the object file type for an Executable and Linkable Format (ELF) executable
 //
 //  Author:

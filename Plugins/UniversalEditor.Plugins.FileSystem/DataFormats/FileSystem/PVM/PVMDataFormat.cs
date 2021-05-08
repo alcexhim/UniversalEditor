@@ -1,4 +1,4 @@
-﻿//
+//
 //  PVMDataFormat.cs - provides a DataFormat for manipulating archives in PVM format
 //
 //  Author:

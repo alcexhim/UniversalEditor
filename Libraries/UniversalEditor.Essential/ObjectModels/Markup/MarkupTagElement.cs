@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupTagElement.cs - represents a tag element in a MarkupObjectModel
 //
 //  Author:

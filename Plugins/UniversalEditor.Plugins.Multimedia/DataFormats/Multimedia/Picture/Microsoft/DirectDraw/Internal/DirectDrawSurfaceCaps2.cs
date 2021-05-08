@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfaceCaps2.cs - additional detail about the surfaces stored
 //
 //  Author:

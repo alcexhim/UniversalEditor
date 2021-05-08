@@ -1,4 +1,4 @@
-﻿//
+//
 //  Listing.cs - represents a product listing in an Ark Angles software catalog
 //
 //  Author:

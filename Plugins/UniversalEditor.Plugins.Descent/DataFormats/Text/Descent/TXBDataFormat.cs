@@ -1,4 +1,4 @@
-﻿//
+//
 //  TXBDataFormat.cs - provides a DataFormat for manipulating text in encoded Descent TXB format
 //
 //  Author:

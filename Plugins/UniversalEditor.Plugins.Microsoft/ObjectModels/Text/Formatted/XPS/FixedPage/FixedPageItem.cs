@@ -1,4 +1,4 @@
-﻿//
+//
 //  FixedPageItem.cs - represents a FixedPage item in an XML Paper Specification (XPS) document
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PAKDataFormat.cs - provides a DataFormat for manipulating archives in Dreamfall PAK format
 //
 //  Author:

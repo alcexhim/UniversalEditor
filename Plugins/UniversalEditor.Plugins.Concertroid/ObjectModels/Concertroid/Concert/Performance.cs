@@ -1,4 +1,4 @@
-﻿//
+//
 //  Performance.cs - represents a single performance of a particular Song by specific Performers, optionally featuring guest Musicians
 //
 //  Author:

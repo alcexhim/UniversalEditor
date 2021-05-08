@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOCpuType.cs - indicates the CPU type for an Apple Mach-O executable
 //
 //  Author:

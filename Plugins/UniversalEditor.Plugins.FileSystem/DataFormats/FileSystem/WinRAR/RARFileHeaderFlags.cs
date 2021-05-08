@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARFileHeaderFlags.cs - indicates header attributes for a file in a RAR archive
 //
 //  Author:

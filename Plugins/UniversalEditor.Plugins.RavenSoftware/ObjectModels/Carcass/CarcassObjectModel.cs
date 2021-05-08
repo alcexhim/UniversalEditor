@@ -1,4 +1,4 @@
-﻿//
+//
 //  CarcassObjectModel.cs
 //
 //  Author:

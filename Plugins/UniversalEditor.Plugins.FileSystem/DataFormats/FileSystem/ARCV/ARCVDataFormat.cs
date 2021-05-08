@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARCVDataFormat.cs - provides a DataFormat for manipulating compressed files in ARCV format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  RAREndHeaderFlagsV5.cs
 //
 //  Author:

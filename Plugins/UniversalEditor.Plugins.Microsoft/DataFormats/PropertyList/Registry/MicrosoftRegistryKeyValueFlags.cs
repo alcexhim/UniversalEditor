@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyValueFlags.cs - indicates attributes of a value for a registry key in a Microsoft registry file
 //
 //  Author:

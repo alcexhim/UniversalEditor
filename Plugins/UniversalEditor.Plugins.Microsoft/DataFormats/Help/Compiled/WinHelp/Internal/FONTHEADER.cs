@@ -1,4 +1,4 @@
-﻿//
+//
 //  FONTHEADER.cs - internal structure representing FONTHEADER for WinHelp files
 //
 //  Author:

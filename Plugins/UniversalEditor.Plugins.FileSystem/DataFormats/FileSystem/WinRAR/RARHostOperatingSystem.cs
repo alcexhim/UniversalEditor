@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARHostOperatingSystem.cs - indicates the operating system on which the RAR file was created
 //
 //  Author:

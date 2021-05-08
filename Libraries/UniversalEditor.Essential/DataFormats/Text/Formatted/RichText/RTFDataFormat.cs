@@ -1,4 +1,4 @@
-﻿//
+//
 //  RTFDataFormat.cs - provides a DataFormat for manipulating formatted text in Rich Text Format
 //
 //  Author:

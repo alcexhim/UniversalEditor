@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATFileInfo.cs - internal structure representing file entry information in a FAT filesystem
 //
 //  Author:

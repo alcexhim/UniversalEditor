@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPSStyleSimulations.cs - indicates the type of style simulations to use for an XML Paper Specification (XPS) document
 //
 //  Author:

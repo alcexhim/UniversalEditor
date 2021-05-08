@@ -1,4 +1,4 @@
-﻿//
+//
 //  OpenDocumentSOCPaletteDataFormat.cs
 //
 //  Author:

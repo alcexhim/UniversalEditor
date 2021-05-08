@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeWhileLoopActionElement.cs - represents a CodeElement for a loop that runs continuously until a condition is met
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  WelcomeDialog.cs - describes the dialog presented to the user before any other dialogs in the installation process
 //
 //  Author:

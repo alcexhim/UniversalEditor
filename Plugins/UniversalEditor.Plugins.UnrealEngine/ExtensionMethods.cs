@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExtensionMethods.cs - extension methods for Unreal Engine functionality
 //
 //  Author:

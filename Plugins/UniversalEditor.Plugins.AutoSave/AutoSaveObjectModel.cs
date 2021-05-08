@@ -1,4 +1,4 @@
-﻿//
+//
 //  AutoSaveObjectModel.cs
 //
 //  Author:

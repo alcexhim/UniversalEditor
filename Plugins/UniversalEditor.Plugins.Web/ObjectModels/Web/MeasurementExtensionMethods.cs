@@ -1,4 +1,4 @@
-﻿//
+//
 //  MeasurementExtensionMethods.cs - extension methods for reading and writing a Measurement
 //
 //  Author:

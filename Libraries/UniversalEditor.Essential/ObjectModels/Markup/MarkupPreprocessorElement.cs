@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupPreprocessorElement.cs - represents a preprocessor element (e.g. <? ... ?>) in a MarkupObjectModel
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PCKDataFormat.cs - provides a DataFormat for manipulating archives in Roxor In the Groove PCK format
 //
 //  Author:

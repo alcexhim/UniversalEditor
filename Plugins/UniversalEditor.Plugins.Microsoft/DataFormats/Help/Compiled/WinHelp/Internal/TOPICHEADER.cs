@@ -1,4 +1,4 @@
-﻿//
+//
 //  TOPICHEADER.cs - internal structure representing TOPICHEADER for WinHelp files
 //
 //  Author:

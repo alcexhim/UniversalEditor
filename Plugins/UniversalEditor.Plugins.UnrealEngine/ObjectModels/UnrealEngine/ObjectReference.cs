@@ -1,4 +1,4 @@
-﻿//
+//
 //  ObjectReference.cs - represents a reference to an object in an Unreal Engine package file
 //
 //  Author:

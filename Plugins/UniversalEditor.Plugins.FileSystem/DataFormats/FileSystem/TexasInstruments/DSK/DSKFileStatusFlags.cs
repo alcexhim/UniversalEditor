@@ -1,4 +1,4 @@
-﻿//
+//
 //  DSKFileStatusFlags.cs - indicates status attributes for a file on a Texas Instruments DSK file system
 //
 //  Author:

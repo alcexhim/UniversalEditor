@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCLayout.cs - indicates whether the Nintendo SNES SMC dump file layout is LoROM or HiROM
 //
 //  Author:

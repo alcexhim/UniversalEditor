@@ -1,4 +1,4 @@
-﻿//
+//
 //  SynthesizedAudioCollectionTrack.cs - represents a track in a synthesized audio collection
 //
 //  Author:

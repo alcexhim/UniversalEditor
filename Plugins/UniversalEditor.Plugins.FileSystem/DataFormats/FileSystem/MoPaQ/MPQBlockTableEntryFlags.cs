@@ -1,4 +1,4 @@
-﻿//
+//
 //  MPQBlockTableEntryFlags.cs - indicates attributes for a block table entry in a MoPaQ archive
 //
 //  Author:

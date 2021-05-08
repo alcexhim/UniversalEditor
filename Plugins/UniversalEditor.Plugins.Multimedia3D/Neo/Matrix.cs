@@ -1,4 +1,4 @@
-﻿//
+//
 //  Matrix.cs - provides various matrix operations that work with Matrix objects or two-dimensional double arrays
 //
 //  Author:

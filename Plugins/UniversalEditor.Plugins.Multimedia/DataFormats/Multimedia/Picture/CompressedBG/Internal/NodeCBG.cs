@@ -1,4 +1,4 @@
-﻿//
+//
 //  NodeCBG.cs - internal structure used with CompressedBGDataFormat
 //
 //  Author:

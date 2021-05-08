@@ -1,4 +1,4 @@
-﻿//
+//
 //  IMCDataFormat.cs - provides a DataFormat for manipulating Moosta OMP image collection files
 //
 //  Author:

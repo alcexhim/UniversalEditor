@@ -1,4 +1,4 @@
-﻿//
+//
 //  ByteOrderMark.cs - indicates the type of byte-order mark to write at the beginning of a plain text file
 //
 //  Author:

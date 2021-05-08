@@ -1,4 +1,4 @@
-﻿//
+//
 //  UEPackageXMLDataFormat.cs - provides a DataFormat for manipulating Universal Editor package files in XML format
 //
 //  Author:

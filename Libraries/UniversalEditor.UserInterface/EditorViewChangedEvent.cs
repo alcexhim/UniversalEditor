@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorViewChangedEventArgs.cs
 //
 //  Author:

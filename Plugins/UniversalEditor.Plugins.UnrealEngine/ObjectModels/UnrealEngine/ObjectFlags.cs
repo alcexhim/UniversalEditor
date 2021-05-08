@@ -1,4 +1,4 @@
-﻿//
+//
 //  ObjectFlags.cs - the attributes for an object in an Unreal Engine package file
 //
 //  Author:

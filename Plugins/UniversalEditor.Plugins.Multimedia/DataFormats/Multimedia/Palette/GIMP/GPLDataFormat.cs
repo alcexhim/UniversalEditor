@@ -1,4 +1,4 @@
-﻿//
+//
 //  GPLDataFormat.cs - provides a DataFormat for manipulating color palettes in GIMP GPL format
 //
 //  Author:

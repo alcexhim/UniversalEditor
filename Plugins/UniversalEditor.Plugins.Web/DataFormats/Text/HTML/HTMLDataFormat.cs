@@ -1,4 +1,4 @@
-﻿//
+//
 //  HTMLDataFormat.cs - provides a DataFormat to read and write formatted text documents as HTML files
 //
 //  Author:

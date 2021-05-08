@@ -1,4 +1,4 @@
-﻿//
+//
 //  Super6DataFormat.cs - provides a DataFormat for manipulating 3D model files in Super6 format
 //
 //  Author:

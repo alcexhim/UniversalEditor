@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeNamespaceImportElement.cs - represents a CodeElement that imports a namespace reference into an existing namespace
 //
 //  Author:

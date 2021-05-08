@@ -1,4 +1,4 @@
-﻿//
+//
 //  ChaosWorksVOLV2ChunkInfo.cs
 //
 //  Author:

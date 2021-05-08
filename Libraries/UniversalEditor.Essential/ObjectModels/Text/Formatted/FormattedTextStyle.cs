@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextStyle.cs - represents a style applied to text in a FormattedTextObjectModel
 //
 //  Author:

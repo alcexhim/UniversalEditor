@@ -1,4 +1,4 @@
-﻿//
+//
 //  LibraryXMLDataFormat.cs - provides a DataFormat for manipulating Concertroid asset libraries in XML format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  SubRipDataFormat.cs - provides a DataFormat for manipulating subtitles in SubRip (SRT) format
 //
 //  Author:

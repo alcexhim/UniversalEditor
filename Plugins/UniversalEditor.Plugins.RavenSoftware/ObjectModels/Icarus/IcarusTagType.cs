@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusTagType.cs - indicates the type of TAG() function call
 //
 //  Author:

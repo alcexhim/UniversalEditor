@@ -1,4 +1,4 @@
-﻿//
+//
 //  GCFDataFormat.cs - implements the Valve GCF archive format
 //
 //  Author:

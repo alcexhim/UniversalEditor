@@ -1,4 +1,4 @@
-﻿//
+//
 //  BALDirectoryEntryAttributes.cs - indicates whether a directory entry in a BAL archive is a directory
 //
 //  Author:

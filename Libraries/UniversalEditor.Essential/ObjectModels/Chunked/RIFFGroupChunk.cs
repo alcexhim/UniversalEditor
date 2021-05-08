@@ -1,4 +1,4 @@
-﻿//
+//
 //  RIFFGroupChunk.cs - represents a group chunk (which can contain subchunks) in a Resource Interchange File Format file
 //
 //  Author:

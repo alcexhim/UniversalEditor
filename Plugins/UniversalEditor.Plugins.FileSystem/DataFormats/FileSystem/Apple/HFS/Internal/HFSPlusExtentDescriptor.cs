@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSPlusExtentDescriptor.cs - internal structure representing an extent descriptor for an HFS+ filesystem
 //
 //  Author:

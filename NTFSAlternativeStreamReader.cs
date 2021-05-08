@@ -1,4 +1,4 @@
-﻿// one line to give the program's name and an idea of what it does.
+// one line to give the program's name and an idea of what it does.
 // Copyright (C) yyyy  name of author
 //
 // This program is free software; you can redistribute it and/or

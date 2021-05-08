@@ -1,4 +1,4 @@
-﻿//
+//
 //  BTREENODEHEADER.cs - internal structure for BTREENODEHEADER
 //
 //  Author:

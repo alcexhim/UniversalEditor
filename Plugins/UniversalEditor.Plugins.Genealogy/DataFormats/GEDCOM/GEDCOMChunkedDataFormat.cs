@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Chunked;
 

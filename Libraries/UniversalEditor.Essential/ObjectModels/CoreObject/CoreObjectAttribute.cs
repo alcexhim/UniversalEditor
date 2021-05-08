@@ -1,4 +1,4 @@
-﻿//
+//
 //  CoreObjectAttribute.cs - represents an attribute in a Core Object file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  LibraryObjectModel.cs - provides an ObjectModel for manipulating Concertroid asset libraries
 //
 //  Author:

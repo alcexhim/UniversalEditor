@@ -1,4 +1,4 @@
-﻿//
+//
 //  RichTextMarkupObjectModel.cs - provides an ObjectModel for manipulating markup in Rich Text Format
 //
 //  Author:

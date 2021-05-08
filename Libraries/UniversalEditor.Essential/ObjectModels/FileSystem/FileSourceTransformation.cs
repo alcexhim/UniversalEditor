@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileSourceTransformation.cs - represents a transformation function applied to a File's data during the read or write process
 //
 //  Author:

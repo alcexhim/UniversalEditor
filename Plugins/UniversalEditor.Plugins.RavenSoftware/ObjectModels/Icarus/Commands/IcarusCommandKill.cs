@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandKill.cs - represents the ICARUS "kill" command
 //
 //  Author:

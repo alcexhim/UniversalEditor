@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEMachineType.cs - indicates the required machine type for a Portable Executable file
 //
 //  Author:

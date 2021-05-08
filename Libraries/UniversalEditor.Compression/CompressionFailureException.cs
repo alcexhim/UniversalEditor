@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompressionFailureException.cs - the exception that is thrown when a compression or decompression operation results in an error
 //
 //  Author:

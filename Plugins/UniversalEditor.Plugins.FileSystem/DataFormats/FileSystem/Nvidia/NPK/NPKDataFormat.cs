@@ -1,4 +1,4 @@
-﻿//
+//
 //  NPKDataFormat.cs - provides a DataFormat for manipulating archives in Nvidia NPK format
 //
 //  Author:

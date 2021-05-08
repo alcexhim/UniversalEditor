@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryReservedFlags.cs - reserved flags for Microsoft registry files
 //
 //  Author:

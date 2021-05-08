@@ -1,4 +1,4 @@
-﻿//
+//
 //  ALDFDataFormat.cs - provides a DataFormat to manipulate Kronosaur ALDF / TDB archive files
 //
 //  Author:

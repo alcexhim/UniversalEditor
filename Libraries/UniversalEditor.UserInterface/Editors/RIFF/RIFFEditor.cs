@@ -1,4 +1,4 @@
-﻿//
+//
 //  RIFFEditor.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ACEHeaderFlags.cs - indicates attributes for a WinACE archive
 //
 //  Author:

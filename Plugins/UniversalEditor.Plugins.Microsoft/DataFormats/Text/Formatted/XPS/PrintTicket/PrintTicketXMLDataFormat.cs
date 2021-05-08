@@ -1,4 +1,4 @@
-﻿//
+//
 //  PrintTicketXMLDataFormat.cs - provides a DataFormat to manipulate PrintTicket files in a Microsoft XML Paper Specification (XPS) document
 //
 //  Author:

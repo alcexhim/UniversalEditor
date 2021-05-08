@@ -1,4 +1,4 @@
-﻿//
+//
 //  IFileSystemContainer.cs - the interface which defines the base functionality for an object which contains Files and Folders
 //
 //  Author:

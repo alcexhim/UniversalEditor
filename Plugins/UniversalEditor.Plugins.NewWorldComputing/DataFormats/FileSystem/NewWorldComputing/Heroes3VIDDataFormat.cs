@@ -1,4 +1,4 @@
-﻿//
+//
 //  Heroes3VIDDataFormat.cs - provides a DataFormat for manipulating Heroes of Might and Magic III VID archives
 //
 //  Author:

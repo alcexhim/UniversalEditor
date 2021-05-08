@@ -1,4 +1,4 @@
-﻿//
+//
 //  ASEDataFormat.cs - provides a DataFormat for manipulating color palettes in Adobe ASE format
 //
 //  Author:

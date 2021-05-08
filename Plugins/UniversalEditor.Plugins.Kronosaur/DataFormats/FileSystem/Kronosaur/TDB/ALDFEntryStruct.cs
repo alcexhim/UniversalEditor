@@ -1,4 +1,4 @@
-﻿//
+//
 //  ALDFEntryStruct.cs - represents an entry in a Kronosaur ALDF / TDB archive
 //
 //  Author:

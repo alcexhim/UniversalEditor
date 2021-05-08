@@ -1,4 +1,4 @@
-﻿//
+//
 //  REVDataFormat.cs - provides a DataFormat for manipulating chunked raw binary data in REV format
 //
 //  Author:

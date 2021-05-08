@@ -1,4 +1,4 @@
-﻿//
+//
 //  ResourceTableObjectModel.cs - provides an ObjectModel to store data for a Kronosaur TRDB resource table
 //
 //  Author:

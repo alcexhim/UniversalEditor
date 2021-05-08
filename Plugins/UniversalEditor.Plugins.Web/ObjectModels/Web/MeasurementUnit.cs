@@ -1,4 +1,4 @@
-﻿//
+//
 //  MeasurementUnit.cs - indicates the unit of a Measurement
 //
 //  Author:

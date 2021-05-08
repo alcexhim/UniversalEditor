@@ -1,4 +1,4 @@
-﻿//
+//
 //  StyleSheetAttribute.cs - represents a specific attribute in a style sheet rule
 //
 //  Author:

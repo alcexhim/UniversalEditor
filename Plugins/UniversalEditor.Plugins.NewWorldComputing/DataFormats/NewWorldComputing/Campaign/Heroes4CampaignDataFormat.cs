@@ -1,4 +1,4 @@
-﻿//
+//
 //  Heroes4CampaignDataFormat.cs - provides a DataFormat for manipulating Heroes of Might and Magic IV campaign definitions
 //
 //  Author:

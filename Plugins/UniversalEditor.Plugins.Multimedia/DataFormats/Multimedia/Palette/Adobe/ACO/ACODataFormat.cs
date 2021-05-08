@@ -1,4 +1,4 @@
-﻿//
+//
 //  ACODataFormat.cs - provides a DataFormat for manipulating color palettes in Adobe ACO format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FPAGEDataFormat.cs - provides a DataFormat to manipulate FixedPage files in a Microsoft XML Paper Specification (XPS) document
 //
 //  Author:

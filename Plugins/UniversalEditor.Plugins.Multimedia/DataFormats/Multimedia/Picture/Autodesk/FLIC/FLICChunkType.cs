@@ -1,4 +1,4 @@
-﻿//
+//
 //  FLICChunkType.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  StringFormattingPart.cs
 //
 //  Author:

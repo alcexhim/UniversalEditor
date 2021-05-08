@@ -1,4 +1,4 @@
-﻿//
+//
 //  PlainTextObjectModel.cs - provides an ObjectModel for manipulating text files in unformatted plain text format
 //
 //  Author:

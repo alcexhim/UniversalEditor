@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusGetExpression.cs - represents an ICARUS "get()" function expression
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  SevenZipCoderFlags.cs - indicates attributes for a coder in a 7-Zip archive
 //
 //  Author:

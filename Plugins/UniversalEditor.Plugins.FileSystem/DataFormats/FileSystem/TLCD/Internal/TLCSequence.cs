@@ -1,4 +1,4 @@
-﻿//
+//
 //  TLCSequence.cs - internal structure representing a sequence in a TLCD archive
 //
 //  Author:

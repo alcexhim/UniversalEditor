@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMResourceHeaderDisk.cs - represents a disk resource header in a Windows Image (WIM) archive
 //
 //  Author:

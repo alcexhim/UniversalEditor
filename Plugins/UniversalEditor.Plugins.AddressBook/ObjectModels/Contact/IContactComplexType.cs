@@ -1,4 +1,4 @@
-﻿//
+//
 //  IContactComplexType.cs - an interface for ContactObjectModel types that contain an element ID, modification date, and flag indicating whether the value is empty
 //
 //  Author:

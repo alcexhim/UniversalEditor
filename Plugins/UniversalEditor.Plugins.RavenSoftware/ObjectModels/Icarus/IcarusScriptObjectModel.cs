@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusScriptObjectModel.cs - provides an ObjectModel for manipulating Raven Software's ICARUS script files.
 //
 //  Author:

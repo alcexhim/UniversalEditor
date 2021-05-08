@@ -1,4 +1,4 @@
-﻿//
+//
 //  DOSExecutableHeader.cs - describes the header of an MS-DOS executable
 //
 //  Author:

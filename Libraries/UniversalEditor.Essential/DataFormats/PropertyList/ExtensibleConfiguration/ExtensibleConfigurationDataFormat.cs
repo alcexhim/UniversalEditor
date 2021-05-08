@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExtensibleConfigurationDataFormat.cs - provides a DataFormat for manipulating data in Mike Becker's Software Extensible Configuration (XNI) format
 //
 //  Author:

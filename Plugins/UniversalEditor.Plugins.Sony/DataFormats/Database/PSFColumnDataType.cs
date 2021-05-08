@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSFColumnDataType.cs - indicates the data type for a column in a PSF database
 //
 //  Author:

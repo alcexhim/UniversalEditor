@@ -1,4 +1,4 @@
-﻿//
+//
 //  HLPDataFormat.cs - implements the Windows Help (WinHelp) HLP documentation format
 //
 //  Author:

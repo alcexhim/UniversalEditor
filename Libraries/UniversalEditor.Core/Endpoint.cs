@@ -1,4 +1,4 @@
-﻿//
+//
 //  Endpoint.cs - UE 5 proposed feature to represent a DataFormat and Accessor pair
 //
 //  Author:

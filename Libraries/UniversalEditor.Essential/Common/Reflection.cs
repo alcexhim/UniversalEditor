@@ -1,4 +1,4 @@
-﻿//
+//
 //  Reflection.cs - common reflection methods for the Universal Editor platform
 //
 //  Author:

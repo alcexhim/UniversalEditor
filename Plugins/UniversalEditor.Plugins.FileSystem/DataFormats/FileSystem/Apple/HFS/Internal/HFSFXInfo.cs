@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSFXInfo.cs - internal structure representing the HFS_FXINFO for an HFS filesystem
 //
 //  Author:

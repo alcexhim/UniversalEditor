@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeLiteralElement.cs - represents a CodeElement specifying a literal value
 //
 //  Author:

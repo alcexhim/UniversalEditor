@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfacePixelFormatFlags.cs - indicates the attributes of the DirectDraw Surface pixel format
 //
 //  Author:

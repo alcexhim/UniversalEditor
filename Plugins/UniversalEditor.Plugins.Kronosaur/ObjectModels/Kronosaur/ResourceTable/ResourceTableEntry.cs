@@ -1,4 +1,4 @@
-﻿//
+//
 //  ResourceTableEntry.cs - represents an entry in a Kronosaur TRDB resource table
 //
 //  Author:

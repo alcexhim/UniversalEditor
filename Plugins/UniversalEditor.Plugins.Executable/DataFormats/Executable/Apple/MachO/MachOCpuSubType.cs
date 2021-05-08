@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOCpuSubType.cs - specifies the CPU sub-type for an Apple Mach-O executable
 //
 //  Author:

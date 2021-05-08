@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandPrint.cs - represents the ICARUS "print" command
 //
 //  Author:

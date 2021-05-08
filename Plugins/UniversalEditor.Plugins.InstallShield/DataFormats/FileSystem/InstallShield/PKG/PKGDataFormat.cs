@@ -1,4 +1,4 @@
-﻿//
+//
 //  PKGDataFormat.cs - provides a DataFormat for manipulating InstallShield PKG archive files
 //
 //  Author:

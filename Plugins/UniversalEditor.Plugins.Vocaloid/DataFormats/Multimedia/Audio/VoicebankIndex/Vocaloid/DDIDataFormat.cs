@@ -1,4 +1,4 @@
-﻿//
+//
 //  DDIDataFormat.cs - provides a DataFormat for manipulating synthesized audio voicebank index in Vocaloid DDI format
 //
 //  Author:

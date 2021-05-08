@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapMageGuildLevel.cs - indicates the level for a Mage Guild on a New World Computing (Heroes of Might and Magic II) game map
 //
 //  Author:

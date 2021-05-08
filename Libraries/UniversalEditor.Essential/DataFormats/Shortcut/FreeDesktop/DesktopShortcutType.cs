@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesktopShortcutType.cs - indicates the type of target for a FreeDesktop shortcut
 //
 //  Author:

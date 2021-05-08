@@ -1,4 +1,4 @@
-﻿//
+//
 //  Feature.cs - support for PrintTicket features, options, and ScoredProperties
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MSCompressedKWAJCompressionMethod.cs - indicates the compression method used in an MSCompressed KWAJ archive
 //
 //  Author:

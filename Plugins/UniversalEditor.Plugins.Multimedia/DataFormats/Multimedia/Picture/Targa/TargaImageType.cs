@@ -1,4 +1,4 @@
-﻿//
+//
 //  TargaImageType.cs - indicates the type of pixel data stored in the TGA image file
 //
 //  Author:

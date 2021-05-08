@@ -1,4 +1,4 @@
-﻿//
+//
 //  FSharpCodeDataFormat.cs - provides a DataFormat for manipulating code files written in the F# programming language
 //
 //  Author:

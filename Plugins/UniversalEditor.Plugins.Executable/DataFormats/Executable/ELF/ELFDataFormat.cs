@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFDataFormat.cs - provides a DataFormat for reading and writing Executable and Linkable Format (ELF) executable files
 //
 //  Author:

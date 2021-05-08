@@ -1,4 +1,4 @@
-﻿//
+//
 //  RZTDataFormat.cs - provides a DataFormat for manipulating archives in RealNetworks RZT format
 //
 //  Author:

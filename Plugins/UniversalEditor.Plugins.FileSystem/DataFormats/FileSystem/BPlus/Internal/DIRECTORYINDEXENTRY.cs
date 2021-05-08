@@ -1,4 +1,4 @@
-﻿//
+//
 //  DIRECTORYINDEXENTRY.cs - internal structure for DIRECTORYINDEXENTRY
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapItemType.cs
 //
 //  Author:

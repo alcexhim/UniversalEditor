@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARVMFunctions.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  InstallationScriptObjectModel.cs - provides an ObjectModel for manipulating Rebel Software installation scripts
 //
 //  Author:

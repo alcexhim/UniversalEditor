@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATBiosParameterBlock.cs - represents the BIOS parameter block in a FAT filesystem
 //
 //  Author:

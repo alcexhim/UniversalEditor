@@ -1,4 +1,4 @@
-﻿//
+//
 //  IFileSystemObjectType.cs - indicates the type of IFileSystemObject to return in a GetAllObjects() call
 //
 //  Author:

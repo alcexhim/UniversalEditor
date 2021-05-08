@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactRelationship.cs - represents a relationship in a ContactObjectModel
 //
 //  Author:

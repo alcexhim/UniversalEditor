@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusScriptEditor.cs - provides a UWT-based Editor for an IcarusScriptObjectModel
 //
 //  Author:

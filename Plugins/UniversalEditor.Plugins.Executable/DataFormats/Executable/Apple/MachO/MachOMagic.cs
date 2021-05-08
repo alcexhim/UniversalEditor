@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOMagic.cs - indicates the type of Apple Mach-O executable in use
 //
 //  Author:

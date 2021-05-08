@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMOffsetTableEntry.cs - represents an entry into an offset table in a Windows Image (WIM) archive
 //
 //  Author:

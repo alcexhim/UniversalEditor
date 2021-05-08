@@ -1,4 +1,4 @@
-﻿//
+//
 //  NameTableEntry.cs - represents an entry in the name table of an Unreal Engine package file
 //
 //  Author:

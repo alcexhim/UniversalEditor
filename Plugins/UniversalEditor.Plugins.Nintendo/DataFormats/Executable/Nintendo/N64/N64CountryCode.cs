@@ -1,4 +1,4 @@
-﻿//
+//
 //  N64CountryCode.cs - indicates the country code for a Nintendo 64 media
 //
 //  Author:

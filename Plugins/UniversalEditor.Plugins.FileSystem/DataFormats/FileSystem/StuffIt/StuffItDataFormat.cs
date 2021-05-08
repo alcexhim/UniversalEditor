@@ -1,4 +1,4 @@
-﻿//
+//
 //  StuffItDataFormat.cs - provides a DataFormat for manipulating archives in Stuffit SIT format
 //
 //  Author:

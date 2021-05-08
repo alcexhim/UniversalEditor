@@ -1,4 +1,4 @@
-﻿//
+//
 //  Phoneme.cs - represents a phoneme in a synthesizer voicebank file
 //
 //  Author:

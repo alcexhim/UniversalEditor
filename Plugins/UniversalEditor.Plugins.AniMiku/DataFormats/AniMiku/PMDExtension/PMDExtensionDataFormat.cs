@@ -1,4 +1,4 @@
-﻿//
+//
 //  PMDExtensionDataFormat.cs - implements an internal DataFormat for processing PMAX extensions to the PMD data format
 //
 //  Author:

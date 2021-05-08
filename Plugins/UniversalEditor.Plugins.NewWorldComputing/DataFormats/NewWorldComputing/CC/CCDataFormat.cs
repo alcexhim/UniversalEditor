@@ -1,4 +1,4 @@
-﻿//
+//
 //  CCDataFormat.cs - provides a DataFormat for manipulating encrypted New World Computing CC archive files
 //
 //  Author:

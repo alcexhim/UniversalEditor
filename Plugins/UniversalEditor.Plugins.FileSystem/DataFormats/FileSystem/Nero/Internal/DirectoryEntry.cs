@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectoryEntry.cs - internal structure representing a directory entry in a Nero disk image
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExportTableEntry.cs - represents an entry in the export table of an Unreal Engine package file
 //
 //  Author:

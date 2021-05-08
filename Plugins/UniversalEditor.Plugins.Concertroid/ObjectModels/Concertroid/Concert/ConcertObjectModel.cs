@@ -1,4 +1,4 @@
-﻿//
+//
 //  ConcertObjectModel.cs - provides an ObjectModel for manipulating Concertroid concert information
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ChecksumModule.cs - provides the minimal functionality required to create a checksum calculation module
 //
 //  Author:

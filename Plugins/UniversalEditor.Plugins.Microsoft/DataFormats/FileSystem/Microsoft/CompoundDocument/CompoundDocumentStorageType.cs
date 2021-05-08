@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompoundDocumentStorageType.cs - indicates the type of storage in a Microsoft Compound Document file
 //
 //  Author:

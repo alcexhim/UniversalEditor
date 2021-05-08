@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExtensionMethods.cs - extension methods for the multimedia plugin
 //
 //  Author:

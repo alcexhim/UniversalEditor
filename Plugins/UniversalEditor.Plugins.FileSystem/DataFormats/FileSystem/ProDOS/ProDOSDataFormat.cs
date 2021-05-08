@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProDOSDataFormat.cs - provides a DataFormat for manipulating disk images in Apple ProDOS format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARJHostOperatingSystem.cs - indicates the host operating system that created the ARJ file
 //
 //  Author:

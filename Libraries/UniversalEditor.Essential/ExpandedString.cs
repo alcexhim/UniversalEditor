@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExpandedString.cs - provides a way to represent a String that can contain variable or constant references
 //
 //  Author:

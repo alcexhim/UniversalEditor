@@ -1,4 +1,4 @@
-﻿//
+//
 //  CHDHunkFileSource.cs - provides a FileSource for accessing data within a CHD archive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CollaborationSettings.cs
 //
 //  Author:

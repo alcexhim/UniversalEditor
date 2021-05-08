@@ -1,4 +1,4 @@
-﻿//
+//
 //  PECharacteristics.cs - describes attributes for a Portable Executable file
 //
 //  Author:

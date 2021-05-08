@@ -1,4 +1,4 @@
-﻿//
+//
 //  CriteriaObject.cs
 //
 //  Author:

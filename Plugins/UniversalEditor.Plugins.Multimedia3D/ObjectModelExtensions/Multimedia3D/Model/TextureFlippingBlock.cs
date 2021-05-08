@@ -1,4 +1,4 @@
-﻿//
+//
 //  TextureFlippingBlock.cs - describes texture animation settings for a 3D model texture
 //
 //  Author:

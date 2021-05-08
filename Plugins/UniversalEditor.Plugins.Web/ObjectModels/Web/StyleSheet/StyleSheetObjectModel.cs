@@ -1,4 +1,4 @@
-﻿//
+//
 //  StyleSheetObjectModel.cs - provides an ObjectModel for manipulating Cascading Style Sheets
 //
 //  Author:

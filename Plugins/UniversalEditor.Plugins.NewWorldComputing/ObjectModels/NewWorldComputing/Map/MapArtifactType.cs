@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapArtifactType.cs
 //
 //  Author:

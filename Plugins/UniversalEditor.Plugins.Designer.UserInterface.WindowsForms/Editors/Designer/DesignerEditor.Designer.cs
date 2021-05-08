@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.Plugins.Designer.UserInterface.WindowsForms.Editors.Designer
+namespace UniversalEditor.Plugins.Designer.UserInterface.WindowsForms.Editors.Designer
 {
 	partial class DesignerEditor
 	{

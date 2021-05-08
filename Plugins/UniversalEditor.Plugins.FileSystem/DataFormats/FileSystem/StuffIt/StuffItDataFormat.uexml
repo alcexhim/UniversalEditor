@@ -1,4 +1,4 @@
-﻿<UniversalEditor Version="4.0">
+<UniversalEditor Version="4.0">
 	<DataFormats>
 		<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.StuffIt.StuffItDataFormat">
 			<Information>

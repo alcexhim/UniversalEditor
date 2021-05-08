@@ -1,4 +1,4 @@
-﻿//
+//
 //  LNKFileAttributeFlags.cs - indicates file attributes for a LNK shortcut file
 //
 //  Author:

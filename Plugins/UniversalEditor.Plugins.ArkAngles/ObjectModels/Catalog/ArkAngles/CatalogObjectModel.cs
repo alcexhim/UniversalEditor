@@ -1,4 +1,4 @@
-﻿//
+//
 //  CatalogObjectModel.cs - stores information about software products
 //
 //  Author:

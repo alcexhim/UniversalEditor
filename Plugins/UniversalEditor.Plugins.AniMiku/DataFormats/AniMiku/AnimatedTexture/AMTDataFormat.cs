@@ -1,4 +1,4 @@
-﻿//
+//
 //  AMTDataFormat.cs - implementation of AniMiku Texture Package data format
 //
 //  Author:

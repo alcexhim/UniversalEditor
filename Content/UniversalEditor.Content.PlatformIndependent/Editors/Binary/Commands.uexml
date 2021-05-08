@@ -1,4 +1,4 @@
-﻿<UniversalEditor Version="5.0">
+<UniversalEditor Version="5.0">
 	<Editors>
 		<Editor ID="{3EFF1E24-766C-4A1C-8DB3-C186B9AD4CB9}" TypeName="UniversalEditor.Editors.Binary.BinaryEditor">
 			<Commands>

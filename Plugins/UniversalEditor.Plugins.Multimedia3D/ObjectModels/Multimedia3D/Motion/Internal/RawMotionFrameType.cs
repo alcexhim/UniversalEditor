@@ -1,4 +1,4 @@
-﻿//
+//
 //  RawMotionFrameType.cs - internal enumeration indicating the type of RawMotionFrame
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelAngleLimit.cs - defines upper and lower limits for an angle in a 3D model
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DERTypeTag.cs - indicates the type of tag in a DER file
 //
 //  Author:

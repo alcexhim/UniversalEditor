@@ -1,4 +1,4 @@
-﻿//
+//
 //  TableOfContentsObjectModel.cs - provides an ObjectModel for manipulating a Table of Contents for a help file
 //
 //  Author:

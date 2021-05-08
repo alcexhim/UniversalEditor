@@ -1,4 +1,4 @@
-﻿//
+//
 //  I16DataFormat.cs - provides a DataFormat for manipulating images in I16 format
 //
 //  Author:

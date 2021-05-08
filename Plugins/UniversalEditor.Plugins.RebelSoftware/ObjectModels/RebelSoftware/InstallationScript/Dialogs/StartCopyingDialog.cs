@@ -1,4 +1,4 @@
-﻿//
+//
 //  StartCopyingDialog.cs - describes the dialog confirming the selected options before executing the installation process
 //
 //  Author:

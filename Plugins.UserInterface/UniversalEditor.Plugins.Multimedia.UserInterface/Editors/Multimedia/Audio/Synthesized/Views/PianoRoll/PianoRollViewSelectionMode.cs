@@ -1,4 +1,4 @@
-﻿//
+//
 //  PianoRollSelectionMode.cs - indicates the current selection mode for a PianoRollView
 //
 //  Author:

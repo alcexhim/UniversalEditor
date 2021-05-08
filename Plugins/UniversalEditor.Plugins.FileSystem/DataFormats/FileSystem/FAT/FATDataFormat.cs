@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATDataFormat.cs - provides a DataFormat for manipulating a filesystem in FAT format
 //
 //  Author:

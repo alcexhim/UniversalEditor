@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExtendedPMDDataFormat.cs - implements the AniMiku extended PMD (APMD) data format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  TOPICLINK.cs - internal structure representing TOPICLINK for WinHelp files
 //
 //  Author:

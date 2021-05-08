@@ -1,4 +1,4 @@
-﻿//
+//
 //  GenericBrowserButton.cs
 //
 //  Author:

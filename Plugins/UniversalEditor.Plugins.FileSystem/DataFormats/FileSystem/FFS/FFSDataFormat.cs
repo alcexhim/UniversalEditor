@@ -1,4 +1,4 @@
-﻿//
+//
 //  FFSDataFormat.cs - provides a DataFormat for manipulating archives in FFS format
 //
 //  Author:

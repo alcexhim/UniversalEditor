@@ -1,4 +1,4 @@
-﻿//
+//
 //  Place.cs
 //
 //  Author:

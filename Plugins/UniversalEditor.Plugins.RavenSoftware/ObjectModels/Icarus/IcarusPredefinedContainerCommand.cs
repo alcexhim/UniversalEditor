@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusPredefinedContainerCommand.cs - the abstract base class from which predefined ICARUS commands which can contain other ICARUS commands derive
 //
 //  Author:

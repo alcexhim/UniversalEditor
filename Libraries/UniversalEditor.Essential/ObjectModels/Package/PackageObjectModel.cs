@@ -1,4 +1,4 @@
-﻿//
+//
 //  PackageObjectModel.cs - provides an ObjectModel to manipulate Open Packaging Convention documents
 //
 //  Author:

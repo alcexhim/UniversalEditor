@@ -1,4 +1,4 @@
-﻿//
+//
 //  StoryObjectModel.cs - provides an ObjectModel for manipulating collections of characters, books, and other story elements
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  AboutDialog.cs - provides a UWT ContainerLayout-based CustomDialog for displaying information about the installed Universal Editor platform components
 //
 //  Author:

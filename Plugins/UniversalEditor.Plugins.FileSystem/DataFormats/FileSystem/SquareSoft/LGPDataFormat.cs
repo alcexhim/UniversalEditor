@@ -1,4 +1,4 @@
-﻿//
+//
 //  LGPDataFormat.cs - provides a DataFormat for manipulating archives in SquareSoft LGP format
 //
 //  Author:

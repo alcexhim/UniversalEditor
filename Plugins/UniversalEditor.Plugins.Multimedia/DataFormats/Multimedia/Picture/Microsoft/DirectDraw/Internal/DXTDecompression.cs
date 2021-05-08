@@ -1,4 +1,4 @@
-﻿//
+//
 //  DXTDecompression.cs - algorithms for DirectDraw decompression, translated to C# for use in Universal Editor
 //
 //  Author:

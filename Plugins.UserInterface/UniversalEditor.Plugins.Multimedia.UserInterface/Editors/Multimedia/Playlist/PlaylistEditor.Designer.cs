@@ -1,4 +1,4 @@
-﻿//
+//
 //  PlaylistEditor.Designer.cs - UWT designer initialization for PlaylistEditor
 //
 //  Author:

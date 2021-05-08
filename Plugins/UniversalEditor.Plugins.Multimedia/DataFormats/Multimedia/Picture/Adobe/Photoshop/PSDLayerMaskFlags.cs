@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDLayerMaskFlags.cs - indicates attributes for a layer mask in an Adobe Photoshop PSD image file
 //
 //  Author:

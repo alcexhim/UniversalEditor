@@ -1,4 +1,4 @@
-﻿//
+//
 //  XMLBinaryGrammarDataFormat.cs - provides a DataFormat for manipulating Synalysis binary grammar definition files in XML format
 //
 //  Author:

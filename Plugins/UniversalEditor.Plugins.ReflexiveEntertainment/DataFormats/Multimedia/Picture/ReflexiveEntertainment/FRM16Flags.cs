@@ -1,4 +1,4 @@
-﻿//
+//
 //  FRM16Flags.cs - indicates attributes of a FRM16 image
 //
 //  Author:

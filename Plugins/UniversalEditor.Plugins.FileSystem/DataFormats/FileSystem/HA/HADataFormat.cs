@@ -1,4 +1,4 @@
-﻿//
+//
 //  HADataFormat.cs - provides a DataFormat for manipulating archives in HA format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MIDIFileFormatType.cs - indicates the type of MIDI file format
 //
 //  Author:

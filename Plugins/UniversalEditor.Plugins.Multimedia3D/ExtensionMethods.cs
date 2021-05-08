@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExtensionMethods.cs - extension methods for the Multmedia3D plugin
 //
 //  Author:

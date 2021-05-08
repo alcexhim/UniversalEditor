@@ -1,4 +1,4 @@
-﻿//
+//
 //  OBJDataFormat.cs - provides a DataFormat for manipulating 3D models in Wavefront OBJ text format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Cinema4DDataFormat.cs - provides a DataFormat for manipulating 3D models in Cinema 4D format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ObjectModelNotSupportedException.cs - raised when an ObjectModel is not supported by a DataFormat
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  TopicLinkDisplay31Flags.cs - internal enum indicating how a topic link is intended for display on WinHelp 3.1 systems
 //
 //  Author:

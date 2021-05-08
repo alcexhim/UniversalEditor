@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContentTypesObjectModel.cs - provides an ObjectModel for manipulating Open Packaging Convention Content_Types.xml file
 //
 //  Author:

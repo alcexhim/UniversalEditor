@@ -1,4 +1,4 @@
-﻿//
+//
 //  PCXDataFormat.cs - provides a DataFormat for manipulating images in PC Paintbrush PCX format
 //
 //  Author:

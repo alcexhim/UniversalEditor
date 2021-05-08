@@ -1,4 +1,4 @@
-﻿//
+//
 //  PNGColorType.cs - indicates the color type of a PNG image file
 //
 //  Author:

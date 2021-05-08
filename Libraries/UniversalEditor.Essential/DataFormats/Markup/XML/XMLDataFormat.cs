@@ -1,4 +1,4 @@
-﻿//
+//
 //  XMLDataFormat.cs - provides a DataFormat for manipulating markup in Extensible Markup Language (XML) format
 //
 //  Author:

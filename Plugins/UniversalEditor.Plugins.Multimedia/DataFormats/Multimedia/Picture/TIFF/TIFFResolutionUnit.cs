@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFResolutionUnit.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  NintendoOpticalDiscDataFormat.cs - provides a DataFormat for manipulating Nintendo optical disc images
 //
 //  Author:

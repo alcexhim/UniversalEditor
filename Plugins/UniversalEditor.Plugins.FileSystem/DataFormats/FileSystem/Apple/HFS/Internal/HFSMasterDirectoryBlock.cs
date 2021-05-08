@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSMasterDirectoryBlock.cs - internal structure representing the master directory block for an HFS filesystem
 //
 //  Author:

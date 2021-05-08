@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSPlusPermissions.cs - internal structure representing permissions for an HFS+ filesystem
 //
 //  Author:

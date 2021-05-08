@@ -1,4 +1,4 @@
-﻿//
+//
 //  ComponentInstance.cs - represents an instance of a Component in a component designer layout
 //
 //  Author:

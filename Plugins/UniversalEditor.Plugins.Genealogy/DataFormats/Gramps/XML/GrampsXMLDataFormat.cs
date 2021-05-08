@@ -1,4 +1,4 @@
-﻿//
+//
 //  GrampsXMLDataFormat.cs
 //
 //  Author:

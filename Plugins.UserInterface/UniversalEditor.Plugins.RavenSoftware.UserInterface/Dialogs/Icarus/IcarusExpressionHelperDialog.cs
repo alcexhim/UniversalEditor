@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusExpressionHelperDialog.cs - provides a UWT-based CustomDialog with controls for editing an expression in an Icarus script
 //
 //  Author:

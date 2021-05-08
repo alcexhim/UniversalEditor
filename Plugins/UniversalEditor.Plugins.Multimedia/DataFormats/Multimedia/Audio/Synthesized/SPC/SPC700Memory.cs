@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPC700Memory.cs - the initial memory allocations for an SPC700 synthesized audio file
 //
 //  Author:

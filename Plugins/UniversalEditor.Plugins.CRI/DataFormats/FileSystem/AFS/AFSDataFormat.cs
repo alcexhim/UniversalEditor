@@ -1,4 +1,4 @@
-﻿//
+//
 //  AFSDataFormat.cs - COMPLETED - implementation of CRI Middleware AFS archive
 //
 //  Author:

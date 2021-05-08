@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelParameterAttachment.cs - represents a parameter attachment for a 3D model
 //
 //  Author:

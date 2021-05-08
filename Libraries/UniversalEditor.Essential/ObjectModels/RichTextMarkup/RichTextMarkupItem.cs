@@ -1,4 +1,4 @@
-﻿//
+//
 //  RichTextMarkupItem.cs - the abstract base class from which all Rich Text Format formatting items derive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  UTFColumnDataType.cs - CRI Middleware UTF table column data types
 //
 //  Author:

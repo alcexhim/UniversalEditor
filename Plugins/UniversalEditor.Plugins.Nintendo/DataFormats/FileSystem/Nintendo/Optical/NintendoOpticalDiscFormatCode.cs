@@ -1,4 +1,4 @@
-﻿//
+//
 //  NintendoOpticalDiscFormatCode.cs - provides metadata information about format codes for Nintendo optical disc images
 //
 //  Author:

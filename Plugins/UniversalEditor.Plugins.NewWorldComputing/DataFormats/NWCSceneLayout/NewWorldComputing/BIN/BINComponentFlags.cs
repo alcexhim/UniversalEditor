@@ -1,4 +1,4 @@
-﻿//
+//
 //  BINComponentFlags.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  AtariSTExecutableDataFormat.cs
 //
 //  Author:

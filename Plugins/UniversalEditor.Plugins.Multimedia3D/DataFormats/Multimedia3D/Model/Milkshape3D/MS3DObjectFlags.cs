@@ -1,4 +1,4 @@
-﻿//
+//
 //  MS3DVertexFlags.cs - indicates flags for a vertex in a MilkShape 3D model file
 //
 //  Author:

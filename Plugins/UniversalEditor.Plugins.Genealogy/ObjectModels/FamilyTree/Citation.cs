@@ -1,4 +1,4 @@
-﻿//
+//
 //  Citation.cs
 //
 //  Author:

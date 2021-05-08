@@ -1,4 +1,4 @@
-﻿//
+//
 //  ImportTableEntry.cs - represents an entry in the import table of an Unreal Engine package file
 //
 //  Author:

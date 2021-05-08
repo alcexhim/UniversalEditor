@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATMediaDescriptor.cs - indicates the type of physical media on which this FAT filesystem resides
 //
 //  Author:

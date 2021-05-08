@@ -1,4 +1,4 @@
-﻿//
+//
 //  VisualStudioProjectDataFormat.cs - provides a DataFormat for manipulating Microsoft Visual Studio / MSBuild project files
 //
 //  Author:

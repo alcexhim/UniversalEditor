@@ -1,4 +1,4 @@
-﻿//
+//
 //  FlashBaseObjectModel.cs
 //
 //  Author:

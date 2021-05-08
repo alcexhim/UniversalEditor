@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeElementEnumerationValueReference.cs - represents a CodeElementReference for an enumeration value
 //
 //  Author:

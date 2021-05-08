@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileAdditionalDetailValue.cs - represents a value associated with an additional field of detail to display in a FileSystemObjectModel editor
 //
 //  Author:

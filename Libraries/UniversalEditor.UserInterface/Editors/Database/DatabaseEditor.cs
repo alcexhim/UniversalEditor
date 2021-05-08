@@ -1,4 +1,4 @@
-﻿//
+//
 //  DatabaseEditor.cs - provides a UWT-based Editor for manipulating database files
 //
 //  Author:

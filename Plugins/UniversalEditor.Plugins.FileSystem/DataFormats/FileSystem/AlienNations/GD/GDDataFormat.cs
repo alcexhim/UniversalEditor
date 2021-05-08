@@ -1,4 +1,4 @@
-﻿//
+//
 //  GDDataFormat.cs - provides a DataFormat for manipulating archives in GD format
 //
 //  Author:

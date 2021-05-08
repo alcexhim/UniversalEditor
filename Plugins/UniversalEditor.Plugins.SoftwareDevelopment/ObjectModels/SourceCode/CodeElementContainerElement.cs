@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeElementContainerElement.cs - the abstract base class from which all code elements which can contain other code elements are derived
 //
 //  Author:

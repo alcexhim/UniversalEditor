@@ -1,4 +1,4 @@
-﻿//
+//
 //  ReaderWriterBase.cs - common methods for implementing Reader and Writer
 //
 //  Author:

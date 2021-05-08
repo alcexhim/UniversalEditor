@@ -1,4 +1,4 @@
-﻿//
+//
 //  Association.cs - explicitly associates accessor with data format and/or object model
 //
 //  Author:

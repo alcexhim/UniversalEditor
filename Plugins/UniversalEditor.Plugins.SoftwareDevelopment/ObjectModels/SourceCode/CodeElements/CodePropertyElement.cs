@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodePropertyElement.cs - represents a CodeElement that defines a property
 //
 //  Author:

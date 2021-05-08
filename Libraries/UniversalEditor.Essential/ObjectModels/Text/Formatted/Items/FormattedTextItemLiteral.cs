@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextItemLiteral.cs - represents a FormattedTextItem that renders literal text exactly as it is written
 //
 //  Author:

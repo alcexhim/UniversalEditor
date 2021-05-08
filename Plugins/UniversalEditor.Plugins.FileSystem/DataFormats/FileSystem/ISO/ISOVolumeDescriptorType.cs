@@ -1,4 +1,4 @@
-﻿//
+//
 //  ISOVolumeDescriptorType.cs - indicates the type of volume descriptor in the ISO file
 //
 //  Author:

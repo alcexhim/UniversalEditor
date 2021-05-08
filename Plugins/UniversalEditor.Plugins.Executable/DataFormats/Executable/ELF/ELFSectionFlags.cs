@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFSectionFlags.cs - describes attributes of a section in an Executable and Linkable Format (ELF) executable
 //
 //  Author:

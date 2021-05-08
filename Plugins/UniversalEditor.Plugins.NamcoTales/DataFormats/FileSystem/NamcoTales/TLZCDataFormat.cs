@@ -1,4 +1,4 @@
-﻿//
+//
 //  TLZCDataFormat.cs - implement DataFormat to process Namco Tales of Vesperia / Graces TLZC files
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  UTFFlags.cs - indicates attributes for a file entry in a UTF archive
 //
 //  Author:

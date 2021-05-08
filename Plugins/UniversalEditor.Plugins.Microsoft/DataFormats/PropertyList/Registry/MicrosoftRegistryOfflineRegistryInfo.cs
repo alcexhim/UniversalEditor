@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryOfflineRegistryInfo.cs - describes offline registry information for a Microsoft registry file
 //
 //  Author:

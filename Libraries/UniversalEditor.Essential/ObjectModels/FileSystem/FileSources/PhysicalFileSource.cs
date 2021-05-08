@@ -1,4 +1,4 @@
-﻿//
+//
 //  PhysicalFileSource.cs - provides a FileSource for retrieving file data from a physical file on the file system
 //
 //  Author:

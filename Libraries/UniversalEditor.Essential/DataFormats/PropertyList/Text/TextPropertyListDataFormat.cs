@@ -1,4 +1,4 @@
-﻿//
+//
 //  TextPropertyListDataFormat.cs - provides a DataFormat for manipulating property lists in Universal Editor's Text Property List format
 //
 //  Author:

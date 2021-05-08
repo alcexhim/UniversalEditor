@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactPhoto.cs - represents a photo in a ContactObjectModel
 //
 //  Author:

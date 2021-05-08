@@ -1,4 +1,4 @@
-﻿//
+//
 //  MADFormatVersion.cs - indicates the format version for a MAD archive
 //
 //  Author:

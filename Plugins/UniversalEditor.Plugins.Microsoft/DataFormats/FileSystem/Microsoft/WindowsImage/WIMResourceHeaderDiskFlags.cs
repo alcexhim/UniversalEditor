@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMResourceHeaderDiskFlags.cs - indicates attributes for a disk resource header in a Windows Image (WIM) archive
 //
 //  Author:

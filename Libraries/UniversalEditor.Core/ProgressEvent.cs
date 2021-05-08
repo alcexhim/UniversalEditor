@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProgressEvent.cs - provide a way to signal progress to UI from non-UI code
 //
 //  Author:

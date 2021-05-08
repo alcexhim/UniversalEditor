@@ -1,4 +1,4 @@
-﻿//
+//
 //  TMHDataFormat.cs - provides a DataFormat for manipulating images in PlayStation Portable TMH format
 //
 //  Author:

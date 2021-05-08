@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftExecutableDataFormat.cs - provides a DataFormat to manipulate Microsoft executable files (e.g. DOS, MZ, LE, NE, PE)
 //
 //  Author:

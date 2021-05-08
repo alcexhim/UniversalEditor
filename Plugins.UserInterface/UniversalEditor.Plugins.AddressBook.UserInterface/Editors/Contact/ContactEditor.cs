@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactEditor.cs - provides a UWT-based Editor for ContactObjectModel
 //
 //  Author:

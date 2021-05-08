@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompressionMethod.cs - an enumeration of available known compression methods
 //
 //  Author:

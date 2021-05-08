@@ -1,4 +1,4 @@
-﻿//
+//
 //  GrammarItem.cs - the abstract base class from which all binary grammar items derive
 //
 //  Author:

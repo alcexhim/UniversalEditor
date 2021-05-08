@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSFDataFormat.cs - provides a DataFormat for manipulating synthesized audio in Sony PlayStation PSF format
 //
 //  Author:

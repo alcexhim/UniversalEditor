@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARArchiveHeaderFlagsV5.cs
 //
 //  Author:

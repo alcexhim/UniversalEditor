@@ -1,4 +1,4 @@
-﻿//
+//
 //  MotionPackObjectModel.cs - provides an ObjectModel for manipulating Moosta OMP motion packages
 //
 //  Author:

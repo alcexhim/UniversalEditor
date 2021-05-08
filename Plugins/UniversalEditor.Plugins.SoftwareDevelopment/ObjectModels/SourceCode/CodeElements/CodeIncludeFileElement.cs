@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeIncludeFileElement.cs - represents a CodeElement indicating a file to be included into the current code file
 //
 //  Author:

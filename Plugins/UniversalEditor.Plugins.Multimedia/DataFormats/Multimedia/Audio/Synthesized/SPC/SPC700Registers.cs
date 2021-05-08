@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPC700Registers.cs - the registers available for an SPC700 audio file
 //
 //  Author:

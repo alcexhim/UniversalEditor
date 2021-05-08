@@ -1,4 +1,4 @@
-﻿//
+//
 //  GenericBrowserPopup.cs
 //
 //  Author:

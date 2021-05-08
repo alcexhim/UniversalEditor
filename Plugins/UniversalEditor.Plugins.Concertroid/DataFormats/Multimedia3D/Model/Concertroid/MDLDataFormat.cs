@@ -1,4 +1,4 @@
-﻿//
+//
 //  MDLDataFormat.cs - provides a DataFormat for manipulating 3D character models in ZIP-compressed Concertroid MDL format
 //
 //  Author:

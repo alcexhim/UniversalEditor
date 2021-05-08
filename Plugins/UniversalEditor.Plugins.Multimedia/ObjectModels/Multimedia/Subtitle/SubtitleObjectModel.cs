@@ -1,4 +1,4 @@
-﻿//
+//
 //  SubtitleObjectModel.cs - provides an ObjectModel for manipulating subtitle files
 //
 //  Author:

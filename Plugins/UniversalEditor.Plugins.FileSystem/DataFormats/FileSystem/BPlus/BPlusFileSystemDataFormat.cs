@@ -1,4 +1,4 @@
-﻿//
+//
 //  BPlusFileSystemDataFormat.cs - provides a DataFormat for manipulating the underlying BPlus tree-based file system in a Microsoft WinHelp (HLP) format file
 //
 //  Author:

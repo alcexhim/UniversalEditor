@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextObjectModel.cs - provides an ObjectModel for manipulating formatted text (e.g. PDF, Rich Text Format, DOC, XPS, DOCX, ODT)
 //
 //  Author:

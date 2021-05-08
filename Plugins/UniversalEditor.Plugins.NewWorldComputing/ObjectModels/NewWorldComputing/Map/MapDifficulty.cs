@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapDifficulty.cs - indicates the difficulty level associated with the map
 //
 //  Author:

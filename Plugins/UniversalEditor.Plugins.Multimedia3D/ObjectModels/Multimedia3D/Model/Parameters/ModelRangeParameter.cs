@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelRangeParameter.cs - describes a ModelParameter whose value must fall within a defined range
 //
 //  Author:

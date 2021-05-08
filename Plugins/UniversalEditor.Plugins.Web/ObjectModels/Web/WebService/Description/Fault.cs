@@ -1,4 +1,4 @@
-﻿//
+//
 //  Fault.cs - WSDL Fault
 //
 //  Author:

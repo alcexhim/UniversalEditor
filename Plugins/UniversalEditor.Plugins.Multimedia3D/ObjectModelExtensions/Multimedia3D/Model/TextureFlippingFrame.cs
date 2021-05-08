@@ -1,4 +1,4 @@
-﻿//
+//
 //  TextureFlippingFrame.cs - represents an individual texture image frame used in the texture animation process
 //
 //  Author:

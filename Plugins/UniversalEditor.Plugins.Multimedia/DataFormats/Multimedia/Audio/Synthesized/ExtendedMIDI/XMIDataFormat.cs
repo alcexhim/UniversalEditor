@@ -1,4 +1,4 @@
-﻿//
+//
 //  XMIDataFormat.cs - provides a DataFormat for manipulating synthesized audio files in Extended MIDI (XMI) format
 //
 //  Author:

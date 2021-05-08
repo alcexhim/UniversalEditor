@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapSize.cs - indicates the size of a New World Computing (Heroes of Might and Magic II) game map
 //
 //  Author:

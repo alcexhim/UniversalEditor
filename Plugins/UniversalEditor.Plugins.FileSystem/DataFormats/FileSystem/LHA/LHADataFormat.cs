@@ -1,4 +1,4 @@
-﻿//
+//
 //  LHADataFormat.cs - provides a DataFormat for manipulating archives in LHA format
 //
 //  Author:

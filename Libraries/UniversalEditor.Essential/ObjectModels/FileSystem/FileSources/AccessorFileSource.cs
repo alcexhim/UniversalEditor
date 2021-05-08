@@ -1,4 +1,4 @@
-﻿//
+//
 //  AccessorFileSource.cs - provides a FileSource for retrieving file source data using an Accessor
 //
 //  Author:

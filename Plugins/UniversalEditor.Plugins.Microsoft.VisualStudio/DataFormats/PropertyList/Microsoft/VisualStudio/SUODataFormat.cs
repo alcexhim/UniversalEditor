@@ -1,4 +1,4 @@
-﻿//
+//
 //  SUODataFormat.cs - provides a DataFormat for manipulating Microsoft Visual Studio solution user options files
 //
 //  Author:

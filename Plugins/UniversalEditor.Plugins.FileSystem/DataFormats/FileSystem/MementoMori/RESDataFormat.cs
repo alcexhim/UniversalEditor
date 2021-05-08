@@ -1,4 +1,4 @@
-﻿//
+//
 //  RESDataFormat.cs - provides a DataFormat for manipulating archives in Memento Mori RES format
 //
 //  Author:

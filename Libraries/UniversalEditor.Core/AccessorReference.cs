@@ -1,4 +1,4 @@
-﻿//
+//
 //  AccessorReference.cs - stores information (metadata) about an Accessor
 //
 //  Author:

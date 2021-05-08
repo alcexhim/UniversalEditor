@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapDocumentPropertiesSettingsProvider.cs
 //
 //  Author:

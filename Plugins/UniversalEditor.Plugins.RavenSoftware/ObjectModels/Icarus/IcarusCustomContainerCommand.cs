@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCustomContainerCommand.cs - represents a custom ICARUS command which can contain other ICARUS commands
 //
 //  Author:

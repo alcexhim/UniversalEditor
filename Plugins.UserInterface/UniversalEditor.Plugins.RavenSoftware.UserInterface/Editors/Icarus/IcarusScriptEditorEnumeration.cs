@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusScriptEditorEnumeration.cs - describes an enumeration in an IcarusScriptEditor configuration
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  SevenZipCoder.cs - internal structure describing a coder for a 7-Zip archive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATFileAccessRightsFlags.cs - indicates access rights attributes for a file in a FAT filesystem
 //
 //  Author:

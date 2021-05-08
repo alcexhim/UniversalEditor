@@ -1,4 +1,4 @@
-﻿//
+//
 //  Action.cs - the base class from which all setup actions should derive
 //
 //  Author:

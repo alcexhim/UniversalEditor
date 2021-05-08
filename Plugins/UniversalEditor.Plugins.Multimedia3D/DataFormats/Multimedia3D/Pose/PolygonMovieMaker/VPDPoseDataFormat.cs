@@ -1,4 +1,4 @@
-﻿//
+//
 //  VPDPoseDataFormat.cs - provides a DataFormat for manipulating pose data in MikuMikuDance "Vocaloid Pose Data" (VPD) format
 //
 //  Author:

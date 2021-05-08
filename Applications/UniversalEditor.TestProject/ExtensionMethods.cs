@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 

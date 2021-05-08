@@ -1,4 +1,4 @@
-﻿//
+//
 //  PNGCompressionModule.cs - provides a CompressionModule for compressing/decompressing pixel data in a PNG image file
 //
 //  Author:

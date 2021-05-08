@@ -1,4 +1,4 @@
-﻿//
+//
 //  GUTDataFormat.cs - provides a DataFormat for manipulating archives in Sinister Games GUT format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompiledHelpObjectModel.cs - provides an ObjectModel for manipulating WinHelp compiled documentation
 //
 //  Author:

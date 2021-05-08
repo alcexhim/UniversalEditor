@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPSSchemaType.cs - indicates the type of document represented in a particular schema
 //
 //  Author:

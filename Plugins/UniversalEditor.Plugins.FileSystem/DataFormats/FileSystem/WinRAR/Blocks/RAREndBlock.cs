@@ -1,4 +1,4 @@
-﻿//
+//
 //  RAREndHeaderV5.cs
 //
 //  Author:

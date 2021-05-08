@@ -1,4 +1,4 @@
-﻿//
+//
 //  RAROpcodeType.cs
 //
 //  Author:

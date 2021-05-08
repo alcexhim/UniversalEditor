@@ -1,4 +1,4 @@
-﻿//
+//
 //  Port.cs - WSDL Port
 //
 //  Author:

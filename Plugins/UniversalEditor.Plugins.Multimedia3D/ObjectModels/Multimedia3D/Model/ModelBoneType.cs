@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelBoneType.cs - indicates the type of bone in a 3D model
 //
 //  Author:

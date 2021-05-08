@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFPhotometricInterpretation.cs
 //
 //  Author:

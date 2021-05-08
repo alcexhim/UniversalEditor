@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileInfo.cs
 //
 //  Author:

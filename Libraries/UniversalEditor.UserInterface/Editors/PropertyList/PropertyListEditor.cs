@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyListEditor.cs - cross-platform (UWT) property list editor for Universal Editor
 //
 //  Author:

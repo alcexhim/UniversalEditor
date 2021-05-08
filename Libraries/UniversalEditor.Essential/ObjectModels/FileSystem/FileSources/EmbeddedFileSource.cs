@@ -1,4 +1,4 @@
-﻿//
+//
 //  EmbeddedFileSource.cs - provides a FileSource for retrieving uncompressed embedded file data
 //
 //  Author:

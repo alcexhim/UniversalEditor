@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextItemContainer.cs - the abstract base class from which all FormattedTextItems which can contain other FormattedTextItems are derived
 //
 //  Author:

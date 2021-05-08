@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSCatalogFileRecord.cs - internal structure representing a file catalog record in a HFS filesystem
 //
 //  Author:

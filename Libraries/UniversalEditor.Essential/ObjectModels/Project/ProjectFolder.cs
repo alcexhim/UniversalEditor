@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectFolder.cs - represents a folder which can contain ProjectFiles and other ProjectFolders in a ProjectObjectModel
 //
 //  Author:

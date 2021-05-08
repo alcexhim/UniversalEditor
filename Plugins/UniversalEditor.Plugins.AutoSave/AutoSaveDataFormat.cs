@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;

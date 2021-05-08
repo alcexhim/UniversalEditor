@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARFileAttributesV5.cs
 //
 //  Author:

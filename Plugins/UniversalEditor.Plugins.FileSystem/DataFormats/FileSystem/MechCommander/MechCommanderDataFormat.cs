@@ -1,4 +1,4 @@
-﻿//
+//
 //  DPKDataFormat.cs - provides a DataFormat for manipulating archives in Mech Commander DPK format
 //
 //  Author:

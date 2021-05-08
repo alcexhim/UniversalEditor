@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOSectionFlags.cs - indicates the type of data stored in a section of an Apple Mach-O executable
 //
 //  Author:

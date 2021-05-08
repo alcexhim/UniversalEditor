@@ -1,4 +1,4 @@
-﻿//
+//
 //  TopicLinkRecordType.cs - indicates the type of topic link record present in a WinHelp file
 //
 //  Author:

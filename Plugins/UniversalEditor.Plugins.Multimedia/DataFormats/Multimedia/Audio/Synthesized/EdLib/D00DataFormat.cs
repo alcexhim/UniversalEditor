@@ -1,4 +1,4 @@
-﻿//
+//
 //  D00DataFormat.cs - provides a DataFormat for manipulating synthesized audio in EdLib D00 format
 //
 //  Author:

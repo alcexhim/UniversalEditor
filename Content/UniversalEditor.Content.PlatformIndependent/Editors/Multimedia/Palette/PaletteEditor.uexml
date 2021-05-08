@@ -1,4 +1,4 @@
-﻿<UniversalEditor Version="5.0">
+<UniversalEditor Version="5.0">
 	<Editors>
 		<Editor ID="{A0389580-FbE6-4512-95F0-BCDD51B8B623}" TypeName="UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Palette.PaletteEditor">
 			<Commands>

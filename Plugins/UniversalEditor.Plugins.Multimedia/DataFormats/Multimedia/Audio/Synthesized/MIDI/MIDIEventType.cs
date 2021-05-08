@@ -1,4 +1,4 @@
-﻿//
+//
 //  MIDIEventType.cs - indicates the type of MIDI event
 //
 //  Author:

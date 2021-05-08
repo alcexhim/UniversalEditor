@@ -1,4 +1,4 @@
-﻿//
+//
 //  HyperCardChunkedDataFormat.cs
 //
 //  Author:

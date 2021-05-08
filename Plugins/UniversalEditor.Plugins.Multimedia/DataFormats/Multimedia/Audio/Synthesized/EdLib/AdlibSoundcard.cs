@@ -1,4 +1,4 @@
-﻿//
+//
 //  AdlibSoundcard.cs - indicates the type of sound card required to play the Adlib synthesized audio file
 //
 //  Author:

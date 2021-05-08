@@ -1,4 +1,4 @@
-﻿//
+//
 //  LZRW1CompressionModule.cs - port of Ross Williams' (public-domain) lzrw1 from quickbms to C#
 //
 //  Author:

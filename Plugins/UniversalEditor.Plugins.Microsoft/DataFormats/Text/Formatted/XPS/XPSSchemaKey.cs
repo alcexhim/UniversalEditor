@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPSSchemaKey.cs - represents a tuple of XPS schema version and XPS schema type
 //
 //  Author:

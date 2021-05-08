@@ -1,4 +1,4 @@
-﻿//
+//
 //  WebPDataFormat.cs - provides a DataFormat for manipulating images in WebP format
 //
 //  Author:

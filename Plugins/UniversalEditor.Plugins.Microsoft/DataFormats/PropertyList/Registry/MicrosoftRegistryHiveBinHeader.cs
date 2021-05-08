@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryHiveBin.cs - describes the header for a hive bin in a Microsoft registry file
 //
 //  Author:

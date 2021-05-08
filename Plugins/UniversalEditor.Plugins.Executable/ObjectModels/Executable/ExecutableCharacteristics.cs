@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableCharacteristics.cs - indicates attributes of the executable
 //
 //  Author:

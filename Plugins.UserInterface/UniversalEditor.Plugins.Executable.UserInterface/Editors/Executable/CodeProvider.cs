@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeProvider.cs - the abstract base class from which all MSIL code translators inherit
 //
 //  Author:

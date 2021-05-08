@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesignerObjectModel.cs - provides an ObjectModel for manipulating component designer layouts
 //
 //  Author:

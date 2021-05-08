@@ -1,4 +1,4 @@
-﻿//
+//
 //  AFSFileInfo.cs - internal structure representing metadata for files in an AFS archive
 //
 //  Author:

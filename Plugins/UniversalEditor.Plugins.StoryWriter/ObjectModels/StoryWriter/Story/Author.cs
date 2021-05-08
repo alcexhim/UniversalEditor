@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author.cs - represents the author of a particular Story
 //
 //  Author:

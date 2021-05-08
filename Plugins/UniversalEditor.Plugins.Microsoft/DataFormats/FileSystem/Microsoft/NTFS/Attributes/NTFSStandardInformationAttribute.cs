@@ -1,4 +1,4 @@
-﻿//
+//
 //  NTFSStandardInformationAttribute.cs
 //
 //  Author:

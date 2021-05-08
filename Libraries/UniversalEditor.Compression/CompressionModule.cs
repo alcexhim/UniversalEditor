@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompressionModule.cs - the abstract base class from which all compression modules derive
 //
 //  Author:

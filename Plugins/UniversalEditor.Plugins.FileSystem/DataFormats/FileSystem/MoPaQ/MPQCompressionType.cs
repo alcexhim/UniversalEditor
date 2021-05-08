@@ -1,4 +1,4 @@
-﻿//
+//
 //  MPQCompressionType.cs - indicates the compression type of a MoPaQ archive
 //
 //  Author:

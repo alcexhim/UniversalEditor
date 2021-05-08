@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormatHintComparison.cs - when guessing DataFormats based on accessor, what the priority should be
 //
 //  Author:

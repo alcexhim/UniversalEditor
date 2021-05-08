@@ -1,4 +1,4 @@
-﻿//
+//
 //  VMDMotionDataFormat.cs - provides a DataFormat for manipulating animation data in MikuMikuDance "Vocaloid Motion Data" (VMD) format
 //
 //  Author:

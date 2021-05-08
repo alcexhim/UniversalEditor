@@ -1,4 +1,4 @@
-﻿//
+//
 //  FamilyTreeEditor.cs - provides an Editor for a FamilyTreeObjectModel
 //
 //  Author:

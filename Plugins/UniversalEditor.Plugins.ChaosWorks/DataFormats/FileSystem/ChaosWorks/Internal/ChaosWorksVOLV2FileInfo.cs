@@ -1,4 +1,4 @@
-﻿//
+//
 //  ChaosWorksVOLV2FileInfo.cs
 //
 //  Author:

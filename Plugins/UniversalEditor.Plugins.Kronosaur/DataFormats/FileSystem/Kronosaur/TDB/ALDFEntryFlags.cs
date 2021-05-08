@@ -1,4 +1,4 @@
-﻿//
+//
 //  ALDFEntryFlags.cs - attributes for a Kronosaur ALDF / TDB archive file
 //
 //  Author:

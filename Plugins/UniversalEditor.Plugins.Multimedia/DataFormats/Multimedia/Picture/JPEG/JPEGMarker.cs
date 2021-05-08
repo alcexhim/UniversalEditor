@@ -1,4 +1,4 @@
-﻿//
+//
 //  JPEGMarker.cs - indicates the type of chunk in a JPEG image file
 //
 //  Author:

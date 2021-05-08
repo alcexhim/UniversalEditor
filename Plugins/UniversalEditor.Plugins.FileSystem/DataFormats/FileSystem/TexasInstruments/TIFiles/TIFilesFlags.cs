@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFilesFlags.cs - indicates attributes for a file system in TIFILES format
 //
 //  Author:

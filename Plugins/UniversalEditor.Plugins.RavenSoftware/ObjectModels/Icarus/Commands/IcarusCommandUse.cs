@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandUse.cs - represents the ICARUS "use" command
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ColumnPropertiesDialog.cs
 //
 //  Author:

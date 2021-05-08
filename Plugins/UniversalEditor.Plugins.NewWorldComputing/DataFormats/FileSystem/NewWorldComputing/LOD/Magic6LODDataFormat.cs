@@ -1,4 +1,4 @@
-﻿//
+//
 //  Magic6LODDataFormat.cs - provides a DataFormat for manipulating Might and Magic VI LOD archives
 //
 //  Author:

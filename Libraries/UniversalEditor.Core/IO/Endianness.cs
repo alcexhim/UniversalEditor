@@ -1,4 +1,4 @@
-﻿//
+//
 //  Endianness.cs - specify big-endian or little-endian
 //
 //  Author:

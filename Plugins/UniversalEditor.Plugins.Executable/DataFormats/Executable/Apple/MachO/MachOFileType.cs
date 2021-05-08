@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOFileType.cs - indicates the type of Apple Mach-O executable file in use
 //
 //  Author:

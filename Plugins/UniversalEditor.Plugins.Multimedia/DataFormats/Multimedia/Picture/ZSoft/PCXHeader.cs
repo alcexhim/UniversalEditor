@@ -1,4 +1,4 @@
-﻿//
+//
 //  PCXHeader.cs - internal structure representing the header of a PC Paintbrush (PCX) image file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  AddressBookObjectModel.cs - provides an ObjectModel for manipulating address book / contact group files
 //
 //  Author:

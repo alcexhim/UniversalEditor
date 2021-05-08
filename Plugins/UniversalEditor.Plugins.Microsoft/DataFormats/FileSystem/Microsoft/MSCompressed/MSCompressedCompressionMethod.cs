@@ -1,4 +1,4 @@
-﻿//
+//
 //  MSCompressedCompressionMethod.cs - indicates the compression method used in an MSCompressed archive
 //
 //  Author:

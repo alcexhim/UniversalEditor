@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMDObjectModel.cs - provides an ObjectModel for manipulating StudioMDL (SMD) files
 //
 //  Author:

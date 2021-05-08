@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeObjectModel.cs - provides an ObjectModel for manipulating source code
 //
 //  Author:

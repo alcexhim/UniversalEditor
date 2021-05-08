@@ -1,4 +1,4 @@
-﻿//
+//
 //  RichTextMarkupItemTag.cs - represents a RichTextMarkupItem that describes formatting information
 //
 //  Author:

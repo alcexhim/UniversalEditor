@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZDataFormat.cs - provides a DataFormat for manipulating InstallShield Z archive files
 //
 //  Author:

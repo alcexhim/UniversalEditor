@@ -1,4 +1,4 @@
-﻿//
+//
 //  XamlObjectModel.cs
 //
 //  Author:

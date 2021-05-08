@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableSubsystem.cs - indicates the subsystem required to run an executable
 //
 //  Author:

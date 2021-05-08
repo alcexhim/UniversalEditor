@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelBone.cs - represents a bone in a 3D model
 //
 //  Author:

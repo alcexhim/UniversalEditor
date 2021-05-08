@@ -1,4 +1,4 @@
-﻿//
+//
 //  MTPAccessor.cs - provides an Accessor for reading and writing data via Media Transfer Protocol
 //
 //  Author:

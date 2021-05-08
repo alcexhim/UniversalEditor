@@ -1,4 +1,4 @@
-﻿//
+//
 //  Writer.cs - input/output module for writing binary or text data
 //
 //  Author:

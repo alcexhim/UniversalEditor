@@ -1,4 +1,4 @@
-﻿//
+//
 //  MoostaCommon.cs - provides common functionality for Moosta OMP
 //
 //  Author:

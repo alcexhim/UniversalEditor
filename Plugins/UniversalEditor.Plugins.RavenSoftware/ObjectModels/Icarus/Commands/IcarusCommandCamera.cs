@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandCamera.cs - represents the ICARUS "camera" command
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Connection.cs - represents an available connection for connecting one ComponentInstance to another ComponentInstance
 //
 //  Author:

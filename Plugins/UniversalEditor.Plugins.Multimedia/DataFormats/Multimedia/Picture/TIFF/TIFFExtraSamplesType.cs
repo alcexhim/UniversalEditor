@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFExtraSamplesType.cs
 //
 //  Author:

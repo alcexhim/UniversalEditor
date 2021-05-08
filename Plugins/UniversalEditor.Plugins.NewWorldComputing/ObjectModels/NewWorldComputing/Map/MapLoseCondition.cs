@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapLoseCondition.cs - indicates the condition(s) required to lose a game using this map
 //
 //  Author:

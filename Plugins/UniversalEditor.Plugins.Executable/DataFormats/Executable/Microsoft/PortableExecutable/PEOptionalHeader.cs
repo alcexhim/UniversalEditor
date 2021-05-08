@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEOptionalHeader.cs - describes the optional header for a Portable Executable file
 //
 //  Author:

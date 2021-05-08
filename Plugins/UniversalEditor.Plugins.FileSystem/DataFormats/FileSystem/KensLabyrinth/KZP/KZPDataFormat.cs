@@ -1,4 +1,4 @@
-﻿//
+//
 //  KZPDataFormat.cs - provides a DataFormat for manipulating archives in Kens Labyrinth KZP format
 //
 //  Author:

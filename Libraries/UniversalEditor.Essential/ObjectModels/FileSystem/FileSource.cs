@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileSource.cs - the abstract base class for defining how a deferred File retrieves its data
 //
 //  Author:

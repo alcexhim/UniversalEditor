@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileNameShortener.cs - truncates a file name with the MS-DOS style filena~1.ext
 //
 //  Author:

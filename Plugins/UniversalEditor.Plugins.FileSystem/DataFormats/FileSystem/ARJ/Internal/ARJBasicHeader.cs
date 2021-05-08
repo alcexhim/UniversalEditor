@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARJBasicHeader.cs - internal structure representing an ARJ basic header
 //
 //  Author:

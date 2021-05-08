@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableLoaderFlags.cs - indicates attributes for the executable loader
 //
 //  Author:

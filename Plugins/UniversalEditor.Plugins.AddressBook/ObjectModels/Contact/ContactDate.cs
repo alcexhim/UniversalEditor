@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactDate.cs - represents a date/time in a ContactObjectModel
 //
 //  Author:

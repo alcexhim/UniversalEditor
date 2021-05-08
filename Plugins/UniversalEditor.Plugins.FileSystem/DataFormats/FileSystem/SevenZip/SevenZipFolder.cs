@@ -1,4 +1,4 @@
-﻿//
+//
 //  SevenZipFolder.cs - internal structure representing a folder in a 7-Zip archive
 //
 //  Author:

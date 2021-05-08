@@ -1,4 +1,4 @@
-﻿//
+//
 //  BinaryGrammarObjectModel.cs - provides an ObjectModel for manipulating binary grammar definitions
 //
 //  Author:

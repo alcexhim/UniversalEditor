@@ -1,4 +1,4 @@
-﻿//
+//
 //  Heroes3GameType.cs - indicates the game campaign type supported by a Heroes of Might and Magic III game map
 //
 //  Author:

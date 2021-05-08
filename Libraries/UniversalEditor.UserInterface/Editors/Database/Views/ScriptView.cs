@@ -1,4 +1,4 @@
-﻿//
+//
 //  ScriptView.cs
 //
 //  Author:

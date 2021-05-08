@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMDDataFormat.cs - provides a DataFormat for manipulating 3D models in SMD format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BlockInfo.cs - internal structure representing block information for an ALZip EGG archive
 //
 //  Author:

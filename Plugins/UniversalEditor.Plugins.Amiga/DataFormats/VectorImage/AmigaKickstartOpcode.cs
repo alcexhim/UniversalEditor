@@ -1,4 +1,4 @@
-﻿//
+//
 //  AmigaKickstartOpcode.cs
 //
 //  Author:

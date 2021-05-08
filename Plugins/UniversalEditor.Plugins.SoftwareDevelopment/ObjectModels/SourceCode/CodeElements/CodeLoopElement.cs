@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeLoopElement.cs - the abstract base class from which all CodeElements specifying a continuous loop are inherited
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Glyph.cs - represents a FixedPage glyph in an XML Paper Specification (XPS) document
 //
 //  Author:

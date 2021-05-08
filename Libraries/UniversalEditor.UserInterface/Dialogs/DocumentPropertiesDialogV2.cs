@@ -1,4 +1,4 @@
-﻿//
+//
 //  DocumentPropertiesDialogV2.cs
 //
 //  Author:

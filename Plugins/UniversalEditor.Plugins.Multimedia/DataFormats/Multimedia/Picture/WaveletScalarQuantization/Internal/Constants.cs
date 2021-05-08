@@ -1,4 +1,4 @@
-﻿//
+//
 //  Constants.cs - internal constants for Wavelet Scalar Quantization (WSQ)
 //
 //  Author:

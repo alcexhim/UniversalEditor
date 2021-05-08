@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusFloatParameter.cs - represents an ICARUS parameter whose value is a floating-point number
 //
 //  Author:

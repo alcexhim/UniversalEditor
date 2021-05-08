@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableLibraryCharacteristics.cs - indicates attributes of a library
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandMacro.cs - represents a collection of ICARUS commands grouped into a named macro
 //
 //  Author:

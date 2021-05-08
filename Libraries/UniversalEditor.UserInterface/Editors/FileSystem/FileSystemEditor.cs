@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileSystemEditor.cs - cross-platform (UWT) file system editor for Universal Editor
 //
 //  Author:

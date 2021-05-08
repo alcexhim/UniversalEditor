@@ -1,4 +1,4 @@
-﻿//
+//
 //  NeroDiskImageDataFormat.cs - provides a DataFormat for manipulating file systems in Nero disk image format
 //
 //  Author:

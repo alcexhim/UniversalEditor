@@ -1,4 +1,4 @@
-﻿//
+//
 //  Library.cs - represents a collection of existing Components referenced by a component designer layout
 //
 //  Author:

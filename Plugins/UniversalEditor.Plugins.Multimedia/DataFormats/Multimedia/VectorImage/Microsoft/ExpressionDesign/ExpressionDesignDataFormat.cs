@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExpressionDesignDataFormat.cs - provides a DataFormat for manipulating vector images in Microsoft Expression Design format
 //
 //  Author:

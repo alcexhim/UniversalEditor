@@ -1,4 +1,4 @@
-﻿//
+//
 //  REZDataFormat.cs - provides a DataFormat for manipulating Monolith Productions' REZ archive files
 //
 //  Author:

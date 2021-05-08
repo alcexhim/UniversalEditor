@@ -1,4 +1,4 @@
-﻿//
+//
 //  LNKWindowState.cs - indicates the default window state of a program invoked by an LNK shortcut
 //
 //  Author:

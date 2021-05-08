@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMResourceHeaderDiskShort.cs - represents a short disk resource header in a Windows Image (WIM) archive
 //
 //  Author:

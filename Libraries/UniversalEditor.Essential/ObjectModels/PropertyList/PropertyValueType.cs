@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyValueType.cs - indicates the data type for a Property in a PropertyListObjectModel
 //
 //  Author:

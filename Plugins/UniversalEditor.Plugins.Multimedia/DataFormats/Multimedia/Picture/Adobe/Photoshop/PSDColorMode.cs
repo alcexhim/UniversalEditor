@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDColorMode.cs - indicates the color mode of an image in Adobe Photoshop PSD format
 //
 //  Author:

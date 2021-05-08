@@ -1,4 +1,4 @@
-﻿//
+//
 //  BinaryEditor.cs - provides a UWT-based hex Editor for manipulating binary data
 //
 //  Author:

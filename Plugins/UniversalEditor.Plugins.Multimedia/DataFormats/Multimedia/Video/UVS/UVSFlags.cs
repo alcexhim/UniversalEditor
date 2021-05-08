@@ -1,4 +1,4 @@
-﻿//
+//
 //  UVSFlags.cs - indicates the attributes for a UVS video
 //
 //  Author:

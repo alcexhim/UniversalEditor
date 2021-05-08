@@ -1,4 +1,4 @@
-﻿//
+//
 //  MessagePart.cs - WSDL MessagePart
 //
 //  Author:

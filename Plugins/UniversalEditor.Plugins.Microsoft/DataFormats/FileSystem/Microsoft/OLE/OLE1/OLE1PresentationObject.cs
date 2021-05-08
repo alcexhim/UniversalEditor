@@ -1,4 +1,4 @@
-﻿//
+//
 //  OLE1PresentationObjectHeader.cs -
 //
 //  Author:

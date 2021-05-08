@@ -1,4 +1,4 @@
-﻿//
+//
 //  MPQEncryption.cs - functions for encryption and decryption in a MPQ archive
 //
 //  Author:

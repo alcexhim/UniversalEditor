@@ -1,4 +1,4 @@
-﻿//
+//
 //  HeroSkillLevel.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PMAModelObjectModelExtension.cs - provides an ObjectModelExtension that extends a ModelObjectModel with additional information pertaining to the Polygon Movie Maker ALCETECH format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DefaultDefinition.cs - defines a content type for all files of a particular extension in an Open Packaging Convention document
 //
 //  Author:

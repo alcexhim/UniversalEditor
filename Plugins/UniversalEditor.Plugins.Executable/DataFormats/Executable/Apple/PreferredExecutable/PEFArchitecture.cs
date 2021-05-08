@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEFArchitecture.cs - indicates the intended architecture for a Preferred Executable file
 //
 //  Author:

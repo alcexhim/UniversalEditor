@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPExtraDataField.cs - describes information for an extra data field in a ZIP archive
 //
 //  Author:

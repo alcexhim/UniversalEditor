@@ -1,4 +1,4 @@
-﻿//
+//
 //  EBMLDataFormat.cs - provides a DataFormat for manipulating markup in Extensible Binary Meta Language (EBML) format
 //
 //  Author:

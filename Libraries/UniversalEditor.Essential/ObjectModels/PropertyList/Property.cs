@@ -1,4 +1,4 @@
-﻿//
+//
 //  Property.cs - represents a property in a PropertyListObjectModel which associates a name with a value
 //
 //  Author:

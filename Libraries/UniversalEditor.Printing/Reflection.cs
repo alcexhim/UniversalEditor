@@ -1,4 +1,4 @@
-﻿//
+//
 //  Reflection.cs - provides reflection methods for print-related operations
 //
 //  Author:

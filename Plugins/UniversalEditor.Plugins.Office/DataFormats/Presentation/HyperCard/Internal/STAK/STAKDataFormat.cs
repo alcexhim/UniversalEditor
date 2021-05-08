@@ -1,4 +1,4 @@
-﻿//
+//
 //  STAKDataFormat.cs
 //
 //  Author:

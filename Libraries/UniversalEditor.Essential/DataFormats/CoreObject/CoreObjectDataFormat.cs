@@ -1,4 +1,4 @@
-﻿//
+//
 //  CoreObjectDataFormat.cs - provides a DataFormat for manipulating Core Object File Format documents, such as vCard and vCalendar
 //
 //  Author:

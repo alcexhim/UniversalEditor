@@ -1,4 +1,4 @@
-﻿//
+//
 //  UUEncodingDataFormat.cs - provides a DataFormat for manipulating archives in UUEncode format
 //
 //  Author:

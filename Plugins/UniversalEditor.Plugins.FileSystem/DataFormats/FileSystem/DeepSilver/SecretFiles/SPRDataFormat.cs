@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPRDataFormat.cs - provides a DataFormat for manipulating archives in DeepSilver SecretFiles SPR format
 //
 //  Author:

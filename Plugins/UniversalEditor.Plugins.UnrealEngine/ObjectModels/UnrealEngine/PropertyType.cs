@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyType.cs - indicates the type of property in an Unreal Engine package
 //
 //  Author:

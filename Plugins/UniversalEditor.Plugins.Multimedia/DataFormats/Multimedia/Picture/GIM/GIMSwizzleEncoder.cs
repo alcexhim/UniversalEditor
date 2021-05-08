@@ -1,4 +1,4 @@
-﻿//
+//
 //  GIMSwizzleEncoder.cs - provides functions for swizzle encoding/decoding pixel data in a GIM image file
 //
 //  Author:

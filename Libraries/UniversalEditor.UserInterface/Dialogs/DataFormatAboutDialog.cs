@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormatAboutDialog.cs
 //
 //  Author:

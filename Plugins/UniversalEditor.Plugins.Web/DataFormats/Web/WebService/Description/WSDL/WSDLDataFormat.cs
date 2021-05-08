@@ -1,4 +1,4 @@
-﻿//
+//
 //  WSDLDataFormat.cs - provides a DataFormat for manipulating Web Service Description Language files
 //
 //  Author:

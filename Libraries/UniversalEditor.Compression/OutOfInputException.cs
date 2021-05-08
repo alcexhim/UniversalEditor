@@ -1,4 +1,4 @@
-﻿//
+//
 //  OutOfInputException.cs - exception raised when the CompressionModule expects more input than is available
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  RSCDataFormat.cs - implements the Knowledge Adventure RSC archive format
 //
 //  Author:

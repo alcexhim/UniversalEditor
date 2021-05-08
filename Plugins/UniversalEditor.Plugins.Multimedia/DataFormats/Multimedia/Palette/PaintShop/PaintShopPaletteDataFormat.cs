@@ -1,4 +1,4 @@
-﻿//
+//
 //  PaintShopPaletteDataFormat.cs - provides a DataFormat for manipulating color palettes in Jasc Paint Shop Pro format
 //
 //  Author:

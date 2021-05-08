@@ -1,4 +1,4 @@
-﻿//
+//
 //  HyperArchiverDataFormat.cs - provides a DataFormat for manipulating archives in HyperArchiver format
 //
 //  Author:

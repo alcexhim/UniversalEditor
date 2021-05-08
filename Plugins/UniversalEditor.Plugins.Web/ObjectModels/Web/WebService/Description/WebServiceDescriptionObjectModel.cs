@@ -1,4 +1,4 @@
-﻿//
+//
 //  WebServiceDescriptionObjectModel.cs - provides an ObjectModel for storing information about a Web Service
 //
 //  Author:

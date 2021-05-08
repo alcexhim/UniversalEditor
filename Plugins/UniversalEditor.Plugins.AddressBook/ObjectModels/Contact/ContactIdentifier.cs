@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactIdentifier.cs - represents a globally-unique identifier (GUID) in a ContactObjectModel
 //
 //  Author:

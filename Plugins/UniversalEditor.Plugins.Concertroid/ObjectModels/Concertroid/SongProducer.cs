@@ -1,4 +1,4 @@
-﻿//
+//
 //  SongProducer.cs - indicates the producer and permission status for a Song in a Concertroid Performance
 //
 //  Author:

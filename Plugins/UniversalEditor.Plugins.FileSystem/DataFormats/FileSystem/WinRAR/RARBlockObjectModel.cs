@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARBlockObjectModel.cs
 //
 //  Author:

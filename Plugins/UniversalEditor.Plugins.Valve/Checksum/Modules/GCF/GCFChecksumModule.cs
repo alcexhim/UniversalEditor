@@ -1,4 +1,4 @@
-﻿//
+//
 //  GCFChecksumModule.cs - implements module for calculating checksum used in Valve GCF archives
 //
 //  Author:

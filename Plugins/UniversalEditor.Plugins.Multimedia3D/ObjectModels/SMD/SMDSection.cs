@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMDSection.cs - represents a section in a StudioMDL file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BGADataFormat.cs - provides a DataFormat for manipulating archives in BGA format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PACDataFormat.cs - provides a DataFormat for manipulating archives in PAC format
 //
 //  Author:

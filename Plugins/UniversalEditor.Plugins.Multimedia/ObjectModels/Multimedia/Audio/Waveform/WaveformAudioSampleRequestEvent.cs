@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 {
 	public class WaveformAudioSampleRequestEventArgs : EventArgs

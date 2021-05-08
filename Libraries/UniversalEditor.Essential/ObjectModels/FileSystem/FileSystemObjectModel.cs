@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileSystemObjectModel.cs - provides an ObjectModel for manipulating files or block devices which contain other files, such as archives, file systems, and disk images
 //
 //  Author:

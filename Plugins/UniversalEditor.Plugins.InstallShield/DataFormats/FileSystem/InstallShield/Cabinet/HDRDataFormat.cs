@@ -1,4 +1,4 @@
-﻿//
+//
 //  HDRDataFormat.cs - provides a DataFormat for manipulating InstallShield cabinet header files
 //
 //  Author:

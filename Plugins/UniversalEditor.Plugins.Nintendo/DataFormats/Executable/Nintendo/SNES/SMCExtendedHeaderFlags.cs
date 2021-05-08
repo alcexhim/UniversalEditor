@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCExtendedHeaderFlags.cs - indicates attributes of a Nintendo SNES game dump file extended header
 //
 //  Author:

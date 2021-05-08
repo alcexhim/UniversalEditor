@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormatException.cs - the base class for all exceptions raised from within a DataFormat
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFFillOrder.cs
 //
 //  Author:

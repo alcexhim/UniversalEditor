@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapObject.cs - describes an object placed on a map
 //
 //  Author:

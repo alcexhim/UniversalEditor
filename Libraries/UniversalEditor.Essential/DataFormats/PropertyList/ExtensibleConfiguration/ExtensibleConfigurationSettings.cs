@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExtensibleConfigurationSettings.cs - represents settings for the ExtensibleConfigurationDataFormat parser
 //
 //  Author:

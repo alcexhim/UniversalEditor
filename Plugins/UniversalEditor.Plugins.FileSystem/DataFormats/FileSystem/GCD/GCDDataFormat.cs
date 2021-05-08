@@ -1,4 +1,4 @@
-﻿//
+//
 //  GCDDataFormat.cs - provides a DataFormat for manipulating archives in GCD format
 //
 //  Author:

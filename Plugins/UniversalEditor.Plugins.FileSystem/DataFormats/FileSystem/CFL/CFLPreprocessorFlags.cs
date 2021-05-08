@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFLPreprocessorFlags.cs - indicates preprocessor attributes for a CFL archive
 //
 //  Author:

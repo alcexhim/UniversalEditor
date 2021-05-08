@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARArchiveHeaderV5.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  JackOrlandoDataFormat.cs - provides a DataFormat for manipulating archives in Jack Orlando format
 //
 //  Author:

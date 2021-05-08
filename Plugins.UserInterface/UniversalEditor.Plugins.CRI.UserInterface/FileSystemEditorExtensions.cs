@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileSystemEditorExtensions.cs - provide extensions to the FileSystemEditor for CRI CPK archives
 //
 //  Author:

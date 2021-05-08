@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFSectionEntry.cs - represents a section entry in an Executable and Linkable Forma(E
 //
 //  Author:

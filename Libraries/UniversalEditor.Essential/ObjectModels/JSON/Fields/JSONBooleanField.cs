@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONBooleanField.cs - a JSONField representing either a true or false value
 //
 //  Author:

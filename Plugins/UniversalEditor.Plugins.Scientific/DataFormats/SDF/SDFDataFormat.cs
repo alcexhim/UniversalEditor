@@ -1,4 +1,4 @@
-﻿//
+//
 //  SDFDataFormat.cs - a platform-independent data format that works in Fortran, C, and IDL
 //
 //  Author:

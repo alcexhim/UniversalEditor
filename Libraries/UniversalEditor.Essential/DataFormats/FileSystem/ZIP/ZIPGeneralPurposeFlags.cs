@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPGeneralPurposeFlags.cs - indicates general-purpose attributes for a ZIP archive
 //
 //  Author:

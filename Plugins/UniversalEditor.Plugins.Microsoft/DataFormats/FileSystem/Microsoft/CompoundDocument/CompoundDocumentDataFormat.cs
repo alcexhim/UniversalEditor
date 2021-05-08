@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompoundDocumentDataFormat.cs - provides a DataFormat for manipulating Microsoft Compound Document Format files
 //
 //  Author:

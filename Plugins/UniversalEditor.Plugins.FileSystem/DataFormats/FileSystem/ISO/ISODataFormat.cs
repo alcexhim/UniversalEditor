@@ -1,4 +1,4 @@
-﻿//
+//
 //  ISODataFormat.cs - provides a DataFormat for manipulating file systems in ISO format
 //
 //  Author:

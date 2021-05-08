@@ -1,4 +1,4 @@
-﻿//
+//
 //  PPMDataFormat.cs - provides a DataFormat for manipulating images in Portable PixelMap (PPM) format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDImageResourceBlock.cs - internal structure representing the header of an image resource block in an Adobe Photoshop PSD image file
 //
 //  Author:

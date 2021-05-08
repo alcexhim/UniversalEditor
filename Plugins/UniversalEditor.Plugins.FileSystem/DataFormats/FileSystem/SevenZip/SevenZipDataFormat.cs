@@ -1,4 +1,4 @@
-﻿//
+//
 //  SevenZipDataFormat.cs - provides a DataFormat for manipulating archives in 7-Zip 7z format
 //
 //  Author:

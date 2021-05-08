@@ -1,4 +1,4 @@
-﻿//
+//
 //  NonSerializedPropertyAttribute.cs - indicates that a particular property should not be serialized
 //
 //  Author:

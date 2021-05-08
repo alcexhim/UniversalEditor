@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMDataFormat.cs - provides a DataFormat to manipulate Windows Imaging Format (WIM) archives
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCDataFormat.cs - provides a DataFormat to manipulate Nintendo SNES game dump files in SMC format
 //
 //  Author:

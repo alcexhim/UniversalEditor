@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARJInternalFlags.cs - indicates internal attributes of an ARJ file
 //
 //  Author:

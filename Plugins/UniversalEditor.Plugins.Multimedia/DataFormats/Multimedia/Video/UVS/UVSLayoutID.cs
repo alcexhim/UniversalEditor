@@ -1,4 +1,4 @@
-﻿//
+//
 //  UVSLayoutID.cs - internal structure representing a UVS layout ID
 //
 //  Author:

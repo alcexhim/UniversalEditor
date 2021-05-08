@@ -1,4 +1,4 @@
-﻿//
+//
 //  VHDHardDiskFooter.cs - represents the footer in a Microsoft Virtual PC VHD file
 //
 //  Author:

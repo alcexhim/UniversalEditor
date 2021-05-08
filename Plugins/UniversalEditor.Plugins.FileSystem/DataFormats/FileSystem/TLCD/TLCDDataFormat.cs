@@ -1,4 +1,4 @@
-﻿//
+//
 //  TLCDDataFormat.cs - provides a DataFormat for manipulating archives in The Learning Company TLCD format
 //
 //  Author:

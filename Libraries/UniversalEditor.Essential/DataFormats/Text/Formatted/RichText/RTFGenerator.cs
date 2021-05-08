@@ -1,4 +1,4 @@
-﻿//
+//
 //  RTFGenerator.cs - predefined RTF generator tag values
 //
 //  Author:

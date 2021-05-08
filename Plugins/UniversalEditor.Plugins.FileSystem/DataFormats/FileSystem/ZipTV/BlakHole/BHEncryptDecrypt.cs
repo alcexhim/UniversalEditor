@@ -1,4 +1,4 @@
-﻿//
+//
 //  BHEncryptDecrypt.cs - implements functions for encrypting and decrypting a ZipTV BlakHole archive
 //
 //  Author:

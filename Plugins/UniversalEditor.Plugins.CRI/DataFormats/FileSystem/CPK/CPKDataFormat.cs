@@ -1,4 +1,4 @@
-﻿//
+//
 //  CPKDataFormat.cs - implementation of CRI Middleware CPK archive
 //
 //  Author:

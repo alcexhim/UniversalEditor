@@ -1,4 +1,4 @@
-﻿//
+//
 //  SDFDataSetDataType.cs
 //
 //  Author:

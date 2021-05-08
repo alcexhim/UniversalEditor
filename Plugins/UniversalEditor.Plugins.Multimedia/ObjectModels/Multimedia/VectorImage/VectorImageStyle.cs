@@ -1,4 +1,4 @@
-﻿//
+//
 //  VectorImageStyle.cs
 //
 //  Author:

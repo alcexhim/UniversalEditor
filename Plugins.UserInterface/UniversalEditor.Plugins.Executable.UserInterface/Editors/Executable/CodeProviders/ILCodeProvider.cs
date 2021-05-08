@@ -1,4 +1,4 @@
-﻿//
+//
 //  ILCodeProvider.cs
 //
 //  Author:

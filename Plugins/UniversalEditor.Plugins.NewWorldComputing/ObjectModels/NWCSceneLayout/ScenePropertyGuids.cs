@@ -1,4 +1,4 @@
-﻿//
+//
 //  ScenePropertyGuids.cs
 //
 //  Author:

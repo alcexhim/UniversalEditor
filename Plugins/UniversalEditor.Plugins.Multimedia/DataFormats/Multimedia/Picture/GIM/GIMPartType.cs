@@ -1,4 +1,4 @@
-﻿//
+//
 //  GIMPartType.cs - indicates the type of block in a GIM image
 //
 //  Author:

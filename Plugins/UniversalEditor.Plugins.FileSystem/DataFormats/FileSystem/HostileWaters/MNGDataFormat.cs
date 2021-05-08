@@ -1,4 +1,4 @@
-﻿//
+//
 //  MNGDataFormat.cs - provides a DataFormat for manipulating archives in Hostile Waters MNG format
 //
 //  Author:

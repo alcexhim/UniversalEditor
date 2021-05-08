@@ -1,4 +1,4 @@
-﻿//
+//
 //  RelationshipsObjectModel.cs - provides an ObjectModel for manipulating Open Packaging Convention package relationship definitions
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ManageBookmarksDialog.cs - provides a UWT ContainerLayout-based CustomDialog for managing bookmarks in Universal Editor
 //
 //  Author:

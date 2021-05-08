@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDHeader.cs - internal structure representing the header of an Adobe Photoshop PSD image file
 //
 //  Author:

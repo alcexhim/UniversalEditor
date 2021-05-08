@@ -1,4 +1,4 @@
-﻿//
+//
 //  ChunkedObjectModel.cs - provides an ObjectModel for manipulating chunked binary files (such as RIFF)
 //
 //  Author:

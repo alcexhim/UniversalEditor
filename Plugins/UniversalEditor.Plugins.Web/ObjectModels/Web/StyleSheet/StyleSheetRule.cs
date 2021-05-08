@@ -1,4 +1,4 @@
-﻿//
+//
 //  StyleSheetRule.cs - represents a collection of style sheet attributes for a particular object (selector)
 //
 //  Author:

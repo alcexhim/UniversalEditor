@@ -1,4 +1,4 @@
-﻿//
+//
 //  YanghxDataFormat.cs - provides a DataFormat for manipulating archives in Garena yanghx format
 //
 //  Author:

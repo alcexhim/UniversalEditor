@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPISDataFormat.cs - provides a DataFormat for manipulating archives in SPIS format
 //
 //  Author:

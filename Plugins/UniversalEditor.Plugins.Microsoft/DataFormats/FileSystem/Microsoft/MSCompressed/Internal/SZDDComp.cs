@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 //  SZDDComp.impl.cs: Microsoft "compress.exe/expand.exe" compatible compressor

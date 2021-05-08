@@ -1,4 +1,4 @@
-﻿//
+//
 //  N64MediaFormat.cs - indicates the media format for a Nintendo 64 media
 //
 //  Author:

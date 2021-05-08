@@ -1,4 +1,4 @@
-﻿//
+//
 //  GIMPixelOrder.cs - indicates the pixel order in a GIM image
 //
 //  Author:

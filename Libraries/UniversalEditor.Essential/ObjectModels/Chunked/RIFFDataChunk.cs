@@ -1,4 +1,4 @@
-﻿//
+//
 //  RIFFDataChunk.cs - represents a data chunk in a Resource Interchange File Format file
 //
 //  Author:

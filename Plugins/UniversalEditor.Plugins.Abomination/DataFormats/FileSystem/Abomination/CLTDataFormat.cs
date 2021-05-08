@@ -1,4 +1,4 @@
-﻿//
+//
 //  CLTDataFormat.cs - provides a DataFormat for manipulating archives in Abomination CLT format
 //
 //  Author:

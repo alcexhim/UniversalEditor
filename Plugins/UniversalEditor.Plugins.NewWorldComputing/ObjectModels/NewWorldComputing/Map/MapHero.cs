@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapHero.cs - represents a hero on a map
 //
 //  Author:

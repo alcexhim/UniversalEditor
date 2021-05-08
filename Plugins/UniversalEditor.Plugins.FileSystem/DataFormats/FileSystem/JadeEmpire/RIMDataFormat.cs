@@ -1,4 +1,4 @@
-﻿//
+//
 //  RIMDataFormat.cs - provides a DataFormat for manipulating archives in RIM format
 //
 //  Author:

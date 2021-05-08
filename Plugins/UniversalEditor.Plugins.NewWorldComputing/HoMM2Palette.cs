@@ -1,4 +1,4 @@
-﻿//
+//
 //  HoMM2Palette.cs - the default palette (KB.PAL) for Heroes of Might and Magic II
 //
 //  Author:

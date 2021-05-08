@@ -1,4 +1,4 @@
-﻿//
+//
 //  PictureEditor.Designer.cs - UWT designer initialization for PictureEditor
 //
 //  Author:

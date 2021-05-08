@@ -1,4 +1,4 @@
-﻿//
+//
 //  SETDataFormat.cs - implements Ark Angles setup directive file format
 //
 //  Author:

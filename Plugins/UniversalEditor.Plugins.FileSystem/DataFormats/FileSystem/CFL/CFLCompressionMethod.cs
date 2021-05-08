@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFLCompressionMethod.cs - indicates the compression method of a CFL file
 //
 //  Author:

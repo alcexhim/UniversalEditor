@@ -1,4 +1,4 @@
-﻿//
+//
 //  Book.cs - represents a book
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactGenericField.cs - represents a generic field in a ContactObjectModel
 //
 //  Author:

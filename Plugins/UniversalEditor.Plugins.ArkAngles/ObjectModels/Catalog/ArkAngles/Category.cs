@@ -1,4 +1,4 @@
-﻿//
+//
 //  Category.cs - represents a category of products in an Ark Angles software catalog
 //
 //  Author:

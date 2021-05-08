@@ -1,4 +1,4 @@
-﻿//
+//
 //  OpenDocumentSchemas.cs
 //
 //  Author:

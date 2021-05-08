@@ -1,4 +1,4 @@
-﻿//
+//
 //  MoPkgDataFormat.cs - provides a DataFormat for manipulating Moosta OMP motion package files
 //
 //  Author:

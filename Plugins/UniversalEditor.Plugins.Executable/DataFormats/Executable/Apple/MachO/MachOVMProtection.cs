@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOVMProtection.cs - specifies protection attributes for the VM in an Apple Mach-O executable
 //
 //  Author:

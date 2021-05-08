@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftWaveDataFormat.cs - provides a DataFormat for manipulating waveform audio in Microsoft WAV format
 //
 //  Author:

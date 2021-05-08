@@ -1,4 +1,4 @@
-﻿//
+//
 //  FlashBaseDataFormat.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PACKDataFormat.cs - provides a DataFormat for manipulating archives in Stella Games LzmaPack format
 //
 //  Author:

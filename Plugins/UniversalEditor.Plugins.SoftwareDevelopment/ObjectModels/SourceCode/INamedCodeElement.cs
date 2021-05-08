@@ -1,4 +1,4 @@
-﻿//
+//
 //  INamedCodeElement.cs - interface for a CodeElement with a name
 //
 //  Author:

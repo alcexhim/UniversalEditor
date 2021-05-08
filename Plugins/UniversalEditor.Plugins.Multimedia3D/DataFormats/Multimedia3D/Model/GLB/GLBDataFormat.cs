@@ -1,4 +1,4 @@
-﻿//
+//
 //  GLBDataFormat.cs - provides a DataFormat for manipulating 3D models in Ultimate Stunts GLB format
 //
 //  Author:

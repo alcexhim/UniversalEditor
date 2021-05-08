@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARFormatVersion.cs - indicates the format version for a RAR archive
 //
 //  Author:

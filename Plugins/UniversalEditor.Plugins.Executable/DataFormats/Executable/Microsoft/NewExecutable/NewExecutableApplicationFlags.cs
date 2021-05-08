@@ -1,4 +1,4 @@
-﻿//
+//
 //  NewExecutableApplicationFlags.cs - describes attributes for a New Executable file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  NewExecutableOS2Flags.cs - describes attributes for an OS/2 New Executable file
 //
 //  Author:

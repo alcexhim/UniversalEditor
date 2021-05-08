@@ -1,4 +1,4 @@
-﻿//
+//
 //  Platform.cs - represents an available platform for a software product in an Ark Angles software catalog
 //
 //  Author:

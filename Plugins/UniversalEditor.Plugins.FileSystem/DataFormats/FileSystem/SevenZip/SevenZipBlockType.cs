@@ -1,4 +1,4 @@
-﻿//
+//
 //  SevenZipBlockType.cs - indicates the type of block in a 7-Zip archive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ATRDataFormat.cs - provides a DataFormat to manipulate Knowledge Adventure actor files
 //
 //  Author:

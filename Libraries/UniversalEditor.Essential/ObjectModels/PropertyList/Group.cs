@@ -1,4 +1,4 @@
-﻿//
+//
 //  Group.cs - represents a group in a PropertyListObjectModel which can contain Property instances and other Groups
 //
 //  Author:

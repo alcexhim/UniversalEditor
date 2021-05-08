@@ -1,4 +1,4 @@
-﻿//
+//
 //  ConnectionValue.cs - represents the actual connection between one Connection and another Connection
 //
 //  Author:

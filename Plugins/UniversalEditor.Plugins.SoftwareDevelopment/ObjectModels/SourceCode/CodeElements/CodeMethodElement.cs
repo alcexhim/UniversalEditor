@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeMethodElement.cs - represents a CodeElement that defines a method
 //
 //  Author:

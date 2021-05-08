@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapObjectType.cs - indicates the type of object placed on the map
 //
 //  Author:

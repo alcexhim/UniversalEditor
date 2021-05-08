@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONArrayField.cs - represents an array field in a JSON document
 //
 //  Author:

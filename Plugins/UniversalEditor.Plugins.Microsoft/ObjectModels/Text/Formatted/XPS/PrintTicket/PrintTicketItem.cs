@@ -1,4 +1,4 @@
-﻿//
+//
 //  PrintTicketItem.cs - represents an item in a PrintTicket file in an XML Paper Specification (XPS) document
 //
 //  Author:

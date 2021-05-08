@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARVM.cs - work in progress to implement WinRAR VM from the unarchiver
 //
 //  Author:

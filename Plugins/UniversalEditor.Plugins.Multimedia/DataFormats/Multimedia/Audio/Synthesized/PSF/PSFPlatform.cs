@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSFPlatform.cs - indicates the platform and format for the PSF file
 //
 //  Author:

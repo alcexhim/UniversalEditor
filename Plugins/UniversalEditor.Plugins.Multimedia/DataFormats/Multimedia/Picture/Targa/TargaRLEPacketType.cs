@@ -1,4 +1,4 @@
-﻿//
+//
 //  TargaRLEPacketType.cs - indicates the RLE packet type used in a RLE compressed image
 //
 //  Author:

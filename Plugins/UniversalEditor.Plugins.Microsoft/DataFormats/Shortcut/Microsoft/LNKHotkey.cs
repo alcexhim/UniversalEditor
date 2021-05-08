@@ -1,4 +1,4 @@
-﻿//
+//
 //  LNKHotkey.cs - indicates the hot key combination used to invoke an LNK shortcut file
 //
 //  Author:

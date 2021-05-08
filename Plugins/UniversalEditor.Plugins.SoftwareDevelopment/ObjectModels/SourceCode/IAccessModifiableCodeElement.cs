@@ -1,4 +1,4 @@
-﻿//
+//
 //  IAccessModifiableCodeElement.cs - provides an interface for a CodeElement containing access modifiers
 //
 //  Author:

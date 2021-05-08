@@ -1,4 +1,4 @@
-﻿//
+//
 //  Path.cs - represents a Path FixedPageItem
 //
 //  Author:

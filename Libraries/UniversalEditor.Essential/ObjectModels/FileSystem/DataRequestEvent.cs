@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataRequestEvent.cs - provides an EventArgs and EventHandler for a a File.DataRequest event
 //
 //  Author:

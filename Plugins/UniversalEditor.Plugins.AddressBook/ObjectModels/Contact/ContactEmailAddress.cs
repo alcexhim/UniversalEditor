@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactEmailAddress.cs - represents an e-mail address in a ContactObjectModel
 //
 //  Author:

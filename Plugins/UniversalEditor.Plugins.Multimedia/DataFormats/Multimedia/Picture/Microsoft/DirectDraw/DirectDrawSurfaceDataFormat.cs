@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfaceDataFormat.cs - provides a DataFormat for manipulating images in DirectDraw Surface (DDS) format
 //
 //  Author:

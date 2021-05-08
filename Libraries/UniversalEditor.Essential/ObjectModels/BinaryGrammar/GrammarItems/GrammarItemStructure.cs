@@ -1,4 +1,4 @@
-﻿//
+//
 //  GrammarStructure.cs - represents a complex structure field in a binary grammar
 //
 //  Author:

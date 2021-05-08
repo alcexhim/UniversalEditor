@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONObjectModel.cs - provides an ObjectModel for manipulating data in JavaScript Object Notation (JSON) format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFImageFile.cs
 //
 //  Author:

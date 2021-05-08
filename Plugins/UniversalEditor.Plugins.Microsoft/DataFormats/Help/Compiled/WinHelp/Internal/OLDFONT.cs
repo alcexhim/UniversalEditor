@@ -1,4 +1,4 @@
-﻿//
+//
 //  OLDFONT.cs - internal structure representing OLDFONT for WinHelp files
 //
 //  Author:

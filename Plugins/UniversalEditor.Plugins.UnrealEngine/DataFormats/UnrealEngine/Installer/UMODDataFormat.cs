@@ -1,4 +1,4 @@
-﻿//
+//
 //  UMODDataFormat.cs - provides a DataFormat for manipulating Unreal Engine UMOD archives
 //
 //  Author:

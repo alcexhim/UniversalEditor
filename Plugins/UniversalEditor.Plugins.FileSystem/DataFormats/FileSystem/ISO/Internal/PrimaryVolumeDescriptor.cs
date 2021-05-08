@@ -1,4 +1,4 @@
-﻿//
+//
 //  PrimaryVolumeDescriptor.cs - internal structure representing a primary volume descriptor in an ISO image file
 //
 //  Author:

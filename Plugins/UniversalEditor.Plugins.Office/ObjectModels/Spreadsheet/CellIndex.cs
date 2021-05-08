@@ -1,4 +1,4 @@
-﻿//
+//
 //  CellIndex.cs
 //
 //  Author:

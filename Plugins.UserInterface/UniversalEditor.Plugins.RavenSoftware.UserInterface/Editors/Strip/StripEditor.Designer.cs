@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.RavenSoftware.Strip
+namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.RavenSoftware.Strip
 {
 	partial class StripEditor
 	{

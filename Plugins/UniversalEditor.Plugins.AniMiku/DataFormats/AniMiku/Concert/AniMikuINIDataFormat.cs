@@ -1,4 +1,4 @@
-﻿//
+//
 //  AniMikuINIDataFormat.cs - implements the AniMiku performance data format
 //
 //  Author:

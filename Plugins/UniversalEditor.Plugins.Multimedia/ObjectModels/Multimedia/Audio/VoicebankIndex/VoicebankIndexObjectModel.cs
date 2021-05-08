@@ -1,4 +1,4 @@
-﻿//
+//
 //  VoicebankIndexObjectModel.cs - provides an ObjectModel for manipulating voicebank index files
 //
 //  Author:

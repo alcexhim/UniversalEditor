@@ -1,4 +1,4 @@
-﻿//
+//
 //  SyntaxEditor.cs - provides a UWT-based Editor for text-based editing of a CodeObjectModel
 //
 //  Author:

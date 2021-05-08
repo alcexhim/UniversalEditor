@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSFDataFormat.cs - provides a DataFormat for manipulating Sony PlayStation PSF game information databases
 //
 //  Author:

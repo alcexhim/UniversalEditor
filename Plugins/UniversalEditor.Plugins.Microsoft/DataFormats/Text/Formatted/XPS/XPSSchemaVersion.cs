@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPSSchemaVersion.cs - indicates which version of the XML Paper Specification (XPS) schema to use for an XPS document
 //
 //  Author:

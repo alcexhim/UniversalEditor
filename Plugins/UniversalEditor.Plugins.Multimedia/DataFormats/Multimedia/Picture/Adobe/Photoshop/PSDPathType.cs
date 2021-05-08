@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDPathType.cs - indicates the type of path in an Adobe Photoshop PSD image file
 //
 //  Author:

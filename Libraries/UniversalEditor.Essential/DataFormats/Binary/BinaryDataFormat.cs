@@ -1,4 +1,4 @@
-﻿//
+//
 //  BinaryDataFormat.cs - provides a DataFormat for manipulating raw binary data
 //
 //  Author:

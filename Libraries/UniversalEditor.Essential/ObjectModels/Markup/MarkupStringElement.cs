@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupStringElement.cs - represents a string element (e.g. CDATA) in a MarkupObjectModel
 //
 //  Author:

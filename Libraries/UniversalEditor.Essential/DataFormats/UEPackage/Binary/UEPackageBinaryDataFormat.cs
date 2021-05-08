@@ -1,4 +1,4 @@
-﻿//
+//
 //  UEPackageBinaryDataFormat.cs
 //
 //  Author:

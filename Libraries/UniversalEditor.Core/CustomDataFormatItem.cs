@@ -1,4 +1,4 @@
-﻿//
+//
 //  CustomDataFormatItem.cs - declaration of a field used in a CDF
 //
 //  Author:

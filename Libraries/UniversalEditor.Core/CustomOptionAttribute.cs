@@ -1,4 +1,4 @@
-﻿//
+//
 //  CustomOptionAttribute.cs - UI-agnostic definition for options when loading/saving DFs, etc.
 //
 //  Author:

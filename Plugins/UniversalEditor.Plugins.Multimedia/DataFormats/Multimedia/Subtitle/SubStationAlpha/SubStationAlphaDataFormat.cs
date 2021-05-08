@@ -1,4 +1,4 @@
-﻿//
+//
 //  SubStationAlphaDataFormat.cs - provides a DataFormat for manipulating subtitles in SubStation Alpha (SSA) format
 //
 //  Author:

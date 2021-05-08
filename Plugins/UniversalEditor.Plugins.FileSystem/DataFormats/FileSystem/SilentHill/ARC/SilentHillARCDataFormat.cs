@@ -1,4 +1,4 @@
-﻿//
+//
 //  SilentHillARCDataFormat.cs - provides a DataFormat for manipulating archives in Silent Hill ARC format
 //
 //  Author:

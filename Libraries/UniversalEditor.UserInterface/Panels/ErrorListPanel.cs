@@ -1,4 +1,4 @@
-﻿//
+//
 //  ErrorListPanel.cs
 //
 //  Author:

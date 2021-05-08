@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFSpecialSectionIndex.cs - specifies the type of special section index referred to by an Executable and Linkable Format executable
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesignerXMLDataFormat.cs - provides a DataFormat for manipulating component designer layouts in Universal Editor XML format
 //
 //  Author:

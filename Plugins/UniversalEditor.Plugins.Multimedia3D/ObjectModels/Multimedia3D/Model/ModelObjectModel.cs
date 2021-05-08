@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelObjectModel.cs - provides an ObjectModel for manipulating 3D models
 //
 //  Author:

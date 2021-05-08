@@ -1,4 +1,4 @@
-﻿//
+//
 //  LastUsedAccessor.cs - whether the Input or the Output was last used (idk why)
 //
 //  Author:

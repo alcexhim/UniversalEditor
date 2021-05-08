@@ -1,4 +1,4 @@
-﻿//
+//
 //  YZ1DataFormat.cs - provides a DataFormat for manipulating archives in YZ1 format
 //
 //  Author:

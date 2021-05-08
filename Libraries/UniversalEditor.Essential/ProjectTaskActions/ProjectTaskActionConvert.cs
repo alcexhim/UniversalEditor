@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectTaskActionConvert.cs - represents a ProjectTaskAction that converts an ObjectModel from an input DataFormat to an output DataFormat.
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CoreObjectObjectModel.cs - provides an ObjectModel for manipulating data in Core Object format
 //
 //  Author:

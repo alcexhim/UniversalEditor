@@ -1,4 +1,4 @@
-﻿//
+//
 //  Input.cs - WSDL Input
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  OverrideDefinition.cs - defines a content type override for a particular part of an Open Packaging Convention document
 //
 //  Author:

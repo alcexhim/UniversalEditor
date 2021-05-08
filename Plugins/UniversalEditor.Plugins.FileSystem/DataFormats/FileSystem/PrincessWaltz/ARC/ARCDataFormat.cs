@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARCDataFormat.cs - provides a DataFormat for manipulating archives in Princess Waltz ARC format
 //
 //  Author:

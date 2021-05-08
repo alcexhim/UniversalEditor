@@ -1,4 +1,4 @@
-﻿//
+//
 //  BurikoARCDataFormat.cs - provides a DataFormat for manipulating archives in Buriko General Interpreter ARC format
 //
 //  Author:

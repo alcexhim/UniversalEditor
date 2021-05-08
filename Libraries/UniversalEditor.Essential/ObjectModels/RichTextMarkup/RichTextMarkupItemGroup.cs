@@ -1,4 +1,4 @@
-﻿//
+//
 //  RichTextMarkupItemGroup.cs - represents a RichTextMarkupItem that can contain other RichTextMarkupItems
 //
 //  Author:

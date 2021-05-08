@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSCatalogDirectoryThreadRecord.cs - internal structure representing a directory thread catalog record in a HFS filesystem
 //
 //  Author:

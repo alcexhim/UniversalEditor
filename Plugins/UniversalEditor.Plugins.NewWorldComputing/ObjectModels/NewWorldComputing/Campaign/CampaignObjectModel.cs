@@ -1,4 +1,4 @@
-﻿//
+//
 //  CampaignObjectModel.cs - provides an ObjectModel for manipulating campaign game definitions in New World Computing (Heroes of Might and Magic II) games
 //
 //  Author:

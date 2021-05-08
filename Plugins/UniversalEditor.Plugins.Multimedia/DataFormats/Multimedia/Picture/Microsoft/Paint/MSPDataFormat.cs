@@ -1,4 +1,4 @@
-﻿//
+//
 //  MSPDataFormat.cs - provides a DataFormat for manipulating images in Microsoft Paint MSP format
 //
 //  Author:

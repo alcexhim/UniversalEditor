@@ -1,4 +1,4 @@
-﻿//
+//
 //  Design.cs - represents a component designer layout in a DesignerObjectModel
 //
 //  Author:

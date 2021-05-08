@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapEvent.cs - represents an event which occurs on the map
 //
 //  Author:

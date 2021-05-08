@@ -1,4 +1,4 @@
-﻿//
+//
 //  GrammarStructureReference.cs - represents a reference to a complex structure field in a binary grammar
 //
 //  Author:

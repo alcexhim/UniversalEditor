@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARCompressionMethod.cs - indicates the compression method of a RAR archive
 //
 //  Author:

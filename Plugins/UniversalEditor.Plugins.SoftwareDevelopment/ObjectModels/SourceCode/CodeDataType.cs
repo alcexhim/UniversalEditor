@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeDataType.cs - represents a declaration of a data type
 //
 //  Author:

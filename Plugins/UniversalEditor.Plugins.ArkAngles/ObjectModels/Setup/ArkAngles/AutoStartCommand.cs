@@ -1,4 +1,4 @@
-﻿//
+//
 //  AutoStartCommand.cs - a command that is automatically executed when the installation application is launched
 //
 //  Author:

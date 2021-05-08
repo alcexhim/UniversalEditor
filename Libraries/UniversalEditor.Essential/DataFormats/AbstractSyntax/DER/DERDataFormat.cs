@@ -1,4 +1,4 @@
-﻿//
+//
 //  DERDataFormat.cs - provides a DataFormat for manipulating AbstractSyntaxObjectModel data in Distinguished Encoding Rules (DER) format
 //
 //  Author:

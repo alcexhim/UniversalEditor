@@ -1,4 +1,4 @@
-﻿//
+//
 //  CMPDataFormat.cs - provides a DataFormat for manipulating images in LEADTOOLS CMP format
 //
 //  Author:

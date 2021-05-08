@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPCentralDirectoryFooter.cs - internal structure representing the central directory footer in a ZIP archive
 //
 //  Author:

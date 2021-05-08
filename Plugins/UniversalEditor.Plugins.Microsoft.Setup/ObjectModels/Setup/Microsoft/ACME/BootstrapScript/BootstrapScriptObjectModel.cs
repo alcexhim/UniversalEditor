@@ -1,4 +1,4 @@
-﻿//
+//
 //  BootstrapScriptObjectModel.cs - provides an ObjectModel for manipulating Microsoft ACME setup bootstrapper scripts
 //
 //  Author:

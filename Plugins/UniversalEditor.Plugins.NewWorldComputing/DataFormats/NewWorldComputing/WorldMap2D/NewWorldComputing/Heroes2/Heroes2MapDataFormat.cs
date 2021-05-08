@@ -1,4 +1,4 @@
-﻿//
+//
 //  Heroes2MapDataFormat.cs - provides a DataFormat for manipulating Heroes of Might and Magic II map files
 //
 //  Author:

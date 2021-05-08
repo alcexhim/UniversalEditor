@@ -1,4 +1,4 @@
-﻿//
+//
 //  DocumentReference.cs - represents a FixedDocumentSequence document reference in an XML Paper Specification (XPS) document
 //
 //  Author:

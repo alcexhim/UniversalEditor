@@ -1,4 +1,4 @@
-﻿//
+//
 //  WindowsConfigurationDataFormat.cs - provides a DataFormat for manipulating Microsoft Windows configuration (INI) files
 //
 //  Author:

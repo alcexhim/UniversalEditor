@@ -1,4 +1,4 @@
-﻿//
+//
 //  PhonemeDictionaryXMLDataFormat.cs - provides a DataFormat for manipulating synthesized audio voicebank phoneme dictionaries in Synthaloid XML format
 //
 //  Author:

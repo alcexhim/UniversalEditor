@@ -1,4 +1,4 @@
-﻿//
+//
 //  MIDIMetaEventType.cs - indicates the type of MIDI meta event
 //
 //  Author:

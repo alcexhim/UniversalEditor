@@ -1,4 +1,4 @@
-﻿//
+//
 //  UVSColorspace.cs - indicates the colorspace for a UVS video
 //
 //  Author:

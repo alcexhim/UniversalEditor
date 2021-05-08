@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARDataFormat.cs - provides a DataFormat for manipulating archives in RAR format
 //
 //  Author:

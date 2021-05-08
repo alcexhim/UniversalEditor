@@ -1,4 +1,4 @@
-﻿//
+//
 //  OpenDocumentDataFormat.cs
 //
 //  Author:

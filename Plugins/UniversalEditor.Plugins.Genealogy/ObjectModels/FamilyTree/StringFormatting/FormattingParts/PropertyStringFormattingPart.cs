@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyStringFormattingPart.cs
 //
 //  Author:

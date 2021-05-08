@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelTextParameter.cs - describes a ModelParameter whose value is a text string
 //
 //  Author:

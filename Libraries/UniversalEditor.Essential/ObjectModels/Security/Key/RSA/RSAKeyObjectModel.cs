@@ -1,4 +1,4 @@
-﻿//
+//
 //  RSAKeyObjectModel.cs - provides an ObjectModel for manipulating an RSA cryptographic key
 //
 //  Author:

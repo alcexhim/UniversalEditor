@@ -1,4 +1,4 @@
-﻿//
+//
 //  VHDHardDiskDynamicHeader.cs - represents the header in a dynamic virtual hard disk
 //
 //  Author:

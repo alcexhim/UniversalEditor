@@ -1,4 +1,4 @@
-﻿//
+//
 //  QuickSubTextDataFormat.cs - provides a DataFormat for manipulating subtitle files in QuickSub text format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Event.cs - represents a timed event in a subtitle file
 //
 //  Author:

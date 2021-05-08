@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactPosition.cs - represents a position in a ContactObjectModel
 //
 //  Author:

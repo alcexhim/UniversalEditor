@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableSection.cs - represents a section in an executable file
 //
 //  Author:

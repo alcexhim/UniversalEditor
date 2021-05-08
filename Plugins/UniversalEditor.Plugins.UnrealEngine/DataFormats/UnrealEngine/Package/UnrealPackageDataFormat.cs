@@ -1,4 +1,4 @@
-﻿//
+//
 //  UnrealPackageDataFormat.cs - provides a DataFormat to manipulate Unreal Engine package files (utx, u, etc.)
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FontFamily.cs - indicates the type of generic font family used for font formatting in a WinHelp file
 //
 //  Author:

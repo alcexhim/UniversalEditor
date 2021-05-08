@@ -1,4 +1,4 @@
-﻿//
+//
 //  PictureObjectModelExtensions.cs - UWT extensions to PictureObjectModel
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompoundDocumentKnownSectorID.cs - indicates the type of sector in a Microsoft Compound Document file
 //
 //  Author:

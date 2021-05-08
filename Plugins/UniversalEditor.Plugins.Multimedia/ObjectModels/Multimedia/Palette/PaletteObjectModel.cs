@@ -1,4 +1,4 @@
-﻿//
+//
 //  PaletteObjectModel.cs - provides an ObjectModel for manipulating color palettes
 //
 //  Author:

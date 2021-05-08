@@ -1,4 +1,4 @@
-﻿//
+//
 //  BitmapCompression.cs - indicates the compression method of a Windows bitmap image
 //
 //  Author:

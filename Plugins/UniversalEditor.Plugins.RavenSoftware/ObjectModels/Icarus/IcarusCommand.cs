@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommand.cs - the abstract base class from which all ICARUS command implementations derive
 //
 //  Author:

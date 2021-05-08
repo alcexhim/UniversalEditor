@@ -1,4 +1,4 @@
-﻿//
+//
 //  RESCompressionType.cs - indicates the type of compression used in a RES archive
 //
 //  Author:

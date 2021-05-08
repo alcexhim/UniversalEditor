@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusConstantExpression.cs - represents an ICARUS literal expression
 //
 //  Author:

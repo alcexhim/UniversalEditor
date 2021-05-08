@@ -1,4 +1,4 @@
-﻿//
+//
 //  FATExtendedBootSignature.cs - represents an extended boot signature block in a FAT filesystem
 //
 //  Author:

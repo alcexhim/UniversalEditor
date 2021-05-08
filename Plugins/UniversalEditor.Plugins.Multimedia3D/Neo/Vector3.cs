@@ -1,4 +1,4 @@
-﻿//
+//
 //  Vector3.cs - represents a tuple containing X, Y, and Z coordinates
 //
 //  Author:

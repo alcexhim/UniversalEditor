@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFilesDataFormat.cs - provides a DataFormat for manipulating disk images in TIFILES format
 //
 //  Author:

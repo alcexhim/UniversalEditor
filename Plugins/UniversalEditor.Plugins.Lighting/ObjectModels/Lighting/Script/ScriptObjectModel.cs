@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace UniversalEditor.ObjectModels.Lighting.Script
 {

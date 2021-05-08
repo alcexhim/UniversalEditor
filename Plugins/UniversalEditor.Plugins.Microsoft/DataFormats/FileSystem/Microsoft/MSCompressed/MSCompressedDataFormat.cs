@@ -1,4 +1,4 @@
-﻿//
+//
 //  MSCompressedDataFormat.cs - provides a DataFormat for manipulating MSCompressed archive files
 //
 //  Author:

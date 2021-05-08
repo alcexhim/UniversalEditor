@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorDocumentExplorerSelectionChangedEvent.cs
 //
 //  Author:

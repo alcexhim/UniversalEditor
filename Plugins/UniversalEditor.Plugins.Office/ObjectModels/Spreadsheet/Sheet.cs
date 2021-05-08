@@ -1,4 +1,4 @@
-﻿//
+//
 //  Sheet.cs
 //
 //  Author:

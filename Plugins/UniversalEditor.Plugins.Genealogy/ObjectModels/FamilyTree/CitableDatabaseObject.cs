@@ -1,4 +1,4 @@
-﻿//
+//
 //  CitableDatabaseObject.cs
 //
 //  Author:

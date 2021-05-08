@@ -1,4 +1,4 @@
-﻿//
+//
 //  BFFDataFormat.cs - provides a DataFormat for manipulating archives in Slightly Mad Studios BFF format (transcribed from BMS 0.2.5)
 //  Used in Need for Speed: Shift 1 and 2, Project Cars, Project Cars 2, Test Drive: Ferrari Racing Legends, etc.
 //

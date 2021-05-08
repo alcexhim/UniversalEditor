@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupCommentElement.cs - represents a comment in a MarkupObjectModel
 //
 //  Author:

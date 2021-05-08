@@ -1,4 +1,4 @@
-﻿//
+//
 //  PECompiler.cs - indicates the type of compiler used to build the Portable Executable file
 //
 //  Author:

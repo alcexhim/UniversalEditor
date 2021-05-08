@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProgramGroupAction.cs - the action which creates program groups (or Start Menu entries) on the user's computer during the installation process
 //
 //  Author:

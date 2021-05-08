@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusAffectType.cs - indicates the type of "affect" command
 //
 //  Author:

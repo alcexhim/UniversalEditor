@@ -1,4 +1,4 @@
-﻿//
+//
 //  UVSDataFormat.cs - provides a DataFormat for manipulating video files encoded in Ogg/UVS format
 //
 //  Author:

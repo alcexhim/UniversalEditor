@@ -1,4 +1,4 @@
-﻿//
+//
 //  Reference.cs - represents a reference to another project file in a ProjectObjectModel
 //
 //  Author:

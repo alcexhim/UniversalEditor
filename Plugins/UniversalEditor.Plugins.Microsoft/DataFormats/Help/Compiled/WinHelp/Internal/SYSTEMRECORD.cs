@@ -1,4 +1,4 @@
-﻿//
+//
 //  SYSTEMRECORD.cs - internal structure representing SYSTEMRECORD for WinHelp files
 //
 //  Author:

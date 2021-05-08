@@ -1,4 +1,4 @@
-﻿//
+//
 //  HETTable.cs - internal structure representing a HET table in a MoPaQ archive
 //
 //  Author:

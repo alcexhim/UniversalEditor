@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableSectionCharacteristics.cs - indicates attributes for a section in an executable file
 //
 //  Author:

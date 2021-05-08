@@ -1,4 +1,4 @@
-﻿//
+//
 //  SceneObjectGuids.cs
 //
 //  Author:

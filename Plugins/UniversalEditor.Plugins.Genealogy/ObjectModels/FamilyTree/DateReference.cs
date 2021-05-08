@@ -1,4 +1,4 @@
-﻿//
+//
 //  DateReference.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMArchiveHeader.cs - represents a Windows Image (WIM) archive header
 //
 //  Author:

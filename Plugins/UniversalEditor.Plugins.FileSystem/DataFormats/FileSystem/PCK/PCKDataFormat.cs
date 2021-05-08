@@ -1,4 +1,4 @@
-﻿//
+//
 //  PCKDataFormat.cs - provides a DataFormat for manipulating archives in Lost Heroes PCK format
 //
 //  Author:

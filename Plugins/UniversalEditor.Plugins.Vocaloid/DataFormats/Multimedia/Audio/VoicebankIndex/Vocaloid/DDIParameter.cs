@@ -1,4 +1,4 @@
-﻿//
+//
 //  DDIParameter.cs - provides information about a parameter in a DDI voicebank index file
 //
 //  Author:

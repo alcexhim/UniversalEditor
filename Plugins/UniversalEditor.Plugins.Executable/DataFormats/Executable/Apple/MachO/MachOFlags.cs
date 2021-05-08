@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOFlags.cs - indicates special attributes for an Apple Mach-O executable file
 //
 //  Author:

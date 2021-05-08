@@ -1,4 +1,4 @@
-﻿//
+//
 //  EGGDataFormat.cs - provides a DataFormat for manipulating archives in ALZip EGG format
 //
 //  Author:

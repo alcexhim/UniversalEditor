@@ -1,4 +1,4 @@
-﻿//
+//
 //  Compiler.cs
 //
 //  Author:

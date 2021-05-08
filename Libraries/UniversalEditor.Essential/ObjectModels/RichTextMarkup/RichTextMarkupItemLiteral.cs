@@ -1,4 +1,4 @@
-﻿//
+//
 //  RichTextMarkupItemLiteral.cs - represents a RichTextMarkupItem that renders literal text content
 //
 //  Author:

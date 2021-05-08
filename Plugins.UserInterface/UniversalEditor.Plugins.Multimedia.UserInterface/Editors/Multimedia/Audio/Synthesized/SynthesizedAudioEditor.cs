@@ -1,4 +1,4 @@
-﻿//
+//
 //  PianoRollEditor.cs - provides a UWT-based piano roll-style Editor for a SynthesizedAudioObjectModel
 //
 //  Author:

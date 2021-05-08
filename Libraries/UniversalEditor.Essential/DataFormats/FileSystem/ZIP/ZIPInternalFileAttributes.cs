@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPInternalFileAttributes.cs - indicates internal attributes for a file in a ZIP archive
 //
 //  Author:

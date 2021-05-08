@@ -1,4 +1,4 @@
-﻿//
+//
 //  TAHDataFormat.cs - provides a DataFormat for manipulating archives in TechArts3D TAH format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MB6DataFormat.cs - provides a DataFormat for manipulating archives in Hardball MB6 format
 //
 //  Author:

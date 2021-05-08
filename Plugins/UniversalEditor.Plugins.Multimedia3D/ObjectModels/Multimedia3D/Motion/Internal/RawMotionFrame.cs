@@ -1,4 +1,4 @@
-﻿//
+//
 //  RawMotionFrame.cs - internal structure representing raw motion frame data
 //
 //  Author:

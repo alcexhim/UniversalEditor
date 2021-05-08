@@ -1,4 +1,4 @@
-﻿//
+//
 //  EndOfStreamException.cs - Exception thrown when the end of stream is reached
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  OBJRecordType.cs - the type of record in an intermediate OBJ file
 //
 //  Author:

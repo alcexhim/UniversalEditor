@@ -1,4 +1,4 @@
-﻿//
+//
 //  TargaVerticalTransferOrder.cs - indicates the top-to-bottom ordering in which pixel data is transferred from the file to the screen
 //
 //  Author:

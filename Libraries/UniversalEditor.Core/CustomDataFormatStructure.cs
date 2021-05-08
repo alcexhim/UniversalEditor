@@ -1,4 +1,4 @@
-﻿//
+//
 //  CustomDataFormatStructure.cs - declaration of a structure used in a CDF
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectTask.cs - represents a build task for a project
 //
 //  Author:

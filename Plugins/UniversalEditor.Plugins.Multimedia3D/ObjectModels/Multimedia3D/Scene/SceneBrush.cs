@@ -1,4 +1,4 @@
-﻿//
+//
 //  SceneBrush.cs - represents a brush in a 3D scene
 //
 //  Author:

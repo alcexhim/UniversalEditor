@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPPDataFormat.cs - provides a DataFormat for manipulating a color palette in Chaos Works SPP format
 //
 //  Author:

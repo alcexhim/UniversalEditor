@@ -1,4 +1,4 @@
-﻿//
+//
 //  NTFSMftKnownAttribute.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Measurement.cs - represents a tuple of a numeric value and a unit of measure
 //
 //  Author:

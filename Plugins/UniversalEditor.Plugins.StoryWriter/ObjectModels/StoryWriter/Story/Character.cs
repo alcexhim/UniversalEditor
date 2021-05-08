@@ -1,4 +1,4 @@
-﻿//
+//
 //  Character.cs - represents a character in a Universe
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  VOLDataFormat.cs - provides a DataFormat for manipulating archives in Dynamix VOL format
 //
 //  Author:

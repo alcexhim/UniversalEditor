@@ -1,4 +1,4 @@
-﻿//
+//
 //  RSAKeyDataFormat.cs - provides a DataFormat for manipulating RSA key files in binary format
 //
 //  Author:

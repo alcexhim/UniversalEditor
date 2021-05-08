@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFFILE.cs - internal structure representing a Microsoft Cabinet file entry
 //
 //  Author:

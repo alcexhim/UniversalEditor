@@ -1,4 +1,4 @@
-﻿//
+//
 //  PPKnownKeys.cs - list of known keys to decrypt Illusion PP archive files
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MPQHeader.cs - internal structure representing the header of a MoPaQ archive
 //
 //  Author:

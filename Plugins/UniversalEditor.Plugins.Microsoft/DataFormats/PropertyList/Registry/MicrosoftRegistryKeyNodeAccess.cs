@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyAccess.cs - access bits used to track when key nodes are being accessed
 //
 //  Author:

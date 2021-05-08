@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesktopShortcutDataFormat.cs - provides a DataFormat for manipulating desktop shortcut files in FreeDesktop XML format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeElementDynamicReference.cs - represents a dynamic reference to a code element whose target is calculated by the scripting engine at runtime
 //
 //  Author:

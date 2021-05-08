@@ -1,4 +1,4 @@
-﻿//
+//
 //  BooCodeDataFormat.cs - provides a DataFormat for manipulating code files written in the Boo programming language
 //
 //  Author:

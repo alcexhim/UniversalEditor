@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCRegion.cs - provides metadata information about regions for Nintendo SNES game dump files in SMC format
 //
 //  Author:

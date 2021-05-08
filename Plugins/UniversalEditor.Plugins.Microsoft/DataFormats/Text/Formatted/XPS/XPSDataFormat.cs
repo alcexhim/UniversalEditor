@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPSDataFormat.cs - provides a DataFormat to manipulate Microsoft XML Paper Specification (XPS) documents
 //
 //  Author:

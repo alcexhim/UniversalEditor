@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace UniversalEditor.Plugins.Genealogy.ObjectModels.GEDCOM
 {
 	public class GEDCOMChunk

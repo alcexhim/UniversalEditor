@@ -1,4 +1,4 @@
-﻿//
+//
 //  HeroSkill.cs
 //
 //  Author:

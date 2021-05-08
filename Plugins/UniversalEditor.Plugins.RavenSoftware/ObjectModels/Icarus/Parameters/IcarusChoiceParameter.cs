@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusChoiceParameter.cs - represents an ICARUS parameter that has a set of valid values from which to choose
 //
 //  Author:

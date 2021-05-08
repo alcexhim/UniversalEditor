@@ -1,4 +1,4 @@
-﻿//
+//
 //  DATDataFormat.cs - provides a DataFormat for manipulating archives in Hostile Waters DAT format
 //
 //  Author:

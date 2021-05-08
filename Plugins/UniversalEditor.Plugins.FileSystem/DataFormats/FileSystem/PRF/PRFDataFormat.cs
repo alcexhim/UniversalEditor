@@ -1,4 +1,4 @@
-﻿//
+//
 //  PRFDataFormat.cs - provides a DataFormat for manipulating archives in PRF format
 //
 //  Author:

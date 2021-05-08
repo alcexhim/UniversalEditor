@@ -1,4 +1,4 @@
-﻿//
+//
 //  StartPage.cs - the initial Page the user sees at application startup
 //
 //  Author:

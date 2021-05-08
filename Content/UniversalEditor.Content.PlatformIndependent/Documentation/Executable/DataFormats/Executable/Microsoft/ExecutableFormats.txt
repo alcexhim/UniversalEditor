@@ -1,4 +1,4 @@
-﻿From https://www.program-transformation.org/Transform/PcExeFormat
+From https://www.program-transformation.org/Transform/PcExeFormat
 
 Format of EXEC parameter block for AL=00h,01h,04h:
 Offset  Size    Description     (Table 0877)

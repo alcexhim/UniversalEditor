@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactGroupEditor.cs - provides a UWT-based Editor for ContactGroupObjectModel
 //
 //  Author:

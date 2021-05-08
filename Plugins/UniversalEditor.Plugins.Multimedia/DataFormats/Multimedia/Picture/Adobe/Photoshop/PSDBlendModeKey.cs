@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDBlendModeKey.cs - indicates the blend mode for a layer in an Adobe Photoshop PSD image file
 //
 //  Author:

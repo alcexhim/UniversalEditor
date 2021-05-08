@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableFunctionCall.cs - represents a call to a function (possibly in another library)
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BPlusFileFlags.cs - indicates the flags for a file in a BPlus file system
 //
 //  Author:

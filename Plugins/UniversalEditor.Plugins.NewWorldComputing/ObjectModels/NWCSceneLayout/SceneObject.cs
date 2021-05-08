@@ -1,4 +1,4 @@
-﻿//
+//
 //  SceneObject.cs - represents an object in a New World Computing (Heroes of Might and Magic II) dialog
 //
 //  Author:

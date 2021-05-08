@@ -1,4 +1,4 @@
-﻿//
+//
 //  Converter.cs - provides a structured mechanism for converting from one ObjectModel to another
 //
 //  Author:

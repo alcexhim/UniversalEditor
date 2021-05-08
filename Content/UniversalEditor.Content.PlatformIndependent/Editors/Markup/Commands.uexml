@@ -1,4 +1,4 @@
-﻿<UniversalEditor Version="5.0">
+<UniversalEditor Version="5.0">
 	<Editors>
 		<Editor ID="{4F56A826-32B4-4347-B2D5-379717EA57D4}" TypeName="UniversalEditor.Editors.Markup.MarkupEditor">
 			<Commands>

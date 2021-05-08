@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactGroupDataFormat.cs - provides a DataFormat for manipulating address books in Microsoft XML contact group format
 //
 //  Author:

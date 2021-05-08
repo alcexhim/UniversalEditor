@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextFontFamily.cs - indicates the font family for a defined font in a FormattedTextObjectModel
 //
 //  Author:

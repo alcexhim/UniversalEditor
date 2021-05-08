@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARBlockType.cs
 //
 //  Author:

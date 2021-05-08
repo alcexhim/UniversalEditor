@@ -1,4 +1,4 @@
-﻿//
+//
 //  StoreCompressionModule.cs - implementation of "no-op" CompressionModule
 //
 //  Author:

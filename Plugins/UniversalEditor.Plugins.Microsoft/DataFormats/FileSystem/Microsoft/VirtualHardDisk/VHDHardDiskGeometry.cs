@@ -1,4 +1,4 @@
-﻿//
+//
 //  VHDHardDiskGeometry.cs - describes the geometry of a virtual hard disk in Microsoft Virtual PC VHD format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PACKFileAttributes.cs - indicates attributes for a file in an LzmaPack archive
 //
 //  Author:

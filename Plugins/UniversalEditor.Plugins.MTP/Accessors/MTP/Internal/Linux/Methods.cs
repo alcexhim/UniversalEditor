@@ -1,4 +1,4 @@
-﻿//
+//
 //  Methods.cs - internal Linux methods for Media Transfer Protocol
 //
 //  Author:

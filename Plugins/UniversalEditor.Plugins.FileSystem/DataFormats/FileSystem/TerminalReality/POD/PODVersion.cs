@@ -1,4 +1,4 @@
-﻿//
+//
 //  PODVersion.cs - indicates the format version of the POD archive
 //
 //  Author:

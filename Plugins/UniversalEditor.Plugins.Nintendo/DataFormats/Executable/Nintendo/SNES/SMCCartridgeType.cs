@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCCartridgeType.cs - provides metadata information about cartridge types for an SMC game dump
 //
 //  Author:

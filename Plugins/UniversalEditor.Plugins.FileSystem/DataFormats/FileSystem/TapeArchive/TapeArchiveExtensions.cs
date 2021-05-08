@@ -1,4 +1,4 @@
-﻿//
+//
 //  TapeArchiveExtensions.cs - extension methods used with the TapeArchiveDataFormat
 //
 //  Author:

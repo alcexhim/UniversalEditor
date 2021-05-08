@@ -1,4 +1,4 @@
-﻿//
+//
 //  BezierCurve.cs - describes points for a Bezier curve
 //
 //  Author:

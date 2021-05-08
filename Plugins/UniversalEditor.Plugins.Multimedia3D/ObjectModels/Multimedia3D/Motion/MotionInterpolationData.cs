@@ -1,4 +1,4 @@
-﻿//
+//
 //  MotionInterpolationData.cs - describes interpolation data for a 3D animation
 //
 //  Author:

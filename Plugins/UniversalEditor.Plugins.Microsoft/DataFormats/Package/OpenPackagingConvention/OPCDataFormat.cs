@@ -1,4 +1,4 @@
-﻿//
+//
 //  OPCDataFormat.cs - provides a DataFormat for manipulating Microsoft Open Packaging Convention documents
 //
 //  Author:

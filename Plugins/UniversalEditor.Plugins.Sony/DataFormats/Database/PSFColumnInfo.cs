@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSFColumnInfo.cs - internal structure representing metadata information for a column in a PSF database
 //
 //  Author:

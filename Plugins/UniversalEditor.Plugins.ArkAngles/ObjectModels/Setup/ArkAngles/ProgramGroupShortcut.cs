@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProgramGroupShortcut.cs - represents a program group (or Start Menu shortcut) to install to the user's computer during the installation process
 //
 //  Author:

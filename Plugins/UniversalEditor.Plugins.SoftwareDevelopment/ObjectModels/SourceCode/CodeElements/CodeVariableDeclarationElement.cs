@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeVariableDeclarationElement.cs - represents a CodeElement that declares a variable
 //
 //  Author:

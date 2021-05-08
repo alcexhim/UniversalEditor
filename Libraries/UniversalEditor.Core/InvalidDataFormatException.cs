@@ -1,4 +1,4 @@
-﻿//
+//
 //  InvalidDataFormatException.cs - raised when the DataFormat has problems loading accessor
 //
 //  Author:

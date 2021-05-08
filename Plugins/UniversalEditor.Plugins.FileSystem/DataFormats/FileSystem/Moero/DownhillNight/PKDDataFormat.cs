@@ -1,4 +1,4 @@
-﻿//
+//
 //  PKDDataFormat.cs - provides a DataFormat for manipulating archives in Moero Downhill Night PKD format
 //
 //  Author:

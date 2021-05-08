@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectTaskAction.cs - represents a build action to be executed as part of a ProjectTask
 //
 //  Author:

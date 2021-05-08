@@ -1,4 +1,4 @@
-﻿//
+//
 //  AGGDataFormat.cs - provides a DataFormat for manipulating Heroes of Might and Magic II AGG archives
 //
 //  Author:

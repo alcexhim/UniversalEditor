@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelParameter.cs - the abstract base class from which all named parameters that control various aspects of a 3D model derive
 //
 //  Author:

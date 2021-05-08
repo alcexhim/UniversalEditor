@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactPhysicalAddress.cs - represents a physical address in a ContactObjectModel
 //
 //  Author:

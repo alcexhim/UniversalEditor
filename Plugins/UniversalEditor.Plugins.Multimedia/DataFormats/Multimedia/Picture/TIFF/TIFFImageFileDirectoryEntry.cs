@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFImageFileDirectory.cs
 //
 //  Author:

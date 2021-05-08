@@ -1,4 +1,4 @@
-﻿//
+//
 //  UnzipAction.cs - implements an action to unzip a ZAP archive
 //
 //  Author:

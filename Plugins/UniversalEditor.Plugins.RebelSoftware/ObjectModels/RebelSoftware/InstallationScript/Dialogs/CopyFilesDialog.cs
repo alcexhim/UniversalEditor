@@ -1,4 +1,4 @@
-﻿//
+//
 //  CopyFilesDialog.cs - describes the dialog displayed when files are copied during the installation process
 //
 //  Author:

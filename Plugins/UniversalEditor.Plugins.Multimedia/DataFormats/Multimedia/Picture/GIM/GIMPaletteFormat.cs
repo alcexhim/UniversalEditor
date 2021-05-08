@@ -1,4 +1,4 @@
-﻿//
+//
 //  GIMPaletteFormat.cs - indicates the format for pixel data in a GIM palette
 //
 //  Author:

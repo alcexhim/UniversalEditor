@@ -1,4 +1,4 @@
-﻿//
+//
 //  PianoRollView.cs - provides a UWT-based View for manipulating SynthesizedAudioCommands in a piano roll style
 //
 //  Author:

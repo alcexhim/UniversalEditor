@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapTileType.cs - indicates the type of tile placed on the map
 //
 //  Author:

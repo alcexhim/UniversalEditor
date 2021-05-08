@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFEncoding.cs - indicates the type of number encoding used in an Executable and Linkable Format (ELF) executable
 //
 //  Author:

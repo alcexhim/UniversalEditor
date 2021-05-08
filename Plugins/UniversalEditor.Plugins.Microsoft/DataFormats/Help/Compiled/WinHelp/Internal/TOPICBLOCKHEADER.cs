@@ -1,4 +1,4 @@
-﻿//
+//
 //  TOPICBLOCKHEADER.cs - internal structure representing TOPICBLOCKHEADER for WinHelp files
 //
 //  Author:

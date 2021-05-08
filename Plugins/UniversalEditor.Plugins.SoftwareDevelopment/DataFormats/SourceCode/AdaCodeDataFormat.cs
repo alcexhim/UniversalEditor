@@ -1,4 +1,4 @@
-﻿//
+//
 //  AdaCodeDataFormat.cs - provides a DataFormat for manipulating code files written in the Ada programming language
 //
 //  Author:

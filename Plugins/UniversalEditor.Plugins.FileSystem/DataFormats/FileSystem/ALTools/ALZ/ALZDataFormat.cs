@@ -1,4 +1,4 @@
-﻿//
+//
 //  ALZDataFormat.cs - provides a DataFormat for manipulating archives in ALZip ALZ format
 //
 //  Author:

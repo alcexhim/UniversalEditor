@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableRelativeVirtualAddress.cs - represents a Relative Virtual Address (RVA) in an executable
 //
 //  Author:

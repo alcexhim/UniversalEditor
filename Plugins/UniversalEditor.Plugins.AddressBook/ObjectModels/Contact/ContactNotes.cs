@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactNotes.cs - represents notes for a ContactObjectModel
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectTaskActionExecute.cs - represents a ProjectTaskAction that executes a command line
 //
 //  Author:

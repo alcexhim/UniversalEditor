@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPExtraDataFieldExtendedTimestamp.cs - describes an extended timestamp extra data field in a ZIP archive
 //
 //  Author:

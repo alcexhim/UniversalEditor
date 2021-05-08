@@ -1,4 +1,4 @@
-﻿//
+//
 //  ResourceTableEntryFlags.cs - indicates attributes for an entry in a Kronosaur TRDB resource table
 //
 //  Author:

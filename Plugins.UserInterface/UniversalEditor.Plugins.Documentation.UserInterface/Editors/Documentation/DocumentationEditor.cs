@@ -1,4 +1,4 @@
-﻿//
+//
 //  DocumentationEditor.cs - provides a UWT-based Editor for manipulating documentation files
 //
 //  Author:

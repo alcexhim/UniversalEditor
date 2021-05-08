@@ -1,4 +1,4 @@
-﻿//
+//
 //  MemoryFileSource.cs - provides a FileSource for retrieving file data from a byte array
 //
 //  Author:

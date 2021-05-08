@@ -1,4 +1,4 @@
-﻿//
+//
 //  PMMSceneDataFormat.cs - provides a DataFormat for manipulating scene graph in Polygon Movie Maker/MikuMikuDance (PMM) format
 //
 //  Author:

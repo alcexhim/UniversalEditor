@@ -1,4 +1,4 @@
-﻿//
+//
 //  ILOpcode.cs - indicates the MSIL opcode for an instruction
 //
 //  Author:

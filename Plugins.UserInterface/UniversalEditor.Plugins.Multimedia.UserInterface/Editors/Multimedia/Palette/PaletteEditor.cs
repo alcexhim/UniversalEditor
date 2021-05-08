@@ -1,4 +1,4 @@
-﻿//
+//
 //  PaletteEditor.cs - provides a UWT-based Editor for a PaletteObjectModel
 //
 //  Author:

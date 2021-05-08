@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandFlush.cs - represents the ICARUS "flush" command
 //
 //  Author:

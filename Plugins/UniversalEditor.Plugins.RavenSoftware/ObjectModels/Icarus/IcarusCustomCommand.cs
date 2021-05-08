@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCustomCommand.cs - represents a custom ICARUS command
 //
 //  Author:

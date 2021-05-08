@@ -1,4 +1,4 @@
-﻿//
+//
 //  ManifestFileEntry.cs
 //
 //  Author:

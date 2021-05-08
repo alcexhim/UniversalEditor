@@ -1,4 +1,4 @@
-﻿//
+//
 //  IFormattedTextItemParent.cs - interface describing an object which contains FormattedTextItems
 //
 //  Author:

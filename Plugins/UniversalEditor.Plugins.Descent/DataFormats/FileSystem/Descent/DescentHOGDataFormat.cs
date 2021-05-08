@@ -1,4 +1,4 @@
-﻿//
+//
 //  DescentHOGDataFormat.cs - provides a DataFormat for manipulating archives in Descent HOG (DHF) format
 //
 //  Author:

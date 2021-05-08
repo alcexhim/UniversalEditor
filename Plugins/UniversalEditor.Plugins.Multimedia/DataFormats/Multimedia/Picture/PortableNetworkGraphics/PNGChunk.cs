@@ -1,4 +1,4 @@
-﻿//
+//
 //  PNGChunk.cs - represents a chunk in a PNG image file
 //
 //  Author:

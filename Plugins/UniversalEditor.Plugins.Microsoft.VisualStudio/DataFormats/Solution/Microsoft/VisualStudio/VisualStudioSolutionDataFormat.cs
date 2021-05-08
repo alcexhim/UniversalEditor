@@ -1,4 +1,4 @@
-﻿//
+//
 //  VisualStudioSolutionDataFormat.cs - provides a DataFormat for manipulating Microsoft Visual Studio solution files
 //
 //  Author:

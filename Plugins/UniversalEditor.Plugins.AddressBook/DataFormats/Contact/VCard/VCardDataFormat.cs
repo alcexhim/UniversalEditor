@@ -1,4 +1,4 @@
-﻿//
+//
 //  VCardDataFormat.cs - provides a DataFormat for manipulating contact information in VCard (VCF) format
 //
 //  Author:

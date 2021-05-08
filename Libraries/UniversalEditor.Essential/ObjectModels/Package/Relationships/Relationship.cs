@@ -1,4 +1,4 @@
-﻿//
+//
 //  Relationship.cs - defines a package relationship for an Open Packaging Convention document
 //
 //  Author:

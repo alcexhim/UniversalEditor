@@ -1,4 +1,4 @@
-﻿//
+//
 //  SevenZipHeader.cs - internal structure representing a header in a 7-Zip archive
 //
 //  Author:

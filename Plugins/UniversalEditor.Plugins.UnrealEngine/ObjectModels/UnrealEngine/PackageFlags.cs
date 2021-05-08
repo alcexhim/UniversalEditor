@@ -1,4 +1,4 @@
-﻿//
+//
 //  PackageFlags.cs - indicates attributes for an Unreal Engine package file
 //
 //  Author:

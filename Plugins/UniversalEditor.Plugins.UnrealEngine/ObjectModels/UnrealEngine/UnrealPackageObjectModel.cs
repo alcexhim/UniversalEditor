@@ -1,4 +1,4 @@
-﻿//
+//
 //  UnrealPackageObjectModel.cs - provides an ObjectModel for manipulating Unreal Engine package files
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  NewExecutableTargetOperatingSystem.cs - enumeration specifying the target operating system for a New Executable file
 //
 //  Author:

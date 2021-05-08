@@ -1,4 +1,4 @@
-﻿//
+//
 //  IAPDataFormat.cs - provides a DataFormat to manipulate Rebel Software installation scripts in IAP format
 //
 //  Author:

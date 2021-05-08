@@ -1,4 +1,4 @@
-﻿//
+//
 //  NoteRenderedEvent.cs -
 //
 //  Author:

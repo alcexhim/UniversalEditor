@@ -1,4 +1,4 @@
-﻿//
+//
 //  Heroes4SaveDataFormat.cs - provides a DataFormat for manipulating Heroes of Might and Magic IV game save data files
 //
 //  Author:

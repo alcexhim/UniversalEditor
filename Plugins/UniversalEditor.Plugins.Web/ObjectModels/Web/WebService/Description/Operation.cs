@@ -1,4 +1,4 @@
-﻿//
+//
 //  Operation.cs - WSDL Operation
 //
 //  Author:

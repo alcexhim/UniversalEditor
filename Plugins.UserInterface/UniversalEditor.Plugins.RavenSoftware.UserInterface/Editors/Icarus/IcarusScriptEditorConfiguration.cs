@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusConfiguration.cs - describes the configuration for an IcarusScriptEditor
 //
 //  Author:

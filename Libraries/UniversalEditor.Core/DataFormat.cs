@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormat.cs - translates ObjectModel to serialized data in a particular format
 //
 //  Author:

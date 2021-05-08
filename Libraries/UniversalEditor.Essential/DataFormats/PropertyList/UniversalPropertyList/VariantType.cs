@@ -1,4 +1,4 @@
-﻿//
+//
 //  VariantType.cs - indicates the type of a variant expression in a Universal Property List file
 //
 //  Author:

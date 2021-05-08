@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARJCompressionMethod.cs - indicates the compression method of an ARJ archive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataLinkObjectModel.cs - provides an ObjectModel to manipulate Microsoft Universal Data Link shortcuts
 //
 //  Author:

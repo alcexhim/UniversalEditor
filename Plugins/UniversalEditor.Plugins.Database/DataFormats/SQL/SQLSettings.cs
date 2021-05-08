@@ -1,4 +1,4 @@
-﻿//
+//
 //  SQLSettings.cs
 //
 //  Author:

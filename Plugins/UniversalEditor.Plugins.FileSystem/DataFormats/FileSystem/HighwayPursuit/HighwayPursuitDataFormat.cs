@@ -1,4 +1,4 @@
-﻿//
+//
 //  HighwayPursuitDataFormat.cs - provides a DataFormat for manipulating archives in Highway Pursuit format
 //
 //  Author:

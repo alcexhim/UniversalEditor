@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapCastleColor.cs - indicates the banner color for a castle placed on a map
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapTile.cs - describes a tile placed on a map
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FontObjectModel.cs - provides an ObjectModel for manipulating fonts used in New World Computing (Heroes of Might and Magic II) games
 //
 //  Author:

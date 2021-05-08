@@ -1,4 +1,4 @@
-﻿//
+//
 //  TRDBDataFormat.cs - provides a DataFormat to manipulate Kronosaur TRDB resource tables
 //
 //  Author:

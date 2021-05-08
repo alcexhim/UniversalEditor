@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextFont.cs - represents a font definition in a FormattedTextObjectModel
 //
 //  Author:

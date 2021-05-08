@@ -1,4 +1,4 @@
-﻿//
+//
 //  PhonemeList.cs - represents a collection of phonemes for a particular language
 //
 //  Author:

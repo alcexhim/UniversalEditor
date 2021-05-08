@@ -1,4 +1,4 @@
-﻿//
+//
 //  EmbeddedFileAccessor.cs
 //
 //  Author:

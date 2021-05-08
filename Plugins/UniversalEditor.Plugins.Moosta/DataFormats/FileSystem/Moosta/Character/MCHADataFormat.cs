@@ -1,4 +1,4 @@
-﻿//
+//
 //  MCHADataFormat.cs - provides a DataFormat for manipulating Moosta character (MCHA) data files
 //
 //  Author:

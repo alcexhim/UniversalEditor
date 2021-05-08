@@ -1,4 +1,4 @@
-﻿//
+//
 //  UTFDataFormat.cs - provides a DataFormat for manipulating archives in Fever Pitch Studios UTF format
 //
 //  Author:

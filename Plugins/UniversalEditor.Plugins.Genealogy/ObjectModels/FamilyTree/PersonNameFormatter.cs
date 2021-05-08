@@ -1,4 +1,4 @@
-﻿//
+//
 //  PersonNameFormat.cs
 //
 //  Author:

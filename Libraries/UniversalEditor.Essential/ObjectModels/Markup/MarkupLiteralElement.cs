@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupLiteralElement.cs - represents an unprocessed, literal block of text in a MarkupObjectModel
 //
 //  Author:

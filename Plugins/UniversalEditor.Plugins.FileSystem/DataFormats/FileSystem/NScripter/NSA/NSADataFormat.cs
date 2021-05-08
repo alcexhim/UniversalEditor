@@ -1,4 +1,4 @@
-﻿//
+//
 //  NSADataFormat.cs - provides a DataFormat for manipulating archives in NScripter NSA format
 //
 //  Author:

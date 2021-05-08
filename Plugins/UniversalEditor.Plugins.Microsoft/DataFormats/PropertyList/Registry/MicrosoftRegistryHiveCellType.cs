@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryHiveCellType.cs - indicates the type of cell in a hive of a Microsoft registry file
 //
 //  Author:

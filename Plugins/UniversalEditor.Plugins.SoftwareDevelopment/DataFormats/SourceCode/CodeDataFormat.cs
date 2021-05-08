@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeDataFormat.cs - the abstract base class from which all code file parsing implementations derive
 //
 //  Author:

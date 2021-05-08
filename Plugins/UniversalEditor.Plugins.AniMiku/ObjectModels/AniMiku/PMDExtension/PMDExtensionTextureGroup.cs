@@ -1,4 +1,4 @@
-﻿//
+//
 //  PMDExtensionTextureGroup.cs - represents a group of textures for texture animation
 //
 //  Author:

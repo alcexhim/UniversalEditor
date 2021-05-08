@@ -1,4 +1,4 @@
-﻿//
+//
 //  BGMDataFormat.cs - provides a DataFormat for manipulating waveform audio files in OSLib BGM format
 //
 //  Author:

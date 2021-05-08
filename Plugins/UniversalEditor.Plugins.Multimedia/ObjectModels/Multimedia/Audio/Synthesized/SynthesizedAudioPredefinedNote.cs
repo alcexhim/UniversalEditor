@@ -1,4 +1,4 @@
-﻿//
+//
 //  SynthesizedAudioPredefinedNote.cs - defines various commonly-used note pitches for synthesized audio files
 //
 //  Author:

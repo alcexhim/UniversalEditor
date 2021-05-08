@@ -1,4 +1,4 @@
-﻿//
+//
 //  ADXDataFormat.cs - provides a DataFormat for manipulating audio files in ADX format
 //
 //  Author:

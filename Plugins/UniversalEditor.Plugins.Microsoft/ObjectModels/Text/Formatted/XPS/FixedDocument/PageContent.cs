@@ -1,4 +1,4 @@
-﻿//
+//
 //  PageContent.cs - represents FixedDocument page content in an XML Paper Specification (XPS) document
 //
 //  Author:

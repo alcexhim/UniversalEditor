@@ -1,4 +1,4 @@
-﻿//
+//
 //  GLBObjectType.cs - indicates the format version of an Ultimate Stunts GLB model file
 //
 //  Author:

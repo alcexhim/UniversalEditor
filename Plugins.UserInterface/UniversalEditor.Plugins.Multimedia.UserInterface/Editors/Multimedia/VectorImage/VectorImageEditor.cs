@@ -1,4 +1,4 @@
-﻿//
+//
 //  VectorImageEditor.cs
 //
 //  Author:

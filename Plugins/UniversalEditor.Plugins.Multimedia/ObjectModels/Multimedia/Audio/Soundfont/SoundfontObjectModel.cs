@@ -1,4 +1,4 @@
-﻿//
+//
 //  SoundfontObjectModel.cs - provides an ObjectModel for manipulating synthesizer soundfonts
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorPlugin.cs
 //
 //  Author:

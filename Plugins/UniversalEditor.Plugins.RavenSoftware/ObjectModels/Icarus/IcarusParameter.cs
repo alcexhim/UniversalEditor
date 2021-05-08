@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusParameter.cs - the abstract base class from which ICARUS parameter implementations derive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MFDDataFormat.cs - provides a DataFormat for manipulating archives in 187 Ride or Die MFD format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BinaryObjectModel.cs - provides an ObjectModel for manipulating raw binary data
 //
 //  Author:

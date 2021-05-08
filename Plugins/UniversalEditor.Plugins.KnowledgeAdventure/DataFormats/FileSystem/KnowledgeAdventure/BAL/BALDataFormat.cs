@@ -1,4 +1,4 @@
-﻿//
+//
 //  BALDataFormat.cs - implements the Knowledge Adventure BAL archive format
 //
 //  Author:

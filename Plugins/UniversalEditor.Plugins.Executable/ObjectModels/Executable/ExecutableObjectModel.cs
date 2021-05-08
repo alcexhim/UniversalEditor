@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableObjectModel.cs - provides an ObjectModel for handling executable files
 //
 //  Author:

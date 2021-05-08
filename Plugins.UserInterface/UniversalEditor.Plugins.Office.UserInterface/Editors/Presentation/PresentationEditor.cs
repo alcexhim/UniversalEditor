@@ -1,4 +1,4 @@
-﻿//
+//
 //  PresentationEditor.cs
 //
 //  Author:

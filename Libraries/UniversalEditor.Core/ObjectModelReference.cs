@@ -1,4 +1,4 @@
-﻿//
+//
 //  ObjectModelReference.cs - stores information (metadata) about an ObjectModel
 //
 //  Author:

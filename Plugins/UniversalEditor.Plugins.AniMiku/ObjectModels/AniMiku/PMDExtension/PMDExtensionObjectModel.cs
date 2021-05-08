@@ -1,4 +1,4 @@
-﻿//
+//
 //  PMDExtensionObjectModel.cs - represents an extension to the AniMiku PMD model format
 //
 //  Author:

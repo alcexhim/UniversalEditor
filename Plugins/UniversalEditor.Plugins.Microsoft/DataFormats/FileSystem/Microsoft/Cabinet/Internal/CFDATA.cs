@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFDATA.cs - internal structure representing a Microsoft Cabinet data block
 //
 //  Author:

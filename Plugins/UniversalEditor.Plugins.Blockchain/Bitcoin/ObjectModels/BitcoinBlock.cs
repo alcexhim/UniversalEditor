@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace UniversalEditor.Plugins.Blockchain.Bitcoin.ObjectModels
 {
 	public class BitcoinBlock : Block

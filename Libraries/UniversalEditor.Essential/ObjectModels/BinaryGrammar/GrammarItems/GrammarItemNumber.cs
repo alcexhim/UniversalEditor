@@ -1,4 +1,4 @@
-﻿//
+//
 //  GrammarItemNumber.cs - represents a numeric field in a binary grammar
 //
 //  Author:

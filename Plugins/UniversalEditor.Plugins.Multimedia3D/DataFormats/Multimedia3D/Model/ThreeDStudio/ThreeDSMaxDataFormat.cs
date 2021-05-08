@@ -1,4 +1,4 @@
-﻿//
+//
 //  ThreeDSMaxDataFormat.cs - provides a DataFormat for manipulating 3D models in AutoDesk 3DS Max format
 //
 //  Author:

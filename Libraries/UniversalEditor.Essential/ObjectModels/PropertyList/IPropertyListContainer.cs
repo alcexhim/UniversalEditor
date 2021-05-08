@@ -1,4 +1,4 @@
-﻿//
+//
 //  IPropertyListContainer.cs - interface supporting objects that can contain Groups and/or Property instances
 //
 //  Author:

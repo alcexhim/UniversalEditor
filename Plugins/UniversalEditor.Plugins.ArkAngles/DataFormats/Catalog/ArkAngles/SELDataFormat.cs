@@ -1,4 +1,4 @@
-﻿//
+//
 //  SELDataFormat.cs - implements Ark Angles catalog file format
 //
 //  Author:

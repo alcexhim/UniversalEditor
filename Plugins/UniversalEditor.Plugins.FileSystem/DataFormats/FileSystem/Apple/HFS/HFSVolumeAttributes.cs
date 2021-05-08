@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSVolumeAttributes.cs - indicates volume attributes for an HFS filesystem
 //
 //  Author:

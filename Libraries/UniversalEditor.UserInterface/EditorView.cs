@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorView.cs
 //
 //  Author:

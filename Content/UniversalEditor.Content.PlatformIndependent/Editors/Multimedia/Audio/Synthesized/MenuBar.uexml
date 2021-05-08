@@ -1,4 +1,4 @@
-﻿<UniversalEditor Version="5.0">
+<UniversalEditor Version="5.0">
 	<Editors>
 		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.SynthesizedAudioEditor">
 			<Commands>

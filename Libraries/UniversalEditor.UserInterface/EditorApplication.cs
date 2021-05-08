@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using MBS.Framework;
 using MBS.Framework.UserInterface;

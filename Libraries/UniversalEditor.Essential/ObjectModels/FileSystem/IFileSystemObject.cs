@@ -1,4 +1,4 @@
-﻿//
+//
 //  IFileSystemObject.cs - the interface which defines the base functionality for a File or a Folder
 //
 //  Author:

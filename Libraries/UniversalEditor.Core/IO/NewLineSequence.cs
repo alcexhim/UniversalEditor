@@ -1,4 +1,4 @@
-﻿//
+//
 //  NewLineSequence.cs - define CR, LF, and CR/LF new line sequences
 //
 //  Author:

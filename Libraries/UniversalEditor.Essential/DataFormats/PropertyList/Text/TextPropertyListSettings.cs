@@ -1,4 +1,4 @@
-﻿//
+//
 //  TextPropertyListSettings.cs - represents settings for the TextPropertyListDataFormat parser
 //
 //  Author:

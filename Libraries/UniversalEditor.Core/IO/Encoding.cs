@@ -1,4 +1,4 @@
-﻿//
+//
 //  Encoding.cs - provides a little more than System.Text.Encoding (but not much)
 //
 //  Author:

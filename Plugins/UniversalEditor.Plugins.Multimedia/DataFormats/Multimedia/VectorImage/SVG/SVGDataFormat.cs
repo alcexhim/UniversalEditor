@@ -1,4 +1,4 @@
-﻿//
+//
 //  SVGDataFormat.cs
 //
 //  Author:

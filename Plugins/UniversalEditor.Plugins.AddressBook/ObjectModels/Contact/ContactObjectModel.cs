@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactObjectModel.cs - provides an ObjectModel for manipulating contact information
 //
 //  Author:

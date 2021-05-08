@@ -1,4 +1,4 @@
-﻿//
+//
 //  PaletteEntry.cs - represents a color entry in a palette
 //
 //  Author:

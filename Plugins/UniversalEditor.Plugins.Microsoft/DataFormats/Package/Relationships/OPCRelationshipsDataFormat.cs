@@ -1,4 +1,4 @@
-﻿//
+//
 //  OPCRelationshipsDataFormat.cs - provides a DataFormat to manipulate Microsoft Open Packaging Convention package relationship definition files
 //
 //  Author:

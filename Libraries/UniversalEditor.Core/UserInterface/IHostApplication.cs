@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.UserInterface
+namespace UniversalEditor.UserInterface
 {
 	public interface IHostApplication
 	{

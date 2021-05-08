@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyValue.cs - describes a value of a registry key in a Microsoft registry file
 //
 //  Author:

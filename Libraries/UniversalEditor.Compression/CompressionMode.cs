@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompressionMode.cs - indicates whether to perform a decompression or a compression operation
 //
 //  Author:

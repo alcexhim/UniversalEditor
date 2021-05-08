@@ -1,4 +1,4 @@
-﻿//
+//
 //  Folder.cs - represents an IFileSystemObject which contains other IFileSystemObjects such as Files and Folders
 //
 //  Author:

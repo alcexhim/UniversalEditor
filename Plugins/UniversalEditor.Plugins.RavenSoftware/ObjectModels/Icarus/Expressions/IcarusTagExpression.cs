@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusTagExpression.cs - represents an ICARUS "tag()" function expression
 //
 //  Author:

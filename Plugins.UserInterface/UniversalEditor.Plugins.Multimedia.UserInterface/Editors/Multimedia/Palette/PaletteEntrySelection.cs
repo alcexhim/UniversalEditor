@@ -1,4 +1,4 @@
-﻿//
+//
 //  PaletteEntrySelection.cs - provides an EditorSelection for manipulating the current selection in a PaletteObjectModel
 //
 //  Author:

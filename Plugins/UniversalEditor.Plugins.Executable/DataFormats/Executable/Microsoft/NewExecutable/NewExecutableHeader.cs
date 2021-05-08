@@ -1,4 +1,4 @@
-﻿//
+//
 //  NewExecutableHeader.cs - describes the header of a New Executable file
 //
 //  Author:

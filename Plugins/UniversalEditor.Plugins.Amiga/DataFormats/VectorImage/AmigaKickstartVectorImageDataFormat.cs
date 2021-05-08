@@ -1,4 +1,4 @@
-﻿//
+//
 //  AmigaKickstartPicture.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARBlockHeaderV5.cs
 //
 //  Author:

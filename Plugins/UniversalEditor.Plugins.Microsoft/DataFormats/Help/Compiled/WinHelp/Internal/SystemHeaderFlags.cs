@@ -1,4 +1,4 @@
-﻿//
+//
 //  SystemHeaderFlags.cs - internal enum indicating flags for the SYSTEMHEADER for WinHelp files
 //
 //  Author:

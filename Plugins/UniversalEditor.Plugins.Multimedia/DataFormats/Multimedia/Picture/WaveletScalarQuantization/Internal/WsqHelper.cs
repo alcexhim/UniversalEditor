@@ -1,4 +1,4 @@
-﻿//
+//
 //  WsqHelper.cs - internal helper structures for Wavelet Scalar Quantization (WSQ)
 //
 //  Author:

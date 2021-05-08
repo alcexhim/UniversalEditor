@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDLayer.cs - internal structure representing a layer in an Adobe Photoshop PSD image file
 //
 //  Author:

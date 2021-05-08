@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOSegment.cs - represents a segment in an Apple Mach-O executable file
 //
 //  Author:

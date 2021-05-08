@@ -1,4 +1,4 @@
-﻿//
+//
 //  RTMLDataFormat.cs - provides a DataFormat for manipulating markup in Rich Text Format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Editor.cs - the base class for document editor implementations built on the Universal Widget Toolkit
 //
 //  Author:

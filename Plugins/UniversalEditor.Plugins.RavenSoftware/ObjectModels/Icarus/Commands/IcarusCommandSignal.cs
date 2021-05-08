@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandSignal.cs - represents the ICARUS "signal" command
 //
 //  Author:

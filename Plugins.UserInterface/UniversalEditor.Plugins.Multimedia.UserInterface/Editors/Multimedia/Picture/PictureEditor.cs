@@ -1,4 +1,4 @@
-﻿//
+//
 //  PictureEditor.cs - provides a UWT-based Editor for a PictureObjectModel
 //
 //  Author:

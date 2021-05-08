@@ -1,4 +1,4 @@
-﻿//
+//
 //  DERCertificateDataFormat.cs - provides a DataFormat for manipulating security certificates in Distinguished Encoding Rules (DER) format
 //
 //  Author:

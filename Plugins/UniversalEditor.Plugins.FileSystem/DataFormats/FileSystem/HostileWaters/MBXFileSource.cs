@@ -1,4 +1,4 @@
-﻿//
+//
 //  MBXFileSource.cs - provides a FileSource that allows accessing data from an MBX file associated with a DAT file
 //
 //  Author:

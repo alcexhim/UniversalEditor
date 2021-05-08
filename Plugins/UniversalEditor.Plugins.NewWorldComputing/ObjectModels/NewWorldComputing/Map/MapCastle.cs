@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapCastle.cs - defines characteristics related to a castle placed on a map
 //
 //  Author:

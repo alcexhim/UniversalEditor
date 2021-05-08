@@ -1,4 +1,4 @@
-﻿//
+//
 //  SynthesizedAudioCollectionObjectModel.cs - provides an ObjectModel for manipulating a collection of synthesized audio files
 //
 //  Author:

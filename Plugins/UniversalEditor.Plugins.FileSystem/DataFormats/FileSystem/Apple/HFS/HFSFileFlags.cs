@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSFileFlags.cs - indicates attributes for files in an HFS filesystem
 //
 //  Author:

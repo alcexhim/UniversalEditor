@@ -1,4 +1,4 @@
-﻿//
+//
 //  UEcc.cs - The Universal Editor Cross-Platform Extension Compiler
 //
 //  Author:

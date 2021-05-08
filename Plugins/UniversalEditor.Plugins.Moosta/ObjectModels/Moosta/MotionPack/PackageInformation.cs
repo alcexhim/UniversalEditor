@@ -1,4 +1,4 @@
-﻿//
+//
 //  PackageInformation.cs - provides metadata information for a Moosta OMP package
 //
 //  Author:

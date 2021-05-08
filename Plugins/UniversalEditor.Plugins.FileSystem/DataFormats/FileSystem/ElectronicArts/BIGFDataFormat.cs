@@ -1,4 +1,4 @@
-﻿//
+//
 //  BIGFDataFormat.cs - provides a DataFormat for manipulating archives in Electronic Arts BIGF format
 //
 //  Author:

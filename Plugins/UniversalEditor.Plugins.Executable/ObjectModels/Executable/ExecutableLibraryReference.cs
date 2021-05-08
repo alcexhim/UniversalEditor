@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableLibraryReference.cs - represents a reference to another library
 //
 //  Author:

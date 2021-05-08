@@ -1,4 +1,4 @@
-﻿//
+//
 //  DatabaseObjectModel.cs - provides an ObjectModel for manipulating databases
 //
 //  Author:

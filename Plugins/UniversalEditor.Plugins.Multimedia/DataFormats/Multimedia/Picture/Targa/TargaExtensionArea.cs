@@ -1,4 +1,4 @@
-﻿//
+//
 //  TargaExtensionArea.cs - represents an extension area in a TrueVision Targa (TGA) image file
 //
 //  Author:

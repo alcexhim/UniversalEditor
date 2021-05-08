@@ -1,4 +1,4 @@
-﻿//
+//
 //  RTFCharacterSet.cs - indicates the character set for a formatted text file in Rich Text Format
 //
 //  Author:

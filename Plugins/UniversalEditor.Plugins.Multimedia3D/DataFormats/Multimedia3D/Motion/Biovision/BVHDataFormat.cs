@@ -1,4 +1,4 @@
-﻿//
+//
 //  BVHDataFormat.cs - provides a DataFormat for manipulating animation data in BioVision Hierarchy (BVH) and QAvimator (AVM) format
 //
 //  Author:

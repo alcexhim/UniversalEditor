@@ -1,4 +1,4 @@
-﻿//
+//
 //  PESectionCharacteristics.cs - describes attributes for a section in a Portable Executable file
 //
 //  Author:

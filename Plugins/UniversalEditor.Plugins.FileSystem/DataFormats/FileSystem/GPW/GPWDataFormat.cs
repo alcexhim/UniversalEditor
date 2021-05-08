@@ -1,4 +1,4 @@
-﻿//
+//
 //  GPWDataFormat.cs - provides a DataFormat for manipulating archives in GPW format
 //
 //  Author:

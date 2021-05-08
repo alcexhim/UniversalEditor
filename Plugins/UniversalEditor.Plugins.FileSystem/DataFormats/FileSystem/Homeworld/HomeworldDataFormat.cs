@@ -1,4 +1,4 @@
-﻿//
+//
 //  HomeworldDataFormat.cs - provides a DataFormat for manipulating archives in Homeworld format
 //
 //  Author:

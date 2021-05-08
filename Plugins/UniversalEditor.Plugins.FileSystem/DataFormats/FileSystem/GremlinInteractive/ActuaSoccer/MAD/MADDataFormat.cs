@@ -1,4 +1,4 @@
-﻿//
+//
 //  MADDataFormat.cs - provides a DataFormat for manipulating archives in Gremlin Interactive MAD format
 //
 //  Author:

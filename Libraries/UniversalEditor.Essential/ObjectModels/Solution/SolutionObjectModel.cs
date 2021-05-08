@@ -1,4 +1,4 @@
-﻿//
+//
 //  SolutionObjectModel.cs - provides an ObjectModel for manipulating a collection of ProjectObjectModels in a Solution
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  RTMLSettings.cs - represents settings for the RTMLDataFormat parser
 //
 //  Author:

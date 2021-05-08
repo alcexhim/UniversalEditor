@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEFSharingOption.cs - specifies how a section should be shared in a Preferred Executable file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  VectorImageObjectModel.cs - provides an ObjectModel for manipulating vector images
 //
 //  Author:

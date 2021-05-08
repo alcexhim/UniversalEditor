@@ -1,4 +1,4 @@
-﻿//
+//
 //  INTXLINKDataFormat.cs - provides a DataFormat for manipulating shortcuts in Interix symlink format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesignView.cs
 //
 //  Author:

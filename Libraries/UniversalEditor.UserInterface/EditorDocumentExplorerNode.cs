@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorDocumentExplorerNode.cs - represents information about a node in a Document Explorer window for a particular Editor
 //
 //  Author:

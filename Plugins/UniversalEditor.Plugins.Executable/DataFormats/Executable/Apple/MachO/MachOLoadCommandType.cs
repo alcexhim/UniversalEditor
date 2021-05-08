@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOLoadCommandType.cs - indicates the type of load command used in an Apple Mach-O executable
 //
 //  Author:

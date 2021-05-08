@@ -1,4 +1,4 @@
-﻿//
+//
 //  VHDHardDiskParentLocatorEntry.cs - describes the parent locator entry for a Microsoft Virtual PC VHD virtual hard disk
 //
 //  Author:

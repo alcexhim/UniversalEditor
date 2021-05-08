@@ -1,4 +1,4 @@
-﻿//
+//
 //  BoxDataFormat.cs - provides a DataFormat for manipulating archives in BOX format
 //
 //  Author:

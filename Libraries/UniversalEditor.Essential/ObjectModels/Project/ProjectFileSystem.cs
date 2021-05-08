@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectFileSystem.cs - represents a file system containing ProjectFolders and ProjectFiles
 //
 //  Author:

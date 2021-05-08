@@ -1,4 +1,4 @@
-﻿//
+//
 //  Chapter.cs - represents a chapter in a Book
 //
 //  Author:

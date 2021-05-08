@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapArmyMonster.cs - represents an army monster placed on a Heroes of Might and Magic map
 //
 //  Author:

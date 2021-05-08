@@ -1,4 +1,4 @@
-﻿//
+//
 //  PersonalNameReference.cs - represents a formattable reference to an existing PersonalName
 //
 //  Author:

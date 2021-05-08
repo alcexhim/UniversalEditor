@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactPhoneNumber.cs - represents a phone number in a ContactObjectModel
 //
 //  Author:

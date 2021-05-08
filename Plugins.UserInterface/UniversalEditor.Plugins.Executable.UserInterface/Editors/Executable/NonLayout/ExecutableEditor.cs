@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableEditor.cs - provides an Editor for the ExecutableObjectModel
 //
 //  Author:

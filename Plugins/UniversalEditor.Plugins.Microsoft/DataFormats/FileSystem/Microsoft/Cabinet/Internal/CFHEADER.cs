@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFHEADER.cs - internal structure representing a Microsoft Cabinet archive header
 //
 //  Author:

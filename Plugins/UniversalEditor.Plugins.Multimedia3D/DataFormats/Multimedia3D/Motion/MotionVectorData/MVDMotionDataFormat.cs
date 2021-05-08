@@ -1,4 +1,4 @@
-﻿//
+//
 //  MVDMotionDataFormat.cs - provides a DataFormat for manipulating animation data in MikuMikuMoving "Motion Vector Data" (MVD) format
 //
 //  Author:

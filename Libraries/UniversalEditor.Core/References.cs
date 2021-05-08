@@ -1,4 +1,4 @@
-﻿//
+//
 //  References.cs - defines an object that references a ReferencedBy object
 //
 //  Author:

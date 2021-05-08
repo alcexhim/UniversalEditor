@@ -1,4 +1,4 @@
-﻿//
+//
 //  FontAttributes.cs - indicates the attributes for font formatting in a WinHelp file
 //
 //  Author:

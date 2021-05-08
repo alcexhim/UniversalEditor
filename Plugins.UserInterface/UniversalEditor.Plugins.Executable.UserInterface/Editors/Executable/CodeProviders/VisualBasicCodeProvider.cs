@@ -1,4 +1,4 @@
-﻿//
+//
 //  VisualBasicCodeProvider.cs - provides a CodeProvider that translates MSIL code into VB.NET
 //
 //  Author:

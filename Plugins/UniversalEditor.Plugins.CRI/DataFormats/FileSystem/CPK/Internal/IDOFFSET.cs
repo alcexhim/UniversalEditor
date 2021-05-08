@@ -1,4 +1,4 @@
-﻿//
+//
 //  IDOFFSET.cs - internal structure for representing an ID, offset, and size for a file in a CPK archive
 //
 //  Author:

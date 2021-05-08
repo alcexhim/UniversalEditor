@@ -1,4 +1,4 @@
-﻿//
+//
 //  CHDEntryType.cs - indicates the type of file entry in a CHD archive
 //
 //  Author:

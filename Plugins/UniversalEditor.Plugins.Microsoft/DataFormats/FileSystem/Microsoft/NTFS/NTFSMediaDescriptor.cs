@@ -1,4 +1,4 @@
-﻿//
+//
 //  NTFSMediaDescriptor.cs - indicates the type of drive hosting an NTFS file system
 //
 //  Author:

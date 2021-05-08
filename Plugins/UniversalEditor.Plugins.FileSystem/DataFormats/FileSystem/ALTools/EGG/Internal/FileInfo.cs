@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileInfo.cs - internal structure representing file entry information for an ALZip EGG archive
 //
 //  Author:

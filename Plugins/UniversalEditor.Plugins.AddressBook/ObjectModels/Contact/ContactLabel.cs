@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactLabel.cs - represents a label in a ContactObjectModel
 //
 //  Author:

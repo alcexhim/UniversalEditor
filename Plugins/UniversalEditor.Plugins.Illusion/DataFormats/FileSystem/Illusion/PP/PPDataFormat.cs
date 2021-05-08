@@ -1,4 +1,4 @@
-﻿//
+//
 //  PPDataFormat.cs - provides a DataFormat for manipulating Illusion PP archive files
 //
 //  Author:

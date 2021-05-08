@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSDInfo.cs - internal structure representing the HFS_DINFO for an HFS filesystem
 //
 //  Author:

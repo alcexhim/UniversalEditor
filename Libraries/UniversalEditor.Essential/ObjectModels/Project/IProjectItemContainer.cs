@@ -1,4 +1,4 @@
-﻿//
+//
 //  IProjectItemContainer.cs - interface for defining an object which contains ProjectFolders
 //
 //  Author:

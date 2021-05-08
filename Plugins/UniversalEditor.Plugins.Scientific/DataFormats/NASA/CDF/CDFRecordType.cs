@@ -1,4 +1,4 @@
-﻿//
+//
 //  CDFRecordType.cs
 //
 //  Author:

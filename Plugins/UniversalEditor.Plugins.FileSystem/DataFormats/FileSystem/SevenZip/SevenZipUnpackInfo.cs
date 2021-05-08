@@ -1,4 +1,4 @@
-﻿//
+//
 //  SevenZipUnpackInfo.cs - internal structure representing unpacking information for a 7-Zip archive
 //
 //  Author:

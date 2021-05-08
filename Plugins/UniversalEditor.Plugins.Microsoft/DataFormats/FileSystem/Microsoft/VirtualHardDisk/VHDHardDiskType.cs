@@ -1,4 +1,4 @@
-﻿//
+//
 //  VHDHardDiskType.cs - indicates the type of virtual hard disk represented by the VHD file
 //
 //  Author:

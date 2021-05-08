@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormatFragment.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfaceFormat.cs - indicates the texture format of a DirectDraw Surface texture
 //
 //  Author:

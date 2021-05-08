@@ -1,4 +1,4 @@
-﻿//
+//
 //  FieldDefinition.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  LZSSCompressionModule.cs - provides a CompressionModule for handling LZSS compression
 //
 //  Author:

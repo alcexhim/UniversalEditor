@@ -1,4 +1,4 @@
-﻿//
+//
 //  LSTDataFormat.cs - provides a DataFormat for manipulating Microsoft ACME setup bootstrapper list (LST) files
 //
 //  Author:

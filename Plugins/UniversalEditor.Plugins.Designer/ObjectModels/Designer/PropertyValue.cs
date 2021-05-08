@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyValue.cs - represents the value of a property in a designer object
 //
 //  Author:

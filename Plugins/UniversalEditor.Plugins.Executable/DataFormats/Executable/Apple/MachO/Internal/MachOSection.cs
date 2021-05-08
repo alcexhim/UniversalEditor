@@ -1,4 +1,4 @@
-﻿//
+//
 //  MachOSection.cs - describes a section in an Apple Mach-O executable
 //
 //  Author:

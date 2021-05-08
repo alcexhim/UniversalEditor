@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusRandomExpression.cs - represents an ICARUS "random()" function expression
 //
 //  Author:

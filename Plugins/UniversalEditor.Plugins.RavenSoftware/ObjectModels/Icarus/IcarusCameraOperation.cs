@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCameraOperation.cs - indicates the operation for the "camera" command from the CAMERA_COMMANDS enumeration
 //
 //  Author:

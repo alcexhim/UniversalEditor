@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeMethodCallElement.cs - represents a CodeElement specifying a call to an existing method
 //
 //  Author:

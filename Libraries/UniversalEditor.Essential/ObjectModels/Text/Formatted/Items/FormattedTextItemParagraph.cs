@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextItemParagraph.cs - represents a FormattedTextItemContainer command which causes all contained FormattedTextItems to be rendered inside a new paragraph
 //
 //  Author:

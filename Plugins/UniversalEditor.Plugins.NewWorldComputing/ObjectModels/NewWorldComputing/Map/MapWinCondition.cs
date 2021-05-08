@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapWinCondition.cs - indicates the condition(s) required to win a game using this map
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONField.cs - the abstract base class from which all fields in a JSONObjectModel derive
 //
 //  Author:

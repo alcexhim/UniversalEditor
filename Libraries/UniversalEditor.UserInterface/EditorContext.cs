@@ -1,4 +1,4 @@
-﻿//
+//
 //  EditorContext.cs
 //
 //  Author:

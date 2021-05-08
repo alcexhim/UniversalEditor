@@ -1,4 +1,4 @@
-﻿//
+//
 //  CarcassTextDataFormat.cs
 //
 //  Author:

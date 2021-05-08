@@ -1,4 +1,4 @@
-﻿//
+//
 //  CustomDataFormatFieldCondition.cs - conditional statements used in CDF
 //
 //  Author:

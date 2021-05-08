@@ -1,4 +1,4 @@
-﻿//
+//
 //  FlashBaseTag.cs
 //
 //  Author:

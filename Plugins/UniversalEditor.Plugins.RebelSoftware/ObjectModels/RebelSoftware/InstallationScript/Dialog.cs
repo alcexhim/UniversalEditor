@@ -1,4 +1,4 @@
-﻿//
+//
 //  Dialog.cs - the abstract base class from which all installation dialog definitions derive
 //
 //  Author:

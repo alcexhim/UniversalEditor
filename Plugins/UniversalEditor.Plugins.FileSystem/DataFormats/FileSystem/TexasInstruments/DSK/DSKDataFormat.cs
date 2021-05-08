@@ -1,4 +1,4 @@
-﻿//
+//
 //  DSKDataFormat.cs - provides a DataFormat for manipulating disk images in Texas Instruments DSK format
 //
 //  Author:

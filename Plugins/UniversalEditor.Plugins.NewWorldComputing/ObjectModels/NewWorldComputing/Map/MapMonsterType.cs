@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapMonsterType.cs - indicates the type of monster to display on the map
 //
 //  Author:

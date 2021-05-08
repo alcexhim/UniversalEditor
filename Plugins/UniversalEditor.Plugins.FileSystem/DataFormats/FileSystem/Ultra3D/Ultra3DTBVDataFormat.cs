@@ -1,4 +1,4 @@
-﻿//
+//
 //  Ultra3DTBVDataFormat.cs - provides a DataFormat for manipulating archives in Ultra 3D TBV format
 //
 //  Author:

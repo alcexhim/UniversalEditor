@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandIf.cs - represents the ICARUS "if" command
 //
 //  Author:

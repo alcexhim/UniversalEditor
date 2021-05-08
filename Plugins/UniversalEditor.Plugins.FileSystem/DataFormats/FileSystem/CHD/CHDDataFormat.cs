@@ -1,4 +1,4 @@
-﻿//
+//
 //  CHDDataFormat.cs - provides a DataFormat for manipulating archives in Compressed Hunks of Data (CHD) format
 //
 //  Author:

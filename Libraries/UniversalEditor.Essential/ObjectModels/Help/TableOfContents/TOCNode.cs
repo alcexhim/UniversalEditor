@@ -1,4 +1,4 @@
-﻿//
+//
 //  TOCNode.cs - represents a node in a TableOfContentsObjectModel
 //
 //  Author:

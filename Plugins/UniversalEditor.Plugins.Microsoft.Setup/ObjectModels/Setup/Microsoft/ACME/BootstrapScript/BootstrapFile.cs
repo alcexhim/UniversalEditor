@@ -1,4 +1,4 @@
-﻿//
+//
 //  BootstrapFile.cs - represents a file that is copied during the bootstrap process of a Microsoft ACME setup routine
 //
 //  Author:

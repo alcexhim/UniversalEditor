@@ -1,4 +1,4 @@
-﻿//
+//
 //  Style.cs - describes the visual appearance for a subtitle
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  JavaClassDataFormat.cs - provides a DataFormat for manipulating compiled Java class files
 //
 //  Author:

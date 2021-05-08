@@ -1,4 +1,4 @@
-﻿//
+//
 //  PropertyListObjectModel.cs - provides an ObjectModel for manipulating property list documents (e.g. Windows INI format)
 //
 //  Author:

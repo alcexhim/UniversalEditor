@@ -1,4 +1,4 @@
-﻿//
+//
 //  KBPaletteDataFormat.cs - provides a DataFormat for manipulating color palettes in Heroes of Might and Magic II KB.PAL format
 //
 //  Author:

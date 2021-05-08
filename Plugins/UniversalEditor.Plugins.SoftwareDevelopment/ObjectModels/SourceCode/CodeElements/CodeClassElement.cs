@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeClassElement.cs - represents a CodeElement that defines a class
 //
 //  Author:

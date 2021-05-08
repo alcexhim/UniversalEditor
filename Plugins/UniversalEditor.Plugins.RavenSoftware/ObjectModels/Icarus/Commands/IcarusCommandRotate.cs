@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandRotate.cs - represents the ICARUS "rotate" command
 //
 //  Author:

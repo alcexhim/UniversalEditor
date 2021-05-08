@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPC700Emulator.cs - indicates the emulator used to generate the SPC700 synthesized audio file
 //
 //  Author:

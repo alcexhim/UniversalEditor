@@ -1,4 +1,4 @@
-﻿//
+//
 //  PositionVector2.cs - provides a tuple indicating X and Y position
 //
 //  Author:

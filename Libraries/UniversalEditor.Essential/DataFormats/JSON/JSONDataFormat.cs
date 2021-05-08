@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONDataFormat.cs - provides a DataFormat for manipulating markup in JavaScript Object Notation (JSON) format
 //
 //  Author:

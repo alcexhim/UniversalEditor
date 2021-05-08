@@ -1,4 +1,4 @@
-﻿//
+//
 //  BHDataFormat.cs - provides a DataFormat for manipulating archives in ZipTV BlakHole format
 //
 //  Author:

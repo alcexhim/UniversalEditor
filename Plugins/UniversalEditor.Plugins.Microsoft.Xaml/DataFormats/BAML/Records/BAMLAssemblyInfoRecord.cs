@@ -1,4 +1,4 @@
-﻿//
+//
 //  BAMLAssemblyInfoRecord.cs
 //
 //  Author:

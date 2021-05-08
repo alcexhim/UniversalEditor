@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARJDataFormat.cs - provides a DataFormat for manipulating archives in ARJ format
 //
 //  Author:

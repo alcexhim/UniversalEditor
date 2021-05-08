@@ -1,4 +1,4 @@
-﻿//
+//
 //  DIRECTORYLEAFENTRY.cs - internal structure for DIRECTORYLEAFENTRY
 //
 //  Author:

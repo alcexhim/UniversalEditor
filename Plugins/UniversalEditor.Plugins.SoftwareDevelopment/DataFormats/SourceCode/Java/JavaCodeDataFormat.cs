@@ -1,4 +1,4 @@
-﻿//
+//
 //  JavaCodeDataFormat.cs - provides a DataFormat to manipulate code files written in the Java programming language
 //
 //  Author:

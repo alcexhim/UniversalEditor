@@ -1,4 +1,4 @@
-﻿//
+//
 //  PrintTicketObjectModel.cs - provides an ObjectModel for manipulating PrintTicket files in an XML Paper Specification (XPS) document
 //
 //  Author:

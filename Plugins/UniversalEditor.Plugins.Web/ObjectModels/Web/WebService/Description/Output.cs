@@ -1,4 +1,4 @@
-﻿//
+//
 //  Output.cs - WSDL Output
 //
 //  Author:

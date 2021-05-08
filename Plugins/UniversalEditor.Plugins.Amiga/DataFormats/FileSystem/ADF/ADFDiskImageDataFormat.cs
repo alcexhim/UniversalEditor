@@ -1,4 +1,4 @@
-﻿//
+//
 //  ADFDiskImageDataFormat.cs
 //
 //  Author:

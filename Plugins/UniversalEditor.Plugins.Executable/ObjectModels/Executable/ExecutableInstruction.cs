@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableInstruction.cs - contains opcodes and class for representing an instruction in an executable text segment
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesktopShortcutAction.cs - represents an action in a FreeDesktop shortcut file
 //
 //  Author:

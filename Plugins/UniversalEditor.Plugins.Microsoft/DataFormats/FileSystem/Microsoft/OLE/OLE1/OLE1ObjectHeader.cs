@@ -1,4 +1,4 @@
-﻿//
+//
 //  OLE1Chunk.cs -
 //
 //  Author:

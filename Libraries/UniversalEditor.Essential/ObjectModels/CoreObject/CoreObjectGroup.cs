@@ -1,4 +1,4 @@
-﻿//
+//
 //  CoreObjectGroup.cs - represents a group (collection of subgroups and properties) in a Core Object file
 //
 //  Author:

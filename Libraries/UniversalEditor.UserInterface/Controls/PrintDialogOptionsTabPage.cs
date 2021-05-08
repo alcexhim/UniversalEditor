@@ -1,4 +1,4 @@
-﻿//
+//
 //  PrintDialogOptionsTab.cs
 //
 //  Author:

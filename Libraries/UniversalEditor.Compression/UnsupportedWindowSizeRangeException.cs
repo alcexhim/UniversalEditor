@@ -1,4 +1,4 @@
-﻿//
+//
 //  UnsupportedWindowSizeRangeException.cs - exception raised when the given window size is out of range for the CompressionModule
 //
 //  Author:

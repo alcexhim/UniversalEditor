@@ -1,4 +1,4 @@
-﻿//
+//
 //  AINCompressionType.cs - indicates the compression type of an AIN archive
 //
 //  Author:

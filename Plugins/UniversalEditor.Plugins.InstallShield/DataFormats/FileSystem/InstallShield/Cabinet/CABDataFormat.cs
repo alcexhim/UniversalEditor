@@ -1,4 +1,4 @@
-﻿//
+//
 //  CABDataFormat.cs - provides a DataFormat for manipulating InstallShield cabinet archive files
 //
 //  Author:

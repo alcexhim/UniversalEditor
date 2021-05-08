@@ -1,4 +1,4 @@
-﻿//
+//
 //  MS3DDataFormat.cs - provides a DataFormat for reading and writing 3D models in Milkshape 3D MS3D binary format
 //
 //  Author:

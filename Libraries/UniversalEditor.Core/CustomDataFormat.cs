@@ -1,4 +1,4 @@
-﻿//
+//
 //  CustomDataFormat.cs - provide a way to declare DataFormats in platform-agnostic XML
 //
 //  Author:

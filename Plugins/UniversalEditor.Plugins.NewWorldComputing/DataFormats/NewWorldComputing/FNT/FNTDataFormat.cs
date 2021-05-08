@@ -1,4 +1,4 @@
-﻿//
+//
 //  FNTDataFormat.cs - provides a DataFormat to manipulate fonts used in New World Computing (Heroes of Might and Magic II) games
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectItem.cs - interface for objects which contain a collection of ProjectFiles
 //
 //  Author:

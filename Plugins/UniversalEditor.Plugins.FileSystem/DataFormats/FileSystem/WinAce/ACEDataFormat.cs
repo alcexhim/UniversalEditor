@@ -1,4 +1,4 @@
-﻿//
+//
 //  ACEDataFormat.cs - provides a DataFormat for manipulating archives in WinACE format
 //
 //  Author:

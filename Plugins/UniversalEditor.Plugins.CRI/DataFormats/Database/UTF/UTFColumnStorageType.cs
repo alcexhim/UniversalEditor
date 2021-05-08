@@ -1,4 +1,4 @@
-﻿//
+//
 //  UTFColumnStorageType.cs - CRI Middleware UTF table column storage types
 //
 //  Author:

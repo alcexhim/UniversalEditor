@@ -1,4 +1,4 @@
-﻿//
+//
 //  WaveformAudioEditorTrackControlPanel.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  VHDFeatures.cs - indicates the special features enabled for the virtual hard disk
 //
 //  Author:

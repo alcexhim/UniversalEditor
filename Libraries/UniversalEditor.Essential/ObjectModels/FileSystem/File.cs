@@ -1,4 +1,4 @@
-﻿//
+//
 //  File.cs - represents a File in a FileSystemObjectModel
 //
 //  Author:

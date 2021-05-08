@@ -1,4 +1,4 @@
-﻿//
+//
 //  GraphicsInterchangeExtensionBlock.cs - represents an extension to the GIF format
 //
 //  Author:

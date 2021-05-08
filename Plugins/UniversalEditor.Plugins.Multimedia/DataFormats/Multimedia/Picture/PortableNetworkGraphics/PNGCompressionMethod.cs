@@ -1,4 +1,4 @@
-﻿//
+//
 //  PNGCompressionMethod.cs - indicates the type of compression used in a PNG image file
 //
 //  Author:

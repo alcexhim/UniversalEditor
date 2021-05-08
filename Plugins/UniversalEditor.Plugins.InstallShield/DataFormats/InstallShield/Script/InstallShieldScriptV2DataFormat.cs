@@ -1,4 +1,4 @@
-﻿//
+//
 //  InstallShieldScriptV2DataFormat.cs - provides a DataFormat for manipulating InstallShield format version 2 script files
 //
 //  Author:

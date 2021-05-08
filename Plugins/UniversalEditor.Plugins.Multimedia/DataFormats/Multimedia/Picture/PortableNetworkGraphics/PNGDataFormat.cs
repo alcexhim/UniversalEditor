@@ -1,4 +1,4 @@
-﻿//
+//
 //  PNGDataFormat.cs - provides a DataFormat for manipulating images in Portable Network Graphics (PNG) format
 //
 //  Author:

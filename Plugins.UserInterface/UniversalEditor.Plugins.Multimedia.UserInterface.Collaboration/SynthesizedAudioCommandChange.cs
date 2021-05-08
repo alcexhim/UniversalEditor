@@ -1,4 +1,4 @@
-﻿//
+//
 //  SynthesizedAudioCommandChange.cs
 //
 //  Author:

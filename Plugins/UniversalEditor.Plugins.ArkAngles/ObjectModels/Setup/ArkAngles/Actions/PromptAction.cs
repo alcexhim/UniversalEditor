@@ -1,4 +1,4 @@
-﻿//
+//
 //  PromptAction.cs - the action which displays a prompt to the user during the installation process
 //
 //  Author:

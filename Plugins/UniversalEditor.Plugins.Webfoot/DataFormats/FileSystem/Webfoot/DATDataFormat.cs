@@ -1,4 +1,4 @@
-﻿//
+//
 //  DATDataFormat.cs - provides a DataFormat for manipulating Webfoot DAT archives
 //
 //  Author:

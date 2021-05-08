@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.ObjectModels.Lighting.Script
+namespace UniversalEditor.ObjectModels.Lighting.Script
 {
 	public class Fixture
 	{

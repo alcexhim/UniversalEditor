@@ -1,4 +1,4 @@
-﻿//
+//
 //  SeekOrigin.cs - provide equivalent to System.IO.SeekOrigin (may be removed)
 //
 //  Author:

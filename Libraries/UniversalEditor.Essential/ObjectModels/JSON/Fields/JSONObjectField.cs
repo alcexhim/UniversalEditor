@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONObjectField.cs - a JSONField which can contain other fields
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CertificateObjectModel.cs - provides an ObjectModel for manipulating X.509 security certificates
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿namespace UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree
+namespace UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree
 {
 	public class FamilyTreeObjectModel : ObjectModel
 	{

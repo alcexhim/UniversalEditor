@@ -1,4 +1,4 @@
-﻿//
+//
 //  Measurement.cs - provides a tuple and enumeration describing a measurement value
 //
 //  Author:

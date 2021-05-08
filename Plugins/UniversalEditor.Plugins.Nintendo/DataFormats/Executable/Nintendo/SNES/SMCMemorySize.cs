@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMCMemorySize.cs - provides metadata information about memory sizes for Nintendo SNES game dump files in SMC format
 //
 //  Author:

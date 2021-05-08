@@ -1,4 +1,4 @@
-﻿//
+//
 //  HTTPAccessor.cs - provides an Accessor to publish and retrieve data over an HTTP(S) connection
 //
 //  Author:

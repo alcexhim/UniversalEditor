@@ -1,4 +1,4 @@
-﻿//
+//
 //  CHDFlags.cs - indicates attributes for the CHD archive
 //
 //  Author:

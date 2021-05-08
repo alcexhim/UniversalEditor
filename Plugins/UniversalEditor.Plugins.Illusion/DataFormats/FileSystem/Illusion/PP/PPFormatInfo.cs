@@ -1,4 +1,4 @@
-﻿//
+//
 //  PPFormatInfo.cs - structure holding metadata for the PP archive decrypter
 //
 //  Author:

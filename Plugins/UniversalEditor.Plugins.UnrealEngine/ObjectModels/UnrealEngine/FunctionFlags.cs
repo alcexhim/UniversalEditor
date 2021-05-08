@@ -1,4 +1,4 @@
-﻿//
+//
 //  FunctionFlags.cs - indicates attributes for a function in an Unreal Engine package
 //
 //  Author:

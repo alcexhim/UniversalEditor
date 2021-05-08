@@ -1,4 +1,4 @@
-﻿//
+//
 //  PICTDataFormat.cs - implements Cyberlore PICT image format
 //
 //  Author:

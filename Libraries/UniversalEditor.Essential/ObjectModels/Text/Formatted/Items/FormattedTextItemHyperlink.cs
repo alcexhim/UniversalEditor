@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextItemHyperlink.cs - represents a FormattedTextItemContainer which causes a hyperlink to appear for all FormattedTextItems it contains
 //
 //  Author:

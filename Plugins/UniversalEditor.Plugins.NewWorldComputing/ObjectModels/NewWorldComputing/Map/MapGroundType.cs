@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapGroundType.cs - indicates the type of ground for a ground tile placed on a map
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BAMLRecord.cs
 //
 //  Author:

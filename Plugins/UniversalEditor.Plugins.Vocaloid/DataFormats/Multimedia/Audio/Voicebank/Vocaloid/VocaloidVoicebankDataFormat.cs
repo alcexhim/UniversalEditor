@@ -1,4 +1,4 @@
-﻿//
+//
 //  VocaloidVoicebankDataFormat.cs - provides a DataFormat for manipulating synthesized audio voicebank data in Vocaloid DDB format
 //
 //  Author:

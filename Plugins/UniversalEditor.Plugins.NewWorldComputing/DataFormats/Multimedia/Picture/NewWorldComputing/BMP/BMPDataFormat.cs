@@ -1,4 +1,4 @@
-﻿//
+//
 //  BMPDataFormat.cs - provides a DataFormat for manipulating tri-state (black, white, or transparent) images in Heroes of Might and Magic II BMP format
 //
 //  Author:

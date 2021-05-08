@@ -1,4 +1,4 @@
-﻿//
+//
 //  OLE1ChunkType.cs - indicates the type of chunk in an Object Linking and Embedding (OLE) version 1.0 file
 //
 //  Author:

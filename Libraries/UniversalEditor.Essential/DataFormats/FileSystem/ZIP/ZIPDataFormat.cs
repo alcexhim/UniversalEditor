@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPDataFormat.cs - provides a DataFormat for manipulating archives in the standardized PKWARE ZIP format
 //
 //  Author:

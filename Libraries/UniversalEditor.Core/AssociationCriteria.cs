@@ -1,4 +1,4 @@
-﻿//
+//
 //  AssociationCriteria.cs - criteria used when looking up Associations
 //
 //  Author:

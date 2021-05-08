@@ -1,4 +1,4 @@
-﻿//
+//
 //  FARCDataFormat.cs - provides a DataFormat for manipulating archives in Sega FARC format
 //
 //  Author:

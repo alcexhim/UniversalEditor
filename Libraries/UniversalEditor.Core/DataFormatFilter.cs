@@ -1,4 +1,4 @@
-﻿//
+//
 //  DataFormatFilter.cs - stores magic byte / file name filters for a DataFormat
 //
 //  Author:

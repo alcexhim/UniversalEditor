@@ -1,4 +1,4 @@
-﻿//
+//
 //  Performer.cs - represents a tuple containing Character, Costume, and Animation information for a particular Concertroid Performance
 //
 //  Author:

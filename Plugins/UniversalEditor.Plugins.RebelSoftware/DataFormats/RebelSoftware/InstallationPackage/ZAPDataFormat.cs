@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZAPDataFormat.cs - provides a DataFormat to manipulate Rebel Software archive files in ZAP format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FDSEQDataFormat.cs - provides a DataFormat to manipulate FixedDocumentSequence files in a Microsoft XML Paper Specification (XPS) document
 //
 //  Author:

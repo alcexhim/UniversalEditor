@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusFunctionExpression.cs - the base class from which all ICARUS function expressions derive
 //
 //  Author:

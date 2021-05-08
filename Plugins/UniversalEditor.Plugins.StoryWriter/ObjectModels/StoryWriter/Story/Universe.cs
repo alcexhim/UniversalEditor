@@ -1,4 +1,4 @@
-﻿//
+//
 //  Universe.cs - represents a universe, a collection of related elements shared throughout one or more stories
 //
 //  Author:

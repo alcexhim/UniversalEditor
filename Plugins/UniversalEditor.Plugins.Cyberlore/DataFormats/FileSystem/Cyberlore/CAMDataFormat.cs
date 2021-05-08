@@ -1,4 +1,4 @@
-﻿//
+//
 //  CAMDataFormat.cs - implements Cyberlore CAM archive format
 //
 //  Author:

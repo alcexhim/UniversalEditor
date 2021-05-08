@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <UniversalEditor Version="5.0">
 	<Editors>
 		<Editor TypeName="UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus.IcarusScriptEditor">

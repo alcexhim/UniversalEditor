@@ -1,4 +1,4 @@
-﻿//
+//
 //  Property.cs - represents a property definition associated with a Component in a component designer layout
 //
 //  Author:

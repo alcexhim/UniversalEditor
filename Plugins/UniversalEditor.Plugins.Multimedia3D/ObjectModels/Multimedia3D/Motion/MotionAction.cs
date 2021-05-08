@@ -1,4 +1,4 @@
-﻿//
+//
 //  MotionAction.cs - classes representing actions in a 3D animation file
 //
 //  Author:

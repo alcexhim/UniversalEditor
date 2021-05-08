@@ -1,4 +1,4 @@
-﻿//
+//
 //  ManifestXMLDataFormat.cs
 //
 //  Author:

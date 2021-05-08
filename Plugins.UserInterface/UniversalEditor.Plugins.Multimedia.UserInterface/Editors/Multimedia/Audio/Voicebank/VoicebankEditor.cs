@@ -1,4 +1,4 @@
-﻿//
+//
 //  VoicebankEditor.cs - provides a UWT-based Editor for a VoicebankObjectModel
 //
 //  Author:

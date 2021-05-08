@@ -1,4 +1,4 @@
-﻿//
+//
 //  MPQHashMode.cs - indicates the hash mode used in an MPQ file
 //
 //  Author:

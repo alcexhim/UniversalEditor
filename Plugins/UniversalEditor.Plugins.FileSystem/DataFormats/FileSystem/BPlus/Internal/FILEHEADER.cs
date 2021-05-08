@@ -1,4 +1,4 @@
-﻿//
+//
 //  FILEHEADER.cs - internal structure for FILEHEADER
 //
 //  Author:

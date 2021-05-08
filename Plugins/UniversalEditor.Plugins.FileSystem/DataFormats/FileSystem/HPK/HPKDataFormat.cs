@@ -1,4 +1,4 @@
-﻿//
+//
 //  HPKDataFormat.cs - provides a DataFormat for manipulating archives in HPK format
 //
 //  Author:

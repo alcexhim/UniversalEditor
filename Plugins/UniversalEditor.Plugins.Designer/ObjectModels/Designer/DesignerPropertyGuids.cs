@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesignerPropertyGuids.cs
 //
 //  Author:

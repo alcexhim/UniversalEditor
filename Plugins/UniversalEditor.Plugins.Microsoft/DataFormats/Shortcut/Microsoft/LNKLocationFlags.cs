@@ -1,4 +1,4 @@
-﻿//
+//
 //  LNKLocationFlags.cs - indicates attributes related to shortcut target location
 //
 //  Author:

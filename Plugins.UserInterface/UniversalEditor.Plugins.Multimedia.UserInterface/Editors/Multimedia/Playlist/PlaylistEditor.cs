@@ -1,4 +1,4 @@
-﻿//
+//
 //  PlaylistEditor.cs - provides a UWT-based Editor for PlaylistObjectModel
 //
 //  Author:

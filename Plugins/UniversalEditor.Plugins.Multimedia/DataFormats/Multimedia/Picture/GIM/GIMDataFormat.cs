@@ -1,4 +1,4 @@
-﻿//
+//
 //  GIMDataFormat.cs - provides a DataFormat for manipulating images in PlayStation Portable GIM format
 //
 //  Author:

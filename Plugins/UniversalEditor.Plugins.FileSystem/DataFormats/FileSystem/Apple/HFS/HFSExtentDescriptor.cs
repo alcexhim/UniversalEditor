@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSExtentDescriptor.cs - represents an extent descriptor in an HFS filesystem
 //
 //  Author:

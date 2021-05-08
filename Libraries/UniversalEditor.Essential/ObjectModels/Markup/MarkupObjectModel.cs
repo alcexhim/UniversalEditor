@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupObjectModel.cs - provides an ObjectModel for manipulating markup documents (e.g. XML, HTML)
 //
 //  Author:

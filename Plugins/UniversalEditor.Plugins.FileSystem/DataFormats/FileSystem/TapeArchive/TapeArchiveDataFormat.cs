@@ -1,4 +1,4 @@
-﻿//
+//
 //  TapeArchiveDataFormat.cs - provides a DataFormat for manipulating archives in Tape Archive (TAR) format
 //
 //  Author:

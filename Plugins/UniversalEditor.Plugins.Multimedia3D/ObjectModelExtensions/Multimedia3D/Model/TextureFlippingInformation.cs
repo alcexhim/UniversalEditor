@@ -1,4 +1,4 @@
-﻿//
+//
 //  TextureFlippingInformation.cs - provides information about animated textures for 3D models
 //
 //  Author:

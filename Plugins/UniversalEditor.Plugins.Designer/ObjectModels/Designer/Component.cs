@@ -1,4 +1,4 @@
-﻿//
+//
 //  Component.cs - represents a component in a component designer layout
 //
 //  Author:

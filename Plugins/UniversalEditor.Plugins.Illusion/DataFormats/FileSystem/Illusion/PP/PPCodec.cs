@@ -1,4 +1,4 @@
-﻿//
+//
 //  PPCodec.cs - indicates the encryption method for Illusion PP archive files
 //
 //  Author:

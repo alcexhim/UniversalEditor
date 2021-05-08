@@ -1,4 +1,4 @@
-﻿//
+//
 //  LZPL2CompressionModule.cs - provides a CompressionModule for handling LZPL2 compression
 //
 //  Author:

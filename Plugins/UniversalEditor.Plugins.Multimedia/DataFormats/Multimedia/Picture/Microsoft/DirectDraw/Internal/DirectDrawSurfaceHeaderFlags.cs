@@ -1,4 +1,4 @@
-﻿//
+//
 //  DirectDrawSurfaceHeaderFlags.cs - indicates attributes for the DirectDraw Surface texture file
 //
 //  Author:

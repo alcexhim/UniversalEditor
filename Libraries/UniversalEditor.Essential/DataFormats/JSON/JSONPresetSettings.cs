@@ -1,4 +1,4 @@
-﻿//
+//
 //  JSONPresetSettings.cs - indicates the preset settings to use for JSONSettings for a JSONDataFormat
 //
 //  Author:

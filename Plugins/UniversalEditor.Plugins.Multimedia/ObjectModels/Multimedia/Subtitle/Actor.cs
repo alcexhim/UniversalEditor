@@ -1,4 +1,4 @@
-﻿//
+//
 //  Actor.cs - represents an actor (source for a line of dialog) in a subtitle file
 //
 //  Author:

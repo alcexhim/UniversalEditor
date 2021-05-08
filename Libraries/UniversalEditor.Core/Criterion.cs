@@ -1,4 +1,4 @@
-﻿//
+//
 //  Criterion.cs
 //
 //  Author:

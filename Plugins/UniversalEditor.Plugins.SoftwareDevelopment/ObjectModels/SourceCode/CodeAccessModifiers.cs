@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeAccessModifiers.cs - indicates the access modifiers for a CodeElement
 //
 //  Author:

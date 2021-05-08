@@ -1,4 +1,4 @@
-﻿//
+//
 //  KenSilvermanGRPDataFormat.cs - provides a DataFormat for manipulating archives in Ken Silverman GRP format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesignerEditor.cs - provides a UWT-based Editor for manipulating component designer layouts
 //
 //  Author:

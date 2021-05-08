@@ -1,4 +1,4 @@
-﻿//
+//
 //  SYSTEMHEADER.cs - internal structure representing SYSTEMHEADER for WinHelp files
 //
 //  Author:

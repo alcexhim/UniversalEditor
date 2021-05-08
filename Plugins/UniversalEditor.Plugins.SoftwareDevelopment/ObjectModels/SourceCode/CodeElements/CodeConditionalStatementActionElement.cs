@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeConditionalStatementActionElement.cs - represents the action portion of a conditional statement CodeElement
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  VHDDataFormat.cs - implements the Microsoft Virtual PC VHD file system
 //
 //  Author:

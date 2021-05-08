@@ -1,4 +1,4 @@
-﻿//
+//
 //  CompressionModules.cs - provides standard accessors for known CompressionModule implementations
 //
 //  Author:

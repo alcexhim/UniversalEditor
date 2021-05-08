@@ -1,4 +1,4 @@
-﻿//
+//
 //  BitmapDataFormat.cs - provides a DataFormat for manipulating images in Windows and OS/2 bitmap format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFSectionType.cs - indicates the type of section in an Executable and Linkable Format (ELF) executable
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactUrl.cs - represents a URL in a ContactObjectModel
 //
 //  Author:

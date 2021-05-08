@@ -1,4 +1,4 @@
-﻿//
+//
 //  ScenePhysicalOperationMode.cs - indicates when physics should be calculated for the 3D scene
 //
 //  Author:

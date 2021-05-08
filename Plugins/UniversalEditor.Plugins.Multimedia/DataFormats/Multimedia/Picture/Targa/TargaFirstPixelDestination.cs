@@ -1,4 +1,4 @@
-﻿//
+//
 //  TargaFirstPixelDestination.cs - screen destination of first pixel based on the VerticalTransferOrder and HorizontalTransferOrder
 //
 //  Author:

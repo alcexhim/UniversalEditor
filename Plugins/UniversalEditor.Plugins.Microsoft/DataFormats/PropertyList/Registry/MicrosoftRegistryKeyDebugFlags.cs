@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyDebugFlags.cs - indicates the attributes used for debugging a Microsoft registry file when a checked Windows kernel is in use
 //
 //  Author:

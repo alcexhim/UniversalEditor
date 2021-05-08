@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectTaskEvent.cs - provides an EventHandler and EventArgs for events related to project tasks
 //
 //  Author:

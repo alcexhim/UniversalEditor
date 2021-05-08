@@ -1,4 +1,4 @@
-﻿//
+//
 //  OPCContentTypesDataFormat.cs - provides a DataFormat for manipulating the Microsoft Open Packaging Convention Content_Types.xml file
 //
 //  Author:

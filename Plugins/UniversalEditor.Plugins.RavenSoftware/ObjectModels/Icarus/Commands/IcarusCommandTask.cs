@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandTask.cs - represents the ICARUS "task" command
 //
 //  Author:

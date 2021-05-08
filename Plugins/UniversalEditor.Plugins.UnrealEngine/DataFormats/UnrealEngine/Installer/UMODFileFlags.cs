@@ -1,4 +1,4 @@
-﻿//
+//
 //  UMODFileFlags.cs - indicates file attributes for an Unreal Engine installer UMOD file
 //
 //  Author:

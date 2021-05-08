@@ -1,4 +1,4 @@
-﻿//
+//
 //  RIFFDataFormat.cs - provides a DataFormat for manipulating chunked binary data in Resource Interchange File Format (RIFF)
 //
 //  Author:

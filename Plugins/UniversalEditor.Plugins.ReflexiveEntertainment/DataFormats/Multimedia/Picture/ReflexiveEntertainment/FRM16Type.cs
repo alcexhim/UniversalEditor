@@ -1,4 +1,4 @@
-﻿//
+//
 //  FRM16Type.cs - indicates the type of FRM16 image
 //
 //  Author:

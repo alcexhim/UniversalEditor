@@ -1,4 +1,4 @@
-﻿//
+//
 //  GIMImageFormat.cs - indicates the format for pixel data in a GIM image
 //
 //  Author:

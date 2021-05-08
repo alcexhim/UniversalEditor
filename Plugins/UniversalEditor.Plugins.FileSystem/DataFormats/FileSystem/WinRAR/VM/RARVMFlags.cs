@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARVMFlags.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  SceneScreenCaptureMode.cs - indicates the screen capture mode for the 3D scene
 //
 //  Author:

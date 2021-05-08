@@ -1,4 +1,4 @@
-﻿//
+//
 //  DestinationDialog.cs - describes the dialog displayed when prompting the user for the destination folder during the installation process
 //
 //  Author:

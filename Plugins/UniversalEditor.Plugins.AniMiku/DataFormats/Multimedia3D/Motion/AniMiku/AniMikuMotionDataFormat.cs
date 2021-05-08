@@ -1,4 +1,4 @@
-﻿//
+//
 //  AniMikuMotionDataFormat.cs - implements the AniMiku motion data format (AMD)
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPRDirectoryInfo.cs - internal structure describing directory information for an SPR archive
 //
 //  Author:

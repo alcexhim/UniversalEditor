@@ -1,4 +1,4 @@
-﻿//
+//
 //  CoreObjectProperty.cs - represents a property in a CoreObjectObjectModel
 //
 //  Author:

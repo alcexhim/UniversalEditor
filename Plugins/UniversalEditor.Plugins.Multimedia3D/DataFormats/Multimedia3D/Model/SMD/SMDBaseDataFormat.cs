@@ -1,4 +1,4 @@
-﻿//
+//
 //  SMDBaseDataFormat.cs - the base class for SMD format files
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  IContactLabelContainer.cs - interface specifying an object which contains a collection of ContactLabels
 //
 //  Author:

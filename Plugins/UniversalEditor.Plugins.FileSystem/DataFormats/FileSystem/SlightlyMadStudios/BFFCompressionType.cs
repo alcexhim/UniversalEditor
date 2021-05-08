@@ -1,4 +1,4 @@
-﻿//
+//
 //  BFFCompressionType.cs - indicates the compression type for a BFF archive
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Program.cs - the main entry point for the Universal Editor Extension Compiler
 //
 //  Author:

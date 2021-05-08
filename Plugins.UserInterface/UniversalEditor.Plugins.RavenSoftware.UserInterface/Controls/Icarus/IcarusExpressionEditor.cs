@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusExpressionEditor.cs - provides a UWT-based Container with controls for editing an expression in an Icarus script
 //
 //  Author:

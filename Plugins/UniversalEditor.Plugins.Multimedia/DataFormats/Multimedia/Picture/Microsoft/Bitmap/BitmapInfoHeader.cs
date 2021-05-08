@@ -1,4 +1,4 @@
-﻿//
+//
 //  BitmapInfoHeader.cs - internal structure representing the BITMAPINFOHEADER for a Windows bitmap image
 //
 //  Author:

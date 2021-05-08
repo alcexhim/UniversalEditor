@@ -1,4 +1,4 @@
-﻿//
+//
 //  Animation.cs - represents an animation for a particular character model in a Concertroid Performance
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MarkupContainerElement.cs - the abstract base class from which MarkupElements which can contain other MarkupElements derive
 //
 //  Author:

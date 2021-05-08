@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFObjectModelBase.cs
 //
 //  Author:

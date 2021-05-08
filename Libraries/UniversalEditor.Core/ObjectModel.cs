@@ -1,4 +1,4 @@
-﻿//
+//
 //  ObjectModel.cs - stores user-friendly, DataFormat-agnostic in-memory representation
 //
 //  Author:

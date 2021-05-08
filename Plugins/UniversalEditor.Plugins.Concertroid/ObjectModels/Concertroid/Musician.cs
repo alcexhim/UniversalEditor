@@ -1,4 +1,4 @@
-﻿//
+//
 //  Musician.cs - represents a musician in a band for a Concertroid Performance
 //
 //  Author:

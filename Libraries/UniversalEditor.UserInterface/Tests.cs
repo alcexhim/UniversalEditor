@@ -1,4 +1,4 @@
-﻿//
+//
 //  Tests.cs
 //
 //  Author:

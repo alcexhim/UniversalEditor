@@ -1,4 +1,4 @@
-﻿//
+//
 //  BatchFindReplaceCriteriaPropertiesDialog.cs
 //
 //  Author:

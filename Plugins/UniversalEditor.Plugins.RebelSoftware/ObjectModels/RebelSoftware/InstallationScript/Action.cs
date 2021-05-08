@@ -1,4 +1,4 @@
-﻿//
+//
 //  Action.cs - the abstract base class from which all installation script actions derive
 //
 //  Author:

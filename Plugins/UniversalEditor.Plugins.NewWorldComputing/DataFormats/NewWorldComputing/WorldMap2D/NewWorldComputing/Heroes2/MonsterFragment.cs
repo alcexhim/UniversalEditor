@@ -1,4 +1,4 @@
-﻿//
+//
 //  MonsterFragment.cs
 //
 //  Author:

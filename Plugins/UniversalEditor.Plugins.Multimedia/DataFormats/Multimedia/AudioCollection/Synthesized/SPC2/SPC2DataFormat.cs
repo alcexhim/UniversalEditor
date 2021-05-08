@@ -1,4 +1,4 @@
-﻿//
+//
 //  SPC2DataFormat.cs - provides a DataFormat for manipulating synthesized audio files in SPC2 format
 //
 //  Author:

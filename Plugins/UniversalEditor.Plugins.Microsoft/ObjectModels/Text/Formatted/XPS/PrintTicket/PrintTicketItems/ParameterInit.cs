@@ -1,4 +1,4 @@
-﻿//
+//
 //  ParameterInit.cs - represents a ParameterInit PrintTicketItem
 //
 //  Author:

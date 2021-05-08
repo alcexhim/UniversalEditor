@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryDataFormat.cs - provides a DataFormat to manipulate Microsoft registry files
 //
 //  Author:

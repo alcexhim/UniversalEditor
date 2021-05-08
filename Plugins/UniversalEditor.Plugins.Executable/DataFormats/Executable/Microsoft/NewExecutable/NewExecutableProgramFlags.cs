@@ -1,4 +1,4 @@
-﻿//
+//
 //  NewExecutableProgramFlags.cs - describes program flags for a New Executable file
 //
 //  Author:

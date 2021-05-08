@@ -1,4 +1,4 @@
-﻿//
+//
 //  PermissionStatus.cs - indicates the permission status a particular Producer has granted for a Song
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  DateConfidence.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandSet.cs - represents the ICARUS "set" command
 //
 //  Author:

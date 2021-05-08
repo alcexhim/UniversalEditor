@@ -1,4 +1,4 @@
-﻿//
+//
 //  AC3DDataFormat.cs - provides a DataFormat for manipulating 3D model files in Inivis AC3D format
 //
 //  Author:

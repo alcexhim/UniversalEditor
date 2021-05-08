@@ -1,4 +1,4 @@
-﻿//
+//
 //  ScriptTableTo.cs
 //
 //  Author:

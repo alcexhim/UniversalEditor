@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelBoneGroup.cs - represents a bone group in a 3D model
 //
 //  Author:

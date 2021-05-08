@@ -1,4 +1,4 @@
-﻿//
+//
 //  ConcertXMLDataFormat.cs - provides a DataFormat for manipulating Concertroid concert information in XML format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PictureCollectionObjectModel.cs - provides an ObjectModel for manipulating sprites (collections of images)
 //
 //  Author:

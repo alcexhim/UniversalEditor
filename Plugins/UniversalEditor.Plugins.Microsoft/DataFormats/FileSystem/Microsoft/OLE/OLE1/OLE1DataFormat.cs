@@ -1,4 +1,4 @@
-﻿//
+//
 //  OLE1DataFormat.cs - provides a DataFormat for manipulating Microsoft Object Linking and Embedding (OLE) version 1 files
 //
 //  Author:

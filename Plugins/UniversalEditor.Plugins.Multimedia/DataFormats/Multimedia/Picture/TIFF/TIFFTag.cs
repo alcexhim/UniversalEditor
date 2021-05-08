@@ -1,4 +1,4 @@
-﻿//
+//
 //  TIFFTag.cs
 //
 //  Author:

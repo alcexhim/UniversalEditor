@@ -1,4 +1,4 @@
-﻿//
+//
 //  SpreadsheetEditor.cs
 //
 //  Author:

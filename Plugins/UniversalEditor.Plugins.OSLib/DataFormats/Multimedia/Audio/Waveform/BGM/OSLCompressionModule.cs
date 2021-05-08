@@ -1,4 +1,4 @@
-﻿//
+//
 //  OSLCompressionModule.cs - implements a CompressionModule for the OSLib compression format
 //
 //  Author:

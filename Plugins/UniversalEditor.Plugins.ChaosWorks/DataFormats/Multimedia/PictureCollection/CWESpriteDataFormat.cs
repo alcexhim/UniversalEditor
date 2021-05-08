@@ -1,4 +1,4 @@
-﻿//
+//
 //  CWESpriteDataFormat.cs - provides a DataFormat for manipulating a collection of images in Chaos Works sprite (SPL, SPH, SPC, SPX) format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  BoneNameConverter.cs - converts bone names from MikuMikuDance to Moosta OMP and vice versa
 //
 //  Author:

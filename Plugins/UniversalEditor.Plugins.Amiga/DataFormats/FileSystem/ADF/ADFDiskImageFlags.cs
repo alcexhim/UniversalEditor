@@ -1,4 +1,4 @@
-﻿//
+//
 //  ADFDiskImageFlags.cs - indicates attributes for an ADF disk image file
 //
 //  Author:

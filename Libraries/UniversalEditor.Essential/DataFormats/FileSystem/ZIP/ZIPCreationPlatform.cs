@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPCreationPlatform.cs - indicates the operating system on which the ZIP file was created
 //
 //  Author:

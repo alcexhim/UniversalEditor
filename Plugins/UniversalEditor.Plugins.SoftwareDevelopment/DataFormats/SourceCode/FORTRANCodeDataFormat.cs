@@ -1,4 +1,4 @@
-﻿//
+//
 //  FORTRANCodeDataFormat.cs - provides a DataFormat for manipulating code files written in the FORTRAN programming language
 //
 //  Author:

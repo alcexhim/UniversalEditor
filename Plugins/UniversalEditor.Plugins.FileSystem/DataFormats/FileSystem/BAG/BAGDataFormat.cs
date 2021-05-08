@@ -1,4 +1,4 @@
-﻿//
+//
 //  BAGDataFormat.cs - provides a DataFormat for manipulating archives in BAG format
 //
 //  Author:

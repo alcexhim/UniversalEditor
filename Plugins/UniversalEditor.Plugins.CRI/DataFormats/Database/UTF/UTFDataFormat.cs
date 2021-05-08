@@ -1,4 +1,4 @@
-﻿//
+//
 //  UTFDataFormat.cs - COMPLETED - Implementation of CRI Middleware UTF table (used in CPK)
 //
 //  Author:

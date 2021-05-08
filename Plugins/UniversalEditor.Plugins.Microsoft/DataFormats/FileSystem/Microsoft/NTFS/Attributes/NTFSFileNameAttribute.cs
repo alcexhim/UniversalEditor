@@ -1,4 +1,4 @@
-﻿//
+//
 //  NTFSFileNameAttribute.cs
 //
 //  Author:

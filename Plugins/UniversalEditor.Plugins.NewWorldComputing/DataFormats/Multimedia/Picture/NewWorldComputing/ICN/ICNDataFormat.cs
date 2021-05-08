@@ -1,4 +1,4 @@
-﻿//
+//
 //  ICNDataFormat.cs - provides a DataFormat for manipulating sprites (animatable collections of images) in Heroes of Might and Magic II ICN format
 //
 //  Author:

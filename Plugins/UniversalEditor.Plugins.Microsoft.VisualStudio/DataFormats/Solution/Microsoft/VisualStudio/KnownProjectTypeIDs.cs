@@ -1,4 +1,4 @@
-﻿//
+//
 //  KnownProjectTypeIDs.cs - provides a set of known project type IDs used in Microsoft Visual Studio solution and project files
 //
 //  Author:

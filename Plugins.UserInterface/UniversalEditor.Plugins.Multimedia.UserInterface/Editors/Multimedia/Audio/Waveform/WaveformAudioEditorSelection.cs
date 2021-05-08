@@ -1,4 +1,4 @@
-﻿//
+//
 //  WaveformAudioEditorSelection.cs
 //
 //  Author:

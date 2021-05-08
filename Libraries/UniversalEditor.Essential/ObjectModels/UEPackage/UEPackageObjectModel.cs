@@ -1,4 +1,4 @@
-﻿//
+//
 //  UEPackageObjectModel.cs - provides an ObjectModel to manipulate Universal Editor package, extension, and configuration files
 //
 //  Author:

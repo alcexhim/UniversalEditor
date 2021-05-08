@@ -1,4 +1,4 @@
-﻿//
+//
 //  VACAccessoryDataFormat.cs - provides a DataFormat for manipulating accessory models in MikuMikuDance VAC format
 //
 //  Author:

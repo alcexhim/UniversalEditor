@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextStyleGroup.cs - represents a named group of FormattedTextStyles in a FormattedTextObjectModel
 //
 //  Author:

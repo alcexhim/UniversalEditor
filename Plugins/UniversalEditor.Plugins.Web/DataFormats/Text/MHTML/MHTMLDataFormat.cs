@@ -1,4 +1,4 @@
-﻿//
+//
 //  MHTMLDataFormat.cs - provides a DataFormat for reading and writing formatted text in MHTML format
 //
 //  Author:

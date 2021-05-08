@@ -1,4 +1,4 @@
-﻿//
+//
 //  ModelEditor.cs - provides a UWT-based Editor for a ModelObjectModel
 //
 //  Author:

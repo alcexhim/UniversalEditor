@@ -1,4 +1,4 @@
-﻿//
+//
 //  FormattedTextItem.cs - the abstract base class from which all formatting commands in a FormattedTextObjectModel derive
 //
 //  Author:

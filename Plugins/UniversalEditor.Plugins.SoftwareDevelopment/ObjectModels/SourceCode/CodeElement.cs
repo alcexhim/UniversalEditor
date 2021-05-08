@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeElement.cs - the abstract base class from which all code elements derive
 //
 //  Author:

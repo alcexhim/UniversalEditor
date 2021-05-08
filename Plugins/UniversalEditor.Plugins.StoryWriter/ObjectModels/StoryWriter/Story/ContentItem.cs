@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContentItem.cs - the abstract base class for an object which renders string content
 //
 //  Author:

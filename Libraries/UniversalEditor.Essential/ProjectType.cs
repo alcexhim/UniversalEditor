@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectType.cs - provides common functionality associated with all projects which have the same ProjectType
 //
 //  Author:

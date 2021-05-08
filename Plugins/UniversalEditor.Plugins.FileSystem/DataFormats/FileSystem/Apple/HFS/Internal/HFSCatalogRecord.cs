@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSCatalogRecord.cs - the abstract base class from which all HFS catalog records derive
 //
 //  Author:

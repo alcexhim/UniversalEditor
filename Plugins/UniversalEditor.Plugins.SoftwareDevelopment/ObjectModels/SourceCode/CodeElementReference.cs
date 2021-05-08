@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeElementReference.cs - represents a reference to another CodeElement
 //
 //  Author:

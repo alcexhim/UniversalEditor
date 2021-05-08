@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusTextDataFormat.cs - provides a DataFormat for handling ICARUS script files in plain-text format
 //
 //  Author:

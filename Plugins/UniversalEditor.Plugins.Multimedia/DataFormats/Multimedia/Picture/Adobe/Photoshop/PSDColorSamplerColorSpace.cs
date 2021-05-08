@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDColorSamplerColorSpace.cs - indicates the color space for the color sampler in an Adobe Photoshop PSD image file
 //
 //  Author:

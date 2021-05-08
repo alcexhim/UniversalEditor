@@ -1,4 +1,4 @@
-﻿// Based on code found at:
+// Based on code found at:
 // http://www.koders.com/csharp/fidF004FB228F831C6703D8750BFA87599AA6FD245E.aspx?s=cdef%3Afile
 //
 // The license for the code is as follows:

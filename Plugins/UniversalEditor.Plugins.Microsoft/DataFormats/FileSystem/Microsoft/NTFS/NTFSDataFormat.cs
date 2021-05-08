@@ -1,4 +1,4 @@
-﻿//
+//
 //  NTFSDataFormat.cs - provides a DataFormat for manipulating NTFS file systems
 //
 //  Author:

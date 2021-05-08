@@ -1,4 +1,4 @@
-﻿//
+//
 //  ExecutableInstructionPush.cs - represents the PUSH opcode
 //
 //  Author:

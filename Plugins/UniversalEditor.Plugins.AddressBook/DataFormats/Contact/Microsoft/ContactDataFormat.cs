@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactDataFormat.cs - provides a DataFormat for manipulating contact information in Microsoft XML contact format
 //
 //  Author:

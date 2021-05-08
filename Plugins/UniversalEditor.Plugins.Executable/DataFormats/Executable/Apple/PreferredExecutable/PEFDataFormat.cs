@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEFDataFormat.cs - provides a DataFormat for manipulating Preferred Executable files
 //
 //  Author:

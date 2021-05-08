@@ -1,4 +1,4 @@
-﻿//
+//
 //  MD3DataFormat.cs - provides a DataFormat for manipulating 3D models in id software MD3 format
 //
 //  Author:

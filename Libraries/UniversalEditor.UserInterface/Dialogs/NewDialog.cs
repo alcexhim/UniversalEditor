@@ -1,4 +1,4 @@
-﻿//
+//
 //  NewDialog.cs - provides a UWT ContainerLayout-based CustomDialog for creating a new Document or Project in Universal Editor
 //
 //  Author:

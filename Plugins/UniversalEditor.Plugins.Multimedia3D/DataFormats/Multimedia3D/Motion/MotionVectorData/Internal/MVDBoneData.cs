@@ -1,4 +1,4 @@
-﻿//
+//
 //  MVDBoneData.cs - internal structure describing bone data in a MikuMikuMoving Motion Vector Data (MVD) animation file
 //
 //  Author:

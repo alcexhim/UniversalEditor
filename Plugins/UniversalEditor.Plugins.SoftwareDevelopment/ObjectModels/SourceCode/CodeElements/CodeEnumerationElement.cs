@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeEnumerationElement.cs - represents a CodeElement that is a list of named values
 //
 //  Author:

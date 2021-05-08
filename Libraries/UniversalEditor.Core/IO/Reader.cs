@@ -1,4 +1,4 @@
-﻿//
+//
 //  Reader.cs - input/output module for reading binary or text data
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PhonemeGroup.cs - represents a group of phonemes in a synthesizer voicebank file
 //
 //  Author:

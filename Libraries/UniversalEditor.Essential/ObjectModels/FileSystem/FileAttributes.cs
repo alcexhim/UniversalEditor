@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileAttributes.cs - indicates attributes for a File in a FileSystemObjectModel
 //
 //  Author:

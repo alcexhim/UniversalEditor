@@ -1,4 +1,4 @@
-﻿//
+//
 //  CellSizeInfo.cs
 //
 //  Author:

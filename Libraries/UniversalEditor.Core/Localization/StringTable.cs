@@ -1,4 +1,4 @@
-﻿//
+//
 //  StringTable.cs - specify some localizable strings (idk where this is used today)
 //
 //  Author:

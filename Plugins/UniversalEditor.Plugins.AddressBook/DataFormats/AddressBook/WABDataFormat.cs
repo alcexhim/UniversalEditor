@@ -1,4 +1,4 @@
-﻿//
+//
 //  WABDataFormat.cs - provides a DataFormat for manipulating address books in Microsoft Windows binary address book format
 //
 //  Author:

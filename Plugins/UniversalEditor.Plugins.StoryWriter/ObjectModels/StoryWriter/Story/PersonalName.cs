@@ -1,4 +1,4 @@
-﻿//
+//
 //  PersonalName.cs - represents a name separated into a given name, multiple middle names, a family name, and a nickname
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  GCFDirectoryEntryFlags.cs - attributes for a directory entry in a Valve GCF archive
 //
 //  Author:

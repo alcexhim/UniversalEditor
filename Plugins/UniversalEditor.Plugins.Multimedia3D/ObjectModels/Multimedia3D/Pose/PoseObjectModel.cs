@@ -1,4 +1,4 @@
-﻿//
+//
 //  PoseObjectModel.cs - provides an ObjectModel for manipulating 3D model poses
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyVirtualizationFlags.cs - indicates how to virtualize a registry key in a Microsoft registry file
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  UDLDataFormat.cs - provides a DataFormat for manipulating Universal Data Link shortcuts
 //
 //  Author:

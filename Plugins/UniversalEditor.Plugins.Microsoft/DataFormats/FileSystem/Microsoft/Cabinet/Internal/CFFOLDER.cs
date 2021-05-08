@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFFOLDER.cs - internal structure representing a Microsoft Cabinet folder entry
 //
 //  Author:

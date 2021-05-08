@@ -1,4 +1,4 @@
-﻿//
+//
 //  CarcassEditor.cs
 //
 //  Author:

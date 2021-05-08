@@ -1,4 +1,4 @@
-﻿//
+//
 //  AdlibBlockType.cs - indicates the type of block in an Adlib synthesized audio file
 //
 //  Author:

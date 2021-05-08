@@ -1,4 +1,4 @@
-﻿//
+//
 //  FixedDocumentSequenceObjectModel.cs - provides an ObjectModel for manipulating FixedDocumentSequence files in an XML Paper Specification (XPS) document
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFLEncryptionMethod.cs - indicates the encryption method of a CFL archive
 //
 //  Author:

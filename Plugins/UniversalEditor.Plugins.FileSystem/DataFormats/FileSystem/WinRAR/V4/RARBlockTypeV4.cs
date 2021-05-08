@@ -1,4 +1,4 @@
-﻿//
+//
 //  RARHeaderType.cs - indicates the type of header in a RAR file
 //
 //  Author:

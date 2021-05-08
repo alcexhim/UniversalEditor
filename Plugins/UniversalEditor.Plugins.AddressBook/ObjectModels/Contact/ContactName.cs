@@ -1,4 +1,4 @@
-﻿//
+//
 //  ContactName.cs - represents a name in a ContactObjectModel
 //
 //  Author:

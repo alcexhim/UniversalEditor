@@ -1,4 +1,4 @@
-﻿//
+//
 //  OBJDataFormat.cs - a DataFormat to read and write intermediate object files
 //
 //  Author:

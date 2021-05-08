@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMDirectoryEntry.cs - describes a directory entry in a Windows Image (WIM) archive
 //
 //  Author:

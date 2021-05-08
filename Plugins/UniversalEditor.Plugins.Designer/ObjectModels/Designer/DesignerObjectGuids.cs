@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesignerObjectGuids.cs
 //
 //  Author:

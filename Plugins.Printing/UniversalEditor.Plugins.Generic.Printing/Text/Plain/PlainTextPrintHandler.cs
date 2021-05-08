@@ -1,4 +1,4 @@
-﻿//
+//
 //  PlainTextPrintHandler.cs - provides a PrintHandler for printing plain text documents
 //
 //  Author:

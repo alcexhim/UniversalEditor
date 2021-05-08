@@ -1,4 +1,4 @@
-﻿//
+//
 //  FRM16DataFormat.cs - provides a DataFormat for manipulating images in Reflexive Arcade's FRM16 format
 //
 //  Author:

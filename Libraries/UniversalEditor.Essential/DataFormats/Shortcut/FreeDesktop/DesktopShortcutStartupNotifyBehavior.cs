@@ -1,4 +1,4 @@
-﻿//
+//
 //  DesktopShortcutStartupNotifyBehavior.cs - indicates the startup notification behavior for a FreeDesktop shortcut
 //
 //  Author:

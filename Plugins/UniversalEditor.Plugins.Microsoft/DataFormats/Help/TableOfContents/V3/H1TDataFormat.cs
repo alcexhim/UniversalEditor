@@ -1,4 +1,4 @@
-﻿//
+//
 //  H1TDataFormat.cs - provides a DataFormat to manipulate Microsoft Help 1.x table of contents files
 //
 //  Author:

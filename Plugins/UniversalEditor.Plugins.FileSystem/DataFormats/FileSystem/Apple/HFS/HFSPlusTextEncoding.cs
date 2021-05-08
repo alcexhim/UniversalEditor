@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSPlusTextEncoding.cs - indicates the text encoding for an HFS+ filesystem
 //
 //  Author:

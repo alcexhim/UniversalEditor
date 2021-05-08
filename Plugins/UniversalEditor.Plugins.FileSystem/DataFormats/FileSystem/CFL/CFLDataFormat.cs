@@ -1,4 +1,4 @@
-﻿//
+//
 //  CFLDataFormat.cs - provides a DataFormat for manipulating archives in CFL format
 //
 //  Author:

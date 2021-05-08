@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Project;

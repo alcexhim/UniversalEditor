@@ -1,4 +1,4 @@
-﻿//
+//
 //  AbstractSyntaxObjectModel.cs - provides an ObjectModel for manipulating data that follows the Abstract Syntax Notation One (ASN.1) specification
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FinishDialog.cs - describes the dialog displayed when the installation process has finished
 //
 //  Author:

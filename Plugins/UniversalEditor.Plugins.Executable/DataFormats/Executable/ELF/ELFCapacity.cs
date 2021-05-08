@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFCapacity.cs - specifies whether an Executable and Linkable Format executable file is 32-bit or 64-bit
 //
 //  Author:

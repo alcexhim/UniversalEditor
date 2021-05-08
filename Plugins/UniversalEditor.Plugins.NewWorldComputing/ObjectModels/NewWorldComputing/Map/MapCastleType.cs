@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapCastleType.cs - indicates the species type for a hero's castle
 //
 //  Author:

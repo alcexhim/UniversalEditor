@@ -1,4 +1,4 @@
-﻿//
+//
 //  GCFBlockEntryFlags.cs - attributes for a block entry in a Valve GCF archive
 //
 //  Author:

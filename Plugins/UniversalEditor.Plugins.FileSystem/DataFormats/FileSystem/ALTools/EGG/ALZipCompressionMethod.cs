@@ -1,4 +1,4 @@
-﻿//
+//
 //  ALZipCompressionMethod.cs - indicates the compression method of an ALZip archive
 //
 //  Author:

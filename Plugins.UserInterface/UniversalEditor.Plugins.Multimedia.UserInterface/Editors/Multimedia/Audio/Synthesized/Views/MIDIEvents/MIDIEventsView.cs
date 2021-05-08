@@ -1,4 +1,4 @@
-﻿//
+//
 //  MIDIEventsView.cs
 //
 //  Author:

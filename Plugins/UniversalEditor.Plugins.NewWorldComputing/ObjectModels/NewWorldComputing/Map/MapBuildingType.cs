@@ -1,4 +1,4 @@
-﻿//
+//
 //  MapBuildingType.cs - indicates the type of building placed on the map
 //
 //  Author:

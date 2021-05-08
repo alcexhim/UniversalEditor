@@ -1,4 +1,4 @@
-﻿//
+//
 //  PresentationSlideControl.cs
 //
 //  Author:

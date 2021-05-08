@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPMDataFormat.cs
 //
 //  Author:

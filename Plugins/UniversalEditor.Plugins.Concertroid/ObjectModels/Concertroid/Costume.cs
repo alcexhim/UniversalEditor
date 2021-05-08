@@ -1,4 +1,4 @@
-﻿//
+//
 //  Costume.cs - represents a 3D costume model for a Character in a Concertroid Performance
 //
 //  Author:

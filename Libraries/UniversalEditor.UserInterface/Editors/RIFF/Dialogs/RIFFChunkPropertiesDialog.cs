@@ -1,4 +1,4 @@
-﻿//
+//
 //  RIFFChunkPropertiesDialog.cs
 //
 //  Author:

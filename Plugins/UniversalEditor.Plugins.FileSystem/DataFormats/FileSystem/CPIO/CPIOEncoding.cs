@@ -1,4 +1,4 @@
-﻿//
+//
 //  CPIOEncoding.cs - indicates the type of encoding for a CPIO file
 //
 //  Author:

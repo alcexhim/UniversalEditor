@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMStreamEntry.cs - describes a Windows Image (WIM) stream entry
 //
 //  Author:

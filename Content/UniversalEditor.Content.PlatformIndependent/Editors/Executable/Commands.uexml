@@ -1,4 +1,4 @@
-﻿<UniversalEditor Version="5.0">
+<UniversalEditor Version="5.0">
 	<Editors>
 		<Editor ID="{A97649A7-3A5E-49BE-BC62-117EE92CE4B5}" TypeName="UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable.ExecutableEditor">
 			<Commands>

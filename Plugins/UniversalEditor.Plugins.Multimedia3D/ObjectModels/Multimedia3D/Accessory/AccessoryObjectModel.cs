@@ -1,4 +1,4 @@
-﻿//
+//
 //  AccessoryObjectModel.cs - provides an ObjectModel for manipulating an accessory attached to a 3D model
 //
 //  Author:

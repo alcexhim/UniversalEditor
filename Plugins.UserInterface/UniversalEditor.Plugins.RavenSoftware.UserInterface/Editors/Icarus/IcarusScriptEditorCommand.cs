@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusScriptEditorCommand.cs - describes the appearance of a predefined command for the IcarusScriptEditor
 //
 //  Author:

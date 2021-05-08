@@ -1,4 +1,4 @@
-﻿//
+//
 //  MPQFormatVersion.cs - indicates the format version of an MPQ archive
 //
 //  Author:

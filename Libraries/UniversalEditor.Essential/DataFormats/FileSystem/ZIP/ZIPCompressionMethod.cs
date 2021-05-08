@@ -1,4 +1,4 @@
-﻿//
+//
 //  ZIPCompressionMethod.cs - indicates the type of compression used in a ZIP archive
 //
 //  Author:

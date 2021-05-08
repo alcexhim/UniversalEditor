@@ -1,4 +1,4 @@
-﻿//
+//
 //  Polygon.cs
 //
 //  Author:

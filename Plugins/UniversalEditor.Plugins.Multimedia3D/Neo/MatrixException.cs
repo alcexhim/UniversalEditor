@@ -1,4 +1,4 @@
-﻿//
+//
 //  MatrixException.cs - the exception(s) raised when an error occurs in matrix manipulation
 //
 //  Author:

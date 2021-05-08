@@ -1,4 +1,4 @@
-﻿//
+//
 //  BlenderDataFormat.cs - provides a DataFormat for manipulating 3D models in Blender format
 //
 //  Author:

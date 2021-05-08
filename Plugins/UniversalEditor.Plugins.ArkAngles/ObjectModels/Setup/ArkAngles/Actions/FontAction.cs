@@ -1,4 +1,4 @@
-﻿//
+//
 //  FontAction.cs - the action which installs a font to the user's computer during the installation process
 //
 //  Author:

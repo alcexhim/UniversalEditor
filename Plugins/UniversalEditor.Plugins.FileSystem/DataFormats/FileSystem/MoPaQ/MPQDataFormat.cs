@@ -1,4 +1,4 @@
-﻿//
+//
 //  MPQDataFormat.cs - provides a DataFormat for manipulating Blizzard Entertainment MoPaQ (MPQ) archives
 //
 //  Author:

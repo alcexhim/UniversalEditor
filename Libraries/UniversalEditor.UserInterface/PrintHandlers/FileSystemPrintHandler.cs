@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileSystemPrintHandler.cs
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  ARGBDataFormat.cs - provides a DataFormat for manipulating an image in BGRA 1A1R1G1B format
 //
 //  Author:

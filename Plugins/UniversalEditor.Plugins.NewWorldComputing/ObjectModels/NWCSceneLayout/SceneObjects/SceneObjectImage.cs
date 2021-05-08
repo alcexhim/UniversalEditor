@@ -1,4 +1,4 @@
-﻿//
+//
 //  SceneObjectImage.cs - represents an image on a New World Computing dialog
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Document.cs - provide convenient way of loading OM from accessor with a given DF
 //
 //  Author:

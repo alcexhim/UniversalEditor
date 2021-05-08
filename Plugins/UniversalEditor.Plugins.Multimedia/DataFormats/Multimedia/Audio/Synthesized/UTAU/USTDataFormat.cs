@@ -1,4 +1,4 @@
-﻿//
+//
 //  USTDataFormat.cs - provides a DataFormat for manipulating synthesized audio in Utau UST format
 //
 //  Author:

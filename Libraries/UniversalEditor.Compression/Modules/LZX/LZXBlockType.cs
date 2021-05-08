@@ -1,4 +1,4 @@
-﻿//
+//
 //  LZXBlockType.cs
 //
 //  Author:

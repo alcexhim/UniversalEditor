@@ -1,4 +1,4 @@
-﻿//
+//
 //  MicrosoftRegistryKeyUserFlags.cs - indicates user attributes on a registry key in a Microsoft registry file
 //
 //  Author:

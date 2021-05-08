@@ -1,4 +1,4 @@
-﻿//
+//
 //  InstallShieldScriptObjectModel.cs - provides an <see cref="ObjectModel" /> for storing information related to InstallShield script files
 //
 //  Author:

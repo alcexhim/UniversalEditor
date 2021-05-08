@@ -1,4 +1,4 @@
-﻿//
+//
 //  DLTDataFormat.cs - provides a DataFormat for manipulating archives in Apogee DLT format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDKnownImageResourceBlockId.cs - indicates the known block ID for an image resource in an Adobe Photoshop PSD file
 //
 //  Author:

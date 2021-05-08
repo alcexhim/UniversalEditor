@@ -1,4 +1,4 @@
-﻿//
+//
 //  ELFMachine.cs - specifies the required architecture for the Executable and Linkable Format (ELF) executable
 //
 //  Author:

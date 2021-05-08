@@ -1,4 +1,4 @@
-﻿//
+//
 //  CodeForLoopActionElement.cs - represents a CodeElement for a loop that runs continuously until a condition is met and executes a command on each pass
 //
 //  Author:

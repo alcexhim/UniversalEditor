@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSPlusForkData.cs - internal structure representing fork data for an HFS+ filesystem
 //
 //  Author:

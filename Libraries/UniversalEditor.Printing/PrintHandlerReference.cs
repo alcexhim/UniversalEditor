@@ -1,4 +1,4 @@
-﻿//
+//
 //  PrintHandlerReference.cs - stores information (metadata) about a PrintHandler
 //
 //  Author:

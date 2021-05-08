@@ -1,4 +1,4 @@
-﻿//
+//
 //  Ultra3DRBXDataFormat.cs - provides a DataFormat for manipulating archives in Ultra 3D RBX format
 //
 //  Author:

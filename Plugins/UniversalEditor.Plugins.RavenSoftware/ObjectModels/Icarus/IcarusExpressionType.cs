@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusExpressionType.cs - indicates the data type of an ICARUS expression in a compiled ICARUS binary
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  RKVDataFormat.cs - implements Microsoft XNA RKV archive format
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileAction.cs - the action which copies a file to the user's computer during the installation process
 //
 //  Author:

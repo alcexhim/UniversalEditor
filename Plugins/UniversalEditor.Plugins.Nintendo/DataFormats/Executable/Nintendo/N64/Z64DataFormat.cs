@@ -1,4 +1,4 @@
-﻿//
+//
 //  Z64DataFormat.cs - provides a DataFormat for manipulating Nintendo 64 game dump files in Z64 format
 //
 //  Author:

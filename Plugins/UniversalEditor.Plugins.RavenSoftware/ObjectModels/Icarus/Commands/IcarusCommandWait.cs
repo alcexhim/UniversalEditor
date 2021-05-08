@@ -1,4 +1,4 @@
-﻿//
+//
 //  IcarusCommandWait.cs - represents the ICARUS "wait" command
 //
 //  Author:

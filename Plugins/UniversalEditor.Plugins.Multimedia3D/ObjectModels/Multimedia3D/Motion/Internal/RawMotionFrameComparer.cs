@@ -1,4 +1,4 @@
-﻿//
+//
 //  RawMotionFrameComparer.cs - internal comparer for comparing RawMotionFrame instances
 //
 //  Author:

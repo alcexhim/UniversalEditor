@@ -1,4 +1,4 @@
-﻿//
+//
 //  Producer.cs - represents a content creator associated with a particular Song, Character, Costume, or other concert asset
 //
 //  Author:

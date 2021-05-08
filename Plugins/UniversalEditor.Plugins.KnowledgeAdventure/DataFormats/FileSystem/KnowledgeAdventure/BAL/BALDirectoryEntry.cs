@@ -1,4 +1,4 @@
-﻿//
+//
 //  BALDirectoryEntry.cs - represents a directory entry in a BAL archive
 //
 //  Author:

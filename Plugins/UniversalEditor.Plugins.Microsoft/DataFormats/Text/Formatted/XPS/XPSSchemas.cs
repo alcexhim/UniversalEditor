@@ -1,4 +1,4 @@
-﻿//
+//
 //  XPSSchemas.cs - provides a set of known XML Paper Specification (XPS) schemas
 //
 //  Author:

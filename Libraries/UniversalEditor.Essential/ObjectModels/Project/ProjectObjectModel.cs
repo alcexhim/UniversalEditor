@@ -1,4 +1,4 @@
-﻿//
+//
 //  ProjectObjectModel.cs - provides an ObjectModel for manipulating projects (collections of files and settings)
 //
 //  Author:

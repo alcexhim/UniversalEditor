@@ -1,4 +1,4 @@
-﻿//
+//
 //  StyleSheetProperty.cs - represents a property in a style sheet rule
 //
 //  Author:

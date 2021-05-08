@@ -1,4 +1,4 @@
-﻿//
+//
 //  Ptr.cs - i'm not sure what this is for now but it looks interesting
 //
 //  Author:

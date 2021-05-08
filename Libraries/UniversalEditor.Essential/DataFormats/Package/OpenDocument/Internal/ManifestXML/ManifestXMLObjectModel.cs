@@ -1,4 +1,4 @@
-﻿//
+//
 //  ManifestXMLObjectModel.cs
 //
 //  Author:

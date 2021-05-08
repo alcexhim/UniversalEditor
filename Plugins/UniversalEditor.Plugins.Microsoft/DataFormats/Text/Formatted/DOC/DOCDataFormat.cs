@@ -1,4 +1,4 @@
-﻿//
+//
 //  DOCDataFormat.cs - provides a DataFormat to manipulate Microsoft Office Word DOC files
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  HFSRect.cs - represents a tuple of top, bottom, left, and right coordinates for an HFS filesystem
 //
 //  Author:

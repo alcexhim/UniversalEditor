@@ -1,4 +1,4 @@
-﻿//
+//
 //  FileSystemEditorDocumentPropertiesSettingsProvider.cs
 //
 //  Author:

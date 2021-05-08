@@ -1,4 +1,4 @@
-﻿//
+//
 //  WIMArchiveFlags.cs - indicates attributes for a Windows Image (WIM) file
 //
 //  Author:

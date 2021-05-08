@@ -1,4 +1,4 @@
-﻿//
+//
 //  PEFContainerHeader.cs - describes the header of a Preferred Executable container
 //
 //  Author:

@@ -1,4 +1,4 @@
-﻿//
+//
 //  PSDLayerFlags.cs - indicates attributes for a layer in an Adobe Photoshop PSD image file
 //
 //  Author:
