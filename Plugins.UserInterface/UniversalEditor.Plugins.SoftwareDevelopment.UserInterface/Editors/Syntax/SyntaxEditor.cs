@@ -25,6 +25,7 @@ using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.ObjectModels.SourceCode;
 using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls.SyntaxTextBox;
 
 namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Syntax
 {
@@ -33,7 +34,7 @@ namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Synt
 	/// </summary>
 	public class SyntaxEditor : Editor
 	{
-		SyntaxTextBox txt = null;
+		SyntaxTextBoxControl txt = null;
 
 		public SyntaxEditor()
 		{
@@ -60,7 +61,7 @@ namespace UniversalEditor.Plugins.SoftwareDevelopment.UserInterface.Editors.Synt
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
 
-			txt = new SyntaxTextBox();
+			txt = new SyntaxTextBoxControl();
 			txt.Changed += txt_Changed;
 			Controls.Add(txt, new BoxLayout.Constraints(true, true));
 		}
