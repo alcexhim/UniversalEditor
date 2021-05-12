@@ -1049,6 +1049,9 @@ namespace UniversalEditor.UserInterface
 				{
 					InitEditorPage(doc);
 
+					if (doc == null)
+						continue;
+
 					if (doc.Accessor is FileAccessor)
 					{
 						// FIXME: support Accessors other than FileAccessor
