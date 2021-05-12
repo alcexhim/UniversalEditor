@@ -340,6 +340,7 @@
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACO\ACODataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACT\ACTDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\SwatchExchange\ASEDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaFormatVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
