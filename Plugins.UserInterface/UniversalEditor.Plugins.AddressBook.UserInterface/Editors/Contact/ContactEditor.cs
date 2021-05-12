@@ -148,7 +148,7 @@ namespace UniversalEditor.Editors.Contact
 				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
 				lvPhysicalAddresses = new ListViewControl();
-				lvPhysicalAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
+				lvPhysicalAddresses.Columns.Add(new ListViewColumn("Address", new CellRenderer[] { new CellRendererText(tmAddresses.Columns[0]) }));
 				lvPhysicalAddresses.Model = tmAddresses;
 				ct.Controls.Add(lvPhysicalAddresses, new BoxLayout.Constraints(true, true));
 
@@ -167,7 +167,7 @@ namespace UniversalEditor.Editors.Contact
 				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
 				ListViewControl lvAddresses = new ListViewControl();
-				lvAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
+				lvAddresses.Columns.Add(new ListViewColumn("Address", new CellRenderer[] { new CellRendererText(tmAddresses.Columns[0]) }));
 				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 
 				StackSidebarPanel panel = new StackSidebarPanel();
@@ -185,7 +185,7 @@ namespace UniversalEditor.Editors.Contact
 				tmAddresses = new DefaultTreeModel(new Type[] { typeof(string) });
 
 				ListViewControl lvAddresses = new ListViewControl();
-				lvAddresses.Columns.Add(new ListViewColumnText(tmAddresses.Columns[0], "Address"));
+				lvAddresses.Columns.Add(new ListViewColumn("Address", new CellRenderer[] { new CellRendererText(tmAddresses.Columns[0]) }));
 				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 
 				StackSidebarPanel panel = new StackSidebarPanel();

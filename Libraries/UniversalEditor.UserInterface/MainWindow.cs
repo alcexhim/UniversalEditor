@@ -215,7 +215,7 @@ namespace UniversalEditor.UserInterface
 			ListViewControl lvToolbox = new ListViewControl();
 			lvToolbox.RowActivated += LvToolbox_RowActivated;
 			lvToolbox.Model = tmToolbox;
-			lvToolbox.Columns.Add(new ListViewColumnText(tmToolbox.Columns[0], "Item"));
+			lvToolbox.Columns.Add(new ListViewColumn("Item", new CellRenderer[] { new CellRendererText(tmToolbox.Columns[0]) }));
 			lvToolbox.HeaderStyle = ColumnHeaderStyle.None;
 			AddPanel("Toolbox", DockingItemPlacement.Left, lvToolbox);
 

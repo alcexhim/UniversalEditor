@@ -184,7 +184,7 @@ namespace UniversalEditor.UserInterface.Panels
 			tvSolutionExplorer.RowActivated += tvSolutionExplorer_RowActivated;
 
 			// (UniversalEditor.exe:24867): Gtk-CRITICAL **: 21:28:56.913: gtk_tree_store_set_value: assertion 'G_IS_VALUE (value)' failed
-			tvSolutionExplorer.Columns.Add(new ListViewColumnText(tmSolutionExplorer.Columns[0], "File Name"));
+			tvSolutionExplorer.Columns.Add(new ListViewColumn("File name", new CellRenderer[] { new CellRendererText(tmSolutionExplorer.Columns[0]) }));
 
 			this.Controls.Add(tvSolutionExplorer, new BoxLayout.Constraints(true, true));
 
