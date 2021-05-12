@@ -96,8 +96,9 @@ msbuild
 ./fxtool install gtk
 
 # ================ INSTALL PRE-COMMIT HOOKS MANAGER ================
+sudo apt install python3-pip
 pip install pre-commit
-pre-commit install
+~/.local/bin/pre-commit install
 
 echo "Build finished! Now type ./universal-editor to"
 echo "run the program, or type ./install.sh to install to your local"
