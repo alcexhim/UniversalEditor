@@ -353,7 +353,7 @@ namespace UniversalEditor.UserInterface.Editors.Database.Views
 				DefaultTreeModel tmResults = new DefaultTreeModel(list.ToArray());
 				for (int i = 0; i < db.Tables[0].Fields.Count; i++)
 				{
-					lvResults.Columns.Add(new ListViewColumnText(tmResults.Columns[i], db.Tables[0].Fields[i].Name));
+					lvResults.Columns.Add(new ListViewColumn(db.Tables[0].Fields[i].Name, new CellRenderer[] { new CellRendererText(tmResults.Columns[i]) }));
 				}
 				foreach (DatabaseRecord rec in db.Tables[0].Records)
 				{

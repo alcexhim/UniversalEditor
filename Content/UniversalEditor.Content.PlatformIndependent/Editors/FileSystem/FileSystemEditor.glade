@@ -2,6 +2,20 @@
 <!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkTreeStore" id="tm">
+    <columns>
+      <!-- column-name colFileName -->
+      <column type="gchararray"/>
+      <!-- column-name colFileSize -->
+      <column type="gchararray"/>
+      <!-- column-name colFileType -->
+      <column type="gchararray"/>
+      <!-- column-name colFileDateModified -->
+      <column type="gchararray"/>
+      <!-- column-name colImage -->
+      <column type="GdkPixbuf"/>
+    </columns>
+  </object>
   <object class="GtkWindow">
     <property name="can_focus">False</property>
     <child type="titlebar">
@@ -45,6 +59,12 @@
                     <property name="title" translatable="yes">Name</property>
                     <property name="clickable">True</property>
                     <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererPixbuf"/>
+                      <attributes>
+                        <attribute name="pixbuf">4</attribute>
+                      </attributes>
+                    </child>
                     <child>
                       <object class="GtkCellRendererText"/>
                       <attributes>
@@ -106,17 +126,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkTreeStore" id="tm">
-    <columns>
-      <!-- column-name colFileName -->
-      <column type="gchararray"/>
-      <!-- column-name colFileSize -->
-      <column type="gchararray"/>
-      <!-- column-name colFileType -->
-      <column type="gchararray"/>
-      <!-- column-name colFileDateModified -->
-      <column type="gchararray"/>
-    </columns>
   </object>
 </interface>

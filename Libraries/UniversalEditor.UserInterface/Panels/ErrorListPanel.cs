@@ -53,12 +53,12 @@ namespace UniversalEditor.UserInterface.Panels
 
 			tvErrorList.Model = tm;
 
-			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[0], "Line"));
-			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[1], "Description"));
-			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[2], "File"));
-			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[3], "Project"));
-			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[4], "Path"));
-			tvErrorList.Columns.Add(new ListViewColumnText(tm.Columns[5], "Category"));
+			tvErrorList.Columns.Add(new ListViewColumn("Line", new CellRenderer[] { new CellRendererText(tm.Columns[0]) }));
+			tvErrorList.Columns.Add(new ListViewColumn("Description", new CellRenderer[] { new CellRendererText(tm.Columns[1]) } ));
+			tvErrorList.Columns.Add(new ListViewColumn("File", new CellRenderer[] { new CellRendererText(tm.Columns[2]) } ));
+			tvErrorList.Columns.Add(new ListViewColumn("Project", new CellRenderer[] { new CellRendererText(tm.Columns[3]) } ));
+			tvErrorList.Columns.Add(new ListViewColumn("Path", new CellRenderer[] { new CellRendererText(tm.Columns[4]) } ));
+			tvErrorList.Columns.Add(new ListViewColumn("Category", new CellRenderer[] { new CellRendererText(tm.Columns[5]) }));
 
 			(Application.Instance as IHostApplication).Messages.MessageAdded += (sender, e) =>
 			{

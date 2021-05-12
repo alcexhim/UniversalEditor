@@ -38,6 +38,7 @@ using MBS.Framework;
 using MBS.Framework.UserInterface.Controls;
 using System.Text;
 using System.Diagnostics.Contracts;
+using MBS.Framework.UserInterface.Drawing;
 
 namespace UniversalEditor.Editors.FileSystem
 {
@@ -47,6 +48,8 @@ namespace UniversalEditor.Editors.FileSystem
 		private ListViewControl tv = null;
 		private DefaultTreeModel tm = null;
 		private TextBox txtPath;
+
+		private const int DELIVERED_COLUMNS_COUNT = 5;
 
 		[EventHandler(nameof(txtPath), "KeyDown")]
 		private void txtPath_KeyDown(object sender, KeyEventArgs e)
@@ -337,7 +340,8 @@ namespace UniversalEditor.Editors.FileSystem
 				new TreeModelRowColumn(tm.Columns[0], f.Name),
 				new TreeModelRowColumn(tm.Columns[1], String.Format("{0} items", (f.Files.Count + f.Folders.Count))),
 				new TreeModelRowColumn(tm.Columns[2], "Folder"),
-				new TreeModelRowColumn(tm.Columns[3], now.ToString())
+				new TreeModelRowColumn(tm.Columns[3], now.ToString()),
+				new TreeModelRowColumn(tm.Columns[4], Image.FromStock(StockType.Folder, 16))
 			});
 			row.RowColumns[1].RawValue = (f.Folders.Count + f.Files.Count);
 			row.RowColumns[3].RawValue = now.ToBinary();
@@ -606,7 +610,8 @@ namespace UniversalEditor.Editors.FileSystem
 					new TreeModelRowColumn(tm.Columns[0], f.Name),
 					new TreeModelRowColumn(tm.Columns[1], (f.Folders.Count + f.Files.Count).ToString() + " items"),
 					new TreeModelRowColumn(tm.Columns[2], "Folder"),
-					new TreeModelRowColumn(tm.Columns[3], "")
+					new TreeModelRowColumn(tm.Columns[3], ""),
+					new TreeModelRowColumn(tm.Columns[4], Image.FromStock(StockType.Folder, 16))
 				});
 				r.RowColumns[1].RawValue = (long)(f.Folders.Count + f.Files.Count);
 				r.RowColumns[3].RawValue = (long)0;
@@ -633,14 +638,15 @@ namespace UniversalEditor.Editors.FileSystem
 					new TreeModelRowColumn(tm.Columns[0], f.Name),
 					new TreeModelRowColumn(tm.Columns[1], UserInterface.Common.FileInfo.FormatSize(f.Size)),
 					new TreeModelRowColumn(tm.Columns[2], "File"),
-					new TreeModelRowColumn(tm.Columns[3], f.ModificationTimestamp.ToString())
+					new TreeModelRowColumn(tm.Columns[3], f.ModificationTimestamp.ToString()),
+					new TreeModelRowColumn(tm.Columns[4], Image.FromStock(StockType.File, 16))
 				});
 				r.RowColumns[1].RawValue = f.Size;
 				r.RowColumns[3].RawValue = f.ModificationTimestamp.ToBinary();
 
 				for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
 				{
-					r.RowColumns.Add(new TreeModelRowColumn(tm.Columns[4 + i], f.GetAdditionalDetail(fsom.AdditionalDetails[i].Name)));
+					r.RowColumns.Add(new TreeModelRowColumn(tm.Columns[DELIVERED_COLUMNS_COUNT + i], f.GetAdditionalDetail(fsom.AdditionalDetails[i].Name)));
 				}
 			}
 			r.SetExtraData<IFileSystemObject>("item", fso);
@@ -769,14 +775,14 @@ namespace UniversalEditor.Editors.FileSystem
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
 
-			for (int i = 4; i < tv.Columns.Count; i++)
+			for (int i = DELIVERED_COLUMNS_COUNT; i < tv.Columns.Count; i++)
 			{
 				tv.Columns.Remove(tv.Columns[i]);
 			}
 			for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
 			{
 				tm.Columns.Add(new TreeModelColumn(typeof(string)));
-				tv.Columns.Add(new ListViewColumnText(tm.Columns[tm.Columns.Count - 1], fsom.AdditionalDetails[i].Title));
+				tv.Columns.Add(new ListViewColumn(fsom.AdditionalDetails[i].Title, new CellRenderer[] { new CellRendererText(tm.Columns[tm.Columns.Count - 1]) }));
 			}
 			tv.Model = tm;
 
@@ -917,7 +923,7 @@ namespace UniversalEditor.Editors.FileSystem
 
 			if (!IsCreated) return;
 
-			for (int i = 4; i < tm.Columns.Count; i++)
+			for (int i = DELIVERED_COLUMNS_COUNT; i < tm.Columns.Count; i++)
 			{
 				tm.Columns.RemoveAt(i);
 			}

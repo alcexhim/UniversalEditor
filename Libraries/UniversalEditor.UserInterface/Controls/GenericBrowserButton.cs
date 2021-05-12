@@ -94,8 +94,8 @@ namespace UniversalEditor.UserInterface.Controls
 
 			lv = new ListViewControl();
 			lv.Model = tm;
-			lv.Columns.Add (new ListViewColumnText (lv.Model.Columns [0], "Name"));
-			lv.Columns.Add (new ListViewColumnText (lv.Model.Columns [1], "Description"));
+			lv.Columns.Add(new ListViewColumn("Name", new CellRenderer[] { new CellRendererText(lv.Model.Columns[0]) }));
+			lv.Columns.Add(new ListViewColumn("Description", new CellRenderer[] { new CellRendererText(lv.Model.Columns[1]) }));
 			lv.HeaderStyle = ColumnHeaderStyle.None;
 			ctObjectModel.Controls.Add (lv, new BoxLayout.Constraints (true, true));
 
