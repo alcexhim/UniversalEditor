@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\Production.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\UniversalEditor.snk</AssemblyOriginatorKeyFile>
     <ApplicationIcon>..\..\Content\UniversalEditor.Content.PlatformIndependent\Branding\MainIcon.ico</ApplicationIcon>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>

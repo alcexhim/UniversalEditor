@@ -256,6 +256,16 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			cmdSave.Enabled = coll.Pictures.Count > 0;
 			cmdSaveAll.Enabled = coll.Pictures.Count > 0;
 
+			txtQuickAnimateStartFrame.Minimum = 0;
+			txtQuickAnimateStartFrame.Maximum = coll.Pictures.Count - 1;
+			txtQuickAnimateStartFrame.Value = 0;
+
+			txtQuickAnimateEndFrame.Minimum = 0;
+			txtQuickAnimateEndFrame.Maximum = coll.Pictures.Count - 1;
+			txtQuickAnimateEndFrame.Value = coll.Pictures.Count - 1;
+
+			txtQuickAnimateFrameDuration.Value = 500;
+
 			if (coll.Pictures.Count > 0)
 				picFrame.ObjectModel = coll.Pictures[0];
 		}

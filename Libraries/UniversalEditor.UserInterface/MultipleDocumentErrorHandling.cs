@@ -1,10 +1,10 @@
 //
-//  VHDFeatures.cs - indicates the special features enabled for the virtual hard disk
+//  MultipleDocumentErrorHandling.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2010-2020 Mike Becker's Software
+//  Copyright (c) 2021 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,25 +18,29 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-namespace UniversalEditor.DataFormats.FileSystem.Microsoft.VirtualHardDisk
+using System;
+namespace UniversalEditor.UserInterface
 {
 	/// <summary>
-	/// Indicates the special features enabled for the virtual hard disk.
+	/// Describes the way in which to handle an <see cref="Exception" /> when
+	/// there are additional <see cref="Document" />s to be processed afterward.
 	/// </summary>
-	public enum VHDFeatures
+	public enum MultipleDocumentErrorHandling
 	{
 		/// <summary>
-		/// The hard disk image has no special features enabled in it.
+		/// Ignore the error for the current <see cref="Document" /> and proceed
+		/// to processing the next <see cref="Document" />.
 		/// </summary>
-		None = 0,
+		Ignore,
 		/// <summary>
-		/// This bit is set if the current disk is a temporary disk. A temporary disk designation indicates to an application that this disk is a candidate for deletion on shutdown.
+		/// Cancels the operation for a single <see cref="Document" />. Other
+		/// <see cref="Document" />s will continue to be processed.
 		/// </summary>
-		Temporary = 1,
+		CancelOne,
 		/// <summary>
-		/// This bit must always be set to 1.
+		/// Cancels the entire operation, including any <see cref="Document" />s
+		/// that still have yet to be processed.
 		/// </summary>
-		Reserved = 2
+		CancelAll
 	}
 }

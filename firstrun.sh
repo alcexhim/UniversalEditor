@@ -20,6 +20,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+APPNAME=UniversalEditor
 WD=$(pwd)
 
 # ================ INSTALL PACKAGE DEPENDENCIES FROM OFFICIAL REPOSITORY ================
@@ -88,6 +89,9 @@ cd $WD
 
 # install other junk
 sudo cp MainIcon.png /usr/share/icons/universal-editor.png
+
+# link Production.snk to UniversalEditor.snk
+ln -s ../Production.snk $(APPNAME).snk
 
 # start the build
 msbuild
