@@ -207,6 +207,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Blo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.AutoSave", "Plugins\UniversalEditor.Plugins.AutoSave\UniversalEditor.Plugins.AutoSave.csproj", "{385AB5A6-3EB6-4DF6-A7BF-DF9FFE43F192}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Compiler", "Applications\UniversalEditor.Compiler\UniversalEditor.Compiler.csproj", "{5E639F63-97B0-4B34-8928-29A5A3C661F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -599,6 +601,10 @@ Global
 		{385AB5A6-3EB6-4DF6-A7BF-DF9FFE43F192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{385AB5A6-3EB6-4DF6-A7BF-DF9FFE43F192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{385AB5A6-3EB6-4DF6-A7BF-DF9FFE43F192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E639F63-97B0-4B34-8928-29A5A3C661F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E639F63-97B0-4B34-8928-29A5A3C661F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E639F63-97B0-4B34-8928-29A5A3C661F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E639F63-97B0-4B34-8928-29A5A3C661F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -697,6 +703,7 @@ Global
 		{C54F6BCD-60CD-4603-B0C9-CD0864455CB1} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{B6E600F5-E5BC-4DC2-8B41-7B11EB0A11B3} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{385AB5A6-3EB6-4DF6-A7BF-DF9FFE43F192} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{5E639F63-97B0-4B34-8928-29A5A3C661F4} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
