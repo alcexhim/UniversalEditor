@@ -8,7 +8,7 @@
     <RootNamespace>UniversalEditor.Printing</RootNamespace>
     <AssemblyName>UniversalEditor.Printing</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\Production.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\UniversalEditor.snk</AssemblyOriginatorKeyFile>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
