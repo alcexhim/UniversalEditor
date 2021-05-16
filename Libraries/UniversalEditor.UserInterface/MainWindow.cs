@@ -196,6 +196,7 @@ namespace UniversalEditor.UserInterface
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
 			this.IconName = "universal-editor";
+			LogoutInhibitor = new Inhibitor(InhibitorType.SystemLogout, "There are unsaved documents", this);
 
 			this.CommandDisplayMode = CommandDisplayMode.CommandBar;
 
@@ -1041,6 +1042,9 @@ namespace UniversalEditor.UserInterface
 			OpenFile(documents);
 		}
 
+		private Inhibitor LogoutInhibitor = null;
+		private int logoutInhibitorI = 0;
+
 		public void OpenFile(params Document[] documents)
 		{
 			foreach (Document doc in documents)
@@ -1048,6 +1052,12 @@ namespace UniversalEditor.UserInterface
 				try
 				{
 					InitEditorPage(doc);
+
+					if (logoutInhibitorI == 0)
+					{
+						(Application.Instance as UIApplication).Inhibitors.Add(LogoutInhibitor);
+					}
+					logoutInhibitorI++;
 
 					if (doc == null)
 						continue;
@@ -1438,6 +1448,12 @@ namespace UniversalEditor.UserInterface
 
 			dckContainer.Items.Remove(dw);
 			documentWindowCount--;
+
+			logoutInhibitorI--;
+			if (logoutInhibitorI == 0)
+			{
+				(Application.Instance as UIApplication).Inhibitors.Remove(LogoutInhibitor);
+			}
 
 			if (documentWindowCount == 0)
 			{
