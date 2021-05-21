@@ -493,7 +493,7 @@ namespace UniversalEditor.UserInterface
 			#region View
 			Application.Instance.AttachCommandEventHandler("ViewFullScreen", delegate(object sender, EventArgs e)
 			{
-				Command cmd = (sender as Command);
+				Command cmd = (e as CommandEventArgs).Command;
 				LastWindow.FullScreen = !LastWindow.FullScreen;
 				cmd.Checked = LastWindow.FullScreen;
 			});
@@ -761,7 +761,7 @@ namespace UniversalEditor.UserInterface
 
 		void cmdViewToolbarsToolbar_Executed(object sender, EventArgs e)
 		{
-			Command cmd = (sender as Command);
+			Command cmd = (e as CommandEventArgs).Command;
 
 		}
 

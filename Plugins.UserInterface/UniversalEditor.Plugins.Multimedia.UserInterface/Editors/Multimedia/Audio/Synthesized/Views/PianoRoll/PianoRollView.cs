@@ -226,7 +226,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 			private void ContextMenu_NoteFixedLength_Click(object sender, EventArgs e)
 			{
-				Command cmd = (sender as Command);
+				Command cmd = (e as CommandEventArgs).Command;
 				string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_NoteFixedLength_".Length);
 				int iValue = -1;
 
@@ -253,7 +253,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 			}
 			private void ContextMenu_Quantize_Click(object sender, EventArgs e)
 			{
-				Command cmd = (sender as Command);
+				Command cmd = (e as CommandEventArgs).Command;
 				string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_Quantize_".Length);
 				int iValue = 4;  //-1;
 
@@ -282,7 +282,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 			}
 			private void ContextMenu_NoteLength_Click(object sender, EventArgs e)
 			{
-				Command cmd = (sender as Command);
+				Command cmd = (e as CommandEventArgs).Command;
 				string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_NoteLength_".Length);
 				int iValue = 4;  //-1;
 
