@@ -167,6 +167,10 @@ namespace UniversalEditor
 			return df;
 		}
 
+		/// <summary>
+		/// Removes all <see cref="Capabilities" />, <see cref="ContentTypes" />, and <see cref="Sources" />, and resets
+		/// <see cref="Title" /> to <see langword="null" />.
+		/// </summary>
 		public void Clear()
 		{
 			mvarCapabilities.Clear();
