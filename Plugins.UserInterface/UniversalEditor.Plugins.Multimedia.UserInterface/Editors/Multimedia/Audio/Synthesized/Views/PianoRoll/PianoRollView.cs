@@ -332,7 +332,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 			private void ContextMenu_Scale_Click(object sender, EventArgs e)
 			{
-				Command cmd = (sender as Command);
+				Command cmd = (e as CommandEventArgs).Command;
 				string sValue = cmd.ID.Substring("PianoRollEditor_ContextMenu_Scale_".Length);
 				if (Scales.ContainsKey(sValue))
 				{
