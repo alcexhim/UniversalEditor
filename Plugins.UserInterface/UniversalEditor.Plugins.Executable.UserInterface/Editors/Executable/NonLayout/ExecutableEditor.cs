@@ -76,10 +76,10 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			tvSections = new ListViewControl();
 			tvSections.Model = tmSections;
 
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[0], "Name"));
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[1], "Physical address"));
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[2], "Virtual address"));
-			tvSections.Columns.Add(new ListViewColumnText(tmSections.Columns[3], "Size"));
+			tvSections.Columns.Add(new ListViewColumn("Name", new CellRenderer[] { new CellRendererText(tmSections.Columns[0]) }));
+			tvSections.Columns.Add(new ListViewColumn("Physical address", new CellRenderer[] { new CellRendererText(tmSections.Columns[1]) }));
+			tvSections.Columns.Add(new ListViewColumn("Virtual address", new CellRenderer[] { new CellRendererText(tmSections.Columns[2]) }));
+			tvSections.Columns.Add(new ListViewColumn("Size", new CellRenderer[] { new CellRendererText(tmSections.Columns[3]) }));
 			tvSections.BeforeContextMenu += tvSections_BeforeContextMenu;
 
 			tbs = new TabContainer();
@@ -125,8 +125,8 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 			ListViewControl lvOtherInformation = new ListViewControl();
 			lvOtherInformation.Model = tmOtherInformation;
-			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[0], "Name"));
-			lvOtherInformation.Columns.Add(new ListViewColumnText(tmOtherInformation.Columns[1], "Value"));
+			lvOtherInformation.Columns.Add(new ListViewColumn("Name", new CellRenderer[] { new CellRendererText(tmOtherInformation.Columns[0]) }));
+			lvOtherInformation.Columns.Add(new ListViewColumn("Value", new CellRenderer[] { new CellRendererText(tmOtherInformation.Columns[1]) }));
 			tabVersion.Controls.Add(lvOtherInformation, new GridLayout.Constraints(4, 0, 1, 2, ExpandMode.Both));
 
 			tbs.TabPages.Add(tabVersion);

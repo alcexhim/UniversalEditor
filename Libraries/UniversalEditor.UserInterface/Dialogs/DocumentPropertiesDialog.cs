@@ -87,16 +87,19 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private ObjectModel mvarObjectModel = null;
 		public ObjectModel ObjectModel { get { return mvarObjectModel; } set { mvarObjectModel = value; mvarInitialObjectModel = value; } }
+		public bool ObjectModelSelectionEnabled { get; set; } = true;
 
 		private DataFormat mvarInitialDataFormat = null;
 
 		private DataFormat mvarDataFormat = null;
 		public DataFormat DataFormat { get { return mvarDataFormat; } set { mvarDataFormat = value; mvarInitialDataFormat = value; } }
+		public bool DataFormatSelectionEnabled { get; set; } = true;
 
 		private Accessor mvarInitialAccesor = null;
 
 		private Accessor mvarAccessor = null;
 		public Accessor Accessor { get { return mvarAccessor; } set { mvarAccessor = value; mvarInitialAccesor = value; } }
+		public bool AccessorSelectionEnabled { get; set; } = true;
 
 		[EventHandler(nameof(cmdObjectModel), "Click")]
 		private void cmdObjectModel_Click(object sender, EventArgs e)
@@ -198,6 +201,15 @@ namespace UniversalEditor.UserInterface.Dialogs
 					break;
 				}
 			}
+
+			cmdObjectModel.Enabled = cmdObjectModel.Enabled && ObjectModelSelectionEnabled;
+			txtObjectModel.Enabled = txtObjectModel.Enabled && ObjectModelSelectionEnabled;
+
+			cmdDataFormat.Enabled = cmdDataFormat.Enabled && DataFormatSelectionEnabled;
+			txtDataFormat.Enabled = txtDataFormat.Enabled && DataFormatSelectionEnabled;
+
+			cmdAccessor.Enabled = cmdAccessor.Enabled && AccessorSelectionEnabled;
+			txtAccessor.Enabled = txtAccessor.Enabled && AccessorSelectionEnabled;
 		}
 
 		private string DataFormatReferenceToString(DataFormatReference dfr)

@@ -45,16 +45,45 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 		private const int EXTENSION_AREA_COLOR_CORRECTION_TABLE_VALUE_LENGTH = 41;
 
 		public TargaExtensionArea ExtensionArea { get; } = new TargaExtensionArea();
+		public TargaFirstPixelDestination PixelOrigin { get; } = TargaFirstPixelDestination.TopLeft;
+		public TargaFormatVersion FormatVersion { get; set; } = TargaFormatVersion.Original;
 
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
+			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(ImageType), "Image _type", true, new CustomOptionFieldChoice[]
+			{
+				new CustomOptionFieldChoice("Compressed grayscale", TargaImageType.CompressedGrayscale),
+				new CustomOptionFieldChoice("Compressed indexed", TargaImageType.CompressedIndexed),
+				new CustomOptionFieldChoice("Compressed true color", TargaImageType.CompressedTrueColor),
+				new CustomOptionFieldChoice("Uncompressed grayscale", TargaImageType.UncompressedGrayscale),
+				new CustomOptionFieldChoice("Uncompressed indexed", TargaImageType.UncompressedIndexed),
+				new CustomOptionFieldChoice("Uncompressed true color", TargaImageType.UncompressedTrueColor)
+			}));
+			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelDepth), "Pixel _depth", true, new CustomOptionFieldChoice[]
+			{
+				new CustomOptionFieldChoice("8bpp", (byte)8),
+				new CustomOptionFieldChoice("16bpp", (byte)16),
+				new CustomOptionFieldChoice("24bpp", (byte)24),
+				new CustomOptionFieldChoice("32bpp", (byte)32)
+			}));
+			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelOrigin), "Pixel o_rigin", true, new CustomOptionFieldChoice[]
+			{
+				new CustomOptionFieldChoice("Bottom-left", TargaFirstPixelDestination.BottomLeft),
+				new CustomOptionFieldChoice("Bottom-right", TargaFirstPixelDestination.BottomRight),
+				new CustomOptionFieldChoice("Top-left", TargaFirstPixelDestination.TopLeft),
+				new CustomOptionFieldChoice("Top-right", TargaFirstPixelDestination.TopRight)
+			}));
+			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version", true, new CustomOptionFieldChoice[]
+			{
+				new CustomOptionFieldChoice("Original (100)", TargaFormatVersion.Original),
+				new CustomOptionFieldChoice("TrueVision-XFile (200)", TargaFormatVersion.TrueVisionXFile)
+			}));
 			dfr.ContentTypes.Add("image/x-targa");
 			dfr.ContentTypes.Add("image/x-tga");
 			return dfr;
 		}
-		public int FormatVersion { get; set; } = 100; // ORIGINAL_TGA
 
 		private int GetImageDataOffset(int colorMapLength, byte imageIDLength, byte colorMapEntrySize)
 		{
@@ -110,9 +139,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			}
 		}
 
-
-		private int mvarPadding = 0;
 		public TargaImageType ImageType { get; set; } = TargaImageType.None;
+		public string ImageID { get; set; } = null;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -141,7 +169,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				if (Signature == "TRUEVISION-XFILE")
 				{
 					// this is a NEW targa file.
-					FormatVersion = 200;
+					FormatVersion = TargaFormatVersion.TrueVisionXFile;
 
 					// set cursor to beginning of footer info
 					br.Accessor.Seek((-1 * FOOTER_BYTE_LENGTH), SeekOrigin.End);
@@ -164,7 +192,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				else
 				{
 					// this is not an ORIGINAL targa file.
-					FormatVersion = 100;
+					FormatVersion = TargaFormatVersion.Original;
 				}
 			}
 			#endregion
@@ -216,7 +244,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// load ImageID value if any
 				if (imageIDLength > 0)
 				{
-					string ImageID = br.ReadNullTerminatedString(imageIDLength);
+					ImageID = br.ReadNullTerminatedString(imageIDLength);
 				}
 
 				imageDataOffset = GetImageDataOffset(colorMapLength, imageIDLength, colorMapEntrySize);
@@ -234,52 +262,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 							{
 								for (int i = 0; i < colorMapLength; i++)
 								{
-									int a = 0;
-									int r = 0;
-									int g = 0;
-									int b = 0;
-
-									// load each color map entry based on the ColorMapEntrySize value
-									switch (colorMapEntrySize)
-									{
-										case 15:
-										{
-											byte[] color15 = br.ReadBytes(2);
-											// remember that the bytes are stored in reverse order
-											pic.ColorMap.Add(GetColorFrom2Bytes(color15[1], color15[0]));
-											break;
-										}
-										case 16:
-										{
-											byte[] color16 = br.ReadBytes(2);
-											// remember that the bytes are stored in reverse order
-											pic.ColorMap.Add(GetColorFrom2Bytes(color16[1], color16[0]));
-											break;
-										}
-										case 24:
-										{
-											b = Convert.ToInt32(br.ReadByte());
-											g = Convert.ToInt32(br.ReadByte());
-											r = Convert.ToInt32(br.ReadByte());
-											pic.ColorMap.Add(Color.FromRGBAInt32(r, g, b));
-											break;
-										}
-										case 32:
-										{
-											a = Convert.ToInt32(br.ReadByte());
-											b = Convert.ToInt32(br.ReadByte());
-											g = Convert.ToInt32(br.ReadByte());
-											r = Convert.ToInt32(br.ReadByte());
-											pic.ColorMap.Add(Color.FromRGBAInt32(a, r, g, b));
-											break;
-										}
-									default:
-										{
-											throw new ArgumentOutOfRangeException("TargaImage only supports ColorMap Entry Sizes of 15, 16, 24 or 32 bits.");
-										}
-									}
-
-
+									pic.ColorMap.Add(DecodeColor(br, colorMapEntrySize));
 								}
 							}
 							else
@@ -287,8 +270,6 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 								throw new InvalidOperationException("Image Type requires a Color Map and Color Map Length is zero.");
 							}
 						}
-
-
 					}
 					else
 					{
@@ -416,7 +397,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// calculate the padding, in bytes, of the image
 				// number of bytes to add to make each row a 32bit aligned row
 				// padding in bytes
-				mvarPadding = intStride - ((((int)imageWidth * (int)PixelDepth) + 7) / 8);
+				int paddingLength = intStride - ((((int)imageWidth * (int)PixelDepth) + 7) / 8);
 
 				// get the image data bytes
 				byte[] bimagedata = null;
@@ -431,7 +412,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					byte[] data = null;
 
 					// padding bytes
-					byte[] padding = new byte[mvarPadding];
+					byte[] padding = new byte[paddingLength];
 					System.IO.MemoryStream msData = null;
 
 					// seek to the beginning of the image data using the ImageDataOffset value
@@ -616,34 +597,34 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 						// get the image byte array
 						data = msData.ToArray();
+					}
 
-						int x = 0, y = 0;
-						for (int z = 0; z < data.Length; z += 3)
+					int x = 0, y = 0;
+					for (int z = 0; z < data.Length; z += 3)
+					{
+						int r = data[z + 2];
+						int g = data[z + 1];
+						int b = data[z];
+						int a = 255;
+
+						if (PixelDepth == 32)
 						{
-							int r = data[z + 2];
-							int g = data[z + 1];
-							int b = data[z];
-							int a = 255;
+							a = data[z + 3];
+							z++;
+						}
 
-							if (PixelDepth == 32)
+						Color color = Color.FromRGBAInt32(r, g, b, a);
+						pic.SetPixel(color, x, y);
+
+						x++;
+						if (x == imageWidth)
+						{
+							x = 0;
+							y++;
+
+							if (y == imageHeight)
 							{
-								a = data[z + 3];
-								z++;
-							}
-
-							Color color = Color.FromRGBAInt32(r, g, b, a);
-							pic.SetPixel(color, x, y);
-
-							x++;
-							if (x == imageWidth)
-							{
-								x = 0;
-								y++;
-
-								if (y == imageHeight)
-								{
-									break;
-								}
+								break;
 							}
 						}
 					}
@@ -651,6 +632,42 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				#endregion
 			}
 			#endregion
+		}
+
+		private Color DecodeColor(Reader br, byte colorMapEntrySize)
+		{
+			// load each color map entry based on the ColorMapEntrySize value
+			switch (colorMapEntrySize)
+			{
+				case 15:
+				{
+					byte[] color15 = br.ReadBytes(2);
+					// remember that the bytes are stored in reverse order
+					return GetColorFrom2Bytes(color15[1], color15[0]);
+				}
+				case 16:
+				{
+					byte[] color16 = br.ReadBytes(2);
+					// remember that the bytes are stored in reverse order
+					return GetColorFrom2Bytes(color16[1], color16[0]);
+				}
+				case 24:
+				{
+					int b = Convert.ToInt32(br.ReadByte());
+					int g = Convert.ToInt32(br.ReadByte());
+					int r = Convert.ToInt32(br.ReadByte());
+					return Color.FromRGBAInt32(r, g, b);
+				}
+				case 32:
+				{
+					int a = Convert.ToInt32(br.ReadByte());
+					int b = Convert.ToInt32(br.ReadByte());
+					int g = Convert.ToInt32(br.ReadByte());
+					int r = Convert.ToInt32(br.ReadByte());
+					return Color.FromRGBAInt32(a, r, g, b);
+				}
+			}
+			throw new ArgumentOutOfRangeException(nameof(colorMapEntrySize), "TargaImage only supports ColorMap Entry Sizes of 15, 16, 24 or 32 bits.");
 		}
 
 		private TargaFirstPixelDestination GetFirstPixelDestination(TargaVerticalTransferOrder verticalTransferOrder, TargaHorizontalTransferOrder horizontalTransferOrder)
@@ -715,61 +732,80 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			// return the resulting Color
 			return Color.FromRGBAInt32(r, g, b, a);
 		}
+		private static byte[] EncodeR5G5B5A1(Color color)
+		{
+			// FIXME: not implemented
+			ushort u = 0;
+
+			byte b1 = 0, b2 = 0;
+			b1 |= color.GetRedByte();
+			b1 <<= 5;
+			b1 |= color.GetGreenByte();
+
+			return new byte[] { b1, b2 };
+		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{
 			IO.Writer bw = base.Accessor.Writer;
 			PictureObjectModel pic = (objectModel as PictureObjectModel);
 
-			/*
 			#region Targa Header
 			{
-				// set the cursor at the beginning of the file.
-				br.Accessor.Seek(0, SeekOrigin.Begin);
-
 				// read the header properties from the file
-				byte imageIDLength = br.ReadByte();
-				bool colorMapEnabled = br.ReadBoolean();
-				mvarImageType = (TargaImageType)br.ReadByte();
-
-				short colorMapFirstEntryIndex = br.ReadInt16();
-				short colorMapLength = br.ReadInt16();
-				byte colorMapEntrySize = br.ReadByte();
-
-				short originX = br.ReadInt16();
-				short originY = br.ReadInt16();
-				imageWidth = br.ReadInt16();
-				imageHeight = br.ReadInt16();
-
-				pic.Width = imageWidth;
-				pic.Height = imageHeight;
-
-				mvarPixelDepth = br.ReadByte();
-				switch (mvarPixelDepth)
+				if (ImageID != null)
 				{
-					case 8:
-					case 16:
-					case 24:
-					case 32:
-					break;
-					default:
+					bw.WriteByte((byte)ImageID.Length);
+				}
+				else
+				{
+					bw.WriteByte(0);
+				}
+
+				bool colorMapEnabled = true;
+				bw.WriteBoolean(colorMapEnabled);
+				bw.WriteByte((byte)ImageType);
+
+				short colorMapFirstEntryIndex = 0;
+				bw.WriteInt16(colorMapFirstEntryIndex);
+
+				short colorMapLength = 0;
+				bw.WriteInt16(colorMapLength);
+
+				byte colorMapEntrySize = 0;
+				bw.WriteByte(colorMapEntrySize);
+
+				short originX = 0;
+				bw.WriteInt16(originX);
+
+				short originY = 0;
+				bw.WriteInt16(originY);
+
+				bw.WriteInt16((short)pic.Width);
+				bw.WriteInt16((short)pic.Height);
+
+				if (!(PixelDepth == 8 || PixelDepth == 16 || PixelDepth == 24 || PixelDepth == 32))
+				{
 					throw new InvalidOperationException("Targa image file format only supports 8, 16, 24, or 32 bit pixel depths");
 				}
+				bw.WriteByte(PixelDepth);
 
+				byte ImageDescriptor = GetImageDescriptor(0, PixelOrigin);
+				bw.WriteByte(ImageDescriptor);
+				// int attributeBits = ImageDescriptor.GetBits(0, 4);
 
-				byte ImageDescriptor = br.ReadByte();
-				int attributeBits = ImageDescriptor.GetBits(0, 4);
-
-				verticalTransferOrder = (TargaVerticalTransferOrder)ImageDescriptor.GetBits(5, 1);
-				horizontalTransferOrder = (TargaHorizontalTransferOrder)ImageDescriptor.GetBits(4, 1);
+				// verticalTransferOrder = (TargaVerticalTransferOrder)ImageDescriptor.GetBits(5, 1);
+				// horizontalTransferOrder = (TargaHorizontalTransferOrder)ImageDescriptor.GetBits(4, 1);
 
 				// load ImageID value if any
-				if (imageIDLength > 0)
+				if (ImageID != null)
 				{
-					string ImageID = br.ReadNullTerminatedString(imageIDLength);
+					bw.WriteNullTerminatedString(ImageID);
 				}
-
-				imageDataOffset = GetImageDataOffset(colorMapLength, imageIDLength, colorMapEntrySize);
+				else
+				{
+					bw.WriteNullTerminatedString(String.Empty);
+				}
 
 				#region Load Colormap
 				{
@@ -778,71 +814,61 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					// image types. If color map is included for other file types we can ignore it.
 					if (colorMapEnabled)
 					{
-						if (mvarImageType == TargaImageType.UncompressedIndexed || mvarImageType == TargaImageType.CompressedIndexed)
+						if (ImageType == TargaImageType.UncompressedIndexed || ImageType == TargaImageType.CompressedIndexed)
 						{
-							if (colorMapLength > 0)
+							for (int i = 0; i < pic.ColorMap.Count; i++)
 							{
-								for (int i = 0; i < colorMapLength; i++)
+								// load each color map entry based on the ColorMapEntrySize value
+								switch (colorMapEntrySize)
 								{
-									int a = 0;
-									int r = 0;
-									int g = 0;
-									int b = 0;
-
-									// load each color map entry based on the ColorMapEntrySize value
-									switch (colorMapEntrySize)
+									case 15:
 									{
-										case 15:
-										{
-											byte[] color15 = br.ReadBytes(2);
-											// remember that the bytes are stored in reverse order
-											pic.ColorMap.Add(GetColorFrom2Bytes(color15[1], color15[0]));
-											break;
-										}
-										case 16:
-										{
-											byte[] color16 = br.ReadBytes(2);
-											// remember that the bytes are stored in reverse order
-											pic.ColorMap.Add(GetColorFrom2Bytes(color16[1], color16[0]));
-											break;
-										}
-										case 24:
-										{
-											b = Convert.ToInt32(br.ReadByte());
-											g = Convert.ToInt32(br.ReadByte());
-											r = Convert.ToInt32(br.ReadByte());
-											pic.ColorMap.Add(Color.FromRGBA(r, g, b));
-											break;
-										}
-										case 32:
-										{
-											a = Convert.ToInt32(br.ReadByte());
-											b = Convert.ToInt32(br.ReadByte());
-											g = Convert.ToInt32(br.ReadByte());
-											r = Convert.ToInt32(br.ReadByte());
-											pic.ColorMap.Add(Color.FromRGBA(a, r, g, b));
-											break;
-										}
-										default:
-										{
-											throw new ArgumentOutOfRangeException("TargaImage only supports ColorMap Entry Sizes of 15, 16, 24 or 32 bits.");
-										}
+										Console.Error.WriteLine("ERROR: TGA R5G5B5A1 not supported yet");
+										// byte[] color15 = EncodeR5G5B5A1(pic.ColorMap[i]);
+										// remember that the bytes are stored in reverse order
+										// bw.WriteBytes(new byte[] { color15[1], color15[0] });
+										bw.WriteBytes(new byte[] { 0, 0 });
+										break;
 									}
-
-
+									case 16:
+									{
+										Console.Error.WriteLine("ERROR: TGA R5G6B5 not supported yet");
+										// byte[] color16 = EncodeR5G6B5(pic.ColorMap[i]);
+										// remember that the bytes are stored in reverse order
+										// bw.WriteBytes(new byte[] { color15[1], color15[0] });
+										bw.WriteBytes(new byte[] { 0, 0 });
+										break;
+									}
+									case 24:
+									{
+										bw.WriteByte(pic.ColorMap[i].GetBlueByte());
+										bw.WriteByte(pic.ColorMap[i].GetGreenByte());
+										bw.WriteByte(pic.ColorMap[i].GetRedByte());
+										break;
+									}
+									case 32:
+									{
+										bw.WriteByte(pic.ColorMap[i].GetAlphaByte());
+										bw.WriteByte(pic.ColorMap[i].GetBlueByte());
+										bw.WriteByte(pic.ColorMap[i].GetGreenByte());
+										bw.WriteByte(pic.ColorMap[i].GetRedByte());
+										break;
+									}
+									default:
+									{
+										throw new ArgumentOutOfRangeException("TargaImage only supports ColorMap Entry Sizes of 15, 16, 24 or 32 bits.");
+									}
 								}
 							}
-							else
-							{
-								throw new InvalidOperationException("Image Type requires a Color Map and Color Map Length is zero.");
-							}
 						}
-
-
+						else
+						{
+							throw new InvalidOperationException("Image Type requires a Color Map and Color Map Length is zero.");
+						}
 					}
 					else
 					{
-						if (mvarImageType == TargaImageType.UncompressedIndexed || mvarImageType == TargaImageType.CompressedIndexed)
+						if (ImageType == TargaImageType.UncompressedIndexed || ImageType == TargaImageType.CompressedIndexed)
 						{
 							throw new InvalidOperationException("Indexed image type requires a colormap and there was not a colormap included in the file.");
 						}
@@ -860,19 +886,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 				// In your loop, you copy the pixels one scanline at a time and take into
 				// consideration the amount of padding that occurs due to memory alignment.
 				// calculate the stride, in bytes, of the image (32bit aligned width of each image row)
-				int intStride = (((int)pic.Width * (int)mvarPixelDepth + 31) & ~31) >> 3; // width in bytes
+				int intStride = (((int)pic.Width * (int)PixelDepth + 31) & ~31) >> 3; // width in bytes
 
 				// calculate the padding, in bytes, of the image
 				// number of bytes to add to make each row a 32bit aligned row
 				// padding in bytes
-				mvarPadding = intStride - ((((int)pic.Width * (int)mvarPixelDepth) + 7) / 8);
-
-				// get the image data bytes
-				byte[] bimagedata = null;
+				int paddingLength = intStride - ((((int)pic.Width * (int)PixelDepth) + 7) / 8);
 
 				#region Image Data Bytes
 				{
-
 					// read the image data into a byte array
 					// take into account stride has to be a multiple of 4
 					// use padding to make sure multiple of 4
@@ -880,7 +902,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					byte[] data = null;
 
 					// padding bytes
-					byte[] padding = new byte[mvarPadding];
+					byte[] padding = new byte[paddingLength];
 					System.IO.MemoryStream msData = null;
 
 					// get the size in bytes of each row in the image
@@ -893,8 +915,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 					// is this a RLE compressed image type
 					#region COMPRESSED
-					if (mvarImageType == TargaImageType.CompressedGrayscale || mvarImageType == TargaImageType.CompressedIndexed || mvarImageType == TargaImageType.CompressedTrueColor)
+					if (ImageType == TargaImageType.CompressedGrayscale || ImageType == TargaImageType.CompressedIndexed || ImageType == TargaImageType.CompressedTrueColor)
 					{
+						Console.Error.WriteLine("ERROR: TGA RLE compression not implemented yet");
+						/*
 						// RLE Packet info
 						byte bRLEPacket = 0;
 						int intRLEPacketType = -1;
@@ -970,26 +994,26 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 								}
 							}
 						}
+						*/
 					}
 					#endregion
 					#region NON-COMPRESSED
 					else
 					{
-
 						// loop through each row in the image
 						for (int i = 0; i < (int)pic.Height; i++)
 						{
-							// create a new row
-							System.Collections.Generic.List<byte> row = new System.Collections.Generic.List<byte>();
-
+							List<byte> row = new List<byte>();
 							// loop through each byte in the row
-							for (int j = 0; j < intImageRowByteSize; j++)
+							for (int j = 0; j < (int)pic.Width; j++)
 							{
 								// add the byte to the row
-								row.Add(br.ReadByte());
-							}
+								Color color = pic.GetPixel(j, i);
 
-							// add row to the list of rows
+								row.Add(color.GetRedByte());
+								row.Add(color.GetGreenByte());
+								row.Add(color.GetBlueByte());
+							}
 							rows.Add(row);
 						}
 					}
@@ -1003,7 +1027,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 					// use FirstPixelDestination to determine the alignment of the
 					// image data byte
-					switch (GetFirstPixelDestination(verticalTransferOrder, horizontalTransferOrder))
+					switch (PixelOrigin)
 					{
 						case TargaFirstPixelDestination.TopLeft:
 						{
@@ -1061,36 +1085,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 
 						// get the image byte array
 						data = msData.ToArray();
-
-						int x = 0, y = 0;
-						for (int z = 0; z < data.Length; z += 3)
-						{
-							int r = data[z + 2];
-							int g = data[z + 1];
-							int b = data[z];
-							int a = 255;
-
-							if (mvarPixelDepth == 32)
-							{
-								a = data[z + 3];
-								z++;
-							}
-
-							Color color = Color.FromRGBA(a, r, g, b);
-							pic.SetPixel(color, x, y);
-
-							x++;
-							if (x == pic.Width)
-							{
-								x = 0;
-								y++;
-
-								if (y == pic.Height)
-								{
-									break;
-								}
-							}
-						}
+						bw.WriteBytes(data);
 					}
 				}
 				#endregion
@@ -1099,60 +1094,61 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 			#region Targa extension area
 			{
 				// is there an Extension Area in file
-				if (mvarExtensionArea.Enabled)
+				if (ExtensionArea.Enabled)
 				{
 					short extensionAreaSize = 164;
-					bw.Write(extensionAreaSize);
+					bw.WriteInt16(extensionAreaSize);
 
-					bw.WriteFixedLengthString(mvarExtensionArea.AuthorName, EXTENSION_AREA_AUTHOR_NAME_LENGTH);
-					bw.WriteFixedLengthString(mvarExtensionArea.AuthorComments, EXTENSION_AREA_AUTHOR_NAME_LENGTH);
+					bw.WriteFixedLengthString(ExtensionArea.AuthorName, EXTENSION_AREA_AUTHOR_NAME_LENGTH);
+					bw.WriteFixedLengthString(ExtensionArea.AuthorComments, EXTENSION_AREA_AUTHOR_NAME_LENGTH);
 
-					bw.Write((short)mvarExtensionArea.DateCreated.Month);
-					bw.Write((short)mvarExtensionArea.DateCreated.Day);
-					bw.Write((short)mvarExtensionArea.DateCreated.Year);
-					bw.Write((short)mvarExtensionArea.DateCreated.Hour);
-					bw.Write((short)mvarExtensionArea.DateCreated.Minute);
-					bw.Write((short)mvarExtensionArea.DateCreated.Second);
+					bw.WriteInt16((short)ExtensionArea.DateCreated.Month);
+					bw.WriteInt16((short)ExtensionArea.DateCreated.Day);
+					bw.WriteInt16((short)ExtensionArea.DateCreated.Year);
+					bw.WriteInt16((short)ExtensionArea.DateCreated.Hour);
+					bw.WriteInt16((short)ExtensionArea.DateCreated.Minute);
+					bw.WriteInt16((short)ExtensionArea.DateCreated.Second);
 
-					bw.WriteFixedLengthString(mvarExtensionArea.JobName, EXTENSION_AREA_JOB_NAME_LENGTH);
+					bw.WriteFixedLengthString(ExtensionArea.JobName, EXTENSION_AREA_JOB_NAME_LENGTH);
 
-					bw.Write((short)mvarExtensionArea.JobTime.Hours);
-					bw.Write((short)mvarExtensionArea.JobTime.Minutes);
-					bw.Write((short)mvarExtensionArea.JobTime.Seconds);
+					bw.WriteInt16((short)ExtensionArea.JobTime.Hours);
+					bw.WriteInt16((short)ExtensionArea.JobTime.Minutes);
+					bw.WriteInt16((short)ExtensionArea.JobTime.Seconds);
 
-					bw.WriteFixedLengthString(mvarExtensionArea.SoftwareID, EXTENSION_AREA_SOFTWARE_ID_LENGTH);
+					bw.WriteFixedLengthString(ExtensionArea.SoftwareID, EXTENSION_AREA_SOFTWARE_ID_LENGTH);
 
 					// get the version number and letter from file
 					float iVersionNumber = 1.0f;
 					short sVersionNumber = (short)(iVersionNumber * 100.0F);
-					bw.Write(sVersionNumber);
-					bw.Write((char)'A');
+					bw.WriteInt16(sVersionNumber);
+					bw.WriteChar((char)'A');
 					// bw.WriteFixedLengthString(mvarExtensionArea.VersionString.Substring(mvarExtensionArea.VersionString.Length - 1, 1));
 					// mvarExtensionArea.VersionString = (iVersionNumber.ToString(@"F2") + strVersionLetter);
 
 
 					// get the color key of the file
-					bw.Write((byte)(mvarExtensionArea.ColorKey.Alpha * 255));
-					bw.Write((byte)(mvarExtensionArea.ColorKey.Red * 255));
-					bw.Write((byte)(mvarExtensionArea.ColorKey.Blue * 255));
-					bw.Write((byte)(mvarExtensionArea.ColorKey.Green * 255));
+					bw.WriteByte((byte)(ExtensionArea.ColorKey.A * 255));
+					bw.WriteByte((byte)(ExtensionArea.ColorKey.R * 255));
+					bw.WriteByte((byte)(ExtensionArea.ColorKey.B * 255));
+					bw.WriteByte((byte)(ExtensionArea.ColorKey.G * 255));
 
 
-					bw.Write((short)mvarExtensionArea.PixelAspectRatioNumerator);
-					bw.Write((short)mvarExtensionArea.PixelAspectRatioDenominator);
-					bw.Write((short)mvarExtensionArea.GammaNumerator);
-					bw.Write((short)mvarExtensionArea.GammaDenominator);
+					bw.WriteInt16((short)ExtensionArea.PixelAspectRatioNumerator);
+					bw.WriteInt16((short)ExtensionArea.PixelAspectRatioDenominator);
+					bw.WriteInt16((short)ExtensionArea.GammaNumerator);
+					bw.WriteInt16((short)ExtensionArea.GammaDenominator);
 
 
 					int extensionAreaColorCorrectionOffset = 0;
-					bw.Write(extensionAreaColorCorrectionOffset);
+					bw.WriteInt32(extensionAreaColorCorrectionOffset);
 					int extensionAreaPostageStampOffset = 0;
-					bw.Write(extensionAreaPostageStampOffset);
+					bw.WriteInt32(extensionAreaPostageStampOffset);
 					int extensionAreaScanLineOffset = 0;
-					bw.Write(extensionAreaScanLineOffset);
-					bw.Write((byte)mvarExtensionArea.AttributesType);
+					bw.WriteInt32(extensionAreaScanLineOffset);
+					bw.WriteByte((byte)ExtensionArea.AttributesType);
 
 					// load Scan Line Table from file if any
+					/*
 					if (extensionAreaScanLineOffset > 0)
 					{
 						br.Accessor.Seek(extensionAreaScanLineOffset, SeekOrigin.Begin);
@@ -1176,26 +1172,67 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 							mvarExtensionArea.ColorCorrectionTable.Add(Color.FromRGBA(a, r, g, b));
 						}
 					}
+					*/
 				}
 			}
 			#endregion
 			#region Targa Footer
 			{
-				if (mvarFormatVersion == 200)
+				if (FormatVersion == TargaFormatVersion.TrueVisionXFile)
 				{
 					int extensionAreaOffset = 0;
-					bw.Write(extensionAreaOffset);
+					bw.WriteInt32(extensionAreaOffset);
 
 					int developerDirectoryOffset = 0;
-					bw.Write(developerDirectoryOffset);
+					bw.WriteInt32(developerDirectoryOffset);
 
 					bw.WriteFixedLengthString("TRUEVISION-XFILE");
 				}
 			}
 			#endregion
 			bw.Flush();
-			*/
+
 			throw new NotImplementedException();
+		}
+
+		private byte GetImageDescriptor(byte alphaChannelDepth, TargaFirstPixelDestination pixelOrigin)
+		{
+			TargaVerticalTransferOrder verticalTransferOrder = TargaVerticalTransferOrder.Unknown;
+			TargaHorizontalTransferOrder horizontalTransferOrder = TargaHorizontalTransferOrder.Unknown;
+			switch (PixelOrigin)
+			{
+				case TargaFirstPixelDestination.TopLeft:
+				{
+					verticalTransferOrder = TargaVerticalTransferOrder.TopToBottom;
+					horizontalTransferOrder = TargaHorizontalTransferOrder.LeftToRight;
+					break;
+				}
+				case TargaFirstPixelDestination.TopRight:
+				{
+					verticalTransferOrder = TargaVerticalTransferOrder.TopToBottom;
+					horizontalTransferOrder = TargaHorizontalTransferOrder.RightToLeft;
+					break;
+				}
+				case TargaFirstPixelDestination.BottomLeft:
+				{
+					verticalTransferOrder = TargaVerticalTransferOrder.BottomToTop;
+					horizontalTransferOrder = TargaHorizontalTransferOrder.LeftToRight;
+					break;
+				}
+				case TargaFirstPixelDestination.BottomRight:
+				{
+					verticalTransferOrder = TargaVerticalTransferOrder.BottomToTop;
+					horizontalTransferOrder = TargaHorizontalTransferOrder.RightToLeft;
+					break;
+				}
+			}
+			return GetImageDescriptor(alphaChannelDepth, verticalTransferOrder, horizontalTransferOrder);
+		}
+		private byte GetImageDescriptor(byte alphaChannelDepth, TargaVerticalTransferOrder verticalTransferOrder, TargaHorizontalTransferOrder horizontalTransferOrder)
+		{
+			byte ImageDescriptor = 0;
+
+			return ImageDescriptor;
 		}
 	}
 }

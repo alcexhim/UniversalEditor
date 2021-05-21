@@ -99,7 +99,7 @@ namespace UniversalEditor.Plugins.Scientific.UserInterface.Editors.DataSetCollec
 
 				for (int i = 0; i < ds.Dimensions; i++)
 				{
-					tv.Columns.Add(new ListViewColumnText(tm.Columns[i], i.ToString()));
+					tv.Columns.Add(new ListViewColumn(i.ToString(), new CellRenderer[] { new CellRendererText(tm.Columns[i]) }));
 
 					for (int j = 0; j < ds.Sizes[i]; j++)
 					{

@@ -45,5 +45,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 		public List<int> ScanLineTable { get; } = new List<int>();
 		public List<Color> ColorCorrectionTable { get; } = new List<Color>();
 		public int AttributesType { get; set; } = 0;
+
+		public string AuthorName { get; set; } = null;
+		public string AuthorComments { get; set; } = null;
+		public string JobName { get; set; } = null;
 	}
 }

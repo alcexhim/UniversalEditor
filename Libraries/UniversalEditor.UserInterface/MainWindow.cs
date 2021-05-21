@@ -196,6 +196,7 @@ namespace UniversalEditor.UserInterface
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
 			this.IconName = "universal-editor";
+			LogoutInhibitor = new Inhibitor(InhibitorType.SystemLogout, "There are unsaved documents", this);
 
 			this.CommandDisplayMode = CommandDisplayMode.CommandBar;
 
@@ -215,7 +216,7 @@ namespace UniversalEditor.UserInterface
 			ListViewControl lvToolbox = new ListViewControl();
 			lvToolbox.RowActivated += LvToolbox_RowActivated;
 			lvToolbox.Model = tmToolbox;
-			lvToolbox.Columns.Add(new ListViewColumnText(tmToolbox.Columns[0], "Item"));
+			lvToolbox.Columns.Add(new ListViewColumn("Item", new CellRenderer[] { new CellRendererText(tmToolbox.Columns[0]) }));
 			lvToolbox.HeaderStyle = ColumnHeaderStyle.None;
 			AddPanel("Toolbox", DockingItemPlacement.Left, lvToolbox);
 
@@ -1041,6 +1042,9 @@ namespace UniversalEditor.UserInterface
 			OpenFile(documents);
 		}
 
+		private Inhibitor LogoutInhibitor = null;
+		private int logoutInhibitorI = 0;
+
 		public void OpenFile(params Document[] documents)
 		{
 			foreach (Document doc in documents)
@@ -1048,6 +1052,15 @@ namespace UniversalEditor.UserInterface
 				try
 				{
 					InitEditorPage(doc);
+
+					if (logoutInhibitorI == 0)
+					{
+						(Application.Instance as UIApplication).Inhibitors.Add(LogoutInhibitor);
+					}
+					logoutInhibitorI++;
+
+					if (doc == null)
+						continue;
 
 					if (doc.Accessor is FileAccessor)
 					{
@@ -1171,8 +1184,12 @@ namespace UniversalEditor.UserInterface
 		{
 			if (document.IsSaved)
 			{
+				bool inputClosed = false;
 				if (document.InputAccessor != null && document.InputAccessor.IsOpen)
+				{
+					inputClosed = true;
 					document.InputAccessor.Close();
+				}
 
 				if (document.OutputAccessor is FileAccessor)
 				{
@@ -1180,9 +1197,33 @@ namespace UniversalEditor.UserInterface
 					(document.OutputAccessor as FileAccessor).AllowWrite = true;
 					(document.OutputAccessor as FileAccessor).ForceOverwrite = true;
 				}
-				document.OutputAccessor.Open();
-				document.Save();
-				document.OutputAccessor.Close();
+
+				try
+				{
+					document.OutputAccessor.Open();
+					document.Save();
+					document.OutputAccessor.Close();
+				}
+				catch (UnauthorizedAccessException ex)
+				{
+					if (inputClosed)
+					{
+						if (document.InputAccessor is FileAccessor)
+						{
+							// FIXME: ewww
+							(document.InputAccessor as FileAccessor).AllowWrite = false;
+							(document.InputAccessor as FileAccessor).ForceOverwrite = false;
+						}
+						document.InputAccessor.Open();
+					}
+
+					switch (HandleUnauthorizedAccessException(document, ex))
+					{
+						case MultipleDocumentErrorHandling.CancelAll: return false;
+						case MultipleDocumentErrorHandling.CancelOne: return true;
+						case MultipleDocumentErrorHandling.Ignore: break;
+					}
+				}
 
 				DockingWindow di = dckContainer.Items[GetCurrentEditorPage()] as DockingWindow;
 				if (di != null)
@@ -1271,7 +1312,20 @@ namespace UniversalEditor.UserInterface
 				page.Document.DataFormat = df;
 				page.Document.Accessor = accessor;
 			}
-			page.Document.Save();
+
+			try
+			{
+				page.Document.Save();
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				switch (HandleUnauthorizedAccessException(page.Document, ex))
+				{
+					case MultipleDocumentErrorHandling.CancelAll: return false;
+					case MultipleDocumentErrorHandling.CancelOne: return true;
+					case MultipleDocumentErrorHandling.Ignore: break;
+				}
+			}
 			GetCurrentEditor().Document = page.Document;
 
 			DockingWindow di = dckContainer.Items[page] as DockingWindow;
@@ -1282,6 +1336,25 @@ namespace UniversalEditor.UserInterface
 			}
 			return true;
 		}
+
+		private MultipleDocumentErrorHandling HandleUnauthorizedAccessException(Document document, UnauthorizedAccessException ex)
+		{
+			DialogResult dr = MessageDialog.ShowDialog(String.Format("Cannot save the file in its current location.  Would you like to choose another location?\r\n\r\n{0}", ex.Message), "Unauthorized", MessageDialogButtons.YesNoCancel, MessageDialogIcon.Warning);
+			if (dr == DialogResult.Yes)
+			{
+				SaveFileAs(document);
+			}
+			else if (dr == DialogResult.No)
+			{
+				return MultipleDocumentErrorHandling.CancelOne;
+			}
+			else if (dr == DialogResult.Cancel)
+			{
+				return MultipleDocumentErrorHandling.CancelAll;
+			}
+			return MultipleDocumentErrorHandling.Ignore;
+		}
+
 		public bool SaveFileAs(Accessor accessor, DataFormat df)
 		{
 			return SaveFileAs(accessor, df, GetCurrentEditor()?.ObjectModel);
@@ -1375,6 +1448,12 @@ namespace UniversalEditor.UserInterface
 
 			dckContainer.Items.Remove(dw);
 			documentWindowCount--;
+
+			logoutInhibitorI--;
+			if (logoutInhibitorI == 0)
+			{
+				(Application.Instance as UIApplication).Inhibitors.Remove(LogoutInhibitor);
+			}
 
 			if (documentWindowCount == 0)
 			{

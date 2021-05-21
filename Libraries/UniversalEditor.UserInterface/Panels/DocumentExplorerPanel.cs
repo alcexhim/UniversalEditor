@@ -23,7 +23,7 @@ namespace UniversalEditor.UserInterface.Panels
 			tm = new DefaultTreeModel(new Type[] { typeof(string) });
 			lv.Model = tm;
 			lv.HeaderStyle = ColumnHeaderStyle.None;
-			lv.Columns.Add(new ListViewColumnText(tm.Columns[0], "Item"));
+			lv.Columns.Add(new ListViewColumn("Item", new CellRenderer[] { new CellRendererText(tm.Columns[0]) }));
 
 			Controls.Add(lv, new BoxLayout.Constraints(true, true));
 		}

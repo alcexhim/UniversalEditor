@@ -47,10 +47,10 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			lvSamples = new ListViewControl();
 			lvSamples.SelectionMode = SelectionMode.Multiple;
 			lvSamples.BeforeContextMenu += lvSamples_BeforeContextMenu;
-			lvSamples.Columns.Add(new ListViewColumnText(tmSamples.Columns[0], "Name"));
-			lvSamples.Columns.Add(new ListViewColumnText(tmSamples.Columns[1], "Frequency"));
-			lvSamples.Columns.Add(new ListViewColumnText(tmSamples.Columns[2], "Channels"));
-			lvSamples.Columns.Add(new ListViewColumnText(tmSamples.Columns[3], "Size"));
+			lvSamples.Columns.Add(new ListViewColumn("Name", new CellRenderer[] { new CellRendererText(tmSamples.Columns[0]) }));
+			lvSamples.Columns.Add(new ListViewColumn("Frequency", new CellRenderer[] { new CellRendererText(tmSamples.Columns[1]) }));
+			lvSamples.Columns.Add(new ListViewColumn("Channels", new CellRenderer[] { new CellRendererText(tmSamples.Columns[2]) }));
+			lvSamples.Columns.Add(new ListViewColumn("Size", new CellRenderer[] { new CellRendererText(tmSamples.Columns[3]) }));
 			lvSamples.Model = tmSamples;
 
 			Controls.Add(lvSamples, new BoxLayout.Constraints(true, true));

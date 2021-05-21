@@ -256,6 +256,16 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			cmdSave.Enabled = coll.Pictures.Count > 0;
 			cmdSaveAll.Enabled = coll.Pictures.Count > 0;
 
+			txtQuickAnimateStartFrame.Minimum = 0;
+			txtQuickAnimateStartFrame.Maximum = coll.Pictures.Count - 1;
+			txtQuickAnimateStartFrame.Value = 0;
+
+			txtQuickAnimateEndFrame.Minimum = 0;
+			txtQuickAnimateEndFrame.Maximum = coll.Pictures.Count - 1;
+			txtQuickAnimateEndFrame.Value = coll.Pictures.Count - 1;
+
+			txtQuickAnimateFrameDuration.Value = 500;
+
 			if (coll.Pictures.Count > 0)
 				picFrame.ObjectModel = coll.Pictures[0];
 		}
@@ -279,24 +289,27 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 		private UniversalEditor.Editors.Multimedia.Picture.PictureEditor picFrame = null;
 
 		[EventHandler(nameof(cmdSave), "Click")]
-		void CmdSave_Click(object sender, EventArgs e)
+		private void cmdSave_Click(object sender, EventArgs e)
 		{
 			PictureCollectionObjectModel coll = ObjectModel as PictureCollectionObjectModel;
 			if (SelectedFrameIndex < 0 || SelectedFrameIndex >= coll.Pictures.Count)
 				return;
 
-			FileDialog dlg = new FileDialog();
-			dlg.Mode = FileDialogMode.Save;
+			UniversalEditor.UserInterface.Dialogs.DocumentPropertiesDialog dlg = new UniversalEditor.UserInterface.Dialogs.DocumentPropertiesDialog();
+			dlg.ObjectModel = coll.Pictures[SelectedFrameIndex];
+			dlg.DataFormat = new BitmapDataFormat();
+			dlg.ObjectModelSelectionEnabled = false;
+			dlg.Mode = UniversalEditor.UserInterface.Dialogs.DocumentPropertiesDialogMode.Save;
+
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				PictureObjectModel pic = coll.Pictures[SelectedFrameIndex];
-				BitmapDataFormat bmp = new BitmapDataFormat();
-
-				FileAccessor fa = new FileAccessor(dlg.SelectedFileNames[dlg.SelectedFileNames.Count - 1]);
-				fa.AllowWrite = true;
-				fa.ForceOverwrite = true;
-				fa.Open();
-				Document.Save(pic, bmp, fa, true);
+				if (dlg.Accessor is FileAccessor)
+				{
+					// FIXME: this should not be necessary
+					(dlg.Accessor as FileAccessor).AllowWrite = true;
+					(dlg.Accessor as FileAccessor).ForceOverwrite = true;
+				}
+				Document.Save(dlg.ObjectModel, dlg.DataFormat, dlg.Accessor, true);
 			}
 		}
 		[EventHandler(nameof(cmdSaveAll), "Click")]

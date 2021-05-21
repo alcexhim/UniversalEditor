@@ -260,8 +260,8 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			tmTypes = new DefaultTreeModel(new Type[] { typeof(string), typeof(string) });
 			tvTypes.Model = tmTypes;
 
-			tvTypes.Columns.Add(new ListViewColumnText(tmTypes.Columns[0], "Name"));
-			tvTypes.Columns.Add(new ListViewColumnText(tmTypes.Columns[1], "Type"));
+			tvTypes.Columns.Add(new ListViewColumn("Name", new CellRenderer[] { new CellRendererText(tmTypes.Columns[0]) }));
+			tvTypes.Columns.Add(new ListViewColumn("Type", new CellRenderer[] { new CellRendererText(tmTypes.Columns[1]) }));
 			scLeftRight.Panel1.Controls.Add(tvTypes, new BoxLayout.Constraints(true, true));
 
 			scLeftRight.Panel2.Layout = new BoxLayout(Orientation.Vertical);
