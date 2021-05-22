@@ -314,6 +314,8 @@ namespace UniversalEditor.UserInterface
 			SettingsDialog dlg = new SettingsDialog();
 			dlg.Text = title ?? "Options";
 			dlg.SettingsProfiles.Clear();
+
+			dlg.SettingsProviders.Clear();
 			dlg.SettingsProviders.Add(customOptions);
 
 			if (dlg.ShowDialog() == DialogResult.OK)
