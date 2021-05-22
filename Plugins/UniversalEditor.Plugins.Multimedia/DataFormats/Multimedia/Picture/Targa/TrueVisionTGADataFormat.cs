@@ -78,7 +78,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 					new ChoiceSetting.ChoiceSettingValue("TopLeft", "Top-left", TargaFirstPixelDestination.TopLeft),
 					new ChoiceSetting.ChoiceSettingValue("TopRightwa78qa67Y", "Top-right", TargaFirstPixelDestination.TopRight)
 				}));
-				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version", true, new ChoiceSetting.ChoiceSettingValue[]
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version", TargaFormatVersion.Original, new ChoiceSetting.ChoiceSettingValue[]
 				{
 					new ChoiceSetting.ChoiceSettingValue("Original", "Original (100)", TargaFormatVersion.Original),
 					new ChoiceSetting.ChoiceSettingValue("TrueVisionXFile", "TrueVision-XFile (200)", TargaFormatVersion.TrueVisionXFile)
