@@ -159,13 +159,13 @@ namespace UniversalEditor
 		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="DataFormatReference" />
 		/// when it is being used to open or import a file.
 		/// </summary>
-		public SettingsProvider ImportOptions { get; set; } = new CustomSettingsProvider();
+		public SettingsProvider ImportOptions { get; set; } = new CustomOptionCompatSettingsProvider();
 
 		/// <summary>
 		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="DataFormatReference" />
 		/// when it is being used to open or import a file.
 		/// </summary>
-		public SettingsProvider ExportOptions { get; set; } = new CustomSettingsProvider();
+		public SettingsProvider ExportOptions { get; set; } = new CustomOptionCompatSettingsProvider();
 
 		public virtual DataFormat Create()
 		{
