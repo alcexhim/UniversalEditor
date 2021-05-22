@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using MBS.Framework;
 using MBS.Framework.Logic;
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.DataFormats.PropertyList.XML;
@@ -438,9 +439,10 @@ namespace UniversalEditor.DataFormats.UEPackage
 										if (tag == null) continue;
 										if (tag.FullName != "Variable") continue;
 
-										ProjectTypeVariable varr = new ProjectTypeVariable();
-										varr.Name = (tag.Attributes["Name"] == null ? String.Empty : tag.Attributes["Name"].Value);
-										varr.Title = (tag.Attributes["Title"] == null ? String.Empty : tag.Attributes["Title"].Value);
+										Setting varr = null;
+
+										string name = (tag.Attributes["Name"] == null ? String.Empty : tag.Attributes["Name"].Value);
+										string title = (tag.Attributes["Title"] == null ? String.Empty : tag.Attributes["Title"].Value);
 
 										MarkupAttribute attType = tag.Attributes["Type"];
 										if (attType != null)
@@ -449,26 +451,31 @@ namespace UniversalEditor.DataFormats.UEPackage
 											{
 												case "choice":
 												{
-													varr.Type = ProjectTypeVariableType.Choice;
+													varr = new ChoiceSetting(name, title);
 													break;
 												}
 												case "fileopen":
 												{
-													varr.Type = ProjectTypeVariableType.FileOpen;
+													varr = new FileSetting(name, title);
+													((FileSetting)varr).Mode = FileSettingMode.Open;
 													break;
 												}
 												case "filesave":
 												{
-													varr.Type = ProjectTypeVariableType.FileSave;
+													varr = new FileSetting(name, title);
+													((FileSetting)varr).Mode = FileSettingMode.Save;
 													break;
 												}
 												default:
 												{
-													varr.Type = ProjectTypeVariableType.Text;
+													varr = new TextSetting(name, title);
 													break;
 												}
 											}
 										}
+
+										if (varr == null)
+											continue;
 
 										MarkupTagElement tagValidValues = (tag.Elements["ValidValues"] as MarkupTagElement);
 										if (tagValidValues != null)
@@ -480,9 +487,12 @@ namespace UniversalEditor.DataFormats.UEPackage
 												if (tagValidValue.FullName != "ValidValue") continue;
 
 												string value = (tagValidValue.Attributes["Value"] == null ? String.Empty : tagValidValue.Attributes["Value"].Value);
-												string title = (tagValidValue.Attributes["Title"] == null ? value : tagValidValue.Attributes["Title"].Value);
+												string valueTitle = (tagValidValue.Attributes["Title"] == null ? value : tagValidValue.Attributes["Title"].Value);
 
-												varr.ValidValues.Add(title, value);
+												if (varr is ChoiceSetting)
+												{
+													((ChoiceSetting)varr).ValidValues.Add(new ChoiceSetting.ChoiceSettingValue(title, title, value));
+												}
 											}
 										}
 										projtype.Variables.Add(varr);

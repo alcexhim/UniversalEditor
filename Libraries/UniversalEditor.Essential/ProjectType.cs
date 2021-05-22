@@ -20,6 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework;
+using MBS.Framework.Logic;
 
 namespace UniversalEditor
 {
@@ -55,8 +57,7 @@ namespace UniversalEditor
 		private ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection mvarItemShortcuts = new ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection();
 		public ProjectTypeItemShortcut.ProjectTypeItemShortcutCollection ItemShortcuts { get { return mvarItemShortcuts; } }
 
-		private ProjectTypeVariable.ProjectTypeVariableCollection mvarVariables = new ProjectTypeVariable.ProjectTypeVariableCollection();
-		public ProjectTypeVariable.ProjectTypeVariableCollection Variables { get { return mvarVariables; } }
+		public Setting.SettingCollection Variables { get; } = new Setting.SettingCollection();
 
 		public string ProjectFileExtension { get; set; } = null;
 	}

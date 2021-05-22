@@ -285,52 +285,18 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 						for (int i = 0; i < template.ProjectTypes.Count; i++)
 						{
-							SettingsGroup sg = new SettingsGroup(template.ProjectTypes[i].Title);
 							if (template.ProjectTypes[i].Variables.Count > 0)
 							{
-								foreach (ProjectTypeVariable ptv in template.ProjectTypes[i].Variables)
+								SettingsGroup sg = new SettingsGroup(template.ProjectTypes[i].Title);
+								foreach (Setting ptv in template.ProjectTypes[i].Variables)
 								{
-									switch (ptv.Type)
-									{
-										case ProjectTypeVariableType.Text:
-										{
-											sg.Settings.Add(new TextSetting(ptv.Name, ptv.Title));
-											break;
-										}
-										case ProjectTypeVariableType.Choice:
-										{
-											List<ChoiceSetting.ChoiceSettingValue> choices = new List<ChoiceSetting.ChoiceSettingValue>();
-											foreach (KeyValuePair<string, object> kvp in ptv.ValidValues)
-											{
-												choices.Add(new ChoiceSetting.ChoiceSettingValue(kvp.Key, kvp.Key, kvp.Value));
-											}
-											sg.Settings.Add(new ChoiceSetting(ptv.Name, ptv.Title, null, choices.ToArray()));
-											break;
-										}
-										case ProjectTypeVariableType.FileOpen:
-										{
-											FileSetting co = new FileSetting(ptv.Name, ptv.Title);
-											co.Mode = FileSettingMode.Open;
-											sg.Settings.Add(co);
-											break;
-										}
-										case ProjectTypeVariableType.FileSave:
-										{
-											FileSetting co = new FileSetting(ptv.Name, ptv.Title);
-											co.Mode = FileSettingMode.Save;
-											sg.Settings.Add(co);
-											break;
-										}
-									}
+									sg.Settings.Add(ptv);
 								}
-							}
 
-							// template.ProjectType.Variables[co.PropertyName].Value = co.GetValue().ToString();
-							// TODO: Figure out how to assign variable values to the newly
-							// created project from the template
-							if (sg.Settings.Count > 0)
-							{
-								// only add the SettingsGroup if there are settings to be displayed
+								// template.ProjectType.Variables[co.PropertyName].Value = co.GetValue().ToString();
+								// TODO: Figure out how to assign variable values to the newly
+								// created project from the template
+
 								csp.SettingsGroups.Add(sg);
 							}
 						}
