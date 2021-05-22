@@ -68,6 +68,10 @@
       <Project>{791A36F8-5D96-452B-89D2-78BA74596A1E}</Project>
       <Name>UniversalEditor.Plugins.Executable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">
+      <Project>{00266B21-35C9-4A7F-A6BA-D54D7FDCC25C}</Project>
+      <Name>MBS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataFormats\Executable\Nintendo\N64\" />

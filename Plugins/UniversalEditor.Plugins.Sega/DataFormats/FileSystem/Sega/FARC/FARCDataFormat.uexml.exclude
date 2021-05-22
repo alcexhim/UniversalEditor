@@ -6,8 +6,8 @@
 				<Title>SEGA FARC archive</Title>
 			</Information>
 			<ExportOptions>
-				<CustomOptionBoolean ID="Compressed" Title="_Compress the data with the gzip algorithm" />
-				<CustomOptionBoolean ID="Encrypted" Title="_Encrypt the data with the specified key" />
+				<BooleanSetting ID="Compressed" Title="_Compress the data with the gzip algorithm" />
+				<BooleanSetting ID="Encrypted" Title="_Encrypt the data with the specified key" />
 			</ExportOptions>
 			<Structures>
 				<Structure ID="{8964EB0B-3666-4866-B72F-5B11BB1597DD}">

@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Settings;
 using UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.PropertyList;
@@ -36,11 +36,11 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Vendor), "_Vendor", "Yamaha Corporation"));
 			}
 			return _dfr;
 		}
 
-		[CustomOptionText("Vendor", "Yamaha Corporation")]
 		public string Vendor { get; set; } = "Yamaha Corporation";
 
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)

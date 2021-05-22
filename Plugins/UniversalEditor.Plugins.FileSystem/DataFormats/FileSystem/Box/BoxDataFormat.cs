@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
@@ -39,14 +39,16 @@ namespace UniversalEditor.DataFormats.FileSystem.Box
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(NumberSize), "_Number size", true,
-					new CustomOptionFieldChoice("8-bit, 1 byte per number", 1),
-					new CustomOptionFieldChoice("16-bit, 2 bytes per number", 2),
-					new CustomOptionFieldChoice("24-bit, 3 bytes per number", 3),
-					new CustomOptionFieldChoice("32-bit, 4 bytes per number", 4, true),
-					new CustomOptionFieldChoice("64-bit, 8 bytes per number", 8)));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(AllocationSize), "_Allocation size", 512));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "_Comment"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(NumberSize), "_Number size", 4, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("1", "8-bit, 1 byte per number", 1),
+					new ChoiceSetting.ChoiceSettingValue("2", "16-bit, 2 bytes per number", 2),
+					new ChoiceSetting.ChoiceSettingValue("3", "24-bit, 3 bytes per number", 3),
+					new ChoiceSetting.ChoiceSettingValue("4", "32-bit, 4 bytes per number", 4),
+					new ChoiceSetting.ChoiceSettingValue("8", "64-bit, 8 bytes per number", 8)
+				}));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(AllocationSize), "_Allocation size", 512));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Comment), "_Comment"));
 			}
 			return _dfr;
 		}

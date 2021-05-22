@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
 
@@ -34,16 +34,19 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.PolygonMovieMaker
 	{
 
 		// TODO: figure out why PMD Save still generates an incompatible PMD file...
-
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
-			dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelTitleJapanese), "_Japanese model title"));
-			dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelTitleEnglish), "_English model title"));
-			dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelCommentJapanese), "Ja_panese model comment"));
-			dfr.ExportOptions.Add(new CustomOptionText(nameof(ModelCommentEnglish), "En_glish model comment"));
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ModelTitleJapanese), "_Japanese model title"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ModelTitleEnglish), "_English model title"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ModelCommentJapanese), "Ja_panese model comment"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ModelCommentEnglish), "En_glish model comment"));
+			}
+			return _dfr;
 		}
 
 		private string mvarModelTitleJapanese = String.Empty;

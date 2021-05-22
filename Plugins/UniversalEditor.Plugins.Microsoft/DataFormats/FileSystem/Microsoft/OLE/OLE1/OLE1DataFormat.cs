@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
@@ -39,8 +39,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.OLE.OLE1
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(ProgramName), "_Program name"));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(OriginalFileName), "Original file _name"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ProgramName), "_Program name"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(OriginalFileName), "Original file _name"));
 			}
 			return _dfr;
 		}

@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
@@ -39,13 +39,13 @@ namespace UniversalEditor.DataFormats.FileSystem.TerminalReality.POD
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version: ", true, new CustomOptionFieldChoice[]
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version: ", PODVersion.POD1, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("POD1", PODVersion.POD1, true),
-					new CustomOptionFieldChoice("POD2", PODVersion.POD2),
-					new CustomOptionFieldChoice("POD3", PODVersion.POD3)
+					new ChoiceSetting.ChoiceSettingValue("POD1", "POD1", PODVersion.POD1),
+					new ChoiceSetting.ChoiceSettingValue("POD2", "POD2", PODVersion.POD2),
+					new ChoiceSetting.ChoiceSettingValue("POD3", "POD3", PODVersion.POD3)
 				}));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "_Comment: "));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Comment), "_Comment: "));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive1");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive2");
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=PODArchive3");

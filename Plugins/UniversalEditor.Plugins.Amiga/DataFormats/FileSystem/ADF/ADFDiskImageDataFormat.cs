@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using MBS.Framework;
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -37,12 +38,12 @@ namespace UniversalEditor.Plugins.Amiga.DataFormats.FileSystem.ADF
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(VolumeName), "_Volume name"));
 			}
 			return _dfr;
 		}
 
 		public int BytesPerSector { get; set; } = 512;
-		[CustomOptionText("Volume _name")]
 		public string VolumeName { get; set; } = String.Empty;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)

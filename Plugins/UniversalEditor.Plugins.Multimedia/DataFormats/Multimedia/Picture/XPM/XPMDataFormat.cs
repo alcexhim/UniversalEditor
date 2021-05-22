@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using MBS.Framework.Drawing;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
@@ -35,12 +36,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice("FormatVersion", "Format _version", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version", XPMFormatVersion.XPM2, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("XBM", XPMFormatVersion.XBM, false),
-					new CustomOptionFieldChoice("XPM1", XPMFormatVersion.XPM1, false),
-					new CustomOptionFieldChoice("XPM2", XPMFormatVersion.XPM2, true),
-					new CustomOptionFieldChoice("XPM3", XPMFormatVersion.XPM3, false)
+					new ChoiceSetting.ChoiceSettingValue("XBM", "XBM", XPMFormatVersion.XBM),
+					new ChoiceSetting.ChoiceSettingValue("XPM1", "XPM1", XPMFormatVersion.XPM1),
+					new ChoiceSetting.ChoiceSettingValue("XPM2", "XPM2", XPMFormatVersion.XPM2),
+					new ChoiceSetting.ChoiceSettingValue("XPM3", "XPM3", XPMFormatVersion.XPM3)
 				}));
 			}
 			return _dfr;

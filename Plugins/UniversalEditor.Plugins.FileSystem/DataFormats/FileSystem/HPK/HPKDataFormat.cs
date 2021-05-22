@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.Compression;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.FileSystem.HPK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "_Compress the file using Zlib", false));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(Compressed), "_Compress the file using Zlib", false));
 			}
 			return _dfr;
 		}

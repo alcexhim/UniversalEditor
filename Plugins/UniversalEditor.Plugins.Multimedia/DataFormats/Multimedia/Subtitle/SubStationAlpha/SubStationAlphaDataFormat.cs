@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using MBS.Framework.Settings;
+
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.DataFormats.PropertyList;
 
@@ -49,8 +51,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubStationAlpha
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(SubtitleObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Title), "_Title"));
-				_dfr.ExportOptions.Add(new CustomOptionFile(nameof(VideoFileName), "_Video file name", String.Empty, "*.asf;*.avi;*.avs;*.d2v;*.m2ts;*.m4v;*.mkv;*.mov;*.mp4;*.mpeg;*.mpg;*.ogm;*.webm;*.wmv;*.ts;*.y4m;*.yuv"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Title), "_Title"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new FileSetting(nameof(VideoFileName), "_Video file name", String.Empty, false, "*.asf;*.avi;*.avs;*.d2v;*.m2ts;*.m4v;*.mkv;*.mov;*.mp4;*.mpeg;*.mpg;*.ogm;*.webm;*.wmv;*.ts;*.y4m;*.yuv"));
 			}
 			return _dfr;
 		}

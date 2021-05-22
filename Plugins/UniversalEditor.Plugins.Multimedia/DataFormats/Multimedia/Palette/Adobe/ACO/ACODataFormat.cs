@@ -22,7 +22,7 @@
 using System;
 
 using MBS.Framework.Drawing;
-
+using MBS.Framework.Settings;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
 namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
@@ -40,12 +40,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PaletteObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://www.nomodes.com/aco.html");
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(Version), "_Version", 1, 1, ushort.MaxValue));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(Version), "_Version", 1, 1, ushort.MaxValue));
 				/*
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(ColorSpace), "Color _space", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(ColorSpace), "Color _space", ACOColorSpace.RGB, new ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("RGB", ACOColorSpace.RGB, true),
-					new CustomOptionFieldChoice("CMYK", ACOColorSpace.CMYK)
+					new ChoiceSettingValue("RGB", ACOColorSpace.RGB),
+					new ChoiceSettingValue("CMYK", ACOColorSpace.CMYK)
 				}));
 				*/
 			}

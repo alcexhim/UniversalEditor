@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using MBS.Framework;
 using MBS.Framework.Logic;
 using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.Markup.XML;
@@ -252,10 +252,10 @@ namespace UniversalEditor.DataFormats.UEPackage
 									MarkupTagElement tagCustomOption = (elCustomOption as MarkupTagElement);
 									if (tagCustomOption == null) continue;
 
-									CustomOption co = LoadCustomOption(tagCustomOption);
+									Setting co = LoadCustomOption(tagCustomOption);
 									if (co == null) continue;
 
-									dfr.ExportOptions.Add(co);
+									dfr.ExportOptions.SettingsGroups[0].Settings.Add(co);
 								}
 							}
 						}
@@ -270,10 +270,10 @@ namespace UniversalEditor.DataFormats.UEPackage
 									MarkupTagElement tagCustomOption = (elCustomOption as MarkupTagElement);
 									if (tagCustomOption == null) continue;
 
-									CustomOption co = LoadCustomOption(tagCustomOption);
+									Setting co = LoadCustomOption(tagCustomOption);
 									if (co == null) continue;
 
-									dfr.ImportOptions.Add(co);
+									dfr.ImportOptions.SettingsGroups[0].Settings.Add(co);
 								}
 							}
 						}
@@ -1147,11 +1147,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 			return struc;
 		}
 
-		private CustomOption LoadCustomOption(MarkupTagElement tag)
+		private Setting LoadCustomOption(MarkupTagElement tag)
 		{
-			CustomOption co = null;
+			Setting co = null;
 
-			Type[] tCustomOptions = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(CustomOption) });
+			Type[] tCustomOptions = Reflection.GetAvailableTypes(new Type[] { typeof(Setting) });
 			foreach (Type tCustomOption in tCustomOptions)
 			{
 				if (tCustomOption.Name == tag.FullName)
@@ -1162,7 +1162,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 					MarkupAttribute attTitle = tag.Attributes["Title"];
 					if (attTitle == null) continue;
 
-					co = (CustomOption)tCustomOption.Assembly.CreateInstance(tCustomOption.FullName, false, System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.OptionalParamBinding, null, new object[] { attID.Value, attTitle.Value.Replace("_", "&") }, null, null);
+					co = (Setting)tCustomOption.Assembly.CreateInstance(tCustomOption.FullName, false, System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.OptionalParamBinding, null, new object[] { attID.Value, attTitle.Value.Replace("_", "&") }, null, null);
 
 					foreach (MarkupAttribute att in tag.Attributes)
 					{

@@ -21,7 +21,7 @@
 
 // 2013-05-12
 using System;
-
+using MBS.Framework.Settings;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.Nero
@@ -38,8 +38,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Nero
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(ImageName), "Image _name"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(ImageName2), "Image name (_Joliet)"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ImageName), "Image _name"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ImageName2), "Image name (_Joliet)"));
 			}
 			return _dfr;
 		}

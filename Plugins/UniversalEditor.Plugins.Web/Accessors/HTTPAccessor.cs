@@ -21,6 +21,7 @@
 
 using System;
 using System.Net;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.Accessors
 {
@@ -36,7 +37,7 @@ namespace UniversalEditor.Accessors
 			{
 				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Internet (HTTP)";
-				_ar.ImportOptions.Add(new CustomOptionText(nameof(FileName), "File _name: "));
+				_ar.ImportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(FileName), "File _name: "));
 			}
 			return _ar;
 		}

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -40,8 +40,8 @@ namespace UniversalEditor.DataFormats.FileSystem.DeepSilver.SecretFiles
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionDomain), "Encryption _domain", 0xbebe2, Int32.MaxValue, Int32.MinValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionSeed), "Encryption _seed", 0, Int32.MaxValue, Int32.MinValue));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(EncryptionDomain), "Encryption _domain", 0xbebe2, Int32.MaxValue, Int32.MinValue));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(EncryptionSeed), "Encryption _seed", 0, Int32.MaxValue, Int32.MinValue));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Secret_Files:_Tunguska_%28Demo%29_SPR");
 			}
 			return _dfr;

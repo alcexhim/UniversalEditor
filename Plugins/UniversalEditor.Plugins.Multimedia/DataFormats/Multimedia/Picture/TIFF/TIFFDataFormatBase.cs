@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 
@@ -34,10 +35,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TIFF
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(TIFFObjectModelBase), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice("Endianness", "_Endianness", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting("Endianness", "_Endianness", Endianness.LittleEndian, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("Little-endian", Endianness.LittleEndian),
-					new CustomOptionFieldChoice("Big-endian", Endianness.BigEndian)
+					new ChoiceSetting.ChoiceSettingValue("LittleEndian", "Little-endian", Endianness.LittleEndian),
+					new ChoiceSetting.ChoiceSettingValue("BigEndian", "Big-endian", Endianness.BigEndian)
 				}));
 			}
 			return _dfr;

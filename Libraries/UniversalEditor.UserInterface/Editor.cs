@@ -857,22 +857,10 @@ namespace UniversalEditor.UserInterface
 			{
 				if (Document.DataFormat != null)
 				{
-					List<CustomOption> listOptions = new List<CustomOption>();
 					DataFormatReference dfr = Document.DataFormat.MakeReference();
-					for (int i = 0; i < dfr.ExportOptions.Count; i++)
+					if (dfr.ExportOptions != null)
 					{
-						if (!dfr.ExportOptions[i].Visible) continue;
-						listOptions.Add(dfr.ExportOptions[i]);
-					}
-					if (listOptions.Count > 0)
-					{
-						CustomSettingsProvider csp = new CustomSettingsProvider();
-						SettingsGroup sg = new SettingsGroup();
-						sg.Path = new string[] { dfr.Title };
-						csp.SettingsGroups.Add(sg);
-
-						sg.AddCustomOptions(listOptions, csp);
-						list.Add(csp);
+						list.Add(dfr.ExportOptions);
 					}
 				}
 			}

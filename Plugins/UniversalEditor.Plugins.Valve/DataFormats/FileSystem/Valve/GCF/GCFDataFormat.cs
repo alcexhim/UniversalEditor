@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
@@ -37,9 +38,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Valve.GCF
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionVersion(nameof(FormatVersion), "Format _version"));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(CacheID), "_Cache ID"));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(LastVersionPlayed), "_Last version played"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new VersionSetting(nameof(FormatVersion), "Format _version", new Version(1, 0), 2));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(CacheID), "_Cache ID"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(LastVersionPlayed), "_Last version played"));
 			}
 			return _dfr;
 		}

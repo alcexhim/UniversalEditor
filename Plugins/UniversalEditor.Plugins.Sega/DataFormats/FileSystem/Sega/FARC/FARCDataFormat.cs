@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using MBS.Framework;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.UserInterface;
@@ -69,8 +70,8 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.FileSystem.Sega.FARC
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Encrypted), "_Encrypt the data with the specified key"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "_Compress the data with the gzip algorithm"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(Encrypted), "_Encrypt the data with the specified key"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(Compressed), "_Compress the data with the gzip algorithm"));
 			}
 			return _dfr;
 		}

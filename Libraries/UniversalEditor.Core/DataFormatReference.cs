@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework;
 
 namespace UniversalEditor
 {
@@ -154,11 +155,17 @@ namespace UniversalEditor
 		private System.Collections.Specialized.StringCollection mvarSources = new System.Collections.Specialized.StringCollection();
 		public System.Collections.Specialized.StringCollection Sources { get { return mvarSources; } }
 
-		private CustomOption.CustomOptionCollection mvarImportOptions = new CustomOption.CustomOptionCollection();
-		public CustomOption.CustomOptionCollection ImportOptions { get { return mvarImportOptions; } }
+		/// <summary>
+		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="DataFormatReference" />
+		/// when it is being used to open or import a file.
+		/// </summary>
+		public SettingsProvider ImportOptions { get; set; } = new CustomSettingsProvider();
 
-		private CustomOption.CustomOptionCollection mvarExportOptions = new CustomOption.CustomOptionCollection();
-		public CustomOption.CustomOptionCollection ExportOptions { get { return mvarExportOptions; } }
+		/// <summary>
+		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="DataFormatReference" />
+		/// when it is being used to open or import a file.
+		/// </summary>
+		public SettingsProvider ExportOptions { get; set; } = new CustomSettingsProvider();
 
 		public virtual DataFormat Create()
 		{

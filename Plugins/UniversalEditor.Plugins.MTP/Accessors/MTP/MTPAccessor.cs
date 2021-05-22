@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 
 namespace UniversalEditor.Accessors.MTP
@@ -63,7 +63,7 @@ namespace UniversalEditor.Accessors.MTP
 				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Media Transfer Protocol (MTP)";
 				_ar.Schemas.Add("mtp-disabled");
-				_ar.ImportOptions.Add(new CustomOptionText(nameof(FileName), "File _name"));
+				_ar.ImportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(FileName), "File _name"));
 			}
 			return _ar;
 		}

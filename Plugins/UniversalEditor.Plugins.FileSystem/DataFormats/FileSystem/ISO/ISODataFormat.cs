@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
@@ -40,17 +40,17 @@ namespace UniversalEditor.DataFormats.FileSystem.ISO
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.ContentTypes.Add("application/x-iso9660-image");
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(SystemName), "System _name", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeName), "_Volume name", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeSetSize), "Nu_mber of volumes in this set", 1, 0, UInt16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(VolumeSequenceNumber), "_Index of this volume in set", 0, 0, UInt16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VolumeSet), "Volume _set", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Publisher), "_Publisher", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(DataPreparer), "_Data preparer", String.Empty, 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Application), "_Application", "Universal Editor", 128));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(CopyrightFile), "_Copyright file", String.Empty, 38));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(AbstractFile), "Abs_tract file", String.Empty, 36));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(BibliographicFile), "_Bibliographic file", String.Empty, 37));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(SystemName), "System _name", String.Empty, 128));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(VolumeName), "_Volume name", String.Empty, 128));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(VolumeSetSize), "Nu_mber of volumes in this set", 1, 0, UInt16.MaxValue));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(VolumeSequenceNumber), "_Index of this volume in set", 0, 0, UInt16.MaxValue));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(VolumeSet), "Volume _set", String.Empty, 128));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Publisher), "_Publisher", String.Empty, 128));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(DataPreparer), "_Data preparer", String.Empty, 128));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Application), "_Application", "Universal Editor", 128));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(CopyrightFile), "_Copyright file", String.Empty, 38));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(AbstractFile), "Abs_tract file", String.Empty, 36));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(BibliographicFile), "_Bibliographic file", String.Empty, 37));
 			}
 			return _dfr;
 		}

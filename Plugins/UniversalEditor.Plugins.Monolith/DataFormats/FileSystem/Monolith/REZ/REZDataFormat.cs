@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Settings;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.Plugins.Monolith.DataFormats.FileSystem.Monolith.REZ
@@ -36,7 +37,7 @@ namespace UniversalEditor.Plugins.Monolith.DataFormats.FileSystem.Monolith.REZ
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Description), "_Description", String.Empty, 127));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Description), "_Description", String.Empty, 127));
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=Monolith_REZ");
 				// _dfr.Filters.Add("Monolith Productions REZ archive", new string[] { "*.rez" });
 			}

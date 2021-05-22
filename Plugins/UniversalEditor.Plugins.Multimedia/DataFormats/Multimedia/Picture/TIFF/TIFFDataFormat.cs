@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.ObjectModels.Multimedia.Picture.Collection;
@@ -41,16 +41,16 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.TIFF
 				_dfr.Capabilities.Clear();
 				_dfr.Capabilities.Add(typeof(PictureCollectionObjectModel), DataFormatCapabilities.All);
 
-				_dfr.ExportOptions.Add(new CustomOptionChoice("CompressionMethod", "Compression _method", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(CompressionMethod), "Compression _method", TIFFCompression.None, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("None", TIFFCompression.None),
-					new CustomOptionFieldChoice("Run-length encoding", TIFFCompression.RunLengthEncoding),
-					new CustomOptionFieldChoice("Group 3 fax", TIFFCompression.Group3Fax),
-					new CustomOptionFieldChoice("Group 4 fax", TIFFCompression.Group4Fax),
-					new CustomOptionFieldChoice("LZW", TIFFCompression.LZW),
-					new CustomOptionFieldChoice("JPEG", TIFFCompression.JPEG),
-					new CustomOptionFieldChoice("Deflate", TIFFCompression.Deflate),
-					new CustomOptionFieldChoice("PackBits", TIFFCompression.PackBits)
+					new ChoiceSetting.ChoiceSettingValue("None", "None", TIFFCompression.None),
+					new ChoiceSetting.ChoiceSettingValue("RunLengthEncoding", "Run-length encoding", TIFFCompression.RunLengthEncoding),
+					new ChoiceSetting.ChoiceSettingValue("Group3Fax", "Group 3 fax", TIFFCompression.Group3Fax),
+					new ChoiceSetting.ChoiceSettingValue("Group4Fax", "Group 4 fax", TIFFCompression.Group4Fax),
+					new ChoiceSetting.ChoiceSettingValue("LZW", "LZW", TIFFCompression.LZW),
+					new ChoiceSetting.ChoiceSettingValue("JPEG", "JPEG", TIFFCompression.JPEG),
+					new ChoiceSetting.ChoiceSettingValue("Deflate", "Deflate", TIFFCompression.Deflate),
+					new ChoiceSetting.ChoiceSettingValue("PackBits", "PackBits", TIFFCompression.PackBits)
 				}));
 			}
 			return _dfr;

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Specialized;
+using MBS.Framework;
 
 namespace UniversalEditor
 {
@@ -70,19 +71,17 @@ namespace UniversalEditor
 		/// </summary>
 		public bool Visible { get { return mvarVisible; } set { mvarVisible = value; } }
 
-		private CustomOption.CustomOptionCollection mvarExportOptions = new CustomOption.CustomOptionCollection();
 		/// <summary>
-		/// A collection of <see cref="CustomOption" />s that are applied to the <see cref="Accessor" />
+		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="Accessor" />
 		/// when it is being used to save or export a file.
 		/// </summary>
-		public CustomOption.CustomOptionCollection ExportOptions { get { return mvarExportOptions; } }
+		public SettingsProvider ExportOptions { get; set; } = new CustomOptionCompatSettingsProvider();
 
-		private CustomOption.CustomOptionCollection mvarImportOptions = new CustomOption.CustomOptionCollection();
 		/// <summary>
-		/// A collection of <see cref="CustomOption" />s that are applied to the <see cref="Accessor" />
+		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="Accessor" />
 		/// when it is being used to open or import a file.
 		/// </summary>
-		public CustomOption.CustomOptionCollection ImportOptions { get { return mvarImportOptions; } }
+		public SettingsProvider ImportOptions { get; set; } = new CustomOptionCompatSettingsProvider();
 
 		/// <summary>
 		/// Creates an instance of an <see cref="Accessor" /> from the <see cref="Type" /> described in this <see cref="AccessorReference" />.

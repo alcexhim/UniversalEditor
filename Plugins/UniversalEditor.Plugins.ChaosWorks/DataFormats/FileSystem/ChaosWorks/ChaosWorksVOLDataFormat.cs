@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.Compression.Modules.LZRW1;
 using UniversalEditor.IO;
@@ -41,15 +42,19 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Compressed), "_Compress this archive", true));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Compress this archive using the LZRW1 algorithm";
-
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(Compressed), "_Compress this archive", true)
 				{
-					new CustomOptionFieldChoice("Version 1 (Fire Fight)", ChaosWorksVOLFormatVersion.V1, true),
-					new CustomOptionFieldChoice("Version 2 (Akimbo, Excessive Speed)", ChaosWorksVOLFormatVersion.V2)
-				}));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "The version of the VOL data format to use";
+					Description = "Compress this archive using the LZRW1 algorithm"
+				});
+
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version", ChaosWorksVOLFormatVersion.V1, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("V1", "Version 1 (Fire Fight)", ChaosWorksVOLFormatVersion.V1),
+					new ChoiceSetting.ChoiceSettingValue("V2", "Version 2 (Akimbo, Excessive Speed)", ChaosWorksVOLFormatVersion.V2)
+				})
+				{
+					 Description = "The version of the VOL data format to use"
+				});
 				_dfr.Sources.Add("Based on a requested QuickBMS script by WRS from xentax.com");
 			}
 			return _dfr;

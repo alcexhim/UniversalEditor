@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
@@ -36,16 +38,14 @@ namespace UniversalEditor.DataFormats.FileSystem.GremlinInteractive.ActuaSoccer.
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version", true, new CustomOptionFieldChoice[]
+				Setting FormatVersionSetting = new ChoiceSetting(nameof(FormatVersion), "Format _version", MADFormatVersion.Type1, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("Type 1 (includes file names)", MADFormatVersion.Type1, true),
-					new CustomOptionFieldChoice("Type 2 (does not include file names)", MADFormatVersion.Type2)
-				}));
-				_dfr.ImportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version", true, new CustomOptionFieldChoice[]
-				{
-					new CustomOptionFieldChoice("Type 1 (includes file names)", MADFormatVersion.Type1, true),
-					new CustomOptionFieldChoice("Type 2 (does not include file names)", MADFormatVersion.Type2)
-				}));
+					new ChoiceSetting.ChoiceSettingValue("Type1", "Type 1 (includes file names)", MADFormatVersion.Type1),
+					new ChoiceSetting.ChoiceSettingValue("Type2", "Type 2 (does not include file names)", MADFormatVersion.Type2)
+				});
+
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(FormatVersionSetting);
+				_dfr.ImportOptions.SettingsGroups[0].Settings.Add(FormatVersionSetting);
 				_dfr.Sources.Add("http://wiki.xentax.com/index.php?title=GRAF:Actua_Soccer_MAD");
 			}
 			return _dfr;

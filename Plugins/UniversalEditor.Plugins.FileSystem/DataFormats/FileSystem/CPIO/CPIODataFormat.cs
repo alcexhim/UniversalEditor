@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
@@ -40,11 +40,11 @@ namespace UniversalEditor.DataFormats.FileSystem.CPIO
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://people.freebsd.org/~kientzle/libarchive/man/cpio.5.txt");
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Encoding), "_Encoding: ", true, new CustomOptionFieldChoice[]
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(Encoding), "_Encoding: ", CPIOEncoding.BinaryLittleEndian, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("Binary (little-endian)", CPIOEncoding.BinaryLittleEndian, true),
-					new CustomOptionFieldChoice("Binary (big-endian)", CPIOEncoding.BinaryBigEndian),
-					new CustomOptionFieldChoice("ASCII", CPIOEncoding.ASCII)
+					new ChoiceSetting.ChoiceSettingValue("BinaryLittleEndian", "Binary (little-endian)", CPIOEncoding.BinaryLittleEndian),
+					new ChoiceSetting.ChoiceSettingValue("BinaryBigEndian", "Binary (big-endian)", CPIOEncoding.BinaryBigEndian),
+					new ChoiceSetting.ChoiceSettingValue("ASCII", "ASCII", CPIOEncoding.ASCII)
 				}));
 			}
 			return _dfr;

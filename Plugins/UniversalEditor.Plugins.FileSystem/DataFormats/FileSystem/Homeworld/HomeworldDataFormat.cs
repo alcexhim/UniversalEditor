@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework.Settings;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.Homeworld
@@ -35,10 +36,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Homeworld
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Version), "Format _version:", true,
-					new CustomOptionFieldChoice("Version \"VCE0\"", (uint)0),
-					new CustomOptionFieldChoice("Version \"WXD1\"", (uint)1)
-				));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(Version), "Format _version:", (uint)0, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("VCE0", "Version \"VCE0\"", (uint)0),
+					new ChoiceSetting.ChoiceSettingValue("WXD1", "Version \"WXD1\"", (uint)1)
+				}));
 			}
 			return _dfr;
 		}

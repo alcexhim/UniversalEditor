@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using MBS.Framework;
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Database;
@@ -46,37 +48,40 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Mode), "File access _method", true, new CustomOptionFieldChoice[]
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(Mode), "File access _method", CPKFileMode.IDFilename, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice("ID only", CPKFileMode.IDOnly),
-					new CustomOptionFieldChoice("Filename only", CPKFileMode.FilenameOnly),
-					new CustomOptionFieldChoice("ID + Filename", CPKFileMode.IDFilename),
-					new CustomOptionFieldChoice("Filename + Group (Attribute)", CPKFileMode.FilenameGroup),
-					new CustomOptionFieldChoice("ID + Group (Attribute)", CPKFileMode.IDGroup),
-					new CustomOptionFieldChoice("Filename + ID + Group (Attribute)", CPKFileMode.FilenameIDGroup)
-				}));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Choose the method by which files should be accessed in the resulting archive.";
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(VersionString), "_Version string", "CPKMC2.14.00, DLL2.74.00"));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Override the version string written by the creator program.";
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(SectorAlignment), "Sector _alignment", 2048, 0, 2048));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Choose the alignment for each file in the resulting archive (between 1 and 2048 in powers of 2).";
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(ScrambleDirectoryInformation), "_Scramble directory information"));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Encrypt the directory information in the resulting archive (contents are NOT encrypted).";
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(ForceCompression), "_Force compression"));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Attempt to compress all files in the archive regardless of individual file compression setting.";
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(ForceCompression), "Include _CRC information"));
-				_dfr.ExportOptions[_dfr.ExportOptions.Count - 1].Description = "Generate CRC checksum information (about 4 additional bytes per file) for each file.";
+					new ChoiceSetting.ChoiceSettingValue("IDOnly", "ID only", CPKFileMode.IDOnly),
+					new ChoiceSetting.ChoiceSettingValue("FilenameOnly", "Filename only", CPKFileMode.FilenameOnly),
+					new ChoiceSetting.ChoiceSettingValue("IDFilename", "ID + Filename", CPKFileMode.IDFilename),
+					new ChoiceSetting.ChoiceSettingValue("FilenameGroup", "Filename + Group (Attribute)", CPKFileMode.FilenameGroup),
+					new ChoiceSetting.ChoiceSettingValue("IDGroup", "ID + Group (Attribute)", CPKFileMode.IDGroup),
+					new ChoiceSetting.ChoiceSettingValue("FilenameIDGroup", "Filename + ID + Group (Attribute)", CPKFileMode.FilenameIDGroup)
+				})
+				{ Description = "Choose the method by which files should be accessed in the resulting archive." });
 
-				CustomOptionGroup grp = new CustomOptionGroup("", "CPK File Setting");
-				grp.Options.Add(new CustomOptionBoolean("TopTocInformation", "Write TOC at beginning of file", false));
-				grp.Options[grp.Options.Count - 1].Description = "Media with slow seek time may be able to load the information fast, but may take up more space.";
-				grp.Options.Add(new CustomOptionBoolean("RandomDataPadding", "_Random data padding", false));
-				grp.Options[grp.Options.Count - 1].Description = "Pad file contents with random data instead of zero byte.";
-				grp.Options.Add(new CustomOptionBoolean("RemoveLocalInfo", "Do not write _local filename information", false));
-				grp.Options[grp.Options.Count - 1].Description = "When enabled, new files cannot be added.";
-				grp.Options.Add(new CustomOptionBoolean("RemoveTimestampInfo", "Do not write _timestamp information", false));
-				grp.Options[grp.Options.Count - 1].Description = "When enabled, data cannot be added.";
-				_dfr.ExportOptions.Add(grp);
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(VersionString), "_Version string", "CPKMC2.14.00, DLL2.74.00")
+				{ Description = "Override the version string written by the creator program." });
+
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(SectorAlignment), "Sector _alignment", 2048, 0, 2048)
+				{ Description = "Choose the alignment for each file in the resulting archive (between 1 and 2048 in powers of 2)." });
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(ScrambleDirectoryInformation), "_Scramble directory information")
+				{ Description = "Encrypt the directory information in the resulting archive (contents are NOT encrypted)." });
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(ForceCompression), "_Force compression")
+				{ Description = "Attempt to compress all files in the archive regardless of individual file compression setting." });
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(ForceCompression), "Include _CRC information")
+				{ Description = "Generate CRC checksum information (about 4 additional bytes per file) for each file." });
+
+				_dfr.ExportOptions.SettingsGroups.Add(new SettingsGroup("CPK File Setting", new Setting[]
+				{
+					new BooleanSetting("TopTocInformation", "Write TOC at beginning of file", false)
+					{ Description = "Media with slow seek time may be able to load the information fast, but may take up more space." },
+					new BooleanSetting("RandomDataPadding", "_Random data padding", false)
+					{ Description = "Pad file contents with random data instead of zero byte." },
+					new BooleanSetting("RemoveLocalInfo", "Do not write _local filename information", false)
+					{ Description = "When enabled, new files cannot be added." },
+					new BooleanSetting("RemoveTimestampInfo", "Do not write _timestamp information", false)
+					{ Description = "When enabled, data cannot be added." }
+				}));
 			}
 			return _dfr;
 		}

@@ -20,6 +20,9 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+
+using MBS.Framework.Settings;
+
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 
@@ -35,11 +38,13 @@ namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.SPC
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(SynthesizedAudioObjectModel), DataFormatCapabilities.All);
 
-			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(Generator), "_Generator", true,
-				new CustomOptionFieldChoice("Unknown", SPC700Emulator.Unknown, true),
-				new CustomOptionFieldChoice("ZSNES", SPC700Emulator.ZSNES),
-				new CustomOptionFieldChoice("Snes9x", SPC700Emulator.Snes9x)
-			));
+			dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(Generator), "_Generator", SPC700Emulator.Unknown,
+			new ChoiceSetting.ChoiceSettingValue[]
+			{
+				new ChoiceSetting.ChoiceSettingValue("Unknown", "Unknown", SPC700Emulator.Unknown),
+				new ChoiceSetting.ChoiceSettingValue("ZSNES", "ZSNES", SPC700Emulator.ZSNES),
+				new ChoiceSetting.ChoiceSettingValue("Snes9x", "Snes9x", SPC700Emulator.Snes9x)
+			}));
 
 			return dfr;
 		}

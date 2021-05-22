@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Text;
 using MBS.Framework;
 using MBS.Framework.Drawing;
+using MBS.Framework.Settings;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
@@ -400,8 +401,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 					string[] details = DataFormat.MakeReference().GetDetails();
 					if (details.Length > 1)
 					{
-						(accref.ImportOptions[0] as CustomOptionFile).Filter = details[0] + "|" + details[1];
-						(accref.ExportOptions[0] as CustomOptionFile).Filter = details[0] + "|" + details[1];
+						(accref.ImportOptions.FindSetting(nameof(FileAccessor.FileName)) as FileSetting).FileNameFilter = details[0] + "|" + details[1];
+						(accref.ExportOptions.FindSetting(nameof(FileAccessor.FileName)) as FileSetting).FileNameFilter = details[0] + "|" + details[1];
 					}
 				}
 			}
@@ -410,8 +411,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 				if (acc is FileAccessor)
 				{
 					AccessorReference accref = acc.MakeReference();
-					(accref.ImportOptions[0] as CustomOptionFile).Filter = "All files|*";
-					(accref.ExportOptions[0] as CustomOptionFile).Filter = "All files|*";
+					(accref.ImportOptions.FindSetting(nameof(FileAccessor.FileName)) as FileSetting).FileNameFilter = "All files|*";
+					(accref.ExportOptions.FindSetting(nameof(FileAccessor.FileName)) as FileSetting).FileNameFilter = "All files|*";
 				}
 			}
 

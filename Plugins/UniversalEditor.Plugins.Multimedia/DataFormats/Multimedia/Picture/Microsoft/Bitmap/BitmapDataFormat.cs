@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 using MBS.Framework.Drawing;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 {
@@ -47,14 +48,14 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelDepth), "Pixel _depth", true, new CustomOptionFieldChoice[]
+			dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(PixelDepth), "Pixel _depth", BitmapBitsPerPixel.TrueColor, new ChoiceSetting.ChoiceSettingValue[]
 			{
-				new CustomOptionFieldChoice("16 colors", BitmapBitsPerPixel.Color16),
-				new CustomOptionFieldChoice("256 colors", BitmapBitsPerPixel.Color256),
-				new CustomOptionFieldChoice("Deep color (-bit R8G8B8)", BitmapBitsPerPixel.DeepColor),
-				new CustomOptionFieldChoice("High color (16-bit R5G5B5)", BitmapBitsPerPixel.HighColor),
-				new CustomOptionFieldChoice("Monochrome", BitmapBitsPerPixel.Monochrome),
-				new CustomOptionFieldChoice("True color (24-bit R8G8B8)", BitmapBitsPerPixel.TrueColor)
+				new ChoiceSetting.ChoiceSettingValue("Color16", "16 colors", BitmapBitsPerPixel.Color16),
+				new ChoiceSetting.ChoiceSettingValue("Color256", "256 colors", BitmapBitsPerPixel.Color256),
+				new ChoiceSetting.ChoiceSettingValue("DeepColor", "Deep color (32-bit R8G8B8X8)", BitmapBitsPerPixel.DeepColor),
+				new ChoiceSetting.ChoiceSettingValue("HighColor", "High color (16-bit R5G5B5)", BitmapBitsPerPixel.HighColor),
+				new ChoiceSetting.ChoiceSettingValue("Monochrome", "Monochrome", BitmapBitsPerPixel.Monochrome),
+				new ChoiceSetting.ChoiceSettingValue("TrueColor", "True color (24-bit R8G8B8)", BitmapBitsPerPixel.TrueColor)
 			}));
 			return dfr;
 		}

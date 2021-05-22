@@ -28,6 +28,7 @@ using UniversalEditor.DataFormats.Markup.XML;
 using UniversalEditor.ObjectModels.Text.Plain;
 using UniversalEditor.ObjectModels.Text.Formatted;
 using UniversalEditor.ObjectModels.Text.Formatted.Items;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.DataFormats.Text.HTML
 {
@@ -46,7 +47,7 @@ namespace UniversalEditor.DataFormats.Text.HTML
 				_dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Title), "_Title"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Title), "_Title"));
 			}
 			return _dfr;
 		}

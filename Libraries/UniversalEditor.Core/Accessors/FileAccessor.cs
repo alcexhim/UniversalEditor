@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 
 namespace UniversalEditor.Accessors
@@ -41,16 +41,16 @@ namespace UniversalEditor.Accessors
 				_ar = base.MakeReferenceInternal();
 				_ar.Title = "Local file";
 
-				_ar.ImportOptions.Add(new CustomOptionFile(nameof(FileName), "_File name"));
-				_ar.ImportOptions.Add(new CustomOptionBoolean(nameof(ForceOverwrite), "Force over_write if file exists", false, false, false));
-				_ar.ImportOptions.Add(new CustomOptionBoolean(nameof(AllowWrite), "Open file for writing", false, false, false));
+				_ar.ImportOptions.SettingsGroups[0].Settings.Add(new FileSetting(nameof(FileName), "_File name"));
+				_ar.ImportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(ForceOverwrite), "Force over_write if file exists", false, false, false));
+				_ar.ImportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(AllowWrite), "Open file for writing", false, false, false));
 
-				CustomOptionFile cofExportFileName = new CustomOptionFile(nameof(FileName), "_File name");
-				cofExportFileName.DialogMode = CustomOptionFileDialogMode.Save;
-				_ar.ExportOptions.Add(cofExportFileName);
+				FileSetting cofExportFileName = new FileSetting(nameof(FileName), "_File name");
+				cofExportFileName.Mode = FileSettingMode.Save;
+				_ar.ExportOptions.SettingsGroups[0].Settings.Add(cofExportFileName);
 
-				_ar.ExportOptions.Add(new CustomOptionBoolean(nameof(ForceOverwrite), "Force over_write if file exists", true, true));
-				_ar.ExportOptions.Add(new CustomOptionBoolean(nameof(AllowWrite), "Open file for writing", true, false, false));
+				_ar.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(ForceOverwrite), "Force over_write if file exists", true, true));
+				_ar.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(AllowWrite), "Open file for writing", true, false, false));
 			}
 			return _ar;
 		}

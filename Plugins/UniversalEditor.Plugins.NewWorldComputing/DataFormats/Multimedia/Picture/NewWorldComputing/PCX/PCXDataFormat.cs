@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
@@ -34,7 +35,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.PCX
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionFile("PaletteFileName", "External _palette", "Palette|*.pal"));
+				_dfr.ImportOptions.SettingsGroups[0].Settings.Add(new FileSetting("PaletteFileName", "External _palette", "Palette|*.pal"));
 			}
 			return _dfr;
 		}

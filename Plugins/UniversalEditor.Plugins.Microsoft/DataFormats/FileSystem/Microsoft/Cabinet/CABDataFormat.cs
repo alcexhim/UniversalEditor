@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.Compression;
 using UniversalEditor.IO;
@@ -19,14 +20,14 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				_dfr.Sources.Add("http://msdn.microsoft.com/en-us/library/bb267310.aspx#struct_spec");
 
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(CabinetReservedAreaSize), "Per-_cabinet reserved area size", 0, 0, UInt16.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(FolderReservedAreaSize), "Per-_folder reserved area size", 0, 0, Byte.MaxValue));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(DatablockReservedAreaSize), "Per-_datablock reserved area size", 0, 0, Byte.MaxValue));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(CabinetReservedAreaSize), "Per-_cabinet reserved area size", 0, 0, UInt16.MaxValue));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(FolderReservedAreaSize), "Per-_folder reserved area size", 0, 0, Byte.MaxValue));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(DatablockReservedAreaSize), "Per-_datablock reserved area size", 0, 0, Byte.MaxValue));
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(NextCabinetName), "_Next cabinet file name"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(NextDiskName), "Ne_xt cabinet disk name"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PreviousCabinetName), "_Previous cabinet file name"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PreviousDiskName), "Pre_vious cabinet disk name"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(NextCabinetName), "_Next cabinet file name"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(NextDiskName), "Ne_xt cabinet disk name"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(PreviousCabinetName), "_Previous cabinet file name"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(PreviousDiskName), "Pre_vious cabinet disk name"));
 			}
 			return _dfr;
 		}

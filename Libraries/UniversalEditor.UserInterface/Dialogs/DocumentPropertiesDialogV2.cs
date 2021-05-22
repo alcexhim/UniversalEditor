@@ -27,6 +27,7 @@ using MBS.Framework.UserInterface.Controls.FileBrowser;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.UserInterface.Controls;
 using MBS.Framework;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.UserInterface.Dialogs
 {
@@ -69,41 +70,41 @@ namespace UniversalEditor.UserInterface.Dialogs
 			Container ct = (pnl.Control as Container);
 
 			AccessorReference accref = pnl.GetExtraData<AccessorReference> ("ar");
-			CustomOption.CustomOptionCollection coll = new CustomOption.CustomOptionCollection ();
+			CustomOptionCompatSettingsProvider coll = new CustomOptionCompatSettingsProvider();
 			foreach (Control ctl in ct.Controls) {
-				CustomOption eo = (ctl.GetExtraData ("eo") as CustomOption);
+				Setting eo = (ctl.GetExtraData ("eo") as Setting);
 				if (eo == null)
 					continue;
 
 				if (ctl is CheckBox) {
 					CheckBox itm = (ctl as CheckBox);
-					(eo as CustomOptionBoolean).Value = itm.Checked;
+					(eo as BooleanSetting).SetValue<bool>(itm.Checked);
 				}
 				/*
 					else if (ctl is ComboBox)
 					{
-						CustomOptionFieldChoice choice = ((ctl as ComboBox).SelectedItem as CustomOptionFieldChoice);
-						(eo as CustomOptionChoice).Value = choice;
+						ChoiceSetting.ChoiceSettingValue choice = ((ctl as ComboBox).SelectedItem as ChoiceSetting.ChoiceSettingValue);
+						(eo as ChoiceSetting).Value = choice;
 					}
 					*/
 				else if (ctl is TextBox) {
 					TextBox itm = (ctl as TextBox);
-					if (eo is CustomOptionText) {
-						(eo as CustomOptionText).Value = itm.Text;
+					if (eo is TextSetting) {
+						(eo as TextSetting).SetValue<string>(itm.Text);
 					}
 				} else if (ctl is UniversalEditorFileBrowserControl) {
 					UniversalEditorFileBrowserControl fbc = (ctl as UniversalEditorFileBrowserControl);
-					if (eo is CustomOptionFile)
+					if (eo is FileSetting)
 					{
-						(eo as CustomOptionFile).Value = fbc.SelectedFileNames [0];
+						(eo as FileSetting).SetValue<string>(fbc.SelectedFileNames[0]);
 					}
 				}
 
-				coll.Add (eo);
+				coll.SettingsGroups[0].Settings.Add(eo);
 			}
 
 			Accessor acc = accref.Create ();
-			Engine.CurrentEngine.ApplyCustomOptions (ref acc, coll);
+			Engine.CurrentEngine.ApplyCustomOptions(acc, coll);
 
 			Accessor = acc;
 
@@ -155,8 +156,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 				ct.Name = acc.AccessorType.FullName;
 				ct.Text = acc.Title;
 
-				CustomOption.CustomOptionCollection coll = null;
-				switch (Mode) {
+				SettingsProvider coll = null;
+				switch (Mode)
+				{
 					case DocumentPropertiesDialogMode.Open:
 					{
 						coll = acc.ImportOptions;
@@ -170,115 +172,119 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 
 				int iRow = 0;
-				foreach (CustomOption eo in coll) {
-					// do not render the CustomOption if it's supposed to be invisible
-					if (!eo.Visible) continue;
-
-					if (!(eo is CustomOptionBoolean) && (!(eo is CustomOptionFile)))
+				foreach (SettingsGroup sg in coll.SettingsGroups)
+				{
+					foreach (Setting eo in sg.Settings)
 					{
-						Label lbl = new Label();
-						// lbl.FlatStyle = FlatStyle.System;
-						// lbl.AutoSize = true;
-						// lbl.Dock = DockStyle.None;
-						// lbl.Anchor = AnchorStyles.Left;
-						lbl.UseMnemonic = true;
-						lbl.Text = eo.Title; // .Replace("_", "&"); // only for WinForms
-						ct.Controls.Add(lbl, new GridLayout.Constraints(iRow, 0, 1, 1, ExpandMode.None));
-					}
+						// do not render the CustomOption if it's supposed to be invisible
+						if (!eo.Visible) continue;
 
-					if (eo is CustomOptionChoice)
-					{
-						CustomOptionChoice option = (eo as CustomOptionChoice);
-
-						// ComboBox cbo = new ComboBox();
-						// if (option.RequireChoice) cbo.DropDownStyle = ComboBoxStyle.DropDownList;
-						foreach (CustomOptionFieldChoice choice in option.Choices)
+						if (!(eo is BooleanSetting) && (!(eo is FileSetting)))
 						{
-							// cbo.Items.Add(choice);
+							Label lbl = new Label();
+							// lbl.FlatStyle = FlatStyle.System;
+							// lbl.AutoSize = true;
+							// lbl.Dock = DockStyle.None;
+							// lbl.Anchor = AnchorStyles.Left;
+							lbl.UseMnemonic = true;
+							lbl.Text = eo.Title; // .Replace("_", "&"); // only for WinForms
+							ct.Controls.Add(lbl, new GridLayout.Constraints(iRow, 0, 1, 1, ExpandMode.None));
 						}
-						// cbo.Dock = DockStyle.Fill;
 
-						// tbl.Controls.Add(cbo);
-
-						// CustomOptionControls.Add(eo.PropertyName, cbo);
-					}
-					else if (eo is CustomOptionNumber)
-					{
-						CustomOptionNumber option = (eo as CustomOptionNumber);
-
-						TextBox txt = new TextBox(); // NumericUpDown txt = new NumericUpDown();
-						txt.SetExtraData("eo", option);
-						if (option.MaximumValue.HasValue)
+						if (eo is ChoiceSetting)
 						{
-							// txt.Maximum = option.MaximumValue.Value;
-						}
-						else
-						{
-							// txt.Maximum = Decimal.MaxValue;
-						}
-						if (option.MinimumValue.HasValue)
-						{
-							// txt.Minimum = option.MinimumValue.Value;
-						}
-						else
-						{
-							// txt.Minimum = Decimal.MinValue;
-						}
-						// txt.Value = option.DefaultValue;
+							ChoiceSetting option = (eo as ChoiceSetting);
 
-						ct.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
-					}
-					else if (eo is CustomOptionText)
-					{
-						CustomOptionText option = (eo as CustomOptionText);
+							ComboBox cbo = new ComboBox();
+							cbo.Model = new DefaultTreeModel(new Type[] { typeof(string) });
+							cbo.Renderers.Add(new CellRendererText(cbo.Model.Columns[0]));
 
-						TextBox txt = new TextBox();
-						txt.SetExtraData("eo", option);
-						txt.Text = option.DefaultValue;
-						if (option.MaximumLength.HasValue) txt.MaxLength = option.MaximumLength.Value;
-						ct.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
-					}
-					else if (eo is CustomOptionBoolean)
-					{
-						CustomOptionBoolean option = (eo as CustomOptionBoolean);
+							// if (option.RequireChoice) cbo.DropDownStyle = ComboBoxStyle.DropDownList;
 
-						CheckBox chk = new CheckBox();
-						chk.SetExtraData("eo", option);
-						chk.Text = option.Title;
-
-						ct.Controls.Add(chk, new GridLayout.Constraints(iRow, 0, 1, 2, ExpandMode.Horizontal));
-					}
-					else if (eo is CustomOptionFile)
-					{
-						CustomOptionFile option = (eo as CustomOptionFile);
-
-						UniversalEditorFileBrowserControl fbc = new UniversalEditorFileBrowserControl ();
-						fbc.SetExtraData("eo", option);
-						fbc.ItemActivated += fbc_ItemActivated;
-						// TextBox cmd = new TextBox();
-						// AwesomeControls.FileTextBox.FileTextBoxControl cmd = new AwesomeControls.FileTextBox.FileTextBoxControl();
-						// cmd.Click += cmdFileBrowse_Click;
-						// cmd.Dock = DockStyle.Fill;
-						fbc.SetExtraData<CustomOption>("eo", eo);
-						switch (option.DialogMode)
-						{
-							case CustomOptionFileDialogMode.Open:
+							foreach (ChoiceSetting.ChoiceSettingValue choice in option.ValidValues)
 							{
-								fbc.Mode = FileBrowserMode.Open;
-								break;
+								TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+								{
+									new TreeModelRowColumn((cbo.Model as DefaultTreeModel).Columns[0], choice.Title)
+								});
+								row.SetExtraData<ChoiceSetting.ChoiceSettingValue>("choice", choice);
+								(cbo.Model as DefaultTreeModel).Rows.Add(row);
 							}
-							case CustomOptionFileDialogMode.Save:
-							{
-								fbc.Mode = FileBrowserMode.Save;
-								break;
-							}
-						}
-						ct.Controls.Add(fbc, new GridLayout.Constraints(iRow, 0, 1, 2, ExpandMode.Both));
-					}
 
-					// tbl.ColumnCount = 2;
-					// tbl.RowCount = CustomOptionControls.Count;
-					iRow++;
+							ct.Controls.Add(cbo, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+						}
+						else if (eo is RangeSetting)
+						{
+							RangeSetting option = (eo as RangeSetting);
+
+							TextBox txt = new TextBox(); // NumericUpDown txt = new NumericUpDown();
+							txt.SetExtraData("eo", option);
+							if (option.MaximumValue.HasValue)
+							{
+								// txt.Maximum = option.MaximumValue.Value;
+							}
+							else
+							{
+								// txt.Maximum = Decimal.MaxValue;
+							}
+							if (option.MinimumValue.HasValue)
+							{
+								// txt.Minimum = option.MinimumValue.Value;
+							}
+							else
+							{
+								// txt.Minimum = Decimal.MinValue;
+							}
+							// txt.Value = option.DefaultValue;
+
+							ct.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+						}
+						else if (eo is TextSetting)
+						{
+							TextSetting option = (eo as TextSetting);
+
+							TextBox txt = new TextBox();
+							txt.SetExtraData("eo", option);
+							txt.Text = (string)option.DefaultValue;
+							if (option.MaximumLength.HasValue) txt.MaxLength = option.MaximumLength.Value;
+							ct.Controls.Add(txt, new GridLayout.Constraints(iRow, 1, 1, 1, ExpandMode.Horizontal));
+						}
+						else if (eo is BooleanSetting)
+						{
+							BooleanSetting option = (eo as BooleanSetting);
+
+							CheckBox chk = new CheckBox();
+							chk.SetExtraData("eo", option);
+							chk.Text = option.Title;
+
+							ct.Controls.Add(chk, new GridLayout.Constraints(iRow, 0, 1, 2, ExpandMode.Horizontal));
+						}
+						else if (eo is FileSetting)
+						{
+							FileSetting option = (eo as FileSetting);
+
+							UniversalEditorFileBrowserControl fbc = new UniversalEditorFileBrowserControl();
+							fbc.SetExtraData("eo", option);
+							fbc.ItemActivated += fbc_ItemActivated;
+							// TextBox cmd = new TextBox();
+							// AwesomeControls.FileTextBox.FileTextBoxControl cmd = new AwesomeControls.FileTextBox.FileTextBoxControl();
+							// cmd.Click += cmdFileBrowse_Click;
+							// cmd.Dock = DockStyle.Fill;
+							fbc.SetExtraData<Setting>("eo", eo);
+							switch (option.Mode)
+							{
+								case FileSettingMode.CreateFolder: fbc.Mode = FileBrowserMode.CreateFolder; break;
+								case FileSettingMode.Open: fbc.Mode = FileBrowserMode.Open; break;
+								case FileSettingMode.Save: fbc.Mode = FileBrowserMode.Save; break;
+								case FileSettingMode.SelectFolder: fbc.Mode = FileBrowserMode.SelectFolder; break;
+							}
+							ct.Controls.Add(fbc, new GridLayout.Constraints(iRow, 0, 1, 2, ExpandMode.Both));
+						}
+
+						// tbl.ColumnCount = 2;
+						// tbl.RowCount = CustomOptionControls.Count;
+						iRow++;
+					}
 				}
 
 				panel.Control = ct;

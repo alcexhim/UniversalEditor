@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.UnrealEngine;
 using UniversalEditor.Plugins.UnrealEngine;
@@ -38,8 +39,8 @@ namespace UniversalEditor.DataFormats.UnrealEngine.Package
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(UnrealPackageObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(PackageName), "Package _name"));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(PackageVersion), "Package _version", 0, UInt16.MinValue, UInt16.MaxValue));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(PackageName), "Package _name"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(PackageVersion), "Package _version", 0, UInt16.MinValue, UInt16.MaxValue));
 				_dfr.Sources.Add("http://wiki.beyondunreal.com/Legacy:Package_File_Format");
 			}
 			return _dfr;

@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-
+using MBS.Framework.Settings;
 using UniversalEditor.Compression;
 using UniversalEditor.ObjectModels.FileSystem;
 
@@ -38,9 +38,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Nvidia.NPK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionText(nameof(EncryptionKey), "Encryption _key", "bogomojo"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Encrypted), "_Encrypt the data with the specified key"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(EncryptionKey), "Encryption _key", "bogomojo"));
+				_dfr.ImportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(EncryptionKey), "Encryption _key", "bogomojo"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(Encrypted), "_Encrypt the data with the specified key"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(EncryptionKey), "Encryption _key", "bogomojo"));
 			}
 			return _dfr;
 		}

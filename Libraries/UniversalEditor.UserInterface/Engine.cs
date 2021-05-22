@@ -23,6 +23,7 @@ using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.Docking;
 using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.UserInterface
 {
@@ -308,39 +309,15 @@ namespace UniversalEditor.UserInterface
 				dlg.ShowDialog();
 			}
 		}
-		public bool ShowCustomOptionDialog (ref CustomOption.CustomOptionCollection customOptions, string title = null, EventHandler aboutButtonClicked = null)
+		public bool ShowCustomOptionDialog(ref SettingsProvider customOptions, string title = null, EventHandler aboutButtonClicked = null)
 		{
 			SettingsDialog dlg = new SettingsDialog();
 			dlg.Text = title ?? "Options";
 			dlg.SettingsProfiles.Clear();
-
-			CustomSettingsProvider csp = new CustomSettingsProvider();
-			dlg.SettingsProviders.Clear();
-			dlg.SettingsProviders.Add(csp);
-
-			SettingsGroup sg = new SettingsGroup();
-			sg.Priority = 0;
-			sg.Path = new string[] { "General" };
-			csp.SettingsGroups.Add(sg);
-
-			sg.AddCustomOptions(customOptions, csp);
+			dlg.SettingsProviders.Add(customOptions);
 
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				int i = 0;
-				for (int j = 0; j < customOptions.Count; j++)
-				{
-					if (!customOptions[j].Visible) continue;
-
-					if (customOptions[j] is CustomOptionGroup)
-					{
-					}
-					else
-					{
-						customOptions[j].SetValue(sg.Settings[i].GetValue());
-						i++;
-					}
-				}
 				return true;
 			}
 			return false;
@@ -1155,7 +1132,7 @@ namespace UniversalEditor.UserInterface
 
 		public bool ShowCustomOptionDialog(ref DataFormat df, CustomOptionDialogType type)
 		{
-			CustomOption.CustomOptionCollection coll = null;
+			SettingsProvider coll = null;
 			DataFormatReference dfr = df.MakeReference();
 
 			if (type == CustomOptionDialogType.Export)
@@ -1166,6 +1143,7 @@ namespace UniversalEditor.UserInterface
 			{
 				coll = dfr.ImportOptions;
 			}
+			if (coll == null) return true;
 			if (coll.Count == 0) return true;
 
 			bool retval = ShowCustomOptionDialog(ref coll, dfr.Title + " Options", delegate(object sender, EventArgs e)
@@ -1175,24 +1153,63 @@ namespace UniversalEditor.UserInterface
 
 			if (retval)
 			{
-				foreach (CustomOption eo in coll)
+				ApplyCustomOptions(df, coll);
+				return true;
+			}
+			return false;
+		}
+		public bool ShowCustomOptionDialog(ref Accessor df, CustomOptionDialogType type)
+		{
+			if (df == null) return true;
+
+			SettingsProvider coll = null;
+			AccessorReference dfr = df.MakeReference();
+
+			if (type == CustomOptionDialogType.Export)
+			{
+				coll = dfr.ExportOptions;
+			}
+			else
+			{
+				coll = dfr.ImportOptions;
+			}
+			if (coll == null) return true;
+			if (coll.Count == 0) return true;
+
+			bool retval = ShowCustomOptionDialog(ref coll, dfr.Title + " Options");
+
+			if (retval)
+			{
+				ApplyCustomOptions(df, coll);
+				return true;
+			}
+			return false;
+		}
+
+		public void ApplyCustomOptions(object obj, SettingsProvider coll)
+		{
+			if (obj == null) return;
+
+			foreach (SettingsGroup sg in coll.SettingsGroups)
+			{
+				foreach (Setting eo in sg.Settings)
 				{
-					System.Reflection.PropertyInfo pi = dfr.Type.GetProperty(eo.PropertyName);
+					PropertyInfo pi = obj.GetType().GetProperty(eo.Name);
 					if (pi == null) continue;
 
-					if (eo is CustomOptionNumber)
+					if (eo is RangeSetting)
 					{
-						CustomOptionNumber itm = (eo as CustomOptionNumber);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+						RangeSetting itm = (eo as RangeSetting);
+						pi.SetValue(obj, Convert.ChangeType(itm.GetValue(), pi.PropertyType), null);
 					}
-					else if (eo is CustomOptionBoolean)
+					else if (eo is BooleanSetting)
 					{
-						CustomOptionBoolean itm = (eo as CustomOptionBoolean);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+						BooleanSetting itm = (eo as BooleanSetting);
+						pi.SetValue(obj, Convert.ChangeType(itm.GetValue(), pi.PropertyType), null);
 					}
-					else if (eo is CustomOptionChoice)
+					else if (eo is ChoiceSetting)
 					{
-						CustomOptionFieldChoice choice = (eo as CustomOptionChoice).Value;
+						object choice = (eo as ChoiceSetting).GetValue();
 						if (choice != null)
 						{
 							Type[] interfaces = pi.PropertyType.GetInterfaces();
@@ -1207,109 +1224,24 @@ namespace UniversalEditor.UserInterface
 							}
 							if (convertible)
 							{
-								pi.SetValue(df, Convert.ChangeType(choice.Value, pi.PropertyType), null);
+								pi.SetValue(obj, Convert.ChangeType(choice, pi.PropertyType), null);
 							}
 							else
 							{
-								pi.SetValue(df, choice.Value, null);
+								pi.SetValue(obj, choice, null);
 							}
 						}
 					}
-					else if (eo is CustomOptionText)
+					else if (eo is TextSetting)
 					{
-						CustomOptionText itm = (eo as CustomOptionText);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+						TextSetting itm = (eo as TextSetting);
+						pi.SetValue(obj, Convert.ChangeType(itm.GetValue(), pi.PropertyType), null);
 					}
-					else if (eo is CustomOptionFile)
+					else if (eo is FileSetting)
 					{
-						CustomOptionFile itm = (eo as CustomOptionFile);
-						pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
+						FileSetting itm = (eo as FileSetting);
+						pi.SetValue(obj, Convert.ChangeType(itm.GetValue(), pi.PropertyType), null);
 					}
-				}
-
-				return true;
-			}
-			return false;
-		}
-		public bool ShowCustomOptionDialog(ref Accessor df, CustomOptionDialogType type)
-		{
-			if (df == null) return true;
-
-			CustomOption.CustomOptionCollection coll = null;
-			AccessorReference dfr = df.MakeReference();
-
-			if (type == CustomOptionDialogType.Export)
-			{
-				coll = dfr.ExportOptions;
-			}
-			else
-			{
-				coll = dfr.ImportOptions;
-			}
-			if (coll.Count == 0) return true;
-
-			bool retval = ShowCustomOptionDialog(ref coll, dfr.Title + " Options");
-
-			if (retval)
-			{
-				ApplyCustomOptions (ref df, coll);
-				return true;
-			}
-			return false;
-		}
-
-		public void ApplyCustomOptions (ref Accessor df, CustomOption.CustomOptionCollection coll)
-		{
-			AccessorReference dfr = df.MakeReference ();
-			foreach (CustomOption eo in coll)
-			{
-				System.Reflection.PropertyInfo pi = dfr.AccessorType.GetProperty(eo.PropertyName);
-				if (pi == null) continue;
-
-				if (eo is CustomOptionNumber)
-				{
-					CustomOptionNumber itm = (eo as CustomOptionNumber);
-					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
-				}
-				else if (eo is CustomOptionBoolean)
-				{
-					CustomOptionBoolean itm = (eo as CustomOptionBoolean);
-					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
-				}
-				else if (eo is CustomOptionChoice)
-				{
-					CustomOptionFieldChoice choice = (eo as CustomOptionChoice).Value;
-					if (choice != null)
-					{
-						Type[] interfaces = pi.PropertyType.GetInterfaces();
-						bool convertible = false;
-						foreach (Type t in interfaces)
-						{
-							if (t == typeof(IConvertible))
-							{
-								convertible = true;
-								break;
-							}
-						}
-						if (convertible)
-						{
-							pi.SetValue(df, Convert.ChangeType(choice.Value, pi.PropertyType), null);
-						}
-						else
-						{
-							pi.SetValue(df, choice.Value, null);
-						}
-					}
-				}
-				else if (eo is CustomOptionText)
-				{
-					CustomOptionText itm = (eo as CustomOptionText);
-					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
-				}
-				else if (eo is CustomOptionFile)
-				{
-					CustomOptionFile itm = (eo as CustomOptionFile);
-					pi.SetValue(df, Convert.ChangeType(itm.Value, pi.PropertyType), null);
 				}
 			}
 		}

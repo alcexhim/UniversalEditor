@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using MBS.Framework.Settings;
 using UniversalEditor.DataFormats.Text.Plain;
 using UniversalEditor.ObjectModels.Binary;
 using UniversalEditor.ObjectModels.Text.Plain;
@@ -44,7 +45,7 @@ namespace UniversalEditor.DataFormats.Binary.PEM
 				_dfr.Capabilities.Add(typeof(BinaryObjectModel), DataFormatCapabilities.All);
 				_dfr.Capabilities.Add(typeof(PlainTextObjectModel), DataFormatCapabilities.All);
 				_dfr.Title = "Privacy-Enhanced Mail encoding";
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Signature), "_Signature"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Signature), "_Signature"));
 			}
 			return _dfr;
 		}

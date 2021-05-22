@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
@@ -38,8 +39,8 @@ namespace UniversalEditor.DataFormats.FileSystem.SquareSoft
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Creator), "_Creator"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(Description), "_Description"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Creator), "_Creator"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Description), "_Description"));
 				_dfr.Title = "SquareSoft LGP archive";
 			}
 			return _dfr;

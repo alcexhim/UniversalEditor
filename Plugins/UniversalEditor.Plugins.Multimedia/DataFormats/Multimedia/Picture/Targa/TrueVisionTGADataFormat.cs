@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 
 using MBS.Framework.Drawing;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
@@ -48,41 +48,45 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Targa
 		public TargaFirstPixelDestination PixelOrigin { get; } = TargaFirstPixelDestination.TopLeft;
 		public TargaFormatVersion FormatVersion { get; set; } = TargaFormatVersion.Original;
 
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
-			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(ImageType), "Image _type", true, new CustomOptionFieldChoice[]
+			if (_dfr == null)
 			{
-				new CustomOptionFieldChoice("Compressed grayscale", TargaImageType.CompressedGrayscale),
-				new CustomOptionFieldChoice("Compressed indexed", TargaImageType.CompressedIndexed),
-				new CustomOptionFieldChoice("Compressed true color", TargaImageType.CompressedTrueColor),
-				new CustomOptionFieldChoice("Uncompressed grayscale", TargaImageType.UncompressedGrayscale),
-				new CustomOptionFieldChoice("Uncompressed indexed", TargaImageType.UncompressedIndexed),
-				new CustomOptionFieldChoice("Uncompressed true color", TargaImageType.UncompressedTrueColor)
-			}));
-			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelDepth), "Pixel _depth", true, new CustomOptionFieldChoice[]
-			{
-				new CustomOptionFieldChoice("8bpp", (byte)8),
-				new CustomOptionFieldChoice("16bpp", (byte)16),
-				new CustomOptionFieldChoice("24bpp", (byte)24),
-				new CustomOptionFieldChoice("32bpp", (byte)32)
-			}));
-			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(PixelOrigin), "Pixel o_rigin", true, new CustomOptionFieldChoice[]
-			{
-				new CustomOptionFieldChoice("Bottom-left", TargaFirstPixelDestination.BottomLeft),
-				new CustomOptionFieldChoice("Bottom-right", TargaFirstPixelDestination.BottomRight),
-				new CustomOptionFieldChoice("Top-left", TargaFirstPixelDestination.TopLeft),
-				new CustomOptionFieldChoice("Top-right", TargaFirstPixelDestination.TopRight)
-			}));
-			dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version", true, new CustomOptionFieldChoice[]
-			{
-				new CustomOptionFieldChoice("Original (100)", TargaFormatVersion.Original),
-				new CustomOptionFieldChoice("TrueVision-XFile (200)", TargaFormatVersion.TrueVisionXFile)
-			}));
-			dfr.ContentTypes.Add("image/x-targa");
-			dfr.ContentTypes.Add("image/x-tga");
-			return dfr;
+				_dfr = base.MakeReferenceInternal();
+				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(ImageType), "Image _type", TargaImageType.UncompressedTrueColor, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("CompressedGrayscale", "Compressed grayscale", TargaImageType.CompressedGrayscale),
+					new ChoiceSetting.ChoiceSettingValue("CompressedIndexed", "Compressed indexed", TargaImageType.CompressedIndexed),
+					new ChoiceSetting.ChoiceSettingValue("CompressedTrueColor", "Compressed true color", TargaImageType.CompressedTrueColor),
+					new ChoiceSetting.ChoiceSettingValue("UncompressedGrayscale", "Uncompressed grayscale", TargaImageType.UncompressedGrayscale),
+					new ChoiceSetting.ChoiceSettingValue("UncompressedIndexed", "Uncompressed indexed", TargaImageType.UncompressedIndexed),
+					new ChoiceSetting.ChoiceSettingValue("UncompressedTrueColor", "Uncompressed true color", TargaImageType.UncompressedTrueColor)
+				}));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(PixelDepth), "Pixel _depth", (byte)32, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("8bpp", "8bpp", (byte)8),
+					new ChoiceSetting.ChoiceSettingValue("16bpp", "16bpp", (byte)16),
+					new ChoiceSetting.ChoiceSettingValue("24bpp", "24bpp", (byte)24),
+					new ChoiceSetting.ChoiceSettingValue("32bpp", "32bpp", (byte)32)
+				}));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(PixelOrigin), "Pixel o_rigin", TargaFirstPixelDestination.TopLeft, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("BottomLeft", "Bottom-left", TargaFirstPixelDestination.BottomLeft),
+					new ChoiceSetting.ChoiceSettingValue("BottomRight", "Bottom-right", TargaFirstPixelDestination.BottomRight),
+					new ChoiceSetting.ChoiceSettingValue("TopLeft", "Top-left", TargaFirstPixelDestination.TopLeft),
+					new ChoiceSetting.ChoiceSettingValue("TopRightwa78qa67Y", "Top-right", TargaFirstPixelDestination.TopRight)
+				}));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version", true, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("Original", "Original (100)", TargaFormatVersion.Original),
+					new ChoiceSetting.ChoiceSettingValue("TrueVisionXFile", "TrueVision-XFile (200)", TargaFormatVersion.TrueVisionXFile)
+				}));
+				_dfr.ContentTypes.Add("image/x-targa");
+				_dfr.ContentTypes.Add("image/x-tga");
+			}
+			return _dfr;
 		}
 
 		private int GetImageDataOffset(int colorMapLength, byte imageIDLength, byte colorMapEntrySize)

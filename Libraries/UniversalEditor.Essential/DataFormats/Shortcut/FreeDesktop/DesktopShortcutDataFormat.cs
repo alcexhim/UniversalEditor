@@ -27,6 +27,7 @@ using System.Text;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.DataFormats.PropertyList;
 using UniversalEditor.ObjectModels.Shortcut;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 {
@@ -39,11 +40,11 @@ namespace UniversalEditor.DataFormats.Shortcut.FreeDesktop
 			{
 				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(ShortcutObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(ApplicationTitle), "_Application title: "));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GenericTitle), "_Generic title: "));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(HideFromMenus), "_Do not display this entry in menus"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(Deleted), "_Mark this shortcut as being deleted by the user"));
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(DBusActivatable), "_Enable DBus activation"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(ApplicationTitle), "_Application title: "));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(GenericTitle), "_Generic title: "));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(HideFromMenus), "_Do not display this entry in menus"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(Deleted), "_Mark this shortcut as being deleted by the user"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(DBusActivatable), "_Enable DBus activation"));
 				_dfr.Sources.Add("http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html");
 			}
 			return _dfr;

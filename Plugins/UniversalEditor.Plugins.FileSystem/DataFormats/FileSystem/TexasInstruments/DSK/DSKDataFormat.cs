@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
@@ -37,6 +38,8 @@ namespace UniversalEditor.DataFormats.FileSystem.TexasInstruments.DSK
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(VolumeName), "_Volume name"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(Protected), "_Proprietary protected"));
 			}
 			return _dfr;
 		}
@@ -45,7 +48,6 @@ namespace UniversalEditor.DataFormats.FileSystem.TexasInstruments.DSK
 		/// Gets or sets the name of the volume. The volume name must have at least one non-space character, and can be any combination of ten ASCII characters except for space, '.', or NULL.
 		/// </summary>
 		/// <value>The name of the volume.</value>
-		[CustomOptionText("_Volume name")]
 		public string VolumeName { get; set; } = null;
 		/// <summary>
 		/// Gets or sets the total number of allocation units on the volume.
@@ -61,7 +63,6 @@ namespace UniversalEditor.DataFormats.FileSystem.TexasInstruments.DSK
 		/// Gets or sets a value indicating whether this <see cref="DSKDataFormat"/> is Proprietary Protected.
 		/// </summary>
 		/// <value><c>true</c> if protected; otherwise, <c>false</c>.</value>
-		[CustomOptionBoolean("_Proprietary protected")]
 		public bool Protected { get; set; } = false;
 
 		public byte TracksPerSide { get; set; } = 40;

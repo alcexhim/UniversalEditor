@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework;
 using UniversalEditor.IO;
 
 namespace UniversalEditor
@@ -290,7 +291,7 @@ namespace UniversalEditor
 							case "CustomOption":
 							{
 								// this is a CustomOption property
-								CustomOption co = mvarReference.ExportOptions[methodOrPropertyName];
+								Setting co = mvarReference.ExportOptions.SettingsGroups[0].Settings[methodOrPropertyName];
 								if (co != null)
 								{
 									string bw = co.GetValue().ToString();

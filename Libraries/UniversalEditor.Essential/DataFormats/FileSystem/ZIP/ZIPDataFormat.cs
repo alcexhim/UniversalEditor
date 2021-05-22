@@ -30,6 +30,7 @@ using UniversalEditor.IO;
 using UniversalEditor.DataFormats.FileSystem.ZIP.ExtraDataFields;
 using MBS.Framework;
 using UniversalEditor.UserInterface;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.DataFormats.FileSystem.ZIP
 {
@@ -57,7 +58,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ZIP
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 			dfr.ContentTypes.Add("application/zip");
-			dfr.ExportOptions.Add(new CustomOptionText(nameof(Comment), "_Comment", String.Empty, Int16.MaxValue));
+			dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Comment), "_Comment", String.Empty, Int16.MaxValue));
 			return dfr;
 		}
 

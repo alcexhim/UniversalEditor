@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework.Settings;
 using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.DataFormats.FileSystem.WAD
@@ -35,7 +36,7 @@ namespace UniversalEditor.DataFormats.FileSystem.WAD
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionBoolean(nameof(UserContent), "This archive contains _public content (PWAD) rather than internal content (IWAD)"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(UserContent), "This archive contains _public content (PWAD) rather than internal content (IWAD)"));
 			}
 			return _dfr;
 		}

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using MBS.Framework.Drawing;
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
@@ -41,7 +42,7 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureCollectionObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionFile(nameof(ExternalPaletteFileName), "External _palette file name"));
+				_dfr.ImportOptions.SettingsGroups[0].Settings.Add(new FileSetting(nameof(ExternalPaletteFileName), "External _palette file name"));
 			}
 			return _dfr;
 		}

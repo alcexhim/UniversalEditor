@@ -66,7 +66,6 @@
     <Compile Include="DataFormatReference.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DataFormat.cs" />
-    <Compile Include="CustomOption.cs" />
     <Compile Include="Endpoint.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="InvalidDataFormatException.cs" />
@@ -88,7 +87,6 @@
     <Compile Include="Ptr.cs" />
     <Compile Include="References.cs" />
     <Compile Include="IO\FileNameShortener.cs" />
-    <Compile Include="CustomOptionAttribute.cs" />
     <Compile Include="IO\Transformations\XorTransformation.cs" />
     <Compile Include="IO\Transformation.cs" />
     <Compile Include="DataFormatFragment.cs" />
@@ -102,6 +100,7 @@
     <Compile Include="UserInterface\IHostApplication.cs" />
     <Compile Include="UserInterface\HostApplicationMessage.cs" />
     <Compile Include="UserInterface\HostApplicationOutputWindow.cs" />
+    <Compile Include="CustomOptionCompatSettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

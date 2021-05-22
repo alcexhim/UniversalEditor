@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.FileSystem.FileSources;
@@ -40,42 +40,43 @@ namespace UniversalEditor.DataFormats.FileSystem.Nintendo.Optical
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatCode), "_Format code", true, new CustomOptionFieldChoice[]
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatCode), "_Format code", NintendoOpticalDiscFormatCodes.Wii, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.Revolution),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.Wii, true),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.GameCube),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.Utility),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.GameCubeDemo),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.GameCubePromotional),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.Diagnostic),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.Diagnostic1),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.WiiBackup),
-					new CustomOptionFieldChoice(NintendoOpticalDiscFormatCodes.WiiFitChanInstaller)
+					new ChoiceSetting.ChoiceSettingValue("Revolution", "Revolution", NintendoOpticalDiscFormatCodes.Revolution),
+					new ChoiceSetting.ChoiceSettingValue("Wii", "Wii", NintendoOpticalDiscFormatCodes.Wii),
+					new ChoiceSetting.ChoiceSettingValue("GameCube", "GameCube", NintendoOpticalDiscFormatCodes.GameCube),
+					new ChoiceSetting.ChoiceSettingValue("Utility", "Utility", NintendoOpticalDiscFormatCodes.Utility),
+					new ChoiceSetting.ChoiceSettingValue("GameCubeDemo", "GameCube (Demo)", NintendoOpticalDiscFormatCodes.GameCubeDemo),
+					new ChoiceSetting.ChoiceSettingValue("GameCubePromotional", "GameCube (Promotional)", NintendoOpticalDiscFormatCodes.GameCubePromotional),
+					new ChoiceSetting.ChoiceSettingValue("Diagnostic", "Diagnostic", NintendoOpticalDiscFormatCodes.Diagnostic),
+					new ChoiceSetting.ChoiceSettingValue("Diagnostic1", "Diagnostic1", NintendoOpticalDiscFormatCodes.Diagnostic1),
+					new ChoiceSetting.ChoiceSettingValue("WiiBackup", "Wii (Backup)", NintendoOpticalDiscFormatCodes.WiiBackup),
+					new ChoiceSetting.ChoiceSettingValue("WiiFitChanInstaller", "Wii Fit -chan Installer", NintendoOpticalDiscFormatCodes.WiiFitChanInstaller)
 				}));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameCode), "_Game code", String.Empty, 2));
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(RegionCode), "_Region code", true, new CustomOptionFieldChoice[]
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(GameCode), "_Game code", String.Empty, 2));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(RegionCode), "_Region code", NintendoOpticalDiscRegionCodes.UnitedStates, new ChoiceSetting.ChoiceSettingValue[]
 				{
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.German),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.UnitedStates, true),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.France),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Italy),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Japan),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Korea),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.PAL),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Russia),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Spanish),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Taiwan),
-					new CustomOptionFieldChoice(NintendoOpticalDiscRegionCodes.Australia),
-				}));
-
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(SystemType), "_System type", true, new CustomOptionFieldChoice[]
-				{
-					new CustomOptionFieldChoice("GameCube", NintendoOpticalDiscSystemType.GameCube),
-					new CustomOptionFieldChoice("Wii", NintendoOpticalDiscSystemType.Wii, true)
+					new ChoiceSetting.ChoiceSettingValue("German", "Germany", NintendoOpticalDiscRegionCodes.German),
+					new ChoiceSetting.ChoiceSettingValue("UnitedStates", "United States", NintendoOpticalDiscRegionCodes.UnitedStates),
+					new ChoiceSetting.ChoiceSettingValue("France", "France", NintendoOpticalDiscRegionCodes.France),
+					new ChoiceSetting.ChoiceSettingValue("Italy", "Italy", NintendoOpticalDiscRegionCodes.Italy),
+					new ChoiceSetting.ChoiceSettingValue("Japan", "Japan", NintendoOpticalDiscRegionCodes.Japan),
+					new ChoiceSetting.ChoiceSettingValue("Korea", "Korea", NintendoOpticalDiscRegionCodes.Korea),
+					new ChoiceSetting.ChoiceSettingValue("PAL", "Other PAL", NintendoOpticalDiscRegionCodes.PAL),
+					new ChoiceSetting.ChoiceSettingValue("Russia", "Russia", NintendoOpticalDiscRegionCodes.Russia),
+					new ChoiceSetting.ChoiceSettingValue("Spanish", "Spain", NintendoOpticalDiscRegionCodes.Spanish),
+					new ChoiceSetting.ChoiceSettingValue("Taiwan", "Taiwan", NintendoOpticalDiscRegionCodes.Taiwan),
+					new ChoiceSetting.ChoiceSettingValue("Australia", "Australia", NintendoOpticalDiscRegionCodes.Australia),
 				}));
 
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameTitle), "Game _title", String.Empty, 64));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(SystemType), "_System type", NintendoOpticalDiscSystemType.Wii, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("Unknown", "Unknown", NintendoOpticalDiscSystemType.Unknown),
+					new ChoiceSetting.ChoiceSettingValue("GameCube", "GameCube", NintendoOpticalDiscSystemType.GameCube),
+					new ChoiceSetting.ChoiceSettingValue("Wii", "Wii", NintendoOpticalDiscSystemType.Wii)
+				}));
+
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(GameTitle), "Game _title", String.Empty, 64));
 
 				_dfr.Sources.Add("http://wiibrew.org/wiki/Wii_Disc");
 				_dfr.Sources.Add("http://www.emutalk.net/threads/21512-GCM-file-extension!/page3");

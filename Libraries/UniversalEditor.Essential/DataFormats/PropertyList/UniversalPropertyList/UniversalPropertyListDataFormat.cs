@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MBS.Framework.Settings;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.PropertyList;
 
@@ -41,7 +42,7 @@ namespace UniversalEditor.DataFormats.PropertyList.UniversalPropertyList
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionChoice(nameof(FormatVersion), "Format _version", true, new CustomOptionFieldChoice("1.0", 1.0f)));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version", 1.0f, new ChoiceSetting.ChoiceSettingValue[] { new ChoiceSetting.ChoiceSettingValue("1.0", "1.0", 1.0f) }));
 			}
 			return _dfr;
 		}

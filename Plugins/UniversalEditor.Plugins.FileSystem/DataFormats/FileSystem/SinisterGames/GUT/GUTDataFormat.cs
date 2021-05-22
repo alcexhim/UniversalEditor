@@ -21,7 +21,7 @@
 
 using System;
 using System.Text;
-
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -40,8 +40,8 @@ namespace UniversalEditor.DataFormats.FileSystem.SinisterGames.GUT
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameTitle), "Game _title: ", "Shadow Company: Left for Dead"));
-				_dfr.ExportOptions.Add(new CustomOptionText(nameof(GameCopyright), "Game _copyright: ", "Copyright 1998 by Sinister Games Inc."));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(GameTitle), "Game _title: ", "Shadow Company: Left for Dead"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(GameCopyright), "Game _copyright: ", "Copyright 1998 by Sinister Games Inc."));
 			}
 			return _dfr;
 		}

@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework.Settings;
 using UniversalEditor.Accessors;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -37,8 +38,8 @@ namespace UniversalEditor.DataFormats.FileSystem.Moero.DownhillNight
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				_dfr.ImportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key", 0xC5, 0, 255));
-				_dfr.ExportOptions.Add(new CustomOptionNumber(nameof(EncryptionKey), "Encryption _key", 0xC5, 0, 255));
+				_dfr.ImportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(EncryptionKey), "Encryption _key", 0xC5, 0, 255));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(EncryptionKey), "Encryption _key", 0xC5, 0, 255));
 			}
 			return _dfr;
 		}
