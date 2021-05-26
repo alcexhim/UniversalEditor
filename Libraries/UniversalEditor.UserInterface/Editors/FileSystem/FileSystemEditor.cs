@@ -136,6 +136,33 @@ namespace UniversalEditor.Editors.FileSystem
 			ctxTreeView = MakeReference().Contexts[new Guid("{ce094932-77fb-418f-bd98-e3734a670fad}")];
 		}
 
+		[EventHandler(nameof(tv), nameof(ListViewControl.CellEditing))]
+		private void tv_CellEditing(object sender, CellEditingEventArgs e)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (!CheckValidFileName(fsom, e.NewValue?.ToString()))
+			{
+				MessageDialog.ShowDialog(String.Format("Invalid file name '{0}' - File names on this file system may not contain the following characters: \r\n\t {1}\r\n\r\nOr be the following file names: \r\n\t{2}", e.NewValue, GetInvalidFileNameChars(fsom), GetInvalidFileNamesStr(fsom)), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				e.Cancel = true;
+			}
+		}
+
+		[EventHandler(nameof(tv), nameof(ListViewControl.CellEdited))]
+		private void tv_CellEdited(object sender, CellEditedEventArgs e)
+		{
+			IFileSystemObject item = e.Row.GetExtraData<IFileSystemObject>("item");
+			if (item != null)
+			{
+				bool changed = item.Name != e.NewValue.ToString();
+				if (changed)
+				{
+					BeginEdit();
+					item.Name = e.NewValue.ToString();
+					EndEdit();
+				}
+			}
+		}
+
 		[EventHandler(nameof(tv), nameof(ListViewControl.GotFocus))]
 		private void tv_GotFocus(object sender, EventArgs e)
 		{
