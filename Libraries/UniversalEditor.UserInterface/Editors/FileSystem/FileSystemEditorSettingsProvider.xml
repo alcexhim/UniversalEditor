@@ -47,6 +47,17 @@
 					<Part>Search and Preview</Part>
 				</Path>
 			</SettingsGroup>
+			<SettingsGroup ID="{e8c41127-956e-49a4-a409-deb62590d4be}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>File System</Part>
+					<Part>Compatibility</Part>
+				</Path>
+				<Settings>
+					<TextSetting ID="{2fd5348a-2a74-4cdf-9f07-43011b109bde}" Name="InvalidPathChars" Title="Invalid filename characters" Value="/&lt;&gt;:&quot;\\|?*" />
+					<TextSetting ID="{bfc2323b-a628-419c-827b-fed169ce176e}" Name="InvalidFileNames" Title="Invalid filenames" Value="CON,PRN,AUX,NUL,COM1,COM2,COM3,COM4,COM5,COM6,COM7,COM8,COM9,LPT1,LPT2,LPT3,LPT4,LPT5,LPT6,LPT7,LPT8,LPT9" />
+				</Settings>
+			</SettingsGroup>
 		</SettingsProvider>
 	</SettingsProviders>
 </ApplicationFramework>

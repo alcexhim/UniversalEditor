@@ -51,6 +51,38 @@ namespace UniversalEditor.Editors.FileSystem
 
 		private const int DELIVERED_COLUMNS_COUNT = 5;
 
+		private string GetInvalidFileNameChars(FileSystemObjectModel fsom)
+		{
+			string invalidPathChars = ((UIApplication)Application.Instance).GetSetting<string>(FileSystemEditorSettingsGuids.InvalidPathChars);
+			return invalidPathChars;
+		}
+		private string GetInvalidFileNamesStr(FileSystemObjectModel fsom)
+		{
+			string invalidFileNamesStr = ((UIApplication)Application.Instance).GetSetting<string>(FileSystemEditorSettingsGuids.InvalidFileNames);
+			return invalidFileNamesStr;
+		}
+		private string[] GetInvalidFileNames(FileSystemObjectModel fsom)
+		{
+			string invalidFileNamesStr = GetInvalidFileNamesStr(fsom);
+			if (String.IsNullOrEmpty(invalidFileNamesStr))
+				return new string[0];
+
+			string[] invalidFileNames = invalidFileNamesStr.Split(new char[] { ',' });
+			return invalidFileNames;
+		}
+		private bool CheckValidFileName(FileSystemObjectModel fsom, string filename)
+		{
+			string invalidPathChars = GetInvalidFileNameChars(fsom);
+			string[] invalidFileNames = GetInvalidFileNames(fsom);
+
+			// string[] filePath = filename.Split(fsom.PathSeparators);
+			string fileTitle = filename; // filePath[filePath.Length - 1];
+
+			bool containsInvalidFileNames = invalidFileNames.Length > 0 && fileTitle.EqualsAny(invalidFileNames);
+			bool containsInvalidChars = String.IsNullOrEmpty(invalidPathChars) || fileTitle.ContainsAny(invalidPathChars.ToCharArray());
+			return !(containsInvalidFileNames || containsInvalidChars);
+		}
+
 		[EventHandler(nameof(txtPath), "KeyDown")]
 		private void txtPath_KeyDown(object sender, KeyEventArgs e)
 		{
