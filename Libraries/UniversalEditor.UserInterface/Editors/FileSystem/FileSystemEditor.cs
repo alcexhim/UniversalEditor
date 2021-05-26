@@ -51,6 +51,38 @@ namespace UniversalEditor.Editors.FileSystem
 
 		private const int DELIVERED_COLUMNS_COUNT = 5;
 
+		private string GetInvalidFileNameChars(FileSystemObjectModel fsom)
+		{
+			string invalidPathChars = ((UIApplication)Application.Instance).GetSetting<string>(FileSystemEditorSettingsGuids.InvalidPathChars);
+			return invalidPathChars;
+		}
+		private string GetInvalidFileNamesStr(FileSystemObjectModel fsom)
+		{
+			string invalidFileNamesStr = ((UIApplication)Application.Instance).GetSetting<string>(FileSystemEditorSettingsGuids.InvalidFileNames);
+			return invalidFileNamesStr;
+		}
+		private string[] GetInvalidFileNames(FileSystemObjectModel fsom)
+		{
+			string invalidFileNamesStr = GetInvalidFileNamesStr(fsom);
+			if (String.IsNullOrEmpty(invalidFileNamesStr))
+				return new string[0];
+
+			string[] invalidFileNames = invalidFileNamesStr.Split(new char[] { ',' });
+			return invalidFileNames;
+		}
+		private bool CheckValidFileName(FileSystemObjectModel fsom, string filename)
+		{
+			string invalidPathChars = GetInvalidFileNameChars(fsom);
+			string[] invalidFileNames = GetInvalidFileNames(fsom);
+
+			// string[] filePath = filename.Split(fsom.PathSeparators);
+			string fileTitle = filename; // filePath[filePath.Length - 1];
+
+			bool containsInvalidFileNames = invalidFileNames.Length > 0 && fileTitle.EqualsAny(invalidFileNames);
+			bool containsInvalidChars = String.IsNullOrEmpty(invalidPathChars) || fileTitle.ContainsAny(invalidPathChars.ToCharArray());
+			return !(containsInvalidFileNames || containsInvalidChars);
+		}
+
 		[EventHandler(nameof(txtPath), "KeyDown")]
 		private void txtPath_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -102,6 +134,33 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			base.OnCreating(e);
 			ctxTreeView = MakeReference().Contexts[new Guid("{ce094932-77fb-418f-bd98-e3734a670fad}")];
+		}
+
+		[EventHandler(nameof(tv), nameof(ListViewControl.CellEditing))]
+		private void tv_CellEditing(object sender, CellEditingEventArgs e)
+		{
+			FileSystemObjectModel fsom = ObjectModel as FileSystemObjectModel;
+			if (!CheckValidFileName(fsom, e.NewValue?.ToString()))
+			{
+				MessageDialog.ShowDialog(String.Format("Invalid file name '{0}' - File names on this file system may not contain the following characters: \r\n\t {1}\r\n\r\nOr be the following file names: \r\n\t{2}", e.NewValue, GetInvalidFileNameChars(fsom), GetInvalidFileNamesStr(fsom)), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				e.Cancel = true;
+			}
+		}
+
+		[EventHandler(nameof(tv), nameof(ListViewControl.CellEdited))]
+		private void tv_CellEdited(object sender, CellEditedEventArgs e)
+		{
+			IFileSystemObject item = e.Row.GetExtraData<IFileSystemObject>("item");
+			if (item != null)
+			{
+				bool changed = item.Name != e.NewValue.ToString();
+				if (changed)
+				{
+					BeginEdit();
+					item.Name = e.NewValue.ToString();
+					EndEdit();
+				}
+			}
 		}
 
 		[EventHandler(nameof(tv), nameof(ListViewControl.GotFocus))]

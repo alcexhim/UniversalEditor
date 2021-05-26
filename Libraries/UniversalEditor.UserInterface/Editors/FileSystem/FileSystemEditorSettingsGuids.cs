@@ -24,5 +24,7 @@ namespace UniversalEditor.Editors.FileSystem
 	public class FileSystemEditorSettingsGuids
 	{
 		public static Guid SingleClickToOpenItems { get; } = new Guid("{409C4308-BA99-489F-BD33-4122E430709D}");
+		public static Guid InvalidPathChars { get; } = new Guid("{2fd5348a-2a74-4cdf-9f07-43011b109bde}");
+		public static Guid InvalidFileNames { get; } = new Guid("{bfc2323b-a628-419c-827b-fed169ce176e}");
 	}
 }

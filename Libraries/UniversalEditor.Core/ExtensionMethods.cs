@@ -118,6 +118,29 @@ namespace UniversalEditor
 			return true;
 		}
 
+		/// <summary>
+		/// Returns <see langword="true" /> if <paramref name="value" /> is equal
+		/// to any one of the values in <paramref name="anyOf" />.
+		/// </summary>
+		/// <returns><c>true</c>, if a match was found; <c>false</c> otherwise.</returns>
+		/// <param name="value">The value to test.</param>
+		/// <param name="anyOf">
+		/// An array of items of type <typeparamref name="T" /> to check equality
+		/// against <paramref name="value" />.
+		/// </param>
+		public static bool EqualsAny<T>(this IEquatable<T> value, params T[] anyOf)
+		{
+			for (int i = 0; i < anyOf.Length; i++)
+			{
+				T any = anyOf[i];
+				if (value.Equals(any))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public static bool ContainsAny(this string value, params string[] anyOf)
 		{
 			bool result;
