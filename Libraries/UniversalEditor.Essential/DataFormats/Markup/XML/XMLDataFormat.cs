@@ -44,6 +44,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			Settings.Entities.Add("quot", "\"");
 			Settings.Entities.Add("copy", "©");
 			Settings.Entities.Add("apos", "'");
+			Settings.Entities.Add("lt", "<");
+			Settings.Entities.Add("gt", ">");
 		}
 
 		private XMLDataFormatSettings mvarSettings = new XMLDataFormatSettings();
