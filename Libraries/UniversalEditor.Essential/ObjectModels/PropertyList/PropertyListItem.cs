@@ -74,6 +74,38 @@ namespace UniversalEditor.ObjectModels.PropertyList
 				Add(group);
 				return group;
 			}
+			public Group AddGroup(string name, string groupHierarchySeparator, PropertyListItem[] items = null)
+			{
+				if (groupHierarchySeparator == null)
+				{
+					Group group = new Group(name, items);
+					Add(group);
+					return group;
+				}
+
+				string[] path = name.Split(groupHierarchySeparator);
+				Group parent = this[path[0]] as Group;
+				if (parent == null)
+				{
+					parent = new Group(path[0]);
+					Add(parent);
+				}
+
+				for (int i = 1; i < path.Length; i++)
+				{
+					Group pg = parent.Items[path[i]] as Group;
+					if (pg == null)
+					{
+						pg = parent.Items.AddGroup(path[i]);
+					}
+					parent = pg;
+				}
+
+				if (items != null)
+					parent.Items.AddRange(items);
+
+				return parent;
+			}
 
 			protected override void ClearItems()
 			{
