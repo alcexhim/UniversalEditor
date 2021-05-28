@@ -318,6 +318,7 @@
     <Content Include="Editors\Blockchain\BlockchainEditor.glade" />
     <Content Include="Panels\PropertyList\PropertyListPanel.glade" />
     <Content Include="Editors\Database\ContextMenu_Columns.uexml" />
+    <Content Include="Editors\PropertyList\Commands.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

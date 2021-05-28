@@ -4,7 +4,7 @@
 		<!-- Associate the PropertyList ObjectModel with its DataFormats -->
 		<Association>
 			<Filters>
-				<Filter Title="Windows configuration document">
+				<Filter Title="Windows configuration document" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.ini</FileNameFilter>
 						<FileNameFilter>*.inf</FileNameFilter>

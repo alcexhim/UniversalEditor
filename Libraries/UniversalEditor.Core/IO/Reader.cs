@@ -52,6 +52,13 @@ namespace UniversalEditor.IO
 		string charBuffer = null;
 		int charBufferIndex = 0;
 
+		public char[] ReadChars(int count)
+		{
+			char[] value = new char[count];
+			for (int i = 0; i < count; i++)
+				value[i] = ReadChar();
+			return value;
+		}
 		public char ReadChar(Encoding encoding = null)
 		{
 			if (encoding == null)
@@ -1747,7 +1754,7 @@ namespace UniversalEditor.IO
 		public string ReadLine()
 		{
 			string line = ReadUntil(GetNewLineSequence());
-			ReadBytes(GetNewLineSequence().Length);
+			ReadChars(GetNewLineSequence().Length);
 			if (line.EndsWith("\r"))
 				line = line.Substring(0, line.Length - 1);
 			return line;

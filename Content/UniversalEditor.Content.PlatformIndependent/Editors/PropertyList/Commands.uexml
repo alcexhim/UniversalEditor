@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{452b75d6-6818-4cb8-a18d-f94485cb0b29}" TypeName="UniversalEditor.Editors.PropertyList.PropertyListEditor" Title="Property List Editor">
+			<Contexts>
+				<Context ID="{694c583d-d96a-438e-a138-db1d636d9e93}" Name="Tree View - Property List Editor" />
+			</Contexts>
+			<CommandBindings>
+				<!-- set up the default command bindings for this editor context -->
+			</CommandBindings>
+			<Commands>
+				<Command ID="PropertyListContextMenu_New_Property" Title="_Property" />
+				<Command ID="PropertyListContextMenu_New_Group" Title="_Group" />
+
+				<Command ID="PropertyListContextMenu_New" Title="_New">
+					<Items>
+						<CommandReference CommandID="PropertyListContextMenu_New_Property" />
+						<CommandReference CommandID="PropertyListContextMenu_New_Group" />
+					</Items>
+				</Command>
+
+				<Command ID="PropertyListContextMenu">
+					<Items>
+						<CommandReference CommandID="PropertyListContextMenu_New" />
+						<Separator />
+						<CommandReference CommandID="EditCut" />
+						<CommandReference CommandID="EditCopy" />
+						<CommandReference CommandID="EditPaste" />
+						<CommandReference CommandID="EditDelete" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

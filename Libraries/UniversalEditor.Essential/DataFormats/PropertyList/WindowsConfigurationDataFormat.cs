@@ -69,6 +69,33 @@ namespace UniversalEditor.DataFormats.PropertyList
 			Reader tr = base.Accessor.Reader;
 			Group CurrentGroup = null;
 
+			if (!tr.EndOfStream)
+			{
+				long pos = tr.Accessor.Position;
+
+				// determine BOM
+				string line = tr.ReadLine();
+				if (line.StartsWith("\xff\xfe"))
+				{
+					tr.Endianness = Endianness.LittleEndian;
+					tr.Accessor.DefaultEncoding = Encoding.UTF16LittleEndian;
+					pos += 2;
+				}
+				else if (line.StartsWith("\xfe\xff"))
+				{
+					tr.Endianness = Endianness.BigEndian;
+					tr.Accessor.DefaultEncoding = Encoding.UTF16BigEndian;
+					pos += 2;
+				}
+				else if (line.StartsWith("\xef\xbb\xbf"))
+				{
+					tr.Accessor.DefaultEncoding = Encoding.UTF8;
+					pos += 3;
+				}
+
+				tr.Accessor.Position = pos;
+			}
+
 			while (!tr.EndOfStream)
 			{
 				string line = tr.ReadLine();

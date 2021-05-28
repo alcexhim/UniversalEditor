@@ -22,9 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls.ListView;
-
+using MBS.Framework.UserInterface.Drawing;
 using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.UserInterface;
 
@@ -42,6 +43,7 @@ namespace UniversalEditor.Editors.PropertyList
 			if (_er == null)
 			{
 				_er = base.MakeReference();
+				_er.ID = new Guid("{452b75d6-6818-4cb8-a18d-f94485cb0b29}");
 				_er.SupportedObjectModels.Add(typeof(PropertyListObjectModel));
 			}
 			return _er;
@@ -59,7 +61,132 @@ namespace UniversalEditor.Editors.PropertyList
 		protected override void OnCreated(EventArgs e)
 		{
 			base.OnCreated(e);
+
+			Context.AttachCommandEventHandler("PropertyListContextMenu_New_Property", PropertyListContextMenu_New_Property);
+			Context.AttachCommandEventHandler("PropertyListContextMenu_New_Group", PropertyListContextMenu_New_Group);
+
 			OnObjectModelChanged(EventArgs.Empty);
+		}
+
+		[EventHandler(nameof(tv), nameof(Control.BeforeContextMenu))]
+		private void tv_BeforeContextMenu(object sender, EventArgs e)
+		{
+			tv.ContextMenuCommandID = "PropertyListContextMenu";
+		}
+
+		[EventHandler(nameof(tv), nameof(ListViewControl.CellEdited))]
+		private void tv_CellEdited(object sender, CellEditedEventArgs e)
+		{
+			Group group = e.Row.GetExtraData<Group>("group");
+			Property property = e.Row.GetExtraData<Property>("property");
+
+			if (e.Column == tv.Model.Columns[0])
+			{
+				// changing the Name
+				if (group != null)
+				{
+					group.Name = e.NewValue?.ToString();
+				}
+				else if (property != null)
+				{
+					property.Name = e.NewValue?.ToString();
+				}
+			}
+			else if (e.Column == tv.Model.Columns[1])
+			{
+				// changing the Value
+				if (group != null)
+				{
+
+				}
+				else if (property != null)
+				{
+					property.Value = e.NewValue;
+				}
+			}
+		}
+
+		private int GetNextIndex<T>(IPropertyListContainer parent = null) where T : PropertyListItem
+		{
+			if (parent == null)
+				parent = (ObjectModel as PropertyListObjectModel);
+
+			int lastIndex = 0;
+			for (int i = 0; i < parent.Items.Count; i++)
+			{
+				if (parent.Items[i] is T)
+				{
+					string newName = String.Format("New {0} ", typeof(T).Name);
+					if (parent.Items[i].Name.StartsWith(newName, StringComparison.CurrentCulture))
+					{
+						if (Int32.TryParse(parent.Items[i].Name.Substring(newName.Length), out int thisIndex))
+						{
+							if (thisIndex > lastIndex)
+								lastIndex = thisIndex;
+						}
+					}
+				}
+			}
+			return lastIndex + 1;
+		}
+
+		private void PropertyListContextMenu_New_Property(object sender, EventArgs e)
+		{
+			Property p = new Property();
+
+			TreeModelRow rowParent = null;
+			IPropertyListContainer parent = ObjectModel as PropertyListObjectModel;
+			if (tv.SelectedRows.Count == 1)
+			{
+				rowParent = tv.SelectedRows[0];
+				parent = rowParent.GetExtraData<Group>("group");
+			}
+
+			p.Name = String.Format("New Property {0}", GetNextIndex<Property>());
+			parent.Items.Add(p);
+			RecursiveAddProperty(p, rowParent);
+		}
+		private void PropertyListContextMenu_New_Group(object sender, EventArgs e)
+		{
+			Group p = new Group();
+
+			TreeModelRow rowParent = null;
+			IPropertyListContainer parent = ObjectModel as PropertyListObjectModel;
+			if (tv.SelectedRows.Count == 1)
+			{
+				rowParent = tv.SelectedRows[0];
+				parent = rowParent.GetExtraData<Group>("group");
+			}
+
+			p.Name = String.Format("New Group {0}", GetNextIndex<Group>());
+			parent.Items.Add(p);
+			RecursiveAddGroup(p, rowParent);
+		}
+
+		[EventHandler(nameof(tv), nameof(ListViewControl.SelectionChanged))]
+		private void tv_SelectionChanged(object sender, EventArgs e)
+		{
+			if (tv.SelectedRows.Count > 0)
+			{
+				Application.Instance.Commands["EditCut"].Enabled = true;
+				Application.Instance.Commands["EditCopy"].Enabled = true;
+				Application.Instance.Commands["EditDelete"].Enabled = true;
+
+				if (tv.SelectedRows[0].GetExtraData<Group>("group") != null)
+				{
+					tv.Columns[1].Renderers[0].Editable = false;
+				}
+				else
+				{
+					tv.Columns[1].Renderers[0].Editable = true;
+				}
+			}
+			else
+			{
+				Application.Instance.Commands["EditCut"].Enabled = false;
+				Application.Instance.Commands["EditCopy"].Enabled = false;
+				Application.Instance.Commands["EditDelete"].Enabled = false;
+			}
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
@@ -87,7 +214,8 @@ namespace UniversalEditor.Editors.PropertyList
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
 				new TreeModelRowColumn(tm.Columns[0], p.Name),
-				new TreeModelRowColumn(tm.Columns[1], p.Value)
+				new TreeModelRowColumn(tm.Columns[1], p.Value),
+				new TreeModelRowColumn(tm.Columns[2], Image.FromStock(StockType.File, 16))
 			});
 
 			if (parent == null)
@@ -104,7 +232,8 @@ namespace UniversalEditor.Editors.PropertyList
 		{
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
-				new TreeModelRowColumn(tm.Columns[0], g.Name)
+				new TreeModelRowColumn(tm.Columns[0], g.Name),
+				new TreeModelRowColumn(tm.Columns[2], Image.FromStock(StockType.Folder, 16))
 			});
 
 			if (parent == null)
