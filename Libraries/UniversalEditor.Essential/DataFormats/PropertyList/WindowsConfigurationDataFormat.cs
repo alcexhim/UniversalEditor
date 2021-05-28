@@ -25,6 +25,7 @@ using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.IO;
 using System.Linq;
 using System.Collections.Generic;
+using MBS.Framework.Settings;
 
 namespace UniversalEditor.DataFormats.PropertyList
 {
@@ -37,6 +38,8 @@ namespace UniversalEditor.DataFormats.PropertyList
 		{
 			DataFormatReference dfr = base.MakeReferenceInternal();
 			dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
+			dfr.ImportOptions.SettingsGroups[0].Settings.Add(new TextSetting("GroupHierarchySeparator", "Group _hierarchy separator", "."));
+			dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting("GroupHierarchySeparator", "Group _hierarchy separator", "."));
 			return dfr;
 		}
 
@@ -60,6 +63,13 @@ namespace UniversalEditor.DataFormats.PropertyList
 		/// </summary>
 		/// <value>The <see cref="string" /> with which to separate a property name from a property value.</value>
 		public string PropertyNameValueSeparator { get; set; } = "=";
+		/// <summary>
+		/// Gets or sets the <see cref="string" /> with which to separate hierarchical group names.
+		/// </summary>
+		/// <value>The group hierarchy separator.</value>
+		public string GroupHierarchySeparator { get; set; } = null;
+
+		public static string DefaultGroupHierarchySeparator { get; set; } = ".";
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -108,7 +118,7 @@ namespace UniversalEditor.DataFormats.PropertyList
 					if (line.StartsWith("[") && line.EndsWith("]"))
 					{
 						string groupName = line.Substring(1, line.Length - 2);
-						CurrentGroup = plom.Items.AddGroup(groupName);
+						CurrentGroup = plom.Items.AddGroup(groupName, GroupHierarchySeparator);
 					}
 					else
 					{
@@ -170,15 +180,31 @@ namespace UniversalEditor.DataFormats.PropertyList
 			tw.Flush();
 		}
 
-		private void WriteGroup(Writer tw, Group g, bool endline)
+		private void WriteGroup(Writer tw, Group g, bool endline, string prefix = null)
 		{
-			tw.WriteLine("[" + g.Name + "]");
+			string groupHierarchySeparator = GroupHierarchySeparator;
+			if (groupHierarchySeparator == null)
+				groupHierarchySeparator = DefaultGroupHierarchySeparator;
+
+			string fullName = String.Format("{0}{1}", prefix == null ? String.Empty : String.Format("{0}{1}", prefix, groupHierarchySeparator), g.Name);
+			tw.WriteLine(String.Format("[{0}]", fullName));
 
 			IEnumerable<Property> properties = g.Items.OfType<Property>();
 			foreach (Property p in properties)
 			{
 				WriteProperty(tw, p, g.Items.IndexOf(p) < g.Items.Count - 1);
 			}
+
+			IEnumerable<Group> groups = g.Items.OfType<Group>();
+			if (groups.Any())
+			{
+				tw.WriteLine();
+				foreach (Group g2 in groups)
+				{
+					WriteGroup(tw, g2, endline, fullName);
+				}
+			}
+
 			if (endline)
 			{
 				tw.WriteLine();
