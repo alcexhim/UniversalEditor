@@ -29,7 +29,10 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 	[Flags()]
 	public enum PNGColorType
 	{
-		None = 0,
+		/// <summary>
+		/// Each pixel is a grayscale sample.
+		/// </summary>
+		Grayscale = 0,
 		/// <summary>
 		/// Each pixel is referenced by an index into the palette table.
 		/// </summary>

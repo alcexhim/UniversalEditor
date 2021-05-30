@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using MBS.Framework.Drawing;
 
 using UniversalEditor.Accessors;
@@ -84,23 +85,89 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 
 			byte[] uncompressed = compressionModule.Decompress(uncompressedFilteredImageData);
 
+			Color[] palette = null;
+			if ((colorType & PNGColorType.Palette) == PNGColorType.Palette)
+			{
+				if (chunks["PLTE"] == null)
+				{
+					throw new InvalidDataFormatException("palette color PNG does not specify 'PLTE' chunk");
+				}
+
+				byte[] paletteData = chunks["PLTE"].Data;
+				if (paletteData.Length % 3 != 0)
+				{
+					throw new InvalidDataFormatException("palette chunk length not divisible by 3");
+				}
+
+				palette = ReadColors(paletteData);
+			}
+
 			for (int y = 0; y < pic.Height; y++)
 			{
 				for (int x = 0; x < pic.Width; x++)
 				{
-					int index = ((y * pic.Width) + x) * 3;
-
-					if (uncompressed.Length - index > 2)
+					if ((colorType & PNGColorType.Color) == PNGColorType.Color)
 					{
-						byte r = uncompressed[index];
-						byte g = uncompressed[index + 1];
-						byte b = uncompressed[index + 2];
+						if ((colorType & PNGColorType.Palette) == PNGColorType.Palette)
+						{
+							// 3 - Color | Palette
+							// Each pixel is a palette index; a PLTE chunk must appear.
+							int index = ((y * pic.Width) + x);
 
-						Color color = Color.FromRGBAByte(r, g, b);
-						pic.SetPixel(color, x, y);
+							// Sample depth is always 8 bits for color type 3
+							byte dat = uncompressed[index];
+
+							Color color = palette[dat];
+							pic.SetPixel(color, x, y);
+						}
+						else if ((colorType & PNGColorType.AlphaChannel) == PNGColorType.AlphaChannel)
+						{
+							// 6 - Color | Alpha Channel
+							// Each pixel is a grayscale sample, followed by an alpha sample.
+						}
+						else
+						{
+							// 2 - Color
+							// Each pixel is an R,G,B triple.
+							int index = ((y * pic.Width) + x) * 3;
+
+							if (uncompressed.Length - index > 2)
+							{
+								byte r = uncompressed[index];
+								byte g = uncompressed[index + 1];
+								byte b = uncompressed[index + 2];
+
+								Color color = Color.FromRGBAByte(r, g, b);
+								pic.SetPixel(color, x, y);
+							}
+							else
+							{
+
+							}
+						}
+					}
+					else if ((colorType & PNGColorType.AlphaChannel) == PNGColorType.AlphaChannel)
+					{
+						// 4 - Alpha Channel
+						// Each pixel is a grayscale sample, followed by an alpha sample.
+					}
+					else if (colorType == PNGColorType.Grayscale)
+					{
+						// 0 - Grayscale
+						// Each pixel is a grayscale sample.
 					}
 				}
 			}
+		}
+
+		private Color[] ReadColors(byte[] paletteData)
+		{
+			Color[] colors = new Color[paletteData.Length / 3];
+			for (int i = 0; i < paletteData.Length; i += 3)
+			{
+				colors[i / 3] = Color.FromRGBAByte(paletteData[i + 0], paletteData[i + 1], paletteData[i + 2]);
+			}
+			return colors;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
