@@ -30,6 +30,7 @@ using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework;
 using MBS.Framework.UserInterface.Input.Mouse;
 using UniversalEditor.UserInterface.Panels;
+using System.Linq;
 
 namespace UniversalEditor.UserInterface
 {
@@ -104,13 +105,7 @@ namespace UniversalEditor.UserInterface
 		public Selection[] GetSelections()
 		{
 			UpdateSelections();
-
-			Selection[] sels = new Selection[Selections.Count];
-			for (int i = 0; i < Selections.Count; i++)
-			{
-				sels[i] = Selections[i];
-			}
-			return sels;
+			return Selections.ToArray();
 		}
 
 		public event EditorDocumentExplorerSelectionChangedEventHandler DocumentExplorerSelectionChanged;
@@ -260,13 +255,16 @@ namespace UniversalEditor.UserInterface
 		}
 		public void Delete()
 		{
-			BeginEdit();
 			Selection[] sels = GetSelections();
-			foreach (Selection sel in sels)
+			if (sels.Length > 0)
 			{
-				sel.Delete();
+				BeginEdit();
+				foreach (Selection sel in sels)
+				{
+					sel.Delete();
+				}
+				EndEdit();
 			}
-			EndEdit();
 		}
 
 		#region IEditorImplementation Members
