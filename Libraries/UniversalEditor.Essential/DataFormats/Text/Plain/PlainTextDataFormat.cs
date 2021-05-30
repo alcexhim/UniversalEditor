@@ -51,16 +51,20 @@ namespace UniversalEditor.DataFormats.Text.Plain
 			Reader reader = Accessor.Reader;
 
 			// determine if we have BOM
-			if (reader.Accessor.Length >= 4)
+			if (reader.Accessor.Length >= 2)
 			{
 				byte b1 = reader.ReadByte();
 				byte b2 = reader.ReadByte();
-				byte b3 = reader.ReadByte();
-				byte b4 = reader.ReadByte();
-				if (b1 == 0xEF && b2 == 0xBB && b3 == 0xBF)
+
+				if (b1 == 0xEF && b2 == 0xBB)
 				{
-					ByteOrderMark = ByteOrderMark.UTF8;
-					reader.Accessor.Seek(-1, SeekOrigin.Current);
+					byte b3 = reader.ReadByte();
+					if (b3 == 0xBF)
+					{
+						ByteOrderMark = ByteOrderMark.UTF8;
+						reader.Accessor.Seek(-1, SeekOrigin.Current);
+					}
+					reader.Accessor.Seek(-2, SeekOrigin.Current);
 				}
 				else if ((b1 == 0xFE && b2 == 0xFF) || (b1 == 0xFF && b2 == 0xFE))
 				{
@@ -77,14 +81,19 @@ namespace UniversalEditor.DataFormats.Text.Plain
 				else
 				{
 					ByteOrderMark = ByteOrderMark.None;
-					reader.Accessor.Seek(-4, SeekOrigin.Current);
+					reader.Accessor.Seek(-2, SeekOrigin.Current);
 				}
 			}
 
-			while (!reader.EndOfStream)
+			ReadText(Accessor, ptom);
+		}
+
+		protected virtual void ReadText(Accessor acc, PlainTextObjectModel objectModel)
+		{
+			while (!acc.Reader.EndOfStream)
 			{
-				string line = reader.ReadLine();
-				ptom.Lines.Add(line);
+				string line = acc.Reader.ReadLine();
+				objectModel.Lines.Add(line);
 			}
 		}
 
