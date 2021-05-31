@@ -181,7 +181,7 @@ namespace UniversalEditor.Editors.FileSystem
 			IFileSystemObject[] sels = GetSelectedItems();
 			if (sels.Length > 0)
 			{
-				Selections.Add(new FileSystemSelection(this, GetSelectedItems()));
+				Selections.Add(new FileSystemSelection(ObjectModel as FileSystemObjectModel, GetSelectedItems()));
 			}
 		}
 
@@ -244,7 +244,7 @@ namespace UniversalEditor.Editors.FileSystem
 		{
 			while (tv.SelectedRows.Count > 0)
 			{
-				if (tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") == sel.Items[0])
+				if (tv.SelectedRows[0].GetExtraData<IFileSystemObject>("item") == sel.SelectedItem)
 				{
 					tm.Rows.Remove(tv.SelectedRows[0]);
 					break;
@@ -623,18 +623,18 @@ namespace UniversalEditor.Editors.FileSystem
 
 							fileList.Add(fso);
 						}
-						return new FileSystemSelection(this, fileList.ToArray());
+						return new FileSystemSelection(ObjectModel as FileSystemObjectModel, fileList.ToArray());
 					}
 				}
 			}
 			else if (content is IFileSystemObject)
 			{
-				return new FileSystemSelection(this, content as IFileSystemObject);
+				return new FileSystemSelection(ObjectModel as FileSystemObjectModel, content as IFileSystemObject);
 			}
 			else if (content is IFileSystemObject[])
 			{
 				IFileSystemObject[] items = (IFileSystemObject[])content;
-				return new FileSystemSelection(this, items);
+				return new FileSystemSelection(ObjectModel as FileSystemObjectModel, items);
 				/*
 				tv.SelectedRows.Clear();
 				for (int i = 0; i < tv.Model.Rows.Count; i++)
@@ -767,7 +767,7 @@ namespace UniversalEditor.Editors.FileSystem
 					for (int i = 0; i < e.NewItems.Count; i++)
 					{
 						FileSystemSelection sel = (e.NewItems[i] as FileSystemSelection);
-						IFileSystemObject[] objs = (sel.Content as IFileSystemObject[]);
+						IFileSystemObject[] objs = sel.SelectedItems.ToArray();
 
 						for (int j = 0; j < tv.Model.Rows.Count; j++)
 						{
@@ -796,7 +796,7 @@ namespace UniversalEditor.Editors.FileSystem
 				TreeModelRow row = tv.SelectedRows[i];
 				if (row == null) continue;
 
-				Selections.Add(new FileSystemSelection(this, row.GetExtraData<IFileSystemObject>("item")));
+				Selections.Add(new FileSystemSelection(ObjectModel as FileSystemObjectModel, row.GetExtraData<IFileSystemObject>("item")));
 			}
 		}
 

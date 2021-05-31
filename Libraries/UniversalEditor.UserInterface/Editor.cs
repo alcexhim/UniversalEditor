@@ -264,6 +264,8 @@ namespace UniversalEditor.UserInterface
 					sel.Delete();
 				}
 				EndEdit();
+
+				OnObjectModelChanged(EventArgs.Empty);
 			}
 		}
 

@@ -587,5 +587,17 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				}
 			}
 		}
+
+		public void Delete(IFileSystemObject fso)
+		{
+			if (fso is File)
+			{
+				fso.Parent.Files.Remove(fso as File);
+			}
+			else if (fso is Folder)
+			{
+				fso.Parent.Folders.Remove(fso as Folder);
+			}
+		}
 	}
 }

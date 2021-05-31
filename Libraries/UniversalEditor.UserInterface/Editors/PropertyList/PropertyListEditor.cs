@@ -51,11 +51,23 @@ namespace UniversalEditor.Editors.PropertyList
 
 		protected override Selection CreateSelectionInternal(object content)
 		{
-			throw new NotImplementedException();
+			return null;
 		}
 		public override void UpdateSelections()
 		{
-			throw new NotImplementedException();
+			foreach (TreeModelRow row in tv.SelectedRows)
+			{
+				Group group = row.GetExtraData<Group>("group");
+				Property property = row.GetExtraData<Property>("property");
+				if (group != null)
+				{
+					Selections.Add(new PropertyListSelection(ObjectModel as PropertyListObjectModel, group));
+				}
+				else if (property != null)
+				{
+					Selections.Add(new PropertyListSelection(ObjectModel as PropertyListObjectModel, property));
+				}
+			}
 		}
 
 		protected override void OnCreated(EventArgs e)

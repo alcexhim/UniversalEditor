@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
+
 namespace UniversalEditor
 {
 	public abstract class Selection
@@ -39,6 +41,51 @@ namespace UniversalEditor
 		{
 			DeleteInternal();
 			Content = null;
+		}
+	}
+	public abstract class Selection<TObjectModel, TSelection> : Selection where TObjectModel : ObjectModel
+	{
+		public override object Content
+		{
+			get
+			{
+				if (SelectedItems.Count == 0)
+					return null;
+				if (SelectedItems.Count == 1)
+					return SelectedItems[0];
+				return SelectedItems.ToArray();
+			}
+			set
+			{
+				if (value == null)
+				{
+					SelectedItems.Clear();
+				}
+				else if (value is TSelection)
+				{
+					SelectedItems.Clear();
+					SelectedItems.Add((TSelection)value);
+				}
+				else if (value is TSelection[])
+				{
+					SelectedItems = new List<TSelection>((TSelection[])value);
+				}
+			}
+		}
+
+		public TObjectModel ObjectModel { get; private set; } = default(TObjectModel);
+		public TSelection SelectedItem { get { return SelectedItems[0]; } set { SelectedItems.Clear(); SelectedItems.Add(value); } }
+		public List<TSelection> SelectedItems { get; private set; } = new List<TSelection>();
+
+		protected Selection(TObjectModel objectModel, TSelection selectedItem)
+		{
+			ObjectModel = objectModel;
+			SelectedItem = selectedItem;
+		}
+		protected Selection(TObjectModel objectModel, TSelection[] selectedItems)
+		{
+			ObjectModel = objectModel;
+			SelectedItems = new List<TSelection>(selectedItems);
 		}
 	}
 }

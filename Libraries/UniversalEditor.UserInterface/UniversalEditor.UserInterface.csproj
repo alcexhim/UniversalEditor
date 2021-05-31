@@ -137,6 +137,7 @@
     <Compile Include="EditorPropertiesPanel.cs" />
     <Compile Include="Editors\FileSystem\FileSystemEditorSettingsGuids.cs" />
     <Compile Include="MultipleDocumentErrorHandling.cs" />
+    <Compile Include="Editors\PropertyList\PropertyListSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
