@@ -652,7 +652,8 @@ namespace UniversalEditor.UserInterface
 						ObjectModelReference omr = omrs [0];
 						ObjectModel om = omr.Create ();
 
-						doc.DataFormat = dfr.Create ();
+						DataFormat df = dfr.Create ();
+						doc.DataFormat = df;
 						doc.ObjectModel = om;
 
 						try
@@ -668,9 +669,61 @@ namespace UniversalEditor.UserInterface
 								doc.Accessor.Position = initpos;
 							}
 
-							doc.Load ();
-							doc.IsSaved = true;
-							loaded = true;
+							while (true)
+							{
+								doc.Accessor.Position = initpos;
+								try
+								{
+									doc.Load();
+									doc.IsSaved = true;
+									loaded = true;
+									break;
+								}
+								catch (ArgumentException ex)
+								{
+									if (dfr.ImportOptions != null)
+									{
+										bool _break = false;
+										foreach (SettingsGroup sg in dfr.ImportOptions.SettingsGroups)
+										{
+											foreach (Setting s in sg.Settings)
+											{
+												if (s.Required)
+												{
+													if (s.GetValue() == null)
+													{
+														_break = true;
+														break;
+													}
+													else
+													{
+														if (((UIApplication)Application.Instance).GetSetting<bool>(SettingsGuids.Import.RememberLastImportSettingsValues))
+														{
+															// cool new feature! Application > Import > Remember last-used import settings
+															df.GetType().GetProperty(s.Name).SetValue(df, s.GetValue(), null);
+														}
+														else
+														{
+															s.DefaultValue = s.GetValue();
+															_break = true;
+														}
+														break;
+													}
+												}
+											}
+											if (_break)
+												break;
+										}
+
+										if (_break)
+										{
+											if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
+												break;
+										}
+									}
+									break;
+								}
+							}
 						}
 						catch (InvalidDataFormatException ex)
 						{
@@ -689,6 +742,7 @@ namespace UniversalEditor.UserInterface
 						}
 
 						found = true;
+						doc.Accessor.Position = initpos;
 						break;
 					}
 					if (!found) {
@@ -697,6 +751,8 @@ namespace UniversalEditor.UserInterface
 					}
 				}
 			}
+
+			// OKAY WHY THE **** ARE WE OPENING THE SAME FILE TWICE???
 
 			if (doc.ObjectModel != null)
 			{

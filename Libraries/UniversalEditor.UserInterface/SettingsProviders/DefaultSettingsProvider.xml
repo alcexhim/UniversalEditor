@@ -27,6 +27,15 @@
 				<Settings>
 				</Settings>
 			</SettingsGroup>
+			<SettingsGroup ID="{d87c1d8d-028c-4dd1-9dbb-ee5ea1fa4411}">
+				<Path>
+					<Part>Application</Part>
+					<Part>Import</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{e1b63e36-5bc7-4592-b7a3-e7825a45fb83}" Title="_Remember last-used import settings" />
+				</Settings>
+			</SettingsGroup>
 			<SettingsGroup ID="{2F0B1AC3-7F75-47C0-8BF7-FDD7C33215D9}">
 				<Path>
 					<Part>Source Control</Part>
