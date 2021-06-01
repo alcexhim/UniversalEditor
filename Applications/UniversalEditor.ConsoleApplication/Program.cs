@@ -240,6 +240,14 @@ namespace UniversalEditor.ConsoleApplication
 					{
 						sb_mime_info.AppendLine(String.Format("\t\t<generic-icon name=\"package-x-generic\"/>"));
 					}
+					else if (assocs[i].ObjectModels.Contains(new Guid("{4ae4c9ac-d8ab-4f7d-8d45-5e7fb8c475cc}")))
+					{
+						sb_mime_info.AppendLine(String.Format("\t\t<generic-icon name=\"image-x-generic\"/>"));
+					}
+					else if (assocs[i].ObjectModels.Contains(new Guid("{c852b1d7-d034-43b4-b850-00e583e47fef}")))
+					{
+						sb_mime_info.AppendLine(String.Format("\t\t<generic-icon name=\"gnome-color-manager\"/>"));
+					}
 
 					// Console.Write("registering '{0}' extensions... ", assocs[i].Filters[j].Title);
 					for (int k = 0; k < assocs[i].Filters[j].FileNameFilters.Count; k++)
@@ -248,7 +256,7 @@ namespace UniversalEditor.ConsoleApplication
 					}
 
 					// FIXME: this doesn't work!
-					bool includeMagicBytes = true;
+					bool includeMagicBytes = false;
 
 					if (includeMagicBytes && assocs[i].Filters[j].MagicBytes.Count > 0)
 					{
