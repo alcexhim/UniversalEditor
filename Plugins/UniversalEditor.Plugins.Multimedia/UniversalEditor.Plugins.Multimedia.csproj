@@ -341,6 +341,9 @@
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\ACT\ACTDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\Adobe\SwatchExchange\ASEDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Targa\TargaFormatVersion.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\KISS\CELDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\KISS\CELImageType.cs" />
+    <Compile Include="DataFormats\Multimedia\Palette\KISS\KCFDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -401,6 +404,8 @@
     <Folder Include="DataFormats\Multimedia\Palette\Adobe\ACO\" />
     <Folder Include="DataFormats\Multimedia\Palette\Adobe\ACT\" />
     <Folder Include="DataFormats\Multimedia\Palette\Adobe\SwatchExchange\" />
+    <Folder Include="DataFormats\Multimedia\Picture\KISS\" />
+    <Folder Include="DataFormats\Multimedia\Palette\KISS\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Playlist\ASX.uexml" />
@@ -474,6 +479,8 @@
     <EmbeddedResource Include="Associations\SynthesizedAudio\SPC.uexml" />
     <EmbeddedResource Include="Associations\Palette\Adobe\ACTColorPalette.uexml" />
     <EmbeddedResource Include="Associations\Palette\RIFFPalette.uexml" />
+    <EmbeddedResource Include="Associations\Picture\KISS.uexml" />
+    <EmbeddedResource Include="Associations\Palette\KISS.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
