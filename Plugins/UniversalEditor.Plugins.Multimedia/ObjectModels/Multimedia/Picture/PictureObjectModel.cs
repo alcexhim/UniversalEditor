@@ -180,7 +180,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
-			ObjectModelReference omr = base.MakeReferenceInternal();
+			ObjectModelReference omr = new ObjectModelReference(GetType(), new Guid("{4ae4c9ac-d8ab-4f7d-8d45-5e7fb8c475cc}"));
 			omr.Path = new string[] { "Multimedia", "Picture", "Single Picture" };
 			return omr;
 		}

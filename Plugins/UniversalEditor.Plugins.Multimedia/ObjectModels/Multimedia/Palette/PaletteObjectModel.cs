@@ -33,7 +33,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Palette
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReferenceInternal();
+				_omr = new ObjectModelReference(GetType(), new Guid("{c852b1d7-d034-43b4-b850-00e583e47fef}"));
 				_omr.Path = new string[] { "Multimedia", "Color palette" };
 			}
 			return _omr;
