@@ -39,11 +39,15 @@ namespace UniversalEditor.DataFormats.SourceCode
 	/// </summary>
 	public abstract class CodeDataFormat : PlainTextDataFormat
 	{
+		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
-			dfr.Capabilities.Add(typeof(CodeObjectModel), DataFormatCapabilities.All);
-			return dfr;
+			if (_dfr == null)
+			{
+				_dfr = new DataFormatReference(GetType());
+				_dfr.Capabilities.Add(typeof(CodeObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
 		}
 
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
