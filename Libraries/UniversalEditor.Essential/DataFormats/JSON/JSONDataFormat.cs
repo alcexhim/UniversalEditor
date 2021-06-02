@@ -41,7 +41,7 @@ namespace UniversalEditor.DataFormats.JSON
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReferenceInternal();
+				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(JSONObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;

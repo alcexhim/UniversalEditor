@@ -38,7 +38,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Wavefront
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReferenceInternal();
+				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;

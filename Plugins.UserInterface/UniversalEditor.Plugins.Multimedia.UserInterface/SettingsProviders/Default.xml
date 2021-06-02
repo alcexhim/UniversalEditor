@@ -59,14 +59,12 @@
 					<Part>Singing Style Defaults</Part>
 				</Path>
 				<Settings>
-					<!--
 					<GroupSetting ID="{4C560594-7398-4DC1-98D7-95B52A0867F2}" Title="VOCALOID2 Import/Export">
 						<Settings>
 							<CommandSetting ID="{7F27CF86-A8A4-4509-B03F-055FA435093E}" Name="LoadVOCALOID2" Title="_Load settings from VOCALOID2" CommandID="SynthesizedAudioEditor_LoadVOCALOID2" />
 							<CommandSetting ID="{1D010F84-1BA6-4508-89A8-72C5C88B8CA7}" Name="SaveVOCALOID2" Title="_Save settings to VOCALOID2" CommandID="SynthesizedAudioEditor_SaveToVOCALOID2" />
 						</Settings>
 					</GroupSetting>
-					-->
 					<ChoiceSetting ID="{D4554BD6-AAB1-498A-A8DC-0CE6B6E8AC41}" Name="Template" Title="_Template">
 						<Choices>
 							<Choice ID="{825DBD39-CAA4-480A-AF59-CEE32AAE00B7}" Name="custom" Title="(Custom)" Value="custom" />

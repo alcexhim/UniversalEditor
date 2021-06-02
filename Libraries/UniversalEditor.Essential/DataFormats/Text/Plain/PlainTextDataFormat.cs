@@ -104,9 +104,11 @@ namespace UniversalEditor.DataFormats.Text.Plain
 				throw new ObjectModelNotSupportedException();
 
 			Writer writer = Accessor.Writer;
-			foreach (string line in ptom.Lines)
+			for (int i = 0; i < ptom.Lines.Count; i++)
 			{
-				writer.WriteLine(line);
+				writer.Write(ptom.Lines[i]);
+				if (i < ptom.Lines.Count)
+					writer.WriteLine();
 			}
 		}
 	}
