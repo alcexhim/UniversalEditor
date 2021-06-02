@@ -25,7 +25,7 @@ using MBS.Framework.Drawing;
 using MBS.Framework.Settings;
 using UniversalEditor.ObjectModels.Multimedia.Palette;
 
-namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe
+namespace UniversalEditor.DataFormats.Multimedia.Palette.Adobe.ACO
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating color palettes in Adobe ACO format.
