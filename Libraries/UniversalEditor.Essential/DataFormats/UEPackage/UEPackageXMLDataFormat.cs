@@ -925,11 +925,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 								{
 									if (attTypeName != null)
 									{
-										// Console.WriteLine("DataFormat could not be associated: " + attTypeName.Value);
+										Console.Error.WriteLine("DataFormat could not be associated: " + attTypeName.Value);
 									}
 									else if (attID != null)
 									{
-										// Console.WriteLine("DataFormat could not be associated: " + attID.Value);
+										Console.Error.WriteLine("DataFormat could not be associated: " + attID.Value);
 									}
 								}
 							}
