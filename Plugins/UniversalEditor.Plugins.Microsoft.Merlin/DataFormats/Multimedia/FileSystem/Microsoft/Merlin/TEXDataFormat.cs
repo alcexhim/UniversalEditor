@@ -53,7 +53,7 @@ namespace UniversalEditor.DataFormats.Multimedia.FileSystem.Microsoft.Merlin
 			}
 
 			MemoryAccessor ma = new MemoryAccessor();
-			Document.Save(mvarPalette, new DataFormats.Multimedia.Palette.Adobe.ACODataFormat(), ma, true);
+			Document.Save(mvarPalette, new DataFormats.Multimedia.Palette.Adobe.ACO.ACODataFormat(), ma, true);
 
 			fsom.Files.Add("PALETTE.ACO", ma.ToArray());
 
