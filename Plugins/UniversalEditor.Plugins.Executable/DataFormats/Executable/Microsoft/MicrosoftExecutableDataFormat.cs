@@ -26,6 +26,7 @@ using UniversalEditor.ObjectModels.Executable;
 using UniversalEditor.ObjectModels.FileSystem;
 
 using UniversalEditor.DataFormats.Executable.Microsoft.PortableExecutable;
+using System.Collections.Generic;
 
 #if EXECUTABLE_LOAD_RESOURCES
 using UniversalEditor.DataFormats.Resource.Microsoft;
@@ -40,7 +41,7 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft
 	/// </summary>
 	public class MicrosoftExecutableDataFormat : DataFormat
 	{
-		public NameValuePair<int>.NameValuePairCollection ImportTable { get; } = new NameValuePair<int>.NameValuePairCollection();
+		public Dictionary<string, int> ImportTable { get; } = new Dictionary<string, int>();
 		public System.Reflection.Assembly CLRAssembly { get; private set; } = null;
 
 		private static DataFormatReference _dfr;
