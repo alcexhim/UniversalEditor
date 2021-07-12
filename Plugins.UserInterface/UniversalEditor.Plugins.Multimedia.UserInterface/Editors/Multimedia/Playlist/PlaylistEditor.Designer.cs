@@ -48,7 +48,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pl
 			// fuckkkk
 			for (int i = 0; i < tmPlaylist.Columns.Count; i++)
 			{
-				lvPlaylist.Columns[i].Column = tmPlaylist.Columns[i];
+				lvPlaylist.Columns[i].SortColumn = tmPlaylist.Columns[i];
 			}
 		}
 	}
