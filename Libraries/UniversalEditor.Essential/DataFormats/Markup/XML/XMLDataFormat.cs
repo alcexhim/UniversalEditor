@@ -46,6 +46,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			Settings.Entities.Add("apos", "'");
 			Settings.Entities.Add("lt", "<");
 			Settings.Entities.Add("gt", ">");
+			Settings.Entities.Add("deg", "°");
 		}
 
 		private XMLDataFormatSettings mvarSettings = new XMLDataFormatSettings();
