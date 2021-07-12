@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Chaos Works Engine palette">
+				<Filter Title="Chaos Works Engine palette" ContentType="application/x-chaosworks-spp" HintComparison="FilterThenMagic">
 					<FileNameFilters>
 						<FileNameFilter>*.spp</FileNameFilter>
 					</FileNameFilters>

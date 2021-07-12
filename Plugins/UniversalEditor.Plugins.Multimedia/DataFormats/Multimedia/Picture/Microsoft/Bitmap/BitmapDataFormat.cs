@@ -38,6 +38,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		public const int BITMAP_PALETTE_ENTRY_SIZE_24BIT = 3;
 		public const int BITMAP_PALETTE_ENTRY_SIZE_32BIT = 4;
 
+		public BitmapCompression Compression { get; set; } = BitmapCompression.None;
+
 		/// <summary>
 		/// The number of bits-per-pixel. The biBitCount member of the BITMAPINFOHEADER structure determines the
 		/// number of bits that define each pixel and the maximum number of colors in the bitmap.
@@ -57,6 +59,15 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 				new ChoiceSetting.ChoiceSettingValue("Monochrome", "Monochrome", BitmapBitsPerPixel.Monochrome),
 				new ChoiceSetting.ChoiceSettingValue("TrueColor", "True color (24-bit R8G8B8)", BitmapBitsPerPixel.TrueColor)
 			}));
+			dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(Compression), "_Compression", BitmapCompression.None, new ChoiceSetting.ChoiceSettingValue[]
+			{
+				new ChoiceSetting.ChoiceSettingValue("None", "None", BitmapCompression.None),
+				new ChoiceSetting.ChoiceSettingValue("RLE8", "RLE8", BitmapCompression.RLE8),
+				new ChoiceSetting.ChoiceSettingValue("RLE4", "RLE4", BitmapCompression.RLE4),
+				new ChoiceSetting.ChoiceSettingValue("Bitfields", "Bitfields", BitmapCompression.Bitfields),
+				new ChoiceSetting.ChoiceSettingValue("JPEG", "JPEG", BitmapCompression.JPEG),
+				new ChoiceSetting.ChoiceSettingValue("PNG", "PNG", BitmapCompression.PNG)
+			}));
 			return dfr;
 		}
 
@@ -74,6 +85,9 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 		/// </summary>
 		/// <value>The vertical resolution, in pixels-per-meter, of the target device for the bitmap.</value>
 		public int VerticalResolution { get; set; } = 0;
+
+		private const int DIV_5 = 31;
+		private const int DIV_6 = 63;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -262,10 +276,30 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 							if (header.Compression == BitmapCompression.Bitfields)
 							{
 								// R5G6B5
+
+								// If the bV5Compression member of the
+								// BITMAPV5HEADER is BI_BITFIELDS, the bmiColors
+								// member contains three DWORD color masks that
+								// specify the red, green, and blue components,
+								// respectively, of each pixel. Each WORD in the
+								// bitmap array represents a single pixel.
 								short value = br.ReadInt16();
-								b = (byte)(8 * value.GetBits(0, 5));
-								g = (byte)(8 * value.GetBits(6, 6));
-								r = (byte)(8 * value.GetBits(11, 5));
+
+								b = (byte)(value & header.Bitfields[0]); // R
+								g = (byte)(value & header.Bitfields[1]); // R
+								r = (byte)(value & header.Bitfields[2]); // R
+								a = (byte)(value & header.Bitfields[3]); // R
+
+								/*
+								b = (byte)(value.GetBits(0, 5));
+								g = (byte)(value.GetBits(6, 5));
+								r = (byte)(value.GetBits(11, 5));
+								a = (byte)(value.GetBits(16, 1));
+
+								b = (byte)(((double)255 / DIV_5) * b);
+								g = (byte)(((double)255 / DIV_5) * g);
+								r = (byte)(((double)255 / DIV_5) * r);
+								*/
 							}
 							else
 							{
@@ -276,6 +310,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 								g = (byte)(8 * value.GetBits(5, 5));
 								r = (byte)(8 * value.GetBits(10, 5));
 							}
+							a = 255;
 							break;
 						}
 						case BitmapBitsPerPixel.TrueColor:
@@ -314,7 +349,11 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.Microsoft.Bitmap
 					Color color = Color.FromRGBAByte(r, g, b, a);
 					pic.SetPixel(color, x, y);
 				}
-				br.Align(4);
+
+				if (PixelDepth != BitmapBitsPerPixel.DeepColor)
+				{
+					// br.Align(4);
+				}
 			}
 		}
 		protected override void SaveInternal(ObjectModel objectModel)

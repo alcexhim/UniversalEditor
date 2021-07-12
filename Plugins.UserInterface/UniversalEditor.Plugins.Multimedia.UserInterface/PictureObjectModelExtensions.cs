@@ -37,13 +37,13 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface
 		/// <param name="pic">The <see cref="PictureObjectModel" /> containing the image data to convert.</param>
 		public static Image ToImage(this PictureObjectModel pic)
 		{
-			byte[] input = pic.ToByteArray();
+			byte[] input = pic.ToByteArray(PixelFormat.RGBA);
 			byte[] output = new byte[input.Length];
 			for (int i = 0; i < input.Length; i += 4)
 			{
-				byte b = input[i];
+				byte r = input[i];
 				byte g = input[i + 1];
-				byte r = input[i + 2];
+				byte b = input[i + 2];
 				byte a = input[i + 3];
 
 				output[i] = r;

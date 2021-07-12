@@ -344,6 +344,16 @@
     <Compile Include="DataFormats\Multimedia\Picture\KISS\CELDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\KISS\CELImageType.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\KISS\KCFDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\EXR\EXRDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\EXR\EXRCompression.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\EXR\EXRLineOrder.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\EXR\EXRFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\EXR\EXRChannel.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\EXR\EXRPixelType.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\EXR\EXRChromaticities.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Radiance\HDRDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\Radiance\HDRCompression.cs" />
+    <Compile Include="ObjectModels\Multimedia\Picture\PixelFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -406,6 +416,8 @@
     <Folder Include="DataFormats\Multimedia\Palette\Adobe\SwatchExchange\" />
     <Folder Include="DataFormats\Multimedia\Picture\KISS\" />
     <Folder Include="DataFormats\Multimedia\Palette\KISS\" />
+    <Folder Include="DataFormats\Multimedia\Picture\EXR\" />
+    <Folder Include="DataFormats\Multimedia\Picture\Radiance\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Playlist\ASX.uexml" />
@@ -481,6 +493,8 @@
     <EmbeddedResource Include="Associations\Palette\RIFFPalette.uexml" />
     <EmbeddedResource Include="Associations\Picture\KISS.uexml" />
     <EmbeddedResource Include="Associations\Palette\KISS.uexml" />
+    <EmbeddedResource Include="Associations\Picture\EXR.uexml" />
+    <EmbeddedResource Include="Associations\Picture\Radiance.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -154,6 +154,8 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 			}
 			br.Accessor.LoadPosition();
 
+			palette = EmbeddedPalette;
+
 			// now that we've loaded the frame definitions and embedded color palette,
 			// we can go back and read the pixel data
 			List<List<byte>> lists = new List<List<byte>>();

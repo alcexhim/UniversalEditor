@@ -55,16 +55,14 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 		public List<Color> GenerateColorMap()
 		{
 			List<Color> colorMap = new List<MBS.Framework.Drawing.Color>();
-			for (int index = 0; index < bitmapData.Length; index += 4)
+			for (int x = 0; x < bitmapData.Length; x++)
 			{
-				byte a = bitmapData[index + 0];
-				byte r = bitmapData[index + 1];
-				byte g = bitmapData[index + 2];
-				byte b = bitmapData[index + 3];
-
-				Color color = Color.FromRGBAByte(a, r, g, b);
-				if (!colorMap.Contains(color))
-					colorMap.Add(color);
+				for (int y = 0; y < bitmapData[x].Length; y++)
+				{
+					Color color = bitmapData[x][y];
+					if (!colorMap.Contains(color))
+						colorMap.Add(color);
+				}
 			}
 			return colorMap;
 		}
@@ -85,7 +83,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			SetPixel(color, (int)lastAddedLocation.X, (int)lastAddedLocation.Y);
 			lastAddedLocation.X++;
 		}
-		[System.Diagnostics.DebuggerNonUserCode]
+
 		public void SetPixel(Color color, int x, int y)
 		{
 			if (x >= mvarWidth || y >= mvarHeight)
@@ -94,24 +92,16 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			}
 
 			int index = (x + (y * mvarWidth)) * 4;
-			bitmapData[index] = (byte)(color.R * 255);
-			bitmapData[index + 1] = (byte)(color.G * 255);
-			bitmapData[index + 2] = (byte)(color.B * 255);
-			bitmapData[index + 3] = (byte)(color.A * 255);
+			bitmapData[x][y] = color;
 
 			int realIndex = (int)(index / 4);
-			bitmapDataSet[realIndex] = true;
 		}
 		public void ClearPixel(int x, int y)
 		{
 			int index = (int)((lastAddedLocation.X + (lastAddedLocation.Y * mvarWidth)) * 4);
-			bitmapData[index] = 0;
-			bitmapData[index + 1] = 0;
-			bitmapData[index + 2] = 0;
-			bitmapData[index + 3] = 0;
+			bitmapData[x][y] = Color.Empty;
 
 			int realIndex = (int)(index / 4);
-			bitmapDataSet[realIndex] = false;
 		}
 		public Color GetPixel(int x, int y)
 		{
@@ -122,14 +112,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 
 			int index = (x + (y * mvarWidth)) * 4;
 			int realIndex = (int)(index / 4);
-			if (bitmapDataSet[realIndex])
+			if (!bitmapData[x][y].IsEmpty)
 			{
-				byte a = bitmapData[index + 0];
-				byte r = bitmapData[index + 1];
-				byte g = bitmapData[index + 2];
-				byte b = bitmapData[index + 3];
-
-				Color color = Color.FromRGBAByte(a, r, g, b);
+				Color color = bitmapData[x][y];
 				return color;
 			}
 			return Color.Empty;
@@ -139,19 +124,30 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			return GetPixel((int)point.X, (int)point.Y);
 		}
 
-		private byte[] bitmapData = new byte[] { 0, 0, 0, 0 };
-		private bool[] bitmapDataSet = new bool[] { false };
+		private Color[][] bitmapData = new Color[0][];
 
 		public PictureObjectModel()
 		{
 		}
 		public PictureObjectModel(int width, int height)
 		{
-			bitmapData = new byte[(width * height) * 4];
-			bitmapDataSet = new bool[(width * height) * 4];
+			InitializeBitmapData();
 
 			mvarWidth = width;
 			mvarHeight = height;
+		}
+
+		private static void InitializeBitmapData(ref Color[][] array, int width, int height)
+		{
+			array = new Color[width][];
+			for (int i = 0; i < width; i++)
+			{
+				array[i] = new Color[height];
+			}
+		}
+		private void InitializeBitmapData()
+		{
+			InitializeBitmapData(ref bitmapData, Width, Height);
 		}
 
 		private int mvarWidth = 1;
@@ -161,8 +157,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			set
 			{
 				mvarWidth = value;
-				bitmapData = new byte[mvarWidth * mvarHeight * 4];
-				bitmapDataSet = new bool[mvarWidth * mvarHeight];
+				InitializeBitmapData();
 			}
 		}
 		private int mvarHeight = 1;
@@ -172,8 +167,19 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			set
 			{
 				mvarHeight = value;
-				bitmapData = new byte[mvarWidth * mvarHeight * 4];
-				bitmapDataSet = new bool[mvarWidth * mvarHeight];
+				InitializeBitmapData();
+			}
+		}
+
+		public Dimension2D Size
+		{
+			get { return new Dimension2D(mvarWidth, mvarHeight); }
+			set
+			{
+				mvarWidth = (int)value.Width;
+				mvarHeight = (int)value.Height;
+
+				InitializeBitmapData();
 			}
 		}
 
@@ -196,11 +202,10 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			PictureObjectModel clone = (destination as PictureObjectModel);
 			clone.Width = mvarWidth;
 			clone.Height = mvarHeight;
-			clone.bitmapData = (bitmapData.Clone() as byte[]);
-			clone.bitmapDataSet = (bitmapDataSet.Clone() as bool[]);
+			clone.bitmapData = (bitmapData.Clone() as Color[][]);
 		}
 
-		public byte[] ToByteArray()
+		public byte[] ToByteArray(PixelFormat format)
 		{
 			// memory goes from left to right, top to bottom
 			byte[] data = new byte[mvarWidth * mvarHeight * 4];
@@ -211,14 +216,32 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 				{
 					int index = (w + (h * mvarWidth)) * 4;
 					int realIndex = (int)(index / 4);
-					if (bitmapDataSet[realIndex])
+
+					switch (format)
 					{
-						data[i + 3] = bitmapData[index + 3];
-						data[i + 2] = bitmapData[index + 0];
-						data[i + 1] = bitmapData[index + 1];
-						data[i + 0] = bitmapData[index + 2];
+						case PixelFormat.BGRA:
+						{
+							// BGRA layout
+							data[i + 0] = bitmapData[w][h].GetBlueByte();
+							data[i + 1] = bitmapData[w][h].GetGreenByte();
+							data[i + 2] = bitmapData[w][h].GetRedByte();
+							data[i + 3] = bitmapData[w][h].GetAlphaByte();
+
+							i += 4;
+							break;
+						}
+						case PixelFormat.RGBA:
+						{
+							// RGBA layout
+							data[i + 0] = bitmapData[w][h].GetRedByte();
+							data[i + 1] = bitmapData[w][h].GetGreenByte();
+							data[i + 2] = bitmapData[w][h].GetBlueByte();
+							data[i + 3] = bitmapData[w][h].GetAlphaByte();
+
+							i += 4;
+							break;
+						}
 					}
-					i += 4;
 				}
 			}
 			return data;
@@ -257,6 +280,94 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			int bytesPerPixel = (int)((double)bitsPerPixel / 8); // (bitsPerPixel + 7) / 8; // wtf???
 			int stride = 4 * ((Width * bytesPerPixel + 3) / 4);
 			return stride;
+		}
+
+		public void Rotate(int degrees)
+		{
+			int oldheight = Height;
+			int oldwidth = Width;
+
+			// fuck this ain't workin
+			if (degrees % 360 == 0)
+			{
+				return;
+			}
+			switch (degrees)
+			{
+				case -90:
+				{
+					Color[][] oldpixels = bitmapData;
+					Size = new Dimension2D(Height, Width);
+
+					Color[][] pixels = null;
+					InitializeBitmapData(ref pixels, Width, Height);
+
+					// 1 2 3
+					// 4 5 6
+
+					// =>
+
+					// 3 6
+					// 2 5
+					// 1 4
+
+					int x1 = 0, y1 = 0;
+					for (int y = 0; y < oldheight; y++)
+					{
+						for (int x = oldwidth - 1; x >= 0; x--)
+						{
+							pixels[x1][y1] = oldpixels[x][y];
+							y1++;
+						}
+						y1 = 0;
+						x1++;
+					}
+
+					bitmapData = pixels;
+					break;
+				}
+				case 90:
+				{
+					Color[][] oldpixels = bitmapData;
+					Size = new Dimension2D(Height, Width);
+
+					Color[][] pixels = null;
+					InitializeBitmapData(ref pixels, Width, Height);
+
+					// 1 2 3
+					// 4 5 6
+
+					// =>
+
+					// 3 6
+					// 2 5
+					// 1 4
+
+					int x1 = 0, y1 = 0;
+					for (int y = 0; y < oldheight; y++)
+					{
+						for (int x = oldwidth - 1; x >= 0; x--)
+						{
+							pixels[x1][y1] = oldpixels[x][y];
+							y1++;
+						}
+						y1 = 0;
+						x1++;
+					}
+
+					bitmapData = pixels;
+					break;
+				}
+				case 180:
+				{
+
+					break;
+				}
+				case 270:
+				{
+					break;
+				}
+			}
 		}
 	}
 }

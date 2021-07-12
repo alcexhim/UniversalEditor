@@ -19,8 +19,12 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Layouts;
+using UniversalEditor.ObjectModels.Multimedia.Picture;
+
 namespace UniversalEditor.Editors.Multimedia.Picture
 {
 	partial class PictureEditor
@@ -37,6 +41,42 @@ namespace UniversalEditor.Editors.Multimedia.Picture
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
 			this.Controls.Add(da, new BoxLayout.Constraints(true, true));
+		}
+
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			Context.AttachCommandEventHandler("ImageTransformRotateClockwise", ImageTransformRotateClockwise_Click);
+			Context.AttachCommandEventHandler("ImageTransformRotateCounterclockwise", ImageTransformRotateCounterclockwise_Click);
+			Context.AttachCommandEventHandler("ImageTransformRotate180", ImageTransformRotate180_Click);
+			Context.AttachCommandEventHandler("ImageTransformRotateArbitrary", ImageTransformRotateArbitrary_Click);
+		}
+
+		private void ImageTransformRotateClockwise_Click(object sender, EventArgs e)
+		{
+			BeginEdit();
+			(this.ObjectModel as PictureObjectModel).Rotate(90);
+			this.da.Picture = (this.ObjectModel as PictureObjectModel);
+			EndEdit();
+		}
+		private void ImageTransformRotateCounterclockwise_Click(object sender, EventArgs e)
+		{
+			BeginEdit();
+			(this.ObjectModel as PictureObjectModel).Rotate(-90);
+			this.da.Picture = (this.ObjectModel as PictureObjectModel);
+			EndEdit();
+		}
+		private void ImageTransformRotate180_Click(object sender, EventArgs e)
+		{
+			BeginEdit();
+			(this.ObjectModel as PictureObjectModel).Rotate(180);
+			this.da.Picture = (this.ObjectModel as PictureObjectModel);
+			EndEdit();
+		}
+		private void ImageTransformRotateArbitrary_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
