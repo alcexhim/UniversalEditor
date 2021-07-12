@@ -1,0 +1,42 @@
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Editors.Multimedia.Picture.PictureEditor">
+			<Commands>
+				<Command ID="ImageTransformFlipHorizontally" Title="Flip _Horizontally" />
+				<Command ID="ImageTransformFlipVertically" Title="Flip _Vertically" />
+
+				<Command ID="ImageTransformRotateClockwise" Title="Rotate 90&deg; _clockwise" />
+				<Command ID="ImageTransformRotateCounterclockwise" Title="Rotate 90&deg; counter-clock_wise" />
+				<Command ID="ImageTransformRotate180" Title="Rotate _180&deg;" />
+				<Command ID="ImageTransformRotateArbitrary" Title="_Arbitrary Rotation..." />
+
+				<Command ID="ImageTransform" Title="_Transform">
+					<Items>
+						<CommandReference CommandID="ImageTransformFlipHorizontally" />
+						<CommandReference CommandID="ImageTransformFlipVertically" />
+						<Separator />
+						<CommandReference CommandID="ImageTransformRotateClockwise" />
+						<CommandReference CommandID="ImageTransformRotateCounterclockwise" />
+						<CommandReference CommandID="ImageTransformRotate180" />
+						<CommandReference CommandID="ImageTransformRotateArbitrary" />
+					</Items>
+				</Command>
+
+				<Command ID="Image" Title="_Image">
+					<Items>
+						<CommandReference CommandID="ImageTransform" />
+					</Items>
+				</Command>
+			</Commands>
+			<MenuBar>
+				<Items>
+					<Group InsertAfter="View">
+						<Items>
+							<CommandReference CommandID="Image" />
+						</Items>
+					</Group>
+				</Items>
+			</MenuBar>
+		</Editor>
+	</Editors>
+</UniversalEditor>
