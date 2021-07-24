@@ -632,7 +632,7 @@ namespace UniversalEditor.UserInterface
 			bool first = true;
 
 			bool loaded = false;
-			if (doc.DataFormat == null)
+			if (doc.DataFormat == null && doc.Accessor != null)
 			{
 				Console.WriteLine("InitEditorPage: DataFormat unspecified for Document");
 
@@ -754,7 +754,7 @@ namespace UniversalEditor.UserInterface
 
 			// OKAY WHY THE **** ARE WE OPENING THE SAME FILE TWICE???
 
-			if (doc.ObjectModel != null)
+			if (doc.ObjectModel != null && doc.Accessor != null)
 			{
 				EditorReference[] editors = Common.Reflection.GetAvailableEditors(doc.ObjectModel.MakeReference());
 				Console.WriteLine("found {0} editors for object model {1}", editors.Length.ToString(), doc.ObjectModel.ToString());
@@ -855,10 +855,20 @@ namespace UniversalEditor.UserInterface
 					OpenDefaultEditor(doc);
 				}
 			}
+			else if (doc.ObjectModel == null)
+			{
+				Console.Error.WriteLine("ObjectModel not specified for accessor " + doc.Accessor?.ToString() + " ; using default editor");
+				OpenDefaultEditor(doc);
+			}
 			else
 			{
-				Console.Error.WriteLine("ObjectModel not specified for accessor " + doc.Accessor.ToString() + " ; using default editor");
-				OpenDefaultEditor(doc);
+				EditorPage page = new EditorPage();
+				page.Document = doc;
+				page.DocumentEdited += page_DocumentEdited;
+
+				string filename = doc.Accessor?.GetFileName();
+				if (filename == null) filename = doc.Title;
+				InitDocTab(filename, doc.Title, page);
 			}
 		}
 
