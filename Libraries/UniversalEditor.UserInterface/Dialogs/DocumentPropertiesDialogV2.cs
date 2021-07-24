@@ -104,7 +104,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			}
 
 			Accessor acc = accref.Create ();
-			Engine.CurrentEngine.ApplyCustomOptions(acc, coll);
+			((EditorApplication)Application.Instance).ApplyCustomOptions(acc, coll);
 
 			Accessor = acc;
 

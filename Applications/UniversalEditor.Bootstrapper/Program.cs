@@ -28,8 +28,13 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Bootstrapper
 {
-	static class Program
+	public class Program : EditorApplication
 	{
+		public Program()
+		{
+			ShortName = "universal-editor";
+		}
+
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
@@ -51,23 +56,7 @@ namespace UniversalEditor.Bootstrapper
 				return;
 			}
 
-			// why do we do this? because, if the class was static, it tries to load the 'Engine' type
-			// from another library immediately... if it can't be found, it crashes. this way, if it
-			// can't be found, we can still catch it since it's loaded on-demand rather than
-			// immediately.
-			(new BootstrapperInstance()).Main();
-		}
-
-		private class BootstrapperInstance
-		{
-			public void Main()
-			{
-				if (!Engine.Execute())
-				{
-					MessageDialog.ShowDialog("No engines are available to launch this application.", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
-					return;
-				}
-			}
+			(new Program()).Start();
 		}
 	}
 }

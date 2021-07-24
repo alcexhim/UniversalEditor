@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
@@ -44,11 +45,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			base.OnCreated(e);
 
-			for (int i = 0; i < Engine.CurrentEngine.BookmarksManager.FileNames.Count; i++)
+			for (int i = 0; i < ((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count; i++)
 			{
-				_FileNames.Add(Engine.CurrentEngine.BookmarksManager.FileNames[i]);
+				_FileNames.Add(((EditorApplication)Application.Instance).BookmarksManager.FileNames[i]);
 
-				string filepath = Engine.CurrentEngine.BookmarksManager.FileNames[i];
+				string filepath = ((EditorApplication)Application.Instance).BookmarksManager.FileNames[i];
 				string filetitle = System.IO.Path.GetFileName(filepath);
 
 				tm.Rows.Add(new TreeModelRow(new TreeModelRowColumn[]
@@ -65,10 +66,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 		[EventHandler(nameof(cmdOK), "Click")]
 		private void cmdOK_Click(object sender, EventArgs e)
 		{
-			Engine.CurrentEngine.BookmarksManager.FileNames.Clear();
+			((EditorApplication)Application.Instance).BookmarksManager.FileNames.Clear();
 			for (int i = 0; i < _FileNames.Count; i++)
 			{
-				Engine.CurrentEngine.BookmarksManager.FileNames.Add(_FileNames[i]);
+				((EditorApplication)Application.Instance).BookmarksManager.FileNames.Add(_FileNames[i]);
 			}
 			Close();
 		}
@@ -108,7 +109,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		{
 			int index = e.Row.GetExtraData<int>("index");
 
-			Engine.CurrentEngine.LastWindow.OpenFile(Engine.CurrentEngine.BookmarksManager.FileNames[index]);
+			((EditorApplication)Application.Instance).LastWindow.OpenFile(((EditorApplication)Application.Instance).BookmarksManager.FileNames[index]);
 			Close();
 		}
 

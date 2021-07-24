@@ -60,7 +60,6 @@
     <Compile Include="ConfigurationManager.cs" />
     <Compile Include="CustomOptionDialogType.cs" />
     <Compile Include="EditorReference.cs" />
-    <Compile Include="Engine.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="ObjectModelChangingEvent.cs" />
     <Compile Include="Perspective.cs" />

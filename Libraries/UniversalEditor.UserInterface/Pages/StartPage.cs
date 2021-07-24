@@ -66,7 +66,7 @@ namespace UniversalEditor.UserInterface.Panels
 				ctHeaderText.Visible = true;
 			}
 
-			foreach (string fileName in Engine.CurrentEngine.RecentFileManager.FileNames)
+			foreach (string fileName in ((EditorApplication)Application.Instance).RecentFileManager.FileNames)
 			{
 				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 				{

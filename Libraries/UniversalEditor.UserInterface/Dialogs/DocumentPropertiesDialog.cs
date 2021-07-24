@@ -362,7 +362,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				{
 					case DocumentPropertiesDialogMode.Open:
 					{
-						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
+						if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
 						{
 							return;
 						}
@@ -371,7 +371,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					}
 					case DocumentPropertiesDialogMode.Save:
 					{
-						if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Export))
+						if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref df, CustomOptionDialogType.Export))
 						{
 							return;
 						}
@@ -420,7 +420,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			{
 				case DocumentPropertiesDialogMode.Open:
 				{
-					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Import))
+					if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Import))
 					{
 						return;
 					}
@@ -429,7 +429,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
-					if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Export))
+					if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Export))
 					{
 						return;
 					}
@@ -491,7 +491,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 						{
 							case DocumentPropertiesDialogMode.Open:
 							{
-								if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
+								if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
 								{
 									return;
 								}
@@ -499,7 +499,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 							}
 							case DocumentPropertiesDialogMode.Save:
 							{
-								if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Export))
+								if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref df, CustomOptionDialogType.Export))
 								{
 									return;
 								}
@@ -536,7 +536,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private void cmdDataFormatOptions_Click(object sender, EventArgs e)
 		{
 			DataFormat df = DataFormat;
-			if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, Mode == DocumentPropertiesDialogMode.Open ? CustomOptionDialogType.Import : CustomOptionDialogType.Export))
+			if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref df, Mode == DocumentPropertiesDialogMode.Open ? CustomOptionDialogType.Import : CustomOptionDialogType.Export))
 			{
 				return;
 			}
@@ -547,7 +547,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private void cmdAccessorOptions_Click(object sender, EventArgs e)
 		{
 			Accessor acc = Accessor;
-			if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref acc, Mode == DocumentPropertiesDialogMode.Open ? CustomOptionDialogType.Import : CustomOptionDialogType.Export))
+			if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref acc, Mode == DocumentPropertiesDialogMode.Open ? CustomOptionDialogType.Import : CustomOptionDialogType.Export))
 			{
 				return;
 			}

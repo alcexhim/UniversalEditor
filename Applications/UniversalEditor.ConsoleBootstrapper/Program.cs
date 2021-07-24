@@ -5,7 +5,7 @@ using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.ConsoleBootstrapper
 {
-	class Program
+	public class Program : EditorApplication
 	{
 		/// <summary>
 		/// The main entry point for the application.
@@ -13,7 +13,8 @@ namespace UniversalEditor.ConsoleBootstrapper
 		[STAThread]
 		static void Main()
 		{
-			if (!Engine.Execute())
+			int exitCode = (new Program()).Start();
+			if (exitCode != 0)
 			{
 				ConsoleColor oldcolor = Console.ForegroundColor;
 				Console.ForegroundColor = ConsoleColor.Red;

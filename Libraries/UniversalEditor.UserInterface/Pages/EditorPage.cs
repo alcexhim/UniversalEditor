@@ -471,7 +471,7 @@ namespace UniversalEditor.UserInterface.Pages
 							ObjectModel objm = objms[0].Create();
 							DataFormat fmt = fmts[0].Create();
 
-							if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
+							if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
 
 							Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
 							document.InputAccessor.Open();
@@ -497,7 +497,7 @@ namespace UniversalEditor.UserInterface.Pages
 				ObjectModel objm = mvarDocument.ObjectModel;
 				DataFormat fmt = mvarDocument.DataFormat;
 
-				if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
+				if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
 
 				Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
 				document.InputAccessor.Open();

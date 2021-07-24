@@ -717,7 +717,7 @@ namespace UniversalEditor.UserInterface
 
 										if (_break)
 										{
-											if (!Engine.CurrentEngine.ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
+											if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref df, CustomOptionDialogType.Import))
 												break;
 										}
 									}
@@ -998,8 +998,8 @@ namespace UniversalEditor.UserInterface
 
 		protected override void OnClosed(EventArgs e)
 		{
-			Engine.CurrentEngine.Windows.Remove(this);
-			if (Engine.CurrentEngine.Windows.Count <= 0)
+			((EditorApplication)Application.Instance).Windows.Remove(this);
+			if (((EditorApplication)Application.Instance).Windows.Count <= 0)
 			{
 				Application.Instance.Stop();
 			}
@@ -1012,8 +1012,8 @@ namespace UniversalEditor.UserInterface
 				new DragDropTarget(DragDropTargetTypes.FileList, DragDropTargetFlags.SameApplication | DragDropTargetFlags.OtherApplication, 0x1)
 			}, DragDropEffect.Copy, MouseButtons.Primary | MouseButtons.Secondary, KeyboardModifierKey.None);
 
-			Engine.CurrentEngine.Windows.Add(this);
-			Engine.CurrentEngine.LastWindow = this;
+			((EditorApplication)Application.Instance).Windows.Add(this);
+			((EditorApplication)Application.Instance).LastWindow = this;
 
 			UpdateMenuItems();
 		}
@@ -1021,7 +1021,7 @@ namespace UniversalEditor.UserInterface
 		protected override void OnGotFocus(EventArgs e)
 		{
 			base.OnGotFocus(e);
-			Engine.CurrentEngine.LastWindow = this;
+			((EditorApplication)Application.Instance).LastWindow = this;
 		}
 
 		#region IHostApplicationWindow implementation
@@ -1122,9 +1122,9 @@ namespace UniversalEditor.UserInterface
 					{
 						// FIXME: support Accessors other than FileAccessor
 						string fileName = (doc.Accessor as FileAccessor).FileName;
-						if (!Engine.CurrentEngine.RecentFileManager.FileNames.Contains(fileName))
+						if (!((EditorApplication)Application.Instance).RecentFileManager.FileNames.Contains(fileName))
 						{
-							Engine.CurrentEngine.RecentFileManager.FileNames.Add(fileName);
+							((EditorApplication)Application.Instance).RecentFileManager.FileNames.Add(fileName);
 						}
 					}
 				}

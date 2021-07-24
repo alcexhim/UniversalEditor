@@ -307,11 +307,11 @@ namespace UniversalEditor.UserInterface.Panels
 			{
 				if (file.SourceFileAccessor != null)
 				{
-					Engine.CurrentEngine.LastWindow.OpenFile(new Document(file.SourceFileAccessor));
+					((EditorApplication)Application.Instance).LastWindow.OpenFile(new Document(file.SourceFileAccessor));
 				}
 				else
 				{
-					Engine.CurrentEngine.LastWindow.OpenFile(file.SourceFileName);
+					((EditorApplication)Application.Instance).LastWindow.OpenFile(file.SourceFileName);
 				}
 			}
 			else if (folder != null)
@@ -389,13 +389,13 @@ namespace UniversalEditor.UserInterface.Panels
 
 		private void mnuContextSolutionAddNewProject_Click(object sender, EventArgs e)
 		{
-			MainWindow mw = (Engine.CurrentEngine.LastWindow as MainWindow);
+			MainWindow mw = (((EditorApplication)Application.Instance).LastWindow as MainWindow);
 			if (mw == null) return;
 			mw.NewProject(true);
 		}
 		private void mnuContextSolutionAddExistingProject_Click(object sender, EventArgs e)
 		{
-			MainWindow mw = (Engine.CurrentEngine.LastWindow as MainWindow);
+			MainWindow mw = (((EditorApplication)Application.Instance).LastWindow as MainWindow);
 			if (mw == null) return;
 
 			ProjectObjectModel proj = mw.ShowOpenProjectDialog();
