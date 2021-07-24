@@ -108,6 +108,10 @@ namespace UniversalEditor
 			OnSaved(EventArgs.Empty);
 		}
 
+		public Document(ObjectModel objectModel, string title) : this(objectModel, null, null)
+		{
+			Title = title;
+		}
 		public Document(ObjectModel objectModel, DataFormat dataFormat) : this(objectModel, dataFormat, null)
 		{
 		}
