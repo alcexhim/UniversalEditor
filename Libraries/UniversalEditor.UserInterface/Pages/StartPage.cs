@@ -48,6 +48,12 @@ namespace UniversalEditor.UserInterface.Panels
 		{
 			base.OnCreated(e);
 
+			if (cmdCreateNewProject == null)
+			{
+				Console.WriteLine("ue: startpage: invalid layout ~/Panels/StartPage.glade");
+				return;
+			}
+
 			cmdCreateNewProject.Click += cmdCreateNewProject_Click;
 			cmdOpenExistingProject.Click += cmdOpenExistingProject_Click;
 			lblHeader.Text = String.Format(lblHeader.Text, Application.Instance.Title);
