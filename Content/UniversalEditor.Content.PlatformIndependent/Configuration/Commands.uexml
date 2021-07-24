@@ -240,6 +240,7 @@
 		<Command ID="ViewFullScreen">
 			<Shortcut Key="F11" />
 		</Command>
+		<Command ID="ViewRefresh" />
 
 		<!-- Project -->
 		<Command ID="Project">

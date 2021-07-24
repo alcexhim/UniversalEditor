@@ -114,6 +114,7 @@
 				<Command ID="ViewPanels" Title="_Panels" />
 				<Command ID="ViewStartPage" Title="Start Pa_ge" />
 				<Command ID="ViewFullScreen" Title="F_ull Screen" />
+				<Command ID="ViewRefresh" Title="R_efresh" />
 
 				<!-- Project -->
 				<Command ID="Project" Title="_Project" />
