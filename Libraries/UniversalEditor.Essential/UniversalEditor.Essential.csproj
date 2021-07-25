@@ -217,6 +217,11 @@
     <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\ManifestXMLObjectModel.cs" />
     <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\ManifestFileEntry.cs" />
     <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\XMLSchemas.cs" />
+    <Compile Include="DataFormats\SymbolicExpressions\SymbolicExpressionsDataFormat.cs" />
+    <Compile Include="ObjectModels\SymbolicExpressions\SymbolicExpressionsObjectModel.cs" />
+    <Compile Include="ObjectModels\SymbolicExpressions\ListExpression.cs" />
+    <Compile Include="ObjectModels\SymbolicExpressions\LiteralExpression.cs" />
+    <Compile Include="ObjectModels\SymbolicExpressions\SymbolicExpression.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -262,9 +267,12 @@
     <Folder Include="DataFormats\BinaryGrammar\WxHexEditor\" />
     <Folder Include="DataFormats\Package\OpenDocument\Internal\" />
     <Folder Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\" />
+    <Folder Include="DataFormats\SymbolicExpressions\" />
+    <Folder Include="ObjectModels\SymbolicExpressions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\PlainText.uexml" />
+    <EmbeddedResource Include="Associations\SymbolicExpressions.uexml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ObjectModels\Chunked\RIFFMetadata.cs">
