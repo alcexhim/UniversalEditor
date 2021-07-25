@@ -139,6 +139,7 @@
     <Compile Include="MultipleDocumentErrorHandling.cs" />
     <Compile Include="Editors\PropertyList\PropertyListSelection.cs" />
     <Compile Include="SettingsGuids.cs" />
+    <Compile Include="Editors\SymbolicExpressions\SymbolicExpressionsEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -198,6 +199,7 @@
     <Folder Include="PrintHandlers\" />
     <Folder Include="SettingsProviders\" />
     <Folder Include="Editors\Database\Dialogs\" />
+    <Folder Include="Editors\SymbolicExpressions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SettingsProviders\DefaultSettingsProvider.xml" />
