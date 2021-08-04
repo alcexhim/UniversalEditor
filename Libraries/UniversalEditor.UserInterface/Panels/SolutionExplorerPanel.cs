@@ -341,6 +341,8 @@ namespace UniversalEditor.UserInterface.Panels
 			row.Rows.Add(rowFolder);
 
 			UpdateSolutionExplorer();
+
+			tvSolutionExplorer.Focus(rowFolder, null, null);
 		}
 
 		private void mnuContextFolderAddNewFolder_Click(object sender, EventArgs e)
