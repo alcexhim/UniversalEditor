@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Radiance HDR image" HintComparison="MagicThenFilter" ContentType="image/vnd.radiance">
+					<FileNameFilters>
+						<FileNameFilter>*.hdr</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">233F52414449414E43450A</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Picture.PictureObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia.Picture.Radiance.HDRDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
