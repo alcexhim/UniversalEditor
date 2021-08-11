@@ -52,19 +52,17 @@ namespace UniversalEditor.Editors.Contact
 		private DefaultTreeModel tmAddresses;
 
 		private ListViewControl lvPhysicalAddresses;
-		private Container ct;
-		private Container ctName;
 
 		private void InitializeComponent()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);
 			this.Padding = new Padding(26);
 
-			StackSidebar sidebar = new StackSidebar();
+			TabContainer sidebar = new TabContainer();
 
 			#region Summary Panel
 			{
-				ct = new Container();
+				TabPage ct = new TabPage();
 				ct.Name = "ctSummary";
 				ct.Text = "Summary";
 				ct.Layout = new GridLayout();
@@ -73,7 +71,7 @@ namespace UniversalEditor.Editors.Contact
 				btnPhoto.Size = new Dimension2D(128, 128);
 				ct.Controls.Add(btnPhoto, new GridLayout.Constraints(0, 0, 1, 1, ExpandMode.None));
 
-				ctName = new Container();
+				Container ctName = new Container();
 				ctName.Layout = new GridLayout();
 
 				Label lblGivenName = new Label();
@@ -133,14 +131,12 @@ namespace UniversalEditor.Editors.Contact
 
 				ct.Controls.Add(ctName, new GridLayout.Constraints(0, 1, 2, 1, ExpandMode.None));
 
-				StackSidebarPanel panel = new StackSidebarPanel();
-				panel.Control = ct;
-				sidebar.Items.Add(panel);
+				sidebar.TabPages.Add(ct);
 			}
 			#endregion
 			#region Addresses
 			{
-				Container ct = new Container();
+				TabPage ct = new TabPage();
 				ct.Name = "ctAddresses";
 				ct.Text = "Addresses";
 				ct.Layout = new BoxLayout(Orientation.Vertical);
@@ -152,14 +148,12 @@ namespace UniversalEditor.Editors.Contact
 				lvPhysicalAddresses.Model = tmAddresses;
 				ct.Controls.Add(lvPhysicalAddresses, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel();
-				panel.Control = ct;
-				sidebar.Items.Add(panel);
+				sidebar.TabPages.Add(ct);
 			}
 			#endregion
 			#region Family
 			{
-				Container ct = new Container();
+				TabPage ct = new TabPage();
 				ct.Name = "ctFamily";
 				ct.Text = "Family and Relationships";
 				ct.Layout = new BoxLayout(Orientation.Vertical);
@@ -170,14 +164,12 @@ namespace UniversalEditor.Editors.Contact
 				lvAddresses.Columns.Add(new ListViewColumn("Address", new CellRenderer[] { new CellRendererText(tmAddresses.Columns[0]) }));
 				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel();
-				panel.Control = ct;
-				sidebar.Items.Add(panel);
+				sidebar.TabPages.Add(ct);
 			}
 			#endregion
 			#region Digital IDs
 			{
-				Container ct = new Container();
+				TabPage ct = new TabPage();
 				ct.Name = "ctDigitalIDs";
 				ct.Text = "Digital IDs";
 				ct.Layout = new BoxLayout(Orientation.Vertical);
@@ -188,14 +180,12 @@ namespace UniversalEditor.Editors.Contact
 				lvAddresses.Columns.Add(new ListViewColumn("Address", new CellRenderer[] { new CellRendererText(tmAddresses.Columns[0]) }));
 				ct.Controls.Add(lvAddresses, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel();
-				panel.Control = ct;
-				sidebar.Items.Add(panel);
+				sidebar.TabPages.Add(ct);
 			}
 			#endregion
 			#region Notes
 			{
-				Container ct = new Container();
+				TabPage ct = new TabPage();
 				ct.Name = "ctNotes";
 				ct.Text = "Notes";
 				ct.Layout = new BoxLayout(Orientation.Vertical);
@@ -204,16 +194,14 @@ namespace UniversalEditor.Editors.Contact
 				txtNotes.Multiline = true;
 				ct.Controls.Add(txtNotes, new BoxLayout.Constraints(true, true));
 
-				StackSidebarPanel panel = new StackSidebarPanel();
-				panel.Control = ct;
-				sidebar.Items.Add(panel);
+				sidebar.TabPages.Add(ct);
 			}
 			#endregion
 
 			this.Controls.Add(sidebar, new BoxLayout.Constraints(true, true));
 		}
 
-		private void AddDetailRow(int iRow, string detailType, string value)
+		private void AddDetailRow(Container ct, int iRow, string detailType, string value)
 		{
 			ComboBox cboDetail = new ComboBox();
 			cboDetail.Text = detailType;
@@ -265,7 +253,7 @@ namespace UniversalEditor.Editors.Contact
 
 			foreach (ContactPhysicalAddress addr in contact.PhysicalAddresses)
 			{
-				AddDetailRow(0, "Address", addr.ToString());
+				// AddDetailRow(0, "Address", addr.ToString());
 			}
 		}
 

@@ -64,10 +64,10 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		void cmdOK_Click (object sender, EventArgs e)
 		{
-			StackSidebarPanel pnl = sidebar.SelectedPanel;
+			TabPage pnl = sidebar.SelectedTab;
 			if (pnl == null) return;
 
-			Container ct = (pnl.Control as Container);
+			Container ct = (pnl as Container);
 
 			AccessorReference accref = pnl.GetExtraData<AccessorReference> ("ar");
 			CustomOptionCompatSettingsProvider coll = new CustomOptionCompatSettingsProvider();
@@ -129,7 +129,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 		private Accessor mvarAccessor = null;
 		public Accessor Accessor { get { return mvarAccessor; } set { mvarAccessor = value; mvarInitialAccesor = value; } }
 
-		private StackSidebar sidebar = null;
+		private TabContainer sidebar = null;
 
 		private void fbc_ItemActivated (object sender, EventArgs e)
 		{
@@ -138,7 +138,8 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 		private void InitializeComponent()
 		{
-			sidebar = new StackSidebar ();
+			sidebar = new TabContainer();
+			sidebar.TabStyle = TabContainerTabStyle.Sidebar;
 			this.Layout = new BoxLayout (Orientation.Vertical);
 
 			AccessorReference[] accessors = UniversalEditor.Common.Reflection.GetAvailableAccessors ();
@@ -148,10 +149,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 					// mean we shouldn't be showing it in the UI
 					continue;
 				}
-				StackSidebarPanel panel = new StackSidebarPanel ();
-				panel.SetExtraData<AccessorReference> ("ar", acc);
+				TabPage ct = new TabPage();
+				ct.SetExtraData<AccessorReference> ("ar", acc);
 
-				Container ct = new Container ();
 				ct.Layout = new GridLayout ();
 				ct.Name = acc.AccessorType.FullName;
 				ct.Text = acc.Title;
@@ -287,8 +287,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 					}
 				}
 
-				panel.Control = ct;
-				sidebar.Items.Add (panel);
+				sidebar.TabPages.Add(ct);
 			}
 			this.Controls.Add (sidebar, new BoxLayout.Constraints(true, true));
 
