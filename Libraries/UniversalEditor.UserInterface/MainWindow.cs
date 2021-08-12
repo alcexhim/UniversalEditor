@@ -432,8 +432,14 @@ namespace UniversalEditor.UserInterface
 			((EditorApplication)Application.Instance).OnEditorChanged(e);
 		}
 
+		private bool __inhibit_SelectionChanged = false;
 		private void dckContainer_SelectionChanged(object sender, EventArgs e)
 		{
+			if (__inhibit_SelectionChanged)
+				return;
+
+			__inhibit_SelectionChanged = true;
+
 			Editor editor = null;
 			try
 			{
@@ -462,6 +468,8 @@ namespace UniversalEditor.UserInterface
 				_OnEditorChanged(new EditorChangedEventArgs(this, _prevEditor, editor));
 			}
 			_prevEditor = editor;
+
+			__inhibit_SelectionChanged = false;
 		}
 
 		private void UpdateMenuItems()
