@@ -25,6 +25,8 @@ namespace UniversalEditor.UserInterface
 {
 	public class Panel : Container
 	{
-
+		protected virtual void OnEditorChanged(EditorChangedEventArgs e)
+		{
+		}
 	}
 }

@@ -8,6 +8,8 @@ namespace UniversalEditor.UserInterface.Panels
 {
 	public class DocumentExplorerPanel : Panel
 	{
+		public static readonly Guid ID = new Guid("{5410f224-d594-4b6c-b31d-ac70e09b6a00}");
+
 		private ListViewControl lv = null;
 		public ListViewControl ListView { get { return lv; } }
 
@@ -26,6 +28,12 @@ namespace UniversalEditor.UserInterface.Panels
 			lv.Columns.Add(new ListViewColumn("Item", new CellRenderer[] { new CellRendererText(tm.Columns[0]) }));
 
 			Controls.Add(lv, new BoxLayout.Constraints(true, true));
+		}
+
+		protected override void OnEditorChanged(EditorChangedEventArgs e)
+		{
+			base.OnEditorChanged(e);
+			CurrentEditor = e.CurrentEditor;
 		}
 
 		private void lv_BeforeContextMenu(object sender, EventArgs e)

@@ -147,6 +147,25 @@ namespace UniversalEditor.UserInterface.Panels
 
 		public PropertyPanelObject.PropertyPanelObjectCollection Objects { get; private set; } = null;
 
+		public static readonly Guid ID = new Guid("{c935e3af-e5c6-4b3e-a3a4-e16ba229a91d}");
+
+		protected override void OnEditorChanged(EditorChangedEventArgs e)
+		{
+			base.OnEditorChanged(e);
+
+			Objects.Clear();
+
+			Editor editor = ((MainWindow)ParentWindow).GetCurrentEditor();
+			if (editor == null) return;
+
+			foreach (PropertyPanelObject obj in editor.PropertiesPanel.Objects)
+			{
+				Objects.Add(obj);
+			}
+
+			cboObject.Visible = editor.PropertiesPanel.ShowObjectSelector;
+		}
+
 		public PropertyListPanel()
 		{
 			Objects = new PropertyPanelObject.PropertyPanelObjectCollection(this);

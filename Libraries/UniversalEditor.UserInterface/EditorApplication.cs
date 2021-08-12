@@ -28,10 +28,58 @@ namespace UniversalEditor.UserInterface
 			ShortName = "universal-editor";
 		}
 
+		protected override void InitializeInternal()
+		{
+			base.InitializeInternal();
+
+			InitializePanels();
+		}
+
+		/// <summary>
+		/// Initializes the panels. This can only be called after the application has been created. If this
+		/// function is called before the application has been created (i.e. in a constructor), the application
+		/// will crash.
+		/// </summary>
+		private void InitializePanels()
+		{
+			// FIXME: this should all be done in XML
+			PanelReference prPropertyList = new PanelReference(PropertyListPanel.ID);
+			prPropertyList.Title = "Property List";
+			prPropertyList.Control = new PropertyListPanel();
+			prPropertyList.Placement = DockingItemPlacement.Right;
+			Panels.Add(prPropertyList);
+
+			PanelReference prToolbox = new PanelReference(ToolboxPanel.ID);
+			prToolbox.Title = "Toolbox";
+			prToolbox.Control = new ToolboxPanel();
+			prToolbox.Placement = DockingItemPlacement.Left;
+			Panels.Add(prToolbox);
+
+			PanelReference prSolutionExplorer = new PanelReference(SolutionExplorerPanel.ID);
+			prSolutionExplorer.Title = "Solution Explorer";
+			prSolutionExplorer.Control = new SolutionExplorerPanel();
+			prSolutionExplorer.Placement = DockingItemPlacement.Left;
+			Panels.Add(prSolutionExplorer);
+
+			PanelReference prDocumentExplorer = new PanelReference(DocumentExplorerPanel.ID);
+			prDocumentExplorer.Title = "Document Explorer";
+			prDocumentExplorer.Control = new DocumentExplorerPanel();
+			prDocumentExplorer.Placement = DockingItemPlacement.Left;
+			Panels.Add(prDocumentExplorer);
+
+			PanelReference prErrorList = new PanelReference(ErrorListPanel.ID);
+			prErrorList.Title = "Error List";
+			prErrorList.Control = new ErrorListPanel();
+			prErrorList.Placement = DockingItemPlacement.Bottom;
+			Panels.Add(prErrorList);
+		}
+
 		public ConfigurationManager ConfigurationManager { get; } = new ConfigurationManager();
 		public RecentFileManager RecentFileManager { get; } = new RecentFileManager();
 		public BookmarksManager BookmarksManager { get; } = new BookmarksManager();
 		public SessionManager SessionManager { get; } = new SessionManager();
+
+		public PanelReference.PanelReferenceCollection Panels { get; } = new PanelReference.PanelReferenceCollection();
 
 		protected override void OnStartup(EventArgs e)
 		{

@@ -34,6 +34,8 @@ namespace UniversalEditor.UserInterface.Panels
 
 		private DefaultTreeModel tm = new DefaultTreeModel(new Type[] { typeof(int), typeof(string), typeof(string), typeof(string), typeof(string), typeof(string) });
 
+		public static readonly Guid ID = new Guid("{7b420eba-c64f-48d7-b093-c016ce23f44f}");
+
 		public ErrorListPanel()
 		{
 			this.Layout = new BoxLayout(Orientation.Vertical);

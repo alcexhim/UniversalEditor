@@ -32,6 +32,8 @@ namespace UniversalEditor.UserInterface.Panels
 {
 	public class SolutionExplorerPanel : Panel, IDocumentPropertiesProviderControl
 	{
+		public static readonly Guid ID = new Guid("{1767c74b-b3ea-4919-a5cf-28433e4f6485}");
+
 		private DefaultTreeModel tmSolutionExplorer = null;
 		private ListViewControl tvSolutionExplorer = new ListViewControl();
 

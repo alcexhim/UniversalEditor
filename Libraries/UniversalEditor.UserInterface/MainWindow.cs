@@ -40,12 +40,6 @@ namespace UniversalEditor.UserInterface
 	{
 		private DockingContainerControl dckContainer = null;
 
-		private ErrorListPanel pnlErrorList = new ErrorListPanel();
-		private SolutionExplorerPanel pnlSolutionExplorer = new SolutionExplorerPanel();
-		internal PropertyListPanel pnlPropertyList = new PropertyListPanel();
-		private DocumentExplorerPanel pnlDocumentExplorer = new DocumentExplorerPanel();
-		public DocumentExplorerPanel DocumentExplorerPanel { get { return pnlDocumentExplorer; } }
-
 		private RibbonTab LoadRibbonBar(CommandBar cb)
 		{
 			RibbonTab tab = new RibbonTab ();
@@ -99,6 +93,18 @@ namespace UniversalEditor.UserInterface
 			tab.Groups.Add (rtg2);
 			*/
 			return tab;
+		}
+
+		public void RegisterPanel(PanelReference panelReference, Panel panel)
+		{
+			_MyPanels[panelReference] = panel;
+			_MyPanels_ID[panelReference.ID] = panel;
+		}
+		public Panel FindPanel(Guid guid)
+		{
+			if (_MyPanels_ID.ContainsKey(guid))
+				return _MyPanels_ID[guid];
+			return null;
 		}
 
 		protected override void OnLostFocus(EventArgs e)
@@ -190,8 +196,6 @@ namespace UniversalEditor.UserInterface
 				((UIApplication)Application.Instance).ExecuteCommand(cmd.ID);
 		}
 
-		private DefaultTreeModel tmToolbox = new DefaultTreeModel(new Type[] { typeof(string) });
-
 		public MainWindow()
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
@@ -213,20 +217,7 @@ namespace UniversalEditor.UserInterface
 
 			InitStartPage();
 
-			ListViewControl lvToolbox = new ListViewControl();
-			lvToolbox.RowActivated += LvToolbox_RowActivated;
-			lvToolbox.Model = tmToolbox;
-			lvToolbox.Columns.Add(new ListViewColumn("Item", new CellRenderer[] { new CellRendererText(tmToolbox.Columns[0]) }));
-			lvToolbox.HeaderStyle = ColumnHeaderStyle.None;
-			AddPanel("Toolbox", DockingItemPlacement.Left, lvToolbox);
-
-			AddPanel("Document Explorer", DockingItemPlacement.Bottom, pnlDocumentExplorer);
-
-			DockingContainer dcExplorerProperties = null; // AddPanelContainer(DockingItemPlacement.Right, null);
-			AddPanel("Solution Explorer", DockingItemPlacement.Left, pnlSolutionExplorer, dcExplorerProperties);
-			AddPanel("Properties", DockingItemPlacement.Bottom, pnlPropertyList, dcExplorerProperties);
-
-			AddPanel("Error List", DockingItemPlacement.Bottom, pnlErrorList);
+			InitializePanels();
 
 			Container pnlButtons = new Container();
 			pnlButtons.Layout = new BoxLayout(Orientation.Horizontal);
@@ -247,15 +238,31 @@ namespace UniversalEditor.UserInterface
 			UpdateSuperDuperButtonBar();
 		}
 
-		void LvToolbox_RowActivated(object sender, ListViewRowActivatedEventArgs e)
+		public DocumentExplorerPanel DocumentExplorerPanel { get { return (DocumentExplorerPanel)FindPanel(Panels.DocumentExplorerPanel.ID); } }
+
+		private void InitializePanels()
 		{
-			Editor ed = GetCurrentEditor();
-			if (ed != null)
+			foreach (PanelReference panel in ((EditorApplication)Application.Instance).Panels)
 			{
-				ed.ActivateToolboxItem(e.Row.GetExtraData<ToolboxItem>("item"));
+				Panel p = null;
+				if (panel.Control != null)
+				{
+					p = panel.Control;
+				}
+				else if (panel.ControlTypeName != null)
+				{
+					p = MBS.Framework.Reflection.CreateType<Panel>(panel.ControlTypeName);
+				}
+				else
+				{
+					Console.Error.WriteLine("ue: MainWindow.InitializePanels() - could not create panel '{0}'; neither Control nor ControlTypeName were specified", panel.Title);
+					continue;
+				}
+
+				RegisterPanel(panel, p);
+				AddPanel(panel.Title, panel.Placement, p);
 			}
 		}
-
 
 		void Application_ContextChanged(object sender, ContextChangedEventArgs e)
 		{
@@ -384,50 +391,56 @@ namespace UniversalEditor.UserInterface
 
 			return true;
 		}
+
+		private void InvokeMethod(object obj, string methodName, object[] args)
+		{
+			System.Type typ = obj.GetType();
+
+			System.Type[] typs = new Type[args.Length];
+			System.Reflection.ParameterModifier[] mods = new System.Reflection.ParameterModifier[args.Length];
+
+			for (int i = 0; i < args.Length; i++)
+			{
+				if (args[i] == null)
+				{
+					typs[i] = null;
+				}
+				else
+				{
+					typs[i] = args[i].GetType();
+				}
+			}
+
+			System.Reflection.MethodInfo mi = typ.GetMethod(methodName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, typs, mods);
+			mi.Invoke(obj, args);
+		}
+
+		private Dictionary<PanelReference, Panel> _MyPanels = new Dictionary<PanelReference, Panel>();
+		private Dictionary<Guid, Panel> _MyPanels_ID = new Dictionary<Guid, Panel>();
 		private void _OnEditorChanged(EditorChangedEventArgs e)
 		{
+			foreach (PanelReference panel in ((EditorApplication)Application.Instance).Panels)
+			{
+				InvokeMethod(_MyPanels[panel], "OnEditorChanged", new object[] { e });
+			}
+
 			if (e.CurrentEditor != null)
 			{
 				// initialize toolbox items
-				EditorReference er = e.CurrentEditor.MakeReference();
-				for (int i = 0; i < er.Toolbox.Items.Count; i++)
-				{
-					TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[] { new TreeModelRowColumn(tmToolbox.Columns[0], er.Toolbox.Items[i].Name) });
-					row.SetExtraData<ToolboxItem>("item", er.Toolbox.Items[i]);
-					tmToolbox.Rows.Add(row);
-				}
 				DocumentFileName = dckContainer.CurrentItem.Name;
 			}
 			else
 			{
 				DocumentFileName = null;
-				tmToolbox.Rows.Clear();
 			}
-			pnlDocumentExplorer.CurrentEditor = e.CurrentEditor;
 
 			UpdateMenuItems();
-			UpdatePropertyPanel();
 
 			// forward to window event handler
 			OnEditorChanged(e);
 
 			// forward to application event handler
 			((EditorApplication)Application.Instance).OnEditorChanged(e);
-		}
-
-		private void UpdatePropertyPanel()
-		{
-			pnlPropertyList.Objects.Clear();
-
-			Editor editor = GetCurrentEditor();
-			if (editor == null) return;
-
-			foreach (PropertyPanelObject obj in editor.PropertiesPanel.Objects)
-			{
-				pnlPropertyList.Objects.Add(obj);
-			}
-
-			pnlPropertyList.cboObject.Visible = editor.PropertiesPanel.ShowObjectSelector;
 		}
 
 		private void dckContainer_SelectionChanged(object sender, EventArgs e)
@@ -1781,18 +1794,18 @@ namespace UniversalEditor.UserInterface
 				if (value == null || changed)
 					_CurrentSolutionDocument = null;
 
-				pnlSolutionExplorer.Solution = value;
+				((SolutionExplorerPanel)FindPanel(SolutionExplorerPanel.ID)).Solution = value;
 			}
 		}
 		public ProjectObjectModel CurrentProject
 		{
 			get
 			{
-				return pnlSolutionExplorer.Project;
+				return ((SolutionExplorerPanel)FindPanel(SolutionExplorerPanel.ID)).Project;
 			}
 			set
 			{
-				pnlSolutionExplorer.Project = value;
+				((SolutionExplorerPanel)FindPanel(SolutionExplorerPanel.ID)).Project = value;
 				UpdateMenuItems();
 			}
 		}

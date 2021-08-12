@@ -1,5 +1,5 @@
 //
-//  EditorPropertiesPanel.cs
+//  PanelReference.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -19,35 +19,31 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using UniversalEditor.UserInterface.Panels;
+using MBS.Framework.UserInterface;
+using MBS.Framework.UserInterface.Controls.Docking;
 
 namespace UniversalEditor.UserInterface
 {
-	public class EditorPropertiesPanel
+	public class PanelReference
 	{
-		public Editor Parent { get; private set; } = null;
-		public EditorPropertiesPanel(Editor parent)
+		public class PanelReferenceCollection
+			: System.Collections.ObjectModel.Collection<PanelReference>
 		{
-			Parent = parent;
+
 		}
 
-		public PropertyPanelObject.PropertyPanelObjectCollection Objects { get; } = new PropertyPanelObject.PropertyPanelObjectCollection(null);
+		public Guid ID { get; set; } = Guid.Empty;
+		public string Title { get; set; } = null;
+		public DockingItemPlacement Placement { get; set; } = DockingItemPlacement.Left;
 
-		private PropertyPanelObject _SelectedObject = null;
-		public PropertyPanelObject SelectedObject
+		public string ControlTypeName { get; set; } = null;
+		public Panel Control { get; set; } = null;
+
+		public string LayoutFileName { get; set; } = null;
+
+		public PanelReference(Guid id)
 		{
-			get { return _SelectedObject; }
-			set
-			{
-				_SelectedObject = value;
-
-				if (Parent?.ParentWindow is MainWindow)
-				{
-					((PropertyListPanel)(Parent.ParentWindow as MainWindow).FindPanel(PropertyListPanel.ID)).SelectedObject = value;
-				}
-			}
+			ID = id;
 		}
-
-		public bool ShowObjectSelector { get; set; } = true;
 	}
 }
