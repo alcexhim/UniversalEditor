@@ -29,6 +29,7 @@ namespace UniversalEditor.UserInterface
 	public class EditorContext : UIContext
 	{
 		public EditorReference Reference { get; private set; } = null;
+		public PanelReference.PanelReferenceCollection Panels { get; } = new PanelReference.PanelReferenceCollection();
 
 		public override string ToString()
 		{
@@ -47,6 +48,10 @@ namespace UniversalEditor.UserInterface
 			for (int i = 0; i < reference.MenuBar.Items.Count; i++)
 			{
 				MenuItems.Add(reference.MenuBar.Items[i]);
+			}
+			for (int i = 0; i < reference.Panels.Count; i++)
+			{
+				Panels.Add(reference.Panels[i]);
 			}
 		}
 	}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{6dbe6294-681b-4d1f-8249-d04a1a3ef4a2}" TypeName="UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Scene.SceneEditor" Title="Scene Editor">
+			<Panels>
+				<Panel ID="{a94821d1-9bcb-4396-908a-33ce757436b8}" Title="Motion Test" ControlTypeName="UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Scene.Panels.MotionTestPanel" />
+			</Panels>
+		</Editor>
+	</Editors>
+</UniversalEditor>

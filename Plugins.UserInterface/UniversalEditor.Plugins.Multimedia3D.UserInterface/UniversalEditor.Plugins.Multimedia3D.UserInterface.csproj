@@ -32,6 +32,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Editors\Model\ModelEditor.cs" />
+    <Compile Include="Editors\Scene\SceneEditor.cs" />
+    <Compile Include="Editors\Scene\Panels\MotionTestPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.UserInterface\UniversalEditor.UserInterface.csproj">
@@ -70,6 +72,8 @@
   <ItemGroup>
     <Folder Include="Editors\" />
     <Folder Include="Editors\Model\" />
+    <Folder Include="Editors\Scene\" />
+    <Folder Include="Editors\Scene\Panels\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

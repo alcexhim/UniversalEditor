@@ -321,6 +321,8 @@
     <Content Include="Templates\Project\General\EmptyProject.uexml" />
     <Content Include="Templates\Project\File Distribution\Images\FileSystem_16x16.png" />
     <Content Include="Templates\Project\File Distribution\Images\FileSystem_32x32.png" />
+    <Content Include="Editors\Multimedia3D\Scene\Panels\MotionTestPanel.uexml" />
+    <Content Include="Editors\Multimedia3D\Scene\Panels\MotionTestPanel.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

@@ -31,7 +31,7 @@ namespace UniversalEditor.UserInterface
 
 		public CommandBar MenuBar { get; } = new CommandBar();
 		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
-
+		public PanelReference.PanelReferenceCollection Panels { get; } = new PanelReference.PanelReferenceCollection();
 		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();
 		public Variable.VariableCollection Variables { get; } = new Variable.VariableCollection();
 		public Toolbox Toolbox { get; } = new Toolbox();

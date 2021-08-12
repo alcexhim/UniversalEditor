@@ -87,6 +87,9 @@ namespace UniversalEditor.UserInterface
 
 		Document.ReadOnlyDocumentCollection Documents { get; }
 		Editor.ReadOnlyEditorCollection Editors { get; }
+
+		bool AddPanel(PanelReference panelReference);
+		bool RemovePanel(PanelReference panelReference);
 	}
 	public class IHostApplicationWindowCollection
 		: System.Collections.ObjectModel.Collection<IHostApplicationWindow>

@@ -95,6 +95,11 @@ namespace UniversalEditor.UserInterface
 			return tab;
 		}
 
+		public void UnregisterPanel(PanelReference panelReference, Panel panel)
+		{
+			_MyPanels.Remove(panelReference);
+			_MyPanels_ID.Remove(panelReference.ID);
+		}
 		public void RegisterPanel(PanelReference panelReference, Panel panel)
 		{
 			_MyPanels[panelReference] = panel;
@@ -244,23 +249,7 @@ namespace UniversalEditor.UserInterface
 		{
 			foreach (PanelReference panel in ((EditorApplication)Application.Instance).Panels)
 			{
-				Panel p = null;
-				if (panel.Control != null)
-				{
-					p = panel.Control;
-				}
-				else if (panel.ControlTypeName != null)
-				{
-					p = MBS.Framework.Reflection.CreateType<Panel>(panel.ControlTypeName);
-				}
-				else
-				{
-					Console.Error.WriteLine("ue: MainWindow.InitializePanels() - could not create panel '{0}'; neither Control nor ControlTypeName were specified", panel.Title);
-					continue;
-				}
-
-				RegisterPanel(panel, p);
-				AddPanel(panel.Title, panel.Placement, p);
+				AddPanel(panel);
 			}
 		}
 
@@ -602,6 +591,35 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
+		public bool AddPanel(PanelReference panelReference)
+		{
+			Panel p = null;
+			if (panelReference.Control != null)
+			{
+				p = panelReference.Control;
+			}
+			else if (panelReference.ControlTypeName != null)
+			{
+				p = MBS.Framework.Reflection.CreateType<Panel>(panelReference.ControlTypeName);
+			}
+			else
+			{
+				Console.Error.WriteLine("ue: MainWindow.InitializePanels() - could not create panel '{0}'; neither Control nor ControlTypeName were specified", panelReference.Title);
+				return false;
+			}
+
+			RegisterPanel(panelReference, p);
+			AddPanel(panelReference.Title, panelReference.Placement, p);
+			return true;
+		}
+		public bool RemovePanel(PanelReference panelReference)
+		{
+			Panel panel = FindPanel(panelReference.ID);
+			RemovePanel(panel);
+			UnregisterPanel(panelReference, panel);
+			return true;
+		}
+
 		private DockingContainer AddPanelContainer(DockingItemPlacement placement, DockingContainer parent = null)
 		{
 			DockingContainer dc = new DockingContainer();
@@ -616,6 +634,8 @@ namespace UniversalEditor.UserInterface
 			}
 			return dc;
 		}
+
+		private Dictionary<Control, DockingWindow> dockingWindowsForPanel = new Dictionary<Control, DockingWindow>();
 		private void AddPanel(string title, DockingItemPlacement placement, Control control = null, DockingContainer parent = null)
 		{
 			if (control == null)
@@ -635,6 +655,12 @@ namespace UniversalEditor.UserInterface
 			{
 				dckContainer.Items.Add(dw);
 			}
+			dockingWindowsForPanel[control] = dw;
+		}
+		private void RemovePanel(Panel panel)
+		{
+			DockingWindow dw = dockingWindowsForPanel[panel];
+			dw.Parent.Items.Remove(dw);
 		}
 
 		private void InitEditorPage(Document doc)

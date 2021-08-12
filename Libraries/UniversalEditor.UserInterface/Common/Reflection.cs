@@ -257,6 +257,24 @@ namespace UniversalEditor.UserInterface.Common
 										}
 									}
 								}
+
+								MarkupTagElement tagPanels = (tagEditor.Elements["Panels"] as MarkupTagElement);
+								if (tagPanels != null)
+								{
+									foreach (MarkupElement elPanel in tagPanels.Elements)
+									{
+										MarkupTagElement tagPanel = (elPanel as MarkupTagElement);
+										if (tagPanel == null) continue;
+
+										PanelReference pr = new PanelReference(new Guid(tagPanel.Attributes["ID"].Value));
+										pr.Title = tagPanel.Attributes["Title"]?.Value;
+										pr.ControlTypeName = tagPanel.Attributes["ControlTypeName"]?.Value;
+										pr.LayoutFileName = tagPanel.Attributes["LayoutFileName"]?.Value;
+
+										er.Panels.Add(pr);
+									}
+								}
+
 								MarkupTagElement tagVariables = (tagEditor.Elements["Variables"] as MarkupTagElement);
 								if (tagVariables != null)
 								{

@@ -81,6 +81,39 @@ namespace UniversalEditor.UserInterface
 
 		public PanelReference.PanelReferenceCollection Panels { get; } = new PanelReference.PanelReferenceCollection();
 
+		protected override void OnContextAdded(ContextChangedEventArgs e)
+		{
+			base.OnContextAdded(e);
+
+			EditorContext ec = (e.Context as EditorContext);
+			if (ec != null)
+			{
+				foreach (PanelReference panel in ec.Panels)
+				{
+					foreach (IHostApplicationWindow mw in Windows)
+					{
+						mw.AddPanel(panel);
+					}
+				}
+			}
+		}
+		protected override void OnContextRemoved(ContextChangedEventArgs e)
+		{
+			base.OnContextRemoved(e);
+
+			EditorContext ec = (e.Context as EditorContext);
+			if (ec != null)
+			{
+				foreach (PanelReference panel in ec.Panels)
+				{
+					foreach (IHostApplicationWindow mw in Windows)
+					{
+						mw.RemovePanel(panel);
+					}
+				}
+			}
+		}
+
 		protected override void OnStartup(EventArgs e)
 		{
 			base.OnStartup(e);
