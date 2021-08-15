@@ -23,6 +23,7 @@ using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
+using MBS.Framework.UserInterface.Drawing;
 using MBS.Framework.UserInterface.Layouts;
 
 namespace UniversalEditor.UserInterface.Panels
@@ -42,10 +43,16 @@ namespace UniversalEditor.UserInterface.Panels
 
 			ToolbarItemButton tsbErrors = new ToolbarItemButton("tsbErrors", "Errors");
 			tsbErrors.CheckOnClick = true;
+			tsbErrors.Image = Image.FromStock(StockType.DialogError, 16);
+			tsbErrors.Checked = true;
 			ToolbarItemButton tsbWarnings = new ToolbarItemButton("tsbWarnings", "Warnings");
 			tsbWarnings.CheckOnClick = true;
+			tsbWarnings.Image = Image.FromStock(StockType.DialogWarning, 16);
+			tsbWarnings.Checked = true;
 			ToolbarItemButton tsbMessages = new ToolbarItemButton("tsbMessages", "Messages");
 			tsbMessages.CheckOnClick = true;
+			tsbMessages.Image = Image.FromStock(StockType.DialogInfo, 16);
+			tsbMessages.Checked = true;
 
 			tbErrorList.Items.Add(tsbErrors);
 			tbErrorList.Items.Add(tsbWarnings);
