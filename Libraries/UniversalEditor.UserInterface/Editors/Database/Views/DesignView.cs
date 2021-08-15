@@ -67,6 +67,44 @@ namespace UniversalEditor.UserInterface.Editors.Database.Views
 
 			Update();
 		}
+		protected override void OnCreated(EventArgs e)
+		{
+			base.OnCreated(e);
+
+			((ToolbarItemButton)tbColumns.Items["tsbColumnAdd"]).Click += tsbColumnAdd_Click;
+			((ToolbarItemButton)tbColumns.Items["tsbColumnEdit"]).Click += tsbColumnEdit_Click;
+			((ToolbarItemButton)tbColumns.Items["tsbColumnRemove"]).Click += tsbColumnRemove_Click;
+			((ToolbarItemButton)tbColumns.Items["tsbColumnMoveUp"]).Click += tsbColumnMoveUp_Click;
+			((ToolbarItemButton)tbColumns.Items["tsbColumnMoveDown"]).Click += tsbColumnMoveDown_Click;
+		}
+
+		private void tsbColumnAdd_Click(object sender, EventArgs e)
+		{
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tvColumns.Model.Columns[0], ""), // Name
+				new TreeModelRowColumn(tvColumns.Model.Columns[1], ""), // Data type
+				new TreeModelRowColumn(tvColumns.Model.Columns[2], true), // Not null
+				new TreeModelRowColumn(tvColumns.Model.Columns[3], false), // Identity
+				new TreeModelRowColumn(tvColumns.Model.Columns[4], "") // Default value
+			});
+
+			tvColumns.Model.Rows.Add(row);
+			tvColumns.Focus(row, tvColumns.Columns[0], tvColumns.Columns[0].Renderers[0], true);
+		}
+		private void tsbColumnEdit_Click(object sender, EventArgs e)
+		{
+		}
+		private void tsbColumnRemove_Click(object sender, EventArgs e)
+		{
+		}
+		private void tsbColumnMoveUp_Click(object sender, EventArgs e)
+		{
+		}
+		private void tsbColumnMoveDown_Click(object sender, EventArgs e)
+		{
+		}
+
 		private void Update()
 		{
 			if (Table != null)
