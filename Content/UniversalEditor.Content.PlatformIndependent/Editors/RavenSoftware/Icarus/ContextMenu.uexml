@@ -6,6 +6,7 @@
 				<Command ID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" Title="Test E_xpression Editor" />
 
 				<Command ID="Icarus_ContextMenu_Insert_From_File" Title="Insert Commands from File..." />
+				<Command ID="Icarus_ContextMenu_Rename" Title="Rena_me" />
 
 				<Command ID="Icarus_ContextMenu">
 					<Items>
@@ -19,6 +20,8 @@
 						<CommandReference CommandID="Icarus_ContextMenu_Comment" />
 
 						<CommandReference CommandID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" />
+						<Separator />
+						<CommandReference CommandID="Icarus_ContextMenu_Rename" />
 						<Separator />
 						<CommandReference CommandID="FileProperties" />
 					</Items>

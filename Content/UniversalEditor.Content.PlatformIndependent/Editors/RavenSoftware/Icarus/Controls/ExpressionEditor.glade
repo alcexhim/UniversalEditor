@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkListStore" id="liststore1">
@@ -73,32 +73,36 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="tmParameterValue">
+    <columns>
+      <!-- column-name colParameterValueName -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkWindow">
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
     <child>
+      <!-- n-columns=3 n-rows=7 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_left">16</property>
-        <property name="margin_right">16</property>
-        <property name="margin_top">16</property>
-        <property name="margin_bottom">16</property>
+        <property name="can-focus">False</property>
+        <property name="margin-left">16</property>
+        <property name="margin-right">16</property>
+        <property name="margin-top">16</property>
+        <property name="margin-bottom">16</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <property name="row_spacing">8</property>
-        <property name="column_spacing">8</property>
+        <property name="row-spacing">8</property>
+        <property name="column-spacing">8</property>
         <child>
           <object class="GtkComboBox" id="cboExpressionType">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="model">liststore1</property>
             <property name="active">0</property>
-            <property name="id_column">0</property>
+            <property name="id-column">0</property>
             <child>
               <object class="GtkCellRendererText"/>
               <attributes>
@@ -107,27 +111,17 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkEntry" id="txtParameterValue">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
+            <property name="left-attach">1</property>
+            <property name="top-attach">2</property>
           </packing>
         </child>
         <child>
           <object class="GtkComboBox" id="cboGETName">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="model">lsGETName</property>
             <property name="active">0</property>
-            <property name="id_column">0</property>
+            <property name="id-column">0</property>
             <child>
               <object class="GtkCellRendererText"/>
               <attributes>
@@ -136,30 +130,30 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">3</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">4</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="cmdGET">
             <property name="label" translatable="yes">_Get</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="use-underline">True</property>
           </object>
           <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">3</property>
+            <property name="left-attach">1</property>
+            <property name="top-attach">4</property>
           </packing>
         </child>
         <child>
           <object class="GtkComboBox" id="cboTAGType">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="model">lsTAGType</property>
             <property name="active">0</property>
-            <property name="id_column">0</property>
+            <property name="id-column">0</property>
             <child>
               <object class="GtkCellRendererText"/>
               <attributes>
@@ -168,31 +162,31 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">4</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">5</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="cmdTAG">
             <property name="label" translatable="yes">_Tag</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="use-underline">True</property>
           </object>
           <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">4</property>
+            <property name="left-attach">1</property>
+            <property name="top-attach">5</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <child>
               <object class="GtkSpinButton" id="txtRangeStart">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -203,7 +197,7 @@
             <child>
               <object class="GtkLabel" id="lblRange">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes">( range )</property>
               </object>
               <packing>
@@ -216,7 +210,7 @@
             <child>
               <object class="GtkSpinButton" id="txtRangeEnd">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="value">1</property>
               </object>
               <packing>
@@ -227,24 +221,24 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">5</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">6</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="lblParameterName">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">16</property>
-            <property name="margin_bottom">16</property>
+            <property name="can-focus">False</property>
+            <property name="margin-top">16</property>
+            <property name="margin-bottom">16</property>
             <property name="label" translatable="yes">PARAM_NAME</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
           </object>
           <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
             <property name="width">2</property>
           </packing>
         </child>
@@ -252,22 +246,22 @@
           <object class="GtkButton" id="cmdRND">
             <property name="label" translatable="yes">_Random</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="use-underline">True</property>
           </object>
           <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">5</property>
+            <property name="left-attach">1</property>
+            <property name="top-attach">6</property>
           </packing>
         </child>
         <child>
           <object class="GtkComboBox" id="cboGETType">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="model">lsGETType</property>
             <property name="active">0</property>
-            <property name="id_column">0</property>
+            <property name="id-column">0</property>
             <child>
               <object class="GtkCellRendererText"/>
               <attributes>
@@ -276,22 +270,22 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">2</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox" id="ctFileChooser">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="spacing">8</property>
             <child>
               <object class="GtkButton" id="cmdBrowse">
                 <property name="label" translatable="yes">_Browse</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -303,9 +297,9 @@
               <object class="GtkButton" id="cmdExecute">
                 <property name="label" translatable="yes">Pre_view</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -315,9 +309,60 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">2</property>
+            <property name="left-attach">1</property>
+            <property name="top-attach">3</property>
           </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="lblParameterDescription">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">description goes here...</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBox" id="txtParameterValue">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="model">tmParameterValue</property>
+            <property name="has-entry">True</property>
+            <property name="entry-text-column">0</property>
+            <child internal-child="entry">
+              <object class="GtkEntry">
+                <property name="can-focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
     </child>

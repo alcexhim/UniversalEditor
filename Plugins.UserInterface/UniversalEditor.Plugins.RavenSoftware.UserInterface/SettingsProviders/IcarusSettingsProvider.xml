@@ -15,6 +15,7 @@
 					<BooleanSetting ID="{1DC9D3AC-5B8E-4D28-AAD5-91281818120D}" Name="AlphabeticallySortEditPulldowns" Title="_Alphabetically-sort edit pulldowns" />
 					<BooleanSetting ID="{80816F37-33DC-4779-8503-28D6E49B82E3}" Name="EnableSourceSafeFunctions" Title="Enable _SourceSafe functions" />
 					<BooleanSetting ID="{C450ADFB-8ED0-45F6-8DE7-6ECB822CDE6A}" Name="WarnBeforeOpeningIncompatibleScript" Title="_Warn before opening BehavEd-incompatible ICARUS script" />
+					<BooleanSetting ID="{41d0d6c4-91a0-4028-a155-69a8c6b545bd}" Name="DisplayIcarusOpcodeInTreeView" Title="Display ICARUS _opcode in tree view" />
 				</Settings>
 			</SettingsGroup>
 			<SettingsGroup ID="{8E1B592E-08E3-4AAF-A556-0ADDF3CBE949}">

@@ -38,5 +38,18 @@ namespace UniversalEditor.ObjectModels.Icarus.Parameters
 			: base(name, description, defaultValue)
 		{
 		}
+
+		public override object Clone()
+		{
+			IcarusGenericParameter clone = new IcarusGenericParameter(Name.Clone() as string);
+			clone.Description = Description?.Clone() as string;
+			clone.EnumerationName = EnumerationName?.Clone() as string;
+			clone.ReadOnly = ReadOnly;
+			clone.Value = Value.Clone() as IcarusExpression;
+
+			clone.AutoCompleteCommandType = AutoCompleteCommandType;
+			clone.AutoCompleteParameterIndex = AutoCompleteParameterIndex;
+			return clone;
+		}
 	}
 }

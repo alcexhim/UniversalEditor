@@ -39,6 +39,7 @@
     <Compile Include="Editors\Icarus\IcarusScriptEditorCommand.cs" />
     <Compile Include="Editors\Carcass\CarcassEditor.cs" />
     <Compile Include="Editors\Carcass\Dialogs\ModelReferencePropertiesDialog.cs" />
+    <Compile Include="Editors\Icarus\KnownSettingsGuids.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />

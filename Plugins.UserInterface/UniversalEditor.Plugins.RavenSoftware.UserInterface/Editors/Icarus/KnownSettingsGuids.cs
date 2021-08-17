@@ -1,10 +1,10 @@
 //
-//  IIcarusContainerCommand.cs - interface implemented by ICARUS commands which can contain other commands
+//  KnownSettingsGuids.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2011-2020 Mike Becker's Software
+//  Copyright (c) 2021 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,14 +18,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-namespace UniversalEditor.ObjectModels.Icarus
+using System;
+namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 {
-	/// <summary>
-	/// Interface implemented by ICARUS commands which can contain other commands.
-	/// </summary>
-	public interface IIcarusContainerCommand
+	internal static class KnownSettingsGuids
 	{
-		IcarusCommand.IcarusCommandCollection Commands { get; }
+		public static Guid DisplayIcarusOpcodeInTreeView { get; } = new Guid("{41d0d6c4-91a0-4028-a155-69a8c6b545bd}");
+
 	}
 }

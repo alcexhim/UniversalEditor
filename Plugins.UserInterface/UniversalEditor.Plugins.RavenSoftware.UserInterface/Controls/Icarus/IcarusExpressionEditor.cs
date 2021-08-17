@@ -37,7 +37,8 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 	{
 		// filled in by uwt container layout loader
 		private Label lblParameterName;
-		internal TextBox txtParameterValue;
+		private Label lblParameterDescription;
+		internal ComboBox txtParameterValue;
 		private Button cmdGET;
 		private Button cmdRND;
 		private Button cmdTAG;
@@ -52,6 +53,34 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 		private Container ctFileChooser = null;
 		private Button cmdExecute;
 		private DefaultTreeModel lsGETName;
+
+		public IcarusScriptObjectModel Script { get; set; } = null;
+
+		public void UpdateParameterValueChoices()
+		{
+			if (Parameter.AutoCompleteCommandType != IcarusCommandType.None)
+			{
+				UpdateParameterValueChoicesFromCommandType(Parameter.AutoCompleteCommandType, Parameter.AutoCompleteParameterIndex);
+			}
+		}
+		public void UpdateParameterValueChoicesFromCommandType(IcarusCommandType commandType, int parameterIndex)
+		{
+			((DefaultTreeModel)txtParameterValue.Model).Rows.Clear();
+			foreach (IcarusCommand cmd in Script.Commands)
+			{
+				if (cmd.CommandType == (int)commandType)
+				{
+					// DECLARE (typename , varname )
+					string name = cmd.Parameters[parameterIndex]?.Value?.GetValue()?.ToString();
+
+					TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+					{
+						new TreeModelRowColumn(txtParameterValue.Model.Columns[0], name)
+					});
+					((DefaultTreeModel)txtParameterValue.Model).Rows.Add(row);
+				}
+			}
+		}
 
 		private IcarusParameter _Parameter = null;
 		public IcarusParameter Parameter
@@ -69,6 +98,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 			if (lblParameterName == null) return;
 
 			lblParameterName.Text = _Parameter.Name;
+			lblParameterDescription.Text = _Parameter.Description;
 
 			string pval = _Parameter.Value?.ToString();
 			if (!String.IsNullOrEmpty(pval))
@@ -78,7 +108,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 
 				txtParameterValue.Text = pval;
 			}
-			txtParameterValue.Editable = !_Parameter.ReadOnly;
+			txtParameterValue.ReadOnly = _Parameter.ReadOnly;
 
 			switch (cboExpressionType.Text)
 			{
@@ -143,6 +173,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 			}));
 			cboGETName.Model = lsGETName;
 
+			UpdateParameterValueChoices();
 			UpdateControls();
 		}
 

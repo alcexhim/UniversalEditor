@@ -34,7 +34,7 @@
 					Toolbox items are loaded in code by the IcarusScriptEditor upon reading the command definitions in this file.
 				-->
 				<IcarusCommands>
-					<IcarusCommand Name="flush" Icon="I_FLUSH" Description="clear all previous script commands on ent" />
+					<IcarusCommand TypeCode="31" Name="flush" Icon="I_FLUSH" Description="clear all previous script commands on ent" />
 					<IcarusCommand Name="if" Icon="I_IF" Description="if condition true, execute block of commands">
 						<Parameters>
 							<Parameter Name="expr1">
@@ -46,18 +46,18 @@
 						</Parameters>
 					</IcarusCommand>
 					<IcarusCommand Name="else" Icon="I_IF" Description="must immediately follow and else, will execute if the if condition is false" />
-					<IcarusCommand Name="loop" Icon="I_LOOP" Description="execute block of commands any number of times (-1 = forever)">
+					<IcarusCommand TypeCode="27" Name="loop" Icon="I_LOOP" Description="execute block of commands any number of times (-1 = forever)">
 						<Parameters>
 							<Parameter Type="float" Name="count" Value="-1" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="affect" Description="switch script affect to ent with specified name, flush old commands or insert the new block of commands into current commands">
+					<IcarusCommand TypeCode="19" Name="affect" Description="switch script affect to ent with specified name, flush old commands or insert the new block of commands into current commands">
 						<Parameters>
 							<Parameter Name="Target" Value="DEFAULT" />
 							<Parameter Name="Type" Value="FLUSH" Enumeration="AFFECT_TYPE" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="run" Description="ent runs specified script">
+					<IcarusCommand TypeCode="32" Name="run" Description="ent runs specified script">
 						<Parameters>
 							<Parameter Type="expr" Name="Script" Value="DEFAULT" />
 						</Parameters>
@@ -65,20 +65,20 @@
 					<!-- === Standard commands ================================================ -->
 					<IcarusCommand Name="wait" Icon="I_WAITCLOCK" Description="script will wait specified number of milliseconds">
 						<Parameters>
-							<Parameter Type="float" Name="Time" />
+							<Parameter Type="float" Name="Duration" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="waitsignal" Icon="I_WAITSIGNAL" Description="wait until a signal() command is given with the name name - only one ent can wait for a particular signal">
+					<IcarusCommand TypeCode="47" Name="waitsignal" Icon="I_WAITSIGNAL" Description="wait until a signal() command is given with the name name - only one ent can wait for a particular signal">
 						<Parameters>
-							<Parameter Name="signalname" Value="signalname" />
+							<Parameter Name="Target" Title="signalname" Value="signalname" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="signal" Icon="I_SIGNAL" Description="The ent waiting for this signal will continue with it's script">
+					<IcarusCommand TypeCode="46" Name="signal" Icon="I_SIGNAL" Description="The ent waiting for this signal will continue with it's script">
 						<Parameters>
-							<Parameter Name="signalname" Value="signalname" />
+							<Parameter Name="Target" Title="signalname" Value="signalname" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="sound" Icon="I_SOUND" Description="play sound on specified channel of ent">
+					<IcarusCommand TypeCode="20" Name="sound" Icon="I_SOUND" Description="play sound on specified channel of ent">
 						<Parameters>
 							<Parameter Name="channels" Value="CHAN_AUTO" Enumeration="CHANNELS" />
 							<Parameter Name="filename" Value="FILENAME" />
@@ -97,23 +97,23 @@
 							<Parameter Name="dest" Value="default" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="rotate" Icon="I_ROTATE" Description="rotate ent to target angles at speed">
+					<IcarusCommand TypeCode="22" Name="rotate" Icon="I_ROTATE" Description="rotate ent to target angles at speed">
 						<Parameters>
 							<Parameter Name="dest" Type="vector" Value="0.000 0.000 0.000" />
 							<Parameter Name="speed" Type="float" Value="1000.000" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="use" Description="uses specified ent">
+					<IcarusCommand TypeCode="30" Name="use" Description="uses specified ent">
 						<Parameters>
 							<Parameter Name="ent" Type="string" Value="DEFAULT" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="use" Description="uses specified ent from a get(STRING) command">
+					<IcarusCommand TypeCode="30" Name="use" Description="uses specified ent from a get(STRING) command">
 						<Parameters>
 							<Parameter Name="ent" Value="get(STRING, &quot;targetname&quot;)" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="kill" Description="kills ent with specified name">
+					<IcarusCommand TypeCode="33" Name="kill" Description="kills ent with specified name">
 						<Parameters>
 							<Parameter Name="ent" Type="string" Value="DEFAULT" />
 						</Parameters>
@@ -123,7 +123,7 @@
 							<Parameter Name="ent" Type="string" Value="DEFAULT" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="print" Description="prints text to center of screen">
+					<IcarusCommand TypeCode="29" Name="print" Description="prints text to center of screen">
 						<Parameters>
 							<Parameter Name="text" Type="string" Value="DEFAULT" />
 						</Parameters>
@@ -134,7 +134,7 @@
 						</Parameters>
 					</IcarusCommand>
 					<!-- === Variable Handling =============================================== -->
-					<IcarusCommand Name="declare" Description="declare a global variable here, limit of 16 per map">
+					<IcarusCommand TypeCode="43" Name="declare" Description="declare a global variable here, limit of 16 per map">
 						<Parameters>
 							<Parameter Name="type" Type="enumeration" Value="FLOAT" Enumeration="DECLARE_TYPE" />
 							<Parameter Name="name" Type="string" Value="variablename" />
@@ -142,20 +142,20 @@
 					</IcarusCommand>
 					<IcarusCommand Name="free" Description="free a global variable so you can make more">
 						<Parameters>
-							<Parameter Name="name" Type="string" Value="variablename" />
+							<Parameter Name="name" Type="string" Value="variablename" AutoCompleteCommandType="Declare" AutoCompleteParameterIndex="1" />
 						</Parameters>
 					</IcarusCommand>
 					<!-- //get( %t="DECLARE_TYPE", %s="variablename" );	//# OF NO USE BY ITSELF - this will be removed soon, but is still usable inside other commands -->
 					<!-- //random( %f=0.0, %f=0.0 );//# use a random float between 2 specified values. OF NO USE BY ITSELF - this will be removed soon, but is still usable inside other commands -->
 					<!-- === Set commands ===================================================== -->
 					<!-- # standard strings -->
-					<IcarusCommand Name="set" Icon="I_SET" Description="standard set commands">
+					<IcarusCommand TypeCode="26" Name="set" Icon="I_SET" Description="standard set commands">
 						<Parameters>
 							<Parameter Name="type" Type="enumeration" Value="SET_PARM1" Enumeration="SET_TYPES" />
 							<Parameter Name="value" Type="string" Value="DEFAULT" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="set" Icon="I_SET" Description="set for variables">
+					<IcarusCommand TypeCode="26" Name="set" Icon="I_SET" Description="set for variables">
 						<Parameters>
 							<Parameter Name="type" Type="string" Value="variablename" />
 							<Parameter Name="value" Type="string" Value="value" />
@@ -166,25 +166,25 @@
 					//set( $value$, $value$ );//# set a get to a get
 					-->
 					<!-- Camera functions -->
-					<IcarusCommand Name="camera" Icon="I_CAMERA">
+					<IcarusCommand TypeCode="35" Name="camera" Icon="I_CAMERA">
 						<Parameters>
 							<Parameter Name="type" Type="enumeration" Enumeration="CAMERA_COMMANDS" />
 						</Parameters>
 					</IcarusCommand>
 					<!-- Task functions -->
-					<IcarusCommand Name="task" Type="Container">
+					<IcarusCommand TypeCode="41" Name="task" Type="Container">
 						<Parameters>
 							<Parameter Name="target" Type="string" Value="DEFAULT" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="do" Type="Container" Icon="I_DO">
+					<IcarusCommand TypeCode="42" Name="do" Type="Container" Icon="I_DO">
 						<Parameters>
-							<Parameter Name="target" Type="string" Value="DEFAULT" />
+							<Parameter Name="target" Type="string" Value="DEFAULT" AutoCompleteCommandType="Task" AutoCompleteParameterIndex="0" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand Name="wait" Type="Container" Icon="I_WAIT" Description="wait until task &quot;taskname&quot; is complete">
+					<IcarusCommand TypeCode="23" Name="wait" Type="Container" Icon="I_WAIT" Description="wait until task &quot;taskname&quot; is complete">
 						<Parameters>
-							<Parameter Name="target" Type="string" Value="DEFAULT" />
+							<Parameter Name="target" Type="string" Value="DEFAULT" AutoCompleteCommandType="Task" AutoCompleteParameterIndex="0" />
 						</Parameters>
 					</IcarusCommand>
 					<!--
@@ -192,7 +192,7 @@
 					-->
 					<IcarusCommand Name="dowait" Type="Container" Icon="I_DOWAIT" Description="shorthand form of:   do(&quot;taskname&quot;);      wait(&quot;taskname&quot;)">
 						<Parameters>
-							<Parameter Name="target" Type="string" Value="DEFAULT" />
+							<Parameter Name="target" Type="string" Value="DEFAULT" AutoCompleteCommandType="Task" AutoCompleteParameterIndex="0" />
 						</Parameters>
 					</IcarusCommand>
 					<IcarusCommand Name="play">

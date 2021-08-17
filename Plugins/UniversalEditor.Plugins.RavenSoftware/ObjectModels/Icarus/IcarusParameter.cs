@@ -19,12 +19,14 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace UniversalEditor.ObjectModels.Icarus
 {
 	/// <summary>
 	/// The abstract base class from which ICARUS parameter implementations derive.
 	/// </summary>
-	public abstract class IcarusParameter
+	public abstract class IcarusParameter : ICloneable
 	{
 		public class IcarusParameterCollection
 			: System.Collections.ObjectModel.Collection<IcarusParameter>
@@ -67,5 +69,10 @@ namespace UniversalEditor.ObjectModels.Icarus
 		public string EnumerationName { get; set; } = null;
 
 		public IcarusExpression Value { get; set; } = null;
+
+		public abstract object Clone();
+
+		public IcarusCommandType AutoCompleteCommandType { get; set; } = IcarusCommandType.None;
+		public int AutoCompleteParameterIndex { get; set; } = 0;
 	}
 }

@@ -27,12 +27,17 @@ namespace UniversalEditor.ObjectModels.Icarus
 	/// <summary>
 	/// The abstract base class from which all ICARUS command implementations derive.
 	/// </summary>
-	public abstract class IcarusCommand : ICloneable
+	public class IcarusCommand : ICloneable
 	{
 		public class IcarusCommandCollection
 			: System.Collections.ObjectModel.Collection<IcarusCommand>
 		{
 		}
+
+		public string Name { get; set; } = null;
+		public string Description { get; set; } = null;
+
+		public int CommandType { get; set; } = 0;
 
 		public IcarusParameter.IcarusParameterCollection Parameters { get; } = new IcarusParameter.IcarusParameterCollection();
 
@@ -42,9 +47,21 @@ namespace UniversalEditor.ObjectModels.Icarus
 		/// </summary>
 		/// <value><c>true</c> if is commented; otherwise, <c>false</c>.</value>
 		public bool IsCommented { get; set; } = false;
+		public bool IsMacro { get { return (Commands.Count > 0 && CommandType == 0); } }
 
-		public abstract object Clone();
+		public IcarusCommand.IcarusCommandCollection Commands { get; } = new IcarusCommandCollection();
 
+		public IcarusCommand(string name, int commandType)
+		{
+			Name = name;
+			CommandType = commandType;
+		}
+
+		public virtual object Clone()
+		{
+			return null;
+		}
+		/*
 		private static Dictionary<string, Type> _cmdsByName = null;
 		public static IcarusCommand CreateFromName(string funcName)
 		{
@@ -70,5 +87,6 @@ namespace UniversalEditor.ObjectModels.Icarus
 				return (_cmdsByName[funcName].Assembly.CreateInstance(_cmdsByName[funcName].FullName) as IcarusCommand);
 			return null;
 		}
+		*/
 	}
 }

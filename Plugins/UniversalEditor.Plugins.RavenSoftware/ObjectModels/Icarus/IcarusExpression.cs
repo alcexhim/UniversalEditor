@@ -37,6 +37,13 @@ namespace UniversalEditor.ObjectModels.Icarus
 		public abstract object Clone();
 
 		protected abstract bool GetValueInternal(ref object value);
+		public object GetValue(object defaultValue = null)
+		{
+			object val = defaultValue;
+			bool ret = GetValueInternal(ref val);
+			if (ret) return val;
+			return defaultValue;
+		}
 		public T GetValue<T>(T defaultValue = default(T))
 		{
 			object val = defaultValue;

@@ -97,6 +97,8 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Carcass
 			(tbPCJList.Items["tsbPCJListMoveDown"] as ToolbarItemButton).Click += tsbPCJListMoveDown_Click;
 
 			OnObjectModelChanged(e);
+
+			chkMakeSkeleton_Changed(this, e);
 		}
 
 		private void tsbPCJListAdd_Click(object sender, EventArgs e)

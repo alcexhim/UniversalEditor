@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using UniversalEditor.ObjectModels.Icarus;
 
 namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
@@ -31,12 +32,41 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 		public class IcarusScriptEditorCommandCollection
 			: System.Collections.ObjectModel.Collection<IcarusScriptEditorCommand>
 		{
+			private Dictionary<string, IcarusScriptEditorCommand> _commandsByName = new Dictionary<string, IcarusScriptEditorCommand>();
+			protected override void ClearItems()
+			{
+				base.ClearItems();
+				_commandsByName.Clear();
+			}
+			protected override void InsertItem(int index, IcarusScriptEditorCommand item)
+			{
+				base.InsertItem(index, item);
+				_commandsByName[item.Name] = item;
+			}
+			protected override void RemoveItem(int index)
+			{
+				_commandsByName.Remove(this[index].Name);
+				base.RemoveItem(index);
+			}
+
+			public IcarusScriptEditorCommand this[string name]
+			{
+				get
+				{
+					if (_commandsByName.ContainsKey(name))
+						return _commandsByName[name];
+					return null;
+				}
+			}
 		}
 
 		public string Name { get; set; } = null;
 		public string Description { get; set; } = null;
 		public string IconName { get; set; } = null;
 
+		public int TypeCode { get; set; } = 0;
+
 		public IcarusParameter.IcarusParameterCollection Parameters { get; } = new IcarusParameter.IcarusParameterCollection();
+		public IcarusScriptEditorCommandCollection Commands { get; } = new IcarusScriptEditorCommandCollection();
 	}
 }

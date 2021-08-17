@@ -20,10 +20,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using MBS.Framework;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Icarus;
-using UniversalEditor.ObjectModels.Icarus.Commands;
 using UniversalEditor.ObjectModels.Icarus.Expressions;
 using UniversalEditor.ObjectModels.Icarus.Parameters;
 using UniversalEditor.UserInterface;
@@ -61,14 +61,45 @@ namespace UniversalEditor.DataFormats.Icarus
 				(Application.Instance as IHostApplication).Messages.Add(HostApplicationMessageSeverity.Warning, "This file has NOT ben written by a BehavEd-compatible program! This can mess up big-style if you load a programmer-script with nested statements, etc.", Accessor.GetFileName());
 			}
 
+			IcarusCommand prevCmd = null;
+			Stack<IcarusCommand> prevCmds = new Stack<IcarusCommand>();
 			while (!reader.EndOfStream)
 			{
-				IcarusCommand cmd = ReadCommand(reader);
-				script.Commands.Add(cmd);
+				int childCommand = 0;
+				IcarusCommand cmd = ReadCommand(reader, out childCommand);
+				if (childCommand == 1)
+				{
+					prevCmds.Push(prevCmd);
+					prevCmds.Peek().Commands.Add(cmd);
+				}
+				else if (childCommand == -1)
+				{
+					prevCmds.Pop();
+					if (prevCmds.Count > 0)
+					{
+						prevCmds.Peek().Commands.Add(cmd);
+					}
+					else
+					{
+						script.Commands.Add(cmd);
+					}
+				}
+				else
+				{
+					if (prevCmds.Count > 0)
+					{
+						prevCmds.Peek().Commands.Add(cmd);
+					}
+					else
+					{
+						script.Commands.Add(cmd);
+					}
+				}
+				prevCmd = cmd;
 			}
 		}
 
-		private IcarusCommand ReadCommand(Reader reader)
+		private IcarusCommand ReadCommand(Reader reader, out int childCommand)
 		{
 			string line = null;
 			while (!reader.EndOfStream)
@@ -93,15 +124,17 @@ namespace UniversalEditor.DataFormats.Icarus
 						int groupItemCount = 0;
 						if (Int32.TryParse(groupDef[1], out groupItemCount))
 						{
-							IcarusCommandMacro macro = new IcarusCommandMacro();
-							macro.MacroName = groupName;
+							IcarusCommand macro = new IcarusCommand(groupName, 0);
 
 							for (int i = 0; i < groupItemCount; i++)
 							{
-								IcarusCommand cmd = ReadCommand(reader);
-								macro.Commands.Add(cmd);
+								int childCommand2 = 0;
+								IcarusCommand cmd = ReadCommand(reader, out childCommand2);
+								if (cmd != null)
+									macro.Commands.Add(cmd);
 							}
 
+							childCommand = 0;
 							return macro;
 						}
 					}
@@ -109,6 +142,7 @@ namespace UniversalEditor.DataFormats.Icarus
 			}
 			else
 			{
+				// FIXME: THIS WHOLE THING NEEDS TO BE RE-WRITTEN FROM THE GROUND UP
 				bool commented = false;
 				if (line.StartsWith("//(BHVDREM)"))
 				{
@@ -116,9 +150,39 @@ namespace UniversalEditor.DataFormats.Icarus
 					line = line.Substring(11);
 				}
 
+				if (line.Trim().StartsWith("{"))
+				{
+					childCommand = 1;
+					return null;
+				}
+
 				int indexOfParen = FindToken(reader, ref line, '(');
+				if (indexOfParen == -1 && String.IsNullOrEmpty(line))
+				{
+					childCommand = 0;
+					return null;
+				}
+				else if (indexOfParen == -1 && line.StartsWith("}"))
+				{
+					childCommand = -1;
+					return null;
+				}
 
 				string funcName = line.Substring(0, line.IndexOf('('));
+				if (funcName.StartsWith("{"))
+				{
+					childCommand = 1;
+					funcName = funcName.Substring(1);
+				}
+				else if (funcName.StartsWith("}"))
+				{
+					childCommand = -1;
+					funcName = funcName.Substring(1);
+				}
+				else
+				{
+					childCommand = 0;
+				}
 				funcName = funcName.Trim();
 
 				indexOfParen = FindToken(reader, ref line, ')');
@@ -128,9 +192,18 @@ namespace UniversalEditor.DataFormats.Icarus
 
 				string[] parms = parmList.Split(new string[] { "," }, "\"", "\"", StringSplitOptions.None, -1, false);
 
-				IcarusCommand cmd = IcarusCommand.CreateFromName(funcName);
+				int iCommandType = 0;
+				if (Enum.TryParse(funcName.Capitalize(), out IcarusCommandType commandType))
+				{
+					iCommandType = (int)commandType;
+				}
+
+				IcarusCommand cmd = new IcarusCommand(funcName, iCommandType);
 				// TODO: handle tabs within name
-				if (cmd == null) return null;
+				if (cmd == null)
+				{
+					return null;
+				}
 
 				cmd.IsCommented = commented;
 
@@ -171,6 +244,8 @@ namespace UniversalEditor.DataFormats.Icarus
 				}
 				return cmd;
 			}
+
+			childCommand = 0;
 			return null;
 		}
 
@@ -215,53 +290,48 @@ namespace UniversalEditor.DataFormats.Icarus
 			}
 		}
 
-		private void WriteCommand(Writer tw, IcarusCommand command, int indentLength = 0)
+		private void WriteCommand(Writer tw, IcarusCommand cmd, int indentLength = 0)
 		{
 			string indent = new string(' ', indentLength * 4);
 
-			if (command is IcarusPredefinedCommand)
+			if (cmd.IsCommented)
 			{
-				IcarusPredefinedCommand cmd = (command as IcarusPredefinedCommand);
-				if (cmd.IsCommented)
-				{
-					tw.Write("//(BHVDREM)  ");
-				}
-
-				if (cmd is IcarusCommandMacro)
-				{
-					IcarusCommandMacro macro = (cmd as IcarusCommandMacro);
-					tw.WriteLine(String.Format("//$\"{0}\"@{1}", macro.MacroName, macro.Commands.Count));
-					for (int i = 0; i < macro.Commands.Count; i++)
-					{
-						WriteCommand(tw, macro.Commands[i]);
-					}
-				}
-				else
-				{
-					tw.Write(cmd.Name);
-					tw.Write(" ( ");
-
-					for (int i = 0; i < cmd.Parameters.Count; i++)
-					{
-						if (cmd.Parameters[i].ReadOnly)
-						{
-							tw.Write("/*!*/ ");
-						}
-						else if (cmd.Parameters[i].EnumerationName != null)
-						{
-							tw.Write(String.Format("/*@{0}*/ ", cmd.Parameters[i].EnumerationName));
-						}
-						tw.Write(cmd.Parameters[i].Value?.ToString());
-						if (i < cmd.Parameters.Count - 1)
-						{
-							tw.Write(", ");
-						}
-					}
-
-					tw.Write(" );");
-				}
-				tw.WriteLine();
+				tw.Write("//(BHVDREM)  ");
 			}
+
+			if (cmd.IsMacro)
+			{
+				tw.WriteLine(String.Format("//$\"{0}\"@{1}", cmd.Name, cmd.Commands.Count));
+				for (int i = 0; i < cmd.Commands.Count; i++)
+				{
+					WriteCommand(tw, cmd.Commands[i]);
+				}
+			}
+			else
+			{
+				tw.Write(cmd.Name);
+				tw.Write(" ( ");
+
+				for (int i = 0; i < cmd.Parameters.Count; i++)
+				{
+					if (cmd.Parameters[i].ReadOnly)
+					{
+						tw.Write("/*!*/ ");
+					}
+					else if (cmd.Parameters[i].EnumerationName != null)
+					{
+						tw.Write(String.Format("/*@{0}*/ ", cmd.Parameters[i].EnumerationName));
+					}
+					tw.Write(cmd.Parameters[i].Value?.ToString());
+					if (i < cmd.Parameters.Count - 1)
+					{
+						tw.Write(", ");
+					}
+				}
+
+				tw.Write(" );");
+			}
+			tw.WriteLine();
 		}
 	}
 }

@@ -78,7 +78,7 @@ namespace UniversalEditor.ObjectModels.Icarus.Expressions
 			IcarusConstantExpression clone = null;
 			if (Value is string)
 			{
-				clone = new IcarusConstantExpression((string)Value);
+				clone = new IcarusConstantExpression(((string)Value).Clone() as string);
 			}
 			else if (Value is float)
 			{

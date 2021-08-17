@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.Icarus;
-using UniversalEditor.ObjectModels.Icarus.Commands;
 using UniversalEditor.ObjectModels.Icarus.Expressions;
 using UniversalEditor.ObjectModels.Icarus.Parameters;
 
@@ -86,128 +85,87 @@ namespace UniversalEditor.DataFormats.Icarus
 				parameters.Add(expr);
 			}
 
+			string[] paramNames = null;
+
+			command = new IcarusCommand(commandType.ToString().ToLower(), (int)commandType);
+			bool isContainer = false;
 			switch (commandType)
 			{
 				case IcarusCommandType.Affect:
 				{
-					IcarusCommandAffect cmd = new IcarusCommandAffect();
-
-					IcarusExpression target = parameters[0];
-					IcarusExpression affectType = parameters[1];
-
-					cmd.Target = target;
-					cmd.AffectType = affectType.Clone() as IcarusExpression;
-
-					command = cmd;
+					paramNames = new string[] { "target", "affectType" };
+					isContainer = true;
 					break;
 				}
 				case IcarusCommandType.Camera:
 				{
-					command = new IcarusCommandCamera();
-
-					IcarusCommandCamera cmd = (command as IcarusCommandCamera);
-					cmd.Operation = (IcarusCameraOperation)((float)((parameters[0] as IcarusConstantExpression).Value));
-					for (int i = 1; i < parameters.Count; i++)
-					{
-						if (i < cmd.Parameters.Count)
-							cmd.Parameters.Add(new IcarusGenericParameter(String.Format("parm{0}", i)));
-
-						cmd.Parameters[i].Value = parameters[i];
-					}
+					paramNames = new string[] { "operation" };
 					break;
 				}
-				case IcarusCommandType.Declare: command = new IcarusCommandDeclare(); break;
 				case IcarusCommandType.Do:
 				{
-					command = new IcarusCommandControlFlowDo();
-
-					IcarusCommandControlFlowDo cmd = (command as IcarusCommandControlFlowDo);
-					IcarusExpression target = parameters[0];
-					cmd.Target = target;
+					paramNames = new string[] { "target" };
+					isContainer = true;
 					break;
 				}
-				case IcarusCommandType.End:
-				{
-					command = new IcarusCommandEnd();
-					break;
-				}
-				case IcarusCommandType.Flush: command = new IcarusCommandFlush(); break;
-				case IcarusCommandType.Kill: command = new IcarusCommandKill(); break;
 				case IcarusCommandType.Loop:
 				{
-					command = new IcarusCommandLoop();
-
-					IcarusCommandLoop cmd = (command as IcarusCommandLoop);
-					IcarusExpression loopCount = parameters[0];
-					cmd.Count = loopCount;
+					paramNames = new string[] { "loopCount" };
+					isContainer = true;
 					break;
 				}
-				case IcarusCommandType.None: break;
 				case IcarusCommandType.Print:
 				{
-					command = new IcarusCommandPrint();
-
-					IcarusCommandPrint cmd = (command as IcarusCommandPrint);
-					IcarusExpression text = parameters[0];
-					cmd.Text = text;
+					paramNames = new string[] { "text" };
 					break;
 				}
-				case IcarusCommandType.Rotate: command = new IcarusCommandRotate(); break;
-				case IcarusCommandType.Run: command = new IcarusCommandRun(); break;
 				case IcarusCommandType.Set:
 				{
-					command = new IcarusCommandSet();
-
-					IcarusExpression objectName = parameters[0];
-					IcarusExpression value = parameters[1];
-
-					(command as IcarusCommandSet).ObjectName = objectName;
-					(command as IcarusCommandSet).Value = value;
+					paramNames = new string[] { "objectName", "value" };
 					break;
 				}
-				case IcarusCommandType.Signal: command = new IcarusCommandSignal(); break;
 				case IcarusCommandType.Sound:
 				{
-					command = new IcarusCommandSound();
-
-					IcarusCommandSound cmd = (command as IcarusCommandSound);
-					// cmd.Channel = parameters[0].Value;
-					// cmd.FileName = parameters[1].Value;
+					paramNames = new string[] { "channel", "filename" };
 					break;
 				}
 				case IcarusCommandType.Task:
 				{
-					command = new IcarusCommandTask();
-
-					IcarusCommandTask cmd = (command as IcarusCommandTask);
-
-					IcarusExpression taskName = parameters[0];
-					cmd.TaskName = taskName;
+					paramNames = new string[] { "taskName" };
+					isContainer = true;
 					break;
 				}
-				case IcarusCommandType.Use: command = new IcarusCommandUse(); break;
 				case IcarusCommandType.Wait:
 				{
-					command = new IcarusCommandWait();
-					IcarusExpression duration = parameters[0];
-					(command as IcarusCommandWait).Duration = duration.Clone() as IcarusExpression;
+					paramNames = new string[] { "duration" };
 					break;
 				}
-				case IcarusCommandType.WaitSignal: command = new IcarusCommandWaitSignal(); break;
 			}
 
-			if (command is IIcarusContainerCommand)
+			for (int i = 0; i < parameters.Count; i++)
+			{
+				if (i < command.Parameters.Count)
+					command.Parameters.Add(new IcarusGenericParameter(String.Format("parm{0}", i)));
+
+				if (i < paramNames.Length)
+				{
+					command.Parameters[i].Name = paramNames[i];
+				}
+				command.Parameters[i].Value = parameters[i];
+			}
+
+			if (isContainer)
 			{
 				IcarusCommand child = null;
 				while ((child = ReadCommand(br)) != null)
 				{
-					if (child is IcarusCommandEnd)
+					if (child.CommandType == (int)IcarusCommandType.End)
 					{
 						break;
 					}
 					else
 					{
-						(command as IIcarusContainerCommand).Commands.Add(child);
+						command.Commands.Add(child);
 					}
 				}
 			}

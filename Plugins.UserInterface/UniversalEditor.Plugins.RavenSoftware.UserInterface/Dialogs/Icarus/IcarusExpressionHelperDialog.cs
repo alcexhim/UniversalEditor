@@ -40,7 +40,12 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Dialogs.Icarus
 		private Button cmdOK;
 		private Button cmdCancel;
 
+		private Label lblCommandName;
+		private Label lblCommandDescription;
+
 		private Container ct;
+
+		public IcarusScriptObjectModel Script { get; set; } = null;
 
 		protected override void OnCreated(EventArgs e)
 		{
@@ -54,10 +59,14 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Dialogs.Icarus
 		{
 			if (!IsCreated) return;
 
+			lblCommandName.Text = _Command.Name;
+			lblCommandDescription.Text = _Command.Description;
+
 			ct.Controls.Clear();
 			for (int i = 0; i < _Command.Parameters.Count; i++)
 			{
 				IcarusExpressionEditor ed = new IcarusExpressionEditor();
+				ed.Script = Script;
 				ed.Parameter = _Command.Parameters[i];
 				ct.Controls.Add(ed, new BoxLayout.Constraints(true, true));
 			}

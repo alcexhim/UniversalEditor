@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using MBS.Framework;
+using MBS.Framework.Settings;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
 using UniversalEditor.DataFormats.Icarus;
 using UniversalEditor.ObjectModels.Icarus;
-using UniversalEditor.ObjectModels.Icarus.Commands;
 using UniversalEditor.ObjectModels.Icarus.Expressions;
 using UniversalEditor.ObjectModels.Icarus.Parameters;
 using UniversalEditor.ObjectModels.Markup;
@@ -85,17 +85,15 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 
 		private IcarusCommand ScriptEditorCommandToOMCommand(IcarusScriptEditorCommand cmd)
 		{
-			IcarusCommand command = IcarusCommand.CreateFromName(cmd.Name);
+			IcarusCommand command = new IcarusCommand(cmd.Name, cmd.TypeCode);
+			command.Description = cmd.Description;
 			for (int i = 0; i < cmd.Parameters.Count; i++)
 			{
-				if (i < command.Parameters.Count)
-				{
-					command.Parameters[i] = cmd.Parameters[i];
-				}
-				else
-				{
-					command.Parameters.Add(cmd.Parameters[i]);
-				}
+				command.Parameters.Add(cmd.Parameters[i].Clone() as IcarusParameter);
+			}
+			for (int i = 0; i < cmd.Commands.Count; i++)
+			{
+				command.Commands.Add(ScriptEditorCommandToOMCommand(cmd.Commands[i]));
 			}
 			return command;
 		}
@@ -147,65 +145,119 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 					{
 						for (int i = 0; i < tagCommands.Elements.Count; i++)
 						{
-							MarkupTagElement tagCommand = (tagCommands.Elements[i] as MarkupTagElement);
-							if (tagCommand == null) continue;
-							if (tagCommand.FullName != "IcarusCommand") continue;
-
-							MarkupAttribute attName = tagCommand.Attributes["Name"];
-							if (attName == null) continue;
-
-							IcarusScriptEditorCommand cmd = new IcarusScriptEditorCommand();
-							cmd.Name = attName.Value;
-
-							MarkupAttribute attIcon = tagCommand.Attributes["Icon"];
-							if (attIcon != null)
+							IcarusScriptEditorCommand cmd = LoadCommandXML(tagCommands.Elements[i] as MarkupTagElement);
+							if (cmd != null)
 							{
-								cmd.IconName = attIcon.Value;
+								IcarusConfiguration.Commands.Add(cmd);
+
+								ToolboxItem tbi = new ToolboxCommandItem(cmd.Name, cmd.Name);
+								tbi.SetExtraData<IcarusScriptEditorCommand>("command", cmd);
+								_er.Toolbox.Items.Add(tbi);
 							}
-							MarkupAttribute attDescription = tagCommand.Attributes["Description"];
-							if (attDescription != null)
-							{
-								cmd.Description = attDescription.Value;
-							}
-
-							MarkupTagElement tagParameters = tagCommand.Elements["Parameters"] as MarkupTagElement;
-							if (tagParameters != null)
-							{
-								for (int j = 0; j < tagParameters.Elements.Count; j++)
-								{
-									MarkupTagElement tagParameter = tagParameters.Elements[j] as MarkupTagElement;
-									if (tagParameter == null) continue;
-									if (tagParameter.FullName != "Parameter") continue;
-
-									MarkupAttribute attParameterName = tagParameter.Attributes["Name"];
-									if (attParameterName == null) continue;
-
-									IcarusGenericParameter parm = new IcarusGenericParameter(attParameterName.Value);
-
-									MarkupAttribute attParameterValue = tagParameter.Attributes["Value"];
-									MarkupAttribute attParameterEnumeration = tagParameter.Attributes["Enumeration"];
-
-									if (attParameterValue != null)
-									{
-										parm.Value = new IcarusConstantExpression(attParameterValue.Value);
-									}
-									if (attParameterEnumeration != null)
-									{
-										parm.EnumerationName = attParameterEnumeration.Value;
-									}
-									cmd.Parameters.Add(parm);
-								}
-							}
-
-							IcarusConfiguration.Commands.Add(cmd);
-
-							ToolboxItem tbi = new ToolboxCommandItem(cmd.Name, cmd.Name);
-							tbi.SetExtraData<IcarusScriptEditorCommand>("command", cmd);
-							_er.Toolbox.Items.Add(tbi);
 						}
 					}
 				}
 			}
+		}
+
+		private IcarusScriptEditorCommand LoadCommandXML(MarkupTagElement tagCommand)
+		{
+			if (tagCommand == null) return null;
+			if (tagCommand.FullName != "IcarusCommand") return null;
+
+			MarkupAttribute attName = tagCommand.Attributes["Name"];
+			if (attName == null) return null;
+
+			IcarusScriptEditorCommand cmd = new IcarusScriptEditorCommand();
+			cmd.Name = attName.Value;
+
+			MarkupAttribute attTypeCode = tagCommand.Attributes["TypeCode"];
+			if (attTypeCode != null)
+			{
+				cmd.TypeCode = Int32.Parse(attTypeCode.Value);
+			}
+
+			MarkupAttribute attIcon = tagCommand.Attributes["Icon"];
+			if (attIcon != null)
+			{
+				cmd.IconName = attIcon.Value;
+			}
+			MarkupAttribute attDescription = tagCommand.Attributes["Description"];
+			if (attDescription != null)
+			{
+				cmd.Description = attDescription.Value;
+			}
+
+			MarkupTagElement tagParameters = tagCommand.Elements["Parameters"] as MarkupTagElement;
+			if (tagParameters != null)
+			{
+				for (int j = 0; j < tagParameters.Elements.Count; j++)
+				{
+					MarkupTagElement tagParameter = tagParameters.Elements[j] as MarkupTagElement;
+					if (tagParameter == null) continue;
+					if (tagParameter.FullName != "Parameter") continue;
+
+					string parameterName = GetPositionalParameterNameForCommand(cmd.Name, j);
+					MarkupAttribute attParameterName = tagParameter.Attributes["Name"];
+					if (attParameterName != null) parameterName = attParameterName.Value;
+
+					IcarusGenericParameter parm = new IcarusGenericParameter(parameterName);
+
+					MarkupAttribute attParameterValue = tagParameter.Attributes["Value"];
+					MarkupAttribute attParameterEnumeration = tagParameter.Attributes["Enumeration"];
+
+					MarkupAttribute attAutoCompleteCommandType = tagParameter.Attributes["AutoCompleteCommandType"];
+					MarkupAttribute attAutoCompleteParameterIndex = tagParameter.Attributes["AutoCompleteParameterIndex"];
+
+					if (attParameterValue != null)
+					{
+						parm.Value = new IcarusConstantExpression(attParameterValue.Value);
+					}
+					if (attParameterEnumeration != null)
+					{
+						parm.EnumerationName = attParameterEnumeration.Value;
+					}
+
+					if (attAutoCompleteCommandType != null)
+					{
+						parm.AutoCompleteCommandType = (IcarusCommandType)Enum.Parse(typeof(IcarusCommandType), attAutoCompleteCommandType.Value);
+						if (attAutoCompleteParameterIndex != null)
+						{
+							parm.AutoCompleteParameterIndex = Int32.Parse(attAutoCompleteParameterIndex.Value);
+						}
+					}
+					cmd.Parameters.Add(parm);
+				}
+			}
+
+			MarkupTagElement tagChildCommands = tagCommand.Elements["Commands"] as MarkupTagElement;
+			if (tagChildCommands != null)
+			{
+				for (int j = 0; j < tagChildCommands.Elements.Count; j++)
+				{
+					IcarusScriptEditorCommand cmdChild = LoadCommandXML(tagChildCommands.Elements[j] as MarkupTagElement);
+					if (cmdChild != null)
+					{
+						cmd.Commands.Add(cmdChild);
+					}
+				}
+			}
+			return cmd;
+		}
+
+		private string GetPositionalParameterNameForCommand(string name, int pos)
+		{
+			// FIXME: implement this
+			IcarusScriptEditorCommand cmd = IcarusConfiguration.Commands[name];
+			if (cmd != null)
+			{
+				if (pos < cmd.Parameters.Count)
+				{
+					return cmd.Parameters[pos].Name;
+				}
+			}
+
+			return String.Format("parm{0}", (pos + 1).ToString());
 		}
 
 		protected override Selection CreateSelectionInternal(object content)
@@ -254,10 +306,64 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			Context.AttachCommandEventHandler("Icarus_ContextMenu_Comment", Icarus_ContextMenu_Comment);
 			Context.AttachCommandEventHandler("Icarus_ContextMenu_TEST_EXPRESSION_EDITOR", TestExpressionEditor);
 			Context.AttachCommandEventHandler("Icarus_ContextMenu_Insert_From_File", Icarus_ContextMenu_Insert_From_File);
+			Context.AttachCommandEventHandler("Icarus_ContextMenu_Rename", Icarus_ContextMenu_Rename);
 
 			// Commands["Icarus_Debug_BreakExecution"].Visible = false;
 			// Commands["Icarus_Debug_BreakExecution"].Visible = false;
 			// Commands["Icarus_Debug_StopDebugging"].Visible = false;
+		}
+
+		/// <summary>
+		/// Handles the <see cref="ListViewControl.SelectionChanged" /> event
+		/// on <see cref="tv" />, the IcarusCommand tree view.
+		/// </summary>
+		/// <param name="sender">The <see cref="ListViewControl" /> which generated the event.</param>
+		/// <param name="e">The <see cref="EventArgs" /> for the event.</param>
+		[EventHandler(nameof(tv), nameof(ListViewControl.SelectionChanged))]
+		private void tv_SelectionChanged(object sender, EventArgs e)
+		{
+			bool hasSelectedItems = tv.SelectedRows.Count > 0;
+
+			Application.Instance.Commands["EditCut"].Enabled = hasSelectedItems;
+			Application.Instance.Commands["EditCopy"].Enabled = hasSelectedItems;
+			Application.Instance.Commands["EditDelete"].Enabled = hasSelectedItems;
+
+			Application.Instance.Commands["FileProperties"].Enabled = hasSelectedItems;
+
+			Context.Commands["Icarus_ContextMenu_Comment"].Enabled = hasSelectedItems;
+
+			if (tv.SelectedRows.Count == 1)
+			{
+				Context.Commands["Icarus_ContextMenu_Rename"].Enabled = tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd").IsMacro;
+			}
+			else
+			{
+				Context.Commands["Icarus_ContextMenu_Rename"].Enabled = false;
+			}
+		}
+
+		[EventHandler(nameof(tv), nameof(Control.BeforeContextMenu))]
+		private void tv_BeforeContextMenu(object sender, EventArgs e)
+		{
+			Context.Commands["Icarus_ContextMenu_Comment"].Title = "Comment Selected Items";
+
+			if (tv.SelectedRows.Count == 1)
+			{
+				IcarusCommand cmd = tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd");
+				if (cmd != null)
+				{
+					if (cmd.IsCommented)
+					{
+						Context.Commands["Icarus_ContextMenu_Comment"].Title = "Uncomment Selected Items";
+					}
+					else
+					{
+						Context.Commands["Icarus_ContextMenu_Comment"].Title = "Comment Selected Items";
+					}
+				}
+			}
+
+			tv.ReloadContextMenu();
 		}
 
 		private void Icarus_ContextMenu_Comment(object sender, EventArgs e)
@@ -286,15 +392,14 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				{
 					BeginEdit();
 					cmd.IsCommented = !uncomment;
-					if (cmd is IIcarusContainerCommand)
+					if (cmd.Commands.Count > 0)
 					{
-						IIcarusContainerCommand cnt = (cmd as IIcarusContainerCommand);
 						if (!(e is MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs && (((e as MBS.Framework.UserInterface.Input.Keyboard.KeyEventArgs).ModifierKeys & MBS.Framework.UserInterface.Input.Keyboard.KeyboardModifierKey.Control) == MBS.Framework.UserInterface.Input.Keyboard.KeyboardModifierKey.Control)))
 						{
-							for (int j = 0; j < cnt.Commands.Count; j++)
+							for (int j = 0; j < cmd.Commands.Count; j++)
 							{
-								cnt.Commands[j].IsCommented = !uncomment;
-								row.Rows[j].RowColumns[0].Value = GetCommandText(cnt.Commands[j]);
+								cmd.Commands[j].IsCommented = !uncomment;
+								row.Rows[j].RowColumns[0].Value = GetCommandText(cmd.Commands[j]);
 							}
 						}
 					}
@@ -311,6 +416,29 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Back)
 			{
 				Icarus_ContextMenu_Comment(sender, e);
+			}
+		}
+
+		private void Icarus_ContextMenu_Rename(object sender, EventArgs e)
+		{
+			IcarusCommand cmd = tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd");
+
+			SettingsDialog dlg = new SettingsDialog();
+			dlg.EnableProfiles = false;
+			dlg.Text = "Rename Macro";
+			dlg.SettingsProviders.Clear();
+			dlg.SettingsProviders.Add(new CustomSettingsProvider(new SettingsGroup[]
+			{
+				new SettingsGroup("General", new Setting[]
+				{
+					new TextSetting("NewName", "New name for the macro", cmd.Name)
+				})
+			}));
+
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				cmd.Name = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue<string>();
+				tv.SelectedRows[0].RowColumns[0].Value = GetCommandText(cmd);
 			}
 		}
 
@@ -350,9 +478,9 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				Document.Load(icarus, ictxt, new Accessors.FileAccessor(dlg.SelectedFileName));
 
 				int start = script.Commands.Count;
-				script.Commands.Insert(start++, new IcarusCommandRem("============================="));
-				script.Commands.Insert(start++, new IcarusCommandRem(String.Format("   Appended File ({0}) follows...  ", dlg.SelectedFileName)));
-				script.Commands.Insert(start++, new IcarusCommandRem("============================="));
+				script.Commands.Insert(start++, new IcarusCommentCommand("============================="));
+				script.Commands.Insert(start++, new IcarusCommentCommand(String.Format("   Appended File ({0}) follows...  ", dlg.SelectedFileName)));
+				script.Commands.Insert(start++, new IcarusCommentCommand("============================="));
 				for (int i = 0; i < icarus.Commands.Count; i++)
 				{
 					script.Commands.Insert(start, icarus.Commands[i]);
@@ -422,7 +550,8 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			ClearOutputWindow();
 			LogOutputWindow("=== ICARUS Engine Debugger v1.0 - copyright (c) 2013 Mike Becker's Software ===");
 
-			DateTime dtStart = DateTime.Now;
+			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			stopwatch.Start();
 
 			IcarusScriptObjectModel script = (ObjectModel as IcarusScriptObjectModel);
 			foreach (IcarusCommand command in script.Commands)
@@ -443,10 +572,8 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				_prevTreeNode = null;
 			}
 
-			DateTime dtEnd = DateTime.Now;
-
-			TimeSpan tsDiff = dtEnd - dtStart;
-			LogOutputWindow("execution complete, " + tsDiff.ToString() + " elapsed since execution started");
+			stopwatch.Stop();
+			LogOutputWindow("execution complete, " + stopwatch.Elapsed.ToString() + " elapsed since execution started");
 
 			UpdateMenuItems(true);
 		}
@@ -469,10 +596,11 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			// tn.BackColor = Color.Empty;
 		}
 
-		private Dictionary<string, IcarusCommandTask> tasksByName = new Dictionary<string, IcarusCommandTask>();
+		private Dictionary<string, IcarusCommand> tasksByName = new Dictionary<string, IcarusCommand>();
 
 		private void DebugCommand(IcarusCommand command)
 		{
+			/*
 			if (_prevTreeNode != null)
 			{
 				ReleaseTreeNode(_prevTreeNode);
@@ -484,20 +612,27 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			_prevTreeNode = tn;
 
 			Action<string> _LogOutputWindow = new Action<string>(LogOutputWindow);
-			if (command is IcarusCommandAffect)
+			switch ((IcarusCommandType)command.CommandType)
 			{
-				IcarusCommandAffect cmd = (command as IcarusCommandAffect);
-				LogOutputWindow("on " + cmd.Target.GetValue<string>() + "\r\n{");
-				foreach (IcarusCommand command1 in cmd.Commands)
+				case IcarusCommandType.Affect:
 				{
-					DebugCommand(command1);
+					LogOutputWindow("on " + command.Parameters["target"].Value.GetValue<string>() + "\r\n{");
+					foreach (IcarusCommand command1 in (command as IcarusContainerCommand).Commands)
+					{
+						DebugCommand(command1);
+					}
+					LogOutputWindow("}");
+					break;
 				}
-				LogOutputWindow("}");
-			}
-			else if (command is IcarusCommandSet)
-			{
-				IcarusCommandSet cmd = (command as IcarusCommandSet);
-				LogOutputWindow("set " + cmd.ObjectName + " = " + (cmd.Value == null ? "(null)" : cmd.Value.ToString()));
+				case IcarusCommandType.Set:
+				{
+					LogOutputWindow(String.Format("set {0} = {1}", command.Parameters["objectName"]?.Value, (command.Parameters["value"]?.Value == null ? "(null)" : command.Parameters["value"].Value.ToString()));
+					break;
+				}
+				case IcarusCommandType.Wait:
+				{
+					break;
+				}
 			}
 			else if (command is IcarusCommandWait)
 			{
@@ -575,7 +710,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			{
 				throw new InvalidOperationException();
 			}
-
+			*/
 			System.Threading.Thread.Sleep(50);
 		}
 
@@ -631,13 +766,9 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 
 			tn.RowColumns.Add(new TreeModelRowColumn(tv.Model.Columns[0], GetCommandText(command)));
 
-			if (command is IIcarusContainerCommand)
+			foreach (IcarusCommand ic1 in command.Commands)
 			{
-				IIcarusContainerCommand container = (command as IIcarusContainerCommand);
-				foreach (IcarusCommand ic1 in container.Commands)
-				{
-					RecursiveAddCommand(ic1, tn);
-				}
+				RecursiveAddCommand(ic1, tn);
 			}
 			tn.SetExtraData<IcarusCommand>("cmd", command);
 			treeNodesForCommands.Add(command, tn);
@@ -652,6 +783,16 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			}
 		}
 
+		protected override void OnSettingsChanged(EventArgs e)
+		{
+			base.OnSettingsChanged(e);
+
+			foreach (TreeModelRow row in tv.Model.Rows)
+			{
+				row.RowColumns[0].Value = GetCommandText(row.GetExtraData<IcarusCommand>("cmd"));
+			}
+		}
+
 		private string GetCommandText(IcarusCommand command)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -663,18 +804,19 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				sb.Append("  ");
 			}
 
-			if (command is IcarusPredefinedCommand)
+			sb.Append(command.Name);
+
+			if (((UIApplication)Application.Instance).GetSetting<bool>(KnownSettingsGuids.DisplayIcarusOpcodeInTreeView))
 			{
-				sb.Append((command as IcarusPredefinedCommand).Name);
+				sb.Append(" (0x");
+				sb.Append(command.CommandType.ToString("x").ToUpper().PadLeft(2, '0'));
+				sb.Append(')');
 			}
-			else if (command is IcarusCustomCommand)
-			{
-				sb.Append((command as IcarusCustomCommand).CommandType.ToString());
-			}
+
 			// tn.ImageKey = command.GetType().Name;
 			// tn.SelectedImageKey = command.GetType().Name;
 
-			if (!(command is IcarusCommandMacro))
+			if (!command.IsMacro)
 			{
 				sb.Append("                ( ");
 				for (int i = 0; i < command.Parameters.Count; i++)
@@ -694,10 +836,9 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				sb.Append(" )");
 			}
 
-			if (command is IIcarusContainerCommand)
+			if (command.Commands.Count > 0)
 			{
-				IIcarusContainerCommand container = (command as IIcarusContainerCommand);
-				sb.Append("                (" + container.Commands.Count.ToString() + " commands)");
+				sb.Append("                (" + command.Commands.Count.ToString() + " commands)");
 			}
 			return sb.ToString();
 		}
@@ -710,9 +851,10 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				IcarusExpressionHelperDialog dlg = new IcarusExpressionHelperDialog();
 
 				IcarusCommand cmd = e.Row.GetExtraData<IcarusCommand>("cmd");
-				if (cmd is IIcarusContainerCommand && cmd.Parameters.Count == 0)
+				if (cmd.Commands.Count > 0 && cmd.Parameters.Count == 0)
 					return; // nothing to edit, so don't interrupt expanding the container row for a useless dialog
 
+				dlg.Script = (ObjectModel as IcarusScriptObjectModel);
 				dlg.Command = cmd;
 				if (dlg.ShowDialog() == DialogResult.OK)
 				{
@@ -724,7 +866,9 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 		private void TestExpressionEditor(object sender, EventArgs e)
 		{
 			IcarusExpressionHelperDialog dlg = new IcarusExpressionHelperDialog();
-			dlg.Command = new IcarusCommandSet();
+			dlg.Command = new IcarusCommand("set", (int)IcarusCommandType.Set);
+			dlg.Script = (ObjectModel as IcarusScriptObjectModel);
+
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				tv.SelectedRows[0].RowColumns[0].Value = GetCommandText(tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd"));
