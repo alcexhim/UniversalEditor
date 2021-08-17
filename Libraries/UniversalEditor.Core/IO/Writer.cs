@@ -147,6 +147,9 @@ namespace UniversalEditor.IO
 		}
 		public void WriteFixedLengthString(string value, Encoding encoding)
 		{
+			if (value == null)
+				return;
+
 			byte[] data = encoding.GetBytes(value);
 			WriteBytes(data);
 		}
@@ -175,6 +178,9 @@ namespace UniversalEditor.IO
 		[CLSCompliant(false)]
 		public void WriteFixedLengthString(string value, Encoding encoding, uint length, char paddingChar)
 		{
+			if (value == null)
+				return;
+
 			string v = value;
 			if (v == null) v = String.Empty;
 			byte[] data = encoding.GetBytes(v);
