@@ -2,11 +2,14 @@
 	<Editors>
 		<Editor TypeName="UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus.IcarusScriptEditor">
 			<Commands>
-				<Command ID="Icarus_ContextMenu_Comment" Title="Comment Selected Items" />
+				<Command ID="Icarus_ContextMenu_Comment" Title="_Comment Selected Items" />
 				<Command ID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" Title="Test E_xpression Editor" />
 
-				<Command ID="Icarus_ContextMenu_Insert_From_File" Title="Insert Commands from File..." />
+				<Command ID="Icarus_ContextMenu_Insert_From_File" Title="_Insert Commands from File..." />
 				<Command ID="Icarus_ContextMenu_Rename" Title="Rena_me" />
+
+				<Command ID="Icarus_ContextMenu_Group" Title="_Group" />
+				<Command ID="Icarus_ContextMenu_Ungroup" Title="_Ungroup" />
 
 				<Command ID="Icarus_ContextMenu">
 					<Items>
@@ -22,6 +25,9 @@
 						<CommandReference CommandID="Icarus_ContextMenu_TEST_EXPRESSION_EDITOR" />
 						<Separator />
 						<CommandReference CommandID="Icarus_ContextMenu_Rename" />
+						<Separator />
+						<CommandReference CommandID="Icarus_ContextMenu_Group" />
+						<CommandReference CommandID="Icarus_ContextMenu_Ungroup" />
 						<Separator />
 						<CommandReference CommandID="FileProperties" />
 					</Items>

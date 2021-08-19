@@ -36,6 +36,7 @@ namespace UniversalEditor.ObjectModels.Icarus
 
 		public string Name { get; set; } = null;
 		public string Description { get; set; } = null;
+		public bool IsContainer { get; } = false;
 
 		public int CommandType { get; set; } = 0;
 
@@ -47,19 +48,30 @@ namespace UniversalEditor.ObjectModels.Icarus
 		/// </summary>
 		/// <value><c>true</c> if is commented; otherwise, <c>false</c>.</value>
 		public bool IsCommented { get; set; } = false;
-		public bool IsMacro { get { return (Commands.Count > 0 && CommandType == 0); } }
+		public bool IsMacro { get { return (IsContainer && Commands.Count > 0 && CommandType == 0); } }
 
 		public IcarusCommand.IcarusCommandCollection Commands { get; } = new IcarusCommandCollection();
 
-		public IcarusCommand(string name, int commandType)
+		public IcarusCommand(string name, int commandType, bool isContainer = false)
 		{
 			Name = name;
 			CommandType = commandType;
+			IsContainer = isContainer;
 		}
 
-		public virtual object Clone()
+		public object Clone()
 		{
-			return null;
+			IcarusCommand clone = new IcarusCommand(Name?.Clone() as string, CommandType, IsContainer);
+			clone.Description = Description?.Clone() as string;
+			foreach (IcarusParameter parameter in Parameters)
+			{
+				clone.Parameters.Add(parameter.Clone() as IcarusParameter);
+			}
+			foreach (IcarusCommand command in Commands)
+			{
+				clone.Commands.Add(command.Clone() as IcarusCommand);
+			}
+			return clone;
 		}
 		/*
 		private static Dictionary<string, Type> _cmdsByName = null;

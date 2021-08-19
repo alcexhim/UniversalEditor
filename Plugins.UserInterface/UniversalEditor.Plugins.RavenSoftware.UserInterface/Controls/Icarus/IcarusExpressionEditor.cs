@@ -53,8 +53,32 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 		private Container ctFileChooser = null;
 		private Button cmdExecute;
 		private DefaultTreeModel lsGETName;
+		internal Button cmdLock;
 
 		public IcarusScriptObjectModel Script { get; set; } = null;
+
+		[EventHandler(nameof(cmdLock), nameof(Button.Click))]
+		private void cmdLock_Click(object sender, EventArgs e)
+		{
+			EnableDisableControls(!cmdLock.Checked);
+		}
+
+		private void EnableDisableControls(bool enable)
+		{
+			txtParameterValue.Enabled = enable;
+			cboExpressionType.Enabled = enable;
+			cboGETType.Enabled = enable;
+			cmdBrowse.Enabled = enable;
+			cmdExecute.Enabled = enable;
+			cboGETName.Enabled = enable;
+			cmdGET.Enabled = enable;
+			cboTAGType.Enabled = enable;
+			cmdTAG.Enabled = enable;
+			txtRangeStart.Enabled = enable;
+			lblRange.Enabled = enable;
+			txtRangeEnd.Enabled = enable;
+			cmdRND.Enabled = enable;
+		}
 
 		public void UpdateParameterValueChoices()
 		{
@@ -99,6 +123,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 
 			lblParameterName.Text = _Parameter.Name;
 			lblParameterDescription.Text = _Parameter.Description;
+			cmdLock.Checked = _Parameter.ReadOnly;
 
 			string pval = _Parameter.Value?.ToString();
 			if (!String.IsNullOrEmpty(pval))
@@ -149,6 +174,8 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Controls.Icarus
 					break;
 				}
 			}
+
+			EnableDisableControls(!_Parameter.ReadOnly);
 		}
 
 		protected override void OnCreated(EventArgs e)

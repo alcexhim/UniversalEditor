@@ -89,6 +89,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Dialogs.Icarus
 			for (int i = 0; i < _Command.Parameters.Count; i++)
 			{
 				IcarusExpressionEditor ed = ct.Controls[i] as IcarusExpressionEditor;
+				_Command.Parameters[i].ReadOnly = ed.cmdLock.Checked;
 				if (ed.cboExpressionType.SelectedItem == (ed.cboExpressionType.Model as DefaultTreeModel).Rows[0])
 				{
 					// constant

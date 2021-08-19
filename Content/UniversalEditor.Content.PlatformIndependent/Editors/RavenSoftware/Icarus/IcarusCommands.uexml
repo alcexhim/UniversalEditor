@@ -35,7 +35,7 @@
 				-->
 				<IcarusCommands>
 					<IcarusCommand TypeCode="31" Name="flush" Icon="I_FLUSH" Description="clear all previous script commands on ent" />
-					<IcarusCommand Name="if" Icon="I_IF" Description="if condition true, execute block of commands">
+					<IcarusCommand Name="if" Type="Container" Icon="I_IF" Description="if condition true, execute block of commands">
 						<Parameters>
 							<Parameter Name="expr1">
 							</Parameter>
@@ -46,12 +46,12 @@
 						</Parameters>
 					</IcarusCommand>
 					<IcarusCommand Name="else" Icon="I_IF" Description="must immediately follow and else, will execute if the if condition is false" />
-					<IcarusCommand TypeCode="27" Name="loop" Icon="I_LOOP" Description="execute block of commands any number of times (-1 = forever)">
+					<IcarusCommand TypeCode="27" Name="loop" Type="Container" Icon="I_LOOP" Description="execute block of commands any number of times (-1 = forever)">
 						<Parameters>
 							<Parameter Type="float" Name="count" Value="-1" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand TypeCode="19" Name="affect" Description="switch script affect to ent with specified name, flush old commands or insert the new block of commands into current commands">
+					<IcarusCommand TypeCode="19" Name="affect" Type="Container" Description="switch script affect to ent with specified name, flush old commands or insert the new block of commands into current commands">
 						<Parameters>
 							<Parameter Name="Target" Value="DEFAULT" />
 							<Parameter Name="Type" Value="FLUSH" Enumeration="AFFECT_TYPE" />
@@ -177,12 +177,12 @@
 							<Parameter Name="target" Type="string" Value="DEFAULT" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand TypeCode="42" Name="do" Type="Container" Icon="I_DO">
+					<IcarusCommand TypeCode="42" Name="do" Icon="I_DO">
 						<Parameters>
 							<Parameter Name="target" Type="string" Value="DEFAULT" AutoCompleteCommandType="Task" AutoCompleteParameterIndex="0" />
 						</Parameters>
 					</IcarusCommand>
-					<IcarusCommand TypeCode="23" Name="wait" Type="Container" Icon="I_WAIT" Description="wait until task &quot;taskname&quot; is complete">
+					<IcarusCommand TypeCode="23" Name="wait" Icon="I_WAIT" Description="wait until task &quot;taskname&quot; is complete">
 						<Parameters>
 							<Parameter Name="target" Type="string" Value="DEFAULT" AutoCompleteCommandType="Task" AutoCompleteParameterIndex="0" />
 						</Parameters>

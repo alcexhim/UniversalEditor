@@ -45,7 +45,7 @@ namespace UniversalEditor.ObjectModels.Icarus.Parameters
 			clone.Description = Description?.Clone() as string;
 			clone.EnumerationName = EnumerationName?.Clone() as string;
 			clone.ReadOnly = ReadOnly;
-			clone.Value = Value.Clone() as IcarusExpression;
+			clone.Value = Value?.Clone() as IcarusExpression;
 
 			clone.AutoCompleteCommandType = AutoCompleteCommandType;
 			clone.AutoCompleteParameterIndex = AutoCompleteParameterIndex;

@@ -65,6 +65,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 		public string IconName { get; set; } = null;
 
 		public int TypeCode { get; set; } = 0;
+		public bool IsContainer { get; set; } = false;
 
 		public IcarusParameter.IcarusParameterCollection Parameters { get; } = new IcarusParameter.IcarusParameterCollection();
 		public IcarusScriptEditorCommandCollection Commands { get; } = new IcarusScriptEditorCommandCollection();

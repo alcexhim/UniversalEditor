@@ -77,15 +77,29 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			BeginEdit();
 
 			IcarusCommand omcmd = ScriptEditorCommandToOMCommand(cmd);
-			RecursiveAddCommand(omcmd);
-			(ObjectModel as IcarusScriptObjectModel).Commands.Add(omcmd);
+
+			IcarusCommand selectedCommand = tv.SelectedRows.Count == 1 ? tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd") : null;
+
+			if (selectedCommand != null && selectedCommand.IsContainer)
+			{
+				RecursiveAddCommand(omcmd, tv.SelectedRows[0]);
+				tv.SelectedRows[0].Expanded = true;
+
+				selectedCommand.Commands.Add(omcmd);
+				tv.SelectedRows[0].RowColumns[0].Value = GetCommandText(selectedCommand);
+			}
+			else
+			{
+				RecursiveAddCommand(omcmd);
+				(ObjectModel as IcarusScriptObjectModel).Commands.Add(omcmd);
+			}
 
 			EndEdit();
 		}
 
 		private IcarusCommand ScriptEditorCommandToOMCommand(IcarusScriptEditorCommand cmd)
 		{
-			IcarusCommand command = new IcarusCommand(cmd.Name, cmd.TypeCode);
+			IcarusCommand command = new IcarusCommand(cmd.Name, cmd.TypeCode, cmd.IsContainer);
 			command.Description = cmd.Description;
 			for (int i = 0; i < cmd.Parameters.Count; i++)
 			{
@@ -177,6 +191,12 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				cmd.TypeCode = Int32.Parse(attTypeCode.Value);
 			}
 
+			MarkupAttribute attType = tagCommand.Attributes["Type"];
+			if (attType != null)
+			{
+				cmd.IsContainer = "container".Equals(attType.Value?.ToLower());
+			}
+
 			MarkupAttribute attIcon = tagCommand.Attributes["Icon"];
 			if (attIcon != null)
 			{
@@ -205,6 +225,11 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 
 					MarkupAttribute attParameterValue = tagParameter.Attributes["Value"];
 					MarkupAttribute attParameterEnumeration = tagParameter.Attributes["Enumeration"];
+					MarkupAttribute attParameterReadOnly = tagParameter.Attributes["ReadOnly"];
+					if (attParameterReadOnly != null)
+					{
+						parm.ReadOnly = "true".Equals(attParameterReadOnly.Value.ToLower());
+					}
 
 					MarkupAttribute attAutoCompleteCommandType = tagParameter.Attributes["AutoCompleteCommandType"];
 					MarkupAttribute attAutoCompleteParameterIndex = tagParameter.Attributes["AutoCompleteParameterIndex"];
@@ -308,6 +333,9 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			Context.AttachCommandEventHandler("Icarus_ContextMenu_Insert_From_File", Icarus_ContextMenu_Insert_From_File);
 			Context.AttachCommandEventHandler("Icarus_ContextMenu_Rename", Icarus_ContextMenu_Rename);
 
+			Context.AttachCommandEventHandler("Icarus_ContextMenu_Group", Icarus_ContextMenu_Group);
+			Context.AttachCommandEventHandler("Icarus_ContextMenu_Ungroup", Icarus_ContextMenu_Ungroup);
+
 			// Commands["Icarus_Debug_BreakExecution"].Visible = false;
 			// Commands["Icarus_Debug_BreakExecution"].Visible = false;
 			// Commands["Icarus_Debug_StopDebugging"].Visible = false;
@@ -328,9 +356,18 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			Application.Instance.Commands["EditCopy"].Enabled = hasSelectedItems;
 			Application.Instance.Commands["EditDelete"].Enabled = hasSelectedItems;
 
-			Application.Instance.Commands["FileProperties"].Enabled = hasSelectedItems;
-
 			Context.Commands["Icarus_ContextMenu_Comment"].Enabled = hasSelectedItems;
+
+			if (tv.SelectedRows.Count > 0)
+			{
+				Context.Commands["Icarus_ContextMenu_Group"].Enabled = tv.SelectedRows[0].ParentRow == null;
+				Context.Commands["Icarus_ContextMenu_Ungroup"].Enabled = tv.SelectedRows[0].ParentRow != null || (tv.SelectedRows[0].ParentRow == null && tv.SelectedRows.Count == 1 && tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd").IsContainer);
+			}
+			else
+			{
+				Context.Commands["Icarus_ContextMenu_Group"].Enabled = false;
+				Context.Commands["Icarus_ContextMenu_Ungroup"].Enabled = false;
+			}
 
 			if (tv.SelectedRows.Count == 1)
 			{
@@ -416,6 +453,91 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			if (e.Key == MBS.Framework.UserInterface.Input.Keyboard.KeyboardKey.Back)
 			{
 				Icarus_ContextMenu_Comment(sender, e);
+			}
+		}
+
+		private void Icarus_ContextMenu_Group(object sender, EventArgs e)
+		{
+			IcarusScriptObjectModel script = (ObjectModel as IcarusScriptObjectModel);
+
+			IcarusCommand container = new IcarusCommand(String.Empty, 0, true);
+
+			TreeModelRow rowParent = null;
+
+			while (tv.SelectedRows.Count > 0)
+			{
+				IcarusCommand cmdChild = tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd");
+				container.Commands.Add(cmdChild);
+
+				if (tv.SelectedRows[0].ParentRow != null)
+				{
+					rowParent = tv.SelectedRows[0].ParentRow;
+					rowParent.Rows.Remove(tv.SelectedRows[0]);
+				}
+				else
+				{
+					tv.Model.Rows.Remove(tv.SelectedRows[0]);
+				}
+				treeNodesForCommands.Remove(cmdChild);
+			}
+
+			IcarusCommand cmdParent = null;
+			if (rowParent != null)
+				cmdParent = rowParent.GetExtraData<IcarusCommand>("cmd");
+
+			if (cmdParent != null)
+			{
+				cmdParent.Commands.Add(container);
+			}
+			else
+			{
+				script.Commands.Add(container);
+			}
+
+			RecursiveAddCommand(container, rowParent);
+		}
+
+		private void Icarus_ContextMenu_Ungroup(object sender, EventArgs e)
+		{
+			IcarusScriptObjectModel script = (ObjectModel as IcarusScriptObjectModel);
+
+			if (tv.SelectedRows.Count == 1)
+			{
+				// ungroup every command in this IcarusCommand (container)
+				// and put it in the current command's parent
+				IcarusCommand cmdParent = tv.SelectedRows[0].GetExtraData<IcarusCommand>("cmd");
+
+				TreeModelRow rowParent = tv.SelectedRows[0].ParentRow;
+
+				foreach (IcarusCommand command in cmdParent.Commands)
+				{
+					treeNodesForCommands.Remove(command);
+					RecursiveAddCommand(command, rowParent);
+
+					if (rowParent != null)
+					{
+						IcarusCommand cmdParent2 = rowParent.GetExtraData<IcarusCommand>("cmd");
+						cmdParent2.Commands.Add(command);
+					}
+					else
+					{
+						script.Commands.Add(command);
+					}
+				}
+
+				if (rowParent != null)
+				{
+					IcarusCommand cmdParent2 = rowParent.GetExtraData<IcarusCommand>("cmd");
+					cmdParent2.Commands.Remove(cmdParent);
+
+					rowParent.Rows.Remove(tv.SelectedRows[0]);
+				}
+				else
+				{
+					script.Commands.Remove(cmdParent);
+
+					tv.Model.Rows.Remove(tv.SelectedRows[0]);
+				}
 			}
 		}
 
@@ -821,14 +943,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				sb.Append("                ( ");
 				for (int i = 0; i < command.Parameters.Count; i++)
 				{
-					if (command.Parameters[i].Value != null)
-					{
-						sb.Append(command.Parameters[i].Value);
-					}
-					else
-					{
-						sb.Append("null");
-					}
+					sb.Append(GetParameterText(command.Parameters[i]));
 
 					if (i < command.Parameters.Count - 1)
 						sb.Append(", ");
@@ -839,6 +954,22 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			if (command.Commands.Count > 0)
 			{
 				sb.Append("                (" + command.Commands.Count.ToString() + " commands)");
+			}
+			return sb.ToString();
+		}
+
+		private string GetParameterText(IcarusParameter param)
+		{
+			StringBuilder sb = new StringBuilder();
+			if (param.ReadOnly)
+				sb.Append("(R)");
+			if (param.Value != null)
+			{
+				sb.Append(param.Value);
+			}
+			else
+			{
+				sb.Append("null");
 			}
 			return sb.ToString();
 		}
@@ -883,6 +1014,28 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 				return true;
 			}
 			return base.ShowDocumentPropertiesDialogInternal();
+		}
+
+		private static SettingsProvider[] _sp = null;
+		protected override SettingsProvider[] GetDocumentPropertiesSettingsProvidersInternal()
+		{
+			if (_sp == null)
+			{
+				_sp = new SettingsProvider[]
+				{
+					new CustomSettingsProvider(new SettingsGroup[]
+					{
+						new SettingsGroup("General", new Setting[]
+						{
+							new CollectionSetting("", "Entity definitions", new SettingsGroup("Entity Definition Settings Group", new Setting[]
+							{
+								new TextSetting("", "Entity name")
+							}), "Entity Definition")
+						})
+					})
+				};
+			}
+			return _sp;
 		}
 	}
 }
