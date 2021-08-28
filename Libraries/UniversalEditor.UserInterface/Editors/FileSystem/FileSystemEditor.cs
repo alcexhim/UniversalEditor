@@ -836,6 +836,7 @@ namespace UniversalEditor.Editors.FileSystem
 
 			for (int i = DELIVERED_COLUMNS_COUNT; i < tv.Columns.Count; i++)
 			{
+				tm.Columns.RemoveAt(i);
 				tv.Columns.Remove(tv.Columns[i]);
 			}
 			for (int i = 0; i < fsom.AdditionalDetails.Count; i++)
@@ -981,11 +982,6 @@ namespace UniversalEditor.Editors.FileSystem
 			DocumentExplorer.Nodes.Clear();
 
 			if (!IsCreated) return;
-
-			for (int i = DELIVERED_COLUMNS_COUNT; i < tm.Columns.Count; i++)
-			{
-				tm.Columns.RemoveAt(i);
-			}
 
 			FileSystemObjectModel fsom = (ObjectModel as FileSystemObjectModel);
 			if (fsom == null) return;
