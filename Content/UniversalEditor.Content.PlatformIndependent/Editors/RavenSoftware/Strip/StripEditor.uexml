@@ -1,0 +1,17 @@
+<UniversalEditor Version="4.0">
+	<Editors>
+		<Editor ID="{57f32f5b-3a1b-4d55-9b84-719567a149cc}" TypeName="UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Strip.StripEditor">
+			<SupportedObjectModels>
+				<SupportedObjectModel TypeName="UniversalEditor.Plugins.RavenSoftware.ObjectModels.TranslationSet.TranslationSetObjectModel" />
+			</SupportedObjectModels>
+			<Commands>
+				<Command ID="ToolsCheckMissingTranslationSets" Title="Check Missing Translation Sets" InsertBefore="ToolsOptions" />
+				<Command ID="Tools">
+					<Items>
+						<CommandReference CommandID="ToolsCheckMissingTranslationSets" />
+					</Items>
+				</Command>
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

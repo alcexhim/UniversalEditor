@@ -23,8 +23,15 @@ namespace UniversalEditor.Plugins.RavenSoftware.ObjectModels.Carcass
 {
 	public class CarcassObjectModel : ObjectModel
 	{
-		public CarcassObjectModel()
+		private static ObjectModelReference _omr = null;
+		protected override ObjectModelReference MakeReferenceInternal()
 		{
+			if (_omr == null)
+			{
+				_omr = base.MakeReferenceInternal();
+				_omr.Path = new string[] { "Game development", "Raven Software", "Carcass model skin configuration" };
+			}
+			return _omr;
 		}
 
 		public ModelReference.ModelReferenceCollection ModelReferences { get; } = new ModelReference.ModelReferenceCollection();

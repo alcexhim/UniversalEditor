@@ -40,6 +40,8 @@
     <Compile Include="Editors\Carcass\CarcassEditor.cs" />
     <Compile Include="Editors\Carcass\Dialogs\ModelReferencePropertiesDialog.cs" />
     <Compile Include="Editors\Icarus\KnownSettingsGuids.cs" />
+    <Compile Include="Editors\Waypoint\WaypointEditor.cs" />
+    <Compile Include="Editors\Strip\StripEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
@@ -48,6 +50,7 @@
     <Folder Include="SettingsProviders\" />
     <Folder Include="Editors\Carcass\" />
     <Folder Include="Editors\Carcass\Dialogs\" />
+    <Folder Include="Editors\Waypoint\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MBS.Framework\MBS.Framework\MBS.Framework.csproj">

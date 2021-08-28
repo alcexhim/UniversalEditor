@@ -323,6 +323,9 @@
     <Content Include="Templates\Project\File Distribution\Images\FileSystem_32x32.png" />
     <Content Include="Editors\Multimedia3D\Scene\Panels\MotionTestPanel.uexml" />
     <Content Include="Editors\Multimedia3D\Scene\Panels\MotionTestPanel.glade" />
+    <Content Include="Editors\RavenSoftware\Waypoint\WaypointEditor.glade" />
+    <Content Include="Editors\RavenSoftware\Strip\StripEditor.uexml" />
+    <Content Include="Editors\RavenSoftware\Strip\StripEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -359,6 +362,7 @@
     <Folder Include="Panels\PropertyList\" />
     <Folder Include="Editors\Multimedia\Picture\" />
     <Folder Include="Templates\Project\General\Images\" />
+    <Folder Include="Editors\RavenSoftware\Strip\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />

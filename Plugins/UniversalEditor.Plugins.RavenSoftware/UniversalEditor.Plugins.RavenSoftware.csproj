@@ -61,6 +61,14 @@
     <Compile Include="ObjectModels\Carcass\CarcassFrame.cs" />
     <Compile Include="ObjectModels\Icarus\IcarusCommentCommand.cs" />
     <Compile Include="ObjectModels\Icarus\IcarusCommandType.cs" />
+    <Compile Include="DataFormats\Waypoint\WNTDataFormat.cs" />
+    <Compile Include="ObjectModels\Waypoint\WaypointEntry.cs" />
+    <Compile Include="ObjectModels\Waypoint\WaypointObjectModel.cs" />
+    <Compile Include="ObjectModels\Waypoint\WaypointType.cs" />
+    <Compile Include="ObjectModels\TranslationSet\TranslationSetObjectModel.cs" />
+    <Compile Include="DataFormats\TranslationSet\StripDataFormat.cs" />
+    <Compile Include="ObjectModels\TranslationSet\TranslationSetEntry.cs" />
+    <Compile Include="ObjectModels\TranslationSet\TranslationSetValue.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -92,6 +100,14 @@
       <Project>{4FD9DB1D-76AA-48D1-8446-95376C4A2BC2}</Project>
       <Name>UniversalEditor.Plugins.Multimedia3D</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MBS.Framework.UserInterface\Libraries\MBS.Framework.UserInterface\MBS.Framework.UserInterface.csproj">
+      <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
+      <Name>MBS.Framework.UserInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectModels\Icarus\Parameters\" />
@@ -100,10 +116,16 @@
     <Folder Include="ObjectModels\Carcass\" />
     <Folder Include="DataFormats\Carcass\" />
     <Folder Include="DataFormats\Carcass\Text\" />
+    <Folder Include="DataFormats\Waypoint\" />
+    <Folder Include="ObjectModels\Waypoint\" />
+    <Folder Include="ObjectModels\TranslationSet\" />
+    <Folder Include="DataFormats\TranslationSet\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\IcarusBinaryDataFormat.uexml" />
     <EmbeddedResource Include="Associations\IcarusTextDataFormat.uexml" />
     <EmbeddedResource Include="Associations\CarcassTextDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\WNTWaypointDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\StripDataFormat.uexml" />
   </ItemGroup>
 </Project>

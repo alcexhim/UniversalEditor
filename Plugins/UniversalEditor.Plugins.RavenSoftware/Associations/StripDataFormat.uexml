@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter HintComparison="MagicThenFilter" Title="Raven Software Strip (string package) translation set">
+					<FileNameFilters>
+						<FileNameFilter>*.sp</FileNameFilter>
+						<FileNameFilter>*.spe</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">VERSION 1</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.TranslationSet.TranslationSetObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.RavenSoftware.DataFormats.TranslationSet.StripDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
