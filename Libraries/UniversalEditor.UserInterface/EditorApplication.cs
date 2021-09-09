@@ -473,9 +473,11 @@ namespace UniversalEditor.UserInterface
 			if (mnuFileRecentFiles != null)
 			{
 				mnuFileRecentFiles.Items.Clear();
-				foreach (string fileName in RecentFileManager.FileNames)
+
+				string[] filenames = RecentFileManager.GetFileNames();
+				foreach (string filename in filenames)
 				{
-					AddRecentMenuItem(fileName);
+					AddRecentMenuItem(filename);
 				}
 				mnuFileRecentFiles.Visible = (mnuFileRecentFiles.Items.Count > 0);
 			}

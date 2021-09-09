@@ -1179,10 +1179,7 @@ namespace UniversalEditor.UserInterface
 					{
 						// FIXME: support Accessors other than FileAccessor
 						string fileName = (doc.Accessor as FileAccessor).FileName;
-						if (!((EditorApplication)Application.Instance).RecentFileManager.FileNames.Contains(fileName))
-						{
-							((EditorApplication)Application.Instance).RecentFileManager.FileNames.Add(fileName);
-						}
+						((EditorApplication)Application.Instance).RecentFileManager.AppendFileName(fileName);
 					}
 				}
 				catch (System.UnauthorizedAccessException ex)
