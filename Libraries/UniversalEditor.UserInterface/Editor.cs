@@ -297,16 +297,9 @@ namespace UniversalEditor.UserInterface
 		}
 		#endregion
 
-		private static EditorReference _er = null;
 		public virtual EditorReference MakeReference()
 		{
 			return new EditorReference(GetType());
-
-			if (_er == null)
-			{
-				_er = new EditorReference(GetType());
-			}
-			return _er;
 		}
 
 		private bool mvarInhibitUndo = false;
