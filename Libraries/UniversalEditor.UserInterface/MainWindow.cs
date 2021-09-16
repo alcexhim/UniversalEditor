@@ -33,67 +33,13 @@ using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework;
 using UniversalEditor.UserInterface.Controls;
 using UniversalEditor.ObjectModels.PropertyList;
+using MBS.Framework.Collections;
 
 namespace UniversalEditor.UserInterface
 {
 	public class MainWindow : MBS.Framework.UserInterface.MainWindow, IHostApplicationWindow
 	{
 		private DockingContainerControl dckContainer = null;
-
-		private RibbonTab LoadRibbonBar(CommandBar cb)
-		{
-			RibbonTab tab = new RibbonTab ();
-
-			RibbonTabGroup rtgClipboard = new RibbonTabGroup ();
-			rtgClipboard.Title = "Clipboard";
-
-			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditPaste"));
-			(rtgClipboard.Items[0] as RibbonCommandItemButton).IsImportant = true;
-
-			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditCut"));
-			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditCopy"));
-			rtgClipboard.Items.Add (new RibbonCommandItemButton ("EditDelete"));
-
-			tab.Groups.Add (rtgClipboard);
-
-			RibbonTabGroup rtgNew = new RibbonTabGroup ();
-			rtgNew.Title = "New";
-
-			rtgNew.Items.Add (new RibbonCommandItemButton ("FileNewDocument"));
-			(rtgNew.Items [0] as RibbonCommandItemButton).IsImportant = true;
-			rtgNew.Items.Add (new RibbonCommandItemButton ("FileNewProject"));
-			(rtgNew.Items [1] as RibbonCommandItemButton).IsImportant = true;
-
-			tab.Groups.Add (rtgNew);
-
-			RibbonTabGroup rtgSelect = new RibbonTabGroup ();
-			rtgSelect.Title = "Select";
-
-			rtgSelect.Items.Add (new RibbonCommandItemButton ("EditSelectAll"));
-			rtgSelect.Items.Add (new RibbonCommandItemButton ("EditInvertSelection"));
-
-			tab.Groups.Add (rtgSelect);
-
-			/*
-			Container ctFont = new Container ();
-			ctFont.Layout = new BoxLayout (Orientation.Vertical);
-			Container ctFontFace = new Container ();
-			ctFontFace.Layout = new BoxLayout (Orientation.Horizontal);
-			TextBox txtFontFace = new TextBox ();
-			txtFontFace.Text = "Calibri (Body)";
-			ctFontFace.Controls.Add (txtFontFace);
-			ctFont.Controls.Add (ctFontFace);
-
-			RibbonTabGroup rtgFont = LoadRibbonTabGroup ("Font", ctFont);
-			tab.Groups.Add (rtgFont);
-
-			Toolbar tb = LoadCommandBar (cb);
-			RibbonTabGroup rtg2 = LoadRibbonTabGroup ("General", tb);
-
-			tab.Groups.Add (rtg2);
-			*/
-			return tab;
-		}
 
 		public void UnregisterPanel(PanelReference panelReference, Panel panel)
 		{
@@ -209,12 +155,9 @@ namespace UniversalEditor.UserInterface
 
 			this.CommandDisplayMode = CommandDisplayMode.CommandBar;
 
-			if (this.CommandDisplayMode == CommandDisplayMode.Ribbon || this.CommandDisplayMode == CommandDisplayMode.Both) {
-				foreach (CommandBar cb in ((UIApplication)Application.Instance).CommandBars) {
-					RibbonTab ribbonTabHome = LoadRibbonBar (cb);
-					ribbonTabHome.Title = "Home";
-					this.Ribbon.Tabs.Add (ribbonTabHome);
-				}
+			if (this.CommandDisplayMode == CommandDisplayMode.Ribbon || this.CommandDisplayMode == CommandDisplayMode.Both)
+			{
+				InitRibbon();
 			}
 			dckContainer = new DockingContainerControl();
 			dckContainer.SelectionChanged += dckContainer_SelectionChanged;
@@ -241,6 +184,66 @@ namespace UniversalEditor.UserInterface
 			Application.Instance.ContextRemoved += Application_ContextChanged;
 
 			UpdateSuperDuperButtonBar();
+		}
+
+		private RibbonTab CreateRibbonTab(string title, RibbonTabGroup[] groups)
+		{
+			RibbonTab tab = new RibbonTab();
+			tab.Title = title;
+			foreach (RibbonTabGroup group in groups)
+			{
+				tab.Groups.Add(group);
+			}
+
+			/*
+			Container ctFont = new Container();
+			ctFont.Layout = new BoxLayout(Orientation.Vertical);
+			Container ctFontFace = new Container();
+			ctFontFace.Layout = new BoxLayout(Orientation.Horizontal);
+			TextBox txtFontFace = new TextBox();
+			txtFontFace.Text = "Calibri (Body)";
+			ctFontFace.Controls.Add(txtFontFace);
+			ctFont.Controls.Add(ctFontFace);
+
+			CreateRibbonTabGroup("Font", new RibbonCommandItem[]
+			{
+				new RibbonCommandItemContainer(ctFont)
+			});
+
+			Toolbar tb = LoadCommandBar(cb);
+			RibbonTabGroup rtg2 = CreateRibbonTabGroup("General", new RibbonCommandItem[]
+			{
+				new RibbonCommandItemContainer(tb)
+			});
+			tab.Groups.Add (rtg2);
+			*/
+
+			Ribbon.Tabs.Add(tab);
+			return tab;
+		}
+
+		private void InitRibbon()
+		{
+			CreateRibbonTab("Home", new RibbonTabGroup[]
+			{
+				new RibbonTabGroup("Clipboard", new RibbonCommandItem[]
+				{
+					new RibbonCommandItemButton("EditPaste") { IsImportant = true },
+					new RibbonCommandItemButton("EditCut"),
+					new RibbonCommandItemButton("EditCopy"),
+					new RibbonCommandItemButton("EditDelete")
+				}),
+				new RibbonTabGroup("New", new RibbonCommandItem[]
+				{
+					new RibbonCommandItemButton ("FileNewDocument") { IsImportant = true },
+					new RibbonCommandItemButton("FileNewProject") { IsImportant = true }
+				}),
+				new RibbonTabGroup("Select", new RibbonCommandItem[]
+				{
+					new RibbonCommandItemButton("EditSelectAll"),
+					new RibbonCommandItemButton("EditInvertSelection")
+				})
+			});
 		}
 
 		public DocumentExplorerPanel DocumentExplorerPanel { get { return (DocumentExplorerPanel)FindPanel(Panels.DocumentExplorerPanel.ID); } }
