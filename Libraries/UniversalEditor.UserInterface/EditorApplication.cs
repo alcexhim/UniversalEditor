@@ -829,30 +829,13 @@ namespace UniversalEditor.UserInterface
 				Editor ed = LastWindow.GetCurrentEditor();
 				if (ed == null) return;
 
-				Accessor acc = ed.ObjectModel?.Accessor ?? (ed.Parent as Pages.EditorPage)?.Document?.Accessor;
-
-				// we cannot yet bookmark a file that does not yet exist. (this would be akin to creating a shortcut to a template I guess...?)
-				if (acc == null) return;
-
-				// FIXME: BookmarksAdd copypasta
-				string filename = acc.GetFileName();
-				BookmarksManager.FileNames.Add(filename);
-
-				Command cmdBookmarks = Application.Instance.Commands["Bookmarks"];
-				if (cmdBookmarks.Items.Count == 4)
-				{
-					cmdBookmarks.Items.Add(new SeparatorCommandItem());
-				}
-
-				((UIApplication)Application.Instance).Commands.Add(new Command(String.Format("{0}", (((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count - 1).ToString()), System.IO.Path.GetFileName(((EditorApplication)Application.Instance).BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
-				((UIApplication)Application.Instance).Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
-
-				Application.Instance.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+				AddBookmark(ed.ObjectModel?.Accessor ?? (ed.Parent as Pages.EditorPage)?.Document?.Accessor);
 				ShowBookmarksManagerDialog();
 			});
 			Application.Instance.AttachCommandEventHandler("BookmarksAddAll", delegate (object sender, EventArgs e)
 			{
 				Page[] pages = LastWindow.GetPages();
+
 				for (int i = 0; i < pages.Length; i++)
 				{
 					if (pages[i] is Pages.EditorPage)
@@ -860,20 +843,7 @@ namespace UniversalEditor.UserInterface
 						Pages.EditorPage ep = (pages[i] as Pages.EditorPage);
 						Editor ed = (ep.Controls[0] as Editor);
 
-						// FIXME: BookmarksAdd copypasta
-						string filename = ed.ObjectModel.Accessor.GetFileName();
-						BookmarksManager.FileNames.Add(filename);
-
-						Command cmdBookmarks = ((UIApplication)Application.Instance).Commands["Bookmarks"];
-						if (cmdBookmarks.Items.Count == 4)
-						{
-							cmdBookmarks.Items.Add(new SeparatorCommandItem());
-						}
-
-						Application.Instance.Commands.Add(new Command(String.Format("Bookmarks_Bookmark{0}", (((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count - 1)), System.IO.Path.GetFileName(((EditorApplication)Application.Instance).BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
-						Application.Instance.Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", ((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count - 1)));
-
-						Application.Instance.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+						AddBookmark(ed.ObjectModel?.Accessor ?? (ed.Parent as Pages.EditorPage)?.Document?.Accessor);
 					}
 				}
 
@@ -1027,6 +997,32 @@ namespace UniversalEditor.UserInterface
 			}
 			#endregion
 			#endregion
+		}
+
+		/// <summary>
+		/// Adds a bookmark referencing the specified <see cref="Accessor" /> to the application's bookmarks menu.
+		/// </summary>
+		/// <returns><c>true</c>, if bookmark was added, <c>false</c> otherwise.</returns>
+		/// <param name="accessor">The <see cref="Accessor" /> referencing the bookmark to add.</param>
+		public bool AddBookmark(Accessor accessor)
+		{
+			// we cannot yet bookmark a file that does not yet exist. (this would be akin to creating a shortcut to a template I guess...?)
+			if (accessor == null) return false;
+
+			string filename = accessor.GetFileName();
+			BookmarksManager.FileNames.Add(filename);
+
+			Command cmdBookmarks = Application.Instance.Commands["Bookmarks"];
+			if (cmdBookmarks.Items.Count == 4)
+			{
+				cmdBookmarks.Items.Add(new SeparatorCommandItem());
+			}
+
+			((UIApplication)Application.Instance).Commands.Add(new Command(String.Format("{0}", (((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count - 1).ToString()), System.IO.Path.GetFileName(((EditorApplication)Application.Instance).BookmarksManager.FileNames[(BookmarksManager.FileNames.Count - 1)])));
+			((UIApplication)Application.Instance).Commands["Bookmarks"].Items.Add(new CommandReferenceCommandItem(String.Format("Bookmarks_Bookmark{0}", (BookmarksManager.FileNames.Count - 1).ToString())));
+
+			Application.Instance.AttachCommandEventHandler(String.Format("Bookmarks_Bookmark{0}", (((EditorApplication)Application.Instance).BookmarksManager.FileNames.Count - 1).ToString()), Bookmarks_Bookmark_Click);
+			return true;
 		}
 
 		void Td_HyperlinkClicked(object sender, TaskDialogHyperlinkClickedEventArgs e)
