@@ -60,6 +60,7 @@
     <Compile Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\NoteEvent.cs" />
     <Compile Include="Controls\ColorPalette\ColorPaletteControl.cs" />
     <Compile Include="Editors\Multimedia\Palette\Dialogs\CalculateNeighboringColorsDialog.cs" />
+    <Compile Include="Plugins\Transport\TransportPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -83,6 +84,8 @@
     <Folder Include="Editors\Multimedia\VectorImage\" />
     <Folder Include="Editors\Multimedia\VectorImage\Controls\" />
     <Folder Include="Controls\ColorPalette\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="Plugins\Transport\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

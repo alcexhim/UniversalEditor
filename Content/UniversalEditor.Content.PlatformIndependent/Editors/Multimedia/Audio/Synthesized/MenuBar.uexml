@@ -74,8 +74,6 @@
 					</Items>
 				</Command>
 
-				<Command ID="Transport" Title="Tra_nsport" />
-
 				<!-- Context Menu -->
 				<Command ID="PianoRollEditor_ContextMenu_Arrow" Title="_Arrow" />
 				<Command ID="PianoRollEditor_ContextMenu_Draw" Title="Dra_w" />
