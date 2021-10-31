@@ -73,11 +73,11 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Plugins.Transport
 		{
 			base.InitializeInternal();
 
-			Context.Commands.Add(new Command("Transport_Rewind", "_Rewind"));
-			Context.Commands.Add(new Command("Transport_Back", "_Back"));
-			Context.Commands.Add(new Command("Transport_Play", "_Play"));
-			Context.Commands.Add(new Command("Transport_Forward", "_Forward"));
-			Context.Commands.Add(new Command("Transport_End", "_End"));
+			Context.Commands.Add(new Command("Transport_Rewind", "_Rewind") { StockType = StockType.MediaPrevious });
+			Context.Commands.Add(new Command("Transport_Back", "_Back") { StockType = StockType.MediaRewind });
+			Context.Commands.Add(new Command("Transport_Play", "_Play") { StockType = StockType.MediaPlay });
+			Context.Commands.Add(new Command("Transport_Forward", "_Forward") { StockType = StockType.MediaForward });
+			Context.Commands.Add(new Command("Transport_End", "_End") { StockType = StockType.MediaNext });
 			Context.Commands.Add(new Command("Transport_Transport", "P_layback", new CommandItem[]
 			{
 				new CommandReferenceCommandItem("Transport_Rewind"),

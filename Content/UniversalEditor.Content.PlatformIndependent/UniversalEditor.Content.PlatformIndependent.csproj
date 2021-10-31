@@ -326,6 +326,9 @@
     <Content Include="Editors\RavenSoftware\Waypoint\WaypointEditor.glade" />
     <Content Include="Editors\RavenSoftware\Strip\StripEditor.uexml" />
     <Content Include="Editors\RavenSoftware\Strip\StripEditor.glade" />
+    <Content Include="Extensions\Multimedia3D\Languages\English.uexml" />
+    <Content Include="Editors\Multimedia3D\Model\Icons\sphere.png" />
+    <Content Include="Editors\Multimedia3D\Model\Icons\cube.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -363,6 +366,8 @@
     <Folder Include="Editors\Multimedia\Picture\" />
     <Folder Include="Templates\Project\General\Images\" />
     <Folder Include="Editors\RavenSoftware\Strip\" />
+    <Folder Include="Extensions\Multimedia3D\" />
+    <Folder Include="Extensions\Multimedia3D\Languages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />
@@ -373,6 +378,8 @@
     <None Include="Images\SplashScreen.png" />
     <None Include="Images\SplashScreen.xcf" />
     <None Include="Documentation\Executable\DataFormats\Executable\Microsoft\ExecutableFormats.txt" />
+    <None Include="Editors\Multimedia3D\Model\Icons\sphere.svg" />
+    <None Include="Editors\Multimedia3D\Model\Icons\cube.svg" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg2323"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="sphere.svg"
+   inkscape:export-filename="/home/beckermj/Documents/Projects/UniversalEditor/Content/UniversalEditor.Content.PlatformIndependent/Editors/Multimedia3D/Model/Icons/sphere.png"
+   inkscape:export-xdpi="64"
+   inkscape:export-ydpi="64"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2325"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     width="48mm"
+     units="px"
+     inkscape:zoom="15.231372"
+     inkscape:cx="13.656026"
+     inkscape:cy="22.683446"
+     inkscape:window-width="1834"
+     inkscape:window-height="1016"
+     inkscape:window-x="86"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2320">
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1813"
+       id="radialGradient1815"
+       cx="171.32903"
+       cy="35.944698"
+       fx="171.32903"
+       fy="35.944698"
+       r="14.553248"
+       gradientTransform="matrix(0.35099668,0,0,0.35099668,-52.164799,-8.2372344)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1813">
+      <stop
+         style="stop-color:#bebebe;stop-opacity:1;"
+         offset="0"
+         id="stop1809" />
+      <stop
+         style="stop-color:#1c1c1c;stop-opacity:1"
+         offset="1"
+         id="stop1811" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="opacity:0.998;fill:url(#radialGradient1815);fill-opacity:1;stroke:none;stroke-width:0.400138"
+       id="path98"
+       cx="6.468751"
+       cy="6.0936403"
+       r="4.9087029" />
+  </g>
+</svg>
