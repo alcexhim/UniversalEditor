@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.Text;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.PropertyList;
 
@@ -116,7 +116,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 						if (element is MarkupTagElement)
 						{
 							MarkupTagElement tag = element as MarkupTagElement;
-							tw.Write(indent + Settings.TagBeginChar.ToString() + element.FullName);
+							tw.Write(indent + Settings.TagBeginChar.ToString() + GetFullName(element));
 							if (tag.Attributes.Count > 0)
 							{
 								tw.Write(" ");
@@ -199,6 +199,40 @@ namespace UniversalEditor.DataFormats.Markup.XML
 				}
 			}
 		}
+
+		private string GetFullName(MarkupElement element)
+		{
+			if (element is MarkupTagElement)
+			{
+				if ((element as MarkupTagElement).XMLSchema != null)
+				{
+					StringBuilder sb = new StringBuilder();
+					sb.Append(GetPrefixForXMLSchema(element.ParentObjectModel, (element as MarkupTagElement).XMLSchema));
+					sb.Append(':');
+					sb.Append(element.Name);
+					return sb.ToString();
+				}
+			}
+			return element.FullName;
+		}
+
+		private string GetPrefixForXMLSchema(MarkupObjectModel mom, string xmlSchema)
+		{
+			foreach (MarkupElement el in mom.Elements)
+			{
+				if (el is MarkupTagElement)
+				{
+					foreach (MarkupAttribute att in (el as MarkupTagElement).Attributes)
+					{
+						if (att.Namespace == "xmlns" && att.Value == xmlSchema)
+							return att.Name;
+					}
+					break;
+				}
+			}
+			throw new InvalidOperationException(String.Format("xml prefix not found for schema '{0}'", xmlSchema));
+		}
+
 		public void WriteStartDocument()
 		{
 			this.WriteStartPreprocessor("xml");

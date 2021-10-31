@@ -83,10 +83,14 @@ namespace UniversalEditor.ObjectModels.Markup
 			return basetag;
 		}
 
+		private string _XMLSchema = null;
 		public string XMLSchema
 		{
 			get
 			{
+				if (_XMLSchema != null)
+					return _XMLSchema;
+
 				if (this.Namespace == null)
 					return null;
 
@@ -102,6 +106,33 @@ namespace UniversalEditor.ObjectModels.Markup
 				}
 
 				return null;
+			}
+			set
+			{
+				if (this.ParentObjectModel == null)
+				{
+					_XMLSchema = value;
+					return;
+				}
+
+				for (int i = 0; i < this.ParentObjectModel.Elements.Count; i++)
+				{
+					MarkupTagElement tagTopLevel = (this.ParentObjectModel.Elements[i] as MarkupTagElement);
+					if (tagTopLevel == null)
+						continue;
+
+					foreach (MarkupAttribute att in tagTopLevel.Attributes)
+					{
+						if (att.Namespace == "xmlns")
+						{
+							if (att.Value == value)
+							{
+								Namespace = att.Name;
+								break;
+							}
+						}
+					}
+				}
 			}
 		}
 
