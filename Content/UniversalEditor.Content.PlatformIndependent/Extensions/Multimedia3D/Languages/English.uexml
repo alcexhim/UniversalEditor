@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationFramework>
+	<Languages DefaultLanguageID="English">
+		<Language ID="English">
+			<StringTable>
+				<StringTableEntry ID="Multimedia3D.Errors.CanvasInaccessible" Value="Unable to access the OpenGL canvas" />
+				<StringTableEntry ID="Multimedia3D.Errors.RenderingUnavailable" Value="The rendering will be unavailable." />
+				<StringTableEntry ID="Multimedia3D.Errors.CheckRequiredLibraries" Value="Check to ensure all required libraries are installed properly" />
+				<StringTableEntry ID="Multimedia3D.Errors.CheckRequiredFile" Value="Check to ensure the file exists and is readable" />
+				<StringTableEntry ID="Multimedia3D.Errors.VertexShaderNotFound" Value="Vertex shader not found" />
+				<StringTableEntry ID="Multimedia3D.Errors.FragmentShaderNotFound" Value="Fragment shader not found" />
+			</StringTable>
+		</Language>
+	</Languages>
+</ApplicationFramework>

@@ -25,6 +25,8 @@ using MBS.Framework.UserInterface.Layouts;
 using UniversalEditor.UserInterface;
 
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
+using System;
+using MBS.Framework;
 
 namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 {
@@ -34,6 +36,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 		{
 			InitializeComponent();
 		}
+
+		public MBS.Audio.ITransport Transport { get; set; } = null;
 
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()

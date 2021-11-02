@@ -49,7 +49,7 @@
 					</Items>
 				</Command>
 
-				<Command ID="FileSystemContextMenu_New_Folder" Title="_Folder" />
+				<Command ID="FileSystemContextMenu_New_Folder" Title="_Folder" StockType="FolderNew" />
 				<Command ID="FileSystemContextMenu_New_Shortcut" Title="_Shortcut" />
 				<Command ID="FileSystemContextMenu_New_Briefcase" Title="Briefcase" />
 				<Command ID="FileSystemContextMenu_New_BitmapImage" Title="Bitmap image" />
@@ -149,6 +149,22 @@
 					</Items>
 				</Command>
 			</Commands>
+			<CommandBars>
+				<CommandBar ID="tbFileSystem">
+					<Items>
+						<!-- default toolbar layout: New Open Favorites Add Extract Encrypt View Install Wizard -->
+						<CommandReference CommandID="FileNewDocument" /> <!-- New -->
+						<CommandReference CommandID="FileOpenDocument" /> <!-- Open -->
+						<CommandReference CommandID="BookmarksManage" /> <!-- Favorites -->
+						<CommandReference CommandID="FileSystemContextMenu_Add_ExistingItem" /> <!-- Add -->
+						<CommandReference CommandID="FileSystemContextMenu_CopyTo" /> <!-- Extract -->
+						<CommandReference CommandID="FileSystemContextMenu_Encrypt" /> <!-- Encrypt -->
+						<CommandReference CommandID="File_Open" /> <!-- View -->
+						<CommandReference CommandID="FileSystemToolbar_Install" /> <!-- Install -->
+						<CommandReference CommandID="FileSystemToolbar_Wizard" /> <!-- Wizard -->
+					</Items>
+				</CommandBar>
+			</CommandBars>
 		</Editor>
 	</Editors>
 </UniversalEditor>

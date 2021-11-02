@@ -296,6 +296,20 @@ namespace UniversalEditor.UserInterface.Common
 										er.Variables.Add(varr);
 									}
 								}
+
+
+								MarkupTagElement tagCommandBars = (tagEditor.Elements["CommandBars"] as MarkupTagElement);
+								if (tagCommandBars != null)
+								{
+									foreach (MarkupElement elCommandBar in tagCommandBars.Elements)
+									{
+										CommandBar cb = CommandBarLoader.LoadCommandBarXML(elCommandBar as MarkupTagElement);
+										if (cb != null)
+										{
+											er.CommandBars.Add(cb);
+										}
+									}
+								}
 							}
 						}
 					}
