@@ -64,7 +64,6 @@
     <Compile Include="ObjectModelChangingEvent.cs" />
     <Compile Include="Perspective.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyMapping.cs" />
     <Compile Include="RecentFileManager.cs" />
     <Compile Include="SessionManager.cs" />
     <Compile Include="TemporaryFileManager.cs" />
