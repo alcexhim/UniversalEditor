@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversalEditor.ObjectModels.Lighting.Script
 {
-	public class TrackEntry
+	public class TrackEntry : ICloneable
 	{
 		public class TrackEntryCollection
 			: System.Collections.ObjectModel.Collection<TrackEntry>
@@ -26,5 +26,18 @@ namespace UniversalEditor.ObjectModels.Lighting.Script
 		/// The duration, in frames, of the entry.
 		/// </summary>
 		public int Duration { get { return mvarDuration; } set { mvarDuration = value; } }
+
+		public object Clone()
+		{
+			TrackEntry clone = new TrackEntry();
+			clone.Name = (Name?.Clone() as string);
+			clone.StartFrame = StartFrame;
+			clone.Duration = Duration;
+			foreach (TrackEntryCommand command in Commands)
+			{
+				clone.Commands.Add(command.Clone() as TrackEntryCommand);
+			}
+			return clone;
+		}
 	}
 }

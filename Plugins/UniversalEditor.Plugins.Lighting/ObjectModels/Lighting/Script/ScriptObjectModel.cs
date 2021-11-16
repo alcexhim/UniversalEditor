@@ -22,7 +22,15 @@ namespace UniversalEditor.ObjectModels.Lighting.Script
 		}
 		public override void CopyTo(ObjectModel where)
 		{
-			throw new NotImplementedException();
+			ScriptObjectModel clone = (where as ScriptObjectModel);
+			foreach (Fixture item in Fixtures)
+			{
+				clone.Fixtures.Add(item.Clone() as Fixture);
+			}
+			foreach (Track item in Tracks)
+			{
+				clone.Tracks.Add(item.Clone() as Track);
+			}
 		}
 
 		private string mvarAudioFileName = String.Empty;
