@@ -152,8 +152,8 @@ namespace UniversalEditor.ObjectModels.Multimedia.Audio.Waveform
 			clone.Header.DataRate = this.Header.DataRate;
 			clone.Header.FormatTag = this.Header.FormatTag;
 			clone.Header.SampleRate = this.Header.SampleRate;
-			clone.RawData = (this.mvarRawData.Clone() as byte[]);
-			clone.RawSamples = (this.RawSamples.Clone() as WaveformAudioSamples);
+			clone.RawData = (this.RawData?.Clone() as byte[]);
+			clone.RawSamples = (this.RawSamples?.Clone() as WaveformAudioSamples);
 
 			clone.Information.AlbumTitle = (Information.AlbumTitle.Clone() as string);
 			clone.Information.Comments = (Information.Comments.Clone() as string);

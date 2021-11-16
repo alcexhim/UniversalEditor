@@ -106,6 +106,8 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 
 			WaveformAudioEditorTrack track = (Parent as WaveformAudioEditorTrack);
 			WaveformAudioObjectModel wave = track.ObjectModel;
+			if (wave.RawSamples == null)
+				return;
 
 			ScrollBounds = new MBS.Framework.Drawing.Dimension2D(wave.RawSamples.Length, 0);
 

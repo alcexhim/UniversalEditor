@@ -217,6 +217,7 @@
     <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\ManifestXMLObjectModel.cs" />
     <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\ManifestFileEntry.cs" />
     <Compile Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\XMLSchemas.cs" />
+    <Compile Include="DataFormats\Markup\XML\CommonXMLSchemas.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

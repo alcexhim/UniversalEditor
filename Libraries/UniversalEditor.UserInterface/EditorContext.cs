@@ -45,6 +45,10 @@ namespace UniversalEditor.UserInterface
 			{
 				Commands.Add(reference.Commands[i]);
 			}
+			for (int i = 0; i < reference.CommandBars.Count; i++)
+			{
+				CommandBars.Add(reference.CommandBars[i]);
+			}
 			for (int i = 0; i < reference.MenuBar.Items.Count; i++)
 			{
 				MenuItems.Add(reference.MenuBar.Items[i]);

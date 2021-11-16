@@ -46,11 +46,41 @@ namespace UniversalEditor.ObjectModels.PropertyList
 		}
 		public override void CopyTo(ObjectModel objectModel)
 		{
-			PropertyListObjectModel omb = objectModel as PropertyListObjectModel;
-			if (omb == null) throw new ObjectModelNotSupportedException();
+			PropertyListObjectModel clone = objectModel as PropertyListObjectModel;
+			if (clone == null) throw new ObjectModelNotSupportedException();
 
-			// omb.Combine(this);
+			Combine(clone);
 		}
+
+		public void Combine(PropertyListObjectModel clone)
+		{
+			foreach (PropertyListItem item in Items)
+			{
+				if (item is Property)
+				{
+					if (clone.Items.Contains(item.Name) && clone.Items[item.Name] is Property)
+					{
+						(clone.Items[item.Name] as Property).Value = (item as Property).Value;
+					}
+					else
+					{
+						clone.Items.Add(((Property)item).Clone() as Property);
+					}
+				}
+				else if (item is Group)
+				{
+					if (clone.Items.Contains(item.Name) && clone.Items[item.Name] is Group)
+					{
+						(clone.Items[item.Name] as Group).Combine(item as Group);
+					}
+					else
+					{
+						clone.Items.Add(((Group)item).Clone() as Group);
+					}
+				}
+			}
+		}
+
 		public T GetValue<T>(string propertyName)
 		{
 			return this.GetValue<T>(new string[]

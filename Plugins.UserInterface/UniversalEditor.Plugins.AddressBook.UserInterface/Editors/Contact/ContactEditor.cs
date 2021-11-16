@@ -59,6 +59,7 @@ namespace UniversalEditor.Editors.Contact
 			this.Padding = new Padding(26);
 
 			TabContainer sidebar = new TabContainer();
+			sidebar.TabStyle = TabContainerTabStyle.Sidebar;
 
 			#region Summary Panel
 			{

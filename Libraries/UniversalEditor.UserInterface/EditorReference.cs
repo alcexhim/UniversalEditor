@@ -30,6 +30,7 @@ namespace UniversalEditor.UserInterface
 		public MarkupTagElement Configuration { get; set; } = null;
 
 		public CommandBar MenuBar { get; } = new CommandBar();
+		public CommandBar.CommandBarCollection CommandBars { get; } = new CommandBar.CommandBarCollection();
 		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
 		public PanelReference.PanelReferenceCollection Panels { get; } = new PanelReference.PanelReferenceCollection();
 		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();

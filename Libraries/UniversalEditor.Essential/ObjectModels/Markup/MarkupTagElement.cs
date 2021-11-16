@@ -29,6 +29,21 @@ namespace UniversalEditor.ObjectModels.Markup
 	/// </summary>
 	public class MarkupTagElement : MarkupContainerElement
 	{
+		public MarkupTagElement()
+		{
+		}
+		public MarkupTagElement(string fullName, string innerMarkup)
+		{
+			FullName = fullName;
+			Value = innerMarkup;
+		}
+		public MarkupTagElement(string schema, string name, string innerMarkup)
+		{
+			XMLSchema = schema;
+			Name = name;
+			Value = innerMarkup;
+		}
+
 		/// <summary>
 		/// Combines the attributes and child elements of this <see cref="MarkupTagElement" /> with the given <see cref="MarkupElement" />.
 		/// </summary>

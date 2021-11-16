@@ -43,6 +43,8 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			return _er;
 		}
 
+		public MBS.Audio.ITransport Transport { get; set; } = null;
+
 		public WaveformAudioEditor()
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
@@ -66,17 +68,21 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 		protected override void OnCreated(EventArgs e)
 		{
 			base.OnCreated(e);
-			Context.AttachCommandEventHandler("WaveformAudioEditor_ContextMenu_Playback_Play", delegate (object sender, EventArgs ee)
-			{
-				WaveformAudioObjectModel wave = (ObjectModel as WaveformAudioObjectModel);
-				if (wave == null) return;
 
-				// get the setting "Editors -> Audio -> Waveform -> Audio engine
+			Transport = new MBS.Audio.CustomTransport(Transport_Play, null, null);
+		}
 
-				// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
-				AudioPlayer player = new AudioPlayer();
-				player.Play(wave);
-			});
+		private bool Transport_Play()
+		{
+			WaveformAudioObjectModel wave = (ObjectModel as WaveformAudioObjectModel);
+			if (wave == null) return false;
+
+			// get the setting "Editors -> Audio -> Waveform -> Audio engine
+
+			// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
+			AudioPlayer player = new AudioPlayer();
+			player.Play(wave);
+			return true;
 		}
 
 		public override void UpdateSelections()

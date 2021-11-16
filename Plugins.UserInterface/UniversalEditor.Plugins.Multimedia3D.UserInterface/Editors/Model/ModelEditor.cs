@@ -27,6 +27,7 @@ using MBS.Framework.Rendering;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.Input.Mouse;
 using MBS.Framework.UserInterface.Layouts;
 
 using UniversalEditor.ObjectModels.Multimedia3D.Model;
@@ -46,18 +47,29 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 			{
 				_er = base.MakeReference();
 				_er.SupportedObjectModels.Add(typeof(ModelObjectModel));
+
+				_er.Commands.Add(new Command("ModelEditor_Insert_Cube", "Cube") { ImageFileName = "Editors/Multimedia3D/Model/Icons/cube.png" });
+				_er.Commands.Add(new Command("ModelEditor_Insert_Sphere", "Sphere") { ImageFileName = "Editors/Multimedia3D/Model/Icons/sphere.png" });
+				_er.Commands.Add(new Command("ModelEditor_Insert_Plane", "Plane") { ImageFileName = "Editors/Multimedia3D/Model/Icons/plane.png" });
+
+				_er.CommandBars.Add(new CommandBar("ModelEditor_Insert", "Insert", new CommandItem[]
+				{
+					new CommandReferenceCommandItem("ModelEditor_Insert_Cube"),
+					new CommandReferenceCommandItem("ModelEditor_Insert_Sphere"),
+					new CommandReferenceCommandItem("ModelEditor_Insert_Plane"),
+					new SeparatorCommandItem()
+				}));
 			}
 			return _er;
 		}
 
 		public override void UpdateSelections()
 		{
-			throw new NotImplementedException();
 		}
 
 		protected override Selection CreateSelectionInternal(object content)
 		{
-			throw new NotImplementedException();
+			return null;
 		}
 
 		private OpenGLCanvas gla = null;
@@ -67,6 +79,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 			this.Layout = new BoxLayout(Orientation.Vertical);
 
 			gla = new OpenGLCanvas();
+			gla.FocusOnClick = true;
 			gla.Realize += gla_Realize;
 			gla.Render += gla_Render;
 			this.Controls.Add(gla, new BoxLayout.Constraints(true, true));
@@ -116,7 +129,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 			new VERTEX(-0.5f, -0.366f, 0.0f,    0.0f, 0.0f, 0.0f,           0.0f, 0.0f, 1.0f,         0.0f, 0.0f)
 		};
 
-		VertexArray[] vaos = null;
+		VertexArray vao = null;
 
 		/// <summary>
 		/// Computes the modelview projection
@@ -176,6 +189,16 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 
 		void gla_Render(object sender, OpenGLCanvasRenderEventArgs e)
 		{
+			if (fatalError)
+				return;
+
+			if (e.Canvas == null)
+			{
+				MessageDialog.ShowDialog(String.Format("{0} . {1}  {2} .\n\n", this._("Multimedia3D.Errors.CanvasInaccessible"), this._("Multimedia3D.Errors.RenderingUnavailable"), this._("Multimedia3D.Errors.CheckRequiredLibraries")), this._("Framework.Errors.GenericErrorTitle"), MessageDialogButtons.OK, MessageDialogIcon.Error);
+				fatalError = true;
+				return;
+			}
+
 			e.Canvas.Clear(Colors.Gray);
 
 			if (p == null && !fatalError)
@@ -185,7 +208,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 				string vtxFileName = ((UIApplication)Application.Instance).ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_vtx.glsl");
 				if (!System.IO.File.Exists(vtxFileName))
 				{
-					MessageDialog.ShowDialog(String.Format("Vertex shader not found . The rendering will be unavailable.  Check to ensure the file exists and is readable .\n\n{0}", vtxFileName), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+					MessageDialog.ShowDialog(String.Format("{0} . {1}  {2} .\n\n", this._("Multimedia3D.Errors.VertexShaderNotFound"), this._("Multimedia3D.Errors.RenderingUnavailable"), this._("Multimedia3D.Errors.CheckRequiredFile")), this._("Framework.Errors.GenericErrorTitle"), MessageDialogButtons.OK, MessageDialogIcon.Error);
 					fatalError = true;
 					p = null;
 					return;
@@ -197,7 +220,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 				string frgFileName = ((UIApplication)Application.Instance).ExpandRelativePath("~/Editors/Multimedia3D/Model/Shaders/Default/default_frg.glsl");
 				if (!System.IO.File.Exists(vtxFileName))
 				{
-					MessageDialog.ShowDialog(String.Format("Fragment shader not found . The rendering will be unavailable.  Check to ensure the file exists and is readable .\n\n{0}", frgFileName), "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+					MessageDialog.ShowDialog(String.Format("{0} . {1}  {2} .\n\n", this._("Multimedia3D.Errors.FragmentShaderNotFound"), this._("Multimedia3D.Errors.RenderingUnavailable"), this._("Multimedia3D.Errors.CheckRequiredFile")), this._("Framework.Errors.GenericErrorTitle"), MessageDialogButtons.OK, MessageDialogIcon.Error);
 					fatalError = true;
 					p = null;
 					return;
@@ -220,11 +243,11 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 			}
 
 			/* use the buffers in the VAO */
-			if (vaos != null)
+			if (vao != null)
 			{
 				try
 				{
-					vaos[0].Bind();
+					vao.Bind();
 
 					/* draw the three vertices as a triangle */
 					e.Canvas.DrawArrays(RenderMode.Triangles, 0, vertex_data.Length);
@@ -289,18 +312,18 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 					vertex_data = list.ToArray();
 				}
 
-				if (vaos != null)
+				if (vao != null)
 				{
-					gla.Engine.DeleteVertexArray(vaos);
+					gla.Engine.DeleteVertexArray(vao);
 				}
 
 				// we need to create a VAO to store the other buffers
-				vaos = gla.Engine.CreateVertexArray(1);
+				vao = gla.Engine.CreateVertexArray();
 
 				// this is the VBO that holds the vertex data
 				using (RenderBuffer buffer = gla.Engine.CreateBuffer())
 				{
-					vaos[0].Bind();
+					vao.Bind();
 
 					buffer.Bind(BufferTarget.ArrayBuffer);
 					buffer.SetData(vertex_data, BufferDataUsage.StaticDraw);
@@ -320,7 +343,7 @@ namespace UniversalEditor.Plugins.Multimedia3D.UserInterface.Editors.Model
 					// reset the state; we will re-enable the VAO when needed
 					buffer.Unbind();
 
-					vaos[0].Unbind(); // must be called BEFORE the buffer gets disposed
+					vao.Unbind(); // must be called BEFORE the buffer gets disposed
 				}
 				changed = false;
 			}
