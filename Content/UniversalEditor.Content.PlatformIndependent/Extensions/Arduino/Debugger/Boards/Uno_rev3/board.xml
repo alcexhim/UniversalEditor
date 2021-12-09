@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor xmlns="urn:net.alcetech.schemas.UniversalEditor" xmlns:svg="http://www.w3.org/2000/svg">
+	<Editors>
+		<Editor ID="">
+			<Boards>
+				<Board Name="Uno_rev3">
+					<!-- Electronics - Circuit Board -->
+					<Content>
+						<!-- Board image -->
+						<Image FileName="board.svg" />
+
+						<!-- Arduino logo -->
+						<Image FileName="~/Extensions/Arduino/Images/logo.svg">
+							<Overrides>
+								<Override TargetID="ArduinoColor">
+							      <svg:stop
+							         svg:style="stop-color:#ffffff;stop-opacity:1;"
+							         svg:offset="0"
+							         svg:id="stop869" />
+								</Override>
+							</Overrides>
+						</Image>
+					</Content>
+				</Board>
+			</Boards>
+		</Editor>
+	</Editors>
+</UniversalEditor>

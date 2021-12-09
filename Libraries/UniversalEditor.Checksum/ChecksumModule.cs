@@ -70,11 +70,11 @@ namespace UniversalEditor.Checksum
 		}
 
 		/// <summary>
-		/// Updates the checksum with a count of <see cref="count" /> bytes taken from the array beginning at offset
-		/// <see cref="offset" />.
+		/// Updates the checksum with a count of <paramref name="count" /> bytes taken from the array beginning at offset
+		/// <paramref name="offset" />.
 		/// </summary>
 		/// <param name="buffer">The array of bytes used as input to the checksum calculation routine.</param>
-		/// <param name="offset">The offset into <see cref="buffer" /> from which calculation starts.</param>
+		/// <param name="offset">The offset into <paramref name="buffer" /> from which calculation starts.</param>
 		/// <param name="count">The number of bytes to use in the checksum calculation.</param>
 		public abstract void Update(byte[] buffer, int offset, int count);
 

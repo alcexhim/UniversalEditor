@@ -13,6 +13,9 @@ namespace UniversalEditor.UserInterface.Pages
 			get { return mvarDocument; }
 			set
 			{
+				if (mvarDocument == value)
+					return;
+
 				OnDocumentChanging(EventArgs.Empty);
 
 				mvarDocument = value;

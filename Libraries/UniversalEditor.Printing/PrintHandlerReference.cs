@@ -149,5 +149,10 @@ namespace UniversalEditor.Printing
 			}
 			return mvarID.CompareTo(other.ID);
 		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 	}
 }

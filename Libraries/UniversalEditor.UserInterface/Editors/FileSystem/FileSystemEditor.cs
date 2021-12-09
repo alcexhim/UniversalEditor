@@ -275,6 +275,7 @@ namespace UniversalEditor.Editors.FileSystem
 			// Application.AttachCommandEventHandler("EditDelete", ContextMenuDelete_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_Rename", ContextMenuRename_Click);
 			Context.AttachCommandEventHandler("FileSystemContextMenu_CopyTo", ContextMenuCopyTo_Click);
+			Context.AttachCommandEventHandler("FileSystemContextMenu_SendTo", ContextMenuSendTo_Click);
 			// Application.AttachCommandEventHandler("FileProperties", ContextMenuProperties_Click);
 
 			Context.AttachCommandEventHandler("FileSystemEditor_GoUp", FileSystemEditor_GoUp);
@@ -994,6 +995,43 @@ namespace UniversalEditor.Editors.FileSystem
 
 			UpdateList();
 		}
+
+		/// <summary>
+		/// Contexts the menu send to click.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="e">E.</param>
+		private void ContextMenuSendTo_Click(object sender, EventArgs e)
+		{
+			ProgressDialog dlg = new ProgressDialog();
+			dlg.ThreadStart += Dlg_ThreadStart;
+			dlg.EnablePause = true;
+			dlg.Show();
+		}
+
+		void Dlg_ThreadStart(object sender, EventArgs e)
+		{
+			ProgressDialog dlg = (ProgressDialog)sender;
+
+			for (int i = 0; i < 100; i++)
+			{
+				if (!dlg.Paused)
+				{
+					dlg.Update("Testing progress bar", String.Format("Moving file {0} of {1}", (i + 1), 100), (i + 1));
+				}
+				else
+				{
+					i--;
+				}
+
+				if (i == 51)
+				{
+					dlg.EnablePause = false;
+				}
+				System.Threading.Thread.Sleep(100);
+			}
+		}
+
 
 		/// <summary>
 		/// Prompts the user to choose a filename, and then extracts the selected file in the current <see cref="FileSystemObjectModel" /> to a file on disk with the chosen filename.

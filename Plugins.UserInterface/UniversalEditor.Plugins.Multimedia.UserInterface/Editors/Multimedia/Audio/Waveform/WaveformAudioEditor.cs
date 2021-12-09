@@ -72,17 +72,17 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			Transport = new MBS.Audio.CustomTransport(Transport_Play, null, null);
 		}
 
-		private bool Transport_Play()
+		private void Transport_Play(object sender, EventArgs e)
 		{
 			WaveformAudioObjectModel wave = (ObjectModel as WaveformAudioObjectModel);
-			if (wave == null) return false;
+			if (wave == null) return /*false*/;
 
 			// get the setting "Editors -> Audio -> Waveform -> Audio engine
 
 			// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
 			AudioPlayer player = new AudioPlayer();
 			player.Play(wave);
-			return true;
+			return /*true*/;
 		}
 
 		public override void UpdateSelections()

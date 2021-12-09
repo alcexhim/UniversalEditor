@@ -27,7 +27,6 @@
     <TargetFrameworkProfile />
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,11 +58,6 @@
     <OutputPath>..\..\Output\Release\Plugins\</OutputPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\ExtendedMIDI\XMIDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\PSF\PSFDataFormat.cs" />
@@ -354,6 +348,39 @@
     <Compile Include="DataFormats\Multimedia\Picture\Radiance\HDRDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Radiance\HDRCompression.cs" />
     <Compile Include="ObjectModels\Multimedia\Picture\PixelFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFDataFormat.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFRecordType.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFBitCount.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFBinaryRasterOperation.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFBrushStyle.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFMetafileType.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFMetafileVersion.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFFloodFillMode.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFExtTextOutOptions.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFTernaryRasterOperation.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFBrushHatchType.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFColorUsage.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFCharset.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFOutputPrecision.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFClipPrecision.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFFontQuality.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFFontFamily.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFFontPitch.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\WMFFont.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\WMFObject.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\WMFBrush.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\WMFPalette.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFPaletteEntryFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\WMFBitmap16.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFPenStyle.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFMixMode.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFLayout.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFMapMode.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFFontMapperFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFPolyfillMode.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFStretchMode.cs" />
+    <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFEscapeFunction.cs" />
+    <Compile Include="ObjectModels\Multimedia\InstrumentDefinition\InstrumentDefinitionObjectModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -418,6 +445,9 @@
     <Folder Include="DataFormats\Multimedia\Palette\KISS\" />
     <Folder Include="DataFormats\Multimedia\Picture\EXR\" />
     <Folder Include="DataFormats\Multimedia\Picture\Radiance\" />
+    <Folder Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\" />
+    <Folder Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\" />
+    <Folder Include="ObjectModels\Multimedia\InstrumentDefinition\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Playlist\ASX.uexml" />
@@ -495,6 +525,9 @@
     <EmbeddedResource Include="Associations\Palette\KISS.uexml" />
     <EmbeddedResource Include="Associations\Picture\EXR.uexml" />
     <EmbeddedResource Include="Associations\Picture\Radiance.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

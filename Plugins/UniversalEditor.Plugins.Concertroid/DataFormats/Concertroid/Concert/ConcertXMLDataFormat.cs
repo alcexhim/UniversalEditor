@@ -66,10 +66,15 @@ namespace UniversalEditor.DataFormats.Concertroid.Concert
 			MarkupObjectModel mom = new MarkupObjectModel();
 
 			MarkupTagElement tagConcertroid = new MarkupTagElement();
-			tagConcertroid.FullName = "Concertroid";
-			tagConcertroid.Attributes.Add("Version", "1.0");
+			tagConcertroid.FullName = "cr:concert";
+			tagConcertroid.Attributes.Add("xmlns:cr", XMLSchemas.Concertroid);
+			tagConcertroid.Attributes.Add("xmlns:dc", CommonXMLSchemas.DublinCore);
+			tagConcertroid.Attributes.Add("version", "1.0");
 
-
+			MarkupTagElement tagMetadata = new MarkupTagElement();
+			tagMetadata.FullName = "cr:metadata";
+			tagMetadata.Elements.Add(new MarkupTagElement(CommonXMLSchemas.DublinCore, "title", concert.Title));
+			tagConcertroid.Elements.Add(tagMetadata);
 
 			mom.Elements.Add(tagConcertroid);
 			objectModels.Push(mom);

@@ -58,6 +58,11 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			switch (Mode)
 			{
+				case DocumentPropertiesDialogMode.None:
+				{
+					this.Buttons[0].StockType = StockType.OK;
+					break;
+				}
 				case DocumentPropertiesDialogMode.Open:
 				{
 					this.Text = "Open Document";
@@ -82,7 +87,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 			RefreshButtons();
 		}
 
-		public DocumentPropertiesDialogMode Mode { get; set; } = DocumentPropertiesDialogMode.Open;
+		public DocumentPropertiesDialogMode Mode { get; set; } = DocumentPropertiesDialogMode.None;
 
 		private ObjectModel mvarInitialObjectModel = null;
 
@@ -185,7 +190,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				txtObjectModel.Text = String.Empty;
 			}
 
-			Buttons[0].Enabled = (Accessor != null && (Mode == DocumentPropertiesDialogMode.Open || (Mode == DocumentPropertiesDialogMode.Save && ObjectModel != null && DataFormat != null)));
+			Buttons[0].Enabled = (Accessor != null && (Mode == DocumentPropertiesDialogMode.None || Mode == DocumentPropertiesDialogMode.Open || (Mode == DocumentPropertiesDialogMode.Save && ObjectModel != null && DataFormat != null)));
 
 			switch (Mode)
 			{
