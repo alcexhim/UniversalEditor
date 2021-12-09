@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft MIDI Instrument Definition file" HintComparison="MagicThenFilter">
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">RIFF</MagicByte>
+							<MagicByte Type="Blank" Length="4" />
+							<MagicByte Type="String">IDF LIST</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+					<FileNameFilters>
+						<FileNameFilter>*.idf</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.InstrumentDefinition.InstrumentDefinitionObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Microsoft.Multimedia.DataFormats.InstrumentDefinition.IDFDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

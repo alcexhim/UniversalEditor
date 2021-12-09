@@ -24,6 +24,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
+// FIXME: this does not have any idea how to handle network streams that don't
+// 			support seeking
+
 namespace UniversalEditor.IO
 {
 	// [DebuggerNonUserCode()]
@@ -59,6 +62,14 @@ namespace UniversalEditor.IO
 				value[i] = ReadChar();
 			return value;
 		}
+
+		public T ReadObject<T>() where T : new()
+		{
+			T obj = new T();
+			// FIXME: implement this
+			return obj;
+		}
+
 		public char ReadChar(Encoding encoding = null)
 		{
 			if (encoding == null)
@@ -1096,7 +1107,14 @@ namespace UniversalEditor.IO
 					if (!includeSequence)
 					{
 						Array.Resize(ref w, w.Length - sequence.Length);
-						Seek(-sequence.Length, SeekOrigin.Current);
+						try
+						{
+							Seek(-sequence.Length, SeekOrigin.Current);
+						}
+						catch (NotSupportedException ex)
+						{
+
+						}
 					}
 					return w;
 				}
@@ -1363,79 +1381,79 @@ namespace UniversalEditor.IO
 			switch (w)
 			{
 				case 'd':
+				{
+					// Read the starting 'd'
+					w = ReadChar();
+
+					Dictionary<string, object> dict = new Dictionary<string, object>();
+					while (w != 'e')
 					{
-						// Read the starting 'd'
-						w = ReadChar();
-
-						Dictionary<string, object> dict = new Dictionary<string, object>();
-						while (w != 'e')
-						{
-							string key = (string)ReadBEncodedObject();
-							object value = ReadBEncodedObject();
-							w = (char)PeekChar();
-							dict.Add(key, value);
-						}
-
-						// Read the final 'e'
-						w = ReadChar();
-
-						return dict;
-					}
-				case 'l':
-					{
-						// Read the starting 'l'
-						w = ReadChar();
-
-						List<object> list = new List<object>();
-						while (w != 'e')
-						{
-							object item = ReadBEncodedObject();
-							w = (char)PeekChar();
-
-							list.Add(item);
-						}
-
-						// Read the final 'e'
-						w = ReadChar();
-						return list;
-					}
-				case 'i':
-					{
-						// Read the starting 'i'
-						w = ReadChar();
-						string num = String.Empty;
-						while (w != 'e')
-						{
-							w = ReadChar();
-							if (w != 'e')
-							{
-								num += w;
-							}
-						}
-						// Already read the final 'e'
-
-						return Int32.Parse(num);
-					}
-				default:
-					{
-						// Assume a string
+						string key = (string)ReadBEncodedObject();
+						object value = ReadBEncodedObject();
 						w = (char)PeekChar();
-						string num = String.Empty;
-						string val = String.Empty;
-						while (w != ':')
-						{
-							w = ReadChar();
-							if (w != ':')
-							{
-								num += w;
-							}
-						}
-
-						uint nnum = UInt32.Parse(num);
-						val = ReadFixedLengthString(nnum);
-
-						return val;
+						dict.Add(key, value);
 					}
+
+					// Read the final 'e'
+					w = ReadChar();
+
+					return dict;
+				}
+				case 'l':
+				{
+					// Read the starting 'l'
+					w = ReadChar();
+
+					List<object> list = new List<object>();
+					while (w != 'e')
+					{
+						object item = ReadBEncodedObject();
+						w = (char)PeekChar();
+
+						list.Add(item);
+					}
+
+					// Read the final 'e'
+					w = ReadChar();
+					return list;
+				}
+				case 'i':
+				{
+					// Read the starting 'i'
+					w = ReadChar();
+					string num = String.Empty;
+					while (w != 'e')
+					{
+						w = ReadChar();
+						if (w != 'e')
+						{
+							num += w;
+						}
+					}
+					// Already read the final 'e'
+
+					return Int32.Parse(num);
+				}
+				default:
+				{
+					// Assume a string
+					w = (char)PeekChar();
+					string num = String.Empty;
+					string val = String.Empty;
+					while (w != ':')
+					{
+						w = ReadChar();
+						if (w != ':')
+						{
+							num += w;
+						}
+					}
+
+					uint nnum = UInt32.Parse(num);
+					val = ReadFixedLengthString(nnum);
+
+					return val;
+				}
 			}
 		}
 		/// <summary>
@@ -1459,7 +1477,7 @@ namespace UniversalEditor.IO
 		}
 
 		/// <summary>
-		/// Reads a <see cref="Version" /> from the
+		/// Reads a length-prefixed <see cref="Version" />.
 		/// </summary>
 		/// <returns></returns>
 		public Version ReadVersion()
@@ -1468,46 +1486,46 @@ namespace UniversalEditor.IO
 			switch (parts)
 			{
 				case 1:
-					{
-						int vmaj = ReadInt32();
-						return new Version(vmaj, 0);
-					}
+				{
+					int vmaj = ReadInt32();
+					return new Version(vmaj, 0);
+				}
 				case 2:
-					{
-						int vmaj = ReadInt32();
-						int vmin = ReadInt32();
-						return new Version(vmaj, vmin);
-					}
+				{
+					int vmaj = ReadInt32();
+					int vmin = ReadInt32();
+					return new Version(vmaj, vmin);
+				}
 				case 3:
-					{
-						int vmaj = ReadInt32();
-						int vmin = ReadInt32();
-						int vbld = ReadInt32();
-						return new Version(vmaj, vmin, vbld);
-					}
+				{
+					int vmaj = ReadInt32();
+					int vmin = ReadInt32();
+					int vbld = ReadInt32();
+					return new Version(vmaj, vmin, vbld);
+				}
 				case 4:
-					{
-						int vmaj = ReadInt32();
-						int vmin = ReadInt32();
-						int vbld = ReadInt32();
-						int vrev = ReadInt32();
+				{
+					int vmaj = ReadInt32();
+					int vmin = ReadInt32();
+					int vbld = ReadInt32();
+					int vrev = ReadInt32();
 
-						if (vbld > -1)
+					if (vbld > -1)
+					{
+						if (vrev > -1)
 						{
-							if (vrev > -1)
-							{
-								return new Version(vmaj, vmin, vbld, vrev);
-							}
-							else
-							{
-								return new Version(vmaj, vmin, vbld);
-							}
+							return new Version(vmaj, vmin, vbld, vrev);
 						}
 						else
 						{
-							return new Version(vmaj, vmin);
+							return new Version(vmaj, vmin, vbld);
 						}
 					}
+					else
+					{
+						return new Version(vmaj, vmin);
+					}
+				}
 			}
 			return new Version();
 		}
@@ -1650,7 +1668,20 @@ namespace UniversalEditor.IO
 			return x;
 		}
 
-		public bool EndOfStream { get { return base.Accessor.Remaining == 0; } }
+		public bool EndOfStream
+		{
+			get
+			{
+				try
+				{
+					return base.Accessor.Remaining == 0;
+				}
+				catch
+				{
+					return false;
+				}
+			}
+		}
 
 		public string ReadInt64String()
 		{
@@ -1753,8 +1784,9 @@ namespace UniversalEditor.IO
 
 		public string ReadLine()
 		{
+			StringBuilder sb = new StringBuilder();
 			string line = ReadUntil(GetNewLineSequence());
-			ReadChars(GetNewLineSequence().Length);
+			// ReadChars(GetNewLineSequence().Length);
 			if (line.EndsWith("\r"))
 				line = line.Substring(0, line.Length - 1);
 			return line;

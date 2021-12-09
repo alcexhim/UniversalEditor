@@ -61,6 +61,7 @@
     <Compile Include="Controls\ColorPalette\ColorPaletteControl.cs" />
     <Compile Include="Editors\Multimedia\Palette\Dialogs\CalculateNeighboringColorsDialog.cs" />
     <Compile Include="Plugins\Transport\TransportPlugin.cs" />
+    <Compile Include="Editors\Multimedia\InstrumentDefinition\InstrumentDefinitionEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -86,6 +87,7 @@
     <Folder Include="Controls\ColorPalette\" />
     <Folder Include="Plugins\" />
     <Folder Include="Plugins\Transport\" />
+    <Folder Include="Editors\Multimedia\InstrumentDefinition\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

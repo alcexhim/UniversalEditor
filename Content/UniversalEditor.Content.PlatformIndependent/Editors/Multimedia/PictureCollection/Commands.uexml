@@ -1,0 +1,21 @@
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{d796de91-af9a-4ef4-90f5-ec96f582ff0c}" TypeName="UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.PictureCollection.PictureCollectionEditor">
+			<Commands>
+				<Command ID="PictureCollectionEditor_AddFrame" StockType="Add" />
+				<Command ID="PictureCollectionEditor_RemoveFrame" StockType="Remove" />
+				<Command ID="PictureCollectionEditor_PlayAnimation" StockType="MediaPlay" />
+			</Commands>
+			<CommandBars>
+				<CommandBar ID="tbPictureCollection">
+					<Items>
+						<CommandReference CommandID="PictureCollectionEditor_AddFrame" />
+						<CommandReference CommandID="PictureCollectionEditor_RemoveFrame" />
+						<Separator />
+						<CommandReference CommandID="PictureCollectionEditor_PlayAnimation" />
+					</Items>
+				</CommandBar>
+			</CommandBars>
+		</Editor>
+	</Editors>
+</UniversalEditor>

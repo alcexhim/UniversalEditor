@@ -108,33 +108,28 @@ namespace UniversalEditor.UserInterface.Pages
 		private EditorReference DefaultBinaryEditor = new EditorReference(typeof(UniversalEditor.Editors.Binary.BinaryEditor));
 		private EditorReference DefaultTextEditor = new EditorReference(typeof(UniversalEditor.Editors.Text.Plain.PlainTextEditor));
 
-		private Document mvarDocument = null;
-		public Document Document
+		protected override void OnDocumentChanged(EventArgs e)
 		{
-			get { return mvarDocument; }
-			set
-			{
-				if (mvarDocument == value) return;
-				mvarDocument = value;
-
-				RefreshEditor();
-			}
+			base.OnDocumentChanged(e);
+			RefreshEditor();
 		}
+
+		public override string Title => MainWindow.GetDocumentTitle(Document);
 
 		private void RefreshEditor()
 		{
-			if (mvarDocument == null) return;
+			if (Document == null) return;
 
 			// pnlLoading.Enabled = true;
 			// pnlLoading.Visible = true;
 
-			string title = String.IsNullOrEmpty(Title) ? Document.Title : Title;
+			string title = MainWindow.GetDocumentTitle(Document);
 
 			ObjectModel om = null;
 			EditorReference[] reditors = new EditorReference[0];
-			if (mvarDocument.ObjectModel != null)
+			if (Document.ObjectModel != null)
 			{
-				om = mvarDocument.ObjectModel;
+				om = Document.ObjectModel;
 				reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference());
 			}
 			if (reditors.Length == 0)
@@ -145,24 +140,24 @@ namespace UniversalEditor.UserInterface.Pages
 				// errorMessage1.Details = "Detected object model: " + om.GetType().FullName;
 
 				bool requiresOpen = false;
-				if (mvarDocument.Accessor == null)
+				if (Document.Accessor == null)
 					return;
 
-				if (!mvarDocument.Accessor.IsOpen)
+				if (!Document.Accessor.IsOpen)
 				{
-					mvarDocument.Accessor.Open();
+					Document.Accessor.Open();
 					requiresOpen = true;
 				}
 
 				Editor ed = null;
-				if (isText(mvarDocument.Accessor))
+				if (isText(Document.Accessor))
 				{
 					ed = DefaultTextEditor.Create();
 
 					PlainTextObjectModel om1 = new PlainTextObjectModel();
-					if (mvarDocument.Accessor.Length < Math.Pow(1024, 2))
+					if (Document.Accessor.Length < Math.Pow(1024, 2))
 					{
-						string value = mvarDocument.Accessor.Reader.ReadStringToEnd();
+						string value = Document.Accessor.Reader.ReadStringToEnd();
 						om1.Text = value;
 					}
 					ed.ObjectModel = om1;
@@ -171,9 +166,9 @@ namespace UniversalEditor.UserInterface.Pages
 				{
 					ed = DefaultBinaryEditor.Create();
 					BinaryObjectModel om1 = new BinaryObjectModel();
-					if (mvarDocument.Accessor.Length < Math.Pow(1024, 4))
+					if (Document.Accessor.Length < Math.Pow(1024, 4))
 					{
-						byte[] content = mvarDocument.Accessor.Reader.ReadToEnd();
+						byte[] content = Document.Accessor.Reader.ReadToEnd();
 						om1.Data = content;
 					}
 					ed.ObjectModel = om1;
@@ -181,12 +176,12 @@ namespace UniversalEditor.UserInterface.Pages
 				ed.Document = Document;
 
 				if (requiresOpen)
-					mvarDocument.Accessor.Close();
+					Document.Accessor.Close();
 
 				if (ed == null) return;
 				ed.Title = title;
 				ed.DocumentEdited += editor_DocumentEdited;
-				mvarDocument.ObjectModel = ed.ObjectModel;
+				Document.ObjectModel = ed.ObjectModel;
 
 				Controls.Add(ed, new BoxLayout.Constraints(true, true));
 			}
@@ -344,12 +339,12 @@ namespace UniversalEditor.UserInterface.Pages
 
 		private void tOpenFile_ThreadStart()
 		{
-			if (mvarDocument.DataFormat == null)
+			if (Document.DataFormat == null)
 			{
 				// TODO: DataFormat-guessing should be implemented in the platform-
 				// independent UserInterface library, or possibly in core
 
-				DataFormatReference[] fmts = UniversalEditor.Common.Reflection.GetAvailableDataFormats(mvarDocument.Accessor);
+				DataFormatReference[] fmts = UniversalEditor.Common.Reflection.GetAvailableDataFormats(Document.Accessor);
 				#region When there is no available DataFormat
 				if (fmts.Length == 0)
 				{
@@ -360,7 +355,7 @@ namespace UniversalEditor.UserInterface.Pages
 				else if (fmts.Length > 1)
 				{
 					// attempt to guess the data format for the object model
-					ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(mvarDocument.Accessor);
+					ObjectModelReference[] objms = UniversalEditor.Common.Reflection.GetAvailableObjectModels(Document.Accessor);
 					ObjectModel om1 = null;
 					DataFormat df1 = null;
 					bool found1 = false;
@@ -378,7 +373,7 @@ namespace UniversalEditor.UserInterface.Pages
 						{
 							df = dfr.Create();
 
-							Document d = new UniversalEditor.Document(om, df, mvarDocument.Accessor);
+							Document d = new UniversalEditor.Document(om, df, Document.Accessor);
 							d.InputAccessor.Open();
 							try
 							{
@@ -439,7 +434,7 @@ namespace UniversalEditor.UserInterface.Pages
 					}
 					else
 					{
-						Document = new Document(om1, df1, mvarDocument.Accessor);
+						Document = new Document(om1, df1, Document.Accessor);
 
 						// if (IsHandleCreated) Invoke(new Action<bool, string>(_ErrorMessageConfig), false, null);
 
@@ -473,7 +468,7 @@ namespace UniversalEditor.UserInterface.Pages
 
 							if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
 
-							Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
+							Document document = new UniversalEditor.Document(objm, fmt, Document.Accessor);
 							document.InputAccessor.Open();
 							document.Load();
 
@@ -494,12 +489,12 @@ namespace UniversalEditor.UserInterface.Pages
 			}
 			else
 			{
-				ObjectModel objm = mvarDocument.ObjectModel;
-				DataFormat fmt = mvarDocument.DataFormat;
+				ObjectModel objm = Document.ObjectModel;
+				DataFormat fmt = Document.DataFormat;
 
 				if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref fmt, CustomOptionDialogType.Import)) return;
 
-				Document document = new UniversalEditor.Document(objm, fmt, mvarDocument.Accessor);
+				Document document = new UniversalEditor.Document(objm, fmt, Document.Accessor);
 				document.InputAccessor.Open();
 				document.Load();
 

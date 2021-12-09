@@ -261,6 +261,25 @@ namespace UniversalEditor.UserInterface
 			UpdateSuperDuperButtonBar();
 		}
 
+		public static string GetDocumentTitle(Document document)
+		{
+			System.Text.StringBuilder sbTitle = new StringBuilder();
+			if (document.Accessor != null)
+			{
+				sbTitle.Append(System.IO.Path.GetFileName(document.Accessor.GetFileName()));
+			}
+			else
+			{
+				sbTitle.Append(document.Title);
+			}
+
+			if (document.IsChanged)
+			{
+				sbTitle.Append(" (*)");
+			}
+			return sbTitle.ToString();
+		}
+
 
 		#region Editor Page Events
 		private void page_DocumentEdited(object sender, EventArgs e)
@@ -269,25 +288,7 @@ namespace UniversalEditor.UserInterface
 			DockingWindow di = dckContainer.Items[page] as DockingWindow;
 			if (di == null) return;
 
-			if (String.IsNullOrEmpty(page.Document.Title))
-			{
-				if (di.Name.StartsWith("<untitled", StringComparison.Ordinal))
-				{
-					di.Title = di.Name + " (*)";
-				}
-				else if (page.Document.Accessor != null)
-				{
-					di.Title = System.IO.Path.GetFileName(page.Document.Accessor.GetFileName()) + " (*)";
-				}
-				else
-				{
-					di.Title = System.IO.Path.GetFileName(di.Name) + " (*)";
-				}
-			}
-			else
-			{
-				di.Title = String.Format("{0} (*)", page.Document.Title);
-			}
+			di.Title = GetDocumentTitle(page.Document);
 			page.Document.IsChanged = true;
 		}
 		/*
@@ -419,11 +420,21 @@ namespace UniversalEditor.UserInterface
 			if (e.CurrentEditor != null)
 			{
 				// initialize toolbox items
-				DocumentFileName = dckContainer.CurrentItem.Name;
+				DocumentFileName = e.CurrentEditor.Document.Accessor?.GetFileName();
+
+				lblCurrentDataFormat.Text = e.CurrentEditor.Document.DataFormat?.MakeReference()?.Title ?? "(none)";
+				lblCurrentDataFormat.Visible = true;
+				lblCurrentObjectModel.Text = e.CurrentEditor.Document.ObjectModel?.MakeReference()?.Title ?? "(none)";
+				lblCurrentObjectModel.Visible = true;
 			}
 			else
 			{
 				DocumentFileName = null;
+
+				lblCurrentDataFormat.Text = String.Empty;
+				lblCurrentDataFormat.Visible = false;
+				lblCurrentObjectModel.Text = String.Empty;
+				lblCurrentObjectModel.Visible = false;
 			}
 
 			UpdateMenuItems();
@@ -484,6 +495,7 @@ namespace UniversalEditor.UserInterface
 			Page pg = GetCurrentPage();
 			KeyValuePair<string, object>[] kvps = new KeyValuePair<string, object>[]
 			{
+				new KeyValuePair<string, object>("Project.Title", CurrentProject?.Title),
 				new KeyValuePair<string, object>("Document.Title", pg?.Title),
 				new KeyValuePair<string, object>("Application.Title", Application.Instance.Title)
 			};
@@ -504,14 +516,27 @@ namespace UniversalEditor.UserInterface
 
 			Application.Instance.Commands["BookmarksAddAll"].Enabled = GetEditorPages().Length > 0;
 
-			if (pg != null)
+			if (CurrentProject != null)
 			{
-				string fmt = "$(Document.Title) - $(Application.Title)"; // FIXME: replace with call to get main window title with document
+				if (pg != null)
+				{
+					string fmt = "$(Project.Title) – $(Document.Title) – $(Application.Title)"; // FIXME: replace with call to get main window title with project with document
+					Text = fmt.ReplaceVariables(kvps);
+				}
+				else
+				{
+					string fmt = "$(Project.Title) – $(Application.Title)"; // FIXME: replace with call to get main window title with project without document
+					Text = fmt.ReplaceVariables(kvps);
+				}
+			}
+			else if (pg != null)
+			{
+				string fmt = "$(Document.Title) – $(Application.Title)"; // FIXME: replace with call to get main window title without project with document
 				Text = fmt.ReplaceVariables(kvps);
 			}
 			else
 			{
-				string fmt = "$(Application.Title)"; // FIXME: replace with call to get main window title without document
+				string fmt = "$(Application.Title)"; // FIXME: replace with call to get main window title without project without document
 				Text = fmt.ReplaceVariables(kvps);
 			}
 
@@ -831,6 +856,7 @@ namespace UniversalEditor.UserInterface
 									dlg.DataFormat = doc.DataFormat;
 									dlg.ObjectModel = doc.ObjectModel;
 									dlg.Accessor = doc.Accessor;
+									dlg.Mode = DocumentPropertiesDialogMode.Open;
 									if (dlg.ShowDialog() == DialogResult.OK)
 									{
 										doc.DataFormat = dlg.DataFormat;
@@ -856,6 +882,7 @@ namespace UniversalEditor.UserInterface
 									dlg.DataFormat = doc.DataFormat;
 									dlg.ObjectModel = doc.ObjectModel;
 									dlg.Accessor = doc.Accessor;
+									dlg.Mode = DocumentPropertiesDialogMode.Open;
 
 									if (dlg.ShowDialog() == DialogResult.OK)
 									{
@@ -1065,6 +1092,9 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
+		private Label lblStatus;
+		private Label lblCurrentObjectModel, lblCurrentDataFormat;
+
 		protected override void OnCreated(EventArgs e)
 		{
 			this.RegisterDropTarget(new DragDropTarget[]
@@ -1076,7 +1106,71 @@ namespace UniversalEditor.UserInterface
 			((EditorApplication)Application.Instance).LastWindow = this;
 
 			UpdateMenuItems();
+
+			lblStatus = new Label();
+			lblStatus.HorizontalAlignment = HorizontalAlignment.Left;
+			lblStatus.Text = "Ready";
+			StatusBar.Controls.Add(lblStatus, new BoxLayout.Constraints(true, true));
+
+			lblCurrentObjectModel = new Label();
+			// lblCurrentObjectModel.BorderStyle = ButtonBorderStyle.None;
+			lblCurrentObjectModel.MouseDoubleClick += lblCurrentObjectModel_MouseDoubleClick;
+			lblCurrentObjectModel.TooltipText = "Object Model";
+			lblCurrentObjectModel.Text = "Object Model";
+			lblCurrentObjectModel.Visible = false;
+			StatusBar.Controls.Add(lblCurrentObjectModel, new BoxLayout.Constraints(false, false));
+
+			lblCurrentDataFormat = new Label();
+			// lblCurrentDataFormat.BorderStyle = ButtonBorderStyle.None;
+			lblCurrentDataFormat.MouseDoubleClick += lblCurrentDataFormat_MouseDoubleClick;
+			lblCurrentDataFormat.TooltipText = "Data Format";
+			lblCurrentDataFormat.Text = "Data Format";
+			lblCurrentDataFormat.Visible = false;
+			StatusBar.Controls.Add(lblCurrentDataFormat, new BoxLayout.Constraints(false, false));
 		}
+
+		private void lblCurrentObjectModel_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+			dlg.AccessorSelectionEnabled = false;
+			dlg.Text = "Change Object Model or Data Format";
+
+			Editor ed = GetCurrentEditor();
+
+			dlg.DataFormat = ed.Document.DataFormat;
+			dlg.ObjectModel = ed.Document.ObjectModel;
+			dlg.Accessor = ed.Document.Accessor;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				ed.Document.DataFormat = dlg.DataFormat;
+				ed.Document.ObjectModel = dlg.ObjectModel;
+				ed.Document.IsChanged = true;
+
+				_OnEditorChanged(new EditorChangedEventArgs(this, ed, ed));
+			}
+		}
+
+		private void lblCurrentDataFormat_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			DocumentPropertiesDialog dlg = new DocumentPropertiesDialog();
+			dlg.AccessorSelectionEnabled = false;
+			dlg.Text = "Change Object Model or Data Format";
+
+			Editor ed = GetCurrentEditor();
+
+			dlg.DataFormat = ed.Document.DataFormat;
+			dlg.ObjectModel = ed.Document.ObjectModel;
+			dlg.Accessor = ed.Document.Accessor;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				ed.Document.DataFormat = dlg.DataFormat;
+				ed.Document.ObjectModel = dlg.ObjectModel;
+				ed.Document.IsChanged = true;
+
+				_OnEditorChanged(new EditorChangedEventArgs(this, ed, ed));
+			}
+		}
+
 
 		protected override void OnGotFocus(EventArgs e)
 		{
@@ -1104,6 +1198,7 @@ namespace UniversalEditor.UserInterface
 			*/
 			using (DocumentPropertiesDialog dlg = new DocumentPropertiesDialog())
 			{
+				dlg.Mode = DocumentPropertiesDialogMode.Open;
 				if (dlg.ShowDialog() == DialogResult.OK)
 				{
 					Document doc = new Document(dlg.ObjectModel, dlg.DataFormat, dlg.Accessor);
@@ -1817,8 +1912,6 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		public bool FullScreen { get; set; }
-
 		private SolutionObjectModel _CurrentSolution = null;
 		private Document _CurrentSolutionDocument = null;
 		public SolutionObjectModel CurrentSolution
@@ -1839,6 +1932,8 @@ namespace UniversalEditor.UserInterface
 		{
 			get
 			{
+				// FIXME: should return the ProjectObjectModel for the currently-active Document, if it has one
+				// this is what MonoDevelop does, at least
 				return ((SolutionExplorerPanel)FindPanel(SolutionExplorerPanel.ID)).Project;
 			}
 			set

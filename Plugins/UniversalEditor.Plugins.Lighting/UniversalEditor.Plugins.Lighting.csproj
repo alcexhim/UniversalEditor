@@ -10,7 +10,6 @@
     <RootNamespace>UniversalEditor</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.Lighting</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

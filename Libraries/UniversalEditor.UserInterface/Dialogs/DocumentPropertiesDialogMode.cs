@@ -24,6 +24,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 {
 	public enum DocumentPropertiesDialogMode
 	{
+		None = 0,
 		Open,
 		Save
 	}

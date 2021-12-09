@@ -827,12 +827,23 @@ namespace UniversalEditor
 			string wildcardToRegex = "^" + System.Text.RegularExpressions.Regex.Escape(filter).Replace("\\*", ".*").Replace("\\?", ".") + "$";
 			return new System.Text.RegularExpressions.Regex(wildcardToRegex).IsMatch(input);
 		}
+
+		/// <summary>
+		/// Removes all characters past and including the first occurrence of a
+		/// NUL (0x00) byte from the given string.
+		/// </summary>
+		/// <returns>
+		/// All characters before the first occurrence of a NUL (0x00) byte in
+		/// <paramref name="value" />.
+		/// </returns>
+		/// <param name="value">The string to trim.</param>
 		public static string TrimNull(this string value)
 		{
 			int i = value.IndexOf('\0');
 			if (i > -1) return value.Substring(0, i);
 			return value;
 		}
+
 		public static string Format(this string input, Dictionary<string, string> formatWhat)
 		{
 			return Format(input, formatWhat, "$(", ")");

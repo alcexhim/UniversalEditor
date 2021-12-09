@@ -329,6 +329,7 @@
     <Content Include="Extensions\Multimedia3D\Languages\English.uexml" />
     <Content Include="Editors\Multimedia3D\Model\Icons\sphere.png" />
     <Content Include="Editors\Multimedia3D\Model\Icons\cube.png" />
+    <Content Include="Editors\Multimedia\PictureCollection\Commands.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

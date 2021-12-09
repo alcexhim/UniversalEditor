@@ -32,7 +32,8 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 	/// Computes Adler32 checksum for a stream of data. An Adler32
 	/// checksum is not as reliable as a CRC32 checksum, but a lot faster to
 	/// compute.
-	///
+	/// </summary>
+	/// <remarks>
 	/// The specification for Adler32 may be found in RFC 1950.
 	/// ZLIB Compressed Data Format Specification version 3.3)
 	///
@@ -71,7 +72,7 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 	///    of the sequence part of s2, so that the length does not have to be
 	///    checked separately. (Any sequence of zeroes has a Fletcher
 	///    checksum of zero.)"
-	/// </summary>
+	/// </remarks>
 	/// <see cref="ICSharpCode.SharpZipLib.Zip.Compression.Streams.InflaterInputStream"/>
 	/// <see cref="ICSharpCode.SharpZipLib.Zip.Compression.Streams.DeflaterOutputStream"/>
 	public sealed class Adler32 : ChecksumModule
