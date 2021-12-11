@@ -33,7 +33,7 @@ namespace UniversalEditor.Bootstrapper
 		public Program()
 		{
 			ShortName = "universal-editor";
-			Title = "Test Junk";
+			Title = "Universal Editor";
 		}
 
 		/// <summary>
