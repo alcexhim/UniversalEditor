@@ -8,6 +8,7 @@ using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls.Docking;
 using MBS.Framework.UserInterface.Controls.ListView;
 using MBS.Framework.UserInterface.Dialogs;
+using MBS.Framework.UserInterface.Input.Keyboard;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.PropertyList;
@@ -45,6 +46,44 @@ namespace UniversalEditor.UserInterface
 			base.InitializeInternal();
 
 			InitializePanels();
+			InitializeWindowSwitcher();
+		}
+
+		private void InitializeWindowSwitcher()
+		{
+			// FIXME: this should be implemented as a plugin or directly in the UI Framework codebase
+			this.EventFilters.Add(new EventFilter<KeyEventArgs>(delegate (ref KeyEventArgs e)
+			{
+				if (e.Key == KeyboardKey.Tab && (e.ModifierKeys & KeyboardModifierKey.Control) == KeyboardModifierKey.Control)
+				{
+					MainWindow mw = (CurrentWindow as MainWindow);
+					if (mw != null)
+					{
+						mw.SetWindowListVisible(true, false);
+					}
+					else
+					{
+						Console.WriteLine("got tab but no main window");
+					}
+					return true;
+				}
+				return false;
+			}, EventFilterType.KeyDown));
+			this.EventFilters.Add(new EventFilter<KeyEventArgs>(delegate (ref KeyEventArgs e)
+			{
+				if (e.Key == KeyboardKey.LControlKey || e.Key == KeyboardKey.RControlKey)
+				{
+					MainWindow mw = (CurrentWindow as MainWindow);
+					if (mw != null)
+					{
+						mw.SetWindowListVisible(false, false);
+					}
+					Console.WriteLine("window switch");
+					Console.WriteLine("current window: {0}", CurrentWindow?.ToString() ?? "(null)");
+					return true;
+				}
+				return false;
+			}, EventFilterType.KeyUp));
 		}
 
 		/// <summary>

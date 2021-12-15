@@ -1897,17 +1897,17 @@ namespace UniversalEditor.UserInterface
 			// this calls out to the DockingContainerControl in WF
 			if (modal)
 			{
-				// dckContainer.ShowWindowListPopupDialog();
+				dckContainer.ShowWindowListPopupDialog();
 			}
 			else
 			{
 				if (visible)
 				{
-					// dckContainer.ShowWindowListPopup();
+					dckContainer.ShowWindowListPopup();
 				}
 				else
 				{
-					// dckContainer.HideWindowListPopup();
+					dckContainer.HideWindowListPopup();
 				}
 			}
 		}
