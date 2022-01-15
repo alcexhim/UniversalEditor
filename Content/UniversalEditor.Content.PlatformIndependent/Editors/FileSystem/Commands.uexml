@@ -33,7 +33,7 @@
 				</Command>
 
 				<Command ID="FileSystemContextMenu_Add_NewItem" Title="Ne_w item..." />
-				<Command ID="FileSystemContextMenu_Add_ExistingItem" Title="E_xisting item..." />
+				<Command ID="FileSystemContextMenu_Add_ExistingItem" Title="E_xisting item..." StockType="Add" />
 				<Command ID="FileSystemContextMenu_Add_NewFolder" Title="New fol_der" />
 				<Command ID="FileSystemContextMenu_Add_ExistingFolder" Title="Existin_g folder..." />
 				<Command ID="FileSystemContextMenu_Add_FilesFromFolder" Title="_Files from folder..." />
@@ -76,8 +76,8 @@
 				<Command ID="FileSystemContextMenu_OpenNewWindow" Title="Open in New _Window" />
 				<Command ID="FileSystemContextMenu_SendTo" Title="Se_nd to" />
 
-				<Command ID="FileSystemContextMenu_MoveTo" Title="Move to..." />
-				<Command ID="FileSystemContextMenu_CopyTo" Title="Copy to..." />
+				<Command ID="FileSystemContextMenu_MoveTo" Title="Move to..." StockType="Cut" />
+				<Command ID="FileSystemContextMenu_CopyTo" Title="Copy to..." StockType="Copy" />
 
 				<Command ID="FileSystemContextMenu_CreateShortcut" Title="Create _shortcut" />
 				<Command ID="FileSystemContextMenu_Rename" Title="Rena_me" />

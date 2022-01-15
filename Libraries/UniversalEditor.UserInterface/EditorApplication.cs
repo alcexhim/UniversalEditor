@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using MBS.Framework;
 using MBS.Framework.Settings;
 using MBS.Framework.UserInterface;
@@ -15,8 +16,19 @@ using UniversalEditor.UserInterface.Panels;
 
 namespace UniversalEditor.UserInterface
 {
+	/// <summary>
+	/// The main Framework application class for Universal Editor. Can be
+	/// overridden to customize the behavior of the Universal Editor platform in
+	/// derived applications.
+	/// </summary>
 	public class EditorApplication : UIApplication, IHostApplication
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="EditorApplication" />
+		/// class. Most importantly, sets the application title, GUID ID, unique
+		/// name (used for D-Bus requests), and short name (used for application
+		/// configuration settings on Linux).
+		/// </summary>
 		public EditorApplication()
 		{
 			Title = "Universal Editor";
@@ -224,6 +236,8 @@ namespace UniversalEditor.UserInterface
 			if (coll == null) return true;
 			if (coll.Count == 0) return true;
 
+			ApplyCustomOptions(coll, df);
+
 			bool retval = ShowCustomOptionDialog(ref coll, dfr.Title + " Options", delegate (object sender, EventArgs e)
 			{
 				ShowAboutDialog(dfr);
@@ -253,6 +267,8 @@ namespace UniversalEditor.UserInterface
 			}
 			if (coll == null) return true;
 			if (coll.Count == 0) return true;
+
+			ApplyCustomOptions(coll, df);
 
 			bool retval = ShowCustomOptionDialog(ref coll, dfr.Title + " Options");
 
@@ -324,6 +340,52 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
+		public void ApplyCustomOptions(SettingsProvider coll, object obj)
+		{
+			if (obj == null) return;
+
+			foreach (SettingsGroup sg in coll.SettingsGroups)
+			{
+				foreach (Setting eo in sg.Settings)
+				{
+					System.Reflection.PropertyInfo pi = obj.GetType().GetProperty(eo.Name);
+					if (pi == null) continue;
+
+					if (eo is ChoiceSetting)
+					{
+						/*
+						object choice = (eo as ChoiceSetting).GetValue();
+						if (choice != null)
+						{
+							Type[] interfaces = pi.PropertyType.GetInterfaces();
+							bool convertible = false;
+							foreach (Type t in interfaces)
+							{
+								if (t == typeof(IConvertible))
+								{
+									convertible = true;
+									break;
+								}
+							}
+							if (convertible)
+							{
+								pi.SetValue(obj, Convert.ChangeType(choice, pi.PropertyType), null);
+							}
+							else
+							{
+								pi.SetValue(obj, choice, null);
+							}
+						}
+						*/
+					}
+					else
+					{
+						eo.SetValue(pi.GetValue(obj, null));
+					}
+				}
+			}
+		}
+
 
 
 		// ================ BEGIN: HERE BE DRAGONS
@@ -358,16 +420,13 @@ namespace UniversalEditor.UserInterface
 
 			ConfigurationFileNameFilter = "*.uexml";
 
-			BeforeShutdown += Application_BeforeShutdown;
-			AfterConfigurationLoaded += Application_AfterConfigurationLoaded;
-			Startup += Application_Startup;
-			Activated += Application_Activated;
-
 			Initialize();
 		}
 
-		void Application_AfterConfigurationLoaded(object sender, EventArgs e)
+		protected override void OnAfterConfigurationLoaded(EventArgs e)
 		{
+			base.OnAfterConfigurationLoaded(e);
+
 			#region Global Configuration
 			{
 				UpdateSplashScreenStatus("Loading global configuration");
@@ -490,8 +549,15 @@ namespace UniversalEditor.UserInterface
 			// mnuFileSep3.Visible = ((mnuFileRecentFiles.DropDownItems.Count > 0) || (mnuFileRecentProjects.DropDownItems.Count > 0));
 		}
 
-		void Application_BeforeShutdown(object sender, System.ComponentModel.CancelEventArgs e)
+		/// <summary>
+		/// Event handler for <see cref="Application.BeforeShutdown" /> event. Called when the
+		/// <see cref="Application.Stop" /> method is called, before the application is stopped.
+		/// </summary>
+		/// <param name="e">Event arguments.</param>
+		protected override void OnBeforeShutdown(CancelEventArgs e)
 		{
+			base.OnBeforeShutdown(e);
+
 			for (int i = 0; i < ((UIApplication)Application.Instance).Windows.Count; i++)
 			{
 				MainWindow mw = (((UIApplication)Application.Instance).Windows[i] as MainWindow);
@@ -505,22 +571,46 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-
-		void Application_Startup(object sender, EventArgs e)
+		/// <summary>
+		/// Creates an empty <see cref="MainWindow" />. Usually this is just a
+		/// call to <see cref="OpenWindow" />, but it can be customized to present
+		/// a blank document editor for your application's default document format.
+		/// </summary>
+		protected virtual void CreateInitialWindow()
 		{
+			OpenWindow();
 		}
 
-		void Application_Activated(object sender, ApplicationActivatedEventArgs e)
+		/// <summary>
+		/// Event handler for <see cref="UIApplication.Activated" /> event.
+		/// </summary>
+		/// <param name="e">Event arguments.</param>
+		protected override void OnActivated(ApplicationActivatedEventArgs e)
 		{
-			if (LastWindow != null)
+			base.OnActivated(e);
+
+			if (e.CommandLine.FileNames.Count > 0)
 			{
-				LastWindow.OpenFile(e.CommandLine.FileNames.ToArray());
+				// file names were passed on the command line, so open them
+				// we do not allow inherited applications to override this
+				string[] filenames = e.CommandLine.FileNames.ToArray();
+				if (LastWindow != null)
+				{
+					LastWindow.OpenFile(filenames);
+				}
+				else
+				{
+					OpenWindow(filenames);
+				}
 			}
 			else
 			{
-				OpenWindow(e.CommandLine.FileNames.ToArray());
+				// no file names were passed, create an initial window
+				// this may be overridden by an inherited application to e.g. display a blank document editor
+				((EditorApplication)Application.Instance).CreateInitialWindow();
 			}
 
+			// if we are passed Framework commands on the command line (e.g. FileNewDocument), execute them
 			List<string> commandsToExecute = (((UIApplication)Application.Instance).CommandLine.Options.GetValueOrDefault<List<string>>("command", null));
 			if (commandsToExecute != null)
 			{
@@ -1121,30 +1211,6 @@ namespace UniversalEditor.UserInterface
 			mw.OpenFile(documents);
 		}
 
-		// UniversalDataStorage.Editor.WindowsForms.Program
-		public string ExpandRelativePath(string relativePath)
-		{
-			if (relativePath.StartsWith("~/"))
-			{
-				string[] potentialFileNames = ((UIApplication)Application.Instance).EnumerateDataPaths();
-				for (int i = potentialFileNames.Length - 1; i >= 0; i--)
-				{
-					potentialFileNames[i] = potentialFileNames[i] + '/' + relativePath.Substring(2);
-					Console.WriteLine("Looking for " + potentialFileNames[i]);
-
-					if (System.IO.File.Exists(potentialFileNames[i]))
-					{
-						return potentialFileNames[i];
-					}
-				}
-			}
-			if (System.IO.File.Exists(relativePath))
-			{
-				return relativePath;
-			}
-			return null;
-		}
-
 		private void LoadConfiguration(MarkupTagElement tag, Group group = null)
 		{
 			if (tag.FullName == "Group")
@@ -1309,16 +1375,5 @@ namespace UniversalEditor.UserInterface
 
 		private Perspective.PerspectiveCollection mvarPerspectives = new Perspective.PerspectiveCollection();
 		public Perspective.PerspectiveCollection Perspectives { get { return mvarPerspectives; } }
-
-		protected internal virtual void UpdateSplashScreenStatus(string message)
-		{
-			((UIApplication)Application.Instance).UpdateSplashScreenStatus(message);
-			Console.WriteLine(message);
-		}
-		protected internal virtual void UpdateSplashScreenStatus(string message, int progressValue = 0, int progressMinimum = 0, int progressMaximum = 100)
-		{
-			((UIApplication)Application.Instance).UpdateSplashScreenStatus(message, progressValue, progressMinimum, progressMaximum);
-			Console.WriteLine(message);
-		}
 	}
 }

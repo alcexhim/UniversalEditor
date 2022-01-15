@@ -820,7 +820,10 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized.Views.PianoRoll
 
 				txt.Text = note.Lyric;
 				txt.Visible = true;
-				Layout.SetControlConstraints(txt, new AbsoluteLayout.Constraints((int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height));
+
+				// FIXME: this should not be public, it exposes too much
+				Layout.SetControlConstraints(Controls, txt, new AbsoluteLayout.Constraints((int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height));
+
 				txt.Focus();
 
 				Invalidate(rect);

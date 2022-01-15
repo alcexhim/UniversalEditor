@@ -35,6 +35,18 @@ namespace UniversalEditor.UserInterface
 	/// </summary>
 	public class RecentFileManager
 	{
+		private struct RecentItemReference
+		{
+			public string FileName { get; private set; }
+			public DateTime LastAccessDateTime { get; private set; }
+
+			public RecentItemReference(string filename, DateTime lastAccessDateTime)
+			{
+				FileName = filename;
+				LastAccessDateTime = lastAccessDateTime;
+			}
+		}
+
 		/// <summary>
 		/// The backing store for the list of file names. This could be a S.C.G.
 		/// List`1 or a Specialized StringCollection. However, changing this
@@ -42,6 +54,7 @@ namespace UniversalEditor.UserInterface
 		/// <see cref="RecentFileManager" />.
 		/// </summary>
 		/// <value>Implementation detail.</value>
+		private Dictionary<string, RecentItemReference> FileDatas { get; } = new Dictionary<string, RecentItemReference>();
 		private List<string> FileNames { get; } = new List<string>();
 
 		/// <summary>
@@ -57,6 +70,7 @@ namespace UniversalEditor.UserInterface
 			if (!FileNames.Contains(filename))
 			{
 				FileNames.Add(filename);
+				FileDatas[filename] = new RecentItemReference(filename, DateTime.Now);
 				return true;
 			}
 			return false;
@@ -72,6 +86,15 @@ namespace UniversalEditor.UserInterface
 			List<string> list = new List<string>(FileNames);
 			list.Reverse(); // stored in reverse order
 			return list.ToArray();
+		}
+
+		public DateTime? GetLastAccessDateTime(string FileName)
+		{
+			if (FileDatas.ContainsKey(FileName))
+			{
+				return FileDatas[FileName].LastAccessDateTime;
+			}
+			return null;
 		}
 
 		/// <summary>
@@ -148,7 +171,15 @@ namespace UniversalEditor.UserInterface
 					MarkupAttribute attFileName = tagDocument.Attributes["FileName"];
 					if (attFileName == null) continue;
 
+					DateTime lastAccessDateTime = DateTime.Now;
+					MarkupAttribute attLastAccessDateTime = tagDocument.Attributes["LastAccessDateTime"];
+					if (attLastAccessDateTime != null)
+					{
+						lastAccessDateTime = DateTime.Parse(attLastAccessDateTime.Value);
+					}
+
 					FileNames.Insert(0, attFileName.Value);
+					FileDatas[attFileName.Value] = new RecentItemReference(attFileName.Value, lastAccessDateTime);
 				}
 			}
 		}
@@ -182,7 +213,13 @@ namespace UniversalEditor.UserInterface
 				{
 					MarkupTagElement tagDocument = new MarkupTagElement();
 					tagDocument.FullName = "Document";
-					tagDocument.Attributes.Add("FileName", FileNames[FileNames.Count - i - 1]);
+
+					string filename = FileNames[FileNames.Count - i - 1];
+					tagDocument.Attributes.Add("FileName", filename);
+					if (FileDatas.ContainsKey(filename))
+					{
+						tagDocument.Attributes.Add("LastAccessDateTime", FileDatas[filename].LastAccessDateTime.ToString());
+					}
 					tagDocuments.Elements.Add(tagDocument);
 				}
 				tagRecentItems.Elements.Add(tagDocuments);

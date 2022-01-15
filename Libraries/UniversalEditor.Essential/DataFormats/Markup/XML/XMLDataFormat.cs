@@ -905,14 +905,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 													mom.Elements.Add(tag);
 												}
 
-												char padNext = tr.ReadChar();
-												if (padNext != ']')
-													throw new InvalidDataFormatException("CDATA block does not end with ]]>");
-												padNext = tr.ReadChar();
-												if (padNext != ']')
-													throw new InvalidDataFormatException("CDATA block does not end with ]]>");
-												padNext = tr.ReadChar();
-												if (padNext != '>')
+												string padNext = tr.ReadFixedLengthString(3);
+												if (!padNext.TrimNull().Equals("]]>"))
 													throw new InvalidDataFormatException("CDATA block does not end with ]]>");
 
 												// insideSpecialDeclaration = false;
