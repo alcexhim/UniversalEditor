@@ -342,7 +342,7 @@ namespace UniversalEditor.UserInterface
 					}
 					else if (eo is ChoiceSetting)
 					{
-						object choice = (eo as ChoiceSetting).GetValue();
+						ChoiceSetting.ChoiceSettingValue choice = (ChoiceSetting.ChoiceSettingValue) (eo as ChoiceSetting).GetValue();
 						if (choice != null)
 						{
 							Type[] interfaces = pi.PropertyType.GetInterfaces();
@@ -357,7 +357,7 @@ namespace UniversalEditor.UserInterface
 							}
 							if (convertible)
 							{
-								pi.SetValue(obj, Convert.ChangeType(choice, pi.PropertyType), null);
+								pi.SetValue(obj, Convert.ChangeType(choice.Value, pi.PropertyType), null);
 							}
 							else
 							{
