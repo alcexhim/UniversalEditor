@@ -52,7 +52,7 @@ namespace UniversalEditor.UserInterface
 		private void InitializeWindowSwitcher()
 		{
 			// FIXME: this should be implemented as a plugin or directly in the UI Framework codebase
-			this.EventFilters.Add(new EventFilter<KeyEventArgs>(delegate (ref KeyEventArgs e)
+			this.EventFilters.Add(new EventFilter<KeyEventArgs>(delegate (EventFilterType type, ref KeyEventArgs e)
 			{
 				if (e.Key == KeyboardKey.Tab && (e.ModifierKeys & KeyboardModifierKey.Control) == KeyboardModifierKey.Control)
 				{
@@ -69,7 +69,7 @@ namespace UniversalEditor.UserInterface
 				}
 				return false;
 			}, EventFilterType.KeyDown));
-			this.EventFilters.Add(new EventFilter<KeyEventArgs>(delegate (ref KeyEventArgs e)
+			this.EventFilters.Add(new EventFilter<KeyEventArgs>(delegate (EventFilterType type, ref KeyEventArgs e)
 			{
 				if (e.Key == KeyboardKey.LControlKey || e.Key == KeyboardKey.RControlKey)
 				{
