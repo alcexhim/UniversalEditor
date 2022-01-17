@@ -425,6 +425,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 			{
 				case DocumentPropertiesDialogMode.Open:
 				{
+					// HACK: initialize appropriate custom options (e.g. for File Accessor which needs AllowWriting on save)
+					((EditorApplication)Application.Instance).ApplyCustomOptions(acc, acc.MakeReference().ImportOptions);
+
 					if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Import))
 					{
 						return;
@@ -434,6 +437,9 @@ namespace UniversalEditor.UserInterface.Dialogs
 				}
 				case DocumentPropertiesDialogMode.Save:
 				{
+					// HACK: initialize appropriate custom options (e.g. for File Accessor which needs AllowWriting on save)
+					((EditorApplication)Application.Instance).ApplyCustomOptions(acc, acc.MakeReference().ExportOptions);
+
 					if (!((EditorApplication)Application.Instance).ShowCustomOptionDialog(ref acc, CustomOptionDialogType.Export))
 					{
 						return;
