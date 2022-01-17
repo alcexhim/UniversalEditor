@@ -163,6 +163,9 @@ namespace UniversalEditor.UserInterface
 		protected abstract Selection CreateSelectionInternal(object content);
 		public Selection CreateSelection(object content)
 		{
+			// we could "if content is string, then return new TextSelection"
+			// really, there should be difference between a "text fragment" (e.g. "s")
+			// and a text selection (i.e., what is currently highlighted in a text box editor)
 			return CreateSelectionInternal(content);
 		}
 
