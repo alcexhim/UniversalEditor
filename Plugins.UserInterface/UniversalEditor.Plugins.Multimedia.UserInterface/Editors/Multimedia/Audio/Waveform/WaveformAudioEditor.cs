@@ -82,6 +82,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
 			AudioPlayer player = new AudioPlayer();
 			player.Play(wave);
+			
 			return /*true*/;
 		}
 
