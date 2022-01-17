@@ -92,7 +92,7 @@ namespace UniversalEditor.UserInterface.Panels
 				string fileName = e.Row.GetExtraData<string>("FileName");
 				if (fileName != null)
 				{
-					(ParentWindow as MainWindow).OpenFile(fileName);
+					(ParentWindow as EditorWindow).OpenFile(fileName);
 				}
 			}
 		}

@@ -102,7 +102,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Plugins.Transport
 
 		private void Transport_End(object sender, EventArgs e)
 		{
-			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.MainWindow)?.GetCurrentEditor();
+			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.EditorWindow)?.GetCurrentEditor();
 			Type t = ed?.GetType();
 			System.Reflection.PropertyInfo piTransport = t?.GetProperty("Transport", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
 			MBS.Audio.ITransport transport = (piTransport?.GetValue(ed, null) as MBS.Audio.ITransport);
@@ -117,7 +117,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Plugins.Transport
 
 		private void Transport_Forward(object sender, EventArgs e)
 		{
-			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.MainWindow)?.GetCurrentEditor();
+			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.EditorWindow)?.GetCurrentEditor();
 			Type t = ed?.GetType();
 			System.Reflection.PropertyInfo piTransport = t?.GetProperty("Transport", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
 			MBS.Audio.ITransport transport = (piTransport?.GetValue(ed, null) as MBS.Audio.ITransport);
@@ -132,7 +132,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Plugins.Transport
 
 		private void Transport_Play(object sender, EventArgs e)
 		{
-			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.MainWindow)?.GetCurrentEditor();
+			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.EditorWindow)?.GetCurrentEditor();
 			Type t = ed?.GetType();
 			System.Reflection.PropertyInfo piTransport = t?.GetProperty("Transport", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
 			MBS.Audio.ITransport transport = (piTransport?.GetValue(ed, null) as MBS.Audio.ITransport);
@@ -148,7 +148,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Plugins.Transport
 
 		private void Transport_Back(object sender, EventArgs e)
 		{
-			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.MainWindow)?.GetCurrentEditor();
+			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.EditorWindow)?.GetCurrentEditor();
 			Type t = ed?.GetType();
 			System.Reflection.PropertyInfo piTransport = t?.GetProperty("Transport", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
 			MBS.Audio.ITransport transport = (piTransport?.GetValue(ed, null) as MBS.Audio.ITransport);
@@ -164,7 +164,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Plugins.Transport
 
 		private void Transport_Rewind(object sender, EventArgs e)
 		{
-			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.MainWindow)?.GetCurrentEditor();
+			Editor ed = (((UIApplication)Application.Instance).CurrentWindow as UniversalEditor.UserInterface.EditorWindow)?.GetCurrentEditor();
 			Type t = ed?.GetType();
 			System.Reflection.PropertyInfo piTransport = t?.GetProperty("Transport", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
 			MBS.Audio.ITransport transport = (piTransport?.GetValue(ed, null) as MBS.Audio.ITransport);

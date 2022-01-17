@@ -56,7 +56,7 @@ namespace UniversalEditor.UserInterface
 			{
 				if (e.Key == KeyboardKey.Tab && (e.ModifierKeys & KeyboardModifierKey.Control) == KeyboardModifierKey.Control)
 				{
-					MainWindow mw = (CurrentWindow as MainWindow);
+					EditorWindow mw = (CurrentWindow as EditorWindow);
 					if (mw != null)
 					{
 						mw.SetWindowListVisible(true, false);
@@ -73,7 +73,7 @@ namespace UniversalEditor.UserInterface
 			{
 				if (e.Key == KeyboardKey.LControlKey || e.Key == KeyboardKey.RControlKey)
 				{
-					MainWindow mw = (CurrentWindow as MainWindow);
+					EditorWindow mw = (CurrentWindow as EditorWindow);
 					if (mw != null)
 					{
 						mw.SetWindowListVisible(false, false);
@@ -599,7 +599,7 @@ namespace UniversalEditor.UserInterface
 
 			for (int i = 0; i < ((UIApplication)Application.Instance).Windows.Count; i++)
 			{
-				MainWindow mw = (((UIApplication)Application.Instance).Windows[i] as MainWindow);
+				EditorWindow mw = (((UIApplication)Application.Instance).Windows[i] as EditorWindow);
 				if (mw == null) continue;
 
 				if (!mw.Close())
@@ -611,7 +611,7 @@ namespace UniversalEditor.UserInterface
 		}
 
 		/// <summary>
-		/// Creates an empty <see cref="MainWindow" />. Usually this is just a
+		/// Creates an empty <see cref="EditorWindow" />. Usually this is just a
 		/// call to <see cref="OpenWindow" />, but it can be customized to present
 		/// a blank document editor for your application's default document format.
 		/// </summary>
@@ -1224,7 +1224,7 @@ namespace UniversalEditor.UserInterface
 		/// </summary>
 		public void OpenWindow()
 		{
-			MainWindow mw = new MainWindow();
+			EditorWindow mw = new EditorWindow();
 			mw.Show();
 		}
 		/// <summary>
@@ -1233,7 +1233,7 @@ namespace UniversalEditor.UserInterface
 		/// <param name="fileNames">The file name(s) of the document(s) to load.</param>
 		public void OpenWindow(params string[] fileNames)
 		{
-			MainWindow mw = new MainWindow();
+			EditorWindow mw = new EditorWindow();
 			mw.Show();
 
 			mw.OpenFile(fileNames);
@@ -1244,7 +1244,7 @@ namespace UniversalEditor.UserInterface
 		/// <param name="documents">The document model(s) of the document(s) to load.</param>
 		public void OpenWindow(params Document[] documents)
 		{
-			MainWindow mw = new MainWindow();
+			EditorWindow mw = new EditorWindow();
 			mw.Show();
 
 			mw.OpenFile(documents);

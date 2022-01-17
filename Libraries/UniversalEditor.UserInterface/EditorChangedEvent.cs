@@ -23,11 +23,11 @@ namespace UniversalEditor.UserInterface
 {
 	public class EditorChangedEventArgs : EventArgs
 	{
-		public MainWindow Window { get; } = null;
+		public EditorWindow Window { get; } = null;
 		public Editor PreviousEditor { get; } = null;
 		public Editor CurrentEditor { get; } = null;
 
-		public EditorChangedEventArgs(MainWindow window, Editor previousEditor, Editor currentEditor)
+		public EditorChangedEventArgs(EditorWindow window, Editor previousEditor, Editor currentEditor)
 		{
 			Window = window;
 			PreviousEditor = previousEditor;

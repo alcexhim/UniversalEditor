@@ -40,7 +40,7 @@ namespace UniversalEditor.UserInterface
 		{
 			get
 			{
-				ListViewControl lv = ((MainWindow)(Application.Instance as UIApplication).CurrentWindow).DocumentExplorerPanel.ListView;
+				ListViewControl lv = ((EditorWindow)(Application.Instance as UIApplication).CurrentWindow).DocumentExplorerPanel.ListView;
 				if (lv.SelectedRows.Count > 0)
 				{
 					return lv.SelectedRows[0].GetExtraData<EditorDocumentExplorerNode>("node");
@@ -52,7 +52,7 @@ namespace UniversalEditor.UserInterface
 				TreeModelRow row = FindRow(value);
 				if (row != null)
 				{
-					ListViewControl lv = ((MainWindow)(Application.Instance as UIApplication).CurrentWindow).DocumentExplorerPanel.ListView;
+					ListViewControl lv = ((EditorWindow)(Application.Instance as UIApplication).CurrentWindow).DocumentExplorerPanel.ListView;
 					lv.SelectedRows.Clear();
 					lv.SelectedRows.Add(row);
 
@@ -63,7 +63,7 @@ namespace UniversalEditor.UserInterface
 
 		private TreeModelRow FindRow(EditorDocumentExplorerNode node, TreeModelRow parent = null)
 		{
-			ListViewControl lv = ((MainWindow)(Application.Instance as UIApplication).CurrentWindow).DocumentExplorerPanel.ListView;
+			ListViewControl lv = ((EditorWindow)(Application.Instance as UIApplication).CurrentWindow).DocumentExplorerPanel.ListView;
 
 			TreeModelRow.TreeModelRowCollection coll = lv.Model.Rows;
 			if (parent != null)

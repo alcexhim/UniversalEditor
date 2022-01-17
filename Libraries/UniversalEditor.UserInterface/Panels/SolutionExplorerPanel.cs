@@ -393,13 +393,13 @@ namespace UniversalEditor.UserInterface.Panels
 
 		private void mnuContextSolutionAddNewProject_Click(object sender, EventArgs e)
 		{
-			MainWindow mw = (((EditorApplication)Application.Instance).LastWindow as MainWindow);
+			EditorWindow mw = (((EditorApplication)Application.Instance).LastWindow as EditorWindow);
 			if (mw == null) return;
 			mw.NewProject(true);
 		}
 		private void mnuContextSolutionAddExistingProject_Click(object sender, EventArgs e)
 		{
-			MainWindow mw = (((EditorApplication)Application.Instance).LastWindow as MainWindow);
+			EditorWindow mw = (((EditorApplication)Application.Instance).LastWindow as EditorWindow);
 			if (mw == null) return;
 
 			ProjectObjectModel proj = mw.ShowOpenProjectDialog();

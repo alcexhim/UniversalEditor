@@ -114,7 +114,7 @@ namespace UniversalEditor.UserInterface.Pages
 			RefreshEditor();
 		}
 
-		public override string Title => MainWindow.GetDocumentTitle(Document);
+		public override string Title => EditorWindow.GetDocumentTitle(Document);
 
 		private void RefreshEditor()
 		{
@@ -123,7 +123,7 @@ namespace UniversalEditor.UserInterface.Pages
 			// pnlLoading.Enabled = true;
 			// pnlLoading.Visible = true;
 
-			string title = MainWindow.GetDocumentTitle(Document);
+			string title = EditorWindow.GetDocumentTitle(Document);
 
 			ObjectModel om = null;
 			EditorReference[] reditors = new EditorReference[0];

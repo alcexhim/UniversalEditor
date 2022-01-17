@@ -155,7 +155,7 @@ namespace UniversalEditor.UserInterface.Panels
 
 			Objects.Clear();
 
-			Editor editor = ((MainWindow)ParentWindow).GetCurrentEditor();
+			Editor editor = ((EditorWindow)ParentWindow).GetCurrentEditor();
 			if (editor == null) return;
 
 			foreach (PropertyPanelObject obj in editor.PropertiesPanel.Objects)

@@ -1,43 +1,36 @@
 using System;
-
-using UniversalEditor.Accessors;
-using UniversalEditor.ObjectModels.Project;
-using UniversalEditor.ObjectModels.Solution;
-using UniversalEditor.ObjectModels.Text.Plain;
-
-using UniversalEditor.UserInterface.Dialogs;
-using UniversalEditor.UserInterface.Panels;
-
+using System.Collections.Generic;
+using System.Text;
+using MBS.Framework;
+using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.Docking;
+using MBS.Framework.UserInterface.Controls.Ribbon;
 using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.DragDrop;
 using MBS.Framework.UserInterface.Input.Keyboard;
 using MBS.Framework.UserInterface.Input.Mouse;
 
-using MBS.Framework.UserInterface.Drawing;
-using MBS.Framework.Drawing;
-
 // TODO: We need to work on UWT signaling to native objects...
 using MBS.Framework.UserInterface.Layouts;
-using MBS.Framework.UserInterface.Controls.Ribbon;
-using UniversalEditor.Printing;
 using MBS.Framework.UserInterface.Printing;
-using UniversalEditor.UserInterface.Pages;
-using UniversalEditor.ObjectModels.Binary;
+
+using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.Binary;
-using System.Collections.Generic;
-using System.Text;
-using MBS.Framework.UserInterface.Controls.ListView;
-using MBS.Framework;
-using UniversalEditor.UserInterface.Controls;
+using UniversalEditor.ObjectModels.Binary;
+using UniversalEditor.ObjectModels.Project;
 using UniversalEditor.ObjectModels.PropertyList;
-using MBS.Framework.Collections;
+using UniversalEditor.ObjectModels.Solution;
+using UniversalEditor.Printing;
+using UniversalEditor.UserInterface.Controls;
+using UniversalEditor.UserInterface.Dialogs;
+using UniversalEditor.UserInterface.Pages;
+using UniversalEditor.UserInterface.Panels;
 
 namespace UniversalEditor.UserInterface
 {
-	public class MainWindow : MBS.Framework.UserInterface.MainWindow, IHostApplicationWindow
+	public class EditorWindow : MainWindow, IHostApplicationWindow
 	{
 		private DockingContainerControl dckContainer = null;
 
@@ -147,7 +140,7 @@ namespace UniversalEditor.UserInterface
 				((UIApplication)Application.Instance).ExecuteCommand(cmd.ID);
 		}
 
-		public MainWindow()
+		public EditorWindow()
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
 			this.IconName = "universal-editor";
@@ -1822,9 +1815,9 @@ namespace UniversalEditor.UserInterface
 		}
 		/// <summary>
 		/// Gets the <see cref="Page" />s (center-docked <see cref="DockingWindow" />s) contained within all <see cref="DockingContainer" />s in this
-		/// <see cref="MainWindow" />.
+		/// <see cref="EditorWindow" />.
 		/// </summary>
-		/// <returns>The <see cref="Page" />s contained within all <see cref="DockingContainer" />s in this <see cref="MainWindow" />.</returns>
+		/// <returns>The <see cref="Page" />s contained within all <see cref="DockingContainer" />s in this <see cref="EditorWindow" />.</returns>
 		public Page[] GetPages()
 		{
 			return GetPages(dckContainer);

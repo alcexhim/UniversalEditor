@@ -65,7 +65,7 @@ namespace UniversalEditor.UserInterface.Panels
 
 		void LvToolbox_RowActivated(object sender, ListViewRowActivatedEventArgs e)
 		{
-			MainWindow mw = (MainWindow)ParentWindow;
+			EditorWindow mw = (EditorWindow)ParentWindow;
 
 			Editor ed = mw.GetCurrentEditor();
 			if (ed != null)

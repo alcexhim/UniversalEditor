@@ -28,6 +28,8 @@
     <TargetFrameworkProfile />
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\UniversalEditor.snk</AssemblyOriginatorKeyFile>
+    <ReleaseVersion>4.0.2022.01</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,7 +71,7 @@
     <Compile Include="Toolbox.cs" />
     <Compile Include="UnsavedDocumentOption.cs" />
     <Compile Include="StockCommandType.cs" />
-    <Compile Include="MainWindow.cs" />
+    <Compile Include="EditorWindow.cs" />
     <Compile Include="Panels\ErrorListPanel.cs" />
     <Compile Include="Panel.cs" />
     <Compile Include="LocalConfiguration.cs" />

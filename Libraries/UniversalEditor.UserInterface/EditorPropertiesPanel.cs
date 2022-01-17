@@ -41,9 +41,9 @@ namespace UniversalEditor.UserInterface
 			{
 				_SelectedObject = value;
 
-				if (Parent?.ParentWindow is MainWindow)
+				if (Parent?.ParentWindow is EditorWindow)
 				{
-					((PropertyListPanel)(Parent.ParentWindow as MainWindow).FindPanel(PropertyListPanel.ID)).SelectedObject = value;
+					((PropertyListPanel)(Parent.ParentWindow as EditorWindow).FindPanel(PropertyListPanel.ID)).SelectedObject = value;
 				}
 			}
 		}
