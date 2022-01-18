@@ -546,6 +546,11 @@ namespace UniversalEditor.DataFormats.UEPackage
 											template.Description = tagInformation.Elements["Description"].Value;
 										}
 
+										if (tagInformation.Elements["Prefix"] != null)
+										{
+											template.Prefix = tagInformation.Elements["Prefix"].Value;
+										}
+
 										MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);
 										if (tagPath != null)
 										{
@@ -739,7 +744,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 
 									if (tagInformation.Elements["ProjectNamePrefix"] != null)
 									{
-										template.ProjectNamePrefix = tagInformation.Elements["ProjectNamePrefix"].Value;
+										template.Prefix = tagInformation.Elements["ProjectNamePrefix"].Value;
 									}
 
 									MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);

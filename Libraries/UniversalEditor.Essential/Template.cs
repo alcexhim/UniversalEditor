@@ -21,10 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-
 using UniversalEditor.ObjectModels.Markup;
-using UniversalEditor.ObjectModels.PropertyList;
 using UniversalEditor.ObjectModels.Project;
+using UniversalEditor.ObjectModels.PropertyList;
 
 namespace UniversalEditor
 {
@@ -81,6 +80,8 @@ namespace UniversalEditor
 		/// A short summary of the purpose and content of the document template.
 		/// </summary>
 		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
+
+		public string Prefix { get; set; } = null;
 
 		private TemplateVariable.TemplateVariableCollection mvarVariables = new TemplateVariable.TemplateVariableCollection();
 		/// <summary>
@@ -230,9 +231,6 @@ namespace UniversalEditor
 		public string[] Path { get { return mvarPath; } set { mvarPath = value; } }
 
 		public ProjectType.ProjectTypeCollection ProjectTypes { get; } = new ProjectType.ProjectTypeCollection();
-
-		private string mvarProjectNamePrefix = String.Empty;
-		public string ProjectNamePrefix { get { return mvarProjectNamePrefix; } set { mvarProjectNamePrefix = value; } }
 
 		private ProjectFileSystem mvarFileSystem = new ProjectFileSystem();
 		public ProjectFileSystem FileSystem { get { return mvarFileSystem; } }

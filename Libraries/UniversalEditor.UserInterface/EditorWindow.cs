@@ -589,6 +589,8 @@ namespace UniversalEditor.UserInterface
 			NewDialog dlg = new NewDialog();
 			dlg.Mode = NewDialogMode.Project;
 			dlg.CombineObjects = combineObjects;
+			dlg.SolutionTitle = CurrentSolution?.Title;
+
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				SolutionObjectModel solution = null;

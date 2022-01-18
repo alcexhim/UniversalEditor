@@ -512,13 +512,17 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 				if (!txtFileName.IsChangedByUser)
 				{
-					string projectNamePrefix = pt.ProjectNamePrefix;
+					string projectNamePrefix = pt.Prefix;
 					if (String.IsNullOrEmpty(projectNamePrefix))
 					{
 						projectNamePrefix = pt.Title.Replace(" ", String.Empty);
 						// projectNamePrefix = "Project";
 					}
 					txtFileName.Text = projectNamePrefix + "1";
+				}
+				if (!txtSolutionName.IsChangedByUser && SolutionTitle == null)
+				{
+					txtSolutionName.Text = txtFileName.Text;
 				}
 			}
 			else if (Mode == NewDialogMode.File)
@@ -527,7 +531,17 @@ namespace UniversalEditor.UserInterface.Dialogs
 				if (pt == null) return;
 				if (!txtFileName.IsChangedByUser)
 				{
-					// txtFileName.Text = projectNamePrefix + "1";
+
+					string prefix = pt.Prefix;
+					if (String.IsNullOrEmpty(prefix))
+					{
+						prefix = pt.ObjectModel.GetType().Name;
+						if (prefix.EndsWith("ObjectModel"))
+						{
+							prefix = prefix.Substring(0, prefix.Length - "ObjectModel".Length);
+						}
+					}
+					txtFileName.Text = prefix + "1";
 				}
 			}
 		}
