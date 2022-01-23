@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -7,8 +7,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>UniversalEditor.Plugins.SoftwareDevelopment.UserInterface</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.SoftwareDevelopment.UserInterface</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,11 +37,7 @@
     <Compile Include="Editors\Syntax\SyntaxEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="SettingsProviders\" />
-    <Folder Include="Editors\" />
-    <Folder Include="Editors\Syntax\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
       <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>

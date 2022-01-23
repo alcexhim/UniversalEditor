@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor.UserInterface</RootNamespace>
     <AssemblyName>UniversalEditor.UserInterface</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -40,6 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -49,6 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -180,26 +182,7 @@
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Panels\" />
-    <Folder Include="Dialogs\" />
-    <Folder Include="Pages\" />
-    <Folder Include="Editors\" />
-    <Folder Include="Editors\Text\" />
-    <Folder Include="Editors\Text\Plain\" />
-    <Folder Include="Editors\FileSystem\" />
-    <Folder Include="Editors\PropertyList\" />
-    <Folder Include="Controls\" />
-    <Folder Include="Editors\Binary\" />
-    <Folder Include="Editors\Database\" />
-    <Folder Include="Editors\RIFF\" />
-    <Folder Include="Editors\RIFF\Dialogs\" />
-    <Folder Include="Editors\Markup\" />
-    <Folder Include="Editors\Database\Views\" />
-    <Folder Include="PrintHandlers\" />
-    <Folder Include="SettingsProviders\" />
-    <Folder Include="Editors\Database\Dialogs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="SettingsProviders\DefaultSettingsProvider.xml" />
     <EmbeddedResource Include="Editors\FileSystem\FileSystemEditorSettingsProvider.xml" />
@@ -215,7 +198,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-	<!--
+  <!--
   <Target Name="AfterBuild">
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.GTK.dll" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' != 'Windows_NT' " />
 	  <Copy SourceFiles="../../../MBS.Framework.UserInterface/Output/$(Configuration)/MBS.Framework.UserInterface.Engines.GTK.pdb" DestinationFolder="../../Output/$(Configuration)" Condition=" '$(OS)' != 'Windows_NT' " />

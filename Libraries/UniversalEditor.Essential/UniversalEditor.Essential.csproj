@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor</RootNamespace>
     <AssemblyName>UniversalEditor.Essential</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SignAssembly>true</SignAssembly>
@@ -26,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\Output\Debug\UniversalEditor.Essential.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -241,34 +243,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="DataFormats\PropertyList\JavaScriptObjectNotation\" />
-    <Folder Include="ObjectModels\Binary\" />
-    <Folder Include="DataFormats\Binary\" />
-    <Folder Include="ObjectModels\JSON\" />
-    <Folder Include="ObjectModels\JSON\Fields\" />
-    <Folder Include="DataFormats\Text\Plain\" />
-    <Folder Include="DataFormats\Shortcut\Linux\" />
-    <Folder Include="ObjectModels\BinaryGrammar\" />
-    <Folder Include="ObjectModels\BinaryGrammar\GrammarItems\" />
-    <Folder Include="ObjectModels\Database\" />
-    <Folder Include="DataFormats\Binary\PEM\" />
-    <Folder Include="DataFormats\JSON\" />
-    <Folder Include="Accessors\" />
-    <Folder Include="ObjectModels\Package\" />
-    <Folder Include="DataFormats\UEPackage\Binary\" />
-    <Folder Include="DataFormats\Package\" />
-    <Folder Include="DataFormats\Package\OpenDocument\" />
-    <Folder Include="DataFormats\FileSystem\" />
-    <Folder Include="DataFormats\FileSystem\ZIP\" />
-    <Folder Include="Associations\" />
-    <Folder Include="DataFormats\BinaryGrammar\" />
-    <Folder Include="DataFormats\BinaryGrammar\WxHexEditor\" />
-    <Folder Include="DataFormats\Package\OpenDocument\Internal\" />
-    <Folder Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\" />
-    <Folder Include="DataFormats\Markup\BML\" />
-    <Folder Include="DataFormats\Markup\BML\Internal\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Associations\PlainText.uexml" />
     <EmbeddedResource Include="Associations\BML.uexml" />

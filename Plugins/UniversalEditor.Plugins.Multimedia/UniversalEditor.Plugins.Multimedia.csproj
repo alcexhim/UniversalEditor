@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{BE4D0BA3-0888-42A5-9C09-FC308A4509D2}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <AssemblyName>UniversalEditor.Plugins.Multimedia</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <WarningLevel>4</WarningLevel>
     <RootNamespace>UniversalEditor.Plugins.Multimedia</RootNamespace>
     <PublishUrl>publish\</PublishUrl>
@@ -53,10 +53,12 @@
     <OutputPath>..\..\Output\Debug\Plugins\</OutputPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>DEBUG</DefineConstants>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\..\Output\Release\Plugins\</OutputPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataFormats\Multimedia\Audio\Synthesized\ExtendedMIDI\XMIDataFormat.cs" />
@@ -418,37 +420,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="DataFormats\Multimedia\Picture\ZSoft\" />
-    <Folder Include="DataFormats\Multimedia\Picture\Adobe\" />
-    <Folder Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\" />
-    <Folder Include="DataFormats\Multimedia\Picture\Adobe\Photoshop\Internal\" />
-    <Folder Include="DataFormats\Multimedia\Audio\Synthesized\EdLib\" />
-    <Folder Include="DataFormats\Multimedia\Picture\XPM\" />
-    <Folder Include="ObjectModels\Multimedia\SpriteAnimationCollection\" />
-    <Folder Include="DataFormats\Multimedia\Picture\TIFF\" />
-    <Folder Include="ObjectModels\Multimedia\VectorImage\VectorItems\" />
-    <Folder Include="DataFormats\Multimedia\VectorImage\SVG\" />
-    <Folder Include="Associations\" />
-    <Folder Include="Associations\Palette\" />
-    <Folder Include="Associations\Picture\" />
-    <Folder Include="Associations\VectorImage\" />
-    <Folder Include="Associations\BluRay\" />
-    <Folder Include="Associations\Subtitle\" />
-    <Folder Include="Associations\Video\" />
-    <Folder Include="Associations\AudioCollection\" />
-    <Folder Include="Associations\AudioCollection\Synthesized\" />
-    <Folder Include="DataFormats\Multimedia\Palette\Adobe\ACO\" />
-    <Folder Include="DataFormats\Multimedia\Palette\Adobe\ACT\" />
-    <Folder Include="DataFormats\Multimedia\Palette\Adobe\SwatchExchange\" />
-    <Folder Include="DataFormats\Multimedia\Picture\KISS\" />
-    <Folder Include="DataFormats\Multimedia\Palette\KISS\" />
-    <Folder Include="DataFormats\Multimedia\Picture\EXR\" />
-    <Folder Include="DataFormats\Multimedia\Picture\Radiance\" />
-    <Folder Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\" />
-    <Folder Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\" />
-    <Folder Include="ObjectModels\Multimedia\InstrumentDefinition\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Associations\Playlist\ASX.uexml" />
     <EmbeddedResource Include="Associations\Playlist\CompactDisc.uexml" />

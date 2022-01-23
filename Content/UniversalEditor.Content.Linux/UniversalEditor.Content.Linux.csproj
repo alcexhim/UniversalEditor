@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor.Content.PlatformIndependent</RootNamespace>
     <AssemblyName>UniversalEditor.Content.PlatformIndependent</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SignAssembly>true</SignAssembly>
@@ -40,15 +40,7 @@
   <ItemGroup>
     <Content Include="usr\share\applications\universal-editor.desktop" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="usr\" />
-    <Folder Include="usr\share\" />
-    <Folder Include="usr\share\applications\" />
-    <Folder Include="usr\share\mime\" />
-    <Folder Include="usr\share\mime\packages\" />
-    <Folder Include="usr\share\glib-2.0\" />
-    <Folder Include="usr\share\glib-2.0\schemas\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="usr\share\mime\packages\universaleditor-cri.xml" />
     <None Include="usr\share\mime\packages\universaleditor-newworldcomputing.xml" />
@@ -56,10 +48,10 @@
     <None Include="usr\share\glib-2.0\schemas\net.alcetech.universal-editor.gschema.xml" />
   </ItemGroup>
   <Target Name="Build">
-    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="Clean">
-    <Delete Files="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Delete Files="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build">
   </Target>

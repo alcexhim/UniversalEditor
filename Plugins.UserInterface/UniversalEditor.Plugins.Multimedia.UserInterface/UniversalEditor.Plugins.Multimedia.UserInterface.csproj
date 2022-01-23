@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,6 +8,8 @@
     <RootNamespace>UniversalEditor.Plugins.Multimedia.UserInterface</RootNamespace>
     <AssemblyName>UniversalEditor.Plugins.Multimedia.UserInterface</AssemblyName>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -18,6 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -25,6 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -63,32 +67,7 @@
     <Compile Include="Plugins\Transport\TransportPlugin.cs" />
     <Compile Include="Editors\Multimedia\InstrumentDefinition\InstrumentDefinitionEditor.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Editors\" />
-    <Folder Include="Editors\Multimedia\" />
-    <Folder Include="Editors\Multimedia\Picture\" />
-    <Folder Include="Controls\" />
-    <Folder Include="Controls\DrawingArea\" />
-    <Folder Include="SettingsProviders\" />
-    <Folder Include="Editors\Multimedia\Audio\" />
-    <Folder Include="Editors\Multimedia\Audio\Synthesized\" />
-    <Folder Include="Editors\Multimedia\Palette\" />
-    <Folder Include="Editors\Multimedia\Playlist\" />
-    <Folder Include="Editors\Multimedia\Audio\Voicebank\" />
-    <Folder Include="Editors\Multimedia\PictureCollection\" />
-    <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\" />
-    <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\" />
-    <Folder Include="Editors\Multimedia\Audio\Waveform\" />
-    <Folder Include="Editors\Multimedia\Audio\Waveform\Controls\" />
-    <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\" />
-    <Folder Include="Editors\Multimedia\PictureCollection\Dialogs\" />
-    <Folder Include="Editors\Multimedia\VectorImage\" />
-    <Folder Include="Editors\Multimedia\VectorImage\Controls\" />
-    <Folder Include="Controls\ColorPalette\" />
-    <Folder Include="Plugins\" />
-    <Folder Include="Plugins\Transport\" />
-    <Folder Include="Editors\Multimedia\InstrumentDefinition\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>

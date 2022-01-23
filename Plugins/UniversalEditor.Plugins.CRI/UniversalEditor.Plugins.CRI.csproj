@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -9,6 +9,8 @@
     <AssemblyName>UniversalEditor.Plugins.CRI</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\..\MichaelBecker.snk</AssemblyOriginatorKeyFile>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>..\..\Output\Debug\Plugins\UniversalEditor.Plugins.CRI.xml</DocumentationFile>
@@ -20,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -27,7 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <IntermediateOutputPath></IntermediateOutputPath>
+    <IntermediateOutputPath>
+    </IntermediateOutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,25 +53,7 @@
     <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXEncodingType.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\Waveform\CRI\ADX\ADXVersion.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataFormats\" />
-    <Folder Include="DataFormats\FileSystem\" />
-    <Folder Include="DataFormats\FileSystem\CPK\" />
-    <Folder Include="DataFormats\FileSystem\AFS\" />
-    <Folder Include="DataFormats\Database\" />
-    <Folder Include="DataFormats\Database\UTF\" />
-    <Folder Include="DataFormats\FileSystem\CPK\Internal\" />
-    <Folder Include="Associations\" />
-    <Folder Include="Associations\Database\" />
-    <Folder Include="Associations\FileSystem\" />
-    <Folder Include="DataFormats\Multimedia\" />
-    <Folder Include="DataFormats\Multimedia\Audio\" />
-    <Folder Include="DataFormats\Multimedia\Audio\Waveform\" />
-    <Folder Include="DataFormats\Multimedia\Audio\Waveform\CRI\" />
-    <Folder Include="Associations\Multimedia\" />
-    <Folder Include="Associations\Multimedia\Audio\" />
-    <Folder Include="Associations\Multimedia\Audio\Waveform\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
       <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>

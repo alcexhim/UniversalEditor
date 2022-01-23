@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniversalEditor.Content.PlatformIndependent</RootNamespace>
     <AssemblyName>UniversalEditor.Content.PlatformIndependent</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SignAssembly>true</SignAssembly>
@@ -336,39 +336,8 @@
     <Content Include="Configuration\SplashScreen.upl" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Editors\FileSystem\" />
-    <Folder Include="Editors\Multimedia\" />
-    <Folder Include="Editors\Multimedia\Audio\" />
-    <Folder Include="Editors\Multimedia\Audio\Synthesized\" />
-    <Folder Include="Editors\Executable\" />
-    <Folder Include="Panels\SolutionExplorer\" />
-    <Folder Include="Panels\SolutionExplorer\Languages\" />
-    <Folder Include="Editors\Multimedia\Palette\" />
-    <Folder Include="Documentation\" />
-    <Folder Include="Documentation\Executable\" />
-    <Folder Include="Documentation\Executable\DataFormats\" />
-    <Folder Include="Documentation\Executable\DataFormats\Executable\" />
-    <Folder Include="Documentation\Executable\DataFormats\Executable\Microsoft\" />
-    <Folder Include="Editors\Multimedia\Audio\Voicebank\" />
-    <Folder Include="Languages\English\" />
-    <Folder Include="Editors\RavenSoftware\" />
-    <Folder Include="Editors\RavenSoftware\Icarus\" />
-    <Folder Include="Editors\RIFF\" />
-    <Folder Include="Editors\Binary\Dialogs\" />
-    <Folder Include="Editors\Setup\" />
-    <Folder Include="Editors\Setup\BootstrapScript\" />
-    <Folder Include="Editors\Database\Views\" />
     <Folder Include="Extensions\Amiga\Associations\VectorImage\" />
-    <Folder Include="Editors\RavenSoftware\Carcass\Dialogs\" />
-    <Folder Include="Editors\Multimedia\Audio\Waveform\" />
-    <Folder Include="Templates\Project\SCE\" />
-    <Folder Include="Templates\Project\SCE\PSM\" />
-    <Folder Include="Panels\PropertyList\" />
-    <Folder Include="Editors\Multimedia\Picture\" />
     <Folder Include="Templates\Project\General\Images\" />
-    <Folder Include="Editors\RavenSoftware\Strip\" />
-    <Folder Include="Extensions\Multimedia3D\" />
-    <Folder Include="Extensions\Multimedia3D\Languages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />
@@ -383,10 +352,10 @@
     <None Include="Editors\Multimedia3D\Model\Icons\cube.svg" />
   </ItemGroup>
   <Target Name="Build">
-    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="Clean">
-    <Delete Files="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Delete Files="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build">
   </Target>
