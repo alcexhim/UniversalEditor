@@ -67,6 +67,24 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			Buttons[0].Enabled = false;
 			DefaultButton = Buttons[0];
+
+			if (SolutionTitle == null)
+			{
+				// we have no existing solution, so default to creating one
+				chkAddToSolution.Enabled = false;
+				chkAddToSolution.Checked = true;
+			}
+
+			if (Mode == NewDialogMode.Project)
+			{
+				chkAddToSolution.Text = "_Add to solution";
+				lblSolutionName.Text = "Solu_tion name";
+			}
+			else
+			{
+				chkAddToSolution.Text = "_Add to project";
+				lblSolutionName.Text = "Projec_t name";
+			}
 		}
 		private void InitializeDocumentTemplateTreeView()
 		{
