@@ -24,8 +24,11 @@ using MBS.Audio;
 using MBS.Audio.PortAudio;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Layouts;
+
 using UniversalEditor.ObjectModels.Multimedia.Audio.Waveform;
 using UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.Controls;
+using UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.Dialogs;
+
 using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform
@@ -48,6 +51,18 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 		public WaveformAudioEditor()
 		{
 			Layout = new BoxLayout(Orientation.Vertical);
+
+			Context.AttachCommandEventHandler("WaveformAudioEditor_Tools_MultiTrackMapping", WaveformAudioEditor_Tools_MultiTrackMapping);
+		}
+
+		private void WaveformAudioEditor_Tools_MultiTrackMapping(object sender, EventArgs e)
+		{
+			MultiTrackMappingDialog dlg = new MultiTrackMappingDialog();
+			dlg.Editor = this;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+
+			}
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
@@ -82,7 +97,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
 			AudioPlayer player = new AudioPlayer();
 			player.Play(wave);
-			
+
 			return /*true*/;
 		}
 

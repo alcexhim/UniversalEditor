@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAdjustment" id="adjChannelCount">
+    <property name="lower">1</property>
+    <property name="upper">256</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkListStore" id="tmChannelPresets">
+    <columns>
+      <!-- column-name colChannelPresetName -->
+      <column type="gchararray"/>
+      <!-- column-name colChannelPresetChannelCount -->
+      <column type="gint"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Mono</col>
+        <col id="1">1</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Stereo</col>
+        <col id="1">2</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">5.1 Surround Sound</col>
+        <col id="1">6</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">7.1 Surround Sound</col>
+        <col id="1">8</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Dolby Atmos Basic</col>
+        <col id="1">10</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Dolby Atmos Full</col>
+        <col id="1">128</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkTreeStore" id="tmChannels">
+    <columns>
+      <!-- column-name colTrackName -->
+      <column type="gchararray"/>
+      <!-- column-name colChannel -->
+      <column type="gchararray"/>
+      <!-- column-name colColor -->
+      <column type="GdkPixbuf"/>
+    </columns>
+  </object>
+  <object class="GtkDialog">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Multi-Track Mapping</property>
+    <property name="default-width">500</property>
+    <property name="default-height">400</property>
+    <property name="type-hint">dialog</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
+            <child>
+              <object class="GtkButton" id="cmdExport">
+                <property name="label">gtk-ok</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-stock">True</property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="cmdCancel">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <!-- n-columns=2 n-rows=3 -->
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-start">16</property>
+            <property name="margin-end">16</property>
+            <property name="margin-top">16</property>
+            <property name="margin-bottom">16</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-end">8</property>
+                <property name="label" translatable="yes">Preset</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="cboChannelPresets">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-start">8</property>
+                <property name="margin-end">8</property>
+                <property name="margin-top">8</property>
+                <property name="margin-bottom">8</property>
+                <property name="hexpand">True</property>
+                <property name="model">tmChannelPresets</property>
+                <property name="active">1</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+                <child>
+                  <object class="GtkCellRendererText">
+                    <property name="text">(</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+                <child>
+                  <object class="GtkCellRendererText">
+                    <property name="text"> channels)</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="shadow-type">in</property>
+                <child>
+                  <object class="GtkTreeView" id="lvChannels">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="model">tmChannels</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="tvcTrackName">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Track</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <child>
+                          <object class="GtkCellRendererText"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="tvcChannel">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Channel</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <child>
+                          <object class="GtkCellRendererPixbuf">
+                            <property name="width">96</property>
+                          </object>
+                          <attributes>
+                            <attribute name="pixbuf">2</attribute>
+                          </attributes>
+                        </child>
+                        <child>
+                          <object class="GtkCellRendererText"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="lblChannelCount">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-end">8</property>
+                <property name="label" translatable="yes">Number of channels</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="txtChannelCount">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="margin-start">8</property>
+                <property name="margin-end">8</property>
+                <property name="margin-top">8</property>
+                <property name="margin-bottom">8</property>
+                <property name="adjustment">adjChannelCount</property>
+                <property name="value">2</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-5">cmdExport</action-widget>
+      <action-widget response="-6">cmdCancel</action-widget>
+    </action-widgets>
+  </object>
+</interface>

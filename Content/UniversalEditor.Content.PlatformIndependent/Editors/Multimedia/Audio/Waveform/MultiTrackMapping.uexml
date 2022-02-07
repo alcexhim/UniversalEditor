@@ -1,0 +1,67 @@
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{0EE62532-88BF-4A4A-9DA3-43E79F015DF1}" TypeName="UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Audio.Waveform.WaveformAudioEditor">
+			<MultiTrackMapping>
+				<ChannelPresets>
+					<ChannelPreset Title="Mono">
+						<Channels>
+							<Channel ID="{f455d884-47b2-4d6a-9fa4-8396cbf6d98f}" Index="0" Title="Mono" Color="#ffffff" />
+						</Channels>
+					</ChannelPreset>
+					<ChannelPreset Title="Stereo">
+						<Channels>
+							<Channel ID="{f455d884-47b2-4d6a-9fa4-8396cbf6d98f}" Title="Front left" Color="#ffffff" />
+							<Channel ID="{8acdf52d-a1c6-44ab-8075-fe4ce3d230b9}" Title="Front right" Color="#ff0000" />
+						</Channels>
+					</ChannelPreset>
+					<ChannelPreset Title="Stereo + Center Channel">
+						<Channels>
+							<Channel ID="{f455d884-47b2-4d6a-9fa4-8396cbf6d98f}" Title="Front left" Color="#ffffff" />
+							<Channel ID="{8acdf52d-a1c6-44ab-8075-fe4ce3d230b9}" Title="Front right" Color="#ff0000" />
+							<Channel ID="{4c7e2beb-594a-4a7c-8cb7-08917d978de4}" Title="Center" Color="#00ff00" />
+						</Channels>
+					</ChannelPreset>
+					<ChannelPreset Title="5.1 Surround Sound">
+						<Channels>
+							<Channel ID="{f455d884-47b2-4d6a-9fa4-8396cbf6d98f}" Title="Front left" Color="#ffffff" />
+							<Channel ID="{8acdf52d-a1c6-44ab-8075-fe4ce3d230b9}" Title="Front right" Color="#ff0000" />
+							<Channel ID="{4c7e2beb-594a-4a7c-8cb7-08917d978de4}" Title="Center" Color="#00ff00" />
+							<Channel ID="{a3fd5a4a-dedb-4d22-9811-542c899e8f5a}" Title="Subwoofer" Color="#cc00cc" />
+							<Channel ID="{f916a814-c431-4ff0-a10d-036210ce4d4d}" Title="Rear left" Color="#8b4513" />
+							<Channel ID="{b185f3cd-4211-4e3a-908c-ef12f00f854e}" Title="Rear right" Color="#c3b091" />
+						</Channels>
+					</ChannelPreset>
+					<ChannelPreset Title="7.1 Surround Sound">
+						<Channels>
+							<Channel ID="{f455d884-47b2-4d6a-9fa4-8396cbf6d98f}" Title="Front left" Color="#ffffff" />
+							<Channel ID="{8acdf52d-a1c6-44ab-8075-fe4ce3d230b9}" Title="Front right" Color="#ff0000" />
+							<Channel ID="{4c7e2beb-594a-4a7c-8cb7-08917d978de4}" Title="Center" Color="#00ff00" />
+							<Channel ID="{a3fd5a4a-dedb-4d22-9811-542c899e8f5a}" Title="Subwoofer" Color="#cc00cc" />
+							<Channel ID="{4d97045c-981a-4a34-a4d9-602cf5d905e7}" Title="Side left" Color="#0000cc" />
+							<Channel ID="{81721e05-2ebb-4bd7-94a7-3c7ac9a6cffc}" Title="Side right" Color="#cccccc" />
+							<Channel ID="{f916a814-c431-4ff0-a10d-036210ce4d4d}" Title="Rear left" Color="#8b4513" />
+							<Channel ID="{b185f3cd-4211-4e3a-908c-ef12f00f854e}" Title="Rear right" Color="#c3b091" />
+						</Channels>
+					</ChannelPreset>
+					<ChannelPreset Title="11.1 Surround Sound + Height Channels">
+						<Channels>
+							<Channel ID="{f455d884-47b2-4d6a-9fa4-8396cbf6d98f}" Title="Front left" Color="#ffffff" />
+							<Channel ID="{8acdf52d-a1c6-44ab-8075-fe4ce3d230b9}" Title="Front right" Color="#ff0000" />
+							<Channel ID="{4c7e2beb-594a-4a7c-8cb7-08917d978de4}" Title="Center" Color="#00ff00" />
+							<Channel ID="{a3fd5a4a-dedb-4d22-9811-542c899e8f5a}" Title="Subwoofer" Color="#cc00cc" />
+							<Channel ID="{4d97045c-981a-4a34-a4d9-602cf5d905e7}" Title="Side left" Color="#0000cc" />
+							<Channel ID="{81721e05-2ebb-4bd7-94a7-3c7ac9a6cffc}" Title="Side right" Color="#cccccc" />
+							<Channel ID="{f916a814-c431-4ff0-a10d-036210ce4d4d}" Title="Rear left" Color="#8b4513" />
+							<Channel ID="{b185f3cd-4211-4e3a-908c-ef12f00f854e}" Title="Rear right" Color="#c3b091" />
+
+							<Channel ID="{478737ed-b218-4846-8a2f-84a5fad301b4}" Title="Left height 1" Color="#ffff00" />
+							<Channel ID="{478737ed-b218-4846-8a2f-84a5fad301b4}" Title="Right height 1" Color="#ffa500" />
+							<Channel ID="{478737ed-b218-4846-8a2f-84a5fad301b4}" Title="Left height 2" Color="#ffc0cb" />
+							<Channel ID="{478737ed-b218-4846-8a2f-84a5fad301b4}" Title="Right height 2" Color="#ff00ff" />
+						</Channels>
+					</ChannelPreset>
+				</ChannelPresets>
+			</MultiTrackMapping>
+		</Editor>
+	</Editors>
+</UniversalEditor>
