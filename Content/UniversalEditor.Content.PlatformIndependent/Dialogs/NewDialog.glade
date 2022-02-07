@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.2
+<!-- Generated with glade 3.38.2
 
 Copyright (C) 2019 Michael Becker
 
@@ -41,30 +41,27 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
     </columns>
   </object>
   <object class="GtkDialog">
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="title" translatable="yes">Create New</property>
-    <property name="default_width">600</property>
-    <property name="default_height">400</property>
-    <property name="type_hint">dialog</property>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
+    <property name="default-width">600</property>
+    <property name="default-height">500</property>
+    <property name="type-hint">dialog</property>
     <child internal-child="vbox">
       <object class="GtkBox">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="cmdOK">
                 <property name="label">gtk-new</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-stock">True</property>
                 <style>
                   <class name="suggested-action"/>
                 </style>
@@ -79,9 +76,9 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
               <object class="GtkButton" id="cmdCancel">
                 <property name="label">gtk-cancel</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-stock">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -99,10 +96,10 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
         <child>
           <object class="GtkSearchEntry" id="txtSearch">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="primary_icon_name">edit-find-symbolic</property>
-            <property name="primary_icon_activatable">False</property>
-            <property name="primary_icon_sensitive">False</property>
+            <property name="can-focus">True</property>
+            <property name="primary-icon-name">edit-find-symbolic</property>
+            <property name="primary-icon-activatable">False</property>
+            <property name="primary-icon-sensitive">False</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -113,21 +110,21 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
         <child>
           <object class="GtkPaned">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="position">150</property>
-            <property name="position_set">True</property>
-            <property name="wide_handle">True</property>
+            <property name="can-focus">True</property>
+            <property name="position">250</property>
+            <property name="position-set">True</property>
+            <property name="wide-handle">True</property>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkTreeView" id="tvObjectModel">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="model">tmObjectModel</property>
-                    <property name="headers_visible">False</property>
+                    <property name="headers-visible">False</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection"/>
                     </child>
@@ -161,14 +158,14 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkTreeView" id="tvTemplate">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="model">tmTemplate</property>
-                    <property name="headers_visible">False</property>
+                    <property name="headers-visible">False</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection"/>
                     </child>
@@ -207,84 +204,85 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
           </packing>
         </child>
         <child>
+          <!-- n-columns=3 n-rows=4 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">16</property>
-            <property name="margin_right">16</property>
-            <property name="margin_top">16</property>
-            <property name="margin_bottom">16</property>
-            <property name="row_homogeneous">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-left">16</property>
+            <property name="margin-right">16</property>
+            <property name="margin-top">16</property>
+            <property name="margin-bottom">16</property>
+            <property name="row-homogeneous">True</property>
             <child>
               <object class="GtkEntry" id="txtFileName">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="margin_top">4</property>
-                <property name="margin_bottom">4</property>
+                <property name="can-focus">True</property>
+                <property name="margin-top">4</property>
+                <property name="margin-bottom">4</property>
                 <property name="hexpand">True</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="lblFileName">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_right">16</property>
+                <property name="can-focus">False</property>
+                <property name="margin-right">16</property>
                 <property name="label" translatable="yes">_Name</property>
-                <property name="use_underline">True</property>
+                <property name="use-underline">True</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="lblFilePath">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_right">16</property>
+                <property name="can-focus">False</property>
+                <property name="margin-right">16</property>
                 <property name="label" translatable="yes">_Location</property>
-                <property name="use_underline">True</property>
+                <property name="use-underline">True</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="txtFilePath">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="margin_top">4</property>
-                <property name="margin_bottom">4</property>
+                <property name="can-focus">True</property>
+                <property name="margin-top">4</property>
+                <property name="margin-bottom">4</property>
                 <property name="hexpand">True</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="chkAddToSolution">
                 <property name="label" translatable="yes">_Add to project</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="margin_top">4</property>
-                <property name="margin_bottom">4</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="margin-top">4</property>
+                <property name="margin-bottom">4</property>
                 <property name="hexpand">True</property>
-                <property name="use_underline">True</property>
+                <property name="use-underline">True</property>
                 <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
+                <property name="draw-indicator">True</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
                 <property name="width">2</property>
               </packing>
             </child>
@@ -292,29 +290,41 @@ along with Universal Editor.  If not, see <http://www.gnu.org/licenses/>.
               <object class="GtkLabel" id="lblSolutionName">
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
-                <property name="can_focus">False</property>
-                <property name="margin_right">16</property>
+                <property name="can-focus">False</property>
+                <property name="margin-right">16</property>
                 <property name="label" translatable="yes">Project na_me</property>
-                <property name="use_underline">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">3</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="txtSolutionName">
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
-                <property name="can_focus">True</property>
-                <property name="margin_top">4</property>
-                <property name="margin_bottom">4</property>
+                <property name="can-focus">True</property>
+                <property name="margin-top">4</property>
+                <property name="margin-bottom">4</property>
                 <property name="hexpand">True</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">3</property>
               </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
           <packing>
