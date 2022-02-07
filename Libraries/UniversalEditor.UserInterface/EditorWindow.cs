@@ -607,7 +607,16 @@ namespace UniversalEditor.UserInterface
 					solution.Title = dlg.SolutionTitle;
 				}
 
-				ProjectObjectModel project = pjt.Create();
+				ProjectObjectModel project = null;
+				if (pjt == null)
+				{
+					project = new ProjectObjectModel();
+					Console.Error.WriteLine("NULL project templates should be deprecated; replace with actual Empty Project template");
+				}
+				else
+				{
+					project = pjt.Create();
+				}
 				project.ID = Guid.NewGuid();
 				project.Title = dlg.ProjectTitle;
 
