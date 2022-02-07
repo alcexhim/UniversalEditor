@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
 using MBS.Framework;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
@@ -300,10 +301,7 @@ namespace UniversalEditor.UserInterface.Panels
 			ProjectFolder folder = e.Row.GetExtraData<ProjectFolder>("folder");
 			if (project != null)
 			{
-				Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(new byte[0], String.Format("{0} Properties", project.Title));
-				Document d = new Document(project, null, ma);
-				d.Title = String.Format("{0} Properties", project.Title);
-				((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).OpenFile(d);
+				((EditorApplication)Application.Instance).ShowProjectSettings(project);
 			}
 			else if (file != null)
 			{

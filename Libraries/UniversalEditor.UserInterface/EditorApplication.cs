@@ -1414,5 +1414,38 @@ namespace UniversalEditor.UserInterface
 
 		private Perspective.PerspectiveCollection mvarPerspectives = new Perspective.PerspectiveCollection();
 		public Perspective.PerspectiveCollection Perspectives { get { return mvarPerspectives; } }
+
+		public void ShowProjectSettings(UniversalEditor.ObjectModels.Project.ProjectObjectModel project)
+		{
+			List<SettingsProvider> list = new List<SettingsProvider>();
+			foreach (ProjectType projType in project.ProjectTypes)
+			{
+				if (projType.SettingsProvider != null)
+				{
+					list.Add(projType.SettingsProvider);
+				}
+			}
+			if (list.Count > 0)
+			{
+				SettingsDialog dlg = new SettingsDialog();
+				dlg.SettingsProviders.Clear();
+				foreach (SettingsProvider sp in list)
+				{
+					dlg.SettingsProviders.Add(sp);
+				}
+
+				dlg.Text = String.Format("{0} Properties", project.Title);
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					// TODO: apply properties to project
+				}
+				return;
+			}
+
+			Accessors.MemoryAccessor ma = new Accessors.MemoryAccessor(new byte[0], String.Format("{0} Properties", project.Title));
+			Document d = new Document(project, null, ma);
+			d.Title = String.Format("{0} Properties", project.Title);
+			((Application.Instance as UIApplication).CurrentWindow as IHostApplicationWindow).OpenFile(d);
+		}
 	}
 }

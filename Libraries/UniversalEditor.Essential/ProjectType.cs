@@ -60,6 +60,7 @@ namespace UniversalEditor
 		public Setting.SettingCollection Variables { get; } = new Setting.SettingCollection();
 
 		public string ProjectFileExtension { get; set; } = null;
+		public SettingsProvider SettingsProvider { get; set; } = null;
 	}
 	/// <summary>
 	/// A shortcut placed in the "Add New Item" menu when the project is selected. When
