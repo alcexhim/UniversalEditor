@@ -221,6 +221,8 @@
     <Compile Include="DataFormats\Markup\BML\BMLOpcode.cs" />
     <Compile Include="DataFormats\Markup\BML\BMLFlags.cs" />
     <Compile Include="DataFormats\Markup\BML\Internal\BMLHeader.cs" />
+    <Compile Include="DataFormats\UEPackage\SettingsParser.cs" />
+    <Compile Include="DataFormats\UEPackage\SettingsXMLSchema.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

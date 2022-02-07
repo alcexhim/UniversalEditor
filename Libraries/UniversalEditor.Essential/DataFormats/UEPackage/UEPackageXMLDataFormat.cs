@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using MBS.Framework;
 using MBS.Framework.Logic;
 using MBS.Framework.Settings;
@@ -365,6 +366,22 @@ namespace UniversalEditor.DataFormats.UEPackage
 									}
 								}
 							}
+							#region Settings
+							{
+								MarkupTagElement tagSettings = tagProjectType.Elements["Settings"] as MarkupTagElement;
+								if (tagSettings != null)
+								{
+									SettingsProvider csp = new CustomSettingsProvider();
+									SettingsParser.ParseSettingsProvider(tagSettings, ref csp);
+
+									if (csp != null)
+									{
+										projtype.SettingsProvider = csp;
+									}
+
+								}
+							}
+							#endregion
 							#region ItemShortcuts
 							{
 								MarkupTagElement tagItemShortcuts = (tagProjectType.Elements["ItemShortcuts"] as MarkupTagElement);
@@ -500,7 +517,6 @@ namespace UniversalEditor.DataFormats.UEPackage
 								}
 							}
 							#endregion
-
 							package.ProjectTypes.Add(projtype);
 						}
 					}
