@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<application>
-	<runtime typeName="UniversalEditor.UserInterface.EditorApplication">
-
-	</runtime>
+<application xmlns="urn:net.alcetech.schemas.Framework">
+	<supportedRuntimes>
+		<runtime typeName="UniversalEditor.UserInterface.EditorApplication" />
+	</supportedRuntimes>
 </application>
