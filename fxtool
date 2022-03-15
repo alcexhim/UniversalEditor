@@ -22,16 +22,16 @@
 
 ######## DEFINITIONS
 APP="MBS.Framework.UserInterface"
-USAGE_STATEMENT="Usage: $0 {install|remove} {gtk|wf}"
+USAGE_STATEMENT="Usage: $0 {install|remove} {gtk3|wf}"
 EC_INVALID_CHOICE=1
 
 ######## IMPLEMENTATION
 case "$1" in
 	install)
 		case "$2" in
-			gtk)
+			gtk3)
 				for ext in dll dll.config pdb xml; do
-					cp "../$APP/Output/Debug/$APP.Engines.GTK.$ext" "Output/Debug/"
+					cp "../$APP/Output/Debug/$APP.Engines.GTK3.$ext" "Output/Debug/"
 				done
 			;;
 			wf)
@@ -46,9 +46,9 @@ case "$1" in
 	;;
 	remove)
 		case "$2" in
-			gtk)
+			gtk3)
 				for ext in dll dll.config pdb xml; do
-					rm "Output/Debug/$APP.Engines.GTK.$ext"
+					rm "Output/Debug/$APP.Engines.GTK3.$ext"
 				done
 			;;
 			wf)
