@@ -91,7 +91,7 @@ cd $WD
 sudo cp MainIcon.png /usr/share/icons/universal-editor.png
 
 # link Production.snk to UniversalEditor.snk
-ln -s ../Production.snk $(APPNAME).snk
+ln -s ../Production.snk $APPNAME.snk
 
 # start the build
 msbuild
