@@ -335,12 +335,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 		/// </summary>
 		/// <returns>A <see cref="TreeModelRow" /> which has zero child rows, or null if no such <see cref="TreeModelRow" /> exists.</returns>
 		/// <param name="row">Row.</param>
-		private TreeModelRow ExpandSingleChildRows(TreeModelRow row)
+		private TreeModelRow ExpandSingleChildRows(ListViewControl tv, TreeModelRow row)
 		{
 			if (row.Rows.Count == 1)
 			{
-				row.Expanded = true;
-				return ExpandSingleChildRows(row.Rows[0]);
+				tv.SetExpanded(row, true);
+				return ExpandSingleChildRows(tv, row.Rows[0]);
 			}
 			else if (row.Rows.Count == 0)
 			{
@@ -376,7 +376,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			if (tmObjectModel.Rows.Count == 1)
 			{
-				TreeModelRow row = ExpandSingleChildRows(tmObjectModel.Rows[0]);
+				TreeModelRow row = ExpandSingleChildRows(tvObjectModel, tmObjectModel.Rows[0]);
 				if (row != null)
 				{
 					tvObjectModel.SelectedRows.Clear();
@@ -493,7 +493,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				RefreshProjectTemplates(tvObjectModel.SelectedRows[0]);
 			}
 
-			if (tmTemplate.Rows.Count == 1)
+			if (tmTemplate.Rows.Count > 0)
 			{
 				tvTemplate.SelectedRows.Add(tmTemplate.Rows[0]);
 			}

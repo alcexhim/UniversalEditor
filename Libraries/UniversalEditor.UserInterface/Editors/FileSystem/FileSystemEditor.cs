@@ -119,7 +119,7 @@ namespace UniversalEditor.Editors.FileSystem
 					{
 						// nautilus does the equivalent of 'CurrentFolder = ...' except opens in multiple tabs
 						// which... we don't really have the ability to do multiple tabs for the same document at the moment
-						tv.SelectedRows[i].Expanded = true;
+						tv.SetExpanded(tv.SelectedRows[i], true);
 					}
 					else
 					{
