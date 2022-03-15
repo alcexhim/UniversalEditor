@@ -79,7 +79,7 @@ namespace UniversalEditor.Editors.FileSystem
 			string fileTitle = filename; // filePath[filePath.Length - 1];
 
 			bool containsInvalidFileNames = invalidFileNames.Length > 0 && fileTitle.EqualsAny(invalidFileNames);
-			bool containsInvalidChars = String.IsNullOrEmpty(invalidPathChars) || fileTitle.ContainsAny(invalidPathChars.ToCharArray());
+			bool containsInvalidChars = !String.IsNullOrEmpty(invalidPathChars) && fileTitle.ContainsAny(invalidPathChars.ToCharArray());
 			return !(containsInvalidFileNames || containsInvalidChars);
 		}
 
