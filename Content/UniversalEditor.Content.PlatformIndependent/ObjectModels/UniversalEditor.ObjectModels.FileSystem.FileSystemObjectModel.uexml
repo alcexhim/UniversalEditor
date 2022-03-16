@@ -2,6 +2,6 @@
 <UniversalEditor Version="4.0">
 	<ObjectModels>
 		<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel"
-			Visible="true" />
+			Visible="true" EmptyTemplatePrefix="EmptyFileSystem" />
 	</ObjectModels>
 </UniversalEditor>

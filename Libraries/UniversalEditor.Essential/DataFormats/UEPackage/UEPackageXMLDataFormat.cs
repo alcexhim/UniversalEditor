@@ -531,61 +531,8 @@ namespace UniversalEditor.DataFormats.UEPackage
 									template.ID = new Guid(attID.Value);
 								}
 
-								MarkupTagElement tagInformation = (tagTemplate.Elements["Information"] as MarkupTagElement);
+								LoadTemplateCommonInformation(template, tagTemplate);
 
-								#region Information
-								{
-									if (tagInformation != null)
-									{
-										if (tagInformation.Elements["Title"] != null)
-										{
-											template.Title = tagInformation.Elements["Title"].Value;
-										}
-										if (tagInformation.Elements["Description"] != null)
-										{
-											template.Description = tagInformation.Elements["Description"].Value;
-										}
-
-										MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);
-										if (tagPath != null)
-										{
-											List<string> pathParts = new List<string>();
-											foreach (MarkupElement elPart in tagPath.Elements)
-											{
-												MarkupTagElement tagPart = (elPart as MarkupTagElement);
-												if (tagPart == null) continue;
-												if (tagPart.FullName != "Part") continue;
-												pathParts.Add(tagPart.Value);
-											}
-											template.Path = pathParts.ToArray();
-										}
-
-										MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
-										if (tagIconPath != null)
-										{
-											MarkupAttribute attFileName = tagIconPath.Attributes["FileName"];
-											if (attFileName != null)
-											{
-												string ImageFileName = attFileName.Value;
-												template.LargeIconImageFileName = ImageFileName;
-												template.SmallIconImageFileName = ImageFileName;
-											}
-											MarkupAttribute attLargeFileName = tagIconPath.Attributes["LargeFileName"];
-											if (attLargeFileName != null)
-											{
-												string ImageFileName = attLargeFileName.Value;
-												template.LargeIconImageFileName = ImageFileName;
-											}
-											MarkupAttribute attSmallFileName = tagIconPath.Attributes["SmallFileName"];
-											if (attSmallFileName != null)
-											{
-												string ImageFileName = attSmallFileName.Value;
-												template.SmallIconImageFileName = ImageFileName;
-											}
-										}
-									}
-								}
-								#endregion
 								#region Variables
 								{
 									MarkupTagElement tagVariables = (tagTemplate.Elements["Variables"] as MarkupTagElement);
@@ -727,72 +674,8 @@ namespace UniversalEditor.DataFormats.UEPackage
 									}
 								}
 
-								#region Information
-								MarkupTagElement tagInformation = (tagTemplate.Elements["Information"] as MarkupTagElement);
-								if (tagInformation != null)
-								{
-									MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
-									if (tagTitle != null) template.Title = tagTitle.Value;
+								LoadTemplateCommonInformation(template, tagTemplate);
 
-									MarkupTagElement tagDescription = (tagInformation.Elements["Description"] as MarkupTagElement);
-									if (tagDescription != null) template.Description = tagDescription.Value;
-
-									if (tagInformation.Elements["ProjectNamePrefix"] != null)
-									{
-										template.ProjectNamePrefix = tagInformation.Elements["ProjectNamePrefix"].Value;
-									}
-
-									MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);
-									if (tagPath != null)
-									{
-										List<string> pathParts = new List<string>();
-										foreach (MarkupElement elPart in tagPath.Elements)
-										{
-											MarkupTagElement tagPart = (elPart as MarkupTagElement);
-											if (tagPart == null) continue;
-											if (tagPart.FullName != "Part") continue;
-											pathParts.Add(tagPart.Value);
-										}
-										template.Path = pathParts.ToArray();
-									}
-
-									MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
-									if (tagIconPath != null)
-									{
-										#region All Icons
-										{
-											MarkupAttribute attFileName = tagIconPath.Attributes["FileName"];
-											if (attFileName != null)
-											{
-												string FileName = attFileName.Value;
-												if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
-												if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
-											}
-										}
-										#endregion
-										#region Large Icon
-										{
-											MarkupAttribute attLargeFileName = tagIconPath.Attributes["LargeFileName"];
-											if (attLargeFileName != null)
-											{
-												string FileName = attLargeFileName.Value;
-												if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
-											}
-										}
-										#endregion
-										#region Small Icon
-										{
-											MarkupAttribute attSmallFileName = tagIconPath.Attributes["SmallFileName"];
-											if (attSmallFileName != null)
-											{
-												string FileName = attSmallFileName.Value;
-												if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
-											}
-										}
-										#endregion
-									}
-								}
-								#endregion
 								#region FileSystem
 								{
 									MarkupTagElement tagFileSystem = (tagTemplate.Elements["FileSystem"] as MarkupTagElement);
@@ -1124,6 +1007,74 @@ namespace UniversalEditor.DataFormats.UEPackage
 				}
 			}
 			#endregion
+		}
+
+		private void LoadTemplateCommonInformation(Template template, MarkupTagElement tagTemplate)
+		{
+			MarkupTagElement tagInformation = (tagTemplate.Elements["Information"] as MarkupTagElement);
+			if (tagInformation != null)
+			{
+				MarkupTagElement tagTitle = (tagInformation.Elements["Title"] as MarkupTagElement);
+				if (tagTitle != null) template.Title = tagTitle.Value;
+
+				MarkupTagElement tagDescription = (tagInformation.Elements["Description"] as MarkupTagElement);
+				if (tagDescription != null) template.Description = tagDescription.Value;
+
+				if (tagInformation.Elements["Prefix"] != null)
+				{
+					template.Prefix = tagInformation.Elements["Prefix"].Value;
+				}
+
+				MarkupTagElement tagPath = (tagInformation.Elements["Path"] as MarkupTagElement);
+				if (tagPath != null)
+				{
+					List<string> pathParts = new List<string>();
+					foreach (MarkupElement elPart in tagPath.Elements)
+					{
+						MarkupTagElement tagPart = (elPart as MarkupTagElement);
+						if (tagPart == null) continue;
+						if (tagPart.FullName != "Part") continue;
+						pathParts.Add(tagPart.Value);
+					}
+					template.Path = pathParts.ToArray();
+				}
+
+				MarkupTagElement tagIconPath = (tagInformation.Elements["IconPath"] as MarkupTagElement);
+				if (tagIconPath != null)
+				{
+					#region All Icons
+					{
+						MarkupAttribute attFileName = tagIconPath.Attributes["FileName"];
+						if (attFileName != null)
+						{
+							string FileName = attFileName.Value;
+							if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
+							if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
+						}
+					}
+					#endregion
+					#region Large Icon
+					{
+						MarkupAttribute attLargeFileName = tagIconPath.Attributes["LargeFileName"];
+						if (attLargeFileName != null)
+						{
+							string FileName = attLargeFileName.Value;
+							if (System.IO.File.Exists(FileName)) template.LargeIconImageFileName = FileName;
+						}
+					}
+					#endregion
+					#region Small Icon
+					{
+						MarkupAttribute attSmallFileName = tagIconPath.Attributes["SmallFileName"];
+						if (attSmallFileName != null)
+						{
+							string FileName = attSmallFileName.Value;
+							if (System.IO.File.Exists(FileName)) template.SmallIconImageFileName = FileName;
+						}
+					}
+					#endregion
+				}
+			}
 		}
 
 		private CustomDataFormatStructure CreateStructure(MarkupTagElement tag, Dictionary<string, object> localVariables)

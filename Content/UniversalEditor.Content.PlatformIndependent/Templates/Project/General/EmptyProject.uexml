@@ -4,7 +4,7 @@
 		<ProjectTemplate ID="{b6aa9ce4-0212-448c-aadb-0a55d82262de}" TypeID="{642aa8e1-5279-430a-a57b-4d846bd0801f}">
 			<Information>
 				<Title>Empty Project</Title>
-				<ProjectNamePrefix>Project</ProjectNamePrefix>
+				<Prefix>Project</Prefix>
 				<Description>Creates an empty project.</Description>
 				<IconPath LargeFileName="Images/EmptyProject_32x32.png" SmallFileName="Images/EmptyProject_16x16.png" />
 				<Path>

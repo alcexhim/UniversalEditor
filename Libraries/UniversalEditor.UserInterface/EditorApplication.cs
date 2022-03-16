@@ -509,16 +509,22 @@ namespace UniversalEditor.UserInterface
 							MarkupAttribute attTypeName = tag.Attributes["TypeName"];
 							MarkupAttribute attID = tag.Attributes["ID"];
 							MarkupAttribute attVisible = tag.Attributes["Visible"];
+							MarkupAttribute attEmptyTemplatePrefix = tag.Attributes["EmptyTemplatePrefix"];
 
+							ObjectModelReference omr = null;
 							if (attTypeName != null)
 							{
-								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByTypeName(attTypeName.Value);
-								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+								omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByTypeName(attTypeName.Value);
 							}
 							else
 							{
-								ObjectModelReference omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByID(new Guid(attID.Value));
+								omr = UniversalEditor.Common.Reflection.GetAvailableObjectModelByID(new Guid(attID.Value));
+							}
+
+							if (omr != null)
+							{
 								if (attVisible != null) omr.Visible = (attVisible.Value == "true");
+								if (attEmptyTemplatePrefix != null) omr.EmptyTemplatePrefix = attEmptyTemplatePrefix.Value;
 							}
 						}
 					}

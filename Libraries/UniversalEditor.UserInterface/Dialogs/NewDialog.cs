@@ -230,13 +230,22 @@ namespace UniversalEditor.UserInterface.Dialogs
 					row.SetExtraData<List<DocumentTemplate>>("dts", dts);
 				}
 
-				DocumentTemplate dtEmpty = new DocumentTemplate();
-				dtEmpty.ObjectModelReference = omr;
-				dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
+				DocumentTemplate dtEmpty = CreateEmptyDocumentTemplate(omr);
 				dts.Add(dtEmpty);
 			}
 
 			InitializeObjectModelTreeViewRow(tm, row, omr, index + 1);
+		}
+
+		private DocumentTemplate CreateEmptyDocumentTemplate(ObjectModelReference omr)
+		{
+			string[] path = omr.Path;
+			DocumentTemplate dtEmpty = new DocumentTemplate();
+			dtEmpty.ObjectModelReference = omr;
+
+			dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
+			dtEmpty.Prefix = omr.EmptyTemplatePrefix ?? String.Format("Empty{0}Document", path[path.Length - 1]);
+			return dtEmpty;
 		}
 
 		[EventHandler(nameof(cmdOK), "Click")]
@@ -512,7 +521,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 				if (!txtFileName.IsChangedByUser)
 				{
-					string projectNamePrefix = pt.ProjectNamePrefix;
+					string projectNamePrefix = pt.Prefix;
 					if (String.IsNullOrEmpty(projectNamePrefix))
 					{
 						projectNamePrefix = pt.Title.Replace(" ", String.Empty);
@@ -527,7 +536,13 @@ namespace UniversalEditor.UserInterface.Dialogs
 				if (pt == null) return;
 				if (!txtFileName.IsChangedByUser)
 				{
-					// txtFileName.Text = projectNamePrefix + "1";
+					string projectNamePrefix = pt.Prefix;
+					if (String.IsNullOrEmpty(projectNamePrefix))
+					{
+						projectNamePrefix = pt.Title.Replace(" ", String.Empty).Replace("/", String.Empty);
+						// projectNamePrefix = "Project";
+					}
+					txtFileName.Text = projectNamePrefix + "1";
 				}
 			}
 		}
