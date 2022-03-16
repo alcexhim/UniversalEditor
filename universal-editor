@@ -2,5 +2,15 @@
 FLAVOR=Debug
 APPNAME=UniversalEditor
 
-cd Output/$FLAVOR
-mono $APPNAME.exe ${1+"$@"}
+if [ -d Output/$FLAVOR ]; then
+
+	# running from git repository
+	cd Output/$FLAVOR
+	mono $APPNAME.exe ${1+"$@"}
+
+else
+
+	# installed to local machine
+	mono $APPNAME.exe ${1+"$@"}
+
+fi
