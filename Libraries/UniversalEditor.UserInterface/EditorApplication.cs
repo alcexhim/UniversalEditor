@@ -342,7 +342,7 @@ namespace UniversalEditor.UserInterface
 					}
 					else if (eo is ChoiceSetting)
 					{
-						ChoiceSetting.ChoiceSettingValue choice = (ChoiceSetting.ChoiceSettingValue) (eo as ChoiceSetting).GetValue();
+						ChoiceSetting.ChoiceSettingValue choice = (ChoiceSetting.ChoiceSettingValue)(eo as ChoiceSetting).GetValue();
 						if (choice != null)
 						{
 							Type[] interfaces = pi.PropertyType.GetInterfaces();
