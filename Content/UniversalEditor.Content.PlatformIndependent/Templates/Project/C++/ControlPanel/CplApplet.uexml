@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<ProjectTemplates>
+		<ProjectTemplate ID="{18ed6e0e-80b8-474e-91d4-4c7e9890c1cc}" TypeID="{2dae6c31-c0c0-4097-ae95-60d201570baf}">
+			<ProjectTypes>
+				<!-- These are also called 'natures' in Eclipse -->
+				<!-- Microsoft.CPlusPlus.projecttype -->
+				<ProjectType ID="{2dae6c31-c0c0-4097-ae95-60d201570baf}" />
+			</ProjectTypes>
+			<Information>
+				<Title>Windows Control Panel Applet Project</Title>
+				<ProjectNamePrefix>CplApplet</ProjectNamePrefix>
+				<Description>Creates a basic Windows Control Panel applet.</Description>
+				<IconPath LargeFileName="Images/Applet_32x32.png" SmallFileName="Images/Applet_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>C++</Part>
+					<Part>Control Panel</Part>
+				</Path>
+			</Information>
+			<FileSystem CopyFrom="content" />
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>
