@@ -83,7 +83,7 @@ namespace UniversalEditor.Plugins.RavenSoftware.UserInterface.Editors.Icarus
 			if (selectedCommand != null && selectedCommand.IsContainer)
 			{
 				RecursiveAddCommand(omcmd, tv.SelectedRows[0]);
-				tv.SelectedRows[0].Expanded = true;
+				tv.SetExpanded(tv.SelectedRows[0], true);
 
 				selectedCommand.Commands.Add(omcmd);
 				tv.SelectedRows[0].RowColumns[0].Value = GetCommandText(selectedCommand);

@@ -69,6 +69,18 @@ namespace UniversalEditor
 		private Guid mvarID = Guid.Empty;
 		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
+		private string[] mvarPath = null;
+		/// <summary>
+		///
+		/// </summary>
+		public string[] Path { get { return mvarPath; } set { mvarPath = value; } }
+
+		/// <summary>
+		/// Gets or sets the template file name prefix.
+		/// </summary>
+		/// <value>The template file name prefix.</value>
+		public string Prefix { get; set; } = String.Empty;
+
 		private string mvarTitle = String.Empty;
 		/// <summary>
 		/// The title of the document template.
@@ -131,12 +143,6 @@ namespace UniversalEditor
 		/// A <see cref="UniversalEditor.ObjectModels.Markup.MarkupObjectModel" /> that provides the content for this template.
 		/// </summary>
 		public MarkupObjectModel TemplateContent { get { return mvarTemplateContent; } }
-
-		private string[] mvarPath = null;
-		/// <summary>
-		///
-		/// </summary>
-		public string[] Path { get { return mvarPath; } set { mvarPath = value; } }
 
 		/// <summary>
 		/// Initializes the template's ObjectModel with the content specified in <see cref="TemplateContent" />.
@@ -223,12 +229,6 @@ namespace UniversalEditor
 		{
 
 		}
-
-		private string[] mvarPath = null;
-		/// <summary>
-		///
-		/// </summary>
-		public string[] Path { get { return mvarPath; } set { mvarPath = value; } }
 
 		public ProjectType.ProjectTypeCollection ProjectTypes { get; } = new ProjectType.ProjectTypeCollection();
 

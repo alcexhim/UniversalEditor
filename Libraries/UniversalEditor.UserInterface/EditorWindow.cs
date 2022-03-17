@@ -281,8 +281,8 @@ namespace UniversalEditor.UserInterface
 			DockingWindow di = dckContainer.Items[page] as DockingWindow;
 			if (di == null) return;
 
-			di.Title = GetDocumentTitle(page.Document);
 			page.Document.IsChanged = true;
+			di.Title = GetDocumentTitle(page.Document);
 		}
 		/*
 		private void page_Navigate(object sender, NavigateEventArgs e)

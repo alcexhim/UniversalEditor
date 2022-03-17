@@ -238,6 +238,7 @@ namespace UniversalEditor
 		private bool mvarVisible = true;
 		public bool Visible { get { return mvarVisible; } set { mvarVisible = value; } }
 
+		public string EmptyTemplatePrefix { get; set; } = null;
 
 		private static Dictionary<Guid, ObjectModelReference> _referencesByGUID = new Dictionary<Guid, ObjectModelReference>();
 		private static Dictionary<string, ObjectModelReference> _referencesByTypeName = new Dictionary<string, ObjectModelReference>();

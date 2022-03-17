@@ -11,7 +11,7 @@
 			</ProjectTypes>
 			<Information>
 				<Title>Basic PlayStation(R) Mobile Project</Title>
-				<ProjectNamePrefix>PsmApp</ProjectNamePrefix>
+				<Prefix>PsmApp</Prefix>
 				<Description>Creates a basic PlayStation Mobile app for developing on PlayStation Vita and PlayStation 3.</Description>
 				<IconPath LargeFileName="Images/Psm_32x32.png" SmallFileName="Images/Psm_16x16.png" />
 				<Path>

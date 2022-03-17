@@ -248,13 +248,22 @@ namespace UniversalEditor.UserInterface.Dialogs
 					row.SetExtraData<List<DocumentTemplate>>("dts", dts);
 				}
 
-				DocumentTemplate dtEmpty = new DocumentTemplate();
-				dtEmpty.ObjectModelReference = omr;
-				dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
+				DocumentTemplate dtEmpty = CreateEmptyDocumentTemplate(omr);
 				dts.Add(dtEmpty);
 			}
 
 			InitializeObjectModelTreeViewRow(tm, row, omr, index + 1);
+		}
+
+		private DocumentTemplate CreateEmptyDocumentTemplate(ObjectModelReference omr)
+		{
+			string[] path = omr.Path;
+			DocumentTemplate dtEmpty = new DocumentTemplate();
+			dtEmpty.ObjectModelReference = omr;
+
+			dtEmpty.Title = String.Format("Blank {0} Document", path[path.Length - 1]);
+			dtEmpty.Prefix = omr.EmptyTemplatePrefix ?? String.Format("Empty{0}Document", path[path.Length - 1]);
+			return dtEmpty;
 		}
 
 		[EventHandler(nameof(cmdOK), "Click")]
@@ -353,12 +362,12 @@ namespace UniversalEditor.UserInterface.Dialogs
 		/// </summary>
 		/// <returns>A <see cref="TreeModelRow" /> which has zero child rows, or null if no such <see cref="TreeModelRow" /> exists.</returns>
 		/// <param name="row">Row.</param>
-		private TreeModelRow ExpandSingleChildRows(TreeModelRow row)
+		private TreeModelRow ExpandSingleChildRows(ListViewControl tv, TreeModelRow row)
 		{
 			if (row.Rows.Count == 1)
 			{
-				row.Expanded = true;
-				return ExpandSingleChildRows(row.Rows[0]);
+				tv.SetExpanded(row, true);
+				return ExpandSingleChildRows(tv, row.Rows[0]);
 			}
 			else if (row.Rows.Count == 0)
 			{
@@ -394,7 +403,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 
 			if (tmObjectModel.Rows.Count == 1)
 			{
-				TreeModelRow row = ExpandSingleChildRows(tmObjectModel.Rows[0]);
+				TreeModelRow row = ExpandSingleChildRows(tvObjectModel, tmObjectModel.Rows[0]);
 				if (row != null)
 				{
 					tvObjectModel.SelectedRows.Clear();
@@ -511,7 +520,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 				RefreshProjectTemplates(tvObjectModel.SelectedRows[0]);
 			}
 
-			if (tmTemplate.Rows.Count == 1)
+			if (tmTemplate.Rows.Count > 0)
 			{
 				tvTemplate.SelectedRows.Add(tmTemplate.Rows[0]);
 			}
@@ -549,7 +558,6 @@ namespace UniversalEditor.UserInterface.Dialogs
 				if (pt == null) return;
 				if (!txtFileName.IsChangedByUser)
 				{
-
 					string prefix = pt.Prefix;
 					if (String.IsNullOrEmpty(prefix))
 					{

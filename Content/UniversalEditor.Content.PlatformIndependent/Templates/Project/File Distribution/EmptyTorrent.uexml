@@ -4,7 +4,7 @@
 		<ProjectTemplate ID="{BAB6BF34-F163-46A4-A34C-8FC0B08BC607}" TypeID="{8E28DA96-1267-4077-910E-91D5E863C557}">
 			<Information>
 				<Title>Empty Torrent</Title>
-				<ProjectNamePrefix>Torrent</ProjectNamePrefix>
+				<Prefix>Torrent</Prefix>
 				<Description>Creates an empty Torrent project for distributing files over peer-to-peer networks.</Description>
 				<IconPath LargeFileName="Images/Torrent_32x32.png" SmallFileName="Images/Torrent_16x16.png" />
 				<Path>

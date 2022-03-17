@@ -13,6 +13,7 @@
     <TargetFrameworkProfile />
     <AssemblyOriginatorKeyFile>..\..\UniversalEditor.snk</AssemblyOriginatorKeyFile>
     <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
