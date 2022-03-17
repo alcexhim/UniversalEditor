@@ -18,5 +18,5 @@ repos:
     hooks:
     -   id: forbid-space-in-indent
         language: script
-        exclude: (^.*\.(csproj|glade|resx|svg|yaml|txt|uexml)$)|LICENSE
+        exclude: (^.*\.(csproj|glade|resx|svg|yaml|txt|uexml|cxxproj)$)|LICENSE
         exclude_types: ['binary']

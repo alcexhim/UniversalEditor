@@ -93,8 +93,6 @@ namespace UniversalEditor
 		/// </summary>
 		public string Description { get { return mvarDescription; } set { mvarDescription = value; } }
 
-		public string Prefix { get; set; } = null;
-
 		private TemplateVariable.TemplateVariableCollection mvarVariables = new TemplateVariable.TemplateVariableCollection();
 		/// <summary>
 		/// Variables that affect the content of this template.

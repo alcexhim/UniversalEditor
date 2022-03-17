@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<ProjectTemplates>
+		<ProjectTemplate ID="{f563387c-d583-41df-bed1-661d98914cb4}" TypeID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+			<ProjectTypes>
+				<!-- These are also called 'natures' in Eclipse -->
+				<!-- Microsoft.CSharp.projecttype -->
+				<ProjectType ID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}" />
+			</ProjectTypes>
+			<Information>
+				<Title>Console Application</Title>
+				<ProjectNamePrefix>ConsoleApplication</ProjectNamePrefix>
+				<Description>Creates a basic text-only (console) application in C#.</Description>
+				<IconPath LargeFileName="Images/Console_32x32.png" SmallFileName="Images/Console_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>C#</Part>
+				</Path>
+			</Information>
+			<FileSystem CopyFrom="content" />
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>
