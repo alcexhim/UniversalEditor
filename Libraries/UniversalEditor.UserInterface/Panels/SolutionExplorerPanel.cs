@@ -184,6 +184,7 @@ namespace UniversalEditor.UserInterface.Panels
 			tmSolutionExplorer = new DefaultTreeModel(new Type[] { typeof(string) });
 			tvSolutionExplorer.Model = tmSolutionExplorer;
 			tvSolutionExplorer.BeforeContextMenu += tvSolutionExplorer_BeforeContextMenu;
+			tvSolutionExplorer.SelectionChanged += tvSolutionExplorer_SelectionChanged;
 			tvSolutionExplorer.RowActivated += tvSolutionExplorer_RowActivated;
 
 			// (UniversalEditor.exe:24867): Gtk-CRITICAL **: 21:28:56.913: gtk_tree_store_set_value: assertion 'G_IS_VALUE (value)' failed
@@ -249,6 +250,31 @@ namespace UniversalEditor.UserInterface.Panels
 			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFile", mnuContextFolderAddNewFile_Click);
 			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_ExistingFiles", mnuContextFolderAddExistingFile_Click);
 			Application.Instance.AttachCommandEventHandler("SolutionExplorer_ContextMenu_Folder_Add_NewFolder", mnuContextFolderAddNewFolder_Click);
+		}
+
+		private void tvSolutionExplorer_SelectionChanged(object sender, EventArgs e)
+		{
+			bool hasSettingsProvider = false;
+			if (tvSolutionExplorer.LastHitTest.Row != null)
+			{
+				ProjectObjectModel project = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ProjectObjectModel>("project");
+				SolutionObjectModel solution = tvSolutionExplorer.LastHitTest.Row.GetExtraData<SolutionObjectModel>("solution");
+				ProjectFolder folder = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ProjectFolder>("folder");
+				ProjectFile file = tvSolutionExplorer.LastHitTest.Row.GetExtraData<ProjectFile>("file");
+
+				if (project != null)
+				{
+					for (int i = 0; i < project.ProjectTypes.Count; i++)
+					{
+						if (project.ProjectTypes[i].SettingsProvider != null)
+						{
+							hasSettingsProvider = true;
+							break;
+						}
+					}
+				}
+			}
+			Application.Instance.FindCommand("FileProperties").Enabled = hasSettingsProvider;
 		}
 
 		private void mnuContextFileOpen_Click(object sender, EventArgs e)
@@ -474,14 +500,7 @@ namespace UniversalEditor.UserInterface.Panels
 
 				if (project != null)
 				{
-					SettingsDialog dlg = new SettingsDialog();
-					dlg.SettingsProviders.Clear();
-					dlg.Text = String.Format("{0} Properties", project.Title);
-
-					if (dlg.ShowDialog() == DialogResult.OK)
-					{
-
-					}
+					((EditorApplication)Application.Instance).ShowProjectSettings(project);
 					return;
 				}
 				if (file != null)
