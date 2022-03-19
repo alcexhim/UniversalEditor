@@ -19,9 +19,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-
+using MBS.Framework;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.UserInterface;
 
 namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 {
@@ -72,7 +73,15 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.AFS
 
 			if (tocOffset == 0)
 			{
-				throw new InvalidDataFormatException("table of contents not found");
+				((EditorApplication)Application.Instance)?.Messages.Add(HostApplicationMessageSeverity.Warning, "table of contents not found", Accessor.GetFileName());
+				for (int j = 0; j < fileCount; j++)
+				{
+					fileinfos[j].name = String.Format("file_{0}", j);
+					File f = fsom.AddFile(fileinfos[j].name);
+					f.Properties.Add("fileinfo", fileinfos[j]);
+					f.Size = fileinfos[j].length;
+					f.DataRequest += f_DataRequest;
+				}
 			}
 			else
 			{
