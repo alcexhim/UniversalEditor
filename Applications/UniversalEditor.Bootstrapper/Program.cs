@@ -42,21 +42,6 @@ namespace UniversalEditor.Bootstrapper
 		[STAThread]
 		static void Main()
 		{
-			try
-			{
-				string path =
-					System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
-					+ System.IO.Path.DirectorySeparatorChar.ToString()
-					+ "UniversalEditor.UserInterface.dll";
-
-				Assembly asm = System.Reflection.Assembly.LoadFile(path);
-			}
-			catch
-			{
-				MessageDialog.ShowDialog("The file 'UniversalEditor.UserInterface.dll' is required for this software to run, but is either missing or corrupted.  Please re-install the software and try again.", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
-				return;
-			}
-
 			(new Program()).Start();
 		}
 	}
