@@ -163,6 +163,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			// Rebuilt based on cpk_unpack
 			// Rebuilt AGAIN based on github.com/esperknight/CriPakTools
 			DatabaseObjectModel utf_om = ReadUTF("CPK ", br, out _HeaderData);
+			int utf_checksum = br.ReadInt32(); // maybe checksum?
 
 			DatabaseTable dtUTF = utf_om.Tables[0];
 			HeaderTable = dtUTF;
@@ -267,7 +268,7 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 						uint decompressedLength = (uint)dtUTFTOC.Records[i].Fields["FileSize"].Value;
 						uint compressedLength = (uint)dtUTFTOC.Records[i].Fields["ExtractSize"].Value;
 						ulong offset = (ulong)dtUTFTOC.Records[i].Fields["FileOffset"].Value;
-						ulong lContentOffset = (ulong)dtUTF.Records[0].Fields["TocOffset"].Value;
+						ulong lContentOffset = (ulong)dtUTF.Records[0].Fields["ContentOffset"].Value;
 						offset += lContentOffset;
 
 						File f = fsom.AddFile(fileName);
@@ -402,16 +403,17 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 			}
 		}
 
-		private DatabaseObjectModel ReadUTF(string v, Reader br, out byte[] data)
+		private DatabaseObjectModel ReadUTF(string expectedSignature, Reader br, out byte[] data)
 		{
 			string tocSignature = br.ReadFixedLengthString(4);
-			if (tocSignature != v)
+			if (tocSignature != expectedSignature)
 				throw new InvalidDataFormatException();
 
-			int unknown1 = br.ReadInt32();
+			int unknown1 = br.ReadInt32(); // always 255?
 
 			// UTF table for TOC
 			long utf_size = br.ReadInt64(); // size of UTF including "@UTF"
+
 			byte[] utf_data = br.ReadBytes(utf_size);
 
 			MemoryAccessor ma = new MemoryAccessor(utf_data);
