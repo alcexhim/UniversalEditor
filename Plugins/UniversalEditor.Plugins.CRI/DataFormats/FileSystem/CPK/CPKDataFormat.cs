@@ -268,7 +268,15 @@ namespace UniversalEditor.Plugins.CRI.DataFormats.FileSystem.CPK
 						uint decompressedLength = (uint)dtUTFTOC.Records[i].Fields["FileSize"].Value;
 						uint compressedLength = (uint)dtUTFTOC.Records[i].Fields["ExtractSize"].Value;
 						ulong offset = (ulong)dtUTFTOC.Records[i].Fields["FileOffset"].Value;
+
+						ulong lTocOffset = (ulong)dtUTF.Records[0].Fields["TocOffset"].Value;
 						ulong lContentOffset = (ulong)dtUTF.Records[0].Fields["ContentOffset"].Value;
+
+						// HACK: according to kamikat cpk tools, the real content offset is whichever is smaller TocOffset vs ContentOffset
+						// https://github.com/kamikat/cpktools/blob/master/cpkunpack.py
+						// this feels EXTREMELY hacky, but it works... for now
+						ulong lRealContentOffset = Math.Min(lTocOffset, lContentOffset);
+
 						offset += lContentOffset;
 
 						File f = fsom.AddFile(fileName);
