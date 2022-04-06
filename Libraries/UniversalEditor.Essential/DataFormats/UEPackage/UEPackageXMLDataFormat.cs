@@ -936,6 +936,13 @@ namespace UniversalEditor.DataFormats.UEPackage
 										if (tagMagicByteSequence == null) continue;
 										if (tagMagicByteSequence.FullName != "MagicByteSequence") continue;
 
+										int offset = 0;
+										MarkupAttribute attOffset = tagMagicByteSequence.Attributes["Offset"];
+										if (attOffset != null)
+										{
+											offset = Int32.Parse(attOffset.Value);
+										}
+
 										List<byte?> magicByteSequence = new List<byte?>();
 
 										foreach (MarkupElement elMagicByte in tagMagicByteSequence.Elements)
@@ -1008,7 +1015,7 @@ namespace UniversalEditor.DataFormats.UEPackage
 											}
 										}
 
-										magicByteOffsets.Add(0);
+										magicByteOffsets.Add(offset);
 										filter.MagicBytes.Add(magicByteSequence.ToArray());
 									}
 									filter.MagicByteOffsets = magicByteOffsets.ToArray();

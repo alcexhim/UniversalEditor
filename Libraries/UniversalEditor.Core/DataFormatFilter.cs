@@ -154,15 +154,15 @@ namespace UniversalEditor
 						byte[] cmp = new byte[bytes.Length];
 
 						long offset = accessor.Position;
-						if (i < mvarMagicByteOffsets.Length)
+						if (i < MagicByteOffsets.Length)
 						{
-							if (mvarMagicByteOffsets[i] < 0)
+							if (MagicByteOffsets[i] < 0)
 							{
-								accessor.Seek(mvarMagicByteOffsets[i], SeekOrigin.End);
+								accessor.Seek(MagicByteOffsets[i], SeekOrigin.End);
 							}
 							else
 							{
-								accessor.Seek(mvarMagicByteOffsets[i], SeekOrigin.Begin);
+								accessor.Seek(MagicByteOffsets[i], SeekOrigin.Begin);
 							}
 						}
 						accessor.Reader.Read(cmp, 0, cmp.Length);
@@ -223,8 +223,7 @@ namespace UniversalEditor
 			return false;
 		}
 
-		private int[] mvarMagicByteOffsets = new int[0];
-		public int[] MagicByteOffsets { get { return mvarMagicByteOffsets; } set { mvarMagicByteOffsets = value; } }
+		public int[] MagicByteOffsets { get; set; } = new int[0];
 
 		public string ContentType { get; set; } = null;
 		public string PerceivedType { get; set; }
