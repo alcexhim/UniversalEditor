@@ -5,11 +5,8 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
 {
-	public class igAnimationCombiner : igBase
+	public class igAnimationCombiner : igNamedObject
 	{
-		private string mvarName = String.Empty;
-		public string Name { get { return mvarName; } set { mvarName = value; } }
-
 		private igSkeleton mvarSkeleton = null;
 		public igSkeleton Skeleton { get { return mvarSkeleton; } set { mvarSkeleton = value; } }
 

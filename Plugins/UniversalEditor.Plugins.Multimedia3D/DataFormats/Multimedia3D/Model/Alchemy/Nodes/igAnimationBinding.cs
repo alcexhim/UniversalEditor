@@ -18,5 +18,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
 
 		private uint mvarReflectTrack = 0;
 		public uint ReflectTrack { get { return mvarReflectTrack; } set { mvarReflectTrack = value; } }
+
+		public uint BoneTrackIndexArray { get; internal set; }
 	}
 }

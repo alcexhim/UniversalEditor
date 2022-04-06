@@ -5,12 +5,12 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 {
-	public class igList<T> : igBase where T : igBase
+	public class igList : igBase
 	{
-		private uint mvarCapacity = 0;
-		public uint Capacity { get { return mvarCapacity; } set { mvarCapacity = value; } }
-
-		private List<T> mvarItems = new List<T>();
-		public List<T> Items { get { return mvarItems; } }
+		public uint Capacity { get; set; } = 0;
+	}
+	public class igList<T> : igList
+	{
+		public List<T> Items { get; } = new List<T>();
 	}
 }

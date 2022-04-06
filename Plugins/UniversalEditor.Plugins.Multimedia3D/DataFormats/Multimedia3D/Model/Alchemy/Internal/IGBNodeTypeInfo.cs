@@ -5,14 +5,20 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Internal
 {
-	internal struct IGB_NODE_INFO
+	internal class IGBNodeTypeInfo
 	{
 		public uint nameLength;
 		public uint param02;
 		public uint param03;
-		public uint param04;
-		public uint parentNode;
+		public uint fieldCount;
+		public uint parentNodeindex;
 		public uint childCount;
 		public string name;
+		public IGBNodeTypeInfo parentNode = null;
+
+		public override string ToString()
+		{
+			return String.Format("{0} : {1}", name, parentNode?.name);
+		}
 	}
 }

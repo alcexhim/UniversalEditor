@@ -7,7 +7,11 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Internal
 {
 	public struct IGB_ENTRY
 	{
-		public uint type;
+		public IGBNodeEntryType type;
 		public uint[] entries;
+		public override string ToString()
+		{
+			return String.Format("{0}: {1}", type, String.Join<uint>(", ", entries));
+		}
 	}
 }

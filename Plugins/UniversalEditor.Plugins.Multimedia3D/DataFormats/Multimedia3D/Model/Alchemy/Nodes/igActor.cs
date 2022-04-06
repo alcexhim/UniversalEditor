@@ -5,15 +5,25 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
 {
-	public class igActor : igBase
+	public class igActor : igNamedObject
 	{
-		private string mvarName = String.Empty;
-		public string Name { get { return mvarName; } set { mvarName = value; } }
+		[Flags]
+		public enum igActorFlags : uint
+		{
+			None = 0x00000000
+		}
 
-		private uint mvarFlags = 0;
-		public uint Flags { get { return mvarFlags; } set { mvarFlags = value; } }
+		public string Name { get; set; } = String.Empty;
+		public igBase Bound { get; set; }
+		public igAppearance Appearance { get; set; }
+		public igAnimationDatabase AnimationDatabase { get; set; }
+		public igAnimationSystem AnimationSystem { get; set; }
+		public igList ChildList { get; set; }
+		public igBase BoneMatrixCacheArray { get; set; }
+		public igBase BlendMatrixCacheArray { get; set; }
+		public igAnimationModifierList ModifierList { get; internal set; }
 
-		private float[] mvarTransform = new float[16];
-		public float[] Transform { get { return mvarTransform; } set { mvarTransform = value; } }
+		public igActorFlags Flags { get; set; } = 0;
+		public float[] Transform { get; set; } = new float[16];
 	}
 }

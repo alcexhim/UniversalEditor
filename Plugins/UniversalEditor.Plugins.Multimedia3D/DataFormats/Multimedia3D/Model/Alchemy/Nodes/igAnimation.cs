@@ -5,11 +5,8 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
 {
-	public class igAnimation : igBase
+	public class igAnimation : igNamedObject
 	{
-		private string mvarName = String.Empty;
-		public string Name { get { return mvarName; } set { mvarName = value; } }
-
 		private uint mvarPriority = 0;
 		public uint Priority { get { return mvarPriority; } set { mvarPriority = value; } }
 
@@ -33,5 +30,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
 
 		private uint mvarUseAnimationTransBoolArray = 0;
 		public uint UseAnimationTransBoolArray { get { return mvarUseAnimationTransBoolArray; } set { mvarUseAnimationTransBoolArray = value; } }
+
+		public igAnimationTransitionDefinitionList TransitionList { get; internal set; }
 	}
 }

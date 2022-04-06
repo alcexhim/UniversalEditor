@@ -5,12 +5,14 @@ using System.Text;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes
 {
-	public class igAABox : igBase
+	public class igAABox : igObject
 	{
-		private PositionVector3 mvarMinimum = new PositionVector3();
-		public PositionVector3 Minimum { get { return mvarMinimum; } set { mvarMinimum = value; } }
+		public PositionVector3 Minimum { get; set; } = new PositionVector3();
+		public PositionVector3 Maximum { get; set; } = new PositionVector3();
 
-		private PositionVector3 mvarMaximum = new PositionVector3();
-		public PositionVector3 Maximum { get { return mvarMaximum; } set { mvarMaximum = value; } }
+		public override string ToString()
+		{
+			return String.Format(" ( {0} ) - ( {1} ) ", Minimum, Maximum);
+		}
 	}
 }

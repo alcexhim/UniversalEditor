@@ -1,22 +1,44 @@
 using System;
 using System.Collections.Generic;
 
-using UniversalEditor.ObjectModels.Multimedia3D.Model;
+using UniversalEditor.ObjectModels.Multimedia3D.Scene;
 
 using UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Internal;
 using UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes;
+using UniversalEditor.IO;
 
 namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 {
 	public class IntrinsicGraphicsBinaryDataFormat : DataFormat
 	{
+		//skin29.igb statistics from Finalizer
+		// Primary object type: igAnimationDatabase
+		// inherits from: igObject, igNamedObject, igInfo, igAnimationDatabase
+		// object size: 40
+		//memory pool: Main.Default
+		// Allocated instances: 1
+
+		// igAnimationDatabase("miku_anim_db") - 0x037cef70
+		// -- _name: miku_anim_db
+		// -- _resolveState: true
+		// -- _skeletonList: igSkeletonList(0 object)
+		// -- _animationList: igAnimationList(0 object)
+		// -- _skinList: igSkinList(1 object)
+		// -- -- igSkin("miku_skin") - 0x03059310
+		// -- -- -- _name: miku_skin
+		// -- -- -- _skinnedGraph: igAttrSet("sceneGraph") - 0x038aea98
+		// -- -- -- -- ...
+		// -- -- -- _bound: NULL
+		// -- _appearanceList: igAppearanceList(0 object)
+		// -- _combinerList: igAnimationCombinerList(0 object)
+
 		private static DataFormatReference _dfr = null;
 		protected override DataFormatReference MakeReferenceInternal()
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReference();
-				_dfr.Capabilities.Add(typeof(ModelObjectModel), DataFormatCapabilities.All);
+				_dfr = new DataFormatReference(GetType());
+				_dfr.Capabilities.Add(typeof(SceneObjectModel), DataFormatCapabilities.All);
 				// _dfr.Filters.Add("Alchemy Intrinsic Graphics Binary", new string[] { "*.igb" });
 				_dfr.Sources.Add("http://www.siliconstudio.co.jp/middleware/alchemy/index.html");
 			}
@@ -31,161 +53,204 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 		private Dictionary<string, int> objectSizes = new Dictionary<string, int>();
 		public void InitializeObjectSizes()
 		{
-			objectSizes.Add("igObject", 0x00);
-			objectSizes.Add("igAABox", 0x06);
-			objectSizes.Add("igActor", 0x21);
-			objectSizes.Add("igActorInfo", 0x15);
-			objectSizes.Add("igActorList", 0x09);
-			objectSizes.Add("igAnimation", 0x1B);
-			objectSizes.Add("igAnimationBinding", 0x0F);
-			objectSizes.Add("igAnimationBindingList", 0x09);
-			objectSizes.Add("igAnimationCombiner", 0x2D);
-			objectSizes.Add("igAnimationCombinerBoneInfo", 0x15);
-			objectSizes.Add("igAnimationCombinerBoneInfoList", 0x09);
-			objectSizes.Add("igAnimationCombinerBoneInfoListList", 0x09);
-			objectSizes.Add("igAnimationCombinerList", 0x09);
-			objectSizes.Add("igAnimationDatabase", 0x15);
-			objectSizes.Add("igAnimationList", 0x09);
-			objectSizes.Add("igAnimationModifierList", 0x09);
-			objectSizes.Add("igAnimationState", 0x45);
-			objectSizes.Add("igAnimationStateList", 0x09);
-			objectSizes.Add("igAnimationSystem", 0x06);
-			objectSizes.Add("igAnimationTrack", 0x0C);
-			objectSizes.Add("igAnimationTrackList", 0x09);
-			objectSizes.Add("igAnimationTransitionDefinitionList", 0x09);
-			objectSizes.Add("igAppearance", 0x12);
-			objectSizes.Add("igAppearanceList", 0x09);
-			objectSizes.Add("igAttr", 0x03);
-			objectSizes.Add("igAttrList", 0x09);
-			objectSizes.Add("igAttrSet", 0x12);
-			objectSizes.Add("igBitMask", 0x0C);
-			objectSizes.Add("igBlendFunctionAttr", 0x21);
-			objectSizes.Add("igBlendMatrixSelect", 0x1B);
-			objectSizes.Add("igBlendStateAttr", 0x06);
-			objectSizes.Add("igCamera", 0x27);
-			objectSizes.Add("igClut", 0x0F);
-			objectSizes.Add("igColorAttr", 0x06);
-			objectSizes.Add("igCullFaceAttr", 0x09);
-			objectSizes.Add("igDataList", 0x09);
-			objectSizes.Add("igDataPump", 0x0C);
-			objectSizes.Add("igDataPumpFloatLinearInterface", 0x06);
-			objectSizes.Add("igDataPumpFloatSource", 0x12);
-			objectSizes.Add("igDataPumpInfo", 0x09);
-			objectSizes.Add("igDataPumpInterface", 0x00);
-			objectSizes.Add("igDataPumpList", 0x09);
-			objectSizes.Add("igDataPumpVec4fLinearInterface", 0x06);
-			objectSizes.Add("igDataPumpVec4fSource", 0x12);
-			objectSizes.Add("igDataPumpSource", 0x0F);
-			objectSizes.Add("igDirEntry", 0x03);
-			objectSizes.Add("igDrawableAttr", 0x03);
-			objectSizes.Add("igEnbayaAnimationSource", 0x0C);
-			objectSizes.Add("igEnbayaTransformSource", 0x06);
-			objectSizes.Add("igExternalDirEntry", 0x0C);
-			objectSizes.Add("igExternalImageEntry", 0x0C);
-			objectSizes.Add("igExternalIndexedEntry", 0x0F);
-			objectSizes.Add("igExternalInfoEntry", 0x0C);
-			objectSizes.Add("igFloatList", 0x09);
-			objectSizes.Add("igGeometry", 0x12);
-			objectSizes.Add("igGeometryAttr", 0x1E);
-			objectSizes.Add("igGeometryAttr2", 0x1B);
-			objectSizes.Add("igGeometryAttr1_5", 0x21);
-			objectSizes.Add("igGraphPath", 0x09);
-			objectSizes.Add("igGraphPathList", 0x09);
-			objectSizes.Add("igGroup", 0x0C);
-			objectSizes.Add("igImage", 0x3F);
-			objectSizes.Add("igImageMipMapList", 0x09);
-			objectSizes.Add("igIndexArray", 0x0C);
-			objectSizes.Add("igInfo", 0x06);
-			objectSizes.Add("igInfoList", 0x09);
-			objectSizes.Add("igIntList", 0x09);
-			objectSizes.Add("igIntListList", 0x09);
-			objectSizes.Add("igLongList", 0x09);
-			objectSizes.Add("igMaterialAttr", 0x15);
-			objectSizes.Add("igMaterialModeAttr", 0x06);
-			objectSizes.Add("igMatrixObject", 0x03);
-			objectSizes.Add("igMatrixObjectList", 0x09);
-			objectSizes.Add("igMemoryDirEntry", 0x12);
-			objectSizes.Add("igModelViewMatrixBoneSelect", 0x0F);
-			objectSizes.Add("igModelViewMatrixBoneSelectList", 0x09);
-			objectSizes.Add("igMorphBase", 0x27);
-			objectSizes.Add("igMorphedGeometryAttr2", 0x0F);
-			objectSizes.Add("igMorphInstance", 0x27);
-			objectSizes.Add("igMorphInstance2", 0x1E);
-			objectSizes.Add("igMorphVertexArrayList", 0x12);
-			objectSizes.Add("igNamedObject", 0x03);
-			objectSizes.Add("igNode", 0x09);
-			objectSizes.Add("igNodeList", 0x09);
-			objectSizes.Add("igObjectDirEntry", 0x09);
-			objectSizes.Add("igObjectList", 0x09);
-			objectSizes.Add("igPrimLengthArray", 0x09);
-			objectSizes.Add("igPrimLengthArray1_1", 0x09);
-			objectSizes.Add("igQuaternionfList", 0x09);
-			objectSizes.Add("igSceneInfo", 0x1B);
-			objectSizes.Add("igShadeModelAttr", 0x06);
-			objectSizes.Add("igSkeleton", 0x0F);
-			objectSizes.Add("igSkeletonBoneInfo", 0x0C);
-			objectSizes.Add("igSkeletonBoneInfoList", 0x09);
-			objectSizes.Add("igSkeletonList", 0x09);
-			objectSizes.Add("igSkin", 0x09);
-			objectSizes.Add("igSkinList", 0x09);
-			objectSizes.Add("igStringObjList", 0x09);
-			objectSizes.Add("igTextureAttr", 0x27);
-			objectSizes.Add("igTextureBindAttr", 0x09);
-			objectSizes.Add("igTextureInfo", 0x09);
-			objectSizes.Add("igTextureList", 0x09);
-			objectSizes.Add("igTextureMatrixStateAttr", 0x09);
-			objectSizes.Add("igTextureStateAttr", 0x09);
-			objectSizes.Add("igTransform", 0x15);
-			objectSizes.Add("igTransformSequence", 0x18);
-			objectSizes.Add("igTransformSequence1_5", 0x33);
-			objectSizes.Add("igTransformSource", 0x00);
-			objectSizes.Add("igUnsignedCharList", 0x09);
-			objectSizes.Add("igUnsignedIntList", 0x09);
-			objectSizes.Add("igVec2fList", 0x09);
-			objectSizes.Add("igVec3fList", 0x09);
-			objectSizes.Add("igVec3fListList", 0x09);
-			objectSizes.Add("igVec4fList", 0x09);
-			objectSizes.Add("igVec4fAlignedList", 0x09);
-			objectSizes.Add("igVec4ucList", 0x09);
-			objectSizes.Add("igVertexArray", 0x0C);
-			objectSizes.Add("igVertexArray1_1", 0x18);
-			objectSizes.Add("igVertexArray2", 0x09);
-			objectSizes.Add("igVertexArray2List", 0x09);
-			objectSizes.Add("igVertexBlendMatrixListAttr", 0x0C);
-			objectSizes.Add("igVertexBlendStateAttr", 0x06);
-			objectSizes.Add("igVertexData", 0x21);
-			objectSizes.Add("igVertexStream", 0x12);
-			objectSizes.Add("igVisualAttribute", 0x03);
-			objectSizes.Add("igVolume", 0x00);
+			objectSizes["igObject"] = 0x00;
+			objectSizes["igAABox"] = 0x06;
+			objectSizes["igActor"] = 0x21;
+			objectSizes["igActorInfo"] = 0x15;
+			objectSizes["igActorList"] = 0x09;
+			objectSizes["igAnimation"] = 0x1B;
+			objectSizes["igAnimationBinding"] = 0x0F;
+			objectSizes["igAnimationBindingList"] = 0x09;
+			objectSizes["igAnimationCombiner"] = 0x2D;
+			objectSizes["igAnimationCombinerBoneInfo"] = 0x15;
+			objectSizes["igAnimationCombinerBoneInfoList"] = 0x09;
+			objectSizes["igAnimationCombinerBoneInfoListList"] = 0x09;
+			objectSizes["igAnimationCombinerList"] = 0x09;
+			objectSizes["igAnimationDatabase"] = 0x15;
+			objectSizes["igAnimationList"] = 0x09;
+			objectSizes["igAnimationModifierList"] = 0x09;
+			objectSizes["igAnimationState"] = 0x45;
+			objectSizes["igAnimationStateList"] = 0x09;
+			objectSizes["igAnimationSystem"] = 0x06;
+			objectSizes["igAnimationTrack"] = 0x0C;
+			objectSizes["igAnimationTrackList"] = 0x09;
+			objectSizes["igAnimationTransitionDefinitionList"] = 0x09;
+			objectSizes["igAppearance"] = 0x12;
+			objectSizes["igAppearanceList"] = 0x09;
+			objectSizes["igAttr"] = 0x03;
+			objectSizes["igAttrList"] = 0x09;
+			objectSizes["igAttrSet"] = 0x12;
+			objectSizes["igBitMask"] = 0x0C;
+			objectSizes["igBlendFunctionAttr"] = 0x21;
+			objectSizes["igBlendMatrixSelect"] = 0x1B;
+			objectSizes["igBlendStateAttr"] = 0x06;
+			objectSizes["igCamera"] = 0x27;
+			objectSizes["igClut"] = 0x0F;
+			objectSizes["igColorAttr"] = 0x06;
+			objectSizes["igCullFaceAttr"] = 0x09;
+			objectSizes["igDataList"] = 0x09;
+			objectSizes["igDataPump"] = 0x0C;
+			objectSizes["igDataPumpFloatLinearInterface"] = 0x06;
+			objectSizes["igDataPumpFloatSource"] = 0x12;
+			objectSizes["igDataPumpInfo"] = 0x09;
+			objectSizes["igDataPumpInterface"] = 0x00;
+			objectSizes["igDataPumpList"] = 0x09;
+			objectSizes["igDataPumpVec4fLinearInterface"] = 0x06;
+			objectSizes["igDataPumpVec4fSource"] = 0x12;
+			objectSizes["igDataPumpSource"] = 0x0F;
+			objectSizes["igDirEntry"] = 0x03;
+			objectSizes["igDrawableAttr"] = 0x03;
+			objectSizes["igEnbayaAnimationSource"] = 0x0C;
+			objectSizes["igEnbayaTransformSource"] = 0x06;
+			objectSizes["igExternalDirEntry"] = 0x0C;
+			objectSizes["igExternalImageEntry"] = 0x0C;
+			objectSizes["igExternalIndexedEntry"] = 0x0F;
+			objectSizes["igExternalInfoEntry"] = 0x0C;
+			objectSizes["igFloatList"] = 0x09;
+			objectSizes["igGeometry"] = 0x12;
+			objectSizes["igGeometryAttr"] = 0x1E;
+			objectSizes["igGeometryAttr2"] = 0x1B;
+			objectSizes["igGeometryAttr1_5"] = 0x21;
+			objectSizes["igGraphPath"] = 0x09;
+			objectSizes["igGraphPathList"] = 0x09;
+			objectSizes["igGroup"] = 0x0C;
+			objectSizes["igImage"] = 0x3F;
+			objectSizes["igImageMipMapList"] = 0x09;
+			objectSizes["igIndexArray"] = 0x0C;
+			objectSizes["igInfo"] = 0x06;
+			objectSizes["igInfoList"] = 0x09;
+			objectSizes["igIntList"] = 0x09;
+			objectSizes["igIntListList"] = 0x09;
+			objectSizes["igLongList"] = 0x09;
+			objectSizes["igMaterialAttr"] = 0x15;
+			objectSizes["igMaterialModeAttr"] = 0x06;
+			objectSizes["igMatrixObject"] = 0x03;
+			objectSizes["igMatrixObjectList"] = 0x09;
+			objectSizes["igMemoryDirEntry"] = 0x12;
+			objectSizes["igModelViewMatrixBoneSelect"] = 0x0F;
+			objectSizes["igModelViewMatrixBoneSelectList"] = 0x09;
+			objectSizes["igMorphBase"] = 0x27;
+			objectSizes["igMorphedGeometryAttr2"] = 0x0F;
+			objectSizes["igMorphInstance"] = 0x27;
+			objectSizes["igMorphInstance2"] = 0x1E;
+			objectSizes["igMorphVertexArrayList"] = 0x12;
+			objectSizes["igNamedObject"] = 0x03;
+			objectSizes["igNode"] = 0x09;
+			objectSizes["igNodeList"] = 0x09;
+			objectSizes["igObjectDirEntry"] = 0x09;
+			objectSizes["igObjectList"] = 0x09;
+			objectSizes["igPrimLengthArray"] = 0x09;
+			objectSizes["igPrimLengthArray1_1"] = 0x09;
+			objectSizes["igQuaternionfList"] = 0x09;
+			objectSizes["igSceneInfo"] = 0x1B;
+			objectSizes["igShadeModelAttr"] = 0x06;
+			objectSizes["igSkeleton"] = 0x0F;
+			objectSizes["igSkeletonBoneInfo"] = 0x0C;
+			objectSizes["igSkeletonBoneInfoList"] = 0x09;
+			objectSizes["igSkeletonList"] = 0x09;
+			objectSizes["igSkin"] = 0x09;
+			objectSizes["igSkinList"] = 0x09;
+			objectSizes["igStringObjList"] = 0x09;
+			objectSizes["igTextureAttr"] = 0x27;
+			objectSizes["igTextureBindAttr"] = 0x09;
+			objectSizes["igTextureInfo"] = 0x09;
+			objectSizes["igTextureList"] = 0x09;
+			objectSizes["igTextureMatrixStateAttr"] = 0x09;
+			objectSizes["igTextureStateAttr"] = 0x09;
+			objectSizes["igTransform"] = 0x15;
+			objectSizes["igTransformSequence"] = 0x18;
+			objectSizes["igTransformSequence1_5"] = 0x33;
+			objectSizes["igTransformSource"] = 0x00;
+			objectSizes["igUnsignedCharList"] = 0x09;
+			objectSizes["igUnsignedIntList"] = 0x09;
+			objectSizes["igVec2fList"] = 0x09;
+			objectSizes["igVec3fList"] = 0x09;
+			objectSizes["igVec3fListList"] = 0x09;
+			objectSizes["igVec4fList"] = 0x09;
+			objectSizes["igVec4fAlignedList"] = 0x09;
+			objectSizes["igVec4ucList"] = 0x09;
+			objectSizes["igVertexArray"] = 0x0C;
+			objectSizes["igVertexArray1_1"] = 0x18;
+			objectSizes["igVertexArray2"] = 0x09;
+			objectSizes["igVertexArray2List"] = 0x09;
+			objectSizes["igVertexBlendMatrixListAttr"] = 0x0C;
+			objectSizes["igVertexBlendStateAttr"] = 0x06;
+			objectSizes["igVertexData"] = 0x21;
+			objectSizes["igVertexStream"] = 0x12;
+			objectSizes["igVisualAttribute"] = 0x03;
+			objectSizes["igVolume"] = 0x00;
 		}
 
 		private List<string> stringTableEntries = new List<string>();
 		private List<IGB_ENTRY> entryTable = new List<IGB_ENTRY>();
-		private List<ushort> referenceTable = new List<ushort>();
-		private List<Internal.IGB_NODE_INFO> nodeStringTable_params = new List<Internal.IGB_NODE_INFO>();
-		private List<igBase> nodes = new List<igBase>();
+		private string[] memoryPoolNames = null;
+
+		/// <summary>
+		/// Classes (nodes) in the IGB schema.
+		/// </summary>
+		private IGBNodeTypeInfo[] nodeTable = null;
+		private List<IGB_ENTRY> objectEntryTable = new List<IGB_ENTRY>();
+		private List<IGB_ENTRY> memoryEntryTable = new List<IGB_ENTRY>();
+		private List<IGB_ENTRY> externalEntryTable = new List<IGB_ENTRY>();
+
+		private igBase[] objrefs = null;
+
+		private igBase creat(string name)
+		{
+			igBase node = null;
+
+			System.Reflection.Assembly thisAsm = typeof(igBase).Assembly;
+			string nodeTypeName = String.Format("UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.Nodes.{0}", name);
+			node = (igBase)thisAsm.CreateInstance(nodeTypeName);
+
+			if (node == null)
+			{
+				throw new TypeLoadException(String.Format("unknown node type name {0}", name));
+			}
+
+			node.TypeName = name;
+			return node;
+		}
+		private T creat<T>(string name) where T : igBase
+		{
+			return (T)creat(name);
+		}
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
-			ModelObjectModel model = (objectModel as ModelObjectModel);
-			if (model == null) return;
+			SceneObjectModel scene = (objectModel as SceneObjectModel);
+			if (scene == null) throw new ObjectModelNotSupportedException();
 
 			IO.Reader br = Accessor.Reader;
 
 
 			#region Header
-			uint head01 = br.ReadUInt32();
-			uint entries_count = br.ReadUInt32();
-			uint nodeTable_size = br.ReadUInt32();
+			uint entries_size = br.ReadUInt32();				// data
+			uint entries_count = br.ReadUInt32();		// count
+
+			uint nodeTable_size = br.ReadUInt32();		// capacity
 			uint nodeTable_count = br.ReadUInt32();
-			uint head05 = br.ReadUInt32();
-			uint head06 = br.ReadUInt32();
-			uint head07 = br.ReadUInt32();
-			uint head08 = br.ReadUInt32();
+
+			uint unknown1_size = br.ReadUInt32(); // node table offset?
+			uint unknown1_count = br.ReadUInt32();
+
+			uint unknown2_size = br.ReadUInt32();
+			uint unknown2_count = br.ReadUInt32();
+
 			uint fieldStringTable_size = br.ReadUInt32();
 			uint fieldStringTable_count = br.ReadUInt32();
-			uint head11 = br.ReadUInt32();
-			uint head12 = br.ReadUInt32();
+
+			uint igbMagic = br.ReadUInt32(); // 0xFADA
+			if (igbMagic != 0xFADA)
+			{
+				throw new InvalidDataFormatException("file does not contain igbMagic 0xFADA at offset 0x28");
+			}
+			uint igbVersion = br.ReadUInt32(); // 0x00000009
+			if (false) // igbVersion != 0x00000009)
+			{
+				throw new InvalidDataFormatException("file does not contain igbVersion 0x00000009 at offset 0x2C");
+			}
+
 			uint stringTable_size = br.ReadUInt32();
 			uint stringTable_count = br.ReadUInt32();
 			#endregion
@@ -199,281 +264,141 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 				stringTableEntries.Add(stringTableEntry);
 			}
 			#endregion
-			#region Field String Table
-			List<uint[]> fieldStringTableParameters = new List<uint[]>();
-			List<string> fieldStringTableEntries = new List<string>();
-			#region Parameters
+			#region Field Table
+			IGB_FIELD_ENTRY[] fieldTypes = new IGB_FIELD_ENTRY[fieldStringTable_count];
 			for (uint i = 0; i < fieldStringTable_count; i++)
 			{
-				uint fieldStringTableEntryLength = br.ReadUInt32();
-				uint param2 = br.ReadUInt32();
-				uint param3 = br.ReadUInt32();
-				fieldStringTableParameters.Add(new uint[] { fieldStringTableEntryLength, param2, param3 });
+				fieldTypes[i].nameLength = br.ReadUInt32();
+				fieldTypes[i].param2 = br.ReadUInt32();
+				fieldTypes[i].param3 = br.ReadUInt32();
 			}
-			#endregion
-			#region Entries
 			for (int i = 0; i < fieldStringTable_count; i++)
 			{
-				string stringTableEntry = br.ReadFixedLengthString(fieldStringTableParameters[i][0]);
+				string stringTableEntry = br.ReadFixedLengthString(fieldTypes[i].nameLength);
 				stringTableEntry = stringTableEntry.TrimNull();
-
-				fieldStringTableEntries.Add(stringTableEntry);
+				fieldTypes[i].name = stringTableEntry;
 			}
-			#endregion
 			#endregion
 			#region Data String Table
 			uint dataStringTable_size = br.ReadUInt32();
 			uint dataStringTable_unknown1 = br.ReadUInt32();
 			uint dataStringTable_count = br.ReadUInt32();
 
-			List<uint> dataStringTable_entrySizes = new List<uint>();
+			uint[] dataStringTable_entrySizes = new uint[dataStringTable_count];
+			string[] dataTypes = new string[dataStringTable_count];
 			for (int i = 0; i < dataStringTable_count; i++)
 			{
-				uint size = br.ReadUInt32();
-				dataStringTable_entrySizes.Add(size);
+				dataStringTable_entrySizes[i] = br.ReadUInt32();
 			}
-
-			List<string> dataStringTable_entries = new List<string>();
 			for (int i = 0; i < dataStringTable_count; i++)
 			{
 				string entry = br.ReadFixedLengthString(dataStringTable_entrySizes[i]);
 				entry = entry.TrimNull();
-				dataStringTable_entries.Add(entry);
+				dataTypes[i] = entry;
 			}
 			#endregion
-			#region Node String Table
+			#region Node Type Info
+			nodeTable = new IGBNodeTypeInfo[nodeTable_count];
 			for (int i = 0; i < nodeTable_count; i++)
 			{
-				Internal.IGB_NODE_INFO ni = new Internal.IGB_NODE_INFO();
+				Internal.IGBNodeTypeInfo ni = new Internal.IGBNodeTypeInfo();
 				ni.nameLength = br.ReadUInt32();
 				ni.param02 = br.ReadUInt32();
 				ni.param03 = br.ReadUInt32();
-				ni.param04 = br.ReadUInt32();
-				ni.parentNode = br.ReadUInt32();
+				ni.fieldCount = br.ReadUInt32();
+				ni.parentNodeindex = br.ReadUInt32();
 				ni.childCount = br.ReadUInt32();
-				nodeStringTable_params.Add(ni);
+				nodeTable[i] = ni;
 			}
+
+			// bind nodes to parents
 			for (int i = 0; i < nodeTable_count; i++)
 			{
-				Internal.IGB_NODE_INFO ni = nodeStringTable_params[i];
+				if (nodeTable[i].parentNodeindex != UInt32.MaxValue)
+				{
+					nodeTable[i].parentNode = nodeTable[nodeTable[i].parentNodeindex];
+				}
+			}
+
+			ushort[][] nodeData = new ushort[nodeTable_count][];
+
+			for (int i = 0; i < nodeTable_count; i++)
+			{
+				Internal.IGBNodeTypeInfo ni = nodeTable[i];
 				ni.name = br.ReadFixedLengthString(ni.nameLength);
 				ni.name = ni.name.TrimNull();
-
 				// read node data
 				int dataLen = 0x00;
 
-				igBase node = null;
-				switch (ni.name)
+				if (objectSizes.ContainsKey(ni.name))
 				{
-					case "igObject": node = new igObject(); break;
-					case "igAABox": node = new igAABox(); break;
-					case "igActor": node = new igActor(); break;
-					case "igActorInfo": node = new igActorInfo(); break;
-					case "igActorList": node = new igActorList(); break;
-					case "igAnimation": node = new igAnimation(); break;
-					case "igAnimationBinding": node = new igAnimationBinding(); break;
-					case "igAnimationBindingList": node = new igAnimationBindingList(); break;
-					case "igAnimationCombiner": node = new igAnimationCombiner(); break;
-					case "igAnimationCombinerBoneInfo": node = new igAnimationCombinerBoneInfo(); break;
-					case "igAnimationCombinerBoneInfoList": node = new igAnimationCombinerBoneInfoList(); break;
-					case "igAnimationCombinerBoneInfoListList": node = new igAnimationCombinerBoneInfoListList(); break;
-					case "igAnimationCombinerList": node = new igAnimationCombinerList(); break;
-					case "igAnimationDatabase": node = new igAnimationDatabase(); break;
-					case "igAnimationList": node = new igAnimationList(); break;
-					case "igAnimationModifierList": node = new igAnimationModifierList(); break;
-					case "igAnimationState": node = new igAnimationState(); break;
-					case "igAnimationStateList": node = new igAnimationStateList(); break;
-					case "igAnimationSystem": node = new igAnimationSystem(); break;
-					case "igAnimationTrack": node = new igAnimationTrack(); break;
-					case "igAnimationTrackList": node = new igAnimationTrackList(); break;
-					case "igAnimationTransitionDefinitionList": node = new igAnimationTransitionDefinitionList(); break;
-					case "igAppearance": node = new igAppearance(); break;
-					case "igAppearanceList": node = new igAppearanceList(); break;
-					case "igAttr": node = new igAttr(); break;
-					case "igAttrList": node = new igAttrList(); break;
-					case "igAttrSet": node = new igAttrSet(); break;
-					case "igBitMask": node = new igBitMask(); break;
-					case "igBlendFunctionAttr": node = new igBlendFunctionAttr(); break;
-					case "igBlendMatrixSelect": node = new igBlendMatrixSelect(); break;
-					case "igBlendStateAttr": node = new igBlendStateAttr(); break;
-					case "igCamera": node = new igCamera(); break;
-					case "igClut": node = new igClut(); break;
-					case "igColorAttr": node = new igColorAttr(); break;
-					case "igCullFaceAttr": node = new igCullFaceAttr(); break;
-					case "igDataList": node = new igDataList(); break;
-					case "igDataPump": node = new igDataPump(); break;
-					case "igDataPumpFloatLinearInterface": node = new igDataPumpFloatLinearInterface(); break;
-					case "igDataPumpFloatSource": node = new igDataPumpFloatSource(); break;
-					case "igDataPumpInfo": node = new igDataPumpInfo(); break;
-					case "igDataPumpInterface": node = new igDataPumpInterface(); break;
-					case "igDataPumpList": node = new igDataPumpList(); break;
-					case "igDataPumpVec4fLinearInterface": node = new igDataPumpVec4fLinearInterface(); break;
-					case "igDataPumpVec4fSource": node = new igDataPumpVec4fSource(); break;
-					case "igDataPumpSource": node = new igDataPumpSource(); break;
-					case "igDirEntry": node = new igDirEntry(); break;
-					case "igDrawableAttr": node = new igDrawableAttr(); break;
-					case "igEnbayaAnimationSource": node = new igEnbayaAnimationSource(); break;
-					case "igEnbayaTransformSource": node = new igEnbayaTransformSource(); break;
-					case "igExternalDirEntry": node = new igExternalDirEntry(); break;
-					case "igExternalImageEntry": node = new igExternalImageEntry(); break;
-					case "igExternalIndexedEntry": node = new igExternalIndexedEntry(); break;
-					case "igExternalInfoEntry": node = new igExternalInfoEntry(); break;
-					case "igFloatList": node = new igFloatList(); break;
-					case "igGeometry": node = new igGeometry(); break;
-					case "igGeometryAttr2": node = new igGeometryAttr2(); break;
-					case "igGraphPath": node = new igGraphPath(); break;
-					case "igGraphPathList": node = new igGraphPathList(); break;
-					case "igGroup": node = new igGroup(); break;
-					case "igImage": node = new igImage(); break;
-					case "igImageMipMapList": node = new igImageMipMapList(); break;
-					case "igIndexArray": node = new igIndexArray(); break;
-					case "igInfo": node = new igInfo(); break;
-					case "igInfoList": node = new igInfoList(); break;
-					case "igIntList": node = new igIntList(); break;
-					case "igLongList": node = new igLongList(); break;
-					case "igMaterialAttr": node = new igMaterialAttr(); break;
-					case "igMaterialModeAttr": node = new igMaterialModeAttr(); break;
-					case "igMatrixObject": node = new igMatrixObject(); break;
-					case "igMatrixObjectList": node = new igMatrixObjectList(); break;
-					case "igMemoryDirEntry": node = new igMemoryDirEntry(); break;
-					case "igModelViewMatrixBoneSelect": node = new igModelViewMatrixBoneSelect(); break;
-					case "igModelViewMatrixBoneSelectList": node = new igModelViewMatrixBoneSelectList(); break;
-					case "igMorphedGeometryAttr2": node = new igMorphedGeometryAttr2(); break;
-					case "igMorphInstance2": node = new igMorphInstance2(); break;
-					case "igMorphVertexArrayList": node = new igMorphVertexArrayList(); break;
-					case "igNamedObject": node = new igNamedObject(); break;
-					case "igNode": node = new igNode(); break;
-					case "igNodeList": node = new igNodeList(); break;
-					case "igObjectDirEntry": node = new igObjectDirEntry(); break;
-					case "igObjectList": node = new igObjectList(); break;
-					case "igPrimLengthArray": node = new igPrimLengthArray(); break;
-					case "igPrimLengthArray1_1": node = new igPrimLengthArray1_1(); break;
-					case "igQuaternionfList": node = new igQuaternionfList(); break;
-					case "igSceneInfo": node = new igSceneInfo(); break;
-					case "igSkeleton": node = new igSkeleton(); break;
-					case "igSkeletonBoneInfo": node = new igSkeletonBoneInfo(); break;
-					case "igSkeletonBoneInfoList": node = new igSkeletonBoneInfoList(); break;
-					case "igSkeletonList": node = new igSkeletonList(); break;
-					case "igSkin": node = new igSkin(); break;
-					case "igSkinList": node = new igSkinList(); break;
-					case "igStringObjList": node = new igStringObjList(); break;
-					case "igTextureAttr": node = new igTextureAttr(); break;
-					case "igTextureBindAttr": node = new igTextureBindAttr(); break;
-					case "igTextureInfo": node = new igTextureInfo(); break;
-					case "igTextureList": node = new igTextureList(); break;
-					case "igTextureMatrixStateAttr": node = new igTextureMatrixStateAttr(); break;
-					case "igTextureStateAttr": node = new igTextureStateAttr(); break;
-					case "igTransform": node = new igTransform(); break;
-					case "igTransformSequence": node = new igTransformSequence(); break;
-					case "igTransformSequence1_5": node = new igTransformSequence1_5(); break;
-					case "igTransformSource": node = new igTransformSource(); break;
-					case "igUnsignedCharList": node = new igUnsignedCharList(); break;
-					case "igUnsignedIntList": node = new igUnsignedIntList(); break;
-					case "igVec2fList": node = new igVec2fList(); break;
-					case "igVec3fList": node = new igVec3fList(); break;
-					case "igVec4fList": node = new igVec4fList(); break;
-					case "igVec4fAlignedList": node = new igVec4fAlignedList(); break;
-					case "igVec4ucList": node = new igVec4ucList(); break;
-					case "igVertexArray2": node = new igVertexArray2(); break;
-					case "igVertexArray2List": node = new igVertexArray2List(); break;
-					case "igVertexBlendMatrixListAttr": node = new igVertexBlendMatrixListAttr(); break;
-					case "igVertexBlendStateAttr": node = new igVertexBlendStateAttr(); break;
-					case "igVertexData": node = new igVertexData(); break;
-					case "igVertexStream": node = new igVertexStream(); break;
-					case "igVisualAttribute": node = new igVisualAttribute(); break;
-					case "igVolume": node = new igVolume(); break;
-					default: throw new InvalidOperationException("Unknown node name " + ni.name);
-				}
-				node.TypeName = ni.name;
-
-				if (objectSizes.ContainsKey(node.TypeName))
-				{
-					dataLen = objectSizes[node.TypeName];
+					dataLen = objectSizes[ni.name];
 				}
 				else
 				{
-					throw new InvalidOperationException("Unknown object type " + node.TypeName + "!");
+					throw new InvalidOperationException("Unknown object type " + ni.name + "!");
 				}
-				node.Data = br.ReadUInt16Array(dataLen);
-				nodes.Add(node);
+				nodeData[i] = br.ReadUInt16Array(dataLen);
+				nodeTable[i] = ni;
 			}
 			#endregion
 			#region Type String Table
-			uint test_type = br.ReadUInt32();
-			switch (test_type)
+			uint systemTableLength = br.ReadUInt32();
+
+			// read list properties
+			uint list_count = br.ReadUInt32(); // 0x01
+			uint list_capacity = br.ReadUInt32(); // 0x01, 0x02
+
+			// all lengths first, followed by all strings
+			uint[] lengths = new uint[list_count];
+			for (uint i = 0; i < list_count; i++)
 			{
-				case 0x0239:
-				{
-					// read type string table properties
-					uint typetable_type = test_type; // 0x0239
-					uint typetable_elem = br.ReadUInt32(); // number of strings
+				uint n = br.ReadUInt32();
+				lengths[i] = n;
+			}
+			string[] items = new string[list_count];
+			for (int i = 0; i < list_count; i++)
+			{
+				string item = br.ReadFixedLengthString(lengths[i]);
+				item = item.TrimNull();
+				items[i] = item;
+			}
 
-					// read type string table
-					List<string> items = new List<string>();
-					for (uint i = 0; i < typetable_elem; i++)
-					{
-						string item = br.ReadNullTerminatedString();
-						items.Add(item);
-					}
-					break;
-				}
-				case 0x17:
-				case 0x2E:
-				{
-					// read list properties
-					uint list_type = test_type; // 0x17, 0x2E
-					uint list_unk1 = br.ReadUInt32(); // 0x01
-					uint list_elem = br.ReadUInt32(); // 0x01, 0x02
+			// read type string table properties
+			long memoryPoolNameTableOffset = br.Accessor.Position;
+			uint memoryPoolNameTableSize = br.ReadUInt32(); // 0x0239
+			uint memoryPoolNameTableCount = br.ReadUInt32(); // number of strings
 
-					// read a list of lengths
-					List<uint> lengths = new List<uint>();
-					for (uint i = 0; i < list_elem; i++)
-					{
-						uint n = br.ReadUInt32();
-						lengths.Add(n);
-					}
+			// read type string table
+			memoryPoolNames = new string[memoryPoolNameTableCount];
+			for (uint i = 0; i < memoryPoolNameTableCount; i++)
+			{
+				string item = br.ReadNullTerminatedString();
+				memoryPoolNames[i] = item;
+			}
 
-					// read a list of strings
-					List<string> items = new List<string>();
-					for (int i = 0; i < list_elem; i++)
-					{
-						string item = br.ReadFixedLengthString(lengths[i]);
-						item = item.TrimNull();
-						items.Add(item);
-					}
-
-					// read type string table properties
-					uint typetable_type = br.ReadUInt32(); // 0x0239
-					uint typetable_elem = br.ReadUInt32(); // number of strings
-
-					// read type string table
-					List<string> typeStringTableEntries = new List<string>();
-					for (uint i = 0; i < typetable_elem; i++)
-					{
-						string item = br.ReadNullTerminatedString();
-						typeStringTableEntries.Add(item);
-					}
-					break;
-				}
+			if (br.Accessor.Position - memoryPoolNameTableSize != memoryPoolNameTableOffset)
+			{
+				throw new InvalidDataFormatException("sanity check failed - memory pool name table");
 			}
 			#endregion
 			#region Entries
 			for (uint i = 0; i < entries_count; i++)
 			{
-				uint entry_type = br.ReadUInt32();
+				IGBNodeEntryType entry_type = (IGBNodeEntryType)br.ReadUInt32();
 				uint entry_size = br.ReadUInt32();
 
 				// find entry name
-				if (entry_type > nodes.Count)
+				if ((uint)entry_type > nodeTable_count)
 				{
 					throw new IndexOutOfRangeException("Failed to find entry type name.");
 				}
 
-				string entry_name = nodes[(int)entry_type].TypeName;
+				string entry_name = nodeTable[(int)entry_type].name;
 
 				switch (entry_type)
 				{
-					case 0x03:
+					case IGBNodeEntryType.Object:
 					{
 						// read entry
 						uint p01 = br.ReadUInt32();
@@ -485,9 +410,10 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 						e.type = entry_type;
 						e.entries = new uint[] { p01, p02, p03 };
 						entryTable.Add(e);
+						objectEntryTable.Add(e);
 						break;
 					}
-					case 0x04:
+					case IGBNodeEntryType.Memory:
 					{
 						// read entry
 						uint p01 = br.ReadUInt32();
@@ -502,9 +428,10 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 						e.type = entry_type;
 						e.entries = new uint[] { p01, p02, p03, p04, p05, p06 };
 						entryTable.Add(e);
+						memoryEntryTable.Add(e);
 						break;
 					}
-					case 0x08:
+					case IGBNodeEntryType.External:
 					{
 						// read entry
 						uint p01 = br.ReadUInt32();
@@ -517,6 +444,7 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 						e.type = entry_type;
 						e.entries = new uint[] { p01, p02, p03, p04 };
 						entryTable.Add(e);
+						externalEntryTable.Add(e);
 						break;
 					}
 					default:
@@ -525,23 +453,27 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 					}
 				}
 			}
+
 			// read entry table size
-			uint entryTableSize = br.ReadUInt32();
+			uint referenceTableSize = br.ReadUInt32();
 
 			// read number of elements
-			uint entryTableCount = br.ReadUInt32();
+			uint referenceTableCount = br.ReadUInt32();
 
+			referenceTable = new ushort[referenceTableCount];
 			// read indices
-			for (uint i = 0; i < entryTableCount; i++)
+			for (uint i = 0; i < referenceTableCount; i++)
 			{
 				ushort index = br.ReadUInt16();
-				referenceTable.Add(index);
+				referenceTable[i] = index;
 			}
 			#endregion
 			#region Tree
 			uint treeType = br.ReadUInt32();
 
-			for (int i = 0; i < referenceTable.Count; i++)
+			objrefs = new igBase[referenceTableCount];
+
+			for (int i = 0; i < referenceTableCount; i++)
 			{
 				// directory reference
 				ushort directoryReference = referenceTable[i];
@@ -549,403 +481,21 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 				if (directoryReference >= entryTable.Count) throw new IndexOutOfRangeException("Invalid directory reference");
 
 				IGB_ENTRY entry = entryTable[directoryReference];
-				if (entry.type >= nodes.Count) throw new IndexOutOfRangeException("Invalid directory entry type");
+				if ((uint)entry.type >= nodeTable_count) throw new IndexOutOfRangeException("Invalid directory entry type");
 
-				string entryType = nodes[(int)entry.type].TypeName;
+				string entryTypeName = nodeTable[(int)entry.type].name;
 				// process entry
-				switch (entryType)
+				switch (entryTypeName)
 				{
 					case "igObjectDirEntry":
 					{
 						// retrieve node name
 						uint NT_index = entry.entries[1];
-						if (NT_index >= nodes.Count) throw new IndexOutOfRangeException("Invalid node index.");
+						if (NT_index >= nodeTable_count) throw new IndexOutOfRangeException("Invalid node index.");
 
-						igBase ig = nodes[(int)NT_index];
+						string igTypeName = nodeTable[(int)NT_index].name;
 
-						// read chunk header
-						uint chunktype = br.ReadUInt32();
-						uint chunksize = br.ReadUInt32();
-
-						// validate chunk header
-						if (chunktype != NT_index)
-						{
-							throw new InvalidOperationException("Unexpected node " + ig.TypeName);
-						}
-						if (chunksize < 0x10)
-						{
-							throw new ArgumentOutOfRangeException("chunksize", chunksize, "Invalid " + ig.TypeName + " chunk. Chunksize is too small.");
-						}
-						if ((chunksize % 0x04) != 0)
-						{
-							throw new ArgumentOutOfRangeException("chunksize", chunksize, "Invalid " + ig.TypeName + " chunk. Chunksize not divisible by four.");
-						}
-
-						// read chunk data
-						uint attrsize = chunksize - 0x08;
-						byte[] attrdata = br.ReadBytes(attrsize);
-
-						IO.Reader br1 = new IO.Reader(attrdata);
-						// process nodes
-						switch (ig.TypeName)
-						{
-							#region igAABox
-							case "igAABox":
-							{
-								igAABox node = (ig as igAABox);
-								if (br1.BaseStream.Length != 0x18) throw new ArgumentOutOfRangeException("igAABox.size", br1.BaseStream.Length, "must be 0x18 (24)");
-
-								float[] min = br1.ReadSingleArray(3);
-								float[] max = br1.ReadSingleArray(3);
-
-								node.Minimum = new PositionVector3(min[0], min[1], min[2]);
-								node.Maximum = new PositionVector3(max[0], max[1], max[2]);
-								break;
-							}
-							#endregion
-							#region igActor
-							case "igActor":
-							{
-								igActor node = (ig as igActor);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x68) throw new ArgumentOutOfRangeException("igActor.size", br1.BaseStream.Length, "must be 0x68 (104)");
-
-								node.Name = ReadName32(br1);
-								node.Bound = ReadEntry(br1);
-								node.Flags = br1.ReadUInt32();
-								node.ChildList = ReadEntry(br1);
-								node.AnimationSystem = ReadEntry(br1);
-								node.BoneMatrixCacheArray = ReadEntry(br1);
-								node.BlendMatrixCacheArray = ReadEntry(br1);
-								node.Appearance = ReadEntry(br1);
-								node.AnimationDatabase = ReadEntry(br1);
-								node.ModifierList = ReadEntry(br1);
-								node.Transform = br1.ReadSingleArray(16); // 4x4 matrix
-								break;
-							}
-							#endregion
-							#region igActorInfo
-							case "igActorInfo":
-							{
-								igActorInfo node = (ig as igActorInfo);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x1C) throw new ArgumentOutOfRangeException("igActorInfo.size", br1.BaseStream.Length, "must be 0x1C (28)");
-
-								node.Name = ReadName32(br1);
-								node.ResolveState = br1.ReadUInt32();
-
-								uint actorID = br1.ReadUInt32();
-								node.Actor = nodes[actorID];
-
-								node.ActorList = ReadEntry<igActorList>(br1);
-								node.AnimationDatabase = ReadEntry<igAnimationDatabase>(br1);
-								node.CombinerList = ReadEntry<igAnimationCombinerList>(br1);
-								node.AppearanceList = ReadEntry<igAppearanceList>(br1);
-								break;
-							}
-							#endregion
-							#region igActorList
-							case "igActorList":
-							{
-								igActorList node = (ig as igActorList);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igActorList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								uint count = br1.ReadUInt32();
-								node.Capacity = br1.ReadUInt32();
-
-								uint data = br1.ReadUInt32();
-
-								throw new Exception("break here to see what we can do about this...");
-
-								// assuming that data points to the start of the first Actor node in the list...
-								// and that Actors in a list are placed in the nodes array contiguously...
-								for (uint i = 0; i < count; i++)
-								{
-									// we can loop through and read each one from nodes[data + i]!
-									node.Items.Add(nodes[data + i] as igActor);
-								}
-								break;
-							}
-							#endregion
-							#region igAnimation
-							case "igAnimation":
-							{
-								igAnimation node = (ig as igAnimation);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x30) throw new ArgumentOutOfRangeException("igAnimation.size", br1.BaseStream.Length, "must be 0x30 (48)");
-
-								node.Name = ReadName32(br1);
-								node.Priority = br1.ReadUInt32();
-								node.BindingList = ReadEntry<igAnimationBindingList>(br1);
-								node.TrackList = ReadEntry<igAnimationTrackList>(br1);
-								node.TransitionList = ReadEntry<igAnimationTransitionDefinitionList>(br1);
-								node.KeyFrameTimeOffset = br1.ReadUInt64();
-								node.StartTime = br1.ReadUInt64();
-								node.Duration = br1.ReadUInt64();
-								node.UseAnimationTransBoolArray = br1.ReadUInt32();
-								break;
-							}
-							#endregion
-							#region igAnimationBinding
-							case "igAnimationBinding":
-							{
-								// NOTES:
-								//      _chainSwapList and _reflectTrack are typically 0xFFFFFFFF.
-								//      are they MEM or DIR entries?
-
-								igAnimationBinding node = (ig as igAnimationBinding);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x14) throw new ArgumentOutOfRangeException("igAnimationBinding.size", br1.BaseStream.Length, "must be 0x14 (20)");
-
-								node.Skeleton = ReadEntry<igSkeleton>(br1);
-								node.BoneTrackIndexArray = br1.ReadUInt32(); // TODO: this is an Entry, what do we do?
-								node.BindCount = br1.ReadUInt32();
-								node.ChainSwapList = br1.ReadUInt32();
-								node.ReflectTrack = br1.ReadUInt32();
-								break;
-							}
-							#endregion
-							#region igAnimationBindingList
-							case "igAnimationBindingList":
-							{
-								igAnimationBindingList node = (ig as igAnimationBindingList);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationBindingList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								uint count = br1.ReadUInt32();
-								node.Capacity = br1.ReadUInt32();
-
-								throw new Exception("break here to see what we can do about this...");
-
-								// assuming that data points to the start of the first Actor node in the list...
-								// and that Actors in a list are placed in the nodes array contiguously...
-								for (uint i = 0; i < count; i++)
-								{
-									// we can loop through and read each one from nodes[data + i]!
-									node.Items.Add(nodes[data + i] as igAnimationBinding);
-								}
-								break;
-							}
-							#endregion
-							#region igAnimationCombiner
-							case "igAnimationCombiner":
-							{
-								igAnimationCombiner node = (ig as igAnimationCombiner);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x50) throw new ArgumentOutOfRangeException("igAnimationCombiner.size", br1.BaseStream.Length, "must be 0x50 (80)");
-
-								node.Name = ReadName32(br1);
-								node.Skeleton = ReadEntry<igSkeleton>(br1);
-								node.BoneInfoListList = ReadEntry<igAnimationCombinerBoneInfoListList>(br1);
-								node.BoneInfoListBase = ReadEntry<igAnimationCombinerBoneInfoList>(br1);
-								node.AnimationStateList = ReadEntry<igAnimationStateList>(br1);
-								node.ResultQuaternionArray = ReadEntry<igQuaternionfList>(br1);
-								// node.AnimationCacheMatrixArray =
-								igBase unknown1 = ReadEntry(br1);
-
-								node.CacheTime = br1.ReadUInt64();
-								node.CacheValid = br1.ReadUInt32();
-
-								igBase boneMatrixArray = ReadEntry(br1);
-								igBase blendMatrixArray = ReadEntry(br1);
-								node.AnimationStateTime = br1.ReadUInt64();
-								node.LastCleanStateTime = br1.ReadUInt64();
-								node.CleanStateTimeThreshold = br1.ReadUInt64();
-								node.CleanStatesTransitionMargin = br1.ReadUInt64();
-								break;
-							}
-							#endregion
-							#region igAnimationCombinerBoneInfo
-							case "igAnimationCombinerBoneInfo":
-							{
-								igAnimationCombinerBoneInfo node = (ig as igAnimationCombinerBoneInfo);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x30) throw new ArgumentOutOfRangeException("igAnimationCombinerBoneInfo.size", br1.BaseStream.Length, "must be 0x30 (48)");
-
-								node.AnimationState = ReadEntry<igAnimationState>(br1);
-								igBase transformSource = ReadEntry(br1);
-
-								float[] constantQuaternion = br1.ReadSingleArray(4);
-								node.ConstantQuaternion = new PositionVector4(constantQuaternion[0], constantQuaternion[1], constantQuaternion[2], constantQuaternion[3]);
-
-								float[] constantTranslation = br1.ReadSingleArray(3);
-								node.ConstantTranslation = new PositionVector3(constantTranslation[0], constantTranslation[1], constantTranslation[2]);
-
-								node.Priority = br1.ReadUInt32();
-								node.AnimationDrivenChannels = br1.ReadUInt32();
-								node.Reflect = br1.ReadUInt32();
-								break;
-							}
-							#endregion
-							#region igAnimationCombinerBoneInfoList
-							case "igAnimationCombinerBoneInfoList":
-							{
-								igAnimationCombinerBoneInfoList node = (ig as igAnimationCombinerBoneInfoList);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationCombinerBoneInfoList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								uint count = br1.ReadUInt32();
-								node.Capacity = br1.ReadUInt32();
-
-								throw new Exception("break here to see what we can do about this...");
-
-								// assuming that data points to the start of the first item node in the list...
-								// and that items in a list are placed in the nodes array contiguously...
-								for (uint i = 0; i < count; i++)
-								{
-									// we can loop through and read each one from nodes[data + i]!
-									node.Items.Add(nodes[data + i] as igAnimationCombinerBoneInfo);
-								}
-								break;
-							}
-							#endregion
-							#region igAnimationCombinerBoneInfoListList
-							case "igAnimationCombinerBoneInfoListList":
-							{
-								igAnimationCombinerBoneInfoListList node = (ig as igAnimationCombinerBoneInfoListList);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationCombinerBoneInfoListList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								uint count = br1.ReadUInt32();
-								node.Capacity = br1.ReadUInt32();
-
-								throw new Exception("break here to see what we can do about this...");
-
-								// assuming that data points to the start of the first item node in the list...
-								// and that items in a list are placed in the nodes array contiguously...
-								for (uint i = 0; i < count; i++)
-								{
-									// we can loop through and read each one from nodes[data + i]!
-									node.Items.Add(nodes[data + i] as igAnimationCombinerBoneInfoList);
-								}
-								break;
-							}
-							#endregion
-							#region igAnimationCombinerList
-							case "igAnimationCombinerList":
-							{
-								igAnimationCombinerList node = (ig as igAnimationCombinerList);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationCombinerList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								uint count = br1.ReadUInt32();
-								node.Capacity = br1.ReadUInt32();
-
-								throw new Exception("break here to see what we can do about this...");
-
-								// assuming that data points to the start of the first item node in the list...
-								// and that items in a list are placed in the nodes array contiguously...
-								for (uint i = 0; i < count; i++)
-								{
-									// we can loop through and read each one from nodes[data + i]!
-									node.Items.Add(nodes[data + i] as igAnimationCombiner);
-								}
-								break;
-							}
-							#endregion
-							#region igAnimationDatabase
-							case "igAnimationDatabase":
-							{
-								igAnimationDatabase node = (ig as igAnimationDatabase);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x1C) throw new ArgumentOutOfRangeException("igAnimationDatabase.size", br1.BaseStream.Length, "must be 0x1C (28)");
-
-								node.Name = ReadName32(br1);
-								node.ResolveState = br1.ReadUInt32();
-
-								throw new Exception("figure out what these children are");
-
-								igBase child1 = ReadEntry(br1);
-								igBase child2 = ReadEntry(br1);
-								igBase child3 = ReadEntry(br1);
-								igBase child4 = ReadEntry(br1);
-								igBase child5 = ReadEntry(br1);
-								break;
-							}
-							#endregion
-							#region igAnimationList
-							case "igAnimationList":
-							{
-								igAnimationList node = (ig as igAnimationList);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								uint count = br1.ReadUInt32();
-								node.Capacity = br1.ReadUInt32();
-
-								throw new Exception("break here to see what we can do about this...");
-
-								// assuming that data points to the start of the first item node in the list...
-								// and that items in a list are placed in the nodes array contiguously...
-								for (uint i = 0; i < count; i++)
-								{
-									// we can loop through and read each one from nodes[data + i]!
-									node.Items.Add(nodes[data + i] as igAnimation);
-								}
-								break;
-							}
-							#endregion
-							#region igAnimationModifierList
-							case "igAnimationModifierList":
-							{
-								igAnimationModifierList node = (ig as igAnimationModifierList);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationModifierList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								uint count = br1.ReadUInt32();
-								node.Capacity = br1.ReadUInt32();
-
-								throw new Exception("break here to see what we can do about this...");
-
-								// TODO: what kind of nodes does igAnimationModifierList store?
-								// there is no such thing (yet) as an igAnimationModifier
-
-								// assuming that data points to the start of the first item node in the list...
-								// and that items in a list are placed in the nodes array contiguously...
-								for (uint i = 0; i < count; i++)
-								{
-									// we can loop through and read each one from nodes[data + i]!
-									node.Items.Add(nodes[data + i]);
-								}
-								break;
-							}
-							#endregion
-							#region igAnimationState
-							case "igAnimationState":
-							{
-								igAnimationState node = (ig as igAnimationState);
-								// validate chunksize
-								if (br1.BaseStream.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationList.size", br1.BaseStream.Length, "must be 0x0C (12)");
-
-								node.Animation = ReadEntry<igAnimation>(br1);
-								node.CombineMode = br1.ReadUInt32();
-								node.TransitionMode = br1.ReadUInt32();
-								node.Status = br1.ReadUInt32();
-								node.BaseState = br1.ReadUInt32();
-								node.New = br1.ReadUInt32();
-								node.CurrentBlendRatio = br1.ReadSingle();
-								node.LocalTime = br1.ReadUInt64();
-								node.BaseTransitionTime = br1.ReadUInt64();
-								node.TimeScale = br1.ReadSingle();
-								node.TimeBias = br1.ReadUInt64();
-								node.BlendStartTime = br1.ReadUInt64();
-								node.BlendStartRatio = br1.ReadSingle();
-								node.BlendRatioRange = br1.ReadSingle();
-								node.BlendDuration = br1.ReadUInt64();
-								node.AnimationStartTime = br1.ReadUInt64();
-								node.CycleMatchTargetState = br1.ReadUInt32();
-								node.IsCycleMatchTarget = br1.ReadUInt32();
-								node.CycleMatchDisable = br1.ReadUInt32();
-								node.ManualCycleMatch = br1.ReadUInt32();
-								node.CycleMatchDuration = br1.ReadUInt64();
-								node.CycleMatchDurationRange = br1.ReadUInt32();
-								node.CycleMatchTargetDuration = br1.ReadUInt64();
-								node.FastCacheDecodingState = br1.ReadUInt32();
-								break;
-							}
-							#endregion
-						}
+						ReadObjectDirEntry(br, entry, NT_index, igTypeName, i);
 						break;
 					}
 					case "igMemoryDirEntry":
@@ -961,25 +511,773 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 					}
 					default:
 					{
-						throw new InvalidOperationException("Unknown directory entry type " + entryType + ".");
+						throw new InvalidOperationException("Unknown directory entry type " + entryTypeName + ".");
 					}
 				}
 			}
 			#endregion
+
+			uint[] tests = new uint[memoryEntryTable.Count];
+			for (uint i = 0; i < memoryEntryTable.Count; i++)
+			{
+				tests[i] = br.ReadUInt32();
+			}
+			for (uint i = 0; i < memoryEntryTable.Count; i++)
+			{
+				IGB_ENTRY entry = entryTable[(int)tests[i]];
+				byte[] memdata = br.ReadBytes(entry.entries[1]);
+
+			}
 		}
 
-		private igBase ReadEntry(IO.BinaryReader br)
+		private ushort[] referenceTable = null;
+		private void ReadObjectDirEntry(IO.Reader br, IGB_ENTRY entry, uint NT_index, string igTypeName, int memoryIndex)
+		{
+			// read chunk header
+			uint chunktype = br.ReadUInt32();
+			uint chunksize = br.ReadUInt32();
+
+			uint memoryPoolIndex = entry.entries[2];
+			string memoryPoolName = null;
+			if (memoryPoolIndex != UInt32.MaxValue)
+			{
+				memoryPoolName = memoryPoolNames[memoryPoolIndex];
+			}
+
+			// validate chunk header
+			if (chunktype != NT_index)
+			{
+				throw new InvalidOperationException("Unexpected node " + igTypeName);
+			}
+			if (chunksize < 0x10)
+			{
+				throw new ArgumentOutOfRangeException("chunksize", chunksize, "Invalid " + igTypeName + " chunk. Chunksize is too small.");
+			}
+			if ((chunksize % 0x04) != 0)
+			{
+				throw new ArgumentOutOfRangeException("chunksize", chunksize, "Invalid " + igTypeName + " chunk. Chunksize not divisible by four.");
+			}
+
+			// read chunk data
+			uint attrsize = chunksize - 0x08;
+			byte[] attrdata = br.ReadBytes(attrsize);
+
+			Accessors.MemoryAccessor attracc = new Accessors.MemoryAccessor(attrdata);
+			IO.Reader br1 = attracc.Reader;
+
+			igBase ig = objrefs[memoryIndex];
+			if (ig == null)
+			{
+				ig = creat(igTypeName);
+				objrefs[memoryIndex] = ig;
+			}
+			else
+			{
+				// instance already allocated with igAllocateObject()
+			}
+
+			if (br1.Accessor.Length != objectSizes[igTypeName])
+			{
+
+			}
+
+			Type t = ig.GetType();
+			igLoadAttributes(t, br1, ig);
+
+			return;
+
+			// process
+			switch (igTypeName)
+			{
+				#region igAABox
+				case "igAABox":
+				{
+					igAABox node = (ig as igAABox);
+					if (br1.Accessor.Length != 0x18) throw new ArgumentOutOfRangeException("igAABox.size", br1.Accessor.Length, "must be 0x18 (24)");
+
+					float[] min = br1.ReadSingleArray(3);
+					float[] max = br1.ReadSingleArray(3);
+
+					node.Minimum = new PositionVector3(min[0], min[1], min[2]);
+					node.Maximum = new PositionVector3(max[0], max[1], max[2]);
+					break;
+				}
+				#endregion
+				#region igActor
+				case "igActor":
+				{
+					igActor node = (ig as igActor);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x68) throw new ArgumentOutOfRangeException("igActor.size", br1.Accessor.Length, "must be 0x68 (104)");
+
+					igLoadAttributes<igNamedObject>(br1, node);
+
+					node.Bound = ReadEntry(br1);
+					node.Flags = (igActor.igActorFlags)br1.ReadUInt32();
+					node.ChildList = ReadEntry<igList>(br1);
+					node.AnimationSystem = ReadEntry<igAnimationSystem>(br1);
+					node.BoneMatrixCacheArray = ReadEntry(br1);
+					node.BlendMatrixCacheArray = ReadEntry(br1);
+					node.Appearance = ReadEntry<igAppearance>(br1);
+					node.AnimationDatabase = ReadEntry<igAnimationDatabase>(br1);
+					node.ModifierList = ReadEntry<igAnimationModifierList>(br1);
+					node.Transform = br1.ReadSingleArray(16); // 4x4 matrix
+					break;
+				}
+				#endregion
+				#region igActorInfo
+				case "igActorInfo":
+				{
+					igActorInfo node = (ig as igActorInfo);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x1C) throw new ArgumentOutOfRangeException("igActorInfo.size", br1.Accessor.Length, "must be 0x1C (28)");
+
+					igLoadAttributes<igNamedObject>(br1, node);
+					igLoadAttributes<igInfo>(br1, node);
+
+					uint actorID = br1.ReadUInt32();
+					node.Actor = igAllocateObject<igActor>(actorID);
+
+					node.ActorList = ReadEntry<igActorList>(br1);
+					node.AnimationDatabase = ReadEntry<igAnimationDatabase>(br1);
+					node.CombinerList = ReadEntry<igAnimationCombinerList>(br1);
+					node.AppearanceList = ReadEntry<igAppearanceList>(br1);
+					break;
+				}
+				#endregion
+				#region igActorList
+				case "igActorList":
+				{
+					igActorList node = (ig as igActorList);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igActorList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					uint count = br1.ReadUInt32();
+					node.Capacity = br1.ReadUInt32();
+
+					uint data = br1.ReadUInt32();
+
+					throw new Exception("break here to see what we can do about this...");
+
+					/*
+					// assuming that data points to the start of the first Actor node in the list...
+					// and that Actors in a list are placed in the nodes array contiguously...
+					for (uint j = 0; j < count; j++)
+					{
+						// we can loop through and read each one from nodes[data + i]!
+						node.Items.Add(nodes[(int)(data + j)] as igActor);
+					}
+					*/
+					break;
+				}
+				#endregion
+				#region igAnimation
+				case "igAnimation":
+				{
+					igAnimation node = (ig as igAnimation);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x30) throw new ArgumentOutOfRangeException("igAnimation.size", br1.Accessor.Length, "must be 0x30 (48)");
+
+					igLoadAttributes<igNamedObject>(br1, node);
+
+					node.Priority = br1.ReadUInt32();
+					node.BindingList = ReadEntry<igAnimationBindingList>(br1);
+					node.TrackList = ReadEntry<igAnimationTrackList>(br1);
+					node.TransitionList = ReadEntry<igAnimationTransitionDefinitionList>(br1);
+					node.KeyFrameTimeOffset = br1.ReadUInt64();
+					node.StartTime = br1.ReadUInt64();
+					node.Duration = br1.ReadUInt64();
+					node.UseAnimationTransBoolArray = br1.ReadUInt32();
+					break;
+				}
+				#endregion
+				#region igAnimationBinding
+				case "igAnimationBinding":
+				{
+					// NOTES:
+					//      _chainSwapList and _reflectTrack are typically 0xFFFFFFFF.
+					//      are they MEM or DIR entries?
+
+					igAnimationBinding node = (ig as igAnimationBinding);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x14) throw new ArgumentOutOfRangeException("igAnimationBinding.size", br1.Accessor.Length, "must be 0x14 (20)");
+
+					node.Skeleton = ReadEntry<igSkeleton>(br1);
+					node.BoneTrackIndexArray = br1.ReadUInt32(); // TODO: this is an Entry, what do we do?
+					node.BindCount = br1.ReadUInt32();
+					node.ChainSwapList = br1.ReadUInt32();
+					node.ReflectTrack = br1.ReadUInt32();
+					break;
+				}
+				#endregion
+				#region igAnimationBindingList
+				case "igAnimationBindingList":
+				{
+					igAnimationBindingList node = (ig as igAnimationBindingList);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationBindingList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					uint count = br1.ReadUInt32();
+					node.Capacity = br1.ReadUInt32();
+
+					throw new Exception("break here to see what we can do about this...");
+
+					// assuming that data points to the start of the first Actor node in the list...
+					// and that Actors in a list are placed in the nodes array contiguously...
+					for (uint j = 0; j < count; j++)
+					{
+						// we can loop through and read each one from nodes[data + i]!
+						// node.Items.Add(nodes[(int)(data + j)] as igAnimationBinding);
+					}
+					break;
+				}
+				#endregion
+				#region igAnimationCombiner
+				case "igAnimationCombiner":
+				{
+					igAnimationCombiner node = (ig as igAnimationCombiner);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x50) throw new ArgumentOutOfRangeException("igAnimationCombiner.size", br1.Accessor.Length, "must be 0x50 (80)");
+
+					igLoadAttributes<igNamedObject>(br1, node);
+
+					node.Skeleton = ReadEntry<igSkeleton>(br1);
+					node.BoneInfoListList = ReadEntry<igAnimationCombinerBoneInfoListList>(br1);
+					node.BoneInfoListBase = ReadEntry<igAnimationCombinerBoneInfoList>(br1);
+					node.AnimationStateList = ReadEntry<igAnimationStateList>(br1);
+					node.ResultQuaternionArray = ReadEntry<igQuaternionfList>(br1);
+					// node.AnimationCacheMatrixArray =
+					igBase unknown1 = ReadEntry(br1);
+
+					node.CacheTime = br1.ReadUInt64();
+					node.CacheValid = br1.ReadInt32();
+
+					igBase boneMatrixArray = ReadEntry(br1);
+					igBase blendMatrixArray = ReadEntry(br1);
+					node.AnimationStateTime = br1.ReadUInt64();
+					node.LastCleanStateTime = (int)br1.ReadUInt64();
+					node.CleanStateTimeThreshold = br1.ReadUInt64();
+					node.CleanStatesTransitionMargin = (int)br1.ReadUInt64();
+					break;
+				}
+				#endregion
+				#region igAnimationCombinerBoneInfo
+				case "igAnimationCombinerBoneInfo":
+				{
+					igAnimationCombinerBoneInfo node = (ig as igAnimationCombinerBoneInfo);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x30) throw new ArgumentOutOfRangeException("igAnimationCombinerBoneInfo.size", br1.Accessor.Length, "must be 0x30 (48)");
+
+					node.AnimationState = ReadEntry<igAnimationState>(br1);
+					igBase transformSource = ReadEntry(br1);
+
+					float[] constantQuaternion = br1.ReadSingleArray(4);
+					node.ConstantQuaternion = new PositionVector4(constantQuaternion[0], constantQuaternion[1], constantQuaternion[2], constantQuaternion[3]);
+
+					float[] constantTranslation = br1.ReadSingleArray(3);
+					node.ConstantTranslation = new PositionVector3(constantTranslation[0], constantTranslation[1], constantTranslation[2]);
+
+					node.Priority = br1.ReadUInt32();
+					node.AnimationDrivenChannels = br1.ReadUInt32();
+					node.Reflect = br1.ReadUInt32();
+					break;
+				}
+				#endregion
+				#region igAnimationCombinerBoneInfoList
+				case "igAnimationCombinerBoneInfoList":
+				{
+					igAnimationCombinerBoneInfoList node = (ig as igAnimationCombinerBoneInfoList);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationCombinerBoneInfoList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					uint count = br1.ReadUInt32();
+					node.Capacity = br1.ReadUInt32();
+
+					throw new Exception("break here to see what we can do about this...");
+
+					// assuming that data points to the start of the first item node in the list...
+					// and that items in a list are placed in the nodes array contiguously...
+					for (uint j = 0; j < count; j++)
+					{
+						// we can loop through and read each one from nodes[data + i]!
+						// node.Items.Add(nodes[data + i] as igAnimationCombinerBoneInfo);
+					}
+					break;
+				}
+				#endregion
+				#region igAnimationCombinerBoneInfoListList
+				case "igAnimationCombinerBoneInfoListList":
+				{
+					igAnimationCombinerBoneInfoListList node = (ig as igAnimationCombinerBoneInfoListList);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationCombinerBoneInfoListList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					uint count = br1.ReadUInt32();
+					node.Capacity = br1.ReadUInt32();
+
+					throw new Exception("break here to see what we can do about this...");
+
+					// assuming that data points to the start of the first item node in the list...
+					// and that items in a list are placed in the nodes array contiguously...
+					for (uint j = 0; j < count; j++)
+					{
+						// we can loop through and read each one from nodes[data + i]!
+						// node.Items.Add(nodes[data + j] as igAnimationCombinerBoneInfoList);
+					}
+					break;
+				}
+				#endregion
+				#region igAnimationCombinerList
+				case "igAnimationCombinerList":
+				{
+					igAnimationCombinerList node = (ig as igAnimationCombinerList);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationCombinerList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					uint count = br1.ReadUInt32();
+					node.Capacity = br1.ReadUInt32();
+
+					throw new Exception("break here to see what we can do about this...");
+
+					// assuming that data points to the start of the first item node in the list...
+					// and that items in a list are placed in the nodes array contiguously...
+					for (uint j = 0; j < count; j++)
+					{
+						// we can loop through and read each one from nodes[data + i]!
+						// node.Items.Add(nodes[(int)(data + j)] as igAnimationCombiner);
+					}
+					break;
+				}
+				#endregion
+				#region igAnimationDatabase
+				case "igAnimationDatabase":
+				{
+					igAnimationDatabase node = (ig as igAnimationDatabase);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x1C) throw new ArgumentOutOfRangeException("igAnimationDatabase.size", br1.Accessor.Length, "must be 0x1C (28)");
+
+					igLoadAttributes<igNamedObject>(br1, node);
+					igLoadAttributes<igInfo>(br1, node);
+
+					throw new Exception("figure out what these children are");
+
+					igBase child1 = ReadEntry(br1);
+					igBase child2 = ReadEntry(br1);
+					igBase child3 = ReadEntry(br1);
+					igBase child4 = ReadEntry(br1);
+					igBase child5 = ReadEntry(br1);
+					break;
+				}
+				#endregion
+				#region igAnimationList
+				case "igAnimationList":
+				{
+					igAnimationList node = (ig as igAnimationList);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					uint count = br1.ReadUInt32();
+					node.Capacity = br1.ReadUInt32();
+
+					throw new Exception("break here to see what we can do about this...");
+
+					// assuming that data points to the start of the first item node in the list...
+					// and that items in a list are placed in the nodes array contiguously...
+					for (uint j = 0; j < count; j++)
+					{
+						// we can loop through and read each one from nodes[data + i]!
+						// node.Items.Add(nodes[(int)(data + i)] as igAnimation);
+					}
+					break;
+				}
+				#endregion
+				#region igAnimationModifierList
+				case "igAnimationModifierList":
+				{
+					igAnimationModifierList node = (ig as igAnimationModifierList);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationModifierList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					uint count = br1.ReadUInt32();
+					node.Capacity = br1.ReadUInt32();
+
+					throw new Exception("break here to see what we can do about this...");
+
+					// TODO: what kind of nodes does igAnimationModifierList store?
+					// there is no such thing (yet) as an igAnimationModifier
+
+					/*
+					// assuming that data points to the start of the first item node in the list...
+					// and that items in a list are placed in the nodes array contiguously...
+					for (uint j = 0; j < count; i++)
+					{
+						// we can loop through and read each one from nodes[data + i]!
+						// node.Items.Add(nodes[(int)(data + j)]);
+					}
+					*/
+					break;
+				}
+				#endregion
+				#region igAnimationState
+				case "igAnimationState":
+				{
+					igAnimationState node = (ig as igAnimationState);
+					// validate chunksize
+					if (br1.Accessor.Length != 0x0C) throw new ArgumentOutOfRangeException("igAnimationList.size", br1.Accessor.Length, "must be 0x0C (12)");
+
+					node.Animation = ReadEntry<igAnimation>(br1);
+					node.CombineMode = br1.ReadUInt32();
+					node.TransitionMode = br1.ReadUInt32();
+					node.Status = br1.ReadUInt32();
+					node.BaseState = br1.ReadUInt32();
+					node.New = br1.ReadUInt32();
+					node.CurrentBlendRatio = br1.ReadSingle();
+					node.LocalTime = br1.ReadUInt64();
+					node.BaseTransitionTime = br1.ReadUInt64();
+					node.TimeScale = br1.ReadSingle();
+					node.TimeBias = br1.ReadUInt64();
+					node.BlendStartTime = br1.ReadUInt64();
+					node.BlendStartRatio = br1.ReadSingle();
+					node.BlendRatioRange = br1.ReadSingle();
+					node.BlendDuration = br1.ReadUInt64();
+					node.AnimationStartTime = br1.ReadUInt64();
+					node.CycleMatchTargetState = br1.ReadUInt32();
+					node.IsCycleMatchTarget = br1.ReadUInt32();
+					node.CycleMatchDisable = br1.ReadUInt32();
+					node.ManualCycleMatch = br1.ReadUInt32();
+					node.CycleMatchDuration = br1.ReadUInt64();
+					node.CycleMatchDurationRange = br1.ReadUInt32();
+					node.CycleMatchTargetDuration = br1.ReadUInt64();
+					node.FastCacheDecodingState = br1.ReadUInt32();
+					break;
+				}
+				#endregion
+				#region igGraphPath
+				case "igGraphPath":
+				{
+					igGraphPath node = (ig as igGraphPath);
+
+					// igGraphPath members
+					uint hPath = br1.ReadUInt32();
+					igNodeList path = igAllocateObject<igNodeList>(hPath);
+
+					break;
+				}
+				#endregion
+				#region igGraphPathList
+				case "igGraphPathList":
+				{
+					igGraphPathList node = (ig as igGraphPathList);
+
+					// igObjectList members
+					uint count = br1.ReadUInt32();
+					uint capacity = br1.ReadUInt32();
+					uint data = br1.ReadUInt32();
+
+					break;
+				}
+				#endregion
+				#region igAttrSet
+				case "igAttrSet":
+				{
+					igAttrSet node = (ig as igAttrSet);
+
+					igLoadAttributes<igNamedObject>(br1, node);
+
+
+					uint hChildList = br1.ReadUInt32();
+					uint hAttributeList = br1.ReadUInt32();
+
+					node.ChildList = igAllocateObject<igNodeList>(hChildList);
+					node.AttributeList = igAllocateObject<igAttrList>(hAttributeList);
+					node.RushState = ReadBoolean32(br1);
+					break;
+				}
+				#endregion
+				#region igAttrList
+				case "igAttrList":
+				{
+					// igObjectList fields
+					uint count = br1.ReadUInt32();
+					uint capacity = br1.ReadUInt32();
+					uint data = br1.ReadUInt32();
+					break;
+				}
+				#endregion
+				#region igNodeList
+				case "igNodeList":
+				{
+					igNodeList node = (ig as igNodeList);
+
+					// igObjectList fields
+					uint count = br1.ReadUInt32();
+					uint capacity = br1.ReadUInt32();
+					uint data = br1.ReadUInt32();
+
+					node.Capacity = capacity;
+					// node.Data = fieldRefs[data];
+					break;
+				}
+				#endregion
+				#region igTextureList
+				case "igTextureList":
+				{
+					igTextureList node = (ig as igTextureList);
+
+					// igObjectList fields
+					uint count = br1.ReadUInt32();
+					uint capacity = br1.ReadUInt32();
+					node.Capacity = capacity;
+
+					int data = br1.ReadInt32();
+
+					break;
+				}
+				#endregion
+				#region igGeometryAttr1_5
+				case "igGeometryAttr1_5":
+				{
+					igGeometryAttr1_5 node = (ig as igGeometryAttr1_5);
+					igLoadAttributes<igAttr>(br1, node);
+					igLoadAttributes<igGeometryAttr>(br1, node);
+					igLoadAttributes<igGeometryAttr1_5>(br1, node);
+					break;
+				}
+				#endregion
+				default:
+				{
+					break;
+				}
+			}
+		}
+
+		private void igReflectionLoadAttributes(Type t, Reader br1, igBase ig)
+		{
+			throw new NotImplementedException();
+		}
+
+		private bool ReadBoolean32(Reader br1)
+		{
+			return br1.ReadUInt32() != 0;
+		}
+
+		private void igLoadAttributes(Type nodeType, Reader br1, igBase node)
+		{
+			if (nodeType == typeof(igNamedObject))
+			{
+				// igNamedObject members
+				string objectName = ReadName32(br1);
+				(node as igNamedObject).Name = objectName;
+			}
+			else if (nodeType == typeof(igAABox))
+			{
+				float[] min = br1.ReadSingleArray(3);
+				float[] max = br1.ReadSingleArray(3);
+
+				(node as igAABox).Minimum = new PositionVector3(min[0], min[1], min[2]);
+				(node as igAABox).Maximum = new PositionVector3(max[0], max[1], max[2]);
+			}
+			else if (nodeType == typeof(igAttr))
+			{
+				(node as igAttr).CachedUnitID = br1.ReadUInt32();
+			}
+			else if (nodeType == typeof(igAttrSet))
+			{
+				igLoadAttributes<igGroup>(br1, node as igGroup);
+
+				uint hChildList = br1.ReadUInt32();
+				uint hAttributeList = br1.ReadUInt32();
+
+				(node as igAttrSet).ChildList = igAllocateObject<igNodeList>(hChildList);
+				(node as igAttrSet).AttributeList = igAllocateObject<igAttrList>(hAttributeList);
+				(node as igAttrSet).RushState = ReadBoolean32(br1);
+			}
+			else if (nodeType == typeof(igAnimationState))
+			{
+				(node as igAnimationState).Animation = ReadEntry<igAnimation>(br1);
+				(node as igAnimationState).CombineMode = br1.ReadUInt32();
+				(node as igAnimationState).TransitionMode = br1.ReadUInt32();
+				(node as igAnimationState).Status = br1.ReadUInt32();
+				(node as igAnimationState).BaseState = br1.ReadUInt32();
+				(node as igAnimationState).New = br1.ReadUInt32();
+				(node as igAnimationState).CurrentBlendRatio = br1.ReadSingle();
+				(node as igAnimationState).LocalTime = br1.ReadUInt64();
+				(node as igAnimationState).BaseTransitionTime = br1.ReadUInt64();
+				(node as igAnimationState).TimeScale = br1.ReadSingle();
+				(node as igAnimationState).TimeBias = br1.ReadUInt64();
+				(node as igAnimationState).BlendStartTime = br1.ReadUInt64();
+				(node as igAnimationState).BlendStartRatio = br1.ReadSingle();
+				(node as igAnimationState).BlendRatioRange = br1.ReadSingle();
+				(node as igAnimationState).BlendDuration = br1.ReadUInt64();
+				(node as igAnimationState).AnimationStartTime = br1.ReadUInt64();
+				(node as igAnimationState).CycleMatchTargetState = br1.ReadUInt32();
+				(node as igAnimationState).IsCycleMatchTarget = br1.ReadUInt32();
+				(node as igAnimationState).CycleMatchDisable = br1.ReadUInt32();
+				(node as igAnimationState).ManualCycleMatch = br1.ReadUInt32();
+				(node as igAnimationState).CycleMatchDuration = br1.ReadUInt64();
+				(node as igAnimationState).CycleMatchDurationRange = br1.ReadUInt32();
+				(node as igAnimationState).CycleMatchTargetDuration = br1.ReadUInt64();
+				(node as igAnimationState).FastCacheDecodingState = br1.ReadUInt32();
+			}
+			else if (nodeType == typeof(igClut))
+			{
+				((igClut)node).Fmt = br1.ReadUInt32();
+				((igClut)node).NumEntries = br1.ReadUInt32();
+				((igClut)node).Stride = br1.ReadUInt32();
+				uint hData = br1.ReadUInt32();
+				((igClut)node).ClutSize = br1.ReadUInt32();
+			}
+			else if (nodeType == typeof(igGeometryAttr))
+			{
+				igLoadAttributes<igAttr>(br1, ((igGeometryAttr)node));
+
+				uint hVertexArray = br1.ReadUInt32();
+				(node as igGeometryAttr).VertexArray = igAllocateObject<igDx9VertexArray1_1>(hVertexArray);
+				uint hIndexArray = br1.ReadUInt32();
+
+				(node as igGeometryAttr).PrimitiveType = (IGBPrimitiveType)br1.ReadUInt32();
+				(node as igGeometryAttr).PrimitiveCount = br1.ReadUInt32();
+				(node as igGeometryAttr).Offset = br1.ReadUInt32();
+				(node as igGeometryAttr).PrimitiveLengths = br1.ReadUInt32();
+				(node as igGeometryAttr).Handle = br1.ReadUInt32();
+				(node as igGeometryAttr).dPds = br1.ReadUInt32();
+				(node as igGeometryAttr).dPdt = br1.ReadUInt32();
+			}
+			else if (nodeType == typeof(igGeometryAttr1_5))
+			{
+				igLoadAttributes<igGeometryAttr>(br1, ((igGeometryAttr1_5)node));
+				(node as igGeometryAttr1_5).StripLengths = igAllocateObject<igPrimLengthArray1_1>(br1.ReadUInt32());
+			}
+			else if (nodeType == typeof(igGroup))
+			{
+				igLoadAttributes<igNode>(br1, ((igGroup)node));
+			}
+			else if (nodeType == typeof(igInfo))
+			{
+				igLoadAttributes<igNamedObject>(br1, ((igInfo)node));
+
+				// igInfo members
+				(node as igInfo).ResolveState = ReadBoolean32(br1);
+			}
+			else if (nodeType == typeof(igNode))
+			{
+				igLoadAttributes<igNamedObject>(br1, ((igGroup)node));
+
+				uint hBoundingBox = br1.ReadUInt32();
+				(node as igNode).BoundingBox = igAllocateObject<igAABox>(hBoundingBox);
+				(node as igNode).Flags = (IGBObjectFlags)br1.ReadUInt32();
+			}
+			else if (nodeType == typeof(igSceneInfo))
+			{
+				igLoadAttributes<igInfo>(br1, ((igSceneInfo)node));
+
+				// igSceneInfo members
+				uint hSceneGraph = br1.ReadUInt32(); // igAttrSet
+				(node as igSceneInfo).SceneGraph = igAllocateObject<igAttrSet>(hSceneGraph);
+
+				uint hTextures = br1.ReadUInt32(); // igTextureList
+				(node as igSceneInfo).Textures = igAllocateObject<igTextureList>(hTextures);
+
+				uint hCameras = br1.ReadUInt32(); // igGraphPathList
+				(node as igSceneInfo).Cameras = igAllocateObject<igGraphPathList>(hCameras);
+
+				ulong animationBegin = br1.ReadUInt64();
+				ulong animationEnd = br1.ReadUInt64();
+				float upVectorX = br1.ReadSingle();
+				float upVectorY = br1.ReadSingle();
+				float upVectorZ = br1.ReadSingle();
+				(node as igSceneInfo).UpVector = new PositionVector3(upVectorX, upVectorY, upVectorZ);
+
+				uint hSceneGraphList = br1.ReadUInt32(); // igNodeList
+				(node as igSceneInfo).SceneGraphList = igAllocateObject<igNodeList>(hSceneGraphList);
+			}
+			else if (nodeType == typeof(igShadeModelAttr))
+			{
+				igLoadAttributes<igAttr>(br1, ((igShadeModelAttr)node));
+
+				((igShadeModelAttr)node).Mode = br1.ReadUInt32();
+			}
+			else if (nodeType == typeof(igTextureAttr))
+			{
+				igLoadAttributes<igAttr>(br1, ((igTextureAttr)node));
+
+				((igTextureAttr)node).bColor = br1.ReadUInt32();
+				((igTextureAttr)node).MagFilter = (IGBTextureFilter)br1.ReadUInt32();
+				((igTextureAttr)node).MinFilter = (IGBTextureFilter)br1.ReadUInt32();
+				((igTextureAttr)node).WrapS = (IGBTextureWrap)br1.ReadUInt32();
+				((igTextureAttr)node).WrapT = (IGBTextureWrap)br1.ReadUInt32();
+				((igTextureAttr)node).MipmapMode = (IGBTextureMipmapMode)br1.ReadUInt32();
+				((igTextureAttr)node).Source = (IGBTextureSource)br1.ReadUInt32();
+				((igTextureAttr)node).Image = igAllocateObject<igImage>(br1.ReadUInt32());
+				((igTextureAttr)node).Paging = ReadBoolean32(br1);
+				uint tu = br1.ReadUInt32(); // ???
+				((igTextureAttr)node).ImageCount = br1.ReadUInt32();
+				((igTextureAttr)node).ImageMipmaps = igAllocateObject<igImageMipMapList>(br1.ReadUInt32());
+			}
+
+
+			else if (nodeType.IsSubclassOf(typeof(igList)))
+			{
+				uint count = br1.ReadUInt32();
+				uint capacity = br1.ReadUInt32();
+				uint data = br1.ReadUInt32();
+				if (data != UInt32.MaxValue)
+				{
+
+				}
+			}
+			else
+			{
+				Console.WriteLine(String.Format("unhandled node type '{0}'", nodeType.Name));
+			}
+		}
+		private void igLoadAttributes<T>(Reader br1, T node) where T : igBase
+		{
+			igLoadAttributes(typeof(T), br1, node);
+		}
+
+		private Dictionary<uint, igBase> _preallocatedObjects = new Dictionary<uint, igBase>();
+
+		private T igAllocateObject<T>(uint index) where T : igBase, new()
+		{
+			if (index == UInt32.MaxValue)
+				return null;
+
+			System.Diagnostics.Contracts.Contract.Assert(index >= 0 && index < objrefs.Length);
+
+			/*
+			if (objrefs[index] == null)
+			{
+				if (_preallocatedObjects.ContainsKey(index))
+				{
+					// FIXME this
+					T obj = new T();
+					_preallocatedObjects[index];
+				}
+				_preallocatedObjects[index] = new T();
+				// objrefs[index] = new T();
+				return (T)_preallocatedObjects[index];
+			}
+			*/
+			if (objrefs[index] == null)
+			{
+				objrefs[index] = new T();
+			}
+			return (T)objrefs[index];
+		}
+
+		private igBase ReadEntry(IO.Reader br)
 		{
 			return ReadEntry<igBase>(br);
 		}
-		private T ReadEntry<T>(IO.BinaryReader br) where T : igBase
+		private T ReadEntry<T>(IO.Reader br) where T : igBase
 		{
 			uint item = br.ReadUInt32();
 			if (item != 0xFFFFFFFF)
 			{
 				// test reference #1
-				uint referenceTableIndex = item;
-				uint entryTableIndex = referenceTable[referenceTableIndex];
+				int referenceTableIndex = (int)item;
+				int entryTableIndex = referenceTable[referenceTableIndex];
 				if (entryTableIndex >= entryTable.Count) throw new ArgumentOutOfRangeException("entryTableIndex", entryTableIndex, "must be less than entryTable.Count (" + entryTable.Count + ")");
 
 				IGB_ENTRY e = entryTable[entryTableIndex];
@@ -988,13 +1286,13 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 				switch (entryTable[entryTableIndex].type)
 				{
 					#region igObjectDirEntry
-					case 0x03: // igObjectDirEntry
+					case IGBNodeEntryType.Object: // igObjectDirEntry
 					{
 						// test reference #3
-						if (e.entries[1] >= nodeStringTable_params.Count) throw new InvalidOperationException("Invalid NT reference.");
+						if (e.entries[1] >= nodeTable.Length) throw new InvalidOperationException("Invalid NT reference.");
 
 						// must be correct entry type
-						if (nodeStringTable_params[e.type].name != "igObjectDirEntry")
+						if (nodeTable[(int)e.type].name != "igObjectDirEntry")
 						{
 							throw new InvalidOperationException("Entry is not an igObjectDirEntry.");
 						}
@@ -1005,9 +1303,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 					}
 					#endregion
 					#region igMemoryDirEntry
-					case 0x04: // igMemoryDirEntry
+					case IGBNodeEntryType.Memory: // igMemoryDirEntry
 					{
-						if (nodeStringTable_params[e.type].name != "igMemoryDirEntry")
+						if (nodeTable[(int)e.type].name != "igMemoryDirEntry")
 						{
 							throw new InvalidOperationException("Entry is not an igMemoryDirEntry.");
 						}
@@ -1015,9 +1313,9 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 					}
 					#endregion
 					#region igExternalInfoEntry
-					case 0x08: // igExternalInfoEntry
+					case IGBNodeEntryType.External: // igExternalInfoEntry
 					{
-						if (nodeStringTable_params[e.type].name != "igExternalInfoEntry")
+						if (nodeTable[(int)e.type].name != "igExternalInfoEntry")
 						{
 							throw new InvalidOperationException("Entry is not an igExternalInfoEntry.");
 						}
@@ -1030,14 +1328,14 @@ namespace UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy
 					}
 				}
 			}
-			return nodes[item];
+			return null;  // (T)nodes[(int)item];
 		}
 
-		private string ReadName32(IO.BinaryReader br)
+		private string ReadName32(IO.Reader br)
 		{
 			uint nameIndex = br.ReadUInt32();
 			if (nameIndex >= stringTableEntries.Count) throw new ArgumentOutOfRangeException("nameIndex", nameIndex, "must be less than number of string table entries (" + stringTableEntries.Count + ")");
-			return stringTableEntries[nameIndex];
+			return stringTableEntries[(int)nameIndex];
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
