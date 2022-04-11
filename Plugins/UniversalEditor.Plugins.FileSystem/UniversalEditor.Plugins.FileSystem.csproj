@@ -306,6 +306,7 @@
     <Folder Include="Associations\KenSilverman\" />
     <Folder Include="Associations\ElectronicArts\" />
     <Folder Include="Associations\Ultra3D\" />
+    <Folder Include="Associations\Merscom\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\7Zip.uexml" />
@@ -396,6 +397,7 @@
     <EmbeddedResource Include="Associations\Ultra3D\RBX.uexml" />
     <EmbeddedResource Include="Associations\Ultra3D\TBV.uexml" />
     <EmbeddedResource Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\Merscom\DPK.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

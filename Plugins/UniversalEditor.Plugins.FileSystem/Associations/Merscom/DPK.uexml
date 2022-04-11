@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter HintComparison="MagicThenFilter" ContentType="application/x-merscom-dpk" Title="Merscom data package (DPK) archive">
+					<FileNameFilters>
+						<FileNameFilter>*.dpk</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">DPK4</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Merscom.DPKDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
