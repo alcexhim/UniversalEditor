@@ -23,11 +23,12 @@ using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.Merscom
+namespace UniversalEditor.Plugins.Merscom.DataFormats.FileSystem.DPK
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" />for manipulating archives in Merscom DPK format.
 	/// </summary>
+	[DataFormatImplementationStatus(DataFormatImplementationArea.Load, ImplementationStatus.Complete)]
 	public class DPKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr;
@@ -53,26 +54,42 @@ namespace UniversalEditor.DataFormats.FileSystem.Merscom
 			if (DPK4 != "DPK4")
 				throw new InvalidDataFormatException();
 
-			uint u1 = br.ReadUInt32();
-			uint u2 = br.ReadUInt32();
+			uint archiveLength = br.ReadUInt32();
+			uint tocLength = br.ReadUInt32();
 			uint u3 = br.ReadUInt32();
-			uint u4 = br.ReadUInt32();
-			uint uFileCount = br.ReadUInt32();
-			for (int i = 0; i < uFileCount; i++)
+			for (int i = 0; i < u3; i++)
 			{
-				br.SeekUntilFirstNonNull();
+				uint u4 = br.ReadUInt32();
+				uint decompressedLength = br.ReadUInt32();
+				uint compressedLength = br.ReadUInt32();									// 371				39325
+				uint offset = br.ReadUInt32();									// 292196			292567
 
-				uint u6 = br.ReadUInt32();
-				uint u7 = br.ReadUInt32();
+				string nam = br.ReadNullTerminatedString();                 // action.accfg
+				br.Align(4);
 
-				string nam = br.ReadNullTerminatedString();
 				File file = fsom.AddFile(nam);
 
-				ushort u8 = br.ReadUInt16();
-				uint u9 = br.ReadUInt32();
-				uint u10 = br.ReadUInt32();
+				file.Properties["compressedLength"] = compressedLength;
+				file.Properties["offset"] = offset;
+
+				file.Size = decompressedLength;
+
+				file.DataRequest += File_DataRequest;
 			}
 		}
+
+		void File_DataRequest(object sender, DataRequestEventArgs e)
+		{
+			File file = (File)sender;
+			uint compressedLength = (uint)file.Properties["compressedLength"];
+			uint offset = (uint)file.Properties["offset"];
+
+			Accessor.Reader.Seek(offset, SeekOrigin.Begin);
+			byte[] compressedData = Accessor.Reader.ReadBytes(compressedLength);
+			byte[] decompressedData = Compression.CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Zlib).Decompress(compressedData);
+			e.Data = decompressedData;
+		}
+
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{

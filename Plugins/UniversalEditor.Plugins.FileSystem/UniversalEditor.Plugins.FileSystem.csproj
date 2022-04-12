@@ -209,7 +209,6 @@
     <Compile Include="DataFormats\FileSystem\Apogee\DLTDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\PAC\PACDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\MechCommander\MechCommanderDataFormat.cs" />
-    <Compile Include="DataFormats\FileSystem\Merscom\DPKDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\TechArts3D\TAHDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\SquareSoft\LGPDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\RealNetworks\RZTDataFormat.cs" />
@@ -284,7 +283,6 @@
     <Folder Include="DataFormats\FileSystem\Apogee\" />
     <Folder Include="DataFormats\FileSystem\PAC\" />
     <Folder Include="DataFormats\FileSystem\MechCommander\" />
-    <Folder Include="DataFormats\FileSystem\Merscom\" />
     <Folder Include="DataFormats\FileSystem\TechArts3D\" />
     <Folder Include="DataFormats\FileSystem\SquareSoft\" />
     <Folder Include="DataFormats\FileSystem\RealNetworks\" />
