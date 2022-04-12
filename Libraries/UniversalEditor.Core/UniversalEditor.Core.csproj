@@ -101,8 +101,9 @@
     <Compile Include="UserInterface\HostApplicationMessage.cs" />
     <Compile Include="UserInterface\HostApplicationOutputWindow.cs" />
     <Compile Include="CustomOptionCompatSettingsProvider.cs" />
-    <Compile Include="ImplementationStatusAttribute.cs" />
-    <Compile Include="DataFormatImplementationStatus.cs" />
+    <Compile Include="DataFormatImplementationStatusAttribute.cs" />
+    <Compile Include="ImplementationStatus.cs" />
+    <Compile Include="DataFormatImplementationArea.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
