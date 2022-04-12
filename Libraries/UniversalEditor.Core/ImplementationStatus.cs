@@ -21,12 +21,10 @@
 using System;
 namespace UniversalEditor
 {
-	public enum DataFormatImplementationStatus
+	public enum ImplementationStatus
 	{
 		None = 0,
-		Incomplete = -1,
-		Load = 1,
-		Save = 2,
-		Complete = 3
+		Incomplete,
+		Complete
 	}
 }

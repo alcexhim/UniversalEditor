@@ -21,13 +21,19 @@
 using System;
 namespace UniversalEditor
 {
-	public class ImplementationStatusAttribute : Attribute
+	public class DataFormatImplementationStatusAttribute : Attribute
 	{
-		private DataFormatImplementationStatus _dfStatus = DataFormatImplementationStatus.None;
+		public DataFormatImplementationArea Area { get; } = DataFormatImplementationArea.None;
+		public ImplementationStatus Status { get; }= ImplementationStatus.None;
 
-		public ImplementationStatusAttribute(DataFormatImplementationStatus status)
+		public DataFormatImplementationStatusAttribute(ImplementationStatus status)
+			: this(DataFormatImplementationArea.All, status)
 		{
-			_dfStatus = status;
+		}
+		public DataFormatImplementationStatusAttribute(DataFormatImplementationArea area, ImplementationStatus status)
+		{
+			Area = area;
+			Status = status;
 		}
 	}
 }
