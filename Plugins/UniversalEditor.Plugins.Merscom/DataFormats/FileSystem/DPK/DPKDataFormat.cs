@@ -23,12 +23,12 @@ using System;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
 
-namespace UniversalEditor.DataFormats.FileSystem.Merscom
+namespace UniversalEditor.Plugins.Merscom.DataFormats.FileSystem.DPK
 {
 	/// <summary>
 	/// Provides a <see cref="DataFormat" />for manipulating archives in Merscom DPK format.
 	/// </summary>
-	[ImplementationStatus(DataFormatImplementationStatus.Load)]
+	[DataFormatImplementationStatus(DataFormatImplementationArea.Load, ImplementationStatus.Complete)]
 	public class DPKDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr;
