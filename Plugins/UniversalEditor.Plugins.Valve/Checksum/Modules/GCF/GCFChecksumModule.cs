@@ -35,7 +35,7 @@ namespace UniversalEditor.Checksum.Modules.GCF
 
 		public override void Update(byte[] buffer, int offset, int count)
 		{
-			Adler32.Adler32 adler32 = new Adler32.Adler32();
+			Adler32.Adler32ChecksumModule adler32 = new Adler32.Adler32ChecksumModule();
 			CRC32.CRC32ChecksumModule crc32 = new CRC32.CRC32ChecksumModule();
 			Value = (adler32.Calculate(buffer) ^ crc32.Calculate(buffer));
 		}

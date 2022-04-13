@@ -138,7 +138,7 @@ namespace UniversalEditor.ConsoleApplication
 					if (args.Length > 0)
 					{
 						Console.WriteLine("looking for {0}", args[1]);
-						Checksum.Modules.Adler32.Adler32 adlr = new Checksum.Modules.Adler32.Adler32();
+						Checksum.Modules.Adler32.Adler32ChecksumModule adlr = new Checksum.Modules.Adler32.Adler32ChecksumModule();
 
 						string[] files = new string[args.Length - 2];
 						for (int i = 2; i <args.Length; i++)

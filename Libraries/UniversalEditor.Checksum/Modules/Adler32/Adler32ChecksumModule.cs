@@ -75,7 +75,7 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 	/// </remarks>
 	/// <see cref="ICSharpCode.SharpZipLib.Zip.Compression.Streams.InflaterInputStream"/>
 	/// <see cref="ICSharpCode.SharpZipLib.Zip.Compression.Streams.DeflaterOutputStream"/>
-	public sealed class Adler32 : ChecksumModule
+	public sealed class Adler32ChecksumModule : ChecksumModule
 	{
 		public override string Name
 		{
@@ -102,7 +102,7 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 		/// Creates a new instance of the Adler32 class.
 		/// The checksum starts off with a value of 1.
 		/// </summary>
-		public Adler32()
+		public Adler32ChecksumModule()
 		{
 			Reset();
 		}
