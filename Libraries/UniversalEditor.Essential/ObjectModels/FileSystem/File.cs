@@ -183,6 +183,7 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		{
 			File clone = new File();
 			clone.Name = Name;
+			clone.Size = Size;
 			clone.Source = Source;
 			if (DataRequest != null)
 			{
@@ -348,10 +349,9 @@ namespace UniversalEditor.ObjectModels.FileSystem
 				list.Add(Name);
 				while (parent != null)
 				{
-					list.Add(parent.Name);
+					list.Insert(0, parent.Name);
 					parent = parent.Parent;
 				}
-				list.Reverse();
 
 				return String.Join("/", list.ToArray());
 			}
