@@ -19,6 +19,15 @@
 				<Settings>
 				</Settings>
 			</SettingsGroup>
+			<SettingsGroup ID="{21ed9baa-9681-4918-bbaa-4b51f4c7d8b8}">
+				<Path>
+					<Part>Application</Part>
+					<Part>Logging</Part>
+				</Path>
+				<Settings>
+					<BooleanSetting ID="{39e459e8-e8be-4836-8274-fd1c26d498cf}" Name="EnableLogging" Title="Enable logging" />
+				</Settings>
+			</SettingsGroup>
 			<SettingsGroup ID="{07870863-C0E0-4835-B584-84FC87F1C68B}">
 				<Path>
 					<Part>Application</Part>
