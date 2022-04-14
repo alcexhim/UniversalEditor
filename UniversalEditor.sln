@@ -215,6 +215,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBS.Framework.UserInterface
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Merscom", "Plugins\UniversalEditor.Plugins.Merscom\UniversalEditor.Plugins.Merscom.csproj", "{29F3E82C-CF84-4966-91BF-152D3BCC2117}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Shadowflare", "Plugins\UniversalEditor.Plugins.Shadowflare\UniversalEditor.Plugins.Shadowflare.csproj", "{5763E226-26B9-4FAA-8305-4F48E61357E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.SwarmAssault", "Plugins\UniversalEditor.Plugins.SwarmAssault\UniversalEditor.Plugins.SwarmAssault.csproj", "{A3D15C91-8D55-4F02-87DC-A1C5E63B8C56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -623,6 +627,14 @@ Global
 		{29F3E82C-CF84-4966-91BF-152D3BCC2117}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29F3E82C-CF84-4966-91BF-152D3BCC2117}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29F3E82C-CF84-4966-91BF-152D3BCC2117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5763E226-26B9-4FAA-8305-4F48E61357E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5763E226-26B9-4FAA-8305-4F48E61357E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5763E226-26B9-4FAA-8305-4F48E61357E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5763E226-26B9-4FAA-8305-4F48E61357E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D15C91-8D55-4F02-87DC-A1C5E63B8C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D15C91-8D55-4F02-87DC-A1C5E63B8C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D15C91-8D55-4F02-87DC-A1C5E63B8C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D15C91-8D55-4F02-87DC-A1C5E63B8C56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -725,6 +737,8 @@ Global
 		{94059860-1F0B-453D-AFAB-EEDBB0AA25BB} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{62DC7CF9-C608-49E5-8C39-305B2E3E93F6} = {20F315E0-52AE-479F-AF43-3402482C1FC8}
 		{29F3E82C-CF84-4966-91BF-152D3BCC2117} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{5763E226-26B9-4FAA-8305-4F48E61357E9} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{A3D15C91-8D55-4F02-87DC-A1C5E63B8C56} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

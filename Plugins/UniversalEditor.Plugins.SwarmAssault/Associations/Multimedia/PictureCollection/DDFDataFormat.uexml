@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Swarm Assault picture collection (DDF)" ContentType="application/x-swarmassault-ddf">
+					<FileNameFilters>
+						<FileNameFilter>*.ddf</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.PictureCollection.PictureCollectionObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.SwarmAssault.DataFormats.Multimedia.PictureCollection.DDFDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

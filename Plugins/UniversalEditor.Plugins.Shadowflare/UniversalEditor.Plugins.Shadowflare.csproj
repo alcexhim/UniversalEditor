@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5763E226-26B9-4FAA-8305-4F48E61357E9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UniversalEditor.Plugins.Shadowflare</RootNamespace>
+    <AssemblyName>UniversalEditor.Plugins.Shadowflare</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <ReleaseVersion>4.0.2019.12</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Debug\Plugins</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\Plugins</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFormats\FileSystem\SMA\SMADataFormat.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataFormats\" />
+    <Folder Include="DataFormats\FileSystem\" />
+    <Folder Include="DataFormats\FileSystem\SMA\" />
+    <Folder Include="Associations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
+      <Project>{2D4737E6-6D95-408A-90DB-8DFF38147E85}</Project>
+      <Name>UniversalEditor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Essential\UniversalEditor.Essential.csproj">
+      <Project>{30467E5C-05BC-4856-AADC-13906EF4CADD}</Project>
+      <Name>UniversalEditor.Essential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\UniversalEditor.Checksum\UniversalEditor.Checksum.csproj">
+      <Project>{0F7D5BD4-7970-412F-ABD7-0A098BB01ACE}</Project>
+      <Name>UniversalEditor.Checksum</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Associations\SMA.uexml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
