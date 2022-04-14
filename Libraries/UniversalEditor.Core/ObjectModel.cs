@@ -21,13 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using MBS.Framework;
 
 namespace UniversalEditor
 {
 	/// <summary>
 	/// The in-memory representation of data serialized to and from an <see cref="Accessor" /> using a particular <see cref="DataFormat" />.
 	/// </summary>
-	public abstract class ObjectModel : ICloneable, References<ObjectModelReference>
+	public abstract class ObjectModel : ICloneable, References<ObjectModelReference>, ISupportsExtraData
 	{
 		/// <summary>
 		/// Represents a collection of <see cref="ObjectModel" /> objects.
@@ -224,6 +225,33 @@ namespace UniversalEditor
 		public CriteriaObject[] GetCriteriaObjects()
 		{
 			return GetCriteriaObjectsInternal();
+		}
+
+
+
+		// implementation of ISupportsExtraData
+
+		public T GetExtraData<T>(string key, T defaultValue = default(T))
+		{
+			return (T)GetExtraData(key, (object)defaultValue);
+		}
+
+		public void SetExtraData<T>(string key, T value)
+		{
+			SetExtraData(key, (object)value);
+		}
+
+		private Dictionary<string, object> _extraData = new Dictionary<string, object>();
+		public object GetExtraData(string key, object defaultValue = null)
+		{
+			if (_extraData.ContainsKey(key))
+				return _extraData[key];
+			return defaultValue;
+		}
+
+		public void SetExtraData(string key, object value)
+		{
+			_extraData[key] = value;
 		}
 	}
 }
