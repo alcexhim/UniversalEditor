@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using MBS.Framework.Drawing;
+using UniversalEditor.ObjectModels.FileSystem;
 
 namespace UniversalEditor.ObjectModels.Multimedia.Picture
 {
@@ -47,6 +48,12 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 		}
 
 		public List<Color> ColorMap { get; } = new List<Color>();
+
+		public event DataRequestEventHandler DataRequest;
+		protected virtual void OnDataRequest(DataRequestEventArgs e)
+		{
+			DataRequest?.Invoke(this, e);
+		}
 
 		/// <summary>
 		/// Generates a color map as a <see cref="List{T}" /> of the <see cref="Color"/>s used in this <see cref="PictureObjectModel" />.
@@ -93,6 +100,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 
 			int index = (x + (y * mvarWidth)) * 4;
 			bitmapData[x][y] = color;
+			hasData = true;
 
 			int realIndex = (int)(index / 4);
 		}
@@ -110,6 +118,12 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 				throw new InvalidOperationException("Out of image space. Try resizing the image");
 			}
 
+			if (!hasData)
+			{
+				DataRequestEventArgs e = new DataRequestEventArgs();
+				OnDataRequest(e);
+			}
+
 			int index = (x + (y * mvarWidth)) * 4;
 			int realIndex = (int)(index / 4);
 			if (!bitmapData[x][y].IsEmpty)
@@ -125,6 +139,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 		}
 
 		private Color[][] bitmapData = new Color[0][];
+		private bool hasData = false;
 
 		public PictureObjectModel()
 		{
@@ -207,6 +222,12 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 
 		public byte[] ToByteArray(PixelFormat format)
 		{
+			if (!hasData)
+			{
+				DataRequestEventArgs e = new DataRequestEventArgs();
+				OnDataRequest(e);
+			}
+
 			// memory goes from left to right, top to bottom
 			byte[] data = new byte[mvarWidth * mvarHeight * 4];
 			int i = 0;
@@ -251,14 +272,25 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			if (width == 0 || height == 0) return null;
 
 			PictureObjectModel pic = new PictureObjectModel();
-			pic.Width = width;
-			pic.Height = height;
+			pic.LoadByteArray(data, width, height);
+			return pic;
+		}
 
+		private void LoadByteArray(byte[] data, int width, int height)
+		{
+			Width = width;
+			Height = height;
+
+			LoadByteArray(data);
+		}
+
+		private void LoadByteArray(byte[] data)
+		{
 			// memory goes from left to right, top to bottom
 			int i = 0;
-			for (int h = 0; h < height; h++)
+			for (int h = 0; h < Height; h++)
 			{
-				for (int w = 0; w < width; w++)
+				for (int w = 0; w < Width; w++)
 				{
 					byte b = data[i];
 					byte g = data[i + 1];
@@ -266,12 +298,11 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 					byte a = data[i + 3];
 
 					Color color = Color.FromRGBAByte(r, g, b, a);
-					pic.SetPixel(color, w, h);
+					SetPixel(color, w, h);
 
 					i += 4;
 				}
 			}
-			return pic;
 		}
 
 		public int GetStride(int bitsPerPixel)
