@@ -356,12 +356,14 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			{
 				txtQuickAnimateStartFrame.Enabled = false;
 				txtQuickAnimateEndFrame.Enabled = false;
-
 			}
+
 			if ((int)txtQuickAnimateFrameDuration.Value == 0)
 			{
 				txtQuickAnimateFrameDuration.Value = 150;  // anim.FrameDuration;
 			}
+
+			_c_frame = (int) txtQuickAnimateStartFrame.Value;
 
 			tmr.Duration = (int)txtQuickAnimateFrameDuration.Value;
 			tmr.Enabled = true;
@@ -405,10 +407,10 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Pi
 			txtFrameIndex.Value = _c_frame;
 
 			_c_frame++;
-			_c_frameIndex++;
 
 			if (_QuickAnimateAnimation != null)
 			{
+				_c_frameIndex++;
 				if (_c_frameIndex >= _QuickAnimateAnimation.Frames.Count)
 				{
 					_c_frameIndex = 0;
