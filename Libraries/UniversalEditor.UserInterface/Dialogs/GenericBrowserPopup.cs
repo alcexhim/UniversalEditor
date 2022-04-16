@@ -69,7 +69,17 @@ namespace UniversalEditor.UserInterface.Dialogs
 			for (int i = 0; i < details.Length; i++)
 			{
 				string str = details[i];
-				if (String.IsNullOrEmpty(str)) str = String.Empty;
+				if (String.IsNullOrEmpty(str))
+				{
+					if (i == 0)
+					{
+						str = itmr.ToString();
+					}
+					else
+					{
+						str = String.Empty;
+					}
+				}
 
 				columns.Add(CreateColumn(i, str));
 			}
