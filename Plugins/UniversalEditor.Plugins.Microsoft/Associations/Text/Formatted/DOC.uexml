@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- This association exists only to allow us to choose this DataFormat to view its structure as a FileSystemObjectModel. -->
+			<Filters>
+				<Filter Title="Microsoft Word 97-2003 Document">
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Text.Formatted.FormattedTextObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Text.Formatted.DOC.DOCDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

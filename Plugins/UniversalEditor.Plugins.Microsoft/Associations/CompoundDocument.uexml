@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<!-- This association exists only to allow us to choose this DataFormat to view its structure as a FileSystemObjectModel. -->
+			<Filters>
+				<Filter Title="Microsoft OLE2 Compound Document">
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument.CompoundDocumentDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
