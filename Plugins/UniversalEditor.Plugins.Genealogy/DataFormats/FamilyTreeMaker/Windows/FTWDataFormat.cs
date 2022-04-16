@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument;
+
 using UniversalEditor.Plugins.Genealogy.ObjectModels.FamilyTree;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.DataFormats.CompoundDocument;
+using UniversalEditor.ObjectModels.CompoundDocument;
 
 namespace UniversalEditor.Plugins.Genealogy.DataFormats.FamilyTreeMaker.Windows
 {
@@ -22,13 +24,13 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.FamilyTreeMaker.Windows
 		protected override void BeforeLoadInternal (Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal (objectModels);
-			objectModels.Push (new FileSystemObjectModel ());
+			objectModels.Push (new CompoundDocumentObjectModel ());
 		}
 		protected override void AfterLoadInternal (Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal (objectModels);
 
-			FileSystemObjectModel fsom = (objectModels.Pop () as FileSystemObjectModel);
+			CompoundDocumentObjectModel fsom = (objectModels.Pop () as CompoundDocumentObjectModel);
 
 			File IND_DB = fsom.Files["IND.DB"];
 			File INDGROUPS = fsom.Files["QEDIT0.DB"];
@@ -59,7 +61,7 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.FamilyTreeMaker.Windows
 		protected override void BeforeSaveInternal (Stack<ObjectModel> objectModels)
 		{
 			FamilyTreeObjectModel ft = (objectModels.Pop() as FamilyTreeObjectModel);
-			FileSystemObjectModel fsom = new FileSystemObjectModel();
+			CompoundDocumentObjectModel fsom = new CompoundDocumentObjectModel();
 
 			objectModels.Push(fsom);
 

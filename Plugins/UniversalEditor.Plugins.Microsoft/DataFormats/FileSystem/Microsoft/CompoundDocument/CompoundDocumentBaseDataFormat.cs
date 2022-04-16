@@ -32,7 +32,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 	/// <see cref="DataFormat" />s that manipulate files based on the Microsoft Compound Document Format specification, such as those from older
 	/// versions of Microsoft Office.
 	/// </summary>
-	public class CompoundDocumentDataFormat : DataFormat
+	public class CompoundDocumentBaseDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr;
 		protected override DataFormatReference MakeReferenceInternal()

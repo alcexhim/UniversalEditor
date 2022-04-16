@@ -44,7 +44,7 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\Cabinet\CABCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\Cabinet\CABDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\Cabinet\CABFlags.cs" />
-    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentBaseDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentKnownSectorID.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedCompressionMethod.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\MSCompressedDataFormat.cs" />
@@ -147,6 +147,8 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\NTFS\Attributes\NTFSStandardInformationAttribute.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\NTFS\Attributes\NTFSDataAttribute.cs" />
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\Internal\SZDDComp.cs" />
+    <Compile Include="DataFormats\CompoundDocument\CompoundDocumentDataFormat.cs" />
+    <Compile Include="ObjectModels\CompoundDocument\CompoundDocumentObjectModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -203,6 +205,8 @@
     <Folder Include="Associations\Help\" />
     <Folder Include="Associations\Text\" />
     <Folder Include="Associations\Text\Formatted\" />
+    <Folder Include="DataFormats\CompoundDocument\" />
+    <Folder Include="ObjectModels\CompoundDocument\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Help\WinHelp.uexml" />

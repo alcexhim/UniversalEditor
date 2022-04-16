@@ -20,7 +20,9 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using UniversalEditor.DataFormats.CompoundDocument;
 using UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument;
+using UniversalEditor.ObjectModels.CompoundDocument;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.PropertyList;
 
@@ -45,12 +47,12 @@ namespace UniversalEditor.DataFormats.PropertyList.Microsoft.VisualStudio
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal(objectModels);
-			objectModels.Push(new FileSystemObjectModel());
+			objectModels.Push(new CompoundDocumentObjectModel());
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
 			base.AfterLoadInternal(objectModels);
-			FileSystemObjectModel fsom = (objectModels.Pop() as FileSystemObjectModel);
+			CompoundDocumentObjectModel fsom = (objectModels.Pop() as CompoundDocumentObjectModel);
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 
 			for (int i = 0; i < fsom.Files.Count; i++ )
@@ -61,7 +63,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Microsoft.VisualStudio
 			base.BeforeSaveInternal(objectModels);
 
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
-			FileSystemObjectModel fsom = new FileSystemObjectModel();
+			CompoundDocumentObjectModel fsom = new CompoundDocumentObjectModel();
 
 
 
