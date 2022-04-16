@@ -39,7 +39,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReferenceInternal();
+				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
 				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(SectorSize), "_Sector size (in bytes)", 512, 128));
 				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(ShortSectorSize), "S_hort sector size (in bytes)", 64));

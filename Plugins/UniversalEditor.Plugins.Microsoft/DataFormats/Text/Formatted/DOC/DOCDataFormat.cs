@@ -36,7 +36,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.DOC
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReferenceInternal();
+				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;

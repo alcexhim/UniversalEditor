@@ -8,6 +8,17 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.FamilyTreeMaker.Windows
 {
 	public class FTWDataFormat : CompoundDocumentDataFormat
 	{
+		private static DataFormatReference _dfr = null;
+		protected override DataFormatReference MakeReferenceInternal()
+		{
+			if (_dfr == null)
+			{
+				_dfr = new DataFormatReference(GetType());
+				_dfr.Capabilities.Add(typeof(FamilyTreeObjectModel), DataFormatCapabilities.All);
+			}
+			return _dfr;
+		}
+
 		protected override void BeforeLoadInternal (Stack<ObjectModel> objectModels)
 		{
 			base.BeforeLoadInternal (objectModels);
