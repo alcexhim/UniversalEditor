@@ -143,6 +143,25 @@ namespace UniversalEditor
 			Type = dataFormatType;
 		}
 
+		public DataFormatReference(Guid id, DataFormatReference baseRef)
+			: this(id)
+		{
+			baseRef.ExportOptions?.CopyTo(this.ExportOptions);
+			baseRef.ImportOptions?.CopyTo(this.ImportOptions);
+		}
+		public DataFormatReference(string dataFormatTypeName, DataFormatReference baseRef)
+			: this(dataFormatTypeName)
+		{
+			baseRef.ExportOptions?.CopyTo(this.ExportOptions);
+			baseRef.ImportOptions?.CopyTo(this.ImportOptions);
+		}
+		public DataFormatReference(Type dataFormatType, DataFormatReference baseRef)
+			: this(dataFormatType)
+		{
+			baseRef.ExportOptions?.CopyTo(this.ExportOptions);
+			baseRef.ImportOptions?.CopyTo(this.ImportOptions);
+		}
+
 		private Guid mvarID = Guid.Empty;
 		public Guid ID { get { return mvarID; } set { mvarID = value; } }
 
