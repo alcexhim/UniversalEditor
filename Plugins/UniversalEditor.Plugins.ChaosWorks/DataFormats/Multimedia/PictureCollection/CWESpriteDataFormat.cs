@@ -147,7 +147,21 @@ namespace UniversalEditor.Plugins.ChaosWorks.DataFormats.Multimedia.PictureColle
 						a = (byte)(255 - a);
 					}
 
+					if (r > 63 || g > 63 || b > 63)
+					{
+						Console.WriteLine("cwe: sprite warning: color component exceeds 63 ( {0} {1} {2} {3} )", r, g, b, a);
+					}
+					else
+					{
+						// clamp-64 to clamp-255
+						r = (byte)(((double)r / 63) * 255);
+						g = (byte)(((double)g / 63) * 255);
+						b = (byte)(((double)b / 63) * 255);
+					}
+
 					Color color = Color.FromRGBAByte(r, g, b, a);
+					Console.WriteLine("cwe: sprite debug: color added ( {0} {1} {2} {3} )", r, g, b, a);
+
 					EmbeddedPalette.Entries.Add(color);
 					palette.Entries.Add(color);
 				}
