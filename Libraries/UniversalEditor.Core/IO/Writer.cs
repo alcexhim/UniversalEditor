@@ -609,6 +609,9 @@ namespace UniversalEditor.IO
 		/// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
 		public void WriteObject(object value)
 		{
+			if (value == null)
+				return;
+
 			if (value is object[])
 			{
 				object[] array = (object[])value;
@@ -621,7 +624,12 @@ namespace UniversalEditor.IO
 
 			Type objectType = value.GetType();
 
-			if (objectType == typeof(Byte))
+			if (objectType == typeof(Boolean))
+			{
+				WriteBoolean((bool)value);
+				return;
+			}
+			else if (objectType == typeof(Byte))
 			{
 				WriteByte((byte)value);
 				return;
