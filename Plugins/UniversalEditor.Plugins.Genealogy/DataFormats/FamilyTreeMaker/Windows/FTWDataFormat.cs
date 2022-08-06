@@ -32,8 +32,8 @@ namespace UniversalEditor.Plugins.Genealogy.DataFormats.FamilyTreeMaker.Windows
 
 			CompoundDocumentObjectModel fsom = (objectModels.Pop () as CompoundDocumentObjectModel);
 
-			File IND_DB = fsom.Files["IND.DB"];
-			File INDGROUPS = fsom.Files["QEDIT0.DB"];
+			File IND_DB = fsom.Folders["Root Entry"].Files["IND.DB"];
+			File INDGROUPS = fsom.Folders["Root Entry"].Files["QEDIT0.DB"];
 
 			if (IND_DB == null)
 				throw new InvalidDataFormatException("IND.DB not found");

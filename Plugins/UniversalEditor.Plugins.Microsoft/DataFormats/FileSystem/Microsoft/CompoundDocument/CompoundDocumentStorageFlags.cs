@@ -1,5 +1,5 @@
 //
-//  CompoundDocumentObjectModel.cs
+//  CompoundDocumentStorageFlags.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -19,26 +19,11 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using UniversalEditor.ObjectModels.FileSystem;
-
-namespace UniversalEditor.ObjectModels.CompoundDocument
+namespace UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument
 {
-	public class CompoundDocumentObjectModel : FileSystemObjectModel
+	[Flags]
+	public enum CompoundDocumentStorageFlags
 	{
-		private static ObjectModelReference _omr = null;
-
-		public string UserType { get; set; }
-		public CompoundDocumentClipboardFormat ClipboardFormat { get; set; }
-		public string AssociationTypeId { get; set; }
-
-		protected override ObjectModelReference MakeReferenceInternal()
-		{
-			if (_omr == null)
-			{
-				_omr = new ObjectModelReference(GetType());
-				_omr.Path = new string[] { "Microsoft", "OLE", "OLE2 Compound Document" };
-			}
-			return _omr;
-		}
+		None = 0
 	}
 }

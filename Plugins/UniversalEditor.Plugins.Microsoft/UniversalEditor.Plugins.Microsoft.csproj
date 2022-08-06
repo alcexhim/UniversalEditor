@@ -149,6 +149,17 @@
     <Compile Include="DataFormats\FileSystem\Microsoft\MSCompressed\Internal\SZDDComp.cs" />
     <Compile Include="DataFormats\CompoundDocument\CompoundDocumentDataFormat.cs" />
     <Compile Include="ObjectModels\CompoundDocument\CompoundDocumentObjectModel.cs" />
+    <Compile Include="ObjectModels\CompoundDocument\CompoundDocumentClipboardFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentStorageHeader.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentStorageFlags.cs" />
+    <Compile Include="ObjectModels\Office\MicrosoftOfficeDocumentObjectModel.cs" />
+    <Compile Include="DataFormats\Office\MicrosoftOfficeDocumentDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentStorageColor.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\CompoundDocument\CompoundDocumentHeader.cs" />
+    <Compile Include="DataFormats\CompoundDocument\SummaryInformation\SummaryInformationDataFormat.cs" />
+    <Compile Include="DataFormats\CompoundDocument\SummaryInformation\PropertySetInfo.cs" />
+    <Compile Include="DataFormats\CompoundDocument\SummaryInformation\PropertyInfo.cs" />
+    <Compile Include="DataFormats\CompoundDocument\SummaryInformation\PropertySetPropertyType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -207,6 +218,9 @@
     <Folder Include="Associations\Text\Formatted\" />
     <Folder Include="DataFormats\CompoundDocument\" />
     <Folder Include="ObjectModels\CompoundDocument\" />
+    <Folder Include="ObjectModels\Office\" />
+    <Folder Include="DataFormats\Office\" />
+    <Folder Include="DataFormats\CompoundDocument\SummaryInformation\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Help\WinHelp.uexml" />

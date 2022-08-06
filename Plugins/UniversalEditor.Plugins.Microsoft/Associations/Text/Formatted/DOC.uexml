@@ -5,6 +5,9 @@
 			<!-- This association exists only to allow us to choose this DataFormat to view its structure as a FileSystemObjectModel. -->
 			<Filters>
 				<Filter Title="Microsoft Word 97-2003 Document">
+					<FileNameFilters>
+						<FileNameFilter>*.doc</FileNameFilter>
+					</FileNameFilters>
 				</Filter>
 			</Filters>
 			<ObjectModels>

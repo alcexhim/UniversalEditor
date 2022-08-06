@@ -4,15 +4,39 @@
 		<Association>
 			<!-- This association exists only to allow us to choose this DataFormat to view its structure as a FileSystemObjectModel. -->
 			<Filters>
-				<Filter Title="Microsoft OLE2 Compound Document">
+				<Filter Title="Microsoft OLE2 Compound Document file system">
 				</Filter>
 			</Filters>
 			<ObjectModels>
 				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
 			</ObjectModels>
 			<DataFormats>
-				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument.CompoundDocumentDataFormat" />
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument.CompoundDocumentBaseDataFormat" />
 			</DataFormats>
 		</Association>
+		<Association>
+			<!-- This association exists only to allow us to choose this DataFormat to view its structure as a FileSystemObjectModel. -->
+			<Filters>
+				<Filter Title="Microsoft OLE2 Compound Document">
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.CompoundDocument.CompoundDocumentObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.CompoundDocument.CompoundDocumentDataFormat" />
+			</DataFormats>
+		</Association>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft OLE2 SummaryInformation">
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.CompoundDocument.SummaryInformation.SummaryInformationDataFormat" />
+			</DataFormats>
 	</Associations>
 </UniversalEditor>

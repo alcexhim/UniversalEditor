@@ -20,6 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using MBS.Framework;
+using MBS.Framework.Settings;
 using UniversalEditor.DataFormats.CompoundDocument;
 using UniversalEditor.DataFormats.FileSystem.Microsoft.CompoundDocument;
 using UniversalEditor.ObjectModels.CompoundDocument;
@@ -38,7 +40,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Microsoft.VisualStudio
 		{
 			if (_dfr == null)
 			{
-				_dfr = new DataFormatReference(GetType());
+				_dfr = new DataFormatReference(GetType(), base.MakeReferenceInternal());
 				_dfr.Capabilities.Add(typeof(PropertyListObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;
@@ -55,8 +57,7 @@ namespace UniversalEditor.DataFormats.PropertyList.Microsoft.VisualStudio
 			CompoundDocumentObjectModel fsom = (objectModels.Pop() as CompoundDocumentObjectModel);
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 
-			for (int i = 0; i < fsom.Files.Count; i++ )
-				fsom.Files[i].Save(@"C:\Temp\SUO\" + fsom.Files[i].Name);
+
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
