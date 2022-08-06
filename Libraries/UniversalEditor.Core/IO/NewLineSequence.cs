@@ -24,6 +24,18 @@ namespace UniversalEditor.IO
 	public enum NewLineSequence
 	{
 		/// <summary>
+		/// Determines the new line sequence based on whether there is a '\r' or a
+		/// '\n', or both, at the end of a line.
+		/// </summary>
+		/// <remarks>
+		/// DO NOT USE ON BINARY FILES OR OVER NETWORK STREAMS. The detection
+		/// logic requires a line to end eventually with a '\r' or a '\n'
+		/// character. universal editor will keep reading until it encounters one
+		/// of those characters, or hits the end of the file. on a network stream,
+		/// this may never happen, and your program may end up waiting forever.
+		/// </remarks>
+		Automatic = -2,
+		/// <summary>
 		/// Determines the new line sequence based on the system default (CR on Mac OS up to version 9, LF on Linux,
 		/// CRLF on Windows).
 		/// </summary>

@@ -46,12 +46,18 @@ namespace UniversalEditor.IO
 
 		public Transformation.TransformationCollection Transformations { get; } = new Transformation.TransformationCollection();
 
-		private NewLineSequence mvarNewLineSequence = NewLineSequence.Default;
-		public NewLineSequence NewLineSequence { get { return mvarNewLineSequence; } set { mvarNewLineSequence = value; } }
-		public string GetNewLineSequence()
+		protected NewLineSequence _ActualNewLineSequenceForAutomatic = NewLineSequence.Default;
+		public NewLineSequence NewLineSequence { get; set; } = NewLineSequence.Automatic;
+
+		private string GetNewLineSequence(NewLineSequence newLineSequence)
 		{
+			if (newLineSequence == NewLineSequence.Automatic)
+			{
+				return GetNewLineSequence(_ActualNewLineSequenceForAutomatic);
+			}
+
 			string newline = System.Environment.NewLine;
-			switch (mvarNewLineSequence)
+			switch (newLineSequence)
 			{
 				case IO.NewLineSequence.CarriageReturn:
 				{
@@ -75,6 +81,10 @@ namespace UniversalEditor.IO
 				}
 			}
 			return newline;
+		}
+		public string GetNewLineSequence()
+		{
+			return GetNewLineSequence(NewLineSequence);
 		}
 
 		public ReaderWriterBase(Accessor accessor)

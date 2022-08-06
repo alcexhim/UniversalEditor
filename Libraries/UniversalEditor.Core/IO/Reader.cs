@@ -1075,11 +1075,7 @@ namespace UniversalEditor.IO
 			return encoding.GetString(data);
 		}
 
-		public byte[] ReadUntil(byte[] sequence)
-		{
-			return ReadUntil(sequence, false);
-		}
-		public byte[] ReadUntil(byte[] sequence, bool includeSequence)
+		public byte[] ReadUntil(byte[] sequence, bool includeSequence = false)
 		{
 			byte[] w = new byte[0];
 			while (!EndOfStream)
@@ -1107,6 +1103,8 @@ namespace UniversalEditor.IO
 					if (!includeSequence)
 					{
 						Array.Resize(ref w, w.Length - sequence.Length);
+
+						// HACK: we aren't including the sequence in the response, BUT we should consume it anyway... right?
 						try
 						{
 							Seek(-sequence.Length, SeekOrigin.Current);
@@ -1115,6 +1113,7 @@ namespace UniversalEditor.IO
 						{
 
 						}
+
 					}
 					return w;
 				}
@@ -1785,11 +1784,57 @@ namespace UniversalEditor.IO
 		public string ReadLine()
 		{
 			StringBuilder sb = new StringBuilder();
-			string line = ReadUntil(GetNewLineSequence());
-			// ReadChars(GetNewLineSequence().Length);
-			if (line.EndsWith("\r"))
-				line = line.Substring(0, line.Length - 1);
-			return line;
+			if (NewLineSequence == NewLineSequence.Automatic && _ActualNewLineSequenceForAutomatic == NewLineSequence.Default)
+			{
+				// first time around, determine actual new line sequence
+				while (!EndOfStream)
+				{
+					char c = ReadChar();
+					if (c == '\n')
+					{
+						char c2 = PeekChar();
+						if (c2 == '\r')
+						{
+							ReadChar();
+							_ActualNewLineSequenceForAutomatic = NewLineSequence.LineFeedCarriageReturn;
+							break;
+						}
+						else
+						{
+							_ActualNewLineSequenceForAutomatic = NewLineSequence.LineFeed;
+							break;
+						}
+					}
+					else if (c == '\r')
+					{
+						char c2 = PeekChar();
+						if (c2 == '\n')
+						{
+							ReadChar();
+							_ActualNewLineSequenceForAutomatic = NewLineSequence.CarriageReturnLineFeed;
+							break;
+						}
+						else
+						{
+							_ActualNewLineSequenceForAutomatic = NewLineSequence.CarriageReturn;
+							break;
+						}
+					}
+					else
+					{
+						sb.Append(c);
+					}
+				}
+				return sb.ToString();
+			}
+			else
+			{
+				string line = ReadUntil(GetNewLineSequence());
+				ReadChars(GetNewLineSequence().Length);
+				if (line.EndsWith("\r"))
+					line = line.Substring(0, line.Length - 1);
+				return line;
+			}
 		}
 
 		/// <summary>
