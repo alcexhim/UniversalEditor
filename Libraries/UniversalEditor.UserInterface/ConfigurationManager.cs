@@ -48,10 +48,11 @@ namespace UniversalEditor.UserInterface
 
 		public void Load()
 		{
+
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
 
-			string FileName = ((UIApplication)Application.Instance).BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
-			if (System.IO.File.Exists(FileName))
+			string[] FileNames = Application.Instance.FindFiles("~/Configuration.xml");
+			foreach (string FileName in FileNames)
 			{
 				Document.Load(mvarLocalConfiguration, xdf, new Accessors.FileAccessor(FileName));
 			}
@@ -59,8 +60,9 @@ namespace UniversalEditor.UserInterface
 
 		public void Save()
 		{
+			string FileName = Application.Instance.FindFile("~/Configuration.xml", FindFileOptions.UserWritable);
+
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
-			string FileName = ((UIApplication)Application.Instance).BasePath + System.IO.Path.DirectorySeparatorChar.ToString() + "Configuration.xml";
 			string dir = System.IO.Path.GetDirectoryName (FileName);
 			if (!System.IO.Directory.Exists(dir))
 			{
