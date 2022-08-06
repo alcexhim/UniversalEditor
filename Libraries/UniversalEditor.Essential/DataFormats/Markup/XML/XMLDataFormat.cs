@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.PropertyList;
@@ -387,9 +388,13 @@ namespace UniversalEditor.DataFormats.Markup.XML
 
 			bool seenBeginChar = false;
 			bool seenWhitespace = false;
+
+			int lineIndex = 1, columnIndex = 1;
 			while (!tr.EndOfStream)
 			{
 				c = tr.ReadChar();
+				columnIndex++;
+
 				if (!loaded && (c != '<'))
 				{
 					return;
@@ -397,6 +402,12 @@ namespace UniversalEditor.DataFormats.Markup.XML
 				else
 				{
 					loaded = true;
+				}
+
+				if (c == '\n')
+				{
+					lineIndex++;
+					columnIndex = 1;
 				}
 
 				if (char.IsWhiteSpace(c))
@@ -468,7 +479,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									currentString = currentString.Substring(0, currentString.Length - this.Settings.TagSpecialDeclarationCommentStart.Length);
 									currentElement.Value = this.ReplaceEntitiesInput(currentString);
 									currentString = string.Empty;
-									currentElement = currentElement.Parent;
+									currentElement = (currentElement.Parent as MarkupElement);
 									continue;
 								}
 								if (insidePreprocessor && prevChar == this.Settings.PreprocessorChar)
@@ -484,6 +495,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									}
 									currentElement.FullName = name.Trim();
 									currentElement.Value = content.Trim();
+									currentElement.Definition = new MarkupDefinition(lineIndex, columnIndex);
 									if (prevElement != null && prevElement is MarkupContainerElement)
 									{
 										(prevElement as MarkupContainerElement).Elements.Add(currentElement);
@@ -492,6 +504,12 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									{
 										mom.Elements.Add(currentElement);
 									}
+
+									// int linescount = content.Count(f => (f == '\n'));
+									// if (linescount == 0) linescount = 1;
+									// lineIndex += linescount;
+									// Console.Error.WriteLine("linescount of preprocessor: {0}; preprocessor ends at line {1}", linescount, lineIndex);
+
 									currentElement = prevElement;
 									insidePreprocessor = false;
 								}
@@ -503,16 +521,16 @@ namespace UniversalEditor.DataFormats.Markup.XML
 										{
 											if (currentElement.FullName == currentString || prevChar == this.Settings.TagCloseChar)
 											{
-												currentElement = currentElement.Parent;
+												currentElement = (currentElement.Parent as MarkupElement);
 											}
 											else
 											{
 												if (Settings.AutoCloseTagNames.Contains(currentElement.Name))
 												{
-													currentElement = currentElement.Parent;
+													currentElement = (currentElement.Parent as MarkupElement);
 													if (currentElement != null)
 													{
-														currentElement = currentElement.Parent;
+														currentElement = (currentElement.Parent as MarkupElement);
 													}
 												}
 												else
@@ -538,7 +556,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 											insideTagValue = true;
 											if (insideAttributeArea)
 											{
-												(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+												MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+												att.Definition = new MarkupDefinition(lineIndex, columnIndex);
+
 												nextAttributeName = null;
 												insideAttributeArea = false;
 											}
@@ -547,6 +567,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												MarkupElement prevElement = currentElement;
 												currentElement = new MarkupTagElement();
 												currentElement.FullName = currentString.Trim();
+												currentElement.Definition = new MarkupDefinition(lineIndex, columnIndex);
 												if (prevElement != null && prevElement is MarkupContainerElement)
 												{
 													(prevElement as MarkupContainerElement).Elements.Add(currentElement);
@@ -557,7 +578,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												}
 												if (Settings.AutoCloseTagNames.Contains(currentElement.Name))
 												{
-													currentElement = currentElement.Parent;
+													currentElement = (currentElement.Parent as MarkupElement);
 												}
 											}
 										}
@@ -586,7 +607,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									{
 										if (nextAttributeName != null)
 										{
-											(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+											MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+											att.Definition = new MarkupDefinition(lineIndex, columnIndex);
+
 											nextAttributeName = null;
 											currentString = string.Empty;
 										}
@@ -601,6 +624,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												{
 													MarkupTagElement e = new MarkupTagElement();
 													e.FullName = currentString;
+													e.Definition = new MarkupDefinition(lineIndex, columnIndex);
 													(currentElement as MarkupTagElement).Elements.Add(e);
 													currentElement = e;
 												}
@@ -647,6 +671,8 @@ namespace UniversalEditor.DataFormats.Markup.XML
 														break;
 													}
 													nnn += tr.ReadChar();
+													columnIndex++;
+
 													if (tr.EndOfStream)
 													{
 														break;
@@ -705,7 +731,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 																	{
 																		if (currentElement is MarkupTagElement)
 																		{
-																			(currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+																			MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+																			att.Definition = new MarkupDefinition(lineIndex, columnIndex);
+
 																			nnnnAttributeName = string.Empty;
 																			nnnnAttributeValue = string.Empty;
 																			nnnnLookForValue = false;
@@ -728,7 +756,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 													}
 													if (!string.IsNullOrEmpty(nnnnAttributeName))
 													{
-														(currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+														MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+														att.Definition = new MarkupDefinition(lineIndex, columnIndex);
+
 														nnnnAttributeName = string.Empty;
 														nnnnAttributeValue = string.Empty;
 													}
@@ -737,7 +767,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												{
 													if (currentElement is MarkupTagElement)
 													{
-														(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(value));
+														MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(value));
+														att.Definition = new MarkupDefinition(lineIndex, columnIndex);
+
 														nextAttributeName = null;
 													}
 												}
@@ -826,6 +858,11 @@ namespace UniversalEditor.DataFormats.Markup.XML
 															MarkupElement prevElement = currentElement;
 															currentElement = new MarkupTagElement();
 															currentElement.FullName = currentString.Trim();
+
+															// HACK: should we be adding +1 to this?
+															currentElement.Definition = new MarkupDefinition(lineIndex, columnIndex);
+															// currentElement.Definition = new MarkupDefinition(lineIndex + 1, columnIndex);
+
 															if (prevElement == null)
 															{
 																mom.Elements.Add(currentElement);
@@ -846,7 +883,9 @@ namespace UniversalEditor.DataFormats.Markup.XML
 															{
 																if (currentElement != null && currentElement is MarkupTagElement)
 																{
-																	(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+																	MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+																	att.Definition = new MarkupDefinition(lineIndex, columnIndex);
+
 																	nextAttributeName = null;
 																}
 															}
@@ -895,6 +934,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												MarkupStringElement tag = new MarkupStringElement();
 												tag.FullName = specialSectionName;
 												tag.Value = specialSectionContent;
+												tag.Definition = new MarkupDefinition(lineIndex, columnIndex);
 
 												if (currentElement != null && (currentElement is MarkupContainerElement))
 												{
@@ -922,7 +962,12 @@ namespace UniversalEditor.DataFormats.Markup.XML
 														currentString = string.Empty;
 														MarkupCommentElement comment = new MarkupCommentElement();
 														string commentContent = tr.ReadUntil(this.Settings.TagSpecialDeclarationCommentStart + this.Settings.TagEndChar, "", "");
+														comment.Definition = new MarkupDefinition(lineIndex, columnIndex);
 														comment.Value = commentContent;
+
+														int linescount = comment.Value.Count(f => (f == '\n'));
+														lineIndex += linescount;
+
 														if (currentElement == null)
 														{
 															mom.Elements.Add(comment);
@@ -1135,6 +1180,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 			if (mvarSettings.PrettyPrint) tw.WriteLine();
 		}
 
+		/*
 		public MarkupElement ReadElement()
 		{
 			// Read the next element from the XML stream
@@ -1208,7 +1254,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									currentString = currentString.Substring(0, currentString.Length - this.Settings.TagSpecialDeclarationCommentStart.Length);
 									currentElement.Value = this.ReplaceEntitiesInput(currentString);
 									currentString = string.Empty;
-									currentElement = currentElement.Parent;
+									currentElement = (currentElement.Parent as MarkupElement);
 									continue;
 								}
 								if (insidePreprocessor && prevChar == this.Settings.PreprocessorChar)
@@ -1243,16 +1289,16 @@ namespace UniversalEditor.DataFormats.Markup.XML
 										{
 											if (currentElement.FullName == currentString || prevChar == this.Settings.TagCloseChar)
 											{
-												currentElement = currentElement.Parent;
+												currentElement = (currentElement.Parent as MarkupElement);
 											}
 											else
 											{
 												if (Settings.AutoCloseTagNames.Contains(currentElement.Name))
 												{
-													currentElement = currentElement.Parent;
+													currentElement = (currentElement.Parent as MarkupElement);
 													if (currentElement != null)
 													{
-														currentElement = currentElement.Parent;
+														currentElement = (currentElement.Parent as MarkupElement);
 													}
 												}
 												else
@@ -1272,7 +1318,10 @@ namespace UniversalEditor.DataFormats.Markup.XML
 										insideTagValue = true;
 										if (insideAttributeArea)
 										{
-											(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+											MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+											att.Definition.LineNumber = lineIndex;
+											att.Definition.ColumnNumber = columnIndex;
+
 											nextAttributeName = null;
 											insideAttributeArea = false;
 										}
@@ -1291,7 +1340,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 											}
 											if (Settings.AutoCloseTagNames.Contains(currentElement.Name))
 											{
-												currentElement = currentElement.Parent;
+												currentElement = (currentElement.Parent as MarkupElement);
 											}
 										}
 									}
@@ -1319,7 +1368,10 @@ namespace UniversalEditor.DataFormats.Markup.XML
 									{
 										if (nextAttributeName != null)
 										{
-											(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+											MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+											att.Definition.LineNumber = lineIndex;
+											att.Definition.ColumnNumber = columnIndex;
+
 											nextAttributeName = null;
 											currentString = string.Empty;
 										}
@@ -1433,7 +1485,10 @@ namespace UniversalEditor.DataFormats.Markup.XML
 																	{
 																		if (currentElement is MarkupTagElement)
 																		{
-																			(currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+																			MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+																			att.Definition.LineNumber = lineIndex;
+																			att.Definition.ColumnNumber = columnIndex;
+
 																			nnnnAttributeName = string.Empty;
 																			nnnnAttributeValue = string.Empty;
 																			nnnnLookForValue = false;
@@ -1456,7 +1511,10 @@ namespace UniversalEditor.DataFormats.Markup.XML
 													}
 													if (!string.IsNullOrEmpty(nnnnAttributeName))
 													{
-														(currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+														MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nnnnAttributeName, this.ReplaceEntitiesInput(nnnnAttributeValue));
+														att.Definition.LineNumber = lineIndex;
+														att.Definition.ColumnNumber = columnIndex;
+
 														nnnnAttributeName = string.Empty;
 														nnnnAttributeValue = string.Empty;
 													}
@@ -1465,7 +1523,10 @@ namespace UniversalEditor.DataFormats.Markup.XML
 												{
 													if (currentElement is MarkupTagElement)
 													{
-														(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(value));
+														MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(value));
+														att.Definition.LineNumber = lineIndex;
+														att.Definition.ColumnNumber = columnIndex;
+
 														nextAttributeName = null;
 													}
 												}
@@ -1574,7 +1635,10 @@ namespace UniversalEditor.DataFormats.Markup.XML
 															{
 																if (currentElement != null && currentElement is MarkupTagElement)
 																{
-																	(currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+																	MarkupAttribute att = (currentElement as MarkupTagElement).Attributes.Add(nextAttributeName, this.ReplaceEntitiesInput(currentString));
+																	att.Definition.LineNumber = lineIndex;
+																	att.Definition.ColumnNumber = columnIndex;
+
 																	nextAttributeName = null;
 																}
 															}
@@ -1654,7 +1718,7 @@ namespace UniversalEditor.DataFormats.Markup.XML
 
 			return null;
 		}
-
+		*/
 		public static string GetXSDTypeFromNativeType(Type type)
 		{
 			if (type == typeof(String))

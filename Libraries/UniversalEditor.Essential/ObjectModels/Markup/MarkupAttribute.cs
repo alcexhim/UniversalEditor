@@ -183,16 +183,20 @@ namespace UniversalEditor.ObjectModels.Markup
 		}
 		public object Clone()
 		{
-			return new MarkupAttribute
+			MarkupAttribute att = new MarkupAttribute
 			{
 				Name = this.mvarName,
 				Namespace = this.mvarNamespace,
 				Value = this.mvarValue
 			};
+			att.Definition = Definition;
+			return att;
 		}
 		public override string ToString()
 		{
 			return this.FullName + "=\"" + this.Value + "\"";
 		}
+
+		public MarkupDefinition Definition { get; set; } = new MarkupDefinition();
 	}
 }

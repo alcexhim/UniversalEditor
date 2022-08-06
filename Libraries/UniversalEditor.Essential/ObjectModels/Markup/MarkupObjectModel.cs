@@ -26,7 +26,7 @@ namespace UniversalEditor.ObjectModels.Markup
 	/// <summary>
 	/// Provides an <see cref="ObjectModel" /> for manipulating markup documents (e.g. XML, HTML).
 	/// </summary>
-	public class MarkupObjectModel : ObjectModel
+	public class MarkupObjectModel : ObjectModel, IMarkupElementContainer
 	{
 		protected override ObjectModelReference MakeReferenceInternal()
 		{
@@ -41,8 +41,10 @@ namespace UniversalEditor.ObjectModels.Markup
 
 		public MarkupObjectModel()
 		{
-			mvarElements = new MarkupElement.MarkupElementCollection (null, this);
+			mvarElements = new MarkupElement.MarkupElementCollection(this);
 		}
+
+		public IMarkupElementContainer Parent { get; } = null;
 
 		private MarkupElement.MarkupElementCollection mvarElements = null;
 		public MarkupElement.MarkupElementCollection Elements { get { return this.mvarElements; } }

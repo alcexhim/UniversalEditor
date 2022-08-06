@@ -225,6 +225,8 @@
     <Compile Include="DataFormats\Markup\BML\Internal\BMLHeader.cs" />
     <Compile Include="DataFormats\UEPackage\SettingsParser.cs" />
     <Compile Include="DataFormats\UEPackage\SettingsXMLSchema.cs" />
+    <Compile Include="ObjectModels\Markup\IMarkupElementContainer.cs" />
+    <Compile Include="ObjectModels\Markup\MarkupDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">

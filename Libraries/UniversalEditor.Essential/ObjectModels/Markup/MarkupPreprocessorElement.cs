@@ -36,12 +36,15 @@ namespace UniversalEditor.ObjectModels.Markup
 		}
 		public override object Clone()
 		{
-			return new MarkupPreprocessorElement
+			MarkupPreprocessorElement clone = new MarkupPreprocessorElement
 			{
 				Name = base.Name,
 				Namespace = base.Namespace,
 				Value = base.Value
 			};
+			clone.ParentObjectModel = ParentObjectModel;
+			clone.Definition = Definition;
+			return clone;
 		}
 		public override string ToString()
 		{

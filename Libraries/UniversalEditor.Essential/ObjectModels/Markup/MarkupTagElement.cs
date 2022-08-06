@@ -85,6 +85,8 @@ namespace UniversalEditor.ObjectModels.Markup
 			clone.Name = base.Name;
 			clone.Namespace = base.Namespace;
 			clone.Value = base.Value;
+			clone.ParentObjectModel = ParentObjectModel;
+			clone.Definition = Definition;
 			return clone;
 		}
 

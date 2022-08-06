@@ -1,10 +1,10 @@
 //
-//  MarkupLiteralElement.cs - represents an unprocessed, literal block of text in a MarkupObjectModel
+//  MarkupDefinition.cs
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
 //
-//  Copyright (c) 2011-2020 Mike Becker's Software
+//  Copyright (c) 2022 Mike Becker's Software
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,25 +18,18 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+using System;
 namespace UniversalEditor.ObjectModels.Markup
 {
-	/// <summary>
-	/// Represents an unprocessed, literal block of text in a <see cref="MarkupObjectModel" />.
-	/// </summary>
-	public class MarkupLiteralElement : MarkupElement
+	public struct MarkupDefinition
 	{
-		public override object Clone()
+		public int LineNumber { get; }
+		public int ColumnNumber { get; }
+
+		public MarkupDefinition(int lineNumber, int columnNumber)
 		{
-			MarkupLiteralElement clone = new MarkupLiteralElement
-			{
-				Name = base.Name,
-				Namespace = base.Namespace,
-				Value = base.Value
-			};
-			clone.ParentObjectModel = ParentObjectModel;
-			clone.Definition = Definition;
-			return clone;
+			LineNumber = lineNumber;
+			ColumnNumber = columnNumber;
 		}
 	}
 }

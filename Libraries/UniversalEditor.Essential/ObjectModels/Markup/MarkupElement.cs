@@ -35,7 +35,7 @@ namespace UniversalEditor.ObjectModels.Markup
 			private MarkupObjectModel _parentObjectModel = null;
 			public MarkupObjectModel ParentObjectModel { get { return _parentObjectModel; } internal set { _parentObjectModel = value; } }
 
-			private MarkupContainerElement _parent = null;
+			private IMarkupElementContainer _parent = null;
 			public MarkupElement this[string nameSpace, string name]
 			{
 				get
@@ -82,22 +82,10 @@ namespace UniversalEditor.ObjectModels.Markup
 					return result;
 				}
 			}
-			public MarkupElementCollection()
-				: this(null, null)
-			{
-			}
-			public MarkupElementCollection(MarkupObjectModel parentObjectModel)
-				: this(null, parentObjectModel)
-			{
-			}
-			public MarkupElementCollection(MarkupContainerElement parent)
-				: this(parent, null)
-			{
-			}
-			public MarkupElementCollection(MarkupContainerElement parent, MarkupObjectModel parentObjectModel)
+
+			public MarkupElementCollection(IMarkupElementContainer parent)
 			{
 				this._parent = parent;
-				this._parentObjectModel = parentObjectModel;
 			}
 			public new void Add(MarkupElement item)
 			{
@@ -140,7 +128,21 @@ namespace UniversalEditor.ObjectModels.Markup
 		}
 
 		private MarkupObjectModel mvarParentObjectModel = null;
-		public MarkupObjectModel ParentObjectModel { get { return mvarParentObjectModel; } internal set { mvarParentObjectModel = value; UpdateParentObjectModel (); } }
+		public MarkupObjectModel ParentObjectModel
+		{
+			get
+			{
+				IMarkupElementContainer parent = Parent;
+				while (parent != null)
+				{
+					if (parent is MarkupObjectModel)
+						return (parent as MarkupObjectModel);
+					parent = parent.Parent;
+				}
+				return null;
+			}
+			internal set { mvarParentObjectModel = value; UpdateParentObjectModel(); }
+		}
 
 		protected virtual void UpdateParentObjectModel()
 		{
@@ -149,7 +151,7 @@ namespace UniversalEditor.ObjectModels.Markup
 		private string mvarName = string.Empty;
 		private string mvarValue = string.Empty;
 		private string mvarNamespace = string.Empty;
-		private MarkupContainerElement mvarParent = null;
+		private IMarkupElementContainer mvarParent = null;
 		public string Name
 		{
 			get
@@ -219,7 +221,7 @@ namespace UniversalEditor.ObjectModels.Markup
 				}
 			}
 		}
-		public MarkupContainerElement Parent
+		public IMarkupElementContainer Parent
 		{
 			get
 			{
@@ -255,5 +257,7 @@ namespace UniversalEditor.ObjectModels.Markup
 		public virtual void Combine(MarkupElement el)
 		{
 		}
+
+		public MarkupDefinition Definition { get; set; }
 	}
 }

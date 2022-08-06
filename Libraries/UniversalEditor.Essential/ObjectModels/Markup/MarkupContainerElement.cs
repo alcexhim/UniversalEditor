@@ -26,7 +26,7 @@ namespace UniversalEditor.ObjectModels.Markup
 	/// <summary>
 	/// The abstract base class from which <see cref="MarkupElement" />s which can contain other <see cref="MarkupElement" />s derive.
 	/// </summary>
-	public abstract class MarkupContainerElement : MarkupElement
+	public abstract class MarkupContainerElement : MarkupElement, IMarkupElementContainer
 	{
 		/// <summary>
 		/// Gets a collection of <see cref="MarkupElement" /> instances representing the elements contained within this <see cref="MarkupContainerElement" />.
@@ -36,7 +36,7 @@ namespace UniversalEditor.ObjectModels.Markup
 
 		public MarkupContainerElement()
 		{
-			this.Elements = new MarkupElement.MarkupElementCollection(this, this.ParentObjectModel);
+			this.Elements = new MarkupElement.MarkupElementCollection(this);
 		}
 		public MarkupElement FindElement(params string[] fullNames)
 		{
