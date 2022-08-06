@@ -84,6 +84,7 @@ namespace UniversalEditor.DataFormats.PropertyList
 				long pos = tr.Accessor.Position;
 
 				// determine BOM
+				// FIXME: this is super inefficient as it makes more than a single pass through
 				string line = tr.ReadLine();
 				if (line.StartsWith("\xff\xfe"))
 				{
