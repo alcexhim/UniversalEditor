@@ -167,6 +167,7 @@ PHP/Website/Include/Configuration.inc.php
 
 # Do not pull in various files used as test cases for certain DataFormats (these can be quite huge)
 Tests/*
+Samples/*
 
 # Do not pull in the NSIS setup output file (setup.exe)
 CSharp/Setup/setup.exe
@@ -184,3 +185,7 @@ RemoteSystemsTempFiles
 .vs
 mono_crash.*.blob
 mono_crash.*.json
+
+
+# Geany (?) crap
+.#*.*
