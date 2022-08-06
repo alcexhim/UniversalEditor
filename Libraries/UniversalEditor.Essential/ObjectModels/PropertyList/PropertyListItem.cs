@@ -21,12 +21,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using MBS.Framework;
 using MBS.Framework.Collections.Generic;
 
 namespace UniversalEditor.ObjectModels.PropertyList
 {
-	public abstract class PropertyListItem : ICloneable
+	public abstract class PropertyListItem : ICloneable, ISupportsExtraData
 	{
 		public class PropertyListItemCollection
 			: System.Collections.ObjectModel.Collection<PropertyListItem>
@@ -148,6 +148,35 @@ namespace UniversalEditor.ObjectModels.PropertyList
 
 		public abstract void Combine(PropertyListItem item);
 		public abstract object Clone();
+
+		private Dictionary<string, object> extraDataDictionary = new Dictionary<string, object>();
+		public T GetExtraData<T>(string key, T defaultValue = default(T))
+		{
+			if (extraDataDictionary.ContainsKey(key)  && extraDataDictionary[key] is T)
+			{
+				return (T)extraDataDictionary[key];
+			}
+			return defaultValue;
+		}
+
+		public void SetExtraData<T>(string key, T value)
+		{
+			extraDataDictionary[key] = value;
+		}
+
+		public object GetExtraData(string key, object defaultValue = null)
+		{
+			if (extraDataDictionary.ContainsKey(key))
+			{
+				return extraDataDictionary[key];
+			}
+			return defaultValue;
+		}
+
+		public void SetExtraData(string key, object value)
+		{
+			extraDataDictionary[key] = value;
+		}
 
 		/// <summary>
 		/// The name of this <see cref="PropertyListItem"/>.
