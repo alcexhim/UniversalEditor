@@ -1428,6 +1428,13 @@ namespace UniversalEditor.UserInterface
 			{
 				if (projType.SettingsProvider != null)
 				{
+					for (int i = 0; i < projType.SettingsProvider.SettingsGroups.Count; i++)
+					{
+						for (int j = 0; j < projType.SettingsProvider.SettingsGroups[i].Settings.Count; j++)
+						{
+							projType.SettingsProvider.SettingsGroups[i].Settings[j].SetValue(project.GetProjectSetting(projType.SettingsProvider.SettingsGroups[i].Settings[j].ID, projType.SettingsProvider.SettingsGroups[i].Settings[j].DefaultValue));
+						}
+					}
 					list.Add(projType.SettingsProvider);
 				}
 			}
@@ -1444,6 +1451,19 @@ namespace UniversalEditor.UserInterface
 				if (dlg.ShowDialog() == DialogResult.OK)
 				{
 					// TODO: apply properties to project
+					foreach (ProjectType projType in project.ProjectTypes)
+					{
+						if (projType.SettingsProvider != null)
+						{
+							for (int i = 0; i < projType.SettingsProvider.SettingsGroups.Count; i++)
+							{
+								for (int j = 0; j < projType.SettingsProvider.SettingsGroups[i].Settings.Count; j++)
+								{
+									project.SetProjectSetting(projType.SettingsProvider.SettingsGroups[i].Settings[j].ID, projType.SettingsProvider.SettingsGroups[i].Settings[j].GetValue());
+								}
+							}
+						}
+					}
 				}
 				return;
 			}

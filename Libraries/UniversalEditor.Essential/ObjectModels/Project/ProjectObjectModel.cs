@@ -115,5 +115,19 @@ namespace UniversalEditor.ObjectModels.Project
 		/// </summary>
 		/// <value>The relative path to the <see cref="ProjectObjectModel" />.</value>
 		public string RelativeFileName { get; set; } = String.Empty;
+
+		private System.Collections.Generic.Dictionary<Guid, object> _projectSettings = new System.Collections.Generic.Dictionary<Guid, object>();
+		public object GetProjectSetting(Guid id, object defaultValue = null)
+		{
+			if (_projectSettings.ContainsKey(id))
+			{
+				return _projectSettings[id];
+			}
+			return defaultValue;
+		}
+		public void SetProjectSetting(Guid id, object value)
+		{
+			_projectSettings[id] = value;
+		}
 	}
 }
