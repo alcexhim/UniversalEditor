@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\Project\C++\ConsoleApplication\content\AppMain.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Associations\Chunked.uexml" />
@@ -330,6 +331,10 @@
     <Content Include="Editors\Multimedia3D\Model\Icons\sphere.png" />
     <Content Include="Editors\Multimedia3D\Model\Icons\cube.png" />
     <Content Include="Editors\Multimedia\PictureCollection\Commands.uexml" />
+    <Content Include="Dialogs\ProgressDialog.glade" />
+    <Content Include="Dialogs\ProgressWindow.glade" />
+    <Content Include="Templates\Project\Arduino\ArduinoProject.uexml" />
+    <Content Include="Templates\Project\Arduino\content\Program.ino" />
     <Content Include="Tips\tips.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -370,6 +375,7 @@
     <Folder Include="Editors\RavenSoftware\Strip\" />
     <Folder Include="Extensions\Multimedia3D\" />
     <Folder Include="Extensions\Multimedia3D\Languages\" />
+    <Folder Include="Templates\Project\Arduino\" />
     <Folder Include="Tips\" />
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +389,14 @@
     <None Include="Documentation\Executable\DataFormats\Executable\Microsoft\ExecutableFormats.txt" />
     <None Include="Editors\Multimedia3D\Model\Icons\sphere.svg" />
     <None Include="Editors\Multimedia3D\Model\Icons\cube.svg" />
+    <None Include="Templates\Project\C++\ConsoleApplication\ConsoleApplication.uexml" />
+    <None Include="Templates\Project\C++\ConsoleApplication\content\app.xml" />
+    <None Include="Templates\Project\C++\ConsoleApplication\content\%24%28Project.Title%29.csproj" />
+    <None Include="Templates\Project\C++\ConsoleApplication\content\shaders\Simple.vcg" />
+    <None Include="Templates\Project\C++\ConsoleApplication\content\shaders\Simple.fcg" />
+    <None Include="Templates\Project\C++\ControlPanel\CplApplet.uexml" />
+    <None Include="Templates\Project\C++\ControlPanel\content\%24%28Project.Title%29.cxxproj" />
+    <None Include="Templates\Project\C++\ControlPanel\content\Program.c" />
   </ItemGroup>
   <Target Name="Build">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content-&gt;'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />

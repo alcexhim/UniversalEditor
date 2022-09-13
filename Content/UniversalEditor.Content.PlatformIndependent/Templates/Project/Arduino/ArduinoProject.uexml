@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="2.0">
+	<ProjectTemplates>
+		<ProjectTemplate ID="{870e1e88-75ba-4264-9c54-24dd0477a183}" TypeID="{EA90755A-4A5D-4FA4-B676-F7BBD8CF0D84}">
+			<ProjectTypes>
+				<!-- These are also called 'natures' in Eclipse -->
+				<!-- Microsoft.CPlusPlus.projecttype -->
+				<ProjectType ID="{2dae6c31-c0c0-4097-ae95-60d201570baf}" />
+			</ProjectTypes>
+			<Information>
+				<Title>Arduino Project</Title>
+				<ProjectNamePrefix>Sketch</ProjectNamePrefix>
+				<Description>Creates a basic Arduino project with a setup() and loop() function.</Description>
+				<IconPath LargeFileName="Images/Applet_32x32.png" SmallFileName="Images/Applet_16x16.png" />
+				<Path>
+					<Part>Software Development</Part>
+					<Part>Arduino</Part>
+				</Path>
+			</Information>
+			<FileSystem CopyFrom="content" />
+		</ProjectTemplate>
+	</ProjectTemplates>
+</UniversalEditor>
