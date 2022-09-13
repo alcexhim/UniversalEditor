@@ -43,6 +43,14 @@
     <Compile Include="DataFormats\FileSystem\ChaosWorks\Internal\ChaosWorksVOLV2ChunkInfo.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\SPPDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\PictureCollection\CWESpriteDataFormat.cs" />
+    <Compile Include="ObjectModels\ChaosWorksScene\ChaosWorksSceneObjectModel.cs" />
+    <Compile Include="ObjectModels\ChaosWorksScene\ChaosWorksSceneType.cs" />
+    <Compile Include="ObjectModels\ChaosWorksScene\ChaosWorksSceneLevel.cs" />
+    <Compile Include="ObjectModels\ChaosWorksScene\ChaosWorksSceneLevelPlane.cs" />
+    <Compile Include="ObjectModels\ChaosWorksScene\ChaosWorksSceneSprite.cs" />
+    <Compile Include="DataFormats\ChaosWorksScene\DEFDataFormat.cs" />
+    <Compile Include="ObjectModels\ChaosWorksScene\ChaosWorksSceneObject.cs" />
+    <Compile Include="DataFormats\FileSystem\ChaosWorks\FileSystemObjectModelExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -72,11 +80,16 @@
     <Folder Include="DataFormats\Multimedia\Palette\" />
     <Folder Include="DataFormats\Multimedia\PictureCollection\" />
     <Folder Include="Associations\" />
+    <Folder Include="Associations\ChaosWorksScene\" />
+    <Folder Include="ObjectModels\" />
+    <Folder Include="ObjectModels\ChaosWorksScene\" />
+    <Folder Include="DataFormats\ChaosWorksScene\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\FileSystem\ChaosWorksEngine.uexml" />
     <EmbeddedResource Include="Associations\Multimedia\Palette\SPPDataFormat.uexml" />
     <EmbeddedResource Include="Associations\Multimedia\PictureCollection\SPXDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\ChaosWorksScene\ChaosWorksScene.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

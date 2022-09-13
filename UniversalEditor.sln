@@ -221,6 +221,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Swa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Dweep", "Plugins\UniversalEditor.Plugins.Dweep\UniversalEditor.Plugins.Dweep.csproj", "{9496A94E-F386-4787-818F-FFB04A8EA892}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.ChaosWorks.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.ChaosWorks.UserInterface\UniversalEditor.Plugins.ChaosWorks.UserInterface.csproj", "{17A0F754-C902-49EB-A21D-93A4EE75059B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -641,6 +643,10 @@ Global
 		{9496A94E-F386-4787-818F-FFB04A8EA892}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9496A94E-F386-4787-818F-FFB04A8EA892}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9496A94E-F386-4787-818F-FFB04A8EA892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A0F754-C902-49EB-A21D-93A4EE75059B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A0F754-C902-49EB-A21D-93A4EE75059B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A0F754-C902-49EB-A21D-93A4EE75059B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A0F754-C902-49EB-A21D-93A4EE75059B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -746,6 +752,7 @@ Global
 		{5763E226-26B9-4FAA-8305-4F48E61357E9} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{A3D15C91-8D55-4F02-87DC-A1C5E63B8C56} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{9496A94E-F386-4787-818F-FFB04A8EA892} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
+		{17A0F754-C902-49EB-A21D-93A4EE75059B} = {7B535D74-5496-4802-B809-89ED88274A91}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

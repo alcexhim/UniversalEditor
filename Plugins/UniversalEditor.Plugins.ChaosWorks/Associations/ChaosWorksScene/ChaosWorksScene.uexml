@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Chaos Works Engine scene" ContentType="application/x-cwe-def" HintComparison="FilterOnly">
+					<FileNameFilters>
+						<FileNameFilter>*.def</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.Plugins.ChaosWorks.ObjectModels.ChaosWorksScene.ChaosWorksSceneObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.ChaosWorks.DataFormats.ChaosWorksScene.DEFDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

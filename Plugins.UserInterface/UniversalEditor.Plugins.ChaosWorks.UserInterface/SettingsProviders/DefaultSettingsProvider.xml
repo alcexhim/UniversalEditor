@@ -1,0 +1,15 @@
+<ApplicationFramework>
+	<SettingsProviders>
+		<SettingsProvider ID="{c66122b4-6dcf-4191-8fbb-4a868992b9f9}">
+			<SettingsGroup ID="{d7d999f5-27ad-4aff-a7ad-3904811e8d44}">
+				<Path>
+					<Part>Editors</Part>
+					<Part>Chaos Works</Part>
+				</Path>
+				<Settings>
+					<TextSetting ID="{25e4e8be-bee2-47ed-bc4c-5d3bb3d5aeae}" Name="DefaultProjectSearchPath" Title="Default project search path" />
+				</Settings>
+			</SettingsGroup>
+		</SettingsProvider>
+	</SettingsProviders>
+</ApplicationFramework>

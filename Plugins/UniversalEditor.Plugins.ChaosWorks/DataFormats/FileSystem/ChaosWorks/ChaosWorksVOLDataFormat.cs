@@ -151,7 +151,7 @@ namespace UniversalEditor.DataFormats.FileSystem.ChaosWorks
 				}
 
 				short CHUNKSIZE = br.ReadInt16();
-				Console.WriteLine("cwe-vol: reading chunk size {0}", CHUNKSIZE);
+				// Console.WriteLine("cwe-vol: reading chunk size {0}", CHUNKSIZE);
 
 				byte[] compressed = br.ReadBytes(CHUNKSIZE);
 				byte[] decompressed = lzrw1.Decompress(compressed);
