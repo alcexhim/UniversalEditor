@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.2 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkTextBuffer" id="bufDailyTip">
+    <property name="text" translatable="yes">Tip of the Day has not been configured for this release.
+
+Please add tips in /usr/share/universal-editor/tips.d</property>
+  </object>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_left">8</property>
-    <property name="margin_right">8</property>
-    <property name="margin_top">16</property>
-    <property name="margin_bottom">16</property>
+    <property name="can-focus">False</property>
+    <property name="margin-left">8</property>
+    <property name="margin-right">8</property>
+    <property name="margin-start">16</property>
+    <property name="margin-end">16</property>
+    <property name="margin-top">16</property>
+    <property name="margin-bottom">16</property>
     <property name="stock">gtk-new</property>
-    <property name="icon_size">3</property>
+    <property name="icon_size">6</property>
   </object>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_left">8</property>
-    <property name="margin_right">8</property>
-    <property name="margin_top">16</property>
-    <property name="margin_bottom">16</property>
+    <property name="can-focus">False</property>
+    <property name="margin-left">8</property>
+    <property name="margin-right">8</property>
+    <property name="margin-start">16</property>
+    <property name="margin-end">16</property>
+    <property name="margin-top">16</property>
+    <property name="margin-bottom">16</property>
     <property name="stock">gtk-open</property>
-    <property name="icon_size">3</property>
+    <property name="icon_size">6</property>
   </object>
   <object class="GtkTreeStore" id="tmRecentDocuments">
     <columns>
@@ -29,25 +38,22 @@
     </columns>
   </object>
   <object class="GtkWindow">
-    <property name="can_focus">False</property>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
+    <property name="can-focus">False</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox" id="ctHeaderText">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <child>
               <object class="GtkImage" id="imgIcon">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="pixel_size">64</property>
-                <property name="icon_name">universal-editor</property>
+                <property name="can-focus">False</property>
+                <property name="pixel-size">64</property>
+                <property name="icon-name">universal-editor</property>
                 <property name="icon_size">6</property>
               </object>
               <packing>
@@ -60,7 +66,7 @@
             <child>
               <object class="GtkLabel" id="lblHeader">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes">{0}</property>
                 <property name="xalign">0</property>
                 <attributes>
@@ -84,13 +90,13 @@
         <child>
           <object class="GtkBox" id="ctHeaderImage">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <child>
               <object class="GtkImage" id="imgHeader">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="pixel_size">64</property>
-                <property name="icon_name">universal-editor</property>
+                <property name="can-focus">False</property>
+                <property name="pixel-size">64</property>
+                <property name="icon-name">universal-editor</property>
                 <property name="icon_size">6</property>
               </object>
               <packing>
@@ -111,16 +117,16 @@
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Get started</property>
                     <property name="xalign">0</property>
                     <attributes>
@@ -138,13 +144,13 @@
                   <object class="GtkButton" id="cmdCreateNewProject">
                     <property name="label" translatable="yes">Create _new project</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
                     <property name="image">image1</property>
                     <property name="relief">none</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                     <property name="xalign">0</property>
-                    <property name="always_show_image">True</property>
+                    <property name="always-show-image">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -156,13 +162,13 @@
                   <object class="GtkButton" id="cmdOpenExistingProject">
                     <property name="label" translatable="yes">_Open existing project</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
                     <property name="image">image2</property>
                     <property name="relief">none</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                     <property name="xalign">0</property>
-                    <property name="always_show_image">True</property>
+                    <property name="always-show-image">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -173,7 +179,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Recent documents</property>
                     <property name="xalign">0</property>
                     <attributes>
@@ -190,12 +196,12 @@
                 <child>
                   <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="shadow_type">in</property>
+                    <property name="can-focus">True</property>
+                    <property name="shadow-type">in</property>
                     <child>
                       <object class="GtkTreeView" id="tvRecentDocuments">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
+                        <property name="can-focus">True</property>
                         <property name="model">tmRecentDocuments</property>
                         <child internal-child="selection">
                           <object class="GtkTreeSelection"/>
@@ -207,7 +213,7 @@
                             <property name="title" translatable="yes">File name</property>
                             <property name="clickable">True</property>
                             <property name="reorderable">True</property>
-                            <property name="sort_column_id">0</property>
+                            <property name="sort-column-id">0</property>
                             <child>
                               <object class="GtkCellRendererText"/>
                               <attributes>
@@ -237,12 +243,12 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLabel" id="lblNewsTitle">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">{0} News</property>
                     <property name="xalign">0</property>
                     <attributes>
@@ -259,7 +265,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Not available at this time</property>
                     <property name="xalign">0</property>
                   </object>
@@ -276,6 +282,107 @@
                 <property name="fill">True</property>
                 <property name="padding">16</property>
                 <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="lblNewsTitle1">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Did you know?</property>
+                    <property name="xalign">0</property>
+                    <attributes>
+                      <attribute name="scale" value="1.25"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">16</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="margin-start">8</property>
+                    <property name="margin-end">8</property>
+                    <property name="margin-top">8</property>
+                    <property name="margin-bottom">8</property>
+                    <property name="shadow-type">in</property>
+                    <child>
+                      <object class="GtkTextView" id="txtDailyTip">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="editable">False</property>
+                        <property name="wrap-mode">word</property>
+                        <property name="buffer">bufDailyTip</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">end</property>
+                    <child>
+                      <object class="GtkButton" id="cmdDailyTipPrevious">
+                        <property name="label" translatable="yes">Previous Tip</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <property name="margin-start">8</property>
+                        <property name="margin-end">8</property>
+                        <property name="margin-top">8</property>
+                        <property name="margin-bottom">8</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="cmdDailyTipNext">
+                        <property name="label" translatable="yes">Next Tip</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <property name="margin-start">8</property>
+                        <property name="margin-end">8</property>
+                        <property name="margin-top">8</property>
+                        <property name="margin-bottom">8</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="padding">16</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>

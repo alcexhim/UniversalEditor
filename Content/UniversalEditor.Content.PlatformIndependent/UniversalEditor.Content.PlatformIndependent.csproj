@@ -330,6 +330,7 @@
     <Content Include="Editors\Multimedia3D\Model\Icons\sphere.png" />
     <Content Include="Editors\Multimedia3D\Model\Icons\cube.png" />
     <Content Include="Editors\Multimedia\PictureCollection\Commands.uexml" />
+    <Content Include="Tips\tips.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -369,6 +370,7 @@
     <Folder Include="Editors\RavenSoftware\Strip\" />
     <Folder Include="Extensions\Multimedia3D\" />
     <Folder Include="Extensions\Multimedia3D\Languages\" />
+    <Folder Include="Tips\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />

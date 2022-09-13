@@ -39,14 +39,40 @@ namespace UniversalEditor.UserInterface.Panels
 		private Label lblNewsTitle;
 		private ListViewControl tvRecentDocuments;
 
+		private TextBox txtDailyTip;
+		private Button cmdDailyTipPrevious;
+		private Button cmdDailyTipNext;
+
 		public StartPage()
 		{
 			Title = "Start Page";
 		}
 
+		private Guid DAILY_TIP_CURRENT_INDEX = new Guid("{1ca358e7-1f26-48b0-8f37-b63b08cec231}");
+
 		protected override void OnCreated(EventArgs e)
 		{
 			base.OnCreated(e);
+
+			string[] dailyTips1 = System.IO.File.ReadAllLines(Application.Instance.FindFile("~/Tips/tips.txt", FindFileOptions.All));
+			System.Collections.Generic.List<string> dailyTips2 = new System.Collections.Generic.List<string>();
+			for (int i = 0; i < dailyTips1.Length; i++)
+			{
+				if (dailyTips1[i][0] == ';' || String.IsNullOrEmpty(dailyTips1[i]))
+					continue;
+				dailyTips2.Add(dailyTips1[i]);
+			}
+			dailyTips = dailyTips2.ToArray();
+
+			dailyTipIndex = Application.Instance.GetSetting<int>(DAILY_TIP_CURRENT_INDEX, 0);
+
+			Application.Instance.BeforeShutdown += delegate
+			{
+				dailyTipIndex++;
+				Application.Instance.SetSetting<int>(DAILY_TIP_CURRENT_INDEX, dailyTipIndex);
+			};
+
+			UpdateDailyTip();
 
 			if (cmdCreateNewProject == null)
 			{
@@ -82,6 +108,37 @@ namespace UniversalEditor.UserInterface.Panels
 				row.SetExtraData<string>("FileName", fileName);
 				tvRecentDocuments.Model.Rows.Add(row);
 			}
+		}
+
+		private void UpdateDailyTip()
+		{
+			if (dailyTipIndex >= 0 && dailyTipIndex < dailyTips.Length)
+			{
+				txtDailyTip.Text = dailyTips[dailyTipIndex];
+			}
+		}
+
+		private string[] dailyTips = new string[0];
+		private int dailyTipIndex = 0;
+		[EventHandler(nameof(cmdDailyTipPrevious), nameof(Button.Click))]
+		private void cmdDailyTipPrevious_Click(object sender, EventArgs e)
+		{
+			dailyTipIndex--;
+			if (dailyTipIndex < 0)
+			{
+				dailyTipIndex = dailyTips.Length - 1;
+			}
+			UpdateDailyTip();
+		}
+		[EventHandler(nameof(cmdDailyTipNext), nameof(Button.Click))]
+		private void cmdDailyTipNext_Click(object sender, EventArgs e)
+		{
+			dailyTipIndex++;
+			if (dailyTipIndex >= dailyTips.Length)
+			{
+				dailyTipIndex = 0;
+			}
+			UpdateDailyTip();
 		}
 
 		[EventHandler(nameof(tvRecentDocuments), nameof(ListViewControl.RowActivated))]
