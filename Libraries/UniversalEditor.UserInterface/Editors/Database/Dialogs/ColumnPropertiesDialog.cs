@@ -21,6 +21,7 @@
 using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
+using UniversalEditor.ObjectModels.Database;
 
 namespace UniversalEditor.UserInterface.Editors.Database.Dialogs
 {
@@ -33,6 +34,13 @@ namespace UniversalEditor.UserInterface.Editors.Database.Dialogs
 		private ComboBox cboDataType;
 		private TextBox txtDescription;
 		private GroupBox fraDataTypeSpecificProperties;
+
+		public void UpdateProperties(DatabaseField field)
+		{
+			field.Name = txtColumnName.Text;
+			// field.DataType = cboDataType.SelectedItem
+			// field.Description = txtDescription.Text;
+		}
 
 		protected override void OnCreated(EventArgs e)
 		{

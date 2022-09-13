@@ -78,7 +78,7 @@ namespace UniversalEditor.UserInterface.Editors.Database.Views
 			((ToolbarItemButton)tbColumns.Items["tsbColumnMoveDown"]).Click += tsbColumnMoveDown_Click;
 		}
 
-		private void tsbColumnAdd_Click(object sender, EventArgs e)
+		public void AddColumn()
 		{
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
@@ -91,6 +91,25 @@ namespace UniversalEditor.UserInterface.Editors.Database.Views
 
 			tvColumns.Model.Rows.Add(row);
 			tvColumns.Focus(row, tvColumns.Columns[0], tvColumns.Columns[0].Renderers[0], true);
+		}
+		public void AddColumn(string name, string dataType, bool notNull, bool identity, object defaultValue)
+		{
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tvColumns.Model.Columns[0], name), // Name
+				new TreeModelRowColumn(tvColumns.Model.Columns[1], dataType), // Data type
+				new TreeModelRowColumn(tvColumns.Model.Columns[2], notNull), // Not null
+				new TreeModelRowColumn(tvColumns.Model.Columns[3], identity), // Identity
+				new TreeModelRowColumn(tvColumns.Model.Columns[4], defaultValue) // Default value
+			});
+
+			tvColumns.Model.Rows.Add(row);
+			tvColumns.Focus(row, tvColumns.Columns[0], tvColumns.Columns[0].Renderers[0], true);
+		}
+
+		private void tsbColumnAdd_Click(object sender, EventArgs e)
+		{
+			AddColumn();
 		}
 		private void tsbColumnEdit_Click(object sender, EventArgs e)
 		{

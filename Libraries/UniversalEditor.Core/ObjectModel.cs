@@ -66,7 +66,7 @@ namespace UniversalEditor
 		/// </summary>
 		/// <value>The accessor.</value>
 		[Obsolete("ObjectModels should be Accessor-agnostic and not rely on being able to communicate with the Accessor"), NonSerializedProperty]
-		public Accessor Accessor { get; internal set; }
+		public Accessor Accessor { get; set; }
 
 		/// <summary>
 		/// Clears all data from this <see cref="ObjectModel" /> and returns it to a pristine state.

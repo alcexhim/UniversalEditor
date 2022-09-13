@@ -856,7 +856,8 @@ namespace UniversalEditor.UserInterface
 					DataFormatReference dfr = Document.DataFormat.MakeReference();
 					if (dfr.ExportOptions != null)
 					{
-						list.Add(dfr.ExportOptions);
+						// FIXME
+						list.Add(dfr.ExportOptions.Clone(dfr.Title));
 					}
 				}
 			}

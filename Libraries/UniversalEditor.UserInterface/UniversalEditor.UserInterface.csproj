@@ -140,6 +140,7 @@
     <Compile Include="SettingsGuids.cs" />
     <Compile Include="Panels\ToolboxPanel.cs" />
     <Compile Include="PanelReference.cs" />
+    <Compile Include="Editors\Text\Formatted\FormattedTextEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -199,6 +200,7 @@
     <Folder Include="PrintHandlers\" />
     <Folder Include="SettingsProviders\" />
     <Folder Include="Editors\Database\Dialogs\" />
+    <Folder Include="Editors\Text\Formatted\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SettingsProviders\DefaultSettingsProvider.xml" />

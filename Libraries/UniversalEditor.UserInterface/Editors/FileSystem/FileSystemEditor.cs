@@ -1086,7 +1086,14 @@ namespace UniversalEditor.Editors.FileSystem
 				File f = (fso as File);
 
 				string filePath = System.IO.Path.Combine(new string[] { fileName, System.IO.Path.GetFileName(f.Name) });
-				System.IO.File.WriteAllBytes(filePath, f.GetData());
+				try
+				{
+					System.IO.File.WriteAllBytes(filePath, f.GetData());
+				}
+				catch (System.IO.IOException ex)
+				{
+					// FIXME: should this be an error dialog, a warning in the messages list, or ignored?
+				}
 			}
 			else if (fso is Folder)
 			{

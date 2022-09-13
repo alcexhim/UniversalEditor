@@ -53,6 +53,8 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.PropertyList.A3DA
 			if (signature != "#A3DA__________")
 				throw new InvalidDataFormatException("File does not begin with '#A3DA__________'");
 
+			long lastreadpos = reader.Accessor.Position;
+
 			while (!reader.EndOfStream)
 			{
 				string line = reader.ReadLine();
@@ -61,7 +63,14 @@ namespace UniversalEditor.Plugins.Sega.DataFormats.PropertyList.A3DA
 					line = line.Substring(0, line.IndexOf('#'));
 
 				if (String.IsNullOrEmpty(line))
+				{
+					if (lastreadpos == reader.Accessor.Position)
+					{
+						// exit out of infinite loop
+						return;
+					}
 					continue;
+				}
 
 				string[] values = line.Split(new char[] { '=' }, 2);
 				string key = values[0];

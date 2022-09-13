@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter HintComparison="MagicThenFilter" Title="Intrinsic Graphics Binary (Alchemy) IGB scene graph">
+					<FileNameFilters>
+						<FileNameFilter>*.igb</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence Offset="40">
+							<MagicByte Type="HexString">DAFA</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia3D.Scene.SceneObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.Multimedia3D.Model.Alchemy.IntrinsicGraphicsBinaryDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

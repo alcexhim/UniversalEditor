@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter HintComparison="FilterOnly" ContentType="application/x-merscom-scene" Title="Merscom scene graph">
+					<FileNameFilters>
+						<FileNameFilter>*.op</FileNameFilter>
+						<FileNameFilter>*.vhs</FileNameFilter>
+						<FileNameFilter>*.vob</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Merscom.DataFormats.Scene.SceneDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

@@ -20,15 +20,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-
 using MBS.Framework.UserInterface;
-using MBS.Framework.UserInterface.Controls;
-using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Layouts;
-using UniversalEditor.UserInterface.Editors.Database.Dialogs;
 using UniversalEditor.ObjectModels.Database;
-using UniversalEditor.UserInterface;
+using UniversalEditor.UserInterface.Editors.Database.Dialogs;
 
 namespace UniversalEditor.UserInterface.Editors.Database
 {
@@ -161,10 +156,17 @@ namespace UniversalEditor.UserInterface.Editors.Database
 
 		private void DatabaseEditor_ContextMenu_Columns_Add(object sender, EventArgs e)
 		{
+			if (DesignView.Table == null)
+				return;
+
 			ColumnPropertiesDialog dlg = new ColumnPropertiesDialog();
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
+				DatabaseField field = new DatabaseField();
+				dlg.UpdateProperties(field);
+				DesignView.Table.Fields.Add(field);
 
+				DesignView.AddColumn(field.Name, field.DataType?.ToString(), false /*field.Required*/, false /*field.Identity*/, field.Value);
 			}
 		}
 
@@ -200,6 +202,9 @@ namespace UniversalEditor.UserInterface.Editors.Database
 
 					EndEdit();
 
+					// FIXME: the node collection needs to notify the Document Explorer panel that a new item has been added
+					// we do this so many times in various places that there really should be a better way to connect these notifications
+					// perhaps a ListViewControl.Observe(ICollection) method ?
 					EditorDocumentExplorerNode node = new EditorDocumentExplorerNode(dt.Name);
 					node.SetExtraData<DatabaseTable>("table", dt);
 					DocumentExplorer.Nodes[0].Nodes.Add(node);
