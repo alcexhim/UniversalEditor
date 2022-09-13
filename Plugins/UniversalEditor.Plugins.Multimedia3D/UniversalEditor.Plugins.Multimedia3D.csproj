@@ -357,7 +357,6 @@
     <EmbeddedResource Include="Associations\Model\ShaiyaOnline3DC.uexml" />
     <EmbeddedResource Include="Associations\Model\UltimateStuntsGLB.uexml" />
     <EmbeddedResource Include="Associations\Scene\IDSoftware.uexml" />
-    <EmbeddedResource Include="Associations\Scene\IntrinsicGraphics.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
