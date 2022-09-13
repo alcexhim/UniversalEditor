@@ -56,10 +56,10 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 		[EventHandler(nameof(tvPlatforms), "SelectionChanged")]
 		private void tvPlatforms_SelectionChanged(object sender, EventArgs e)
 		{
-			if (tvPlatforms.SelectedRows.Count < 1) return;
-
 			tvParameters.Model.Rows.Clear();
 			tvFiles.Model.Rows.Clear();
+
+			if (tvPlatforms.SelectedRows.Count < 1) return;
 
 			BootstrapOperatingSystem os = tvPlatforms.SelectedRows[0].GetExtraData<BootstrapOperatingSystem>("item");
 
@@ -101,12 +101,15 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			{
 				new CustomSettingsProvider(new SettingsGroup[]
 				{
-					new SettingsGroup(String.Empty, new Setting[]
+					new SettingsGroup("Platform", new Setting[]
 					{
 						new TextSetting("Name", "Platform _name")
 					})
 				})
 			});
+
+			dlg.Text = "Platform Properties";
+			dlg.EnableProfiles = false;
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				string platformName = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
@@ -141,12 +144,15 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			{
 				new CustomSettingsProvider(new SettingsGroup[]
 				{
-					new SettingsGroup(String.Empty, new Setting[]
+					new SettingsGroup("Platform", new Setting[]
 					{
 						new TextSetting("Name", "Platform _name")
 					})
 				})
 			});
+			dlg.Text = "Platform Properties";
+			dlg.EnableProfiles = false;
+
 			dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].SetValue(os.Name);
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
@@ -201,13 +207,16 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			{
 				new CustomSettingsProvider(new SettingsGroup[]
 				{
-					new SettingsGroup(String.Empty, new Setting[]
+					new SettingsGroup("Parameter", new Setting[]
 					{
 						new TextSetting("Name", "Parameter _name"),
 						new TextSetting("Value", "_Value")
 					})
 				})
 			});
+			dlg.Text = "Parameter Properties";
+			dlg.EnableProfiles = false;
+
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
 				string name = dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].GetValue()?.ToString();
@@ -243,13 +252,16 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			{
 				new CustomSettingsProvider(new SettingsGroup[]
 				{
-					new SettingsGroup(String.Empty, new Setting[]
+					new SettingsGroup("Parameter", new Setting[]
 					{
 						new TextSetting("Name", "Parameter _name"),
 						new TextSetting("Value", "_Value")
 					})
 				})
 			});
+			dlg.Text = "Parameter Properties";
+			dlg.EnableProfiles = false;
+
 			dlg.SettingsProviders[0].SettingsGroups[0].Settings[0].SetValue(oldname);
 			dlg.SettingsProviders[0].SettingsGroups[0].Settings[1].SetValue(os.Parameters[oldname]);
 			if (dlg.ShowDialog() == DialogResult.OK)
@@ -311,13 +323,16 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			if (os == null) return;
 
 			SettingsDialog dlg = new SettingsDialog();
+			dlg.Text = "File Properties";
+			dlg.EnableProfiles = false;
+
 			dlg.SettingsProviders.Clear();
 			dlg.SettingsProviders.Add(new CustomSettingsProvider(new SettingsGroup[]
 			{
-				new SettingsGroup(String.Empty, new Setting[]
+				new SettingsGroup("File", new Setting[]
 				{
-					new TextSetting("SourceFileName", "_Source"),
-					new TextSetting("DestinationFileName", "_Destination")
+					new FileSetting("SourceFileName", "_Source", null, false),
+					new FileSetting("DestinationFileName", "_Destination", null, false)
 				})
 			}));
 			if (dlg.ShowDialog() == DialogResult.OK)
@@ -358,13 +373,16 @@ namespace UniversalEditor.Plugins.Setup.UserInterface
 			BootstrapFile file = tvFiles.SelectedRows[0].GetExtraData<BootstrapFile>("item");
 
 			SettingsDialog dlg = new SettingsDialog();
+			dlg.Text = "File Properties";
+			dlg.EnableProfiles = false;
+
 			dlg.SettingsProviders.Clear();
 			dlg.SettingsProviders.Add(new CustomSettingsProvider(new SettingsGroup[]
 			{
-				new SettingsGroup(String.Empty, new Setting[]
+				new SettingsGroup("File", new Setting[]
 				{
-					new TextSetting("SourceFileName", "_Source"),
-					new TextSetting("DestinationFileName", "_Destination")
+					new FileSetting("SourceFileName", "_Source", file.SourceFileName, false),
+					new FileSetting("DestinationFileName", "_Destination", file.DestinationFileName, false)
 				})
 			}));
 			if (dlg.ShowDialog() == DialogResult.OK)

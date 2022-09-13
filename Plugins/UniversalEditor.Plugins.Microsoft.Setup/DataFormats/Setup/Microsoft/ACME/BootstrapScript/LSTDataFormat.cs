@@ -73,6 +73,10 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 					if (grp.Name == "Params")
 					{
 						operatingSystem = BootstrapOperatingSystem.PlatformIndependent;
+						if (!script.OperatingSystems.Contains(operatingSystem))
+						{
+							script.OperatingSystems.Add(operatingSystem);
+						}
 					}
 					else
 					{
@@ -101,6 +105,10 @@ namespace UniversalEditor.DataFormats.Setup.Microsoft.ACME.BootstrapScript
 					if (grp.Name == "Files")
 					{
 						operatingSystem = BootstrapOperatingSystem.PlatformIndependent;
+						if (!script.OperatingSystems.Contains(operatingSystem))
+						{
+							script.OperatingSystems.Add(operatingSystem);
+						}
 					}
 					else
 					{
