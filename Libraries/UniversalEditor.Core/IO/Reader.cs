@@ -1781,6 +1781,8 @@ namespace UniversalEditor.IO
 			return String.Empty;
 		}
 
+		public int CurrentLine { get; private set; }
+
 		public string ReadLine()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -1825,6 +1827,8 @@ namespace UniversalEditor.IO
 						sb.Append(c);
 					}
 				}
+
+				CurrentLine++;
 				return sb.ToString();
 			}
 			else
@@ -1833,6 +1837,8 @@ namespace UniversalEditor.IO
 				ReadChars(GetNewLineSequence().Length);
 				if (line.EndsWith("\r"))
 					line = line.Substring(0, line.Length - 1);
+
+				CurrentLine++;
 				return line;
 			}
 		}
