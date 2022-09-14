@@ -66,7 +66,6 @@
     <Compile Include="DataFormatReference.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DataFormat.cs" />
-    <Compile Include="Endpoint.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="InvalidDataFormatException.cs" />
     <Compile Include="IO\Encoding.cs" />

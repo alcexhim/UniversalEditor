@@ -32,7 +32,7 @@ namespace UniversalEditor
 		/// <summary>
 		/// Creates a new instance of a <see cref="InvalidDataFormatException" /> with the default message.
 		/// </summary>
-		public InvalidDataFormatException() : base("The data format is invalid") { }
+		public InvalidDataFormatException() : base(Localization.StringTable.ErrorDataFormatInvalid) { }
 		/// <summary>
 		/// Creates a new instance of a <see cref="InvalidDataFormatException" /> with the specified message.
 		/// </summary>

@@ -32,7 +32,7 @@ namespace UniversalEditor.UserInterface
 		/// </summary>
 		public EditorApplication()
 		{
-			Title = "Universal Editor";
+			Title = Localization.StringTable.ApplicationName;
 
 			CommandLine.Options.Add("command", '\0', null, CommandLineOptionValueType.Multiple);
 
@@ -1110,7 +1110,7 @@ namespace UniversalEditor.UserInterface
 			Command helpAboutPlatform = Application.Instance.Commands["HelpAboutPlatform"];
 			if (helpAboutPlatform != null)
 			{
-				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, ((UIApplication)Application.Instance).DefaultLanguage.GetStringTableEntry("Application.Title", "Universal Editor"));
+				helpAboutPlatform.Title = String.Format(helpAboutPlatform.Title, Localization.StringTable.ApplicationName);
 			}
 
 			Command helpLanguage = Application.Instance.Commands["HelpLanguage"];

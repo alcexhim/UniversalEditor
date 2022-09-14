@@ -19,25 +19,19 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MBS.Framework;
+
 namespace UniversalEditor.Localization
 {
 	public static class StringTable
 	{
-		private static string mvarApplicationName = "Universal Editor";
-		public static string ApplicationName { get { return mvarApplicationName; } }
+		public static string ApplicationName { get { return Application.Instance.DefaultLanguage.GetStringTableEntry("Application.Title", "Universal Editor"); } }
+		public static string ErrorDataFormatNotOpen { get; } = "The data format is not open.";
 
-		private static string mvarErrorDataFormatNotOpen = "The data format is not open.";
-		public static string ErrorDataFormatNotOpen { get { return mvarErrorDataFormatNotOpen; } }
-
-		private static string mvarErrorDataCorrupted = "The file is corrupted.";
-		public static string ErrorDataCorrupted { get { return mvarErrorDataCorrupted; } }
-
-		private static string mvarErrorFileNotFound = "The file could not be found.";
-		public static string ErrorFileNotFound { get { return mvarErrorFileNotFound; } }
-		private static string mvarErrorNotAnObjectModel = "The specified type is not an object model.";
-		public static string ErrorNotAnObjectModel { get { return mvarErrorNotAnObjectModel; } }
-
-		private static string mvarErrorObjectModelNull = "The object model must not be null.";
-		public static string ErrorObjectModelNull { get { return mvarErrorObjectModelNull; } set { mvarErrorObjectModelNull = value; } }
+		public static string ErrorDataFormatInvalid { get; } = "The data format is invalid.";
+		public static string ErrorDataCorrupted { get; } = "The file is corrupted.";
+		public static string ErrorFileNotFound { get; } = "The file could not be found.";
+		public static string ErrorNotAnObjectModel { get; } = "The specified type is not an object model.";
+		public static string ErrorObjectModelNull { get; } = "The object model must not be null.";
 	}
 }
