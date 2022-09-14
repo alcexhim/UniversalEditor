@@ -545,6 +545,7 @@ namespace UniversalEditor.UserInterface.Dialogs
 						projectNamePrefix = pt.Title.Replace(" ", String.Empty);
 						// projectNamePrefix = "Project";
 					}
+
 					txtFileName.Text = projectNamePrefix + "1";
 				}
 				if (!txtSolutionName.IsChangedByUser && SolutionTitle == null)
@@ -567,7 +568,22 @@ namespace UniversalEditor.UserInterface.Dialogs
 							prefix = prefix.Substring(0, prefix.Length - "ObjectModel".Length);
 						}
 					}
-					txtFileName.Text = prefix + "1";
+
+					int iCount = 0;
+
+					// go through all windows, and all open documents, and count all of the same ObjectModel
+					for (int i = 0; i < ((EditorApplication)Application.Instance).Windows.Count; i++)
+					{
+						for (int j = 0; j < ((EditorApplication)Application.Instance).Windows[i].Documents.Count; j++)
+						{
+							if (((EditorApplication)Application.Instance).Windows[i].Documents[j].ObjectModel.MakeReference() == pt.ObjectModel.MakeReference())
+							{
+								iCount++;
+							}
+						}
+					}
+
+					txtFileName.Text = String.Concat(prefix, (iCount + 1));
 				}
 			}
 		}
