@@ -37,6 +37,7 @@ namespace UniversalEditor.ObjectModels.TranslationSet
 			{
 				_omr = base.MakeReferenceInternal();
 				_omr.Path = new string[] { "Game development", "Raven Software", "Translation set / strip (string package)" };
+				_omr.EmptyTemplatePrefix = "TranslationSet";
 			}
 			return _omr;
 		}
