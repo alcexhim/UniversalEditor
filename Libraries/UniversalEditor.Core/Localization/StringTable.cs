@@ -25,13 +25,13 @@ namespace UniversalEditor.Localization
 {
 	public static class StringTable
 	{
-		public static string ApplicationName { get { return Application.Instance.DefaultLanguage.GetStringTableEntry("Application.Title", "Universal Editor"); } }
-		public static string ErrorDataFormatNotOpen { get; } = "The data format is not open.";
+		public static string ApplicationName { get { return Application.Instance?.DefaultLanguage?.GetStringTableEntry("Application.Title", null) ?? "Universal Editor"; } }
 
-		public static string ErrorDataFormatInvalid { get; } = "The data format is invalid.";
-		public static string ErrorDataCorrupted { get; } = "The file is corrupted.";
-		public static string ErrorFileNotFound { get; } = "The file could not be found.";
-		public static string ErrorNotAnObjectModel { get; } = "The specified type is not an object model.";
-		public static string ErrorObjectModelNull { get; } = "The object model must not be null.";
+		public static string ErrorDataFormatNotOpen { get { return Application.Instance?.DefaultLanguage?.GetStringTableEntry("Application.Errors.DataFormatNotOpen", null) ?? "The data format is not open."; } }
+		public static string ErrorDataFormatInvalid { get { return Application.Instance?.DefaultLanguage?.GetStringTableEntry("Application.Errors.DataFormatInvalid", null) ?? "The data format is invalid."; } }
+		public static string ErrorDataCorrupted { get { return Application.Instance?.DefaultLanguage?.GetStringTableEntry("Application.Errors.DataCorrupted", null) ?? "The file is corrupted."; } }
+		public static string ErrorFileNotFound { get { return Application.Instance?.DefaultLanguage?.GetStringTableEntry("Application.Errors.FileNotFound", null) ?? "The file could not be found."; } }
+		public static string ErrorNotAnObjectModel { get { return Application.Instance?.DefaultLanguage?.GetStringTableEntry("Application.Errors.NotAnObjectModel", null) ?? "The specified type is not an object model."; } }
+		public static string ErrorObjectModelNull { get { return Application.Instance?.DefaultLanguage?.GetStringTableEntry("Application.Errors.ObjectModelNull", null) ?? "The object model must not be null."; } }
 	}
 }

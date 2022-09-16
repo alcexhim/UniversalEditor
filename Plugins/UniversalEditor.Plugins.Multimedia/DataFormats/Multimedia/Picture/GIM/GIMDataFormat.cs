@@ -76,7 +76,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.GIM
 
 				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(OriginalFileName), "Original _filename"));
 				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(CreationUserName), "Creation _user"));
-				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(CreationApplication), "_Application name", "Universal Editor"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(CreationApplication), "_Application name", MBS.Framework.Application.Instance.Title));
 			}
 			return _dfr;
 		}
