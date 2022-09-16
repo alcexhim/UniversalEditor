@@ -48,7 +48,7 @@ namespace UniversalEditor.Plugins.Generic.Printing.Text.Plain
 			if (text == null)
 				throw new ObjectModelNotSupportedException();
 
-			g.DrawText(text.Text, Font.FromFamily("Liberation Serif", 12), new Rectangle(64, 64, 1400, 1400), Brushes.Black);
+			g.DrawText(text.Text, Font.FromFamily("Liberation Serif", new Measurement(12, MeasurementUnit.Point)), new Rectangle(64, 64, 1400, 1400), Brushes.Black);
 		}
 	}
 }
