@@ -45,11 +45,11 @@ namespace UniversalEditor.ObjectModels.Chunked
 			return clone;
 		}
 
-		public override int Size
+		public override long Size
 		{
 			get
 			{
-				int size = base.Size;
+				long size = base.Size;
 				foreach (RIFFChunk chunk in Chunks)
 				{
 					size += chunk.Size;

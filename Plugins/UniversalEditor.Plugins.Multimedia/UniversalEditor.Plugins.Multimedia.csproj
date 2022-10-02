@@ -100,7 +100,6 @@
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DirectDrawSurfacePixelFormatFlags.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\DirectDraw\Internal\DXTDecompression.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\Microsoft\Paint\MSPDataFormat.cs" />
-    <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGChunk.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGColorType.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGCompressionMethod.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\PortableNetworkGraphics\PNGDataFormat.cs" />
@@ -383,6 +382,11 @@
     <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFStretchMode.cs" />
     <Compile Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\WMFEscapeFunction.cs" />
     <Compile Include="ObjectModels\Multimedia\InstrumentDefinition\InstrumentDefinitionObjectModel.cs" />
+    <Compile Include="DataFormats\Multimedia\Picture\AVIF\AVIFDataFormat.cs" />
+    <Compile Include="DataFormats\Chunked\ISOMediaBase\ISOMediaBaseDataFormat.cs" />
+    <Compile Include="DataFormats\Chunked\ISOMediaBase\ISOMediaBaseChunkLengthPosition.cs" />
+    <Compile Include="DataFormats\Chunked\ISOMediaBase\ISOMediaBaseChecksumPosition.cs" />
+    <Compile Include="DataFormats\Chunked\ISOMediaBase\ISOMediaBaseChunkLengthType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -450,6 +454,9 @@
     <Folder Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\" />
     <Folder Include="DataFormats\Multimedia\VectorImage\Microsoft\WindowsMetafile\Internal\" />
     <Folder Include="ObjectModels\Multimedia\InstrumentDefinition\" />
+    <Folder Include="DataFormats\Multimedia\Picture\AVIF\" />
+    <Folder Include="DataFormats\Chunked\" />
+    <Folder Include="DataFormats\Chunked\ISOMediaBase\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Playlist\ASX.uexml" />
@@ -527,6 +534,7 @@
     <EmbeddedResource Include="Associations\Palette\KISS.uexml" />
     <EmbeddedResource Include="Associations\Picture\EXR.uexml" />
     <EmbeddedResource Include="Associations\Picture\Radiance.uexml" />
+    <EmbeddedResource Include="Associations\Picture\AVIF.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

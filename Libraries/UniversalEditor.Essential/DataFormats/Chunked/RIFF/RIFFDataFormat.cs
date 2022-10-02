@@ -185,7 +185,7 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 			{
 				RIFFGroupChunk gchunk = (chunk as RIFFGroupChunk);
 				bw.WriteFixedLengthString(gchunk.TypeID.PadRight(4, ' '));
-				bw.WriteInt32(gchunk.Size);
+				bw.WriteInt32((int)gchunk.Size);
 				bw.WriteFixedLengthString(gchunk.ID.PadRight(4, ' '));
 				foreach (RIFFChunk subChunk in gchunk.Chunks)
 				{
@@ -196,10 +196,10 @@ namespace UniversalEditor.DataFormats.Chunked.RIFF
 			{
 				RIFFDataChunk dchunk = (chunk as RIFFDataChunk);
 				bw.WriteFixedLengthString(dchunk.ID.PadRight(4, ' '));
-				bw.WriteInt32(dchunk.Size);
-				if (dchunk.Data != null)
+				bw.WriteInt32((int)dchunk.Size);
+				if (dchunk.Source != null)
 				{
-					bw.WriteBytes(dchunk.Data);
+					bw.WriteBytes(dchunk.Source.GetData());
 				}
 			}
 		}

@@ -99,7 +99,7 @@ namespace UniversalEditor.ObjectModels.Chunked
 
 		public abstract object Clone();
 
-		public virtual int Size
+		public virtual long Size
 		{
 			get { return 4; }
 		}

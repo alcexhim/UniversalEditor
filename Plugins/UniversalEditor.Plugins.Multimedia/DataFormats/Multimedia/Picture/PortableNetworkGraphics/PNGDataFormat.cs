@@ -20,10 +20,13 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using MBS.Framework.Drawing;
 
 using UniversalEditor.Accessors;
 using UniversalEditor.Compression;
+using UniversalEditor.DataFormats.Chunked.ISOMediaBase;
+using UniversalEditor.ObjectModels.Chunked;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
@@ -31,37 +34,33 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 	/// <summary>
 	/// Provides a <see cref="DataFormat" /> for manipulating images in Portable Network Graphics (PNG) format.
 	/// </summary>
-	public class PNGDataFormat : DataFormat
+	public class PNGDataFormat : ISOMediaBaseDataFormat
 	{
 		protected override DataFormatReference MakeReferenceInternal()
 		{
-			DataFormatReference dfr = base.MakeReferenceInternal();
+			DataFormatReference dfr = new DataFormatReference(GetType());
+			dfr.Title = "Portable Network Graphics (PNG) image";
 			dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
 			return dfr;
 		}
 
-		protected override void LoadInternal(ref ObjectModel objectModel)
+		protected override byte[] ExpectedSignature => new byte[] { 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a };
+		protected override ISOMediaBaseChunkLengthType ChunkLengthType => ISOMediaBaseChunkLengthType.DataOnly;
+		protected override ISOMediaBaseChecksumPosition ChecksumPosition => ISOMediaBaseChecksumPosition.AfterChunkData;
+
+		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
-			IO.Reader br = base.Accessor.Reader;
-			PictureObjectModel pic = (objectModel as PictureObjectModel);
+			base.BeforeLoadInternal(objectModels);
+			objectModels.Push(new ChunkedObjectModel());
+		}
+		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
+		{
+			base.AfterLoadInternal(objectModels);
 
-			byte[] signature = br.ReadBytes(8);
-			br.Endianness = IO.Endianness.BigEndian;
+			ChunkedObjectModel chunked = objectModels.Pop() as ChunkedObjectModel;
+			PictureObjectModel pic = objectModels.Pop() as PictureObjectModel;
 
-			PNGChunk.PNGChunkCollection chunks = new PNGChunk.PNGChunkCollection();
-
-			while (!br.EndOfStream)
-			{
-				int chunkLength = br.ReadInt32();
-				string chunkType = br.ReadFixedLengthString(4);
-				byte[] chunkData = br.ReadBytes(chunkLength);
-				int chunkCRC = br.ReadInt32();
-				chunks.Add(chunkType, chunkData);
-
-				if (chunkType == "IEND") break;
-			}
-
-			IO.Reader brIHDR = new IO.Reader(new MemoryAccessor(chunks["IHDR"].Data));
+			IO.Reader brIHDR = new IO.Reader(new MemoryAccessor(((RIFFDataChunk)chunked.Chunks["IHDR"]).Source.GetData()));
 			brIHDR.Endianness = IO.Endianness.BigEndian;
 			pic.Width = brIHDR.ReadInt32();
 			pic.Height = brIHDR.ReadInt32();
@@ -71,7 +70,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 			byte filterMethod = brIHDR.ReadByte();
 			byte interlaceMethod = brIHDR.ReadByte();
 
-			byte[] imageData = chunks["IDAT"].Data;
+			byte[] imageData = ((RIFFDataChunk)chunked.Chunks["IDAT"]).Source.GetData();
 
 			// first do a Zlib decompress
 			byte[] uncompressedFilteredImageData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Zlib).Decompress(imageData);
@@ -88,12 +87,12 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 			Color[] palette = null;
 			if ((colorType & PNGColorType.Palette) == PNGColorType.Palette)
 			{
-				if (chunks["PLTE"] == null)
+				if (chunked.Chunks["PLTE"] == null)
 				{
 					throw new InvalidDataFormatException("palette color PNG does not specify 'PLTE' chunk");
 				}
 
-				byte[] paletteData = chunks["PLTE"].Data;
+				byte[] paletteData = ((RIFFDataChunk)chunked.Chunks["PLTE"]).Source.GetData();
 				if (paletteData.Length % 3 != 0)
 				{
 					throw new InvalidDataFormatException("palette chunk length not divisible by 3");
@@ -158,6 +157,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 					}
 				}
 			}
+
+			objectModels.Push(pic);
 		}
 
 		private Color[] ReadColors(byte[] paletteData)
@@ -170,15 +171,5 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.PortableNetworkGraphics
 			return colors;
 		}
 
-		protected override void SaveInternal(ObjectModel objectModel)
-		{
-			IO.Writer bw = base.Accessor.Writer;
-			PictureObjectModel pic = (objectModel as PictureObjectModel);
-
-			byte[] signature = new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
-			bw.WriteBytes(signature);
-
-			bw.Flush();
-		}
 	}
 }

@@ -19,6 +19,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
+
 namespace UniversalEditor.ObjectModels.Chunked
 {
 	/// <summary>
@@ -26,44 +30,47 @@ namespace UniversalEditor.ObjectModels.Chunked
 	/// </summary>
 	public class RIFFDataChunk : RIFFChunk
 	{
-		private byte[] mvarData = new byte[0];
+		[Obsolete("use for backward-compatibility only; new implementations use Source")]
 		public byte[] Data
-		{
-			get { return mvarData; }
-			set { mvarData = value; }
-		}
-		public override int Size
 		{
 			get
 			{
-				int result;
-				if (this.mvarData == null)
-				{
-					result = 0;
-				}
-				else
-				{
-					result = this.mvarData.Length;
-				}
-				return result;
+				return Source.GetData();
+			}
+			set
+			{
+				Source = new MemoryFileSource(value);
 			}
 		}
+
+		public override long Size
+		{
+			get
+			{
+				return (Source?.GetLength()).GetValueOrDefault(0);
+			}
+		}
+
+		public long Checksum { get; set; }
+
+		public FileSource Source { get; set; } = null;
+
 		public void Extract(string FileName)
 		{
-			System.IO.File.WriteAllBytes(FileName, mvarData);
+			System.IO.File.WriteAllBytes(FileName, Data);
 		}
 
 		public override object Clone()
 		{
 			RIFFDataChunk clone = new RIFFDataChunk();
-			clone.Data = mvarData;
+			clone.Source = Source;
 			clone.ID = base.ID;
 			return clone;
 		}
 
 		public override string ToString()
 		{
-			return base.ID + " [" + mvarData.Length.ToString() + "]";
+			return base.ID + " [" + Size.ToString() + "]";
 		}
 	}
 }
