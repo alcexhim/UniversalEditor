@@ -21,15 +21,177 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework;
+using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.FileSystem;
 using UniversalEditor.ObjectModels.Text.Formatted.Items;
 
 namespace UniversalEditor.ConsoleApplication
 {
-	class MainClass
+	class Program : MBS.Framework.Application
 	{
+		public Program()
+		{
+			ShortName = "ue";
+
+			CommandLine.Options.Add("help", CommandLineOptionValueType.None);
+
+			// usage: ue <command> [options...]
+			// commands: generate-associations, unpack, etc.
+			// ex: ue unpack -o /var/tmp/dir /var/tmp/test.pkg [specific file name(s) to unpack...]
+			CommandLine.Commands.Add(new CommandLineCommand("generate-associations")
+			{ Description = "bind file associations to the local desktop environment" });
+			CommandLine.Commands.Add(new CommandLineCommand("list-associations")
+			{ Description = "show a list of all file associations handled by this Editor" });
+			CommandLine.Commands.Add(new CommandLineCommand("unpack", new CommandLineOption[]
+			{
+				new CommandLineOption()
+				{
+					Name = "output-directory",
+					Abbreviation = 'o',
+					Description = "an optional directory in which to place extracted files",
+					Optional = true,
+					AcceptsValue = true
+				}
+			})
+			{ Description = "unpack an archive" });
+		}
+
+		protected override void OnActivated(ApplicationActivatedEventArgs e)
+		{
+			base.OnActivated(e);
+
+			if (e.CommandLine.Command != null)
+			{
+				switch (e.CommandLine.Command.Name)
+				{
+					case "unpack":
+					{
+						// wake up the UE
+						DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+						FileSystemObjectModel fsom = new FileSystemObjectModel();
+						DataFormat fsdf = null;
+
+						// Console.WriteLine("starting in: {0}", System.Environment.CurrentDirectory);
+
+						// Console.WriteLine("file to unpack: {0}", e.CommandLine.FileNames.Count > 0 ? e.CommandLine.FileNames[0] : "(none)");
+						// Console.WriteLine("output directory: {0}", e.CommandLine.Command.Options['o'].Value);
+
+						FileAccessor fa = new FileAccessor(e.CommandLine.FileNames[0]);
+						Association[] assocs = Association.FromAccessor(fa);
+						// Console.WriteLine("associations: {0}", assocs.Length);
+
+						string outputDir = ".";
+						CommandLineOption optOutputDir = e.CommandLine.Command.Options['o'];
+						if (optOutputDir != null)
+						{
+							outputDir = optOutputDir.Value?.ToString();
+						}
+
+						if (assocs.Length > 0)
+						{
+							if (assocs[0].DataFormats.Count > 0)
+							{
+								Console.WriteLine("Object model: {0}", fsom.GetType().FullName);
+								Console.WriteLine("Data format: {0}", assocs[0].DataFormats[0].TypeName);
+								Console.WriteLine();
+
+								// Generic FSOM File Extractor, v1.0
+								Document.Load(fsom, assocs[0].DataFormats[0].Create(), fa, false);
+
+								File[] files = fsom.GetAllFiles(System.IO.Path.DirectorySeparatorChar.ToString());
+								for (int i = 0; i < files.Length; i++)
+								{
+									string path = null;
+									if (String.IsNullOrEmpty(outputDir))
+									{
+										path = files[i].Name;
+									}
+									else
+									{
+										path = System.IO.Path.Combine(new string[] { outputDir, files[i].Name });
+									}
+									string dir = System.IO.Path.GetDirectoryName(path);
+									if (!String.IsNullOrEmpty(dir))
+									{
+										System.IO.Directory.CreateDirectory(dir);
+									}
+
+									System.IO.File.WriteAllBytes(path, files[i].GetData());
+									Console.WriteLine(path);
+								}
+							}
+						}
+						break;
+					}
+					case "list-associations":
+					{
+						// wake up the UE
+						DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
+
+						Association[] assocs = Association.GetAllAssociations();
+						foreach (Association assoc in assocs)
+						{
+							Console.WriteLine(assoc.ToString());
+						}
+						return;
+					}
+				}
+			}
+			else
+			{
+				if (e.CommandLine.Options.Contains("help"))
+				{
+					PrintUsageStatement("ue");
+				}
+			}
+		}
+
+		private void PrintUsageStatement(string commandName)
+		{
+			Console.WriteLine("usage: {0} ", commandName);
+			foreach (CommandLineOption option in CommandLine.Options)
+			{
+				Console.Write("  ");
+				if (option.Optional)
+				{
+					Console.Write('[');
+				}
+				Console.Write(CommandLine.LongOptionPrefix ?? "--");
+				Console.Write("{0}", option.Name);
+				if (option.Optional)
+				{
+					Console.Write(']');
+				}
+				Console.WriteLine();
+			}
+			// Console.Write("[<global-options...>]");
+			if (CommandLine.Commands.Count > 0)
+			{
+				Console.WriteLine(" <command> [<command-options...>]");
+				Console.WriteLine();
+
+				List<CommandLineCommand> commands = new List<CommandLineCommand>(CommandLine.Commands);
+				commands.Sort(HandleComparison);
+				foreach (CommandLineCommand command in commands)
+				{
+					Console.WriteLine("  {0}{1}", command.Name, command.Description == null ? null : String.Format(" - {0}", command.Description));
+				}
+			}
+		}
+
+		int HandleComparison(CommandLineCommand x, CommandLineCommand y)
+		{
+			return x.Name.CompareTo(y.Name);
+		}
+
+
 		public static void Main(string[] args)
 		{
+			(new Program()).Start();
+			return;
+
 			if (args.Length > 0)
 			{
 				if (args[0] == "--generate-associations")
@@ -111,18 +273,6 @@ namespace UniversalEditor.ConsoleApplication
 					{
 
 					}
-				}
-				else if (args[0] == "--list-associations")
-				{
-					// wake up the UE
-					DataFormatReference[] dfrs = UniversalEditor.Common.Reflection.GetAvailableDataFormats();
-
-					Association[] assocs = Association.GetAllAssociations();
-					foreach (Association assoc in assocs)
-					{
-						Console.WriteLine(assoc.ToString());
-					}
-					return;
 				}
 				else if (args[0] == "--list-dataformats")
 				{
