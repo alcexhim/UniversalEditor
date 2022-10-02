@@ -69,6 +69,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Kronosaur.TDB
 			string signature = reader.ReadFixedLengthString(4);
 			if (signature != "FDLA") throw new InvalidDataFormatException("File does not begin with 'FDLA'");
 
+			fsom.PathSeparators = new string[] { "/", "\\" };
 			FormatVersion = reader.ReadInt32();
 
 			BlockSize = reader.ReadInt32();
