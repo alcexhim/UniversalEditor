@@ -227,9 +227,14 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 				DataRequestEventArgs e = new DataRequestEventArgs();
 				OnDataRequest(e);
 			}
+			if (bitmapData.Length == 0)
+			{
+				return new byte[0];
+			}
 
 			// memory goes from left to right, top to bottom
 			byte[] data = new byte[mvarWidth * mvarHeight * 4];
+
 			int i = 0;
 			for (int h = 0; h < mvarHeight; h++)
 			{
