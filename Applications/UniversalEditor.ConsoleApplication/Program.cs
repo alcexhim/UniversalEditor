@@ -34,11 +34,11 @@ namespace UniversalEditor.ConsoleApplication
 		{
 			ShortName = "ue";
 
-			CommandLine.Options.Add("help", CommandLineOptionValueType.None);
-
 			// usage: ue <command> [options...]
 			// commands: generate-associations, unpack, etc.
 			// ex: ue unpack -o /var/tmp/dir /var/tmp/test.pkg [specific file name(s) to unpack...]
+			CommandLine.Commands.Add(new CommandLineCommand("checksum")
+			{ Description = "calculate checksum of a file" });
 			CommandLine.Commands.Add(new CommandLineCommand("generate-associations")
 			{ Description = "bind file associations to the local desktop environment" });
 			CommandLine.Commands.Add(new CommandLineCommand("list-associations")
@@ -51,7 +51,7 @@ namespace UniversalEditor.ConsoleApplication
 					Abbreviation = 'o',
 					Description = "an optional directory in which to place extracted files",
 					Optional = true,
-					AcceptsValue = true
+					Type = CommandLineOptionValueType.Single
 				}
 			})
 			{ Description = "unpack an archive" });
@@ -65,6 +65,47 @@ namespace UniversalEditor.ConsoleApplication
 			{
 				switch (e.CommandLine.Command.Name)
 				{
+					case "checksum":
+					{
+						if (e.CommandLine.FileNames.Count == 0)
+						{
+							PrintUsageStatement(e.CommandLine.Command);
+							return;
+						}
+
+						if (e.CommandLine.Options.Contains('c'))
+						{
+							Console.WriteLine("looking for {0}", e.CommandLine.Options['c'].Value);
+						}
+						Type[] types = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(Checksum.ChecksumPlugin) });
+						for (int i = 0; i < types.Length; i++)
+						{
+							Checksum.ChecksumPlugin module = (types[i].Assembly.CreateInstance(types[i].FullName) as Checksum.ChecksumPlugin);
+							if (module == null) continue;
+
+							Console.WriteLine("=== {0} ===", module.GetType().Name);
+
+							for (int j = 0; j < e.CommandLine.FileNames.Count; j++)
+							{
+								Console.Write(System.IO.Path.GetFileName(e.CommandLine.FileNames[j]).PadRight(30));
+
+								if (System.IO.File.Exists(e.CommandLine.FileNames[j]))
+								{
+									long calc = module.Calculate(System.IO.File.ReadAllBytes(e.CommandLine.FileNames[j]));
+									calc = (int)(calc);
+									Console.Write(calc.ToString());
+								}
+								else
+								{
+									Console.Write("NOT FOUND");
+								}
+								// Console.Write(calc.ToString("x"));
+								Console.WriteLine();
+							}
+							Console.WriteLine();
+						}
+						return;
+					}
 					case "unpack":
 					{
 						// wake up the UE
@@ -143,49 +184,10 @@ namespace UniversalEditor.ConsoleApplication
 			{
 				if (e.CommandLine.Options.Contains("help"))
 				{
-					PrintUsageStatement("ue");
+					PrintUsageStatement();
 				}
 			}
 		}
-
-		private void PrintUsageStatement(string commandName)
-		{
-			Console.WriteLine("usage: {0} ", commandName);
-			foreach (CommandLineOption option in CommandLine.Options)
-			{
-				Console.Write("  ");
-				if (option.Optional)
-				{
-					Console.Write('[');
-				}
-				Console.Write(CommandLine.LongOptionPrefix ?? "--");
-				Console.Write("{0}", option.Name);
-				if (option.Optional)
-				{
-					Console.Write(']');
-				}
-				Console.WriteLine();
-			}
-			// Console.Write("[<global-options...>]");
-			if (CommandLine.Commands.Count > 0)
-			{
-				Console.WriteLine(" <command> [<command-options...>]");
-				Console.WriteLine();
-
-				List<CommandLineCommand> commands = new List<CommandLineCommand>(CommandLine.Commands);
-				commands.Sort(HandleComparison);
-				foreach (CommandLineCommand command in commands)
-				{
-					Console.WriteLine("  {0}{1}", command.Name, command.Description == null ? null : String.Format(" - {0}", command.Description));
-				}
-			}
-		}
-
-		int HandleComparison(CommandLineCommand x, CommandLineCommand y)
-		{
-			return x.Name.CompareTo(y.Name);
-		}
-
 
 		public static void Main(string[] args)
 		{
@@ -296,10 +298,10 @@ namespace UniversalEditor.ConsoleApplication
 							files[i - 2] = args[i];
 						}
 
-						Type[] types = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(Checksum.ChecksumModule) });
+						Type[] types = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(Checksum.ChecksumPlugin) });
 						for (int i = 0; i < types.Length; i++)
 						{
-							Checksum.ChecksumModule module = (types[i].Assembly.CreateInstance(types[i].FullName) as Checksum.ChecksumModule);
+							Checksum.ChecksumPlugin module = (types[i].Assembly.CreateInstance(types[i].FullName) as Checksum.ChecksumPlugin);
 							if (module == null) continue;
 
 							Console.WriteLine("=== {0} ===", module.GetType().Name);
