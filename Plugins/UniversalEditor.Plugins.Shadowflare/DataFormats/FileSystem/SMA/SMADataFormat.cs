@@ -73,7 +73,7 @@ namespace UniversalEditor.Plugins.Shadowflare.DataFormats.FileSystem.SMA
 			}
 		}
 
-		Checksum.ChecksumModule crc = new Checksum.Modules.StrangeCRC.StrangeCRCChecksumModule();
+		Checksum.ChecksumPlugin crc = new Checksum.Modules.StrangeCRC.StrangeCRCChecksumModule();
 
 		protected override void SaveInternal(ObjectModel objectModel)
 		{

@@ -26,7 +26,7 @@ namespace UniversalEditor.Checksum.Modules.GCF
 	/// <summary>
 	/// Implements module for calculating checksum used in Valve GCF archives.
 	/// </summary>
-	public class GCFChecksumModule : ChecksumModule
+	public class GCFChecksumModule : ChecksumPlugin
 	{
 		public override string Name
 		{

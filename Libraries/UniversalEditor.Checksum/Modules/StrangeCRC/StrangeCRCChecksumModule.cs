@@ -43,7 +43,7 @@ namespace UniversalEditor.Checksum.Modules.StrangeCRC
 	/// <summary>
 	/// Bzip2 checksum algorithm
 	/// </summary>
-	public class StrangeCRCChecksumModule : ChecksumModule
+	public class StrangeCRCChecksumModule : ChecksumPlugin
 	{
 		public override string Name { get { return "StrangeCRC"; } }
 

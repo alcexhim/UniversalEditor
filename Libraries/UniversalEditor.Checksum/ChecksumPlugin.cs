@@ -20,13 +20,14 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework;
 
 namespace UniversalEditor.Checksum
 {
 	/// <summary>
 	/// Provides the minimal functionality required to create a checksum calculation module.
 	/// </summary>
-	public abstract class ChecksumModule
+	public abstract class ChecksumPlugin : Plugin
 	{
 		/// <summary>
 		/// The name of this checksum calculation module.

@@ -64,7 +64,7 @@ namespace UniversalEditor.Checksum.Modules.CRC32
 	/// the information needed to generate CRC's on data a byte at a time for all
 	/// combinations of CRC register values and incoming bytes.
 	/// </summary>
-	public sealed class CRC32ChecksumModule : ChecksumModule
+	public sealed class CRC32ChecksumModule : ChecksumPlugin
 	{
 		const uint CrcSeed = 0xFFFFFFFF;
 

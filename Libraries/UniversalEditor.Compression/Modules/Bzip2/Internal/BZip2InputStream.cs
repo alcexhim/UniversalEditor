@@ -1025,7 +1025,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
 		int bsBuff;
 		int bsLive;
-		ChecksumModule mCrc = new StrangeCRCChecksumModule();
+		ChecksumPlugin mCrc = new StrangeCRCChecksumModule();
 
 		bool[] inUse = new bool[256];
 		int nInUse;

@@ -75,7 +75,7 @@ namespace UniversalEditor.Checksum.Modules.Adler32
 	/// </remarks>
 	/// <see cref="ICSharpCode.SharpZipLib.Zip.Compression.Streams.InflaterInputStream"/>
 	/// <see cref="ICSharpCode.SharpZipLib.Zip.Compression.Streams.DeflaterOutputStream"/>
-	public sealed class Adler32ChecksumModule : ChecksumModule
+	public sealed class Adler32ChecksumModule : ChecksumPlugin
 	{
 		public override string Name
 		{
