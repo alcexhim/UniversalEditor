@@ -59,5 +59,30 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS.FixedDocumentSequence
 				fdseq.DocumentReferences.Add(docref);
 			}
 		}
+
+		public XPSSchemaVersion SchemaVersion { get; set; } = XPSSchemaVersion.OpenXPS;
+
+		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
+		{
+			base.BeforeSaveInternal(objectModels);
+
+			FixedDocumentSequenceObjectModel fdseq = (objectModels.Pop() as FixedDocumentSequenceObjectModel);
+			MarkupObjectModel mom = new MarkupObjectModel();
+
+			mom.Elements.Add(new MarkupPreprocessorElement("xml", "version=\"1.0\" encoding=\"UTF-8\""));
+
+			MarkupTagElement tagFixedDocumentSequence = new MarkupTagElement() { Name = "FixedDocumentSequence" };
+			tagFixedDocumentSequence.XMLSchema = XPSSchemas.GetSchema(SchemaVersion, XPSSchemaType.FixedDocumentSequence);
+
+			foreach (DocumentReference docref in fdseq.DocumentReferences)
+			{
+				MarkupTagElement tagDocumentReference = new MarkupTagElement() { Name = "DocumentReference" };
+				tagDocumentReference.Attributes.Add("Source", docref.Source);
+				tagFixedDocumentSequence.Elements.Add(tagDocumentReference);
+			}
+
+			mom.Elements.Add(tagFixedDocumentSequence);
+			objectModels.Push(mom);
+		}
 	}
 }

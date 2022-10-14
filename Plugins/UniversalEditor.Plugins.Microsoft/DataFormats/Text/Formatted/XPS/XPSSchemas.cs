@@ -43,12 +43,14 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.XPS, XPSSchemaType.PrintTicket)] = "http://schemas.microsoft.com/xps/2005/06/printticket";
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.XPS, XPSSchemaType.Thumbnail)] = "http://schemas.microsoft.com/xps/2005/06/printticket";
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.XPS, XPSSchemaType.FixedDocument)] = "http://schemas.microsoft.com/xps/2005/06";
+			_Schema[new XPSSchemaKey(XPSSchemaVersion.XPS, XPSSchemaType.FixedDocumentSequence)] = "http://schemas.microsoft.com/xps/2005/06";
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.XPS, XPSSchemaType.FixedPage)] = "http://schemas.microsoft.com/xps/2005/06";
 
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.OpenXPS, XPSSchemaType.FixedRepresentation)] = "http://schemas.openxps.org/oxps/v1.0/fixedrepresentation";
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.OpenXPS, XPSSchemaType.PrintTicket)] = "http://schemas.openxps.org/oxps/v1.0/printticket";
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.OpenXPS, XPSSchemaType.Thumbnail)] = "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail"; //yes this is the same as OpenXPS
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.OpenXPS, XPSSchemaType.FixedDocument)] = "http://schemas.openxps.org/oxps/v1.0";
+			_Schema[new XPSSchemaKey(XPSSchemaVersion.OpenXPS, XPSSchemaType.FixedDocumentSequence)] = "http://schemas.openxps.org/oxps/v1.0";
 			_Schema[new XPSSchemaKey(XPSSchemaVersion.OpenXPS, XPSSchemaType.FixedPage)] = "http://schemas.openxps.org/oxps/v1.0";
 		}
 	}

@@ -27,6 +27,7 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 	public enum XPSSchemaType
 	{
 		FixedDocument,
+		FixedDocumentSequence,
 		FixedRepresentation,
 		FixedPage,
 		PrintTicket,

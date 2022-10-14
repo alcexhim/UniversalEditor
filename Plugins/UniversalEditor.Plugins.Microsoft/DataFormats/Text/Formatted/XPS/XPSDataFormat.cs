@@ -20,16 +20,19 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using MBS.Framework.Settings;
 using UniversalEditor.DataFormats.Package.OpenPackagingConvention;
 using UniversalEditor.DataFormats.Text.Formatted.XPS.FixedDocument;
 using UniversalEditor.DataFormats.Text.Formatted.XPS.FixedDocumentSequence;
 using UniversalEditor.DataFormats.Text.Formatted.XPS.FixedPage;
 using UniversalEditor.DataFormats.Text.Formatted.XPS.PrintTicket;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 using UniversalEditor.ObjectModels.Package;
 using UniversalEditor.ObjectModels.Text.Formatted;
 using UniversalEditor.ObjectModels.Text.Formatted.XPS.FixedDocument;
 using UniversalEditor.ObjectModels.Text.Formatted.XPS.FixedDocumentSequence;
+using UniversalEditor.ObjectModels.Text.Formatted.XPS.FixedPage;
 using UniversalEditor.ObjectModels.Text.Formatted.XPS.PrintTicket;
 
 namespace UniversalEditor.DataFormats.Text.Formatted.XPS
@@ -45,6 +48,11 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 			if (_dfr == null)
 			{
 				_dfr = new DataFormatReference(GetType());
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting("SchemaVersion", "_Schema version", XPSSchemaVersion.OpenXPS, new ChoiceSetting.ChoiceSettingValue[]
+				{
+					new ChoiceSetting.ChoiceSettingValue("XPS", "XPS", XPSSchemaVersion.XPS),
+					new ChoiceSetting.ChoiceSettingValue("OpenXPS", "OpenXPS", XPSSchemaVersion.OpenXPS)
+				}));
 				_dfr.Capabilities.Add(typeof(FormattedTextObjectModel), DataFormatCapabilities.All);
 			}
 			return _dfr;
@@ -85,6 +93,30 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 
 		}
 
+		/// <summary>
+		/// Attempts to deobfuscate Obfuscated OpenType (ODTTF) font data.
+		/// FIXME: This has not been tested!
+		/// </summary>
+		/// <returns>The deobfuscated font data.</returns>
+		/// <param name="filename">The file name of the Obfuscated OpenType font, consisting solely of a GUID.</param>
+		/// <param name="fontData">The obfuscated data to decode.</param>
+		protected byte[] DeobfuscateFont(string filename, byte[] fontData)
+		{
+			// from github:KDE/okular@master/generators/xps/generator_xps.cpp (GPLv2.0 or later)
+			// XpsFile::loadFontByName
+			Guid guid = new Guid(filename);
+			byte[] guidData = guid.ToByteArray();
+
+			// Obfuscation - xor bytes in font binary with bytes from guid (font's filename)
+			int[] mapping = new int[] { 15, 14, 13, 12, 11, 10, 9, 8, 6, 7, 4, 5, 0, 1, 2, 3 };
+			for (int i = 0; i < 16; i++)
+			{
+				fontData[i] = (byte) (fontData[i] ^ guidData[mapping[i]]);
+				fontData[i + 16] = (byte) (fontData[i + 16] ^ guidData[mapping[i]]);
+			}
+			return fontData;
+		}
+
 		protected override void BeforeSaveInternal(System.Collections.Generic.Stack<ObjectModel> objectModels)
 		{
 			FormattedTextObjectModel text = (objectModels.Pop() as FormattedTextObjectModel);
@@ -110,17 +142,40 @@ namespace UniversalEditor.DataFormats.Text.Formatted.XPS
 				fldDocument1MetadataPage1PT.Name = "Page" + (i + 1).ToString() + "_PT.xml";
 
 				PrintTicketObjectModel pt = new PrintTicketObjectModel();
-				fldDocument1MetadataPage1PT.SetObjectModel<PrintTicketObjectModel>(new PrintTicketXMLDataFormat(), pt);
+				fldDocument1MetadataPage1PT.Source = new ObjectModelFileSource(pt, new PrintTicketXMLDataFormat());
+
+				fldDocument1Metadata.Files.Add(fldDocument1MetadataPage1PT);
+
 
 				File fldDocument1MetadataPage1Thumbnail = new File();
 				fldDocument1MetadataPage1Thumbnail.Name = "Page" + (i + 1).ToString() + "_Thumbnail.JPG";
+				fldDocument1Metadata.Files.Add(fldDocument1MetadataPage1Thumbnail);
 			}
 
 			FPAGEDataFormat fpageDF = new FPAGEDataFormat();
 			fpageDF.Generator = new XPSGenerator("Universal Editor", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 			fpageDF.SchemaVersion = SchemaVersion;
 
+			Folder fldDocument1Pages = new Folder() { Name = "Pages" };
+
+			FixedPageObjectModel fp = new FixedPageObjectModel();
+			File fDocument1Page1 = new File() { Name = "1.fpage" };
+			fDocument1Page1.Source = new ObjectModelFileSource(fp, fpageDF);
+			fldDocument1Pages.Files.Add(fDocument1Page1);
+
+			fldDocument1.Folders.Add(fldDocument1Pages);
+
+			FDSEQDataFormat fdseq = new FDSEQDataFormat();
+			fdseq.SchemaVersion = SchemaVersion;
+			FixedDocumentSequenceObjectModel omFixedDocumentSequence = new FixedDocumentSequenceObjectModel();
+
+			omFixedDocumentSequence.DocumentReferences.Add(new DocumentReference() { Source = "Documents/1/FixedDocument.fdoc" });
+
+			File fFixedDocumentSequence = new File() { Name = "FixedDocumentSequence.fdseq", Source = new ObjectModelFileSource(omFixedDocumentSequence, fdseq) };
+			package.FileSystem.Files.Add(fFixedDocumentSequence);
+
 			objectModels.Push(package);
+			base.BeforeSaveInternal(objectModels);
 		}
 	}
 }
