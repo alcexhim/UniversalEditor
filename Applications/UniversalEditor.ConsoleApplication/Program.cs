@@ -39,7 +39,9 @@ namespace UniversalEditor.ConsoleApplication
 			// ex: ue unpack -o /var/tmp/dir /var/tmp/test.pkg [specific file name(s) to unpack...]
 			CommandLine.Commands.Add(new CommandLineCommand("checksum")
 			{ Description = "calculate checksum of a file" });
-			CommandLine.Commands.Add(new CommandLineCommand("generate-associations")
+			// CommandLine.Commands.Add(new CommandLineCommand("generate-associations")
+			// { Description = "bind file associations to the local desktop environment" });
+			CommandLine.Commands.Add(new CommandLineCommand("update-associations")
 			{ Description = "bind file associations to the local desktop environment" });
 			CommandLine.Commands.Add(new CommandLineCommand("list-associations")
 			{ Description = "show a list of all file associations handled by this Editor" });
@@ -178,6 +180,68 @@ namespace UniversalEditor.ConsoleApplication
 						}
 						return;
 					}
+					case "update-associations":
+					{
+						if (Environment.OSVersion.Platform == PlatformID.Unix)
+						{
+							string filename = "/usr/share/mime/packages/universal-editor.xml";
+							GenerateAssociations(out string assocs, out string desktop_mime_types);
+							try
+							{
+								Console.Write("updating MIME types...    ");
+
+								System.IO.File.WriteAllText(filename, assocs);
+								System.Diagnostics.Process.Start("update-mime-database", "/usr/share/mime");
+
+								Console.WriteLine("[OK]");
+
+
+								Console.Write("updating desktop database...    ");
+
+								StringBuilder sbDesktop = new StringBuilder();
+								sbDesktop.AppendLine("[Desktop Entry]");
+								sbDesktop.AppendLine("Version=1.0");
+								sbDesktop.AppendLine("Name=Universal Editor");
+								sbDesktop.AppendLine("Comment=Open and edit any document");
+								sbDesktop.AppendLine("GenericName=Document Editor");
+								sbDesktop.AppendLine("Keywords=Text;Editor");
+								sbDesktop.AppendLine("Exec=universal-editor %F");
+								sbDesktop.AppendLine("Terminal=false");
+								sbDesktop.AppendLine("X-MultipleArgs=true");
+								sbDesktop.AppendLine("Type=Application");
+								sbDesktop.AppendLine("Icon=universal-editor");
+								sbDesktop.AppendLine("Categories=GTK;Development;IDE");
+								sbDesktop.AppendLine(String.Format("MimeType={0}", desktop_mime_types));
+								sbDesktop.AppendLine("StartupNotify=true");
+								sbDesktop.AppendLine("WMClass=UniversalEditor.exe");
+								sbDesktop.AppendLine("Actions=create-project;");
+								sbDesktop.AppendLine("X-Desktop-File-Install-Version=0.24");
+								sbDesktop.AppendLine();
+								sbDesktop.AppendLine("[Desktop Action create-project]");
+								sbDesktop.AppendLine("Name=Create a New Project");
+								sbDesktop.AppendLine("Exec=universal-editor /command:FileNewProject");
+								sbDesktop.AppendLine();
+
+								System.IO.File.WriteAllText("/usr/share/applications/net.alcetech.UniversalEditor.desktop", sbDesktop.ToString());
+
+								System.Diagnostics.Process.Start("update-desktop-database");
+
+								Console.WriteLine("[OK]");
+
+								System.Environment.Exit(0);
+							}
+							catch (UnauthorizedAccessException ex)
+							{
+								Console.WriteLine("ue: {0}: Permission denied", filename);
+								System.Environment.Exit(1);
+							}
+						}
+						else if (System.Environment.OSVersion.Platform == PlatformID.Win32NT)
+						{
+
+						}
+						return;
+					}
 				}
 			}
 			else
@@ -217,64 +281,7 @@ namespace UniversalEditor.ConsoleApplication
 				}
 				else if (args[0] == "--update-associations")
 				{
-					if (System.Environment.OSVersion.Platform == PlatformID.Unix)
-					{
-						string filename = "/usr/share/mime/packages/universal-editor.xml";
-						GenerateAssociations(out string assocs, out string desktop_mime_types);
-						try
-						{
-							Console.Write("updating MIME types...    ");
 
-							System.IO.File.WriteAllText(filename, assocs);
-							System.Diagnostics.Process.Start("update-mime-database", "/usr/share/mime");
-
-							Console.WriteLine("[OK]");
-
-
-							Console.Write("updating desktop database...    ");
-
-							StringBuilder sbDesktop = new StringBuilder();
-							sbDesktop.AppendLine("[Desktop Entry]");
-							sbDesktop.AppendLine("Version=1.0");
-							sbDesktop.AppendLine("Name=Universal Editor");
-							sbDesktop.AppendLine("Comment=Open and edit any document");
-							sbDesktop.AppendLine("GenericName=Document Editor");
-							sbDesktop.AppendLine("Keywords=Text;Editor");
-							sbDesktop.AppendLine("Exec=universal-editor %F");
-							sbDesktop.AppendLine("Terminal=false");
-							sbDesktop.AppendLine("X-MultipleArgs=true");
-							sbDesktop.AppendLine("Type=Application");
-							sbDesktop.AppendLine("Icon=universal-editor");
-							sbDesktop.AppendLine("Categories=GTK;Development;IDE");
-							sbDesktop.AppendLine(String.Format("MimeType={0}", desktop_mime_types));
-							sbDesktop.AppendLine("StartupNotify=true");
-							sbDesktop.AppendLine("WMClass=UniversalEditor.exe");
-							sbDesktop.AppendLine("Actions=create-project;");
-							sbDesktop.AppendLine("X-Desktop-File-Install-Version=0.24");
-							sbDesktop.AppendLine();
-							sbDesktop.AppendLine("[Desktop Action create-project]");
-							sbDesktop.AppendLine("Name=Create a New Project");
-							sbDesktop.AppendLine("Exec=universal-editor /command:FileNewProject");
-							sbDesktop.AppendLine();
-
-							System.IO.File.WriteAllText("/usr/share/applications/net.alcetech.UniversalEditor.desktop", sbDesktop.ToString());
-
-							System.Diagnostics.Process.Start("update-desktop-database");
-
-							Console.WriteLine("[OK]");
-
-							System.Environment.Exit(0);
-						}
-						catch (UnauthorizedAccessException ex)
-						{
-							Console.WriteLine("ue: {0}: Permission denied", filename);
-							System.Environment.Exit(1);
-						}
-					}
-					else if (System.Environment.OSVersion.Platform == PlatformID.Win32NT)
-					{
-
-					}
 				}
 				else if (args[0] == "--list-dataformats")
 				{
