@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Eugene Roshal WinRAR archive">
+				<Filter Title="Eugene Roshal WinRAR archive" ContentType="application/vnd.rar" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.rar</FileNameFilter>
 					</FileNameFilters>
