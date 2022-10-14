@@ -218,21 +218,6 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			return om;
 		}
-		/// <summary>
-		/// Sets the data for this file using the specified <see cref="DataFormat" /> and <see cref="ObjectModel" />.
-		/// </summary>
-		/// <typeparam name="T">The type of <see cref="ObjectModel" /> to save.</typeparam>
-		/// <param name="dataFormat">The <see cref="DataFormat" /> specifying how to save the file data.</param>
-		/// <param name="objectModel">The <see cref="ObjectModel" /> containing the file data to save.</param>
-		public void SetObjectModel<T>(DataFormat dataFormat, T objectModel) where T : ObjectModel
-		{
-			MemoryAccessor ma = new MemoryAccessor();
-
-			Document.Save(objectModel, dataFormat, ma);
-
-			byte[] data = ma.ToArray();
-			SetData(data);
-		}
 
 		public override string ToString()
 		{

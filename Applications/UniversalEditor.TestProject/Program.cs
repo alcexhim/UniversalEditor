@@ -12,6 +12,7 @@ using UniversalEditor.ObjectModels.Multimedia3D.Model;
 using UniversalEditor.ObjectModels.Package;
 using UniversalEditor.ObjectModels.Text.Formatted;
 using UniversalEditor.Plugins.Genealogy.DataFormats.GEDCOM;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.TestProject
 {
@@ -51,7 +52,7 @@ namespace UniversalEditor.TestProject
 				MarkupObjectModel momDocument = CreateDocument(model);
 
 				File file = package.FileSystem.AddFile("model/document.xml");
-				file.SetObjectModel<MarkupObjectModel>(new XMLDataFormat(), momDocument);
+				file.Source = new ObjectModelFileSource(momDocument, new XMLDataFormat());
 
 				objectModels.Push(package);
 

@@ -30,6 +30,7 @@ using UniversalEditor.ObjectModels.Package.Relationships;
 using UniversalEditor.DataFormats.Package.Relationships;
 using UniversalEditor.ObjectModels.Package.ContentTypes;
 using UniversalEditor.DataFormats.Package.ContentTypes;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 {
@@ -41,8 +42,8 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 	{
 		protected override void BeforeLoadInternal(Stack<ObjectModel> objectModels)
 		{
-			base.BeforeLoadInternal(objectModels);
 			objectModels.Push(new FileSystemObjectModel());
+			base.BeforeLoadInternal(objectModels);
 		}
 		protected override void AfterLoadInternal(Stack<ObjectModel> objectModels)
 		{
@@ -119,7 +120,7 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				{
 					rels.Relationships.Add(rel);
 				}
-				_rels.SetObjectModel<RelationshipsObjectModel>(new OPCRelationshipsDataFormat(), rels);
+				_rels.Source = new ObjectModelFileSource(rels, new OPCRelationshipsDataFormat());
 
 				fldr.Files.Add(_rels);
 
@@ -141,7 +142,7 @@ namespace UniversalEditor.DataFormats.Package.OpenPackagingConvention
 				{
 					contentTypes.OverrideDefinitions.Add(type);
 				}
-				file.SetObjectModel<ContentTypesObjectModel>(new OPCContentTypesDataFormat(), contentTypes);
+				file.Source = new ObjectModelFileSource(contentTypes, new OPCContentTypesDataFormat());
 
 				fsom.Files.Add(file);
 			}

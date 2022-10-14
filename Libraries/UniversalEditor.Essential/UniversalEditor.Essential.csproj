@@ -227,6 +227,7 @@
     <Compile Include="DataFormats\UEPackage\SettingsXMLSchema.cs" />
     <Compile Include="ObjectModels\Markup\IMarkupElementContainer.cs" />
     <Compile Include="ObjectModels\Markup\MarkupDefinition.cs" />
+    <Compile Include="ObjectModels\FileSystem\FileSources\ObjectModelFileSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
