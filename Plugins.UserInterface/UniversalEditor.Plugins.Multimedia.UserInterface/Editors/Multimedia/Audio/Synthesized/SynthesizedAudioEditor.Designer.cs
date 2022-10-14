@@ -48,6 +48,8 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 				_er.Views.Add("Piano Roll");
 				_er.Views.Add("Score");
 				_er.Views.Add("MIDI Events");
+
+				_er.DefaultView = _er.Views[0];
 				_er.SupportedObjectModels.Add(typeof(SynthesizedAudioObjectModel));
 			}
 			return _er;
@@ -62,12 +64,17 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 				case "Piano Roll":
 				{
 					PianoRoll.Visible = true;
+					PianoRoll.Refresh();
+					// PianoRoll.UpdateView();
+
 					MIDIEvents.Visible = false;
 					break;
 				}
 				case "MIDI Events":
 				{
 					PianoRoll.Visible = false;
+					MIDIEvents.UpdateView();
+
 					MIDIEvents.Visible = true;
 					break;
 				}
@@ -75,7 +82,7 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 		}
 
 		public Views.PianoRoll.PianoRollView PianoRoll = null;
-		private Views.MIDIEvents.MIDIEventsView MIDIEvents = null;
+		public Views.MIDIEvents.MIDIEventsView MIDIEvents = null;
 
 		/// <summary>
 		/// UWT designer initialization for <see cref="SynthesizedAudioEditor" />.

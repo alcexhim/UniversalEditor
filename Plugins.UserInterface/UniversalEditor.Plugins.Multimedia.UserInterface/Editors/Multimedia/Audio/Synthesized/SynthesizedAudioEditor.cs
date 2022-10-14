@@ -42,15 +42,17 @@ namespace UniversalEditor.Editors.Multimedia.Audio.Synthesized
 		private SynthesizedAudioTrack _SelectedTrack = null;
 		public SynthesizedAudioTrack SelectedTrack { get { return _SelectedTrack; } set { _SelectedTrack = value; PianoRoll.Refresh(); MIDIEvents.UpdateView(); } }
 
+		public SynthesizedAudioCommand.SynthesizedAudioCommandCollection SelectedCommands { get; } = new SynthesizedAudioCommand.SynthesizedAudioCommandCollection();
+
 		public override void UpdateSelections()
 		{
 			Selections.Clear();
-			if (PianoRoll.SelectedCommands.Count > 0)
+			if (SelectedCommands.Count > 0)
 			{
 				SynthesizedAudioEditorSelection sel = new SynthesizedAudioEditorSelection(PianoRoll);
-				for (int i = 0; i < PianoRoll.SelectedCommands.Count; i++)
+				for (int i = 0; i < SelectedCommands.Count; i++)
 				{
-					sel.Commands.Add(PianoRoll.SelectedCommands[i]);
+					sel.Commands.Add(SelectedCommands[i]);
 				}
 				Selections.Add(sel);
 			}

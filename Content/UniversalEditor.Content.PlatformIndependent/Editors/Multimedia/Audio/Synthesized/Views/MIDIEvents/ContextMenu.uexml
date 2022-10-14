@@ -1,0 +1,30 @@
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor TypeName="UniversalEditor.Editors.Multimedia.Audio.Synthesized.SynthesizedAudioEditor">
+			<Commands>
+				<!-- Context Menu -->
+				<Command ID="MIDIEventsEditor_ContextMenu_Insert" Title="_Insert" />
+				<Command ID="MIDIEventsEditor_ContextMenu_GoToPianoRoll" Title="Go To Piano _Roll" />
+				<Command ID="MIDIEventsEditor_ContextMenu_Properties" Title="P_roperties..." />
+
+				<Command ID="MIDIEventsEditor_ContextMenu">
+					<Items>
+						<CommandReference CommandID="MIDIEventsEditor_ContextMenu_Insert" />
+						<Separator />
+						<CommandReference CommandID="MIDIEventsEditor_ContextMenu_GoToPianoRoll" />
+						<Separator />
+						<CommandReference CommandID="EditUndo" />
+						<CommandReference CommandID="EditCut" />
+						<CommandReference CommandID="EditCopy" />
+						<CommandReference CommandID="EditPaste" />
+						<CommandReference CommandID="EditDelete" />
+						<Separator />
+						<CommandReference CommandID="EditSelectAll" />
+						<Separator />
+						<CommandReference CommandID="MIDIEventsEditor_ContextMenu_Properties" />
+					</Items>
+				</Command>
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

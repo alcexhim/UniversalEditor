@@ -336,6 +336,8 @@
     <Content Include="Templates\Project\Arduino\ArduinoProject.uexml" />
     <Content Include="Templates\Project\Arduino\content\Program.ino" />
     <Content Include="Tips\tips.txt" />
+    <Content Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\ContextMenu.uexml" />
+    <Content Include="Editors\Multimedia\Audio\Synthesized\Views\MIDIEvents\ContextMenu.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -377,6 +379,7 @@
     <Folder Include="Extensions\Multimedia3D\Languages\" />
     <Folder Include="Templates\Project\Arduino\" />
     <Folder Include="Tips\" />
+    <Folder Include="Editors\Multimedia\Audio\Synthesized\Views\PianoRoll\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />
