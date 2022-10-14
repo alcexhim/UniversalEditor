@@ -146,6 +146,8 @@ namespace UniversalEditor.UserInterface
 				if (e.Cancel) return;
 				_CurrentView = e.NewView;
 				OnViewChanged(new EditorViewChangedEventArgs(e.OldView, e.NewView));
+
+				(Parent as Pages.EditorPage).UpdateViewButton(_CurrentView);
 			}
 		}
 

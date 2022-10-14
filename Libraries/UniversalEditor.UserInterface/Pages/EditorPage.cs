@@ -116,6 +116,8 @@ namespace UniversalEditor.UserInterface.Pages
 
 		public override string Title => EditorWindow.GetDocumentTitle(Document);
 
+		private Container tbEditorsAndViews = null;
+
 		private void RefreshEditor()
 		{
 			if (Document == null) return;
@@ -219,7 +221,7 @@ namespace UniversalEditor.UserInterface.Pages
 					// problem no longer manifests itself)
 					Controls.Clear();
 
-					Container tbEditorsAndViews = new Container();
+					tbEditorsAndViews = new Container();
 					tbEditorsAndViews.Layout = new GridLayout();
 					for (int i = 0; i < reditors.Length; i++)
 					{
@@ -235,6 +237,11 @@ namespace UniversalEditor.UserInterface.Pages
 						{
 							EditorView view = reditor.Views[j];
 							Button btn = new Button();
+							btn.CheckOnClick = true;
+							if (reditor.DefaultView != null && view == reditor.DefaultView)
+							{
+								btn.Checked = true;
+							}
 							btn.BorderStyle = ButtonBorderStyle.None;
 							btn.Text = view.Title;
 							btn.Click += tibEditorView_Click;
@@ -260,8 +267,22 @@ namespace UniversalEditor.UserInterface.Pages
 			}
 		}
 
+		internal void UpdateViewButton(EditorView view)
+		{
+			foreach (Control ctl in tbEditorsAndViews.Controls)
+			{
+				if (ctl is Button)
+				{
+					(ctl as Button).Checked = ctl.GetExtraData<EditorView>("view") == view;
+				}
+			}
+		}
+
 		private void tibEditorView_Click(object sender, EventArgs e)
 		{
+			if (tbEditorsAndViews == null)
+				return;
+
 			Button tib = (sender as Button);
 			Editor editor = tib.GetExtraData<Editor>("editor");
 			EditorView view = tib.GetExtraData<EditorView>("view");

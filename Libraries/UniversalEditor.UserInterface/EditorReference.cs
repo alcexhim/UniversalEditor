@@ -33,7 +33,10 @@ namespace UniversalEditor.UserInterface
 		public CommandBar.CommandBarCollection CommandBars { get; } = new CommandBar.CommandBarCollection();
 		public Command.CommandCollection Commands { get; } = new Command.CommandCollection();
 		public PanelReference.PanelReferenceCollection Panels { get; } = new PanelReference.PanelReferenceCollection();
+
+		public EditorView DefaultView { get; set; } = null;
 		public EditorView.EditorViewCollection Views { get; } = new EditorView.EditorViewCollection();
+
 		public Variable.VariableCollection Variables { get; } = new Variable.VariableCollection();
 		public Toolbox Toolbox { get; } = new Toolbox();
 
