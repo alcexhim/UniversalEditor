@@ -33,9 +33,8 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 	{
 		private class _Context
 		{
+			public bool CloseGroup { get; set; } = false;
 			public string CurrentStringRaw { get; set; } = String.Empty;
-
-			public Property CurrentProperty { get; set; } = null;
 
 			public bool InsideArray { get; set; } = false;
 			public System.Collections.Generic.List<object> CurrentList { get; } = new System.Collections.Generic.List<object>();
@@ -93,10 +92,12 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 					// we close current object
 					if (ctx.CurrentString != null)
 					{
+						/*
 						if (ctx.CurrentProperty != null)
 						{
 							ctx.CurrentProperty.Value = ctx.CurrentString;
 						}
+						*/
 					}
 				}
 
@@ -224,6 +225,7 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 				else if (c == '}' || c == ',')
 				{
 					// could be null?
+					ctx.CloseGroup = (c == '}');
 					if (ctx.CurrentStringRaw == "null")
 					{
 						r.Seek(-1, SeekOrigin.Current);
@@ -241,6 +243,40 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 						r.Seek(-1, SeekOrigin.Current);
 						ctx.CurrentStringRaw = String.Empty;
 						return false;
+					}
+					else
+					{
+						object value = null;
+						if (Byte.TryParse(ctx.CurrentStringRaw, out byte r_Byte))
+						{
+							value = r_Byte;
+						}
+						else if (Int16.TryParse(ctx.CurrentStringRaw, out short r_Int16))
+						{
+							value = r_Int16;
+						}
+						else if (Int32.TryParse(ctx.CurrentStringRaw, out int r_Int32))
+						{
+							value = r_Int32;
+						}
+						else if (Int64.TryParse(ctx.CurrentStringRaw, out long r_Int64))
+						{
+							value = r_Int64;
+						}
+						else if (Single.TryParse(ctx.CurrentStringRaw, out float r_Single))
+						{
+							value = r_Single;
+						}
+						else if (Double.TryParse(ctx.CurrentStringRaw, out double r_Double))
+						{
+							value = r_Double;
+						}
+						else if (Decimal.TryParse(ctx.CurrentStringRaw, out decimal r_Decimal))
+						{
+							value = r_Decimal;
+						}
+						ctx.CurrentStringRaw = String.Empty;
+						return value;
 					}
 				}
 				else
@@ -280,9 +316,23 @@ namespace UniversalEditor.DataFormats.PropertyList.JavaScriptObjectNotation
 					ctx.CurrentString = String.Empty;
 
 					object obj = ReadNextObject(ctx, r);
+					if (obj is Group)
+					{
+						Group g2 = (obj as Group);
+						g2.Name = propertyName;
+						g.Items.Add(g2);
+					}
+					else
+					{
+						Property p = new Property(propertyName, obj);
+						g.Items.Add(p);
+					}
+				}
 
-					Property p = new Property(propertyName, obj);
-					g.Items.Add(p);
+				if (ctx.CloseGroup)
+				{
+					ctx.CloseGroup = false;
+					break;
 				}
 			}
 			return g;

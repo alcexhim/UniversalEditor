@@ -67,12 +67,11 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 			else
 			{
 				// huh?
+				throw new ObjectModelNotSupportedException();
 			}
 		}
 		protected override void BeforeSaveInternal(Stack<ObjectModel> objectModels)
 		{
-			base.BeforeSaveInternal(objectModels);
-
 			ObjectModel whatever = objectModels.Pop();
 			FileSystemObjectModel fsom = new FileSystemObjectModel();
 
@@ -89,8 +88,11 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 			else
 			{
 				// huh?
+				throw new ObjectModelNotSupportedException();
 			}
 			objectModels.Push(fsom);
+
+			base.BeforeSaveInternal(objectModels);
 		}
 	}
 }

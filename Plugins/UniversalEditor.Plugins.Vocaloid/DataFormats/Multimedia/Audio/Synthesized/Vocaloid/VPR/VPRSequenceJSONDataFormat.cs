@@ -55,49 +55,72 @@ namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesi
 			PropertyListObjectModel plom = (objectModels.Pop() as PropertyListObjectModel);
 			SynthesizedAudioObjectModel vsq = (objectModels.Pop() as SynthesizedAudioObjectModel);
 
+			if (plom.Items.Count < 0)
+				throw new InvalidDataFormatException();
+
 			Group g = (plom.Items[0] as Group);
 			Group gVersion = g.Items.OfType<Group>("version");
 
 			Property pTracks = g.Items.OfType<Property>("tracks");
-			Group[] gTracks = pTracks.Value as Group[];
+			object[] gTracks = pTracks.Value as object[];
 			if (gTracks == null) throw new InvalidDataFormatException("tracks is not a Group[]");
 
 			for (int i = 0; i < gTracks.Length; i++)
 			{
+				Group gTrack = gTracks[i] as Group;
+				if (gTrack == null) throw new InvalidDataFormatException("gTrack is not a Group");
+
 				SynthesizedAudioTrack track = new SynthesizedAudioTrack();
 
-				Property pParts = gTracks[i].Items.OfType<Property>("parts");
-				Group[] gParts = pParts.Value as Group[];
+				Property pParts = gTrack.Items.OfType<Property>("parts");
+				object[] gParts = pParts?.Value as object[];
 				if (gParts == null) throw new InvalidDataFormatException("parts is not a Group[]");
 
 				for (int j = 0; j < gParts.Length; j++)
 				{
-					Property pNotes = gParts[j].Items.OfType<Property>("notes");
-					Group[] gNotes = pNotes.Value as Group[];
-					if (gNotes == null) throw new InvalidDataFormatException("notes is not a Group[]");
+					object[] pNotes = ((gParts[j] as Group).Items?.OfType<Property>("notes"))?.Value as object[];
+					if (pNotes == null) throw new InvalidDataFormatException("notes");
 
-					for (int k = 0; k < gNotes.Length; k++)
+					for (int k = 0; k < pNotes.Length; k++)
 					{
+						Group gNote = pNotes[k] as Group;
+
 						SynthesizedAudioCommandNote note = new SynthesizedAudioCommandNote();
 
-						Property pLyric = gNotes[k].Items.OfType<Property>("lyric");
-						Property pPhoneme = gNotes[k].Items.OfType<Property>("phoneme");
-						Property pIsProtected = gNotes[k].Items.OfType<Property>("isProtected");
-						Property pPos = gNotes[k].Items.OfType<Property>("pos");
-						Property pDuration = gNotes[k].Items.OfType<Property>("duration");
-						Property pNumber = gNotes[k].Items.OfType<Property>("number");
-						Property pVelocity = gNotes[k].Items.OfType<Property>("velocity");
+						Property pLyric = gNote.Items.OfType<Property>("lyric");
+						note.Lyric = (string)pLyric.Value;
 
-						Group gExp = gNotes[k].Items.OfType<Group>("exp");
+						Property pPhoneme = gNote.Items.OfType<Property>("phoneme");
+						note.Phoneme = (string)pPhoneme.Value;
+
+						Property pIsProtected = gNote.Items.OfType<Property>("isProtected");
+						note.Protected = (bool)pIsProtected.Value;
+
+						Property pPos = gNote.Items.OfType<Property>("pos");
+						// FIXME: we can't take object (short) and convert using (int)
+						note.Position = Convert.ToInt32(pPos.Value);
+
+						Property pDuration = gNote.Items.OfType<Property>("duration");
+						note.Length = Convert.ToInt32(pDuration.Value);
+
+						Property pNumber = gNote.Items.OfType<Property>("number");
+						note.Frequency = Convert.ToInt32(pNumber.Value);
+
+						Property pVelocity = gNote.Items.OfType<Property>("velocity");
+
+						Group gExp = gNote.Items.OfType<Group>("exp");
 						Property pExpOpening = gExp.Items.OfType<Property>("opening");
+						note.Opening = Convert.ToInt32(pExpOpening.Value);
 
-						Group dvqm = gNotes[k].Items.OfType<Group>("dvqm");
+						Group dvqm = gNote.Items.OfType<Group>("dvqm");
 						Group dvqmRelease = dvqm.Items.OfType<Group>("release");
 						Property dvqmReleaseCompID = dvqmRelease.Items.OfType<Property>("compID");
 
-						Group gVibrato = gNotes[k].Items.OfType<Group>("vibrato");
+						Group gVibrato = gNote.Items.OfType<Group>("vibrato");
 						Property pVibratoType = gVibrato.Items.OfType<Property>("type");
+						note.VibratoType = (SynthesizedAudioVibratoType) Convert.ToInt32(pVibratoType.Value);
 						Property pVibratoDuration = gVibrato.Items.OfType<Property>("duration");
+						note.VibratoLength = Convert.ToInt32(pVibratoDuration.Value);
 
 						track.Commands.Add(note);
 					}
