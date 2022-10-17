@@ -47,7 +47,19 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 			return _dfr;
 		}
 
+		/// <summary>
+		/// Gets or sets the default background color for a monochrome X BitMap.
+		/// </summary>
+		/// <value>The background color.</value>
+		public Color BackgroundColor { get; set; } = Colors.White;
+		/// <summary>
+		/// Gets or sets the default foreground color for a monochrome X BitMap.
+		/// </summary>
+		/// <value>The foreground color.</value>
+		public Color ForegroundColor { get; set; } = Colors.Black;
+
 		public XPMFormatVersion FormatVersion { get; set; } = XPMFormatVersion.XPM2;
+		public string XBMIdentifier { get; set; } = null;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -55,17 +67,144 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 			if (pic == null)
 				throw new ObjectModelNotSupportedException();
 
+			FormatVersion = XPMFormatVersion.Unknown; // let's detect it
+
+			int w = 0, h = 0, x = 0, y = 0;
 			Reader reader = Accessor.Reader;
 			while (!reader.EndOfStream)
 			{
 				string line = reader.ReadLine();
-				if (line == "! XPM2")
+				if (FormatVersion == XPMFormatVersion.Unknown)
 				{
-					FormatVersion = XPMFormatVersion.XPM2;
+					if (line.StartsWith("#define "))
+					{
+						FormatVersion = XPMFormatVersion.XBM;
+					}
+					else if (line == "! XPM2")
+					{
+						FormatVersion = XPMFormatVersion.XPM2;
+					}
+					else
+					{
+						FormatVersion = XPMFormatVersion.XPM1;
+					}
 				}
-				else
+
+				if (FormatVersion == XPMFormatVersion.XBM)
 				{
-					FormatVersion = XPMFormatVersion.XPM1;
+					if (line.StartsWith("#define "))
+					{
+						int windex = line.IndexOf("_width");
+						int hindex = line.IndexOf("_height");
+						if (windex != -1)
+						{
+							windex += "_width".Length;
+							string wstr = line.Substring(windex + 1);
+							w = Int32.Parse(wstr);
+
+							if (XBMIdentifier == null)
+							{
+								XBMIdentifier = line.Substring("#define ".Length, windex - "#define ".Length - "_width".Length);
+							}
+						}
+						else if (hindex != -1)
+						{
+							hindex += "_height".Length;
+							string hstr = line.Substring(hindex + 1);
+							h = Int32.Parse(hstr);
+
+							if (XBMIdentifier == null)
+							{
+								XBMIdentifier = line.Substring("#define ".Length, hindex - "#define ".Length - "_height".Length);
+							}
+						}
+					}
+					else if (line.StartsWith("static "))
+					{
+						pic.Size = new Dimension2D(w, h);
+						int maxBytes = w * h;
+
+						// could be "static char", "static unsigned char", etc.
+						// just look for something like xxx_bits[] = {
+
+						// NOTE: according to eog(1), XBM MUST:
+						// 		* declare the bits[] as static, and
+						//		* the variable name MUST either BE "bits" OR END IN "_bits"
+
+						// The file does not necessarily have to have all its punctuation on the same line.
+						// e.g.
+						// static char bits[] = { ... };
+						// OR
+						// static char bits[]
+						// =
+						// {
+						// ...
+						// };
+
+						// ... AND, the final semicolon AND closing brace are OPTIONAL.
+
+						// In fact, it seems as though as long as there are enough elements
+						// in the array to satisfy the length*width requirement, any additional
+						// JUNK is IGNORED.
+						int indexOfOpenBrace = -1;
+						bool found = false;
+						while (!reader.EndOfStream)
+						{
+							if (!found)
+							{
+								indexOfOpenBrace = line.IndexOf('{');
+								if (indexOfOpenBrace != -1)
+								{
+									found = true;
+									line = line.Substring(indexOfOpenBrace + 1);
+
+									// read any bytes on this line, then continue to the next
+									// control falls through to "reading byte arrays"
+								}
+								else
+								{
+									// try reading another line until we can find
+									line = reader.ReadLine();
+									continue;
+								}
+							}
+
+							// we are reading byte arrays
+							string[] bytes = line.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+							for (int i = 0; i < bytes.Length; i++)
+							{
+								string szbyt = bytes[i].Trim();
+								if (szbyt.StartsWith("0x"))
+								{
+									szbyt = szbyt.Substring(2);
+									byte byt = Byte.Parse(szbyt.Trim(), System.Globalization.NumberStyles.HexNumber);
+
+									byte[] bits = byt.ToBits();
+									for (int j = 0; j < bits.Length; j++)
+									{
+										pic.SetPixel(bits[j] == 1 ? ForegroundColor : BackgroundColor, x, y);
+										x++;
+										if (x >= w)
+										{
+											y++;
+											x = 0;
+										}
+										if (y >= h)
+										{
+											// fin
+											break;
+										}
+									}
+								}
+								else
+								{
+									// assume decimal?
+									byte byt = Byte.Parse(szbyt.Trim(), System.Globalization.NumberStyles.HexNumber);
+								}
+							}
+							line = reader.ReadLine();
+						}
+					}
 				}
 			}
 		}

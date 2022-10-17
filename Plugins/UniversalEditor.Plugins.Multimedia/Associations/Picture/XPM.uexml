@@ -3,9 +3,13 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="X PixMap (XBM/XPM) image">
+				<Filter Title="X BitMap (XBM) image" ContentType="image/x-xbitmap" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.xbm</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+				<Filter Title="X PixMap (XPM) image" ContentType="image/x-xpixmap" HintComparison="MagicThenFilter">
+					<FileNameFilters>
 						<FileNameFilter>*.xpm</FileNameFilter>
 					</FileNameFilters>
 				</Filter>

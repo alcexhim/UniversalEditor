@@ -23,6 +23,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 {
 	public enum XPMFormatVersion
 	{
+		Unknown = -1,
 		XBM,
 		XPM1,
 		XPM2,

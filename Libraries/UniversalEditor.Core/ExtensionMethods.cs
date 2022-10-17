@@ -77,6 +77,16 @@ namespace UniversalEditor
 			return (value >> offset) & ((1 << count) - 1);
 		}
 
+		public static byte[] ToBits(this byte value)
+		{
+			byte[] bits = new byte[8];
+			for (int i = 0; i < bits.Length; i++)
+			{
+				bits[i] = (byte)value.GetBits(i, 1);
+			}
+			return bits;
+		}
+
 		[CLSCompliant(false)]
 		public static int GetBits(this ushort value, int offset, int count)
 		{
