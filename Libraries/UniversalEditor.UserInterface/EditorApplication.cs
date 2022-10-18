@@ -327,7 +327,7 @@ namespace UniversalEditor.UserInterface
 			{
 				foreach (Setting eo in sg.Settings)
 				{
-					System.Reflection.PropertyInfo pi = obj.GetType().GetProperty(eo.Name);
+					System.Reflection.PropertyInfo pi = obj.GetType().GetProperty(eo.Name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 					if (pi == null) continue;
 
 					if (eo is RangeSetting)
