@@ -92,6 +92,16 @@ namespace UniversalEditor
 		{
 			return (value >> offset) & ((1 << count) - 1);
 		}
+		[CLSCompliant(false)]
+		public static byte[] ToBits(this ushort value)
+		{
+			byte[] bits = new byte[16];
+			for (int i = 0; i < bits.Length; i++)
+			{
+				bits[i] = (byte)value.GetBits(i, 1);
+			}
+			return bits;
+		}
 
 		public static void AddRange(this System.Collections.Specialized.StringCollection coll, params string[] values)
 		{

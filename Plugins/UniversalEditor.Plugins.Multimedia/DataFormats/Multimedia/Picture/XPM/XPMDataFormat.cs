@@ -1,5 +1,5 @@
 //
-//  XPMDataFormat.cs
+//  XPMDataFormat.cs - provides a DataFormat to load and save X BitMap / X PixMap images
 //
 //  Author:
 //       Michael Becker <alcexhim@gmail.com>
@@ -27,6 +27,10 @@ using UniversalEditor.ObjectModels.Multimedia.Picture;
 
 namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 {
+	/// <summary>
+	/// Provides a <see cref="DataFormat" /> to load and save X BitMap / X PixMap
+	/// images.
+	/// </summary>
 	public class XPMDataFormat : DataFormat
 	{
 		private static DataFormatReference _dfr;
@@ -36,6 +40,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(PictureObjectModel), DataFormatCapabilities.All);
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(XBMIdentifier), "XBM/XPM1/XPM3 _identifier"));
 				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new ChoiceSetting(nameof(FormatVersion), "Format _version", XPMFormatVersion.XPM2, new ChoiceSetting.ChoiceSettingValue[]
 				{
 					new ChoiceSetting.ChoiceSettingValue("XBM", "XBM", XPMFormatVersion.XBM),
@@ -43,6 +48,13 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 					new ChoiceSetting.ChoiceSettingValue("XPM2", "XPM2", XPMFormatVersion.XPM2),
 					new ChoiceSetting.ChoiceSettingValue("XPM3", "XPM3", XPMFormatVersion.XPM3)
 				}));
+
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(X10FormatBitmap), "_Write X10 format bitmap") { Description = "Use 16-bit unsigned short values instead of unsigned char" });
+
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new BooleanSetting(nameof(IncludeHotspotCoordinates), "Include _hotspot coordinates"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(HotspotCoordinatesX), "Hotspot _X"));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting(nameof(HotspotCoordinatesY), "Hotspot _Y"));
+				// FIXME: need a way to specify a Settings editor for a PositionVector2
 			}
 			return _dfr;
 		}
@@ -60,6 +72,22 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 
 		public XPMFormatVersion FormatVersion { get; set; } = XPMFormatVersion.XPM2;
 		public string XBMIdentifier { get; set; } = null;
+
+		public bool IncludeHotspotCoordinates { get; set; } = false;
+
+		// FIXME: for Settings editor compatibility only...
+		private double HotspotCoordinatesX { get { return HotspotCoordinates.X; } set { HotspotCoordinates = new PositionVector2(value, HotspotCoordinates.Y); } }
+		private double HotspotCoordinatesY { get { return HotspotCoordinates.Y; } set { HotspotCoordinates = new PositionVector2(HotspotCoordinates.X, value); } }
+
+		public PositionVector2 HotspotCoordinates { get; set; } = new PositionVector2(0, 0);
+
+		/// <summary>
+		/// Determines whether this is an X10 format bitmap; i.e., the coordinates
+		/// are defined as "unsigned short" rather than "unsigned char". X10 format
+		/// bitmaps are not supported by Eye of GNOME, but can be viewed with GIMP.
+		/// </summary>
+		/// <value><c>true</c> if X10 format (unsigned short) should be used; otherwise, <c>false</c>.</value>
+		public bool X10FormatBitmap { get; set; } = false;
 
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
@@ -94,6 +122,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 				{
 					if (line.StartsWith("#define "))
 					{
+						// FIXME: this should support "#define xxx_width" or "#define width" but NOT "#define xxxwidth"
 						int windex = line.IndexOf("_width");
 						int hindex = line.IndexOf("_height");
 						if (windex != -1)
@@ -121,6 +150,26 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 					}
 					else if (line.StartsWith("static "))
 					{
+						string dataType = line.Substring("static ".Length);
+						if (dataType.StartsWith("unsigned "))
+						{
+							dataType = dataType.Substring("unsigned ".Length);
+						}
+						dataType = dataType.Substring(0, dataType.IndexOf(' '));
+
+						if (dataType.Equals("char"))
+						{
+							X10FormatBitmap = false;
+						}
+						else if (dataType.Equals("short"))
+						{
+							X10FormatBitmap = true;
+						}
+						else
+						{
+							throw new InvalidDataFormatException(String.Format("unexpected datatype {0}", dataType));
+						}
+
 						pic.Size = new Dimension2D(w, h);
 						int maxBytes = w * h;
 
@@ -148,7 +197,7 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 						// JUNK is IGNORED.
 						int indexOfOpenBrace = -1;
 						bool found = false;
-						while (!reader.EndOfStream)
+						while (!String.IsNullOrEmpty(line))
 						{
 							if (!found)
 							{
@@ -171,37 +220,54 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 
 							// we are reading byte arrays
 							string[] bytes = line.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
 							for (int i = 0; i < bytes.Length; i++)
 							{
+								byte[] bits = null;
+
 								string szbyt = bytes[i].Trim();
+								System.Globalization.NumberStyles numberStyles = System.Globalization.NumberStyles.None;
 								if (szbyt.StartsWith("0x"))
 								{
 									szbyt = szbyt.Substring(2);
-									byte byt = Byte.Parse(szbyt.Trim(), System.Globalization.NumberStyles.HexNumber);
+									numberStyles = System.Globalization.NumberStyles.HexNumber;
+								}
 
-									byte[] bits = byt.ToBits();
-									for (int j = 0; j < bits.Length; j++)
-									{
-										pic.SetPixel(bits[j] == 1 ? ForegroundColor : BackgroundColor, x, y);
-										x++;
-										if (x >= w)
-										{
-											y++;
-											x = 0;
-										}
-										if (y >= h)
-										{
-											// fin
-											break;
-										}
-									}
+								if (X10FormatBitmap)
+								{
+									szbyt = szbyt.Substring(0, 4);
+
+									ushort byt = UInt16.Parse(szbyt.Trim(), numberStyles);
+									bits = byt.ToBits();
 								}
 								else
 								{
-									// assume decimal?
-									byte byt = Byte.Parse(szbyt.Trim(), System.Globalization.NumberStyles.HexNumber);
+									szbyt = szbyt.Substring(0, 2);
+
+									byte byt = Byte.Parse(szbyt.Trim(), numberStyles);
+									bits = byt.ToBits();
+								}
+
+								for (int j = 0; j < bits.Length; j++)
+								{
+									pic.SetPixel(bits[j] == 1 ? ForegroundColor : BackgroundColor, x, y);
+									x++;
+									if (x >= w)
+									{
+										y++;
+										x = 0;
+									}
+									if (y >= h)
+									{
+										// fin
+										break;
+									}
 								}
 							}
+
+							if (reader.EndOfStream)
+								break;
+
 							line = reader.ReadLine();
 						}
 					}
@@ -316,45 +382,56 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.XPM
 				}
 				case XPMFormatVersion.XBM:
 				{
-					// FIXME: THIS IS BROKEN
-					writer.WriteLine(String.Format("#define width {0}", pic.Width));
-					writer.WriteLine(String.Format("#define height {0}", pic.Height));
-					writer.WriteLine("static unsigned char bits[] = {");
-					uint bits = 0;
-					uint bitmask = 0x0000000f;
-					for (int x = 0; x < pic.Width; x++)
+					string preamble = String.Empty;
+					if (XBMIdentifier != null)
 					{
-						bool ysent = false;
-						for (int y = 0; y < pic.Height; y++)
+						preamble = String.Concat(XBMIdentifier, "_");
+					}
+
+					writer.WriteLine(String.Format("#define {0}width {1}", preamble, pic.Width));
+					writer.WriteLine(String.Format("#define {0}height {1}", preamble, pic.Height));
+					if (IncludeHotspotCoordinates)
+					{
+						writer.WriteLine(String.Format("#define {0}x_hot {1}", preamble, HotspotCoordinates.X));
+						writer.WriteLine(String.Format("#define {0}y_hot {1}", preamble, HotspotCoordinates.Y));
+					}
+
+					writer.WriteLine(String.Format("static unsigned char {0}bits[] = {{", preamble));
+					uint bits = 0;
+					uint bitmask = 0x00000001;
+					for (int y = 0; y < pic.Height; y++)
+					{
+						bool xsent = false;
+						for (int x = 0; x < pic.Width; x++)
 						{
 							Color color = pic.GetPixel(x, y).ToBlackAndWhite();
-							if (color.Hue > 0.5)
+							if (color.Luminosity > 0.5)
 							{
 								// white
-								bits |= bitmask;
+								// bits |= bitmask;
 							}
 							else
 							{
 								// black
-								// bits |= ~bitmask;
+								bits |= bitmask;
 							}
 							bitmask <<= 1;
 
-							if (bitmask == 0xf0000000)
+							if (bitmask == 0x100)
 							{
 								writer.Write(String.Format("0x{0}", bits.ToString("x").PadLeft(2, '0')));
-								if (y < pic.Height - 1)
+								if (x < pic.Width - 1)
 								{
 									writer.Write(", ");
-									ysent = true;
+									xsent = true;
 								}
 
-								bitmask = 0x0000000f;
+								bitmask = 0x00000001;
 								bits = 0;
 							}
 						}
 
-						if (x < pic.Width - 1 && ysent)
+						if (y < pic.Height - 1 && xsent)
 							writer.Write(", ");
 					}
 					writer.WriteLine("};");
