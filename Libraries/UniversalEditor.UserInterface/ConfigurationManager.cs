@@ -60,8 +60,7 @@ namespace UniversalEditor.UserInterface
 
 		public void Save()
 		{
-			string FileName = Application.Instance.FindFile("~/Configuration.xml", FindFileOptions.UserWritable);
-
+			string FileName = Application.Instance.FindFile("~/Configuration.xml", FindFileOptions.UserWritable | FindFileOptions.Create);
 			UniversalEditor.DataFormats.PropertyList.XML.XMLPropertyListDataFormat xdf = new DataFormats.PropertyList.XML.XMLPropertyListDataFormat();
 			string dir = System.IO.Path.GetDirectoryName (FileName);
 			if (!System.IO.Directory.Exists(dir))
