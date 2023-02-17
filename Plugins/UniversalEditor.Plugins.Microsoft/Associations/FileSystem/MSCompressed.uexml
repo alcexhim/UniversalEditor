@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="MSCompressed">
+					<FileNameFilters>
+						<FileNameFilter>*.??_</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="String">KWAJ</MagicByte>
+							<MagicByte Type="HexString">88F027D1</MagicByte>
+						</MagicByteSequence>
+						<MagicByteSequence>
+							<MagicByte Type="String">SZDD</MagicByte>
+							<MagicByte Type="HexString">88F02733</MagicByte>
+						</MagicByteSequence>
+						<MagicByteSequence>
+							<MagicByte Type="String">SZ  </MagicByte>
+							<MagicByte Type="HexString">88F02733D1</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.FileSystem.FileSystemObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FileSystem.Microsoft.MSCompressed.MSCompressedDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
