@@ -155,14 +155,13 @@ namespace UniversalEditor.ObjectModels.Markup
 				{
 					for (int j = 0; j < tagTopLevel.Attributes.Count; j++)
 					{
-						if (tagTopLevel.Attributes[j].Namespace.Equals("xmlns"))
+						if (tagTopLevel.Attributes[j].Name.Equals("xmlns") && tagTopLevel.Attributes[j].Value.Equals(schema))
 						{
-
-							if (tagTopLevel.Attributes[j].Value.Equals(schema))
-							{
-								return tagTopLevel.Attributes[j].Name;
-							}
-
+							return String.Empty;
+						}
+						else if (tagTopLevel.Attributes[j].Namespace != null && tagTopLevel.Attributes[j].Namespace.Equals("xmlns") && tagTopLevel.Attributes[j].Value.Equals(schema))
+						{
+							return tagTopLevel.Attributes[j].Name;
 						}
 					}
 				}
@@ -180,7 +179,15 @@ namespace UniversalEditor.ObjectModels.Markup
 				return null;
 			}
 
-			string fullName = tagPrefix + ":" + name;
+			string fullName = null;
+			if (String.IsNullOrEmpty(tagPrefix))
+			{
+				fullName = name;
+			}
+			else
+			{
+				fullName = tagPrefix + ":" + name;
+			}
 			return FindElement(fullName);
 		}
 
