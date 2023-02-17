@@ -75,6 +75,8 @@ namespace UniversalEditor.ObjectModels.Lighting.Fixture
 		private FixtureTask.FixtureTaskCollection mvarTasks = new FixtureTask.FixtureTaskCollection();
 		public FixtureTask.FixtureTaskCollection Tasks { get { return mvarTasks; } }
 
+		public FixtureProtocol Protocol { get; set; } = FixtureProtocol.Unknown;
+
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();

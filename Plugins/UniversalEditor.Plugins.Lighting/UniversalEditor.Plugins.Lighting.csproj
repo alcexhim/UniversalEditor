@@ -51,6 +51,7 @@
     <Compile Include="ObjectModels\Lighting\Script\TrackEntry.cs" />
     <Compile Include="ObjectModels\Lighting\Script\TrackEntryCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ObjectModels\Lighting\Fixture\FixtureProtocol.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
