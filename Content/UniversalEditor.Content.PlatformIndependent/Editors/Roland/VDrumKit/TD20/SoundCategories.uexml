@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<SoundCategories>
+						<SoundCategory ID="KICK" Title="Kick" SoundTypeID="Kick" />
+						<SoundCategory ID="KICK_ACOUSTIC1" ParentCategoryID="KICK" Title="Acoustic 1" />
+						<SoundCategory ID="KICK_ACOUSTIC2" ParentCategoryID="KICK" Title="Acoustic 2" />
+						<SoundCategory ID="KICK_PROCESSED" ParentCategoryID="KICK" Title="Processed" />
+						<SoundCategory ID="KICK_ELECTRONIC" ParentCategoryID="KICK" Title="Electronic" />
+
+						<SoundCategory ID="SNARE" Title="Snare" SoundTypeID="Snare" />
+						<SoundCategory ID="SNARE_ACOUSTIC1" ParentCategoryID="SNARE" Title="Acoustic 1" />
+						<SoundCategory ID="SNARE_ACOUSTIC2" ParentCategoryID="SNARE" Title="Acoustic 2" />
+						<SoundCategory ID="SNARE_BRUSH" ParentCategoryID="SNARE" Title="Brush" />
+						<SoundCategory ID="SNARE_PROCESSED1" ParentCategoryID="SNARE" Title="Processed 1" />
+						<SoundCategory ID="SNARE_PROCESSED2" ParentCategoryID="SNARE" Title="Processed 2" />
+						<SoundCategory ID="SNARE_ELECTRONIC" ParentCategoryID="SNARE" Title="Electronic" />
+
+						<SoundCategory ID="TOM" Title="Tom" />
+						<SoundCategory ID="TOM_BIRCH" ParentCategoryID="TOM" Title="Birch" />
+						<SoundCategory ID="TOM_GT" ParentCategoryID="TOM" Title="GT" />
+						<SoundCategory ID="TOM_UNIV" ParentCategoryID="TOM" Title="Univ" />
+						<SoundCategory ID="TOM_CLASSIC" ParentCategoryID="TOM" Title="Clasc" />
+						<SoundCategory ID="TOM_FIBER" ParentCategoryID="TOM" Title="Fiber" />
+						<SoundCategory ID="TOM_MAPLE" ParentCategoryID="TOM" Title="Maple" />
+						<SoundCategory ID="TOM_OAK" ParentCategoryID="TOM" Title="Oak" />
+						<SoundCategory ID="TOM_ROTO" ParentCategoryID="TOM" Title="Roto" />
+						<SoundCategory ID="TOM_BALLAD" ParentCategoryID="TOM" Title="Ballad" />
+						<SoundCategory ID="TOM_SWING" ParentCategoryID="TOM" Title="Swing" />
+						<SoundCategory ID="TOM_POP" ParentCategoryID="TOM" Title="Pop" />
+						<SoundCategory ID="TOM_ROUND" ParentCategoryID="TOM" Title="Round" />
+						<SoundCategory ID="TOM_80S90S" ParentCategoryID="TOM" Title="80s / 90s" />
+						<SoundCategory ID="TOM_OCTATOM" ParentCategoryID="TOM" Title="OctaTom" />
+						<SoundCategory ID="TOM_MALLET" ParentCategoryID="TOM" Title="Mallet" />
+						<SoundCategory ID="TOM_BRUSH" ParentCategoryID="TOM" Title="Brush" />
+						<SoundCategory ID="TOM_CLASSICELECTRIC" ParentCategoryID="TOM" Title="ClscElec" />
+						<SoundCategory ID="TOM_TR808" ParentCategoryID="TOM" Title="TR808" />
+						<SoundCategory ID="TOM_TR909" ParentCategoryID="TOM" Title="TR909" />
+					</SoundCategories>
+
+				</Module>
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

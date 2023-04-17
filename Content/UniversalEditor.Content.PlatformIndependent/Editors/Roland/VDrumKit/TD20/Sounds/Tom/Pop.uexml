@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Pop -->
+						<Sound Index="229" Title="Pop1      T1" CategoryID="TOM_POP" SoundTypeID="Tom1" />
+						<Sound Index="230" Title="Pop1      T2" CategoryID="TOM_POP" SoundTypeID="Tom2" />
+						<Sound Index="231" Title="Pop1      T3" CategoryID="TOM_POP" SoundTypeID="Tom3" />
+						<Sound Index="232" Title="Pop1      T4" CategoryID="TOM_POP" SoundTypeID="Tom4" />
+						<Sound Index="233" Title="Pop2      T1" CategoryID="TOM_POP" SoundTypeID="Tom1" />
+						<Sound Index="234" Title="Pop2      T2" CategoryID="TOM_POP" SoundTypeID="Tom2" />
+						<Sound Index="235" Title="Pop2      T3" CategoryID="TOM_POP" SoundTypeID="Tom3" />
+						<Sound Index="236" Title="Pop2      T4" CategoryID="TOM_POP" SoundTypeID="Tom4" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

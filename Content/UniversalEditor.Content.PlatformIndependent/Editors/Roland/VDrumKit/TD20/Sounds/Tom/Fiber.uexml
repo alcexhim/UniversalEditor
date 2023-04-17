@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Fiber -->
+						<Sound Index="183" Title="12&quot;Fiber  T1" CategoryID="TOM_FIBER" SoundTypeID="Tom1" />
+						<Sound Index="184" Title="12&quot;Fiber T1R" CategoryID="TOM_FIBER" SoundTypeID="Tom1R" />
+						<Sound Index="185" Title="14&quot;Fiber  T2" CategoryID="TOM_FIBER" SoundTypeID="Tom2" />
+						<Sound Index="186" Title="14&quot;Fiber T2R" CategoryID="TOM_FIBER" SoundTypeID="Tom2R" />
+						<Sound Index="187" Title="16&quot;Fiber  T3" CategoryID="TOM_FIBER" SoundTypeID="Tom3" />
+						<Sound Index="188" Title="16&quot;Fiber T3R" CategoryID="TOM_FIBER" SoundTypeID="Tom3R" />
+						<Sound Index="189" Title="18&quot;Fiber  T4" CategoryID="TOM_FIBER" SoundTypeID="Tom4" />
+						<Sound Index="190" Title="18&quot;Fiber T4R" CategoryID="TOM_FIBER" SoundTypeID="Tom4R" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

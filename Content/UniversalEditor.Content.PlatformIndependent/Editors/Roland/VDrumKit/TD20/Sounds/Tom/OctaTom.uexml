@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - OctaTom -->
+						<Sound Index="253" Title="OctaTom C Hi" CategoryID="TOM_OCTATOM" />
+						<Sound Index="254" Title="OctaTom B" CategoryID="TOM_OCTATOM" />
+						<Sound Index="255" Title="OctaTom A" CategoryID="TOM_OCTATOM" />
+						<Sound Index="256" Title="OctaTom G" CategoryID="TOM_OCTATOM" />
+						<Sound Index="257" Title="OctaTom F" CategoryID="TOM_OCTATOM" />
+						<Sound Index="258" Title="OctaTom E" CategoryID="TOM_OCTATOM" />
+						<Sound Index="259" Title="OctaTom D" CategoryID="TOM_OCTATOM" />
+						<Sound Index="260" Title="OctaTom C" CategoryID="TOM_OCTATOM" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

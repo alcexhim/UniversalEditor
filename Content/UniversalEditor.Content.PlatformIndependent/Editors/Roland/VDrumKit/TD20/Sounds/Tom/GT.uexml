@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - GT -->
+						<Sound Index="159" Title="12&quot;GT     T1" CategoryID="TOM_GT" SoundTypeID="Tom1" />
+						<Sound Index="160" Title="12&quot;GT    T1R" CategoryID="TOM_GT" SoundTypeID="Tom1R" />
+						<Sound Index="161" Title="13&quot;GT     T2" CategoryID="TOM_GT" SoundTypeID="Tom2" />
+						<Sound Index="162" Title="13&quot;GT    T2R" CategoryID="TOM_GT" SoundTypeID="Tom2R" />
+						<Sound Index="163" Title="16&quot;GT     T3" CategoryID="TOM_GT" SoundTypeID="Tom3" />
+						<Sound Index="164" Title="16&quot;GT    T3R" CategoryID="TOM_GT" SoundTypeID="Tom3R" />
+						<Sound Index="165" Title="18&quot;GT     T4" CategoryID="TOM_GT" SoundTypeID="Tom4" />
+						<Sound Index="166" Title="18&quot;GT    T4R" CategoryID="TOM_GT" SoundTypeID="Tom4R" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - 80s / 90s -->
+						<Sound Index="241" Title="80'sDry   T1" CategoryID="TOM_80S90S" SoundTypeID="Tom1" />
+						<Sound Index="242" Title="80'sDry   T2" CategoryID="TOM_80S90S" SoundTypeID="Tom2" />
+						<Sound Index="243" Title="80'sDry   T3" CategoryID="TOM_80S90S" SoundTypeID="Tom3" />
+						<Sound Index="244" Title="80'sDry   T4" CategoryID="TOM_80S90S" SoundTypeID="Tom4" />
+						<Sound Index="245" Title="90'sBig   T1" CategoryID="TOM_80S90S" SoundTypeID="Tom1" />
+						<Sound Index="246" Title="90'sBig   T2" CategoryID="TOM_80S90S" SoundTypeID="Tom2" />
+						<Sound Index="247" Title="90'sBig   T3" CategoryID="TOM_80S90S" SoundTypeID="Tom3" />
+						<Sound Index="248" Title="90'sBig   T4" CategoryID="TOM_80S90S" SoundTypeID="Tom4" />
+						<Sound Index="249" Title="90'sPower T1" CategoryID="TOM_80S90S" SoundTypeID="Tom1" />
+						<Sound Index="250" Title="90'sPower T2" CategoryID="TOM_80S90S" SoundTypeID="Tom2" />
+						<Sound Index="251" Title="90'sPower T3" CategoryID="TOM_80S90S" SoundTypeID="Tom3" />
+						<Sound Index="252" Title="90'sPower T4" CategoryID="TOM_80S90S" SoundTypeID="Tom4" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

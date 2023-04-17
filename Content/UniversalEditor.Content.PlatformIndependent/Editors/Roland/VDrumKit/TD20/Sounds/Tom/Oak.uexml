@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Oak -->
+						<Sound Index="199" Title="12&quot;Oak    T1" CategoryID="TOM_OAK" SoundTypeID="Tom1" />
+						<Sound Index="200" Title="12&quot;Oak   T1R" CategoryID="TOM_OAK" SoundTypeID="Tom1R" />
+						<Sound Index="201" Title="14&quot;Oak    T2" CategoryID="TOM_OAK" SoundTypeID="Tom2" />
+						<Sound Index="202" Title="14&quot;Oak   T2R" CategoryID="TOM_OAK" SoundTypeID="Tom2R" />
+						<Sound Index="203" Title="16&quot;Oak    T3" CategoryID="TOM_OAK" SoundTypeID="Tom3" />
+						<Sound Index="204" Title="16&quot;Oak   T3R" CategoryID="TOM_OAK" SoundTypeID="Tom3R" />
+						<Sound Index="205" Title="18&quot;Oak    T4" CategoryID="TOM_OAK" SoundTypeID="Tom4" />
+						<Sound Index="206" Title="18&quot;Oak   T4R" CategoryID="TOM_OAK" SoundTypeID="Tom4R" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

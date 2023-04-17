@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Snare - Processed 2 -->
+						<Sound Index="133" Title="Titan" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="134" Title="Skanky" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="135" Title="30's" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="136" Title="Reggae" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="137" Title="Ballad" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="138" Title="Studio" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="139" Title="Swing" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="140" Title="Hard" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+						<Sound Index="141" Title="Maple" CategoryID="SNARE_PROCESSED2" SoundTypeID="XStick" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Snare - Acoustic 1 -->
+						<Sound Index="71" Title="RoundBdge" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="72" Title="RoundBdge" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="73" Title="CoolyMple" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="74" Title="CoolyMple" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="75" Title="70'sMetal" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="76" Title="70'sMetal" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="77" Title="WoodBrass" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="78" Title="WoodBrass" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="79" Title="13&quot;Hole" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="80" Title="13&quot;Hole" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="81" Title="Aluminum" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="82" Title="Aluminum" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="83" Title="Titanium" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="84" Title="Titanium" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="85" Title="Skanky" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="86" Title="Skanky" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="87" Title="30'sMaple" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="88" Title="30'sMaple" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+						<Sound Index="89" Title="BrassPico" CategoryID="SNARE_ACOUSTIC1" />
+						<Sound Index="90" Title="BrassPico" CategoryID="SNARE_ACOUSTIC1" SoundTypeID="SnareRim" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

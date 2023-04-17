@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Snare - Processed 1 -->
+						<Sound Index="113" Title="Basis" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="114" Title="Chunk" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="115" Title="ClapTail" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="116" Title="ClubDry" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="117" Title="Dump" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="118" Title="HopRim1" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="119" Title="HopRim2" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="120" Title="HopRim3" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="121" Title="LzrGate" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="122" Title="Pick" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="123" Title="Planet" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="124" Title="RB" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="125" Title="2Step" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="126" Title="Lo-Fi" CategoryID="SNARE_PROCESSED1" />
+						<Sound Index="127" Title="Round" CategoryID="SNARE_PROCESSED1" SoundTypeID="XStick" />
+						<Sound Index="128" Title="Cooly" CategoryID="SNARE_PROCESSED1" SoundTypeID="XStick" />
+						<Sound Index="129" Title="70's" CategoryID="SNARE_PROCESSED1" SoundTypeID="XStick" />
+						<Sound Index="130" Title="WoodBr" CategoryID="SNARE_PROCESSED1" SoundTypeID="XStick" />
+						<Sound Index="131" Title="13&quot;" CategoryID="SNARE_PROCESSED1" SoundTypeID="XStick" />
+						<Sound Index="132" Title="Alumi" CategoryID="SNARE_PROCESSED1" SoundTypeID="XStick" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

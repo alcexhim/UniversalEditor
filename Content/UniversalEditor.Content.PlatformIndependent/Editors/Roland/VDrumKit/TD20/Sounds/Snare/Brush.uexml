@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Snare - Brush -->
+						<Sound Index="109" Title="Brush1" CategoryID="SNARE_BRUSH" />
+						<Sound Index="110" Title="Brush1" CategoryID="SNARE_BRUSH" SoundTypeID="SnareRim" />
+						<Sound Index="111" Title="Brush2" CategoryID="SNARE_BRUSH" />
+						<Sound Index="112" Title="Brush2" CategoryID="SNARE_BRUSH" SoundTypeID="SnareRim" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

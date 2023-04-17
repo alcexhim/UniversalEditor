@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Kick - Electronic -->
+						<Sound Index="58" Title="Cosmic" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="59" Title="Hi-Q" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="60" Title="Analog1" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="61" Title="Analog2" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="62" Title="Analog3" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="63" Title="ClascElec1" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="64" Title="ClascElec2" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="65" Title="ClascElec3" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="66" Title="ClascElec4" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="67" Title="ClascElec5" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="68" Title="ClascElec6" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="69" Title="TR808 Kick" CategoryID="KICK_ELECTRONIC" />
+						<Sound Index="70" Title="TR909 Kick" CategoryID="KICK_ELECTRONIC" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

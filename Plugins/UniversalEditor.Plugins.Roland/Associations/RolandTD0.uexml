@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter HintComparison="FilterOnly" Title="Roland TD-0 drum kit backup file" ContentType="application/x-roland-td0">
+					<FileNameFilters>
+						<FileNameFilter>*.td0</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.Plugins.Roland.ObjectModels.VDrumKit.VDrumKitObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Roland.DataFormats.VDrumKit.TD0DataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

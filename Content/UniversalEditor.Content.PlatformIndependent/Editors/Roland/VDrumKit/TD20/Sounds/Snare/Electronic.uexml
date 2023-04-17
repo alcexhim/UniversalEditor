@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Snare - Electronic -->
+						<Sound Index="142" Title="ClascElec1" CategoryID="SNARE_ELECTRONIC" />
+						<Sound Index="143" Title="ClascElec2" CategoryID="SNARE_ELECTRONIC" />
+						<Sound Index="144" Title="ClascElec3" CategoryID="SNARE_ELECTRONIC" />
+						<Sound Index="145" Title="ClascElec4" CategoryID="SNARE_ELECTRONIC" />
+						<Sound Index="146" Title="ClascElec5" CategoryID="SNARE_ELECTRONIC" />
+						<Sound Index="147" Title="TR808" CategoryID="SNARE_ELECTRONIC" />
+						<Sound Index="148" Title="TR808" CategoryID="SNARE_ELECTRONIC" SoundTypeID="SnareRim" />
+						<Sound Index="149" Title="TR909" CategoryID="SNARE_ELECTRONIC" />
+						<Sound Index="150" Title="TR909" CategoryID="SNARE_ELECTRONIC" SoundTypeID="SnareRim" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

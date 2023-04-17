@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Parameters>
+
+				<Parameter ID="{9b22e64b-0623-4de8-b9c9-ea170eb45d74}" />
+
+			</Parameters>
+		</Editor>
+	</Editors>
+</UniversalEditor>

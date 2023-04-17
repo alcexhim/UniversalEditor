@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Univ -->
+						<Sound Index="175" Title="12&quot;Clasc  T1" CategoryID="TOM_CLASSIC" SoundTypeID="Tom1" />
+						<Sound Index="176" Title="12&quot;Clasc T1R" CategoryID="TOM_CLASSIC" SoundTypeID="Tom1R" />
+						<Sound Index="177" Title="13&quot;Clasc  T2" CategoryID="TOM_CLASSIC" SoundTypeID="Tom2" />
+						<Sound Index="178" Title="13&quot;Clasc T2R" CategoryID="TOM_CLASSIC" SoundTypeID="Tom2R" />
+						<Sound Index="179" Title="16&quot;Clasc  T3" CategoryID="TOM_CLASSIC" SoundTypeID="Tom3" />
+						<Sound Index="180" Title="16&quot;Clasc T3R" CategoryID="TOM_CLASSIC" SoundTypeID="Tom3R" />
+						<Sound Index="181" Title="18&quot;Clasc  T4" CategoryID="TOM_CLASSIC" SoundTypeID="Tom4" />
+						<Sound Index="182" Title="18&quot;Clasc T4R" CategoryID="TOM_CLASSIC" SoundTypeID="Tom4R" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

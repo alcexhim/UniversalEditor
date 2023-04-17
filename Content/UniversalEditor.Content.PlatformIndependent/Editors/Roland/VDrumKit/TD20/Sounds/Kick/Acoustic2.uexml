@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Kick - Acoustic 2 -->
+						<Sound Index="23" Title="Swing" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="24" Title="Heavy" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="25" Title="Can" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="26" Title="Fusion" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="27" Title="Latin" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="28" Title="Meat" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="29" Title="Pillow" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="30" Title="DryMed" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="31" Title="Dry" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="32" Title="Solid" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="33" Title="Reso" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="34" Title="Raw" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="35" Title="Vintage" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="36" Title="OldMple" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="37" Title="Hard" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="38" Title="BigLow" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="39" Title="Hybrid" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="40" Title="Gabba1" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="41" Title="Gabba2" CategoryID="KICK_ACOUSTIC2" />
+						<Sound Index="42" Title="Gabba3" CategoryID="KICK_ACOUSTIC2" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

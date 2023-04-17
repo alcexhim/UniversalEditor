@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Birch -->
+						<Sound Index="151" Title="12&quot;Birch T1" CategoryID="TOM_BIRCH" SoundTypeID="Tom1" />
+						<Sound Index="152" Title="12&quot;Birch T1R" CategoryID="TOM_BIRCH" SoundTypeID="Tom1R" />
+						<Sound Index="153" Title="13&quot;Birch T2" CategoryID="TOM_BIRCH" SoundTypeID="Tom2" />
+						<Sound Index="154" Title="13&quot;Birch T2R" CategoryID="TOM_BIRCH" SoundTypeID="Tom2R" />
+						<Sound Index="155" Title="16&quot;Birch T3" CategoryID="TOM_BIRCH" SoundTypeID="Tom3" />
+						<Sound Index="156" Title="16&quot;Birch T3R" CategoryID="TOM_BIRCH" SoundTypeID="Tom3R" />
+						<Sound Index="157" Title="18&quot;Birch T4" CategoryID="TOM_BIRCH" SoundTypeID="Tom4" />
+						<Sound Index="158" Title="18&quot;Birch T4R" CategoryID="TOM_BIRCH" SoundTypeID="Tom4R" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

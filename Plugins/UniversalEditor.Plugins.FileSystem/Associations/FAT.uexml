@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="File Allocation Table filesystem">
+				<Filter Title="File Allocation Table filesystem" HintComparison="MagicThenFilter">
 					<FileNameFilters>
 						<FileNameFilter>*.fat</FileNameFilter>
 						<FileNameFilter>*.fat16</FileNameFilter>
@@ -17,6 +17,7 @@
 							<MagicByte Type="String">MSWIN4.1</MagicByte>
 							<MagicByte Type="String">IBM  7.1</MagicByte>
 							<MagicByte Type="String">mkdosfs </MagicByte>
+							<MagicByte Type="String">mkfs.fat</MagicByte>
 							<MagicByte Type="String">FreeDOS </MagicByte>
 							<MagicByte Type="String">(lesTHIC</MagicByte>
 							<MagicByte Type="String">WINIMAGE</MagicByte>

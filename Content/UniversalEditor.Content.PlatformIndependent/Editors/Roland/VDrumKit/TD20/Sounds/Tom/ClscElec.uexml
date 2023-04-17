@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - ClscElec -->
+						<Sound Index="269" Title="ClscElec1 T1" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom1" />
+						<Sound Index="270" Title="ClscElec1 T2" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom2" />
+						<Sound Index="271" Title="ClscElec1 T3" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom3" />
+						<Sound Index="272" Title="ClscElec1 T4" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom4" />
+						<Sound Index="273" Title="ClscElec2 T1" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom1" />
+						<Sound Index="274" Title="ClscElec2 T2" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom2" />
+						<Sound Index="275" Title="ClscElec2 T3" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom3" />
+						<Sound Index="276" Title="ClscElec2 T4" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom4" />
+						<Sound Index="277" Title="ClscElec3 T1" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom1" />
+						<Sound Index="278" Title="ClscElec3 T2" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom2" />
+						<Sound Index="279" Title="ClscElec3 T3" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom3" />
+						<Sound Index="280" Title="ClscElec3 T4" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom4" />
+						<Sound Index="281" Title="ClscElec4 T1" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom1" />
+						<Sound Index="282" Title="ClscElec4 T2" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom2" />
+						<Sound Index="283" Title="ClscElec4 T3" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom3" />
+						<Sound Index="284" Title="ClscElec4 T4" CategoryID="TOM_CLASSICELECTRIC" SoundTypeID="Tom4" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

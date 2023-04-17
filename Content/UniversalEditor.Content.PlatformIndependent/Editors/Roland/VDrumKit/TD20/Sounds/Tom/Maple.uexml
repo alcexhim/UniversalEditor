@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Maple -->
+						<Sound Index="191" Title="12&quot;Maple  T1" CategoryID="TOM_MAPLE" SoundTypeID="Tom1" />
+						<Sound Index="192" Title="12&quot;Maple T1R" CategoryID="TOM_MAPLE" SoundTypeID="Tom1R" />
+						<Sound Index="193" Title="14&quot;Maple  T2" CategoryID="TOM_MAPLE" SoundTypeID="Tom2" />
+						<Sound Index="194" Title="14&quot;Maple T2R" CategoryID="TOM_MAPLE" SoundTypeID="Tom2R" />
+						<Sound Index="195" Title="16&quot;Maple  T3" CategoryID="TOM_MAPLE" SoundTypeID="Tom3" />
+						<Sound Index="196" Title="16&quot;Maple T3R" CategoryID="TOM_MAPLE" SoundTypeID="Tom3R" />
+						<Sound Index="197" Title="18&quot;Maple  T4" CategoryID="TOM_MAPLE" SoundTypeID="Tom4" />
+						<Sound Index="198" Title="18&quot;Maple T4R" CategoryID="TOM_MAPLE" SoundTypeID="Tom4R" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

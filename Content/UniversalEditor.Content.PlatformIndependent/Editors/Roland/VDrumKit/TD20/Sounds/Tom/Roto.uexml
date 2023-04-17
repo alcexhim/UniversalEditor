@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Roto -->
+						<Sound Index="207" Title=" 8&quot;Roto   T1" CategoryID="TOM_ROTO" SoundTypeID="Tom1" />
+						<Sound Index="208" Title=" 8&quot;Roto  T1R" CategoryID="TOM_ROTO" SoundTypeID="Tom1R" />
+						<Sound Index="209" Title="10&quot;Roto   T2" CategoryID="TOM_ROTO" SoundTypeID="Tom2" />
+						<Sound Index="210" Title="10&quot;Roto  T2R" CategoryID="TOM_ROTO" SoundTypeID="Tom2R" />
+						<Sound Index="211" Title="12&quot;Roto   T3" CategoryID="TOM_ROTO" SoundTypeID="Tom3" />
+						<Sound Index="212" Title="12&quot;Roto  T3R" CategoryID="TOM_ROTO" SoundTypeID="Tom3R" />
+						<Sound Index="213" Title="14&quot;Roto   T4" CategoryID="TOM_ROTO" SoundTypeID="Tom4" />
+						<Sound Index="214" Title="14&quot;Roto  T4R" CategoryID="TOM_ROTO" SoundTypeID="Tom4R" />
+						<Sound Index="215" Title="16&quot;Roto   T5" CategoryID="TOM_ROTO" SoundTypeID="Tom5" />
+						<Sound Index="216" Title="16&quot;Roto   T6" CategoryID="TOM_ROTO" SoundTypeID="Tom6" />
+						<Sound Index="217" Title="18&quot;Roto   T7" CategoryID="TOM_ROTO" SoundTypeID="Tom7" />
+						<Sound Index="218" Title="18&quot;Roto   T8" CategoryID="TOM_ROTO" SoundTypeID="Tom8" />
+						<Sound Index="219" Title="18&quot;RotoExLo1" CategoryID="TOM_ROTO" SoundTypeID="ExLo1" />
+						<Sound Index="220" Title="18&quot;RotoExLo2" CategoryID="TOM_ROTO" SoundTypeID="ExLo2" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

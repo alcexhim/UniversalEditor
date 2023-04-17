@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Mallet -->
+						<Sound Index="265" Title="Brush     T1" CategoryID="TOM_BRUSH" SoundTypeID="Tom1" />
+						<Sound Index="266" Title="Brush     T2" CategoryID="TOM_BRUSH" SoundTypeID="Tom2" />
+						<Sound Index="267" Title="Brush     T3" CategoryID="TOM_BRUSH" SoundTypeID="Tom3" />
+						<Sound Index="268" Title="Brush     T4" CategoryID="TOM_BRUSH" SoundTypeID="Tom4" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

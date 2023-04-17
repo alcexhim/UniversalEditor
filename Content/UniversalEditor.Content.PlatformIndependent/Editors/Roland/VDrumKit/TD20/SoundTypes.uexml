@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<SoundTypes>
+						<SoundType ID="Kick" Abbreviation="K" />
+						<SoundType ID="Snare" Abbreviation="S" />
+						<SoundType ID="SnareRim" Abbreviation="SR" />
+						<SoundType ID="XStick" Abbreviation="XStik" />
+					</SoundTypes>
+
+				</Module>
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

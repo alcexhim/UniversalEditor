@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Kick - Processed -->
+						<Sound Index="43" Title="Cartoon" CategoryID="KICK_PROCESSED" />
+						<Sound Index="44" Title="Chicken" CategoryID="KICK_PROCESSED" />
+						<Sound Index="45" Title="Jive" CategoryID="KICK_PROCESSED" />
+						<Sound Index="46" Title="RB" CategoryID="KICK_PROCESSED" />
+						<Sound Index="47" Title="Layered" CategoryID="KICK_PROCESSED" />
+						<Sound Index="48" Title="Lazy" CategoryID="KICK_PROCESSED" />
+						<Sound Index="49" Title="HardLow" CategoryID="KICK_PROCESSED" />
+						<Sound Index="50" Title="Alley" CategoryID="KICK_PROCESSED" />
+						<Sound Index="51" Title="DaFloor" CategoryID="KICK_PROCESSED" />
+						<Sound Index="52" Title="Croak" CategoryID="KICK_PROCESSED" />
+						<Sound Index="53" Title="Plastic" CategoryID="KICK_PROCESSED" />
+						<Sound Index="54" Title="Trip" CategoryID="KICK_PROCESSED" />
+						<Sound Index="55" Title="Gokigen" CategoryID="KICK_PROCESSED" />
+						<Sound Index="56" Title="FX-Wah" CategoryID="KICK_PROCESSED" />
+						<Sound Index="57" Title="Lo-Fi" CategoryID="KICK_PROCESSED" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

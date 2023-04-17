@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Pads>
+
+						<Pad Index="1" Title="Kick" />
+						<Pad Index="2" Title="Snare" />
+						<Pad Index="3" Title="Tom 1" />
+						<Pad Index="4" Title="Tom 2" />
+						<Pad Index="5" Title="Tom 3" />
+						<Pad Index="6" Title="Tom 4" />
+						<Pad Index="7" Title="Hi-Hat" />
+						<Pad Index="8" Title="Crash 1" />
+						<Pad Index="9" Title="Crash 2" />
+						<Pad Index="10" Title="Ride" />
+						<Pad Index="11" Title="Ride Edge" />
+						<Pad Index="12" Title="Aux 1" />
+						<Pad Index="13" Title="Aux 2" />
+						<Pad Index="14" Title="Aux 3" />
+						<Pad Index="15" Title="Aux 4" />
+
+					</Pads>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

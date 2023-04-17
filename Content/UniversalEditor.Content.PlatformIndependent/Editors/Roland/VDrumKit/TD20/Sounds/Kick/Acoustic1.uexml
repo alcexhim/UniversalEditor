@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Kick - Acoustic 1 -->
+						<Sound Index="1" Title="22&quot;Birch" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="2" Title="22&quot;Solid" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="3" Title="22&quot;StdMple" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="4" Title="22&quot;Maple" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="5" Title="24&quot;Carbon" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="6" Title="22&quot;CbnMple" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="7" Title="22&quot;GT" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="8" Title="22&quot;TitanHp" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="9" Title="22&quot;Mahogny" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="10" Title="20&quot;Lite" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="11" Title="22&quot;RoseWd" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="12" Title="22&quot;Oak" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="13" Title="Recording1" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="14" Title="Recording2" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="15" Title="Universal" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="16" Title="BigOpen" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="17" Title="JazzCombo1" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="18" Title="JazzCombo2" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="19" Title="Cannon" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="20" Title="Roto" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="21" Title="Booth" CategoryID="KICK_ACOUSTIC1" />
+						<Sound Index="22" Title="Ballad" CategoryID="KICK_ACOUSTIC1" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Snare - Acoustic 2 -->
+						<Sound Index="91" Title="Booth" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="92" Title="Booth" CategoryID="SNARE_ACOUSTIC2" SoundTypeID="SnareRim" />
+						<Sound Index="93" Title="Studio" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="94" Title="Studio" CategoryID="SNARE_ACOUSTIC2" SoundTypeID="SnareRim" />
+						<Sound Index="95" Title="Ballad" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="96" Title="Ballad" CategoryID="SNARE_ACOUSTIC2" SoundTypeID="SnareRim" />
+						<Sound Index="97" Title="Swing" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="98" Title="Swing" CategoryID="SNARE_ACOUSTIC2" SoundTypeID="SnareRim" />
+						<Sound Index="99" Title="Street" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="100" Title="Lite" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="101" Title="LA Fat" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="102" Title="Ring" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="103" Title="Whack" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="104" Title="Impulse" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="105" Title="Cruddy1" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="106" Title="Cruddy2" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="107" Title="HotRod" CategoryID="SNARE_ACOUSTIC2" />
+						<Sound Index="108" Title="HotRod" CategoryID="SNARE_ACOUSTIC2" SoundTypeID="SnareRim" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>

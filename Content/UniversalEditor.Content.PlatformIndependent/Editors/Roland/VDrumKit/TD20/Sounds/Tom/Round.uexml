@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor>
+	<Editors>
+		<Editor TypeName="UniversalEditor.Plugins.Roland.UserInterface.Editors.VDrumKit.VDrumKitEditor">
+			<Modules>
+
+				<Module ID="TD20">
+
+					<Sounds>
+
+						<!-- Tom - Round -->
+						<Sound Index="237" Title="Round     T1" CategoryID="TOM_ROUND" SoundTypeID="Tom1" />
+						<Sound Index="238" Title="Round     T2" CategoryID="TOM_ROUND" SoundTypeID="Tom2" />
+						<Sound Index="239" Title="Round     T3" CategoryID="TOM_ROUND" SoundTypeID="Tom3" />
+						<Sound Index="240" Title="Round     T4" CategoryID="TOM_ROUND" SoundTypeID="Tom4" />
+
+					</Sounds>
+
+				</Module>
+
+			</Modules>
+		</Editor>
+	</Editors>
+</UniversalEditor>
