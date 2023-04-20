@@ -166,7 +166,6 @@ PHP/Tenant/Include/Configuration.inc.php
 PHP/Website/Include/Configuration.inc.php
 
 # Do not pull in various files used as test cases for certain DataFormats (these can be quite huge)
-Tests/*
 Samples/*
 
 # Do not pull in the NSIS setup output file (setup.exe)
