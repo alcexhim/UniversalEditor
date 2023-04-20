@@ -50,7 +50,6 @@ namespace UniversalEditor.IO
 			WriteBytes(new byte[] { (byte)value });
 		}
 
-		private int xorkey_index = 0;
 		public void WriteBytes(byte[] data)
 		{
 			if (data == null) return;
