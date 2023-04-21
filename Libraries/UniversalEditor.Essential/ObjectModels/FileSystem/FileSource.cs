@@ -19,12 +19,16 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+
+using MBS.Framework;
+
 namespace UniversalEditor.ObjectModels.FileSystem
 {
 	/// <summary>
 	/// The abstract base class for defining how a deferred <see cref="File" /> retrieves its data.
 	/// </summary>
-	public abstract class FileSource
+	public abstract class FileSource : ISupportsExtraData
 	{
 
 		private FileSourceTransformation.FileSourceTransformationCollection mvarTransformations = new FileSourceTransformation.FileSourceTransformationCollection();
@@ -46,5 +50,36 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 		public abstract byte[] GetDataInternal(long offset, long length);
 		public abstract long GetLength();
+
+		// ISupportsExtraData
+
+		private Dictionary<string, object> extraDataDictionary = new Dictionary<string, object>();
+		public T GetExtraData<T>(string key, T defaultValue = default(T))
+		{
+			if (extraDataDictionary.ContainsKey(key)  && extraDataDictionary[key] is T)
+			{
+				return (T)extraDataDictionary[key];
+			}
+			return defaultValue;
+		}
+
+		public void SetExtraData<T>(string key, T value)
+		{
+			extraDataDictionary[key] = value;
+		}
+
+		public object GetExtraData(string key, object defaultValue = null)
+		{
+			if (extraDataDictionary.ContainsKey(key))
+			{
+				return extraDataDictionary[key];
+			}
+			return defaultValue;
+		}
+
+		public void SetExtraData(string key, object value)
+		{
+			extraDataDictionary[key] = value;
+		}
 	}
 }

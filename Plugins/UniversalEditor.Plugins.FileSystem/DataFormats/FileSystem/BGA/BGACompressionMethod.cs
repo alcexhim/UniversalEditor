@@ -26,7 +26,6 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 	/// </summary>
 	public enum BGACompressionMethod
 	{
-		None = 0,
 		Bzip2 = 1,
 		Gzip = 2
 	}

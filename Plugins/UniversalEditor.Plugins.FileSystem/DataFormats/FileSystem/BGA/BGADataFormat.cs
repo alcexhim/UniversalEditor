@@ -24,6 +24,7 @@ using System;
 using UniversalEditor.Compression;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 namespace UniversalEditor.DataFormats.FileSystem.BGA
 {
@@ -43,6 +44,8 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 			return _dfr;
 		}
 
+		public BGACompressionMethod CompressionMethod { get; set; } = BGACompressionMethod.Bzip2;
+
 		protected override void LoadInternal(ref ObjectModel objectModel)
 		{
 			FileSystemObjectModel fsom = (objectModel as FileSystemObjectModel);
@@ -54,7 +57,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				uint unknown1 = reader.ReadUInt32();
 				string compressionType = reader.ReadFixedLengthString(4);
 
-				BGACompressionMethod compressionMethod = BGACompressionMethod.Bzip2;
+				BGACompressionMethod compressionMethod = CompressionMethod;
 				if (compressionType == "BZ2\0")
 				{
 					compressionMethod = BGACompressionMethod.Bzip2;
@@ -83,44 +86,46 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 
 				File file = fsom.AddFile(fileName);
 				file.Size = decompressedSize;
-				file.Properties.Add("offset", offset);
-				file.Properties.Add("CompressedSize", compressedSize);
-				file.Properties.Add("DecompressedSize", decompressedSize);
-				file.Properties.Add("CompressionMethod", compressionMethod);
-				file.Properties.Add("checksum", checksum);
-				file.Properties.Add("reader", reader);
-
-				throw new NotImplementedException("Figure out how to do this with FileSource");
+				file.Source = new EmbeddedFileSource(reader, offset, compressedSize, new FileSourceTransformation[]
+				{
+					BGAFileSourceTransformation
+				});
+				file.Source.SetExtraData("CompressedSize", compressedSize);
+				file.Source.SetExtraData("DecompressedSize", decompressedSize);
+				file.Source.SetExtraData("CompressionMethod", compressionMethod);
+				file.Source.SetExtraData("checksum", checksum);
 			}
 		}
 
-		private void file_DataRequest(object sender, DataRequestEventArgs e)
+		private static FileSourceTransformation BGAFileSourceTransformation = new FileSourceTransformation(FileSourceTransformationType.InputAndOutput, _BGAFileSourceTransformationFunc);
+		private static void _BGAFileSourceTransformationFunc(object sender, System.IO.Stream inputStream, System.IO.Stream outputStream)
 		{
-			File file = (sender as File);
-			Reader reader = (Reader)file.Properties["reader"];
-			long offset = (long)file.Properties["offset"];
-			uint compressedSize = (uint)file.Properties["CompressedSize"];
-			uint decompressedSize = (uint)file.Properties["DecompressedSize"];
-			uint checksum = (uint)file.Properties["checksum"];
-			BGACompressionMethod compressionMethod = (BGACompressionMethod)file.Properties["CompressionMethod"];
+			EmbeddedFileSource file = sender as EmbeddedFileSource;
+			uint compressedSize = file.GetExtraData<uint>("CompressedSize");
+			uint decompressedSize = file.GetExtraData<uint>("DecompressedSize");
+			uint checksum = file.GetExtraData<uint>("checksum");
+			BGACompressionMethod compressionMethod = file.GetExtraData<BGACompressionMethod>("CompressionMethod");
 
-			reader.Seek(offset, SeekOrigin.Begin);
-			byte[] compressedData = reader.ReadBytes(compressedSize);
-			byte[] decompressedData = compressedData;
 			switch (compressionMethod)
 			{
+				/*
+				case BGACompressionMethod.None:
+				{
+					inputStream.CopyTo(outputStream);
+					break;
+				}
+				*/
 				case BGACompressionMethod.Bzip2:
 				{
-					decompressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Bzip2).Decompress(compressedData);
+					CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Bzip2).Decompress(inputStream, outputStream);
 					break;
 				}
 				case BGACompressionMethod.Gzip:
 				{
-					decompressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Gzip).Decompress(compressedData);
+					CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Decompress(inputStream, outputStream);
 					break;
 				}
 			}
-			e.Data = decompressedData;
 		}
 
 		protected override void SaveInternal(ObjectModel objectModel)
@@ -135,7 +140,7 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				uint unknown1 = 0;
 				writer.WriteUInt32(unknown1);
 
-				BGACompressionMethod compressionMethod = BGACompressionMethod.Bzip2;
+				BGACompressionMethod compressionMethod = CompressionMethod;
 				string compressionType = String.Empty;
 				switch (compressionMethod)
 				{
@@ -163,12 +168,12 @@ namespace UniversalEditor.DataFormats.FileSystem.BGA
 				{
 					case BGACompressionMethod.Bzip2:
 					{
-						compressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Bzip2).Compress(decompressedData);
+						compressedData = CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Bzip2).Compress(decompressedData);
 						break;
 					}
 					case BGACompressionMethod.Gzip:
 					{
-						compressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.Gzip).Compress(decompressedData);
+						compressedData = CompressionModule.FromKnownCompressionMethod(Compression.CompressionMethod.Gzip).Compress(decompressedData);
 						break;
 					}
 				}
