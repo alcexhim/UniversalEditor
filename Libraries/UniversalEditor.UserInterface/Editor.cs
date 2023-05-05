@@ -118,7 +118,7 @@ namespace UniversalEditor.UserInterface
 		{
 			base.OnCreated(e);
 
-			UserInterfacePlugin[] plugins = UserInterfacePlugin.Get();
+			UserInterfacePlugin[] plugins = Plugin.Get<UserInterfacePlugin>();
 			Type typ = typeof(EditorPlugin);
 			for (int i = 0; i < plugins.Length; i++)
 			{

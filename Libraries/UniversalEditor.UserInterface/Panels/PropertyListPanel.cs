@@ -190,10 +190,22 @@ namespace UniversalEditor.UserInterface.Panels
 
 		internal void ClearPropertyPanelObjects()
 		{
+			if (cboObject == null)
+			{
+				Console.Error.WriteLine("PropertyPanel: cboObject was not created correctly");
+				return;
+			}
+
 			(cboObject.Model as DefaultTreeModel).Rows.Clear();
 		}
 		internal void AddPropertyPanelObject(PropertyPanelObject item)
 		{
+			if (cboObject == null)
+			{
+				Console.Error.WriteLine("PropertyPanel: cboObject was not created correctly");
+				return;
+			}
+
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
 				new TreeModelRowColumn((cboObject.Model as DefaultTreeModel).Columns[0], item.Name),
@@ -207,11 +219,23 @@ namespace UniversalEditor.UserInterface.Panels
 		private Dictionary<PropertyPanelObject, TreeModelRow> _rowsByObject = new Dictionary<PropertyPanelObject, TreeModelRow>();
 		internal void RemovePropertyPanelObject(PropertyPanelObject item)
 		{
+			if (cboObject == null)
+			{
+				Console.Error.WriteLine("PropertyPanel: cboObject was not created correctly");
+				return;
+			}
+
 			if (!_rowsByObject.ContainsKey(item)) return;
 			(cboObject.Model as DefaultTreeModel).Rows.Remove(_rowsByObject[item]);
 		}
 		internal void RefreshList()
 		{
+			if (cboObject == null)
+			{
+				Console.Error.WriteLine("PropertyPanel: cboObject was not created correctly");
+				return;
+			}
+
 			(cboObject.Model as DefaultTreeModel).Rows.Clear();
 			for (int i = 0; i < Objects.Count; i++)
 			{

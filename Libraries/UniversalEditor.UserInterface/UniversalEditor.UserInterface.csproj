@@ -140,6 +140,7 @@
     <Compile Include="Panels\ToolboxPanel.cs" />
     <Compile Include="PanelReference.cs" />
     <Compile Include="Editors\Text\Formatted\FormattedTextEditor.cs" />
+    <Compile Include="Panels\OutputWindowPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

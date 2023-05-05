@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+
 using MBS.Framework;
 using MBS.Framework.Drawing;
 using MBS.Framework.UserInterface;
@@ -508,6 +510,7 @@ namespace UniversalEditor.UserInterface
 			Application.Instance.Commands["ProjectProperties"].Enabled = hasProject;
 
 			Application.Instance.Commands["BookmarksAddAll"].Enabled = GetEditorPages().Length > 0;
+			Application.Instance.Commands["WindowCloseAllDocuments"].Enabled = GetDocumentWindows().Length > 0;
 
 			if (CurrentProject != null)
 			{
@@ -578,7 +581,7 @@ namespace UniversalEditor.UserInterface
 				Application.Instance.Commands["BookmarksAdd"].Enabled = false;
 			}
 
-			foreach (UserInterfacePlugin pl in UserInterfacePlugin.Get())
+			foreach (UserInterfacePlugin pl in Plugin.Get<UserInterfacePlugin>())
 			{
 				pl.UpdateMenuItems();
 			}
@@ -689,7 +692,8 @@ namespace UniversalEditor.UserInterface
 
 			if (parent != null)
 			{
-				parent.Items.Add(dw);
+				//parent.Items.Add(dw);
+				dckContainer.Items.Add(dw);
 			}
 			else
 			{
@@ -1650,6 +1654,17 @@ namespace UniversalEditor.UserInterface
 			throw new NotImplementedException();
 		}
 
+		public void CloseAllFiles()
+		{
+			IEnumerable<DockingItem> e = dckContainer.Items.Where(item => item.Placement == DockingItemPlacement.Center);
+			List<DockingItem> list = e.ToList();
+			foreach (DockingItem item in list)
+			{
+				dckContainer.Items.Remove(item);
+			}
+			UpdateMenuItems();
+		}
+
 		private System.Collections.Generic.List<Window> Windows = new System.Collections.Generic.List<Window>();
 		public void CloseFile(DockingWindow dw = null)
 		{
@@ -1855,6 +1870,20 @@ namespace UniversalEditor.UserInterface
 		{
 			return GetCurrentPage() as EditorPage;
 		}
+		public DockingWindow[] GetDocumentWindows()
+		{
+			List<DockingWindow> list = new List<DockingWindow>();
+			for (int i = 0; i < dckContainer.Items.Count; i++)
+			{
+				DockingWindow dw = dckContainer.Items[i] as DockingWindow;
+				if (dw == null) continue;
+
+				if (dw.Placement != DockingItemPlacement.Center) continue;
+				list.Add(dw);
+			}
+			return list.ToArray();
+		}
+
 		public EditorPage[] GetEditorPages()
 		{
 			List<EditorPage> list = new List<EditorPage>();

@@ -3,6 +3,14 @@
 		<Language ID="English">
 			<StringTable>
 				<StringTableEntry ID="Application.Title" Value="Universal Editor" />
+
+				<StringTableEntry ID="UniversalEditor.Panels.PropertyListPanel.Title" Value="Properties" />
+				<StringTableEntry ID="UniversalEditor.Panels.ToolboxPanel.Title" Value="Toolbox" />
+				<StringTableEntry ID="UniversalEditor.Panels.DocumentExplorerPanel.Title" Value="Document Explorer" />
+				<StringTableEntry ID="UniversalEditor.Panels.SolutionExplorerPanel.Title" Value="Solution Explorer" />
+				<StringTableEntry ID="UniversalEditor.Panels.ErrorListPanel.Title" Value="Problems" />
+				<StringTableEntry ID="UniversalEditor.Panels.OutputWindowPanel.Title" Value="Output" />
+
 				<StringTableEntry ID="Framework.Errors.GenericErrorTitle" Value="Error" />
 			</StringTable>
 			<OptionPanels>

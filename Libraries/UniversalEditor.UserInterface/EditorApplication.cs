@@ -45,7 +45,6 @@ namespace UniversalEditor.UserInterface
 		{
 			base.InitializeInternal();
 
-			InitializePanels();
 			InitializeWindowSwitcher();
 		}
 
@@ -95,34 +94,40 @@ namespace UniversalEditor.UserInterface
 		{
 			// FIXME: this should all be done in XML
 			PanelReference prPropertyList = new PanelReference(PropertyListPanel.ID);
-			prPropertyList.Title = "Property List";
+			prPropertyList.Title = this._("UniversalEditor.Panels.PropertyListPanel.Title");
 			prPropertyList.Control = new PropertyListPanel();
 			prPropertyList.Placement = DockingItemPlacement.Right;
 			Panels.Add(prPropertyList);
 
 			PanelReference prToolbox = new PanelReference(ToolboxPanel.ID);
-			prToolbox.Title = "Toolbox";
+			prToolbox.Title = this._("UniversalEditor.Panels.ToolboxPanel.Title");
 			prToolbox.Control = new ToolboxPanel();
 			prToolbox.Placement = DockingItemPlacement.Left;
 			Panels.Add(prToolbox);
 
 			PanelReference prSolutionExplorer = new PanelReference(SolutionExplorerPanel.ID);
-			prSolutionExplorer.Title = "Solution Explorer";
+			prSolutionExplorer.Title = this._("UniversalEditor.Panels.SolutionExplorerPanel.Title");
 			prSolutionExplorer.Control = new SolutionExplorerPanel();
 			prSolutionExplorer.Placement = DockingItemPlacement.Left;
 			Panels.Add(prSolutionExplorer);
 
 			PanelReference prDocumentExplorer = new PanelReference(DocumentExplorerPanel.ID);
-			prDocumentExplorer.Title = "Document Explorer";
+			prDocumentExplorer.Title = this._("UniversalEditor.Panels.DocumentExplorerPanel.Title");
 			prDocumentExplorer.Control = new DocumentExplorerPanel();
 			prDocumentExplorer.Placement = DockingItemPlacement.Left;
 			Panels.Add(prDocumentExplorer);
 
 			PanelReference prErrorList = new PanelReference(ErrorListPanel.ID);
-			prErrorList.Title = "Error List";
+			prErrorList.Title = this._("UniversalEditor.Panels.ErrorListPanel.Title");
 			prErrorList.Control = new ErrorListPanel();
 			prErrorList.Placement = DockingItemPlacement.Bottom;
 			Panels.Add(prErrorList);
+
+			PanelReference prOutputWindow = new PanelReference(OutputWindowPanel.ID);
+			prOutputWindow.Title = this._("UniversalEditor.Panels.OutputWindowPanel.Title");
+			prOutputWindow.Control = new OutputWindowPanel();
+			prOutputWindow.Placement = DockingItemPlacement.Bottom;
+			Panels.Add(prOutputWindow);
 		}
 
 		public ConfigurationManager ConfigurationManager { get; } = new ConfigurationManager();
@@ -465,6 +470,7 @@ namespace UniversalEditor.UserInterface
 		protected override void OnAfterConfigurationLoaded(EventArgs e)
 		{
 			base.OnAfterConfigurationLoaded(e);
+			InitializePanels();
 
 			#region Global Configuration
 			{
@@ -1004,6 +1010,10 @@ namespace UniversalEditor.UserInterface
 			Application.Instance.AttachCommandEventHandler("WindowNewWindow", delegate (object sender, EventArgs e)
 			{
 				OpenWindow();
+			});
+			Application.Instance.AttachCommandEventHandler("WindowCloseAllDocuments", delegate (object sender, EventArgs e)
+			{
+				LastWindow.CloseAllFiles();
 			});
 			Application.Instance.AttachCommandEventHandler("WindowWindows", delegate (object sender, EventArgs e)
 			{

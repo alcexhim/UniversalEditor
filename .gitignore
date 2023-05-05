@@ -185,6 +185,9 @@ RemoteSystemsTempFiles
 mono_crash.*.blob
 mono_crash.*.json
 
+# VSCode crap
+.vscode
+
 
 # Geany (?) crap
 .#*.*

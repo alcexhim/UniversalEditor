@@ -37,6 +37,8 @@ namespace UniversalEditor.UserInterface
 		void SwitchPerspective(int index);
 
 		void CloseFile(DockingWindow dw = null);
+		void CloseAllFiles();
+
 		void CloseProject();
 		void CloseWindow();
 
