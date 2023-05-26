@@ -131,5 +131,24 @@ namespace UniversalEditor.ObjectModels.Markup
 			}
 			return null;
 		}
+
+		public MarkupTagElement GetElementById(string id)
+		{
+			foreach (MarkupTagElement tag in Elements)
+			{
+				if (tag.Attributes["id"] != null)
+				{
+					if ((tag.Attributes["id"].Value?.Equals(id)).GetValueOrDefault())
+					{
+						return tag;
+					}
+				}
+
+				MarkupTagElement ret = tag.GetElementById(id);
+				if (ret != null)
+					return ret;
+			}
+			return null;
+		}
 	}
 }
