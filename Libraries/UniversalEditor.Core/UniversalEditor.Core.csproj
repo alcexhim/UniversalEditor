@@ -102,6 +102,8 @@
     <Compile Include="DataFormatImplementationStatusAttribute.cs" />
     <Compile Include="ImplementationStatus.cs" />
     <Compile Include="DataFormatImplementationArea.cs" />
+    <Compile Include="ObjectModelConverter.cs" />
+    <Compile Include="ObjectModelConversion.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
