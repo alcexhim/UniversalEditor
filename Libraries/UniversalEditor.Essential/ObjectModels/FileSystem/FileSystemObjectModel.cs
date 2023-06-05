@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using MBS.Framework;
 using MBS.Framework.Logic.Conditional;
 using UniversalEditor.Accessors;
 using UniversalEditor.ObjectModels.Markup;

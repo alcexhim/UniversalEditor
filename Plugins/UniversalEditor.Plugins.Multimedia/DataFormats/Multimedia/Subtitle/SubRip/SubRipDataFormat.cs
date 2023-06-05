@@ -21,7 +21,7 @@
 
 using System;
 using System.Text;
-
+using MBS.Framework;
 using UniversalEditor.ObjectModels.Multimedia.Subtitle;
 
 namespace UniversalEditor.DataFormats.Multimedia.Subtitle.SubRip

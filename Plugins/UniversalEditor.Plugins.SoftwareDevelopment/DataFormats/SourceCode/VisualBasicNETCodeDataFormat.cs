@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MBS.Framework;
 using UniversalEditor;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.SourceCode;

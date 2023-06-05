@@ -21,7 +21,7 @@
 
 using System;
 using System.Text;
-
+using MBS.Framework;
 using MBS.Framework.Logic.Conditional;
 
 using UniversalEditor.ObjectModels.SourceCode;

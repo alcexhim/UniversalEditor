@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using MBS.Framework;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.SourceCode;
 using UniversalEditor.ObjectModels.SourceCode.CodeElementReferences;
@@ -886,7 +886,7 @@ namespace UniversalEditor.DataFormats.SourceCode
 			{
 				CodeCommentElement comment = (obj as CodeCommentElement);
 
-				string[] lines = comment.Content.Split (new string[] { System.Environment.NewLine });
+				string[] lines = comment.Content.Split(new string[] { Environment.NewLine });
 				if (comment.Multiline && !comment.IsDocumentationComment) {
 					sb.Append (indent);
 					sb.AppendLine ("/* ");

@@ -27,6 +27,7 @@ using UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.MIDI;
 using UniversalEditor.ObjectModels.Multimedia.Audio.Synthesized;
 using UniversalEditor.ObjectModels.PropertyList;
 using System.Linq;
+using MBS.Framework;
 
 namespace UniversalEditor.Plugins.Vocaloid.DataFormats.Multimedia.Audio.Synthesized.Vocaloid
 {

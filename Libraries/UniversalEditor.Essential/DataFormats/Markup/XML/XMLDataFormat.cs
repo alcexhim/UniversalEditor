@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MBS.Framework;
 using UniversalEditor.ObjectModels.Markup;
 using UniversalEditor.ObjectModels.PropertyList;
 

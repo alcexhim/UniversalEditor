@@ -32,6 +32,8 @@ using UniversalEditor.DataFormats.Multimedia.Audio.VoicebankPhonemeDictionary;
 
 using UniversalEditor.Accessors;
 
+using MBS.Framework;
+
 namespace UniversalEditor.DataFormats.Multimedia.Audio.Synthesized.UTAU
 {
 	/// <summary>
