@@ -251,6 +251,7 @@
     <Compile Include="DataFormats\FileSystem\WinRAR\VM\RARVMFunctions.cs" />
     <Compile Include="DataFormats\FileSystem\BPlus\BPlusFileFlags.cs" />
     <Compile Include="DataFormats\FileSystem\ARCV\ARCVDataFormat.cs" />
+    <Compile Include="DataFormats\FileSystem\CuteZipPAK\PAKDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -304,6 +305,7 @@
     <Folder Include="Associations\KenSilverman\" />
     <Folder Include="Associations\ElectronicArts\" />
     <Folder Include="Associations\Ultra3D\" />
+    <Folder Include="DataFormats\FileSystem\CuteZipPAK\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\7Zip.uexml" />
@@ -394,6 +396,7 @@
     <EmbeddedResource Include="Associations\Ultra3D\RBX.uexml" />
     <EmbeddedResource Include="Associations\Ultra3D\TBV.uexml" />
     <EmbeddedResource Include="DataFormats\FileSystem\StuffIt\StuffItDataFormat.uexml" />
+    <EmbeddedResource Include="Associations\CuteZipPAK.uexml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
