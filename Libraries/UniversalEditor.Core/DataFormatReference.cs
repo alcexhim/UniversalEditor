@@ -132,14 +132,23 @@ namespace UniversalEditor
 
 		public DataFormatReference(Guid id)
 		{
+			this.ImportOptions = new CustomOptionCompatSettingsProvider(this);
+			this.ExportOptions = new CustomOptionCompatSettingsProvider(this);
+
 			mvarID = id;
 		}
 		public DataFormatReference(string dataFormatTypeName)
 		{
+			this.ImportOptions = new CustomOptionCompatSettingsProvider(this);
+			this.ExportOptions = new CustomOptionCompatSettingsProvider(this);
+
 			mvarTypeName = dataFormatTypeName;
 		}
 		public DataFormatReference(Type dataFormatType)
 		{
+			this.ImportOptions = new CustomOptionCompatSettingsProvider(this);
+			this.ExportOptions = new CustomOptionCompatSettingsProvider(this);
+
 			Type = dataFormatType;
 		}
 
@@ -178,13 +187,13 @@ namespace UniversalEditor
 		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="DataFormatReference" />
 		/// when it is being used to open or import a file.
 		/// </summary>
-		public SettingsProvider ImportOptions { get; set; } = new CustomOptionCompatSettingsProvider();
+		public SettingsProvider ImportOptions { get; } = null;
 
 		/// <summary>
 		/// A <see cref="SettingsProvider" /> providing settings that are applied to the <see cref="DataFormatReference" />
 		/// when it is being used to open or import a file.
 		/// </summary>
-		public SettingsProvider ExportOptions { get; set; } = new CustomOptionCompatSettingsProvider();
+		public SettingsProvider ExportOptions { get; } = null;
 
 		public virtual DataFormat Create()
 		{

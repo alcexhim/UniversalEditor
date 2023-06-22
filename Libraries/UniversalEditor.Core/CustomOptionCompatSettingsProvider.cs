@@ -25,9 +25,23 @@ namespace UniversalEditor
 {
 	public class CustomOptionCompatSettingsProvider : CustomSettingsProvider
 	{
+		private DataFormatReference _dfr = null;
 		public CustomOptionCompatSettingsProvider()
 		{
 			SettingsGroups.Add(new SettingsGroup("General"));
+		}
+		public CustomOptionCompatSettingsProvider(DataFormatReference dfr) : this()
+		{
+			_dfr = dfr;
+		}
+
+		protected override void LoadSettingsInternal()
+		{
+			base.LoadSettingsInternal();
+		}
+		protected override void SaveSettingsInternal()
+		{
+			base.SaveSettingsInternal();
 		}
 	}
 }
