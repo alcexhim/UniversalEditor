@@ -39,8 +39,8 @@ namespace UniversalEditor.DataFormats.FileSystem.SquareSoft
 			{
 				_dfr = base.MakeReferenceInternal();
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Creator), "_Creator"));
-				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Description), "_Description"));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Creator), "_Creator", String.Empty, 10));
+				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new TextSetting(nameof(Description), "_Description", String.Empty, 14));
 				_dfr.Title = "SquareSoft LGP archive";
 			}
 			return _dfr;
