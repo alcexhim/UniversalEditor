@@ -227,6 +227,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Rol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.Roland.UserInterface", "Plugins.UserInterface\UniversalEditor.Plugins.Roland.UserInterface\UniversalEditor.Plugins.Roland.UserInterface.csproj", "{5C61A834-5BC7-4A61-B839-C84724ACBAF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalEditor.Plugins.RavenSoftware.IcarusCodeGenerator", "Plugins\UniversalEditor.Plugins.RavenSoftware.IcarusCodeGenerator\UniversalEditor.Plugins.RavenSoftware.IcarusCodeGenerator.csproj", "{B793A424-4EC1-41ED-A807-B12B2F6D1367}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -659,6 +661,10 @@ Global
 		{5C61A834-5BC7-4A61-B839-C84724ACBAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C61A834-5BC7-4A61-B839-C84724ACBAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C61A834-5BC7-4A61-B839-C84724ACBAF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B793A424-4EC1-41ED-A807-B12B2F6D1367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B793A424-4EC1-41ED-A807-B12B2F6D1367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B793A424-4EC1-41ED-A807-B12B2F6D1367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B793A424-4EC1-41ED-A807-B12B2F6D1367}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F0AB1AF-E1A1-4D19-B19C-05BBB15C94B2} = {05D15661-E684-4EC9-8FBD-C014BA433CC5}
@@ -767,6 +773,7 @@ Global
 		{17A0F754-C902-49EB-A21D-93A4EE75059B} = {7B535D74-5496-4802-B809-89ED88274A91}
 		{51428C2D-24FB-474A-BEC5-4F1369B5001C} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 		{5C61A834-5BC7-4A61-B839-C84724ACBAF4} = {7B535D74-5496-4802-B809-89ED88274A91}
+		{B793A424-4EC1-41ED-A807-B12B2F6D1367} = {2ED32D16-6C06-4450-909A-40D32DA67FB4}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
