@@ -308,47 +308,53 @@ namespace UniversalEditor.UserInterface
 				DocumentTemplate template = (dlg.SelectedItem as DocumentTemplate);
 				if (template == null) return null;
 
-				string filename = "<untitled{0}>";
-				if (!String.IsNullOrEmpty(dlg.ProjectTitle))
-				{
-					filename = dlg.ProjectTitle;
-				}
-
-				Pages.EditorPage page = new Pages.EditorPage();
-				page.DocumentEdited += page_DocumentEdited;
-				page.Title = String.Format(filename, iUntitledDocCount);
-
-				ObjectModel objm = template.ObjectModelReference.Create();
-				if (objm == null)
-				{
-					MessageDialog.ShowDialog("Failed to create an ObjectModel for the type \"" + template.ObjectModelReference.TypeName + "\"", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
-					return null;
-				}
-
-				if (template.ObjectModel != null)
-				{
-					template.ObjectModel.CopyTo(objm);
-				}
-				page.Document = new Document(objm, null, null);
-				page.Document.Title = String.Format(filename, iUntitledDocCount);
-
-				/*
-				DockingWindow dwNewDocument = dcc.Windows.Add("<untitled>", "<untitled>", page);
-				dwNewDocument.Behavior = DockBehavior.Dock;
-
-				dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(dwNewDocument);
-				*/
-				/*
-				Glue.ApplicationEventEventArgs ae = new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.AfterCreateFile,
-					new KeyValuePair<string, object>("ObjectModel", objm)
-				);
-
-				Glue.Common.Methods.SendApplicationEvent(ae);
-				*/
-				InitDocTab(String.Format(filename, iUntitledDocCount), page.Title, page);
+				Pages.EditorPage page = CreateNewDocTab(dlg.ProjectTitle, template);
 				return page.Document;
 			}
 			return null;
+		}
+
+		private EditorPage CreateNewDocTab(string projectTitle, DocumentTemplate template)
+		{
+			string filename = "<untitled{0}>";
+			if (!String.IsNullOrEmpty(projectTitle))
+			{
+				filename = projectTitle;
+			};
+
+			Pages.EditorPage page = new Pages.EditorPage();
+			page.DocumentEdited += page_DocumentEdited;
+			page.Title = String.Format(filename, iUntitledDocCount);
+
+			ObjectModel objm = template.ObjectModelReference.Create();
+			if (objm == null)
+			{
+				MessageDialog.ShowDialog("Failed to create an ObjectModel for the type \"" + template.ObjectModelReference.TypeName + "\"", "Error", MessageDialogButtons.OK, MessageDialogIcon.Error);
+				return null;
+			}
+
+			if (template.ObjectModel != null)
+			{
+				template.ObjectModel.CopyTo(objm);
+			}
+			page.Document = new Document(objm, null, null);
+			page.Document.Title = String.Format(filename, iUntitledDocCount);
+
+			/*
+			DockingWindow dwNewDocument = dcc.Windows.Add("<untitled>", "<untitled>", page);
+			dwNewDocument.Behavior = DockBehavior.Dock;
+
+			dcc.Areas[DockPosition.Center].Areas[DockPosition.Center].Windows.Add(dwNewDocument);
+			*/
+			/*
+			Glue.ApplicationEventEventArgs ae = new Glue.ApplicationEventEventArgs(Glue.Common.Constants.EventNames.AfterCreateFile,
+				new KeyValuePair<string, object>("ObjectModel", objm)
+			);
+
+			Glue.Common.Methods.SendApplicationEvent(ae);
+			*/
+			InitDocTab(String.Format(filename, iUntitledDocCount), page.Title, page);
+			return page;
 		}
 
 		private Editor _prevEditor = null;
