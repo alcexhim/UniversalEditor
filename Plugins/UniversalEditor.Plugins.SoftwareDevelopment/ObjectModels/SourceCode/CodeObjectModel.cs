@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 
 using UniversalEditor.ObjectModels.SourceCode.CodeElements;
@@ -36,7 +37,7 @@ namespace UniversalEditor.ObjectModels.SourceCode
 		{
 			if (_omr == null)
 			{
-				_omr = base.MakeReferenceInternal();
+				_omr = new ObjectModelReference(GetType(), new Guid("{93049a08-a52c-48da-8ae5-af458839b105}"));
 				_omr.Path = new string[] { "Programming", "Source Code" };
 			}
 			return _omr;
