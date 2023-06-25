@@ -134,8 +134,25 @@ namespace UniversalEditor.UserInterface.Pages
 				om = Document.ObjectModel;
 				reditors = UniversalEditor.UserInterface.Common.Reflection.GetAvailableEditors(om.MakeReference());
 			}
+
+			if (om != null)
+			{
+				Type[] converters = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(ObjectModelConverter) });
+				foreach (Type converter in converters)
+				{
+					ObjectModelConverter conv = (ObjectModelConverter)converter.Assembly.CreateInstance(converter.FullName);
+					if (conv.CanConvertFrom(om.MakeReference()))
+					{
+
+					}
+				}
+			}
+
 			if (reditors.Length == 0)
 			{
+				// no editors are available to process this file
+				// determine whether it is mostly text, and select either default text editor or default binary editor
+
 				// errorMessage1.Enabled = true;
 				// errorMessage1.Visible = true;
 
