@@ -3,9 +3,10 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="ZSoft PC Paintbrush PCX image">
+				<Filter Title="ZSoft PC Paintbrush PCX image" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.pcx</FileNameFilter>
+						<FileNameFilter>*.PCX</FileNameFilter>
 					</FileNameFilters>
 				</Filter>
 			</Filters>

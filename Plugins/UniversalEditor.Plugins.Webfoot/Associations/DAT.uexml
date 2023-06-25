@@ -3,7 +3,7 @@
 	<Associations>
 		<Association>
 			<Filters>
-				<Filter Title="Webfoot DAT archive">
+				<Filter Title="Webfoot DAT archive" HintComparison="FilterOnly">
 					<FileNameFilters>
 						<FileNameFilter>*.dat</FileNameFilter>
 					</FileNameFilters>

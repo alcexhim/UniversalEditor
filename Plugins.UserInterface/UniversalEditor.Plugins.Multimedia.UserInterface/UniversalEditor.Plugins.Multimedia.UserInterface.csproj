@@ -63,6 +63,7 @@
     <Compile Include="Plugins\Transport\TransportPlugin.cs" />
     <Compile Include="Editors\Multimedia\InstrumentDefinition\InstrumentDefinitionEditor.cs" />
     <Compile Include="Editors\Multimedia\Audio\Waveform\Dialogs\MultiTrackMappingDialog.cs" />
+    <Compile Include="Editors\Multimedia\Font\Bitmap\BitmapFontEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -90,6 +91,8 @@
     <Folder Include="Plugins\Transport\" />
     <Folder Include="Editors\Multimedia\InstrumentDefinition\" />
     <Folder Include="Editors\Multimedia\Audio\Waveform\Dialogs\" />
+    <Folder Include="Editors\Multimedia\Font\" />
+    <Folder Include="Editors\Multimedia\Font\Bitmap\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Core\UniversalEditor.Core.csproj">

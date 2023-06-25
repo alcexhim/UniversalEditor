@@ -389,6 +389,7 @@
     <Content Include="Editors\Roland\VDrumKit\TD20\Sounds\Tom\ClscElec.uexml" />
     <Content Include="Editors\Roland\VDrumKit\TD20\Sounds\Tom\TR808.uexml" />
     <Content Include="Editors\Roland\VDrumKit\TD20\Sounds\Tom\TR909.uexml" />
+    <Content Include="Editors\Multimedia\Font\Bitmap\BitmapFontEditor.glade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />

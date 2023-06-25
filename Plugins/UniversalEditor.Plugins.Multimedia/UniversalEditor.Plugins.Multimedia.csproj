@@ -387,6 +387,9 @@
     <Compile Include="DataFormats\Chunked\ISOMediaBase\ISOMediaBaseChunkLengthPosition.cs" />
     <Compile Include="DataFormats\Chunked\ISOMediaBase\ISOMediaBaseChecksumPosition.cs" />
     <Compile Include="DataFormats\Chunked\ISOMediaBase\ISOMediaBaseChunkLengthType.cs" />
+    <Compile Include="ObjectModels\Multimedia\Font\Bitmap\BitmapFontObjectModel.cs" />
+    <Compile Include="ObjectModels\Multimedia\Font\Bitmap\BitmapFontGlyph.cs" />
+    <Compile Include="ObjectModels\Multimedia\Font\Bitmap\BitmapFontPixmap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -457,6 +460,8 @@
     <Folder Include="DataFormats\Multimedia\Picture\AVIF\" />
     <Folder Include="DataFormats\Chunked\" />
     <Folder Include="DataFormats\Chunked\ISOMediaBase\" />
+    <Folder Include="ObjectModels\Multimedia\Font\" />
+    <Folder Include="ObjectModels\Multimedia\Font\Bitmap\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\Playlist\ASX.uexml" />

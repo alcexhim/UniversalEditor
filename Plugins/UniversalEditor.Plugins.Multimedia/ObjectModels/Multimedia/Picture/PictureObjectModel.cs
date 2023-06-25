@@ -74,6 +74,32 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			return colorMap;
 		}
 
+		public void CopyTo(PictureObjectModel pic, double x, double y, double width, double height)
+		{
+			if (pic.Width < width || pic.Height < height)
+			{
+				throw new InvalidOperationException();
+			}
+
+			double ix = x, iy = y;
+			for (double xx = 0; xx < width; xx++)
+			{
+				for (double yy = 0; yy < height; yy++)
+				{
+					Console.WriteLine("src: ({0}, {1}) dst: ({2}, {3})", x, y, xx, yy);
+					pic.SetPixel(this.GetPixel((int)x, (int)y), (int)xx, (int)yy);
+					y++;
+				}
+				x++;
+				y = iy;
+
+				if (x == Width)
+				{
+					x = 0;
+				}
+			}
+		}
+
 		public void SetPixel(Color color)
 		{
 			if (lastAddedLocation.X >= mvarWidth && lastAddedLocation.Y >= mvarHeight)
@@ -95,6 +121,7 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 		{
 			if (x >= mvarWidth || y >= mvarHeight)
 			{
+				Console.Error.WriteLine("ue: picture: out of image space     @({0}, {1})    ({2}x{3})", x, y, Width, Height);
 				throw new InvalidOperationException("Out of image space. Try resizing the image");
 			}
 
@@ -146,10 +173,10 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 		}
 		public PictureObjectModel(int width, int height)
 		{
-			InitializeBitmapData();
-
 			mvarWidth = width;
 			mvarHeight = height;
+
+			InitializeBitmapData();
 		}
 
 		private static void InitializeBitmapData(ref Color[][] array, int width, int height)

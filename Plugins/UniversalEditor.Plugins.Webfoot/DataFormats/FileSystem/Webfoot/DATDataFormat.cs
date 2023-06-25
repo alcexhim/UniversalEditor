@@ -37,9 +37,9 @@ namespace UniversalEditor.Plugins.Webfoot.DataFormats.FileSystem.Webfoot
 		{
 			if (_dfr == null)
 			{
-				_dfr = base.MakeReferenceInternal();
+				_dfr = new DataFormatReference(GetType());
 				_dfr.Capabilities.Add(typeof(FileSystemObjectModel), DataFormatCapabilities.All);
-				 _dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting("Key", "Encryption _key", 0xAA, 0x00, 0xFF));
+				_dfr.ExportOptions.SettingsGroups[0].Settings.Add(new RangeSetting("Key", "Encryption _key", 0xAA, 0x00, 0xFF));
 			}
 			return _dfr;
 		}
