@@ -22,10 +22,10 @@ namespace UniversalEditor.UserInterface.Panels
 			lv.BeforeContextMenu += lv_BeforeContextMenu;
 			lv.SelectionChanged += lv_SelectionChanged;
 
-			tm = new DefaultTreeModel(new Type[] { typeof(string) });
+			tm = new DefaultTreeModel(new Type[] { typeof(string), typeof(MBS.Framework.UserInterface.Drawing.Image) });
 			lv.Model = tm;
 			lv.HeaderStyle = ColumnHeaderStyle.None;
-			lv.Columns.Add(new ListViewColumn("Item", new CellRenderer[] { new CellRendererText(tm.Columns[0]) }));
+			lv.Columns.Add(new ListViewColumn("Item", new CellRenderer[] { new CellRendererImage(tm.Columns[1]), new CellRendererText(tm.Columns[0]) }));
 
 			Controls.Add(lv, new BoxLayout.Constraints(true, true));
 		}
@@ -69,7 +69,8 @@ namespace UniversalEditor.UserInterface.Panels
 		{
 			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 			{
-				new TreeModelRowColumn(tm.Columns[0], node.Text)
+				new TreeModelRowColumn(tm.Columns[0], node.Text),
+				new TreeModelRowColumn(tm.Columns[1], MBS.Framework.UserInterface.Drawing.Image.FromStock(node.StockType, 16))
 			});
 			row.SetExtraData<EditorDocumentExplorerNode>("node", node);
 			for (int i = 0; i < node.Nodes.Count; i++)

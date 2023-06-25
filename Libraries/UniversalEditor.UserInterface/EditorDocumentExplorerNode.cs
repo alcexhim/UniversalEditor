@@ -38,14 +38,18 @@ namespace UniversalEditor.UserInterface
 			}
 		}
 
-		public EditorDocumentExplorerNode(string text)
+		public EditorDocumentExplorerNode(string text) : this(text, StockType.None) { }
+		public EditorDocumentExplorerNode(string text, StockType stockType)
 		{
 			Text = text;
+			StockType = stockType;
 			Nodes = new EditorDocumentExplorerNodeCollection();
 		}
 
 		public EditorDocumentExplorerNode.EditorDocumentExplorerNodeCollection Nodes { get; private set; } = null;
 		public string Text { get; set; }
+
+		public StockType StockType { get; set; } = StockType.None;
 
 		private Dictionary<string, object> _ExtraData = new Dictionary<string, object>();
 		public T GetExtraData<T>(string key, T defaultValue = default(T))
