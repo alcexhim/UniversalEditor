@@ -18,6 +18,36 @@ using UniversalEditor.Compression.Modules.LZX.Internal;
 //  Original source code:
 //  https://code.google.com/p/monoxna/source/browse/trunk/src/Microsoft.Xna.Framework/HelperCode/LzxDecoder.cs
 
+/***************************************************************************
+*                        lzx.c - LZX decompression routines               *
+*                           -------------------                           *
+*                                                                         *
+*  maintainer: Jed Wing <jedwin@ugcs.caltech.edu>                         *
+*  source:     modified lzx.c from cabextract v0.5                        *
+*  notes:      This file was taken from cabextract v0.5, which was,       *
+*              itself, a modified version of the lzx decompression code   *
+*              from unlzx.                                                *
+*                                                                         *
+*  platforms:  In its current incarnation, this file has been tested on   *
+*              two different Linux platforms (one, redhat-based, with a   *
+*              2.1.2 glibc and gcc 2.95.x, and the other, Debian, with    *
+*              2.2.4 glibc and both gcc 2.95.4 and gcc 3.0.2).  Both were *
+*              Intel x86 compatible machines.                             *
+***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.  Note that an exemption to this   *
+ *   license has been granted by Stuart Caie for the purposes of           *
+ *   distribution with chmlib.  This does not, to the best of my           *
+ *   knowledge, constitute a change in the license of this (the LZX) code  *
+ *   in general.                                                           *
+ *                                                                         *
+ ***************************************************************************/
+
 namespace UniversalEditor.Compression.Modules.LZX
 {
 	public class LZXCompressionModule : CompressionModule
@@ -348,8 +378,8 @@ namespace UniversalEditor.Compression.Modules.LZX
 							while (this_run > 0)
 							{
 								main_element = (int)ReadHuffSym(m_state.MAINTREE_table, m_state.MAINTREE_len,
-																		  Constants.MAINTREE_MAXSYMBOLS, Constants.MAINTREE_TABLEBITS,
-																		  bitbuf);
+									Constants.MAINTREE_MAXSYMBOLS, Constants.MAINTREE_TABLEBITS,
+									bitbuf);
 
 								if (main_element < Constants.NUM_CHARS)
 								{
@@ -366,8 +396,8 @@ namespace UniversalEditor.Compression.Modules.LZX
 									if (match_length == Constants.NUM_PRIMARY_LENGTHS)
 									{
 										length_footer = (int)ReadHuffSym(m_state.LENGTH_table, m_state.LENGTH_len,
-																		 Constants.LENGTH_MAXSYMBOLS, Constants.LENGTH_TABLEBITS,
-																		 bitbuf);
+											Constants.LENGTH_MAXSYMBOLS, Constants.LENGTH_TABLEBITS,
+											bitbuf);
 										match_length += length_footer;
 									}
 									match_length += Constants.MIN_MATCH;
@@ -386,16 +416,16 @@ namespace UniversalEditor.Compression.Modules.LZX
 											verbatim_bits = (int)bitbuf.ReadBits((byte)extra);
 											match_offset += (verbatim_bits << 3);
 											aligned_bits = (int)ReadHuffSym(m_state.ALIGNED_table, m_state.ALIGNED_len,
-																	   Constants.ALIGNED_MAXSYMBOLS, Constants.ALIGNED_TABLEBITS,
-																	   bitbuf);
+												Constants.ALIGNED_MAXSYMBOLS, Constants.ALIGNED_TABLEBITS,
+												bitbuf);
 											match_offset += aligned_bits;
 										}
 										else if (extra == 3)
 										{
 											/* aligned bits only */
 											aligned_bits = (int)ReadHuffSym(m_state.ALIGNED_table, m_state.ALIGNED_len,
-																	   Constants.ALIGNED_MAXSYMBOLS, Constants.ALIGNED_TABLEBITS,
-																	   bitbuf);
+												Constants.ALIGNED_MAXSYMBOLS, Constants.ALIGNED_TABLEBITS,
+												bitbuf);
 											match_offset += aligned_bits;
 										}
 										else if (extra > 0) /* extra==1, extra==2 */
@@ -501,15 +531,32 @@ namespace UniversalEditor.Compression.Modules.LZX
 					uint filesize = (uint)m_state.intel_filesize;
 					uint abs_off, rel_off;
 
-					m_state.intel_curpos = (int)curpos + outputLength;
+					m_state.intel_curpos = (int)(curpos + outputLength);
 
 					while (outputStream.Position < dataend)
 					{
-						if (outputStream.ReadByte() != 0xE8) { curpos++; continue; }
-						//abs_off =
+						if (outputStream.ReadByte() != 0xE8)
+						{
+							curpos++;
+							continue;
+						}
+
+						byte[] data = new byte[4];
+						outputStream.Read(data, 0, 4);
+
+						abs_off = (uint)data[0] | ((uint)data[1] << 8) | ((uint)data[2] << 16) | ((uint)data[3] << 24);
+						if ((abs_off >= -curpos) && (abs_off < filesize))
+						{
+							rel_off = (abs_off >= 0) ? abs_off - curpos : abs_off + filesize;
+							data[0] = (byte)rel_off;
+							data[1] = (byte)(rel_off >> 8);
+							data[2] = (byte)(rel_off >> 16);
+							data[3] = (byte)(rel_off >> 24);
+						}
+						//data += 4;
+						curpos += 5;
 					}
 				}
-				throw new NotImplementedException("intel e8 decoding not finished");
 			}
 			#endregion
 		}

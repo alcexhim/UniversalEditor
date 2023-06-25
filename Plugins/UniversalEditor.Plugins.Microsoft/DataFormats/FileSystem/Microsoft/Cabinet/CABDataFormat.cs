@@ -210,11 +210,11 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.Cabinet
 					case CABCompressionMethod.LZX:
 					{
 						file.Properties["CompressionMethod"] = Compression.CompressionMethod.LZX;
-						decompressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.LZX).Decompress(data.data);
+						decompressedData = CompressionModule.FromKnownCompressionMethod(CompressionMethod.LZX).Decompress(data.data, data.decompressedLength);
 
 						// no compression
-						Array.Copy(data.data, 0, decompressedData, j, data.data.Length);
-						j += data.data.Length;
+						//Array.Copy(data.data, 0, decompressedData, j, data.data.Length);
+						j += decompressedData.Length;
 						break;
 					}
 					default:
