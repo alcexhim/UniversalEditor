@@ -51,6 +51,55 @@
 					</Items>
 				</Command>
 
+
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_Add_NewItem" Title="Ne_w resource..." />
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_Add_ExistingItem" Title="E_xisting resource..." />
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_Add" Title="A_dd">
+					<Items>
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_Add_NewItem" />
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_Add_ExistingItem" />
+					</Items>
+				</Command>
+
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_MoveTo" Title="Move to..." />
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_CopyTo" Title="_Copy to..." />
+
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_Open" Title="_Open" />
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_OpenNewTab" Title="Open in New _Tab" />
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_OpenNewWindow" Title="Open in New _Window" />
+
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected_Rename" Title="Rena_me" />
+
+
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Selected" Title="Resource (selected)">
+					<Items>
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_Open" />
+						<Separator />
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_OpenNewTab" />
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_OpenNewWindow" />
+						<Separator />
+						<CommandReference CommandID="EditCut" />
+						<CommandReference CommandID="EditCopy" />
+						<Separator />
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_MoveTo" />
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_CopyTo" />
+						<Separator />
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_Rename" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+
+				<Command ID="ExecutableEditor_ContextMenu_Resources_Unselected" Title="Resources (unselected)">
+					<Items>
+						<CommandReference CommandID="ExecutableEditor_ContextMenu_Resources_Selected_Add" />
+						<Separator />
+						<CommandReference CommandID="EditPaste" />
+						<Separator />3
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+
 			</Commands>
 		</Editor>
 	</Editors>

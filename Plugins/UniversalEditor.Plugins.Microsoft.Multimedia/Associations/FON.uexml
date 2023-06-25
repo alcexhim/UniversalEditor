@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Microsoft bitmap / raster font file" HintComparison="FilterOnly">
+					<FileNameFilters>
+						<FileNameFilter>*.fon</FileNameFilter>
+					</FileNameFilters>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.Multimedia.Font.Bitmap.BitmapFontObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.Plugins.Microsoft.Multimedia.DataFormats.Font.Bitmap.FONDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>

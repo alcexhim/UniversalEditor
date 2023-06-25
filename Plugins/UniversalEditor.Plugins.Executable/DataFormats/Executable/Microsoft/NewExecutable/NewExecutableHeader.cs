@@ -56,7 +56,7 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft.NewExecutable
 		/// <summary>
 		/// The index of the automatic data segment.
 		/// </summary>
-		public byte AutomaticDataSegmentIndex;
+		public ushort AutomaticDataSegmentIndex;
 		/// <summary>
 		/// The initial size of the local heap.
 		/// </summary>
@@ -160,7 +160,7 @@ namespace UniversalEditor.DataFormats.Executable.Microsoft.NewExecutable
 			neh.FileLoadCRC = reader.ReadUInt32();
 			neh.ProgramFlags = (NewExecutableProgramFlags)reader.ReadByte();
 			neh.ApplicationFlags = (NewExecutableApplicationFlags)reader.ReadByte();
-			neh.AutomaticDataSegmentIndex = reader.ReadByte();
+			neh.AutomaticDataSegmentIndex = reader.ReadUInt16();
 			neh.InitialLocalHeapSize = reader.ReadUInt16();
 			neh.InitialStackSize = reader.ReadUInt16();
 			neh.EntryPoint = reader.ReadUInt32();

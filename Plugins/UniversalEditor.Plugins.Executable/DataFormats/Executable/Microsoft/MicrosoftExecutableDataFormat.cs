@@ -27,6 +27,8 @@ using UniversalEditor.ObjectModels.FileSystem;
 
 using UniversalEditor.DataFormats.Executable.Microsoft.PortableExecutable;
 using System.Collections.Generic;
+using UniversalEditor.DataFormats.Executable.Microsoft.NewExecutable;
+using UniversalEditor.ObjectModels.FileSystem.FileSources;
 
 #if EXECUTABLE_LOAD_RESOURCES
 using UniversalEditor.DataFormats.Resource.Microsoft;
@@ -252,20 +254,108 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 						string NE = reader.ReadFixedLengthString(2);
 						if (NE == "NE")
 						{
+							// thanks http://program-transformation.org/Transform/NeFormat
 							NewExecutable.NewExecutableHeader ne_header = NewExecutable.NewExecutableHeader.Read(reader);
+							Accessor.SavePosition();
+
+							long rtableOffset = mvarDOSHeader.NewEXEHeaderOffset + ne_header.ResourcesTableOffset;
+							Accessor.Seek(rtableOffset, SeekOrigin.Begin);
+							ushort shift = reader.ReadUInt16();
+
+							while (true)
+							{
+								ushort _rtype = reader.ReadUInt16();
+								if (_rtype == 0x0000)
+								{
+									break;
+								}
+								if ((_rtype & 0x8000) == 0x8000)
+								{
+									_rtype = (ushort)((uint)_rtype & ~0x8000);
+								}
+								NewExecutableResourceType rtype = (NewExecutableResourceType)_rtype;
+
+								ushort count = reader.ReadUInt16();
+								uint reserved1 = reader.ReadUInt32();
+
+								for (ushort i = 0; i < count; i++)
+								{
+									ushort rnOffset = reader.ReadUInt16();
+									ushort rnLength = reader.ReadUInt16();
+									ushort rnFlags = reader.ReadUInt16();
+									ushort rnID = reader.ReadUInt16();
+									ushort rnHandle = reader.ReadUInt16();
+									ushort rnUsage = reader.ReadUInt16();
+
+									rnOffset = (ushort)((uint)rnOffset << shift);
+									rnLength = (ushort)((uint)rnLength << shift);
+									if (rnOffset < 0 || rnLength < 0)
+									{
+										throw new InvalidOperationException();
+									}
+
+									ExecutableResource resource = new ExecutableResource();
+									if ((rnID & 0x8000) == 0x8000)
+									{
+										// If the identifier is an integer, the high bit is set (8000h).
+										resource.Identifier = new ExecutableResourceIdentifier((ushort)((uint)rnID & ~0x8000));
+									}
+									else
+									{
+										// Otherwise, it is an offset to a resource string, relative to the beginning of the resource table.
+										Accessor.SavePosition();
+
+										Accessor.Seek(rtableOffset + rnID, SeekOrigin.Begin);
+										string name = reader.ReadLengthPrefixedString();
+										resource.Identifier = new ExecutableResourceIdentifier(name);
+
+										Accessor.LoadPosition();
+									}
+
+									switch (rtype)
+									{
+										case NewExecutableResourceType.Accelerator: resource.ResourceType = ExecutableResourceTypes.Accelerator; break;
+										case NewExecutableResourceType.AnimatedCursor: resource.ResourceType = ExecutableResourceTypes.AnimatedCursor; break;
+										case NewExecutableResourceType.AnimatedIcon: resource.ResourceType = ExecutableResourceTypes.AnimatedIcon; break;
+										case NewExecutableResourceType.Bitmap: resource.ResourceType = ExecutableResourceTypes.Bitmap; break;
+										case NewExecutableResourceType.Cursor: resource.ResourceType = ExecutableResourceTypes.Cursor; break;
+										case NewExecutableResourceType.Dialog: resource.ResourceType = ExecutableResourceTypes.Dialog; break;
+										case NewExecutableResourceType.DialogInclude: resource.ResourceType = ExecutableResourceTypes.DialogInclude; break;
+										case NewExecutableResourceType.DialogInit: resource.ResourceType = ExecutableResourceTypes.DialogInit; break;
+										case NewExecutableResourceType.Font: resource.ResourceType = ExecutableResourceTypes.Font; break;
+										case NewExecutableResourceType.FontDir: resource.ResourceType = ExecutableResourceTypes.FontDir; break;
+										case NewExecutableResourceType.GroupCursor: resource.ResourceType = ExecutableResourceTypes.GroupCursor; break;
+										case NewExecutableResourceType.GroupIcon: resource.ResourceType = ExecutableResourceTypes.GroupIcon; break;
+										case NewExecutableResourceType.HTML: resource.ResourceType = ExecutableResourceTypes.HTML; break;
+										case NewExecutableResourceType.Icon: resource.ResourceType = ExecutableResourceTypes.Icon; break;
+										case NewExecutableResourceType.Manifest: resource.ResourceType = ExecutableResourceTypes.Manifest; break;
+										case NewExecutableResourceType.Menu: resource.ResourceType = ExecutableResourceTypes.Menu; break;
+										case NewExecutableResourceType.MessageTable: resource.ResourceType = ExecutableResourceTypes.MessageTable; break;
+										case NewExecutableResourceType.PlugAndPlay: resource.ResourceType = ExecutableResourceTypes.PlugAndPlay; break;
+										case NewExecutableResourceType.RCData: resource.ResourceType = ExecutableResourceTypes.RCData; break;
+										case NewExecutableResourceType.String: resource.ResourceType = ExecutableResourceTypes.String; break;
+										case NewExecutableResourceType.Version: resource.ResourceType = ExecutableResourceTypes.Version; break;
+										case NewExecutableResourceType.VxD: resource.ResourceType = ExecutableResourceTypes.VxD; break;
+									}
+									resource.VirtualAddress = rnOffset;
+									resource.Length = rnLength;
+									resource.Source = new EmbeddedFileSource(reader, resource.VirtualAddress, resource.Length);
+									exec.Resources.Add(resource);
+								}
+							}
+							Accessor.LoadPosition();
 						}
 						#endregion
 					}
 				}
 			}
 			#endregion
-
-#if EXECUTABLE_LOAD_RESOURCES
 			#region Resources
 			{
-				ExecutableSection sectRSRC = exe.Sections[".rsrc"];
+				ExecutableSection sectRSRC = exec.Sections[".rsrc"];
 				if (sectRSRC != null)
 				{
+					/*
 					byte[] rsrc_data = sectRSRC.Data;
 
 					ResourceObjectModel resources = new ResourceObjectModel();
@@ -306,11 +396,10 @@ Watcom C++ 10.6					W?h$n(i)v				W?h$n(ia)v				W?h$n()v
 						}
 					}
 					#endregion
+					*/
 				}
 			}
 			#endregion
-#endif
-
 			#region Push out Executable to the ObjectModel
 			{
 				if (fsom != null)

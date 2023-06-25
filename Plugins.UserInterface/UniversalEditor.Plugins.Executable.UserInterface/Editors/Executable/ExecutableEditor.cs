@@ -28,6 +28,10 @@ using MBS.Framework.UserInterface.Dialogs;
 using MBS.Framework.UserInterface.Input.Mouse;
 using System.Reflection;
 using System.Text;
+using MBS.Framework.UserInterface.Controls.ListView;
+using MBS.Framework.UserInterface.Controls.SyntaxTextBox;
+using MBS.Framework;
+using System.Collections.Generic;
 
 namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 {
@@ -37,7 +41,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 	[ContainerLayout("~/Editors/Executable/ExecutableEditor.glade")]
 	public class ExecutableEditor : Editor
 	{
-		private ListView tvSections = null;
+		private ListViewControl tvSections = null;
 		private DefaultTreeModel tmSections = null;
 		private DefaultTreeModel lsManagedDisassemblyLanguage;
 
@@ -45,7 +49,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 		private TextBox txtAssemblyName = null;
 		private TextBox txtAssemblyVersion = null;
-		private SyntaxTextBox txtManagedAssemblySource = null;
+		private SyntaxTextBoxControl txtManagedAssemblySource = null;
 
 		private DefaultTreeModel tmOtherInformation = null;
 
@@ -53,9 +57,11 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 		private Button cmdManagedDisassemblySave;
 		private TextBox txtManagedAssemblySearch;
 		private ComboBox cboManagedDisassemblyLanguage;
-		private ListView tvManagedDisassemblyTypes;
+		private ListViewControl tvManagedDisassemblyTypes;
 		private DefaultTreeModel tmManagedDisassemblyTypes;
 		private TextBox txtManagedDisassemblySource;
+
+		private ListViewControl tvResources;
 
 		private static EditorReference _er = null;
 		public override EditorReference MakeReference()
@@ -68,7 +74,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			return _er;
 		}
 
-		protected override EditorSelection CreateSelectionInternal(object content)
+		protected override Selection CreateSelectionInternal(object content)
 		{
 			throw new NotImplementedException();
 		}
@@ -79,7 +85,7 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 		public ExecutableEditor()
 		{
-			Application.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Sections_Selected_CopyTo", ContextMenu_CopyTo_Click);
+			Application.Instance.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Sections_Selected_CopyTo", ContextMenu_CopyTo_Click);
 		}
 
 		private void ContextMenu_CopyTo_Click(object sender, EventArgs e)
@@ -142,6 +148,9 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 			Type[] codeProviders = MBS.Framework.Reflection.GetAvailableTypes(new Type[] { typeof(CodeProvider) });
 			for (int i = 0; i < codeProviders.Length; i++)
 			{
+				if (codeProviders[i].IsAbstract)
+					continue;
+
 				CodeProvider codeProvider = (codeProviders[i].Assembly.CreateInstance(codeProviders[i].FullName) as CodeProvider);
 				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 				{
@@ -156,12 +165,66 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 				cboManagedDisassemblyLanguage.SelectedItem = lsManagedDisassemblyLanguage.Rows[0];
 			}
 
+			Context.AttachCommandEventHandler("ExecutableEditor_ContextMenu_Resources_Selected_CopyTo", ExecutableEditor_ContextMenu_Resources_Selected_CopyTo);
+
 			OnObjectModelChanged(EventArgs.Empty);
+		}
+
+		private void ExecutableEditor_ContextMenu_Resources_Selected_CopyTo(object sender, EventArgs e)
+		{
+			CommandEventArgs ee = (e as CommandEventArgs);
+
+			if (tvResources.SelectedRows.Count == 1)
+			{
+				FileDialog dlg = new FileDialog();
+				dlg.Mode = FileDialogMode.Save;
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					ExecutableResource res = tvResources.SelectedRows[0].GetExtraData<ExecutableResource>("res");
+					if (res.Source != null)
+					{
+						System.IO.File.WriteAllBytes(dlg.SelectedFileName, res.Source.GetData());
+					}
+				}
+			}
+			else if (tvResources.SelectedRows.Count > 1)
+			{
+				FileDialog dlg = new FileDialog();
+				dlg.Mode = FileDialogMode.SelectFolder;
+				if (dlg.ShowDialog() == DialogResult.OK)
+				{
+					foreach (TreeModelRow row in tvResources.SelectedRows)
+					{
+						ExecutableResource res = row.GetExtraData<ExecutableResource>("res");
+						if (res.Source != null)
+						{
+							System.IO.File.WriteAllBytes(System.IO.Path.Combine(dlg.SelectedFileName, res.Identifier.ToString()), res.Source.GetData());
+						}
+					}
+				}
+			}
+		}
+
+		private Dictionary<ExecutableResourceType, EditorDocumentExplorerNode> _resourceNodes = new Dictionary<ExecutableResourceType, EditorDocumentExplorerNode>();
+
+		[EventHandler(nameof(tvResources), nameof(Control.BeforeContextMenu))]
+		private void tvResources_BeforeContextMenu(object sender, EventArgs e)
+		{
+			if (tvResources.SelectedRows.Count > 0)
+			{
+				tvResources.ContextMenuCommandID = "ExecutableEditor_ContextMenu_Resources_Selected";
+			}
+			else
+			{
+				tvResources.ContextMenuCommandID = "ExecutableEditor_ContextMenu_Resources_Unselected";
+			}
 		}
 
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			base.OnObjectModelChanged(e);
+
+			DocumentExplorer.Nodes.Clear();
 
 			if (!IsCreated) return;
 
@@ -189,6 +252,40 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 				}));
 				tmSections.Rows[tmSections.Rows.Count - 1].SetExtraData<ExecutableSection>("section", section);
 			}
+
+			EditorDocumentExplorerNode nodeResources = new EditorDocumentExplorerNode("Resources", StockType.Folder);
+			foreach (ExecutableResource res in executable.Resources)
+			{
+				ExecutableResourceType restype = res.ResourceType;
+				if (!_resourceNodes.ContainsKey(restype))
+				{
+					EditorDocumentExplorerNode nodeResType = new EditorDocumentExplorerNode(restype.Title, StockType.Folder);
+					_resourceNodes[restype] = nodeResType;
+					nodeResources.Nodes.Add(nodeResType);
+				}
+
+				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+				{
+					new TreeModelRowColumn(tvResources.Model.Columns[0], restype.Title),
+					new TreeModelRowColumn(tvResources.Model.Columns[1], res.Identifier.ToString()),
+					new TreeModelRowColumn(tvResources.Model.Columns[2], res.VirtualAddress),
+					new TreeModelRowColumn(tvResources.Model.Columns[3], res.Length)
+				});
+				row.SetExtraData<ExecutableResource>("res", res);
+				tvResources.Model.Rows.Add(row);
+
+				EditorDocumentExplorerNode node;
+				if (restype == ExecutableResourceTypes.Font)
+				{
+					node = new EditorDocumentExplorerNode(res.Identifier.ToString(), StockType.SelectFont);
+				}
+				else
+				{
+					node = new EditorDocumentExplorerNode(res.Identifier.ToString(), StockType.File);
+				}
+				_resourceNodes[restype].Nodes.Add(node);
+			}
+			DocumentExplorer.Nodes.Add(nodeResources);
 
 			if (executable.ManagedAssembly != null)
 			{

@@ -107,6 +107,13 @@
     <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableApplicationFlags.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableTargetOperatingSystem.cs" />
     <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableOS2Flags.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableResourceTableEntry.cs" />
+    <Compile Include="DataFormats\Executable\Microsoft\NewExecutable\NewExecutableResourceType.cs" />
+    <Compile Include="ObjectModels\Executable\ExecutableResourceType.cs" />
+    <Compile Include="ObjectModels\Executable\ExecutableResource.cs" />
+    <Compile Include="ObjectModels\Executable\ExecutableResourceTypes.cs" />
+    <Compile Include="ObjectModels\Executable\ExecutableResourceIdentifier.cs" />
+    <Compile Include="ObjectModels\Executable\ExecutableResourceIdentifierType.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

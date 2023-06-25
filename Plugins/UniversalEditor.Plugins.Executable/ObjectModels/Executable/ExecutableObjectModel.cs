@@ -40,6 +40,8 @@ namespace UniversalEditor.ObjectModels.Executable
 		private ExecutableFunctionCall.ExecutableFunctionCallCollection mvarFunctionCalls = new ExecutableFunctionCall.ExecutableFunctionCallCollection();
 		public ExecutableFunctionCall.ExecutableFunctionCallCollection FunctionCalls { get { return mvarFunctionCalls; } }
 
+		public ExecutableResource.ExecutableResourceCollection Resources { get; } = new ExecutableResource.ExecutableResourceCollection();
+
 		#region Object Model Methods
 		public override void Clear()
 		{
@@ -53,6 +55,7 @@ namespace UniversalEditor.ObjectModels.Executable
 			mvarFunctionCalls.Clear();
 			mvarSubsystem = ExecutableSubsystem.Unknown;
 			mvarTimestamp = DateTime.Now;
+			Resources.Clear();
 		}
 		public override void CopyTo(ObjectModel where)
 		{
@@ -78,6 +81,10 @@ namespace UniversalEditor.ObjectModels.Executable
 			}
 			clone.Subsystem = mvarSubsystem;
 			clone.Timestamp = mvarTimestamp;
+			foreach (ExecutableResource res in Resources)
+			{
+				clone.Resources.Add(res.Clone() as ExecutableResource);
+			}
 		}
 		protected override ObjectModelReference MakeReferenceInternal()
 		{

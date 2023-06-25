@@ -35,9 +35,8 @@
     <Compile Include="Editors\Executable\CodeProviders\CSharpCodeProvider.cs" />
     <Compile Include="Editors\Executable\CodeProviders\VisualBasicCodeProvider.cs" />
     <Compile Include="Editors\Executable\ILOpcode.cs" />
-    <Compile Include="Editors\Executable\NonLayout\ExecutableEditor.cs" />
-    <Compile Include="Editors\Executable\NonLayout\ManagedAssemblyPanel.cs" />
     <Compile Include="Editors\Executable\CodeProviders\ILCodeProvider.cs" />
+    <Compile Include="Editors\Executable\ExecutableEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
@@ -72,7 +71,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Editors\Executable\ExecutableEditor.cs.exclude" />
+    <None Include="Editors\Executable\NonLayout\ExecutableEditor.cs.exclude" />
+    <None Include="Editors\Executable\NonLayout\ManagedAssemblyPanel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

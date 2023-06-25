@@ -228,6 +228,9 @@ namespace UniversalEditor.Plugins.Executable.UserInterface.Editors.Executable
 
 			for (int i = 0; i < codeProviders.Length; i++)
 			{
+				if (codeProviders[i].IsAbstract)
+					continue;
+
 				CodeProvider codeProvider = (codeProviders[i].Assembly.CreateInstance(codeProviders[i].FullName) as CodeProvider);
 				TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
 				{
