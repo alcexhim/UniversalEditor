@@ -359,11 +359,27 @@ namespace UniversalEditor.ObjectModels.FileSystem
 		/// <returns>The number of bytes written to the <see cref="Writer" />.</returns>
 		public long WriteTo(Writer bw, FileSourceTransformation[] transformations = null)
 		{
+			FileSource source = null;
+			if (Source != null)
+			{
+				source = Source;
+			}
+			else if (DataRequest != null)
+			{
+				DataRequestEventArgs dre = new DataRequestEventArgs();
+				DataRequest.Invoke(this, dre);
+				source = new MemoryFileSource(dre.Data);
+			}
+			else
+			{
+				throw new InvalidOperationException("neither Source nor DataRequest for file data");
+			}
+
 			long count = 0;
 			long blockSize = (System.Environment.SystemPageSize / BLOCK_FRACTION);
 
 			long offset = 0;
-			double dbl = ((double)Source.GetLength() / (double)blockSize);
+			double dbl = ((double)source.GetLength() / (double)blockSize);
 			long blockCount = (long)Math.Ceiling(dbl);
 
 			if (transformations != null)
@@ -373,8 +389,8 @@ namespace UniversalEditor.ObjectModels.FileSystem
 
 			for (long i = 0; i < blockCount; i++)
 			{
-				byte[] data = Source.GetDataInternal(offset, blockSize);
-				offset += blockSize;
+				byte[] data = source.GetDataInternal(offset, blockSize);
+				offset += data.Length;
 
 				bw.WriteBytes(data);
 				count += data.Length;

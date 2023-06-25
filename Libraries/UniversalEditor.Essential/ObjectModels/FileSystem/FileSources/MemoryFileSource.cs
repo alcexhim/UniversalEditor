@@ -44,6 +44,9 @@ namespace UniversalEditor.ObjectModels.FileSystem.FileSources
 		{
 			long realLength = Math.Min(length, Data.Length);
 			byte[] realData = Data.ToArray();
+			long remaining = realData.Length - offset;
+			realLength = Math.Min(realLength, remaining);
+
 			byte[] data = new byte[realLength];
 			Array.Copy(realData, offset, data, 0, realLength);
 			return data;
