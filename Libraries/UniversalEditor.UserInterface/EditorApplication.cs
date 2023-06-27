@@ -883,6 +883,12 @@ namespace UniversalEditor.UserInterface
 					}
 				}
 			});
+			Application.Instance.AttachCommandEventHandler("EditSelectAll", delegate (object sender, EventArgs e)
+			{
+				Editor editor = LastWindow.GetCurrentEditor();
+				if (editor == null) return;
+				editor.SelectAll();
+			});
 			Application.Instance.AttachCommandEventHandler("EditBatchFindReplace", delegate (object sender, EventArgs e)
 			{
 				if (LastWindow == null) return;

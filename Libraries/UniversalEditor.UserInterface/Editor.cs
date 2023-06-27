@@ -912,5 +912,13 @@ namespace UniversalEditor.UserInterface
 		{
 			get { return GetDocumentPropertiesSettingsProviders().Length > 0; }
 		}
+
+		public virtual void SelectAll()
+		{
+			/*
+			Selection[] sel = editor.GetAvailableSelections();
+			editor.Selections.AddRange(sel);
+			*/
+		}
 	}
 }
