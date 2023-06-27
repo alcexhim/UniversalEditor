@@ -22,6 +22,8 @@ using System;
 using MBS.Framework.UserInterface;
 using MBS.Framework.UserInterface.Controls;
 using MBS.Framework.UserInterface.Controls.ListView;
+using MBS.Framework.UserInterface.Input.Keyboard;
+using MBS.Framework.UserInterface.Input.Mouse;
 using UniversalEditor.ObjectModels.Multimedia.Font.Bitmap;
 using UniversalEditor.ObjectModels.Multimedia.Picture;
 using UniversalEditor.UserInterface;
@@ -49,6 +51,34 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Fo
 			return _er;
 		}
 
+		private double _Zoom = 1.0;
+		public double Zoom
+		{
+			get { return _Zoom; }
+			set
+			{
+				_Zoom = value;
+				Refresh();
+			}
+		}
+
+		[EventHandler(nameof(canvas), nameof(Control.MouseWheel))]
+		private void canvas_MouseWheel(object sender, MouseEventArgs e)
+		{
+			if ((e.ModifierKeys & KeyboardModifierKey.Control) == KeyboardModifierKey.Control)
+			{
+				if (e.DeltaY > 0)
+				{
+					Zoom--;
+				}
+				else if (e.DeltaY < 0)
+				{
+					Zoom++;
+				}
+				e.Cancel = true;
+			}
+		}
+
 		protected override void OnObjectModelChanged(EventArgs e)
 		{
 			if (IsCreated)
@@ -71,6 +101,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Fo
 						if (glyph.Picture != null)
 						{
 							image = glyph.Picture.ToImage();
+							_glyphs2[glyph.Character] = glyph.Picture;
 						}
 						else if (pixmap.Picture != null)
 						{
@@ -81,11 +112,13 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Fo
 								pixmap.Picture.CopyTo(pic, glyph.X, glyph.Y, font.Size.Width, font.Size.Height);
 
 								image = pic.ToImage();
+								_glyphs2[glyph.Character] = pic;
 							}
 							else
 							{
 								// pixmap size equal to font size - pixmap is one per glyph
 								image = pixmap.Picture.ToImage();
+								_glyphs2[glyph.Character] = pixmap.Picture;
 							}
 						}
 
@@ -118,6 +151,7 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Fo
 		}
 
 		private System.Collections.Generic.Dictionary<char, MBS.Framework.UserInterface.Drawing.Image> _glyphs = new System.Collections.Generic.Dictionary<char, MBS.Framework.UserInterface.Drawing.Image>();
+		private System.Collections.Generic.Dictionary<char, PictureObjectModel> _glyphs2 = new System.Collections.Generic.Dictionary<char, PictureObjectModel>();
 
 		[EventHandler(nameof(canvas), nameof(Paint))]
 		private void canvas_Paint(object sender, PaintEventArgs e)
@@ -125,15 +159,28 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Fo
 			e.Graphics.Clear(MBS.Framework.Drawing.Colors.Black);
 
 			int x = 16, y = 16;
+
+			BitmapFontObjectModel font = (ObjectModel as BitmapFontObjectModel);
+
 			for (int i = 0; i < txtRenderTest.Text.Length; i++)
 			{
-				BitmapFontObjectModel font = (ObjectModel as BitmapFontObjectModel);
+				double w = font.Size.Width, h = font.Size.Height;
 				if (_glyphs.ContainsKey(txtRenderTest.Text[i]))
 				{
+					PictureObjectModel pic = _glyphs2[txtRenderTest.Text[i]];
 					MBS.Framework.UserInterface.Drawing.Image image = _glyphs[txtRenderTest.Text[i]];
-					e.Graphics.DrawImage(image, x, y);
+					w = image.Width;
+					h = image.Height;
+
+					try
+					{
+						e.Graphics.DrawImage(image, x + (pic.Left * Zoom), y + (pic.Top * Zoom), w * Zoom, h * Zoom);
+					}
+					catch (Exception ex)
+					{
+					}
 				}
-				x += (int)font.Size.Width;
+				x += (int)(w * Zoom);
 			}
 		}
 
