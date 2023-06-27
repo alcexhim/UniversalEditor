@@ -192,6 +192,9 @@ namespace UniversalEditor.ObjectModels.Multimedia.Picture
 			InitializeBitmapData(ref bitmapData, Width, Height);
 		}
 
+		public int Left { get; set; } = 0;
+		public int Top { get; set; } = 0;
+
 		private int mvarWidth = 1;
 		public int Width
 		{
