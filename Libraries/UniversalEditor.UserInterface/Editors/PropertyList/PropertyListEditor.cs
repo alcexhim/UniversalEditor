@@ -92,6 +92,11 @@ namespace UniversalEditor.Editors.PropertyList
 			Group group = e.Row.GetExtraData<Group>("group");
 			Property property = e.Row.GetExtraData<Property>("property");
 
+			if (e.NewValue == e.OldValue)
+				return;
+
+			BeginEdit();
+
 			if (e.Column == tv.Model.Columns[0])
 			{
 				// changing the Name
@@ -116,6 +121,8 @@ namespace UniversalEditor.Editors.PropertyList
 					property.Value = e.NewValue;
 				}
 			}
+
+			EndEdit();
 		}
 
 		private int GetNextIndex<T>(IPropertyListContainer parent = null) where T : PropertyListItem
