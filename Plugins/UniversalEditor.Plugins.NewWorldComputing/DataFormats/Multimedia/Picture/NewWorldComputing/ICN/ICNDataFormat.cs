@@ -184,10 +184,8 @@ namespace UniversalEditor.DataFormats.Multimedia.Picture.NewWorldComputing.ICN
 				SpriteHeader sh = shs[i];
 
 				PictureObjectModel pic = new PictureObjectModel();
-				/*
 				pic.Left = sh.offsetX;
 				pic.Top = sh.offsetY;
-				*/
 				pic.Width = sh.width;
 				pic.Height = sh.height;
 

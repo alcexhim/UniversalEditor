@@ -40,7 +40,6 @@
     <Compile Include="DataFormats\Multimedia\Picture\NewWorldComputing\ICN\ICNDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\NewWorldComputing\BMP\BMPDataFormat.cs" />
     <Compile Include="DataFormats\NewWorldComputing\CC\CCDataFormat.cs" />
-    <Compile Include="DataFormats\NewWorldComputing\FNT\FNTDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Audio\NewWorldComputing\Eight2MDataFormat.cs" />
     <Compile Include="DataFormats\NewWorldComputing\Campaign\Heroes4CampaignDataFormat.cs" />
     <Compile Include="DataFormats\FileSystem\NewWorldComputing\LOD\Heroes3LODDataFormat.cs" />
@@ -104,6 +103,12 @@
     <Compile Include="DataFormats\NewWorldComputing\Animation\BINAnimationType.cs" />
     <Compile Include="DataFormats\Multimedia\Picture\NewWorldComputing\PCX\PCXDataFormat.cs" />
     <Compile Include="DataFormats\Multimedia\Palette\NewWorldComputing\RIFFPaletteDataFormat.cs" />
+    <Compile Include="DataFormats\FreeHeroes2Configuration\BINDataFormat.cs" />
+    <Compile Include="DataFormats\FreeHeroes2Configuration\FH2GameFlags.cs" />
+    <Compile Include="DataFormats\FreeHeroes2Configuration\FH2WorldFlags.cs" />
+    <Compile Include="DataFormats\FreeHeroes2Configuration\FH2BattleFlags.cs" />
+    <Compile Include="DataFormats\FreeHeroes2Configuration\FH2AddonFlags.cs" />
+    <Compile Include="DataFormats\Multimedia\Font\Bitmap\Heroes2FNTDataFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">
@@ -149,6 +154,10 @@
     <Folder Include="DataFormats\Multimedia\Picture\NewWorldComputing\PCX\" />
     <Folder Include="Associations\" />
     <Folder Include="Associations\NewWorldComputing\" />
+    <Folder Include="DataFormats\FreeHeroes2Configuration\" />
+    <Folder Include="Associations\FreeHeroes2\" />
+    <Folder Include="DataFormats\Multimedia\Font\" />
+    <Folder Include="DataFormats\Multimedia\Font\Bitmap\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\NewWorldComputing\NWCCampaign.uexml" />
@@ -160,6 +169,10 @@
     <EmbeddedResource Include="Associations\NewWorldComputing\NWCPicture.uexml" />
     <EmbeddedResource Include="Associations\NewWorldComputing\NWCResourceBIN.uexml" />
     <EmbeddedResource Include="Associations\NewWorldComputing\NWCSound.uexml" />
+    <EmbeddedResource Include="Associations\FreeHeroes2\FH2ConfigurationBIN.uexml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataFormats\NewWorldComputing\FNT\FNTDataFormat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

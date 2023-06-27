@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniversalEditor Version="4.0">
+	<Associations>
+		<Association>
+			<Filters>
+				<Filter Title="Free Heroes II pre-1.0 BIN configuration" HintComparison="MagicThenFilter">
+					<FileNameFilters>
+						<FileNameFilter>*.bin</FileNameFilter>
+					</FileNameFilters>
+					<MagicByteSequences>
+						<MagicByteSequence>
+							<MagicByte Type="HexString">0CC50000</MagicByte>
+						</MagicByteSequence>
+					</MagicByteSequences>
+				</Filter>
+			</Filters>
+			<ObjectModels>
+				<ObjectModel TypeName="UniversalEditor.ObjectModels.PropertyList.PropertyListObjectModel" />
+			</ObjectModels>
+			<DataFormats>
+				<DataFormat TypeName="UniversalEditor.DataFormats.FreeHeroes2Configuration.BINDataFormat" />
+			</DataFormats>
+		</Association>
+	</Associations>
+</UniversalEditor>
