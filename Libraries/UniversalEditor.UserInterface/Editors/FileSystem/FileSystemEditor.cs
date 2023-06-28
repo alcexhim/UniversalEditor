@@ -51,6 +51,19 @@ namespace UniversalEditor.Editors.FileSystem
 
 		private const int DELIVERED_COLUMNS_COUNT = 5;
 
+		public override void SelectAll()
+		{
+			base.SelectAll();
+
+			// FIXME: this should be handled using Selections
+			tv.SelectedRows.Clear();
+
+			foreach (TreeModelRow row in tv.Model.Rows)
+			{
+				tv.SelectedRows.Add(row);
+			}
+		}
+
 		private string GetInvalidFileNameChars(FileSystemObjectModel fsom)
 		{
 			string invalidPathChars = ((UIApplication)Application.Instance).GetSetting<string>(FileSystemEditorSettingsGuids.InvalidPathChars);
@@ -697,7 +710,7 @@ namespace UniversalEditor.Editors.FileSystem
 				{
 					new TreeModelRowColumn(tm.Columns[0], f.Name),
 					new TreeModelRowColumn(tm.Columns[1], UserInterface.Common.FileInfo.FormatSize(f.Size)),
-					new TreeModelRowColumn(tm.Columns[2], "File"),
+					new TreeModelRowColumn(tm.Columns[2], f.Name.Contains(".") ? String.Format("{0} file",  System.IO.Path.GetExtension(f.Name).Substring(1)) : "File"),
 					new TreeModelRowColumn(tm.Columns[3], f.ModificationTimestamp.ToString()),
 					new TreeModelRowColumn(tm.Columns[4], Image.FromStock(StockType.File, 16))
 				});
