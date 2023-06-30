@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UniversalEditor Version="5.0">
+	<Editors>
+		<Editor ID="{1a47fee2-eb61-4ce8-a297-4d6988b1680c}" TypeName="UniversalEditor.Editors.PartitionedFileSystem.PartitionedFileSystemEditor" Title="Partitioned File System Editor">
+			<Contexts>
+				<Context ID="{7a21bf07-b17d-4c2f-9ac5-9760ab0aec33}" Name="Tree View - File System Editor" />
+			</Contexts>
+			<Commands>
+				<Command ID="PartitionedFileSystemEditor_tvPartitions_ContextMenu_CopyTo" Title="_Copy To..." />
+
+				<Command ID="PartitionedFileSystemEditor_tvPartitions_ContextMenu_Unselected" Title="PartitionedFileSystemEditor tvPartitions ContextMenu Unselected">
+					<Items>
+						<CommandReference CommandID="PartitionedFileSystemEditor_tvPartitions_ContextMenu_CopyTo" />
+						<Separator />
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+			</Commands>
+		</Editor>
+	</Editors>
+</UniversalEditor>

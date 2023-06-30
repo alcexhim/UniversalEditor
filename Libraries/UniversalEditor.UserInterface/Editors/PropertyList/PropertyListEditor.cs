@@ -59,6 +59,7 @@ namespace UniversalEditor.Editors.PropertyList
 			{
 				Group group = row.GetExtraData<Group>("group");
 				Property property = row.GetExtraData<Property>("property");
+				Comment comment = row.GetExtraData<Comment>("comment");
 				if (group != null)
 				{
 					Selections.Add(new PropertyListSelection(ObjectModel as PropertyListObjectModel, group));
@@ -67,6 +68,10 @@ namespace UniversalEditor.Editors.PropertyList
 				{
 					Selections.Add(new PropertyListSelection(ObjectModel as PropertyListObjectModel, property));
 				}
+				else if (comment != null)
+				{
+					Selections.Add(new PropertyListSelection(ObjectModel as PropertyListObjectModel, comment));
+				}
 			}
 		}
 
@@ -74,8 +79,11 @@ namespace UniversalEditor.Editors.PropertyList
 		{
 			base.OnCreated(e);
 
+			tv.BeforeContextMenu += tv_BeforeContextMenu;
+
 			Context.AttachCommandEventHandler("PropertyListContextMenu_New_Property", PropertyListContextMenu_New_Property);
 			Context.AttachCommandEventHandler("PropertyListContextMenu_New_Group", PropertyListContextMenu_New_Group);
+			Context.AttachCommandEventHandler("PropertyListContextMenu_New_Comment", PropertyListContextMenu_New_Comment);
 
 			OnObjectModelChanged(EventArgs.Empty);
 		}
@@ -91,6 +99,7 @@ namespace UniversalEditor.Editors.PropertyList
 		{
 			Group group = e.Row.GetExtraData<Group>("group");
 			Property property = e.Row.GetExtraData<Property>("property");
+			Comment comment = e.Row.GetExtraData<Comment>("comment");
 
 			if (e.NewValue == e.OldValue)
 				return;
@@ -119,6 +128,10 @@ namespace UniversalEditor.Editors.PropertyList
 				else if (property != null)
 				{
 					property.Value = e.NewValue;
+				}
+				else if (comment != null)
+				{
+					comment.Text = e.NewValue?.ToString();
 				}
 			}
 
@@ -149,17 +162,33 @@ namespace UniversalEditor.Editors.PropertyList
 			return lastIndex + 1;
 		}
 
-		private void PropertyListContextMenu_New_Property(object sender, EventArgs e)
+		private IPropertyListContainer GetSelectedParent(out TreeModelRow rowParent)
 		{
-			Property p = new Property();
-
-			TreeModelRow rowParent = null;
+			rowParent = null;
 			IPropertyListContainer parent = ObjectModel as PropertyListObjectModel;
 			if (tv.SelectedRows.Count == 1)
 			{
 				rowParent = tv.SelectedRows[0];
 				parent = rowParent.GetExtraData<Group>("group");
+				while (parent == null)
+				{
+					rowParent = rowParent.ParentRow;
+					if (rowParent == null)
+					{
+						parent = ObjectModel as PropertyListObjectModel;
+						break;
+					}
+					parent = rowParent.GetExtraData<Group>("group");
+				}
 			}
+			return parent;
+		}
+
+		private void PropertyListContextMenu_New_Property(object sender, EventArgs e)
+		{
+			Property p = new Property();
+
+			IPropertyListContainer parent = GetSelectedParent(out TreeModelRow rowParent);
 
 			p.Name = String.Format("New Property {0}", GetNextIndex<Property>());
 			parent.Items.Add(p);
@@ -169,17 +198,21 @@ namespace UniversalEditor.Editors.PropertyList
 		{
 			Group p = new Group();
 
-			TreeModelRow rowParent = null;
-			IPropertyListContainer parent = ObjectModel as PropertyListObjectModel;
-			if (tv.SelectedRows.Count == 1)
-			{
-				rowParent = tv.SelectedRows[0];
-				parent = rowParent.GetExtraData<Group>("group");
-			}
+			IPropertyListContainer parent = GetSelectedParent(out TreeModelRow rowParent);
 
 			p.Name = String.Format("New Group {0}", GetNextIndex<Group>());
 			parent.Items.Add(p);
 			RecursiveAddGroup(p, rowParent);
+		}
+		private void PropertyListContextMenu_New_Comment(object sender, EventArgs e)
+		{
+			Comment p = new Comment();
+
+			IPropertyListContainer parent = GetSelectedParent(out TreeModelRow rowParent);
+
+			p.Text = "Your comment here";
+			parent.Items.Add(p);
+			RecursiveAddComment(p, rowParent);
 		}
 
 		[EventHandler(nameof(tv), nameof(ListViewControl.SelectionChanged))]
@@ -276,6 +309,25 @@ namespace UniversalEditor.Editors.PropertyList
 				}
 			}
 			row.SetExtraData<Group>("group", g);
+		}
+		private void RecursiveAddComment(Comment p, TreeModelRow parent = null)
+		{
+			TreeModelRow row = new TreeModelRow(new TreeModelRowColumn[]
+			{
+				new TreeModelRowColumn(tm.Columns[0], "//"),
+				new TreeModelRowColumn(tm.Columns[1], p.Text),
+				new TreeModelRowColumn(tm.Columns[2], Image.FromStock(StockType.Info, 16))
+			});
+
+			if (parent == null)
+			{
+				tm.Rows.Add(row);
+			}
+			else
+			{
+				parent.Rows.Add(row);
+			}
+			row.SetExtraData<Comment>("comment", p);
 		}
 	}
 }

@@ -390,6 +390,8 @@
     <Content Include="Editors\Roland\VDrumKit\TD20\Sounds\Tom\TR808.uexml" />
     <Content Include="Editors\Roland\VDrumKit\TD20\Sounds\Tom\TR909.uexml" />
     <Content Include="Editors\Multimedia\Font\Bitmap\BitmapFontEditor.glade" />
+    <Content Include="Editors\PartitionedFileSystem\PartitionedFileSystemEditor.glade" />
+    <Content Include="Editors\PartitionedFileSystem\Commands.uexml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\Application.upl" />
@@ -454,6 +456,7 @@
     <Folder Include="Editors\Roland\VDrumKit\TD12\" />
     <Folder Include="Editors\Roland\VDrumKit\TD17\" />
     <Folder Include="Editors\Roland\VDrumKit\TD20EXP\" />
+    <Folder Include="Editors\PartitionedFileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Project\Concertroid\Images\Concert.xcf" />

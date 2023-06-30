@@ -11,11 +11,14 @@
 			<Commands>
 				<Command ID="PropertyListContextMenu_New_Property" Title="_Property" />
 				<Command ID="PropertyListContextMenu_New_Group" Title="_Group" />
+				<Command ID="PropertyListContextMenu_New_Comment" Title="_Comment" />
 
 				<Command ID="PropertyListContextMenu_New" Title="_New">
 					<Items>
 						<CommandReference CommandID="PropertyListContextMenu_New_Property" />
 						<CommandReference CommandID="PropertyListContextMenu_New_Group" />
+						<Separator />
+						<CommandReference CommandID="PropertyListContextMenu_New_Comment" />
 					</Items>
 				</Command>
 

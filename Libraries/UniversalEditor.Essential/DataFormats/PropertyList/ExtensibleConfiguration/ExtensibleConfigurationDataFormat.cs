@@ -69,12 +69,28 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 				if (nextString.StartsWith(Settings.SingleLineCommentStart))
 				{
 					string comment = tr.ReadLine();
+					if (nextGroup != null)
+					{
+						nextGroup.Items.Add(new Comment(comment));
+					}
+					else
+					{
+						plom.Items.Add(new Comment(comment));
+					}
 				}
 				if (nextString.StartsWith(Settings.MultiLineCommentStart))
 				{
 					string comment = tr.ReadUntil(Settings.MultiLineCommentEnd);
 					string cmntend = tr.ReadFixedLengthString(Settings.MultiLineCommentEnd.Length);
 					nextString = String.Empty;
+					if (nextGroup != null)
+					{
+						nextGroup.Items.Add(new Comment(comment));
+					}
+					else
+					{
+						plom.Items.Add(new Comment(comment));
+					}
 					continue;
 				}
 
@@ -193,12 +209,29 @@ namespace UniversalEditor.DataFormats.PropertyList.ExtensibleConfiguration
 					tw.Write(Settings.PropertyNameSuffix);
 					tw.Write(Settings.PropertyNameValueSeparator);
 					tw.Write(Settings.PropertyValuePrefix);
-					tw.WriteFixedLengthString((p as Property).Value.ToString());
+					tw.WriteFixedLengthString((p as Property).Value?.ToString());
 					tw.Write(Settings.PropertyValueSuffix);
+					tw.WriteLine();
 				}
 				else if (p is Group)
 				{
 					this.WriteGroup(tw, (p as Group), 0);
+				}
+				else if (p is Comment)
+				{
+					Comment c = (Comment)p;
+					if (c.Text.Contains("\r") || c.Text.Contains("\n"))
+					{
+						tw.WriteLine(Settings.MultiLineCommentStart);
+						tw.WriteLine(c.Text);
+						tw.WriteLine(Settings.MultiLineCommentEnd);
+					}
+					else
+					{
+						tw.Write(Settings.SingleLineCommentStart);
+						tw.Write(' ');
+						tw.WriteLine(c.Text);
+					}
 				}
 			}
 			tw.Flush();

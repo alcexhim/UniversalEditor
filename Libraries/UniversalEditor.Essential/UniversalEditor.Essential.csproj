@@ -228,6 +228,17 @@
     <Compile Include="ObjectModels\Markup\IMarkupElementContainer.cs" />
     <Compile Include="ObjectModels\Markup\MarkupDefinition.cs" />
     <Compile Include="ObjectModels\FileSystem\FileSources\ObjectModelFileSource.cs" />
+    <Compile Include="ObjectModels\PropertyList\Comment.cs" />
+    <Compile Include="DataFormats\PartitionedFileSystem\MBR\MBRDataFormat.cs" />
+    <Compile Include="ObjectModels\PartitionedFileSystem\PartitionedFileSystemObjectModel.cs" />
+    <Compile Include="DataFormats\PartitionedFileSystem\MBR\MBRPartitionEntry.cs" />
+    <Compile Include="DataFormats\PartitionedFileSystem\MBR\MBRPartitionEntryStatus.cs" />
+    <Compile Include="DataFormats\PartitionedFileSystem\MBR\MBRPartitionType.cs" />
+    <Compile Include="ObjectModels\PartitionedFileSystem\Partition.cs" />
+    <Compile Include="ObjectModels\PartitionedFileSystem\PartitionFlags.cs" />
+    <Compile Include="ObjectModels\PartitionedFileSystem\CHSPartitionAddress.cs" />
+    <Compile Include="ObjectModels\PartitionedFileSystem\PartitionType.cs" />
+    <Compile Include="ObjectModels\PartitionedFileSystem\PartitionDataRequestEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversalEditor.Core\UniversalEditor.Core.csproj">
@@ -275,10 +286,14 @@
     <Folder Include="DataFormats\Package\OpenDocument\Internal\ManifestXML\" />
     <Folder Include="DataFormats\Markup\BML\" />
     <Folder Include="DataFormats\Markup\BML\Internal\" />
+    <Folder Include="DataFormats\PartitionedFileSystem\" />
+    <Folder Include="DataFormats\PartitionedFileSystem\MBR\" />
+    <Folder Include="ObjectModels\PartitionedFileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Associations\PlainText.uexml" />
     <EmbeddedResource Include="Associations\BML.uexml" />
+    <EmbeddedResource Include="Associations\MBR.uexml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ObjectModels\Chunked\RIFFMetadata.cs">
