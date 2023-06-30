@@ -242,12 +242,12 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 			byte[] bootstrapProgram = br.ReadBytes(448);
 
 			// The number of blocks that appear before the root directory is given by:
-			int numBlocksBeforeRootDir = (mvarBiosParameterBlock.FileAllocationTableCount * mvarBiosParameterBlock.SectorsPerFAT16) + 1;
-			long numBytesBeforeRootDir = (long)mvarBiosParameterBlock.BytesPerSector * numBlocksBeforeRootDir;
+			int firstDataSector = mvarBiosParameterBlock.ReservedSectorCount + (mvarBiosParameterBlock.FileAllocationTableCount * mvarBiosParameterBlock.SectorsPerFAT16);
+			long firstDataSectorOffset = (long)mvarBiosParameterBlock.BytesPerSector * firstDataSector;
 
 			int bytesOccupiedByRootDirEntries = (mvarBiosParameterBlock.MaximumRootDirectoryEntryCount * 32);
 
-			br.Accessor.Position = numBytesBeforeRootDir;
+			br.Accessor.Position = firstDataSectorOffset;
 
 			List<FATFileInfo> fileInfos = new List<FATFileInfo>();
 
@@ -269,11 +269,16 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 					else if (fileNameBytes[0] == 0x05)
 					{
 						// Initial character is actually 0xE5. (since DOS 3.0)
+						// 0xE5 is actually a valid KANJI lead byte value for the character set
+						// used in Japan. The special 0x05 value is used so that this special
+						// file name case for Japan can be handled properly and not cause FAT file
+						// system code to think that the entry is free.
 						//
 						// Under DR DOS 6.0 and higher, including PalmDOS, Novell DOS and OpenDOS,
 						// 0x05 is also used for pending delete files under DELWATCH. Once they are
 						// removed from the deletion tracking queue, the first character of an erased
 						// file is replaced by 0xE5.
+						fileNameBytes[0] = 0xE5;
 					}
 					else if (fileNameBytes[0] == 0x2E)
 					{
@@ -288,9 +293,8 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 						// (The reason, why 0xE5 was chosen for this purpose in 86-DOS is down to the
 						// fact, that 8-inch CP/M floppies came pre-formatted with this value filled
 						// and so could be used to store files out-of-the box.)
+						fileIsDeleted = true;
 					}
-
-					fileIsDeleted = (fileNameBytes[0] == 0xE5);
 
 					string fileName = System.Text.Encoding.ASCII.GetString(fileNameBytes).Trim();
 					if (fileName[0] == '\0') break;
@@ -614,7 +618,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 
 						if ((fileAttributes & FATFileAttributes.Subdirectory) == FATFileAttributes.Subdirectory)
 						{
-							long firstSectorOffset = (long)numBytesBeforeRootDir + bytesOccupiedByRootDirEntries;
+							long firstSectorOffset = (long)firstDataSectorOffset + bytesOccupiedByRootDirEntries;
 							int realSectorIndex = fi.Offset - 2; //  2;
 							long fileOffset = (firstSectorOffset + (realSectorIndex * mvarBiosParameterBlock.BytesPerSector));
 
@@ -638,7 +642,7 @@ namespace UniversalEditor.DataFormats.FileSystem.FAT
 				for (int i = 0; i < fileInfos.Count; i++)
 				{
 					FATFileInfo fi = fileInfos[i];
-					long firstSectorOffset = (long)numBytesBeforeRootDir + bytesOccupiedByRootDirEntries;
+					long firstSectorOffset = (long)firstDataSectorOffset + bytesOccupiedByRootDirEntries;
 					int realSectorIndex = fi.Offset - 2; //  2;
 					long fileOffset = (firstSectorOffset + (realSectorIndex * mvarBiosParameterBlock.BytesPerSector));
 
