@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using UniversalEditor.Accessors;
 using UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS.Attributes;
 using UniversalEditor.IO;
 using UniversalEditor.ObjectModels.FileSystem;
@@ -154,11 +155,18 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS
 					break;
 				}
 
-				if (attr is NTFSFileNameAttribute)
+				if (attr is NTFSFileNameAttribute attName)
 				{
-					NTFSFileNameAttribute att = (attr as NTFSFileNameAttribute);
-					file.Name = att.FileName;
-					file.Size = att.AllocatedSize;
+					file.Name = attName.FileName;
+					file.Size = attName.ActualSize;
+				}
+				else if (attr is NTFSStandardInformationAttribute attStandard)
+				{
+					file.ModificationTimestamp = attStandard.ModificationDateTime;
+				}
+				else if (attr is NTFSDataAttribute attData)
+				{
+					file.SetData(attData.Data);
 				}
 
 				if (!keepgoing)
@@ -173,12 +181,12 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS
 		private bool ReadAttribute(Reader reader, out NTFSMftKnownAttribute type, out NTFSAttribute attr)
 		{
 			long thisoffset = reader.Accessor.Position;
+			attr = null;
 
 			NTFSMftKnownAttribute attributeId = (NTFSMftKnownAttribute)reader.ReadInt32();
 			type = attributeId;
 			if (attributeId == NTFSMftKnownAttribute.End)
 			{
-				attr = null;
 				return false;
 			}
 
@@ -195,45 +203,57 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS
 				ushort contentOffset = reader.ReadUInt16();
 
 				reader.Seek(thisoffset + contentOffset, SeekOrigin.Begin);
+
+				byte[] attributeData = reader.ReadBytes(contentSize);
+				MemoryAccessor ma = new MemoryAccessor(attributeData);
+
 				switch (attributeId)
 				{
 					case NTFSMftKnownAttribute.StandardInformation:
 					{
 						NTFSStandardInformationAttribute att = new NTFSStandardInformationAttribute();
-						long creationDateTime = reader.ReadInt64();
-						long modificationDateTime = reader.ReadInt64();
-						long mftModificationDateTime = reader.ReadInt64();
-						long readDateTime = reader.ReadInt64();
-						int dosFilePermissions = reader.ReadInt32();
-						int maxVersionCount = reader.ReadInt32();
-						int versionNumber = reader.ReadInt32();
-						int classId = reader.ReadInt32();
-						int ownerId = reader.ReadInt32();
-						int securityId = reader.ReadInt32();
-						long quotaCharged = reader.ReadInt64();
-						long updateSequenceNumber = reader.ReadInt64();
+						long creationDateTime = ma.Reader.ReadInt64();
+						att.CreationDateTime = new DateTime(creationDateTime);
+						long modificationDateTime = ma.Reader.ReadInt64();
+						att.ModificationDateTime = new DateTime(modificationDateTime);
+						long mftModificationDateTime = ma.Reader.ReadInt64();
+						att.MftModificationDateTime = new DateTime(mftModificationDateTime);
+						long readDateTime = ma.Reader.ReadInt64();
+						att.ReadDateTime = new DateTime(readDateTime);
+						int dosFilePermissions = ma.Reader.ReadInt32();
+						int maxVersionCount = ma.Reader.ReadInt32();
+						int versionNumber = ma.Reader.ReadInt32();
+						int classId = ma.Reader.ReadInt32();
+						if (!ma.Reader.EndOfStream)
+						{
+							int ownerId = ma.Reader.ReadInt32();
+							int securityId = ma.Reader.ReadInt32();
+							long quotaCharged = ma.Reader.ReadInt64();
+							long updateSequenceNumber = ma.Reader.ReadInt64();
+						}
 						attr = att;
 						break;
 					}
 					case NTFSMftKnownAttribute.FileName:
 					{
 						NTFSFileNameAttribute att = new NTFSFileNameAttribute();
-						long parentDirectoryFileref = reader.ReadInt64();
-						long creationDateTime = reader.ReadInt64();
+						long parentDirectoryFileref = ma.Reader.ReadInt64();
+						long creationDateTime = ma.Reader.ReadInt64();
 						att.CreationDateTime = new DateTime(creationDateTime);
-						long modificationDateTime = reader.ReadInt64();
+						long modificationDateTime = ma.Reader.ReadInt64();
 						att.ModificationDateTime = new DateTime(modificationDateTime);
-						long mftModificationDateTime = reader.ReadInt64();
-						long readDateTime = reader.ReadInt64();
+						long mftModificationDateTime = ma.Reader.ReadInt64();
+						long readDateTime = ma.Reader.ReadInt64();
 						att.AccessDateTime = new DateTime(readDateTime);
-						att.AllocatedSize = reader.ReadInt64();
-						att.ActualSize = reader.ReadInt64();
-						int fileNameFlags = reader.ReadInt32();
-						int reparse = reader.ReadInt32();
+						att.AllocatedSize = ma.Reader.ReadInt64();
+						att.ActualSize = ma.Reader.ReadInt64();
+						int fileNameFlags = ma.Reader.ReadInt32();
+						int reparse = ma.Reader.ReadInt32();
 						// int securityId = reader.ReadInt32();
-						byte fileNameLength = reader.ReadByte();
-						byte fileNameNamespace = reader.ReadByte();
-						string fileNameUnicode = reader.ReadFixedLengthString(fileNameLength * 2, Encoding.UTF16LittleEndian);
+						byte fileNameLength = ma.Reader.ReadByte();
+						NTFSFileNameNamespace fileNameNamespace = (NTFSFileNameNamespace)ma.Reader.ReadByte();
+						att.FileNameNamespace = fileNameNamespace;
+						string fileNameUnicode = ma.Reader.ReadFixedLengthString(fileNameLength * 2, Encoding.UTF16LittleEndian);
 						att.FileName = fileNameUnicode;
 
 						attr = att;
@@ -242,7 +262,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS
 					case NTFSMftKnownAttribute.Data:
 					{
 						NTFSDataAttribute att = new NTFSDataAttribute();
-						att.Data = reader.ReadBytes(attributeLength);
+						att.Data = attributeData;
 						attr = att;
 						break;
 					}
@@ -260,18 +280,47 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS
 			}
 			else
 			{
-				long runlistStartingVirtualClusterNumber = reader.ReadInt64();
-				long runlistEndingVirtualClusterNumber = reader.ReadInt64();
-				ushort runlistOffset = reader.ReadUInt16();
+				long startingVirtualClusterNumber = reader.ReadInt64();
+				long endingVirtualClusterNumber = reader.ReadInt64();
+				ushort runlistOffset = reader.ReadUInt16(); // relative from start of attribute
 				ushort compressionUnitSize = reader.ReadUInt16();
 				uint unused = reader.ReadUInt32();
 				ulong attributeContentAllocatedSize = reader.ReadUInt64();
 				ulong attributeContentActualSize = reader.ReadUInt64();
 				ulong attributeContentInitializedSize = reader.ReadUInt64();
 
-				SeekToCluster(runlistStartingVirtualClusterNumber);
+				Accessor.Seek(thisoffset + runlistOffset, SeekOrigin.Begin);
 
-				attr = null;
+				while (true)
+				{
+					byte clusterBlockValueSize = reader.ReadByte();
+					if (clusterBlockValueSize == 0x00)
+						break;
+
+					byte nClusterBlocksValueSize = (byte)clusterBlockValueSize.GetBits(0, 4);
+					byte clusterBlockNumberValueSize = (byte)clusterBlockValueSize.GetBits(4, 4);
+
+					byte[] clusterBlocksValue = reader.ReadBytes(nClusterBlocksValueSize);
+					byte[] clusterBlockNumberValue = reader.ReadBytes(clusterBlockNumberValueSize);
+				}
+
+
+				Accessor.SavePosition();
+
+				SeekToCluster(startingVirtualClusterNumber);
+				byte[] data = reader.ReadBytes(attributeContentActualSize);
+
+				Accessor.LoadPosition();
+
+				if (attributeId == NTFSMftKnownAttribute.Data)
+				{
+					attr = new NTFSDataAttribute();
+					((NTFSDataAttribute)attr).Data = data;
+				}
+				else
+				{
+
+				}
 			}
 
 			long remaining = (thisoffset + attributeLength) - reader.Accessor.Position;

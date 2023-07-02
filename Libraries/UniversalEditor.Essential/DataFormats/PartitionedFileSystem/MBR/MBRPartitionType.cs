@@ -40,6 +40,8 @@ namespace UniversalEditor.DataFormats.PartitionedFileSystem.MBR
 
 		IFS_HPFS_NTFS_exFAT_QNX = 0x07,
 
+		Ext4 = 0x83,
+
 		/// <summary>
 		/// FAT32 with Logical Block Addressing (LBA)
 		/// </summary>

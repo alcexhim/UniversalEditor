@@ -706,11 +706,19 @@ namespace UniversalEditor.Editors.FileSystem
 			else if (fso is File)
 			{
 				File f = (fso as File);
+
+				string fileExtension = null;
+				if (f.Name.Contains("."))
+				{
+					fileExtension = System.IO.Path.GetExtension(f.Name);
+					if (fileExtension.StartsWith("."))
+						fileExtension = fileExtension.Substring(1);
+				}
 				r = new TreeModelRow(new TreeModelRowColumn[]
 				{
 					new TreeModelRowColumn(tm.Columns[0], f.Name),
 					new TreeModelRowColumn(tm.Columns[1], UserInterface.Common.FileInfo.FormatSize(f.Size)),
-					new TreeModelRowColumn(tm.Columns[2], f.Name.Contains(".") ? String.Format("{0} file",  System.IO.Path.GetExtension(f.Name).Substring(1)) : "File"),
+					new TreeModelRowColumn(tm.Columns[2], !String.IsNullOrEmpty(fileExtension) ? String.Format("{0} file", fileExtension) : "File"),
 					new TreeModelRowColumn(tm.Columns[3], f.ModificationTimestamp.ToString()),
 					new TreeModelRowColumn(tm.Columns[4], Image.FromStock(StockType.File, 16))
 				});

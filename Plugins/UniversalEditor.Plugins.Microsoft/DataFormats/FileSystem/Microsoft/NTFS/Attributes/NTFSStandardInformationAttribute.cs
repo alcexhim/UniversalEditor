@@ -23,8 +23,9 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS.Attributes
 {
 	public class NTFSStandardInformationAttribute : NTFSAttribute
 	{
-		public NTFSStandardInformationAttribute()
-		{
-		}
+		public DateTime CreationDateTime { get; internal set; }
+		public DateTime ModificationDateTime { get; internal set; }
+		public DateTime MftModificationDateTime { get; internal set; }
+		public DateTime ReadDateTime { get; internal set; }
 	}
 }

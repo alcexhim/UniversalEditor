@@ -136,14 +136,16 @@ namespace UniversalEditor.DataFormats.PartitionedFileSystem.MBR
 		{
 			switch (partitionType)
 			{
+				case MBRPartitionType.Ext4: return PartitionType.Ext4;
 				case MBRPartitionType.FAT12: return PartitionType.FAT12;
 				case MBRPartitionType.FAT32LBA: return PartitionType.FAT32LBA;
-				case MBRPartitionType.IFS_HPFS_NTFS_exFAT_QNX:  return PartitionType.IFS_HPFS_NTFS_exFAT_QNX;
+				case MBRPartitionType.IFS_HPFS_NTFS_exFAT_QNX: return PartitionType.IFS_HPFS_NTFS_exFAT_QNX;
 				case MBRPartitionType.None: return PartitionType.None;
 				case MBRPartitionType.XenixRoot: return PartitionType.XenixRoot;
 				case MBRPartitionType.XenixUsr: return PartitionType.XenixUsr;
 			}
-			throw new ArgumentOutOfRangeException();
+			Console.Error.WriteLine("unknown partition type {0}", partitionType);
+			return PartitionType.Unknown;
 		}
 
 		private MBRPartitionEntry ReadMBRPartitionEntry(Reader r)

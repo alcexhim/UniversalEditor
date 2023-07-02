@@ -22,6 +22,8 @@
       <column type="gchararray"/>
       <!-- column-name colPartitionFlags -->
       <column type="gchararray"/>
+      <!-- column-name colPartitionColorImage -->
+      <column type="GdkPixbuf"/>
     </columns>
   </object>
   <object class="GtkWindow">
@@ -55,7 +57,9 @@
                 <property name="can-focus">True</property>
                 <property name="model">tmPartitions</property>
                 <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
+                  <object class="GtkTreeSelection">
+                    <property name="mode">multiple</property>
+                  </object>
                 </child>
                 <child>
                   <object class="GtkTreeViewColumn" id="tvcPartitionDevice">
@@ -91,6 +95,15 @@
                     <property name="title" translatable="yes">File System</property>
                     <property name="clickable">True</property>
                     <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererPixbuf">
+                        <property name="width">16</property>
+                        <property name="height">16</property>
+                      </object>
+                      <attributes>
+                        <attribute name="pixbuf">9</attribute>
+                      </attributes>
+                    </child>
                     <child>
                       <object class="GtkCellRendererText"/>
                       <attributes>

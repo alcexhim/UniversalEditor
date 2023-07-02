@@ -160,6 +160,7 @@
     <Compile Include="DataFormats\CompoundDocument\SummaryInformation\PropertySetInfo.cs" />
     <Compile Include="DataFormats\CompoundDocument\SummaryInformation\PropertyInfo.cs" />
     <Compile Include="DataFormats\CompoundDocument\SummaryInformation\PropertySetPropertyType.cs" />
+    <Compile Include="DataFormats\FileSystem\Microsoft\NTFS\NTFSFileNameNamespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\UniversalEditor.Compression\UniversalEditor.Compression.csproj">

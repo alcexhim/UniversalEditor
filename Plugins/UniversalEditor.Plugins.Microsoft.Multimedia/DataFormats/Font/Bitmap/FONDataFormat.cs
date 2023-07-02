@@ -151,6 +151,7 @@ namespace UniversalEditor.Plugins.Microsoft.Multimedia.DataFormats.Font.Bitmap
 						byte b = 0, bits = 0;
 						b = ma.Reader.ReadByte();
 
+						long pos = ma.Position;
 						for (y = 0; y < pic.Height; y++)
 						{
 							for (x = 0; x < pic.Width; x++)
@@ -174,9 +175,10 @@ namespace UniversalEditor.Plugins.Microsoft.Multimedia.DataFormats.Font.Bitmap
 									bits = 0;
 									b = ma.Reader.ReadByte();
 								}
-								ma.Reader.Align(4);
 							}
-							ma.Reader.Align(4);
+
+							long dwpos = ma.Position;
+							ma.Reader.Align(dfWidthBytes);
 						}
 						/*
 						for (int column = 0; column < pk; column++)

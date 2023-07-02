@@ -1,5 +1,5 @@
-//
-//  PartitionType.cs
+﻿//
+//  PartitionGuiInfo.cs
 //
 //  Author:
 //       beckermj <>
@@ -19,29 +19,31 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-namespace UniversalEditor.ObjectModels.PartitionedFileSystem
+using MBS.Framework.Drawing;
+using MBS.Framework.UserInterface.Drawing;
+using UniversalEditor.ObjectModels.PartitionedFileSystem;
+
+namespace UniversalEditor.Editors.PartitionedFileSystem
 {
-	public enum PartitionType
+	public struct PartitionGuiInfo
 	{
-		Unknown = -1,
-		None = 0,
-		Ext4,
-		/// <summary>
-		/// FAT12 as primary partition in first physical 32 MB of disk or as
-		/// logical drive anywhere on disk (else use 06h instead)
-		/// </summary>
-		FAT12,
-		/// <summary>
-		/// XENIX root
-		/// </summary>
-		XenixRoot,
-		/// <summary>
-		/// XENIX usr
-		/// </summary>
-		XenixUsr,
+		public string Name { get; }
+		public PartitionType PartitionType { get; }
+		public Color Color { get; }
+		public Image ColorImage { get; }
 
-		IFS_HPFS_NTFS_exFAT_QNX,
+		public PartitionGuiInfo(PartitionType type, string name, Color color)
+		{
+			Name = name;
+			PartitionType = type;
+			Color = color;
 
-		FAT32LBA
+			Image image = Image.Create(16, 16);
+			Graphics g = Graphics.FromImage(image);
+			//g.Clear(color);
+			g.FillRectangle(new SolidBrush(color), new Rectangle(0, 0, 16, 16));
+
+			ColorImage = image;
+		}
 	}
 }

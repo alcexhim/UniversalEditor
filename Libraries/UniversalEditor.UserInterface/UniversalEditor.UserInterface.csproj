@@ -142,6 +142,7 @@
     <Compile Include="Editors\Text\Formatted\FormattedTextEditor.cs" />
     <Compile Include="Panels\OutputWindowPanel.cs" />
     <Compile Include="Editors\PartitionedFileSystem\PartitionedFileSystemEditor.cs" />
+    <Compile Include="Editors\PartitionedFileSystem\PartitionGuiInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

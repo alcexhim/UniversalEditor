@@ -10,6 +10,11 @@
 
 				<Command ID="PartitionedFileSystemEditor_tvPartitions_ContextMenu_Unselected" Title="PartitionedFileSystemEditor tvPartitions ContextMenu Unselected">
 					<Items>
+						<CommandReference CommandID="FileProperties" />
+					</Items>
+				</Command>
+				<Command ID="PartitionedFileSystemEditor_tvPartitions_ContextMenu_Selected" Title="PartitionedFileSystemEditor tvPartitions ContextMenu Unselected">
+					<Items>
 						<CommandReference CommandID="PartitionedFileSystemEditor_tvPartitions_ContextMenu_CopyTo" />
 						<Separator />
 						<CommandReference CommandID="FileProperties" />

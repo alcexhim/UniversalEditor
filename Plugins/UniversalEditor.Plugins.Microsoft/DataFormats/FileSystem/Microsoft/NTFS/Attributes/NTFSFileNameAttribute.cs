@@ -30,6 +30,7 @@ namespace UniversalEditor.DataFormats.FileSystem.Microsoft.NTFS.Attributes
 		public long AllocatedSize { get; set; }
 		public long ActualSize { get; set; }
 
+		public NTFSFileNameNamespace FileNameNamespace { get; set; } = NTFSFileNameNamespace.Windows;
 		public string FileName { get; set; } = null;
 	}
 }
