@@ -1,6 +1,10 @@
 UniversalEditor
 ===============
 
+<p align="left">
+	<a href="https://github.com/alcexhim/UniversalEditor/actions?workflow=Build"><img alt="Build status" src="https://github.com/alcexhim/UniversalEditor/workflows/Build/badge.svg"></a>
+</p>
+
 A free, cross-platform modular data manipulation framework.
 
 This is Universal Editor 5, which is built using Universal Widget Toolkit to run smoothly on Windows and Linux. Mac OS X support in Universal Widget Toolkit is planned for the distant future.
