@@ -119,7 +119,7 @@
       <Project>{29E1C1BB-3EA5-4062-B62F-85EEC703FE07}</Project>
       <Name>MBS.Framework.UserInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MBS.Audio\MBS.Audio\MBS.Audio.csproj">
+    <ProjectReference Include="..\..\..\MBS.Audio\Libraries\MBS.Audio\MBS.Audio.csproj">
       <Project>{E0897B7B-617A-4709-A4C6-FC0F6B441B2A}</Project>
       <Name>MBS.Audio</Name>
     </ProjectReference>

@@ -93,10 +93,13 @@ namespace UniversalEditor.Plugins.Multimedia.UserInterface.Editors.Multimedia.Au
 			if (wave == null) return /*false*/;
 
 			// get the setting "Editors -> Audio -> Waveform -> Audio engine
+			using (AudioEngine ae = new MBS.Audio.PortAudio.PortAudioEngine())
+			{
 
-			// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
-			AudioPlayer player = new AudioPlayer();
-			player.Play(wave);
+				// get the setting "Editors -> Audio -> Waveform -> Synchronize with JACK transport
+				AudioPlayer player = new AudioPlayer(ae);
+				player.Play(wave);
+			}
 
 			return /*true*/;
 		}
