@@ -57,9 +57,9 @@ echo "fetching dependent projects from author repository"
 
 GIT_USE_PUBKEY="false"
 if [ "$GIT_USE_PUBKEY" = "true" ]; then
-	GIT_PREFIX=git@github.com
+	GIT_PREFIX=git@github.com:
 else
-	GIT_PREFIX=git://github.com
+	GIT_PREFIX=git://github.com/
 fi
 
 GIT_USERNAME=alcexhim
@@ -69,7 +69,7 @@ cd ..
 
 for projName in ${GIT_PROJECT_NAMES}; do
 
-	git clone $GIT_PREFIX/$GIT_USERNAME/$projName
+	git clone $GIT_PREFIX$GIT_USERNAME/$projName
 
 done
 
